@@ -5,6 +5,7 @@ import java.util.Locale
 import scala.collection.mutable
 
 import org.joda.time.format._
+import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime }
 import play.twirl.api.Html
 
@@ -53,6 +54,9 @@ trait DateHelper { self: I18nHelper =>
   def showPeriod(period: Period)(implicit ctx: Context): String =
     periodFormatter(ctx) print period.normalizedStandard(periodType)
 
+  def showMinutes(minutes: Int)(implicit ctx: Context): String =
+    showPeriod(new Period(minutes * 60 * 1000l))
+
   def isoDate(date: DateTime): String = isoFormatter print date
 
   def momentFormat(date: DateTime, format: String): Html = Html {
@@ -63,4 +67,11 @@ trait DateHelper { self: I18nHelper =>
   def momentFromNow(date: DateTime) = Html {
     s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
   }
+
+  def secondsFromNow(seconds: Int) = momentFromNow(DateTime.now plusSeconds seconds)
+
+  private val atomDateFormatter = ISODateTimeFormat.dateTime
+  def atomDate(date: DateTime): String = atomDateFormatter print date
+  def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
+    doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
 }

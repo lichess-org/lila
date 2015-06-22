@@ -14,6 +14,7 @@ case class Pref(
     pieceSet: String,
     theme3d: String,
     pieceSet3d: String,
+    blindfold: Int,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -31,6 +32,7 @@ case class Pref(
     challenge: Int,
     coordColor: Int,
     puzzleDifficulty: Int,
+    submitMove: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -72,6 +74,8 @@ case class Pref(
     case Animation.SLOW   => 2
     case _                => 1
   }
+
+  def isBlindfold = blindfold == Pref.Blindfold.YES
 }
 
 object Pref {
@@ -111,6 +115,24 @@ object Pref {
       NEVER -> "Never",
       ALWAYS -> "Always",
       PREMOVE -> "When premoving")
+  }
+
+  object SubmitMove {
+    val NEVER = 0
+    val CORRESPONDENCE = 1
+
+    val choices = Seq(
+      NEVER -> "Never",
+      CORRESPONDENCE -> "On correspondence games")
+  }
+
+  object Blindfold {
+    val NO = 0
+    val YES = 1
+
+    val choices = Seq(
+      NO -> "What? No!",
+      YES -> "Yes, hide the pieces")
   }
 
   object AutoThreefold {
@@ -185,7 +207,7 @@ object Pref {
       ALWAYS -> "Always")
 
     def block(from: User, to: User, pref: Int, follow: Boolean): Option[String] = pref match {
-      case NEVER => "{{user}} doesn't accept accept challenges.".some
+      case NEVER => "{{user}} doesn't accept challenges.".some
       case RATING if math.abs(from.perfs.bestRating - to.perfs.bestRating) > ratingThreshold =>
         s"{{user}} only accepts challenges if rating is ± $ratingThreshold.".some
       case FRIEND if !follow => "{{user}} only accepts challenges from friends.".some
@@ -203,6 +225,7 @@ object Pref {
     pieceSet = PieceSet.default.name,
     theme3d = Theme3d.default.name,
     pieceSet3d = PieceSet3d.default.name,
+    blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
@@ -220,6 +243,7 @@ object Pref {
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
+    submitMove = SubmitMove.CORRESPONDENCE,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

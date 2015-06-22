@@ -1,4 +1,4 @@
-@(u: User, form: Form[_])(implicit ctx: Context)
+@(u: User, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context)
 
 @title = @{ s"${u.username} - ${trans.changePassword.str()}" }
 
@@ -9,12 +9,18 @@
 @account.layout(title = title, active = "password") {
 <div class="content_box small_box">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.changePassword()</h1>
+    <h1 class="lichess_title">
+      @trans.changePassword()
+      @ok.map {
+      case true => {<span class="is-green" data-icon="E"></span>}
+      case false => {<span class="is-red" data-icon="L"></span>}
+      }
+    </h1>
     <form action="@routes.Account.passwdApply" method="POST">
       <ul>
-        @account.passwdFormField(form("oldPasswd"), "Current password")
-        @account.passwdFormField(form("newPasswd1"), "New password")
-        @account.passwdFormField(form("newPasswd2"), "New password (again)")
+        @account.passwdFormField(form("oldPasswd"), trans.currentPassword.str())
+        @account.passwdFormField(form("newPasswd1"), trans.newPassword.str())
+        @account.passwdFormField(form("newPasswd2"), trans.newPasswordAgain.str())
         <li>
           @errMsg(form)
         </li>

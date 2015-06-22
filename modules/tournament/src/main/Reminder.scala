@@ -14,19 +14,22 @@ private[tournament] final class Reminder(
 
   private val bus = context.system.lilaBus
 
+  private val max = 100
+
   def receive = {
 
-    case RemindTournaments(tours) => tours foreach { tour =>
-      renderer ? RemindTournament(tour) foreach {
+    case msg@RemindTournament(tour, activeUserIds) =>
+      renderer ? msg foreach {
         case html: Html =>
-          val event = SendTos(tour.playingUserIds.toSet, Json.obj(
+          val userIds =
+            if (activeUserIds.size > max) scala.util.Random.shuffle(activeUserIds) take max
+            else activeUserIds
+          bus.publish(SendTos(userIds.toSet, Json.obj(
             "t" -> "tournamentReminder",
             "d" -> Json.obj(
               "id" -> tour.id,
               "html" -> html.toString
-            )))
-          bus.publish(event, 'users)
+            ))), 'users)
       }
-    }
   }
 }

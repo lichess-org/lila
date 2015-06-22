@@ -9,7 +9,6 @@ import lila.rating.Perf
 case class Puzzle(
     id: PuzzleId,
     gameId: Option[String],
-    tags: List[String],
     history: List[String],
     fen: String,
     lines: List[Line],
@@ -33,19 +32,26 @@ case class Puzzle(
   def initialMove = history.last
 
   def enabled = vote.sum > -9000
+
+  def fenAfterInitialMove: Option[String] = {
+    import chess.format.{ UciMove, Forsyth }
+    for {
+      sit1 <- Forsyth << fen
+      uci <- UciMove(initialMove)
+      sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
+    } yield Forsyth >> sit2
+  }
 }
 
 object Puzzle {
 
   def make(
     gameId: Option[String],
-    tags: List[String],
     history: List[String],
     fen: String,
     lines: Lines)(id: PuzzleId) = new Puzzle(
     id = id,
     gameId = gameId,
-    tags = tags,
     history = history,
     fen = fen,
     lines = lines,
@@ -86,7 +92,6 @@ object Puzzle {
   object BSONFields {
     val id = "_id"
     val gameId = "gameId"
-    val tags = "tags"
     val history = "history"
     val fen = "fen"
     val lines = "lines"
@@ -111,7 +116,6 @@ object Puzzle {
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
       gameId = r strO gameId,
-      tags = r.get[List[String]](tags),
       history = r str history split ' ' toList,
       fen = r str fen,
       lines = r.get[Lines](lines),
@@ -127,7 +131,6 @@ object Puzzle {
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
       gameId -> o.gameId,
-      tags -> o.tags,
       history -> o.history.mkString(" "),
       fen -> o.fen,
       lines -> o.lines,

@@ -1,0 +1,12 @@
+#!/bin/sh
+. bin/lilarc
+
+bin/prod/compile-client
+
+REMOTE="clyde"
+REMOTE_DIR="/home/lichess"
+
+lilalog "Rsync scripts"
+rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
+
+lilalog "Deploy complete"

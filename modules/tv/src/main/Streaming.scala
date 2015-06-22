@@ -2,6 +2,7 @@ package lila.tv
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
@@ -21,8 +22,8 @@ private final class Streaming(
     actor ? Get mapTo manifest[List[StreamOnAir]]
     // fuccess(List(StreamOnAir(
     //   service = "twitch",
-    //   name = "test with lichess.org",
-    //   streamer = "thib",
+    //   name = "Chess master streams at lichess.org",
+    //   streamer = "ChessNetwork",
     //   url = "http://foo.com",
     //   streamId = "test")))
   }
@@ -38,26 +39,22 @@ private final class Streaming(
       case Search => whitelist.apply foreach { authorizedStreamers =>
         val max = 3
         val keyword = "lichess.org"
-        val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
-          .withQueryString("q" -> keyword)
-          .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
+        val twitch = WS.url("https://api.twitch.tv/kraken/streams")
+          .withQueryString("channel" -> authorizedStreamers.mkString(","))
+          .withHeaders("Accept" -> "application/vnd.twitchtv.v3+json")
           .get() map { res =>
-            res.json.asOpt[Twitch.Result] match {
-              case Some(data) => data.streamsOnAir filter { stream =>
-                authorizedStreamers contains stream.streamer.toLowerCase
-              } filter { stream =>
-                stream.name contains keyword
-              } take max
-              case None =>
-                logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
+            res.json.validate[Twitch.Result] match {
+              case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
+              case JsError(err) =>
+                logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
         val hitbox = WS.url("http://api.hitbox.tv/media/live/" + authorizedStreamers.mkString(",")).get() map { res =>
-          res.json.asOpt[Hitbox.Result] match {
-            case Some(data) => data.streamsOnAir filter (_.name contains keyword) take max
-            case None =>
-              logger.warn(s"hitbox ${res.status} ${~res.body.lines.toList.headOption}")
+          res.json.validate[Hitbox.Result] match {
+            case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
+            case JsError(err) =>
+              logger.warn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
               Nil
           }
         }

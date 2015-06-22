@@ -27,9 +27,14 @@ function aborted(data) {
   return data.game.status.id == ids.aborted;
 }
 
+function playing(data) {
+  return started(data) && !finished(data) && !aborted(data);
+}
+
 module.exports = {
   ids: ids,
   started: started,
   finished: finished,
-  aborted: aborted
+  aborted: aborted,
+  playing: playing
 };

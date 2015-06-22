@@ -5,10 +5,10 @@ import play.api.mvc.RequestHeader
 
 final class BlogApi(prismicUrl: String, collection: String) {
 
-  def recent(api: Api, ref: Option[String], nb: Int) =
+  def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(nb).page(1).submit()
+      .pageSize(nb).page(1).submit().fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)
@@ -36,11 +36,11 @@ final class BlogApi(prismicUrl: String, collection: String) {
 
 object BlogApi {
 
-  def extract(body: Fragment.StructuredText): String =
+  def extract(body: fragments.StructuredText): String =
     body.blocks
       .takeWhile(_.isInstanceOf[Fragment.StructuredText.Block.Paragraph])
       .take(2).map {
-        case Fragment.StructuredText.Block.Paragraph(text, _, _) => s"<p>$text</p>"
+        case Fragment.StructuredText.Block.Paragraph(text, _, _, _) => s"<p>$text</p>"
         case _ => ""
       }.mkString
 

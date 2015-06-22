@@ -1,17 +1,20 @@
-import sbt._, Keys._
 import play.Play.autoImport._
+import sbt._, Keys._
 
 object BuildSettings {
 
   import Dependencies._
 
+  val globalScalaVersion = "2.11.6"
+
   def buildSettings = Defaults.defaultSettings ++ Seq(
     organization := "org.lichess",
-    scalaVersion := "2.11.1",
+    scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
+    updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List())
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws)

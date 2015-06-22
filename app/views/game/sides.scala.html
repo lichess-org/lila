@@ -1,0 +1,10 @@
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], cross: Option[lila.game.Crosstable], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
+
+<div class="sides">
+  @side(pov, initialFen, tour, simul, userTv)
+  @cross.map { c =>
+  <div class="crosstable">
+    @crosstable(c, pov.gameId.some)
+  </div>
+  }
+</div>

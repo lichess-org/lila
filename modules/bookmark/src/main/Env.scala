@@ -29,7 +29,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case Toggle(gameId, userId) => api.toggle(gameId, userId)
-      case Remove(gameIds)        => api removeByGameIds gameIds
+      case Remove(gameId)         => api removeByGameId gameId
     }
   }), name = ActorName)
 }

@@ -2,8 +2,7 @@ body {
   /* based on lichess dark theme */
   font: 12px 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #909090;
-  background: url("bluegrid.jpg") center repeat;
-  margin-top: 50px;
+  background: #05121b; /* url("bluegrid.jpg") center repeat; */
 }
 
 h1 {
@@ -38,4 +37,10 @@ a {
 
 #stats {
   position: absolute;
+}
+
+#sound {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

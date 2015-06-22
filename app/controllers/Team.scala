@@ -1,11 +1,11 @@
 package controllers
 
+import lila.api.Context
 import lila.app._
+import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo, TeamEdit }
 import lila.user.{ User => UserModel }
-import lila.api.Context
 import views._
-import lila.security.Granter
 
 import play.api.mvc._
 import play.twirl.api.Html
@@ -21,18 +21,24 @@ object Team extends LilaController {
     getForumPosts = Env.forum.recent.team _) _
 
   def home(page: Int) = Open { implicit ctx =>
-    paginator popularTeams page map { html.team.home(_) }
+    NotForKids {
+      paginator popularTeams page map { html.team.home(_) }
+    }
   }
 
   def show(id: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(api team id) { team => renderTeam(team, page) }
+    NotForKids {
+      OptionFuOk(api team id) { team => renderTeam(team, page) }
+    }
   }
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    text.trim.isEmpty.fold(
-      paginator popularTeams page map { html.team.home(_) },
-      Env.teamSearch(text, page) map { html.team.search(text, _) }
-    )
+    NotForKids {
+      text.trim.isEmpty.fold(
+        paginator popularTeams page map { html.team.home(_) },
+        Env.teamSearch(text, page) map { html.team.search(text, _) }
+      )
+    }
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
@@ -78,11 +84,14 @@ object Team extends LilaController {
   }
 
   def form = Auth { implicit ctx =>
-    me => OnePerWeek(me) {
-      forms.anyCaptcha map { captcha =>
-        Ok(html.team.form(forms.create, captcha))
+    me =>
+      NotForKids {
+        OnePerWeek(me) {
+          forms.anyCaptcha map { captcha =>
+            Ok(html.team.form(forms.create, captcha))
+          }
+        }
       }
-    }
   }
 
   def create = AuthBody { implicit ctx =>
@@ -104,12 +113,15 @@ object Team extends LilaController {
   }
 
   def joinPage(id: String) = Auth { implicit ctx =>
-    me => OptionResult(api.requestable(id, me)) { team =>
-      team.open.fold(
-        Ok(html.team.join(team)),
-        Redirect(routes.Team.requestForm(team.id))
-      )
-    }
+    me =>
+      NotForKids {
+        OptionResult(api.requestable(id, me)) { team =>
+          team.open.fold(
+            Ok(html.team.join(team)),
+            Redirect(routes.Team.requestForm(team.id))
+          )
+        }
+      }
   }
 
   def join(id: String) = Auth { implicit ctx =>

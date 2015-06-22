@@ -14,6 +14,7 @@ import tube.threadTube
 
 final class Api(
     unreadCache: UnreadCache,
+    shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
     bus: lila.common.Bus) {
@@ -51,7 +52,11 @@ final class Api(
             val thread = (me.troll && !Granter(_.MarkTroll)(invited)).fold(
               t deleteFor invited,
               t)
-            sendUnlessBlocked(thread) >>- updateUser(invited.id) inject thread
+            sendUnlessBlocked(thread) >>-
+              updateUser(invited.id) >>- {
+                val text = data.subject + " " + data.text
+                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+              } inject thread
           }
       }
     }
@@ -76,6 +81,9 @@ final class Api(
       UserRepo.named(thread receiverOf post) foreach {
         _.map(_.id) foreach updateUser
       }
+    } >>- {
+      val toUserId = newThread otherUserId me
+      shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
     } inject newThread
   }
 

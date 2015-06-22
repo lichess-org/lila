@@ -22,13 +22,15 @@ object Line {
   import lila.db.BSON
   import reactivemongo.bson.{ BSONHandler, BSONString }
 
+  private val invalidLine = UserLine("", "[invalid character]", true)
+
   implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
-    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) err s"Invalid user line ${bsonStr.value}"
+    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) | invalidLine
     def write(x: UserLine) = BSONString(userLineToStr(x))
   }
 
   implicit val lineBSONHandler = new BSONHandler[BSONString, Line] {
-    def read(bsonStr: BSONString) = strToLine(bsonStr.value) err s"Invalid line ${bsonStr.value}"
+    def read(bsonStr: BSONString) = strToLine(bsonStr.value) | invalidLine
     def write(x: Line) = BSONString(lineToStr(x))
   }
 

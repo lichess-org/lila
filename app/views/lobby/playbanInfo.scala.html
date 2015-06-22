@@ -1,0 +1,26 @@
+@(ban: lila.playban.TempBan)(implicit ctx: Context)
+
+<div id="lobby_playban">
+  <h2>Oh no!</h2>
+  <p>Temporarily banned from lobby games!</h1>
+  <br />
+  <p>You will be able to play again <strong>@secondsFromNow(ban.remainingSeconds)</strong>.</p>
+  <h2>Why?</h2>
+  <p>Either you have <strong>aborted too many games</strong>,<br />
+    or you have <strong>not played</strong> the games you started,<br />
+    or you <strong>quit games without resigning</strong>.
+  </p>
+  <br />
+  <p>Once you start a game, you <strong>must</strong> play it!</p>
+  <br />
+  <p>To avoid starting unwanted games,<br />
+    make use of the filters available when creating a game.</p>
+  <p>To avoid playing a particular player,<br />
+    block them using the block button on their profile page.</p>
+  <h2>What now?</h2>
+  <p>Just wait until you can create/join games again!</p>
+  <p>Maybe <a href="@routes.Tournament.home">join a tournament</a>,<br />
+    or play some <a href="@routes.Puzzle.home">training puzzles</a>,<br />
+    or watch <a href="@routes.Video.index">chess videos</a>!
+  </p>
+</div>

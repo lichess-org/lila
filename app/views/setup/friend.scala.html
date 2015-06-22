@@ -1,4 +1,4 @@
-@(form: Form[_], user: Option[User], error: Option[String])(implicit ctx: Context)
+@(form: Form[_], user: Option[User], error: Option[String], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
 
 @import lila.setup.FriendConfig
 
@@ -6,11 +6,9 @@
 @user.map { u =>
 @userLink(u, cssClass="target".some)
 }
-<div class="variants">
-  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithVariantsAndFen)
-</div>
-@fenInput(form("fen"), false)
-@setup.clock(form, lila.setup.FriendConfig)
+@setup.variant(form, translatedVariantChoicesWithVariantsAndFen)
+@fenInput(form("fen"), false, validFen)
+@setup.timeMode(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @globalCasualOnlyMessage.getOrElse {

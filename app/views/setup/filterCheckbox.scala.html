@@ -1,8 +1,6 @@
 @(form: Form[_], key: String, index: Int, value: String, checks: List[String], text: Html, hint: Option[String])
 
-<label @hint.map { h =>
-  data-hint="@h" class="hover hint--bottom"
-  }.getOrElse {class="hover"}>
+<label class="hover" @hint.map { h => title="@h" }>
   <input
   type="checkbox"
   name="@{form(key).name}[@index]"

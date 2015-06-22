@@ -6,10 +6,10 @@ div.user_show .staff {
   font-weight: bold;
   margin-bottom: 1em;
 }
-div.user_show div.content_box_top > span {
+div.user_show div.content_box_top > span,
+div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
-  font-size: 1.6em;
-  color: #afafaf;
+  text-decoration: none;
 }
 div.user_show div.content_box_top > span strong {
   font-weight: normal;
@@ -17,13 +17,97 @@ div.user_show div.content_box_top > span strong {
 }
 div.user_show div.content_box_top > .trophy {
   float: right;
-  margin-top: -46px;
+  margin-top: -47px;
+}
+div.user_show div.content_box_top > .trophy:first-child {
+  margin-right: 50px;
+}
+div.user_show .fire_trophy {
+  width: 70px;
+  height: 80px;
+}
+div.user_show .fire_trophy span {
+  transform: scale(0.35) translate(-103px, -3px);
+  -webkit-transform: scale(0.35) translate(-103px, -3px);
+  margin-top: -63px!important;
+  margin-right: -50px;
+  opacity: 0.8;
+  transition: 0.8s;
+}
+div.user_show .fire_trophy span:hover {
+  opacity: 1;
+  transform: scale(0.35) translate(-103px, -10px);
+  -webkit-transform: scale(0.35) translate(-103px, -10px);
+}
+div.user_show .fire_trophy.marathonTopTen span {
+  transform: scale(0.3) translate(-112px, 14px);
+  -webkit-transform: scale(0.3) translate(-112px, 14px);
+}
+div.user_show .fire_trophy.marathonTopTen span:hover {
+  transform: scale(0.3) translate(-112px, 6px);
+  -webkit-transform: scale(0.3) translate(-112px, 6px);
+}
+div.user_show .fire_trophy.marathonTopFifty span {
+  animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  -o-animation: none;
+}
+div.user_show .trophy.icon3d {
+  margin-top: -10px!important;
+  font-size: 30px;
+  color: #ccc;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  transition: 0.3s;
+}
+div.user_show .trophy.icon3d:hover {
+  margin-top: -12px!important;
+}
+div.user_show .fire_trophy.marathonTopFifty span {
+  transform: scale(0.25) translate(-112px, 36px);
+  -webkit-transform: scale(0.25) translate(-112px, 36px);
+  text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
+}
+div.user_show .fire_trophy.marathonTopFifty span:hover {
+  transform: scale(0.25) translate(-112px, 28px);
+  -webkit-transform: scale(0.25) translate(-112px, 28px);
+}
+div.user_show .fire_trophy.marathonSurvivor span {
+  transform: scale(0.3) translate(-112px, 14px);
+  -webkit-transform: scale(0.3) translate(-112px, 14px);
+}
+div.user_show .fire_trophy.marathonSurvivor span:hover {
+  transform: scale(0.3) translate(-112px, 6px);
+  -webkit-transform: scale(0.3) translate(-112px, 6px);
+}
+div.user_show .fire_trophy.bongcloudWarrior span {
+  filter: hue-rotate(70deg);
+  -webkit-filter: hue-rotate(70deg);
+}
+div.user_show .trophy.donor span {
+  color: #d59120;
+  transition: 0.5s;
+}
+div.user_show .trophy.donor:hover {
+  margin-top: -14px!important;
+}
+div.user_show .trophy.donor span:hover {
+  animation: fire 1.25s ease-in-out infinite alternate;
+  -moz-animation: fire 1.25s ease-in-out infinite alternate;
+  -webkit-animation: fire 1.25s ease-in-out infinite alternate;
+  -o-animation: fire 1.25s ease-in-out infinite alternate;
 }
 div.user_show .honorific {
   display: inline-block;
   margin-top: 1em;
   font-weight: bold;
   font-size: 1.4em;
+}
+div.user_show a.honorific {
+  text-decoration: none;
+}
+div.user_show a.honorific:hover {
+  text-decoration: underline;
 }
 div.user_show .social {
   position: relative;
@@ -112,6 +196,9 @@ div.user_show .teams a {
 }
 div.user_show div.games {
   margin-top: 10px;
+}
+div.user_show div.games.center {
+  text-align: center;
 }
 div.user_show .profile {
   margin-bottom: 1em;
@@ -219,12 +306,128 @@ div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
 }
+div.user_show .evaluation .percentage {
+  font-size: 0.9em;
+}
+div.user_show .evaluation .legend {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+div.user_show .evaluation .legend span {
+  padding: 10px;
+}
+div.user_show .evaluation [data-icon] {
+  text-shadow: 1px 1px 1px #000;
+}
+div.user_show .evaluation .sig_1 {
+  color: #2077C0;
+  /* dark blue */
+}
+div.user_show .evaluation .sig_2 {
+  color: #23A1AB;
+  /* light blue */
+}
+div.user_show .evaluation .sig_3 {
+  color: #DDCF3F;
+  /* yellow */
+}
+div.user_show .evaluation .sig_4 {
+  color: #E79B64;
+  /* orange */
+}
+div.user_show .evaluation .sig_5 {
+  color: #E73B38;
+  /* red */
+}
+div.user_show .evaluation .result_4 {
+  color: #E73B38;
+  /* red */
+}
+div.user_show .evaluation .result_3 {
+  color: #E73B38;
+  /* red */
+}
+div.user_show .evaluation .result_2 {
+  color: #E79B64;
+  /* orange */
+}
+div.user_show .evaluation .result_1 {
+  color: #2077C0;
+  /* dark blue */
+}
+div.user_show .evaluation .match {
+  font-weight: bold;
+  color: #759900;
+}
 div.user_show div.content_box_inter.tabs {
   margin-left: -8px;
   padding-left: 30px;
   width: 775px;
   border: 1px solid #ccc;
 }
-div.user_show #crosstable {
-  margin: 25px auto 15px auto;
+div.crosstable {
+  margin: 25px 10px 15px 10px;
+}
+div.user_show .evaluation .peerLink {
+  text-align: center;
+  text-decoration: none;
+}
+div.user_show .reportCard {
+  margin: 0 auto 10px auto;
+}
+div.user_show .reportCard th {
+  font-weight: bold;
+  font-size: 1.6em;
+  text-align: center;
+  padding: 0 5px 0 5px;
+}
+div.user_show .reportCard td {
+  text-align: center;
+  padding: 5px;
+}
+div.user_show .extra_stats {
+  margin: 0 auto 10px auto;
+}
+div.user_show .extra_stats caption {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+div.user_show .extra_stats th {
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0 5px 0 5px;
+}
+div.user_show .extra_stats td {
+  text-align: center;
+  padding: 5px;
+}
+div.user_show .results .aggregate {
+  text-shadow: 1px -1px 1px #000;
+  font-weight: bold;
+  font-size: 2.2em;
+  text-align: center;
+  margin-left: -20px;
+  width: 50px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+div.user_show .reportCard .mark {
+  color: #dc322f;
+  /* red */
+}
+div.user_show .reportCard .noMark {
+  /*color: #dc322f;*/
+  /* red */
+}
+div.user_show .reportCard .report {
+  color: #B8AA1A;
+  /* red */
+}
+div.user_show .reportCard .noReport {
+  /*color: #dc322f;*/
+  /* red */
 }

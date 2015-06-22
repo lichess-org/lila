@@ -1,0 +1,69 @@
+@(form: Form[lila.simul.SimulSetup], config: lila.simul.DataForm)(implicit ctx: Context)
+
+@import config._
+
+@simul.layout(
+title = "New simul") {
+<div id="simul" class="form">
+  <div class="content_box small_box simul_box">
+    <h1>Create a new simul</h1>
+    <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
+      <p class="help">
+        When you create a simul, you get to play several players at once.<br />
+        If you can't take it, <a href="@routes.Simul.home">join an existing simul</a> instead.
+      </p>
+      @form.globalError.map { error =>
+      <p class="error">@error.message</p>
+      }
+      <table>
+        <tr class="help">
+          <th colspan="2">
+            If you select several variants, each player gets to choose which one to play.
+          </th>
+        </tr>
+        <tr>
+          <th><label for="@form("variants").id">Variants</label></th>
+          <td>
+            @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
+            @errMsg(form("variants"))
+          </td>
+        </tr>
+        <tr class="help">
+          <th colspan="2">
+            Setup a Fischer clock for all games.
+            The more players you want to take on, the more time you need.
+          </th>
+        </tr>
+        <tr class="time">
+          <th><label>@trans.timeControl()</label></th>
+          <td class="inline">
+            @base.select(form("clockTime"), config.clockTimeChoices)
+            +
+            @base.select(form("clockIncrement"), config.clockIncrementChoices)
+          </td>
+        </tr>
+        <tr class="help">
+          <th colspan="2">
+            You may add extra time to your clock to help coping with the simul.
+          </th>
+        </tr>
+        <tr>
+          <th><label for="@form("clockExtra").id">Host extra clock time</label></th>
+          <td>@base.select(form("clockExtra"), config.clockExtraChoices)</td>
+        </tr>
+        <tr>
+          <th><label for="@form("color").id">Host color for each game</label></th>
+          <td>@base.select(form("color"), config.colorChoices)</td>
+        </tr>
+        <tr>
+          <th></th>
+          <td>
+            <button type="submit" class="submit button text" data-icon="|">Create</button>
+            <a href="@routes.Simul.home()">@trans.cancel()</a>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+}

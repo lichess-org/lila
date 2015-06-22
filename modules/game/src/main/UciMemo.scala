@@ -34,7 +34,7 @@ final class UciMemo(ttl: Duration) {
   }
 
   private def compute(game: Game): Fu[Vector[String]] = for {
-    fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
+    fen ← GameRepo initialFen game
     uciMoves ← UciDump(game.pgnMoves, fen, game.variant).future
   } yield uciMoves.toVector
 }

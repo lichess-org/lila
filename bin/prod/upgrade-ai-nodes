@@ -1,0 +1,69 @@
+#!/bin/sh
+. bin/lilarc
+
+for node in frank; do
+  # for node in paul salim2 hexal matthews jaldus patat cammy adele; do
+  if [ $node = "paul" ]; then
+    REMOTE="paul"
+    REMOTE_DIR="/home/lila5"
+    # RESTART="chown -R lila:lila $REMOTE_DIR && service lila5 restart"
+  elif [ $node = "salim2" ]; then
+    REMOTE="salim2"
+    REMOTE_DIR="/home/lila"
+    RESTART="pkill java && cd /home/lila && bin/lila -Dconfig.file=/home/lila/application.conf -Dhttp.port=9000 -mem 128 > logs/output.log 2>&1 &"
+  elif [ $node = "hexal" ]; then
+    REMOTE="hexal"
+    REMOTE_DIR="/home/lila"
+    RESTART="pkill java && cd /home/lila && bin/lila -Dconfig.file=/home/lila/application.conf -Dhttp.port=9000 -mem 128 > logs/output.log 2>&1 &"
+  elif [ $node = "matthews" ]; then
+    REMOTE="matthews"
+    REMOTE_DIR="/home/thibault/lila"
+    # RESTART="cd /home/thibault/lila && bin/lila -mem 128 -Dhttp.port=9009 -Dconfig.file=/home/thibault/lila/application.conf > logs/output 2>&1 &"
+  elif [ $node = "cammy" ]; then
+    REMOTE="cammy"
+    REMOTE_DIR="/home/lichess"
+    RESTART="echo 'No restart'"
+    # RESTART='pkill java && cd /home/lichess && bin/lila -Dconfig.file=/home/lichess/application.conf -Dhttp.port=9009 -mem 128 > logs/output.log 2>&1 &'
+  elif [ $node = "adele" ]; then
+    REMOTE="adele"
+    REMOTE_DIR="/home/lichess"
+    RESTART="echo 'No restart'"
+    # RESTART='pkill java && cd /home/lichess && bin/lila -Dconfig.file=/home/lichess/application.conf -Dhttp.port=9009 -mem 128 > logs/output.log 2>&1 &'
+  elif [ $node = "frank" ]; then
+    REMOTE="frank"
+    REMOTE_DIR="/home/lichess"
+    RESTART="echo 'No restart'"
+    # RESTART='pkill java && cd /home/lichess && bin/lila -Dconfig.file=/home/lichess/application.conf -Dhttp.port=9009 -mem 128 > logs/output.log 2>&1 &'
+  elif [ $node = "local" ]; then
+    REMOTE="localhost"
+    REMOTE_DIR="/tmp/lila5"
+  fi
+
+  lilalog "Deploy to $node server $REMOTE:$REMOTE_DIR"
+
+  RSYNC_OPTIONS=" \
+    --archive \
+    --no-o --no-g \
+    --force \
+    --delete \
+    --progress \
+    --compress \
+    --checksum \
+    --verbose \
+    --exclude conf/application.conf \
+    --exclude logs \
+    --exclude RUNNING_PID \
+    --exclude bin/.translate_version \
+    --exclude local \
+    --exclude '*.psd' \
+    --exclude lib/lila.lila-0.1-SNAPSHOT-assets.jar \
+    --exclude public";
+  stage="target/universal/stage"
+  include="bin $stage/bin $stage/lib"
+  rsync_command="rsync $RSYNC_OPTIONS $include $REMOTE:$REMOTE_DIR"
+  echo "$rsync_command"
+  $rsync_command
+  echo "rsync complete"
+  # ssh $REMOTE "cd $REMOTE_DIR; $RESTART"
+  ssh $REMOTE "cd $REMOTE_DIR; bin/install-stockfish; $RESTART"
+done

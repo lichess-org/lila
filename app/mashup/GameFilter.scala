@@ -39,7 +39,7 @@ object GameFilterMenu {
   def apply(
     info: UserInfo,
     me: Option[User],
-    currentName: String): GameFilterMenu = {
+    currentNameOption: Option[String]): GameFilterMenu = {
 
     val user = info.user
 
@@ -53,6 +53,11 @@ object GameFilterMenu {
       (info.nbBookmark > 0) option Bookmark,
       (info.nbImported > 0) option Imported
     ).flatten)
+
+    val currentName = currentNameOption | info.hasSimul.fold(
+      Playing,
+      if (!info.user.hasGames && info.nbImported > 0) Imported else All
+    ).name
 
     val current = currentOf(filters, currentName)
 
@@ -92,13 +97,16 @@ object GameFilterMenu {
         selector = Query imported user.id,
         sort = Seq("pgni.ca" -> reactivemongo.api.SortOrder.Descending),
         nb = nb)(page)
-      case All     => std(Query started user)
-      case Me      => std(Query.opponents(user, me | user))
-      case Rated   => std(Query rated user)
-      case Win     => std(Query win user)
-      case Loss    => std(Query loss user)
-      case Draw    => std(Query draw user)
-      case Playing => std(Query notFinished user)
+      case All   => std(Query started user)
+      case Me    => std(Query.opponents(user, me | user))
+      case Rated => std(Query rated user)
+      case Win   => std(Query win user)
+      case Loss  => std(Query loss user)
+      case Draw  => std(Query draw user)
+      case Playing => pag.apply(
+        selector = Query nowPlaying user.id,
+        sort = Seq(),
+        nb = nb)(page)
     }
   }
 }

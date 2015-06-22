@@ -32,6 +32,9 @@ div.analysis_menu > a.active {
   background-color: #eee;
   border-top: 1px solid #eee;
 }
+body.base div.analysis_menu > a.active {
+  border-bottom: 2px solid #d85000;
+}
 div.analysis_panels {
   margin-top: -10px;
 }
@@ -97,12 +100,13 @@ div.fen_pgn input.fen {
 div.game_control {
   margin-top: 10px;
   text-align: center;
-  white-space: nowrap
+  width: 244px;
+  white-space: nowrap;
 }
 div.game_control a {
   font-size: 12px;
+  width: 25px;
   height: 17px;
-  width: 12px;
   display: inline-block;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -110,14 +114,44 @@ div.game_control a {
   margin: 0 -1px;
 }
 div.game_control .jumps {
+  display: inline-block;
   margin-right: 10px;
 }
-.lichess_ground .replay {
+.lichess_ground .replay,
+.lichess_ground .action_menu {
   height: calc(100% - 40px);
   overflow: auto;
+  overflow-x: hidden;
   border: 1px solid #ccc;
 }
-.lichess_ground .replay .index {
+.lichess_ground .action_menu {
+  border-color: transparent;
+}
+.lichess_ground .action_menu .inner {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lichess_ground .action_menu .button {
+  display: block;
+  margin: 15px 0;
+  padding: 10px;
+}
+.lichess_ground .action_menu .button::before {
+  font-size: 2em;
+}
+.lichess_ground .action_menu form.delete {
+  margin-top: 2em;
+  text-align: right;
+}
+.lichess_ground .action_menu form.delete .button {
+  display: inline-block;
+  padding: 0 8px;
+}
+.lichess_ground .action_menu form.delete .button::before {
+  font-size: 1.2em;
+}
+.lichess_ground .replay .turn > .index {
   display: inline-block;
   width: 26px;
   text-align: center;
@@ -134,6 +168,7 @@ div.game_control .jumps {
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
+  position: relative;
   width: calc(50% - 14px - 13px);
   font-size: 17px;
   height: 22px;
@@ -155,33 +190,59 @@ div.game_control .jumps {
   color: #d85000;
   font-weight: bold;
 }
-.lichess_ground .replay span {
+.lichess_ground .replay .eval {
+  position: absolute;
+  top: 2px;
+  right: 5px;
   font-size: 0.8em;
-  font-weight: lighter;
-  float: right;
-  margin: 2px 5px 0 0;
+  font-family: 'Roboto';
+  font-weight: 300;
   opacity: 0.7;
   transition: 0.13s;
 }
-.lichess_ground .replay .move:hover span {
+.lichess_ground .replay .move:hover .eval {
   opacity: 1;
 }
-.lichess_ground .comment,
-.lichess_ground .variation {
+.lichess_ground .analyse .meta {
   background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-left: none;
 }
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
-  border-top: 1px solid #ccc;
+}
+.lichess_ground .analyse .white {
+  border-left: 3px solid;
+}
+.lichess_ground .analyse .black {
+  border-right: 3px solid;
+  margin-right: 2px;
+}
+body .lichess_ground .analyse .inaccuracy {
+  border-color: #56B4E9;
+}
+body .lichess_ground .analyse .mistake {
+  border-color: #E69F00;
+}
+body .lichess_ground .analyse .blunder {
+  border-color: #DF5353;
+}
+body .lichess_ground .analyse .undefined {
+  border-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
-  border-bottom: 1px solid #ccc;
 }
-.lichess_ground .variation {
-  font-weight: lighter;
+.lichess_ground .analyse .meta > .variation {
+  font-family: 'Roboto';
+  font-weight: 300;
   padding: 3px 0 3px 5px;
-  border-bottom: 1px solid #ccc;
+}
+.lichess_ground .variation .index {
+  margin-left: 5px;
+}
+.lichess_ground .variation .index:first-child {
+  margin-left: 0;
 }
 .lichess_ground .variation .move {
   padding: 2px 2px;
@@ -189,6 +250,9 @@ div.game_control .jumps {
 }
 .lichess_ground .variation a.move:hover {
   background: #eee;
+}
+.lichess_ground .analyse .variation .variation {
+  margin: 0 5px;
 }
 .lichess_ground .result {
   font-weight: bold;
@@ -221,6 +285,7 @@ div.advice_summary .spacerlol {
 #movetimes_chart {
   height: 200px;
   width: 512px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
 }
 div.shortcuts .inner {
   display: none;
@@ -240,4 +305,35 @@ div.shortcuts li {
 }
 #site_header div.shortcuts strong {
   font-weight: bold;
+}
+.back_to_game {
+  margin-top: 30px;
+  width: 512px;
+  text-align: center;
+}
+table.modAssessment {
+  border-spacing: 2px;
+  border-collapse: separate;
+}
+table.modAssessment a {
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+table.modAssessment td.match a {
+  color: #759900;
+}
+table.modAssessment td.partial a {
+  color: #d59120;
+}
+table.modAssessment td.noMatch {
+  color: #ac524f;
+  padding-left: 10px;
+  font-weight: bold;
+}
+.modAssessment select {
+  margin-left: 15px;
+}
+.assessmentButtons {
+  margin: 20px auto auto 40px;
 }

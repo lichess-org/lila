@@ -17,6 +17,7 @@ private[forum] final class TopicApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
+    shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage) {
 
@@ -41,7 +42,8 @@ private[forum] final class TopicApi(
           categId = categ.slug,
           slug = slug,
           name = data.name,
-          troll = ctx.troll)
+          troll = ctx.troll,
+          featured = true)
         val post = Post.make(
           topicId = topic.id,
           author = data.post.author,
@@ -58,8 +60,14 @@ private[forum] final class TopicApi(
           $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           env.recent.invalidate >>-
+          ctx.userId.?? { userId =>
+            val text = topic.name + " " + post.text
+            shutup ! post.isTeam.fold(
+              lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
+              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text))
+          } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
               post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
             )
           }) inject topic

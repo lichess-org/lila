@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'base64'
+include FileUtils
+
+lila_dir = pwd()
+source_dir = lila_dir + '/public/piece/'
+dest_dir = lila_dir + '/public/stylesheets/piece/'
+
+themes = [
+  ['alpha', 'svg'],
+  ['cburnett', 'svg'],
+  ['merida', 'svg'],
+  ['pirouetti', 'svg'],
+  ['spatial', 'svg'],
+  ['chess7', 'svg'],
+  ['reillycraig', 'svg'],
+  ['fantasy', 'svg'],
+  ['shapes', 'svg']
+]
+types = {
+  'svg' => 'svg+xml;base64,',
+  'png' => 'png;base64,'
+}
+roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+colors = ['white', 'black']
+
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      file = source_dir + name + '/' + piece + '.' + ext
+      File.open(file, 'r') do|image_file|
+        image = image_file.read
+        base64 = Base64.strict_encode64(image)
+        'body.base .is2d .cg-piece.' + role + '.' + color + ' { ' +
+          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
+      end
+    }
+  }.flatten
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}

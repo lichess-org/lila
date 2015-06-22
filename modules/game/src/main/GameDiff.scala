@@ -46,17 +46,17 @@ private[game] object GameDiff {
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
-    dOpt(clock, _.clock, (o: Option[Clock]) => o map { c => Game clockBSONHandler a.createdAt write (_ => c) })
-    dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { Game.checkCountWriter write o })
+    dOpt(clock, _.clock, (o: Option[Clock]) => o map { c => BSONHandlers clockBSONHandler a.createdAt write (_ => c) })
+    dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
     for (i ← 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
-      dOpt(name + lastDrawOffer, player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
-      dOpt(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
-      dOpt(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
-      dOpt(name + isProposingTakeback, player(_).isProposingTakeback, w.boolO)
-      dOpt(name + blurs, player(_).blurs, w.intO)
+      dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
+      dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
+      dOpt(s"$name$isOfferingRematch", player(_).isOfferingRematch, w.boolO)
+      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
+      dOpt(s"$name$blurs", player(_).blurs, w.intO)
     }
 
     (addUa(setBuilder.toList), unsetBuilder.toList)

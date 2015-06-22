@@ -273,3 +273,7 @@ div.bar div.pagination {
   float: right;
   margin-right: 24px;
 }
+#lichess_forum .unsub.on .off,
+#lichess_forum .unsub.off .on {
+  display: none;
+}

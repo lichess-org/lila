@@ -49,7 +49,7 @@ private[i18n] final class GitWrite(
         val commitMsg = commitMessage(translation, name)
         sender ! (git branchExists branch flatMap {
           _.fold(
-            fuloginfo("! Branch already exists: " + branch),
+            fulogwarn("! Branch already exists: " + branch),
             git.checkout(branch, true) >>
               writeMessages(translation) >>
               fuloginfo("Add " + relFileOf(translation)) >>

@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.Speed
+import chess.{ Speed }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
@@ -17,29 +17,35 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
-    PerfPicker.main(game) ?? { mainPerf =>
-      (game.rated && game.finished && game.accountable && !white.engine && !black.engine) ?? {
+    PerfPicker.main(game.speed, game.ratingVariant, game.daysPerTurn) ?? { mainPerf =>
+      (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
-        game.variant match {
-          case chess.Variant.Chess960 =>
+        game.ratingVariant match {
+          case chess.variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-          case chess.Variant.KingOfTheHill =>
+          case chess.variant.KingOfTheHill =>
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
-          case chess.Variant.ThreeCheck =>
+          case chess.variant.ThreeCheck =>
             updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
-          case _ =>
-        }
-        if (game.variant.standard) {
-          game.speed match {
-            case chess.Speed.Bullet =>
+          case chess.variant.Antichess =>
+            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
+          case chess.variant.Atomic =>
+            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
+          case chess.variant.Horde =>
+            updateRatings(ratingsW.horde, ratingsB.horde, result, system)
+          case chess.variant.Standard => game.speed match {
+            case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
-            case chess.Speed.Blitz =>
+            case Speed.Blitz =>
               updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-            case chess.Speed.Classical | chess.Speed.Unlimited =>
+            case Speed.Classical =>
               updateRatings(ratingsW.classical, ratingsB.classical, result, system)
+            case Speed.Correspondence =>
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
           }
+          case _ =>
         }
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
@@ -63,17 +69,25 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     chess960: Rating,
     kingOfTheHill: Rating,
     threeCheck: Rating,
+    antichess: Rating,
+    atomic: Rating,
+    horde: Rating,
     bullet: Rating,
     blitz: Rating,
-    classical: Rating)
+    classical: Rating,
+    correspondence: Rating)
 
   private def mkRatings(perfs: Perfs) = new Ratings(
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     threeCheck = perfs.threeCheck.toRating,
+    antichess = perfs.antichess.toRating,
+    atomic = perfs.atomic.toRating,
+    horde = perfs.horde.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
-    classical = perfs.classical.toRating)
+    classical = perfs.classical.toRating,
+    correspondence = perfs.correspondence.toRating)
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
@@ -97,19 +111,21 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     }
   }
 
-  private val classicalSpeeds: Set[Speed] = Set(Speed.Classical, Speed.Unlimited)
-
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
-    val isStd = game.variant.standard
+    val isStd = game.ratingVariant.standard
     val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
-      chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
-      kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
-      threeCheck = game.variant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
+      chess960 = game.ratingVariant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
+      kingOfTheHill = game.ratingVariant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
+      threeCheck = game.ratingVariant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
+      antichess = game.ratingVariant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
+      atomic = game.ratingVariant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
+      horde = game.ratingVariant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
-      classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))
+      classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
+      correspondence = (isStd && speed == Speed.Correspondence).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
     if (isStd) perfs1.updateStandard else perfs1
   }
 

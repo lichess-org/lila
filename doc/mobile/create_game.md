@@ -57,7 +57,7 @@ Now you're waiting for someone to accept the seek. The response will come as a s
 ## Challenge someone
 
 ```sh
-http --form POST en.l.org/setup/friend variant=1 clock=false time=60 increment=60 color=random 'Accept:application/vnd.lichess.v1+json'
+http --form POST en.l.org/setup/friend?user=usernameOrId variant=1 clock=false time=60 increment=60 color=random 'Accept:application/vnd.lichess.v1+json'
 ```
 - color: white | black | random
 - variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH) | 5 (three-check)

@@ -10,18 +10,19 @@ case class User(
     username: String,
     perfs: Perfs,
     count: Count,
-    artificial: Boolean = false,
     troll: Boolean = false,
     ipBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],
     profile: Option[Profile] = None,
     engine: Boolean = false,
+    booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime] = None,
     title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
+    kid: Boolean,
     lang: Option[String]) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -64,6 +65,8 @@ case class User(
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
   }
+
+  def lame = booster || engine
 }
 
 object User {
@@ -103,7 +106,6 @@ object User {
   object BSONFields {
     val id = "_id"
     val username = "username"
-    val artificial = "artificial"
     val perfs = "perfs"
     val count = "count"
     val troll = "troll"
@@ -112,41 +114,46 @@ object User {
     val roles = "roles"
     val profile = "profile"
     val engine = "engine"
+    val booster = "booster"
     val toints = "toints"
     val playTime = "time"
     val createdAt = "createdAt"
     val seenAt = "seenAt"
+    val kid = "kid"
+    val createdWithApiVersion = "createdWithApiVersion"
     val lang = "lang"
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
+    val email = "email"
   }
 
   import lila.db.BSON
 
-  private def userBSONHandler = new BSON[User] {
+  val userBSONHandler = new BSON[User] {
 
     import BSONFields._
     import reactivemongo.bson.BSONDocument
-    private implicit def countHandler = Count.tube.handler
-    private implicit def profileHandler = Profile.tube.handler
-    private implicit def perfsHandler = Perfs.tube.handler
+    private implicit def countHandler = Count.countBSONHandler
+    private implicit def profileHandler = Profile.profileBSONHandler
+    private implicit def perfsHandler = Perfs.perfsBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
       username = r str username,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
-      artificial = r boolD artificial,
       troll = r boolD troll,
       ipBan = r boolD ipBan,
       enabled = r bool enabled,
       roles = ~r.getO[List[String]](roles),
       profile = r.getO[Profile](profile),
       engine = r boolD engine,
+      booster = r boolD booster,
       toints = r nIntD toints,
       playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
+      kid = r boolD kid,
       lang = r strO lang,
       title = r strO title)
 
@@ -155,17 +162,18 @@ object User {
       username -> o.username,
       perfs -> o.perfs,
       count -> o.count,
-      artificial -> w.boolO(o.artificial),
       troll -> w.boolO(o.troll),
       ipBan -> w.boolO(o.ipBan),
       enabled -> o.enabled,
       roles -> o.roles.some.filter(_.nonEmpty),
       profile -> o.profile,
       engine -> w.boolO(o.engine),
+      booster -> w.boolO(o.booster),
       toints -> w.intO(o.toints),
       playTime -> o.playTime,
       createdAt -> o.createdAt,
       seenAt -> o.seenAt,
+      kid -> w.boolO(o.kid),
       lang -> o.lang,
       title -> o.title)
   }

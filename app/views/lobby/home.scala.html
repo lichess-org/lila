@@ -1,43 +1,49 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], nbRounds: Int)(implicit ctx: Context)
+@import play.api.libs.json.Json
 
 @underchat = {
 <div id="featured_game">
   @featured.map { g =>
   @gameFen(g, g.firstPlayer.color, tv = true)
-  @game.vstext(g)
+  @game.vstext(g)(ctx.some)
   }
 </div>
 }
 
+@side = {
+@NotForKids {
+<div id="streams_on_air">@tv.streamsOnAir(streams)</div>
+}
+@ctx.me.map { u =>
+<div id="timeline" data-href="@routes.Timeline.home">
+  @timeline.entries(userTimeline)
+  <div class="links clearfix">
+    @if(userTimeline.size >= 8) {
+    <a class="more" href="@routes.Timeline.more">@trans.more() »</a>
+    }
+  </div>
+</div>
+}
+}
+
 @baseline = {
+<div id="nb_connected_players" class="nb_connected_players">
+  @trans.nbConnectedPlayers("<strong>?</strong>")
+</div>
 <span id="site_baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</span>
 }
 
 @moreJs = {
-@embedJs(s"var lichess_preload = $preload;")
-}
-
-@side = {
-@ctx.me.map { u =>
-@if(playing.nonEmpty) {
-<div id="now_playing">
-  @playing.map { p =>
-  <a class="is button" href="@routes.Round.player(p.fullId)">
-    @playerUsername(p.opponent)<br />@trans.yourTurn()
-  </a>
-  }
-</div>
-}
-<div id="streams_on_air">@tv.streamsOnAir(streams)</div>
-<div id="timeline" data-href="@routes.Lobby.timeline">
-  @timeline.entries(userTimeline)
-  <div class="links clearfix">
-    @if(userTimeline.size >= 8) {
-    <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
-    <a class="irc" href="@routes.Main.irc">@trans.chat()</a>
-    }
-  </div>
-</div>
+@jsAt(s"compiled/lichess.lobby${isProd??(".min")}.js")
+@embedJs {
+lichess = lichess || {};
+lichess.lobby = {
+data: @Html(Json.stringify(data)),
+playban: @playban.fold(Html("null")){ pb =>
+@Html(Json.stringify(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+},
+i18n: @jsI18n()
+};
 }
 }
 
@@ -45,11 +51,11 @@
 title = "",
 fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
 baseline = baseline.some,
-active = siteMenu.play.some,
 side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,
+chessground = false,
 openGraph = Map(
 'type -> "website",
 'image -> s"${staticUrl("images/large_tile.png")}",
@@ -61,40 +67,13 @@ openGraph = Map(
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
-<div class="lobby_and_ground">
-  <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
-    <div class="tabs">
-      <a data-tab="list" class="list">@trans.list()</a>
-      <a data-tab="graph" class="graph">@trans.graph()</a>
-    </div>
-    <a class="filter" href="@routes.Setup.filterForm()">
-      <span data-icon="D"> @trans.filterGames()</span>
-      <span class="number">(0)</span>
-    </a>
-    <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-    <div id="hooks_list" class="tab list none">
-      <div class="table_wrap">
-        <table>
-          <thead>
-            <tr>
-              <th class="reload"><span data-icon="P"></span></th>
-              <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
-              <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
-              <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
-              <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <div id="hook_overlay"></div>
-    <div id="hook_filter"></div>
-  </div>
+<div class="lobby_and_ground@if(playban.isDefined){ playban}">
+  @playban.map(playbanInfo(_))
+  <div id="hooks_wrap"></div>
   <div id="start_buttons" class="lichess_ground">
-    @lobbyMenu.all.map { b =>
-    <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
-    }
+    <a class="fat button config_hook hint--bottom@if(playban.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
+    <a class="fat button config_friend hint--bottom" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
+    <a class="fat button config_ai hint--bottom" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
   </div>
 </div>
 @puzzle.map { p =>
@@ -106,13 +85,22 @@ openGraph = Map(
   </div>
 </div>
 }
-<div class="open_tournaments undertable">
+<div class="undertable">
   <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
-    <span class="title"> @trans.openTournaments()</span>
+    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home">@trans.more() »</a>
+    <span class="title text" data-icon="g">@trans.openTournaments()</span>
   </div>
-  <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
+  <div id="enterable_tournaments" class="enterable_list undertable_inner scroll-shadow-hard">
     @tournament.enterable(tours)
+  </div>
+</div>
+<div class="undertable @if(simuls.isEmpty){none}">
+  <div class="undertable_top">
+    <a class="more hint--bottom" href="@routes.Simul.home">@trans.more() »</a>
+    <span class="title text" data-icon="|">Simultaneous exhibitions</span>
+  </div>
+  <div id="enterable_simuls" class="enterable_list undertable_inner">
+    @simul.allCreated(simuls)
   </div>
 </div>
 <div class="clearfix">
@@ -142,8 +130,8 @@ openGraph = Map(
   <div class="leaderboard undertable half">
     <div class="user_top">
       <div class="undertable_top">
-        <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
-        <span class="title" data-icon="g"> Tournament winners</span>
+        <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
+        <span class="title" data-icon="g"> @trans.tournamentWinners()</span>
       </div>
       <div class="undertable_inner scroll-shadow-hard">
         <table>
@@ -160,6 +148,7 @@ openGraph = Map(
     </div>
   </div>
 </div>
+@NotForKids {
 <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
@@ -171,11 +160,12 @@ openGraph = Map(
     </div>
   </div>
 </div>
+}
 @if(lastPost.nonEmpty) {
 <div class="blog undertable">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
-    <span class="title" data-icon="6"> Latest updates</span>
+    <span class="title" data-icon="6"> @trans.latestUpdates()</span>
   </div>
   <div class="undertable_inner">
     @lastPost.map { post =>

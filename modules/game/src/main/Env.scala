@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
     system: ActorSystem,
     hub: lila.hub.Env,
     getLightUser: String => Option[lila.common.LightUser],
@@ -41,15 +42,15 @@ final class Env(
 
   lazy val pngExport = PngExport(PngExecPath) _
 
-  lazy val cached = new Cached(ttl = CachedNbTtl)
+  lazy val cached = new Cached(
+    mongoCache = mongoCache,
+    defaultTtl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val export = new PgnExport(pgnDump).apply _
-
-  lazy val listMenu = ListMenu(cached) _
 
   lazy val rewind = Rewind
 
@@ -66,31 +67,15 @@ final class Env(
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
-  // api actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.game.Count => cached.nbGames pipeTo sender
-    }
-  }), name = ActorName)
-
-  {
-    import scala.concurrent.duration._
-
-    scheduler.effect(0.9 hours, "game: cleanup") {
-      maintenance.cleanupUnplayed
-    }
-
-    scheduler.message(CaptcherDuration) {
-      captcher -> actorApi.NewCaptcha
-    }
+  scheduler.message(CaptcherDuration) {
+    captcher -> actorApi.NewCaptcha
   }
 
   def cli = new Cli(db, system = system)
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>
-      // nobody needs it for now
-      // system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
+      system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
       game.userIds foreach { userId =>
         system.lilaBus.publish(
           actorApi.UserStartGame(userId, game),
@@ -98,8 +83,6 @@ final class Env(
       }
     }
   }
-
-  lazy val maintenance = new Maintenance(scheduler, hub.actor.bookmark)
 
   private def jsPath =
     "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
@@ -110,6 +93,7 @@ object Env {
   lazy val current = "[boot] game" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     getLightUser = lila.user.Env.current.lightUser,

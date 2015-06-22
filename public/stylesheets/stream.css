@@ -21,6 +21,10 @@ div.side_box.for_selector .top {
   line-height: 56px;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.stream_title:hover {
+  white-space: wrap;
 }
 div.side div.box {
   width: 312px;

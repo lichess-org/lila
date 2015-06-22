@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._, Results._
 
 import lila.api.Context
@@ -7,6 +8,7 @@ import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
 import lila.db.api.$find
+import lila.evaluation.{ PlayerAggregateAssessment }
 import lila.game.{ GameRepo, Pov }
 import lila.rating.PerfType
 import lila.security.Permission
@@ -23,9 +25,9 @@ object User extends LilaController {
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      (GameRepo nowPlaying user.id) orElse
-        (GameRepo lastPlayed user.id) flatMap {
-          _.flatMap { Pov(_, user) }.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+      (GameRepo lastPlayedPlaying user) orElse
+        (GameRepo lastPlayed user) flatMap {
+          _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
           }
         }
@@ -38,12 +40,13 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo nowPlaying user.id zip
+      GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((game, blocked), followable), relation) =>
-            Ok(html.user.mini(user, game, blocked, followable, relation))
+          case ((((pov, blocked), crosstable), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
@@ -54,8 +57,14 @@ object User extends LilaController {
   }
 
   def online = Open { implicit req =>
-    val max = 1000
-    UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, max) map { html.user.online(_, max) }
+    val max = 100
+    def get(nb: Int) = UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, nb)
+    negotiate(
+      html = env.cached topOnline max map { html.user.online(_, max) },
+      api = _ => env.cached topOnline getInt("nb").fold(10)(_ min max) map { list =>
+        Ok(Json.toJson(list.map(env.jsonView(_, true))))
+      }
+    )
   }
 
   private def filter(
@@ -65,22 +74,25 @@ object User extends LilaController {
     status: Results.Status = Results.Ok)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
-        (u.enabled || isGranted(_.UserSpy)).fold({
-          if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req))
-            userShow(u, filterOption, page)
-          else
-            userGames(u, filterOption, page)
-        } map { status(_) },
-          UserRepo isArtificial u.id map { artificial =>
-            NotFound(html.user.disabled(u, artificial))
+        if (u.enabled || isGranted(_.UserSpy)) negotiate(
+          html = {
+            if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req)) userShow(u, filterOption, page)
+            else userGames(u, filterOption, page) map {
+              case (filterName, pag) => html.user.games(u, pag, filterName)
+            }
+          } map { status(_) },
+          api = _ => userGames(u, filterOption, page) map {
+            case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
           })
+        else negotiate(
+          html = fuccess(NotFound(html.user.disabled(u))),
+          api = _ => fuccess(NotFound(Json.obj("error" -> "No such user, or account closed"))))
       }
     }
 
   private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
     info ← Env.current.userInfo(u, ctx)
-    filterName = filterOption | "all"
-    filters = GameFilterMenu(info, ctx.me, filterName)
+    filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
       user = u,
       info = info.some,
@@ -96,14 +108,18 @@ object User extends LilaController {
   } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
 
   private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
-    val filterName = filterOption | "all"
-    GameFilterMenu.paginatorOf(
-      user = u,
-      info = none,
-      filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-      me = ctx.me,
-      page = page
-    ) map { html.user.games(u, _, filterName) }
+    import lila.app.mashup.GameFilter.{ All, Playing }
+    filterOption.fold({
+      Env.simul isHosting u.id map (_.fold(Playing, All).name)
+    })(fuccess) flatMap { filterName =>
+      GameFilterMenu.paginatorOf(
+        user = u,
+        info = none,
+        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+        me = ctx.me,
+        page = page
+      ) map { filterName -> _ }
+    }
   }
 
   def list = Open { implicit ctx =>
@@ -112,42 +128,64 @@ object User extends LilaController {
       bullet ← env.cached topPerf PerfType.Bullet.key
       blitz ← env.cached topPerf PerfType.Blitz.key
       classical ← env.cached topPerf PerfType.Classical.key
+      correspondence ← env.cached topPerf PerfType.Correspondence.key
       chess960 ← env.cached topPerf PerfType.Chess960.key
       kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
+      antichess <- env.cached topPerf PerfType.Antichess.key
+      atomic <- env.cached topPerf PerfType.Atomic.key
+      horde <- env.cached topPerf PerfType.Horde.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
       nbWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
-        UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
+        UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
-      online ← env.cached topOnline 30
-    } yield html.user.list(
-      tourneyWinners = tourneyWinners,
-      online = online,
-      bullet = bullet,
-      blitz = blitz,
-      classical = classical,
-      chess960 = chess960,
-      kingOfTheHill = kingOfTheHill,
-      threeCheck = threeCheck,
-      nbWeek = nbWeek,
-      nbAllTime = nbAllTime)
+      online ← env.cached topOnline 50
+      res <- negotiate(
+        html = fuccess(Ok(html.user.list(
+          tourneyWinners = tourneyWinners,
+          online = online,
+          bullet = bullet,
+          blitz = blitz,
+          classical = classical,
+          correspondence = correspondence,
+          chess960 = chess960,
+          kingOfTheHill = kingOfTheHill,
+          threeCheck = threeCheck,
+          antichess = antichess,
+          atomic = atomic,
+          horde = horde,
+          nbWeek = nbWeek,
+          nbAllTime = nbAllTime))),
+        api = _ => fuccess {
+          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          Ok(Json.obj(
+            "online" -> online,
+            "bullet" -> bullet,
+            "blitz" -> blitz,
+            "classical" -> classical,
+            "correspondence" -> correspondence,
+            "chess960" -> chess960,
+            "kingOfTheHill" -> kingOfTheHill,
+            "threeCheck" -> threeCheck,
+            "antichess" -> antichess,
+            "atomic" -> atomic,
+            "horde" -> horde))
+        })
+    } yield res
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      Env.evaluation.evaluator find user zip
-        (Env.security userSpy user.id) map {
-          case (eval, spy) => html.user.mod(user, spy, eval)
+      (Env.security userSpy user.id) zip
+        (Env.mod.assessApi.getPlayerAggregateAssessment(user.id)) flatMap {
+          case (spy, playerAggregateAssessment) =>
+            (Env.playban.api bans spy.otherUsers.map(_.id)) map { bans =>
+              html.user.mod(user, spy, playerAggregateAssessment, bans)
+            }
         }
-    }
-  }
-
-  def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx =>
-    me => OptionFuResult(UserRepo named username) { user =>
-      Env.evaluation.evaluator.generate(user.id, true) inject Redirect(routes.User.show(username).url + "?mod")
     }
   }
 

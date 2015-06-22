@@ -3,8 +3,9 @@ package lila.game
 import lila.common.PimpedJson._
 import play.api.libs.json._
 
+import chess.Pos
 import chess.Pos.{ piotr, allPiotrs }
-import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock }
+import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock, Status }
 import lila.chat.{ Line, UserLine, PlayerLine }
 
 sealed trait Event {
@@ -18,19 +19,20 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove): List[Event] = Move(move) :: List(
-    (move.capture ifTrue move.enpassant) map Event.Enpassant.apply,
-    move.promotion map { Promotion(_, move.dest) },
-    move.castle map { case (king, rook) => Castling(king, rook, move.color) }
-  ).flatten
+  def fromMove(move: ChessMove, situation: Situation, state: State, clock: Option[Event], possibleMoves: List[PossibleMoves]): List[Event] =
+    Move(move, situation, state, clock) :: List(
+      (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
+      move.promotion map { Promotion(_, move.dest) }, // BC
+      move.castle map { case (king, rook) => Castling(king, rook, move.color) } // BC
+    ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
-    situation.check ?? situation.kingPos map Check.apply,
-    situation.threefoldRepetition option Threefold,
-    Some(Premove(situation.color))
-  ).flatten
+    situation.check ?? situation.kingPos map Check.apply, // BC
+    situation.threefoldRepetition option Threefold, // BC
+    Some(Premove(situation.color) // BC
+    )).flatten
 
-  def possibleMoves(situation: Situation, color: Color): Event =
+  def possibleMoves(situation: Situation, color: Color) =
     PossibleMoves(color, (color == situation.color) ?? situation.destinations)
 
   sealed trait Empty extends Event {
@@ -41,34 +43,87 @@ object Event {
     def typ = "start"
   }
 
-  case class Move(orig: Pos, dest: Pos, color: Color, san: String) extends Event {
+  case class Move(
+      orig: Pos,
+      dest: Pos,
+      color: Color,
+      san: String,
+      fen: String,
+      check: Boolean,
+      threefold: Boolean,
+      promotion: Option[Promotion],
+      enpassant: Option[Enpassant],
+      castle: Option[Castling],
+      state: State,
+      clock: Option[Event],
+      possibleMoves: Map[Pos, List[Pos]]) extends Event {
     def typ = "move"
     def data = Json.obj(
+      // legacy data
       "from" -> orig.key,
       "to" -> dest.key,
       "color" -> color.name,
-      "san" -> san)
+      // new data
+      "uci" -> s"${orig.key}${dest.key}",
+      "san" -> san,
+      "fen" -> fen,
+      "check" -> check.option(true),
+      "threefold" -> threefold.option(true),
+      "promotion" -> promotion.map(_.data),
+      "enpassant" -> enpassant.map(_.data),
+      "castle" -> castle.map(_.data),
+      "ply" -> state.turns,
+      "status" -> state.status.map { s =>
+        Json.obj("id" -> s.id, "name" -> s.name)
+      },
+      "wDraw" -> state.whiteOffersDraw.option(true),
+      "bDraw" -> state.blackOffersDraw.option(true),
+      "clock" -> clock.map(_.data),
+      "dests" -> PossibleMoves.json(possibleMoves)
+    ).noNull
   }
   object Move {
-    def apply(move: ChessMove): Move =
-      Move(move.orig, move.dest, move.piece.color, chess.format.pgn.Dumper(move))
+    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): Move = Move(
+      orig = move.orig,
+      dest = move.dest,
+      color = move.piece.color,
+      san = chess.format.pgn.Dumper(move),
+      fen = chess.format.Forsyth.exportBoard(situation.board),
+      check = situation.check,
+      threefold = situation.threefoldRepetition,
+      promotion = move.promotion.map { Promotion(_, move.dest) },
+      enpassant = (move.capture ifTrue move.enpassant).map {
+        Event.Enpassant(_, !move.color)
+      },
+      castle = move.castle.map {
+        case (king, rook) => Castling(king, rook, move.color)
+      },
+      state = state,
+      clock = clock,
+      possibleMoves = situation.destinations)
   }
 
   case class PossibleMoves(
       color: Color,
       moves: Map[Pos, List[Pos]]) extends Event {
     def typ = "possibleMoves"
-    def data =
-      if (moves.isEmpty) JsNull
-      else JsObject(moves map {
-        case (o, d) => o.key -> JsString(d map (_.key) mkString)
-      } toList)
+    def data = PossibleMoves json moves
     override def only = Some(color)
   }
 
-  case class Enpassant(killed: Pos) extends Event {
+  object PossibleMoves {
+    def json(moves: Map[Pos, List[Pos]]) =
+      if (moves.isEmpty) JsNull
+      else moves.foldLeft(JsObject(Nil)) {
+        case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
+      }
+  }
+
+  case class Enpassant(pos: Pos, color: Color) extends Event {
     def typ = "enpassant"
-    def data = JsString(killed.key)
+    def data = Json.obj(
+      "key" -> pos.key,
+      "color" -> color.name)
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
@@ -122,8 +177,9 @@ object Event {
     override def owner = !w
   }
 
-  object End extends Empty {
+  case class End(winner: Option[Color]) extends Event {
     def typ = "end"
+    def data = winner.map(_.name).fold[JsValue](JsNull)(JsString.apply)
   }
 
   object Threefold extends Empty {
@@ -157,6 +213,15 @@ object Event {
       clock remainingTime Color.Black)
   }
 
+  case class CorrespondenceClock(white: Float, black: Float) extends Event {
+    def typ = "cclock"
+    def data = Json.obj("white" -> white, "black" -> black)
+  }
+  object CorrespondenceClock {
+    def apply(clock: lila.game.CorrespondenceClock): CorrespondenceClock =
+      CorrespondenceClock(clock.whiteTime, clock.blackTime)
+  }
+
   case class CheckCount(white: Int, black: Int) extends Event {
     def typ = "checkCount"
     def data = Json.obj(
@@ -165,12 +230,35 @@ object Event {
     )
   }
 
-  case class State(color: Color, turns: Int) extends Event {
+  case class State(
+      color: Color,
+      turns: Int,
+      status: Option[Status],
+      whiteOffersDraw: Boolean,
+      blackOffersDraw: Boolean) extends Event {
     def typ = "state"
     def data = Json.obj(
       "color" -> color.name,
-      "turns" -> turns
-    )
+      "turns" -> turns,
+      "status" -> status.map { s =>
+        Json.obj(
+          "id" -> s.id,
+          "name" -> s.name)
+      },
+      "wDraw" -> whiteOffersDraw.option(true),
+      "bDraw" -> blackOffersDraw.option(true)
+    ).noNull
+  }
+
+  case class TakebackOffers(
+      white: Boolean,
+      black: Boolean) extends Event {
+    def typ = "takebackOffers"
+    def data = Json.obj(
+      "white" -> white.option(true),
+      "black" -> black.option(true)
+    ).noNull
+    override def owner = true
   }
 
   case class Crowd(

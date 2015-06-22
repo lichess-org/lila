@@ -7,6 +7,7 @@ case class StreamOnAir(
     service: String,
     name: String,
     streamer: String,
+    streamerName: String,
     url: String,
     streamId: String) {
 
@@ -16,17 +17,21 @@ case class StreamOnAir(
 case class StreamsOnAir(streams: List[StreamOnAir])
 
 object Twitch {
-  case class Channel(url: String, status: String, name: String)
+  case class Channel(url: Option[String], status: Option[String], name: String, display_name: String)
   case class Stream(channel: Channel)
   case class Result(streams: List[Stream]) {
-    def streamsOnAir = streams map (_.channel) map { c =>
-      StreamOnAir(
-        service = "twitch",
-        name = c.status,
-        streamer = c.name,
-        url = c.url,
-        streamId = c.name
-      )
+    def streamsOnAir = streams map (_.channel) flatMap { c =>
+      (c.url, c.status) match {
+        case (Some(url), Some(status)) => Some(StreamOnAir(
+          service = "twitch",
+          name = status,
+          streamer = c.name,
+          streamerName = c.display_name,
+          url = url,
+          streamId = c.name
+        ))
+        case _ => None
+      }
     }
   }
   object Reads {
@@ -45,6 +50,7 @@ object Hitbox {
         service = "hitbox",
         name = s.media_status,
         streamer = s.media_user_name,
+        streamerName = s.media_user_name,
         url = s.channel.channel_link,
         streamId = s.media_name)
     }

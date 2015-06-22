@@ -8,6 +8,8 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
+    shutup: ActorSelection,
     blocks: (String, String) => Fu[Boolean],
     system: ActorSystem) {
 
@@ -15,14 +17,18 @@ final class Env(
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
   private val ActorName = config getString "actor.name"
 
+  import scala.collection.JavaConversions._
+  val LichessSenders = (config getStringList "lichess_senders").toList
+
   private[message] lazy val threadColl = db(CollectionThread)
 
-  private lazy val unreadCache = new UnreadCache
+  private lazy val unreadCache = new UnreadCache(mongoCache)
 
   lazy val forms = new DataForm(blocks = blocks)
 
   lazy val api = new Api(
     unreadCache = unreadCache,
+    shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
     bus = system.lilaBus)
@@ -46,6 +52,8 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
+    shutup = lila.hub.Env.current.actor.shutup,
+    mongoCache = lila.memo.Env.current.mongoCache,
     blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)
 }

@@ -10,12 +10,16 @@ private[round] final class Takebacker(
 
   def yes(pov: Pov): Fu[Events] = IfAllowedByPrefs(pov.game) {
     pov match {
-      case Pov(game, _) if pov.opponent.isProposingTakeback => single(game)
-      case Pov(game, _) if pov.opponent.isAi                => double(game)
-      case Pov(game, color) if (game playerCanProposeTakeback color) => GameRepo save {
+      case Pov(game, _) if pov.opponent.isProposingTakeback =>
+        if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
+        else double(game)
+      case Pov(game, _) if pov.opponent.isAi => double(game)
+      case Pov(game, color) if (game playerCanProposeTakeback color) =>
         messenger.system(game, _.takebackPropositionSent)
-        Progress(game) map { g => g.updatePlayer(color, _.proposeTakeback) }
-      } inject List(Event.ReloadOwner)
+        val progress = Progress(game) map { g =>
+          g.updatePlayer(color, _ proposeTakeback g.turns)
+        }
+        GameRepo save progress inject List(Event.TakebackOffers(color.white, color.black))
       case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
     }
   }
@@ -25,11 +29,11 @@ private[round] final class Takebacker(
       case Pov(game, color) if pov.player.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionCanceled)
         Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
-      } inject List(Event.ReloadOwner)
+      } inject List(Event.TakebackOffers(false, false))
       case Pov(game, color) if pov.opponent.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
-      } inject List(Event.ReloadOwner)
+      } inject List(Event.TakebackOffers(false, false))
       case _ => ClientErrorException.future("[takebacker] invalid no " + pov)
     }
   }
@@ -49,14 +53,14 @@ private[round] final class Takebacker(
     }
 
   private def single(game: Game): Fu[Events] = for {
-    fen ← GameRepo initialFen game.id
+    fen ← GameRepo initialFen game
     progress ← Rewind(game, fen).future
     _ ← fuccess { uciMemo.drop(game, 1) }
     events ← save(progress)
   } yield events
 
   private def double(game: Game): Fu[Events] = for {
-    fen ← GameRepo initialFen game.id
+    fen ← GameRepo initialFen game
     prog1 ← Rewind(game, fen).future
     prog2 ← Rewind(prog1.game, fen).future map { progress =>
       prog1 withGame progress.game

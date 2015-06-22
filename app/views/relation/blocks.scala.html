@@ -1,0 +1,12 @@
+@(u: User, users: List[lila.relation.Related])(implicit ctx: Context)
+
+@user.layout(title = u.username + " - " + trans.blocks(users.size)) {
+<div class="content_box no_padding">
+  <h1>
+    @userLink(u, withOnline = false)
+    @trans.blocks(users.size)
+  </h1>
+  @user.simpleTable(users)
+</div>
+}
+

@@ -34,9 +34,9 @@ object Main extends LilaController {
     }
   }
 
-  def websocket = Socket { implicit ctx =>
+  def websocket = SocketOption { implicit ctx =>
     get("sri") ?? { uid =>
-      Env.site.socketHandler(uid, ctx.userId, get("flag"))
+      Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
     }
   }
 
@@ -48,8 +48,7 @@ object Main extends LilaController {
 
   def embed = Action { req =>
     Ok {
-      """document.write("<iframe src='%s?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: %dpx; height: %dpx;' title='Lichess free online chess'></iframe>");"""
-        .format(Env.api.Net.BaseUrl, getInt("w", req) | 820, getInt("h", req) | 650)
+      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
@@ -62,6 +61,18 @@ object Main extends LilaController {
   def irc = Open { implicit ctx =>
     ctx.me ?? Env.team.api.mine map {
       html.site.irc(_)
+    }
+  }
+
+  def themepicker = Open { implicit ctx =>
+    fuccess {
+      html.base.themepicker()
+    }
+  }
+
+  def mobile = Open { implicit ctx =>
+    OptionOk(Prismic oneShotBookmark "mobile-apk") {
+      case (doc, resolver) => html.site.mobile(doc, resolver)
     }
   }
 }

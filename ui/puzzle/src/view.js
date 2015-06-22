@@ -1,6 +1,6 @@
-var partial = require('lodash-node/modern/functions/partial');
-var map = require('lodash-node/modern/collections/map');
+var map = require('lodash/collection/map');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var m = require('mithril');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');
@@ -34,14 +34,6 @@ function renderUserInfos(ctrl) {
 function renderTrainingBox(ctrl) {
   return m('div.box', [
     m('h1', ctrl.trans('training')),
-    m('div.tabs.buttonset', [
-      m('a.button.active', {
-        href: '/training'
-      }, 'Puzzle'),
-      m('a.button', {
-        href: '/training/coordinate'
-      }, 'Coordinate')
-    ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
       m('p.signup',
@@ -74,12 +66,12 @@ function renderCommentary(ctrl) {
       ]);
     case 'great':
       return m('div.comment.great', [
-        m('h3[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
+        m('h3.text[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
         m('span', ctrl.trans('keepGoing'))
       ]);
     case 'fail':
       return m('div.comment.fail', [
-        m('h3[data-icon=k]', m('strong', ctrl.trans('puzzleFailed'))),
+        m('h3.text[data-icon=k]', m('strong', ctrl.trans('puzzleFailed'))),
         ctrl.data.mode == 'try' ? m('span', ctrl.trans('butYouCanKeepTrying')) : null
       ]);
     default:
@@ -93,7 +85,7 @@ function renderRatingDiff(diff) {
 
 function renderWin(ctrl, attempt) {
   return m('div.comment.win', [
-    m('h3[data-icon=E]', [
+    m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
       attempt ? renderRatingDiff(attempt.userRatingDiff) : null
     ]),
@@ -103,7 +95,7 @@ function renderWin(ctrl, attempt) {
 
 function renderLoss(ctrl, attempt) {
   return m('div.comment.loss',
-    m('h3[data-icon=k]', [
+    m('h3.text[data-icon=k]', [
       m('strong', ctrl.trans('puzzleFailed')),
       attempt ? renderRatingDiff(attempt.userRatingDiff) : null
     ])
@@ -136,21 +128,28 @@ function renderSide(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table',
-    m('div.table_inner', [
-      m('div.current_player',
-        m('div.player.' + ctrl.chessground.data.turnColor, [
-          m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
-          m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
-        ])
-      ),
-      m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-      m('div.control',
-        m('a.button', {
-          onclick: partial(xhr.attempt, ctrl, 0)
-        }, ctrl.trans('giveUp'))
-      )
-    ])
+  return m('div.table_wrap',
+    m('div.table',
+      m('div.table_inner', [
+        m('div.current_player',
+          m('div.player.' + ctrl.chessground.data.turnColor, [
+            m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+            m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
+          ])
+        ),
+        m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
+        m('div.control',
+          m('a.button.giveup', {
+            config: function(el, isUpdate) {
+              setTimeout(function() {
+                el.classList.add('revealed');
+              }, 1000);
+            },
+            onclick: partial(xhr.attempt, ctrl, 0)
+          }, ctrl.trans('giveUp'))
+        )
+      ])
+    )
   );
 }
 
@@ -184,7 +183,7 @@ function renderViewTable(ctrl) {
     ]) : null,
     m('div.box', [
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
-      m('h2',
+      m('h2.text[data-icon="-"]',
         m('a', {
           href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
@@ -198,11 +197,11 @@ function renderViewTable(ctrl) {
       )
     ]),
     m('div.continue_wrap', [
-      ctrl.data.win === null ? m('button.continue.button[data-icon=G]', {
+      ctrl.data.win === null ? m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('continueTraining')) : m('a.continue.button[data-icon=G]', {
+      }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry[data-icon=P]', {
+      }, ctrl.trans('continueTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])
@@ -221,9 +220,11 @@ function renderViewControls(ctrl, fen) {
       'data-hint': ctrl.trans('boardEditor'),
       href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),
-    m('a.continiue.toggle.button.hint--bottom', {
+    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('continueFromHere'),
-      onclick: ctrl.toggleContinueLinks
+      onclick: function() {
+        $.modal($('.continue_with'));
+      }
     }, m('span[data-icon=U]')),
     m('div#GameButtons.hint--bottom', {
       'data-hint': 'Review puzzle solution'
@@ -243,11 +244,12 @@ function renderViewControls(ctrl, fen) {
 }
 
 function renderContinueLinks(ctrl, fen) {
-  return m('div.continue.links', [
+  return m('div.continue_with', [
     m('a.button', {
       href: '/?fen=' + fen + '#ai',
       rel: 'nofollow'
     }, ctrl.trans('playWithTheMachine')),
+    m('br'),
     m('a.button', {
       href: '/?fen=' + fen + '#friend',
       rel: 'nofollow'
@@ -260,7 +262,7 @@ function renderFooter(ctrl) {
   var fen = ctrl.data.replay.history[ctrl.data.replay.step].fen;
   return m('div', [
     renderViewControls(ctrl, fen),
-    ctrl.data.showContinueLinks() ? renderContinueLinks(ctrl, fen) : null
+    renderContinueLinks(ctrl, fen)
   ]);
 }
 
@@ -270,8 +272,12 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get('/training/history', function(html) {
-        el.innerHTML = html;
+      $.ajax({
+        url: '/training/history',
+        cache: false,
+        success: function(html) {
+          el.innerHTML = html;
+        }
       });
     }
   });
@@ -286,6 +292,8 @@ function wheel(ctrl, e) {
   return false;
 }
 
+var loading = m('div.loader.fast');
+
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
@@ -298,11 +306,13 @@ module.exports = function(ctrl) {
           }
         },
         chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl))
+      m('div.right', ctrl.vm.loading ? loading : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
-    m('div.center', [
-      renderFooter(ctrl),
-      ctrl.data.user ? renderHistory(ctrl) : null
-    ])
+    m('div.underboard',
+      m('div.center', [
+        renderFooter(ctrl),
+        ctrl.data.user ? renderHistory(ctrl) : null
+      ])
+    )
   ]);
 };

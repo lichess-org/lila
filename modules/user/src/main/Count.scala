@@ -3,7 +3,7 @@ package lila.user
 import lila.db.BSON
 import reactivemongo.bson.BSONDocument
 
-private[user] case class Count(
+case class Count(
     ai: Int,
     draw: Int,
     drawH: Int, // only against human opponents
@@ -17,9 +17,9 @@ private[user] case class Count(
   def gameH = winH + lossH + drawH
 }
 
-private[user] object Count {
+object Count {
 
-  private def countBSONHandler = new BSON[Count] {
+  private[user] val countBSONHandler = new BSON[Count] {
 
     def reads(r: BSON.Reader): Count = Count(
       ai = r nInt "ai",
@@ -43,7 +43,6 @@ private[user] object Count {
       "win" -> w.int(o.win),
       "winH" -> w.int(o.winH))
   }
-  private[user] lazy val tube = lila.db.BsTube(countBSONHandler)
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }

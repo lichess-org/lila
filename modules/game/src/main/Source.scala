@@ -14,9 +14,11 @@ object Source {
   case object Tournament extends Source(id = 5)
   case object Position extends Source(id = 6)
   case object Import extends Source(id = 7)
-  case object Relay extends Source(id = 9)
+  case object ImportLive extends Source(id = 9)
+  case object Simul extends Source(id = 10)
+  case object Relay extends Source(id = 11)
 
-  val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Relay)
+  val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Simul, Relay)
   val byId = all map { v => (v.id, v) } toMap
 
   def apply(id: Int): Option[Source] = byId get id

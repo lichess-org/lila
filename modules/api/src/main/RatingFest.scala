@@ -6,7 +6,7 @@ import reactivemongo.bson._
 
 import lila.db.api._
 import lila.db.Implicits._
-import lila.game.Game.gameBSONHandler
+import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.Game.{ BSONFields => G }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.round.PerfsUpdater
@@ -49,7 +49,7 @@ object RatingFest {
           List(
             "global", "white", "black",
             "standard", "chess960", "kingOfTheHill", "threeCheck",
-            "bullet", "blitz", "classical", "slow"
+            "bullet", "blitz", "classical", "correspondence"
           ).map { name => s"perfs.$name" -> BSONBoolean(true) }
         )),
         multi = true)

@@ -18,13 +18,19 @@ case class Pov(game: Game, color: Color) {
 
   def unary_! = Pov(game, !color)
 
-  def isPlayerFullId(fullId: Option[String]): Boolean =
-    fullId ?? { game.isPlayerFullId(player, _) }
-
   def ref = PovRef(game.id, color)
 
   def withGame(g: Game) = copy(game = g)
   def withColor(c: Color) = copy(color = c)
+
+  lazy val isMyTurn = game.started && game.playable && game.turnColor == color
+
+  lazy val remainingSeconds: Option[Int] =
+    game.clock.map(_.remainingTime(color).toInt).orElse {
+      game.correspondenceClock.map(_.remainingTime(color).toInt)
+    }
+
+  def hasMoved = game playerHasMoved color
 
   override def toString = ref.toString
 }
@@ -45,6 +51,25 @@ object Pov {
 
   def apply(game: Game, user: lila.user.User): Option[Pov] =
     game player user map { apply(game, _) }
+
+  private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
+  private def isFresher(a: Pov, b: Pov) = {
+    val aDate = a.game.updatedAtOrCreatedAt.getSeconds
+    val bDate = b.game.updatedAtOrCreatedAt.getSeconds
+    if (aDate == bDate) a.gameId < b.gameId
+    else aDate > bDate
+  }
+
+  def priority(a: Pov, b: Pov) =
+    if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
+    else if (!a.isMyTurn && b.isMyTurn) false
+    else if (a.isMyTurn && !b.isMyTurn) true
+    // first move has priority over games with more than 30s left
+    else if (!a.hasMoved && orInf(b.remainingSeconds) > 30) true
+    else if (!b.hasMoved && orInf(a.remainingSeconds) > 30) false
+    else if (orInf(a.remainingSeconds) < orInf(b.remainingSeconds)) true
+    else if (orInf(b.remainingSeconds) < orInf(a.remainingSeconds)) false
+    else isFresher(a, b)
 }
 
 case class PovRef(gameId: String, color: Color) {

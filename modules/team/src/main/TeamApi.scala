@@ -164,4 +164,11 @@ final class TeamApi(
   def teamName(teamId: String) = cached name teamId
 
   def nbRequests(teamId: String) = cached nbRequests teamId
+
+  def recomputeNbMembers =
+    $enumerate.over[Team]($query.all[Team]) { team =>
+      MemberRepo.countByTeam(team.id) flatMap { nb =>
+        $update.field[String, Team, Int](team.id, "nbMembers", nb)
+      }
+    }
 }

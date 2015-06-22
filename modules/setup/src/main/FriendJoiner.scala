@@ -23,16 +23,16 @@ private[setup] final class FriendJoiner(
         game.updatePlayer(color, _.withUser(u.id, PerfPicker.mainOrDefault(game)(u.perfs)))
       }
       for {
-        p1 ← GameRepo.setUsers(g1.id, g1.player(_.white).userInfos, g1.player(_.black).userInfos) inject Progress(game, g1)
-        p2 = p1 map (_.start)
-        p3 = p2 + Event.RedirectOwner(
+        _ ← GameRepo.setUsers(g1.id, g1.player(_.white).userInfos, g1.player(_.black).userInfos)
+        p1 = Progress(game, g1.start)
+        p2 = p1 + Event.RedirectOwner(
           !color,
-          p2.game fullIdOf !color,
-          AnonCookie.json(p2.game, !color))
-        _ ← GameRepo save p3
+          p1.game fullIdOf !color,
+          AnonCookie.json(p1.game, !color))
+        _ ← GameRepo save p2
       } yield {
-        onStart(p3.game.id)
-        Pov(p3.game, color) -> p3.events
+        onStart(p2.game.id)
+        Pov(p2.game, color) -> p2.events
       }
     } toValid "Can't join started game " + game.id
 }

@@ -20,13 +20,15 @@ object AnalysisRepo {
     ))
   )
 
-  def progress(id: ID, userId: ID) = $update(
+  def progress(id: ID, userId: ID, startPly: Int) = $update(
     $select(id),
-    $set(Json.obj(
-      "uid" -> userId,
-      "done" -> false,
-      "date" -> $date(DateTime.now)
-    )) ++ $unset("old", "data"),
+    $set(
+      Json.obj(
+        "uid" -> userId,
+        "done" -> false,
+        "date" -> $date(DateTime.now)
+      ) ++ (startPly == 0).fold(Json.obj(), Json.obj("ply" -> startPly))
+    ) ++ $unset("old", "data"),
     upsert = true)
 
   def byId(id: ID): Fu[Option[Analysis]] = $find byId id
@@ -34,11 +36,10 @@ object AnalysisRepo {
   def doneById(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true))
 
-  def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] = $find byOrderedIds ids map { as =>
-    ids.map { id =>
-      as find { a => a.id == id && a.done }
+  def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
+    $find optionsByOrderedIds ids map2 { (a: Option[Analysis]) =>
+      a.filter(_.done)
     }
-  }
 
   def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true, "old" -> $exists(false)))

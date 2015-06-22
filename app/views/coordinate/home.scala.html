@@ -15,23 +15,20 @@
 @base.layout(
 title = "Coordinate training",
 moreCss = moreCss,
-moreJs = moreJs,
-active = siteMenu.puzzle.some) {
+moreJs = moreJs) {
 <div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
   data-color-url="@routes.Coordinate.color()"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
-  <div class="next_coord" id="next_coord0"></div>
-  <div class="next_coord" id="next_coord1"></div>
-  <div class="next_coord" id="next_coord2"></div>
-  <div class="score_container"><strong class="score">0</strong></div>
+  <div class="overlay_container">
+    <div class="next_coord" id="next_coord0"></div>
+    <div class="next_coord" id="next_coord1"></div>
+    <div class="next_coord" id="next_coord2"></div>
+    <div class="score_container"><strong class="score">0</strong></div>
+  </div>
   <div class="side">
     <div class="box">
-      <h1>@trans.training()</h1>
-      <div class="tabs buttonset">
-        <a href="@routes.Puzzle.home()" class="button">Puzzle</a>
-        <a href="@routes.Coordinate.home()" class="button active">Coordinate</a>
-      </div>
+      <h1>@trans.coordinates()</h1>
       @if(ctx.isAuth) {
       @scoreOption.map { score =>
       <div class="scores">

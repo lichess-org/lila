@@ -1,17 +1,17 @@
-var compact = require('lodash-node/modern/arrays/compact')
-var keys = require('lodash-node/modern/objects/keys')
-var first = require('lodash-node/modern/arrays/first')
-var rest = require('lodash-node/modern/arrays/rest')
-var pairs = require('lodash-node/modern/objects/pairs')
+var compact = require('lodash/array/compact')
+var keys = require('lodash/object/keys')
+var first = require('lodash/array/first')
+var rest = require('lodash/array/rest')
+var pairs = require('lodash/object/pairs')
 var chessground = require('chessground');
 var chess = require('./chess');
 
-function str2move(m) {
-  return m ? [m.slice(0, 2), m.slice(2, 4), m[4]] : null;
+function str2move(str) {
+  return str ? [str.slice(0, 2), str.slice(2, 4), str[4]] : null;
 }
 
-function move2str(m) {
-  return m.join('');
+function move2str(move) {
+  return move.join('');
 }
 
 function getPath(obj, ks) {
@@ -79,7 +79,12 @@ function makeHistory(data) {
   var c = chess.make(data.puzzle.fen);
   return [data.puzzle.initialMove].concat(line.map(str2move)).map(function(m) {
     chess.move(c, m);
-    return {move: m, fen: c.fen(), check: c.in_check()};
+    return {
+      move: m,
+      fen: c.fen(),
+      check: c.in_check(),
+      turnColor: c.turn() == 'w' ? 'white' : 'black'
+    };
   });
 }
 
@@ -89,9 +94,9 @@ function jump(chessgroundData, data, to) {
   chessground.configure(chessgroundData, {
     fen: state.fen,
     lastMove: state.move,
-    check: null
+    check: state.check,
+    turnColor: state.turnColor
   });
-  if (state.check) chessground.board.setCheck(chessgroundData);
 }
 
 function reload(chessgroundData, data, cfg) {

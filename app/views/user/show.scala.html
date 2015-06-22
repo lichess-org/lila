@@ -6,7 +6,7 @@
 
 @evenMoreJs = {
 @highstockTag
-@if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
+@if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
 @embedJs(s"var lichess_rating_series = $ratingChart;")
@@ -18,7 +18,7 @@
 <div data-icon="@perfType.iconChar">
   <h3 class="hint--top" data-hint="@perfType.title">@name.getOrElse(perfType.name).toUpperCase</h3>
   <div class="rating">
-    <strong class="hint--bottom" data-hint="Glicko rating">@perf.glicko.intRating</strong>
+    <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
     <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {Puzzles} else {@trans.games()}</span>
     @showProgress(perf.progress)
   </div>
@@ -27,10 +27,11 @@
 
 @side = {
 <div class="side sub_ratings">
-  @if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
+  @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
   @showPerf(u.perfs.bullet, PerfType.Bullet)
   @showPerf(u.perfs.blitz, PerfType.Blitz)
   @showPerf(u.perfs.classical, PerfType.Classical)
+  @showPerf(u.perfs.correspondence, PerfType.Correspondence)
   <br />
   @if(u.perfs.chess960.nonEmpty) {
   @showPerf(u.perfs.chess960, PerfType.Chess960)
@@ -41,9 +42,19 @@
   @if(u.perfs.threeCheck.nonEmpty) {
   @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
   }
+  @if(u.perfs.antichess.nonEmpty) {
+  @showPerf(u.perfs.antichess, PerfType.Antichess)
+  }
+  @if(u.perfs.atomic.nonEmpty) {
+  @showPerf(u.perfs.atomic, PerfType.Atomic)
+  }
+  @if(u.perfs.horde.nonEmpty) {
+  @showPerf(u.perfs.horde, PerfType.Horde)
+  }
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
+  @showPerf(u.perfs.opening, PerfType.Opening)
 </div>
 }
 
@@ -61,32 +72,51 @@ openGraph = Map(
 'description -> describeUser(u))) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
-    @if(!u.engine) {
+    @info.allTrophies.map { trophy =>
+    <a @trophy.kind.url.map { url =>
+      href="@url"
+      } class="trophy award @trophy.kind.key @trophy.kind.klass hint--left" data-hint="@trophy.kind.name">
+      @trophy.kind match {
+      case lila.user.Trophy.Kind.ZugMiracle => {
+      <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
+      }
+      case _ => {
+      <span data-icon="@trophy.kind.icon.map(Html.apply)"></span>
+      }
+      }
+    </a>
+    }
+    @if(u.perfs.puzzle.nb >= 10000) {
+    <a href="@routes.Puzzle.home" class="trophy award icon3d puzzle hint--left" data-hint="Played 10,000 training puzzles">
+      <span data-icon="-"></span>
+    </a>
+    }
+    @if(!u.lame) {
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Champion!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
       <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 10 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 10!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 10!">
       <img src="@staticUrl("images/trophy/Big-Silver-Cup.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 50 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
       <img src="@staticUrl("images/trophy/Fancy-Gold.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 100 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
       <img src="@staticUrl("images/trophy/Gold-Cup.png")" height=80 />
     </span>
     }
     case _ => {}
     }
     }
-    <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.titleUsername</h1>
+    <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
     }
@@ -99,32 +129,38 @@ openGraph = Map(
     }
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
+    @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
+    }
     }
     <div class="relation_actions">
       @if(ctx is u) {
       <a class="button hint--bottom-left" href="@routes.Account.profile" data-hint="@trans.editProfile()">
         <span data-icon="%"></span>
       </a>
+      <a class="button hint--bottom-left" href="@routes.Relation.blocks" data-hint="@trans.listBlockedPlayers()">
+        <span data-icon="k"></span>
+      </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="n"></span></a>
+      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="@icon.mod"></span></a>
       }
-      @if(!ctx.is(u)) {
       <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="Watch games"><span data-icon="1"></span></a>
-      }
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
+      @NotForKids {
       <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">
         <span data-icon="!"></span>
       </a>
+      }
       }
       @if(ctx is u) {
       <a class="button hint--bottom-left" href="@routes.Game.export(u.id)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
       }
     </div>
   </div>
+  @NotForKids {
   @if(!(ctx is u)) {
   <div class="note_zone">
     <form class="wide" action="@routes.User.writeNote(u.username)?note" method="post">
@@ -142,31 +178,38 @@ openGraph = Map(
     }
   </div>
   }
+  }
   @if((ctx is u) && u.perfs.bestRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
   @claimTitle(u)
   }
   <div class="mod_zone"></div>
   <div class="meat">
-    @info.ratingChart.ifTrue(!u.engine || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
+    @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
       <span>Chart loading&#8230;</span>
     </div>
     }
     <div class="user-infos scroll-shadow-hard">
-      @if(u.engine && ctx.me.fold(true)(u !=)) {
+      @if(ctx.me.fold(true)(u !=)) {
+      @if(u.engine) {
       <div class="warning engine_warning">
         <span data-icon="j" class="is4"></span>
         @trans.thisPlayerUsesChessComputerAssistance()
       </div>
+      }
+      @if(u.booster) {
+      <div class="warning engine_warning">
+        <span data-icon="j" class"is4"></span>
+        @trans.thisPlayerArtificiallyIncreasesTheirRating()
+      </div>
+      }
       } else {
       @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
       <p data-icon="E" class="honorific title"> @title</p>
       }
       }
-      @if(info.donated >= 200) {
-      <a href="@routes.Donation.index" data-icon="t" class="honorific is-gold"> Lichess Donor</a>
-      }
       @u.profile.map { p =>
+      @NotForKids {
       @p.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
@@ -174,9 +217,12 @@ openGraph = Map(
       <p class="bio">@shorten(bio, 400)</p>
       }
       }
+      }
       <div class="stats">
+        @NotForKids {
         @u.profileOrDefault.nonEmptyLocation.map { l =>
         <span class="location">@l</span>,
+        }
         }
         @u.profileOrDefault.countryInfo.map {
         case (code, name) => {
@@ -205,7 +251,7 @@ openGraph = Map(
       </div>
     </div>
   </div>
-  @if(u.hasGames) {
+  @if(u.hasGames || info.nbImported > 0) {
   <div class="content_box_inter tabs">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
@@ -215,7 +261,7 @@ openGraph = Map(
   </div>
   @if(filters.current.name == "me") {
   @info.crosstable.map { c =>
-  <div class="crosstable">@game.crosstable(c)</div>
+  <div class="crosstable">@game.crosstable(c, none)</div>
   }
   }
   @views.html.user.games(u, games, filters.current.name)

@@ -1,7 +1,0 @@
-@(paginator: Paginator[Game], listMenu: lila.game.ListMenu)(implicit ctx: Context)
-
-@game.list(
-name = trans.nbBookmarks.str(listMenu.nbBookmarks.fold("0")(_.localize)),
-paginator = paginator,
-next = paginator.nextPage map { n => routes.Game.bookmark(n) },
-menu = sideMenu(listMenu, "bookmark"))

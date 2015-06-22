@@ -10,20 +10,21 @@ object ApplicationBuild extends Build {
   import Dependencies._
 
   lazy val root = Project("lila", file(".")) enablePlugins PlayScala settings (
-    scalaVersion := "2.11.4",
+    scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
     offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
       jgit, elastic4s, findbugs, RM, PRM,
       spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
-      sources in doc in Compile := List(),
       incOptions := incOptions.value.withNameHashing(true),
+      updateOptions := updateOptions.value.withCachedResolution(true),
+      sources in doc in Compile := List(),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
+        "lila.tournament.Tournament",
         "lila.user.{ User, UserContext }",
         "lila.security.Permission",
         "lila.app.templating.Environment._",
@@ -39,9 +40,10 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, relation, report, pref, // simulation,
+    importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
-    swisssystem, history, worldMap, relay)
+    swisssystem, history, worldMap, opening, video, shutup,
+    playban, relay)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -55,6 +57,16 @@ object ApplicationBuild extends Build {
 
   lazy val puzzle = project("puzzle", Seq(
     common, memo, hub, db, user, rating)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val opening = project("opening", Seq(
+    common, memo, hub, db, user)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val video = project("video", Seq(
+    common, memo, hub, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -80,7 +92,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val evaluation = project("evaluation", Seq(
-    common, hub, db, user, game)).settings(
+    common, hub, db, user, game, analyse)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -101,22 +113,20 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val memo = project("memo", Seq(common)).settings(
-    libraryDependencies ++= Seq(guava, findbugs, spray.caching) ++ provided(play.api)
-  )
-
   lazy val db = project("db", Seq(common)).settings(
     libraryDependencies ++= provided(play.test, play.api, RM, PRM)
+  )
+
+  lazy val memo = project("memo", Seq(common, db)).settings(
+    libraryDependencies ++= Seq(guava, findbugs, spray.caching) ++ provided(play.api, RM)
   )
 
   lazy val search = project("search", Seq(common, hub)).settings(
     libraryDependencies ++= provided(play.api, elastic4s)
   )
 
-  lazy val chat = project("chat", Seq(
-    common, db, user, security, i18n)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM)
+  lazy val chat = project("chat", Seq(common, db, user, security, i18n)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
   lazy val timeline = project("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
@@ -124,7 +134,7 @@ object ApplicationBuild extends Build {
       play.api, play.test, RM, PRM)
   )
 
-  lazy val mod = project("mod", Seq(common, db, user, hub, security)).settings(
+  lazy val mod = project("mod", Seq(common, db, user, hub, security, game, analyse, evaluation)).settings(
     libraryDependencies ++= provided(
       play.api, play.test, RM, PRM)
   )
@@ -154,12 +164,12 @@ object ApplicationBuild extends Build {
   )
 
   lazy val round = project("round", Seq(
-    common, db, memo, hub, socket, chess, game, user, i18n, ai, pref, chat, history)).settings(
+    common, db, memo, hub, socket, chess, game, user, i18n, ai, pref, chat, history, playban)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, hasher)
   )
 
   lazy val lobby = project("lobby", Seq(
-    common, db, memo, hub, socket, chess, game, user, round, timeline, relation)).settings(
+    common, db, memo, hub, socket, chess, game, user, round, timeline, relation, playban)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -181,13 +191,25 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
+  lazy val simul = project("simul", Seq(
+    common, hub, socket, chess, game, round, chat, memo)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
   lazy val ai = project("ai", Seq(common, hub, chess, game, analyse, rating)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM, maxmind)
+    libraryDependencies ++= provided(play.api, RM, PRM, maxmind, hasher)
+  )
+
+  lazy val shutup = project("shutup", Seq(common, db, hub, game, relation)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val playban = project("playban", Seq(common, db, game)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
   lazy val relation = project("relation", Seq(common, db, memo, hub, user, game, pref)).settings(
@@ -258,7 +280,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val hub = project("hub", Seq(common)).settings(
+  lazy val hub = project("hub", Seq(common, chess)).settings(
     libraryDependencies ++= provided(play.api)
   )
 

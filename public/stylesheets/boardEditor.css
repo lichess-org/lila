@@ -19,13 +19,13 @@
   width: 64px;
   height: 64px;
 }
-body.is3d #board_editor .spare .no-square {
+.is3d #board_editor .spare .no-square {
   height: 58.102px;
 }
 #board_editor .spare .cg-piece {
   cursor: pointer;
 }
-body.is3d .spare .cg-piece {
+.is3d .spare .cg-piece {
   /* original size:
      width: 140.625%;
      height: 179.6875%; */
@@ -38,17 +38,26 @@ body.is3d .spare .cg-piece {
 #editor-side {
   position: absolute;
   left: 552px;
-  top: 124px;
+  top: 150px;
   width: 228px;
 }
 #editor-side > div {
   margin-bottom: 3em;
   text-align: center;
 }
-#board_editor a.button {
+#board_editor .button {
   display: block;
   text-align: center;
   margin-bottom: 1em;
+}
+#board_editor .button.disabled {
+  opacity: 0.5;
+}
+#editor-side select.positions {
+  width: 100%;
+}
+#editor-side select.positions option:checked {
+  font-style: italic;
 }
 #board_editor table td, #board_editor table th {
   padding: 5px;
@@ -69,7 +78,10 @@ body.is3d .spare .cg-piece {
 #board_editor .copyable {
   width: 462px;
 }
-#editor-side > div.color {
+#editor-side > div.metadata {
+  white-space: nowrap;
+}
+#editor-side > div.metadata div.color {
   margin-bottom: 1em;
 }
 #editor-side .castling label,

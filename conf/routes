@@ -4,17 +4,21 @@ POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
-GET   /timeline                        controllers.Lobby.timeline
-GET   /timeline/more                   controllers.Lobby.timelineMore
+GET   /lobby/seeks                     controllers.Lobby.seeks
+
+# Timeline
+GET   /timeline                        controllers.Timeline.home
+GET   /timeline/more                   controllers.Timeline.more
+POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: String)
 
 # TV
 GET   /tv                              controllers.Tv.index
-GET   /tv/$gameId<\w{8}>/$color<white|black>/side controllers.Tv.side(gameId: String, color: String)
 GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/stream                       controllers.Tv.streamOut
 GET   /tv/$id<[0-9a-f]{8}>             controllers.Tv.streamIn(id: String)
-GET   /tv/lichess                      controllers.Tv.lichess
+GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
+GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
@@ -24,11 +28,11 @@ POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: Stri
 GET   /@/:username/following           controllers.Relation.following(username: String)
 GET   /@/:username/followers           controllers.Relation.followers(username: String)
 GET   /@/:username/suggestions         controllers.Relation.suggest(username: String)
+GET   /rel/blocks                      controllers.Relation.blocks
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
-POST  /@/:username/evaluate            controllers.User.evaluate(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
@@ -41,10 +45,14 @@ GET   /player/autocomplete             controllers.User.autocomplete
 # Account
 GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
+GET   /account/email                   controllers.Account.email
+POST  /account/email                   controllers.Account.emailApply
 GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
+GET   /account/kid                     controllers.Account.kid
+POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/info                    controllers.Account.info
 
 # Site
@@ -56,17 +64,17 @@ GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: O
 GET   /blog.atom          controllers.Blog.atom(ref: Option[String] ?= None)
 
 # Game
-GET   /games              controllers.Game.realtime
-GET   /games/all          controllers.Game.all(page: Int ?= 1)
-GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
-GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
-GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
-GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
-GET   /games/relayed      controllers.Game.relayed(page: Int ?= 1)
-GET   /games/export/:user controllers.Game.export(user: String)
+POST  /games/export/:user controllers.Game.exportConfirm(user: String)
+GET   /games/export-form/:user controllers.Game.export(user: String)
 
 # Search
 GET   /games/search       controllers.Game.search(page: Int ?= 1)
+
+# Training - Opening
+GET   /training/opening                controllers.Opening.home
+GET   /training/opening/history        controllers.Opening.history
+GET   /training/opening/:id            controllers.Opening.show(id: Int)
+POST  /training/opening/:id            controllers.Opening.attempt(id: Int)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
@@ -78,10 +86,18 @@ GET   /training                        controllers.Puzzle.home
 POST  /training/difficulty             controllers.Puzzle.difficulty
 GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/history                controllers.Puzzle.history
+GET   /training/daily                  controllers.Puzzle.daily
+GET   /training/embed                  controllers.Puzzle.embed
+GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
+
+# User Analysis
+GET   /analysis/*urlFen                controllers.UserAnalysis.load(urlFen: String)
+GET   /analysis                        controllers.UserAnalysis.index
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -89,10 +105,18 @@ GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameI
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
-GET   /$gameId<\w{8}>/$color<white|black>/side   controllers.Round.sideWatcher(gameId: String, color: String)
-GET   /$fullId<\w{12}>/side                      controllers.Round.sidePlayer(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/sides/watcher controllers.Round.sidesWatcher(gameId: String, color: String)
+GET   /$gameId<\w{8}>/$color<white|black>/sides/player controllers.Round.sidesPlayer(gameId: String, color: String)
+GET   /$gameId<\w{8}>/others                     controllers.Round.others(gameId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
+POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
+
+POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
+
+GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
+GET   /whats-next/$gameId<\w{8}>                 controllers.Round.whatsNext(gameId: String)
 
 # Round accessibility: text representation
 GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
@@ -100,18 +124,29 @@ GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(g
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home
-GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
-GET   /tournament/$id<\w{8}>/socket           controllers.Tournament.websocket(id: String)
+GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
+GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
+GET   /tournament/$id<\w{8}>/game-standing    controllers.Tournament.gameStanding(id: String)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
-GET   /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPasswordForm(id: String)
-POST  /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPassword(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<\w{8}>/reload           controllers.Tournament.reload(id: String)
-POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
+
+# Simul
+GET   /simul                                  controllers.Simul.home
+GET   /simul/new                              controllers.Simul.form
+POST  /simul/new                              controllers.Simul.create
+GET   /simul/reload                           controllers.Simul.homeReload
+GET   /simul/$id<\w{8}>                       controllers.Simul.show(id: String)
+GET   /simul/$id<\w{8}>/socket/v:apiVersion   controllers.Simul.websocket(id: String, apiVersion: Int)
+POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: String, user: String)
+POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
+POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
+POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
+POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
+POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
 
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
@@ -134,7 +169,6 @@ POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis    controllers.Analyse.requestAnalysis(gameId: String)
-POST  /$gameId<\w{8}>/better-analysis/$color<white|black> controllers.Analyse.betterAnalysis(gameId: String, color: String)
 POST  /$gameId<\w{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
 
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
@@ -145,6 +179,7 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences             controllers.Pref.form
 POST  /account/preferences             controllers.Pref.formApply
+POST  /account/preferences/mini        controllers.Pref.miniFormApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
 
 # Setup
@@ -157,10 +192,17 @@ GET   /$fullId<\w{12}>/await           controllers.Setup.await(fullId: String, u
 GET   /$fullId<\w{12}>/cancel          controllers.Setup.cancel(fullId: String)
 POST  /$id<\w{8}>/join                 controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
+POST  /setup/hook/:uid/like/:gameId    controllers.Setup.like(uid: String, gameId: String)
 POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
+
+# Video
+GET   /video                           controllers.Video.index
+GET   /video/tags                      controllers.Video.tags
+GET   /video/author/:author            controllers.Video.author(author: String)
+GET   /video/:id                       controllers.Video.show(id: String)
 
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
@@ -168,6 +210,7 @@ GET   /translation/form/:lang          controllers.I18n.translationForm(lang: St
 POST  /translation/post/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 POST  /translation/hideCalls           controllers.I18n.hideCalls
+POST  /translation/select              controllers.I18n.select
 
 # Authentication
 GET   /login                           controllers.Auth.login
@@ -175,10 +218,15 @@ POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
-POST  /new-password                    controllers.Auth.newPassword
+GET   /password/reset                  controllers.Auth.passwordReset
+POST  /password/reset                  controllers.Auth.passwordResetApply
+GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
+GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
+POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
+POST  /mod/:username/booster           controllers.Mod.booster(username: String)
 POST  /mod/:username/troll             controllers.Mod.troll(username: String)
 POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
@@ -187,6 +235,7 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username: String
 GET   /mod/:username/communication     controllers.Mod.communication(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
+POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
@@ -230,6 +279,10 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
 
+# Progressive Import API
+POST  /api/import/live                     controllers.Importer.liveCreate
+POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
+
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
@@ -272,8 +325,8 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
 GET   /api/game                        controllers.Api.games
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/puzzle/:id                  controllers.Api.puzzle(id: String)
-# POST  /api/puzzle                      controllers.Puzzle.importBatch
+POST  /api/opening                     controllers.Opening.importOne
+GET   /api/status                      controllers.Api.status
 
 # Misc
 POST  /cli                             controllers.Cli.command
@@ -281,10 +334,12 @@ GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
+GET   /themepicker                     controllers.Main.themepicker
+GET   /mobile                          controllers.Main.mobile
 
 # Map
-GET   /world-map                       controllers.WorldMap.index
-GET   /world-map/stream                controllers.WorldMap.stream
+GET   /network                         controllers.WorldMap.index
+GET   /network/stream                  controllers.WorldMap.stream
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
@@ -293,6 +348,7 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
 GET   /contact                         controllers.Page.contact
 GET   /king-of-the-hill                controllers.Page.kingOfTheHill
+GET   /privacy                         controllers.Page.privacy
 
 # Donate
 GET   /donate                          controllers.Donation.index

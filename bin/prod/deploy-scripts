@@ -1,8 +1,8 @@
 #!/bin/sh
 . bin/lilarc
 
-REMOTE="hollie"
-REMOTE_DIR="/home/lila"
+REMOTE="frank"
+REMOTE_DIR="/home/lichess"
 
 lilalog "Rsync scripts"
 rsync --archive --progress bin $REMOTE:$REMOTE_DIR

@@ -11,6 +11,7 @@ import actorApi._, round._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
+import lila.hub.actorApi.round.Berserk
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -40,6 +41,7 @@ private[round] final class SocketHandler(
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
+      case ("outoftime", _) => round(Outoftime)
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -55,12 +57,11 @@ private[round] final class SocketHandler(
         case ("draw-force", _)   => round(DrawForce(playerId))
         case ("abort", _)        => round(Abort(playerId))
         case ("move", o) => parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) => {
-            socket ! Ack(uid)
+          case (orig, dest, prom, blur, lag) =>
+            member push ackEvent
             round(HumanPlay(
               playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
             ))
-          }
         }
         case ("moretime", _)  => round(Moretime(playerId))
         case ("outoftime", _) => round(Outoftime)
@@ -79,6 +80,9 @@ private[round] final class SocketHandler(
           mean ← d int "mean"
           sd ← d int "sd"
         } round(HoldAlert(playerId, mean, sd))
+        case ("berserk", _) => member.userId foreach { userId =>
+          hub.actor.tournamentOrganizer ! Berserk(gameId, userId)
+        }
       }
     }
   }
@@ -90,9 +94,9 @@ private[round] final class SocketHandler(
     uid: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[JsSocketHandler] =
+    userTv: Option[String]): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, version, uid, "", user, ip, userTv = userTv) }
+      _ ?? { join(_, none, version, uid, "", user, ip, userTv = userTv) map some }
     }
 
   def player(
@@ -124,7 +128,7 @@ private[round] final class SocketHandler(
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
-          controller(pov.gameId, socket, uid, pov.ref, member) -> enum
+          (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }
     }
   }
@@ -137,4 +141,6 @@ private[round] final class SocketHandler(
     blur = (d int "b") == Some(1)
     lag = d int "lag"
   } yield (orig, dest, prom, blur, ~lag)
+
+  private val ackEvent = Json.obj("t" -> "ack")
 }

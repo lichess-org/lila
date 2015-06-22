@@ -30,37 +30,23 @@ object Account extends LilaController {
       }
   }
 
-  def passwd = Auth { implicit ctx =>
-    me =>
-      Ok(html.account.passwd(me, forms.passwd)).fuccess
-  }
-
   def info = Auth { implicit ctx =>
     me =>
       negotiate(
         html = notFound,
-        api = _ => Env.round.nowPlaying(me, 5) map { nowPlaying =>
+        api = _ => lila.game.GameRepo urgentGames me map { povs =>
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(nowPlaying map { pov =>
-                Json.obj(
-                  "id" -> pov.fullId,
-                  "variant" -> pov.game.variant.key,
-                  "speed" -> pov.game.speed.key,
-                  "perf" -> lila.game.PerfPicker.key(pov.game),
-                  "rated" -> pov.game.rated,
-                  "opponent" -> Json.obj(
-                    "id" -> pov.opponent.userId,
-                    "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),
-                    "rating" -> pov.opponent.rating
-                  )
-                )
-              })
-            )
+              "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
           }
         }
       )
+  }
+
+  def passwd = Auth { implicit ctx =>
+    me =>
+      Ok(html.account.passwd(me, forms.passwd)).fuccess
   }
 
   def passwdApply = AuthBody { implicit ctx =>
@@ -68,14 +54,42 @@ object Account extends LilaController {
       implicit val req = ctx.body
       FormFuResult(forms.passwd) { err =>
         fuccess(html.account.passwd(me, err))
-      } { passwd =>
+      } { data =>
         for {
-          ok ← UserRepo.checkPassword(me.id, passwd.oldPasswd)
-          _ ← ok ?? UserRepo.passwd(me.id, passwd.newPasswd1)
-        } yield ok.fold(
-          Redirect(routes.User show me.username),
-          BadRequest(html.account.passwd(me, forms.passwd))
-        )
+          ok ← UserRepo.checkPassword(me.id, data.oldPasswd)
+          _ ← ok ?? UserRepo.passwd(me.id, data.newPasswd1)
+        } yield {
+          val content = html.account.passwd(me, forms.passwd.fill(data), ok.some)
+          ok.fold(Ok(content), BadRequest(content))
+        }
+      }
+  }
+
+  private def emailForm(id: String) = UserRepo email id map { email =>
+    forms.email.fill(forms.Email(~email, ""))
+  }
+
+  def email = Auth { implicit ctx =>
+    me =>
+      emailForm(me.id) map { form =>
+        Ok(html.account.email(me, form))
+      }
+  }
+
+  def emailApply = AuthBody { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      FormFuResult(forms.email) { err =>
+        fuccess(html.account.email(me, err))
+      } { data =>
+        for {
+          ok ← UserRepo.checkPassword(me.id, data.passwd)
+          _ ← ok ?? UserRepo.email(me.id, data.email)
+          form <- emailForm(me.id)
+        } yield {
+          val content = html.account.email(me, form, ok.some)
+          ok.fold(Ok(content), BadRequest(content))
+        }
       }
   }
 
@@ -92,5 +106,16 @@ object Account extends LilaController {
         (Env.security disconnect me.id) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
+  }
+
+  def kid = Auth { implicit ctx =>
+    me =>
+      Ok(html.account.kid(me)).fuccess
+  }
+
+  def kidConfirm = Auth { ctx =>
+    me =>
+      implicit val req = ctx.req
+      (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
   }
 }

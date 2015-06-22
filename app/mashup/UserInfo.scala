@@ -10,13 +10,14 @@ import lila.forum.PostApi
 import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.User
+import lila.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
     ranks: Map[lila.rating.Perf.Key, Int],
     nbUsers: Int,
     nbPlaying: Int,
+    hasSimul: Boolean,
     crosstable: Option[Crosstable],
     nbBookmark: Int,
     nbImported: Int,
@@ -26,13 +27,21 @@ case class UserInfo(
     nbBlockers: Option[Int],
     nbPosts: Int,
     playTime: User.PlayTime,
-    donated: Int) {
+    donor: Boolean,
+    trophies: Trophies) {
 
   def nbRated = user.count.rated
 
   def nbWithMe = crosstable ?? (_.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
+
+  def allTrophies = (donor ?? List(Trophy(
+    _id = "",
+    user = user.id,
+    kind = Trophy.Kind.Donor,
+    date = org.joda.time.DateTime.now)
+  )) ::: trophies
 }
 
 object UserInfo {
@@ -41,15 +50,17 @@ object UserInfo {
     countUsers: () => Fu[Int],
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
+    trophyApi: TrophyApi,
     gameCached: lila.game.Cached,
     crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
-    getDonated: String => Fu[Int])(user: User, ctx: Context): Fu[UserInfo] =
+    isDonor: String => Fu[Boolean],
+    isHostingSimul: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
-      ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
+      (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip
@@ -57,22 +68,28 @@ object UserInfo {
       relationApi.nbFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
-      getDonated(user.id) zip
-      PlayTime(user) map {
-        case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), donated), playTime) => new UserInfo(
-          user = user,
-          ranks = ranks,
-          nbUsers = nbUsers,
-          nbPlaying = ~nbPlaying,
-          crosstable = crosstable,
-          nbBookmark = bookmarkApi countByUser user,
-          nbImported = nbImported,
-          ratingChart = ratingChart,
-          nbFollowing = nbFollowing,
-          nbFollowers = nbFollowers,
-          nbBlockers = nbBlockers,
-          nbPosts = nbPosts,
-          playTime = playTime,
-          donated = donated)
+      isDonor(user.id) zip
+      trophyApi.findByUser(user) zip
+      PlayTime(user) flatMap {
+        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), playTime) =>
+          (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
+            new UserInfo(
+              user = user,
+              ranks = ranks,
+              nbUsers = nbUsers,
+              nbPlaying = nbPlaying,
+              hasSimul = hasSimul,
+              crosstable = crosstable,
+              nbBookmark = bookmarkApi countByUser user,
+              nbImported = nbImported,
+              ratingChart = ratingChart,
+              nbFollowing = nbFollowing,
+              nbFollowers = nbFollowers,
+              nbBlockers = nbBlockers,
+              nbPosts = nbPosts,
+              playTime = playTime,
+              donor = isDonor,
+              trophies = trophies)
+          }
       }
 }

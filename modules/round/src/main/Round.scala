@@ -46,39 +46,52 @@ private[round] final class Round(
     }
 
     case AiPlay => handle { game =>
-      player ai game map (_.events)
+      game.playableByAi ?? {
+        player ai game map (_.events)
+      }
     }
 
     case Abort(playerId) => handle(playerId) { pov =>
-      pov.game.abortable ?? finisher(pov.game, _.Aborted)
+      pov.game.abortable ?? finisher.abort(pov)
     }
 
     case Resign(playerId) => handle(playerId) { pov =>
-      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
     case ResignColor(color) => handle(color) { pov =>
-      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
+    }
+
+    case GoBerserk(color) => handle(color) { pov =>
+      pov.game.clock.ifTrue(pov.game.berserkable) ?? { clock =>
+        val newClock = clock halfTime pov.color
+        val progress = (pov.game withClock newClock) + Event.Clock(newClock)
+        messenger.system(pov.game, (_.untranslated(
+          s"${pov.color.name.capitalize} is going berserk!"
+        )))
+        GameRepo save progress inject progress.events
+      }
     }
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
-          case true => finisher(pov.game, _.Timeout, Some(pov.color))
-          case _    => fufail("[round] cannot force resign of " + pov)
+          case true => finisher.rageQuit(pov.game, Some(pov.color))
+          case _    => fuccess(List(Event.Reload))
         }
       }
     }
 
     case NoStartColor(color) => handle(color) { pov =>
-      finisher(pov.game, _.NoStart, Some(!pov.color))
+      finisher.other(pov.game, _.NoStart, Some(!pov.color))
     }
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
-          case true => finisher(pov.game, _.Timeout, None)
-          case _    => fufail("[round] cannot force draw of " + pov)
+          case true => finisher.rageQuit(pov.game, None)
+          case _    => fuccess(List(Event.Reload))
         }
       }
     }
@@ -93,8 +106,8 @@ private[round] final class Round(
     case Abandon => fuccess {
       GameRepo game gameId foreach { gameOption =>
         gameOption filter (_.abandoned) foreach { game =>
-          if (game.abortable) finisher(game, _.Aborted)
-          else finisher(game, _.Resign, Some(!game.player.color))
+          if (game.abortable) finisher.other(game, _.Aborted)
+          else finisher.other(game, _.Resign, Some(!game.player.color))
           self ! PoisonPill
         }
       }
@@ -105,8 +118,8 @@ private[round] final class Round(
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case DrawForce           => handle(drawer force _)
     case Cheat(color) => handle { game =>
-      (game.playable && !game.isPgnImport) ?? {
-        finisher(game, _.Cheat, Some(!color))
+      (game.playable && !game.imported) ?? {
+        finisher.other(game, _.Cheat, Some(!color))
       }
     }
 
@@ -134,7 +147,7 @@ private[round] final class Round(
     case TakebackNo(playerRef)  => handle(playerRef)(takebacker.no)
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      pov.game.clock.filter(_ => pov.game.moretimeable) ?? { clock =>
+      pov.game.clock.ifTrue(pov.game moretimeable !pov.color) ?? { clock =>
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
@@ -150,7 +163,7 @@ private[round] final class Round(
         val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
         val progress = (game withClock newClock) + Event.Clock(newClock)
-        messenger.system(game, (_.untranslated("Deploy in progress")))
+        messenger.system(game, (_.untranslated("Lichess has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         Color.all.foreach { c =>
           messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
@@ -162,12 +175,12 @@ private[round] final class Round(
     case AbortForMaintenance => handle { game =>
       messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
-      game.playable ?? finisher(game, _.Aborted)
+      game.playable ?? finisher.other(game, _.Aborted)
     }
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher(game, _.Outoftime, Some(!p.color) filterNot { color =>
+    finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
       game.toChess.board.variant.drawsOnInsufficientMaterial &&
         chess.InsufficientMatingMaterial(game.toChess.board, color)
     })
@@ -193,7 +206,10 @@ private[round] final class Round(
 
   private def publish[A](op: Fu[Events]) = op addEffect { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
-    if (events contains Event.Threefold) self ! Threefold
+    if (events exists {
+      case e: Event.Move => e.threefold
+      case _             => false
+    }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
     case e                       => logwarn(s"[round] ${gameId} $e")

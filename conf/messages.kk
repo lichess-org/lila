@@ -35,7 +35,6 @@ blackResigned=Қара берілді
 whiteLeftTheGame=Ақ ойыннан шықты
 blackLeftTheGame=Қара ойыннан шықты
 shareThisUrlToLetSpectatorsSeeTheGame=Ойынды таныстарын көру үшін бұл сілтемені жібер
-youAreViewingThisGameAsASpectator=Сіз бұл ойынды тек тамашалай аласыз
 replayAndAnalyse=Ойынды қайталау және саралау
 blunders=өрескел қателер
 mistakes=қате

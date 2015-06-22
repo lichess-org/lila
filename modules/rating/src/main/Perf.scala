@@ -22,7 +22,9 @@ case class Perf(
   def add(g: Glicko, date: DateTime): Perf = copy(
     glicko = g,
     nb = nb + 1,
-    recent = (g.intRating :: recent) take Perf.recentMaxSize,
+    recent =
+      if (nb < 10) recent
+      else (g.intRating :: recent) take Perf.recentMaxSize,
     latest = date.some)
 
   def add(r: Rating, date: DateTime): Perf = add(Glicko(r.getRating, r.getRatingDeviation, r.getVolatility), date)
@@ -34,6 +36,8 @@ case class Perf(
     nb)
 
   def nonEmpty = nb > 0
+
+  def provisional = glicko.provisional
 }
 
 case object Perf {
@@ -62,7 +66,4 @@ case object Perf {
       "re" -> w.intsO(o.recent),
       "la" -> o.latest.map(w.date))
   }
-
-  lazy val tube = lila.db.BsTube(perfBSONHandler)
 }
-

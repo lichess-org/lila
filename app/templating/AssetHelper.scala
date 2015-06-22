@@ -6,7 +6,7 @@ import play.twirl.api.Html
 
 trait AssetHelper { self: I18nHelper =>
 
-  val assetVersion = lila.api.Env.current.Net.AssetVersion
+  def assetVersion = lila.api.Env.current.assetVersion.get
 
   def isProd: Boolean
 
@@ -31,22 +31,22 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   val jQueryTag = cdnOrLocal(
-    cdn = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js",
     test = "window.jQuery",
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
   val highchartsTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.0/highcharts.js",
+    cdn = "http://code.highcharts.com/4.1.4/highcharts.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val highchartsMoreTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.0/highcharts-more.js",
+    cdn = "http://code.highcharts.com/4.1.4/highcharts-more.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts-more.js"))
 
   val highstockTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/stock/2.0/highstock.js",
+    cdn = "http://code.highcharts.com/stock/2.1/highstock.js",
     test = "window.Highcharts.StockChart",
     local = staticUrl("vendor/highcharts4/highstock.js"))
 
@@ -63,11 +63,6 @@ trait AssetHelper { self: I18nHelper =>
   }).fold(Html("")) { l =>
     jsAt(s"vendor/moment/locale/$l.js", static = true)
   }
-
-  val powertipTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js",
-    test = "$.powerTip",
-    local = staticUrl("vendor/powertip.min.js"))
 
   val tagmanagerTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",

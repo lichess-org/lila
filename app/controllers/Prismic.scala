@@ -19,8 +19,8 @@ object Prismic {
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
-      case (DocumentLink(id, _, _, slug, false), _) => routes.Blog.show(id, slug, ref).url
-      case _                                        => routes.Lobby.home.url
+      case (DocumentLink(id, _, _, _, slug, _, false), _) => routes.Blog.show(id, slug, ref).url
+      case _ => routes.Lobby.home.url
     }
 
   def getBookmark(prismicApi: PrismicApi)(name: String): Fu[Option[Document]] =

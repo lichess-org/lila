@@ -9,6 +9,7 @@ import lila.user.{ User, UserRepo }
 final class ChatApi(
     coll: Coll,
     flood: lila.security.Flood,
+    shutup: akka.actor.ActorSelection,
     maxLinesPerChat: Int,
     netDomain: String) {
 
@@ -22,9 +23,15 @@ final class ChatApi(
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
 
-    def write(chatId: ChatId, userId: String, text: String): Fu[Option[UserLine]] =
+    def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
-        _ ?? { line => pushLine(chatId, line) inject line.some }
+        _ ?? { line =>
+          pushLine(chatId, line) >>- {
+            shutup ! public.fold(
+              lila.hub.actorApi.shutup.RecordPublicChat(chatId, userId, text),
+              lila.hub.actorApi.shutup.RecordPrivateChat(chatId, userId, text))
+          } inject line.some
+        }
       }
 
     def system(chatId: ChatId, text: String) = {

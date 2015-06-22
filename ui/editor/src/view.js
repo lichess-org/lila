@@ -2,11 +2,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var editor = require('./editor');
 var drag = require('./drag');
-
-function promptNewFen(ctrl) {
-  var fen = prompt('Paste FEN position');
-  if (fen) ctrl.loadNewFen(fen.trim());
-}
+var m = require('mithril');
 
 function castleCheckBox(ctrl, id, label, reversed) {
   var input = m('input[type=checkbox]', {
@@ -18,49 +14,89 @@ function castleCheckBox(ctrl, id, label, reversed) {
   return m('label', reversed ? [input, label] : [label, input]);
 }
 
+function optgroup(name, opts) {
+  return m('optgroup', {
+    label: name
+  }, opts);
+}
+
 function controls(ctrl, fen) {
+  var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
+  var currentPosition = positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
+  var position2option = function(pos) {
+    return {
+      tag: 'option',
+      attrs: {
+        value: pos.fen,
+        selected: currentPosition && currentPosition.fen === pos.fen
+      },
+      children: [pos.name]
+    };
+  }
   return m('div#editor-side', [
     m('div', [
-      m('a.button', {
-        onclick: ctrl.startPosition
-      }, ctrl.trans('startPosition')),
-      m('a.button', {
-        onclick: ctrl.clearBoard
-      }, ctrl.trans('clearBoard'))
+      m('select.positions', {
+        onchange: function(e) {
+          ctrl.loadNewFen(e.target.value);
+        }
+      }, [
+        optgroup('Set the board', [
+          currentPosition ? null : m('option', {
+            value: fen,
+            selected: true
+          }, '- Position -'),
+          ctrl.extraPositions.map(position2option)
+        ]),
+        optgroup('Popular openings',
+          ctrl.data.positions.map(position2option)
+        )
+      ])
+    ]),
+    m('div.metadata.content_box', [
+      m('div.color', [
+        m('select', {
+          value: ctrl.data.color(),
+          onchange: m.withAttr('value', ctrl.data.color)
+        }, [
+          m('option[value=w]', ctrl.trans('whitePlays')),
+          m('option[value=b]', ctrl.trans('blackPlays'))
+        ])
+      ]),
+      m('div.castling', [
+        m('strong', 'Castling'),
+        m('div', [
+          castleCheckBox(ctrl, 'K', 'White O-O', false),
+          castleCheckBox(ctrl, 'Q', 'White O-O-O', true)
+        ]),
+        m('div', [
+          castleCheckBox(ctrl, 'k', 'Black O-O', false),
+          castleCheckBox(ctrl, 'q', 'Black O-O-O', true)
+        ])
+      ])
     ]),
     m('div', [
-      m('a.button[data-icon=B]', {
+      m('a.button.text[data-icon=B]', {
         onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon="A"]', {
+        href: editor.makeUrl('/analysis/', fen),
+        rel: 'nofollow'
+      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
+        rel: 'nofollow'
+      }, ctrl.trans('analysis')),
       m('a.button', {
-        onclick: partial(promptNewFen, ctrl)
-      }, ctrl.trans('loadPosition'))
+          onclick: function() {
+            $.modal($('.continue_with'));
+          }
+        },
+        m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
     ]),
-    m('div.color', [
-      m('select', {
-        value: ctrl.data.color(),
-        onchange: m.withAttr('value', ctrl.data.color)
-      }, [
-        m('option[value=w]', ctrl.trans('whitePlays')),
-        m('option[value=b]', ctrl.trans('blackPlays'))
-      ])
-    ]),
-    m('div.castling', [
-      m('strong', 'Castling'),
-      m('div', [
-        castleCheckBox(ctrl, 'K', 'White O-O', false),
-        castleCheckBox(ctrl, 'Q', 'White O-O-O', true)
-      ]),
-      m('div', [
-        castleCheckBox(ctrl, 'k', 'Black O-O', false),
-        castleCheckBox(ctrl, 'q', 'Black O-O-O', true)
-      ])
-    ]),
-    m('div', [
+    m('div.continue_with', [
       m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
+      m('br'),
       m('a.button', {
         href: '/?fen=' + fen + '#friend',
         rel: 'nofollow'
@@ -80,14 +116,14 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data, fen)
+        value: editor.makeUrl(ctrl.data.baseUrl, fen)
       })
     ])
   ]);
 }
 
 function sparePieces(ctrl, color, orientation, position) {
-  return m('div.spare.'+position+'.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+  return m('div.spare.' + position + '.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return m('div.no-square', m('div', {
       class: ['cg-piece', color, role].join(' '),
       'data-color': color,

@@ -17,8 +17,14 @@
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
 </a>
+<a class="@active.active("email")" href="@routes.Account.email()">
+  @trans.changeEmail()
+</a>
+<a class="@active.active("kid")" href="@routes.Account.kid()">
+  Kid mode
+</a>
 <a class="@active.active("close")" href="@routes.Account.close()">
-  Close account
+  @trans.closeAccount()
 </a>
 }
 
@@ -26,5 +32,4 @@
 title = title,
 menu = menu.some,
 moreCss = moreCss,
-moreJs = moreJs,
-active = siteMenu.user.some)(body)
+moreJs = moreJs)(body)

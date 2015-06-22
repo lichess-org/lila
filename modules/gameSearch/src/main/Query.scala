@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Variant, Mode, Status, Openings }
+import chess.{ Mode, Status, Openings }
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.QueryDefinition
 import org.joda.time.DateTime
@@ -87,7 +87,7 @@ object Query {
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
 
-  val variants = Variant.all map { v => v.id -> v.name }
+  val variants = chess.variant.Variant.all map { v => v.id -> v.name }
 
   val modes = Mode.all map { mode => mode.id -> mode.name }
 

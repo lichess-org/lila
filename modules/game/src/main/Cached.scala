@@ -6,41 +6,59 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import lila.db.api.$count
-import lila.memo.{ AsyncCache, ExpireSetMemo, Builder }
+import lila.db.BSON._
+import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
+import lila.user.{ User, UidNb }
 import tube.gameTube
+import UidNb.UidNbBSONHandler
 
-final class Cached(ttl: Duration) {
+final class Cached(
+    mongoCache: MongoCache.Builder,
+    defaultTtl: FiniteDuration) {
 
-  def nbGames: Fu[Int] = count(Query.all)
-  def nbMates: Fu[Int] = count(Query.mate)
-  def nbImported: Fu[Int] = count(Query.imported)
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
+  def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
+
   def nbRelayed: Fu[Int] = count(Query.relayed)
 
-  def nbPlaying(userId: String): Fu[Int] = count(Query notFinished userId)
+  def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
+
+  private implicit val userHandler = User.userBSONHandler
 
   val rematch960 = new ExpireSetMemo(3.hours)
 
-  val activePlayerUidsDay = AsyncCache(
+  val isRematch = new ExpireSetMemo(3.hours)
+
+  val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
+    prefix = "player:active:day",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 1 hour)
 
-  val activePlayerUidsWeek = AsyncCache(
+  val activePlayerUidsWeek = mongoCache[Int, List[UidNb]](
+    prefix = "player:active:week",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
     timeToLive = 6 hours)
 
-  private val count = AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
+  private val countShortTtl = AsyncCache[JsObject, Int](
+    f = (o: JsObject) => $count(o),
+    timeToLive = 5.seconds)
+
+  private val count = mongoCache(
+      prefix = "game:count",
+      f = (o: JsObject) => $count(o),
+      timeToLive = defaultTtl)
 
   object Divider {
 
-    private val cache = Builder.size[String, chess.Division](3000)
+    private val cache = Builder.size[String, chess.Division](5000)
     val empty = chess.Division(none[Int], none[Int])
 
     def apply(game: Game, initialFen: Option[String]): chess.Division = {
       Option(cache getIfPresent game.id) | {
         val div = chess.Replay.boards(
           moveStrs = game.pgnMoves,
-          initialFen = initialFen
+          initialFen = initialFen,
+          variant = game.variant
         ).toOption.fold(empty)(chess.Divider.apply)
         cache.put(game.id, div)
         div

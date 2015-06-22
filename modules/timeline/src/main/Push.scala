@@ -6,20 +6,20 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.db.api._
 import lila.hub.actorApi.lobby.NewForumPost
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
 import lila.security.Granter
 import lila.user.UserRepo
 import makeTimeout.short
-import tube.entryTube
 
 private[timeline] final class Push(
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
     getFriendIds: String => Fu[Set[String]],
-    getFollowerIds: String => Fu[Set[String]]) extends Actor {
+    getFollowerIds: String => Fu[Set[String]],
+    entryRepo: EntryRepo,
+    unsubApi: UnsubApi) extends Actor {
 
   def receive = {
 
@@ -28,7 +28,9 @@ private[timeline] final class Push(
         case _: ForumPost => lobbySocket ! NewForumPost
         case _            =>
       }
-      propagate(propagations) foreach { users =>
+      propagate(propagations) flatMap { users =>
+        unsubApi.filterUnsub(data.channel, users)
+      } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
           (users foreach { u =>
             lobbySocket ! ReloadTimeline(u)
@@ -56,10 +58,10 @@ private[timeline] final class Push(
     Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry =>
-        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now minusMinutes 50)))) flatMap { entries =>
+        entryRepo.findRecent(entry.typ, DateTime.now minusMinutes 50) flatMap { entries =>
           entries.exists(_ similarTo entry) fold (
             fufail[Entry]("[timeline] a similar entry already exists"),
-            $insert(entry) inject entry
+            entryRepo insert entry inject entry
           )
         }
       }

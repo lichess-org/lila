@@ -26,7 +26,7 @@ private[site] final class SocketHandler(
     }
 
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
-      case Connected(enum, member) => controller(member) -> enum
+      case Connected(enum, member) => (controller(member), enum, member)
     }
   }
 }

@@ -37,7 +37,8 @@ object Environment
     with TeamHelper
     with AnalysisHelper
     with IRCHelper
-    with TournamentHelper {
+    with TournamentHelper
+    with SimulHelper {
 
   implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) => Html(a.body + b.body),
@@ -51,11 +52,7 @@ object Environment
 
   def isProd = apiEnv.isProd
 
-  def apiVersion = apiEnv.version
-
-  lazy val siteMenu = new lila.app.ui.SiteMenu(trans)
-
-  lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
+  def apiVersion = lila.api.Mobile.Api.currentVersion
 
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
@@ -63,4 +60,16 @@ object Environment
 
   def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
     isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
+
+  val openingBrace = "{"
+  val closingBrace = "}"
+
+  object icon {
+    val dev = Html("&#xe000;")
+    val donator = Html("&#xe001;")
+    val mod = Html("&#xe002;")
+  }
+
+  def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
+    if (ctx.kid) Html("") else f
 }

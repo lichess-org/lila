@@ -15,7 +15,6 @@ private[round] final class Player(
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
-    reminder: Reminder,
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
@@ -32,16 +31,15 @@ private[round] final class Player(
             case (progress, move) =>
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                notifyProgress(move, progress, ip) >>
+                notifyMove(move, progress.game, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
-                        reminder remind progress.game
                         if (progress.game.playableByAi) round ! AiPlay
-                        if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
-                        if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
+                        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+                        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                     } inject progress.events
                   })
           }
@@ -63,20 +61,26 @@ private[round] final class Player(
       fufail(s"[ai play] game ${game.id} turn ${game.turns} not AI turn")
     ) logFailureErr s"[ai play] game ${game.id} turn ${game.turns}"
 
-  private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
-    val game = progress.game
+  private def notifyMove(move: chess.Move, game: Game, ip: String) {
     bus.publish(MoveEvent(
       ip = ip,
       gameId = game.id,
+      color = move.color,
       fen = Forsyth exportBoard game.toChess.board,
-      move = move.keyString
+      move = move.keyString,
+      piece = move.piece.forsyth,
+      opponentUserId = game.player(!move.color).userId,
+      simulId = game.simulId
     ), 'moveEvent)
   }
 
-  private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {
-    case Status.Mate                             => finisher(game, _.Mate, Some(color))
-    case Status.VariantEnd                       => finisher(game, _.VariantEnd, Some(color))
-    case status@(Status.Stalemate | Status.Draw) => finisher(game, _ => status)
-    case _                                       => fuccess(Nil)
+  private def moveFinish(game: Game, color: Color): Fu[Events] = {
+    lazy val winner = game.toChess.situation.winner
+    game.status match {
+      case Status.Mate                             => finisher.other(game, _.Mate, winner)
+      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)
+      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
+      case _                                       => fuccess(Nil)
+    }
   }
 }

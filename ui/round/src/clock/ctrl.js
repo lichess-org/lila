@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;
@@ -5,7 +7,11 @@ module.exports = function(data, onFlag, soundColor) {
   var emergSound = {
     play: $.sound.lowtime,
     last: null,
-    delay: 5000
+    delay: 5000,
+    playable: {
+      white: true,
+      black: true
+    }
   };
 
   this.data = data;
@@ -21,21 +27,29 @@ module.exports = function(data, onFlag, soundColor) {
   setLastUpdate();
 
   this.update = function(white, black) {
+    m.startComputation();
     this.data.white = white;
     this.data.black = black;
     setLastUpdate();
+    m.endComputation();
   }.bind(this);
 
   this.tick = function(color) {
-    m.startComputation();
     this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (this.data[color] === 0) onFlag();
-    m.endComputation();
-    if (soundColor == color && this.data[soundColor] < this.data.emerg) {
+    m.redraw();
+    if (soundColor == color && this.data[soundColor] < this.data.emerg && emergSound.playable[soundColor]) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
         emergSound.last = new Date();
+        emergSound.playable[soundColor] = false;
       }
+    } else if (soundColor == color && this.data[soundColor] > 2 * this.data.emerg && !emergSound.playable[soundColor]) {
+      emergSound.playable[soundColor] = true;
     }
+  }.bind(this);
+
+  this.secondsOf = function(color) {
+    return this.data[color];
   }.bind(this);
 }

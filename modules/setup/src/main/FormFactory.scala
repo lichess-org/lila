@@ -1,6 +1,5 @@
 package lila.setup
 
-import chess.Variant
 import lila.rating.RatingRange
 import lila.db.api._
 import lila.lobby.Color
@@ -30,16 +29,17 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def aiFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
     aiConfig map { config =>
       ai(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = Variant.FromPosition)
+        config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
     }
 
   def ai(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithFenAndKingOfTheHill,
-      "clock" -> boolean,
+      "variant" -> aiVariants,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "level" -> level,
       "color" -> color,
       "fen" -> fen
@@ -52,16 +52,17 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def friendFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
     friendConfig map { config =>
       friend(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = Variant.FromPosition)
+        config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
     }
 
   def friend(ctx: UserContext) = Form(
     mapping(
       "variant" -> variantWithFenAndVariants,
-      "clock" -> boolean,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "mode" -> mode(withRated = ctx.isAuth && !casualOnly),
       "color" -> color,
       "fen" -> fen
@@ -72,15 +73,16 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig map (_.friend)
 
-  def hookFilled(implicit ctx: UserContext): Fu[Form[HookConfig]] =
-    hookConfig map hook(ctx).fill
+  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
+    hookConfig map (_ withTimeModeString timeModeString) map hook(ctx).fill
 
   def hook(ctx: UserContext) = Form(
     mapping(
       "variant" -> variantWithVariants,
-      "clock" -> boolean,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "mode" -> mode(ctx.isAuth && !casualOnly),
       "membersOnly" -> boolean,
       "ratingRange" -> optional(ratingRange),

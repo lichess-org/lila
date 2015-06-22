@@ -1,4 +1,4 @@
-@(pov: Pov, games: List[Game], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, pov: Pov, streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
 <div class="side">
   <div class="side_box padded">
     <h2 data-icon="1">&nbsp;Lichess TV</h2>
@@ -15,22 +15,16 @@
     }
   </div>
   @streamsOnAir(streams)
-  <div id="tv_history" class="side_box no_padding">
-    <div class="top title">@trans.previouslyOnLichessTV()</div>
-    <div class="content scroll-shadow-hard">
-      <table>
-        <tbody>
-          @games.map { g =>
-          <tr>
-            <td><a class="view" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)" data-icon="v"></a></td>
-            <td>
-              @playerLink(g.firstPlayer, withOnline = false, withDiff = true)<br />
-              @playerLink(g.secondPlayer, withOnline = false, withDiff = true)
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+  <div id="tv_channels">
+    @lila.tv.Tv.Channel.all.map { c =>
+    <a data-icon="@Html(c.icon)" href="@routes.Tv.onChannel(c.key)" class="@c.key@if(c == channel){ active}">
+      <strong>@c.name</strong>
+      <span>
+        @champions.get(c).map { p =>
+        @p.user.name (@p.rating)
+        }.getOrElse { - }
+      </span>
+    </a>
+    }
   </div>
 </div>

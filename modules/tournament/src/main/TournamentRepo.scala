@@ -20,62 +20,131 @@ object TournamentRepo {
   private val createdSelect = BSONDocument("status" -> Status.Created.id)
   private val startedSelect = BSONDocument("status" -> Status.Started.id)
   private val finishedSelect = BSONDocument("status" -> Status.Finished.id)
+  private val unfinishedSelect = BSONDocument("status" -> BSONDocument("$ne" -> Status.Finished.id))
+  private val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
-  def createdById(id: String): Fu[Option[Created]] =
-    coll.find(selectId(id) ++ createdSelect).one[Created]
+  def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
+    coll.find(
+      selectId(id) ++ BSONDocument("players.id" -> userId)
+    ).one[Tournament]
 
-  def enterableById(id: String): Fu[Option[Enterable]] =
-    coll.find(selectId(id) ++ enterableSelect).one[Enterable]
+  def createdById(id: String): Fu[Option[Tournament]] =
+    coll.find(selectId(id) ++ createdSelect).one[Tournament]
 
-  def startedById(id: String): Fu[Option[Started]] =
-    coll.find(selectId(id) ++ startedSelect).one[Started]
+  def enterableById(id: String): Fu[Option[Tournament]] =
+    coll.find(selectId(id) ++ enterableSelect).one[Tournament]
 
-  def createdByIdAndCreator(id: String, userId: String): Fu[Option[Created]] =
-    createdById(id) map (_ filter (_ isCreator userId))
+  def startedById(id: String): Fu[Option[Tournament]] =
+    coll.find(selectId(id) ++ startedSelect).one[Tournament]
 
-  def allEnterable: Fu[List[Enterable]] = coll.find(enterableSelect).toList[Enterable](None)
+  def finishedById(id: String): Fu[Option[Tournament]] =
+    coll.find(selectId(id) ++ finishedSelect).one[Tournament]
 
-  def created: Fu[List[Created]] = coll.find(createdSelect ++ BSONDocument(
-    "schedule" -> BSONDocument("$exists" -> false)
-  )).toList[Created](None)
+  def startedOrFinishedById(id: String): Fu[Option[Tournament]] =
+    byId(id) map { _ filterNot (_.isCreated) }
 
-  def started: Fu[List[Started]] =
-    coll.find(startedSelect).sort(BSONDocument("createdAt" -> -1)).toList[Started](None)
+  def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
+    createdById(id) map (_ filter (_.createdBy == userId))
 
-  def finished(limit: Int): Fu[List[Finished]] =
-    coll.find(finishedSelect).sort(BSONDocument("startedAt" -> -1)).toList[Finished](limit.some)
+  def allEnterable: Fu[List[Tournament]] = coll.find(enterableSelect).cursor[Tournament].collect[List]()
 
-  private def allCreatedSelect = createdSelect ++ BSONDocument(
+  def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).toList[Tournament](None)
+
+  def started: Fu[List[Tournament]] =
+    coll.find(startedSelect).sort(BSONDocument("createdAt" -> -1)).toList[Tournament](None)
+
+  def publicStarted: Fu[List[Tournament]] =
+    coll.find(startedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false)))
+      .sort(BSONDocument("createdAt" -> -1))
+      .cursor[Tournament].collect[List]()
+
+  def finished(limit: Int): Fu[List[Tournament]] =
+    coll.find(finishedSelect)
+      .sort(BSONDocument("startsAt" -> -1))
+      .cursor[Tournament].collect[List](limit)
+
+  def finishedNotable(limit: Int): Fu[List[Tournament]] =
+    coll.find(finishedSelect ++ BSONDocument(
+      "$or" -> BSONArray(
+        BSONDocument("nbPlayers" -> BSONDocument("$gte" -> 15)),
+        scheduledSelect
+      )))
+      .sort(BSONDocument("startsAt" -> -1))
+      .cursor[Tournament].collect[List](limit)
+
+  def setStatus(tourId: String, status: Status) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("status" -> status.id))
+  ).void
+
+  def setNbPlayers(tourId: String, nb: Int) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("nbPlayers" -> nb))
+  ).void
+
+  def setWinnerId(tourId: String, userId: String) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("winner" -> userId))
+  ).void
+
+  private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(
       BSONDocument("schedule" -> BSONDocument("$exists" -> false)),
-      BSONDocument("schedule.at" -> BSONDocument("$lt" -> (DateTime.now plusMinutes 30)))
+      BSONDocument("startsAt" -> BSONDocument("$lt" -> (DateTime.now plusMinutes aheadMinutes)))
     )
   )
 
-  def noPasswordCreatedSorted: Fu[List[Created]] = coll.find(
-    allCreatedSelect ++ BSONDocument("password" -> BSONDocument("$exists" -> false))
-  ).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Created](None)
+  def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
+    allCreatedSelect(aheadMinutes) ++ BSONDocument("private" -> BSONDocument("$exists" -> false))
+  ).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
 
-  def allCreated: Fu[List[Created]] = coll.find(allCreatedSelect).toList[Created](None)
+  def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
+    coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament].collect[List]()
 
-  def recentlyStartedSorted: Fu[List[Started]] = coll.find(startedSelect ++ BSONDocument(
-    "password" -> BSONDocument("$exists" -> false),
-    "startedAt" -> BSONDocument("$gt" -> (DateTime.now minusMinutes 20))
-  )).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Started](none)
-
-  def promotable: Fu[List[Enterable]] = noPasswordCreatedSorted zip recentlyStartedSorted map {
-    case (created, started) => created ::: started
+  private def notCloseToFinishSorted: Fu[List[Tournament]] = {
+    val finishAfter = DateTime.now plusMinutes 20
+    coll.find(startedSelect ++ BSONDocument(
+      "private" -> BSONDocument("$exists" -> false)
+    )).sort(BSONDocument("startsAt" -> 1)).toList[Tournament](none) map {
+      _.filter(_.finishesAt isAfter finishAfter)
+    }
   }
 
-  def scheduled: Fu[List[Created]] = coll.find(createdSelect ++ BSONDocument(
-    "schedule" -> BSONDocument("$exists" -> true)
-  )).sort(BSONDocument("schedule.at" -> 1)).toList[Created](none)
+  def promotable: Fu[List[Tournament]] =
+    publicCreatedSorted(30) zip notCloseToFinishSorted map {
+      case (created, started) => created ::: started
+    }
 
-  def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = coll.find(
-    finishedSelect ++ BSONDocument("schedule.freq" -> freq.name)
-  ).sort(BSONDocument("schedule.at" -> -1)).toList[Finished](nb.some)
+  def scheduledUnfinished: Fu[List[Tournament]] =
+    coll.find(scheduledSelect ++ unfinishedSelect)
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+
+  def scheduledCreated: Fu[List[Tournament]] =
+    coll.find(createdSelect ++ scheduledSelect)
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+
+  def scheduledDedup: Fu[List[Tournament]] = scheduledCreated map {
+    import Schedule.Freq
+    _.flatMap { tour =>
+      tour.schedule map (tour -> _)
+    }.foldLeft(List[Tournament]() -> none[Freq]) {
+      case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
+      case ((tours, skip), (tour, sched)) => (tour :: tours, sched.freq match {
+        case Freq.Daily   => Freq.Nightly.some
+        case Freq.Nightly => Freq.Daily.some
+        case _            => skip
+      })
+    }._1.reverse
+  }
+
+  def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Tournament]] = coll.find(
+    finishedSelect ++ BSONDocument(
+      "schedule.freq" -> freq.name,
+      "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
+    )
+  ).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](nb.some)
 
   def update(tour: Tournament) = coll.update(BSONDocument("_id" -> tour.id), tour)
 
@@ -85,14 +154,6 @@ object TournamentRepo {
 
   def exists(id: String) = coll.db command Count(coll.name, BSONDocument("_id" -> id).some) map (0 !=)
 
-  def withdraw(userId: String): Fu[List[String]] = for {
-    createds ← created
-    createdIds ← (createds map (_ withdraw userId) collect {
-      case scalaz.Success(tour) => update(tour) inject tour.id
-    }).sequenceFu
-    starteds ← started
-    startedIds ← (starteds map (_ withdraw userId) collect {
-      case scalaz.Success(tour) => update(tour) inject tour.id
-    }).sequenceFu
-  } yield createdIds ::: startedIds
+  def isFinished(id: String): Fu[Boolean] =
+    coll.db command Count(coll.name, BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
 }

@@ -2,7 +2,7 @@
 
 @newTopicButton = {
 @if(isGrantedWrite(categ.slug)) {
-<a href="@routes.ForumTopic.form(categ.slug)" class="action button" data-icon="m"> Create a new topic</a>
+<a href="@routes.ForumTopic.form(categ.slug)" class="action button" data-icon="m"> @trans.createANewTopic()</a>
 }
 }
 
@@ -36,9 +36,9 @@ title = categ.name) {
     <thead>
       <tr class="thead">
         <th></th>
-        <th class="right">Views</th>
-        <th class="right">Replies</th>
-        <th>Last Post</th>
+        <th class="right">@trans.views()</th>
+        <th class="right">@trans.replies()</th>
+        <th>@trans.lastPost()</th>
       </tr>
     </thead>
     <tbody>
@@ -49,7 +49,7 @@ title = categ.name) {
         <td class="right">@topic.nbReplies.localize</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
-          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFromNow(post.createdAt)</a><br />by @Html(authorName(post))
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(Html(authorName(post)))
           }
         </td>
       </tr>

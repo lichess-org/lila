@@ -2,11 +2,19 @@ package lila.security
 
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 
-final class GeoIP(file: String, cacheSize: Int) {
+import scala.concurrent.duration._
 
-  private val geoIp = MaxMindIpGeo(file, cacheSize)
+final class GeoIP(file: String, cacheTtl: Duration) {
 
-  def apply(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
+  private val geoIp = MaxMindIpGeo(file, 0)
+  private val cache = lila.memo.Builder.cache(cacheTtl, compute)
+
+  private def compute(ip: String): Option[Location] =
+    geoIp getLocation ip map Location.apply
+
+  def apply(ip: String): Option[Location] = cache get ip
+
+  def orUnknown(ip: String): Location = apply(ip) | Location.unknown
 }
 
 case class Location(
@@ -24,6 +32,8 @@ case class Location(
 object Location {
 
   val unknown = Location("Solar System", none, none)
+
+  val tor = Location("TOR exit node", none, none)
 
   def apply(ipLoc: IpLocation): Location =
     Location(ipLoc.countryName | unknown.country, ipLoc.region, ipLoc.city)

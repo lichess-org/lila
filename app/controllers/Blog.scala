@@ -15,8 +15,9 @@ object Blog extends LilaController {
 
   def index(ref: Option[String]) = Open { implicit ctx =>
     blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 20) map { response =>
-        Ok(views.html.blog.index(response))
+      blogApi.recent(prismic.api, ref, 50) flatMap {
+        case Some(response) => fuccess(Ok(views.html.blog.index(response)))
+        case _              => notFound
       }
     }
   }
@@ -28,13 +29,17 @@ object Blog extends LilaController {
           case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
           case Right(doc)    => Ok(views.html.blog.show(doc))
         }
+      } recoverWith {
+        case e: RuntimeException if e.getMessage contains "Not Found" => notFound
       }
     }
   }
 
   def atom(ref: Option[String]) = Action.async { implicit req =>
     blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 50) map (_.results) map { docs =>
+      blogApi.recent(prismic.api, ref, 50) map {
+        _ ?? (_.results)
+      } map { docs =>
         Ok(views.xml.blog.atom(docs)) as XML
       }
     }

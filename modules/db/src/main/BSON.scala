@@ -61,7 +61,24 @@ object BSON {
         }
       }
     }
+
+    implicit def MapHandler[V](implicit vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[BSONDocument, Map[String, V]] = new BSONHandler[BSONDocument, Map[String, V]] {
+      private val reader = MapReader[V]
+      private val writer = MapWriter[V]
+      def read(bson: BSONDocument): Map[String, V] = reader read bson
+      def write(map: Map[String, V]): BSONDocument = writer write map
+    }
   }
+
+  // List Handler
+  final class ListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) extends BSONHandler[BSONArray, List[T]] {
+    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
+      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
+    }.toList
+    def write(repr: List[T]) =
+      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
+  }
+  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new ListHandler
 
   final class Reader(val doc: BSONDocument) {
 
@@ -81,6 +98,8 @@ object BSON {
     def intO(k: String) = getO[Int](k)
     def intD(k: String) = intO(k) getOrElse 0
     def double(k: String) = get[Double](k)
+    def doubleO(k: String) = getO[Double](k)
+    def doubleD(k: String) = doubleO(k) getOrElse 0
     def bool(k: String) = get[Boolean](k)
     def boolO(k: String) = getO[Boolean](k)
     def boolD(k: String) = boolO(k) getOrElse false
@@ -96,6 +115,8 @@ object BSON {
     def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
     def toList = doc.elements.toList
+
+    def debug = BSON debug doc
   }
 
   final class Writer {
@@ -118,6 +139,7 @@ object BSON {
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
+    def doubleO(i: Double): Option[BSONDouble] = if (i != 0) Some(BSONDouble(i)) else None
     def intsO(l: List[Int]): Option[BSONArray] =
       if (l.isEmpty) None
       else Some(BSONArray(l map BSONInteger.apply))

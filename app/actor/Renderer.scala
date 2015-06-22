@@ -18,7 +18,7 @@ private[app] final class Renderer extends Actor {
     case lila.notification.actorApi.RenderNotification(id, from, body) =>
       sender ! V.notification.view(id, from)(Html(body))
 
-    case lila.tournament.actorApi.RemindTournament(tournament) =>
+    case lila.tournament.actorApi.RemindTournament(tournament, _) =>
       sender ! spaceless(V.tournament.reminder(tournament))
 
     case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) =>
@@ -34,6 +34,9 @@ private[app] final class Renderer extends Actor {
 
     case lila.tournament.actorApi.TournamentTable(tours) =>
       sender ! spaceless(V.tournament.enterable(tours))
+
+    case lila.simul.actorApi.SimulTable(simuls) =>
+      sender ! spaceless(V.simul.allCreated(simuls))
 
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! spaceless(V.puzzle.daily(puzzle, fen, lastMove))

@@ -13,20 +13,29 @@ import lila.user.{ User, UserRepo }
 final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem,
+    onStart: String => Unit,
     secondsToMove: Int) {
 
-  def apply(tour: Started)(pairing: Pairing): Fu[Game] = for {
+  def apply(tour: Tournament, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
     user2 ← getUser(pairing.user2)
     game1 = Game.make(
       game = chess.Game(
-        board = chess.Board init tour.variant,
-        clock = tour.clock.chessClock.some
-      ),
+        variant = tour.variant.some,
+        fen = tour.position.some.filterNot(_.initial).map(_.fen)
+      ) |> { g =>
+          val turns = g.player.fold(0, 1)
+          g.copy(
+            clock = tour.clock.chessClock.some,
+            turns = turns,
+            startedAtTurn = turns)
+        },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
-      variant = tour.variant,
+      variant =
+        if (tour.position.initial) tour.variant
+        else chess.variant.FromPosition,
       source = Source.Tournament,
       pgnImport = None)
     game2 = game1
@@ -36,7 +45,8 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove)
+      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMove, true) >>-
+      onStart(game2.id)
   } yield game2
 
   private def getUser(username: String): Fu[User] =
@@ -44,21 +54,20 @@ final class AutoPairing(
       _.fold(fufail[User]("No user named " + username))(fuccess)
     }
 
-  private def scheduleIdleCheck(povRef: PovRef, in: Int) {
-    system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef))
+  private def scheduleIdleCheck(povRef: PovRef, in: Int, thenAgain: Boolean) {
+    system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef, thenAgain))
   }
 
-  private def idleCheck(povRef: PovRef) {
+  private def idleCheck(povRef: PovRef, thenAgain: Boolean) {
     GameRepo pov povRef foreach {
       _.filter(_.game.playable) foreach { pov =>
-        pov.game.playerHasMoved(pov.color).fold(
-          (pov.color.white && !pov.game.playerHasMoved(Color.Black)) ?? {
+        if (pov.game.playerHasMoved(pov.color)) {
+          if (thenAgain && !pov.game.playerHasMoved(pov.opponent.color))
             scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt =>
               lmt - nowSeconds + secondsToMove
-            })
-          },
-          roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
-        )
+            }, false)
+        }
+        else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
       }
     }
   }

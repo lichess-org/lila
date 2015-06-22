@@ -70,7 +70,7 @@ private[qa] case class QuestionData(
     gameId: String,
     move: String) {
 
-  def tags = `hidden-tags`.split(',').toList.map(_.trim).filter(_.nonEmpty)
+  def tags = `hidden-tags`.split(',').toList.map(_.trim.toLowerCase).filter(_.nonEmpty)
 }
 
 private[qa] case class AnswerData(

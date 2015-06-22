@@ -28,24 +28,29 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.Blitz,
     PerfType.KingOfTheHill,
     PerfType.Classical,
-    PerfType.ThreeCheck)
+    PerfType.ThreeCheck,
+    PerfType.Correspondence,
+    PerfType.Antichess,
+    PerfType.Atomic,
+    PerfType.Horde)
 
-  val miniViewSortedPerfTypes: List[PerfType] = List(
-    PerfType.Bullet,
-    PerfType.Blitz,
-    PerfType.Classical,
-    PerfType.Chess960,
-    PerfType.KingOfTheHill,
-    PerfType.ThreeCheck)
+  private def best4Of(u: User, perfTypes: List[PerfType]) =
+    perfTypes.sortBy { pt => -u.perfs(pt).nb } take 4
 
-  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
+  def miniViewSortedPerfTypes(u: User): List[PerfType] =
+    best4Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
+      best4Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde))
+
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String) = Html {
     val title = s"$name rating over $nb games"
     val attr = if (klass == "title") "title" else "data-hint"
-    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
+    val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
+    else "&nbsp;&nbsp;&nbsp;-"
+    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">$number</span></span>"""
   }
 
   def showPerfRating(perfType: PerfType, perf: Perf, klass: String): Html =
-    showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar, klass)
+    showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar, klass)
 
   def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom"): Html =
     showPerfRating(perfType, u perfs perfType, klass)
@@ -165,6 +170,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withPowerTip: Boolean = true,
     withTitle: Boolean = true,
     withBestRating: Boolean = false,
+    withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
     mod: Boolean = false) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
@@ -173,11 +179,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val titleS = if (withTitle) titleTag(user.title) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    val rating = withBestRating ?? {
-      user.perfs.bestPerf ?? {
-        case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
-      }
-    }
+    val rating = userRating(user, withPerfRating, withBestRating)
     s"""<a$dataIcon $klass $href>$space$titleS$content$rating</a>"""
   }
 
@@ -197,6 +199,46 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
     Html(s"""<a$dataIcon $klass $href>$space$titleS$content</a>""")
   }
+
+  def userSpan(
+    user: User,
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true,
+    withPowerTip: Boolean = true,
+    withTitle: Boolean = true,
+    withBestRating: Boolean = false,
+    withPerfRating: Option[PerfType] = None,
+    text: Option[String] = None) = Html {
+    val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
+    val href = s"data-${userHref(user.username)}"
+    val content = text | user.username
+    val titleS = if (withTitle) titleTag(user.title) else ""
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    val rating = userRating(user, withPerfRating, withBestRating)
+    s"""<span$dataIcon $klass $href>$space$titleS$content$rating</span>"""
+  }
+
+  def userIdSpanMini(userId: String) = Html {
+    val user = lightUser(userId)
+    val name = user.fold(userId)(_.name)
+    val content = user.fold(userId)(_.titleNameHtml)
+    val klass = userClass(userId, none, false)
+    val href = s"data-${userHref(name)}"
+    s"""<span $klass $href>$content</span>"""
+  }
+
+  private def renderRating(perf: Perf) =
+    s"&nbsp;(${perf.intRating}${if (perf.provisional) "?" else ""})"
+
+  private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean) =
+    withPerfRating match {
+      case Some(perfType) => renderRating(user.perfs(perfType))
+      case _ if withBestRating => user.perfs.bestPerf ?? {
+        case (_, perf) => renderRating(perf)
+      }
+      case _ => ""
+    }
 
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""
@@ -233,7 +275,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val nbGames = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
     val currentRating = user.perfs.bestPerf ?? {
-      case (pt, perf) => s" Current ${pt.name} rating: $perf."
+      case (pt, perf) => s" Current ${pt.name} rating: ${perf.intRating}."
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
   }

@@ -22,7 +22,7 @@ final class Importer(
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
-      $find.one(lila.game.Query pgnImport data.pgn) flatMap { _.fold(processing)(fuccess) }
+      GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     gameExists {
       doImport(data, user, ip)
@@ -50,21 +50,15 @@ final class Importer(
       ))
     }
 
-    (data preprocess user).future flatMap {
-      case Preprocessed(game, moves, result) =>
-        (GameRepo insertDenormalized game) >> {
-          game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
-        } >>
-          applyMoves(Pov(game, Color.white), moves) >>-
-          (result foreach { r => applyResult(game, r) }) inject game
-    }
-  }
-
-  def applyResult(game: Game, result: Result) {
-    result match {
-      case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
-      case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
-      case _                                  =>
+    gameExists {
+      (data preprocess user).future flatMap {
+        case Preprocessed(game, moves, result) =>
+          (GameRepo insertDenormalized game) >> {
+            game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
+          } >> applyMoves(Pov(game, Color.white), moves) >>-
+            (result foreach { r => applyResult(game, r) }) >>
+            (GameRepo game game.id).map(_ | game)
+      }
     }
   }
 }

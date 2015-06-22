@@ -1,4 +1,4 @@
-@(title: String)(message: Html)(implicit ctx: Context)
+@(title: String, back: Boolean = true)(message: Html)(implicit ctx: Context)
 
 @site.layout(title = title) {
 
@@ -12,8 +12,10 @@
     @message
   </p>
   <br />
+  @if(back) {
   <script>
     document.write('<a href="' + document.referrer + '">Go Back</a>');
   </script>
+  }
 </div>
 }

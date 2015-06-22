@@ -2,7 +2,7 @@ package lila.user
 
 import reactivemongo.bson.BSONDocument
 
-import chess.{ Variant, Speed }
+import chess.Speed
 import lila.db.BSON
 import lila.rating.{ Perf, PerfType, Glicko }
 
@@ -11,20 +11,30 @@ case class Perfs(
     chess960: Perf,
     kingOfTheHill: Perf,
     threeCheck: Perf,
+    antichess: Perf,
+    atomic: Perf,
+    horde: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
-    puzzle: Perf) {
+    correspondence: Perf,
+    puzzle: Perf,
+    opening: Perf) {
 
   def perfs = List(
     "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
+    "antichess" -> antichess,
+    "atomic" -> atomic,
+    "horde" -> horde,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
-    "puzzle" -> puzzle)
+    "correspondence" -> correspondence,
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def bestPerf: Option[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
@@ -37,8 +47,13 @@ case class Perfs(
     }
   }
 
-  def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
+  def bestRating: Int = bestRatingIn(PerfType.leaderboardable)
+
+  def bestRatingIn(types: List[PerfType]): Int = {
+    val ps = types map apply match {
+      case Nil => List(standard)
+      case x   => x
+    }
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -48,31 +63,48 @@ case class Perfs(
     } | Perf.default.intRating
   }
 
+  def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
+
+  def bestProgressIn(types: List[PerfType]): Int = types map apply match {
+    case Nil   => 0
+    case perfs => perfs.map(_.progress).max
+  }
+
   lazy val perfsMap: Map[String, Perf] = Map(
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
+    "antichess" -> antichess,
+    "atomic" -> atomic,
+    "horde" -> horde,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
-    "puzzle" -> puzzle)
+    "correspondence" -> correspondence,
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
+
+  def ratingOf(pt: String): Option[Int] = perfsMap get pt map (_.intRating)
 
   def apply(key: String): Option[Perf] = perfsMap get key
 
   def apply(perfType: PerfType): Perf = perfType match {
-    case PerfType.Standard      => standard
-    case PerfType.Bullet        => bullet
-    case PerfType.Blitz         => blitz
-    case PerfType.Classical     => classical
-    case PerfType.Chess960      => chess960
-    case PerfType.KingOfTheHill => kingOfTheHill
-    case PerfType.ThreeCheck    => threeCheck
-    case PerfType.Puzzle        => puzzle
+    case PerfType.Standard       => standard
+    case PerfType.Bullet         => bullet
+    case PerfType.Blitz          => blitz
+    case PerfType.Classical      => classical
+    case PerfType.Correspondence => correspondence
+    case PerfType.Chess960       => chess960
+    case PerfType.KingOfTheHill  => kingOfTheHill
+    case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Antichess      => antichess
+    case PerfType.Atomic         => atomic
+    case PerfType.Horde          => horde
+    case PerfType.Puzzle         => puzzle
+    case PerfType.Opening        => opening
   }
-
-  def timesAndVariants: List[Perf] = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
 
   def inShort = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"
@@ -80,7 +112,7 @@ case class Perfs(
 
   def updateStandard = copy(
     standard = {
-      val subs = List(bullet, blitz, classical)
+      val subs = List(bullet, blitz, classical, correspondence)
       subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
         val nb = subs.map(_.nb).sum
         val glicko = Glicko(
@@ -101,26 +133,30 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
-  def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
-    case Variant.Standard      => Some(_.standard)
-    case Variant.Chess960      => Some(_.chess960)
-    case Variant.KingOfTheHill => Some(_.kingOfTheHill)
-    case Variant.ThreeCheck    => Some(_.threeCheck)
-    case Variant.FromPosition  => none
+  def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
+    case chess.variant.Standard      => Some(_.standard)
+    case chess.variant.Chess960      => Some(_.chess960)
+    case chess.variant.KingOfTheHill => Some(_.kingOfTheHill)
+    case chess.variant.ThreeCheck    => Some(_.threeCheck)
+    case chess.variant.Antichess     => Some(_.antichess)
+    case chess.variant.Atomic        => Some(_.atomic)
+    case chess.variant.Horde         => Some(_.horde)
+    case _                           => none
   }
 
   def speedLens(speed: Speed): Perfs => Perf = speed match {
     case Speed.Bullet => perfs => perfs.bullet
     case Speed.Blitz => perfs => perfs.blitz
-    case Speed.Classical | Speed.Unlimited => perfs => perfs.classical
+    case Speed.Classical => perfs => perfs.classical
+    case Speed.Correspondence => perfs => perfs.correspondence
   }
 
-  private def PerfsBSONHandler = new BSON[Perfs] {
+  val perfsBSONHandler = new BSON[Perfs] {
 
-    implicit def perfHandler = Perf.tube.handler
+    implicit def perfHandler = Perf.perfBSONHandler
     import BSON.Map._
 
     def reads(r: BSON.Reader): Perfs = {
@@ -130,24 +166,32 @@ case object Perfs {
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
         threeCheck = perf("threeCheck"),
+        antichess = perf("antichess"),
+        atomic = perf("atomic"),
+        horde = perf("horde"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
-        puzzle = perf("puzzle"))
+        correspondence = perf("correspondence"),
+        puzzle = perf("puzzle"),
+        opening = perf("opening"))
     }
 
-    private def notNew(p: Perf) = p.nb > 0 option p
+    private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "threeCheck" -> notNew(o.threeCheck),
+      "antichess" -> notNew(o.antichess),
+      "atomic" -> notNew(o.atomic),
+      "horde" -> notNew(o.horde),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
-      "puzzle" -> notNew(o.puzzle))
+      "correspondence" -> notNew(o.correspondence),
+      "puzzle" -> notNew(o.puzzle),
+      "opening" -> notNew(o.opening))
   }
-
-  lazy val tube = lila.db.BsTube(PerfsBSONHandler)
 }

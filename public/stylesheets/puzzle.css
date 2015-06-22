@@ -6,44 +6,6 @@
 #puzzle [data-icon]::before {
   margin-right: 3px;
 }
-#puzzle > .side div.comment {
-  padding: 10px 5px;
-  text-align: center;
-  margin-bottom: 1em;
-}
-#puzzle > .side div.comment h3 {
-  font-size: inherit;
-  margin: 4px;
-  display: block;
-}
-#puzzle > .side div.comment .rating {
-  font-size: 2em;
-  vertical-align: -3px;
-  padding-left: 5px;
-}
-#puzzle > .side div.retry {
-  color: #31708f;
-  background: #D9EDF7;
-}
-#puzzle.retry > .side div.retry {
-  display: block;
-}
-#puzzle > .side div.great,
-#puzzle > .side div.win {
-  background: #DFF0D8;
-  color: #3c763d;
-}
-#puzzle.great > .side div.great {
-  display: block;
-}
-#puzzle > .side div.loss,
-#puzzle > .side div.fail {
-  color: #a94442;
-  background: #ebccd1;
-}
-#puzzle.fail > .side div.fail {
-  display: block;
-}
 #puzzle > .side .difficulty {
   margin-bottom: 2em;
 }
@@ -80,6 +42,16 @@
   font-size: 1.3em;
   margin-bottom: 10px;
 }
+#puzzle .right .control .giveup {
+  visibility: hidden;
+  font-weight: normal;
+  transition: 1s;
+  opacity: 0;
+}
+#puzzle .right .control .giveup.revealed {
+  opacity: 1;
+  visibility: visible;
+}
 #puzzle .right .continue_wrap {
   width: 100%;
   text-align: center;
@@ -96,7 +68,7 @@
   font-weight: bold;
 }
 #puzzle .right .loader {
-  font-size: 3.5px;
+  font-size: 10px;
 }
 #puzzle .game_control {
   text-align: center;
@@ -106,10 +78,6 @@
   font-size: 16px;
   height: 22px;
   display:inline-block;
-}
-#puzzle div.continue.links {
-  margin: 20px 0 20px 0;
-  text-align: center;
 }
 #puzzle #GameButtons {
   display: inline-block;
@@ -126,10 +94,6 @@
   opacity: 0.5;
   text-shadow: none !important;
 }
-div.cg-board {
-  width: 512px;
-  height: 512px;
-}
 #puzzle div.upvote {
   float: right;
   text-align: center;
@@ -144,7 +108,6 @@ div.cg-board {
   display: block;
   font-size: 24px;
   text-decoration: none;
-  width: 40px;
 }
 #puzzle div.upvote.enabled a:hover,
 #puzzle div.upvote a.active {
@@ -153,7 +116,6 @@ div.cg-board {
 #puzzle div.upvote span.count {
   display: block;
   font-size: 24px;
-  width: 40px;
   line-height: 1;
 }
 #puzzle #disqus_thread {

@@ -1,22 +1,13 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Speed }
-import play.api.libs.json._
-
-import lila.common.PimpedJson._
+import chess.{ Mode, Speed }
 import lila.rating.RatingRange
 
 case class FilterConfig(
-    variant: List[Variant],
+    variant: List[chess.variant.Variant],
     mode: List[Mode],
     speed: List[Speed],
     ratingRange: RatingRange) {
-
-  def encode = RawFilterConfig(
-    v = variant.map(_.id),
-    m = mode.map(_.id),
-    s = speed.map(_.id),
-    e = ratingRange.toString)
 
   def >> = (
     variant map (_.id),
@@ -25,9 +16,9 @@ case class FilterConfig(
     ratingRange.toString
   ).some
 
-  def render = Json.obj(
-    "variant" -> variant.map(_.shortName),
-    "mode" -> mode.map(_.toString),
+  def render = play.api.libs.json.Json.obj(
+    "variant" -> variant.map(_.key),
+    "mode" -> mode.map(_.id),
     "speed" -> speed.map(_.id),
     "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
 
@@ -39,7 +30,15 @@ case class FilterConfig(
 
 object FilterConfig {
 
-  val variants = List(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill, Variant.ThreeCheck)
+  val variants = List(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck,
+    chess.variant.Antichess,
+    chess.variant.Atomic,
+    chess.variant.Horde)
+
   val modes = Mode.all
   val speeds = Speed.all
 
@@ -50,54 +49,29 @@ object FilterConfig {
     ratingRange = RatingRange.default)
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
-    variant = v map Variant.apply flatten,
+    variant = v map chess.variant.Variant.apply flatten,
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
     ratingRange = RatingRange orDefault e
   ).nonEmpty
 
-  def fromDB(obj: JsObject): Option[FilterConfig] = for {
-    filter ← obj obj "filter"
-    variant ← filter ints "v"
-    mode ← filter ints "m"
-    speed ← filter ints "s"
-    ratingRange ← filter str "e"
-    config ← RawFilterConfig(variant, mode, speed, ratingRange).decode
-  } yield config
+  import reactivemongo.bson._
+  import lila.db.BSON
 
-  import lila.db.JsTube
-  import play.api.libs.json._
+  private[setup] implicit val filterConfigBSONHandler = new BSON[FilterConfig] {
 
-  private[setup] lazy val tube = JsTube(
-    reader = Reads[FilterConfig](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        raw ← RawFilterConfig.tube.read(obj).asOpt
-        decoded ← raw.decode
-      } yield JsSuccess(decoded): JsResult[FilterConfig])
-    ),
-    writer = Writes[FilterConfig](config =>
-      RawFilterConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
-    )
-  )
-}
+    def reads(r: BSON.Reader): FilterConfig = FilterConfig(
+      variant = r intsD "v" flatMap { chess.variant.Variant(_) },
+      mode = r intsD "m" flatMap { Mode(_) },
+      speed = r intsD "s" flatMap { Speed(_) },
+      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
-private[setup] case class RawFilterConfig(v: List[Int], m: List[Int], s: List[Int], e: String) {
+    def writes(w: BSON.Writer, o: FilterConfig) = BSONDocument(
+      "v" -> o.variant.map(_.id),
+      "m" -> o.mode.map(_.id),
+      "s" -> o.speed.map(_.id),
+      "e" -> o.ratingRange.toString)
+  }
 
-  def decode = FilterConfig(
-    variant = v map Variant.apply flatten,
-    mode = m map Mode.apply flatten,
-    speed = s map Speed.apply flatten,
-    ratingRange = RatingRange orDefault e
-  ).nonEmpty.some
-}
-
-private[setup] object RawFilterConfig {
-
-  import lila.db.JsTube
-  import play.api.libs.json.Json
-
-  private[setup] lazy val tube = JsTube(
-    reader = Json.reads[RawFilterConfig],
-    writer = Json.writes[RawFilterConfig])
+  private[setup] val tube = lila.db.BsTube(filterConfigBSONHandler)
 }

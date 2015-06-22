@@ -1,4 +1,4 @@
-var find = require('lodash-node/modern/collections/find');
+var find = require('lodash/collection/find');
 var util = require('chessground').util;
 var drag = require('chessground').drag;
 
@@ -29,7 +29,7 @@ module.exports = function(ctrl, e) {
   ];
   ctrl.chessground.data.draggable.current = {
     orig: key,
-    piece: piece.color + ' ' + piece.role,
+    piece: piece.color + piece.role,
     rel: rel,
     epos: [e.clientX, e.clientY],
     pos: [e.clientX - rel[0], e.clientY - rel[1]],

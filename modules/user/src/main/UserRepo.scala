@@ -12,7 +12,6 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.rating.{ Glicko, Perf, PerfType }
-import tube.userTube
 
 object UserRepo extends UserRepo {
   protected def userTube = tube.userTube
@@ -42,6 +41,10 @@ trait UserRepo {
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
 
+  def byEmail(email: String): Fu[Option[User]] = $find one Json.obj(F.email -> email)
+
+  def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     $find byIds List(x, y).flatten map { users =>
       x.??(xx => users.find(_.id == xx)) ->
@@ -50,11 +53,10 @@ trait UserRepo {
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
-  def enabledById(id: ID): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byId(id))
+  def enabledById(id: ID): Fu[Option[User]] =
+    $find.one(enabledSelect ++ $select.byId(id))
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
@@ -73,7 +75,7 @@ trait UserRepo {
       BSONDocument(s"${F.count}.game" -> true)
     ).cursor[BSONDocument].collect[List]() map { docs =>
         docs.sortBy {
-          _.getAs[BSONDocument](F.count) flatMap (_.getAs[Double]("game").map(_.toInt)) getOrElse 0
+          _.getAs[BSONDocument](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[String]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
@@ -85,23 +87,32 @@ trait UserRepo {
 
   private type PerfLenses = List[(String, Perfs => Perf)]
 
+  private val perfLenses: PerfLenses = List(
+    "standard" -> (_.standard),
+    "chess960" -> (_.chess960),
+    "kingOfTheHill" -> (_.kingOfTheHill),
+    "threeCheck" -> (_.threeCheck),
+    "antichess" -> (_.antichess),
+    "atomic" -> (_.atomic),
+    "horde" -> (_.horde),
+    "bullet" -> (_.bullet),
+    "blitz" -> (_.blitz),
+    "classical" -> (_.classical),
+    "correspondence" -> (_.correspondence),
+    "puzzle" -> (_.puzzle),
+    "opening" -> (_.opening))
+
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val lenses: PerfLenses = List(
-      "standard" -> (_.standard),
-      "chess960" -> (_.chess960),
-      "kingOfTheHill" -> (_.kingOfTheHill),
-      "threeCheck" -> (_.threeCheck),
-      "bullet" -> (_.bullet),
-      "blitz" -> (_.blitz),
-      "classical" -> (_.classical),
-      "puzzle" -> (_.puzzle))
-    val diff = lenses.flatMap {
+    val diff = perfLenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
         }
     }
-    $update($select(user.id), BSONDocument("$set" -> BSONDocument(diff)))
+    diff.nonEmpty ?? $update(
+      $select(user.id),
+      BSONDocument("$set" -> BSONDocument(diff))
+    )
   }
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
@@ -109,7 +120,7 @@ trait UserRepo {
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =
-    $update($select(id), $setBson(F.profile -> Profile.tube.handler.write(profile)))
+    $update($select(id), $setBson(F.profile -> Profile.profileBSONHandler.write(profile)))
 
   def setTitle(id: ID, title: Option[String]): Funit = title match {
     case Some(t) => $update.field(id, F.title, t)
@@ -121,8 +132,12 @@ trait UserRepo {
 
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
-  def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
-  val goodLadSelect = enabledSelect ++ engineSelect(false)
+  def trollSelect(v: Boolean) = Json.obj(F.troll -> v.fold(JsBoolean(true), $ne(true)))
+  def boosterSelect(v: Boolean) = Json.obj(F.booster -> v.fold(JsBoolean(true), $ne(true)))
+  def stablePerfSelect(perf: String) = Json.obj(
+    s"perfs.$perf.nb" -> $gte(30),
+    s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
+  val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
@@ -181,10 +196,13 @@ trait UserRepo {
       _ ?? (data => data.enabled && data.compare(password))
     }
 
-  def create(username: String, password: String, blind: Boolean): Fu[Option[User]] =
+  def getPasswordHash(id: ID): Fu[Option[String]] =
+    $primitive.one($select(id), "password")(_.asOpt[String])
+
+  def create(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        $insert.bson(newUser(username, password, blind)) >> named(normalize(username))
+        $insert.bson(newUser(username, password, blind, mobileApiVersion)) >> named(normalize(username))
       }
     }
 
@@ -209,18 +227,27 @@ trait UserRepo {
     $setBson("engine" -> BSONBoolean(!u.engine))
   }
 
+  def setEngine(id: ID, v: Boolean): Funit = $update.field(id, "engine", v)
+
+  def setBooster(id: ID, v: Boolean): Funit = $update.field(id, "booster", v)
+
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u => $set("ipBan" -> !u.ipBan) }
+
+  def toggleKid(user: User) = $update.field(user.id, "kid", !user.kid)
 
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
-  def isArtificial(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("artificial" -> true))
+
+  def isTroll(id: ID): Fu[Boolean] = $count.exists($select(id) ++ trollSelect(true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
   def enable(id: ID) = $update.field(id, "enabled", true)
 
-  def disable(id: ID) = $update.field(id, "enabled", false)
+  def disable(id: ID) = $update($select(id), BSONDocument(
+    "$set" -> BSONDocument("enabled" -> false),
+    "$unset" -> BSONDocument("email" -> true)))
 
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption =>
@@ -229,6 +256,17 @@ trait UserRepo {
           "password" -> hash(password, salt),
           "sha512" -> false)))
       }
+    }
+
+  def email(id: ID, email: String): Funit = $update.field(id, F.email, email)
+
+  def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
+
+  def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = userTube.coll.find(
+    BSONDocument("_id" -> id),
+    BSONDocument(s"${F.perfs}.${perfType.key}" -> true)
+  ).one[BSONDocument].map {
+      _.flatMap(_.getAs[BSONDocument](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
     }
 
   def setSeenAt(id: ID) {
@@ -241,9 +279,7 @@ trait UserRepo {
       "count.game" -> $gt(4)
     ), "_id")(_.asOpt[String])
 
-  def setLang(id: ID, lang: String) {
-    $update.fieldUnchecked(id, "lang", lang)
-  }
+  def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.core.commands._
@@ -261,11 +297,11 @@ trait UserRepo {
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
-  private def newUser(username: String, password: String, blind: Boolean) = {
+  private def newUser(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
-    implicit def countHandler = Count.tube.handler
-    implicit def perfsHandler = Perfs.tube.handler
+    implicit def countHandler = Count.countBSONHandler
+    implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
     BSONDocument(
@@ -277,13 +313,12 @@ trait UserRepo {
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
+      F.createdAt -> DateTime.now,
+      F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> DateTime.now) ++ {
         if (blind) BSONDocument("blind" -> true) else BSONDocument()
       }
   }
-
-  def artificialSetPassword(id: String, password: String) =
-    passwd(id, password) >> $update($select(id), $unset("artificial") ++ $set("enabled" -> true))
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
   private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512

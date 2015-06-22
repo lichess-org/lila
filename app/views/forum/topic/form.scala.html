@@ -26,7 +26,7 @@
   @forum.post.formFields(form("post")("text"), form("post")("author"))
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
-  <button class="submit button" type="submit" data-icon="E"> Create the topic</button>
+  <button class="submit button" type="submit" data-icon="E"> @trans.createTheTopic()</button>
   <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
 </form>
 }

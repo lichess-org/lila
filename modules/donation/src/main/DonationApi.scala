@@ -11,14 +11,17 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
 
   private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(200)))
 
-  def list = coll.find(decentAmount)
+  def list(nb: Int) = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
     .cursor[Donation]
-    .collect[List]()
+    .collect[List](nb)
 
-  def top(nb: Int) = coll.find(BSONDocument())
-    .sort(BSONDocument("gross" -> -1, "date" -> -1))
-    .cursor[Donation]
+  def top(nb: Int) = coll.find(BSONDocument(
+    "userId" -> BSONDocument("$exists" -> true)
+  )).sort(BSONDocument(
+    "gross" -> -1,
+    "date" -> -1
+  )).cursor[Donation]
     .collect[List](nb)
 
   def create(donation: Donation) = coll insert donation recover {

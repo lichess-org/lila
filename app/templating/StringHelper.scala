@@ -41,7 +41,7 @@ trait StringHelper { self: NumberHelper =>
   def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
     val url = delocalize(quoteReplacement(m group 1))
     val target = if (url contains netDomain) "" else " target='blank'"
-    s"<a$target href='${prependHttp(url)}'>$url</a>"
+    s"""<a$target rel="nofollow" href="${prependHttp(url)}">$url</a>"""
   })
 
   private def prependHttp(url: String): String =
@@ -69,4 +69,12 @@ trait StringHelper { self: NumberHelper =>
     }
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)
+
+  def base64encode(str: String) = {
+    import java.util.Base64
+    import java.nio.charset.StandardCharsets
+    Base64.getEncoder.encodeToString(str getBytes StandardCharsets.UTF_8)
+  }
+
+  def encodeFen(fen: String) = base64encode(fen).reverse
 }

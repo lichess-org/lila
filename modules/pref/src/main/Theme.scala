@@ -30,9 +30,10 @@ object Theme extends ThemeObject {
 
   val all = NonEmptyList(
     "brown", "blue", "green",
-    "wood", "canvas", "marble",
-    "wood2", "blue2", "leather",
-    "olive", "grey", "purple"
+    "wood", "blue2", "marble",
+    "wood3", "blue3", "leather",
+    "wood2", "canvas", "purple",
+    "olive", "grey", "metal"
   ) map { name => new Theme(name) }
 }
 

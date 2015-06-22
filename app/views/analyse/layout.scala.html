@@ -1,11 +1,11 @@
-@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty, chessground: Boolean)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
 side = side,
 chat = chat,
 underchat = underchat,
-active = siteMenu.game.some,
 moreCss = moreCss,
 moreJs = moreJs,
-openGraph = openGraph)(body)
+openGraph = openGraph,
+chessground = chessground)(body)

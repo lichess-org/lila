@@ -3,14 +3,13 @@
 @side = {
 <div class="tournament_links">
   <a href="@routes.Tournament.help("arena".some)">Arena tournament help</a>
-  <a href="@routes.Tournament.help("swiss".some)">Swiss tournament help</a>
   <a href="@routes.Tournament.home()">Return to tournaments</a>
 </div>
 }
 
 @tournament.layout(title = "Tournament FAQ", side = side.some) {
 <div id="tournament">
-  <div class="content_box small_box faq_page">
+  <div class="content_box small_box">
     <h1>@system Tournament FAQ</h1>
     @tournament.faq(system = system)
   </div>

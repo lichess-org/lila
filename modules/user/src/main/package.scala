@@ -6,9 +6,7 @@ package object user extends PackageObject with WithPlay {
 
     // expose user tube
     implicit lazy val userTube = User.tube inColl Env.current.userColl
-
-    private[user] implicit lazy val profileTube = Profile.tube
   }
 
-  private[user] def maxInactivityDate = org.joda.time.DateTime.now minusMonths 6
+  type Trophies = List[Trophy]
 }

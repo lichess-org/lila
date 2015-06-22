@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import akka.actor.ActorSelection
+import org.joda.time.DateTime
 import play.api.libs.json._
 
 import lila.common.paginator._
@@ -19,6 +20,7 @@ final class PostApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: ModlogApi,
+    shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage) {
 
@@ -40,18 +42,35 @@ final class PostApi(
           hidden = topic.hidden,
           categId = categ.id)
         $insert(post) >>
-          $update(topic withPost post) >>
+          $update(topic withPost post) >> {
+            shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
+          } >>
           $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           (env.recent.invalidate inject post) >>-
+          ctx.userId.?? { userId =>
+            shutup ! post.isTeam.fold(
+              lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
+              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
+          } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
               post.isStaff.fold(
                 prop toStaffFriendsOf userId,
                 prop toFollowersOf userId toUsers topicUserIds exceptUser userId
               )
             )
           }) inject post
+    }
+
+  private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
+
+  private def shouldHideOnPost(topic: Topic) =
+    topic.visibleOnHome && {
+      (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
+        topic.nbPosts == maxPerPage ||
+          topic.createdAt.isBefore(DateTime.now minusDays 5)
+      }
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {

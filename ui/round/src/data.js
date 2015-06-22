@@ -7,8 +7,11 @@ module.exports = function(old, cfg) {
     data.clock.showBar = data.pref.clockBar;
   }
 
-  if (cfg.game.moves) data.game.moves = data.game.moves.split(' ');
-  else data.game.moves = [];
+  if (data.correspondence)
+    data.correspondence.showBar = data.pref.clockBar;
+
+  if (data.game.variant.key === 'horde')
+    data.pref.showCaptured = false;
 
   return data;
 };

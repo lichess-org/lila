@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -16,11 +17,19 @@ object Relation extends LilaController {
   private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
     (ctx.userId ?? { env.api.relation(_, userId) }) zip
       (ctx.isAuth ?? { Env.pref.api followable userId }) zip
-      (ctx.userId ?? { env.api.blocks(userId, _) }) map {
-        case ((relation, followable), blocked) => mini.fold(
-          html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
-          html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable))
-      } map { Ok(_) }
+      (ctx.userId ?? { env.api.blocks(userId, _) }) flatMap {
+        case ((relation, followable), blocked) => negotiate(
+          html = fuccess(Ok(mini.fold(
+            html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
+            html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
+          ))),
+          api = _ => fuccess(Ok(Json.obj(
+            "followable" -> followable,
+            "following" -> relation.exists(true ==),
+            "blocking" -> relation.exists(false ==)
+          )))
+        )
+      }
 
   def follow(userId: String) = Auth { implicit ctx =>
     me =>
@@ -44,7 +53,7 @@ object Relation extends LilaController {
 
   def following(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.following(user.id) flatMap followship(user) flatMap { rels =>
+      env.api.following(user.id) flatMap followship flatMap { rels =>
         env.api nbFollowers user.id map { followers =>
           html.relation.following(user, rels, followers)
         }
@@ -54,7 +63,7 @@ object Relation extends LilaController {
 
   def followers(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.followers(user.id) flatMap followship(user) flatMap { rels =>
+      env.api.followers(user.id) flatMap followship flatMap { rels =>
         env.api nbFollowing user.id map { following =>
           html.relation.followers(user, rels, following)
         }
@@ -62,7 +71,14 @@ object Relation extends LilaController {
     }
   }
 
-  private def followship(user: UserModel)(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
+  def blocks = Auth { implicit ctx =>
+    me =>
+      env.api.blocking(me.id) flatMap followship map { rels =>
+        html.relation.blocks(me, rels)
+      }
+  }
+
+  private def followship(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byIds userIds flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
@@ -74,7 +90,7 @@ object Relation extends LilaController {
     }
 
   def suggest(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
+    OptionFuResult(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { opponents =>
         Env.pref.api.followableIds(opponents map (_._1.id)) zip
           env.api.onlinePopularUsers(20) flatMap {
@@ -87,8 +103,15 @@ object Relation extends LilaController {
                 case (u, nb) => env.api.relation(user.id, u.id) map {
                   lila.relation.Related(u, nb, true, _)
                 }
-              }.sequenceFu map { rels =>
-                html.relation.suggest(user, rels)
+              }.sequenceFu flatMap { rels =>
+                negotiate(
+                  html = fuccess(Ok(html.relation.suggest(user, rels))),
+                  api = _ => fuccess {
+                    implicit val userWrites = play.api.libs.json.Writes[UserModel] { Env.user.jsonView(_, true) }
+                    Ok(Json.obj(
+                      "user" -> user,
+                      "suggested" -> play.api.libs.json.JsArray(rels.map(_.toJson))))
+                  })
               }
           }
       }

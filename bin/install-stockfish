@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p local
 cd local
@@ -10,5 +10,5 @@ if [[ $1 = "old" ]]; then
 else
   make build ARCH=x86-64-modern
 fi
-./stockfish quit
+./stockfish bench
 cd ../..

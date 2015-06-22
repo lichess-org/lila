@@ -35,13 +35,14 @@ final class CachedAdapter[A](
 final class BSONAdapter[A: BSONDocumentReader](
     collection: BSONCollection,
     selector: BSONDocument,
+    projection: BSONDocument,
     sort: BSONDocument) extends AdapterLike[A] {
 
   def nbResults: Fu[Int] =
     collection.db command Count(collection.name, Some(selector))
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] =
-    collection.find(selector)
+    collection.find(selector, projection)
       .sort(sort)
       .copy(options = QueryOpts(skipN = offset))
       .cursor[A]

@@ -7,7 +7,6 @@ import akka.pattern.ask
 
 import actorApi._
 import lila.common.PimpedJson._
-import lila.db.api.$count
 import lila.hub.actorApi.map._
 import lila.security.Flood
 import akka.actor.ActorSelection
@@ -26,7 +25,7 @@ private[tournament] final class SocketHandler(
     tourId: String,
     version: Int,
     uid: String,
-    user: Option[User]): Fu[JsSocketHandler] =
+    user: Option[User]): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {
         for {
@@ -34,9 +33,9 @@ private[tournament] final class SocketHandler(
           join = Join(uid = uid, user = user, version = version)
           handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) =>
-              controller(socket, tourId, uid, member) -> enum
+              (controller(socket, tourId, uid, member), enum, member)
           }
-        } yield handler
+        } yield handler.some
       }
     }
 

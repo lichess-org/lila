@@ -4,13 +4,14 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.memo.ExpireSetMemo
+import lila.memo.{ ExpireSetMemo, MongoCache }
 
 final class Env(
     config: Config,
     db: lila.db.Env,
+    mongoCache: MongoCache.Builder,
     scheduler: lila.common.Scheduler,
-    timeline:ActorSelection,
+    timeline: ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -19,6 +20,7 @@ final class Env(
     val OnlineTtl = config duration "online.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionNote = config getString "collection.note"
+    val CollectionTrophy = config getString "collection.trophy"
   }
   import settings._
 
@@ -29,6 +31,8 @@ final class Env(
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
+
+  lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
   lazy val jsonView = new JsonView(isOnline)
 
@@ -43,7 +47,10 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.userTube
     def process = {
-      case "user" :: "typecheck" :: Nil => lila.db.Typecheck.apply[User]
+      case "user" :: "typecheck" :: Nil =>
+        lila.db.Typecheck.apply[User]
+      case "user" :: "email" :: userId :: email :: Nil =>
+        UserRepo.email(User normalize userId, email) inject "done"
     }
   }
 
@@ -54,7 +61,6 @@ final class Env(
       def receive = {
         case User.Active(user, lang) =>
           if (!user.seenRecently) UserRepo setSeenAt user.id
-          if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
           onlineUserIdMemo put user.id
       }
     })), 'userActive)
@@ -70,7 +76,8 @@ final class Env(
 
   lazy val cached = new Cached(
     nbTtl = CachedNbTtl,
-    onlineUserIdMemo = onlineUserIdMemo)
+    onlineUserIdMemo = onlineUserIdMemo,
+    mongoCache = mongoCache)
 }
 
 object Env {
@@ -78,6 +85,7 @@ object Env {
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.actor.timeline,
     system = lila.common.PlayApp.system)

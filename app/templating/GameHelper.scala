@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import chess.format.Forsyth
-import chess.{ Status => S, Variant, Color, Clock, Mode }
+import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.api.mvc.Call
 import play.twirl.api.Html
@@ -19,26 +19,30 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
 
   def povOpenGraph(pov: Pov) = {
+    Map(
+      'type -> "website",
+      'image -> cdnUrl(routes.Export.png(pov.game.id).url),
+      'title -> titlePov(pov),
+      'site_name -> "lichess.org",
+      'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
+      'description -> describePov(pov))
+  }
+
+  def titlePov(pov: Pov) = {
     val speed = chess.Speed(pov.game.clock).name
     val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
-    Map(
-    'type -> "website",
-    'image -> cdnUrl(routes.Export.png(pov.game.id).url),
-    'title -> s"$speed$variant Chess - ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
-    'site_name -> "lichess.org",
-    'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
-    'description -> describePov(pov))
+    s"$speed$variant Chess • ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}"
   }
 
   def describePov(pov: Pov) = {
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
-    val speedAndClock = game.clock.fold(chess.Speed.Unlimited.name) { c =>
+    val speedAndClock = game.clock.fold(chess.Speed.Correspondence.name) { c =>
       s"${chess.Speed(c.some).name} (${c.show})"
     }
     val mode = game.mode.name
-    val variant = if (game.variant == chess.Variant.FromPosition) "position setup chess"
+    val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
     else if (game.variant.exotic) game.variant.name else "chess"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
@@ -48,9 +52,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Draw | Stalemate)                         => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case Variant.KingOfTheHill => "King in the center"
-        case Variant.ThreeCheck    => "Three checks"
-        case _                     => "Variant ending"
+        case chess.variant.KingOfTheHill => "King in the center"
+        case chess.variant.ThreeCheck    => "Three checks"
+        case chess.variant.Antichess     => "Lose all your pieces to win"
+        case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
+        case chess.variant.Horde         => "Destroy the horde to win"
+        case _                           => "Variant ending"
       }
       case _ => "Game is still being played"
     }
@@ -58,29 +65,17 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
-    case Variant.Standard     => trans.standard.str()
-    case Variant.FromPosition => trans.fromPosition.str()
-    case v                    => v.name
+  def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
+    case chess.variant.Standard     => trans.standard.str()
+    case chess.variant.FromPosition => trans.fromPosition.str()
+    case v                          => v.name
   }
 
-  def variantNameNoCtx(variant: Variant) = variant match {
-    case Variant.Standard     => trans.standard.en()
-    case Variant.FromPosition => trans.fromPosition.en()
-    case v                    => v.name
+  def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
+    case chess.variant.Standard     => trans.standard.en()
+    case chess.variant.FromPosition => trans.fromPosition.en()
+    case v                          => v.name
   }
-
-  def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =
-    clock.fold(trans.unlimited.str())(clockName)
-
-  def clockName(clock: Clock)(implicit ctx: UserContext): String =
-    trans.nbMinutesPerSidePlusNbSecondsPerMove.str(clock.limitInMinutes, clock.increment)
-
-  def clockNameNoCtx(clock: Option[Clock]): String =
-    clock.fold(trans.unlimited.en())(clockNameNoCtx)
-
-  def clockNameNoCtx(clock: Clock): String =
-    trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
 
   def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
     clock.fold(trans.unlimited())(shortClockName)
@@ -155,9 +150,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case Variant.KingOfTheHill => Html("King in the center")
-      case Variant.ThreeCheck    => Html("Three checks")
-      case _                     => Html("Variant ending")
+      case chess.variant.KingOfTheHill => Html("King in the center")
+      case chess.variant.ThreeCheck    => Html("Three checks")
+      case _                           => Html("Variant ending")
     }
     case _ => Html("")
   }
@@ -183,31 +178,42 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
 
+  def gameLink(
+    game: Game,
+    color: Color,
+    ownerLink: Boolean = false,
+    tv: Boolean = false)(implicit ctx: UserContext): String = {
+    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
+    val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+      routes.Round.player(game fullIdOf o.color)
+    })
+    url.toString
+  }
+
   def gameFen(
     game: Game,
     color: Color,
     ownerLink: Boolean = false,
     tv: Boolean = false,
-    withTitle: Boolean = true)(implicit ctx: UserContext) = Html {
-    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
-    var isLive = game.isBeingPlayed
-    val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
-      routes.Round.player(game fullIdOf o.color)
-    }
-    val href = tv.fold(routes.Tv.index, url)
+    withTitle: Boolean = true,
+    withLink: Boolean = true,
+    withLive: Boolean = true)(implicit ctx: UserContext) = Html {
+    var isLive = withLive && game.isBeingPlayed
+    val href = withLink ?? s"""href="${gameLink(game, color, ownerLink, tv)}""""
     val title = withTitle ?? s"""title="${gameTitle(game, color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
     val variant = game.variant.key
-    s"""<a href="$href" $title class="mini_board parse_fen $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</a>"""
+    val tag = if (withLink) "a" else "span"
+    s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var isLive = game.isBeingPlayed
     val variant = game.variant.key
-    s"""<a href="%s%s" title="%s" class="mini_board parse_fen %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),

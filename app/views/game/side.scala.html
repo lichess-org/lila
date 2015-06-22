@@ -1,32 +1,38 @@
-@(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
 
 <div class="side">
   <div class="side_box padded">
-    <div class="game_infos" data-icon="@game.perfType match {
-      case _ if game.fromPosition => {*}
-      case _ if game.hasAi => {:}
-      case _ if game.isPgnImport => {/}
-      case _ if game.isFicsRelay => {/}
-      case Some(p) => {@p.iconChar}
-      case _ => {8}
-      }">
-
-      @bookmark.toggle(game)
+    <div class="game_infos" data-icon="@gameIcon(game)">
       <div class="header">
         <span class="setup">
+          @bookmark.toggle(game)
+          @if(game.imported) {
+          <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
+          •
+          @if(game.variant.exotic) {
+          @variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+          } else {
+          @game.variant.name.toUpperCase
+          }
+          } else {
           @game.clock.map(_.show).getOrElse {
+          @game.daysPerTurn.map { days =>
+          <span data-hint="@trans.correspondence()" class="hint--top">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
+          }.getOrElse {
           <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+          }
           } •
           @if(game.variant.exotic) {
-          @variantLink(game.variant, (if (game.variant ==  chess.Variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top")
+          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
           @game.perfType.map { pt =>
           <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
           }
           } • @game.rated.fold(trans.rated.str(), trans.casual.str()).toUpperCase
+          }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
@@ -64,72 +70,38 @@
     <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
       Checks given:
       @* Note that they are stored the other way round, as checks received *@
-      <span class="player is color-icon black">@game.checkCount.black</span>
-      <span class="player is color-icon white">@game.checkCount.white</span>
+      <span class="player is color-icon black">@game.checkCount.white</span>
+      <span class="player is color-icon white">@game.checkCount.black</span>
     </div>
+    }
+    @if(game.variant.chess960) {
+    @initialFen.map { fen =>
+    @chess.variant.Chess960.positionNumber(fen).map { number =>
+    Chess960 start position: <strong>@number</strong>
+    }
+    }
     }
   </div>
 
   @userTv.map { u =>
   <div class="side_box">
-    <h2 class="top user_tv" data-user-tv="@u.id" data-icon="1">&nbsp;@u.titleUsername</h2>
+    <h2 class="top user_tv text" data-user-tv="@u.id" data-icon="1">@u.titleUsername</h2>
   </div>
   }
 
   @tour match {
-  case Some(t: lila.tournament.StartedOrFinished) => {
-  <div class="game_tournament side_box no_padding scroll-shadow-soft">
-    <p class="top" data-icon="g"> <a href="@routes.Tournament.show(t.id)">@t.fullName</a></p>
-    @t match {
-    case t: lila.tournament.Started => {
-    <div class="clock" data-time="@t.remainingSeconds">
-      <div class="time" data-icon="p">@t.clockStatus</div>
-    </div>
-    }
-    case _ => {
-    }
-    }
-    @if(withTourStanding) {
-    <table class="slist standing">
-      <tbody>
-        @t.rankedPlayers.map {
-        case (rank, player) => {
-        @defining((
-        t scoreSheet player,
-        // TODO FIXME that's a little ugly I must say.
-        t.system.scoringSystem match {
-        case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
-        case _                        => false
-        })) {
-        case (scoreSheet, onFire) => {
-        <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
-          <td class="name">
-            @if(player.withdraw) {
-            <span data-icon="b" title="@trans.withdraw()"></span>
-            } else {
-            @if(t.isFinished && rank == 1) {
-            <span data-icon="g" title="@trans.winner()"></span>
-            } else {
-            <span class="rank">@rank</span>
-            }
-            }
-            @userInfosLink(player.id, none, withOnline = false)
-          </td>
-          <td class="total">
-            <strong@if(onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
-          </td>
-        </tr>
-        <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
-        }
-        }
-        }
-        }
-      </tbody>
-    </table>
-    }
+  case Some(m) if !m.tour.isCreated => { @tournament.gameStanding(m) }
+  case Some(m) => {
+  <div class="game_tournament side_box no_padding">
+    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
   </div>
   }
-  case _ => {
+  case _ => {}
   }
+
+  @simul.map { sim =>
+  <div class="game_simul side_box no_padding">
+    <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.fullName</a></p>
+  </div>
   }
 </div>

@@ -7,8 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
-import lila.hub.actorApi.map.Ask
-import lila.memo.AsyncCache
+import lila.hub.actorApi.map.{ Ask, Tell, TellAll }
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
@@ -20,10 +19,12 @@ final class Env(
     ai: lila.ai.Client,
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
+    playban: lila.playban.PlaybanApi,
     lightUser: String => Option[lila.common.LightUser],
     userJsonView: lila.user.JsonView,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
+    isRematchCache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
@@ -32,7 +33,6 @@ final class Env(
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val MessageTtl = config duration "message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
@@ -44,13 +44,14 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
+    val CollectionNote = config getString "collection.note"
+    val CollectionHistory = config getString "collection.history"
   }
   import settings._
 
-  lazy val history = () => new History(ttl = MessageTtl)
+  lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
     def mkActor(id: String) = new Round(
@@ -77,23 +78,28 @@ final class Env(
   private val socketHub = {
     val actor = system.actorOf(
       Props(new lila.socket.SocketHubActor[Socket] {
+        private var historyPersistenceEnabled = false
         def mkActor(id: String) = new Socket(
           gameId = id,
-          history = history(),
+          history = eventHistory(id, historyPersistenceEnabled),
           lightUser = lightUser,
           uidTimeout = UidTimeout,
           socketTimeout = SocketTimeout,
           disconnectTimeout = PlayerDisconnectTimeout,
-          ragequitTimeout = PlayerRagequitTimeout)
+          ragequitTimeout = PlayerRagequitTimeout,
+          simulActor = hub.actor.simul)
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
-            self ! lila.hub.actorApi.map.Tell(id take 8, msg)
-          case m: lila.hub.actorApi.game.ChangeFeatured =>
-            self ! lila.hub.actorApi.map.TellAll(m)
+            self ! Tell(id take 8, msg)
+          case _: lila.hub.actorApi.Deploy =>
+            logwarn("Enable history persistence")
+            historyPersistenceEnabled = true
+          case msg: lila.game.actorApi.StartGame =>
+            self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
       }),
       name = SocketName)
-    system.lilaBus.subscribe(actor, 'changeFeaturedGame)
+    system.lilaBus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
     actor
   }
 
@@ -111,21 +117,22 @@ final class Env(
     perfsUpdater = perfsUpdater,
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
-    reminder = reminder,
+    playban = playban,
     bus = system.lilaBus,
+    timeline = hub.actor.timeline,
     casualOnly = CasualOnly)
 
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache)
+    rematch960Cache = rematch960Cache,
+    isRematchCache = isRematchCache)
 
   private lazy val player: Player = new Player(
     engine = ai,
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
-    reminder = reminder,
     uciMemo = uciMemo)
 
   // public access to AI play, for setup.Processor usage
@@ -151,32 +158,22 @@ final class Env(
   private def getSocketStatus(gameId: String): Fu[SocketStatus] =
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
 
-  private lazy val reminder = new Reminder(db(CollectionReminder))
-  def nowPlaying = reminder.nowPlaying
-
   lazy val jsonView = new JsonView(
     chatApi = chatApi,
+    noteApi = noteApi,
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)
 
-  {
-    import scala.concurrent.duration._
+  lazy val noteApi = new NoteApi(db(CollectionNote))
 
-    scheduler.future(0.23 hour, "game: finish by clock") {
-      titivate.finishByClock
-    }
+  scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
-    scheduler.effect(0.41 hour, "game: finish abandoned") {
-      titivate.finishAbandoned
-    }
-
-    scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
-  }
-
-  private lazy val titivate = new Titivate(roundMap, scheduler)
+  system.actorOf(
+    Props(classOf[Titivate], roundMap, hub.actor.bookmark),
+    name = "titivate")
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,
@@ -184,6 +181,11 @@ final class Env(
     prefApi = prefApi)
 
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+
+  def checkOutoftime(game: lila.game.Game) {
+    if (game.playable && game.started && !game.isUnlimited)
+      roundMap ! Tell(game.id, actorApi.round.Outoftime)
+  }
 }
 
 object Env {
@@ -196,10 +198,12 @@ object Env {
     ai = lila.ai.Env.current.client,
     aiPerfApi = lila.ai.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
+    playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     userJsonView = lila.user.Env.current.jsonView,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
+    isRematchCache = lila.game.Env.current.cached.isRematch,
     onStart = lila.game.Env.current.onStart,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,

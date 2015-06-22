@@ -9,8 +9,8 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
   def receive = {
 
-    case UserTalk(chatId, userId, text, replyTo) =>
-      api.userChat.write(chatId, userId, text) foreach publish(chatId, replyTo)
+    case UserTalk(chatId, userId, text, replyTo, public) =>
+      api.userChat.write(chatId, userId, text, public) foreach publish(chatId, replyTo)
 
     case PlayerTalk(chatId, color, text, replyTo) =>
       api.playerChat.write(chatId, Color(color), text) foreach publish(chatId, replyTo)

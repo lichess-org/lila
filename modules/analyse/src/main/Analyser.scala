@@ -20,7 +20,7 @@ case class ConcurrentAnalysisException(userId: String, progressId: String, gameI
 final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection,
-    evaluator: ActorSelection) {
+    modActor: ActorSelection) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
 
@@ -44,46 +44,50 @@ final class Analyser(
       }
 
     def doGenerate: Fu[Analysis] =
-      $find.byId[Game](id) map (_ filter (_.analysable)) zip
-        (GameRepo initialFen id) flatMap {
-          case (Some(game), initialFen) => AnalysisRepo.progress(id, userId) >> {
+      $find.byId[Game](id) flatMap {
+        case Some(game) if game.analysable => GameRepo initialFen game flatMap { initialFen =>
+          AnalysisRepo.progress(id, userId, game.startedAtTurn) >> {
             chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
               fufail(_),
               replay => {
-                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant.kingOfTheHill)
+                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant)
                 AnalysisRepo byId id flatten "Missing analysis"
               }
             )
           }
-          case _ => fufail(s"[analysis] game $id is missing")
         }
+        case Some(game) => fufail(s"[analysis] game $id is not analysable")
+        case _          => fufail(s"[analysis] game $id is missing")
+      }
 
-    get(id) map (_ filterNot (_.old)) flatMap {
-      _.fold(generate)(fuccess(_))
+    get(id) flatMap {
+      _.fold(generate)(fuccess)
     }
   }
 
-  def complete(id: String, data: String) =
+  def complete(id: String, data: String, from: String) =
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
-      case ((Some(game), Some(a1)), initialFen) => Info decodeList data match {
-        case None => fufail(s"[analysis] $data")
-        case Some(infos) => chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
-          fufail(_),
-          replay => UciToPgn(replay, a1 complete infos) match {
-            case (analysis, errors) =>
-              errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
-              if (analysis.valid) {
-                indexer ! InsertGame(game)
-                AnalysisRepo.done(id, analysis) >>- {
-                  game.userIds foreach { userId =>
-                    evaluator ! lila.hub.actorApi.evaluation.Refresh(userId)
-                  }
-                } >>- GameRepo.setAnalysed(game.id) inject analysis
-              }
-              else fufail(s"[analysis] invalid $id")
-          })
-      }
-      case _ => fufail(s"[analysis] complete non-existing $id")
+      case ((Some(game), Some(a1)), initialFen) if game.analysable =>
+        Info.decodeList(data, game.startedAtTurn) match {
+          case None => fufail(s"[analysis] $data")
+          case Some(infos) => chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
+            fufail(_),
+            replay => UciToPgn(replay, a1 complete infos) match {
+              case (analysis, errors) =>
+                errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
+                if (analysis.valid) {
+                  if (analysis.emptyRatio >= 1d / 10)
+                    fufail(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+                  indexer ! InsertGame(game)
+                  AnalysisRepo.done(id, analysis) >>- {
+                    modActor ! actorApi.AnalysisReady(game, analysis)
+                  } >>- GameRepo.setAnalysed(game.id) inject analysis
+                }
+                else fufail(s"[analysis] invalid $id")
+            })
+        }
+      case ((Some(game), _), _) => fufail(s"[analysis] complete non analysable $id")
+      case _                    => fufail(s"[analysis] complete non existing $id")
     } addFailureEffect {
       _ => AnalysisRepo remove id
     }

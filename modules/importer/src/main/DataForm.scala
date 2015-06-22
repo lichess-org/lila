@@ -2,7 +2,7 @@ package lila.importer
 
 import chess.format.Forsyth
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
+import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Move, Status }
 import play.api.data._
 import play.api.data.Forms._
 
@@ -30,13 +30,19 @@ case class ImportData(pgn: String) {
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
     case ParsedPgn(_, sans) if sans.size > maxPlies => !!("Replay is too long")
     case ParsedPgn(tags, sans) => Reader.full(pgn) map {
-      case replay@Replay(_, _, game) =>
+      case replay@Replay(setup, _, game) =>
         def tag(which: Tag.type => TagType): Option[String] =
           tags find (_.name == which(Tag)) map (_.value)
 
         val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
-        val variant = tag(_.Variant).flatMap(Variant.byName) | {
-          initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+        val fromPosition = initBoard.nonEmpty && tag(_.FEN) != Forsyth.initial.some
+        val variant = {
+          tag(_.Variant).map(Chess960.fixVariantName).flatMap(chess.variant.Variant.byName) | {
+            fromPosition.fold(chess.variant.FromPosition, chess.variant.Standard)
+          }
+        } match {
+          case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
+          case v => v
         }
 
         val result = tag(_.Result) filterNot (_ => game.situation.end) collect {
@@ -58,7 +64,7 @@ case class ImportData(pgn: String) {
           mode = Mode.Casual,
           variant = variant,
           source = Source.Import,
-          pgnImport = PgnImport(user = user, date = date, pgn = pgn).some)
+          pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some).start
 
         Preprocessed(dbGame, replay.chronoMoves, result)
     }

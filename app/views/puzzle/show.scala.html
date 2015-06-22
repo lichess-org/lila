@@ -4,16 +4,10 @@
 @helper.javascriptRouter("puzzleRoutes")(
 routes.javascript.Puzzle.attempt,
 routes.javascript.Puzzle.show,
-/* routes.javascript.Puzzle.history, */
-/* routes.javascript.Puzzle.difficulty, */
-/* routes.javascript.Puzzle.home, */
-/* routes.javascript.Puzzle.newPuzzle, */
 routes.javascript.Puzzle.load,
 routes.javascript.Puzzle.vote,
-/* routes.javascript.Coordinate.home, */
 routes.javascript.Editor.load,
 routes.javascript.Round.watcher
-/* routes.javascript.Auth.signup */
 )(ctx.req)
 @embedJs {
 LichessPuzzle(
@@ -47,18 +41,32 @@ trans.thankYou,
 trans.puzzleId,
 trans.ratingX,
 trans.playedXTimes,
-trans.startTraining,
 trans.continueTraining,
 trans.retryThisPuzzle,
 trans.toTrackYourProgress,
 trans.signUp,
 trans.trainingSignupExplanation,
 trans.thisPuzzleIsCorrect,
-trans.thisPuzzleIsWrong)))
+trans.thisPuzzleIsWrong,
+trans.puzzles,
+trans.coordinates,
+trans.openings)))
 );
 }
 }
 
-@layout(trans.training.str(), evenMoreJs = Some(evenMoreJs)) {
+@layout(
+trans.training.str(),
+evenMoreJs = Some(evenMoreJs),
+openGraph = Map(
+'type -> "website",
+'image -> cdnUrl(routes.Export.puzzlePng(puzzle.id).url),
+'title -> s"Chess tactic training • ${puzzle.color.name.capitalize} to play",
+'site_name -> "lichess.org",
+'url -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+'description -> puzzle.color.fold(
+trans.findTheBestMoveForWhite,
+trans.findTheBestMoveForBlack
+).str())) {
 <div class="round cg-512">@miniBoardContent</div>
 }

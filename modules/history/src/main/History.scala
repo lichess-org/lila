@@ -1,27 +1,35 @@
 package lila.history
 
-import org.joda.time.{ Days, DateTime }
 import lila.rating.PerfType
+import org.joda.time.{ Days, DateTime }
 
 case class History(
     standard: RatingsMap,
     chess960: RatingsMap,
     kingOfTheHill: RatingsMap,
+    antichess: RatingsMap,
     threeCheck: RatingsMap,
+    atomic: RatingsMap,
+    horde: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
     classical: RatingsMap,
+    correspondence: RatingsMap,
     puzzle: RatingsMap) {
 
   def apply(perfType: PerfType): RatingsMap = perfType match {
-    case PerfType.Standard      => standard
-    case PerfType.Bullet        => bullet
-    case PerfType.Blitz         => blitz
-    case PerfType.Classical     => classical
-    case PerfType.Chess960      => chess960
-    case PerfType.KingOfTheHill => kingOfTheHill
-    case PerfType.ThreeCheck    => threeCheck
-    case PerfType.Puzzle        => puzzle
+    case PerfType.Standard       => standard
+    case PerfType.Bullet         => bullet
+    case PerfType.Blitz          => blitz
+    case PerfType.Classical      => classical
+    case PerfType.Correspondence => correspondence
+    case PerfType.Chess960       => chess960
+    case PerfType.KingOfTheHill  => kingOfTheHill
+    case PerfType.Antichess      => antichess
+    case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Atomic         => atomic
+    case PerfType.Horde          => horde
+    case PerfType.Puzzle         => puzzle
   }
 }
 
@@ -47,9 +55,13 @@ object History {
         chess960 = ratingsMap("chess960"),
         kingOfTheHill = ratingsMap("kingOfTheHill"),
         threeCheck = ratingsMap("threeCheck"),
+        antichess = ratingsMap("antichess"),
+        atomic = ratingsMap("atomic"),
+        horde = ratingsMap("horde"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
         classical = ratingsMap("classical"),
+        correspondence = ratingsMap("correspondence"),
         puzzle = ratingsMap("puzzle"))
     }
   }

@@ -14,10 +14,11 @@ case class Player(
     isOfferingDraw: Boolean = false,
     isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
-    isProposingTakeback: Boolean = false,
+    proposeTakebackAt: Int = 0, // ply when takeback was proposed
     userId: Option[String] = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
+    provisional: Boolean = false,
     blurs: Int = 0,
     holdAlert: Option[Player.HoldAlert] = None,
     name: Option[String] = None) {
@@ -28,9 +29,8 @@ case class Player(
 
   def withUser(id: String, perf: lila.rating.Perf): Player = copy(
     userId = id.some,
-    rating = perf.intRating.some)
-
-  def withRating(rating: Int) = copy(rating = rating.some)
+    rating = perf.intRating.some,
+    provisional = perf.glicko.provisional)
 
   def isAi = aiLevel.isDefined
 
@@ -40,7 +40,9 @@ case class Player(
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
-  def userInfos: Option[(String, Int)] = (userId |@| rating).tupled
+  def userInfos: Option[Player.UserInfo] = (userId |@| rating) {
+    case (id, ra) => Player.UserInfo(id, ra, provisional)
+  }
 
   def wins = isWinner getOrElse false
 
@@ -62,9 +64,11 @@ case class Player(
 
   def removeRematchOffer = copy(isOfferingRematch = false)
 
-  def proposeTakeback = copy(isProposingTakeback = true)
+  def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
 
-  def removeTakebackProposition = copy(isProposingTakeback = false)
+  def removeTakebackProposition = copy(proposeTakebackAt = 0)
+
+  def isProposingTakeback = proposeTakebackAt != 0
 
   def withName(name: String) = copy(name = name.some)
 
@@ -101,6 +105,8 @@ object Player {
     def suspicious = ply >= 20 && ply <= 30
   }
 
+  case class UserInfo(id: String, rating: Int, provisional: Boolean)
+
   import reactivemongo.bson.Macros
   implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
 
@@ -110,9 +116,10 @@ object Player {
     val isOfferingDraw = "od"
     val isOfferingRematch = "or"
     val lastDrawOffer = "ld"
-    val isProposingTakeback = "ot"
+    val proposeTakebackAt = "ta"
     val rating = "e"
     val ratingDiff = "d"
+    val provisional = "p"
     val blurs = "b"
     val holdAlert = "h"
     val name = "na"
@@ -138,10 +145,11 @@ object Player {
       isOfferingDraw = r boolD isOfferingDraw,
       isOfferingRematch = r boolD isOfferingRematch,
       lastDrawOffer = r intO lastDrawOffer,
-      isProposingTakeback = r boolD isProposingTakeback,
+      proposeTakebackAt = r intD proposeTakebackAt,
       userId = userId,
       rating = r intO rating,
       ratingDiff = r intO ratingDiff,
+      provisional = r boolD provisional,
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
       name = r strO name)
@@ -153,9 +161,10 @@ object Player {
           isOfferingDraw -> w.boolO(p.isOfferingDraw),
           isOfferingRematch -> w.boolO(p.isOfferingRematch),
           lastDrawOffer -> p.lastDrawOffer,
-          isProposingTakeback -> w.boolO(p.isProposingTakeback),
+          proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
+          provisional -> w.boolO(p.provisional),
           blurs -> w.intO(p.blurs),
           holdAlert -> p.holdAlert,
           name -> p.name)

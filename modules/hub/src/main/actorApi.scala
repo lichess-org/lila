@@ -30,6 +30,7 @@ case class StreamsOnAir(html: String)
 package map {
 case class Get(id: String)
 case class Tell(id: String, msg: Any)
+case class TellIds(ids: Seq[String], msg: Any)
 case class TellAll(msg: Any)
 case class Ask(id: String, msg: Any)
 }
@@ -37,14 +38,28 @@ case class Ask(id: String, msg: Any)
 case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
+case object GetUserIds
 
 package report {
 case class Cheater(userId: String, text: String)
+case class Clean(userId: String)
 case class Check(userId: String)
+case class MarkCheater(userId: String, by: String)
+case class MarkTroll(userId: String, by: String)
+case class Shutup(userId: String, text: String)
+}
+
+package shutup {
+case class RecordPublicForumMessage(userId: String, text: String)
+case class RecordTeamForumMessage(userId: String, text: String)
+case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
+case class RecordPrivateChat(chatId: String, userId: String, text: String)
+case class RecordPublicChat(chatId: String, userId: String, text: String)
 }
 
 package mod {
 case class MarkCheater(userId: String)
+case class MarkBooster(userId: String)
 }
 
 package setup {
@@ -60,22 +75,31 @@ case class ValidCaptcha(id: String, solution: String)
 
 package lobby {
 case class ReloadTournaments(html: String)
+case class ReloadSimuls(html: String)
 case object NewForumPost
+}
+
+package simul {
+case object GetHostIds
+case class PlayerMove(gameId: String)
 }
 
 package timeline {
 case class ReloadTimeline(user: String)
 
-sealed trait Atom
-case class Follow(u1: String, u2: String) extends Atom
-case class TeamJoin(userId: String, teamId: String) extends Atom
-case class TeamCreate(userId: String, teamId: String) extends Atom
-case class ForumPost(userId: String, topicName: String, postId: String) extends Atom
-case class NoteCreate(from: String, to: String) extends Atom
-case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom
-case class QaQuestion(userId: String, id: Int, title: String) extends Atom
-case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom
-case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom
+sealed abstract class Atom(val channel: String, val okForKid: Boolean)
+case class Follow(u1: String, u2: String) extends Atom(s"follow", true)
+case class TeamJoin(userId: String, teamId: String) extends Atom(s"teamJoin", false)
+case class TeamCreate(userId: String, teamId: String) extends Atom(s"teamCreate", false)
+case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false)
+case class NoteCreate(from: String, to: String) extends Atom(s"note", false)
+case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom(s"tournament", true)
+case class QaQuestion(userId: String, id: Int, title: String) extends Atom(s"qa", true)
+case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom(s"qa", true)
+case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom(s"qa", true)
+case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd", true)
+case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom(s"simulCreate", true)
+case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom(s"simulJoin", true)
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]
@@ -87,6 +111,9 @@ object atomFormat {
   implicit val qaQuestionFormat = Json.format[QaQuestion]
   implicit val qaAnswerFormat = Json.format[QaAnswer]
   implicit val qaCommentFormat = Json.format[QaComment]
+  implicit val gameEndFormat = Json.format[GameEnd]
+  implicit val simulCreateFormat = Json.format[SimulCreate]
+  implicit val simulJoinFormat = Json.format[SimulJoin]
 }
 
 object propagation {
@@ -116,6 +143,10 @@ case class ChangeFeatured(id: String, msg: JsObject)
 case object Count
 }
 
+package tv {
+case class Select(msg: JsObject)
+}
+
 package message {
 case class LichessThread(from: String, to: String, subject: String, message: String)
 }
@@ -138,7 +169,12 @@ case class MakeTeam(id: String, name: String)
 }
 
 package ai {
-case class Analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, kingOfTheHill: Boolean)
+case class Analyse(
+  gameId: String,
+  uciMoves: List[String],
+  initialFen: Option[String],
+  requestedByHuman: Boolean,
+  variant: chess.variant.Variant)
 case class AutoAnalyse(gameId: String)
 }
 
@@ -152,8 +188,14 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  ip: String)
+  piece: Char,
+  color: chess.Color,
+  ip: String,
+  opponentUserId: Option[String],
+  simulId: Option[String])
 case class NbRounds(nb: Int)
+case class Abort(gameId: String, byColor: String)
+case class Berserk(gameId: String, userId: String)
 }
 
 package evaluation {
@@ -163,7 +205,7 @@ case class Refresh(userId: String)
 
 package bookmark {
 case class Toggle(gameId: String, userId: String)
-case class Remove(gameIds: List[String])
+case class Remove(gameId: String)
 }
 
 package relation {

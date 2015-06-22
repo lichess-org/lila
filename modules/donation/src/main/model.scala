@@ -11,5 +11,5 @@ case class Progress(
 
   def complete = goal >= current
 
-  def month = from.monthOfYear.getAsText
+  def month = from.monthOfYear.getAsText(new java.util.Locale("en"))
 }

@@ -1,39 +1,34 @@
 package lila.lobby
 
-import chess.{ Variant, Mode, Clock, Speed }
+import chess.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
+import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
-import actorApi.LobbyUser
 
+// realtime chess, volatile
 case class Hook(
     id: String,
     uid: String, // owner socket uid
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
-    hasClock: Boolean,
-    time: Option[Int],
-    increment: Option[Int],
+    clock: Clock,
     mode: Int,
     allowAnon: Boolean,
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    gameId: Option[String] = None,
     createdAt: DateTime) {
 
-  def open = gameId.isEmpty
-  def closed = !open
+  val realColor = Color orDefault color
 
-  def realColor = Color orDefault color
+  val realVariant = chess.variant.Variant orDefault variant
 
-  def realVariant = Variant orDefault variant
-
-  def realMode = Mode orDefault mode
+  val realMode = Mode orDefault mode
 
   def memberOnly = !allowAnon
 
@@ -47,7 +42,7 @@ case class Hook(
     range => h.rating ?? range.contains
   }
 
-  private def compatibilityProperties = (variant, time, increment, mode)
+  private def compatibilityProperties = (variant, clock.limit, clock.increment, mode)
 
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
@@ -56,30 +51,31 @@ case class Hook(
   def username = user.fold(User.anonymous)(_.username)
   def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
   def engine = user ?? (_.engine)
+  def booster = user ?? (_.booster)
+  def lame = user ?? (_.lame)
 
   def render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
     "username" -> username,
     "rating" -> rating,
-    "variant" -> realVariant.shortName,
-    "mode" -> realMode.toString,
-    "clock" -> clockOption.map(_.show),
-    "time" -> clockOption.map(_.estimateTotalTime),
-    "speed" -> chess.Speed(clockOption).id,
+    "variant" -> Json.obj(
+      "key" -> realVariant.key,
+      "short" -> realVariant.shortName,
+      "name" -> realVariant.name),
+    "mode" -> realMode.id,
+    "clock" -> clock.show,
+    "time" -> clock.estimateTotalTime,
+    "speed" -> speed.id,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
       "icon" -> perfType.map(_.iconChar.toString),
       "name" -> perfType.map(_.name))
   )
 
-  lazy val perfType = PerfPicker.perfType(speed, realVariant)
+  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  private lazy val clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
-
-  private lazy val speed = Speed(clockOption)
-
-  private def renderClock(time: Int, inc: Int) = "%d + %d".format(time / 60, inc)
+  private lazy val speed = Speed(clock.some)
 }
 
 object Hook {
@@ -88,8 +84,8 @@ object Hook {
 
   def make(
     uid: String,
-    variant: Variant,
-    clock: Option[Clock],
+    variant: chess.variant.Variant,
+    clock: Clock,
     mode: Mode,
     allowAnon: Boolean,
     color: String,
@@ -100,9 +96,7 @@ object Hook {
     id = Random nextStringUppercase idSize,
     uid = uid,
     variant = variant.id,
-    hasClock = clock.isDefined,
-    time = clock map (_.limit),
-    increment = clock map (_.increment),
+    clock = clock,
     mode = mode.id,
     allowAnon = allowAnon || user.isEmpty,
     color = color,

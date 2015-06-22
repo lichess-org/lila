@@ -10,7 +10,7 @@ import lila.db.Implicits._
 import lila.user.{ User, UserRepo }
 import tube.reportTube
 
-private[report] final class ReportApi(evaluator: ActorSelection) {
+private[report] final class ReportApi {
 
   def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
@@ -23,17 +23,11 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       !isAlreadySlain(report, user) ?? {
         if (by.id == UserRepo.lichessId) reportTube.coll.update(
           selectRecent(user, reason),
-          reportTube.toMongo(report).get - "_id"
-        ) map { res =>
-            if (!res.updatedExisting) {
-              if (report.isCheat) evaluator ! user
-              $insert(report)
-            }
+          Json.obj("$set" -> (reportTube.toMongo(report).get - "processedBy" - "_id"))
+        ) flatMap { res =>
+            (!res.updatedExisting) ?? $insert(report)
           }
-        else {
-          if (report.isCheat) evaluator ! user
-          $insert(report)
-        }
+        else $insert(report)
       }
     }
 
@@ -43,7 +37,6 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       (report.isTroll && user.troll)
 
   def autoCheatReport(userId: String, text: String): Funit = {
-    logger.info(s"auto cheat report $userId: ${~text.lines.toList.headOption}")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
@@ -55,6 +48,14 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
     }
   }
 
+  def clean(userId: String): Funit = $update(
+    Json.obj(
+      "user" -> userId,
+      "reason" -> "cheat"
+    ) ++ unprocessedSelect,
+    $set("processedBy" -> "lichess"),
+    multi = true)
+
   def process(id: String, by: User): Funit = $find byId id flatMap {
     _ ?? { report =>
       $update(
@@ -64,6 +65,34 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         ) ++ unprocessedSelect,
         $set("processedBy" -> by.id),
         multi = true)
+    }
+  }
+
+  def processEngine(userId: String, byModId: String): Funit = $update(
+    Json.obj(
+      "user" -> userId,
+      "reason" -> Reason.Cheat.name
+    ) ++ unprocessedSelect,
+    $set("processedBy" -> byModId),
+    multi = true)
+
+  def processTroll(userId: String, byModId: String): Funit = $update(
+    Json.obj(
+      "user" -> userId,
+      "reason" -> $or(List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name))
+    ) ++ unprocessedSelect,
+    $set("processedBy" -> byModId),
+    multi = true)
+
+  def autoInsultReport(userId: String, text: String): Funit = {
+    UserRepo byId userId zip UserRepo.lichess flatMap {
+      case (Some(user), Some(lichess)) => create(ReportSetup(
+        user = user,
+        reason = "insult",
+        text = text,
+        gameId = "",
+        move = ""), lichess)
+      case _ => funit
     }
   }
 
@@ -84,12 +113,10 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
   def recentProcessed(nb: Int) = $find($query(processedSelect) sort $sort.createdDesc, nb)
 
   private def selectRecent(user: User, reason: Reason) = Json.obj(
-    "createdAt" -> $gt($date(DateTime.now minusDays 3)),
+    "createdAt" -> $gt($date(DateTime.now minusDays 7)),
     "user" -> user.id,
     "reason" -> reason.name)
 
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
     $find.one(selectRecent(user, reason))
-
-  private val logger = play.api.Logger("report")
 }

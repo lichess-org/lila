@@ -1,0 +1,65 @@
+@(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context)
+
+@base.layout(
+title = "Mobile",
+moreCss = cssTag("mobile.css")) {
+<div class="mobile content_box small_box clearfix">
+  <div class="right-side">
+    <img class="nexus5-playing" width="268" height="513" src="@staticUrl("images/mobile/nexus5-playing.png")" alt="Lichess mobile on nexus 5" />
+    <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/dynamic-qrcode.png")" alt="Download QR code" />
+  </div>
+  <div class="left-side">
+    <h1>Play chess everywhere</h1>
+    <a class="store" style="margin-top: 30px"
+      href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+      <img alt="Android app on Google Play"
+      width="172"
+      src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+    </a>
+    <a class="store" style="margin-top: 20px"
+      href="https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784">
+      <img alt="Download on the Apple App Store"
+      width="172"
+      src="https://devimages.apple.com.edgekey.net/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" />
+    </a>
+    <div class="apk" style="margin-top: 20px">
+      @Html(~apkDoc.getHtml("doc.content", resolver))
+    </div>
+    <h2>lichess on the go</h2>
+    <ul class="block">
+      <li>Challenge online players</li>
+      <li>Play Stockfish level 1 to 8</li>
+      <li>Login or play as Anonymous</li>
+      <li>Available in 80 languages!</li>
+    </ul>
+    <h2>As free as lichess</h2>
+    <ul class="block">
+      <li>Built for the love of chess, not money</li>
+      <li>Everybody gets <strong>all features for free</strong></li>
+      <li>Zero advertisement</li>
+      <li>Entirely <a href="https://github.com/veloce/lichobile">Open Source</a> as usual</li>
+    </ul>
+    <h2>Full featured</h2>
+    <ul class="block">
+      <li>Real time with increment</li>
+      <li>Correspondence games</li>
+      <li>Over The Board, offline</li>
+      <li>VS computer, offline</li>
+      <li>Watch Lichess TV</li>
+    </ul>
+    <p class="block">
+      More of the features you love from the website will be added in the near future.<br />
+      Look out for updates regularly!
+    </p>
+    <div class="block">
+      <a href="https://github.com/veloce/lichobile">Lichess mobile is open source, </a>
+      and uses:
+      <ul style="text-align:left">
+        <li><a href="http://cordova.apache.org/">Cordova platform</a></li>
+        <li><a href="http://tarifa.tools">Tarifa toolchain</a></li>
+        <li><a href="http://lhorie.github.io/mithril/">Mithril JS framework</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+}

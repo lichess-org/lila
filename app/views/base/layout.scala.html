@@ -1,7 +1,6 @@
 @(
 title: String,
 fullTitle: Option[String] = None,
-active: Option[lila.app.ui.SiteMenu.Elem] = None,
 baseline: Option[Html] = None,
 side: Option[Html] = None,
 menu: Option[Html] = None,
@@ -11,20 +10,23 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
-openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+playing: Boolean = false,
+openGraph: Map[Symbol, String] = Map.empty,
+chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
+    <meta charset="utf-8">
     <title>@if(!isProd){ [dev] }@fullTitle.getOrElse{@title • lichess.org}</title>
+    @fonts(lang)
     @if(ctx.currentBg == "dark") {
     @cssTag("dark.css")
     }
     @cssTag("common.css")
-    @cssTag("chessground.css")
     @cssTag("board.css")
     @moreCss
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
-    <meta charset="utf-8">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
@@ -38,17 +40,18 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @langAnnotations
   </head>
-  <body class="base @List(
+  <body class="preload base @List(
     ctx.currentTheme.cssClass,
     ctx.currentTheme3d.cssClass,
     ctx.currentBg,
-    ctx.currentPieceSet,
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
-    if (ctx.is3d) "is3d" else "is2d",
+    ctx.kid ?? "kid",
     "coords_" + ctx.pref.coords).mkString(" ")"
+    data-user="@ctx.userId"
+    data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
@@ -58,138 +61,76 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
       <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
-    <div id="top" class="clearfix">
+    <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
+      @topmenu()
+      <div id="ham-plate" data-hint="Menu <esc>" class="hint--bottom">
+        <div id="hamburger">
+          <div class="top"></div>
+          <svg version="1.1" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+            <path id="ham-circle" fill="none" stroke-width="4" stroke-miterlimit="10" d="M16,32h32c0,0,11.723-0.306,10.75-11 c-0.25-2.75-1.644-4.971-2.869-7.151C50.728,7.08,42.767,2.569,33.733,2.054C33.159,2.033,32.599,2,32,2C15.432,2,2,15.432,2,32 c0,16.566,13.432,30,30,30c16.566,0,30-13.434,30-30C62,15.5,48.5,2,32,2S1.875,15.5,1.875,32"/>
+          </svg>
+          <div class="bottom"></div>
+        </div>
+      </div>
+      <div class="lichess_language fright">
+        <a class="toggle link" href="#">@langName(lang)</a>
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
+          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+        </form>
+      </div>
+      @ctx.me.map { me =>
+      <div class="auth fright">
+        @auth.userDropdown(me, playing)
+      </div>
+      <div id="message_notifications_parent" class="message_notifications fright @if(ctx.nbMessages == 0) {none}">
+        <a id="message_notifications_tag" class="toggle link" data-href="@routes.Message.preview">
+          <span data-icon="e"></span>
+          <span id="nb_messages" class="new_messages unread">@ctx.nbMessages</span>
+        </a>
+        <div id="message_notifications" class="links dropdown">
+          <div id="message_notifications_display" class="content"></div>
+          <div class="title"><a href="@routes.Message.inbox(page=1)">@trans.inbox() »</a></div>
+        </div>
+      </div>
+      <div class="challenge_notifications fright">
+        <a id="challenge_notifications_tag" class="toggle link none">
+          <span data-icon="U"></span>
+          <span id="nb_challenges" class="new_challenges unread">0</span>
+        </a>
+        <div id="challenge_notifications" class="links dropdown"></div>
+      </div>
+      }.getOrElse {
+      <button class="signin button fright text">@trans.signIn()</button>
+      }
       @if(!zen) {
-      <div id="sound_control">
-        <button id="sound_state" class="a available hint--bottom-left">
+      <div id="sound_control" class="fright">
+        <button id="sound_state" class="a link available hint--bottom-left">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
         </button>
         <div class="dropdown"><div class="slider"></div></div>
       </div>
-      }
-      @if(!zen) {
-      @siteMenu.all(ctx.me).map { elem =>
-      @elem.code match {
-      case "team" if ctx.teamNbRequests > 0 => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
-        @elem.name()
+      @if(ctx.teamNbRequests > 0) {
+      <a class="fright link" href="@routes.Team.requests()">
+        @trans.teams()
         <span id="nb_messages" class="new_messages unread">@ctx.teamNbRequests</span>
       </a>
       }
-      case "team" => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)"
-        href="@ctx.isAuth.fold(routes.Team.mine, elem.route)">
-        @elem.name()
-      </a>
-      }
-      case _ => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-        @elem.name()
-      </a>
-      }
-      }
-      }
-      }
+      <div id="themepicker" class="fright">
+        <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
+          &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
+        </a>
+      </div>
       @defining(reportNbUnprocessed) { nb =>
       @if(nb > 0) {
-      <a class="goto_nav" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>
+      <a class="fright link text" href="@routes.Report.list" data-icon="@icon.mod"><strong>@nb</strong></a>
       }
       }
-      @if(!zen) {
-      <div id="nb_connected_players" class="nb_connected_players">
-        @trans.nbConnectedPlayers("<strong>?</strong>")
-      </div>
-      <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      <div id="themepicker"
-        data-themes="@lila.pref.Theme.listString"
-        data-theme3ds="@lila.pref.Theme3d.listString"
-        data-sets="@lila.pref.PieceSet.listString"
-        data-set3ds="@lila.pref.PieceSet3d.listString">
-        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming">
-          &nbsp;<span data-icon="v"></span>&nbsp;
-        </a>
-        <div class="dropdown">
-          <div class="background toggles" data-href="@routes.Pref.set("bg")">
-            <a class="light button" data-bg="light" data-icon="5"></a>
-            <a class="dark button" data-bg="dark" data-icon="4"></a>
-          </div>
-          <div class="dimensions toggles" data-href="@routes.Pref.set("is3d")">
-            <a class="d2 button" data-is3d="false">2D</a>
-            <a class="d3 button" data-is3d="true">3D</a>
-          </div>
-          <div class="is2d">
-            <div class="board" data-href="@routes.Pref.set("theme")">
-              @lila.pref.Theme.list.map { theme =>
-              <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
-              }
-            </div>
-            <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
-              @lila.pref.PieceSet.list.map { set =>
-              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
-              }
-            </div>
-          </div>
-          <div class="is3d">
-            <div class="board" data-href="@routes.Pref.set("theme3d")">
-              @lila.pref.Theme3d.list.map { theme =>
-              <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
-              }
-            </div>
-            <div class="piece_set" data-href="@routes.Pref.set("pieceSet3d")">
-              @lila.pref.PieceSet3d.list.map { set =>
-              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
-              }
-            </div>
-          </div>
-          @if(ctx.isAuth) {
-          <a class="prefs button" href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
-          }
-        </div>
-      </div>
-      <div class="lichess_language">
-        <a class="toggle" href="#">
-          <span data-icon="u">&nbsp;@langName(lang)</span>
-        </a>
-        <ul class="language_links dropdown" data-url="@staticUrl("trans/refs.json")">
-          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-        </ul>
-      </div>
-      @ctx.me.map { me =>
-      <div class="auth">
-        <a id="user_tag" class="toggle toggle_auth"><span data-icon="u">&nbsp;@me.username</span></a>
-        <div class="links dropdown">
-          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r">&nbsp;@trans.profile()</span></a>
-          <a href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
-          <a href="@routes.Auth.logout"><span data-icon="w">&nbsp;@trans.logOut()</span></a>
-          @if(isGranted(_.StaffForum)) {
-          <span class="sep"></span>
-          <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
-          <a href="@routes.Mod.log()">Mod log</a>
-          <a href="@routes.Report.list()">User reports</a>
-          }
-          <span class="sep"></span>
-          <div class="perfs">
-            @topBarSortedPerfTypes.map { pt =>
-            @me.perfs(pt.key).map { perf =>
-            @showPerfRating(pt, perf, klass = "hint--bottom-left")
-            }
-            }
-          </div>
-          <span class="sep"></span>
-          <div class="ping">PING <strong>?</strong> ms</div>
-        </div>
-      </div>
-      <a data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
-        <span class="is2" data-icon="e"></span>
-        <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
-      </a>
-      }.getOrElse {
-      <a href="@routes.Auth.login" class="signin button" data-icon="F">&nbsp;@trans.signIn()</a>
       }
-      }
+      <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
-    <div class="content">
+    <div id="fpmenu">@fpmenu()</div>
+    <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         @ctx.me.map { me =>
         <div id="notifications">@notifications(me)</div>
@@ -197,15 +138,9 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         <div id="notifications"></div>
         }
         <h1>
-          <a id="site_title" href="@routes.Lobby.home">
-            lichess<span class="extension">.org</span>
-          </a>
-          @if(acceptsLanguage(lang)) {
-          @baseline
-          } else {
-          @langFallbackLinks
-          }
+          <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="Kid mode" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
         </h1>
+        @baseline
         @menu.map { side =>
         <div class="side_menu">@side</div>
         }
@@ -219,28 +154,6 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         @body
       </div>
     </div>
-    @if(!zen) {
-    <div id="footer_wrap">
-      <div class="footer">
-        <div class="right">
-          <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> |
-          <a href="@routes.Main.developers">Developers</a><br />
-          <a href="@routes.Page.contact">Contact</a> |
-          <a href="@routes.Page.thanks">Thanks</a> |
-          <a href="@routes.Page.tos">ToS</a>
-        </div>
-        <div class="center">
-          <a href="@routes.Donation.index" class="button">Donate</a>
-        </div>
-        <a href="@routes.Blog.index()">Blog</a> |
-        <a href="@routes.QaQuestion.index()" title="Questions &amp; Answers">Q&amp;A</a> |
-        <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
-        <a href="@routes.WorldMap.index" title="Realtime world map of chess moves">Map</a> |
-        <a href="@routes.Monitor.index">Monitor</a> |
-        <a href="@routes.Page.helpLichess">Help lichess.org</a>
-      </div>
-    </div>
-    }
     @ctx.me.map { me =>
     <div id="friend_box" data-preload="@ctx.friends.map(_.titleName).mkString(",")">
       <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>
@@ -249,23 +162,20 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         <div class="nobody">
           <span>@trans.noFriendsOnline()</span>
           <a class="find button" href="@routes.Relation.suggest(me.username)">
-            <span class="is3" data-icon="h">&nbsp;@trans.findFriends()</span>
+            <span class="is3 text" data-icon="h">@trans.findFriends()</span>
           </a>
         </div>
       </div>
     </div>
     }
     @jQueryTag
-    @jsTag("vendor/chessground.min.js")
+    @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @jsTag("deps.min.js")
     @momentjsTag
-    @powertipTag
-    @jsTagCompiled("common.js")
-    @jsTagCompiled("strongSocket.js")
     @jsTagCompiled("big.js")
     @moreJs
-    @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")
+    @if(lang.language != "en") {
     @momentLangTag
     }
     @base.ga()

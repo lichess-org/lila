@@ -5,7 +5,17 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 }
 
+function showLoading(ctrl) {
+  ctrl.vm.loading = true;
+  m.redraw();
+}
+
+function uncache(url) {
+  return url + '?_=' + new Date().getTime();
+}
+
 function attempt(ctrl, win) {
+  showLoading(ctrl);
   m.request({
     method: 'POST',
     url: ctrl.router.Puzzle.attempt(ctrl.data.puzzle.id).url,
@@ -35,14 +45,20 @@ function vote(ctrl, v) {
 }
 
 function retry(ctrl) {
+  showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url,
+    url: uncache(ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url),
     config: xhrConfig
   }).then(ctrl.reload);
 }
 
+function reloadPage() {
+    location.href = '/training';
+}
+
 function setDifficulty(ctrl, d) {
+  showLoading(ctrl);
   m.request({
     method: 'POST',
     url: '/training/difficulty',
@@ -50,15 +66,19 @@ function setDifficulty(ctrl, d) {
       difficulty: d
     },
     config: xhrConfig
-  }).then(ctrl.reload);
+  }).then(ctrl.reload, reloadPage);
 }
 
 function newPuzzle(ctrl) {
+  showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: '/training/new',
+    url: uncache('/training/new'),
     config: xhrConfig
-  }).then(ctrl.reload);
+  }).then(function(cfg) {
+    ctrl.reload(cfg);
+    ctrl.pushState(cfg);
+  }, reloadPage);
 }
 
 module.exports = {

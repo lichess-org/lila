@@ -23,26 +23,45 @@
 }
 
 @games.map { g =>
-<div class="game_row paginated_element clearfix">
+<div class="game_row paginated_element">
   @defining(user flatMap g.player) { fromPlayer =>
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink, withTitle = false)
-  <div class="infos" data-icon="@g.perfType match {
-    case _ if g.fromPosition => {*}
-    case _ if g.hasAi => {:}
-    case _ if g.isPgnImport => {/}
-    case _ if g.isFicsRelay => {/}
-    case Some(p) => {@p.iconChar}
-    case _ => {8}
-    }">
+  <a class="game_link_overlay" href="@gameLink(g, firstPlayer.color, ownerLink)"></a>
+  <div class="infos" data-icon="@gameIcon(g)">
     @bookmark.toggle(g)
     <div class="header">
       <strong>
-        @g.clock.fold(trans.unlimited.str())(_.show)
-        • @g.perfType.map(_.name).getOrElse {@chess.Variant.FromPosition.name}
+        @if(g.imported) {
+        <span>IMPORT</span>
+        @g.pgnImport.flatMap(_.user).map { user =>
+        @trans.by(userIdLink(user.some, None, false))
+        }
+        •
+        @if(g.variant.exotic) {
+        @variantLink(g.variant, g.variant.name.toUpperCase, cssClass = "hint--top")
+        } else {
+        @g.variant.name.toUpperCase
+        }
+        } else {
+        @g.clock.map(_.show).getOrElse {
+        @g.daysPerTurn.map { days =>
+        <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1) {@trans.oneDay()} else {@trans.nbDays(days)}</span>
+        }.getOrElse {
+        <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+        }
+        }
+        • @g.perfType.map(_.name).getOrElse {@chess.variant.FromPosition.name}
         • @g.rated.fold(trans.rated(), trans.casual())
+        }
       </strong>
       @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))
+      @g.tournamentId.map { tourId =>
+      • @tournamentLink(tourId)
+      }
+      @g.simulId.map { simulId =>
+      • @simulLink(simulId)
+      }
     </div>
     <div class="versus">
       @gamePlayer(g.whitePlayer)
@@ -78,12 +97,9 @@
     <br /><br />
     }
     <div class="metadata">
-      @if(g.metadata.analysed) {<span data-icon="A"> Computer analysis available</span><br />}
+      @if(g.metadata.analysed) {<span data-icon="&#xe004;"> Computer analysis available</span><br />}
       @g.pgnImport.flatMap(_.user).map { user =>
       PGN import by @userIdLinkMini(user)<br />
-      }
-      @g.tournamentId.map { tourId =>
-      @tournamentLink(tourId)<br />
       }
     </div>
   </div>

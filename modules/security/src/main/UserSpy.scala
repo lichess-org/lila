@@ -2,15 +2,13 @@ package lila.security
 
 import scala.concurrent.Future
 
-import play.api.libs.json._
 import play.api.mvc.RequestHeader
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
 
 import lila.common.PimpedJson._
 import lila.db.api._
-import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
-import tube.storeTube
+import tube.storeColl
 
 case class UserSpy(
     ips: List[UserSpy.IPData],
@@ -27,21 +25,29 @@ object UserSpy {
 
   type IP = String
 
-  case class IPData(ip: IP, blocked: Boolean, location: Location)
+  case class IPData(ip: IP, blocked: Boolean, location: Location, tor: Boolean)
 
   private[security] def apply(firewall: Firewall, geoIP: GeoIP)(userId: String): Fu[UserSpy] = for {
     user ← UserRepo named userId flatten "[spy] user not found"
-    objs ← $find(Json.obj("user" -> user.id))
-    ips = objs.flatMap(_ str "ip").distinct
+    infos ← Store.findInfoByUser(user.id)
+    ips = infos.map(_.ip).distinct
     blockedIps ← (ips map firewall.blocksIp).sequenceFu
-    locations <- scala.concurrent.Future { ips flatMap geoIP.apply }
+    tors = ips.map { ip =>
+      infos.exists { x => x.ip == ip && x.isTorExitNode }
+    }
+    locations <- scala.concurrent.Future {
+      ips zip tors map {
+        case (_, true) => Location.tor
+        case (ip, _)   => geoIP orUnknown ip
+      }
+    }
     users ← explore(Set(user), Set.empty, Set(user))
   } yield UserSpy(
-    ips = ips zip blockedIps zip locations map {
-      case ((ip, blocked), location) => IPData(ip, blocked, location)
+    ips = ips zip blockedIps zip locations zip tors map {
+      case (((ip, blocked), location), tor) => IPData(ip, blocked, location, tor)
     },
-    uas = objs.map(_ str "ua").flatten.distinct,
-    otherUsers = (users + user).toList.sorted)
+    uas = infos.map(_.ua).distinct,
+    otherUsers = (users + user).toList.sortBy(-_.createdAt.getMillis))
 
   private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
     nextIps(users, ips) flatMap { nIps =>
@@ -51,16 +57,28 @@ object UserSpy {
 
   private def nextIps(users: Set[User], ips: Set[IP]): Fu[Set[IP]] =
     users.nonEmpty ?? {
-      $primitive(
-        Json.obj("user" -> $in(users.map(_.id)), "ip" -> $nin(ips)), "ip"
-      )(_.asOpt[IP]) map (_.toSet)
+      storeColl.find(
+        BSONDocument(
+          "user" -> BSONDocument("$in" -> users.map(_.id)),
+          "ip" -> BSONDocument("$nin" -> ips)
+        ),
+        BSONDocument("ip" -> true)
+      ).cursor[BSONDocument].collect[List]() map {
+          _.flatMap(_.getAs[IP]("ip")).toSet
+        }
     }
 
   private def nextUsers(ips: Set[IP], users: Set[User]): Fu[Set[User]] =
     ips.nonEmpty ?? {
-      $primitive(
-        Json.obj("ip" -> $in(ips), "user" -> $nin(users.map(_.id))), "user"
-      )(_.asOpt[String]) flatMap { userIds =>
+      storeColl.find(
+        BSONDocument(
+          "ip" -> BSONDocument("$in" -> ips),
+          "user" -> BSONDocument("$nin" -> users.map(_.id))
+        ),
+        BSONDocument("user" -> true)
+      ).cursor[BSONDocument].collect[List]() map {
+          _.flatMap(_.getAs[String]("user"))
+        } flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)
         }
     }

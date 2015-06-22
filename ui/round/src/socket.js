@@ -1,75 +1,29 @@
 var m = require('mithril');
 var game = require('game').game;
 var ground = require('./ground');
+var util = require('./util');
 var xhr = require('./xhr');
+var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
 
   this.send = send;
 
   var handlers = {
-    possibleMoves: function(o) {
-      ctrl.data.possibleMoves = o;
-      if (!ctrl.replay.active) ctrl.chessground.set({
-        movable: {
-          dests: game.parsePossibleMoves(o)
-        }
-      });
-    },
-    state: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
-        turnColor: o.color
-      });
-      ctrl.data.game.player = o.color;
-      ctrl.data.game.turns = o.turns;
+    takebackOffers: function(o) {
+      ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
+      ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
       m.redraw();
-      ctrl.setTitle();
     },
     move: function(o) {
       ctrl.apiMove(o);
-    },
-    premove: function() {
-      ctrl.chessground.playPremove();
-    },
-    castling: function(o) {
-      if (ctrl.replay.active) return;
-      var pieces = {};
-      pieces[o.king[0]] = null;
-      pieces[o.rook[0]] = null;
-      pieces[o.king[1]] = {
-        role: 'king',
-        color: o.color
-      };
-      pieces[o.rook[1]] = {
-        role: 'rook',
-        color: o.color
-      };
-      ctrl.chessground.setPieces(pieces);
-    },
-    check: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
-        check: o
-      });
-    },
-    enpassant: function(o) {
-      var pieces = {};
-      pieces[o] = null;
-      if (!ctrl.replay.active) ctrl.chessground.setPieces(pieces);
-      $.sound.take();
     },
     reload: function(o) {
       xhr.reload(ctrl).then(ctrl.reload);
     },
     redirect: function() {
-      ctrl.vm.redirecting = true;
+      ctrl.setRedirecting();
       m.redraw();
-    },
-    threefoldRepetition: function() {
-      ctrl.data.game.threefold = true;
-      m.redraw();
-    },
-    promotion: function(o) {
-      ground.promote(ctrl.chessground, o.key, o.pieceClass);
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
@@ -80,7 +34,8 @@ module.exports = function(send, ctrl) {
       });
       m.redraw();
     },
-    end: function() {
+    end: function(winner) {
+      ctrl.data.game.winner = winner;
       ground.end(ctrl.chessground);
       xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator) $.sound.dong();
@@ -91,10 +46,31 @@ module.exports = function(send, ctrl) {
         m.redraw();
       }
     },
+    prefChange: function() {
+      lichess.reload();
+    },
+    simulPlayerMove: function(gameId) {
+      if (
+        ctrl.userId &&
+        ctrl.data.simul &&
+        ctrl.userId == ctrl.data.simul.hostId &&
+        gameId !== ctrl.data.game.id &&
+        ctrl.moveOn.get() &&
+        ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
+        $.sound.move();
+        lichess.hasToReload = true;
+        location.href = '/' + gameId;
+      }
+    }
   };
 
+  this.moreTime = util.throttle(300, false, partial(send, 'moretime', null));
+
+  this.outoftime = util.throttle(500, false, partial(send, 'outoftime', null));
+
+  this.berserk = util.throttle(200, false, partial(send, 'berserk', null));
+
   this.receive = function(type, data) {
-    // if (type != 'n') console.log(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;

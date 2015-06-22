@@ -1,5 +1,6 @@
 package lila.mod
 
+import chess.Color
 import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
@@ -9,24 +10,51 @@ final class ModApi(
     logApi: ModlogApi,
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
+    reporter: akka.actor.ActorSelection,
     lilaBus: lila.common.Bus) {
 
-  def adjust(mod: String, username: String): Funit = withUser(username) { user =>
-    logApi.engine(mod, user.id, !user.engine) zip
-      UserRepo.toggleEngine(user.id) >>- {
-        if (!user.engine) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
-      } void
+  def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
+    setEngine(mod, username, !user.engine)
+  }
+
+  def setEngine(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
+    (user.engine != v) ?? {
+      logApi.engine(mod, user.id, v) zip
+        UserRepo.setEngine(user.id, v) >>- {
+          if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+          reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
+        } void
+    }
   }
 
   def autoAdjust(username: String): Funit = logApi.wasUnengined(User.normalize(username)) flatMap {
     case true  => funit
-    case false => adjust("lichess", username)
+    case false => setEngine("lichess", username, true)
+  }
+
+  def toggleBooster(mod: String, username: String): Funit = withUser(username) { user =>
+    setBooster(mod, username, !user.booster)
+  }
+
+  def setBooster(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
+    (user.booster != v) ?? {
+      logApi.booster(mod, user.id, v) zip
+      UserRepo.setBooster(user.id, v) >>- {
+        if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+      } void
+    }
+  }
+
+  def autoBooster(username: String): Funit = logApi.wasUnbooster(User.normalize(username)) flatMap {
+    case true  => funit
+    case false => setBooster("lichess", username, true)
   }
 
   def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>
     val user = u.copy(troll = !u.troll)
     ((UserRepo updateTroll user) >>-
-      logApi.troll(mod, user.id, user.troll)) inject user.troll
+      logApi.troll(mod, user.id, user.troll)) >>-
+      (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll
   }
 
   def ban(mod: String, username: String): Funit = withUser(username) { user =>
@@ -64,4 +92,5 @@ final class ModApi(
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
+
 }

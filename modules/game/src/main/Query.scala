@@ -19,7 +19,7 @@ object Query {
 
   def status(s: Status) = Json.obj(F.status -> s.id)
 
-  val started: JsObject = Json.obj(F.status-> $gte(Status.Started.id))
+  val started: JsObject = Json.obj(F.status -> $gte(Status.Started.id))
 
   def started(u: String): JsObject = user(u) ++ started
 
@@ -35,21 +35,31 @@ object Query {
 
   val notFinished: JsObject = Json.obj(F.status -> $lte(Status.Started.id))
 
-  def notFinished(u: String): JsObject = user(u) ++ notFinished
+  def analysed(an: Boolean): JsObject = Json.obj(F.analysed -> an)
+
+  def turnsMoreThan(length: Int): JsObject = Json.obj(F.turns -> $gte(length))
 
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
-  val imported: JsObject = Json.obj(s"${F.source}" -> Source.Import.id)
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
-  val relayed: JsObject = Json.obj(s"${F.source}" -> Source.Relay.id)
-
-  def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.pgnImport}.pgn" -> pgn)
+  val relayed = Json.obj(s"${F.source}" -> Source.Relay.id)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
   def user(u: String) = Json.obj(F.playerUids -> u)
   def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
+
+  val noAi = Json.obj(
+    "p0.ai" -> $exists(false),
+    "p1.ai" -> $exists(false))
+
+  def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
+
+  def recentlyPlaying(u: String) =
+    nowPlaying(u) ++ Json.obj(
+      F.updatedAt -> $gt($date(DateTime.now minusMinutes 5))
+    )
 
   // use the us index
   def win(u: String) = user(u) ++ Json.obj(F.winnerId -> u)
@@ -63,23 +73,11 @@ object Query {
 
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
-  def finishByClock = playable ++ clock(true) ++ Json.obj(
-    F.createdAt -> $gt($date(DateTime.now minusHours 3)))
+  def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
 
-  def abandoned = {
-    val date = $date(Game.abandonedDate)
-    notFinished ++ $or(Seq(
-      Json.obj(F.updatedAt -> $lt(date)),
-      Json.obj(F.updatedAt -> $exists(false), F.createdAt -> $lt(date))
-    ))
-  }
-
-  def unplayed = Json.obj(
-    F.turns -> $lt(2),
-    F.createdAt -> (
-      $lt($date(DateTime.now minusHours 24)) ++
-      $gt($date(DateTime.now minusHours 25)))
-  )
+  def variant(v: chess.variant.Variant) =
+    Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
   val sortCreated = $sort desc F.createdAt
+  val sortUpdatedNoIndex = $sort desc F.updatedAt
 }

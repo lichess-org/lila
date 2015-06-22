@@ -1,7 +1,0 @@
-@(paginator: Paginator[Game], listMenu: lila.game.ListMenu)(implicit ctx: Context)
-
-@game.list(
-name = trans.viewNbCheckmates.str(listMenu.nbMates.localize),
-paginator = paginator,
-next = paginator.nextPage map { n => routes.Game.checkmate(n) },
-menu = sideMenu(listMenu, "checkmate"))

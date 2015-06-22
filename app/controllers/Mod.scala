@@ -5,16 +5,26 @@ import lila.security.Permission
 import lila.user.UserRepo
 import views._
 
+import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
+
+import lila.evaluation.{ PlayerAssessment }
+
+import chess.Color
 
 object Mod extends LilaController {
 
   private def modApi = Env.mod.api
   private def modLogApi = Env.mod.logApi
+  private def assessApi = Env.mod.assessApi
 
   def engine(username: String) = Secure(_.MarkEngine) { _ =>
-    me => modApi.adjust(me.id, username) inject redirect(username)
+    me => modApi.toggleEngine(me.id, username) inject redirect(username)
+  }
+
+  def booster(username: String) = Secure(_.MarkBooster) { _ =>
+    me => modApi.toggleBooster(me.id, username) inject redirect(username)
   }
 
   def troll(username: String) = Secure(_.MarkTroll) { _ =>
@@ -57,23 +67,24 @@ object Mod extends LilaController {
     me =>
       OptionFuOk(UserRepo named username) { user =>
         for {
-          isReported <- Env.report.api recent 100 map {
-            _ exists (r => r.user == user.id && r.isCommunication)
-          }
-          povs <- isReported ?? lila.game.GameRepo.recentPovsByUser(user, 50)
+          povs <- lila.game.GameRepo.recentPovsByUser(user, 50)
           chats <- povs.map(p => Env.chat.api.playerChat findNonEmpty p.gameId).sequence
           povWithChats = (povs zip chats) collect {
             case (p, Some(c)) => p -> c
           } take 9
-          threads <- isReported ?? {
+          threads <- {
             lila.message.ThreadRepo.visibleByUser(user.id, 50) map {
               _ filter (_ hasPostsWrittenBy user.id) take 9
             }
           }
-        } yield html.mod.communication(user, isReported, povWithChats, threads)
+        } yield html.mod.communication(user, povWithChats, threads)
       }
   }
 
-  def redirect(username: String, mod: Boolean = true) =
-    Redirect(routes.User.show(username).url + mod.??("?mod"))
+  def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
+
+  def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
+    me => assessApi.refreshAssessByUsername(username) inject redirect(username)
+  }
+
 }

@@ -1,0 +1,84 @@
+# ornicar/lila open issues
+  468  tournament pairing dups 1
+  467  upgrade AI nodes
+  465  Tournament standings should live update in sidebar
+  464  Update score tally after game, instead of before next game
+  460  Add missing French and Spanish translations ↑
+  459  Play with the Machine - FEN render delay
+  458  Optional computer analysis for imported games 2
+  453  Enhance game API
+  452  deploy 3d move view hack
+  451  verify geoip cache
+  448  Shouldn't be possible to win on time with only K in Atomic
+  446  tag analysed games on nodes
+  445  add option to always show decaseconds
+  444  mark provisional ratings as such
+  443  don't show rating progression while provisional
+  442  Lichess [Web] pauses iPhone's music
+  441  The definitive list of the most popular and/or respected variants 2
+  439  detect absence of ad blocker, and suggest to install one
+  428  weird rematch issue 2
+  427  revert this commit on 01/05/2015
+  424  training room 2
+  423  drawing arrows with multiple colors
+  409  Advanced search Horde doesn't find games 3
+  404  Tag People in Forum
+  368  Analysis board castling bug with 960 chess
+  359  More fine-grained control over teams [feature] 6
+  354  let player define their status [feature]
+  334  Atomic: Draw on insufficient winning material when flagging. [bug] 2
+  331  Bug: Games Advanced Search variety of options not working [bug]
+  325  Coordinate trainer should store all-time high score
+  322  Direct APK download 2
+  317  Hourglass clock [feature]
+  316  Feature requests 3
+  314  Improve search for players
+  306  Import comments and variations
+  302  share buttons that don't violate user privacy [feature] 4
+  301  Untranslatable strings 2
+  291  PDF export missing images [bug]
+  285  Use openings trainer analysis as lookup table for computer analysis [improvement] 1
+  282  Rating range in game creation window should be per game variant
+  280  show recently finished correspondence games [feature] 2
+  275  Evaluate position complexity from SF output [feature]
+  273  atomic replay bug [bug] 3
+  272  Opening themed tourneys [feature]
+  270  User's Lichess TV enbedded [feature]
+  266  Swiss Tournaments starting at a predefined time [feature]
+  265  Predefined number of rounds in Swiss Tournaments [feature]
+  264  Feature: Display your Coordinate Training highscore on your profile page [feature]
+  260  Create Tournament: Clicking on "private" checkbox resets the other fields [bug] 1
+  252  analysis board dynamic FEN string [feature]
+  245  better rating range using diff [feature]
+  243  Timeline too long for its own div [bug]
+  241  Multiple create game profiles [feature]
+  229  Bughouse chess [feature] 1
+  212  game mouse over badge (like users) [feature]
+  206  Display captured pieces in analysis board 8
+  202  Feature request: Implementation of time odds [feature]
+  186  Feature request: Setting in your options to get an extra confirm [feature]
+  184  Desktop notifications [feature] 1
+  176  Spectator chat split by move number for the benefit of kibitzing context [feature]
+  175  Implement realtime private messaging a la online-go/facebook [feature] 1
+  169  Predefined positions for game creation [feature] [planned]
+  168  Add advanced options in analysis board [feature]
+  167  Atomic chess [feature] [in progress] 5
+  165  [Translation] To French. 'only accepts challenges from friends.' 2
+  163  The "%s games" link under favourite opponents no longer works [bug] 2
+  161  TV channels [feature] 1
+  155  Link Win/Draw/Loss indicator in Tournament Standings to Games [improvement]
+  153  Add support for anti-chess in PDF exporter [improvement]
+  149  Simul tournament [feature] [in progress] 1 @
+  143  Stream title on TV doesn't wrap [improvement] 2
+  142  Predefine move sequences in correspondence chess [feature] [planned] 3
+  130  Several colours for clock bar [feature]
+  128  when importing PGN, accept clock information [feature] 2
+  127  export clock information in PGN [feature] 6
+  126  Feature: Possibility to edit/delete forum posts [feature]
+  114  Wrong encoding in names of wiki-pages [bug]
+   97  Feature: Ability to rematch with different game settings [feature] 2
+   77  Feature wish: Training mode long time chart [feature]
+   69  timing in "Spectator room" chat [feature]
+   59  Feature: Clock pause [feature] 1
+   58  separate TVs for bullet-time, blitz and slow games. [feature] [planned] 1
+   53  Advanced comments [feature] 3

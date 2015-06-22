@@ -36,13 +36,13 @@
   }
   }
   <div class="side_box padded for_selector">
-    <h2 data-icon="1" class="top">&nbsp;Lichess TV</h2>
+    <h2 data-icon="1" class="top text">Lichess TV</h2>
     <div id="tv_selector">
-      <p><span class="current" data-icon="G">&nbsp;@s.name</span></p>
+      <p><span class="current text" data-icon="G">@s.name</span></p>
       @others.map { other =>
-      <p><a href="@routes.Tv.streamIn(other.id)" data-icon="1">&nbsp;@other.name</a></p>
+      <p><a class="text" href="@routes.Tv.streamIn(other.id)" data-icon="1">@other.name</a></p>
       }
-      <p><a href="@routes.Tv.lichess" data-icon="1">&nbsp;Regular lichess TV</a></p>
+      <p><a class="text" href="@routes.Tv.index" data-icon="1">Regular lichess TV</a></p>
     </div>
   </div>
 </div>
@@ -52,7 +52,6 @@
 @base.layout(
 title = title,
 side = side.some,
-active = siteMenu.tv.some,
 moreCss = moreCss) {
 <div class="tv_stream">
   <h2 class="stream_title">@s.name</h2>

@@ -2,6 +2,292 @@
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // ==/ClosureCompiler==
 
+var lichess = window.lichess = window.lichess || {};
+
+lichess.getParameterByName = function(name) {
+  var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+};
+
+lichess.StrongSocket = function(url, version, settings) {
+  var self = this;
+  self.settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
+  self.url = url;
+  self.version = version;
+  self.options = self.settings.options;
+  self.ws = null;
+  self.pingSchedule = null;
+  self.connectSchedule = null;
+  self.ackableMessages = [];
+  self.lastPingTime = self.now();
+  self.currentLag = 0;
+  self.averageLag = 0;
+  self.tryOtherUrl = false;
+  self.autoReconnect = true;
+  self.debug('Debug is enabled');
+  if (self.options.resetUrl || self.options.prodPipe) {
+    lichess.storage.remove(self.options.baseUrlKey);
+  }
+  if (self.options.prodPipe) {
+    self.options.baseUrls = ['socket.en.lichess.org:9021'];
+  }
+  self.connect();
+  window.addEventListener('unload', function() {
+    self.destroy();
+  });
+};
+lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
+lichess.StrongSocket.sri = Math.random().toString(36).substring(2);
+lichess.StrongSocket.defaults = {
+  events: {
+    fen: function(e) {
+      $('.live_' + e.id).each(function() {
+        lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
+      });
+    }
+  },
+  params: {
+    sri: lichess.StrongSocket.sri
+  },
+  options: {
+    name: "unnamed",
+    pingMaxLag: 8000, // time to wait for pong before reseting the connection
+    pingDelay: 1000, // time between pong and ping
+    autoReconnectDelay: 2000,
+    lagTag: false, // jQuery object showing ping lag
+    ignoreUnknownMessages: true,
+    baseUrls: ['socket.' + document.domain].concat(
+      ($('body').data('ports') + '').split(',').map(function(port) {
+        return 'socket.' + document.domain + ':' + port;
+      })),
+    onFirstConnect: $.noop,
+    baseUrlKey: 'surl3'
+  }
+};
+lichess.StrongSocket.prototype = {
+  connect: function() {
+    var self = this;
+    self.destroy();
+    self.autoReconnect = true;
+    var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
+      version: self.version
+    }));
+    self.debug("connection attempt to " + fullUrl, true);
+    try {
+      if (window.MozWebSocket) self.ws = new MozWebSocket(fullUrl);
+      else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
+      else throw "[lila] no websockets found on this browser!";
+
+      self.ws.onerror = function(e) {
+        self.onError(e);
+      };
+      self.ws.onclose = function(e) {
+        if (self.autoReconnect) {
+          self.debug('Will autoreconnect in ' + self.options.autoReconnectDelay);
+          self.scheduleConnect(self.options.autoReconnectDelay);
+        }
+      };
+      self.ws.onopen = function() {
+        self.debug("connected to " + fullUrl, true);
+        self.onSuccess();
+        $('body').removeClass('offline');
+        self.pingNow();
+        $('body').trigger('socket.open');
+        if ($('#user_tag').length) setTimeout(function() {
+          self.send("following_onlines");
+        }, 500);
+        var resend = self.ackableMessages;
+        self.ackableMessages = [];
+        resend.forEach(function(x) {
+          self.send(x.t, x.d);
+        });
+      };
+      self.ws.onmessage = function(e) {
+        var m = JSON.parse(e.data);
+        if (m.t == "n") {
+          self.pong();
+        } else self.debug(e.data);
+        if (m.t == "b") {
+          m.d.forEach(function(mm) {
+            self.handle(mm);
+          });
+        } else self.handle(m);
+      };
+    } catch (e) {
+      self.onError(e);
+    }
+    self.scheduleConnect(self.options.pingMaxLag);
+  },
+  send: function(t, d, o, again) {
+    var self = this;
+    var data = d || {},
+      options = o || {};
+    if (options && options.ackable)
+      self.ackableMessages.push({
+        t: t,
+        d: d
+      });
+    var message = JSON.stringify({
+      t: t,
+      d: data
+    });
+    self.debug("send " + message);
+    try {
+      self.ws.send(message);
+    } catch (e) {
+      // maybe sent before socket opens,
+      // try again a second later,once.
+      if (!again) setTimeout(function() {
+        this.send(t, d, o, true);
+      }.bind(this), 1000);
+      else console.log(e, 'again');
+    }
+  },
+  sendAckable: function(t, d) {
+    this.send(t, d, {
+      ackable: true
+    });
+  },
+  scheduleConnect: function(delay) {
+    var self = this;
+    // self.debug('schedule connect ' + delay);
+    clearTimeout(self.pingSchedule);
+    clearTimeout(self.connectSchedule);
+    self.connectSchedule = setTimeout(function() {
+      $('body').addClass('offline');
+      self.tryOtherUrl = true;
+      self.connect();
+    }, delay);
+  },
+  schedulePing: function(delay) {
+    var self = this;
+    clearTimeout(self.pingSchedule);
+    self.pingSchedule = setTimeout(function() {
+      self.pingNow();
+    }, delay);
+  },
+  pingNow: function() {
+    var self = this;
+    clearTimeout(self.pingSchedule);
+    clearTimeout(self.connectSchedule);
+    try {
+      self.ws.send(self.pingData());
+      self.lastPingTime = self.now();
+    } catch (e) {
+      self.debug(e, true);
+    }
+    self.scheduleConnect(self.options.pingMaxLag);
+  },
+  pong: function() {
+    var self = this;
+    clearTimeout(self.connectSchedule);
+    self.schedulePing(self.options.pingDelay);
+    self.currentLag = self.now() - self.lastPingTime;
+    if (!self.averageLag) self.averageLag = self.currentLag;
+    else self.averageLag = 0.2 * (self.currentLag - self.averageLag) + self.averageLag;
+    if (self.options.lagTag) {
+      self.options.lagTag.html(Math.round(self.averageLag));
+    }
+  },
+  pingData: function() {
+    return JSON.stringify({
+      t: "p",
+      v: this.version
+    });
+  },
+  handle: function(m) {
+    var self = this;
+    if (m.v) {
+      if (m.v <= self.version) {
+        self.debug("already has event " + m.v);
+        return;
+      }
+      if (m.v > self.version + 1) {
+        self.debug("event gap detected from " + self.version + " to " + m.v);
+        if (!self.options.prodPipe) return;
+      }
+      self.version = m.v;
+    }
+    switch (m.t || false) {
+      case false:
+        break;
+      case 'resync':
+        if (!self.options.prodPipe) lichess.reload();
+        break;
+      case 'ack':
+        self.ackableMessages = [];
+        break;
+      default:
+        if (self.settings.receive) self.settings.receive(m.t, m.d);
+        var h = self.settings.events[m.t];
+        if (h) h(m.d || null);
+        else if (!self.options.ignoreUnknownMessages) {
+          self.debug('Message not supported ' + JSON.stringify(m));
+        }
+    }
+  },
+  now: function() {
+    return new Date().getTime();
+  },
+  debug: function(msg, always) {
+    if ((always || this.options.debug) && window.console && console.debug) {
+      console.debug("[" + this.options.name + " " + this.settings.params.sri + "]", msg);
+    }
+  },
+  destroy: function() {
+    clearTimeout(this.pingSchedule);
+    clearTimeout(this.connectSchedule);
+    this.disconnect();
+    this.ws = null;
+  },
+  disconnect: function() {
+    if (this.ws) {
+      this.debug("Disconnect", true);
+      this.autoReconnect = false;
+      this.ws.onerror = $.noop;
+      this.ws.onclose = $.noop;
+      this.ws.onopen = $.noop;
+      this.ws.onmessage = $.noop;
+      this.ws.close();
+    }
+  },
+  onError: function(e) {
+    var self = this;
+    self.options.debug = true;
+    self.debug('error: ' + JSON.stringify(e));
+    self.tryOtherUrl = true;
+    setTimeout(function() {
+      if (!$('#network_error').length) {
+        var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
+        $('#top').append('<span class="fright link text" id="network_error" title="' + msg + '" data-icon="j">Network error</span>');
+      }
+    }, 1000);
+    clearTimeout(self.pingSchedule);
+  },
+  onSuccess: function() {
+    $('#network_error').remove();
+    this.nbConnects = (this.nbConnects || 0) + 1;
+    if (this.nbConnects === 1) this.options.onFirstConnect();
+  },
+  baseUrl: function() {
+    var key = this.options.baseUrlKey;
+    var urls = this.options.baseUrls;
+    var url = lichess.storage.get(key);
+    if (!url) {
+      url = urls[0];
+      lichess.storage.set(key, url);
+    } else if (this.tryOtherUrl) {
+      this.tryOtherUrl = false;
+      url = urls[(urls.indexOf(url) + 1) % urls.length];
+      lichess.storage.set(key, url);
+    }
+    return url;
+  },
+  pingInterval: function() {
+    return this.options.pingDelay + this.averageLag;
+  }
+};
+
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
 
@@ -11,7 +297,7 @@ function withStorage(f) {
     return !!window.localStorage ? f(window.localStorage) : null;
   } catch (e) {}
 }
-var storage = {
+lichess.storage = {
   get: function(k) {
     return withStorage(function(s) {
       return s.getItem(k);
@@ -93,8 +379,32 @@ var storage = {
       if (callNow) func.apply(context, args);
     };
   };
+  $.spreadNumber = function(el, nbSteps, getDuration) {
+    var previous, displayed;
+    var display = function(prev, cur, it) {
+      var val = Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps);
+      if (val !== displayed) {
+        el.textContent = val;
+        displayed = val;
+      }
+    };
+    return function(nb) {
+      if (!el || !nb) return;
+      var prev = previous || nb;
+      previous = nb;
+      var interv = getDuration() / nbSteps;
+      for (var i = 0; i < nbSteps; i++) {
+        setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv));
+      }
+    };
+  };
 
-  var lichess = window.lichess = window.lichess || {};
+  var nbUserSpread = $.spreadNumber(
+    document.querySelector('#nb_connected_players > strong'),
+    5,
+    function() {
+      return lichess.socket.pingInterval();
+    });
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -108,28 +418,12 @@ var storage = {
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
       },
-      n: function(e) {
-        var $tag = $('#nb_connected_players > strong');
-        if ($tag.length && e) {
-          var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
-          var k = 6;
-          var interv = lichess.socket.pingInterval() / k;
-          $.fp.range(k).forEach(function(it) {
-            setTimeout(function() {
-              var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-              if (val != prev) {
-                $tag.text(val);
-                prev = val;
-              }
-            }, Math.round(it * interv));
-          });
-        }
-      },
+      n: nbUserSpread,
       message: function(msg) {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
+        $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -144,44 +438,56 @@ var storage = {
             $('#tournament_reminder').remove();
             return false;
           });
+          $('body').trigger('lichess.content_loaded');
         }
       },
       challengeReminder: function(data) {
-        if (!storage.get('challenge-refused-' + data.id)) {
+        if (!lichess.storage.get('challenge-refused-' + data.id)) {
+          var refreshButton = function() {
+            var nb = $('#challenge_notifications > div').length;
+            $('#nb_challenges').text(nb);
+            $('#challenge_notifications_tag').toggleClass('none', !nb);
+          };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           var declineListener = function($a, callback) {
             return $a.click(function() {
               $.post($(this).attr("href"));
-              storage.set('challenge-refused-' + data.id, 1);
+              lichess.storage.set('challenge-refused-' + data.id, 1);
               $('#' + htmlId).remove();
               if ($.isFunction(callback)) callback();
+              refreshButton();
               return false;
             });
           };
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            $('#notifications').append(data.html);
-            $notif = $('#' + htmlId).one('mouseover', function() {
-              $(this).removeClass('glowing glow');
+            $('#challenge_notifications').append(data.html);
+            $notif = $('#' + htmlId);
+            $notif.find('> a').click(function() {
+              lichess.hasToReload = true; // allow quit by accept challenge (simul)
             });
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
-            if (!storage.get('challenge-' + data.id)) {
-              $.sound.dong();
-              storage.set('challenge-' + data.id, 1);
+            if (!lichess.storage.get('challenge-' + data.id)) {
+              if (!lichess.quietMode) {
+                $('#top .challenge_notifications').addClass('shown');
+                $.sound.dong();
+              }
+              lichess.storage.set('challenge-' + data.id, 1);
             }
+            refreshButton();
           }
-          $('div.lichess_overboard.joining.' + data.id).each(function() {
-            $notif.hide();
+          $('.lichess_overboard.joining.' + data.id).each(function() {
             if (!$(this).find('a.decline').length) $(this).find('form').append(
-              declineListener($(data.html).find('a.decline'), function() {
+              declineListener($(data.html).find('a.decline').text($.trans('decline')), function() {
                 location.href = "/";
               })
             );
           });
           $notif.data('timeout', setTimeout(function() {
             $notif.remove();
+            refreshButton();
           }, 3000));
         }
       },
@@ -197,6 +503,12 @@ var storage = {
           $('#deploy_post').fadeOut(1000).remove();
         }, 10000);
         lichess.socket.disconnect();
+      },
+      simulEnd: function(simul) {
+        $.modal($(
+          '<p>Simul complete!</p><br /><br />' +
+          '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
+        ));
       }
     },
     params: {},
@@ -215,35 +527,52 @@ var storage = {
     location.reload();
   };
 
-  $(function() {
+  lichess.readServerFen = function(t) {
+    return atob(t.split("").reverse().join(""));
+  };
 
-    // small layout
-    function onResize() {
-      if ($(document.body).width() < 1000) {
-        $(document.body).addClass("tight");
-        $('#site_header .side_menu').prependTo('div.content_box:first');
-      } else {
-        $(document.body).removeClass("tight");
-        $('#timeline, div.side_box, div.under_chat').each(function() {
-          var ol = $(this).offset().left;
-          if (ol < 3) {
-            var dec = 3 - ol;
-            var pad = $(this).outerWidth() - $(this).width();
-            $(this).css({
-              'margin-left': (dec - 30) + 'px',
-              'width': (230 - pad - dec) + 'px'
-            });
-            $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
-          }
-        });
-        $('#featured_game').each(function() {
-          $(this).children().toggle($(this).width() >= 220);
-        });
-        $('div.content_box .side_menu').appendTo('#site_header');
+  lichess.openInMobileApp = function(gameId) {
+    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return false;
+    var storageKey = 'open-game-in-mobile';
+    var open = function(v) {
+      if (v > 0) {
+        lichess.storage.set(storageKey, v - 1);
+        location.href = 'lichess://' + gameId;
+        return true;
       }
+      lichess.storage.set(storageKey, v + 1);
+      return false;
+    };
+    var stored = parseInt(lichess.storage.get(storageKey));
+    if (stored) return open(stored);
+    return open(confirm('Open in lichess mobile app?') ? 10 : -10);
+  };
+
+  lichess.parseFen = function($elem) {
+    if (!$elem || !$elem.jquery) {
+      $elem = $('.parse_fen');
     }
-    $(window).resize(onResize);
-    onResize();
+    $elem.each(function() {
+      var $this = $(this).removeClass('parse_fen');
+      var lm = $this.data('lastmove');
+      var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
+      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
+      var ground = $this.data('chessground');
+      var playable = $this.data('playable');
+      var config = {
+        coordinates: false,
+        viewOnly: !playable,
+        minimalDom: !playable,
+        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
+        lastMove: lastMove
+      };
+      if (color) config.orientation = color;
+      if (ground) ground.set(config);
+      else $this.data('chessground', Chessground($this[0], config));
+    });
+  }
+
+  $(function() {
 
     if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
@@ -256,6 +585,16 @@ var storage = {
         });
       });
     }
+
+    if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
+    else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+    else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
+    else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
+    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
+
+    document.body.classList.remove('preload');
 
     $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
@@ -279,55 +618,54 @@ var storage = {
       return false;
     });
 
-    $('body').on('click', '.game_row', function() {
-      location.href = $(this).find('a.mini_board').attr('href');
-    });
+    function applyPowertip($els, placement) {
+      $els.removeClass('ulpt').powerTip({
+        fadeInTime: 100,
+        fadeOutTime: 100,
+        placement: placement,
+        mouseOnToPopup: true,
+        closeDelay: 200
+      }).on({
+        powerTipPreRender: function() {
+          $.ajax({
+            url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+            success: function(html) {
+              $('#powerTip').html(html);
+              $('body').trigger('lichess.content_loaded');
+            }
+          });
+        }
+      }).data('powertip', ' ');
+    }
 
     function userPowertips() {
-      var header = document.getElementById('site_header');
-      $('a.ulpt').removeClass('ulpt').each(function() {
-        $(this).powerTip({
-          fadeInTime: 100,
-          fadeOutTime: 100,
-          placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
-          mouseOnToPopup: true,
-          closeDelay: 200
-        }).on({
-          powerTipPreRender: function() {
-            $.ajax({
-              url: $(this).attr('href').replace(/\?.+$/, '') + '/mini',
-              success: function(html) {
-                $('#powerTip').html(html);
-                $('body').trigger('lichess.content_loaded');
-              }
-            });
-          }
-        }).data('powertip', ' ');
-      });
+      applyPowertip($('#site_header .ulpt'), 'e');
+      applyPowertip($('#friend_box .ulpt'), 'nw');
+      applyPowertip($('.ulpt'), 'w');
     }
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
 
-    $('#top a.message').powerTip({
-      placement: 'sw',
-      mouseOnToPopup: true,
-      closeDelay: 200
-    }).on({
-      powerTipPreRender: function() {
-        $.ajax({
-          url: $(this).data('href'),
-          success: function(html) {
-            $('#powerTip').html(html).addClass('messages').find('a.mark_as_read').click(function() {
+    $('#message_notifications_tag').on('click', function() {
+      $.ajax({
+        url: $(this).data('href'),
+        cache: false,
+        success: function(html) {
+          $('#message_notifications_display').html(html)
+            .find('a.mark_as_read').click(function() {
               $.ajax({
                 url: $(this).attr('href'),
                 method: 'post'
               });
+              $(this).parents('.notification').remove();
+              if ($('#message_notifications_display').children().length === 0)
+                $('#message_notifications_tag').click();
               return false;
             });
-          }
-        });
-      }
-    }).data('powertip', ' ');
+          $('body').trigger('lichess.content_loaded');
+        }
+      });
+    });
 
     function setMoment() {
       $("time.moment").removeClass('moment').each(function() {
@@ -358,10 +696,6 @@ var storage = {
       $('body').on('lichess.content_loaded', setBlindMode);
     }
 
-    if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
-    else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
-    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
-
     setTimeout(function() {
       if (lichess.socket === null) {
         lichess.socket = new lichess.StrongSocket("/socket", 0);
@@ -370,113 +704,183 @@ var storage = {
     }, 200);
 
     // themepicker
-    var $body = $('body');
-    $('#themepicker_toggle').one('click', function() {
+    $('#themepicker_toggle').one('mouseover', function() {
       var $themepicker = $('#themepicker');
-      var themes = $themepicker.data('themes').split(' ');
-      var theme = $.fp.find(document.body.className.split(/\s+/), function(a) {
-        return $.fp.contains(themes, a);
-      });
-      var sets = $themepicker.data('sets').split(' ');
-      var set = $.fp.find(document.body.className.split(/\s+/), function(a) {
-        return $.fp.contains(sets, a);
-      });
-      var theme3ds = $themepicker.data('theme3ds').split(' ');
-      var theme3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
-        return $.fp.contains(theme3ds, a);
-      });
-      var set3ds = $themepicker.data('set3ds').split(' ');
-      var set3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
-        return $.fp.contains(set3ds, a);
-      });
-      var background = $('body').hasClass('dark') ? 'dark' : 'light';
-      var is3d = $('body').hasClass('is3d');
-      $themepicker.find('.is2d div.theme').hover(function() {
-        $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
-      }, function() {
-        $body.removeClass(themes.join(' ')).addClass(theme);
-      }).click(function() {
-        theme = $(this).data("theme");
-        $.post($(this).parent().data("href"), {
-          theme: theme
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is2d div.no-square').hover(function() {
-        $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
-      }, function() {
-        $body.removeClass(sets.join(' ')).addClass(set);
-      }).click(function() {
-        set = $(this).data("set");
-        $.post($(this).parent().data("href"), {
-          set: set
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is3d div.theme').hover(function() {
-        $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
-      }, function() {
-        $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
-      }).click(function() {
-        theme3d = $(this).data("theme");
-        $.post($(this).parent().data("href"), {
-          theme: theme3d
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is3d div.no-square').hover(function() {
-        $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
-      }, function() {
-        $body.removeClass(set3ds.join(' ')).addClass(set3d);
-      }).click(function() {
-        set3d = $(this).data("set");
-        $.post($(this).parent().data("href"), {
-          set: set3d
-        });
-        $themepicker.removeClass("shown");
-      });
-      var showBg = function(bg) {
-        $body.removeClass('light dark').addClass(bg);
-        if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
-          $('link[href*="common.css"]').clone().each(function() {
-            $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+      $.ajax({
+        url: $(this).data('url'),
+        cache: false,
+        success: function(html) {
+          $themepicker.append(html);
+          var $body = $('body');
+          var $content = $body.children('.content');
+          var $dropdown = $themepicker.find('.dropdown');
+          var $pieceSprite = $('#piece-sprite');
+          var themes = $dropdown.data('themes').split(' ');
+          var theme = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(themes, a);
+          });
+          var set = $body.data('piece-set');
+          var theme3ds = $dropdown.data('theme3ds').split(' ');
+          var theme3d = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(theme3ds, a);
+          });
+          var set3ds = $dropdown.data('set3ds').split(' ');
+          var set3d = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(set3ds, a);
+          });
+          var background = $body.hasClass('dark') ? 'dark' : 'light';
+          var is3d = $content.hasClass('is3d');
+          $themepicker.find('.is2d div.theme').hover(function() {
+            $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
+          }, function() {
+            $body.removeClass(themes.join(' ')).addClass(theme);
+          }).click(function() {
+            theme = $(this).data("theme");
+            $.post($(this).parent().data("href"), {
+              theme: theme
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is2d div.no-square').hover(function() {
+            var s = $(this).data("set");
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
+          }, function() {
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
+          }).click(function() {
+            set = $(this).data("set");
+            $.post($(this).parent().data("href"), {
+              set: set
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is3d div.theme').hover(function() {
+            $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
+          }, function() {
+            $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
+          }).click(function() {
+            theme3d = $(this).data("theme");
+            $.post($(this).parent().data("href"), {
+              theme: theme3d
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is3d div.no-square').hover(function() {
+            $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
+          }, function() {
+            $body.removeClass(set3ds.join(' ')).addClass(set3d);
+          }).click(function() {
+            set3d = $(this).data("set");
+            $.post($(this).parent().data("href"), {
+              set: set3d
+            });
+            $themepicker.removeClass("shown");
+          });
+          var showBg = function(bg) {
+            $body.removeClass('light dark').addClass(bg);
+            if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
+              $('link[href*="common.css"]').clone().each(function() {
+                $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+              });
+            }
+          };
+          var showDimensions = function(is3d) {
+            $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+            setZoom(getZoom());
+          };
+          $themepicker.find('.background a').click(function() {
+            background = $(this).data('bg');
+            $.post($(this).parent().data('href'), {
+              bg: background
+            });
+            $(this).addClass('active').siblings().removeClass('active');
+            $themepicker.removeClass("shown");
+            return false;
+          }).hover(function() {
+            showBg($(this).data('bg'));
+          }, function() {
+            showBg(background);
+          }).filter('.' + background).addClass('active');
+          $themepicker.find('.dimensions a').click(function() {
+            is3d = $(this).data('is3d');
+            $.post($(this).parent().data('href'), {
+              is3d: is3d
+            });
+            $(this).addClass('active').siblings().removeClass('active');
+            $themepicker.removeClass("shown");
+            return false;
+          }).hover(function() {
+            showDimensions($(this).data('is3d'));
+          }, function() {
+            showDimensions(is3d);
+          }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+          $themepicker.find('.slider').slider({
+            orientation: "horizontal",
+            min: 1,
+            max: 2,
+            range: 'min',
+            step: 0.01,
+            value: getZoom(),
+            slide: function(e, ui) {
+              manuallySetZoom(ui.value);
+            }
           });
         }
-      };
-      var showDimensions = function(is3d) {
-        $body.removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
-      };
-      $themepicker.find('.background a').click(function() {
-        background = $(this).data('bg');
-        $.post($(this).parent().data('href'), {
-          bg: background
-        });
-        $(this).addClass('active').siblings().removeClass('active');
-        $themepicker.removeClass("shown");
-        return false;
-      }).hover(function() {
-        showBg($(this).data('bg'));
-      }, function() {
-        showBg(background);
-      }).filter('.' + background).addClass('active');
-      $themepicker.find('.dimensions a').click(function() {
-        is3d = $(this).data('is3d');
-        $.post($(this).parent().data('href'), {
-          is3d: is3d
-        });
-        $(this).addClass('active').siblings().removeClass('active');
-        $themepicker.removeClass("shown");
-        return false;
-      }).hover(function() {
-        showDimensions($(this).data('is3d'));
-      }, function() {
-        showDimensions(is3d);
-      }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+      });
     });
 
-    $('.js_email').one('click', function() {
-      var email = 'thibault.duplessis@gmail.com';
-      $(this).replaceWith($('<a/>').text(email).attr('href', 'mailto:' + email));
+    // Zoom
+    var getZoom = function() {
+      return lichess.storage.get('zoom') || 1;
+    };
+    var setZoom = function(v) {
+      lichess.storage.set('zoom', v);
+
+      var $lichessGame = $('.lichess_game, .board_and_ground');
+      var $boardWrap = $lichessGame.find('.cg-board-wrap');
+      var $coordinateProgress = $('.progress_bar_container');
+      var px = function(i) {
+        return Math.round(i) + 'px';
+      };
+
+      $boardWrap.css("width", px(512 * getZoom()));
+      $coordinateProgress.css("width", px(512 * getZoom()));
+      $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
+      $lichessGame.find('.lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
+
+      if ($('body > .content').hasClass('is3d')) {
+        $boardWrap.css("height", px(479.08572 * getZoom()));
+        $lichessGame.css({
+          height: px(479.08572 * getZoom()),
+          paddingTop: px(50 * (getZoom() - 1))
+        });
+        $('.chat_panels').css("height", px(290 + 529 * (getZoom() - 1)));
+      } else {
+        $boardWrap.css("height", px(512 * getZoom()));
+        $lichessGame.css({
+          height: px(512 * getZoom()),
+          paddingTop: px(0)
+        });
+        $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
+      }
+
+      $('#trainer .overlay_container').css({
+        top: px((getZoom() - 1) * 250),
+        left: px((getZoom() - 1) * 250)
+      });
+      // doesn't vertical center score at the end, close enough
+      $('#trainer .score_container').css("top", px((getZoom() - 1) * 250));
+
+
+      if ($lichessGame.length) {
+        // if on a board with a game
+        $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
+      }
+    };
+
+    var manuallySetZoom = $.fp.debounce(setZoom, 10);
+    if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
+    $('body').on('lichess.coordinate_trainer_loaded', function() {
+      setZoom(getZoom());
     });
 
     function translateTexts() {
@@ -502,7 +906,10 @@ var storage = {
       $(this).infinitescroll({
         navSelector: ".pager",
         nextSelector: ".pager a:last",
-        itemSelector: ".infinitescroll .paginated_element"
+        itemSelector: ".infinitescroll .paginated_element",
+        errorCallback: function() {
+          $("#infscr-loading").remove();
+        }
       }, function() {
         $("#infscr-loading").remove();
         $('body').trigger('lichess.content_loaded');
@@ -514,6 +921,7 @@ var storage = {
       var $p = $this.parent();
       $this.click(function() {
         $p.toggleClass('shown');
+        $p.siblings('.shown').removeClass('shown');
         setTimeout(function() {
           $p.click(function(e) {
             e.stopPropagation();
@@ -533,11 +941,11 @@ var storage = {
           langs = acceptLanguages.split(',');
         $.ajax({
           url: $links.data('url'),
+          cache: false,
           success: function(list) {
             $links.prepend(list.map(function(lang) {
-              var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><a ' + klass + ' lang="' + lang[0] + '" href="' + href + '">' + lang[1] + '</a></li>';
+              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });
@@ -582,90 +990,114 @@ var storage = {
       return true;
     });
 
-    setInterval(function() {
-      $('.glowing').toggleClass('glow');
-    }, 1500);
+    // minimal touchscreen support for topmenu
+    if ("ontouchstart" in window)
+      $('#topmenu').on('click', '> section > a', function() {
+        return false;
+      });
+
+    $('#ham-plate').click(function() {
+      document.body.classList.toggle('fpmenu');
+    });
+    $('#top button.signin').click(function() {
+      $('#ham-plate').click();
+      $('#fpmenu input.username').focus();
+    });
+    if (location.hash === '#fpmenu') $('#ham-plate').click();
+    Mousetrap.bind('esc', function() {
+      $('#ham-plate').click();
+      return false;
+    });
+    Mousetrap.bind('g h', function() {
+      location.href = '/';
+    });
+    // konami code!
+    Mousetrap.bind('up up down down left right left right b a', function() {
+      if (!document.getElementById('konami')) {
+        $('body').prepend($('<div id="konami"></div>'));
+      }
+      $('#konami').show(800);
+      setTimeout(function() {
+        $('#konami').hide(800);
+      }, 3000);
+    });
   });
+
+  $.lazy = function(factory) {
+    var loaded = {};
+    return function(key) {
+      if (!loaded[key]) loaded[key] = factory(key);
+      return loaded[key];
+    };
+  };
 
   $.sound = (function() {
     var baseUrl = $('body').data('sound-dir') + '/';
-    var a = new Audio();
-    var hasOgg = !!a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"');
-    var hasMp3 = !!a.canPlayType && a.canPlayType('audio/mpeg;');
-    var ext = hasOgg ? 'ogg' : 'mp3';
-    var audio = {
-      dong: new Audio(baseUrl + 'dong2.' + ext),
-      moveW: new Audio(baseUrl + 'move3.' + ext),
-      moveB: new Audio(baseUrl + 'move3.' + ext),
-      take: new Audio(baseUrl + 'take2.' + ext),
-      lowtime: new Audio(baseUrl + 'lowtime.' + ext)
+    Howler.volume(lichess.storage.get('sound-volume') || 0.7);
+    var names = {
+      dong: 'dong2',
+      move: 'move3',
+      take: 'take2',
+      explode: 'explosion',
+      lowtime: 'lowtime'
     };
     var volumes = {
-      lowtime: 0.6
+      lowtime: 0.5,
+      explode: 0.35
     };
-    var canPlay = hasOgg || hasMp3;
+    var get = new $.lazy(function(k) {
+      return new Howl({
+        src: ['ogg', 'mp3'].map(function(ext) {
+          return baseUrl + names[k] + '.' + ext;
+        }),
+        volume: volumes[k] || 1
+      });
+    });
     var $control = $('#sound_control');
     var $toggle = $('#sound_state');
-    $control.add($toggle).toggleClass('sound_state_on', storage.get('sound') == 1);
     var enabled = function() {
-      return $toggle.hasClass("sound_state_on");
+      return lichess.storage.get('sound') !== 'no';
     };
-    var shouldPlay = function() {
-      return canPlay && enabled();
-    };
-    var play = {
-      move: function(white) {
-        if (shouldPlay()) {
-          if (white) audio.moveW.play();
-          else audio.moveB.play();
-        }
-      },
-      take: function() {
-        if (shouldPlay()) audio.take.play();
-      },
-      dong: function() {
-        if (shouldPlay()) audio.dong.play();
-      },
-      lowtime: function() {
-        if (shouldPlay()) audio.lowtime.play();
+    $control.add($toggle).toggleClass('sound_state_on', enabled());
+    var player = function(s) {
+      return function() {
+        if (enabled()) get(s).play();
+      };
+    }
+    var play = {};
+    Object.keys(names).forEach(function(name) {
+      play[name] = function() {
+        if (enabled()) get(name).play();
       }
-    };
-    var getVolume = function() {
-      return storage.get('sound-volume') || 0.8;
-    };
+    });
     var setVolume = function(v) {
-      storage.set('sound-volume', v);
-      Object.keys(audio).forEach(function(k) {
-        audio[k].volume = v * (volumes[k] ? volumes[k] : 1);
-      });
+      lichess.storage.set('sound-volume', v);
+      Howler.volume(v);
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
-    }, 100);
-    setVolume(getVolume());
-    if (canPlay) {
-      $toggle.click(function() {
-        $control.add($toggle).toggleClass('sound_state_on', !enabled());
-        if (enabled()) storage.set('sound', 1);
-        else storage.remove('sound');
-        play.dong();
-        return false;
+    }, 50);
+    $toggle.click(function() {
+      var enab = !enabled();
+      lichess.storage.set('sound', enab ? 'yes' : 'no');
+      $control.add($toggle).toggleClass('sound_state_on', enab);
+      play.dong();
+      return false;
+    });
+    $toggle.one('mouseover', function() {
+      $toggle.parent().find('.slider').slider({
+        orientation: "vertical",
+        min: 0,
+        max: 1,
+        range: 'min',
+        step: 0.01,
+        value: Howler.volume(),
+        slide: function(e, ui) {
+          manuallySetVolume(ui.value);
+        }
       });
-      $toggle.one('mouseover', function() {
-        $toggle.parent().find('.slider').slider({
-          orientation: "vertical",
-          min: 0,
-          max: 1,
-          range: 'min',
-          step: 0.01,
-          value: getVolume(),
-          slide: function(e, ui) {
-            manuallySetVolume(ui.value);
-          }
-        });
-      });
-    } else $toggle.addClass('unavailable');
+    });
 
     return play;
   })();
@@ -674,8 +1106,13 @@ var storage = {
     return this.length === 0 ? false : this;
   };
 
-  $.trans = function(text) {
-    return lichess_translations[text] ? lichess_translations[text] : text;
+  $.trans = function() {
+    var str = lichess_translations[arguments[0]];
+    if (!str) return arguments[0];
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
   };
 
   function urlToLink(text) {
@@ -686,9 +1123,8 @@ var storage = {
   var startTournamentClock = function() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
-        time: $(this).data("time"),
-        showTenths: false
-      }).clock("start");
+        time: parseFloat($(this).data("time"))
+      });
     });
   };
 
@@ -698,10 +1134,7 @@ var storage = {
 
   function startRound(element, cfg) {
     var data = cfg.data;
-    if (data.chat) $('#chat').chat({
-      messages: data.chat
-    });
-    var $watchers = $('#site_header div.watchers').watchers();
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = new lichess.StrongSocket(
@@ -721,34 +1154,77 @@ var storage = {
           crowd: function(e) {
             $watchers.watchers("set", e.watchers);
           },
-          featured: function(o) {
-            if (data.tv) lichess.reload();
+          tvSelect: function(o) {
+            if (data.tv && data.tv.channel == o.channel) lichess.reload();
+            else $('#tv_channels a.' + o.channel + ' span').text(
+              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
           },
           end: function() {
-            var url = (data.tv ? cfg.routes.Tv.side : cfg.routes.Round.sideWatcher)(data.game.id, data.player.color).url;
-            $.get(url, function(html) {
-              $('#site_header div.side').replaceWith(html);
-              $('body').trigger('lichess.content_loaded');
-              startTournamentClock();
+            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color, 'sides'].join('/') : ((
+              data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer
+            )(data.game.id, data.player.color).url);
+            $.ajax({
+              url: url,
+              cache: false,
+              success: function(html) {
+                var $html = $(html);
+                $('#site_header div.side').replaceWith($html.find('>.side'));
+                $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
+                $('body').trigger('lichess.content_loaded');
+                startTournamentClock();
+              }
             });
           },
           checkCount: function(e) {
             $('div.check_count')
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
+          },
+          tournamentStanding: function(id) {
+            $.ajax({
+              url: '/tournament/' + id + '/game-standing',
+              cache: false,
+              success: function(html) {
+                $('#site_header div.game_tournament').replaceWith(html);
+                startTournamentClock();
+              }
+            });
           }
         }
       });
-    round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
-    startTournamentClock();
+    cfg.element = element.querySelector('.round');
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    round = LichessRound(cfg);
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    $('#tv_history').on("click", "tr", function() {
-      location.href = $(this).find('a.view').attr('href');
+    if (data.chat) $('#chat').chat({
+      messages: data.chat,
+      initialNote: data.note,
+      gameId: data.game.id
     });
+    var $watchers = $('#site_header div.watchers').watchers();
+    var $nowPlaying = $('#now_playing');
+    startTournamentClock();
+    var loadPlaying = function() {
+      var $moveOn = $nowPlaying.find('.move_on').click(function() {
+        setMoveOn(round.moveOn.toggle());
+      });
+      var setMoveOn = function(value) {
+        $moveOn.toggleClass('enabled', value);
+      };
+      setMoveOn(round.moveOn.get());
+    };
+    loadPlaying();
+    $nowPlaying.on('click', '>a', function() {
+      lichess.hasToReload = true;
+      return true;
+    });
+    if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+      window.history.replaceState(null, null, '/' + data.game.id);
   }
 
   function startPrelude(element, cfg) {
     var data = cfg.data;
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
@@ -774,7 +1250,8 @@ var storage = {
       coordinates: data.pref.coords !== 0,
       highlight: {
         check: data.pref.highlight
-      }
+      },
+      disableContextMenu: true
     });
     setTimeout(function() {
       $('.lichess_overboard_wrap', element).addClass('visible');
@@ -817,10 +1294,10 @@ var storage = {
       self.$list = self.element.find("div.list");
       self.$title = self.element.find('.title').click(function() {
         self.element.find('.content_wrap').toggle(100, function() {
-          storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+          lichess.storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
         });
       });
-      if (storage.get('friends-hide') == 1) self.$title.click();
+      if (lichess.storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload').split(','));
@@ -850,14 +1327,16 @@ var storage = {
     },
     _renderUser: function(user) {
       var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
-      return '<a class="ulpt" data-placement="nw" href="/@/' + id + '">' + user + '</a>';
+      return '<a class="ulpt" href="/@/' + id + '">' + user + '</a>';
     }
   });
 
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        messages: []
+        messages: [],
+        initialNote: '',
+        gameId: null
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.messages');
@@ -866,6 +1345,7 @@ var storage = {
       });
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
+      var $parent = self.element.parent();
 
       // send a message
       $form.submit(function() {
@@ -886,18 +1366,52 @@ var storage = {
       });
 
       // toggle the chat
-      var $toggle = self.element.find('input.toggle_chat');
+      var $toggle = $parent.find('input.toggle_chat');
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
-        if (!enabled) storage.set('nochat', 1);
-        else storage.remove('nochat');
+        if (!enabled) lichess.storage.set('nochat', 1);
+        else lichess.storage.remove('nochat');
       });
-      $toggle[0].checked = storage.get('nochat') != 1;
+      $toggle[0].checked = lichess.storage.get('nochat') != 1;
       if (!$toggle[0].checked) {
         self.element.addClass('hidden');
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
+
+      $panels = self.element.find('div.chat_panels > div');
+      $menu = $parent.find('.chat_menu');
+      $menu.on('click', 'a', function() {
+        var panel = $(this).data('panel');
+        $(this).siblings('.active').removeClass('active').end().addClass('active');
+        $panels.removeClass('active').filter('.' + panel).addClass('active');
+      }).find('a:nth(2)').one('click', function() {
+        self.element.find('.preferences form').each(function() {
+          var $form = $(this);
+          $form.find('input').change(function() {
+            $.ajax({
+              url: $form.attr('action'),
+              method: $form.attr('method'),
+              data: $form.serialize()
+            });
+          });
+        });
+      });
+      if (lichess.storage.get('game.settings.seen')) $menu.find('a:first').click();
+      else {
+        lichess.storage.set('game.settings.seen', 1);
+        $menu.find('a:nth(2)').click();
+      }
+
+      $notes = self.element.find('.notes textarea');
+      if (self.options.gameId && $notes.length) {
+        $notes.on('change keyup paste', $.fp.debounce(function() {
+          $.post('/' + self.options.gameId + '/note', {
+            text: $notes.val()
+          });
+        }, 1000));
+        $notes.val(self.options.initialNote || '');
+      }
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -924,99 +1438,53 @@ var storage = {
     },
     _appendHtml: function(html) {
       if (!html) return;
-      this.$msgs.append(html);
+      this.$msgs.each(function(i, el) {
+        var autoScroll = (el.scrollTop == 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 50)));
+        $(el).append(html);
+        if (autoScroll) el.scrollTop = 999999;
+      });
       $('body').trigger('lichess.content_loaded');
-      this.$msgs.scrollTop(999999);
     }
   });
 
   $.widget("lichess.clock", {
     _create: function() {
-      var o = this.options;
-      this.options.time = parseFloat(this.options.time) * 1000;
-      this.options.barTime = parseFloat(this.options.barTime) * 1000;
-      this.options.emerg = parseFloat(this.options.emerg) * 1000;
-      $.extend(this.options, {
-        state: 'ready'
-      });
-      this.$time = this.element.find('>div.time');
-      this.$bar = this.element.find('>div.bar>span');
-      this._show();
+      var self = this;
+      this.options.time = this.options.time * 1000;
+      this.timeEl = this.element.find('>.time')[0];
+      var end_time = new Date().getTime() + self.options.time;
+      var tick = function() {
+        var current_time = Math.round(end_time - new Date().getTime());
+        if (current_time <= 0) {
+          clearInterval(self.options.interval);
+          current_time = 0;
+        }
+        self.options.time = current_time;
+        self._show();
+      };
+      self.options.interval = setInterval(tick, 1000);
+      tick();
     },
     destroy: function() {
       this.stop();
       $.Widget.prototype.destroy.apply(this);
     },
-    start: function() {
-      var self = this;
-      self.options.state = 'running';
-      self.element.addClass('running');
-      var end_time = new Date().getTime() + self.options.time;
-      self.options.interval = setInterval(function() {
-          if (self.options.state == 'running') {
-            var current_time = Math.round(end_time - new Date().getTime());
-            if (current_time <= 0) {
-              clearInterval(self.options.interval);
-              current_time = 0;
-            }
-
-            self.options.time = current_time;
-            self._show();
-
-            //If the timer completed, fire the buzzer callback
-            if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
-          } else {
-            clearInterval(self.options.interval);
-          }
-        },
-        100);
-    },
-
-    setTime: function(time) {
-      this.options.time = parseFloat(time) * 1000;
-      this._show();
-    },
-
-    getSeconds: function() {
-      return Math.round(this.options.time / 1000);
-    },
-
-    stop: function() {
-      clearInterval(this.options.interval);
-      this.options.state = 'stop';
-      this.element.removeClass('running');
-      this.element.toggleClass('outoftime', this.options.time <= 0);
-    },
-
     _show: function() {
-      var html = this._formatDate(new Date(this.options.time));
-      if (html != this.$time.html()) {
-        this.$time.html(html);
-        this.element.toggleClass('emerg', this.options.time < this.options.emerg);
-      }
-      if (this.options.showBar) {
-        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
-        this.$bar.css('width', barWidth + '%');
-      }
+      this.timeEl.innerHTML = this._formatDate(new Date(this.options.time));
     },
-
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
       var b = function(x) {
         return '<b>' + x + '</b>';
       };
-      if (this.options.showTenths && this.options.time < 10000) {
-        tenths = Math.floor(date.getMilliseconds() / 100);
-        return b(minutes) + ':' + b(seconds) + '<span>.' + b(tenths) + '</span>';
-      } else if (this.options.time >= 3600000) {
+      if (this.options.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else {
         return b(minutes) + ':' + b(seconds);
       }
     },
-
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);
     }
@@ -1027,18 +1495,17 @@ var storage = {
   /////////////////
 
   $(function() {
-    parseFen();
-    $('body').on('lichess.content_loaded', parseFen);
+    $('body').on('lichess.content_loaded', lichess.parseFen);
 
     var socketOpened = false;
 
     function startWatching() {
       if (!socketOpened) return;
       var ids = [];
-      $('a.mini_board.live').removeClass("live").each(function() {
-        ids.push($(this).data("live"));
+      $('.mini_board.live').removeClass("live").each(function() {
+        ids.push(this.getAttribute("data-live"));
       });
-      if (ids.length > 0) {
+      if (ids.length) {
         lichess.socket.send("startWatching", ids.join(" "));
       }
     }
@@ -1049,19 +1516,20 @@ var storage = {
     });
 
     setTimeout(function() {
+      lichess.parseFen();
       $('div.checkmateCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');
-        var color = $board.data('color');
+        var cg = $board.data('chessground');
+        var dests = JSON.parse(lichess.readServerFen($board.data('x')));
 
-        $board.data('chessground').set({
-          orientation: color,
-          turnColor: color,
+        cg.set({
+          turnColor: cg.getOrientation(),
           movable: {
             free: false,
-            dests: $board.data('moves'),
-            color: color,
+            dests: dests,
+            color: cg.getOrientation(),
             coordinates: false,
             events: {
               after: function(orig, dest) {
@@ -1069,7 +1537,8 @@ var storage = {
                 submit(orig + ' ' + dest);
               }
             }
-          }
+          },
+          disableContextMenu: true
         });
 
         var submit = function(solution) {
@@ -1084,11 +1553,11 @@ var storage = {
               $captcha.toggleClass('failure', data != 1);
               if (data == 1) $board.data('chessground').stop();
               else setTimeout(function() {
-                parseFen($board);
+                lichess.parseFen($board);
                 $board.data('chessground').set({
-                  turnColor: color,
+                  turnColor: cg.getOrientation(),
                   movable: {
-                    dests: $board.data('moves')
+                    dests: dests
                   }
                 });
               }, 300);
@@ -1096,26 +1565,89 @@ var storage = {
           });
         };
       });
-    }, 100);
+    }, 200);
   });
 
-  ////////////////
-  // lobby.js //
-  ////////////////
+  function startLobby(element, cfg) {
+    var lobby;
+    var nbRoundSpread = $.spreadNumber(
+      document.querySelector('#site_baseline span'),
+      4,
+      function() {
+        return lichess.socket.pingInterval();
+      });
+    var onFirstConnect = function() {
+      var gameId = lichess.getParameterByName('hook_like');
+      if (!gameId) return;
+      $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
+      lobby.setTab('real_time');
+      window.history.replaceState(null, null, '/');
+    };
+    lichess.socket = new lichess.StrongSocket(
+      '/lobby/socket/v1',
+      cfg.data.version, {
+        receive: function(t, d) {
+          lobby.socketReceive(t, d);
+        },
+        events: {
+          reload_timeline: function() {
+            $.ajax({
+              url: $("#timeline").data('href'),
+              cache: false,
+              success: function(html) {
+                $('#timeline').html(html);
+                $('body').trigger('lichess.content_loaded');
+              }
+            });
+          },
+          streams: function(html) {
+            $('#streams_on_air').html(html);
+          },
+          featured: function(o) {
+            $('#featured_game').html(o.html);
+            $('body').trigger('lichess.content_loaded');
+          },
+          redirect: function(e) {
+            lobby.setRedirecting();
+            $.redirect(e);
+          },
+          tournaments: function(data) {
+            $("#enterable_tournaments").html(data);
+            $('body').trigger('lichess.content_loaded');
+          },
+          simuls: function(data) {
+            $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
+            $('body').trigger('lichess.content_loaded');
+          },
+          reload_forum: function() {
+            var $newposts = $("div.new_posts");
+            setTimeout(function() {
+              $.ajax({
+                url: $newposts.data('url'),
+                cache: false,
+                success: function(data) {
+                  $newposts.find('ol').html(data).end().scrollTop(0);
+                  $('body').trigger('lichess.content_loaded');
+                }
+              });
+            }, Math.round(Math.random() * 5000));
+          },
+          nbr: nbRoundSpread,
+          fen: function(e) {
+            lichess.StrongSocket.defaults.events.fen(e);
+            lobby.gameActivity(e.id);
+          }
+        },
+        options: {
+          name: 'lobby',
+          onFirstConnect: onFirstConnect
+        }
+      });
 
-  $(function() {
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    lobby = LichessLobby(element, cfg);
 
     var $startButtons = $('#start_buttons');
-
-    if (!lichess.StrongSocket.available) {
-      $startButtons.find('a').attr('href', '#');
-      $("div.lichess_overboard.joining input.submit").remove();
-      return;
-    }
-
-    if (!$startButtons.length) {
-      return;
-    }
 
     function sliderTime(v) {
       if (v <= 20) return v;
@@ -1143,32 +1675,63 @@ var storage = {
       }
     }
 
+    function sliderDays(v) {
+      if (v <= 3) return v;
+      switch (v) {
+        case 4:
+          return 5;
+        case 5:
+          return 7;
+        case 6:
+          return 10;
+        default:
+          return 14;
+      }
+    }
+
+    function sliderInitVal(v, f, max) {
+      for (var i = 0; i < max; i++) {
+        if (f(i) === v) return i;
+      }
+    }
+
     function prepareForm() {
-      var $form = $('div.lichess_overboard');
+      var $form = $('.lichess_overboard');
+      var $timeModeSelect = $form.find('#timeMode');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
-      var $variantSelect = $form.find('.variants select');
+      var $variantSelect = $form.find('#variant');
       var $fenPosition = $form.find(".fen_position");
-      var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
+      var $daysInput = $form.find('.days_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
+      var randomColorVariants = $form.data('random-color-variants').split(',');
       var toggleButtons = function() {
-        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+        var timeMode = $timeModeSelect.val();
+        var rated = $rated.prop('checked');
+        var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
+        var ratedOk = !isHook || !rated || timeMode != '0';
+        if (timeOk && ratedOk) {
+          $form.find('.color_submits button').show();
+          $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf($variantSelect.val()) === -1);
+        } else
+          $form.find('.color_submits button').hide();
       };
       var showRating = function() {
+        var timeMode = $timeModeSelect.val();
         var key;
         switch ($variantSelect.val()) {
           case '1':
-            if ($clockCheckbox.is(':checked')) {
-              var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
+            if (timeMode == '1') {
+              var time = $timeInput.val() * 60 + $incrementInput.val() * 40;
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
               else key = 'classical';
-            } else key = 'classical';
+            } else key = 'correspondence';
             break;
           case '2':
             key = 'chess960';
@@ -1178,11 +1741,27 @@ var storage = {
             break;
           case '5':
             key = 'threeCheck';
+            break;
+          case '6':
+            key = 'antichess'
+            break;
+          case '7':
+            key = 'atomic'
+            break;
+          case '8':
+            key = "horde"
+            break;
         }
         $ratings.hide().filter('.' + key).show();
       };
       if (isHook) {
         var $formTag = $form.find('form');
+        if ($form.data('anon')) {
+          $timeModeSelect.val(1)
+            .children('.timeMode_2, .timeMode_0')
+            .prop('disabled', true)
+            .attr('title', $.trans('You need an account to do that'));
+        }
         var ajaxSubmit = function(color) {
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
@@ -1190,11 +1769,12 @@ var storage = {
             type: 'post'
           });
           $form.find('a.close').click();
+          lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
           return false;
         };
         $formTag.find('.color_submits button').click(function() {
           return ajaxSubmit($(this).val());
-        });
+        }).attr('disabled', false);
         $formTag.submit(function() {
           return ajaxSubmit('random');
         });
@@ -1203,20 +1783,35 @@ var storage = {
       $form.find('button.submit').button().disableSelection();
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-          $value = $input.siblings('span'),
-          time;
+          $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: $input.val(),
+          value: sliderInitVal(parseInt($input.val()), sliderTime, 100),
           min: 0,
           max: 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {
-            time = sliderTime(ui.value);
+            var time = sliderTime(ui.value);
             $value.text(time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
+          }
+        }));
+      });
+      $daysInput.each(function() {
+        var $input = $(this),
+          $value = $input.siblings('span');
+        $input.hide().after($('<div>').slider({
+          value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
+          min: 1,
+          max: 7,
+          range: 'min',
+          step: 1,
+          slide: function(event, ui) {
+            var days = sliderDays(ui.value);
+            $value.text(days);
+            $input.attr('value', days);
           }
         }));
       });
@@ -1245,19 +1840,15 @@ var storage = {
           var rated = $rated.prop('checked');
           var membersOnly = $form.find('.members_only input').prop('checked');
           $ratingRangeConfig.toggle(rated || membersOnly);
-          if (isHook && rated && !$clockCheckbox.prop('checked')) {
-            $clockCheckbox.click();
-          }
           $form.find('.members_only').toggle(!rated);
+          toggleButtons();
         }).trigger('change');
       });
-      $clockCheckbox.on('change', function() {
-        var checked = $(this).is(':checked');
-        $form.find('.time_choice, .increment_choice').toggle(checked);
+      $timeModeSelect.on('change', function() {
+        var timeMode = $(this).val();
+        $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
+        $form.find('.days_choice').toggle(timeMode == '2');
         toggleButtons();
-        if (isHook && !checked) {
-          $casual.click();
-        }
         showRating();
       }).trigger('change');
       var $ratingRangeConfig = $form.find('.rating_range_config');
@@ -1286,16 +1877,16 @@ var storage = {
             }
           });
         }
-      }, 500);
+      }, 200);
       $fenInput.on('keyup', validateFen);
 
       $variantSelect.on('change', function() {
         var fen = $(this).val() == '3';
-        if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
         $modeChoicesWrap.toggle(!fen);
         if (fen) $casual.click();
         showRating();
+        toggleButtons();
       }).trigger('change');
 
       $form.find('div.level').each(function() {
@@ -1316,545 +1907,125 @@ var storage = {
       });
     }
 
-    $startButtons.find('a').click(function() {
+    $startButtons.find('a').not('.disabled').click(function() {
       $(this).addClass('active').siblings().removeClass('active');
-      $('div.lichess_overboard').remove();
+      $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
+        cache: false,
         success: function(html) {
-          $('div.lichess_overboard').remove();
+          $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);
           prepareForm();
           $('body').trigger('lichess.content_loaded');
+        },
+        error: function() {
+          location.reload();
         }
       });
       return false;
     });
-    $('#lichess').on('submit', 'form', $.lichessOpeningPreventClicks);
 
-    if (window.location.hash) {
+    if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
       $startButtons
-        .find('a.config_' + location.hash.replace(/#/, ''))
+        .find('a.config_' + location.hash.replace('#', ''))
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
-    }
-  });
 
-  $.lichessOpeningPreventClicks = function() {
-    $('#hooks_list, #hooks_chart').hide();
+      if (location.hash === '#hook') {
+        if (/time=realTime/.test(location.search))
+          lobby.setTab('real_time');
+        else if (/time=correspondence/.test(location.search))
+          lobby.setTab('seeks');
+      }
+
+      window.history.replaceState(null, null, '/');
+    }
   };
-
-  // hooks
-  $(function() {
-
-    var $wrap = $('#hooks_wrap');
-    if (!$wrap.length) return;
-    if (!lichess.StrongSocket.available) return;
-
-    var socketUrl = $wrap.data('socket-url');
-    var $timeline = $("#timeline");
-    var $newposts = $("div.new_posts");
-    var $canvas = $wrap.find('.canvas');
-    var $hooksList = $wrap.find('#hooks_list');
-    var $tableWrap = $hooksList.find('div.table_wrap');
-    var $table = $tableWrap.find('table').sortable();
-    var $tablereload = $table.find('th.reload');
-    var $tbody = $table.find('tbody');
-    var animation = 500;
-    var pool = [];
-    var nextHooks = [];
-
-    var flushHooksTimeout;
-    var flushHooksSchedule = function() {
-      flushHooksTimeout = setTimeout(flushHooks, 8000);
-    };
-    var flushHooks = function() {
-      clearTimeout(flushHooksTimeout);
-      $tbody.fadeIn(500);
-      $tableWrap.clone().attr('id', 'tableclone').appendTo($hooksList).fadeOut(500, function() {
-        $(this).remove();
-      });
-      $tbody.find('tr.disabled').remove();
-      $tbody.append(nextHooks);
-      nextHooks = [];
-      $table.trigger('sortable.sort');
-      flushHooksSchedule();
-    };
-    flushHooksSchedule();
-    $tablereload.click(function(e) {
-      e.stopPropagation();
-      flushHooks();
-    });
-    $('body').on('lichess.hook-flush', flushHooks);
-
-    $wrap.on('click', '>div.tabs>a', function() {
-      var tab = $(this).data('tab');
-      $(this).siblings().removeClass('active').end().addClass('active');
-      $wrap.find('>.tab').hide().filter('.' + tab).show();
-      storage.set('lobbytab', tab);
-    });
-    var active = storage.get('lobbytab') || 'list';
-    $wrap.find('>div.tabs>.' + active).addClass('active');
-    $wrap.find('>.' + active).show();
-    $wrap.find('a.filter').click(function() {
-      var $a = $(this);
-      var $div = $wrap.find('#hook_filter');
-      setTimeout(function() {
-        $div.click(function(e) {
-          e.stopPropagation();
-        });
-        $('html').one('click', function(e) {
-          $div.off('click').removeClass('active');
-          $a.removeClass('active');
-        });
-      }, 10);
-      if ($(this).toggleClass('active').hasClass('active')) {
-        $div.addClass('active');
-        if ($div.is(':empty')) {
-          $.ajax({
-            url: $(this).attr('href'),
-            success: function(html) {
-              var save = $.fp.debounce(function() {
-                var $form = $div.find('form');
-                $.ajax({
-                  url: $form.attr('action'),
-                  data: $form.serialize(),
-                  type: 'post',
-                  success: function(filter) {
-                    lichess_preload.filter = filter;
-                    drawHooks();
-                    $('body').trigger('lichess.hook-flush');
-                  }
-                });
-              }, 500);
-              $div.html(html).find('input').change(save);
-              $div.find('button.reset').click(function() {
-                $div.find('label input').prop('checked', true).trigger('change');
-                $div.find('.rating_range').each(function() {
-                  var s = $(this);
-                  s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
-                });
-              });
-              $div.find('button').click(function() {
-                $wrap.find('a.filter').click();
-                return false;
-              });
-              $div.find('.rating_range').each(function() {
-                var $this = $(this);
-                var $input = $this.find("input");
-                var $span = $this.siblings(".range");
-                var min = $input.data("min");
-                var max = $input.data("max");
-                var values = $input.val() ? $input.val().split("-") : [min, max];
-                $span.text(values.join(' - '));
-
-                function change() {
-                  setTimeout(function() {
-                    var values = $this.slider('values');
-                    $input.val(values[0] + "-" + values[1]);
-                    $span.text(values[0] + " - " + values[1]);
-                    save();
-                  }, 50);
-                }
-                $this.slider({
-                  range: true,
-                  min: min,
-                  max: max,
-                  values: values,
-                  step: 50,
-                  slide: change
-                }).change(change);
-              });
-            }
-          });
-        }
-      } else {
-        $div.removeClass('active');
-      }
-      return false;
-    });
-
-    function resizeTimeline() {
-      if ($timeline.length) {
-        var pos = $timeline.offset().top,
-          max = $('#lichess').offset().top + 536;
-        while (pos + $timeline.outerHeight() > max) {
-          $timeline.find('div.entry:last').remove();
-        }
-      }
-    }
-    resizeTimeline();
-
-    lichess_preload.pool.forEach(addHook);
-    drawHooks(true);
-    $table.find('th:eq(2)').click().end();
-
-    lichess.socket = new lichess.StrongSocket(socketUrl, lichess_preload.version, {
-      events: {
-        reload_timeline: function() {
-          $.ajax({
-            url: $timeline.data('href'),
-            success: function(html) {
-              $timeline.html(html);
-              resizeTimeline();
-              $('body').trigger('lichess.content_loaded');
-            }
-          });
-        },
-        streams: function(html) {
-          $('#streams_on_air').html(html);
-        },
-        hook_add: function(hook) {
-          addHook(hook);
-          drawHooks();
-          if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
-        },
-        hook_remove: removeHook,
-        hook_list: syncHookIds,
-        featured: changeFeatured,
-        redirect: function(e) {
-          $.lichessOpeningPreventClicks();
-          $.redirect(e);
-        },
-        tournaments: function(data) {
-          $("#enterable_tournaments").html(data);
-          $('body').trigger('lichess.content_loaded');
-        },
-        reload_forum: function() {
-          setTimeout(function() {
-            $.ajax($newposts.data('url'), {
-              success: function(data) {
-                $newposts.find('ol').html(data).end().scrollTop(0);
-                $('body').trigger('lichess.content_loaded');
-              }
-            });
-          }, Math.round(Math.random() * 5000));
-        },
-        nbr: function(e) {
-          var $tag = $('#site_baseline span');
-          if ($tag.length && e) {
-            var prev = parseInt($tag.text(), 10);
-            var k = 5;
-            var interv = 2000 / k;
-            $.fp.range(k).forEach(function(it) {
-              setTimeout(function() {
-                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                if (val != prev) {
-                  $tag.text(val);
-                  prev = val;
-                }
-              }, Math.round(it * interv));
-            });
-          }
-        }
-      },
-      options: {
-        name: "lobby"
-      }
-    });
-
-    function changeFeatured(o) {
-      $('#featured_game').html(o.html);
-      $('body').trigger('lichess.content_loaded');
-    }
-
-    function removeHook(id) {
-      pool = pool.filter(function(h) {
-        return h.id != id;
-      });
-      drawHooks();
-    }
-
-    function syncHookIds(ids) {
-      pool = pool.filter(function(h) {
-        return $.fp.contains(ids, h.id);
-      });
-      drawHooks();
-    }
-
-    function addHook(hook) {
-      hook.action = hook.uid == lichess.StrongSocket.sri ? "cancel" : "join";
-      pool.push(hook);
-    }
-
-    function disableHook(id) {
-      $tbody.children('.' + id).addClass('disabled').attr('title', '');
-      destroyChartHook(id);
-    }
-
-    function destroyHook(id) {
-      $tbody.children('.' + id).remove();
-      destroyChartHook(id);
-    }
-
-    function destroyChartHook(id) {
-      $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
-        $.powerTip.destroy($(this));
-        $(this).remove();
-      });
-    }
-
-    function drawHooks(initial) {
-      var filter = lichess_preload.filter;
-      var seen = [];
-      var hidden = 0;
-      var visible = 0;
-      pool.forEach(function(hook) {
-        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
-          (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
-        var hash = hook.mode + hook.variant + hook.time + hook.rating;
-        if (hide && hook.action != 'cancel') {
-          destroyHook(hook.id);
-          hidden++;
-        } else if ($.fp.contains(seen, hash) && hook.action != 'cancel') {
-          $('#' + hook.id).filter(':visible').hide();
-          $tbody.children('.' + hook.id).hide();
-        } else {
-          visible++;
-          if (!$('#' + hook.id).length) {
-            $canvas.append($(renderPlot(hook)).fadeIn(animation));
-            if (initial) $tbody.append(renderTr(hook));
-            else nextHooks.push(renderTr(hook));
-          } else {
-            $('#' + hook.id).not(':visible').fadeIn(animation);
-            $tbody.children('.' + hook.id).show();
-          }
-        }
-        if (hook.action != 'cancel') seen.push(hash);
-      });
-      $.makeArray($canvas.find('>span.plot')).map(function(o) {
-        return o.getAttribute('data-id');
-      }).concat(
-        $.makeArray($tbody.children()).map(function(o) {
-          return o.getAttribute('data-id');
-        })).forEach(function(id) {
-        if (!$.fp.find(pool, function(x) {
-          return x.id == id;
-        })) disableHook(id);
-      });
-
-      $wrap
-        .find('a.filter')
-        .toggleClass('on', hidden > 0)
-        .find('span.number').text('(' + hidden + ')');
-
-      $('body').trigger('lichess.content_loaded');
-    }
-
-    function renderPlot(hook) {
-      var bottom = Math.max(0, ratingY(hook.rating) - 7);
-      var left = Math.max(0, clockX(hook.time) - 4);
-      var klass = [
-        'plot',
-        hook.mode == "Rated" ? 'rated' : 'casual',
-        hook.action == 'cancel' ? 'cancel' : '',
-        hook.variant != 'STD' ? 'variant' : ''
-      ].join(' ');
-      var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
-      return $plot.data('hook', hook).powerTip({
-        fadeInTime: 0,
-        fadeOutTime: 0,
-        placement: hook.rating > 2200 ? 'se' : 'ne',
-        mouseOnToPopup: true,
-        closeDelay: 200,
-        intentPollInterval: 50,
-        popupId: 'hook'
-      }).data('powertipjq', $(renderHook(hook)));
-    }
-
-    function ratingY(e) {
-      function ratingLog(a) {
-        return Math.log(a / 150 + 1);
-      }
-      var rating = Math.max(800, Math.min(2800, e || 1500));
-      var ratio;
-      if (rating == 1500) {
-        ratio = 0.25;
-      } else if (rating > 1500) {
-        ratio = 0.25 + (ratingLog(rating - 1500) / ratingLog(1300)) * 3 / 4;
-      } else {
-        ratio = 0.25 - (ratingLog(1500 - rating) / ratingLog(500)) / 4;
-      }
-      return Math.round(ratio * 489);
-    }
-
-    function clockX(dur) {
-      function durLog(a) {
-        return Math.log((a - 30) / 200 + 1);
-      }
-      var max = 2000;
-      return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
-    }
-
-    function renderHook(hook) {
-      var html = '';
-      if (hook.rating) {
-        html += '<a class="opponent" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
-        html += '<span class="rating">' + hook.rating + '</span>';
-      } else {
-        html += '<span class="opponent anon">Anonymous</span>';
-      }
-      if (hook.clock) {
-        html += '<span class="clock">' + hook.clock + '</span>';
-      } else {
-        html += '<span class="clock nope">∞</span>';
-      }
-      html += '<span class="mode">' +
-        '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
-      html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
-      return html;
-    }
-
-    function renderTr(hook) {
-      var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
-        ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
-        [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
-        [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time || 9999, hook.clock ? hook.clock : '∞'],
-        [hook.mode,
-          '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
-          $.trans(hook.mode)
-        ]
-      ].map(function(x) {
-        return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
-      }).join('') + '</tr>';
-    }
-
-    $('#hooks_chart').append(
-      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800].map(function(v) {
-        var b = ratingY(v);
-        return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
-          '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
-      }).join('') + [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
-        var l = clockX(v * 60);
-        return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
-          '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
-      }).join(''));
-
-    $tbody.on('click', 'a.ulink', function(e) {
-      e.stopPropagation();
-    });
-    $tbody.on('click', 'td:not(.disabled)', function() {
-      $('#' + $(this).parent().data('id')).click();
-    });
-    $canvas.on('click', '>span.plot:not(.hiding)', function() {
-      var hook = $(this).data('hook');
-      var variantConfirms = {
-        '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
-        'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
-        '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
-      };
-      if (hook.action != 'join' || Object.keys(variantConfirms).every(function(key) {
-        var variant = variantConfirms[key]
-        if (hook.variant == key && !storage.get(key)) {
-          var c = confirm(variant);
-          if (c) storage.set(key, 1);
-          return c;
-        } else return true;
-      })) {
-        lichess.socket.send(hook.action, hook.id);
-      }
-    });
-  });
 
   ///////////////////
   // tournament.js //
   ///////////////////
 
   $(function() {
-
-    var $wrap = $('#tournament');
-    if (!$wrap.length) return;
-
-    if (!lichess.StrongSocket.available) return;
-
-    if (typeof _ld_ == "undefined") {
-      // handle tournament list
+    if (lichess.tournamentSchedule) {
       lichess.StrongSocket.defaults.params.flag = "tournament";
+      lichess.StrongSocket.defaults.events.reload = lichess.tournamentSchedule.update;
+    }
+  });
+
+  function startTournament(element, cfg) {
+    $('body').data('tournament-id', cfg.data.id);
+    var $watchers = $("div.watchers").watchers();
+    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
+      messages: lichess_chat
+    });
+    var tournament;
+    lichess.socket = new lichess.StrongSocket(
+      '/tournament/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+        receive: function(t, d) {
+          tournament.socketReceive(t, d)
+        },
+        events: {
+          crowd: function(data) {
+            $watchers.watchers("set", data);
+          }
+        },
+        options: {
+          name: "tournament"
+        }
+      });
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    tournament = LichessTournament(element, cfg);
+  };
+
+  ///////////////////
+  // simul.js //
+  ///////////////////
+
+  $(function() {
+
+    var $simulList = $('#simul_list');
+    if ($simulList.length) {
+      // handle simul list
+      lichess.StrongSocket.defaults.params.flag = "simul";
       lichess.StrongSocket.defaults.events.reload = function() {
-        $wrap.load($wrap.data("href"), function() {
+        $simulList.load($simulList.data("href"), function() {
           $('body').trigger('lichess.content_loaded');
         });
       };
+      $('#site_header .help a.more').click(function() {
+        $.modal($(this).parent().find('div.more').clone()).addClass('card');
+      });
       return;
     }
+  });
 
-    $('body').data('tournament-id', _ld_.tournament.id);
-
+  function startSimul(element, cfg) {
+    $('body').data('simul-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-
-    var $chat = $('#chat');
-    if ($chat.length) $chat.chat({
+    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
       messages: lichess_chat
     });
-
-    function startClock() {
-      $("div.tournament_clock").each(function() {
-        $(this).clock({
-          time: $(this).data("time")
-        }).clock("start");
-      });
-    }
-    startClock();
-
-    function drawBars() {
-      $wrap.find('table.standing').each(function() {
-        var $bars = $(this).find('.bar');
-        var max = Math.max.apply(Math, $bars.map(function() {
-          return parseInt(this.getAttribute('data-value'));
-        }));
-        $bars.each(function() {
-          var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
-          $(this).css('width', width + '%');
-        });
-      });
-    }
-    drawBars();
-
-    function reload() {
-      $.ajax({
-        url: $wrap.data('href'),
-        success: function(html) {
-          var $tour = $(html);
-          if ($wrap.find('table.standing').length) {
-            // started
-            $wrap.find('table.standing thead').replaceWith($tour.find('table.standing thead'));
-            $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
-            drawBars();
-            $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
-            $wrap.find('div.game_list').replaceWith($tour.find('div.game_list'));
-          } else {
-            // created
-            $wrap.find('table.user_list').replaceWith($tour.find('table.user_list'));
-          }
-          $('body').trigger('lichess.content_loaded');
-        }
-      });
-    }
-
-    function start() {
-      alert($.trans("Tournament is starting"));
-      reload();
-    }
-
-    lichess.socket = new lichess.StrongSocket($wrap.data("socket-url"), _ld_.version, {
-      events: {
-        start: start,
-        reload: reload,
-        reloadPage: function() {
-          location.reload();
+    var simul;
+    lichess.socket = new lichess.StrongSocket(
+      '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+        receive: function(t, d) {
+          simul.socketReceive(t, d)
         },
-        crowd: function(data) {
-          $watchers.watchers("set", data);
+        events: {
+          crowd: function(data) {
+            $watchers.watchers("set", data);
+          }
+        },
+        options: {
+          name: "simul"
         }
-      },
-      options: {
-        name: "tournament"
-      }
-    });
-  });
+      });
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    simul = LichessSimul(element, cfg);
+  };
 
   ////////////////
   // analyse.js //
@@ -1862,8 +2033,11 @@ var storage = {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
+    if (lichess.openInMobileApp(data.game.id)) return;
     if (data.chat) $('#chat').chat({
-      messages: data.chat
+      messages: data.chat,
+      initialNote: data.note,
+      gameId: data.game.id
     });
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
@@ -1874,12 +2048,15 @@ var storage = {
           name: "analyse"
         },
         params: {
-          ran: "--ranph--"
+          ran: "--ranph--",
+          userTv: $('.user_tv').data('user-tv')
+        },
+        receive: function(t, d) {
+          analyse.socketReceive(t, d);
         },
         events: {
           analysisAvailable: function() {
             $.sound.dong();
-            location.href = location.href.split('#')[0] + '#' + analyse.pathStr();
             location.reload();
           },
           crowd: function(event) {
@@ -1897,7 +2074,8 @@ var storage = {
       });
     };
     var lastFen, lastPath;
-    lichess.analyse.onChange = function(fen, path) {
+    cfg.onChange = function(fen, path) {
+      if (fen === lastFen) return;
       lastFen = fen = fen || lastFen;
       lastPath = path = path || lastPath;
       var chart, point;
@@ -1907,17 +2085,12 @@ var storage = {
         if (chart) {
           if (path.length > 1) unselect(chart);
           else {
-            point = chart.series[0].data[path[0].ply - 1];
-            if (typeof point != "undefined") {
-              point.select();
-              chart.setTitle({
-                text: point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>'
-              });
-            } else unselect(chart);
+            point = chart.series[0].data[path[0].ply - 1 - cfg.data.game.startedAtTurn];
+            if (typeof point != "undefined") point.select();
+            else unselect(chart);
           }
         }
       }
-      var timeChartFirstDisplay = true;
       if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
@@ -1925,45 +2098,49 @@ var storage = {
           else {
             var white = path[0].ply % 2 !== 0;
             var serie = white ? 0 : 1;
-            var turn = Math.floor((path[0].ply - 1) / 2);
+            var turn = Math.floor((path[0].ply - 1 - cfg.data.game.startedAtTurn) / 2);
             point = chart.series[serie].data[turn];
-            if (typeof point != "undefined") {
-              point.select();
-              var title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
-              chart.setTitle({
-                text: title
-              });
-              if (timeChartFirstDisplay) {
-                chart.setTitle({
-                  text: title
-                });
-                timeChartFirstDisplay = false;
-              }
-            } else unselect(chart);
+            if (typeof point != "undefined") point.select();
+            else unselect(chart);
           }
         }
       }
     };
-    data.path = window.location.hash ? location.hash.replace(/#/, '') : '';
-    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, lichess.analyse.onChange);
-    lichess.analyse.jump = analyse.jump;
+    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.element = element.querySelector('.analyse');
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    analyse = LichessAnalyse(cfg);
+    cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
     $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
 
     $panels = $('div.analysis_panels > div');
-    $('div.analysis_menu').on('click', 'a', function() {
-      var panel = $(this).data('panel');
-      $(this).siblings('.active').removeClass('active').end().addClass('active');
+    var $menu = $('div.analysis_menu');
+    var storageKey = 'lichess.analysis.panel';
+    var setPanel = function(panel) {
+      $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
       if (panel == 'move_times') try {
         $.renderMoveTimesChart();
       } catch (e) {}
-    }).find('a:first').click();
+    };
+    $menu.on('click', 'a', function() {
+      var panel = $(this).data('panel');
+      lichess.storage.set(storageKey, panel);
+      setPanel(panel);
+    });
+    if (cfg.data.analysis) setPanel('computer_analysis');
+    else {
+      var stored = lichess.storage.get(storageKey);
+      if (stored && $menu.children('.' + stored).length) setPanel(stored);
+      else if ($menu.children('.crosstable').length) $menu.children('.crosstable').click();
+      else $menu.children(':first').click();
+    }
 
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that') + '.')) {
+        if (confirm($.trans('You need an account to do that'))) {
           location.href = '/signup';
         }
         return false;
@@ -1977,6 +2154,43 @@ var storage = {
       });
       return false;
     });
+    $panels.find('div.pgn').click(function() {
+      var range, selection;
+      if (document.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText($(this)[0]);
+        range.select();
+      } else if (window.getSelection) {
+        selection = window.getSelection();
+        range = document.createRange();
+        range.selectNodeContents($(this)[0]);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    });
+  }
+
+  ////////////////
+  // user_analysis.js //
+  ////////////////
+
+  function startUserAnalysis(element, cfg) {
+    var analyse;
+    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.element = element.querySelector('.analyse');
+    lichess.socket = new lichess.StrongSocket('/socket', 0, {
+      options: {
+        name: "analyse"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    analyse = LichessAnalyse(cfg);
   }
 
   /////////////// forum.js ////////////////////
@@ -1987,106 +2201,11 @@ var storage = {
     return false;
   });
 
-  $.fn.sortable = function(sortFns) {
-    return this.each(function() {
-      var $table = $(this);
-      var $ths = $table.find('th');
-
-      // Enum containing sorting directions
-      var dir = {
-        ASC: "asc",
-        DESC: "desc"
-      };
-
-      // Merge sort functions with some default sort functions.
-      sortFns = $.extend({}, {
-        "int": function(a, b) {
-          return parseInt(a, 10) - parseInt(b, 10);
-        },
-        "float": function(a, b) {
-          return parseFloat(a) - parseFloat(b);
-        },
-        "string": function(a, b) {
-          if (a < b) return -1;
-          if (a > b) return +1;
-          return 0;
-        }
-      }, sortFns || {});
-
-      // Return the resulting indexes of a sort so we can apply
-      // this result elsewhere. This returns an array of index numbers.
-      // return[0] = x means "arr's 0th element is now at x"
-
-      function sort_map(arr, sort_function, sort_dir) {
-        var map = [];
-        var index = 0;
-        var sorted = arr.slice(0).sort(sort_function);
-        if (sort_dir == dir.DESC) sorted = sorted.reverse();
-        for (var i = 0; i < arr.length; i++) {
-          index = $.inArray(arr[i], sorted);
-
-          // If this index is already in the map, look for the next index.
-          // This handles the case of duplicate entries.
-          while ($.inArray(index, map) != -1) {
-            index++;
-          }
-          map.push(index);
-        }
-        return map;
-      }
-
-      // Apply a sort map to the array.
-
-      function apply_sort_map(arr, map) {
-        var clone = arr.slice(0),
-          newIndex = 0;
-        for (var i = 0; i < map.length; i++) {
-          newIndex = map[i];
-          clone[newIndex] = arr[i];
-        }
-        return clone;
-      }
-
-      $table.on("click", "th", function() {
-        var sort_dir = $(this).data("sort-dir") === dir.DESC ? dir.ASC : dir.DESC;
-        $ths.data("sort-dir", null).removeClass("sorting-desc sorting-asc");
-        $(this).data("sort-dir", sort_dir).addClass("sorting-" + sort_dir);
-        $table.trigger('sortable.sort');
-      });
-
-      $table.on("sortable.sort", function() {
-
-        var $th = $ths.filter('.sorting-desc,.sorting-asc').first();
-        if (!$th.length) return;
-        var th_index = $th.index();
-
-        var type = $th.data("sort");
-        if (!type) return;
-        var sort_dir = $th.data("sort-dir") || dir.DESC;
-
-        var trs = $table.children("tbody").children("tr");
-
-        setTimeout(function() {
-          // Gather the elements for this column
-          var column = [];
-          var sortMethod = sortFns[type];
-
-          // Push either the value of the `data-order-by` attribute if specified
-          // or just the text() value in this column to column[] for comparison.
-          trs.each(function(index, tr) {
-            var $e = $(tr).children().eq(th_index);
-            var sort_val = $e.data("sort-value");
-            var order_by = typeof(sort_val) !== "undefined" ? sort_val : $e.text();
-            column.push(order_by);
-          });
-
-          var theMap = sort_map(column, sortMethod, sort_dir);
-
-          $table.children("tbody").html($(apply_sort_map(trs, theMap)));
-        }, 10);
-      });
-    });
-  };
+  $('#lichess_forum').on('click', 'form.unsub button', function() {
+    var $form = $(this).parent().toggleClass('on off');
+    $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
+    return false;
+  });
 
   $.idleTimer = function(delay, onIdle, onWakeUp) {
     var eventType = 'mousemove';
@@ -2115,8 +2234,22 @@ var storage = {
       if (active && new Date() - lastSeenActive > delay) {
         onIdle();
         active = false;
-        startListening();
-      } else startListening();
+      }
+      startListening();
     }, 5000);
+  };
+
+  $.modal = function(html) {
+    var $wrap = $('<div id="modal-wrap">').html(html.clone().show());
+    var $overlay = $('<div id="modal-overlay">').html($wrap);
+    $overlay.one('click', $.modal.close);
+    $wrap.click(function(e) {
+      e.stopPropagation();
+    });
+    $('body').prepend($overlay);
+    return $wrap;
+  };
+  $.modal.close = function() {
+    $('#modal-overlay').remove();
   };
 })();

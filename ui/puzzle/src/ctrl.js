@@ -1,8 +1,9 @@
 var m = require('mithril');
-var partial = require('lodash-node/modern/functions/partial');
+var k = Mousetrap;
 var merge = require('merge');
-var last = require('lodash-node/modern/arrays/last');
+var last = require('lodash/array/last');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var data = require('./data');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
@@ -10,9 +11,13 @@ var xhr = require('./xhr');
 
 module.exports = function(cfg, router, i18n) {
 
+  this.vm = {
+    loading: false
+  };
+
   this.data = data(cfg);
 
-  this.userMove = function(orig, dest) {
+  var userMove = function(orig, dest) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
@@ -25,20 +30,29 @@ module.exports = function(cfg, router, i18n) {
         this.data.comment = 'retry';
         break;
       case 'fail':
-        var t = this;
         setTimeout(function() {
-          if (t.data.mode == 'play') xhr.attempt(t, false);
-          else t.revert(t.data.puzzle.id);
-        }, 500);
+          if (this.data.mode == 'play') {
+            this.chessground.stop();
+            xhr.attempt(this, false);
+          } else this.revert(this.data.puzzle.id);
+        }.bind(this), 500);
         this.data.comment = 'fail';
         break;
       default:
         this.userFinalizeMove([orig, dest, promotion], newProgress);
-        if (newLines == 'win') xhr.attempt(this, true);
-        else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        if (newLines == 'win') {
+          this.chessground.stop();
+          xhr.attempt(this, true);
+        } else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
         break;
     }
     m.endComputation(); // give feedback ASAP, don't wait for delayed action
+  }.bind(this);
+
+  var onMove = function(orig, dest, captured) {
+    if (captured) {
+      $.sound.take();
+    } else $.sound.move();
   }.bind(this);
 
   this.revert = function(id) {
@@ -49,9 +63,10 @@ module.exports = function(cfg, router, i18n) {
       turnColor: this.data.puzzle.color,
       check: null,
       movable: {
-        dests: chess.dests(this.data.chess)
+        dests: this.data.chess.dests()
       }
     });
+    m.redraw();
     if (this.data.chess.in_check()) this.chessground.setCheck();
   }.bind(this);
 
@@ -76,8 +91,11 @@ module.exports = function(cfg, router, i18n) {
       free: false,
       color: cfg.mode !== 'view' ? cfg.puzzle.color : null,
       events: {
-        after: this.userMove
+        after: userMove
       },
+    },
+    events: {
+      move: onMove
     },
     animation: {
       enabled: true,
@@ -85,29 +103,47 @@ module.exports = function(cfg, router, i18n) {
     },
     premovable: {
       enabled: true
-    }
+    },
+    drawable: {
+      enabled: true
+    },
+    disableContextMenu: true
   }, this.data.chessground));
 
+  k.bind(['esc'], this.chessground.cancelMove);
+
   this.initiate = function() {
-    if (this.data.mode != 'view')
+    if (this.data.mode !== 'view')
       setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
   }.bind(this);
 
   this.reload = function(cfg) {
+    this.vm.loading = false;
     this.data = data(cfg);
     chessground.board.reset(this.chessground.data);
     chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
     this.initiate();
   }.bind(this);
 
+  this.pushState = function(cfg) {
+    if (window.history.pushState)
+      window.history.pushState(cfg, null, router.Puzzle.show(cfg.puzzle.id).url);
+  }.bind(this);
+
+  window.onpopstate = function(cfg) {
+    if (cfg.state) this.reload(cfg.state);
+    m.redraw();
+  }.bind(this);
+
   this.playOpponentMove = function(move) {
+    onMove(move[0], move[1], this.chessground.data.pieces[move[1]]);
     m.startComputation();
     chess.move(this.data.chess, move);
     this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: move,
       movable: {
-        dests: chess.dests(this.data.chess)
+        dests: this.data.chess.dests()
       },
       turnColor: this.data.puzzle.color,
       check: null
@@ -135,14 +171,10 @@ module.exports = function(cfg, router, i18n) {
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
   }.bind(this);
 
-  this.toggleContinueLinks = function() {
-    this.data.showContinueLinks(!this.data.showContinueLinks());
-  }.bind(this);
-
   this.router = router;
 
-  this.trans = function() {
-    var str = i18n[arguments[0]]
+  this.trans = function(key) {
+    var str = i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });

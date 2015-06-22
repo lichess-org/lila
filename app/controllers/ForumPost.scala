@@ -6,17 +6,21 @@ import views._
 object ForumPost extends LilaController with ForumController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    text.trim.isEmpty.fold(
-      Redirect(routes.ForumCateg.index).fuccess,
-      Env.forumSearch(text, page, isGranted(_.StaffForum), ctx.troll) map { paginator =>
-        html.forum.search(text, paginator)
-      }
-    )
+    NotForKids {
+      text.trim.isEmpty.fold(
+        Redirect(routes.ForumCateg.index).fuccess,
+        Env.forumSearch(text, page, isGranted(_.StaffForum), ctx.troll) map { paginator =>
+          html.forum.search(text, paginator)
+        }
+      )
+    }
   }
 
   def recent = Open { implicit ctx =>
-    Env.forum.recent(ctx.me, teamCache.teamIds) map { posts =>
-      html.forum.post.recent(posts)
+    NotForKids {
+      Env.forum.recent(ctx.me, teamCache.teamIds) map { posts =>
+        html.forum.post.recent(posts)
+      }
     }
   }
 
@@ -27,8 +31,10 @@ object ForumPost extends LilaController with ForumController {
         case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else forms.post.bindFromRequest.fold(
-            err => forms.anyCaptcha map { captcha =>
-              BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
+            err => forms.anyCaptcha flatMap { captcha =>
+              ctx.userId ?? Env.timeline.status(s"forum:${topic.id}") map { unsub =>
+                BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub))
+              }
             },
             data => postApi.makePost(categ, topic, data) map { post =>
               Redirect(routes.ForumPost.redirect(post.id))

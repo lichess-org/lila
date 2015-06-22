@@ -31,6 +31,9 @@ object MemberRepo {
   def remove(teamId: String, userId: String): Funit = 
     $remove(selectId(teamId, userId))
 
+  def countByTeam(teamId: String): Fu[Int] =
+    $count(teamQuery(teamId))
+
   def selectId(teamId: ID, userId: ID) = $select(Member.makeId(teamId, userId))
   def teamQuery(teamId: ID) = Json.obj("team" -> teamId)
   def userQuery(userId: ID) = Json.obj("user" -> userId)

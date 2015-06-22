@@ -24,6 +24,11 @@ case class Crosstable(
     s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
   }
 
+  def showOpponentScore(userId: String) =
+    if (userId == user1.id) showScore(user2.id).some
+    else if (userId == user2.id) showScore(user1.id).some
+    else none
+
   def addWins(userId: Option[String], wins: Int) = copy(
     user1 = user1.copy(
       score = user1.score + (userId match {

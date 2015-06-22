@@ -8,14 +8,14 @@ import org.joda.time.DateTime
 case class Analysis(
     id: String,
     infos: List[Info],
+    startPly: Int,
     done: Boolean,
-    date: DateTime,
-    old: Boolean = false) {
+    date: DateTime) {
 
   lazy val infoAdvices: InfoAdvices = {
-    (Info.start :: infos) sliding 2 collect {
+    (Info.start(startPly) :: infos) sliding 2 collect {
       case List(prev, info) => info -> {
-        (old || info.hasVariation) ?? Advice(prev, info)
+        info.hasVariation ?? Advice(prev, info)
       }
     }
   }.toList
@@ -29,10 +29,9 @@ case class Analysis(
 
   def complete(infos: List[Info]) = copy(
     infos = infos,
-    done = true,
-    old = false)
+    done = true)
 
-  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done, date, old)
+  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, startPly.some.filterNot(0 ==), done, date)
   private def encodeInfos = Info encodeList infos
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color =>
@@ -46,6 +45,9 @@ case class Analysis(
   def valid = encodeInfos.replace(";", "").nonEmpty
 
   def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusHours 2))
+
+  def nbEmptyInfos = infos.count(_.isEmpty)
+  def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
 }
 
 object Analysis {
@@ -70,14 +72,14 @@ object Analysis {
 private[analyse] case class RawAnalysis(
     id: String,
     data: String,
+    ply: Option[Int],
     done: Boolean,
-    date: DateTime,
-    old: Boolean = false) {
+    date: DateTime) {
 
   def decode: Option[Analysis] = (done, data) match {
-    case (true, "") => new Analysis(id, Nil, false, date, old).some
-    case (true, d)  => Info decodeList d map { new Analysis(id, _, done, date, old) }
-    case (false, _) => new Analysis(id, Nil, false, date, old).some
+    case (true, "") => new Analysis(id, Nil, ~ply, false, date).some
+    case (true, d)  => Info.decodeList(d, ~ply) map { new Analysis(id, _, ~ply, done, date) }
+    case (false, _) => new Analysis(id, Nil, ~ply, false, date).some
   }
 }
 
@@ -89,8 +91,7 @@ private[analyse] object RawAnalysis {
 
   private def defaults = Json.obj(
     "data" -> "",
-    "done" -> false,
-    "old" -> false)
+    "done" -> false)
 
   private[analyse] lazy val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],

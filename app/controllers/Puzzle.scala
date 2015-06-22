@@ -2,6 +2,7 @@ package controllers
 
 import scala.util.{ Try, Success, Failure }
 
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -22,9 +23,22 @@ object Puzzle extends LilaController {
       views.html.puzzle.show(puzzle, infos, mode, animationDuration = env.AnimationDuration)
     }
 
+  def daily = Open { implicit ctx =>
+    OptionFuResult(env.daily() flatMap {
+      _.map(_.id) ?? env.api.puzzle.find
+    }) { puzzle =>
+      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) flatMap { asPlay =>
+        renderShow(puzzle, asPlay.fold("play", "try")) map { html =>
+          NoCache(Ok(html))
+        }
+      }
+    }
+  }
+
   def home = Open { implicit ctx =>
-    selectPuzzle(ctx.me) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+    selectPuzzle(ctx.me) flatMap {
+      case Some(puzzle) => renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+      case None         => fuccess(Ok(html.puzzle.noMore()))
     }
   }
 
@@ -54,12 +68,15 @@ object Puzzle extends LilaController {
       }
   }
 
+  private val noMorePuzzleJson = Json.obj("error" -> "No more puzzles for you!")
+
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
       selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
-        case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
-      }
+        case (Some(puzzle), infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
+        case (None, _)             => NotFound(noMorePuzzleJson)
+      } map (_ as JSON)
     }
   }
 
@@ -68,13 +85,17 @@ object Puzzle extends LilaController {
       implicit val req = ctx.body
       env.forms.difficulty.bindFromRequest.fold(
         err => fuccess(BadRequest(err.errorsAsJson)),
-        value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) >> {
-          reqToCtx(ctx.req) flatMap { newCtx =>
-            selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+        value => Env.pref.api.setPref(
+          me,
+          (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value),
+          notifyChange = false) >> {
+            reqToCtx(ctx.req) flatMap { newCtx =>
+              selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
+                case (Some(puzzle), infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+                case (None, _)             => NotFound(noMorePuzzleJson)
+              }
             }
           }
-        }
       ) map (_ as JSON)
   }
 
@@ -132,21 +153,21 @@ object Puzzle extends LilaController {
       }
   }
 
-  // def importBatch = Action.async(parse.json) { implicit req =>
-  //   env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids =>
-  //     Ok("kthxbye " + ids.map {
-  //       case Success(id) =>
-  //         val url = s"http://lichess.org/training/$id"
-  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} $url")
-  //         url
-  //       case Failure(err) =>
-  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} ${err.getMessage}")
-  //         err.getMessage
-  //     }.mkString(" "))
-  //   } recover {
-  //     case e =>
-  //       play.api.Logger("puzzle import").warn(e.getMessage)
-  //       BadRequest(e.getMessage)
-  //   }
-  // }
+  def embed = Action { req =>
+    Ok {
+      val bg = get("bg", req) | "light"
+      val theme = get("theme", req) | "brown"
+      val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
+      s"""document.write("<iframe src='http://$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
+    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
+  }
+
+  def frame = Open { implicit ctx =>
+    OptionOk(env.daily()) { daily =>
+      html.puzzle.embed(
+        daily,
+        get("bg") | "light",
+        lila.pref.Theme(~get("theme")).cssClass)
+    }
+  }
 }

@@ -2,7 +2,7 @@
 
 # PIECES
 
-for set (cburnett mono pirouetti merida spatial alpha); do
+for set (cburnett mono pirouetti merida spatial alpha chess7 reillycraig fantasy shapes); do
 
   from=public/piece-src/$set
   to=public/piece/$set
@@ -12,7 +12,7 @@ for set (cburnett mono pirouetti merida spatial alpha); do
   mkdir -p $to/invert
 
   for file ($from/*.svg); do
-    svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+    svgo -i $file -o $(echo $file | sed 's#/piece-src/#/piece/#')
   done
   # for file ($from/invert/*.svg); do
   #   svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
@@ -23,5 +23,5 @@ done
 # LOGO
 
 for file (public/images/bN-bg.src.svg public/images/wN-bg.src.svg); do
-  svgcleaner-cli $file $(echo $file | sed 's#.src.svg#.svg#')
+  svgo -i $file -o $(echo $file | sed 's#.src.svg#.svg#')
 done

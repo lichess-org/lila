@@ -1,4 +1,4 @@
-@(listMenu: lila.game.ListMenu, form: Form[_], paginator: Option[Paginator[Game]] = None)(implicit ctx: Context)
+@(form: Form[_], paginator: Option[Paginator[Game]] = None)(implicit ctx: Context)
 
 @import lila.gameSearch.{ Query, Sorting }
 
@@ -12,12 +12,11 @@
 
 @game.layout(
 title = trans.advancedSearch.str(),
-menu = game.sideMenu(listMenu, "search").some,
 moreJs = moreJs,
 moreCss = moreCss) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
-  <form class="search" action="@routes.Game.search()" method="get">
+  <form rel="nofollow" class="search" action="@routes.Game.search()" method="get">
     <table>
       <tr>
         <th>

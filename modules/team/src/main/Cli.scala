@@ -17,6 +17,9 @@ private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
     case "team" :: "disable" :: team :: Nil => perform(team)(api.disable)
 
     case "team" :: "delete" :: team :: Nil  => perform(team)(api.delete)
+
+    case "team" :: "recompute" :: "nbMembers" :: Nil  =>
+      api.recomputeNbMembers inject "done"
   }
 
   private def perform(teamId: String)(op: Team => Funit): Fu[String] =

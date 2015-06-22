@@ -3,6 +3,65 @@ var stats = {
   countries: {}
 };
 
+var context, gain_node, filter, oscillator, sound = {};
+var noteIt = 0;
+
+sound.stop = function() {
+  try {
+    oscillator.noteOff(0);
+  } catch (e) {}
+};
+
+sound.play = function(freq) {
+  oscillator = context.createOscillator();
+  oscillator.type = 'sawtooth';
+  oscillator.connect(filter);
+  oscillator.frequency.value = freq;
+  oscillator.noteOn(0);
+};
+
+(function init(g) {
+  try {
+    context = new(g.AudioContext || g.webkitAudioContext);
+    gain_node = context.createGain();
+    gain_node.connect(context.destination);
+    gain_node.gain.value = 0.1;
+    filter = context.createBiquadFilter();
+    filter.type = filter.LOWPASS;
+    filter.connect(gain_node);
+  } catch (e) {
+    console.log('No web audio oscillator support in this browser');
+  }
+}(window));
+
+var soundEnabled = false;
+var prevMoves;
+var maxPrevMoves = 10;
+setInterval(function() {
+  if (!soundEnabled) return;
+  sound.stop();
+  if (stats.nMoves > 0) {
+    noteIt++;
+    if (prevMoves) {
+      var note = Math.min(
+        11 + 3 * (stats.nMoves - prevMoves),
+        79);
+      var freq = MIDIUtils.noteNumberToFrequency(note);
+      sound.play(freq);
+    }
+    filter.frequency.value = 2400 + Math.sin(noteIt / 22) * 2000;
+    filter.Q.value = 6 + Math.sin(noteIt / 9) * 12;
+    gain_node.gain.value = 0.3 + -0.08 * Math.sin(noteIt / 22);
+    prevMoves = stats.nMoves;
+  }
+}, 100);
+
+$('body').prepend($('<button id="sound">').text('SOUND').click(function() {
+  soundEnabled = !soundEnabled;
+  prevMoves = null;
+  if (!soundEnabled) sound.stop();
+}));
+
 $(function() {
   var worldWith = window.innerWidth - 30,
     mapRatio = 0.4,
@@ -15,9 +74,11 @@ $(function() {
   paper.setStart();
   for (var country in worldmap.shapes) {
     paper.path(worldmap.shapes[country]).attr({
-      stroke: "#343C40",
+      'stroke': '#05121b',
+      'stroke-width': 0.5,
+      'stroke-opacity': 0.25,
       fill: "#67777F",
-      "stroke-opacity": 0.25
+      "fill-opacity": 0.25
     }).transform("s" + scale + "," + scale + " 0,0");
   }
   var world = paper.setFinish();
@@ -38,40 +99,66 @@ $(function() {
     height: 172 * scale
   });
 
-  if ( !! window.EventSource) {
-    var density = {};
-    var source = new EventSource("/world-map/stream");
+  if (!!window.EventSource) {
+    var source = new EventSource("/network/stream");
 
     source.addEventListener('message', function(e) {
-      var data = JSON.parse(e.data);
-      var densityKey = data.lat + "" + data.lon;
-      if (typeof density[densityKey] == 'undefined') density[densityKey] = 0;
-      else density[densityKey]++;
+      var raw = e.data.split('|');
+      var data = {
+        country: raw[0],
+        lat: parseFloat(raw[1]),
+        lon: parseFloat(raw[2]),
+        oLat: parseFloat(raw[3]),
+        oLon: parseFloat(raw[4])
+        // move: raw[5],
+        // piece: raw[6]
+      };
+      data.lat += Math.random() - 0.5;
+      data.lon += Math.random() - 0.5;
+      var orig = world.getXY(data.lat, data.lon);
       var dot = paper.circle().attr({
         fill: "#FE7727",
-        r: density[densityKey] + 2,
+        r: 1.2,
         'stroke-width': 0
       });
-      var orig = world.getXY(data.lat, data.lon);
       dot.attr(orig);
       setTimeout(function() {
-        density[densityKey]--;
-        setTimeout(function() {
-          dot.remove();
-        }, 1000);
-      }, 700);
+        dot.remove();
+      }, 5000);
       if (data.oLat) {
         var dest = world.getXY(data.oLat, data.oLon);
+        dest.lat += Math.random() - 0.5;
+        dest.lon += Math.random() - 0.5;
         var str = "M" + orig.cx + "," + orig.cy + "T" + dest.cx + "," + dest.cy;
-        var line = paper.path(str);
-        line.attr({
-          opacity: 0.35,
-          stroke: "#FE7727",
-          'arrow-end': 'oval-wide-long'
+        var lightning = paper.path(str);
+        lightning.attr({
+          opacity: 0.2,
+          stroke: "#fff",
+          'stroke-width': 0.5
         });
         setTimeout(function() {
-          line.remove();
-        }, 700);
+          lightning.remove();
+          var line = paper.path(str);
+          line.attr({
+            opacity: 0.35,
+            stroke: "#FE7727",
+            'stroke-width': 0.5,
+            'arrow-end': 'oval-wide-long'
+          });
+          setTimeout(function() {
+            line.remove();
+            var drag = paper.path(str);
+            drag.attr({
+              opacity: 0.2,
+              stroke: "#FE7727",
+              'stroke-width': 0.5,
+              'arrow-end': 'oval-wide-long'
+            });
+            setTimeout(function() {
+              drag.remove();
+            }, 500);
+          }, 500);
+        }, 50);
       }
 
       // moves
@@ -81,15 +168,15 @@ $(function() {
       if (data.country in stats.countries) stats.countries[data.country]++;
       else stats.countries[data.country] = 1;
     }, false);
-    source.addEventListener('open', function(e) {
-      // Connection was opened.
-      // console.log("connection opened");
-    }, false);
-    source.addEventListener('error', function(e) {
-      if (e.readyState == EventSource.CLOSED) {
-        // Connection was closed.
-        // console.log("connection closed");
-      }
-    }, false);
+    // source.addEventListener('open', function(e) {
+    //   // Connection was opened.
+    //   // console.log("connection opened");
+    // }, false);
+    // source.addEventListener('error', function(e) {
+    //   if (e.readyState == EventSource.CLOSED) {
+    //     // Connection was closed.
+    //     // console.log("connection closed");
+    //   }
+    // }, false);
   }
 });

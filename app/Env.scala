@@ -17,27 +17,28 @@ final class Env(
   lazy val bus = lila.common.Bus(system)
 
   lazy val preloader = new mashup.Preload(
-    lobby = Env.lobby.lobby,
-    lobbyVersion = () => Env.lobby.history.version,
-    featured = Env.tv.featured,
-    leaderboard = Env.user.cached.topToday.apply,
+    tv = Env.tv.tv,
+    leaderboard = Env.user.cached.topToday,
     tourneyWinners = Env.tournament.winners.scheduled,
-    timelineEntries = Env.timeline.getter.userEntries _,
-    nowPlaying = Env.round.nowPlaying,
+    timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    countRounds = Env.round.count)
+    countRounds = Env.round.count,
+    lobbyApi = Env.api.lobbyApi,
+    getPlayban = Env.playban.api.currentBan _)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
+    trophyApi = Env.user.trophyApi,
     gameCached = Env.game.cached,
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
-    getDonated = Env.donation.api.donatedByUser) _
+    isDonor = Env.donation.isDonor,
+    isHostingSimul = Env.simul.isHosting) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -67,12 +68,14 @@ final class Env(
       Env.notification,
       Env.bookmark,
       Env.pref,
-      Env.evaluation,
       Env.chat,
       Env.puzzle,
       Env.tv,
       Env.blog,
-      Env.relay)
+      Env.video,
+      Env.shutup, // required to load the actor
+      Env.relay
+    )
     loginfo("[boot] Preloading complete")
   }
 
@@ -119,10 +122,10 @@ object Env {
   def setup = lila.setup.Env.current
   def importer = lila.importer.Env.current
   def tournament = lila.tournament.Env.current
+  def simul = lila.simul.Env.current
   def relation = lila.relation.Env.current
   def report = lila.report.Env.current
   def pref = lila.pref.Env.current
-  def evaluation = lila.evaluation.Env.current
   def chat = lila.chat.Env.current
   def puzzle = lila.puzzle.Env.current
   def coordinate = lila.coordinate.Env.current
@@ -132,5 +135,9 @@ object Env {
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def worldMap = lila.worldMap.Env.current
+  def opening = lila.opening.Env.current
+  def video = lila.video.Env.current
+  def playban = lila.playban.Env.current
+  def shutup = lila.shutup.Env.current
   def relay = lila.relay.Env.current
 }

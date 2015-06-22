@@ -1,4 +1,5 @@
-var merge = require('lodash-node/modern/objects/merge');
+var merge = require('merge');
+var m = require('mithril');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
 var util = require('chessground').util;
@@ -13,10 +14,11 @@ module.exports = function(cfg) {
     chess: chess.make(cfg.puzzle.fen)
   };
 
-  merge(data, cfg);
+  if (cfg.user) cfg.user.history = cfg.user.history || [];
+
+  merge.recursive(data, cfg);
 
   data.puzzle.initialMove = puzzle.str2move(data.puzzle.initialMove);
-  data.showContinueLinks = m.prop(false);
 
   return data;
 };

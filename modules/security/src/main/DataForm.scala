@@ -6,13 +6,26 @@ import play.api.data.validation.Constraints
 
 import lila.db.api.$count
 import lila.user.tube.userTube
+import lila.common.LameName
 
 final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import DataForm._
 
-  val signup = Form(mapping(
-    "username" -> nonEmptyText.verifying(
+  case class Empty(gameId: String, move: String)
+
+  val empty = Form(mapping(
+    "gameId" -> nonEmptyText,
+    "move" -> nonEmptyText
+  )(Empty.apply)(_ => None)
+    .verifying(captchaFailMessage, validateCaptcha _)
+  )
+
+  def emptyWithCaptcha = withCaptcha(empty)
+
+  object signup {
+
+    private val username = nonEmptyText.verifying(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
@@ -21,54 +34,51 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
         error = "The username must not start with a number")
-    ),
-    "password" -> text(minLength = 4),
+    ).verifying("This user already exists", u => !$count.exists(u.toLowerCase).await)
+      .verifying("This username is not acceptable", u => !LameName(u))
+
+    val website = Form(mapping(
+      "username" -> username,
+      "password" -> text(minLength = 4),
+      "gameId" -> nonEmptyText,
+      "move" -> nonEmptyText
+    )(SignupData.apply)(_ => None)
+      .verifying(captchaFailMessage, validateCaptcha _))
+
+    val mobile = Form(mapping(
+      "username" -> username,
+      "password" -> text(minLength = 4))(MobileSignupData.apply)(_ => None))
+
+    def websiteWithCaptcha = withCaptcha(website)
+  }
+
+  val passwordReset = Form(mapping(
+    "email" -> Forms.email,
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
-  )(SignupData.apply)(_ => None)
-    .verifying("This user already exists", d => !userExists(d).await)
+  )(PasswordReset.apply)(_ => None)
     .verifying(captchaFailMessage, validateCaptcha _)
   )
 
-  def signupWithCaptcha = withCaptcha(signup)
+  def passwordResetWithCaptcha = withCaptcha(passwordReset)
 
   val newPassword = Form(single(
     "password" -> text(minLength = 4)
   ))
 
-  private def userExists(data: SignupData) =
-    if (usernameSucks(data.username.toLowerCase)) fuccess(true)
-    else $count.exists(data.username.toLowerCase)
+  case class PasswordResetConfirm(
+      newPasswd1: String,
+      newPasswd2: String) {
+    def samePasswords = newPasswd1 == newPasswd2
+  }
 
-  private def usernameSucks(u: String) =
-    (lameUsernames exists u.contains) || (reservedUsernames exists u.contains)
-
-  private val lameUsernames = List(
-    "hitler",
-    "fuck",
-    "penis",
-    "vagin",
-    "anus",
-    "bastard",
-    "bitch",
-    "shit",
-    "shiz",
-    "cunniling",
-    "cunt",
-    "kunt",
-    "douche",
-    "faggot",
-    "jerk",
-    "nigg",
-    "piss",
-    "poon",
-    "prick",
-    "pussy",
-    "slut",
-    "whore",
-    "nazi")
-
-  private val reservedUsernames = List("lichess-")
+  val passwdReset = Form(mapping(
+    "newPasswd1" -> nonEmptyText(minLength = 2),
+    "newPasswd2" -> nonEmptyText(minLength = 2)
+  )(PasswordResetConfirm.apply)(PasswordResetConfirm.unapply).verifying(
+      "the new passwords don't match",
+      _.samePasswords
+    ))
 }
 
 object DataForm {
@@ -76,6 +86,15 @@ object DataForm {
   case class SignupData(
     username: String,
     password: String,
+    gameId: String,
+    move: String)
+
+  case class MobileSignupData(
+    username: String,
+    password: String)
+
+  case class PasswordReset(
+    email: String,
     gameId: String,
     move: String)
 }

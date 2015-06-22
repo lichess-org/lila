@@ -3,48 +3,60 @@ package lila.security
 import scala.concurrent.Future
 
 import org.joda.time.DateTime
-import play.api.libs.json._
 import play.api.mvc.RequestHeader
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson.BSONDocument
 
-import lila.common.PimpedJson._
 import lila.db.api._
-import lila.db.Types.Coll
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
-import tube.storeTube
+import tube.storeColl
 
 object Store {
 
-  type IP = String
-
-  private[security] def save(sessionId: String, userId: String, req: RequestHeader): Funit =
-    $insert(Json.obj(
+  private[security] def save(
+    sessionId: String,
+    userId: String,
+    req: RequestHeader,
+    apiVersion: Option[Int],
+    isTor: Boolean): Funit =
+    storeColl.insert(BSONDocument(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> ip(req),
-      "ua" -> ua(req),
-      "date" -> $date(DateTime.now),
-      "up" -> true))
+      "ip" -> req.remoteAddress,
+      "ua" -> lila.common.HTTPRequest.userAgent(req),
+      "date" -> DateTime.now,
+      "up" -> true,
+      "api" -> apiVersion,
+      "tor" -> isTor.option(true)
+    )).void
 
   def userId(sessionId: String): Fu[Option[String]] =
-    storeTube.coll.find(
+    storeColl.find(
       BSONDocument("_id" -> sessionId, "up" -> true),
       BSONDocument("user" -> true)
     ).one[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
 
   def delete(sessionId: String): Funit =
-    $update($select(sessionId), $set("up" -> false))
+    storeColl.update(
+      BSONDocument("_id" -> sessionId),
+      BSONDocument("$set" -> BSONDocument("up" -> false))).void
 
   // useful when closing an account,
   // we want to logout too
-  def disconnect(userId: String): Funit = $update(
-    Json.obj("user" -> userId),
-    $set("up" -> false),
-    upsert = false,
-    multi = true)
+  def disconnect(userId: String): Funit = storeColl.update(
+    BSONDocument("user" -> userId),
+    BSONDocument("$set" -> BSONDocument("up" -> false)),
+    multi = true).void
 
-  private def ip(req: RequestHeader) = req.remoteAddress
+  case class Info(ip: String, ua: String, tor: Option[Boolean]) {
+    def isTorExitNode = ~tor
+  }
+  import reactivemongo.bson.Macros
+  private implicit val InfoBSONHandler = Macros.handler[Info]
 
-  private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
+  def findInfoByUser(userId: String): Fu[List[Info]] =
+    storeColl.find(
+      BSONDocument("user" -> userId),
+      BSONDocument("ip" -> true, "ua" -> true, "tor" -> true)
+    ).cursor[Info].collect[List]()
 }

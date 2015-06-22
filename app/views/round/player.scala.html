@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov], prefs: Option[Form[_]])(implicit ctx: Context)
 
 @import pov._
 
@@ -12,22 +12,37 @@ lichess = lichess || {};
 lichess.round = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 routes: roundRoutes.controllers,
-i18n: @jsI18n()
+i18n: @jsI18n(),
+userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 };
 }
 }
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, tour, withTourStanding = true),
-chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str())),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul),
+chat = game.tournamentId.isEmpty.option(leftabs(pov, prefs)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
-<div class="round cg-512">@miniBoardContent</div>
+openGraph = povOpenGraph(pov),
+chessground = false,
+playing = true) {
+<div class="round cg-512">
+  <div class="top">@miniBoardContent</div>
+  <div class="underboard">
+    <div class="center">
+      <div class="crosstable_placeholder"></div>
+    </div>
+  </div>
+</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
-  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
+  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
   }
 </div>
+@if(playing.nonEmpty) {
+<div id="now_playing" class="clearfix other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
+  @others(playing)
+</div>
+}
 }

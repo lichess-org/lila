@@ -24,9 +24,7 @@ private[tournament] case class Join(
   user: Option[User],
   version: Int)
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
-private[tournament] case object Start
 private[tournament] case object Reload
-private[tournament] case object ReloadPage
 private[tournament] case class StartGame(game: Game)
 private[tournament] case class Joining(userId: String)
 private[tournament] case class Connected(enumerator: JsEnumerator, member: Member)
@@ -34,9 +32,13 @@ private[tournament] case class Connected(enumerator: JsEnumerator, member: Membe
 // organizer
 private[tournament] case object AllCreatedTournaments
 private[tournament] case object StartedTournaments
-private[tournament] case object CheckLeaders
-case class RemindTournaments(tours: List[Started])
-case class RemindTournament(tour: Started)
-case class TournamentTable(tours: List[Enterable])
+case class RemindTournament(tour: Tournament, activeUserIds: List[String])
+case class TournamentTable(tours: List[Tournament])
 
 private[tournament] case object ScheduleNow
+private[tournament] case object NotifyCrowd
+private[tournament] case object NotifyReload
+
+private[tournament] case object GetWaitingUsers
+
+private[tournament] case class SetTournament(tour: Option[Tournament])

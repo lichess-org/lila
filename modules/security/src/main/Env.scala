@@ -4,6 +4,7 @@ import scala.collection.JavaConversions._
 
 import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.db.Types.Coll
@@ -12,7 +13,9 @@ import lila.user.{ User, UserRepo }
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
+    messenger: akka.actor.ActorSelection,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -25,11 +28,17 @@ final class Env(
     val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
-    val GeoIPCacheSize = config getInt "geoip.cache_size"
+    val GeoIPCacheTtl = config duration "geoip.cache_ttl"
+    val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
+    val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
+    val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
+    val PasswordResetMailgunBaseUrl = config getString "password_reset.mailgun.base_url"
+    val PasswordResetSecret = config getString "password_reset.secret"
+    val TorProviderUrl = config getString "tor.provider_url"
+    val TorRefreshDelay = config duration "tor.refresh_delay"
+    val GreeterSender = config getString "greeter.sender"
   }
   import settings._
-
-  lazy val api = new Api(firewall = firewall)
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
@@ -44,13 +53,30 @@ final class Env(
 
   lazy val geoIP = new GeoIP(
     file = GeoIPFile,
-    cacheSize = GeoIPCacheSize)
+    cacheTtl = GeoIPCacheTtl)
 
   lazy val userSpy = UserSpy(firewall, geoIP) _
 
   lazy val disconnect = Store disconnect _
 
+  lazy val passwordReset = new PasswordReset(
+    apiUrl = PasswordResetMailgunApiUrl,
+    apiKey = PasswordResetMailgunApiKey,
+    sender = PasswordResetMailgunSender,
+    baseUrl = PasswordResetMailgunBaseUrl,
+    secret = PasswordResetSecret)
+
+  lazy val tor = new Tor(TorProviderUrl)
+  scheduler.once(30 seconds)(tor.refresh)
+  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh)
+
+  lazy val api = new Api(firewall, tor)
+
   def cli = new Cli
+
+  lazy val greeter = new Greeter(
+    sender = GreeterSender,
+    messenger = messenger)
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
@@ -62,5 +88,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    captcher = lila.hub.Env.current.actor.captcher)
+    scheduler = lila.common.PlayApp.scheduler,
+    captcher = lila.hub.Env.current.actor.captcher,
+  messenger = lila.hub.Env.current.actor.messenger)
 }

@@ -1,5 +1,6 @@
-var k = require('mousetrap');
+var k = Mousetrap;
 var control = require('./control');
+var m = require('mithril');
 
 function preventing(f) {
   return function(e) {
@@ -18,15 +19,23 @@ module.exports = function(ctrl) {
     control.prev(ctrl);
     m.redraw();
   }));
+  k.bind(['shift+left', 'shift+h'], preventing(function() {
+    control.exitVariation(ctrl);
+    m.redraw();
+  }));
   k.bind(['right', 'l'], preventing(function() {
     control.next(ctrl);
     m.redraw();
   }));
-  k.bind(['up', 'j'], preventing(function() {
+  k.bind(['shift+right', 'shift+l'], preventing(function() {
+    control.enterVariation(ctrl);
+    m.redraw();
+  }));
+  k.bind(['up', 'k'], preventing(function() {
     control.first(ctrl);
     m.redraw();
   }));
-  k.bind(['down', 'k'], preventing(function() {
+  k.bind(['down', 'j'], preventing(function() {
     control.last(ctrl);
     m.redraw();
   }));
@@ -35,8 +44,10 @@ module.exports = function(ctrl) {
     if (!ctrl.vm.comments && ctrl.vm.path.length > 1) {
       path = [ctrl.vm.path[0]];
       path[0].variation = null;
-      ctrl.jump(path);
+      ctrl.userJump(path);
     }
     m.redraw();
   }));
+  k.bind(['esc'], ctrl.chessground.cancelMove);
+  k.bind('f', preventing(ctrl.flip));
 };

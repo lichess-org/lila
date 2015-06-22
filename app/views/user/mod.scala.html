@@ -1,24 +1,31 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment], bans: Map[String, Int])(implicit ctx: Context)
+
+@import lila.evaluation.Display
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
-  <form method="post" action="@routes.User.evaluate(u.username)">
-    <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate" />
+  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)">
+    <input class="button" type="submit" value="Evaluate" />
   </form>
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm button" type="submit" value="@u.engine.fold("Un-engine", "Engine")" />
+    <input class="confirm button@when(u.engine, " active")" type="submit" value="Engine" />
+  </form>
+  }
+  @if(isGranted(_.MarkBooster)) {
+  <form method="post" action="@routes.Mod.booster(u.username)">
+    <input class="confirm button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)">
-    <input class="confirm button" type="submit" value="@u.troll.fold("Un-troll", "Troll")" />
+    <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
   <form method="post" action="@routes.Mod.ban(u.username)">
-    <input class="confirm button" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
+    <input class="confirm button@when(u.ipBan, " active")" type="submit" value="IP ban" />
   </form>
   }
   @if(!u.disabled) {
@@ -30,61 +37,167 @@
   } else {
   @if(isGranted(_.ReopenAccount)) {
   <form action="@routes.Mod.reopenAccount(u.username)" method="post">
-    <input type="submit" class="button confirm" value="Reopen" />
+    <input type="submit" class="button confirm active" value="Closed" />
   </form>
   }
   }
   @if(isGranted(_.SetTitle)) {
   <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
-    @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No FIDE title".some)
+    @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
   </form>
   }
 </div>
 
 <div class="user_spy">
-  @eval.map { e =>
+  @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
-      <strong>@e.verdict(u.perfs)</strong> @e.isDeep.fold("Thoroughly", "Quickly") evaluated @momentFromNow(e.date) as @e.percent%
+      No assessment available
       <br />
       <br />
     </p>
-    @if(e.games.nonEmpty) {
-    <table class="slist">
+  </div>
+  }{ aggregateAssessment =>
+  <div class="evaluation results">
+    <table class="reportCard">
       <thead>
         <tr>
-          <th>Most suspicious games found</th>
-          <th>Move time</th>
-          <th>Blur</th>
-          <th>Analysis</th>
-          <th>Bot</th>
+          <th>
+            <span class="result_@aggregateAssessment.action.id">@aggregateAssessment.action.description</span>
+          </th>
+          <th>
+            @aggregateAssessment.playerAssessments.size
+          </th>
+          <th>
+            @aggregateAssessment.cheatingSum
+          </th>
+          <th>
+            @aggregateAssessment.likelyCheatingSum
+          </th>
+          <th>
+            @aggregateAssessment.relatedCheatersCount
+          </th>
+          <th>
+            @aggregateAssessment.relatedUsersCount
+          </th>
         </tr>
       </thead>
       <tbody>
-        @e.games.map { g =>
         <tr>
-          <td><a href="@g.url">@g.url</a></td>
-          <td>@g.moveTime.map(_ + "%")</td>
-          <td>@g.blur.map(_ + "%")</td>
-          <td>@g.error.map(_ + "%")</td>
-          <td>@g.hold.map(_ + "%")</td>
+          <td>
+            Assessment
+          </td>
+          <td>
+            Games Assessed
+          </td>
+          <td>
+            Cheating Games
+          </td>
+          <td>
+            Likely Cheating Games
+          </td>
+          <td>
+            Related Cheaters
+          </td>
+          <td>
+            Related Users
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="extra_stats">
+      <caption>Average Centipawn Loss Given:</caption>
+      <tr>
+        <th>Blurs</th>
+        <td>
+          <strong>@aggregateAssessment.sfAvgBlurs</strong>
+          <br/>high
+        </td>
+        <td>
+          <strong>@aggregateAssessment.sfAvgNoBlurs</strong>
+          <br/>low
+        </td>
+      </tr>
+      <tr>
+        <th>Move Times</th>
+        <td>
+          <strong>@aggregateAssessment.sfAvgLowVar</strong>
+          <br/>low variance
+        </td>
+        <td>
+          <strong>@aggregateAssessment.sfAvgHighVar</strong>
+          <br/>high variance
+        </td>
+      </tr>
+      <tr>
+        <th>Hold Alert</th>
+        <td>
+          <strong>@aggregateAssessment.sfAvgHold</strong>
+          <br/>alert
+        </td>
+        <td>
+          <strong>@aggregateAssessment.sfAvgNoHold</strong>
+          <br/>no alert
+        </td>
+      </tr>
+    </table>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Assessed game</th>
+          <th>
+            Centi-Pawn
+            <br />(Avg ± SD)
+          </th>
+          <th>
+            Move Times
+            <br />(Avg ± SD)
+          </th>
+          <th>Blurs</th>
+          <th>Bot</th>
+          <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @aggregateAssessment.playerAssessments.sortBy(-_.assessment.id).take(15).map { result =>
+        <tr>
+          <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
+          <td>
+            <span class="sig_@(Display.stockfishSig(result))" data-icon="J"></span>
+            @result.sfAvg ± @result.sfSd
+          </td>
+          <td>
+            <span class="sig_@(Display.moveTimeSig(result))" data-icon="J"></span>
+            @(result.mtAvg/10) ± @(result.mtSd/10)
+          </td>
+          <td>
+            <span class="sig_@(Display.blurSig(result))" data-icon="J"></span>
+            @(result.blurs)%
+          </td>
+          <td>
+            <span class="sig_@(Display.holdSig(result))" data-icon="J"></span>
+            @if(result.hold){Yes} else {No}
+          </td>
+          <td>
+            <div class="aggregate hint--top-left">
+              <span class="sig_@(result.assessment.id)">@result.assessment.emoticon</span>
+            </div>
+          </td>
         </tr>
         }
       </tbody>
     </table>
-    }
   </div>
   }
-  @if(spy.otherUsers.size < 2) {
-  <strong>No user found with same IPs</strong>
+  @if(spy.otherUsers.size < 1) {
+  <strong>No user found with this IP</strong>
   } else {
   <table class="others slist">
     <thead>
       <tr>
         <th>@spy.otherUsers.size user(s) sharing IPs</th>
         <th>Games</th>
-        <th>Engine</th>
-        <th>Troll</th>
+        <th>Marks</th>
         <th>IPban</th>
         <th>Closed</th>
         <th>Created</th>
@@ -95,8 +208,16 @@
       <tr @if(o == u){class="same"}>
         <td>@userLink(o, withBestRating = true, mod = true)</td>
         <td>@o.count.game</td>
-        <td>@if(o.engine){ENGINE}</td>
-        <td>@if(o.troll){TROLL}</td>
+        <td>
+          @if(o.engine){ENGINE}
+          @if(o.booster){BOOSTER}
+          @if(o.troll){TROLL}
+          @bans.get(o.id).map { nb =>
+          <span title="Temporary banned from playing for aborting or not playing games">
+            PLAYBAN(@nb)
+          </span>
+          }
+        </td>
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
         <td>@momentFromNow(o.createdAt)</td>

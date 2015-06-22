@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import akka.actor.{ ActorSelection, ActorSystem, Props }
+import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
@@ -15,6 +15,7 @@ final class Env(
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionAttempt = config getString "collection.attempt"
     val ApiToken = config getString "api.token"
+    val PngExecPath = config getString "png.exec_path"
   }
   import settings._
 
@@ -33,9 +34,7 @@ final class Env(
     puzzleColl = puzzleColl,
     api = api,
     anonMinRating = config getInt "selector.anon_min_rating",
-    toleranceStep = config getInt "selector.tolerance.step",
-    toleranceMax = config getInt "selector.tolerance.max",
-    modulo = config getInt "selector.modulo")
+    maxAttempts = config getInt "selector.max_attempts")
 
   lazy val userInfos = UserInfos(attemptColl = attemptColl)
 
@@ -46,6 +45,16 @@ final class Env(
     renderer,
     system.scheduler
   ).apply _
+
+  lazy val pngExport = PngExport(PngExecPath) _
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "puzzle" :: "export" :: nbStr :: Nil => parseIntOption(nbStr) ?? { nb =>
+        Export(api, nb)
+      }
+    }
+  }
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)

@@ -1,0 +1,97 @@
+@()(implicit ctx: Context)
+
+<div class="inner">
+  <div class="body">
+    @ctx.me.map { me =>
+    <div class="user">
+      <section><h2>@me.username</h2></section>
+      <div class="perfs">
+        @topBarSortedPerfTypes.map { pt =>
+        @me.perfs(pt.key).map { perf =>
+        <div class="perf@if(perf.nb == 0){ nope}" data-icon="@pt.iconChar">
+          <h3>@pt.name</h3>
+          @if(perf.nb > 0) {
+          <div class="rating">
+            <strong>@perf.glicko.intRating</strong>
+            @showProgress(perf.progress, withTitle = false)
+          </div>
+          } else { N/A }
+          }
+        </div>
+        }
+      </div>
+    </div>
+    }.getOrElse {
+    <div class="anon">
+      <section class="login">
+        <h2>@trans.signIn()</h2>
+        <form action="@routes.Auth.authenticate" method="POST">
+          <input placeholder="@trans.username()" type="text" class="username" required="required" name="username" />
+          <input placeholder="@trans.password()" type="password" class="password" required="required" name="password" />
+          <input type="submit" class="submit" value="@trans.signIn()" />
+        </form>
+        <div class="forgot">
+          <a href="@routes.Auth.passwordReset">@trans.forgotPassword()</a>
+        </div>
+      </section>
+      <section class="signup">
+        <h2>@trans.newToLichess()</h2>
+        <a class="signup" href="@routes.Auth.signup">@trans.signUp()</a>
+      </section>
+    </div>
+    }
+    <div class="menu">
+      <section>
+        <h2>@trans.play()</h2>
+        <a href="/?any#hook">@trans.createAGame()</a>
+        <a href="@routes.Tournament.home">@trans.tournament()</a>
+        <a href="@routes.Simul.home">Simul</a>
+        <a href="@routes.Tv.index">Lichess TV</a>
+      </section>
+      <section>
+        <h2>@trans.learn()</h2>
+        <a href="@routes.Puzzle.home">@trans.training()</a>
+        <a href="@routes.Opening.home">@trans.openings()</a>
+        <a href="@routes.Coordinate.home">@trans.coordinates()</a>
+        <a href="@routes.Video.index">Video library</a>
+      </section>
+      <section>
+        <h2>@trans.community()</h2>
+        <a href="@routes.User.list">@trans.players()</a>
+        @NotForKids {
+        <a href="@routes.Team.home()">@trans.teams()</a>
+        <a href="@routes.ForumCateg.index">@trans.forum()</a>
+        }
+        <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
+      </section>
+      <section>
+        <h2>@trans.tools()</h2>
+        <a href="@routes.Editor.index">@trans.boardEditor()</a>
+        <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
+        <a href="@routes.Importer.importGame">@trans.importGame()</a>
+        <a href="@routes.Game.search()">@trans.advancedSearch()</a>
+      </section>
+    </div>
+  </div>
+  <div class="footer">
+    @NotForKids {
+    <a href="/mobile">Mobile App</a> ı
+    }
+    <a href="/blog">@trans.blog()</a> ı
+    @NotForKids {
+    <a href="/developers">Webmasters</a> ı
+    <a href="/help-lichess">Contribute</a> ı
+    }
+    <a href="/thanks">Thanks</a> ı
+    @NotForKids {
+    <a href="/donate">Donate</a> ı
+    }
+    <a href="/contact">Contact</a> ı
+    <a href="@routes.Page.tos">ToS</a> ı
+    @NotForKids {
+    <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> ı
+    }
+    <a href="/network" target="_blank" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> ı
+    <a href="/monitor" target="_blank">Monitor</a>
+  </div>
+</div>

@@ -9,7 +9,7 @@ object Donation extends LilaController {
 
   def index = Open { implicit ctx =>
     OptionFuOk(Prismic.oneShotBookmark("donate")) {
-      case (doc, resolver) => Env.donation.api.list zip
+      case (doc, resolver) => Env.donation.api.list(100) zip
         Env.donation.api.top(5) zip
         Env.donation.api.progress map {
           case ((donations, top), progress) =>

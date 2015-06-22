@@ -15,16 +15,20 @@ import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
     socket: ActorRef,
+    seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
+    playban: String => Fu[Option[lila.playban.TempBan]],
     onStart: String => Unit) extends Actor {
 
   def receive = {
 
-    case GetOpen(userOption) =>
+    case HooksFor(userOption) =>
       val replyTo = sender
       (userOption.map(_.id) ?? blocking) foreach { blocks =>
         val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.allOpen.filter { Biter.canJoin(_, lobbyUser) }
+        replyTo ! HookRepo.list.filter { hook =>
+          ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
+        }
       }
 
     case msg@AddHook(hook) => {
@@ -36,8 +40,17 @@ private[lobby] final class Lobby(
       }
     }
 
-    case SaveHook(msg) => {
+    case msg@AddSeek(seek) =>
+      findCompatible(seek) foreach {
+        case Some(s) => self ! BiteSeek(s.id, seek.user)
+        case None    => self ! SaveSeek(msg)
+      }
+
+    case SaveHook(msg) =>
       HookRepo save msg.hook
+      socket ! msg
+
+    case SaveSeek(msg) => (seekApi insert msg.seek) >>- {
       socket ! msg
     }
 
@@ -45,20 +58,43 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
-    case BiteHook(hookId, uid, user) => HookRepo byId hookId foreach { hook =>
-      HookRepo byUid uid foreach remove
-      Biter(hook, uid, user) pipeTo self
+    case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
+      socket ! RemoveSeek(seekId)
     }
 
-    case msg@JoinHook(_, hook, game, _) => {
+    case BiteHook(hookId, uid, user) => NoPlayban(user) {
+      HookRepo byId hookId foreach { hook =>
+        HookRepo byUid uid foreach remove
+        Biter(hook, uid, user) pipeTo self
+      }
+    }
+
+    case BiteSeek(seekId, user) => NoPlayban(user.some) {
+      seekApi find seekId foreach {
+        _ foreach { seek =>
+          Biter(seek, user) pipeTo self
+        }
+      }
+    }
+
+    case msg@JoinHook(_, hook, game, _) =>
       onStart(game.id)
       socket ! msg
       remove(hook)
-    }
+
+    case msg@JoinSeek(_, seek, game, _) =>
+      onStart(game.id)
+      socket ! msg
+      seekApi.archive(seek, game.id) >>- {
+        socket ! RemoveSeek(seek.id)
+      }
 
     case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
+      val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
-        (HookRepo openNotInUids uids.toSet) ::: HookRepo.cleanupOld
+        (HookRepo notInUids uids.toSet).filter {
+          _.createdAt isBefore createdBefore
+        } ::: HookRepo.cleanupOld
       }.toSet
       if (hooks.nonEmpty) self ! RemoveHooks(hooks)
     }
@@ -66,6 +102,13 @@ private[lobby] final class Lobby(
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync             => socket ! HookIds(HookRepo.list map (_.id))
+  }
+
+  private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
+    user.?? { u => playban(u.id) } foreach {
+      case None => f
+      case _    =>
+    }
   }
 
   private def findCompatible(hook: Hook): Fu[Option[Hook]] =
@@ -85,6 +128,11 @@ private[lobby] final class Lobby(
       case false => findCompatibleIn(hook, rest)
     }
   }
+
+  private def findCompatible(seek: Seek): Fu[Option[Seek]] =
+    seekApi forUser seek.user map {
+      _ find (_ compatibleWith seek)
+    }
 
   private def remove(hook: Hook) = {
     HookRepo remove hook

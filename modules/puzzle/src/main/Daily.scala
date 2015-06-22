@@ -28,17 +28,12 @@ private[puzzle] final class Daily(
   }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
-    import chess.format.{ UciMove, Forsyth }
     import makeTimeout.short
-    ~(for {
-      sit1 <- Forsyth << puzzle.fen
-      move <- puzzle.history.lastOption
-      uci <- UciMove(move)
-      sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
-      fen = Forsyth >> sit2
-    } yield renderer ? RenderDaily(puzzle, fen, move) map {
-      case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
-    })
+    ~puzzle.fenAfterInitialMove.map { fen =>
+      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove) map {
+        case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
+      }
+    }
   } recover {
     case e: Exception =>
       play.api.Logger("daily puzzle").warn(e.getMessage)

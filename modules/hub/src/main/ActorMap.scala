@@ -6,7 +6,6 @@ import actorApi.map._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import makeTimeout.short
-import scalaz.Monoid
 
 trait ActorMap extends Actor {
 
@@ -22,7 +21,11 @@ trait ActorMap extends Actor {
 
     case TellAll(msg)  => actors.values foreach (_ forward msg)
 
-    case Ask(id, msg)  => getOrMake(id) forward msg
+    case TellIds(ids, msg) => ids foreach { id =>
+      actors get id foreach (_ forward msg)
+    }
+
+    case Ask(id, msg) => getOrMake(id) forward msg
 
     case Terminated(actor) =>
       context unwatch actor

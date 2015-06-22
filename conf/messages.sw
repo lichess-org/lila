@@ -31,5 +31,4 @@ whiteResigned=Mwenye nyeupe ameshindwa
 blackResigned=Mwenye nyeusi ameshindwa
 whiteLeftTheGame=Mwenye nyeupe aliondoka mchezo huu
 blackLeftTheGame=Mwenye nyeusi aliondoka mchezo huu
-youAreViewingThisGameAsASpectator=unatizama mchezo huu kama shabiki
 rematch=cheza tena

@@ -1,10 +1,12 @@
-@(tours: List[lila.tournament.Enterable], scheduled: Boolean)
+@(tours: List[Tournament], scheduled: Boolean)
 
 @if(!scheduled && tours.isEmpty) {
 <tr class="create">
   <td>
     <br />
-    <a href="@routes.Tournament.form()" data-icon="g" class="action button">&nbsp;<span class="trans_me">@trans.createANewTournament.en()</span></a>
+    <a href="@routes.Tournament.form()" data-icon="g" class="action button text">
+      <span class="trans_me">@trans.createANewTournament.en()</span>
+    </a>
     <br />
     <br />
   </td>
@@ -12,8 +14,11 @@
 } else {
 @tours.filter(_.scheduled == scheduled).map { tour =>
 <tr @if(scheduled) { class="scheduled" }>
-  <td>
-    <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
+  <td class="name">
+    <a class="text" href="@routes.Tournament.show(tour.id)">
+      <span data-icon="@tournamentIconChar(tour)"></span>
+      @tour.name
+    </a>
   </td>
   @tour.schedule.map { s =>
   <td>@momentFromNow(s.at)</td>
@@ -21,16 +26,16 @@
   <td class="small">
     <span data-icon="p">&nbsp;@tour.clock.show</span>
     @if(tour.variant.exotic) { @tour.variant.shortName }
-    @if(tour.rated) {
+    @if(tour.mode.rated) {
     <span class="trans_me">@trans.rated.en()</span>
     }
   </td>
   }
   <td>@tour.durationString</td>
-  <td data-icon="r">&nbsp;@tour.playerRatio</td>
+  <td data-icon="r" class="text">@tour.nbPlayers</td>
   <td>
     <form action="@routes.Tournament.join(tour.id)" method="POST">
-      <button type="submit" class="submit button trans_me" data-icon="G"></button>
+      <button type="submit" class="submit button" data-icon="G"></button>
     </form>
   </td>
 </tr>

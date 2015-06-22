@@ -1,11 +1,11 @@
-@(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None)
+@(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)
 
 @import lila.tournament.System
 
 <article class="faq">
-  @nbPlayers.map { players =>
-  <h2>When will the tournament start?</h2>
-  As soon as @players players join it.
+  @privateId.map { id =>
+  <h2>This is a private tournament</h2>
+  Share this URL to let people join it: @netBaseUrl@routes.Tournament.show(id)
   }
   You will be notified when the tournament starts, so it is safe to
   <a target="_blank" href="@routes.Lobby.home()">play in another tab</a> while waiting.
@@ -13,12 +13,12 @@
   <h2>Is it rated?</h2>
   @rated.map { r =>
   @if(r) {
-  This tournaments is rated and will affect your Rating.
+  This tournament is rated and will affect your rating.
   } else {
-  This tournaments is *not* rated and will *not* affect your Rating.
+  This tournament is *not* rated and will *not* affect your rating.
   }
   }.getOrElse {
-  Some tournaments are rated and will affect your Rating.
+  Some tournaments are rated and will affect your rating.
   }
 
 
@@ -31,25 +31,21 @@
   The following games will continue to be worth <span class="double">Double Points</span> until you fail to win
   a game. That is, a win will be worth 4 points, a draw: 2 points, and a loss will remain
   worth no points.
+  <br />
+  For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)
 
-  For example, two wins followed by a draw will be worth 6 points: 2 + 2 + 2x1
-  }
-  case Some(System.Swiss) => {
-  A win is worth 1 point, a draw: ½ point, and a loss is worth no points. If at
-  a given round there are an odd number of players, the player which does not get
-  assigned a pairing receives a bye. A bye is worth as much as a victory.
-
-  To break ties, an additional score is computed as the sum of the scores of
-  defeated opponents plus half of the sum of the scores of drawn opponents. This
-  tie-breaker, called the Neustadtl or Sonnenborn-Berger score, is indicated in
-  parentheses next to the standard score.
+  <h2>Arena Berserk</h2>
+  When a player clicks the <em>Berserk</em> button at the beginning of the game,
+  they lose half of their clock time, but the win is worth one extra tournament point.
+  <br />
+  <em>Berserk</em> is not available when the clock has an increment (like 0+1 or 5+2).
+  <br />
+  <em>Berserk</em> only grants an extra point if you play at least 7 moves in the game.
   }
   case _ => {
   How scores are calculated depends on the system used for the tournament. In
   all cases a win is worth twice as much as a draw, and a loss is worth no
-  points. In the Arena system, winning games in succession yields an additional
-  bonus. In the Swiss system, winning against stronger opponents helps in tie
-  breaks.
+  points. In the Arena system, winning games in succession yields an additional bonus.
   }
   }
 
@@ -60,18 +56,11 @@
   <h2>How does the pairing work?</h2>
   @system match {
   case Some(System.Arena) => {
-  At the beginning of the tournament, players are paired randomly.
+  At the beginning of the tournament, players are paired based on their rating.
   As soon as you finish a game, return to the tournament lobby:
-  you will then be paired with the first available player. This ensures minimum wait time,
+  you will then be paired with a player close to your ranking. This ensures minimum wait time,
   however you may not face all other players in the tournament.
   Play fast and return to the lobby to play more games and win more points.
-  }
-  case Some(System.Swiss) => {
-  Pairings are generated on a round basis, meaning everyone plays the same
-  number of games.  Players with equal scores in the tournament are paired
-  together to the extent possible. Two players can play against each other at
-  most once in the tournament. The system additionally ensures that each player
-  plays approximately as often as white and as black.
   }
   case _ => {
   The pairing mechanism depends on the system used for the tournament. In the
@@ -82,13 +71,13 @@
   }
 
   <h2>How does it end?</h2>
-  The tournament has a countdown clock. 
+  The tournament has a countdown clock.
   When it reaches zero, the tournament rankings are frozen, and the winner is announced.
   Games in progress must be finished, however they don't count for the tournament.
 
   <h2>Other important rules.</h2>
-  You are required to make your first move within 30 seconds of your turn. Failing to make
+  You are required to make your first move within 15 seconds of your turn. Failing to make
   a move in this time will forfeit the game to your opponent.
-
+  <br />
   Drawing the game within the first 10 moves of play will earn neither player any points.
 </article>

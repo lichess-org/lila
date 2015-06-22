@@ -46,4 +46,3 @@ private final class UserRegister extends Actor {
     }
   }
 }
-

@@ -29,7 +29,7 @@ private[api] final class GameApi(
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
-    G.playerUids -> username,
+    G.playerUids -> username.map(_.toLowerCase),
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
     G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
@@ -120,6 +120,7 @@ private[api] final class GameApi(
         "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
+        "provisional" -> p.provisional.option(true),
         "moveTimes" -> withMoveTimes.fold(
           g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
           JsNull),
@@ -142,7 +143,7 @@ private[api] final class GameApi(
       }
     },
     "fens" -> withFens ?? {
-      chess.Replay.boards(g.pgnMoves, initialFen).toOption map { boards =>
+      chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }
     },

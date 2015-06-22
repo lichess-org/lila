@@ -38,14 +38,33 @@ private[controllers] trait LilaController
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
+  protected def NoCache(res: Result): Result = res.withHeaders(
+    CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+  )
+
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
     WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f map scala.util.Right.apply }
 
-  protected def Open(f: Context => Fu[Result]): Action[AnyContent] =
-    Open(BodyParsers.parse.anyContent)(f)
+  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
+    WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f }
+
+  protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    WebSocket.tryAccept[A] { req =>
+      reqToCtx(req) flatMap f map {
+        case None       => Left(NotFound(Json.obj("error" -> "socket resource not found")))
+        case Some(pair) => Right(pair)
+      }
+    }
+
+  protected def Open(f: Context => Fu[Result]): Action[Unit] =
+    Open(BodyParsers.parse.empty)(f)
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-    Action.async(p)(req => reqToCtx(req) flatMap f)
+    Action.async(p) { req =>
+      reqToCtx(req) flatMap { ctx =>
+        Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
+      }
+    }
 
   protected def OpenBody(f: BodyContext => Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
@@ -56,13 +75,15 @@ private[controllers] trait LilaController
   protected def OpenNoCtx(f: RequestHeader => Fu[Result]): Action[AnyContent] =
     Action.async(f)
 
-  protected def Auth(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Auth(BodyParsers.parse.anyContent)(f)
+  protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
+    Auth(BodyParsers.parse.empty)(f)
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       reqToCtx(req) flatMap { implicit ctx =>
-        ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+        ctx.me.fold(authenticationFailed) { me =>
+          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+        }
       }
     }
 
@@ -88,6 +109,15 @@ private[controllers] trait LilaController
         isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
     }
 
+  protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext => UserModel => Fu[Result]): Action[A] =
+    AuthBody(p) { implicit ctx =>
+      me =>
+        isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+    }
+
+  protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext => UserModel => Fu[Result]): Action[AnyContent] =
+    SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
+
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
       _ fold (a, {
@@ -97,6 +127,26 @@ private[controllers] trait LilaController
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
+
+  protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(_.booster).fold(Forbidden(views.html.site.noBooster()).fuccess, a)
+
+  protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoEngine(NoBooster(a))
+
+  protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    ctx.userId.??(Env.playban.api.currentBan) flatMap {
+      _.fold(a) { ban =>
+        negotiate(
+          html = Lobby.renderHome(Results.Forbidden),
+          api = _ => fuccess {
+            Forbidden(Json.obj(
+              "error" -> s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts or unplayed games"
+            )) as JSON
+          }
+        )
+      }
+    }
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
@@ -147,9 +197,12 @@ private[controllers] trait LilaController
   protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a => op(a)) }
 
-  def notFound(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
-    else Results.NotFound("resource not found").fuccess
+  def notFound(implicit ctx: Context): Fu[Result] = negotiate(
+    html =
+      if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
+      else fuccess(Results.NotFound("Resource not found")),
+    api = _ => fuccess(Results.NotFound(Json.obj("error" -> "Resource not found")))
+  )
 
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
@@ -166,20 +219,17 @@ private[controllers] trait LilaController
         implicit val req = ctx.req
         Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
       },
-      api = _ => Unauthorized("Login required").fuccess
+      api = _ => Unauthorized(Json.obj("error" -> "Login required")).fuccess
     )
 
   protected def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")
 
-  protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    import play.api.mvc.Accepting
-    val accepts = ~ctx.req.headers.get(HeaderNames.ACCEPT)
-    val response =
-      if (accepts contains "application/vnd.lichess.v1+json") api(1) map (_ as JSON)
-      else html
-    response map (_.withHeaders("Vary" -> "Accept"))
-  }
+  protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    (lila.api.Mobile.Api.requestVersion(ctx.req) match {
+      case Some(1) => api(1) map (_ as JSON)
+      case _       => html
+    }) map (_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
     restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>
@@ -230,4 +280,7 @@ private[controllers] trait LilaController
 
   protected def Reasonable(page: Int, max: Int = 40)(result: => Fu[Result]): Fu[Result] =
     (page < max).fold(result, BadRequest("resource too old").fuccess)
+
+  protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
+    if (ctx.kid) notFound else f
 }

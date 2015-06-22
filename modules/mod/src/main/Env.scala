@@ -9,12 +9,18 @@ import lila.security.{ Firewall, UserSpy }
 final class Env(
     config: Config,
     db: lila.db.Env,
+    hub: lila.hub.Env,
     system: ActorSystem,
     firewall: Firewall,
-    userSpy: String => Fu[UserSpy]) {
+    userSpy: String => Fu[UserSpy],
+    userIdsSharingIp: String => Fu[List[String]]) {
 
+  private val CollectionPlayerAssessment= config getString "collection.player_assessment"
+  private val CollectionBoosting = config getString "collection.boosting"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
+  private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
+  private val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
@@ -24,14 +30,37 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
+    reporter = hub.actor.report,
     lilaBus = system.lilaBus)
 
+  private lazy val boosting = new BoostingApi(
+    modApi = api,
+    collBoosting = db(CollectionBoosting),
+    nbGamesToMark = NbGamesToMark,
+    ratioGamesToMark = RatioGamesToMark)
+
+  lazy val assessApi = new AssessApi(
+    collAssessments = db(CollectionPlayerAssessment),
+    logApi = logApi,
+    modApi = api,
+    reporter = hub.actor.report,
+    analyser = hub.actor.analyser,
+    userIdsSharingIp = userIdsSharingIp)
+
   // api actor
-  system.actorOf(Props(new Actor {
+  private val actorApi = system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
+      case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
+        assessApi.onAnalysisReady(game, analysis)
+      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
+        (whiteUserOption |@| blackUserOption) apply {
+          case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
+            assessApi.onGameReady(game, whiteUser, blackUser)
+        }
     }
   }), name = ActorName)
+  system.lilaBus.subscribe(actorApi, 'finishGame)
 }
 
 object Env {
@@ -39,7 +68,9 @@ object Env {
   lazy val current = "[boot] mod" describes new Env(
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
-    userSpy = lila.security.Env.current.userSpy)
+    userSpy = lila.security.Env.current.userSpy,
+    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)
 }

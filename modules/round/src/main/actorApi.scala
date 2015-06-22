@@ -76,7 +76,6 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
 case object AnalysisAvailable
-case class Ack(uid: String)
 case object GetSocketStatus
 case class SocketStatus(
     version: Int,
@@ -125,6 +124,9 @@ case object Outoftime
 case object Abandon
 case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
+case class GoBerserk(color: Color)
+case class TournamentStanding(id: String)
 }
 
 private[round] case object GetNbRounds
+private[round] case object NotifyCrowd

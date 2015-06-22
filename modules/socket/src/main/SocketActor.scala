@@ -8,7 +8,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
-import lila.hub.actorApi.{ Deploy, GetUids }
+import lila.hub.actorApi.{ Deploy, GetUids, GetUserIds }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -19,7 +19,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val lilaBus = context.system.lilaBus
 
-  lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+  // this socket is created during application boot
+  // and therefore should delay its publication
+  // to ensure the listener is ready (sucks, I know)
+  val startsOnApplicationBoot: Boolean = false
+
+  override def preStart() {
+    if (startsOnApplicationBoot)
+      context.system.scheduler.scheduleOnce(1 second) {
+        lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+      }
+    else lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+  }
 
   override def postStop() {
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
@@ -43,9 +54,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case GetUids               => sender ! uids
 
+    case GetUserIds            => sender ! userIds
+
     case Resync(uid)           => resync(uid)
 
-    case Deploy(event, html)   => notifyAll(makeMessage(event.key, html))
+    case d: Deploy             => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -91,6 +104,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
+  def onDeploy(d: Deploy) {
+    notifyAll(makeMessage(d.event.key, d.html))
+  }
+
   private val resyncMessage = makeMessage("resync")
 
   protected def resync(member: M) {
@@ -119,8 +136,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def uids = members.keys
 
-  def memberByUserId(userId: String): Option[M] =
-    members.values find (_.userId == Some(userId))
+  def membersByUserId(userId: String): Iterable[M] = members collect {
+    case (_, member) if member.userId.contains(userId) => member
+  }
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 

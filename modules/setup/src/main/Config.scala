@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Forsyth
-import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
+import chess.{ Game => ChessGame, Board, Situation, Clock, Speed }
 
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
@@ -10,7 +10,7 @@ import lila.tournament.{ System => TournamentSystem }
 private[setup] trait Config {
 
   // Whether or not to use a clock
-  val clock: Boolean
+  val timeMode: TimeMode
 
   // Clock time in minutes
   val time: Int
@@ -18,23 +18,34 @@ private[setup] trait Config {
   // Clock increment in seconds
   val increment: Int
 
+  // Correspondence days per turn
+  val days: Int
+
   // Game variant code
-  val variant: Variant
+  val variant: chess.variant.Variant
 
   // Creator player color
   val color: Color
 
+  def hasClock = timeMode == TimeMode.RealTime
+
   lazy val creatorColor = color.resolve
 
-  def makeGame = ChessGame(board = Board init variant, clock = makeClock)
+  def makeGame(v: chess.variant.Variant): ChessGame =
+    ChessGame(board = Board init v, clock = makeClock)
 
-  def validClock = clock.fold(clockHasTime, true)
+  def makeGame: ChessGame = makeGame(variant)
+
+  def validClock = hasClock.fold(clockHasTime, true)
 
   def clockHasTime = time + increment > 0
 
-  def makeClock = clock option {
+  def makeClock = hasClock option justMakeClock
+
+  protected def justMakeClock =
     Clock(time * 60, clockHasTime.fold(increment, 1))
-  }
+
+  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
 trait GameGenerator { self: Config =>
@@ -52,26 +63,29 @@ trait Positional { self: Config =>
 
   def strictFen: Boolean
 
-  lazy val validFen = variant != Variant.FromPosition || {
+  lazy val validFen = variant != chess.variant.FromPosition || {
     fen ?? { f => ~(Forsyth <<< f).map(_.situation playable strictFen) }
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val state = fen filter (_ => variant == Variant.FromPosition) flatMap Forsyth.<<<
-    val chessGame = state.fold(makeGame) {
+    val baseState = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
+    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit@SituationPlus(Situation(board, color), _) =>
-        ChessGame(
+        val game = ChessGame(
           board = board,
           player = color,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock)
+        if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
+        else game -> baseState
     }
     val game = builder(chessGame)
     state.fold(game) {
       case sit@SituationPlus(Situation(board, _), _) => game.copy(
-        variant = Variant.FromPosition,
+        variant = chess.variant.FromPosition,
         castleLastMoveTime = game.castleLastMoveTime.copy(
+          lastMove = board.history.lastMove,
           castles = board.history.castles
         ),
         turns = sit.turns)
@@ -82,16 +96,21 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val systems = List(TournamentSystem.Arena.id, TournamentSystem.Swiss.id)
+  val systems = List(TournamentSystem.Arena.id)
   val systemDefault = TournamentSystem.default
 
-  val variants = List(Variant.Standard.id, Variant.Chess960.id)
-  val variantDefault = Variant.Standard
+  val variants = List(chess.variant.Standard.id, chess.variant.Chess960.id)
+  val variantDefault = chess.variant.Standard
 
-  val variantsWithFen = variants :+ Variant.FromPosition.id
-  val variantsWithFenAndKingOfTheHill = variantsWithFen :+ Variant.KingOfTheHill.id
-  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
-  val variantsWithFenAndVariants = variantsWithFen :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
+  val variantsWithFen = variants :+ chess.variant.FromPosition.id
+  val aiVariants = variants :+
+    chess.variant.KingOfTheHill.id :+
+    chess.variant.ThreeCheck.id :+
+    chess.variant.FromPosition.id
+  val variantsWithVariants =
+    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id
+  val variantsWithFenAndVariants =
+    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id :+ chess.variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

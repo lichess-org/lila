@@ -18,6 +18,7 @@ final class Env(config: Config, system: ActorSystem) {
     val ai = select("actor.ai")
     val monitor = select("actor.monitor")
     val tournamentOrganizer = select("actor.tournament.organizer")
+    val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
     val roundMap = select("actor.round.map")
@@ -26,17 +27,19 @@ final class Env(config: Config, system: ActorSystem) {
     val relation = select("actor.relation")
     val challenger = select("actor.challenger")
     val report = select("actor.report")
+    val shutup = select("actor.shutup")
     val mod = select("actor.mod")
-    val evaluator = select("actor.evaluator")
     val chat = select("actor.chat")
     val analyser = select("actor.analyser")
     val moveBroadcast = select("actor.move_broadcast")
+    val userRegister = select("actor.user_register")
   }
 
   object socket {
     val lobby = select("socket.lobby")
     val round = select("socket.round")
     val tournament = select("socket.tournament")
+    val simul = select("socket.simul")
     val site = select("socket.site")
     val monitor = select("socket.monitor")
     val hub = select("socket.hub")

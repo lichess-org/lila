@@ -1,8 +1,10 @@
 var chessground = require('chessground');
 var game = require('game').game;
+var util = require('./util');
+var m = require('mithril');
 
-function str2move(m) {
-  return m ? [m.slice(0, 2), m.slice(2, 4)] : null;
+function str2move(mo) {
+  return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
 }
 
 function makeConfig(data, fen, flip) {
@@ -13,6 +15,7 @@ function makeConfig(data, fen, flip) {
     lastMove: str2move(data.game.lastMove),
     check: data.game.check,
     coordinates: data.pref.coords !== 0,
+    autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
@@ -21,7 +24,7 @@ function makeConfig(data, fen, flip) {
     movable: {
       free: false,
       color: game.isPlayerPlaying(data) ? data.player.color : null,
-      dests: game.parsePossibleMoves(data.possibleMoves),
+      dests: game.isPlayerPlaying(data) ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: data.pref.destination
     },
     animation: {
@@ -31,6 +34,7 @@ function makeConfig(data, fen, flip) {
     premovable: {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination,
+      castle: data.game.variant.key !== 'antichess',
       events: {
         set: m.redraw,
         unset: m.redraw
@@ -39,16 +43,20 @@ function makeConfig(data, fen, flip) {
     draggable: {
       showGhost: data.pref.highlight
     },
-    events: {
-      capture: $.sound.take
-    }
+    drawable: {
+      enabled: true
+    },
+    disableContextMenu: true
   };
 }
 
-function make(data, fen, userMove) {
+function make(data, fen, userMove, onMove) {
   var config = makeConfig(data, fen);
   config.movable.events = {
     after: userMove
+  };
+  config.events = {
+    move: onMove
   };
   config.viewOnly = data.player.spectator;
   return new chessground.controller(config);

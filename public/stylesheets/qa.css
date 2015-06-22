@@ -74,9 +74,11 @@ div.side .questions a:hover {
   position: relative;
 }
 #qa .light {
-  font-weight: lighter;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
 #qa .light .user_link {
+  font-family: 'Noto Sans';
   font-weight: normal;
 }
 #qa .previews {
@@ -119,8 +121,9 @@ div.side .questions a:hover {
 }
 #qa .question > .meta th {
   width: 70px;
-  font-weight: lighter;
   padding: 3px 0;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
 #qa .tag {
   white-space: nowrap;

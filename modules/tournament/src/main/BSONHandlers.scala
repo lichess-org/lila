@@ -1,84 +1,124 @@
 package lila.tournament
 
-import chess.{ Variant, Speed, Mode }
+import chess.variant.Variant
+import chess.{ Speed, Mode, StartingPosition }
 import lila.db.BSON
 import reactivemongo.bson._
 
 object BSONHandlers {
 
+  private implicit val StartingPositionBSONHandler = new BSONHandler[BSONString, StartingPosition] {
+    def read(bsonStr: BSONString): StartingPosition = StartingPosition.byEco(bsonStr.value) err s"No such starting position: ${bsonStr.value}"
+    def write(x: StartingPosition) = BSONString(x.eco)
+  }
+
+  private implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
+    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
+    def write(x: Status) = BSONInteger(x.id)
+  }
+
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
 
-  private implicit val scheduleHandler = new BSON[Schedule] {
-    def reads(r: BSON.Reader) = Schedule(
-      freq = Schedule.Freq(r str "freq") err "tournament freq",
-      speed = Schedule.Speed(r str "speed") err "tournament freq",
-      at = r date "at")
-    def writes(w: BSON.Writer, o: Schedule) = BSONDocument(
-      "freq" -> o.freq.name,
-      "speed" -> o.speed.name,
-      "at" -> w.date(o.at))
-  }
-
-  private implicit val dataHandler = new BSON[Data] {
-    def reads(r: BSON.Reader) = Data(
-      name = r str "name",
-      system = r.intO("system").fold[System](System.default)(System.orDefault),
-      clock = r.get[TournamentClock]("clock"),
-      minutes = r int "minutes",
-      minPlayers = r int "minPlayers",
-      variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
-      mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
-      password = r strO "password",
-      schedule = r.getO[Schedule]("schedule"),
-      createdAt = r date "createdAt",
-      createdBy = r str "createdBy")
-    def writes(w: BSON.Writer, o: Data) = BSONDocument(
+  implicit val tournamentHandler = new BSON[Tournament] {
+    def reads(r: BSON.Reader) = {
+      val variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault)
+      val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
+      val startsAt = r date "startsAt"
+      Tournament(
+        id = r str "_id",
+        name = r str "name",
+        status = r.get[Status]("status"),
+        system = r.intO("system").fold[System](System.default)(System.orDefault),
+        clock = r.get[TournamentClock]("clock"),
+        minutes = r int "minutes",
+        variant = variant,
+        position = position,
+        mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
+        `private` = r boolD "private",
+        schedule = for {
+          doc <- r.getO[BSONDocument]("schedule")
+          freq <- doc.getAs[String]("freq") flatMap Schedule.Freq.apply
+          speed <- doc.getAs[String]("speed") flatMap Schedule.Speed.apply
+        } yield Schedule(freq, speed, variant, position, startsAt),
+        nbPlayers = r int "nbPlayers",
+        createdAt = r date "createdAt",
+        createdBy = r str "createdBy",
+        startsAt = startsAt,
+        winnerId = r strO "winner")
+    }
+    def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
+      "_id" -> o.id,
       "name" -> o.name,
-      "system" -> o.system.id,
+      "status" -> o.status,
+      "system" -> o.system.some.filterNot(_.default).map(_.id),
       "clock" -> o.clock,
       "minutes" -> o.minutes,
-      "minPlayers" -> o.minPlayers,
-      "variant" -> o.variant.id,
-      "mode" -> o.mode.id,
-      "password" -> o.password,
-      "schedule" -> o.schedule,
+      "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
+      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
+      "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
+      "private" -> w.boolO(o.`private`),
+      "schedule" -> o.schedule.map { s =>
+        BSONDocument(
+          "freq" -> s.freq.name,
+          "speed" -> s.speed.name)
+      },
+      "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> w.str(o.createdBy))
+      "createdBy" -> w.str(o.createdBy),
+      "startsAt" -> w.date(o.startsAt),
+      "winner" -> o.winnerId)
   }
 
-  // private implicit val playerHandler = new BSON[Player] {
-  //   def reads(r: BSON.Reader) = Player(
-  //     id = r str "id",
-  //     rating = r int "rating",
-  //     withdraw = r boolD "withdraw",
-  //     score = r intD "score")
-  //   def writes(w: BSON.Writer, o: Player) = BSONDocument(
-  //     "id" -> o.id,
-  //     "rating" -> o.rating,
-  //     "withdraw" -> w.boolO(o.withdraw),
-  //     "score" -> w.intO(o.score))
-  // }
-  private implicit val playerBSONHandler = Macros.handler[Player]
+  implicit val playerBSONHandler = new BSON[Player] {
+    def reads(r: BSON.Reader) = Player(
+      _id = r str "_id",
+      tourId = r str "tid",
+      userId = r str "uid",
+      rating = r int "r",
+      provisional = r boolD "pr",
+      withdraw = r boolD "w",
+      score = r intD "s",
+      perf = r intD "p",
+      magicScore = r int "m",
+      fire = r boolD "f")
+    def writes(w: BSON.Writer, o: Player) = BSONDocument(
+      "_id" -> o._id,
+      "tid" -> o.tourId,
+      "uid" -> o.userId,
+      "r" -> o.rating,
+      "pr" -> w.boolO(o.provisional),
+      "w" -> w.boolO(o.withdraw),
+      "s" -> w.intO(o.score),
+      "p" -> w.intO(o.perf),
+      "m" -> o.magicScore,
+      "f" -> w.boolO(o.fire))
+  }
 
-  private implicit val pairingHandler = new BSON[Pairing] {
+  implicit val pairingHandler = new BSON[Pairing] {
     def reads(r: BSON.Reader) = {
       val users = r strsD "u"
+      val user1 = users.headOption err "tournament pairing first user"
+      val user2 = users lift 1 err "tournament pairing second user"
       Pairing(
-        gameId = r str "g",
+        id = r str "_id",
+        tourId = r str "tid",
         status = chess.Status(r int "s") err "tournament pairing status",
-        user1 = users.headOption err "tournament pairing first user",
-        user2 = users.lift(1) err "tournament pairing second user",
-        winner = r strO "w",
+        user1 = user1,
+        user2 = user2,
+        winner = r boolO "w" map (_.fold(user1, user2)),
         turns = r intO "t",
-        pairedAt = r dateO "p")
+        berserk1 = r intD "b1",
+        berserk2 = r intD "b2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
-      "g" -> o.gameId,
+      "_id" -> o.id,
+      "tid" -> o.tourId,
       "s" -> o.status.id,
       "u" -> BSONArray(o.user1, o.user2),
-      "w" -> o.winner,
+      "w" -> o.winner.map(o.user1 ==),
       "t" -> o.turns,
-      "p" -> o.pairedAt.map(w.date))
+      "b1" -> w.intO(o.berserk1),
+      "b2" -> w.intO(o.berserk2))
   }
 
   private implicit val eventHandler = new BSON[Event] {
@@ -92,85 +132,4 @@ object BSONHandlers {
       case Bye(user, timestamp) => BSONDocument("i" -> o.id, "u" -> user, "t" -> w.date(timestamp))
     }
   }
-
-  private[tournament] implicit val createdHandler = new BSON[Created] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Created) {
-      Created(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        players = r.get[Players]("players"))
-    }
-    def writes(w: BSON.Writer, o: Created) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Created.id,
-      "players" -> o.players)
-  }
-
-  private[tournament] implicit val startedHandler = new BSON[Started] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Started) {
-      Started(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        startedAt = r date "startedAt",
-        players = r.get[Players]("players"),
-        pairings = r.get[Pairings]("pairings"),
-        events = ~r.getO[Events]("events"))
-    }
-    def writes(w: BSON.Writer, o: Started) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Started.id,
-      "players" -> o.players,
-      "pairings" -> o.pairings,
-      "events" -> o.events,
-      "startedAt" -> w.date(o.startedAt))
-  }
-
-  private[tournament] implicit val finishedHandler = new BSON[Finished] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Finished) {
-      Finished(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        startedAt = r date "startedAt",
-        players = r.get[Players]("players"),
-        pairings = r.get[Pairings]("pairings"),
-        events = ~r.getO[Events]("events"))
-    }
-    def writes(w: BSON.Writer, o: Finished) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Finished.id,
-      "players" -> o.players,
-      "pairings" -> o.pairings,
-      "events" -> o.events,
-      "startedAt" -> w.date(o.startedAt))
-  }
-
-  private[tournament] implicit val enterableHandler = new BSONHandler[BSONDocument, Enterable] with BSONDocumentReader[Enterable] with BSONDocumentWriter[Enterable] {
-    def read(doc: BSONDocument): Enterable = ~doc.getAs[Int]("status") match {
-      case Status.Created.id => doc.as[Created]
-      case Status.Started.id => doc.as[Started]
-      case _                 => sys error "tournament is not enterable"
-    }
-    def write(o: Enterable): BSONDocument = o match {
-      case x: Created => createdHandler write x
-      case x: Started => startedHandler write x
-    }
-  }
-
-  private[tournament] implicit val anyHandler = new BSONHandler[BSONDocument, Tournament] with BSONDocumentReader[Tournament] with BSONDocumentWriter[Tournament] {
-    def read(doc: BSONDocument): Tournament = ~doc.getAs[Int]("status") match {
-      case Status.Created.id  => doc.as[Created]
-      case Status.Started.id  => doc.as[Started]
-      case Status.Finished.id => doc.as[Finished]
-      case x                  => sys error s"tournament invalid status: $x"
-    }
-    def write(o: Tournament): BSONDocument = o match {
-      case x: Created  => createdHandler write x
-      case x: Started  => startedHandler write x
-      case x: Finished => finishedHandler write x
-    }
-  }
-
-  def assertStatus[A](r: BSON.Reader, status: Status)(f: => A): A =
-    if (r.int("status") != status.id) sys error "invalid tournament status"
-    else f
 }

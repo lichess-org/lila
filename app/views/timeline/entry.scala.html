@@ -13,23 +13,39 @@ case TeamJoin(userId, teamId) => {
 case TeamCreate(userId, teamId) => {
 @trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
-case ForumPost(userId, topicName, postId) => {
+case ForumPost(userId, topicId, topicName, postId) => {
 @trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), """<a href="%s">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
-@userIdLink(fromId.some, withOnline = false) left a note on @userIdLink(toId.some, withOnline = false, params = "?note")
+@trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
 }
 case TourJoin(userId, tourId, tourName) => {
-@userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@tourName</a>
+@trans.xCompetesInY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), tourName))
+}
+case SimulCreate(userId, simulId, simulName) => {
+@userIdLink(userId.some, withOnline = false) hosts the <a href="@routes.Simul.show(simulId)">@simulName</a>
+}
+case SimulJoin(userId, simulId, simulName) => {
+@userIdLink(userId.some, withOnline = false) joins the <a href="@routes.Simul.show(simulId)">@simulName</a>
 }
 case QaQuestion(userId, id, title) => {
-@userIdLink(userId.some, withOnline = false) asked <a href="@routes.QaQuestion.show(id, "redirect")">@title</a>
+@trans.xAskedY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), title))
 }
 case QaAnswer(userId, id, title, answerId) => {
-@userIdLink(userId.some, withOnline = false) answered <a href="@routes.QaQuestion.show(id, "redirect")#answer-@answerId">@title</a>
+@trans.xAnsweredY(userIdLink(userId.some, withOnline = false), """<a href="%s#answer-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), answerId, title))
 }
 case QaComment(userId, id, title, commentId) => {
-@userIdLink(userId.some, withOnline = false) commented <a href="@routes.QaQuestion.show(id, "redirect")#comment-@commentId">@title</a>
+@trans.xCommentedY(userIdLink(userId.some, withOnline = false), """<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, title))
+}
+case GameEnd(playerId, opponent, win, perfKey) => {
+<a href="@routes.Round.player(playerId)">
+@win match {
+case Some(true) => {Victory}
+case Some(false) => {Defeat}
+case _ => {Draw}
+}</a> vs @userIdLink(opponent, withOnline = false) @lila.rating.PerfType(perfKey).map { perf =>
+in @perf.name
+}
 }
 }
 @momentFromNow(e.date)

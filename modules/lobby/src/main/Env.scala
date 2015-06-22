@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     onStart: String => Unit,
     blocking: String => Fu[Set[String]],
+    playban: String => Fu[Option[lila.playban.TempBan]],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -24,6 +25,10 @@ final class Env(
     val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
+    val CollectionSeek = config getString "collection.seek"
+    val CollectionSeekArchive = config getString "collection.seek_archive"
+    val SeekMaxPerPage = config getInt "seek.max_per_page"
+    val SeekMaxPerUser = config getInt "seek.max_per_user"
   }
   import settings._
 
@@ -33,9 +38,18 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
+  lazy val seekApi = new SeekApi(
+    coll = db(CollectionSeek),
+    archiveColl = db(CollectionSeekArchive),
+    blocking = blocking,
+    maxPerPage = SeekMaxPerPage,
+    maxPerUser = SeekMaxPerUser)
+
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,
+    seekApi = seekApi,
     blocking = blocking,
+    playban = playban,
     onStart = onStart
   )), name = ActorName)
 
@@ -47,10 +61,20 @@ final class Env(
 
   lazy val history = new History[actorApi.Messadata](ttl = MessageTtl)
 
+  private val abortListener = new AbortListener(seekApi = seekApi)
+
+  system.actorOf(Props(new Actor {
+    system.lilaBus.subscribe(self, 'abortGame)
+    def receive = {
+      case lila.game.actorApi.AbortedBy(pov) if pov.game.isCorrespondence =>
+        abortListener recreateSeek pov
+    }
+  }))
+
   {
     import scala.concurrent.duration._
 
-    scheduler.once(5 seconds) {
+    scheduler.once(10 seconds) {
       scheduler.message(BroomPeriod) {
         lobby -> lila.socket.actorApi.Broom
       }
@@ -69,6 +93,7 @@ object Env {
     hub = lila.hub.Env.current,
     onStart = lila.game.Env.current.onStart,
     blocking = lila.relation.Env.current.api.blocking,
+    playban = lila.playban.Env.current.api.currentBan _,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.app._
@@ -9,58 +9,67 @@ object Api extends LilaController {
 
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
-  private val puzzleApi = Env.api.puzzleApi
 
-  def user(username: String) = ApiResult { req =>
+  def status = Action { req =>
+    val api = lila.api.Mobile.Api
+    val app = lila.api.Mobile.App
+    Ok(Json.obj(
+      "api" -> Json.obj(
+        "current" -> api.currentVersion,
+        "olds" -> api.oldVersions.map { old =>
+          Json.obj(
+            "version" -> old.version,
+            "deprecatedAt" -> old.deprecatedAt,
+            "unsupportedAt" -> old.unsupportedAt)
+        }),
+      "app" -> Json.obj(
+        "current" -> app.currentVersion
+      )
+    )) as JSON
+  }
+
+  def user(username: String) = ApiResult { implicit ctx =>
     userApi.one(
       username = username,
-      token = get("token", req))
+      token = get("token"))
   }
 
-  def users = ApiResult { req =>
+  def users = ApiResult { implicit ctx =>
     userApi.list(
-      team = get("team", req),
-      engine = getBoolOpt("engine", req),
-      token = get("token", req),
-      nb = getInt("nb", req)
+      team = get("team"),
+      engine = getBoolOpt("engine"),
+      token = get("token"),
+      nb = getInt("nb")
     ) map (_.some)
   }
 
-  def games = ApiResult { req =>
+  def games = ApiResult { implicit ctx =>
     gameApi.list(
-      username = get("username", req),
-      rated = getBoolOpt("rated", req),
-      analysed = getBoolOpt("analysed", req),
-      withAnalysis = getBool("with_analysis", req),
-      withMoves = getBool("with_moves", req),
-      withOpening = getBool("with_opening", req),
-      token = get("token", req),
-      nb = getInt("nb", req)
+      username = get("username"),
+      rated = getBoolOpt("rated"),
+      analysed = getBoolOpt("analysed"),
+      withAnalysis = getBool("with_analysis"),
+      withMoves = getBool("with_moves"),
+      withOpening = getBool("with_opening"),
+      token = get("token"),
+      nb = getInt("nb")
     ) map (_.some)
   }
 
-  def game(id: String) = ApiResult { req =>
+  def game(id: String) = ApiResult { implicit ctx =>
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
-      withAnalysis = getBool("with_analysis", req),
-      withMoves = getBool("with_moves", req),
-      withOpening = getBool("with_opening", req),
-      withFens = getBool("with_fens", req),
-      token = get("token", req))
+      withAnalysis = getBool("with_analysis"),
+      withMoves = getBool("with_moves"),
+      withOpening = getBool("with_opening"),
+      withFens = getBool("with_fens"),
+      token = get("token"))
   }
 
-  def puzzle(id: String) = ApiResult { req =>
-    (id, parseIntOption(id)) match {
-      case ("daily", _) => puzzleApi.daily
-      case (_, Some(i)) => puzzleApi one i
-      case _            => fuccess(none)
-    }
-  }
-
-  private def ApiResult(js: RequestHeader => Fu[Option[JsValue]]) = Action async { req =>
-    js(req) map {
+  private def ApiResult(js: lila.api.Context => Fu[Option[JsValue]]) = Open { implicit ctx =>
+    js(ctx) map {
       case None => NotFound
-      case Some(json) => get("callback", req) match {
+      case Some(json) => get("callback") match {
         case None           => Ok(json) as JSON
         case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
       }
