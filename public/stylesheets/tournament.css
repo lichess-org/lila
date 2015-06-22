@@ -440,7 +440,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournamentline {
   position: relative;
-  height: 4.5em;
+  height: 5em;
 }
 #tournament_schedule .timeheader {
   position: absolute;
