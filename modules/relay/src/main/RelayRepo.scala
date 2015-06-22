@@ -29,7 +29,7 @@ private final class RelayRepo(coll: Coll) {
       case Some(relay) => coll.update(selectId(relay.id), relay.copy(status = status))
     } void
 
-  def setGames(relay: Relay, games: List[RelayGame]): Funit =
+  def setGames(relay: Relay, games: List[Relay.Game]): Funit =
     coll.update(
       selectId(relay.id),
       BSONDocument("$set" -> BSONDocument("games" -> games))

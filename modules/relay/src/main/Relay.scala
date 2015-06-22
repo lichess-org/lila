@@ -10,7 +10,7 @@ case class Relay(
     name: String,
     status: Relay.Status,
     date: DateTime,
-    games: List[RelayGame]) {
+    games: List[Relay.Game]) {
 
   def gameByFicsId(fi: Int) = games.find(_.ficsId == fi)
 }
@@ -24,6 +24,16 @@ object Relay {
     status = status,
     date = DateTime.now,
     games = Nil)
+
+  case class Game(
+    id: String, // lichess game ID
+    ficsId: Int)
+
+  object Game {
+    def make(ficsId: Int) = Game(
+      id = Random nextStringUppercase 8,
+      ficsId = ficsId)
+  }
 
   sealed abstract class Status(val id: Int)
   object Status {

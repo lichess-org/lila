@@ -23,7 +23,7 @@ final class Env(
 
   private val remote = new java.net.InetSocketAddress(FicsHost, FicsPort)
 
-  lazy val api = new RelayApi(system, relayRepo, remote)
+  lazy val api = new RelayApi(system, relayRepo, importer, remote)
 
   private val importer = new Importer(
     roundMap,
@@ -46,9 +46,7 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    api.refreshRelays >> api.refreshRelayGames
-    scheduler.effect(60 seconds, "refresh FICS relays") {
-      println("refresh?")
+    scheduler.effect(5 minutes, "refresh FICS relays") {
       api.refreshRelays >> api.refreshRelayGames
     }
   }

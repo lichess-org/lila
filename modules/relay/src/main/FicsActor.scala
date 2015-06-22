@@ -96,7 +96,6 @@ private[relay] final class FicsActor(
 
   val noiseR = List(
     """(?s).*Welcome to the Free Internet Chess Server.*""".r,
-    // """^\n[a-zA-z]+(\([^\)]+\)){1,2}:\s.+\nfics\%\s$""".r, // people chating
     """(?s).*Starting FICS session.*""".r,
     """(?s).*ROBOadmin.*""".r)
 

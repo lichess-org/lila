@@ -7,6 +7,7 @@ import makeTimeout.veryLarge
 final class RelayApi(
     system: ActorSystem,
     relayRepo: RelayRepo,
+    importer: Importer,
     remote: java.net.InetSocketAddress) {
 
   private val mainActor = system.actorOf(Props(classOf[FicsActor], remote))
@@ -22,14 +23,18 @@ final class RelayApi(
     _.map { relay =>
       mainActor ? command.ListGames(relay.ficsId) mapTo
         manifest[command.ListGames.Result] flatMap { games =>
-          val relayGames = games.map { g =>
+          games.map { g =>
             relay gameByFicsId g.id match {
-              case None     => RelayGame.make(g.id, g.white, g.black)
-              case Some(rg) => rg
+              case None =>
+                val rg = Relay.Game make g.id
+                createGame(rg) inject rg
+              case Some(rg) => fuccess(rg)
             }
-          }
-          relayRepo.setGames(relay, relayGames)
+          }.sequenceFu flatMap { relayRepo.setGames(relay, _) }
         }
     }.sequenceFu.void
   }
+
+  def createGame(rg: Relay.Game): Funit = mainActor ? command.Moves(rg.ficsId) mapTo
+    manifest[command.Moves.Result] flatMap importer(rg.id) void
 }
