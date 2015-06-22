@@ -67,7 +67,10 @@ object TournamentRepo {
 
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect ++ BSONDocument(
-      "nbPlayers" -> BSONDocument("$gte" -> 15)))
+      "$or" -> BSONArray(
+        BSONDocument("nbPlayers" -> BSONDocument("$gte" -> 15)),
+        scheduledSelect
+      )))
       .sort(BSONDocument("startsAt" -> -1))
       .cursor[Tournament].collect[List](limit)
 
