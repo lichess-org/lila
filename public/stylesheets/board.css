@@ -1208,7 +1208,18 @@ div.table_wrap > .clock .bar span {
   display: block;
   height: 4px;
   width: 0px;
+}
+div.table_wrap > .clock .bar.green span {
   background: #759900;
+}
+div.table_wrap > .clock .bar.yellow span {
+  background: #fff077;
+}
+div.table_wrap > .clock .bar.orange span {
+  background: #f2a463;
+}
+div.table_wrap > .clock .bar.red span {
+  background: #efaaaa;
 }
 div.table_wrap > .clock > .time {
   display: inline-block;
