@@ -424,7 +424,7 @@ ol.scheduled_tournaments li.marathon {
   box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
   border-radius: 2px;
   text-decoration: none;
-  transition: 0.13s;
+  transition: -webkit-filter 0.13s, filter 0.13s;
   color: #fff;
 }
 #tournament_schedule .tournament.joinable:hover {
