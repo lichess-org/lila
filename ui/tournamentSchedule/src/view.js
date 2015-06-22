@@ -95,6 +95,7 @@ function renderTournament(ctrl, tour) {
   width = Math.min(width, leftPos(stopTime) - left);
 
   return m('a.tournament', {
+    key: tour.id,
     href: '/tournament/' + tour.id,
     style: {
       width: width + 'px',
@@ -130,12 +131,14 @@ function renderTimeline() {
 
   var timeHeaders = [];
   while (time.getTime() < (stopTime - minutesBetween * 60 * 1000)) {
+    var str = timeString(time);
     timeHeaders.push(m('div', {
+      key: str,
       class: 'timeheader' + (time.getMinutes() === 0 ? ' hour' : ''),
       style: {
         left: leftPos(time.getTime()) + 'px'
       }
-    }, timeString(time)));
+    }, str));
     time.setMinutes(time.getMinutes() + minutesBetween);
   }
 
