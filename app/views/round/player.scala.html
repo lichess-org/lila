@@ -21,7 +21,7 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul),
-chat = leftabs(pov, prefs).some,
+chat = game.tournamentId.isEmpty.option(leftabs(pov, prefs)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov),
