@@ -26,3 +26,22 @@ case object ListTourney extends Command {
   case class Tourney(id: Int, name: String, status: Relay.Status)
   private val Regexp = """^:(\d+)\s+(.+)\s{2,}(.+)$""".r
 }
+
+case class ListGames(id: Int) extends Command {
+  type Result = ListGames.Result
+  val str = s"tell relay listgame $id"
+  def parse(lines: List[String]) =
+    if (lines.exists(_ contains "There is no tournament with id")) Nil.some
+    else lines.exists(_ contains "There are ") option {
+      lines.collect {
+        case ListGames.Regexp(id, white, black) => parseIntOption(id) map {
+          ListGames.Game(_, white, black)
+        }
+      }.flatten
+    }
+}
+case object ListGames {
+  type Result = List[Game]
+  case class Game(id: Int, white: String, black: String)
+  private val Regexp = """(?i)^:(\d+)\s+([a-z0-9]+)\s+([a-z0-9]+).+$""".r
+}

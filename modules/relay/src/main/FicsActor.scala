@@ -40,9 +40,8 @@ private[relay] final class FicsActor(
 
   when(Configure) {
     case Event(In(_), _) =>
-      // for (v <- Seq("seek", "shout", "cshout", "kibitz", "pin", "gin")) send(s"set $v 0")
-      // for (c <- Seq(4, 53)) send(s"- channel $c")
-      send("set seek 0")
+      for (v <- Seq("seek", "shout", "cshout", "kibitz", "pin", "gin")) send(s"set $v 0")
+      for (c <- Seq(4, 53)) send(s"- channel $c")
       send("style 12")
       goto(Ready)
   }
@@ -61,14 +60,17 @@ private[relay] final class FicsActor(
       cmd parse in.lines match {
         case Some(res) =>
           replyTo ! res
-          stop()
+          goto(Ready) using none
         case None =>
           log(in.data)
           stay
       }
-    case Event(StateTimeout, _) =>
+    case Event(StateTimeout, req) =>
       log("state timeout")
-      stop()
+      req.foreach { r =>
+        r.replyTo ! Status.Failure(new Exception(s"FicsActor:Run timeout on ${r.cmd.str}"))
+      }
+      goto(Ready) using none
   }
 
   whenUnhandled {

@@ -5,12 +5,15 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 case class Relay(
-  id: String, // random ID
-  ficsId: Int,
-  name: String,
-  status: Relay.Status,
-  date: DateTime,
-  games: List[RelayGame])
+    id: String, // random ID
+    ficsId: Int,
+    name: String,
+    status: Relay.Status,
+    date: DateTime,
+    games: List[RelayGame]) {
+
+  def gameByFicsId(fi: Int) = games.find(_.ficsId == fi)
+}
 
 object Relay {
 

@@ -10,7 +10,8 @@ object BSONHandlers {
     def read(bsonInt: BSONInteger): Relay.Status = Relay.Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
     def write(x: Relay.Status) = BSONInteger(x.id)
   }
-  private implicit val RelayGameBSONHandler = Macros.handler[RelayGame]
+  implicit val RelayGameBSONHandler = Macros.handler[RelayGame]
+  implicit val RelayGamesBSONHandler = new BSON.ListHandler[RelayGame]
 
   implicit val RelayBSONHandler = new BSON[Relay] {
     def reads(r: BSON.Reader) = Relay(
@@ -19,12 +20,13 @@ object BSONHandlers {
       name = r str "name",
       status = r.get[Relay.Status]("status"),
       date = r date "date",
-      games = Nil)
+      games = r.get[List[RelayGame]]("games"))
     def writes(w: BSON.Writer, o: Relay) = BSONDocument(
       "_id" -> o.id,
       "ficsId" -> o.ficsId,
       "name" -> o.name,
       "status" -> o.status,
-      "date" -> w.date(o.date))
+      "date" -> w.date(o.date),
+      "games" -> o.games)
   }
 }

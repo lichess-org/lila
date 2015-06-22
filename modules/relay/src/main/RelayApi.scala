@@ -9,13 +9,27 @@ final class RelayApi(
     relayRepo: RelayRepo,
     remote: java.net.InetSocketAddress) {
 
-  def refresh: Funit = {
-    val actor = system.actorOf(Props(classOf[FicsActor], remote))
-    actor ? command.ListTourney mapTo
-      manifest[command.ListTourney.Result] flatMap {
-        _.map { tourney =>
-          relayRepo.upsert(tourney.id, tourney.name, tourney.status)
-        }.sequenceFu.void
-      }
+  private val mainActor = system.actorOf(Props(classOf[FicsActor], remote))
+
+  def refreshRelays: Funit = mainActor ? command.ListTourney mapTo
+    manifest[command.ListTourney.Result] flatMap {
+      _.map { tourney =>
+        relayRepo.upsert(tourney.id, tourney.name, tourney.status)
+      }.sequenceFu.void
+    }
+
+  def refreshRelayGames: Funit = relayRepo.started.flatMap {
+    _.map { relay =>
+      mainActor ? command.ListGames(relay.ficsId) mapTo
+        manifest[command.ListGames.Result] flatMap { games =>
+          val relayGames = games.map { g =>
+            relay gameByFicsId g.id match {
+              case None     => RelayGame.make(g.id, g.white, g.black)
+              case Some(rg) => rg
+            }
+          }
+          relayRepo.setGames(relay, relayGames)
+        }
+    }.sequenceFu.void
   }
 }

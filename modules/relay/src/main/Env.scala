@@ -46,11 +46,11 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    api.refresh
-    // scheduler.effect(10 seconds, "refresh FICS relays") {
-    //   println("refresh?")
-    //   api.refresh
-    // }
+    api.refreshRelays >> api.refreshRelayGames
+    scheduler.effect(60 seconds, "refresh FICS relays") {
+      println("refresh?")
+      api.refreshRelays >> api.refreshRelayGames
+    }
   }
 }
 
