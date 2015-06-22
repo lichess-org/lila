@@ -5,17 +5,19 @@ import akka.io.{ IO, Tcp }
 import akka.util.ByteString
 import java.net.InetSocketAddress
 
-private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef) extends Actor {
+private[relay] final class Telnet(
+    remote: InetSocketAddress,
+    listener: ActorRef) extends Actor {
 
   import Tcp._
   import context.system
 
   IO(Tcp) ! Connect(remote, options = List(
     SO.TcpNoDelay(false)
-    // next lines seem to have no effect at all, messages are still truncated
-    // SO.ReceiveBufferSize(1024 * 1024),
-    // SO.SendBufferSize(1024 * 1024)
   ))
+
+  var bufferUntil = none[String]
+  val buffer = new collection.mutable.StringBuilder
 
   def receive = {
     case CommandFailed(_: Connect) =>
@@ -34,9 +36,19 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
           // O/S buffer was full
           listener ! Telnet.WriteFailed
         case Received(data) =>
-          val msg = data decodeString "UTF-8"
-          println(s"<telnet>$msg</telnet>")
-          listener ! Telnet.In(msg)
+          val chunk = data decodeString "UTF-8"
+          bufferUntil match {
+            case None => listener ! Telnet.In(chunk)
+            case Some(eom) =>
+              buffer append chunk
+              if (buffer endsWith eom) {
+                listener ! Telnet.In(buffer.toString)
+                buffer.clear()
+              }
+          }
+        case Telnet.BufferUntil(str) =>
+          buffer.clear()
+          bufferUntil = str
         case "close" =>
           connection ! Close
         case _: ConnectionClosed =>
@@ -48,8 +60,12 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
 
 object Telnet {
 
-  case class In(data: String)
+  case class In(data: String) {
+    def lines: List[String] = data.split(Array('\r', '\n')).toList.filter(_.nonEmpty).map(_.trim)
+    def last: Option[String] = lines.lastOption
+  }
   case class Connection(send: String => Unit)
+  case class BufferUntil(str: Option[String])
   case object ConnectFailed
   case object WriteFailed
   case object Close
