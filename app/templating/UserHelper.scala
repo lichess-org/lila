@@ -35,7 +35,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.Horde)
 
   private def best3Of(u: User, perfTypes: List[PerfType]) =
-    perfTypes.sortBy { pt => -u.perfs(pt).nb } take 3
+    perfTypes.sortBy { pt => -u.perfs(pt).nb } take 4
 
   def miniViewSortedPerfTypes(u: User): List[PerfType] =
     best3Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
