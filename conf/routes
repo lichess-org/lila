@@ -279,10 +279,6 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
 
-# Progressive Import API
-POST  /api/import/live                     controllers.Importer.liveCreate
-POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
-
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index

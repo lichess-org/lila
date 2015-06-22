@@ -54,14 +54,6 @@ object Game extends LilaController {
       }
   }
 
-  def relayed(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      paginator relayed page zip makeListMenu map {
-        case (pag, menu) => html.game.relayed(pag, menu)
-      }
-    }
-  }
-
   def exportConfirm(user: String) = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body

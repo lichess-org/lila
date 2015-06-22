@@ -24,12 +24,13 @@ final class Importer(
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
-    gameExists {
-      doImport(data, user, ip)
+    def applyResult(game: Game, result: Result) {
+      result match {
+        case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
+        case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
+        case _                                  =>
+      }
     }
-  }
-
-  def doImport(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
     def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
       case Nil => after(delay, scheduler)(funit)

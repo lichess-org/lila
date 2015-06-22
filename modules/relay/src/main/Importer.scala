@@ -7,6 +7,7 @@ import akka.actor.ActorRef
 import akka.pattern.after
 import chess.format.UciMove
 import chess.{ Color, Move, PromotableRole, Pos }
+import chess.variant.Standard
 import lila.game.{ Game, Player, Source, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
@@ -41,7 +42,7 @@ final class Importer(
   def move(id: String, move: String) = GameRepo game id flatMap {
     _ filter (g => g.playable && g.isFicsRelay) match {
       case None => fufail("No such playing game: " + id)
-      case Some(game) => chess.format.pgn.Parser.MoveParser(move).flatMap {
+      case Some(game) => chess.format.pgn.Parser.MoveParser(move, Standard).flatMap {
         _(game.toChess.situation)
       }.toOption match {
         case None => move match {
