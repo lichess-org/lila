@@ -174,7 +174,7 @@ case class Game(
       blackOffersDraw = blackPlayer.isOfferingDraw)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {
-      updated.correspondenceClock map Event.CorrespondenceClock.apply
+      updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
     val possibleMovesEvents = (players collect {
@@ -215,17 +215,19 @@ case class Game(
     updatedAt = DateTime.now.some
   ))
 
-  def correspondenceClock: Option[CorrespondenceClock] =
-    daysPerTurn ifTrue playable map { days =>
-      val increment = days * 24 * 60 * 60
-      val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
-        (lmd.getSeconds + increment - nowSeconds).toInt max 0
-      }
-      CorrespondenceClock(
-        increment = increment,
-        whiteTime = turnColor.fold(secondsLeft, increment),
-        blackTime = turnColor.fold(increment, secondsLeft))
+  def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
+    val increment = days * 24 * 60 * 60
+    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+      (lmd.getSeconds + increment - nowSeconds).toInt max 0
     }
+    CorrespondenceClock(
+      increment = increment,
+      whiteTime = turnColor.fold(secondsLeft, increment),
+      blackTime = turnColor.fold(increment, secondsLeft))
+  }
+
+  def playableCorrespondenceClock: Option[CorrespondenceClock] =
+    playable ?? correspondenceClock
 
   def speed = chess.Speed(clock)
 
@@ -350,7 +352,7 @@ case class Game(
   } yield player
 
   private def outoftimePlayerCorrespondence: Option[Player] = for {
-    c ← correspondenceClock
+    c ← playableCorrespondenceClock
     if c outoftime player.color
   } yield player
 

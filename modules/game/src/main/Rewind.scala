@@ -37,7 +37,7 @@ object Rewind {
         clock = game.clock map (_.takeback))
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
-        newGame.correspondenceClock.map(Event.CorrespondenceClock.apply)
+        newGame.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
       ).flatten)
     }
 }

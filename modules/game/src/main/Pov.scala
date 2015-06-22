@@ -27,7 +27,7 @@ case class Pov(game: Game, color: Color) {
 
   lazy val remainingSeconds: Option[Int] =
     game.clock.map(_.remainingTime(color).toInt).orElse {
-      game.correspondenceClock.map(_.remainingTime(color).toInt)
+      game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
     }
 
   def hasMoved = game playerHasMoved color
