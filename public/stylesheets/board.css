@@ -23,6 +23,10 @@
   line-height: 0;
   background-size: cover;
 }
+.manipulable .cg-board.sha {
+  -webkit-transform: skew(2deg) rotate(1deg);
+  transform: skew(2deg) rotate(1deg);
+}
 .manipulable .cg-board {
   cursor: pointer;
 }

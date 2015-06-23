@@ -92,7 +92,7 @@ case class Assessible(analysed: Analysed) {
     assessment = rankCheating(color),
     date = DateTime.now,
     // meta
-    flags = flags(color),
+    flags = mkFlags(color),
     sfAvg = sfAvg(color),
     sfSd = sfSd(color),
     mtAvg = mtAvg(color),
