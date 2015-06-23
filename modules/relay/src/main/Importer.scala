@@ -41,7 +41,7 @@ final class Importer(
         }
 
         val lateMoves = replay.chronoMoves drop game.turns
-        println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.mkString(" ")}\nfrom ${data}")
+        println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.mkString(" ")}")
         applyMoves(Pov player game, lateMoves) inject game
       }
     }

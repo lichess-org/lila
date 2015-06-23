@@ -43,7 +43,7 @@ private[relay] final class FICS(
       for (c <- Seq(4, 53)) send(s"- channel $c")
       send("set kiblevel 3000") // shut up if your ELO is < 3000
       send("style 12")
-      goto(Ready)
+      goto(Throttle)
   }
 
   when(Ready) {
@@ -61,7 +61,7 @@ private[relay] final class FICS(
       cmd parse lines match {
         case Some(res) =>
           replyTo ! res
-          goto(Ready) using none
+          goto(Throttle) using none
         case None =>
           log(lines)
           stay
@@ -72,6 +72,10 @@ private[relay] final class FICS(
         r.replyTo ! Status.Failure(new Exception(s"FICS:Run timeout on ${r.cmd.str}"))
       }
       goto(Ready) using none
+  }
+
+  when(Throttle, stateTimeout = 1 second) {
+    case Event(StateTimeout, _) => goto(Ready) using none
   }
 
   whenUnhandled {
@@ -87,11 +91,7 @@ private[relay] final class FICS(
   }
 
   onTransition {
-    case x -> Ready =>
-      send("")
-      unstashAll()
-    // case x -> y =>
-    //   println(x, y)
+    case _ -> Ready => unstashAll()
   }
 
   def handleMovesAndReturnOtherLines(in: In): List[String] = {
@@ -104,7 +104,8 @@ private[relay] final class FICS(
   }
 
   def log(data: String) {
-    if (data.nonEmpty && !noise(data)) println(s"FICS[$stateName] $data")
+    if (data.nonEmpty && !noise(data))
+      println(s"FICS[$stateName] ${data.lines.filter(_.nonEmpty).mkString("\n")}")
   }
 
   def log(lines: List[String]) {
@@ -133,6 +134,7 @@ object FICS {
   case object Configure extends State
   case object Ready extends State
   case object Run extends State
+  case object Throttle extends State
 
   case class Request(cmd: command.Command, replyTo: ActorRef)
 
