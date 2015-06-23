@@ -49,6 +49,7 @@ final class Importer(
   def move(id: String, san: String, ply: Int) = GameRepo game id flatMap {
     case Some(game) if !game.playable        => fufail(s"{$id} not playable")
     case Some(game) if !game.isFicsRelay     => fufail(s"{$id} not FICS relay")
+    case Some(game) if game.turns == ply     => funit
     case Some(game) if game.turns != ply - 1 => fufail(s"{$id} can't play ply $ply from ${game.turns}")
     case None                                => fufail(s"{$id} not found")
     case Some(game) => chess.format.pgn.Parser.MoveParser(san, Standard).flatMap {

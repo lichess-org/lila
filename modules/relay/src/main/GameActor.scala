@@ -28,14 +28,13 @@ private[relay] final class GameActor(
   def process = {
 
     case move@FICS.Move(id, san, ply, _) if id == ficsId => withGameId { gameId =>
-      println(s"{$gameId} $move")
       importer.move(gameId, san, ply) >>- println(s"http://en.l.org/$gameId $ply: $san")
     }
 
     case data: command.Moves.Game => recover(data)
 
     case Recover =>
-      import makeTimeout.larger
+      implicit val t = makeTimeout seconds 60
       fics ? command.Moves(ficsId) mapTo manifest[command.Moves.Game] flatMap recover
 
     case ReceiveTimeout => fuccess {

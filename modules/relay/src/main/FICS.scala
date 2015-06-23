@@ -40,7 +40,7 @@ private[relay] final class FICS(
   when(Configure) {
     case Event(In(_), _) =>
       for (v <- Seq("seek", "shout", "cshout", "pin", "gin")) send(s"set $v 0")
-      for (c <- Seq(4, 53)) send(s"- channel $c")
+      for (c <- Seq(1, 4, 53)) send(s"- channel $c")
       send("set kiblevel 3000") // shut up if your ELO is < 3000
       send("style 12")
       goto(Throttle)
@@ -74,7 +74,7 @@ private[relay] final class FICS(
       goto(Ready) using none
   }
 
-  when(Throttle, stateTimeout = 1 second) {
+  when(Throttle, stateTimeout = 500 millis) {
     case Event(StateTimeout, _) => goto(Ready) using none
   }
 
@@ -115,6 +115,9 @@ private[relay] final class FICS(
   val noiseR = List(
     // """(?is)^\n\w+(\([^\)]+\)){1,2}:\s.+\nfics\%\s$""".r, // people chating
     // """(?is)^\n\w+(\([^\)]+\)){1,2}\[\d+\]\s.+\nfics\%\s$""".r, // people whispering
+    """^\(told relay\)$""".r,
+    """^Game \d+: relay has set .+ clock to .+""".r,
+    """^relay\(.+\)\[\d+\] kibitzes: .+""".r,
     """(?s).*Welcome to the Free Internet Chess Server.*""".r,
     """(?s).*Starting FICS session.*""".r,
     """(?s).*ROBOadmin.*""".r,
