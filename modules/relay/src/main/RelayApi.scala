@@ -33,7 +33,7 @@ final class RelayApi(
         }
         relayRepo.setGames(relay, rgs) >>-
           rgs.foreach { rg =>
-            actorMap ! Tell(rg.ficsId.toString, GameActor.Up)
+            actorMap ! Tell(rg.ficsId.toString, GameActor.Recover)
           }
       }
 }

@@ -99,6 +99,12 @@ case class HumanPlay(
   blur: Boolean,
   lag: FiniteDuration,
   onFailure: Exception => Unit)
+case class RelayPlay(
+  playerId: String,
+  orig: String,
+  dest: String,
+  prom: Option[String],
+  onFailure: Exception => Unit)
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

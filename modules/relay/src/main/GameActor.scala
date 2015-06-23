@@ -17,10 +17,8 @@ private[relay] final class GameActor(
   context setReceiveTimeout 3.hours
 
   override def preStart() {
-    import makeTimeout.larger
     context.system.lilaBus.subscribe(self, 'relayMove)
     fics ! FICS.Observe(ficsId)
-    fics ? command.Moves(ficsId) pipeTo self
   }
 
   override def postStop() {
@@ -29,20 +27,29 @@ private[relay] final class GameActor(
 
   def process = {
 
-    case FICS.Move(id, san, ply) if id == ficsId => withGameId { gameId =>
+    case move@FICS.Move(id, san, ply, _) if id == ficsId => withGameId { gameId =>
+      println(s"{$gameId} $move")
       importer.move(gameId, san, ply) >>- println(s"http://en.l.org/$gameId $ply: $san")
     }
 
-    case data: command.Moves.Game => withGameId { gameId =>
-      importer.full(gameId, data) >>- println(s"http://en.l.org/$gameId")
-    }
+    case data: command.Moves.Game => recover(data)
 
-    case Up => funit // just making sure the actor is up }
+    case Recover =>
+      import makeTimeout.larger
+      fics ? command.Moves(ficsId) mapTo manifest[command.Moves.Game] flatMap recover
 
     case ReceiveTimeout => fuccess {
       self ! SequentialActor.Terminate
     }
   }
+
+  override def onFailure(e: Exception) {
+    println(s"[$ficsId] ERR ${e.getMessage}")
+  }
+
+  def recover(data: command.Moves.Game) = withGameId { gameId =>
+      importer.full(gameId, data)
+    }
 
   def withGameId[A](f: String => Fu[A]): Funit = getGameId() flatMap {
     case None         => fufail(s"No game found for FICS ID $ficsId")
@@ -52,5 +59,5 @@ private[relay] final class GameActor(
 
 object GameActor {
 
-  case object Up
+  case object Recover
 }

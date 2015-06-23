@@ -34,51 +34,51 @@ final class Importer(
           (GameRepo insertDenormalized game) inject game
       } flatMap { game =>
 
-        def applyMoves(pov: Pov, moves: List[Move]): Funit = moves.pp("apply moves") match {
+        def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
           case Nil => after(delay, scheduler)(funit)
           case m :: rest =>
             after(delay, scheduler)(Future(applyMove(pov, m, ip))) >>
               applyMoves(!pov, rest)
         }
 
-        applyMoves(Pov player game, replay.chronoMoves drop game.turns) inject game
+        val lateMoves = replay.chronoMoves drop game.turns
+        println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.mkString(" ")}\nfrom ${data}")
+        applyMoves(Pov player game, lateMoves) inject game
       }
     }
 
   def move(id: String, san: String, ply: Int) = GameRepo game id flatMap {
-    _ filter (g => g.playable && g.isFicsRelay && g.turns + 1 == ply) match {
-      case None => fufail(s"No such playing game: $id (ply=$ply)")
-      case Some(game) => chess.format.pgn.Parser.MoveParser(san, Standard).flatMap {
-        _(game.toChess.situation)
-      }.toOption match {
-        case None => san match {
-          case "1-0" => fuccess {
-            roundMap ! Tell(game.id, Resign(game.blackPlayer.id))
-          }
-          case "0-1" => fuccess {
-            roundMap ! Tell(game.id, Resign(game.whitePlayer.id))
-          }
-          case "1/2-1/2" => fuccess {
-            roundMap ! Tell(game.id, DrawForce)
-          }
-          case m => fufail("Invalid move: " + m)
+    case Some(game) if !game.playable        => fufail(s"{$id} not playable")
+    case Some(game) if !game.isFicsRelay     => fufail(s"{$id} not FICS relay")
+    case Some(game) if game.turns != ply - 1 => fufail(s"{$id} can't play ply $ply from ${game.turns}")
+    case None                                => fufail(s"{$id} not found")
+    case Some(game) => chess.format.pgn.Parser.MoveParser(san, Standard).flatMap {
+      _(game.toChess.situation)
+    }.toOption match {
+      case None => san match {
+        case "1-0" => fuccess {
+          roundMap ! Tell(game.id, Resign(game.blackPlayer.id))
         }
-        case Some(move) => fuccess {
-          applyMove(Pov(game, game.player.color), move, ip)
+        case "0-1" => fuccess {
+          roundMap ! Tell(game.id, Resign(game.whitePlayer.id))
         }
+        case "1/2-1/2" => fuccess {
+          roundMap ! Tell(game.id, DrawForce)
+        }
+        case m => fufail("Invalid move: " + m)
+      }
+      case Some(move) => fuccess {
+        applyMove(Pov(game, game.player.color), move, ip)
       }
     }
   }
 
   private def applyMove(pov: Pov, move: Move, ip: String) {
-    roundMap ! Tell(pov.gameId, HumanPlay(
+    roundMap ! Tell(pov.gameId, RelayPlay(
       playerId = pov.playerId,
-      ip = ip,
       orig = move.orig.toString,
       dest = move.dest.toString,
       prom = move.promotion map (_.name),
-      blur = false,
-      lag = 0.millis,
       onFailure = println
     ))
   }

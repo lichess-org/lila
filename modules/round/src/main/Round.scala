@@ -45,6 +45,10 @@ private[round] final class Round(
       pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
     }
 
+    case p: RelayPlay => handle(p.playerId) { pov =>
+      player.relay(p, self)(pov)
+    }
+
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)

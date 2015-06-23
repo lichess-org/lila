@@ -57,7 +57,7 @@ case class Moves(id: Int) extends Command {
 case object Moves {
   type Result = Game
   def parse(lines: List[String]) =
-    lines.exists(_ contains "Movelist for game ") ?? {
+    lines.find(_ contains "Movelist for game ") ?? { firstLine =>
       lines collectFirst {
         case PlayersR(wt, wn, wr, bt, bn, br, date) => Game(
           white = Player(wn, wt.some.filter(_.nonEmpty), parseIntOption(wr)),
@@ -69,12 +69,13 @@ case object Moves {
               matches(MoveLineR, l)
             }.mkString(" ").trim,
             ""),
-          date = DateTime.now)
+          date = DateTime.now,
+          title = firstLine.trim)
       }
     }
 
   case class Player(name: String, title: Option[String], rating: Option[Int])
-  case class Game(white: Player, black: Player, pgn: String, date: DateTime)
+  case class Game(white: Player, black: Player, pgn: String, date: DateTime, title: String)
 
   private val MoveLineR = """^\d+\.(\s+[^\s]+){2,4}""".r
   private val MoveCommentR = """\([^\)]+\)""".r

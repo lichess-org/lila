@@ -58,12 +58,13 @@ private[relay] final class FICS(
 
   when(Run, stateTimeout = 7 second) {
     case Event(in: In, Some(Request(cmd, replyTo))) =>
-      cmd parse in.lines match {
+      val lines = handleMovesAndReturnOtherLines(in)
+      cmd parse lines match {
         case Some(res) =>
           replyTo ! res
           goto(Ready) using none
         case None =>
-          log(in.data)
+          log(lines)
           stay
       }
     case Event(StateTimeout, req) =>
@@ -81,14 +82,8 @@ private[relay] final class FICS(
     case Event(_: Observe, _) =>
       stash()
       stay
-    case Event(in: In, _) if in.data contains "<12>" =>
-      in.lines.filter(_ startsWith "<12>") foreach { line =>
-        val move = Move parse line err s"Unparsable FICS move line $line"
-        context.system.lilaBus.publish(move, 'relayMove)
-      }
-      stay
-    case Event(In(data), _) =>
-      log(data)
+    case Event(in: In, _) =>
+      log(handleMovesAndReturnOtherLines(in))
       stay
   }
 
@@ -100,8 +95,21 @@ private[relay] final class FICS(
     //   println(x, y)
   }
 
-  def log(msg: String) {
-    if (!noise(msg)) println(s"FICS[$stateName] $msg")
+  def handleMovesAndReturnOtherLines(in: In): List[String] = {
+    val (moves, others) = in.lines.partition(_ startsWith "<12>")
+    moves.foreach { l =>
+      val move = Move parse l err s"Unparsable FICS move line $l"
+      context.system.lilaBus.publish(move, 'relayMove)
+    }
+    others
+  }
+
+  def log(data: String) {
+    if (data.nonEmpty && !noise(data)) println(s"FICS[$stateName] $data")
+  }
+
+  def log(lines: List[String]) {
+    log(lines filterNot ("fics%"==) mkString "\n")
   }
 
   val noiseR = List(
@@ -131,7 +139,9 @@ object FICS {
 
   case class Observe(ficsId: Int)
 
-  case class Move(ficsId: Int, san: String, ply: Int)
+  case class Move(ficsId: Int, san: String, ply: Int, log: String) {
+    override def toString = s"[$ficsId] $ply: $san from ${log split ' ' drop 9 mkString " "}"
+  }
   object Move {
     def parse(str: String): Option[Move] = {
       val split = str split ' '
@@ -139,9 +149,9 @@ object FICS {
         ficsId <- split lift 16 flatMap parseIntOption
         san <- split lift 29
         turn <- split lift 26 flatMap parseIntOption
-        color <- split lift 9 map { x => chess.Color(x == "B") }
-        ply = (turn - 1) * 2 + color.fold(1, 2)
-      } yield Move(ficsId, san, ply)
+        color <- split lift 9 map { x => chess.Color(x == "W") }
+        ply = (turn - 1) * 2 + color.fold(0, 1)
+      } yield Move(ficsId, san, ply, str)
     }
   }
 
