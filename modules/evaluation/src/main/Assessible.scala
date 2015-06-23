@@ -38,7 +38,7 @@ case class Assessible(analysed: Analysed) {
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
-  def flags(color: Color): PlayerFlags = PlayerFlags(
+  def mkFlags(color: Color): PlayerFlags = PlayerFlags(
     suspiciousErrorRate(color),
     alwaysHasAdvantage(color),
     highBlurRate(color),
@@ -50,7 +50,8 @@ case class Assessible(analysed: Analysed) {
 
   def rankCheating(color: Color): GameAssessment = {
     import GameAssessment._
-    val assessment = flags(color) match {
+    val flags = mkFlags(color)
+    val assessment = flags match {
                    //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
       case PlayerFlags(true,  true,  true,  true,  true,  true,  true) => Cheating // all true, obvious cheat
       case PlayerFlags(_   ,  _   ,  _   ,  _   ,  _   ,  _   ,  true) => Cheating // Holds are bad, hmk?
@@ -69,7 +70,8 @@ case class Assessible(analysed: Analysed) {
       case _                                                           => NotCheating
     }
 
-    if (~game.wonBy(color)) assessment
+    if (flags.suspiciousHoldAlert) assessment
+    else if (~game.wonBy(color)) assessment
     else if (assessment == Cheating || assessment == LikelyCheating) Unclear
     else assessment
   }

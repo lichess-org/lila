@@ -1,7 +1,7 @@
 // Register move hold times and send socket alerts
 
 var holds = [];
-var nb = 10;
+var nb = 6;
 
 var register = function(socket, hold) {
   if (!hold) return;
@@ -18,7 +18,7 @@ var register = function(socket, hold) {
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      if (sd < 10) socket.send('hold', {
+      if (sd < 15) socket.send('hold', {
         mean: Math.round(mean),
         sd: Math.round(sd)
       });
