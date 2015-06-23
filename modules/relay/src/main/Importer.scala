@@ -15,7 +15,6 @@ import lila.round.actorApi.round._
 final class Importer(
     roundMap: ActorRef,
     delay: FiniteDuration,
-    ip: String,
     scheduler: akka.actor.Scheduler) {
 
   def full(gameId: String, data: command.Moves.Game): Fu[Game] =
@@ -37,7 +36,7 @@ final class Importer(
         def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
           case Nil => after(delay, scheduler)(funit)
           case m :: rest =>
-            after(delay, scheduler)(Future(applyMove(pov, m, ip))) >>
+            after(delay, scheduler)(Future(applyMove(pov, m))) >>
               applyMoves(!pov, rest)
         }
 
@@ -68,12 +67,12 @@ final class Importer(
         case m => fufail("Invalid move: " + m)
       }
       case Some(move) => fuccess {
-        applyMove(Pov(game, game.player.color), move, ip)
+        applyMove(Pov(game, game.player.color), move)
       }
     }
   }
 
-  private def applyMove(pov: Pov, move: Move, ip: String) {
+  private def applyMove(pov: Pov, move: Move) {
     roundMap ! Tell(pov.gameId, RelayPlay(
       playerId = pov.playerId,
       orig = move.orig.toString,

@@ -7,6 +7,8 @@ import scala.concurrent.duration._
 import lila.hub.actorApi.map.Tell
 
 private[relay] final class FICS(
+    loginHandle: String,
+    loginPassword: String,
     remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FICS.State, Option[FICS.Request]] {
 
   import FICS._
@@ -27,14 +29,11 @@ private[relay] final class FICS(
 
   when(Login) {
     case Event(In(data), _) if data endsWith "login: " =>
-      send("guest")
-      goto(Enter)
-  }
-
-  when(Enter) {
-    case Event(In(data), _) if data contains "Press return to enter the server" =>
+      send(loginHandle)
+      stay
+    case Event(In(data), _) if data endsWith "password: " =>
+      send(loginPassword)
       telnet ! BufferUntil(EOM.some)
-      send("")
       goto(Configure)
   }
 

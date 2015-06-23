@@ -12,17 +12,21 @@ final class Env(
     roundMap: akka.actor.ActorRef,
     scheduler: lila.common.Scheduler) {
 
+  private val Enabled = config getBoolean "enabled"
   private val UserId = config getString "user_id"
-  private val ImportIP = config getString "import.ip"
   private val ImportMoveDelay = config duration "import.move_delay"
   private val FicsHost = config getString "fics.host"
   private val FicsPort = config getInt "fics.port"
+  private val FicsLogin = config getString "fics.login"
+  private val FicsPassword = config getString "fics.password"
   private val CollectionRelay = config getString "collection.relay"
   private val ActorMapName = config getString "actor.map.name"
 
   private val remote = new java.net.InetSocketAddress(FicsHost, FicsPort)
 
-  private val fics = system.actorOf(Props(classOf[FICS], remote))
+  private val fics =
+    if (Enabled) system.actorOf(Props(classOf[FICS], FicsLogin, FicsPassword, remote))
+    else system.actorOf(Props(classOf[FICStub]))
 
   private lazy val relayRepo = new RelayRepo(db(CollectionRelay))
 
@@ -31,7 +35,6 @@ final class Env(
   private val importer = new Importer(
     roundMap,
     ImportMoveDelay,
-    ImportIP,
     system.scheduler)
 
   private val gameMap = system.actorOf(Props(new lila.hub.ActorMap {
