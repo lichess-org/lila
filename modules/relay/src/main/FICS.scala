@@ -6,11 +6,11 @@ import scala.concurrent.duration._
 
 import lila.hub.actorApi.map.Tell
 
-private[relay] final class FicsActor(
+private[relay] final class FICS(
     actorMap: ActorRef,
-    remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FicsActor.State, Option[FicsActor.Request]] {
+    remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FICS.State, Option[FICS.Request]] {
 
-  import FicsActor._
+  import FICS._
   import Telnet._
   import command.Command
 
@@ -70,7 +70,7 @@ private[relay] final class FicsActor(
     case Event(StateTimeout, req) =>
       log("state timeout")
       req.foreach { r =>
-        r.replyTo ! Status.Failure(new Exception(s"FicsActor:Run timeout on ${r.cmd.str}"))
+        r.replyTo ! Status.Failure(new Exception(s"FICS:Run timeout on ${r.cmd.str}"))
       }
       goto(Ready) using none
   }
@@ -121,7 +121,7 @@ private[relay] final class FicsActor(
   def matches(str: String)(r: scala.util.matching.Regex) = r.pattern.matcher(str).matches
 }
 
-object FicsActor {
+object FICS {
 
   sealed trait State
   case object Connect extends State
