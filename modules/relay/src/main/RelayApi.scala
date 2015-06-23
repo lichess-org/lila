@@ -6,12 +6,10 @@ import lila.hub.actorApi.map.Tell
 import makeTimeout.veryLarge
 
 final class RelayApi(
-    system: ActorSystem,
+    fics: ActorRef,
     relayRepo: RelayRepo,
     actorMap: ActorRef,
     remote: java.net.InetSocketAddress) {
-
-  private val fics = system.actorOf(Props(classOf[FICS], actorMap, remote))
 
   def refreshFromFics: Funit = fics ? command.ListTourney mapTo
     manifest[command.ListTourney.Result] flatMap { tourneys =>
@@ -21,30 +19,21 @@ final class RelayApi(
         _.map { started =>
           (!tourneys.exists(_.name == started.name)) ?? relayRepo.finish(started)
         }.sequenceFu
-      } >> refreshRelayGames
+      } >> relayRepo.started.flatMap(_.map(refreshGames).sequenceFu).void
     }
 
-  private def refreshRelayGames: Funit = relayRepo.started.flatMap {
-    _.map { relay =>
-      fics ? command.ListGames(relay.ficsId) mapTo
-        manifest[command.ListGames.Result] flatMap { games =>
-          games.map { g =>
-            relay gameByFicsId g.id match {
-              case None =>
-                val rg = Relay.Game make g.id
-                createGame(rg) inject rg
-              case Some(rg) => fuccess(rg)
-            }
-          }.sequenceFu flatMap { rgs =>
-            relayRepo.setGames(relay, rgs) >>-
-              rgs.foreach { rg => fics ! FICS.Observe(rg.ficsId) }
+  private def refreshGames(relay: Relay): Funit =
+    fics ? command.ListGames(relay.ficsId) mapTo
+      manifest[command.ListGames.Result] flatMap { games =>
+        val rgs = games.map { g =>
+          relay gameByFicsId g.id match {
+            case None     => Relay.Game make g.id
+            case Some(rg) => rg
           }
         }
-    }.sequenceFu.void
-  }
-
-  def createGame(rg: Relay.Game): Funit = fics ? command.Moves(rg.ficsId) mapTo
-    manifest[command.Moves.Result] map { game =>
-      actorMap ! Tell(rg.ficsId.toString, GameActor.Import(rg.id, game))
-    }
+        relayRepo.setGames(relay, rgs) >>-
+          rgs.foreach { rg =>
+            actorMap ! Tell(rg.ficsId.toString, GameActor.Up)
+          }
+      }
 }

@@ -20,11 +20,13 @@ final class Env(
   private val CollectionRelay = config getString "collection.relay"
   private val ActorMapName = config getString "actor.map.name"
 
-  private lazy val relayRepo = new RelayRepo(db(CollectionRelay))
-
   private val remote = new java.net.InetSocketAddress(FicsHost, FicsPort)
 
-  lazy val api = new RelayApi(system, relayRepo, gameMap, remote)
+  private val fics = system.actorOf(Props(classOf[FICS], remote))
+
+  private lazy val relayRepo = new RelayRepo(db(CollectionRelay))
+
+  lazy val api = new RelayApi(fics, relayRepo, gameMap, remote)
 
   private val importer = new Importer(
     roundMap,
@@ -33,24 +35,16 @@ final class Env(
     system.scheduler)
 
   private val gameMap = system.actorOf(Props(new lila.hub.ActorMap {
-    def mkActor(ficsId: String) = new GameActor(
-      ficsId = parseIntOption(ficsId) err s"Invalid relay FICS id $ficsId",
-      getGameId = relayRepo.gameIdByFicsId _,
-      importer = importer)
+    def mkActor(ficsIdStr: String) = {
+      val ficsId = parseIntOption(ficsIdStr) err s"Invalid relay FICS id $ficsIdStr"
+      new GameActor(
+        fics = fics,
+        ficsId = ficsId,
+        getGameId = () => relayRepo gameIdByFicsId ficsId,
+        importer = importer)
+    }
     def receive = actorMapReceive
   }), name = ActorMapName)
-
-  // private val relayFSM = system.actorOf(Props(
-  //   classOf[RelayFSM],
-  //   importer
-  // ), name = "fsm")
-
-  // private val telnetActor = system.actorOf(Props(
-  //   classOf[Telnet],
-  //   new java.net.InetSocketAddress(FicsHost, FicsPort),
-  //   relayFSM,
-  //   "fics% "
-  // ), name = "relay.telnet")
 
   {
     import scala.concurrent.duration._

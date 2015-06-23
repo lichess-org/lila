@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 import lila.hub.actorApi.map.Tell
 
 private[relay] final class FICS(
-    actorMap: ActorRef,
     remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FICS.State, Option[FICS.Request]] {
 
   import FICS._
@@ -84,11 +83,8 @@ private[relay] final class FICS(
       stay
     case Event(in: In, _) if in.data contains "<12>" =>
       in.lines.filter(_ startsWith "<12>") foreach { line =>
-        val splitted = line split ' '
-        for {
-          ficsId <- splitted lift 16
-          move <- splitted lift 29
-        } actorMap ! Tell(ficsId, GameActor.Move(move))
+        val move = Move parse line err s"Unparsable FICS move line $line"
+        context.system.lilaBus.publish(move, 'relayMove)
       }
       stay
     case Event(In(data), _) =>
@@ -134,6 +130,20 @@ object FICS {
   case class Request(cmd: command.Command, replyTo: ActorRef)
 
   case class Observe(ficsId: Int)
+
+  case class Move(ficsId: Int, san: String, ply: Int)
+  object Move {
+    def parse(str: String): Option[Move] = {
+      val split = str split ' '
+      for {
+        ficsId <- split lift 16 flatMap parseIntOption
+        san <- split lift 29
+        turn <- split lift 26 flatMap parseIntOption
+        color <- split lift 9 map { x => chess.Color(x == "B") }
+        ply = (turn - 1) * 2 + color.fold(1, 2)
+      } yield Move(ficsId, san, ply)
+    }
+  }
 
   private val EOM = "fics% "
 }

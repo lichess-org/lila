@@ -18,7 +18,7 @@ final class Importer(
     ip: String,
     scheduler: akka.actor.Scheduler) {
 
-  def apply(id: String)(data: command.Moves.Game): Fu[Game] =
+  def full(id: String, data: command.Moves.Game): Fu[Game] =
     chess.format.pgn.Reader.full(data.pgn).future flatMap { replay =>
       val g = Game.make(
         game = replay.setup,
@@ -40,13 +40,13 @@ final class Importer(
         applyMoves(Pov(g, Color.white), replay.chronoMoves) inject g
     }
 
-  def move(id: String, move: String) = GameRepo game id flatMap {
-    _ filter (g => g.playable && g.isFicsRelay) match {
-      case None => fufail("No such playing game: " + id)
-      case Some(game) => chess.format.pgn.Parser.MoveParser(move, Standard).flatMap {
+  def move(id: String, san: String, ply: Int) = GameRepo game id flatMap {
+    _ filter (g => g.playable && g.isFicsRelay && g.turns + 1 == ply) match {
+      case None => fufail(s"No such playing game: $id (ply=$ply)")
+      case Some(game) => chess.format.pgn.Parser.MoveParser(san, Standard).flatMap {
         _(game.toChess.situation)
       }.toOption match {
-        case None => move match {
+        case None => san match {
           case "1-0" => fuccess {
             roundMap ! Tell(game.id, Resign(game.blackPlayer.id))
           }
