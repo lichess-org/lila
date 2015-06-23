@@ -18,26 +18,31 @@ final class Importer(
     ip: String,
     scheduler: akka.actor.Scheduler) {
 
-  def full(id: String, data: command.Moves.Game): Fu[Game] =
+  def full(gameId: String, data: command.Moves.Game): Fu[Game] =
     chess.format.pgn.Reader.full(data.pgn).future flatMap { replay =>
-      val g = Game.make(
-        game = replay.setup,
-        whitePlayer = Player.white withName data.white.name,
-        blackPlayer = Player.black withName data.black.name,
-        mode = chess.Mode.Casual,
-        variant = replay.setup.board.variant,
-        source = Source.Relay,
-        pgnImport = none).withId(id).start
+      GameRepo game gameId flatMap {
+        case Some(game) => fuccess(game)
+        case None =>
+          val game = Game.make(
+            game = replay.setup,
+            whitePlayer = Player.white withName data.white.name,
+            blackPlayer = Player.black withName data.black.name,
+            mode = chess.Mode.Casual,
+            variant = replay.setup.board.variant,
+            source = Source.Relay,
+            pgnImport = none).withId(gameId).start
+          (GameRepo insertDenormalized game) inject game
+      } flatMap { game =>
 
-      def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
-        case Nil => after(delay, scheduler)(funit)
-        case m :: rest =>
-          after(delay, scheduler)(Future(applyMove(pov, m, ip))) >>
-            applyMoves(!pov, rest)
+        def applyMoves(pov: Pov, moves: List[Move]): Funit = moves.pp("apply moves") match {
+          case Nil => after(delay, scheduler)(funit)
+          case m :: rest =>
+            after(delay, scheduler)(Future(applyMove(pov, m, ip))) >>
+              applyMoves(!pov, rest)
+        }
+
+        applyMoves(Pov player game, replay.chronoMoves drop game.turns) inject game
       }
-
-      (GameRepo insertDenormalized g) >>
-        applyMoves(Pov(g, Color.white), replay.chronoMoves) inject g
     }
 
   def move(id: String, san: String, ply: Int) = GameRepo game id flatMap {

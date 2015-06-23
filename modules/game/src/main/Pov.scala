@@ -43,6 +43,7 @@ object Pov {
   def second(game: Game) = apply(game, game.secondPlayer)
   def white(game: Game) = apply(game, game.whitePlayer)
   def black(game: Game) = apply(game, game.blackPlayer)
+  def player(game: Game) = apply(game, game.player)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
