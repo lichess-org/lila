@@ -31,10 +31,10 @@ private final class RelayRepo(coll: Coll) {
     BSONDocument("$set" -> BSONDocument("status" -> Relay.Status.Finished.id))
   ).void
 
-  def setGames(relay: Relay, games: List[Relay.Game]): Funit =
+  def setGames(relay: Relay): Funit =
     coll.update(
       selectId(relay.id),
-      BSONDocument("$set" -> BSONDocument("games" -> games))
+      BSONDocument("$set" -> BSONDocument("games" -> relay.games))
     ).void
 
   def gameIdByFicsId(ficsId: Int): Fu[Option[String]] = coll.find(

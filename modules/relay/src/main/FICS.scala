@@ -57,7 +57,7 @@ private[relay] final class FICS(
 
   when(Run, stateTimeout = 7 second) {
     case Event(in: In, Some(Request(cmd, replyTo))) =>
-      val lines = handleMovesAndReturnOtherLines(in)
+      val lines = handle(in)
       cmd parse lines match {
         case Some(res) =>
           replyTo ! res
@@ -86,7 +86,7 @@ private[relay] final class FICS(
       stash()
       stay
     case Event(in: In, _) =>
-      log(handleMovesAndReturnOtherLines(in))
+      log(handle(in))
       stay
   }
 
@@ -94,14 +94,22 @@ private[relay] final class FICS(
     case _ -> Ready => unstashAll()
   }
 
-  def handleMovesAndReturnOtherLines(in: In): List[String] = {
-    val (moves, others) = in.lines.partition(_ startsWith "<12>")
-    moves.foreach { l =>
-      val move = Move parse l err s"Unparsable FICS move line $l"
-      context.system.lilaBus.publish(move, 'relayMove)
-    }
-    others
-  }
+  def handle(in: In): List[String] = in.lines.foldLeft(List.empty[String]) {
+    case (lines, line) =>
+      Move(line) orElse Resign(line) orElse Draw(line) map {
+        case move: Move =>
+          context.system.lilaBus.publish(move, 'relayMove)
+          lines
+        case resign: Resign =>
+          println("------------------------- " + resign)
+          lines
+        case draw: Draw =>
+          println("------------------------- " + draw)
+          lines
+      } getOrElse {
+        line :: lines
+      }
+  }.reverse
 
   def log(data: String) {
     if (data.nonEmpty && !noise(data))
@@ -147,7 +155,7 @@ object FICS {
     override def toString = s"[$ficsId] $ply: $san from ${log split ' ' drop 9 mkString " "}"
   }
   object Move {
-    def parse(str: String): Option[Move] = {
+    def apply(str: String): Option[Move] = {
       val split = str split ' '
       for {
         ficsId <- split lift 16 flatMap parseIntOption
@@ -156,6 +164,24 @@ object FICS {
         color <- split lift 9 map { x => chess.Color(x == "W") }
         ply = (turn - 1) * 2 + color.fold(0, 1)
       } yield Move(ficsId, san, ply, str)
+    }
+  }
+
+  case class Resign(ficsId: Int, loser: String)
+  case object Resign {
+    val R = """(?i)^relay\(.+\)\[(\d+)\] kibitzes: (\w+) has resigned.+$""".r
+    def apply(str: String): Option[Resign] = str match {
+      case R(id, name) => parseIntOption(id) map { Resign(_, name) }
+      case _           => none
+    }
+  }
+
+  case class Draw(ficsId: Int)
+  case object Draw {
+    val R = """(?i)^relay\(.+\)\[(\d+)\] kibitzes: The game is officially a draw.+$""".r
+    def apply(str: String): Option[Draw] = str match {
+      case R(id) => parseIntOption(id) map { Draw(_) }
+      case _     => none
     }
   }
 

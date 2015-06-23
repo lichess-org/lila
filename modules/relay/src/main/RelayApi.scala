@@ -31,8 +31,10 @@ final class RelayApi(
             case Some(rg) => rg
           }
         }
-        relayRepo.setGames(relay, rgs) >>-
-          rgs.foreach { rg =>
+        val nr = relay.copy(games = rgs)
+        println(s"[relay] ${nr.name}: ${nr.activeGames.size}/${nr.games.size} games")
+        relayRepo.setGames(nr) >>-
+          nr.activeGames.foreach { rg =>
             actorMap ! Tell(rg.ficsId.toString, GameActor.Recover)
           }
       }

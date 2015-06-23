@@ -15,6 +15,8 @@ case class Relay(
   def gameByFicsId(ficsId: Int) = games.find(_.ficsId == ficsId)
 
   def gameIdByFicsId(ficsId: Int) = gameByFicsId(ficsId).map(_.id)
+
+  def activeGames = games.filterNot(_.end)
 }
 
 object Relay {
@@ -29,12 +31,14 @@ object Relay {
 
   case class Game(
     id: String, // lichess game ID
-    ficsId: Int)
+    ficsId: Int,
+    end: Boolean)
 
   object Game {
     def make(ficsId: Int) = Game(
       id = Random nextStringUppercase 8,
-      ficsId = ficsId)
+      ficsId = ficsId,
+      end = false)
   }
 
   sealed abstract class Status(val id: Int)
