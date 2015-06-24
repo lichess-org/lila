@@ -31,16 +31,11 @@ private[relay] final class TourneyActor(
     def receive = actorMapReceive
   }), name = "games")
 
-  override def preStart() {
-    context.system.lilaBus.subscribe(self, 'relayMove)
-    self ! Recover
-  }
-
-  override def postStop() {
-    context.system.lilaBus unsubscribe self
-  }
-
   def process = {
+
+    case event: GameEvent => fuccess {
+      gameMap ! Tell(event.ficsId.toString, event).pp
+    }
 
     case Recover => withRelay { relay =>
       implicit val t = makeTimeout seconds 30

@@ -17,18 +17,25 @@ private[relay] final class GameActor(
   context setReceiveTimeout 3.hours
 
   override def preStart() {
-    context.system.lilaBus.subscribe(self, 'relayMove)
     fics ! FICS.Observe(ficsId)
-  }
-
-  override def postStop() {
-    context.system.lilaBus unsubscribe self
   }
 
   def process = {
 
-    case move@FICS.Move(id, san, ply, _) if id == ficsId => withGameId { gameId =>
+    case move@GameEvent.Move(_, san, ply, _) => withGameId { gameId =>
       importer.move(gameId, san, ply) >>- println(s"http://en.l.org/$gameId $ply: $san")
+    }
+
+    case move@GameEvent.Draw(_) => withGameId { gameId =>
+      fuccess {
+        println(s"http://en.l.org/$gameId draw")
+      }
+    }
+
+    case move@GameEvent.Resign(_, loser) => withGameId { gameId =>
+      fuccess {
+        println(s"http://en.l.org/$gameId $loser resigned")
+      }
     }
 
     case data: command.Moves.Game => recover(data)
@@ -47,8 +54,8 @@ private[relay] final class GameActor(
   }
 
   def recover(data: command.Moves.Game) = withGameId { gameId =>
-      importer.full(gameId, data)
-    }
+    importer.full(gameId, data)
+  }
 
   def withGameId[A](f: String => Fu[A]): Funit = getGameId() flatMap {
     case None         => fufail(s"No game found for FICS ID $ficsId")

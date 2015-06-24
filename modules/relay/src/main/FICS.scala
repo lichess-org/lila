@@ -6,18 +6,16 @@ import scala.concurrent.duration._
 
 import lila.hub.actorApi.map.Tell
 
-private[relay] final class FICS(
-    loginHandle: String,
-    loginPassword: String,
-    remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FICS.State, Option[FICS.Request]] {
+private[relay] final class FICS(config: FICS.Config) extends Actor with Stash with LoggingFSM[FICS.State, Option[FICS.Request]] {
 
   import FICS._
   import Telnet._
+  import GameEvent._
   import command.Command
 
   var send: String => Unit = _
 
-  val telnet = context.actorOf(Props(classOf[Telnet], remote, self), name = "telnet")
+  val telnet = context.actorOf(Props(classOf[Telnet], config.remote, self), name = "telnet")
 
   startWith(Connect, none)
 
@@ -27,13 +25,26 @@ private[relay] final class FICS(
       goto(Login)
   }
 
+  //   when(Login) {
+  //     case Event(In(data), _) if data endsWith "login: " =>
+  //       send(config.login)
+  //       stay
+  //     case Event(In(data), _) if data endsWith "password: " =>
+  //       send(config.password)
+  //       telnet ! BufferUntil(EOM.some)
+  //       goto(Configure)
+  //   }
+
   when(Login) {
     case Event(In(data), _) if data endsWith "login: " =>
-      send(loginHandle)
-      stay
-    case Event(In(data), _) if data endsWith "password: " =>
-      send(loginPassword)
+      send("guest")
+      goto(Enter)
+  }
+
+  when(Enter) {
+    case Event(In(data), _) if data contains "Press return to enter the server" =>
       telnet ! BufferUntil(EOM.some)
+      send("")
       goto(Configure)
   }
 
@@ -96,15 +107,18 @@ private[relay] final class FICS(
 
   def handle(in: In): List[String] = in.lines.foldLeft(List.empty[String]) {
     case (lines, line) =>
-      Move(line) orElse Resign(line) orElse Draw(line) map {
+      Move(line) orElse Resign(line) orElse Draw(line) orElse Limited(line) map {
         case move: Move =>
-          context.system.lilaBus.publish(move, 'relayMove)
+          context.parent ! move
           lines
         case resign: Resign =>
-          println("------------------------- " + resign)
+          context.parent ! resign
           lines
         case draw: Draw =>
-          println("------------------------- " + draw)
+          context.parent ! draw
+          lines
+        case Limited =>
+          println(line)
           lines
       } getOrElse {
         line :: lines
@@ -138,6 +152,10 @@ private[relay] final class FICS(
 
 object FICS {
 
+  case class Config(host: String, port: Int, login: String, password: String, enabled: Boolean) {
+    def remote = new java.net.InetSocketAddress(host, port)
+  }
+
   sealed trait State
   case object Connect extends State
   case object Login extends State
@@ -151,38 +169,9 @@ object FICS {
 
   case class Observe(ficsId: Int)
 
-  case class Move(ficsId: Int, san: String, ply: Int, log: String) {
-    override def toString = s"[$ficsId] $ply: $san from ${log split ' ' drop 9 mkString " "}"
-  }
-  object Move {
-    def apply(str: String): Option[Move] = {
-      val split = str split ' '
-      for {
-        ficsId <- split lift 16 flatMap parseIntOption
-        san <- split lift 29
-        turn <- split lift 26 flatMap parseIntOption
-        color <- split lift 9 map { x => chess.Color(x == "W") }
-        ply = (turn - 1) * 2 + color.fold(0, 1)
-      } yield Move(ficsId, san, ply, str)
-    }
-  }
-
-  case class Resign(ficsId: Int, loser: String)
-  case object Resign {
-    val R = """(?i)^relay\(.+\)\[(\d+)\] kibitzes: (\w+) has resigned.+$""".r
-    def apply(str: String): Option[Resign] = str match {
-      case R(id, name) => parseIntOption(id) map { Resign(_, name) }
-      case _           => none
-    }
-  }
-
-  case class Draw(ficsId: Int)
-  case object Draw {
-    val R = """(?i)^relay\(.+\)\[(\d+)\] kibitzes: The game is officially a draw.+$""".r
-    def apply(str: String): Option[Draw] = str match {
-      case R(id) => parseIntOption(id) map { Draw(_) }
-      case _     => none
-    }
+  case object Limited {
+    val R = "You are already observing the maximum number of games"
+    def apply(str: String): Option[Limited.type] = str contains R option(Limited)
   }
 
   private val EOM = "fics% "

@@ -28,7 +28,7 @@ private[relay] final class Telnet(
       val connection = sender()
       connection ! Register(self)
       listener ! Telnet.Connection({ str =>
-        // println(s"FICS> $str")
+        println(s"FICS> $str")
         connection ! Write(ByteString(s"$str\n"))
       })
       context become {

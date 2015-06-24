@@ -7,35 +7,25 @@ import makeTimeout.veryLarge
 
 final class RelayApi(
     fics: ActorRef,
-    relayRepo: RelayRepo,
-    actorMap: ActorRef,
-    remote: java.net.InetSocketAddress) {
+    repo: RelayRepo,
+    relayMap: ActorRef) {
 
   def refreshFromFics: Funit = fics ? command.ListTourney mapTo
     manifest[command.ListTourney.Result] flatMap { tourneys =>
       tourneys.map { tourney =>
-        relayRepo.upsert(tourney.id, tourney.name, tourney.status)
-      }.sequenceFu.void >> relayRepo.started.flatMap {
+        repo.upsert(tourney.id, tourney.name, tourney.status)
+      }.sequenceFu.void >> repo.started.flatMap {
         _.map { started =>
-          (!tourneys.exists(_.name == started.name)) ?? relayRepo.finish(started)
+          (!tourneys.exists(_.name == started.name)) ?? {
+            repo.finish(started) >>- {
+              relayMap ! Tell(started.id, PoisonPill)
+            }
+          }
         }.sequenceFu
-      } >> relayRepo.started.flatMap(_.map(refreshGames).sequenceFu).void
-    }
-
-  private def refreshGames(relay: Relay): Funit =
-    fics ? command.ListGames(relay.ficsId) mapTo
-      manifest[command.ListGames.Result] flatMap { games =>
-        val rgs = games.map { g =>
-          relay gameByFicsId g.id match {
-            case None     => Relay.Game make g.id
-            case Some(rg) => rg
-          }
+      }.void >>- repo.started.foreach {
+        _ foreach { tourney =>
+          relayMap ! Tell(tourney.id, TourneyActor.Recover)
         }
-        val nr = relay.copy(games = rgs)
-        println(s"[relay] ${nr.name}: ${nr.activeGames.size}/${nr.games.size} games")
-        relayRepo.setGames(nr) >>-
-          nr.activeGames.foreach { rg =>
-            actorMap ! Tell(rg.ficsId.toString, GameActor.Recover)
-          }
       }
+    }
 }
