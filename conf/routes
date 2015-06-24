@@ -316,6 +316,11 @@ POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
 POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
 POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
 
+# RELAY
+GET   /watch                       controllers.Relay.index
+GET   /watch/:id/:slug             controllers.Relay.show(id: String, slug: String)
+GET   /watch/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
+
 # API
 GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)

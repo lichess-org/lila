@@ -20,7 +20,6 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
-    roundMap: ActorRef,
     lightUser: String => Option[lila.common.LightUser],
     onGameStart: String => Unit,
     isOnline: String => Boolean) {
@@ -129,7 +128,6 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
-    roundMap = lila.round.Env.current.roundMap,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline)

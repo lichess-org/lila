@@ -1,15 +1,19 @@
 package lila.relay
 
 import akka.actor._
+import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import makeTimeout.short
 
 final class Env(
     config: Config,
     db: lila.db.Env,
     system: ActorSystem,
-    roundMap: akka.actor.ActorRef,
+    flood: lila.security.Flood,
+    hub: lila.hub.Env,
+    lightUser: String => Option[lila.common.LightUser],
     scheduler: lila.common.Scheduler) {
 
   /* ACTOR ARCHITECTURE
@@ -27,11 +31,18 @@ final class Env(
    *             +- 1 telnet  Actor
    */
 
-  private val Enabled = config getBoolean "enabled"
-  private val UserId = config getString "user_id"
-  private val ImportMoveDelay = config duration "import.move_delay"
-  private val CollectionRelay = config getString "collection.relay"
-  private val TourneyActorMapName = config getString "actor.map.tourney.name"
+  private val settings = new {
+    val Enabled = config getBoolean "enabled"
+    val UserId = config getString "user_id"
+    val ImportMoveDelay = config duration "import.move_delay"
+    val CollectionRelay = config getString "collection.relay"
+    val TourneyActorMapName = config getString "actor.map.tourney.name"
+    val HistoryMessageTtl = config duration "history.message.ttl"
+    val UidTimeout = config duration "uid.timeout"
+    val SocketTimeout = config duration "socket.timeout"
+    val SocketName = config getString "socket.name"
+  }
+  import settings._
 
   private val ficsConfig = FICS.Config(
     host = config getString "fics.host",
@@ -46,12 +57,14 @@ final class Env(
 
   private val mainFics = system.actorOf(ficsProps, name = "fics")
 
-  private lazy val relayRepo = new RelayRepo(db(CollectionRelay))
+  val repo = new RelayRepo(db(CollectionRelay))
 
-  lazy val api = new RelayApi(mainFics, relayRepo, tourneyMap)
+  lazy val api = new RelayApi(mainFics, repo, tourneyMap)
+
+  lazy val jsonView = new JsonView
 
   private val importer = new Importer(
-    roundMap,
+    hub.actor.roundMap,
     ImportMoveDelay,
     system.scheduler)
 
@@ -59,15 +72,43 @@ final class Env(
     def mkActor(id: String) = new TourneyActor(
       id = id,
       ficsProps = ficsProps,
-      repo = relayRepo,
+      repo = repo,
       importer = importer)
     def receive = actorMapReceive
   }), name = TourneyActorMapName)
 
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(relayId: String) = new Socket(
+        relayId = relayId,
+        history = new lila.socket.History(ttl = HistoryMessageTtl),
+        getRelay = () => repo byId relayId,
+        jsonView = jsonView,
+        lightUser = lightUser,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout)
+    }), name = SocketName)
+
+  lazy val socketHandler = new SocketHandler(
+    hub = hub,
+    socketHub = socketHub,
+    chat = hub.actor.chat,
+    flood = flood,
+    exists = repo.exists)
+
+  lazy val cached = new Cached(repo)
+
+  def version(relayId: String): Fu[Int] =
+    socketHub ? lila.hub.actorApi.map.Ask(
+      relayId,
+      lila.socket.actorApi.GetVersion) mapTo manifest[Int]
+
   {
     import scala.concurrent.duration._
 
-    api.refreshFromFics
+    scheduler.once(10 seconds) {
+      api.refreshFromFics
+    }
     scheduler.effect(5 minutes, "refresh FICS relays") {
       api.refreshFromFics
     }
@@ -80,6 +121,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "relay",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    roundMap = lila.round.Env.current.roundMap,
+    flood = lila.security.Env.current.flood,
+    hub = lila.hub.Env.current,
+    lightUser = lila.user.Env.current.lightUser,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -16,10 +16,18 @@ case class Relay(
 
   def gameIdByFicsId(ficsId: Int) = gameByFicsId(ficsId).map(_.id)
 
+  def gameIds = games.map(_.id)
+
   def activeGames = games.filterNot(_.end)
+
+  def slug = Relay.SlugR.replaceAllIn(
+    lila.common.String slugify name,
+    "-")
 }
 
 object Relay {
+
+  private val SlugR = """-{2,}""".r
 
   def make(ficsId: Int, name: String, status: Status) = Relay(
     id = Random nextStringUppercase 8,

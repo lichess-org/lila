@@ -341,3 +341,6 @@
 .icon-bar-chart:before {
   content: "\e004";
 }
+.icon-world:before {
+  content: "n";
+}

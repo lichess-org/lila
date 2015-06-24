@@ -182,7 +182,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val relay = project("relay", Seq(common, chess, game, round)).settings(
+  lazy val relay = project("relay", Seq(common, chess, game, round, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

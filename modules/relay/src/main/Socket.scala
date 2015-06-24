@@ -1,4 +1,4 @@
-package lila.simul
+package lila.relay
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -6,16 +6,15 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.LightUser
-import lila.hub.actorApi.round.MoveEvent
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.common.LightUser
 
-private[simul] final class Socket(
-    simulId: String,
+private[relay] final class Socket(
+    relayId: String,
     val history: History[Messadata],
-    getSimul: Simul.ID => Fu[Option[Simul]],
+    getRelay: () => Fu[Option[Relay]],
     jsonView: JsonView,
     lightUser: String => Option[LightUser],
     uidTimeout: Duration,
@@ -25,35 +24,13 @@ private[simul] final class Socket(
 
   private var delayedCrowdNotification = false
 
-  private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]) {
-    colorOption foreach { color =>
-      val player = game player color
-      player.userId foreach { userId =>
-        membersByUserId(userId) foreach { member =>
-          notifyMember("redirect", game fullIdOf player.color)(member)
-        }
-      }
-    }
-  }
-
   def receiveSpecific = {
 
-    case StartGame(game, hostId)       => redirectPlayer(game, game.playerByUserId(hostId) map (!_.color))
-
-    case StartSimul(firstGame, hostId) => redirectPlayer(firstGame, firstGame.playerByUserId(hostId) map (_.color))
-
-    case HostIsOn(gameId)              => notifyVersion("hostGame", gameId, Messadata())
-
-    case Reload =>
-      getSimul(simulId) foreach {
-        _ foreach { simul =>
-          jsonView(simul) foreach { obj =>
-            notifyVersion("reload", obj, Messadata())
-          }
-        }
+    case Reload => withRelay { relay =>
+      jsonView(relay) foreach { obj =>
+        notifyVersion("reload", obj, Messadata())
       }
-
-    case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
+    }
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -94,6 +71,11 @@ private[simul] final class Socket(
         case ((anons, users), None)       => (anons + 1) -> users
       }
       notifyVersion("crowd", showSpectators(users, anons), Messadata())
+  }
+
+  def withRelay(f: Relay => Unit): Unit = getRelay() foreach {
+    case None        => sys error s"No such relay $relayId"
+    case Some(relay) => f(relay)
   }
 
   def notifyCrowd {

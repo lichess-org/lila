@@ -1,3 +1,5 @@
 package lila
 
-package object relay extends PackageObject with WithPlay
+import lila.socket.WithSocket
+
+package object relay extends PackageObject with WithPlay with WithSocket

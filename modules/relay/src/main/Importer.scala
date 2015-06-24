@@ -3,7 +3,7 @@ package lila.relay
 import scala.concurrent.duration._
 import scala.concurrent.Future
 
-import akka.actor.ActorRef
+import akka.actor.ActorSelection
 import akka.pattern.after
 import chess.format.UciMove
 import chess.variant.Standard
@@ -13,7 +13,7 @@ import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 
 final class Importer(
-    roundMap: ActorRef,
+    roundMap: ActorSelection,
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
 
