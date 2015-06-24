@@ -27,6 +27,7 @@ private[relay] final class TourneyActor(
         ficsId = ficsId,
         relayId = id,
         getRelayGame = () => repo.gameByFicsId(id, ficsId),
+        setEnd = () => repo.endGameByFicsId(id, ficsId),
         importer = importer)
     }
     def receive = actorMapReceive

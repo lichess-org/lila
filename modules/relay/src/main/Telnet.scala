@@ -61,7 +61,7 @@ private[relay] final class Telnet(
 object Telnet {
 
   case class In(data: String) {
-    def lines: List[String] = data.split(Array('\r', '\n')).toList.filter(_.nonEmpty).map(_.trim)
+    lazy val lines: List[String] = data.split(Array('\r', '\n')).toList.map(_.trim).filter(_.nonEmpty)
     def last: Option[String] = lines.lastOption
   }
   case class Connection(send: String => Unit)

@@ -39,22 +39,20 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     case Event(In(data), _) if data endsWith "login: " =>
       send("guest")
       goto(Enter)
+    case Event(in: In, _) => stay
   }
 
   when(Enter) {
     case Event(In(data), _) if data contains "Press return to enter the server" =>
       telnet ! BufferUntil(EOM.some)
       send("")
-      goto(Configure)
-  }
-
-  when(Configure) {
-    case Event(In(_), _) =>
       for (v <- Seq("seek", "shout", "cshout", "pin", "gin")) send(s"set $v 0")
       for (c <- Seq(1, 4, 53)) send(s"- channel $c")
       send("set kiblevel 3000") // shut up if your ELO is < 3000
       send("style 12")
-      goto(Throttle)
+      stay
+    case Event(In(data), _) if data contains "Style 12 set." => goto(Throttle)
+    case Event(in: In, _)                                    => stay
   }
 
   when(Ready) {
@@ -78,7 +76,6 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
           stay
       }
     case Event(StateTimeout, req) =>
-      log("state timeout")
       req.foreach { r =>
         r.replyTo ! Status.Failure(new Exception(s"FICS:Run timeout on ${r.cmd.str}"))
       }
@@ -125,25 +122,32 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
       }
   }.reverse
 
-  def log(data: String) {
-    if (data.nonEmpty && !noise(data))
-      println(s"FICS[$stateName] ${data.lines.filter(_.nonEmpty).mkString("\n")}")
-  }
-
   def log(lines: List[String]) {
-    log(lines filterNot ("fics%"==) mkString "\n")
+    lines filterNot noise foreach { l =>
+      println(s"FICS[$stateName] $l")
+    }
+    lines filter noise foreach { l =>
+      println(s"            (noise) [$stateName] $l")
+    }
   }
 
   val noiseR = List(
-    // """(?is)^\n\w+(\([^\)]+\)){1,2}:\s.+\nfics\%\s$""".r, // people chating
-    // """(?is)^\n\w+(\([^\)]+\)){1,2}\[\d+\]\s.+\nfics\%\s$""".r, // people whispering
+    """^\\ .*""".r,
+    """^fics%""".r,
+    """^You will not.*""".r,
+    """^You are now observing.*""".r,
+    """^Game \d+: .*""".r,
+    """.*To find more about Relay.*""".r,
+    """^You are already observing game \d+""".r,
+    // """.*in the history of both players.*""".r,
+    // """.*will be closed in a few minutes.*""".r,
     """^\(told relay\)$""".r,
-    """^Game \d+: relay has set .+ clock to .+""".r,
-    """^relay\(.+\)\[\d+\] kibitzes: .+""".r,
-    """(?s).*Welcome to the Free Internet Chess Server.*""".r,
-    """(?s).*Starting FICS session.*""".r,
-    """(?s).*ROBOadmin.*""".r,
-    """ANNOUNCEMENT""".r)
+    """^Game \d+: relay has set .+ clock to .+$""".r, // handle
+    """^relay\(.+\)\[\d+\] kibitzes: .*""".r,
+    // """Welcome to the Free Internet Chess Server""".r,
+    // """Starting FICS session""".r,
+    """.*ROBOadmin.*""".r,
+    """.*ANNOUNCEMENT.*""".r)
 
   def noise(str: String) = noiseR exists matches(str)
 
@@ -171,7 +175,7 @@ object FICS {
 
   case object Limited {
     val R = "You are already observing the maximum number of games"
-    def apply(str: String): Option[Limited.type] = str contains R option(Limited)
+    def apply(str: String): Option[Limited.type] = str contains R option (Limited)
   }
 
   private val EOM = "fics% "

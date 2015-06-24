@@ -46,7 +46,7 @@ final class Importer(
         }
 
         val lateMoves = replay.chronoMoves drop game.turns
-        println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.headOption} -> ${lateMoves.lastOption}")
+        if (lateMoves.nonEmpty) println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.headOption} -> ${lateMoves.lastOption}")
         applyMoves(Pov player game, lateMoves) inject game
       }
     }
@@ -98,6 +98,6 @@ final class Importer(
 
   private def toGamePlayer(p: command.Moves.Player) = lila.game.Relay.Player(
     name = p.name,
-  title = p.title,
-  rating = p.rating)
+    title = p.title,
+    rating = p.rating)
 }

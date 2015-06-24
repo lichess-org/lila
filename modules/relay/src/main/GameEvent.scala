@@ -4,7 +4,7 @@ sealed trait GameEvent {
   val ficsId: Int
 }
 object GameEvent {
-  case class Move(ficsId: Int, san: String, ply: Int, log: String) extends GameEvent {
+  case class Move(ficsId: Int, san: String, ply: Int, white: String, black: String, log: String) extends GameEvent {
     override def toString = s"[$ficsId] $ply: $san from ${log split ' ' drop 9 mkString " "}"
   }
   object Move {
@@ -13,10 +13,12 @@ object GameEvent {
       for {
         ficsId <- split lift 16 flatMap parseIntOption
         san <- split lift 29
+        white <- split lift 17
+        black <- split lift 18
         turn <- split lift 26 flatMap parseIntOption
         color <- split lift 9 map { x => chess.Color(x == "W") }
         ply = (turn - 1) * 2 + color.fold(0, 1)
-      } yield Move(ficsId, san, ply, str)
+      } yield Move(ficsId, san, ply, white, black, str)
     }
   }
 

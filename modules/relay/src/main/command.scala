@@ -74,7 +74,9 @@ case object Moves {
       }
     }
 
-  case class Player(name: String, title: Option[String], rating: Option[Int])
+  case class Player(name: String, title: Option[String], rating: Option[Int]) {
+    def ficsName = s"${~title}$name"
+  }
   case class Game(white: Player, black: Player, pgn: String, date: DateTime, title: String)
 
   private val MoveLineR = """^\d+\.(\s+[^\s]+){2,4}""".r

@@ -27,23 +27,26 @@ final class RelayRepo(coll: Coll) {
   def exists(id: String): Fu[Boolean] =
     coll.db command Count(coll.name, selectId(id).some) map (0 !=)
 
-  def upsert(ficsId: Int, name: String, status: Relay.Status) =
-    byName(name) flatMap {
-      case None        => coll insert Relay.make(ficsId, name, status)
-      case Some(relay) => coll.update(selectId(relay.id), relay.copy(status = status))
-    } void
+  def upsert(ficsId: Int, name: String, status: Relay.Status) = byName(name) flatMap {
+    case None        => coll insert Relay.make(ficsId, name, status)
+    case Some(relay) => coll.update(selectId(relay.id), relay.copy(status = status))
+  } void
 
   def finish(relay: Relay) = coll.update(
     selectName(relay.name),
     BSONDocument("$set" -> BSONDocument("status" -> Relay.Status.Finished.id))
   ).void
 
-  def setGames(relay: Relay): Funit =
-    coll.update(
-      selectId(relay.id),
-      BSONDocument("$set" -> BSONDocument("games" -> relay.games))
-    ).void
+  def setGames(relay: Relay): Funit = coll.update(
+    selectId(relay.id),
+    BSONDocument("$set" -> BSONDocument("games" -> relay.games))
+  ).void
 
   def gameByFicsId(id: String, ficsId: Int): Fu[Option[Relay.Game]] =
     byId(id) map { _ flatMap (_ gameByFicsId ficsId) }
+
+  def endGameByFicsId(id: String, ficsId: Int): Funit = coll.update(
+    selectId(id) ++ BSONDocument("games.ficsId" -> ficsId),
+    BSONDocument("$set" -> BSONDocument("games.$.end" -> true))
+  ).void
 }
