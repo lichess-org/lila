@@ -76,6 +76,7 @@ youNeedAnAccountToDoThat=Du trenger en konto for å gjøre det
 signUp=Registrer brukerkonto
 computersAreNotAllowedToPlay=Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og dette kan lede til at du blir bannlyst.
 games=Partier
+game=Parti
 forum=Forum
 xPostedInForumY=%s postet i innlegget %s
 latestForumPosts=Nyeste foruminnlegg

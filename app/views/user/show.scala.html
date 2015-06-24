@@ -19,7 +19,7 @@
   <h3 class="hint--top" data-hint="@perfType.title">@name.getOrElse(perfType.name).toUpperCase</h3>
   <div class="rating">
     <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {Puzzles} else {@trans.games()}</span>
+    <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {Puzzles} else { @if(perf.nb == 1) { @trans.game() } else { @trans.games() } }</span>
     @showProgress(perf.progress)
   </div>
 </div>
