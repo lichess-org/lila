@@ -1,0 +1,16 @@
+@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("relay.css")
+}
+
+@base.layout(
+title = title,
+moreJs = moreJs,
+moreCss = moreCss,
+side = side,
+chat = chat,
+underchat = underchat,
+chessground = chessground) {
+@body
+}

@@ -73,7 +73,8 @@ final class Env(
       Env.tv,
       Env.blog,
       Env.video,
-      Env.shutup // required to load the actor
+      Env.shutup, // required to load the actor
+      Env.relay
     )
     loginfo("[boot] Preloading complete")
   }
@@ -138,4 +139,5 @@ object Env {
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
+  def relay = lila.relay.Env.current
 }

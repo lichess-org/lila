@@ -1,0 +1,29 @@
+@(relays: List[lila.relay.Relay])(implicit ctx: Context)
+
+@relay.layout(
+title = "Watch Chess events",
+side = none) {
+<div id="relay_list">
+  <div class="content_box simul_box no_padding">
+    <h1>Watch Chess events</h1>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @relays.map { rel =>
+        <tr class="scheduled">
+          <td>@showDate(rel.date)</td>
+          <td><a href="@routes.Relay.show(rel.id, rel.slug)">@rel.name</a></td>
+          <td>@rel.status</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+}

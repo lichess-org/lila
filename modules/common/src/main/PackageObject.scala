@@ -249,6 +249,7 @@ trait WithPlay { self: PackageObject =>
 
     implicit val short = seconds(1)
     implicit val large = seconds(5)
+    implicit val larger = seconds(30)
     implicit val veryLarge = minutes(5)
 
     def apply(duration: FiniteDuration) = Timeout(duration)

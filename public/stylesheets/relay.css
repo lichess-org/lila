@@ -1,0 +1,187 @@
+#relay.form h1 {
+  text-align: center;
+  display: block;
+}
+#relay .content_box {
+  min-height: 400px;
+}
+#relay .halves {
+  overflow: hidden;
+}
+#relay .half {
+  box-sizing: border-box;
+  float: left;
+  margin-bottom: 20px;
+}
+#relay .half:first-child {
+  border-right: 1px solid #ccc;
+  width: 50%;
+}
+#relay .half:last-child {
+  border-left: 1px solid #ccc;
+  margin-left: -1px;
+  width: calc(50% + 1px);
+}
+#relay .half .variant::before {
+  font-size: 1.6em;
+  opacity: 0.8;
+}
+#relay .half .user_link {
+  line-height: 2.5em;
+}
+#relay .half tr.help th {
+  padding: 60px 20px;
+}
+#relay .half td.action {
+  text-align: right;
+  opacity: 0.6;
+  transition: opacity 0.13s;
+}
+#relay .half td.action:hover {
+  opacity: 1;
+}
+#relay .half.candidates tr.me {
+  border-left: 10px solid #d59120;
+}
+#relay .half.accepted tr.me {
+  border-right: 10px solid #d59120;
+}
+#relay .title_tag {
+  float: right;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bold;
+  margin: 25px 25px 0 0;
+}
+#relay .top_right {
+  float: right;
+  margin: 20px 25px 0 0;
+}
+#relay .instructions {
+  text-align: center;
+  margin-bottom: 1em;
+}
+#relay h1 .author {
+  margin-left: 1em;
+  font-size: 0.7em;
+}
+#relay a.user_link em {
+  font-weight: bold;
+  padding-left: 5px;
+}
+#relay .results > div {
+  width: 25%;
+  display: inline-block;
+  text-align: center;
+}
+#relay .results .number {
+  font-size: 3em;
+  font-weight: bold;
+}
+#relay .results .text {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+#relay .game_list {
+  margin-top: 30px;
+  text-align: center;
+}
+#relay .game_list .vstext {
+  transition: all 1s;
+}
+.variant_icons {
+  white-space: nowrap;
+}
+.variant_icons span {
+  font-size: 4em;
+  text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 20px #fff;
+}
+.variant_icons span:not(:first-child) {
+  margin-left: -0.5em;
+}
+.variant_icons.rich span:not(:first-child) {
+  margin-left: -0.7em;
+}
+div.side_box .game_infos {
+  padding-left: 0;
+}
+.side_box .variant_icons {
+  float: left;
+}
+.side_box .variant_icons span {
+  font-size: 2.5em;
+}
+.side_box .clock {
+  font-size: 1.5em;
+  line-height: 2em;
+  margin-left: 10px;
+}
+.side_box .setup {
+  margin-top: 10px;
+}
+#relay .join_choice {
+  display: none;
+}
+.join_choice .button {
+  display: block;
+  margin: 10px 0;
+}
+#relay_list table.slist {
+  line-height: 2.3em;
+}
+#relay_list table.slist td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#relay_list table.slist .header {
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  padding: 0!important;
+}
+#relay_list table.slist .header:hover {
+  transform: translateX(3px);
+  -webkit-transform: translateX(3px);
+}
+#relay_list table.slist .header a {
+  text-decoration: none;
+  padding: 1em;
+  display: block;
+}
+#relay_list table.slist .name {
+  letter-spacing: 3px;
+  font-size: 1.7em;
+  display: block;
+}
+#relay_list table.slist .create td {
+  padding: 2em;
+  text-align: center;
+}
+.setup {
+  text-transform: uppercase;
+}
+#relay div.game_list.playing > div {
+  position: relative;
+  overflow: hidden;
+}
+#site_header .help {
+  margin-top: 20px;
+}
+#modal-wrap.card {
+  max-width: 500px;
+  padding: 0;
+}
+#modal-wrap.card img {
+  width: 100%;
+}
+#modal-wrap.card em {
+  font-style: italic;
+  margin-top: 10px;
+  display: block;
+}
+#modal-wrap.card p {
+  margin: 30px 20px;
+  text-align: justify;
+}

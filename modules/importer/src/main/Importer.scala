@@ -1,6 +1,7 @@
 package lila.importer
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import akka.actor.ActorRef
 import akka.pattern.{ ask, after }
@@ -13,7 +14,7 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 
-private[importer] final class Importer(
+final class Importer(
     roundMap: ActorRef,
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
@@ -34,10 +35,10 @@ private[importer] final class Importer(
     def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
       case Nil => after(delay, scheduler)(funit)
       case move :: rest =>
-        after(delay, scheduler)(applyMove(pov, move)) >> applyMoves(!pov, rest)
+        after(delay, scheduler)(Future(applyMove(pov, move))) >> applyMoves(!pov, rest)
     }
 
-    def applyMove(pov: Pov, move: Move) = scala.concurrent.Future {
+    def applyMove(pov: Pov, move: Move) {
       roundMap ! Tell(pov.gameId, HumanPlay(
         playerId = pov.playerId,
         ip = ip,

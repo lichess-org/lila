@@ -21,7 +21,7 @@ private[importer] final class DataForm {
 private[importer] case class Result(status: Status, winner: Option[Color])
 private[importer] case class Preprocessed(game: Game, moves: List[Move], result: Option[Result])
 
-private[importer] case class ImportData(pgn: String) {
+case class ImportData(pgn: String) {
 
   private type TagPicker = Tag.type => TagType
 
