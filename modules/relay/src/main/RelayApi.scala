@@ -18,7 +18,7 @@ final class RelayApi(
         _.map { started =>
           (!tourneys.exists(_.name == started.name)) ?? {
             repo.finish(started) >>- {
-              relayMap ! Tell(started.id, PoisonPill)
+              relayMap ! Tell(started.id, lila.hub.SequentialActor.Terminate)
             }
           }
         }.sequenceFu

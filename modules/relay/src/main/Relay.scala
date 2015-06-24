@@ -30,14 +30,24 @@ object Relay {
     games = Nil)
 
   case class Game(
-    id: String, // lichess game ID
-    ficsId: Int,
-    end: Boolean)
+      id: String, // lichess game ID
+      ficsId: Int,
+      white: String,
+      black: String,
+      end: Boolean) {
+
+    def colorOf(name: String) =
+      if (name == white) chess.White.some
+      else if (name == black) chess.Black.some
+      else none
+  }
 
   object Game {
-    def make(ficsId: Int) = Game(
+    def make(ficsId: Int, white: String, black: String) = Game(
       id = Random nextStringUppercase 8,
       ficsId = ficsId,
+      white = white,
+      black = black,
       end = false)
   }
 

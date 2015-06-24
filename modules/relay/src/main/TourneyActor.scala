@@ -25,7 +25,7 @@ private[relay] final class TourneyActor(
       new GameActor(
         fics = fics,
         ficsId = ficsId,
-        getGameId = () => repo gameIdByFicsId ficsId,
+        getRelayGame = () => repo.gameByFicsId(id, ficsId),
         importer = importer)
     }
     def receive = actorMapReceive
@@ -34,7 +34,7 @@ private[relay] final class TourneyActor(
   def process = {
 
     case event: GameEvent => fuccess {
-      gameMap ! Tell(event.ficsId.toString, event).pp
+      gameMap ! Tell(event.ficsId.toString, event)
     }
 
     case Recover => withRelay { relay =>
@@ -42,8 +42,8 @@ private[relay] final class TourneyActor(
       fics ? command.ListGames(relay.ficsId) mapTo
         manifest[command.ListGames.Result] flatMap { games =>
           val rgs = games.map { g =>
-            relay gameByFicsId g.id match {
-              case None     => Relay.Game make g.id
+            relay gameByFicsId g.ficsId match {
+              case None     => Relay.Game.make(g.ficsId, g.white, g.black)
               case Some(rg) => rg
             }
           }

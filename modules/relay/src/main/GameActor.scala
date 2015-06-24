@@ -9,7 +9,7 @@ import lila.hub.SequentialActor
 private[relay] final class GameActor(
     fics: ActorRef,
     ficsId: Int,
-    getGameId: () => Fu[Option[String]],
+    getRelayGame: () => Fu[Option[Relay.Game]],
     importer: Importer) extends SequentialActor {
 
   import GameActor._
@@ -22,19 +22,26 @@ private[relay] final class GameActor(
 
   def process = {
 
-    case move@GameEvent.Move(_, san, ply, _) => withGameId { gameId =>
-      importer.move(gameId, san, ply) >>- println(s"http://en.l.org/$gameId $ply: $san")
+    case move@GameEvent.Move(_, san, ply, _) => withRelayGame { g =>
+      importer.move(g.id, san, ply) >>- println(s"http://en.l.org/${g.id} $ply: $san")
     }
 
-    case move@GameEvent.Draw(_) => withGameId { gameId =>
+    case move@GameEvent.Draw(_) => withRelayGame { g =>
       fuccess {
-        println(s"http://en.l.org/$gameId draw")
+        println(s"http://en.l.org/${g.id} draw")
+        importer.draw(g.id) >>- {
+          self ! SequentialActor.Terminate
+        }
       }
     }
 
-    case move@GameEvent.Resign(_, loser) => withGameId { gameId =>
-      fuccess {
-        println(s"http://en.l.org/$gameId $loser resigned")
+    case move@GameEvent.Resign(_, loser) => withRelayGame { g =>
+      println(s"http://en.l.org/${g.id} $loser resigns")
+      g colorOf loser match {
+        case None => fufail(s"Invalid loser $loser")
+        case Some(color) => importer.resign(g.id, color) >>- {
+          self ! SequentialActor.Terminate
+        }
       }
     }
 
@@ -53,13 +60,13 @@ private[relay] final class GameActor(
     println(s"[$ficsId] ERR ${e.getMessage}")
   }
 
-  def recover(data: command.Moves.Game) = withGameId { gameId =>
-    importer.full(gameId, data)
+  def recover(data: command.Moves.Game) = withRelayGame { g =>
+    importer.full(g.id, data)
   }
 
-  def withGameId[A](f: String => Fu[A]): Funit = getGameId() flatMap {
-    case None         => fufail(s"No game found for FICS ID $ficsId")
-    case Some(gameId) => f(gameId).void
+  def withRelayGame[A](f: Relay.Game => Fu[A]): Funit = getRelayGame() flatMap {
+    case None    => fufail(s"No game found for FICS ID $ficsId")
+    case Some(g) => f(g).void
   }
 }
 

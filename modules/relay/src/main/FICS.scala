@@ -118,7 +118,7 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
           context.parent ! draw
           lines
         case Limited =>
-          println(line)
+          println(s"FICS ERR $line")
           lines
       } getOrElse {
         line :: lines

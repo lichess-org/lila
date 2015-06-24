@@ -37,7 +37,7 @@ case class ListGames(id: Int) extends Command {
     if (lines.exists(_ contains "There is no tournament with id")) Nil.some
     else lines.exists(_ contains "There are ") option {
       lines.collect {
-        case ListGames.Regexp(id, white, black) => parseIntOption(id) map {
+        case ListGames.Regexp(ficsId, white, black) => parseIntOption(ficsId) map {
           ListGames.Game(_, white, black)
         }
       }.flatten
@@ -45,7 +45,7 @@ case class ListGames(id: Int) extends Command {
 }
 case object ListGames {
   type Result = List[Game]
-  case class Game(id: Int, white: String, black: String)
+  case class Game(ficsId: Int, white: String, black: String)
   private val Regexp = """(?i)^:(\d+)\s+([a-z0-9]+)\s+([a-z0-9]+).+$""".r
 }
 

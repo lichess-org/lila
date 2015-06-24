@@ -73,6 +73,14 @@ final class Importer(
     }
   }
 
+  def resign(id: String, color: chess.Color) = fuccess {
+    roundMap ! Tell(id, ResignColor(color))
+  }
+
+  def draw(id: String) = fuccess {
+    roundMap ! Tell(id, DrawForce)
+  }
+
   private def applyMove(pov: Pov, move: Move) {
     roundMap ! Tell(pov.gameId, RelayPlay(
       playerId = pov.playerId,
