@@ -30,6 +30,7 @@ case class History(
     case PerfType.Atomic         => atomic
     case PerfType.Horde          => horde
     case PerfType.Puzzle         => puzzle
+    case x                       => sys error s"No history for perf $x"
   }
 }
 
