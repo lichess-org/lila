@@ -37,8 +37,7 @@ final class AutoPairing(
         if (tour.position.initial) tour.variant
         else chess.variant.FromPosition,
       source = Source.Tournament,
-      pgnImport = None
-    )
+      pgnImport = None)
     game2 = game1
       .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
       .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))

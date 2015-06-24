@@ -1,0 +1,11 @@
+## observe best standard game:
+observe /s 
+http://www.freechess.org/Help/HelpFiles/observe.html
+
+## get current FEN & PGN:
+style 12
+http://www.freechess.org/Help/HelpFiles/style12.html
+
+## get PGN history:
+moves
+http://www.freechess.org/Help/HelpFiles/moves.html

@@ -238,7 +238,7 @@ case class Game(
 
   def notStarted = !started
 
-  def joinable = notStarted && !imported
+  def joinable = notStarted && !isPgnImport
 
   def aborted = status == Status.Aborted
 
@@ -313,7 +313,7 @@ case class Game(
 
   def accountable = playedTurns >= 2 || isTournament
 
-  def replayable = imported || finished
+  def replayable = isPgnImport || finished
 
   def analysable = replayable && playedTurns > 4 && {
     // thematic tournament use the "from position" variant
@@ -329,6 +329,8 @@ case class Game(
   def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
   def imported = source exists (_ == Source.Import)
+
+  def isFicsRelay = source ?? (Source.Relay==)
 
   def winner = players find (_.wins)
 
@@ -427,8 +429,11 @@ case class Game(
   def source = metadata.source
 
   def pgnImport = metadata.pgnImport
-
   def isPgnImport = pgnImport.isDefined
+
+  def relay = metadata.relay
+  def relayId = relay.map(_.id)
+  def isRelay = relay.isDefined
 
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
@@ -485,6 +490,7 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
+    relay: Option[Relay] = None,
     castles: Castles = Castles.init,
     daysPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
@@ -504,6 +510,7 @@ object Game {
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
+      relay = relay,
       tournamentId = none,
       simulId = none,
       tvAt = none,
@@ -540,6 +547,7 @@ object Game {
     val updatedAt = "ua"
     val source = "so"
     val pgnImport = "pgni"
+    val relay = "rel"
     val tournamentId = "tid"
     val simulId = "sid"
     val tvAt = "tv"

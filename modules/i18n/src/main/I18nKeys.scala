@@ -228,6 +228,7 @@ final class I18nKeys(translator: Translator) {
   val `continueFromHere` = new Key("continueFromHere")
   val `importGame` = new Key("importGame")
   val `nbImportedGames` = new Key("nbImportedGames")
+  val `nbRelayedGames` = new Key("nbRelayedGames")
   val `thisIsAChessCaptcha` = new Key("thisIsAChessCaptcha")
   val `clickOnTheBoardToMakeYourMove` = new Key("clickOnTheBoardToMakeYourMove")
   val `notACheckmate` = new Key("notACheckmate")

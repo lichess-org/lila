@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], relay: Option[lila.relay.Relay], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
@@ -45,6 +45,9 @@
       @userIdLink(user.some, None, false)
       <br />
       }
+      }
+      @if(game.isFicsRelay) {
+      Relayed by @userIdLink("lichess-relay".some, withOnline = false)
       }
     </div>
     <div class="players">
@@ -99,6 +102,11 @@
   @simul.map { sim =>
   <div class="game_simul side_box no_padding">
     <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.fullName</a></p>
+  </div>
+  }
+  @relay.map { rel =>
+  <div class="game_relay side_box no_padding">
+    <p class="top text" data-icon="n"><a href="@routes.Relay.show(rel.id, rel.slug)">@rel.name</a></p>
   </div>
   }
 </div>

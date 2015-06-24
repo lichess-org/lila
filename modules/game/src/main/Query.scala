@@ -43,6 +43,8 @@ object Query {
 
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
+  val relayed = Json.obj(s"${F.source}" -> Source.Relay.id)
+
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
   def user(u: String) = Json.obj(F.playerUids -> u)

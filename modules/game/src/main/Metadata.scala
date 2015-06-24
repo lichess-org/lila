@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
+    relay: Option[Relay],
     tournamentId: Option[String],
     simulId: Option[String],
     tvAt: Option[DateTime],
@@ -21,7 +22,19 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, None, false)
+  val empty = Metadata(None, None, None, None, None, None, false)
+}
+
+case class Relay(id: String, white: Relay.Player, black: Relay.Player)
+
+object Relay {
+
+  case class Player(name: String, title: Option[String], rating: Option[Int])
+
+  import reactivemongo.bson.Macros
+  import ByteArray.ByteArrayBSONHandler
+  implicit val relayPlayerBSONHandler = Macros.handler[Relay.Player]
+  implicit val relayBSONHandler = Macros.handler[Relay]
 }
 
 case class PgnImport(

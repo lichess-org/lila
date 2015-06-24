@@ -279,10 +279,6 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
 
-# Progressive Import API
-POST  /api/import/live                     controllers.Importer.liveCreate
-POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
-
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
@@ -319,6 +315,11 @@ POST   /qa/:id/:a/move             controllers.QaAnswer.moveTo(id: Int, a: Int)
 POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
 POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
 POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
+
+# RELAY
+GET   /watch                       controllers.Relay.index
+GET   /watch/:id/:slug             controllers.Relay.show(id: String, slug: String)
+GET   /watch/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
 
 # API
 GET   /api/user                        controllers.Api.users
