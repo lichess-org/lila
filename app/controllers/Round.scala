@@ -217,10 +217,11 @@ object Round extends LilaController with TheftPrevention {
   private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     myTour(pov.game.tournamentId, isPlayer) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
+      (pov.game.relayId ?? Env.relay.repo.byId) zip
       GameRepo.initialFen(pov.game) zip
       Env.game.crosstableApi(pov.game) map {
-        case (((tour, simul), initialFen), crosstable) =>
-          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul))
+        case ((((tour, simul), relay), initialFen), crosstable) =>
+          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, relay))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
