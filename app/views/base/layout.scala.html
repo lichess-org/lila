@@ -12,7 +12,8 @@ moreJs: Html = Html(""),
 zen: Boolean = false,
 playing: Boolean = false,
 openGraph: Map[Symbol, String] = Map.empty,
-chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+chessground: Boolean = true,
+withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -38,7 +39,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     }
     }
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
-    @langAnnotations
+    @if(withLangAnnotations){@langAnnotations}
   </head>
   <body class="preload base @List(
     ctx.currentTheme.cssClass,
