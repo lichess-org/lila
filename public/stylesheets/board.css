@@ -1166,16 +1166,10 @@ div.table div.username span.status {
   display: inline-block;
   margin-left: 5px;
 }
-div.table div.username span.status:before {
-  font-family: 'lichess';
-  font-size: 17px;
-  vertical-align: -4px;
-  content: '0';
+div.table div.username span.status span {
   color: #ac524f;
-  opacity: 1;
 }
-div.table div.username.on-game span.status:before {
-  content: '3';
+div.table div.username.on-game span.status span {
   color: #759900;
 }
 div.table div.username a:hover {
