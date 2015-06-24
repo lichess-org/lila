@@ -151,7 +151,7 @@ final class AssessApi(
       // analyse some tourney games
       else if (game.isTournament) scala.util.Random.nextInt(3) == 0
       // analyse new player games
-      // else if (winnerNbGames.??(10 >)) true
+      else if (winnerNbGames.??(10 >)) true
       else false
 
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
