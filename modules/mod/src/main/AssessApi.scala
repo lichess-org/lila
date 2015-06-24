@@ -23,6 +23,7 @@ final class AssessApi(
     userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
+  import lila.evaluation.Statistics.{ skip, moveTimeCoefVariation }
 
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
@@ -75,16 +76,22 @@ final class AssessApi(
     }) >> assessUser(user.id)
   }
 
-  def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
-    (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) ?? {
+  def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit = {
+    val shouldAssess =
+      if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      else if (game.isCorrespondence) false
+      else if (game.players exists consistentMoveTimes(game)) true
+      else if (game.playedTurns < 40) false
+      else if (game.mode.casual) false
+      else true
+    shouldAssess.?? {
       val assessible = Assessible(Analysed(game, analysis))
       createPlayerAssessment(assessible playerAssessment chess.White) >>
         createPlayerAssessment(assessible playerAssessment chess.Black)
-    }
-  } >> (assess ?? {
-    game.whitePlayer.userId.??(assessUser) >>
-      game.blackPlayer.userId.??(assessUser)
-  })
+    } >> ((shouldAssess && thenAssessUser) ?? {
+      game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
+    })
+  }
 
   def assessUser(userId: String): Funit =
     getPlayerAggregateAssessment(userId) flatMap {
@@ -101,17 +108,16 @@ final class AssessApi(
       case none => funit
     }
 
+  private def moveTimes(game: Game, color: Color): List[Int] =
+    skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
+
+  private def consistentMoveTimes(game: Game)(player: Player): Boolean =
+    moveTimes(game, player.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
+
   def onGameReady(game: Game, white: User, black: User): Funit = {
-    import lila.evaluation.Statistics.{ skip, moveTimeCoefVariation }
 
     def manyBlurs(player: Player) =
       (player.blurs.toDouble / game.playerMoves(player.color)) >= 0.7
-
-    def moveTimes(color: Color): List[Int] =
-      skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
-
-    def consistentMoveTimes(player: Player): Boolean =
-      moveTimes(player.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
 
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
@@ -119,23 +125,33 @@ final class AssessApi(
       player.color.fold(white, black).perfs(perfType).progress >= 100
     }
 
+    def winnerUserOption = game.winnerColor.map(_.fold(white, black))
+    def winnerNbGames = for {
+      user <- winnerUserOption
+      perfType <- game.perfType
+    } yield user.perfs(perfType).nb
+
     val shouldAnalyse =
-      // someone is using a bot
-      if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      if (!game.analysable) false
       else if (game.isCorrespondence) false
-      else if (game.playedTurns < 40) false
+      // someone is using a bot
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      // stop here for casual games
       else if (!game.mode.rated) false
-      else if (!game.analysable) false
-      // don't analyse bullet games
+      // stop here for short games
+      else if (game.playedTurns < 40) false
+      // someone has consistent move times
+      else if (game.players exists consistentMoveTimes(game)) true
+      // don't analyse other bullet games
       else if (game.speed == chess.Speed.Bullet) false
       // someone blurs a lot
       else if (game.players exists manyBlurs) true
-      // someone has consistent move times
-      else if (game.players exists consistentMoveTimes) true
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) true
       // analyse some tourney games
       else if (game.isTournament) scala.util.Random.nextInt(3) == 0
+      // analyse new player games
+      else if (winnerNbGames.??(10 >)) true
       else false
 
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
