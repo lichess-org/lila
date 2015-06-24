@@ -152,10 +152,11 @@ object Round extends LilaController with TheftPrevention {
         case None if HTTPRequest.isHuman(ctx.req) =>
           myTour(pov.game.tournamentId, false) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
+            (pov.game.relayId ?? Env.relay.repo.byId) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
-              case (((tour, simul), crosstable), data) =>
-                Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
+              case ((((tour, simul), relay), crosstable), data) =>
+                Ok(html.round.watcher(pov, data, tour, simul, relay, crosstable, userTv = userTv))
             }
         case _ => // web crawlers don't need the full thing
           GameRepo.initialFen(pov.game.id) zip

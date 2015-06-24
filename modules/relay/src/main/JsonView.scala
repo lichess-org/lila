@@ -12,14 +12,22 @@ final class JsonView {
         "id" -> relay.id,
         "name" -> relay.name,
         "status" -> relay.status.id,
-        "games" -> games.map(gameJson)
-      )
+        "games" -> games.flatMap(gameJson))
     }
 
-  private def gameJson(g: Game) = Json.obj(
-    "id" -> g.id,
-    "status" -> g.status.id,
-    "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
-    "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
-    "orient" -> g.firstPlayer.color.name)
+  private def playerJson(p: lila.game.Relay.Player) = Json.obj(
+    "name" -> p.name,
+    "title" -> p.title,
+    "rating" -> p.rating)
+
+  private def gameJson(g: Game) = g.relay map { r =>
+    Json.obj(
+      "id" -> g.id,
+      "white" -> playerJson(r.white),
+      "black" -> playerJson(r.black),
+      "status" -> g.status.id,
+      "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
+      "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
+      "orient" -> g.firstPlayer.color.name)
+  }
 }

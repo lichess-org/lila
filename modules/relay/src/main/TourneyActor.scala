@@ -25,6 +25,7 @@ private[relay] final class TourneyActor(
       new GameActor(
         fics = fics,
         ficsId = ficsId,
+        relayId = id,
         getRelayGame = () => repo.gameByFicsId(id, ficsId),
         importer = importer)
     }

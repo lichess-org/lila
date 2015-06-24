@@ -10,11 +10,11 @@
 @jsAt(s"compiled/lichess.relay${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
-lichess.relay = LichessRelay(document.getElementById('relay'), {
+lichess.relay = {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 socketVersion: @socketVersion
-});
+};
 }
 }
 

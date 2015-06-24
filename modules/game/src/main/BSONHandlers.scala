@@ -61,6 +61,7 @@ object BSONHandlers {
         metadata = Metadata(
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
+          relay = r.getO[Relay](relay)(Relay.relayBSONHandler),
           tournamentId = r strO tournamentId,
           simulId = r strO simulId,
           tvAt = r dateO tvAt,
@@ -93,6 +94,7 @@ object BSONHandlers {
       updatedAt -> o.updatedAt.map(w.date),
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
+      relay -> o.metadata.relay,
       tournamentId -> o.metadata.tournamentId,
       simulId -> o.metadata.simulId,
       tvAt -> o.metadata.tvAt.map(w.date),

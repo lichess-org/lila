@@ -2,6 +2,15 @@ var m = require('mithril');
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 
+function player(p) {
+  return [
+    p.name,
+    m('br'),
+    p.title ? p.title + ' ' : '',
+    p.rating
+  ]
+}
+
 function miniGame(game) {
   return m('div', [
     m('a', {
@@ -16,18 +25,8 @@ function miniGame(game) {
       }
     }, boardContent),
     m('div.vstext.clearfix', [
-      m('div.left', [
-        game.user1.name,
-        m('br'),
-        game.user1.title ? game.user1.title + ' ' : '',
-        game.user1.rating
-      ]),
-      m('div.right', [
-        game.user2.name,
-        m('br'),
-        game.user2.rating,
-        game.user2.title ? ' ' + game.user2.title : ''
-      ])
+      m('div.left', player(game.white)),
+      m('div.right', player(game.black))
     ])
   ]);
 }

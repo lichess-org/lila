@@ -17,7 +17,7 @@ final class Importer(
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
 
-  def full(gameId: String, data: command.Moves.Game): Fu[Game] =
+  def full(relayId: String, gameId: String, data: command.Moves.Game): Fu[Game] =
     chess.format.pgn.Reader.full(data.pgn).future flatMap { replay =>
       GameRepo game gameId flatMap {
         case Some(game) => fuccess(game)
@@ -29,7 +29,12 @@ final class Importer(
             mode = chess.Mode.Casual,
             variant = replay.setup.board.variant,
             source = Source.Relay,
-            pgnImport = none).withId(gameId).start
+            pgnImport = none,
+            relay = lila.game.Relay(
+              id = relayId,
+              white = toGamePlayer(data.white),
+              black = toGamePlayer(data.black)).some
+          ).withId(gameId).start
           (GameRepo insertDenormalized game) inject game
       } flatMap { game =>
 
@@ -90,4 +95,9 @@ final class Importer(
       onFailure = println
     ))
   }
+
+  private def toGamePlayer(p: command.Moves.Player) = lila.game.Relay.Player(
+    name = p.name,
+  title = p.title,
+  rating = p.rating)
 }

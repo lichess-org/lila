@@ -9,6 +9,7 @@ import lila.hub.SequentialActor
 private[relay] final class GameActor(
     fics: ActorRef,
     ficsId: Int,
+    relayId: String,
     getRelayGame: () => Fu[Option[Relay.Game]],
     importer: Importer) extends SequentialActor {
 
@@ -61,7 +62,7 @@ private[relay] final class GameActor(
   }
 
   def recover(data: command.Moves.Game) = withRelayGame { g =>
-    importer.full(g.id, data)
+    importer.full(relayId, g.id, data)
   }
 
   def withRelayGame[A](f: Relay.Game => Fu[A]): Funit = getRelayGame() flatMap {
