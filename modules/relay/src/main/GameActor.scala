@@ -19,29 +19,27 @@ private[relay] final class GameActor(
   context setReceiveTimeout 3.hours
 
   override def preStart() {
-    fics ! FICS.Observe(ficsId).pp
+    println(s"[$ficsId] start actor $self")
+    fics ! FICS.Observe(ficsId)
   }
 
   def process = {
 
-    case move@GameEvent.Move(_, san, ply, _, white, black) => withRelayGame { g =>
-      if (g.white == white && g.black == black)
-        importer.move(g.id, san, ply) >>- println(s"http://en.l.org/${g.id} $ply: $san")
-      else {
-        println(g, white, black)
-        end
-      }
+    case move: GameEvent.Move => withRelayGame { g =>
+      if (g.white == move.white && g.black == move.black)
+        importer.move(g.id, move.san, move.ply) >>- println(s"[$ficsId] http://en.l.org/${g.id} ${move.ply}: ${move.san}")
+      else end
     }
 
     case move@GameEvent.Draw(_) => withRelayGame { g =>
       fuccess {
-        println(s"http://en.l.org/${g.id} draw")
+        println(s"[$ficsId] http://en.l.org/${g.id} draw")
         importer.draw(g.id) >> end
       }
     }
 
     case move@GameEvent.Resign(_, loser) => withRelayGame { g =>
-      println(s"http://en.l.org/${g.id} $loser resigns")
+      println(s"[$ficsId] http://en.l.org/${g.id} $loser resigns")
       g colorOf loser match {
         case None        => end
         case Some(color) => importer.resign(g.id, color) >> end
@@ -70,12 +68,13 @@ private[relay] final class GameActor(
   }
 
   def end = setEnd() >>- {
-    println(s"[$ficsId] End actor $self")
+    println(s"[$ficsId] stop actor $self")
+    fics ! FICS.Unobserve(ficsId)
     self ! SequentialActor.Terminate
   }
 
   def withRelayGame[A](f: Relay.Game => Fu[A]): Funit = getRelayGame() flatMap {
-    case None    => fufail(s"No game found for FICS ID $ficsId")
+    case None    => fufail(s"[$ficsId] No game found!")
     case Some(g) => f(g).void
   }
 }

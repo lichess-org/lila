@@ -62,6 +62,9 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     case Event(Observe(ficsId), _) =>
       send(s"observe $ficsId")
       stay
+    case Event(Unobserve(ficsId), _) =>
+      send(s"unobserve $ficsId")
+      stay
   }
 
   when(Run, stateTimeout = 7 second) {
@@ -126,9 +129,9 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     lines filterNot noise foreach { l =>
       println(s"FICS[$stateName] $l")
     }
-    lines filter noise foreach { l =>
-      println(s"            (noise) [$stateName] $l")
-    }
+    // lines filter noise foreach { l =>
+    //   println(s"            (noise) [$stateName] $l")
+    // }
   }
 
   val noiseR = List(
@@ -138,7 +141,9 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     """^You are now observing.*""".r,
     """^Game \d+: .*""".r,
     """.*To find more about Relay.*""".r,
-    """^You are already observing game \d+""".r,
+    """.*You are already observing game \d+""".r,
+    """.*Removing game \d+.*""".r,
+    """.*There are no tournaments in progress.*""".r,
     // """.*in the history of both players.*""".r,
     // """.*will be closed in a few minutes.*""".r,
     """^\(told relay\)$""".r,
@@ -172,6 +177,7 @@ object FICS {
   case class Request(cmd: command.Command, replyTo: ActorRef)
 
   case class Observe(ficsId: Int)
+  case class Unobserve(ficsId: Int)
 
   case object Limited {
     val R = "You are already observing the maximum number of games"
