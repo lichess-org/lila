@@ -120,12 +120,12 @@ final class AssessApi(
     }
 
     val shouldAnalyse =
-      if (game.isCorrespondence) false
+      // someone is using a bot
+      if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      else if (game.isCorrespondence) false
       else if (game.playedTurns < 40) false
       else if (!game.mode.rated) false
       else if (!game.analysable) false
-      // someone is using a bot
-      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
       // don't analyse bullet games
       else if (game.speed == chess.Speed.Bullet) false
       // someone blurs a lot

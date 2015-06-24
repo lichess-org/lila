@@ -1,11 +1,13 @@
 // Register move hold times and send socket alerts
 
 var holds = [];
-var nb = 10;
+var nb = 6;
+var was = false;
 
 var register = function(socket, hold) {
   if (!hold) return;
   holds.push(hold);
+  var set = false;
   if (holds.length > nb) {
     holds.shift();
     var mean = holds.reduce(function(a, b) {
@@ -18,12 +20,15 @@ var register = function(socket, hold) {
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      if (sd < 10) socket.send('hold', {
-        mean: Math.round(mean),
-        sd: Math.round(sd)
-      });
+      set = sd < 15;
     }
   }
+  if (set || was) $('.manipulable .cg-board').toggleClass('sha', set);
+  if (set) socket.send('hold', {
+    mean: Math.round(mean),
+    sd: Math.round(sd)
+  });
+  was = set;
 };
 
 module.exports = {

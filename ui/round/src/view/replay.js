@@ -88,7 +88,7 @@ function renderButtons(ctrl) {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
   };
-  if (ctrl.data.tv) flipAttrs.href = '/tv' + (ctrl.data.tv.flip ? '' : '?flip=1');
+  if (ctrl.data.tv) flipAttrs.href = '/tv/' + ctrl.data.tv.channel + (ctrl.data.tv.flip ? '' : '?flip=1');
   else if (ctrl.data.player.spectator) flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
