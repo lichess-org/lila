@@ -1,4 +1,4 @@
-@(username: Field, password: Field)(implicit ctx: Context)
+@(username: Field, password: Field, emailOption: Option[Field])(implicit ctx: Context)
 
 <li class="username">
   <label for="@username.id">@trans.username()</label>
@@ -19,3 +19,14 @@
   id="@password.id" />
   @errMsg(password)
 </li>
+@emailOption.map { email =>
+<li class="email">
+  <label for="@email.id">@trans.email()</label>
+  <input
+  type="email"
+  required="required"
+  name="@email.name"
+  id="@email.id" />
+  @errMsg(email)
+</li>
+}

@@ -14,7 +14,7 @@ final class DisposableEmail(providerUrl: String) {
     }
   }
 
-  def isDisposable(email: String) = domainOf(email) ?? domains.contains
+  def apply(email: String) = domainOf(email) ?? domains.contains
 
   private def domainOf(email: String) = email split '@' lift 1
 }

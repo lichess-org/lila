@@ -36,6 +36,8 @@ final class Env(
     val PasswordResetSecret = config getString "password_reset.secret"
     val TorProviderUrl = config getString "tor.provider_url"
     val TorRefreshDelay = config duration "tor.refresh_delay"
+    val DisposableEmailProviderUrl = config getString "disposable_email.provider_url"
+    val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
   }
   import settings._
 
@@ -48,7 +50,7 @@ final class Env(
 
   lazy val wiretap = new Wiretap(WiretapIps)
 
-  lazy val forms = new DataForm(captcher = captcher)
+  lazy val forms = new DataForm(captcher, emailAddress)
 
   lazy val geoIP = new GeoIP(
     file = GeoIPFile,
@@ -64,6 +66,13 @@ final class Env(
     sender = PasswordResetMailgunSender,
     baseUrl = PasswordResetMailgunBaseUrl,
     secret = PasswordResetSecret)
+
+  private lazy val emailAddress = new EmailAddress(disposableEmail)
+
+  private lazy val disposableEmail = new DisposableEmail(DisposableEmailProviderUrl)
+  // scheduler.once(25 seconds)(disposableEmail.refresh)
+  scheduler.once(5 seconds)(disposableEmail.refresh)
+  scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmail.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh)
