@@ -4,6 +4,7 @@
 @import lila.tournament.arena
 
 <div class="side">
+  @if(!pov.game.isFicsRelay) {
   <div class="side_box padded">
     <div class="game_infos" data-icon="@gameIcon(game)">
       <div class="header">
@@ -46,9 +47,6 @@
       <br />
       }
       }
-      @if(game.isFicsRelay) {
-      Relayed by @userIdLink("lichess-relay".some, withOnline = false)
-      }
     </div>
     <div class="players">
       @List(game.whitePlayer, game.blackPlayer).map { p =>
@@ -82,6 +80,7 @@
     }
     }
   </div>
+  }
 
   @userTv.map { u =>
   <div class="side_box">
@@ -107,6 +106,7 @@
   @relay.map { rel =>
   <div class="game_relay side_box no_padding">
     <p class="top text" data-icon="n"><a href="@routes.Relay.show(rel.id, rel.slug)">@rel.name</a></p>
+    <div class="padded">@momentFormat(game.createdAt)</div>
   </div>
   }
 </div>

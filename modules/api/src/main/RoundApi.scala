@@ -30,13 +30,11 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (pov.game.simulId ?? getSimul) zip
-        (pov.game.relayId ?? getRelay) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case ((((json, tourOption), simulOption), relayOption), note) => (
+          case (((json, tourOption), simulOption), note) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withRelay(pov, relayOption)_ compose
             withSteps(pov, none, initialFen)_ compose
             withNote(note)_
           )(json)
@@ -54,11 +52,13 @@ private[api] final class RoundApi(
         withMoveTimes = withMoveTimes) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (pov.game.simulId ?? getSimul) zip
+        (pov.game.relayId ?? getRelay) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case (((json, tourOption), simulOption), note) => (
+          case ((((json, tourOption), simulOption), relayOption), note) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
+            withRelay(pov, relayOption)_ compose
             withNote(note)_ compose
             withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_

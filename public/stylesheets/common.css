@@ -700,6 +700,10 @@ div.side_box .top {
   font-weight: bold;
   color: #999;
 }
+div.side_box.game_relay .top::before {
+  font-size: 40px;
+  float: left;
+}
 div.side_box .padded {
   padding: 7px;
 }
@@ -775,7 +779,6 @@ div.chat_panels .preferences a.prefs {
   display: block;
   text-align: center;
 }
-
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
