@@ -36,7 +36,6 @@ final class Env(
     val PasswordResetSecret = config getString "password_reset.secret"
     val TorProviderUrl = config getString "tor.provider_url"
     val TorRefreshDelay = config duration "tor.refresh_delay"
-    val GreeterSender = config getString "greeter.sender"
   }
   import settings._
 
@@ -73,10 +72,6 @@ final class Env(
   lazy val api = new Api(firewall, tor)
 
   def cli = new Cli
-
-  lazy val greeter = new Greeter(
-    sender = GreeterSender,
-    messenger = messenger)
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
