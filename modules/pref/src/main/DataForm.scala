@@ -23,7 +23,7 @@ private[pref] final class DataForm {
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "premove" -> number.verifying(Set(0, 1) contains _),
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-    "submitMove" -> number.verifying(Set(0, 1) contains _),
+    "submitMove" -> number.verifying(Set(0, 1, 2) contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -92,7 +92,7 @@ private[pref] final class DataForm {
   val miniPref = Form(mapping(
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
     "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
-    "submitMove" -> number.verifying(Set(0, 1) contains _)
+    "submitMove" -> number.verifying(Set(0, 1, 2) contains _)
   )(MiniPrefData.apply)(MiniPrefData.unapply))
 
   case class MiniPrefData(

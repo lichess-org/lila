@@ -120,10 +120,12 @@ object Pref {
   object SubmitMove {
     val NEVER = 0
     val CORRESPONDENCE = 1
+    val ALWAYS = 2
 
     val choices = Seq(
       NEVER -> "Never",
-      CORRESPONDENCE -> "On correspondence games")
+      CORRESPONDENCE -> "On correspondence games",
+      ALWAYS -> "Always")
   }
 
   object Blindfold {

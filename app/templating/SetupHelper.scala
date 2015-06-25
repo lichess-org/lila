@@ -99,8 +99,8 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedAutoQueenChoices(implicit ctx: Context) = List(
     (Pref.AutoQueen.NEVER, trans.never.str()),
-    (Pref.AutoQueen.ALWAYS, trans.always.str()),
-    (Pref.AutoQueen.PREMOVE, trans.whenPremoving.str())
+    (Pref.AutoQueen.PREMOVE, trans.whenPremoving.str()),
+    (Pref.AutoQueen.ALWAYS, trans.always.str())
   )
 
   def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
@@ -117,6 +117,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.str()),
-    (Pref.SubmitMove.CORRESPONDENCE, "In correspondence games")
+    (Pref.SubmitMove.CORRESPONDENCE, "In correspondence games"),
+    (Pref.SubmitMove.ALWAYS, trans.always.str())
   )
 }
