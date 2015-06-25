@@ -25,6 +25,7 @@ final class Env(
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
+    getRelay: String => Fu[Option[lila.relay.Relay]],
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -94,6 +95,7 @@ final class Env(
       noteApi = noteApi,
       analysisApi = analysisApi,
       getSimul = getSimul,
+      getRelay = getRelay,
       lightUser = userEnv.lightUser),
     system = system,
     nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
@@ -126,6 +128,7 @@ object Env {
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
+    getRelay = lila.relay.Env.current.repo.byId,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     relationApi = lila.relation.Env.current.api,
