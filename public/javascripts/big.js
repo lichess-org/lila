@@ -1197,7 +1197,7 @@ lichess.storage = {
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     round = LichessRound(cfg);
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    if (data.chat) $('#chat').chat({
+    $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
       gameId: data.game.id
@@ -1340,45 +1340,48 @@ lichess.storage = {
         gameId: null
       }, this.options);
       var self = this;
-      self.$msgs = self.element.find('.messages');
-      self.$msgs.on('click', 'a', function() {
-        $(this).attr('target', '_blank');
-      });
-      var $form = self.element.find('form');
-      var $input = self.element.find('input.lichess_say');
       var $parent = self.element.parent();
+      self.$msgs = self.element.find('.messages');
+      self.withMsgs = !!self.$msgs.length;
+      if (self.withMsgs) {
+        self.$msgs.on('click', 'a', function() {
+          $(this).attr('target', '_blank');
+        });
+        var $form = self.element.find('form');
+        var $input = self.element.find('input.lichess_say');
 
-      // send a message
-      $form.submit(function() {
-        var text = $.trim($input.val());
-        if (!text) return false;
-        if (text.length > 140) {
-          alert('Max length: 140 chars. ' + text.length + ' chars used.');
+        // send a message
+        $form.submit(function() {
+          var text = $.trim($input.val());
+          if (!text) return false;
+          if (text.length > 140) {
+            alert('Max length: 140 chars. ' + text.length + ' chars used.');
+            return false;
+          }
+          $input.val('');
+          lichess.socket.send('talk', text);
           return false;
+        });
+
+        self.element.find('a.send').click(function() {
+          $input.trigger('click');
+          $form.submit();
+        });
+
+        // toggle the chat
+        var $toggle = $parent.find('input.toggle_chat');
+        $toggle.change(function() {
+          var enabled = $toggle.is(':checked');
+          self.element.toggleClass('hidden', !enabled);
+          if (!enabled) lichess.storage.set('nochat', 1);
+          else lichess.storage.remove('nochat');
+        });
+        $toggle[0].checked = lichess.storage.get('nochat') != 1;
+        if (!$toggle[0].checked) {
+          self.element.addClass('hidden');
         }
-        $input.val('');
-        lichess.socket.send('talk', text);
-        return false;
-      });
-
-      self.element.find('a.send').click(function() {
-        $input.trigger('click');
-        $form.submit();
-      });
-
-      // toggle the chat
-      var $toggle = $parent.find('input.toggle_chat');
-      $toggle.change(function() {
-        var enabled = $toggle.is(':checked');
-        self.element.toggleClass('hidden', !enabled);
-        if (!enabled) lichess.storage.set('nochat', 1);
-        else lichess.storage.remove('nochat');
-      });
-      $toggle[0].checked = lichess.storage.get('nochat') != 1;
-      if (!$toggle[0].checked) {
-        self.element.addClass('hidden');
+        if (self.options.messages.length > 0) self._appendMany(self.options.messages);
       }
-      if (self.options.messages.length > 0) self._appendMany(self.options.messages);
 
       $panels = self.element.find('div.chat_panels > div');
       $menu = $parent.find('.chat_menu');
