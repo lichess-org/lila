@@ -199,10 +199,10 @@ trait UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     $primitive.one($select(id), "password")(_.asOpt[String])
 
-  def create(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
+  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        $insert.bson(newUser(username, password, blind, mobileApiVersion)) >> named(normalize(username))
+        $insert.bson(newUser(username, password, email, blind, mobileApiVersion)) >> named(normalize(username))
       }
     }
 
@@ -297,7 +297,7 @@ trait UserRepo {
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
-  private def newUser(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]) = {
+  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     implicit def countHandler = Count.countBSONHandler
@@ -307,6 +307,7 @@ trait UserRepo {
     BSONDocument(
       F.id -> normalize(username),
       F.username -> username,
+      F.email -> email,
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> Json.obj(),

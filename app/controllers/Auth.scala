@@ -89,10 +89,10 @@ object Auth extends LilaController {
     }
   }
 
-  private def doSignup(username: String, password: String)(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
+  private def doSignup(username: String, password: String, email: Option[String])(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
     Firewall {
       implicit val req = ctx.req
-      UserRepo.create(username, password, ctx.blindMode, ctx.mobileApiVersion) flatMap { userOption =>
+      UserRepo.create(username, password, email, ctx.blindMode, ctx.mobileApiVersion) flatMap { userOption =>
         val user = userOption err "No user could be created for %s".format(username)
         api.saveAuthentication(
           user.id,
@@ -120,7 +120,7 @@ object Auth extends LilaController {
         err => forms.anyCaptcha map { captcha =>
           BadRequest(html.auth.signup(err, captcha))
         },
-        data => doSignup(data.username, data.password) { user =>
+        data => doSignup(data.username, data.password, data.email.some) { user =>
           fuccess(Redirect(routes.Lobby.home))
         }
       ),
@@ -128,7 +128,7 @@ object Auth extends LilaController {
         err => fuccess(BadRequest(Json.obj(
           "error" -> err.errorsAsJson
         ))),
-        data => doSignup(data.username, data.password)(mobileUserOk)
+        data => doSignup(data.username, data.password, data.email)(mobileUserOk)
       )
     )
   }

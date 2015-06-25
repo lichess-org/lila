@@ -40,6 +40,7 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
+      "email" -> Forms.email,
       "gameId" -> nonEmptyText,
       "move" -> nonEmptyText
     )(SignupData.apply)(_ => None)
@@ -47,7 +48,9 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
     val mobile = Form(mapping(
       "username" -> username,
-      "password" -> text(minLength = 4))(MobileSignupData.apply)(_ => None))
+      "password" -> text(minLength = 4),
+      "email" -> optional(Forms.email)
+    )(MobileSignupData.apply)(_ => None))
 
     def websiteWithCaptcha = withCaptcha(website)
   }
@@ -86,12 +89,14 @@ object DataForm {
   case class SignupData(
     username: String,
     password: String,
+    email: String,
     gameId: String,
     move: String)
 
   case class MobileSignupData(
     username: String,
-    password: String)
+    password: String,
+    email: Option[String])
 
   case class PasswordReset(
     email: String,
