@@ -221,7 +221,7 @@ POST  /signup                          controllers.Auth.signupPost
 GET   /signup/check-your-email/:name   controllers.Auth.checkYourEmail(name: String)
 GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token: String)
 GET   /password/reset                  controllers.Auth.passwordReset
-POST  /password/reset                  controllers.Auth.passwordResetApply
+POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
