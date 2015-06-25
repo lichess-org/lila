@@ -1389,7 +1389,7 @@ lichess.storage = {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
-      }).find('a:nth(2)').one('click', function() {
+      }).find('a[data-panel=preferences]').one('click', function() {
         self.element.find('.preferences form').each(function() {
           var $form = $(this);
           $form.find('input').change(function() {
@@ -1404,7 +1404,7 @@ lichess.storage = {
       if (lichess.storage.get('game.settings.seen')) $menu.find('a:first').click();
       else {
         lichess.storage.set('game.settings.seen', 1);
-        $menu.find('a:nth(2)').click();
+        $menu.find('a[data-panel=preferences]').click();
       }
 
       $notes = self.element.find('.notes textarea');
