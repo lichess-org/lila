@@ -142,6 +142,8 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     """.*You are already observing game \d+""".r,
     """.*Removing game \d+.*""".r,
     """.*There are no tournaments in progress.*""".r,
+    """.*Challenge from.*""".r,
+    """.*who was challenging you.*""".r,
     // """.*in the history of both players.*""".r,
     // """.*will be closed in a few minutes.*""".r,
     """^\(told relay\)$""".r,
