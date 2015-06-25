@@ -28,10 +28,10 @@ function renderPlayer(ctrl, player) {
   return player.ai ? m('div.username.on-game', [
     ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai),
     m('span.status.hint--top', {
-	  'data-hint': 'Player is connected'
-	}, m('span', {
-	  'data-icon': '3'
-	}))
+      'data-hint': 'Artificial intelligence is ready'
+    }, m('span', {
+      'data-icon': '3'
+    }))
   ]) : m('div', {
       class: 'username ' + player.color + (player.onGame ? ' on-game' : '')
     },
