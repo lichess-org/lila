@@ -29,6 +29,11 @@ final class Env(
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
     val GeoIPCacheTtl = config duration "geoip.cache_ttl"
+    val EmailConfirmMailgunApiUrl = config getString "email_confirm.mailgun.api.url"
+    val EmailConfirmMailgunApiKey = config getString "email_confirm.mailgun.api.key"
+    val EmailConfirmMailgunSender = config getString "email_confirm.mailgun.sender"
+    val EmailConfirmMailgunBaseUrl = config getString "email_confirm.mailgun.base_url"
+    val EmailConfirmSecret = config getString "email_confirm.secret"
     val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
     val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
@@ -59,6 +64,13 @@ final class Env(
   lazy val userSpy = UserSpy(firewall, geoIP) _
 
   lazy val disconnect = Store disconnect _
+
+  lazy val emailConfirm = new EmailConfirm(
+    apiUrl = EmailConfirmMailgunApiUrl,
+    apiKey = EmailConfirmMailgunApiKey,
+    sender = EmailConfirmMailgunSender,
+    baseUrl = EmailConfirmMailgunBaseUrl,
+    secret = EmailConfirmSecret)
 
   lazy val passwordReset = new PasswordReset(
     apiUrl = PasswordResetMailgunApiUrl,

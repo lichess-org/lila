@@ -218,6 +218,8 @@ POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
+GET   /signup/check-your-email/:name   controllers.Auth.checkYourEmail(name: String)
+GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token: String)
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset                  controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
