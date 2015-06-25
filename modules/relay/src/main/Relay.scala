@@ -12,6 +12,10 @@ case class Relay(
     date: DateTime,
     games: List[Relay.Game]) {
 
+  def baseName = name.takeWhile('-'!=).trim
+
+  def extName = name.dropWhile('-'!=).tail.trim
+
   def gameByFicsId(ficsId: Int) = games.find(_.ficsId == ficsId)
 
   def gameIdByFicsId(ficsId: Int) = gameByFicsId(ficsId).map(_.id)

@@ -11,7 +11,6 @@ final class DisposableEmailDomain(providerUrl: String) {
     WS.url(providerUrl).get() map { res =>
       domains = res.json.as[Set[String]]
       loginfo(s"[disposable email] registered ${domains.size} domains")
-      println(s"[disposable email] registered ${domains.size} domains")
     }
   }
 
