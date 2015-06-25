@@ -9,7 +9,10 @@ case class StreamOnAir(
     streamer: String,
     streamerName: String,
     url: String,
-    streamId: String) {
+    streamId: String,
+    chat: Boolean = true) {
+
+  def withChat(c: Boolean) = copy(chat = c)
 
   val id = url.md5.hex take 8
 }

@@ -9,6 +9,7 @@
 
 @side = {
 <div class="side">
+  @if(s.chat) {
   @s.service match {
   case "twitch" => {
   <iframe
@@ -33,6 +34,7 @@
     allowfullscreen></iframe>
   }
   case _ => {
+  }
   }
   }
   <div class="side_box padded for_selector">

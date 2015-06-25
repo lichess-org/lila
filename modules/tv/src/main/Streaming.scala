@@ -46,7 +46,7 @@ private final class Streaming(
             res.json.validate[Twitch.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logwarn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
@@ -54,11 +54,15 @@ private final class Streaming(
           res.json.validate[Hitbox.Result] match {
             case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
             case JsError(err) =>
-              logger.warn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
+              logwarn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
               Nil
           }
         }
-        (twitch |+| hitbox) map StreamsOnAir.apply pipeTo self
+        (twitch |+| hitbox) flatMap { streams =>
+          streams.map { s =>
+            whitelist withChat s.streamer map s.withChat
+          }.sequenceFu
+        } map StreamsOnAir.apply pipeTo self
       }
 
       case event@StreamsOnAir(streams) if onAir != streams =>
@@ -70,8 +74,6 @@ private final class Streaming(
         }
     }
   }))
-
-  private def logger = play.api.Logger("tv.streaming")
 
   actor ! Search
 }
