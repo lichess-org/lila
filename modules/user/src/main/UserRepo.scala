@@ -301,7 +301,7 @@ trait UserRepo {
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
   def mustConfirmEmail(id: String): Fu[Boolean] =
-    $count.exists($select(id) ++ Json.obj(F.mustConfirmEmail -> true))
+    $count.exists($select(id) ++ Json.obj(F.mustConfirmEmail -> $exists(true)))
 
   def setEmailConfirmed(id: String): Funit = $update(
     $select(id),
@@ -318,7 +318,7 @@ trait UserRepo {
       F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
-      F.mustConfirmEmail -> true,
+      F.mustConfirmEmail -> DateTime.now,
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> Json.obj(),

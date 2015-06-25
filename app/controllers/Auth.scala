@@ -39,10 +39,16 @@ object Auth extends LilaController {
               session + ("sessionId" -> sessionId) - api.AccessUri
             }
           }
-      } recoverWith {
-        case lila.security.Api.AuthFromTorExitNode => noTorResponse
-      }
+      } recoverWith authRecovery
     )
+  }
+
+  private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
+    case lila.security.Api.AuthFromTorExitNode => noTorResponse
+    case lila.security.Api.MustConfirmEmail(userId) => UserRepo byId userId map {
+      case Some(user) => BadRequest(html.auth.checkYourEmail(user))
+      case None       => BadRequest
+    }
   }
 
   def login = Open { implicit ctx =>
@@ -130,7 +136,7 @@ object Auth extends LilaController {
     Env.security.emailConfirm.confirm(token) flatMap {
       case Some(user) => api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
         Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
-      } recoverWith { case lila.security.Api.AuthFromTorExitNode => noTorResponse }
+      } recoverWith authRecovery
       case _ => notFound
     }
   }

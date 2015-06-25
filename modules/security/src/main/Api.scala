@@ -22,7 +22,7 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
   def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
     if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
     else UserRepo mustConfirmEmail userId flatMap {
-      case true => fufail(Api.MustConfirmEmail)
+      case true => fufail(Api MustConfirmEmail userId)
       case false =>
         val sessionId = Random nextStringUppercase 12
         Store.save(
@@ -65,5 +65,5 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
 object Api {
 
   case object AuthFromTorExitNode extends Exception
-  case object MustConfirmEmail extends Exception
+  case class MustConfirmEmail(userId: String) extends Exception
 }
