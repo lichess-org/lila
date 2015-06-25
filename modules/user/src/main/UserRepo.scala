@@ -43,6 +43,9 @@ trait UserRepo {
 
   def byEmail(email: String): Fu[Option[User]] = $find one Json.obj(F.email -> email)
 
+  def idByEmail(email: String): Fu[Option[String]] =
+    $primitive.one(Json.obj(F.email -> email), "_id")(_.asOpt[String])
+
   def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =

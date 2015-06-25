@@ -5,7 +5,7 @@ import play.api.data.validation._
 /**
  * Validate and normalize emails
  */
-private final class EmailAddress(disposable: DisposableEmail) {
+final class EmailAddress(disposable: DisposableEmailDomain) {
 
   // email was already regex-validated at this stage
   def validate(email: String): Option[String] =
@@ -34,9 +34,18 @@ private final class EmailAddress(disposable: DisposableEmail) {
 
   def isValid(email: String) = validate(email).isDefined
 
-  val constraint = Constraint[String]("constraint.email") { e =>
+  def isTaken(email: String): Boolean = validate(email) ?? { e =>
+    lila.user.UserRepo.idByEmail(e).await.isDefined
+  }
+
+  val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isValid(e)) Valid
-    else Invalid(ValidationError("error.email"))
+    else Invalid(ValidationError("error.email_acceptable"))
+  }
+
+  val uniqueConstraint = Constraint[String]("constraint.email_unique") { e =>
+    if (isTaken(e)) Invalid(ValidationError("error.email_unique"))
+    else Valid
   }
 
   private def isGmail(domain: String) = domain == "gmail.com"

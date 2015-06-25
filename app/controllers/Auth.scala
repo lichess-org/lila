@@ -11,8 +11,9 @@ import views._
 
 object Auth extends LilaController {
 
-  private def api = Env.security.api
-  private def forms = Env.security.forms
+  private def env = Env.security
+  private def api = env.api
+  private def forms = env.forms
 
   private def mobileUserOk(u: UserModel): Fu[Result] =
     lila.game.GameRepo urgentGames u map { povs =>
@@ -89,9 +90,10 @@ object Auth extends LilaController {
     }
   }
 
-  private def doSignup(username: String, password: String, email: Option[String])(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
+  private def doSignup(username: String, password: String, rawEmail: Option[String])(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
     Firewall {
       implicit val req = ctx.req
+      val email = rawEmail.map(e => env.emailAddress.validate(e) err s"Invalid email $e")
       UserRepo.create(username, password, email, ctx.blindMode, ctx.mobileApiVersion) flatMap { userOption =>
         val user = userOption err "No user could be created for %s".format(username)
         api.saveAuthentication(
@@ -145,11 +147,14 @@ object Auth extends LilaController {
       err => forms.anyCaptcha map { captcha =>
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
-      data => UserRepo enabledByEmail data.email flatMap {
-        case Some(user) =>
-          Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
-        case None => forms.passwordResetWithCaptcha map {
-          case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+      data => {
+        val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+        UserRepo enabledByEmail email flatMap {
+          case Some(user) =>
+            Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+          case None => forms.passwordResetWithCaptcha map {
+            case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+          }
         }
       }
     )

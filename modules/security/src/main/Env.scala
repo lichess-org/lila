@@ -67,12 +67,12 @@ final class Env(
     baseUrl = PasswordResetMailgunBaseUrl,
     secret = PasswordResetSecret)
 
-  private lazy val emailAddress = new EmailAddress(disposableEmail)
+  lazy val emailAddress = new EmailAddress(disposableEmailDomain)
 
-  private lazy val disposableEmail = new DisposableEmail(DisposableEmailProviderUrl)
+  private lazy val disposableEmailDomain = new DisposableEmailDomain(DisposableEmailProviderUrl)
   // scheduler.once(25 seconds)(disposableEmail.refresh)
-  scheduler.once(5 seconds)(disposableEmail.refresh)
-  scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmail.refresh)
+  scheduler.once(5 seconds)(disposableEmailDomain.refresh)
+  scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh)

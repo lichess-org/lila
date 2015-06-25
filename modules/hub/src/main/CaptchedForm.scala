@@ -29,5 +29,5 @@ trait CaptchedForm {
   def validateCaptcha(data: CaptchedData) =
     getCaptcha(data.gameId).await valid data.move.trim.toLowerCase
 
-  val captchaFailMessage = "notACheckmate"
+  val captchaFailMessage = "captcha.fail"
 }

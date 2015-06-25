@@ -4,7 +4,7 @@ package templating
 import scala.util.Random.shuffle
 
 import controllers._
-import play.api.i18n.Lang
+import play.api.i18n.{ Lang, Messages }
 import play.api.mvc.{ RequestHeader, Call }
 import play.twirl.api.Html
 
@@ -22,6 +22,9 @@ trait I18nHelper {
   lazy val protocol = i18nEnv.RequestHandlerProtocol
 
   implicit def lang(implicit ctx: UserContext) = pool lang ctx.req
+
+  def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): String =
+    i18nEnv.translator.transTo(key, args)(lang)
 
   def i18nJsObject(keys: I18nKey*)(implicit lang: Lang) =
     i18nEnv.jsDump.keysToObject(keys, lang)

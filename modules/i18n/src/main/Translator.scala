@@ -15,24 +15,24 @@ private[i18n] final class Translator(api: MessagesApi, pool: I18nPool) {
   def str(key: String, args: List[Any])(implicit req: RequestHeader): String =
     translate(key, args)(pool lang req) getOrElse key
 
-  def transTo(key: String, args: List[Any])(lang: Lang): String =
+  def transTo(key: String, args: Seq[Any])(lang: Lang): String =
     translate(key, args)(lang) getOrElse key
 
   def rawTranslation(lang: Lang)(key: String): Option[String] =
     messages get lang.code flatMap (_ get key)
 
-  private def defaultTranslation(key: String, args: List[Any]): Option[String] =
+  private def defaultTranslation(key: String, args: Seq[Any]): Option[String] =
     defaultMessages get key flatMap { pattern =>
       formatTranslation(key, pattern, args)
     }
 
-  private def translate(key: String, args: List[Any])(lang: Lang): Option[String] =
+  private def translate(key: String, args: Seq[Any])(lang: Lang): Option[String] =
     if (lang.language == pool.default.language) defaultTranslation(key, args)
     else messages get lang.code flatMap (_ get key) flatMap { pattern =>
       formatTranslation(key, pattern, args)
     } orElse defaultTranslation(key, args)
 
-  private def formatTranslation(key: String, pattern: String, args: List[Any]) = try {
+  private def formatTranslation(key: String, pattern: String, args: Seq[Any]) = try {
     Some(if (args.isEmpty) pattern else pattern.format(args: _*))
   }
   catch {

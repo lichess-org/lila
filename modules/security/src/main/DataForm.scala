@@ -25,6 +25,11 @@ final class DataForm(
 
   def emptyWithCaptcha = withCaptcha(empty)
 
+  private val anyEmail = nonEmptyText.verifying(Constraints.emailAddress)
+  private val acceptableEmail = anyEmail.verifying(emailAddress.acceptableConstraint)
+  private val uniqueEmail = email.verifying(emailAddress.uniqueConstraint)
+  private val acceptableUniqueEmail = acceptableEmail.verifying(emailAddress.uniqueConstraint)
+
   object signup {
 
     private val username = nonEmptyText.verifying(
@@ -39,14 +44,10 @@ final class DataForm(
     ).verifying("This user already exists", u => !$count.exists(u.toLowerCase).await)
       .verifying("This username is not acceptable", u => !LameName(u))
 
-    private val email = nonEmptyText.verifying(
-      Constraints.emailAddress,
-      emailAddress.constraint)
-
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> email,
+      "email" -> acceptableUniqueEmail,
       "gameId" -> nonEmptyText,
       "move" -> nonEmptyText
     )(SignupData.apply)(_ => None)
@@ -55,14 +56,14 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> optional(email)
+      "email" -> optional(acceptableUniqueEmail)
     )(MobileSignupData.apply)(_ => None))
 
     def websiteWithCaptcha = withCaptcha(website)
   }
 
   val passwordReset = Form(mapping(
-    "email" -> email,
+    "email" -> anyEmail, // allow unacceptable emails for BC
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
   )(PasswordReset.apply)(_ => None)
@@ -86,6 +87,13 @@ final class DataForm(
       "the new passwords don't match",
       _.samePasswords
     ))
+
+  val changeEmail = Form(mapping(
+    "email" -> acceptableUniqueEmail,
+    "passwd" -> nonEmptyText
+  )(ChangeEmail.apply)(ChangeEmail.unapply)
+    .verifying("This email already exists", e => !emailAddress.isTaken(e.email))
+  )
 }
 
 object DataForm {
@@ -106,4 +114,6 @@ object DataForm {
     email: String,
     gameId: String,
     move: String)
+
+  case class ChangeEmail(email: String, passwd: String)
 }
