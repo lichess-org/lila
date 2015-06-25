@@ -90,10 +90,7 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
   }
 
   whenUnhandled {
-    case Event(_: Command, _) =>
-      stash()
-      stay
-    case Event(_: Observe, _) =>
+    case Event(_: Stashable, _) =>
       stash()
       stay
     case Event(in: In, _) =>
@@ -136,9 +133,10 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
 
   val noiseR = List(
     """^\\ .*""".r,
+    """^:$""".r,
     """^fics%""".r,
     """^You will not.*""".r,
-    """^You are now observing.*""".r,
+    """.*You are now observing.*""".r,
     """^Game \d+: .*""".r,
     """.*To find more about Relay.*""".r,
     """.*You are already observing game \d+""".r,
@@ -176,8 +174,9 @@ object FICS {
 
   case class Request(cmd: command.Command, replyTo: ActorRef)
 
-  case class Observe(ficsId: Int)
-  case class Unobserve(ficsId: Int)
+  trait Stashable
+  case class Observe(ficsId: Int) extends Stashable
+  case class Unobserve(ficsId: Int) extends Stashable
 
   case object Limited {
     val R = "You are already observing the maximum number of games"

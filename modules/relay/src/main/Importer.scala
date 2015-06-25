@@ -17,7 +17,7 @@ final class Importer(
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
 
-  def full(relayId: String, gameId: String, data: command.Moves.Game): Fu[Game] =
+  def full(relayId: String, gameId: String, data: command.Moves.Game): Fu[Boolean] =
     chess.format.pgn.Reader.full(data.pgn).future flatMap { replay =>
       GameRepo game gameId flatMap {
         case Some(game) => fuccess(game)
@@ -46,8 +46,11 @@ final class Importer(
         }
 
         val lateMoves = replay.chronoMoves drop game.turns
-        if (lateMoves.nonEmpty) println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${lateMoves.headOption} -> ${lateMoves.lastOption}")
-        applyMoves(Pov player game, lateMoves) inject game
+        if (lateMoves.nonEmpty) {
+          val debugMoves = List(lateMoves.headOption, lateMoves.lastOption).flatten.distinct.map(_.keyString)
+          println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${debugMoves.mkString("->")}")
+        }
+        applyMoves(Pov player game, lateMoves) inject lateMoves.nonEmpty
       }
     }
 

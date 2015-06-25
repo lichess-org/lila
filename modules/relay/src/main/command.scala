@@ -4,7 +4,7 @@ package command
 import org.joda.time.DateTime
 import scala.util.matching.Regex
 
-sealed trait Command {
+sealed trait Command extends FICS.Stashable {
   type Result
   def str: String
   def parse(lines: List[String]): Option[Result]
