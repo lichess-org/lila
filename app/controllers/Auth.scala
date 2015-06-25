@@ -40,12 +40,7 @@ object Auth extends LilaController {
             }
           }
       } recoverWith {
-        case lila.security.Api.AuthFromTorExitNode => negotiate(
-          html = Unauthorized(html.auth.tor()).fuccess,
-          api = _ => Unauthorized(Json.obj(
-            "error" -> "Can't login from TOR exit node"
-          )).fuccess
-        )
+        case lila.security.Api.AuthFromTorExitNode => noTorResponse
       }
     )
   }
@@ -142,7 +137,7 @@ object Auth extends LilaController {
 
   private def noTorResponse(implicit ctx: Context) = negotiate(
     html = Unauthorized(html.auth.tor()).fuccess,
-    api = _ => Unauthorized(Json.obj("error" -> "Can't register from TOR exit node")).fuccess)
+    api = _ => Unauthorized(Json.obj("error" -> "Can't login from TOR, sorry!")).fuccess)
 
   def passwordReset = Open { implicit ctx =>
     forms.passwordResetWithCaptcha map {

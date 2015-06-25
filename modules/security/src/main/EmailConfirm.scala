@@ -31,7 +31,10 @@ Please do not reply to this message; it was sent from an unmonitored email addre
 """))).void
   }
 
-  def confirm(token: String): Fu[Option[User]] = tokener read token
+  def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
+    case u@Some(user) => UserRepo setEmailConfirmed user.id inject u
+    case _            => fuccess(none)
+  }
 
   private object tokener {
 

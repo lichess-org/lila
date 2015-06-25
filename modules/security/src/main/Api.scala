@@ -19,15 +19,16 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  def saveAuthentication(id: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] = {
+  def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
     if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
-    else {
-      val sessionId = Random nextStringUppercase 12
-      Store.save(
-        sessionId, id, req, apiVersion, tor isExitNode req.remoteAddress
-      ) inject sessionId
+    else UserRepo mustConfirmEmail userId flatMap {
+      case true => fufail(Api.MustConfirmEmail)
+      case false =>
+        val sessionId = Random nextStringUppercase 12
+        Store.save(
+          sessionId, userId, req, apiVersion, tor isExitNode req.remoteAddress
+        ) inject sessionId
     }
-  }
 
   // blocking function, required by Play2 form
   private def authenticateUser(username: String, password: String): Option[User] =
@@ -64,4 +65,5 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
 object Api {
 
   case object AuthFromTorExitNode extends Exception
+  case object MustConfirmEmail extends Exception
 }
