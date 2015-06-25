@@ -13,7 +13,7 @@ final class RelayApi(
   def refreshFromFics: Funit = fics ? command.ListTourney mapTo
     manifest[command.ListTourney.Result] flatMap { tourneys =>
       tourneys.map { tourney =>
-        repo.upsert(tourney.id, tourney.name, tourney.status)
+        repo.upsert(tourney.ficsId, tourney.name, tourney.status)
       }.sequenceFu.void >> repo.started.flatMap {
         _.map { started =>
           (!tourneys.exists(_.name == started.name)) ?? {

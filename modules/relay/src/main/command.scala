@@ -26,7 +26,7 @@ case object ListTourney extends Command {
       }
     }.flatten
   }
-  case class Tourney(id: Int, name: String, status: Relay.Status)
+  case class Tourney(ficsId: Int, name: String, status: Relay.Status)
   private val Regexp = """^:(\d+)\s+(.+)\s{2,}(.+)$""".r
 }
 

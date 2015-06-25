@@ -29,7 +29,7 @@ final class RelayRepo(coll: Coll) {
 
   def upsert(ficsId: Int, name: String, status: Relay.Status) = byName(name) flatMap {
     case None        => coll insert Relay.make(ficsId, name, status)
-    case Some(relay) => coll.update(selectId(relay.id), relay.copy(status = status))
+    case Some(relay) => coll.update(selectId(relay.id), relay.copy(ficsId = ficsId, status = status))
   } void
 
   def finish(relay: Relay) = coll.update(
