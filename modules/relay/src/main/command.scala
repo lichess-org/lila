@@ -49,6 +49,30 @@ case object ListGames {
   private val Regexp = """(?i)^:(\d+)\s+([a-z0-9]+)\s+([a-z0-9]+).+$""".r
 }
 
+case class GetTime(player: String) extends Command {
+  type Result = GetTime.Times
+  val str = s"time $player"
+  def parse(lines: List[String]) = ???
+  // def parse(lines: List[String]) = {
+  //   lines.exists(_ contains "The following tournaments are currently in progress:")
+  // } option {
+  //   lines.collect {
+  //     case Regexp(id, name, status) => parseIntOption(id) map {
+  //       Tourney(_, name.trim, status match {
+  //         case "Round Started" => Relay.Status.Started
+  //         case "Round Over"    => Relay.Status.Finished
+  //         case _               => Relay.Status.Unknown
+  //       })
+  //     }
+  //   }.flatten
+  // }
+  // in tenths of seconds
+}
+object GetTime {
+  case class Times(white: Int, black: Int)
+  private val Regexp = """(?s)Game \d+: FMEspinosaVeloz.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""".r.unanchored
+}
+
 case class Moves(id: Int) extends Command {
   type Result = Moves.Result
   val str = s"moves $id"

@@ -21,9 +21,20 @@ private[relay] final class GameActor(
   override def preStart() {
     // println(s"[$ficsId] start actor $self")
     fics ! FICS.Observe(ficsId)
+    self ! GetTime
   }
 
   def process = {
+
+    case GetTime => withRelayGame { g =>
+      implicit val t = makeTimeout seconds 5
+      fics ? command.GetTime(g.white) mapTo
+        manifest[command.GetTime.Times] flatMap { data =>
+          println(data)
+        } andThenAnyway {
+          context.system.scheduleOnce(5 seconds, self, GetTime)
+        }
+    }
 
     case move: GameEvent.Move => withRelayGame { g =>
       if (g.white == move.white && g.black == move.black)
@@ -85,4 +96,5 @@ private[relay] final class GameActor(
 object GameActor {
 
   case object Recover
+  case object GetTime
 }
