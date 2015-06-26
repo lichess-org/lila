@@ -18,7 +18,7 @@ module.exports = function(ctrl) {
   }, [
     m('div.title_tag', statusName(ctrl)),
     m('h1', ctrl.data.name),
-    ctrl.data.content.long ? m('div.description', {
+    (ctrl.data.content && ctrl.data.content.long) ? m('div.description', {
       config: function(el, isUpdate) {
         if (!isUpdate) {
           var $desc = $('#relay_description');
