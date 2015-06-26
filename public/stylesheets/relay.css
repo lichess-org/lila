@@ -11,6 +11,11 @@
 .relay_box h1 {
   margin-left: 50px;
 }
+.relay_box h1 a.atom {
+  color: #ff6600;
+  float: right;
+  text-decoration: none;
+}
 .relay_box .title_tag {
   float: right;
   font-size: 20px;

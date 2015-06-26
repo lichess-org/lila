@@ -1,0 +1,35 @@
+@(relays: List[lila.relay.Relay], contents: List[lila.relay.Content])(implicit req: RequestHeader)
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <id>@routes.Relay.index.absoluteURL()</id>
+  <link rel="alternate" type="text/html" href="@routes.Relay.index().absoluteURL()"/>
+  <link rel="self" type="application/atom+xml" href="@routes.Relay.atom().absoluteURL()"/>
+  <title>lichess.org - Watch chess events</title>
+  <updated>@relays.headOption.map(_.date).map(atomDate)</updated>
+  @relays.map { rel =>
+  @defining(contents.find(_ matches rel)) { content =>
+  <entry>
+    <id>@routes.Relay.show(rel.id, rel.slug).absoluteURL()</id>
+    <published>@atomDate(rel.date)</published>
+    <updated>@atomDate(content.fold(rel.date)(_.updatedAt))</updated>
+    <link rel="alternate" type="text/html" href="@routes.Relay.show(rel.id, rel.slug).absoluteURL()"/>
+    <title>@rel.name</title>
+    <category>
+      <term>@rel.baseName</term>
+      <label>@rel.baseSlug</label>
+    </category>
+    <content type="html">
+    @content.flatMap(_.short).map(escape)
+    @content.flatMap(_.long).map { long =>
+    &lt;br /&gt;
+    @escape(long)
+    }
+    </content>
+    <author>
+      <name>@content.map(_.updatedBy).fold("lichess")(usernameOrId)</name>
+    </author>
+  </entry>
+  }
+  }
+</feed>
+

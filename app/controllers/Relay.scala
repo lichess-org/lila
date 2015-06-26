@@ -2,7 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.libs.json._
-import play.api.mvc._
+import play.api.mvc._, Results._
 
 import lila.api.Context
 import lila.app._
@@ -35,6 +35,14 @@ object Relay extends LilaController {
             }
         }
       } map NoCache
+    }
+  }
+
+  def atom = Action.async { implicit req =>
+    env.repo recent 100 flatMap { relays =>
+      env.contentApi byRelays relays map { contents =>
+        Ok(xml.relay.atom(relays, contents)) as XML
+      }
     }
   }
 
