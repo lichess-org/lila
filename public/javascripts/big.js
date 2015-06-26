@@ -1045,7 +1045,9 @@ lichess.storage = {
       move: 'Move',
       capture: 'Capture',
       explode: 'Explosion',
-      lowtime: 'LowTime'
+      lowtime: 'LowTime',
+      victory: 'Victory',
+      defeat: 'Defeat'
     };
     var volumes = {
       lowtime: 0.5,
