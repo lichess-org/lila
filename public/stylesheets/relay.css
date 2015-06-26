@@ -31,7 +31,7 @@ div.chat_panels {
 }
 #relay .game_list .vstext {
   position: relative;
-  height: 3.4em;
+  /* height: 3.4em; */
 }
 #relay .game_list .vstext .clock.turn {
   font-weight: bold;

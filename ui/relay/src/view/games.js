@@ -10,10 +10,10 @@ function player(game, color) {
     p.name,
     m('br'),
     color == 'white' ? [title, p.rating] : [p.rating, title],
-    m('br'),
-    m('span', {
-      class: 'clock' + (game.status < status.ids.mate && color === game.color ? ' turn' : '')
-    }, '00:00')
+    m('br')
+    // m('span', {
+    //   class: 'clock' + (game.status < status.ids.mate && color === game.color ? ' turn' : '')
+    // }, '00:00')
   ]
 }
 
