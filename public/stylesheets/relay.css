@@ -77,16 +77,23 @@ div.chat_panels {
   line-height: 2.3em;
 }
 #relay_list table.slist td {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  line-height: 1.5em;
 }
 #relay_list table.slist .name {
   text-decoration: none;
   letter-spacing: 1px;
   display: block;
 }
+#relay_list table.slist .name em {
+  font-style: italic;
+}
 #relay_list table.slist .name:hover {
   text-decoration: underline;
+}
+#relay_list table.slist .short {
+  font-size: italic;
 }
 #relay_content table {
   width: 100%;

@@ -16,8 +16,10 @@ object Relay extends LilaController {
   private def relayNotFound(implicit ctx: Context) = NotFound(html.relay.notFound())
 
   val index = Open { implicit ctx =>
-    env.repo recent 30 map { relays =>
-      Ok(html.relay.home(relays))
+    env.repo recent 50 flatMap { relays =>
+      env.contentApi byRelays relays map { contents =>
+        Ok(html.relay.home(relays, contents))
+      }
     }
   }
 

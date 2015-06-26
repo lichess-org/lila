@@ -16,6 +16,12 @@ final class ContentApi(coll: Coll) {
 
   def byRelay(relay: Relay): Fu[Option[Content]] = byId(Content mkId relay)
 
+  def byIds(ids: Seq[String]): Fu[List[Content]] = coll.find(
+    BSONDocument("_id" -> BSONDocument("$in" -> ids))
+  ).cursor[Content].collect[List]()
+
+  def byRelays(relays: Seq[Relay]): Fu[List[Content]] = byIds(relays.map(Content.mkId).distinct)
+
   def upsert(relay: Relay, data: ContentApi.Data, user: lila.user.User): Funit = {
     val now = DateTime.now
     byRelay(relay) flatMap {
@@ -24,7 +30,6 @@ final class ContentApi(coll: Coll) {
         short = data.short,
         long = data.long,
         notes = data.notes,
-        createdAt = now,
         updatedAt = now,
         updatedBy = user.id))
       case Some(content) => coll.update(

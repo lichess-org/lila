@@ -1,4 +1,4 @@
-@(relays: List[lila.relay.Relay])(implicit ctx: Context)
+@(relays: List[lila.relay.Relay], contents: List[lila.relay.Content])(implicit ctx: Context)
 
 @side = {
 <div class="side">
@@ -29,8 +29,11 @@ side = side.some) {
           <td>@showDate(rel.date)</td>
           <td>
             <a class="name" href="@routes.Relay.show(rel.id, rel.slug)">
-              <strong>@rel.baseName</strong> - @rel.extName
+              <strong>@rel.baseName</strong> - <em>@rel.extName</em>
             </a>
+            @contents.find(_ matches rel).flatMap(_.short).map { short =>
+            <span class="short">@escape(short)</span>
+            }
           </td>
           <td>
             @if(rel.status == lila.relay.Relay.Status.Finished) {

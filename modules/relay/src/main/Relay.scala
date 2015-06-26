@@ -24,9 +24,9 @@ case class Relay(
 
   def activeGames = games.filterNot(_.end)
 
-  def slug = mkSlug(name)
+  lazy val slug = mkSlug(name)
 
-  def baseSlug = mkSlug(baseName)
+  lazy val baseSlug = mkSlug(baseName)
 
   private def mkSlug(str: String) = Relay.SlugR.replaceAllIn(lila.common.String slugify str, "-")
 }

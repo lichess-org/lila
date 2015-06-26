@@ -9,7 +9,7 @@ underchat = none) {
   <div class="content_box relay_box" data-icon="m">
     <h1>@rel.baseName</h1>
     @content.map { c =>
-    <p class="edited">Last edited on @showDate(c.updatedAt) by @userIdLink(c.updatedBy.some).</p>
+    <p class="edited">Last edited @momentFromNow(c.updatedAt) by @userIdLink(c.updatedBy.some).</p>
     }
     <form class="plain create content_box_content" action="@routes.Relay.contentPost(rel.id, rel.slug)" method="POST">
       <p class="help">
