@@ -3,6 +3,7 @@ var socket = require('./socket');
 var xhr = require('./xhr');
 var pagination = require('./pagination');
 var util = require('chessground').util;
+var endSound = require('./endSound');
 
 module.exports = function(env) {
 
@@ -24,6 +25,7 @@ module.exports = function(env) {
     this.loadPage(data.standing);
     if (this.vm.focusOnMe) this.scrollToMe();
     startWatching();
+    endSound(this.data);
   }.bind(this);
 
   this.loadPage = function(data) {
@@ -79,6 +81,8 @@ module.exports = function(env) {
     this.vm.focusOnMe = !this.vm.focusOnMe;
     if (this.vm.focusOnMe) this.scrollToMe();
   }.bind(this);
+
+  endSound(this.data);
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;

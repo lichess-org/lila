@@ -1047,7 +1047,11 @@ lichess.storage = {
       explode: 'Explosion',
       lowtime: 'LowTime',
       victory: 'Victory',
-      defeat: 'Defeat'
+      defeat: 'Defeat',
+      tournament1st: 'Tournament1st',
+      tournament2nd: 'Tournament2nd',
+      tournament3rd: 'Tournament3rd',
+      tournamentOther: 'TournamentOther'
     };
     var volumes = {
       lowtime: 0.5,

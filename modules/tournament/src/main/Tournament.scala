@@ -46,6 +46,8 @@ case class Tournament(
 
   def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
+  def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
+
   def duration = new Duration(minutes * 60 * 1000)
 
   def interval = new Interval(startsAt, finishesAt)

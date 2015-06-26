@@ -32,6 +32,7 @@ final class JsonView(
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
+    "isRecentlyFinished" -> tour.isRecentlyFinished.option(true),
     "schedule" -> tour.schedule.map(scheduleJson),
     "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
     "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
