@@ -2243,6 +2243,9 @@ body.base .crosstable .loss {
   font-size: 0.9em;
   font-family: 'Roboto';
   font-weight: 300;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #site_header a.stream:hover {
   text-decoration: underline;
@@ -2251,6 +2254,7 @@ body.base .crosstable .loss {
   color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
+  padding-right: 5px;
 }
 #site_header a.stream span:before {
   vertical-align: -3px;

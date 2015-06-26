@@ -76,6 +76,7 @@ case object Moves {
 
   case class Player(name: String, title: Option[String], rating: Option[Int]) {
     def ficsName = s"${~title}$name"
+    def splitName = name.split("(?=\\p{Upper})") mkString " "
   }
   case class Game(white: Player, black: Player, pgn: String, date: DateTime, title: String)
 

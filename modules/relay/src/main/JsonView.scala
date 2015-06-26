@@ -25,9 +25,10 @@ final class JsonView {
       "id" -> g.id,
       "white" -> playerJson(r.white),
       "black" -> playerJson(r.black),
+      "winner" -> g.winnerColor.map(_.name),
       "status" -> g.status.id,
       "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
       "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
-      "orient" -> g.firstPlayer.color.name)
+      "color" -> g.turnColor.name)
   }
 }

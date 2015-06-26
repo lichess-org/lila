@@ -59,12 +59,9 @@ private[relay] final class GameActor(
                   fics ! FICS.Observe(ficsId)
                 case false =>
               }
-            else {
-              println(g, data)
-              end
-            }
+            else fufail(s"Can't import wrong game")
           }
-        }
+        } addFailureEffect (_ => end)
 
     case ReceiveTimeout => end
   }
