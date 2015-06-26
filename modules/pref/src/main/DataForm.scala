@@ -130,6 +130,10 @@ private[pref] final class DataForm {
     "set" -> nonEmptyText.verifying(PieceSet3d contains _)
   ))
 
+  val soundSet = Form(single(
+    "set" -> nonEmptyText.verifying(SoundSet contains _)
+  ))
+
   val bg = Form(single(
     "bg" -> text.verifying(List("light", "dark") contains _)
   ))

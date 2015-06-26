@@ -53,6 +53,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     "coords_" + ctx.pref.coords).mkString(" ")"
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
+    data-sound-set="@ctx.currentSoundSet"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
@@ -109,7 +110,17 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
         </button>
-        <div class="dropdown"><div class="slider"></div></div>
+        <div class="dropdown">
+          <div class="slider"></div>
+          <form class="selector" action="@routes.Pref.set("soundSet")">
+            @lila.pref.SoundSet.list.map { set =>
+            <div class="@set.key">
+              <input id="soundSet_@set.key" @if(set.key == ctx.currentSoundSet.key) { checked class="active" } type="radio" value="@set.key" name="soundSet" />
+              <label for="soundSet_@set.key">@set.name</label>
+            </div>
+            }
+          </form>
+        </div>
       </div>
       @if(ctx.teamNbRequests > 0) {
       <a class="fright link" href="@routes.Team.requests()">

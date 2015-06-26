@@ -14,7 +14,7 @@ module.exports = function(ctrl) {
 
   blur.init(ctrl);
 
-  if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.dong();
+  if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.genericNotify();
 
   if (game.isPlayerPlaying(d)) {
     window.addEventListener('beforeunload', function(e) {

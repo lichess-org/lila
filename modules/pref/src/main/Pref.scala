@@ -14,6 +14,7 @@ case class Pref(
     pieceSet: String,
     theme3d: String,
     pieceSet3d: String,
+    soundSet: String,
     blindfold: Int,
     autoQueen: Int,
     autoThreefold: Int,
@@ -44,6 +45,8 @@ case class Pref(
   def realTheme3d = Theme3d(theme3d)
   def realPieceSet3d = PieceSet3d(pieceSet3d)
 
+  def realSoundSet = SoundSet(soundSet)
+
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
@@ -55,6 +58,7 @@ case class Pref(
     case "theme3d"    => theme3d.some
     case "pieceSet3d" => pieceSet3d.some
     case "is3d"       => is3d.toString.some
+    case "soundSet"   => soundSet.some
     case _            => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
@@ -64,6 +68,7 @@ case class Pref(
     case "theme3d"    => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
     case "pieceSet3d" => PieceSet3d.allByName get value map { p => copy(pieceSet3d = p.name) }
     case "is3d"       => copy(is3d = value == "true").some
+    case "soundSet"   => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
     case _            => none
   }
 
@@ -227,6 +232,7 @@ object Pref {
     pieceSet = PieceSet.default.name,
     theme3d = Theme3d.default.name,
     pieceSet3d = PieceSet3d.default.name,
+    soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,

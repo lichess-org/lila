@@ -472,7 +472,7 @@ lichess.storage = {
             if (!lichess.storage.get('challenge-' + data.id)) {
               if (!lichess.quietMode) {
                 $('#top .challenge_notifications').addClass('shown');
-                $.sound.dong();
+                $.sound.genericNotify();
               }
               lichess.storage.set('challenge-' + data.id, 1);
             }
@@ -1026,30 +1026,35 @@ lichess.storage = {
 
   $.lazy = function(factory) {
     var loaded = {};
-    return function(key) {
+    var f = function(key) {
       if (!loaded[key]) loaded[key] = factory(key);
       return loaded[key];
     };
+    f.clear = function() {
+      loaded = {};
+    };
+    return f;
   };
 
   $.sound = (function() {
-    var baseUrl = $('body').data('sound-dir') + '/';
+    var baseUrl = $('body').data('sound-dir');
+    var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
     var names = {
-      dong: 'dong2',
-      move: 'move3',
-      take: 'take2',
-      explode: 'explosion',
-      lowtime: 'lowtime'
+      genericNotify: 'GenericNotify',
+      move: 'Move',
+      capture: 'Capture',
+      explode: 'Explosion',
+      lowtime: 'LowTime'
     };
     var volumes = {
       lowtime: 0.5,
       explode: 0.35
     };
-    var get = new $.lazy(function(k) {
+    var collection = new $.lazy(function(k) {
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
-          return baseUrl + names[k] + '.' + ext;
+          return [baseUrl, soundSet, names[k] + '.' + ext].join('/');
         }),
         volume: volumes[k] || 1
       });
@@ -1062,13 +1067,13 @@ lichess.storage = {
     $control.add($toggle).toggleClass('sound_state_on', enabled());
     var player = function(s) {
       return function() {
-        if (enabled()) get(s).play();
+        if (enabled()) collection(s).play();
       };
     }
     var play = {};
     Object.keys(names).forEach(function(name) {
       play[name] = function() {
-        if (enabled()) get(name).play();
+        if (enabled()) collection(name).play();
       }
     });
     var setVolume = function(v) {
@@ -1083,7 +1088,7 @@ lichess.storage = {
       var enab = !enabled();
       lichess.storage.set('sound', enab ? 'yes' : 'no');
       $control.add($toggle).toggleClass('sound_state_on', enab);
-      play.dong();
+      play.genericNotify();
       return false;
     });
     $toggle.one('mouseover', function() {
@@ -1097,6 +1102,16 @@ lichess.storage = {
         slide: function(e, ui) {
           manuallySetVolume(ui.value);
         }
+      });
+      var $selector = $toggle.parent().find('form');
+      $selector.find('input').on('change', function() {
+        soundSet = $(this).val();
+        collection.clear();
+        play.genericNotify();
+        $.post($selector.attr('action'), {
+          set: soundSet
+        });
+        return false;
       });
     });
 
@@ -2084,7 +2099,7 @@ lichess.storage = {
         },
         events: {
           analysisAvailable: function() {
-            $.sound.dong();
+            $.sound.genericNotify();
             location.reload();
           },
           crowd: function(event) {

@@ -51,7 +51,7 @@ module.exports = function(cfg, router, i18n) {
 
   var onMove = function(orig, dest, captured) {
     if (captured) {
-      $.sound.take();
+      $.sound.capture();
     } else $.sound.move();
   }.bind(this);
 

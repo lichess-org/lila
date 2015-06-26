@@ -59,7 +59,7 @@ module.exports = function(opts) {
       if (this.data.game.variant.key === 'atomic') {
         $.sound.explode();
         atomic.capture(this, dest, captured);
-      } else $.sound.take();
+      } else $.sound.capture();
     } else $.sound.move();
   }.bind(this);
 
@@ -154,7 +154,7 @@ module.exports = function(opts) {
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           $.sound.explode();
-        } else $.sound.take();
+        } else $.sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.data.autoCastle) {

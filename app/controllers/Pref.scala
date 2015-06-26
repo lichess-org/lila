@@ -57,6 +57,7 @@ object Pref extends LilaController {
     "pieceSet" -> (forms.pieceSet -> save("pieceSet") _),
     "theme3d" -> (forms.theme3d -> save("theme3d") _),
     "pieceSet3d" -> (forms.pieceSet3d -> save("pieceSet3d") _),
+    "soundSet" -> (forms.soundSet -> save("soundSet") _),
     "bg" -> (forms.bg -> save("bg") _),
     "is3d" -> (forms.is3d -> save("is3d") _))
 

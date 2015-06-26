@@ -45,6 +45,9 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def currentPieceSet3d =
     ctxPref("pieceSet3d").fold(Pref.default.realPieceSet3d)(lila.pref.PieceSet3d.apply)
 
+  def currentSoundSet =
+    ctxPref("soundSet").fold(Pref.default.realSoundSet)(lila.pref.SoundSet.apply)
+
   def currentBg = ctxPref("bg") | "light"
 
   def mobileApiVersion = Mobile.Api requestVersion req

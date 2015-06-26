@@ -33,7 +33,7 @@ function makeConfig(data, config, onMove) {
     },
     events: {
       move: function(orig, dest, captured) {
-        if (captured) $.sound.take();
+        if (captured) $.sound.capture();
       }
     },
     disableContextMenu: true

@@ -1455,9 +1455,6 @@ form.wide textarea {
   top: 24px;
   background: #fff;
   z-index: 3;
-}
-#top .shown .dropdown,
-#sound_control .slider {
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
 }
 span.progress > .positive {
@@ -1637,16 +1634,14 @@ body #themepicker div.is3d,
   position: relative;
 }
 #sound_control .dropdown {
-  width: 40px;
-  background: none!important;
-  padding: 5px 0 20px 0;
-  left: -2px;
+  width: 120px;
+  padding: 10px;
 }
 #sound_control.sound_state_on:hover .dropdown {
   display: block;
 }
 #sound_control .slider {
-  margin: auto;
+  float: right;
   width: 10px;
   height: 80px;
 }
@@ -1656,6 +1651,17 @@ body #themepicker div.is3d,
 #sound_control .slider .ui-widget-header {
   width: 10px;
   bottom: 0;
+}
+#sound_control .selector {
+}
+#sound_control .selector div {
+  margin: 5px 0;
+}
+#sound_control .selector label {
+  cursor: pointer;
+}
+#sound_control .selector input {
+  vertical-align: middle;
 }
 #sound_state span.on,
 #sound_state.sound_state_on span.off {
