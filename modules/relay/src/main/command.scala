@@ -54,7 +54,7 @@ case class GetTime(player: String) extends Command {
   type Result = GetTime.Result
   import GetTime._
   val str = s"time $player"
-  def parse(lines: List[String]) = {
+  def parse(lines: List[String]) =
     lines.mkString("\n") match {
       case Regexp(name, white, black) =>
         if (name == player) toTenths(white) |@| toTenths(black) apply Times.apply match {
@@ -64,7 +64,6 @@ case class GetTime(player: String) extends Command {
         else Failure(new Exception(s"Got times for the wrong player $player != $name")).some
       case _ => none
     }
-  }.pp(s"GetTime parse ${lines.mkString("\n")}")
 }
 object GetTime {
   type Result = Try[Times]

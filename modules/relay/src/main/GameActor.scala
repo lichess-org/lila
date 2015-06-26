@@ -17,12 +17,11 @@ private[relay] final class GameActor(
 
   import GameActor._
 
-  context setReceiveTimeout 3.hours
+  context setReceiveTimeout 1.hour
 
-  override def preStart() {
-    println(s"[$ficsId] start actor $self")
-    fics ! FICS.Observe(ficsId)
-  }
+  // override def preStart() {
+  //   println(s"[$ficsId] start actor $self")
+  // }
 
   def process = {
 
@@ -94,9 +93,9 @@ private[relay] final class GameActor(
   }
 
   def end = setEnd() >>- {
-    println(s"[$ficsId] stop actor $self")
+    println(s"[$ficsId] end game $self")
     fics ! FICS.Unobserve(ficsId)
-    self ! SequentialActor.Terminate
+    // self ! SequentialActor.Terminate
   }
 
   def withRelayGame[A](f: Relay.Game => Fu[A]): Funit = getRelayGame() flatMap {

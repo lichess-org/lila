@@ -15,7 +15,7 @@ private[relay] final class TourneyActor(
 
   import TourneyActor._
 
-  context setReceiveTimeout 3.hours
+  context setReceiveTimeout 1.hour
 
   val fics = context.actorOf(ficsProps, name = "fics")
 
