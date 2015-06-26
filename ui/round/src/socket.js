@@ -39,7 +39,8 @@ module.exports = function(send, ctrl) {
       ctrl.data.game.winner = winner;
       ground.end(ctrl.chessground);
       xhr.reload(ctrl).then(ctrl.reload);
-      if (!ctrl.data.player.spectator) $.sound[ctrl.data.player.color === winner ? 'victory' : 'defeat']();
+      if (!ctrl.data.player.spectator)
+        $.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
     },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {

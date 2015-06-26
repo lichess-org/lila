@@ -1049,6 +1049,7 @@ lichess.storage = {
       lowtime: 'LowTime',
       victory: 'Victory',
       defeat: 'Defeat',
+      draw: 'Draw',
       tournament1st: 'Tournament1st',
       tournament2nd: 'Tournament2nd',
       tournament3rd: 'Tournament3rd',
