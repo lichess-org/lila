@@ -133,13 +133,14 @@ final class AssessApi(
 
     val shouldAnalyse =
       if (!game.analysable) false
+      // give up on correspondence games
       else if (game.isCorrespondence) false
-      // someone is using a bot
-      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
-      // stop here for casual games
-      else if (!game.mode.rated) false
       // stop here for short games
       else if (game.playedTurns < 40) false
+      // stop here for casual games
+      else if (!game.mode.rated) false
+      // someone is using a bot
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
       // someone has consistent move times
       else if (game.players exists consistentMoveTimes(game)) true
       // don't analyse other bullet games
