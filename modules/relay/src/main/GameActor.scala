@@ -21,19 +21,19 @@ private[relay] final class GameActor(
   override def preStart() {
     // println(s"[$ficsId] start actor $self")
     fics ! FICS.Observe(ficsId)
-    self ! GetTime
+    scheduleGetTime
   }
 
   def process = {
 
     case GetTime => withRelayGame { g =>
-      implicit val t = makeTimeout seconds 5
+      implicit val t = makeTimeout seconds 10
       fics ? command.GetTime(g.white) mapTo
-        manifest[command.GetTime.Times] flatMap { data =>
-          println(data)
-        } andThenAnyway {
-          context.system.scheduleOnce(5 seconds, self, GetTime)
-        }
+        manifest[command.GetTime.Times] addEffect { data =>
+          importer.setClocks(g.id, data.white, data.black)
+        } addFailureEffect {
+          case e => println(e.getMessage)
+        } andThenAnyway { scheduleGetTime }
     }
 
     case move: GameEvent.Move => withRelayGame { g =>
@@ -79,6 +79,10 @@ private[relay] final class GameActor(
 
   override def onFailure(e: Exception) {
     println(s"[$ficsId] ERR ${e.getMessage}")
+  }
+
+  def scheduleGetTime {
+    context.system.scheduler.scheduleOnce(10 seconds)(self ! GetTime)
   }
 
   def end = setEnd() >>- {

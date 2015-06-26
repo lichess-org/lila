@@ -109,11 +109,15 @@ private[api] final class RoundApi(
       ))
     }
 
+  private def relayClock(r: lila.game.Relay, running: Boolean) = Json.obj(
+    "running" -> running,
+    "white" -> r.white.seconds,
+    "black" -> r.black.seconds)
+
   private def relayPlayer(p: lila.game.Relay.Player) = Json.obj(
     "name" -> p.name,
     "title" -> p.title,
-    "rating" -> p.rating
-  ).noNull
+    "rating" -> p.rating).noNull
 
   private def withRelay(pov: Pov, relayOption: Option[Relay])(json: JsObject) =
     (pov.game.relay |@| relayOption).tupled.fold(json) {
@@ -121,9 +125,9 @@ private[api] final class RoundApi(
         "id" -> relay.id,
         "name" -> relay.name,
         "status" -> relay.status.id,
-        "game" -> Json.obj(
-          "white" -> relayPlayer(meta.white),
-          "black" -> relayPlayer(meta.black))
+        "white" -> relayPlayer(meta.white),
+        "black" -> relayPlayer(meta.black),
+        "clock" -> relayClock(meta, true)
       ))
     }
 

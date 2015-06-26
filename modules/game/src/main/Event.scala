@@ -211,6 +211,7 @@ object Event {
     def apply(clock: ChessClock): Clock = Clock(
       clock remainingTime Color.White,
       clock remainingTime Color.Black)
+    def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
 
   case class CorrespondenceClock(white: Float, black: Float) extends Event {

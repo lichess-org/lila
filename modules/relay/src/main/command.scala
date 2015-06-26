@@ -50,27 +50,32 @@ case object ListGames {
 }
 
 case class GetTime(player: String) extends Command {
-  type Result = GetTime.Times
+  import GetTime._
+  type Result = Times
   val str = s"time $player"
-  def parse(lines: List[String]) = ???
-  // def parse(lines: List[String]) = {
-  //   lines.exists(_ contains "The following tournaments are currently in progress:")
-  // } option {
-  //   lines.collect {
-  //     case Regexp(id, name, status) => parseIntOption(id) map {
-  //       Tourney(_, name.trim, status match {
-  //         case "Round Started" => Relay.Status.Started
-  //         case "Round Over"    => Relay.Status.Finished
-  //         case _               => Relay.Status.Unknown
-  //       })
-  //     }
-  //   }.flatten
-  // }
-  // in tenths of seconds
+  def parse(lines: List[String]) = {
+    val Regexp = mkRegexp(player)
+    lines.mkString("\n") match {
+      case Regexp(white, black) => toTenths(white) |@| toTenths(black) apply Times.apply
+      case _                    => none
+    }
+  }
 }
 object GetTime {
   case class Times(white: Int, black: Int)
-  private val Regexp = """(?s)Game \d+: FMEspinosaVeloz.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""".r.unanchored
+  private def mkRegexp(name: String) =
+    ("""(?s)Game \d+: """ + name + """.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").pp.r.unanchored
+  // White Clock : 11:01.033
+  // White Clock : 1:31:00.000
+  private def toTenths(clock: String): Option[Int] =
+    clock.replace(".", ":").split(":").flatMap(parseIntOption) match {
+      case Array(seconds, millis)                 => Some(seconds * 10 + millis / 100)
+      case Array(minutes, seconds, millis)        => Some((60 * minutes + seconds) * 10 + millis / 100)
+      case Array(hours, minutes, seconds, millis) => Some((60 * 60 * hours + 60 * minutes + seconds) * 10 + millis / 100)
+      case _ =>
+        println(s"[relay] invalid clock $clock")
+        none
+    }
 }
 
 case class Moves(id: Int) extends Command {

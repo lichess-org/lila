@@ -14,6 +14,7 @@ var init = require('./init');
 var blind = require('./blind');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
+var relayClockCtrl = require('./relayClock/ctrl');
 var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var util = require('./util');
@@ -153,8 +154,7 @@ module.exports = function(opts) {
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           $.sound.explode();
-        }
-        else $.sound.take();
+        } else $.sound.take();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.data.autoCastle) {
@@ -213,6 +213,7 @@ module.exports = function(opts) {
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
+    else if (this.relayClock) this.relayClock.update(this.data.relay.white.tenths, this.data.relay.black.tenths);
     if (!this.replaying()) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
@@ -226,13 +227,20 @@ module.exports = function(opts) {
     this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
+  this.relayClock = this.data.relay ? new relayClockCtrl(this.data.relay.clock) : false;
+
   this.isClockRunning = function() {
-    return this.data.clock && game.playable(this.data) &&
+    return (this.data.relay && this.data.game.turns > 1) ||
+      this.data.clock && game.playable(this.data) &&
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
   var clockTick = function() {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
+  }.bind(this);
+
+  var relayClockTick = function() {
+    if (this.isClockRunning()) this.relayClock.tick(this.data.game.player);
   }.bind(this);
 
   var makeCorrespondenceClock = function() {
@@ -250,6 +258,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) setInterval(clockTick, 100);
+  else if (this.relayClock) setInterval(relayClockTick, 100);
   else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {

@@ -49,6 +49,10 @@ private[round] final class Round(
       player.relay(p, self)(pov)
     }
 
+    case RelayClocks(white, black) => handle { game =>
+      GameRepo.setRelayClocks(game.id, white, black) inject List(Event.Clock.tenths(white, black))
+    }
+
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)

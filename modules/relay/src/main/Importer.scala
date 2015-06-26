@@ -89,6 +89,10 @@ final class Importer(
     roundMap ! Tell(id, DrawForce)
   }
 
+  def setClocks(id: String, white: Int, black: Int) {
+    roundMap ! Tell(id, RelayClocks(white, black))
+  }
+
   private def applyMove(pov: Pov, move: Move) {
     roundMap ! Tell(pov.gameId, RelayPlay(
       playerId = pov.playerId,

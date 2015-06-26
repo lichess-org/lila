@@ -132,6 +132,7 @@ case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
 case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
+case class RelayClocks(white: Int, black: Int)
 }
 
 private[round] case object GetNbRounds

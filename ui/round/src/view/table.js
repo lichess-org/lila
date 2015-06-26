@@ -149,14 +149,31 @@ function renderClock(ctrl, color, position) {
   ]);
 }
 
+function renderRelayClock(ctrl, color, position) {
+  var time = ctrl.relayClock.data[color];
+  var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
+  return m('div', {
+    class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
+      'outoftime': !time,
+      'running': running
+    })
+  }, m('div.time', m.trust(clockView.formatClockTime(ctrl.relayClock, time * 1000, running))));
+}
+
+function anyClock(ctrl, color, position) {
+  if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, color, position);
+  else if (ctrl.relayClock) return renderRelayClock(ctrl, color, position);
+  else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
+    return renderCorrespondenceClock(
+      ctrl.correspondenceClock, ctrl.trans, color, position, ctrl.data.game.player
+    );
+  else return whosTurn(ctrl, color);
+}
+
 module.exports = function(ctrl) {
   var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
   return m('div.table_wrap', [
-    (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl, ctrl.data.opponent.color, 'top') : (
-      showCorrespondenceClock ? renderCorrespondenceClock(
-        ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, 'top', ctrl.data.game.player
-      ) : whosTurn(ctrl, ctrl.data.opponent.color)
-    ),
+    anyClock(ctrl, ctrl.data.opponent.color, 'top'),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
@@ -166,12 +183,7 @@ module.exports = function(ctrl) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
-    ]), (ctrl.clock && !ctrl.data.blind) ? [
-      renderClock(ctrl, ctrl.data.player.color, 'bottom'),
-      button.moretime(ctrl)
-    ] : (
-      showCorrespondenceClock ? renderCorrespondenceClock(
-        ctrl.correspondenceClock, ctrl.trans, ctrl.data.player.color, "bottom", ctrl.data.game.player
-      ) : whosTurn(ctrl, ctrl.data.player.color))
+    ]),
+    anyClock(ctrl, ctrl.data.player.color, 'bottom')
   ]);
 }

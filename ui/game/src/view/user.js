@@ -20,7 +20,7 @@ function relayUser(ctrl, player, klass) {
 
 module.exports = function(ctrl, player, klass) {
   var d = ctrl.data;
-  if (d.relay) return relayUser(ctrl, d.relay.game[player.color], klass);
+  if (d.relay) return relayUser(ctrl, d.relay[player.color], klass);
   var perf = player.user ? player.user.perfs[d.game.perf] : null;
   var rating = player.rating ? player.rating : (perf ? perf.rating : null);
   var playerOnGameIcon = m('span.status.hint--top', {

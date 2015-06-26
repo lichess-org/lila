@@ -271,9 +271,9 @@ object GameRepo {
       F.createdAt -> $gt($date(DateTime.now minusMinutes 5)),
       F.updatedAt -> $gt($date(DateTime.now minusSeconds 30))
     ) ++ $or(Seq(
-      Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1300)),
-      Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1300))
-    ))
+        Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1300)),
+        Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1300))
+      ))
   )
 
   def count(query: Query.type => JsObject): Fu[Int] = $count(query(Query))
@@ -333,6 +333,13 @@ object GameRepo {
     gameTube.coll.find(
       BSONDocument(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     ).one[Game]
+
+  def setRelayClocks(id: String, white: Int, black: Int): Funit =
+    gameTube.coll.update(
+      $select(id),
+      BSONDocument("$set" -> BSONDocument(
+        s"${F.relay}.white.tenths" -> white,
+        s"${F.relay}.black.tenths" -> black))).void
 
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 
