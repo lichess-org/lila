@@ -3,6 +3,7 @@ package command
 
 import org.joda.time.DateTime
 import scala.util.matching.Regex
+import scala.util.{ Try, Success, Failure }
 
 sealed trait Command extends FICS.Stashable {
   type Result
@@ -50,21 +51,26 @@ case object ListGames {
 }
 
 case class GetTime(player: String) extends Command {
+  type Result = GetTime.Result
   import GetTime._
-  type Result = Times
   val str = s"time $player"
   def parse(lines: List[String]) = {
-    val Regexp = mkRegexp(player)
     lines.mkString("\n") match {
-      case Regexp(white, black) => toTenths(white) |@| toTenths(black) apply Times.apply
-      case _                    => none
+      case Regexp(name, white, black) =>
+        if (name == player) toTenths(white) |@| toTenths(black) apply Times.apply match {
+          case Some(data) => Success(data).some
+          case None       => Failure(new Exception(s"Invalid times $lines")).some
+        }
+        else Failure(new Exception(s"Got times for the wrong player $player != $name")).some
+      case _ => none
     }
-  }
+  }.pp(s"GetTime parse ${lines.mkString("\n")}")
 }
 object GetTime {
+  type Result = Try[Times]
   case class Times(white: Int, black: Int)
-  private def mkRegexp(name: String) =
-    ("""(?s)Game \d+: """ + name + """.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").r.unanchored
+  private val Regexp =
+    ("""(?s)Game \d+: (\w+).*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").r.unanchored
   // White Clock : 11:01.033
   // White Clock : 1:31:00.000
   def toTenths(clock: String): Option[Int] =
@@ -78,15 +84,15 @@ object GetTime {
     }
 }
 
-case class Moves(id: Int) extends Command {
+case class Moves(ficsId: Int) extends Command {
   type Result = Moves.Result
-  val str = s"moves $id"
-  def parse(lines: List[String]) = Moves parse lines
+  val str = s"moves $ficsId"
+  def parse(lines: List[String]) = Moves.parse(ficsId, lines)
 }
 case object Moves {
-  type Result = Game
-  def parse(lines: List[String]) =
-    lines.find(_ contains "Movelist for game ") ?? { firstLine =>
+  type Result = Try[Game]
+  def parse(ficsId: Int, lines: List[String]) =
+    lines.find(_ contains s"Movelist for game $ficsId") map { firstLine =>
       lines collectFirst {
         case PlayersR(wt, wn, wr, bt, bn, br, date) => Game(
           white = Player(wn, wt.some.filter(_.nonEmpty), parseIntOption(wr)),
@@ -100,6 +106,9 @@ case object Moves {
             ""),
           date = DateTime.now,
           title = firstLine.trim)
+      } match {
+        case None      => Failure(new Exception(s"Invalid moves data ${lines.headOption}"))
+        case Some(res) => Success(res)
       }
     }
 

@@ -339,13 +339,16 @@ object GameRepo {
       $select(id),
       BSONDocument("$set" -> BSONDocument(
         s"${F.relay}.white.tenths" -> white,
-        s"${F.relay}.black.tenths" -> black))).void
+        s"${F.relay}.white.at" -> DateTime.now,
+        s"${F.relay}.black.tenths" -> black,
+        s"${F.relay}.black.at" -> DateTime.now))).void
 
   def setRelayClock(id: String, color: Color, tenths: Int): Funit =
     gameTube.coll.update(
       $select(id),
       BSONDocument("$set" -> BSONDocument(
-        s"${F.relay}.${color.name}.tenths" -> tenths))).void
+        s"${F.relay}.${color.name}.tenths" -> tenths,
+        s"${F.relay}.${color.name}.at" -> DateTime.now))).void
 
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 

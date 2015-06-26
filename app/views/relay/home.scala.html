@@ -50,7 +50,9 @@ openGraph = Map(
             @if(rel.status == lila.relay.Relay.Status.Finished) {
             @trans.finished()
             } else {
-            @rel.activeGames.size/@rel.games.size playing
+            <a class="ongoing" href="@routes.Relay.show(rel.id, rel.slug)">
+              @rel.activeGames.size/@rel.games.size playing
+            </a>
             }
           </td>
         </tr>

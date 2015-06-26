@@ -111,5 +111,6 @@ final class Importer(
     name = p.splitName,
     title = p.title,
     rating = p.rating,
-    tenths = none)
+    tenths = none,
+    at = none)
 }

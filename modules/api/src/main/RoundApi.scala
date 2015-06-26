@@ -109,10 +109,13 @@ private[api] final class RoundApi(
       ))
     }
 
-  private def relayClock(r: lila.game.Relay, running: Boolean) = Json.obj(
-    "running" -> running,
-    "white" -> r.white.seconds,
-    "black" -> r.black.seconds)
+  private def relayClock(game: Game, r: lila.game.Relay, running: Boolean) = {
+    val tickingColor = game.playerHasMoved(chess.White) option game.turnColor
+    Json.obj(
+      "running" -> running,
+      "white" -> r.remainingSecondsOf(chess.White, tickingColor),
+      "black" -> r.remainingSecondsOf(chess.Black, tickingColor))
+  }
 
   private def relayPlayer(p: lila.game.Relay.Player) = Json.obj(
     "name" -> p.name,
@@ -127,7 +130,7 @@ private[api] final class RoundApi(
         "status" -> relay.status.id,
         "white" -> relayPlayer(meta.white),
         "black" -> relayPlayer(meta.black),
-        "clock" -> relayClock(meta, true)
+        "clock" -> relayClock(pov.game, meta, true)
       ))
     }
 

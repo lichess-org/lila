@@ -109,6 +109,15 @@ div.chat_panels {
 #relay_list table.slist .short {
   font-size: italic;
 }
+#relay_list table.slist .ongoing {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 2px;
+  background: #759900;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
 #relay_content table {
   width: 100%;
 }

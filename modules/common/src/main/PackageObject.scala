@@ -79,7 +79,7 @@ trait WithFuture extends scalalib.Validation {
   type Funit = Fu[Unit]
 
   def fuccess[A](a: A) = Future successful a
-  def fufail[A <: Exception, B](a: A): Fu[B] = Future failed a
+  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
   def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
   def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
   val funit = fuccess(())

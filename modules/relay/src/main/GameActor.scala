@@ -3,6 +3,7 @@ package lila.relay
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
+import scala.util.{ Try, Success, Failure }
 
 import lila.hub.SequentialActor
 
@@ -27,9 +28,10 @@ private[relay] final class GameActor(
 
     case GetTime => withRelayGame { g =>
       implicit val t = makeTimeout seconds 10
-      fics ? command.GetTime(g.white).pp mapTo
-        manifest[command.GetTime.Times] addEffect { data =>
-          importer.setClocks(g.id, data.white, data.black)
+      fics ? command.GetTime(g.white) mapTo
+        manifest[command.GetTime.Result] addEffect {
+          case Failure(err)  => fufail(err)
+          case Success(data) => importer.setClocks(g.id, data.white, data.black)
         } addFailureEffect onFailure
     }
 
@@ -67,19 +69,21 @@ private[relay] final class GameActor(
     case Recover =>
       implicit val t = makeTimeout seconds 60
       fics ? command.Moves(ficsId) mapTo
-        manifest[command.Moves.Game] flatMap { data =>
-          withRelayGame { g =>
-            if (g.white == data.white.ficsName && g.black == data.black.ficsName)
-              importer.full(relayId, g.id, data) addEffect {
-                case true =>
-                  self ! GetTime
-                  // re-observe. If a limit was reached before,
-                  // but a slot became available, use it.
-                  fics ! FICS.Observe(ficsId)
-                case false =>
-              }
-            else fufail(s"Can't import wrong game")
-          }
+        manifest[command.Moves.Result] flatMap {
+          case Failure(err) => fufail(err)
+          case Success(data) =>
+            withRelayGame { g =>
+              if (g.white == data.white.ficsName && g.black == data.black.ficsName)
+                importer.full(relayId, g.id, data) addEffect {
+                  case true =>
+                    self ! GetTime
+                    // re-observe. If a limit was reached before,
+                    // but a slot became available, use it.
+                    fics ! FICS.Observe(ficsId)
+                  case false =>
+                }
+              else fufail(s"Can't import wrong game")
+            }
         } addFailureEffect (_ => end)
 
     case ReceiveTimeout => end
