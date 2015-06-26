@@ -9,6 +9,7 @@ import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.{ Tv, StreamOnAir }
+import lila.relay.Relay
 import lila.user.User
 import lila.playban.TempBan
 import play.api.libs.json.JsObject
@@ -18,13 +19,14 @@ final class Preload(
     leaderboard: Boolean => Fu[List[(User, PerfType)]],
     tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
-    streamsOnAir: => () => Fu[List[StreamOnAir]],
+    streamsOnAir: () => Fu[List[StreamOnAir]],
+    ongoingRelays: () => Fu[List[Relay.Mini]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]]) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[Relay.Mini], List[lila.blog.MiniPost], Option[TempBan], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -40,8 +42,9 @@ final class Preload(
       tourneyWinners(10) zip
       dailyPuzzle() zip
       streamsOnAir() zip
+      ongoingRelays() zip
       (ctx.userId ?? getPlayban) map {
-        case ((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), playban) =>
-          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, countRounds())
+        case (((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), relays), playban) =>
+          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, relays, Env.blog.lastPostCache.apply, playban, countRounds())
       }
 }

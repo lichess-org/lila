@@ -709,7 +709,8 @@ div.side_box .padded {
 }
 @media (max-width: 1070px) {
   div.side_box,
-  #site_header a.stream {
+  #site_header a.stream,
+  #site_header a.relay {
     margin-left: 0px!important;
     width: 196px!important;
   }
@@ -2236,7 +2237,8 @@ body.base .crosstable .loss {
 .crosstable .user {
   padding-left: 7px;
 }
-#site_header a.stream {
+#site_header a.stream,
+#site_header a.relay {
   display: block;
   margin: 2em 0 2em -30px;
   text-decoration: none;
@@ -2247,16 +2249,19 @@ body.base .crosstable .loss {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-#site_header a.stream:hover {
+#site_header a.stream:hover,
+#site_header a.relay:hover {
   text-decoration: underline;
 }
-#site_header a.stream span {
+#site_header a.stream,
+#site_header a.relay span {
   color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
   padding-right: 5px;
 }
-#site_header a.stream span:before {
+#site_header a.stream span:before,
+#site_header a.relay span:before {
   vertical-align: -3px;
 }
 .bookmark {

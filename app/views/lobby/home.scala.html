@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], relays: List[lila.relay.Relay.Mini], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], nbRounds: Int)(implicit ctx: Context)
 @import play.api.libs.json.Json
 
 @underchat = {
@@ -14,6 +14,7 @@
 @NotForKids {
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 }
+<div id="ongoing_relays">@relay.ongoing(relays)</div>
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
   @timeline.entries(userTimeline)

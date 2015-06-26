@@ -10,4 +10,11 @@ private[relay] final class Cached(repo: RelayRepo) {
     default = _ => none)
 
   def name(id: String) = nameCache get id
+
+  private val miniStartedCache = lila.memo.AsyncCache.single[List[Relay.Mini]](
+    repo.started map2 Relay.Mini.apply,
+    // repo.recent(3) map2 Relay.Mini.apply,
+    timeToLive = 10 seconds)
+
+  def miniStarted = miniStartedCache(true)
 }

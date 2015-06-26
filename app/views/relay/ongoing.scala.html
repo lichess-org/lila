@@ -1,0 +1,6 @@
+@(relays: List[lila.relay.Relay.Mini])
+@relays.map { rel =>
+<a class="relay" href="@routes.Relay.show(rel.id, rel.slug)">
+  <span class="text" data-icon="n">@rel.name</span>
+</a>
+}

@@ -71,6 +71,15 @@ div.chat_panels {
 .side_box p {
   margin-bottom: 10px;
 }
+.side_box .beta {
+  margin: 10px 0;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 2px;
+  background: #d59120;
+  color: #fff;
+  font-weight: bold;
+}
 #relay .join_choice {
   display: none;
 }

@@ -43,6 +43,11 @@ object Relay {
     date = DateTime.now,
     games = Nil)
 
+  case class Mini(id: String, name: String, slug: String)
+  object Mini {
+    def apply(relay: Relay): Mini = Mini(relay.id, relay.baseName, relay.slug)
+  }
+
   case class Game(
       id: String, // lichess game ID
       ficsId: Int,
