@@ -11,7 +11,13 @@
 
 @relay.layout(
 title = "Watch Chess events",
-side = side.some) {
+side = side.some,
+openGraph = Map(
+'type -> "website",
+'title -> "Watch chess events",
+'site_name -> "lichess.org",
+'url -> s"$netBaseUrl${routes.Relay.index.url}",
+'description -> "Real-time relay of international chess tournaments")) {
 <div id="relay_list">
   <div class="content_box relay_box no_padding" data-icon="n">
     <h1>

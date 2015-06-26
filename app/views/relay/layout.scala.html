@@ -1,4 +1,4 @@
-@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("relay.css")
@@ -11,6 +11,7 @@ moreCss = moreCss,
 side = side,
 chat = chat,
 underchat = underchat,
-chessground = chessground) {
+chessground = chessground,
+openGraph = openGraph) {
 @body
 }
