@@ -1040,6 +1040,7 @@ lichess.storage = {
     var baseUrl = $('body').data('sound-dir');
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
+
     var names = {
       genericNotify: 'GenericNotify',
       move: 'Move',
@@ -1053,6 +1054,8 @@ lichess.storage = {
       tournament3rd: 'Tournament3rd',
       tournamentOther: 'TournamentOther'
     };
+    for(var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
+
     var volumes = {
       lowtime: 0.5,
       explode: 0.35
