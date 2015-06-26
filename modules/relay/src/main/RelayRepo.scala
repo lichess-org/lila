@@ -13,11 +13,13 @@ final class RelayRepo(coll: Coll) {
   private def selectId(id: String) = BSONDocument("_id" -> id)
   private def selectName(name: String) = BSONDocument("name" -> name)
   private val selectStarted = BSONDocument("status" -> Relay.Status.Started.id)
+  private val selectRecent = BSONDocument("date" -> BSONDocument("$gt" -> DateTime.now.minusWeeks(2)))
   private val sortRecent = BSONDocument("date" -> -1)
 
   def byId(id: String): Fu[Option[Relay]] = coll.find(selectId(id)).one[Relay]
 
-  def byName(name: String): Fu[Option[Relay]] = coll.find(selectName(name)).one[Relay]
+  def recentByName(name: String): Fu[Option[Relay]] =
+    coll.find(selectName(name) ++ selectRecent).one[Relay]
 
   def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
 
@@ -27,7 +29,7 @@ final class RelayRepo(coll: Coll) {
   def exists(id: String): Fu[Boolean] =
     coll.db command Count(coll.name, selectId(id).some) map (0 !=)
 
-  def upsert(ficsId: Int, name: String, status: Relay.Status) = byName(name) flatMap {
+  def upsert(ficsId: Int, name: String, status: Relay.Status) = recentByName(name) flatMap {
     case None        => coll insert Relay.make(ficsId, name, status)
     case Some(relay) => coll.update(selectId(relay.id), relay.copy(ficsId = ficsId, status = status))
   } void

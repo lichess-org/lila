@@ -1,8 +1,19 @@
 @(relays: List[lila.relay.Relay])(implicit ctx: Context)
 
+@side = {
+<div class="side">
+  <div class="side_box padded">
+    Real-time worldwide chess tournaments<br />
+    <a href="http://www.freechess.org/Events/Relay/2015/">
+      Based on FICS relay
+    </a>
+  </div>
+</div>
+}
+
 @relay.layout(
 title = "Watch Chess events",
-side = none) {
+side = side.some) {
 <div id="relay_list">
   <div class="content_box relay_box no_padding" data-icon="n">
     <h1>Watch Chess events</h1>

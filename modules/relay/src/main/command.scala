@@ -64,7 +64,7 @@ case class GetTime(player: String) extends Command {
 object GetTime {
   case class Times(white: Int, black: Int)
   private def mkRegexp(name: String) =
-    ("""(?s)Game \d+: """ + name + """.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").pp.r.unanchored
+    ("""(?s)Game \d+: """ + name + """.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").r.unanchored
   // White Clock : 11:01.033
   // White Clock : 1:31:00.000
   private def toTenths(clock: String): Option[Int] =

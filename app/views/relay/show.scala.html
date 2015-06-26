@@ -1,5 +1,13 @@
 @(rel: lila.relay.Relay, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
 
+@side = {
+<div class="side">
+  <div class="side_box padded">
+    <a class="text" data-icon="I" href="@routes.Relay.index">Back to events list</a>
+  </div>
+</div>
+}
+
 @underchat = {
 <div class="watchers" data-icon="v">
   <span class="list inline_userlist"></span>
@@ -20,7 +28,7 @@ socketVersion: @socketVersion
 
 @relay.layout(
 title = rel.name,
-side = none,
+side = side.some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 moreJs = moreJs,
