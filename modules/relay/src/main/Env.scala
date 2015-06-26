@@ -36,6 +36,7 @@ final class Env(
     val UserId = config getString "user_id"
     val ImportMoveDelay = config duration "import.move_delay"
     val CollectionRelay = config getString "collection.relay"
+    val CollectionContent = config getString "collection.content"
     val TourneyActorMapName = config getString "actor.map.tourney.name"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
@@ -62,6 +63,8 @@ final class Env(
   lazy val api = new RelayApi(mainFics, repo, tourneyMap)
 
   lazy val jsonView = new JsonView
+
+  lazy val contentApi = new ContentApi(db(CollectionContent))
 
   private val importer = new Importer(
     hub.actor.roundMap,

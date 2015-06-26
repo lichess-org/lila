@@ -21,6 +21,9 @@
 div.chat_panels {
   height: 400px;
 }
+#relay .description {
+  margin: 0 39px;
+}
 #relay .game_list {
   margin-top: 30px;
   text-align: center;
@@ -53,8 +56,15 @@ div.chat_panels {
 #relay .game_list .right .title {
   padding-left: 5px;
 }
-.side_box .setup {
-  margin-top: 10px;
+.side_box a {
+  text-decoration: none;
+}
+.side_box a.fics,
+.side_box a:hover {
+  text-decoration: underline;
+}
+.side_box p {
+  margin-bottom: 10px;
 }
 #relay .join_choice {
   display: none;
@@ -77,4 +87,50 @@ div.chat_panels {
 }
 #relay_list table.slist .name:hover {
   text-decoration: underline;
+}
+#relay_content table {
+  width: 100%;
+}
+#relay_content form.plain {
+  margin-top: 10px;
+}
+#relay_content .help {
+  margin-bottom: 40px;
+  text-align: center;
+}
+#relay_content .edited {
+  margin-left: 50px;
+}
+#relay_content form.plain td {
+  padding: 0.6em;
+  white-space: nowrap;
+}
+#relay_content form.plain tr td,
+#relay_content form.plain tr th {
+  padding: 0 0 50px 0;
+}
+#relay_content form.plain tr.help th {
+  font-style: italic;
+  padding: 0 0 10px 0;
+}
+#relay_content form.plain label {
+  margin-right: 10px;
+}
+#relay_content form.plain input,
+#relay_content form.plain textarea {
+  padding: 0.5% 1%;
+  width: 99%;
+}
+#relay_content form.plain textarea {
+  height: 10em;
+}
+#relay_content form.plain input.submit {
+  width: 99%;
+}
+#relay_content form.plain .error {
+  color: red;
+}
+#relay_content form.plain button[type=submit] {
+  font-size: 2em;
+  margin-right: 20px;
 }

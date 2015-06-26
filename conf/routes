@@ -321,6 +321,8 @@ POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: Stri
 # RELAY
 GET   /watch                       controllers.Relay.index
 GET   /watch/:id/:slug             controllers.Relay.show(id: String, slug: String)
+GET   /watch/:id/:slug/content     controllers.Relay.contentForm(id: String, slug: String)
+POST  /watch/:id/:slug/content     controllers.Relay.contentPost(id: String, slug: String)
 GET   /watch/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
 
 # API

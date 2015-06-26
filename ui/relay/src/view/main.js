@@ -18,6 +18,15 @@ module.exports = function(ctrl) {
   }, [
     m('div.title_tag', statusName(ctrl)),
     m('h1', ctrl.data.name),
+    ctrl.data.content.long ? m('div.description', {
+      config: function(el, isUpdate) {
+        if (!isUpdate) {
+          var $desc = $('#relay_description');
+          $(el).html($desc.html());
+          $desc.remove();
+        }
+      }
+    }) : null,
     games(ctrl.data.games)
   ]);
 };

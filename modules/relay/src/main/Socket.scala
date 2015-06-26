@@ -27,7 +27,7 @@ private[relay] final class Socket(
   def receiveSpecific = {
 
     case Reload => withRelay { relay =>
-      jsonView(relay) foreach { obj =>
+      jsonView(relay, none) foreach { obj =>
         notifyVersion("reload", obj, Messadata())
       }
     }

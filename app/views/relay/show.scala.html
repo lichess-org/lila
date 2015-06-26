@@ -1,9 +1,16 @@
-@(rel: lila.relay.Relay, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(rel: lila.relay.Relay, content: Option[lila.relay.Content], socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
 
 @side = {
 <div class="side">
   <div class="side_box padded">
+    @content.flatMap(_.short).map { short =>
+    <p class="short">@short</p>
+    }
     <a class="text" data-icon="I" href="@routes.Relay.index">Back to events list</a>
+    @if(isGranted(_.RelayContent)) {
+    <br />
+    <a href="@routes.Relay.contentForm(rel.id, rel.slug)" class="text" data-icon="m">Edit content</a>
+    }
   </div>
 </div>
 }
@@ -33,5 +40,8 @@ chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 moreJs = moreJs,
 chessground = false) {
+@content.flatMap(_.long).map { long =>
+<div id="relay_description">@autoLink(long)</div>
+}
 <div id="relay"></div>
 }

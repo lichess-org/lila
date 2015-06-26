@@ -30,4 +30,6 @@ object BSONHandlers {
       "date" -> w.date(o.date),
       "games" -> o.games)
   }
+
+  implicit val ContentBSONHandler = Macros.handler[Content]
 }

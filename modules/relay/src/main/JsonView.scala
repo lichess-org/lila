@@ -6,14 +6,19 @@ import lila.game.{ Game, GameRepo }
 
 final class JsonView {
 
-  def apply(relay: Relay): Fu[JsObject] =
+  def apply(relay: Relay, content: Option[Content]): Fu[JsObject] =
     GameRepo.games(relay.gameIds) map { games =>
       Json.obj(
         "id" -> relay.id,
         "name" -> relay.name,
         "status" -> relay.status.id,
-        "games" -> games.flatMap(gameJson))
+        "games" -> games.flatMap(gameJson),
+        "content" -> content.map(contentJson))
     }
+
+  private def contentJson(c: Content) = Json.obj(
+    "short" -> c.short,
+    "long" -> c.long)
 
   private def playerJson(p: lila.game.Relay.Player) = Json.obj(
     "name" -> p.name,

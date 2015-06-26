@@ -11,11 +11,10 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   this.reload = function(data) {
+    data.content = this.data.content; // keep original content, it's not updated
     this.data = data;
     startWatching();
   }.bind(this);
-
-  console.log(this.data);
 
   var alreadyWatching = [];
   var startWatching = function() {
