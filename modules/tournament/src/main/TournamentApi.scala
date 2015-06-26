@@ -124,7 +124,7 @@ private[tournament] final class TournamentApi(
         sendTo(tour.id, Joining(me.id))
         socketReload(tour.id)
         publish()
-        timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
+        if (!tour.`private`) timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
       }
     }
   }
