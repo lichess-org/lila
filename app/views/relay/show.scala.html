@@ -6,12 +6,14 @@
     @content.flatMap(_.short).map { short =>
     <p class="short">@escape(short)</p>
     }
+    Relayed by <a href="http://www.freechess.org/">FICS</a>
+    <br /><br />
     <a class="text" data-icon="I" href="@routes.Relay.index">Back to events list</a>
     @if(isGranted(_.RelayContent)) {
-    <br />
+    <br /><br />
     <a href="@routes.Relay.contentForm(rel.id, rel.slug)" class="text" data-icon="m">Edit content</a>
     }
-    <br />
+    <br /><br />
     <p class="beta">BETA</p>
   </div>
 </div>

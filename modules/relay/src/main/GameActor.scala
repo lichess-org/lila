@@ -52,13 +52,13 @@ private[relay] final class GameActor(
 
     case move@GameEvent.Draw(_) => withRelayGame { g =>
       fuccess {
-        println(s"[$ficsId] http://en.l.org/${g.id} draw")
+        // println(s"[$ficsId] http://en.l.org/${g.id} draw")
         importer.draw(g.id) >> end
       }
     }
 
     case move@GameEvent.Resign(_, loser) => withRelayGame { g =>
-      println(s"[$ficsId] http://en.l.org/${g.id} $loser resigns")
+      // println(s"[$ficsId] http://en.l.org/${g.id} $loser resigns")
       g colorOf loser match {
         case None        => end
         case Some(color) => importer.resign(g.id, color) >> end
@@ -93,7 +93,7 @@ private[relay] final class GameActor(
   }
 
   def end = setEnd() >>- {
-    println(s"[$ficsId] end game $self")
+    // println(s"[$ficsId] end game $self")
     fics ! FICS.Unobserve(ficsId)
     // self ! SequentialActor.Terminate
   }

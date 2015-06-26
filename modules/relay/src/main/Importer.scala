@@ -46,10 +46,10 @@ final class Importer(
         }
 
         val lateMoves = replay.chronoMoves drop game.turns
-        if (lateMoves.nonEmpty) {
-          val debugMoves = List(lateMoves.headOption, lateMoves.lastOption).flatten.distinct.map(_.keyString)
-          println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${debugMoves.mkString("->")}")
-        }
+        // if (lateMoves.nonEmpty) {
+        //   val debugMoves = List(lateMoves.headOption, lateMoves.lastOption).flatten.distinct.map(_.keyString)
+        //   println(s"http://en.l.org/$gameId recover ${lateMoves.size} moves ${debugMoves.mkString("->")}")
+        // }
         applyMoves(Pov player game, lateMoves) inject lateMoves.nonEmpty
       }
     }

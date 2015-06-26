@@ -4,10 +4,11 @@ var games = require('./games');
 var status = require('game').status;
 
 function statusName(ctrl) {
-  if (ctrl.data.status == 30) return ctrl.trans('finished');
-  else return ctrl.data.games.filter(function(g) {
+  var nbActive = ctrl.data.games.filter(function(g) {
     return g.status < status.ids.mate;
-  }).length + '/' + ctrl.data.games.length;
+  }).length;
+  if (ctrl.data.status == 30 || !nbActive) return ctrl.trans('finished');
+  else return nbActive + '/' + ctrl.data.games.length;
 }
 
 module.exports = function(ctrl) {

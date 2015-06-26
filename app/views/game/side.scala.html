@@ -106,7 +106,10 @@
   @relay.map { rel =>
   <div class="game_relay side_box no_padding">
     <p class="top text" data-icon="n"><a href="@routes.Relay.show(rel.id, rel.slug)">@rel.name</a></p>
-    <div class="padded">@momentFormat(game.createdAt)</div>
+    <div class="padded">
+      @momentFormat(game.createdAt)<br />
+      Relayed by <a href="http://www.freechess.org/">FICS</a>
+    </div>
   </div>
   }
 </div>

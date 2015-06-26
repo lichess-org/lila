@@ -129,9 +129,9 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     lines filterNot noise foreach { l =>
       println(s"FICS[$stateName] $l")
     }
-    lines filter noise foreach { l =>
-      println(s"            (noise) [$stateName] $l")
-    }
+    // lines filter noise foreach { l =>
+    //   println(s"            (noise) [$stateName] $l")
+    // }
   }
 
   val noiseR = List(

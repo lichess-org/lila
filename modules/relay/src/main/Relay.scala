@@ -24,6 +24,8 @@ case class Relay(
 
   def activeGames = games.filterNot(_.end)
 
+  def finished = status == Relay.Status.Finished || activeGames.isEmpty
+
   lazy val slug = mkSlug(name)
 
   lazy val baseSlug = mkSlug(baseName)

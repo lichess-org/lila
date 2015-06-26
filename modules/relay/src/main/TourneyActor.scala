@@ -50,7 +50,7 @@ private[relay] final class TourneyActor(
             }
           }
           val nr = relay.copy(games = rgs)
-          println(s"[relay] ${nr.name}: ${nr.activeGames.size}/${nr.games.size} games")
+          // println(s"[relay] ${nr.name}: ${nr.activeGames.size}/${nr.games.size} games")
           repo.setGames(nr) >>-
             nr.activeGames.foreach { rg =>
               gameMap ! Tell(rg.ficsId.toString, GameActor.Recover)
