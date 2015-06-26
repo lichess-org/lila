@@ -39,4 +39,24 @@ object GameEvent {
       case _     => none
     }
   }
+
+  case class Clock(ficsId: Int, player: String, tenths: Int) extends GameEvent
+  case object Clock {
+    val R = """^Game (\d+): relay has set (\w+)'s clock to ([0-9:\.]+)\.$""".r
+    def apply(str: String): Option[Clock] = str match {
+      case R(id, player, clock) => for {
+        ficsId <- parseIntOption(id)
+        tenths <- toTenths(clock)
+      } yield Clock(ficsId, player, tenths)
+      case _ => none
+    }
+    // Game 377: relay has set FMIvanBocharov's clock to 0:53:35.
+    def toTenths(clock: String): Option[Int] =
+      clock.split(":").flatMap(parseIntOption) match {
+        case Array(hours, minutes, seconds) => Some((60 * 60 * hours + 60 * minutes + seconds) * 10)
+        case _ =>
+          println(s"[relay] invalid player clock $clock")
+          none
+      }
+  }
 }

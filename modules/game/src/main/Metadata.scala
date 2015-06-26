@@ -25,7 +25,12 @@ private[game] object Metadata {
   val empty = Metadata(None, None, None, None, None, None, false)
 }
 
-case class Relay(id: String, white: Relay.Player, black: Relay.Player)
+case class Relay(id: String, white: Relay.Player, black: Relay.Player) {
+
+  def withTenths(color: chess.Color, tenths: Int) = copy(
+    white = (color == chess.White).fold(white withTenths tenths, white),
+    black = (color == chess.Black).fold(black withTenths tenths, black))
+}
 
 object Relay {
 
@@ -34,6 +39,9 @@ object Relay {
       title: Option[String],
       rating: Option[Int],
       tenths: Option[Int]) {
+
+    def withTenths(t: Int) = copy(tenths = t.some)
+
     def seconds = tenths.map(_.toFloat / 10)
   }
 

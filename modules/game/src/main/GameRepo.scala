@@ -341,6 +341,12 @@ object GameRepo {
         s"${F.relay}.white.tenths" -> white,
         s"${F.relay}.black.tenths" -> black))).void
 
+  def setRelayClock(id: String, color: Color, tenths: Int): Funit =
+    gameTube.coll.update(
+      $select(id),
+      BSONDocument("$set" -> BSONDocument(
+        s"${F.relay}.${color.name}.tenths" -> tenths))).void
+
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 
   def getNonEmptyPgn(id: ID): Fu[Option[PgnMoves]] =

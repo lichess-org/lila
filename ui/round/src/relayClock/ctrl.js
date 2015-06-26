@@ -19,6 +19,7 @@ module.exports = function(data) {
     m.startComputation();
     this.data.white = white;
     this.data.black = black;
+    console.log(white, black);
     setLastUpdate();
     m.endComputation();
   }.bind(this);

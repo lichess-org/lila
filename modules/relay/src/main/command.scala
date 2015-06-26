@@ -67,7 +67,7 @@ object GetTime {
     ("""(?s)Game \d+: """ + name + """.*White Clock : ([0-9:\.]+).*Black Clock : ([0-9:\.]+)""").r.unanchored
   // White Clock : 11:01.033
   // White Clock : 1:31:00.000
-  private def toTenths(clock: String): Option[Int] =
+  def toTenths(clock: String): Option[Int] =
     clock.replace(".", ":").split(":").flatMap(parseIntOption) match {
       case Array(seconds, millis)                 => Some(seconds * 10 + millis / 100)
       case Array(minutes, seconds, millis)        => Some((60 * minutes + seconds) * 10 + millis / 100)

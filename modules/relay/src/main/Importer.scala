@@ -93,6 +93,10 @@ final class Importer(
     roundMap ! Tell(id, RelayClocks(white, black))
   }
 
+  def setClock(id: String, color: chess.Color, tenths: Int) {
+    roundMap ! Tell(id, RelayClock(color, tenths))
+  }
+
   private def applyMove(pov: Pov, move: Move) {
     roundMap ! Tell(pov.gameId, RelayPlay(
       playerId = pov.playerId,

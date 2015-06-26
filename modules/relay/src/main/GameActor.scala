@@ -19,27 +19,34 @@ private[relay] final class GameActor(
   context setReceiveTimeout 3.hours
 
   override def preStart() {
-    // println(s"[$ficsId] start actor $self")
+    println(s"[$ficsId] start actor $self")
     fics ! FICS.Observe(ficsId)
-    scheduleGetTime
   }
 
   def process = {
 
     case GetTime => withRelayGame { g =>
       implicit val t = makeTimeout seconds 10
-      fics ? command.GetTime(g.white) mapTo
+      fics ? command.GetTime(g.white).pp mapTo
         manifest[command.GetTime.Times] addEffect { data =>
           importer.setClocks(g.id, data.white, data.black)
-        } addFailureEffect {
-          case e => println(e.getMessage)
-        } andThenAnyway { scheduleGetTime }
+        } addFailureEffect onFailure
     }
 
     case move: GameEvent.Move => withRelayGame { g =>
       if (g.white == move.white && g.black == move.black)
         importer.move(g.id, move.san, move.ply)
       else end
+    }
+
+    case clock: GameEvent.Clock => withRelayGame { g =>
+      fuccess {
+        clock.player match {
+          case p if p == g.white => importer.setClock(g.id, chess.White, clock.tenths)
+          case p if p == g.black => importer.setClock(g.id, chess.Black, clock.tenths)
+          case p                 => onFailure(new Exception(s"Invalid clock event (no such player) $clock"))
+        }
+      }
     }
 
     case move@GameEvent.Draw(_) => withRelayGame { g =>
@@ -65,6 +72,7 @@ private[relay] final class GameActor(
             if (g.white == data.white.ficsName && g.black == data.black.ficsName)
               importer.full(relayId, g.id, data) addEffect {
                 case true =>
+                  self ! GetTime
                   // re-observe. If a limit was reached before,
                   // but a slot became available, use it.
                   fics ! FICS.Observe(ficsId)
@@ -81,12 +89,8 @@ private[relay] final class GameActor(
     println(s"[$ficsId] ERR ${e.getMessage}")
   }
 
-  def scheduleGetTime {
-    context.system.scheduler.scheduleOnce(10 seconds)(self ! GetTime)
-  }
-
   def end = setEnd() >>- {
-    // println(s"[$ficsId] stop actor $self")
+    println(s"[$ficsId] stop actor $self")
     fics ! FICS.Unobserve(ficsId)
     self ! SequentialActor.Terminate
   }

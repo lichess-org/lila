@@ -104,9 +104,12 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
 
   def handle(in: In): List[String] = in.lines.foldLeft(List.empty[String]) {
     case (lines, line) =>
-      Move(line) orElse Resign(line) orElse Draw(line) orElse Limited(line) map {
+      Move(line) orElse Clock(line) orElse Resign(line) orElse Draw(line) orElse Limited(line) map {
         case move: Move =>
           context.parent ! move
+          lines
+        case clock: Clock =>
+          context.parent ! clock
           lines
         case resign: Resign =>
           context.parent ! resign
@@ -126,9 +129,9 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     lines filterNot noise foreach { l =>
       println(s"FICS[$stateName] $l")
     }
-    // lines filter noise foreach { l =>
-    //   println(s"            (noise) [$stateName] $l")
-    // }
+    lines filter noise foreach { l =>
+      println(s"            (noise) [$stateName] $l")
+    }
   }
 
   val noiseR = List(
@@ -137,6 +140,7 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     """^fics%""".r,
     """^You will not.*""".r,
     """.*You are now observing.*""".r,
+    """.*You are already observing.*""".r,
     """^Game \d+: .*""".r,
     """.*To find more about Relay.*""".r,
     """.*You are already observing game \d+""".r,
@@ -147,7 +151,6 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
     // """.*in the history of both players.*""".r,
     // """.*will be closed in a few minutes.*""".r,
     """^\(told relay\)$""".r,
-    """^Game \d+: relay has set .+ clock to .+$""".r, // handle
     """^relay\(.+\)\[\d+\] kibitzes: .*""".r,
     // """Welcome to the Free Internet Chess Server""".r,
     // """Starting FICS session""".r,
