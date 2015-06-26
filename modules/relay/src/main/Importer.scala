@@ -102,5 +102,6 @@ final class Importer(
   private def toGamePlayer(p: command.Moves.Player) = lila.game.Relay.Player(
     name = p.splitName,
     title = p.title,
-    rating = p.rating)
+    rating = p.rating,
+    tenths = none)
 }

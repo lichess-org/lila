@@ -29,7 +29,11 @@ case class Relay(id: String, white: Relay.Player, black: Relay.Player)
 
 object Relay {
 
-  case class Player(name: String, title: Option[String], rating: Option[Int])
+  case class Player(
+    name: String,
+    title: Option[String],
+    rating: Option[Int],
+    tenths: Option[Int])
 
   import reactivemongo.bson.Macros
   import ByteArray.ByteArrayBSONHandler
