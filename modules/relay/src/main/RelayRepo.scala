@@ -14,6 +14,7 @@ final class RelayRepo(coll: Coll) {
   private def selectName(name: String) = BSONDocument("name" -> name)
   private val selectStarted = BSONDocument("status" -> Relay.Status.Started.id)
   private val selectRecent = BSONDocument("date" -> BSONDocument("$gt" -> DateTime.now.minusWeeks(2)))
+  private val selectNonEmpty = BSONDocument("games.0.id" -> BSONDocument("$exists" -> true))
   private val sortRecent = BSONDocument("date" -> -1)
 
   def byId(id: String): Fu[Option[Relay]] = coll.find(selectId(id)).one[Relay]
@@ -22,9 +23,12 @@ final class RelayRepo(coll: Coll) {
     coll.find(selectName(name) ++ selectRecent).one[Relay]
 
   def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
+  def startedNonEmpty: Fu[List[Relay]] = coll.find(selectStarted ++ selectNonEmpty).cursor[Relay].collect[List]()
 
   def recent(nb: Int): Fu[List[Relay]] =
     coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
+  def recentNonEmpty(nb: Int): Fu[List[Relay]] =
+    coll.find(selectNonEmpty).sort(sortRecent).cursor[Relay].collect[List](nb)
 
   def exists(id: String): Fu[Boolean] =
     coll.db command Count(coll.name, selectId(id).some) map (0 !=)
