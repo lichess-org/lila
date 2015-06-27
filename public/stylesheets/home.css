@@ -647,8 +647,44 @@ div.game_config div.color_submits button.random span {
   color: #d59120;
   font-weight: bold;
 }
+#nb_games_in_play {
+  margin-bottom: 10px;
+}
+#nb_games_in_play span {
+  font-weight: bold;
+}
+#site_header #streams_on_air,
+#site_header #ongoing_relays {
+  margin-top: 15px;
+}
+#streams_on_air a.stream,
+#ongoing_relays a.relay {
+  display: block;
+  margin: 5px 0 5px -30px;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#streams_on_air a.stream:hover,
+#ongoing_relays a.relay:hover {
+  text-decoration: underline;
+}
+#streams_on_air a.stream span,
+#ongoing_relays a.relay span {
+  color: #d59120;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+}
+#streams_on_air a.stream span:before,
+#ongoing_relays a.relay span:before {
+  vertical-align: -3px;
+}
 #timeline {
-  margin-top: 2em;
+  margin-top: 10px;
   border-top: 1px solid #e4e4e4;
   padding-top: 8px;
   margin-left: -30px;

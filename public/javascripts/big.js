@@ -1600,7 +1600,7 @@ lichess.storage = {
   function startLobby(element, cfg) {
     var lobby;
     var nbRoundSpread = $.spreadNumber(
-      document.querySelector('#site_baseline span'),
+      document.querySelector('#nb_games_in_play span'),
       4,
       function() {
         return lichess.socket.pingInterval();

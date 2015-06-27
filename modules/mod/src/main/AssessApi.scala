@@ -160,7 +160,7 @@ final class AssessApi(
       else none
 
     shouldAnalyse foreach { reason =>
-      println(s"[autoanalyse] $reason")
+      println(s"[autoanalyse] ${game.id} $reason")
       analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
     }
 
