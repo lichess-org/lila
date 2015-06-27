@@ -926,6 +926,10 @@ div.lichess_board {
 .pirouetti .is2d .piece.animating {
   -webkit-filter: none!important;
 }
+body.kappa .cg-board.orientation-white .cg-piece.king.white,
+body.kappa .cg-board.orientation-black .cg-piece.king.black {
+  background-image: url(../piece/other/kappa.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 5010;

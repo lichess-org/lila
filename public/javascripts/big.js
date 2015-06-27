@@ -1022,6 +1022,9 @@ lichess.storage = {
         $('#konami').hide(800);
       }, 3000);
     });
+    Mousetrap.bind('k a p p a', function() {
+      $('body').toggleClass('kappa');
+    });
   });
 
   $.lazy = function(factory) {
