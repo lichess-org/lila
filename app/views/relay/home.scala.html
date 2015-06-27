@@ -1,4 +1,4 @@
-@(relays: List[lila.relay.Relay], contents: List[lila.relay.Content])(implicit ctx: Context)
+@(relays: Paginator[lila.relay.Relay.WithContent])(implicit ctx: Context)
 
 @side = {
 <div class="side">
@@ -10,10 +10,14 @@
   </div>
 </div>
 }
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
 
 @relay.layout(
 title = "Watch Chess events",
 side = side.some,
+moreJs = moreJs,
 openGraph = Map(
 'type -> "website",
 'title -> "Watch chess events",
@@ -34,24 +38,30 @@ openGraph = Map(
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
-        @relays.map { rel =>
-        <tr class="scheduled">
-          <td>@showDate(rel.date)</td>
+      <tbody class="infinitescroll">
+        @relays.nextPage.map { next =>
+        <tr><th class="pager none">
+            <a href="@routes.Relay.index?page=@next">Next</a>
+        </th></tr>
+        <tr></tr>
+        }
+        @relays.currentPageResults.map { rel =>
+        <tr class="paginated_element">
+          <td>@showDate(rel.relay.date)</td>
           <td>
-            <a class="name" href="@routes.Relay.show(rel.id, rel.slug)">
-              <strong>@rel.baseName</strong> - <em>@rel.extName</em>
+            <a class="name" href="@routes.Relay.show(rel.relay.id, rel.relay.slug)">
+              <strong>@rel.relay.baseName</strong> - <em>@rel.relay.extName</em>
             </a>
-            @contents.find(_ matches rel).flatMap(_.short).map { short =>
+            @rel.content.flatMap(_.short).map { short =>
             <span class="short">@escape(short)</span>
             }
           </td>
           <td>
-            @if(rel.finished) {
+            @if(rel.relay.finished) {
             @trans.finished()
             } else {
-            <a class="ongoing" href="@routes.Relay.show(rel.id, rel.slug)">
-              @rel.activeGames.size/@rel.games.size playing
+            <a class="ongoing" href="@routes.Relay.show(rel.relay.id, rel.relay.slug)">
+              @rel.relay.activeGames.size/@rel.relay.games.size playing
             </a>
             }
           </td>

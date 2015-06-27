@@ -2,10 +2,15 @@ package lila.relay
 
 import akka.actor._
 import akka.pattern.ask
+import lila.common.paginator._
+import lila.db.paginator.BSONAdapter
+import lila.db.Types.Coll
 import lila.hub.actorApi.map.Tell
 import makeTimeout.veryLarge
 
 final class RelayApi(
+    coll: Coll,
+    contentApi: ContentApi,
     fics: ActorRef,
     repo: RelayRepo,
     relayMap: ActorRef) {
@@ -26,6 +31,27 @@ final class RelayApi(
         _ foreach { tourney =>
           relayMap ! Tell(tourney.id, TourneyActor.Recover)
         }
+      }
+    }
+
+  def paginator(page: Int): Fu[Paginator[Relay.WithContent]] = {
+    import reactivemongo.bson._
+    import BSONHandlers._
+    Paginator(
+      adapter = new BSONAdapter[Relay](
+        collection = coll,
+        selector = repo.selectNonEmpty,
+        projection = BSONDocument(),
+        sort = repo.sortRecent
+      ) mapFutureList withContent,
+      currentPage = page,
+      maxPerPage = 30)
+  }
+
+  private def withContent(relays: Seq[Relay]): Fu[Seq[Relay.WithContent]] =
+    contentApi byRelays relays map { contents =>
+      relays map { r =>
+        Relay.WithContent(r, contents.find(_ matches r))
       }
     }
 }

@@ -50,6 +50,8 @@ object Relay {
     def apply(relay: Relay): Mini = Mini(relay.id, relay.baseName, relay.slug)
   }
 
+  case class WithContent(relay: Relay, content: Option[Content])
+
   case class Game(
       id: String, // lichess game ID
       ficsId: Int,

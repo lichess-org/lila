@@ -58,13 +58,15 @@ final class Env(
 
   private val mainFics = system.actorOf(ficsProps, name = "fics")
 
-  val repo = new RelayRepo(db(CollectionRelay))
+  private val relayColl = db(CollectionRelay)
 
-  lazy val api = new RelayApi(mainFics, repo, tourneyMap)
+  val repo = new RelayRepo(relayColl)
 
   lazy val jsonView = new JsonView
 
   lazy val contentApi = new ContentApi(db(CollectionContent))
+
+  lazy val api = new RelayApi(relayColl, contentApi, mainFics, repo, tourneyMap)
 
   private val importer = new Importer(
     hub.actor.roundMap,
