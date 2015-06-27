@@ -103,18 +103,16 @@ object TournamentRepo {
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament].collect[List]()
 
-  private def notCloseToFinishSorted: Fu[List[Tournament]] = {
-    val finishAfter = DateTime.now plusMinutes 20
+  private def stillWorthEntering: Fu[List[Tournament]] =
     coll.find(startedSelect ++ BSONDocument(
       "private" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument("startsAt" -> 1)).toList[Tournament](none) map {
-      _.filter(_.finishesAt isAfter finishAfter)
+      _.filter(_.isStillWorthEntering)
     }
-  }
 
   def promotable: Fu[List[Tournament]] =
-    publicCreatedSorted(30) zip notCloseToFinishSorted map {
-      case (created, started) => created ::: started
+    stillWorthEntering zip publicCreatedSorted(30) map {
+      case (started, created) => started :: created
     }
 
   def scheduledUnfinished: Fu[List[Tournament]] =
