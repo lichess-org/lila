@@ -5,7 +5,7 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.{ Game, Player, GameRepo }
+import lila.game.{ Game, Player, GameRepo, Source }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -78,7 +78,8 @@ final class AssessApi(
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit = {
     val shouldAssess =
-      if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      if (!game.source.exists(assessableSources.contains)) false
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
       else if (game.isCorrespondence) false
       else if (game.players exists consistentMoveTimes(game)) true
       else if (game.playedTurns < 40) false
@@ -108,6 +109,8 @@ final class AssessApi(
       case none => funit
     }
 
+  private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
+
   private def moveTimes(game: Game, color: Color): List[Int] =
     skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
 
@@ -122,7 +125,7 @@ final class AssessApi(
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
     } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 100
+      player.color.fold(white, black).perfs(perfType).progress >= 150
     }
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
@@ -131,31 +134,35 @@ final class AssessApi(
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
 
-    val shouldAnalyse =
-      if (!game.analysable) false
+    val shouldAnalyse: Option[String] =
+      if (!game.analysable) none
+      else if (!game.source.exists(assessableSources.contains)) none
       // give up on correspondence games
-      else if (game.isCorrespondence) false
+      else if (game.isCorrespondence) none
       // stop here for short games
-      else if (game.playedTurns < 40) false
+      else if (game.playedTurns < 40) none
       // stop here for casual games
-      else if (!game.mode.rated) false
+      else if (!game.mode.rated) none
       // someone is using a bot
-      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) "Hold alert".some
       // someone has consistent move times
-      else if (game.players exists consistentMoveTimes(game)) true
+      else if (game.players exists consistentMoveTimes(game)) "Move times".some
       // don't analyse other bullet games
-      else if (game.speed == chess.Speed.Bullet) false
+      else if (game.speed == chess.Speed.Bullet) none
       // someone blurs a lot
-      else if (game.players exists manyBlurs) true
+      else if (game.players exists manyBlurs) "Blurs".some
       // the winner shows a great rating progress
-      else if (game.players exists winnerGreatProgress) true
+      else if (game.players exists winnerGreatProgress) "Winner progress".some
       // analyse some tourney games
-      else if (game.isTournament) scala.util.Random.nextInt(3) == 0
+      // else if (game.isTournament) scala.util.Random.nextInt(5) == 0 option "Tourney random"
       // analyse new player games
       // else if (winnerNbGames.??(10 >)) scala.util.Random.nextInt(2) == 0
-      else false
+      else none
 
-    if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+    shouldAnalyse foreach { reason =>
+      println(s"[autoanalyse] $reason")
+      analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+    }
 
     funit
   }
