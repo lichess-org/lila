@@ -112,7 +112,7 @@ object TournamentRepo {
 
   def promotable: Fu[List[Tournament]] =
     stillWorthEntering zip publicCreatedSorted(30) map {
-      case (started, created) => started :: created
+      case (started, created) => started ::: created
     }
 
   def scheduledUnfinished: Fu[List[Tournament]] =
