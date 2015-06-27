@@ -117,6 +117,7 @@ div.chat_panels {
   color: #fff;
   font-weight: bold;
   text-decoration: none;
+  white-space: nowrap;
 }
 #relay_content table {
   width: 100%;
