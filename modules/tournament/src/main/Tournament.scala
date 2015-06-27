@@ -56,6 +56,11 @@ case class Tournament(
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
+  def similarTo(other: Tournament) = (schedule, other.schedule) match {
+    case (Some(s1), Some(s2)) if s1 similarTo s2 => true
+    case _                                       => false
+  }
+
   def speed = Speed(clock.chessClock.some)
 
   def perfType = PerfPicker.perfType(speed, variant, none)

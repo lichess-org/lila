@@ -21,6 +21,10 @@ case class Schedule(
   def sameSpeed(other: Schedule) = speed == other.speed
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
+
+  def sameFreq(other: Schedule) = freq == other.freq
+
+  def similarTo(other: Schedule) = sameSpeed(other) && sameVariant(other) && sameFreq(other)
 }
 
 object Schedule {

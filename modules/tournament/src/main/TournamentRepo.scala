@@ -112,7 +112,10 @@ object TournamentRepo {
 
   def promotable: Fu[List[Tournament]] =
     stillWorthEntering zip publicCreatedSorted(30) map {
-      case (started, created) => started ::: created
+      case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
+        case (acc, tour) if acc.exists(_ similarTo tour) => acc
+        case (acc, tour)                                 => tour :: acc
+      }.reverse
     }
 
   def scheduledUnfinished: Fu[List[Tournament]] =
