@@ -25,7 +25,7 @@ private[ai] final class Server(
     implicit val timeout = makeTimeout {
       if (requestedByHuman) 1.hour else 24.hours
     }
-    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, requestedByHuman, variant)) mapTo manifest[List[Info]]
+    queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, requestedByHuman, variant) mapTo manifest[List[Info]]
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>

@@ -35,8 +35,10 @@ object Ai extends LilaController {
         initialFen = get("initialFen", req),
         requestedByHuman = getBool("human", req),
         variant = requestVariant(req)
-      ).effectFold(
-          err => WS.url(s"$replyToUrl/err").post(err.toString),
+      ).effectFold({
+          case lila.ai.Queue.FullException => logwarn("Dropping analyse request, queue is full")
+          case err                         => WS.url(s"$replyToUrl/err").post(err.toString)
+        },
           infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)
         )
     }
