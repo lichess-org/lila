@@ -23,6 +23,7 @@ final class Analyser(
     modActor: ActorSelection) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
+  def getNotDone(id: String): Fu[Option[Analysis]] = AnalysisRepo notDoneById id flatMap evictStalled
 
   def getDone(id: String): Fu[Option[Analysis]] = AnalysisRepo doneById id flatMap evictStalled
 
@@ -90,5 +91,10 @@ final class Analyser(
       case _                    => fufail(s"[analysis] complete non existing $id")
     } addFailureEffect {
       _ => AnalysisRepo remove id
+    }
+
+  def completeErr(id: String, err: String, from: String) =
+    $find.byId[Game](id) zip getNotDone(id) flatMap {
+      case (Some(game), Some(a1)) if game.analysable => AnalysisRepo remove id
     }
 }

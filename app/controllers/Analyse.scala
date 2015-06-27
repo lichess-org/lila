@@ -51,6 +51,12 @@ object Analyse extends LilaController {
     } inject Ok
   }
 
+  def postAnalysisErr(id: String) = Action(parse.text) { req =>
+    env.analyser.completeErr(id, req.body, req.remoteAddress)
+    logwarn(s"AI failure ${req.remoteAddress} ${req.body}")
+    Ok
+  }
+
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.game.id flatMap { initialFen =>

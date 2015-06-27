@@ -36,7 +36,7 @@ object Ai extends LilaController {
         requestedByHuman = getBool("human", req),
         variant = requestVariant(req)
       ).effectFold(
-          err => WS.url(replyToUrl).post(err.toString),
+          err => WS.url(s"$replyToUrl/err").post(err.toString),
           infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)
         )
     }

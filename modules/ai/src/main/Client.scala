@@ -40,10 +40,7 @@ final class Client(
     } yield PlayResult(progress, move)
   }
 
-  private val networkLatency = 1 second
-
   def move(uciMoves: List[String], initialFen: Option[String], level: Int, variant: Variant): Fu[MoveResult] = {
-    implicit val timeout = makeTimeout(config.playTimeout + networkLatency)
     sendRequest(true) {
       WS.url(s"$endpoint/move").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),

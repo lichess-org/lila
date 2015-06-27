@@ -36,6 +36,9 @@ object AnalysisRepo {
   def doneById(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true))
 
+  def notDoneById(id: ID): Fu[Option[Analysis]] =
+    $find.one($select(id) ++ Json.obj("done" -> false))
+
   def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     $find optionsByOrderedIds ids map2 { (a: Option[Analysis]) =>
       a.filter(_.done)
