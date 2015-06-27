@@ -119,7 +119,7 @@ case object Moves {
 
   private val MoveLineR = """^\d+\.(\s+[^\s]+){2,4}""".r
   private val MoveCommentR = """\([^\)]+\)""".r
-  private val TitleR = """(CM|NM|FM|IM|GM|WGM|WIM|WFM)"""
+  private val TitleR = """(CM|NM|FM|IM|GM|WGM|WIM|WFM|)"""
   private val NameR = """(\w+)\s\((.+)\)"""
   private val PlayersR = (s"""^${TitleR}${NameR}\\svs\\.\\s${TitleR}${NameR}\\s---\\s(.+)$$""").r
 
