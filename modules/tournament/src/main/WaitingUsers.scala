@@ -7,13 +7,13 @@ private[tournament] case class WaitingUsers(
     clock: Option[chess.Clock],
     date: DateTime) {
 
-  // 1+0  -> 5  -> 7
-  // 3+0  -> 9  -> 11
-  // 5+0  -> 17 -> 17
-  // 10+0 -> 32 -> 30
+  // 1+0  -> 7  -> 9
+  // 3+0  -> 12 -> 13
+  // 5+0  -> 19 -> 19
+  // 10+0 -> 34 -> 30
   private val waitSeconds = {
-    (clock.fold(60)(_.estimateTotalTime) / 20) + 2
-  } min 30 max 7
+    (clock.fold(60)(_.estimateTotalTime) / 20) + 4
+  } min 30 max 9
 
   lazy val all = hash.keys.toList
   lazy val size = hash.size
