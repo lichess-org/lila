@@ -83,7 +83,7 @@ final class Analyser(
                     modActor ! actorApi.AnalysisReady(game, analysis)
                   } >>- GameRepo.setAnalysed(game.id) inject analysis
                 }
-                else fufail(s"[analysis] invalid $id")
+                else fufail(s"[analysis] invalid analysis ${analysis}\nwith errors $errors")
             })
         }
       case ((Some(game), _), _) => fufail(s"[analysis] complete non analysable $id")
