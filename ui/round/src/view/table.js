@@ -125,7 +125,7 @@ function goBerserk(ctrl) {
   return m('button', {
     class: 'button berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",
-    onclick: ctrl.socket.berserk
+    onclick: ctrl.berserk
   }, m('span', {
     'data-icon': '`'
   }));

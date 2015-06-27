@@ -273,6 +273,11 @@ module.exports = function(opts) {
     this.chessground.cancelPremove();
   }.bind(this);
 
+  this.berserk = function() {
+    this.socket.berserk();
+    $.sound.berserk();
+  }.bind(this);
+
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
   this.setRedirecting = function() {

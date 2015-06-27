@@ -1053,7 +1053,8 @@ lichess.storage = {
       tournament1st: 'Tournament1st',
       tournament2nd: 'Tournament2nd',
       tournament3rd: 'Tournament3rd',
-      tournamentOther: 'TournamentOther'
+      tournamentOther: 'TournamentOther',
+      berserk: 'Berserk'
     };
     for(var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
