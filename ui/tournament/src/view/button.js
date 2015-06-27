@@ -2,18 +2,26 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var xhr = require('../xhr');
 
+function orJoinLoader(ctrl, f) {
+  return ctrl.vm.joinLoader ? m('div.loader.fast') : f();
+}
+
 function withdraw(ctrl) {
-  return m('button.button.right.text', {
-    'data-icon': 'b',
-    onclick: ctrl.withdraw
-  }, ctrl.trans('withdraw'));
+  return orJoinLoader(ctrl, function() {
+    return m('button.button.right.text', {
+      'data-icon': 'b',
+      onclick: ctrl.withdraw
+    }, ctrl.trans('withdraw'));
+  });
 }
 
 function join(ctrl) {
-  return m('button.button.right.text', {
-    'data-icon': 'G',
-    onclick: ctrl.join
-  }, ctrl.trans('join'));
+  return orJoinLoader(ctrl, function() {
+    return m('button.button.right.text', {
+      'data-icon': 'G',
+      onclick: ctrl.join
+    }, ctrl.trans('join'));
+  });
 }
 
 module.exports = {

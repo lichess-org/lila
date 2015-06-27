@@ -198,6 +198,11 @@ ol.scheduled_tournaments a:hover {
   margin: 100px auto;
   font-size: 20px;
 }
+#tournament thead div.loader {
+  margin: 0;
+  font-size: 3px;
+  float: right;
+}
 #tournament table.standing {
   width: 525px;
   border-bottom: none;

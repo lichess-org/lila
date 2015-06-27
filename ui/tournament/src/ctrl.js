@@ -16,7 +16,8 @@ module.exports = function(env) {
   this.vm = {
     page: this.data.standing.page,
     pages: {},
-    focusOnMe: !!this.data.me
+    focusOnMe: !!this.data.me,
+    joinLoader: false
   };
 
   this.reload = function(data) {
@@ -27,6 +28,7 @@ module.exports = function(env) {
     startWatching();
     sound.end(this.data);
     sound.countDown(this.data);
+    this.vm.joinLoader = false;
   }.bind(this);
 
   this.loadPage = function(data) {
@@ -46,11 +48,13 @@ module.exports = function(env) {
 
   this.withdraw = function() {
     xhr.withdraw(this);
+    this.vm.joinLoader = true;
     this.vm.focusOnMe = false;
   }.bind(this);
 
   this.join = function() {
     xhr.join(this);
+    this.vm.joinLoader = true;
     this.vm.focusOnMe = true;
   }.bind(this);
 
