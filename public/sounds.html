@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>lichess - Sound Test Page</title>
+    <style type="text/css">
+      html, body {
+        font:16px monospace;
+        background: #000;
+        color: #ebd488
+      }
+    </style>
+    <meta content="noindex, nofollow" name="robots">
+  </head>
+  <body>
+	  <h1>Sound Test Page</h1>
+	<div id="setSelecter">
+		<h2>Sound Sets</h2>
+	</div>
+    <div id="soundTester">
+		<h2>Sounds</h2>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script>window.jQuery || document.write('<script src="http://lichess1.org/assets/javascripts/vendor/jquery.min.js">\x3C/script>')</script>
+    <script src="javascripts/deps.min.js"></script>
+    <script>
+		var soundSets = ["standard", "piano", "nes"];
+		var soundNames = {
+		  genericNotify: 'GenericNotify',
+		  move: 'Move',
+		  capture: 'Capture',
+		  explode: 'Explosion',
+		  lowtime: 'LowTime',
+		  victory: 'Victory',
+		  defeat: 'Defeat',
+		  draw: 'Draw',
+		  tournament1st: 'Tournament1st',
+		  tournament2nd: 'Tournament2nd',
+		  tournament3rd: 'Tournament3rd',
+		  tournamentOther: 'TournamentOther'
+		};
+		for(var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
+		var soundDir = "/assets/sound";
+		$.each(soundSets, function (i, v) {
+			var id = "soundSet_" + v;
+			var f = function() { $('body').data('sound-set', v); };
+			$('<input type="radio" name="soundSet">').attr('id', id).val(v).click(f).appendTo($("#setSelecter"));
+			$('<label>').attr('for', id).text(v).click(f).appendTo($("#setSelecter"));
+		});
+		$("input[name=soundSet]").first().attr("checked", "checked");
+		$.each(soundNames, function (i, soundName) {
+			$("<button>").click(function() {
+				new Howl({
+					src: ["ogg", "mp3"].map(function(ext) {
+						return [soundDir, $("input[name=soundSet]:checked").val(), soundName + "." + ext].join("/");
+					}),
+				}).play();
+			}).text(soundName).appendTo($("#soundTester"));
+		});
+		$("<button>").click(function() {
+			var i = 10;
+			var tId = setInterval(function() {
+				new Howl({
+					src: ["ogg", "mp3"].map(function(ext) {
+						return [soundDir, $("input[name=soundSet]:checked").val(), "CountDown" + i + "." + ext].join("/");
+					}),
+				}).play();
+				i-- || clearInterval(tId);
+			}, 1000);
+		}).text("CountDown10 --> 0").appendTo($("#soundTester"));
+    </script>
+  </body>
+</html>
