@@ -18,7 +18,7 @@ var register = function(socket, hold) {
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      set = sd < 13;
+      set = sd < 12;
     }
   }
   if (set || was) $('.manipulable .cg-board').toggleClass('sha', set);
