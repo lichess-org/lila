@@ -94,7 +94,13 @@
     <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
   </div>
   }
-  case _ => {}
+  case _ => {
+  @game.tournamentId.map { tourId =>
+  <div class="game_tournament side_box no_padding">
+    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(tourId)">@tournamentIdToName(tourId)</a></p>
+  </div>
+  }
+  }
   }
 
   @simul.map { sim =>
