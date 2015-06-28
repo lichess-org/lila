@@ -62,7 +62,7 @@ object Analyse extends LilaController {
     else GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.simulId ?? Env.simul.repo.find) zip
-        (pov.game.relayId ?? Env.relay.repo.byId) zip
+        Env.relay.api.round(pov.game) zip
         Env.game.crosstableApi(pov.game) flatMap {
           case (((analysis, simul), relay), crosstable) =>
             val pgn = Env.game.pgnDump(pov.game, initialFen)
