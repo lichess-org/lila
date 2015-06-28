@@ -152,8 +152,8 @@ final class AssessApi(
       else if (game.players exists winnerGreatProgress) "Winner progress".some
       // analyse some tourney games
       // else if (game.isTournament) scala.util.Random.nextInt(5) == 0 option "Tourney random"
-      // analyse new player games
-      // else if (winnerNbGames.??(10 >)) scala.util.Random.nextInt(2) == 0
+      /// analyse new player games
+      else if (winnerNbGames.??(10 >) && scala.util.Random.nextInt(2) == 0) "New winner".some
       else none
 
     shouldAnalyse foreach { reason =>
