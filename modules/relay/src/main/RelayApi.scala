@@ -5,6 +5,7 @@ import akka.pattern.ask
 import lila.common.paginator._
 import lila.db.paginator.BSONAdapter
 import lila.db.Types.Coll
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import makeTimeout.veryLarge
 
@@ -30,6 +31,15 @@ final class RelayApi(
       }.void >>- repo.started.foreach {
         _ foreach { tourney =>
           relayMap ! Tell(tourney.id, TourneyActor.Recover)
+        }
+      }
+    }
+
+  def round(game: Game): Fu[Option[Relay.Round]] =
+    game.relayId ?? repo.byId flatMap {
+      _ ?? { relay =>
+        GameRepo games relay.gameIds.filterNot(game.id ==) map {
+          Relay.Round(relay, _).some
         }
       }
     }

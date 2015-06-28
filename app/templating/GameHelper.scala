@@ -176,6 +176,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
+  def gameResult(game: Game) =
+    if (game.finished) game.winnerColor match {
+      case Some(chess.White) => "1-0"
+      case Some(chess.Black) => "0-1"
+      case None              => "½-½"
+    }
+    else "*"
+
   lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
 
   def gameLink(

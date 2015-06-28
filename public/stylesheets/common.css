@@ -2084,6 +2084,27 @@ a.mini_board {
   width: 160px;
   height: 160px;
 }
+.relay_games {
+  margin-top: 20px;
+}
+.relay_games > div {
+  display: inline-block;
+  margin: 0 12px 12px 0;
+}
+.relay_games .cg-board-wrap {
+  width: 247px;
+  height: 247px;
+}
+.relay_games div.vstext {
+  width: 237px;
+}
+.relay_games .result {
+  position: absolute;
+  top: 1.2em;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
 /* opening.css */
 
 div.game_config button {
