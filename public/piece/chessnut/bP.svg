@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="pawn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="800px" height="800px" viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
+<g id="black_pawn">
+	<path id="base" d="M489.3,418.3L489.3,418.3c0.1-17,12-25.1,65.1-29.9V330h-90.7c32-19.5,52.8-53.5,52.8-92.9
+		c0-61.9-51.3-110.4-116.7-110.4c-65.4,0-116.7,48.5-116.7,110.4c0,39.4,20.7,73.3,52.8,92.9h-91.4v58.4
+		c53.7,4.8,65.2,12.9,65.2,29.8c0,60.7-37.6,131.5-115.5,200.1l0.1,64c0,18.6,93.2,32,205.3,32l0,0l0,0c112.1,0,205.4-13.5,205.4-32
+		l0.1-64C527.2,549.8,489.3,478.9,489.3,418.3z"/>
+	<path id="middle_9_" style="fill:none;stroke:#F2F2F2;stroke-width:19.44;stroke-linecap:round;stroke-miterlimit:10;" d="
+		M232.1,627.2c0,13.7,76,25.7,167.6,25.7l0,0c91.5,0,167.4-11,167.4-24.6"/>
+	<path id="top" style="fill:none;stroke:#F2F2F2;stroke-width:16.2;stroke-linecap:round;stroke-miterlimit:10;" d="M400.9,150.3
+		c-24-0.2-47.6,8.6-66.3,27.3c-26.7,26.8-32.5,63.2-20,95.3"/>
+</g>
+</svg>
