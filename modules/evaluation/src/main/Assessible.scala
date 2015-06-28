@@ -12,9 +12,6 @@ case class Assessible(analysed: Analysed) {
   import Statistics._
   import analysed._
 
-  def moveTimes(color: Color): List[Int] =
-    skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})
-
   def suspiciousErrorRate(color: Color): Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < 15
 
@@ -30,10 +27,7 @@ case class Assessible(analysed: Analysed) {
   def moderateBlurRate(color: Color): Boolean =
     !game.isSimul && game.playerBlurPercent(color) > 70
 
-  def consistentMoveTimes(color: Color): Boolean =
-    moveTimes(color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
-
-  def noFastMoves(color: Color): Boolean = moveTimes(color).count(0 ==) <= 2
+  def noFastMoves(color: Color): Boolean = game.moveTimes(color).count(0 ==) <= 2
 
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert
@@ -43,7 +37,7 @@ case class Assessible(analysed: Analysed) {
     alwaysHasAdvantage(color),
     highBlurRate(color),
     moderateBlurRate(color),
-    consistentMoveTimes(color),
+    consistentMoveTimes(Pov(game, color)),
     noFastMoves(color),
     suspiciousHoldAlert(color)
   )
@@ -78,8 +72,8 @@ case class Assessible(analysed: Analysed) {
 
   def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
   def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def mtAvg(color: Color): Int = listAverage(skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
-  def mtSd(color: Color): Int = listDeviation(skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
+  def mtAvg(color: Color): Int = listAverage(game moveTimes color).toInt
+  def mtSd(color: Color): Int = listDeviation(game moveTimes color).toInt
   def blurs(color: Color): Int = game.playerBlurPercent(color)
   def hold(color: Color): Boolean = game.player(color).hasSuspiciousHoldAlert
 

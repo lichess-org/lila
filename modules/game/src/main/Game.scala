@@ -102,6 +102,13 @@ case class Game(
   // in tenths of seconds
   lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
 
+  def moveTimes(color: Color): List[Int] = {
+    val x = if (color == startColor) 0 else 1
+    moveTimes.toList.zipWithIndex.collect {
+      case (e, i) if ((i + x) % 2) == 0 => e
+    }
+  }
+
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
   /**

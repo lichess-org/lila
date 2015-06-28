@@ -4,8 +4,9 @@ import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
+import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.{ Game, Player, GameRepo, Source }
+import lila.game.{ Game, Player, GameRepo, Source, Pov }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -23,7 +24,6 @@ final class AssessApi(
     userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
-  import lila.evaluation.Statistics.{ skip, moveTimeCoefVariation }
 
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
@@ -109,13 +109,10 @@ final class AssessApi(
       case none => funit
     }
 
+  private def consistentMoveTimes(game: Game)(player: Player) =
+    Statistics.consistentMoveTimes(Pov(game, player))
+
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
-
-  private def moveTimes(game: Game, color: Color): List[Int] =
-    skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
-
-  private def consistentMoveTimes(game: Game)(player: Player): Boolean =
-    moveTimes(game, player.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
 

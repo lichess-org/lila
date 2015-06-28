@@ -28,11 +28,13 @@ object Statistics {
   // Coefficient of Variance
   def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
 
-  // ups all values by 10 (1s)
+  // ups all values by 5 (0.5s)
   // as to avoid very high variation on bullet games
   // where all move times are low (http://en.lichess.org/@/AlisaP?mod)
-  def moveTimeCoefVariation(a: NonEmptyList[Int]): Double =
-    coefVariation(a.map(10+))
+  def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
+
+  def consistentMoveTimes(pov: lila.game.Pov): Boolean =
+    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.4)
 
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 
@@ -43,9 +45,6 @@ object Statistics {
   // The probability that you are outside of abs(x-n) from the mean on both sides
   def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double =
     1 - cdf(n.abs(x), avg, sd) + cdf(n.times(n.fromInt(-1), n.abs(x)), avg, sd)
-
-  def skip[A](l: List[A], n: Int) =
-    l.zipWithIndex.collect { case (e, i) if ((i + n) % 2) == 0 => e } // (i+1) because zipWithIndex is 0-based
 
   def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
     case Nil      => 0
