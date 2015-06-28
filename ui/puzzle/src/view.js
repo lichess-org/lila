@@ -221,6 +221,10 @@ function renderViewControls(ctrl, fen) {
       href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),
     m('a.button.hint--bottom', {
+      'data-hint': ctrl.trans('analysis'),
+      href: puzzle.makeUrl('/analysis/', fen),
+    }, m('span[data-icon=A]')),
+    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('continueFromHere'),
       onclick: function() {
         $.modal($('.continue_with'));
