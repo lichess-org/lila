@@ -25,12 +25,21 @@ module.exports = function(ctrl) {
         m('a.button.top_right.text.active', {
           'data-icon': 'G',
           onclick: partial(xhr.start, ctrl)
-        }, 'Start') : m('a.button.top_right.text', {
+        }, 'Start') : [m('a.button.top_right.text', {
           'data-icon': 'L',
           onclick: function() {
             if (confirm('Delete this simul?')) xhr.abort(ctrl);
           }
-        }, ctrl.trans('cancel'))
+        }, ctrl.trans('cancel')), 
+        m('a.button.top_right.text', {
+          'data-icon': 'E',
+	  onclick: function() {
+	    if (candidates.length >= 1) {
+       	      var randomCandidate = candidates[Math.floor(Math.random()*candidates.length)];
+              xhr.accept(randomCandidate.player.id)(ctrl);
+            }
+	  }
+	}, 'Accept random candidate')]
       ) : (
         simul.containsMe(ctrl) ? m('a.button.top_right', {
           onclick: partial(xhr.withdraw, ctrl)
