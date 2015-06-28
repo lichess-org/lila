@@ -123,7 +123,7 @@ final class AssessApi(
       player.color.fold(white, black).perfs(perfType).progress >= 150
     }
 
-    def noFastCoefVariation(game: Game)(player: Player): Option[Double] =
+    def noFastCoefVariation(player: Player): Option[Double] =
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
@@ -132,8 +132,9 @@ final class AssessApi(
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
 
-    val whiteSuspCoefVariation = noFastCoefVariation(game)(game player chess.White).filter(_ < 0.4)
-    val blackSuspCoefVariation = noFastCoefVariation(game)(game player chess.Black).filter(_ < 0.4)
+    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.45)
+    val whiteSuspCoefVariation = suspCoefVariation(chess.White)
+    val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
     val shouldAnalyse: Option[String] =
       if (!game.analysable) none
