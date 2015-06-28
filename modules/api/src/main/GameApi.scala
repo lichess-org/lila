@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
-import lila.game.{ Game, GameRepo, PgnDump, PerfPicker }
+import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 

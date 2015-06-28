@@ -162,7 +162,7 @@ object Round extends LilaController with TheftPrevention {
           GameRepo.initialFen(pov.game.id) zip
             Env.game.crosstableApi(pov.game) map {
               case (initialFen, crosstable) =>
-                val pgn = Env.game.pgnDump(pov.game, initialFen)
+                val pgn = Env.api.pgnDump(pov.game, initialFen)
                 Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
             }
       },

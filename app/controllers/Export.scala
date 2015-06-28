@@ -21,13 +21,13 @@ object Export extends LilaController {
           case Some(i) => fuccess(i.pgn)
           case None => for {
             initialFen <- GameRepo initialFen game
-            pgn = Env.game.pgnDump(game, initialFen)
+            pgn = Env.api.pgnDump(game, initialFen)
             analysis ← (~get("as") != "raw") ?? (Env.analyse.analyser getDone game.id)
           } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
         }) map { content =>
           Ok(content).withHeaders(
             CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.game.pgnDump filename game)))
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
         }
       }
     }

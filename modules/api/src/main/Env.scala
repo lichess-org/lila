@@ -19,13 +19,14 @@ final class Env(
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
-    pgnDump: lila.game.PgnDump,
+    gamePgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
     getRelay: String => Fu[Option[lila.relay.Relay]],
+    getRelayName: String => Option[String],
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -67,6 +68,8 @@ final class Env(
       (ctx.userId | "anon").salt(blindCookieSalt).md5.hex
     }
   }
+
+  val pgnDump = new PgnDump(gamePgnDump, getRelayName)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -129,13 +132,14 @@ object Env {
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
     getRelay = lila.relay.Env.current.repo.byId,
+    getRelayName = lila.relay.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
     crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
-    pgnDump = lila.game.Env.current.pgnDump,
+    gamePgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     system = lila.common.PlayApp.system,
     isProd = lila.common.PlayApp.isProd)

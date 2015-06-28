@@ -110,6 +110,7 @@
   }
   @relay.map { rel =>
   <div class="game_relay side_box no_padding">
+    @bookmark.toggle(game)
     <p class="top text" data-icon="n"><a href="@routes.Relay.show(rel.id, rel.slug)">@rel.name</a></p>
     @game.relay.ifTrue(game.finished).map { r =>
     <div class="players top">

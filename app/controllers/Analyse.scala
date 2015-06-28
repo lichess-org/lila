@@ -65,7 +65,7 @@ object Analyse extends LilaController {
         Env.relay.api.round(pov.game) zip
         Env.game.crosstableApi(pov.game) flatMap {
           case (((analysis, simul), relay), crosstable) =>
-            val pgn = Env.game.pgnDump(pov.game, initialFen)
+            val pgn = Env.api.pgnDump(pov.game, initialFen)
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,
               tv = none,
               analysis.map(pgn -> _),
@@ -95,7 +95,7 @@ object Analyse extends LilaController {
         (pov.game.relayId ?? Env.relay.repo.byId) zip
         Env.game.crosstableApi(pov.game) map {
           case (((analysis, simul), relay), crosstable) =>
-            val pgn = Env.game.pgnDump(pov.game, initialFen)
+            val pgn = Env.api.pgnDump(pov.game, initialFen)
             Ok(html.analyse.replayBot(
               pov,
               initialFen,

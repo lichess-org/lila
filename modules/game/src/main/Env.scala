@@ -50,8 +50,6 @@ final class Env(
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 
-  lazy val export = new PgnExport(pgnDump).apply _
-
   lazy val rewind = Rewind
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
