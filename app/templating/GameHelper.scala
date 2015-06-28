@@ -150,9 +150,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case chess.variant.KingOfTheHill => Html("King in the center")
-      case chess.variant.ThreeCheck    => Html("Three checks")
-      case _                           => Html("Variant ending")
+      case chess.variant.KingOfTheHill => trans.kingInTheCenter()
+      case chess.variant.ThreeCheck    => trans.threeChecks()
+      case _                           => trans.variantEnding()
     }
     case _ => Html("")
   }
