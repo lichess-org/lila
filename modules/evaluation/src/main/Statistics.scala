@@ -33,8 +33,11 @@ object Statistics {
   // where all move times are low (http://en.lichess.org/@/AlisaP?mod)
   def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
 
+  def moveTimeCoefVariation(pov: lila.game.Pov): Option[Double] =
+    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation)
+
   def consistentMoveTimes(pov: lila.game.Pov): Boolean =
-    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
+    moveTimeCoefVariation(pov) ?? (_ < 0.4)
 
   def noFastMoves(pov: lila.game.Pov): Boolean = pov.game.moveTimes(pov.color).count(0 ==) <= 2
 

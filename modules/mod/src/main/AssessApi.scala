@@ -77,6 +77,7 @@ final class AssessApi(
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit = {
+    def consistentMoveTimes(game: Game)(player: Player) = Statistics.consistentMoveTimes(Pov(game, player))
     val shouldAssess =
       if (!game.source.exists(assessableSources.contains)) false
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
@@ -109,10 +110,6 @@ final class AssessApi(
       case none => funit
     }
 
-  private def consistentMoveTimes(game: Game)(player: Player) =
-    Statistics.noFastMoves(Pov(game, player)) &&
-      Statistics.consistentMoveTimes(Pov(game, player))
-
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
@@ -126,11 +123,17 @@ final class AssessApi(
       player.color.fold(white, black).perfs(perfType).progress >= 150
     }
 
+    def noFastCoefVariation(game: Game)(player: Player): Option[Double] =
+      Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
+
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
     def winnerNbGames = for {
       user <- winnerUserOption
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
+
+    val whiteSuspCoefVariation = noFastCoefVariation(game)(game player chess.White).filter(_ < 0.4)
+    val blackSuspCoefVariation = noFastCoefVariation(game)(game player chess.Black).filter(_ < 0.4)
 
     val shouldAnalyse: Option[String] =
       if (!game.analysable) none
@@ -143,8 +146,10 @@ final class AssessApi(
       else if (!game.mode.rated) none
       // someone is using a bot
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) "Hold alert".some
-      // someone has consistent move times
-      else if (game.players exists consistentMoveTimes(game)) "Move times".some
+      // white has consistent move times
+      else if (whiteSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(x => s"White Move times ~ $x")
+      // black has consistent move times
+      else if (blackSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(x => s"Black Move times ~ $x")
       // don't analyse other bullet games
       else if (game.speed == chess.Speed.Bullet) none
       // someone blurs a lot
