@@ -150,7 +150,7 @@ final class AssessApi(
       // white has consistent move times
       else if (whiteSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(x => s"White Move times ~ $x")
       // black has consistent move times
-      else if (blackSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(x => s"Black Move times ~ $x")
+      else if (blackSuspCoefVariation.isDefined) blackSuspCoefVariation.map(x => s"Black Move times ~ $x")
       // don't analyse other bullet games
       else if (game.speed == chess.Speed.Bullet) none
       // someone blurs a lot
