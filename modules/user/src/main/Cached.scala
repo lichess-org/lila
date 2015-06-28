@@ -20,7 +20,6 @@ final class Cached(
     mongoCache: MongoCache.Builder) {
 
   private def twoWeeksAgo = DateTime.now minusWeeks 2
-  private def fourWeeksAgo = DateTime.now minusWeeks 4
 
   private val countCache = mongoCache.single[Int](
     prefix = "user:nb",
@@ -35,10 +34,7 @@ final class Cached(
 
   val topPerf = mongoCache[Perf.Key, List[User]](
     prefix = "user:top:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(
-      perf,
-      if (perf == PerfType.Correspondence.key) fourWeeksAgo else twoWeeksAgo,
-      leaderboardSize),
+    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, twoWeeksAgo, leaderboardSize),
     timeToLive = 15 minutes)
 
   private case class UserPerf(user: User, perfKey: String)
