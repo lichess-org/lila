@@ -22,6 +22,7 @@ object TournamentRepo {
   private val finishedSelect = BSONDocument("status" -> Status.Finished.id)
   private val unfinishedSelect = BSONDocument("status" -> BSONDocument("$ne" -> Status.Finished.id))
   private val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
+  private def sinceSelect(date: DateTime) = BSONDocument("startsAt" -> BSONDocument("$gt" -> date))
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
@@ -140,8 +141,8 @@ object TournamentRepo {
     }._1.reverse
   }
 
-  def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Tournament]] = coll.find(
-    finishedSelect ++ BSONDocument(
+  def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime, nb: Int): Fu[List[Tournament]] = coll.find(
+    finishedSelect ++ sinceSelect(since), BSONDocument(
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
