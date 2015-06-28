@@ -117,6 +117,10 @@ function reload(chessgroundData, data, cfg) {
   }
 }
 
+function makeUrl(url, fen) {
+  return url + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+}
+
 module.exports = {
   str2move: str2move,
   move2str: move2str,
@@ -125,5 +129,6 @@ module.exports = {
   getOpponentNextMove: getOpponentNextMove,
   makeHistory: makeHistory,
   jump: jump,
-  reload: reload
+  reload: reload,
+  makeUrl: makeUrl
 };
