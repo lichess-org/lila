@@ -117,7 +117,15 @@ trait SetupHelper { self: I18nHelper =>
 
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.str()),
-    (Pref.SubmitMove.CORRESPONDENCE, "In correspondence games"),
+    (Pref.SubmitMove.CORRESPONDENCE, trans.inCorrespondenceGames.str()),
     (Pref.SubmitMove.ALWAYS, trans.always.str())
   )
+
+  def translatedChallengeChoices(implicit ctx: Context) = List(
+    (Pref.Challenge.NEVER, trans.never.str()),
+    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(500).toString()),
+    (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
+    (Pref.Challenge.ALWAYS, trans.always.str())
+  )
+  
 }

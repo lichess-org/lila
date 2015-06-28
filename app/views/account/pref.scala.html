@@ -37,8 +37,8 @@
             @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
           </li>
           <li>
-            <h2>Blindfold Chess (invisible pieces)</h2>
-            @base.radios(form("blindfold"), Pref.Blindfold.choices)
+            <h2>@trans.blindfoldChess()</h2>
+            @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
         </ul>
       </fieldset>
@@ -79,7 +79,7 @@
             @base.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
           </li>
           <li>
-            <h2>Move confirmation</h2>
+            <h2>@trans.moveConfirmation()</h2>
             @base.radios(form("submitMove"), submitMoveChoices)
           </li>
         </ul>
@@ -93,7 +93,7 @@
           </li>
           <li>
             <h2>@trans.letOtherPlayersChallengeYou()</h2>
-            @base.radios(form("challenge"), Pref.Challenge.choices)
+            @base.radios(form("challenge"), translatedChallengeChoices)
           </li>
         </ul>
       </fieldset>
