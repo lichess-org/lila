@@ -27,8 +27,6 @@ case class Assessible(analysed: Analysed) {
   def moderateBlurRate(color: Color): Boolean =
     !game.isSimul && game.playerBlurPercent(color) > 70
 
-  def noFastMoves(color: Color): Boolean = game.moveTimes(color).count(0 ==) <= 2
-
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
@@ -38,7 +36,7 @@ case class Assessible(analysed: Analysed) {
     highBlurRate(color),
     moderateBlurRate(color),
     consistentMoveTimes(Pov(game, color)),
-    noFastMoves(color),
+    noFastMoves(Pov(game, color)),
     suspiciousHoldAlert(color)
   )
 

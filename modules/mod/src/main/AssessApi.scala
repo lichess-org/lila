@@ -110,7 +110,8 @@ final class AssessApi(
     }
 
   private def consistentMoveTimes(game: Game)(player: Player) =
-    Statistics.consistentMoveTimes(Pov(game, player))
+    Statistics.noFastMoves(Pov(game, player)) &&
+      Statistics.consistentMoveTimes(Pov(game, player))
 
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
 
@@ -151,7 +152,7 @@ final class AssessApi(
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) "Winner progress".some
       // analyse some tourney games
-      // else if (game.isTournament) scala.util.Random.nextInt(5) == 0 option "Tourney random"
+      else if (game.isTournament) scala.util.Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
       else if (winnerNbGames.??(10 >) && scala.util.Random.nextInt(2) == 0) "New winner".some
       else none

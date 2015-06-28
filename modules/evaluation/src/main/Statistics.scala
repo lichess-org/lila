@@ -34,7 +34,9 @@ object Statistics {
   def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
 
   def consistentMoveTimes(pov: lila.game.Pov): Boolean =
-    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.4)
+    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
+
+  def noFastMoves(pov: lila.game.Pov): Boolean = pov.game.moveTimes(pov.color).count(0 ==) <= 2
 
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 
