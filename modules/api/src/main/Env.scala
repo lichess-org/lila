@@ -25,8 +25,10 @@ final class Env(
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
+    getSimulName: Simul.ID => Option[String],
     getRelay: String => Fu[Option[lila.relay.Relay]],
     getRelayName: String => Option[String],
+    getTournamentName: String => Option[String],
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -69,7 +71,11 @@ final class Env(
     }
   }
 
-  val pgnDump = new PgnDump(gamePgnDump, getRelayName)
+  val pgnDump = new PgnDump(
+    dumper = gamePgnDump,
+    relayName = getRelayName,
+    simulName = getSimulName,
+    tournamentName = getTournamentName)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -131,8 +137,10 @@ object Env {
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
+    getSimulName = lila.simul.Env.current.cached.name,
     getRelay = lila.relay.Env.current.repo.byId,
     getRelayName = lila.relay.Env.current.cached.name,
+    getTournamentName = lila.tournament.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     relationApi = lila.relation.Env.current.api,

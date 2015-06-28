@@ -6,11 +6,17 @@ import play.api.libs.iteratee._
 
 final class PgnDump(
     dumper: lila.game.PgnDump,
-    relayName: String => Option[String]) {
+    relayName: String => Option[String],
+    simulName: String => Option[String],
+    tournamentName: String => Option[String]) {
 
   def apply(game: Game, initialFen: Option[String]): Pgn = {
     val pgn = dumper(game, initialFen)
-    game.relayId.flatMap(relayName).fold(pgn)(pgn.withEvent)
+    game.relayId.flatMap(relayName).orElse {
+      game.tournamentId.flatMap(tournamentName).orElse {
+        game.simulId.flatMap(simulName)
+      }
+    }.fold(pgn)(pgn.withEvent)
   }
 
   def filename(game: Game) = dumper filename game
