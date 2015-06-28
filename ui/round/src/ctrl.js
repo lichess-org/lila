@@ -49,7 +49,8 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    hold.register(this.socket, meta.holdTime);
+    if (this.data.game.variant.key === 'standard')
+      hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);

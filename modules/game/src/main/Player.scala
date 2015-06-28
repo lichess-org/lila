@@ -102,7 +102,7 @@ object Player {
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
 
-    def suspicious = ply >= 12 && ply <= 40
+    def suspicious = ply >= 16 && ply <= 40
   }
 
   case class UserInfo(id: String, rating: Int, provisional: Boolean)

@@ -1,7 +1,5 @@
-// Register move hold times and send socket alerts
-
 var holds = [];
-var nb = 6;
+var nb = 8;
 var was = false;
 
 var register = function(socket, hold) {
@@ -20,7 +18,7 @@ var register = function(socket, hold) {
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      set = sd < 15;
+      set = sd < 13;
     }
   }
   if (set || was) $('.manipulable .cg-board').toggleClass('sha', set);
