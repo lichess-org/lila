@@ -50,7 +50,9 @@ openGraph = Map(
           <td>@showDate(rel.relay.date)</td>
           <td>
             <a class="name" href="@routes.Relay.show(rel.relay.id, rel.relay.slug)">
-              <strong>@rel.relay.baseName</strong> - <em>@rel.relay.extName</em>
+              <strong>@rel.relay.baseName</strong>@rel.relay.extName.map { ext =>
+              - <em>@ext</em>
+              }
             </a>
             @rel.content.flatMap(_.short).map { short =>
             <span class="short">@escape(short)</span>

@@ -14,7 +14,10 @@ case class Relay(
 
   def baseName = name.takeWhile('-'!=).trim
 
-  def extName = name.dropWhile('-'!=).tail.trim
+  def extName = name.dropWhile('-'!=).some
+    .filter(_.nonEmpty)
+    .map(_.tail.trim)
+    .filter(_.nonEmpty)
 
   def gameByFicsId(ficsId: Int) = games.find(_.ficsId == ficsId)
 
