@@ -424,6 +424,7 @@ lichess.storage = {
       },
       nbm: function(e) {
         $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
+        if (e) $.sound.newPM();
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -1059,9 +1060,10 @@ lichess.storage = {
       tournamentOther: 'TournamentOther',
       berserk: 'Berserk',
       check: 'Check',
-      newChallenge: 'NewChallenge'
+      newChallenge: 'NewChallenge',
+      newPM: 'NewPM'
     };
-    for(var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
+    for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
     var volumes = {
       lowtime: 0.5,
