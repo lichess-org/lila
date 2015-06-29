@@ -19,8 +19,11 @@ module.exports = {
     if (lichess.storage.get(storageKey)) return;
     lichess.storage.set(storageKey, 1);
 
-    var suffixes = ['1st', '2nd', '3rd'];
-    var soundKey = 'tournament' + (suffixes[data.me.rank - 1] || 'Other');
+    var soundKey = 'Other';
+    if (data.me.rank < 4) soundKey = '1st';
+    else if (data.me.rank < 11) soundKey = '2st';
+    else if (data.me.rank < 21) soundKey = '3st';
+
     $.sound[soundKey]();
   },
   countDown: function(data) {
