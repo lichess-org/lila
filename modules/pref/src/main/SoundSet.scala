@@ -29,6 +29,7 @@ sealed trait SoundSetObject {
 object SoundSet extends SoundSetObject {
 
   val all = NonEmptyList(
+    new SoundSet("silent", "Silent"),
     new SoundSet("standard", "Standard"),
     new SoundSet("piano", "Piano"),
     new SoundSet("nes", "NES"))

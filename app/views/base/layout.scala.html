@@ -106,10 +106,10 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       }
       @if(!zen) {
       <div id="sound_control" class="fright">
-        <button id="sound_state" class="a link available hint--bottom-left">
+        <a id="sound_state" class="toggle link hint--bottom-left">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
-        </button>
+        </a>
         <div class="dropdown">
           <div class="slider"></div>
           <form class="selector" action="@routes.Pref.set("soundSet")">

@@ -1080,9 +1080,9 @@ lichess.storage = {
     var $control = $('#sound_control');
     var $toggle = $('#sound_state');
     var enabled = function() {
-      return lichess.storage.get('sound') !== 'no';
+      return soundSet !== 'silent';
     };
-    $control.add($toggle).toggleClass('sound_state_on', enabled());
+    $toggle.toggleClass('sound_state_on', enabled());
     var player = function(s) {
       return function() {
         if (enabled()) collection(s).play();
@@ -1102,13 +1102,6 @@ lichess.storage = {
       setVolume(v);
       play.move(true);
     }, 50);
-    $toggle.click(function() {
-      var enab = !enabled();
-      lichess.storage.set('sound', enab ? 'yes' : 'no');
-      $control.add($toggle).toggleClass('sound_state_on', enab);
-      play.genericNotify();
-      return false;
-    });
     $toggle.one('mouseover', function() {
       $toggle.parent().find('.slider').slider({
         orientation: "vertical",
@@ -1129,6 +1122,7 @@ lichess.storage = {
         $.post($selector.attr('action'), {
           set: soundSet
         });
+        $toggle.toggleClass('sound_state_on', enabled());
         return false;
       });
     });

@@ -1634,7 +1634,7 @@ body #themepicker div.is3d,
   width: 120px;
   padding: 10px;
 }
-#sound_control.sound_state_on:hover .dropdown {
+#sound_control.shown .dropdown {
   display: block;
 }
 #sound_control .slider {
