@@ -21,8 +21,8 @@ module.exports = {
 
     var soundKey = 'Other';
     if (data.me.rank < 4) soundKey = '1st';
-    else if (data.me.rank < 11) soundKey = '2st';
-    else if (data.me.rank < 21) soundKey = '3st';
+    else if (data.me.rank < 11) soundKey = '2nd';
+    else if (data.me.rank < 21) soundKey = '3rd';
 
     $.sound['tournament' + soundKey]();
   },
