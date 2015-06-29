@@ -17,7 +17,8 @@ themes = [
   ['chess7', 'svg'],
   ['reillycraig', 'svg'],
   ['fantasy', 'svg'],
-  ['shapes', 'svg']
+  ['shapes', 'svg'],
+  ['chessnut', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',

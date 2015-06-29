@@ -29,11 +29,10 @@ sealed trait ThemeObject {
 object Theme extends ThemeObject {
 
   val all = NonEmptyList(
-    "brown", "blue", "green",
-    "wood", "blue2", "marble",
-    "wood3", "blue3", "leather",
-    "wood2", "canvas", "purple",
-    "olive", "grey", "metal"
+    "blue", "blue2", "blue3", "canvas",
+    "wood", "wood2", "wood3", "maple",
+    "green", "marble", "browsn", "leather",
+    "grey", "metal", "olive", "purple"
   ) map { name => new Theme(name) }
 }
 

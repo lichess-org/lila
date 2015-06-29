@@ -1523,7 +1523,7 @@ div.auth input.login {
 }
 #themepicker.shown .dropdown {
   display: block;
-  width: 241px;
+  width: 321px;
   text-align: center;
 }
 body #themepicker div.is2d,
@@ -1592,7 +1592,7 @@ body #themepicker div.is3d,
 }
 #themepicker div.toggles {
   display: inline-block;
-  margin: 20px 7px 10px 7px;
+  margin: 20px 20px 10px 20px;
   text-align: center;
 }
 #themepicker div.toggles a {
@@ -1610,12 +1610,12 @@ body #themepicker div.is3d,
   margin-bottom: 5px;
 }
 #themepicker .zoom_control i {
-  font-size: 18px;
+  font-size: 24px;
   margin-right: 5px;
 }
 #themepicker .zoom_control .slider {
   margin: auto;
-  width: 120px;
+  width: 220px;
   height: 10px;
   display: inline-block;
 }

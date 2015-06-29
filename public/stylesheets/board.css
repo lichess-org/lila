@@ -374,6 +374,10 @@ div.lichess_board {
 #top div.color_demo.metal {
   background-image: url(../images/board/metal-1024.jpg);
 }
+.maple .is2d .cg-board,
+#top div.color_demo.maple {
+  background-image: url(../images/board/maple.jpg);
+}
 /* KotH boards */
 
 .blue .is2d .kingOfTheHill .cg-board {
@@ -915,6 +919,9 @@ div.lichess_board {
 }
 #top .cg-piece.shapes {
   background-image: url(../piece/shapes/wN.svg);
+}
+#top .cg-piece.chessnut {
+  background-image: url(../piece/chessnut/wN.svg);
 }
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
