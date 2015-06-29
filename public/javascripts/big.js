@@ -1026,6 +1026,9 @@ lichess.storage = {
     Mousetrap.bind('k a p p a', function() {
       $('body').toggleClass('kappa');
     });
+    Mousetrap.bind('d o g g y', function() {
+      $('body').toggleClass('doggy');
+    });
   });
 
   $.lazy = function(factory) {

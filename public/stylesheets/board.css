@@ -937,6 +937,10 @@ body.kappa .cg-board.orientation-white .cg-piece.king.white,
 body.kappa .cg-board.orientation-black .cg-piece.king.black {
   background-image: url(../piece/other/kappa.png);
 }
+body.doggy .cg-board.orientation-white .cg-piece.pawn.white,
+body.doggy .cg-board.orientation-black .cg-piece.pawn.black {
+  background-image: url(../piece/other/doggy.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 5010;
