@@ -67,7 +67,7 @@ object Mod extends LilaController {
     me =>
       OptionFuOk(UserRepo named username) { user =>
         for {
-          povs <- lila.game.GameRepo.recentPovsByUser(user, 50)
+          povs <- lila.game.GameRepo.recentPovsByUser(user, 100)
           chats <- povs.map(p => Env.chat.api.playerChat findNonEmpty p.gameId).sequence
           povWithChats = (povs zip chats) collect {
             case (p, Some(c)) => p -> c
@@ -86,5 +86,4 @@ object Mod extends LilaController {
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
     me => assessApi.refreshAssessByUsername(username) inject redirect(username)
   }
-
 }
