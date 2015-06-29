@@ -1,4 +1,4 @@
-@(title: String, control: lila.video.UserControl)(body: Html)(implicit ctx: Context)
+@(title: String, control: lila.video.UserControl, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @sideSection = {
 <div id="video_side">
@@ -33,7 +33,8 @@
 title = title,
 moreCss = cssTag("video.css"),
 moreJs = evenMoreJs,
-side = sideSection.some) {
+side = sideSection.some,
+openGraph = openGraph) {
 <div id="video" class="content_box no_padding">
   @body
 </div>
