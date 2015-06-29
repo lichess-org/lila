@@ -180,6 +180,7 @@ module.exports = function(opts) {
         },
         check: o.check
       });
+      if (o.check) $.sound.check();
     }
     if (o.clock) {
       var c = o.clock
