@@ -472,7 +472,7 @@ lichess.storage = {
             if (!lichess.storage.get('challenge-' + data.id)) {
               if (!lichess.quietMode) {
                 $('#top .challenge_notifications').addClass('shown');
-                $.sound.genericNotify();
+                $.sound.newChallenge();
               }
               lichess.storage.set('challenge-' + data.id, 1);
             }
@@ -1058,7 +1058,8 @@ lichess.storage = {
       tournament3rd: 'Tournament3rd',
       tournamentOther: 'TournamentOther',
       berserk: 'Berserk',
-      check: 'Check'
+      check: 'Check',
+      newChallenge: 'NewChallenge'
     };
     for(var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
