@@ -91,7 +91,6 @@ rating=Rejting
 username=Korisničko ime
 password=Lozinka
 haveAnAccount=Već imate račun?
-allYouNeedIsAUsernameAndAPassword=Sve što Vam treba je korisničko ime i lozinka.
 changePassword=Promijeni lozinku
 changeEmail=Promijeni e-Mail
 email=e-Mail

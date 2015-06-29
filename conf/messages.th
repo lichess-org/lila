@@ -94,7 +94,6 @@ rating=ระดับคะแนน
 username=ชื่อผู้ใช้
 password=รหัสผ่าน
 haveAnAccount=มีบัญชีแล้วหรือยัง?
-allYouNeedIsAUsernameAndAPassword=สิ่งที่คุณต้องมีคือ ชื่อผู้ใช้ และรหัสผ่าน
 changePassword=เปลี่ยนรหัสผ่าน
 changeEmail=เปลี่ยนอีเมล
 email=อีเมล

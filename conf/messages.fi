@@ -94,7 +94,6 @@ rating=Vahvuusluku
 username=Käyttäjätunnus
 password=Salasana
 haveAnAccount=Onko sinulla jo tili?
-allYouNeedIsAUsernameAndAPassword=Tarvitset vain käyttäjätunnuksen ja salasanan.
 changePassword=Vaihda salasana
 changeEmail=Vaihda sähköpostiosoitetta
 email=Sähköpostiosoite

@@ -94,7 +94,6 @@ rating=Κατάταξη
 username=Όνομα χρήστη
 password=Κωδικός
 haveAnAccount=Έχετε λογαριασμό;
-allYouNeedIsAUsernameAndAPassword=Τα μόνα που χρειάζεστε είναι όνομα χρήστη και κωδικό.
 changePassword=Αλλάξτε κωδικό
 changeEmail=Αλλαγή Hλ.Ταχυδρομείου
 email=Ηλ. Ταχυδρομείο

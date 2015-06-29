@@ -94,7 +94,6 @@ rating=评级
 username=用户名
 password=密码
 haveAnAccount=有账户吗？
-allYouNeedIsAUsernameAndAPassword=你只需要一个用户名和密码。
 changePassword=修改密码
 changeEmail=更换电邮
 email=电邮

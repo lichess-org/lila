@@ -91,7 +91,6 @@ rating=레이팅
 username=사용자 이름
 password=비밀번호
 haveAnAccount=계정이 있습니까?
-allYouNeedIsAUsernameAndAPassword=사용자 이름과 비밀번호만 입력하시면 됩니다
 changePassword=비밀번호 변경
 changeEmail=메일 주소 변경
 email=메일

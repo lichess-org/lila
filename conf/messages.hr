@@ -94,7 +94,6 @@ rating=Rejting
 username=Korisničko ime
 password=Zaporka
 haveAnAccount=Imate li otvoren račun?
-allYouNeedIsAUsernameAndAPassword=Sve što trebate je samo korisničko ime i zaporka.
 changePassword=Promijeni zaporku
 changeEmail=Promijeni email
 email=Email

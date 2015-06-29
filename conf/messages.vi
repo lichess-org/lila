@@ -94,7 +94,6 @@ rating=Hệ số Elo
 username=Tên đăng nhập
 password=Mật khẩu
 haveAnAccount=Bạn có tài khoản chưa?
-allYouNeedIsAUsernameAndAPassword=Mọi thứ bạn cần là Tên tài khoản và mật khẩu.
 changePassword=Thay đổi mật khẩu
 changeEmail=Đổi thư điện tử
 email=Thư điện tử

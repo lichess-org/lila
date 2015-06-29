@@ -82,7 +82,6 @@ time=Ùine
 username=Far-ainm
 password=Facal-faire
 haveAnAccount=A bheil cunntas agad?
-allYouNeedIsAUsernameAndAPassword=Cha bhi feum agad ach air far-ainm ’s facal-faire
 changePassword=Atharraich am facal-faire
 learnMoreAboutLichess=Ionnsaich barrachd mu Lichess
 rank=Inbhe

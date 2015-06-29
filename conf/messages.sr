@@ -94,7 +94,6 @@ rating=Рејтинг
 username=Корисничко име
 password=Лозинка
 haveAnAccount=Имате налог?
-allYouNeedIsAUsernameAndAPassword=Све што ти је потребно су корисничко име и лозинка.
 changePassword=Промените лозинку
 changeEmail=Промени е-пошту
 email=Е-пошта

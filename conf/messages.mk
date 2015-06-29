@@ -88,7 +88,6 @@ rating=рејтинг
 username=Корисник
 password=Лозинка
 haveAnAccount=Имаш профил?
-allYouNeedIsAUsernameAndAPassword=Се што ти е потребно е корисничко име и лозинка.
 changePassword=Промени шифра
 changeEmail=промени е-пошта
 email=е-пошта

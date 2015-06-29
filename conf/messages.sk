@@ -91,7 +91,6 @@ rating=Rating
 username=Meno užívateľa
 password=Heslo
 haveAnAccount=Máte účet?
-allYouNeedIsAUsernameAndAPassword=Všetko, čo potrebujete, je meno používateľa a heslo.
 changePassword=Zmeniť heslo
 changeEmail=změnit email
 email=email

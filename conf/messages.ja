@@ -94,7 +94,6 @@ rating=レーティング
 username=ユーザー名
 password=パスワード
 haveAnAccount=アカウントをお持ちですか？
-allYouNeedIsAUsernameAndAPassword=必要なのはユーザー名とパスワードだけです。
 changePassword=パスワードの変更
 changeEmail=メールアドレスを変更する
 email=メールアドレス

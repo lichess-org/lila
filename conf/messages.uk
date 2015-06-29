@@ -94,7 +94,6 @@ rating=Рейтинг
 username=Ім’я користувача
 password=Пароль
 haveAnAccount=Вже зареєстровані?
-allYouNeedIsAUsernameAndAPassword=Потрібні лише ім’я користувача та пароль.
 changePassword=Змінити пароль
 changeEmail=Змінити email
 email=Email

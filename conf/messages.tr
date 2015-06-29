@@ -94,7 +94,6 @@ rating=Derece
 username=Kullanıcı Adı
 password=Şifre
 haveAnAccount=Üye misiniz?
-allYouNeedIsAUsernameAndAPassword=Tek gereken bir kullanıcı adı ve şifre
 changePassword=Şifre değiştir
 changeEmail=E-Posta adresini değiştir
 email=E-Posta

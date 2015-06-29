@@ -94,7 +94,6 @@ rating=Rating
 username=Uživatelské jméno
 password=Heslo
 haveAnAccount=Máte již účet?
-allYouNeedIsAUsernameAndAPassword=Vše co potřebujete je uživatelské jméno a heslo.
 changePassword=Změnit heslo
 changeEmail=Změnit email
 email=Email

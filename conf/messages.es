@@ -94,7 +94,6 @@ rating=Clasificación
 username=Usuario
 password=Contraseña
 haveAnAccount=¿Tienes una cuenta?
-allYouNeedIsAUsernameAndAPassword=Todo lo que necesitas es un nombre de usuario y una contraseña.
 changePassword=Cambiar contraseña
 changeEmail=Cambiar email
 email=Email

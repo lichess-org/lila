@@ -62,7 +62,6 @@ timeControl=Controlo d’o tèmps
 username=Nom d'usor
 password=Contrasinyi
 haveAnAccount=T'as jà un aconto?
-allYouNeedIsAUsernameAndAPassword=Tot cen te dét avér é un nom d'usor é na contrasinyi.
 learnMoreAboutLichess=Savér més sus Lichess
 rank=Rang
 gamesPlayed=Passes joyìyes

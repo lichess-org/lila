@@ -94,7 +94,6 @@ rating=Wertung
 username=Benutzername
 password=Passwort
 haveAnAccount=Hast du ein Benutzerkonto?
-allYouNeedIsAUsernameAndAPassword=Du brauchst nur einen Benutzernamen und ein Passwort.
 changePassword=Passwort ändern
 changeEmail=Email-Adresse ändern
 email=Email

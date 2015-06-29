@@ -61,7 +61,6 @@ timeControl=Reolaith Amser
 username=Enw defnyddiwr
 password=Cyfrinair
 haveAnAccount=Ydynch yn cael ystyried?
-allYouNeedIsAUsernameAndAPassword=Yr gyd rydych yn ei angen yw enw defnyddiwr ac cyfrinair
 learnMoreAboutLichess=Ddysgu mwy amdano Lichess
 rank=Safle
 gamesPlayed=Gêmau chwaraeodd

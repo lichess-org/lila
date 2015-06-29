@@ -94,7 +94,6 @@ rating=Rating
 username=Brugernavn
 password=Password
 haveAnAccount=Har du en konto?
-allYouNeedIsAUsernameAndAPassword=Det eneste du skal bruge, er et brugernavn og en adgangskode.
 changePassword=Skift kodeord
 changeEmail=Ændr email
 email=Email

@@ -94,7 +94,6 @@ rating=Puntuació
 username=Nom d'usuari
 password=Contrassenya
 haveAnAccount=Ja tens un compte?
-allYouNeedIsAUsernameAndAPassword=Tot el que necessites és un nom d'usuari i una contrasenya.
 changePassword=Canvia la contrasenya
 changeEmail=Canvia el correu electrònic
 email=Correu electrònic

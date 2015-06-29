@@ -91,7 +91,6 @@ rating=Reitings
 username=Lietotājvārds
 password=Parole
 haveAnAccount=Vai tev ir konts?
-allYouNeedIsAUsernameAndAPassword=Viss kas nepieciešams ir lietotājvārds un parole.
 changePassword=Mainīt paroli
 changeEmail=Mainīt e-pasta adresi
 email=E-pasta adrese

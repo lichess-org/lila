@@ -91,7 +91,6 @@ rating=Təsnifat
 username=İstifadəçi adı
 password=Şifrə
 haveAnAccount=Üzvlüyünüz varmı?
-allYouNeedIsAUsernameAndAPassword=Yalnız istifadəçi adı və şifrə lazımdır
 changePassword=Parolu dəyiş
 changeEmail=Emaili dəyiş
 email=Email

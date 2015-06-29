@@ -94,7 +94,6 @@ rating=Ranking
 username=Nazwa użytkownika
 password=Hasło
 haveAnAccount=Masz już konto?
-allYouNeedIsAUsernameAndAPassword=Wszystko czego potrzebujesz to nazwa użytkownika i hasło.
 changePassword=Zmień hasło
 changeEmail=Zmień adres e-mail
 email=E-mail

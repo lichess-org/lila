@@ -94,7 +94,6 @@ rating=Classement
 username=Pseudonyme
 password=Mot de passe
 haveAnAccount=Déjà inscrit ?
-allYouNeedIsAUsernameAndAPassword=Vous n'avez besoin que d'un pseudonyme et d'un mot de passe.
 changePassword=Changer le mot de passe
 changeEmail=Nouveau courriel
 email=Courriel

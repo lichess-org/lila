@@ -91,7 +91,6 @@ rating=Reiting
 username=Kasutajanimi
 password=Salasõna
 haveAnAccount=Kas sul on kasutaja?
-allYouNeedIsAUsernameAndAPassword=Kõik, mida vajad on kasutajanime ja salasõna.
 changePassword=Muuda salasõna
 changeEmail=Muuda email
 email=Email

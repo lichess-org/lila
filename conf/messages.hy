@@ -92,7 +92,6 @@ rating=Վարկանիշ
 username=Անուն
 password=Գաղտնաբառ
 haveAnAccount=Արդեն գրանցվե՞լ եք
-allYouNeedIsAUsernameAndAPassword=Ձեզ հարկավոր է միայն անուն և գաղտնաբառ։
 changePassword=Փոխել գաղտնաբառը
 changeEmail=Փոխել էլ. փոստը
 email=Էլ. փոստ

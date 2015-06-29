@@ -94,7 +94,6 @@ rating=Sterkte
 username=Gebruikersnaam
 password=Wachtwoord
 haveAnAccount=Heeft u al een account?
-allYouNeedIsAUsernameAndAPassword=Alles wat u nodig heeft is een gebruikersnaam en een wachtwoord.
 changePassword=Wijzig wachtwoord
 changeEmail=Verander email
 email=Email

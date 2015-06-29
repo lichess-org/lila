@@ -91,7 +91,6 @@ rating=درجہ
 username=آپ کا نام
 password=خفیہ کلمہ
 haveAnAccount=اکاؤنٹ موجود ہے؟
-allYouNeedIsAUsernameAndAPassword=اکاونٹ کھولنے کے لیے صرف اکاونٹ کا نام اور خفیہ کلمہ درکار ہے
 changePassword=خفیہ کلمہ تبدیل کریں
 changeEmail=ای میل تبدیل کریں
 email=ای میل

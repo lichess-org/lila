@@ -94,7 +94,6 @@ rating=Рейтинг
 username=Потребител
 password=Ключ
 haveAnAccount=Имате акаунт?
-allYouNeedIsAUsernameAndAPassword=Всичко, което ви е необходимо е потребителско име и парола
 changePassword=Смяна на ключа
 changeEmail=Смяна на email
 email=Електронна Поща

@@ -93,7 +93,6 @@ rating=Рэйтынг
 username=Імя карыстальніка
 password=Пароль
 haveAnAccount=Ёсць ужо рахунак?
-allYouNeedIsAUsernameAndAPassword=Імя карыстальніка і пароль - усё што табе патрэбна.
 changePassword=Зьмяніць пароль
 changeEmail=Змяніць адрас электроннай пошты
 email=Электронная пошта

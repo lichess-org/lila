@@ -61,7 +61,6 @@ time=уақыт
 username=Есіміңіз
 password=Пароль
 haveAnAccount=Тіркелдің бе?
-allYouNeedIsAUsernameAndAPassword=Сізге керегі тек атыңыз және пароліңіз
 learnMoreAboutLichess=Lichess туралы мағлұмат
 rank=Деңгей
 gamesPlayed=Ойындар ойналған

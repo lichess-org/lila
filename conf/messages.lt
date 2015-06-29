@@ -94,7 +94,6 @@ rating=Reitingas
 username=Vartotojo vardas
 password=Slaptažodis
 haveAnAccount=Turite paskyrą?
-allYouNeedIsAUsernameAndAPassword=Jums tereikia vartotojo vardo ir slaptažodžio.
 changePassword=Pasikeisti slaptažodį
 changeEmail=Pasikeisti el. pašto adresą
 email=El. paštas

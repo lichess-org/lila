@@ -78,7 +78,6 @@ time=Fotoana
 username=Solon'anarana
 password=Teny miafina
 haveAnAccount=Efa manana kaonty?
-allYouNeedIsAUsernameAndAPassword=Solon'anarana sy teny miafina ihany no ilainao.
 changePassword=Ovay ny teny miafina
 learnMoreAboutLichess=Fahalalana fanampiny momba an'i Lichess
 rank=Laharana

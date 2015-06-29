@@ -94,7 +94,6 @@ rating=Rating
 username=Uporabniško ime
 password=Geslo
 haveAnAccount=Ali že imaš račun?
-allYouNeedIsAUsernameAndAPassword=Potrebuješ le uporabniško ime in geslo.
 changePassword=Zamenjaj geslo
 changeEmail=Zamenjava E-poštnega naslova
 email=E-poštni naslov

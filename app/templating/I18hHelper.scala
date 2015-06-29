@@ -37,7 +37,7 @@ trait I18nHelper {
 
   def translationCall(implicit ctx: UserContext) =
     if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
-    else (~ctx.me.map(_.count.game) >= 6000) ?? shuffle(
+    else (~ctx.me.map(_.count.game) >= 3000) ?? shuffle(
       (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
     ).headOption
 

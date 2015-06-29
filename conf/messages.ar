@@ -94,7 +94,6 @@ rating=التصنيف
 username=إسم المستخدم
 password=كلمة السر
 haveAnAccount=هل لديك حساب؟
-allYouNeedIsAUsernameAndAPassword=كل ما تحتاجه هو إسم مستخدم وكلمة مرور.
 changePassword=تغيير كلمة السر
 changeEmail=غير الإيميل
 email=إيميل

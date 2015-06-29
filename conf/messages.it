@@ -94,7 +94,6 @@ rating=Punteggio
 username=Username
 password=Password
 haveAnAccount=Hai un account?
-allYouNeedIsAUsernameAndAPassword=Username e password, non ti serve altro.
 changePassword=Cambia password
 changeEmail=Cambia la tua email
 email=Email
