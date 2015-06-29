@@ -18,7 +18,7 @@ side = views.html.game.side(pov, initialFen, none, simul = none, relay = none, u
 chat = base.chatDom(trans.spectatorRoom.str()).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
+openGraph = povOpenGraph(pov).some) {
 <div class="round cg-512">
   <div class="top">
     <div class="lichess_game">

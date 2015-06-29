@@ -58,15 +58,13 @@ trans.openings)))
 @layout(
 trans.training.str(),
 evenMoreJs = Some(evenMoreJs),
-openGraph = Map(
-'type -> "website",
-'image -> cdnUrl(routes.Export.puzzlePng(puzzle.id).url),
-'title -> s"Chess tactic training • ${puzzle.color.name.capitalize} to play",
-'site_name -> "lichess.org",
-'url -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-'description -> puzzle.color.fold(
+openGraph = lila.app.ui.OpenGraph(
+image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
+title = s"Chess tactic training • ${puzzle.color.name.capitalize} to play",
+url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+description = s"Tactic puzzle #${puzzle.id}: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
-).str())) {
+).str()).some) {
 <div class="round cg-512">@miniBoardContent</div>
 }

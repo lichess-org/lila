@@ -44,12 +44,10 @@ chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 moreJs = moreJs,
 chessground = false,
-openGraph = Map(
-'type -> "website",
-'title -> rel.name,
-'site_name -> "lichess.org",
-'url -> s"$netBaseUrl${routes.Relay.show(rel.id, rel.slug).url}",
-'description -> ~content.flatMap(_.short))) {
+openGraph = lila.app.ui.OpenGraph(
+title = rel.name,
+url = s"$netBaseUrl${routes.Relay.show(rel.id, rel.slug).url}",
+description = ~content.flatMap(_.short)).some) {
 @content.flatMap(_.long).map { long =>
 <div id="relay_description">@autoLink(long)</div>
 }

@@ -18,12 +18,10 @@
 title = "Watch Chess events",
 side = side.some,
 moreJs = moreJs,
-openGraph = Map(
-'type -> "website",
-'title -> "Watch chess events",
-'site_name -> "lichess.org",
-'url -> s"$netBaseUrl${routes.Relay.index.url}",
-'description -> "Real-time relay of international chess tournaments")) {
+openGraph = lila.app.ui.OpenGraph(
+title = "Watch chess events",
+url = s"$netBaseUrl${routes.Relay.index.url}",
+description = "Real-time relay of international chess tournaments").some) {
 <div id="relay_list">
   <div class="content_box relay_box no_padding" data-icon="n">
     <h1>

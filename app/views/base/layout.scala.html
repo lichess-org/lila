@@ -11,7 +11,7 @@ moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
 playing: Boolean = false,
-openGraph: Map[Symbol, String] = Map.empty,
+openGraph: Option[lila.app.ui.OpenGraph] = None,
 chessground: Boolean = true,
 withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -27,17 +27,13 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @cssTag("board.css")
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
+    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(o.description))" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
     <meta name="google" content="notranslate" />
-    @openGraph.map {
-    case (key, value) => {
-    <meta property="og:@key.name" content="@value" />
-    }
-    }
+    @openGraph.map(_.html)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @if(withLangAnnotations){@langAnnotations}
   </head>

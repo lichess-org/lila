@@ -63,13 +63,11 @@ title = title,
 side = side.some,
 robots = false,
 evenMoreJs = evenMoreJs,
-openGraph = Map(
-'type -> "website",
-'image -> staticUrl("images/large_tile.png"),
-'title -> u.titleUsernameWithBestRating,
-'site_name -> "lichess.org",
-'url -> s"$netBaseUrl${routes.User.show(u.username).url}",
-'description -> describeUser(u))) {
+openGraph = lila.app.ui.OpenGraph(
+image = staticUrl("images/large_tile.png").some,
+title = u.titleUsernameWithBestRating,
+url = s"$netBaseUrl${routes.User.show(u.username).url}",
+description = describeUser(u)).some) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @info.allTrophies.map { trophy =>
