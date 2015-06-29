@@ -24,7 +24,7 @@ module.exports = {
     else if (data.me.rank < 11) soundKey = '2st';
     else if (data.me.rank < 21) soundKey = '3st';
 
-    $.sound[soundKey]();
+    $.sound['tournament' + soundKey]();
   },
   countDown: function(data) {
     if (!data.me || !data.secondsToStart) {
