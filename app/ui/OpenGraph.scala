@@ -22,5 +22,5 @@ case class OpenGraph(
     "url" -> url,
     "type" -> `type`,
     "siteName" -> siteName
-  ).map((prop _).tupled) + image.?? { prop("image", _) }
+  ).map((prop _).tupled).mkString + image.?? { prop("image", _) }
 }
