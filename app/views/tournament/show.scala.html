@@ -20,12 +20,13 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 }
 
 @tournament.layout(
-title = tour.fullName,
+title = s"${tour.fullName} #${tour.id}",
 side = tournament.side(tour).some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 moreJs = moreJs,
-chessground = false) {
+chessground = false,
+openGraph = tournamentOpenGraph(tour).some) {
 <div id="tournament" @tour.schedule.map { sched =>
   class="scheduled @sched.freq @sched.speed @sched.variant"
   }></div>

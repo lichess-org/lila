@@ -26,6 +26,8 @@ trait DateHelper { self: I18nHelper =>
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
+  private val englishDateFormatter = DateTimeFormat forStyle dateStyle
+
   private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
       lang(ctx).language,
@@ -46,6 +48,9 @@ trait DateHelper { self: I18nHelper =>
 
   def showDate(date: DateTime)(implicit ctx: Context): String =
     dateFormatter(ctx) print date
+
+  def showEnglishDate(date: DateTime): String =
+    englishDateFormatter print date
 
   def semanticDate(date: DateTime)(implicit ctx: Context) = Html {
     s"""<time datetime="${isoFormatter print date}">${showDate(date)}</time>"""

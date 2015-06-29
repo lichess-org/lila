@@ -10,7 +10,9 @@ import lila.user.{ User, UserContext }
 import play.api.libs.json.Json
 import play.twirl.api.Html
 
-trait TournamentHelper { self: I18nHelper =>
+trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
+
+  def netBaseUrl: String
 
   def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) = {
 
@@ -61,4 +63,16 @@ trait TournamentHelper { self: I18nHelper =>
     case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => '\\'
     case _ => tour.perfType.fold('g')(_.iconChar)
   }
+
+  private def longTournamentDescription(tour: Tournament) =
+    s"${tour.nbPlayers} compete in the ${showEnglishDate(tour.startsAt)} ${tour.fullName}. " +
+    s"${tour.clock.show} ${tour.mode.name} games were played during ${tour.minutes} minutes. " +
+    tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
+      s"${usernameOrId(winnerId)} takes the prize home!"
+    }
+
+  def tournamentOpenGraph(tour: Tournament) = lila.app.ui.OpenGraph(
+    title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+    url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
+    description = longTournamentDescription(tour))
 }
