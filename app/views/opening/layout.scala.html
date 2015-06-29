@@ -1,4 +1,4 @@
-@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("training.css")
@@ -15,6 +15,8 @@
 @base.layout(
 title = title,
 moreCss = moreCss,
-moreJs = moreJs) {
+moreJs = moreJs,
+openGraph = openGraph,
+withLangAnnotations = false) {
 @body
 }

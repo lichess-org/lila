@@ -40,6 +40,15 @@ trans.boardEditor
 }
 }
 
-@layout(trans.training.str(), evenMoreJs = Some(evenMoreJs)) {
+@layout(
+trans.training.str(),
+evenMoreJs = Some(evenMoreJs),
+openGraph = lila.app.ui.OpenGraph(
+title = s"Chess opening training #${opening.id} • ${opening.color.name.capitalize} to play",
+url = s"$netBaseUrl${routes.Opening.show(opening.id).url}",
+description = s"Opening training #${opening.id}: " + opening.color.fold(
+trans.findTheBestMoveForWhite,
+trans.findTheBestMoveForBlack
+).str() + ". Played by ${opening.nbAttempts} players.").some) {
 <div class="round cg-512">@miniBoardContent</div>
 }
