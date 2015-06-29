@@ -41,7 +41,12 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @tournament.layout(
 title = trans.tournaments.str(),
 moreJs = moreJs,
-side = side.some) {
+side = side.some,
+openGraph = lila.app.ui.OpenGraph(
+url = s"$netBaseUrl${routes.Tournament.home.url}",
+title = "Chess tournament featuring various time controls and variants",
+description = "Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. " +
+"Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.").some) {
 <div class="content_box tournament_box no_padding">
   @if(ctx.isAuth) {
   <div class="create_tournament">
