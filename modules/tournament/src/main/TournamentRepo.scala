@@ -142,7 +142,7 @@ object TournamentRepo {
   }
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime, nb: Int): Fu[List[Tournament]] = coll.find(
-    finishedSelect ++ sinceSelect(since), BSONDocument(
+    finishedSelect ++ sinceSelect(since) ++ BSONDocument(
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
