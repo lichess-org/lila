@@ -67,7 +67,7 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
       stay
   }
 
-  when(Run, stateTimeout = 7 second) {
+  when(Run, stateTimeout = 20 second) {
     case Event(in: In, Some(Request(cmd, replyTo))) =>
       val lines = handle(in)
       cmd parse lines match {
