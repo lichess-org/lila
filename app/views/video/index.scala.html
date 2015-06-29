@@ -1,7 +1,13 @@
 @(videos: Paginator[lila.video.VideoView], count: Int, control: lila.video.UserControl)(implicit ctx: Context)
 
+@tagString = @{ s"${if(control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}" }
+
 @layout(
-title = "Free Chess Videos",
+title = s"${tagString}Free Chess Videos",
+openGraph = lila.app.ui.OpenGraph(
+title = s"${tagString}free, carefully curated chess videos",
+description = s"${videos.nbResults} curated chess videos${if(tagString.nonEmpty) " matching the tags " + tagString else ""}",
+url = s"$netBaseUrl${routes.Video.index}?${control.queryString}").some,
 control = control) {
 
 <div class="content_box_top">

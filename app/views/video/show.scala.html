@@ -8,7 +8,7 @@ title = s"${video.title} by ${video.author}",
 description = shorten((~video.metadata.description).replace("\n", ""), 152).body,
 url = s"$netBaseUrl${routes.Video.show(video.id)}",
 `type` = "video",
-more = video.tags.map("og:video:tag" -> _)).some) {
+more = video.tags.map("video:tag" -> _)).some) {
 <div class="show">
   <div class="content_box_top">
     @searchForm(control.query)
