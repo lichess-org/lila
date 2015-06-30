@@ -451,6 +451,7 @@ moveConfirmation=Confirmación de movimiento
 inCorrespondenceGames=En partidas de ajedrez por correspondencia
 ifRatingIsPlusMinusX=Si el rating es +/- %s
 onlyFriends=Amigos solamente
+menu=Menú
 castling=Enroque
 whiteCastlingKingside=Blancas O-O
 whiteCastlingQueenside=Blancas O-O-O
