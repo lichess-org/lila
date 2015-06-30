@@ -53,7 +53,7 @@
         <a href="@routes.Puzzle.home">@trans.training()</a>
         <a href="@routes.Opening.home">@trans.openings()</a>
         <a href="@routes.Coordinate.home">@trans.coordinates()</a>
-        <a href="@routes.Video.index">Video library</a>
+        <a href="@routes.Video.index">@trans.videoLibrary()</a>
       </section>
       <section>
         <h2>@trans.community()</h2>
@@ -75,21 +75,21 @@
   </div>
   <div class="footer">
     @NotForKids {
-    <a href="/mobile">Mobile App</a> ı
+    <a href="/mobile">@trans.mobileApp()</a> ı
     }
     <a href="/blog">@trans.blog()</a> ı
     @NotForKids {
-    <a href="/developers">Webmasters</a> ı
-    <a href="/help-lichess">Contribute</a> ı
+    <a href="/developers">@trans.webmasters()</a> ı
+    <a href="/help-lichess">@trans.contribute()</a> ı
     }
-    <a href="/thanks">Thanks</a> ı
+    <a href="/thanks">@trans.thankYou()</a> ı
     @NotForKids {
-    <a href="/donate">Donate</a> ı
+    <a href="/donate">@trans.donate()</a> ı
     }
-    <a href="/contact">Contact</a> ı
-    <a href="@routes.Page.tos">ToS</a> ı
+    <a href="/contact">@trans.contact()</a> ı
+    <a href="@routes.Page.tos">@trans.termsOfSevice()</a> ı
     @NotForKids {
-    <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> ı
+    <a href="http://github.com/ornicar/lila" target="_blank">@trans.sourceCode()</a> ı
     }
     <a href="/network" target="_blank" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> ı
     <a href="/monitor" target="_blank">Monitor</a>
