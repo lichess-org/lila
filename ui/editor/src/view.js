@@ -63,14 +63,14 @@ function controls(ctrl, fen) {
         ])
       ]),
       m('div.castling', [
-        m('strong', ctrl.trans('Castling')),
+        m('strong', ctrl.trans('castling')),
         m('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans('White O-O'), false),
-          castleCheckBox(ctrl, 'Q', ctrl.trans('White O-O-O'), true)
+          castleCheckBox(ctrl, 'K', ctrl.trans('whiteCastlingKingside'), false),
+          castleCheckBox(ctrl, 'Q', ctrl.trans('whiteCastlingQueenside'), true)
         ]),
         m('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans('Black O-O'), false),
-          castleCheckBox(ctrl, 'q', ctrl.trans('Black O-O-O'), true)
+          castleCheckBox(ctrl, 'k', ctrl.trans('blackCastlingKingside'), false),
+          castleCheckBox(ctrl, 'q', ctrl.trans('blackCastlingQueenside'), true)
         ])
       ])
     ]),
