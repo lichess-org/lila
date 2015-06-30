@@ -451,3 +451,7 @@ moveConfirmation=Confirmación de movimiento
 inCorrespondenceGames=En partidas de ajedrez por correspondencia
 ifRatingIsPlusMinusX=Si el rating es +/- %s
 onlyFriends=Amigos solamente
+forumPosts=Aportes
+timeSpentPlaying=Tiempo total jugado
+watchGames=Ver partidas
+timeSpentOnTV=Tiempo pasado en TV

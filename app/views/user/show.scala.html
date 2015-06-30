@@ -126,7 +126,7 @@ description = describeUser(u)).some) {
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
-    <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
+    <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " " + trans.forumPosts())</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
@@ -144,7 +144,7 @@ description = describeUser(u)).some) {
       @if(isGranted(_.UserSpy)) {
       <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="@icon.mod"></span></a>
       }
-      <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="Watch games"><span data-icon="1"></span></a>
+      <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
       @NotForKids {
@@ -237,9 +237,9 @@ description = describeUser(u)).some) {
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         <br />
         <br />
-        <p>Time spent playing: @showPeriod(info.playTime.totalPeriod)</p>
+        <p>@trans.timeSpentPlaying(): @showPeriod(info.playTime.totalPeriod)</p>
         @info.playTime.tvPeriod.map { tvPeriod =>
-        <p>Time on TV: @showPeriod(tvPeriod)</p>
+        <p>@trans.timeSpentOnTV(): @showPeriod(tvPeriod)</p>
         }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
