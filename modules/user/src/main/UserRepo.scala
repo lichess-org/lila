@@ -318,7 +318,7 @@ trait UserRepo {
       F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
-      F.mustConfirmEmail -> email.isDefined.option(DateTime.now),
+      F.mustConfirmEmail -> (email.isDefined && mobileApiVersion.isEmpty).option(DateTime.now),
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> Json.obj(),
