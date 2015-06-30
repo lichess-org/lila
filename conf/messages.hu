@@ -441,3 +441,6 @@ playOnline=Játssz online
 playOffline=Játssz offline
 allowAnalytics=Statisztika engedélyezése
 shareGameURL=URL megosztása
+error.email=érvénytelen email cím
+error.email_acceptable=nemelfogadható email cím
+error.email_unique=foglalt email cím
