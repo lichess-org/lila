@@ -23,7 +23,7 @@
   } else {
   @trans.by(usernameOrId(tour.createdBy))
   }
-  • @momentFormat(tour.startsAt)
+  • <span title="@showDateTime(tour.startsAt)">@momentFormat(tour.startsAt)</span>
   @if(!tour.position.initial) {
   <br /><br />
   <a target="_blank" href="@tour.position.url">
