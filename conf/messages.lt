@@ -441,3 +441,6 @@ playOnline=Žaisti tinkle
 playOffline=Žaisti be interneto
 allowAnalytics=Siųsti anoniminę statistiką
 shareGameURL=Dalintis partijos URL
+moveConfirmation=Ėjimo patvirtinimas
+ifRatingIsPlusMinusX=Jei reitingas yra ± %s
+onlyFriends=Tik draugai
