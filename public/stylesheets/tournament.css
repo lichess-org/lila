@@ -504,11 +504,8 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.short.thematic {
   letter-spacing: -1px;
 }
-#tournament_schedule .clock {
-  letter-spacing: 3px;
-}
 #tournament_schedule .tournament span {
-  margin-right: 5px;
+  margin-right: 4px;
 }
 #tournament_schedule .nb-players {
   float: right;

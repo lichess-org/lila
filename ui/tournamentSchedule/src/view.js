@@ -115,8 +115,9 @@ function renderTournament(ctrl, tour) {
     } : null),
     m('span.name', tour.fullName),
     m('span.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
-    m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
+    m('span.variant', tour.variant.name),
     tour.position ? m('span', 'Thematic') : null,
+    m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
     tour.nbPlayers ? m('span.nb-players.text', {
       'data-icon': 'r'
     }, tour.nbPlayers) : null,
