@@ -61,7 +61,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
       @topmenu()
-      <div id="ham-plate" data-hint="Menu <esc>" class="hint--bottom">
+      <div id="ham-plate" data-hint="@trans.menu()<esc>" class="hint--bottom">
         <div id="hamburger">
           <div class="top"></div>
           <svg version="1.1" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">

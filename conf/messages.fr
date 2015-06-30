@@ -451,3 +451,4 @@ moveConfirmation=Confirmation de coup
 inCorrespondenceGames=Dans les parties par correspondance
 ifRatingIsPlusMinusX=Si son niveau est ± %s
 onlyFriends=Seulement les amis
+menu=Menu
