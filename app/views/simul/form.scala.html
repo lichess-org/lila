@@ -9,7 +9,7 @@ title = "New simul") {
     <h1>@trans.hostANewSimul()</h1>
     <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
       <p class="help">
-        @trans.whenCreatSimul()<br />
+        @trans.whenCreateSimul()<br />
         <a href="@routes.Simul.home">@trans.joinExistingSimul()</a>
       </p>
       @form.globalError.map { error =>
