@@ -13,5 +13,5 @@
     </div>
     Host extra time: @sim.clock.hostExtraMinutes minutes
   </div>
-  @trans.by(usernameOrId(sim.hostId)), @momentFormat(sim.createdAt)
+  @trans.by(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFormat(sim.createdAt)</span>
 </div>
