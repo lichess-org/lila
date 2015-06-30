@@ -441,3 +441,6 @@ playOnline=Παίξτε σε ζωντανή σύνδεση
 playOffline=Παίξτε χωρίς σύνδεση
 allowAnalytics=Επιτρέπεται αποστολή ανώνυμων στατιστικών
 shareGameURL=Κοινοποιήστε URL παιχνιδιού
+error.email_acceptable=Αυτή η ηλεκτρονική διεύθυνση δεν είναι αποδεκτή
+moveConfirmation=επιβεβαίωση κινήσεως
+onlyFriends=Μόνο φίλοι
