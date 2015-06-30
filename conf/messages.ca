@@ -441,3 +441,5 @@ playOnline=Juga online
 playOffline=Juga offline
 allowAnalytics=Permetre estadístiques anònimes
 shareGameURL=Comparteix l'enllaç a la partida
+error.email=L'adereça de e-mail és incorrrecte
+onlyFriends=Només amics
