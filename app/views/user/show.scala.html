@@ -237,9 +237,9 @@ description = describeUser(u)).some) {
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         <br />
         <br />
-        <p>@showPeriod(trans.tpTimeSpentPlaying(info.playTime.totalPeriod))</p>
+        <p>@trans.tpTimeSpentPlaying(showPeriod(info.playTime.totalPeriod))</p>
         @info.playTime.tvPeriod.map { tvPeriod =>
-        <p>@showPeriod(trans.tpTimeSpentOnTv(tvPeriod))</p>
+        <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
         }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
