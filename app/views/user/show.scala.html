@@ -126,7 +126,7 @@ description = describeUser(u)).some) {
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
-    <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts)))</a>
+    <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
