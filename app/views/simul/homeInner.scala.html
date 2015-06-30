@@ -25,12 +25,12 @@
 }
 
 <div class="content_box simul_box no_padding">
-  <h1>Simultaneous exhibitions</h1>
+  <h1>@trans.simultaneousExhibitions()</h1>
   <table class="slist">
     <thead>
       <tr>
-        <th colspan=2 class="large">Created simuls</th>
-        <th>Host</th>
+        <th colspan=2 class="large">@trans.createdSimuls()</th>
+        <th>@trans.host()</th>
         <th>@trans.players()</th>
       </tr>
     </thead>
@@ -46,7 +46,7 @@
       @if(ctx.isAuth) {
       <tr class="create">
         <td colspan="4">
-          <a href="@routes.Simul.form()" class="action button text">Host a new simul</a>
+          <a href="@routes.Simul.form()" class="action button text">@trans.hostANewSimul()</a>
         </td>
       </tr>
       }
@@ -55,7 +55,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.playingRightNow()</th>
-        <th>Host</th>
+        <th>@trans.host()</th>
         <th>@trans.players()</th>
       </tr>
     </thead>
@@ -73,7 +73,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.finished()</th>
-        <th>Host</th>
+        <th>@trans.host()</th>
         <th>@trans.players()</th>
       </tr>
     </thead>

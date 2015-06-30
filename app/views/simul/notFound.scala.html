@@ -3,12 +3,11 @@
 @simul.layout(title = "Simul not found") {
 <div id="simul">
   <div class="content_box small_box faq_page">
-    <h1>Simul not found</h1><br /><br />
-    This simultaneous exhibition does not exist.<br />
-    It may have been canceled.
+    <h1>@trans.noSimulFound()</h1><br /><br />
+    @trans.noSimulExplanation()
     <br />
     <br />
-    <a href="@routes.Simul.home()">Return to simul homepage</a>
+    <a href="@routes.Simul.home()">@trans.returnToSimulHomepage()</a>
   </div>
 </div>
 }
