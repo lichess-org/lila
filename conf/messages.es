@@ -441,3 +441,6 @@ playOnline=Juego en línea
 playOffline=Juego fuera de línea
 allowAnalytics=Permitir estadísticas anónimas
 shareGameURL=Compartir URL del juego
+error.email=Esta dirección de correo electrónico no es válida
+error.email_acceptable=Esta dirección de correo electrónico no se permite
+error.email_unique=Esta dirección de correo electrónico ya está siendo usa
