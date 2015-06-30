@@ -7,7 +7,7 @@ lila_dir = pwd()
 lila_trans_dir = lila_dir + '/conf'
 lila_keys_file = lila_dir + '/modules/i18n/src/main/I18nKeys.scala'
 
-code = """// Generated with bin/trans-dump
+code = """// Generated with bin/trans-dump at #{Time.new.utc}
 package lila.i18n
 
 import play.twirl.api.Html
@@ -48,6 +48,9 @@ end
 file = lila_trans_dir + '/messages'
 lines = File.open(file).readlines
 keys = lines.map { |l| l.gsub(/(\w+)=.+/, '\1').strip }
+if keys.uniq.length != keys.length
+  abort '[ERROR] Duplicate translation key detected!'
+end
 vals = keys.map { |k| '  val ' + literal(k) + ' = new Key("' + k + '")' }
 allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.map { |k| literal(k) }.join(", "))
 
