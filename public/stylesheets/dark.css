@@ -203,7 +203,7 @@ body.dark div.undertable_inner,
 body.dark div.table .loader:before,
 body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active,
-body.dark div.chat_panels > .notes {
+body.dark div.chat_panels > .notes textarea {
   background-color: #262626;
 }
 body.dark #hooks_wrap .table_wrap td,

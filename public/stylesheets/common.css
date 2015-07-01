@@ -716,10 +716,8 @@ div.chat_menu {
   margin-left: -30px;
   margin-top: 12px;
   margin-bottom: -12px;
-  width: 226px;
   text-align: center;
-  font-weight: bold;
-  color: #999;
+  white-space: nowrap;
 }
 body.kid div.chat_menu,
 body.kid #chat {
