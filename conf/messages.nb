@@ -203,6 +203,7 @@ fromPosition=Fra posisjon
 continueFromHere=Fortsett herfra
 importGame=Importer parti
 nbImportedGames=%s importerte partier
+nbRelayedGames=%s kringkastede partier
 thisIsAChessCaptcha=Dette er en sjakk-CAPTCHA.
 clickOnTheBoardToMakeYourMove=Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.
 notACheckmate=Ikke sjakkmatt
