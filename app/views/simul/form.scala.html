@@ -6,11 +6,11 @@
 title = "New simul") {
 <div id="simul" class="form">
   <div class="content_box small_box simul_box">
-    <h1>Create a new simul</h1>
+    <h1>@trans.hostANewSimul()</h1>
     <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
       <p class="help">
-        When you create a simul, you get to play several players at once.<br />
-        If you can't take it, <a href="@routes.Simul.home">join an existing simul</a> instead.
+        @trans.whenCreateSimul()<br />
+        <a href="@routes.Simul.home">@trans.joinExistingSimul()</a>
       </p>
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
@@ -18,11 +18,11 @@ title = "New simul") {
       <table>
         <tr class="help">
           <th colspan="2">
-            If you select several variants, each player gets to choose which one to play.
+            @@trans.simulVariantsHint()
           </th>
         </tr>
         <tr>
-          <th><label for="@form("variants").id">Variants</label></th>
+          <th><label for="@form("variants").id">@trans.variants()</label></th>
           <td>
             @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
             @errMsg(form("variants"))
@@ -30,8 +30,7 @@ title = "New simul") {
         </tr>
         <tr class="help">
           <th colspan="2">
-            Setup a Fischer clock for all games.
-            The more players you want to take on, the more time you need.
+            @trans.simulClockHint()
           </th>
         </tr>
         <tr class="time">
@@ -44,11 +43,11 @@ title = "New simul") {
         </tr>
         <tr class="help">
           <th colspan="2">
-            You may add extra time to your clock to help coping with the simul.
+            @trans.simulAddExtraTime()
           </th>
         </tr>
         <tr>
-          <th><label for="@form("clockExtra").id">Host extra clock time</label></th>
+          <th><label for="@form("clockExtra").id">@trans.simulHostExtraTime()</label></th>
           <td>@base.select(form("clockExtra"), config.clockExtraChoices)</td>
         </tr>
         <tr>
@@ -58,7 +57,7 @@ title = "New simul") {
         <tr>
           <th></th>
           <td>
-            <button type="submit" class="submit button text" data-icon="|">Create</button>
+            <button type="submit" class="submit button text" data-icon="|">@trans.create()</button>
             <a href="@routes.Simul.home()">@trans.cancel()</a>
           </td>
         </tr>
