@@ -28,6 +28,7 @@ final class Env(
 
   // public settings
   val RequestHandlerProtocol = config getString "request_handler.protocol"
+  val CallThreshold = config getInt "call.threshold"
 
   private[i18n] lazy val translationColl = db(CollectionTranslation)
 
