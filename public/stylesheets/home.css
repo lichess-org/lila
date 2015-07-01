@@ -263,41 +263,13 @@ div.lobby_and_ground {
 }
 #hooks_wrap .hooks_chart .plot {
   position: absolute;
-  width: 17px;
-  height: 17px;
-  background: #d0d0d0;
-  border: 3px solid #666;
-  box-shadow: 0 0 5px #777;
   cursor: pointer;
   z-index: 1;
+  font-size: 1.6em;
 }
 #hooks_wrap .hooks_chart .plot:hover {
   z-index: 2;
-}
-#hooks_wrap .hooks_chart .plot.casual {
-  border-radius: 16px;
-}
-#hooks_wrap .hooks_chart .plot.rated {
-  border-radius: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  width: 15px;
-  height: 15px;
-}
-#hooks_wrap .hooks_chart .plot.variant {
-  border-style: double;
-  border-width: 5px;
-}
-#hooks_wrap .hooks_chart .plot.casual.variant {
-  width: 13px;
-  height: 13px;
-}
-#hooks_wrap .hooks_chart .plot.rated.variant {
-  width: 11px;
-  height: 11px;
-}
-#hooks_wrap .hooks_chart .plot.cancel {
-  background: #666;
+  color: #333;
 }
 #hook {
   display: none;
@@ -308,12 +280,6 @@ div.lobby_and_ground {
   border: none;
   box-shadow: 0 0 9px #333;
   background: #d0d0d0;
-}
-#hooks_wrap .hooks_chart .plot:hover {
-  background-color: #f6f6f6;
-}
-#hooks_wrap .hooks_chart .plot:hover {
-  box-shadow: 0 0 9px #d85000 !important;
 }
 #hook .opponent {
   display: block;
