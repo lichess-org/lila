@@ -42,6 +42,7 @@ function renderPlot(ctrl, hook) {
     id: hook.id,
     key: hook.id,
     class: klass,
+    'data-icon': hook.perf.icon,
     style: {
       bottom: px(bottom),
       left: px(left)
