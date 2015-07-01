@@ -16,7 +16,12 @@ moreCss = moreCss,
 side = side.some) {
 
 <div id="communication" class="content_box">
-  <h1>@userLink(u) communications</h1>
+  <h1>
+    <form style="float:right" method="post" action="@routes.Mod.troll(u.username)?then=reports">
+      <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
+    </form>
+    @userLink(u) communications
+  </h1>
   <h2>Private chats</h2>
   <div class="player_chats">
     @players.map {

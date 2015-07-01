@@ -27,9 +27,14 @@ object Mod extends LilaController {
     me => modApi.toggleBooster(me.id, username) inject redirect(username)
   }
 
-  def troll(username: String) = Secure(_.MarkTroll) { _ =>
+  def troll(username: String) = Secure(_.MarkTroll) { implicit ctx =>
     me =>
-      modApi.troll(me.id, username) inject redirect(username)
+      modApi.troll(me.id, username) inject {
+        get("then") match {
+          case Some("reports") => Redirect(routes.Report.list)
+          case _               => redirect(username)
+        }
+      }
   }
 
   def ban(username: String) = Secure(_.IpBan) { implicit ctx =>
