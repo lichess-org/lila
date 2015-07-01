@@ -79,7 +79,7 @@ private[report] final class ReportApi {
   def processTroll(userId: String, byModId: String): Funit = $update(
     Json.obj(
       "user" -> userId,
-      "reason" -> $or(List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name))
+      "reason" -> $in(List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name))
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true)
