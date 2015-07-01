@@ -450,3 +450,4 @@ blindfoldChess=Blindschach (unsichtbare Figuren)
 moveConfirmation=Zugbestätigung
 inCorrespondenceGames=Im Fernschach
 ifRatingIsPlusMinusX=Nur wenn das Rating +/- %s ist
+onlyFriends=Nur Freunde
