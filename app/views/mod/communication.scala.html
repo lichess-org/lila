@@ -18,7 +18,7 @@ side = side.some) {
 <div id="communication" class="content_box">
   <h1>
     <form style="float:right" method="post" action="@routes.Mod.troll(u.username)?then=reports">
-      <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
+      <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
     </form>
     @userLink(u) communications
   </h1>
