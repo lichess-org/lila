@@ -828,11 +828,12 @@ div.side_box div.status {
   text-align: center;
   margin-top: 5px;
 }
-div.side_box div.user_tv {
+div.side_box div.user_tv h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 div.side div.confrontation {
   text-align: center;
   margin-bottom: 5px;
