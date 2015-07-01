@@ -23,7 +23,8 @@ object I18n extends LilaController {
           HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
             try {
               new java.net.URL(str).getPath
-            } catch {
+            }
+            catch {
               case e: java.net.MalformedURLException => routes.Lobby.home.url
             }
           }
@@ -57,8 +58,10 @@ object I18n extends LilaController {
               renderTranslationForm(form, info, captcha, data = data, context = context)
             }
           } { metadata =>
-            env.forms.process(lang, metadata, data, me.username) inject
-              Redirect(routes.I18n.contribute).flashing("success" -> "1")
+            env.forms.process(lang, metadata, data, me.username) inject {
+              Redirect(routes.I18n.contribute).flashing("success" -> "1") withCookies
+                LilaCookie.cookie(env.hideCallsCookieName, "1", maxAge = Some(60 * 24))
+            }
           }
       }
   }
