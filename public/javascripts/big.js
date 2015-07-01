@@ -1044,6 +1044,7 @@ lichess.storage = {
   };
 
   $.sound = (function() {
+    var version = 1;
     var baseUrl = $('body').data('sound-dir');
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
@@ -1075,7 +1076,7 @@ lichess.storage = {
     var collection = new $.lazy(function(k) {
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
-          return [baseUrl, soundSet, names[k] + '.' + ext].join('/');
+          return [baseUrl, soundSet, names[k] + '.' + ext + '?v=' + version].join('/');
         }),
         volume: volumes[k] || 1
       });
