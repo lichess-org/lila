@@ -94,6 +94,8 @@ final class DataForm(
   )(ChangeEmail.apply)(ChangeEmail.unapply)
     .verifying("This email already exists", e => !emailAddress.isTaken(e.email))
   )
+
+  val closeAccount = Form(single("passwd" -> nonEmptyText))
 }
 
 object DataForm {

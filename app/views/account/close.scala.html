@@ -1,4 +1,4 @@
-@(u: User)(implicit ctx: Context)
+@(u: User, form: Form[_])(implicit ctx: Context)
 
 @title = @{ s"${u.username} - ${trans.closeAccount.str()}" }
 
@@ -10,13 +10,18 @@
       @trans.closeAccountExplanation()
     </p>
     <form action="@routes.Account.closeConfirm" method="POST">
-      <br /><br />
-      <a href="@routes.User.show(u.username)">
-        @trans.changedMindDoNotCloseAccount()
-      </a>
-      <br /><br />
-      <br /><br />
-      <input type="submit" class="submit button" value="@trans.closeYourAccount()" />
+      <ul>
+        @account.passwdFormField(form("passwd"), trans.password.str())
+        <li>@errMsg(form)</li>
+        <li>
+          <button type="submit" class="submit button">@trans.closeYourAccount()</button>
+        </li>
+        <li>
+          <a href="@routes.User.show(u.username)">
+            @trans.changedMindDoNotCloseAccount()
+          </a>
+        </li>
+      </ul>
     </form>
   </div>
 </div>

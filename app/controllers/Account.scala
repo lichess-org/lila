@@ -97,17 +97,25 @@ object Account extends LilaController {
 
   def close = Auth { implicit ctx =>
     me =>
-      Ok(html.account.close(me)).fuccess
+      Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess
   }
 
-  def closeConfirm = Auth { ctx =>
+  def closeConfirm = AuthBody { implicit ctx =>
     me =>
-      implicit val req = ctx.req
-      (UserRepo disable me.id) >>
-        Env.team.api.quitAll(me.id) >>
-        (Env.security disconnect me.id) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+      implicit val req = ctx.body
+      FormFuResult(Env.security.forms.closeAccount) { err =>
+        fuccess(html.account.close(me, err))
+      } { password =>
+        UserRepo.checkPassword(me.id, password) flatMap {
+          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+          case true =>
+            (UserRepo disable me.id) >>
+              Env.team.api.quitAll(me.id) >>
+              (Env.security disconnect me.id) inject {
+                Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+              }
         }
+      }
   }
 
   def kid = Auth { implicit ctx =>
