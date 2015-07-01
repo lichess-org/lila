@@ -8,6 +8,9 @@
 #communication .user_link {
   font-weight: bold;
 }
+#communication .public_chats li {
+  list-style: inside disc;
+}
 #communication .player_chats {
   overflow: hidden;
   border: 1px solid #ccc;

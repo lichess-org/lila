@@ -1,4 +1,4 @@
-@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread])(implicit ctx: Context)
+@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[String])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("mod-communication.css")
@@ -7,7 +7,7 @@
 @side = {
 <br />
 <br />
-<a data-icon="i" href="@routes.Report.list">&nbsp;Return to the report list</a>
+<a data-icon="i" class="text" href="@routes.Report.list">Return to the report list</a>
 }
 
 @base.layout(
@@ -22,6 +22,16 @@ side = side.some) {
     </form>
     @userLink(u) communications
   </h1>
+  <h2>Dubious public chats</h2>
+  <p class="help">
+    Tournament, simul, &amp; events public chat messages that triggered the butthurt detector:
+  </p>
+  <ul class="public_chats">
+    @publicLines.map { line =>
+    <li>@line</li>
+    }
+  </ul>
+
   <h2>Private chats</h2>
   <div class="player_chats">
     @players.map {

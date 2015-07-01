@@ -82,7 +82,8 @@ object Mod extends LilaController {
               _ filter (_ hasPostsWrittenBy user.id) take 9
             }
           }
-        } yield html.mod.communication(user, povWithChats, threads)
+          publicLines <- Env.shutup.api getPublicLines user.id
+        } yield html.mod.communication(user, povWithChats, threads, publicLines)
       }
   }
 

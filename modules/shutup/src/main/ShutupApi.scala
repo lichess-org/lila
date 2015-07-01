@@ -19,6 +19,12 @@ final class ShutupApi(
   private implicit val doubleListHandler = bsonArrayToListHandler[Double]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
 
+  def getPublicLines(userId: String): Fu[List[String]] =
+    coll.find(BSONDocument("_id" -> userId), BSONDocument("pub" -> 1))
+      .one[BSONDocument].map {
+        ~_.map(~_.getAs[List[String]]("pub"))
+      }
+
   def publicForumMessage(userId: String, text: String) = record(userId, text, TextType.PublicForumMessage)
   def teamForumMessage(userId: String, text: String) = record(userId, text, TextType.TeamForumMessage)
   def publicChat(chatId: String, userId: String, text: String) = record(userId, text, TextType.PublicChat)
@@ -38,30 +44,48 @@ final class ShutupApi(
       case true => funit
       case false => toUserId ?? { follows(userId, _) } flatMap {
         case true => funit
-        case false => coll.db.command {
-          FindAndModify(
-            collection = coll.name,
-            query = BSONDocument("_id" -> userId),
-            modify = Update(
-              update = BSONDocument("$push" -> BSONDocument(
-                textType.key -> BSONDocument(
-                  "$each" -> List(BSONDouble(Analyser(text).ratio)),
-                  "$slice" -> -textType.rotation)
-              )),
-              fetchNewObject = true),
-            upsert = true
-          )
-        } map2 UserRecordBSONHandler.read flatMap {
-          case None             => fufail(s"can't find user record for $userId")
-          case Some(userRecord) => legiferate(userRecord)
-        } logFailure "ShutupApi"
+        case false =>
+          val analysed = Analyser(text)
+          val pushPublicLine =
+            if (textType == TextType.PublicChat && analysed.nbBadWords > 0) BSONDocument(
+              "pub" -> BSONDocument(
+                "$each" -> List(text),
+                "$slice" -> -20)
+            )
+            else BSONDocument()
+          val push = BSONDocument(
+            textType.key -> BSONDocument(
+              "$each" -> List(BSONDouble(analysed.ratio)),
+              "$slice" -> -textType.rotation)
+          ) ++ pushPublicLine
+          coll.db.command {
+            FindAndModify(
+              collection = coll.name,
+              query = BSONDocument("_id" -> userId),
+              modify = Update(
+                update = BSONDocument("$push" -> push),
+                fetchNewObject = true),
+              upsert = true
+            )
+          } map2 UserRecordBSONHandler.read flatMap {
+            case None             => fufail(s"can't find user record for $userId")
+            case Some(userRecord) => legiferate(userRecord)
+          } logFailure "ShutupApi"
       }
     }
 
   private def legiferate(userRecord: UserRecord): Funit =
     userRecord.reports.exists(_.unacceptable) ?? {
       reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
-      coll.remove(BSONDocument("_id" -> userRecord.userId)).void
+      coll.update(
+        BSONDocument("_id" -> userRecord.userId),
+        BSONDocument("$unset" -> BSONDocument(
+          TextType.PublicForumMessage.key -> true,
+          TextType.TeamForumMessage.key -> true,
+          TextType.PrivateMessage.key -> true,
+          TextType.PrivateChat.key -> true,
+          TextType.PublicChat.key -> true))
+      ).void
     }
 
   private def reportText(userRecord: UserRecord) =
