@@ -19,7 +19,7 @@
     </div>
   </div>
   @if(tour.createdBy == "lichess") {
-  Official
+  @trans.tournamentOfficial()
   } else {
   @trans.by(usernameOrId(tour.createdBy))
   }
