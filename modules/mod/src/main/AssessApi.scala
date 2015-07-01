@@ -132,7 +132,7 @@ final class AssessApi(
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
 
-    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.42)
+    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.45)
     val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
