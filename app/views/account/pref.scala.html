@@ -47,7 +47,7 @@
         <ul>
           <li>
             <h2>@trans.tenthsOfSeconds()</h2>
-            @base.radios(form("clockTenths"), Seq(0 -> trans.never.str(), 1 -> trans.whenTimeRemainingLessThanTenSeconds.str()))
+            @base.radios(form("clockTenths"), translatedClockTenthsChoices)
           </li>
           <li>
             <h2>@trans.horizontalGreenProgressBars()</h2>

@@ -19,7 +19,7 @@ case class Pref(
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
-    clockTenths: Boolean,
+    clockTenths: Int,
     clockBar: Boolean,
     clockSound: Boolean,
     premove: Boolean,
@@ -199,6 +199,17 @@ object Pref {
       ALWAYS -> "Always")
   }
 
+  object ClockTenths {
+    val NEVER = 0
+    val LOWTIME = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      LOWTIME -> "When time remaining < 10 seconds",
+      ALWAYS -> "Always")
+  }
+
   object Challenge {
     val NEVER = 1
     val RATING = 2
@@ -237,7 +248,6 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
-    clockTenths = true,
     clockBar = true,
     clockSound = true,
     premove = true,
@@ -248,6 +258,7 @@ object Pref {
     destination = true,
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
+    clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
