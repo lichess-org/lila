@@ -32,5 +32,6 @@ object SoundSet extends SoundSetObject {
     new SoundSet("silent", "Silent"),
     new SoundSet("standard", "Standard"),
     new SoundSet("piano", "Piano"),
-    new SoundSet("nes", "NES"))
+    new SoundSet("nes", "NES"),
+    new SoundSet("sfx", "SFX"))
 }
