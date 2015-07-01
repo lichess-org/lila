@@ -56,8 +56,6 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val std = StartingPosition.initial
       val opening1 = StartingPosition.randomFeaturable
       val opening2 = StartingPosition.randomFeaturable
-      val opening3 = StartingPosition.randomFeaturable
-      val opening4 = StartingPosition.randomFeaturable
 
       val nextSchedules: List[Schedule] = List(
 
@@ -101,11 +99,9 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
-        List( // random opening replaces hourly 4 times a day
-          5 -> opening1,
-          11 -> opening2,
-          17 -> opening3,
-          23 -> opening4
+        List( // random opening replaces hourly 2 times a day
+          11 -> opening1,
+          23 -> opening2
         ).flatMap {
             case (hour, opening) => List(
               Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
