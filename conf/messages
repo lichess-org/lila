@@ -490,3 +490,7 @@ simulVariantsHint=If you select several variants, each player gets to choose whi
 simulClockHint=Fischer Clock setup. The more players you take on, the more time you may need.
 simulAddExtraTime=You may add extra time to your clock to help cope with the simul. 
 simulHostExtraTime=Host extra clock time
+lichessTournaments=Lichess tournaments
+tournamentFAQ=Arena tournament FAQ
+tournamentOfficial=Official
+timeBeforeTournamentStarts=Time before tournament starts

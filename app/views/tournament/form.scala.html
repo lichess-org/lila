@@ -63,7 +63,7 @@ moreJs = moreJs) {
           <td></td>
         </tr>
         <tr>
-          <th><label for="@form("waitMinutes").id">Time before tournament starts</label></th>
+          <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
           <td>@base.select(form("waitMinutes"), config.waitMinuteChoices)</td>
         </tr>
         <tr>
