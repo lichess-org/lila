@@ -441,3 +441,7 @@ playOnline=Spill på nett
 playOffline=Spel offline
 allowAnalytics=Tillat anonym statistikk
 shareGameURL=Del spill-URL
+blindfoldChess=Blindsjakk
+inCorrespondenceGames=I postsjakkspartier
+ifRatingIsPlusMinusX=Om rating er ± %s
+onlyFriends=Bare venner
