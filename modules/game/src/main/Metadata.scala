@@ -56,6 +56,8 @@ object Relay {
     def withTenths(t: Int) = copy(
       tenths = t.some,
       at = DateTime.now.some)
+
+    def extendedName = s"""${title.??(_ + " ")}$name${rating.??(" (" + _ + ")")}"""
   }
 
   import reactivemongo.bson.Macros

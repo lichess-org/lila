@@ -116,9 +116,7 @@
     <div class="players top">
       @chess.Color.all.map { c =>
       @defining(r player c) { p =>
-      <div class="player color-icon is @{c.name}">
-        @p.title @p.name (@p.rating)
-      </div>
+      <div class="player text color-icon is @{c.name}">@p.extendedName</div>
       }
       }
     </div>

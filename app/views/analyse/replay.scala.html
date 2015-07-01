@@ -62,7 +62,13 @@ chessground = false) {
         <td>
           <span class="is color-icon @color"></span>
         </td>
-        <th>@playerLink(pov.game.player(color), withOnline = false)</th>
+        <th>
+          @pov.game.relay.map { rel =>
+          @rel.player(color).extendedName
+          }.getOrElse {
+          @playerLink(pov.game.player(color), withOnline = false)
+          }
+        </th>
       </tr>
     </thead>
     <tbody>
