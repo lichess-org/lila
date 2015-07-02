@@ -36,6 +36,8 @@ case class Report(
 
 object Report {
 
+  case class WithUser(report: Report, user: User)
+
   def make(
     user: User,
     reason: Reason,

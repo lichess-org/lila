@@ -206,7 +206,7 @@
     <tbody>
       @spy.otherUsers.map { o =>
       <tr @if(o == u){class="same"}>
-        <td>@userLink(o, withBestRating = true, mod = true)</td>
+        <td>@userLink(o, withBestRating = true, params = "?mod")</td>
         <td>@o.count.game</td>
         <td>
           @if(o.engine){ENGINE}

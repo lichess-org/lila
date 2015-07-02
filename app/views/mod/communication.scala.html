@@ -26,11 +26,15 @@ side = side.some) {
   <p class="help">
     Tournament, simul, &amp; relay public chat messages that triggered the butthurt detector:
   </p>
+  @if(publicLines.isEmpty) {
+  <strong>None!</strong>
+  } else {
   <ul class="public_chats">
     @publicLines.map { line =>
     <li>@line</li>
     }
   </ul>
+  }
 
   <h2>Private chats</h2>
   <div class="player_chats">

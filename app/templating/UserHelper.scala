@@ -172,9 +172,9 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
-    mod: Boolean = false) = Html {
+    params: String = "") = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
-    val href = userHref(user.username, if (mod) "?mod" else "")
+    val href = userHref(user.username, params)
     val content = text | user.username
     val titleS = if (withTitle) titleTag(user.title) else ""
     val space = if (withOnline) "&nbsp;" else ""
