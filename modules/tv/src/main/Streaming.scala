@@ -37,7 +37,7 @@ private final class Streaming(
       case Get => sender ! onAir
 
       case Search => whitelist.apply foreach { authorizedStreamers =>
-        val max = 3
+        val max = 5
         val keyword = "lichess.org"
         val twitch = WS.url("https://api.twitch.tv/kraken/streams")
           .withQueryString("channel" -> authorizedStreamers.mkString(","))
