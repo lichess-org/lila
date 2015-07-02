@@ -109,5 +109,5 @@ private[gameSearch] case class SearchPlayer(
 }
 
 private[gameSearch] case class SearchSort(
-  field: String = Sorting.default.field,
+  field: String = Sorting.default.f,
   order: String = Sorting.default.order)

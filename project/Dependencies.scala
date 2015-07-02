@@ -34,7 +34,7 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.7"
-  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.5.10"
+  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s-core" % "1.6.2"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.5.0.akka23"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"

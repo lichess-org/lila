@@ -12,7 +12,7 @@ private[teamSearch] final class Query private (
 
   def searchDef(from: Int = 0, size: Int = 10) =
     search in indexType query makeQuery sort (
-      by field Fields.nbMembers order SortOrder.DESC
+      field sort Fields.nbMembers order SortOrder.DESC
     ) start from size size
 
   def countDef = count from indexType query makeQuery

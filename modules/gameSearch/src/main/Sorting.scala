@@ -3,10 +3,10 @@ package lila.gameSearch
 import com.sksamuel.elastic4s.ElasticDsl._
 import org.elasticsearch.search.sort.SortOrder
 
-case class Sorting(field: String, order: String) {
+case class Sorting(f: String, order: String) {
 
   def definition =
-    by field (Sorting.fieldKeys contains field).fold(field, Sorting.default.field) order
+    field sort (Sorting.fieldKeys contains field).fold(f, Sorting.default.f) order
       (order.toLowerCase == "asc").fold(SortOrder.ASC, SortOrder.DESC)
 }
 
