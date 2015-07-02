@@ -9,6 +9,7 @@ private[ai] case class Config(
     hashSize: Int,
     nbThreads: Int,
     nbInstances: Int,
+    syzygyPath: String,
     playMaxMoveTime: FiniteDuration,
     analyseMoveTime: FiniteDuration,
     playTimeout: FiniteDuration,
@@ -37,7 +38,8 @@ private[ai] case class Config(
   def init = List(
     setoption("Hash", hashSize),
     setoption("Threads", nbThreads),
-    setoption("Ponder", false))
+    setoption("Ponder", false),
+    setoption("SyzygyPath", syzygyPath))
 
   def prepare(req: Req) = (req match {
     case r: PlayReq => setoption("Skill Level", skill(r.level))
@@ -46,7 +48,8 @@ private[ai] case class Config(
     setoption("UCI_Chess960", req.variant == Chess960),
     setoption("UCI_KingOfTheHill", req.variant == KingOfTheHill),
     setoption("UCI_3Check", req.variant == ThreeCheck),
-    setoption("UCI_Horde", req.variant == Horde))
+    setoption("UCI_Horde", req.variant == Horde),
+    setoption("SyzygyProbeLimit", if (req.variant == Standard || req.variant == Chess960) 6 else 0))
 
   def go(req: Req): List[String] = req match {
     case r: PlayReq => List(
