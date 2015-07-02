@@ -222,7 +222,7 @@ function renderViewControls(ctrl, fen) {
     }, m('span[data-icon=m]')),
     m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('analysis'),
-      href: puzzle.makeUrl('/analysis/', fen),
+      href: puzzle.makeUrl('/analysis/', fen) + '?color=' + ctrl.chessground.data.orientation,
     }, m('span[data-icon=A]')),
     m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('continueFromHere'),

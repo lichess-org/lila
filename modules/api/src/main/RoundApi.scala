@@ -66,8 +66,8 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String]) =
-    jsonView.userAnalysisJson(pov, pref) map withSteps(pov, none, initialFen)_
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
+    jsonView.userAnalysisJson(pov, pref, orientation) map withSteps(pov, none, initialFen)_
 
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(

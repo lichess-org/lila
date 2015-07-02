@@ -194,7 +194,7 @@ final class JsonView(
           ).noNull
       }
 
-  def userAnalysisJson(pov: Pov, pref: Pref) =
+  def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color) =
     (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
       import pov._
       val fen = Forsyth >> game.toChess
@@ -216,6 +216,7 @@ final class JsonView(
         "opponent" -> Json.obj(
           "color" -> opponent.color.name
         ),
+        "orientation" -> orientation.name,
         "pref" -> Json.obj(
           "animationDuration" -> animationDuration(pov, pref),
           "highlight" -> pref.highlight,
