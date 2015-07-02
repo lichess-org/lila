@@ -59,7 +59,7 @@ module.exports = function(send, ctrl) {
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
-        $.sound.move();
+        sound.move();
         lichess.hasToReload = true;
         location.href = '/' + gameId;
       }

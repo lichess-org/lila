@@ -17,6 +17,7 @@ var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 var relayClockCtrl = require('./relayClock/ctrl');
 var moveOn = require('./moveOn');
 var atomic = require('./atomic');
+var sound = require('./sound');
 var util = require('./util');
 
 module.exports = function(opts) {
@@ -58,10 +59,10 @@ module.exports = function(opts) {
   var onMove = function(orig, dest, captured) {
     if (captured) {
       if (this.data.game.variant.key === 'atomic') {
-        $.sound.explode();
+        sound.explode();
         atomic.capture(this, dest, captured);
-      } else $.sound.capture();
-    } else $.sound.move();
+      } else sound.capture();
+    } else sound.move();
   }.bind(this);
 
   this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
@@ -94,6 +95,11 @@ module.exports = function(opts) {
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
+    if (s.san) {
+      if (s.san.indexOf('x') !== -1) sound.capture();
+      else sound.move();
+      if (/\+|\#/.test(s.san)) sound.check();
+    }
   }.bind(this);
 
   this.replayEnabledByPref = function() {
@@ -154,8 +160,8 @@ module.exports = function(opts) {
         this.chessground.setPieces(pieces);
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
-          $.sound.explode();
-        } else $.sound.capture();
+          sound.explode();
+        } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.data.autoCastle) {
