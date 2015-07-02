@@ -11,7 +11,7 @@ private[pref] final class DataForm {
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
     "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
     "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
-    "clockTenths" -> number.verifying(Set(0, 1) contains _),
+    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
     "clockSound" -> number.verifying(Set(0, 1) contains _),
     "follow" -> number.verifying(Set(0, 1) contains _),
@@ -50,7 +50,7 @@ private[pref] final class DataForm {
       autoQueen = autoQueen,
       autoThreefold = autoThreefold,
       takeback = takeback,
-      clockTenths = clockTenths == 1,
+      clockTenths = clockTenths,
       clockBar = clockBar == 1,
       clockSound = clockSound == 1,
       follow = follow == 1,
@@ -71,7 +71,7 @@ private[pref] final class DataForm {
       autoQueen = pref.autoQueen,
       autoThreefold = pref.autoThreefold,
       takeback = pref.takeback,
-      clockTenths = pref.clockTenths.fold(1, 0),
+      clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
       clockSound = pref.clockSound.fold(1, 0),
       follow = pref.follow.fold(1, 0),
@@ -92,16 +92,19 @@ private[pref] final class DataForm {
   val miniPref = Form(mapping(
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
     "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
+    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "submitMove" -> number.verifying(Set(0, 1, 2) contains _)
   )(MiniPrefData.apply)(MiniPrefData.unapply))
 
   case class MiniPrefData(
       autoQueen: Int,
       blindfold: Int,
+      clockTenths: Int,
       submitMove: Int) {
     def apply(pref: Pref) = pref.copy(
       autoQueen = autoQueen,
       blindfold = blindfold,
+      clockTenths = clockTenths,
       submitMove = submitMove)
   }
 
@@ -109,6 +112,7 @@ private[pref] final class DataForm {
     def apply(pref: Pref): MiniPrefData = MiniPrefData(
       autoQueen = pref.autoQueen,
       blindfold = pref.blindfold,
+      clockTenths = pref.clockTenths,
       submitMove = pref.submitMove)
   }
 

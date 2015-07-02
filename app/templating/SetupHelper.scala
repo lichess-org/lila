@@ -91,6 +91,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Replay.ALWAYS, trans.always.str())
   )
 
+  def translatedClockTenthsChoices(implicit ctx: Context) = List(
+    (Pref.ClockTenths.NEVER, trans.never.str()),
+    (Pref.ClockTenths.LOWTIME, trans.whenTimeRemainingLessThanTenSeconds.str()),
+    (Pref.ClockTenths.ALWAYS, trans.always.str())
+  )
+
   def translatedTakebackChoices(implicit ctx: Context) = List(
     (Pref.Takeback.NEVER, trans.never.str()),
     (Pref.Takeback.ALWAYS, trans.always.str()),
