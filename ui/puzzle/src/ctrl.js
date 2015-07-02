@@ -50,9 +50,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
-    if (captured) {
-      $.sound.capture();
-    } else $.sound.move();
+    $.sound[captured ? 'capture' : 'move']();
   }.bind(this);
 
   this.revert = function(id) {
@@ -169,6 +167,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.jump = function(to) {
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
+    $.sound.move();
   }.bind(this);
 
   this.router = router;
