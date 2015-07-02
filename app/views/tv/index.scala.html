@@ -1,4 +1,4 @@
-@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, pov: Pov, data: play.api.libs.json.JsObject, streams: List[lila.tv.StreamOnAir], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, pov: Pov, data: play.api.libs.json.JsObject, cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
 
 @title = @{ s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
@@ -17,7 +17,7 @@ i18n: @round.jsI18n()
 
 @round.layout(
 title = title,
-side = side(channel, champions, pov, streams),
+side = side(channel, champions, pov, streams = Nil),
 underchat = game.watchers().some,
 moreJs = moreJs,
 moreCss = cssTag("tv.css"),
