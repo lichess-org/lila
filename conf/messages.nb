@@ -451,3 +451,4 @@ moveConfirmation=Trekkbekreftelse
 inCorrespondenceGames=I fjernsjakk
 ifRatingIsPlusMinusX=Hvis rating er ± %s
 onlyFriends=Bare venner
+castling=Rokade
