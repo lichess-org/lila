@@ -761,6 +761,8 @@ div.chat_panels .preferences {
   padding: 8px;
   user-select: none;
   -webkit-user-select: none;
+  -moz-user-select: none;
+  overflow-y: auto;
 }
 div.chat_panels .preferences form > div {
   margin-bottom: 15px;
