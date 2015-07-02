@@ -10,7 +10,7 @@ var autoplay = require('./autoplay');
 var control = require('./control');
 var promotion = require('./promotion');
 var readDests = require('./util').readDests;
-var debounce = require('./util').debounce;
+var throttle = require('./util').throttle;
 var socket = require('./socket');
 var m = require('mithril');
 
@@ -79,14 +79,20 @@ module.exports = function(opts) {
     if (!dests) getDests();
   }.bind(this);
 
-  var getDests = debounce(function() {
+  var getDests = throttle(200, false, function() {
     if (this.vm.step.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.vm.step.fen,
       path: this.vm.pathStr
     });
-  }.bind(this), 200, false);
+  }.bind(this));
+
+  var sound = {
+    move: throttle(50, false, $.sound.move),
+    capture: throttle(50, false, $.sound.capture),
+    check: throttle(50, false, $.sound.check)
+  };
 
   this.jump = function(path) {
     this.vm.path = path;
@@ -94,6 +100,12 @@ module.exports = function(opts) {
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
+    if (this.vm.justPlayed !== this.vm.step.uci) {
+      if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
+      else sound.move();
+      this.vm.justPlayed = null;
+    }
+    if (/\+|\#/.test(this.vm.step.san)) sound.check();
   }.bind(this);
 
   this.userJump = function(path) {
@@ -116,8 +128,9 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
-  var userMove = function(orig, dest) {
-    $.sound.move();
+  var userMove = function(orig, dest, capture) {
+    this.vm.justPlayed = orig + dest;
+    sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
   }.bind(this);
 
