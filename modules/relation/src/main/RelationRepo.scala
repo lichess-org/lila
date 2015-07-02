@@ -35,6 +35,8 @@ private[relation] object RelationRepo {
   def block(u1: ID, u2: ID): Funit = save(u1, u2, Block)
   def unblock(u1: ID, u2: ID): Funit = remove(u1, u2)
 
+  def unfollowAll(u1: ID): Funit = $remove(Json.obj("u1" -> u1))
+
   private def save(u1: ID, u2: ID, relation: Relation): Funit = $save(
     makeId(u1, u2),
     Json.obj("u1" -> u1, "u2" -> u2, "r" -> relation)

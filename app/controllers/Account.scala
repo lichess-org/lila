@@ -8,11 +8,13 @@ import lila.db.api.$find
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
+import lila.relation.RelationApi
 import views._
 
 object Account extends LilaController {
 
   private def env = Env.user
+  private def relationEnv = Env.relation
   private def forms = lila.user.DataForm
 
   def profile = Auth { implicit ctx =>
@@ -110,6 +112,7 @@ object Account extends LilaController {
           case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
           case true =>
             (UserRepo disable me.id) >>
+              relationEnv.api.unfollowAll(me.id) >>
               Env.team.api.quitAll(me.id) >>
               (Env.security disconnect me.id) inject {
                 Redirect(routes.User show me.username) withCookies LilaCookie.newSession
