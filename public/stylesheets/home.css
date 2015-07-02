@@ -475,6 +475,9 @@ div.new_posts li span.extract {
 div.game_config {
   padding-bottom: 0;
 }
+div.game_config.error {
+  padding-bottom: 22px;
+}
 div.game_config div.ui-buttonset {
   margin-bottom: 1em;
 }
@@ -501,6 +504,10 @@ div.game_config .ratings {
   background: #f4f4f4;
   border-top: solid 1px #e4e4e4;
 }
+div.game_config.error .ratings {
+border-top: 0;
+}
+
 div.game_config .label_select {
   overflow: hidden;
   text-align: left;
