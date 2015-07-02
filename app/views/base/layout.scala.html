@@ -102,7 +102,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       }
       @if(!zen) {
       <div id="sound_control" class="fright">
-        <a id="sound_state" class="toggle link hint--bottom-left">
+        <a id="sound_state" class="toggle link hint--bottom-left" data-hint="@trans.sound()">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
         </a>
