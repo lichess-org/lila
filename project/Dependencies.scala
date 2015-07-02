@@ -12,12 +12,10 @@ object Dependencies {
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
     val commons = Seq(
-      local,
       sonatypeS,
       sonatype,
       awesomepom,
