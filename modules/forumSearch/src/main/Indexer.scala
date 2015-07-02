@@ -2,9 +2,11 @@ package lila.forumSearch
 
 import akka.actor._
 import akka.pattern.pipe
-import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl._
-import com.sksamuel.elastic4s.mappings.FieldType._
+import com.sksamuel.elastic4s
+import elastic4s.SimpleAnalyzer
+import elastic4s.ElasticClient
+import elastic4s.ElasticDsl._
+import elastic4s.mappings.FieldType._
 
 import lila.forum.actorApi._
 import lila.forum.{ Post, PostLiteView, PostApi }
@@ -44,7 +46,7 @@ private[forumSearch] final class Indexer(
           put mapping indexName / typeName as Seq(
             Fields.body typed StringType boost 2,
             Fields.topic typed StringType boost 4,
-            Fields.author typed StringType,
+            Fields.author typed StringType index "not_analyzed",
             Fields.topicId typed StringType,
             Fields.staff typed BooleanType,
             Fields.troll typed BooleanType,
