@@ -132,7 +132,7 @@ final class AssessApi(
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
 
-    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.45)
+    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.5)
     val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
@@ -164,7 +164,7 @@ final class AssessApi(
       else none
 
     shouldAnalyse foreach { reason =>
-      println(s"[autoanalyse] ${game.id} $reason")
+      // println(s"[autoanalyse] ${game.id} $reason")
       analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
     }
 
