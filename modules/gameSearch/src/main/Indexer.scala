@@ -3,7 +3,7 @@ package lila.gameSearch
 import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl._
+import com.sksamuel.elastic4s.ElasticDsl.{ RichFuture => _, _ }
 import com.sksamuel.elastic4s.mappings.FieldType._
 
 import lila.game.actorApi.{ InsertGame, FinishGame }
@@ -18,8 +18,6 @@ private[gameSearch] final class Indexer(
 
   context.system.lilaBus.subscribe(self, 'finishGame)
 
-  private val indexType = s"$indexName/$typeName"
-
   def receive = {
 
     case Search(definition)     => client execute definition pipeTo sender
@@ -29,16 +27,17 @@ private[gameSearch] final class Indexer(
 
     case InsertGame(game) => if (storable(game)) {
       GameRepo isAnalysed game.id foreach { analysed =>
-        client execute store(game, analysed)
+        client execute store(indexName, game, analysed)
       }
     }
 
     case Reset =>
-      ElasticSearch.createType(client, indexName, typeName)
+      val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
+      ElasticSearch.createType(client, tempIndexName, typeName)
       try {
         import Fields._
-        client execute {
-          put mapping indexName / typeName as Seq(
+        client.execute {
+          put mapping tempIndexName / typeName as Seq(
             status typed ShortType index "not_analyzed",
             turns typed ShortType index "not_analyzed",
             rated typed BooleanType index "not_analyzed",
@@ -52,7 +51,7 @@ private[gameSearch] final class Indexer(
             duration typed ShortType index "not_analyzed",
             analysed typed BooleanType index "not_analyzed"
           )
-        }
+        }.await
         import scala.concurrent.Await
         import scala.concurrent.duration._
         import play.api.libs.json.Json
@@ -65,13 +64,13 @@ private[gameSearch] final class Indexer(
         var nbSkipped = 0
         var started = nowMillis
         Await.result(
-          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
+          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, limit = 800 * 1000) { gameOptions =>
             val games = gameOptions.flatten filter storable
             val nbGames = games.size
             (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
               client execute {
                 bulk {
-                  games.map { g => store(g, analysedIds(g.id)) }: _*
+                  games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
                 }
               }
             }).void >>- {
@@ -90,14 +89,18 @@ private[gameSearch] final class Indexer(
           println(e)
           sender ! Status.Failure(e)
       }
+      client.execute { deleteIndex(indexName) }.await
+      client.execute {
+        add alias indexName on tempIndexName
+      }.await
   }
 
   private def storable(game: lila.game.Game) =
     (game.finished || game.imported) && game.playedTurns > 4
 
-  private def store(game: lila.game.Game, hasAnalyse: Boolean) = {
+  private def store(inIndex: String, game: lila.game.Game, hasAnalyse: Boolean) = {
     import Fields._
-    index into indexType fields {
+    index into s"$inIndex/$typeName" fields {
       List(
         status -> game.status.is(_.Timeout).fold(chess.Status.Resign, game.status).id.some,
         turns -> math.ceil(game.turns.toFloat / 2).some,
