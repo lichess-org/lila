@@ -490,3 +490,6 @@ simulVariantsHint=Gdy zaznaczysz kilka wariantów, każdy uczestnik będzie móg
 simulClockHint=Ustawienie zegara Fischera. Przy większej ilości przeciwników możesz potrzebować więcej czasu.
 simulAddExtraTime=Możesz ustawić dodatkowy czas dla siebie, aby ułatwić sobie rozegranie symultany.
 simulHostExtraTime=Dodatkowy czas dla gospodarza
+lichessTournaments=Turnieje Lichess
+tournamentOfficial=Oficjalny
+timeBeforeTournamentStarts=Czas do rozpoczęcia turnieju
