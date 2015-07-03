@@ -491,6 +491,6 @@ simulClockHint=Configuration de la cadence Fischer. Plus il y a d'adversaires, p
 simulAddExtraTime=Vous pouvez ajouter du temps supplémentaire à votre horloge pour gérer la simultanée.
 simulHostExtraTime=Temps supplémentaire de l'exposant(e)
 lichessTournaments=Tournois Lichess
-tournamentFAQ=FAQ des tournois Arena
+tournamentFAQ=FAQ tournois arena
 tournamentOfficial=Officiel
 timeBeforeTournamentStarts=Temps restant avant le début du tournoi
