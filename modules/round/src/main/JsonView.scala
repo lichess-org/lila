@@ -168,6 +168,7 @@ final class JsonView(
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
+            "orientation" -> pov.color.name,
             "url" -> Json.obj(
               "socket" -> s"/$gameId/${color.name}/socket",
               "round" -> s"/$gameId/${color.name}"
