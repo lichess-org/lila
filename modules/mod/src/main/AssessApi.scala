@@ -12,6 +12,7 @@ import lila.user.{ User, UserRepo }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent._
+import scala.util.Random
 
 import chess.Color
 
@@ -132,7 +133,10 @@ final class AssessApi(
       perfType <- game.perfType
     } yield user.perfs(perfType).nb
 
-    def suspCoefVariation(c: Color) = noFastCoefVariation(game player c).filter(_ < 0.5)
+    def suspCoefVariation(c: Color) = {
+      val x = noFastCoefVariation(game player c)
+      x.filter(_ < 0.45) orElse x.filter(_ < 0.5).ifTrue(Random.nextBoolean)
+    }
     val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
@@ -158,9 +162,9 @@ final class AssessApi(
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) "Winner progress".some
       // analyse some tourney games
-      else if (game.isTournament) scala.util.Random.nextInt(5) == 0 option "Tourney random"
+      else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(20 >) && scala.util.Random.nextInt(2) == 0) "New winner".some
+      else if (winnerNbGames.??(20 >) && Random.nextInt(2) == 0) "New winner".some
       else none
 
     shouldAnalyse foreach { reason =>
