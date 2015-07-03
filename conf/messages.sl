@@ -490,3 +490,7 @@ simulVariantsHint=Če si izbral več variant, vsak igralec izbere katero variant
 simulClockHint=Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa imaš.
 simulAddExtraTime=Morda boš potreboval več časa, kot pomoč pri igranju simultanke.
 simulHostExtraTime=Gostuj dodaten čas igranja.
+lichessTournaments=Lichess turnirji
+tournamentFAQ=Arena turnirji pogosta vprašanja
+tournamentOfficial=Uradno
+timeBeforeTournamentStarts=Čas pred začetkom turnirja
