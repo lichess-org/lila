@@ -490,3 +490,6 @@ simulVariantsHint=Wurden mehrere Varianten gewählt, kann jeder Spieler eine Var
 simulClockHint=Fischer Bedenkzeit. Je mehr Gegner Si haben, desto mehr Zeit werden Sie benötigen.
 simulAddExtraTime=Je mehr Extra Bedenkzeit Sie Ihrer eigenen Uhr gönnen, umso einfacher wird es für Sie die Lage zu meistern.
 simulHostExtraTime=Extra Bedenkzeit für Alleinspieler
+lichessTournaments=Lichess Turnier
+tournamentFAQ=Arena Turnier FAQ
+timeBeforeTournamentStarts=Zeit bis zum Start des Turniers
