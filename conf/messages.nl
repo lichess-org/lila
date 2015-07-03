@@ -489,3 +489,7 @@ simulVariantsHint=Als je meerdere varianten kiest, dan kan iedere speler kiezen 
 simulClockHint=Fischer speeltempo. Bij meer tegenstanders heb je meer tijd nodig.
 simulAddExtraTime=Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.
 simulHostExtraTime=Extra tijd voor de simultaangever
+lichessTournaments=Lichess toernooien
+tournamentFAQ=Arena toernooi FAQ
+tournamentOfficial=Officieel
+timeBeforeTournamentStarts=Tijd tot het toernooi start
