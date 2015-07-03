@@ -479,6 +479,7 @@ noSimulFound=Exhibición ilocalizable
 noSimulExplanation=¡Lo siento! Esta exhibición simultánea no existe.
 returnToSimulHomepage=Volver a la página de simultáneas
 aboutSimul=Una exhibición simultánea es un evento en el que un simultaneador juega múltiples partidas de ajedrez a la vez contra varios jugadores.
+aboutSimulImage=De 50 contrincantes, Fischer ganó 47 partidas, empató 2 y perdió 1.
 aboutSimulRealLife=En la vida real, el simultaneador va de tablero en tablero en un orden fijado.
 aboutSimulRules=El simultaneador juega todas las partidas con las piezas blancas. Cuando el simultaneador llega a un tablero, primero espera a que mueva el oponente y luego efectúa su movimiento.
 aboutSimulSettings=Las partidas siempre son amistosas. No hay revanchas, deshaciendo jugada o dando más tiempo.
