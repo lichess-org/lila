@@ -3,7 +3,7 @@ package lila.i18n
 private[i18n] object Contributors {
 
   val all = Map(
-    "fr" -> List("Thibault Duplessis", "Calinou"),
+    "fr" -> List("Thibault Duplessis", "Calinou", "Dale J.H Cannon"),
     "ru" -> List("Nikita Milovanov"),
     "de" -> List("Patrick Gawliczek", "Kurt Keller (DE)"),
     "tr" -> List("Yakup Ipek"),
@@ -11,7 +11,7 @@ private[i18n] object Contributors {
     "lv" -> List("Anonymous"),
     "bs" -> List("Jacikka"),
     "da" -> List("Henrik Bjornskov", "Kurt Keller (DE)"),
-    "es" -> List("FennecFoxz"),
+    "es" -> List("FennecFoxz", "Dale J.H Cannon"),
     "ro" -> List("Cristian Niţă"),
     "it" -> List("Marco Barberis, Danilo Di Moia"),
     "fi" -> List("Juuso Vallius"),
