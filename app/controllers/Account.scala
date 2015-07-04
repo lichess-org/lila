@@ -8,7 +8,6 @@ import lila.db.api.$find
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
-import lila.relation.RelationApi
 import views._
 
 object Account extends LilaController {
