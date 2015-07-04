@@ -88,6 +88,8 @@ final class RelationApi(
       case _            => funit
     }
 
+  def unfollowAll(u1: ID): Funit = RelationRepo.unfollowAll(u1)
+
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else relation(u1, u2) flatMap {
