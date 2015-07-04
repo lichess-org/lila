@@ -204,6 +204,7 @@ fromPosition=स्थिति से
 continueFromHere=यहा से जारी रखे
 importGame=खेल आयात करे
 nbImportedGames=%s आयात किये हुए खेल
+nbRelayedGames=%s अंतर्राष्ट्रीय प्रदर्शित खेल
 thisIsAChessCaptcha=यह एक chess CAPTCHA है
 clickOnTheBoardToMakeYourMove=अपनी चाल बनाने के लिए बोर्ड पर क्लिक करें और साबित करे की आप मानव है
 notACheckmate=शेह और मात नहीं
