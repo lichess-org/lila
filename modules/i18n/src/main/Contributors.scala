@@ -6,7 +6,7 @@ private[i18n] object Contributors {
     "fr" -> List("Thibault Duplessis", "Calinou"),
     "ru" -> List("Nikita Milovanov"),
     "de" -> List("Patrick Gawliczek", "Kurt Keller (DE)"),
-    "tr" -> List("Yakup Ipek"),
+    "tr" -> List("Yakup Ipek", "Usolando"),
     "sr" -> List("Nenad Nikolić"),
     "lv" -> List("Anonymous"),
     "bs" -> List("Jacikka"),
