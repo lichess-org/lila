@@ -457,3 +457,7 @@ castling=Sáncolás
 whiteCastlingKingside=Világos rövidre sáncol
 whiteCastlingQueenside=Világos hosszúra sáncol
 blackCastlingKingside=Sötét rövidre sáncol
+blackCastlingQueenside=Sötét hosszúra sáncol
+nbForumPosts=%s Fórum Poszt
+tpTimeSpentPlaying=Játékkal eltöltött idő: %s
+watchGames=Játszmák megtekintése
