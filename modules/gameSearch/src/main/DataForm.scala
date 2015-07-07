@@ -31,7 +31,7 @@ private[gameSearch] final class DataForm {
     "dateMin" -> optional(stringIn(Query.dates)),
     "dateMax" -> optional(stringIn(Query.dates)),
     "status" -> optional(numberIn(Query.statuses)),
-    "analysed" -> optional(numberIn(Query.analyseds :: Nil)),
+    "analysed" -> optional(number),
     "sort" -> mapping(
       "field" -> stringIn(Sorting.fields),
       "order" -> stringIn(Sorting.orders)
