@@ -107,20 +107,28 @@ object Auth extends LilaController {
           err => forms.anyCaptcha map { captcha =>
             BadRequest(html.auth.signup(err, captcha))
           },
-          data => doSignup(data.username, data.password, data.email.some) flatMap {
-            case (user, Some(email)) => env.emailConfirm.send(user, email) inject
-              Redirect(routes.Auth.checkYourEmail(user.username))
-            case _ => forms.signup.websiteWithCaptcha map {
-              case (form, captcha) => Ok(html.auth.signup(form, captcha))
-            }
+          data => {
+            val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+            UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
+              .flatten(s"No user could be created for ${data.username}")
+              .map(_ -> email).flatMap {
+                case (user, email) => env.emailConfirm.send(user, email) inject
+                  Redirect(routes.Auth.checkYourEmail(user.username))
+                case _ => forms.signup.websiteWithCaptcha map {
+                  case (form, captcha) => Ok(html.auth.signup(form, captcha))
+                }
+              }
           }),
-        api = _ => forms.signup.mobile.bindFromRequest.fold(
+        api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj(
             "error" -> err.errorsAsJson
           ))),
-          data => doSignup(data.username, data.password, data.email) flatMap {
-            case (user, _) => mobileUserOk(user)
-          })
+          data => {
+            val email = data.email flatMap env.emailAddress.validate
+            UserRepo.create(data.username, data.password, email, false, apiVersion.some)
+              .flatten(s"No user could be created for ${data.username}") flatMap mobileUserOk
+          }
+        )
       )
     }
   }
