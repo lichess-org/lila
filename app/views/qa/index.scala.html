@@ -4,10 +4,16 @@
 @popularBox(popular)
 }
 
+@title = @{"Questions & Answers"}
+
 @layout(
-title = "Questions & Answers",
+title = title,
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
-side = side.some) {
+side = side.some,
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+url = s"$netBaseUrl${routes.QaQuestion.index().url}",
+description = "Community knowledge and frequently asked questions about lichess.org").some) {
 
 <div class="content_box_top">
   <h1 data-icon="&" class="is4 text lichess_title">@trans.questionsAndAnswers()</h1>
