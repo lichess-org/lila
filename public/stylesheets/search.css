@@ -44,8 +44,8 @@ form.search div.level {
   display: inline;
 }
 
-form.search th.help {
-  padding-left: 10px;
+form.search span.help {
+  text-decoration: underline #747474;
 }
 
 div.search_status {
