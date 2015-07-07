@@ -1,4 +1,4 @@
-@(title: String, side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = Html(""), moreCss: Html = Html(""), chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = Html(""), moreCss: Html = Html(""), chessground: Boolean = true, openGraph = Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
@@ -6,4 +6,5 @@ side = side,
 menu = menu,
 moreJs = moreJs,
 moreCss = moreCss,
-chessground = chessground)(body)
+chessground = chessground,
+openGraph = openGraph)(body)
