@@ -32,7 +32,8 @@ trait StringHelper { self: NumberHelper =>
   // the replace quot; -> " is required
   // to avoid issues caused by addLinks
   // when an url is surrounded by quotes
-  def escape(text: String) = escapeHtml4(text).replace("&quot;", "\"")
+  def escape(text: String) = escapeEvenDoubleQuotes(text).replace("&quot;", "\"")
+  def escapeEvenDoubleQuotes(text: String) = escapeHtml4(text)
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 

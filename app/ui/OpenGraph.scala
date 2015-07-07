@@ -2,6 +2,7 @@ package lila.app
 package ui
 
 import play.twirl.api.Html
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 case class OpenGraph(
     title: String,
@@ -15,7 +16,7 @@ case class OpenGraph(
   def html = Html(toString)
 
   private def tag(name: String, value: String) =
-    s"""<meta property="og:$name" content="$value" />"""
+    s"""<meta property="og:$name" content="${escapeHtml4(value)}" />"""
 
   private val tupledTag = (tag _).tupled
 
