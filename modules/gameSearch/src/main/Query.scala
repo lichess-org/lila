@@ -105,7 +105,7 @@ object Query {
 
   val aiLevels = (1 to 8) map { l => l -> ("Stockfish level " + l) }
 
-  val analyseds = 1 -> "Analysis available"
+  val analyseds = 1
 
   val dates = List("0d" -> "Now") ++
     options(List(1, 2, 6), "h", "%d hour{s} ago") ++

@@ -20,11 +20,11 @@ moreCss = moreCss) {
     <table>
       <tr>
         <th>
-          <label>@trans.players()</label>
+          <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
         </th>
         <td class="usernames">
           <div class="half">@base.input(form("players")("a"))</div>
-          <div class="half">vs @base.input(form("players")("b"))</div>
+          <div class="half">@base.input(form("players")("b"))</div>
         </td>
       </tr>
       <tr class="winner none">
@@ -39,17 +39,16 @@ moreCss = moreCss) {
       </tr>
       <tr>
         <th>
-          <label>Rating</label>
+          <label>@trans.rating() <span class="help" title="The average rating of both players">(?)</span></label>
         </th>
         <td>
           <div class="half">From @base.select(form("ratingMin"), Query.averageRatings, "".some)</div>
           <div class="half">To @base.select(form("ratingMax"), Query.averageRatings, "".some)</div>
         </td>
-        <th class="help">Average of both players Rating</th>
       </tr>
       <tr>
         <th>
-          <label for="@form("hasAi").id">Opponent</label>
+          <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
         </th>
         <td class="single opponent">
           @base.select(form("hasAi"), Query.hasAis, "".some)
@@ -134,7 +133,7 @@ moreCss = moreCss) {
       </tr>
       <tr>
         <th>
-          <label>Analysed</label>
+          <label>Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
         </th>
         <td class="single">
           @{ base.checkbox(form("analysed"), Query.analyseds._2, 1) }
