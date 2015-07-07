@@ -325,7 +325,6 @@ trait UserRepo {
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
-      F.createdAt -> DateTime.now,
       F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> DateTime.now) ++ {
         if (blind) BSONDocument("blind" -> true) else BSONDocument()
