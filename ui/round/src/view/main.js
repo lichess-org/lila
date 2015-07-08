@@ -10,10 +10,19 @@ var blind = require('../blind');
 var keyboard = require('../keyboard');
 var m = require('mithril');
 
-function renderMaterial(ctrl, material) {
+function materialTag(role) {
+  return {
+    tag: 'div',
+    attrs: {
+      class: 'mono-piece ' + role
+    }
+  };
+}
+
+function renderMaterial(ctrl, material, checks) {
   var children = [];
   for (var role in material) {
-    var piece = m('div.mono-piece.' + role);
+    var piece = materialTag(role);
     var count = material[role];
     var content;
     if (count === 1) content = piece;
@@ -22,6 +31,9 @@ function renderMaterial(ctrl, material) {
       for (var i = 0; i < count; i++) content.push(piece);
     }
     children.push(m('div.tomb', content));
+  }
+  for (var i = 0; i < checks; i++) {
+    children.push(m('div.tomb', m('div.mono-piece.king[title=Check]')));
   }
   return m('div.cemetery', children);
 }
@@ -80,8 +92,13 @@ function blindBoard(ctrl) {
   ]);
 }
 
+var emptyMaterialDiff = {
+  white: [],
+  black: []
+};
+
 module.exports = function(ctrl) {
-  var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
+  var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : emptyMaterialDiff;
   return [
     m('div.top', [
       m('div.lichess_game', {
@@ -92,9 +109,9 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
-          material ? renderMaterial(ctrl, material[ctrl.data.opponent.color]) : null,
+          renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
           renderTable(ctrl),
-          material ? renderMaterial(ctrl, material[ctrl.data.player.color]) : null)
+          renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks))
       ])
     ]),
     m('div.underboard', [

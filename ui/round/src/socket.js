@@ -48,6 +48,11 @@ module.exports = function(send, ctrl) {
         m.redraw();
       }
     },
+    checkCount: function(e) {
+      ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
+      ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
+      m.redraw();
+    },
     prefChange: function() {
       lichess.reload();
     },

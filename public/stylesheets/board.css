@@ -1584,8 +1584,3 @@ div.underboard .blurs {
 div.underboard a {
   display: inline-block;
 }
-div.check_count span.player.color {
-  display: inline-block;
-  margin-left: 5px;
-  font-weight: bold;
-}
