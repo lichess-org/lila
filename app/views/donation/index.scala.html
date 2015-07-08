@@ -39,7 +39,11 @@
 @site.layout(
 moreCss = moreCss,
 side = side.some,
-title = s"${~doc.getText("doc.title")}") {
+title = s"${~doc.getText("doc.title")}",
+openGraph = lila.app.ui.OpenGraph(
+title = "Donate to lichess.org",
+url = s"$netBaseUrl${routes.Donation.index.url}",
+description = "Your donations help pay for the web servers, show that lichess is appreciated, and keep the developer motivated.").some) {
 
 <div class="content_box small_box doc_box donate_box">
 
