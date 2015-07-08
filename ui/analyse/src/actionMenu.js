@@ -59,12 +59,13 @@ module.exports = {
             $.modal($('.continue_with.' + ctrl.data.game.id));
           }
         }, ctrl.trans('continueFromHere')),
+        ctrl.analyse.tree.length > 4 ?
         speedsOf(ctrl.data).map(function(speed) {
           return m('a.button[data-icon=G]', {
             class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
-        }),
+        }) : null,
         deleteButton(ctrl.data, ctrl.userId),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {

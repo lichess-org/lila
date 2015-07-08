@@ -15,7 +15,7 @@ module.exports = function(ctrl) {
       ctrl.jump(p);
       m.redraw();
       return true;
-    } 
+    }
     this.stop();
     m.redraw();
     return false;
