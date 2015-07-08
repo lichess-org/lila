@@ -23,7 +23,7 @@ object Store {
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> req.remoteAddress,
-      "ua" -> lila.common.HTTPRequest.userAgent(req),
+      "ua" -> lila.common.HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
       "api" -> apiVersion,
