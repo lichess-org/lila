@@ -17,8 +17,11 @@ side = side.some) {
 
 <div id="communication" class="content_box">
   <h1>
-    <form style="float:right" method="post" action="@routes.Mod.troll(u.username)?then=reports">
-      <input class="button@when(u.troll, " active")" type="submit" value="@if(u.troll){Untroll}else{Troll}" />
+    <form style="float:right" method="post" action="@routes.Mod.troll(u.username)?set=1&then=reports">
+      <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
+    </form>
+    <form style="float:right" method="post" action="@routes.Mod.troll(u.username)?set=0&then=reports">
+      <input class="button@when(!u.troll, " active")" type="submit" value="Not a Troll" />
     </form>
     @userLink(u) communications
   </h1>

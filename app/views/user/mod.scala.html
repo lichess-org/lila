@@ -19,7 +19,7 @@
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)">
+  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})">
     <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
   </form>
   }

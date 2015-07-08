@@ -50,8 +50,8 @@ final class ModApi(
     case false => setBooster("lichess", username, true)
   }
 
-  def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>
-    val user = u.copy(troll = !u.troll)
+  def troll(mod: String, username: String, value: Boolean): Fu[Boolean] = withUser(username) { u =>
+    val user = u.copy(troll = value)
     ((UserRepo updateTroll user) >>-
       logApi.troll(mod, user.id, user.troll)) >>-
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll

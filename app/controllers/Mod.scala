@@ -29,7 +29,7 @@ object Mod extends LilaController {
 
   def troll(username: String) = Secure(_.MarkTroll) { implicit ctx =>
     me =>
-      modApi.troll(me.id, username) inject {
+      modApi.troll(me.id, username, getBool("set")) inject {
         get("then") match {
           case Some("reports") => Redirect(routes.Report.list)
           case _               => redirect(username)
