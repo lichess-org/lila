@@ -1,4 +1,4 @@
-@(u: User, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment], bans: Map[String, Int])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -57,28 +57,28 @@
       <br />
     </p>
   </div>
-  }{ aggregateAssessment =>
+  }{ pag =>
   <div class="evaluation results">
     <table class="reportCard">
       <thead>
         <tr>
           <th>
-            <span class="result_@aggregateAssessment.action.id">@aggregateAssessment.action.description</span>
+            <span class="result_@pag.pag.action.id">@pag.pag.action.description</span>
           </th>
           <th>
-            @aggregateAssessment.playerAssessments.size
+            @pag.pag.playerAssessments.size
           </th>
           <th>
-            @aggregateAssessment.cheatingSum
+            @pag.pag.cheatingSum
           </th>
           <th>
-            @aggregateAssessment.likelyCheatingSum
+            @pag.pag.likelyCheatingSum
           </th>
           <th>
-            @aggregateAssessment.relatedCheatersCount
+            @pag.pag.relatedCheatersCount
           </th>
           <th>
-            @aggregateAssessment.relatedUsersCount
+            @pag.pag.relatedUsersCount
           </th>
         </tr>
       </thead>
@@ -110,33 +110,33 @@
       <tr>
         <th>Blurs</th>
         <td>
-          <strong>@aggregateAssessment.sfAvgBlurs</strong>
+          <strong>@pag.pag.sfAvgBlurs</strong>
           <br/>high
         </td>
         <td>
-          <strong>@aggregateAssessment.sfAvgNoBlurs</strong>
+          <strong>@pag.pag.sfAvgNoBlurs</strong>
           <br/>low
         </td>
       </tr>
       <tr>
         <th>Move Times</th>
         <td>
-          <strong>@aggregateAssessment.sfAvgLowVar</strong>
+          <strong>@pag.pag.sfAvgLowVar</strong>
           <br/>low variance
         </td>
         <td>
-          <strong>@aggregateAssessment.sfAvgHighVar</strong>
+          <strong>@pag.pag.sfAvgHighVar</strong>
           <br/>high variance
         </td>
       </tr>
       <tr>
         <th>Hold Alert</th>
         <td>
-          <strong>@aggregateAssessment.sfAvgHold</strong>
+          <strong>@pag.pag.sfAvgHold</strong>
           <br/>alert
         </td>
         <td>
-          <strong>@aggregateAssessment.sfAvgNoHold</strong>
+          <strong>@pag.pag.sfAvgNoHold</strong>
           <br/>no alert
         </td>
       </tr>
@@ -144,7 +144,8 @@
     <table class="slist">
       <thead>
         <tr>
-          <th>Assessed game</th>
+          <th>Opponent</th>
+          <th>Game</th>
           <th>
             Centi-Pawn
             <br />(Avg ± SD)
@@ -159,28 +160,49 @@
         </tr>
       </thead>
       <tbody>
-        @aggregateAssessment.playerAssessments.sortBy(-_.assessment.id).take(15).map { result =>
+        @pag.pag.playerAssessments.sortBy(-_.assessment.id).take(15).map { result =>
         <tr>
-          <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>
-            <span class="sig_@(Display.stockfishSig(result))" data-icon="J"></span>
+            <a href="@routes.Round.watcher(result.gameId, result.color.name)">
+              @pag.pov(result).fold{
+              @result.gameId
+              } { p =>
+              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+              }
+            </a>
+          </td>
+          <td>
+            @pag.pov(result).map { p =>
+            <a href="@routes.Round.watcher(p.gameId, p.color.name)">
+              @if(p.game.isTournament) {
+              <span data-icon="g"></span>
+              }
+              @p.game.perfType.map { pt =>
+              <span data-icon="@pt.iconChar"></span>
+              }
+              @shortClockName(p.game.clock)
+            </a>
+            }
+          </td>
+          <td>
+            <span class="sig sig_@(Display.stockfishSig(result))" data-icon="J"></span>
             @result.sfAvg ± @result.sfSd
           </td>
           <td>
-            <span class="sig_@(Display.moveTimeSig(result))" data-icon="J"></span>
+            <span class="sig sig_@(Display.moveTimeSig(result))" data-icon="J"></span>
             @(result.mtAvg/10) ± @(result.mtSd/10)
           </td>
           <td>
-            <span class="sig_@(Display.blurSig(result))" data-icon="J"></span>
+            <span class="sig sig_@(Display.blurSig(result))" data-icon="J"></span>
             @(result.blurs)%
           </td>
           <td>
-            <span class="sig_@(Display.holdSig(result))" data-icon="J"></span>
+            <span class="sig sig_@(Display.holdSig(result))" data-icon="J"></span>
             @if(result.hold){Yes} else {No}
           </td>
           <td>
             <div class="aggregate hint--top-left">
-              <span class="sig_@(result.assessment.id)">@result.assessment.emoticon</span>
+              <span class="sig sig_@(result.assessment.id)">@result.assessment.emoticon</span>
             </div>
           </td>
         </tr>

@@ -106,7 +106,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withDiff: Boolean = true,
     engine: Boolean = false,
     withStatus: Boolean = false,
-    mod: Boolean = false)(implicit ctx: UserContext) = Html {
+    mod: Boolean = false,
+    link: Boolean = true)(implicit ctx: UserContext) = Html {
     val statusIcon = if (withStatus) """<span class="status"></span>""" else ""
     player.userId.flatMap(lightUser) match {
       case None =>
@@ -121,7 +122,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
         val dataIcon = withOnline ?? """data-icon="r""""
         val space = if (withOnline) "&nbsp;" else ""
-        s"""<a $dataIcon $klass href="$href">$space$content$diff$mark</a>$statusIcon"""
+        val tag = if (link) "a" else "span"
+        s"""<$tag $dataIcon $klass href="$href">$space$content$diff$mark</$tag>$statusIcon"""
     }
   }
 

@@ -258,6 +258,9 @@ div.user_show .mod_zone .slist {
   font-size: 0.9em;
   margin-bottom: 1em;
 }
+div.user_show .mod_zone .slist a {
+  text-decoration: none;
+}
 div.user_show .mod_zone .same {
   font-style: italic;
   font-weight: bold;
@@ -316,9 +319,6 @@ div.user_show .evaluation .legend {
 }
 div.user_show .evaluation .legend span {
   padding: 10px;
-}
-div.user_show .evaluation [data-icon] {
-  text-shadow: 1px 1px 1px #000;
 }
 div.user_show .evaluation .sig_1 {
   color: #2077C0;
@@ -406,9 +406,8 @@ div.user_show .extra_stats td {
   padding: 5px;
 }
 div.user_show .results .aggregate {
-  text-shadow: 1px -1px 1px #000;
   font-weight: bold;
-  font-size: 2.2em;
+  font-size: 1.4em;
   text-align: center;
   margin-left: -20px;
   width: 50px;

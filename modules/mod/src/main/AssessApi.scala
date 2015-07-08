@@ -66,6 +66,17 @@ final class AssessApi(
       }
   }
 
+  def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
+    GameRepo games pag.playerAssessments.map(_.gameId) map {
+      PlayerAggregateAssessment.WithGames(pag, _)
+    }
+
+  def getPlayerAggregateAssessmentWithGames(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment.WithGames]] =
+    getPlayerAggregateAssessment(userId, nb) flatMap {
+      case None      => fuccess(none)
+      case Some(pag) => withGames(pag).map(_.some)
+    }
+
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
