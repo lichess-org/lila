@@ -15,7 +15,11 @@
 @base.layout(
 title = "Coordinate training",
 moreCss = moreCss,
-moreJs = moreJs) {
+moreJs = moreJs,
+openGraph = lila.app.ui.OpenGraph(
+title = "Chess board coordinates trainer",
+url = s"$netBaseUrl${routes.Coordinate.home.url}",
+description = "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square.").some) {
 <div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
   data-color-url="@routes.Coordinate.color()"
@@ -68,7 +72,7 @@ moreJs = moreJs) {
           <li>You can analyse a game more effectively if you don’t need to search for square names.</li>
         </ul>
         <br />
-        <p>A square name appears next to the board and you must click on the correct square.</p>
+        <p>A square name appears on the board and you must click on the correct square.</p>
         <p>You have 30 seconds to recognize as many squares as possible!</p>
       </div>
       <button class="start button">@trans.startTraining()</button>
