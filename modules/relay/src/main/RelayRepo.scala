@@ -16,6 +16,7 @@ final class RelayRepo(coll: Coll) {
   private val selectRecent = BSONDocument("date" -> BSONDocument("$gt" -> DateTime.now.minusWeeks(2)))
   private[relay] val selectNonEmpty = BSONDocument("games.0.id" -> BSONDocument("$exists" -> true))
   private[relay] val sortRecent = BSONDocument("date" -> -1)
+  private[relay] val sortElo = BSONDocument("elo" -> -1)
 
   def byId(id: String): Fu[Option[Relay]] = coll.find(selectId(id)).one[Relay]
 
@@ -24,6 +25,8 @@ final class RelayRepo(coll: Coll) {
 
   def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
   def startedNonEmpty: Fu[List[Relay]] = coll.find(selectStarted ++ selectNonEmpty).cursor[Relay].collect[List]()
+  def startedTopRated(nb: Int): Fu[List[Relay]] =
+    coll.find(selectStarted).sort(sortElo).cursor[Relay].collect[List]()
 
   def recent(nb: Int): Fu[List[Relay]] =
     coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
@@ -32,6 +35,17 @@ final class RelayRepo(coll: Coll) {
 
   def exists(id: String): Fu[Boolean] =
     coll.db command Count(coll.name, selectId(id).some) map (0 !=)
+
+  def withGamesButNoElo: Fu[List[Relay]] =
+    coll.find(selectStarted ++ BSONDocument(
+      "elo" -> BSONDocument("$exists" -> false),
+      "games.0" -> BSONDocument("$exists" -> true)
+    )).cursor[Relay].collect[List]()
+
+  def setElo(id: String, elo: Int) = coll.update(
+    selectId(id),
+    BSONDocument("$set" -> BSONDocument("elo" -> elo))
+  ).void
 
   def upsert(ficsId: Int, name: String, status: Relay.Status) = recentByName(name) flatMap {
     case None        => coll insert Relay.make(ficsId, name, status)

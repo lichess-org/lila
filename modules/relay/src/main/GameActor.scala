@@ -36,7 +36,7 @@ private[relay] final class GameActor(
 
     case move: GameEvent.Move => withRelayGame { g =>
       if (g.white == move.white && g.black == move.black)
-        importer.move(g.id, move.san, move.ply) addEffect { _ =>
+        importer.move(g.id, move.san, move.ply) >>- {
           self ! GetTime
         }
       else end

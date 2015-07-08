@@ -35,6 +35,8 @@ case class Relay(id: String, white: Relay.Player, black: Relay.Player) {
 
   def player(color: Color) = color.fold(white, black)
 
+  def averageElo = (~white.rating + ~black.rating) / 2
+
   def remainingSecondsOf(color: Color, tickingColor: Option[Color]): Option[Float] =
     player(color).tenths |@| player(color).at apply {
       case (t, a) if tickingColor.contains(color) => {

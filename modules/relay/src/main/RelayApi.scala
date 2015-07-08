@@ -16,7 +16,7 @@ final class RelayApi(
     repo: RelayRepo,
     relayMap: ActorRef) {
 
-  def refreshFromFics: Funit = fics ? command.ListTourney mapTo
+  private[relay] def refreshFromFics: Funit = fics ? command.ListTourney mapTo
     manifest[command.ListTourney.Result] flatMap { tourneys =>
       tourneys.map { tourney =>
         repo.upsert(tourney.ficsId, tourney.name, tourney.status)
@@ -34,6 +34,16 @@ final class RelayApi(
         }
       }
     }
+
+  private[relay] def setElo: Funit = repo.withGamesButNoElo flatMap {
+    _.map { relay =>
+      GameRepo games relay.gameIds flatMap { games =>
+        games.flatMap(_.relay map (_.averageElo)).sorted.lastOption.?? {
+          repo.setElo(relay.id, _)
+        }
+      }
+    }.sequenceFu.void
+  }
 
   def round(game: Game): Fu[Option[Relay.Round]] =
     game.relayId ?? repo.byId flatMap {
