@@ -13,7 +13,11 @@
 @game.layout(
 title = trans.advancedSearch.str(),
 moreJs = moreJs,
-moreCss = moreCss) {
+moreCss = moreCss,
+openGraph = lila.app.ui.OpenGraph(
+title = "Chess games advanced search",
+url = s"$netBaseUrl${routes.Game.search.url}",
+description = "Search the entire lichess database using multiple criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
   <form rel="nofollow" class="search" action="@routes.Game.search()" method="get">
