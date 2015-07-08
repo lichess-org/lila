@@ -18,8 +18,6 @@ final class Env(
     val Endpoint = c getString "endpoint"
     val CallbackUrl = c getString "callback_url"
     val ActorName = c getString "actor.name"
-    val CollectionAiPerf = c getString "collection.ai_perf"
-    val AiPerfCacheTtl = c duration "ai_perf.cache_ttl"
   }
   import settings._
 
@@ -36,7 +34,7 @@ final class Env(
     analyseMaxPlies = c getInt "analyse.max_plies",
     debug = c getBoolean "debug")
 
-  lazy val aiPerfApi = new AiPerfApi(db(CollectionAiPerf), AiPerfCacheTtl)
+  lazy val aiPerfApi = new AiPerfApi
 
   def ratingOf(level: Int) = aiPerfApi.intRatings get level
 

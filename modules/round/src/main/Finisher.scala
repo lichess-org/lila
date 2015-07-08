@@ -92,29 +92,8 @@ private[round] final class Finisher(
         case (white, black) =>
           crosstableApi add finish.game zip perfsUpdater.save(finish.game, white, black)
       } zip
-        addAiGame(finish) zip
         (finish.white ?? incNbGames(finish.game)) zip
         (finish.black ?? incNbGames(finish.game)) void
-    }
-
-  private def addAiGame(finish: FinishGame): Funit =
-    Perfs.variantLens(finish.game.variant) ?? { perfLens =>
-      ~{
-        import finish._
-        import lila.rating.Glicko.Result._
-        for {
-          level <- game.players.map(_.aiLevel).flatten.headOption
-          if game.turns > 10
-          humanColor <- game.players.find(_.isHuman).map(_.color)
-          user <- humanColor.fold(white, black)
-          if !user.lame
-          result = game.winnerColor match {
-            case Some(c) if c == humanColor => Loss
-            case Some(_)                    => Win
-            case None                       => Draw
-          }
-        } yield aiPerfApi.add(level, perfLens(user.perfs), result)
-      }
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
