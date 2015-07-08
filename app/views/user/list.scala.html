@@ -55,7 +55,13 @@
 </div>
 }
 
-@user.layout(trans.players.str(), side = side.some) {
+@user.layout(
+trans.players.str(), 
+side = side.some,
+openGraph = lila.app.ui.OpenGraph(
+title = "Chess players and leaderboards",
+url = s"$netBaseUrl${routes.User.list.url}",
+description = "Best chess players in bullet, blitz, classical, Chess960 and more chess variants").some) {
 <div class="content_box">
   <div class="user_lists">
 
