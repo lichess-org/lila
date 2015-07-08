@@ -337,3 +337,15 @@ table.modAssessment td.noMatch {
 .assessmentButtons {
   margin: 20px auto auto 40px;
 }
+.copyables > p {
+  margin-top: 7px;
+}
+.copyables .name {
+  font-family: monospace;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 40px;
+}
+.copyable {
+  width: 460px;
+}

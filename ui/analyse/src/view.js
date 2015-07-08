@@ -277,6 +277,16 @@ function wheel(ctrl, e) {
   return false;
 }
 
+function inputs(ctrl) {
+  if (!ctrl.data.userAnalysis) return null;
+  return m('div.copyables', [
+    m('strong.name', 'FEN'),
+    m('input.copyable[readonly][spellCheck=false]', {
+      value: ctrl.vm.step.fen
+    })
+  ]);
+}
+
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap',
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
@@ -286,7 +296,8 @@ function visualBoard(ctrl) {
           });
         }
       },
-      chessground.view(ctrl.chessground), renderPromotion(ctrl)));
+      chessground.view(ctrl.chessground),
+      renderPromotion(ctrl)));
 }
 
 function blindBoard(ctrl) {
@@ -352,7 +363,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center'),
+      m('div.center', inputs(ctrl)),
       m('div.right')
     ])
   ];
