@@ -1,7 +1,11 @@
 @(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean])(implicit ctx: Context)
 
 @forum.layout(
-title = topic.name) {
+title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
+openGraph = lila.app.ui.OpenGraph(
+title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
+url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
+description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n", ""), 152).body).some) {
 <div class="topic">
   @categ.team.map { team =>
   <ol class="crumbs">
@@ -12,7 +16,7 @@ title = topic.name) {
   </ol>
   }.getOrElse {
   <ol class="crumbs">
-    <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
+    <li><a style="text-decoration:none" data-icon="d" class="is4 text" href="@routes.ForumCateg.index">Forum</a></li>
     <li><a href="@routes.ForumCateg.show(categ.slug)">@categ.name</a></li>
     <li><h1>@topic.name</h1></li>
   </ol>

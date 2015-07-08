@@ -1,10 +1,11 @@
-@(title: String, searchText: String = "", side: Option[Html] = None, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, searchText: String = "", side: Option[Html] = None, moreJs: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
 side = side,
 moreCss = cssTag("forum.css"),
-moreJs = moreJs) {
+moreJs = moreJs,
+openGraph = openGraph) {
 <div id="lichess_forum" class="content_box no_padding">
   @forum.searchForm(searchText.trim)
   @body
