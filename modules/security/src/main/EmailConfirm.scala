@@ -53,12 +53,14 @@ Please do not reply to this message; it was sent from an unmonitored email addre
       base64 encode token
     }
 
-    def read(token: String): Fu[Option[User]] = (base64 decode token) split separator match {
-      case Array(userId, userHashedEmail, hash) if makeHash(makePayload(userId, userHashedEmail)) == hash =>
-        getHashedEmail(userId) flatMap { hashedEmail =>
-          (userHashedEmail == hashedEmail) ?? (UserRepo enabledById userId)
-        }
-      case _ => fuccess(none)
+    def read(token: String): Fu[Option[User]] = (base64 decode token) ?? {
+      _ split separator match {
+        case Array(userId, userHashedEmail, hash) if makeHash(makePayload(userId, userHashedEmail)) == hash =>
+          getHashedEmail(userId) flatMap { hashedEmail =>
+            (userHashedEmail == hashedEmail) ?? (UserRepo enabledById userId)
+          }
+        case _ => fuccess(none)
+      }
     }
   }
 
@@ -67,7 +69,11 @@ Please do not reply to this message; it was sent from an unmonitored email addre
     import java.nio.charset.StandardCharsets
     def encode(txt: String) =
       Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
-    def decode(txt: String) =
-      new String(Base64.getDecoder decode txt)
+    def decode(txt: String): Option[String] = try {
+      Some(new String(Base64.getDecoder decode txt))
+    }
+    catch {
+      case _: java.lang.IllegalArgumentException => none
+    }
   }
 }
