@@ -496,7 +496,6 @@ tournamentOfficial=Official
 timeBeforeTournamentStarts=Time before tournament starts
 averageCentipawnLoss=Average centipawn loss
 keyboardShortcuts=Keyboard shortcuts
-or=or
 keyMoveBackwardOrForward=move backward/forward
 keyGoToStartOrEnd=go to start/end
 keyShowOrHideComments=show/hide comments

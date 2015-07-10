@@ -496,7 +496,6 @@ tournamentOfficial=Oficial
 timeBeforeTournamentStarts=Tiempo antes de que comienzo del torneo
 averageCentipawnLoss=Pérdida promedio en centipeones
 keyboardShortcuts=Los atajos
-or=o
 keyMoveBackwardOrForward=avanzar/regresar
 keyGoToStartOrEnd=ir al comienzo/fin
 keyShowOrHideComments=mostrar/esconder acotaciones
