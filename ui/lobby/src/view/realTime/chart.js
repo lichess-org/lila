@@ -5,18 +5,20 @@ function px(v) {
   return v + 'px';
 }
 
+function ratingLog(a) {
+  return Math.log(a / 150 + 1);
+}
+
 function ratingY(e) {
-  function ratingLog(a) {
-    return Math.log(a / 150 + 1);
-  }
-  var rating = Math.max(800, Math.min(2800, e || 1500));
+  var rating = Math.max(1000, Math.min(2200, e || 1500));
   var ratio;
+  var mid = 2/5;
   if (rating == 1500) {
-    ratio = 0.25;
+    ratio = mid;
   } else if (rating > 1500) {
-    ratio = 0.25 + (ratingLog(rating - 1500) / ratingLog(1300)) * 3 / 4;
+    ratio = mid + (ratingLog(rating - 1500) / ratingLog(1300)) * 2 * mid;
   } else {
-    ratio = 0.25 - (ratingLog(1500 - rating) / ratingLog(500)) / 4;
+    ratio = mid - (ratingLog(1500 - rating) / ratingLog(500)) * mid;
   }
   return Math.round(ratio * 489);
 }
@@ -33,10 +35,9 @@ function renderPlot(ctrl, hook) {
   var bottom = Math.max(0, ratingY(hook.rating) - 7);
   var left = Math.max(0, clockX(hook.time) - 4);
   var klass = [
-    'plot',
-    hook.mode === "Rated" ? 'rated' : 'casual',
-    hook.action === 'cancel' ? 'cancel' : '',
-    hook.variant.key !== 'standard' ? 'variant' : ''
+    'plot new',
+    hook.mode ? 'rated' : 'casual',
+    hook.action === 'cancel' ? 'cancel' : ''
   ].join(' ');
   return m('span', {
     id: hook.id,
@@ -62,6 +63,9 @@ function renderPlot(ctrl, hook) {
         $(el).data('powertipjq', null);
         $.powerTip.destroy(el);
       };
+      setTimeout(function() {
+        el.classList.remove('new');
+      }, 20);
     }
   });
 }
@@ -76,7 +80,7 @@ function renderHook(ctrl, hook) {
   }
   html += '<span class="clock">' + hook.clock + '</span>';
   html += '<span class="mode">' +
-    '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + ctrl.trans(hook.mode === 1 ? 'rated' : 'casual') + '</span>';
+    '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + ctrl.trans(hook.mode ? 'rated' : 'casual') + '</span>';
   html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
   return html;
 }
@@ -102,7 +106,7 @@ function renderXAxis() {
 }
 
 function renderYAxis() {
-  return [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400].map(function(v) {
+  return [1000, 1200, 1400, 1500, 1600, 1800, 2000].map(function(v) {
     var b = ratingY(v);
     return [
       m('span', {
