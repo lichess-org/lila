@@ -616,10 +616,6 @@ div.game_config div.color_submits button.random span {
   height: 55px;
   padding: 0;
 }
-#site_header a.paris_meetup {
-  color: #d59120;
-  font-weight: bold;
-}
 #nb_games_in_play {
   margin-bottom: 10px;
 }
