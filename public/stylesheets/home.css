@@ -265,11 +265,17 @@ div.lobby_and_ground {
   position: absolute;
   cursor: pointer;
   z-index: 1;
-  font-size: 1.6em;
+  font-size: 1.4em;
+  text-shadow: 0px 0px 3px #fff;
+  opacity: 0.7;
+  transition: 0.13s;
 }
 #hooks_wrap .hooks_chart .plot:hover {
   z-index: 2;
-  color: #333;
+  color: #d59120!important;
+  opacity: 1;
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
 }
 #hook {
   display: none;
