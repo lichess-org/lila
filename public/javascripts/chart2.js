@@ -230,7 +230,7 @@ $(function() {
         tooltip: {
           formatter: function() {
             var seconds = Math.abs(this.point.y);
-            var unit = seconds > 1 ? 'seconds' : 'second';
+            var unit = seconds != 1 ? 'seconds' : 'second';
             return this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
           }
         },
