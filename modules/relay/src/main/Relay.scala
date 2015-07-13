@@ -48,7 +48,7 @@ object Relay {
     status = status,
     date = DateTime.now,
     games = Nil,
-    enabled = name != "test")
+    enabled = !name.split(' ').contains("test"))
 
   case class Mini(id: String, name: String, slug: String)
   object Mini {
