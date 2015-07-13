@@ -494,3 +494,5 @@ lichessTournaments=Turnieje Lichess
 tournamentFAQ=Turnieje typu Arena FAQ
 tournamentOfficial=Oficjalny
 timeBeforeTournamentStarts=Czas do rozpoczęcia turnieju
+keyboardShortcuts=Skróty klawiaturowe
+keyShowOrHideComments=pokaż/ukryj komentarze
