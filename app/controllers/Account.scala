@@ -39,7 +39,7 @@ object Account extends LilaController {
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
+              "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
           }
         }
       )
