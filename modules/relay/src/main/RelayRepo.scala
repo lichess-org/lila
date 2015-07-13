@@ -29,7 +29,7 @@ final class RelayRepo(coll: Coll) {
   def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
 
   def startedTopRated(nb: Int): Fu[List[Relay]] =
-    coll.find(selectEnabledStarted).sort(sortElo).cursor[Relay].collect[List]()
+    coll.find(selectEnabledStarted).sort(sortElo).cursor[Relay].collect[List](nb)
 
   def recent(nb: Int): Fu[List[Relay]] =
     coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
