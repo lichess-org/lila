@@ -4,7 +4,6 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 import org.joda.time.DateTime
 import reactivemongo.bson._
-import reactivemongo.core.commands.Count
 
 private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
 
@@ -30,7 +29,7 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
       .collect[List]()
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
-    coll.db command Count(coll.name, BSONDocument(
+    coll.count(BSONDocument(
       "users" -> userId,
       "chan" -> channel,
       "date" -> BSONDocument("$gt" -> DateTime.now.minusDays(7))

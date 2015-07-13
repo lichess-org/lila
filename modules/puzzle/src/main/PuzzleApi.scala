@@ -43,7 +43,7 @@ private[puzzle] final class PuzzleApi(
       case Success(puzzle) :: rest => lila.db.Util findNextId puzzleColl flatMap { id =>
         val p = puzzle(id)
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
-        puzzleColl.db command Count(puzzleColl.name, BSONDocument(
+        puzzleColl.count(BSONDocument(
           "fen" -> BSONRegex(fenStart.replace("/", "\\/"), "")
         ).some) flatMap {
           case 0 => (puzzleColl insert p) >> {
@@ -89,7 +89,7 @@ private[puzzle] final class PuzzleApi(
     def add(a: Attempt) = attemptColl insert a void
 
     def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
-      attemptColl.db command Count(attemptColl.name, BSONDocument(
+      attemptColl.count(BSONDocument(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 

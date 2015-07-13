@@ -40,10 +40,9 @@ object PlayerRepo {
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   def countActive(tourId: String): Fu[Int] =
-    coll.db command Count(coll.name, Some(selectTour(tourId) ++ selectActive))
+    coll.count(Some(selectTour(tourId) ++ selectActive))
 
-  def count(tourId: String): Fu[Int] =
-    coll.db command Count(coll.name, Some(selectTour(tourId)))
+  def count(tourId: String): Fu[Int] = coll.count(Some(selectTour(tourId)))
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
@@ -51,10 +50,10 @@ object PlayerRepo {
     coll.remove(selectTourUser(tourId, userId)).void
 
   def exists(tourId: String, userId: String) =
-    coll.db command Count(coll.name, selectTourUser(tourId, userId).some) map (0!=)
+    coll.count(selectTourUser(tourId, userId).some) map (0!=)
 
   def existsActive(tourId: String, userId: String) =
-    coll.db command Count(coll.name, Some(
+    coll.count(Some(
       selectTourUser(tourId, userId) ++ selectActive
     )) map (0!=)
 
@@ -73,7 +72,7 @@ object PlayerRepo {
 
   def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
     _ ?? { player =>
-      coll.db command Count(coll.name, Some(selectTour(tourId) ++ BSONDocument(
+      coll.count(Some(selectTour(tourId) ++ BSONDocument(
         "m" -> BSONDocument("$gt" -> player.magicScore))
       )) map { n =>
         PlayerInfo((n + 1), player.withdraw).some

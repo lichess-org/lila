@@ -36,7 +36,7 @@ private[opening] final class OpeningApi(
     def insertOpening(opening: Opening.ID => Opening): Fu[Opening.ID] =
       lila.db.Util findNextId openingColl flatMap { id =>
         val o = opening(id)
-        openingColl.db command Count(openingColl.name, BSONDocument("fen" -> o.fen).some) flatMap {
+        openingColl.count(BSONDocument("fen" -> o.fen).some) flatMap {
           case 0 => openingColl insert o inject o.id
           case _ => fufail("Duplicate opening")
         }
@@ -53,7 +53,7 @@ private[opening] final class OpeningApi(
     def add(a: Attempt) = attemptColl insert a void
 
     def hasPlayed(user: User, opening: Opening): Fu[Boolean] =
-      attemptColl.db command Count(attemptColl.name, BSONDocument(
+      attemptColl.count(BSONDocument(
         Attempt.BSONFields.id -> Attempt.makeId(opening.id, user.id)
       ).some) map (0!=)
 
