@@ -31,9 +31,6 @@ case class Analysis(
     infos = infos,
     done = true)
 
-  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, startPly.some.filterNot(0 ==), done, date)
-  private def encodeInfos = Info encodeList infos
-
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color =>
     color -> (Nag.badOnes map { nag =>
       nag -> (advices count { adv =>
@@ -42,7 +39,7 @@ case class Analysis(
     })
   }
 
-  def valid = encodeInfos.replace(";", "").nonEmpty
+  def valid = infos.nonEmpty
 
   def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusHours 6))
 
@@ -52,48 +49,30 @@ case class Analysis(
 
 object Analysis {
 
-  import lila.db.JsTube, JsTube.Helpers._
-  import play.api.libs.json._
+  import lila.db.BSON
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  import reactivemongo.bson._
 
-  private[analyse] lazy val tube = JsTube(
-    reader = (__.json update readDate('date)) andThen Reads[Analysis](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        rawAnalysis ← RawAnalysis.tube.read(obj).asOpt
-        analysis ← rawAnalysis.decode
-      } yield JsSuccess(analysis): JsResult[Analysis])
-    ),
-    writer = Writes[Analysis](analysis =>
-      RawAnalysis.tube.write(analysis.encode) getOrElse JsUndefined("[db] Can't write analysis " + analysis.id)
-    ) andThen (__.json update writeDate('date))
-  )
-}
-
-private[analyse] case class RawAnalysis(
-    id: String,
-    data: String,
-    ply: Option[Int],
-    done: Boolean,
-    date: DateTime) {
-
-  def decode: Option[Analysis] = (done, data) match {
-    case (true, "") => new Analysis(id, Nil, ~ply, false, date).some
-    case (true, d)  => Info.decodeList(d, ~ply) map { new Analysis(id, _, ~ply, done, date) }
-    case (false, _) => new Analysis(id, Nil, ~ply, false, date).some
+  private implicit val analysisBSONHandler = new BSON[Analysis] {
+    def reads(r: BSON.Reader) = {
+      val id = r str "_id"
+      val ply = r intO "ply"
+      val date = r date " date"
+      (r strD "data", r boolD "done") match {
+        case ("", true) => new Analysis(id, Nil, ~ply, false, date)
+        case (d, true) => Info.decodeList(d, ~ply) map {
+          new Analysis(id, _, ~ply, true, date)
+        } err s"Invalid analysis data $d"
+        case (_, false) => new Analysis(id, Nil, ~ply, false, date)
+      }
+    }
+    def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
+      "_id" -> o.id,
+      "data" -> Info.encodeList(o.infos),
+      "ply" -> w.intO(o.startPly),
+      "done" -> o.done,
+      "date" -> w.date(o.date))
   }
-}
 
-private[analyse] object RawAnalysis {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj(
-    "data" -> "",
-    "done" -> false)
-
-  private[analyse] lazy val tube = JsTube(
-    (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],
-    Json.writes[RawAnalysis])
+  private[analyse] lazy val tube = lila.db.BsTube(analysisBSONHandler)
 }
