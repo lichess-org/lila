@@ -3,7 +3,6 @@ package lila.qa
 import scala.concurrent.duration._
 
 import reactivemongo.bson._
-import reactivemongo.core.commands.Count
 
 import org.joda.time.DateTime
 import spray.caching.{ LruCache, Cache }
@@ -69,7 +68,7 @@ final class QaApi(
       BSONDocument("$set" -> BSONDocument("acceptedAt" -> DateTime.now))
     )
 
-    def count: Fu[Int] = questionColl.db command Count(questionColl.name, None)
+    def count: Fu[Int] = questionColl.count(None)
 
     def recentPaginator(page: Int, perPage: Int): Fu[Paginator[Question]] =
       paginator(BSONDocument(), BSONDocument("createdAt" -> -1), page, perPage)
@@ -252,7 +251,7 @@ final class QaApi(
       }
 
     def countByQuestionId(id: QuestionId) =
-      answerColl.db command Count(answerColl.name, Some(BSONDocument("questionId" -> id)))
+      answerColl.count(Some(BSONDocument("questionId" -> id)))
   }
 
   object comment {

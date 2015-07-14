@@ -34,8 +34,7 @@ final class RelayRepo(coll: Coll) {
   def recent(nb: Int): Fu[List[Relay]] =
     coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
 
-  def exists(id: String): Fu[Boolean] =
-    coll.db command Count(coll.name, selectId(id).some) map (0 !=)
+  def exists(id: String): Fu[Boolean] = coll.count(selectId(id).some) map (0 !=)
 
   def withGamesButNoElo: Fu[List[Relay]] =
     coll.find(selectStarted ++ BSONDocument(

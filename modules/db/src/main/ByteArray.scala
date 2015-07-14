@@ -31,7 +31,7 @@ object ByteArray {
 
   implicit object ByteArrayBSONHandler extends BSONHandler[BSONBinary, ByteArray] {
 
-    def read(bin: BSONBinary) = ByteArray(bin.value.readArray(bin.value.readable))
+    def read(bin: BSONBinary) = ByteArray(bin.byteArray)
 
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }

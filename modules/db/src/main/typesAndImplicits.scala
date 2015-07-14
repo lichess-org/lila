@@ -9,10 +9,9 @@ object Types extends Types
 object Implicits extends Implicits
 
 trait Types {
+  type Coll = reactivemongo.api.collections.bson.BSONCollection
 
-  type Coll = reactivemongo.api.collections.default.BSONCollection
-
-  type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
+  type QueryBuilder = GenericQueryBuilder[BSONSerializationPack.type]
 
   type Identified[ID] = { def id: ID }
 

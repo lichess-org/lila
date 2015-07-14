@@ -136,7 +136,7 @@ private[video] final class VideoApi(
     object count {
 
       private val cache = AsyncCache.single(
-        f = videoColl.db command Count(videoColl.name, none),
+        f = videoColl.count(none),
         timeToLive = 1.day)
 
       def clearCache = cache.clear
@@ -157,7 +157,7 @@ private[video] final class VideoApi(
     }
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
-      viewColl.db command Count(viewColl.name, BSONDocument(
+      viewColl.count(BSONDocument(
         View.BSONFields.id -> View.makeId(video.id, user.id)
       ).some) map (0!=)
 

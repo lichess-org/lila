@@ -2,10 +2,10 @@ package lila.db
 package api
 
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import Types._
 
 object $remove {
+  import play.modules.reactivemongo.json._
 
   def apply[A: InColl](selector: JsObject): Funit =
     implicitly[InColl[A]].coll remove selector void
