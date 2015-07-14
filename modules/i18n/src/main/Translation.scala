@@ -30,5 +30,5 @@ private[i18n] object Translation {
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[Translation],
     Json.writes[Translation] andThen (__.json update writeDate('createdAt))
-  ) 
+  )
 }

@@ -1,12 +1,11 @@
 package lila.i18n
 
-import play.api.i18n.{ MessagesApi, Lang }
+import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 
-private[i18n] final class Translator(api: MessagesApi, pool: I18nPool) {
+private[i18n] final class Translator(messages: Messages, pool: I18nPool) {
 
-  private val messages = api.messages
   private val defaultMessages = messages.get("default") err "No default messages"
 
   def html(key: String, args: List[Any])(implicit req: RequestHeader): Html =

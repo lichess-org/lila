@@ -56,7 +56,7 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
             "user" -> BSONDocument("$ne" -> userId)
           ),
           BSONDocument("user" -> true)
-        ).cursor[BSONDocument].collect[List]().map {
+        ).cursor[BSONDocument]().collect[List]().map {
             _.flatMap(_.getAs[String]("user"))
           }
       }

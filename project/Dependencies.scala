@@ -1,3 +1,4 @@
+import play.sbt.PlayImport._
 import sbt._, Keys._
 
 object Dependencies {
@@ -41,7 +42,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.3.4"
 
   object play {
-    val version = "2.3.9"
+    val version = "2.4.2"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }

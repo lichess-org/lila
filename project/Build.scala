@@ -1,5 +1,5 @@
-import play._
 import play.Play.autoImport._
+import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
 import PlayKeys._
 import sbt._, Keys._
@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
   import BuildSettings._
   import Dependencies._
 
-  lazy val root = Project("lila", file(".")) enablePlugins PlayScala settings (
+  lazy val root = Project("lila", file(".")) enablePlugins _root_.play.sbt.PlayScala settings (
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
