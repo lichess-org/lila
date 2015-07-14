@@ -25,7 +25,7 @@ object Dependencies {
       t2v, jgitMaven, sprayRepo)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.2"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.3"
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.3"
   val config = "com.typesafe" % "config" % "1.3.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"
@@ -33,12 +33,12 @@ object Dependencies {
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.7"
-  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s-core" % "1.6.2"
+  val jodaTime = "joda-time" % "joda-time" % "2.8.1"
+  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s-core" % "1.6.4"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.2"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.2.play23"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.3.3"
+  val prismic = "io.prismic" %% "scala-kit" % "1.3.4"
 
   object play {
     val version = "2.3.9"
