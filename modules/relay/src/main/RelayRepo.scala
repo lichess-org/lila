@@ -17,7 +17,7 @@ final class RelayRepo(coll: Coll) {
   private val selectEnabledStarted = selectEnabled ++ selectStarted
   private val selectRecent = BSONDocument("date" -> BSONDocument("$gt" -> DateTime.now.minusWeeks(2)))
   private[relay] val selectNonEmpty = BSONDocument("games.0.id" -> BSONDocument("$exists" -> true))
-  private[relay] val selectPresentable = selectEnabledStarted ++ selectNonEmpty
+  private[relay] val selectPresentable = selectEnabled ++ selectNonEmpty
   private[relay] val sortRecent = BSONDocument("date" -> -1)
   private[relay] val sortElo = BSONDocument("elo" -> -1)
 
