@@ -60,7 +60,8 @@ object Relay extends LilaController {
           implicit val req = ctx.body
           lila.relay.ContentApi.form.bindFromRequest.fold(
             err => BadRequest(html.relay.contentForm(relay, content, err)).fuccess,
-            data => env.contentApi.upsert(relay, data, me) inject
+            data => env.contentApi.upsert(relay, data, me) >>
+              Env.mod.logApi.editRelay(me.username, relay.name) inject
               Redirect(routes.Relay.show(relay.id, relay.slug))
           )
         }

@@ -4,37 +4,53 @@ package api
 import play.api.libs.json._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
+import reactivemongo.api.{ SerializationPack, BSONSerializationPack }
+import reactivemongo.api.commands.{
+  CollectionCommand, CommandWithPack, CommandWithResult, ImplicitCommandHelpers
+}
 
-/**
- * MapReduce Command.
- *
- * Actually only produces inline output
- */
-case class MapReduce(
-    collectionName: String,
+trait MapReduceCommand[P <: SerializationPack]
+    extends ImplicitCommandHelpers[P] {
+
+  case class MapReduce(
     mapFunction: JSFunction,
     reduceFunction: JSFunction,
-    query: Option[BSONDocument] = None,
-    sort: Option[BSONDocument] = None,
+    query: Option[pack.Document] = None,
+    sort: Option[pack.Document] = None,
     limit: Option[Int] = None,
     finalizeFunction: Option[JSFunction] = None,
     scope: Option[String] = None,
-    verbose: Boolean = false) extends Command[BSONDocument] {
+    verbose: Boolean = false)
+      extends CollectionCommand with CommandWithPack[pack.type] with CommandWithResult[pack.Document]
 
-  override def makeDocuments = BSONDocument(
-    "mapReduce" -> BSONString(collectionName),
-    "map" -> BSONString(mapFunction),
-    "reduce" -> BSONString(reduceFunction),
-    "out" -> BSONDocument("inline" -> true),
-    "query" -> query,
-    "sort" -> sort,
-    "limit" -> limit.map(x => BSONInteger(x)),
-    "finalize" -> finalizeFunction.map(x => BSONString(x)),
-    "scope" -> scope.map(x => BSONString(x)),
-    "verbose" -> BSONBoolean(verbose)
-  )
+}
 
-  val ResultMaker = new BSONCommandResultMaker[BSONDocument] {
-    def apply(document: BSONDocument) = Right(document)
+object BSONMapReduceCommand
+    extends MapReduceCommand[BSONSerializationPack.type] {
+  val pack = BSONSerializationPack
+}
+
+object BSONMapReduceCommandImplicits {
+  import reactivemongo.api.commands.ResolvedCollectionCommand
+  import reactivemongo.bson.BSONDocument
+  import BSONMapReduceCommand._
+
+  implicit object MapReduceWriter
+      extends BSONDocumentWriter[ResolvedCollectionCommand[MapReduce]] {
+    def write(mapr: ResolvedCollectionCommand[MapReduce]): BSONDocument = {
+      val cmd = mapr.command
+      BSONDocument(
+        "mapReduce" -> BSONString(mapr.collection),
+        "map" -> BSONString(cmd.mapFunction),
+        "reduce" -> BSONString(cmd.reduceFunction),
+        "out" -> BSONDocument("inline" -> true),
+        "query" -> cmd.query,
+        "sort" -> cmd.sort,
+        "limit" -> cmd.limit.map(x => BSONInteger(x)),
+        "finalize" -> cmd.finalizeFunction.map(x => BSONString(x)),
+        "scope" -> cmd.scope.map(x => BSONString(x)),
+        "verbose" -> BSONBoolean(cmd.verbose)
+      )
+    }
   }
 }

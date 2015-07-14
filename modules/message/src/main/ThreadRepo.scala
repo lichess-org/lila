@@ -3,8 +3,6 @@ package lila.message
 import scala.concurrent.Future
 
 import play.api.libs.json.Json
-import play.modules.reactivemongo.json.BSONFormats.toJSON
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -12,6 +10,7 @@ import lila.db.Implicits._
 import tube.threadTube
 
 object ThreadRepo {
+import play.modules.reactivemongo.json._
 
   type ID = String
 
@@ -25,8 +24,9 @@ object ThreadRepo {
     $find($query(visibleByUserQuery(user)) sort recentSort, nb)
 
   def userUnreadIds(userId: String): Fu[List[String]] = {
-    val command = MapReduce(
-      collectionName = tube.threadTube.coll.name,
+    import BSONMapReduceCommandImplicits._
+
+    val command = BSONMapReduceCommand.MapReduce(
       mapFunction = """function() {
   var thread = this;
   thread.posts.forEach(function(p) {
@@ -46,8 +46,9 @@ object ThreadRepo {
         visibleByUserQuery(userId) ++ Json.obj("posts.isRead" -> false)
       ).some,
       sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
-    tube.threadTube.coll.db.command(command) map { res =>
-      toJSON(res).arr("results").flatMap(_.apply(0) str "value")
+
+    tube.threadTube.coll.runCommand(command) map { res =>
+      BSONFormats.toJSON(res).arr("results").flatMap(_.apply(0) str "value")
     } map {
       _ ?? (_ split ';' toList)
     }

@@ -58,16 +58,11 @@ final class ShutupApi(
               "$each" -> List(BSONDouble(analysed.ratio)),
               "$slice" -> -textType.rotation)
           ) ++ pushPublicLine
-          coll.db.command {
-            FindAndModify(
-              collection = coll.name,
-              query = BSONDocument("_id" -> userId),
-              modify = Update(
-                update = BSONDocument("$push" -> push),
-                fetchNewObject = true),
-              upsert = true
-            )
-          } map2 UserRecordBSONHandler.read flatMap {
+          coll.findAndUpdate(
+            selector = BSONDocument("_id" -> userId),
+            update = BSONDocument("$push" -> push),
+            fetchNewObject = true,
+            upsert = true).map(_.value) map2 UserRecordBSONHandler.read flatMap {
             case None             => fufail(s"can't find user record for $userId")
             case Some(userRecord) => legiferate(userRecord)
           } logFailure "ShutupApi"

@@ -70,6 +70,10 @@ final class ModlogApi {
     Modlog(mod, user.some, Modlog.deleteQaComment, details = Some(text take 140))
   }
 
+  def editRelay(mod: String, text: String) = add {
+    Modlog(mod, none, Modlog.editRelay, details = Some(text take 140))
+  }
+
   def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
 
   def wasUnengined(userId: String) = $count.exists(Json.obj(

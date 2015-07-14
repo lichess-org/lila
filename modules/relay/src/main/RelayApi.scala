@@ -60,7 +60,7 @@ final class RelayApi(
     Paginator(
       adapter = new BSONAdapter[Relay](
         collection = coll,
-        selector = repo.selectNonEmpty,
+        selector = repo.selectPresentable,
         projection = BSONDocument(),
         sort = repo.sortRecent
       ) mapFutureList withContent,

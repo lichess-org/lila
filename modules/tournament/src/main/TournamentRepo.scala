@@ -2,7 +2,6 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONArray }
-import reactivemongo.core.commands.Count
 
 import BSONHandlers._
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -154,8 +153,8 @@ object TournamentRepo {
 
   def remove(tour: Tournament) = coll.remove(BSONDocument("_id" -> tour.id))
 
-  def exists(id: String) = coll.db command Count(coll.name, BSONDocument("_id" -> id).some) map (0 !=)
+  def exists(id: String) = coll.count(BSONDocument("_id" -> id).some) map (0 !=)
 
   def isFinished(id: String): Fu[Boolean] =
-    coll.db command Count(coll.name, BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
+    coll.count(BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
 }
