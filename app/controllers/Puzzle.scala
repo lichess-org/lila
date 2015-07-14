@@ -5,6 +5,8 @@ import scala.util.{ Try, Success, Failure }
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 import lila.api.Context
 import lila.app._
