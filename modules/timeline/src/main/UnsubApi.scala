@@ -24,7 +24,7 @@ private[timeline] final class UnsubApi(coll: Coll) {
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     coll.find(BSONDocument(
       "_id" -> BSONDocument("$in" -> userIds.map { makeId(channel, _) })
-    )).cursor[BSONDocument].collect[List]() map { docs =>
+    )).cursor[BSONDocument]().collect[List]() map { docs =>
       userIds diff docs.flatMap {
         _.getAs[String]("_id") map (_ takeWhile ('@' !=))
       }

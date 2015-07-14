@@ -38,7 +38,7 @@ final class AssessApi(
   def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find(BSONDocument("userId" -> userId))
       .sort(BSONDocument("date" -> -1))
-      .cursor[PlayerAssessment]
+      .cursor[PlayerAssessment]()
       .collect[List](nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =

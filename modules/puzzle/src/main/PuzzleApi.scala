@@ -25,7 +25,7 @@ private[puzzle] final class PuzzleApi(
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find(BSONDocument())
         .sort(BSONDocument("date" -> -1))
-        .cursor[Puzzle]
+        .cursor[Puzzle]()
         .collect[List](nb)
 
     def importBatch(json: JsValue, token: String): Fu[List[Try[PuzzleId]]] =
@@ -57,7 +57,7 @@ private[puzzle] final class PuzzleApi(
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find(BSONDocument("mate" -> mate))
         .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
-        .cursor[Puzzle].collect[List](nb / 2)
+        .cursor[Puzzle]().collect[List](nb / 2)
     }.sequenceFu.map(_.flatten)
   }
 
@@ -112,7 +112,7 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.vote -> true,
         Attempt.BSONFields.id -> false
       )).sort(BSONDocument(Attempt.BSONFields.date -> -1))
-      .cursor[BSONDocument]
+      .cursor[BSONDocument]()
       .collect[List](5) map {
         case attempts if attempts.size < 5 => true
         case attempts => attempts.foldLeft(false) {

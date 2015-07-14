@@ -78,7 +78,7 @@ final class CrosstableApi(coll: Coll) {
             selector,
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-            .cursor[BSONDocument].collect[List](maxGames).map {
+            .cursor[BSONDocument]().collect[List](maxGames).map {
               _.map { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))

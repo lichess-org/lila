@@ -64,7 +64,7 @@ final class PlaybanApi(
   def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
     BSONDocument("_id" -> BSONDocument("$in" -> userIds)),
     BSONDocument("b" -> true)
-  ).cursor[BSONDocument].collect[List]().map {
+  ).cursor[BSONDocument]().collect[List]().map {
       _.flatMap { obj =>
         obj.getAs[String]("_id") flatMap { id =>
           obj.getAs[BSONArray]("b") map { id -> _.stream.size }

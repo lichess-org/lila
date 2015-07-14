@@ -82,7 +82,7 @@ private[video] final class VideoApi(
       videoColl.find(
         BSONDocument(),
         BSONDocument("_id" -> true)
-      ).cursor[BSONDocument].collect[List]() map { doc =>
+      ).cursor[BSONDocument]().collect[List]() map { doc =>
           doc flatMap (_.getAs[String]("_id"))
         }
 
@@ -128,7 +128,7 @@ private[video] final class VideoApi(
         "tags" -> BSONDocument("$in" -> video.tags),
         "_id" -> BSONDocument("$ne" -> video.id)
       )).sort(BSONDocument("metadata.likes" -> -1))
-        .cursor[Video]
+        .cursor[Video]()
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
@@ -169,7 +169,7 @@ private[video] final class VideoApi(
           })
         ),
         BSONDocument(View.BSONFields.videoId -> true, "_id" -> false)
-      ).cursor[BSONDocument].collect[List]() map { docs =>
+      ).cursor[BSONDocument]().collect[List]() map { docs =>
           docs.flatMap(_.getAs[String](View.BSONFields.videoId)).toSet
         }
   }

@@ -47,7 +47,7 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
     tube.storeColl.find(
       BSONDocument("user" -> userId),
       BSONDocument("ip" -> true)
-    ).cursor[BSONDocument].collect[List]().map {
+    ).cursor[BSONDocument]().collect[List]().map {
         _.flatMap(_.getAs[String]("ip"))
       }.flatMap { ips =>
         tube.storeColl.find(

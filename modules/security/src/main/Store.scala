@@ -58,5 +58,5 @@ object Store {
     storeColl.find(
       BSONDocument("user" -> userId),
       BSONDocument("ip" -> true, "ua" -> true, "tor" -> true)
-    ).cursor[Info].collect[List]()
+    ).cursor[Info]().collect[List]()
 }

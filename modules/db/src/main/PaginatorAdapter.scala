@@ -43,6 +43,6 @@ final class BSONAdapter[A: BSONDocumentReader](
     collection.find(selector, projection)
       .sort(sort)
       .copy(options = QueryOpts(skipN = offset))
-      .cursor[A]
+      .cursor[A]()
       .collect[List](length)
 }
