@@ -158,6 +158,8 @@ final class AssessApi(
       else if (game.isCorrespondence) none
       // stop here for short games
       else if (game.playedTurns < 40) none
+      // stop here for long games
+      else if (game.playedTurns > 100) none
       // stop here for casual games
       else if (!game.mode.rated) none
       // someone is using a bot
