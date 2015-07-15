@@ -120,9 +120,7 @@ final class TeamApi(
           ).toFollowersOf(userId).toUsers(previousMembers))
         }
     }
-  } recover {
-    case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") =>
-  }
+  } recover lila.db.recoverDuplicateKey(e => ())
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)

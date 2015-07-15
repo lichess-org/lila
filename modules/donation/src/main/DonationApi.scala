@@ -24,10 +24,8 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
   )).cursor[Donation]()
     .collect[List](nb)
 
-  def create(donation: Donation) = coll insert donation recover {
-    case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") =>
-      println(e.getMessage)
-  } void
+  def create(donation: Donation) = coll insert donation recover
+    lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
 
   // in $ cents
   def donatedByUser(userId: String): Fu[Int] =
