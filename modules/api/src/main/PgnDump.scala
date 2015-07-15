@@ -33,6 +33,6 @@ final class PgnDump(
         apply(game, initialFen).toString + "\n\n\n"
       }
     }
-    query.cursor[Game].enumerate() &> toPgn
+    query.cursor[Game]().enumerate() &> toPgn
   }
 }
