@@ -21,17 +21,16 @@ final class CrosstableApi(coll: Coll) {
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recover {
-      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => none
-    }
+    coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recoverWith
+      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).one[Crosstable])
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
       select(u1, u2),
       BSONDocument("n" -> true)
     ).one[BSONDocument] map {
-      ~_.flatMap(_.getAs[Int]("n"))
-    }
+        ~_.flatMap(_.getAs[Int]("n"))
+      }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
     case List(u1, u2) =>

@@ -45,9 +45,7 @@ private[puzzle] final class Finisher(
             )) ++ BSONDocument("$set" -> BSONDocument(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
             ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
-        }) recover {
-          case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
-        } inject (a -> none)
+        }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
 
   private val VOLATILITY = Glicko.default.volatility
