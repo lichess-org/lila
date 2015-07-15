@@ -22,7 +22,7 @@ final class Env(
 
     parsedUri.db.fold[DefaultDB](sys error s"cannot resolve database from URI: $parsedUri") { dbUri =>
       val db = DB(dbUri, connection)
-      registerDriverShutdownHook(connection, driver)
+      registerDriverShutdownHook(driver)
       loginfo(s"""ReactiveMongoApi successfully started with DB '$dbUri'! Servers:\n\t\t${parsedUri.hosts.map { s => s"[${s._1}:${s._2}]" }.mkString("\n\t\t")}""")
       db
     }
@@ -30,18 +30,8 @@ final class Env(
 
   def apply(name: String): Coll = db(name)
 
-  private def registerDriverShutdownHook(connection: MongoConnection, mongoDriver: MongoDriver): Unit =
-    lifecycle.addStopHook { () =>
-      Future {
-        loginfo("ReactiveMongoApi stopping...")
-        val f = connection.askClose()(10.seconds)
-        f.onComplete {
-          case e => loginfo(s"ReactiveMongoApi connections stopped. [$e]")
-        }
-        Await.ready(f, 10.seconds)
-        mongoDriver.close()
-      }
-    }
+  private def registerDriverShutdownHook(mongoDriver: MongoDriver): Unit =
+    lifecycle.addStopHook { () => Future(mongoDriver.close()) }
 }
 
 object Env {
