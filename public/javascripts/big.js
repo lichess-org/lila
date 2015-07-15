@@ -730,7 +730,7 @@ lichess.storage = {
           var set3d = $.fp.find(document.body.classList, function(a) {
             return $.fp.contains(set3ds, a);
           });
-          var background = $body.hasClass('dark') ? 'dark' : 'light';
+          var background = $body.data('bg');
           var is3d = $content.hasClass('is3d');
           $themepicker.find('.is2d div.theme').hover(function() {
             $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
@@ -778,10 +778,16 @@ lichess.storage = {
             $themepicker.removeClass("shown");
           });
           var showBg = function(bg) {
-            $body.removeClass('light dark').addClass(bg);
-            if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
+            $body.removeClass('light dark transp')
+              .addClass(bg === 'transp' ? 'transp dark' : bg);
+            if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
               $('link[href*="common.css"]').clone().each(function() {
                 $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+              });
+            }
+            if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+              $('link[href*="common.css"]').clone().each(function() {
+                $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
               });
             }
           };

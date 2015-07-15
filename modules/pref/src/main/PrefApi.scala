@@ -27,6 +27,7 @@ final class PrefApi(
     def reads(r: BSON.Reader): Pref = Pref(
       _id = r str "_id",
       dark = r.getD("dark", Pref.default.dark),
+      transp = r.getD("transp", Pref.default.transp),
       is3d = r.getD("is3d", Pref.default.is3d),
       theme = r.getD("theme", Pref.default.theme),
       pieceSet = r.getD("pieceSet", Pref.default.pieceSet),
@@ -57,6 +58,7 @@ final class PrefApi(
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
       "_id" -> o._id,
       "dark" -> o.dark,
+      "transp" -> o.transp,
       "is3d" -> o.is3d,
       "theme" -> o.theme,
       "pieceSet" -> o.pieceSet,

@@ -9,6 +9,7 @@ import lila.user.User
 case class Pref(
     _id: String, // user id
     dark: Boolean,
+    transp: Boolean,
     is3d: Boolean,
     theme: String,
     pieceSet: String,
@@ -52,7 +53,7 @@ case class Pref(
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
   def get(name: String): Option[String] = name match {
-    case "bg"         => dark.fold("dark", "light").some
+    case "bg"         => transp.fold("transp", dark.fold("dark", "light")).some
     case "theme"      => theme.some
     case "pieceSet"   => pieceSet.some
     case "theme3d"    => theme3d.some
@@ -62,7 +63,9 @@ case class Pref(
     case _            => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
-    case "bg"         => Pref.bgs get value map { b => copy(dark = b) }
+    case "bg" =>
+      if (value == "transp") copy(dark = true, transp = true).some
+      else Pref.bgs get value map { b => copy(dark = b, transp = false) }
     case "theme"      => Theme.allByName get value map { t => copy(theme = t.name) }
     case "pieceSet"   => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
     case "theme3d"    => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
@@ -238,6 +241,7 @@ object Pref {
   lazy val default = Pref(
     _id = "",
     dark = false,
+    transp = false,
     is3d = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,
