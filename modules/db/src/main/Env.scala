@@ -1,9 +1,14 @@
 package lila.db
 
 import com.typesafe.config.Config
-import play.modules.reactivemongo.ReactiveMongoPlugin
+import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.DB
 import Types._
+
+import javax.inject.Inject
+class Wut @Inject() (val reactiveMongoApi: ReactiveMongoApi) {
+  lazy val db = reactiveMongoApi.db
+}
 
 final class Env(config: Config) {
 

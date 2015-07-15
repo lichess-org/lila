@@ -5,6 +5,7 @@ import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
 import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Move, Status }
 import play.api.data._
 import play.api.data.Forms._
+import scalaz.Validation.FlatMap._
 
 import lila.game._
 
