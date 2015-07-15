@@ -1,6 +1,7 @@
 package lila
 
 import reactivemongo.api._
+import reactivemongo.api.commands.WriteResult
 
 package object db extends PackageObject with WithPlay {
 
@@ -9,11 +10,7 @@ package object db extends PackageObject with WithPlay {
   type JsTubeInColl[A] = JsTube[A] with InColl[A]
   type BsTubeInColl[A] = BsTube[A] with InColl[A]
 
-  private val duplicateKeyMessage = "duplicate key error"
-
-  import reactivemongo.api.commands.WriteResult
-
   def recoverDuplicateKey[A](f: WriteResult => A): PartialFunction[Throwable, A] = {
-    case e: WriteResult if e.getMessage.contains(duplicateKeyMessage) => f(e)
+    case e: WriteResult if e.code.contains(11000) => f(e)
   }
 }
