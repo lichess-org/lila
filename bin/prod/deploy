@@ -82,12 +82,10 @@ RSYNC_OPTIONS=" \
   --checksum \
   --verbose \
   --exclude conf/application.conf \
-  --exclude logs \
   --exclude RUNNING_PID \
-  --exclude bin/.translate_version \
-  --exclude local \
   --exclude '*.psd' \
-  --exclude lib/lila.lila-0.1-SNAPSHOT-assets.jar";
+  --exclude '.git/' \
+  --exclude bin/.translate_version"
 
 if [ $mode != "main" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
@@ -96,7 +94,7 @@ fi
 
 lilalog "Rsync scripts, binaries and assets"
 stage="target/universal/stage"
-include="bin $stage/bin $stage/lib $stage/conf public submodules"
+include="bin $stage/bin $stage/lib public submodules"
 rsync_command="rsync $RSYNC_OPTIONS $include $REMOTE:$REMOTE_DIR"
 echo "$rsync_command"
 $rsync_command

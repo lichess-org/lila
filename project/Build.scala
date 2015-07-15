@@ -1,3 +1,4 @@
+import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
@@ -16,6 +17,12 @@ object ApplicationBuild extends Build {
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
+    // disable publishing the main API jar
+    publishArtifact in (Compile, packageDoc) := false,
+    // disable publishing the main sources jar
+    publishArtifact in (Compile, packageSrc) := false,
+    // don't stage the conf dir
+    externalizeResources := false,
     // offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
@@ -29,9 +36,11 @@ object ApplicationBuild extends Build {
         "lila.app.templating.Environment._",
         "lila.api.Context",
         "lila.common.paginator.Paginator"),
-        watchSources := (watchSources.value
-          --- baseDirectory.value / "public" ** "*"
-        ).get
+        watchSources <<= sourceDirectory in Compile map { sources =>
+          (sources ** "*").get
+        },
+        // trump sbt-web into not looking at public/
+        resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
   ) dependsOn api aggregate api
 
   lazy val modules = Seq(
