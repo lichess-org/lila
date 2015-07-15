@@ -499,5 +499,5 @@ keyboardShortcuts=Les raccourcis
 keyMoveBackwardOrForward=avancer/reculer
 keyGoToStartOrEnd=aller au début/à la fin
 keyShowOrHideComments=montrer/cacher des annotations
-keyEnterOrExitVariation=entrer dans/sortir une variation
+keyEnterOrExitVariation=entrer dans/sortir d'une variante
 keyYouCanDrawArrowsCirclesAndScrollToMove=Maintenir la touche majuscule enfoncée pour dessiner les flèches et cercles. Vous pouvez aussi utiliser la roulette de défilement pour changer de place.
