@@ -43,6 +43,8 @@ object PlayApp {
     enabled = enableScheduler && isServer,
     debug = loadConfig getBoolean "app.scheduler.debug")
 
+  def lifecycle = withApp(_.injector.instanceOf[play.api.inject.ApplicationLifecycle])
+
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)
   lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("forcedev")
