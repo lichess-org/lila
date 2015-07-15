@@ -27,7 +27,7 @@ object PlayerRepo {
   def byId(id: String): Fu[Option[Player]] = coll.find(selectId(id)).one[Player]
 
   def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player].collect[List](nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().collect[List](nb)
 
   def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
@@ -94,7 +94,7 @@ object PlayerRepo {
   def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
       selectTour(tourId) ++ BSONDocument("m" -> BSONDocument("$gt" -> 0))
-    ).cursor[Player].collect[List]()
+    ).cursor[Player]().collect[List]()
 
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
@@ -124,7 +124,7 @@ object PlayerRepo {
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
-    )).cursor[Player].collect[List]()
+    )).cursor[Player]().collect[List]()
 
   def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>

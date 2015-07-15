@@ -3,6 +3,8 @@ package controllers
 import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._, Results._
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 import lila.api.Context
 import lila.app._

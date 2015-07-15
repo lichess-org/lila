@@ -365,7 +365,7 @@ object GameRepo {
 
   def associatePgn(ids: Seq[ID]): Fu[Map[String, PgnMoves]] =
     gameTube.coll.find($select byIds ids)
-      .cursor[BSONDocument]
+      .cursor[BSONDocument]()
       .collect[List]() map2 { (obj: BSONDocument) =>
         extractPgnMoves(obj) flatMap { moves =>
           obj.getAs[String]("_id") map (_ -> moves)

@@ -13,7 +13,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
 
   def list(nb: Int) = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
-    .cursor[Donation]
+    .cursor[Donation]()
     .collect[List](nb)
 
   def top(nb: Int) = coll.find(BSONDocument(
@@ -21,20 +21,18 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
   )).sort(BSONDocument(
     "gross" -> -1,
     "date" -> -1
-  )).cursor[Donation]
+  )).cursor[Donation]()
     .collect[List](nb)
 
-  def create(donation: Donation) = coll insert donation recover {
-    case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") =>
-      println(e.getMessage)
-  } void
+  def create(donation: Donation) = coll insert donation recover
+    lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
 
   // in $ cents
   def donatedByUser(userId: String): Fu[Int] =
     coll.find(
       decentAmount ++ BSONDocument("userId" -> userId),
       BSONDocument("net" -> true, "_id" -> false)
-    ).cursor[BSONDocument].collect[List]() map2 { (obj: BSONDocument) =>
+    ).cursor[BSONDocument]().collect[List]() map2 { (obj: BSONDocument) =>
         ~obj.getAs[Int]("net")
       } map (_.sum)
 
@@ -47,7 +45,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
         "$lt" -> to
       )),
       BSONDocument("net" -> true, "_id" -> false)
-    ).cursor[BSONDocument].collect[List]() map2 { (obj: BSONDocument) =>
+    ).cursor[BSONDocument]().collect[List]() map2 { (obj: BSONDocument) =>
         ~obj.getAs[Int]("net")
       } map (_.sum) map { amount =>
         Progress(from, monthlyGoal, amount)

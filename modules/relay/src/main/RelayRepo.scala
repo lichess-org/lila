@@ -26,13 +26,13 @@ final class RelayRepo(coll: Coll) {
   def recentByName(name: String): Fu[Option[Relay]] =
     coll.find(selectEnabled ++ selectName(name) ++ selectRecent).one[Relay]
 
-  def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
+  def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay]().collect[List]()
 
   def startedTopRated(nb: Int): Fu[List[Relay]] =
-    coll.find(selectEnabledStarted).sort(sortElo).cursor[Relay].collect[List](nb)
+    coll.find(selectEnabledStarted).sort(sortElo).cursor[Relay]().collect[List](nb)
 
   def recent(nb: Int): Fu[List[Relay]] =
-    coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
+    coll.find(BSONDocument()).sort(sortRecent).cursor[Relay]().collect[List](nb)
 
   def exists(id: String): Fu[Boolean] = coll.count(selectId(id).some) map (0 !=)
 
@@ -40,7 +40,7 @@ final class RelayRepo(coll: Coll) {
     coll.find(selectStarted ++ BSONDocument(
       "elo" -> BSONDocument("$exists" -> false),
       "games.0" -> BSONDocument("$exists" -> true)
-    )).cursor[Relay].collect[List]()
+    )).cursor[Relay]().collect[List]()
 
   def setElo(id: String, elo: Int) = coll.update(
     selectId(id),

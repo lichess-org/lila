@@ -25,7 +25,7 @@ final class SeekApi(
   private def allCursor =
     coll.find(BSONDocument())
       .sort(BSONDocument("createdAt" -> -1))
-      .cursor[Seek]
+      .cursor[Seek]()
 
   private val cache = AsyncCache[CacheKey, List[Seek]](
     f = {
@@ -69,7 +69,7 @@ final class SeekApi(
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.find(BSONDocument("user.id" -> userId))
       .sort(BSONDocument("createdAt" -> -1))
-      .cursor[Seek].collect[List]()
+      .cursor[Seek]().collect[List]()
 
   def remove(seek: Seek) =
     coll.remove(BSONDocument("_id" -> seek.id)).void >> cache.clear

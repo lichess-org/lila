@@ -1,6 +1,6 @@
 package lila.i18n
 
-import play.api.i18n.{ MessagesApi, Lang }
+import play.api.i18n.Lang
 
 case class TransInfo(
     lang: Lang,
@@ -37,15 +37,15 @@ private[i18n] object TransInfos {
 
   val defaultCode = "en"
 
-  def apply(api: MessagesApi, keys: I18nKeys): TransInfos = TransInfos {
+  def apply(messages: Messages, keys: I18nKeys): TransInfos = TransInfos {
     val nbMessages = keys.count
     LangList.sortedList.filter(_._1 != defaultCode) map {
       case (code, name) => TransInfo(
         lang = Lang(code),
         name = name,
         contributors = Contributors(code),
-        nbTranslated = api.messages.get(code) ?? (_.size),
-        nbMissing = nbMessages - (api.messages.get(code) ?? (_.size))
+        nbTranslated = messages.get(code) ?? (_.size),
+        nbMissing = nbMessages - (messages.get(code) ?? (_.size))
       )
     }
   }

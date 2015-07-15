@@ -63,7 +63,7 @@ object UserSpy {
           "ip" -> BSONDocument("$nin" -> ips)
         ),
         BSONDocument("ip" -> true)
-      ).cursor[BSONDocument].collect[List]() map {
+      ).cursor[BSONDocument]().collect[List]() map {
           _.flatMap(_.getAs[IP]("ip")).toSet
         }
     }
@@ -76,7 +76,7 @@ object UserSpy {
           "user" -> BSONDocument("$nin" -> users.map(_.id))
         ),
         BSONDocument("user" -> true)
-      ).cursor[BSONDocument].collect[List]() map {
+      ).cursor[BSONDocument]().collect[List]() map {
           _.flatMap(_.getAs[String]("user"))
         } flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)

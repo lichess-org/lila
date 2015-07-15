@@ -26,22 +26,22 @@ object PairingRepo {
   def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).one[Pairing]
 
   def recentByTour(tourId: String, nb: Int): Fu[List[Pairing]] =
-    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing].collect[List](nb)
+    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
   def recentByTourAndUserIds(tourId: String, userIds: Iterable[String], nb: Int): Fu[List[Pairing]] =
     coll.find(
       selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds))
-    ).sort(recentSort).cursor[Pairing].collect[List](nb)
+    ).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
   def count(tourId: String): Fu[Int] =
-    coll.db command Count(coll.name, selectTour(tourId).some)
+    coll.count(selectTour(tourId).some)
 
   def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: String): Fu[List[Pairing]] =
-    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing].collect[List]()
+    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().collect[List]()
 
   def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
@@ -49,7 +49,7 @@ object PairingRepo {
   def finishedByPlayerChronological(tourId: String, userId: String): Fu[List[Pairing]] =
     coll.find(
       selectTourUser(tourId, userId) ++ selectFinished
-    ).sort(chronoSort).cursor[Pairing].collect[List]()
+    ).sort(chronoSort).cursor[Pairing]().collect[List]()
 
   def insert(pairing: Pairing) = coll.insert {
     pairingHandler.write(pairing) ++ BSONDocument("d" -> DateTime.now)

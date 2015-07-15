@@ -2,14 +2,13 @@ package lila.i18n
 
 import com.typesafe.config.Config
 import play.api.i18n.Lang
-import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.libs.json._
 
 final class Env(
     config: Config,
     db: lila.db.Env,
     system: akka.actor.ActorSystem,
-    val messagesApi: MessagesApi,
+    messages: Messages,
     captcher: akka.actor.ActorSelection,
     appPath: String) {
 
@@ -37,7 +36,7 @@ final class Env(
     default = I18nKey.en)
 
   lazy val translator = new Translator(
-    api = messagesApi,
+    messages = messages,
     pool = pool)
 
   lazy val keys = new I18nKeys(translator)
@@ -56,10 +55,10 @@ final class Env(
     path = appPath + "/" + FilePathRelative,
     pool = pool,
     keys = keys,
-    api = messagesApi)
+    messages = messages)
 
   lazy val transInfos = TransInfos(
-    api = messagesApi,
+    messages = messages,
     keys = keys)
 
   lazy val forms = new DataForm(
@@ -103,9 +102,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
     system = PlayApp.system,
-    messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])
-      .err("this plugin was not registered or disabled")
-      .api,
+    messages = PlayApp.messages,
     captcher = lila.hub.Env.current.actor.captcher,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )

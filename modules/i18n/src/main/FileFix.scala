@@ -3,21 +3,19 @@ package lila.i18n
 import java.io._
 import scala.concurrent.Future
 
-import play.api.i18n.{ MessagesApi, Lang }
+import play.api.i18n.Lang
 
 private[i18n] final class FileFix(
     pool: I18nPool,
     path: String,
     keys: I18nKeys,
-    api: MessagesApi) {
+    messages: Messages) {
 
   val apply: Funit =
     Future.traverse(pool.nonDefaultLangs.toList)(fix).void
 
-  private def fix(lang: Lang): Funit = {
-    val messages = sanitize((api.messages get lang.language) | Map.empty)
-    write(lang, messages)
-  }
+  private def fix(lang: Lang): Funit =
+    write(lang, sanitize((messages get lang.language) | Map.empty))
 
   private def sanitize(messages: Map[String, String]) =
     keys.keys map { key =>

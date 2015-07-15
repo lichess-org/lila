@@ -3,6 +3,8 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -12,7 +14,7 @@ import lila.setup.{ HookConfig, ValidFen }
 import lila.user.UserRepo
 import views._
 
-object Setup extends LilaController with TheftPrevention with play.api.http.ContentTypes {
+object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 

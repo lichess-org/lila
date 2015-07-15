@@ -107,7 +107,7 @@ final class PrefApi(
     coll.find(BSONDocument(
       "_id" -> BSONDocument("$in" -> userIds),
       "follow" -> false
-    ), BSONDocument("_id" -> true)).cursor[BSONDocument].collect[List]() map {
+    ), BSONDocument("_id" -> true)).cursor[BSONDocument]().collect[List]() map {
       _.flatMap(_.getAs[String]("_id")).toSet
     }
 

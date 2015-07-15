@@ -82,7 +82,7 @@ private[video] final class VideoApi(
       videoColl.find(
         BSONDocument(),
         BSONDocument("_id" -> true)
-      ).cursor[BSONDocument].collect[List]() map { doc =>
+      ).cursor[BSONDocument]().collect[List]() map { doc =>
           doc flatMap (_.getAs[String]("_id"))
         }
 
@@ -128,7 +128,7 @@ private[video] final class VideoApi(
         "tags" -> BSONDocument("$in" -> video.tags),
         "_id" -> BSONDocument("$ne" -> video.id)
       )).sort(BSONDocument("metadata.likes" -> -1))
-        .cursor[Video]
+        .cursor[Video]()
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
@@ -152,9 +152,8 @@ private[video] final class VideoApi(
         View.BSONFields.id -> View.makeId(videoId, userId)
       )).one[View]
 
-    def add(a: View) = (viewColl insert a).void recover {
-      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
-    }
+    def add(a: View) = (viewColl insert a).void recover
+      lila.db.recoverDuplicateKey(_ => ())
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
       viewColl.count(BSONDocument(
@@ -169,7 +168,7 @@ private[video] final class VideoApi(
           })
         ),
         BSONDocument(View.BSONFields.videoId -> true, "_id" -> false)
-      ).cursor[BSONDocument].collect[List]() map { docs =>
+      ).cursor[BSONDocument]().collect[List]() map { docs =>
           docs.flatMap(_.getAs[String](View.BSONFields.videoId)).toSet
         }
   }

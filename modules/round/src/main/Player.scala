@@ -3,6 +3,7 @@ package lila.round
 import chess.format.Forsyth
 import chess.Pos.posAt
 import chess.{ Status, Role, Color }
+import scalaz.Validation.FlatMap._
 
 import actorApi.round.{ HumanPlay, AiPlay, RelayPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import akka.actor.ActorRef

@@ -11,6 +11,7 @@ import chess.{ Color, Move, PromotableRole, Pos }
 import lila.game.{ Game, Player, Source, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
+import scalaz.Validation.FlatMap._
 
 final class Importer(
     roundMap: ActorSelection,

@@ -26,7 +26,7 @@ object PlayTime {
           moveTimeField -> true,
           tvField -> true
         ))
-        .cursor[BSONDocument]
+        .cursor[BSONDocument]()
         .enumerate() |>>> (Iteratee.fold(User.PlayTime(0, 0)) {
           case (pt, doc) =>
             val t = doc.getAs[ByteArray](moveTimeField) ?? { times =>

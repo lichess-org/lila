@@ -41,11 +41,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     simulColl.find(BSONDocument("_id" -> id)).one[Simul]
 
   def exists(id: Simul.ID): Fu[Boolean] =
-    simulColl.db command Count(simulColl.name, BSONDocument("_id" -> id).some) map (0 !=)
+    simulColl.count(BSONDocument("_id" -> id).some) map (0 !=)
 
   def createdByHostId(hostId: String): Fu[List[Simul]] =
     simulColl.find(createdSelect ++ BSONDocument("hostId" -> hostId))
-      .cursor[Simul].collect[List]()
+      .cursor[Simul]().collect[List]()
 
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
@@ -55,27 +55,27 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allCreated: Fu[List[Simul]] = simulColl.find(
     createdSelect
-  ).sort(createdSort).cursor[Simul].collect[List]()
+  ).sort(createdSort).cursor[Simul]().collect[List]()
 
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
     createdSelect ++ BSONDocument(
       "createdAt" -> BSONDocument("$gte" -> DateTime.now.minusMinutes(15)),
       "hostRating" -> BSONDocument("$gte" -> 1700)
     )
-  ).sort(createdSort).cursor[Simul].collect[List]()
+  ).sort(createdSort).cursor[Simul]().collect[List]()
 
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
-  ).sort(createdSort).cursor[Simul].collect[List]()
+  ).sort(createdSort).cursor[Simul]().collect[List]()
 
   def allFinished(max: Int): Fu[List[Simul]] = simulColl.find(
     finishedSelect
-  ).sort(createdSort).cursor[Simul].collect[List](max)
+  ).sort(createdSort).cursor[Simul]().collect[List](max)
 
   def allNotFinished =
     simulColl.find(
       BSONDocument("status" -> BSONDocument("$ne" -> SimulStatus.Finished.id))
-    ).cursor[Simul].collect[List]()
+    ).cursor[Simul]().collect[List]()
 
   def create(simul: Simul): Funit =
     simulColl insert simul void

@@ -41,9 +41,7 @@ private[opening] final class Finisher(
             )) ++ BSONDocument("$set" -> BSONDocument(
               Opening.BSONFields.perf -> Perf.perfBSONHandler.write(openingPerf)
             ))) zip UserRepo.setPerf(user.id, "opening", userPerf)
-        }) recover {
-          case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
-        } inject (a -> none)
+        }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
   }
 

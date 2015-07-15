@@ -12,5 +12,5 @@ object $cursor {
     apply($query(q))
 
   def apply[A: TubeInColl](b: QueryBuilder): Cursor[Option[A]] =
-    b.cursor[Option[A]]
+    b.cursor[Option[A]]()
 }
