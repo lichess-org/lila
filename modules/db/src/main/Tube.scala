@@ -4,7 +4,6 @@ import scala.util.{ Try, Success, Failure }
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson._
 import Reads.constraints._
 import Types.Coll
@@ -38,6 +37,8 @@ case class JsTube[Doc](
     with Reads[Doc]
     with Writes[Doc] {
 
+  import play.modules.reactivemongo.json._
+
   implicit def reads(js: JsValue): JsResult[Doc] = reader reads js
   implicit def writes(doc: Doc): JsValue = writer writes doc
 
@@ -56,7 +57,7 @@ case class JsTube[Doc](
   def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
     case obj: JsObject => JsSuccess(obj)
     case something =>
-      logerr("[tube] Cannot write %s\ngot %s".format(doc, something))
+      logerr(s"[tube] Cannot write $doc\ngot $something")
       JsError()
   }
 

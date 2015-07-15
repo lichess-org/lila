@@ -21,14 +21,16 @@ object BSONHandlers {
       name = r str "name",
       status = r.get[Relay.Status]("status"),
       date = r date "date",
-      games = r.get[List[Relay.Game]]("games"))
+      games = r.get[List[Relay.Game]]("games"),
+      enabled = r bool "enabled")
     def writes(w: BSON.Writer, o: Relay) = BSONDocument(
       "_id" -> o.id,
       "ficsId" -> o.ficsId,
       "name" -> o.name,
       "status" -> o.status,
       "date" -> w.date(o.date),
-      "games" -> o.games)
+      "games" -> o.games,
+      "enabled" -> o.enabled)
   }
 
   implicit val ContentBSONHandler = Macros.handler[Content]

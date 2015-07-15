@@ -18,7 +18,7 @@ final class ContentApi(coll: Coll) {
 
   def byIds(ids: Seq[String]): Fu[List[Content]] = coll.find(
     BSONDocument("_id" -> BSONDocument("$in" -> ids))
-  ).cursor[Content].collect[List]()
+  ).cursor[Content]().collect[List]()
 
   def byRelays(relays: Seq[Relay]): Fu[List[Content]] = byIds(relays.map(Content.mkId).distinct)
 

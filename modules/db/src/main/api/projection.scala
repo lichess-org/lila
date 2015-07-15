@@ -3,11 +3,11 @@ package api
 
 import Implicits._
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson._
 
 object $projection {
-
+  import play.modules.reactivemongo.json._
+  
   def apply[A: InColl, B](
     q: JsObject,
     fields: Seq[String],

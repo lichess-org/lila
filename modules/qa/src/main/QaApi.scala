@@ -3,7 +3,6 @@ package lila.qa
 import scala.concurrent.duration._
 
 import reactivemongo.bson._
-import reactivemongo.core.commands.Count
 
 import org.joda.time.DateTime
 import spray.caching.{ LruCache, Cache }
@@ -62,14 +61,14 @@ final class QaApi(
       questionColl.find(BSONDocument("_id" -> id)).one[Question]
 
     def findByIds(ids: List[QuestionId]): Fu[List[Question]] =
-      questionColl.find(BSONDocument("_id" -> BSONDocument("$in" -> ids.distinct))).cursor[Question].collect[List]()
+      questionColl.find(BSONDocument("_id" -> BSONDocument("$in" -> ids.distinct))).cursor[Question]().collect[List]()
 
     def accept(q: Question) = questionColl.update(
       BSONDocument("_id" -> q.id),
       BSONDocument("$set" -> BSONDocument("acceptedAt" -> DateTime.now))
     )
 
-    def count: Fu[Int] = questionColl.db command Count(questionColl.name, None)
+    def count: Fu[Int] = questionColl.count(None)
 
     def recentPaginator(page: Int, perPage: Int): Fu[Paginator[Question]] =
       paginator(BSONDocument(), BSONDocument("createdAt" -> -1), page, perPage)
@@ -89,7 +88,7 @@ final class QaApi(
       prefix = "qa:popular",
       f = (nb: Int) => questionColl.find(BSONDocument())
         .sort(BSONDocument("vote.score" -> -1))
-        .cursor[Question].collect[List](nb),
+        .cursor[Question]().collect[List](nb),
       timeToLive = 3 hour)
 
     def popular(max: Int): Fu[List[Question]] = popularCache(max)
@@ -97,10 +96,10 @@ final class QaApi(
     def byTag(tag: String, max: Int): Fu[List[Question]] =
       questionColl.find(BSONDocument("tags" -> tag.toLowerCase))
         .sort(BSONDocument("vote.score" -> -1))
-        .cursor[Question].collect[List](max)
+        .cursor[Question]().collect[List](max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument("tags" -> BSONDocument("$in" -> tags.map(_.toLowerCase)))).cursor[Question].collect[List](max)
+      questionColl.find(BSONDocument("tags" -> BSONDocument("$in" -> tags.map(_.toLowerCase)))).cursor[Question]().collect[List](max)
 
     def addComment(c: Comment)(q: Question) = questionColl.update(
       BSONDocument("_id" -> q.id),
@@ -192,7 +191,7 @@ final class QaApi(
     def popular(questionId: QuestionId): Fu[List[Answer]] =
       answerColl.find(BSONDocument("questionId" -> questionId))
         .sort(BSONDocument("vote.score" -> -1))
-        .cursor[Answer].collect[List]()
+        .cursor[Answer]().collect[List]()
 
     def zipWithQuestions(answers: List[Answer]): Fu[List[AnswerWithQuestion]] =
       question.findByIds(answers.map(_.questionId)) map { qs =>
@@ -252,7 +251,7 @@ final class QaApi(
       }
 
     def countByQuestionId(id: QuestionId) =
-      answerColl.db command Count(answerColl.name, Some(BSONDocument("questionId" -> id)))
+      answerColl.count(Some(BSONDocument("questionId" -> id)))
   }
 
   object comment {

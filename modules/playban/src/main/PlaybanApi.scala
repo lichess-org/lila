@@ -64,7 +64,7 @@ final class PlaybanApi(
   def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
     BSONDocument("_id" -> BSONDocument("$in" -> userIds)),
     BSONDocument("b" -> true)
-  ).cursor[BSONDocument].collect[List]().map {
+  ).cursor[BSONDocument]().collect[List]().map {
       _.flatMap { obj =>
         obj.getAs[String]("_id") flatMap { id =>
           obj.getAs[BSONArray]("b") map { id -> _.stream.size }
@@ -72,19 +72,16 @@ final class PlaybanApi(
       }.toMap
     }
 
-  private def save(outcome: Outcome): String => Funit = userId => coll.db.command {
-    FindAndModify(
-      collection = coll.name,
-      query = BSONDocument("_id" -> userId),
-      modify = Update(
-        update = BSONDocument("$push" -> BSONDocument(
-          "o" -> BSONDocument(
-            "$each" -> List(outcome),
-            "$slice" -> -20)
-        )),
-        fetchNewObject = true),
-      upsert = true
-    )
+  private def save(outcome: Outcome): String => Funit = userId => {
+    coll.findAndUpdate(
+      selector = BSONDocument("_id" -> userId),
+      update = BSONDocument("$push" -> BSONDocument(
+        "o" -> BSONDocument(
+          "$each" -> List(outcome),
+          "$slice" -> -20)
+      )),
+      fetchNewObject = true,
+      upsert = true).map(_.value)
   } map2 UserRecordBSONHandler.read flatMap {
     case None         => fufail(s"can't find record for user $userId")
     case Some(record) => legiferate(record)

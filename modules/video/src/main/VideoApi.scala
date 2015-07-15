@@ -82,7 +82,7 @@ private[video] final class VideoApi(
       videoColl.find(
         BSONDocument(),
         BSONDocument("_id" -> true)
-      ).cursor[BSONDocument].collect[List]() map { doc =>
+      ).cursor[BSONDocument]().collect[List]() map { doc =>
           doc flatMap (_.getAs[String]("_id"))
         }
 
@@ -128,7 +128,7 @@ private[video] final class VideoApi(
         "tags" -> BSONDocument("$in" -> video.tags),
         "_id" -> BSONDocument("$ne" -> video.id)
       )).sort(BSONDocument("metadata.likes" -> -1))
-        .cursor[Video]
+        .cursor[Video]()
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
@@ -136,7 +136,7 @@ private[video] final class VideoApi(
     object count {
 
       private val cache = AsyncCache.single(
-        f = videoColl.db command Count(videoColl.name, none),
+        f = videoColl.count(none),
         timeToLive = 1.day)
 
       def clearCache = cache.clear
@@ -157,7 +157,7 @@ private[video] final class VideoApi(
     }
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
-      viewColl.db command Count(viewColl.name, BSONDocument(
+      viewColl.count(BSONDocument(
         View.BSONFields.id -> View.makeId(video.id, user.id)
       ).some) map (0!=)
 
@@ -169,7 +169,7 @@ private[video] final class VideoApi(
           })
         ),
         BSONDocument(View.BSONFields.videoId -> true, "_id" -> false)
-      ).cursor[BSONDocument].collect[List]() map { docs =>
+      ).cursor[BSONDocument]().collect[List]() map { docs =>
           docs.flatMap(_.getAs[String](View.BSONFields.videoId)).toSet
         }
   }

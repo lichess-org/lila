@@ -32,6 +32,13 @@
   @trans.nbConnectedPlayers("<strong>?</strong>")
 </div>
 <div id="nb_games_in_play">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</div>
+@if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
+@mobile.googlePlayButton()
+} else {
+@if(lila.common.HTTPRequest.isIOS(ctx.req)) {
+@mobile.appleStoreButton()
+}
+}
 }
 
 @moreJs = {

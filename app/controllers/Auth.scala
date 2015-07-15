@@ -20,7 +20,7 @@ object Auth extends LilaController {
     lila.game.GameRepo urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u, extended = true) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
+          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
       }
     }
 

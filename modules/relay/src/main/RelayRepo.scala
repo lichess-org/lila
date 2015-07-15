@@ -13,34 +13,34 @@ final class RelayRepo(coll: Coll) {
   private def selectId(id: String) = BSONDocument("_id" -> id)
   private def selectName(name: String) = BSONDocument("name" -> name)
   private val selectStarted = BSONDocument("status" -> Relay.Status.Started.id)
+  private val selectEnabled = BSONDocument("enabled" -> true)
+  private val selectEnabledStarted = selectEnabled ++ selectStarted
   private val selectRecent = BSONDocument("date" -> BSONDocument("$gt" -> DateTime.now.minusWeeks(2)))
   private[relay] val selectNonEmpty = BSONDocument("games.0.id" -> BSONDocument("$exists" -> true))
+  private[relay] val selectPresentable = selectEnabled ++ selectNonEmpty
   private[relay] val sortRecent = BSONDocument("date" -> -1)
   private[relay] val sortElo = BSONDocument("elo" -> -1)
 
   def byId(id: String): Fu[Option[Relay]] = coll.find(selectId(id)).one[Relay]
 
   def recentByName(name: String): Fu[Option[Relay]] =
-    coll.find(selectName(name) ++ selectRecent).one[Relay]
+    coll.find(selectEnabled ++ selectName(name) ++ selectRecent).one[Relay]
 
-  def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay].collect[List]()
-  def startedNonEmpty: Fu[List[Relay]] = coll.find(selectStarted ++ selectNonEmpty).cursor[Relay].collect[List]()
+  def started: Fu[List[Relay]] = coll.find(selectStarted).cursor[Relay]().collect[List]()
+
   def startedTopRated(nb: Int): Fu[List[Relay]] =
-    coll.find(selectStarted).sort(sortElo).cursor[Relay].collect[List]()
+    coll.find(selectEnabledStarted).sort(sortElo).cursor[Relay]().collect[List](nb)
 
   def recent(nb: Int): Fu[List[Relay]] =
-    coll.find(BSONDocument()).sort(sortRecent).cursor[Relay].collect[List](nb)
-  def recentNonEmpty(nb: Int): Fu[List[Relay]] =
-    coll.find(selectNonEmpty).sort(sortRecent).cursor[Relay].collect[List](nb)
+    coll.find(BSONDocument()).sort(sortRecent).cursor[Relay]().collect[List](nb)
 
-  def exists(id: String): Fu[Boolean] =
-    coll.db command Count(coll.name, selectId(id).some) map (0 !=)
+  def exists(id: String): Fu[Boolean] = coll.count(selectId(id).some) map (0 !=)
 
   def withGamesButNoElo: Fu[List[Relay]] =
     coll.find(selectStarted ++ BSONDocument(
       "elo" -> BSONDocument("$exists" -> false),
       "games.0" -> BSONDocument("$exists" -> true)
-    )).cursor[Relay].collect[List]()
+    )).cursor[Relay]().collect[List]()
 
   def setElo(id: String, elo: Int) = coll.update(
     selectId(id),

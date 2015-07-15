@@ -2,11 +2,11 @@ package lila.db
 package api
 
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson._
 import Types.Coll
 
 object $insert {
+  import play.modules.reactivemongo.json._
 
   def apply[A: JsTubeInColl](doc: A): Funit =
     (implicitly[JsTube[A]] toMongo doc).fold(e => fufail(e.toString), apply(_))

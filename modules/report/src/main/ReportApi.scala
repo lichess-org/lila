@@ -13,7 +13,7 @@ import tube.reportTube
 private[report] final class ReportApi {
 
   def create(setup: ReportSetup, by: User): Funit =
-    Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
+    Reason(setup.reason).fold[Funit](fufail(s"Invalid report reason ${setup.reason}")) { reason =>
       val user = setup.user
       val report = Report.make(
         user = setup.user,
@@ -25,7 +25,7 @@ private[report] final class ReportApi {
           selectRecent(user, reason),
           Json.obj("$set" -> (reportTube.toMongo(report).get - "processedBy" - "_id"))
         ) flatMap { res =>
-            (!res.updatedExisting) ?? $insert(report)
+            (res.n == 0) ?? $insert(report)
           }
         else $insert(report)
       }

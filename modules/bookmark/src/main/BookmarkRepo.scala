@@ -2,8 +2,6 @@ package lila.bookmark
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-
 import lila.db.api._
 import lila.db.Implicits._
 import tube.bookmarkTube
@@ -11,7 +9,6 @@ import tube.bookmarkTube
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
 private[bookmark] object BookmarkRepo {
-
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     $count exists selectId(gameId, userId) flatMap { e =>
       e.fold(

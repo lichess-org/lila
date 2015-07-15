@@ -1,7 +1,6 @@
 package lila.timeline
 
 import reactivemongo.bson._
-import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
 
@@ -20,12 +19,12 @@ private[timeline] final class UnsubApi(coll: Coll) {
   }
 
   def get(channel: String, userId: String): Fu[Boolean] =
-    coll.db command Count(coll.name, select(channel, userId).some) map (0 !=)
+    coll.count(select(channel, userId).some) map (0 !=)
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     coll.find(BSONDocument(
       "_id" -> BSONDocument("$in" -> userIds.map { makeId(channel, _) })
-    )).cursor[BSONDocument].collect[List]() map { docs =>
+    )).cursor[BSONDocument]().collect[List]() map { docs =>
       userIds diff docs.flatMap {
         _.getAs[String]("_id") map (_ takeWhile ('@' !=))
       }

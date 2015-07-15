@@ -61,7 +61,7 @@ final class CrosstableApi(coll: Coll) {
   }
 
   private def exists(u1: String, u2: String) =
-    coll.db command Count(coll.name, select(u1, u2).some) map (0 !=)
+    coll.count(select(u1, u2).some) map (0 !=)
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
@@ -78,7 +78,7 @@ final class CrosstableApi(coll: Coll) {
             selector,
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-            .cursor[BSONDocument].collect[List](maxGames).map {
+            .cursor[BSONDocument]().collect[List](maxGames).map {
               _.map { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))
@@ -86,7 +86,7 @@ final class CrosstableApi(coll: Coll) {
               }.flatten.reverse
             }
 
-          nbGames <- tube.gameTube.coll.db command Count(tube.gameTube.coll.name, selector.some)
+          nbGames <- tube.gameTube.coll.count(selector.some)
 
           ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults, nbGames)
 

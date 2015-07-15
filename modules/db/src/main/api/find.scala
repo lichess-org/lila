@@ -3,7 +3,6 @@ package api
 
 import Implicits._
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson._
 
 object $find {
@@ -51,9 +50,4 @@ object $find {
 
   def apply[A: TubeInColl](b: QueryBuilder, nb: Int): Fu[List[A]] =
     b.toList[Option[A]](nb.some) map (_.flatten)
-
-  // useful in capped collections
-  // def recent[A: TubeInColl](max: Int): Fu[List[A]] = (
-  //   pimpQB($query.all).sort($sort.naturalOrder)
-  // ).cursor[Option[A]] toList max map (_.flatten)
 }

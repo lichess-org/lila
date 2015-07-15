@@ -2,7 +2,6 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONArray }
-import reactivemongo.core.commands.Count
 
 import BSONHandlers._
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -49,7 +48,7 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def allEnterable: Fu[List[Tournament]] = coll.find(enterableSelect).cursor[Tournament].collect[List]()
+  def allEnterable: Fu[List[Tournament]] = coll.find(enterableSelect).cursor[Tournament]().collect[List]()
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).toList[Tournament](None)
 
@@ -59,12 +58,12 @@ object TournamentRepo {
   def publicStarted: Fu[List[Tournament]] =
     coll.find(startedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false)))
       .sort(BSONDocument("createdAt" -> -1))
-      .cursor[Tournament].collect[List]()
+      .cursor[Tournament]().collect[List]()
 
   def finished(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect)
       .sort(BSONDocument("startsAt" -> -1))
-      .cursor[Tournament].collect[List](limit)
+      .cursor[Tournament]().collect[List](limit)
 
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect ++ BSONDocument(
@@ -73,7 +72,7 @@ object TournamentRepo {
         scheduledSelect
       )))
       .sort(BSONDocument("startsAt" -> -1))
-      .cursor[Tournament].collect[List](limit)
+      .cursor[Tournament]().collect[List](limit)
 
   def setStatus(tourId: String, status: Status) = coll.update(
     selectId(tourId),
@@ -99,10 +98,10 @@ object TournamentRepo {
 
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
     allCreatedSelect(aheadMinutes) ++ BSONDocument("private" -> BSONDocument("$exists" -> false))
-  ).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+  ).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament]().collect[List]()
 
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament].collect[List]()
+    coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament]().collect[List]()
 
   private def stillWorthEntering: Fu[List[Tournament]] =
     coll.find(startedSelect ++ BSONDocument(
@@ -121,11 +120,11 @@ object TournamentRepo {
 
   def scheduledUnfinished: Fu[List[Tournament]] =
     coll.find(scheduledSelect ++ unfinishedSelect)
-      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament]().collect[List]()
 
   def scheduledCreated: Fu[List[Tournament]] =
     coll.find(createdSelect ++ scheduledSelect)
-      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament]().collect[List]()
 
   def scheduledDedup: Fu[List[Tournament]] = scheduledCreated map {
     import Schedule.Freq
@@ -154,8 +153,8 @@ object TournamentRepo {
 
   def remove(tour: Tournament) = coll.remove(BSONDocument("_id" -> tour.id))
 
-  def exists(id: String) = coll.db command Count(coll.name, BSONDocument("_id" -> id).some) map (0 !=)
+  def exists(id: String) = coll.count(BSONDocument("_id" -> id).some) map (0 !=)
 
   def isFinished(id: String): Fu[Boolean] =
-    coll.db command Count(coll.name, BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
+    coll.count(BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
 }

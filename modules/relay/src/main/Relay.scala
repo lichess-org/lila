@@ -10,7 +10,8 @@ case class Relay(
     name: String,
     status: Relay.Status,
     date: DateTime,
-    games: List[Relay.Game]) {
+    games: List[Relay.Game],
+    enabled: Boolean) {
 
   def baseName = name.takeWhile('-'!=).trim
 
@@ -46,7 +47,8 @@ object Relay {
     name = name,
     status = status,
     date = DateTime.now,
-    games = Nil)
+    games = Nil,
+    enabled = !name.split(' ').contains("test"))
 
   case class Mini(id: String, name: String, slug: String)
   object Mini {
