@@ -66,7 +66,12 @@ final class Env(
 
   lazy val contentApi = new ContentApi(db(CollectionContent))
 
-  lazy val api = new RelayApi(relayColl, contentApi, mainFics, repo, tourneyMap)
+  lazy val api = new RelayApi(
+    relayColl,
+    contentApi,
+    mainFics,
+    repo,
+    tourneyMap)
 
   private val importer = new Importer(
     hub.actor.roundMap,

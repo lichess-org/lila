@@ -11,7 +11,9 @@ body.transp input,
 body.transp button,
 body.transp textarea,
 body.transp div.analysis_menu > a.active,
-body.transp div.chat_menu > a {
+body.transp div.chat_menu > a,
+body.transp div.current_player div.player p,
+body.transp div.vstext {
   color: #ccc;
 }
 body.transp::before {
@@ -22,15 +24,16 @@ body.transp::before {
   top: 0;
   left: 0;
   background-color: white;
-  background: url(../images/background/afrosamurai.jpg) no-repeat center center;
+  /* background: url(../images/background/afrosamurai.jpg) no-repeat center center; */
   /* background: url(../images/background/bench.jpg) no-repeat center center; */
   /* background: url(../images/background/lamps.jpg) no-repeat center center; */
   /* background: url(../images/background/cubes.jpg) no-repeat center center; */
-  /* background: url(../images/background/landscape.jpg) no-repeat center center; */
+  background: url(../images/background/landscape.jpg) no-repeat center center;
   background-size: cover;
   will-change: transform;
   z-index: -1;
 }
+body.transp div.training .box,
 body.transp div.side_box,
 body.transp div.table,
 body.transp div.table_wrap > div.clock > div.time,
@@ -38,21 +41,20 @@ body.transp #friend_box .content a:hover,
 body.transp div.undertable_inner,
 body.transp div.table .loader:before,
 body.transp div.table .loader:after,
-body.transp div.chat_menu > a.active {
-  background: rgba(0, 0, 0, 0.6);
-}
+body.transp div.chat_menu > a.active,
 body.transp #hooks_wrap,
 body.transp #hooks_wrap div.tabs a:hover,
 body.transp #hooks_wrap div.tabs a.active,
-body.transp #tournament_schedule {
-  background: rgba(0, 0, 0, 0.6);
-}
+body.transp #tournament_schedule,
+body.transp #friend_box,
+body.transp .analysis_panels > div,
 body.transp .button:hover,
 body.transp a.button:hover,
 body.transp .ui-state-hover,
 body.transp #topmenu section:hover > a,
 body.transp #topmenu div,
 body.transp #start_buttons a,
+body.transp .analyse .lichess_ground .replay,
 body.transp .lichess_ground .replay .turn .index,
 body.transp .lichess_ground .analyse .meta,
 body.transp .lichess_ground .replay a.move:hover,
@@ -66,12 +68,34 @@ body.transp #site_header div.side_menu a.active,
 body.transp #tournament_side,
 body.transp table.translations tbody tr,
 body.transp form.translation_form div.message,
-body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.transp #video_side .tag_list a.checked,
 body.transp div.content_box .loader:before,
-body.transp div.content_box .loader:after {
+body.transp div.content_box .loader:after,
+body.transp #powerTip,
+body.transp div.vstext {
   background: rgba(0, 0, 0, 0.6);
 }
+body.transp #board_editor,
+body.transp #video .content_box_top form input,
+body.transp input,
+body.transp textarea,
+body.transp div.analysis_menu > a.active,
+body.transp div.chat_menu > a,
+body.transp #opening .meter,
+body.transp div.game_row:nth-child(odd),
+body.transp #lichess_forum table.forum_table tr:nth-child(odd),
+body.transp #lichess_message tr:nth-child(even),
+body.transp table.slist tbody tr:nth-child(even),
+body.transp #team .forum li:nth-child(odd),
+body.transp table.translations tbody tr:nth-child(odd),
+body.transp form.translation_form div.message:nth-child(even),
+body.transp div.content_box table.datatable tr:nth-child(odd),
+body.transp div.game_config .optional_config,
+body.transp div.game_config .ratings,
+body.transp div.search_status {
+  background: rgba(0, 0, 0, 0.3);
+}
+body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.transp #chat .messages,
 body.transp #tournament_schedule {
   background: none;
@@ -94,7 +118,24 @@ body.transp #start_buttons a {
 body.transp #start_buttons a:hover {
   background: rgba(20, 20, 20, 0.6);
 }
+body.transp #top a.toggle,
+body.transp #top #sound_state,
+body.transp #tv_channels,
+body.transp #video_side,
+body.transp #video_side a,
+body.transp .side div.user_lists,
+body.transp .side div.user_lists a,
+body.transp #opening .identified,
+body.transp #puzzle .right .retry,
+body.transp #trainer .explanation,
+body.transp .tournament_home_side,
+body.transp .tournament_home_side a,
+body.transp #site_header .help,
+body.transp #site_header .side_menu,
+body.transp .advice_summary,
+body.transp .advice_summary a,
 body.transp #topmenu section > a,
+body.transp .under_chat,
 body.transp #now_playing h3,
 body.transp div.sub_ratings,
 body.transp div.sub_ratings span,
@@ -102,7 +143,7 @@ body.transp #site_title,
 body.transp #site_header .baseline,
 body.transp #streams_on_air a.stream span,
 body.transp #ongoing_relays a.relay span {
-  color: #fff;
+  color: #f0f0f0;
   text-shadow: 0px 0px 2px #000, 0px 0px 5px #000;
 }
 body.transp #ongoing_relays .cg-board-wrap {
@@ -113,23 +154,9 @@ body.transp #timeline {
   padding: 4px;
   width: 220px;
 }
+body.transp div.lichess_board,
+body.transp div.lichess_overboard,
 body.transp div.content_box,
 body.transp #powerTip {
   box-shadow: 0 0 9px rgba(255, 255, 255, 0.5);
-}
-body.transp div.game_row:nth-child(odd),
-body.transp #lichess_forum table.forum_table tr:nth-child(odd),
-body.transp #lichess_message tr:nth-child(even),
-body.transp div.content_box_inter,
-body.transp table.slist tbody tr:nth-child(even),
-body.transp #team .forum li:nth-child(odd),
-body.transp table.translations tbody tr:nth-child(odd),
-body.transp form.translation_form div.message:nth-child(even),
-body.transp div.content_box table.datatable tr:nth-child(odd),
-body.transp div.game_config .optional_config,
-body.transp div.game_config .ratings,
-body.transp div.search_status,
-body.transp #friend_box,
-body.transp #powerTip {
-  background: rgba(0, 0, 0, 0.3);
 }

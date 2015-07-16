@@ -133,6 +133,7 @@ div.engine_warning {
 }
 div.sub_ratings > div {
   margin: 20px 0 0 -10px;
+  white-space: nowrap;
 }
 div.sub_ratings > div::before {
   font-size: 40px;
