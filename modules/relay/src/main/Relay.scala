@@ -13,11 +13,12 @@ case class Relay(
     games: List[Relay.Game],
     enabled: Boolean) {
 
-  def baseName = name.takeWhile('-'!=).trim
+  lazy val splitName = name split " - " toList
 
-  def extName = name.dropWhile('-'!=).some
-    .filter(_.nonEmpty)
-    .map(_.tail.trim)
+  def baseName = (splitName lift 0) | name
+
+  def extName = splitName.tailOption.some
+    .map(_ mkString " - ")
     .filter(_.nonEmpty)
 
   def gameByFicsId(ficsId: Int) = games.find(_.ficsId == ficsId)
