@@ -118,7 +118,9 @@ object JsTube {
     ) andThen (__ \ from).json.prune
 
     def readDate(field: Symbol) =
-      (__ \ field).json.update(of[JsObject] map { o => (o \ "$date").get })
+      (__ \ field).json.update(of[JsObject] map { o =>
+        (o \ "$date").toOption err s"Can't read date of $o"
+      })
 
     def readDateOpt(field: Symbol) = readDate(field) orElse json.reader
 

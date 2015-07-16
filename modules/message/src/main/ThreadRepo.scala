@@ -48,7 +48,7 @@ import play.modules.reactivemongo.json._
       sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
 
     tube.threadTube.coll.runCommand(command) map { res =>
-      BSONFormats.toJSON(res).arr("results").flatMap(_.apply(0).get str "value")
+      BSONFormats.toJSON(res).arr("results").flatMap(_.apply(0).toOption).flatMap(_ str "value")
     } map {
       _ ?? (_ split ';' toList)
     }

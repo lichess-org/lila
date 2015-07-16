@@ -57,7 +57,7 @@ object Analysis {
     def reads(r: BSON.Reader) = {
       val id = r str "_id"
       val ply = r intO "ply"
-      val date = r date " date"
+      val date = r date "date"
       (r strD "data", r boolD "done") match {
         case ("", true) => new Analysis(id, Nil, ~ply, false, date)
         case (d, true) => Info.decodeList(d, ~ply) map {
