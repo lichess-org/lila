@@ -32,6 +32,6 @@ object $primitive {
         .query(query)
         .projection(Json.obj(field -> true))
     }.one[BSONDocument] map2 { (obj: BSONDocument) =>
-      extract(JsObjectReader.read(obj) \ field get)
+      (JsObjectReader.read(obj) \ field).toOption flatMap extract
     } map (_.flatten)
 }
