@@ -335,7 +335,6 @@ body.dark #video .card .reveal,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
   background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(40, 40, 40, 1)), color-stop(100%, rgba(34, 34, 34, 1)));
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: -ms-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
@@ -420,7 +419,7 @@ body.dark div.side_box div.game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1) 0%, rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
 body.dark div.game_row:hover {
-  background: rgba(27, 51, 68, 0.5);
+  background: rgba(27, 51, 68, 0.5)!important;
 }
 body.dark .is.color-icon.white::before {
   content: 'J';

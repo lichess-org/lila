@@ -139,7 +139,7 @@ private[pref] final class DataForm {
   ))
 
   val bg = Form(single(
-    "bg" -> text.verifying(List("light", "dark") contains _)
+    "bg" -> text.verifying(List("light", "dark", "transp") contains _)
   ))
 
   val is3d = Form(single(

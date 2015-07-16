@@ -1,9 +1,18 @@
 body.transp {
   background-color: #1a1a1a;
-  color: #c0c0c0;
+  color: #ccc;
 }
-body.transp a, body.transp a:visited, body.transp #powerTip > .actions a, body.transp .button {
-  color: #c0c0c0;
+body.transp a,
+body.transp a:visited,
+body.transp #powerTip > .actions a,
+body.transp .button,
+body.transp #video .content_box_top form input,
+body.transp input,
+body.transp button,
+body.transp textarea,
+body.transp div.analysis_menu > a.active,
+body.transp div.chat_menu > a {
+  color: #ccc;
 }
 body.transp::before {
   content: ' ';
@@ -14,15 +23,14 @@ body.transp::before {
   left: 0;
   background-color: white;
   background: url(../images/background/afrosamurai.jpg) no-repeat center center;
-  background: url(../images/background/bench.jpg) no-repeat center center;
-  background: url(../images/background/lamps.jpg) no-repeat center center;
-  background: url(../images/background/cubes.jpg) no-repeat center center;
-  background: url(../images/background/landscape.jpg) no-repeat center center;
+  /* background: url(../images/background/bench.jpg) no-repeat center center; */
+  /* background: url(../images/background/lamps.jpg) no-repeat center center; */
+  /* background: url(../images/background/cubes.jpg) no-repeat center center; */
+  /* background: url(../images/background/landscape.jpg) no-repeat center center; */
   background-size: cover;
   will-change: transform;
   z-index: -1;
 }
-body.transp #chat .messages,
 body.transp div.side_box,
 body.transp div.table,
 body.transp div.table_wrap > div.clock > div.time,
@@ -31,14 +39,20 @@ body.transp div.undertable_inner,
 body.transp div.table .loader:before,
 body.transp div.table .loader:after,
 body.transp div.chat_menu > a.active {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 body.transp #hooks_wrap,
 body.transp #hooks_wrap div.tabs a:hover,
 body.transp #hooks_wrap div.tabs a.active,
 body.transp #tournament_schedule {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
+body.transp .button:hover,
+body.transp a.button:hover,
+body.transp .ui-state-hover,
+body.transp #topmenu section:hover > a,
+body.transp #topmenu div,
+body.transp #start_buttons a,
 body.transp .lichess_ground .replay .turn .index,
 body.transp .lichess_ground .analyse .meta,
 body.transp .lichess_ground .replay a.move:hover,
@@ -46,7 +60,6 @@ body.transp .lichess_ground .replay td.move:hover,
 body.transp #top .dropdown,
 body.transp #top .shown a.toggle,
 body.transp div.analysis_menu > a,
-body.transp div.lichess_overboard,
 body.transp div.content_box,
 body.transp div.content_box_inter a.active,
 body.transp #site_header div.side_menu a.active,
@@ -55,25 +68,68 @@ body.transp table.translations tbody tr,
 body.transp form.translation_form div.message,
 body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.transp #video_side .tag_list a.checked,
-body.transp div.lichess_overboard .loader:before,
-body.transp div.lichess_overboard .loader:after,
 body.transp div.content_box .loader:before,
 body.transp div.content_box .loader:after {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
-body.transp #timeline,
+body.transp #chat .messages,
+body.transp #tournament_schedule {
+  background: none;
+}
+body.transp div.user_show .trophy.icon3d,
 body.transp #timeline a,
+body.transp #chat span,
+body.transp #chat a.user_link,
+body.transp div.undertable a.user_link,
+body.transp #team .forum a.user_link,
+body.transp div.user_show div.content_box_top > span,
+body.transp span.progress > .zero,
+body.transp div.undertable_top span.title {
+  color: #b0b0b0;
+}
+body.transp #start_buttons a {
+  transition: 0.13s;
+  box-shadow: 0 0 9px rgba(255, 255, 255, 0.4);
+}
+body.transp #start_buttons a:hover {
+  background: rgba(20, 20, 20, 0.6);
+}
+body.transp #topmenu section > a,
+body.transp #now_playing h3,
+body.transp div.sub_ratings,
+body.transp div.sub_ratings span,
 body.transp #site_title,
 body.transp #site_header .baseline,
 body.transp #streams_on_air a.stream span,
 body.transp #ongoing_relays a.relay span {
   color: #fff;
-  text-shadow: 0px 1px 3px rgba(0,0,0,0.6);
+  text-shadow: 0px 0px 2px #000, 0px 0px 5px #000;
 }
 body.transp #ongoing_relays .cg-board-wrap {
-  box-shadow: 0 0 2px rgba(0,0,0,0.9);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 }
-body.transp #topmenu section > a {
-  color: #c0c0c0;
-  text-shadow: 0px 0px 3px rgba(0,0,0,0.9);
+body.transp #timeline {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px;
+  width: 220px;
+}
+body.transp div.content_box,
+body.transp #powerTip {
+  box-shadow: 0 0 9px rgba(255, 255, 255, 0.5);
+}
+body.transp div.game_row:nth-child(odd),
+body.transp #lichess_forum table.forum_table tr:nth-child(odd),
+body.transp #lichess_message tr:nth-child(even),
+body.transp div.content_box_inter,
+body.transp table.slist tbody tr:nth-child(even),
+body.transp #team .forum li:nth-child(odd),
+body.transp table.translations tbody tr:nth-child(odd),
+body.transp form.translation_form div.message:nth-child(even),
+body.transp div.content_box table.datatable tr:nth-child(odd),
+body.transp div.game_config .optional_config,
+body.transp div.game_config .ratings,
+body.transp div.search_status,
+body.transp #friend_box,
+body.transp #powerTip {
+  background: rgba(0, 0, 0, 0.3);
 }
