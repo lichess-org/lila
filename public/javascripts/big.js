@@ -1635,7 +1635,7 @@ lichess.storage = {
     };
     var resizeTimeline = function() {
       var e = $('#timeline');
-      e.height(561 - e.offset().top);
+      if (e.length) e.height(561 - e.offset().top);
     };
     resizeTimeline();
     lichess.socket = new lichess.StrongSocket(
