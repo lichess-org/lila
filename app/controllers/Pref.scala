@@ -42,7 +42,7 @@ object Pref extends LilaController {
     implicit val req = ctx.body
     (setters get name) ?? {
       case (form, fn) => FormResult(form) { v =>
-        fn(v, ctx) map { Ok(()) withCookies _ }
+        fn(v, ctx) map { cookies => Ok(()).withCookies(cookies: _*) }
       }
     }
   }
@@ -62,8 +62,9 @@ object Pref extends LilaController {
     "bgImg" -> (forms.bgImg -> save("bgImg") _),
     "is3d" -> (forms.is3d -> save("is3d") _))
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
-    ctx.me ?? {
-      api.setPrefString(_, name, value, notifyChange = false)
-    } inject LilaCookie.session(name, value)(ctx.req)
+  private def save(name: String)(value: String, ctx: Context): Fu[List[Cookie]] =
+    ctx.me match {
+      case Some(me) => api.setPrefString(me, name, value, notifyChange = false) inject Nil
+      case None     => fuccess(List(LilaCookie.session(name, value)(ctx.req)))
+    }
 }

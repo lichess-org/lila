@@ -38,8 +38,8 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @openGraph.map(_.html)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @if(withLangAnnotations){@langAnnotations}
-    @if(ctx.pref.transp) {
-    <style type="text/css">body.transp::before{background-image:url('@ctx.pref.bgImgOrDefault');}</style>
+    @ctx.transpBgImg.map { img =>
+    <style type="text/css">body.transp::before{background-image:url('@img');}</style>
     }
   </head>
   <body class="preload base @List(

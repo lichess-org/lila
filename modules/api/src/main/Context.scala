@@ -48,14 +48,17 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def currentSoundSet =
     ctxPref("soundSet").fold(Pref.default.realSoundSet)(lila.pref.SoundSet.apply)
 
-  def currentBg = ctxPref("bg") | "light"
+  lazy val currentBg = ctxPref("bg") | "light"
 
-  def transpBgImg = pref.bgImg ifTrue pref.transp
+  def transpBgImg = currentBg == "transp" option {
+    ctxPref("bgImg") | Pref.defaultBgImg
+  }
 
   def mobileApiVersion = Mobile.Api requestVersion req
 
   private def ctxPref(name: String): Option[String] =
-    userContext.req.session get name orElse { pref get name }
+    if (isAuth) pref get name
+    else userContext.req.session get name orElse { pref get name }
 }
 
 sealed abstract class BaseContext(

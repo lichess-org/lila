@@ -92,7 +92,7 @@ case class Pref(
 
 object Pref {
 
-  private val defaultBgImg = "http://l1.org/assets/images/background/bench.jpg"
+  val defaultBgImg = "http://l1.org/assets/images/background/bench.jpg"
 
   object Tag {
     val verifyTitle = "verifyTitle"
