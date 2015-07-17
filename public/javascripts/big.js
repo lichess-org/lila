@@ -316,25 +316,6 @@ lichess.storage = {
     });
   }
 };
-lichess.backgroundImage = (function() {
-  var d = 'http://l1.org/assets/images/background/bench.jpg';
-  var key = 'transp.background.image';
-  var get = function() {
-    return lichess.storage.get(key) || d;
-  };
-  var apply = function() {
-    $('head').append('<style>body.transp::before{background-image:url(' + get() + ');}</style>');
-  };
-  if (document.body.getAttribute('data-bg') === 'transp') apply();
-  return {
-    get: get,
-    set: function(v) {
-      lichess.storage.set(key, v);
-      apply();
-    },
-    apply: apply
-  };
-})();
 
 (function() {
 
@@ -726,6 +707,9 @@ lichess.backgroundImage = (function() {
 
     // themepicker
     $('#themepicker_toggle').one('mouseover', function() {
+      var applyBackground = function(v) {
+        $('head').append('<style>body.transp::before{background-image:url(' + v + ');}</style>');
+      };
       var $themepicker = $('#themepicker');
       $.ajax({
         url: $(this).data('url'),
@@ -805,10 +789,10 @@ lichess.backgroundImage = (function() {
               });
             }
             if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
-              lichess.backgroundImage.apply();
               $('link[href*="common.css"]').clone().each(function() {
                 $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
               });
+              applyBackground($themepicker.find('input.background_image').val());
             }
           };
           var showDimensions = function(is3d) {
@@ -853,10 +837,15 @@ lichess.backgroundImage = (function() {
             }
           });
           $themepicker.find('input.background_image')
-            .val(lichess.backgroundImage.get())
-            .on('change keyup paste', function() {
-              lichess.backgroundImage.set($(this).val());
-            });
+            .on('change keyup paste', $.fp.debounce(function() {
+              var v = $(this).val();
+              console.log($(this));
+              console.log(v);
+              $.post($(this).data("href"), {
+                bgImg: v
+              });
+              applyBackground(v);
+            }, 200));
         }
       });
     });

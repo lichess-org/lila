@@ -142,6 +142,10 @@ private[pref] final class DataForm {
     "bg" -> text.verifying(List("light", "dark", "transp") contains _)
   ))
 
+  val bgImg = Form(single(
+    "bgImg" -> nonEmptyText
+  ))
+
   val is3d = Form(single(
     "is3d" -> text.verifying(List("true", "false") contains _)
   ))

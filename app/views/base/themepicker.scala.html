@@ -13,7 +13,7 @@
     <a class="d2 button" data-is3d="false">2D</a>
     <a class="d3 button" data-is3d="true">3D</a>
   </div>
-  <input type="text" class="background_image" />
+  <input data-href="@routes.Pref.set("bgImg")" type="text" class="background_image" value="@ctx.pref.bgImgOrDefault" />
   <div class="zoom_control">
     <i data-icon="<"></i><div class="slider"></div>
   </div>

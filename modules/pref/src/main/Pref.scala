@@ -10,6 +10,7 @@ case class Pref(
     _id: String, // user id
     dark: Boolean,
     transp: Boolean,
+    bgImg: Option[String],
     is3d: Boolean,
     theme: String,
     pieceSet: String,
@@ -66,6 +67,7 @@ case class Pref(
     case "bg" =>
       if (value == "transp") copy(dark = true, transp = true).some
       else Pref.bgs get value map { b => copy(dark = b, transp = false) }
+    case "bgImg"      => copy(bgImg = value.some).some
     case "theme"      => Theme.allByName get value map { t => copy(theme = t.name) }
     case "pieceSet"   => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
     case "theme3d"    => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
@@ -84,9 +86,13 @@ case class Pref(
   }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
+
+  def bgImgOrDefault = bgImg | Pref.defaultBgImg
 }
 
 object Pref {
+
+  private val defaultBgImg = "http://l1.org/assets/images/background/bench.jpg"
 
   object Tag {
     val verifyTitle = "verifyTitle"
@@ -242,6 +248,7 @@ object Pref {
     _id = "",
     dark = false,
     transp = false,
+    bgImg = none,
     is3d = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,

@@ -50,6 +50,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentBg = ctxPref("bg") | "light"
 
+  def transpBgImg = pref.bgImg ifTrue pref.transp
+
   def mobileApiVersion = Mobile.Api requestVersion req
 
   private def ctxPref(name: String): Option[String] =
