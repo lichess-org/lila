@@ -140,7 +140,7 @@ div.lobby_and_ground {
 }
 #hooks_wrap .table_wrap {
   text-shadow: 0px 1px 0px #FFF;
-  width: 512px;
+  width: 100%;
   min-height: 78px;
   overflow: hidden;
 }
@@ -232,8 +232,6 @@ div.lobby_and_ground {
   position: absolute;
   top: 0;
   left: 0;
-  width: 512px;
-  height: 512px;
 }
 #hooks_wrap .hooks_chart > span.label {
   font-size: 9px;
@@ -258,8 +256,8 @@ div.lobby_and_ground {
 }
 #hooks_wrap .hooks_chart .canvas {
   position: relative;
-  width: 512px;
-  height: 512px;
+  width: 510px;
+  height: 510px;
 }
 #hooks_wrap .hooks_chart .plot {
   position: absolute;

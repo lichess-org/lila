@@ -316,6 +316,25 @@ lichess.storage = {
     });
   }
 };
+lichess.backgroundImage = (function() {
+  var d = 'http://l1.org/assets/images/background/bench.jpg';
+  var key = 'transp.background.image';
+  var get = function() {
+    return lichess.storage.get(key) || d;
+  };
+  var apply = function() {
+    $('head').append('<style>body.transp::before{background-image:url(' + get() + ');}</style>');
+  };
+  if (document.body.getAttribute('data-bg') === 'transp') apply();
+  return {
+    get: get,
+    set: function(v) {
+      lichess.storage.set(key, v);
+      apply();
+    },
+    apply: apply
+  };
+})();
 
 (function() {
 
@@ -786,6 +805,7 @@ lichess.storage = {
               });
             }
             if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+              lichess.backgroundImage.apply();
               $('link[href*="common.css"]').clone().each(function() {
                 $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
               });
@@ -832,6 +852,11 @@ lichess.storage = {
               manuallySetZoom(ui.value);
             }
           });
+          $themepicker.find('input.background_image')
+            .val(lichess.backgroundImage.get())
+            .on('change keyup paste', function() {
+              lichess.backgroundImage.set($(this).val());
+            });
         }
       });
     });
@@ -1621,7 +1646,7 @@ lichess.storage = {
     };
     var resizeTimeline = function() {
       var e = $('#timeline');
-      e.height(560 - e.offset().top);
+      e.height(561 - e.offset().top);
     };
     resizeTimeline();
     lichess.socket = new lichess.StrongSocket(

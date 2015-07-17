@@ -1593,7 +1593,7 @@ body #themepicker div.is3d,
 }
 #themepicker div.toggles {
   display: inline-block;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 15px 10px 15px;
   text-align: center;
 }
 #themepicker div.toggles a {
@@ -1626,6 +1626,9 @@ body #themepicker div.is3d,
 #themepicker .zoom_control .slider .ui-widget-header {
   width: 10px;
   bottom: 0;
+}
+#themepicker input.background_image {
+  display: none;
 }
 #sound_control {
   margin-right: 5px;

@@ -23,12 +23,8 @@ body.transp::before {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: white;
-  /* background: url(../images/background/afrosamurai.jpg) no-repeat center center; */
-  /* background: url(../images/background/bench.jpg) no-repeat center center; */
-  /* background: url(../images/background/lamps.jpg) no-repeat center center; */
-  /* background: url(../images/background/cubes.jpg) no-repeat center center; */
-  background: url(../images/background/landscape.jpg) no-repeat center center;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
   will-change: transform;
   z-index: -1;
@@ -146,17 +142,50 @@ body.transp #ongoing_relays a.relay span {
   color: #f0f0f0;
   text-shadow: 0px 0px 2px #000, 0px 0px 5px #000;
 }
+body.dark .crosstable th,
+body.dark #chat div.top,
+body.dark div.side_box .top,
+body.dark #friend_box .title,
+body.dark div.undertable_top,
+body.dark .button,
+body.dark .button:visited,
+body.dark .ui-state-default,
+body.dark #translation_call,
+body.dark #notifications > div,
+body.dark div.vstext,
+body.dark div.user_show div.content_box_inter.tabs,
+body.dark #qa .answers-header,
+body.dark #video .card .info,
+body.dark #video .card .reveal,
+body.dark table.slist thead {
+  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
 body.transp #ongoing_relays .cg-board-wrap {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 }
 body.transp #timeline {
   background: rgba(0, 0, 0, 0.6);
   padding: 4px;
-  width: 220px;
+  width: 224px;
+  box-sizing: border-box;
 }
 body.transp div.lichess_board,
 body.transp div.lichess_overboard,
 body.transp div.content_box,
 body.transp #powerTip {
   box-shadow: 0 0 9px rgba(255, 255, 255, 0.5);
+}
+body.transp #site_title {
+  opacity: 0.9;
+}
+body.transp #themepicker input.background_image {
+  display: block;
+  width: 100%;
+  border: 1px solid #444;
+  border-left: 0;
+  border-right: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
