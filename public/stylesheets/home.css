@@ -40,10 +40,10 @@ div.lobby_and_ground {
 
 #hooks_wrap {
   display: table-cell;
-  min-width: 512px;
-  width: 512px;
-  height: 512px;
-  max-height: 512px;
+  width: 510px;
+  height: 510px;
+  min-width: 510px;
+  max-height: 510px;
   overflow: hidden;
   border: 1px solid #ccc;
   background: #f0f0f0 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMy41MjkgMzMuNTA0Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4yNS02LjI0NikiIG9wYWNpdHk9Ii4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im0yMiAxMGMxMC41IDEgMTYuNSA4IDE2IDI5aC0yM2MwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBkPSJtMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00IDEtNC00IDAtMiA2LTEyIDYtMTIgMCAwIDEuODktMS45IDItMy41LS43My0uOTk0LS41LTItLjUtMyAxLTEgMyAyLjUgMyAyLjVoMmMwIDAgLjc4LTEuOTkyIDIuNS0zIDEgMCAxIDMgMSAzIi8+PC9nPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Im05LjUgMjUuNWEuNSAuNSAwIDEgMSAtMSAwIC41IC41IDAgMSAxIDEgMHoiLz48cGF0aCBkPSJtMTUgMTUuNWEuNSAxLjUgMCAxIDEgLTEgMCAuNSAxLjUgMCAxIDEgMSAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjg2Ni41LS41Ljg2NiA5LjY5My01LjE3MykiLz48L2c+PC9nPjwvc3ZnPg==');
@@ -674,6 +674,11 @@ div.game_config div.color_submits button.random span {
   margin-left: -30px;
   width: 230px;
   font-size: 0.9em;
+  height: 0px;
+  overflow: hidden;
+}
+#timeline:hover {
+  overflow-y: auto;
 }
 @media (max-width: 1070px) {
 #timeline {
@@ -683,10 +688,6 @@ div.game_config div.color_submits button.random span {
 #featured_game {
   display: none;
 }
-}
-#timeline .entries {
-  height: 380px;
-  overflow: hidden;
 }
 #timeline .entry {
   padding-bottom: 8px;
@@ -711,17 +712,11 @@ div.game_config div.color_submits button.random span {
   padding-left: 0;
 }
 #timeline .links {
-  margin-top: 10px;
   width: 100%;
-}
-#timeline .links a {
-  font-weight: normal;
+  text-align: right;
 }
 #timeline a.more {
+  margin-top: 5px;
+  font-weight: normal;
   display: block;
-  float: right;
-}
-#timeline a.chat {
-  display: block;
-  float: left;
 }

@@ -1619,6 +1619,11 @@ lichess.storage = {
       lobby.setTab('real_time');
       window.history.replaceState(null, null, '/');
     };
+    var resizeTimeline = function() {
+      var e = $('#timeline');
+      e.height(560 - e.offset().top);
+    };
+    resizeTimeline();
     lichess.socket = new lichess.StrongSocket(
       '/lobby/socket/v1',
       cfg.data.version, {
@@ -1632,6 +1637,7 @@ lichess.storage = {
               cache: false,
               success: function(html) {
                 $('#timeline').html(html);
+                resizeTimeline();
                 $('body').trigger('lichess.content_loaded');
               }
             });

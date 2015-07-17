@@ -18,7 +18,7 @@
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
   @timeline.entries(userTimeline)
-  <div class="links clearfix">
+  <div class="links">
     @if(userTimeline.size >= 8) {
     <a class="more" href="@routes.Timeline.more">@trans.more() »</a>
     }
