@@ -29,6 +29,9 @@ private[worldMap] final class Players(cacheSize: Int) {
 
       // both locations are known
       case List(l1, l2) if l2 == myLocation => Some(l1)
+
+      // both are unknown
+      case _ => None
     }
 }
 
