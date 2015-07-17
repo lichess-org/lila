@@ -55,6 +55,7 @@ case class Pref(
 
   def get(name: String): Option[String] = name match {
     case "bg"         => transp.fold("transp", dark.fold("dark", "light")).some
+    case "bgImg"      => bgImg
     case "theme"      => theme.some
     case "pieceSet"   => pieceSet.some
     case "theme3d"    => theme3d.some
@@ -92,7 +93,7 @@ case class Pref(
 
 object Pref {
 
-  val defaultBgImg = "http://l1.org/assets/images/background/bench.jpg"
+  val defaultBgImg = "http://lichess1.org/assets/images/background/landscape.jpg"
 
   object Tag {
     val verifyTitle = "verifyTitle"
