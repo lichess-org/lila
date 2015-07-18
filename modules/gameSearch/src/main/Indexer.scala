@@ -102,7 +102,11 @@ private[gameSearch] final class Indexer(
     import Fields._
     index into s"$inIndex/$typeName" fields {
       List(
-        status -> game.status.is(_.Timeout).fold(chess.Status.Resign, game.status).id.some,
+        status -> (game.status match {
+          case s if s.is(_.Timeout) => chess.Status.Resign
+          case s if s.is(_.NoStart) => chess.Status.Resign
+          case s                    => game.status
+        }).id.some,
         turns -> math.ceil(game.turns.toFloat / 2).some,
         rated -> game.rated.some,
         variant -> game.variant.id.some,

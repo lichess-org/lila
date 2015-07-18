@@ -112,8 +112,11 @@ object Query {
     options(1 to 6, "m", "%d month{s} ago") ++
     options(1 to 4, "y", "%d year{s} ago")
 
-  val statuses =
-    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s =>
-      s.id -> s.is(_.Outoftime).fold("Clock Flag", s.toString)
-    }
+  val statuses = Status.finishedNotCheated.map {
+    case s if s.is(_.Timeout)    => none
+    case s if s.is(_.NoStart)    => none
+    case s if s.is(_.Outoftime)  => Some(s.id -> "Clock Flag")
+    case s if s.is(_.VariantEnd) => Some(s.id -> "Variant End")
+    case s                       => Some(s.id -> s.toString)
+  }.flatten
 }
