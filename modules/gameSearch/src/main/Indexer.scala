@@ -48,7 +48,7 @@ private[gameSearch] final class Indexer(
             ai typed ShortType index "not_analyzed",
             opening typed StringType index "not_analyzed",
             date typed DateType format ElasticSearch.Date.format index "not_analyzed",
-            duration typed ShortType index "not_analyzed",
+            duration typed IntegerType index "not_analyzed",
             analysed typed BooleanType index "not_analyzed"
           )
         }.await
