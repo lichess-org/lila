@@ -63,12 +63,13 @@ GET   /blog               controllers.Blog.index(ref: Option[String] ?= None)
 GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom          controllers.Blog.atom(ref: Option[String] ?= None)
 
-# Game
-POST  /games/export/:user controllers.Game.exportConfirm(user: String)
-GET   /games/export-form/:user controllers.Game.export(user: String)
-
 # Search
 GET   /games/search       controllers.Search.index(page: Int ?= 1)
+GET   /games/export/search controllers.Search.export
+
+# Game
+GET   /games/export-form/:user controllers.Game.export(user: String)
+POST  /games/export/:user controllers.Game.exportConfirm(user: String)
 
 # Training - Opening
 GET   /training/opening                controllers.Opening.home

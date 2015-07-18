@@ -157,8 +157,9 @@ description = "Search the entire lichess database using multiple criterions").so
     @paginator.map { pager =>
     @if(pager.nbResults > 0) {
     <div class="search_status">
-      @pager.nbResults.localize games found -
-      <a class="permalink" href="@routes.Search.index()">Permalink</a>
+      <strong>@pager.nbResults.localize games found</strong> • 
+      <a class="permalink" href="@routes.Search.index()">Permalink</a> •
+      <a class="permalink" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>

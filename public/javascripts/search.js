@@ -10,30 +10,31 @@ $(function() {
     $("div.search_status").text("Searching...");
     $result.load(
       $form.attr("action") + "?" + $form.serialize() + " .search_result", function(text, status) {
-      if (status == "error") {
-        $(".search_status").text("Something is wrong with the search engine!");
-      } else {
-        $('body').trigger('lichess.content_loaded');
-        var $permalink = $result.find("a.permalink");
-        $permalink.attr("href", $permalink.attr("href") + "?" + $form.serialize());
-        $result.find('.search_infinitescroll:has(.pager a)').each(function() {
-          var $next = $(this).find(".pager a:last");
-          $next.attr("href", $next.attr("href") + "&" + $form.serialize());
-          $(this).infinitescroll({
-            navSelector: ".pager",
-            nextSelector: $next,
-            itemSelector: ".search_infinitescroll .paginated_element",
-            loading: {
-              msgText: "",
-              finishedMsg: "---"
-            }
-          }, function() {
-            $("#infscr-loading").remove();
-            $('body').trigger('lichess.content_loaded');
+        if (status == "error") {
+          $(".search_status").text("Something is wrong with the search engine!");
+        } else {
+          $('body').trigger('lichess.content_loaded');
+          $result.find("a.permalink").each(function() {
+            $(this).attr("href", $(this).attr("href") + "?" + $form.serialize());
           });
-        });
-      }
-    });
+          $result.find('.search_infinitescroll:has(.pager a)').each(function() {
+            var $next = $(this).find(".pager a:last");
+            $next.attr("href", $next.attr("href") + "&" + $form.serialize());
+            $(this).infinitescroll({
+              navSelector: ".pager",
+              nextSelector: $next,
+              itemSelector: ".search_infinitescroll .paginated_element",
+              loading: {
+                msgText: "",
+                finishedMsg: "---"
+              }
+            }, function() {
+              $("#infscr-loading").remove();
+              $('body').trigger('lichess.content_loaded');
+            });
+          });
+        }
+      });
   }
 
   function winnerChoices() {
