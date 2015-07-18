@@ -68,7 +68,7 @@ POST  /games/export/:user controllers.Game.exportConfirm(user: String)
 GET   /games/export-form/:user controllers.Game.export(user: String)
 
 # Search
-GET   /games/search       controllers.Game.search(page: Int ?= 1)
+GET   /games/search       controllers.Search.index(page: Int ?= 1)
 
 # Training - Opening
 GET   /training/opening                controllers.Opening.home

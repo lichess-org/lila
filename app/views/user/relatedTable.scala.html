@@ -8,7 +8,7 @@
       <td>@showBestPerf(r.user)</td>
       <td>
         @if(r.nbGames > 0) {
-        <a href="@routes.Game.search()?players.a=@u.username&players.b=@r.user.username">
+        <a href="@routes.Search.index()?players.a=@u.username&players.b=@r.user.username">
           @r.nbGames @trans.games()
         </a>
         }
