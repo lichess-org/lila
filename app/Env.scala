@@ -141,4 +141,5 @@ object Env {
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
   def relay = lila.relay.Env.current
+  def coach = lila.coach.Env.current
 }

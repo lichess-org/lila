@@ -51,7 +51,7 @@ object ApplicationBuild extends Build {
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     swisssystem, history, worldMap, opening, video, shutup,
-    playban, relay)
+    playban, relay, coach)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -191,6 +191,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val relay = project("relay", Seq(common, chess, game, round, user)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val coach = project("coach", Seq(common, chess, game, user, analyse)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

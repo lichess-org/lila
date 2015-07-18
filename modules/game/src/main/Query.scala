@@ -83,5 +83,6 @@ object Query {
     Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
   val sortCreated = $sort desc F.createdAt
+  val sortChronological = $sort asc F.createdAt
   val sortUpdatedNoIndex = $sort desc F.updatedAt
 }

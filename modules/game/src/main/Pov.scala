@@ -53,6 +53,9 @@ object Pov {
   def apply(game: Game, user: lila.user.User): Option[Pov] =
     game player user map { apply(game, _) }
 
+  def ofUserId(game: Game, userId: String): Option[Pov] =
+    game playerByUserId userId map { apply(game, _) }
+
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
   private def isFresher(a: Pov, b: Pov) = {
     val aDate = a.game.updatedAtOrCreatedAt.getSeconds
