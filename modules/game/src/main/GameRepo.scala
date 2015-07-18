@@ -234,6 +234,9 @@ object GameRepo {
     $insert bson bson
   }
 
+  def removeChallengesOf(userId: String) =
+    $remove(Query.created ++ Query.friend ++ Query.user(userId))
+
   def setCheckAt(g: Game, at: DateTime) =
     $update($select(g.id), BSONDocument("$set" -> BSONDocument(F.checkAt -> at)))
 

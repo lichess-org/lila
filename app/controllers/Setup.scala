@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.data.Form
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -68,8 +68,10 @@ object Setup extends LilaController with TheftPrevention {
 
   def friend(userId: Option[String]) = process(env.forms.friend) { config =>
     implicit ctx =>
-      env.processor friend config map { pov =>
-        pov -> routes.Setup.await(pov.fullId, userId)
+      (ctx.userId ?? GameRepo.removeChallengesOf) >> {
+        env.processor friend config map { pov =>
+          pov -> routes.Setup.await(pov.fullId, userId)
+        }
       }
   }
 
