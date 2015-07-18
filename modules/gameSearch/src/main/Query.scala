@@ -13,6 +13,7 @@ case class Query(
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
+    winnerColor: Option[Int] = None,
     variant: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
@@ -32,6 +33,7 @@ case class Query(
     user1.nonEmpty ||
       user2.nonEmpty ||
       winner.nonEmpty ||
+      winnerColor.nonEmpty ||
       variant.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
@@ -52,6 +54,7 @@ case class Query(
     List(
       usernames map { termFilter(Fields.uids, _) },
       toFilters(winner, Fields.winner),
+      toFilters(winnerColor, Fields.winnerColor),
       turns filters Fields.turns,
       averageRating filters Fields.averageRating,
       duration map (60 *) filters Fields.duration,
@@ -64,7 +67,7 @@ case class Query(
       toFilters(status, Fields.status),
       toFilters(analysed, Fields.analysed)
     ).flatten match {
-        case Nil => matchAllFilter
+        case Nil     => matchAllFilter
         case filters => must(filters: _*)
       }
   }
@@ -85,7 +88,20 @@ object Query {
 
   import lila.common.Form._
 
-  val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
+  val durations =
+    options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}").toList :+
+      (60 * 1, "One hour") :+
+      (60 * 3, "Three hours") :+
+      (60 * 24, "One day") :+
+      (60 * 24 * 3, "Three days") :+
+      (60 * 24 * 7, "One week") :+
+      (60 * 24 * 7 * 2, "Two weeks") :+
+      (60 * 24 * 30, "One month") :+
+      (60 * 24 * 30 * 3, "Three months") :+
+      (60 * 24 * 30 * 6, "6 months") :+
+      (60 * 24 * 365, "One year")
+
+  val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
   val variants = chess.variant.Variant.all map { v => v.id -> v.name }
 
@@ -112,8 +128,11 @@ object Query {
     options(1 to 6, "m", "%d month{s} ago") ++
     options(1 to 4, "y", "%d year{s} ago")
 
-  val statuses =
-    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s =>
-      s.id -> s.is(_.Outoftime).fold("Clock Flag", s.toString)
-    }
+  val statuses = Status.finishedNotCheated.map {
+    case s if s.is(_.Timeout)    => none
+    case s if s.is(_.NoStart)    => none
+    case s if s.is(_.Outoftime)  => Some(s.id -> "Clock Flag")
+    case s if s.is(_.VariantEnd) => Some(s.id -> "Variant End")
+    case s                       => Some(s.id -> s.toString)
+  }.flatten
 }

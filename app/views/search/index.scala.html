@@ -16,11 +16,11 @@ moreJs = moreJs,
 moreCss = moreCss,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess games advanced search",
-url = s"$netBaseUrl${routes.Game.search().url}",
+url = s"$netBaseUrl${routes.Search.index().url}",
 description = "Search the entire lichess database using multiple criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
-  <form rel="nofollow" class="search" action="@routes.Game.search()" method="get">
+  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get">
     <table>
       <tr>
         <th>
@@ -119,6 +119,14 @@ description = "Search the entire lichess database using multiple criterions").so
       </tr>
       <tr>
         <th>
+          <label for="@form("winnerColor").id">Winner color</label>
+        </th>
+        <td class="single">
+          @base.select(form("winnerColor"), Query.winnerColors, "".some)
+        </td>
+      </tr>
+      <tr>
+        <th>
           <label>Date</label>
         </th>
         <td>
@@ -149,12 +157,13 @@ description = "Search the entire lichess database using multiple criterions").so
     @paginator.map { pager =>
     @if(pager.nbResults > 0) {
     <div class="search_status">
-      @pager.nbResults.localize games found -
-      <a class="permalink" href="@routes.Game.search()">Permalink</a>
+      <strong>@pager.nbResults.localize games found</strong> • 
+      <a class="permalink" href="@routes.Search.index()">Permalink</a> •
+      <a class="permalink" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>
-      <div class="pager none"><a href="@routes.Game.search(n)">Next</a></div>
+      <div class="pager none"><a href="@routes.Search.index(n)">Next</a></div>
       }.getOrElse {
       <div class="none"></div>
       }
@@ -163,7 +172,7 @@ description = "Search the entire lichess database using multiple criterions").so
     } else {
     <div class="search_status">
       No game found -
-      <a class="permalink" href="@routes.Game.search()">Permalink</a>
+      <a class="permalink" href="@routes.Search.index()">Permalink</a>
     </div>
     }
     }.getOrElse {

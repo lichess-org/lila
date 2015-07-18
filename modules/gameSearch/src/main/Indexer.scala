@@ -44,11 +44,12 @@ private[gameSearch] final class Indexer(
             variant typed ShortType index "not_analyzed",
             uids typed StringType index "not_analyzed",
             winner typed StringType index "not_analyzed",
+            winnerColor typed ShortType index "not_analyzed",
             averageRating typed ShortType index "not_analyzed",
             ai typed ShortType index "not_analyzed",
             opening typed StringType index "not_analyzed",
             date typed DateType format ElasticSearch.Date.format index "not_analyzed",
-            duration typed ShortType index "not_analyzed",
+            duration typed IntegerType index "not_analyzed",
             analysed typed BooleanType index "not_analyzed"
           )
         }.await
@@ -64,7 +65,7 @@ private[gameSearch] final class Indexer(
         var nbSkipped = 0
         var started = nowMillis
         Await.result(
-          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
+          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, 300 * 1000) { gameOptions =>
             val games = gameOptions.flatten filter storable
             val nbGames = games.size
             (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
@@ -102,12 +103,17 @@ private[gameSearch] final class Indexer(
     import Fields._
     index into s"$inIndex/$typeName" fields {
       List(
-        status -> game.status.is(_.Timeout).fold(chess.Status.Resign, game.status).id.some,
+        status -> (game.status match {
+          case s if s.is(_.Timeout) => chess.Status.Resign
+          case s if s.is(_.NoStart) => chess.Status.Resign
+          case s                    => game.status
+        }).id.some,
         turns -> math.ceil(game.turns.toFloat / 2).some,
         rated -> game.rated.some,
         variant -> game.variant.id.some,
         uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
         winner -> (game.winner flatMap (_.userId)),
+        winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)).some,
         averageRating -> game.averageUsersRating,
         ai -> game.aiLevel,
         date -> (ElasticSearch.Date.formatter print game.createdAt).some,

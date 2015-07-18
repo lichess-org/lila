@@ -16,21 +16,6 @@ object Game extends LilaController {
   private def searchEnv = Env.gameSearch
   def searchForm = searchEnv.forms.search
 
-  def search(page: Int) = OpenBody { implicit ctx =>
-    if (HTTPRequest.isBot(ctx.req)) notFound
-    else Reasonable(page, 100) {
-      implicit def req = ctx.body
-      searchForm.bindFromRequest.fold(
-        failure => Ok(html.game.search(failure)).fuccess,
-        data => searchEnv.nonEmptyQuery(data) ?? { query =>
-          searchEnv.paginator(query, page) map (_.some)
-        } map { pager =>
-          Ok(html.game.search(searchForm fill data, pager))
-        }
-      )
-    }
-  }
-
   def delete(gameId: String) = Auth { implicit ctx =>
     me =>
       OptionFuResult(GameRepo game gameId) { game =>

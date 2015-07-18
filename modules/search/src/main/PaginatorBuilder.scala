@@ -7,6 +7,7 @@ import org.elasticsearch.action.count.CountResponse
 import org.elasticsearch.action.search.SearchResponse
 
 import lila.common.paginator._
+import makeTimeout.large
 
 final class PaginatorBuilder[A](
     indexer: ActorRef,
@@ -18,9 +19,12 @@ final class PaginatorBuilder[A](
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  private final class ESAdapter(query: Query) extends AdapterLike[A] {
+  def ids(query: Query, max: Int): Fu[List[String]] =
+    indexer ? actorApi.Search(query.searchDef(0, max)) map {
+      case res: SearchResponse => res.getHits.hits.toList map (_.id)
+    }
 
-    import makeTimeout.large
+  private final class ESAdapter(query: Query) extends AdapterLike[A] {
 
     def nbResults = indexer ? actorApi.Count(query.countDef) map {
       case res: CountResponse => res.getCount.toInt

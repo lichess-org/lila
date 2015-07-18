@@ -1,7 +1,10 @@
 package lila.api
 
 import chess.format.pgn.Pgn
+import lila.db.api.$query
+import lila.db.Implicits._
 import lila.game.Game
+import lila.game.{ GameRepo, Query }
 import play.api.libs.iteratee._
 
 final class PgnDump(
@@ -21,18 +24,24 @@ final class PgnDump(
 
   def filename(game: Game) = dumper filename game
 
-  def exportUserGames(userId: String): Enumerator[String] = {
-    import lila.db.api.$query
-    import lila.game.{ GameRepo, Query }
-    import lila.game.BSONHandlers.gameBSONHandler
-    import lila.db.Implicits._
+  def exportUserGames(userId: String): Enumerator[String] = PgnStream {
     import lila.game.tube.gameTube
-    val query = pimpQB($query(Query user userId)) sort Query.sortCreated
+    import lila.game.BSONHandlers.gameBSONHandler
+    pimpQB($query(Query user userId)).sort(Query.sortCreated).cursor[Game]()
+  }
+
+  def exportGamesFromIds(ids: List[String]): Enumerator[String] = PgnStream {
+    import lila.game.tube.gameTube
+    import lila.game.BSONHandlers.gameBSONHandler
+    $query.byIds(ids).cursor[Game]()
+  }
+
+  private def PgnStream(cursor: reactivemongo.api.Cursor[Game]): Enumerator[String] = {
     val toPgn = Enumeratee.mapM[Game].apply[String] { game =>
       GameRepo initialFen game map { initialFen =>
         apply(game, initialFen).toString + "\n\n\n"
       }
     }
-    query.cursor[Game]().enumerate() &> toPgn
+    cursor.enumerate() &> toPgn
   }
 }

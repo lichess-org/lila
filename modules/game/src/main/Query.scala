@@ -19,6 +19,8 @@ object Query {
 
   def status(s: Status) = Json.obj(F.status -> s.id)
 
+  val created: JsObject = Json.obj(F.status -> Status.Created.id)
+
   val started: JsObject = Json.obj(F.status -> $gte(Status.Started.id))
 
   def started(u: String): JsObject = user(u) ++ started
@@ -44,6 +46,8 @@ object Query {
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
   val relayed = Json.obj(s"${F.source}" -> Source.Relay.id)
+
+  val friend = Json.obj(s"${F.source}" -> Source.Friend.id)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
