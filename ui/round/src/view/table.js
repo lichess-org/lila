@@ -173,14 +173,32 @@ function anyClock(ctrl, color, position) {
   else return whosTurn(ctrl, color);
 }
 
+function videochat(ctrl) {
+  return m('div', {
+    id: 'videochat',
+    class: ctrl.vm.videochat ? '' : 'none'
+  }, [
+    m('video', {
+      class: 'their-video',
+      autoplay: true
+    }),
+    m('video', {
+      class: 'my-video',
+      autoplay: true,
+      muted: true
+    })
+  ]);
+}
+
 module.exports = function(ctrl) {
   var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
   return m('div.table_wrap', [
     anyClock(ctrl, ctrl.data.opponent.color, 'top'),
+    videochat(ctrl),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
-      renderPlayer(ctrl, ctrl.data.opponent),
+      ctrl.vm.videochat ? null : renderPlayer(ctrl, ctrl.data.opponent),
       m('div.table_inner',
         ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)

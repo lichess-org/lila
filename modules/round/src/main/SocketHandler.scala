@@ -83,6 +83,9 @@ private[round] final class SocketHandler(
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentOrganizer ! Berserk(gameId, userId)
         }
+        case ("peerId", o) => o str "d" foreach { peerId =>
+          socket ! PeerId(ref.color, peerId)
+        }
       }
     }
   }

@@ -134,6 +134,7 @@ case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
 case class RelayClocks(white: Int, black: Int)
 case class RelayClock(color: Color, tenths: Int)
+case class PeerId(color: Color, peerId: String)
 }
 
 private[round] case object GetNbRounds
