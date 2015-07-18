@@ -1195,7 +1195,7 @@ lichess.storage = {
     var maybeCall = function() {
       if (peer && myPeerId && theirPeerId && window.localStream) {
         var call = peer.call(theirPeerId, window.localStream);
-        console.log(call, 'calling');
+        // console.log(call, 'calling');
         onCall(call);
         return true;
       }
@@ -1203,14 +1203,14 @@ lichess.storage = {
     };
     var maybeSendPeerId = function() {
       if (peer && window.localStream) {
-        console.log(myPeerId, 'sending myPeerId');
+        // console.log(myPeerId, 'sending myPeerId');
         socket.send('peerId', myPeerId);
       }
     };
     var onCall = function(call) {
       if (window.existingCall) window.existingCall.close();
       call.on('stream', function(stream) {
-        console.log('got their stream ' + URL.createObjectURL(stream));
+        // console.log('got their stream ' + URL.createObjectURL(stream));
         $el.find('.their-video').prop('src', URL.createObjectURL(stream));
         onChange(true);
       }).on('close', function(e) {
@@ -1219,15 +1219,15 @@ lichess.storage = {
         console.log(e, 'call error!')
       });
       window.existingCall = call;
-      console.log(call, 'call hooked');
+      // console.log(call, 'call hooked');
     };
     return {
       connect: function() {
         if (!peer) peer = new Peer({
-          host: 'l.org',
+          host: document.domain,
           port: 9555,
           key: 'breuzablorg',
-          debug: 3
+          debug: 1
         }).on('open', function() {
           myPeerId = peer.id;
           maybeSendPeerId();
@@ -1269,13 +1269,13 @@ lichess.storage = {
           onFirstConnect: function() {
             $('#videochat').each(function() {
               lichess.videochat = makeVideochat(this, lichess.socket, round.setVideochat);
-              Mousetrap.bind('p a l a n t i r', function() {
-                lichess.videochat.connect();
-                // $.getScript("https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js")
-                // .done(function() {
-                // });
-              });
-              // $('div.clock').click(lichess.videochat.connect);
+              var connect =  function() {
+                // $.getScript("http://l1.org/assets/javascripts/vendor/peer.min.js")
+                $.getScript("https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js")
+                  .done(lichess.videochat.connect);
+              };
+              Mousetrap.bind('p a l a n t i r', connect);
+              // $('div.clock').click(connect);
             });
           }
         },
