@@ -67,7 +67,7 @@ function podiumStats(p, data) {
   else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
   var nbGames = p.sheet.scores.length;
   var winP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
-    return s[1] === 3 ? s[0] >= 4 : (s === 2 || s[0] >= 2);
+    return s[1] === 3 ? s[0] >= 3 : (s === 2 || s[0] >= 2);
   }).length * 100 / nbGames) : 0;
   var berserkP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
     return s === 3 || s[0] === 3 || s[0] === 5;
