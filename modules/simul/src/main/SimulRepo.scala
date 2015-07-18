@@ -18,10 +18,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
     def write(x: SimulStatus) = BSONInteger(x.id)
   }
-  private implicit val ChessStatusBSONHandler = new BSONHandler[BSONInteger, Status] {
-    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such chess status: ${bsonInt.value}"
-    def write(x: Status) = BSONInteger(x.id)
-  }
+  private implicit val ChessStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
   private implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
     def read(bsonInt: BSONInteger): Variant = Variant(bsonInt.value) err s"No such variant: ${bsonInt.value}"
     def write(x: Variant) = BSONInteger(x.id)

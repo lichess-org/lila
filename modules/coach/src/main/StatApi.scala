@@ -14,33 +14,32 @@ import lila.user.UserRepo
 
 final class StatApi(coll: Coll) {
 
-  private implicit val openingsHandler = MapValue.MapHandler[Int]
-  import UserStat.Openings
-  private implicit val UserStatOpeningsBSONHandler = Macros.handler[Openings]
-  private implicit val UserStatBSONHandler = Macros.handler[UserStat]
+  import BSONHandlers._
 
   private def selectId(id: String) = BSONDocument("_id" -> id)
 
   def fetch(id: String): Fu[Option[UserStat]] = coll.find(selectId(id)).one[UserStat]
 
-  def computeIfOld(id: String): Fu[Option[UserStat]] = fetch(id) flatMap {
-    case Some(stat) if stat.isFresh => fuccess(stat.some)
+  def computeIfOld(id: String): Fu[UserStat] = fetch(id) flatMap {
+    case Some(stat) if stat.isFresh => fuccess(stat)
     case _                          => compute(id)
   }
 
-  private def compute(id: String): Fu[Option[UserStat]] = {
+  private def compute(id: String): Fu[UserStat] = {
     import lila.game.tube.gameTube
     import lila.game.BSONHandlers.gameBSONHandler
     import lila.game.Query
-    pimpQB($query(Query.user(id) ++ Query.rated))
+    pimpQB($query(Query.user(id) ++ Query.rated ++ Query.finished))
       .sort(Query.sortCreated)
       .cursor[lila.game.Game]().enumerate(10 * 1000, stopOnError = false) &>
       StatApi.withAnalysis |>>>
-      Iteratee.fold(UserStat(id)) {
-        case (stat, a) => lila.game.Pov.ofUserId(a.game, id).fold(stat) { stat.withGame(_, a.analysis) }
+      Iteratee.fold(UserStat.makeComputation(id)) {
+        case (comp, a) => lila.game.Pov.ofUserId(a.game, id).fold(comp) {
+          comp.aggregate(_, a.analysis)
+        }
       }
-  } flatMap { stat =>
-    (stat.nbGames > 0) ?? (coll.update(selectId(id), stat, upsert = true) inject stat.some)
+  } map (_.run) flatMap { stat =>
+    coll.update(selectId(id), stat, upsert = true) inject stat
   }
 }
 

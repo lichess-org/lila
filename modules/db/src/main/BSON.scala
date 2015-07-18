@@ -43,6 +43,13 @@ object BSON {
         }
       }
     }
+
+    implicit def MapHandler[V](implicit vr: BSONDocumentReader[V], vw: BSONDocumentWriter[V]): BSONHandler[BSONDocument, Map[String, V]] = new BSONHandler[BSONDocument, Map[String, V]] {
+      private val reader = MapReader[V]
+      private val writer = MapWriter[V]
+      def read(bson: BSONDocument): Map[String, V] = reader read bson
+      def write(map: Map[String, V]): BSONDocument = writer write map
+    }
   }
 
   object MapValue {
@@ -69,6 +76,37 @@ object BSON {
       def write(map: Map[String, V]): BSONDocument = writer write map
     }
   }
+
+  //   object MapKeyValue {
+
+  //     type K = String
+
+  //     implicit def MapReader[V](
+  //       implicit kr: BSONReader[_ <: BSONValue, K],
+  //       vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
+  //       def read(bson: BSONDocument): Map[K, V] =
+  //         bson.elements.map { tuple =>
+  //           kr.asInstanceOf[BSONReader[BSONValue, K]].read(tuple._1) -> vr.asInstanceOf[BSONReader[BSONValue, V]].read(tuple._2)
+  //         }.toMap
+  //     }
+
+  //     implicit def MapWriter[V](
+  //       implicit kw: BSONWriter[K, _ <: BSONValue],
+  //       vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
+  //       def write(map: Map[K, V]): BSONDocument = BSONDocument {
+  //         map.toStream.map { tuple =>
+  //           kw.write(tuple._1) -> vw.write(tuple._2)
+  //         }
+  //       }
+  //     }
+
+  //     implicit def MapHandler[V](implicit kr: BSONReader[_ <: BSONValue, K], kw: BSONWriter[K, _ <: BSONValue], vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[BSONDocument, Map[K, V]] = new BSONHandler[BSONDocument, Map[K, V]] {
+  //       private val reader = MapReader[K, V]
+  //       private val writer = MapWriter[K, V]
+  //       def read(bson: BSONDocument): Map[K, V] = reader read bson
+  //       def write(map: Map[K, V]): BSONDocument = writer write map
+  //     }
+  //   }
 
   // List Handler
   final class ListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) extends BSONHandler[BSONArray, List[T]] {

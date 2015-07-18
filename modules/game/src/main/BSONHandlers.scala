@@ -13,6 +13,11 @@ object BSONHandlers {
     def write(cc: CheckCount) = BSONArray(cc.white, cc.black)
   }
 
+  implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
+    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
+    def write(x: Status) = BSONInteger(x.id)
+  }
+
   implicit val gameBSONHandler = new BSON[Game] {
 
     import Game.BSONFields._
@@ -40,7 +45,7 @@ object BSONHandlers {
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
-        status = Status(r int status) err "game invalid status",
+        status = r.get[Status](status),
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
         clock = r.getO[Color => Clock](clock)(clockBSONHandler(createdAtValue)) map (_(Color(0 == nbTurns % 2))),
@@ -77,7 +82,7 @@ object BSONHandlers {
       blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
       binaryPgn -> w.byteArrayO(o.binaryPgn),
-      status -> o.status.id,
+      status -> o.status,
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONHandler(o.createdAt).write(_ => c) }),

@@ -83,6 +83,8 @@ case class Player(
     case ((None, _), (Some(_), _))              => false
     case ((_, a), (_, b))                       => a < b
   }
+
+  def ratingAfter = rating map (_ + ~ratingDiff)
 }
 
 object Player {

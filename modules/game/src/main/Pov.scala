@@ -32,6 +32,10 @@ case class Pov(game: Game, color: Color) {
 
   def hasMoved = game playerHasMoved color
 
+  def win = game wonBy color
+
+  def loss = game lostBy color
+
   override def toString = ref.toString
 }
 
