@@ -1224,7 +1224,7 @@ lichess.storage = {
     return {
       connect: function() {
         if (!peer) peer = new Peer({
-          host: document.domain,
+          host: 'lichess.org',
           port: 9555,
           key: 'breuzablorg',
           debug: 1
@@ -1288,7 +1288,7 @@ lichess.storage = {
         },
         events: {
           peerId: function(id) {
-            lichess.videochat.setOpponentPeerId(id);
+            if (lichess.videochat) lichess.videochat.setOpponentPeerId(id);
           },
           crowd: function(e) {
             $watchers.watchers("set", e.watchers);
