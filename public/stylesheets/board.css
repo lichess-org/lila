@@ -1173,10 +1173,10 @@ div.table div.username {
   white-space: nowrap;
 }
 div.table div.username:first-child {
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 div.table div.username:last-child {
-  margin-top: 7px;
+  margin-top: 6px;
 }
 div.table div.username span.status {
   display: inline-block;

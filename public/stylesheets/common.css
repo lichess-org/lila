@@ -777,6 +777,20 @@ div.chat_panels .preferences a.prefs {
   display: block;
   text-align: center;
 }
+#videochat {
+  position: relative;
+  line-height: 0;
+  margin-bottom: -8px;
+}
+#videochat video {
+  width: 100%;
+}
+#videochat video.my-video {
+  width: 25%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {

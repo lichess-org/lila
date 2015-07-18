@@ -13,7 +13,8 @@ module.exports = function(opts) {
 
   return {
     socketReceive: controller.socket.receive,
-    moveOn: controller.moveOn
+    moveOn: controller.moveOn,
+    setVideochat: controller.setVideochat
   };
 };
 
