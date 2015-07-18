@@ -13,6 +13,7 @@ case class Query(
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
+    winnerColor: Option[Int] = None,
     variant: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
@@ -32,6 +33,7 @@ case class Query(
     user1.nonEmpty ||
       user2.nonEmpty ||
       winner.nonEmpty ||
+      winnerColor.nonEmpty ||
       variant.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
@@ -52,6 +54,7 @@ case class Query(
     List(
       usernames map { termFilter(Fields.uids, _) },
       toFilters(winner, Fields.winner),
+      toFilters(winnerColor, Fields.winnerColor),
       turns filters Fields.turns,
       averageRating filters Fields.averageRating,
       duration map (60 *) filters Fields.duration,
@@ -64,7 +67,7 @@ case class Query(
       toFilters(status, Fields.status),
       toFilters(analysed, Fields.analysed)
     ).flatten match {
-        case Nil => matchAllFilter
+        case Nil     => matchAllFilter
         case filters => must(filters: _*)
       }
   }
@@ -86,6 +89,8 @@ object Query {
   import lila.common.Form._
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
+
+  val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
   val variants = chess.variant.Variant.all map { v => v.id -> v.name }
 

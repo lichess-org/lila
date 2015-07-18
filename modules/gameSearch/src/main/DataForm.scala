@@ -16,6 +16,7 @@ private[gameSearch] final class DataForm {
       "b" -> optional(nonEmptyText),
       "winner" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
+    "winnerColor" -> optional(numberIn(Query.winnerColors)),
     "variant" -> optional(numberIn(Query.variants)),
     "mode" -> optional(numberIn(Query.modes)),
     "opening" -> optional(stringIn(Query.openings)),
@@ -41,6 +42,7 @@ private[gameSearch] final class DataForm {
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
+    winnerColor: Option[Int] = None,
     variant: Option[Int] = None,
     mode: Option[Int] = None,
     opening: Option[String] = None,
@@ -64,6 +66,7 @@ private[gameSearch] case class SearchData(
     user1 = players.cleanA,
     user2 = players.cleanB,
     winner = players.cleanWinner,
+    winnerColor = winnerColor,
     variant = variant,
     rated = mode flatMap Mode.apply map (_.rated),
     opening = opening map (_.trim.toLowerCase),

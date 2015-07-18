@@ -119,6 +119,14 @@ description = "Search the entire lichess database using multiple criterions").so
       </tr>
       <tr>
         <th>
+          <label for="@form("winnerColor").id">Winner color</label>
+        </th>
+        <td class="single">
+          @base.select(form("winnerColor"), Query.winnerColors, "".some)
+        </td>
+      </tr>
+      <tr>
+        <th>
           <label>Date</label>
         </th>
         <td>
