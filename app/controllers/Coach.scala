@@ -3,6 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import play.api.mvc.Result
+import play.api.libs.json.Json
 import views._
 
 object Coach extends LilaController {
@@ -18,11 +19,13 @@ object Coach extends LilaController {
   }
 
   def json(username: String) = Open { implicit ctx =>
-    Accessible(username) { user =>
-      env.statApi.fetchOrCompute(user.id) flatMap env.jsonView.apply map { json =>
-        Ok(json) as JSON
+    lila.user.UserRepo named username flatMap {
+      case None => fuccess(NotFound(Json.obj("error" -> s"User $username not found")))
+      case Some(u) => env.share.grant(u, ctx.me) flatMap {
+        case true  => env.statApi.fetchOrCompute(u.id) flatMap env.jsonView.apply map { Ok(_) }
+        case false => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
       }
-    }
+    } map (_ as JSON)
   }
 
   def opening(username: String) = Open { implicit ctx =>
