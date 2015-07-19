@@ -14,9 +14,10 @@ case class UserStat(
 
   def id = _id
 
-  results.base.nbGames < 100 || {
-    DateTime.now minusDays 1 isBefore date
-  }
+  def isFresh =
+    results.base.nbGames < 100 || {
+      DateTime.now minusDays 1 isBefore date
+    }
 }
 
 object UserStat {
