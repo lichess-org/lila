@@ -1,6 +1,6 @@
 @(u: User, stat: Option[lila.coach.UserStat])(implicit ctx: Context)
 
-@user.layout(title = s"${u.username} stats") {
+@coach.layout(title = s"${u.username} stats") {
 <div class="content_box no_padding">
   <h1>@userLink(u, withOnline = false) stats</h1>
   @if(stat.fold(true)(!_.isFresh)) {
@@ -9,7 +9,7 @@
   </form>
   }
   @stat.map { s =>
-  <table class="slist">
+  <table class="root">
     <thead>
       <tr>
         <th colspan=2>Favourite openings</th>
@@ -26,11 +26,11 @@
               </tr>
             </thead>
             <tbody>
-              @s.openings(color).toList.sortBy(-_._2).take(10).map {
-              case (code, nb) => {
+              @s.openings(color).best(10).map {
+              case (code, results) => {
               <tr>
-                <td>@code</td>
-                <td>@nb.localize</td>
+                <th>@code</th>
+                <td>@resultsTable(results, none)</td>
               </tr>
               }
               }
@@ -41,81 +41,11 @@
       </tr>
     </tbody>
   </table>
-  @defining(s.results) { r =>
-  <table class="slist">
-    <thead>
-      <tr>
-        <th colspan=2>Results over all rated games</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>Games</th>
-        <td>@r.nbGames.localize</td>
-      </tr>
-      <tr>
-        <th>Analysed games</th>
-        <td>@r.nbAnalysis.localize</td>
-      </tr>
-      <tr>
-        <th>Wins</th>
-        <td>@r.nbWin.localize</td>
-      </tr>
-      <tr>
-        <th>Losses</th>
-        <td>@r.nbLoss.localize</td>
-      </tr>
-      <tr>
-        <th>Draws</th>
-        <td>@r.nbDraw.localize</td>
-      </tr>
-      <tr>
-        <th>Rating diff</th>
-        <td>@showProgress(r.ratingDiff)</td>
-      </tr>
-      <tr>
-        <th>Best Rating</th>
-        <td>@r.bestRating.map { br =>
-          <strong>@br.rating</strong> after <a href="@routes.Round.watcher(br.id, "white")">playing</a> @userIdLink(br.userId.some)
-          }</td>
-      </tr>
-      <tr>
-        <th>Best Win</th>
-        <td>@r.bestWin.map { bw =>
-          <a href="@routes.Round.watcher(bw.id, "white")">@userIdSpanMini(bw.userId) <strong>@bw.rating</strong></a>
-          }</td>
-      </tr>
-      <tr>
-        <th>Opponent average rating</th>
-        <td>@r.opponentRatingAvg</td>
-      </tr>
-      <tr>
-        <th>Win streak</th>
-        <td>@r.winStreak.best (current: @r.winStreak.cur)</td>
-      </tr>
-      @List("Win" -> r.outcomeStatuses.win, "Loss" -> r.outcomeStatuses.loss).map {
-      case (name, statuses) => {
-      <tr>
-        <th>@name statuses</th>
-        <td>
-          <table>
-            <tbody>
-              @statuses.m.toList.sortBy(-_._2).map {
-              case (status, nb) => {
-              <tr>
-                <th>@status.name</th>
-                <td>@nb.localize</td>
-              </tr>
-              }
-              }
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      }
-      }
-    </tbody>
-  </table>
+  @perfResultsTable(s.results, "All games")
+  @s.perfResults.sorted.map {
+  case (perfType, perfResults) => {
+  @perfResultsTable(perfResults, perfType.name)
+  }
   }
   }
 </div>

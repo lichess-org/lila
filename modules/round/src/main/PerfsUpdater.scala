@@ -17,7 +17,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
-    PerfPicker.main(game.speed, game.ratingVariant, game.daysPerTurn) ?? { mainPerf =>
+    PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)

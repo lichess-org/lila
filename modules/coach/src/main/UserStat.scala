@@ -2,58 +2,53 @@ package lila.coach
 
 import org.joda.time.DateTime
 
-import lila.analyse.Analysis
-import lila.game.Pov
 import lila.rating.PerfType
 
 case class UserStat(
     _id: String, // user ID
     openings: Openings,
-    results: Results,
-    perfResults: UserStat.PerfResults,
+    results: PerfResults,
+    perfResults: PerfResults.PerfResultsMap,
     date: DateTime) {
 
   def id = _id
 
-  def aggregate(pov: Pov, analysis: Option[lila.analyse.Analysis]) = copy(
-    openings = openings aggregate pov)
-
-  def isFresh = results.nbGames < 100 || {
-    DateTime.now minusDays 1 isBefore date
-  }
+  def isFresh = false
+  // results.base.nbGames < 100 || {
+  //   DateTime.now minusDays 1 isBefore date
+  // }
 }
 
 object UserStat {
 
-  case class PerfResults(m: Map[PerfType, Results])
-  val emptyPerfResults = PerfResults(Map.empty)
-
   case class Computation(
       stat: UserStat,
-      resultsComp: Results.Computation = Results.emptyComputation,
-      perfResultsComp: Map[PerfType, Results.Computation] = Map.empty) {
+      resultsComp: PerfResults.Computation,
+      perfResultsComp: Map[PerfType, PerfResults.Computation],
+      openingsComp: Openings.Computation) {
 
-    def aggregate(pov: Pov, analysis: Option[Analysis]) = copy(
-      stat = stat.aggregate(pov, analysis),
-      resultsComp = resultsComp.aggregate(pov, analysis),
-      perfResultsComp = pov.game.perfType.fold(perfResultsComp) { perfType =>
+    def aggregate(p: RichPov) = copy(
+      resultsComp = resultsComp.aggregate(p),
+      perfResultsComp = p.pov.game.perfType.fold(perfResultsComp) { perfType =>
         perfResultsComp + (
           perfType ->
-          perfResultsComp.get(perfType).|(Results.emptyComputation).aggregate(pov, analysis)
+          (perfResultsComp.get(perfType) | PerfResults.emptyComputation).aggregate(p)
         )
-      }
+      },
+      openingsComp = openingsComp.aggregate(p)
     )
 
     def run = stat.copy(
       results = resultsComp.run,
-      perfResults = PerfResults(perfResultsComp.mapValues(_.run)))
+      perfResults = PerfResults.PerfResultsMap(perfResultsComp.mapValues(_.run)),
+      openings = openingsComp.run)
   }
-  def makeComputation(id: String) = Computation(apply(id))
+  def makeComputation(id: String) = Computation(apply(id), PerfResults.emptyComputation, Map.empty, Openings.emptyComputation)
 
   def apply(id: String): UserStat = UserStat(
     _id = id,
-    openings = Openings(Map.empty, Map.empty),
-    results = Results.empty,
-    perfResults = emptyPerfResults,
+    openings = Openings.empty,
+    results = PerfResults.empty,
+    perfResults = PerfResults.emptyPerfResultsMap,
     date = DateTime.now)
 }

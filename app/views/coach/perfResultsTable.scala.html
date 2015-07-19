@@ -1,0 +1,32 @@
+@(r: lila.coach.PerfResults, title: String)(implicit ctx: Context)
+<table>
+  <thead>
+    <tr>
+      <th colspan=2>@title</th>
+    </tr>
+  </thead>
+  <tbody>
+    @List("Win" -> r.outcomeStatuses.win, "Loss" -> r.outcomeStatuses.loss).map {
+    case (name, statuses) => {
+    <tr>
+      <th>@name statuses</th>
+      <td>
+        <table>
+          <tbody>
+            @statuses.sorted.map {
+            case (status, nb) => {
+            <tr>
+              <th>@status.name</th>
+              <td>@nb.localize (@(nb * 100 / statuses.sum)%)</td>
+            </tr>
+            }
+            }
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
+@resultsTable(r.base, none)

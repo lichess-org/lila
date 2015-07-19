@@ -17,16 +17,41 @@ object Accuracy {
     Info.start(pov.game.startedAtTurn) :: analysis.infos,
     analysis.infos
   ).grouped(2).foldLeft(List[Int]()) {
-    case (list, List(i1, i2)) =>
-      makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
-        (if (pov.color.white) -diff else diff).max(0) :: list
-      }
-    case (list, _) => list
-  }
+      case (list, List(i1, i2)) =>
+        makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
+          (if (pov.color.white) -diff else diff).max(0) :: list
+        }
+      case (list, _) => list
+    }
 
   def apply(pov: Pov, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)
     val nb = diffs.size
     (nb != 0) option (diffs.sum / nb)
+  }
+
+  case class DividedAccuracy(
+    all: Int,
+    opening: Int,
+    middle: Option[Int],
+    end: Option[Int])
+
+  def apply(pov: Pov, analysis: Analysis, div: chess.Division): Option[DividedAccuracy] = {
+    val diffs = diffsList(pov, analysis)
+    val openingDiffs = div.middle.fold(diffs)(m => diffs.take(m / 2))
+    val middleDiffs = div.middle.?? { m =>
+      div.end.fold(diffs.drop(m / 2)) { e =>
+        diffs.drop(m / 2).take((e - m) / 2)
+      }
+    }
+    val endDiffs = div.end.?? { e =>
+      diffs.drop(e / 2)
+    }
+    diffs.nonEmpty option DividedAccuracy(
+      all = (diffs.sum / diffs.size),
+      opening = openingDiffs.sum / openingDiffs.size,
+      middle = middleDiffs.nonEmpty option (middleDiffs.sum / middleDiffs.size),
+      end = endDiffs.nonEmpty option (endDiffs.sum / endDiffs.size)
+    )
   }
 }

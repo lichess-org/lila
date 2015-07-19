@@ -1,0 +1,60 @@
+@(r: lila.coach.Results, title: Option[String])(implicit ctx: Context)
+<table>
+  @title.map { t =>
+  <thead>
+    <tr>
+      <th colspan=2>@t</th>
+    </tr>
+  </thead>
+  }
+  <tbody>
+    <tr>
+      <th>Games</th>
+      <td>@r.nbGames.localize</td>
+    </tr>
+    <tr>
+      <th>Analysed games</th>
+      <td>@r.nbAnalysis.localize (@((r.nbAnalysis * 100 / r.nbGames).localize)%)</td>
+    </tr>
+    <tr>
+      <th>Wins</th>
+      <td>@r.nbWin.localize (@((r.nbWin * 100 / r.nbGames).localize)%)</td>
+    </tr>
+    <tr>
+      <th>Losses</th>
+      <td>@r.nbLoss.localize (@((r.nbLoss * 100 / r.nbGames).localize)%)</td>
+    </tr>
+    <tr>
+      <th>Draws</th>
+      <td>@r.nbDraw.localize (@((r.nbDraw * 100 / r.nbGames).localize)%)</td>
+    </tr>
+    <tr>
+      <th>Rating diff</th>
+      <td>@showProgress(r.ratingDiff)</td>
+    </tr>
+    <tr>
+      <th>Game stats</th>
+      <td>@gameSectionsTable(r.gameSections)</td>
+    </tr>
+    <tr>
+      <th>Best Rating</th>
+      <td>@r.bestRating.map { br =>
+        <strong>@br.rating</strong> after <a href="@routes.Round.watcher(br.id, "white")">playing</a> @userIdLink(br.userId.some)
+        }</td>
+    </tr>
+    <tr>
+      <th>Best Win</th>
+      <td>@r.bestWin.map { bw =>
+        <a href="@routes.Round.watcher(bw.id, "white")">@userIdSpanMini(bw.userId, withOnline = true) <strong>@bw.rating</strong></a>
+        }</td>
+    </tr>
+    <tr>
+      <th>Opponent average rating</th>
+      <td>@r.opponentRatingAvg</td>
+    </tr>
+    <tr>
+      <th>Win streak</th>
+      <td>@r.winStreak.best (current: @r.winStreak.cur)</td>
+    </tr>
+  </tbody>
+</table>

@@ -31,12 +31,17 @@ final class StatApi(coll: Coll) {
     import lila.game.Query
     pimpQB($query(Query.user(id) ++ Query.rated ++ Query.finished))
       .sort(Query.sortCreated)
-      .cursor[lila.game.Game]().enumerate(10 * 1000, stopOnError = false) &>
-      StatApi.withAnalysis |>>>
-      Iteratee.fold(UserStat.makeComputation(id)) {
-        case (comp, a) => lila.game.Pov.ofUserId(a.game, id).fold(comp) {
-          comp.aggregate(_, a.analysis)
+      .cursor[lila.game.Game]()
+      .enumerate(10 * 1000, stopOnError = true) &>
+      StatApi.richPov(id) |>>>
+      Iteratee.fold[Option[RichPov], UserStat.Computation](UserStat.makeComputation(id)) {
+        case (comp, Some(pov)) => try {
+          comp aggregate pov
         }
+        catch {
+          case e: Exception => logwarn("[StatApi] " + e); comp
+        }
+        case (comp, _) => comp
       }
   } map (_.run) flatMap { stat =>
     coll.update(selectId(id), stat, upsert = true) inject stat
@@ -45,9 +50,24 @@ final class StatApi(coll: Coll) {
 
 private object StatApi {
 
-  val withAnalysis = Enumeratee.mapM[lila.game.Game].apply[Analysed] { game =>
-    import lila.analyse.AnalysisRepo
-    (game.metadata.analysed ?? AnalysisRepo.doneById(game.id)) map { Analysed(game, _) }
+  def richPov(userId: String) = Enumeratee.mapM[lila.game.Game].apply[Option[RichPov]] { game =>
+    lila.game.Pov.ofUserId(game, userId) ?? { pov =>
+      lila.game.GameRepo.initialFen(game) zip
+        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
+          case (fen, an) =>
+            val division = chess.Replay.boards(
+              moveStrs = game.pgnMoves,
+              initialFen = fen,
+              variant = game.variant
+            ).toOption.fold(chess.Division.empty)(chess.Divider.apply)
+            RichPov(
+              pov = pov,
+              initialFen = fen,
+              analysis = an,
+              division = division,
+              accuracy = an.flatMap { lila.analyse.Accuracy(pov, _, division) }
+            ).some
+        }
+    }
   }
-  case class Analysed(game: lila.game.Game, analysis: Option[lila.analyse.Analysis])
 }

@@ -219,13 +219,15 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     s"""<span$dataIcon $klass $href>$space$titleS$content$rating</span>"""
   }
 
-  def userIdSpanMini(userId: String) = Html {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false) = Html {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.titleNameHtml)
     val klass = userClass(userId, none, false)
     val href = s"data-${userHref(name)}"
-    s"""<span $klass $href>$content</span>"""
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    s"""<span$dataIcon $klass $href>$space$content</span>"""
   }
 
   private def renderRating(perf: Perf) =

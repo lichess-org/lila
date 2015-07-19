@@ -95,7 +95,7 @@ chessground = false) {
       @advantageChart.map { chart =>
       <div
         id="adv_chart"
-        data-division-mid="@division.mid.getOrElse("null")"
+        data-division-mid="@division.middle.getOrElse("null")"
         data-division-end="@division.end.getOrElse("null")"
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
@@ -137,7 +137,7 @@ chessground = false) {
       @timeChart.series.map { series =>
       <div
         id="movetimes_chart"
-        data-division-mid="@division.mid.getOrElse("null")"
+        data-division-mid="@division.middle.getOrElse("null")"
         data-division-end="@division.end.getOrElse("null")"
         data-series="@series"
         data-max="@timeChart.maxTime"></div>

@@ -1,0 +1,18 @@
+@(title: String, side: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("coach.css")
+@evenMoreCss
+}
+
+@moreJs = {
+@evenMoreJs
+}
+
+@base.layout(
+title = title,
+side = side,
+moreCss = moreCss,
+moreJs = moreJs,
+robots = robots,
+openGraph = openGraph)(body)
