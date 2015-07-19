@@ -2,8 +2,8 @@ package controllers
 
 import lila.api.Context
 import lila.app._
-import play.api.mvc.Result
 import play.api.libs.json.Json
+import play.api.mvc.Result
 import views._
 
 object Coach extends LilaController {
@@ -47,8 +47,9 @@ object Coach extends LilaController {
     lila.user.UserRepo named username flatMap {
       case None => notFound
       case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true  => f(u)
-        case false => fuccess(Forbidden(html.coach.forbidden(u)))
+        case true                          => f(u)
+        case false if isGranted(_.UserSpy) => f(u)
+        case false                         => fuccess(Forbidden(html.coach.forbidden(u)))
       }
     }
 }
