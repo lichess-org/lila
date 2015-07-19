@@ -50,15 +50,14 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   lazy val currentBg = ctxPref("bg") | "light"
 
-  def transpBgImg = currentBg == "transp" option {
-    ctxPref("bgImg") | Pref.defaultBgImg
-  }
+  def transpBgImg = currentBg == "transp" option bgImg
+
+  def bgImg = ctxPref("bgImg") | Pref.defaultBgImg
 
   def mobileApiVersion = Mobile.Api requestVersion req
 
   private def ctxPref(name: String): Option[String] =
-    if (isAuth) pref get name
-    else userContext.req.session get name orElse { pref get name }
+    userContext.req.session get name orElse { pref get name }
 }
 
 sealed abstract class BaseContext(
