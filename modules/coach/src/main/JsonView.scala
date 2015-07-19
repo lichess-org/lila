@@ -8,7 +8,13 @@ final class JsonView {
     UserStatWriter writes userStat
   }
 
-  private implicit val SectionWriter = Json.writes[GameSections.Section]
+  private implicit val SectionWriter = OWrites[GameSections.Section] { s =>
+    Json.obj(
+      "nb" -> s.nb,
+      "nbAnalysed" -> s.nbAnalysed,
+      "moveAvg" -> s.moveAvg,
+      "acplAvg" -> s.acplAvg)
+  }
   private implicit val GameSectionsWriter = Json.writes[GameSections]
   private implicit val BestWinWriter = Json.writes[Results.BestWin]
   private implicit val ResultsWriter = Json.writes[Results]
@@ -17,7 +23,7 @@ final class JsonView {
   private implicit val OpeningsWriter = Json.writes[Openings]
   private implicit val PerfResultsBestRatingWriter = Json.writes[PerfResults.BestRating]
   private implicit val PerfResultsStatusMapWriter = OWrites[Map[chess.Status, Int]] { m =>
-    JsObject(m.map { case (status, i) => status.id.toString -> JsNumber(i) })
+    JsObject(m.map { case (status, i) => status.name -> JsNumber(i) })
   }
   private implicit val PerfResultsStreakWriter = Json.writes[PerfResults.Streak]
   private implicit val PerfResultsStatusScoresWriter = Json.writes[PerfResults.StatusScores]

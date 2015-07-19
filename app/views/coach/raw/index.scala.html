@@ -1,6 +1,6 @@
 @(u: User, stat: Option[lila.coach.UserStat])(implicit ctx: Context)
 
-@coach.layout(title = s"${u.username} stats") {
+@coach.layout(title = s"${u.username} raw data") {
 <div class="content_box no_padding">
   <h1>@userLink(u, withOnline = false) stats</h1>
   @if(stat.fold(true)(!_.isFresh)) {

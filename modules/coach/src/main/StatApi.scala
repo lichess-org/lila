@@ -20,6 +20,11 @@ final class StatApi(coll: Coll) {
 
   def fetch(id: String): Fu[Option[UserStat]] = coll.find(selectId(id)).one[UserStat]
 
+  def fetchOrCompute(id: String): Fu[UserStat] = fetch(id) flatMap {
+    case Some(s) => fuccess(s)
+    case None    => compute(id)
+  }
+
   def computeIfOld(id: String): Fu[UserStat] = fetch(id) flatMap {
     case Some(stat) if stat.isFresh => fuccess(stat)
     case _                          => compute(id)
