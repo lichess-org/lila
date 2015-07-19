@@ -6,6 +6,7 @@ import lila.rating.PerfType
 
 case class UserStat(
     _id: String, // user ID
+    colorResults: ColorResults,
     openings: Openings,
     results: PerfResults,
     perfResults: PerfResults.PerfResultsMap,
@@ -23,12 +24,14 @@ object UserStat {
 
   case class Computation(
       stat: UserStat,
+      colorResultsComp: ColorResults.Computation,
       resultsComp: PerfResults.Computation,
       perfResultsComp: Map[PerfType, PerfResults.Computation],
       openingsComp: Openings.Computation) {
 
     def aggregate(p: RichPov) = copy(
-      resultsComp = resultsComp.aggregate(p),
+      resultsComp = resultsComp aggregate p,
+      colorResultsComp = colorResultsComp aggregate p,
       perfResultsComp = p.pov.game.perfType.fold(perfResultsComp) { perfType =>
         perfResultsComp + (
           perfType ->
@@ -40,13 +43,15 @@ object UserStat {
 
     def run = stat.copy(
       results = resultsComp.run,
+      colorResults = colorResultsComp.run,
       perfResults = PerfResults.PerfResultsMap(perfResultsComp.mapValues(_.run)),
       openings = openingsComp.run)
   }
-  def makeComputation(id: String) = Computation(apply(id), PerfResults.emptyComputation, Map.empty, Openings.emptyComputation)
+  def makeComputation(id: String) = Computation(empty(id), ColorResults.emptyComputation, PerfResults.emptyComputation, Map.empty, Openings.emptyComputation)
 
-  def apply(id: String): UserStat = UserStat(
+  def empty(id: String): UserStat = UserStat(
     _id = id,
+    colorResults = ColorResults.empty,
     openings = Openings.empty,
     results = PerfResults.empty,
     perfResults = PerfResults.emptyPerfResultsMap,

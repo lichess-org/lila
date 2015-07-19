@@ -9,8 +9,8 @@ import lila.rating.PerfType
 
 private[coach] object BSONHandlers {
 
-  import Results.{ BestWin, BestRating, Streak }
-  import PerfResults.{ StatusScores, OutcomeStatuses, PerfResultsMap }
+  import Results.{ BestWin }
+  import PerfResults.{ Streak, BestRating, StatusScores, OutcomeStatuses, PerfResultsMap }
   import Openings.OpeningsMap
   import GameSections.Section
 
@@ -24,10 +24,10 @@ private[coach] object BSONHandlers {
     }
     def write(x: StatusScores) = intMapHandler write x.m.mapKeys(_.id.toString)
   }
-  implicit val ResultsStreakBSONHandler = Macros.handler[Streak]
-  implicit val ResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]
+  implicit val PerfResultsStreakBSONHandler = Macros.handler[Streak]
+  implicit val PerfResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]
   implicit val ResultsBestWinBSONHandler = Macros.handler[BestWin]
-  implicit val ResultsBestRatingBSONHandler = Macros.handler[BestRating]
+  implicit val PerfResultsBestRatingBSONHandler = Macros.handler[BestRating]
   implicit val SectionBSONHandler = Macros.handler[Section]
   implicit val GameSectionsBSONHandler = Macros.handler[GameSections]
   implicit val ResultsBSONHandler = Macros.handler[Results]
@@ -47,6 +47,7 @@ private[coach] object BSONHandlers {
     def write(x: OpeningsMap) = resultsMapHandler write x.m
   }
   implicit val OpeningsBSONHandler = Macros.handler[Openings]
+  implicit val ColorResultsBSONHandler = Macros.handler[ColorResults]
 
   implicit val UserStatBSONHandler = Macros.handler[UserStat]
 }

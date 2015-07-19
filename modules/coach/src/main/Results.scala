@@ -13,12 +13,12 @@ case class Results(
     ratingDiff: Int,
     gameSections: GameSections,
     bestWin: Option[Results.BestWin],
-    bestRating: Option[Results.BestRating],
     opponentRatingSum: Int,
-    winStreak: Results.Streak, // nb games won in a row
     lastGameAt: Option[DateTime]) {
 
-  def opponentRatingAvg = (nbGames > 0) option opponentRatingSum
+  def opponentRatingAvg = (nbGames > 0) option (opponentRatingSum / nbGames)
+
+  def ratingDiffAvg = (nbGames > 0) option (ratingDiff / nbGames)
 
   def aggregate(p: RichPov) = copy(
     nbGames = nbGames + 1,
@@ -36,22 +36,13 @@ case class Results(
       }
     }
     else bestWin,
-    bestRating = if (~p.pov.win) {
-      Results.makeBestRating(p.pov).fold(bestRating) { newBest =>
-        bestRating.fold(newBest) { prev =>
-          if (newBest.rating > prev.rating) newBest else prev
-        }.some
-      }
-    }
-    else bestRating,
     opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating,
     lastGameAt = lastGameAt orElse p.pov.game.createdAt.some)
 }
 
 object Results {
 
-  val emptyStreak = Streak(0, 0)
-  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, none, 0, emptyStreak, none)
+  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, 0, none)
 
   case class BestWin(id: String, userId: String, rating: Int)
   def makeBestWin(pov: Pov): Option[BestWin] = (pov.game.playedTurns > 4) ?? {
@@ -60,30 +51,11 @@ object Results {
     }
   }
 
-  case class BestRating(id: String, userId: String, rating: Int)
-  def makeBestRating(pov: Pov): Option[BestRating] = pov.opponent.userId |@| pov.player.ratingAfter apply {
-    case (opId, myRating) => BestRating(pov.gameId, opId, myRating)
-  }
+  case class Computation(results: Results) {
 
-  case class Streak(cur: Int, best: Int) {
-    def add(v: Int) = copy(cur = cur + v, best = best max (cur + v))
-    def reset = copy(cur = 0)
-    def set(v: Int) = copy(cur = v)
-  }
-
-  case class Computation(results: Results, previousWin: Boolean) {
-
-    def aggregate(p: RichPov) = copy(
-      results = results.aggregate(p).copy(
-        winStreak = if (~p.pov.win) {
-          if (previousWin) results.winStreak.add(1)
-          else results.winStreak.set(1)
-        }
-        else results.winStreak.reset
-      ),
-      previousWin = ~p.pov.win)
+    def aggregate(p: RichPov) = copy(results = results.aggregate(p))
 
     def run = results
   }
-  val emptyComputation = Computation(empty, false)
+  val emptyComputation = Computation(empty)
 }

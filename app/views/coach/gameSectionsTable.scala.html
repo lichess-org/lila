@@ -9,31 +9,26 @@
       <td>@section.moveAvg.map(_.localize)</td>
     </tr>
     <tr>
-      <th>Average centipawn loss</th>
+      <th>Centipawn loss</th>
       <td>@section.acplAvg.fold("N/A")(_.localize.toString)</td>
     </tr>
   </tbody>
 </table>
 }
 }
-
-<table>
-  <tbody>
-    <tr>
-      <th>Overall</th>
-      <td>@sectionTable(sections.all)</td>
-    </tr>
-    <tr>
-      <th>Opening</th>
-      <td>@sectionTable(sections.opening)</td>
-    </tr>
-    <tr>
-      <th>Middlegame</th>
-      <td>@sectionTable(sections.middle)</td>
-    </tr>
-    <tr>
-      <th>Endgame</th>
-      <td>@sectionTable(sections.end)</td>
-    </tr>
-  </tbody>
-</table>
+<tr>
+  <th>Overall</th>
+  <td>@sectionTable(sections.all)</td>
+</tr>
+<tr>
+  <th>Opening</th>
+  <td>@sectionTable(sections.opening)</td>
+</tr>
+<tr>
+  <th>Middlegame</th>
+  <td>@sectionTable(sections.middle)</td>
+</tr>
+<tr>
+  <th>Endgame</th>
+  <td>@sectionTable(sections.end)</td>
+</tr>

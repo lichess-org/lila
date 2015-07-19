@@ -30,18 +30,11 @@
     </tr>
     <tr>
       <th>Rating diff</th>
-      <td>@showProgress(r.ratingDiff)</td>
-    </tr>
-    <tr>
-      <th>Game stats</th>
-      <td>@gameSectionsTable(r.gameSections)</td>
-    </tr>
-    <tr>
-      <th>Best Rating</th>
-      <td>@r.bestRating.map { br =>
-        <strong>@br.rating</strong> after <a href="@routes.Round.watcher(br.id, "white")">playing</a> @userIdLink(br.userId.some)
+      <td>@r.ratingDiffAvg.map { rd =>
+        @showProgress(rd)
         }</td>
     </tr>
+    @gameSectionsTable(r.gameSections)
     <tr>
       <th>Best Win</th>
       <td>@r.bestWin.map { bw =>
@@ -51,10 +44,6 @@
     <tr>
       <th>Opponent average rating</th>
       <td>@r.opponentRatingAvg</td>
-    </tr>
-    <tr>
-      <th>Win streak</th>
-      <td>@r.winStreak.best (current: @r.winStreak.cur)</td>
     </tr>
     <tr>
       <th>Last played</th>
