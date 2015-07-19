@@ -54,6 +54,7 @@ final class PrefApi(
       coordColor = r.getD("coordColor", Pref.default.coordColor),
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
+      coachShare = r.getD("coachShare", Pref.default.coachShare),
       tags = r.getD("tags", Pref.default.tags))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
@@ -86,6 +87,7 @@ final class PrefApi(
       "coordColor" -> o.coordColor,
       "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
+      "coachShare" -> o.coachShare,
       "tags" -> o.tags)
   }
 
@@ -95,7 +97,8 @@ final class PrefApi(
       BSONDocument("$set" -> BSONDocument(s"tags.$name" -> value)),
       upsert = true).void >>- { cache remove user.id }
 
-  def getPref(id: String): Fu[Pref] = cache(id) map (_ getOrElse Pref.create(id))
+  def getPrefById(id: String): Fu[Pref] = cache(id) map (_ getOrElse Pref.create(id))
+  val getPref = getPrefById _
   def getPref(user: User): Fu[Pref] = getPref(user.id)
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
 

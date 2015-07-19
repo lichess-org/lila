@@ -95,6 +95,10 @@
             <h2>@trans.letOtherPlayersChallengeYou()</h2>
             @base.radios(form("challenge"), translatedChallengeChoices)
           </li>
+          <li>
+            <h2>Share your coach data</h2>
+            @base.radios(form("coachShare"), lila.pref.Pref.CoachShare.choices)
+          </li>
         </ul>
       </fieldset>
       <fieldset>

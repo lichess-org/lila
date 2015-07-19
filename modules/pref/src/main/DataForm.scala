@@ -24,6 +24,7 @@ private[pref] final class DataForm {
     "premove" -> number.verifying(Set(0, 1) contains _),
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
     "submitMove" -> number.verifying(Set(0, 1, 2) contains _),
+    "coachShare" -> number.verifying(Set(0, 1, 2) contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -44,6 +45,7 @@ private[pref] final class DataForm {
       premove: Int,
       animation: Int,
       submitMove: Int,
+      coachShare: Int,
       captured: Int) {
 
     def apply(pref: Pref) = pref.copy(
@@ -63,6 +65,7 @@ private[pref] final class DataForm {
       premove = premove == 1,
       animation = animation,
       submitMove = submitMove,
+      coachShare = coachShare,
       captured = captured == 1)
   }
 
@@ -84,6 +87,7 @@ private[pref] final class DataForm {
       premove = pref.premove.fold(1, 0),
       animation = pref.animation,
       submitMove = pref.submitMove,
+      coachShare = pref.coachShare,
       captured = pref.captured.fold(1, 0))
   }
 
