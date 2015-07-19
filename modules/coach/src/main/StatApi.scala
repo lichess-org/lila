@@ -12,7 +12,9 @@ import lila.db.BSON._
 import lila.db.Implicits._
 import lila.user.UserRepo
 
-final class StatApi(coll: Coll) {
+final class StatApi(
+    coll: Coll,
+    makeThrottler: (String => Fu[UserStat]) => Throttler) {
 
   import BSONHandlers._
 
@@ -30,7 +32,7 @@ final class StatApi(coll: Coll) {
     case _                          => compute(id)
   }
 
-  private def compute(id: String): Fu[UserStat] = {
+  private val throttler = makeThrottler { id =>
     import lila.game.tube.gameTube
     import lila.game.BSONHandlers.gameBSONHandler
     import lila.game.Query
@@ -47,10 +49,12 @@ final class StatApi(coll: Coll) {
           case e: Exception => logwarn("[StatApi] " + e); comp
         }
         case (comp, _) => comp
+      } map (_.run) flatMap { stat =>
+        coll.update(selectId(id), stat, upsert = true) inject stat
       }
-  } map (_.run) flatMap { stat =>
-    coll.update(selectId(id), stat, upsert = true) inject stat
   }
+
+  private def compute(id: String): Fu[UserStat] = throttler(id)
 }
 
 private object StatApi {
