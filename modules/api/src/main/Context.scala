@@ -57,8 +57,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def mobileApiVersion = Mobile.Api requestVersion req
 
   private def ctxPref(name: String): Option[String] =
-    if (isAuth) pref get name
-    else userContext.req.session get name orElse { pref get name }
+    userContext.req.session get name orElse { pref get name }
 }
 
 sealed abstract class BaseContext(
