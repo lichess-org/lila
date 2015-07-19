@@ -15,6 +15,8 @@ final class Env(
   }
   import settings._
 
+  lazy val jsonView = new JsonView
+
   lazy val statApi = new StatApi(coll = db(CollectionStat))
 }
 
