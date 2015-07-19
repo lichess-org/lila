@@ -1,5 +1,7 @@
 package lila.coach
 
+import org.joda.time.DateTime
+
 import lila.game.Pov
 
 case class Results(
@@ -13,12 +15,10 @@ case class Results(
     bestWin: Option[Results.BestWin],
     bestRating: Option[Results.BestRating],
     opponentRatingSum: Int,
-    winStreak: Results.Streak // nb games won in a row
-    ) {
+    winStreak: Results.Streak, // nb games won in a row
+    lastGameAt: Option[DateTime]) {
 
-  private def safeDiv(x: Int, y: Int) = if (y == 0) 0 else x / y
-
-  def opponentRatingAvg = safeDiv(opponentRatingSum, nbGames)
+  def opponentRatingAvg = (nbGames > 0) option opponentRatingSum
 
   def aggregate(p: RichPov) = copy(
     nbGames = nbGames + 1,
@@ -44,13 +44,14 @@ case class Results(
       }
     }
     else bestRating,
-    opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating)
+    opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating,
+    lastGameAt = lastGameAt orElse p.pov.game.createdAt.some)
 }
 
 object Results {
 
   val emptyStreak = Streak(0, 0)
-  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, none, 0, emptyStreak)
+  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, none, 0, emptyStreak, none)
 
   case class BestWin(id: String, userId: String, rating: Int)
   def makeBestWin(pov: Pov): Option[BestWin] = (pov.game.playedTurns > 4) ?? {

@@ -56,5 +56,9 @@
       <th>Win streak</th>
       <td>@r.winStreak.best (current: @r.winStreak.cur)</td>
     </tr>
+    <tr>
+      <th>Last played</th>
+      <td>@r.lastGameAt.map(momentFromNow)</td>
+    </tr>
   </tbody>
 </table>
