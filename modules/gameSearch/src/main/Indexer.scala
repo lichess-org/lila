@@ -38,20 +38,20 @@ private[gameSearch] final class Indexer(
         import Fields._
         client.execute {
           put mapping tempIndexName / typeName as Seq(
-            status typed ShortType index "not_analyzed",
-            turns typed ShortType index "not_analyzed",
-            rated typed BooleanType index "not_analyzed",
-            variant typed ShortType index "not_analyzed",
-            uids typed StringType index "not_analyzed",
-            winner typed StringType index "not_analyzed",
-            winnerColor typed ShortType index "not_analyzed",
-            averageRating typed ShortType index "not_analyzed",
-            ai typed ShortType index "not_analyzed",
-            opening typed StringType index "not_analyzed",
-            date typed DateType format ElasticSearch.Date.format index "not_analyzed",
-            duration typed IntegerType index "not_analyzed",
-            analysed typed BooleanType index "not_analyzed"
-          )
+            status typed ShortType,
+            turns typed ShortType,
+            rated typed BooleanType,
+            variant typed ShortType,
+            uids typed StringType,
+            winner typed StringType,
+            winnerColor typed ShortType,
+            averageRating typed ShortType,
+            ai typed ShortType,
+            opening typed StringType,
+            date typed DateType format ElasticSearch.Date.format,
+            duration typed IntegerType,
+            analysed typed BooleanType
+          ).map(_ index "not_analyzed")
         }.await
         import scala.concurrent.Await
         import scala.concurrent.duration._
