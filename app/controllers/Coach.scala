@@ -22,7 +22,7 @@ object Coach extends LilaController {
     lila.user.UserRepo named username flatMap {
       case None => fuccess(NotFound(Json.obj("error" -> s"User $username not found")))
       case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true  => env.statApi.fetchOrCompute(u.id) flatMap env.jsonView.apply map { Ok(_) }
+        case true  => env.statApi.fetchOrCompute(u.id) flatMap env.jsonView.raw map { Ok(_) }
         case false => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
       }
     } map (_ as JSON)
@@ -30,8 +30,12 @@ object Coach extends LilaController {
 
   def opening(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.statApi.fetch(user.id) map { stat =>
-        Ok(html.coach.opening(user, stat))
+      env.statApi.fetch(user.id) flatMap { stat =>
+        stat ?? { s =>
+          env.jsonView.opening(s).map(json => (s, json).some)
+        } map { data =>
+          Ok(html.coach.opening(user, data))
+        }
       }
     }
   }

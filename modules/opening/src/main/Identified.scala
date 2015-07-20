@@ -20,13 +20,13 @@ case object Identified {
 
   private lazy val movesPerName: Map[Name, Moves] =
     chess.Openings.db.foldLeft(Map[Name, Moves]()) {
-      case (outerAcc, (_, fullName, moves)) => List(1, 2).foldLeft(outerAcc) {
+      case (outerAcc, opening) => List(1, 2).foldLeft(outerAcc) {
         case (acc, length) =>
-          val name = fullName.split(',').take(length).mkString(",")
+          val name = opening.fullName.split(',').take(length).mkString(",")
           acc get name match {
-            case None                             => acc + (name -> moves)
-            case Some(ms) if moves.size < ms.size => acc + (name -> moves)
-            case _                                => acc
+            case None                               => acc + (name -> opening.moves)
+            case Some(ms) if opening.size < ms.size => acc + (name -> opening.moves)
+            case _                                  => acc
           }
       }
     }

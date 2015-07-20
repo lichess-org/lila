@@ -4,34 +4,30 @@ import play.api.libs.json._
 
 final class JsonView {
 
-  def apply(userStat: UserStat): Fu[JsObject] = fuccess {
-    UserStatWriter writes userStat
+  import JSONWriters._
+
+  def raw(stat: UserStat): Fu[JsObject] = fuccess {
+    UserStatWriter writes stat
   }
 
-  private implicit val SectionWriter = OWrites[GameSections.Section] { s =>
-    Json.obj(
-      "nb" -> s.nb,
-      "nbAnalysed" -> s.nbAnalysed,
-      "moveAvg" -> s.moveAvg,
-      "acplAvg" -> s.acplAvg)
+  def opening(stat: UserStat): Fu[JsObject] = fuccess {
+    OpeningApiDataWriter writes OpeningApiData(
+      results = stat.results.base,
+      colorResults = stat.colorResults,
+      openings = stat.openings,
+      families = OpeningFamilies(
+        white = familiesOf(stat.openings.white),
+        black = familiesOf(stat.openings.black)
+      )
+    )
   }
-  private implicit val GameSectionsWriter = Json.writes[GameSections]
-  private implicit val BestWinWriter = Json.writes[Results.BestWin]
-  private implicit val ResultsWriter = Json.writes[Results]
-  private implicit val ColorResultsWriter = Json.writes[ColorResults]
-  private implicit val OpeningsMapWriter = Json.writes[Openings.OpeningsMap]
-  private implicit val OpeningsWriter = Json.writes[Openings]
-  private implicit val PerfResultsBestRatingWriter = Json.writes[PerfResults.BestRating]
-  private implicit val PerfResultsStatusMapWriter = OWrites[Map[chess.Status, Int]] { m =>
-    JsObject(m.map { case (status, i) => status.name -> JsNumber(i) })
-  }
-  private implicit val PerfResultsStreakWriter = Json.writes[PerfResults.Streak]
-  private implicit val PerfResultsStatusScoresWriter = Json.writes[PerfResults.StatusScores]
-  private implicit val PerfResultsOutcomeStatusesWriter = Json.writes[PerfResults.OutcomeStatuses]
-  private implicit val PerfResultsWriter = Json.writes[PerfResults]
-  private implicit val PerfResultsPerfMapWriter = OWrites[Map[lila.rating.PerfType, PerfResults]] { m =>
-    JsObject(m.map { case (pt, res) => pt.key -> PerfResultsWriter.writes(res) })
-  }
-  private implicit val PerfResultsMapWriter = Json.writes[PerfResults.PerfResultsMap]
-  private implicit val UserStatWriter = Json.writes[UserStat]
+
+  private def familiesOf(opMap: Openings.OpeningsMap) =
+    opMap.m.foldLeft(Map[String, List[String]]()) {
+      case (acc, (code, _)) => chess.Openings.codeFamily.get(code).fold(acc) { family =>
+        acc + (family -> (code :: acc.getOrElse(family, Nil)))
+      }
+    }.map {
+      case (family, codes) => OpeningFamily(family, codes)
+    }.toList
 }

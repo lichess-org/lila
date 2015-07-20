@@ -9,6 +9,8 @@ case class Openings(
     black: Openings.OpeningsMap) {
 
   def apply(c: Color) = c.fold(white, black)
+
+  def all = white ++ black
 }
 
 object Openings {
@@ -16,6 +18,7 @@ object Openings {
   case class OpeningsMap(m: Map[String, Results]) {
     def best(max: Int): List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take max
     def trim(max: Int) = copy(m = best(max).toMap)
+    def ++(other: OpeningsMap) = OpeningsMap(m ++ other.m)
   }
   val emptyOpeningsMap = OpeningsMap(Map.empty)
 
@@ -36,8 +39,8 @@ object Openings {
       ops + (code -> ops.get(code).|(Results.emptyComputation).aggregate(p))
 
     def run = Openings(
-      white = OpeningsMap(white.mapValues(_.run)) trim 10,
-      black = OpeningsMap(black.mapValues(_.run)) trim 10)
+      white = OpeningsMap(white.mapValues(_.run)) trim 15,
+      black = OpeningsMap(black.mapValues(_.run)) trim 15)
   }
   val emptyComputation = Computation(Map.empty, Map.empty)
 }

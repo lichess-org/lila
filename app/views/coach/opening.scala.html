@@ -1,5 +1,28 @@
-@(u: User, stat: Option[lila.coach.UserStat])(implicit ctx: Context)
+@(u: User, statOption: Option[(lila.coach.UserStat, play.api.libs.json.JsObject)])(implicit ctx: Context)
 
-@coach.layout(title = s"${u.username} openingss") {
+@moreJs = {
+@highchartsTag
+@statOption.map {
+case (stat, data) => {
+@jsAt(s"compiled/lichess.coach.opening${isProd??(".min")}.js")
+@embedJs {
+LichessCoachOpening(document.getElementById('coach_opening'), {
+data: @Html(J.stringify(data))
+});
+}
+}
+}
+}
 
+@coach.layout(
+title = s"${u.username} openings",
+moreJs = moreJs,
+chessground = false) {
+
+<div class="content_box">
+
+  <h1 class="lichess_title">@userLink(u) openings</h1>
+
+  <div id="coach_opening"></div>
+</div>
 }

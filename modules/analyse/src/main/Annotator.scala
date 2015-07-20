@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.format.pgn.{ Pgn, Tag, Turn, Move }
-import chess.OpeningExplorer.Opening
+import chess.Opening
 import chess.{ Status, Color, Clock }
 
 private[analyse] final class Annotator(netDomain: String) {
