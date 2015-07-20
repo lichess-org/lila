@@ -2249,7 +2249,7 @@ lichess.storage = {
       lastPath = path = path || lastPath;
       var chart, point;
       $inputFen.val(fen);
-      if ($advChart.length) {
+      if ($advChart.length) try {
         chart = $advChart.highcharts();
         if (chart) {
           if (path.length > 1) unselect(chart);
@@ -2259,8 +2259,8 @@ lichess.storage = {
             else unselect(chart);
           }
         }
-      }
-      if ($timeChart.length) {
+      } catch(e) {}
+      if ($timeChart.length) try {
         chart = $timeChart.highcharts();
         if (chart) {
           if (path.length > 1) unselect(chart);
@@ -2273,7 +2273,7 @@ lichess.storage = {
             else unselect(chart);
           }
         }
-      }
+      } catch (e) {}
     };
     cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');

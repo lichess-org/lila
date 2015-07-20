@@ -5,7 +5,6 @@
 @title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
 
 @evenMoreJs = {
-@highstockTag
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
