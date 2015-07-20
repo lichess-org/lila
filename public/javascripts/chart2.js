@@ -10,7 +10,7 @@ function withHighcharts(f) {
     $.ajax({
       dataType: "script",
       cache: true,
-      url: lichess_rating_series ? highstockUrl : highchartsUrl
+      url: (typeof lichess_rating_series !== 'undefined') ? highstockUrl : highchartsUrl
     }).done(function() {
       Highcharts.makeFont = function(size) {
         return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
