@@ -24,10 +24,10 @@ final class JsonView {
 
   private def familiesOf(opMap: Openings.OpeningsMap) =
     opMap.m.foldLeft(Map[String, List[String]]()) {
-      case (acc, (code, _)) => chess.Openings.codeFamily.get(code).fold(acc) { family =>
-        acc + (family -> (code :: acc.getOrElse(family, Nil)))
+      case (acc, (family, _)) => chess.Openings.familyFirstMove.get(family).fold(acc) { firstMove =>
+        acc + (firstMove -> (family :: acc.getOrElse(firstMove, Nil)))
       }
     }.map {
-      case (family, codes) => OpeningFamily(family, codes)
+      case (firstMove, families) => OpeningFamily(firstMove, families)
     }.toList
 }

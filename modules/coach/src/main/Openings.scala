@@ -29,14 +29,14 @@ object Openings {
       black: Map[String, Results.Computation]) {
 
     def aggregate(p: RichPov) =
-      p.pov.game.opening.map(_.code).fold(this) { code =>
+      p.pov.game.opening.map(_.familyName).fold(this) { familyName =>
         copy(
-          white = if (p.pov.color.white) agg(white, code, p) else white,
-          black = if (p.pov.color.black) agg(black, code, p) else black)
+          white = if (p.pov.color.white) agg(white, familyName, p) else white,
+          black = if (p.pov.color.black) agg(black, familyName, p) else black)
       }
 
-    private def agg(ops: Map[String, Results.Computation], code: String, p: RichPov) =
-      ops + (code -> ops.get(code).|(Results.emptyComputation).aggregate(p))
+    private def agg(ops: Map[String, Results.Computation], familyName: String, p: RichPov) =
+      ops + (familyName -> ops.get(familyName).|(Results.emptyComputation).aggregate(p))
 
     def run = Openings(
       white = OpeningsMap(white.mapValues(_.run)) trim 15,

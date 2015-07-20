@@ -7,7 +7,7 @@ case class RichPov(
   division: chess.Division,
   accuracy: Option[lila.analyse.Accuracy.DividedAccuracy])
 
-case class OpeningFamily(name: String, codes: List[String])
+case class OpeningFamily(firstMove: String, families: List[String])
 case class OpeningFamilies(white: List[OpeningFamily], black: List[OpeningFamily])
 
 case class OpeningApiData(

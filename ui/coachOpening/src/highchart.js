@@ -1,59 +1,77 @@
+function sortByY(arr) {
+  return arr.sort(function(a, b) {
+    return a.y < b.y;
+  });
+}
+
 module.exports = function(el, data, color) {
-  var totalGames = data.colorResults[color].nbGames;
+  var totalGames = data.families[color].reduce(function(acc, family) {
+    return acc + family.families.reduce(function(acc, f) {
+      var op = data.openings[color][f];
+      return acc + (op ? op.nbGames : 0);
+    }, 0);
+  }, 0);
   var percent = function(nb) {
     return nb * 100 / totalGames;
   };
   var colors = Highcharts.getOptions().colors,
-    categories = data.families[color].map(function(f) {
-      return f.name;
-    }),
     data = data.families[color].map(function(family, index) {
-      var graphColor = colors[index];
+      var graphColor = colors[index % colors.length];
+      var families = family.families.sort(function(a, b) {
+        return data.openings[color][a].nbGames < data.openings[color][b].nbGames ? 1 : -1;
+      });
       return {
-        y: percent(family.codes.reduce(function(acc, code) {
-          var op = data.openings[color][code];
+        name: family.firstMove,
+        y: percent(families.reduce(function(acc, f) {
+          var op = data.openings[color][f];
           return acc + (op ? op.nbGames : 0);
         }, 0)),
         color: graphColor,
         drilldown: {
           name: family.name,
-          categories: family.codes,
-          data: family.codes.map(function(c) {
-            return percent(data.openings[color][c].nbGames);
+          categories: families,
+          data: families.map(function(f) {
+            return percent(data.openings[color][f].nbGames);
           }),
           color: graphColor
         }
       };
     }),
+    firstMoveData = [],
     familyData = [],
-    codeData = [],
     i,
     j,
-    dataLen = data.length,
     drillDataLen,
     brightness;
 
-  // Build the data arrays
-  for (i = 0; i < dataLen; i += 1) {
+  data.sort(function(a, b) {
+    return a.y < b.y ? 1 : -1;
+  });
 
-    // add browser data
-    familyData.push({
-      name: categories[i],
+  // Build the data arrays
+  for (i = 0; i < data.length; i += 1) {
+
+    firstMoveData.push({
+      name: data[i].name,
       y: data[i].y,
       color: data[i].color
     });
 
-    // add version data
     drillDataLen = data[i].drilldown.data.length;
     for (j = 0; j < drillDataLen; j += 1) {
-      brightness = 0.2 - (j / drillDataLen) / 5;
-      codeData.push({
+      brightness = 0.2 - (j / drillDataLen) / 3;
+      familyData.push({
         name: data[i].drilldown.categories[j],
         y: data[i].drilldown.data[j],
-        color: Highcharts.Color(data[i].color).brighten(brightness).get()
+        color: Highcharts.Color(data[i].color).brighten(brightness).get(),
+        _i: i
       });
     }
   }
+
+  console.log(familyData.map(function(f) {
+    return f._i + ', ' + f.y;
+  }));
 
   // Create the chart
   $(el).highcharts({
@@ -74,25 +92,25 @@ module.exports = function(el, data, color) {
       valueSuffix: '%'
     },
     series: [{
-      name: 'Opening families',
-      data: familyData,
+      name: 'First move',
+      data: firstMoveData,
       size: '60%',
       dataLabels: {
         formatter: function() {
-          return this.y > 5 ? this.point.name : null;
+          return this.y > 1 ? this.point.name : null;
         },
         color: 'white',
         distance: -30
       }
     }, {
-      name: 'Opening codes',
-      data: codeData,
-      size: '80%',
+      name: 'Openings',
+      data: familyData,
+      size: '90%',
       innerSize: '60%',
       dataLabels: {
         formatter: function() {
           // display only if larger than 1
-          return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+          return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Math.round(this.y) + '%' : null;
         }
       }
     }]

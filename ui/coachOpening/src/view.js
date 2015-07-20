@@ -12,7 +12,7 @@ function colorChart(data, color) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.charts ', ['white'].map(function(color) {
+  return m('div.charts ', ['white', 'black'].map(function(color) {
     return colorChart(ctrl.data, color);
   }));
 };
