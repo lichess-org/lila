@@ -11,6 +11,7 @@ final class Env(
     config: Config,
     getPref: String => Fu[lila.pref.Pref],
     areFriends: (String, String) => Fu[Boolean],
+    lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
     db: lila.db.Env) {
 
@@ -19,9 +20,11 @@ final class Env(
   }
   import settings._
 
+  private lazy val jsonWriters = new JSONWriters(lightUser = lightUser)
+
   lazy val share = new Share(getPref, areFriends)
 
-  lazy val jsonView = new JsonView
+  lazy val jsonView = new JsonView(jsonWriters)
 
   lazy val statApi = new StatApi(
     coll = db(CollectionStat),
@@ -34,6 +37,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "coach",
     getPref = lila.pref.Env.current.api.getPrefById,
     areFriends = lila.relation.Env.current.api.areFriends,
+    lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current)
 }

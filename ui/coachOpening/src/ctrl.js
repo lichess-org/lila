@@ -1,5 +1,7 @@
 var m = require('mithril');
 
+var chessground = require('chessground');
+
 function copy(obj, newValues) {
   var k, c = {};
   for (k in obj) {
@@ -20,7 +22,7 @@ module.exports = function(opts) {
     var o = this.data.openings.map[name];
     return copy(o, {
       name: name,
-      result: o.nbWin + o.nbDraw / 2 - o.nbLoss,
+      result: o.nbWin / o.nbLoss,
       acpl: o.gameSections.all.acplAvg
     });
   }.bind(this));
@@ -35,8 +37,41 @@ module.exports = function(opts) {
       order: -1
     },
     chart: null,
-    hover: null
+    hover: null,
+    inspecting: null,
+    /* {
+      family: 'Sicilian Defence',
+      chessground: null
+    } */
   };
+
+  this.isInspecting = function(family) {
+    return this.vm.inspecting && this.vm.inspecting.family === family;
+  }.bind(this);
+
+  this.inspect = function(family) {
+    if (this.isInspecting(family)) return;
+    var steps = this.data.steps[family];
+    var last = steps[steps.length - 1];
+    var config = {
+      fen: last.fen,
+      orientation: this.data.color,
+      viewOnly: true,
+      minimalDom: true,
+      check: last.check,
+      lastMove: [last.uci.substr(0, 2), last.uci.substr(2, 2)],
+      coordinates: false
+    };
+    if (this.vm.inspecting) {
+      this.vm.inspecting.family = family;
+      this.vm.inspecting.chessground.set(config);
+    } else
+      this.vm.inspecting = {
+        family: family,
+        chessground: new chessground.controller(config)
+      };
+  }.bind(this);
+  this.inspect('King Pawn Game');
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;

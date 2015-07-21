@@ -2,9 +2,9 @@ package lila.coach
 
 import play.api.libs.json._
 
-final class JsonView {
+final class JsonView(jsonWriters: JSONWriters) {
 
-  import JSONWriters._
+  import jsonWriters._
 
   def raw(stat: UserStat): Fu[JsObject] = fuccess {
     UserStatWriter writes stat
@@ -19,6 +19,9 @@ final class JsonView {
       "families" -> familiesOf(stat.openings(color)),
       "moves" -> Json.toJson(stat.openings(color).m.keys.flatMap { familyName =>
         chess.Openings.familyMoveList get familyName map formatMoves map familyName.->
+      }.toMap),
+      "steps" -> Json.toJson(stat.openings(color).m.keys.flatMap { familyName =>
+        OpeningSteps(familyName) map familyName.->
       }.toMap)
     )
   }

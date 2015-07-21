@@ -4,7 +4,8 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 
-private[coach] object JSONWriters {
+private[coach] final class JSONWriters(
+    lightUser: String => Option[lila.common.LightUser]) {
 
   implicit object JodaDateWrites extends Writes[DateTime] {
     private val isoFormatter = ISODateTimeFormat.dateTime
@@ -19,8 +20,30 @@ private[coach] object JSONWriters {
       "acplAvg" -> s.acplAvg)
   }
   implicit val GameSectionsWriter = Json.writes[GameSections]
-  implicit val BestWinWriter = Json.writes[Results.BestWin]
-  implicit val ResultsWriter = Json.writes[Results]
+  implicit val BestWinWriter = OWrites[Results.BestWin] { o =>
+    Json.obj(
+      "id" -> o.id,
+      "rating" -> o.rating,
+      "user" -> lightUser(o.userId).map { u =>
+        Json.obj(
+          "id" -> u.id,
+          "name" -> u.name,
+          "title" -> u.title)
+      })
+  }
+  implicit val ResultsWinWriter = OWrites[Results] { o =>
+    Json.obj(
+      "nbGames" -> o.nbGames,
+      "nbAnalysis" -> o.nbAnalysis,
+      "nbWin" -> o.nbWin,
+      "nbLoss" -> o.nbLoss,
+      "nbDraw" -> o.nbDraw,
+      "ratingDiff" -> o.ratingDiff,
+      "gameSections" -> o.gameSections,
+      "bestWin" -> o.bestWin,
+      "opponentRatingAvg" -> o.opponentRatingAvg,
+      "lastPlayed" -> o.lastPlayed)
+  }
   implicit val ColorResultsWriter = Json.writes[ColorResults]
   implicit val OpeningsMapWriter = Writes[Openings.OpeningsMap] { o =>
     Json.obj(

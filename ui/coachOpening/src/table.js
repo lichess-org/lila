@@ -1,11 +1,12 @@
 var m = require('mithril');
 
+var progress = require('./shared').progress;
+var resultBar = require('./shared').resultBar;
+
 var headers = [
   ['name', 'Opening'],
   ['nbGames', 'Games'],
-  ['nbWin', 'Win'],
-  ['nbDraw', 'Draw'],
-  ['nbLoss', 'Loss'],
+  ['result', 'Result'],
   ['ratingDiff', 'Rating'],
   ['acpl', 'ACPL'],
   ['lastPlayed', 'Last played']
@@ -38,10 +39,6 @@ function thead(list, sort) {
   })));
 }
 
-function signed(i) {
-  return (i > 0 ? '+' : '') + i;
-}
-
 module.exports = function(ctrl) {
   var d = ctrl.data;
   var percent = function(nb) {
@@ -67,7 +64,10 @@ module.exports = function(ctrl) {
             point.select(false);
           });
         },
-        class: (ctrl.vm.hover === o.name ? 'hover' : '')
+        onclick: function() {
+          ctrl.inspect(o.name);
+        },
+        class: (ctrl.vm.hover === o.name ? 'hover' : (ctrl.isInspecting(o.name) ? 'active' : ''))
       }, [
         m('td', [
           m('div.name', o.name),
@@ -76,12 +76,8 @@ module.exports = function(ctrl) {
         m('td', [
           m('div', o.nbGames + ' (' + percent(o.nbGames) + '%)')
         ]),
-        m('td', o.nbWin),
-        m('td', o.nbDraw),
-        m('td', o.nbLoss),
-        m('td', [
-          m('div', signed(o.ratingDiff))
-        ]),
+        m('td', resultBar(o)),
+        m('td', progress(o.ratingDiff)),
         m('td', [
           m('div', o.acpl === null ? '-' : o.acpl)
         ]),

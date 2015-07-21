@@ -25,7 +25,7 @@ case class Results(
     nbAnalysis = nbAnalysis + p.analysis.isDefined.fold(1, 0),
     nbWin = nbWin + (~p.pov.win).fold(1, 0),
     nbLoss = nbLoss + (~p.pov.loss).fold(1, 0),
-    nbDraw = nbDraw + p.pov.game.draw.fold(1, 0),
+    nbDraw = nbDraw + p.pov.game.drawn.fold(1, 0),
     ratingDiff = ratingDiff + ~p.pov.player.ratingDiff,
     gameSections = gameSections aggregate p,
     bestWin = if (~p.pov.win) {

@@ -132,6 +132,12 @@ module.exports = function(el, ctrl) {
       cursor: 'pointer',
       point: {
         events: {
+          click: function(e) {
+            if (e.point) {
+              ctrl.inspect(e.point.name);
+              m.redraw();
+            }
+          },
           mouseOver: function(e) {
             if (e.currentTarget) {
               ctrl.vm.hover = e.currentTarget.name;

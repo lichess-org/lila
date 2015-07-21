@@ -348,7 +348,7 @@ case class Game(
 
   def lostBy(c: Color): Option[Boolean] = winnerColor map (_ != c)
 
-  def draw = status == Status.Draw
+  def drawn = finished && winner.isEmpty
 
   def outoftimePlayer: Option[Player] =
     outoftimePlayerClock orElse outoftimePlayerCorrespondence

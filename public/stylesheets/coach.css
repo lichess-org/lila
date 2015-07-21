@@ -4,10 +4,10 @@
   width: 241px;
 }
 @media (max-width: 1070px) {
-#coach_side {
-  margin-left: 0px;
-  width: 211px;
-}
+  #coach_side {
+    margin-left: 0px;
+    width: 211px;
+  }
 }
 #coach_side .navigation {
   text-transform: capitalize;
@@ -19,15 +19,57 @@
   border-left: 2px solid transparent;
   transition: background 0.13s, border 0.13s;
 }
-
+div.content_box_top {
+  padding: 20px 20px;
+  border-bottom: 1px solid #CCC;
+}
+div.content_box_top h1 {
+  padding: 0!important;
+}
+#coach_opening > .top {
+  height: 400px;
+  box-sizing: border-box;
+  padding-top: 20px;
+}
+#coach_opening .result-bar {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 0;
+}
+#coach_opening .result-bar > div {
+  display: inline-block;
+  height: 100%;
+  transition: 0.3s;
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+  text-indent: 20px;
+  box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.25) inset;
+}
+#coach_opening .result-bar .nbWin,
+#coach_opening .result-bar .nbLoss {} #coach_opening .result-bar .nbWin {
+  background-color: #759900;
+}
+#coach_opening .result-bar .nbDraw {
+  text-indent: 5px;
+  background-color: #d59120;
+}
+#coach_opening .result-bar .nbLoss {
+  background-color: #dc322f;
+}
 #coach_opening table {
   margin-top: 20px;
-}
-#coach_opening table thead th {
-  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+#coach_opening table thead th {
+  cursor: pointer;
+}
+#coach_opening table thead th::before {
+  margin-right: 3px;
+  opacity: 0.8;
 }
 #coach_opening table .name {
   font-weight: bold;
@@ -38,4 +80,88 @@
 #coach_opening table tbody tr.hover,
 #coach_opening table tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
+}
+#coach_opening table tbody tr.active {
+  background: rgba(196, 210, 149, 0.7);
+}
+#coach_opening table .result-bar {
+  opacity: 0.7;
+  border-radius: 9px;
+}
+#coach_opening table .result-bar > div {
+  line-height: 18px;
+  font-size: 0;
+}
+#coach_opening > .inspect {
+  position: relative;
+  padding: 45px 20px 20px 20px;
+}
+#coach_opening > .inspect .back {
+  position: absolute;
+  top: 38px;
+  right: 10px;
+  text-decoration: none;
+  font-size: 30px;
+  opacity: 0.5;
+  transition: 0.13s;
+}
+#coach_opening > .inspect .back:hover {
+  opacity: 0.9;
+}
+#coach_opening > .inspect h2 strong {
+  font-size: 2em;
+}
+#coach_opening > .inspect h2 em {
+  font-size: 1.7em;
+  font-style: italic;
+  margin-left: 10px;
+}
+#coach_opening > .inspect h2 .progress {
+  font-size: 1.7em;
+  margin-left: 10px;
+}
+#coach_opening > .inspect .result-bar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#coach_opening > .inspect .board {
+  float: left;
+}
+#coach_opening > .inspect .content {
+  margin-top: 15px;
+}
+#coach_opening > .inspect .cg-board-wrap {
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+#coach_opening > .inspect .right {
+  margin-left: 320px;
+  font-size: 16px;
+}
+#coach_opening > .inspect .right table {
+  width: 100%;
+  line-height: 1.8em;
+}
+#coach_opening > .inspect .right .acpl span {
+  float: left;
+  color: #fff;
+  font-weight: bold;
+  text-indent: 5px;
+  margin-top: -1px;
+}
+#coach_opening > .inspect .right .acpl div {
+  transition: 0.3s;
+  height: 25px;
+  min-width: 30px;
+}
+#coach_opening > .inspect .right .acpl .good {
+  background-color: #759900;
+}
+#coach_opening > .inspect .right .acpl .med {
+  background-color: #d59120;
+}
+#coach_opening > .inspect .right .acpl .bad {
+  background-color: #dc322f;
 }
