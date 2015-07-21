@@ -53,10 +53,23 @@ module.exports = function(ctrl, inspecting) {
           m('tr', [
             m('th', 'Played in'),
             m('tr', [
-              m('strong', o.nbGames),
-              ' games (',
-              m('strong', Math.round(o.nbGames * 100 / ctrl.data.colorResults.nbGames)),
-              '%)'
+              m('a', [
+                m('strong', o.nbGames),
+                ' games (',
+                m('strong', Math.round(o.nbGames * 100 / ctrl.data.colorResults.nbGames)),
+                '%)'
+              ])
+            ])
+          ]),
+          m('tr', [
+            m('th', 'Computer analysed in'),
+            m('tr', [
+              m('a', [
+                m('strong', o.nbAnalysis),
+                ' games (',
+                m('strong', Math.round(o.nbAnalysis * 100 / o.nbGames)),
+                '%)'
+              ])
             ])
           ]),
           m('tr', [

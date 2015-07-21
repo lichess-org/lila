@@ -78,7 +78,10 @@ module.exports = function(el, ctrl) {
   // Create the chart
   $(el).highcharts({
     chart: {
-      type: 'pie'
+      type: 'pie',
+      animation: {
+        duration: 300
+      },
     },
     title: {
       text: null

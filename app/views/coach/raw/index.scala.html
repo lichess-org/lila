@@ -2,8 +2,15 @@
 
 @coach.layout(u, stat, title = s"${u.username} raw data",
 evenMoreCss = cssTag("coach.raw.css")) {
-<div class="content_box no_padding">
-  <h1>@userLink(u, withOnline = false) stats</h1>
+<div class="content_box no_padding" data-icon="^">
+  <div class="content_box_top">
+    <h1>
+      @userLink(u, withOnline = false) raw stats
+      <a class="button" href="@routes.Coach.json(u.username)">
+        Download as JSON
+      </a>
+    </h1>
+  </div>
   @stat.map { s =>
   @perfResultsTable(s.results, "Results".some)
   <table class="root">

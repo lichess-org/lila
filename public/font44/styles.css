@@ -344,3 +344,6 @@
 .icon-world:before {
   content: "n";
 }
+.icon-graph:before {
+  content: "^";
+}

@@ -16,12 +16,16 @@ data: @Html(J.stringify(data))
 
 @coach.layout(u, statOption.map(_._1),
 title = s"${u.username} openings as ${color.name}",
-moreJs = moreJs,
+evenMoreJs = moreJs,
 chessground = false) {
 
-<div class="content_box no_padding">
+<div class="content_box no_padding" data-icon="^">
   <div class="content_box_top">
-    <h1>@userLink(u) openings as @color.name</h1>
+    <h1>@userLink(u, withOnline = false) openings as @color.name over @if(u.count.rated > 10 * 1000) {
+      @{10000.localize} last
+      } else {
+      @u.count.rated.localize
+      } rated games</h1>
   </div>
 
   <div id="coach_opening"></div>

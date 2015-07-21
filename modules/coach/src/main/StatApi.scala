@@ -32,6 +32,8 @@ final class StatApi(
     case _                          => compute(id)
   }
 
+  def computeForce(id: String): Fu[UserStat] = compute(id)
+
   private val throttler = makeThrottler { id =>
     import lila.game.tube.gameTube
     import lila.game.BSONHandlers.gameBSONHandler

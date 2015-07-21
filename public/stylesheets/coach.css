@@ -11,6 +11,7 @@
 }
 #coach_side .navigation {
   text-transform: capitalize;
+  margin-bottom: 20px;
 }
 #coach_side .navigation a {
   display: block;
@@ -19,8 +20,14 @@
   border-left: 2px solid transparent;
   transition: background 0.13s, border 0.13s;
 }
+.content_box::before {
+  font-size: 45px;
+  position: absolute;
+  top: 14px;
+  left: 15px;
+}
 div.content_box_top {
-  padding: 20px 20px;
+  padding: 20px 20px 20px 72px;
   border-bottom: 1px solid #CCC;
 }
 div.content_box_top h1 {
@@ -158,8 +165,6 @@ div.content_box_top h1 {
   position: relative;
   margin-left: 320px;
   font-size: 16px;
-  transform: translateY(-25px);
-  -webkit-transform: translateY(-25px);
 }
 #coach_opening > .inspect .right .not_analysed {
   line-height: 200px;
@@ -171,12 +176,13 @@ div.content_box_top h1 {
   font-size: 0.9em;
   top: 0px;
   left: 0px;
+  margin: 0;
 }
 #coach_opening > .inspect .right .moves {
   width: 100%;
-  height: 200px;
+  height: 120px;
 }
 #coach_opening > .inspect .right table {
   width: 100%;
-  line-height: 1.8em;
+  line-height: 2em;
 }

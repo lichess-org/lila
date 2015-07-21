@@ -1,8 +1,13 @@
-@(u: User, stat: Option[lila.coach.UserStat], title: String, robots: Boolean = true, moreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true, withSide: Boolean = true)(body: Html)(implicit ctx: Context)
+@(u: User, stat: Option[lila.coach.UserStat], title: String, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true, withSide: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
 @evenMoreCss
+}
+
+@moreJs = {
+@jsTag("coach.js")
+@evenMoreJs
 }
 
 @sideSection = {
@@ -13,11 +18,34 @@
     <a href="@routes.Coach.opening(u.username, "black")">Openings as Black</a>
     <a href="@routes.Coach.raw(u.username)">Raw data</a>
   </div>
-  @if(!stat.??(_.isFresh)) {
-  <form method="post" action="@routes.Coach.refresh(u.username)">
-    <button type="submit">Refresh @u.username stats</button>
+  @if(stat.??(_.isFresh)) {
+  <div data-icon="E">This data is fresh</div>
+  }
+  @if(!stat.??(_.isFresh) || isGranted(_.SuperAdmin)) {
+  @stat.map { s =>
+  Generated @momentFromNow(s.date)
+  }.getOrElse {
+  No data for @u.username yet!
+  }
+  @if(u.count.rated > 0) {
+  <form class="refresh" method="post" action="@routes.Coach.refresh(u.username)">
+    <button class="button" type="submit">Refresh @u.username stats</button>
   </form>
   }
+  }
+  <div class="refreshing none">
+    Hang on while we crunch data<br />
+    from @u.username @if(u.count.rated > 10 * 1000) {
+    @{10000.localize} last
+    } else {
+    @u.count.rated.localize
+    } rated games!
+    <br /><br />
+    It shouldn't take long.
+    <br /><br /><br />
+    <iframe src='http://en.lichess.org/tv/frame' class='lichess-tv-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'>
+    </iframe>
+  </div>
 </div>
 }
 }

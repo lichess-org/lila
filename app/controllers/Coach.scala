@@ -44,8 +44,10 @@ object Coach extends LilaController {
 
   def refresh(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.statApi.computeIfOld(user.id) inject
-        Redirect(routes.Coach.raw(user.username))
+      {
+        if (isGranted(_.SuperAdmin)) env.statApi.computeForce(user.id)
+        else env.statApi.computeIfOld(user.id)
+      } inject Ok
     }
   }
 
