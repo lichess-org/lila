@@ -25,9 +25,7 @@ module.exports = function(ctrl, inspecting) {
   return m('div.top.inspect', [
     m('a.back', {
       'data-icon': 'L',
-      onclick: function() {
-        ctrl.vm.inspecting = null;
-      }
+      onclick: ctrl.uninspect
     }),
     resultBar(o),
     m('h2', [

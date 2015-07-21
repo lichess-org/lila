@@ -50,7 +50,10 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.inspect = function(family) {
+    if (!this.data.openings.map[family]) return;
     if (this.isInspecting(family)) return;
+    if (window.history.replaceState)
+      window.history.replaceState(null, null, '#' + family);
     var steps = this.data.steps[family];
     var last = steps[steps.length - 1];
     var config = {
@@ -71,7 +74,14 @@ module.exports = function(opts) {
         chessground: new chessground.controller(config)
       };
   }.bind(this);
-  // this.inspect('King Pawn Game');
+
+  if (location.hash) this.inspect(location.hash.replace(/#/, ''));
+
+  this.uninspect = function() {
+    this.vm.inspecting = null;
+    if (window.history.replaceState)
+      window.history.replaceState(null, null, '#');
+  }.bind(this);
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;
