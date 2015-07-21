@@ -28,13 +28,15 @@ object Coach extends LilaController {
     } map (_ as JSON)
   }
 
-  def opening(username: String) = Open { implicit ctx =>
-    Accessible(username) { user =>
-      env.statApi.fetch(user.id) flatMap { stat =>
-        stat ?? { s =>
-          env.jsonView.opening(s).map(json => (s, json).some)
-        } map { data =>
-          Ok(html.coach.opening(user, data))
+  def opening(username: String, colorStr: String) = Open { implicit ctx =>
+    chess.Color(colorStr).fold(notFound) { color =>
+      Accessible(username) { user =>
+        env.statApi.fetch(user.id) flatMap { stat =>
+          stat ?? { s =>
+            env.jsonView.opening(s, color).map(json => (s, json).some)
+          } map { data =>
+            Ok(html.coach.opening(user, color, data))
+          }
         }
       }
     }

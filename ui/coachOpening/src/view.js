@@ -2,17 +2,11 @@ var m = require('mithril');
 
 var highchart = require('./highchart');
 
-function colorChart(data, color) {
-  return m('div.' + color, {
+module.exports = function(ctrl) {
+  return m('div.chart', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
-      highchart(el, data, color);
+      highchart(el, ctrl.data);
     }
   });
-}
-
-module.exports = function(ctrl) {
-  return m('div.charts ', ['white', 'black'].map(function(color) {
-    return colorChart(ctrl.data, color);
-  }));
 };

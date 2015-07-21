@@ -8,10 +8,3 @@ case class RichPov(
   accuracy: Option[lila.analyse.Accuracy.DividedAccuracy])
 
 case class OpeningFamily(firstMove: String, families: List[String])
-case class OpeningFamilies(white: List[OpeningFamily], black: List[OpeningFamily])
-
-case class OpeningApiData(
-  results: Results,
-  colorResults: ColorResults,
-  openings: Openings,
-  families: OpeningFamilies)

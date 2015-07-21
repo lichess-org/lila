@@ -1,4 +1,4 @@
-@(u: User, statOption: Option[(lila.coach.UserStat, play.api.libs.json.JsObject)])(implicit ctx: Context)
+@(u: User, color: chess.Color, statOption: Option[(lila.coach.UserStat, play.api.libs.json.JsObject)])(implicit ctx: Context)
 
 @moreJs = {
 @highchartsTag
@@ -14,14 +14,14 @@ data: @Html(J.stringify(data))
 }
 }
 
-@coach.layout(
-title = s"${u.username} openings",
+@coach.layout(u, statOption.map(_._1),
+title = s"${u.username} openings as s{color.name}",
 moreJs = moreJs,
 chessground = false) {
 
 <div class="content_box">
 
-  <h1 class="lichess_title">@userLink(u) openings</h1>
+  <h1 class="lichess_title">@userLink(u) openings as @color.name</h1>
 
   <div id="coach_opening"></div>
 </div>

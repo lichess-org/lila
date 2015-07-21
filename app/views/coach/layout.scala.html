@@ -1,13 +1,30 @@
-@(title: String, side: Option[Html] = None, robots: Boolean = true, moreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+@(u: User, stat: Option[lila.coach.UserStat], title: String, robots: Boolean = true, moreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true, withSide: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
 @evenMoreCss
 }
 
+@sideSection = {
+@if(withSide) {
+<div id="coach_side">
+  <div class="navigation">
+    <a href="@routes.Coach.opening(u.username, "white")">Openings as White</a>
+    <a href="@routes.Coach.opening(u.username, "black")">Openings as Black</a>
+    <a href="@routes.Coach.raw(u.username)">Raw data</a>
+  </div>
+  @if(stat.??(_.isStale)) {
+  <form method="post" action="@routes.Coach.refresh(u.username)">
+    <button type="submit">Refresh @u.username stats</button>
+  </form>
+  }
+</div>
+}
+}
+
 @base.layout(
 title = title,
-side = side,
+side = sideSection.some,
 moreCss = moreCss,
 moreJs = moreJs,
 robots = robots,

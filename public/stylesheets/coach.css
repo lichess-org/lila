@@ -1,17 +1,21 @@
-table {
-  width: 100%;
-  background: rgba(0,0,0,0.08);
-  margin: 5px 0;
+#coach_side {
+  margin-top: 20px;
+  margin-left: -30px;
+  width: 241px;
 }
-table table {
-  font-size: 0.9em;
+@media (max-width: 1070px) {
+#coach_side {
+  margin-left: 0px;
+  width: 211px;
 }
-table th {
-  font-weight: bold;
 }
-.content_box > table {
-  margin-bottom: 20px;
+#coach_side .navigation {
+  text-transform: capitalize;
 }
-.content_box > table > thead > tr {
-  font-size: 2em;
+#coach_side .navigation a {
+  display: block;
+  padding: 5px 10px 5px 5px;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: background 0.13s, border 0.13s;
 }

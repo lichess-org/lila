@@ -1,6 +1,6 @@
 @(u: User)(implicit ctx: Context)
 
-@coach.layout(title = s"${u.username} coach data is protected") {
+@coach.layout(u, none, title = s"${u.username} coach data is protected", withSide = false) {
 
 You cannot see @userLink(u) coach data! 
 }

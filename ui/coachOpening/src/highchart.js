@@ -4,10 +4,14 @@ function sortByY(arr) {
   });
 }
 
-module.exports = function(el, data, color) {
-  var totalGames = data.families[color].reduce(function(acc, family) {
+function signed(i) {
+  return (i > 0 ? '+' : '') + i;
+}
+
+module.exports = function(el, data) {
+  var totalGames = data.families.reduce(function(acc, family) {
     return acc + family.families.reduce(function(acc, f) {
-      var op = data.openings[color][f];
+      var op = data.openings[f];
       return acc + (op ? op.nbGames : 0);
     }, 0);
   }, 0);
@@ -15,23 +19,26 @@ module.exports = function(el, data, color) {
     return nb * 100 / totalGames;
   };
   var colors = Highcharts.getOptions().colors,
-    data = data.families[color].map(function(family, index) {
+    raw = data.families.map(function(family, index) {
       var graphColor = colors[index % colors.length];
       var families = family.families.sort(function(a, b) {
-        return data.openings[color][a].nbGames < data.openings[color][b].nbGames ? 1 : -1;
+        return data.openings[a].nbGames < data.openings[b].nbGames ? 1 : -1;
       });
       return {
         name: family.firstMove,
         y: percent(families.reduce(function(acc, f) {
-          var op = data.openings[color][f];
+          var op = data.openings[f];
           return acc + (op ? op.nbGames : 0);
         }, 0)),
         color: graphColor,
         drilldown: {
           name: family.name,
-          categories: families,
           data: families.map(function(f) {
-            return percent(data.openings[color][f].nbGames);
+            return {
+              name: f,
+              y: percent(data.openings[f].nbGames),
+              results: data.openings[f]
+            };
           }),
           color: graphColor
         }
@@ -44,34 +51,30 @@ module.exports = function(el, data, color) {
     drillDataLen,
     brightness;
 
-  data.sort(function(a, b) {
+  raw.sort(function(a, b) {
     return a.y < b.y ? 1 : -1;
   });
 
   // Build the data arrays
-  for (i = 0; i < data.length; i += 1) {
+  for (i = 0; i < raw.length; i += 1) {
 
     firstMoveData.push({
-      name: data[i].name,
-      y: data[i].y,
-      color: data[i].color
+      name: raw[i].name,
+      y: raw[i].y,
+      color: raw[i].color
     });
 
-    drillDataLen = data[i].drilldown.data.length;
+    drillDataLen = raw[i].drilldown.data.length;
     for (j = 0; j < drillDataLen; j += 1) {
       brightness = 0.2 - (j / drillDataLen) / 3;
       familyData.push({
-        name: data[i].drilldown.categories[j],
-        y: data[i].drilldown.data[j],
-        color: Highcharts.Color(data[i].color).brighten(brightness).get(),
-        _i: i
+        name: raw[i].drilldown.data[j].name,
+        y: raw[i].drilldown.data[j].y,
+        results: raw[i].drilldown.data[j].results,
+        color: Highcharts.Color(raw[i].color).brighten(brightness).get()
       });
     }
   }
-
-  console.log(familyData.map(function(f) {
-    return f._i + ', ' + f.y;
-  }));
 
   // Create the chart
   $(el).highcharts({
@@ -79,7 +82,7 @@ module.exports = function(el, data, color) {
       type: 'pie'
     },
     title: {
-      text: 'Openings played as ' + color
+      text: null
     },
     yAxis: {},
     plotOptions: {
@@ -89,7 +92,20 @@ module.exports = function(el, data, color) {
       }
     },
     tooltip: {
-      valueSuffix: '%'
+      useHTML: true,
+      headerFormat: '{point.key}<table>',
+      pointFormatter: function() {
+        var r = this.results;
+        var acpl = r.gameSections.all.acplAvg;
+        return '<tr><td>Games:</td><td style="text-align: right"><b>' +
+          r.nbGames + '</b></td></tr>' +
+          '<tr><td>Results:</td><td style="text-align: right"><b>' + [r.nbWin, r.nbDraw, r.nbLoss].join('/') + '</b></td></tr>' +
+          '<tr><td>Rating:</td><td style="text-align: right"><b>' +
+          signed(r.ratingDiff) + '</b></td></tr>' +
+          '<tr><td>Centipawns:</td><td style="text-align: right"><b>' +
+          (acpl === null ? '?' : acpl) + '</b></td></tr>';
+      },
+      footerFormat: '</table>'
     },
     series: [{
       name: 'First move',
@@ -97,7 +113,7 @@ module.exports = function(el, data, color) {
       size: '60%',
       dataLabels: {
         formatter: function() {
-          return this.y > 1 ? this.point.name : null;
+          return this.y > 3 ? this.point.name : null;
         },
         color: 'white',
         distance: -30
@@ -112,7 +128,13 @@ module.exports = function(el, data, color) {
           // display only if larger than 1
           return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Math.round(this.y) + '%' : null;
         }
-      }
-    }]
+      },
+    }],
+    credits: {
+      enabled: false
+    },
+    legend: {
+      enabled: false
+    }
   });
 };

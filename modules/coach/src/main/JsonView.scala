@@ -10,15 +10,13 @@ final class JsonView {
     UserStatWriter writes stat
   }
 
-  def opening(stat: UserStat): Fu[JsObject] = fuccess {
-    OpeningApiDataWriter writes OpeningApiData(
-      results = stat.results.base,
-      colorResults = stat.colorResults,
-      openings = stat.openings,
-      families = OpeningFamilies(
-        white = familiesOf(stat.openings.white),
-        black = familiesOf(stat.openings.black)
-      )
+  def opening(stat: UserStat, color: chess.Color): Fu[JsObject] = fuccess {
+    Json.obj(
+      "color" -> color.name,
+      "results" -> stat.results.base,
+      "colorResults" -> stat.colorResults(color),
+      "openings" -> stat.openings(color),
+      "families" -> familiesOf(stat.openings(color))
     )
   }
 

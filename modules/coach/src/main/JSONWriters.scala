@@ -40,6 +40,4 @@ private[coach] object JSONWriters {
   }
 
   implicit val OpeningFamilyWriter = Json.writes[OpeningFamily]
-  implicit val OpeningFamiliesWriter = Json.writes[OpeningFamilies]
-  implicit val OpeningApiDataWriter = Json.writes[OpeningApiData]
 }
