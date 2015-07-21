@@ -24,6 +24,9 @@ private[coach] object BSONHandlers {
     }
     def write(x: StatusScores) = intMapHandler write x.m.mapKeys(_.id.toString)
   }
+  implicit val MoveBSONHandler = Macros.handler[Move]
+  implicit val MovesBSONHandler = Macros.handler[Moves]
+
   implicit val PerfResultsStreakBSONHandler = Macros.handler[Streak]
   implicit val PerfResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]
   implicit val ResultsBestWinBSONHandler = Macros.handler[BestWin]

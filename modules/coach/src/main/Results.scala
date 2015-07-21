@@ -12,6 +12,7 @@ case class Results(
     nbDraw: Int,
     ratingDiff: Int,
     gameSections: GameSections,
+    moves: Moves,
     bestWin: Option[Results.BestWin],
     opponentRatingSum: Int,
     lastPlayed: Option[DateTime]) {
@@ -28,6 +29,7 @@ case class Results(
     nbDraw = nbDraw + p.pov.game.drawn.fold(1, 0),
     ratingDiff = ratingDiff + ~p.pov.player.ratingDiff,
     gameSections = gameSections aggregate p,
+    moves = moves aggregate p,
     bestWin = if (~p.pov.win) {
       Results.makeBestWin(p.pov).fold(bestWin) { newBest =>
         bestWin.fold(newBest) { prev =>
@@ -47,6 +49,7 @@ case class Results(
     nbDraw = nbDraw + r.nbDraw,
     ratingDiff = ratingDiff + r.ratingDiff,
     gameSections = gameSections merge r.gameSections,
+    moves = moves merge r.moves,
     bestWin = (bestWin, r.bestWin) match {
       case (Some(a), Some(b)) => Some(a merge b)
       case (Some(a), _)       => a.some
@@ -64,7 +67,7 @@ case class Results(
 
 object Results {
 
-  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, 0, none)
+  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, Moves.empty, none, 0, none)
 
   case class BestWin(id: String, userId: String, rating: Int) {
     def merge(b: BestWin) = if (rating > b.rating) this else b

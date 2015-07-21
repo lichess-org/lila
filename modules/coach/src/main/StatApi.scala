@@ -74,7 +74,8 @@ private object StatApi {
               initialFen = fen,
               analysis = an,
               division = division,
-              accuracy = an.flatMap { lila.analyse.Accuracy(pov, _, division) }
+              accuracy = an.flatMap { lila.analyse.Accuracy(pov, _, division) },
+              moveAccuracy = an.map { lila.analyse.Accuracy.diffsList(pov, _) }
             ).some
         }
     }

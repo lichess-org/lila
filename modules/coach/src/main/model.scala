@@ -5,6 +5,7 @@ case class RichPov(
   initialFen: Option[String],
   analysis: Option[lila.analyse.Analysis],
   division: chess.Division,
-  accuracy: Option[lila.analyse.Accuracy.DividedAccuracy])
+  accuracy: Option[lila.analyse.Accuracy.DividedAccuracy],
+  moveAccuracy: Option[List[Int]])
 
 case class OpeningFamily(firstMove: String, results: Results, families: List[String])
