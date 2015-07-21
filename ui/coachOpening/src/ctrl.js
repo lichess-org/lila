@@ -71,7 +71,7 @@ module.exports = function(opts) {
         chessground: new chessground.controller(config)
       };
   }.bind(this);
-  this.inspect('King Pawn Game');
+  // this.inspect('King Pawn Game');
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;

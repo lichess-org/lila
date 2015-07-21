@@ -22,7 +22,7 @@ object Accuracy {
           (if (pov.color.white) -diff else diff).max(0) :: list
         }
       case (list, _) => list
-    }
+    }.reverse
 
   def apply(pov: Pov, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)

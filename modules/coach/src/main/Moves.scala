@@ -36,6 +36,10 @@ case class FilledMoves(moves: Vector[Move]) {
   def aggregate(p: RichPov) = FilledMoves {
     val moveTimes = p.pov.game.hasClock option p.pov.game.moveTimes(p.pov.color).toVector
     val accuracy = p.moveAccuracy.map(_.toVector)
+    accuracy.flatMap(_ lift 0).filter(_ > 100) foreach { v =>
+      println(s"http://l.org/${p.pov.game.id} $v")
+    }
+
     (0 to 79.min(p.pov.game.playerMoves(p.pov.color) - 1)).foldLeft(moves) {
       case (moves, index) => moves.updated(
         index,

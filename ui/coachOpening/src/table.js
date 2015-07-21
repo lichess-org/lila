@@ -44,7 +44,7 @@ module.exports = function(ctrl) {
   var percent = function(nb) {
     return Math.round(nb * 100 / d.openings.nbGames);
   };
-  return m('table.slist', [
+  return m('table.openings.slist', [
     thead(ctrl.list, ctrl.vm.sort),
     m('tbody', ctrl.list.map(function(o, i) {
       return m('tr', {
