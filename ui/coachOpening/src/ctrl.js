@@ -23,7 +23,8 @@ module.exports = function(opts) {
     return copy(o, {
       name: name,
       result: o.nbWin / o.nbLoss,
-      acpl: o.gameSections.all.acplAvg
+      acpl: o.gameSections.all.acplAvg,
+      ratingDiffAvg: o.nbGames > 0 ? o.ratingDiff / o.nbGames : 0
     });
   }.bind(this));
 

@@ -4,12 +4,14 @@ var green = '#759900',
   red = '#dc322f',
   orange = '#d59120';
 
+var MAX_MOVES = 30;
+
 function makeData(moves) {
-  return moves.slice(0, 30).map(function(move, i) {
+  return moves.map(function(move, i) {
     var acpl = move.acpl.avg;
     return {
       x: i + 1,
-      y: acpl + 10,
+      y: Math.min(acpl, 150) + 10,
       color: acpl < 50 ? green : (acpl < 90 ? orange : red),
       move: move
     };
@@ -91,16 +93,27 @@ function makeChart(el, data) {
   return $(el).highcharts();
 }
 
-module.exports = function(ctrl, family) {
+function analysed(ctrl, family) {
   var d = ctrl.data;
-  return d.openings.map[family].nbAnalysis > 0 ? [
-    m('h3', 'Average centipawns lost per move:'),
+  var moves = d.openings.map[family].moves[ctrl.data.color].slice(0, MAX_MOVES);
+  var acpl = moves.reduce(function(a, b) {
+    return a + b.acpl.avg;
+  }, 0) / moves.length;
+  return [
+    m('h3', [
+      'Average centipawns lost by move: ',
+      m('strong', Math.round(acpl))
+    ]),
     m('div.moves', {
       config: function(el, isUpdate, ctx) {
-        var data = makeData(d.openings.map[family].moves[ctrl.data.color]);
+        var data = makeData(moves);
         if (ctx.chart) ctx.chart.series[0].setData(data)
         else ctx.chart = makeChart(el, data);
       }
     })
-  ] : m('div.not_analysed', 'No analysis available on these games!')
+  ];
+}
+
+module.exports = function(ctrl, family) {
+  return ctrl.data.openings.map[family].nbAnalysis > 0 ? analysed(ctrl, family) : m('div.not_analysed', 'No analysis available on these games!')
 };

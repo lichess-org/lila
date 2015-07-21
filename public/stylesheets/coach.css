@@ -149,7 +149,10 @@ div.content_box_top h1 {
 }
 #coach_opening > .inspect .right h3 {
   position: absolute;
-  top: 10px;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9em;
+  top: 0px;
   left: 0px;
 }
 #coach_opening > .inspect .right .moves {

@@ -7,7 +7,7 @@ var headers = [
   ['name', 'Opening'],
   ['nbGames', 'Games'],
   ['result', 'Result'],
-  ['ratingDiff', 'Rating'],
+  ['ratingDiffAvg', 'Rating'],
   ['acpl', 'ACPL'],
   ['lastPlayed', 'Last played']
 ];
@@ -77,7 +77,7 @@ module.exports = function(ctrl) {
           m('div', o.nbGames + ' (' + percent(o.nbGames) + '%)')
         ]),
         m('td', resultBar(o)),
-        m('td', progress(o.ratingDiff)),
+        m('td', progress(o.ratingDiffAvg)),
         m('td', [
           m('div', o.acpl === null ? '-' : o.acpl)
         ]),

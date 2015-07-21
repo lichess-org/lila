@@ -31,7 +31,7 @@ module.exports = function(ctrl, inspecting) {
     m('h2', [
       m('strong', family),
       m('em', d.moves[family]),
-      progress(o.ratingDiff)
+      progress(o.ratingDiff / o.nbGames)
     ]),
     m('div.content', [
       board(ctrl, family),

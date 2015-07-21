@@ -1,11 +1,16 @@
 var m = require('mithril');
 
+function decimals(nb) {
+  return Number(nb).toFixed(2);
+}
+
 module.exports = {
   progress: function(r) {
     var perf;
+    var dec = decimals(r > 0 ? r : -r);
     if (r === 0) perf = m('span', ' =');
-    else if (r > 0) perf = m('span.positive[data-icon=N]', r);
-    else if (r < 0) perf = m('span.negative[data-icon=M]', -r);
+    else if (r > 0) perf = m('span.positive[data-icon=N]', dec);
+    else if (r < 0) perf = m('span.negative[data-icon=M]', dec);
     return m('span.rating.progress.hint--top', {
       'data-hint': 'Rating points won in this opening'
     }, perf);
