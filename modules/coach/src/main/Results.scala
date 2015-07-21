@@ -12,7 +12,7 @@ case class Results(
     nbDraw: Int,
     ratingDiff: Int,
     gameSections: GameSections,
-    moves: Moves,
+    moves: ColorMoves,
     bestWin: Option[Results.BestWin],
     opponentRatingSum: Int,
     lastPlayed: Option[DateTime]) {
@@ -67,7 +67,7 @@ case class Results(
 
 object Results {
 
-  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, Moves.empty, none, 0, none)
+  val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, ColorMoves.empty, none, 0, none)
 
   case class BestWin(id: String, userId: String, rating: Int) {
     def merge(b: BestWin) = if (rating > b.rating) this else b

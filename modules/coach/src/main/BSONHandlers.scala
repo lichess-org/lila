@@ -16,6 +16,12 @@ private[coach] object BSONHandlers {
 
   private implicit val intMapHandler = MapValue.MapHandler[Int]
 
+  private implicit val NbSumBSONHandler = new BSONHandler[BSONArray, NbSum] {
+    def read(arr: BSONArray) = NbSum(
+      nb = arr.getAs[Int](0) err "NbSum missing nb",
+      sum = arr.getAs[Int](1) err "NbSum missing sum")
+    def write(x: NbSum) = BSONArray(x.nb, x.sum)
+  }
   private implicit val StatusScoresBSONHandler = new BSONHandler[BSONDocument, StatusScores] {
     def read(doc: BSONDocument): StatusScores = StatusScores {
       intMapHandler read doc mapKeys { k =>
@@ -25,7 +31,8 @@ private[coach] object BSONHandlers {
     def write(x: StatusScores) = intMapHandler write x.m.mapKeys(_.id.toString)
   }
   implicit val MoveBSONHandler = Macros.handler[Move]
-  implicit val MovesBSONHandler = Macros.handler[Moves]
+  implicit val TrimmedMovesBSONHandler = Macros.handler[TrimmedMoves]
+  implicit val ColorMovesBSONHandler = Macros.handler[ColorMoves]
 
   implicit val PerfResultsStreakBSONHandler = Macros.handler[Streak]
   implicit val PerfResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]

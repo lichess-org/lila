@@ -1,6 +1,7 @@
 var m = require('mithril');
 
 var board = require('./board');
+var moves = require('./moves');
 var progress = require('./shared').progress;
 var resultBar = require('./shared').resultBar;
 
@@ -37,6 +38,7 @@ module.exports = function(ctrl, inspecting) {
     m('div.content', [
       board(ctrl, family),
       m('div.right', [
+        moves(ctrl, family),
         m('table', [
           m('tr', [
             m('th', 'Played in'),
@@ -60,28 +62,7 @@ module.exports = function(ctrl, inspecting) {
             m('tr', m('time.moment-from-now', {
               datetime: o.lastPlayed
             }))
-          ]),
-          m('tr', m('th[colspan=2]', 'Average centipawn loss')), [
-            ['opening', 'Opening'],
-            ['middle', 'Middlegame'],
-            ['end', 'Endgame'],
-            ['all', 'Overall']
-          ].map(function(x) {
-            var acpl = o.gameSections[x[0]].acplAvg;
-            return m('tr', [
-              m('th', x[1]),
-              m('td.acpl', [
-                m('span', acpl),
-                m('div', {
-                  class: acpl < 40 ? 'good' : (acpl < 80 ? 'med' : 'bad'),
-                  key: x[0],
-                  style: {
-                    width: Math.min(acpl, 100) + '%'
-                  }
-                })
-              ])
-            ]);
-          })
+          ])
         ])
       ])
     ])

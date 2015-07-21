@@ -1,44 +1,72 @@
 package lila.coach
 
-case class Move(nbGames: Int, acplSum: Int) {
-
-  def acplAvg = (nbGames > 0) option (acplSum / nbGames)
+case class Move(nb: Int, acpl: NbSum, time: NbSum) {
 
   def merge(m: Move) = Move(
-    nbGames = nbGames + m.nbGames,
-    acplSum = acplSum + m.acplSum)
+    nb = nb + m.nb,
+    acpl = acpl merge m.acpl,
+    time = time merge m.time)
 
-  def add(acpl: Int) = copy(nbGames + 1, acplSum + acpl)
+  def add(a: Option[Int], t: Option[Int]) = copy(
+    nb = nb + 1,
+    acpl = a.fold(acpl)(acpl.add),
+    time = t.fold(time)(time.add))
+}
+object Move {
+  val empty = Move(0, NbSum.empty, NbSum.empty)
 }
 
-case class Moves(white: Vector[Move], black: Vector[Move]) {
+case class TrimmedMoves(moves: Vector[Move]) {
 
-  private def aggregateSide(side: Vector[Move], p: RichPov): Vector[Move] =
-    p.moveAccuracy.fold(side) {
-      _.take(Moves.SIZE).zipWithIndex.foldLeft(side) {
-        case (side, (cp, index)) => side.updated(index, side(index) add cp)
-      }
-    }
-
-  def aggregate(p: RichPov) = copy(
-    white = if (p.pov.color.white) aggregateSide(white, p) else white,
-    black = if (p.pov.color.black) aggregateSide(black, p) else black)
-
-  private def mergeMoves(l1: Vector[Move], l2: Vector[Move]) = l1.zip(l2).map {
-    case (m1, m2) => m1 merge m2
+  def fill = FilledMoves {
+    moves ++ Vector.fill(Moves.SIZE - moves.size)(Move.empty)
   }
 
-  def merge(o: Moves) = Moves(
-    white = mergeMoves(white, o.white),
-    black = mergeMoves(black, o.black))
+  def aggregate(p: RichPov) = fill.aggregate(p).trim
+
+  def merge(o: TrimmedMoves) = fill.merge(o.fill).trim
 }
 
+case class FilledMoves(moves: Vector[Move]) {
+
+  def trim = TrimmedMoves {
+    moves.takeWhile(_.nb > 0)
+  }
+
+  def aggregate(p: RichPov) = FilledMoves {
+    val moveTimes = p.pov.game.hasClock option p.pov.game.moveTimes(p.pov.color).toVector
+    val accuracy = p.moveAccuracy.map(_.toVector)
+    (0 to 79.min(p.pov.game.playerMoves(p.pov.color) - 1)).foldLeft(moves) {
+      case (moves, index) => moves.updated(
+        index,
+        moves(index).add(
+          accuracy.flatMap(_ lift index),
+          moveTimes.flatMap(_ lift index)))
+    }
+  }
+
+  // TODO keep longest size
+  def merge(o: FilledMoves) = FilledMoves {
+    moves zip o.moves map { case (a, b) => a merge b }
+  }
+}
 object Moves {
-
   val SIZE = 80
+  val empty = TrimmedMoves(Vector.empty)
+}
 
-  private val emptyMove = Move(0, 0)
-  private val emptySideData: Vector[Move] = Vector.fill(SIZE)(emptyMove)
+case class ColorMoves(white: TrimmedMoves, black: TrimmedMoves) {
 
-  val empty = Moves(emptySideData, emptySideData)
+  def aggregate(p: RichPov) = copy(
+    white = if (p.pov.color.white) white aggregate p else white,
+    black = if (p.pov.color.black) black aggregate p else black)
+
+  def merge(o: ColorMoves) = ColorMoves(
+    white = white merge o.white,
+    black = black merge o.black)
+}
+
+object ColorMoves {
+
+  val empty = ColorMoves(Moves.empty, Moves.empty)
 }

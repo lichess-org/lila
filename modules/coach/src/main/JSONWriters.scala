@@ -12,6 +12,10 @@ private[coach] final class JSONWriters(
     def writes(d: DateTime): JsValue = JsString(isoFormatter print d)
   }
 
+  implicit val NbSumWriter = OWrites[NbSum] { s =>
+    Json.obj("nb" -> s.nb, "avg" -> s.avg)
+  }
+
   implicit val SectionWriter = OWrites[GameSections.Section] { s =>
     Json.obj(
       "nb" -> s.nb,
@@ -32,7 +36,10 @@ private[coach] final class JSONWriters(
       })
   }
   implicit val MoveWriter = Json.writes[Move]
-  implicit val MovesWriter = Json.writes[Moves]
+  implicit val TrimmedMovesWriter  = Writes[TrimmedMoves] { o =>
+    Json.toJson(o.moves)
+  }
+  implicit val ColorMovesWriter = Json.writes[ColorMoves]
   implicit val ResultsWriter = OWrites[Results] { o =>
     Json.obj(
       "nbGames" -> o.nbGames,
