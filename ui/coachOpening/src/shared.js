@@ -4,7 +4,14 @@ function decimals(nb) {
   return Number(nb).toFixed(2);
 }
 
+var strings = {
+  acpl: 'Average centipawn loss',
+  ratingDiff: 'Rating points won in this opening, in average',
+  result: 'Wins, draws and losses'
+};
+
 module.exports = {
+  strings: strings,
   progress: function(r) {
     var perf;
     var dec = decimals(r > 0 ? r : -r);
@@ -12,7 +19,7 @@ module.exports = {
     else if (r > 0) perf = m('span.positive[data-icon=N]', dec);
     else if (r < 0) perf = m('span.negative[data-icon=M]', dec);
     return m('span.rating.progress.hint--top', {
-      'data-hint': 'Rating points won in this opening'
+      'data-hint': strings.ratingDiff
     }, perf);
   },
   resultBar: function(o) {

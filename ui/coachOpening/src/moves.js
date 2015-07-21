@@ -96,13 +96,14 @@ function makeChart(el, data) {
 function analysed(ctrl, family) {
   var d = ctrl.data;
   var moves = d.openings.map[family].moves[ctrl.data.color].slice(0, MAX_MOVES);
-  var acpl = moves.reduce(function(a, b) {
-    return a + b.acpl.avg;
-  }, 0) / moves.length;
+  var acpl = d.openings.map[family].gameSections.all.acplAvg;
+  var globalAcpl = ctrl.data.colorResults.gameSections.all.acplAvg;
   return [
     m('h3', [
       'Average centipawns lost by move: ',
-      m('strong', Math.round(acpl))
+      m('span.progress', m('strong', {
+        class: acpl > globalAcpl ? 'negative' : 'positive'
+      }, Math.round(acpl)))
     ]),
     m('div.moves', {
       config: function(el, isUpdate, ctx) {
