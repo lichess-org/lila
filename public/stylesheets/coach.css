@@ -98,17 +98,33 @@ div.content_box_top h1 {
   position: relative;
   padding: 45px 20px 20px 20px;
 }
-#coach_opening > .inspect .back {
+#coach_opening > .inspect > .to {
   position: absolute;
-  top: 38px;
-  right: 10px;
   text-decoration: none;
   font-size: 30px;
   opacity: 0.5;
   transition: 0.13s;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
-#coach_opening > .inspect .back:hover {
+#coach_opening > .inspect > .to:hover {
   opacity: 0.9;
+}
+#coach_opening > .inspect > .back {
+  top: 38px;
+  right: 10px;
+}
+#coach_opening > .inspect > .to.prev,
+#coach_opening > .inspect > .to.next {
+  top: 180px;
+  padding: 30px 10px;
+}
+#coach_opening > .inspect > .to.prev {
+  left: -55px;
+}
+#coach_opening > .inspect > .to.next {
+  right: -55px;
 }
 #coach_opening > .inspect h2 strong {
   font-size: 2em;

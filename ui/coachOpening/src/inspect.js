@@ -23,9 +23,21 @@ module.exports = function(ctrl, inspecting) {
   var family = inspecting.family;
   var o = d.openings.map[family];
   return m('div.top.inspect', [
-    m('a.back', {
+    m('a.to.back', {
       'data-icon': 'L',
       onclick: ctrl.uninspect
+    }),
+    m('a.to.prev', {
+      'data-icon': 'I',
+      onclick: function() {
+        ctrl.jumpBy(-1);
+      }
+    }),
+    m('a.to.next', {
+      'data-icon': 'H',
+      onclick: function() {
+        ctrl.jumpBy(1);
+      }
     }),
     resultBar(o),
     m('h2', [

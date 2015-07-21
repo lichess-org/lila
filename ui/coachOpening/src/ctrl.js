@@ -46,6 +46,17 @@ module.exports = function(opts) {
     } */
   };
 
+  this.jumpBy = function(delta) {
+    if (!this.vm.inspecting) return;
+    var families = this.list.map(function(o) {
+      return o.name;
+    });
+    var i = families.indexOf(this.vm.inspecting.family);
+    var i2 = (i + delta) % families.length;
+    if (i2 < 0) i2 = families.length -1;
+    this.inspect(families[i2]);
+  }.bind(this);
+
   this.isInspecting = function(family) {
     return this.vm.inspecting && this.vm.inspecting.family === family;
   }.bind(this);
