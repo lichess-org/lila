@@ -13,7 +13,7 @@
     <a href="@routes.Coach.opening(u.username, "black")">Openings as Black</a>
     <a href="@routes.Coach.raw(u.username)">Raw data</a>
   </div>
-  @if(stat.??(_.isStale)) {
+  @if(!stat.??(_.isFresh)) {
   <form method="post" action="@routes.Coach.refresh(u.username)">
     <button type="submit">Refresh @u.username stats</button>
   </form>
