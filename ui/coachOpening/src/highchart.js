@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 function sortByY(arr) {
   return arr.sort(function(a, b) {
     return a.y < b.y;
@@ -8,7 +10,8 @@ function signed(i) {
   return (i > 0 ? '+' : '') + i;
 }
 
-module.exports = function(el, data) {
+module.exports = function(el, ctrl) {
+  var data = ctrl.data;
   var percent = function(nb) {
     return nb * 100 / data.openings.nbGames;
   };
@@ -24,6 +27,7 @@ module.exports = function(el, data) {
           var op = data.openings.map[f];
           return acc + (op ? op.nbGames : 0);
         }, 0)),
+        results: family.results,
         color: graphColor,
         drilldown: {
           name: family.name,
@@ -55,6 +59,7 @@ module.exports = function(el, data) {
     firstMoveData.push({
       name: raw[i].name,
       y: raw[i].y,
+      results: raw[i].results,
       color: raw[i].color
     });
 
@@ -82,7 +87,9 @@ module.exports = function(el, data) {
     plotOptions: {
       pie: {
         shadow: false,
-        center: ['50%', '50%']
+        center: ['50%', '50%'],
+        animation: false,
+        point: {}
       }
     },
     tooltip: {
@@ -93,10 +100,9 @@ module.exports = function(el, data) {
         var acpl = r.gameSections.all.acplAvg;
         return '<tr><td>Games:</td><td style="text-align: right"><b>' +
           r.nbGames + '</b></td></tr>' +
-          '<tr><td>Results:</td><td style="text-align: right"><b>' + [r.nbWin, r.nbDraw, r.nbLoss].join('/') + '</b></td></tr>' +
           '<tr><td>Rating:</td><td style="text-align: right"><b>' +
           signed(r.ratingDiff) + '</b></td></tr>' +
-          '<tr><td>Centipawns:</td><td style="text-align: right"><b>' +
+          '<tr><td>ACPL:</td><td style="text-align: right"><b>' +
           (acpl === null ? '?' : acpl) + '</b></td></tr>';
       },
       footerFormat: '</table>'
@@ -111,7 +117,7 @@ module.exports = function(el, data) {
         },
         color: 'white',
         distance: -30
-      }
+      },
     }, {
       name: 'Openings',
       data: familyData,
@@ -123,6 +129,25 @@ module.exports = function(el, data) {
           return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Math.round(this.y) + '%' : null;
         }
       },
+      cursor: 'pointer',
+      point: {
+        events: {
+          mouseOver: function(e) {
+            if (e.currentTarget) {
+              ctrl.vm.hover = e.currentTarget.name;
+              e.currentTarget.select();
+              m.redraw();
+            }
+          },
+          mouseOut: function(e) {
+            if (e.currentTarget) {
+              ctrl.vm.hover = null;
+              e.currentTarget.select(false);
+              m.redraw();
+            }
+          }
+        }
+      }
     }],
     credits: {
       enabled: false
@@ -131,4 +156,5 @@ module.exports = function(el, data) {
       enabled: false
     }
   });
+  ctrl.vm.chart = $(el).highcharts();
 };

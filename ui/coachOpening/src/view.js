@@ -8,7 +8,7 @@ module.exports = function(ctrl) {
     m('div.chart', {
       config: function(el, isUpdate) {
         if (isUpdate) return;
-        highchart(el, ctrl.data);
+        highchart(el, ctrl);
       }
     }),
     table(ctrl)

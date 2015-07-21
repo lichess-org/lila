@@ -7,27 +7,12 @@ var headers = [
   ['nbDraw', 'Draw'],
   ['nbLoss', 'Loss'],
   ['ratingDiff', 'Rating'],
-  ['acpl', 'Mistakes'],
+  ['acpl', 'ACPL'],
   ['lastPlayed', 'Last played']
 ];
 
-function thead(ctrl) {
-  return m('thead', m('tr', headers.map(function(h) {
-    var props = {
-      'data-sort-by': h[0]
-    };
-    if (ctrl.vm.sort.field === h[0])
-      props['data-icon'] = ctrl.vm.sort.order === -1 ? 'R' : 'S';
-    return m('th', props, h[1]);
-  })));
-}
-
-function signed(i) {
-  return (i > 0 ? '+' : '') + i;
-}
-
-function sorts(list, sort) {
-  return {
+function thead(list, sort) {
+  return m('thead', {
     onclick: function(e) {
       var prop = e.target.getAttribute("data-sort-by");
       if (prop) {
@@ -43,7 +28,18 @@ function sorts(list, sort) {
         }
       }
     }
-  }
+  }, m('tr', headers.map(function(h) {
+    var props = {
+      key: h[0],
+      'data-sort-by': h[0]
+    };
+    if (sort.field === h[0]) props['data-icon'] = sort.order === -1 ? 'R' : 'S';
+    return m('th', props, h[1]);
+  })));
+}
+
+function signed(i) {
+  return (i > 0 ? '+' : '') + i;
 }
 
 module.exports = function(ctrl) {
@@ -51,27 +47,45 @@ module.exports = function(ctrl) {
   var percent = function(nb) {
     return Math.round(nb * 100 / d.openings.nbGames);
   };
-  return m('table.slist', sorts(ctrl.list, ctrl.vm.sort), [
-    thead(ctrl),
-    m('tbody', ctrl.list.map(function(o) {
-      return m('tr', [
-        m('td.opening', [
+  return m('table.slist', [
+    thead(ctrl.list, ctrl.vm.sort),
+    m('tbody', ctrl.list.map(function(o, i) {
+      return m('tr', {
+        key: o.name,
+        'data-opening': o.name,
+        onmouseover: function(e) {
+          ctrl.vm.hover = null;
+          var chart = ctrl.vm.chart;
+          if (!chart) return;
+          var point = chart.series[1].data.filter(function(c) {
+            return c.name === o.name;
+          })[0];
+          if (point && !point.selected) point.select();
+        },
+        onmouseout: function() {
+          if (ctrl.vm.chart) ctrl.vm.chart.getSelectedPoints().forEach(function(point) {
+            point.select(false);
+          });
+        },
+        class: (ctrl.vm.hover === o.name ? 'hover' : '')
+      }, [
+        m('td', [
           m('div.name', o.name),
           m('div.moves', d.moves[o.name])
         ]),
-        m('td.games', [
+        m('td', [
           m('div', o.nbGames + ' (' + percent(o.nbGames) + '%)')
         ]),
-        m('td.win', o.nbWin),
-        m('td.draw', o.nbDraw),
-        m('td.loss', o.nbLoss),
-        m('td.rating', [
+        m('td', o.nbWin),
+        m('td', o.nbDraw),
+        m('td', o.nbLoss),
+        m('td', [
           m('div', signed(o.ratingDiff))
         ]),
-        m('td.mistake', [
-          m('div', o.acpl === null ? '-' : (o.acpl + ' ACPL'))
+        m('td', [
+          m('div', o.acpl === null ? '-' : o.acpl)
         ]),
-        m('td.lastPlayed', [
+        m('td', [
           m('time.moment-from-now', {
             datetime: o.lastPlayed
           })

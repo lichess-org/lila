@@ -35,6 +35,11 @@ final class JsonView {
         acc + (firstMove -> (family :: acc.getOrElse(firstMove, Nil)))
       }
     }.map {
-      case (firstMove, families) => OpeningFamily(firstMove, families)
+      case (firstMove, families) => OpeningFamily(
+        firstMove = firstMove,
+        results = families.foldLeft(Results.empty) {
+          case (results, familyName) => opMap.m.get(familyName).fold(results)(results.merge)
+        },
+        families = families)
     }.toList
 }

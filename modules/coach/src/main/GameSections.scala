@@ -14,6 +14,12 @@ case class GameSections(
       end = end.add(~p.division.endSize / 2, p.accuracy.flatMap(_.end))
     )
   }
+
+  def merge(s: GameSections) = GameSections(
+    all = all merge s.all,
+    opening = opening merge s.opening,
+    middle = middle merge s.middle,
+    end = end merge s.end)
 }
 
 object GameSections {
@@ -33,6 +39,12 @@ object GameSections {
         moveSum = moveSum + move,
         nbAnalysed = nbAnalysed + acpl.isDefined.fold(1, 0),
         acplSum = acplSum + ~acpl)
+
+    def merge(s: Section) = Section(
+      nb = nb + s.nb,
+      nbAnalysed = nb + s.nbAnalysed,
+      moveSum = moveSum + s.moveSum,
+      acplSum = acplSum + s.acplSum)
   }
   val emptySection = Section(0, 0, 0, 0)
   val empty = GameSections(emptySection, emptySection, emptySection, emptySection)

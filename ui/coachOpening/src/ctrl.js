@@ -33,7 +33,9 @@ module.exports = function(opts) {
     sort: {
       field: 'nbGames',
       order: -1
-    }
+    },
+    chart: null,
+    hover: null
   };
 
   this.trans = function(key) {

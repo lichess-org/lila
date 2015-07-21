@@ -38,13 +38,37 @@ case class Results(
     else bestWin,
     opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating,
     lastPlayed = lastPlayed orElse p.pov.game.createdAt.some)
+
+  def merge(r: Results) = Results(
+    nbGames = nbGames + r.nbGames,
+    nbAnalysis = nbAnalysis + r.nbAnalysis,
+    nbWin = nbWin + r.nbWin,
+    nbLoss = nbLoss + r.nbLoss,
+    nbDraw = nbDraw + r.nbDraw,
+    ratingDiff = ratingDiff + r.ratingDiff,
+    gameSections = gameSections merge r.gameSections,
+    bestWin = (bestWin, r.bestWin) match {
+      case (Some(a), Some(b)) => Some(a merge b)
+      case (Some(a), _)       => a.some
+      case (_, Some(b))       => b.some
+      case _                  => none
+    },
+    opponentRatingSum = opponentRatingSum + r.opponentRatingSum,
+    lastPlayed = (lastPlayed, r.lastPlayed) match {
+      case (Some(a), Some(b)) => Some(if (a isAfter b) a else b)
+      case (Some(a), _)       => a.some
+      case (_, Some(b))       => b.some
+      case _                  => none
+    })
 }
 
 object Results {
 
   val empty = Results(0, 0, 0, 0, 0, 0, GameSections.empty, none, 0, none)
 
-  case class BestWin(id: String, userId: String, rating: Int)
+  case class BestWin(id: String, userId: String, rating: Int) {
+    def merge(b: BestWin) = if (rating > b.rating) this else b
+  }
   def makeBestWin(pov: Pov): Option[BestWin] = (pov.game.playedTurns > 4) ?? {
     pov.opponent.userId |@| pov.opponent.rating apply {
       case (opId, opRating) => BestWin(pov.gameId, opId, opRating)
