@@ -9,25 +9,19 @@ function signed(i) {
 }
 
 module.exports = function(el, data) {
-  var totalGames = data.families.reduce(function(acc, family) {
-    return acc + family.families.reduce(function(acc, f) {
-      var op = data.openings[f];
-      return acc + (op ? op.nbGames : 0);
-    }, 0);
-  }, 0);
   var percent = function(nb) {
-    return nb * 100 / totalGames;
+    return nb * 100 / data.openings.nbGames;
   };
   var colors = Highcharts.getOptions().colors,
     raw = data.families.map(function(family, index) {
       var graphColor = colors[index % colors.length];
       var families = family.families.sort(function(a, b) {
-        return data.openings[a].nbGames < data.openings[b].nbGames ? 1 : -1;
+        return data.openings.map[a].nbGames < data.openings.map[b].nbGames ? 1 : -1;
       });
       return {
         name: family.firstMove,
         y: percent(families.reduce(function(acc, f) {
-          var op = data.openings[f];
+          var op = data.openings.map[f];
           return acc + (op ? op.nbGames : 0);
         }, 0)),
         color: graphColor,
@@ -36,8 +30,8 @@ module.exports = function(el, data) {
           data: families.map(function(f) {
             return {
               name: f,
-              y: percent(data.openings[f].nbGames),
-              results: data.openings[f]
+              y: percent(data.openings.map[f].nbGames),
+              results: data.openings.map[f]
             };
           }),
           color: graphColor

@@ -1,8 +1,15 @@
 package lila.coach
 
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 
 private[coach] object JSONWriters {
+
+  implicit object JodaDateWrites extends Writes[DateTime] {
+    private val isoFormatter = ISODateTimeFormat.dateTime
+    def writes(d: DateTime): JsValue = JsString(isoFormatter print d)
+  }
 
   implicit val SectionWriter = OWrites[GameSections.Section] { s =>
     Json.obj(
@@ -15,7 +22,12 @@ private[coach] object JSONWriters {
   implicit val BestWinWriter = Json.writes[Results.BestWin]
   implicit val ResultsWriter = Json.writes[Results]
   implicit val ColorResultsWriter = Json.writes[ColorResults]
-  implicit val OpeningsMapWriter = Writes[Openings.OpeningsMap] { o => Json.toJson(o.m) }
+  implicit val OpeningsMapWriter = Writes[Openings.OpeningsMap] { o =>
+    Json.obj(
+      "map" -> Json.toJson(o.m),
+      "nbGames" -> o.nbGames
+    )
+  }
   implicit val OpeningsWriter = Json.writes[Openings]
   implicit val PerfResultsBestRatingWriter = Json.writes[PerfResults.BestRating]
   implicit val PerfResultsStatusMapWriter = OWrites[Map[chess.Status, Int]] { m =>

@@ -14,7 +14,7 @@ case class Results(
     gameSections: GameSections,
     bestWin: Option[Results.BestWin],
     opponentRatingSum: Int,
-    lastGameAt: Option[DateTime]) {
+    lastPlayed: Option[DateTime]) {
 
   def opponentRatingAvg = (nbGames > 0) option (opponentRatingSum / nbGames)
 
@@ -37,7 +37,7 @@ case class Results(
     }
     else bestWin,
     opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating,
-    lastGameAt = lastGameAt orElse p.pov.game.createdAt.some)
+    lastPlayed = lastPlayed orElse p.pov.game.createdAt.some)
 }
 
 object Results {

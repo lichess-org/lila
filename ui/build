@@ -5,7 +5,7 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-for app in relay editor puzzle round analyse lobby tournament tournamentSchedule opening simul; do
+for app in relay editor puzzle round analyse lobby tournament tournamentSchedule opening simul coachOpening; do
   cd ui/$app
   npm install && gulp $target
   cd -

@@ -5,8 +5,8 @@
 
 function withHighcharts(f) {
   setTimeout(function() {
-    var highchartsUrl = 'http://l1.org/assets/vendor/highcharts4/highcharts.js';
-    var highstockUrl = 'http://l1.org/assets/vendor/highcharts4/highstock.js';
+    var highchartsUrl = 'http://lichess1.org/assets/vendor/highcharts4/highcharts.js';
+    var highstockUrl = 'http://lichess1.org/assets/vendor/highcharts4/highstock.js';
     $.ajax({
       dataType: "script",
       cache: true,

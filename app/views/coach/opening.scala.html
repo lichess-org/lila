@@ -15,11 +15,11 @@ data: @Html(J.stringify(data))
 }
 
 @coach.layout(u, statOption.map(_._1),
-title = s"${u.username} openings as s{color.name}",
+title = s"${u.username} openings as ${color.name}",
 moreJs = moreJs,
 chessground = false) {
 
-<div class="content_box">
+<div class="content_box no_padding">
 
   <h1 class="lichess_title">@userLink(u) openings as @color.name</h1>
 

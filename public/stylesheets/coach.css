@@ -19,3 +19,16 @@
   border-left: 2px solid transparent;
   transition: background 0.13s, border 0.13s;
 }
+
+#coach_opening table {
+  margin-top: 20px;
+}
+#coach_opening table thead th {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+#coach_opening table .name {
+  font-weight: bold;
+}

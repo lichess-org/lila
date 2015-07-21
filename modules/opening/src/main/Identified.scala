@@ -19,7 +19,7 @@ case object Identified {
   type Moves = String
 
   private lazy val movesPerName: Map[Name, Moves] =
-    chess.Openings.db.foldLeft(Map[Name, Moves]()) {
+    chess.OpeningDB.db.foldLeft(Map[Name, Moves]()) {
       case (outerAcc, opening) => List(1, 2).foldLeft(outerAcc) {
         case (acc, length) =>
           val name = opening.fullName.split(',').take(length).mkString(",")
