@@ -48,8 +48,7 @@ module.exports = function(el, ctrl) {
     familyData = [],
     i,
     j,
-    drillDataLen,
-    brightness;
+    drillDataLen;
 
   raw.sort(function(a, b) {
     return a.y < b.y ? 1 : -1;
@@ -67,12 +66,13 @@ module.exports = function(el, ctrl) {
 
     drillDataLen = raw[i].drilldown.data.length;
     for (j = 0; j < drillDataLen; j += 1) {
-      brightness = 0.2 - (j / drillDataLen) / 3;
+      var name = raw[i].drilldown.data[j].name;
       familyData.push({
-        name: raw[i].drilldown.data[j].name,
+        name: name,
+        moves: data.moves[name],
         y: raw[i].drilldown.data[j].y,
         results: raw[i].drilldown.data[j].results,
-        color: Highcharts.Color(raw[i].color).brighten(brightness).get()
+        color: Highcharts.Color(raw[i].color).brighten(0.2 - (j / drillDataLen) / 3).get()
       });
     }
   }
@@ -105,18 +105,17 @@ module.exports = function(el, ctrl) {
     },
     tooltip: {
       useHTML: true,
-      headerFormat: '{point.key}<table>',
+      headerFormat: '{point.key}',
       pointFormatter: function() {
         var r = this.results;
         var acpl = r.gameSections.all.acplAvg;
-        return '<tr><td>Games:</td><td style="text-align: right"><b>' +
+        return (this.moves ? ('<br>' + this.moves + '<br><br>') : '') + '<table><tr><td>Games:</td><td style="text-align: right"><b>' +
           r.nbGames + '</b></td></tr>' +
           '<tr><td>Rating:</td><td style="text-align: right"><b>' +
           signed(r.ratingDiff) + '</b></td></tr>' +
           '<tr><td>ACPL:</td><td style="text-align: right"><b>' +
-          (acpl === null ? '?' : acpl) + '</b></td></tr>';
-      },
-      footerFormat: '</table>'
+          (acpl === null ? '?' : acpl) + '</b></td></tr></table>';
+      }
     },
     series: [{
       name: 'First move',
