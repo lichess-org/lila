@@ -12,7 +12,7 @@ function makeData(moves) {
     return {
       x: i + 1,
       y: Math.min(acpl, 150) + 10,
-      color: acpl < 50 ? green : (acpl < 90 ? orange : red),
+      color: acpl < 50 ? green : (acpl < 100 ? orange : red),
       move: move
     };
   });
