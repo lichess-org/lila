@@ -15,7 +15,9 @@ object BuildSettings {
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
-    sources in doc in Compile := List())
+    sources in doc in Compile := List(),
+    // disable publishing the main sources jar
+    publishArtifact in (Compile, packageSrc) := false)
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws)
 
