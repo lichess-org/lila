@@ -17,7 +17,7 @@ case class Relay(
 
   def baseName = (splitName lift 0) | name
 
-  def extName = splitName.tailOption.some
+  def extName: Option[String] = splitName.tailOption
     .map(_ mkString " - ")
     .filter(_.nonEmpty)
 
