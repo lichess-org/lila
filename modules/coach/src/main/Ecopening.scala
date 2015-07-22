@@ -20,10 +20,18 @@ object Ecopening {
   type Family = String
   type ECO = String
 
-  def matchChronoBoardFens(boardFens: List[String]): Option[Ecopening] =
-    boardFens.reverse.foldLeft(none[Ecopening]) {
-      case (acc, fen) => acc orElse {
-        EcopeningDB.all get fen
+  def apply(game: lila.game.Game): Option[Ecopening] = !game.fromPosition ?? {
+    chess.Replay.boards(
+      moveStrs = game.pgnMoves take EcopeningDB.MAX_MOVES,
+      initialFen = none,
+      variant = chess.variant.Standard
+    ).toOption flatMap matchChronoBoards
+  }
+
+  private def matchChronoBoards(boards: List[chess.Board]): Option[Ecopening] =
+    boards.reverse.foldLeft(none[Ecopening]) {
+      case (acc, board) => acc orElse {
+        EcopeningDB.all get chess.format.Forsyth.exportBoard(board)
       }
     }
 }

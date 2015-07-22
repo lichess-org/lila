@@ -4,6 +4,8 @@ private[coach] object EcopeningDB {
 
   import Ecopening._
 
+  val MAX_MOVES = 25
+
   lazy val all: Map[ECO, Ecopening] = db.flatMap {
     case (_, openings) => openings
   }

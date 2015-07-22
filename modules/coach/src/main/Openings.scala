@@ -9,8 +9,6 @@ case class Openings(
     black: Openings.OpeningsMap) {
 
   def apply(c: Color) = c.fold(white, black)
-
-  def all = white ++ black
 }
 
 object Openings {
@@ -18,7 +16,6 @@ object Openings {
   case class OpeningsMap(m: Map[String, Results]) {
     def best(max: Int): List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take max
     def trim(max: Int) = copy(m = best(max).toMap)
-    def ++(other: OpeningsMap) = OpeningsMap(m ++ other.m)
     def nbGames = m.foldLeft(0) {
       case (nb, (_, results)) => nb + results.nbGames
     }
@@ -32,14 +29,14 @@ object Openings {
       black: Map[String, Results.Computation]) {
 
     def aggregate(p: RichPov) =
-      p.pov.game.opening.map(_.familyName).fold(this) { familyName =>
+      Ecopening(p.pov.game).map(_.name).fold(this) { name =>
         copy(
-          white = if (p.pov.color.white) agg(white, familyName, p) else white,
-          black = if (p.pov.color.black) agg(black, familyName, p) else black)
+          white = if (p.pov.color.white) agg(white, name, p) else white,
+          black = if (p.pov.color.black) agg(black, name, p) else black)
       }
 
-    private def agg(ops: Map[String, Results.Computation], familyName: String, p: RichPov) =
-      ops + (familyName -> ops.get(familyName).|(Results.emptyComputation).aggregate(p))
+    private def agg(ops: Map[String, Results.Computation], name: String, p: RichPov) =
+      ops + (name -> ops.get(name).|(Results.emptyComputation).aggregate(p))
 
     def run = Openings(
       white = OpeningsMap(white.mapValues(_.run)) trim 15,
