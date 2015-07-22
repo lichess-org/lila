@@ -1,6 +1,6 @@
 var m = require('mithril');
 
-var highchart = require('./highchart');
+var piechart = require('./piechart');
 var table = require('./table');
 var inspect = require('./inspect');
 
@@ -9,7 +9,7 @@ module.exports = function(ctrl) {
     ctrl.vm.inspecting ? inspect(ctrl, ctrl.vm.inspecting) : m('div.top.chart', {
       config: function(el, isUpdate) {
         if (isUpdate) return;
-        highchart(el, ctrl);
+        piechart(el, ctrl);
       }
     }),
     table(ctrl)

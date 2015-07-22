@@ -1,5 +1,7 @@
 var m = require('mithril');
 
+var shared = require('./shared');
+
 function sortByY(arr) {
   return arr.sort(function(a, b) {
     return a.y < b.y;
@@ -82,6 +84,12 @@ module.exports = function(el, ctrl) {
       animation: {
         duration: 300
       },
+      backgroundColor: null,
+      borderWidth: 0,
+      borderRadius: 0,
+      plotBackgroundColor: null,
+      plotShadow: false,
+      plotBorderWidth: 0
     },
     title: {
       text: null
@@ -119,7 +127,7 @@ module.exports = function(el, ctrl) {
           return this.y > 3 ? this.point.name : null;
         },
         color: 'white',
-        distance: -30
+        distance: -30,
       },
     }, {
       name: 'Openings',
@@ -129,7 +137,12 @@ module.exports = function(el, ctrl) {
       dataLabels: {
         formatter: function() {
           // display only if larger than 1
-          return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Math.round(this.y) + '%' : null;
+          return this.y > 1 ? this.point.name + ': ' + Math.round(this.y) + '%' : null;
+        },
+        style: {
+          fontWeight: 'normal',
+          fontFamily: 'Noto Sans',
+          fontSize: '14px'
         }
       },
       cursor: 'pointer',

@@ -61,7 +61,7 @@ function makeChart(el, data) {
       useHTML: true,
       formatter: function() {
         var m = this.point.move;
-        return '[' + this.point.x + '] <b>' + m.acpl.avg + '</b> centipawns<hr>' +
+        return '[move ' + this.point.x + '] <b>' + m.acpl.avg + '</b> centipawns<hr>' +
           'In ' + m.acpl.nb + ' analysed games';
       },
     },

@@ -42,5 +42,10 @@ module.exports = {
         '% ' + name
       ]);
     }));
+  },
+  chart: {
+    makeFont: function(size) {
+      return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
+    }
   }
 };
