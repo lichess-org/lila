@@ -31,10 +31,10 @@ GET   /@/:username/suggestions         controllers.Relation.suggest(username: St
 GET   /rel/blocks                      controllers.Relation.blocks
 
 # Coach
-GET   /@/:username/coach.json          controllers.Coach.json(username: String)
-GET   /@/:username/coach/raw           controllers.Coach.raw(username: String)
-GET   /@/:username/coach/opening/:color controllers.Coach.opening(username: String, color: String)
-POST  /@/:username/coach/refresh       controllers.Coach.refresh(username: String)
+GET   /coach/:username.json            controllers.Coach.json(username: String)
+GET   /coach/raw/:username             controllers.Coach.raw(username: String)
+GET   /coach/opening/:username/:color  controllers.Coach.opening(username: String, color: String)
+POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
