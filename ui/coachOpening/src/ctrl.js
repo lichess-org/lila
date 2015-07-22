@@ -65,7 +65,7 @@ module.exports = function(opts) {
     if (!this.data.openings.map[family]) return;
     if (this.isInspecting(family)) return;
     if (window.history.replaceState)
-      window.history.replaceState(null, null, '#' + family);
+      window.history.replaceState(null, null, '#' + family.replace(/ /g, '_'));
     var steps = this.data.steps[family];
     var last = steps[steps.length - 1];
     var config = {
@@ -87,7 +87,7 @@ module.exports = function(opts) {
       };
   }.bind(this);
 
-  if (location.hash) this.inspect(location.hash.replace(/#/, ''));
+  if (location.hash) this.inspect(location.hash.replace(/#/, '').replace(/_/g, ' '));
 
   this.uninspect = function() {
     this.vm.inspecting = null;
