@@ -3,6 +3,7 @@ var m = require('mithril');
 var board = require('./board');
 var moves = require('./moves');
 var progress = require('./shared').progress;
+var momentFromNow = require('./shared').momentFromNow;
 var resultBar = require('./shared').resultBar;
 
 function bestWin(w) {
@@ -82,9 +83,7 @@ module.exports = function(ctrl, inspecting) {
           ]) : null,
           m('tr', [
             m('th', 'Last played'),
-            m('tr', m('time.moment-from-now', {
-              datetime: o.lastPlayed
-            }))
+            m('tr', momentFromNow(o.lastPlayed))
           ])
         ])
       ])

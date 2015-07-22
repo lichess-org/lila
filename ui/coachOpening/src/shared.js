@@ -43,6 +43,14 @@ module.exports = {
       ]);
     }));
   },
+  momentFromNow: function(date) {
+    return m('time.moment-from-now', {
+      config: function(el) {
+        $('body').trigger('lichess.content_loaded');
+      },
+      datetime: date
+    });
+  },
   chart: {
     makeFont: function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
