@@ -16,6 +16,8 @@ object BuildSettings {
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
+    // disable publishing the main API jar
+    publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
     publishArtifact in (Compile, packageSrc) := false)
 
