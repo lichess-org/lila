@@ -32,6 +32,7 @@ private[coach] object EcopeningDB {
     "English" -> Map(
       "A10" -> Ecopening("A10", "English", "English", "c4", "rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR"),
       "A11" -> Ecopening("A11", "English", "English, Caro-Kann Defensive System", "c4 c6", "rnbqkbnr/pp1ppppp/2p5/8/2P5/8/PP1PPPPP/RNBQKBNR"),
+      "A12" -> Ecopening("A12", "English", "English with b3", "c4 c6 Nf3 d5 b3", "rnbqkbnr/pp2pppp/2p5/3p4/2P5/1P3N2/P2PPPPP/RNBQKB1R"),
       "A13" -> Ecopening("A13", "English", "English", "c4 e6", "rnbqkbnr/pppp1ppp/4p3/8/2P5/8/PP1PPPPP/RNBQKBNR"),
       "A14" -> Ecopening("A14", "English", "English", "c4 e6 Nf3 d5 g3 Nf6 Bg2 Be7 O-O", "rnbqk2r/ppp1bppp/4pn2/3p4/2P5/5NP1/PP1PPPBP/RNBQ1RK1"),
       "A15" -> Ecopening("A15", "English", "English", "c4 Nf6", "rnbqkb1r/pppppppp/5n2/8/2P5/8/PP1PPPPP/RNBQKBNR"),
@@ -60,11 +61,9 @@ private[coach] object EcopeningDB {
       "A38" -> Ecopening("A38", "English", "English, Symmetrical", "c4 c5 Nc3 Nc6 g3 g6 Bg2 Bg7 Nf3 Nf6", "r1bqk2r/pp1pppbp/2n2np1/2p5/2P5/2N2NP1/PP1PPPBP/R1BQK2R"),
       "A39" -> Ecopening("A39", "English", "English, Symmetrical, Main line with d4", "c4 c5 Nc3 Nc6 g3 g6 Bg2 Bg7 Nf3 Nf6 O-O O-O7 d4", "r1bqk2r/pp1pppbp/2n2np1/2p5/2P5/2N2NP1/PP1PPPBP/R1BQ1RK1")
     ),
-    "English with b3" -> Map(
-      "A12" -> Ecopening("A12", "English with b3", "English with b3", "c4 c6 Nf3 d5 b3", "rnbqkbnr/pp2pppp/2p5/3p4/2P5/1P3N2/P2PPPPP/RNBQKB1R")
-    ),
     "Queen's Pawn Game" -> Map(
       "A40" -> Ecopening("A40", "Queen's Pawn Game", "Queen's Pawn Game", "d4", "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR"),
+      "A41" -> Ecopening("A41", "Queen's Pawn Game", "Queen's Pawn Game (with ...d6)", "d4 d6", "rnbqkbnr/ppp1pppp/3p4/8/3P4/8/PPP1PPPP/RNBQKBNR"),
       "A45" -> Ecopening("A45", "Queen's Pawn Game", "Queen's Pawn Game", "d4 Nf6", "rnbqkb1r/pppppppp/5n2/8/3P4/8/PPP1PPPP/RNBQKBNR"),
       "A46" -> Ecopening("A46", "Queen's Pawn Game", "Queen's Pawn Game", "d4 Nf6 Nf3", "rnbqkb1r/pppppppp/5n2/8/3P4/5N2/PPP1PPPP/RNBQKB1R"),
       "A50" -> Ecopening("A50", "Queen's Pawn Game", "Queen's Pawn Game", "d4 Nf6 c4", "rnbqkb1r/pppppppp/5n2/8/2PP4/8/PP2PPPP/RNBQKBNR"),
@@ -75,17 +74,12 @@ private[coach] object EcopeningDB {
       "E00" -> Ecopening("E00", "Queen's Pawn Game", "Queen's Pawn Game", "d4 Nf6 c4 e6", "rnbqkb1r/pppp1ppp/4pn2/8/2PP4/8/PP2PPPP/RNBQKBNR"),
       "E10" -> Ecopening("E10", "Queen's Pawn Game", "Queen's Pawn Game", "d4 Nf6 c4 e6 Nf3", "rnbqkb1r/pppp1ppp/4pn2/8/2PP4/5N2/PP2PPPP/RNBQKB1R")
     ),
-    "Queen's Pawn Game " -> Map(
-      "A41" -> Ecopening("A41", "Queen's Pawn Game ", "Queen's Pawn Game (with ...d6)", "d4 d6", "rnbqkbnr/ppp1pppp/3p4/8/3P4/8/PPP1PPPP/RNBQKBNR")
-    ),
     "Modern Defense" -> Map(
       "A42" -> Ecopening("A42", "Modern Defense", "Modern Defense, Averbakh System", "d4 d6 c4 g6 Nc3 Bg7 e4", "rnbqk1nr/ppp1ppbp/3p2p1/8/2PPP3/2N5/PP3PPP/R1BQKBNR")
     ),
     "Old Benoni" -> Map(
-      "A43" -> Ecopening("A43", "Old Benoni", "Old Benoni", "d4 c5", "rnbqkbnr/pp1ppppp/8/2p5/3P4/8/PPP1PPPP/RNBQKBNR")
-    ),
-    "Old Benoni Defense" -> Map(
-      "A44" -> Ecopening("A44", "Old Benoni Defense", "Old Benoni Defense", "d4 c5 d5 e5", "rnbqkbnr/pp1p1ppp/8/2pPp3/8/8/PPP1PPPP/RNBQKBNR")
+      "A43" -> Ecopening("A43", "Old Benoni", "Old Benoni", "d4 c5", "rnbqkbnr/pp1ppppp/8/2p5/3P4/8/PPP1PPPP/RNBQKBNR"),
+      "A44" -> Ecopening("A44", "Old Benoni", "Old Benoni Defense", "d4 c5 d5 e5", "rnbqkbnr/pp1p1ppp/8/2pPp3/8/8/PPP1PPPP/RNBQKBNR")
     ),
     "Queen's Indian" -> Map(
       "A47" -> Ecopening("A47", "Queen's Indian", "Queen's Indian", "d4 Nf6 Nf3 b6", "rnbqkb1r/p1pppppp/1p3n2/8/3P4/5N2/PPP1PPPP/RNBQKB1R"),
@@ -101,6 +95,7 @@ private[coach] object EcopeningDB {
     "King's Indian" -> Map(
       "A48" -> Ecopening("A48", "King's Indian", "King's Indian", "d4 Nf6 Nf3 g6", "rnbqkb1r/pppppp1p/5np1/8/3P4/5N2/PPP1PPPP/RNBQKB1R"),
       "A49" -> Ecopening("A49", "King's Indian", "King's Indian, Fianchetto without c4", "d4 Nf6 Nf3 g6 g3", "rnbqkb1r/pppppp1p/5np1/8/3P4/5NP1/PPP1PP1P/RNBQKB1R"),
+      "E60" -> Ecopening("E60", "King's Indian", "King's Indian Defense", "d4 Nf6 c4 g6", "rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR"),
       "E61" -> Ecopening("E61", "King's Indian", "King's Indian", "d4 Nf6 c4 g6 Nc3", "rnbqkb1r/pppppp1p/5np1/8/2PP4/2N5/PP2PPPP/R1BQKBNR"),
       "E62" -> Ecopening("E62", "King's Indian", "King's Indian, Fianchetto", "d4 Nf6 c4 g6 Nc3 Bg7 Nf3 d6 g3", "rnbqk2r/ppp1ppbp/3p1np1/8/2PP4/2N2NP1/PP2PP1P/R1BQKB1R"),
       "E63" -> Ecopening("E63", "King's Indian", "King's Indian, Fianchetto, Panno Variation", "d4 Nf6 c4 g6 Nc3 Bg7 Nf3 d6 g3 O-O Bg2 Nc67 O-O a6", "rnbq1rk1/1pp1ppbp/p2p1np1/8/2PP4/2N2NP1/PP2PPBP/R1BQK2R"),
@@ -150,16 +145,14 @@ private[coach] object EcopeningDB {
       "A54" -> Ecopening("A54", "Old Indian", "Old Indian, Ukrainian Variation, 4.Nf3", "d4 Nf6 c4 d6 Nc3 e5 Nf3", "rnbqkb1r/ppp2ppp/3p1n2/4p3/2PP4/2N2N2/PP2PPPP/R1BQKB1R"),
       "A55" -> Ecopening("A55", "Old Indian", "Old Indian, Main line", "d4 Nf6 c4 d6 Nc3 e5 Nf3 Nbd7 e4", "r1bqkb1r/pppn1ppp/3p1n2/4p3/2PPP3/2N2N2/PP3PPP/R1BQKB1R")
     ),
-    "Benoni Defense" -> Map(
-      "A56" -> Ecopening("A56", "Benoni Defense", "Benoni Defense", "d4 Nf6 c4 c5", "rnbqkb1r/pp1ppppp/5n2/2p5/2PP4/8/PP2PPPP/RNBQKBNR"),
-      "A60" -> Ecopening("A60", "Benoni Defense", "Benoni Defense", "d4 Nf6 c4 c5 d5 e6", "rnbqkb1r/pp1p1ppp/4pn2/2pP4/2P5/8/PP2PPPP/RNBQKBNR")
-    ),
     "Benko Gambit" -> Map(
       "A57" -> Ecopening("A57", "Benko Gambit", "Benko Gambit", "d4 Nf6 c4 c5 d5 b5", "rnbqkb1r/p2ppppp/5n2/1ppP4/2P5/8/PP2PPPP/RNBQKBNR"),
       "A58" -> Ecopening("A58", "Benko Gambit", "Benko Gambit", "d4 Nf6 c4 c5 d5 b5 cxb5 a6 bxa6", "rnbqkb1r/3ppppp/P4n2/2pP4/8/8/PP2PPPP/RNBQKBNR"),
       "A59" -> Ecopening("A59", "Benko Gambit", "Benko Gambit", "d4 Nf6 c4 c5 d5 b5 cxb5 a6 bxa6 Bxa6 Nc3 d67 e4", "rn1qkb1r/3ppppp/b4n2/2pP4/8/2N5/PP2PPPP/R1BQKBNR")
     ),
     "Benoni" -> Map(
+      "A56" -> Ecopening("A56", "Benoni", "Benoni Defense", "d4 Nf6 c4 c5", "rnbqkb1r/pp1ppppp/5n2/2p5/2PP4/8/PP2PPPP/RNBQKBNR"),
+      "A60" -> Ecopening("A60", "Benoni", "Benoni Defense", "d4 Nf6 c4 c5 d5 e6", "rnbqkb1r/pp1p1ppp/4pn2/2pP4/2P5/8/PP2PPPP/RNBQKBNR"),
       "A61" -> Ecopening("A61", "Benoni", "Benoni", "d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 Nf3 g6", "rnbqkb1r/pp3p1p/3p1np1/2pP4/8/2N2N2/PP2PPPP/R1BQKB1R"),
       "A62" -> Ecopening("A62", "Benoni", "Benoni, Fianchetto Variation", "d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 Nf3 g67 g3 Bg7 Bg2 O-O", "rnbqkb1r/pp3ppp/3p1n2/2pP4/8/2N2N2/PP2PPPP/R1BQKB1R"),
       "A63" -> Ecopening("A63", "Benoni", "Benoni, Fianchetto, 9...Nbd7", "d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 Nf3 g67 g3 Bg7 Bg2 O-O", "rnbqkb1r/pp3ppp/3p1n2/2pP4/8/2N2N2/PP2PPPP/R1BQKB1R"),
@@ -192,6 +185,7 @@ private[coach] object EcopeningDB {
       "A88" -> Ecopening("A88", "Dutch", "Dutch, Leningrad, Main Variation with c6", "d4 f5 c4 Nf6 g3 g6 Bg2 Bg7 Nf3 O-O O-O d67 Nc3 c6", "rnbq1rk1/pp1pp1bp/2p2np1/5p2/2PP4/5NP1/PP2PPBP/RNBQ1RK1"),
       "A89" -> Ecopening("A89", "Dutch", "Dutch, Leningrad, Main Variation with Nc6", "d4 f5 c4 Nf6 g3 g6 Bg2 Bg7 Nf3 O-O O-O d67 Nc3 Nc6", "r1bq1rk1/ppppp1bp/2n2np1/5p2/2PP4/5NP1/PP2PPBP/RNBQ1RK1"),
       "A90" -> Ecopening("A90", "Dutch", "Dutch", "d4 f5 c4 Nf6 g3 e6 Bg2", "rnbqkb1r/pppp2pp/4pn2/5p2/2PP4/6P1/PP2PPBP/RNBQK1NR"),
+      "A91" -> Ecopening("A91", "Dutch", "Dutch Defense", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7", "rnbqk2r/ppppb1pp/4pn2/5p2/2PP4/6P1/PP2PPBP/RNBQK1NR"),
       "A92" -> Ecopening("A92", "Dutch", "Dutch", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O", "rnbq1rk1/ppppb1pp/4pn2/5p2/2PP4/5NP1/PP2PPBP/RNBQK2R"),
       "A93" -> Ecopening("A93", "Dutch", "Dutch, Stonewall, Botvinnik Variation", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O O-O d57 b3", "rnbq1rk1/ppppb1pp/4pn2/5p2/2PP4/5NP1/PP2PPBP/RNBQ1RK1"),
       "A94" -> Ecopening("A94", "Dutch", "Dutch, Stonewall with Ba3", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O O-O d57 b3 c6 Ba3", "rnbq1rk1/pp1pb1pp/2p1pn2/5p2/2PP4/5NP1/PP2PPBP/RNBQ1RK1"),
@@ -200,9 +194,6 @@ private[coach] object EcopeningDB {
       "A97" -> Ecopening("A97", "Dutch", "Dutch, Ilyin-Genevsky", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O O-O d67 Nc3 Qe8", "rnb1qrk1/ppppb1pp/4pn2/5p2/2PP4/5NP1/PP2PPBP/RNBQ1RK1"),
       "A98" -> Ecopening("A98", "Dutch", "Dutch, Ilyin-Genevsky Variation with Qc2", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O O-O d67 Nc3 Qe8 Qc2", "rnb1qrk1/ppppb1pp/4pn2/5p2/2PP4/5NP1/PPQ1PPBP/RNB2RK1"),
       "A99" -> Ecopening("A99", "Dutch", "Dutch, Ilyin-Genevsky Variation with b3", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7 Nf3 O-O O-O d67 Nc3 Qe8 b3", "rnb1qrk1/ppppb1pp/4pn2/5p2/2PP4/1P3NP1/P3PPBP/RNBQ1RK1")
-    ),
-    "Dutch Defense" -> Map(
-      "A91" -> Ecopening("A91", "Dutch Defense", "Dutch Defense", "d4 f5 c4 Nf6 g3 e6 Bg2 Be7", "rnbqk2r/ppppb1pp/4pn2/5p2/2PP4/6P1/PP2PPBP/RNBQK1NR")
     ),
     "Uncommon King's Pawn Opening" -> Map(
       "B00" -> Ecopening("B00", "Uncommon King's Pawn Opening", "Uncommon King's Pawn Opening", "e4", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR")
@@ -227,6 +218,7 @@ private[coach] object EcopeningDB {
     "Caro-Kann" -> Map(
       "B10" -> Ecopening("B10", "Caro-Kann", "Caro-Kann", "e4 c6", "rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR"),
       "B11" -> Ecopening("B11", "Caro-Kann", "Caro-Kann, Two Knights, 3...Bg4", "e4 c6 Nc3 d5 Nf3 Bg4", "rn1qkbnr/pp2pppp/2p5/3p4/4P1b1/2N2N2/PPPP1PPP/R1BQKB1R"),
+      "B12" -> Ecopening("B12", "Caro-Kann", "Caro-Kann Defense", "e4 c6 d4", "rnbqkbnr/pp1ppppp/2p5/8/3PP3/8/PPP2PPP/RNBQKBNR"),
       "B13" -> Ecopening("B13", "Caro-Kann", "Caro-Kann, Exchange", "e4 c6 d4 d5 exd5 cxd5", "rnbqkbnr/pp2pppp/8/3p4/3P4/8/PPP2PPP/RNBQKBNR"),
       "B14" -> Ecopening("B14", "Caro-Kann", "Caro-Kann, Panov-Botvinnik Attack", "e4 c6 d4 d5 exd5 cxd5 c4 Nf6 Nc3 e6", "rnbqkb1r/pp3ppp/4pn2/3p4/2PP4/2N5/PP3PPP/R1BQKBNR"),
       "B15" -> Ecopening("B15", "Caro-Kann", "Caro-Kann", "e4 c6 d4 d5 Nc3", "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR"),
@@ -234,9 +226,6 @@ private[coach] object EcopeningDB {
       "B17" -> Ecopening("B17", "Caro-Kann", "Caro-Kann, Steinitz Variation", "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nd7", "r1bqkbnr/pp1npppp/2p5/8/3PN3/8/PPP2PPP/R1BQKBNR"),
       "B18" -> Ecopening("B18", "Caro-Kann", "Caro-Kann, Classical", "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5", "rn1qkbnr/pp2pppp/2p5/5b2/3PN3/8/PPP2PPP/R1BQKBNR"),
       "B19" -> Ecopening("B19", "Caro-Kann", "Caro-Kann, Classical", "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h67 Nf3 Nd7", "r2qkbnr/pp1npppp/2p3b1/8/3P3P/6N1/PPP2PP1/R1BQKBNR")
-    ),
-    "Caro-Kann Defense" -> Map(
-      "B12" -> Ecopening("B12", "Caro-Kann Defense", "Caro-Kann Defense", "e4 c6 d4", "rnbqkbnr/pp1ppppp/2p5/8/3PP3/8/PPP2PPP/RNBQKBNR")
     ),
     "Sicilian" -> Map(
       "B20" -> Ecopening("B20", "Sicilian", "Sicilian", "e4 c5", "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR"),
@@ -320,10 +309,8 @@ private[coach] object EcopeningDB {
       "B98" -> Ecopening("B98", "Sicilian", "Sicilian, Najdorf", "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e67 f4 Be7", "rnbqkb1r/1p2pppp/p2p1n2/6B1/3NP3/2N5/PPP2PPP/R2QKB1R"),
       "B99" -> Ecopening("B99", "Sicilian", "Sicilian, Najdorf, 7...Be7 Main line", "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e67 f4 Be7 Qf3 Qc7 O-O-O Nbd7", "rnb1kb1r/1pq1pppp/p2p1n2/6B1/3NP3/2N5/PPP2PPP/R2QKB1R")
     ),
-    "French Defense" -> Map(
-      "C00" -> Ecopening("C00", "French Defense", "French Defense", "e4 e6", "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR")
-    ),
     "French" -> Map(
+      "C00" -> Ecopening("C00", "French", "French", "e4 e6", "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR"),
       "C01" -> Ecopening("C01", "French", "French, Exchange", "e4 e6 d4 d5 exd5 exd5 Nc3 Nf6 Bg5", "rnbqkb1r/ppp2ppp/5n2/3p2B1/3P4/2N5/PPP2PPP/R2QKBNR"),
       "C02" -> Ecopening("C02", "French", "French, Advance", "e4 e6 d4 d5 e5", "rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR"),
       "C03" -> Ecopening("C03", "French", "French, Tarrasch", "e4 e6 d4 d5 Nd2", "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPPN1PPP/R1BQKBNR"),
@@ -358,14 +345,10 @@ private[coach] object EcopeningDB {
     ),
     "Vienna" -> Map(
       "C25" -> Ecopening("C25", "Vienna", "Vienna", "e4 e5 Nc3", "rnbqkbnr/pppp1ppp/8/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR"),
-      "C26" -> Ecopening("C26", "Vienna", "Vienna", "e4 e5 Nc3 Nf6", "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR")
-    ),
-    "Vienna Game" -> Map(
-      "C27" -> Ecopening("C27", "Vienna Game", "Vienna Game", "e4 e5 Nc3 Nf6 Bc4 Nxe4", "rnbqkb1r/pppp1ppp/8/4p3/2B1n3/2N5/PPPP1PPP/R1BQK1NR"),
-      "C28" -> Ecopening("C28", "Vienna Game", "Vienna Game", "e4 e5 Nc3 Nf6 Bc4 Nc6", "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/2N5/PPPP1PPP/R1BQK1NR")
-    ),
-    "Vienna Gambit" -> Map(
-      "C29" -> Ecopening("C29", "Vienna Gambit", "Vienna Gambit", "e4 e5 Nc3 Nf6 f4", "rnbqkb1r/pppp1ppp/5n2/4p3/4PP2/2N5/PPPP2PP/R1BQKBNR")
+      "C26" -> Ecopening("C26", "Vienna", "Vienna", "e4 e5 Nc3 Nf6", "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR"),
+      "C27" -> Ecopening("C27", "Vienna", "Vienna Game", "e4 e5 Nc3 Nf6 Bc4 Nxe4", "rnbqkb1r/pppp1ppp/8/4p3/2B1n3/2N5/PPPP1PPP/R1BQK1NR"),
+      "C28" -> Ecopening("C28", "Vienna", "Vienna Game", "e4 e5 Nc3 Nf6 Bc4 Nc6", "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/2N5/PPPP1PPP/R1BQK1NR"),
+      "C29" -> Ecopening("C29", "Vienna", "Vienna Gambit", "e4 e5 Nc3 Nf6 f4", "rnbqkb1r/pppp1ppp/5n2/4p3/4PP2/2N5/PPPP2PP/R1BQKBNR")
     ),
     "King's Gambit Declined" -> Map(
       "C30" -> Ecopening("C30", "King's Gambit Declined", "King's Gambit Declined", "e4 e5 f4", "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR"),
@@ -387,10 +370,8 @@ private[coach] object EcopeningDB {
     "Philidor Defense" -> Map(
       "C41" -> Ecopening("C41", "Philidor Defense", "Philidor Defense", "e4 e5 Nf3 d6", "rnbqkbnr/ppp2ppp/3p4/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R")
     ),
-    "Petrov Defense" -> Map(
-      "C42" -> Ecopening("C42", "Petrov Defense", "Petrov Defense", "e4 e5 Nf3 Nf6", "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R")
-    ),
     "Petrov" -> Map(
+      "C42" -> Ecopening("C42", "Petrov", "Petrov Defense", "e4 e5 Nf3 Nf6", "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R"),
       "C43" -> Ecopening("C43", "Petrov", "Petrov, Modern Attack", "e4 e5 Nf3 Nf6 d4 exd4 e5 Ne4 Qxd4", "rnbqkb1r/pppp1ppp/8/4P3/3Qn3/5N2/PPP2PPP/RNB1KB1R")
     ),
     "Scotch Game" -> Map(
@@ -413,10 +394,8 @@ private[coach] object EcopeningDB {
       "C51" -> Ecopening("C51", "Evans Gambit", "Evans Gambit", "e4 e5 Nf3 Nc6 Bc4 Bc5 b4", "r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R"),
       "C52" -> Ecopening("C52", "Evans Gambit", "Evans Gambit", "e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5", "r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R")
     ),
-    "Two Knights Defense" -> Map(
-      "C55" -> Ecopening("C55", "Two Knights Defense", "Two Knights Defense", "e4 e5 Nf3 Nc6 Bc4 Nf6", "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R")
-    ),
     "Two Knights" -> Map(
+      "C55" -> Ecopening("C55", "Two Knights", "Two Knights Defense", "e4 e5 Nf3 Nc6 Bc4 Nf6", "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R"),
       "C56" -> Ecopening("C56", "Two Knights", "Two Knights", "e4 e5 Nf3 Nc6 Bc4 Nf6 d4 exd4 O-O Nxe4", "r1bqkb1r/pppp1ppp/2n5/8/2Bpn3/5N2/PPP2PPP/RNBQ1RK1"),
       "C57" -> Ecopening("C57", "Two Knights", "Two Knights", "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5", "r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R"),
       "C58" -> Ecopening("C58", "Two Knights", "Two Knights", "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5", "r1bqkb1r/ppp2ppp/5n2/n2Pp1N1/2B5/8/PPPP1PPP/RNBQK2R"),
@@ -542,10 +521,8 @@ private[coach] object EcopeningDB {
       "D48" -> Ecopening("D48", "Queen's Gambit Declined Semi-Slav", "Queen's Gambit Declined Semi-Slav, Meran", "d4 d5 c4 e6 Nc3 Nf6 Nf3 c6 e3 Nbd7 Bd3 dxc47 Bxc4 b5 Bd3 a6", "r1bqkb1r/p2n1ppp/2p1pn2/1p1p4/2PP4/2NBPN2/PP3PPP/R1BQK2R"),
       "D49" -> Ecopening("D49", "Queen's Gambit Declined Semi-Slav", "Queen's Gambit Declined Semi-Slav, Meran", "d4 d5 c4 e6 Nc3 Nf6 Nf3 c6 e3 Nbd7 Bd3 dxc47 Bxc4 b5 Bd3 a6 e4 c5 e5 cxd4 Nxb5", "r1bqkb1r/p2n1ppp/4pn2/1N1pP3/2Pp4/3B1N2/PP3PPP/R1BQK2R")
     ),
-    "Neo-Grunfeld Defense" -> Map(
-      "D70" -> Ecopening("D70", "Neo-Grunfeld Defense", "Neo-Grunfeld Defense", "d4 Nf6 c4 g6 f3 d5", "rnbqkb1r/ppp1pp1p/5np1/3p4/2PP4/5P2/PP2P1PP/RNBQKBNR")
-    ),
     "Neo-Grunfeld" -> Map(
+      "D70" -> Ecopening("D70", "Neo-Grunfeld", "Neo-Grunfeld Defense", "d4 Nf6 c4 g6 f3 d5", "rnbqkb1r/ppp1pp1p/5np1/3p4/2PP4/5P2/PP2P1PP/RNBQKBNR"),
       "D71" -> Ecopening("D71", "Neo-Grunfeld", "Neo-Grunfeld", "d4 Nf6 c4 g6 g3 d5", "rnbqkb1r/ppp1pp1p/5np1/3p4/2PP4/6P1/PP2PP1P/RNBQKBNR"),
       "D72" -> Ecopening("D72", "Neo-Grunfeld", "Neo-Grunfeld, 5.cd, Main line", "d4 Nf6 c4 g6 g3 d5 Bg2 Bg7 cxd5 Nxd5 e4 Nb67 Ne2", "rnbqk2r/ppp1ppbp/6p1/3n4/3PP3/6P1/PP3PBP/RNBQK1NR"),
       "D73" -> Ecopening("D73", "Neo-Grunfeld", "Neo-Grunfeld, 5.Nf3", "d4 Nf6 c4 g6 g3 d5 Bg2 Bg7 Nf3", "rnbqk2r/ppp1ppbp/5np1/3p4/2PP4/5NP1/PP2PPBP/RNBQK2R"),
@@ -575,10 +552,8 @@ private[coach] object EcopeningDB {
       "D95" -> Ecopening("D95", "Grunfeld", "Grunfeld", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 e3 O-O Qb3", "rnbq1rk1/ppp1ppbp/5np1/3p4/2PP4/1QN1PN2/PP3PPP/R1B1KB1R"),
       "D96" -> Ecopening("D96", "Grunfeld", "Grunfeld, Russian Variation", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3", "rnbqk2r/ppp1ppbp/5np1/3p4/2PP4/1QN2N2/PP2PPPP/R1B1KB1R"),
       "D97" -> Ecopening("D97", "Grunfeld", "Grunfeld, Russian", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O7 e4", "rnbqk2r/ppp1ppbp/5np1/8/2QP4/2N2N2/PP2PPPP/R1B1KB1R"),
-      "D98" -> Ecopening("D98", "Grunfeld", "Grunfeld, Russian", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O7 e4 Bg4", "rn1qk2r/ppp1ppbp/5np1/8/2QP2b1/2N2N2/PP2PPPP/R1B1KB1R")
-    ),
-    "Grunfeld Defense" -> Map(
-      "D99" -> Ecopening("D99", "Grunfeld Defense", "Grunfeld Defense, Smyslov", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O7 e4 Bg4 Be3", "rn1qk2r/ppp1ppbp/5np1/8/2QP2b1/2N1BN2/PP2PPPP/R3KB1R")
+      "D98" -> Ecopening("D98", "Grunfeld", "Grunfeld, Russian", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O7 e4 Bg4", "rn1qk2r/ppp1ppbp/5np1/8/2QP2b1/2N2N2/PP2PPPP/R1B1KB1R"),
+      "D99" -> Ecopening("D99", "Grunfeld", "Grunfeld Defense, Smyslov", "d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O7 e4 Bg4 Be3", "rn1qk2r/ppp1ppbp/5np1/8/2QP2b1/2N1BN2/PP2PPPP/R3KB1R")
     ),
     "Catalan" -> Map(
       "E01" -> Ecopening("E01", "Catalan", "Catalan, Closed", "d4 Nf6 c4 e6 g3 d5 Bg2", "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/6P1/PP2PPBP/RNBQK1NR"),
@@ -635,9 +610,6 @@ private[coach] object EcopeningDB {
       "E57" -> Ecopening("E57", "Nimzo-Indian", "Nimzo-Indian, 4.e3, Main line with 8...dc and 9...cd", "d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Nf3 d5 Bd3 c57 O-O Nc6 a3 dxc4 Bxc4", "r1bq1rk1/ppp2ppp/2n1pn2/8/1bBP4/P1N1PN2/1P3PPP/R1BQK2R"),
       "E58" -> Ecopening("E58", "Nimzo-Indian", "Nimzo-Indian, 4.e3, Main line with 8...Bxc3", "d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Nf3 d5 Bd3 c57 O-O Nc6 a3 Bxc3 bxc3", "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/P1PBPN2/5PPP/R1BQK2R"),
       "E59" -> Ecopening("E59", "Nimzo-Indian", "Nimzo-Indian, 4.e3, Main line", "d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Nf3 d5 Bd3 c57 O-O Nc6 a3 Bxc3 bxc3 dxc4 Bxc4", "r1bq1rk1/ppp2ppp/2n1pn2/8/2BP4/P1P1PN2/5PPP/R1BQK2R")
-    ),
-    "King's Indian Defense" -> Map(
-      "E60" -> Ecopening("E60", "King's Indian Defense", "King's Indian Defense", "d4 Nf6 c4 g6", "rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR")
     )
   )
 }
