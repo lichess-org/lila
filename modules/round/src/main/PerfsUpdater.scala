@@ -126,7 +126,19 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
       correspondence = (isStd && speed == Speed.Correspondence).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
-    if (isStd) perfs1.updateStandard else perfs1
+    val r = lila.rating.Regulator
+    val perfs2 = perfs1.copy(
+      chess960 = r(perfs.chess960, perfs1.chess960),
+      kingOfTheHill = r(perfs.kingOfTheHill, perfs1.kingOfTheHill),
+      threeCheck = r(perfs.threeCheck, perfs1.threeCheck),
+      antichess = r(perfs.antichess, perfs1.antichess),
+      atomic = r(perfs.atomic, perfs1.atomic),
+      horde = r(perfs.horde, perfs1.horde),
+      bullet = r(perfs.bullet, perfs1.bullet),
+      blitz = r(perfs.blitz, perfs1.blitz),
+      classical = r(perfs.classical, perfs1.classical),
+      correspondence = r(perfs.correspondence, perfs1.correspondence))
+    if (isStd) perfs2.updateStandard else perfs2
   }
 
   private def logger = play.api.Logger("PerfsUpdater")
