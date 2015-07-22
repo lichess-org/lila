@@ -1,16 +1,16 @@
 @(sections: lila.coach.GameSections)(implicit ctx: Context)
 
 @sectionTable(section: lila.coach.GameSections.Section) = {
-@if(!section.empty) {
+@if(!section.isEmpty) {
 <table>
   <tbody>
     <tr>
       <th>Moves played</th>
-      <td>@section.moveAvg.map(_.localize)</td>
+      <td>@section.moves.avg.map(_.localize)</td>
     </tr>
     <tr>
       <th>Centipawn loss</th>
-      <td>@section.acplAvg.fold("N/A")(_.localize.toString)</td>
+      <td>@section.acpl.avg.fold("N/A")(_.localize.toString)</td>
     </tr>
   </tbody>
 </table>

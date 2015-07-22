@@ -24,28 +24,16 @@ case class GameSections(
 
 object GameSections {
 
-  case class Section(
-      nb: Int,
-      nbAnalysed: Int,
-      moveSum: Int,
-      acplSum: Int) {
-    def empty = nb == 0
-    def acplAvg = (nbAnalysed > 0) option (acplSum / nbAnalysed)
-    def moveAvg = (nb > 0) option (moveSum / nb)
-    def add(move: Int, acpl: Option[Int]) =
-      if (move == 0) this
-      else copy(
-        nb = nb + 1,
-        moveSum = moveSum + move,
-        nbAnalysed = nbAnalysed + acpl.isDefined.fold(1, 0),
-        acplSum = acplSum + ~acpl)
+  case class Section(moves: NbSum, acpl: NbSum) {
+    def isEmpty = moves.nb == 0
+    def add(m: Int, a: Option[Int]) =
+      if (m == 0) this
+      else copy(moves add m, a.fold(acpl)(acpl.add))
 
     def merge(s: Section) = Section(
-      nb = nb + s.nb,
-      nbAnalysed = nb + s.nbAnalysed,
-      moveSum = moveSum + s.moveSum,
-      acplSum = acplSum + s.acplSum)
+      moves merge s.moves,
+      acpl merge s.acpl)
   }
-  val emptySection = Section(0, 0, 0, 0)
+  val emptySection = Section(NbSum.empty, NbSum.empty)
   val empty = GameSections(emptySection, emptySection, emptySection, emptySection)
 }

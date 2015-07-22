@@ -16,13 +16,7 @@ private[coach] final class JSONWriters(
     Json.obj("nb" -> s.nb, "avg" -> s.avg)
   }
 
-  implicit val SectionWriter = OWrites[GameSections.Section] { s =>
-    Json.obj(
-      "nb" -> s.nb,
-      "nbAnalysed" -> s.nbAnalysed,
-      "moveAvg" -> s.moveAvg,
-      "acplAvg" -> s.acplAvg)
-  }
+  implicit val SectionWriter = Json.writes[GameSections.Section]
   implicit val GameSectionsWriter = Json.writes[GameSections]
   implicit val BestWinWriter = OWrites[Results.BestWin] { o =>
     Json.obj(
@@ -36,7 +30,7 @@ private[coach] final class JSONWriters(
       })
   }
   implicit val MoveWriter = Json.writes[Move]
-  implicit val TrimmedMovesWriter  = Writes[TrimmedMoves] { o =>
+  implicit val TrimmedMovesWriter = Writes[TrimmedMoves] { o =>
     Json.toJson(o.moves)
   }
   implicit val ColorMovesWriter = Json.writes[ColorMoves]
