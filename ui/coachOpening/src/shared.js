@@ -22,7 +22,7 @@ module.exports = {
       'data-hint': strings.ratingDiff
     }, perf);
   },
-  resultBar: function(o) {
+  resultBar: function(r) {
     return m('div.result-bar', [
       ['nbWin', 'win'],
       ['nbDraw', 'draw'],
@@ -30,7 +30,7 @@ module.exports = {
     ].map(function(x) {
       var k = x[0];
       var name = x[1];
-      var percent = (o[k] * 100 / o.nbGames);
+      var percent = (r[k] * 100 / r.nbGames);
       return m('div', {
         key: k,
         class: k,

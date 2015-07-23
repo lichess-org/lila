@@ -8,8 +8,6 @@ case class RichPov(
   accuracy: Option[lila.analyse.Accuracy.DividedAccuracy],
   moveAccuracy: Option[List[Int]])
 
-case class OpeningFamily(firstMove: String, results: Results, families: List[String])
-
 case class NbSum(nb: Int, sum: Int) {
 
   def avg = (nb > 0) option (sum / nb)

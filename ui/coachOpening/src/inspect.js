@@ -1,6 +1,6 @@
 var m = require('mithril');
+var chessground = require('chessground');
 
-var board = require('./board');
 var moves = require('./moves');
 var progress = require('./shared').progress;
 var momentFromNow = require('./shared').momentFromNow;
@@ -21,8 +21,9 @@ function bestWin(w) {
 
 module.exports = function(ctrl, inspecting) {
   var d = ctrl.data;
-  var family = inspecting.family;
-  var o = d.openings.map[family];
+  var eco = inspecting.eco;
+  var opening = d.openings[eco].opening;
+  var results = d.openings[eco].results;
   return m('div.top.inspect', [
     m('a.to.back', {
       'data-icon': 'L',
@@ -40,24 +41,30 @@ module.exports = function(ctrl, inspecting) {
         ctrl.jumpBy(1);
       }
     }),
-    resultBar(o),
+    resultBar(results),
     m('h2', [
-      m('strong', family),
-      m('em', d.moves[family]),
-      progress(o.ratingDiff / o.nbGames)
+      m('strong', [
+        opening.eco,
+        ' ',
+        opening.name
+      ]),
+      m('em', opening.moves),
+      progress(results.ratingDiff / results.nbGames)
     ]),
     m('div.content', [
-      board(ctrl, family),
+      m('div.board',
+        chessground.view(ctrl.vm.inspecting.chessground)
+      ),
       m('div.right', [
-        moves(ctrl, family),
+        moves(ctrl, results),
         m('table', [
           m('tr', [
             m('th', 'Played in'),
             m('tr', [
               m('a', [
-                m('strong', o.nbGames),
+                m('strong', results.nbGames),
                 ' games (',
-                m('strong', Math.round(o.nbGames * 100 / ctrl.data.colorResults.nbGames)),
+                m('strong', Math.round(results.nbGames * 100 / ctrl.data.colorResults.nbGames)),
                 '%)'
               ])
             ])
@@ -66,24 +73,24 @@ module.exports = function(ctrl, inspecting) {
             m('th', 'Computer analysed in'),
             m('tr', [
               m('a', [
-                m('strong', o.nbAnalysis),
+                m('strong', results.nbAnalysis),
                 ' games (',
-                m('strong', Math.round(o.nbAnalysis * 100 / o.nbGames)),
+                m('strong', Math.round(results.nbAnalysis * 100 / results.nbGames)),
                 '%)'
               ])
             ])
           ]),
           m('tr', [
             m('th', 'Average opponent'),
-            m('tr', m('strong', o.opponentRatingAvg))
+            m('tr', m('strong', results.opponentRatingAvg))
           ]),
-          o.bestWin ? m('tr', [
+          results.bestWin ? m('tr', [
             m('th', 'Best win'),
-            m('tr', bestWin(o.bestWin))
+            m('tr', bestWin(results.bestWin))
           ]) : null,
           m('tr', [
             m('th', 'Last played'),
-            m('tr', momentFromNow(o.lastPlayed))
+            m('tr', momentFromNow(results.lastPlayed))
           ])
         ])
       ])

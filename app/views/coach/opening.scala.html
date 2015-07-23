@@ -21,11 +21,14 @@ chessground = false) {
 
 <div class="content_box no_padding" data-icon="^">
   <div class="content_box_top">
-    <h1>@userLink(u, withOnline = false) openings as @color.name over @if(u.count.rated > 10 * 1000) {
-      @{10000.localize} last
-      } else {
-      @u.count.rated.localize
-      } rated games</h1>
+    <h1>
+      @userLink(u, withOnline = false) openings as @color.name
+      @statOption.map {
+      case (stat, _) => {
+      over @stat.openings(color).nbGames.localize rated games
+      }
+      }
+    </h1>
   </div>
 
   <div id="coach_opening"></div>

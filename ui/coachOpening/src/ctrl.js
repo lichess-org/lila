@@ -18,18 +18,22 @@ module.exports = function(opts) {
   this.data = opts.data;
   window.openingData = opts.data;
 
-  this.list = Object.keys(this.data.openings.map).map(function(name) {
-    var o = this.data.openings.map[name];
+  this.list = Object.keys(this.data.openings).map(function(eco) {
+    var o = this.data.openings[eco];
+    var r = o.results;
     return copy(o, {
-      name: name,
-      result: o.nbWin / o.nbLoss,
-      acpl: o.gameSections.all.acplAvg,
-      ratingDiffAvg: o.nbGames > 0 ? o.ratingDiff / o.nbGames : 0
+      result: r.nbWin / r.nbLoss,
+      acpl: r.gameSections.all.acpl.avg,
+      ratingDiffAvg: r.nbGames > 0 ? r.ratingDiff / r.nbGames : 0,
+      // just for sorting
+      name: o.opening.name,
+      nbGames: r.nbGames,
+      lastPlayed: r.lastPlayed
     });
   }.bind(this));
 
   this.list.sort(function(a, b) {
-    return a.nbGames < b.nbGames ? 1 : a.nbGames > b.nbGames ? -1 : 0;
+    return a.results.nbGames < b.results.nbGames ? 1 : a.results.nbGames > b.results.nbGames ? -1 : 0;
   });
 
   this.vm = {
@@ -41,48 +45,46 @@ module.exports = function(opts) {
     hover: null,
     inspecting: null,
     /* {
-      family: 'Sicilian Defence',
+      eco: 'D00',
       chessground: null
     } */
   };
 
   this.jumpBy = function(delta) {
     if (!this.vm.inspecting) return;
-    var families = this.list.map(function(o) {
-      return o.name;
+    var ecos = this.list.map(function(o) {
+      return o.opening.eco;
     });
-    var i = families.indexOf(this.vm.inspecting.family);
-    var i2 = (i + delta) % families.length;
-    if (i2 < 0) i2 = families.length -1;
-    this.inspect(families[i2]);
+    var i = ecos.indexOf(this.vm.inspecting.eco);
+    var i2 = (i + delta) % ecos.length;
+    if (i2 < 0) i2 = ecos.length - 1;
+    this.inspect(ecos[i2]);
   }.bind(this);
 
-  this.isInspecting = function(family) {
-    return this.vm.inspecting && this.vm.inspecting.family === family;
+  this.isInspecting = function(eco) {
+    return this.vm.inspecting && this.vm.inspecting.eco === eco;
   }.bind(this);
 
-  this.inspect = function(family) {
-    if (!this.data.openings.map[family]) return;
-    if (this.isInspecting(family)) return;
+  this.inspect = function(eco) {
+    if (!this.data.openings[eco]) return;
+    if (this.isInspecting(eco)) return;
     if (window.history.replaceState)
-      window.history.replaceState(null, null, '#' + family.replace(/ /g, '_'));
-    var steps = this.data.steps[family];
-    var last = steps[steps.length - 1];
+      window.history.replaceState(null, null, '#' + eco);
+    var opening = this.data.openings[eco].opening;
     var config = {
-      fen: last.fen,
+      fen: opening.fen,
       orientation: this.data.color,
       viewOnly: true,
       minimalDom: true,
-      check: last.check,
-      lastMove: [last.uci.substr(0, 2), last.uci.substr(2, 2)],
+      lastMove: [opening.lastMoveUci.substr(0, 2), opening.lastMoveUci.substr(2, 2)],
       coordinates: false
     };
     if (this.vm.inspecting) {
-      this.vm.inspecting.family = family;
+      this.vm.inspecting.eco = eco;
       this.vm.inspecting.chessground.set(config);
     } else
       this.vm.inspecting = {
-        family: family,
+        eco: eco,
         chessground: new chessground.controller(config)
       };
   }.bind(this);

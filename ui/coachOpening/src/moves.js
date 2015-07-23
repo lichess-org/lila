@@ -93,11 +93,11 @@ function makeChart(el, data) {
   return $(el).highcharts();
 }
 
-function analysed(ctrl, family) {
+function analysed(ctrl, results) {
   var d = ctrl.data;
-  var moves = d.openings.map[family].moves[ctrl.data.color].slice(0, MAX_MOVES);
-  var acpl = d.openings.map[family].gameSections.all.acplAvg;
-  var globalAcpl = ctrl.data.colorResults.gameSections.all.acplAvg;
+  var moves = results.moves[ctrl.data.color].slice(0, MAX_MOVES);
+  var acpl = results.gameSections.all.acpl.avg;
+  var globalAcpl = ctrl.data.colorResults.gameSections.all.acpl.avg;
   return [
     m('h3', [
       'Average centipawns lost by move: ',
@@ -115,6 +115,6 @@ function analysed(ctrl, family) {
   ];
 }
 
-module.exports = function(ctrl, family) {
-  return ctrl.data.openings.map[family].nbAnalysis > 0 ? analysed(ctrl, family) : m('div.not_analysed', 'No analysis available on these games!')
+module.exports = function(ctrl, results) {
+  return results.nbAnalysis > 0 ? analysed(ctrl, results) : m('div.not_analysed', 'No analysis available on these games!')
 };

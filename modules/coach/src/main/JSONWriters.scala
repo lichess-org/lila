@@ -16,6 +16,10 @@ private[coach] final class JSONWriters(
     Json.obj("nb" -> s.nb, "avg" -> s.avg)
   }
 
+  private val AutoEcopeningWriter = Json.writes[Ecopening]
+  implicit val EcopeningWriter = OWrites[Ecopening] { o =>
+    AutoEcopeningWriter.writes(o) + ("formattedMoves" -> JsString(o.formattedMoves))
+  }
   implicit val SectionWriter = Json.writes[GameSections.Section]
   implicit val GameSectionsWriter = Json.writes[GameSections]
   implicit val BestWinWriter = OWrites[Results.BestWin] { o =>
@@ -78,5 +82,5 @@ private[coach] final class JSONWriters(
     )
   }
 
-  implicit val OpeningFamilyWriter = Json.writes[OpeningFamily]
+  implicit val EcopeningFamilyWriter = Json.writes[Ecopening.Family]
 }

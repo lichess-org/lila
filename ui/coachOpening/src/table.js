@@ -48,21 +48,21 @@ function thead(list, sort) {
 module.exports = function(ctrl) {
   var d = ctrl.data;
   var percent = function(nb) {
-    return Math.round(nb * 100 / d.openings.nbGames);
+    return Math.round(nb * 100 / d.openingNbGames);
   };
-  var acplAvg = ctrl.data.colorResults.gameSections.all.acplAvg;
+  var acplAvg = ctrl.data.colorResults.gameSections.all.acpl.avg;
   return m('table.openings.slist', [
     thead(ctrl.list, ctrl.vm.sort),
     m('tbody', ctrl.list.map(function(o, i) {
       return m('tr', {
-        key: o.name,
-        'data-opening': o.name,
+        key: o.opening.eco,
+        'data-opening': o.opening.eco,
         onmouseover: function(e) {
           ctrl.vm.hover = null;
           var chart = ctrl.vm.chart;
           if (!chart) return;
           var point = chart.series[1].data.filter(function(c) {
-            return c.name === o.name;
+            return c.opening.eco === o.opening.eco;
           })[0];
           if (point && !point.selected) point.select();
         },
@@ -72,18 +72,18 @@ module.exports = function(ctrl) {
           });
         },
         onclick: function() {
-          ctrl.inspect(o.name);
+          ctrl.inspect(o.opening.eco);
         },
-        class: (ctrl.vm.hover === o.name ? 'hover' : (ctrl.isInspecting(o.name) ? 'active' : ''))
+        class: (ctrl.vm.hover === o.opening.eco ? 'hover' : (ctrl.isInspecting(o.opening.eco) ? 'active' : ''))
       }, [
         m('td', [
-          m('div.name', o.name),
-          m('div.moves', d.moves[o.name])
+          m('div.name', o.opening.name),
+          m('div.moves', o.opening.formattedMoves)
         ]),
         m('td', [
-          m('div', o.nbGames + ' (' + percent(o.nbGames) + '%)')
+          m('div', o.results.nbGames + ' (' + percent(o.results.nbGames) + '%)')
         ]),
-        m('td', resultBar(o)),
+        m('td', resultBar(o.results)),
         m('td', progress(o.ratingDiffAvg)),
         m('td', [
           m('span.progress', o.acpl === null ? '-' : m('span', {
@@ -92,7 +92,7 @@ module.exports = function(ctrl) {
         ]),
         m('td', [
           m('time.moment-from-now', {
-            datetime: o.lastPlayed
+            datetime: o.results.lastPlayed
           })
         ])
       ]);

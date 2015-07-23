@@ -15,40 +15,44 @@ function signed(i) {
 module.exports = function(el, ctrl) {
   var data = ctrl.data;
   var percent = function(nb) {
-    return nb * 100 / data.openings.nbGames;
+    return nb * 100 / data.openingNbGames;
   };
   var colors = Highcharts.getOptions().colors,
-    raw = data.families.map(function(family, index) {
+    raw = data.families.map(function(fam, index) {
       var graphColor = colors[index % colors.length];
-      var families = family.families.sort(function(a, b) {
-        return data.openings.map[a].nbGames < data.openings.map[b].nbGames ? 1 : -1;
+      var family = fam.family;
+      var results = fam.results;
+      var openings = family.ecos.map(function(eco) {
+        return data.openings[eco];
+      }).sort(function(a, b) {
+        return a.results.nbGames < a.results.nbGames ? 1 : -1;
       });
       return {
-        name: family.firstMove,
-        y: percent(families.reduce(function(acc, f) {
-          var op = data.openings.map[f];
-          return acc + (op ? op.nbGames : 0);
-        }, 0)),
-        results: family.results,
+        name: family.name,
+        y: percent(results.nbGames),
+        results: results,
         color: graphColor,
         drilldown: {
           name: family.name,
-          data: families.map(function(f) {
+          data: openings.map(function(o) {
             return {
-              name: f,
-              y: percent(data.openings.map[f].nbGames),
-              results: data.openings.map[f]
+              name: o.opening.eco + ' ' + o.opening.name,
+              y: percent(o.results.nbGames),
+              opening: o.opening,
+              results: o.results
             };
           }),
           color: graphColor
         }
       };
     }),
-    firstMoveData = [],
     familyData = [],
+    openingData = [],
     i,
     j,
     drillDataLen;
+
+  console.log(raw);
 
   raw.sort(function(a, b) {
     return a.y < b.y ? 1 : -1;
@@ -57,7 +61,7 @@ module.exports = function(el, ctrl) {
   // Build the data arrays
   for (i = 0; i < raw.length; i += 1) {
 
-    firstMoveData.push({
+    familyData.push({
       name: raw[i].name,
       y: raw[i].y,
       results: raw[i].results,
@@ -66,14 +70,9 @@ module.exports = function(el, ctrl) {
 
     drillDataLen = raw[i].drilldown.data.length;
     for (j = 0; j < drillDataLen; j += 1) {
-      var name = raw[i].drilldown.data[j].name;
-      familyData.push({
-        name: name,
-        moves: data.moves[name],
-        y: raw[i].drilldown.data[j].y,
-        results: raw[i].drilldown.data[j].results,
-        color: Highcharts.Color(raw[i].color).brighten(0.2 - (j / drillDataLen) / 3).get()
-      });
+      var d = raw[i].drilldown.data[j];
+      d.color = Highcharts.Color(raw[i].color).brighten(0.2 - (j / drillDataLen) / 3).get()
+      openingData.push(d);
     }
   }
 
@@ -107,9 +106,10 @@ module.exports = function(el, ctrl) {
       useHTML: true,
       headerFormat: '{point.key}',
       pointFormatter: function() {
+        var o = this.opening;
         var r = this.results;
-        var acpl = r.gameSections.all.acplAvg;
-        return (this.moves ? ('<br>' + this.moves + '<br><br>') : '') + '<table><tr><td>Games:</td><td style="text-align: right"><b>' +
+        var acpl = r.gameSections.all.acpl.avg;
+        return ((o && o.formattedMoves) ? ('<br>' + o.formattedMoves + '<br><br>') : '') + '<table><tr><td>Games:</td><td style="text-align: right"><b>' +
           r.nbGames + '</b></td></tr>' +
           '<tr><td>Rating:</td><td style="text-align: right"><b>' +
           signed(r.ratingDiff) + '</b></td></tr>' +
@@ -119,7 +119,7 @@ module.exports = function(el, ctrl) {
     },
     series: [{
       name: 'First move',
-      data: firstMoveData,
+      data: familyData,
       size: '60%',
       dataLabels: {
         formatter: function() {
@@ -130,12 +130,11 @@ module.exports = function(el, ctrl) {
       },
     }, {
       name: 'Openings',
-      data: familyData,
+      data: openingData,
       size: '90%',
       innerSize: '60%',
       dataLabels: {
         formatter: function() {
-          // display only if larger than 1
           return this.y > 1 ? this.point.name + ': ' + Math.round(this.y) + '%' : null;
         },
         style: {
@@ -149,13 +148,13 @@ module.exports = function(el, ctrl) {
         events: {
           click: function(e) {
             if (e.point) {
-              ctrl.inspect(e.point.name);
+              ctrl.inspect(e.point.opening.eco);
               m.redraw();
             }
           },
           mouseOver: function(e) {
             if (e.currentTarget) {
-              ctrl.vm.hover = e.currentTarget.name;
+              ctrl.vm.hover = e.currentTarget.opening.eco;
               e.currentTarget.select();
               m.redraw();
             }

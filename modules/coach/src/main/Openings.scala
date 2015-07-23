@@ -29,14 +29,14 @@ object Openings {
       black: Map[String, Results.Computation]) {
 
     def aggregate(p: RichPov) =
-      Ecopening(p.pov.game).map(_.name).fold(this) { name =>
+      Ecopening.fromGame(p.pov.game).map(_.eco).fold(this) { eco =>
         copy(
-          white = if (p.pov.color.white) agg(white, name, p) else white,
-          black = if (p.pov.color.black) agg(black, name, p) else black)
+          white = if (p.pov.color.white) agg(white, eco, p) else white,
+          black = if (p.pov.color.black) agg(black, eco, p) else black)
       }
 
-    private def agg(ops: Map[String, Results.Computation], name: String, p: RichPov) =
-      ops + (name -> ops.get(name).|(Results.emptyComputation).aggregate(p))
+    private def agg(ops: Map[String, Results.Computation], eco: String, p: RichPov) =
+      ops + (eco -> ops.get(eco).|(Results.emptyComputation).aggregate(p))
 
     def run = Openings(
       white = OpeningsMap(white.mapValues(_.run)) trim 15,
