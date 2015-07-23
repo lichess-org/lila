@@ -64,7 +64,6 @@ private[coach] final class JSONWriters(
   implicit val PerfResultsStatusMapWriter = OWrites[Map[chess.Status, Int]] { m =>
     JsObject(m.map { case (status, i) => status.name -> JsNumber(i) })
   }
-  implicit val PerfResultsStreakWriter = Json.writes[PerfResults.Streak]
   implicit val PerfResultsStatusScoresWriter = Json.writes[PerfResults.StatusScores]
   implicit val PerfResultsOutcomeStatusesWriter = Json.writes[PerfResults.OutcomeStatuses]
   implicit val PerfResultsWriter = Json.writes[PerfResults]

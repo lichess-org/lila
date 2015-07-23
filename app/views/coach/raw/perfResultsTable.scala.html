@@ -35,13 +35,5 @@
         <strong>@br.rating</strong> after <a href="@routes.Round.watcher(br.id, "white")">playing</a> @userIdLink(br.userId.some)
         }</td>
     </tr>
-    <tr>
-      <th>Win streak</th>
-      <td>@r.winStreak.best wins in a row (current: @r.winStreak.cur wins)</td>
-    </tr>
-    <tr>
-      <th>Play streak</th>
-      <td>@r.dayStreak.best days in a row (current @r.dayStreak.cur days)</td>
-    </tr>
   </tbody>
 </table>

@@ -10,7 +10,7 @@ import lila.rating.PerfType
 private[coach] object BSONHandlers {
 
   import Results.{ BestWin }
-  import PerfResults.{ Streak, BestRating, StatusScores, OutcomeStatuses, PerfResultsMap }
+  import PerfResults.{ BestRating, StatusScores, OutcomeStatuses, PerfResultsMap }
   import Openings.OpeningsMap
   import GameSections.Section
 
@@ -34,7 +34,6 @@ private[coach] object BSONHandlers {
   implicit val TrimmedMovesBSONHandler = Macros.handler[TrimmedMoves]
   implicit val ColorMovesBSONHandler = Macros.handler[ColorMoves]
 
-  implicit val PerfResultsStreakBSONHandler = Macros.handler[Streak]
   implicit val PerfResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]
   implicit val ResultsBestWinBSONHandler = Macros.handler[BestWin]
   implicit val PerfResultsBestRatingBSONHandler = Macros.handler[BestRating]

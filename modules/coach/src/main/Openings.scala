@@ -9,6 +9,10 @@ case class Openings(
     black: Openings.OpeningsMap) {
 
   def apply(c: Color) = c.fold(white, black)
+
+  def merge(o: Openings) = Openings(
+    white = white merge o.white,
+    black = black merge o.black)
 }
 
 object Openings {
@@ -16,6 +20,11 @@ object Openings {
   case class OpeningsMap(m: Map[String, Results]) {
     def best(max: Int): List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take max
     def trim(max: Int) = copy(m = best(max).toMap)
+    def merge(o: OpeningsMap) = OpeningsMap {
+      m.map {
+        case (k, v) => k -> o.m.get(k).fold(v)(v.merge)
+      }
+    }
     lazy val results = m.foldLeft(Results.empty) {
       case (res, (_, r)) => res merge r
     }

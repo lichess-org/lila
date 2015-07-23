@@ -3,6 +3,10 @@ package lila.coach
 case class ColorResults(white: Results, black: Results) {
 
   def apply(c: chess.Color) = c.fold(white, black)
+
+  def merge(o: ColorResults) = ColorResults(
+    white = white merge o.white,
+    black = black merge o.black)
 }
 
 object ColorResults {

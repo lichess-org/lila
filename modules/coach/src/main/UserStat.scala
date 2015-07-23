@@ -18,6 +18,12 @@ case class UserStat(
     DateTime.now minusDays 1 isBefore date
   }
   def isStale = !isFresh
+
+  def merge(o: UserStat) = copy(
+    colorResults = colorResults merge o.colorResults,
+    openings = openings merge o.openings,
+    results = results merge o.results,
+    perfResults = perfResults merge o.perfResults)
 }
 
 object UserStat {
