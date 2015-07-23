@@ -15,7 +15,7 @@ function signed(i) {
 module.exports = function(el, ctrl) {
   var data = ctrl.data;
   var percent = function(nb) {
-    return nb * 100 / data.openingNbGames;
+    return nb * 100 / data.openingResults.nbGames;
   };
   var colors = Highcharts.getOptions().colors,
     raw = data.families.map(function(fam, index) {
@@ -51,8 +51,6 @@ module.exports = function(el, ctrl) {
     i,
     j,
     drillDataLen;
-
-  console.log(raw);
 
   raw.sort(function(a, b) {
     return a.y < b.y ? 1 : -1;
