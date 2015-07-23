@@ -38,13 +38,12 @@ object Ecopening {
     }
 
   def fromGame(game: lila.game.Game): Option[Ecopening] =
-    lila.game.Game.canGuessOpening(game) ?? {
-      chess.Replay.boards(
-        moveStrs = game.pgnMoves take EcopeningDB.MAX_MOVES,
-        initialFen = none,
-        variant = chess.variant.Standard
-      ).toOption flatMap matchChronoBoards
-    }
+    if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
+    else chess.Replay.boards(
+      moveStrs = game.pgnMoves take EcopeningDB.MAX_MOVES,
+      initialFen = none,
+      variant = chess.variant.Standard
+    ).toOption flatMap matchChronoBoards
 
   private def matchChronoBoards(boards: List[chess.Board]): Option[Ecopening] =
     boards.reverse.foldLeft(none[Ecopening]) {

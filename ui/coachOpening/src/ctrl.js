@@ -76,7 +76,7 @@ module.exports = function(opts) {
       orientation: this.data.color,
       viewOnly: true,
       minimalDom: true,
-      lastMove: [opening.lastMoveUci.substr(0, 2), opening.lastMoveUci.substr(2, 2)],
+      lastMove: opening.lastMoveUci ? [opening.lastMoveUci.substr(0, 2), opening.lastMoveUci.substr(2, 2)] : null,
       coordinates: false
     };
     if (this.vm.inspecting) {

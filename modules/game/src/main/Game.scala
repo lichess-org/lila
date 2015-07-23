@@ -445,9 +445,8 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
-    Game.canGuessOpening(this) ?? {
-      chess.OpeningExplorer openingOf pgnMoves
-    }
+    if (playable || fromPosition || !Game.openingSensiblevariants(variant)) none
+    else chess.OpeningExplorer openingOf pgnMoves
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 }
@@ -490,9 +489,6 @@ object Game {
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
-
-  def canGuessOpening(game: Game) =
-    !game.playable && !game.fromPosition && openingSensiblevariants(game.variant)
 
   def make(
     game: ChessGame,
