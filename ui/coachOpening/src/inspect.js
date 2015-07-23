@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 
 var moves = require('./moves');
+var sections = require('./sections');
 var progress = require('./shared').progress;
 var momentFromNow = require('./shared').momentFromNow;
 var resultBar = require('./shared').resultBar;
@@ -42,57 +43,48 @@ module.exports = function(ctrl, inspecting) {
       }
     }),
     resultBar(results),
-    m('h2', [
-      m('strong', [
-        opening.eco,
-        ' ',
-        opening.name
+    m('div.main', [
+      progress(results.ratingDiff / results.nbGames),
+      m('h2', [
+        m('strong', [
+          opening.eco,
+          ' ',
+          opening.name
+        ]),
+        m('em', opening.moves)
       ]),
-      m('em', opening.moves),
-      progress(results.ratingDiff / results.nbGames)
+      m('div.baseline', [
+        m('strong', results.nbGames),
+        ' games, ',
+        m('strong', results.nbAnalysis),
+        ' analysed. Last played ',
+        momentFromNow(results.lastPlayed),
+        '.',
+      ])
     ]),
     m('div.content', [
       m('div.board',
         chessground.view(ctrl.vm.inspecting.chessground)
       ),
       m('div.right', [
-        moves(ctrl, results),
-        m('table', [
-          m('tr', [
-            m('th', 'Played in'),
-            m('tr', [
-              m('a', [
-                m('strong', results.nbGames),
-                ' games (',
-                m('strong', Math.round(results.nbGames * 100 / ctrl.data.colorResults.nbGames)),
-                '%)'
-              ])
-            ])
-          ]),
-          m('tr', [
-            m('th', 'Computer analysed in'),
-            m('tr', [
-              m('a', [
-                m('strong', results.nbAnalysis),
-                ' games (',
-                m('strong', Math.round(results.nbAnalysis * 100 / results.nbGames)),
-                '%)'
-              ])
-            ])
-          ]),
-          m('tr', [
-            m('th', 'Average opponent'),
-            m('tr', m('strong', results.opponentRatingAvg))
-          ]),
-          results.bestWin ? m('tr', [
-            m('th', 'Best win'),
-            m('tr', bestWin(results.bestWin))
-          ]) : null,
-          m('tr', [
-            m('th', 'Last played'),
-            m('tr', momentFromNow(results.lastPlayed))
-          ])
-        ])
+        // moves(ctrl, results),
+        sections(ctrl, results),
+        results.bestWin ? [
+          m('br'),
+          ' Best win: ',
+          bestWin(results.bestWin)
+        ] : null
+        // m('table', [
+        //   m('tr', [
+        //   m('tr', [
+        //     m('th', 'Average opponent'),
+        //     m('tr', m('strong', results.opponentRatingAvg))
+        //   ]),
+        //   results.bestWin ? m('tr', [
+        //     m('th', 'Best win'),
+        //     m('tr', bestWin(results.bestWin))
+        //   ]) : null
+        // ])
       ])
     ])
   ]);

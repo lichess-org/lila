@@ -16,8 +16,8 @@ object Openings {
   case class OpeningsMap(m: Map[String, Results]) {
     def best(max: Int): List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take max
     def trim(max: Int) = copy(m = best(max).toMap)
-    def nbGames = m.foldLeft(0) {
-      case (nb, (_, results)) => nb + results.nbGames
+    lazy val results = m.foldLeft(Results.empty) {
+      case (res, (_, r)) => res merge r
     }
   }
   val emptyOpeningsMap = OpeningsMap(Map.empty)

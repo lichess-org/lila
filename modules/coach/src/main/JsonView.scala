@@ -20,7 +20,7 @@ final class JsonView(jsonWriters: JSONWriters) {
           "opening" -> EcopeningDB.allByEco.get(eco),
           "results" -> results)
       },
-      "openingNbGames" -> stat.openings(color).nbGames,
+      "openingResults" -> stat.openings(color).results,
       "families" -> Ecopening.makeFamilies {
         stat.openings(color).m.keys.flatMap(EcopeningDB.allByEco.get)
       }.values.toList.sortBy(-_.ecos.size).map { fam =>

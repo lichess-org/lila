@@ -2,26 +2,14 @@ var m = require('mithril');
 
 var green = '#759900',
   red = '#dc322f',
-  orange = '#d59120';
+  orange = '#d59120',
+  grey = '#aaaaaa';
 
 var MAX_MOVES = 30;
-
-function makeData(moves) {
-  return moves.map(function(move, i) {
-    var acpl = move.acpl.avg;
-    return {
-      x: i + 1,
-      y: Math.min(acpl, 150) + 10,
-      color: acpl < 50 ? green : (acpl < 100 ? orange : red),
-      move: move
-    };
-  });
-}
 
 function makeChart(el, data) {
   $(el).highcharts({
     chart: {
-      type: 'column',
       spacing: [0, 0, 0, 0],
       animation: {
         duration: 300
@@ -39,7 +27,7 @@ function makeChart(el, data) {
     xAxis: {
       crosshair: false
     },
-    yAxis: {
+    yAxis: [{
       min: 0,
       tickInterval: 50,
       title: {
@@ -50,7 +38,18 @@ function makeChart(el, data) {
       },
       lineWidth: 1,
       gridLineWidth: 1
-    },
+    }, {
+      min: 0,
+      tickInterval: 10,
+      title: {
+        text: null
+      },
+      labels: {
+        enabled: false
+      },
+      lineWidth: 1,
+      gridLineWidth: 1
+    }],
     plotOptions: {
       column: {
         pointPadding: 0.2,
@@ -60,28 +59,28 @@ function makeChart(el, data) {
     tooltip: {
       useHTML: true,
       formatter: function() {
-        var m = this.point.move;
-        return '[move ' + this.point.x + '] <b>' + m.acpl.avg + '</b> centipawns<hr>' +
-          'In ' + m.acpl.nb + ' analysed games';
+        if (this.point.acpl)
+          return '[move ' + this.point.x + '] <b>' + this.point.acpl.avg + '</b> centipawns<hr>' +
+            'over ' + this.point.acpl.nb + ' analysed games';
+        return '[move ' + this.point.x + '] <b>' + (this.point.time.avg / 10) + '</b> seconds<hr>' +
+          'over ' + this.point.time.nb + ' games';
       },
     },
     series: [{
       name: 'ACPL',
-      data: data,
+      type: 'column',
+      data: data.acpls,
       pointWidth: 12
 
-      // }, {
-      //   name: 'New York',
-      //   data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-      // }, {
-      //   name: 'London',
-      //   data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-      // }, {
-      //   name: 'Berlin',
-      //   data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
+    }, {
+      name: 'Time',
+      data: data.times,
+      type: 'spline',
+      yAxis: 1,
+      lineWidth: 1,
+      marker: {
+        radius: 2
+      }
     }],
     credits: {
       enabled: false
@@ -93,28 +92,42 @@ function makeChart(el, data) {
   return $(el).highcharts();
 }
 
-function analysed(ctrl, results) {
-  var d = ctrl.data;
+function makeData(results, moves) {
+  return {
+    acpls: results.nbAnalysis ? moves.map(function(move, i) {
+      var acpl = move.acpl.avg;
+      return {
+        x: i + 1,
+        y: Math.min(acpl, 150) + 10,
+        color: acpl < 50 ? green : (acpl < 100 ? orange : red),
+        acpl: move.acpl
+      };
+    }) : [],
+    times: moves.map(function(move, i) {
+      var time = move.time.avg;
+      return {
+        x: i + 1,
+        y: Math.min(time, 30) + 1,
+        time: move.time
+      };
+    })
+  };
+}
+
+module.exports = function(ctrl, results) {
   var moves = results.moves[ctrl.data.color].slice(0, MAX_MOVES);
   var acpl = results.gameSections.all.acpl.avg;
   var globalAcpl = ctrl.data.colorResults.gameSections.all.acpl.avg;
   return [
-    m('h3', [
-      'Average centipawns lost by move: ',
-      m('span.progress', m('strong', {
-        class: acpl > globalAcpl ? 'negative' : 'positive'
-      }, Math.round(acpl)))
-    ]),
     m('div.moves', {
       config: function(el, isUpdate, ctx) {
-        var data = makeData(moves);
-        if (ctx.chart) ctx.chart.series[0].setData(data)
+        var data = makeData(results, moves);
+        if (ctx.chart) {
+          ctx.chart.series[0].setData(data.acpls)
+          ctx.chart.series[1].setData(data.times)
+        }
         else ctx.chart = makeChart(el, data);
       }
     })
   ];
-}
-
-module.exports = function(ctrl, results) {
-  return results.nbAnalysis > 0 ? analysed(ctrl, results) : m('div.not_analysed', 'No analysis available on these games!')
 };

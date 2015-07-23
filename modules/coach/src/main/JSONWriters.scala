@@ -56,7 +56,7 @@ private[coach] final class JSONWriters(
   implicit val OpeningsMapWriter = Writes[Openings.OpeningsMap] { o =>
     Json.obj(
       "map" -> Json.toJson(o.m),
-      "nbGames" -> o.nbGames
+      "results" -> o.results
     )
   }
   implicit val OpeningsWriter = Json.writes[Openings]

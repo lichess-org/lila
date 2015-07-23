@@ -48,7 +48,7 @@ function thead(list, sort) {
 module.exports = function(ctrl) {
   var d = ctrl.data;
   var percent = function(nb) {
-    return Math.round(nb * 100 / d.openingNbGames);
+    return Math.round(nb * 100 / d.openingResults.nbGames);
   };
   var acplAvg = ctrl.data.colorResults.gameSections.all.acpl.avg;
   return m('table.openings.slist', [

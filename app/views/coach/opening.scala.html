@@ -25,7 +25,7 @@ chessground = false) {
       @userLink(u, withOnline = false) openings as @color.name
       @statOption.map {
       case (stat, _) => {
-      over @stat.openings(color).nbGames.localize rated games
+      over @stat.openings(color).results.nbGames.localize rated games
       }
       }
     </h1>

@@ -1,7 +1,7 @@
 @(sections: lila.coach.GameSections)(implicit ctx: Context)
 
 @sectionTable(section: lila.coach.GameSections.Section) = {
-@if(!section.isEmpty) {
+@if(section.nb != 0) {
 <table>
   <tbody>
     <tr>

@@ -145,10 +145,26 @@ div.content_box_top h1 {
   font-size: 1.7em;
   margin-left: 10px;
 }
+#coach_opening > .inspect .baseline {
+  margin-top: 5px;
+  font-size: 16px;
+}
 #coach_opening > .inspect .result-bar {
   position: absolute;
   top: 0px;
   left: 0px;
+}
+#coach_opening > .inspect .main {
+  white-space: nowrap;
+}
+#coach_opening > .inspect .main .progress {
+  float: left;
+  font-size: 4em;
+  line-height: 60px;
+  margin: 0 20px 0 -5px;
+}
+#coach_opening > .inspect .main .progress > span {
+  font-weight: bold;
 }
 #coach_opening > .inspect .board {
   float: left;
@@ -157,30 +173,27 @@ div.content_box_top h1 {
   margin-top: 15px;
 }
 #coach_opening > .inspect .cg-board-wrap {
-  width: 300px;
-  height: 300px;
+  width: 330px;
+  height: 330px;
   position: relative;
 }
 #coach_opening > .inspect .right {
   position: relative;
-  margin-left: 320px;
+  margin-left: 350px;
   font-size: 16px;
 }
 #coach_opening > .inspect .right .not_analysed {
   line-height: 120px;
 }
 #coach_opening > .inspect .right h3 {
-  position: absolute;
   text-align: center;
   width: 100%;
   font-size: 0.9em;
-  top: 0px;
-  left: 0px;
   margin: 0;
 }
-#coach_opening > .inspect .right .moves {
+#coach_opening > .inspect .right .sections {
   width: 100%;
-  height: 120px;
+  height: 250px;
 }
 #coach_opening > .inspect .right table {
   width: 100%;
