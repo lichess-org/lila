@@ -59,4 +59,5 @@ private[coach] object BSONHandlers {
   implicit val ColorResultsBSONHandler = Macros.handler[ColorResults]
 
   implicit val UserStatBSONHandler = Macros.handler[UserStat]
+  implicit val PeriodBSONHandler = Macros.handler[Period]
 }

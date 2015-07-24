@@ -27,16 +27,28 @@
   left: 15px;
 }
 div.content_box_top {
-  padding: 20px 20px 20px 72px;
+  padding: 20px;
   border-bottom: 1px solid #CCC;
+  min-height: 60px;
 }
 div.content_box_top h1 {
   padding: 0!important;
+}
+div.content_box_top .over {
+  transition: opacity 0.3s;
+}
+div.content_box_top.loading .over {
+  opacity: 0.5;
+}
+#coach_opening .loader {
+  margin: 100px auto;
+  font-size: 22px;
 }
 #coach_opening > .top {
   height: 450px;
   box-sizing: border-box;
   padding-top: 20px;
+  position: relative;
 }
 #coach_opening .result-bar {
   width: 100%;
@@ -101,11 +113,14 @@ div.content_box_top h1 {
   line-height: 18px;
   font-size: 0;
 }
+#coach_opening > .nodata p {
+  text-align: center;
+  line-height: 450px;
+}
 #coach_opening > .inspect {
-  position: relative;
   padding: 45px 20px 20px 20px;
 }
-#coach_opening > .inspect > .to {
+#coach_opening > .top > .to {
   position: absolute;
   text-decoration: none;
   font-size: 30px;
@@ -115,22 +130,22 @@ div.content_box_top h1 {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-#coach_opening > .inspect > .to:hover {
+#coach_opening > .top > .to:hover {
   opacity: 0.9;
 }
-#coach_opening > .inspect > .back {
+#coach_opening > .top > .back {
   top: 38px;
   right: 10px;
 }
-#coach_opening > .inspect > .to.prev,
-#coach_opening > .inspect > .to.next {
+#coach_opening > .top > .to.prev,
+#coach_opening > .top > .to.next {
   top: 180px;
   padding: 30px 10px;
 }
-#coach_opening > .inspect > .to.prev {
+#coach_opening > .top > .to.prev {
   left: -55px;
 }
-#coach_opening > .inspect > .to.next {
+#coach_opening > .top > .to.next {
   right: -55px;
 }
 #coach_opening > .inspect h2 strong {
@@ -198,4 +213,206 @@ div.content_box_top h1 {
 #coach_opening > .inspect .right table {
   width: 100%;
   line-height: 2em;
+}
+.cube {
+  float: right;
+  position: relative;
+  width: 400px;
+  height: 48px;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 320px;
+  -moz-perspective: 320px;
+  -ms-perspective: 320px;
+  -o-perspective: 320px;
+  perspective: 320px;
+  margin-top: 9px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+/* positions */
+
+.cube .a,
+.cube .b,
+.cube .c,
+.cube .d {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  z-index: 222;
+}
+.cube .a:before,
+.cube .b:before,
+.cube .c:before,
+.cube .d:before,
+.cube .a:after,
+.cube .b:after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 400px;
+  height: 48px;
+}
+.cube .a:before,
+.cube .b:before,
+.cube .c:before,
+.cube .d:before {
+  z-index: 111;
+}
+.cube .a:after,
+.cube .b:after {
+  z-index: 333;
+}
+.cube .b {
+  top: 0px;
+  -webkit-transform: rotateX(75deg) translateY(-48px);
+  -moz-transform: rotateX(75deg) translateY(-48px);
+  -o-transform: rotateX(75deg) translateY(-48px);
+  -ms-transform: rotateX(75deg) translateY(-48px);
+  transform: rotateX(75deg) translateY(-48px);
+  -webkit-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -o-transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+}
+.cube .c {
+  top: 0px;
+  -webkit-transform: rotateX(75deg);
+  -moz-transform: rotateX(75deg);
+  -o-transform: rotateX(75deg);
+  -ms-transform: rotateX(75deg);
+  transform: rotateX(75deg);
+  -webkit-transform-origin: 100% 100%;
+  -moz-transform-origin: 100% 100%;
+  -o-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+.cube .d {
+  -webkit-transform: translateZ(-48px) translateY(-12px);
+  -moz-transform: translateZ(-48px) translateY(-12px);
+  -o-transform: translateZ(-48px) translateY(-12px);
+  -ms-transform: translateZ(-48px) translateY(-12px);
+  transform: translateZ(-48px) translateY(-12px);
+}
+/* colors */
+
+.cube .a div,
+.cube .b div,
+.cube .c div,
+.cube .d div {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 0% 0%;
+  width: 100%;
+  height: 100%;
+  transition: background 0.5s, opacity 1s, width 0.3s, margin 0.3s;
+}
+
+.cube .a div,
+.cube .b div {
+  background-color: rgba(142, 186, 43, 0.8);
+}
+.cube .c div,
+.cube .d div {
+  background-color: rgba(142, 186, 43, 0.5);
+}
+.loading .cube .a div,
+.loading .cube .b div {
+  background-color: rgba(240, 177, 73, 0.8);
+  opacity: 0.6;
+  color: #d59120;
+}
+.loading .cube .c div,
+.loading .cube .d div {
+  background-color: rgba(240, 177, 73, 0.5);
+  opacity: 0.6;
+}
+.cube .c:before {
+  box-shadow: 0px 24px 16px -16px rgba(0, 0, 0, 0.4), 0px 32px 12px -18px rgba(0, 0, 0, 0.25);
+}
+.cube .a:before,
+.cube .b:before,
+.cube .c:before,
+.cube .d:before {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.cube .a:after {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.07)), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0));
+}
+.cube .b:after {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0.25)));
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.25));
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.25));
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.25));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.25));
+}
+.cube .slider {
+  position: absolute;
+  width: 94%;
+  left: 3%;
+  top: 21.6px;
+  margin: 0px;
+  z-index: 999;
+}
+.cube .ui-slider {
+  height: 5px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.25), inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.cube .ui-slider:before,
+.cube .ui-slider:after {
+  content: 'IIIIIIIIIII';
+  position: absolute;
+  left: 2px;
+  width: 100%;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.3);
+  letter-spacing: 32px;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2);
+}
+.cube .ui-slider:before {
+  top: -1.4rem;
+}
+.cube .ui-slider:after {
+  bottom: -1.4rem;
+}
+.cube .ui-slider-range {
+  background: transparent!important;
+}
+.cube .ui-slider .ui-slider-handle {
+  top: -6.4px;
+  width: 20.8px;
+  height: 16px;
+  margin-left: -12px;
+  padding-left: 4px;
+  border: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  text-align: center;
+  font-size: 1em;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+}
+.cube .ui-slider .ui-slider-handle:focus {
+  outline: none;
 }

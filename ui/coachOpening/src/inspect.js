@@ -20,12 +20,8 @@ function bestWin(w) {
   ]);
 }
 
-module.exports = function(ctrl, inspecting) {
-  var d = ctrl.data;
-  var eco = inspecting.eco;
-  var opening = d.openings[eco].opening;
-  var results = d.openings[eco].results;
-  return m('div.top.inspect', [
+function sideCommands(ctrl) {
+  return [
     m('a.to.back', {
       'data-icon': 'L',
       onclick: ctrl.uninspect
@@ -41,7 +37,22 @@ module.exports = function(ctrl, inspecting) {
       onclick: function() {
         ctrl.jumpBy(1);
       }
-    }),
+    })
+  ];
+}
+
+module.exports = function(ctrl, inspecting) {
+  var d = ctrl.data;
+  var eco = inspecting.eco;
+  var o = d.openings[eco];
+  if (!o) return m('div.top.nodata', [
+    sideCommands(ctrl),
+    m('p', 'No results for this data range and opening!')
+  ]);
+  var opening = o.opening;
+  var results = o.results;
+  return m('div.top.inspect', [
+    sideCommands(ctrl),
     resultBar(results),
     m('div.main', [
       progress(results.ratingDiff / results.nbGames),

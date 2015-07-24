@@ -1,4 +1,4 @@
-@(u: User, stat: Option[lila.coach.UserStat], title: String, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true, withSide: Boolean = true)(body: Html)(implicit ctx: Context)
+@(u: User, title: String, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, chessground: Boolean = true, withSide: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
@@ -18,20 +18,13 @@
     <a href="@routes.Coach.opening(u.username, "black")">Openings as Black</a>
     <a href="@routes.Coach.raw(u.username)">Raw data</a>
   </div>
-  @if(stat.??(_.isFresh)) {
+  @if(true) {
   <div data-icon="E">This data is fresh</div>
-  }
-  @if(!stat.??(_.isFresh) || isGranted(_.SuperAdmin)) {
-  @stat.map { s =>
-  Generated @momentFromNow(s.date)
-  }.getOrElse {
-  No data for @u.username yet!
   }
   @if(u.count.rated > 0) {
   <form class="refresh" method="post" action="@routes.Coach.refresh(u.username)">
     <button class="button" type="submit">Refresh @u.username stats</button>
   </form>
-  }
   }
   <div class="refreshing none">
     Hang on while we crunch data<br />

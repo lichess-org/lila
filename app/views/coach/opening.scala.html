@@ -1,36 +1,36 @@
-@(u: User, color: chess.Color, statOption: Option[(lila.coach.UserStat, play.api.libs.json.JsObject)])(implicit ctx: Context)
+@(u: User, color: chess.Color, nbPeriods: Int)(implicit ctx: Context)
 
 @moreJs = {
 @highchartsTag
-@statOption.map {
-case (stat, data) => {
 @jsAt(s"compiled/lichess.coach.opening${isProd??(".min")}.js")
 @embedJs {
 LichessCoachOpening(document.getElementById('coach_opening'), {
-data: @Html(J.stringify(data))
+nbPeriods: @nbPeriods,
+user: @Html(J.stringify(J.obj("id" -> u.id, "name" -> u.username))),
+color: "@color.name"
 });
 }
 }
-}
-}
 
-@coach.layout(u, statOption.map(_._1),
+@coach.layout(u,
 title = s"${u.username} openings as ${color.name}",
 evenMoreJs = moreJs,
 chessground = false) {
 
-<div class="content_box no_padding" data-icon="^">
+<div id="coach_opening" class="content_box no_padding">
+  @*
   <div class="content_box_top">
     <h1>
       @userLink(u, withOnline = false) openings as @color.name
       @statOption.map {
-      case (stat, _) => {
-      over @stat.openings(color).results.nbGames.localize rated games
+      case (periods, _) => {
+      over @periods.period.openings(color).results.nbGames.localize rated games
       }
       }
     </h1>
   </div>
 
   <div id="coach_opening"></div>
+  *@
 </div>
 }

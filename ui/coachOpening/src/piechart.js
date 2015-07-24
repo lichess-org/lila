@@ -12,7 +12,7 @@ function signed(i) {
   return (i > 0 ? '+' : '') + i;
 }
 
-module.exports = function(el, ctrl) {
+function makeSeries(ctrl) {
   var data = ctrl.data;
   var percent = function(nb) {
     return nb * 100 / data.openingResults.nbGames;
@@ -73,106 +73,119 @@ module.exports = function(el, ctrl) {
       openingData.push(d);
     }
   }
+  return [familyData, openingData];
+}
 
-  // Create the chart
-  $(el).highcharts({
-    chart: {
-      type: 'pie',
-      animation: {
-        duration: 300
-      },
-      backgroundColor: null,
-      borderWidth: 0,
-      borderRadius: 0,
-      plotBackgroundColor: null,
-      plotShadow: false,
-      plotBorderWidth: 0
-    },
-    title: {
-      text: null
-    },
-    yAxis: {},
-    plotOptions: {
-      pie: {
-        shadow: false,
-        center: ['50%', '50%'],
-        animation: false,
-        point: {}
-      }
-    },
-    tooltip: {
-      useHTML: true,
-      headerFormat: '{point.key}',
-      pointFormatter: function() {
-        var o = this.opening;
-        var r = this.results;
-        var acpl = r.gameSections.all.acpl.avg;
-        return ((o && o.formattedMoves) ? ('<br>' + o.formattedMoves + '<br><br>') : '') + '<table><tr><td>Games:</td><td style="text-align: right"><b>' +
-          r.nbGames + '</b></td></tr>' +
-          '<tr><td>Rating:</td><td style="text-align: right"><b>' +
-          signed(r.ratingDiff) + '</b></td></tr>' +
-          '<tr><td>ACPL:</td><td style="text-align: right"><b>' +
-          (acpl === null ? '?' : acpl) + '</b></td></tr></table>';
-      }
-    },
-    series: [{
-      name: 'First move',
-      data: familyData,
-      size: '60%',
-      dataLabels: {
-        formatter: function() {
-          return this.y > 3 ? this.point.name : null;
+module.exports = {
+  update: function(chart, ctrl) {
+    var series = makeSeries(ctrl);
+    chart.series[0].setData(series[0]);
+    chart.series[1].setData(series[1]);
+  },
+  create: function(el, ctrl) {
+    var series = makeSeries(ctrl);
+
+    // Create the chart
+    $(el).highcharts({
+      chart: {
+        type: 'pie',
+        animation: {
+          duration: 300
         },
-        color: 'white',
-        distance: -30,
+        backgroundColor: null,
+        borderWidth: 0,
+        borderRadius: 0,
+        plotBackgroundColor: null,
+        plotShadow: false,
+        plotBorderWidth: 0
       },
-    }, {
-      name: 'Openings',
-      data: openingData,
-      size: '90%',
-      innerSize: '60%',
-      dataLabels: {
-        formatter: function() {
-          return this.y > 1 ? this.point.name + ': ' + Math.round(this.y) + '%' : null;
-        },
-        style: {
-          fontWeight: 'normal',
-          fontFamily: 'Noto Sans',
-          fontSize: '14px'
+      title: {
+        text: null
+      },
+      yAxis: {},
+      plotOptions: {
+        pie: {
+          shadow: false,
+          center: ['50%', '50%'],
+          animation: false,
+          point: {}
         }
       },
-      cursor: 'pointer',
-      point: {
-        events: {
-          click: function(e) {
-            if (e.point) {
-              ctrl.inspect(e.point.opening.eco);
-              m.redraw();
-            }
+      tooltip: {
+        useHTML: true,
+        headerFormat: '{point.key}',
+        pointFormatter: function() {
+          var o = this.opening;
+          var r = this.results;
+          var acpl = r.gameSections.all.acpl.avg;
+          return ((o && o.formattedMoves) ? ('<br>' + o.formattedMoves + '<br><br>') : '') + '<table><tr><td>Games:</td><td style="text-align: right"><b>' +
+            r.nbGames + '</b></td></tr>' +
+            '<tr><td>Rating:</td><td style="text-align: right"><b>' +
+            signed(r.ratingDiff) + '</b></td></tr>' +
+            '<tr><td>ACPL:</td><td style="text-align: right"><b>' +
+            (acpl === null ? '?' : acpl) + '</b></td></tr></table>';
+        }
+      },
+      series: [{
+        name: 'First move',
+        data: series[0],
+        size: '60%',
+        dataLabels: {
+          formatter: function() {
+            return this.y > 3 ? this.point.name : null;
           },
-          mouseOver: function(e) {
-            if (e.currentTarget) {
-              ctrl.vm.hover = e.currentTarget.opening.eco;
-              e.currentTarget.select();
-              m.redraw();
-            }
+          color: 'white',
+          distance: -30,
+        },
+      }, {
+        name: 'Openings',
+        data: series[1],
+        size: '90%',
+        innerSize: '60%',
+        dataLabels: {
+          formatter: function() {
+            return this.y > 1 ? this.point.name + ': ' + Math.round(this.y) + '%' : null;
           },
-          mouseOut: function(e) {
-            if (e.currentTarget) {
-              ctrl.vm.hover = null;
-              e.currentTarget.select(false);
-              m.redraw();
+          style: {
+            fontWeight: 'normal',
+            fontFamily: 'Noto Sans',
+            fontSize: '14px'
+          }
+        },
+        cursor: 'pointer',
+        point: {
+          events: {
+            click: function(e) {
+              if (e.point) {
+                ctrl.inspect(e.point.opening.eco);
+                m.redraw();
+              }
+            },
+            mouseOver: function(e) {
+              if (e.currentTarget) {
+                ctrl.vm.hover = e.currentTarget.opening.eco;
+                e.currentTarget.select();
+                m.redraw();
+              }
+            },
+            mouseOut: function(e) {
+              if (e.currentTarget) {
+                ctrl.vm.hover = null;
+                e.currentTarget.select(false);
+                m.redraw();
+              }
             }
           }
         }
+      }],
+      credits: {
+        enabled: false
+      },
+      legend: {
+        enabled: false
       }
-    }],
-    credits: {
-      enabled: false
-    },
-    legend: {
-      enabled: false
-    }
-  });
-  ctrl.vm.chart = $(el).highcharts();
+    });
+    ctrl.vm.chart = $(el).highcharts();
+    return ctrl.vm.chart;
+  }
 };

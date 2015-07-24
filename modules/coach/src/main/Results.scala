@@ -82,6 +82,8 @@ object Results {
 
     def aggregate(p: RichPov) = copy(results = results.aggregate(p))
 
+    def nbGames = results.nbGames
+
     def run = results
   }
   val emptyComputation = Computation(empty)

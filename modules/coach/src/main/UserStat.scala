@@ -5,19 +5,10 @@ import org.joda.time.DateTime
 import lila.rating.PerfType
 
 case class UserStat(
-    _id: String, // user ID
     colorResults: ColorResults,
     openings: Openings,
     results: PerfResults,
-    perfResults: PerfResults.PerfResultsMap,
-    date: DateTime) {
-
-  def id = _id
-
-  def isFresh = results.base.nbGames < 100 || {
-    DateTime.now minusDays 1 isBefore date
-  }
-  def isStale = !isFresh
+    perfResults: PerfResults.PerfResultsMap) {
 
   def merge(o: UserStat) = copy(
     colorResults = colorResults merge o.colorResults,
@@ -44,8 +35,9 @@ object UserStat {
           (perfResultsComp.get(perfType) | PerfResults.emptyComputation).aggregate(p)
         )
       },
-      openingsComp = openingsComp.aggregate(p)
-    )
+      openingsComp = openingsComp.aggregate(p))
+
+    def nbGames = resultsComp.nbGames
 
     def run = stat.copy(
       results = resultsComp.run,
@@ -53,13 +45,12 @@ object UserStat {
       perfResults = PerfResults.PerfResultsMap(perfResultsComp.mapValues(_.run)),
       openings = openingsComp.run)
   }
-  def makeComputation(id: String) = Computation(empty(id), ColorResults.emptyComputation, PerfResults.emptyComputation, Map.empty, Openings.emptyComputation)
 
-  def empty(id: String): UserStat = UserStat(
-    _id = id,
+  val empty = UserStat(
     colorResults = ColorResults.empty,
     openings = Openings.empty,
     results = PerfResults.empty,
-    perfResults = PerfResults.emptyPerfResultsMap,
-    date = DateTime.now)
+    perfResults = PerfResults.emptyPerfResultsMap)
+
+  val emptyComputation = Computation(empty, ColorResults.emptyComputation, PerfResults.emptyComputation, Map.empty, Openings.emptyComputation)
 }

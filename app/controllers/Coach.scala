@@ -12,30 +12,39 @@ object Coach extends LilaController {
 
   def raw(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.statApi.fetch(user.id) map { stat =>
-        Ok(html.coach.raw.index(user, stat))
+      env.statApi.fetchLast(user.id) map { period =>
+        Ok(html.coach.raw.index(user, period.map(_.data)))
       }
     }
   }
 
-  def json(username: String) = Open { implicit ctx =>
-    lila.user.UserRepo named username flatMap {
-      case None => fuccess(NotFound(Json.obj("error" -> s"User $username not found")))
-      case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true  => env.statApi.fetchOrCompute(u.id) flatMap env.jsonView.raw map { Ok(_) }
-        case false => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
+  def rawJson(username: String) = Open { implicit ctx =>
+    Accessible(username) { user =>
+      env.statApi.fetchLast(user.id) flatMap {
+        case None         => notFoundJson(s"Data not generated yet")
+        case Some(period) => env.jsonView.raw(period.data) map { Ok(_) }
       }
-    } map (_ as JSON)
+    }
   }
 
   def opening(username: String, colorStr: String) = Open { implicit ctx =>
     chess.Color(colorStr).fold(notFound) { color =>
       Accessible(username) { user =>
-        env.statApi.fetch(user.id) flatMap { stat =>
-          stat ?? { s =>
-            env.jsonView.opening(s, color).map(json => (s, json).some)
-          } map { data =>
-            Ok(html.coach.opening(user, color, data))
+        env.statApi.count(user.id) map { nbPeriods =>
+          Ok(html.coach.opening(user, color, nbPeriods))
+        }
+      }
+    }
+  }
+
+  def openingJson(username: String, colorStr: String) = Open { implicit ctx =>
+    chess.Color(colorStr).fold(notFoundJson(s"No such color: $colorStr")) { color =>
+      AccessibleJson(username) { user =>
+        env.statApi.fetchRange(user.id, requestRange) flatMap {
+          _.fold(notFoundJson(s"Data not generated yet")) { period =>
+            env.jsonView.opening(period, color) map { data =>
+              Ok(data)
+            }
           }
         }
       }
@@ -51,6 +60,14 @@ object Coach extends LilaController {
     }
   }
 
+  private def requestRange(implicit ctx: Context): Option[Range] =
+    get("range") flatMap {
+      _.split('-') match {
+        case Array(a, b) => (parseIntOption(a) |@| parseIntOption(b))(Range.inclusive)
+        case _           => none
+      }
+    }
+
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     lila.user.UserRepo named username flatMap {
       case None => notFound
@@ -60,4 +77,14 @@ object Coach extends LilaController {
         case false                         => fuccess(Forbidden(html.coach.forbidden(u)))
       }
     }
+
+  private def AccessibleJson(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
+    lila.user.UserRepo named username flatMap {
+      case None => notFoundJson(s"No such user: $username")
+      case Some(u) => env.share.grant(u, ctx.me) flatMap {
+        case true                          => f(u)
+        case false if isGranted(_.UserSpy) => f(u)
+        case false                         => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
+      }
+    } map (_ as JSON)
 }

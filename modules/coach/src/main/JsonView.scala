@@ -10,7 +10,8 @@ final class JsonView(jsonWriters: JSONWriters) {
     UserStatWriter writes stat
   }
 
-  def opening(stat: UserStat, color: chess.Color): Fu[JsObject] = fuccess {
+  def opening(period: Period, color: chess.Color): Fu[JsObject] = fuccess {
+    val stat = period.data
     Json.obj(
       "color" -> color.name,
       "results" -> stat.results.base,

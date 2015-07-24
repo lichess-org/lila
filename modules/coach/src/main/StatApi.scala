@@ -14,49 +14,84 @@ import lila.user.UserRepo
 
 final class StatApi(
     coll: Coll,
-    makeThrottler: (String => Fu[UserStat]) => Throttler) {
+    makeThrottler: (String => Funit) => Throttler) {
 
   import BSONHandlers._
 
-  private def selectId(id: String) = BSONDocument("_id" -> id)
+  private def selectUserId(id: String) = BSONDocument("userId" -> id)
+  private val sortRecent = BSONDocument("to" -> -1)
 
-  def fetch(id: String): Fu[Option[UserStat]] = coll.find(selectId(id)).one[UserStat]
+  def fetchLast(userId: String): Fu[Option[Period]] =
+    coll.find(selectUserId(userId)).sort(sortRecent).one[Period]
 
-  def fetchOrCompute(id: String): Fu[UserStat] = fetch(id) flatMap {
-    case Some(s) => fuccess(s)
-    case None    => compute(id)
+  def fetchRange(userId: String, range: Option[Range]): Fu[Option[Period]] =
+    range.fold(fetchAll(userId)) { r =>
+      coll.find(selectUserId(userId))
+        .skip(r.min)
+        .sort(sortRecent)
+        .cursor[Period]()
+        .enumerate(r.size) &>
+        Enumeratee.take(r.size) |>>>
+        Iteratee.fold[Period, Option[Period]](none) {
+          case (a, b) =>
+            println(b.data.results.base.nbGames)
+            a.fold(b)(_ merge b).some
+        }
+    }
+
+  def fetchAll(userId: String): Fu[Option[Period]] =
+    fetchRange(userId, Range(0, 1000).some)
+
+  def count(userId: String): Fu[Int] =
+    coll.count(selectUserId(userId).some)
+
+  def computeIfOld(id: String): Funit = fetchLast(id) flatMap {
+    case Some(stat) => funit
+    case _          => throttler(id)
   }
 
-  def computeIfOld(id: String): Fu[UserStat] = fetch(id) flatMap {
-    case Some(stat) if stat.isFresh => fuccess(stat)
-    case _                          => compute(id)
-  }
-
-  def computeForce(id: String): Fu[UserStat] = compute(id)
+  def computeForce(id: String): Funit = throttler(id)
 
   private val throttler = makeThrottler { id =>
-    import lila.game.tube.gameTube
-    import lila.game.BSONHandlers.gameBSONHandler
-    import lila.game.Query
-    pimpQB($query(Query.user(id) ++ Query.rated ++ Query.finished))
-      .sort(Query.sortCreated)
-      .cursor[lila.game.Game]()
-      .enumerate(10 * 1000, stopOnError = true) &>
-      StatApi.richPov(id) |>>>
-      Iteratee.fold[Option[RichPov], UserStat.Computation](UserStat.makeComputation(id)) {
-        case (comp, Some(pov)) => try {
-          comp aggregate pov
-        }
-        catch {
-          case e: Exception => logwarn("[StatApi] " + e); comp
-        }
-        case (comp, _) => comp
-      } map (_.run) flatMap { stat =>
-        coll.update(selectId(id), stat, upsert = true) inject stat
+    def aggregate(period: Period.Computation, povOption: Option[RichPov], gameId: String) = povOption match {
+      case Some(pov) => try {
+        period aggregate pov
       }
+      catch {
+        case e: Exception => logwarn("[StatApi] " + e); period
+      }
+      case _ => logwarn("[StatApi] invalid game " + gameId); period
+    }
+    coll.remove(selectUserId(id)) >> {
+      import lila.game.tube.gameTube
+      import lila.game.BSONHandlers.gameBSONHandler
+      import lila.game.Query
+      {
+        pimpQB($query(Query.user(id) ++ Query.rated ++ Query.finished))
+          .sort(Query.sortCreated)
+          .cursor[lila.game.Game]()
+          .enumerate(10 * 1000, stopOnError = true) &>
+          StatApi.richPov(id) |>>>
+          Iteratee.fold[Option[RichPov], Periods.Computation](Periods.initComputation(id)) {
+            case (comp, Some(p)) => try {
+              comp aggregate p
+            }
+            catch {
+              case e: Exception =>
+                e.printStackTrace
+                logwarn(s"[StatApi] game ${p.pov.game.id} $e"); comp
+            }
+            // case (comp, Some(p)) => comp aggregate p
+            case (comp, _) =>
+              logwarn("[StatApi] invalid pov"); comp
+          }
+      }.map(_.run).flatten("[StatApi] Nothing to persist") flatMap {
+        _.periods.list.map { p =>
+          coll.insert(p)
+        }.sequenceFu.void
+      }
+    }
   }
-
-  private def compute(id: String): Fu[UserStat] = throttler(id)
 }
 
 private object StatApi {

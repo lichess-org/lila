@@ -204,6 +204,10 @@ private[controllers] trait LilaController
     api = _ => fuccess(Results.NotFound(Json.obj("error" -> "Resource not found")))
   )
 
+  def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess {
+    NotFound(Json.obj("error" -> msg))
+  }
+
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
 

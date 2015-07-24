@@ -86,6 +86,8 @@ object PerfResults {
       results = results.aggregate(p),
       base = base.aggregate(p))
 
+    def nbGames = base.nbGames
+
     def run = results.copy(base = base.run)
   }
   val emptyComputation = Computation(empty, Results.emptyComputation)

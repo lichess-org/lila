@@ -3,7 +3,7 @@ package lila.coach
 import akka.actor._
 import akka.pattern.ask
 
-private[coach] final class Throttler(system: ActorSystem, f: String => Fu[UserStat]) {
+private[coach] final class Throttler(system: ActorSystem, f: String => Funit) {
 
   private implicit val timeout = makeTimeout.minutes(2)
 
@@ -13,5 +13,5 @@ private[coach] final class Throttler(system: ActorSystem, f: String => Fu[UserSt
     }
   }))
 
-  def apply(id: String): Fu[UserStat] = actor ? id mapTo manifest[UserStat]
+  def apply(id: String): Funit = (actor ? id).void
 }

@@ -1,12 +1,12 @@
 @(u: User, stat: Option[lila.coach.UserStat])(implicit ctx: Context)
 
-@coach.layout(u, stat, title = s"${u.username} raw data",
+@coach.layout(u, title = s"${u.username} raw data",
 evenMoreCss = cssTag("coach.raw.css")) {
 <div class="content_box no_padding" data-icon="^">
   <div class="content_box_top">
     <h1>
       @userLink(u, withOnline = false) raw stats
-      <a class="button" href="@routes.Coach.json(u.username)">
+      <a class="button" href="@routes.Coach.rawJson(u.username)">
         Download as JSON
       </a>
     </h1>

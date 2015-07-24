@@ -1,6 +1,8 @@
 var m = require('mithril');
 
 var chessground = require('chessground');
+var slider = require('./slider');
+var throttle = require('./shared').throttle;
 
 function copy(obj, newValues) {
   var k, c = {};
@@ -15,30 +17,16 @@ function copy(obj, newValues) {
 
 module.exports = function(opts) {
 
-  this.data = opts.data;
-  window.openingData = opts.data;
-
-  this.list = Object.keys(this.data.openings).map(function(eco) {
-    var o = this.data.openings[eco];
-    var r = o.results;
-    return copy(o, {
-      result: r.nbWin / r.nbLoss,
-      acpl: r.gameSections.all.acpl.avg,
-      ratingDiffAvg: r.nbGames > 0 ? r.ratingDiff / r.nbGames : 0,
-      // just for sorting
-      name: o.opening.name,
-      nbGames: r.nbGames,
-      lastPlayed: r.lastPlayed
-    });
-  }.bind(this));
-
-  this.list.sort(function(a, b) {
-    return a.results.nbGames < b.results.nbGames ? 1 : a.results.nbGames > b.results.nbGames ? -1 : 0;
-  });
+  this.user = opts.user;
+  this.color = opts.color;
+  this.nbPeriods = opts.nbPeriods;
 
   this.vm = {
+    preloading: true,
+    loading: true,
+    range: [0, this.nbPeriods - 1],
     sort: {
-      field: 'nbGames',
+      prop: 'nbGames',
       order: -1
     },
     chart: null,
@@ -49,6 +37,64 @@ module.exports = function(opts) {
       chessground: null
     } */
   };
+
+  var requestData = throttle(1000, false, function() {
+    m.request({
+      url: '/coach/opening/' + this.user.id + '/' + this.color + '.json',
+      data: {
+        range: this.vm.range.join('-')
+      }
+    }).then(function(data) {
+
+      this.data = data;
+
+      this.list = Object.keys(this.data.openings).map(function(eco) {
+        var o = this.data.openings[eco];
+        var r = o.results;
+        return copy(o, {
+          result: r.nbWin / r.nbLoss,
+          acpl: r.gameSections.all.acpl.avg,
+          ratingDiffAvg: r.nbGames > 0 ? r.ratingDiff / r.nbGames : 0,
+          // just for sorting
+          name: o.opening.name,
+          nbGames: r.nbGames,
+          lastPlayed: r.lastPlayed
+        });
+      }.bind(this));
+
+      this.sortList();
+
+      if (location.hash) this.inspect(location.hash.replace(/#/, '').replace(/_/g, ' '));
+
+      this.vm.preloading = false;
+      this.vm.loading = false;
+      m.redraw();
+    }.bind(this));
+  }.bind(this));
+  setTimeout(requestData, 200);
+
+  this.selectPeriodRange = function(from, to) {
+    this.vm.range = [from, to];
+    this.vm.loading = true;
+    m.redraw();
+    requestData();
+  }.bind(this);
+
+  this.sortList = function() {
+    var s = this.vm.sort;
+    this.list.sort(function(a, b) {
+      return a[s.prop] > b[s.prop] ? s.order : a[s.prop] < b[s.prop] ? -s.order : 0;
+    });
+  }.bind(this);
+
+  this.setSort = function(prop) {
+    if (this.vm.sort.prop === prop) this.vm.sort.order = -this.vm.sort.order;
+    else this.vm.sort = {
+      prop: prop,
+      order: 1
+    };
+    this.sortList();
+  }.bind(this);
 
   this.jumpBy = function(delta) {
     if (!this.vm.inspecting) return;
@@ -73,7 +119,7 @@ module.exports = function(opts) {
     var opening = this.data.openings[eco].opening;
     var config = {
       fen: opening.fen,
-      orientation: this.data.color,
+      orientation: this.color,
       viewOnly: true,
       minimalDom: true,
       lastMove: opening.lastMoveUci ? [opening.lastMoveUci.substr(0, 2), opening.lastMoveUci.substr(2, 2)] : null,
@@ -88,8 +134,6 @@ module.exports = function(opts) {
         chessground: new chessground.controller(config)
       };
   }.bind(this);
-
-  if (location.hash) this.inspect(location.hash.replace(/#/, '').replace(/_/g, ' '));
 
   this.uninspect = function() {
     this.vm.inspecting = null;

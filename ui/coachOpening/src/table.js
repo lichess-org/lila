@@ -13,29 +13,18 @@ var headers = [
   ['lastPlayed', 'Last played']
 ];
 
-function thead(list, sort) {
+function thead(list, ctrl) {
   return m('thead', {
     onclick: function(e) {
       var prop = e.target.getAttribute("data-sort-by") || e.target.parentNode.getAttribute("data-sort-by");
-      if (prop) {
-        var first = list[0];
-        list.sort(function(a, b) {
-          return a[prop] > b[prop] ? 1 : a[prop] < b[prop] ? -1 : 0;
-        });
-        sort.field = prop;
-        sort.order = 1;
-        if (first === list[0]) {
-          list.reverse();
-          sort.order = -1;
-        }
-      }
+      if (prop) ctrl.setSort(prop);
     }
   }, m('tr', headers.map(function(h) {
     var props = {
       key: h[0],
       'data-sort-by': h[0]
     };
-    if (sort.field === h[0]) props['data-icon'] = sort.order === -1 ? 'R' : 'S';
+    if (ctrl.vm.sort.prop === h[0]) props['data-icon'] = ctrl.vm.sort.order === -1 ? 'R' : 'S';
     var spanProps = {};
     if (h[2]) {
       spanProps.class = 'hint--top';
@@ -52,7 +41,7 @@ module.exports = function(ctrl) {
   };
   var acplAvg = ctrl.data.colorResults.gameSections.all.acpl.avg;
   return m('table.openings.slist', [
-    thead(ctrl.list, ctrl.vm.sort),
+    thead(ctrl.list, ctrl),
     m('tbody', ctrl.list.map(function(o, i) {
       return m('tr', {
         key: o.opening.eco,
