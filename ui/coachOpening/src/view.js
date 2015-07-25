@@ -6,15 +6,24 @@ var inspect = require('./inspect');
 var Slider = require('./slider');
 
 module.exports = function(ctrl) {
+  if (!ctrl.nbPeriods) return m('div.content_box_top', [
+    m('h1', [
+      ctrl.user.name,
+      ' openings as ',
+      ctrl.color,
+      ': ',
+      'No data available'
+    ]),
+  ]);
   return [
     m('div.content_box_top', {
       class: 'content_box_top' + (ctrl.vm.loading ? ' loading' : '')
     }, [
-      m.component(Slider, {
+      ctrl.nbPeriods > 1 ? m.component(Slider, {
         max: ctrl.nbPeriods,
         range: ctrl.vm.range,
         onChange: ctrl.selectPeriodRange
-      }),
+      }) : null,
       m('h1', [
         ctrl.user.name,
         ' openings as ',

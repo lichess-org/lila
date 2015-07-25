@@ -22,7 +22,7 @@ module.exports = function(opts) {
   this.nbPeriods = opts.nbPeriods;
 
   this.vm = {
-    preloading: true,
+    preloading: !!this.nbPeriods,
     loading: true,
     range: [0, this.nbPeriods - 1],
     sort: {
@@ -71,7 +71,7 @@ module.exports = function(opts) {
       m.redraw();
     }.bind(this));
   }.bind(this));
-  setTimeout(requestData, 200);
+  if (this.nbPeriods) setTimeout(requestData, 200);
 
   this.selectPeriodRange = function(from, to) {
     this.vm.range = [from, to];
