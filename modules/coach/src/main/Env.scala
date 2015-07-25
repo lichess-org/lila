@@ -27,8 +27,11 @@ final class Env(
   lazy val jsonView = new JsonView(jsonWriters)
 
   lazy val statApi = new StatApi(
-    coll = db(CollectionStat),
-    makeThrottler = f => new Throttler(system, f))
+    coll = db(CollectionStat))
+
+  lazy val aggregator = new Aggregator(
+    api = statApi,
+    sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], 5 minutes)))
 }
 
 object Env {

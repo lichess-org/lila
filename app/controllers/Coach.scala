@@ -54,8 +54,8 @@ object Coach extends LilaController {
   def refresh(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
       {
-        if (isGranted(_.SuperAdmin)) env.statApi.computeForce(user.id)
-        else env.statApi.computeIfOld(user.id)
+        if (isGranted(_.SuperAdmin)) env.aggregator(user.id)
+        else env.aggregator(user.id)
       } inject Ok
     }
   }

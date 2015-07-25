@@ -1,6 +1,7 @@
 package lila.hub
 
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 import scala.util.Try
 
 import akka.actor._
@@ -36,7 +37,10 @@ final class Sequencer(receiveTimeout: FiniteDuration) extends Actor {
   private def processThenDone(work: Any) {
     work match {
       case ReceiveTimeout => self ! PoisonPill
-      case Sequencer.Work(run) => run() andThenAnyway { self ! Done }
+      case Sequencer.Work(run, promiseOption) => run() andThenAnyway {
+        promiseOption.foreach(_.success(()))
+        self ! Done
+      }
       case x => play.api.Logger("Sequencer").warn(s"Unsupported message $x")
     }
   }
@@ -44,7 +48,7 @@ final class Sequencer(receiveTimeout: FiniteDuration) extends Actor {
 
 object Sequencer {
 
-  case class Work(run: () => Funit)
+  case class Work(run: () => Funit, promise: Option[Promise[Unit]] = None)
 
-  def work(run: => Funit): Work = Work(() => run)
+  def work(run: => Funit, promise: Option[Promise[Unit]] = None): Work = Work(() => run, promise)
 }
