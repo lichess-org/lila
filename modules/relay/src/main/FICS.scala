@@ -15,7 +15,7 @@ private[relay] final class FICS(config: FICS.Config) extends Actor with Stash wi
 
   var send: String => Unit = _
 
-  val telnet = context.actorOf(Props(classOf[Telnet], config.remote, self), name = "telnet")
+  val telnet = context.actorOf(Props(classOf[Telnet], () => config.remote, self), name = "telnet")
 
   startWith(Connect, none)
 
