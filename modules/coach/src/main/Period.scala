@@ -52,27 +52,26 @@ object Periods {
 
   case class Computation(
       userId: String,
-      period: Option[Period.Computation],
-      periods: List[Period]) {
+      save: Period => Funit,
+      period: Option[Period.Computation]) {
 
-    def aggregate(p: RichPov) = ((period, periods, p) match {
-      case (None, acc, pov)                              => Period.initComputation(userId, p) -> acc
-      case (Some(comp), acc, pov) if comp.nbGames >= 100 => Period.initComputation(userId, p) -> (comp.run :: acc)
-      case (Some(comp), acc, pov)                        => comp.aggregate(p) -> acc
-    }) match {
-      case (comp, acc) => copy(
-        period = comp.some,
-        periods = acc)
+    def aggregate(p: RichPov): Fu[Computation] = ((period, p) match {
+      case (None, p) => fuccess {
+        Period.initComputation(userId, p)
+      }
+      case (Some(comp), p) if comp.nbGames >= 100 => save(comp.run) inject {
+        Period.initComputation(userId, p)
+      }
+      case (Some(comp), p) => fuccess {
+        comp.aggregate(p)
+      }
+    }) map { comp =>
+      copy(period = comp.some)
     }
 
-    def run = period.map(_ -> periods).flatMap {
-      case (comp, Nil) if comp.nbGames == 0     => None
-      case (comp, p :: ps) if comp.nbGames == 0 => Periods(NonEmptyList(p, ps: _*)).some
-      case (comp, Nil)                          => Periods(NonEmptyList(comp.run)).some
-      case (comp, periods)                      => Periods(NonEmptyList(comp.run, periods: _*)).some
-    }
+    def run: Funit = period.filter(_.nbGames > 0) ?? { p => save(p.run) }
   }
-  def initComputation(userId: String) = Computation(userId, None, Nil)
+  def initComputation(userId: String, save: Period => Funit) = Computation(userId, save, None)
 
   def build(userId: String, pov: RichPov) = Period(
     userId = userId,

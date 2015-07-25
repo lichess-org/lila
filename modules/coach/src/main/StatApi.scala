@@ -33,9 +33,7 @@ final class StatApi(
         .enumerate(r.size) &>
         Enumeratee.take(r.size) |>>>
         Iteratee.fold[Period, Option[Period]](none) {
-          case (a, b) =>
-            println(b.data.results.base.nbGames)
-            a.fold(b)(_ merge b).some
+          case (a, b) => a.fold(b)(_ merge b).some
         }
     }
 
@@ -72,24 +70,19 @@ final class StatApi(
           .cursor[lila.game.Game]()
           .enumerate(10 * 1000, stopOnError = true) &>
           StatApi.richPov(id) |>>>
-          Iteratee.fold[Option[RichPov], Periods.Computation](Periods.initComputation(id)) {
+          Iteratee.foldM[Option[RichPov], Periods.Computation](Periods.initComputation(id, { p => coll.insert(p).void })) {
             case (comp, Some(p)) => try {
               comp aggregate p
             }
             catch {
               case e: Exception =>
                 e.printStackTrace
-                logwarn(s"[StatApi] game ${p.pov.game.id} $e"); comp
+                logwarn(s"[StatApi] game ${p.pov.game.id} $e"); fuccess(comp)
             }
             // case (comp, Some(p)) => comp aggregate p
-            case (comp, _) =>
-              logwarn("[StatApi] invalid pov"); comp
+            case (comp, _) => logwarn("[StatApi] invalid pov"); fuccess(comp)
           }
-      }.map(_.run).flatten("[StatApi] Nothing to persist") flatMap {
-        _.periods.list.map { p =>
-          coll.insert(p)
-        }.sequenceFu.void
-      }
+      }.map(_.run)
     }
   }
 }
