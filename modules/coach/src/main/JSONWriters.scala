@@ -47,7 +47,6 @@ private[coach] final class JSONWriters(
       "nbDraw" -> o.nbDraw,
       "ratingDiff" -> o.ratingDiff,
       "gameSections" -> o.gameSections,
-      "moves" -> o.moves,
       "bestWin" -> o.bestWin,
       "opponentRatingAvg" -> o.opponentRatingAvg,
       "lastPlayed" -> o.lastPlayed)
@@ -55,7 +54,7 @@ private[coach] final class JSONWriters(
   implicit val ColorResultsWriter = Json.writes[ColorResults]
   implicit val OpeningsMapWriter = Writes[Openings.OpeningsMap] { o =>
     Json.obj(
-      "map" -> Json.toJson(o.m),
+      "map" -> Json.toJson(o.trim.m),
       "results" -> o.results
     )
   }

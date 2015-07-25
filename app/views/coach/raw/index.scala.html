@@ -45,7 +45,7 @@ evenMoreCss = cssTag("coach.raw.css")) {
                 </tr>
               </thead>
               <tbody>
-                @s.openings(color).best(10).map {
+                @s.openings(color).best.map {
                 case (code, results) => {
                 <tr>
                   <th>@code</th>

@@ -17,13 +17,15 @@ case class Openings(
 
 object Openings {
 
+  val MAP_SIZE = 15
+
   case class OpeningsMap(m: Map[String, Results]) {
-    def best(max: Int): List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take max
-    def trim(max: Int) = copy(m = best(max).toMap)
+    def best: List[(String, Results)] = m.toList.sortBy(-_._2.nbGames) take MAP_SIZE
+    def trim = OpeningsMap(m = best.toMap)
     def merge(o: OpeningsMap) = OpeningsMap {
       m.map {
         case (k, v) => k -> o.m.get(k).fold(v)(v.merge)
-      }
+      } ++ o.m.filterKeys(k => !m.contains(k))
     }
     lazy val results = m.foldLeft(Results.empty) {
       case (res, (_, r)) => res merge r
@@ -48,8 +50,8 @@ object Openings {
       ops + (eco -> ops.get(eco).|(Results.emptyComputation).aggregate(p))
 
     def run = Openings(
-      white = OpeningsMap(white.mapValues(_.run)) trim 15,
-      black = OpeningsMap(black.mapValues(_.run)) trim 15)
+      white = OpeningsMap(white.mapValues(_.run)).trim,
+      black = OpeningsMap(black.mapValues(_.run)).trim)
   }
   val emptyComputation = Computation(Map.empty, Map.empty)
 }

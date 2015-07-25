@@ -8,6 +8,7 @@ import lila.rating.PerfType
 
 case class PerfResults(
     base: Results,
+    moves: ColorMoves,
     bestRating: Option[PerfResults.BestRating],
     // winStreak: PerfResults.Streak, // nb games won in a row
     // awakeMinutesStreak: PerfResults.Streak, // minutes played without sleeping
@@ -16,6 +17,7 @@ case class PerfResults(
 
   def aggregate(p: RichPov) = copy(
     base = base aggregate p,
+    moves = moves aggregate p,
     bestRating = if (~p.pov.win) {
       PerfResults.makeBestRating(p.pov).fold(bestRating) { newBest =>
         bestRating.fold(newBest) { prev =>
@@ -28,6 +30,7 @@ case class PerfResults(
 
   def merge(o: PerfResults) = PerfResults(
     base = base merge o.base,
+    moves = moves merge o.moves,
     bestRating = (bestRating, o.bestRating) match {
       case (Some(a), Some(b)) => Some(a merge b)
       case (a, b)             => a orElse b
@@ -76,7 +79,7 @@ object PerfResults {
   }
   val emptyOutcomeStatuses = OutcomeStatuses(StatusScores(Map.empty), StatusScores(Map.empty))
 
-  val empty = PerfResults(Results.empty, none, emptyOutcomeStatuses)
+  val empty = PerfResults(Results.empty, ColorMoves.empty, none, emptyOutcomeStatuses)
 
   case class Computation(
       results: PerfResults,
