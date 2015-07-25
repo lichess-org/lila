@@ -1,8 +1,12 @@
 var m = require('mithril');
 
+var moment = require('./shared').moment;
+
 var cubeFacets = ['a', 'b', 'c', 'd'].map(function(x) {
   return m('div.' + x, m('div'));
 });
+
+var dateFormat = 'LL';
 
 module.exports = {
   controller: function(args) {
@@ -32,7 +36,13 @@ module.exports = {
             }
           }).find('.ui-slider-handle').text('<>');
         }
-      })
+      }),
+      args.dates ? m('div.dates', [
+        'From ',
+        moment(args.dates[0], dateFormat),
+        ' to ',
+        moment(args.dates[1], dateFormat)
+      ]) : null
     ]);
   }
 };

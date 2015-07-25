@@ -15,13 +15,18 @@ module.exports = function(ctrl) {
       'No data available'
     ]),
   ]);
-  return [
+  return m('div', {
+    config: function() {
+      $('body').trigger('lichess.content_loaded');
+    }
+  }, [
     m('div.content_box_top', {
       class: 'content_box_top' + (ctrl.vm.loading ? ' loading' : '')
     }, [
       ctrl.nbPeriods > 1 ? m.component(Slider, {
         max: ctrl.nbPeriods,
         range: ctrl.vm.range,
+        dates: ctrl.data ? [ctrl.data.from, ctrl.data.to] : null,
         onChange: ctrl.selectPeriodRange
       }) : null,
       m('h1', [
@@ -31,7 +36,7 @@ module.exports = function(ctrl) {
         ctrl.data ? m('div.over', [
           ' over ',
           ctrl.data.colorResults.nbGames,
-          ' games.'
+          ' games'
         ]) : null
       ]),
     ]),
@@ -44,5 +49,5 @@ module.exports = function(ctrl) {
       }),
       table(ctrl)
     ])
-  ];
+  ]);
 };

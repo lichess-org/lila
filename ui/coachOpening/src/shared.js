@@ -45,11 +45,15 @@ module.exports = {
   },
   momentFromNow: function(date) {
     return m('time.moment-from-now', {
-      config: function(el) {
-        $('body').trigger('lichess.content_loaded');
-      },
       datetime: date
     });
+  },
+  moment: function(date, format) {
+    var parsed = moment(date);
+    var textContent = (format || 'calendar') === 'calendar' ? parsed.calendar() : parsed.format(format);
+    return m('time', {
+      datetime: date
+    }, format == 'calendar' ? parsed.calendar() : parsed.format(format));
   },
   chart: {
     makeFont: function(size) {

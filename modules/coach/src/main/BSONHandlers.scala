@@ -35,7 +35,7 @@ private[coach] object BSONHandlers {
     def read(a: BSONArray) = TrimmedMoves {
       a.values.collect {
         case BSONInteger(i) => i
-      }.toList.grouped(5).foldLeft(Vector.empty[Move]) {
+      }.grouped(5).foldLeft(Vector.empty[Move]) {
         case (acc, i) =>
           acc :+ Move(i(0), NbSum(i(1), i(2)), NbSum(i(3), i(4)))
       }

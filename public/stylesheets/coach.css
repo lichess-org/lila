@@ -44,7 +44,7 @@ div.content_box_top.loading .over {
   margin: 100px auto;
   font-size: 22px;
 }
-#coach_opening > .top {
+#coach_opening .top {
   height: 450px;
   box-sizing: border-box;
   padding-top: 20px;
@@ -113,14 +113,14 @@ div.content_box_top.loading .over {
   line-height: 18px;
   font-size: 0;
 }
-#coach_opening > .nodata p {
+#coach_opening .nodata p {
   text-align: center;
   line-height: 450px;
 }
-#coach_opening > .inspect {
+#coach_opening .inspect {
   padding: 45px 20px 20px 20px;
 }
-#coach_opening > .top > .to {
+#coach_opening .top > .to {
   position: absolute;
   text-decoration: none;
   font-size: 30px;
@@ -130,87 +130,87 @@ div.content_box_top.loading .over {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-#coach_opening > .top > .to:hover {
+#coach_opening .top > .to:hover {
   opacity: 0.9;
 }
-#coach_opening > .top > .back {
+#coach_opening .top > .back {
   top: 38px;
   right: 10px;
 }
-#coach_opening > .top > .to.prev,
-#coach_opening > .top > .to.next {
+#coach_opening .top > .to.prev,
+#coach_opening .top > .to.next {
   top: 180px;
   padding: 30px 10px;
 }
-#coach_opening > .top > .to.prev {
+#coach_opening .top > .to.prev {
   left: -55px;
 }
-#coach_opening > .top > .to.next {
+#coach_opening .top > .to.next {
   right: -55px;
 }
-#coach_opening > .inspect h2 strong {
+#coach_opening .inspect h2 strong {
   font-size: 2em;
 }
-#coach_opening > .inspect h2 em {
+#coach_opening .inspect h2 em {
   font-size: 1.7em;
   font-style: italic;
   margin-left: 10px;
 }
-#coach_opening > .inspect h2 .progress {
+#coach_opening .inspect h2 .progress {
   font-size: 1.7em;
   margin-left: 10px;
 }
-#coach_opening > .inspect .baseline {
+#coach_opening .inspect .baseline {
   margin-top: 5px;
   font-size: 16px;
 }
-#coach_opening > .inspect .result-bar {
+#coach_opening .inspect .result-bar {
   position: absolute;
   top: 0px;
   left: 0px;
 }
-#coach_opening > .inspect .main {
+#coach_opening .inspect .main {
   white-space: nowrap;
 }
-#coach_opening > .inspect .main .progress {
+#coach_opening .inspect .main .progress {
   float: left;
   font-size: 4em;
   line-height: 60px;
   margin: 0 20px 0 -5px;
 }
-#coach_opening > .inspect .main .progress > span {
+#coach_opening .inspect .main .progress > span {
   font-weight: bold;
 }
-#coach_opening > .inspect .board {
+#coach_opening .inspect .board {
   float: left;
 }
-#coach_opening > .inspect .content {
+#coach_opening .inspect .content {
   margin-top: 15px;
 }
-#coach_opening > .inspect .cg-board-wrap {
+#coach_opening .inspect .cg-board-wrap {
   width: 330px;
   height: 330px;
   position: relative;
 }
-#coach_opening > .inspect .right {
+#coach_opening .inspect .right {
   position: relative;
   margin-left: 350px;
   font-size: 16px;
 }
-#coach_opening > .inspect .right .not_analysed {
+#coach_opening .inspect .right .not_analysed {
   line-height: 120px;
 }
-#coach_opening > .inspect .right h3 {
+#coach_opening .inspect .right h3 {
   text-align: center;
   width: 100%;
   font-size: 0.9em;
   margin: 0;
 }
-#coach_opening > .inspect .right .sections {
+#coach_opening .inspect .right .sections {
   width: 100%;
   height: 250px;
 }
-#coach_opening > .inspect .right table {
+#coach_opening .inspect .right table {
   width: 100%;
   line-height: 2em;
 }
@@ -229,10 +229,18 @@ div.content_box_top.loading .over {
   -ms-perspective: 320px;
   -o-perspective: 320px;
   perspective: 320px;
-  margin-top: 9px;
+  margin-top: 2px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+.cube .dates {
+  margin-top: 56px;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+.loading .cube .dates {
+  opacity: 0.6;
 }
 /* positions */
 
@@ -313,7 +321,7 @@ div.content_box_top.loading .over {
   background-position: 0% 0%;
   width: 100%;
   height: 100%;
-  transition: background 0.5s, opacity 1s, width 0.3s, margin 0.3s;
+  transition: background 0.5s, opacity 1s;
 }
 
 .cube .a div,

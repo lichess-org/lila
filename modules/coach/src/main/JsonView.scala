@@ -14,6 +14,8 @@ final class JsonView(jsonWriters: JSONWriters) {
     val stat = period.data
     val openings = stat.openings(color).trim
     Json.obj(
+      "from" -> period.from,
+      "to" -> period.to,
       "color" -> color.name,
       "results" -> stat.results.base,
       "colorResults" -> stat.colorResults(color),
