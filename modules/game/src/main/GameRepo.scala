@@ -289,33 +289,30 @@ object GameRepo {
     }).sequenceFu
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
-    import reactivemongo.bson._
-    import reactivemongo.core.commands._
-    val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument(F.playerUids -> userId)),
+    val col = gameTube.coll
+    import col.BatchCommands.AggregationFramework, AggregationFramework.{
+      Descending, GroupField, Limit, Match, Sort, SumValue, Unwind
+    }
+
+    col.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
       Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
-      Sort(Seq(Descending(F.createdAt))),
+      Sort(Descending(F.createdAt)),
       Limit(1000), // only look in the last 1000 games
       Unwind(F.playerUids),
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
-      Sort(Seq(Descending("gs"))),
-      Limit(limit)
-    ))
-    gameTube.coll.db.command(command) map { stream =>
-      (stream.toList map { obj =>
+      Sort(Descending("gs")),
+      Limit(limit))).map(_.documents.map { obj =>
         toJSON(obj).asOpt[JsObject] flatMap { o =>
           o str "_id" flatMap { id =>
             o int "gs" map { id -> _ }
           }
         }
-      }).flatten
-    }
+      }.flatten)
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    $query.all sort Query.sortCreated skip (Random nextInt 100)
-  )
+    $query.all sort Query.sortCreated skip (Random nextInt 100))
 
   def findMirror(game: Game): Fu[Option[Game]] = $find.one($query(
     BSONDocument(
@@ -398,32 +395,28 @@ object GameRepo {
     ).one[BSONDocument] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
 
   def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
-    import reactivemongo.bson._
-    import reactivemongo.core.commands._
-    import lila.db.BSON.BSONJodaDateTimeHandler
-    val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument(
-        F.createdAt -> BSONDocument("$gt" -> since),
-        F.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
-        s"${F.playerUids}.0" -> BSONDocument("$exists" -> true)
-      )),
-      Unwind(F.playerUids),
+    val col = gameTube.coll
+    import col.BatchCommands.AggregationFramework, AggregationFramework.{
+      Descending, GroupField, Limit, Match, Sort, SumValue, Unwind
+    }
+
+    col.aggregate(Match(BSONDocument(
+      F.createdAt -> BSONDocument("$gt" -> since),
+      F.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
+      s"${F.playerUids}.0" -> BSONDocument("$exists" -> true)
+    )), List(Unwind(F.playerUids),
       Match(BSONDocument(
         F.playerUids -> BSONDocument("$ne" -> "")
       )),
       GroupField(F.playerUids)("nb" -> SumValue(1)),
-      Sort(Seq(Descending("nb"))),
-      Limit(max)
-    ))
-    gameTube.coll.db.command(command) map { stream =>
-      (stream.toList map { obj =>
+      Sort(Descending("nb")),
+      Limit(max))).map(_.documents.map { obj =>
         toJSON(obj).asOpt[JsObject] flatMap { o =>
           o int "nb" map { nb =>
             UidNb(~(o str "_id"), nb)
           }
         }
-      }).flatten
-    }
+      }.flatten)
   }
 
   private def extractPgnMoves(doc: BSONDocument) =

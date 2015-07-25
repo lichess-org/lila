@@ -282,30 +282,26 @@ final class QaApi(
   }
 
   object tag {
-
     private val cache: Cache[List[Tag]] = LruCache(timeToLive = 1.day)
 
     def clearCache = fuccess(cache.clear)
 
     // list all tags found in questions collection
     def all: Fu[List[Tag]] = cache(true) {
-      import reactivemongo.core.commands._
-      val command = Aggregate(questionColl.name, Seq(
-        Project("tags" -> BSONBoolean(true)),
-        Unwind("tags"),
-        Group(BSONBoolean(true))("tags" -> AddToSet("tags"))
-      ))
-      questionColl.db.command(command) map {
-        _.headOption flatMap {
-          _.getAs[List[String]]("tags")
-        } getOrElse Nil map (_.toLowerCase) distinct
-      }
+      val col = questionColl
+      import col.BatchCommands.AggregationFramework,
+        AggregationFramework.{ AddToSet, Group, Project, Unwind }
+
+      col.aggregate(Project(BSONDocument("tags" -> BSONBoolean(true))), List(
+        Unwind("tags"), Group(BSONBoolean(true))("tags" -> AddToSet("tags")))).
+        map(_.documents.headOption.flatMap(_.getAs[List[String]]("tags")).
+          getOrElse(List.empty[String]).map(_.toLowerCase).distinct)
     }
   }
 
   object relation {
-
-    private val questionsCache: Cache[List[Question]] = LruCache(timeToLive = 3.hours)
+    private val questionsCache: Cache[List[Question]] =
+      LruCache(timeToLive = 3.hours)
 
     def questions(q: Question, max: Int): Fu[List[Question]] = questionsCache(q.id -> max) {
       question.byTags(q.tags, 2000) map { qs =>
