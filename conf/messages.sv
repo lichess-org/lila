@@ -488,3 +488,4 @@ lichessTournaments=Lichess-turneringar
 tournamentFAQ=Turnering FAQ
 tournamentOfficial=Officiell
 timeBeforeTournamentStarts=Tid tills turneringen börjar
+keyShowOrHideComments=Visa/göm kommentarer
