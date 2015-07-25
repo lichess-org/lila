@@ -11,7 +11,7 @@ module.exports = {
   },
   view: function(ctrl, args) {
     var ratio = function(x) {
-      return x * 100 / (ctrl.max - 1);
+      return x * 100 / ctrl.max;
     };
     return m('div.cube', [
       cubeFacets,
@@ -21,7 +21,7 @@ module.exports = {
           $(el).slider({
             range: true,
             min: 0,
-            max: ctrl.max - 1,
+            max: ctrl.max,
             values: ctrl.range,
             slide: function(event, ui) {
               $(el).parent().find('.a div, .b div, .c div, .d div').css({

@@ -7,10 +7,10 @@ var progress = require('./shared').progress;
 var momentFromNow = require('./shared').momentFromNow;
 var resultBar = require('./shared').resultBar;
 
-function bestWin(w) {
+function bestWin(w, color) {
   if (!w.user) return;
   return m('a', {
-    href: '/' + w.id
+    href: '/' + w.id + '/' + color
   }, [
     w.user.title ? (w.user.title + ' ') : '',
     w.user.name,
@@ -83,7 +83,7 @@ module.exports = function(ctrl, inspecting) {
         results.bestWin ? [
           m('br'),
           ' Best win: ',
-          bestWin(results.bestWin)
+          bestWin(results.bestWin, ctrl.color)
         ] : null
         // m('table', [
         //   m('tr', [

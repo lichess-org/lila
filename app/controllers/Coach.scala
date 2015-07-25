@@ -12,7 +12,7 @@ object Coach extends LilaController {
 
   def raw(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.statApi.fetchLast(user.id) map { period =>
+      env.statApi.fetchAll(user.id) map { period =>
         Ok(html.coach.raw.index(user, period.map(_.data)))
       }
     }
@@ -20,7 +20,7 @@ object Coach extends LilaController {
 
   def rawJson(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.statApi.fetchLast(user.id) flatMap {
+      env.statApi.fetchAll(user.id) flatMap {
         case None         => notFoundJson(s"Data not generated yet")
         case Some(period) => env.jsonView.raw(period.data) map { Ok(_) }
       }
@@ -63,7 +63,7 @@ object Coach extends LilaController {
   private def requestRange(implicit ctx: Context): Option[Range] =
     get("range") flatMap {
       _.split('-') match {
-        case Array(a, b) => (parseIntOption(a) |@| parseIntOption(b))(Range.inclusive)
+        case Array(a, b) => (parseIntOption(a) |@| parseIntOption(b))(Range.apply)
         case _           => none
       }
     }

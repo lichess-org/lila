@@ -37,7 +37,7 @@ case class Results(
     }
     else bestWin,
     opponentRatingSum = opponentRatingSum + ~p.pov.opponent.rating,
-    lastPlayed = lastPlayed orElse p.pov.game.createdAt.some)
+    lastPlayed = p.pov.game.createdAt.some)
 
   def merge(r: Results) = Results(
     nbGames = nbGames + r.nbGames,

@@ -35,7 +35,7 @@ module.exports = function(ctrl) {
         ]) : null
       ]),
     ]),
-    ctrl.vm.preloading ? m('div.loader') : [
+    ctrl.vm.preloading ? m('div.loader') : (!ctrl.data ? m('div.top.nodata', m('p', 'Empty period range!')) : [
       ctrl.vm.inspecting ? inspect(ctrl, ctrl.vm.inspecting) : m('div.top.chart', {
         config: function(el, isUpdate, ctx) {
           if (ctx.chart) piechart.update(ctx.chart, ctrl);
@@ -43,6 +43,6 @@ module.exports = function(ctrl) {
         }
       }),
       table(ctrl)
-    ]
+    ])
   ];
 };

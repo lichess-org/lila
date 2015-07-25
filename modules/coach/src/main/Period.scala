@@ -5,6 +5,7 @@ import scalaz.NonEmptyList
 
 // contains aggregated data over (up to) 100 games
 case class Period(
+    id: String, // random
     userId: String,
     data: UserStat,
     from: DateTime,
@@ -24,6 +25,8 @@ case class Period(
 
 object Period {
 
+  val MAX_GAMES = 100
+
   case class Computation(period: Period, data: UserStat.Computation) {
 
     def aggregate(p: RichPov) = copy(data = data aggregate p)
@@ -36,10 +39,11 @@ object Period {
     Computation(build(userId, pov), UserStat.emptyComputation aggregate pov)
 
   def build(userId: String, pov: RichPov) = Period(
+    id = ornicar.scalalib.Random nextStringUppercase 8,
     userId = userId,
     data = UserStat.empty,
-    from = pov.pov.game.updatedAtOrCreatedAt,
-    to = pov.pov.game.updatedAtOrCreatedAt,
+    from = pov.pov.game.createdAt,
+    to = pov.pov.game.createdAt,
     computedAt = DateTime.now)
 }
 
@@ -59,7 +63,7 @@ object Periods {
       case (None, p) => fuccess {
         Period.initComputation(userId, p)
       }
-      case (Some(comp), p) if comp.nbGames >= 100 => save(comp.run) inject {
+      case (Some(comp), p) if comp.nbGames >= Period.MAX_GAMES => save(comp.run) inject {
         Period.initComputation(userId, p)
       }
       case (Some(comp), p) => fuccess {
@@ -72,11 +76,4 @@ object Periods {
     def run: Funit = period.filter(_.nbGames > 0) ?? { p => save(p.run) }
   }
   def initComputation(userId: String, save: Period => Funit) = Computation(userId, save, None)
-
-  def build(userId: String, pov: RichPov) = Period(
-    userId = userId,
-    data = UserStat.empty,
-    from = pov.pov.game.updatedAtOrCreatedAt,
-    to = pov.pov.game.updatedAtOrCreatedAt,
-    computedAt = DateTime.now)
 }

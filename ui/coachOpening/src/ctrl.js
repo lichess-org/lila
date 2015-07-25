@@ -24,7 +24,7 @@ module.exports = function(opts) {
   this.vm = {
     preloading: !!this.nbPeriods,
     loading: true,
-    range: [0, this.nbPeriods - 1],
+    range: [0, this.nbPeriods],
     sort: {
       prop: 'nbGames',
       order: -1
@@ -76,8 +76,9 @@ module.exports = function(opts) {
   this.selectPeriodRange = function(from, to) {
     this.vm.range = [from, to];
     this.vm.loading = true;
+    if (from === to) this.data = null;
+    else requestData();
     m.redraw();
-    requestData();
   }.bind(this);
 
   this.sortList = function() {
