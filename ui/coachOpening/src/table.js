@@ -46,24 +46,10 @@ module.exports = function(ctrl) {
       return m('tr', {
         key: o.opening.eco,
         'data-opening': o.opening.eco,
-        onmouseover: function(e) {
-          ctrl.vm.hover = null;
-          var chart = ctrl.vm.chart;
-          if (!chart) return;
-          var point = chart.series[1].data.filter(function(c) {
-            return c.opening.eco === o.opening.eco;
-          })[0];
-          if (point && !point.selected) point.select();
-        },
-        onmouseout: function() {
-          if (ctrl.vm.chart) ctrl.vm.chart.getSelectedPoints().forEach(function(point) {
-            point.select(false);
-          });
-        },
         onclick: function() {
           ctrl.inspect(o.opening.eco);
         },
-        class: (ctrl.vm.hover === o.opening.eco ? 'hover' : (ctrl.isInspecting(o.opening.eco) ? 'active' : ''))
+        class: (ctrl.isInspecting(o.opening.eco) ? 'active' : '')
       }, [
         m('td', [
           m('div.name', o.opening.name),

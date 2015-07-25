@@ -160,20 +160,6 @@ module.exports = {
                 ctrl.inspect(e.point.opening.eco);
                 m.redraw();
               }
-            },
-            mouseOver: function(e) {
-              if (e.currentTarget) {
-                ctrl.vm.hover = e.currentTarget.opening.eco;
-                e.currentTarget.select();
-                m.redraw();
-              }
-            },
-            mouseOut: function(e) {
-              if (e.currentTarget) {
-                ctrl.vm.hover = null;
-                e.currentTarget.select(false);
-                m.redraw();
-              }
             }
           }
         }
@@ -185,7 +171,6 @@ module.exports = {
         enabled: false
       }
     });
-    ctrl.vm.chart = $(el).highcharts();
-    return ctrl.vm.chart;
+    return $(el).highcharts();
   }
 };

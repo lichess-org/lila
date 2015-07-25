@@ -29,8 +29,6 @@ module.exports = function(opts) {
       prop: 'nbGames',
       order: -1
     },
-    chart: null,
-    hover: null,
     inspecting: null,
     /* {
       eco: 'D00',
