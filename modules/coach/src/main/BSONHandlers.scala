@@ -31,7 +31,21 @@ private[coach] object BSONHandlers {
     def write(x: StatusScores) = intMapHandler write x.m.mapKeys(_.id.toString)
   }
   implicit val MoveBSONHandler = Macros.handler[Move]
-  implicit val TrimmedMovesBSONHandler = Macros.handler[TrimmedMoves]
+  implicit val TrimmedMovesBSONHandler = new BSONHandler[BSONArray, TrimmedMoves] {
+    def read(a: BSONArray) = TrimmedMoves {
+      a.values.collect {
+        case BSONInteger(i) => i
+      }.toList.grouped(5).foldLeft(Vector.empty[Move]) {
+        case (acc, i) =>
+          acc :+ Move(i(0), NbSum(i(1), i(2)), NbSum(i(3), i(4)))
+      }
+    }
+    def write(x: TrimmedMoves) = BSONArray {
+      x.moves.toStream.flatMap { m =>
+        List(m.nb, m.acpl.nb, m.acpl.sum, m.time.nb, m.time.sum)
+      }
+    }
+  }
   implicit val ColorMovesBSONHandler = Macros.handler[ColorMoves]
 
   implicit val PerfResultsOutcomeStatusesBSONHandler = Macros.handler[OutcomeStatuses]

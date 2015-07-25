@@ -145,11 +145,6 @@ module.exports = {
         dataLabels: {
           formatter: function() {
             return this.y > 1 ? this.point.name + ': ' + Math.round(this.y) + '%' : null;
-          },
-          style: {
-            fontWeight: 'normal',
-            fontFamily: 'Noto Sans',
-            fontSize: '14px'
           }
         },
         cursor: 'pointer',
