@@ -5,12 +5,14 @@ import scalaz.NonEmptyList
 
 // contains aggregated data over (up to) 100 games
 case class Period(
-    id: String, // random
+    _id: String, // random
     userId: String,
     data: UserStat,
     from: DateTime,
     to: DateTime,
     computedAt: DateTime) {
+
+  def id = _id
 
   def merge(o: Period) = copy(
     data = data merge o.data,
@@ -39,7 +41,7 @@ object Period {
     Computation(build(userId, pov), UserStat.emptyComputation aggregate pov)
 
   def build(userId: String, pov: RichPov) = Period(
-    id = ornicar.scalalib.Random nextStringUppercase 8,
+    _id = ornicar.scalalib.Random nextStringUppercase 8,
     userId = userId,
     data = UserStat.empty,
     from = pov.pov.game.createdAt,
