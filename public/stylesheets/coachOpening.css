@@ -1,0 +1,33 @@
+.coach_main .inspect .board {
+  float: left;
+}
+.coach_main .inspect .content {
+  margin-top: 15px;
+}
+.coach_main .inspect .cg-board-wrap {
+  width: 330px;
+  height: 330px;
+  position: relative;
+}
+.coach_main .inspect .right {
+  position: relative;
+  margin-left: 350px;
+  font-size: 16px;
+}
+.coach_main .inspect .right .not_analysed {
+  line-height: 120px;
+}
+.coach_main .inspect .right h3 {
+  text-align: center;
+  width: 100%;
+  font-size: 0.9em;
+  margin: 0;
+}
+.coach_main .inspect .right .sections {
+  width: 100%;
+  height: 250px;
+}
+.coach_main .inspect .right table {
+  width: 100%;
+  line-height: 2em;
+}

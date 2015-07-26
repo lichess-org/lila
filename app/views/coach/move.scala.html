@@ -14,7 +14,8 @@ user: @Html(J.stringify(J.obj("id" -> u.id, "name" -> u.username)))
 @coach.layout(u,
 title = s"${u.username} moves",
 evenMoreJs = moreJs,
+evenMoreCss = cssTag("coachMove.css"),
 chessground = false) {
 
-<div id="coach_move" class="content_box no_padding"></div>
+<div id="coach_move" class="content_box no_padding coach_main"></div>
 }

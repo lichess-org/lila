@@ -39,12 +39,11 @@ module.exports = function(ctrl) {
     return Math.round(nb * 100 / d.openingResults.nbGames);
   };
   var acplAvg = ctrl.data.colorResults.gameSections.all.acpl.avg;
-  return m('table.openings.slist', [
+  return m('table.selector.slist', [
     thead(ctrl.list, ctrl),
     m('tbody', ctrl.list.map(function(o, i) {
       return m('tr', {
         key: o.opening.eco,
-        'data-opening': o.opening.eco,
         onclick: function() {
           ctrl.inspect(o.opening.eco);
         },

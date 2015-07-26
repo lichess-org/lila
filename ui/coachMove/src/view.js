@@ -1,5 +1,7 @@
 var m = require('mithril');
 
+var inspect = require('./inspect');
+var table = require('./table');
 var Slider = require('coach').slider;
 
 module.exports = function(ctrl) {
@@ -28,7 +30,7 @@ module.exports = function(ctrl) {
         ' moves',
         ctrl.data ? m('div.over', [
           ' over ',
-          ctrl.data.perfs[0].results.nbGames,
+          ctrl.data.perfs[0].results.base.nbGames,
           ' games'
         ]) : null
       ]),

@@ -15,7 +15,8 @@ color: "@color.name"
 @coach.layout(u,
 title = s"${u.username} openings as ${color.name}",
 evenMoreJs = moreJs,
+evenMoreCss = cssTag("coachOpening.css"),
 chessground = false) {
 
-<div id="coach_opening" class="content_box no_padding"></div>
+<div id="coach_opening" class="content_box no_padding coach_main"></div>
 }

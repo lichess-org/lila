@@ -47,22 +47,20 @@ module.exports = function(opts) {
     var keys = this.data.perfs.map(function(o) {
       return o.perf.key
     });
-    var i = keys.indexOf(this.vm.inspecting.key);
+    var i = keys.indexOf(this.vm.inspecting);
     var i2 = (i + delta) % keys.length;
     if (i2 < 0) i2 = keys.length - 1;
     this.inspect(keys[i2]);
   }.bind(this);
 
-  this.isInspecting = function(key) {
-    return this.vm.inspecting && this.vm.inspecting.key === key;
-  }.bind(this);
-
   this.inspect = function(key) {
-    if (!this.data.perfs[key]) return;
-    if (this.isInspecting(key)) return;
+    if (!this.data || !this.data.perfs.some(function(o) {
+      return o.perf.key === key;
+    })) return;
+    if (this.vm.inspecting === key) return;
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + key);
-    this.vm.inspecting.key = key;
+    this.vm.inspecting = key;
   }.bind(this);
 
   this.trans = function(key) {

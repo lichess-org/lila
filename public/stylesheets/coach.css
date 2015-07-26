@@ -20,12 +20,6 @@
   border-left: 2px solid transparent;
   transition: background 0.13s, border 0.13s;
 }
-.content_box::before {
-  font-size: 45px;
-  position: absolute;
-  top: 14px;
-  left: 15px;
-}
 div.content_box_top {
   padding: 20px;
   border-bottom: 1px solid #CCC;
@@ -40,23 +34,23 @@ div.content_box_top .over {
 div.content_box_top.loading .over {
   opacity: 0.5;
 }
-#coach_opening .loader {
+.coach_main .loader {
   margin: 100px auto;
   font-size: 22px;
 }
-#coach_opening .top {
+.coach_main .top {
   height: 450px;
   box-sizing: border-box;
   padding-top: 20px;
   position: relative;
 }
-#coach_opening .result-bar {
+.coach_main .result-bar {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   line-height: 0;
 }
-#coach_opening .result-bar > div {
+.coach_main .result-bar > div {
   display: inline-block;
   height: 100%;
   transition: 0.3s;
@@ -66,61 +60,60 @@ div.content_box_top.loading .over {
   text-indent: 20px;
   box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.25) inset;
 }
-#coach_opening .result-bar .nbWin,
-#coach_opening .result-bar .nbLoss {} #coach_opening .result-bar .nbWin {
+.coach_main .result-bar .nbWin {
   background-color: #759900;
 }
-#coach_opening .result-bar .nbDraw {
+.coach_main .result-bar .nbDraw {
   text-indent: 5px;
   background-color: #d59120;
 }
-#coach_opening .result-bar .nbLoss {
+.coach_main .result-bar .nbLoss {
   background-color: #dc322f;
 }
-#coach_opening table.openings {
+.coach_main table.selector {
   margin-top: 20px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-#coach_opening table.openings thead th {
+.coach_main table.selector thead th {
   cursor: pointer;
 }
-#coach_opening table.openings thead th::before {
+.coach_main table.selector thead th::before {
   margin-right: 3px;
   opacity: 0.8;
 }
-#coach_opening table.openings .name,
-#coach_opening table.openings .progress {
+.coach_main table.selector .name,
+.coach_main table.selector .progress {
   font-weight: bold;
 }
-#coach_opening table.openings tbody tr {
+.coach_main table.selector tbody tr {
   cursor: pointer;
 }
-#coach_opening table.openings tbody tr.hover,
-#coach_opening table.openings tbody tr:hover {
+.coach_main table.selector tbody tr.hover,
+.coach_main table.selector tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
 }
-#coach_opening table.openings tbody tr.active {
+.coach_main table.selector tbody tr.active {
   background: rgba(196, 210, 149, 0.7);
 }
-#coach_opening table.openings .result-bar {
+.coach_main table.selector .result-bar {
   width: 100px;
   opacity: 0.7;
   border-radius: 9px;
 }
-#coach_opening table.openings .result-bar > div {
+.coach_main table.selector .result-bar > div {
   line-height: 18px;
   font-size: 0;
 }
-#coach_opening .nodata p {
+.coach_main .nodata p {
   text-align: center;
   line-height: 450px;
 }
-#coach_opening .inspect {
+.coach_main .inspect {
   padding: 45px 20px 20px 20px;
 }
-#coach_opening .top > .to {
+.coach_main .top > .to {
   position: absolute;
   text-decoration: none;
   font-size: 30px;
@@ -130,89 +123,56 @@ div.content_box_top.loading .over {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
-#coach_opening .top > .to:hover {
+.coach_main .top > .to:hover {
   opacity: 0.9;
 }
-#coach_opening .top > .back {
+.coach_main .top > .back {
   top: 38px;
   right: 10px;
 }
-#coach_opening .top > .to.prev,
-#coach_opening .top > .to.next {
+.coach_main .top > .to.prev,
+.coach_main .top > .to.next {
   top: 180px;
   padding: 30px 10px;
 }
-#coach_opening .top > .to.prev {
+.coach_main .top > .to.prev {
   left: -55px;
 }
-#coach_opening .top > .to.next {
+.coach_main .top > .to.next {
   right: -55px;
 }
-#coach_opening .inspect h2 strong {
+.coach_main .inspect h2 strong {
   font-size: 2em;
 }
-#coach_opening .inspect h2 em {
+.coach_main .inspect h2 em {
   font-size: 1.7em;
   font-style: italic;
   margin-left: 10px;
 }
-#coach_opening .inspect h2 .progress {
+.coach_main .inspect h2 .progress {
   font-size: 1.7em;
   margin-left: 10px;
 }
-#coach_opening .inspect .baseline {
+.coach_main .inspect .baseline {
   margin-top: 5px;
   font-size: 16px;
 }
-#coach_opening .inspect .result-bar {
+.coach_main .inspect .result-bar {
   position: absolute;
   top: 0px;
   left: 0px;
 }
-#coach_opening .inspect .main {
+.coach_main .inspect .main {
   white-space: nowrap;
 }
-#coach_opening .inspect .main .progress {
+.coach_main .inspect .main .progress {
   float: left;
   font-size: 4em;
   line-height: 60px;
   margin: 0 20px 0 -5px;
 }
-#coach_opening .inspect .main .progress > span {
+.coach_main .inspect .main .progress > span {
   font-weight: bold;
-}
-#coach_opening .inspect .board {
-  float: left;
-}
-#coach_opening .inspect .content {
-  margin-top: 15px;
-}
-#coach_opening .inspect .cg-board-wrap {
-  width: 330px;
-  height: 330px;
-  position: relative;
-}
-#coach_opening .inspect .right {
-  position: relative;
-  margin-left: 350px;
-  font-size: 16px;
-}
-#coach_opening .inspect .right .not_analysed {
-  line-height: 120px;
-}
-#coach_opening .inspect .right h3 {
-  text-align: center;
-  width: 100%;
-  font-size: 0.9em;
-  margin: 0;
-}
-#coach_opening .inspect .right .sections {
-  width: 100%;
-  height: 250px;
-}
-#coach_opening .inspect .right table {
-  width: 100%;
-  line-height: 2em;
 }
 .cube {
   float: right;

@@ -22,18 +22,20 @@ function sideCommands(ctrl) {
 
 module.exports = function(ctrl) {
   var d = ctrl.data;
-  var key = ctrl.vm.inspecting.key;
-  var o = d.perfs[key];
+  var o = d.perfs.filter(function(o) {
+    return o.perf.key === ctrl.vm.inspecting;
+  })[0];
   var perf = o.perf;
-  var results = o.results;
+  var perfResults = o.results;
+  var results = perfResults.base;
   return m('div.top.inspect', [
     sideCommands(ctrl),
-    coached.resultBar(results),
+    coach.resultBar(results),
     m('div.main', [
       coach.shared.progress(results.ratingDiff / results.nbGames),
       m('h2', {
         'data-icon': perf.icon
-      }, perf.name)
+      }, perf.name),
       m('div.baseline', [
         m('strong', results.nbGames),
         ' games, ',
