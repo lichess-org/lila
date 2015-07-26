@@ -60,7 +60,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def makePairings(oldTour: Tournament, pairings: NonEmptyList[Pairing], postEvents: Events) {
+  def makePairings(oldTour: Tournament, pairings: NonEmptyList[Pairing]) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       pairings.map { pairing =>
         PairingRepo.insert(pairing) >> autoPairing(tour, pairing)

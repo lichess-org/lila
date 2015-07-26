@@ -65,7 +65,7 @@ private[tournament] final class Organizer(
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds diff playingUserIds
         tour.system.pairingSystem.createPairings(tour, users) onSuccess {
-          case (pairings, events) => pairings.toNel foreach { api.makePairings(tour, _, events) }
+          case pairings => pairings.toNel foreach { api.makePairings(tour, _) }
         }
     }
 

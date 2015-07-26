@@ -50,7 +50,7 @@ object ApplicationBuild extends Build {
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
-    swisssystem, history, worldMap, opening, video, shutup,
+    history, worldMap, opening, video, shutup,
     playban, relay, coach)
 
   lazy val moduleRefs = modules map projectToRef
@@ -201,7 +201,7 @@ object ApplicationBuild extends Build {
     )
 
   lazy val tournament = project("tournament", Seq(
-    common, hub, socket, chess, game, round, security, chat, memo, swisssystem)).settings(
+    common, hub, socket, chess, game, round, security, chat, memo)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -299,6 +299,4 @@ object ApplicationBuild extends Build {
   )
 
   lazy val chess = project("chess")
-
-  lazy val swisssystem = project("swisssystem")
 }

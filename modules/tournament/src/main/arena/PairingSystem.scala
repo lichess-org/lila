@@ -18,7 +18,7 @@ object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(
     tour: Tournament,
-    users: WaitingUsers): Fu[(Pairings, Events)] = for {
+    users: WaitingUsers): Fu[Pairings] = for {
     recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)
@@ -30,7 +30,7 @@ object PairingSystem extends AbstractPairingSystem {
         case _   => evenOrAll(data, users)
       }
     }
-  } yield pairings -> Nil
+  } yield pairings
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     tryPairings(data, users.evenNumber) flatMap {

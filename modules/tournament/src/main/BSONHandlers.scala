@@ -120,16 +120,4 @@ object BSONHandlers {
       "b1" -> w.intO(o.berserk1),
       "b2" -> w.intO(o.berserk2))
   }
-
-  private implicit val eventHandler = new BSON[Event] {
-    def reads(r: BSON.Reader): Event = r int "i" match {
-      case 1  => RoundEnd(timestamp = r date "t")
-      case 10 => Bye(user = r str "u", timestamp = r date "t")
-      case x  => sys error s"tournament event id $x"
-    }
-    def writes(w: BSON.Writer, o: Event) = o match {
-      case RoundEnd(timestamp)  => BSONDocument("i" -> o.id, "t" -> w.date(timestamp))
-      case Bye(user, timestamp) => BSONDocument("i" -> o.id, "u" -> user, "t" -> w.date(timestamp))
-    }
-  }
 }
