@@ -74,7 +74,7 @@ function podiumStats(p, data) {
   }).length * 100 / nbGames) : 0;
   return [
     m('span.rating.progress', [
-      p.rating,
+      p.rating + p.perf,
       perf
     ]),
     m('table.stats', m('tbody', [
