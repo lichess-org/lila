@@ -1481,7 +1481,12 @@ lichess.storage = {
           $(this).attr('target', '_blank');
         });
         var $form = self.element.find('form');
-        var $input = self.element.find('input.lichess_say');
+        var $input = self.element.find('input.lichess_say')
+          .focus(function() {
+            document.body.classList.add('typing');
+          }).blur(function() {
+            document.body.classList.remove('typing');
+          });
 
         // send a message
         $form.submit(function() {
