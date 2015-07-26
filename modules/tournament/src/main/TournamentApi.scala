@@ -101,20 +101,22 @@ private[tournament] final class TournamentApi(
           PlayerRepo withPoints tour.id foreach {
             _ foreach { p => UserRepo.incToints(p.userId, p.score) }
           }
-          // awardTrophies(tour)
+          awardTrophies(tour)
         }
       }
     }
   }
 
-  // private def awardTrophies(tour: Tournament): Funit =
-  //   if (tour.schedule.??(_.freq == Schedule.Freq.Marathon)) tour.rankedPlayers.map {
-  //     case rp if rp.rank == 1  => trophyApi.award(rp.player.id, _.MarathonWinner)
-  //     case rp if rp.rank <= 10 => trophyApi.award(rp.player.id, _.MarathonTopTen)
-  //     case rp if rp.rank <= 50 => trophyApi.award(rp.player.id, _.MarathonTopFifty)
-  //     case _                   => funit
-  //   }.sequenceFu.void
-  //   else funit
+  private def awardTrophies(tour: Tournament): Funit =
+    tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
+      PlayerRepo.bestByTourWithRank(tour.id, 50).flatMap {
+        _.map {
+          case rp if rp.rank == 1  => trophyApi.award(rp.player.userId, _.MarathonWinner)
+          case rp if rp.rank <= 10 => trophyApi.award(rp.player.userId, _.MarathonTopTen)
+          case rp                  => trophyApi.award(rp.player.userId, _.MarathonTopFifty)
+        }.sequenceFu.void
+      }
+    }
 
   def join(tourId: String, me: User) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>

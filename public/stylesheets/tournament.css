@@ -36,6 +36,7 @@ ol.scheduled_tournaments a:hover {
   position: relative;
   padding-left: 90px;
   color: #4166a0!important;
+  letter-spacing: 2px;
 }
 #tournament .marathon_title .fire_trophy {
   position: absolute;
