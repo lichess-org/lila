@@ -154,13 +154,8 @@ case class LichessThread(from: String, to: String, subject: String, message: Str
 package router {
 case class Abs(route: Any)
 case class Nolang(route: Any)
-case object Homepage
 case class TeamShow(id: String)
-case class User(username: String)
-case class Player(fullId: String)
-case class Watcher(gameId: String, color: String)
 case class Pgn(gameId: String)
-case class Tourney(tourId: String)
 case class Puzzle(id: Int)
 }
 

@@ -10,7 +10,6 @@ import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
-import lila.hub.actorApi.router.{ Abs, Watcher }
 
 final class PgnDump(
     netBaseUrl: String,

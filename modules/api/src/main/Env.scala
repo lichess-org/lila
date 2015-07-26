@@ -79,7 +79,7 @@ final class Env(
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
-    makeUrl = apiUrl,
+    makeUrl = makeUrl,
     apiToken = apiToken,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
@@ -116,11 +116,7 @@ final class Env(
     lightUser = userEnv.lightUser,
     seekApi = lobbyEnv.seekApi)
 
-  private def apiUrl(msg: Any): Fu[String] = {
-    import akka.pattern.ask
-    import makeTimeout.short
-    router ? lila.hub.actorApi.router.Abs(msg) mapTo manifest[String]
-  }
+  private def makeUrl(path: String): String = s"${Net.BaseUrl}$path"
 
   lazy val cli = new Cli(system.lilaBus, renderer)
 }

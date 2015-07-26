@@ -26,16 +26,11 @@ private[app] final class Router(
       case route: String => noLangBaseUrl + route
     } pipeTo sender
 
-    case Homepage               => sender ! R.Lobby.home().url
-    case TeamShow(id)           => sender ! R.Team.show(id).url
-    case User(username)         => sender ! R.User.show(username).url
-    case Player(fullId)         => sender ! R.Round.player(fullId).url
-    case Watcher(gameId, color) => sender ! R.Round.watcher(gameId, color).url
-    case Pgn(gameId)            => sender ! R.Export.pgn(gameId).url
-    case Tourney(tourId)        => sender ! R.Tournament.show(tourId).url
-    case Puzzle(id)             => sender ! R.Puzzle.show(id).url
+    case TeamShow(id) => sender ! R.Team.show(id).url
+    case Pgn(gameId)  => sender ! R.Export.pgn(gameId).url
+    case Puzzle(id)   => sender ! R.Puzzle.show(id).url
 
-    case msg                    => sender ! Status.Failure(new Exception(s"No route for $msg"))
+    case msg          => sender ! Status.Failure(new Exception(s"No route for $msg"))
   }
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain

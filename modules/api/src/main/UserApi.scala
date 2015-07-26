@@ -18,7 +18,7 @@ private[api] final class UserApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
-    makeUrl: Any => Fu[String],
+    makeUrl: String => String,
     apiToken: String,
     userIdsSharingIp: String => Fu[List[String]]) {
 
@@ -31,36 +31,32 @@ private[api] final class UserApi(
     case None => $find(pimpQB($query(
       UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
     )) sort UserRepo.sortPerfDesc(lila.rating.PerfType.Standard.key), makeNb(nb, token))
-  }) flatMap { users =>
-    users.map(u => makeUrl(R User u.username)).sequenceFu map { urls =>
-      Json.obj(
-        "list" -> JsArray(
-          users zip urls map {
-            case (u, url) => jsonView(u, extended = team.isDefined) ++ Json.obj("url" -> url).noNull
-          }
-        )
+  }) map { users =>
+    Json.obj(
+      "list" -> JsArray(
+        users map { u =>
+          jsonView(u, extended = team.isDefined) ++
+            Json.obj("url" -> makeUrl(s"@/${u.username}"))
+        }
       )
-    }
+    )
   }
 
   def one(username: String, token: Option[String])(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
-      makeUrl(R User username) zip
       (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
       (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
       relationApi.nbFollowing(u.id) zip
       relationApi.nbFollowers(u.id) zip
       ctx.isAuth.?? { prefApi followable u.id } zip
       ctx.userId.?? { relationApi.relation(_, u.id) } zip
-      ctx.userId.?? { relationApi.relation(u.id, _) } flatMap {
-        case ((((((((gameOption, userUrl), knownEngines), nbGamesWithMe), following), followers), followable), relation), revRelation) => gameOption ?? { g =>
-          makeUrl(R.Watcher(g.gameId, g.color.name)) map (_.some)
-        } map { gameUrlOption =>
+      ctx.userId.?? { relationApi.relation(u.id, _) } map {
+        case (((((((gameOption, knownEngines), nbGamesWithMe), following), followers), followable), relation), revRelation) =>
           jsonView(u, extended = true) ++ {
             Json.obj(
-              "url" -> userUrl,
-              "playing" -> gameUrlOption,
+              "url" -> makeUrl(s"@/$username"),
+              "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/{$g.color.name}")),
               "knownEnginesSharingIp" -> knownEngines,
               "nbFollowing" -> following,
               "nbFollowers" -> followers,
@@ -83,7 +79,6 @@ private[api] final class UserApi(
                 "followsYou" -> revRelation.exists(true ==)
               ))
           }.noNull
-        }
       } map (_.some)
   }
 

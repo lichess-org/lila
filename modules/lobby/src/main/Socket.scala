@@ -14,7 +14,6 @@ import lila.game.actorApi._
 import lila.game.AnonCookie
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
-import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }

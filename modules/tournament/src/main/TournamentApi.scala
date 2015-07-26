@@ -12,12 +12,11 @@ import actorApi._
 import lila.common.Debouncer
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.lobby.{ ReloadTournaments, ReloadSimuls }
+import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
-import lila.hub.actorApi.router.Tourney
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
-import lila.round.actorApi.round.{ ResignColor, GoBerserk, TournamentStanding }
+import lila.round.actorApi.round.{ GoBerserk, TournamentStanding }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
