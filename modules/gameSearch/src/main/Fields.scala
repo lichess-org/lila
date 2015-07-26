@@ -15,4 +15,6 @@ private[gameSearch] object Fields {
     val date = "d"
     val duration = "l"
     val analysed = "n"
+    val whiteUser = "wu"
+    val blackUser = "bu"
 }

@@ -31,7 +31,19 @@ description = "Search the entire lichess database using multiple criterions").so
           <div class="half">@base.input(form("players")("b"))</div>
         </td>
       </tr>
-      <tr class="winner none">
+      @chess.Color.all.map { color =>
+      <tr class="@{color.name}User user_row none">
+        <th>
+          <label for="@form("players")(color.name).id">@color.fold(trans.white, trans.black)()</label>
+        </th>
+        <td class="single">
+          <select id="@form("players")(color.name).id" name="@form("players")(color.name).name">
+            <option class="blank" value=""></option>
+          </select>
+        </td>
+      </tr>
+      }
+      <tr class="winner user_row none">
         <th>
           <label for="@form("players")("winner").id">@trans.winner()</label>
         </th>

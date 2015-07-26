@@ -50,7 +50,9 @@ private[gameSearch] final class Indexer(
             opening typed StringType,
             date typed DateType format ElasticSearch.Date.format,
             duration typed IntegerType,
-            analysed typed BooleanType
+            analysed typed BooleanType,
+            whiteUser typed StringType,
+            blackUser typed StringType
           ).map(_ index "not_analyzed")
         }.await
         import scala.concurrent.Await
@@ -119,7 +121,9 @@ private[gameSearch] final class Indexer(
         date -> (ElasticSearch.Date.formatter print game.createdAt).some,
         duration -> game.estimateTotalTime.some,
         opening -> (game.opening map (_.code.toLowerCase)),
-        analysed -> hasAnalyse.some
+        analysed -> hasAnalyse.some,
+        whiteUser -> game.whitePlayer.userId,
+        blackUser -> game.blackPlayer.userId
       ).collect {
           case (key, Some(value)) => key -> value
         }: _*

@@ -14,7 +14,9 @@ private[gameSearch] final class DataForm {
     "players" -> mapping(
       "a" -> optional(nonEmptyText),
       "b" -> optional(nonEmptyText),
-      "winner" -> optional(nonEmptyText)
+      "winner" -> optional(nonEmptyText),
+      "white" -> optional(nonEmptyText),
+      "black" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
     "winnerColor" -> optional(numberIn(Query.winnerColors)),
     "variant" -> optional(numberIn(Query.variants)),
@@ -78,6 +80,8 @@ private[gameSearch] case class SearchData(
     date = Range(dateMin flatMap toDate, dateMax flatMap toDate),
     status = status,
     analysed = analysed map (_ == 1),
+    whiteUser = players.cleanWhite,
+    blackUser = players.cleanBlack,
     sorting = Sorting(sort.field, sort.order))
 
   def nonEmptyQuery(indexType: String) = {
@@ -99,16 +103,18 @@ private[gameSearch] case class SearchData(
 private[gameSearch] case class SearchPlayer(
     a: Option[String] = None,
     b: Option[String] = None,
-    winner: Option[String] = None) {
+    winner: Option[String] = None,
+    white: Option[String] = None,
+    black: Option[String] = None) {
 
   def cleanA = clean(a)
   def cleanB = clean(b)
-  def cleanWinner = clean(winner) |> { w =>
-    w filter List(cleanA, cleanB).flatten.contains
-  }
+  def cleanWinner = oneOf(winner)
+  def cleanWhite = oneOf(white)
+  def cleanBlack = oneOf(black)
 
-  private def clean(s: Option[String]) =
-    s map (_.trim.toLowerCase) filter (_.nonEmpty)
+  private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
+  private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)
 }
 
 private[gameSearch] case class SearchSort(

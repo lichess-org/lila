@@ -25,7 +25,9 @@ case class Query(
     date: Range[DateTime] = Range.none,
     duration: Range[Int] = Range.none,
     sorting: Sorting = Sorting.default,
-    analysed: Option[Boolean] = None) extends lila.search.Query {
+    analysed: Option[Boolean] = None,
+    whiteUser: Option[String] = None,
+    blackUser: Option[String] = None) extends lila.search.Query {
 
   import Fields._
 
@@ -65,7 +67,9 @@ case class Query(
       toFilters(rated, Fields.rated),
       toFilters(opening, Fields.opening),
       toFilters(status, Fields.status),
-      toFilters(analysed, Fields.analysed)
+      toFilters(analysed, Fields.analysed),
+      toFilters(whiteUser, Fields.whiteUser),
+      toFilters(blackUser, Fields.blackUser)
     ).flatten match {
         case Nil     => matchAllFilter
         case filters => must(filters: _*)

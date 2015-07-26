@@ -2,8 +2,7 @@ $(function() {
 
   var $form = $("form.search");
   var $usernames = $form.find(".usernames input");
-  var $winnerRow = $form.find(".winner");
-  var $winner = $winnerRow.find("select");
+  var $userRows = $form.find(".user_row");
   var $result = $(".search_result");
 
   function realtimeResults() {
@@ -37,20 +36,24 @@ $(function() {
       });
   }
 
-  function winnerChoices() {
+  function userChoices(row) {
     var options = ["<option value=''></option>"];
     $usernames.each(function() {
       var user = $.trim($(this).val());
-      if (user.length > 1) {
+      if (user.length) {
         options.push("<option value='" + user + "'>" + user + "</option>");
       }
     });
-    $winner.html(options.join(""));
-    $winnerRow.toggle(options.length > 1);
+    $(row).find('select').html(options.join(""));
+    $(row).toggle(options.length > 1);
   }
 
   $form.find("select, input[type=checkbox]").change(realtimeResults);
-  $usernames.bind("keyup", winnerChoices).trigger("keyup");
+  $usernames.bind("keyup", function() {
+    $userRows.each(function() {
+      userChoices(this);
+    });
+  }).trigger("keyup");
   $usernames.bindWithDelay("keyup", realtimeResults, 400);
 
   $form.find(".opponent select").change(function() {

@@ -26,6 +26,9 @@ form.search select {
   padding: 0.5% 1%;
   text-transform: capitalize;
 }
+form.search .user_row select {
+  text-transform: none;
+}
 
 form.search .single select {
   width: 99%;
