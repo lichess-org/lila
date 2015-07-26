@@ -35,6 +35,9 @@ module.exports = function(ctrl, inspecting) {
   ]);
   var opening = o.opening;
   var results = o.results;
+  var user = ctrl.user.id;
+  var searchUrl = '/games/search?players.a=' + user + '&players.' + ctrl.color + '=' + user + '&opening=' + eco;
+  var analysedUrl = searchUrl + '&analysed=1';
   return m('div.top.inspect', [
     sideCommands(ctrl),
     coach.resultBar(results),
@@ -49,10 +52,20 @@ module.exports = function(ctrl, inspecting) {
         m('em', opening.moves)
       ]),
       m('div.baseline', [
-        m('strong', results.nbGames),
-        ' games, ',
-        m('strong', results.nbAnalysis),
-        ' analysed. Last played ',
+        m('a', {
+          href: searchUrl
+        }, [
+          m('strong', results.nbGames),
+          ' games'
+        ]),
+        ', ',
+        m('a', {
+          href: analysedUrl
+        }, [
+          m('strong', results.nbAnalysis),
+          ' analysed.'
+        ]),
+        ' Last played ',
         coach.shared.momentFromNow(results.lastPlayed),
         '.',
       ])

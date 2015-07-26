@@ -107,8 +107,8 @@ private[gameSearch] case class SearchPlayer(
     white: Option[String] = None,
     black: Option[String] = None) {
 
-  def cleanA = clean(a)
-  def cleanB = clean(b)
+  lazy val cleanA = clean(a)
+  lazy val cleanB = clean(b)
   def cleanWinner = oneOf(winner)
   def cleanWhite = oneOf(white)
   def cleanBlack = oneOf(black)
