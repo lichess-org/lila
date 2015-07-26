@@ -65,12 +65,6 @@ module.exports = function(opts) {
     this.vm.inspecting.key = key;
   }.bind(this);
 
-  this.uninspect = function() {
-    this.vm.inspecting = null;
-    if (window.history.replaceState)
-      window.history.replaceState(null, null, '#');
-  }.bind(this);
-
   this.trans = function(key) {
     var str = env.i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {

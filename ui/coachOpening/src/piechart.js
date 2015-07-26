@@ -23,7 +23,7 @@ function makeSeries(ctrl) {
       var openings = family.ecos.map(function(eco) {
         return data.openings[eco];
       }).sort(function(a, b) {
-        return a.results.nbGames < a.results.nbGames ? 1 : -1;
+        return a.results.nbGames < b.results.nbGames ? 1 : -1;
       });
       return {
         name: family.name,
