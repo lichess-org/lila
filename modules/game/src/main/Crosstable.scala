@@ -21,7 +21,10 @@ case class Crosstable(
 
   def showScore(userId: String) = {
     val byTen = user(userId) ?? (_.score)
-    s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
+    s"${byTen / 10}${(byTen % 10 != 0).??("½")}" match {
+      case "0½" => "½"
+      case x    => x
+    }
   }
 
   def showOpponentScore(userId: String) =
