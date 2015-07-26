@@ -6,7 +6,7 @@ import org.elasticsearch.search.sort.SortOrder
 case class Sorting(f: String, order: String) {
 
   def definition =
-    field sort (Sorting.fieldKeys contains field).fold(f, Sorting.default.f) order
+    field sort (Sorting.fieldKeys contains f).fold(f, Sorting.default.f) order
       (order.toLowerCase == "asc").fold(SortOrder.ASC, SortOrder.DESC)
 }
 
