@@ -67,7 +67,7 @@ module.exports = {
     var perf;
     if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
     else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
-    var rating = p.rating + (p.provisional ? '?' : '');
+    var rating = p.rating + p.perf + (p.provisional ? '?' : '');
     return {
       tag: 'a',
       attrs: {
