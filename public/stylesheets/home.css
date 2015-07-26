@@ -665,6 +665,39 @@ div.game_config div.color_submits button.random span {
 #ongoing_relays a.relay span:before {
   vertical-align: -3px;
 }
+#marathon_promo {
+  display: block;
+  margin: 15px 0 5px -30px;
+  text-decoration: none;
+  color: #fff!important;
+  background: #4166a0;
+  padding: 5px;
+  border-radius: 2px;
+  opacity: 0.8;
+  transition: 0.13s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#marathon_promo:hover {
+  opacity: 1;
+}
+#marathon_promo::before {
+  font-size: 33px;
+  float: left;
+  margin: 2px 6px 0 0;
+}
+#marathon_promo span {
+  display: block;
+}
+#marathon_promo span.name {
+  font-size: 15px;
+}
+#marathon_promo span.more {
+  font-size: 10px;
+}
+#marathon_promo span.more time {
+  margin-left: 3px;
+}
 #timeline {
   margin-top: 10px;
   border-top: 1px solid #e4e4e4;

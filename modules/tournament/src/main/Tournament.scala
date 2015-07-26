@@ -29,9 +29,11 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def fullName = schedule.map(_.freq) match {
-    case Some(Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon) => name
-    case _ => s"$name $system"
+  def fullName = if (isMarathon) name else s"$name $system"
+
+  def isMarathon = schedule.map(_.freq) exists {
+    case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
+    case _ => false
   }
 
   def scheduled = schedule.isDefined
