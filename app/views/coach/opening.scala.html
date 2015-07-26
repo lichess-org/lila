@@ -17,20 +17,5 @@ title = s"${u.username} openings as ${color.name}",
 evenMoreJs = moreJs,
 chessground = false) {
 
-<div id="coach_opening" class="content_box no_padding">
-  @*
-  <div class="content_box_top">
-    <h1>
-      @userLink(u, withOnline = false) openings as @color.name
-      @statOption.map {
-      case (periods, _) => {
-      over @periods.period.openings(color).results.nbGames.localize rated games
-      }
-      }
-    </h1>
-  </div>
-
-  <div id="coach_opening"></div>
-  *@
-</div>
+<div id="coach_opening" class="content_box no_padding"></div>
 }

@@ -1,6 +1,6 @@
 var m = require('mithril');
 
-var moment = require('./shared').moment;
+var momentFormat = require('./shared').momentFormat;
 
 var cubeFacets = ['a', 'b', 'c', 'd'].map(function(x) {
   return m('div.' + x, m('div'));
@@ -39,9 +39,9 @@ module.exports = {
       }),
       args.dates ? m('div.dates', [
         'From ',
-        moment(args.dates[0], dateFormat),
+        momentFormat(args.dates[0], dateFormat),
         ' to ',
-        moment(args.dates[1], dateFormat)
+        momentFormat(args.dates[1], dateFormat)
       ]) : null
     ]);
   }

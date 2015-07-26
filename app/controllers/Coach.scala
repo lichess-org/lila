@@ -51,6 +51,26 @@ object Coach extends LilaController {
     }
   }
 
+  def move(username: String) = Open { implicit ctx =>
+    Accessible(username) { user =>
+      env.statApi.count(user.id) map { nbPeriods =>
+        Ok(html.coach.move(user, nbPeriods))
+      }
+    }
+  }
+
+  def moveJson(username: String) = Open { implicit ctx =>
+    AccessibleJson(username) { user =>
+      env.statApi.fetchRange(user.id, requestRange) flatMap {
+        _.fold(notFoundJson(s"Data not generated yet")) { period =>
+          env.jsonView.move(period) map { data =>
+            Ok(data)
+          }
+        }
+      }
+    }
+  }
+
   def refresh(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
       {

@@ -36,4 +36,25 @@ final class JsonView(jsonWriters: JSONWriters) {
       }
     )
   }
+
+  def move(period: Period): Fu[JsObject] = fuccess {
+    val stat = period.data
+    Json.obj(
+      "from" -> period.from,
+      "to" -> period.to,
+      "perfs" -> (Json.obj(
+        "perf" -> Json.obj(
+          "key" -> "global",
+          "name" -> "Global",
+          "icon" -> "C"),
+        "results" -> stat.results
+      ) :: lila.rating.PerfType.nonPuzzle.flatMap { pt =>
+          stat.perfResults.m.get(pt) map { results =>
+            Json.obj(
+              "perf" -> pt,
+              "results" -> results)
+          }
+        })
+    )
+  }
 }

@@ -1,8 +1,7 @@
 var m = require('mithril');
 
 var chessground = require('chessground');
-var slider = require('./slider');
-var throttle = require('./shared').throttle;
+var throttle = require('coach').throttle;
 
 function copy(obj, newValues) {
   var k, c = {};
@@ -132,12 +131,6 @@ module.exports = function(opts) {
         eco: eco,
         chessground: new chessground.controller(config)
       };
-  }.bind(this);
-
-  this.uninspect = function() {
-    this.vm.inspecting = null;
-    if (window.history.replaceState)
-      window.history.replaceState(null, null, '#');
   }.bind(this);
 
   this.trans = function(key) {

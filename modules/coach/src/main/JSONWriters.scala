@@ -58,6 +58,12 @@ private[coach] final class JSONWriters(
       "results" -> o.results
     )
   }
+  implicit val PerfTypeWriter = Writes[lila.rating.PerfType] { o =>
+    Json.obj(
+      "key" -> o.key,
+      "name" -> o.name,
+      "icon" -> o.iconChar.toString)
+  }
   implicit val OpeningsWriter = Json.writes[Openings]
   implicit val PerfResultsBestRatingWriter = Json.writes[PerfResults.BestRating]
   implicit val PerfResultsStatusMapWriter = OWrites[Map[chess.Status, Int]] { m =>

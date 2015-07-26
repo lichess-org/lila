@@ -1,8 +1,7 @@
 var m = require('mithril');
 
-var progress = require('./shared').progress;
-var resultBar = require('./shared').resultBar;
-var strings = require('./shared').strings;
+var coach = require('coach');
+var strings = coach.shared.strings;
 
 var headers = [
   ['name', 'Opening'],
@@ -58,8 +57,8 @@ module.exports = function(ctrl) {
         m('td', [
           m('div', o.results.nbGames + ' (' + percent(o.results.nbGames) + '%)')
         ]),
-        m('td', resultBar(o.results)),
-        m('td', progress(o.ratingDiffAvg)),
+        m('td', coach.resultBar(o.results)),
+        m('td', coach.shared.progress(o.ratingDiffAvg)),
         m('td', [
           m('span.progress', o.acpl === null ? '-' : m('span', {
             class: o.acpl > acplAvg ? 'negative' : 'positive'

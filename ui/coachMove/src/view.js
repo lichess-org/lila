@@ -1,18 +1,12 @@
 var m = require('mithril');
 
-var piechart = require('./piechart');
-var table = require('./table');
-var inspect = require('./inspect');
 var Slider = require('coach').slider;
 
 module.exports = function(ctrl) {
   if (!ctrl.nbPeriods) return m('div.content_box_top', [
     m('h1', [
       ctrl.user.name,
-      ' openings as ',
-      ctrl.color,
-      ': ',
-      'No data available'
+      ' moves: No data available'
     ]),
   ]);
   return m('div', {
@@ -31,22 +25,16 @@ module.exports = function(ctrl) {
       }) : null,
       m('h1', [
         ctrl.user.name,
-        ' openings as ',
-        ctrl.color,
+        ' moves',
         ctrl.data ? m('div.over', [
           ' over ',
-          ctrl.data.colorResults.nbGames,
+          ctrl.data.perfs[0].results.nbGames,
           ' games'
         ]) : null
       ]),
     ]),
     ctrl.vm.preloading ? m('div.loader') : (!ctrl.data ? m('div.top.nodata', m('p', 'Empty period range!')) : [
-      ctrl.vm.inspecting ? inspect(ctrl, ctrl.vm.inspecting) : m('div.top.chart', {
-        config: function(el, isUpdate, ctx) {
-          if (ctx.chart) piechart.update(ctx.chart, ctrl);
-          else ctx.chart = piechart.create(el, ctrl);
-        }
-      }),
+      inspect(ctrl),
       table(ctrl)
     ])
   ]);

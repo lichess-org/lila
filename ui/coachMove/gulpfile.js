@@ -11,14 +11,14 @@ var destination = '../../public/compiled/';
 var onError = function(error) {
   gutil.log(gutil.colors.red(error.message));
 };
-var standalone = 'LichessCoach';
+var standalone = 'LichessCoachMove';
 
 gulp.task('prod', function() {
   return browserify('./src/main.js', {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('lichess.coach.min.js'))
+    .pipe(source('lichess.coach.move.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
@@ -28,7 +28,7 @@ gulp.task('dev', function() {
     standalone: standalone
   }).bundle()
     .on('error', onError)
-    .pipe(source('lichess.coach.js'))
+    .pipe(source('lichess.coach.move.js'))
     .pipe(gulp.dest(destination));
 });
 
@@ -44,7 +44,7 @@ gulp.task('watch', function() {
   function rebundle() {
     return bundleStream.bundle()
       .on('error', onError)
-      .pipe(source('lichess.coach.js'))
+      .pipe(source('lichess.coach.move.js'))
       .pipe(gulp.dest(destination));
   }
 

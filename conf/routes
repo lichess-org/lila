@@ -35,6 +35,8 @@ GET   /coach/raw/:username.json        controllers.Coach.rawJson(username: Strin
 GET   /coach/raw/:username             controllers.Coach.raw(username: String)
 GET   /coach/opening/:username/:color.json controllers.Coach.openingJson(username: String, color: String)
 GET   /coach/opening/:username/:color  controllers.Coach.opening(username: String, color: String)
+GET   /coach/move/:username.json       controllers.Coach.moveJson(username: String)
+GET   /coach/move/:username            controllers.Coach.move(username: String)
 POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
 
 # User

@@ -1,24 +1,8 @@
 var m = require('mithril');
 var chessground = require('chessground');
 
-var moves = require('./moves');
 var sections = require('./sections');
-var progress = require('./shared').progress;
-var momentFromNow = require('./shared').momentFromNow;
-var resultBar = require('./shared').resultBar;
-
-function bestWin(w, color) {
-  if (!w.user) return;
-  return m('a', {
-    href: '/' + w.id + '/' + color
-  }, [
-    w.user.title ? (w.user.title + ' ') : '',
-    w.user.name,
-    ' (',
-    m('strong', w.rating),
-    ')'
-  ]);
-}
+var coach = require('coach');
 
 function sideCommands(ctrl) {
   return [
@@ -53,9 +37,9 @@ module.exports = function(ctrl, inspecting) {
   var results = o.results;
   return m('div.top.inspect', [
     sideCommands(ctrl),
-    resultBar(results),
+    coach.resultBar(results),
     m('div.main', [
-      progress(results.ratingDiff / results.nbGames),
+      coach.shared.progress(results.ratingDiff / results.nbGames),
       m('h2', [
         m('strong', [
           opening.eco,
@@ -69,7 +53,7 @@ module.exports = function(ctrl, inspecting) {
         ' games, ',
         m('strong', results.nbAnalysis),
         ' analysed. Last played ',
-        momentFromNow(results.lastPlayed),
+        coach.shared.momentFromNow(results.lastPlayed),
         '.',
       ])
     ]),
@@ -83,7 +67,7 @@ module.exports = function(ctrl, inspecting) {
         results.bestWin ? [
           m('br'),
           ' Best win: ',
-          bestWin(results.bestWin, ctrl.color)
+          coach.bestWin(results.bestWin, ctrl.color)
         ] : null
         // m('table', [
         //   m('tr', [

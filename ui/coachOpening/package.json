@@ -1,5 +1,5 @@
 {
-  "name": "tournamentSchedule",
+  "name": "coachOpening",
   "version": "1.0.0",
   "description": "lichess.org opening coach",
   "main": "src/main.js",
@@ -29,6 +29,7 @@
     "watchify": "~3.1.1"
   },
   "dependencies": {
+    "coach": "../coach",
     "chessground": "2.9.1",
     "mithril": "0.2.0"
   }

@@ -1,7 +1,5 @@
 var m = require('mithril');
 
-var shared = require('./shared');
-
 function sortByY(arr) {
   return arr.sort(function(a, b) {
     return a.y < b.y;
