@@ -92,7 +92,7 @@ object Tournament {
     `private`: Boolean,
     waitMinutes: Int) = Tournament(
     id = Random nextStringUppercase 8,
-    name = if (position.initial) RandomName() else position.shortName,
+    name = if (position.initial) GreatPlayer.randomName else position.shortName,
     status = Status.Created,
     system = system,
     clock = clock,

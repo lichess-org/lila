@@ -27,6 +27,9 @@ final class JsonView(
     "createdBy" -> tour.createdBy,
     "system" -> tour.system.toString.toLowerCase,
     "fullName" -> tour.fullName,
+    "greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
+      Json.obj("name" -> tour.name, "url" -> url)
+    },
     "nbPlayers" -> tour.nbPlayers,
     "private" -> tour.`private`.option(true),
     "variant" -> tour.variant.key,

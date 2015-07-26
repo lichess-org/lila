@@ -44,7 +44,13 @@ module.exports = {
       class: 'text',
       'data-icon': ctrl.data.isFinished ? '' : 'g'
     }, [
-      ctrl.data.fullName,
+      ctrl.data.greatPlayer ? [
+        m('a', {
+          href: ctrl.data.greatPlayer.url,
+          target: '_blank'
+        }, ctrl.data.greatPlayer.name),
+        ' tournament'
+      ] : ctrl.data.fullName,
       ctrl.data.private ? [
         ' ',
         m('span.text[data-icon=a]', ctrl.trans('isPrivate'))
