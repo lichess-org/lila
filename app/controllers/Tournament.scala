@@ -68,7 +68,7 @@ object Tournament extends LilaController {
 
   def join(id: String) = Auth { implicit ctx =>
     implicit me =>
-      NoEngine {
+      NoLame {
         negotiate(
           html = repo enterableById id map {
             case None => tournamentNotFound
@@ -95,14 +95,14 @@ object Tournament extends LilaController {
 
   def form = Auth { implicit ctx =>
     me =>
-      NoEngine {
+      NoLame {
         Ok(html.tournament.form(env.forms.create, env.forms)).fuccess
       }
   }
 
   def create = AuthBody { implicit ctx =>
     implicit me =>
-      NoEngine {
+      NoLame {
         implicit val req = ctx.body
         env.forms.create.bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
