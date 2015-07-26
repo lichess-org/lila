@@ -184,26 +184,16 @@ case class Game(
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val possibleMovesEvents = (players collect {
-      case p if p.isHuman => Event.possibleMoves(situation, p.color)
-    })
-
-    val events = possibleMovesEvents ::: // BC
-      state :: // BC
-      Event.fromMove(move, situation, state, clockEvent, possibleMovesEvents) :::
-      (Event fromSituation situation) // BC
-
-    val finalEvents = events :::
-      clockEvent.toList ::: // BC
+    val events = Event.Move(move, situation, state, clockEvent) ::
       {
         // abstraction leak, I know.
         (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
           white = updated.checkCount.white,
           black = updated.checkCount.black
         ))
-      }
+      }.toList
 
-    Progress(this, updated, finalEvents)
+    Progress(this, updated, events)
   }
 
   def check = castleLastMoveTime.check

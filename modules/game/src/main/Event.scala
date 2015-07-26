@@ -19,22 +19,6 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove, situation: Situation, state: State, clock: Option[Event], possibleMoves: List[PossibleMoves]): List[Event] =
-    Move(move, situation, state, clock) :: List(
-      (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
-      move.promotion map { Promotion(_, move.dest) }, // BC
-      move.castle map { case (king, rook) => Castling(king, rook, move.color) } // BC
-    ).flatten
-
-  def fromSituation(situation: Situation): List[Event] = List(
-    situation.check ?? situation.kingPos map Check.apply, // BC
-    situation.threefoldRepetition option Threefold, // BC
-    Some(Premove(situation.color) // BC
-    )).flatten
-
-  def possibleMoves(situation: Situation, color: Color) =
-    PossibleMoves(color, (color == situation.color) ?? situation.destinations)
-
   sealed trait Empty extends Event {
     def data = JsNull
   }
@@ -157,11 +141,6 @@ object Event {
     )
   }
 
-  case class Check(pos: Pos) extends Event {
-    def typ = "check"
-    def data = JsString(pos.key)
-  }
-
   case class PlayerMessage(line: PlayerLine) extends Event {
     def typ = "message"
     def data = Line toJson line
@@ -180,10 +159,6 @@ object Event {
   case class End(winner: Option[Color]) extends Event {
     def typ = "end"
     def data = winner.map(_.name).fold[JsValue](JsNull)(JsString.apply)
-  }
-
-  object Threefold extends Empty {
-    def typ = "threefoldRepetition"
   }
 
   case object Reload extends Empty {
