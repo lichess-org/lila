@@ -15,7 +15,7 @@ trait Types {
 
   type Identified[ID] = { def id: ID }
 
-  type Sort = Seq[(String, SortOrder)]
+  type Sort = Seq[(String, api.SortOrder)]
 
   type BSONWrites[A] = BSONWriter[A, BSONValue]
 }
@@ -29,14 +29,14 @@ trait Implicits extends Types {
   // hack, this should be in reactivemongo
   implicit final class LilaPimpedQueryBuilder(b: QueryBuilder) {
 
-    def sort(sorters: (String, SortOrder)*): QueryBuilder =
+    def sort(sorters: (String, api.SortOrder)*): QueryBuilder =
       if (sorters.size == 0) b
       else b sort {
         BSONDocument(
           (for (sorter ← sorters) yield sorter._1 -> BSONInteger(
             sorter._2 match {
-              case SortOrder.Ascending  => 1
-              case SortOrder.Descending => -1
+              case api.SortOrder.Ascending  => 1
+              case api.SortOrder.Descending => -1
             })).toStream)
       }
 
