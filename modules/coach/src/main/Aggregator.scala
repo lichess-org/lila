@@ -31,9 +31,10 @@ final class Aggregator(api: StatApi, sequencer: ActorRef) {
   }
 
   private def fromScratch(userId: String): Funit =
-    pimpQB($query(gameQuery(userId))).sort(Query.sortCreated).skip(maxGames - 1).one[Game] flatMap {
-      _.?? { g => computeFrom(userId, g.createdAt) }
-    }
+    pimpQB($query(gameQuery(userId))).sort(Query.sortCreated).skip(maxGames - 1).one[Game] orElse
+      pimpQB($query(gameQuery(userId))).sort(Query.sortChronological).one[Game] flatMap {
+        _.?? { g => computeFrom(userId, g.createdAt) }
+      }
 
   private def gameQuery(userId: String) = Query.user(userId) ++ Query.rated ++ Query.finished
   private val maxGames = 5 * 1000
