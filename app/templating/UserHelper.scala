@@ -5,11 +5,12 @@ import controllers.routes
 import mashup._
 import play.twirl.api.Html
 
+import lila.api.Context
 import lila.common.LightUser
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, UserContext, Perfs }
 
-trait UserHelper { self: I18nHelper with StringHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {
@@ -41,24 +42,24 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     best4Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde))
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String) = Html {
-    val title = s"$name rating over $nb games"
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
+    val title = s"$name rating over ${nb.localize} games"
     val attr = if (klass == "title") "title" else "data-hint"
     val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
     else "&nbsp;&nbsp;&nbsp;-"
     s"""<span $attr="$title" class="$klass"><span data-icon="$icon">$number</span></span>"""
   }
 
-  def showPerfRating(perfType: PerfType, perf: Perf, klass: String): Html =
+  def showPerfRating(perfType: PerfType, perf: Perf, klass: String)(implicit ctx: Context): Html =
     showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar, klass)
 
-  def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom"): Html =
+  def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom")(implicit ctx: Context): Html =
     showPerfRating(perfType, u perfs perfType, klass)
 
-  def showPerfRating(u: User, perfKey: String): Option[Html] =
+  def showPerfRating(u: User, perfKey: String)(implicit ctx: Context): Option[Html] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
-  def showBestPerf(u: User): Option[Html] = u.perfs.bestPerf map {
+  def showBestPerf(u: User)(implicit ctx: Context): Option[Html] = u.perfs.bestPerf map {
     case (pt, perf) => showPerfRating(pt, perf, klass = "hint--bottom")
   }
 
