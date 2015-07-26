@@ -13,7 +13,9 @@ body.transp textarea,
 body.transp div.analysis_menu > a.active,
 body.transp div.chat_menu > a,
 body.transp div.current_player div.player p,
-body.transp div.vstext {
+body.transp div.vstext,
+body.transp #lichess_forum div.post .message {
+body.transp #lichess_blog {
   color: #ccc;
 }
 body.transp::before {

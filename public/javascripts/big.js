@@ -839,8 +839,6 @@ lichess.storage = {
           $themepicker.find('input.background_image')
             .on('change keyup paste', $.fp.debounce(function() {
               var v = $(this).val();
-              console.log($(this));
-              console.log(v);
               $.post($(this).data("href"), {
                 bgImg: v
               });
