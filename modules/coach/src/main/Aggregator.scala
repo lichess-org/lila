@@ -22,7 +22,7 @@ final class Aggregator(api: StatApi, sequencer: ActorRef) {
 
   def apply(user: User): Funit = {
     val p = scala.concurrent.Promise[Unit]()
-    sequencer ? Sequencer.work(compute(user), p.some)
+    sequencer ! Sequencer.work(compute(user), p.some)
     p.future
   }
 
@@ -54,7 +54,6 @@ final class Aggregator(api: StatApi, sequencer: ActorRef) {
           .sort(Query.sortChronological)
           .cursor[Game]()
           .enumerate(maxGames, stopOnError = true) &>
-          Enumeratee.take(maxGames) &>
           richPovEnumeratee(user) |>>>
           Iteratee.foldM[Option[RichPov], Periods.Computation](Periods.initComputation(user.id, api.insert)) {
             case (comp, Some(p)) => try {

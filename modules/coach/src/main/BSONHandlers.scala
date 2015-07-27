@@ -43,7 +43,7 @@ private[coach] object BSONHandlers {
     def write(x: TrimmedMoves) = BSONArray {
       x.moves.toStream.flatMap { m =>
         List(m.nb, m.acpl.nb, m.acpl.sum, m.time.nb, m.time.sum)
-      }
+      } map BSONInteger.apply
     }
   }
   implicit val ColorMovesBSONHandler = Macros.handler[ColorMoves]

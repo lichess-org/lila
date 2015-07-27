@@ -70,7 +70,7 @@ object Coach extends LilaController {
         case Array(a, b) => (parseIntOption(a) |@| parseIntOption(b))(Range.apply)
         case _           => none
       }
-    }.fold(notFound)(f)
+    }.fold(notFoundJson("No range provided"))(f)
 
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     lila.user.UserRepo named username flatMap {
