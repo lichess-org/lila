@@ -20,9 +20,18 @@ final class StatApi(coll: Coll) {
   private val sortChronological = BSONDocument("from" -> 1)
   private val sortAntiChronological = BSONDocument("from" -> -1)
 
-  def fetchRange(userId: String, range: Option[Range]): Fu[Option[Period]] =
+  def fetchRangeForMoves(userId: String, range: Option[Range]) =
+    fetchRange(userId, range, BSONDocument("data.openings" -> false))
+
+  def fetchRangeForOpenings(userId: String, range: Option[Range]) =
+    fetchRange(userId, range, BSONDocument("data.perfResults" -> false))
+
+  private def fetchRange(
+    userId: String,
+    range: Option[Range],
+    projection: BSONDocument): Fu[Option[Period]] =
     range.fold(fetchAll(userId)) { r =>
-      coll.find(selectUserId(userId))
+      coll.find(selectUserId(userId), projection)
         .skip(r.min)
         .sort(sortChronological)
         .cursor[Period]()
@@ -34,10 +43,10 @@ final class StatApi(coll: Coll) {
     }
 
   def fetchAll(userId: String): Fu[Option[Period]] =
-    fetchRange(userId, Range(0, 1000).some)
+    fetchRange(userId, Range(0, 1000).some, BSONDocument())
 
   def fetchFirst(userId: String): Fu[Option[Period]] =
-    fetchRange(userId, Range(0, 1).some)
+    fetchRange(userId, Range(0, 1).some, BSONDocument())
 
   def fetchLast(userId: String): Fu[Option[Period]] =
     coll.find(selectUserId(userId)).sort(sortAntiChronological).one[Period]

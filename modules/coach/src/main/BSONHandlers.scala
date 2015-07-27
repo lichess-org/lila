@@ -72,6 +72,20 @@ private[coach] object BSONHandlers {
   implicit val OpeningsBSONHandler = Macros.handler[Openings]
   implicit val ColorResultsBSONHandler = Macros.handler[ColorResults]
 
-  implicit val UserStatBSONHandler = Macros.handler[UserStat]
+  implicit val UserStatBSONHandler = new lila.db.BSON[UserStat] {
+    def reads(r: lila.db.BSON.Reader) = {
+      UserStat(
+        colorResults = r.getO[ColorResults]("colorResults") | ColorResults.empty,
+        openings = r.getO[Openings]("openings") | Openings.empty,
+        results = r.getO[PerfResults]("results") | PerfResults.empty,
+        perfResults = r.getO[PerfResults.PerfResultsMap]("perfResults") | PerfResults.emptyPerfResultsMap
+      )
+    }
+    def writes(w: lila.db.BSON.Writer, o: UserStat) = BSONDocument(
+      "colorResults" -> o.colorResults,
+      "openings" -> o.openings,
+      "results" -> o.results,
+      "perfResults" -> o.perfResults)
+  }
   implicit val PeriodBSONHandler = Macros.handler[Period]
 }

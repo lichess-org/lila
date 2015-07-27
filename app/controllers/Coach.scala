@@ -40,7 +40,7 @@ object Coach extends LilaController {
   def openingJson(username: String, colorStr: String) = Open { implicit ctx =>
     chess.Color(colorStr).fold(notFoundJson(s"No such color: $colorStr")) { color =>
       AccessibleJson(username) { user =>
-        env.statApi.fetchRange(user.id, requestRange) flatMap {
+        env.statApi.fetchRangeForOpenings(user.id, requestRange) flatMap {
           _.fold(notFoundJson(s"Data not generated yet")) { period =>
             env.jsonView.opening(period, color) map { data =>
               Ok(data)
@@ -61,7 +61,7 @@ object Coach extends LilaController {
 
   def moveJson(username: String) = Open { implicit ctx =>
     AccessibleJson(username) { user =>
-      env.statApi.fetchRange(user.id, requestRange) flatMap {
+      env.statApi.fetchRangeForMoves(user.id, requestRange) flatMap {
         _.fold(notFoundJson(s"Data not generated yet")) { period =>
           env.jsonView.move(period) map { data =>
             Ok(data)
