@@ -54,6 +54,7 @@ final class Aggregator(api: StatApi, sequencer: ActorRef) {
           .sort(Query.sortChronological)
           .cursor[Game]()
           .enumerate(maxGames, stopOnError = true) &>
+          Enumeratee.take(maxGames) &>
           richPovEnumeratee(user) |>>>
           Iteratee.foldM[Option[RichPov], Periods.Computation](Periods.initComputation(user.id, api.insert)) {
             case (comp, Some(p)) => try {
