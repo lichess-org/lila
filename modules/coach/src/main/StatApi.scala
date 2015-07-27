@@ -20,33 +20,28 @@ final class StatApi(coll: Coll) {
   private val sortChronological = BSONDocument("from" -> 1)
   private val sortAntiChronological = BSONDocument("from" -> -1)
 
-  def fetchRangeForMoves(userId: String, range: Option[Range]) =
+  def fetchRangeForMoves(userId: String, range: Range) =
     fetchRange(userId, range, BSONDocument("data.openings" -> false))
 
-  def fetchRangeForOpenings(userId: String, range: Option[Range]) =
+  def fetchRangeForOpenings(userId: String, range: Range) =
     fetchRange(userId, range, BSONDocument("data.perfResults" -> false))
 
   private def fetchRange(
     userId: String,
-    range: Option[Range],
+    range: Range,
     projection: BSONDocument): Fu[Option[Period]] =
-    range.fold(fetchAll(userId)) { r =>
-      coll.find(selectUserId(userId), projection)
-        .skip(r.min)
-        .sort(sortChronological)
-        .cursor[Period]()
-        .enumerate(r.size) &>
-        Enumeratee.take(r.size) |>>>
-        Iteratee.fold[Period, Option[Period]](none) {
-          case (a, b) => a.fold(b)(_ merge b).some
-        }
-    }
-
-  def fetchAll(userId: String): Fu[Option[Period]] =
-    fetchRange(userId, Range(0, 1000).some, BSONDocument())
+    coll.find(selectUserId(userId), projection)
+      .skip(range.min)
+      .sort(sortChronological)
+      .cursor[Period]()
+      .enumerate(range.size) &>
+      Enumeratee.take(range.size) |>>>
+      Iteratee.fold[Period, Option[Period]](none) {
+        case (a, b) => a.fold(b)(_ merge b).some
+      }
 
   def fetchFirst(userId: String): Fu[Option[Period]] =
-    fetchRange(userId, Range(0, 1).some, BSONDocument())
+    fetchRange(userId, Range(0, 1), BSONDocument())
 
   def fetchLast(userId: String): Fu[Option[Period]] =
     coll.find(selectUserId(userId)).sort(sortAntiChronological).one[Period]
