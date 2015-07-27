@@ -28,7 +28,7 @@ moreJs = moreJs,
 chessground = false,
 openGraph = tournamentOpenGraph(tour).some) {
 <div id="tournament" @tour.schedule.map { sched =>
-  class="scheduled @sched.freq @sched.speed @sched.variant"
+  class="scheduled @sched.freq @sched.speed @sched.variant.key"
   }></div>
 @if(tour.isCreated) {
 <div id="tournament_faq" class="none">
