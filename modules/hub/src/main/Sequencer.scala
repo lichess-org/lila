@@ -6,9 +6,9 @@ import scala.util.Try
 
 import akka.actor._
 
-final class Sequencer(receiveTimeout: FiniteDuration) extends Actor {
+final class Sequencer(receiveTimeout: Option[FiniteDuration]) extends Actor {
 
-  context setReceiveTimeout receiveTimeout
+  receiveTimeout.foreach(context.setReceiveTimeout)
 
   private def idle: Receive = {
 
@@ -41,7 +41,7 @@ final class Sequencer(receiveTimeout: FiniteDuration) extends Actor {
         promiseOption.foreach(_.success(()))
         self ! Done
       }
-      case x => play.api.Logger("Sequencer").warn(s"Unsupported message $x")
+      case x => logwarn(s"[Sequencer] Unsupported message $x")
     }
   }
 }

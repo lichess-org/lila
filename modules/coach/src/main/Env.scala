@@ -31,7 +31,7 @@ final class Env(
 
   lazy val aggregator = new Aggregator(
     api = statApi,
-    sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], 5 minutes)))
+    sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None)))
 }
 
 object Env {

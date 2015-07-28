@@ -92,7 +92,7 @@ final class Env(
     }), name = SocketName)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout)
+    new Sequencer(SequencerTimeout.some)
   }), name = SequencerMapName)
 
   private val organizer = system.actorOf(Props(new Organizer(
