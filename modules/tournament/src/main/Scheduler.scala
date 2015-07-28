@@ -51,7 +51,6 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
-      def orNextMonth(date: DateTime) = if (date isBefore rightNow) date plusMonths 1 else date
 
       val std = StartingPosition.initial
       val opening1 = StartingPosition.randomFeaturable
@@ -62,10 +61,10 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         // Schedule(Marathon, Blitz, Standard, std, at(firstSundayOfCurrentMonth, 2, 0) |> orNextMonth),
 
         List( // monthly tournaments!
-          Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
-          Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19) |> orNextMonth),
-          Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20) |> orNextMonth),
-          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21) |> orNextMonth)
+          Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18)),
+          Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19)),
+          Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20)),
+          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21))
         ),
 
         List( // weekly tournaments!
