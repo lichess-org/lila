@@ -4,11 +4,12 @@ var piechart = require('./piechart');
 var table = require('./table');
 var inspect = require('./inspect');
 var Slider = require('coach').slider;
+var shared = require('coach').shared;
 
 module.exports = function(ctrl) {
   if (!ctrl.nbPeriods) return m('div.content_box_top', [
     m('h1', [
-      ctrl.user.name,
+      shared.userLink(ctrl.user.name),
       ' openings as ',
       ctrl.color,
       ': ',
@@ -30,7 +31,7 @@ module.exports = function(ctrl) {
         onChange: ctrl.selectPeriodRange
       }) : null,
       m('h1', [
-        ctrl.user.name,
+        shared.userLink(ctrl.user.name),
         ' openings as ',
         ctrl.color,
         ctrl.data ? m('div.over', [

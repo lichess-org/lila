@@ -5,6 +5,10 @@ var green = '#759900',
   orange = '#d59120',
   translucid = 'rgba(0,0,0,0.3)';
 
+var absFormatter = function() {
+  return Math.abs(this.value);
+};
+
 function makeChart(el, data) {
   $(el).highcharts({
     chart: {
@@ -27,19 +31,20 @@ function makeChart(el, data) {
       min: -150,
       max: 150,
       title: {
-        text: null
+        text: 'Average centipawn loss (ACPL) per move'
       },
       labels: {
-        enabled: false
+        formatter: absFormatter
       },
       lineWidth: 1,
       gridLineWidth: 1
     }, {
+      opposite: true,
       title: {
-        text: null
+        text: 'Seconds per move'
       },
       labels: {
-        enabled: false
+        formatter: absFormatter
       },
       lineWidth: 1,
       gridLineWidth: 1
@@ -102,12 +107,15 @@ function makeChart(el, data) {
 }
 
 function recenter(chart) {
-  var ext = chart.yAxis[1].getExtremes();
-  var dMax = Math.abs(ext.dataMax);
-  var dMin = Math.abs(ext.dataMin);
-  var dExt = dMax >= dMin ? dMax : dMin;
-  var min = 0 - dExt;
-  chart.yAxis[1].setExtremes(min, dExt);
+  [0, 1].forEach(function(i) {
+    var ext = chart.yAxis[i].getExtremes();
+    var dMax = Math.abs(ext.dataMax);
+    var dMin = Math.abs(ext.dataMin);
+    var dExt = dMax >= dMin ? dMax : dMin;
+    var min = 0 - dExt;
+    console.log(i, min, dExt);
+    chart.yAxis[i].setExtremes(min, dExt);
+  });
 }
 
 function makeAcplData(pr) {
@@ -137,7 +145,7 @@ function makeTimeData(pr) {
     data[color] = pr.moves[color].filter(function(m) {
       return m.time.nb > 0;
     }).map(function(move, i) {
-      var time = move.time.avg;
+      var time = move.time.avg / 10;
       return {
         c: color,
         x: i + 1,
@@ -161,6 +169,7 @@ module.exports = function(ctrl) {
           acpls: makeAcplData(pr),
           times: makeTimeData(pr)
         };
+        console.log(data);
         if (ctx.chart) {
           [data.acpls.white, data.acpls.black, data.times.white, data.times.black].forEach(function(d, i) {
             ctx.chart.series[i].setData(d);

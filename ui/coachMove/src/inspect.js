@@ -36,7 +36,7 @@ module.exports = function(ctrl) {
   return m('div.top.inspect', [
     sideCommands(ctrl),
     coach.resultBar(results),
-    m('div.main', [
+    m('div.main.clearfix', [
       coach.shared.progress(results.ratingDiff / results.nbGames),
       m('h2', m('strong.text', {
         'data-icon': perf.icon
@@ -52,21 +52,6 @@ module.exports = function(ctrl) {
     ]),
     m('div.content', [
       movechart(ctrl),
-      m('div.meta', [
-        results.bestWin ? [
-          m('br'),
-          ' Best win: ',
-          coach.bestWin(results.bestWin, ctrl.color)
-        ] : null,
-        m('table', [
-          m('tr', [
-            m('tr', [
-              m('th', 'Average opponent'),
-              m('tr', m('strong', results.opponentRatingAvg))
-            ]),
-          ])
-        ])
-      ])
     ])
   ]);
 };

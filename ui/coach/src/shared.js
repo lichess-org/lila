@@ -12,6 +12,11 @@ function decimals(nb) {
 
 module.exports = {
   strings: strings,
+  userLink: function(username) {
+    return m('a', {
+      href: '/@/' + username
+    }, username);
+  },
   momentFromNow: function(date) {
     return m('time.moment-from-now', {
       datetime: date

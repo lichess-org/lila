@@ -42,7 +42,7 @@ case class FilledMoves(moves: Vector[Move]) {
         index,
         moves(index).add(
           accuracy.flatMap(_ lift index),
-          moveTimes.flatMap(_ lift index)))
+          if (index == 0) Some(0) else moveTimes.flatMap(_ lift index)))
     }
   }
 

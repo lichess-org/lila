@@ -3,11 +3,12 @@ var m = require('mithril');
 var inspect = require('./inspect');
 var table = require('./table');
 var Slider = require('coach').slider;
+var shared = require('coach').shared;
 
 module.exports = function(ctrl) {
   if (!ctrl.nbPeriods) return m('div.content_box_top', [
     m('h1', [
-      ctrl.user.name,
+      shared.userLink(ctrl.user.name),
       ' moves: No data available'
     ]),
   ]);
@@ -26,7 +27,7 @@ module.exports = function(ctrl) {
         onChange: ctrl.selectPeriodRange
       }) : null,
       m('h1', [
-        ctrl.user.name,
+        shared.userLink(ctrl.user.name),
         ' moves',
         ctrl.data ? m('div.over', [
           ' over ',
