@@ -94,8 +94,6 @@ private[api] final class RoundApi(
         "name" -> tour.name,
         "running" -> tour.isStarted,
         "berserkable" -> tour.berserkable
-      // "berserk1" -> false, //pairing.map(_.berserk1).filter(0!=),
-      // "berserk2" -> false //pairing.map(_.berserk2).filter(0!=)
       ))
     }
 

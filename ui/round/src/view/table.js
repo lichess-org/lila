@@ -115,12 +115,6 @@ function whosTurn(ctrl, color) {
   );
 }
 
-var berserkIcon = m('span.berserk.hint--bottom-left', {
-  'data-hint': "BERSERK! Half the time, bonus point"
-}, m('span', {
-  'data-icon': '`'
-}));
-
 function goBerserk(ctrl) {
   return m('button', {
     class: 'button berserk hint--bottom-left',
@@ -144,9 +138,7 @@ function renderClock(ctrl, color, position) {
     }, [
       clockView.showBar(ctrl.clock, time),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
-      game.berserkOf(ctrl.data, color) ? berserkIcon : (
-        ctrl.data.player.color === color && game.berserkableBy(ctrl.data) ? goBerserk(ctrl) : null
-      )
+      ctrl.data.player.color === color && game.berserkableBy(ctrl.data) ? goBerserk(ctrl) : null
     ]),
     position === 'bottom' ? button.moretime(ctrl) : null
   ];

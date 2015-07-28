@@ -45,17 +45,12 @@ function resignable(data) {
   return playable(data) && !abortable(data);
 }
 
-function berserkOf(data, color) {
-  return data.tournament && data.tournament[color === 'white' ? 'berserk1' : 'berserk2'];
-}
-
 // can the current player go berserk?
 function berserkableBy(data) {
   return data.tournament &&
     data.tournament.berserkable &&
     isPlayerPlaying(data) &&
-    playedTurns(data) < 2 &&
-    !berserkOf(data, data.player.color);
+    playedTurns(data) < 2;
 }
 
 function moretimeable(data) {
@@ -107,7 +102,6 @@ module.exports = {
   drawable: drawable,
   resignable: resignable,
   berserkableBy: berserkableBy,
-  berserkOf: berserkOf,
   moretimeable: moretimeable,
   mandatory: mandatory,
   replayable: replayable,
