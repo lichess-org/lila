@@ -16,7 +16,9 @@ function makeSeries(ctrl) {
     return nb * 100 / data.openingResults.nbGames;
   };
   var colors = Highcharts.getOptions().colors,
-    raw = data.families.map(function(fam, index) {
+    raw = data.families.sort(function(a, b) {
+      return a.results.nbGames < b.results.nbGames ? 1 : -1;
+    }).map(function(fam, index) {
       var graphColor = colors[index % colors.length];
       var family = fam.family;
       var results = fam.results;
@@ -49,10 +51,6 @@ function makeSeries(ctrl) {
     i,
     j,
     drillDataLen;
-
-  raw.sort(function(a, b) {
-    return a.y < b.y ? 1 : -1;
-  });
 
   // Build the data arrays
   for (i = 0; i < raw.length; i += 1) {
