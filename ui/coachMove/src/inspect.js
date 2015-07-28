@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 
 var coach = require('coach');
+var movechart = require('./movechart');
 
 function sideCommands(ctrl) {
   return [
@@ -25,6 +26,10 @@ module.exports = function(ctrl) {
   var o = d.perfs.filter(function(o) {
     return o.perf.key === ctrl.vm.inspecting;
   })[0];
+  if (!o) return m('div.top.nodata', [
+    sideCommands(ctrl),
+    m('p', 'No results for this data range and perf!')
+  ]);
   var perf = o.perf;
   var perfResults = o.results;
   var results = perfResults.base;
@@ -33,9 +38,9 @@ module.exports = function(ctrl) {
     coach.resultBar(results),
     m('div.main', [
       coach.shared.progress(results.ratingDiff / results.nbGames),
-      m('h2', {
+      m('h2', m('strong.text', {
         'data-icon': perf.icon
-      }, perf.name),
+      }, perf.name)),
       m('div.baseline', [
         m('strong', results.nbGames),
         ' games, ',
@@ -46,7 +51,8 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.content', [
-      m('div.right', [
+      movechart(ctrl),
+      m('div.meta', [
         results.bestWin ? [
           m('br'),
           ' Best win: ',

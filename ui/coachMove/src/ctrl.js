@@ -24,12 +24,10 @@ module.exports = function(opts) {
     }).then(function(data) {
       console.log(data);
       this.data = data;
+      if (location.hash) this.inspect(location.hash.replace(/#/, '').replace(/_/g, ' '));
+      this.vm.preloading = false;
+      this.vm.loading = false;
     }.bind(this));
-
-    if (location.hash) this.inspect(location.hash.replace(/#/, '').replace(/_/g, ' '));
-
-    this.vm.preloading = false;
-    this.vm.loading = false;
     m.redraw();
   }.bind(this));
   if (this.nbPeriods) setTimeout(requestData, 200);

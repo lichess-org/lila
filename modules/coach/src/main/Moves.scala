@@ -52,7 +52,7 @@ case class FilledMoves(moves: Vector[Move]) {
   }
 }
 object Moves {
-  val SIZE = 80
+  val SIZE = 60
   val empty = TrimmedMoves(Vector.empty)
 }
 
