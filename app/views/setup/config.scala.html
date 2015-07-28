@@ -10,16 +10,14 @@
   <br />
   <a href="@routes.Lobby.home" class="button text" data-icon="L">@trans.cancel()</a>
   }.getOrElse {
-  <div class="game_config_form">
-    @helper.form(action = route, 'novalidate -> "novalidate") {
-    @fields
-    <div class="color_submits">
-      @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
-      <button@if(typ == "hook"){ disabled="disabled"} data-hint="@color._2" type="submit" class="submit hint--bottom @color._1" name="@form("color").id" value="@color._1"></button>
-      }
-    </div>
+  @helper.form(action = route, 'novalidate -> "novalidate") {
+  @fields
+  <div class="color_submits">
+    @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
+    <button@if(typ == "hook"){ disabled="disabled"} data-hint="@color._2" type="submit" class="submit hint--bottom @color._1" name="@form("color").id" value="@color._1"></button>
     }
   </div>
+  }
   }
   @ctx.me.map { me =>
   <div class="ratings">

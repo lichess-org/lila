@@ -1267,7 +1267,7 @@ lichess.storage = {
           onFirstConnect: function() {
             $('#videochat').each(function() {
               lichess.videochat = makeVideochat(this, lichess.socket, round.setVideochat);
-              var connect =  function() {
+              var connect = function() {
                 // $.getScript("http://l1.org/assets/javascripts/vendor/peer.min.js")
                 $.getScript("https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js")
                   .done(lichess.videochat.connect);
@@ -1926,7 +1926,10 @@ lichess.storage = {
         $formTag.submit(function() {
           return ajaxSubmit('random');
         });
-      }
+      } else
+        $form.find('form').one('submit', function() {
+          $(this).find('.color_submits').find('button').hide().end().append($('<div>').addClass('loader setup_loader fast'));
+        });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
       $timeInput.add($incrementInput).each(function() {
@@ -2262,7 +2265,7 @@ lichess.storage = {
             else unselect(chart);
           }
         }
-      } catch(e) {}
+      } catch (e) {}
       if ($timeChart.length) try {
         chart = $timeChart.highcharts();
         if (chart) {
