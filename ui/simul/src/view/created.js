@@ -13,6 +13,29 @@ function maybeWithdrawButton(ctrl, applicant) {
 
 function byRating(a, b) {
   return a.rating > b.rating
+};
+
+function randomButton(ctrl, candidates) {
+  return candidates.length ? m('a.button.top_right.text', {
+    'data-icon': 'E',
+    onclick: function() {
+      var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
+      xhr.accept(randomCandidate.player.id)(ctrl);
+    }
+  }, 'Accept random candidate') : null;
+}
+
+function startOrCancel(ctrl, accepted) {
+  return accepted.length > 1 ?
+    m('a.button.top_right.text.active', {
+      'data-icon': 'G',
+      onclick: partial(xhr.start, ctrl)
+    }, 'Start') : m('a.button.top_right.text', {
+      'data-icon': 'L',
+      onclick: function() {
+        if (confirm('Delete this simul?')) xhr.abort(ctrl);
+      }
+    }, ctrl.trans('cancel'));
 }
 
 module.exports = function(ctrl) {
@@ -21,27 +44,10 @@ module.exports = function(ctrl) {
   var isHost = simul.createdByMe(ctrl);
   return [
     ctrl.userId ? (
-      simul.createdByMe(ctrl) ? (accepted.length > 1 ?
-        m('a.button.top_right.text.active', {
-          'data-icon': 'G',
-          onclick: partial(xhr.start, ctrl)
-        }, 'Start') : [m('a.button.top_right.text', {
-            'data-icon': 'L',
-            onclick: function() {
-              if (confirm('Delete this simul?')) xhr.abort(ctrl);
-            }
-          }, ctrl.trans('cancel')),
-          candidates.length ? m('a.button.top_right.text', {
-            'data-icon': 'E',
-            onclick: function() {
-              if (candidates.length) {
-                var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
-                xhr.accept(randomCandidate.player.id)(ctrl);
-              }
-            }
-          }, 'Accept random candidate') : null
-        ]
-      ) : (
+      simul.createdByMe(ctrl) ? [
+        startOrCancel(ctrl, accepted),
+        randomButton(ctrl, candidates)
+      ] : (
         simul.containsMe(ctrl) ? m('a.button.top_right', {
           onclick: partial(xhr.withdraw, ctrl)
         }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
