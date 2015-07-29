@@ -106,7 +106,7 @@ module.exports = function(opts) {
   this.replayEnabledByPref = function() {
     var d = this.data;
     return d.pref.replay === 2 || (
-      d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited')
+      d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
     );
   }.bind(this);
 
