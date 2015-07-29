@@ -135,6 +135,16 @@ object Player {
   type Win = Option[Boolean]
   type Builder = Color => Id => UserId => Win => Player
 
+  private def safeRange(range: Range, name: String)(id: String)(v: Int): Option[Int] =
+    if (range contains v) Some(v)
+    else {
+      logwarn(s"game.Player: $name=$v (range: $range)")
+      None
+    }
+
+  private val ratingRange = safeRange(0 to 4000, "rating") _
+  private val ratingDiffRange = safeRange(-1000 to 1000, "ratingDiff") _
+
   implicit val playerBSONHandler = new BSON[Builder] {
 
     import BSONFields._
@@ -149,8 +159,8 @@ object Player {
       lastDrawOffer = r intO lastDrawOffer,
       proposeTakebackAt = r intD proposeTakebackAt,
       userId = userId,
-      rating = r intO rating,
-      ratingDiff = r intO ratingDiff,
+      rating = r intO rating flatMap ratingRange(id),
+      ratingDiff = r intO ratingDiff flatMap ratingDiffRange(id),
       provisional = r boolD provisional,
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
