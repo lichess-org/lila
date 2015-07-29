@@ -3,6 +3,7 @@ var game = require('game').game;
 var ground = require('./ground');
 var util = require('./util');
 var xhr = require('./xhr');
+var sound = require('./sound');
 var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
