@@ -34,5 +34,6 @@ object SoundSet extends SoundSetObject {
     new SoundSet("piano", "Piano"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
-    new SoundSet("futuristic", "Futuristic"))
+    new SoundSet("futuristic", "Futuristic"),
+    new SoundSet("robot", "Robot"))
 }

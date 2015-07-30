@@ -1,0 +1,19 @@
+MPlayer SVN-r37379 (C) 2000-2015 MPlayer Team
+210 audio & 441 video codecs
+
+Playing /tmp/google-voice-output.mpg.
+libavformat version 56.25.101 (internal)
+Audio only file format detected.
+Load subtitles in /tmp/
+==========================================================================
+Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
+AUDIO: 16000 Hz, 2 ch, s16le, 32.0 kbit/6.25% (ratio: 4000->64000)
+Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers I, II, III)
+==========================================================================
+AO: [pulse] 16000Hz 2ch s16le (2 bytes per sample)
+Video: no video
+Starting playback...
+A:  -0.0 (unknown) of 1.0 (01.0) ??,?% [JA:   0.1 (00.0) of 1.0 (01.0) ??,?% [JA:   0.1 (00.1) of 1.0 (01.0) ??,?% [JA:   0.2 (00.1) of 1.0 (01.0) ??,?% [JA:   0.3 (00.2) of 1.0 (01.0)  0.0% [JA:   0.4 (00.3) of 1.0 (01.0)  0.0% [JA:   0.4 (00.4) of 1.0 (01.0)  0.0% [JA:   0.5 (00.4) of 1.0 (01.0)  0.0% [JA:   0.6 (00.5) of 1.0 (01.0)  0.0% [JA:   0.7 (00.6) of 1.0 (01.0)  0.1% [JA:   0.7 (00.7) of 1.0 (01.0)  0.0% [JA:   0.8 (00.8) of 1.0 (01.0)  0.0% [JA:   0.8 (00.8) of 1.0 (01.0)  0.0% [J
+
+
+Exiting... (End of file)
