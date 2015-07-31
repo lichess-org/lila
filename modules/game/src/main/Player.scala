@@ -138,7 +138,7 @@ object Player {
   private def safeRange(range: Range, name: String)(id: String)(v: Int): Option[Int] =
     if (range contains v) Some(v)
     else {
-      logwarn(s"game.Player: $name=$v (range: $range)")
+      logwarn(s"game.Player: $id $name=$v (range: ${range.min}-${range.max})")
       None
     }
 
@@ -159,8 +159,8 @@ object Player {
       lastDrawOffer = r intO lastDrawOffer,
       proposeTakebackAt = r intD proposeTakebackAt,
       userId = userId,
-      rating = r intO rating flatMap ratingRange(id),
-      ratingDiff = r intO ratingDiff flatMap ratingDiffRange(id),
+      rating = r intO rating flatMap ratingRange(userId),
+      ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
       provisional = r boolD provisional,
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
