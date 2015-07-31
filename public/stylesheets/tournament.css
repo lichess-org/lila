@@ -37,10 +37,6 @@ ol.scheduled_tournaments a:hover {
   padding-left: 90px;
   color: #4166a0!important;
   letter-spacing: 2px;
-  background: url(../images/background/diamond_upholstery.png) repeat;
-}
-body.dark #tournament .marathon_title {
-  background-image: url(../images/background/diamond_upholstery.dark.png);
 }
 #tournament .marathon_title .fire_trophy {
   position: absolute;
