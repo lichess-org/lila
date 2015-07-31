@@ -12,11 +12,13 @@ object $primitive {
     query: JsObject,
     field: String,
     modifier: QueryBuilder => QueryBuilder = identity,
-    max: Option[Int] = None)(extract: JsValue => Option[B]): Fu[List[B]] =
+    max: Option[Int] = None,
+    hint: BSONDocument = BSONDocument())(extract: JsValue => Option[B]): Fu[List[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
         .query(query)
+        .hint(hint)
         .projection(Json.obj(field -> true))
     } toList[BSONDocument] max map2 { (obj: BSONDocument) =>
       extract(JsObjectReader.read(obj) \ field get)
