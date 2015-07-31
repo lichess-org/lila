@@ -135,10 +135,10 @@ object Player {
   type Win = Option[Boolean]
   type Builder = Color => Id => UserId => Win => Player
 
-  private def safeRange(range: Range, name: String)(id: String)(v: Int): Option[Int] =
+  private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
     if (range contains v) Some(v)
     else {
-      logwarn(s"game.Player: $id $name=$v (range: ${range.min}-${range.max})")
+      logwarn(s"game.Player: $userId $name=$v (range: ${range.min}-${range.max})")
       None
     }
 
