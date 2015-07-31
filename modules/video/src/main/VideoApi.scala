@@ -183,10 +183,6 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import videoColl.BatchCommands.AggregationFramework, AggregationFramework.{
-      Descending, GroupField, Match, Project, Unwind, Sort, SumValue
-    }
-
     private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
       f = filterTags => {
         val allPaths =
@@ -194,13 +190,16 @@ private[video] final class VideoApi(
             tags.filterNot(_.isNumeric)
           }
           else {
-            videoColl.aggregate(
+            val command = Aggregate(videoColl.name, Seq(
               Match(BSONDocument("tags" -> BSONDocument("$all" -> filterTags))),
-              List(Project(BSONDocument("tags" -> BSONBoolean(true))),
-                Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
-              _.documents.flatMap(_.asOpt[TagNb]))
+              Project("tags" -> BSONBoolean(true)),
+              Unwind("tags"),
+              GroupField("tags")("nb" -> SumValue(1))
+            ))
+            videoColl.db.command(command) map {
+              _.toList.flatMap(_.asOpt[TagNb])
+            }
           }
-
         allPopular zip allPaths map {
           case (all, paths) =>
             val tags = all map { t =>
@@ -221,11 +220,17 @@ private[video] final class VideoApi(
       timeToLive = 1.day)
 
     private val popularCache = AsyncCache.single[List[TagNb]](
-      f = videoColl.aggregate(
-        Project(BSONDocument("tags" -> BSONBoolean(true))), List(
-          Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)),
-          Sort(Descending("nb")))).map(
-        _.documents.flatMap(_.asOpt[TagNb])),
+      f = {
+        val command = Aggregate(videoColl.name, Seq(
+          Project("tags" -> BSONBoolean(true)),
+          Unwind("tags"),
+          GroupField("tags")("nb" -> SumValue(1)),
+          Sort(Seq(Descending("nb")))
+        ))
+        videoColl.db.command(command) map {
+          _.toList.flatMap(_.asOpt[TagNb])
+        }
+      },
       timeToLive = 1.day)
   }
 }

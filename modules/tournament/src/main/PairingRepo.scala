@@ -72,20 +72,25 @@ object PairingRepo {
       BSONDocument("$set" -> BSONDocument(field -> value))).void
   }
 
-  import coll.BatchCommands.AggregationFramework,
-    AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
-
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
-    coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
-      Project(BSONDocument(
-        "u" -> BSONBoolean(true), "_id" -> BSONBoolean(false))),
-      Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
-      _.documents.headOption.flatMap(_.getAs[Set[String]]("ids")).
-        getOrElse(Set.empty[String]))
+    coll.db.command(Aggregate(coll.name, Seq(
+      Match(selectTour(tour.id) ++ selectPlaying),
+      Project("u" -> BSONBoolean(true), "_id" -> BSONBoolean(false)),
+      Unwind("u"),
+      Group(BSONBoolean(true))("ids" -> AddToSet("u"))
+    ))) map {
+      _.headOption flatMap {
+        _.getAs[Set[String]]("ids")
+      } getOrElse Set.empty
+    }
 
   def playingGameIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
-      Group(BSONBoolean(true))("ids" -> Push("_id")))).map(
-      _.documents.headOption.flatMap(_.getAs[List[String]]("ids")).
-        getOrElse(List.empty[String]))
+    coll.db.command(Aggregate(coll.name, Seq(
+      Match(selectTour(tourId) ++ selectPlaying),
+      Group(BSONBoolean(true))("ids" -> Push("_id"))
+    ))) map {
+      _.headOption flatMap {
+        _.getAs[List[String]]("ids")
+      } getOrElse Nil
+    }
 }

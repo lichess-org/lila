@@ -93,17 +93,17 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
+    private val PlayedIdsGroup = Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
+
     def playedIds(user: User, max: Int): Fu[BSONArray] = {
-      val col = attemptColl
-      import col.BatchCommands.AggregationFramework,
-        AggregationFramework.{ Group, Limit, Match, Push }
-
-      val playedIdsGroup =
-        Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
-
-      col.aggregate(Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
-        List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
-          _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
+      val command = Aggregate(attemptColl.name, Seq(
+        Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
+        Limit(max),
+        PlayedIdsGroup
+      ))
+      attemptColl.db.command(command) map {
+        _.headOption flatMap (_.getAs[BSONArray]("ids")) getOrElse BSONArray()
+      }
     }
 
     def hasVoted(user: User): Fu[Boolean] = attemptColl.find(

@@ -285,16 +285,16 @@ trait UserRepo {
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
-    val col = userTube.coll
-    import col.BatchCommands.AggregationFramework,
-      AggregationFramework.{ Match, Group, SumField }
-
-    col.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      List(Group(BSONBoolean(true))(F.toints -> SumField(F.toints)))).map(
-      _.documents.headOption flatMap { obj =>
+    import reactivemongo.core.commands._
+    val command = Aggregate(userTube.coll.name, Seq(
+      Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
+      Group(BSONBoolean(true))(F.toints -> SumField(F.toints))
+    ))
+    userTube.coll.db.command(command) map { stream =>
+      stream.toList.headOption flatMap { obj =>
         toJSON(obj).asOpt[JsObject]
       } flatMap { _ int F.toints }
-    ).map(~_)
+    } map (~_)
   }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =

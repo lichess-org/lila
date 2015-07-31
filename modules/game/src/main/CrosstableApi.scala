@@ -64,45 +64,53 @@ final class CrosstableApi(coll: Coll) {
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
+
       case (Some((u1, u2)), List(su1, su2)) =>
-        val col = tube.gameTube.coll
-        import col.BatchCommands.AggregationFramework,
-          AggregationFramework.{ Match, GroupField, SumValue }
-        
+
         val selector = BSONDocument(
           Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
           Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id))
 
         for {
-          localResults <- col.find(selector,
+
+          localResults <- tube.gameTube.coll.find(
+            selector,
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-          .cursor[BSONDocument]().collect[List](maxGames).map {
-            _.map { doc =>
-              doc.getAs[String](Game.BSONFields.id).map { id =>
-                Result(id, doc.getAs[String](Game.BSONFields.winnerId))
-              }
-            }.flatten.reverse
-          }
-          nbGames <- col.count(selector.some)
+            .cursor[BSONDocument]().collect[List](maxGames).map {
+              _.map { doc =>
+                doc.getAs[String](Game.BSONFields.id).map { id =>
+                  Result(id, doc.getAs[String](Game.BSONFields.winnerId))
+                }
+              }.flatten.reverse
+            }
+
+          nbGames <- tube.gameTube.coll.count(selector.some)
+
           ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults, nbGames)
 
-          crosstable <- col.aggregate(Match(selector), List(
-            GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
-            _.documents.foldLeft(ctDraft) {
-              case (ct, obj) => toJSON(obj).asOpt[JsObject] flatMap { o =>
-                o int "nb" map { nb =>
-                  ct.addWins(o str "_id", nb)
-                }
-              } getOrElse ct
-            })
+          crosstable <- {
+            val command = Aggregate(tube.gameTube.coll.name, Seq(
+              Match(selector),
+              GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1))
+            ))
+            tube.gameTube.coll.db.command(command) map { stream =>
+              stream.toList.foldLeft(ctDraft) {
+                case (ct, obj) => toJSON(obj).asOpt[JsObject] flatMap { o =>
+                  o int "nb" map { nb =>
+                    ct.addWins(o str "_id", nb)
+                  }
+                } getOrElse ct
+              }
+            }
+          }
 
           _ <- coll insert crosstable
+
         } yield crosstable.some
 
       case _ => fuccess(none)
     }
 
-  private def select(u1: String, u2: String) =
-    BSONDocument("_id" -> Crosstable.makeKey(u1, u2))
+  private def select(u1: String, u2: String) = BSONDocument("_id" -> Crosstable.makeKey(u1, u2))
 }

@@ -57,26 +57,27 @@ private[opening] final class OpeningApi(
         Attempt.BSONFields.id -> Attempt.makeId(opening.id, user.id)
       ).some) map (0!=)
 
+    private val PlayedIdsGroup = Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
+
     def playedIds(user: User, max: Int): Fu[BSONArray] = {
-      val col = attemptColl
-      import col.BatchCommands.AggregationFramework,
-        AggregationFramework.{ Group, Limit, Match, Push }
-
-      val playedIdsGroup =
-        Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
-
-      col.aggregate(Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
-        List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
-          _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
+      val command = Aggregate(attemptColl.name, Seq(
+        Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
+        Limit(max),
+        PlayedIdsGroup
+      ))
+      attemptColl.db.command(command) map {
+        _.headOption flatMap (_.getAs[BSONArray]("ids")) getOrElse BSONArray()
+      }
     }
   }
 
   object identify {
+
     def apply(fen: String, max: Int): Fu[List[Identified]] = nameColl.find(
       BSONDocument("_id" -> fen),
       BSONDocument("_id" -> false)
     ).one[BSONDocument] map { opt =>
-      Identified.many(~(opt ?? (_.getAs[List[String]]("names"))), max)
-    }
+        Identified.many(~(opt ?? (_.getAs[List[String]]("names"))), max)
+      }
   }
 }

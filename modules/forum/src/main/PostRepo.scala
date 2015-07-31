@@ -68,12 +68,14 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] = {
-    val col = postTube.coll
-    import col.BatchCommands.AggregationFramework,
-      AggregationFramework.{ Match, GroupField }
-
-    col.aggregate(Match(BSONDocument("topicId" -> topicId)),
-      List(GroupField("userId")())).map(
-      _.documents.map(_.getAs[String]("_id")).flatten)
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    val command = Aggregate(postTube.coll.name, Seq(
+      Match(BSONDocument("topicId" -> topicId)),
+      GroupField("userId")()
+    ))
+    postTube.coll.db.command(command) map { stream =>
+      stream.toList flatMap (_.getAs[String]("_id"))
+    }
   }
 }

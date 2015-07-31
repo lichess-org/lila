@@ -36,8 +36,8 @@ object Dependencies {
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.8.1"
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s-core" % "1.6.4"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.4"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.4.play24"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.2"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.2.play24"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.3.4"
 
