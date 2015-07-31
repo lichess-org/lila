@@ -132,7 +132,7 @@ final class AssessApi(
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
     } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 150
+      player.color.fold(white, black).perfs(perfType).progress >= 140
     }
 
     def noFastCoefVariation(player: Player): Option[Double] =
@@ -157,9 +157,9 @@ final class AssessApi(
       // give up on correspondence games
       else if (game.isCorrespondence) none
       // stop here for short games
-      else if (game.playedTurns < 40) none
+      else if (game.playedTurns < 36) none
       // stop here for long games
-      else if (game.playedTurns > 100) none
+      else if (game.playedTurns > 90) none
       // stop here for casual games
       else if (!game.mode.rated) none
       // someone is using a bot
@@ -177,7 +177,7 @@ final class AssessApi(
       // analyse some tourney games
       else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(20 >) && Random.nextInt(2) == 0) "New winner".some
+      else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) "New winner".some
       else none
 
     shouldAnalyse foreach { reason =>
