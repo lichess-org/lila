@@ -6,10 +6,10 @@ import play.api.mvc.RequestHeader
 object HTTPRequest {
 
   def isXhr(req: RequestHeader): Boolean =
-    (req.headers get "X-Requested-With") == Some("XMLHttpRequest")
+    (req.headers get "X-Requested-With") contains "XMLHttpRequest"
 
   def isSocket(req: RequestHeader): Boolean =
-    (req.headers get HeaderNames.UPGRADE) == Some("websocket")
+    (req.headers get HeaderNames.UPGRADE) ?? (_.toLowerCase == "websocket")
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
