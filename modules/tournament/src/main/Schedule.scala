@@ -39,7 +39,7 @@ object Schedule {
     case object Weekly extends Freq
     case object Monthly extends Freq
     case object Marathon extends Freq
-    case object ExperimentalMarathon extends Freq {
+    case object ExperimentalMarathon extends Freq { // for DB BC
       override val name = "Experimental Marathon"
     }
     val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly, Marathon, ExperimentalMarathon)

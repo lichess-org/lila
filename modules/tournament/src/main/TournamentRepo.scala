@@ -110,9 +110,20 @@ object TournamentRepo {
       _.filter(_.isStillWorthEntering)
     }
 
+  private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
+    tour.schedule.map(_.freq) map {
+      case Schedule.Freq.Marathon => 24 * 60
+      case Schedule.Freq.Monthly  => 6 * 60
+      case Schedule.Freq.Weekly   => 3 * 60
+      case Schedule.Freq.Daily    => 1 * 60
+      case _                      => 30
+    } getOrElse 30
+  }
+
   def promotable: Fu[List[Tournament]] =
-    stillWorthEntering zip publicCreatedSorted(30) map {
+    stillWorthEntering zip publicCreatedSorted(24 * 60) map {
       case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
+        case (acc, tour) if !isPromotable(tour)          => acc
         case (acc, tour) if acc.exists(_ similarTo tour) => acc
         case (acc, tour)                                 => tour :: acc
       }.reverse
