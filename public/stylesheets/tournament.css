@@ -26,6 +26,9 @@ ol.scheduled_tournaments a:hover {
   font-weight: bold;
   font-size: 20px;
 }
+#tournament .title_tag.starting_in {
+  margin-top: 13px;
+}
 #tournament .title_tag .shy {
   line-height: 20px;
   font-weight: bold;

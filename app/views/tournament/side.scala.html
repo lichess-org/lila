@@ -19,7 +19,11 @@
     </div>
   </div>
   @if(tour.createdBy == "lichess") {
+  @if(tour.id == "summer15") {
+  <a href="http://en.lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
+  } else {
   @trans.tournamentOfficial()
+  }
   } else {
   @trans.by(usernameOrId(tour.createdBy))
   }

@@ -16,10 +16,11 @@ function startingMoment(data) {
       }, data.startsAt)
     ]);
 
-  return m('div.tournament_clock.title_tag', {
+  return m('div.tournament_clock.title_tag.starting_in', {
     config: util.clock(data.secondsToStart)
   }, [
     m('span.shy', 'Starting in '),
+    m('br'),
     m('span.time.text')
   ]);
 }
