@@ -33,20 +33,6 @@ object Trophy {
       url = "http://lichess.org/qa/340/way-of-berserk-trophy".some,
       "fire_trophy".some)
 
-    object ExperimentalMarathonWinner extends Kind(
-      key = "marathonWinner",
-      name = "Marathon Winner",
-      icon = "\\".some,
-      url = "http://lichess.org/tournament/maratexp".some,
-      "fire_trophy".some)
-
-    object ExperimentalMarathonTopTen extends Kind(
-      key = "marathonTopTen",
-      name = "Marathon Top 10",
-      icon = "\\".some,
-      url = "http://lichess.org/tournament/maratexp".some,
-      "fire_trophy".some)
-
     object MarathonWinner extends Kind(
       key = "marathonWinner",
       name = "Marathon Winner",
@@ -73,13 +59,6 @@ object Trophy {
       name = "Marathon #1 survivor",
       icon = ",".some,
       url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
-      "fire_trophy".some)
-
-    object ExperimentalMarathon extends Kind(
-      key = "experimentalMarathon",
-      name = "Experimental Marathon Top 10",
-      icon = ",".some,
-      url = "http://lichess.org/tournament/maratexp".some,
       "fire_trophy".some)
 
     object BongcloudWarrior extends Kind(
@@ -121,7 +100,6 @@ object Trophy {
       ZugMiracle,
       WayOfBerserk,
       MarathonSurvivor,
-      ExperimentalMarathonWinner, ExperimentalMarathonTopTen,
       MarathonWinner, MarathonTopTen, MarathonTopFifty,
       BongcloudWarrior,
       Developer, Moderator,
