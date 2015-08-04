@@ -31,7 +31,7 @@ div.user_show .fire_trophy span {
   -webkit-transform: scale(0.35) translate(-103px, -3px);
   margin-top: -63px!important;
   margin-right: -50px;
-  opacity: 0.8;
+  opacity: 0.9;
   transition: 0.8s;
 }
 div.user_show .fire_trophy span:hover {

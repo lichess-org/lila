@@ -2570,6 +2570,7 @@ input.copyable {
   color: rgba(0, 0, 0, 0.6);
   font-size: 150px;
   display: block;
+  text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
 }
 .fire_trophy.marathonWinner span,
 .fire_trophy.marathonTopTen span,
@@ -2577,18 +2578,11 @@ input.copyable {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }
-.fire_trophy span {
+.fire_trophy span:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
   -moz-animation: fire 1.25s ease-in-out infinite alternate;
   -webkit-animation: fire 1.25s ease-in-out infinite alternate;
   -o-animation: fire 1.25s ease-in-out infinite alternate;
-}
-body.typing .fire_trophy span {
-  animation: none;
-  -moz-animation: none;
-  -webkit-animation: none;
-  -o-animation: none;
-  text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
 }
 @keyframes fire {
   0% {
