@@ -5,8 +5,7 @@ import api._
 import Implicits._
 import play.api.libs.json._
 import reactivemongo.api.collections.bson.BSONCollection
-import reactivemongo.api.SortOrder
-import reactivemongo.api.{ QueryOpts, SortOrder }
+import reactivemongo.api.QueryOpts
 import reactivemongo.bson._
 
 import lila.common.paginator.AdapterLike

@@ -2,11 +2,16 @@ package lila.db
 package api
 
 import play.api.libs.json._
-import reactivemongo.api.SortOrder
 import reactivemongo.bson._
 
-object $sort {
+sealed trait SortOrder
 
+object SortOrder {
+  object Ascending extends SortOrder
+  object Descending extends SortOrder
+}
+
+object $sort {
   def asc: SortOrder = SortOrder.Ascending
   def desc: SortOrder = SortOrder.Descending
 

@@ -3,6 +3,7 @@ package mashup
 
 import lila.game.{ Game, Query }
 import lila.user.User
+import lila.db.api.SortOrder
 
 import play.api.libs.json._
 import scalaz.NonEmptyList
@@ -10,7 +11,6 @@ import scalaz.NonEmptyList
 sealed abstract class GameFilter(val name: String)
 
 object GameFilter {
-
   case object All extends GameFilter("all")
   case object Me extends GameFilter("me")
   case object Rated extends GameFilter("rated")
@@ -95,7 +95,7 @@ object GameFilterMenu {
       case Bookmark => Env.bookmark.api.gamePaginatorByUser(user, page)
       case Imported => pag.apply(
         selector = Query imported user.id,
-        sort = Seq("pgni.ca" -> reactivemongo.api.SortOrder.Descending),
+        sort = Seq("pgni.ca" -> SortOrder.Descending),
         nb = nb)(page)
       case All   => std(Query started user)
       case Me    => std(Query.opponents(user, me | user))
