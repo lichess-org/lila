@@ -11,7 +11,7 @@
     <div class="setup">
       @sim.variants.map(_.name).mkString(", ") • @trans.casual()
     </div>
-    Host extra time: @sim.clock.hostExtraMinutes minutes
+    @trans.simulHostExtraTime(): @sim.clock.hostExtraMinutes @if(sim.clock.hostExtraMinutes == 0) { minute } else { minutes }
   </div>
   @trans.by(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFormat(sim.createdAt)</span>
 </div>
