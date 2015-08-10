@@ -44,8 +44,7 @@ module.exports = function(opts) {
     redirecting: false,
     replayHash: '',
     moveToSubmit: null,
-    buttonFeedback: null,
-    videochat: false
+    buttonFeedback: null
   };
 
   this.socket = new socket(opts.socketSend, this);
@@ -308,11 +307,6 @@ module.exports = function(opts) {
       this.vm.buttonFeedback = null;
       m.redraw();
     }.bind(this), 500);
-  }.bind(this);
-
-  this.setVideochat = function(v) {
-    this.vm.videochat = v;
-    m.redraw();
   }.bind(this);
 
   this.router = opts.routes;

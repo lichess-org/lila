@@ -83,12 +83,6 @@ private[round] final class SocketHandler(
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentOrganizer ! Berserk(gameId, userId)
         }
-        case ("peerId", o) => o str "d" foreach { peerId =>
-          messenger.systemForOwners(ref.gameId, (_.untranslated(
-            s"${ref.color.name.capitalize} starts video chat"
-          )))
-          socket ! PeerId(ref.color, peerId)
-        }
       }
     }
   }

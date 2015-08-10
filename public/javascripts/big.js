@@ -1182,78 +1182,6 @@ lichess.storage = {
   // game.js //
   /////////////
 
-  var makeVideochat = function(el, socket, onChange) {
-    // Compatibility shim
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-    var $el = $(el);
-    var peer;
-    var myPeerId;
-    var theirPeerId;
-    var maybeCall = function() {
-      if (peer && myPeerId && theirPeerId && window.localStream) {
-        var call = peer.call(theirPeerId, window.localStream);
-        // console.log(call, 'calling');
-        onCall(call);
-        return true;
-      }
-      return false;
-    };
-    var maybeSendPeerId = function() {
-      if (peer && window.localStream) {
-        // console.log(myPeerId, 'sending myPeerId');
-        socket.send('peerId', myPeerId);
-      }
-    };
-    var onCall = function(call) {
-      if (window.existingCall) window.existingCall.close();
-      call.on('stream', function(stream) {
-        // console.log('got their stream ' + URL.createObjectURL(stream));
-        $el.find('.their-video').prop('src', URL.createObjectURL(stream));
-        onChange(true);
-      }).on('close', function(e) {
-        console.log(e, 'call closed!')
-      }).on('error', function(e) {
-        console.log(e, 'call error!')
-      });
-      window.existingCall = call;
-      // console.log(call, 'call hooked');
-    };
-    return {
-      connect: function() {
-        if (!peer) peer = new Peer({
-          host: 'lichess.org',
-          port: 9555,
-          key: 'breuzablorg',
-          debug: 1
-        }).on('open', function() {
-          myPeerId = peer.id;
-          maybeSendPeerId();
-        }).on('call', function(call) {
-          call.answer(window.localStream);
-          onCall(call);
-        }).on('error', function(err) {
-          console.log(err.message);
-        });
-        navigator.getUserMedia({
-          audio: true,
-          video: true
-        }, function(stream) {
-          $el.find('.my-video').prop('src', URL.createObjectURL(stream));
-          window.localStream = stream;
-          maybeCall() || maybeSendPeerId();
-        }, function(err) {
-          console.log(err);
-        });
-      },
-      setOpponentPeerId: function(id) {
-        console.log(id, 'received theirPeerId');
-        theirPeerId = id;
-        maybeCall();
-      }
-    };
-  };
-
   function startRound(element, cfg) {
     var data = cfg.data;
     if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
@@ -1263,19 +1191,7 @@ lichess.storage = {
       data.url.socket,
       data.player.version, {
         options: {
-          name: "round",
-          onFirstConnect: function() {
-            $('#videochat').each(function() {
-              lichess.videochat = makeVideochat(this, lichess.socket, round.setVideochat);
-              var connect = function() {
-                // $.getScript("http://l1.org/assets/javascripts/vendor/peer.min.js")
-                $.getScript("https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js")
-                  .done(lichess.videochat.connect);
-              };
-              Mousetrap.bind('p a l a n t i r', connect);
-              // $('div.clock').click(connect);
-            });
-          }
+          name: "round"
         },
         params: {
           ran: "--ranph--",
@@ -1285,9 +1201,6 @@ lichess.storage = {
           round.socketReceive(t, d);
         },
         events: {
-          peerId: function(id) {
-            if (lichess.videochat) lichess.videochat.setOpponentPeerId(id);
-          },
           crowd: function(e) {
             $watchers.watchers("set", e.watchers);
           },
@@ -1352,8 +1265,6 @@ lichess.storage = {
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       window.history.replaceState(null, null, '/' + data.game.id);
-
-    $('#videochat').each(function() {});
   }
 
   function startPrelude(element, cfg) {
