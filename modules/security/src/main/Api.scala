@@ -1,5 +1,7 @@
 package lila.security
 
+import lila.db.ByteArray
+import lila.db.ByteArray.ByteArrayBSONHandler
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
@@ -58,6 +60,25 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
         tube.storeColl.find(
           BSONDocument(
             "ip" -> BSONDocument("$in" -> ips.distinct),
+            "user" -> BSONDocument("$ne" -> userId)
+          ),
+          BSONDocument("user" -> true)
+        ).cursor[BSONDocument]().collect[List]().map {
+            _.flatMap(_.getAs[String]("user"))
+          }
+      }
+
+  def userIdsSharingFingerprint(userId: String): Fu[List[String]] =
+    tube.storeColl.find(
+      BSONDocument("user" -> userId, "fp" -> BSONDocument("$exists" -> true)),
+      BSONDocument("fp" -> true)
+    ).cursor[BSONDocument]().collect[List]().map {
+        _.flatMap(_.getAs[ByteArray]("fp"))
+      }.flatMap {
+        case Nil => fuccess(Nil)
+        case fps => tube.storeColl.find(
+          BSONDocument(
+            "fp" -> BSONDocument("$in" -> fps.distinct),
             "user" -> BSONDocument("$ne" -> userId)
           ),
           BSONDocument("user" -> true)

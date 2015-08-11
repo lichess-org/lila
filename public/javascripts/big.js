@@ -1049,7 +1049,9 @@ lichess.storage = {
     });
 
     if (window.Fingerprint2) setTimeout(function() {
-      new Fingerprint2().get(function(res) {
+      new Fingerprint2({
+        excludeJsFonts: true
+      }).get(function(res) {
         $.post('/set-fingerprint/' + res);
       });
     }, 500);

@@ -13,17 +13,34 @@ import tube.storeColl
 case class UserSpy(
     ips: List[UserSpy.IPData],
     uas: List[String],
-    otherUsers: List[User]) {
+    usersSharingIp: List[User],
+    usersSharingFingerprint: List[User]) {
+
+  import UserSpy.OtherUser
 
   def ipStrings = ips map (_.ip)
 
   def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
     ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
+
+  lazy val otherUsers: List[OtherUser] = {
+    usersSharingIp.map { u =>
+      OtherUser(u, true, usersSharingFingerprint contains u)
+    } ::: usersSharingFingerprint.filterNot(usersSharingIp.contains).map {
+      OtherUser(_, false, true)
+    }
+  }.sortBy(-_.user.createdAt.getMillis)
+
+  println(this)
 }
 
 object UserSpy {
 
+  case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
+
   type IP = String
+  type Fingerprint = String
+  type Value = String
 
   case class IPData(ip: IP, blocked: Boolean, location: Location, tor: Boolean)
 
@@ -41,39 +58,35 @@ object UserSpy {
         case (ip, _)   => geoIP orUnknown ip
       }
     }
-    users ← explore(Set(user), Set.empty, Set(user))
+    sharingIp ← exploreSimilar("ip")(user)
+    sharingFingerprint ← exploreSimilar("fp")(user)
   } yield UserSpy(
     ips = ips zip blockedIps zip locations zip tors map {
       case (((ip, blocked), location), tor) => IPData(ip, blocked, location, tor)
     },
     uas = infos.map(_.ua).distinct,
-    otherUsers = (users + user).toList.sortBy(-_.createdAt.getMillis))
+    usersSharingIp = (sharingIp + user).toList.sortBy(-_.createdAt.getMillis),
+    usersSharingFingerprint = (sharingFingerprint + user).toList.sortBy(-_.createdAt.getMillis))
 
-  private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
-    nextIps(users, ips) flatMap { nIps =>
-      nextUsers(nIps, users) map { _ ++: users ++: _users }
-    }
-  }
-
-  private def nextIps(users: Set[User], ips: Set[IP]): Fu[Set[IP]] =
-    users.nonEmpty ?? {
-      storeColl.find(
-        BSONDocument(
-          "user" -> BSONDocument("$in" -> users.map(_.id)),
-          "ip" -> BSONDocument("$nin" -> ips)
-        ),
-        BSONDocument("ip" -> true)
-      ).cursor[BSONDocument]().collect[List]() map {
-          _.flatMap(_.getAs[IP]("ip")).toSet
-        }
+  private def exploreSimilar(field: String)(user: User): Fu[Set[User]] =
+    nextValues(field)(user).thenPp flatMap { nValues =>
+      nextUsers(field)(nValues, user).thenPp map { _ + user }
     }
 
-  private def nextUsers(ips: Set[IP], users: Set[User]): Fu[Set[User]] =
-    ips.nonEmpty ?? {
+  private def nextValues(field: String)(user: User): Fu[Set[Value]] =
+    storeColl.find(
+      BSONDocument("user" -> user.id),
+      BSONDocument(field -> true)
+    ).cursor[BSONDocument]().collect[List]() map {
+        _.flatMap(_.getAs[Value](field)).toSet
+      }
+
+  private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
+    values.nonEmpty ?? {
       storeColl.find(
         BSONDocument(
-          "ip" -> BSONDocument("$in" -> ips),
-          "user" -> BSONDocument("$nin" -> users.map(_.id))
+          field -> BSONDocument("$in" -> values),
+          "user" -> BSONDocument("$ne" -> user.id)
         ),
         BSONDocument("user" -> true)
       ).cursor[BSONDocument]().collect[List]() map {

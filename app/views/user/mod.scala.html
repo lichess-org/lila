@@ -212,12 +212,13 @@
   </div>
   }
   @if(spy.otherUsers.size < 1) {
-  <strong>No user found with this IP</strong>
+  <strong>No similar user found</strong>
   } else {
   <table class="others slist">
     <thead>
       <tr>
-        <th>@spy.otherUsers.size user(s) sharing IPs</th>
+        <th>@spy.otherUsers.size similar user(s)</th>
+        <th>Same</th>
         <th>Games</th>
         <th>Marks</th>
         <th>IPban</th>
@@ -226,9 +227,11 @@
       </tr>
     </thead>
     <tbody>
-      @spy.otherUsers.map { o =>
+      @spy.otherUsers.map {
+      case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
       <tr @if(o == u){class="same"}>
         <td>@userLink(o, withBestRating = true, params = "?mod")</td>
+        <td>@List(byIp option "IP", byFp option "Browser").flatten.mkString(", ")</td>
         <td>@o.count.game</td>
         <td>
           @if(o.engine){ENGINE}
@@ -244,6 +247,7 @@
         <td>@if(o.disabled){CLOSED}</td>
         <td>@momentFromNow(o.createdAt)</td>
       </tr>
+      }
       }
     </tbody>
   </table>

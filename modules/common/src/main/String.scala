@@ -18,8 +18,4 @@ object String {
 
     def apply(url: String) = regex.replaceAllIn(url, netDomain)
   }
-
-  def hex2bytes(hex: String): Array[Byte] = hex.sliding(2, 2).toArray.map(Integer.parseInt(_, 16).toByte)
-
-  def bytes2hex(bytes: Array[Byte]): String = bytes.map("%02x".format(_)).mkString
 }

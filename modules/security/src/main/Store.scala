@@ -6,9 +6,9 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.BSONDocument
 
-import lila.common.String.{ hex2bytes, bytes2hex }
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.ByteArray
 import lila.user.{ User, UserRepo }
 import tube.storeColl
 
@@ -49,14 +49,19 @@ object Store {
     BSONDocument("$set" -> BSONDocument("up" -> false)),
     multi = true).void
 
-  def setFingerprint(id: String, fingerprint: String) = storeColl.update(
-    BSONDocument("_id" -> id),
-    BSONDocument("$set" -> BSONDocument("fp" -> hex2bytes(fingerprint)))).void
+  def setFingerprint(id: String, fingerprint: String) =
+    ByteArray.fromHexStr(fingerprint).future flatMap { bytes =>
+      storeColl.update(
+        BSONDocument("_id" -> id),
+        BSONDocument("$set" -> BSONDocument("fp" -> bytes))).void
+    }
 
-  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[String]) {
+  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[ByteArray]) {
     def isTorExitNode = ~tor
+    def fingerprint = fp.map(_.toString)
   }
   import reactivemongo.bson.Macros
+  import ByteArray.ByteArrayBSONHandler
   private implicit val InfoBSONHandler = Macros.handler[Info]
 
   def findInfoByUser(userId: String): Fu[List[Info]] =
