@@ -22,7 +22,7 @@
 }
 
 @simul.layout(
-title = trans.simultaneousExhibitions(),
+title = trans.simultaneousExhibitions.str(),
 side = side.some) {
 <div id="simul_list" data-href="@routes.Simul.homeReload()">
   @simul.homeInner(opens, starteds, finisheds)
