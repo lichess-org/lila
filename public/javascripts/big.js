@@ -481,7 +481,7 @@ lichess.storage = {
           }
           $('.lichess_overboard.joining.' + data.id).each(function() {
             if (!$(this).find('a.decline').length) $(this).find('form').append(
-              declineListener($(data.html).find('a.decline').text($.trans('decline')), function() {
+              declineListener($(data.html).find('a.decline').text($.trans('Decline')), function() {
                 location.href = "/";
               })
             );
