@@ -37,11 +37,16 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
     firewall accepts req flatMap {
       _ ?? {
-        req.session.get("sessionId") ?? { sessionId =>
+        reqSessionId(req) ?? { sessionId =>
           Store userId sessionId flatMap { _ ?? UserRepo.byId }
         }
       }
     }
+
+  def setFingerprint(req: RequestHeader, fingerprint: String): Funit =
+    reqSessionId(req) ?? { Store.setFingerprint(_, fingerprint) }
+
+  private def reqSessionId(req: RequestHeader) = req.session get "sessionId"
 
   def userIdsSharingIp(userId: String): Fu[List[String]] =
     tube.storeColl.find(

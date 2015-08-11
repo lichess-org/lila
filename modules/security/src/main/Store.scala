@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.BSONDocument
 
+import lila.common.String.{ hex2bytes, bytes2hex }
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
@@ -48,7 +49,11 @@ object Store {
     BSONDocument("$set" -> BSONDocument("up" -> false)),
     multi = true).void
 
-  case class Info(ip: String, ua: String, tor: Option[Boolean]) {
+  def setFingerprint(id: String, fingerprint: String) = storeColl.update(
+    BSONDocument("_id" -> id),
+    BSONDocument("$set" -> BSONDocument("fp" -> hex2bytes(fingerprint)))).void
+
+  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[String]) {
     def isTorExitNode = ~tor
   }
   import reactivemongo.bson.Macros
@@ -57,6 +62,6 @@ object Store {
   def findInfoByUser(userId: String): Fu[List[Info]] =
     storeColl.find(
       BSONDocument("user" -> userId),
-      BSONDocument("ip" -> true, "ua" -> true, "tor" -> true)
+      BSONDocument("_id" -> false, "ip" -> true, "ua" -> true, "tor" -> true, "fp" -> true)
     ).cursor[Info]().collect[List]()
 }

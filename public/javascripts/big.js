@@ -1047,6 +1047,12 @@ lichess.storage = {
     Mousetrap.bind('d o g g y', function() {
       $('body').toggleClass('doggy');
     });
+
+    if (window.Fingerprint2) setTimeout(function() {
+      new Fingerprint2().get(function(res) {
+        $.post('/set-fingerprint/' + res);
+      });
+    }, 500);
   });
 
   $.lazy = function(factory) {

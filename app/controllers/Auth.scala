@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.data._, Forms._
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 import lila.api.Context
 import lila.app._
@@ -154,6 +154,11 @@ object Auth extends LilaController {
   private def noTorResponse(implicit ctx: Context) = negotiate(
     html = Unauthorized(html.auth.tor()).fuccess,
     api = _ => Unauthorized(Json.obj("error" -> "Can't login from TOR, sorry!")).fuccess)
+
+  def setFingerprint(hash: String) = Auth { ctx =>
+    me =>
+      api.setFingerprint(ctx.req, hash) inject Ok
+  }
 
   def passwordReset = Open { implicit ctx =>
     forms.passwordResetWithCaptcha map {

@@ -69,6 +69,10 @@ trait AssetHelper { self: I18nHelper =>
     test = "$.typeahead",
     local = staticUrl("vendor/typeahead.bundle.min.js"))
 
+  val fingerprintTag = Html {
+    """<script src="http://cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+  }
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""

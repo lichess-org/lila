@@ -18,7 +18,7 @@
 <a id="marathon_promo" href="@routes.Tournament.show(marathon.id)" data-icon="\">
   <span class="name">@marathon.fullName</span>
   <span class="more">
-    @trans.nbConnectedPlayers(marathon.nbPlayers.localize) • 
+    @trans.nbConnectedPlayers(marathon.nbPlayers.localize) •
     @if(marathon.isStarted) {
     finishes@momentFromNow(marathon.finishesAt)
     } else {
@@ -46,11 +46,13 @@
   @trans.nbConnectedPlayers("<strong>?</strong>")
 </div>
 <div id="nb_games_in_play" class="baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</div>
+@if(lila.common.HTTPRequest.isMobile(ctx.req)) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
 } else {
 @if(lila.common.HTTPRequest.isIOS(ctx.req)) {
 @mobile.appleStoreButton()
+}
 }
 }
 }
