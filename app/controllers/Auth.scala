@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.data._, Forms._
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
 
 import lila.api.Context
 import lila.app._
@@ -168,11 +168,10 @@ object Auth extends LilaController {
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
       data => {
-        val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-        UserRepo enabledByEmail email flatMap {
-          case Some(user) =>
+        UserRepo enabledByEmail data.email flatMap {
+          case Some(user) if env.emailAddress.isValid(data.email) =>
             Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
-          case None => forms.passwordResetWithCaptcha map {
+          case _ => forms.passwordResetWithCaptcha map {
             case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
           }
         }
