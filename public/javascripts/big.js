@@ -596,8 +596,6 @@ lichess.storage = {
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
     else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
 
-    document.body.classList.remove('preload');
-
     $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
