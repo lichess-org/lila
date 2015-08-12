@@ -60,7 +60,7 @@ object Mod extends LilaController {
       if (isGranted(_.SetTitle))
         lila.user.DataForm.title.bindFromRequest.fold(
           err => fuccess(redirect(username, mod = true)),
-          title => modApi.setTitle(me.id, username, title) inject redirect(username, false)
+          title => modApi.setTitle(me.id, username, title) inject redirect(username, mod = false)
         )
       else fuccess(authorizationFailed(ctx.req))
   }
@@ -68,12 +68,14 @@ object Mod extends LilaController {
   def setEmail(username: String) = AuthBody { implicit ctx =>
     me =>
       implicit def req = ctx.body
-      if (isGranted(_.SetEmail))
-        Env.security.forms.modEmail.bindFromRequest.fold(
-          err => fuccess(redirect(username, mod = true)),
-          email => modApi.setEmail(me.id, username, email) inject redirect(username, false)
-        )
-      else fuccess(authorizationFailed(ctx.req))
+      OptionFuResult(UserRepo named username) { user =>
+        if (isGranted(_.SetEmail) && !isGranted(_.SetEmail, user))
+          Env.security.forms.modEmail.bindFromRequest.fold(
+            err => fuccess(redirect(user.username, mod = true)),
+            email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
+          )
+        else fuccess(authorizationFailed(ctx.req))
+      }
   }
 
   def log = Auth { implicit ctx =>

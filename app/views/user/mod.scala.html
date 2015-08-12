@@ -48,7 +48,7 @@
     @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
   </form>
   }
-  @if(isGranted(_.SetEmail)) {
+  @if(isGranted(_.SetEmail) && !isGranted(_.SetEmail, u)) {
   <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
     <input type="email" value="@email" name="email" placeholder="Email address" />
   </form>

@@ -211,6 +211,9 @@ private[controllers] trait LilaController
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
 
+  protected def isGranted(permission: Permission.type => Permission, user: UserModel): Boolean =
+    Granter(permission(Permission))(user)
+
   protected def isGranted(permission: Permission.type => Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
 
