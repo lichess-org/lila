@@ -40,15 +40,15 @@ final class Env(
     max = YoutubeMax,
     api = api)
 
-  if (!isDev) {
-    scheduler.effect(SheetDelay, "video update from sheet") {
-      sheet.fetchAll logFailure "video sheet"
-    }
+  // if (!isDev) {
+  //   scheduler.effect(SheetDelay, "video update from sheet") {
+  //     sheet.fetchAll logFailure "video sheet"
+  //   }
 
-    scheduler.effect(YoutubeDelay, "video update from youtube") {
-      youtube.updateAll logFailure "video youtube"
-    }
-  }
+  //   scheduler.effect(YoutubeDelay, "video update from youtube") {
+  //     youtube.updateAll logFailure "video youtube"
+  //   }
+  // }
 
   private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
