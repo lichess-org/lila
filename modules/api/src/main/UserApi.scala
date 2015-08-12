@@ -19,8 +19,7 @@ private[api] final class UserApi(
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     makeUrl: String => String,
-    apiToken: String,
-    userIdsSharingIp: String => Fu[List[String]]) {
+    apiToken: String) {
 
   def list(
     team: Option[String],
@@ -45,19 +44,17 @@ private[api] final class UserApi(
   def one(username: String, token: Option[String])(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
-      (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
       (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
       relationApi.nbFollowing(u.id) zip
       relationApi.nbFollowers(u.id) zip
       ctx.isAuth.?? { prefApi followable u.id } zip
       ctx.userId.?? { relationApi.relation(_, u.id) } zip
       ctx.userId.?? { relationApi.relation(u.id, _) } map {
-        case (((((((gameOption, knownEngines), nbGamesWithMe), following), followers), followable), relation), revRelation) =>
+        case ((((((gameOption, nbGamesWithMe), following), followers), followable), relation), revRelation) =>
           jsonView(u, extended = true) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
               "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/{$g.color.name}")),
-              "knownEnginesSharingIp" -> knownEngines,
               "nbFollowing" -> following,
               "nbFollowers" -> followers,
               "count" -> Json.obj(
@@ -81,9 +78,6 @@ private[api] final class UserApi(
           }.noNull
       } map (_.some)
   }
-
-  def knownEnginesSharingIp(userId: String): Fu[List[String]] =
-    userIdsSharingIp(userId) flatMap UserRepo.filterByEngine
 
   private def makeNb(nb: Option[Int], token: Option[String]) = math.min(check(token) ? 1000 | 100, nb | 10)
 

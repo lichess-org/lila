@@ -29,7 +29,6 @@ final class Env(
     getRelay: String => Fu[Option[lila.relay.Relay]],
     getRelayName: String => Option[String],
     getTournamentName: String => Option[String],
-    userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -84,8 +83,7 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
-    prefApi = prefApi,
-    userIdsSharingIp = userIdsSharingIp)
+    prefApi = prefApi)
 
   val analysisApi = new AnalysisApi
 
@@ -144,7 +142,6 @@ object Env {
     crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
-    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     system = lila.common.PlayApp.system,
     isProd = lila.common.PlayApp.isProd)
 }
