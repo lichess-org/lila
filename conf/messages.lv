@@ -1,5 +1,5 @@
-playWithAFriend=Spēlet ar draugu
-playWithTheMachine=Spēlet ar datoru
+playWithAFriend=Spēlēt ar draugu
+playWithTheMachine=Spēlēt ar datoru
 toInviteSomeoneToPlayGiveThisUrl=Lai uzaicinātu kādu spēlēt, iedod šo saiti
 gameOver=Spēle galā
 waitingForOpponent=Gaidām pretinieku
@@ -152,7 +152,7 @@ nbWins=%s uzvaras
 nbLosses=%s zaudējumi
 nbDraws=%s neizšķirti
 exportGames=Eksportēt spēles
-ratingRange=Vērtējuma diapazons
+ratingRange=Reitinga diapazons
 giveNbSeconds=Piešķirt %s sekundes
 premoveEnabledClickAnywhereToCancel=Priekšgājiens iestatīts - Noklikšķiniet jebkur, lai atceltu
 thisPlayerUsesChessComputerAssistance=Šis spēlētājs izmanto šaha programmu palīdzību
