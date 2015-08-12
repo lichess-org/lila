@@ -8,7 +8,7 @@ private[round] final class Takebacker(
     uciMemo: UciMemo,
     prefApi: PrefApi) {
 
-  def yes(pov: Pov): Fu[Events] = IfAllowedByPrefs(pov.game) {
+  def yes(pov: Pov): Fu[Events] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, _) if pov.opponent.isProposingTakeback =>
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
@@ -24,7 +24,7 @@ private[round] final class Takebacker(
     }
   }
 
-  def no(pov: Pov): Fu[Events] = IfAllowedByPrefs(pov.game) {
+  def no(pov: Pov): Fu[Events] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, color) if pov.player.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionCanceled)
@@ -47,8 +47,9 @@ private[round] final class Takebacker(
       }
     }
 
-  private def IfAllowedByPrefs(game: Game)(f: => Fu[Events]): Fu[Events] =
-    isAllowedByPrefs(game) flatMap {
+  private def IfAllowed(game: Game)(f: => Fu[Events]): Fu[Events] =
+    if (!game.playable) ClientErrorException.future("[takebacker] game is over " + game.id)
+    else isAllowedByPrefs(game) flatMap {
       _.fold(f, ClientErrorException.future("[takebacker] disallowed by preferences " + game.id))
     }
 
