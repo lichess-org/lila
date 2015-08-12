@@ -23,6 +23,7 @@ object Permission {
   case object CloseAccount extends Permission("ROLE_CLOSE_ACCOUNT", List(UserSpy))
   case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
   case object SetTitle extends Permission("ROLE_SET_TITLE", List(UserSpy))
+  case object SetEmail extends Permission("ROLE_SET_EMAIL", List(UserSpy))
   case object SeeReport extends Permission("ROLE_SEE_REPORT")
   case object RelayContent extends Permission("ROLE_RELAY_CONTENT")
 
@@ -31,7 +32,7 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     ViewBlurs, MarkTroll, MarkEngine, MarkBooster, StaffForum, ModerateForum, UserSpy,
-    UserEvaluate, SeeReport, IpBan, CloseAccount, ReopenAccount, SetTitle,
+    UserEvaluate, SeeReport, IpBan, CloseAccount, ReopenAccount, SetTitle, SetEmail,
     ModerateQa, RelayContent))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))

@@ -176,11 +176,12 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      (Env.security userSpy user.id) zip
+      UserRepo.email(user.id) zip
+        (Env.security userSpy user.id) zip
         (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) flatMap {
-          case (spy, playerAggregateAssessment) =>
+          case ((email, spy), playerAggregateAssessment) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, spy, playerAggregateAssessment, bans)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans)
             }
         }
     }

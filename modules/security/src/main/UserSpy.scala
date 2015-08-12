@@ -30,8 +30,6 @@ case class UserSpy(
       OtherUser(_, false, true)
     }
   }.sortBy(-_.user.createdAt.getMillis)
-
-  println(this)
 }
 
 object UserSpy {

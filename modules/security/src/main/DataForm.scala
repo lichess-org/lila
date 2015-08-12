@@ -95,6 +95,8 @@ final class DataForm(
     .verifying("This email already exists", e => !emailAddress.isTaken(e.email))
   )
 
+  val modEmail = Form(single("email" -> acceptableUniqueEmail))
+
   val closeAccount = Form(single("passwd" -> nonEmptyText))
 }
 

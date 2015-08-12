@@ -36,6 +36,10 @@ final class ModlogApi {
     Modlog(mod, user.some, name.isDefined.fold(Modlog.setTitle, Modlog.removeTitle), details = name)
   }
 
+  def setEmail(mod: String, user: String) = add {
+    Modlog(mod, user.some, Modlog.setEmail)
+  }
+
   def ipban(mod: String, ip: String) = add {
     Modlog(mod, none, Modlog.ipban, ip.some)
   }
