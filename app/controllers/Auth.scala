@@ -8,7 +8,7 @@ import play.api.Play.current
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
+import lila.common.{ LilaCookie, HTTPRequest }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -155,8 +155,9 @@ object Auth extends LilaController {
     html = Unauthorized(html.auth.tor()).fuccess,
     api = _ => Unauthorized(Json.obj("error" -> "Can't login from TOR, sorry!")).fuccess)
 
-  def setFingerprint(hash: String) = Auth { ctx =>
+  def setFingerprint(hash: String, ms: Int) = Auth { ctx =>
     me =>
+      if (ms > 1000) logwarn(s"[Fingerprint] ${me.username} $ms ms / ${~HTTPRequest.userAgent(ctx.req)}")
       api.setFingerprint(ctx.req, hash) inject Ok
   }
 

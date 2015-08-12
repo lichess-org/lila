@@ -1049,10 +1049,12 @@ lichess.storage = {
     });
 
     if (window.Fingerprint2) setTimeout(function() {
+      var t = +new Date();
       new Fingerprint2({
         excludeJsFonts: true
       }).get(function(res) {
-        $.post('/set-fingerprint/' + res);
+        var time = (+new Date()) - t;
+        $.post('/set-fingerprint/' + res + '/' + time);
       });
     }, 500);
   });
