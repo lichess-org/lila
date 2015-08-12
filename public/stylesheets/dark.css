@@ -468,14 +468,6 @@ body.dark #fpmenu .perf strong {
 body.dark #ham-plate {
   background: #404040;
 }
-body.dark #hamburger .top,
-body.dark #hamburger .bottom {
-  background: #aaa;
-}
-body.dark #hamburger path,
-body.dark #hamburger line {
-  stroke: #aaa;
-}
 body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
