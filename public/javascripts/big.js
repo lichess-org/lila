@@ -1009,7 +1009,7 @@ lichess.storage = {
     });
 
     // minimal touchscreen support for topmenu
-    if ("ontouchstart" in window)
+    if ('ontouchstart' in window)
       $('#topmenu').on('click', '> section > a', function() {
         return false;
       });
@@ -1017,11 +1017,6 @@ lichess.storage = {
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
-    $('#top button.signin').click(function() {
-      $('#ham-plate').click();
-      $('#fpmenu input.username').focus();
-    });
-    if (location.hash === '#fpmenu') $('#ham-plate').click();
     Mousetrap.bind('esc', function() {
       $('#ham-plate').click();
       return false;

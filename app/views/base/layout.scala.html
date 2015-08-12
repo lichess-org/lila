@@ -98,7 +98,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         <div id="challenge_notifications" class="links dropdown"></div>
       </div>
       }.getOrElse {
-      <button class="signin button fright text">@trans.signIn()</button>
+      <a href="@routes.Auth.login" class="signin button fright text">@trans.signIn()</a>
       }
       @if(!zen) {
       <div id="sound_control" class="fright">
