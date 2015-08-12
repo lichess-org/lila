@@ -8,7 +8,6 @@ import reactivemongo.bson.BSONDocument
 
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.ByteArray
 import lila.user.{ User, UserRepo }
 import tube.storeColl
 
@@ -49,19 +48,24 @@ object Store {
     BSONDocument("$set" -> BSONDocument("up" -> false)),
     multi = true).void
 
-  def setFingerprint(id: String, fingerprint: String) =
-    ByteArray.fromHexStr(fingerprint).future flatMap { bytes =>
-      storeColl.update(
-        BSONDocument("_id" -> id),
-        BSONDocument("$set" -> BSONDocument("fp" -> bytes))).void
-    }
+  def setFingerprint(id: String, fingerprint: String) = {
+    import java.util.Base64
+    import org.apache.commons.codec.binary.Hex
+    val hash = Base64.getEncoder encodeToString {
+      Hex decodeHex fingerprint.toArray
+    } take 8
+    storeColl.update(
+      BSONDocument("_id" -> id),
+      BSONDocument("$set" -> BSONDocument(
+        "fp" -> hash
+      ))).void
+  }
 
-  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[ByteArray]) {
+  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[String]) {
     def isTorExitNode = ~tor
     def fingerprint = fp.map(_.toString)
   }
   import reactivemongo.bson.Macros
-  import ByteArray.ByteArrayBSONHandler
   private implicit val InfoBSONHandler = Macros.handler[Info]
 
   def findInfoByUser(userId: String): Fu[List[Info]] =

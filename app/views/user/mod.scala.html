@@ -231,7 +231,11 @@
       case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
       <tr @if(o == u){class="same"}>
         <td>@userLink(o, withBestRating = true, params = "?mod")</td>
-        <td>@List(byIp option "IP", byFp option "Browser").flatten.mkString(", ")</td>
+        <td>
+          @if(o == u) { - } else {
+          @List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
+          }
+        </td>
         <td>@o.count.game</td>
         <td>
           @if(o.engine){ENGINE}

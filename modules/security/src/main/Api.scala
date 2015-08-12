@@ -1,7 +1,5 @@
 package lila.security
 
-import lila.db.ByteArray
-import lila.db.ByteArray.ByteArrayBSONHandler
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
@@ -50,35 +48,21 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
 
   private def reqSessionId(req: RequestHeader) = req.session get "sessionId"
 
-  def userIdsSharingIp(userId: String): Fu[List[String]] =
-    tube.storeColl.find(
-      BSONDocument("user" -> userId),
-      BSONDocument("ip" -> true)
-    ).cursor[BSONDocument]().collect[List]().map {
-        _.flatMap(_.getAs[String]("ip"))
-      }.flatMap { ips =>
-        tube.storeColl.find(
-          BSONDocument(
-            "ip" -> BSONDocument("$in" -> ips.distinct),
-            "user" -> BSONDocument("$ne" -> userId)
-          ),
-          BSONDocument("user" -> true)
-        ).cursor[BSONDocument]().collect[List]().map {
-            _.flatMap(_.getAs[String]("user"))
-          }
-      }
+  def userIdsSharingIp = userIdsSharingField("ip") _
 
-  def userIdsSharingFingerprint(userId: String): Fu[List[String]] =
+  def userIdsSharingFingerprint = userIdsSharingField("fp") _
+
+  private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
     tube.storeColl.find(
-      BSONDocument("user" -> userId, "fp" -> BSONDocument("$exists" -> true)),
-      BSONDocument("fp" -> true)
+      BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)),
+      BSONDocument(field -> true)
     ).cursor[BSONDocument]().collect[List]().map {
-        _.flatMap(_.getAs[ByteArray]("fp"))
+        _.flatMap(_.getAs[String](field))
       }.flatMap {
         case Nil => fuccess(Nil)
-        case fps => tube.storeColl.find(
+        case values => tube.storeColl.find(
           BSONDocument(
-            "fp" -> BSONDocument("$in" -> fps.distinct),
+            field -> BSONDocument("$in" -> values.distinct),
             "user" -> BSONDocument("$ne" -> userId)
           ),
           BSONDocument("user" -> true)
