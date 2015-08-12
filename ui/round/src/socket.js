@@ -40,7 +40,7 @@ module.exports = function(send, ctrl) {
       ctrl.data.game.winner = winner;
       ground.end(ctrl.chessground);
       xhr.reload(ctrl).then(ctrl.reload);
-      if (!ctrl.data.player.spectator)
+      if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
         $.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
     },
     gone: function(isGone) {
