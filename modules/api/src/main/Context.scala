@@ -11,11 +11,12 @@ case class PageData(
   teamNbRequests: Int,
   nbMessages: Int,
   pref: Pref,
-  blindMode: Boolean)
+  blindMode: Boolean,
+  hasFingerprint: Boolean)
 
 object PageData {
 
-  val default = PageData(Nil, 0, 0, Pref.default, false)
+  val default = PageData(Nil, 0, 0, Pref.default, false, false)
 
   def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }
@@ -55,6 +56,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def bgImg = ctxPref("bgImg") | Pref.defaultBgImg
 
   def mobileApiVersion = Mobile.Api requestVersion req
+
+  def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
   private def ctxPref(name: String): Option[String] =
     userContext.req.session get name orElse { pref get name }

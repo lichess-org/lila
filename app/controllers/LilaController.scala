@@ -13,7 +13,7 @@ import scalaz.Monoid
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
-import lila.security.{ Permission, Granter }
+import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LilaController
@@ -236,16 +236,18 @@ private[controllers] trait LilaController
     }) map (_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>
-      pageDataBuilder(ctx) map { Context(ctx, _) }
+    restoreUser(req) flatMap { d =>
+      val ctx = UserContext(req, d.map(_.user))
+      pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>
-      pageDataBuilder(ctx) map { Context(ctx, _) }
+    restoreUser(req) flatMap { d =>
+      val ctx = UserContext(req, d.map(_.user))
+      pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: UserContext): Fu[PageData] =
+  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
     ctx.me.fold(fuccess(PageData anon blindMode(ctx))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
@@ -261,7 +263,9 @@ private[controllers] trait LilaController
         }
       } map {
         case (pref, ((friends, teamNbRequests), messageIds)) =>
-          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode(ctx))
+          PageData(friends, teamNbRequests, messageIds.size, pref,
+            blindMode = blindMode(ctx),
+            hasFingerprint = hasFingerprint)
       }
     }
 
@@ -270,11 +274,11 @@ private[controllers] trait LilaController
       c.value.nonEmpty && c.value == Env.api.Accessibility.hash
     }
 
-  private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
+  private def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     Env.security.api restoreUser req addEffect {
-      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { user =>
+      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         val lang = Env.i18n.pool.lang(req).language
-        Env.current.bus.publish(lila.user.User.Active(user, lang), 'userActive)
+        Env.current.bus.publish(lila.user.User.Active(d.user, lang), 'userActive)
       }
     }
 

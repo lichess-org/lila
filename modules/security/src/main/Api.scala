@@ -34,11 +34,19 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
   private def authenticateUser(username: String, password: String): Option[User] =
     UserRepo.authenticate(username.toLowerCase, password).await
 
-  def restoreUser(req: RequestHeader): Fu[Option[User]] =
+  def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall accepts req flatMap {
       _ ?? {
         reqSessionId(req) ?? { sessionId =>
-          Store userId sessionId flatMap { _ ?? UserRepo.byId }
+          Store userIdAndFingerprint sessionId flatMap {
+            _ ?? { d =>
+              UserRepo.byId(d.user) map {
+                _ map {
+                  FingerprintedUser(_, d.fp.isDefined)
+                }
+              }
+            }
+          }
         }
       }
     }

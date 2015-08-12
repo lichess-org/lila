@@ -5,6 +5,7 @@ import scala.concurrent.Future
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.Macros
 
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -33,8 +34,17 @@ object Store {
   def userId(sessionId: String): Fu[Option[String]] =
     storeColl.find(
       BSONDocument("_id" -> sessionId, "up" -> true),
-      BSONDocument("user" -> true)
+      BSONDocument("user" -> true, "_id" -> false)
     ).one[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
+
+  case class UserIdAndFingerprint(user: String, fp: Option[String])
+  private implicit val UserIdAndFingerprintBSONReader = Macros.handler[UserIdAndFingerprint]
+
+  def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
+    storeColl.find(
+      BSONDocument("_id" -> sessionId, "up" -> true),
+      BSONDocument("user" -> true, "fp" -> true, "_id" -> false)
+    ).one[UserIdAndFingerprint]
 
   def delete(sessionId: String): Funit =
     storeColl.update(
@@ -65,7 +75,6 @@ object Store {
     def isTorExitNode = ~tor
     def fingerprint = fp.map(_.toString)
   }
-  import reactivemongo.bson.Macros
   private implicit val InfoBSONHandler = Macros.handler[Info]
 
   def findInfoByUser(userId: String): Fu[List[Info]] =
