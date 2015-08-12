@@ -1,10 +1,10 @@
-playWithAFriend=Lude cum amico
-playWithTheMachine=Lude cum machina
-toInviteSomeoneToPlayGiveThisUrl=Praesta hunc situm ad quendam invitandum
-gameOver=Ludum conventum
+playWithAFriend=Cum amico ludere
+playWithTheMachine=Cum machina ludere
+toInviteSomeoneToPlayGiveThisUrl=Ut cognitionem ad ludo invites, sui URL das
+gameOver=Ludus perficiebat
 waitingForOpponent=Expectans adversarium
 waiting=Expectans
-yourTurn=Ludendum est tibi
+yourTurn=Potes ludere
 aiNameLevelAiLevel=%s gradus %s
 level=Gradus
 toggleTheChat=Disputationis fenestram aperire aut claudere
