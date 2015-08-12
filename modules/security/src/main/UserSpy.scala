@@ -69,8 +69,8 @@ object UserSpy {
     usersSharingFingerprint = (sharingFingerprint + user).toList.sortBy(-_.createdAt.getMillis))
 
   private def exploreSimilar(field: String)(user: User): Fu[Set[User]] =
-    nextValues(field)(user).thenPp flatMap { nValues =>
-      nextUsers(field)(nValues, user).thenPp map { _ + user }
+    nextValues(field)(user) flatMap { nValues =>
+      nextUsers(field)(nValues, user) map { _ + user }
     }
 
   private def nextValues(field: String)(user: User): Fu[Set[Value]] =
