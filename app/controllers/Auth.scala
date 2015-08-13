@@ -157,7 +157,7 @@ object Auth extends LilaController {
 
   def setFingerprint(hash: String, ms: Int) = Auth { ctx =>
     me =>
-      if (ms > 1000) logwarn(s"[Fingerprint] ${me.username} $ms ms / ${~HTTPRequest.userAgent(ctx.req)}")
+      // if (ms > 1000) logwarn(s"[Fingerprint] ${me.username} $ms ms / ${~HTTPRequest.userAgent(ctx.req)}")
       api.setFingerprint(ctx.req, hash) inject Ok
   }
 
