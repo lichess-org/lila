@@ -97,6 +97,7 @@ password=Pasahitza
 haveAnAccount=Erabiltzaile-kontua duzu?
 changePassword=Pasahitza aldatu
 changeEmail=Posta elektronikoaz aldatzea
+email=posta elektroniko
 emailIsOptional=Posta elektronikoa
 passwordReset=Pasahitz berria eskatzea
 forgotPassword=Zure pasahitza ahaztu duzu?
