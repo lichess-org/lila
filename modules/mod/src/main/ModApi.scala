@@ -39,9 +39,9 @@ final class ModApi(
   def setBooster(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
     (user.booster != v) ?? {
       logApi.booster(mod, user.id, v) zip
-      UserRepo.setBooster(user.id, v) >>- {
-        if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
-      } void
+        UserRepo.setBooster(user.id, v) >>- {
+          if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+        } void
     }
   }
 
@@ -88,7 +88,9 @@ final class ModApi(
   }
 
   def setEmail(mod: String, username: String, email: String): Funit = withUser(username) { user =>
-    UserRepo.email(user.id, email) >> logApi.setEmail(mod, user.id)
+    UserRepo.email(user.id, email) >>
+      UserRepo.setEmailConfirmed(user.id) >>
+      logApi.setEmail(mod, user.id)
   }
 
   def ipban(mod: String, ip: String): Funit =
