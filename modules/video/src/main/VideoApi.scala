@@ -13,8 +13,7 @@ import lila.user.{ User, UserRepo }
 
 private[video] final class VideoApi(
     videoColl: Coll,
-    viewColl: Coll,
-    filterColl: Coll) {
+    viewColl: Coll) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
@@ -184,7 +183,13 @@ private[video] final class VideoApi(
     private val max = 25
 
     import videoColl.BatchCommands.AggregationFramework, AggregationFramework.{
-      Descending, GroupField, Match, Project, Unwind, Sort, SumValue
+      Descending,
+      GroupField,
+      Match,
+      Project,
+      Unwind,
+      Sort,
+      SumValue
     }
 
     private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
@@ -193,13 +198,11 @@ private[video] final class VideoApi(
           if (filterTags.isEmpty) allPopular map { tags =>
             tags.filterNot(_.isNumeric)
           }
-          else {
-            videoColl.aggregate(
-              Match(BSONDocument("tags" -> BSONDocument("$all" -> filterTags))),
-              List(Project(BSONDocument("tags" -> BSONBoolean(true))),
-                Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
+          else videoColl.aggregate(
+            Match(BSONDocument("tags" -> BSONDocument("$all" -> filterTags))),
+            List(Project(BSONDocument("tags" -> BSONBoolean(true))),
+              Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
               _.documents.flatMap(_.asOpt[TagNb]))
-          }
 
         allPopular zip allPaths map {
           case (all, paths) =>
@@ -225,7 +228,7 @@ private[video] final class VideoApi(
         Project(BSONDocument("tags" -> BSONBoolean(true))), List(
           Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb")))).map(
-        _.documents.flatMap(_.asOpt[TagNb])),
+          _.documents.flatMap(_.asOpt[TagNb])),
       timeToLive = 1.day)
   }
 }

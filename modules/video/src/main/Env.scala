@@ -27,8 +27,7 @@ final class Env(
 
   lazy val api = new VideoApi(
     videoColl = videoColl,
-    viewColl = viewColl,
-    filterColl = filterColl)
+    viewColl = viewColl)
 
   private lazy val sheet = new Sheet(
     url = SheetUrl,
@@ -52,7 +51,6 @@ final class Env(
 
   private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
-  private[video] lazy val filterColl = db(CollectionFilter)
 }
 
 object Env {
