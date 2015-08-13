@@ -69,30 +69,32 @@ object Schedule {
 
   private[tournament] def durationFor(sched: Schedule): Option[Int] = {
     import Freq._, Speed._
+    import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Bullet, _)              => 25
-      case (Hourly, SuperBlitz, _)          => 50
-      case (Hourly, Blitz, _)               => 55
-      case (Hourly, Classical, _)           => 0 // N/A
+      case (Hourly, Bullet, _)                => 25
+      case (Hourly, SuperBlitz, _)            => 50
+      case (Hourly, Blitz, _)                 => 55
+      case (Hourly, Classical, _)             => 0 // N/A
 
-      case (Daily | Nightly, Bullet, _)     => 60
-      case (Daily | Nightly, SuperBlitz, _) => 90
-      case (Daily | Nightly, Blitz, _)      => 90
-      case (Daily | Nightly, Classical, _)  => 60 * 2
+      case (Daily | Nightly, Bullet, _)       => 60
+      case (Daily | Nightly, SuperBlitz, _)   => 90
+      case (Daily | Nightly, Blitz, Standard) => 90
+      case (Daily | Nightly, Blitz, _)        => 60 // variant daily is shorter
+      case (Daily | Nightly, Classical, _)    => 60 * 2
 
-      case (Weekly, Bullet, _)              => 90
-      case (Weekly, SuperBlitz, _)          => 60 * 2
-      case (Weekly, Blitz, _)               => 60 * 2
-      case (Weekly, Classical, _)           => 60 * 3
+      case (Weekly, Bullet, _)                => 90
+      case (Weekly, SuperBlitz, _)            => 60 * 2
+      case (Weekly, Blitz, _)                 => 60 * 2
+      case (Weekly, Classical, _)             => 60 * 3
 
-      case (Monthly, Bullet, _)             => 60 * 2
-      case (Monthly, SuperBlitz, _)         => 60 * 3
-      case (Monthly, Blitz, _)              => 60 * 3
-      case (Monthly, Classical, _)          => 60 * 4
+      case (Monthly, Bullet, _)               => 60 * 2
+      case (Monthly, SuperBlitz, _)           => 60 * 3
+      case (Monthly, Blitz, _)                => 60 * 3
+      case (Monthly, Classical, _)            => 60 * 4
 
-      case (Marathon, _, _)                 => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _)     => 60 * 4
+      case (Marathon, _, _)                   => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _)       => 60 * 4
 
     }) filter (0!=)
   }
