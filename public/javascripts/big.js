@@ -573,7 +573,8 @@ lichess.storage = {
     });
   }
 
-  $(function() {
+  // delay so round starts first (just for perceived perf)
+  setTimeout(function() {
 
     if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
@@ -587,8 +588,7 @@ lichess.storage = {
       });
     }
 
-    if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
-    else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
@@ -1050,7 +1050,7 @@ lichess.storage = {
         $.post('/set-fingerprint/' + res + '/' + time);
       });
     }, 500);
-  });
+  }, 50);
 
   $.lazy = function(factory) {
     var loaded = {};
@@ -1185,7 +1185,7 @@ lichess.storage = {
   // game.js //
   /////////////
 
-  function startRound(element, cfg) {
+  lichess.startRound = function(element, cfg) {
     var data = cfg.data;
     if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     var round;
@@ -2013,12 +2013,10 @@ lichess.storage = {
   // tournament.js //
   ///////////////////
 
-  $(function() {
-    if (lichess.tournamentSchedule) {
-      lichess.StrongSocket.defaults.params.flag = "tournament";
-      lichess.StrongSocket.defaults.events.reload = lichess.tournamentSchedule.update;
-    }
-  });
+  if (lichess.tournamentSchedule) {
+    lichess.StrongSocket.defaults.params.flag = "tournament";
+    lichess.StrongSocket.defaults.events.reload = lichess.tournamentSchedule.update;
+  }
 
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
@@ -2288,9 +2286,7 @@ lichess.storage = {
     $.post($(this).attr("href"));
     $(this).closest(".post").slideUp(100);
     return false;
-  });
-
-  $('#lichess_forum').on('click', 'form.unsub button', function() {
+  }).on('click', 'form.unsub button', function() {
     var $form = $(this).parent().toggleClass('on off');
     $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
     return false;
