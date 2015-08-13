@@ -15,7 +15,6 @@ final class Env(
   private val settings = new {
     val CollectionVideo = config getString "collection.video"
     val CollectionView = config getString "collection.view"
-    val CollectionFilter = config getString "collection.filter"
     val SheetUrl = config getString "sheet.url"
     val SheetDelay = config duration "sheet.delay"
     val YoutubeUrl = config getString "youtube.url"
