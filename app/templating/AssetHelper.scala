@@ -41,7 +41,7 @@ trait AssetHelper { self: I18nHelper =>
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val momentjsTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js",
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
 
