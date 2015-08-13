@@ -221,7 +221,7 @@ private[video] final class VideoApi(
             }
         }
       },
-      timeToLive = 1.day)
+      maxCapacity = 100)
 
     private val popularCache = AsyncCache.single[List[TagNb]](
       f = videoColl.aggregate(
