@@ -74,8 +74,6 @@ private[tv] final class TvActor(
                 "color" -> game.firstColor.name,
                 "id" -> game.id)))
             context.system.lilaBus.publish(event, 'changeFeaturedGame)
-            // mobile app v1 BC
-            previousId foreach { gameId => roundSocket ! Tell(gameId, event) }
         }
       GameRepo setTv game.id
   }
