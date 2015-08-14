@@ -465,9 +465,6 @@ body.dark #fpmenu a.signup:hover {
 body.dark #fpmenu .perf strong {
   color: #aeaeae;
 }
-body.dark #ham-plate {
-  background: #404040;
-}
 body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
