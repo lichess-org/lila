@@ -923,6 +923,9 @@ div.lichess_board {
 #top .cg-piece.chessnut {
   background-image: url(../piece/chessnut/wN.svg);
 }
+#top .cg-piece.companion {
+  background-image: url(../piece/companion/wN.svg);
+}
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
 }
