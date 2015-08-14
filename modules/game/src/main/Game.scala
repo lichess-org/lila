@@ -174,9 +174,10 @@ case class Game(
       clock = game.clock)
 
     val state = Event.State(
-      situation.color,
-      game.turns,
-      (status != updated.status) option updated.status,
+      color = situation.color,
+      turns = game.turns,
+      status = (status != updated.status) option updated.status,
+      winner = situation.winner,
       whiteOffersDraw = whitePlayer.isOfferingDraw,
       blackOffersDraw = blackPlayer.isOfferingDraw)
 

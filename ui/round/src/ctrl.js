@@ -146,6 +146,7 @@ module.exports = function(opts) {
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
     if (o.status) d.game.status = o.status;
+    if (o.winner) d.game.winner = o.winner;
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;

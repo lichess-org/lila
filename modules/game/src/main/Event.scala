@@ -46,7 +46,7 @@ object Event {
       // legacy data
       "from" -> orig.key,
       "to" -> dest.key,
-      "color" -> color.name,
+      "color" -> color,
       // new data
       "uci" -> s"${orig.key}${dest.key}",
       "san" -> san,
@@ -57,9 +57,8 @@ object Event {
       "enpassant" -> enpassant.map(_.data),
       "castle" -> castle.map(_.data),
       "ply" -> state.turns,
-      "status" -> state.status.map { s =>
-        Json.obj("id" -> s.id, "name" -> s.name)
-      },
+      "status" -> state.status,
+      "winner" -> state.winner,
       "wDraw" -> state.whiteOffersDraw.option(true),
       "bDraw" -> state.blackOffersDraw.option(true),
       "clock" -> clock.map(_.data),
@@ -107,7 +106,7 @@ object Event {
     def typ = "enpassant"
     def data = Json.obj(
       "key" -> pos.key,
-      "color" -> color.name)
+      "color" -> color)
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
@@ -115,7 +114,7 @@ object Event {
     def data = Json.obj(
       "king" -> Json.arr(king._1.key, king._2.key),
       "rook" -> Json.arr(rook._1.key, rook._2.key),
-      "color" -> color.name
+      "color" -> color
     )
   }
 
@@ -158,7 +157,7 @@ object Event {
 
   case class End(winner: Option[Color]) extends Event {
     def typ = "end"
-    def data = winner.map(_.name).fold[JsValue](JsNull)(JsString.apply)
+    def data = Json.toJson(winner)
   }
 
   case object Reload extends Empty {
@@ -210,17 +209,15 @@ object Event {
       color: Color,
       turns: Int,
       status: Option[Status],
+      winner: Option[Color],
       whiteOffersDraw: Boolean,
       blackOffersDraw: Boolean) extends Event {
     def typ = "state"
     def data = Json.obj(
-      "color" -> color.name,
+      "color" -> color,
       "turns" -> turns,
-      "status" -> status.map { s =>
-        Json.obj(
-          "id" -> s.id,
-          "name" -> s.name)
-      },
+      "status" -> status,
+      "winner" -> winner,
       "wDraw" -> whiteOffersDraw.option(true),
       "bDraw" -> blackOffersDraw.option(true)
     ).noNull
@@ -246,5 +243,12 @@ object Event {
       "white" -> white,
       "black" -> black,
       "watchers" -> watchers)
+  }
+
+  private implicit val colorWriter: Writes[Color] = Writes { c =>
+    JsString(c.name)
+  }
+  private implicit val statusWriter: OWrites[Status] = OWrites { s =>
+    Json.obj("id" -> s.id, "name" -> s.name)
   }
 }
