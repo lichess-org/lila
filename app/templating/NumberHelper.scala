@@ -21,4 +21,11 @@ trait NumberHelper { self: I18nHelper =>
   implicit def richInt(number: Int) = new {
     def localize(implicit ctx: UserContext): String = formatter format number
   }
+
+  def nth(number: Int) = number match {
+    case 1 => "st"
+    case 2 => "nd"
+    case 3 => "rd"
+    case _ => "th"
+  }
 }

@@ -21,6 +21,11 @@
     <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
     @showProgress(perf.progress)
   </div>
+  <div class="rank">
+    @info.ranks.get(perfType.key).map { rank =>
+    Rank: @rank.localize@nth(rank)
+    }
+  </div>
 </div>
 }
 

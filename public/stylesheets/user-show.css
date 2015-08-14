@@ -146,7 +146,7 @@ div.sub_ratings > div:hover::before {
 }
 div.sub_ratings h3 {
   font-weight: 100;
-  font-size: 1.2em;
+  font-size: 1em;
   letter-spacing: 2px;
   margin: 0;
   display: inline-block;
