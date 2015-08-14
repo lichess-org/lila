@@ -63,11 +63,6 @@ final class Cached(
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
     timeToLive = 10 seconds)
 
-  val topToints = mongoCache[Int, List[User]](
-    prefix = "user:toint:online",
-    f = UserRepo.allSortToints,
-    timeToLive = 21 minutes)
-
   object ranking {
 
     def getAll(id: User.ID): Fu[Map[Perf.Key, Int]] =
