@@ -59,11 +59,17 @@ final class JsonView(
     "status" -> g.status.id,
     "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
     "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
-    "orient" -> g.playerByUserId(hostId).map(_.color.name))
+    "orient" -> g.playerByUserId(hostId).map(_.color))
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing) = Json.obj(
     "player" -> playerJson(p.player),
-    "wins" -> p.wins,
+    "hostColor" -> p.hostColor,
+    "winnerColor" -> p.winnerColor,
+    "wins" -> p.wins, // can't be normalized because BC
     "game" -> games.find(_.id == p.gameId).map(gameJson(hostId))
   )
+
+  private implicit val colorWriter: Writes[chess.Color] = Writes { c =>
+    JsString(c.name)
+  }
 }

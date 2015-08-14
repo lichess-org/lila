@@ -77,16 +77,17 @@ private[simul] final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           simul.start ?? { started =>
-            {
-              UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
-                started.pairings.map(makeGame(started, host)).sequenceFu addEffect { games =>
-                  games.headOption foreach { game =>
-                    sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
-                  }
+            UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
+              started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
+                games.headOption foreach {
+                  case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
+                }
+                games.foldLeft(started) {
+                  case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
                 }
               }
-            } >> update(started) >> currentHostIdsCache.clear
-          }
+            } flatMap update
+          } >> currentHostIdsCache.clear
         }
       }
     }
@@ -147,7 +148,7 @@ private[simul] final class SimulApi(
     }
   }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[Game] = for {
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
@@ -171,7 +172,7 @@ private[simul] final class SimulApi(
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
       sendTo(simul.id, actorApi.StartGame(game2, simul.hostId))
-  } yield game2
+  } yield game2 -> hostColor
 
   private def update(simul: Simul) =
     repo.update(simul) >>- socketReload(simul.id) >>- publish()

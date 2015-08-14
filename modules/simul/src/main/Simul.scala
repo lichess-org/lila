@@ -105,9 +105,10 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | {
-    if (scala.util.Random.nextBoolean) chess.White else chess.Black
-  }
+  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean)
+
+  def setPairingHostColor(gameId: String, hostColor: chess.Color) =
+    updatePairing(gameId, _.copy(hostColor = hostColor))
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 }
