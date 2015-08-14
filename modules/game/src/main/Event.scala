@@ -43,11 +43,6 @@ object Event {
       possibleMoves: Map[Pos, List[Pos]]) extends Event {
     def typ = "move"
     def data = Json.obj(
-      // legacy data
-      "from" -> orig.key,
-      "to" -> dest.key,
-      "color" -> color,
-      // new data
       "uci" -> s"${orig.key}${dest.key}",
       "san" -> san,
       "fen" -> fen,
