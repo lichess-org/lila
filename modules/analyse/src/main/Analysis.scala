@@ -10,7 +10,8 @@ case class Analysis(
     infos: List[Info],
     startPly: Int,
     done: Boolean,
-    date: DateTime) {
+    date: DateTime,
+    serverIp: Option[String]) {
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect {
@@ -58,12 +59,13 @@ object Analysis {
       val id = r str "_id"
       val ply = r intO "ply"
       val date = r date "date"
+      val ip = r strO "ip"
       (r strD "data", r boolD "done") match {
-        case ("", true) => new Analysis(id, Nil, ~ply, false, date)
+        case ("", true) => new Analysis(id, Nil, ~ply, false, date, ip)
         case (d, true) => Info.decodeList(d, ~ply) map {
-          new Analysis(id, _, ~ply, true, date)
+          new Analysis(id, _, ~ply, true, date, ip)
         } err s"Invalid analysis data $d"
-        case (_, false) => new Analysis(id, Nil, ~ply, false, date)
+        case (_, false) => new Analysis(id, Nil, ~ply, false, date, ip)
       }
     }
     def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
@@ -71,7 +73,8 @@ object Analysis {
       "data" -> Info.encodeList(o.infos),
       "ply" -> w.intO(o.startPly),
       "done" -> o.done,
-      "date" -> w.date(o.date))
+      "date" -> w.date(o.date),
+      "ip" -> o.serverIp)
   }
 
   private[analyse] lazy val tube = lila.db.BsTube(analysisBSONHandler)

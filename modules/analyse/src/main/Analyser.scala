@@ -66,7 +66,7 @@ final class Analyser(
     }
   }
 
-  def complete(id: String, data: String, from: String) =
+  def complete(id: String, data: String, fromIp: String) =
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) if game.analysable =>
         Info.decodeList(data, game.startedAtTurn) match {
@@ -78,9 +78,9 @@ final class Analyser(
                 errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
                 if (analysis.valid) {
                   if (analysis.emptyRatio >= 1d / 10)
-                    fufail(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+                    fufail(s"Analysis $id from $fromIp has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   indexer ! InsertGame(game)
-                  AnalysisRepo.done(id, analysis) >>- {
+                  AnalysisRepo.done(id, analysis, fromIp) >>- {
                     modActor ! actorApi.AnalysisReady(game, analysis)
                   } >>- GameRepo.setAnalysed(game.id) inject analysis
                 }
@@ -93,7 +93,7 @@ final class Analyser(
       _ => AnalysisRepo remove id
     }
 
-  def completeErr(id: String, err: String, from: String) =
+  def completeErr(id: String, err: String, fromIp: String) =
     $find.byId[Game](id) zip getNotDone(id) flatMap {
       case (Some(game), Some(a1)) if game.analysable => AnalysisRepo remove id
     }

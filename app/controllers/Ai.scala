@@ -44,5 +44,4 @@ object Ai extends LilaController {
     }
     funit
   }
-
 }

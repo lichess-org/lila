@@ -12,11 +12,12 @@ object AnalysisRepo {
 
   type ID = String
 
-  def done(id: ID, a: Analysis) = $update(
+  def done(id: ID, a: Analysis, serverIp: String) = $update(
     $select(id),
     $set(Json.obj(
       "done" -> true,
-      "data" -> Info.encodeList(a.infos)
+      "data" -> Info.encodeList(a.infos),
+      "ip" -> serverIp
     ))
   )
 
