@@ -706,7 +706,9 @@ lichess.storage = {
     // themepicker
     $('#themepicker_toggle').one('mouseover', function() {
       var applyBackground = function(v) {
-        $('head').append('<style>body.transp::before{background-image:url(' + v + ');}</style>');
+        var bgData = document.getElementById('bg-data');
+        bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
+          $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
       };
       var $themepicker = $('#themepicker');
       $.ajax({
