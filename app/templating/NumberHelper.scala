@@ -22,7 +22,9 @@ trait NumberHelper { self: I18nHelper =>
     def localize(implicit ctx: UserContext): String = formatter format number
   }
 
-  def nth(number: Int) = number match {
+  def nth(number: Int) = if ((11 to 13).contains(number % 100))
+    "th"
+  else number % 10 match {
     case 1 => "st"
     case 2 => "nd"
     case 3 => "rd"
