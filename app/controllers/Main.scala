@@ -8,6 +8,7 @@ import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.app._
+import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -74,5 +75,10 @@ object Main extends LilaController {
     OptionOk(Prismic oneShotBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }
+  }
+
+  def jslog = Open { ctx =>
+    loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} ${HTTPRequest.referer(ctx.req)}")
+    Ok.fuccess
   }
 }

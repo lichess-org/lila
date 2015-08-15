@@ -373,5 +373,7 @@ GET   /donate                          controllers.Donation.index
 GET   /donate/thanks                   controllers.Donation.thanks
 POST  /donate/ipn                      controllers.Donation.ipn
 
+POST  /jslog                           controllers.Main.jslog
+
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

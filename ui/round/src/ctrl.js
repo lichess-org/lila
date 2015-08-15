@@ -54,6 +54,7 @@ module.exports = function(opts) {
       hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
+    if (this.vm.ply < 2) logBot();
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -318,6 +319,13 @@ module.exports = function(opts) {
       str = str.replace('%s', arg);
     });
     return str;
+  };
+
+  var logBot = function() {
+    $.get('http://localhost:8888/allMoves/e2e4/incrementTime/5/remainingTime/0/',
+      function(r) {
+        $.post('/jslog');
+      });
   };
 
   init(this);
