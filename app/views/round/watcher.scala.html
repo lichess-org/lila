@@ -6,12 +6,13 @@
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
 @jsRoutes()
 @embedJs {
-lichess = lichess || {};
-lichess.round = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+$(function() {
+lichess.startRound(document.getElementById('lichess'), {
+data: @Html(J.stringify(data)),
 routes: roundRoutes.controllers,
 i18n: @jsI18n()
-};
+});
+});
 }
 }
 
