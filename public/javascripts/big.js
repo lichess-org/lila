@@ -573,486 +573,488 @@ lichess.storage = {
     });
   }
 
-  if (!lichess.StrongSocket.available) {
-    $('#lichess').on('mouseover', function() {
-      $('#lichess').off('mouseover');
-      var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
-      $.ajax(inUrFaceUrl, {
-        success: function(html) {
-          $('body').prepend(html);
-        }
-      });
-    });
-  }
-
-  if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
-  else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
-  else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
-  else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
-  else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
-  else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
-  else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
-
-  // delay so round starts first (just for perceived perf)
-  setTimeout(function() {
-
-    $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
-      lichess.socket.send($(this).data('msg'), $(this).data('data'));
-    });
-
-    $('#friend_box').friends();
-
-    $('#lichess').on('click', '.copyable', function() {
-      $(this).select();
-    });
-
-    $('body').on('click', '.relation_actions a.relation', function() {
-      var $a = $(this).addClass('processing');
-      $.ajax({
-        url: $a.attr('href'),
-        type: 'post',
-        success: function(html) {
-          $a.parent().html(html);
-        }
-      });
-      return false;
-    });
-
-    function applyPowertip($els, placement) {
-      $els.removeClass('ulpt').powerTip({
-        fadeInTime: 100,
-        fadeOutTime: 100,
-        placement: placement,
-        mouseOnToPopup: true,
-        closeDelay: 200
-      }).on({
-        powerTipPreRender: function() {
-          $.ajax({
-            url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
-            success: function(html) {
-              $('#powerTip').html(html);
-              $('body').trigger('lichess.content_loaded');
-            }
-          });
-        }
-      }).data('powertip', ' ');
-    }
-
-    function userPowertips() {
-      applyPowertip($('#site_header .ulpt'), 'e');
-      applyPowertip($('#friend_box .ulpt'), 'nw');
-      applyPowertip($('.ulpt'), 'w');
-    }
-    setTimeout(userPowertips, 600);
-    $('body').on('lichess.content_loaded', userPowertips);
-
-    $('#message_notifications_tag').on('click', function() {
-      $.ajax({
-        url: $(this).data('href'),
-        cache: false,
-        success: function(html) {
-          $('#message_notifications_display').html(html)
-            .find('a.mark_as_read').click(function() {
-              $.ajax({
-                url: $(this).attr('href'),
-                method: 'post'
-              });
-              $(this).parents('.notification').remove();
-              if ($('#message_notifications_display').children().length === 0)
-                $('#message_notifications_tag').click();
-              return false;
-            });
-          $('body').trigger('lichess.content_loaded');
-        }
-      });
-    });
-
-    function setMoment() {
-      $("time.moment").removeClass('moment').each(function() {
-        var parsed = moment(this.getAttribute('datetime'));
-        var format = this.getAttribute('data-format');
-        this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
-      });
-    }
-    setMoment();
-    $('body').on('lichess.content_loaded', setMoment);
-
-    function setMomentFromNow() {
-      $("time.moment-from-now").each(function() {
-        this.textContent = moment(this.getAttribute('datetime')).fromNow();
-      });
-    }
-    setMomentFromNow();
-    $('body').on('lichess.content_loaded', setMomentFromNow);
-    setInterval(setMomentFromNow, 2000);
-
-    if ($('body').hasClass('blind_mode')) {
-      var setBlindMode = function() {
-        $('[data-hint]').each(function() {
-          $(this).attr('aria-label', $(this).data('hint'));
-        });
-      };
-      setBlindMode();
-      $('body').on('lichess.content_loaded', setBlindMode);
-    }
-
-    setTimeout(function() {
-      if (lichess.socket === null) {
-        lichess.socket = new lichess.StrongSocket("/socket", 0);
-      }
-      $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
-    }, 200);
-
-    // themepicker
-    $('#themepicker_toggle').one('mouseover', function() {
-      var applyBackground = function(v) {
-        var bgData = document.getElementById('bg-data');
-        bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
-          $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
-      };
-      var $themepicker = $('#themepicker');
-      $.ajax({
-        url: $(this).data('url'),
-        cache: false,
-        success: function(html) {
-          $themepicker.append(html);
-          var $body = $('body');
-          var $content = $body.children('.content');
-          var $dropdown = $themepicker.find('.dropdown');
-          var $pieceSprite = $('#piece-sprite');
-          var themes = $dropdown.data('themes').split(' ');
-          var theme = $.fp.find(document.body.classList, function(a) {
-            return $.fp.contains(themes, a);
-          });
-          var set = $body.data('piece-set');
-          var theme3ds = $dropdown.data('theme3ds').split(' ');
-          var theme3d = $.fp.find(document.body.classList, function(a) {
-            return $.fp.contains(theme3ds, a);
-          });
-          var set3ds = $dropdown.data('set3ds').split(' ');
-          var set3d = $.fp.find(document.body.classList, function(a) {
-            return $.fp.contains(set3ds, a);
-          });
-          var background = $body.data('bg');
-          var is3d = $content.hasClass('is3d');
-          $themepicker.find('.is2d div.theme').hover(function() {
-            $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
-          }, function() {
-            $body.removeClass(themes.join(' ')).addClass(theme);
-          }).click(function() {
-            theme = $(this).data("theme");
-            $.post($(this).parent().data("href"), {
-              theme: theme
-            });
-            $themepicker.removeClass("shown");
-          });
-          $themepicker.find('.is2d div.no-square').hover(function() {
-            var s = $(this).data("set");
-            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
-          }, function() {
-            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
-          }).click(function() {
-            set = $(this).data("set");
-            $.post($(this).parent().data("href"), {
-              set: set
-            });
-            $themepicker.removeClass("shown");
-          });
-          $themepicker.find('.is3d div.theme').hover(function() {
-            $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
-          }, function() {
-            $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
-          }).click(function() {
-            theme3d = $(this).data("theme");
-            $.post($(this).parent().data("href"), {
-              theme: theme3d
-            });
-            $themepicker.removeClass("shown");
-          });
-          $themepicker.find('.is3d div.no-square').hover(function() {
-            $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
-          }, function() {
-            $body.removeClass(set3ds.join(' ')).addClass(set3d);
-          }).click(function() {
-            set3d = $(this).data("set");
-            $.post($(this).parent().data("href"), {
-              set: set3d
-            });
-            $themepicker.removeClass("shown");
-          });
-          var showBg = function(bg) {
-            $body.removeClass('light dark transp')
-              .addClass(bg === 'transp' ? 'transp dark' : bg);
-            if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
-              $('link[href*="common.css"]').clone().each(function() {
-                $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
-              });
-            }
-            if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
-              $('link[href*="common.css"]').clone().each(function() {
-                $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
-              });
-              applyBackground($themepicker.find('input.background_image').val());
-            }
-          };
-          var showDimensions = function(is3d) {
-            $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
-            setZoom(getZoom());
-          };
-          $themepicker.find('.background a').click(function() {
-            background = $(this).data('bg');
-            $.post($(this).parent().data('href'), {
-              bg: background
-            });
-            $(this).addClass('active').siblings().removeClass('active');
-            $themepicker.removeClass("shown");
-            return false;
-          }).hover(function() {
-            showBg($(this).data('bg'));
-          }, function() {
-            showBg(background);
-          }).filter('.' + background).addClass('active');
-          $themepicker.find('.dimensions a').click(function() {
-            is3d = $(this).data('is3d');
-            $.post($(this).parent().data('href'), {
-              is3d: is3d
-            });
-            $(this).addClass('active').siblings().removeClass('active');
-            $themepicker.removeClass("shown");
-            return false;
-          }).hover(function() {
-            showDimensions($(this).data('is3d'));
-          }, function() {
-            showDimensions(is3d);
-          }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-          $themepicker.find('.slider').slider({
-            orientation: "horizontal",
-            min: 1,
-            max: 2,
-            range: 'min',
-            step: 0.01,
-            value: getZoom(),
-            slide: function(e, ui) {
-              manuallySetZoom(ui.value);
-            }
-          });
-          $themepicker.find('input.background_image')
-            .on('change keyup paste', $.fp.debounce(function() {
-              var v = $(this).val();
-              $.post($(this).data("href"), {
-                bgImg: v
-              });
-              applyBackground(v);
-            }, 200));
-        }
-      });
-    });
-
-    // Zoom
-    var getZoom = function() {
-      return lichess.storage.get('zoom') || 1;
-    };
-    var setZoom = function(v) {
-      lichess.storage.set('zoom', v);
-
-      var $lichessGame = $('.lichess_game, .board_and_ground');
-      var $boardWrap = $lichessGame.find('.cg-board-wrap');
-      var $coordinateProgress = $('.progress_bar_container');
-      var px = function(i) {
-        return Math.round(i) + 'px';
-      };
-
-      $boardWrap.css("width", px(512 * getZoom()));
-      $coordinateProgress.css("width", px(512 * getZoom()));
-      $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
-      $lichessGame.find('.lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
-
-      if ($('body > .content').hasClass('is3d')) {
-        $boardWrap.css("height", px(479.08572 * getZoom()));
-        $lichessGame.css({
-          height: px(479.08572 * getZoom()),
-          paddingTop: px(50 * (getZoom() - 1))
-        });
-        $('.chat_panels').css("height", px(290 + 529 * (getZoom() - 1)));
-      } else {
-        $boardWrap.css("height", px(512 * getZoom()));
-        $lichessGame.css({
-          height: px(512 * getZoom()),
-          paddingTop: px(0)
-        });
-        $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
-      }
-
-      $('#trainer .overlay_container').css({
-        top: px((getZoom() - 1) * 250),
-        left: px((getZoom() - 1) * 250)
-      });
-      // doesn't vertical center score at the end, close enough
-      $('#trainer .score_container').css("top", px((getZoom() - 1) * 250));
-
-
-      if ($lichessGame.length) {
-        // if on a board with a game
-        $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
-      }
-    };
-
-    var manuallySetZoom = $.fp.debounce(setZoom, 10);
-    if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
-    $('body').on('lichess.coordinate_trainer_loaded', function() {
-      setZoom(getZoom());
-    });
-
-    function translateTexts() {
-      $('.trans_me').each(function() {
-        $(this).removeClass('trans_me');
-        if ($(this).val()) $(this).val($.trans($(this).val()));
-        else $(this).text($.trans($(this).text()));
-      });
-    }
-    translateTexts();
-    $('body').on('lichess.content_loaded', translateTexts);
-
-    $('input.autocomplete').each(function() {
-      var $a = $(this);
-      $a.autocomplete({
-        source: $a.data('provider'),
-        minLength: 2,
-        delay: 100
-      });
-    });
-
-    $('.infinitescroll:has(.pager a)').each(function() {
-      $(this).infinitescroll({
-        navSelector: ".pager",
-        nextSelector: ".pager a:last",
-        itemSelector: ".infinitescroll .paginated_element",
-        errorCallback: function() {
-          $("#infscr-loading").remove();
-        }
-      }, function() {
-        $("#infscr-loading").remove();
-        $('body').trigger('lichess.content_loaded');
-      }).find('div.pager').hide();
-    });
-
-    $('#top a.toggle').each(function() {
-      var $this = $(this);
-      var $p = $this.parent();
-      $this.click(function() {
-        $p.toggleClass('shown');
-        $p.siblings('.shown').removeClass('shown');
-        setTimeout(function() {
-          $p.click(function(e) {
-            e.stopPropagation();
-          });
-          $('html').one('click', function(e) {
-            $p.removeClass('shown').off('click');
-          });
-        }, 10);
-        return false;
-      });
-    });
-
-    var acceptLanguages = $('body').data('accept-languages');
-    if (acceptLanguages) {
-      $('#top .lichess_language').one('mouseover', function() {
-        var $links = $(this).find('.language_links'),
-          langs = acceptLanguages.split(',');
-        $.ajax({
-          url: $links.data('url'),
-          cache: false,
-          success: function(list) {
-            $links.prepend(list.map(function(lang) {
-              var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
-            }).join(''));
+  $(function() {
+    if (!lichess.StrongSocket.available) {
+      $('#lichess').on('mouseover', function() {
+        $('#lichess').off('mouseover');
+        var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
+        $.ajax(inUrFaceUrl, {
+          success: function(html) {
+            $('body').prepend(html);
           }
         });
       });
     }
 
-    $('#incomplete_translation a.close').one('click', function() {
-      $(this).parent().remove();
-    });
+    if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+    else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
+    else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
+    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
+    else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
 
-    $('#translation_call .close').click(function() {
-      $.post($(this).data("href"));
-      $(this).parent().fadeOut(500);
-      return false;
-    });
+    // delay so round starts first (just for perceived perf)
+    setTimeout(function() {
 
-    $('a.delete, input.delete').click(function() {
-      return confirm('Delete?');
-    });
-    $('input.confirm, button.confirm').click(function() {
-      return confirm('Confirm this action?');
-    });
+      $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
+        lichess.socket.send($(this).data('msg'), $(this).data('data'));
+      });
 
-    $('div.content').on('click', 'a.bookmark', function() {
-      var t = $(this).toggleClass("bookmarked");
-      $.post(t.attr("href"));
-      var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-      t.find('span').html(count > 0 ? count : "");
-      return false;
-    });
+      $('#friend_box').friends();
 
-    $("#import_game form").submit(function() {
-      var pgn = $(this).find('textarea').val();
-      var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
-      var delay = 50;
-      var duration = nbMoves * delay * 2.1 + 1000;
-      $(this).find('button').hide().end()
-        .find('.error').hide().end()
-        .find('.progression').show().animate({
-          width: '100%'
-        }, duration);
-      return true;
-    });
+      $('#lichess').on('click', '.copyable', function() {
+        $(this).select();
+      });
 
-    // minimal touchscreen support for topmenu
-    if ('ontouchstart' in window)
-      $('#topmenu').on('click', '> section > a', function() {
+      $('body').on('click', '.relation_actions a.relation', function() {
+        var $a = $(this).addClass('processing');
+        $.ajax({
+          url: $a.attr('href'),
+          type: 'post',
+          success: function(html) {
+            $a.parent().html(html);
+          }
+        });
         return false;
       });
 
-    $('#ham-plate').click(function() {
-      document.body.classList.toggle('fpmenu');
-    });
-    Mousetrap.bind('esc', function() {
-      $('#ham-plate').click();
-      return false;
-    });
-    Mousetrap.bind('g h', function() {
-      location.href = '/';
-    });
-    // konami code!
-    Mousetrap.bind('up up down down left right left right b a', function() {
-      if (!document.getElementById('konami')) {
-        $('body').prepend($('<div id="konami"></div>'));
+      function applyPowertip($els, placement) {
+        $els.removeClass('ulpt').powerTip({
+          fadeInTime: 100,
+          fadeOutTime: 100,
+          placement: placement,
+          mouseOnToPopup: true,
+          closeDelay: 200
+        }).on({
+          powerTipPreRender: function() {
+            $.ajax({
+              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+              success: function(html) {
+                $('#powerTip').html(html);
+                $('body').trigger('lichess.content_loaded');
+              }
+            });
+          }
+        }).data('powertip', ' ');
       }
-      $('#konami').show(800);
-      setTimeout(function() {
-        $('#konami').hide(800);
-      }, 3000);
-    });
-    Mousetrap.bind('k a p p a', function() {
-      $('body').toggleClass('kappa');
-    });
-    Mousetrap.bind('d o g g y', function() {
-      $('body').toggleClass('doggy');
-    });
 
-    if (window.Fingerprint2) setTimeout(function() {
-      var t = +new Date();
-      new Fingerprint2({
-        excludeJsFonts: true
-      }).get(function(res) {
-        var time = (+new Date()) - t;
-        $.post('/set-fingerprint/' + res + '/' + time);
+      function userPowertips() {
+        applyPowertip($('#site_header .ulpt'), 'e');
+        applyPowertip($('#friend_box .ulpt'), 'nw');
+        applyPowertip($('.ulpt'), 'w');
+      }
+      setTimeout(userPowertips, 600);
+      $('body').on('lichess.content_loaded', userPowertips);
+
+      $('#message_notifications_tag').on('click', function() {
+        $.ajax({
+          url: $(this).data('href'),
+          cache: false,
+          success: function(html) {
+            $('#message_notifications_display').html(html)
+              .find('a.mark_as_read').click(function() {
+                $.ajax({
+                  url: $(this).attr('href'),
+                  method: 'post'
+                });
+                $(this).parents('.notification').remove();
+                if ($('#message_notifications_display').children().length === 0)
+                  $('#message_notifications_tag').click();
+                return false;
+              });
+            $('body').trigger('lichess.content_loaded');
+          }
+        });
       });
-    }, 500);
-  }, 50);
+
+      function setMoment() {
+        $("time.moment").removeClass('moment').each(function() {
+          var parsed = moment(this.getAttribute('datetime'));
+          var format = this.getAttribute('data-format');
+          this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
+        });
+      }
+      setMoment();
+      $('body').on('lichess.content_loaded', setMoment);
+
+      function setMomentFromNow() {
+        $("time.moment-from-now").each(function() {
+          this.textContent = moment(this.getAttribute('datetime')).fromNow();
+        });
+      }
+      setMomentFromNow();
+      $('body').on('lichess.content_loaded', setMomentFromNow);
+      setInterval(setMomentFromNow, 2000);
+
+      if ($('body').hasClass('blind_mode')) {
+        var setBlindMode = function() {
+          $('[data-hint]').each(function() {
+            $(this).attr('aria-label', $(this).data('hint'));
+          });
+        };
+        setBlindMode();
+        $('body').on('lichess.content_loaded', setBlindMode);
+      }
+
+      setTimeout(function() {
+        if (lichess.socket === null) {
+          lichess.socket = new lichess.StrongSocket("/socket", 0);
+        }
+        $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
+      }, 200);
+
+      // themepicker
+      $('#themepicker_toggle').one('mouseover', function() {
+        var applyBackground = function(v) {
+          var bgData = document.getElementById('bg-data');
+          bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
+            $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
+        };
+        var $themepicker = $('#themepicker');
+        $.ajax({
+          url: $(this).data('url'),
+          cache: false,
+          success: function(html) {
+            $themepicker.append(html);
+            var $body = $('body');
+            var $content = $body.children('.content');
+            var $dropdown = $themepicker.find('.dropdown');
+            var $pieceSprite = $('#piece-sprite');
+            var themes = $dropdown.data('themes').split(' ');
+            var theme = $.fp.find(document.body.classList, function(a) {
+              return $.fp.contains(themes, a);
+            });
+            var set = $body.data('piece-set');
+            var theme3ds = $dropdown.data('theme3ds').split(' ');
+            var theme3d = $.fp.find(document.body.classList, function(a) {
+              return $.fp.contains(theme3ds, a);
+            });
+            var set3ds = $dropdown.data('set3ds').split(' ');
+            var set3d = $.fp.find(document.body.classList, function(a) {
+              return $.fp.contains(set3ds, a);
+            });
+            var background = $body.data('bg');
+            var is3d = $content.hasClass('is3d');
+            $themepicker.find('.is2d div.theme').hover(function() {
+              $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
+            }, function() {
+              $body.removeClass(themes.join(' ')).addClass(theme);
+            }).click(function() {
+              theme = $(this).data("theme");
+              $.post($(this).parent().data("href"), {
+                theme: theme
+              });
+              $themepicker.removeClass("shown");
+            });
+            $themepicker.find('.is2d div.no-square').hover(function() {
+              var s = $(this).data("set");
+              $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
+            }, function() {
+              $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
+            }).click(function() {
+              set = $(this).data("set");
+              $.post($(this).parent().data("href"), {
+                set: set
+              });
+              $themepicker.removeClass("shown");
+            });
+            $themepicker.find('.is3d div.theme').hover(function() {
+              $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
+            }, function() {
+              $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
+            }).click(function() {
+              theme3d = $(this).data("theme");
+              $.post($(this).parent().data("href"), {
+                theme: theme3d
+              });
+              $themepicker.removeClass("shown");
+            });
+            $themepicker.find('.is3d div.no-square').hover(function() {
+              $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
+            }, function() {
+              $body.removeClass(set3ds.join(' ')).addClass(set3d);
+            }).click(function() {
+              set3d = $(this).data("set");
+              $.post($(this).parent().data("href"), {
+                set: set3d
+              });
+              $themepicker.removeClass("shown");
+            });
+            var showBg = function(bg) {
+              $body.removeClass('light dark transp')
+                .addClass(bg === 'transp' ? 'transp dark' : bg);
+              if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
+                $('link[href*="common.css"]').clone().each(function() {
+                  $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+                });
+              }
+              if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+                $('link[href*="common.css"]').clone().each(function() {
+                  $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
+                });
+                applyBackground($themepicker.find('input.background_image').val());
+              }
+            };
+            var showDimensions = function(is3d) {
+              $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+              setZoom(getZoom());
+            };
+            $themepicker.find('.background a').click(function() {
+              background = $(this).data('bg');
+              $.post($(this).parent().data('href'), {
+                bg: background
+              });
+              $(this).addClass('active').siblings().removeClass('active');
+              $themepicker.removeClass("shown");
+              return false;
+            }).hover(function() {
+              showBg($(this).data('bg'));
+            }, function() {
+              showBg(background);
+            }).filter('.' + background).addClass('active');
+            $themepicker.find('.dimensions a').click(function() {
+              is3d = $(this).data('is3d');
+              $.post($(this).parent().data('href'), {
+                is3d: is3d
+              });
+              $(this).addClass('active').siblings().removeClass('active');
+              $themepicker.removeClass("shown");
+              return false;
+            }).hover(function() {
+              showDimensions($(this).data('is3d'));
+            }, function() {
+              showDimensions(is3d);
+            }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+            $themepicker.find('.slider').slider({
+              orientation: "horizontal",
+              min: 1,
+              max: 2,
+              range: 'min',
+              step: 0.01,
+              value: getZoom(),
+              slide: function(e, ui) {
+                manuallySetZoom(ui.value);
+              }
+            });
+            $themepicker.find('input.background_image')
+              .on('change keyup paste', $.fp.debounce(function() {
+                var v = $(this).val();
+                $.post($(this).data("href"), {
+                  bgImg: v
+                });
+                applyBackground(v);
+              }, 200));
+          }
+        });
+      });
+
+      // Zoom
+      var getZoom = function() {
+        return lichess.storage.get('zoom') || 1;
+      };
+      var setZoom = function(v) {
+        lichess.storage.set('zoom', v);
+
+        var $lichessGame = $('.lichess_game, .board_and_ground');
+        var $boardWrap = $lichessGame.find('.cg-board-wrap');
+        var $coordinateProgress = $('.progress_bar_container');
+        var px = function(i) {
+          return Math.round(i) + 'px';
+        };
+
+        $boardWrap.css("width", px(512 * getZoom()));
+        $coordinateProgress.css("width", px(512 * getZoom()));
+        $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
+        $lichessGame.find('.lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
+
+        if ($('body > .content').hasClass('is3d')) {
+          $boardWrap.css("height", px(479.08572 * getZoom()));
+          $lichessGame.css({
+            height: px(479.08572 * getZoom()),
+            paddingTop: px(50 * (getZoom() - 1))
+          });
+          $('.chat_panels').css("height", px(290 + 529 * (getZoom() - 1)));
+        } else {
+          $boardWrap.css("height", px(512 * getZoom()));
+          $lichessGame.css({
+            height: px(512 * getZoom()),
+            paddingTop: px(0)
+          });
+          $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
+        }
+
+        $('#trainer .overlay_container').css({
+          top: px((getZoom() - 1) * 250),
+          left: px((getZoom() - 1) * 250)
+        });
+        // doesn't vertical center score at the end, close enough
+        $('#trainer .score_container').css("top", px((getZoom() - 1) * 250));
+
+
+        if ($lichessGame.length) {
+          // if on a board with a game
+          $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
+        }
+      };
+
+      var manuallySetZoom = $.fp.debounce(setZoom, 10);
+      if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
+      $('body').on('lichess.coordinate_trainer_loaded', function() {
+        setZoom(getZoom());
+      });
+
+      function translateTexts() {
+        $('.trans_me').each(function() {
+          $(this).removeClass('trans_me');
+          if ($(this).val()) $(this).val($.trans($(this).val()));
+          else $(this).text($.trans($(this).text()));
+        });
+      }
+      translateTexts();
+      $('body').on('lichess.content_loaded', translateTexts);
+
+      $('input.autocomplete').each(function() {
+        var $a = $(this);
+        $a.autocomplete({
+          source: $a.data('provider'),
+          minLength: 2,
+          delay: 100
+        });
+      });
+
+      $('.infinitescroll:has(.pager a)').each(function() {
+        $(this).infinitescroll({
+          navSelector: ".pager",
+          nextSelector: ".pager a:last",
+          itemSelector: ".infinitescroll .paginated_element",
+          errorCallback: function() {
+            $("#infscr-loading").remove();
+          }
+        }, function() {
+          $("#infscr-loading").remove();
+          $('body').trigger('lichess.content_loaded');
+        }).find('div.pager').hide();
+      });
+
+      $('#top a.toggle').each(function() {
+        var $this = $(this);
+        var $p = $this.parent();
+        $this.click(function() {
+          $p.toggleClass('shown');
+          $p.siblings('.shown').removeClass('shown');
+          setTimeout(function() {
+            $p.click(function(e) {
+              e.stopPropagation();
+            });
+            $('html').one('click', function(e) {
+              $p.removeClass('shown').off('click');
+            });
+          }, 10);
+          return false;
+        });
+      });
+
+      var acceptLanguages = $('body').data('accept-languages');
+      if (acceptLanguages) {
+        $('#top .lichess_language').one('mouseover', function() {
+          var $links = $(this).find('.language_links'),
+            langs = acceptLanguages.split(',');
+          $.ajax({
+            url: $links.data('url'),
+            cache: false,
+            success: function(list) {
+              $links.prepend(list.map(function(lang) {
+                var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
+                return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              }).join(''));
+            }
+          });
+        });
+      }
+
+      $('#incomplete_translation a.close').one('click', function() {
+        $(this).parent().remove();
+      });
+
+      $('#translation_call .close').click(function() {
+        $.post($(this).data("href"));
+        $(this).parent().fadeOut(500);
+        return false;
+      });
+
+      $('a.delete, input.delete').click(function() {
+        return confirm('Delete?');
+      });
+      $('input.confirm, button.confirm').click(function() {
+        return confirm('Confirm this action?');
+      });
+
+      $('div.content').on('click', 'a.bookmark', function() {
+        var t = $(this).toggleClass("bookmarked");
+        $.post(t.attr("href"));
+        var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
+        t.find('span').html(count > 0 ? count : "");
+        return false;
+      });
+
+      $("#import_game form").submit(function() {
+        var pgn = $(this).find('textarea').val();
+        var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
+        var delay = 50;
+        var duration = nbMoves * delay * 2.1 + 1000;
+        $(this).find('button').hide().end()
+          .find('.error').hide().end()
+          .find('.progression').show().animate({
+            width: '100%'
+          }, duration);
+        return true;
+      });
+
+      // minimal touchscreen support for topmenu
+      if ('ontouchstart' in window)
+        $('#topmenu').on('click', '> section > a', function() {
+          return false;
+        });
+
+      $('#ham-plate').click(function() {
+        document.body.classList.toggle('fpmenu');
+      });
+      Mousetrap.bind('esc', function() {
+        $('#ham-plate').click();
+        return false;
+      });
+      Mousetrap.bind('g h', function() {
+        location.href = '/';
+      });
+      // konami code!
+      Mousetrap.bind('up up down down left right left right b a', function() {
+        if (!document.getElementById('konami')) {
+          $('body').prepend($('<div id="konami"></div>'));
+        }
+        $('#konami').show(800);
+        setTimeout(function() {
+          $('#konami').hide(800);
+        }, 3000);
+      });
+      Mousetrap.bind('k a p p a', function() {
+        $('body').toggleClass('kappa');
+      });
+      Mousetrap.bind('d o g g y', function() {
+        $('body').toggleClass('doggy');
+      });
+
+      if (window.Fingerprint2) setTimeout(function() {
+        var t = +new Date();
+        new Fingerprint2({
+          excludeJsFonts: true
+        }).get(function(res) {
+          var time = (+new Date()) - t;
+          $.post('/set-fingerprint/' + res + '/' + time);
+        });
+      }, 500);
+    }, 50);
+  });
 
   $.lazy = function(factory) {
     var loaded = {};
