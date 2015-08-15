@@ -1,5 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], relays: List[lila.relay.Relay.Mini], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], nbRounds: Int)(implicit ctx: Context)
-@import play.api.libs.json.Json
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], relays: List[lila.relay.Relay.Mini], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -62,9 +61,12 @@
 @embedJs {
 lichess = lichess || {};
 lichess.lobby = {
-data: @Html(Json.stringify(data)),
+data: @Html(J.stringify(data)),
 playban: @playban.fold(Html("null")){ pb =>
-@Html(Json.stringify(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+@Html(J.stringify(J.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+},
+currentGame: @currentGame.fold(Html("null")) { cg =>
+@Html(J.stringify(cg.json))
 },
 i18n: @jsI18n()
 };
@@ -89,13 +91,14 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
-<div class="lobby_and_ground@if(playban.isDefined){ playban}">
+<div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
   @playban.map(playbanInfo(_))
+  @currentGame.map(currentGameInfo(_))
   <div id="hooks_wrap"></div>
   <div id="start_buttons" class="lichess_ground">
-    <a class="fat button config_hook hint--bottom@if(playban.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
-    <a class="fat button config_friend hint--bottom" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
-    <a class="fat button config_ai hint--bottom" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
+    <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
+    <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
+    <a class="fat button config_ai hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
   </div>
 </div>
 @puzzle.map { p =>

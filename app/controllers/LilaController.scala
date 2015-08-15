@@ -148,6 +148,23 @@ private[controllers] trait LilaController
       }
     }
 
+  protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(mashup.Preload.currentGame(Env.user.lightUser)) flatMap {
+      _.fold(a) { current =>
+        negotiate(
+          html = Lobby.renderHome(Results.Forbidden),
+          api = _ => fuccess {
+            Forbidden(Json.obj(
+              "error" -> s"You are already playing ${current.opponent}"
+            )) as JSON
+          }
+        )
+      }
+    }
+
+  protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    NoPlayban(NoCurrentGame(a))
+
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
   }

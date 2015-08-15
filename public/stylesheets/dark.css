@@ -431,7 +431,8 @@ body.dark::-moz-placeholder {
 body.dark:-ms-input-placeholder {
   color: #666!important;
 }
-body.dark #lobby_playban {
+body.dark #lobby_playban,
+body.dark #lobby_current_game {
   background: rgba(0,0,0,0.7);
 }
 body.dark #fpmenu {

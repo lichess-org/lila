@@ -120,6 +120,7 @@ GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(game
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
+POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 

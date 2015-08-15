@@ -26,7 +26,8 @@ final class Env(
     ongoingRelays = () => Env.relay.cached.miniStarted,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
-    getPlayban = Env.playban.api.currentBan _)
+    getPlayban = Env.playban.api.currentBan _,
+    lightUser = Env.user.lightUser)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,

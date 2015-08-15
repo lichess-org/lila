@@ -185,6 +185,13 @@ final class Env(
     if (game.playable && game.started && !game.isUnlimited)
       roundMap ! Tell(game.id, actorApi.round.Outoftime)
   }
+
+  def resign(pov: lila.game.Pov) {
+    if (pov.game.abortable)
+      roundMap ! Tell(pov.game.id, actorApi.round.Abort(pov.playerId))
+    else if (pov.game.playable)
+      roundMap ! Tell(pov.game.id, actorApi.round.Resign(pov.playerId))
+  }
 }
 
 object Env {
