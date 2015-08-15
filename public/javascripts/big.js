@@ -728,7 +728,7 @@ lichess.storage = {
               if (!$bgData.hasClass('animating'))
                 return;
               setBackground(anyOf(vs));
-              $bgData.attr('animator', setTimeout(function () { iterate(vs); }, 1000));
+              $bgData.attr('animator', setTimeout(function () { iterate(vs); }, 2 * 60 * 1000));
             })(vs);
           } else {
             setBackground(v);
