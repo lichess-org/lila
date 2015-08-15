@@ -39,7 +39,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @if(withLangAnnotations){@langAnnotations}
     @ctx.transpBgImg.map { img =>
-    <style type="text/css">body.transp::before{background-image:url('@img');}</style>
+    <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
   </head>
   <body class="preload base @List(
