@@ -573,28 +573,28 @@ lichess.storage = {
     });
   }
 
+  if (!lichess.StrongSocket.available) {
+    $('#lichess').on('mouseover', function() {
+      $('#lichess').off('mouseover');
+      var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
+      $.ajax(inUrFaceUrl, {
+        success: function(html) {
+          $('body').prepend(html);
+        }
+      });
+    });
+  }
+
+  if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+  else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+  else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+  else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
+  else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
+  else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
+  else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
+
   // delay so round starts first (just for perceived perf)
   setTimeout(function() {
-
-    if (!lichess.StrongSocket.available) {
-      $('#lichess').on('mouseover', function() {
-        $('#lichess').off('mouseover');
-        var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
-        $.ajax(inUrFaceUrl, {
-          success: function(html) {
-            $('body').prepend(html);
-          }
-        });
-      });
-    }
-
-    if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
-    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
-    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
-    else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
-    else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
-    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
-    else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
 
     $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
