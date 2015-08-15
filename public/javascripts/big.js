@@ -707,9 +707,33 @@ lichess.storage = {
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
         var applyBackground = function(v) {
-          var bgData = document.getElementById('bg-data');
-          bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
-            $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
+          function setBackground(v) {
+            var bgData = document.getElementById('bg-data');
+            bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
+              $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
+          }
+          if (v.substring(0, 11) === 'slideshow:[' && v[v.length - 1] === ']') {
+            function anyOf(vs) { return vs[~~(vs.length * Math.random())]; }
+            var vs = v.substring(11, v.length - 1).split(',');
+            v = anyOf(vs);
+            setBackground(v);
+        
+            var $bgData = $('#bg-data');
+            var animator = $bgData.attr('animator');
+            if (animator)
+              clearTimeout(animator);
+            else $bgData.addClass('animating');
+            (function iterate(vs) {
+              var $bgData = $('#bg-data');
+              if (!$bgData.hasClass('animating'))
+                return;
+              setBackground(anyOf(vs));
+              $bgData.attr('animator', setTimeout(function () { iterate(vs); }, 1000));
+            })(vs);
+          } else {
+            setBackground(v);
+            $('#bg-data.animating').removeClass('animating').removeAttr('animator');
+          }
         };
         var $themepicker = $('#themepicker');
         $.ajax({
