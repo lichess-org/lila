@@ -871,10 +871,13 @@ lichess.storage = {
             $defaultBg.prepend(defaultBgs.map(function(v) {
               return '<a style="background-image:url(' + v + ')" img="' + v + '"></a>';
             }).join(""));
-            $defaultBg.find('a').click(function() {
+            $defaultBg.find('a[img]').click(function() {
               $inputBg.val($(this).attr('img')).trigger('change');
             }).hover(function() {
               applyBackground($(this).attr('img'));
+            });
+            $defaultBg.find('a.slideshow').click(function() {
+              $inputBg.val('slideshow:[' + defaultBgs.join(',') + ']').trigger('change');
             });
             $inputBg.on('change keyup paste',
               $.fp.debounce(function() {
