@@ -181,6 +181,12 @@ body.transp #powerTip {
 body.transp #site_title {
   opacity: 0.9;
 }
+body.transp #themepicker div.default-bg {
+  display: block;
+  padding: 5px 5px 1px 5px;
+  background: rgba(40, 40, 40, 0.6);
+  margin-top: unset;
+}
 body.transp #themepicker input.background_image {
   display: block;
   width: 100%;
