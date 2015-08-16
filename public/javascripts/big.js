@@ -719,7 +719,7 @@ lichess.storage = {
             setBackground(v);
         
             var $bgData = $('#bg-data');
-            var animator = $bgData.attr('animator');
+            var animator = $bgData.data('animator');
             if (animator)
               clearTimeout(animator);
             else $bgData.addClass('animating');
@@ -728,11 +728,11 @@ lichess.storage = {
               if (!$bgData.hasClass('animating'))
                 return;
               setBackground(anyOf(vs));
-              $bgData.attr('animator', setTimeout(function () { iterate(vs); }, 2 * 60 * 1000));
+              $bgData.data('animator', setTimeout(function () { iterate(vs); }, 2 * 60 * 1000));
             })(vs);
           } else {
             setBackground(v);
-            $('#bg-data.animating').removeClass('animating').removeAttr('animator');
+            $('#bg-data.animating').removeClass('animating').removeData('animator');
           }
         };
         var $themepicker = $('#themepicker');
@@ -869,12 +869,12 @@ lichess.storage = {
              "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-146575.jpg"
             ];
             $defaultBg.prepend(defaultBgs.map(function(v) {
-              return '<a style="background-image:url(' + v + ')" img="' + v + '"></a>';
+              return '<a style="background-image:url(' + v + ')" data-img="' + v + '"></a>';
             }).join(""));
             $defaultBg.find('a[img]').click(function() {
-              $inputBg.val($(this).attr('img')).trigger('change');
+              $inputBg.val($(this).data('img')).trigger('change');
             }).hover(function() {
-              applyBackground($(this).attr('img'));
+              applyBackground($(this).data('img'));
             });
             $defaultBg.find('a.slideshow').click(function() {
               $inputBg.val('slideshow:[' + defaultBgs.join(',') + ']').trigger('change');
