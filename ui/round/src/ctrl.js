@@ -322,10 +322,7 @@ module.exports = function(opts) {
   };
 
   var logBot = function() {
-    $.get('http://localhost:8888/allMoves/e2e4/incrementTime/5/remainingTime/0/',
-      function(r) {
-        $.post('/jslog');
-      });
+    if ($('.engineProposal').length) $.post('/jslog');
   };
 
   init(this);
