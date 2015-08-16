@@ -871,7 +871,7 @@ lichess.storage = {
             $defaultBg.prepend(defaultBgs.map(function(v) {
               return '<a style="background-image:url(' + v + ')" data-img="' + v + '"></a>';
             }).join(""));
-            $defaultBg.find('a[img]').click(function() {
+            $defaultBg.find('a[data-img]').click(function() {
               $inputBg.val($(this).data('img')).trigger('change');
             }).hover(function() {
               applyBackground($(this).data('img'));
