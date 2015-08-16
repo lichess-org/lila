@@ -861,8 +861,23 @@ lichess.storage = {
                 manuallySetZoom(ui.value);
               }
             });
-            $themepicker.find('input.background_image')
-              .on('change keyup paste', $.fp.debounce(function() {
+            var $defaultBg = $themepicker.find('.default-bg');
+            var $inputBg = $themepicker.find('input.background_image');
+            var defaultBgs = ["http://lichess1.org/assets/images/background/landscape.jpg",
+             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-230635.jpg",
+             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-229265.jpg",
+             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-146575.jpg"
+            ];
+            $defaultBg.prepend(defaultBgs.map(function(v) {
+              return '<a style="background-image:url(' + v + ')" img="' + v + '"></a>';
+            }).join(""));
+            $defaultBg.find('a').click(function() {
+              $inputBg.val($(this).attr('img')).trigger('change');
+            }).hover(function() {
+              applyBackground($(this).attr('img'));
+            });
+            $inputBg.on('change keyup paste',
+              $.fp.debounce(function() {
                 var v = $(this).val();
                 $.post($(this).data("href"), {
                   bgImg: v
