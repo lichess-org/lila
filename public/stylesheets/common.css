@@ -1527,8 +1527,25 @@ body #themepicker div.is3d,
   width: 10px;
   bottom: 0;
 }
+#themepicker div.default-bg,
 #themepicker input.background_image {
   display: none;
+}
+#themepicker div.default-bg > a {
+  width: 40px;
+  height: 40px;
+  background-attachment: scroll;
+  background-position: 50% 50%;
+  background-size: 250%;
+  margin: unset;
+}
+#themepicker .default-bg > .slideshow {
+  background-image: url(../images/background/diamond_upholstery.dark.png);
+}
+#themepicker .default-bg > .slideshow::after {
+  content: 'p'; /* clock */
+  position: absolute;
+  font-family: lichess;
 }
 #sound_control {
   margin-right: 5px;
