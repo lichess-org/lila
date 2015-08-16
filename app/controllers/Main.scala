@@ -78,7 +78,10 @@ object Main extends LilaController {
   }
 
   def jslog = Open { ctx =>
-    loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} ${HTTPRequest.referer(ctx.req)}")
-    Ok.fuccess
+    val referer = HTTPRequest.referer(ctx.req)
+    loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")
+    ctx.userId.?? {
+      Env.report.api.autoBotReport(_, referer)
+    }
   }
 }
