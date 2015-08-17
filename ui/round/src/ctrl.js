@@ -54,7 +54,6 @@ module.exports = function(opts) {
       hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
-    if (this.vm.ply < 2) logBot();
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -189,6 +188,7 @@ module.exports = function(opts) {
         check: o.check
       });
       if (o.check) $.sound.check();
+      if (this.vm.ply < 4) logBot();
     }
     if (o.clock) {
       var c = o.clock
@@ -322,7 +322,9 @@ module.exports = function(opts) {
   };
 
   var logBot = function() {
-    if ($('.engineProposal').length) $.post('/jslog');
+    setTimeout(function() {
+      if ($('.engineProposal').length) $.post('/jslog');
+    }, 500);
   };
 
   init(this);
