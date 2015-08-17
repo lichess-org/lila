@@ -2,6 +2,7 @@ package lila.security
 
 import scala.concurrent.duration._
 
+import java.net.InetAddress
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
@@ -53,7 +54,7 @@ final class Firewall(
     Redirect("/") withCookies cookie
   }
 
-  def blocksIp(ip: String): Fu[Boolean] = ips.apply map (_ contains ip)
+  def blocksIp(ip: String): Fu[Boolean] = ips contains ip
 
   private def refresh {
     ips.clear
@@ -73,14 +74,17 @@ final class Firewall(
   private val ipRegex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
 
   private def validIp(ip: String) =
-    (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
+    ipRegex matches ip && ip != "127.0.0.1" && ip != "0.0.0.0"
+
+  private type IP = Vector[Byte]
 
   private lazy val ips = new {
-    private val cache: Cache[Set[String]] = LruCache(timeToLive = cachedIpsTtl)
-    def apply: Fu[Set[String]] = cache(true)(fetch)
+    private val cache: Cache[Set[IP]] = LruCache(timeToLive = cachedIpsTtl)
+    private def strToIp(ip: String) = InetAddress.getByName(ip).getAddress.toVector
+    def apply: Fu[Set[IP]] = cache(true)(fetch)
     def clear { cache.clear }
+    def contains(ip: String) = apply map (_ contains strToIp(ip))
+    def fetch: Fu[Set[IP]] =
+      $primitive($select.all, "_id")(_.asOpt[String]) map { _.map(strToIp).toSet }
   }
-
-  private def fetch: Fu[Set[String]] =
-    $primitive($select.all, "_id")(_.asOpt[String]) map (_.toSet)
 }
