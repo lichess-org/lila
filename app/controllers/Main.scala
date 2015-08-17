@@ -84,4 +84,15 @@ object Main extends LilaController {
       Env.report.api.autoBotReport(_, referer)
     }
   }
+
+  def csp = Action(BodyParsers.parse.tolerantJson) { req =>
+    import lila.common.PimpedJson._
+    req.body obj "csp-report" foreach { report =>
+      val gameUrl = report str "document-uri"
+      val blockedUrl = report str "blocked-uri"
+      val status = report int "status-code"
+      loginfo(s"[csp-report] ${req.remoteAddress} ${~status} $blockedUrl on $gameUrl")
+    }
+    Ok
+  }
 }
