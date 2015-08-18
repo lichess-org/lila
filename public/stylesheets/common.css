@@ -404,10 +404,16 @@ div.content_box .loader:after {
 #powerTip > .actions td:last-child a {
   border-right: 0;
 }
+#powerTip > .game_legend {
+  text-align: center;
+  border-bottom: 1px solid #c0c0c0;
+  padding: 3px 0;
+}
 #powerTip > .score {
   font-size: 1.2em;
   text-align: center;
   border-bottom: 1px solid #c0c0c0;
+  padding: 3px 0;
 }
 .clearfix::after {
   content: ".";

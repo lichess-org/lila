@@ -25,6 +25,12 @@
 @if(!ctx.pref.isBlindfold) {
 @playing.map { pov =>
 @gameFen(pov.game, pov.color)
+<div class="game_legend">
+  @playerText(pov.opponent, withRating = true)
+  @pov.game.clock.map { c =>
+  • @c.show
+  }
+</div>
 }
 }
 @ctx.userId.map { myId =>
