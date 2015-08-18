@@ -1233,15 +1233,11 @@ body.fpmenu #fpmenu {
 #top div.message_notifications div.title a {
   text-decoration: underline;
 }
-#top #challenge_notifications div.title {
-  padding: 5px 3% 5px 3%;
-  text-align: center;
-}
 #message_notifications,
 #challenge_notifications {
-  width: 240px;
+  width: 250px;
   z-index: 2;
-  left: -94px;
+  left: -95px;
 }
 #message_notifications div.notification,
 #challenge_notifications div.notification {
@@ -1280,8 +1276,7 @@ body.fpmenu #fpmenu {
 #challenge_notifications .setup {
   text-transform: uppercase;
 }
-#message_notifications .actions,
-#challenge_notifications .actions {
+#message_notifications .actions {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -1289,40 +1284,48 @@ body.fpmenu #fpmenu {
   text-decoration: none;
   opacity: 0;
   transition: opacity 0.13s;
-}
-#message_notifications a,
-#challenge_notifications a {
-  text-decoration: none;
-}
-#notifications a {
-  font-weight: bold;
-  text-decoration: none;
-}
-#message_notifications a.block,
-#challenge_notifications a.block {
-  display: block;
-  padding: 6px 8px 7px 8px;
-}
-#message_notifications .actions a,
-#challenge_notifications .actions a {
-  font-weight: bold;
-  margin-right: 5px;
-}
-#message_notifications .notification:hover .actions,
-#challenge_notifications .notification:hover .actions {
-  opacity: 0.7;
-}
-#notifications .actions {
   margin-top: 5px;
   text-align: right;
 }
-#notifications .actions a {
+#message_notifications a.block,
+#challenge_notifications div.notification {
+  display: block;
+  padding: 6px 8px 7px 8px;
+}
+#message_notifications a {
+  text-decoration: none;
+}
+#message_notifications .actions a {
+  font-weight: bold;
+  margin-right: 5px;
   margin-left: 10px;
 }
-#message_notifications .actions a:hover,
-#challenge_notifications .actions a:hover,
-#notifications .actions a:hover {
+#message_notifications .notification:hover .actions {
+  opacity: 0.7;
+}
+#message_notifications .actions a:hover {
   color: #d85000;
+}
+#challenge_notifications .buttons {
+  margin: 1em 0;
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 0.13s;
+}
+#challenge_notifications .notification:hover .buttons {
+  opacity: 1;
+}
+#challenge_notifications .buttons form {
+  display: inline;
+}
+#challenge_notifications .buttons .button {
+  color: #759900;
+  font-size: 1.6em;
+  padding: 6px 30px;
+}
+#challenge_notifications .buttons .decline {
+  color: #dc322f;
+  margin-left: 1em;
 }
 form.wide input[type="text"],
 form.wide textarea {
@@ -2101,14 +2104,10 @@ div.undertable.leaderboard td:first-child {
   max-width: 150px;
   overflow: hidden;
 }
-div.lichess_overboard.joining input.submit {
+div.lichess_overboard.joining .submit {
   font-size: 1.2em;
   margin-top: 1em;
   padding: 0.6em 1em;
-}
-div.lichess_overboard.joining a.decline {
-  display: block;
-  margin-top: 1em;
 }
 div.lichess_overboard.joining .mini_board {
   margin: 10px auto;

@@ -451,16 +451,6 @@ lichess.storage = {
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
-          var declineListener = function($a, callback) {
-            return $a.click(function() {
-              $.post($(this).attr("href"));
-              lichess.storage.set('challenge-refused-' + data.id, 1);
-              $('#' + htmlId).remove();
-              if ($.isFunction(callback)) callback();
-              refreshButton();
-              return false;
-            });
-          };
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
             $('#challenge_notifications').append(data.html);
@@ -468,7 +458,13 @@ lichess.storage = {
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
             });
-            declineListener($notif.find('a.decline'));
+            $notif.find('a.decline').click(function() {
+              $.post($(this).attr("href"));
+              lichess.storage.set('challenge-refused-' + data.id, 1);
+              $('#' + htmlId).remove();
+              refreshButton();
+              return false;
+            });
             $('body').trigger('lichess.content_loaded');
             if (!lichess.storage.get('challenge-' + data.id)) {
               if (!lichess.quietMode) {
@@ -479,13 +475,6 @@ lichess.storage = {
             }
             refreshButton();
           }
-          $('.lichess_overboard.joining.' + data.id).each(function() {
-            if (!$(this).find('a.decline').length) $(this).find('form').append(
-              declineListener($(data.html).find('a.decline').text($.trans('Decline')), function() {
-                location.href = "/";
-              })
-            );
-          });
           $notif.data('timeout', setTimeout(function() {
             $notif.remove();
             refreshButton();
