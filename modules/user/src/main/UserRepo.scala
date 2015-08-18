@@ -249,8 +249,8 @@ trait UserRepo {
   def enable(id: ID) = $update.field(id, "enabled", true)
 
   def disable(id: ID) = $update($select(id), BSONDocument(
-    "$set" -> BSONDocument("enabled" -> false),
-    "$unset" -> BSONDocument("email" -> true)))
+    "$set" -> BSONDocument("enabled" -> false)))
+    // "$unset" -> BSONDocument("email" -> true)))
 
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption =>
