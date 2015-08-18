@@ -325,7 +325,7 @@ function buttons(ctrl) {
           attrs: {
             class: 'button ' + b[0] + ' ' + classSet({
               disabled: ctrl.broken,
-              glowing: ctrl.vm.late && b[0] === 'last'
+              glowed: ctrl.vm.late && b[0] === 'last'
             }),
             'data-icon': b[1],
             onclick: partial(b[2], ctrl)

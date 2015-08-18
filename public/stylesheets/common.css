@@ -827,7 +827,6 @@ div.side_box div.user_tv h2 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 div.side div.confrontation {
   text-align: center;
   margin-bottom: 5px;
@@ -2191,31 +2190,8 @@ div.progressbar div {
 div.progressbar.flashy.green div {
   background-color: #759900 !important;
 }
-.glowing {
-  animation: glow 2s infinite ease;
-  -webkit-animation: glow 2s infinite ease;
-}
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
-  }
-  50% {
-    box-shadow: none;
-  }
-  100% {
-    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
-  }
-}
-@-webkit-keyframes glow {
-  0% {
-    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
-  }
-  50% {
-    box-shadow: none;
-  }
-  100% {
-    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
-  }
+.glowed {
+  box-shadow: 0 0 5px 1px #e89000, 0 0 10px 1px #d85000;
 }
 a.hover_text > .base,
 a.hover_text:hover > .hover {

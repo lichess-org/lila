@@ -108,7 +108,7 @@ module.exports = {
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return [
       ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
-      m('a.glowing.button.fat.hint--bottom', {
+      m('a.glowed.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         onclick: partial(ctrl.socket.send, 'rematch-yes', null),
       }, ctrl.trans('joinTheGame')),
@@ -145,7 +145,7 @@ module.exports = {
     if (ctrl.data.tournament) return [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong' + (ctrl.data.tournament.running ? ' glowing' : ''),
+        class: 'text button strong' + (ctrl.data.tournament.running ? ' glowed' : ''),
         href: '/tournament/' + ctrl.data.tournament.id
       }, ctrl.trans('backToTournament')),
       ctrl.data.tournament.running ? m('form', {
