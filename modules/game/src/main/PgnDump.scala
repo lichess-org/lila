@@ -5,7 +5,7 @@ import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag }
 import chess.format.{ pgn => chessPgn }
-import chess.{ OpeningExplorer }
+import chess.OpeningExplorer
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
@@ -61,7 +61,18 @@ final class PgnDump(
       Tag(_.Variant, game.variant.name.capitalize),
       Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
       Tag(_.ECO, game.opening.fold("?")(_.code)),
-      Tag(_.Opening, game.opening.fold("?")(_.name))
+      Tag(_.Opening, game.opening.fold("?")(_.name)),
+      Tag(_.Termination, {
+        import chess.Status._
+        game.status match {
+          case Created | Started                    => "Unterminated"
+          case Aborted                              => "Aborted"
+          case Resign | NoStart                     => "Abandoned"
+          case Draw | Stalemate | Mate | VariantEnd => "Normal"
+          case Timeout | Outoftime                  => "Time forfeit"
+          case Cheat                                => "Rules infraction"
+        }
+      })
     ) ::: customStartPosition(game.variant).??(List(
         Tag(_.FEN, initialFen | "?"),
         Tag("SetUp", "1")
