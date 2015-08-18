@@ -288,6 +288,16 @@ case class Game(
 
   def berserkable = status == Status.Started && playedTurns < 2
 
+  def goBerserk(color: Color) =
+    clock.ifTrue(berserkable && !player(color).berserk).map { c =>
+      val newClock = c halfTime color
+      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) + Event.Clock(newClock)
+    }
+
+  def withPlayer(color: Color, f: Player => Player) = copy(
+    whitePlayer = if (color.white) f(whitePlayer) else whitePlayer,
+    blackPlayer = if (color.black) f(blackPlayer) else blackPlayer)
+
   def resignable = playable && !abortable
   def drawable = playable && !abortable
 

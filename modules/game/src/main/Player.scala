@@ -21,6 +21,7 @@ case class Player(
     provisional: Boolean = false,
     blurs: Int = 0,
     holdAlert: Option[Player.HoldAlert] = None,
+    berserk: Boolean = false,
     name: Option[String] = None) {
 
   def playerUser = userId flatMap { uid =>
@@ -48,6 +49,8 @@ case class Player(
 
   def hasHoldAlert = holdAlert.isDefined
   def hasSuspiciousHoldAlert = holdAlert ?? (_.suspicious)
+
+  def goBerserk = copy(berserk = true)
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
@@ -124,6 +127,7 @@ object Player {
     val provisional = "p"
     val blurs = "b"
     val holdAlert = "h"
+    val berserk = "be"
     val name = "na"
   }
 
@@ -164,6 +168,7 @@ object Player {
       provisional = r boolD provisional,
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
+      berserk = r boolD berserk,
       name = r strO name)
 
     def writes(w: BSON.Writer, o: Builder) =
