@@ -43,6 +43,9 @@ module.exports = function(send, ctrl) {
       if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
         $.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
     },
+    berserk: function(color) {
+      ctrl.setBerserk(color);
+    },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
         game.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);

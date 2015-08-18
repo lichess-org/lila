@@ -216,6 +216,7 @@ body.blind_mode .cg-board-wrap {
 }
 div.lichess_game div.lichess_ground {
   display: table-cell;
+  position: relative;
   vertical-align: middle;
   padding-left: 15px;
   height: 512px;
@@ -1415,6 +1416,18 @@ div.cemetery .tomb {
 }
 div.cemetery .mono-piece {
   margin-left: -10px;
+}
+div.berserk_alert {
+  position: absolute;
+  left: 10px;
+  font-size: 45px;
+  color: #D85000;
+}
+div.berserk_alert.top {
+  top: 0px;
+}
+div.berserk_alert.bottom {
+  bottom: 0px;
 }
 div.under_chat {
   width: 228px;

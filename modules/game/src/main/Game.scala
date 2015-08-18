@@ -291,7 +291,9 @@ case class Game(
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c halfTime color
-      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) + Event.Clock(newClock)
+      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
+        Event.Clock(newClock) +
+        Event.Berserk(color)
     }
 
   def withPlayer(color: Color, f: Player => Player) = copy(
