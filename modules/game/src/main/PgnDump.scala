@@ -65,12 +65,11 @@ final class PgnDump(
       Tag(_.Termination, {
         import chess.Status._
         game.status match {
-          case Created | Started                    => "Unterminated"
-          case Aborted                              => "Aborted"
-          case Resign | NoStart                     => "Abandoned"
-          case Draw | Stalemate | Mate | VariantEnd => "Normal"
-          case Timeout | Outoftime                  => "Time forfeit"
-          case Cheat                                => "Rules infraction"
+          case Created | Started                             => "Unterminated"
+          case Aborted | NoStart                             => "Abandoned"
+          case Timeout | Outoftime                           => "Time forfeit"
+          case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
+          case Cheat                                         => "Rules infraction"
         }
       })
     ) ::: customStartPosition(game.variant).??(List(
