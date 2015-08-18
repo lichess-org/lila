@@ -23,7 +23,6 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     onStart: String => Unit,
-    secondsToMove: Int,
     trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
@@ -112,8 +111,7 @@ final class Env(
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
     system = system,
-    onStart = onStart,
-    secondsToMove = secondsToMove)
+    onStart = onStart)
 
   {
     import scala.concurrent.duration._
@@ -152,7 +150,6 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
-    secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
     trophyApi = lila.user.Env.current.trophyApi,
     scheduler = lila.common.PlayApp.scheduler)
 }

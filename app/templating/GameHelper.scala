@@ -16,8 +16,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def staticUrl(path: String): String
   def cdnUrl(path: String): String
 
-  def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
-
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
     image = cdnUrl(routes.Export.png(pov.game.id).url).some,
     title = titlePov(pov),
