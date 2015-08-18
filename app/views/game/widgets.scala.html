@@ -3,8 +3,11 @@
 @gamePlayer(player: Player) = {
 <div class="player @player.color.name">
   @player.playerUser.map { playerUser =>
-  <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">@usernameOrId(playerUser.id)</a><br />
-  @playerUser.rating @playerUser.ratingDiff.map(showRatingDiff)
+  <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">
+    @usernameOrId(playerUser.id)
+  </a>
+  <br />
+  @if(player.berserk) { @berserkIconSpanHtml } @playerUser.rating @playerUser.ratingDiff.map(showRatingDiff)
   }.getOrElse {
   @player.aiLevel.map { level =>
   <span>@trans.aiNameLevelAiLevel.str(aiName, level)</span><br />@aiRating(level)
