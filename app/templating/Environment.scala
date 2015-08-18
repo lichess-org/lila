@@ -49,7 +49,7 @@ object Environment
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  lazy val portsString = (apiEnv.Net.Port :: apiEnv.Net.ExtraPorts) mkString ","
+  lazy val portsString = apiEnv.Net.ExtraPorts mkString ","
 
   def isProd = apiEnv.isProd
 
