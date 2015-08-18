@@ -44,9 +44,8 @@ final class Firewall(
     $update(Json.obj("_id" -> ip), Json.obj("_id" -> ip, "date" -> $date(DateTime.now)), upsert = true) >>- refresh
   }
 
-  def unblockIp(ip: String): Funit = validIp(ip) ?? {
-    $remove($select(ip)) >>- refresh
-  }
+  def unblockIps(ips: Iterable[String]): Funit =
+    $remove($select.byIds(ips filter validIp)) >>- refresh
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))

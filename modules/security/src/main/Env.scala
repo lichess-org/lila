@@ -86,8 +86,8 @@ final class Env(
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(30 seconds)(tor.refresh)
-  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh)
+  scheduler.once(30 seconds)(tor.refresh(_ => funit))
+  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val api = new Api(firewall, tor)
 
