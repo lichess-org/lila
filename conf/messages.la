@@ -1,7 +1,7 @@
 playWithAFriend=Cum amico ludere
 playWithTheMachine=Cum machina ludere
 toInviteSomeoneToPlayGiveThisUrl=Ut cognitionem ad ludo invites, sui URL das
-gameOver=Ludus Perfectus
+gameOver=Ludus perficiebat
 waitingForOpponent=Expectans adversarium
 waiting=Expectans
 yourTurn=Potes ludere
@@ -297,3 +297,5 @@ difficultyNormal=Medium
 difficultyHard=Difficilis
 human=Vir
 computer=Machina
+playOnline=Ludere conexus
+playOffline=Ludere extra
