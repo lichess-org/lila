@@ -110,7 +110,7 @@ object Account extends LilaController {
         UserRepo.checkPassword(me.id, password) flatMap {
           case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
           case true =>
-            (UserRepo disable me.id) >>
+            (UserRepo disable me) >>
               relationEnv.api.unfollowAll(me.id) >>
               Env.team.api.quitAll(me.id) >>
               (Env.security disconnect me.id) inject {
