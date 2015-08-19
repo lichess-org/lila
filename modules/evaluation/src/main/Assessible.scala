@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.Color
+import chess.{ Color, Speed }
 import lila.analyse.{ Accuracy, Analysis }
 import lila.game.{ Game, Pov }
 import Math.signum
@@ -48,7 +48,7 @@ case class Assessible(analysed: Analysed) {
   private val T = true
   private val F = false
 
-  def rankCheating(color: Color): GameAssessment = {
+  private def rankCheating(color: Color): GameAssessment = {
     import GameAssessment._
     val flags = mkFlags(color)
     val assessment = flags match {
@@ -57,7 +57,6 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(_, _, _, _, _, _, T) => Cheating // Holds are bad, hmk?
       case PlayerFlags(T, _, T, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
 
-      case PlayerFlags(T, _, _, _, T, T, _) => LikelyCheating // high accuracy, consistent move times, no fast moves
       case PlayerFlags(T, _, _, T, _, T, _) => LikelyCheating // high accuracy, moderate blurs, no fast moves
       case PlayerFlags(_, T, _, T, T, _, _) => LikelyCheating // always has advantage, moderate blurs, highly consistent move times
       case PlayerFlags(_, T, _, _, T, T, _) => LikelyCheating // always has advantage, consistent move times
@@ -102,8 +101,4 @@ case class Assessible(analysed: Analysed) {
       blurs = blurs(color),
       hold = hold(color)
     )
-
-  val assessments: PlayerAssessments = PlayerAssessments(
-    white = Some(playerAssessment(Color.White)),
-    black = Some(playerAssessment(Color.Black)))
 }
