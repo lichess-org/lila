@@ -58,12 +58,12 @@ fi
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
-  lilalog "Notify users of pre deploy"
-  bin/cli-prod deploy pre
+  bin/prod/compile-client
 fi
 
 if [ $mode == "main" ]; then
-  bin/prod/compile-client
+  lilalog "Notify users of pre deploy"
+  bin/cli-prod deploy pre
 fi
 
 sbt ";stage;exit"
