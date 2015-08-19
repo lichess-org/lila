@@ -25,7 +25,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
     case Select(candidates) => if (candidates.nonEmpty) {
       oneId ?? GameRepo.game foreach {
         case Some(game) if channel.filter(game) =>
-          wayBetter(game, candidates) orElse rematch(game) orElse foreach elect
+          wayBetter(game, candidates) orElse rematch(game) foreach elect
         case Some(game) => rematch(game) orElse feature(candidates) foreach elect
         case _          => feature(candidates) foreach elect
       }
