@@ -46,10 +46,11 @@ function playerTr(ctrl, player) {
       ]),
       ctrl.data.startsAt ? m('td') : m('td.sheet', {
         config: function(el, isUpdate) {
-          if (isUpdate) return;
-          $(el).on('click', '> *', function() {
-            location.href = ['/tournament', ctrl.data.id, 'show', player.name, $(this).index() + 1].join('/');
-          });
+          if (!isUpdate) {
+            $(el).on('click', '> *', function() {
+              location.href = ['/tournament', ctrl.data.id, 'show', player.name, $(this).index() + 1].join('/');
+            });
+          }
           $(el).find('.glpt').removeClass('glpt').powerTip({
             fadeInTime: 100,
             fadeOutTime: 100,
