@@ -1228,6 +1228,9 @@ div.table_wrap > .clock .bar span {
   width: 0px;
   background: #759900;
 }
+div.table_wrap > .clock .bar.berserk span {
+  background: #dc322f;
+}
 div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;

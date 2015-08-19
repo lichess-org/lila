@@ -28,14 +28,14 @@ function formatClockTime(ctrl, time, running) {
   }
 }
 
-function showBar(ctrl, time) {
-  return ctrl.data.showBar ? m('div.bar',
-    m('span', {
-      style: {
-        width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
-      }
-    })
-  ) : null;
+function showBar(ctrl, time, berserk) {
+  return ctrl.data.showBar ? m('div', {
+    class: 'bar' + (berserk ? ' berserk' : '')
+  }, m('span', {
+    style: {
+      width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
+    }
+  })) : null;
 }
 
 module.exports = {

@@ -138,7 +138,7 @@ function renderClock(ctrl, color, position) {
         'emerg': time < ctrl.clock.data.emerg
       })
     }, [
-      clockView.showBar(ctrl.clock, time),
+      clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
       ctrl.data.player.color === color ? goBerserk(ctrl) : null
     ]),
