@@ -181,19 +181,9 @@ body.transp #powerTip {
 body.transp #site_title {
   opacity: 0.9;
 }
-body.transp #themepicker div.default-bg {
+body.transp #themepicker div.bg-selector {
   display: block;
   padding: 5px 5px 1px 5px;
   background: rgba(40, 40, 40, 0.6);
   margin-top: unset;
-}
-body.transp #themepicker input.background_image {
-  display: block;
-  width: 100%;
-  border: 1px solid #444;
-  border-left: 0;
-  border-right: 0;
-  padding: 5px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
 }

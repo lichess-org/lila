@@ -712,11 +712,10 @@ lichess.storage = {
             bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
               $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
           }
-          if (v.substring(0, 11) === 'slideshow:[' && v[v.length - 1] === ']') {
+          if (Array.isArray(v)) {
             function anyOf(vs) { return vs[~~(vs.length * Math.random())]; }
-            var vs = v.substring(11, v.length - 1).split(',');
-            v = anyOf(vs);
-            setBackground(v);
+            var c = anyOf(v);
+            setBackground(c);
         
             var $bgData = $('#bg-data');
             var animator = $bgData.data('animator');
@@ -729,7 +728,7 @@ lichess.storage = {
                 return;
               setBackground(anyOf(vs));
               $bgData.data('animator', setTimeout(function () { iterate(vs); }, 2 * 60 * 1000));
-            })(vs);
+            })(v);
           } else {
             setBackground(v);
             $('#bg-data.animating').removeClass('animating').removeData('animator');
@@ -861,32 +860,89 @@ lichess.storage = {
                 manuallySetZoom(ui.value);
               }
             });
-            var $defaultBg = $themepicker.find('.default-bg');
-            var $inputBg = $themepicker.find('input.background_image');
-            var defaultBgs = ["http://lichess1.org/assets/images/background/landscape.jpg",
-             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-230635.jpg",
-             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-229265.jpg",
-             "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-146575.jpg"
-            ];
-            $defaultBg.prepend(defaultBgs.map(function(v) {
-              return '<a style="background-image:url(' + v + ')" data-img="' + v + '"></a>';
-            }).join(""));
-            $defaultBg.find('a[data-img]').click(function() {
-              $inputBg.val($(this).data('img')).trigger('change');
-            }).hover(function() {
-              applyBackground($(this).data('img'));
-            });
-            $defaultBg.find('a.slideshow').click(function() {
-              $inputBg.val('slideshow:[' + defaultBgs.join(',') + ']').trigger('change');
-            });
-            $inputBg.on('change keyup paste',
-              $.fp.debounce(function() {
-                var v = $(this).val();
-                $.post($(this).data("href"), {
-                  bgImg: v
-                });
+            var $bgSelector = $themepicker.find('.bg-selector');
+            var bgs = localStorage["backgrounds"];
+            if (!bgs)
+              bgs = localStorage["backgrounds"] = ["",
+                "*http://lichess1.org/assets/images/background/landscape.jpg",
+                "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-230635.jpg",
+                "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-229265.jpg",
+                "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-146575.jpg"
+              ];
+            else bgs = bgs.split(',');
+            var slideshow = bgs.shift();
+            if (slideshow === "*") {
+              $('a.slideshow').addClass('using');
+              applyBackground(bgs.slice(1));
+            }
+            /** @const {string} */
+            var cards = '<span class="reveal drop" data-icon="q"></span><span class="reveal choose" data-icon="v"></span>';
+            $bgSelector.prepend(bgs.map(function(v) {
+              var using = v[0] === '*';
+              if (using) {
+                v = v.substr(1);
                 applyBackground(v);
-              }, 200));
+              }
+              return '<a style="background-image:url(' + v + ')" data-img="' + v + '"' +
+                (using ? 'class="using">' : '>' + cards) + '</a>';
+            }).join(""));
+            bgs.unshift(slideshow);
+            var $dataImg = $bgSelector.find('a[data-img]');
+            /** @const {{choose: function(), drop: function()}} */
+            var Selection = {
+              // Assume that an active selection will not trigger via html('').
+              choose: function() {
+                // if ($(this).hasClass('using'))
+                //   return false;
+                clearChosenBackground();
+                var parent = $(this).parent();
+                var index = $bgSelector.find('a[data-img]').index(parent) + 1;
+                bgs[index] = '*' + bgs[index];
+                applyBackground(parent.addClass('using').html('').data('img'));
+                localStorage['backgrounds'] = bgs;
+              },
+              drop: function() {
+                // if ($(this).hasClass('using'))
+                //   return false;
+                if (!confirm("Are you sure you want to remove this background?"))
+                  return;
+                var parent = $(this).parent();
+                var index = $bgSelector.find('a[data-img]').index(parent) + 1;
+                bgs.splice(index, 1);
+                parent.remove();
+                localStorage['backgrounds'] = bgs;
+              }
+            };
+            var clearChosenBackground = function() {
+              var $using = $bgSelector.find('.using').removeClass('using');
+              if (bgs[0] === '*') {
+                bgs[0] = '';
+                return;
+              }
+              var index = $bgSelector.find('a[data-img]').index(
+                $using.html(cards)) + 1;
+              bgs[index] = bgs[index].substr(1);
+              $using.find('.choose').click(Selection.choose);
+              $using.find('.drop').click(Selection.drop);
+            }
+            $dataImg.find('.choose').click(Selection.choose);
+            $dataImg.find('.drop').click(Selection.drop);
+            $bgSelector.find('a.slideshow > .choose').click(function() {
+              if (!bgs[0]) {
+                clearChosenBackground();
+                bgs[0] = '*';
+                localStorage['backgrounds'] = bgs;
+              }
+              applyBackground(bgs.slice(1));
+            });
+            $bgSelector.find('a.slideshow > .choose').click(function() {
+              if (!bgs[0]) {
+                clearChosenBackground();
+                bgs[0] = '*';
+                localStorage['backgrounds'] = bgs;
+              }
+              applyBackground(bgs.slice(1));
+            });
           }
         });
       });

@@ -13,8 +13,10 @@
     <a class="d2 button" data-is3d="false">2D</a>
     <a class="d3 button" data-is3d="true">3D</a>
   </div>
-  <div class="default-bg toggles"><a class="slideshow"></a></div>
-  <input data-href="@routes.Pref.set("bgImg")" type="text" class="background_image" value="@ctx.bgImg" />
+  <div class="bg-selector toggles"><a class="slideshow"><span data-icon="v" class="reveal choose"></span></a><br>
+    <a data-icon="/" class="action imgur"> Upload and add my image</a> 
+    <a data-icon="O" class="action add"> Add an image</a></div>
+  </div>
   <div class="zoom_control">
     <i data-icon="<"></i><div class="slider"></div>
   </div>
