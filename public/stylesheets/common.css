@@ -340,7 +340,8 @@ div.content_box .loader:after {
   margin-bottom: 10px;
 }
 #powerTip,
-#hook {
+#hook,
+#miniGame {
   width: 224px;
   min-height: 3em;
   cursor: default;

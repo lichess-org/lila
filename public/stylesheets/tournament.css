@@ -243,6 +243,9 @@ ol.scheduled_tournaments a:hover {
   font-family: monospace;
   letter-spacing: 0;
 }
+#tournament table.standing .sheet > * {
+  cursor: pointer;
+}
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
@@ -544,4 +547,17 @@ ol.scheduled_tournaments li.marathon {
 #tournament_list .scheduled .icon span {
   color: #d59120;
   opacity: 0.8;
+}
+#miniGame {
+  line-height: 0;
+}
+#miniGame .vstext {
+  text-align: center;
+  border: 0;
+}
+#miniGame .win {
+  color: #33aa33;
+}
+#miniGame .loss {
+  color: #aa3333;
 }

@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, Tournament => Tourney, VisibleTournaments }
+import lila.tournament.{ System, TournamentRepo, PairingRepo, Tournament => Tourney, VisibleTournaments }
 import lila.user.UserRepo
 import views._
 
@@ -66,6 +66,27 @@ object Tournament extends LilaController {
     env.api.miniStanding(id, true) map {
       case Some(m) if !m.tour.isCreated => Ok(html.tournament.gameStanding(m))
       case _                            => NotFound
+    }
+  }
+
+  def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
+    withUserGameNb(id, user, nb) { pov =>
+      Ok(html.game.mini(pov))
+    }
+  }
+
+  def userGameNbShow(id: String, user: String, nb: Int) = Open { implicit ctx =>
+    withUserGameNb(id, user, nb) { pov =>
+      Redirect(routes.Round.watcher(pov.game.id, pov.color.name))
+    }
+  }
+
+  private def withUserGameNb(id: String, user: String, nb: Int)(withPov: Pov => Result)(implicit ctx: Context): Fu[Result] = {
+    val userId = lila.user.User normalize user
+    OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
+      GameRepo game pairing.id map {
+        _.flatMap { Pov.ofUserId(_, userId) }.fold(NotFound("nope"))(withPov)
+      }
     }
   }
 

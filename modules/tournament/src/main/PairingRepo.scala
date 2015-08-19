@@ -33,6 +33,11 @@ object PairingRepo {
       selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds))
     ).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
+  def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
+    coll.find(
+      selectTour(tourId) ++ BSONDocument("u" -> userId)
+    ).sort(chronoSort).skip(nb - 1).one[Pairing]
+
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
   def count(tourId: String): Fu[Int] =
@@ -72,8 +77,7 @@ object PairingRepo {
       BSONDocument("$set" -> BSONDocument(field -> value))).void
   }
 
-  import coll.BatchCommands.AggregationFramework,
-    AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
+  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
