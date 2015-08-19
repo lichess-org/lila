@@ -13,7 +13,11 @@ case class Assessible(analysed: Analysed) {
   import analysed._
 
   def suspiciousErrorRate(color: Color): Boolean =
-    listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < 15
+    listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
+      case Speed.Bullet => 25
+      case Speed.Blitz  => 20
+      case _            => 15
+    })
 
   def alwaysHasAdvantage(color: Color): Boolean =
     !analysis.infos.exists { info =>
@@ -47,7 +51,6 @@ case class Assessible(analysed: Analysed) {
   def rankCheating(color: Color): GameAssessment = {
     import GameAssessment._
     val flags = mkFlags(color)
-    if (game.id == "tSaUCfxp") println(flags)
     val assessment = flags match {
       //               SF1 SF2 BLR1 BLR2 MTs1 MTs2 Holds
       case PlayerFlags(T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
@@ -57,6 +60,8 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(T, _, _, _, T, T, _) => LikelyCheating // high accuracy, consistent move times, no fast moves
       case PlayerFlags(T, _, _, T, _, T, _) => LikelyCheating // high accuracy, moderate blurs, no fast moves
       case PlayerFlags(_, T, _, T, T, _, _) => LikelyCheating // always has advantage, moderate blurs, highly consistent move times
+      case PlayerFlags(_, T, _, _, T, T, _) => LikelyCheating // always has advantage, consistent move times
+      case PlayerFlags(T, _, _, _, T, T, _) => LikelyCheating // high accuracy, consistent move times, no fast moves
       case PlayerFlags(_, T, T, _, _, _, _) => LikelyCheating // always has advantage, high blurs
 
       case PlayerFlags(T, _, _, F, F, T, _) => Unclear // high accuracy, no fast moves, but doesn't blur or flat line
