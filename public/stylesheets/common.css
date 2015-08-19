@@ -1585,6 +1585,12 @@ body #themepicker div.is3d,
   height: auto;
   width: auto;
 }
+#themepicker .action.imgur input {
+  display: none;
+}
+#themepicker .action.imgur:hover input {
+  display: inline;
+}
 #sound_control {
   margin-right: 5px;
   position: relative;

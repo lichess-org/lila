@@ -849,17 +849,6 @@ lichess.storage = {
             }, function() {
               showDimensions(is3d);
             }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-            $themepicker.find('.slider').slider({
-              orientation: "horizontal",
-              min: 1,
-              max: 2,
-              range: 'min',
-              step: 0.01,
-              value: getZoom(),
-              slide: function(e, ui) {
-                manuallySetZoom(ui.value);
-              }
-            });
             var $bgSelector = $themepicker.find('.bg-selector');
             var bgs = localStorage["backgrounds"];
             if (!bgs)
@@ -942,6 +931,46 @@ lichess.storage = {
                 localStorage['backgrounds'] = bgs;
               }
               applyBackground(bgs.slice(1));
+            });
+            var addBackground = function(url) {
+              bgs.push(url);
+              $bgSelector.find('a[data-img]:last').after('<a style="background-image:url(' + url + ')" data-img="' + url + '">' + cards + '</a>');
+              var $last = $bgSelector.find('a[data-img]:last');
+              $last.find('.choose').click(Selection.choose);
+              $last.find('.drop').click(Selection.drop);
+              localStorage['backgrounds'] = bgs;
+            }
+            $bgSelector.find('.imgur input').change(function() {
+              var reader = new FileReader();
+              var file = this.files[0];
+              if (file) {
+                reader.readAsDataURL(file);
+                $.ajax('https://api.imgur.com/3/image', {
+                  headers: {
+                    Authorization: 'Client-ID 01c173be38db0e1'
+                  },
+                  type: 'POST',
+                  data: {
+                    'image': reader.result
+                  },
+                  success: function(o) { addBackground(JSON.parse(o.responseText)['data']['link']); }, // hope chess, programming edition
+                  error: function(o, status) { console.log(0); alert('Encountered error! Response ' + status + ': ' + o.responseText); }
+                });
+              }
+            });
+            $bgSelector.find('.add').click(function() {
+              addBackground(prompt('Please enter a URL to an image.', 'For example: http://lichess1.org/assets/images/background/landscape.jpg'));
+            });
+            $themepicker.find('.slider').slider({
+              orientation: "horizontal",
+              min: 1,
+              max: 2,
+              range: 'min',
+              step: 0.01,
+              value: getZoom(),
+              slide: function(e, ui) {
+                manuallySetZoom(ui.value);
+              }
             });
           }
         });
