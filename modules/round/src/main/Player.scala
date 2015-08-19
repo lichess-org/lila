@@ -88,8 +88,8 @@ private[round] final class Player(
           moveFinish(progress.game, game.turnColor) map { progress.++ }
         }
       },
-      fufail(s"[ai play] game ${game.id} turn ${game.turns} not AI turn")
-    ) logFailureErr s"[ai play] game ${game.id} turn ${game.turns}"
+      fufail(s"Not AI turn")
+    ) prefixFailure s"[ai play] game ${game.id} turn ${game.turns}"
 
   private def notifyMove(move: chess.Move, game: Game, ip: String) {
     bus.publish(MoveEvent(

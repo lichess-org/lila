@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import chess.format.UciMove
 import lila.analyse.Info
 import lila.game.{ Game, GameRepo }
-import play.api.libs.ws.{ WS, WSRequestHolder }
+import play.api.libs.ws.{ WS, WSRequest }
 import play.api.Play.current
 
 final class Client(
@@ -60,15 +60,12 @@ final class Client(
       "variant" -> variant.toString).post("go")
   }
 
-  private def sendRequest(retriable: Boolean)(req: WSRequestHolder): Fu[String] =
+  private def sendRequest(retriable: Boolean)(req: WSRequest): Fu[String] =
     req.get flatMap {
       case res if res.status == 200 => fuccess(res.body)
       case res =>
-        val message = s"AI client WS response ${res.status} ${~res.body.lines.toList.headOption}"
-        if (retriable) {
-          _root_.play.api.Logger("AI client").error(s"Retry: $message")
-          sendRequest(false)(req)
-        }
+        val message = s"AI response ${res.status} ${~res.body.lines.toList.headOption}"
+        if (retriable) sendRequest(false)(req)
         else fufail(message)
     }
 }
