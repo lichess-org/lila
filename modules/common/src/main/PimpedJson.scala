@@ -58,6 +58,11 @@ trait PimpedJson {
         (obj \ key).asOpt[Long]
       }
 
+    def boolean(key: String): Option[Boolean] =
+      js.asOpt[JsObject] flatMap { obj =>
+        (obj \ key).asOpt[Boolean]
+      }
+
     def obj(key: String): Option[JsObject] =
       js.asOpt[JsObject] flatMap { obj =>
         (obj \ key).asOpt[JsObject]
