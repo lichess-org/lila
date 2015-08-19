@@ -1257,6 +1257,10 @@ body.fpmenu #fpmenu {
   width: 228px;
   z-index: 2;
 }
+#notifications a {
+  text-decoration: none;
+  font-weight: bold;
+}
 #notifications > div {
   border: 1px solid #c0c0c0;
   padding: 6px 8px 7px 8px;
