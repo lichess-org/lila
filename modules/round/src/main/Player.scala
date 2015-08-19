@@ -85,7 +85,6 @@ private[round] final class Player(
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
         case lila.ai.actorApi.PlayResult(progress, move) =>
-          println(s"[ai play] game ${game.id} turn ${game.turns} $move")
           moveFinish(progress.game, game.turnColor) map { progress.++ }
       },
       fufail(s"Not AI turn")
