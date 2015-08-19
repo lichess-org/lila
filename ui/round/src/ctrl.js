@@ -189,7 +189,6 @@ module.exports = function(opts) {
         check: o.check
       });
       if (o.check) $.sound.check();
-      if (this.vm.ply < 4) logBot();
     }
     if (o.clock) {
       var c = o.clock
@@ -327,12 +326,6 @@ module.exports = function(opts) {
       str = str.replace('%s', arg);
     });
     return str;
-  };
-
-  var logBot = function() {
-    setTimeout(function() {
-      if ($('.engineProposal').length) $.post('/jslog');
-    }, 500);
   };
 
   init(this);
