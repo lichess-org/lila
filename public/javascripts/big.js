@@ -317,6 +317,19 @@ lichess.storage = {
   }
 };
 
+lichess.desktopNotification = function(msg) {
+    if (!("Notification" in window) || Notification.permission === "denied") return;
+    if (Notification.permission === "granted") {
+      var notification = new Notification("lichess", {body: msg});
+    } else {
+      Notification.requestPermission(function (permission) {
+        if (permission === "granted") {
+          var notification = new Notification("lichess", {body: msg});
+        }
+      });
+    }
+};
+
 (function() {
 
   /////////////
