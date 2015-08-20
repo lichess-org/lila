@@ -3,9 +3,8 @@
 mkdir -p local
 cd local
 rm -rf Stockfish
-git clone https://github.com/ddugovic/Stockfish
+git clone https://github.com/ornicar/Stockfish
 cd Stockfish/src
-git reset --hard 210dffdfefcfb3867d5d124860f0204ecb9f174b
 if [[ $1 = "old" ]]; then
   make build ARCH=x86-64
 else
