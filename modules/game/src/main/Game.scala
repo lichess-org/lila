@@ -333,9 +333,9 @@ case class Game(
 
   def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
-  def imported = source exists (_ == Source.Import)
+  def imported = source contains Source.Import
 
-  def isFicsRelay = source ?? (Source.Relay==)
+  def isFicsRelay = source contains Source.Relay
 
   def winner = players find (_.wins)
 
