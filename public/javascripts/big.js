@@ -846,7 +846,7 @@ lichess.storage = {
         lichess.storage.set('zoom', v);
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
-        var $boardWrap = $lichessGame.find('.cg-board-wrap');
+        var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
         var $coordinateProgress = $('.progress_bar_container');
         var px = function(i) {
           return Math.round(i) + 'px';
