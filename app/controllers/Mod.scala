@@ -101,6 +101,15 @@ object Mod extends LilaController {
       }
   }
 
+  def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
+    me =>
+      import play.api.libs.ws.WS
+      import play.api.Play.current
+      WS.url("http://check.getipintel.net/check.php").withQueryString("ip" -> ip).get().map { r =>
+        Ok(r.body)
+      }
+  }
+
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
