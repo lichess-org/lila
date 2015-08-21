@@ -34,7 +34,7 @@ object PairingRepo {
     ).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
   def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
-    coll.find(
+    (nb > 0) ?? coll.find(
       selectTour(tourId) ++ BSONDocument("u" -> userId)
     ).sort(chronoSort).skip(nb - 1).one[Pairing]
 
