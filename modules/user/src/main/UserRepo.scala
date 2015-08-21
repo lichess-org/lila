@@ -253,7 +253,7 @@ trait UserRepo {
     BSONDocument("$set" -> BSONDocument("enabled" -> false)) ++
       user.lameOrTroll.fold(
         BSONDocument(),
-        BSONDocument("$unset" -> BSONDocument("email" -> !user.lameOrTroll))
+        BSONDocument("$unset" -> BSONDocument("email" -> true))
       )
   )
 
