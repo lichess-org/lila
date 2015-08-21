@@ -95,11 +95,16 @@ private[tournament] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-        case ((anons, users), Some(user)) => anons -> (user :: users)
-        case ((anons, users), None)       => (anons + 1) -> users
-      }
-      notifyAll("crowd", showSpectators(users, anons))
+      notifyAll("crowd",
+        if (members.size > 20) JsNumber(members.size)
+        else JsArray {
+          val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+            case ((anons, users), Some(user)) => anons -> (user :: users)
+            case ((anons, users), None)       => (anons + 1) -> users
+          }
+          showSpectators(users, anons) map JsString.apply
+        }
+      )
 
     case NotifyReload =>
       delayedReloadNotification = false
