@@ -13,8 +13,9 @@ object Monitor extends LilaController {
 
   private def env = Env.monitor
 
-  def index = Action {
-    Ok(views.html.monitor.monitor())
+  def index = Secure(_.Admin) { ctx =>
+    me =>
+      Ok(views.html.monitor.monitor()).fuccess
   }
 
   def websocket = SocketOption[JsValue] { implicit ctx =>
