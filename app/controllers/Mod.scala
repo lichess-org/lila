@@ -101,6 +101,18 @@ object Mod extends LilaController {
       }
   }
 
+  private val ipIntelCache =
+    lila.memo.AsyncCache[String, String](ip => {
+      import play.api.libs.ws.WS
+      import play.api.Play.current
+      WS.url("http://check.getipintel.net/check.php").withQueryString("ip" -> ip).get().map(_.body)
+    }, maxCapacity = 2000)
+
+  def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
+    me =>
+      ipIntelCache(ip).map { Ok(_) }
+  }
+
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>

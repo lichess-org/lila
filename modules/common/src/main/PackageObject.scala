@@ -173,6 +173,14 @@ trait WithPlay { self: PackageObject =>
       case e: Exception => effect(e)
     })
 
+    def mapFailure(f: Exception => Exception) = fua recover {
+      case cause: Exception => throw f(cause)
+    }
+
+    def prefixFailure(p: => String) = fua mapFailure { e =>
+      common.LilaException(s"$p ${e.getMessage}")
+    }
+
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
         e => println("[failure] " + e),

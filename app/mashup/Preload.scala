@@ -2,17 +2,18 @@ package lila.app
 package mashup
 
 import lila.api.Context
+import lila.common.LightUser
 import lila.forum.MiniForumPost
-import lila.game.Game
+import lila.game.{ Game, Pov, GameRepo }
+import lila.playban.TempBan
 import lila.rating.PerfType
+import lila.relay.Relay
 import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.{ Tv, StreamOnAir }
-import lila.relay.Relay
 import lila.user.User
-import lila.playban.TempBan
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 
 final class Preload(
     tv: Tv,
@@ -24,9 +25,10 @@ final class Preload(
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
-    getPlayban: String => Fu[Option[TempBan]]) {
+    getPlayban: String => Fu[Option[TempBan]],
+    lightUser: String => Option[LightUser]) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[Relay.Mini], List[lila.blog.MiniPost], Option[TempBan], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[Relay.Mini], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -43,8 +45,30 @@ final class Preload(
       dailyPuzzle() zip
       streamsOnAir() zip
       ongoingRelays() zip
-      (ctx.userId ?? getPlayban) map {
-        case (((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), relays), playban) =>
-          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, relays, Env.blog.lastPostCache.apply, playban, countRounds())
+      (ctx.userId ?? getPlayban) zip
+      (ctx.me ?? Preload.currentGame(lightUser)) map {
+        case ((((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), relays), playban), currentGame) =>
+          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, relays, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
       }
+}
+
+object Preload {
+
+  case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
+
+  def currentGame(lightUser: String => Option[LightUser])(user: User) =
+    GameRepo.urgentGames(user) map { povs =>
+      povs.find { p =>
+        p.game.nonAi && p.game.hasClock && p.isMyTurn
+      } map { pov =>
+        val opponent = lila.game.Namer.playerString(pov.opponent)(lightUser)
+        CurrentGame(
+          pov = pov,
+          opponent = opponent,
+          json = Json.obj(
+            "id" -> pov.game.id,
+            "color" -> pov.color.name,
+            "opponent" -> opponent))
+      }
+    }
 }

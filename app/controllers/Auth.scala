@@ -89,7 +89,7 @@ object Auth extends LilaController {
       Unauthorized(html.auth.tor()).fuccess
     else {
       forms.signup.websiteWithCaptcha map {
-        case (form, captcha) => Ok(html.auth.signup(form, captcha))
+        case (form, captcha) => Ok(html.auth.signup(form, captcha, env.RecaptchaPublicKey))
       }
     }
   }
@@ -107,19 +107,20 @@ object Auth extends LilaController {
       negotiate(
         html = forms.signup.website.bindFromRequest.fold(
           err => forms.anyCaptcha map { captcha =>
-            BadRequest(html.auth.signup(err, captcha))
+            BadRequest(html.auth.signup(err, captcha, env.RecaptchaPublicKey))
           },
-          data => {
-            val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-            UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
-              .flatten(s"No user could be created for ${data.username}")
-              .map(_ -> email).flatMap {
-                case (user, email) => env.emailConfirm.send(user, email) inject
-                  Redirect(routes.Auth.checkYourEmail(user.username))
-                case _ => forms.signup.websiteWithCaptcha map {
-                  case (form, captcha) => Ok(html.auth.signup(form, captcha))
+          data => env.recaptcha.verify(data.recaptchaResponse, req).flatMap {
+            case false => forms.signup.websiteWithCaptcha map {
+              case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
+            }
+            case true =>
+              val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+              UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
+                .flatten(s"No user could be created for ${data.username}")
+                .map(_ -> email).flatMap {
+                  case (user, email) => env.emailConfirm.send(user, email) inject
+                    Redirect(routes.Auth.checkYourEmail(user.username))
                 }
-              }
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj(

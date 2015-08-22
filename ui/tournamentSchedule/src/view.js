@@ -9,10 +9,6 @@ function leftPos(time) {
   return scale * (time - startTime) / 1000 / 60;
 }
 
-function scrollToNow(el) {
-  el.scrollLeft = leftPos(now - el.clientWidth / 2 / scale * 60 * 1000);
-}
-
 function speedGrouper(t) {
   if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
@@ -185,7 +181,9 @@ module.exports = function(ctrl) {
 
   return m('div.schedule.dragscroll', {
     config: function(el, isUpdate) {
-      if (!isUpdate) scrollToNow(el);
+      if (isUpdate) return;
+      var bitLater = now + (15 * 60 * 1000)
+      el.scrollLeft = leftPos(bitLater - el.clientWidth / 2 / scale * 60 * 1000);
     }
   }, [
     renderTimeline(),

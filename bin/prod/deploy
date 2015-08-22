@@ -8,12 +8,6 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="clyde"
   REMOTE_DIR="/home/lichess"
-elif [ $mode = "paul" ]; then
-  REMOTE="paul"
-  REMOTE_DIR="/home/lila5"
-elif [ $mode = "salim" ]; then
-  REMOTE="salim"
-  REMOTE_DIR="/home/lila5"
 elif [ $mode = "salim2" ]; then
   REMOTE="salim2"
   REMOTE_DIR="/home/lila"
@@ -23,32 +17,17 @@ elif [ $mode = "hexal" ]; then
 elif [ $mode = "matthews" ]; then
   REMOTE="matthews"
   REMOTE_DIR="/home/thibault/lila"
-elif [ $mode = "nafis" ]; then
-  REMOTE="nafis"
-  REMOTE_DIR="/home/thib/lila"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
-elif [ $mode = "drazak" ]; then
-  REMOTE="drazak"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "jaldus" ]; then
-  REMOTE="jaldus"
-  REMOTE_DIR="/home/ornicar"
-elif [ $mode = "patat" ]; then
-  REMOTE="patat"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "neary" ]; then
-  REMOTE="neary"
-  REMOTE_DIR="/home/lichess"
 elif [ $mode = "cammy" ]; then
   REMOTE="cammy"
   REMOTE_DIR="/home/lichess"
 elif [ $mode = "adele" ]; then
   REMOTE="adele"
   REMOTE_DIR="/home/lichess"
-elif [ $mode = "janis" ]; then
-  REMOTE="janis"
+elif [ $mode = "frank" ]; then
+  REMOTE="frank"
   REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
@@ -58,12 +37,12 @@ fi
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
-  lilalog "Notify users of pre deploy"
-  bin/cli-prod deploy pre
+  bin/prod/compile-client
 fi
 
 if [ $mode == "main" ]; then
-  bin/prod/compile-client
+  lilalog "Notify users of pre deploy"
+  bin/cli-prod deploy pre
 fi
 
 sbt ";stage;exit"

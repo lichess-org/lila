@@ -22,7 +22,8 @@ title = trans.composeMessage.str()) {
         required="required"
         name="@form("username").name"
         id="@form("username").id"
-        value="@form("username").value">
+        value="@form("username").value"
+        autofocus="1">
         @errMsg(form("username"))
         }
       </div>
@@ -33,7 +34,8 @@ title = trans.composeMessage.str()) {
         required="required"
         name="@form("subject").name"
         id="@form("subject").id"
-        value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)">
+        value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)"
+        @if(reqUser.isDefined) { autofocus="1" }>
         @errMsg(form("subject"))
       </div>
       <div class="field_body">

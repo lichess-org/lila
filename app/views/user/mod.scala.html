@@ -271,7 +271,9 @@
           <p>@location</p>
           <ul>
             @ips.map { ip =>
-            <li@if(ip.blocked) { class="blocked" }>@ip.ip</li>
+            <li class="ip">
+              <span class="address@if(ip.blocked) { blocked }">@ip.ip</span>
+            </li>
             }
           </ul>
         </li>

@@ -90,6 +90,11 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> true
     )))
 
+  def goBerserk(pov: Pov): Funit =
+    $update($select(pov.gameId), BSONDocument("$set" -> BSONDocument(
+      s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
+    )))
+
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) match {
       case (Nil, Nil) => funit
@@ -291,7 +296,13 @@ object GameRepo {
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     val col = gameTube.coll
     import col.BatchCommands.AggregationFramework, AggregationFramework.{
-      Descending, GroupField, Limit, Match, Sort, SumValue, Unwind
+      Descending,
+      GroupField,
+      Limit,
+      Match,
+      Sort,
+      SumValue,
+      Unwind
     }
 
     col.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
@@ -303,12 +314,12 @@ object GameRepo {
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
       Limit(limit))).map(_.documents.map { obj =>
-        toJSON(obj).asOpt[JsObject] flatMap { o =>
-          o str "_id" flatMap { id =>
-            o int "gs" map { id -> _ }
-          }
+      toJSON(obj).asOpt[JsObject] flatMap { o =>
+        o str "_id" flatMap { id =>
+          o int "gs" map { id -> _ }
         }
-      }.flatten)
+      }
+    }.flatten)
   }
 
   def random: Fu[Option[Game]] = $find.one(
@@ -397,7 +408,13 @@ object GameRepo {
   def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
     val col = gameTube.coll
     import col.BatchCommands.AggregationFramework, AggregationFramework.{
-      Descending, GroupField, Limit, Match, Sort, SumValue, Unwind
+      Descending,
+      GroupField,
+      Limit,
+      Match,
+      Sort,
+      SumValue,
+      Unwind
     }
 
     col.aggregate(Match(BSONDocument(
@@ -411,12 +428,12 @@ object GameRepo {
       GroupField(F.playerUids)("nb" -> SumValue(1)),
       Sort(Descending("nb")),
       Limit(max))).map(_.documents.map { obj =>
-        toJSON(obj).asOpt[JsObject] flatMap { o =>
-          o int "nb" map { nb =>
-            UidNb(~(o str "_id"), nb)
-          }
+      toJSON(obj).asOpt[JsObject] flatMap { o =>
+        o int "nb" map { nb =>
+          UidNb(~(o str "_id"), nb)
         }
-      }.flatten)
+      }
+    }.flatten)
   }
 
   private def extractPgnMoves(doc: BSONDocument) =

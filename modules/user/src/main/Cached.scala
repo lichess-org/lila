@@ -19,7 +19,7 @@ final class Cached(
     onlineUserIdMemo: ExpireSetMemo,
     mongoCache: MongoCache.Builder) {
 
-  private def twoWeeksAgo = DateTime.now minusWeeks 2
+  private def oneWeekAgo = DateTime.now minusWeeks 1
 
   private val countCache = mongoCache.single[Int](
     prefix = "user:nb",
@@ -34,7 +34,7 @@ final class Cached(
 
   val topPerf = mongoCache[Perf.Key, List[User]](
     prefix = "user:top:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, twoWeeksAgo, leaderboardSize),
+    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, leaderboardSize),
     timeToLive = 10 minutes)
 
   private case class UserPerf(user: User, perfKey: String)
@@ -75,11 +75,11 @@ final class Cached(
     private val cache = mongoCache[Perf.Key, Map[User.ID, Int]](
       prefix = "user:ranking",
       f = compute,
-      timeToLive = 33 minutes)
+      timeToLive = 15 minutes)
 
     private def compute(perf: Perf.Key): Fu[Map[User.ID, Int]] =
       $primitive(
-        UserRepo.topPerfSinceSelect(perf, twoWeeksAgo),
+        UserRepo.topPerfSinceSelect(perf, oneWeekAgo),
         "_id",
         _ sort UserRepo.sortPerfDesc(perf)
       )(_.asOpt[User.ID]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }

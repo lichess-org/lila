@@ -25,7 +25,7 @@ module.exports = {
         },
         m('div.time.text[data-icon=p]')),
       util.title(ctrl),
-      gameId ? m('a.is.is-after.pov.button.glowing', {
+      gameId ? m('a.is.is-after.pov.button.glowed', {
         href: '/' + gameId
       }, [
         'You are playing!',

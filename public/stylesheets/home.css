@@ -23,7 +23,8 @@ div.lobby_and_ground {
   opacity: 0.2;
 }
 
-#lobby_playban {
+#lobby_playban,
+#lobby_current_game {
   box-sizing: border-box;
   position: absolute;
   width: 512px;
@@ -31,7 +32,8 @@ div.lobby_and_ground {
   text-align: center;
   background: rgba(255,255,255,0.7);
 }
-#lobby_playban h2 {
+#lobby_playban h2,
+#lobby_current_game h2 {
   font-size: 1.5em;
   line-height: 3;
   margin-top: 1em;

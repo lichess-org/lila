@@ -88,7 +88,7 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def hookForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) NoPlayban {
+    if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
       env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
     }
     else fuccess {
@@ -114,7 +114,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    NoPlayban {
+    NoPlaybanOrCurrent {
       env.forms.hook(ctx).bindFromRequest.fold(
         err => negotiate(
           html = BadRequest(err.errorsAsJson.toString).fuccess,
@@ -131,7 +131,7 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def like(uid: String, gameId: String) = Open { implicit ctx =>
-    NoPlayban {
+    NoPlaybanOrCurrent {
       env.forms.hookConfig flatMap { config =>
         GameRepo game gameId map {
           _.fold(config)(config.updateFrom)

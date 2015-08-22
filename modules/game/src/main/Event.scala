@@ -183,6 +183,11 @@ object Event {
     def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
 
+  case class Berserk(color: Color) extends Event {
+    def typ = "berserk"
+    def data = Json.toJson(color)
+  }
+
   case class CorrespondenceClock(white: Float, black: Float) extends Event {
     def typ = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)

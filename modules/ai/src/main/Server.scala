@@ -18,7 +18,7 @@ private[ai] final class Server(
   def move(uciMoves: List[String], initialFen: Option[String], level: Int, variant: Variant): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     queue ? PlayReq(uciMoves, initialFen map chess960Fen, level, variant) mapTo
-      manifest[Option[String]] flatten "[stockfish] play failed" map MoveResult.apply
+      manifest[Option[String]] flatten "[stockfish] play failed" map { MoveResult(_, none) }
   }
 
   def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, variant: Variant): Fu[List[Info]] = {

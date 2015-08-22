@@ -26,7 +26,7 @@
       @users.map { u =>
       <tr>
         <td>@userLink(u._1, cssClass="revert-underline".some)</td>
-        <td>#@u._2.localize</td>
+        <td title="@trans.gamesPlayed()">#@u._2.localize</td>
       </tr>
       }
     </tbody>

@@ -59,13 +59,14 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def makePairings(oldTour: Tournament, pairings: NonEmptyList[Pairing]) {
+  def makePairings(oldTour: Tournament, users: WaitingUsers) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      pairings.map { pairing =>
-        PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-      }.sequence map {
-        _.list foreach { game =>
-          sendTo(tour.id, StartGame(game))
+      tour.system.pairingSystem.createPairings(tour, users) flatMap {
+        case Nil => funit
+        case pairings => pairings.map { pairing =>
+          PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
+        }.sequenceFu map {
+          _ map StartGame.apply foreach { sendTo(tour.id, _) }
         }
       }
     }

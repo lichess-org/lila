@@ -48,7 +48,7 @@ private[i18n] object Contributors {
     "bg" -> List("Anonymous", "Пламен Димов."),
     "th" -> List("มาโนชญ์ สมศักดิ์"),
     "fa" -> List("saeid monajiane"),
-    "he" -> List("Anonymous", " Tornado"),
+    "he" -> List("Tangelo777", " Tornado"),
     "mr" -> List("Rahul"),
     "mn" -> List("Tsbarsaa"),
     "cy" -> List("cavejohnson"),

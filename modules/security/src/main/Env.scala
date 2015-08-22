@@ -43,8 +43,12 @@ final class Env(
     val TorRefreshDelay = config duration "tor.refresh_delay"
     val DisposableEmailProviderUrl = config getString "disposable_email.provider_url"
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
+    val RecaptchaPrivateKey = config getString "recaptcha.private_key"
+    val RecaptchaEndpoint = config getString "recaptcha.endpoint"
   }
   import settings._
+
+  val RecaptchaPublicKey = config getString "recaptcha.public_key"
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
@@ -55,7 +59,13 @@ final class Env(
 
   lazy val wiretap = new Wiretap(WiretapIps)
 
-  lazy val forms = new DataForm(captcher, emailAddress)
+  lazy val recaptcha = new Recaptcha(
+    privateKey = RecaptchaPrivateKey,
+    endpoint = RecaptchaEndpoint)
+
+  lazy val forms = new DataForm(
+    captcher = captcher,
+    emailAddress = emailAddress)
 
   lazy val geoIP = new GeoIP(
     file = GeoIPFile,
@@ -86,8 +96,8 @@ final class Env(
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(30 seconds)(tor.refresh)
-  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh)
+  scheduler.once(30 seconds)(tor.refresh(_ => funit))
+  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val api = new Api(firewall, tor)
 
@@ -105,5 +115,5 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher,
-  messenger = lila.hub.Env.current.actor.messenger)
+    messenger = lila.hub.Env.current.actor.messenger)
 }

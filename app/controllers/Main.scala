@@ -8,6 +8,7 @@ import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.app._
+import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -74,5 +75,24 @@ object Main extends LilaController {
     OptionOk(Prismic oneShotBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }
+  }
+
+  def jslog = Open { ctx =>
+    val referer = HTTPRequest.referer(ctx.req)
+    loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")
+    ctx.userId.?? {
+      Env.report.api.autoBotReport(_, referer)
+    }
+  }
+
+  def csp = Action(BodyParsers.parse.tolerantJson) { req =>
+    import lila.common.PimpedJson._
+    req.body obj "csp-report" foreach { report =>
+      val gameUrl = report str "document-uri"
+      val blockedUrl = report str "blocked-uri"
+      val status = report int "status-code"
+      loginfo(s"[csp-report] ${req.remoteAddress} ${~status} $blockedUrl on $gameUrl")
+    }
+    Ok
   }
 }

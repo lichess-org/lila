@@ -69,11 +69,18 @@ trait DateHelper { self: I18nHelper =>
   }
   def momentFormat(date: DateTime): Html = momentFormat(date, "calendar")
 
-  def momentFromNow(date: DateTime) = Html {
-    s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
+  def momentFromNow(date: DateTime)(implicit ctx: Context) = Html {
+    val title = showDate(date)
+    val datetime = isoFormatter print date
+    s"""<time class="moment-from-now" title="$title" datetime="$datetime"></time>"""
+  }
+  def momentFromNowNoCtx(date: DateTime) = Html {
+    val datetime = isoFormatter print date
+    s"""<time class="moment-from-now" datetime="$datetime"></time>"""
   }
 
-  def secondsFromNow(seconds: Int) = momentFromNow(DateTime.now plusSeconds seconds)
+  def secondsFromNow(seconds: Int)(implicit ctx: Context) =
+    momentFromNow(DateTime.now plusSeconds seconds)
 
   private val atomDateFormatter = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date

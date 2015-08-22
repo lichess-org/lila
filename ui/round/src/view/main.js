@@ -38,6 +38,15 @@ function renderMaterial(ctrl, material, checks) {
   return m('div.cemetery', children);
 }
 
+function renderBerserk(ctrl, color, position) {
+  if (ctrl.data.game.turns > 1 || !game.playable(ctrl.data)) return;
+  if (!ctrl.vm.goneBerserk[color]) return;
+  return m('div', {
+    class: 'berserk_alert ' + position,
+    'data-icon': '`'
+  });
+}
+
 function wheel(ctrl, e) {
   if (game.isPlayerPlaying(ctrl.data)) return true;
   if (e.deltaY > 0) keyboard.next(ctrl);
@@ -109,9 +118,11 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
+          renderBerserk(ctrl, ctrl.data.opponent.color, 'top'),
           renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
           renderTable(ctrl),
-          renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks))
+          renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
+          renderBerserk(ctrl, ctrl.data.player.color, 'bottom'))
       ])
     ]),
     m('div.underboard', [

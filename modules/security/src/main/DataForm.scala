@@ -48,6 +48,7 @@ final class DataForm(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> acceptableUniqueEmail,
+      "g-recaptcha-response" -> nonEmptyText,
       "gameId" -> nonEmptyText,
       "move" -> nonEmptyText
     )(SignupData.apply)(_ => None)
@@ -103,11 +104,14 @@ final class DataForm(
 object DataForm {
 
   case class SignupData(
-    username: String,
-    password: String,
-    email: String,
-    gameId: String,
-    move: String)
+      username: String,
+      password: String,
+      email: String,
+      `g-recaptcha-response`: String,
+      gameId: String,
+      move: String) {
+    def recaptchaResponse = `g-recaptcha-response`
+  }
 
   case class MobileSignupData(
     username: String,

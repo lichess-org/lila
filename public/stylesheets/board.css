@@ -90,13 +90,13 @@ body.destination .cg-board .cg-square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
 }
-body.destination .cg-board .cg-square.occupied.move-dest {
+body.destination .cg-board .cg-square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 body.destination .cg-board .cg-square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
 }
-body.destination .cg-board .cg-square.occupied.premove-dest {
+body.destination .cg-board .cg-square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
 }
 body.highlight .cg-board .cg-square.move-dest.drag-over,
@@ -216,6 +216,7 @@ body.blind_mode .cg-board-wrap {
 }
 div.lichess_game div.lichess_ground {
   display: table-cell;
+  position: relative;
   vertical-align: middle;
   padding-left: 15px;
   height: 512px;
@@ -1227,6 +1228,9 @@ div.table_wrap > .clock .bar span {
   width: 0px;
   background: #759900;
 }
+div.table_wrap > .clock .bar.berserk span {
+  background: #dc322f;
+}
 div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
@@ -1415,6 +1419,18 @@ div.cemetery .tomb {
 }
 div.cemetery .mono-piece {
   margin-left: -10px;
+}
+div.berserk_alert {
+  position: absolute;
+  left: 10px;
+  font-size: 45px;
+  color: #D85000;
+}
+div.berserk_alert.top {
+  top: 0px;
+}
+div.berserk_alert.bottom {
+  bottom: 0px;
 }
 div.under_chat {
   width: 228px;

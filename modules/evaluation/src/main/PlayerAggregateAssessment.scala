@@ -41,7 +41,7 @@ case class PlayerAggregateAssessment(
     )
 
     val reportable: Boolean = isWorthLookingAt && (
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4)))
       // more than 5 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
         // or more than 10 percent of games are likely cheating
@@ -115,8 +115,10 @@ case class PlayerAggregateAssessment(
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
+  def isNewRatedUser = user.count.rated < 10
+
   def isWorthLookingAt = {
-    user.perfs.bestRating > 1600 && user.count.rated >= 4
+    user.perfs.bestRating > 1600 && user.count.rated >= 2
   } || user.perfs.bestProgress > 200
 
   def reportText(maxGames: Int = 10): String = {

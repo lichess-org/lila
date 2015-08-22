@@ -44,8 +44,11 @@ module.exports = function(opts) {
     redirecting: false,
     replayHash: '',
     moveToSubmit: null,
-    buttonFeedback: null
+    buttonFeedback: null,
+    goneBerserk: {}
   };
+  this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
+  this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
 
   this.socket = new socket(opts.socketSend, this);
 
@@ -282,9 +285,16 @@ module.exports = function(opts) {
     this.chessground.cancelPremove();
   }.bind(this);
 
-  this.berserk = function() {
+  this.goBerserk = function() {
     this.socket.berserk();
     $.sound.berserk();
+    this.setBerserk(this.data.player.color);
+  }.bind(this);
+
+  this.setBerserk = function(color) {
+    if (this.vm.goneBerserk[color]) return;
+    this.vm.goneBerserk[color] = true;
+    m.redraw();
   }.bind(this);
 
   this.moveOn = new moveOn(this, 'lichess.move_on');

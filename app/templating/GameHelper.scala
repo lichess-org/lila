@@ -16,8 +16,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def staticUrl(path: String): String
   def cdnUrl(path: String): String
 
-  def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
-
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
     image = cdnUrl(routes.Export.png(pov.game.id).url).some,
     title = titlePov(pov),
@@ -98,6 +96,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
     ) { level => s"A.I. level $level" }
 
+  val berserkIconSpan = """<span data-icon="`"></span>"""
+  val berserkIconSpanHtml = Html(berserkIconSpan)
+  val statusIconSpan = """<span class="status"></span>"""
+
   def playerLink(
     player: Player,
     cssClass: Option[String] = None,
@@ -106,9 +108,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withDiff: Boolean = true,
     engine: Boolean = false,
     withStatus: Boolean = false,
+    withBerserk: Boolean = false,
     mod: Boolean = false,
     link: Boolean = true)(implicit ctx: UserContext) = Html {
-    val statusIcon = if (withStatus) """<span class="status"></span>""" else ""
+    val statusIcon =
+      if (withStatus) statusIconSpan
+      else if (withBerserk && player.berserk) berserkIconSpan
+      else ""
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
