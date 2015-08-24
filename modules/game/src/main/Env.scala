@@ -34,8 +34,6 @@ final class Env(
   }
   import settings._
 
-  val MandatorySecondsToMove = config getInt "mandatory.seconds_to_move"
-
   private[game] lazy val gameColl = db(CollectionGame)
 
   lazy val pdfExport = PdfExport(PdfExecPath) _

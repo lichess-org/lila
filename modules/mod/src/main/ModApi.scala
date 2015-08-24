@@ -51,9 +51,12 @@ final class ModApi(
   }
 
   def troll(mod: String, username: String, value: Boolean): Fu[Boolean] = withUser(username) { u =>
+    val changed = value != u.troll
     val user = u.copy(troll = value)
-    ((UserRepo updateTroll user) >>-
-      logApi.troll(mod, user.id, user.troll)) >>-
+    changed ?? {
+      UserRepo.updateTroll(user) >>-
+        logApi.troll(mod, user.id, user.troll)
+    } >>-
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll
   }
 
@@ -62,7 +65,7 @@ final class ModApi(
       UserRepo.toggleIpBan(user.id) zip
         logApi.ban(mod, user.id, !user.ipBan) zip
         user.ipBan.fold(
-          (spy.ipStrings map firewall.unblockIp).sequenceFu,
+          firewall unblockIps spy.ipStrings,
           (spy.ipStrings map firewall.blockIp).sequenceFu >>
             (SecurityStore disconnect user.id)
         ) void
@@ -71,7 +74,7 @@ final class ModApi(
 
   def closeAccount(mod: String, username: String): Funit = withUser(username) { user =>
     user.enabled ?? {
-      (UserRepo disable user.id) >>
+      (UserRepo disable user) >>
         (SecurityStore disconnect user.id) >>
         logApi.closeAccount(mod, user.id)
     }

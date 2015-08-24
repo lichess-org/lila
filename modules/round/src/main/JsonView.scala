@@ -152,6 +152,7 @@ final class JsonView(
               "provisional" -> player.provisional.option(true),
               "onGame" -> (player.isAi || socket.onGame(player.color)),
               "checks" -> checkCount(game, player.color),
+              "berserk" -> player.berserk.option(true),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -165,6 +166,7 @@ final class JsonView(
               "provisional" -> opponent.provisional.option(true),
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
               "checks" -> checkCount(game, opponent.color),
+              "berserk" -> opponent.berserk.option(true),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,

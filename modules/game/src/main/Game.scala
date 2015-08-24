@@ -288,6 +288,18 @@ case class Game(
 
   def berserkable = status == Status.Started && playedTurns < 2
 
+  def goBerserk(color: Color) =
+    clock.ifTrue(berserkable && !player(color).berserk).map { c =>
+      val newClock = c halfTime color
+      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
+        Event.Clock(newClock) +
+        Event.Berserk(color)
+    }
+
+  def withPlayer(color: Color, f: Player => Player) = copy(
+    whitePlayer = if (color.white) f(whitePlayer) else whitePlayer,
+    blackPlayer = if (color.black) f(blackPlayer) else blackPlayer)
+
   def resignable = playable && !abortable
   def drawable = playable && !abortable
 
@@ -321,9 +333,9 @@ case class Game(
 
   def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
-  def imported = source exists (_ == Source.Import)
+  def imported = source contains Source.Import
 
-  def isFicsRelay = source ?? (Source.Relay==)
+  def isFicsRelay = source contains Source.Relay
 
   def winner = players find (_.wins)
 
@@ -436,7 +448,7 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
-    if (playable || fromPosition || !Game.openingSensiblevariants(variant)) none
+    if ((playable && !isPgnImport) || fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }

@@ -9,9 +9,12 @@ var scoreTagName = {
   3: 'double'
 };
 
-function scoreTag(s) {
+function scoreTag(s, i) {
   return {
     tag: scoreTagName[s[1] || 1],
+    attrs: {
+      class: 'glpt'
+    },
     children: [Array.isArray(s) ? s[0] : [s]]
   };
 }
@@ -41,7 +44,33 @@ function playerTr(ctrl, player) {
         }) : rank(player),
         util.player(player)
       ]),
-      ctrl.data.startsAt ? m('td') : m('td.sheet', player.sheet.scores.map(scoreTag)),
+      ctrl.data.startsAt ? m('td') : m('td.sheet', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) {
+            $(el).on('click', '> *', function() {
+              location.href = ['/tournament', ctrl.data.id, 'show', player.name, $(this).index() + 1].join('/');
+            });
+          }
+          $(el).find('.glpt').removeClass('glpt').powerTip({
+            fadeInTime: 100,
+            fadeOutTime: 100,
+            placement: 'w',
+            mouseOnToPopup: true,
+            closeDelay: 200,
+            popupId: 'miniGame'
+          }).on({
+            powerTipPreRender: function() {
+              $.ajax({
+                url: ['/tournament', ctrl.data.id, 'mini', player.name, $(this).index() + 1].join('/'),
+                success: function(html) {
+                  $('#miniGame').html(html);
+                  $('body').trigger('lichess.content_loaded');
+                }
+              });
+            }
+          }).data('powertip', ' ');
+        }
+      }, player.sheet.scores.map(scoreTag)),
       ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',

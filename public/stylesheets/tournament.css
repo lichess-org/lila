@@ -171,10 +171,6 @@ ol.scheduled_tournaments a:hover {
 #tournament a.pov::after {
   right: 15px;
 }
-#tournament_list table.slist .create td {
-  padding: 2em;
-  text-align: center;
-}
 #tournament table.slist span.rank {
   font-weight: bold;
 }
@@ -247,21 +243,35 @@ ol.scheduled_tournaments a:hover {
   font-family: monospace;
   letter-spacing: 0;
 }
+#tournament table.standing .sheet > * {
+  cursor: pointer;
+}
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
-  width: 12px;
+  padding: 0 2px;
 }
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
+}
+#tournament table.standing .sheet > *:hover {
+  background: #888;
+  color: #fff;
+  border-radius: 2px;
 }
 #tournament double {
   color: #d59120;
   font-weight: bold;
 }
+#tournament double:hover {
+  background: #d59120!important;
+}
 #tournament streak {
   color: #759900;
   font-weight: bold;
+}
+#tournament streak:hover {
+  background: #759900!important;
 }
 #tournament table.standing td.around-bar {
   padding: 0;
@@ -513,4 +523,52 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .nb-players {
   float: right;
+}
+#tournament_list table.slist {
+  line-height: 2.3em;
+}
+#tournament_list table.slist td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#tournament_list table.slist .header {
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  padding: 0!important;
+}
+#tournament_list table.slist .header:hover {
+  transform: translateX(3px);
+  -webkit-transform: translateX(3px);
+}
+#tournament_list table.slist .header a {
+  text-decoration: none;
+  padding: 1em;
+  display: block;
+}
+#tournament_list table.slist .name {
+  letter-spacing: 3px;
+  font-size: 1.7em;
+  display: block;
+}
+#tournament_list .icon span {
+  font-size: 4em;
+  opacity: 0.6;
+}
+#tournament_list .scheduled .icon span {
+  color: #d59120;
+  opacity: 0.8;
+}
+#miniGame {
+  line-height: 0;
+}
+#miniGame .vstext {
+  text-align: center;
+  border: 0;
+}
+#miniGame .win {
+  color: #33aa33;
+}
+#miniGame .loss {
+  color: #aa3333;
 }

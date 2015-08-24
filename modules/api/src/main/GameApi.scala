@@ -50,12 +50,17 @@ private[api] final class GameApi(
     withOpening: Boolean,
     withFens: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
-    $find byId id map (_.toList) flatMap gamesJson(
-      withAnalysis = withAnalysis,
-      withMoves = withMoves,
-      withOpening = withOpening,
-      withFens = withFens,
-      token = token) map (_.headOption)
+    $find byId id flatMap {
+      _ ?? { g =>
+        gamesJson(
+          withAnalysis = withAnalysis,
+          withMoves = withMoves,
+          withOpening = withOpening,
+          withFens = withFens && g.finished,
+          token = token
+        )(List(g)) map (_.headOption)
+      }
+    }
 
   private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 

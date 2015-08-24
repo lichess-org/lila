@@ -5,7 +5,7 @@ import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag }
 import chess.format.{ pgn => chessPgn }
-import chess.{ OpeningExplorer }
+import chess.OpeningExplorer
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
@@ -49,7 +49,9 @@ final class PgnDump(
 
   private def tags(game: Game, initialFen: Option[String]): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(
-      Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
+      Tag(_.Event, 
+        if (game.imported || game.isFicsRelay) "Import"
+        else game.rated.fold("Rated game", "Casual game")),
       Tag(_.Site, gameUrl(game.id)),
       Tag(_.Date, dateFormat.print(game.createdAt)),
       Tag(_.White, player(game.whitePlayer, wu)),
@@ -61,7 +63,17 @@ final class PgnDump(
       Tag(_.Variant, game.variant.name.capitalize),
       Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
       Tag(_.ECO, game.opening.fold("?")(_.code)),
-      Tag(_.Opening, game.opening.fold("?")(_.name))
+      Tag(_.Opening, game.opening.fold("?")(_.name)),
+      Tag(_.Termination, {
+        import chess.Status._
+        game.status match {
+          case Created | Started                             => "Unterminated"
+          case Aborted | NoStart                             => "Abandoned"
+          case Timeout | Outoftime                           => "Time forfeit"
+          case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
+          case Cheat                                         => "Rules infraction"
+        }
+      })
     ) ::: customStartPosition(game.variant).??(List(
         Tag(_.FEN, initialFen | "?"),
         Tag("SetUp", "1")

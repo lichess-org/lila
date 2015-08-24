@@ -13,8 +13,7 @@ import lila.user.{ User, UserRepo }
 final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem,
-    onStart: String => Unit,
-    secondsToMove: Int) {
+    onStart: String => Unit) {
 
   def apply(tour: Tournament, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
@@ -45,20 +44,26 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMove, true) >>-
+      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMoveFor(tour), true) >>-
       onStart(game2.id)
   } yield game2
+
+  private def secondsToMoveFor(tour: Tournament) = (tour.speed match {
+    case chess.Speed.Bullet => 15
+    case chess.Speed.Blitz  => 20
+    case _                  => 25
+  }) + 1 // nice touch
 
   private def getUser(username: String): Fu[User] =
     UserRepo named username flatMap {
       _.fold(fufail[User]("No user named " + username))(fuccess)
     }
 
-  private def scheduleIdleCheck(povRef: PovRef, in: Int, thenAgain: Boolean) {
-    system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef, thenAgain))
+  private def scheduleIdleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
+    system.scheduler.scheduleOnce(secondsToMove seconds)(idleCheck(povRef, secondsToMove, thenAgain))
   }
 
-  private def idleCheck(povRef: PovRef, thenAgain: Boolean) {
+  private def idleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
     GameRepo pov povRef foreach {
       _.filter(_.game.playable) foreach { pov =>
         if (pov.game.playerHasMoved(pov.color)) {

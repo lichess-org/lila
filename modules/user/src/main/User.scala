@@ -67,6 +67,8 @@ case class User(
   }
 
   def lame = booster || engine
+
+  def lameOrTroll = lame || troll
 }
 
 object User {

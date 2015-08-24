@@ -6,12 +6,6 @@ private[security] final class Cli extends lila.common.Cli {
 
   def process = {
 
-    case "security" :: "enable" :: uid :: Nil =>
-      perform(uid, u => UserRepo enable u.id)
-
-    case "security" :: "disable" :: uid :: Nil =>
-      perform(uid, u => (UserRepo disable u.id) >> (Store disconnect u.id))
-
     case "security" :: "passwd" :: uid :: pwd :: Nil =>
       perform(uid, user => UserRepo.passwd(user.id, pwd))
 

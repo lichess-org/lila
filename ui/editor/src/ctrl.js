@@ -40,6 +40,9 @@ module.exports = function(cfg) {
     premovable: {
       enabled: false
     },
+    drawable: {
+      enabled: true
+    },
     draggable: {
       showGhost: false,
       autoDistance: false

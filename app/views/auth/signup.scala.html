@@ -1,7 +1,12 @@
-@(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@(form: Form[_], captcha: lila.common.Captcha, recaptchaPublicKey: String)(implicit ctx: Context)
+
+@moreJs = {
+<script src='https://www.google.com/recaptcha/api.js'></script>
+}
 
 @auth.layout(
 title = trans.signUp.str(),
+moreJs = moreJs,
 zen = true) {
 <div class="content_box small_box signup">
   <div class="alternative">
@@ -23,6 +28,9 @@ zen = true) {
             By registering, you agree to be bound by our
             <a target="_blank" href="@routes.Page.tos">Terms of Service</a>.
           </small>
+        </li>
+        <li>
+          <div class="g-recaptcha" data-sitekey="@recaptchaPublicKey"></div>
         </li>
         <li>
           <button type="submit" class="submit button" data-icon="F"> @trans.signUp()</button>

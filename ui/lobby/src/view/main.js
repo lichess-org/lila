@@ -7,7 +7,7 @@ var renderPlaying = require('./playing');
 
 module.exports = function(ctrl) {
   var body;
-  if (ctrl.playban) return;
+  if (ctrl.playban || ctrl.currentGame) return;
   switch (ctrl.vm.tab) {
     case 'real_time':
       body = renderRealTime(ctrl);
