@@ -317,8 +317,16 @@ lichess.storage = {
   }
 };
 
+lichess.isPageVisible = true;
+// using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+window.addEventListener('focus', function() {
+  lichess.isPageVisible = true;
+});
+window.addEventListener('blur', function() {
+  lichess.isPageVisible = false;
+});
 lichess.desktopNotification = function(msg) {
-    if (!("Notification" in window) || Notification.permission === "denied") return;
+    if (lichess.isPageVisible || !("Notification" in window) || Notification.permission === "denied") return;
     if (Notification.permission === "granted") {
       var notification = new Notification("lichess", {body: msg});
     } else {
