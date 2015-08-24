@@ -467,6 +467,7 @@ lichess.desktopNotification = function(msg) {
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
             $('#challenge_notifications').append(data.html);
+            lichess.desktopNotification("You got challenged!");
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
