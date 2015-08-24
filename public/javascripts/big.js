@@ -437,7 +437,10 @@ lichess.desktopNotification = function(msg) {
       },
       nbm: function(e) {
         $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
-        if (e) $.sound.newPM();
+        if (e) {
+          $.sound.newPM();
+          lichess.desktopNotification("New inbox message!");
+        }
       },
       redirect: function(o) {
         setTimeout(function() {
