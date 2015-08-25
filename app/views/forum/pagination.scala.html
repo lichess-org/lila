@@ -1,7 +1,7 @@
 @(route: Call, pager: Paginator[_])
 
 @url(page: Int) = {
-  @route?page=@page
+@route?page=@page
 }
 
 @if(pager.hasToPaginate) {
@@ -12,11 +12,14 @@
     } else {
     <span class="disabled" data-icon="I"></span>
     }
-    @for(p <- pager.sliding) {
+    @pager.sliding(3).map {
+    case None => { ... }
+    case Some(p) => {
     @if(p == pager.currentPage) {
     <span class="current">@p</span>
     } else {
     <a href="@url(p)">@p</a>
+    }
     }
     }
     @if(pager.hasNextPage) {
