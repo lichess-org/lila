@@ -33,6 +33,8 @@ final class Env(
         api.processTroll(userId, by)
       case lila.hub.actorApi.report.Shutup(userId, text) =>
         api.autoInsultReport(userId, text)
+      case lila.hub.actorApi.report.Booster(userId, accomplice) =>
+        api.autoBoostReport(userId, accomplice)
     }
   }), name = ActorName)
 
