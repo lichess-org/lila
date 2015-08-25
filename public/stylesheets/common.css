@@ -2474,17 +2474,17 @@ textarea.copyable {
   }
 }
 body ::-webkit-scrollbar {
-    background: #eee;
+  background: #eee;
 }
 body ::-webkit-scrollbar-thumb {
-    background: rgba(204, 204, 204, 0.3);
+  background: rgba(204, 204, 204, 0.3);
 }
 body ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 body ::-webkit-scrollbar-thumb:active {
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 body ::-webkit-scrollbar-track {
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3) inset;
 }

@@ -512,14 +512,14 @@ body.dark ol.scheduled_tournaments li.marathon {
   box-shadow: 0 0 9px rgba(0,0,0,0.9);
 }
 body.dark ::-webkit-scrollbar {
-    background: #262626;
+  background: #262626;
 }
 body.dark ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 body.dark ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 body.dark ::-webkit-scrollbar-thumb:active {
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
