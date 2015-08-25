@@ -142,10 +142,8 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.showYourMoveNotification = function() {
-    if (game.isPlayerTurn(this.data)) {
-      lichess.desktopNotification("It's your move!");
-    }
+  var showYourMoveNotification = function() {
+    if (game.isPlayerTurn(this.data)) lichess.desktopNotification("It's your move!");
   }.bind(this);
 
   this.apiMove = function(o) {
@@ -160,7 +158,7 @@ module.exports = function(opts) {
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
     this.setTitle();
-    this.showYourMoveNotification();
+    showYourMoveNotification();
     if (!this.replaying()) {
       this.vm.ply++;
       this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
