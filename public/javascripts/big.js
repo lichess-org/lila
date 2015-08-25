@@ -637,7 +637,7 @@ lichess.desktopNotification = function(msg) {
         return false;
       });
 
-      function applyPowertip($els, placement) {
+      function userPowertip($els, placement) {
         $els.removeClass('ulpt').powerTip({
           fadeInTime: 100,
           fadeOutTime: 100,
@@ -657,13 +657,35 @@ lichess.desktopNotification = function(msg) {
         }).data('powertip', ' ');
       }
 
-      function userPowertips() {
-        applyPowertip($('#site_header .ulpt'), 'e');
-        applyPowertip($('#friend_box .ulpt'), 'nw');
-        applyPowertip($('.ulpt'), 'w');
+      function gamePowertip($els, placement) {
+        $els.removeClass('glpt').powerTip({
+          fadeInTime: 100,
+          fadeOutTime: 100,
+          placement: placement,
+          mouseOnToPopup: true,
+          closeDelay: 200,
+          popupId: 'miniGame'
+        }).on({
+          powerTipPreRender: function() {
+            $.ajax({
+              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+              success: function(html) {
+                $('#miniGame').html(html);
+                $('body').trigger('lichess.content_loaded');
+              }
+            });
+          }
+        }).data('powertip', ' ');
       }
-      setTimeout(userPowertips, 600);
-      $('body').on('lichess.content_loaded', userPowertips);
+
+      function updatePowertips() {
+        userPowertip($('#site_header .ulpt'), 'e');
+        userPowertip($('#friend_box .ulpt'), 'nw');
+        userPowertip($('.ulpt'), 'w');
+        gamePowertip($('.glpt'), 'w');
+      }
+      setTimeout(updatePowertips, 600);
+      $('body').on('lichess.content_loaded', updatePowertips);
 
       $('#message_notifications_tag').on('click', function() {
         $.ajax({

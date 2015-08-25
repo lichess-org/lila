@@ -12,7 +12,9 @@
       @crosstable.results.zipWithIndex.map {
       case (r, index) => {
       <td @if(currentId.??(r.gameId==)){class="current"}>
-        <a href="@routes.Round.watcher(r.gameId, "white")" class="@r.winnerId match {
+        <a
+          href="@routes.Round.watcher(r.gameId, "white")"
+          class="glpt @r.winnerId match {
           case Some(w) if w == u.id => { win }
           case None => {}
           case _ => { loss }
@@ -38,4 +40,3 @@
     }
   </tbody>
 </table>
-

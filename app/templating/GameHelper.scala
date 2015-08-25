@@ -203,37 +203,37 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def gameFen(
-    game: Game,
-    color: Color,
+    pov: Pov,
     ownerLink: Boolean = false,
     tv: Boolean = false,
     withTitle: Boolean = true,
     withLink: Boolean = true,
     withLive: Boolean = true)(implicit ctx: UserContext) = Html {
+    val game = pov.game
     var isLive = withLive && game.isBeingPlayed
-    val href = withLink ?? s"""href="${gameLink(game, color, ownerLink, tv)}""""
-    val title = withTitle ?? s"""title="${gameTitle(game, color)}""""
+    val href = withLink ?? s"""href="${gameLink(game, pov.color, ownerLink, tv)}""""
+    val title = withTitle ?? s"""title="${gameTitle(game, pov.color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
     val variant = game.variant.key
     val tag = if (withLink) "a" else "span"
-    s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
+    s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${pov.color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
   }
 
-  def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
-    var isLive = game.isBeingPlayed
-    val variant = game.variant.key
-    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+  def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false) = Html {
+    var isLive = pov.game.isBeingPlayed
+    val variant = pov.game.variant.key
+    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${pov.game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
-      tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
-      gameTitle(game, color),
-      isLive ?? ("live live_" + game.id),
-      isLive ?? game.id,
-      color.name,
-      Forsyth exportBoard game.toChess.board,
-      ~game.castleLastMoveTime.lastMoveString,
+      tv.fold(routes.Tv.index, routes.Round.watcher(pov.game.id, pov.color.name)),
+      gameTitle(pov.game, pov.color),
+      isLive ?? ("live live_" + pov.game.id),
+      isLive ?? pov.game.id,
+      pov.color.name,
+      Forsyth exportBoard pov.game.toChess.board,
+      ~pov.game.castleLastMoveTime.lastMoveString,
       blank ?? """ target="_blank"""")
   }
 }

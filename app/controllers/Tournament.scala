@@ -71,7 +71,7 @@ object Tournament extends LilaController {
 
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Ok(html.game.mini(pov))
+      Ok(html.tournament.miniGame(pov))
     }
   }
 
