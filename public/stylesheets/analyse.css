@@ -271,6 +271,20 @@ div.underboard {
 div.underboard .center {
   padding: 0;
 }
+div.copyables label.name {
+  font-weight: bold;
+}
+div.copyables textarea,
+div.copyables label {
+  display: inline-block;
+  vertical-align: middle;
+}
+div.copyables .pgn {
+  margin-top: 1em;
+}
+div.copyables .pgn textarea {
+  color: #747474;
+}
 div.advice_summary {
   margin-top: -15px;
 }
