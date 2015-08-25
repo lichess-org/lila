@@ -46,9 +46,6 @@ side = Html("")) {
     <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">
       <button name="submit" type="submit" class="submit text button" data-icon="G">@trans.joinTheGame()</button>
     </form>
-    <div class="decline_box">
-      <a class="button text" data-icon="L">@trans.decline()</a>
-    </div>
     } else {
     <hr />
     <p class="error">This game is rated<br />You must <a href="@routes.Auth.login?referrer=@routes.Round.watcher(pov.gameId, "white")">log in</a> to join it.</p>

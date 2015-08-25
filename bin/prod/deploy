@@ -26,6 +26,9 @@ elif [ $mode = "cammy" ]; then
 elif [ $mode = "adele" ]; then
   REMOTE="adele"
   REMOTE_DIR="/home/lichess"
+elif [ $mode = "frank" ]; then
+  REMOTE="frank"
+  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1

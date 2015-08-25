@@ -299,6 +299,9 @@ div.user_show .mod_zone .listings .blocked {
   color: red;
   font-weight: bold;
 }
+div.user_show .mod_zone .ip .intel {
+  margin-left: 10px;
+}
 div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;

@@ -871,7 +871,7 @@ lichess.desktopNotification = function(msg) {
         lichess.storage.set('zoom', v);
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
-        var $boardWrap = $lichessGame.find('.cg-board-wrap');
+        var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
         var $coordinateProgress = $('.progress_bar_container');
         var px = function(i) {
           return Math.round(i) + 'px';
@@ -1338,18 +1338,23 @@ lichess.desktopNotification = function(msg) {
     },
     set: function(users) {
       var self = this;
-      if (users.length > 0) {
-        self.list.html(users.map(function(u) {
-          return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
-        }).join(", "));
-        var nb = 0;
-        users.forEach(function(u) {
-          nb += (u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1')));
-        });
-        self.number.html(nb);
-        self.element.show();
+      if (isNaN(users)) {
+        if (users.length > 0) {
+          self.list.html(users.map(function(u) {
+            return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
+          }).join(", "));
+          if (self.number.length) {
+            var nb = 0;
+            users.forEach(function(u) {
+              nb += (u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1')));
+            });
+            self.number.html(nb);
+          }
+          self.element.show();
+        } else self.element.hide();
       } else {
-        self.element.hide();
+        self.list.html(users + ' players in the chat');
+        self.element.show();
       }
     }
   });

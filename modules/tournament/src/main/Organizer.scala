@@ -64,9 +64,7 @@ private[tournament] final class Organizer(
     getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) foreach {
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds diff playingUserIds
-        tour.system.pairingSystem.createPairings(tour, users) onSuccess {
-          case pairings => pairings.toNel foreach { api.makePairings(tour, _) }
-        }
+        api.makePairings(tour, users)
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =

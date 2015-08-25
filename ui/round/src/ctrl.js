@@ -47,6 +47,8 @@ module.exports = function(opts) {
     buttonFeedback: null,
     goneBerserk: {}
   };
+  this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
+  this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
 
   this.socket = new socket(opts.socketSend, this);
 

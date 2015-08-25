@@ -49,7 +49,9 @@ final class PgnDump(
 
   private def tags(game: Game, initialFen: Option[String]): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(
-      Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
+      Tag(_.Event, 
+        if (game.imported || game.isFicsRelay) "Import"
+        else game.rated.fold("Rated game", "Casual game")),
       Tag(_.Site, gameUrl(game.id)),
       Tag(_.Date, dateFormat.print(game.createdAt)),
       Tag(_.White, player(game.whitePlayer, wu)),
