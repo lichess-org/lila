@@ -2473,3 +2473,18 @@ textarea.copyable {
     text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
   }
 }
+body ::-webkit-scrollbar {
+  background: #eee;
+}
+body ::-webkit-scrollbar-thumb {
+  background: rgba(204, 204, 204, 0.3);
+}
+body ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+body ::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+body ::-webkit-scrollbar-track {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3) inset;
+}
