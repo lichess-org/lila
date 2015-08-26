@@ -191,6 +191,7 @@ body.transp #themepicker input.background_image {
   box-sizing: border-box;
   margin-bottom: 10px;
 }
-body.transp ::-webkit-scrollbar {
+body.transp ::-webkit-scrollbar,
+body.transp ::-webkit-scrollbar-corner {
   background: rgba(0, 0, 0, 0.1);
 }
