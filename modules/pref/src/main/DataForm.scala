@@ -25,7 +25,8 @@ private[pref] final class DataForm {
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
     "submitMove" -> number.verifying(Set(0, 1, 2) contains _),
     "coachShare" -> number.verifying(Set(0, 1, 2) contains _),
-    "captured" -> number.verifying(Set(0, 1) contains _)
+    "captured" -> number.verifying(Set(0, 1) contains _),
+    "showDesktopNotifications" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
@@ -46,7 +47,8 @@ private[pref] final class DataForm {
       animation: Int,
       submitMove: Int,
       coachShare: Int,
-      captured: Int) {
+      captured: Int,
+      showDesktopNotifications: Int) {
 
     def apply(pref: Pref) = pref.copy(
       autoQueen = autoQueen,
@@ -66,7 +68,8 @@ private[pref] final class DataForm {
       animation = animation,
       submitMove = submitMove,
       coachShare = coachShare,
-      captured = captured == 1)
+      captured = captured == 1,
+      showDesktopNotifications = showDesktopNotifications == 1)
   }
 
   object PrefData {
@@ -88,7 +91,8 @@ private[pref] final class DataForm {
       animation = pref.animation,
       submitMove = pref.submitMove,
       coachShare = pref.coachShare,
-      captured = pref.captured.fold(1, 0))
+      captured = pref.captured.fold(1, 0),
+      showDesktopNotifications = pref.showDesktopNotifications.fold(1, 0))
   }
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)

@@ -55,7 +55,8 @@ final class PrefApi(
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       coachShare = r.getD("coachShare", Pref.default.coachShare),
-      tags = r.getD("tags", Pref.default.tags))
+      tags = r.getD("tags", Pref.default.tags),
+      showDesktopNotifications = r.getD("showDesktopNotifications", Pref.default.showDesktopNotifications))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
       "_id" -> o._id,
@@ -88,7 +89,8 @@ final class PrefApi(
       "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
       "coachShare" -> o.coachShare,
-      "tags" -> o.tags)
+      "tags" -> o.tags,
+      "showDesktopNotifications" -> o.showDesktopNotifications)
   }
 
   def saveTag(user: User, name: String, value: String) =

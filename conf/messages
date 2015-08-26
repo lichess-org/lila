@@ -508,3 +508,4 @@ tournamentNotFound=Tournament not found
 tournamentDoesNotExist=This tournament does not exist.
 tournamentMayHaveBeenCanceled=It may have been canceled, if all players left it before the tournament starts.
 returnToTournamentsHomepage=Return to tournaments homepage
+showDesktopNotificationOnYourMove=Show a desktop notification when it's your move
