@@ -1364,7 +1364,7 @@ lichess.desktopNotification = function(msg) {
     },
     set: function(users) {
       var self = this;
-      if (isNaN(users)) {
+      if (Array.isArray(users)) {
         if (users.length > 0) {
           self.list.html(users.map(function(u) {
             return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
