@@ -271,6 +271,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     case GameFilter.Playing  => info.nbPlaying + " playing"
     case GameFilter.Bookmark => trans.nbBookmarks(info.nbBookmark)
     case GameFilter.Imported => trans.nbImportedGames(info.nbImported)
+    case GameFilter.Search   => info.user.count.game + " " + trans.advancedSearch()
   }).toString)
 
   def describeUser(user: User) = {
