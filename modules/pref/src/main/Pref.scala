@@ -37,7 +37,8 @@ case class Pref(
     puzzleDifficulty: Int,
     submitMove: Int,
     coachShare: Int,
-    tags: Map[String, String] = Map.empty) {
+    tags: Map[String, String] = Map.empty,
+    showDesktopNotifications: Boolean) {
 
   import Pref._
 
@@ -288,7 +289,8 @@ object Pref {
     puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE,
     coachShare = CoachShare.FRIENDS,
-    tags = Map.empty)
+    tags = Map.empty,
+    showDesktopNotifications = true)
 
   import ornicar.scalalib.Zero
   implicit def PrefZero: Zero[Pref] = Zero.instance(default)

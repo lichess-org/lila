@@ -40,6 +40,10 @@
             <h2>@trans.blindfoldChess()</h2>
             @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
+          <li>
+            <h2>@trans.showDesktopNotificationOnYourMove()</h2>
+            @base.radios(form("showDesktopNotifications"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          </li>
         </ul>
       </fieldset>
       <fieldset>

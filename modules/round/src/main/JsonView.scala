@@ -100,7 +100,8 @@ final class JsonView(
                 pref.submitMove == Pref.SubmitMove.ALWAYS || {
                   pref.submitMove == Pref.SubmitMove.CORRESPONDENCE &&
                     game.isCorrespondence && game.nonAi
-                })
+                }),
+              "showDesktopNotifications" -> pref.showDesktopNotifications
             ),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {

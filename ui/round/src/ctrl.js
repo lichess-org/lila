@@ -143,7 +143,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
-    if (game.isPlayerTurn(this.data)) lichess.desktopNotification("It's your move!");
+    if (this.data.pref.showDesktopNotifications && game.isPlayerTurn(this.data)) lichess.desktopNotification("It's your move!");
   }.bind(this);
 
   this.apiMove = function(o) {
