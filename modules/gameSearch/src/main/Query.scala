@@ -114,7 +114,7 @@ object Query {
 
   val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
 
-  val modes = Mode.all map { mode => mode.id -> mode.name }
+  val modes = Mode.all map { mode => mode.id -> mode.name.capitalize }
 
   val openings = Openings.generals map {
     case (code, name) => code -> s"$code ${name.take(50)}"
