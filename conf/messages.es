@@ -501,3 +501,6 @@ keyGoToStartOrEnd=ir al comienzo/fin
 keyShowOrHideComments=mostrar/esconder acotaciones
 keyEnterOrExitVariation=entrar en/salir de variantes
 keyYouCanDrawArrowsCirclesAndScrollToMove=Mantener presionada la tecla shift o hacer clic con el botón derecho del ratón para dibujar las flechas y los círculos. Además, puedes desplazarse para moverse en la partida.
+newTournament=Nuevo torneo
+tournamentNotFound=Torneo no encontrado
+tournamentDoesNotExist=Ese torneo no existe
