@@ -36,10 +36,10 @@ private[gameSearch] final class DataForm {
     "dateMax" -> optional(stringIn(Query.dates)),
     "status" -> optional(numberIn(Query.statuses)),
     "analysed" -> optional(number),
-    "sort" -> mapping(
+    "sort" -> optional(mapping(
       "field" -> stringIn(Sorting.fields),
       "order" -> stringIn(Sorting.orders)
-    )(SearchSort.apply)(SearchSort.unapply)
+    )(SearchSort.apply)(SearchSort.unapply))
   )(SearchData.apply)(SearchData.unapply)) fill SearchData()
 }
 
@@ -63,7 +63,9 @@ private[gameSearch] case class SearchData(
     dateMax: Option[String] = None,
     status: Option[Int] = None,
     analysed: Option[Int] = None,
-    sort: SearchSort = SearchSort()) {
+    sort: Option[SearchSort] = None) {
+
+  def sortOrDefault = sort | SearchSort()
 
   def query = Query(
     user1 = players.cleanA,
@@ -84,7 +86,7 @@ private[gameSearch] case class SearchData(
     analysed = analysed map (_ == 1),
     whiteUser = players.cleanWhite,
     blackUser = players.cleanBlack,
-    sorting = Sorting(sort.field, sort.order))
+    sorting = Sorting(sortOrDefault.field, sortOrDefault.order))
 
   def nonEmptyQuery = {
     val q = query
