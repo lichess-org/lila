@@ -501,3 +501,7 @@ keyGoToStartOrEnd=към началото/края
 keyShowOrHideComments=покажи/скрий изказванията
 keyEnterOrExitVariation=влез/излез от разклонението
 keyYouCanDrawArrowsCirclesAndScrollToMove=Дръж натиснат shift и кликни или десен-клик за да рисуваш кръгове или стрелки върху дъската. Можеш също да врътнеш върху дъската за да местиш.
+newTournament=Нов турнир
+tournamentHomeTitle=Шахматният турнир включва разнообразни времеви контроли и варианти
+tournamentNotFound=Турнирът не е намерен.
+tournamentDoesNotExist=Този турнир не съществува.
