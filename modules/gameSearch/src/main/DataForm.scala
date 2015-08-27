@@ -65,8 +65,7 @@ private[gameSearch] case class SearchData(
     analysed: Option[Int] = None,
     sort: SearchSort = SearchSort()) {
 
-  def query(indexType: String) = Query(
-    indexType = indexType,
+  def query = Query(
     user1 = players.cleanA,
     user2 = players.cleanB,
     winner = players.cleanWinner,
@@ -87,8 +86,8 @@ private[gameSearch] case class SearchData(
     blackUser = players.cleanBlack,
     sorting = Sorting(sort.field, sort.order))
 
-  def nonEmptyQuery(indexType: String) = {
-    val q = query(indexType)
+  def nonEmptyQuery = {
+    val q = query
     q.nonEmpty option q
   }
 

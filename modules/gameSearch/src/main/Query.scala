@@ -9,7 +9,6 @@ import lila.rating.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
 case class Query(
-    indexType: String,
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
@@ -49,10 +48,10 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchDef(from: Int = 0, size: Int = 10) =
+  def searchDef(from: Int = 0, size: Int = 10) = indexType =>
     search in indexType query makeQuery sort sorting.definition start from size size
 
-  def countDef = count from indexType query makeQuery
+  def countDef = indexType => count from indexType query makeQuery
 
   private lazy val makeQuery = filteredQuery query matchall filter {
     List(

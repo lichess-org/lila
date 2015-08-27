@@ -24,10 +24,8 @@ final class Env(
     postApi = postApi
   )), name = IndexerName)
 
-  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) = {
-    val query = Query(s"$IndexName/$TypeName", text, staff, troll)
-    paginatorBuilder(query, page)
-  }
+  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
+    paginatorBuilder(Query(text, staff, troll), page)
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
