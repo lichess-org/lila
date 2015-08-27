@@ -1,12 +1,13 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
+import lila.memo.AsyncCache
 
 object Prismic {
-
-  private val cache = BuiltInCache(200)
 
   private val logger = (level: Symbol, message: String) => level match {
     case 'DEBUG => play.api.Logger("prismic") debug message
@@ -14,8 +15,9 @@ object Prismic {
     case _      => play.api.Logger("prismic") info message
   }
 
-  def fetchPrismicApi =
-    PrismicApi.get(Env.api.PrismicApiUrl, cache = cache, logger = logger)
+  private val fetchPrismicApi = AsyncCache.single[PrismicApi](
+    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = logger),
+    timeToLive = 2 minutes)
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
@@ -34,7 +36,7 @@ object Prismic {
         _.results.headOption
       }
 
-  def oneShotBookmark(name: String) = fetchPrismicApi flatMap { api =>
+  def oneShotBookmark(name: String) = fetchPrismicApi(true) flatMap { api =>
     getBookmark(api)(name) map2 { (doc: io.prismic.Document) =>
       doc -> makeLinkResolver(api)
     }
