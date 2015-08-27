@@ -19,7 +19,7 @@ private[gameSearch] final class DataForm {
       "black" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
     "winnerColor" -> optional(numberIn(Query.winnerColors)),
-    "variant" -> optional(numberIn(Query.variants)),
+    "perf" -> optional(numberIn(Query.perfs)),
     "source" -> optional(numberIn(Query.sources)),
     "mode" -> optional(numberIn(Query.modes)),
     "opening" -> optional(stringIn(Query.openings)),
@@ -46,7 +46,7 @@ private[gameSearch] final class DataForm {
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
     winnerColor: Option[Int] = None,
-    variant: Option[Int] = None,
+    perf: Option[Int] = None,
     source: Option[Int] = None,
     mode: Option[Int] = None,
     opening: Option[String] = None,
@@ -71,7 +71,7 @@ private[gameSearch] case class SearchData(
     user2 = players.cleanB,
     winner = players.cleanWinner,
     winnerColor = winnerColor,
-    variant = variant,
+    perf = perf,
     source = source,
     rated = mode flatMap Mode.apply map (_.rated),
     opening = opening map (_.trim.toLowerCase),

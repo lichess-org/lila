@@ -151,6 +151,12 @@ div.sub_ratings h3 {
   margin: 0;
   display: inline-block;
 }
+div.sub_ratings h3 a {
+  text-decoration: none;
+}
+div.sub_ratings h3 a:hover {
+  text-decoration: underline;
+}
 #site_header div.sub_ratings strong {
   font-weight: bold;
   font-size: 1.2em;
