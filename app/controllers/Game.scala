@@ -49,7 +49,6 @@ object Game extends LilaController {
             BadRequest(html.game.export(userId, err, captcha))
           },
           _ => fuccess {
-            play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
             import org.joda.time.DateTime
             import org.joda.time.format.DateTimeFormat
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
