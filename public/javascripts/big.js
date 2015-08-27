@@ -487,11 +487,6 @@ lichess.desktopNotification = function(msg) {
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
             $('#challenge_notifications').append(data.html);
-            var latestNotificationChallengeId = lichess.storage.get("latestNotificationChallengeId");
-            if (latestNotificationChallengeId !== data.id) {
-              lichess.desktopNotification("You got challenged!");
-              lichess.storage.set("latestNotificationChallengeId", data.id);
-            }
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -509,6 +504,7 @@ lichess.desktopNotification = function(msg) {
                 $('#top .challenge_notifications').addClass('shown');
                 $.sound.newChallenge();
               }
+              lichess.desktopNotification("You got challenged!");
               lichess.storage.set('challenge-' + data.id, 1);
             }
             refreshButton();
