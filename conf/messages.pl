@@ -501,3 +501,4 @@ keyGoToStartOrEnd=idź na początek/koniec
 keyShowOrHideComments=pokaż/ukryj komentarze
 keyEnterOrExitVariation=wejdź/opuść wariant
 keyYouCanDrawArrowsCirclesAndScrollToMove=Aby rysować kółka i strzałki na szachownicy użyj prawego przycisku myszy. Alternatywnie możesz użyć lewego przycisku myszy w połączeniu z klawiszem shift. Za pomocą rolki możesz odtwarzać posunięcia zarówno do przodu jak i wstecz.
+newTournament=Nowy turniej
