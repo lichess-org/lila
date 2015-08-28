@@ -17,7 +17,9 @@ object Prismic {
 
   private val fetchPrismicApi = AsyncCache.single[PrismicApi](
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = logger),
-    timeToLive = 2 minutes)
+    timeToLive = 1 minute)
+
+  def prismicApi = fetchPrismicApi(true)
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
@@ -25,19 +27,21 @@ object Prismic {
       case _ => routes.Lobby.home.url
     }
 
-  def getBookmark(prismicApi: PrismicApi)(name: String): Fu[Option[Document]] =
-    prismicApi.bookmarks.get(name) ?? getDocument(prismicApi)
+  def getBookmark(name: String): Fu[Option[Document]] = prismicApi flatMap { api =>
+    api.bookmarks.get(name) ?? getDocument
+  }
 
-  def getDocument(prismicApi: PrismicApi)(id: String): Fu[Option[Document]] =
-    prismicApi.forms("everything")
+  def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>
+    api.forms("everything")
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(prismicApi.master.ref)
+      .ref(api.master.ref)
       .submit() map {
         _.results.headOption
       }
+  }
 
   def oneShotBookmark(name: String) = fetchPrismicApi(true) flatMap { api =>
-    getBookmark(api)(name) map2 { (doc: io.prismic.Document) =>
+    getBookmark(name) map2 { (doc: io.prismic.Document) =>
       doc -> makeLinkResolver(api)
     }
   }
