@@ -451,7 +451,12 @@ lichess.desktopNotification = function(msg) {
         $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
         if (e) {
           $.sound.newPM();
-          lichess.desktopNotification("New inbox message!");
+          var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
+          var s = e.toString();
+          if (inboxDesktopNotification !== s) {
+            lichess.desktopNotification("New inbox message!");
+            lichess.storage.set("inboxDesktopNotification", s);
+          }
         }
       },
       redirect: function(o) {
@@ -482,7 +487,6 @@ lichess.desktopNotification = function(msg) {
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
             $('#challenge_notifications').append(data.html);
-            lichess.desktopNotification("You got challenged!");
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -500,6 +504,7 @@ lichess.desktopNotification = function(msg) {
                 $('#top .challenge_notifications').addClass('shown');
                 $.sound.newChallenge();
               }
+              lichess.desktopNotification("You got challenged!");
               lichess.storage.set('challenge-' + data.id, 1);
             }
             refreshButton();
@@ -688,6 +693,7 @@ lichess.desktopNotification = function(msg) {
       $('body').on('lichess.content_loaded', updatePowertips);
 
       $('#message_notifications_tag').on('click', function() {
+        lichess.storage.remove("inboxDesktopNotification");
         $.ajax({
           url: $(this).data('href'),
           cache: false,
