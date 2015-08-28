@@ -22,5 +22,5 @@ object Form {
     choices.map(_._1).toList contains key
 
   private def pluralize(pattern: String, nb: Int) =
-    pattern.replace("{s}", (nb > 1).fold("s", ""))
+    pattern.replace("{s}", (nb != 1).fold("s", ""))
 }
