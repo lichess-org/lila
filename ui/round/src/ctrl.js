@@ -45,7 +45,8 @@ module.exports = function(opts) {
     replayHash: '',
     moveToSubmit: null,
     buttonFeedback: null,
-    goneBerserk: {}
+    goneBerserk: {},
+    resignConfirm: false
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -288,6 +289,15 @@ module.exports = function(opts) {
   this.takebackYes = function() {
     this.socket.send('takeback-yes');
     this.chessground.cancelPremove();
+  }.bind(this);
+
+  this.resign = function() {
+    if (this.vm.resignConfirm) this.socket.send('resign');
+    else setTimeout(function() {
+      this.vm.resignConfirm = false;
+      m.redraw();
+    }.bind(this), 1000);
+    this.vm.resignConfirm = !this.vm.resignConfirm;
   }.bind(this);
 
   this.goBerserk = function() {
