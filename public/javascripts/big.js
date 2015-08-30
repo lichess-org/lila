@@ -1062,6 +1062,9 @@ lichess.desktopNotification = function(msg) {
         $('#topmenu').on('click', '> section > a', function() {
           return false;
         });
+      else $('#topmenu').hoverIntent(function() {
+        $(this).toggleClass('hover');
+      });
 
       $('#ham-plate').click(function() {
         document.body.classList.toggle('fpmenu');

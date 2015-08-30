@@ -1145,7 +1145,7 @@ body.fpmenu #fpmenu {
 #topmenu section:hover > a {
   background: #fff;
 }
-#topmenu section:hover div {
+#topmenu.hover section:hover div {
   display: block;
 }
 #topmenu div {
