@@ -25,7 +25,7 @@ final class Env(
   lazy val paginator = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => $find.byOrderedIds[lila.game.Game](res.getHits.hits.toList map (_.id)))
+    converter = res => $find.byOrderedIds[lila.game.Game](res.hitIds))
 
   lazy val forms = new DataForm
 

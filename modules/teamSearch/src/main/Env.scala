@@ -39,7 +39,7 @@ final class Env(
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => $find.byOrderedIds[lila.team.Team](res.getHits.hits.toList map (_.id))
+    converter = res => $find.byOrderedIds[lila.team.Team](res.hitIds)
   )
 }
 
