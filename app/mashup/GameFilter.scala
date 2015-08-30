@@ -54,7 +54,8 @@ object GameFilterMenu {
       (info.user.count.draw > 0) option Draw,
       (info.nbPlaying > 0) option Playing,
       (info.nbBookmark > 0) option Bookmark,
-      (info.nbImported > 0) option Imported
+      (info.nbImported > 0) option Imported,
+      (info.user.count.game > 0) option Search
     ).flatten)
 
     val currentName = currentNameOption | info.hasSimul.fold(
