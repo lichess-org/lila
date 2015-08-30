@@ -1,7 +1,6 @@
 package lila.teamSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.db.api.{ $find, $cursor }
@@ -9,7 +8,7 @@ import lila.team.tube.teamTube
 
 final class Env(
     config: Config,
-    client: ElasticClient,
+    client: lila.search.ESClient,
     system: ActorSystem) {
 
   private val IndexName = config getString "index"

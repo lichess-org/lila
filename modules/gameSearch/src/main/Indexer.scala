@@ -2,17 +2,16 @@ package lila.gameSearch
 
 import akka.actor._
 import akka.pattern.pipe
-import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl.{ RichFuture => _, _ }
 import com.sksamuel.elastic4s.mappings.FieldType._
 
 import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.game.GameRepo
 import lila.search.actorApi._
-import lila.search.ElasticSearch
+import lila.search.{ ESClient, ElasticSearch }
 
 private[gameSearch] final class Indexer(
-    client: ElasticClient,
+    client: ESClient,
     indexName: String,
     typeName: String) extends Actor {
 
@@ -20,82 +19,83 @@ private[gameSearch] final class Indexer(
 
   def receive = {
 
-    case Search(definition)     => client execute definition pipeTo sender
-    case Count(definition)      => client execute definition pipeTo sender
+    case Search(definition)     => client search definition pipeTo sender
+    case Count(definition)      => client count definition pipeTo sender
 
     case FinishGame(game, _, _) => self ! InsertGame(game)
 
     case InsertGame(game) => if (storable(game)) {
       GameRepo isAnalysed game.id foreach { analysed =>
-        client execute store(indexName, game, analysed)
+        client store store(indexName, game, analysed)
       }
     }
 
     case Reset =>
-      val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
-      ElasticSearch.createType(client, tempIndexName, typeName)
-      try {
-        import Fields._
-        client.execute {
-          put mapping tempIndexName / typeName as Seq(
-            status typed ShortType,
-            turns typed ShortType,
-            rated typed BooleanType,
-            variant typed ShortType,
-            uids typed StringType,
-            winner typed StringType,
-            winnerColor typed ShortType,
-            averageRating typed ShortType,
-            ai typed ShortType,
-            opening typed StringType,
-            date typed DateType format ElasticSearch.Date.format,
-            duration typed IntegerType,
-            analysed typed BooleanType,
-            whiteUser typed StringType,
-            blackUser typed StringType
-          ).map(_ index "not_analyzed")
-        }.await
-        import scala.concurrent.Await
-        import scala.concurrent.duration._
-        import play.api.libs.json.Json
-        import lila.db.api._
-        import lila.game.tube.gameTube
-        loginfo("[game search] counting games...")
-        val size = SprayPimpedFuture($count($select.all)).await
-        val batchSize = 1000
-        var nb = 0
-        var nbSkipped = 0
-        var started = nowMillis
-        Await.result(
-          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
-            val games = gameOptions.flatten filter storable
-            val nbGames = games.size
-            (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
-              client execute {
-                bulk {
-                  games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
-                }
-              }
-            }).void >>- {
-              nb = nb + nbGames
-              nbSkipped = nbSkipped + gameOptions.size - nbGames
-              val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
-              started = nowMillis
-              loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
-            }
-          },
-          10 hours)
-        sender ! (())
-      }
-      catch {
-        case e: Exception =>
-          println(e)
-          sender ! Status.Failure(e)
-      }
-      client.execute { deleteIndex(indexName) }.await
-      client.execute {
-        add alias indexName on tempIndexName
-      }.await
+      sys error "Game search reset disabled"
+    // val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
+    // client.createType(tempIndexName, typeName)
+    // try {
+    //   import Fields._
+    //   client.put {
+    //     put mapping tempIndexName / typeName as Seq(
+    //       status typed ShortType,
+    //       turns typed ShortType,
+    //       rated typed BooleanType,
+    //       variant typed ShortType,
+    //       uids typed StringType,
+    //       winner typed StringType,
+    //       winnerColor typed ShortType,
+    //       averageRating typed ShortType,
+    //       ai typed ShortType,
+    //       opening typed StringType,
+    //       date typed DateType format ElasticSearch.Date.format,
+    //       duration typed IntegerType,
+    //       analysed typed BooleanType,
+    //       whiteUser typed StringType,
+    //       blackUser typed StringType
+    //     ).map(_ index "not_analyzed")
+    //   }.await
+    //   import scala.concurrent.Await
+    //   import scala.concurrent.duration._
+    //   import play.api.libs.json.Json
+    //   import lila.db.api._
+    //   import lila.game.tube.gameTube
+    //   loginfo("[game search] counting games...")
+    //   val size = SprayPimpedFuture($count($select.all)).await
+    //   val batchSize = 1000
+    //   var nb = 0
+    //   var nbSkipped = 0
+    //   var started = nowMillis
+    //   Await.result(
+    //     $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
+    //       val games = gameOptions.flatten filter storable
+    //       val nbGames = games.size
+    //       (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
+    //         client bulk {
+    //           bulk {
+    //             games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
+    //           }
+    //         }
+    //       }) >>- {
+    //         nb = nb + nbGames
+    //         nbSkipped = nbSkipped + gameOptions.size - nbGames
+    //         val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
+    //         started = nowMillis
+    //         loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
+    //       }
+    //     },
+    //     10 hours)
+    //   sender ! (())
+    // }
+    // catch {
+    //   case e: Exception =>
+    //     println(e)
+    //     sender ! Status.Failure(e)
+    // }
+    // client.execute { deleteIndex(indexName) }.await
+    // client.execute {
+    //   add alias indexName on tempIndexName
+    // }.await
   }
 
   private def storable(game: lila.game.Game) =

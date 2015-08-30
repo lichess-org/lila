@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.db.api.$find
@@ -10,7 +9,7 @@ import lila.game.tube.gameTube
 final class Env(
     config: Config,
     system: ActorSystem,
-    client: ElasticClient) {
+    client: lila.search.ESClient) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
