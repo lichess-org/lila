@@ -1,6 +1,6 @@
 @(u: User)(implicit ctx: Context)
 
-@defining("lichess.opensource@gmail.com") { email =>
+@defining("lichess.contact@gmail.com") { email =>
 
 <div class="claim_title_zone">
 
@@ -22,23 +22,19 @@
 
   <p>
     Alternatively you can write a statement about lichess on a website where you are recognised
-    as who you claim to be. It could be twitter, facebook, chess.com or anything serious enough.
+    as who you claim to be. It could be twitter, facebook, chess.com, ICC, or anything serious enough.
     Then, send us a link to your post.
   </p>
 
   <p>
     Go ahead now and verify your title!
     If you need help or have any question,
-    feel free to ask <a href="@routes.User.show("thibault")">thibault</a>,
-    the developer of the site, using
-    <a href="@routes.Message.form()?user=thibault&title=About title verification">
-      lichess messages
-    </a>, or by email at
+    feel free to contact us by email at
     <a href="mailto:@email" title="About title verification">@email</a>.
   </p>
 
   <p class="actions">
-    <a class="gotit button" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "1")" data-icon="E">&nbsp;Got it, thanks!</a>
+    <a class="gotit button text" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "1")" data-icon="E">Got it, thanks!</a>
     <a class="button" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "0")">I don't have an official title</a>
   </p>
 </div>
