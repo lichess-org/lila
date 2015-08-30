@@ -1,0 +1,21 @@
+#!/bin/sh
+. bin/lilarc
+
+REMOTE="clyde"
+REMOTE_DIR="/home/lichess"
+
+lilalog "Notify users of pre deploy"
+bin/cli-prod deploy pre
+
+sleep 30
+
+lilalog "Notify users of post deploy"
+bin/cli-prod deploy post
+
+lilalog "Restart lichess"
+ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
+
+lilalog "Deploy complete"
+
+sleep 2
+curl_prod
