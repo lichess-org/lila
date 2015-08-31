@@ -22,7 +22,7 @@
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
 <div data-icon="@perfType.iconChar">
   <h3 class="hint--top" data-hint="@perfType.title">
-    <a href="@searchUrl?perf=@perfType.id">
+    <a href="@searchUrl?variant=@perfType.id">
       @name.getOrElse(perfType.name).toUpperCase
     </a>
   </h3>
