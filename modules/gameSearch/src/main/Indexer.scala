@@ -32,65 +32,70 @@ private[gameSearch] final class Indexer(
     }
 
     case Reset =>
-      val replyTo = sender
       val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
       ElasticSearch.createType(client, tempIndexName, typeName)
-      import Fields._
-      client.execute {
-        put mapping tempIndexName / typeName as Seq(
-          status typed ShortType,
-          turns typed ShortType,
-          rated typed BooleanType,
-          variant typed ShortType,
-          uids typed StringType,
-          winner typed StringType,
-          winnerColor typed ShortType,
-          averageRating typed ShortType,
-          ai typed ShortType,
-          opening typed StringType,
-          date typed DateType format ElasticSearch.Date.format,
-          duration typed IntegerType,
-          analysed typed BooleanType,
-          whiteUser typed StringType,
-          blackUser typed StringType
-        ).map(_ index "not_analyzed")
-      }.await
-      import scala.concurrent.duration._
-      import play.api.libs.json.Json
-      import lila.db.api._
-      import lila.game.tube.gameTube
-      loginfo("[game search] counting games...")
-      val size = SprayPimpedFuture($count($select.all)).await
-      val batchSize = 1000
-      var nb = 0
-      var nbSkipped = 0
-      var started = nowMillis
-      $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, limit = 500000) { gameOptions =>
-        val games = gameOptions.flatten filter storable
-        val nbGames = games.size
-        (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
-          client execute {
-            bulk {
-              games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
-            }
-          }
-        }).void >>- {
-          nb = nb + nbGames
-          nbSkipped = nbSkipped + gameOptions.size - nbGames
-          val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
-          started = nowMillis
-          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
-        }
-      } >>- {
-        loginfo("[game search] Deleting previous index")
-        client.execute { deleteIndex(indexName) }.await
-        loginfo("[game search] Creating new index alias")
+      try {
+        import Fields._
         client.execute {
-          add alias indexName on tempIndexName
+          put mapping tempIndexName / typeName as Seq(
+            status typed ShortType,
+            turns typed ShortType,
+            rated typed BooleanType,
+            variant typed ShortType,
+            uids typed StringType,
+            winner typed StringType,
+            winnerColor typed ShortType,
+            averageRating typed ShortType,
+            ai typed ShortType,
+            opening typed StringType,
+            date typed DateType format ElasticSearch.Date.format,
+            duration typed IntegerType,
+            analysed typed BooleanType,
+            whiteUser typed StringType,
+            blackUser typed StringType
+          ).map(_ index "not_analyzed")
         }.await
-        loginfo("[game search] All set!")
-        replyTo ! (())
+        import scala.concurrent.Await
+        import scala.concurrent.duration._
+        import play.api.libs.json.Json
+        import lila.db.api._
+        import lila.game.tube.gameTube
+        loginfo("[game search] counting games...")
+        val size = SprayPimpedFuture($count($select.all)).await
+        val batchSize = 1000
+        var nb = 0
+        var nbSkipped = 0
+        var started = nowMillis
+        Await.result(
+          $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
+            val games = gameOptions.flatten filter storable
+            val nbGames = games.size
+            (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
+              client execute {
+                bulk {
+                  games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
+                }
+              }
+            }).void >>- {
+              nb = nb + nbGames
+              nbSkipped = nbSkipped + gameOptions.size - nbGames
+              val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
+              started = nowMillis
+              loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
+            }
+          },
+          10 hours)
+        sender ! (())
       }
+      catch {
+        case e: Exception =>
+          println(e)
+          sender ! Status.Failure(e)
+      }
+      client.execute { deleteIndex(indexName) }.await
+      client.execute {
+        add alias indexName on tempIndexName
+      }.await
   }
 
   private def storable(game: lila.game.Game) =
@@ -118,8 +123,7 @@ private[gameSearch] final class Indexer(
         opening -> (game.opening map (_.code.toLowerCase)),
         analysed -> hasAnalyse.some,
         whiteUser -> game.whitePlayer.userId,
-        blackUser -> game.blackPlayer.userId,
-        source -> game.source.map(_.id)
+        blackUser -> game.blackPlayer.userId
       ).collect {
           case (key, Some(value)) => key -> value
         }: _*

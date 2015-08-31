@@ -30,11 +30,6 @@ final class Env(
 
   lazy val forms = new DataForm
 
-  lazy val userGameSearch = new UserGameSearch(
-    forms = forms,
-    paginator = paginator,
-    indexType = s"$IndexName/$TypeName")
-
   def nonEmptyQuery(data: SearchData) = data nonEmptyQuery s"$IndexName/$TypeName"
 
   def cli = new lila.common.Cli {

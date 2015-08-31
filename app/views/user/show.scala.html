@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, searchForm: Form[_], rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -6,10 +6,6 @@
 
 @evenMoreJs = {
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
-@if(filters.current.name == "search") {
-@jsTag("search.js")
-@jsTag("vendor/jquery.infinitescroll.min.js")
-}
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
 @embedJs(s"var lichess_rating_series = $ratingChart;")
@@ -189,9 +185,6 @@ description = describeUser(u)).some) {
   @claimTitle(u)
   }
   <div class="mod_zone"></div>
-  @if(filters.current.name == "search") {
-  @search.user(u, searchForm)
-  } else {
   <div class="meat">
     @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
@@ -260,7 +253,6 @@ description = describeUser(u)).some) {
       </div>
     </div>
   </div>
-  }
   @if(u.hasGames || info.nbImported > 0) {
   <div class="content_box_inter tabs">
     @filters.list.map { f =>
@@ -274,9 +266,7 @@ description = describeUser(u)).some) {
   <div class="crosstable">@game.crosstable(c, none)</div>
   }
   }
-  <div class="search_result">
-    @views.html.user.games(u, games, filters.current.name)
-  </div>
+  @views.html.user.games(u, games, filters.current.name)
   }
 </div>
 }

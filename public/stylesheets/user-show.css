@@ -420,48 +420,17 @@ div.user_show .results .aggregate {
 }
 div.user_show .reportCard .mark {
   color: #dc322f;
+  /* red */
+}
+div.user_show .reportCard .noMark {
+  /*color: #dc322f;*/
+  /* red */
 }
 div.user_show .reportCard .report {
   color: #B8AA1A;
+  /* red */
 }
-
-div.user_show .search {
-  white-space: nowrap;
-  margin: 10px 0;
-}
-div.user_show .search table {
-  display: inline-block;
-  box-sizing: border-box;
-  margin-left: 20px;
-  width: 360px;
-  border-collapse: collapse;
-}
-div.user_show .search table tbody {
-  display: block;
-}
-div.user_show .search table:first-child {
-  width: 400px;
-}
-div.user_show .search .header {
-  font-size: 1.3em;
-}
-div.user_show .search td {
-  padding: 5px 0;
-}
-div.user_show .search label {
-  margin-right: 10px;
-}
-div.user_show .search .single select {
-  width: 100%;
-}
-div.user_show .search table .half {
-  float: left;
-  width: 49%;
-  padding-right: 1%;
-  text-align: right;
-}
-div.user_show .search_status {
-  text-align: right;
-  padding: 10px 25px;
-  border-bottom: 1px solid #e4e4e4;
+div.user_show .reportCard .noReport {
+  /*color: #dc322f;*/
+  /* red */
 }
