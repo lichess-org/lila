@@ -23,7 +23,10 @@ final class Env(
     typeName = TypeName
   )), name = IndexerName)
 
-  def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
+  def apply(text: String, page: Int) = {
+    val query = Query(s"$IndexName/$TypeName", text)
+    paginatorBuilder(query, page)
+  }
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask

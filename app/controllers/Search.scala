@@ -19,7 +19,7 @@ object Search extends LilaController {
         implicit def req = ctx.body
         searchForm.bindFromRequest.fold(
           failure => Ok(html.search.index(failure)).fuccess,
-          data => data.nonEmptyQuery ?? { query =>
+          data => env.nonEmptyQuery(data) ?? { query =>
             env.paginator(query, page) map (_.some)
           } map { pager =>
             Ok(html.search.index(searchForm fill data, pager))
@@ -34,7 +34,7 @@ object Search extends LilaController {
       implicit def req = ctx.body
       searchForm.bindFromRequest.fold(
         failure => Ok(html.search.index(failure)).fuccess,
-        data => data.nonEmptyQuery ?? { query =>
+        data => env.nonEmptyQuery(data) ?? { query =>
           env.paginator.ids(query, 5000) map { ids =>
             import org.joda.time.DateTime
             import org.joda.time.format.DateTimeFormat

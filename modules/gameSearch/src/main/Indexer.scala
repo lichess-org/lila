@@ -2,9 +2,9 @@ package lila.gameSearch
 
 import akka.actor._
 import akka.pattern.pipe
+import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl.{ RichFuture => _, _ }
 import com.sksamuel.elastic4s.mappings.FieldType._
-import com.sksamuel.elastic4s.{ ElasticClient, IndexType }
 
 import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.game.GameRepo
@@ -13,40 +13,31 @@ import lila.search.ElasticSearch
 
 private[gameSearch] final class Indexer(
     client: ElasticClient,
-    initialIndexName: String,
+    indexName: String,
     typeName: String) extends Actor {
 
   context.system.lilaBus.subscribe(self, 'finishGame)
 
-  var readIndex = initialIndexName
-  var writeIndex = initialIndexName
-
-  def readIndexType = IndexType(readIndex, typeName)
-
-  private case object FinalizeReset
-  var resetInProgress = false
-
   def receive = {
 
-    case Search(definition)     => client execute definition(readIndexType) pipeTo sender
-    case Count(definition)      => client execute definition(readIndexType) pipeTo sender
+    case Search(definition)     => client execute definition pipeTo sender
+    case Count(definition)      => client execute definition pipeTo sender
 
     case FinishGame(game, _, _) => self ! InsertGame(game)
 
     case InsertGame(game) => if (storable(game)) {
       GameRepo isAnalysed game.id foreach { analysed =>
-        client execute store(writeIndex, game, analysed)
+        client execute store(indexName, game, analysed)
       }
     }
 
     case Reset =>
-      if (resetInProgress) sys error "[game search] already resetting!"
-      resetInProgress = true
-      writeIndex = initialIndexName + "_" + ornicar.scalalib.Random.nextString(6)
-      ElasticSearch.createType(client, writeIndex, typeName)
+      val replyTo = sender
+      val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
+      ElasticSearch.createType(client, tempIndexName, typeName)
       import Fields._
       client.execute {
-        put mapping writeIndex / typeName as Seq(
+        put mapping tempIndexName / typeName as Seq(
           status typed ShortType,
           turns typed ShortType,
           rated typed BooleanType,
@@ -64,7 +55,6 @@ private[gameSearch] final class Indexer(
           blackUser typed StringType
         ).map(_ index "not_analyzed")
       }.await
-      sender ! (())
       import scala.concurrent.duration._
       import play.api.libs.json.Json
       import lila.db.api._
@@ -81,7 +71,7 @@ private[gameSearch] final class Indexer(
         (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
           client execute {
             bulk {
-              games.map { g => store(writeIndex, g, analysedIds(g.id)) }: _*
+              games.map { g => store(tempIndexName, g, analysedIds(g.id)) }: _*
             }
           }
         }).void >>- {
@@ -92,18 +82,15 @@ private[gameSearch] final class Indexer(
           loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
         }
       } >>- {
-        self ! FinalizeReset
+        loginfo("[game search] Deleting previous index")
+        client.execute { deleteIndex(indexName) }.await
+        loginfo("[game search] Creating new index alias")
+        client.execute {
+          add alias indexName on tempIndexName
+        }.await
+        loginfo("[game search] All set!")
+        replyTo ! (())
       }
-
-    case FinalizeReset =>
-      loginfo(s"[game search] Deleting previous index $initialIndexName")
-      client.execute { deleteIndex(initialIndexName) }.await
-      loginfo(s"[game search] Creating new index alias $initialIndexName -> $writeIndex")
-      client.execute { add alias initialIndexName on writeIndex }.await
-      loginfo("[game search] All set!")
-      readIndex = initialIndexName
-      writeIndex = initialIndexName
-      resetInProgress = false
   }
 
   private def storable(game: lila.game.Game) =

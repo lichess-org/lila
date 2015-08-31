@@ -19,7 +19,7 @@ final class Env(
 
   private val indexer: ActorRef = system.actorOf(Props(new Indexer(
     client = client,
-    initialIndexName = IndexName,
+    indexName = IndexName,
     typeName = TypeName
   )), name = IndexerName)
 
@@ -32,14 +32,17 @@ final class Env(
 
   lazy val userGameSearch = new UserGameSearch(
     forms = forms,
-    paginator = paginator)
+    paginator = paginator,
+    indexType = s"$IndexName/$TypeName")
+
+  def nonEmptyQuery(data: SearchData) = data nonEmptyQuery s"$IndexName/$TypeName"
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
     private implicit def timeout = makeTimeout minutes 60
     def process = {
       case "game" :: "search" :: "reset" :: Nil =>
-        (indexer ? lila.search.actorApi.Reset) inject "Game search index rebuilding"
+        (indexer ? lila.search.actorApi.Reset) inject "Game search index rebuilt"
     }
   }
 }

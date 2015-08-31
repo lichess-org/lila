@@ -6,7 +6,8 @@ import play.api.mvc.Request
 
 final class UserGameSearch(
     forms: DataForm,
-    paginator: lila.search.PaginatorBuilder[Game]) {
+    paginator: lila.search.PaginatorBuilder[Game],
+    indexType: String) {
 
   def apply(user: lila.user.User, page: Int)(implicit req: Request[_]): Fu[Paginator[Game]] =
     paginator(
@@ -15,7 +16,7 @@ final class UserGameSearch(
         data => data.copy(
           players = data.players.copy(a = user.id.some)
         )
-      ).query,
+      ) query indexType,
       page = page)
 
   def requestForm(implicit req: Request[_]) = forms.search.bindFromRequest

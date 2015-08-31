@@ -5,7 +5,6 @@ import akka.pattern.pipe
 import com.sksamuel.elastic4s
 import elastic4s.SimpleAnalyzer
 import elastic4s.ElasticClient
-import com.sksamuel.elastic4s.IndexType
 import elastic4s.ElasticDsl._
 import elastic4s.mappings.FieldType._
 
@@ -21,13 +20,10 @@ private[forumSearch] final class Indexer(
 
   private val indexType = s"$indexName/$typeName"
 
-  def readIndexType = IndexType(indexName, typeName)
-  def writeIndexType = readIndexType
-
   def receive = {
 
-    case Search(definition) => client execute definition(readIndexType) pipeTo sender
-    case Count(definition)  => client execute definition(readIndexType) pipeTo sender
+    case Search(definition) => client execute definition pipeTo sender
+    case Count(definition)  => client execute definition pipeTo sender
 
     case InsertPost(post) => postApi liteView post foreach {
       _ foreach { view =>
@@ -36,11 +32,11 @@ private[forumSearch] final class Indexer(
     }
 
     case RemovePost(id) => client execute {
-      delete id id from writeIndexType
+      delete id id from indexType
     }
 
     case RemoveTopic(id) => client execute {
-      delete from writeIndexType where s"${Fields.topicId}:$id"
+      delete from indexType where s"${Fields.topicId}:$id"
     }
 
     case Reset =>
