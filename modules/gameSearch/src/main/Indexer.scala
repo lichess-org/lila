@@ -65,7 +65,7 @@ private[gameSearch] final class Indexer(
       var nb = 0
       var nbSkipped = 0
       var started = nowMillis
-      $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
+      $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, 200000) { gameOptions =>
         val games = gameOptions.flatten filter storable
         val nbGames = games.size
         (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
