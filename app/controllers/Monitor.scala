@@ -31,12 +31,10 @@ object Monitor extends LilaController {
         (env.reporting ? PopulationGet).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
       } map { Ok(_) }
       case "uptime" => fuccess {
-        import java.util.Locale
-        import org.joda.time.format._
+        val up = lila.common.PlayApp.uptime
         Ok {
-          PeriodFormat.wordBased(new Locale("en")).print {
-            lila.common.PlayApp.uptime
-          }
+          val human = org.joda.time.format.PeriodFormat.wordBased(new java.util.Locale("en")).print(up)
+          s"last deploy: ${lila.common.PlayApp.startedAt}\nuptime seconds: ${up.toStandardSeconds.getSeconds}\nuptime: $human"
         }
       }
       case key => fuccess {
