@@ -1,4 +1,4 @@
-playWithAFriend=Igraj protiv prijatelja
+playWithAFriend=igraj protiv p
 playWithTheMachine=Igraj protiv računala
 toInviteSomeoneToPlayGiveThisUrl=Za poziv na igru, pošalji ovaj URL
 gameOver=Igra gotova
@@ -501,3 +501,7 @@ keyGoToStartOrEnd=idi na početak/kraj
 keyShowOrHideComments=pokaži/sakrij komentare
 keyEnterOrExitVariation=otvori/zatvori varijantu
 keyYouCanDrawArrowsCirclesAndScrollToMove=Pritisnite shift i kliknite lijevom tipkom miša ili desnom tipkom kako biste crtali krugove i strelice na tabli. Možete također skrolati tabli kako biste se pomicali u igri.
+newTournament=novi turnir
+tournamentNotFound=turnir nije pronadjen
+tournamentDoesNotExist=turnir ne postoji
+tournamentMayHaveBeenCanceled=turnir ce biti otkazan ukoliko svi igraci napuste isti pre pocetka
