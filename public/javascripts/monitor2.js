@@ -8,10 +8,10 @@ $(function() {
   var noText = {
     text: null
   };
-  var maxPoints = 60;
   var colors = Highcharts.theme.colors;
-  var width = 375,
-    height = 165;
+  var height = 165;
+  var width = document.body.clientWidth / 2 - 25;
+  var maxPoints = width / 4;
   var counter = 0;
   var chartDefaults = {
     credits: disabled,

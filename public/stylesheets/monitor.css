@@ -5,8 +5,7 @@ body {
   color: black;
   text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
   padding-top: 2px;
-  margin: auto;
-  width: 1125px;
+  margin: 0;
 }
 
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
@@ -52,4 +51,6 @@ a.back {
 #monitors > div {
   float: left;
   position: relative;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
