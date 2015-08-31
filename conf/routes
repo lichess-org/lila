@@ -361,8 +361,8 @@ GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 
 # Map
-# GET   /network                         controllers.WorldMap.index
-# GET   /network/stream                  controllers.WorldMap.stream
+GET   /network                         controllers.WorldMap.index
+GET   /network/stream                  controllers.WorldMap.stream
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
