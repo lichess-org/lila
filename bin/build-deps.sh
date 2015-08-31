@@ -11,9 +11,8 @@ sbt publish-local
 cd ..
 
 rm -rf scala-kit
-git clone https://github.com/ornicar/scala-kit
+git clone https://github.com/ornicar/scala-kit --branch 1210thib
 cd scala-kit
-git checkout 1210thib
 sbt -Dversion=1.2.10-THIB publish-local
 cd ..
 
