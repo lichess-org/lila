@@ -22,7 +22,6 @@ object GameFilter {
   case object Playing extends GameFilter("playing")
   case object Bookmark extends GameFilter("bookmark")
   case object Imported extends GameFilter("import")
-  case object Search extends GameFilter("search")
 }
 
 case class GameFilterMenu(
@@ -37,7 +36,7 @@ object GameFilterMenu {
   import GameFilter._
   import lila.db.Implicits.docId
 
-  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
+  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported))
 
   def apply(
     info: UserInfo,
@@ -53,8 +52,7 @@ object GameFilterMenu {
       (info.user.count.loss > 0) option Loss,
       (info.user.count.draw > 0) option Draw,
       (info.nbPlaying > 0) option Playing,
-      (info.nbBookmark > 0) option Bookmark,
-      (info.user.count.game > 0) option Search
+      (info.nbBookmark > 0) option Bookmark
     ).flatten)
 
     val currentName = currentNameOption | info.hasSimul.fold(
@@ -81,7 +79,6 @@ object GameFilterMenu {
     case Win      => user.count.win.some
     case Loss     => user.count.loss.some
     case Draw     => user.count.draw.some
-    case Search   => user.count.game.some
     case _        => None
   }
 
@@ -112,14 +109,12 @@ object GameFilterMenu {
         selector = Query nowPlaying user.id,
         sort = Seq(),
         nb = nb)(page)
-      case Search => userGameSearch(user, page)
     }
   }
 
   def searchForm(
     userGameSearch: lila.gameSearch.UserGameSearch,
     filter: GameFilter)(implicit req: Request[_]): play.api.data.Form[_] = filter match {
-    case Search => userGameSearch.requestForm
     case _      => userGameSearch.defaultForm
   }
 }
