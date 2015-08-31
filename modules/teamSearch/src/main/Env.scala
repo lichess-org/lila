@@ -1,7 +1,6 @@
 package lila.teamSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.db.api.{ $find, $cursor }
@@ -9,7 +8,7 @@ import lila.team.tube.teamTube
 
 final class Env(
     config: Config,
-    client: ElasticClient,
+    client: lila.search.ESClient,
     system: ActorSystem) {
 
   private val IndexName = config getString "index"
@@ -40,7 +39,7 @@ final class Env(
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => $find.byOrderedIds[lila.team.Team](res.getHits.hits.toList map (_.id))
+    converter = res => $find.byOrderedIds[lila.team.Team](res.hitIds)
   )
 }
 

@@ -4,14 +4,14 @@ import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.mappings.FieldType._
-import com.sksamuel.elastic4s.ElasticClient
 
+import lila.search.ESClient
 import lila.search.actorApi._
 import lila.team.actorApi._
 import lila.team.Team
 
 private[teamSearch] final class Indexer(
-    client: ElasticClient,
+    client: ESClient,
     indexName: String,
     typeName: String) extends Actor {
 
@@ -19,19 +19,17 @@ private[teamSearch] final class Indexer(
 
   def receive = {
 
-    case Search(definition) => client execute definition pipeTo sender
-    case Count(definition)  => client execute definition pipeTo sender
+    case Search(definition) => client search definition pipeTo sender
+    case Count(definition)  => client count definition pipeTo sender
 
-    case InsertTeam(team)   => client execute store(team)
+    case InsertTeam(team)   => client store store(team)
 
-    case RemoveTeam(id) => client execute {
-      delete id id from indexType
-    }
+    case RemoveTeam(id) => client.deleteById(id, indexType)
 
     case Reset =>
-      lila.search.ElasticSearch.createType(client, indexName, typeName)
+      client.createType(indexName, typeName)
       try {
-        client execute {
+        client put {
           put mapping indexName/typeName as Seq(
             Fields.name typed StringType boost 3,
             Fields.description typed StringType boost 2,
@@ -46,11 +44,11 @@ private[teamSearch] final class Indexer(
         import lila.team.tube.teamTube
         Await.result(
           $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 100) { teamOptions =>
-            client execute {
+            client bulk {
               bulk {
                 (teamOptions.flatten map store): _*
               }
-            } void
+            }
           }, 20 minutes)
         sender ! (())
       }

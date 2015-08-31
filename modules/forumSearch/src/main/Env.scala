@@ -1,7 +1,6 @@
 package lila.forumSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.forum.PostApi
@@ -9,7 +8,7 @@ import lila.forum.PostApi
 final class Env(
     config: Config,
     postApi: PostApi,
-    client: ElasticClient,
+    client: lila.search.ESClient,
     system: ActorSystem) {
 
   private val IndexName = config getString "index"
@@ -41,7 +40,7 @@ final class Env(
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => postApi viewsFromIds (res.getHits.hits.toList map (_.id))
+    converter = res => postApi viewsFromIds res.hitIds
   )
 }
 

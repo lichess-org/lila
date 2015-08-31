@@ -14,23 +14,26 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
+  private val Enabled = config getBoolean "enabled"
   private val ESHost = config getString "es.host"
   private val ESPort = config getInt "es.port"
   private val ESCluster = config getString "es.cluster"
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
   private val IndexerMaxAttempts = 10
 
-  lazy val client = {
+  lazy val underlyingClient: Option[ElasticClient] = Enabled option {
     val settings = ImmutableSettings.settingsBuilder()
       .put("cluster.name", ESCluster).build()
     ElasticClient.remote(settings, ESHost -> ESPort)
   }
 
-  {
+  lazy val client = ESClient make underlyingClient
+
+  underlyingClient foreach { c =>
     import scala.concurrent.duration._
     import com.sksamuel.elastic4s.ElasticDsl._
     scheduler.effect(1 hour, "search: optimize index") {
-      client execute {
+      c execute {
         optimize index IndexesToOptimize
       }
     }

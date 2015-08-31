@@ -1,11 +1,16 @@
 package lila.common
 
 import com.typesafe.config.Config
+import org.joda.time.{ DateTime, Period }
 import play.api.i18n.{ Lang, Messages }
 import play.api.{ Play, Application, Mode }
 import scala.collection.JavaConversions._
 
 object PlayApp {
+
+  val startedAt = DateTime.now
+
+  def uptime = new Period(startedAt, DateTime.now)
 
   def loadConfig: Config = withApp(_.configuration.underlying)
 

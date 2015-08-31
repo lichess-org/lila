@@ -4,16 +4,16 @@ import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s
 import elastic4s.SimpleAnalyzer
-import elastic4s.ElasticClient
 import elastic4s.ElasticDsl._
 import elastic4s.mappings.FieldType._
 
 import lila.forum.actorApi._
 import lila.forum.{ Post, PostLiteView, PostApi }
+import lila.search.ESClient
 import lila.search.actorApi._
 
 private[forumSearch] final class Indexer(
-    client: ElasticClient,
+    client: ESClient,
     indexName: String,
     typeName: String,
     postApi: PostApi) extends Actor {
@@ -22,27 +22,23 @@ private[forumSearch] final class Indexer(
 
   def receive = {
 
-    case Search(definition) => client execute definition pipeTo sender
-    case Count(definition)  => client execute definition pipeTo sender
+    case Search(definition) => client search definition pipeTo sender
+    case Count(definition)  => client count definition pipeTo sender
 
     case InsertPost(post) => postApi liteView post foreach {
       _ foreach { view =>
-        client execute store(view)
+        client store store(view)
       }
     }
 
-    case RemovePost(id) => client execute {
-      delete id id from indexType
-    }
+    case RemovePost(id) => client.deleteById(id, indexType)
 
-    case RemoveTopic(id) => client execute {
-      delete from indexType where s"${Fields.topicId}:$id"
-    }
+    case RemoveTopic(id) => client.deleteByQuery(s"${Fields.topicId}:$id", indexType)
 
     case Reset =>
-      lila.search.ElasticSearch.createType(client, indexName, typeName)
+      client.createType(indexName, typeName)
       try {
-        client execute {
+        client put {
           put mapping indexName / typeName as Seq(
             Fields.body typed StringType boost 2,
             Fields.topic typed StringType boost 4,
@@ -61,11 +57,11 @@ private[forumSearch] final class Indexer(
         Await.result(
           $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 200) { postOptions =>
             (postApi liteViews postOptions.flatten) flatMap { views =>
-              client execute {
+              client bulk {
                 bulk {
                   (views map store): _*
                 }
-              } void
+              }
             }
           }, 20 minutes)
         sender ! (())

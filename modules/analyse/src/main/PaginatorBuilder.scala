@@ -25,9 +25,9 @@ private[analyse] final class PaginatorBuilder(
 
     def slice(offset: Int, length: Int): Fu[Seq[Game]] = for {
       ids ← $primitive[Analysis, String](
-        selector, 
-        "_id", 
-        _ sort sorting skip offset, 
+        selector,
+        "_id",
+        _ sort sorting skip offset,
         length.some)(_.asOpt[String])
       games ← $find.byOrderedIds[Game](ids)
     } yield games

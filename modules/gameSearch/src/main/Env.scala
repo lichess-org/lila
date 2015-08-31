@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.db.api.$find
@@ -10,7 +9,7 @@ import lila.game.tube.gameTube
 final class Env(
     config: Config,
     system: ActorSystem,
-    client: ElasticClient) {
+    client: lila.search.ESClient) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -26,7 +25,7 @@ final class Env(
   lazy val paginator = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => $find.byOrderedIds[lila.game.Game](res.getHits.hits.toList map (_.id)))
+    converter = res => $find.byOrderedIds[lila.game.Game](res.hitIds))
 
   lazy val forms = new DataForm
 
