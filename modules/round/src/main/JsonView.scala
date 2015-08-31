@@ -21,6 +21,7 @@ final class JsonView(
     userJsonView: lila.user.JsonView,
     getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
+    canAddTime: Game => Fu[Boolean],
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
 
@@ -39,8 +40,9 @@ final class JsonView(
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
+      canAddTime(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
-        case (((socket, opponentUser), takebackable), chat) =>
+        case ((((socket, opponentUser), takebackable), moretimeable), chat) =>
           import pov._
           Json.obj(
             "game" -> gameJson(game, initialFen),
@@ -113,7 +115,8 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
-            "takebackable" -> takebackable).noNull
+            "takebackable" -> takebackable,
+            "moretimeable" -> moretimeable).noNull
       }
 
   def watcherJson(
