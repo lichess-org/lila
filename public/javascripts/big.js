@@ -644,6 +644,7 @@ lichess.desktopNotification = function(msg) {
 
       function userPowertip($els, placement) {
         $els.removeClass('ulpt').powerTip({
+          intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
@@ -664,6 +665,7 @@ lichess.desktopNotification = function(msg) {
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
+          intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,

@@ -52,6 +52,7 @@ function playerTr(ctrl, player) {
             });
           }
           $(el).find('.glpt').removeClass('glpt').powerTip({
+            intentPollInterval: 300,
             fadeInTime: 100,
             fadeOutTime: 100,
             placement: 'w',
