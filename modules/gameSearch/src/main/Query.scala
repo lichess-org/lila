@@ -14,7 +14,7 @@ case class Query(
     user2: Option[String] = None,
     winner: Option[String] = None,
     winnerColor: Option[Int] = None,
-    perf: Option[Int] = None,
+    variant: Option[Int] = None,
     source: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
@@ -37,7 +37,7 @@ case class Query(
       user2.nonEmpty ||
       winner.nonEmpty ||
       winnerColor.nonEmpty ||
-      perf.nonEmpty ||
+      variant.nonEmpty ||
       source.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
@@ -65,7 +65,7 @@ case class Query(
       date map ElasticSearch.Date.formatter.print filters Fields.date,
       hasAiFilters,
       (hasAi | true).fold(aiLevel filters Fields.ai, Nil),
-      toFilters(perf, Fields.perf),
+      toFilters(variant, Fields.variant),
       toFilters(source, Fields.source),
       toFilters(rated, Fields.rated),
       toFilters(opening, Fields.opening),
@@ -110,7 +110,7 @@ object Query {
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
-  val perfs = lila.rating.PerfType.nonPuzzle map { v => v.id -> v.name }
+  val variants = chess.variant.Variant.all map { v => v.id -> v.name }
 
   val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
 
