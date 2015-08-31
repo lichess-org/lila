@@ -36,7 +36,7 @@ trait I18nHelper {
   def shortLangName(lang: String): Option[String] = langName(lang) map (_ takeWhile (','!=))
 
   def translationCall(implicit ctx: UserContext) =
-    if (true || ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
+    if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else (~ctx.me.map(_.count.game) >= i18nEnv.CallThreshold) ?? shuffle(
       (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
     ).headOption
