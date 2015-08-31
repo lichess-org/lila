@@ -22,10 +22,13 @@ final class Env(
     typeName = TypeName
   )), name = IndexerName)
 
+  private def converter(ids: Seq[String]) =
+    $find.byOrderedIds[lila.game.Game](ids)
+
   lazy val paginator = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => $find.byOrderedIds[lila.game.Game](res.hitIds))
+    converter = converter _)
 
   lazy val forms = new DataForm
 

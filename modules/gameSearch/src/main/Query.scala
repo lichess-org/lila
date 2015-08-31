@@ -1,8 +1,6 @@
 package lila.gameSearch
 
 import chess.{ Mode, Status, Openings }
-import com.sksamuel.elastic4s.ElasticDsl._
-import com.sksamuel.elastic4s.QueryDefinition
 import org.joda.time.DateTime
 
 import lila.rating.RatingRange
@@ -47,45 +45,45 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchDef(from: Int = 0, size: Int = 10) =
-    search in indexType query makeQuery sort sorting.definition start from size size
+  // def searchDef(from: Int = 0, size: Int = 10) =
+  //   search in indexType query makeQuery sort sorting.definition start from size size
 
-  def countDef = count from indexType query makeQuery
+  // def countDef = count from indexType query makeQuery
 
-  private lazy val makeQuery = filteredQuery query matchall filter {
-    List(
-      usernames map { termFilter(Fields.uids, _) },
-      toFilters(winner, Fields.winner),
-      toFilters(winnerColor, Fields.winnerColor),
-      turns filters Fields.turns,
-      averageRating filters Fields.averageRating,
-      duration map (60 *) filters Fields.duration,
-      date map ElasticSearch.Date.formatter.print filters Fields.date,
-      hasAiFilters,
-      (hasAi | true).fold(aiLevel filters Fields.ai, Nil),
-      toFilters(variant, Fields.variant),
-      toFilters(rated, Fields.rated),
-      toFilters(opening, Fields.opening),
-      toFilters(status, Fields.status),
-      toFilters(analysed, Fields.analysed),
-      toFilters(whiteUser, Fields.whiteUser),
-      toFilters(blackUser, Fields.blackUser)
-    ).flatten match {
-        case Nil     => matchAllFilter
-        case filters => must(filters: _*)
-      }
-  }
+  // private lazy val makeQuery = filteredQuery query matchall filter {
+  //   List(
+  //     usernames map { termFilter(Fields.uids, _) },
+  //     toFilters(winner, Fields.winner),
+  //     toFilters(winnerColor, Fields.winnerColor),
+  //     turns filters Fields.turns,
+  //     averageRating filters Fields.averageRating,
+  //     duration map (60 *) filters Fields.duration,
+  //     date map ElasticSearch.Date.formatter.print filters Fields.date,
+  //     hasAiFilters,
+  //     (hasAi | true).fold(aiLevel filters Fields.ai, Nil),
+  //     toFilters(variant, Fields.variant),
+  //     toFilters(rated, Fields.rated),
+  //     toFilters(opening, Fields.opening),
+  //     toFilters(status, Fields.status),
+  //     toFilters(analysed, Fields.analysed),
+  //     toFilters(whiteUser, Fields.whiteUser),
+  //     toFilters(blackUser, Fields.blackUser)
+  //   ).flatten match {
+  //       case Nil     => matchAllFilter
+  //       case filters => must(filters: _*)
+  //     }
+  // }
 
   def usernames = List(user1, user2).flatten
 
-  private def hasAiFilters = hasAi.toList map { a =>
-    a.fold(existsFilter(Fields.ai), missingFilter(Fields.ai))
-  }
+  // private def hasAiFilters = hasAi.toList map { a =>
+  //   a.fold(existsFilter(Fields.ai), missingFilter(Fields.ai))
+  // }
 
-  private def toFilters(query: Option[_], name: String) = query.toList map {
-    case s: String => termFilter(name, s.toLowerCase)
-    case x         => termFilter(name, x)
-  }
+  // private def toFilters(query: Option[_], name: String) = query.toList map {
+  //   case s: String => termFilter(name, s.toLowerCase)
+  //   case x         => termFilter(name, x)
+  // }
 }
 
 object Query {

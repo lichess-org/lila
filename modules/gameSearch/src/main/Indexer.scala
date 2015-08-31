@@ -2,8 +2,6 @@ package lila.gameSearch
 
 import akka.actor._
 import akka.pattern.pipe
-import com.sksamuel.elastic4s.ElasticDsl.{ RichFuture => _, _ }
-import com.sksamuel.elastic4s.mappings.FieldType._
 
 import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.game.GameRepo
@@ -19,16 +17,16 @@ private[gameSearch] final class Indexer(
 
   def receive = {
 
-    case Search(definition)     => client search definition pipeTo sender
-    case Count(definition)      => client count definition pipeTo sender
+    // case Search(definition)     => sender ! Nil
+    // case Count(definition)      => sender ! 0
 
-    case FinishGame(game, _, _) => self ! InsertGame(game)
+    // case FinishGame(game, _, _) => self ! InsertGame(game)
 
-    case InsertGame(game) => if (storable(game)) {
-      GameRepo isAnalysed game.id foreach { analysed =>
-        client store store(indexName, game, analysed)
-      }
-    }
+    // case InsertGame(game) => if (storable(game)) {
+    //   GameRepo isAnalysed game.id foreach { analysed =>
+    //     client store store(indexName, game, analysed)
+    //   }
+    // }
 
     case Reset =>
       sys error "Game search reset disabled"
@@ -98,35 +96,35 @@ private[gameSearch] final class Indexer(
     // }.await
   }
 
-  private def storable(game: lila.game.Game) =
-    (game.finished || game.imported) && game.playedTurns > 4
+  // private def storable(game: lila.game.Game) =
+  //   (game.finished || game.imported) && game.playedTurns > 4
 
-  private def store(inIndex: String, game: lila.game.Game, hasAnalyse: Boolean) = {
-    import Fields._
-    index into s"$inIndex/$typeName" fields {
-      List(
-        status -> (game.status match {
-          case s if s.is(_.Timeout) => chess.Status.Resign
-          case s if s.is(_.NoStart) => chess.Status.Resign
-          case s                    => game.status
-        }).id.some,
-        turns -> math.ceil(game.turns.toFloat / 2).some,
-        rated -> game.rated.some,
-        variant -> game.variant.id.some,
-        uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
-        winner -> (game.winner flatMap (_.userId)),
-        winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)).some,
-        averageRating -> game.averageUsersRating,
-        ai -> game.aiLevel,
-        date -> (ElasticSearch.Date.formatter print game.createdAt).some,
-        duration -> game.estimateTotalTime.some,
-        opening -> (game.opening map (_.code.toLowerCase)),
-        analysed -> hasAnalyse.some,
-        whiteUser -> game.whitePlayer.userId,
-        blackUser -> game.blackPlayer.userId
-      ).collect {
-          case (key, Some(value)) => key -> value
-        }: _*
-    } id game.id
-  }
+  // private def store(inIndex: String, game: lila.game.Game, hasAnalyse: Boolean) = {
+  //   import Fields._
+  //   index into s"$inIndex/$typeName" fields {
+  //     List(
+  //       status -> (game.status match {
+  //         case s if s.is(_.Timeout) => chess.Status.Resign
+  //         case s if s.is(_.NoStart) => chess.Status.Resign
+  //         case s                    => game.status
+  //       }).id.some,
+  //       turns -> math.ceil(game.turns.toFloat / 2).some,
+  //       rated -> game.rated.some,
+  //       variant -> game.variant.id.some,
+  //       uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
+  //       winner -> (game.winner flatMap (_.userId)),
+  //       winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)).some,
+  //       averageRating -> game.averageUsersRating,
+  //       ai -> game.aiLevel,
+  //       date -> (ElasticSearch.Date.formatter print game.createdAt).some,
+  //       duration -> game.estimateTotalTime.some,
+  //       opening -> (game.opening map (_.code.toLowerCase)),
+  //       analysed -> hasAnalyse.some,
+  //       whiteUser -> game.whitePlayer.userId,
+  //       blackUser -> game.blackPlayer.userId
+  //     ).collect {
+  //         case (key, Some(value)) => key -> value
+  //       }: _*
+  //   } id game.id
+  // }
 }

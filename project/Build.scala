@@ -26,7 +26,7 @@ object ApplicationBuild extends Build {
     // offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
-      jgit, elastic4s, findbugs, RM, PRM,
+      jgit, findbugs, RM, PRM,
       spray.caching, maxmind, prismic),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
@@ -59,8 +59,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, jgit,
-        elastic4s, findbugs, RM)
+        play.api, hasher, config, apache, jgit, findbugs, RM)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
@@ -130,7 +129,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val search = project("search", Seq(common, hub)).settings(
-    libraryDependencies ++= provided(play.api, elastic4s)
+    libraryDependencies ++= provided(play.api)
   )
 
   lazy val chat = project("chat", Seq(common, db, user, security, i18n)).settings(
@@ -159,7 +158,7 @@ object ApplicationBuild extends Build {
 
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, elastic4s)
+      play.api, RM, PRM)
   )
 
   lazy val tv = project("tv", Seq(common, db, hub, socket, game, user, chess)).settings(
@@ -246,7 +245,7 @@ object ApplicationBuild extends Build {
 
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, elastic4s)
+      play.api, RM, PRM)
   )
 
   lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub)).settings(
@@ -256,7 +255,7 @@ object ApplicationBuild extends Build {
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, elastic4s)
+      play.api, RM, PRM)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(

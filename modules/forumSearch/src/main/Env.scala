@@ -40,7 +40,7 @@ final class Env(
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
-    converter = res => postApi viewsFromIds res.hitIds
+    converter = postApi.viewsFromIds _
   )
 }
 

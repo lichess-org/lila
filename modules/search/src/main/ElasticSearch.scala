@@ -2,11 +2,7 @@ package lila.search
 
 import play.api.libs.json._
 
-import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl._
-
 object ElasticSearch {
-
 
   def decomposeTextQuery(text: String): List[String] =
     text.trim.toLowerCase.replace("+", " ").split(" ").toList
