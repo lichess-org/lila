@@ -1,12 +1,14 @@
 package lila.forumSearch
 
 import lila.search.ElasticSearch
+import play.api.libs.json._
 
 private[forumSearch] final class Query private (
-    indexType: String,
     terms: List[String],
     staff: Boolean,
     troll: Boolean) extends lila.search.Query {
+
+  def toJson = Json.obj()
 
   // def searchDef(from: Int = 0, size: Int = 10) =
   //   search in indexType query makeQuery sort (
@@ -45,7 +47,6 @@ object Query {
 
   private val searchableFields = List(Fields.body, Fields.topic, Fields.author)
 
-  def apply(indexType: String, text: String, staff: Boolean, troll: Boolean): Query = new Query(
-    indexType, ElasticSearch decomposeTextQuery text, staff, troll
-  )
+  def apply(text: String, staff: Boolean, troll: Boolean): Query =
+    new Query(ElasticSearch decomposeTextQuery text, staff, troll)
 }

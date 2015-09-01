@@ -1060,13 +1060,13 @@ lichess.desktopNotification = function(msg) {
       });
 
       // minimal touchscreen support for topmenu
-      if ('ontouchstart' in window)
+      // if ('ontouchstart' in window)
         $('#topmenu').on('click', '> section > a', function() {
           return false;
         });
-      else $('#topmenu').hoverIntent(function() {
-        $(this).toggleClass('hover');
-      });
+      // else $('#topmenu').hoverIntent(function() {
+      //   $(this).toggleClass('hover');
+      // });
 
       $('#ham-plate').click(function() {
         document.body.classList.toggle('fpmenu');

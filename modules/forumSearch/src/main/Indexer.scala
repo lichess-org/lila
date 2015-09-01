@@ -1,22 +1,21 @@
-package lila.forumSearch
+// package lila.forumSearch
 
-import akka.actor._
-import akka.pattern.pipe
+// import akka.actor._
+// import akka.pattern.pipe
 
-import lila.forum.actorApi._
-import lila.forum.{ Post, PostLiteView, PostApi }
-import lila.search.ESClient
-import lila.search.actorApi._
+// import lila.forum.actorApi._
+// import lila.forum.{ Post, PostLiteView, PostApi }
+// import lila.search.ESClient
 
-private[forumSearch] final class Indexer(
-    client: ESClient,
-    indexName: String,
-    typeName: String,
-    postApi: PostApi) extends Actor {
+// private[forumSearch] final class Indexer(
+//     client: ESClient,
+//     indexName: String,
+//     typeName: String,
+//     postApi: PostApi) extends Actor {
 
-  private val indexType = s"$indexName/$typeName"
+//   private val indexType = s"$indexName/$typeName"
 
-  def receive = {
+//   def receive = {
 
 //     case Search(definition) => client search definition pipeTo sender
 //     case Count(definition)  => client count definition pipeTo sender
@@ -31,7 +30,7 @@ private[forumSearch] final class Indexer(
 
 //     case RemoveTopic(id) => client.deleteByQuery(s"${Fields.topicId}:$id", indexType)
 
-    case Reset =>
+    // case Reset =>
 //       client.createType(indexName, typeName)
 //       try {
 //         client put {
@@ -67,7 +66,7 @@ private[forumSearch] final class Indexer(
 //           println(e)
 //           sender ! Status.Failure(e)
 //       }
-  }
+  // }
 
   // private def store(view: PostLiteView) =
   //   index into indexType fields {
@@ -81,4 +80,4 @@ private[forumSearch] final class Indexer(
   //       Fields.date -> view.post.createdAt.getDate
   //     ): _*
   //   } id view.post.id
-}
+// }

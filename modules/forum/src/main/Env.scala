@@ -35,7 +35,7 @@ final class Env(
 
   lazy val topicApi = new TopicApi(
     env = this,
-    indexer = hub.actor.forumIndexer,
+    indexer = hub.actor.forumSearch,
     maxPerPage = TopicMaxPerPage,
     modLog = modLog,
     shutup = shutup,
@@ -44,7 +44,7 @@ final class Env(
 
   lazy val postApi = new PostApi(
     env = this,
-    indexer = hub.actor.forumIndexer,
+    indexer = hub.actor.forumSearch,
     maxPerPage = PostMaxPerPage,
     modLog = modLog,
     shutup = shutup,

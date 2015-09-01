@@ -12,7 +12,12 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
-  lazy val client = ESClient.make
+  private val Enabled = config getBoolean "enabled"
+  private val Endpoint = config getString "endpoint"
+
+  val makeClient = (index: Index) =>
+    if (Enabled) new ESClientHttp(Endpoint, index)
+    else new ESClientStub
 }
 
 object Env {

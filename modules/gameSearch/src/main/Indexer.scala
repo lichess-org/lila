@@ -1,21 +1,20 @@
-package lila.gameSearch
+// package lila.gameSearch
 
-import akka.actor._
-import akka.pattern.pipe
+// import akka.actor._
+// import akka.pattern.pipe
 
-import lila.game.actorApi.{ InsertGame, FinishGame }
-import lila.game.GameRepo
-import lila.search.actorApi._
-import lila.search.{ ESClient, ElasticSearch }
+// import lila.game.actorApi.{ InsertGame, FinishGame }
+// import lila.game.GameRepo
+// import lila.search.{ ESClient, ElasticSearch }
 
-private[gameSearch] final class Indexer(
-    client: ESClient,
-    indexName: String,
-    typeName: String) extends Actor {
+// private[gameSearch] final class Indexer(
+//     client: ESClient,
+//     indexName: String,
+//     typeName: String) extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'finishGame)
+//   context.system.lilaBus.subscribe(self, 'finishGame)
 
-  def receive = {
+//   def receive = {
 
     // case Search(definition)     => sender ! Nil
     // case Count(definition)      => sender ! 0
@@ -28,8 +27,8 @@ private[gameSearch] final class Indexer(
     //   }
     // }
 
-    case Reset =>
-      sys error "Game search reset disabled"
+    // case Reset =>
+    //   sys error "Game search reset disabled"
     // val tempIndexName = "lila_" + ornicar.scalalib.Random.nextString(4)
     // client.createType(tempIndexName, typeName)
     // try {
@@ -94,7 +93,7 @@ private[gameSearch] final class Indexer(
     // client.execute {
     //   add alias indexName on tempIndexName
     // }.await
-  }
+  // }
 
   // private def storable(game: lila.game.Game) =
   //   (game.finished || game.imported) && game.playedTurns > 4
@@ -127,4 +126,4 @@ private[gameSearch] final class Indexer(
   //       }: _*
   //   } id game.id
   // }
-}
+// }

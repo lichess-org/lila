@@ -63,6 +63,6 @@ object Env {
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
     system = lila.common.PlayApp.system,
-    indexer = lila.hub.Env.current.actor.gameIndexer,
+    indexer = lila.hub.Env.current.actor.gameSearch,
     modActor = lila.hub.Env.current.actor.mod)
 }

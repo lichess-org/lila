@@ -2,12 +2,12 @@ package lila.gameSearch
 
 import chess.{ Mode, Status, Openings }
 import org.joda.time.DateTime
+import play.api.libs.json._
 
 import lila.rating.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
 case class Query(
-    indexType: String,
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
@@ -44,6 +44,8 @@ case class Query(
       opening.nonEmpty ||
       date.nonEmpty ||
       duration.nonEmpty
+
+  def toJson = Json.obj()
 
   // def searchDef(from: Int = 0, size: Int = 10) =
   //   search in indexType query makeQuery sort sorting.definition start from size size

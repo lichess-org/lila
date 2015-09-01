@@ -1,21 +1,20 @@
-package lila.teamSearch
+// package lila.teamSearch
 
-import akka.actor._
-import akka.pattern.pipe
+// import akka.actor._
+// import akka.pattern.pipe
 
-import lila.search.ESClient
-import lila.search.actorApi._
-import lila.team.actorApi._
-import lila.team.Team
+// import lila.search.ESClient
+// import lila.team.actorApi._
+// import lila.team.Team
 
-private[teamSearch] final class Indexer(
-    client: ESClient,
-    indexName: String,
-    typeName: String) extends Actor {
+// private[teamSearch] final class Indexer(
+//     client: ESClient,
+//     indexName: String,
+//     typeName: String) extends Actor {
 
-  private val indexType = s"$indexName/$typeName"
+//   private val indexType = s"$indexName/$typeName"
 
-  def receive = {
+//   def receive = {
 
 //     case Search(definition) => client search definition pipeTo sender
 //     case Count(definition)  => client count definition pipeTo sender
@@ -24,7 +23,7 @@ private[teamSearch] final class Indexer(
 
 //     case RemoveTeam(id) => client.deleteById(id, indexType)
 
-    case Reset =>
+    // case Reset =>
       // client.createType(indexName, typeName)
       // try {
       //   client put {
@@ -55,7 +54,7 @@ private[teamSearch] final class Indexer(
       //     println(e)
       //     sender ! Status.Failure(e)
       // }
-  }
+  // }
 
   // private def store(team: Team) =
   //   index into indexType fields {
@@ -66,4 +65,4 @@ private[teamSearch] final class Indexer(
   //       Fields.nbMembers -> team.nbMembers
   //     ): _*
   //   } id team.id
-}
+// }
