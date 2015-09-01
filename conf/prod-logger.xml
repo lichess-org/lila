@@ -1,0 +1,72 @@
+<configuration>
+
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%level %logger{15} - %message%n%xException{2}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ALL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/var/log/lichess/all.log</file>
+    <encoder><pattern>%date [%level] %logger{15} %message%n%xException</pattern></encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>14</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <appender name="ASYNC_ALL_FILE" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="ALL_FILE" />
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="ASYNC_ALL_FILE" />
+  </root>
+
+  <logger name="play" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="reactivemongo" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="application" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="lila" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="boot" level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/boot.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>boot-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="timer" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/timer.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>timer-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+
+  <!-- Set logging for all Akka library classes to INFO -->
+  <logger name="akka" level="INFO" />
+  <!-- Set a specific actor to DEBUG -->
+  <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
+  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
+  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" />
+  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" />
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+
+</configuration>
