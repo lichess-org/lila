@@ -58,14 +58,15 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     for {
       size <- $count($select.all)
       batchSize = 1000
-      limit = 20 * 1000
+      limit = Int.MaxValue
       _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
         val games = gameOptions.flatten filter storable
         val nbGames = games.size
         (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
           client.storeBulk(games map { g =>
             Id(g.id) -> toDoc(g, analysedIds(g.id))
-          })
+          }).logFailure("game bulk")
+          funit // async!
         }) >>- {
           nb = nb + nbGames
           nbSkipped = nbSkipped + gameOptions.size - nbGames
