@@ -98,7 +98,7 @@ object Env {
 
   import lila.common.PlayApp
 
-  lazy val current = "[boot] i18n" describes new Env(
+  lazy val current = "i18n" boot new Env(
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
     system = PlayApp.system,

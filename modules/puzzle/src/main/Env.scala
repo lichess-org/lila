@@ -62,7 +62,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] puzzle" describes new Env(
+  lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,

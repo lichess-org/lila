@@ -103,10 +103,10 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val simulation = project("simulation", Seq(
-    common, hub, socket, game, tv, round, setup)).settings(
-    libraryDependencies ++= provided(play.api, RM)
-  )
+  // lazy val simulation = project("simulation", Seq(
+  //   common, hub, socket, game, tv, round, setup)).settings(
+  //   libraryDependencies ++= provided(play.api, RM)
+  // )
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(play.api, play.test, RM)

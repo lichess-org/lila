@@ -138,7 +138,7 @@ object Env {
 
   private def hub = lila.hub.Env.current
 
-  lazy val current = "[boot] tournament" describes new Env(
+  lazy val current = "tournament" boot new Env(
     config = lila.common.PlayApp loadConfig "tournament",
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,

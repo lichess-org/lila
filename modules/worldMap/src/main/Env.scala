@@ -24,7 +24,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] worldMap" describes new Env(
+  lazy val current: Env = "worldMap" boot new Env(
     system = lila.common.PlayApp.system,
     config = lila.common.PlayApp loadConfig "worldMap")
 }
