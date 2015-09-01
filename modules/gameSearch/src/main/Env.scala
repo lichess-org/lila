@@ -13,18 +13,10 @@ final class Env(
     makeClient: Index => ESClient) {
 
   private val IndexName = config getString "index"
-  private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  private val IndexerName = config getString "indexer.name"
   private val ActorName = config getString "actor.name"
 
   private val client = makeClient(Index(IndexName))
-
-  // private val indexer: ActorRef = system.actorOf(Props(new Indexer(
-  //   client = client,
-  //   indexName = IndexName,
-  //   typeName = TypeName
-  // )), name = IndexerName)
 
   private def converter(ids: Seq[String]) =
     $find.byOrderedIds[lila.game.Game](ids)

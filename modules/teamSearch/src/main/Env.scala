@@ -13,9 +13,7 @@ final class Env(
     system: ActorSystem) {
 
   private val IndexName = config getString "index"
-  private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  private val IndexerName = config getString "indexer.name"
   private val ActorName = config getString "actor.name"
 
   private val client = makeClient(Index(IndexName))
