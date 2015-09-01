@@ -2,12 +2,6 @@ package lila.search
 
 final class Range[A] private (val a: Option[A], val b: Option[A]) {
 
-  // def filters(name: String) = a.fold(b.toList map { bb => rangeFilter(name) lte bb.toString }) { aa =>
-  //   b.fold(List(rangeFilter(name) gte aa.toString)) { bb =>
-  //     List(rangeFilter(name) gte aa.toString lte bb.toString)
-  //   }
-  // }
-
   def map[B](f: A => B) = new Range(a map f, b map f)
 
   def nonEmpty = a.nonEmpty || b.nonEmpty

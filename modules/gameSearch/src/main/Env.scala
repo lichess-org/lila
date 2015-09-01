@@ -16,13 +16,12 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val ActorName = config getString "actor.name"
 
-  private val client = makeClient(Index(IndexName))
+  private lazy val client = makeClient(Index(IndexName))
 
-  private def converter(ids: Seq[String]) =
-    $find.byOrderedIds[lila.game.Game](ids)
+  lazy val api = new GameSearchApi(client)
 
   lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
-    searchApi = ???,
+    searchApi = api,
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val forms = new DataForm
@@ -31,14 +30,8 @@ final class Env(
     import lila.game.actorApi.{ InsertGame, FinishGame }
     context.system.lilaBus.subscribe(self, 'finishGame)
     def receive = {
-      case FinishGame(game, _, _) => // self ! InsertGame(game)
-      // case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
-      //   assessApi.onAnalysisReady(game, analysis)
-      // case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
-      //   (whiteUserOption |@| blackUserOption) apply {
-      //     case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
-      //       assessApi.onGameReady(game, whiteUser, blackUser)
-      //   }
+      case FinishGame(game, _, _) => self ! InsertGame(game)
+      case InsertGame(game)       => api store game
     }
   }), name = ActorName)
 
@@ -46,7 +39,7 @@ final class Env(
     import akka.pattern.ask
     private implicit def timeout = makeTimeout minutes 60
     def process = {
-      case "game" :: "search" :: "reset" :: Nil => fuccess("done")
+      case "game" :: "search" :: "reset" :: Nil => api.reset inject "done"
     }
   }
 }

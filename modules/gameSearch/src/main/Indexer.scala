@@ -94,36 +94,4 @@
     //   add alias indexName on tempIndexName
     // }.await
   // }
-
-  // private def storable(game: lila.game.Game) =
-  //   (game.finished || game.imported) && game.playedTurns > 4
-
-  // private def store(inIndex: String, game: lila.game.Game, hasAnalyse: Boolean) = {
-  //   import Fields._
-  //   index into s"$inIndex/$typeName" fields {
-  //     List(
-  //       status -> (game.status match {
-  //         case s if s.is(_.Timeout) => chess.Status.Resign
-  //         case s if s.is(_.NoStart) => chess.Status.Resign
-  //         case s                    => game.status
-  //       }).id.some,
-  //       turns -> math.ceil(game.turns.toFloat / 2).some,
-  //       rated -> game.rated.some,
-  //       variant -> game.variant.id.some,
-  //       uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
-  //       winner -> (game.winner flatMap (_.userId)),
-  //       winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)).some,
-  //       averageRating -> game.averageUsersRating,
-  //       ai -> game.aiLevel,
-  //       date -> (ElasticSearch.Date.formatter print game.createdAt).some,
-  //       duration -> game.estimateTotalTime.some,
-  //       opening -> (game.opening map (_.code.toLowerCase)),
-  //       analysed -> hasAnalyse.some,
-  //       whiteUser -> game.whitePlayer.userId,
-  //       blackUser -> game.blackPlayer.userId
-  //     ).collect {
-  //         case (key, Some(value)) => key -> value
-  //       }: _*
-  //   } id game.id
-  // }
 // }

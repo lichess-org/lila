@@ -48,6 +48,7 @@ final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
   private def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
     WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
       case res if res.status == 200 => fuccess(read(res.body))
+      case res if res.status == 500 => fufail(s"$url ${res.status}")
       case res                      => fufail(s"$url ${res.status} ${res.body}")
     }
   private def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
