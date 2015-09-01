@@ -15,6 +15,12 @@ final class Range[A] private (val a: Option[A], val b: Option[A]) {
 
 object Range {
 
+  import play.api.libs.json._
+
+  implicit def rangeJsonWriter[A : Writes] = Writes[Range[A]] { r =>
+    Json.obj("a" -> r.a, "b" -> r.b)
+  }
+
   def apply[A](a: Option[A], b: Option[A])(implicit o: Ordering[A]): Range[A] =
     (a, b) match {
       case (Some(aa), Some(bb)) => o.lt(aa, bb).fold(

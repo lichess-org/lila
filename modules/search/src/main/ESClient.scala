@@ -4,9 +4,9 @@ import play.api.libs.json._
 
 sealed trait ESClient {
 
-  def search(query: Query, from: From, size: Size): Fu[SearchResponse]
+  def search[Q: Writes](query: Q, from: From, size: Size): Fu[SearchResponse]
 
-  def count(query: Query): Fu[CountResponse]
+  def count[Q: Writes](query: Q): Fu[CountResponse]
 
   def store(id: Id, doc: JsObject): Funit
 
@@ -31,11 +31,11 @@ final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
       case (Id(id), doc) => id -> doc
     }))
 
-  def search(query: Query, from: From, size: Size) =
-    HTTP(s"search/${index.name}/${from.value}/${size.value}", query.toJson, SearchResponse.apply)
+  def search[Q: Writes](query: Q, from: From, size: Size) =
+    HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
 
-  def count(query: Query) =
-    HTTP(s"count/${index.name}", query.toJson, CountResponse.apply)
+  def count[Q: Writes](query: Q) =
+    HTTP(s"count/${index.name}", query, CountResponse.apply)
 
   def deleteById(id: lila.search.Id) =
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
@@ -45,8 +45,8 @@ final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
 
   def putMapping = HTTP(s"mapping/${index.name}", Json.obj())
 
-  private def HTTP[A](url: String, data: JsObject, read: String => A): Fu[A] =
-    WS.url(s"$endpoint/$url").post(data) flatMap {
+  private def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
+    WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
       case res if res.status == 200 => fuccess(read(res.body))
       case res                      => fufail(s"$url ${res.status} ${res.body}")
     }
@@ -56,8 +56,8 @@ final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
 }
 
 final class ESClientStub extends ESClient {
-  def search(query: Query, from: From, size: Size) = fuccess(SearchResponse(Nil))
-  def count(query: Query) = fuccess(CountResponse(0))
+  def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
+  def count[Q: Writes](query: Q) = fuccess(CountResponse(0))
   def store(id: Id, doc: JsObject) = funit
   def storeBulk(docs: Seq[(Id, JsObject)]) = funit
   def deleteById(id: Id) = funit

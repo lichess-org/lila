@@ -2,7 +2,6 @@ package lila.gameSearch
 
 import chess.{ Mode, Status, Openings }
 import org.joda.time.DateTime
-import play.api.libs.json._
 
 import lila.rating.RatingRange
 import lila.search.{ ElasticSearch, Range }
@@ -25,7 +24,7 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     whiteUser: Option[String] = None,
-    blackUser: Option[String] = None) extends lila.search.Query {
+    blackUser: Option[String] = None) {
 
   import Fields._
 
@@ -44,8 +43,6 @@ case class Query(
       opening.nonEmpty ||
       date.nonEmpty ||
       duration.nonEmpty
-
-  def toJson = Json.obj()
 
   // def searchDef(from: Int = 0, size: Int = 10) =
   //   search in indexType query makeQuery sort sorting.definition start from size size
@@ -91,6 +88,11 @@ case class Query(
 object Query {
 
   import lila.common.Form._
+  import play.api.libs.json._
+
+  import Range.rangeJsonWriter
+  private implicit val sortingJsonWriter = play.api.libs.json.Json.writes[Sorting]
+  implicit val jsonWriter = play.api.libs.json.Json.writes[Query]
 
   val durations =
     options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}").toList :+

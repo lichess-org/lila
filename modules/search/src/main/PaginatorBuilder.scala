@@ -3,7 +3,9 @@ package lila.search
 import lila.common.paginator._
 import makeTimeout.large
 
-final class PaginatorBuilder[A, Q <: Query](
+import play.api.libs.json.Writes
+
+final class PaginatorBuilder[A, Q : Writes](
     searchApi: SearchReadApi[A, Q],
     maxPerPage: Int) {
 

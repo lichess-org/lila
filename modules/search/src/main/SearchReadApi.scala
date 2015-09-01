@@ -1,6 +1,6 @@
 package lila.search
 
-trait SearchReadApi[A, Q <: Query] {
+trait SearchReadApi[A, Q] {
 
   def search(query: Q, from: From, size: Size): Fu[List[A]]
 

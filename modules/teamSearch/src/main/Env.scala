@@ -18,21 +18,18 @@ final class Env(
 
   private val client = makeClient(Index(IndexName))
 
+  val api = new TeamSearchApi(client, $find.byOrderedIds[lila.team.Team] _)
+
   def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 
   def cli = new lila.common.Cli {
-    import akka.pattern.ask
-    private implicit def timeout = makeTimeout minutes 20
     def process = {
-      case "team" :: "search" :: "reset" :: Nil => fuccess("done")
-      // (indexer ? lila.search.actorApi.Reset) inject "Team search index rebuilt"
+      case "team" :: "search" :: "reset" :: Nil => api.reset inject "done"
     }
   }
 
-  // converter = $find.byOrderedIds[lila.team.Team] _
-
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder[lila.team.Team, Query](
-    searchApi = ???,
+    searchApi = api,
     maxPerPage = PaginatorMaxPerPage)
 
   system.actorOf(Props(new Actor {
