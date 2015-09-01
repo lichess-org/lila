@@ -29,7 +29,7 @@ final class Env(
   private def converter(ids: Seq[String]) =
     $find.byOrderedIds[lila.game.Game](ids)
 
-  lazy val paginator = new PaginatorBuilder(
+  lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
     searchApi = ???,
     maxPerPage = PaginatorMaxPerPage)
 

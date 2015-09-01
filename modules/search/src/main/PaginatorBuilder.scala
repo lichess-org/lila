@@ -12,7 +12,7 @@ final class PaginatorBuilder[A, Q <: Query](
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  // def ids(query: Q, max: Int): Fu[List[String]] = fuccess(Nil)
+  def ids(query: Q, max: Int): Fu[List[String]] = ???
 
   private final class ESAdapter(query: Q) extends AdapterLike[A] {
 
