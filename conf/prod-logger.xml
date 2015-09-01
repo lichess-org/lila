@@ -4,7 +4,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%level %logger{15} - %message%n%xException{2}</pattern>
+      <pattern>%level %logger{15} - %message%n%xException{0}</pattern>
     </encoder>
   </appender>
 
@@ -25,6 +25,9 @@
   </root>
 
   <logger name="play" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="akka" level="INFO">
     <appender-ref ref="STDOUT" />
   </logger>
   <logger name="reactivemongo" level="INFO">
@@ -58,8 +61,6 @@
     </appender>
   </logger>
 
-  <!-- Set logging for all Akka library classes to INFO -->
-  <logger name="akka" level="INFO" />
   <!-- Set a specific actor to DEBUG -->
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
 
