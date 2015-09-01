@@ -1,7 +1,6 @@
 package lila.blog
 
 import io.prismic._
-import lila.common.Timer
 import lila.memo.AsyncCache
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
@@ -9,18 +8,14 @@ import scala.concurrent.duration._
 final class BlogApi(prismicUrl: String, collection: String) {
 
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
-    Timer(s"BlogApi.recent $nb") {
-      api.forms(collection).ref(ref | api.master.ref)
-        .orderings(s"[my.$collection.date desc]")
-        .pageSize(nb).page(1).submit().fold(_ => none, some _)
-    }
+    api.forms(collection).ref(ref | api.master.ref)
+      .orderings(s"[my.$collection.date desc]")
+      .pageSize(nb).page(1).submit().fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
-    Timer(s"BlogApi.one $id") {
-      api.forms(collection)
-        .query(s"""[[:d = at(document.id, "$id")]]""")
-        .ref(ref | api.master.ref).submit() map (_.results.headOption)
-    }
+    api.forms(collection)
+      .query(s"""[[:d = at(document.id, "$id")]]""")
+      .ref(ref | api.master.ref).submit() map (_.results.headOption)
 
   // -- Build a Prismic context
   def context(ref: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
@@ -39,9 +34,7 @@ final class BlogApi(prismicUrl: String, collection: String) {
   }
 
   private val fetchPrismicApi = AsyncCache.single[Api](
-    f = Timer("BlogApi.prismicApi") {
-      Api.get(prismicUrl, cache = cache, logger = logger)
-    },
+    f = Api.get(prismicUrl, cache = cache, logger = logger),
     timeToLive = 1 minute)
 
   def prismicApi = fetchPrismicApi(true)
