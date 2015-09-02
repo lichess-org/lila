@@ -66,7 +66,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
           client.storeBulk(games map { g =>
             Id(g.id) -> toDoc(g, analysedIds(g.id))
           }).logFailure("game bulk")
-          funit // async!
+          // funit // async!
         }) >>- {
           nb = nb + nbGames
           nbSkipped = nbSkipped + gameOptions.size - nbGames
