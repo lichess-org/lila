@@ -66,7 +66,8 @@ final class Analyser(
     }
   }
 
-  def complete(id: String, data: String, fromIp: String) =
+  def complete(id: String, data: String, fromIp: String) = {
+    limiter release id
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) if game.analysable =>
         Info.decodeList(data, game.startedAtTurn) match {
@@ -92,6 +93,7 @@ final class Analyser(
     } addFailureEffect {
       _ => AnalysisRepo remove id
     }
+  }
 
   def completeErr(id: String, err: String, fromIp: String) =
     $find.byId[Game](id) zip getNotDone(id) flatMap {

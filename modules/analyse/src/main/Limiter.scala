@@ -16,7 +16,7 @@ private[analyse] final class Limiter {
   private val entries = Builder.expiry[GameId, Entry](10 minutes)
 
   def apply(gameId: GameId, user: UserId, ip: IP): Boolean =
-    if (entries.asMap.values.toList.pp.exists {
+    if (entries.asMap.values.toList.exists {
       case Entry(u, i) => (user != "lichess" && user == u) || ip == i
     }) false
     else {
