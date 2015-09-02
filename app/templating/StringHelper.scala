@@ -66,7 +66,7 @@ trait StringHelper { self: NumberHelper =>
     s match {
       case NumberFirstRegex(number, text) => "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
       case NumberLastRegex(text, number)  => "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
-      case h                              => h.replace("\n", "<br />")
+      case h                              => h
     }
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)

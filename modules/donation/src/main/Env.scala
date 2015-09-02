@@ -23,7 +23,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] donation" describes new Env(
+  lazy val current = "donation" boot new Env(
     config = lila.common.PlayApp loadConfig "donation",
     db = lila.db.Env.current)
 }

@@ -51,12 +51,12 @@ function renderPlot(ctrl, hook) {
     config: function(el, isUpdate, ctx) {
       if (isUpdate) return;
       $(el).powerTip({
+        intentPollInterval: 100,
         fadeInTime: 0,
         fadeOutTime: 0,
         placement: hook.rating > 2200 ? 'se' : 'ne',
         mouseOnToPopup: true,
         closeDelay: 200,
-        intentPollInterval: 50,
         popupId: 'hook'
       }).data('powertipjq', $(renderHook(ctrl, hook)));
       ctx.onunload = function() {

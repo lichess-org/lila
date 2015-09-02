@@ -36,7 +36,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] coach" describes new Env(
+  lazy val current: Env = "coach" boot new Env(
     config = lila.common.PlayApp loadConfig "coach",
     getPref = lila.pref.Env.current.api.getPrefById,
     areFriends = lila.relation.Env.current.api.areFriends,

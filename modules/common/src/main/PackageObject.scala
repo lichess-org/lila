@@ -14,6 +14,7 @@ trait PackageObject extends Steroids with WithFuture {
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
   lazy val logger = play.api.Logger("lila")
+  def logdebug(s: String) { logger debug s }
   def loginfo(s: String) { logger info s }
   def logwarn(s: String) { logger warn s }
   def logerr(s: String) { logger error s }
@@ -23,14 +24,14 @@ trait PackageObject extends Steroids with WithFuture {
 
   implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
 
-  // from scalaz. We don't want to import all OptionTFunctions, because of the classh with `some`
+  // from scalaz. We don't want to import all OptionTFunctions, because of the clash with `some`
   def optionT[M[_]] = new (({ type λ[α] = M[Option[α]] })#λ ~>({ type λ[α] = OptionT[M, α] })#λ) {
     def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
   }
 
   implicit final class LilaPimpedString(s: String) {
 
-    def describes[A](v: => A): A = { loginfo(s); v }
+    def boot[A](v: => A): A = { play.api.Logger("boot").info(s); v }
   }
 
   implicit final class LilaPimpedValid[A](v: Valid[A]) {

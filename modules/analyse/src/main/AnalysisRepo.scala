@@ -51,13 +51,6 @@ object AnalysisRepo {
   def isDone(id: ID): Fu[Boolean] =
     $count.exists($select(id) ++ Json.obj("done" -> true))
 
-  def userInProgress(uid: ID): Fu[Option[String]] = $primitive.one(
-    Json.obj(
-      "uid" -> uid,
-      "done" -> false,
-      "date" -> $gt($date(DateTime.now minusMinutes 20))),
-    "_id")(_.asOpt[String])
-
   def recent(nb: Int): Fu[List[Analysis]] =
     $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
 

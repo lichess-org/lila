@@ -127,7 +127,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] relay" describes new Env(
+  lazy val current = "relay" boot new Env(
     config = lila.common.PlayApp loadConfig "relay",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,

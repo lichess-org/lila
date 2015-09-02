@@ -121,7 +121,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] api" describes new Env(
+  lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,

@@ -5,7 +5,7 @@ private[gameSearch] object Fields {
     val status = "s"
     val turns = "t"
     val rated = "r"
-    val perf = "p"
+    val variant = "v"
     val uids = "u"
     val winner = "w"
     val winnerColor = "c"
@@ -17,5 +17,4 @@ private[gameSearch] object Fields {
     val analysed = "n"
     val whiteUser = "wu"
     val blackUser = "bu"
-    val source = "so"
 }

@@ -29,7 +29,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] simulation" describes new Env(
+  lazy val current = "simulation" boot new Env(
     typesafeConfig = lila.common.PlayApp loadConfig "simulation",
     featured = lila.tv.Env.current.featured,
     lobbyEnv = lila.lobby.Env.current,

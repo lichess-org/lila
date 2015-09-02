@@ -46,7 +46,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] shutup" describes new Env(
+  lazy val current: Env = "shutup" boot new Env(
     config = lila.common.PlayApp loadConfig "shutup",
     reporter = lila.hub.Env.current.actor.report,
     system = lila.common.PlayApp.system,

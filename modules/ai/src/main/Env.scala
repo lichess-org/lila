@@ -60,7 +60,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] ai" describes new Env(
+  lazy val current = "ai" boot new Env(
     c = lila.common.PlayApp loadConfig "ai",
     uciMemo = lila.game.Env.current.uciMemo,
     db = lila.db.Env.current,

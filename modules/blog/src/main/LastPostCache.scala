@@ -17,7 +17,6 @@ final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
     awaitTime = 1.millisecond)
 
   def apply = cache get true
-  // def apply = List.empty[MiniPost]
 
   private[blog] def clear {
     cache invalidate true

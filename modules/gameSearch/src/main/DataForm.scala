@@ -19,8 +19,7 @@ private[gameSearch] final class DataForm {
       "black" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
     "winnerColor" -> optional(numberIn(Query.winnerColors)),
-    "perf" -> optional(numberIn(Query.perfs)),
-    "source" -> optional(numberIn(Query.sources)),
+    "variant" -> optional(numberIn(Query.variants)),
     "mode" -> optional(numberIn(Query.modes)),
     "opening" -> optional(stringIn(Query.openings)),
     "turnsMin" -> optional(numberIn(Query.turns)),
@@ -46,8 +45,7 @@ private[gameSearch] final class DataForm {
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
     winnerColor: Option[Int] = None,
-    perf: Option[Int] = None,
-    source: Option[Int] = None,
+    variant: Option[Int] = None,
     mode: Option[Int] = None,
     opening: Option[String] = None,
     turnsMin: Option[Int] = None,
@@ -72,8 +70,7 @@ private[gameSearch] case class SearchData(
     user2 = players.cleanB,
     winner = players.cleanWinner,
     winnerColor = winnerColor,
-    perf = perf,
-    source = source,
+    variant = variant,
     rated = mode flatMap Mode.apply map (_.rated),
     opening = opening map (_.trim.toLowerCase),
     turns = Range(turnsMin, turnsMax),
@@ -88,10 +85,7 @@ private[gameSearch] case class SearchData(
     blackUser = players.cleanBlack,
     sorting = Sorting(sortOrDefault.field, sortOrDefault.order))
 
-  def nonEmptyQuery = {
-    val q = query
-    q.nonEmpty option q
-  }
+  def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {

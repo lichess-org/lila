@@ -97,7 +97,7 @@ final class PostApi(
     } yield PostView(post, topic, categ, lastPageOf(topic))
   } flatten
 
-  def viewsFromIds(postIds: List[String]): Fu[List[PostView]] =
+  def viewsFromIds(postIds: Seq[String]): Fu[List[PostView]] =
     $find.byOrderedIds[Post](postIds) flatMap views
 
   def view(post: Post): Fu[Option[PostView]] =
