@@ -71,6 +71,10 @@
             @base.radios(form("takeback"), translatedTakebackChoices)
           </li>
           <li>
+            <h2>@trans.enableMoreTime()</h2>
+            @trans.enableMoreTimeDescription()
+            @base.radios(form("moretimeable"), translatedMoreTimeChoices)
+          <li>
             <h2>@trans.promoteToQueenAutomatically()</h2>
             @base.radios(form("autoQueen"), translatedAutoQueenChoices)
           </li>

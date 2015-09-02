@@ -103,6 +103,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Takeback.CASUAL, trans.inCasualGamesOnly.str())
   )
 
+  def translatedMoreTimeChoices(implicit ctx: Context) = List(
+    (Pref.MoreTimeAble.NEVER, trans.never.str()),
+    (Pref.MoreTimeAble.ALWAYS, trans.always.str()),
+    (Pref.MoreTimeAble.CASUAL, trans.inCasualGamesOnly.str())
+  )
+
   def translatedAutoQueenChoices(implicit ctx: Context) = List(
     (Pref.AutoQueen.NEVER, trans.never.str()),
     (Pref.AutoQueen.PREMOVE, trans.whenPremoving.str()),
@@ -133,5 +139,5 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
     (Pref.Challenge.ALWAYS, trans.always.str())
   )
-  
+
 }

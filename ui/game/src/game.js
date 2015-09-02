@@ -54,7 +54,7 @@ function berserkableBy(data) {
 }
 
 function moretimeable(data) {
-  return data.clock && isPlayerPlaying(data) && !mandatory(data);
+  return data.clock && data.moretimeable && isPlayerPlaying(data) && !mandatory(data);
 }
 
 function replayable(data) {

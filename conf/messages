@@ -508,3 +508,5 @@ tournamentNotFound=Tournament not found
 tournamentDoesNotExist=This tournament does not exist.
 tournamentMayHaveBeenCanceled=It may have been canceled, if all players left it before the tournament starts.
 returnToTournamentsHomepage=Return to tournaments homepage
+enableMoreTime=Enable "more time" button
+enableMoreTimeDescription=Disabling the "more time" button will disable it for both you, and your opponent.

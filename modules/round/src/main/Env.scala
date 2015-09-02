@@ -163,6 +163,7 @@ final class Env(
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
+    canAddTime = moretimeable.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)
 
@@ -178,6 +179,8 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo,
     prefApi = prefApi)
+
+  lazy val moretimeable = new MoreTimeAble(prefApi = prefApi)
 
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 
