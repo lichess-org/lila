@@ -1146,7 +1146,6 @@ body.fpmenu #fpmenu {
 #topmenu section:hover > a {
   background: #fff;
 }
-#topmenu.touch section:hover div,
 #topmenu.hover section:hover div {
   display: block;
 }
