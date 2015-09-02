@@ -12,15 +12,15 @@ import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import tube.analysisTube
 
-case class ConcurrentAnalysisException(userId: String, progressId: String, gameId: String) extends Exception {
-
-  override def getMessage = s"[analysis] $userId already analyses $progressId, won't process $gameId"
+case class ConcurrentAnalysisException(gameId: String, userId: String, userIp: Option[String]) extends Exception {
+  override def getMessage = s"analysis limiter: discard http://lichess.org/$gameId user:$userId IP:$userIp"
 }
 
 final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection,
-    modActor: ActorSelection) {
+    modActor: ActorSelection,
+    limiter: Limiter) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
   def getNotDone(id: String): Fu[Option[Analysis]] = AnalysisRepo notDoneById id flatMap evictStalled
@@ -34,15 +34,15 @@ final class Analyser(
   def getOrGenerate(
     id: String,
     userId: String,
+    userIp: Option[String],
     concurrent: Boolean,
     auto: Boolean): Fu[Analysis] = {
 
     def generate: Fu[Analysis] =
-      concurrent.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
-        _.fold(doGenerate) { progressId =>
-          fufail(ConcurrentAnalysisException(userId, progressId, id))
-        }
-      }
+      if (concurrent || userIp.?? { ip =>
+        limiter(gameId = id, ip = ip, user = userId)
+      }) doGenerate
+      else fufail(ConcurrentAnalysisException(id, userId, userIp))
 
     def doGenerate: Fu[Analysis] =
       $find.byId[Game](id) flatMap {

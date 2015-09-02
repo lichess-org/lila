@@ -27,7 +27,8 @@ final class Env(
   lazy val analyser = new Analyser(
     ai = ai,
     indexer = indexer,
-    modActor = modActor)
+    modActor = modActor,
+    limiter = new Limiter)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
@@ -44,7 +45,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
-        analyser.getOrGenerate(gameId, "lichess", concurrent = true, auto = true)
+        analyser.getOrGenerate(gameId, userId = "lichess", userIp = none, concurrent = true, auto = true)
     }
   }), name = ActorName)
 

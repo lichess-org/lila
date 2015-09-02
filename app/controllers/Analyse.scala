@@ -33,14 +33,20 @@ object Analyse extends LilaController {
 
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
     addCallbacks(id) {
-      env.analyser.getOrGenerate(id, me.id, concurrent = isGranted(_.MarkEngine), auto = false)
+      env.analyser.getOrGenerate(id,
+        userId = me.id,
+        userIp = ctx.req.remoteAddress.some,
+        concurrent = isGranted(_.MarkEngine),
+        auto = false)
     }
 
   private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
     analysis andThen {
-      case Failure(e: lila.analyse.ConcurrentAnalysisException) => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-      case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
-      case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      case Failure(e: lila.analyse.ConcurrentAnalysisException) =>
+        loginfo(e.getMessage)
+        Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      case Failure(err)                       => logerr("[analysis] " + err.getMessage)
+      case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }
 
   def postAnalysis(id: String) = Action.async(parse.text) { req =>
