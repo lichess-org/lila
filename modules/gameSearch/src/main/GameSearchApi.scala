@@ -49,7 +49,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.blackUser -> game.blackPlayer.userId
   ).noNull
 
-  def reset = client.putMapping >> {
+  def reset(max: Option[Int]) = client.putMapping >> {
     import lila.db.api._
     import lila.game.tube.gameTube
     var nb = 0
@@ -58,7 +58,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     for {
       size <- $count($select.all)
       batchSize = 2000
-      limit = Int.MaxValue
+      limit = max | Int.MaxValue
       _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
         val games = gameOptions.flatten filter storable
         val nbGames = games.size
@@ -72,7 +72,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
           nbSkipped = nbSkipped + gameOptions.size - nbGames
           val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
           started = nowMillis
-          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
+          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb + nbSkipped, size, nbSkipped, perS))
         }
       }
     } yield ()
