@@ -1,6 +1,6 @@
 package lila.common
 
-object Timer {
+object Chronometer {
 
   def apply[A](name: String)(f: => Fu[A]): Fu[A] = {
     val start = nowMillis
