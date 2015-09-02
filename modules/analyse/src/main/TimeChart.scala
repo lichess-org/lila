@@ -25,7 +25,7 @@ final class TimeChart(game: Game, moves: List[String]) {
       val index = (ply - game.startedAtTurn)
       val mt = if (m < 0.5) 0 else m
       val san = ~(pgnMoves lift index)
-      val turn = ((ply / 2).floor + 1).toInt
+      val turn = (((ply - 1) / 2).floor + 1).toInt
       val dots = if (ply % 2 == 1) "..." else "."
       Json.obj(
         "name" -> s"$turn$dots $san",
