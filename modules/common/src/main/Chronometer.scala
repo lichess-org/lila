@@ -10,5 +10,5 @@ object Chronometer {
       _ => logger debug s"$name - done in ${nowMillis - start}ms")
   }
 
-  private lazy val logger = play.api.Logger("timer")
+  private lazy val logger = play.api.Logger("chrono")
 }
