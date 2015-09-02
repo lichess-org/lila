@@ -57,7 +57,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     var started = nowMillis
     for {
       size <- $count($select.all)
-      batchSize = 1000
+      batchSize = 2000
       limit = Int.MaxValue
       _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
         val games = gameOptions.flatten filter storable

@@ -28,7 +28,7 @@ final class TeamSearchApi(
   def reset = client.putMapping >> {
     import lila.db.api._
     import lila.team.tube.teamTube
-    $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 100) { teamOptions =>
+    $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 300) { teamOptions =>
       client.storeBulk(teamOptions.flatten map (t => Id(t.id) -> toDoc(t)))
     }
   }

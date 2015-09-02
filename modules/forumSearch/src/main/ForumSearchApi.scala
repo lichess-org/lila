@@ -36,7 +36,7 @@ final class ForumSearchApi(
   def reset = client.putMapping >> {
     import lila.db.api._
     import lila.forum.tube.postTube
-    $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 200) { postOptions =>
+    $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 500) { postOptions =>
       (postApi liteViews postOptions.flatten) flatMap { views =>
         client.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
       }
