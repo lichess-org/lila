@@ -1,11 +1,13 @@
 package lila.app
 package mashup
 
+import lila.common.paginator._
+import lila.db.api.SortOrder
 import lila.game.{ Game, Query }
 import lila.user.User
-import lila.db.api.SortOrder
 
 import play.api.libs.json._
+import play.api.mvc.Request
 import scalaz.NonEmptyList
 
 sealed abstract class GameFilter(val name: String)
@@ -20,6 +22,7 @@ object GameFilter {
   case object Playing extends GameFilter("playing")
   case object Bookmark extends GameFilter("bookmark")
   case object Imported extends GameFilter("import")
+  case object Search extends GameFilter("search")
 }
 
 case class GameFilterMenu(
@@ -34,7 +37,7 @@ object GameFilterMenu {
   import GameFilter._
   import lila.db.Implicits.docId
 
-  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported))
+  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
 
   def apply(
     info: UserInfo,
@@ -79,17 +82,19 @@ object GameFilterMenu {
     case Win      => user.count.win.some
     case Loss     => user.count.loss.some
     case Draw     => user.count.draw.some
+    case Search   => user.count.game.some
     case _        => None
   }
 
-  import lila.common.paginator._
   private def pag = Env.game.paginator
+
   def paginatorOf(
+    userGameSearch: lila.gameSearch.UserGameSearch,
     user: User,
     info: Option[UserInfo],
     filter: GameFilter,
     me: Option[User],
-    page: Int): Fu[Paginator[Game]] = {
+    page: Int)(implicit req: Request[_]): Fu[Paginator[Game]] = {
     val nb = cachedNbOf(user, info, filter)
     def std(query: JsObject) = pag.recentlyCreated(query, nb)(page)
     filter match {
@@ -108,6 +113,14 @@ object GameFilterMenu {
         selector = Query nowPlaying user.id,
         sort = Seq(),
         nb = nb)(page)
+      case Search => userGameSearch(user, page)
     }
+  }
+
+  def searchForm(
+    userGameSearch: lila.gameSearch.UserGameSearch,
+    filter: GameFilter)(implicit req: Request[_]): play.api.data.Form[_] = filter match {
+    case Search => userGameSearch.requestForm
+    case _      => userGameSearch.defaultForm
   }
 }

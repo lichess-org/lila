@@ -12,6 +12,7 @@ case class Query(
     winner: Option[String] = None,
     winnerColor: Option[Int] = None,
     variant: Option[Int] = None,
+    source: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
     averageRating: Range[Int] = Range.none,
@@ -32,6 +33,7 @@ case class Query(
       winner.nonEmpty ||
       winnerColor.nonEmpty ||
       variant.nonEmpty ||
+      source.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
       averageRating.nonEmpty ||
@@ -69,6 +71,8 @@ object Query {
 
   val variants = chess.variant.Variant.all map { v => v.id -> v.name }
 
+  val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
+
   val modes = Mode.all map { mode => mode.id -> mode.name }
 
   val openings = Openings.generals map {
@@ -83,7 +87,7 @@ object Query {
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 
-  val aiLevels = (1 to 8) map { l => l -> ("Stockfish level " + l) }
+  val aiLevels = (1 to 8) map { l => l -> ("level " + l) }
 
   val dates = List("0d" -> "Now") ++
     options(List(1, 2, 6), "h", "%d hour{s} ago") ++

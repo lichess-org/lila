@@ -26,6 +26,11 @@ final class Env(
 
   lazy val forms = new DataForm
 
+  lazy val userGameSearch = new UserGameSearch(
+    forms = forms,
+    paginator = paginator,
+    indexType = s"$IndexName/$TypeName")
+
   system.actorOf(Props(new Actor {
     import lila.game.actorApi.{ InsertGame, FinishGame }
     context.system.lilaBus.subscribe(self, 'finishGame)
