@@ -19,14 +19,14 @@ sealed trait ESClient {
   def putMapping: Funit
 }
 
-final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
+final class ESClientHttp(endpoint: String, index: Index, writeable: Boolean) extends ESClient {
   import play.api.libs.ws.WS
   import play.api.Play.current
 
-  def store(id: Id, doc: JsObject) =
+  def store(id: Id, doc: JsObject) = writeable ??
     HTTP(s"store/${index.name}/${id.value}", doc)
 
-  def storeBulk(docs: Seq[(Id, JsObject)]) =
+  def storeBulk(docs: Seq[(Id, JsObject)]) = writeable ??
     HTTP(s"store/bulk/${index.name}", JsObject(docs map {
       case (Id(id), doc) => id -> JsString(Json.stringify(doc))
     }))
@@ -37,13 +37,14 @@ final class ESClientHttp(endpoint: String, index: Index) extends ESClient {
   def count[Q: Writes](query: Q) =
     HTTP(s"count/${index.name}", query, CountResponse.apply)
 
-  def deleteById(id: lila.search.Id) =
+  def deleteById(id: lila.search.Id) = writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByQuery(query: lila.search.StringQuery) =
+  def deleteByQuery(query: lila.search.StringQuery) = writeable ??
     HTTP(s"delete/query/${index.name}/${query.value}", Json.obj())
 
-  def putMapping = HTTP(s"mapping/${index.name}", Json.obj())
+  def putMapping = writeable ??
+    HTTP(s"mapping/${index.name}", Json.obj())
 
   private def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
     WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
