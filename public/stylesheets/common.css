@@ -1546,8 +1546,7 @@ body #themepicker div.is3d,
 #themepicker div.bg-selector > a {
   width: 40px;
   height: 40px;
-  background-attachment: scroll;
-  background-position: 50% 50%;
+  background: scroll 50% 50%;
   background-size: 250%;
   margin: unset;
 }
@@ -1565,7 +1564,7 @@ body #themepicker div.is3d,
   margin-top: 22px;
   content: 'r'; /* figure */
   position: absolute;
-  font-family: lichess;
+  font-family: liough,chess;
   color: rgba(0, 0, 0, 0.6);
 }
 #themepicker div.bg-selector .reveal {
@@ -1588,21 +1587,10 @@ body #themepicker div.is3d,
   transform: translateY(-100%);
 }
 #themepicker .bg-selector .drop:hover {
-  color: red;
+  color: #dc322f;
 }
 #themepicker .bg-selector .choose:hover {
-  color: green;
-}
-#themepicker div.bg-selector > a.action {
-  font-size: 10px;
-  height: auto;
-  width: auto;
-}
-#themepicker .action.imgur input {
-  display: none;
-}
-#themepicker .action.imgur:hover input {
-  display: inline;
+  color: #759900;
 }
 #sound_control {
   margin-right: 5px;
