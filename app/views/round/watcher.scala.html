@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], relRound: Option[lila.relay.Relay.Round], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
@@ -18,7 +18,7 @@ i18n: @jsI18n()
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, relay = relRound.map(_.relay), userTv = userTv),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, userTv = userTv),
 chat = base.chatDom(trans.spectatorRoom.str()).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
@@ -28,11 +28,6 @@ chessground = false) {
 @cross.map { c =>
 <div class="crosstable" style="display:none">
   @views.html.game.crosstable(c, pov.gameId.some)
-</div>
-}
-@relRound.filter(_.otherGames.nonEmpty).map { r =>
-<div class="clearfix other_games relay_games">
-  @relay.others(r.otherGames.map(Pov.white))
 </div>
 }
 }

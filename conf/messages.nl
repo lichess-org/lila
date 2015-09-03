@@ -204,7 +204,6 @@ fromPosition=Vanuit een stelling
 continueFromHere=Ga vanaf hier verder
 importGame=Importeer partij
 nbImportedGames=%s Geïmporteerde partijen
-nbRelayedGames=%s doorgestuurde partijen
 thisIsAChessCaptcha=Dit is een schaak CAPTCHA.
 clickOnTheBoardToMakeYourMove=Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.
 notACheckmate=Dit is geen schaakmat

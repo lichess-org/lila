@@ -22,7 +22,12 @@ object Importer extends LilaController {
       },
       data => env.importer(data, ctx.userId, ctx.ip) map { game =>
         if (game.analysable) Analyse.addCallbacks(game.id) {
-          Env.analyse.analyser.getOrGenerate(game.id, ctx.userId | "lichess", concurrent = true, auto = false)
+          Env.analyse.analyser.getOrGenerate(
+            game.id,
+            ctx.userId | "lichess",
+            userIp = ctx.req.remoteAddress.some,
+            concurrent = false,
+            auto = false)
         }
         Redirect(routes.Round.watcher(game.id, "white"))
       } recover {

@@ -204,7 +204,6 @@ fromPosition=من موقف
 continueFromHere=المتابعة من هنا
 importGame=استيراد مباراة
 nbImportedGames=المباريات المستوردة %s
-nbRelayedGames=العاب الترحيل %s
 thisIsAChessCaptcha=هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان
 clickOnTheBoardToMakeYourMove=.اضغط على الرقعة لإختيار النقلة، وبهذا يتم التأكد أن عقلاً بشرياً هنا
 notACheckmate=ليست مات الملك

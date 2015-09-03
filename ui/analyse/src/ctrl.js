@@ -70,8 +70,9 @@ module.exports = function(opts) {
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
     };
-    if (!dests) {
+    if (!dests && !s.check) {
       // premove while dests are loading from server
+      // can't use when in check because it highlights the wrong king
       config.turnColor = opposite(color);
       config.movable.color = color;
     }

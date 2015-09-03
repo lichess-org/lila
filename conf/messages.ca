@@ -204,7 +204,6 @@ fromPosition=Des de la posició
 continueFromHere=Continua des d'aquí
 importGame=Importa una partida
 nbImportedGames=%s partides importades
-nbRelayedGames=%s jocs retransmesos
 thisIsAChessCaptcha=Això és un CAPTCHA d'escacs.
 clickOnTheBoardToMakeYourMove=Clica al tauler per fer el teu moviment i demostrar que ets una persona.
 notACheckmate=No és escac i mat

@@ -1073,6 +1073,7 @@ body.fpmenu #fpmenu {
   font-size: 12px;
   opacity: 0.8;
   transition: opacity 0.3s;
+  -webkit-transform: translateZ(0);
 }
 #fpmenu .footer:hover {
   opacity: 1;

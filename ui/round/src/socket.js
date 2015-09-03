@@ -28,7 +28,6 @@ module.exports = function(send, ctrl) {
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
-      else if (ctrl.relayClock) ctrl.relayClock.update(o.white, o.black);
     },
     crowd: function(o) {
       ['white', 'black'].forEach(function(c) {

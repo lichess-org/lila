@@ -35,7 +35,7 @@ final class Env(
 
   lazy val topicApi = new TopicApi(
     env = this,
-    indexer = hub.actor.forumIndexer,
+    indexer = hub.actor.forumSearch,
     maxPerPage = TopicMaxPerPage,
     modLog = modLog,
     shutup = shutup,
@@ -44,7 +44,7 @@ final class Env(
 
   lazy val postApi = new PostApi(
     env = this,
-    indexer = hub.actor.forumIndexer,
+    indexer = hub.actor.forumSearch,
     maxPerPage = PostMaxPerPage,
     modLog = modLog,
     shutup = shutup,
@@ -81,7 +81,7 @@ object Env {
 
   private def hub = lila.hub.Env.current
 
-  lazy val current = "[boot] forum" describes new Env(
+  lazy val current = "forum" boot new Env(
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,

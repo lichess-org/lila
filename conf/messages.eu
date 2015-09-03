@@ -204,7 +204,6 @@ fromPosition=Posizio jakina/zehaztua zatitzera
 continueFromHere=Hemendik jarraitzea
 importGame=Jokoa inportatzea
 nbImportedGames=%s inportatutako jokoak
-nbRelayedGames=%s emandako jokoak
 thisIsAChessCaptcha=Hau xake-CAPTCHA bat da
 clickOnTheBoardToMakeYourMove=Egin ezazu click-a taulan, frogatuz beraz bihozbera zara, zure mugimendua egiteko.
 notACheckmate=Hori ez da xake-matea!

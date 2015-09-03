@@ -82,7 +82,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] user" describes new Env(
+  lazy val current: Env = "user" boot new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,

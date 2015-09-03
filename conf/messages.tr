@@ -204,7 +204,6 @@ fromPosition=Özel pozisyondan
 continueFromHere=Bu pozisyondan devam et
 importGame=Oyun yükle
 nbImportedGames=%s ithal edilen oyun
-nbRelayedGames=%s Serbest zamanlı oyunlar
 thisIsAChessCaptcha=Bu bir satranç CAPTCHA'sıdır.
 clickOnTheBoardToMakeYourMove=İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.
 notACheckmate=Mat değil

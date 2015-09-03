@@ -7,14 +7,14 @@ final class Env(config: Config, system: ActorSystem) {
 
   object actor {
     val game = select("actor.game.actor")
-    val gameIndexer = select("actor.game.indexer")
+    val gameSearch = select("actor.game.search")
     val renderer = select("actor.renderer")
     val captcher = select("actor.captcher")
     val forum = select("actor.forum.actor")
-    val forumIndexer = select("actor.forum.indexer")
+    val forumSearch = select("actor.forum.search")
+    val teamSearch = select("actor.team.search")
     val messenger = select("actor.messenger")
     val router = select("actor.router")
-    val teamIndexer = select("actor.team.indexer")
     val ai = select("actor.ai")
     val monitor = select("actor.monitor")
     val tournamentOrganizer = select("actor.tournament.organizer")
@@ -50,7 +50,7 @@ final class Env(config: Config, system: ActorSystem) {
 
 object Env {
 
-  lazy val current = "[boot] hub" describes new Env(
+  lazy val current = "hub" boot new Env(
     config = lila.common.PlayApp loadConfig "hub",
     system = lila.common.PlayApp.system)
 }

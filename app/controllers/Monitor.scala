@@ -30,6 +30,13 @@ object Monitor extends LilaController {
       case "players" => {
         (env.reporting ? PopulationGet).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
       } map { Ok(_) }
+      case "uptime" => fuccess {
+        val up = lila.common.PlayApp.uptime
+        Ok {
+          val human = org.joda.time.format.PeriodFormat.wordBased(new java.util.Locale("en")).print(up)
+          s"last deploy: ${lila.common.PlayApp.startedAt}\nuptime seconds: ${up.toStandardSeconds.getSeconds}\nuptime: $human"
+        }
+      }
       case key => fuccess {
         BadRequest(s"Unknown monitor status key: $key")
       }

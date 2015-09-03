@@ -23,7 +23,6 @@ final class Env(
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    ongoingRelays = () => Env.relay.cached.miniStarted,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
@@ -51,7 +50,7 @@ final class Env(
   )), name = RouterName)
 
   if (!Env.ai.ServerOnly) {
-    loginfo("[boot] Preloading modules")
+    play.api.Logger("boot").info("Preloading modules")
     List(Env.socket,
       Env.site,
       Env.tournament,
@@ -75,22 +74,17 @@ final class Env(
       Env.tv,
       Env.blog,
       Env.video,
-      Env.shutup, // required to load the actor
-      Env.relay
+      Env.shutup // required to load the actor
     )
-    loginfo("[boot] Preloading complete")
+    play.api.Logger("boot").info("Preloading complete")
   }
 
   if (Env.ai.ServerOnly) println("Running as AI server")
-
-  // if (config getBoolean "simulation.enabled") {
-  //   lila.simulation.Env.current.start
-  // }
 }
 
 object Env {
 
-  lazy val current = "[boot] app" describes new Env(
+  lazy val current = "app" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     system = lila.common.PlayApp.system,
     appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
@@ -141,6 +135,5 @@ object Env {
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
-  def relay = lila.relay.Env.current
   def coach = lila.coach.Env.current
 }

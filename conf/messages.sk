@@ -204,7 +204,6 @@ fromPosition=Od pozície
 continueFromHere=Pokračuj odtiaľto
 importGame=Import hry
 nbImportedGames=%s importovaných hier
-nbRelayedGames=%s Prenášaných hier
 thisIsAChessCaptcha=Šachová CAPTCHA
 clickOnTheBoardToMakeYourMove=Kliknite na šachovnicu a spravte ťah, aby ste dokázali, že ste človek.
 notACheckmate=Nie je to šach mat

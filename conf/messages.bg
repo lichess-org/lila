@@ -204,7 +204,6 @@ fromPosition=От зададен строй
 continueFromHere=Продължи от тук
 importGame=Внеси игра
 nbImportedGames=%s внесени игри
-nbRelayedGames=%s Препредавани игри
 thisIsAChessCaptcha=Тази задача потвърждава че сте човек.
 clickOnTheBoardToMakeYourMove=Играйте хода си на дъската, и докажете че сте човек
 notACheckmate=Не е шах-и-мат

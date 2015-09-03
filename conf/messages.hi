@@ -204,7 +204,6 @@ fromPosition=स्थिति से
 continueFromHere=यहा से जारी करें
 importGame=खेल आयात (इम्पोर्ट) करे
 nbImportedGames=%s खेल आयत (इम्पोर्ट) किये गए
-nbRelayedGames=%s अंतर्राष्ट्रीय प्रदर्शित खेल
 thisIsAChessCaptcha=यह इंसानों और कम्प्यूटरों को अलग करने के लिए शतरंज की पहेली है
 clickOnTheBoardToMakeYourMove=अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप मानव है
 notACheckmate=सह और मात नहीं

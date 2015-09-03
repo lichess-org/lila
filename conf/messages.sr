@@ -204,7 +204,6 @@ fromPosition=Од позиције
 continueFromHere=Настави одавде
 importGame=Увези игру
 nbImportedGames=%s Увезених игара
-nbRelayedGames=%s Сродне игре
 thisIsAChessCaptcha=Ово је шаховски КАПЧА.
 clickOnTheBoardToMakeYourMove=Кликни на таблу и направи потез да би доказао да си људско биће.
 notACheckmate=Није шахмат

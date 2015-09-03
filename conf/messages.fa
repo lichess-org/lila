@@ -204,7 +204,6 @@ fromPosition=از موقعیت
 continueFromHere=ادامه از اینجا
 importGame=بارگزاری بازی
 nbImportedGames=%s بارگزاری شده
-nbRelayedGames=%s بازی گزارشی
 thisIsAChessCaptcha=این یک کپچای [کد امنیتی] شطرنجی است
 clickOnTheBoardToMakeYourMove=برای اثبات اینکه انسان هستید روی تخته کلیک کنید تا حرکت خود را انجام دهید
 notACheckmate=این یک کیش و مات نیست

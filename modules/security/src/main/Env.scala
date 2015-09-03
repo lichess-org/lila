@@ -109,7 +109,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] security" describes new Env(
+  lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,

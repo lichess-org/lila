@@ -2,12 +2,13 @@ package lila.common
 
 object Chronometer {
 
-  def apply[A](msg: String)(f: => Fu[A]): Fu[A] = {
-    loginfo(s"[chrono $msg] Start")
-    val startAt = nowMillis
-    f ~ (_.effectFold(
-      err => loginfo(s"[chrono $msg] Failed in ${nowMillis - startAt} ms with $err"),
-      res => loginfo(s"[chrono $msg] Success in ${nowMillis - startAt} ms")
-    ))
+  def apply[A](name: String)(f: => Fu[A]): Fu[A] = {
+    val start = nowMillis
+    logger debug s"$name - start"
+    f.addEffects(
+      err => logger warn s"$name - failed in ${nowMillis - start}ms - ${err.getMessage}",
+      _ => logger debug s"$name - done in ${nowMillis - start}ms")
   }
+
+  private lazy val logger = play.api.Logger("chrono")
 }

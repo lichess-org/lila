@@ -204,7 +204,6 @@ fromPosition=จากตำแหน่ง
 continueFromHere=เล่นต่อจากที่นี่
 importGame=นำเข้าเกม
 nbImportedGames=%s เกมที่ถูกนำเข้า
-nbRelayedGames=%s เกมที่ถ่ายทอด
 thisIsAChessCaptcha=นี่คือปริศนาหมากรุก
 clickOnTheBoardToMakeYourMove=คลิกบนกระดานเพื่อเดินหมากของคุณ และพิสูจน์ว่าคุณคือมนุษย์
 notACheckmate=ไม่ใช่รุกจน

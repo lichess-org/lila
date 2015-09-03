@@ -204,7 +204,6 @@ fromPosition=Z pozycji
 continueFromHere=Kontynuuj z tej pozycji
 importGame=Importuj grę
 nbImportedGames=%s zaimportowanych gier
-nbRelayedGames=%s transmitowanych partii
 thisIsAChessCaptcha=To jest szachowa CAPTCHA.
 clickOnTheBoardToMakeYourMove=Kliknij w szachownicę by zrobić ruch i udowodnić, że jesteś człowiekiem.
 notACheckmate=To nie jest mat

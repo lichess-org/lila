@@ -19,8 +19,6 @@ final class Cached(
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
   def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
 
-  def nbRelayed: Fu[Int] = count(Query.relayed)
-
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
   private implicit val userHandler = User.userBSONHandler

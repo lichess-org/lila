@@ -644,6 +644,7 @@ lichess.desktopNotification = function(msg) {
 
       function userPowertip($els, placement) {
         $els.removeClass('ulpt').powerTip({
+          intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
@@ -664,6 +665,7 @@ lichess.desktopNotification = function(msg) {
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
+          intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
@@ -1062,9 +1064,6 @@ lichess.desktopNotification = function(msg) {
         $('#topmenu').on('click', '> section > a', function() {
           return false;
         });
-      else $('#topmenu').hoverIntent(function() {
-        $(this).toggleClass('hover');
-      });
 
       $('#ham-plate').click(function() {
         document.body.classList.toggle('fpmenu');
@@ -1321,6 +1320,10 @@ lichess.desktopNotification = function(msg) {
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       window.history.replaceState(null, null, '/' + data.game.id);
+    if (!data.player.spectator && data.game.status.id < 25)
+      $('#topmenu').removeClass('hover').hoverIntent(function() {
+        $(this).toggleClass('hover');
+      });
   }
 
   function startPrelude(element, cfg) {

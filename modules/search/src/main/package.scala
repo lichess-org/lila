@@ -2,8 +2,9 @@ package lila
 
 package object search extends PackageObject with WithPlay {
 
-  import com.sksamuel.elastic4s.{ IndexType, SearchDefinition, CountDefinition }
-
-  type FreeSearchDefinition = IndexType => SearchDefinition
-  type FreeCountDefinition = IndexType => CountDefinition
+  object Date {
+    import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
+    val format = "YYYY-MM-dd HH:mm:ss"
+    val formatter: DateTimeFormatter = DateTimeFormat forPattern format
+  }
 }

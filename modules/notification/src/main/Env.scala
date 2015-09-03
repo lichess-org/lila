@@ -9,7 +9,7 @@ final class Env(bus: lila.common.Bus, renderer: ActorSelection) {
 
 object Env {
 
-  lazy val current = "[boot] notification" describes new Env(
+  lazy val current = "notification" boot new Env(
     bus = lila.common.PlayApp.system.lilaBus,
     renderer = lila.hub.Env.current.actor.renderer)
 }

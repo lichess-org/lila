@@ -71,8 +71,8 @@ private[monitor] final class Reporting(
               loadAvg = osStats.getSystemLoadAverage.toFloat
               nbThreads = threadStats.getThreadCount
               memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-              rps = moveWindowCount.get
-              mps = reqWindowCount.get
+              mps = moveWindowCount.get
+              rps = reqWindowCount.get
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
               socket ! MonitorData(monitorData(idle))
               idle = false

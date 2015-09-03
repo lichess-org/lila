@@ -10,34 +10,34 @@
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm button@when(u.engine, " active")" type="submit" value="Engine" />
+    <input class="button@when(u.engine, " active")" type="submit" value="Engine" />
   </form>
   }
   @if(isGranted(_.MarkBooster)) {
   <form method="post" action="@routes.Mod.booster(u.username)">
-    <input class="confirm button@when(u.booster, " active")" type="submit" value="Booster" />
+    <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})">
-    <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
+    <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
   <form method="post" action="@routes.Mod.ban(u.username)">
-    <input class="confirm button@when(u.ipBan, " active")" type="submit" value="IP ban" />
+    <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban" />
   </form>
   }
   @if(!u.disabled) {
   @if(isGranted(_.CloseAccount)) {
   <form method="post" action="@routes.Mod.closeAccount(u.username)">
-    <input class="confirm button" type="submit" value="Close" />
+    <input class="button" type="submit" value="Close" />
   </form>
   }
   } else {
   @if(isGranted(_.ReopenAccount)) {
   <form action="@routes.Mod.reopenAccount(u.username)" method="post">
-    <input type="submit" class="button confirm active" value="Closed" />
+    <input type="submit" class="button active" value="Closed" />
   </form>
   }
   }

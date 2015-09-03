@@ -204,7 +204,6 @@ fromPosition=Dari posisi
 continueFromHere=Lanjutkan dari sini
 importGame=Masukkan permainan
 nbImportedGames=%s permainan telah dimasukkan
-nbRelayedGames=%s Partai disiarkan
 thisIsAChessCaptcha=Ini adalah CAPTCHA catur.
 clickOnTheBoardToMakeYourMove=Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.
 notACheckmate=Bukan skakmat
