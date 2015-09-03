@@ -116,7 +116,7 @@ case class Game(
    * It starts at 1, and is incremented after Black's move.
    * NOTE: Duplicates chess.Game.fullMoveNumber (avoids loading toChess)
    */
-  def fullMoveNumber: Int = 1 + turns / 2
+  def fullMoveNumber: Int = 1 + (turns - 1) / 2
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
