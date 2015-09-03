@@ -204,7 +204,6 @@ fromPosition=Frå posisjon
 continueFromHere=Fortsett herfrå
 importGame=Importér
 nbImportedGames=%s importerte spel
-nbRelayedGames=%s gjennomgåtte spel
 thisIsAChessCaptcha=Dette er ein sjakk CAPTCHA
 clickOnTheBoardToMakeYourMove=Gjer eit trekk på brettet og prov at du er eit menneske
 notACheckmate=Ikkje sjakk matt
