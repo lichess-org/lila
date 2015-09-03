@@ -42,11 +42,9 @@ object Analyse extends LilaController {
 
   private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
     analysis andThen {
-      case Failure(e: lila.analyse.ConcurrentAnalysisException) =>
-        loginfo(e.getMessage)
-        Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-      case Failure(err)                       => logerr("[analysis] " + err.getMessage)
-      case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      case Failure(e: lila.analyse.ConcurrentAnalysisException) => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
+      case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }
 
   def postAnalysis(id: String) = Action.async(parse.text) { req =>
