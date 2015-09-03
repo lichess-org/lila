@@ -89,10 +89,10 @@ description = "Search the entire lichess database using multiple criterions").so
       </tr>
       <tr>
         <th>
-          <label for="@form("variant").id">@trans.variant()</label>
+          <label for="@form("perf").id">@trans.variant()</label>
         </th>
         <td class="single">
-          @base.select(form("variant"), Query.variants, "".some)
+          @base.select(form("perf"), Query.perfs, "".some)
         </td>
       </tr>
       <tr>

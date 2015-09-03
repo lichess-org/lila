@@ -37,7 +37,7 @@
           status typed ShortType,
           turns typed ShortType,
           rated typed BooleanType,
-          variant typed ShortType,
+          perf typed ShortType,
           uids typed StringType,
           winner typed StringType,
           winnerColor typed ShortType,
@@ -61,7 +61,7 @@
       var nb = 0
       var nbSkipped = 0
       var started = nowMillis
-      $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, limit = 500000) { gameOptions =>
+      $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize, 200000) { gameOptions =>
         val games = gameOptions.flatten filter storable
         val nbGames = games.size
         (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
@@ -103,7 +103,7 @@
         }).id.some,
         turns -> math.ceil(game.turns.toFloat / 2).some,
         rated -> game.rated.some,
-        variant -> game.variant.id.some,
+        perf -> game.perfType.map(_.id),
         uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
         winner -> (game.winner flatMap (_.userId)),
         winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)).some,

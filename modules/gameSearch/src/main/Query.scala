@@ -11,7 +11,7 @@ case class Query(
     user2: Option[String] = None,
     winner: Option[String] = None,
     winnerColor: Option[Int] = None,
-    variant: Option[Int] = None,
+    perf: Option[Int] = None,
     source: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
@@ -32,7 +32,7 @@ case class Query(
       user2.nonEmpty ||
       winner.nonEmpty ||
       winnerColor.nonEmpty ||
-      variant.nonEmpty ||
+      perf.nonEmpty ||
       source.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
@@ -69,7 +69,7 @@ object Query {
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
-  val variants = chess.variant.Variant.all map { v => v.id -> v.name }
+  val perfs = lila.rating.PerfType.nonPuzzle map { v => v.id -> v.name }
 
   val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
 
