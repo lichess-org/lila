@@ -5,6 +5,7 @@ import lila.game.actorApi._
 import lila.game.{ Game, GameRepo }
 import lila.search._
 
+import org.joda.time.DateTime
 import play.api.libs.json._
 
 final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
@@ -49,19 +50,24 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.blackUser -> game.blackPlayer.userId
   ).noNull
 
-  def reset(max: Option[Int]) = client match {
+  def reset(max: Option[Int], since: Option[DateTime] = none): Funit = client match {
     case c: ESClientHttp => c.createTempIndex flatMap { temp =>
       loginfo(s"Index to ${temp.tempIndex.name}")
+      since.foreach { s => loginfo(s"Since $s") }
+      val resetStartAt = DateTime.now
+      val selector = since.fold(Json.obj()) { s =>
+        lila.game.Query createdSince s.minusHours(3)
+      }
       import lila.db.api._
       import lila.game.tube.gameTube
       var nb = 0
       var nbSkipped = 0
       var started = nowMillis
       for {
-        size <- $count($select.all)
+        size <- $count(selector)
         batchSize = 2000
         limit = max | Int.MaxValue
-        _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
+        _ <- $enumerate.bulk[Option[Game]]($query(selector), batchSize, limit) { gameOptions =>
           val games = gameOptions.flatten filter storable
           val nbGames = games.size
           (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
@@ -78,6 +84,10 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
           }
         }
         _ <- temp.aliasBackToMain
+        _ <- since match {
+          case None => reset(max, resetStartAt.some)
+          case _    => funit
+        }
       } yield ()
     }
     case _ => funit

@@ -80,6 +80,9 @@ object Query {
   def variant(v: chess.variant.Variant) =
     Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
+  def createdSince(d: DateTime) =
+    Json.obj(F.createdAt -> $gt($date(d)))
+
   val sortCreated = $sort desc F.createdAt
   val sortChronological = $sort asc F.createdAt
   val sortUpdatedNoIndex = $sort desc F.updatedAt
