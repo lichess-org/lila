@@ -135,12 +135,14 @@ object Pref {
 
   object SubmitMove {
     val NEVER = 0
-    val CORRESPONDENCE = 1
+    val CORRESPONDENCE_ONLY = 4
+    val CORRESPONDENCE_UNLIMITED = 1
     val ALWAYS = 2
 
     val choices = Seq(
       NEVER -> "Never",
-      CORRESPONDENCE -> "On correspondence games",
+      CORRESPONDENCE_ONLY -> "In correspondence games only",
+      CORRESPONDENCE_UNLIMITED -> "In correspondence and unlimited games",
       ALWAYS -> "Always")
   }
 
@@ -286,7 +288,7 @@ object Pref {
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
-    submitMove = SubmitMove.CORRESPONDENCE,
+    submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     coachShare = CoachShare.FRIENDS,
     tags = Map.empty)
 
