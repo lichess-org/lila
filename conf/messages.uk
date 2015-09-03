@@ -204,6 +204,7 @@ fromPosition=Із позиції
 continueFromHere=Продовжити звідси
 importGame=Імпортувати гру
 nbImportedGames=%s імпортованих ігор
+nbRelayedGames=%s трансльованих партій
 thisIsAChessCaptcha=Це шаховий КОД.
 clickOnTheBoardToMakeYourMove=Клацніть на дошці, щоб зробити хід та довести, що ви людина.
 notACheckmate=Не мат
