@@ -104,6 +104,10 @@ lichess.StrongSocket.prototype = {
       };
       self.ws.onmessage = function(e) {
         var m = JSON.parse(e.data);
+        // if (Math.random() > 0.5) {
+        //   console.log(m, 'skip');
+        //   return;
+        // }
         if (m.t == "n") {
           self.pong();
         } else self.debug(e.data);
