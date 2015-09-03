@@ -55,9 +55,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
       loginfo(s"Index to ${temp.tempIndex.name}")
       since.foreach { s => loginfo(s"Since $s") }
       val resetStartAt = DateTime.now
-      val selector = since.fold(Json.obj()) { s =>
-        lila.game.Query createdSince s.minusHours(3)
-      }
+      val selector = since.fold(Json.obj())(lila.game.Query.createdSince)
       import lila.db.api._
       import lila.game.tube.gameTube
       var nb = 0
@@ -85,7 +83,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
         }
         _ <- temp.aliasBackToMain
         _ <- since match {
-          case None => reset(max, resetStartAt.some)
+          case None => reset(max, resetStartAt.minusHours(3).some)
           case _    => funit
         }
       } yield ()
