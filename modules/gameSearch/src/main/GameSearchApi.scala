@@ -20,6 +20,9 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
   def count(query: Query) =
     client.count(query) map (_.count)
 
+  def ids(query: Query, max: Int): Fu[List[String]] =
+    client.search(query, From(0), Size(max)).map(_.ids)
+
   def store(game: Game) = storable(game) ?? {
     GameRepo isAnalysed game.id flatMap { analysed =>
       client.store(Id(game.id), toDoc(game, analysed))
