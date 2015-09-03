@@ -283,7 +283,6 @@ module.exports = function(opts) {
   this.goBerserk = function() {
     this.socket.berserk();
     $.sound.berserk();
-    this.setBerserk(this.data.player.color);
   }.bind(this);
 
   this.setBerserk = function(color) {
