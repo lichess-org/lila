@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], simul: Option[lila.simul.Simul], relay: Option[lila.relay.Relay], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
 
 @import pov._
 
@@ -37,7 +37,7 @@ orientation: "@pov.color.name"
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, relay = relay).some,
+side = views.html.game.side(pov, initialFen, none, simul = simul).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
 moreJs = moreJs,

@@ -26,8 +26,6 @@ final class Env(
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Option[String],
-    getRelay: String => Fu[Option[lila.relay.Relay]],
-    getRelayName: String => Option[String],
     getTournamentName: String => Option[String],
     val isProd: Boolean) {
 
@@ -72,7 +70,6 @@ final class Env(
 
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
-    relayName = getRelayName,
     simulName = getSimulName,
     tournamentName = getTournamentName)
 
@@ -102,7 +99,6 @@ final class Env(
       noteApi = noteApi,
       analysisApi = analysisApi,
       getSimul = getSimul,
-      getRelay = getRelay,
       lightUser = userEnv.lightUser),
     system = system,
     nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
@@ -132,8 +128,6 @@ object Env {
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
     getSimulName = lila.simul.Env.current.cached.name,
-    getRelay = lila.relay.Env.current.repo.byId,
-    getRelayName = lila.relay.Env.current.cached.name,
     getTournamentName = lila.tournament.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
