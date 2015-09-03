@@ -502,6 +502,7 @@ keyEnterOrExitVariation=entrer dans/sortir d'une variante
 keyYouCanDrawArrowsCirclesAndScrollToMove=Maintenir la touche majuscule enfoncée pour dessiner les flèches et cercles. Vous pouvez aussi utiliser la roulette de défilement pour changer de place.
 newTournament=Nouveau tournoi
 tournamentHomeTitle=Tournoi qui réunit plusieurs variantes et plusieurs cadences
+tournamentHomeDescription=Jouez toujours plus avec les tournois d'échecs ! Rejoignez un tournoi régulier, ou alors créez votre propre tournoi : bullet, blitz, classique, cadence Fischer, roi au centre, trois échecs, etc ..., pour un plaisir sans fin.
 tournamentNotFound=Tournoi inexistant
 tournamentDoesNotExist=Ce tournoi n'existe pas
 tournamentMayHaveBeenCanceled=Il a peut-être été annulé, tous les joueurs l'ont quitté avant le début.
