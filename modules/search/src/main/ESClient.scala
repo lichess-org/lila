@@ -10,26 +10,20 @@ sealed trait ESClient {
 
   def store(id: Id, doc: JsObject): Funit
 
-  def storeBulk(docs: Seq[(Id, JsObject)]): Funit
-
   def deleteById(id: Id): Funit
 
   def deleteByQuery(query: StringQuery): Funit
-
-  def putMapping: Funit
 }
 
-final class ESClientHttp(endpoint: String, index: Index, writeable: Boolean) extends ESClient {
+final class ESClientHttp(
+    endpoint: String,
+    val index: Index,
+    writeable: Boolean) extends ESClient {
   import play.api.libs.ws.WS
   import play.api.Play.current
 
   def store(id: Id, doc: JsObject) = writeable ??
     HTTP(s"store/${index.name}/${id.value}", doc)
-
-  def storeBulk(docs: Seq[(Id, JsObject)]) = writeable ??
-    HTTP(s"store/bulk/${index.name}", JsObject(docs map {
-      case (Id(id), doc) => id -> JsString(Json.stringify(doc))
-    }))
 
   def search[Q: Writes](query: Q, from: From, size: Size) =
     HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
@@ -43,17 +37,41 @@ final class ESClientHttp(endpoint: String, index: Index, writeable: Boolean) ext
   def deleteByQuery(query: lila.search.StringQuery) = writeable ??
     HTTP(s"delete/query/${index.name}/${query.value}", Json.obj())
 
-  def putMapping = writeable ??
-    HTTP(s"mapping/${index.name}", Json.obj())
+  def createTempIndex = {
+    val tempIndex = Index(s"${index.name}_temp_${ornicar.scalalib.Random.nextString(4)}")
+    val tempClient = new ESClientHttpTemp(
+      index,
+      new ESClientHttp(endpoint, tempIndex, writeable))
+    tempClient.putMapping inject tempClient
+  }
 
-  private def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
+  private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
     WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
       case res if res.status == 200 => fuccess(read(res.body))
       case res                      => fufail(s"$url ${res.status}")
     }
-  private def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
+  private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
   private val logger = play.api.Logger("ESClientHttp")
+}
+
+final class ESClientHttpTemp(
+    mainIndex: Index,
+    client: ESClientHttp) {
+
+  def putMapping =
+    client.HTTP(s"mapping/${tempIndex.name}/${mainIndex.name}", Json.obj())
+
+  def tempIndex = client.index
+
+  def storeBulk(docs: Seq[(Id, JsObject)]) =
+    client.HTTP(s"store/bulk/${tempIndex.name}/${mainIndex.name}", JsObject(docs map {
+      case (Id(id), doc) => id -> JsString(Json.stringify(doc))
+    }))
+
+  def aliasBackToMain =
+    client.HTTP(s"alias/${tempIndex.name}/${mainIndex.name}", Json.obj())
+
 }
 
 final class ESClientStub extends ESClient {

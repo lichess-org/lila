@@ -25,11 +25,15 @@ final class TeamSearchApi(
     Fields.location -> team.location,
     Fields.nbMembers -> team.nbMembers)
 
-  def reset = client.putMapping >> {
-    import lila.db.api._
-    import lila.team.tube.teamTube
-    $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 300) { teamOptions =>
-      client.storeBulk(teamOptions.flatten map (t => Id(t.id) -> toDoc(t)))
+  def reset = client match {
+    case c: ESClientHttp => c.createTempIndex flatMap { temp =>
+      loginfo(s"Index to ${temp.tempIndex.name}")
+      import lila.db.api._
+      import lila.team.tube.teamTube
+      $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 300) { teamOptions =>
+        temp.storeBulk(teamOptions.flatten map (t => Id(t.id) -> toDoc(t)))
+      } >> temp.aliasBackToMain
     }
+    case _ => funit
   }
 }

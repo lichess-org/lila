@@ -33,13 +33,17 @@ final class ForumSearchApi(
     Fields.troll -> view.post.troll,
     Fields.date -> view.post.createdAt.getDate)
 
-  def reset = client.putMapping >> {
-    import lila.db.api._
-    import lila.forum.tube.postTube
-    $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 500) { postOptions =>
-      (postApi liteViews postOptions.flatten) flatMap { views =>
-        client.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
-      }
+  def reset = client match {
+    case c: ESClientHttp => c.createTempIndex flatMap { temp =>
+      loginfo(s"Index to ${temp.tempIndex.name}")
+      import lila.db.api._
+      import lila.forum.tube.postTube
+      $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 500) { postOptions =>
+        (postApi liteViews postOptions.flatten) flatMap { views =>
+          temp.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+        }
+      } >> temp.aliasBackToMain
     }
+    case _ => funit
   }
 }

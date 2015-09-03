@@ -49,32 +49,37 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.blackUser -> game.blackPlayer.userId
   ).noNull
 
-  def reset(max: Option[Int]) = client.putMapping >> {
-    import lila.db.api._
-    import lila.game.tube.gameTube
-    var nb = 0
-    var nbSkipped = 0
-    var started = nowMillis
-    for {
-      size <- $count($select.all)
-      batchSize = 2000
-      limit = max | Int.MaxValue
-      _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
-        val games = gameOptions.flatten filter storable
-        val nbGames = games.size
-        (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
-          client.storeBulk(games map { g =>
-            Id(g.id) -> toDoc(g, analysedIds(g.id))
-          }).logFailure("game bulk")
-          // funit // async!
-        }) >>- {
-          nb = nb + nbGames
-          nbSkipped = nbSkipped + gameOptions.size - nbGames
-          val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
-          started = nowMillis
-          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb + nbSkipped, size, nbSkipped, perS))
+  def reset(max: Option[Int]) = client match {
+    case c: ESClientHttp => c.createTempIndex flatMap { temp =>
+      loginfo(s"Index to ${temp.tempIndex.name}")
+      import lila.db.api._
+      import lila.game.tube.gameTube
+      var nb = 0
+      var nbSkipped = 0
+      var started = nowMillis
+      for {
+        size <- $count($select.all)
+        batchSize = 2000
+        limit = max | Int.MaxValue
+        _ <- $enumerate.bulk[Option[Game]]($query.all, batchSize, limit) { gameOptions =>
+          val games = gameOptions.flatten filter storable
+          val nbGames = games.size
+          (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
+            temp.storeBulk(games map { g =>
+              Id(g.id) -> toDoc(g, analysedIds(g.id))
+            }).logFailure("game bulk")
+            // funit // async!
+          }) >>- {
+            nb = nb + nbGames
+            nbSkipped = nbSkipped + gameOptions.size - nbGames
+            val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
+            started = nowMillis
+            loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb + nbSkipped, size, nbSkipped, perS))
+          }
         }
-      }
-    } yield ()
+        _ <- temp.aliasBackToMain
+      } yield ()
+    }
+    case _ => funit
   }
 }
