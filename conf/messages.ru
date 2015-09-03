@@ -204,7 +204,6 @@ fromPosition=С позиции
 continueFromHere=Продолжить с данного места
 importGame=Импорт игры
 nbImportedGames=%s Импортированные игры
-nbRelayedGames=%s Похожие игры
 thisIsAChessCaptcha=Это шахматная CAPTCHA.
 clickOnTheBoardToMakeYourMove=Кликните по доске, чтобы сделать ход и доказать, что вы человек.
 notACheckmate=Это не мат

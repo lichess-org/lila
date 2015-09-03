@@ -204,7 +204,6 @@ fromPosition=特定の局面から
 continueFromHere=中断した所から再開
 importGame=ゲームをインポート
 nbImportedGames=%s インポートしたゲーム
-nbRelayedGames=%s 局を中継中
 thisIsAChessCaptcha=これはロボットよけの認証です。
 clickOnTheBoardToMakeYourMove=駒を動かしてあなたが人間である事を証明して下さい。
 notACheckmate=チェックメイトではありません

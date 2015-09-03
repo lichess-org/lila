@@ -204,7 +204,6 @@ fromPosition=Adott állásból
 continueFromHere=Folytatás innen
 importGame=Játszma importálása
 nbImportedGames=%s Importált játszmák
-nbRelayedGames=%s Közvetített játszmák
 thisIsAChessCaptcha=Ez egy ellenőrző sakk feladvány (CAPTCHA)
 clickOnTheBoardToMakeYourMove=A táblán való lépéssel bizonyítod, hogy ember vagy.
 notACheckmate=Ez nem matt

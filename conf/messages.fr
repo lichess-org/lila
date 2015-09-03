@@ -204,7 +204,6 @@ fromPosition=Depuis une position
 continueFromHere=Continuer depuis cette position
 importGame=Importer une partie
 nbImportedGames=%s parties importées
-nbRelayedGames=%s Parties diffusées
 thisIsAChessCaptcha=Ceci est un CAPTCHA d'échecs.
 clickOnTheBoardToMakeYourMove=Cliquez sur le plateau pour jouer un coup, et prouvez que vous êtes humain.
 notACheckmate=Ce n'est pas un échec et mat

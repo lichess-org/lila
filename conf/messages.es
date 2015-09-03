@@ -204,7 +204,6 @@ fromPosition=Desde posición
 continueFromHere=Continuar desde aquí
 importGame=Importar partida
 nbImportedGames=%s partidas importadas
-nbRelayedGames=%s partidas retransmitidas
 thisIsAChessCaptcha=Esta es un CAPTCHA ajedrecístico.
 clickOnTheBoardToMakeYourMove=Haz clic en el tablero para hacer tu movimiento, y demuestra que eres humano.
 notACheckmate=No es jaque mate

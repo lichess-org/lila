@@ -204,7 +204,6 @@ fromPosition=Od pozicije
 continueFromHere=Nastavite odavde
 importGame=Uvezite partiju
 nbImportedGames=%s uvezenih partija
-nbRelayedGames=%s prenosljivih partija
 thisIsAChessCaptcha=Ovo je šahovski CAPTCHA.
 clickOnTheBoardToMakeYourMove=Odigrajte potez da dokažete da ste ljudsko biće
 notACheckmate=Nije mat

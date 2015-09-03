@@ -204,7 +204,6 @@ fromPosition=מהעמדה
 continueFromHere=המשך מכאן
 importGame=ייבא משחק
 nbImportedGames=%s משחקים מיובאים
-nbRelayedGames=%s משחקים משודרים
 thisIsAChessCaptcha=זו קאפצ'ה של שחמט.
 clickOnTheBoardToMakeYourMove=לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.
 notACheckmate=לא מט.

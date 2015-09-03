@@ -204,7 +204,6 @@ fromPosition=自定义局面
 continueFromHere=从此处继续
 importGame=导入棋局
 nbImportedGames=已导入%s盘棋局
-nbRelayedGames=%s场转播对局
 thisIsAChessCaptcha=这是一个国际象棋验证码。
 clickOnTheBoardToMakeYourMove=点击棋盘走棋以证明你是人类。
 notACheckmate=没有将死

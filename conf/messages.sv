@@ -204,7 +204,6 @@ fromPosition=Från position
 continueFromHere=Fortsätt härifrån
 importGame=Importera parti
 nbImportedGames=%s Importerade partier
-nbRelayedGames=%s Livesända partier
 thisIsAChessCaptcha=Detta är en schack-CAPTCHA
 clickOnTheBoardToMakeYourMove=Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.
 notACheckmate=Inte schackmatt

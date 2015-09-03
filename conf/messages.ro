@@ -204,7 +204,6 @@ fromPosition=De la poziția
 continueFromHere=Continuați de aici
 importGame=Importați partida
 nbImportedGames=%s partide importate
-nbRelayedGames=%s Jocuri transmise
 thisIsAChessCaptcha=Aceasta este o verificare din șah.
 clickOnTheBoardToMakeYourMove=Apăsați pe tablă pentru a muta, dovedind că sunteți real.
 notACheckmate=Nu este mat
