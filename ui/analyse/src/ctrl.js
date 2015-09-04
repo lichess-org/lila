@@ -106,7 +106,8 @@ module.exports = function(opts) {
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
-    if (this.vm.justPlayed !== this.vm.step.uci) {
+    if (!this.vm.step.uci) sound.move(); // initial position
+    else if (this.vm.justPlayed !== this.vm.step.uci) {
       if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
       this.vm.justPlayed = null;
