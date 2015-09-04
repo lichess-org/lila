@@ -619,7 +619,6 @@ lichess.desktopNotification = function(msg) {
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
-    else if (lichess.relay) startRelay(document.getElementById('relay'), lichess.relay);
 
     // delay so round starts first (just for perceived perf)
     setTimeout(function() {
@@ -2155,30 +2154,6 @@ lichess.desktopNotification = function(msg) {
       });
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     simul = LichessSimul(element, cfg);
-  };
-
-  function startRelay(element, cfg) {
-    var $watchers = $("div.watchers").watchers();
-    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
-      messages: lichess_chat
-    });
-    var relay;
-    lichess.socket = new lichess.StrongSocket(
-      '/watch/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
-        receive: function(t, d) {
-          relay.socketReceive(t, d)
-        },
-        events: {
-          crowd: function(data) {
-            $watchers.watchers("set", data);
-          }
-        },
-        options: {
-          name: "relay"
-        }
-      });
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
-    relay = LichessRelay(element, cfg);
   };
 
   ////////////////
