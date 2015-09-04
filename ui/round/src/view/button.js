@@ -5,6 +5,14 @@ var status = require('game').status;
 var partial = chessground.util.partial;
 var m = require('mithril');
 
+function analysisBoardOrientation(data) {
+  if (data.game.variant.key === 'racingKings') {
+    return 'white';
+  } else {
+    return data.player.color;
+  }
+}
+
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
@@ -185,7 +193,7 @@ module.exports = {
     var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
-      href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url + hash
+      href: ctrl.router.Round.watcher(ctrl.data.game.id, analysisBoardOrientation(ctrl.data)).url + hash
     }, ctrl.trans('analysis'));
   },
   newOpponent: function(ctrl) {
