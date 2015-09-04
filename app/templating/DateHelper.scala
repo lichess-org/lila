@@ -40,8 +40,10 @@ trait DateHelper { self: I18nHelper =>
 
   private def periodFormatter(ctx: Context): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
-      lang(ctx).language,
-      PeriodFormat wordBased new Locale(lang(ctx).language))
+      lang(ctx).language, {
+        Locale setDefault Locale.ENGLISH
+        PeriodFormat wordBased new Locale(lang(ctx).language)
+      })
 
   def showDateTime(date: DateTime)(implicit ctx: Context): String =
     dateTimeFormatter(ctx) print date
