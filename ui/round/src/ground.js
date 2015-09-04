@@ -7,10 +7,18 @@ function str2move(mo) {
   return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
 }
 
+function boardOrientation(data, flip) {
+  if (data.game.variant.key === 'racingKings') {
+    return flip ? 'black': 'white';
+  } else {
+    return flip ? data.opponent.color : data.player.color;
+  }
+}
+
 function makeConfig(data, fen, flip) {
   return {
     fen: fen,
-    orientation: flip ? data.opponent.color : data.player.color,
+    orientation: boardOrientation(data, flip),
     turnColor: data.game.player,
     lastMove: str2move(data.game.lastMove),
     check: data.game.check,
@@ -83,6 +91,7 @@ function end(ground) {
 }
 
 module.exports = {
+  boardOrientation: boardOrientation,
   make: make,
   reload: reload,
   promote: promote,

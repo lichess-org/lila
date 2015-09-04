@@ -119,7 +119,7 @@ module.exports = function(opts) {
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
     this.chessground.set({
-      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
+      orientation: ground.boardOrientation(this.data, this.vm.flip)
     });
   }.bind(this);
 
