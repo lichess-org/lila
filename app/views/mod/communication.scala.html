@@ -1,4 +1,4 @@
-@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[String])(implicit ctx: Context)
+@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[String], spy: lila.security.UserSpy)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("mod-communication.css")
@@ -79,6 +79,49 @@ side = side.some) {
       </div>
       }
     </div>
+    }
+  </div>
+  <div class="alternate_accounts">
+    <h2>Alternate accounts</h2>
+    @if(spy.otherUsers.size < 1) {
+    <strong>No similar user found</strong>
+    } else {
+    <table class="others slist">
+      <thead>
+        <tr>
+          <th>@spy.otherUsers.size similar user(s)</th>
+          <th>Same</th>
+          <th>Games</th>
+          <th>Marks</th>
+          <th>IPban</th>
+          <th>Closed</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        @spy.otherUsers.map {
+        case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
+        <tr @if(o == u){class="same"}>
+          <td>@userLink(o, withBestRating = true, params = "?mod")</td>
+          <td>
+            @if(o == u) { - } else {
+            @List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
+            }
+          </td>
+          <td>@o.count.game.localize</td>
+          <td>
+            @if(o.engine){ENGINE}
+            @if(o.booster){BOOSTER}
+            @if(o.troll){TROLL}
+          </td>
+          <td>@if(o.ipBan){IPBAN}</td>
+          <td>@if(o.disabled){CLOSED}</td>
+          <td>@momentFromNow(o.createdAt)</td>
+        </tr>
+        }
+        }
+      </tbody>
+    </table>
     }
   </div>
 </div>
