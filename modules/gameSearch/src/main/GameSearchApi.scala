@@ -20,6 +20,9 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
   def count(query: Query) =
     client.count(query) map (_.count)
 
+  def ids(query: Query, max: Int): Fu[List[String]] =
+    client.search(query, From(0), Size(max)).map(_.ids)
+
   def store(game: Game) = storable(game) ?? {
     GameRepo isAnalysed game.id flatMap { analysed =>
       client.store(Id(game.id), toDoc(game, analysed))
@@ -50,44 +53,47 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.blackUser -> game.blackPlayer.userId
   ).noNull
 
-  def reset(max: Option[Int], since: Option[DateTime] = none): Funit = client match {
+  def reset(max: Option[Int]): Funit = client match {
     case c: ESClientHttp => c.createTempIndex flatMap { temp =>
       loginfo(s"Index to ${temp.tempIndex.name}")
-      since.foreach { s => loginfo(s"Since $s") }
       val resetStartAt = DateTime.now
-      val selector = since.fold(Json.obj())(lila.game.Query.createdSince)
-      import lila.db.api._
-      import lila.game.tube.gameTube
-      var nb = 0
-      var nbSkipped = 0
-      var started = nowMillis
+      val resetStartSeconds = nowSeconds
       for {
-        size <- $count(selector)
-        batchSize = 2000
-        limit = max | Int.MaxValue
-        _ <- $enumerate.bulk[Option[Game]]($query(selector), batchSize, limit) { gameOptions =>
-          val games = gameOptions.flatten filter storable
-          val nbGames = games.size
-          (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
-            temp.storeBulk(games map { g =>
-              Id(g.id) -> toDoc(g, analysedIds(g.id))
-            }).logFailure("game bulk")
-            // funit // async!
-          }) >>- {
-            nb = nb + nbGames
-            nbSkipped = nbSkipped + gameOptions.size - nbGames
-            val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
-            started = nowMillis
-            loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb + nbSkipped, size, nbSkipped, perS))
-          }
-        }
+        _ <- doIndex(temp, Json.obj(), max)
+        _ = loginfo("[game search] Complete indexation in %ss".format(nowSeconds - resetStartSeconds))
+        _ <- doIndex(temp, lila.game.Query createdSince resetStartAt.minusHours(3), max)
+        _ = loginfo("[game search] Complete indexation in %ss".format(nowSeconds - resetStartSeconds))
         _ <- temp.aliasBackToMain
-        _ <- since match {
-          case None => reset(max, resetStartAt.minusHours(3).some)
-          case _    => funit
-        }
       } yield ()
     }
     case _ => funit
+  }
+
+  private def doIndex(temp: ESClientHttpTemp, selector: JsObject, max: Option[Int]): Funit = {
+    import lila.db.api._
+    import lila.game.tube.gameTube
+    var nb = 0
+    var nbSkipped = 0
+    var started = nowMillis
+    for {
+      size <- $count(selector)
+      batchSize = 1000
+      limit = max | Int.MaxValue
+      _ <- $enumerate.bulk[Option[Game]]($query(selector), batchSize, limit) { gameOptions =>
+        val games = gameOptions.flatten filter storable
+        val nbGames = games.size
+        (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
+          temp.storeBulk(games map { g =>
+            Id(g.id) -> toDoc(g, analysedIds(g.id))
+          }).logFailure("game bulk")
+        }) >>- {
+          nb = nb + nbGames
+          nbSkipped = nbSkipped + gameOptions.size - nbGames
+          val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
+          started = nowMillis
+          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb + nbSkipped, size, nbSkipped, perS))
+        }
+      }
+    } yield ()
   }
 }
