@@ -133,7 +133,7 @@ module.exports = function(opts) {
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
-
+    this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
       m.redraw();
@@ -281,13 +281,11 @@ module.exports = function(opts) {
     this.chessground.cancelPremove();
   }.bind(this);
 
-  this.resign = function() {
-    if (this.vm.resignConfirm) this.socket.send('resign');
-    else setTimeout(function() {
-      this.vm.resignConfirm = false;
-      m.redraw();
-    }.bind(this), 1000);
-    this.vm.resignConfirm = !this.vm.resignConfirm;
+  this.resign = function(v) {
+    if (this.vm.resignConfirm) {
+      if (v) this.socket.send('resign');
+      else this.vm.resignConfirm = false;
+    } else if (v !== false) this.vm.resignConfirm = true;
   }.bind(this);
 
   this.goBerserk = function() {

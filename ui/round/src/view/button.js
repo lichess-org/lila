@@ -10,7 +10,9 @@ module.exports = {
     // disabled if condition callback is provied and is falsy
     var enabled = !condition || condition(ctrl.data);
     return m('button', {
-      class: 'button hint--bottom ' + socketMsg + classSet({' disabled': !enabled}),
+      class: 'button hint--bottom ' + socketMsg + classSet({
+        ' disabled': !enabled
+      }),
       'data-hint': ctrl.trans(hint),
       onclick: enabled ? onclick || partial(ctrl.socket.send, socketMsg, null) : null
     }, m('span', {
@@ -29,6 +31,17 @@ module.exports = {
           onclick: partial(ctrl.socket.send, 'draw-force', null),
         }, ctrl.trans('forceDraw'))
       ]);
+  },
+  resignConfirm: function(ctrl) {
+    return m('div.resign_confirm', [
+      m('button.button.yes', {
+        'data-icon': 'E',
+        onclick: partial(ctrl.resign, true)
+      }), m('button.button.no', {
+        'data-icon': 'L',
+        onclick: partial(ctrl.resign, false)
+      })
+    ]);
   },
   threefoldClaimDraw: function(ctrl) {
     if (ctrl.data.game.threefold) return m('div#claim_draw_zone', [

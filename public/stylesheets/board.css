@@ -1335,6 +1335,19 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
   -webkit-transform: translateY(1px);
 }
+div.control.icons .resign_confirm {
+  display: inline-block;
+  position: relative;
+}
+div.control.icons .resign_confirm .yes {
+  color: #759900;
+}
+div.control.icons .resign_confirm .no {
+  color: #dc322f;
+  position: absolute;
+  top: 0;
+  left: 39px;
+}
 div.control.buttons .button {
   display: inline-block;
   text-align: center;
