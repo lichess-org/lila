@@ -4,6 +4,7 @@ var xhr = require('./xhr');
 var pagination = require('./pagination');
 var util = require('chessground').util;
 var sound = require('./sound');
+var myCurrentGameId = require('./tournament').myCurrentGameId;
 
 module.exports = function(env) {
 
@@ -29,6 +30,13 @@ module.exports = function(env) {
     sound.end(this.data);
     sound.countDown(this.data);
     this.vm.joinLoader = false;
+    redirectToMyGame();
+  }.bind(this);
+
+  var redirectToMyGame = function() {
+    var gameId = myCurrentGameId(this);
+    if (gameId && lichess.storage.get('last-game') !== gameId)
+      location.href = '/' + gameId;
   }.bind(this);
 
   this.loadPage = function(data) {
@@ -89,6 +97,7 @@ module.exports = function(env) {
 
   sound.end(this.data);
   sound.countDown(this.data);
+  redirectToMyGame();
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;
