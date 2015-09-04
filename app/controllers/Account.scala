@@ -36,6 +36,7 @@ object Account extends LilaController {
       negotiate(
         html = notFound,
         api = _ => lila.game.GameRepo urgentGames me map { povs =>
+          Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(
