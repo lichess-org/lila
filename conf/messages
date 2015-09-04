@@ -21,6 +21,7 @@ whiteIsVictorious=White is victorious
 blackIsVictorious=Black is victorious
 kingInTheCenter=King in the center
 threeChecks=Three checks
+raceFinished=Race finished
 variantEnding=Variant ending
 playWithTheSameOpponentAgain=Play with the same opponent again
 newOpponent=New opponent

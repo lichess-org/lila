@@ -49,7 +49,7 @@ final class RatingChartApi(
       Json stringify {
         Json.toJson {
           import lila.rating.PerfType._
-          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, Puzzle) map { pt =>
+          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle) map { pt =>
             ratingsMapToJson(pt, history(pt))
           }
         }

@@ -45,7 +45,7 @@ final class PgnDump(
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =
-    Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde)
+    Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def tags(game: Game, initialFen: Option[String]): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(

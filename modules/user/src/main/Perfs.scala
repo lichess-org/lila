@@ -14,6 +14,7 @@ case class Perfs(
     antichess: Perf,
     atomic: Perf,
     horde: Perf,
+    racingKings: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -29,6 +30,7 @@ case class Perfs(
     "antichess" -> antichess,
     "atomic" -> atomic,
     "horde" -> horde,
+    "racingKings" -> racingKings,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -77,6 +79,7 @@ case class Perfs(
     "antichess" -> antichess,
     "atomic" -> atomic,
     "horde" -> horde,
+    "racingKings" -> racingKings,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -102,6 +105,7 @@ case class Perfs(
     case PerfType.Antichess      => antichess
     case PerfType.Atomic         => atomic
     case PerfType.Horde          => horde
+    case PerfType.RacingKings    => racingKings
     case PerfType.Puzzle         => puzzle
     case PerfType.Opening        => opening
   }
@@ -133,7 +137,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -144,6 +148,7 @@ case object Perfs {
     case chess.variant.Antichess     => Some(_.antichess)
     case chess.variant.Atomic        => Some(_.atomic)
     case chess.variant.Horde         => Some(_.horde)
+    case chess.variant.RacingKings   => Some(_.racingKings)
     case _                           => none
   }
 
@@ -169,6 +174,7 @@ case object Perfs {
         antichess = perf("antichess"),
         atomic = perf("atomic"),
         horde = perf("horde"),
+        racingKings = perf("racingKings"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -187,6 +193,7 @@ case object Perfs {
       "antichess" -> notNew(o.antichess),
       "atomic" -> notNew(o.atomic),
       "horde" -> notNew(o.horde),
+      "racingKings" -> notNew(o.racingKings),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),

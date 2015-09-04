@@ -35,6 +35,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
             updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
           case chess.variant.Horde =>
             updateRatings(ratingsW.horde, ratingsB.horde, result, system)
+          case chess.variant.RacingKings =>
+            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system)
           case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
@@ -72,6 +74,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     antichess: Rating,
     atomic: Rating,
     horde: Rating,
+    racingKings: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -84,6 +87,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     antichess = perfs.antichess.toRating,
     atomic = perfs.atomic.toRating,
     horde = perfs.horde.toRating,
+    racingKings = perfs.racingKings.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -122,6 +126,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = game.ratingVariant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
       atomic = game.ratingVariant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
       horde = game.ratingVariant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
+      racingKings = game.ratingVariant.racingKings.fold(perfs.racingKings.add(ratings.racingKings, date), perfs.racingKings),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
@@ -134,6 +139,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = r(perfs.antichess, perfs1.antichess),
       atomic = r(perfs.atomic, perfs1.atomic),
       horde = r(perfs.horde, perfs1.horde),
+      racingKings = r(perfs.racingKings, perfs1.racingKings),
       bullet = r(perfs.bullet, perfs1.bullet),
       blitz = r(perfs.blitz, perfs1.blitz),
       classical = r(perfs.classical, perfs1.classical),
