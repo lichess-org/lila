@@ -93,9 +93,9 @@ function renderTablePlay(ctrl) {
     ctrl.vm.moveToSubmit ? null : (
       button.feedback(ctrl) || m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
-        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
+        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-        button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
+        ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
     buttons ? m('div.control.buttons', buttons) : null,

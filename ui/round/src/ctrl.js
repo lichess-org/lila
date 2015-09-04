@@ -44,7 +44,8 @@ module.exports = function(opts) {
     replayHash: '',
     moveToSubmit: null,
     buttonFeedback: null,
-    goneBerserk: {}
+    goneBerserk: {},
+    resignConfirm: false
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -132,7 +133,7 @@ module.exports = function(opts) {
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
-
+    this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
       m.redraw();
@@ -278,6 +279,13 @@ module.exports = function(opts) {
   this.takebackYes = function() {
     this.socket.send('takeback-yes');
     this.chessground.cancelPremove();
+  }.bind(this);
+
+  this.resign = function(v) {
+    if (this.vm.resignConfirm) {
+      if (v) this.socket.send('resign');
+      else this.vm.resignConfirm = false;
+    } else if (v !== false) this.vm.resignConfirm = true;
   }.bind(this);
 
   this.goBerserk = function() {

@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import lila.common.paginator._
+import lila.common.paginator.Paginator
 import lila.db.api.SortOrder
 import lila.game.{ Game, Query }
 import lila.user.User
@@ -54,8 +54,7 @@ object GameFilterMenu {
       (info.user.count.draw > 0) option Draw,
       (info.nbPlaying > 0) option Playing,
       (info.nbBookmark > 0) option Bookmark,
-      (info.nbImported > 0) option Imported,
-      (info.user.count.game > 0) option Search
+      (info.nbImported > 0) option Imported
     ).flatten)
 
     val currentName = currentNameOption | info.hasSimul.fold(
