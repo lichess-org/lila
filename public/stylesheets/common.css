@@ -1550,15 +1550,15 @@ body #themepicker div.is3d,
   background-size: 250%;
   margin: unset;
 }
-#themepicker .bg-selector > .slideshow {
+#themepicker div.bg-selector > .slideshow {
   background-image: url(../images/background/diamond_upholstery.dark.png);
 }
-#themepicker .bg-selector > .slideshow::after {
+#themepicker div.bg-selector > .slideshow::after {
   content: 'p'; /* clock */
   position: absolute;
   font-family: lichess;
 }
-#themepicker .bg-selector > .using::after {
+#themepicker div.bg-selector > .using::after {
   font-size: 16px;
   margin-left: -18px;
   margin-top: 22px;
@@ -1579,18 +1579,15 @@ body #themepicker div.is3d,
   transition: transform 0.13s, opacity 0.13s;
   text-decoration: none;
 }
-#themepicker div.bg-selector > a:hover .reveal {
+#themepicker div.bg-selector > a.using > .reveal {
+  display: none;
+}
+#themepicker div.bg-selector > a:hover > .reveal {
   transform: translateY(100%);
   opacity: 1;
 }
-#themepicker div.bg-selector > a:hover .reveal:last-child {
-  transform: translateY(-100%);
-}
 #themepicker .bg-selector .drop:hover {
   color: #dc322f;
-}
-#themepicker .bg-selector .choose:hover {
-  color: #759900;
 }
 #themepicker .bg-selector > .add {
   opacity: 0.4;

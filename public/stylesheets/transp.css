@@ -28,6 +28,7 @@ body.transp::before {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-blend-mode: screen;
   will-change: transform;
   z-index: -1;
 }

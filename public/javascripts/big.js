@@ -746,12 +746,14 @@ lichess.desktopNotification = function(msg) {
 
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
+        var lastBackground;
+        var setBackground = function(v) {
+          lastBackground = v;
+          var bgData = document.getElementById('bg-data');
+          bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
+            document.head.innerHTML += '<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>';
+        }
         var applyBackground = function(v) {
-          function setBackground(v) {
-            var bgData = document.getElementById('bg-data');
-            bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
-              document.head.innerHTML += '<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>';
-          }
           if (Array.isArray(v)) {
             function anyOf(vs) { return vs[~~(vs.length * Math.random())]; }
             var c = anyOf(v);
@@ -763,7 +765,7 @@ lichess.desktopNotification = function(msg) {
               clearTimeout(animator);
             else $bgData.addClass('animating');
             (function iterate(vs) {
-              var $bgData = $('#bg-data');
+              // var $bgData = $('#bg-data');
               if (!$bgData.hasClass('animating'))
                 return;
               setBackground(anyOf(vs));
@@ -774,6 +776,13 @@ lichess.desktopNotification = function(msg) {
             $('#bg-data.animating').removeClass('animating').removeData('animator');
           }
         };
+        var previewBackground = function(v) {
+          if (!lastBackground) {
+            applyBackground(v);
+            return;
+          }
+          document.getElementById('bg-data').innerHTML = 'body.transp::before{background-image:url(' + lastBackground + '), url(' + v + ');}'
+        }
         var $themepicker = $('#themepicker');
         $.ajax({
           url: $(this).data('url'),
@@ -890,14 +899,14 @@ lichess.desktopNotification = function(msg) {
               showDimensions(is3d);
             }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
             var $bgSelector = $themepicker.find('.bg-selector');
-            var bgs = localStorage["backgrounds"];
+            var bgs = lichess.storage.get('backgrounds');
             if (!bgs)
-              bgs = localStorage["backgrounds"] = ["",
+              lichess.storage.set('backgrounds', bgs = ["",
                 "http://lichess1.org/assets/images/background/landscape.jpg",
                 "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-230635.jpg",
                 "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-229265.jpg",
                 "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-146575.jpg"
-              ];
+              ]);
             else bgs = bgs.split(',');
             var slideshow = bgs.shift();
             if (slideshow === '*') {
@@ -905,55 +914,61 @@ lichess.desktopNotification = function(msg) {
               applyBackground(bgs.slice(1));
             }
             /** @const {string} */
-            var cards = '<span class="reveal drop" data-icon="q"></span><span class="reveal choose" data-icon="v"></span>';
-            var inUse = $bgSelector.data('img');
+            var card = '<span class="reveal drop" data-icon="q"></span>';
+            lastBackground = $bgSelector.data('img');
             $bgSelector.prepend(bgs.map(function(v) {
-              var using = v[0] === inUse;
+              var using = v === lastBackground;
               return '<a style="background-image:url(' + v + ')" data-img="' + v + '"' +
-                (using ? 'class="using">' : '>' + cards) + '</a>';
+                (using ? 'class="using">' : '>' + card) + '</a>';
             }).join(""));
             bgs.unshift(slideshow);
             var $dataImg = $bgSelector.find('a[data-img]');
-            var throttle = $.fp.debounce(function(v) {
+            var update = function(v) {
               $.post($bgSelector.data('href'), {
                 bgImg: v
               });
               applyBackground(v);
-            }, 200);
+            };
             /** @const {{choose: function(), drop: function()}} */
             var Selection = {
               // Assume that an active selection will not trigger via html('').
               choose: function() {
                 clearChosenBackground();
-                throttle($(this).parent().addClass('using').html('').data('img'));
+                update($(this).addClass('using').data('img'));
+              },
+              hover: function() {
+                previewBackground($(this).data('img'));
+              },
+              unhover: function() {
+                setBackground(lastBackground);
               },
               drop: function() {
                 if (!confirm("Are you sure you want to remove this background?"))
                   return;
+                var parent = $(this).parent();
+                // Cannot just use parent.index() as previous elements may have been dropped
                 var index = $bgSelector.find('a[data-img]').index(parent) + 1;
+                parent.remove();
                 bgs.splice(index, 1);
-                $(this).parent().remove();
-                localStorage['backgrounds'] = bgs;
+                lichess.storage.set('backgrounds', bgs);
               }
             };
             var clearChosenBackground = function() {
-              var $using = $bgSelector.find('.using').removeClass('using');
+              $bgSelector.find('.using').removeClass('using');
               if (bgs[0] === '*') {
                 bgs[0] = '';
-                localStorage['backgrounds'] = bgs;
+                lichess.storage.set('backgrounds', bgs);
                 return;
               }
-              $using.html(cards);
-              $using.find('.choose').click(Selection.choose);
-              $using.find('.drop').click(Selection.drop);
             };
-            $dataImg.find('.choose').click(Selection.choose);
-            $dataImg.find('.drop').click(Selection.drop);
-            $bgSelector.find('a.slideshow > .choose').click(function() {
+            $dataImg.click(Selection.choose)
+              .hover(Selection.hover, Selection.unhover)
+              .find('.drop').click(Selection.drop);
+            $bgSelector.find('a.slideshow').click(function() {
               if (bgs[0] === '') {
                 clearChosenBackground();
                 bgs[0] = '*';
-                localStorage['backgrounds'] = bgs;
+                lichess.storage.set('backgrounds', bgs);
               }
               applyBackground(bgs.slice(1));
             });
@@ -961,10 +976,13 @@ lichess.desktopNotification = function(msg) {
               var imagesToAdd = prompt('Please enter a URL to an image. Seperate a list of images by commas.', 'Example: http://lichess1.org/assets/images/background/landscape.jpg');
               if (imagesToAdd) {
                 imagesToAdd.split(',').forEach(function (url) {
-                  $bgSelector.find('a[data-img]:last').after('<a style="background-image:url(' + url + ')" data-img="' + url + '">' + cards + '</a>');
+                  $bgSelector.find('a[data-img]:last').after('<a style="background-image:url(' + url + ')" data-img="' + url + '">' + card + '</a>');
+                  $bgSelector.find('a[data-img]:last').click(Selection.choose)
+                    .hover(Selection.hover, Selection.unhover)
+                    .find('.drop').click(Selection.drop);
                   bgs.push(url);
                 });
-                localStorage['backgrounds'] = bgs;
+                lichess.storage.set('backgrounds', bgs);
               }
             });
           }
