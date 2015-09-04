@@ -849,7 +849,7 @@ lichess.storage = {
               ];
             else bgs = bgs.split(',');
             var slideshow = bgs.shift();
-            if (slideshow === "*") {
+            if (slideshow === '*') {
               $('a.slideshow').addClass('using');
               applyBackground(bgs.slice(1));
             }
@@ -863,22 +863,25 @@ lichess.storage = {
             }).join(""));
             bgs.unshift(slideshow);
             var $dataImg = $bgSelector.find('a[data-img]');
+            var throttle = $.fp.debounce(function(v) {
+              $.post($bgSelector.data('href'), {
+                bgImg: v
+              });
+              applyBackground(v);
+            }, 200);
             /** @const {{choose: function(), drop: function()}} */
             var Selection = {
               // Assume that an active selection will not trigger via html('').
               choose: function() {
                 clearChosenBackground();
-                var parent = $(this).parent();
-                var index = $bgSelector.find('a[data-img]').index(parent) + 1;
-                applyBackground(parent.addClass('using').html('').data('img'));
+                throttle($(this).parent().addClass('using').html('').data('img'));
               },
               drop: function() {
                 if (!confirm("Are you sure you want to remove this background?"))
                   return;
-                var parent = $(this).parent();
                 var index = $bgSelector.find('a[data-img]').index(parent) + 1;
                 bgs.splice(index, 1);
-                parent.remove();
+                $(this).parent().remove();
                 localStorage['backgrounds'] = bgs;
               }
             };
@@ -889,8 +892,7 @@ lichess.storage = {
                 localStorage['backgrounds'] = bgs;
                 return;
               }
-              var index = $bgSelector.find('a[data-img]').index(
-                $using.html(cards)) + 1;
+              $using.html(cards);
               $using.find('.choose').click(Selection.choose);
               $using.find('.drop').click(Selection.drop);
             };
@@ -906,12 +908,13 @@ lichess.storage = {
             });
             $bgSelector.find('.add').click(function() {
               var imagesToAdd = prompt('Please enter a URL to an image. Seperate a list of images by commas.', 'Example: http://lichess1.org/assets/images/background/landscape.jpg');
-              if (imagesToAdd)
+              if (imagesToAdd) {
                 imagesToAdd.split(',').forEach(function (url) {
                   $bgSelector.find('a[data-img]:last').after('<a style="background-image:url(' + url + ')" data-img="' + url + '">' + cards + '</a>');
                   bgs.push(url);
-                  localStorage['backgrounds'] = bgs;
                 });
+                localStorage['backgrounds'] = bgs;
+              }
             });
           }
         });
