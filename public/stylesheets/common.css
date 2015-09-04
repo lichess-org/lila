@@ -1569,21 +1569,23 @@ body #themepicker div.is3d,
 }
 #themepicker div.bg-selector .reveal {
   position: absolute;
-  margin-left: -20px;
-  width: 40px;
-  height: 40px;
-  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  bottom: 0;
   z-index: 1;
-  padding: 5px 5px 0 5px;
   opacity: 0;
-  transition: transform 0.13s, opacity 0.13s;
+  transition: opacity 0.13s;
   text-decoration: none;
+}
+#themepicker div.bg-selector .reveal::before {
+  font-size: 18px;
+  bottom: 0;
 }
 #themepicker div.bg-selector > a.using > .reveal {
   display: none;
 }
 #themepicker div.bg-selector > a:hover > .reveal {
-  transform: translateY(100%);
   opacity: 1;
 }
 #themepicker .bg-selector .drop:hover {
