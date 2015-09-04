@@ -1542,6 +1542,7 @@ body #themepicker div.is3d,
 }
 #themepicker div.bg-selector {
   display: none;
+  position: relative;
 }
 #themepicker div.bg-selector > a {
   width: 40px;
@@ -1564,7 +1565,7 @@ body #themepicker div.is3d,
   margin-top: 22px;
   content: 'r'; /* figure */
   position: absolute;
-  font-family: liough,chess;
+  font-family: lichess;
   color: rgba(0, 0, 0, 0.6);
 }
 #themepicker div.bg-selector .reveal {
@@ -1591,6 +1592,18 @@ body #themepicker div.is3d,
 }
 #themepicker .bg-selector .choose:hover {
   color: #759900;
+}
+#themepicker .bg-selector > .add {
+  opacity: 0.4;
+  position: absolute;
+  text-decoration: none;
+  font-size: 20px;
+  right: 8px;
+  width: initial;
+  height: initial;
+}
+#themepicker .bg-selector > .add:hover {
+  opacity: 1;
 }
 #sound_control {
   margin-right: 5px;
