@@ -474,6 +474,7 @@ object Game {
     chess.variant.ThreeCheck,
     chess.variant.Atomic,
     chess.variant.Horde,
+    chess.variant.RacingKings,
     chess.variant.Antichess)
 
   val gameIdSize = 8

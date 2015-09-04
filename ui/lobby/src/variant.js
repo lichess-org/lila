@@ -4,7 +4,8 @@ var variantConfirms = {
   'threeCheck': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess",
   "antichess": "This is an antichess chess game!\n\n If you can take a piece, you must. The game can be won by losing all your pieces.",
   "atomic": "This is an atomic chess game!\n\nCapturing a piece causes an explosion, taking out your piece and surrounding non-pawns. Win by mating or exploding your opponent's king.",
-  "horde": "This is a horde chess game!\n\nWhite must take all black pawns to win. Black must checkmate white king."
+  "horde": "This is a horde chess game!\n\nWhite must take all black pawns to win. Black must checkmate white king.",
+  "racingKings": "This is a racing kings game!\n\nPlayers must race their kings to the eighth rank. Checks are not allowed."
 };
 
 function storageKey(key) {

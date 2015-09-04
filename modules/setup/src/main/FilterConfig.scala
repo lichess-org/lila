@@ -37,7 +37,8 @@ object FilterConfig {
     chess.variant.ThreeCheck,
     chess.variant.Antichess,
     chess.variant.Atomic,
-    chess.variant.Horde)
+    chess.variant.Horde,
+    chess.variant.RacingKings)
 
   val modes = Mode.all
   val speeds = Speed.all

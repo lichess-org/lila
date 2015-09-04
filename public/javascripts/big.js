@@ -1888,6 +1888,9 @@ lichess.unique = function(xs) {
           case '8':
             key = "horde"
             break;
+          case '9':
+            key = "racingKings"
+            break;
         }
         $ratings.hide().filter('.' + key).show();
       };
