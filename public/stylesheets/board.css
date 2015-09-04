@@ -380,6 +380,17 @@ div.lichess_board {
   background-image: url(../images/board/maple.jpg);
 }
 
+/* Racing Kings board decorations */
+
+.racingKings .full-dom .orientation-white > .cg-square:nth-child(n+9):nth-child(-n+16) {
+  box-shadow: inset 0 20px 20px -20px red;
+}
+.racingKings .full-dom .orientation-black > .cg-square:nth-child(n+57) {
+  box-shadow: inset 0 20px 20px -20px red;
+}
+
+/* KotH boards */
+
 .kingOfTheHill .cg-board::after {
   width: 25%;
   height: 25%;
