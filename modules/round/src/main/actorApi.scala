@@ -99,12 +99,6 @@ case class HumanPlay(
   blur: Boolean,
   lag: FiniteDuration,
   onFailure: Exception => Unit)
-case class RelayPlay(
-  playerId: String,
-  orig: String,
-  dest: String,
-  prom: Option[String],
-  onFailure: Exception => Unit)
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])
@@ -132,8 +126,6 @@ case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
 case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
-case class RelayClocks(white: Int, black: Int)
-case class RelayClock(color: Color, tenths: Int)
 case class PeerId(color: Color, peerId: String)
 }
 

@@ -59,7 +59,7 @@ final class Env(
   bus.subscribe(system.actorOf(
     Props(new Actor {
       def receive = {
-        case User.Active(user, lang) =>
+        case User.Active(user) =>
           if (!user.seenRecently) UserRepo setSeenAt user.id
           onlineUserIdMemo put user.id
       }

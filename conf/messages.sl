@@ -204,7 +204,6 @@ fromPosition=Igraj iz pozicije
 continueFromHere=Nadaljuj od tukaj
 importGame=Uvozi igro
 nbImportedGames=%s uvoženih iger
-nbRelayedGames=%s predvajanih iger
 thisIsAChessCaptcha=To je test, ki loči ljudi od računalnikov
 clickOnTheBoardToMakeYourMove=Odigraj potezo in dokaži, da nisi robot
 notACheckmate=To ni mat

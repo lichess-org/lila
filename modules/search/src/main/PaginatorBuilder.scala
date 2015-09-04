@@ -14,8 +14,6 @@ final class PaginatorBuilder[A, Q : Writes](
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  def ids(query: Q, max: Int): Fu[List[String]] = ???
-
   private final class ESAdapter(query: Q) extends AdapterLike[A] {
 
     def nbResults = searchApi count query

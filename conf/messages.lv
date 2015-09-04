@@ -204,7 +204,6 @@ fromPosition=No pozīcijas
 continueFromHere=Turpināt no šejienes
 importGame=Importēt spēli
 nbImportedGames=%s Importētās spēles
-nbRelayedGames=%s Pārraidītās spēles
 thisIsAChessCaptcha=Šis ir šaha CAPTHCA
 clickOnTheBoardToMakeYourMove=Noklikšķini uz laukuma lai izdarītu gājienu un pierādītu, ka esat cilvēks.
 notACheckmate=Nav šahs un mats

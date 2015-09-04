@@ -23,7 +23,6 @@ final class Env(
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    ongoingRelays = () => Env.relay.cached.miniStarted,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
@@ -75,8 +74,7 @@ final class Env(
       Env.tv,
       Env.blog,
       Env.video,
-      Env.shutup, // required to load the actor
-      Env.relay
+      Env.shutup // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }
@@ -137,6 +135,5 @@ object Env {
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
-  def relay = lila.relay.Env.current
   def coach = lila.coach.Env.current
 }

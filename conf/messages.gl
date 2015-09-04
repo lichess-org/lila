@@ -204,7 +204,6 @@ fromPosition=Dende a posición
 continueFromHere=Continuar dende aquí
 importGame=Importar o taboeiro
 nbImportedGames=%s de xogos importados
-nbRelayedGames=%s Partidas retransmitidas
 thisIsAChessCaptcha=Este é un CAPTCHA de xadrez.
 clickOnTheBoardToMakeYourMove=Clique no tableiro para facer a súa xogada, e probar que é humano.
 notACheckmate=Non é un xaque mate.

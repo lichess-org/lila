@@ -13,10 +13,11 @@ final class Env(
     scheduler: lila.common.Scheduler) {
 
   private val Enabled = config getBoolean "enabled"
+  private val Writeable = config getBoolean "writeable"
   private val Endpoint = config getString "endpoint"
 
   val makeClient = (index: Index) =>
-    if (Enabled) new ESClientHttp(Endpoint, index)
+    if (Enabled) new ESClientHttp(Endpoint, index, Writeable)
     else new ESClientStub
 }
 

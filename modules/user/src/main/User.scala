@@ -77,7 +77,7 @@ object User {
 
   val anonymous = "Anonymous"
 
-  case class Active(user: User, lang: String)
+  case class Active(user: User)
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period

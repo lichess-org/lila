@@ -45,8 +45,6 @@ object Query {
 
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
-  val relayed = Json.obj(s"${F.source}" -> Source.Relay.id)
-
   val friend = Json.obj(s"${F.source}" -> Source.Friend.id)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
@@ -81,6 +79,9 @@ object Query {
 
   def variant(v: chess.variant.Variant) =
     Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
+
+  def createdSince(d: DateTime) =
+    Json.obj(F.createdAt -> $gt($date(d)))
 
   val sortCreated = $sort desc F.createdAt
   val sortChronological = $sort asc F.createdAt

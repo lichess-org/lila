@@ -47,7 +47,7 @@ private[tournament] final class Socket(
       game.players foreach { player =>
         player.userId foreach { userId =>
           membersByUserId(userId) foreach { member =>
-            notifyMember("redirect", game fullIdOf player.color)(member)
+            // notifyMember("redirect", game fullIdOf player.color)(member)
           }
         }
       }

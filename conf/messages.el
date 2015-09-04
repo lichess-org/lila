@@ -204,7 +204,6 @@ fromPosition=Από συγκεκριμένη θέση
 continueFromHere=Συνέχεια από εδώ
 importGame=Εισαγωγή παιχνιδιού
 nbImportedGames=%s Εισαγόμενα παιχνίδια
-nbRelayedGames=%s Αναμεταδιδόμενα παιχνίδια
 thisIsAChessCaptcha=Αυτό είναι CAPTCHA σκακιού.
 clickOnTheBoardToMakeYourMove=Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.
 notACheckmate=Δεν είναι ματ

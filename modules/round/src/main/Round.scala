@@ -45,23 +45,6 @@ private[round] final class Round(
       pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
     }
 
-    case p: RelayPlay => handle(p.playerId) { pov =>
-      player.relay(p, self)(pov)
-    }
-
-    case RelayClocks(white, black) => handle { game =>
-      GameRepo.setRelayClocks(game.id, white, black) inject List(Event.Clock.tenths(white, black))
-    }
-
-    case RelayClock(color, tenths) => handle { game =>
-      game.relay ?? { relay =>
-        GameRepo.setRelayClock(game.id, color, tenths) inject {
-          val nr = relay.withTenths(color, tenths)
-          (nr.white.tenths |@| nr.black.tenths apply Event.Clock.tenths).toList
-        }
-      }
-    }
-
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)

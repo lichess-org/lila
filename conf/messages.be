@@ -204,7 +204,6 @@ fromPosition=З пазыцыі
 continueFromHere=Працягнуць адсюль
 importGame=Імпартаваць гульню
 nbImportedGames=%s імпартаваныя гульні
-nbRelayedGames=%s Зьвязаныя гульні
 thisIsAChessCaptcha=Гэта шахматны тэст.
 clickOnTheBoardToMakeYourMove=Пстыркні па дошцы каб зрабіць ход, дакажы што ты чалавек.
 notACheckmate=Ня  мат

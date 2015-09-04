@@ -7,7 +7,7 @@ object Sorting {
   val fields = List(
     Fields.date -> "Date",
     Fields.turns -> "Moves",
-    Fields.averageRating -> "Average Rating")
+    Fields.averageRating -> "Rating")
 
   val orders = List("desc", "asc") map { s => s -> s }
 

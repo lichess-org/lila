@@ -104,6 +104,10 @@ lichess.StrongSocket.prototype = {
       };
       self.ws.onmessage = function(e) {
         var m = JSON.parse(e.data);
+        // if (Math.random() > 0.5) {
+        //   console.log(m, 'skip');
+        //   return;
+        // }
         if (m.t == "n") {
           self.pong();
         } else self.debug(e.data);
@@ -1320,10 +1324,12 @@ lichess.desktopNotification = function(msg) {
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       window.history.replaceState(null, null, '/' + data.game.id);
-    if (!data.player.spectator && data.game.status.id < 25)
+    if (!data.player.spectator && data.game.status.id < 25) {
+      lichess.storage.set('last-game', data.game.id);
       $('#topmenu').removeClass('hover').hoverIntent(function() {
         $(this).toggleClass('hover');
       });
+    }
   }
 
   function startPrelude(element, cfg) {

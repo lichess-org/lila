@@ -70,8 +70,9 @@ module.exports = function(opts) {
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
     };
-    if (!dests) {
+    if (!dests && !s.check) {
       // premove while dests are loading from server
+      // can't use when in check because it highlights the wrong king
       config.turnColor = opposite(color);
       config.movable.color = color;
     }
@@ -174,6 +175,10 @@ module.exports = function(opts) {
   this.reset = function() {
     this.chessground.set(this.vm.situation);
     m.redraw();
+  }.bind(this);
+
+  this.encodeStepFen = function() {
+    return this.vm.step.fen.replace(/\s/g, '_');
   }.bind(this);
 
   this.socket = new socket(opts.socketSend, this);

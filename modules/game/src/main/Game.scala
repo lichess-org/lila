@@ -335,8 +335,6 @@ case class Game(
 
   def imported = source contains Source.Import
 
-  def isFicsRelay = source contains Source.Relay
-
   def winner = players find (_.wins)
 
   def loser = winner map opponent
@@ -441,10 +439,6 @@ case class Game(
   def pgnImport = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def relay = metadata.relay
-  def relayId = relay.map(_.id)
-  def isRelay = relay.isDefined
-
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
@@ -501,7 +495,6 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
-    relay: Option[Relay] = None,
     castles: Castles = Castles.init,
     daysPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
@@ -521,7 +514,6 @@ object Game {
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
-      relay = relay,
       tournamentId = none,
       simulId = none,
       tvAt = none,
@@ -558,7 +550,6 @@ object Game {
     val updatedAt = "ua"
     val source = "so"
     val pgnImport = "pgni"
-    val relay = "rel"
     val tournamentId = "tid"
     val simulId = "sid"
     val tvAt = "tv"

@@ -35,7 +35,10 @@ private[round] final class History(
     val version = getVersion
     if (v > version) None
     else if (v == version) Some(Nil)
-    else events.takeWhile(_.version > v).reverse.some
+    else events.takeWhile(_.version > v).reverse.some filter {
+      case first :: rest => first.version == v + 1
+      case _             => true
+    }
   }
 
   def addEvents(xs: List[Event]): VersionedEvents = {

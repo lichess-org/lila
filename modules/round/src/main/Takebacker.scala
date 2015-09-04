@@ -39,7 +39,8 @@ private[round] final class Takebacker(
   }
 
   def isAllowedByPrefs(game: Game): Fu[Boolean] =
-    game.userIds.map { userId =>
+    if (game.hasAi) fuccess(true)
+    else game.userIds.map { userId =>
       prefApi.getPref(userId, (p: Pref) => p.takeback)
     }.sequenceFu map {
       _.forall { p =>
