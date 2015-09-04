@@ -177,6 +177,10 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.encodeStepFen = function() {
+    return this.vm.step.fen.replace(/\s/g, '_');
+  }.bind(this);
+
   this.socket = new socket(opts.socketSend, this);
 
   this.router = opts.routes;
