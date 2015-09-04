@@ -305,7 +305,8 @@ GET   /editor                          controllers.Editor.index
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/status                  controllers.Monitor.status
+GET   /monitor/status/:key             controllers.Monitor.status(key: String)
+GET   /monitor/status                  controllers.Monitor.statusParam
 
 # Report
 GET   /report                          controllers.Report.form
