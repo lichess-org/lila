@@ -1549,6 +1549,7 @@ body #themepicker div.is3d,
   background: scroll 50% 50%;
   background-size: 250%;
   margin: unset;
+  position: relative;
 }
 #themepicker div.bg-selector > .slideshow {
   background-image: url(../images/background/diamond_upholstery.dark.png);
