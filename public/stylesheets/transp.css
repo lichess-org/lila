@@ -186,4 +186,6 @@ body.transp #themepicker div.bg-selector {
   padding: 5px 5px 1px 5px;
   background: rgba(40, 40, 40, 0.6);
   margin-top: unset;
+  position: relative;
+  padding-right: 3.4em;
 }

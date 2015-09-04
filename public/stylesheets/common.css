@@ -1542,7 +1542,6 @@ body #themepicker div.is3d,
 }
 #themepicker div.bg-selector {
   display: none;
-  position: relative;
 }
 #themepicker div.bg-selector > a {
   width: 40px;
