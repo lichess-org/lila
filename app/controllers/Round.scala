@@ -241,4 +241,10 @@ object Round extends LilaController with TheftPrevention {
       Redirect(routes.Lobby.home)
     }
   }
+
+  def mini(gameId: String, color: String) = Open { implicit ctx =>
+    OptionOk(GameRepo.pov(gameId, color)) { pov =>
+      html.game.mini(pov)
+    }
+  }
 }

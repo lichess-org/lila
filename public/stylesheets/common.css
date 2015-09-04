@@ -2298,7 +2298,8 @@ div.relation_actions .button {
 div.relation_actions a.relation.processing {
   opacity: 0.2
 }
-input.copyable {
+input.copyable,
+textarea.copyable {
   background: #eee;
   font-family: monospace;
   padding: 3px 5px;

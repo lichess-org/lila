@@ -45,10 +45,13 @@ final class ModApi(
     }
   }
 
-  def autoBooster(username: String): Funit = logApi.wasUnbooster(User.normalize(username)) flatMap {
-    case true  => funit
-    case false => setBooster("lichess", username, true)
-  }
+  def autoBooster(userId: String, accomplice: String): Funit =
+    logApi.wasUnbooster(userId) flatMap {
+      case true => funit
+      case false => setBooster("lichess", userId, true) >>- {
+        reporter ! lila.hub.actorApi.report.Booster(userId, accomplice)
+      }
+    }
 
   def troll(mod: String, username: String, value: Boolean): Fu[Boolean] = withUser(username) { u =>
     val changed = value != u.troll

@@ -79,7 +79,7 @@ object Auth extends LilaController {
     implicit val req = ctx.req
     req.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
-      html = fuccess(Redirect(routes.Lobby.home)),
+      html = fuccess(Redirect(routes.Main.mobile)),
       api = apiVersion => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }

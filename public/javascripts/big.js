@@ -317,6 +317,31 @@ lichess.storage = {
   }
 };
 
+lichess.isPageVisible = true;
+// using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+window.addEventListener('focus', function() {
+  lichess.isPageVisible = true;
+});
+window.addEventListener('blur', function() {
+  lichess.isPageVisible = false;
+});
+lichess.desktopNotification = function(msg) {
+  if (lichess.isPageVisible || !("Notification" in window) || Notification.permission === "denied") return;
+  if (Notification.permission === "granted") {
+    var notification = new Notification("lichess", {
+      body: msg
+    });
+  } else {
+    Notification.requestPermission(function(permission) {
+      if (permission === "granted") {
+        var notification = new Notification("lichess", {
+          body: msg
+        });
+      }
+    });
+  }
+};
+
 (function() {
 
   /////////////
@@ -424,7 +449,10 @@ lichess.storage = {
       },
       nbm: function(e) {
         $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
-        if (e) $.sound.newPM();
+        if (e) {
+          $.sound.newPM();
+          lichess.desktopNotification("New inbox message!");
+        }
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -454,6 +482,7 @@ lichess.storage = {
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
             $('#challenge_notifications').append(data.html);
+            lichess.desktopNotification("You got challenged!");
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -608,7 +637,7 @@ lichess.storage = {
         return false;
       });
 
-      function applyPowertip($els, placement) {
+      function userPowertip($els, placement) {
         $els.removeClass('ulpt').powerTip({
           fadeInTime: 100,
           fadeOutTime: 100,
@@ -628,13 +657,35 @@ lichess.storage = {
         }).data('powertip', ' ');
       }
 
-      function userPowertips() {
-        applyPowertip($('#site_header .ulpt'), 'e');
-        applyPowertip($('#friend_box .ulpt'), 'nw');
-        applyPowertip($('.ulpt'), 'w');
+      function gamePowertip($els, placement) {
+        $els.removeClass('glpt').powerTip({
+          fadeInTime: 100,
+          fadeOutTime: 100,
+          placement: placement,
+          mouseOnToPopup: true,
+          closeDelay: 200,
+          popupId: 'miniGame'
+        }).on({
+          powerTipPreRender: function() {
+            $.ajax({
+              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+              success: function(html) {
+                $('#miniGame').html(html);
+                $('body').trigger('lichess.content_loaded');
+              }
+            });
+          }
+        }).data('powertip', ' ');
       }
-      setTimeout(userPowertips, 600);
-      $('body').on('lichess.content_loaded', userPowertips);
+
+      function updatePowertips() {
+        userPowertip($('#site_header .ulpt'), 'e');
+        userPowertip($('#friend_box .ulpt'), 'nw');
+        userPowertip($('.ulpt'), 'w');
+        gamePowertip($('.glpt'), 'w');
+      }
+      setTimeout(updatePowertips, 600);
+      $('body').on('lichess.content_loaded', updatePowertips);
 
       $('#message_notifications_tag').on('click', function() {
         $.ajax({

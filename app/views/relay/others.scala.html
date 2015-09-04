@@ -18,7 +18,7 @@
 case (pov, rel) => {
 <div>
   <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-    @gameFen(pov.game, pov.color, withLink = false, withTitle = false, withLive = false)
+    @gameFen(pov, withLink = false, withTitle = false, withLive = false)
   </a>
   <div class="vstext clearfix">
     <div class="left">

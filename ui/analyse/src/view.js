@@ -11,6 +11,7 @@ var treePath = require('./path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
+var pgnExport = require('./pgnExport');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -280,10 +281,16 @@ function wheel(ctrl, e) {
 function inputs(ctrl) {
   if (!ctrl.data.userAnalysis) return null;
   return m('div.copyables', [
-    m('strong.name', 'FEN'),
+    m('label.name', 'FEN'),
     m('input.copyable[readonly][spellCheck=false]', {
       value: ctrl.vm.step.fen
-    })
+    }),
+    m('div.pgn', [
+      m('label.name', 'PGN'),
+      m('textarea.copyable[readonly][spellCheck=false]', {
+        value: pgnExport(ctrl)
+      })
+    ])
   ]);
 }
 

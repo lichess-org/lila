@@ -34,9 +34,9 @@ final class BoostingApi(
   def determineBoosting(record: BoostingRecord, winner: User, loser: User): Funit =
     (record.games >= nbGamesToMark) ?? {
       {
-        (record.games >= (winner.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(winner.id)
+        (record.games >= (winner.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(winner.id, loser.id)
       } >> {
-        (record.games >= (loser.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(loser.id)
+        (record.games >= (loser.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(loser.id, winner.id)
       }
     }
 

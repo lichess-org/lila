@@ -14,7 +14,8 @@ $(function() {
         } else {
           $('body').trigger('lichess.content_loaded');
           $result.find("a.permalink").each(function() {
-            $(this).attr("href", $(this).attr("href") + "?" + $form.serialize());
+            var $used = $form.find(":input").filter(function(){ return !!this.value; });
+            $(this).attr("href", $(this).attr("href") + "?" + $used.serialize());
           });
           $result.find('.search_infinitescroll:has(.pager a)').each(function() {
             var $next = $(this).find(".pager a:last");
