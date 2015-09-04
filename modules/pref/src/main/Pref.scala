@@ -141,8 +141,8 @@ object Pref {
 
     val choices = Seq(
       NEVER -> "Never",
-      CORRESPONDENCE_ONLY -> "In correspondence games only",
-      CORRESPONDENCE_UNLIMITED -> "In correspondence and unlimited games",
+      CORRESPONDENCE_ONLY -> "Correspondence games only",
+      CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
       ALWAYS -> "Always")
   }
 

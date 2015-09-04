@@ -124,7 +124,7 @@ trait SetupHelper { self: I18nHelper =>
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.str()),
     (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.inCorrespondenceGames.str()),
-    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED,  "In correspondence and unlimited games"),
+    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED,  "Correspondence and unlimited"),
     (Pref.SubmitMove.ALWAYS, trans.always.str())
   )
 
