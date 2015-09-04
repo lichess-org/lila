@@ -45,8 +45,8 @@ object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
-  def first(game: Game) = apply(game, game.firstPlayer)
-  def second(game: Game) = apply(game, game.secondPlayer)
+  def first(game: Game) = apply(game, if (!game.variant.racingKings) game.firstPlayer else game.whitePlayer)
+  def second(game: Game) = apply(game, if (!game.variant.racingKings) game.secondPlayer else game.blackPlayer)
   def white(game: Game) = apply(game, game.whitePlayer)
   def black(game: Game) = apply(game, game.blackPlayer)
   def player(game: Game) = apply(game, game.player)
