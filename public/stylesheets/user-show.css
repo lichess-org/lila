@@ -115,13 +115,16 @@ div.user_show .social {
   padding: 0 0 5px 10px;
   height: 52px;
 }
-div.user_show .relation_actions {
+div.user_show .user_actions {
   position: absolute;
   top: 12px;
   right: 12px;
   font-size: 1.2em;
 }
-div.user_show .relation_actions form {
+div.user_show .user_actions form {
+  display: inline;
+}
+div.user_show .relation_actions {
   display: inline;
 }
 div.user_show div.meat {

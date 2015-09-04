@@ -2228,10 +2228,10 @@ button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-div.relation_actions {
+div.user_actions {
   white-space: nowrap;
 }
-div.relation_actions .button {
+div.user_actions .button {
   margin: 0 -3px 0 -3px;
 }
 div.relation_actions a.relation.processing {
