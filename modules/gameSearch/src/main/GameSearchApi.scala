@@ -50,7 +50,8 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.opening -> (game.opening map (_.code.toLowerCase)),
     Fields.analysed -> analysed,
     Fields.whiteUser -> game.whitePlayer.userId,
-    Fields.blackUser -> game.blackPlayer.userId
+    Fields.blackUser -> game.blackPlayer.userId,
+    Fields.source -> game.source.map(_.id)
   ).noNull
 
   def reset(max: Option[Int]): Funit = client match {
