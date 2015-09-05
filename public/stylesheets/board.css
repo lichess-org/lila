@@ -388,15 +388,18 @@ div.lichess_board {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
   content: '';
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .racingKings .cg-board.orientation-black::after {
-  bottom: 0;
   width: 100%;
   height: 12.5%;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
   content: '';
   position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 /* KotH boards */

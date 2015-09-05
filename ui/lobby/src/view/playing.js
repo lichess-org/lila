@@ -18,14 +18,14 @@ module.exports = function(ctrl) {
         class: pov.isMyTurn ? 'my_turn' : ''
       }, [
         m('span', {
-            class: 'mini_board is2d',
+            class: 'mini_board is2d ' + pov.variant.key,
             config: function(el, isUpdate, ctx) {
               var lm = pov.lastMove;
               var config = {
                 coordinates: false,
                 viewOnly: true,
                 minimalDom: true,
-                orientation: pov.color,
+                orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,
                 fen: pov.fen,
                 lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : []
               };
