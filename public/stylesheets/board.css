@@ -382,11 +382,21 @@ div.lichess_board {
 
 /* Racing Kings board decorations */
 
-.racingKings .full-dom .orientation-white > .cg-square:nth-child(n+9):nth-child(-n+16) {
-  box-shadow: inset 0 20px 20px -20px red;
+.racingKings .cg-board.orientation-white::after {
+  width: 100%;
+  height: 12.5%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
+  content: '';
+  position: absolute;
 }
-.racingKings .full-dom .orientation-black > .cg-square:nth-child(n+57) {
-  box-shadow: inset 0 20px 20px -20px red;
+
+.racingKings .cg-board.orientation-black::after {
+  bottom: 0;
+  width: 100%;
+  height: 12.5%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
+  content: '';
+  position: absolute;
 }
 
 /* KotH boards */
