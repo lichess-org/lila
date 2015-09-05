@@ -379,53 +379,19 @@ div.lichess_board {
 #top div.color_demo.maple {
   background-image: url(../images/board/maple.jpg);
 }
-/* KotH boards */
 
-.blue .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue.jpg);
+/* KotH board decoration */
+
+.kingOfTheHill .cg-board::after {
+  width: 25%;
+  height: 25%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  content: '';
+  position: absolute;
+  top: 37.5%;
+  left: 37.5%;
 }
-.blue2 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue2.jpg);
-}
-.blue3 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue3.jpg);
-}
-.wood2 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood2.jpg);
-}
-.wood3 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood3.jpg);
-}
-.marble .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/marble.jpg);
-}
-.brown .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/brown.jpg);
-}
-.green .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/green.jpg);
-}
-.olive .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/olive.jpg);
-}
-.purple .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/purple.jpg);
-}
-.grey .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/grey.jpg);
-}
-.wood .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood.jpg);
-}
-.canvas .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/canvas.jpg);
-}
-.leather .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/leather.jpg);
-}
-.metal .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/metal.jpg);
-}
+
 .is2d .cg-board-wrap.minimal-dom {
   background: none;
 }
