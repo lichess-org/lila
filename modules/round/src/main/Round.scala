@@ -22,6 +22,7 @@ private[round] final class Round(
     player: Player,
     drawer: Drawer,
     socketHub: ActorRef,
+    monitorMove: Int => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -41,9 +42,11 @@ private[round] final class Round(
       self ! SequentialActor.Terminate
     }
 
-    case p: HumanPlay => handle(p.playerId) { pov =>
-      pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
-    }
+    case p: HumanPlay =>
+      val startAt = nowMillis
+      handle(p.playerId) { pov =>
+        pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
+      } >>- monitorMove((nowMillis - startAt).toInt)
 
     case AiPlay => handle { game =>
       game.playableByAi ?? {

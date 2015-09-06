@@ -113,6 +113,11 @@ $(function() {
   });
 
   add({
+    id: 'mlat',
+    title: "Move lag",
+  });
+
+  add({
     id: 'load',
     title: "Load Average",
   });

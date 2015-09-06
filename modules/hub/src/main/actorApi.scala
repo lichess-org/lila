@@ -177,6 +177,7 @@ case class AutoAnalyse(gameId: String)
 package monitor {
 case object AddRequest
 case object Update
+case class Move(micros: Int)
 }
 
 package round {

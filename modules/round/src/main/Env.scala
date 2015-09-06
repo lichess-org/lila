@@ -62,6 +62,7 @@ final class Env(
       player = player,
       drawer = drawer,
       socketHub = socketHub,
+      monitorMove = (ms: Int) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
