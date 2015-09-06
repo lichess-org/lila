@@ -500,3 +500,7 @@ keyGoToStartOrEnd=رفتن به آغاز/پایان
 keyShowOrHideComments=نمایش/ پنهان کردن نظرات
 keyEnterOrExitVariation=ورود / خروج به شاخه
 keyYouCanDrawArrowsCirclesAndScrollToMove=از شیفت+کلیک یا راست کلیک برای کشیدن دایره یا پیکان در صفحه استفاده کنید. همچنین میتوانید روی صفحه اسکرول کنید تا در بازی حرکت کنید.
+newTournament=مسابقه جدید
+tournamentNotFound=مسابقات یافت نشد
+tournamentDoesNotExist=این مسابقات وجود ندارد
+returnToTournamentsHomepage=بازگشت به صفحه اصلی مسابقات
