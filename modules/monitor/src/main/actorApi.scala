@@ -9,6 +9,7 @@ case class Member(channel: JsChannel) extends SocketMember {
 }
 
 case object GetNbMoves
+case object GetMoveLatency
 
 case class Join(uid: String)
 case class MonitorData(data: List[String])

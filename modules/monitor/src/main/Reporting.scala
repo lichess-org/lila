@@ -62,30 +62,32 @@ private[monitor] final class Reporting(
     case NbMembers(nb, _) => nbMembers = nb
 
     case GetNbMoves       => sender ! moveWindowCount.get
+    case GetMoveLatency   => sender ! moveAvgMillis
 
-    case Update => socket ? PopulationGet foreach {
-      case 0 => idle = true
-      case _ => {
-        val before = nowMillis
-        MongoStatus(db.db)(mongoStatus) onComplete {
-          case Failure(e) => logwarn("[reporting] " + e.getMessage)
-          case Success(mongoS) => {
-            latency = (nowMillis - before).toInt
-            mongoStatus = mongoS
-            loadAvg = osStats.getSystemLoadAverage.toFloat
-            nbThreads = threadStats.getThreadCount
-            memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-            mps = moveWindowCount.get
-            rps = reqWindowCount.get
-            cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-            if (moveMillis.size > 0) moveAvgMillis = moveMillis.sum / moveMillis.size
-            moveMillis.clear
-            socket ! MonitorData(monitorData(idle))
-            idle = false
+    case Update =>
+      if (moveMillis.size > 0) moveAvgMillis = moveMillis.sum / moveMillis.size
+      moveMillis.clear
+      socket ? PopulationGet foreach {
+        case 0 => idle = true
+        case _ => {
+          val before = nowMillis
+          MongoStatus(db.db)(mongoStatus) onComplete {
+            case Failure(e) => logwarn("[reporting] " + e.getMessage)
+            case Success(mongoS) => {
+              latency = (nowMillis - before).toInt
+              mongoStatus = mongoS
+              loadAvg = osStats.getSystemLoadAverage.toFloat
+              nbThreads = threadStats.getThreadCount
+              memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+              mps = moveWindowCount.get
+              rps = reqWindowCount.get
+              cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
+              socket ! MonitorData(monitorData(idle))
+              idle = false
+            }
           }
         }
       }
-    }
   }
 
   private def monitorData(idle: Boolean) = List(
