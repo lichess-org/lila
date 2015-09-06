@@ -29,7 +29,7 @@
     "watchify": "~3.1.1"
   },
   "dependencies": {
-    "chessground": "2.9.4",
+    "chessground": "2.9.5",
     "game": "file:../game",
     "mithril": "0.2.0"
   }
