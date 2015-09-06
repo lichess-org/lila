@@ -22,7 +22,7 @@ moreJs = moreJs) {
   <table class="slist see">
     <thead>
       <tr>
-        <th>Author</th>
+        <th data-hint="Reports by Lichess are automatic detection." class="hint--bottom">Author</th>
         <th>Reported</th>
         <th>For</th>
         <th></th>
@@ -43,7 +43,7 @@ moreJs = moreJs) {
         </td>
         <td>@r.processedBy.map { u =>
           }.getOrElse {
-          <form action="@routes.Report.process(r.id)" method="post">
+          <form action="@routes.Report.process(r.id)" method="post" data-hint="Dismiss this report as processed." class="hint--bottom-left">
             <button type="submit" data-icon="E" class="button"></button>
           </form>
           }
