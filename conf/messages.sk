@@ -493,3 +493,7 @@ keyMoveBackwardOrForward=pohyb dopredu/späť
 keyGoToStartOrEnd=ísť na začiatok/koniec
 keyShowOrHideComments=zobraziť/skryť komentáre
 keyEnterOrExitVariation=zvoliť/opustiť variant
+newTournament=Nový turnaj
+tournamentNotFound=Turnaj nebyl nalezen
+tournamentDoesNotExist=Zvolený turnaj neexistuje
+returnToTournamentsHomepage=Zpátky na přehled turnajů
