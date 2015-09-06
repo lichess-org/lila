@@ -633,6 +633,11 @@ lichess.desktopNotification = function(msg) {
         $(this).select();
       });
 
+      $('#lichess').on('click', '.copyable ~ .copy', function() {
+        $(this).prev().select();
+        document.execCommand('copy');
+      });
+
       $('body').on('click', '.relation_actions a.relation', function() {
         var $a = $(this).addClass('processing');
         $.ajax({
