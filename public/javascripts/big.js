@@ -633,6 +633,32 @@ lichess.desktopNotification = function(msg) {
         $(this).select();
       });
 
+      $('#lichess').on('click', '.copyable ~ .copy', function() {
+        var prev = $(this).prev();
+        if (document.queryCommandSupported('copy')) {
+          // Awesome! Done in five seconds, can go home.
+          prev.select();
+          document.execCommand('copy');
+        } else if (window.clipboardData) {
+          // For a certain specific Internet Explorer version *cough cough IE8*
+          window.clipboardData.setData('Text', prev.val());
+        } else {
+          var usePrompt = function() {
+            prompt('Your browser does not support automatic copying. Copy this text manually with Ctrl + C:', prev.val());
+          };
+          if (window.ClipboardEvent) try {
+            // For really old Firefox versions (FF22+)
+            console.log(new window.ClipboardEvent('copy', {
+              dataType: 'text/plain',
+              data: prev.val();
+            }))
+          } catch (ex) {
+            usePrompt();
+          }
+          usePrompt();
+        }
+      });
+
       $('body').on('click', '.relation_actions a.relation', function() {
         var $a = $(this).addClass('processing');
         $.ajax({

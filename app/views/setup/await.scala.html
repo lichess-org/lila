@@ -36,7 +36,7 @@ side = Html("")) {
     </div>
     }.getOrElse {
     @trans.toInviteSomeoneToPlayGiveThisUrl():
-    <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" />
+    <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" /><button class="copy button" data-icon="&quot;"></button>
     <p class="explanations">
       @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()<br />
       <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
