@@ -2079,11 +2079,6 @@ lichess.desktopNotification = function(msg) {
   // tournament.js //
   ///////////////////
 
-  if (lichess.tournamentSchedule) {
-    lichess.StrongSocket.defaults.params.flag = "tournament";
-    lichess.StrongSocket.defaults.events.reload = lichess.tournamentSchedule.update;
-  }
-
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();

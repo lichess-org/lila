@@ -4,12 +4,13 @@
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
 @jsAt("javascripts/vendor/dragscroll.js")
 @embedJs {
-var lichess = lichess || {};
-lichess.tournamentSchedule = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
+var app = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
 data: @Html(J.stringify(json)),
 i18n: @jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 });
+lichess.StrongSocket.defaults.params.flag = "tournament";
+lichess.StrongSocket.defaults.events.reload = app.update;
 }
 }
 
