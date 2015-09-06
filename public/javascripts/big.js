@@ -1519,11 +1519,6 @@ lichess.desktopNotification = function(msg) {
           });
         });
       });
-      if (lichess.storage.get('game.settings.seen')) $menu.find('a:first').click();
-      else {
-        lichess.storage.set('game.settings.seen', 1);
-        $menu.find('a[data-panel=preferences]').click();
-      }
 
       $notes = self.element.find('.notes textarea');
       if (self.options.gameId && $notes.length) {
