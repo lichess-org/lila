@@ -41,6 +41,9 @@ object JsData extends lila.Steroids {
             "moves" -> ident.moves)
         }
       ),
+      "pref" -> Json.obj(
+        "coords" -> ctx.pref.coords
+      ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),

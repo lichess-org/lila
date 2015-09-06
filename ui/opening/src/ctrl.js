@@ -87,6 +87,7 @@ module.exports = function(cfg, router, i18n) {
   this.chessground = new chessground.controller({
     fen: this.data.opening.fen,
     orientation: this.data.opening.color,
+    coordinates: this.data.pref.coords !== 0,
     turnColor: this.data.opening.color,
     check: init.check,
     autoCastle: true,
