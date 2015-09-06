@@ -650,8 +650,8 @@ lichess.desktopNotification = function(msg) {
             // For really old Firefox versions (FF22+)
             console.log(new window.ClipboardEvent('copy', {
               dataType: 'text/plain',
-              data: prev.val();
-            }))
+              data: prev.val()
+            }));
           } catch (ex) {
             usePrompt();
           }
