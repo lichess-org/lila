@@ -640,15 +640,16 @@ lichess.desktopNotification = function(msg) {
           prompt('Your browser does not support automatic copying. Copy this text manually with Ctrl + C:', prev.val());
         };
         try {
-        if (document.queryCommandSupported('copy')) {
-          // Awesome! Done in five seconds, can go home.
-          prev.select();
-          document.execCommand('copy');
-        } else if (window.clipboardData) {
-          // For a certain specific Internet Explorer version *cough cough IE8*
-          window.clipboardData.setData('Text', prev.val());
-        } else usePrompt();
-        } catch(e) {
+          if (document.queryCommandSupported('copy')) {
+            // Awesome! Done in five seconds, can go home.
+            prev.select();
+            document.execCommand('copy');
+          } else if (window.clipboardData) {
+            // For a certain specific Internet Explorer version *cough cough IE8*
+            window.clipboardData.setData('Text', prev.val());
+          } else throw 'nope';
+          $(this).attr('data-icon', 'E');
+        } catch (e) {
           usePrompt();
         }
       });
