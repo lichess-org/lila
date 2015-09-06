@@ -38,7 +38,7 @@ final class ESClientHttp(
     HTTP(s"delete/query/${index.name}/${query.value}", Json.obj())
 
   def createTempIndex = {
-    val tempIndex = Index(s"${index.name}_temp_${ornicar.scalalib.Random.nextString(4)}")
+    val tempIndex = Index(s"${index.name}_${ornicar.scalalib.Random.nextString(4)}")
     val tempClient = new ESClientHttpTemp(
       index,
       new ESClientHttp(endpoint, tempIndex, writeable))
