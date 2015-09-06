@@ -22,7 +22,14 @@ final class Tv(actor: ActorRef) {
         none
     } flatMap { _ ?? GameRepo.game }
 
+  def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
+    (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[String]]) recover {
+      case e: Exception => Nil
+    } flatMap GameRepo.games
+
   def getBest = getGame(Tv.Channel.Best)
+
+  def getBestGames(max: Int) = getGames(Tv.Channel.Best, max)
 
   def getChampions: Fu[Champions] =
     actor ? TvActor.GetChampions mapTo manifest[Champions]

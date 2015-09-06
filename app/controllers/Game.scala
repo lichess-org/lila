@@ -58,4 +58,10 @@ object Game extends LilaController {
           })
       else notFound
   }
+
+  def playing = Open { implicit ctx =>
+    Env.tv.tv.getBestGames(16) map { games =>
+      html.game.playing(games map lila.game.Pov.first)
+    }
+  }
 }

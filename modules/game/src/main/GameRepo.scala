@@ -323,7 +323,10 @@ object GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    $query.all sort Query.sortCreated skip (Random nextInt 100))
+    $query.all sort Query.sortCreated skip (Random nextInt 1000))
+
+  def random(nb: Int): Fu[List[Game]] = $find(
+    $query.all sort Query.sortCreated skip (Random nextInt 1000), nb)
 
   def findMirror(game: Game): Fu[Option[Game]] = $find.one($query(
     BSONDocument(
