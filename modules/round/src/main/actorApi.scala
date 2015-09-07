@@ -91,14 +91,17 @@ case class SetGame(game: Option[lila.game.Game])
 package round {
 
 case class HumanPlay(
-  playerId: String,
-  ip: String,
-  orig: String,
-  dest: String,
-  prom: Option[String],
-  blur: Boolean,
-  lag: FiniteDuration,
-  onFailure: Exception => Unit)
+    playerId: String,
+    ip: String,
+    orig: String,
+    dest: String,
+    prom: Option[String],
+    blur: Boolean,
+    lag: FiniteDuration,
+    onFailure: Exception => Unit) {
+
+  val atMillis = nowMillis
+}
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

@@ -43,10 +43,9 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
-      val startAt = nowMillis
       handle(p.playerId) { pov =>
         pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
-      } >>- monitorMove((nowMillis - startAt).toInt)
+      } >>- monitorMove((nowMillis - p.atMillis).toInt)
 
     case AiPlay => handle { game =>
       game.playableByAi ?? {
