@@ -15,6 +15,8 @@ object Handler {
   type Controller = PartialFunction[(String, JsObject), Unit]
   type Connecter = PartialFunction[Any, (Controller, JsEnumerator, SocketMember)]
 
+  val emptyController: Controller = PartialFunction.empty
+
   def apply(
     hub: lila.hub.Env,
     socket: ActorRef,
@@ -26,6 +28,9 @@ object Handler {
       case ("p", _) => socket ! Ping(uid)
       case ("following_onlines", _) => userId foreach { u =>
         hub.actor.relation ! ReloadOnlineFriends(u)
+      }
+      case ("startWatching", o) => o str "d" foreach { ids =>
+        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
       case ("anaMove", o) =>
         AnaMove parse o foreach { anaMove =>
