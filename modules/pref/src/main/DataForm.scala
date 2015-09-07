@@ -23,7 +23,7 @@ private[pref] final class DataForm {
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "premove" -> number.verifying(Set(0, 1) contains _),
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-    "submitMove" -> number.verifying(Set(0, 1, 2) contains _),
+    "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
     "coachShare" -> number.verifying(Set(0, 1, 2) contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
@@ -97,7 +97,7 @@ private[pref] final class DataForm {
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
     "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
-    "submitMove" -> number.verifying(Set(0, 1, 2) contains _)
+    "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _)
   )(MiniPrefData.apply)(MiniPrefData.unapply))
 
   case class MiniPrefData(
