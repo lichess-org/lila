@@ -1540,6 +1540,7 @@ lichess.desktopNotification = function(msg) {
           });
         });
       });
+      $menu.find('a:first').click();
 
       $notes = self.element.find('.notes textarea');
       if (self.options.gameId && $notes.length) {
