@@ -33,7 +33,8 @@ object Monitor extends LilaController {
   }
 
   private def handleStatus(key: String) = key match {
-    case "moves" => (env.reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
+    case "threads"     => Ok(java.lang.management.ManagementFactory.getThreadMXBean.getThreadCount).fuccess
+    case "moves"       => (env.reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
     case "moveLatency" => (env.reporting ? GetMoveLatency).mapTo[Int] map { Ok(_) }
     case "players" => {
       (env.reporting ? PopulationGet).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
@@ -49,7 +50,7 @@ last deploy: ${lila.common.PlayApp.startedAt}"""
       }
     }
     case "locale" => Ok(java.util.Locale.getDefault.toString).fuccess
-    case key => BadRequest(s"Unknown monitor status key: $key").fuccess
+    case key      => BadRequest(s"Unknown monitor status key: $key").fuccess
   }
 
   private def prop(name: String) = System.getProperty(name)
