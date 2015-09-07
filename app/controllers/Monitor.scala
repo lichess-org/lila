@@ -41,11 +41,16 @@ object Monitor extends LilaController {
     case "uptime" => fuccess {
       val up = lila.common.PlayApp.uptime
       Ok {
-        val human = org.joda.time.format.PeriodFormat.wordBased(new java.util.Locale("en")).print(up)
-        s"last deploy: ${lila.common.PlayApp.startedAt}\nuptime seconds: ${up.toStandardSeconds.getSeconds}\nuptime: $human"
+        s"""${prop("java.vm.name")} ${prop("java.vendor")} ${prop("java.version")}
+${prop("user.name")} @ ${prop("os.arch")} ${prop("os.name")} ${prop("os.version")}
+uptime: ${org.joda.time.format.PeriodFormat.wordBased(new java.util.Locale("en")).print(up)}
+uptime seconds: ${up.toStandardSeconds.getSeconds}
+last deploy: ${lila.common.PlayApp.startedAt}"""
       }
     }
     case "locale" => Ok(java.util.Locale.getDefault.toString).fuccess
     case key => BadRequest(s"Unknown monitor status key: $key").fuccess
   }
+
+  private def prop(name: String) = System.getProperty(name)
 }
