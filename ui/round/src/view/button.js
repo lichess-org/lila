@@ -34,8 +34,8 @@ module.exports = {
   },
   resignConfirm: function(ctrl) {
     return m('div.resign_confirm', [
-      m('button.button.yes', {
-        'data-icon': 'E',
+      m('button.button.yes.active', {
+        'data-icon': 'b',
         onclick: partial(ctrl.resign, true)
       }), m('button.button.no', {
         'data-icon': 'L',
