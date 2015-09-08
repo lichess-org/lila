@@ -1012,22 +1012,17 @@ lichess.desktopNotification = function(msg) {
         }).find('div.pager').hide();
       });
 
-      $('#top a.toggle').each(function() {
-        var $this = $(this);
-        var $p = $this.parent();
-        $this.click(function() {
-          $p.toggleClass('shown');
-          $p.siblings('.shown').removeClass('shown');
-          setTimeout(function() {
-            $p.click(function(e) {
-              e.stopPropagation();
-            });
-            $('html').one('click', function(e) {
-              $p.removeClass('shown').off('click');
-            });
-          }, 10);
-          return false;
-        });
+      $('#top').on('click', 'a.toggle', function() {
+        var $p = $(this).parent();
+        console.log(this, $p);
+        $p.toggleClass('shown');
+        $p.siblings('.shown').removeClass('shown');
+        setTimeout(function() {
+          $('html').one('click', function(e) {
+            $p.removeClass('shown').off('click');
+          });
+        }, 10);
+        return false;
       });
 
       var acceptLanguages = $('body').data('accept-languages');
