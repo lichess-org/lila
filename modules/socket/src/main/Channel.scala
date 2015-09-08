@@ -20,9 +20,7 @@ final class Channel extends Actor {
 
     case SocketLeave(_, member) => members -= member
 
-    case Publish(msg) =>
-      println(members.size)
-      members.foreach(_ push msg)
+    case Publish(msg) => members.foreach(_ push msg)
 
   }
 }
