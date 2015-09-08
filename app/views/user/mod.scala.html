@@ -19,7 +19,7 @@
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){Blocks}else{Allows} the user with communication features." class="hint--bottom">
+  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){Allows}else{Blocks} the user with communication features." class="hint--bottom">
     <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
   </form>
   }
