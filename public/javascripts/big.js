@@ -465,6 +465,15 @@ lichess.desktopNotification = function(msg) {
       },
       mlat: function(e) {
         console.log(e);
+        var $t = $('#top .server strong');
+        if ($t.is(':visible')) {
+          $t.text(e);
+          var l = parseInt(e || 0) + parseInt(lichess.socket.options.lagTag.text()) - 100;
+          var ratio = Math.max(Math.min(l / 1200, 1), 0);
+          var hue = ((1 - ratio) * 120).toString(10);
+          var color = ['hsl(', hue, ',100%,40%)'].join('');
+          $('#top .status .led').css('background', color);
+        } else lichess.socket.send('moveLat', false);
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -1014,14 +1023,14 @@ lichess.desktopNotification = function(msg) {
 
       $('#top').on('click', 'a.toggle', function() {
         var $p = $(this).parent();
-        console.log(this, $p);
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
         setTimeout(function() {
           $('html').one('click', function(e) {
-            $p.removeClass('shown').off('click');
+            $p.removeClass('shown');
           });
         }, 10);
+        if ($p.hasClass('auth')) lichess.socket.send('moveLat', true);
         return false;
       });
 
@@ -1650,7 +1659,6 @@ lichess.desktopNotification = function(msg) {
     $('body').on('socket.open', function() {
       socketOpened = true;
       startWatching();
-      lichess.socket.send("moveLat", true);
     });
 
     setTimeout(function() {

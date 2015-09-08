@@ -32,9 +32,9 @@ object Handler {
       case ("startWatching", o) => o str "d" foreach { ids =>
         hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
-      case ("moveLat", o) => o boolean "d" foreach { v =>
-        hub.channel.moveLat ! v.fold(Channel.Sub(member), Channel.UnSub(member))
-      }
+      case ("moveLat", o) => hub.channel.moveLat ! (~(o boolean "d")).fold(
+        Channel.Sub(member),
+        Channel.UnSub(member))
       case ("anaMove", o) =>
         AnaMove parse o foreach { anaMove =>
           anaMove.step match {

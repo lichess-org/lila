@@ -1213,9 +1213,29 @@ body.fpmenu #fpmenu {
   margin-top: 5px;
   border-top: 1px solid #d4d4d4;
 }
-#top div.auth .ping {
+#top div.auth .status {
+  position: relative;
+  padding-bottom: 5px;
+}
+#top div.auth .status .led {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-size: 20px;
+  opacity: 0.8;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 2px 0 rgba(0,0,0,0.4);
+}
+#top div.auth .status .ping,
+#top div.auth .status .server {
   display: block;
-  padding: 5px 10px 10px 10px;
+  font-family: monospace;
+  padding-left: 10px;
+}
+#top div.auth .status strong {
+  padding: 0 5px;
 }
 #challenge_notifications_tag.none {
   display: none!important;
