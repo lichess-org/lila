@@ -884,9 +884,6 @@ body.offline #reconnecting,
   display: inline-block;
   color: #dc322f;
 }
-body.offline #nb_connected_players {
-  display: none;
-}
 #top .fright {
   float: right;
 }
