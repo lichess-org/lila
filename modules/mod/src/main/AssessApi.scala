@@ -181,7 +181,7 @@ final class AssessApi(
       else none
 
     shouldAnalyse foreach { reason =>
-      // println(s"[autoanalyse] ${game.id} $reason")
+      play.api.Logger("autoanalyse").debug(s"http://lichess.org/${game.id} $reason")
       analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
     }
 
