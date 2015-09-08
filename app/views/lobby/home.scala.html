@@ -39,10 +39,13 @@
 }
 
 @baseline = {
-<div id="nb_connected_players" class="baseline">
+<a id="nb_connected_players" class="revert-underline" href="@routes.User.list">
   @trans.nbConnectedPlayers("<strong>?</strong>")
-</div>
-<div id="nb_games_in_play" class="baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</div>
+</a>
+<br />
+<a id="nb_games_in_play" class="revert-underline" href="@routes.Game.playing">
+  @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
+</a>
 @if(lila.common.HTTPRequest.isMobile(ctx.req)) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
