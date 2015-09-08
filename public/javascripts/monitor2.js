@@ -86,62 +86,63 @@ $(function() {
 
   add({
     id: 'users',
-    title: 'Active Users'
+    title: 'Open Websockets'
   });
 
   add({
     id: 'lat',
-    title: 'Global Latency',
+    title: 'Report generation time',
     type: 'area',
     format: '{value} ms'
   });
 
   add({
     id: 'rps',
-    title: "HTTP Requests",
+    title: "HTTP Requests /s",
   });
 
   add({
     id: 'cpu',
-    title: "JVM CPU",
+    title: "JVM CPU usage",
     format: "{value}%"
   });
 
   add({
     id: 'mps',
-    title: "Chess Moves",
+    title: "Chess Moves /s"
   });
 
   add({
     id: 'mlat',
-    title: "Move lag",
+    title: "Time to process a move",
+    format: '{value} ms'
   });
 
   add({
     id: 'load',
-    title: "Load Average",
+    title: "Load Average"
   });
 
   add({
     id: 'dbMemory',
-    title: "MongoDB Memory",
+    title: "MongoDB Memory usage",
     format: "{value} MB"
   });
 
   add({
     id: 'dbQps',
-    title: "MongoDB Queries",
+    title: "MongoDB Queries /s",
   });
 
   add({
     id: 'memory',
-    title: "JVM Memory",
+    title: "JVM Memory usage",
     format: "{value} MB"
   });
 
   add({
     id: 'thread',
-    title: "JVM Threads",
+    title: "JVM Threads"
   });
 
   // add({
