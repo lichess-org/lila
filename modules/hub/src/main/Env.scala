@@ -34,6 +34,10 @@ final class Env(config: Config, system: ActorSystem) {
     val userRegister = select("actor.user_register")
   }
 
+  object channel {
+    val moveLat = select("channel.move_lat")
+  }
+
   object socket {
     val lobby = select("socket.lobby")
     val round = select("socket.round")

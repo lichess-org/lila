@@ -463,6 +463,9 @@ lichess.desktopNotification = function(msg) {
           }
         }
       },
+      mlat: function(e) {
+        console.log(e);
+      },
       redirect: function(o) {
         setTimeout(function() {
           lichess.hasToReload = true;
@@ -1652,6 +1655,7 @@ lichess.desktopNotification = function(msg) {
     $('body').on('socket.open', function() {
       socketOpened = true;
       startWatching();
+      lichess.socket.send("moveLat", true);
     });
 
     setTimeout(function() {
