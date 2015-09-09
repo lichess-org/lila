@@ -20,9 +20,16 @@ object Team extends LilaController {
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
     getForumPosts = Env.forum.recent.team _) _
 
-  def home(page: Int) = Open { implicit ctx =>
+  def all(page: Int) = Open { implicit ctx =>
     NotForKids {
       paginator popularTeams page map { html.team.home(_) }
+    }
+  }
+
+  def home(page: Int) = Open { implicit ctx =>
+    NotForKids {
+      if (ctx.me.??(api.hasTeams)) Redirect(routes.Team.mine).fuccess
+      else Redirect(routes.Team.all(page)).fuccess
     }
   }
 
