@@ -11,6 +11,8 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Builder,
     shutup: ActorSelection,
     blocks: (String, String) => Fu[Boolean],
+    follows: (String, String) => Fu[Boolean],
+    getPref: String => Fu[lila.pref.Pref],
     system: ActorSystem) {
 
   private val CollectionThread = config getString "collection.thread"
@@ -24,7 +26,7 @@ final class Env(
 
   private lazy val unreadCache = new UnreadCache(mongoCache)
 
-  lazy val forms = new DataForm(blocks = blocks)
+  lazy val forms = new DataForm(security = security)
 
   lazy val api = new Api(
     unreadCache = unreadCache,
@@ -32,6 +34,11 @@ final class Env(
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
     bus = system.lilaBus)
+
+  lazy val security = new MessageSecurity(
+    follows = follows,
+    blocks = blocks,
+    getPref = getPref)
 
   system.actorOf(Props(new Actor {
     def receive = {
@@ -55,5 +62,7 @@ object Env {
     shutup = lila.hub.Env.current.actor.shutup,
     mongoCache = lila.memo.Env.current.mongoCache,
     blocks = lila.relation.Env.current.api.blocks,
+    follows = lila.relation.Env.current.api.follows,
+    getPref = lila.pref.Env.current.api.getPref,
     system = lila.common.PlayApp.system)
 }

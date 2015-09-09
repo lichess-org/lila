@@ -33,6 +33,7 @@ case class Pref(
     coords: Int,
     replay: Int,
     challenge: Int,
+    message: Int,
     coordColor: Int,
     puzzleDifficulty: Int,
     submitMove: Int,
@@ -257,6 +258,17 @@ object Pref {
     }
   }
 
+  object Message {
+    val NEVER = 1
+    val FRIEND = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      FRIEND -> "Only friends",
+      ALWAYS -> "Always")
+  }
+
   def create(id: String) = default.copy(_id = id)
 
   lazy val default = Pref(
@@ -286,6 +298,7 @@ object Pref {
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.RATING,
+    message = Message.ALWAYS,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
