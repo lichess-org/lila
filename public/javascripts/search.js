@@ -17,7 +17,7 @@ $(function() {
     var serialized = serialize();
     $result.find("a.permalink").each(function() {
       var s = $(this).hasClass('download') ? serialize(true) : serialized;
-      $(this).attr("href", $(this).attr("href") + "?" + s);
+      $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
     });
     $result.find('.search_infinitescroll:has(.pager a)').each(function() {
       var $next = $(this).find(".pager a:last");
@@ -63,7 +63,7 @@ $(function() {
       userChoices(this);
     });
   }).trigger("keyup");
-  $usernames.bindWithDelay("keyup", realtimeResults, 400);
+  $usernames.bindWithDelay("keyup", realtimeResults, 700);
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function() {
