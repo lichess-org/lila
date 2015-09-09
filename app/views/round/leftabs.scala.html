@@ -50,7 +50,7 @@
           @base.radios(form("blindfold"), lila.pref.Pref.Blindfold.choices, container = true, prefix = "igp_")
         </div>
       </form>
-      <a target="_blank" class="prefs button text" data-icon="%" href="@routes.Pref.form">@trans.preferences()</a>
+      <a target="_blank" class="prefs button text" data-icon="%" href="@routes.Pref.form("game-display")">@trans.preferences()</a>
     </div>
     }
   </div>

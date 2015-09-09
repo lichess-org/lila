@@ -1,0 +1,6 @@
+@(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg)(body: Html)(implicit ctx: Context)
+
+<fieldset@if(categ != active) { class="none" }>
+  <legend>@categName(categ)</legend>
+  @body
+</fieldset>

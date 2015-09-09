@@ -13,16 +13,20 @@ object Pref extends LilaController {
   private def api = Env.pref.api
   private def forms = Env.pref.forms
 
-  def form = Auth { implicit ctx =>
+  def form(categSlug: String) = Auth { implicit ctx =>
     me =>
-      Ok(html.account.pref(me, forms prefOf ctx.pref)).fuccess
+      lila.pref.PrefCateg(categSlug) match {
+        case None => notFound
+        case Some(categ) =>
+          Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
+      }
   }
 
   def formApply = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
       FormFuResult(forms.pref) { err =>
-        fuccess(html.account.pref(me, err))
+        fuccess(err.toString)
       } { data =>
         api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
       }

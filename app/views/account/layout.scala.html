@@ -11,9 +11,11 @@
 <a class="@active.active("editProfile")" href="@routes.Account.profile()">
   @trans.editProfile()
 </a>
-<a class="@active.active("preferences")" href="@routes.Pref.form()">
-  @trans.preferences()
+@lila.pref.PrefCateg.all.map { categ =>
+<a class="@active.active(categ.slug)" href="@routes.Pref.form(categ.slug)">
+  @categName(categ)
 </a>
+}
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
 </a>
