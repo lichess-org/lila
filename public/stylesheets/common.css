@@ -1216,6 +1216,7 @@ body.fpmenu #fpmenu {
 #top div.auth .status {
   position: relative;
   padding-bottom: 5px;
+  min-width: 133px;
 }
 #top div.auth .status .led {
   position: absolute;
