@@ -869,6 +869,9 @@ div.side form.search input {
   border: 1px solid #dadada;
   border-right: none;
 }
+#site_header div.side_menu .sep {
+  margin: 10px;
+}
 #top .link {
   text-decoration: none;
   font-size: 13px;

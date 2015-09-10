@@ -8,14 +8,15 @@
 }
 
 @menu = {
-<a class="@active.active("editProfile")" href="@routes.Account.profile()">
-  @trans.editProfile()
-</a>
 @lila.pref.PrefCateg.all.map { categ =>
 <a class="@active.active(categ.slug)" href="@routes.Pref.form(categ.slug)">
   @categName(categ)
 </a>
 }
+<div class="sep"></div>
+<a class="@active.active("editProfile")" href="@routes.Account.profile()">
+  @trans.editProfile()
+</a>
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
 </a>
@@ -25,6 +26,7 @@
 <a class="@active.active("kid")" href="@routes.Account.kid()">
   Kid mode
 </a>
+<div class="sep"></div>
 <a class="@active.active("close")" href="@routes.Account.close()">
   @trans.closeAccount()
 </a>

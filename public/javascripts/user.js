@@ -55,7 +55,10 @@ $(function() {
       $.ajax({
         url: $form.attr('action'),
         method: $form.attr('method'),
-        data: $form.serialize()
+        data: $form.serialize(),
+        success: function() {
+          $form.find('.saved').fadeIn();
+        }
       });
     });
   });
