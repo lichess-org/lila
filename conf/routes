@@ -257,6 +257,7 @@ GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
+GET   /mod/whois/:ip                   controllers.Mod.whois(ip: String)
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
