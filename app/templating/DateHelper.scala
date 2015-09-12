@@ -55,7 +55,7 @@ trait DateHelper { self: I18nHelper =>
     englishDateFormatter print date
 
   def semanticDate(date: DateTime)(implicit ctx: Context) = Html {
-    s"""<time datetime="${isoFormatter print date}">${showDate(date)}</time>"""
+    s"""<time datetime="${isoDate(date)}">${showDate(date)}</time>"""
   }
 
   def showPeriod(period: Period)(implicit ctx: Context): String =
@@ -67,18 +67,15 @@ trait DateHelper { self: I18nHelper =>
   def isoDate(date: DateTime): String = isoFormatter print date
 
   def momentFormat(date: DateTime, format: String): Html = Html {
-    s"""<time class="moment" datetime="${isoFormatter print date}" data-format="$format"></time>"""
+    s"""<time class="moment" datetime="${isoDate(date)}" data-format="$format"></time>"""
   }
   def momentFormat(date: DateTime): Html = momentFormat(date, "DD MMM YYYY")
 
   def momentFromNow(date: DateTime)(implicit ctx: Context) = Html {
-    val title = showDate(date)
-    val datetime = isoFormatter print date
-    s"""<time class="moment-from-now" title="$title" datetime="$datetime"></time>"""
+    s"""<time class="moment-from-now" title="${showDate(date)}" datetime="${isoDate(date)}"></time>"""
   }
   def momentFromNowNoCtx(date: DateTime) = Html {
-    val datetime = isoFormatter print date
-    s"""<time class="moment-from-now" datetime="$datetime"></time>"""
+    s"""<time class="moment-from-now" datetime="${isoDate(date)}"></time>"""
   }
 
   def secondsFromNow(seconds: Int)(implicit ctx: Context) =
