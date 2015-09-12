@@ -252,6 +252,7 @@ final class JsonView(
     "rematch" -> game.next,
     "source" -> game.source.map(sourceJson),
     "status" -> game.status,
+    "boosted" -> game.boosted.option(true),
     "tournamentId" -> game.tournamentId).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {

@@ -274,7 +274,7 @@ case class Game(
     !player(color).isOfferingRematch &&
       finishedOrAborted &&
       nonMandatory &&
-      !(quickResign && rated)
+      !boosted
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -282,7 +282,7 @@ case class Game(
       !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback
 
-  def quickResign = status == Status.Resign && playedTurns < 10
+  def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
     playable && nonMandatory && clock.??(_ moretimeable color)

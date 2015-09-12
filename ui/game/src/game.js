@@ -45,10 +45,6 @@ function resignable(data) {
   return playable(data) && !abortable(data);
 }
 
-function quickResign(data) {
-  return status.resigned(data) && playedTurns(data) < 10;
-}
-
 // can the current player go berserk?
 function berserkableBy(data) {
   return data.tournament &&
@@ -105,7 +101,6 @@ module.exports = {
   takebackable: takebackable,
   drawable: drawable,
   resignable: resignable,
-  quickResign: quickResign,
   berserkableBy: berserkableBy,
   moretimeable: moretimeable,
   mandatory: mandatory,

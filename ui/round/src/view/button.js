@@ -106,7 +106,7 @@ module.exports = {
     if (ctrl.vm.buttonFeedback) return m('div.button-feedback.loader.fast');
   },
   rematch: function(ctrl) {
-    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !(ctrl.data.game.rated && game.quickResign(ctrl.data))) {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted) {
       if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
