@@ -78,7 +78,7 @@ object Mod extends LilaController {
       }
   }
 
-  def log = Auth { implicit ctx =>
+  def log = Secure(_.SeeReport) { implicit ctx =>
     me => modLogApi.recent map { html.mod.log(_) }
   }
 
