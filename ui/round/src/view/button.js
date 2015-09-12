@@ -106,7 +106,7 @@ module.exports = {
     if (ctrl.vm.buttonFeedback) return m('div.button-feedback.loader.fast');
   },
   rematch: function(ctrl) {
-    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul) {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !(ctrl.data.game.rated && game.quickResign(ctrl.data))) {
       if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
@@ -116,7 +116,6 @@ module.exports = {
         return m('a.button.disabled', ctrl.trans('rematch'));
       }
     }
-
   },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return [
