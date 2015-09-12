@@ -78,6 +78,14 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
             _.flatMap(_.getAs[String]("user"))
           }
       }
+
+  def userIdsByIp(ip: String): Fu[List[String]] =
+    tube.storeColl.find(
+      BSONDocument("ip" -> ip),
+      BSONDocument("user" -> true)
+    ).cursor[BSONDocument]().collect[List]().map {
+        _.flatMap(_.getAs[String]("user"))
+      }.map(_.distinct)
 }
 
 object Api {

@@ -8,7 +8,7 @@ final class Whois(key: String, api: Api, tor: Tor, userJson: lila.user.JsonView)
 
   def apply(ip: String, reqKey: String): Fu[Either[String, JsObject]] =
     if (reqKey != key) fuccess(Left("Invalid key"))
-    else api.userIdsSharingIp(ip) flatMap lila.user.UserRepo.byIds map { users =>
+    else api.userIdsByIp(ip) flatMap lila.user.UserRepo.byIds map { users =>
       Right(Json.obj(
         "ip" -> ip,
         "tor" -> tor.isExitNode(ip),
