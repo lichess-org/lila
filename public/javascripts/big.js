@@ -752,11 +752,14 @@ lichess.desktopNotification = function(msg) {
         });
       });
 
+      var documentLang;
       function setMoment() {
+        documentLang = documentLang || $('html').attr('lang');
         $("time.moment").removeClass('moment').each(function() {
           var parsed = moment(this.getAttribute('datetime'));
           var format = this.getAttribute('data-format');
-          this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
+          if (format === 'calendar' && documentLang === 'en') format = 'DD MMM YYYY';
+          this.textContent = format === 'calendar' ? parsed.calendar() : parsed.format(format);
         });
       }
       setMoment();

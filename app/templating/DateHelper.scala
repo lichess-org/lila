@@ -69,7 +69,7 @@ trait DateHelper { self: I18nHelper =>
   def momentFormat(date: DateTime, format: String): Html = Html {
     s"""<time class="moment" datetime="${isoDate(date)}" data-format="$format"></time>"""
   }
-  def momentFormat(date: DateTime): Html = momentFormat(date, "DD MMM YYYY")
+  def momentFormat(date: DateTime): Html = momentFormat(date, "calendar")
 
   def momentFromNow(date: DateTime)(implicit ctx: Context) = Html {
     s"""<time class="moment-from-now" title="${showDate(date)}" datetime="${isoDate(date)}"></time>"""
