@@ -34,13 +34,17 @@ module.exports = {
   },
   resignConfirm: function(ctrl) {
     return m('div.resign_confirm', [
-      m('button.button.yes.active', {
-        'data-icon': 'b',
+      m('button.button.yes.active.hint--bottom', {
+        'data-hint': ctrl.trans('resign'),
         onclick: partial(ctrl.resign, true)
-      }), m('button.button.no', {
-        'data-icon': 'L',
+      }, m('span', {
+        'data-icon': 'b'
+      })), m('button.button.no.hint--bottom', {
+        'data-hint': ctrl.trans('cancel'),
         onclick: partial(ctrl.resign, false)
-      })
+      }, m('span', {
+        'data-icon': 'L'
+      }))
     ]);
   },
   threefoldClaimDraw: function(ctrl) {
