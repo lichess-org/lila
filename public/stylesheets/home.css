@@ -628,12 +628,10 @@ div.game_config div.color_submits button.random span {
 #nb_games_in_play span {
   font-weight: bold;
 }
-#site_header #streams_on_air,
-#site_header #ongoing_relays {
+#site_header #streams_on_air {
   margin-top: 15px;
 }
-#streams_on_air a.stream,
-#ongoing_relays a.relay {
+#streams_on_air a.stream {
   display: block;
   margin: 5px 0 5px -30px;
   font-size: 0.9em;
@@ -643,14 +641,12 @@ div.game_config div.color_submits button.random span {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-#streams_on_air a.stream span,
-#ongoing_relays a.relay span {
+#streams_on_air a.stream span {
   color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
 }
-#streams_on_air a.stream span:before,
-#ongoing_relays a.relay span:before {
+#streams_on_air a.stream span:before {
   vertical-align: -3px;
 }
 #marathon_promo {

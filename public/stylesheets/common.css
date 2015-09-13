@@ -463,6 +463,9 @@ a:hover,
 a:visited {
   text-decoration: none;
 }
+a:hover {
+  opacity: 0.9;
+}
 button.a {
   border: none;
   background: none;
@@ -685,17 +688,12 @@ div.side_box .top {
   font-weight: bold;
   color: #999;
 }
-div.side_box.game_relay .top::before {
-  font-size: 40px;
-  float: left;
-}
 div.side_box .padded {
   padding: 7px;
 }
 @media (max-width: 1070px) {
   div.side_box,
-  #site_header a.stream,
-  #site_header a.relay {
+  #site_header a.stream {
     margin-left: 0px!important;
     width: 196px!important;
   }
@@ -1977,27 +1975,6 @@ a.mini_board {
 #now_playing .mini_board .cg-board-wrap {
   width: 160px;
   height: 160px;
-}
-.relay_games {
-  margin-top: 20px;
-}
-.relay_games > div {
-  display: inline-block;
-  margin: 0 12px 12px 0;
-}
-.relay_games .cg-board-wrap {
-  width: 247px;
-  height: 247px;
-}
-.relay_games div.vstext {
-  width: 237px;
-}
-.relay_games .result {
-  position: absolute;
-  top: 1.2em;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
 }
 /* opening.css */
 
