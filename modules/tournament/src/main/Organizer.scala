@@ -35,16 +35,18 @@ private[tournament] final class Organizer(
       }
     }
 
-    case StartedTournaments => TournamentRepo.started foreach {
-      _ foreach { tour =>
-        PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
-          if (tour.secondsToFinish == 0) api finish tour
-          else if (!tour.scheduled && activeUserIds.size < 2) api finish tour
-          else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds)
-          reminder ! RemindTournament(tour, activeUserIds)
+    case StartedTournaments =>
+      val startAt = nowMillis
+      TournamentRepo.started foreach {
+        _ foreach { tour =>
+          PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
+            if (tour.secondsToFinish == 0) api finish tour
+            else if (!tour.scheduled && activeUserIds.size < 2) api finish tour
+            else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
+            reminder ! RemindTournament(tour, activeUserIds)
+          }
         }
       }
-    }
 
     case FinishGame(game, _, _)                          => api finishGame game
 
@@ -60,11 +62,11 @@ private[tournament] final class Organizer(
       _ filterNot isOnline foreach { api.withdraw(tour.id, _) }
     }
 
-  private def startPairing(tour: Tournament, activeUserIds: List[String]) =
+  private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long) =
     getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) foreach {
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds diff playingUserIds
-        api.makePairings(tour, users)
+        api.makePairings(tour, users, startAt)
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =

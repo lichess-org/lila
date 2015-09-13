@@ -59,14 +59,18 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def makePairings(oldTour: Tournament, users: WaitingUsers) {
+  def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       tour.system.pairingSystem.createPairings(tour, users) flatMap {
         case Nil => funit
         case pairings => pairings.map { pairing =>
           PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-        }.sequenceFu map {
+        }.sequenceFu.map {
           _ map StartGame.apply foreach { sendTo(tour.id, _) }
+        } >>- {
+          val time = nowMillis - startAt
+          if (time > 100)
+            play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
         }
       }
     }
