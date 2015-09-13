@@ -264,7 +264,7 @@ description = describeUser(u)).some) {
         }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)
+          @teamLink(teamId, myTeam(teamId).option("mine"))
           }
         </div>
       </div>

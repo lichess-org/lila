@@ -39,11 +39,11 @@
 }
 
 @baseline = {
-<a id="nb_connected_players" class="revert-underline" href="@routes.User.list">
+<a id="nb_connected_players" href="@routes.User.list">
   @trans.nbConnectedPlayers("<strong>?</strong>")
 </a>
 <br />
-<a id="nb_games_in_play" class="revert-underline" href="@routes.Game.playing">
+<a id="nb_games_in_play" href="@routes.Game.playing">
   @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
 </a>
 @if(lila.common.HTTPRequest.isMobile(ctx.req)) {
@@ -142,7 +142,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
             @leaderboard.map {
             case (u, pt) => {
             <tr>
-              <td>@userLink(u, cssClass="revert-underline".some)</td>
+              <td>@userLink(u)</td>
               <td>@showPerfRating(u, pt, klass = "title")</td>
               <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
             </tr>
@@ -164,8 +164,8 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
           <tbody>
             @tournamentWinners.map { w =>
             <tr>
-              <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
+              <td>@userIdLink(w.userId.some)</td>
+              <td><a href="@routes.Tournament.show(w.tourId)">@w.tourName.replace("Lichess ", "")</a></td>
             </tr>
             }
           </tbody>
@@ -202,7 +202,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       </a>
       <div class="text">
         @semanticDate(post.date)
-        <a class="title revert-underline" href="@url">@post.title</a>
+        <a class="title" href="@url">@post.title</a>
         <p class="shortlede">@post.shortlede</p>
       </div>
       }
