@@ -42,12 +42,13 @@ object User extends LilaController {
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
+      Env.donation.isDonor(user.id) zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case ((((pov, blocked), crosstable), followable), relation) =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
+          case (((((pov, donor), blocked), crosstable), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }

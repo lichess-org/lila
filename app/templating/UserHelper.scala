@@ -169,6 +169,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     withPowerTip: Boolean = true,
+    withDonor: Boolean = false,
     withTitle: Boolean = true,
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
@@ -181,7 +182,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
     val rating = userRating(user, withPerfRating, withBestRating)
-    s"""<a$dataIcon $klass $href>$space$titleS$content$rating</a>"""
+    val donor = if (withDonor) donorBadge else ""
+      s"""<a$dataIcon $klass $href>$space$titleS$content$rating$donor</a>"""
   }
 
   def userInfosLink(
@@ -283,4 +285,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
   }
+
+  private val donorBadge = """<span data-icon="&#xe001;" class="donor is-gold"></span>"""
 }

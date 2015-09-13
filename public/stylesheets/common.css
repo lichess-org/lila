@@ -1658,9 +1658,6 @@ body.fpmenu #friend_box {
   white-space: nowrap;
   text-decoration: none;
 }
-a.user_link:hover {
-  text-decoration: underline;
-}
 a.user_link span.rp:before {
   content: " ";
 }
@@ -1673,6 +1670,9 @@ a.user_link span.rp.down {
 .user_link span.title {
   color: #d59120;
   font-weight: bold;
+}
+.user_link span.donor {
+  margin-left: 5px;
 }
 div.warning {
   padding: 5px;
