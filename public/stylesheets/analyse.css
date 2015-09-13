@@ -328,7 +328,6 @@ div.shortcuts li {
 }
 table.modAssessment {
   border-spacing: 2px;
-  border-collapse: separate;
 }
 table.modAssessment a {
   margin-left: 10px;

@@ -444,7 +444,6 @@ div.user_show .search table {
   box-sizing: border-box;
   margin-left: 20px;
   width: 360px;
-  border-collapse: collapse;
 }
 div.user_show .search table tbody {
   display: block;
