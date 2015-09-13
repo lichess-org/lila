@@ -22,9 +22,13 @@
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
 <div data-icon="@perfType.iconChar">
   <h3 class="hint--top" data-hint="@perfType.title">
+    @if(lila.rating.PerfType.nonGame.contains(perfType)) {
+    @name.getOrElse(perfType.name).toUpperCase
+    } else {
     <a href="@searchUrl?perf=@perfType.id">
       @name.getOrElse(perfType.name).toUpperCase
     </a>
+    }
   </h3>
   <div class="rating">
     <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
