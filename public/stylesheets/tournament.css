@@ -5,10 +5,6 @@ div.create_tournament {
 }
 ol.scheduled_tournaments a {
   font-weight: bold;
-  text-decoration: none;
-}
-ol.scheduled_tournaments a:hover {
-  text-decoration: underline;
 }
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
@@ -99,7 +95,6 @@ ol.scheduled_tournaments a:hover {
   background-size: contain!important;
 }
 #tournament .podium .user_link {
-  text-decoration: none;
   font-weight: bold;
 }
 #tournament .podium .progress {
@@ -344,18 +339,11 @@ ol.scheduled_tournaments a:hover {
 .setup {
   text-transform: uppercase;
 }
-.setup a {
-  text-decoration: none;
-}
 #tournament_side a {
   padding: 0.3em 0.2em;
   display: block;
   white-space: nowrap;
   overflow: hidden;
-  text-decoration: none;
-}
-#tournament_side a:hover {
-  text-decoration: underline;
 }
 #tournament_side {
   font-style: italic;
@@ -406,9 +394,6 @@ ol.tournament_leaderboard li {
   padding: 5px 0;
   list-style: decimal-leading-zero inside;
 }
-ol.tournament_leaderboard a {
-  text-decoration: none;
-}
 ol.scheduled_tournaments li {
   padding: 5px 0;
 }
@@ -442,7 +427,6 @@ ol.scheduled_tournaments li.marathon {
   background-color: #303E43;
   box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
   border-radius: 2px;
-  text-decoration: none;
   transition: -webkit-filter 0.13s, filter 0.13s;
   color: #fff;
 }
@@ -542,7 +526,6 @@ ol.scheduled_tournaments li.marathon {
   -webkit-transform: translateX(3px);
 }
 #tournament_list table.slist .header a {
-  text-decoration: none;
   padding: 1em;
   display: block;
 }

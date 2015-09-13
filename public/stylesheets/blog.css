@@ -3,9 +3,6 @@
   text-align: center;
   font-size: 2.6em;
 }
-#lichess_blog h1 a {
-  text-decoration: none;
-}
 #lichess_blog h1 a.atom {
   color: #ff6600;
   float: right;

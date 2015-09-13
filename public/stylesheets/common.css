@@ -190,7 +190,6 @@ ul.ui-autocomplete {
 ul.ui-autocomplete li a {
   display: block;
   padding: 0.6em 1em;
-  text-decoration: none;
 }
 ul.ui-autocomplete li a.ui-state-focus {
   background: #E1F6F8;
@@ -395,7 +394,6 @@ div.content_box .loader:after {
   padding: 0 7px;
   height: 30px;
   line-height: 30px;
-  text-decoration: none;
   cursor: pointer;
   border-width: 0 1px 0 0;
 }
@@ -461,17 +459,9 @@ button,
   cursor: pointer;
 }
 a,
+a:hover,
 a:visited {
-  text-decoration: underline;
-}
-a:hover {
   text-decoration: none;
-}
-a.revert-underline {
-  text-decoration: none;
-}
-a.revert-underline:hover {
-  text-decoration: underline;
 }
 button.a {
   border: none;
@@ -519,7 +509,6 @@ body.fpmenu > div.content {
 #site_title {
   width: 130px;
   font-size: 30px;
-  text-decoration: none;
   display: block;
   margin-bottom: 3px;
   color: #555;
@@ -587,7 +576,6 @@ div.content_box_top {
   padding: 10px 0 0 20px;
   background-color: #f0f0f0;
   background-image: linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
-  text-decoration: none;
   text-shadow: 0px 1px 0px #FFF;
 }
 div.content_box_top .link:hover {
@@ -614,7 +602,6 @@ div.content_box_inter .intertab {
   line-height: 1.4em;
   margin: 5px 0 -1px 0;
   padding: 0.5em 0.7em;
-  text-decoration: none;
   text-transform: capitalize;
   border: 1px solid transparent;
   font-family: 'Roboto';
@@ -725,7 +712,6 @@ body.kid #chat {
   display: none;
 }
 div.chat_menu > a {
-  text-decoration: none;
   background: #f0f0f0;
   border: 1px solid #c0c0c0;
   height: 20px;
@@ -861,7 +847,6 @@ div.side form.search input {
 #site_header div.side_menu a {
   padding: 8px 0 8px 8px;
   display: block;
-  text-decoration: none;
   width: 203px;
 }
 #site_header div.side_menu a.active {
@@ -873,7 +858,6 @@ div.side form.search input {
   margin: 10px;
 }
 #top .link {
-  text-decoration: none;
   font-size: 13px;
   height: 24px;
   line-height: 24px;
@@ -920,12 +904,6 @@ body.offline #reconnecting,
 }
 body.fpmenu #fpmenu {
   display: block;
-}
-#fpmenu a {
-  text-decoration: none;
-}
-#fpmenu a:hover {
-  text-decoration: underline;
 }
 #fpmenu section {
   margin-top: 50px;
@@ -1042,7 +1020,6 @@ body.fpmenu #fpmenu {
 #fpmenu a.signup:hover {
   background: #d59120;
   color: #fff;
-  text-decoration: none;
 }
 #fpmenu .menu {
   margin-left: 540px;
@@ -1085,7 +1062,6 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer a:hover {
   transform: translateY(-2px);
-  text-decoration: none;
 }
 @media (max-width: 970px) {
   #fpmenu {
@@ -1138,7 +1114,6 @@ body.fpmenu #fpmenu {
 #topmenu section > a {
   color: #888;
   display: block;
-  text-decoration: none;
   padding: 9px 12px;
   text-transform: uppercase;
   text-shadow: 0px 1px 1px #fff;
@@ -1161,7 +1136,6 @@ body.fpmenu #fpmenu {
 }
 #topmenu div a {
   display: block;
-  text-decoration: none;
   padding: 6px 10px;
   transition: background 0.13s;
 }
@@ -1197,7 +1171,6 @@ body.fpmenu #fpmenu {
 #top div.auth .links > a {
   display: block;
   padding: 5px 10px;
-  text-decoration: none;
   transition: 0.13s;
   white-space: nowrap;
 }
@@ -1230,7 +1203,7 @@ body.fpmenu #fpmenu {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  box-shadow: inset 0 2px 2px 0 rgba(0,0,0,0.4);
+  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
 }
 #top div.auth .status .ping,
 #top div.auth .status .server {
@@ -1252,9 +1225,6 @@ body.fpmenu #fpmenu {
 #top div.message_notifications div.title {
   padding: 5px 0;
   text-align: center;
-}
-#top div.message_notifications div.title a {
-  text-decoration: underline;
 }
 #message_notifications,
 #challenge_notifications {
@@ -1280,7 +1250,6 @@ body.fpmenu #fpmenu {
   z-index: 2;
 }
 #notifications a {
-  text-decoration: none;
   font-weight: bold;
 }
 #notifications > div {
@@ -1308,7 +1277,6 @@ body.fpmenu #fpmenu {
   top: 5px;
   right: 5px;
   z-index: 1;
-  text-decoration: none;
   opacity: 0;
   transition: opacity 0.13s;
   margin-top: 5px;
@@ -1318,9 +1286,6 @@ body.fpmenu #fpmenu {
 #challenge_notifications div.notification {
   display: block;
   padding: 6px 8px 7px 8px;
-}
-#message_notifications a {
-  text-decoration: none;
 }
 #message_notifications .actions a {
   font-weight: bold;
@@ -1419,7 +1384,6 @@ div.auth input.login {
 .language_links button {
   display: block;
   padding: 0.4em 0.5em;
-  text-decoration: none;
   border: none;
   background: none;
   width: 100%;
@@ -1430,9 +1394,6 @@ div.auth input.login {
 .language_links button.accepted {
   font-weight: bold;
   color: #444;
-}
-.language_links button.accepted {
-  text-decoration: underline;
 }
 .language_links button:hover,
 .language_links button.current {
@@ -1454,7 +1415,6 @@ div.auth input.login {
   display: block;
   margin: 3px 0.5em 0 0;
   padding: 1px 5px;
-  text-decoration: none;
   line-height: normal;
 }
 #themepicker.shown .dropdown {
@@ -1540,7 +1500,6 @@ body #themepicker div.is3d,
   padding: 10px;
   text-align: center;
   display: block;
-  text-decoration: none;
 }
 #themepicker .zoom_control {
   margin-bottom: 5px;
@@ -1628,7 +1587,6 @@ body.fpmenu #friend_box {
 }
 #friend_box .content a {
   padding: 3px 5px;
-  text-decoration: none;
   display: block;
   max-height: 100px;
   overflow-y: auto;
@@ -1656,7 +1614,6 @@ body.fpmenu #friend_box {
 }
 .user_link {
   white-space: nowrap;
-  text-decoration: none;
 }
 a.user_link span.rp:before {
   content: " ";
@@ -1706,7 +1663,6 @@ table.slist thead {
   background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  text-decoration: none !important;
   text-shadow: 0px 1px 0px #FFF;
   color: #848484;
 }
@@ -1985,7 +1941,6 @@ a.mini_board {
 #now_playing > a {
   float: left;
   padding: 4px;
-  text-decoration: none;
   text-align: center;
   transition: background 0.13s;
   background: rgba(255, 255, 255, 0.6);
@@ -2087,7 +2042,6 @@ div.undertable_top {
 div.undertable_top a.more {
   float: right;
   padding-right: 2px;
-  text-decoration: none;
   font-weight: normal;
 }
 div.undertable_top span.title {
@@ -2155,7 +2109,6 @@ div.lichess_overboard.joining .mini_board {
   display: block;
   width: 100%;
   background: #fff;
-  text-decoration: none;
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
@@ -2196,7 +2149,6 @@ body.base .crosstable .loss {
 }
 .bookmark {
   float: right;
-  text-decoration: none;
   outline: none;
 }
 .bookmark .on,
@@ -2495,19 +2447,19 @@ textarea.copyable {
     text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
   }
 }
-body ::-webkit-scrollbar,
-body ::-webkit-scrollbar-corner {
+body::-webkit-scrollbar,
+body::-webkit-scrollbar-corner {
   background: #eee;
 }
-body ::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: rgba(204, 204, 204, 0.7);
 }
-body ::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background: rgba(50, 50, 50, 0.2);
 }
-body ::-webkit-scrollbar-thumb:active {
+body::-webkit-scrollbar-thumb:active {
   background: rgba(50, 50, 50, 0.3);
 }
-body ::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   box-shadow: 0 0 6px rgba(50, 50, 50, 0.3) inset;
 }

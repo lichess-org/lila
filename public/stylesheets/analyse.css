@@ -20,7 +20,6 @@ div.analysis_menu {
 div.analysis_menu > a {
   background: #f0f0f0;
   border: 1px solid #c0c0c0;
-  text-decoration: none;
   padding: 2px 8px;
   height: 16px;
   line-height: 16px;
@@ -165,7 +164,6 @@ div.game_control .jumps {
 .lichess_ground .replay .move {
   display: inline-block;
   font-family: 'ChessSansPiratf', sans-serif;
-  text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
   position: relative;
@@ -331,7 +329,6 @@ table.modAssessment {
 }
 table.modAssessment a {
   margin-left: 10px;
-  text-decoration: none;
   font-weight: bold;
 }
 table.modAssessment td.match a {

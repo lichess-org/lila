@@ -14,7 +14,6 @@
 .relay_box h1 a.atom {
   color: #ff6600;
   float: right;
-  text-decoration: none;
 }
 .relay_box .title_tag {
   float: right;
@@ -61,13 +60,6 @@ div.chat_panels {
 #relay .game_list .right .title {
   padding-left: 5px;
 }
-.side_box a {
-  text-decoration: none;
-}
-.side_box a.fics,
-.side_box a:hover {
-  text-decoration: underline;
-}
 .side_box p {
   margin-bottom: 10px;
 }
@@ -96,7 +88,6 @@ div.chat_panels {
   line-height: 1.5em;
 }
 #relay_list table.slist .name {
-  text-decoration: none;
   letter-spacing: 1px;
   display: block;
 }
@@ -116,7 +107,6 @@ div.chat_panels {
   background: #759900;
   color: #fff;
   font-weight: bold;
-  text-decoration: none;
   white-space: nowrap;
 }
 #relay_content table {

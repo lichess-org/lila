@@ -1,9 +1,6 @@
 #video {
   min-height: 823px;
 }
-#video a {
-  text-decoration: none;
-}
 #video .content_box_top {
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
@@ -175,7 +172,6 @@
 #video_side .tag_list a {
   display: block;
   padding: 5px 10px 5px 5px;
-  text-decoration: none;
   border-left: 2px solid transparent;
   transition: background 0.13s, border 0.13s;
 }
@@ -200,9 +196,6 @@
 #video_side .under_tags {
   margin-top: 2em;
   text-align: center;
-}
-#video_side .under_tags a {
-  text-decoration: none;
 }
 
 #video .tag_list {

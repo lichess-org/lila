@@ -193,7 +193,6 @@ div.side_box .game_infos {
   -webkit-transform: translateX(3px);
 }
 #simul_list table.slist .header a {
-  text-decoration: none;
   padding: 1em;
   display: block;
 }

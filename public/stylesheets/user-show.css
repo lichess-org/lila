@@ -9,7 +9,6 @@ div.user_show .staff {
 div.user_show div.content_box_top > span,
 div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
-  text-decoration: none;
 }
 div.user_show div.content_box_top > span strong {
   font-weight: normal;
@@ -103,12 +102,6 @@ div.user_show .honorific {
   font-weight: bold;
   font-size: 1.4em;
 }
-div.user_show a.honorific {
-  text-decoration: none;
-}
-div.user_show a.honorific:hover {
-  text-decoration: underline;
-}
 div.user_show .social {
   position: relative;
   border-top: 0;
@@ -153,9 +146,6 @@ div.sub_ratings h3 {
   letter-spacing: 2px;
   margin: 0;
   display: inline-block;
-}
-div.sub_ratings h3 a {
-  text-decoration: none;
 }
 div.sub_ratings h3 a:hover {
   text-decoration: underline;
@@ -268,9 +258,6 @@ div.user_show .mod_zone .slist {
   font-size: 0.9em;
   margin-bottom: 1em;
 }
-div.user_show .mod_zone .slist a {
-  text-decoration: none;
-}
 div.user_show .mod_zone .same {
   font-style: italic;
   font-weight: bold;
@@ -381,10 +368,6 @@ div.user_show div.content_box_inter.tabs {
 }
 div.crosstable {
   margin: 25px 10px 15px 10px;
-}
-div.user_show .evaluation .peerLink {
-  text-align: center;
-  text-decoration: none;
 }
 div.user_show .reportCard {
   margin: 0 auto 10px auto;
