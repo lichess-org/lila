@@ -80,6 +80,10 @@
           <h2>@trans.moveConfirmation()</h2>
           @base.radios(form("submitMove"), submitMoveChoices)
         </li>
+        <li>
+          <h2>Confirm resignation</h2>
+          @base.radios(form("confirmResign"), confirmResignChoices)
+        </li>
       </ul>
       }
       @categFieldset(PrefCateg.Privacy, categ) {

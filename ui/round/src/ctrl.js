@@ -285,7 +285,10 @@ module.exports = function(opts) {
     if (this.vm.resignConfirm) {
       if (v) this.socket.send('resign');
       else this.vm.resignConfirm = false;
-    } else if (v !== false) this.vm.resignConfirm = true;
+    } else if (v !== false) {
+      if (this.data.pref.confirmResign) this.vm.resignConfirm = true;
+      else this.socket.send('resign');
+    }
   }.bind(this);
 
   this.goBerserk = function() {

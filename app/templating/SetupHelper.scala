@@ -128,6 +128,11 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.SubmitMove.ALWAYS, trans.always.str())
   )
 
+  def confirmResignChoices(implicit ctx: Context) = List(
+    (Pref.ConfirmResign.NO, trans.no.str()),
+    (Pref.ConfirmResign.YES, trans.yes.str())
+  )
+
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, trans.never.str()),
     (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(500).toString()),

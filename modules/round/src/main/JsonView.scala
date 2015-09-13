@@ -105,7 +105,8 @@ final class JsonView(
                   case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
                   case _ => false
                 }
-              }),
+              },
+              "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true)),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {
                 case lila.chat.UserLine(username, text, _) => Json.obj(

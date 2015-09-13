@@ -37,6 +37,7 @@ case class Pref(
     coordColor: Int,
     puzzleDifficulty: Int,
     submitMove: Int,
+    confirmResign: Int,
     coachShare: Int,
     tags: Map[String, String] = Map.empty) {
 
@@ -145,6 +146,15 @@ object Pref {
       CORRESPONDENCE_ONLY -> "Correspondence games only",
       CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
       ALWAYS -> "Always")
+  }
+
+  object ConfirmResign {
+    val NO = 0
+    val YES = 1
+
+    val choices = Seq(
+      NO -> "No",
+      YES -> "Yes")
   }
 
   object CoachShare {
@@ -302,6 +312,7 @@ object Pref {
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
+    confirmResign = ConfirmResign.YES,
     coachShare = CoachShare.FRIENDS,
     tags = Map.empty)
 
