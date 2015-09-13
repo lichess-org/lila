@@ -38,7 +38,7 @@ object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val smartHardLimit = 24
+  val smartHardLimit = 22
   val overallLimit = 40
   val extraNaiveLimit = overallLimit - smartHardLimit
 
