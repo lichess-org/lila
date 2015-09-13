@@ -111,13 +111,6 @@ case class Game(
 
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
-  /**
-   * Fullmove number: The number of the full move.
-   * It starts at 1, and is incremented after Black's move.
-   * NOTE: Duplicates chess.Game.fullMoveNumber (avoids loading toChess)
-   */
-  def fullMoveNumber: Int = 1 + turns / 2
-
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
   def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
