@@ -35,7 +35,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] qa" describes new Env(
+  lazy val current = "qa" boot new Env(
     config = lila.common.PlayApp loadConfig "qa",
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),

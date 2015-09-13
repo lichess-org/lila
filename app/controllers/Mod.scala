@@ -78,7 +78,7 @@ object Mod extends LilaController {
       }
   }
 
-  def log = Auth { implicit ctx =>
+  def log = Secure(_.SeeReport) { implicit ctx =>
     me => modLogApi.recent map { html.mod.log(_) }
   }
 
@@ -97,7 +97,8 @@ object Mod extends LilaController {
             }
           }
           publicLines <- Env.shutup.api getPublicLines user.id
-        } yield html.mod.communication(user, povWithChats, threads, publicLines)
+          spy <- Env.security userSpy user.id
+        } yield html.mod.communication(user, povWithChats, threads, publicLines, spy)
       }
   }
 

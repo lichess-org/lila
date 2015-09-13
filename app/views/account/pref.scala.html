@@ -1,115 +1,108 @@
-@(u: User, form: Form[_])(implicit ctx: Context)
+@(u: User, form: Form[_], categ: lila.pref.PrefCateg)(implicit ctx: Context)
 
-@import lila.pref.Pref
+@import lila.pref.{Pref,PrefCateg}
 
-@title = @{ s"${u.username} - ${trans.preferences.str()}" }
+@name = @{ categName(categ) }
+@title = @{ s"$name - ${u.username} - ${trans.preferences.str()}" }
 
-@account.layout(title = title, active = "preferences") {
+@account.layout(title = title, active = categ.slug) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
-    <h1 class="lichess_title" data-icon="%"> @trans.preferences()</h1>
+    <h1 class="lichess_title" text data-icon="%">@categName(categ)</h1>
     <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
-      <fieldset>
-        <legend>@trans.gameDisplay()</legend>
-        <ul>
-          <li>
-            <h2>@trans.pieceAnimation()</h2>
-            @base.radios(form("animation"), translatedAnimationChoices)
-          </li>
-          <li>
-            <h2>@trans.materialDifference()</h2>
-            @base.radios(form("captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.boardHighlights()</h2>
-            @base.radios(form("highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.pieceDestinations()</h2>
-            @base.radios(form("destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.boardCoordinates()</h2>
-            @base.radios(form("coords"), translatedBoardCoordinateChoices)
-          </li>
-          <li>
-            <h2>@trans.moveListWhilePlaying()</h2>
-            @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
-          </li>
-          <li>
-            <h2>@trans.blindfoldChess()</h2>
-            @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-        </ul>
-      </fieldset>
-      <fieldset>
-        <legend>@trans.chessClock()</legend>
-        <ul>
-          <li>
-            <h2>@trans.tenthsOfSeconds()</h2>
-            @base.radios(form("clockTenths"), translatedClockTenthsChoices)
-          </li>
-          <li>
-            <h2>@trans.horizontalGreenProgressBars()</h2>
-            @base.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.soundWhenTimeGetsCritical()</h2>
-            @base.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-        </ul>
-      </fieldset>
-      <fieldset>
-        <legend>@trans.gameBehavior()</legend>
-        <ul>
-          <li>
-            <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
-            @base.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.takebacksWithOpponentApproval()</h2>
-            @base.radios(form("takeback"), translatedTakebackChoices)
-          </li>
-          <li>
-            <h2>@trans.promoteToQueenAutomatically()</h2>
-            @base.radios(form("autoQueen"), translatedAutoQueenChoices)
-          </li>
-          <li>
-            <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically("<a rel=\"nofollow\" href=\"http://en.wikipedia.org/wiki/Threefold_repetition\">", "</a>")</h2>
-            @base.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
-          </li>
-          <li>
-            <h2>@trans.moveConfirmation()</h2>
-            @base.radios(form("submitMove"), submitMoveChoices)
-          </li>
-        </ul>
-      </fieldset>
-      <fieldset>
-        <legend>@trans.privacy()</legend>
-        <ul>
-          <li>
-            <h2>@trans.letOtherPlayersFollowYou()</h2>
-            @base.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
-          </li>
-          <li>
-            <h2>@trans.letOtherPlayersChallengeYou()</h2>
-            @base.radios(form("challenge"), translatedChallengeChoices)
-          </li>
-          <li>
-            <h2>Share your coach data</h2>
-            @base.radios(form("coachShare"), lila.pref.Pref.CoachShare.choices)
-          </li>
-        </ul>
-      </fieldset>
-      <fieldset>
-        <legend>@trans.sound()</legend>
-        <ul>
-          <li>
-            @trans.soundControlInTheTopBarOfEveryPage()
-          </li>
-        </ul>
-      </fieldset>
-      <p data-icon="E"> @trans.yourPreferencesHaveBeenSaved()</p>
+      @categFieldset(PrefCateg.GameDisplay, categ) {
+      <ul>
+        <li>
+          <h2>@trans.pieceAnimation()</h2>
+          @base.radios(form("animation"), translatedAnimationChoices)
+        </li>
+        <li>
+          <h2>@trans.materialDifference()</h2>
+          @base.radios(form("captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.boardHighlights()</h2>
+          @base.radios(form("highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.pieceDestinations()</h2>
+          @base.radios(form("destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.boardCoordinates()</h2>
+          @base.radios(form("coords"), translatedBoardCoordinateChoices)
+        </li>
+        <li>
+          <h2>@trans.moveListWhilePlaying()</h2>
+          @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
+        </li>
+        <li>
+          <h2>@trans.blindfoldChess()</h2>
+          @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+      </ul>
+      }
+      @categFieldset(PrefCateg.ChessClock, categ) {
+      <ul>
+        <li>
+          <h2>@trans.tenthsOfSeconds()</h2>
+          @base.radios(form("clockTenths"), translatedClockTenthsChoices)
+        </li>
+        <li>
+          <h2>@trans.horizontalGreenProgressBars()</h2>
+          @base.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.soundWhenTimeGetsCritical()</h2>
+          @base.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+      </ul>
+      }
+      @categFieldset(PrefCateg.GameBehavior, categ) {
+      <ul>
+        <li>
+          <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
+          @base.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.takebacksWithOpponentApproval()</h2>
+          @base.radios(form("takeback"), translatedTakebackChoices)
+        </li>
+        <li>
+          <h2>@trans.promoteToQueenAutomatically()</h2>
+          @base.radios(form("autoQueen"), translatedAutoQueenChoices)
+        </li>
+        <li>
+          <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically("<a rel=\"nofollow\" href=\"http://en.wikipedia.org/wiki/Threefold_repetition\">", "</a>")</h2>
+          @base.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
+        </li>
+        <li>
+          <h2>@trans.moveConfirmation()</h2>
+          @base.radios(form("submitMove"), submitMoveChoices)
+        </li>
+        <li>
+          <h2>Confirm resignation</h2>
+          @base.radios(form("confirmResign"), confirmResignChoices)
+        </li>
+      </ul>
+      }
+      @categFieldset(PrefCateg.Privacy, categ) {
+      <ul>
+        <li>
+          <h2>@trans.letOtherPlayersFollowYou()</h2>
+          @base.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        </li>
+        <li>
+          <h2>@trans.letOtherPlayersChallengeYou()</h2>
+          @base.radios(form("challenge"), translatedChallengeChoices)
+        </li>
+        <li>
+          <h2>Let other players message you</h2>
+          @base.radios(form("message"), translatedMessageChoices)
+        </li>
+      </ul>
+      }
+      <p class="saved text none" data-icon="E">@trans.yourPreferencesHaveBeenSaved()</p>
     </form>
   </div>
 </div>

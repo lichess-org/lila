@@ -5,14 +5,16 @@ import play.api.data.Forms._
 
 import lila.user.{ User, UserRepo }
 
-private[message] final class DataForm(blocks: (String, String) => Fu[Boolean]) {
+private[message] final class DataForm(security: MessageSecurity) {
 
   import DataForm._
 
   def thread(me: User) = Form(mapping(
     "username" -> nonEmptyText(maxLength = 20)
       .verifying("Unknown username", { fetchUser(_).isDefined })
-      .verifying("This user blocks you", canMessage(me) _),
+      .verifying("Sorry, this player doesn't accept new messages", { name =>
+        security.canMessage(me.id, User normalize name).await // damn you blocking API
+      }),
     "subject" -> text(minLength = 3, maxLength = 100),
     "text" -> text(minLength = 3, maxLength = 8000)
   )({
@@ -25,9 +27,6 @@ private[message] final class DataForm(blocks: (String, String) => Fu[Boolean]) {
   def post = Form(single(
     "text" -> text(minLength = 3)
   ))
-
-  private def canMessage(me: User)(destUsername: String): Boolean =
-    !blocks(destUsername.toLowerCase, me.id).await
 
   private def fetchUser(username: String) = (UserRepo named username).await
 }

@@ -95,11 +95,16 @@ private[tournament] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-        case ((anons, users), Some(user)) => anons -> (user :: users)
-        case ((anons, users), None)       => (anons + 1) -> users
-      }
-      notifyAll("crowd", showSpectators(users, anons))
+      notifyAll("crowd",
+        if (members.size > 20) JsNumber(members.size)
+        else JsArray {
+          val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+            case ((anons, users), Some(user)) => anons -> (user :: users)
+            case ((anons, users), None)       => (anons + 1) -> users
+          }
+          showSpectators(users, anons) map JsString.apply
+        }
+      )
 
     case NotifyReload =>
       delayedReloadNotification = false
@@ -118,7 +123,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(200 millis, self, NotifyReload)
+      context.system.scheduler.scheduleOnce(300 millis, self, NotifyReload)
     }
   }
 

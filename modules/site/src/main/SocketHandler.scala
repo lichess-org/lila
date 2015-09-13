@@ -19,14 +19,8 @@ private[site] final class SocketHandler(
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] = {
 
-    def controller(member: Member): Handler.Controller = {
-      case ("startWatching", o) => o str "d" foreach { ids =>
-        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
-      }
-    }
-
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
-      case Connected(enum, member) => (controller(member), enum, member)
+      case Connected(enum, member) => (Handler.emptyController, enum, member)
     }
   }
 }

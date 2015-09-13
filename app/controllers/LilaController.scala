@@ -297,8 +297,7 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
-        val lang = Env.i18n.pool.lang(req).language
-        Env.current.bus.publish(lila.user.User.Active(d.user, lang), 'userActive)
+        Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     }
 

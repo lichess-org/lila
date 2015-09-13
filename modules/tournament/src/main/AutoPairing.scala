@@ -48,11 +48,11 @@ final class AutoPairing(
       onStart(game2.id)
   } yield game2
 
-  private def secondsToMoveFor(tour: Tournament) = (tour.speed match {
-    case chess.Speed.Bullet => 15
-    case chess.Speed.Blitz  => 20
-    case _                  => 25
-  }) + 1 // nice touch
+  private def secondsToMoveFor(tour: Tournament) = tour.speed match {
+    case chess.Speed.Bullet => 20
+    case chess.Speed.Blitz  => 25
+    case _                  => 30
+  }
 
   private def getUser(username: String): Fu[User] =
     UserRepo named username flatMap {

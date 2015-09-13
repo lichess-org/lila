@@ -63,20 +63,21 @@ POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/info                    controllers.Account.info
 
 # Site
-GET   /socket             controllers.Main.websocket
+GET   /socket                          controllers.Main.websocket
 
 # Blog
-GET   /blog               controllers.Blog.index(ref: Option[String] ?= None)
-GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
-GET   /blog.atom          controllers.Blog.atom(ref: Option[String] ?= None)
+GET   /blog                            controllers.Blog.index(ref: Option[String] ?= None)
+GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
+GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
 
 # Search
-GET   /games/search       controllers.Search.index(page: Int ?= 1)
-GET   /games/export/search controllers.Search.export
+GET   /games/search                    controllers.Search.index(page: Int ?= 1)
+GET   /games/export/search             controllers.Search.export
 
 # Game
-GET   /games/export-form/:user controllers.Game.export(user: String)
-POST  /games/export/:user controllers.Game.exportConfirm(user: String)
+GET   /games                           controllers.Game.playing
+GET   /games/export-form/:user         controllers.Game.export(user: String)
+POST  /games/export/:user              controllers.Game.exportConfirm(user: String)
 
 # Training - Opening
 GET   /training/opening                controllers.Opening.home
@@ -118,6 +119,8 @@ GET   /$gameId<\w{8}>/$color<white|black>/sides/player controllers.Round.sidesPl
 GET   /$gameId<\w{8}>/others                     controllers.Round.others(gameId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
+GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "white")
+GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
@@ -164,6 +167,7 @@ GET   /team                                   controllers.Team.home(page: Int ?=
 GET   /team/new                               controllers.Team.form
 POST  /team/new                               controllers.Team.create
 GET   /team/me                                controllers.Team.mine
+GET   /team/all                               controllers.Team.all(page: Int ?= 1)
 GET   /team/requests                          controllers.Team.requests
 GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
@@ -189,7 +193,7 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
-GET   /account/preferences             controllers.Pref.form
+GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply
 POST  /account/preferences/mini        controllers.Pref.miniFormApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
@@ -303,7 +307,8 @@ GET   /editor                          controllers.Editor.index
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/status                  controllers.Monitor.status
+GET   /monitor/status/:key             controllers.Monitor.status(key: String)
+GET   /monitor/status                  controllers.Monitor.statusParam
 
 # Report
 GET   /report                          controllers.Report.form
@@ -332,14 +337,6 @@ POST   /qa/:id/:a/move             controllers.QaAnswer.moveTo(id: Int, a: Int)
 POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
 POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
 POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
-
-# RELAY
-GET   /watch                       controllers.Relay.index
-GET   /watch.atom                  controllers.Relay.atom
-GET   /watch/:id/:slug             controllers.Relay.show(id: String, slug: String)
-GET   /watch/:id/:slug/content     controllers.Relay.contentForm(id: String, slug: String)
-POST  /watch/:id/:slug/content     controllers.Relay.contentPost(id: String, slug: String)
-GET   /watch/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
 
 # API
 GET   /api/user                        controllers.Api.users

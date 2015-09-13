@@ -379,53 +379,17 @@ div.lichess_board {
 #top div.color_demo.maple {
   background-image: url(../images/board/maple.jpg);
 }
-/* KotH boards */
 
-.blue .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue.jpg);
+.kingOfTheHill .cg-board::after {
+  width: 25%;
+  height: 25%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  content: '';
+  position: absolute;
+  top: 37.5%;
+  left: 37.5%;
 }
-.blue2 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue2.jpg);
-}
-.blue3 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/blue3.jpg);
-}
-.wood2 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood2.jpg);
-}
-.wood3 .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood3.jpg);
-}
-.marble .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/marble.jpg);
-}
-.brown .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/brown.jpg);
-}
-.green .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/green.jpg);
-}
-.olive .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/olive.jpg);
-}
-.purple .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/purple.jpg);
-}
-.grey .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/grey.jpg);
-}
-.wood .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/wood.jpg);
-}
-.canvas .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/canvas.jpg);
-}
-.leather .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/leather.jpg);
-}
-.metal .is2d .kingOfTheHill .cg-board {
-  background-image: url(../images/board/koth/metal.jpg);
-}
+
 .is2d .cg-board-wrap.minimal-dom {
   background: none;
 }
@@ -957,7 +921,6 @@ div.lichess_overboard {
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;
-  text-decoration: none;
   background: #fff;
   box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.6);
   text-align: center;
@@ -966,7 +929,6 @@ div.lichess_overboard a.close {
   float: right;
   display: block;
   cursor: pointer;
-  text-decoration: none;
   margin-top: -12px;
   margin-right: 6px;
   opacity: 0.4;
@@ -999,7 +961,7 @@ div.dont_touch {
 }
 #lichess_id_input {
   margin-top: 10px;
-  width: 90%;
+  width: 80%;
   text-align: center;
   font-size: 1.2em;
   padding: 1em 0;
@@ -1192,9 +1154,6 @@ div.table div.username span.status span {
 div.table div.username.on-game span.status span {
   color: #759900;
 }
-div.table div.username a:hover {
-  text-decoration: none;
-}
 div.table .button.strong {
   padding-top: 1em;
   padding-bottom: 1em;
@@ -1288,7 +1247,6 @@ div.table_wrap .berserk.button {
 div.table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
-  text-decoration: none;
   font-size: 20px;
   right: 0;
   top: 0;
@@ -1335,10 +1293,22 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
   -webkit-transform: translateY(1px);
 }
+div.control.icons .resign_confirm {
+  display: inline-block;
+  position: relative;
+}
+div.control.icons .resign_confirm .yes {
+  background: #dc322f;
+  color: #fff;
+}
+div.control.icons .resign_confirm .no {
+  position: absolute;
+  top: 0;
+  left: 39px;
+}
 div.control.buttons .button {
   display: inline-block;
   text-align: center;
-  text-decoration: none;
   font-weight: bold;
   padding: 10px 0;
 }
@@ -1490,7 +1460,6 @@ div.under_chat .watchers:hover {
   display: block;
   height: 16px;
   width: 16px;
-  text-decoration: none;
   z-index: 1;
   opacity: 0.5;
 }
@@ -1520,11 +1489,7 @@ div.under_chat .watchers:hover {
 #chat a.user_link {
   padding: 0;
   color: #aaa;
-  text-decoration: none;
   font-weight: bold;
-}
-#chat a.user_link:hover {
-  text-decoration: underline;
 }
 #chat.hidden ol.messages,
 #chat.hidden form {
@@ -1573,11 +1538,7 @@ span.inline_userlist {
 }
 span.inline_userlist a {
   color: #aaa;
-  text-decoration: none;
   font-weight: bold;
-}
-span.inline_userlist a:hover {
-  text-decoration: underline;
 }
 div.underboard .center {
   display: table-cell;

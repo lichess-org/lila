@@ -248,9 +248,14 @@ trait UserRepo {
 
   def enable(id: ID) = $update.field(id, "enabled", true)
 
-  def disable(user: User) = $update($select(user.id), BSONDocument(
-    "$set" -> BSONDocument("enabled" -> false),
-    "$unset" -> BSONDocument("email" -> !user.lameOrTroll)))
+  def disable(user: User) = $update(
+    $select(user.id),
+    BSONDocument("$set" -> BSONDocument("enabled" -> false)) ++
+      user.lameOrTroll.fold(
+        BSONDocument(),
+        BSONDocument("$unset" -> BSONDocument("email" -> true))
+      )
+  )
 
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption =>
@@ -286,15 +291,14 @@ trait UserRepo {
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     val col = userTube.coll
-    import col.BatchCommands.AggregationFramework,
-      AggregationFramework.{ Match, Group, SumField }
+    import col.BatchCommands.AggregationFramework, AggregationFramework.{ Match, Group, SumField }
 
     col.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       List(Group(BSONBoolean(true))(F.toints -> SumField(F.toints)))).map(
-      _.documents.headOption flatMap { obj =>
-        toJSON(obj).asOpt[JsObject]
-      } flatMap { _ int F.toints }
-    ).map(~_)
+        _.documents.headOption flatMap { obj =>
+          toJSON(obj).asOpt[JsObject]
+        } flatMap { _ int F.toints }
+      ).map(~_)
   }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =

@@ -123,8 +123,14 @@ trait SetupHelper { self: I18nHelper =>
 
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.str()),
-    (Pref.SubmitMove.CORRESPONDENCE, trans.inCorrespondenceGames.str()),
+    (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.inCorrespondenceGames.str()),
+    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, "Correspondence and unlimited"),
     (Pref.SubmitMove.ALWAYS, trans.always.str())
+  )
+
+  def confirmResignChoices(implicit ctx: Context) = List(
+    (Pref.ConfirmResign.NO, trans.no.str()),
+    (Pref.ConfirmResign.YES, trans.yes.str())
   )
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
@@ -133,5 +139,11 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
     (Pref.Challenge.ALWAYS, trans.always.str())
   )
-  
+
+  def translatedMessageChoices(implicit ctx: Context) = List(
+    (Pref.Message.NEVER, trans.never.str()),
+    (Pref.Message.FRIEND, trans.onlyFriends.str()),
+    (Pref.Message.ALWAYS, trans.always.str())
+  )
+
 }

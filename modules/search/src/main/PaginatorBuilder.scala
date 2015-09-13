@@ -1,38 +1,24 @@
 package lila.search
 
-import akka.actor.ActorRef
-import akka.pattern.ask
-import com.sksamuel.elastic4s.ElasticDsl._
-import org.elasticsearch.action.count.CountResponse
-import org.elasticsearch.action.search.SearchResponse
-
 import lila.common.paginator._
 import makeTimeout.large
 
-final class PaginatorBuilder[A](
-    indexer: ActorRef,
-    maxPerPage: Int,
-    converter: SearchResponse => Fu[List[A]]) {
+import play.api.libs.json.Writes
 
-  def apply(query: Query, page: Int): Fu[Paginator[A]] = Paginator(
+final class PaginatorBuilder[A, Q : Writes](
+    searchApi: SearchReadApi[A, Q],
+    maxPerPage: Int) {
+
+  def apply(query: Q, page: Int): Fu[Paginator[A]] = Paginator(
     adapter = new ESAdapter(query),
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  def ids(query: Query, max: Int): Fu[List[String]] =
-    indexer ? actorApi.Search(query.searchDef(0, max)) map {
-      case res: SearchResponse => res.getHits.hits.toList map (_.id)
-    }
+  private final class ESAdapter(query: Q) extends AdapterLike[A] {
 
-  private final class ESAdapter(query: Query) extends AdapterLike[A] {
-
-    def nbResults = indexer ? actorApi.Count(query.countDef) map {
-      case res: CountResponse => res.getCount.toInt
-    }
+    def nbResults = searchApi count query
 
     def slice(offset: Int, length: Int) =
-      indexer ? actorApi.Search(query.searchDef(offset, length)) flatMap {
-        case res: SearchResponse => converter(res)
-      }
+      searchApi.search(query, From(offset), Size(length))
   }
 }

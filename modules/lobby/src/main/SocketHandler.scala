@@ -37,10 +37,6 @@ private[lobby] final class SocketHandler(
       id <- o str "d"
       user <- member.user
     } lobby ! CancelSeek(id, user)
-
-    case ("startWatching", o) => o str "d" foreach { ids =>
-      hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
-    }
   }
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =

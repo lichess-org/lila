@@ -9,7 +9,6 @@ import chess.Color
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
-    relay: Option[Relay],
     tournamentId: Option[String],
     simulId: Option[String],
     tvAt: Option[DateTime],
@@ -24,49 +23,7 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, None, None, false)
-}
-
-case class Relay(id: String, white: Relay.Player, black: Relay.Player) {
-
-  def withTenths(color: Color, tenths: Int) = copy(
-    white = (color == chess.White).fold(white withTenths tenths, white),
-    black = (color == chess.Black).fold(black withTenths tenths, black))
-
-  def player(color: Color) = color.fold(white, black)
-
-  def averageElo = (~white.rating + ~black.rating) / 2
-
-  def remainingSecondsOf(color: Color, tickingColor: Option[Color]): Option[Float] =
-    player(color).tenths |@| player(color).at apply {
-      case (t, a) if tickingColor.contains(color) => {
-        (t.toFloat / 10) - ((nowMillis - a.getMillis) / 1000).toFloat
-      } max 0f
-      case (t, a) => t.toFloat / 10
-    }
-}
-
-object Relay {
-
-  case class Player(
-      name: String,
-      title: Option[String],
-      rating: Option[Int],
-      tenths: Option[Int],
-      at: Option[DateTime]) {
-
-    def withTenths(t: Int) = copy(
-      tenths = t.some,
-      at = DateTime.now.some)
-
-    def extendedName = s"""${title.??(_ + " ")}$name${rating.??(" (" + _ + ")")}"""
-  }
-
-  import reactivemongo.bson.Macros
-  import ByteArray.ByteArrayBSONHandler
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit val relayPlayerBSONHandler = Macros.handler[Relay.Player]
-  implicit val relayBSONHandler = Macros.handler[Relay]
+  val empty = Metadata(None, None, None, None, None, false)
 }
 
 case class PgnImport(

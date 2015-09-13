@@ -1,10 +1,10 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], relays: List[lila.relay.Relay.Mini], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
   @featured.map { g =>
-  @gameFen(g, g.firstPlayer.color, tv = true)
-  @game.vstext(g)(ctx.some)
+  @gameFen(Pov.first(g), tv = true)
+  @game.vstext(Pov.first(g))(ctx.some)
   }
 </div>
 }
@@ -25,8 +25,6 @@
     }
   </span>
 </a>
-}.getOrElse {
-<div id="ongoing_relays">@relay.ongoing(relays)</div>
 }
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
@@ -41,10 +39,13 @@
 }
 
 @baseline = {
-<div id="nb_connected_players" class="baseline">
+<a id="nb_connected_players" href="@routes.User.list">
   @trans.nbConnectedPlayers("<strong>?</strong>")
-</div>
-<div id="nb_games_in_play" class="baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</div>
+</a>
+<br />
+<a id="nb_games_in_play" href="@routes.Game.playing">
+  @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
+</a>
 @if(lila.common.HTTPRequest.isMobile(ctx.req)) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
@@ -141,7 +142,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
             @leaderboard.map {
             case (u, pt) => {
             <tr>
-              <td>@userLink(u, cssClass="revert-underline".some)</td>
+              <td>@userLink(u)</td>
               <td>@showPerfRating(u, pt, klass = "title")</td>
               <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
             </tr>
@@ -163,8 +164,8 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
           <tbody>
             @tournamentWinners.map { w =>
             <tr>
-              <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
+              <td>@userIdLink(w.userId.some)</td>
+              <td><a href="@routes.Tournament.show(w.tourId)">@w.tourName.replace("Lichess ", "")</a></td>
             </tr>
             }
           </tbody>
@@ -201,7 +202,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       </a>
       <div class="text">
         @semanticDate(post.date)
-        <a class="title revert-underline" href="@url">@post.title</a>
+        <a class="title" href="@url">@post.title</a>
         <p class="shortlede">@post.shortlede</p>
       </div>
       }

@@ -175,13 +175,13 @@ final class AssessApi(
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) "Winner progress".some
       // analyse some tourney games
-      else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
+      // else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
       else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) "New winner".some
       else none
 
     shouldAnalyse foreach { reason =>
-      // println(s"[autoanalyse] ${game.id} $reason")
+      play.api.Logger("autoanalyse").debug(s"http://lichess.org/${game.id} $reason")
       analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
     }
 

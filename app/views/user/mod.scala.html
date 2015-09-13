@@ -4,40 +4,40 @@
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
-  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)">
+  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom">
     <input class="button" type="submit" value="Evaluate" />
   </form>
   }
   @if(isGranted(_.MarkEngine)) {
-  <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm button@when(u.engine, " active")" type="submit" value="Engine" />
+  <form method="post" action="@routes.Mod.engine(u.username)" data-hint="This user is clearly cheating." class="hint--bottom">
+    <input class="button@when(u.engine, " active")" type="submit" value="Engine" />
   </form>
   }
   @if(isGranted(_.MarkBooster)) {
-  <form method="post" action="@routes.Mod.booster(u.username)">
-    <input class="confirm button@when(u.booster, " active")" type="submit" value="Booster" />
+  <form method="post" action="@routes.Mod.booster(u.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom">
+    <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})">
-    <input class="confirm button@when(u.troll, " active")" type="submit" value="Troll" />
+  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){Allows}else{Blocks} the user with communication features." class="hint--bottom">
+    <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username)">
-    <input class="confirm button@when(u.ipBan, " active")" type="submit" value="IP ban" />
+  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all IPs under this account from accessing this site." class="hint--bottom-left">
+    <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban" />
   </form>
   }
   @if(!u.disabled) {
   @if(isGranted(_.CloseAccount)) {
-  <form method="post" action="@routes.Mod.closeAccount(u.username)">
-    <input class="confirm button" type="submit" value="Close" />
+  <form method="post" action="@routes.Mod.closeAccount(u.username)" data-hint="Disables this account." class="hint--bottom-left">
+    <input class="button" type="submit" value="Close" />
   </form>
   }
   } else {
   @if(isGranted(_.ReopenAccount)) {
-  <form action="@routes.Mod.reopenAccount(u.username)" method="post">
-    <input type="submit" class="button confirm active" value="Closed" />
+  <form method="post" action="@routes.Mod.reopenAccount(u.username)" data-hint="Re-activates this account." class="hint--bottom-left">
+    <input type="submit" class="button active" value="Closed" />
   </form>
   }
   }
@@ -115,7 +115,7 @@
     <table class="extra_stats">
       <caption>Average Centipawn Loss Given:</caption>
       <tr>
-        <th>Blurs</th>
+        <th data-hint="The frequency of which the user leaves the game page." class="hint--top">Blurs</th>
         <td>
           <strong>@pag.pag.sfAvgBlurs</strong>
           <br/>high
@@ -126,7 +126,7 @@
         </td>
       </tr>
       <tr>
-        <th>Move Times</th>
+        <th data-hint="The computed standard deviation of the move times distribution across games." class="hint--top">Move Times</th>
         <td>
           <strong>@pag.pag.sfAvgLowVar</strong>
           <br/>low variance
@@ -137,7 +137,7 @@
         </td>
       </tr>
       <tr>
-        <th>Hold Alert</th>
+        <th data-hint="Bot detection using grid click analysis." class="hint--top">Hold Alert</th>
         <td>
           <strong>@pag.pag.sfAvgHold</strong>
           <br/>alert
@@ -161,8 +161,8 @@
             Move Times
             <br />(Avg ± SD)
           </th>
-          <th>Blurs</th>
-          <th>Bot</th>
+          <th><span data-hint="The frequency of which the user leaves the game page." class="hint--top-left">Blurs</span></th>
+          <th><span data-hint="Bot detection using grid click analysis." class="hint--top-left">Bot</span></th>
           <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
         </tr>
       </thead>
@@ -243,13 +243,13 @@
           @List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
           }
         </td>
-        <td>@o.count.game</td>
+        <td>@o.count.game.localize</td>
         <td>
           @if(o.engine){ENGINE}
           @if(o.booster){BOOSTER}
           @if(o.troll){TROLL}
           @bans.get(o.id).map { nb =>
-          <span title="Temporary banned from playing for aborting or not playing games">
+          <span class="hint--top-left" data-hint="Temporarily banned from playing for aborting or not playing games.">
             PLAYBAN(@nb)
           </span>
           }

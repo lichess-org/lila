@@ -70,6 +70,12 @@ module.exports = function(opts) {
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
     };
+    if (!dests && !s.check) {
+      // premove while dests are loading from server
+      // can't use when in check because it highlights the wrong king
+      config.turnColor = opposite(color);
+      config.movable.color = color;
+    }
     this.vm.step = s;
     this.vm.cgConfig = config;
     if (!this.chessground)
@@ -100,7 +106,8 @@ module.exports = function(opts) {
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
-    if (this.vm.justPlayed !== this.vm.step.uci) {
+    if (!this.vm.step.uci) sound.move(); // initial position
+    else if (this.vm.justPlayed !== this.vm.step.uci) {
       if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
       this.vm.justPlayed = null;
@@ -163,11 +170,16 @@ module.exports = function(opts) {
   this.addDests = function(dests, path) {
     this.analyse.addDests(dests, treePath.read(path));
     if (path === this.vm.pathStr) showGround();
+    this.chessground.playPremove();
   }.bind(this);
 
   this.reset = function() {
     this.chessground.set(this.vm.situation);
     m.redraw();
+  }.bind(this);
+
+  this.encodeStepFen = function() {
+    return this.vm.step.fen.replace(/\s/g, '_');
   }.bind(this);
 
   this.socket = new socket(opts.socketSend, this);

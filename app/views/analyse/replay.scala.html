@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], simul: Option[lila.simul.Simul], relRound: Option[lila.relay.Relay.Round], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -43,7 +43,7 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, relay = relRound.map(_.relay), userTv = userTv).some,
+side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
 moreCss = moreCss,
@@ -61,11 +61,7 @@ chessground = false) {
           <span class="is color-icon @color"></span>
         </td>
         <th>
-          @pov.game.relay.map { rel =>
-          @rel.player(color).extendedName
-          }.getOrElse {
           @playerLink(pov.game.player(color), withOnline = false)
-          }
         </th>
       </tr>
     </thead>
@@ -163,9 +159,4 @@ chessground = false) {
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>
 </div>
-@relRound.filter(_.otherGames.nonEmpty).map { r =>
-<div class="clearfix other_games relay_games">
-  @relay.others(r.otherGames.map(Pov.white))
-</div>
-}
 }

@@ -3,7 +3,6 @@
 }
 #tv_channels > a {
   display: block;
-  text-decoration: none;
   text-align: right;
   transition: 0.13s;
   padding: 6px 5px 5px 5px;
@@ -55,7 +54,6 @@
 #tv_channels a.icon {
   font-size: 26px;
   padding-left: 10px;
-  text-decoration: none;
   opacity: 0.7;
   transition: opacity 0.3s;
 }

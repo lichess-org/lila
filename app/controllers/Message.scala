@@ -1,9 +1,12 @@
 package controllers
 
 import play.api._
+import play.api.data.Form
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.twirl.api.Html
 
+import lila.api.Context
 import lila.app._
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -11,6 +14,7 @@ import views._
 object Message extends LilaController {
 
   private def api = Env.message.api
+  private def security = Env.message.security
   private def forms = Env.message.forms
   private def relationApi = Env.relation.api
 
@@ -55,9 +59,7 @@ object Message extends LilaController {
   def form = Auth { implicit ctx =>
     implicit me =>
       NotForKids {
-        get("user") ?? UserRepo.named map { user =>
-          Ok(html.message.form(forms.thread(me), user, get("title")))
-        }
+        renderForm(me, get("title"), identity) map { Ok(_) }
       }
   }
 
@@ -66,14 +68,19 @@ object Message extends LilaController {
       NotForKids {
         implicit val req = ctx.body
         forms.thread(me).bindFromRequest.fold(
-          err => get("username") ?? UserRepo.named map { user =>
-            BadRequest(html.message.form(err, user))
-          },
+          err => renderForm(me, none, _ => err) map { BadRequest(_) },
           data => api.makeThread(data, me) map { thread =>
             Redirect(routes.Message.thread(thread.id))
           })
       }
   }
+
+  private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Html] =
+    get("user") ?? UserRepo.named flatMap { user =>
+      user.fold(fuccess(true))(u => security.canMessage(me.id, u.id)) map { canMessage =>
+        html.message.form(f(forms thread me), user, title, canMessage)
+      }
+    }
 
   def delete(id: String) = AuthBody { implicit ctx =>
     implicit me =>

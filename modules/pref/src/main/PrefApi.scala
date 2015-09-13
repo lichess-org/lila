@@ -51,9 +51,11 @@ final class PrefApi(
       coords = r.getD("coords", Pref.default.coords),
       replay = r.getD("replay", Pref.default.replay),
       challenge = r.getD("challenge", Pref.default.challenge),
+      message = r.getD("message", Pref.default.message),
       coordColor = r.getD("coordColor", Pref.default.coordColor),
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
+      confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       coachShare = r.getD("coachShare", Pref.default.coachShare),
       tags = r.getD("tags", Pref.default.tags))
 
@@ -84,9 +86,11 @@ final class PrefApi(
       "coords" -> o.coords,
       "replay" -> o.replay,
       "challenge" -> o.challenge,
+      "message" -> o.message,
       "coordColor" -> o.coordColor,
       "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
+      "confirmResign" -> o.confirmResign,
       "coachShare" -> o.coachShare,
       "tags" -> o.tags)
   }

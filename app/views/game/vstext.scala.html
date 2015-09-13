@@ -1,22 +1,22 @@
-@(g: Game)(ctxOption: Option[Context])
+@(pov: Pov)(ctxOption: Option[Context])
 <div class="vstext clearfix">
 <div class="left">
-@playerUsername(g.firstPlayer, withRating = false, withTitle = false)
+@playerUsername(pov.player, withRating = false, withTitle = false)
 <br />
-@lightUser(g.firstPlayer.userId).flatMap(_.title).map(_ + " ")
-@g.firstPlayer.rating@if(g.firstPlayer.provisional){?}
+@lightUser(pov.player.userId).flatMap(_.title).map(_ + " ")
+@pov.player.rating@if(pov.player.provisional){?}
 </div>
 <div class="right">
-@playerUsername(g.secondPlayer, withRating = false, withTitle = false)
+@playerUsername(pov.opponent, withRating = false, withTitle = false)
 <br />
-@g.secondPlayer.rating@if(g.secondPlayer.provisional){?}
-@lightUser(g.secondPlayer.userId).flatMap(_.title).map(" " + _)
+@pov.opponent.rating@if(pov.opponent.provisional){?}
+@lightUser(pov.opponent.userId).flatMap(_.title).map(" " + _)
 </div>
-@g.clock.map { c =>
+@pov.game.clock.map { c =>
 <div class="center"><span data-icon="p"> @shortClockName(c)</span></div>
 }.getOrElse {
 @ctxOption.map { ctx =>
-@g.daysPerTurn.map { days =>
+@pov.game.daysPerTurn.map { days =>
 <div class="center">
 <span data-hint="@trans.correspondence()(ctx)" class="hint--top">@{(days == 1).fold(trans.oneDay()(ctx), trans.nbDays(days)(ctx))}</span>
 </div>

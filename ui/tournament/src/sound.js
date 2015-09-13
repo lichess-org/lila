@@ -1,7 +1,6 @@
 var countDownTimeout;
 
 function doCountDown(seconds) {
-  console.log(seconds);
   return function() {
     $.sound['countDown' + seconds]();
     if (seconds > 0) countDownTimeout = setTimeout(

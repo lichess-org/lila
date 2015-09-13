@@ -20,10 +20,12 @@ trait Granter {
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Boolean =
     isOldEnoughToForum && {
       ctx.me ?? { me =>
-        categSlug match {
-          case StaffSlug               => Master(Permission.StaffForum)(me)
-          case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
-          case _                       => true
+        Master(Permission.StaffForum)(me) || {
+          categSlug match {
+            case StaffSlug               => false
+            case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
+            case _                       => true
+          }
         }
       }
     }

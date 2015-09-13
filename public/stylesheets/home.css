@@ -63,7 +63,6 @@ div.lobby_and_ground {
 }
 #hooks_wrap .tabs a {
   display: inline-block;
-  text-decoration: none;
   padding: 0px 8px;
   margin-right: 3px;
   border: 1px solid #ccc;
@@ -186,9 +185,6 @@ div.lobby_and_ground {
   background: transparent!important;
   border-color: transparent!important;
 }
-#hooks_wrap .table_wrap a {
-  text-decoration: none;
-}
 #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
@@ -304,10 +300,6 @@ div.lobby_and_ground {
   background: #666;
   color: #eee;
   overflow: hidden;
-  text-decoration: none;
-}
-#hook a.opponent:hover {
-  text-decoration: underline;
 }
 #hook .clearfix {
   width: 100%;
@@ -408,9 +400,6 @@ div.blog.undertable div.post time {
 #enterable_tournaments tr.create td {
   text-align: center;
 }
-#lichess .enterable_list a {
-  text-decoration: none;
-}
 #lichess .enterable_list .button {
   padding: 4px 8px;
   opacity: 0;
@@ -463,7 +452,6 @@ div.new_posts li span.extract {
   border: 1px solid #d0d0d0;
   display: block;
   border-radius: 2px;
-  text-decoration: none;
   position: relative;
 }
 #translation_call .button {
@@ -640,15 +628,12 @@ div.game_config div.color_submits button.random span {
 #nb_games_in_play span {
   font-weight: bold;
 }
-#site_header #streams_on_air,
-#site_header #ongoing_relays {
+#site_header #streams_on_air {
   margin-top: 15px;
 }
-#streams_on_air a.stream,
-#ongoing_relays a.relay {
+#streams_on_air a.stream {
   display: block;
   margin: 5px 0 5px -30px;
-  text-decoration: none;
   font-size: 0.9em;
   font-family: 'Roboto';
   font-weight: 300;
@@ -656,24 +641,17 @@ div.game_config div.color_submits button.random span {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-#streams_on_air a.stream:hover,
-#ongoing_relays a.relay:hover {
-  text-decoration: underline;
-}
-#streams_on_air a.stream span,
-#ongoing_relays a.relay span {
+#streams_on_air a.stream span {
   color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
 }
-#streams_on_air a.stream span:before,
-#ongoing_relays a.relay span:before {
+#streams_on_air a.stream span:before {
   vertical-align: -3px;
 }
 #marathon_promo {
   display: block;
   margin: 15px 0 5px -30px;
-  text-decoration: none;
   color: #fff!important;
   background: #4166a0;
   padding: 5px;
@@ -740,9 +718,6 @@ div.game_config div.color_submits button.random span {
   font-weight: bold;
   color: #a0a0a0;
   text-decoration: none;
-}
-#timeline a:hover {
-  text-decoration: underline;
 }
 #timeline a.user_link {
   padding-left: 0;

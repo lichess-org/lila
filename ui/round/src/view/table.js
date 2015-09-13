@@ -85,7 +85,7 @@ function renderTablePlay(ctrl) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 15)
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 20)
     ) : null
   ]);
   return [
@@ -93,9 +93,9 @@ function renderTablePlay(ctrl) {
     ctrl.vm.moveToSubmit ? null : (
       button.feedback(ctrl) || m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
-        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
+        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-        button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
+        ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
     buttons ? m('div.control.buttons', buttons) : null,
@@ -146,20 +146,8 @@ function renderClock(ctrl, color, position) {
   ];
 }
 
-function renderRelayClock(ctrl, color, position) {
-  var time = ctrl.relayClock.data[color];
-  var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
-  return m('div', {
-    class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': !time,
-      'running': running
-    })
-  }, m('div.time', m.trust(clockView.formatClockTime(ctrl.relayClock, time * 1000, running))));
-}
-
 function anyClock(ctrl, color, position) {
   if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, color, position);
-  else if (ctrl.relayClock) return renderRelayClock(ctrl, color, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
     return renderCorrespondenceClock(
       ctrl.correspondenceClock, ctrl.trans, color, position, ctrl.data.game.player

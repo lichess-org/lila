@@ -81,7 +81,7 @@ object Tv extends LilaController {
     Env.tv.tv.getBest map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(
-        game,
+        Pov first game,
         get("bg", req) | "light",
         lila.pref.Theme(~get("theme", req)).cssClass
       ))

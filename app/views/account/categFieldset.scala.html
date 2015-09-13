@@ -1,0 +1,5 @@
+@(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg)(body: Html)(implicit ctx: Context)
+
+<div@if(categ != active) { class="none" }>
+  @body
+</div>

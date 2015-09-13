@@ -204,7 +204,6 @@ fromPosition=Fra stilling
 continueFromHere=Fortsæt herfra
 importGame=Importér spil
 nbImportedGames=%s importerede spil
-nbRelayedGames=%s Videresendte partier
 thisIsAChessCaptcha=Dette er en skak-CAPTCHA.
 clickOnTheBoardToMakeYourMove=Klik på brættet for at foretage dit træk, og bevis at du ikke er en robot.
 notACheckmate=Ikke en mat

@@ -39,6 +39,9 @@ div.content_box.prefs fieldset legend {
   padding: 0 10px;
 }
 
+div.content_box.high {
+  min-height: 350px;
+}
 div.content_box.prefs h2 {
   font-weight: bold;
   display: block;
@@ -55,11 +58,7 @@ div.content_box.prefs div.buttonset label {
 div.content_box.prefs form li {
   margin: 20px 0;
   border-top: 1px solid #eaeaea;
-  padding: 15px 0 0 0;
-}
-div.content_box.prefs form li:first-child {
-  padding-top: 0;
-  border-top: none;
+  padding: 20px 0 0 0;
 }
 div.content_box.prefs form button.submit {
   margin: 0;

@@ -31,6 +31,11 @@ private[tv] final class TvActor(
         actor ? ChannelActor.GetGameId pipeTo sender
       }
 
+    case GetGameIds(channel, max) =>
+      channelActors get channel foreach { actor =>
+        actor ? ChannelActor.GetGameIds(max) pipeTo sender
+      }
+
     case GetChampions => sender ! Tv.Champions(channelChampions)
 
     case Select =>
@@ -82,6 +87,7 @@ private[tv] final class TvActor(
 private[tv] object TvActor {
 
   case class GetGameId(channel: Tv.Channel)
+  case class GetGameIds(channel: Tv.Channel, max: Int)
   case object Select
   case class Selected(channel: Tv.Channel, game: lila.game.Game, previousId: Option[String])
 

@@ -59,7 +59,7 @@ final class Env(
   bus.subscribe(system.actorOf(
     Props(new Actor {
       def receive = {
-        case User.Active(user, lang) =>
+        case User.Active(user) =>
           if (!user.seenRecently) UserRepo setSeenAt user.id
           onlineUserIdMemo put user.id
       }
@@ -82,7 +82,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] user" describes new Env(
+  lazy val current: Env = "user" boot new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,

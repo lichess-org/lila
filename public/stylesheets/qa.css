@@ -44,9 +44,6 @@
   border-top: none;
   padding: 20px;
 }
-#qa .lichess_title a {
-  text-decoration: none;
-}
 div.side form.search {
   margin-bottom: 1em;
 }
@@ -56,7 +53,6 @@ div.side div.box .questions {
 }
 div.side .questions a {
   display: block;
-  text-decoration: none;
   padding: 5px 0;
 }
 div.side .questions a:hover {
@@ -98,7 +94,6 @@ div.side .questions a:hover {
   display:inline-block;
   font-size: 1.2em;
   margin: 8px 0 10px 0;
-  text-decoration: none;
 }
 #qa .previews .title:hover {
   text-decoration: underline;
@@ -127,7 +122,6 @@ div.side .questions a:hover {
 }
 #qa .tag {
   white-space: nowrap;
-  text-decoration: none;
   font-weight: bold;
   display: inline-block;
   margin-right: 5px;
@@ -152,7 +146,6 @@ div.side .questions a:hover {
 #qa div.upvote a {
   display: block;
   font-size: 24px;
-  text-decoration: none;
   width: 40px;
 }
 #qa div.upvote.enabled a:hover,
@@ -194,7 +187,6 @@ div.side .questions a:hover {
 #qa .question .your-comment .toggle {
   display: inline-block;
   margin: 5px 0;
-  text-decoration: none;
   opacity: 0.5;
 }
 #qa .question .your-comment .toggle:hover {
@@ -325,7 +317,6 @@ div.side .questions a:hover {
   border-radius: 3px;
   margin: 0 5px 5px 0;
   padding: 3px 7px;
-  text-decoration: none;
   vertical-align: middle;
   font-size: 0.8em;
 }
@@ -333,7 +324,6 @@ div.side .questions a:hover {
   font-weight: bold;
   margin-left: 4px;
   opacity: 0.5;
-  text-decoration: none;
 }
 .tm-tag .tm-tag-remove:hover {
   opacity: 1;

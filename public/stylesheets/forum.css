@@ -112,7 +112,6 @@ ol.crumbs li:first-child {
 #lichess_forum table.forum_table td.subject a {
   font-size: 1.2em;
   font-weight: bold;
-  text-decoration: none;
 }
 
 #lichess_forum table.forum_table td .description {
@@ -244,7 +243,6 @@ div.pagination a, div.pagination span {
   font-size: 1.1em;
   font-weight: bold;
   border-radius: 5px;
-  text-decoration: none;
   margin: 0 2px;
 }
 div.pagination span {

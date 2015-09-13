@@ -13,6 +13,12 @@
   height: 64px;
   padding-left: 64px;
 }
+#board_editor .spare.top {
+  margin-bottom: 10px;
+}
+#board_editor .spare.bottom {
+  margin-top: 10px;
+}
 #board_editor .spare .no-square {
   position: relative;
   display:inline-block;

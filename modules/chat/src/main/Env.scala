@@ -34,7 +34,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] chat" describes new Env(
+  lazy val current: Env = "chat" boot new Env(
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,

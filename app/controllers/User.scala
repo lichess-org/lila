@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json.Json
 import play.api.mvc._, Results._
 
-import lila.api.Context
+import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
@@ -22,6 +22,7 @@ object User extends LilaController {
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
   private def relationApi = Env.relation.api
+  private def userGameSearch = Env.gameSearch.userGameSearch
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
@@ -34,25 +35,26 @@ object User extends LilaController {
     }
   }
 
-  def show(username: String) = Open { implicit ctx =>
+  def show(username: String) = OpenBody { implicit ctx =>
     filter(username, none, 1)
   }
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
+      Env.donation.isDonor(user.id) zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case ((((pov, blocked), crosstable), followable), relation) =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
+          case (((((pov, donor), blocked), crosstable), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
   }
 
-  def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx =>
+  def showFilter(username: String, filterName: String, page: Int) = OpenBody { implicit ctx =>
     filter(username, filterName.some, page)
   }
 
@@ -71,7 +73,7 @@ object User extends LilaController {
     username: String,
     filterOption: Option[String],
     page: Int,
-    status: Results.Status = Results.Ok)(implicit ctx: Context) =
+    status: Results.Status = Results.Ok)(implicit ctx: BodyContext) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         if (u.enabled || isGranted(_.UserSpy)) negotiate(
@@ -90,35 +92,38 @@ object User extends LilaController {
       }
     }
 
-  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
+  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext) = for {
     info ← Env.current.userInfo(u, ctx)
     filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
+      userGameSearch = userGameSearch,
       user = u,
       info = info.some,
       filter = filters.current,
       me = ctx.me,
-      page = page)
+      page = page)(ctx.body)
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
     blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
-  } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
+    searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+  } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
-  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
+  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext) = {
     import lila.app.mashup.GameFilter.{ All, Playing }
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
     })(fuccess) flatMap { filterName =>
       GameFilterMenu.paginatorOf(
+        userGameSearch = userGameSearch,
         user = u,
         info = none,
         filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
         me = ctx.me,
         page = page
-      ) map { filterName -> _ }
+      )(ctx.body) map { filterName -> _ }
     }
   }
 

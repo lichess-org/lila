@@ -23,6 +23,7 @@ function optgroup(name, opts) {
 function controls(ctrl, fen) {
   var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
   var currentPosition = positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
+  var encodedFen = fen.replace(/\s/g, '_');
   var position2option = function(pos) {
     return {
       tag: 'option',
@@ -93,12 +94,12 @@ function controls(ctrl, fen) {
     ]),
     m('div.continue_with', [
       m('a.button', {
-        href: '/?fen=' + fen + '#ai',
+        href: '/?fen=' + encodedFen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
       m('br'),
       m('a.button', {
-        href: '/?fen=' + fen + '#friend',
+        href: '/?fen=' + encodedFen + '#friend',
         rel: 'nofollow'
       }, ctrl.trans('playWithAFriend'))
     ])

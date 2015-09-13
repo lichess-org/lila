@@ -9,7 +9,7 @@
     <tbody>
       @users.map { u =>
       <tr>
-        <td>@userLink(u, cssClass="revert-underline".some)</td>
+        <td>@userLink(u)</td>
         <td>@u.perfs(perfType.key).map(_.intRating)</td>
       </tr>
       }
@@ -25,7 +25,7 @@
     <tbody>
       @users.map { u =>
       <tr>
-        <td>@userLink(u._1, cssClass="revert-underline".some)</td>
+        <td>@userLink(u._1)</td>
         <td title="@trans.gamesPlayed()">#@u._2.localize</td>
       </tr>
       }
@@ -45,7 +45,7 @@
       <table><tbody>
           @online.map { u =>
           <tr>
-            <td>@userLink(u, cssClass="revert-underline".some)</td>
+            <td>@userLink(u)</td>
             <td>@showBestPerf(u)</td>
           </tr>
           }
@@ -73,8 +73,8 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
         <table class="tournament_winners"><tbody>
             @tourneyWinners.map { w =>
             <tr>
-              <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
+              <td>@userIdLink(w.userId.some)</td>
+              <td><a href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
             </tr>
             }
         </tbody></table>

@@ -22,6 +22,7 @@ private[round] final class Round(
     player: Player,
     drawer: Drawer,
     socketHub: ActorRef,
+    monitorMove: Int => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -41,26 +42,10 @@ private[round] final class Round(
       self ! SequentialActor.Terminate
     }
 
-    case p: HumanPlay => handle(p.playerId) { pov =>
-      pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
-    }
-
-    case p: RelayPlay => handle(p.playerId) { pov =>
-      player.relay(p, self)(pov)
-    }
-
-    case RelayClocks(white, black) => handle { game =>
-      GameRepo.setRelayClocks(game.id, white, black) inject List(Event.Clock.tenths(white, black))
-    }
-
-    case RelayClock(color, tenths) => handle { game =>
-      game.relay ?? { relay =>
-        GameRepo.setRelayClock(game.id, color, tenths) inject {
-          val nr = relay.withTenths(color, tenths)
-          (nr.white.tenths |@| nr.black.tenths apply Event.Clock.tenths).toList
-        }
-      }
-    }
+    case p: HumanPlay =>
+      handle(p.playerId) { pov =>
+        pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
+      } >>- monitorMove((nowMillis - p.atMillis).toInt)
 
     case AiPlay => handle { game =>
       game.playableByAi ?? {

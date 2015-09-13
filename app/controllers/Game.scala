@@ -49,7 +49,6 @@ object Game extends LilaController {
             BadRequest(html.game.export(userId, err, captcha))
           },
           _ => fuccess {
-            play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
             import org.joda.time.DateTime
             import org.joda.time.format.DateTimeFormat
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
@@ -58,5 +57,11 @@ object Game extends LilaController {
               CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn"))
           })
       else notFound
+  }
+
+  def playing = Open { implicit ctx =>
+    Env.tv.tv.getBestGames(16) map { games =>
+      html.game.playing(games map lila.game.Pov.first)
+    }
   }
 }

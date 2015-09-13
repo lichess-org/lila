@@ -10,6 +10,12 @@ cd scalalib
 sbt publish-local
 cd ..
 
+rm -rf scala-kit
+git clone https://github.com/ornicar/scala-kit --branch 1210thib
+cd scala-kit
+sbt -Dversion=1.2.10-THIB publish-local
+cd ..
+
 rm -rf maxmind-geoip2-scala
 git clone https://github.com/ornicar/maxmind-geoip2-scala --branch customBuild
 cd maxmind-geoip2-scala

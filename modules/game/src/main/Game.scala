@@ -111,13 +111,6 @@ case class Game(
 
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
-  /**
-   * Fullmove number: The number of the full move.
-   * It starts at 1, and is incremented after Black's move.
-   * NOTE: Duplicates chess.Game.fullMoveNumber (avoids loading toChess)
-   */
-  def fullMoveNumber: Int = 1 + turns / 2
-
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
   def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
@@ -273,13 +266,16 @@ case class Game(
   def playerCanRematch(color: Color) =
     !player(color).isOfferingRematch &&
       finishedOrAborted &&
-      nonMandatory
+      nonMandatory &&
+      !boosted
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
       bothPlayersHaveMoved &&
       !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback
+
+  def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
     playable && nonMandatory && clock.??(_ moretimeable color)
@@ -334,8 +330,6 @@ case class Game(
   def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
   def imported = source contains Source.Import
-
-  def isFicsRelay = source contains Source.Relay
 
   def winner = players find (_.wins)
 
@@ -441,10 +435,6 @@ case class Game(
   def pgnImport = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def relay = metadata.relay
-  def relayId = relay.map(_.id)
-  def isRelay = relay.isDefined
-
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
@@ -460,6 +450,14 @@ object Game {
     chess.variant.Standard,
     chess.variant.ThreeCheck,
     chess.variant.KingOfTheHill)
+
+  val divisionSensiblevariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.ThreeCheck,
+    chess.variant.KingOfTheHill,
+    chess.variant.Antichess,
+    chess.variant.FromPosition)
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
@@ -501,7 +499,6 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
-    relay: Option[Relay] = None,
     castles: Castles = Castles.init,
     daysPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
@@ -521,7 +518,6 @@ object Game {
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
-      relay = relay,
       tournamentId = none,
       simulId = none,
       tvAt = none,
@@ -558,7 +554,6 @@ object Game {
     val updatedAt = "ua"
     val source = "so"
     val pgnImport = "pgni"
-    val relay = "rel"
     val tournamentId = "tid"
     val simulId = "sid"
     val tvAt = "tv"

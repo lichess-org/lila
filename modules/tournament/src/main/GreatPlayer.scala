@@ -213,7 +213,6 @@ object GreatPlayer {
     "Johansen" -> "Darryl_Johansen",
     "Johner" -> "Paul_Johner",
     "Ju" -> "Ju_Wenjun",
-    "Junge" -> "Klaus_Junge",
     "Kachiani" -> "Ketino_Kachiani",
     "Kahn" -> "Mir_Sultan_Khan",
     "Kamsky" -> "Gata_Kamsky",

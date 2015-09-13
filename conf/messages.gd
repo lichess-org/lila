@@ -283,3 +283,6 @@ continueTraining=Lean air adhart leis an trèanadh
 retryThisPuzzle=Feuch ris an tòimhseachan seo a-rithist
 thisPuzzleIsCorrect=Tha an tòimhseachan seo ceart is inntinneach
 thisPuzzleIsWrong=Tha an tòimhseachan seo cearr no dòrainneach
+community=Coimhearsnachd
+tools=Goireasean
+watch=Coimhead

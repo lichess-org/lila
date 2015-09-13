@@ -5,7 +5,7 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 import scalaz.Validation.FlatMap._
 
-import actorApi.round.{ HumanPlay, AiPlay, RelayPlay, DrawNo, TakebackNo, PlayResult, Cheat }
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import akka.actor.ActorRef
 import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
@@ -43,35 +43,6 @@ private[round] final class Player(
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                     } inject progress.events
                   })
-          }
-      } addFailureEffect onFailure
-      case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")
-      case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
-      case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")
-      case _                                       => ClientErrorException.future(s"$pov move refused for some reason")
-    }
-  }
-
-  private val relayIP = "0.0.0.0"
-
-  def relay(play: RelayPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
-    case RelayPlay(playerId, origS, destS, promS, onFailure) => pov match {
-      case Pov(game, color) if (game playableBy color) => {
-        (for {
-          orig ← posAt(origS) toValid "Wrong orig " + origS
-          dest ← posAt(destS) toValid "Wrong dest " + destS
-          promotion = Role promotable promS
-          newChessGameAndMove ← game.toChess(orig, dest, promotion)
-          (newChessGame, move) = newChessGameAndMove
-        } yield game.update(newChessGame, move) -> move).prefixFailuresWith(s"$pov ")
-          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
-            case (progress, move) =>
-              (GameRepo save progress) >>-
-                notifyMove(move, progress.game, relayIP) >> {
-                  if (progress.game.finished)
-                    moveFinish(progress.game, color) map { progress.events ::: _ }
-                  else fuccess(progress.events)
-                }
           }
       } addFailureEffect onFailure
       case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")

@@ -69,6 +69,7 @@ body.dark div.content_box_inter,
 body.dark div.content_box_inter a.active,
 body.dark div.content_box_inter a:hover,
 body.dark input.copyable,
+body.dark textarea.copyable,
 body.dark #site_header div.side_menu a.active,
 body.dark div.game_row,
 body.dark div.side form.search input,
@@ -175,7 +176,7 @@ body.dark #message_notifications div.notification:hover {
   color: #b0b0b0;
 }
 body.dark #top a.toggle:hover,
-body.dark #sound_state:hover {
+body.dark #top #sound_state:hover {
   color: #c0c0c0;
 }
 body.dark div.user_show .trophy.icon3d,
@@ -465,7 +466,6 @@ body.dark #fpmenu a.signup {
 body.dark #fpmenu a.signup:hover {
   background: #d59120;
   color: #fff;
-  text-decoration: none;
 }
 body.dark #fpmenu .perf strong {
   color: #aeaeae;
@@ -509,4 +509,17 @@ body.dark .fire_trophy.wayOfBerserk span {
 body.dark ol.scheduled_tournaments li.marathon {
   background: #2a2a2a;
   box-shadow: 0 0 9px rgba(0,0,0,0.9);
+}
+body.dark ::-webkit-scrollbar,
+body.dark ::-webkit-scrollbar-corner {
+  background: #262626;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.15);
+}
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
+body.dark ::-webkit-scrollbar-thumb:active {
+  background: rgba(200, 200, 200, 0.4);
 }

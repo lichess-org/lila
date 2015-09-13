@@ -19,7 +19,7 @@ final class Env(
 
 object Env {
 
-  lazy val current: Env = "[boot] coordinate" describes new Env(
+  lazy val current: Env = "coordinate" boot new Env(
     config = lila.common.PlayApp loadConfig "coordinate",
     db = lila.db.Env.current)
 }

@@ -35,9 +35,6 @@ private[round] final class SocketHandler(
 
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-      case ("startWatching", o) => o str "d" foreach { ids =>
-        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
-      }
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
@@ -45,6 +42,13 @@ private[round] final class SocketHandler(
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+        case ("move", o) => parseMove(o) foreach {
+          case (orig, dest, prom, blur, lag) =>
+            member push ackEvent
+            round(HumanPlay(
+              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
+            ))
+        }
         case ("rematch-yes", _)  => round(RematchYes(playerId))
         case ("rematch-no", _)   => round(RematchNo(playerId))
         case ("takeback-yes", _) => round(TakebackYes(playerId))
@@ -56,21 +60,11 @@ private[round] final class SocketHandler(
         case ("resign-force", _) => round(ResignForce(playerId))
         case ("draw-force", _)   => round(DrawForce(playerId))
         case ("abort", _)        => round(Abort(playerId))
-        case ("move", o) => parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) =>
-            member push ackEvent
-            round(HumanPlay(
-              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
-            ))
-        }
         case ("moretime", _)  => round(Moretime(playerId))
         case ("outoftime", _) => round(Outoftime)
         case ("bye", _)       => socket ! Bye(ref.color)
         case ("challenge", o) => ((o str "d") |@| member.userId) apply {
           case (to, from) => hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
-        }
-        case ("startWatching", o) => o str "d" foreach { ids =>
-          hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
         }
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)

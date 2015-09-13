@@ -8,7 +8,6 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
-import lila.relay.Relay
 import lila.round.JsonView
 import lila.security.Granter
 import lila.simul.Simul
@@ -19,7 +18,6 @@ private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
     analysisApi: AnalysisApi,
-    getRelay: String => Fu[Option[Relay]],
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
@@ -52,13 +50,11 @@ private[api] final class RoundApi(
         withMoveTimes = withMoveTimes) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (pov.game.simulId ?? getSimul) zip
-        (pov.game.relayId ?? getRelay) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case ((((json, tourOption), simulOption), relayOption), note) => (
+          case (((json, tourOption), simulOption), note) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withRelay(pov, relayOption)_ compose
             withNote(note)_ compose
             withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_
@@ -104,31 +100,6 @@ private[api] final class RoundApi(
         "hostId" -> simul.hostId,
         "name" -> simul.name,
         "nbPlaying" -> simul.playingPairings.size
-      ))
-    }
-
-  private def relayClock(game: Game, r: lila.game.Relay, running: Boolean) = {
-    val tickingColor = game.playerHasMoved(chess.White) option game.turnColor
-    Json.obj(
-      "running" -> running,
-      "white" -> r.remainingSecondsOf(chess.White, tickingColor),
-      "black" -> r.remainingSecondsOf(chess.Black, tickingColor))
-  }
-
-  private def relayPlayer(p: lila.game.Relay.Player) = Json.obj(
-    "name" -> p.name,
-    "title" -> p.title,
-    "rating" -> p.rating).noNull
-
-  private def withRelay(pov: Pov, relayOption: Option[Relay])(json: JsObject) =
-    (pov.game.relay |@| relayOption).tupled.fold(json) {
-      case (meta, relay) => json + ("relay" -> Json.obj(
-        "id" -> relay.id,
-        "name" -> relay.name,
-        "status" -> relay.status.id,
-        "white" -> relayPlayer(meta.white),
-        "black" -> relayPlayer(meta.black),
-        "clock" -> relayClock(pov.game, meta, true)
       ))
     }
 

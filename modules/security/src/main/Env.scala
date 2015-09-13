@@ -20,7 +20,6 @@ final class Env(
 
   private val settings = new {
     val CollectionSecurity = config getString "collection.security"
-    val WiretapIps = config.getStringList("wiretap.ips").toSet
     val FirewallEnabled = config getBoolean "firewall.enabled"
     val FirewallCookieName = config getString "firewall.cookie.name"
     val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
@@ -56,8 +55,6 @@ final class Env(
     cachedIpsTtl = FirewallCachedIpsTtl)
 
   lazy val flood = new Flood(FloodDuration)
-
-  lazy val wiretap = new Wiretap(WiretapIps)
 
   lazy val recaptcha = new Recaptcha(
     privateKey = RecaptchaPrivateKey,
@@ -109,7 +106,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] security" describes new Env(
+  lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,

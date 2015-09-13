@@ -1,55 +1,55 @@
 package lila.forumSearch
 
 import akka.actor._
-import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
 
 import lila.forum.PostApi
+import lila.search._
 
 final class Env(
     config: Config,
     postApi: PostApi,
-    client: ElasticClient,
+    makeClient: Index => ESClient,
     system: ActorSystem) {
 
   private val IndexName = config getString "index"
-  private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  private val IndexerName = config getString "indexer.name"
+  private val ActorName = config getString "actor.name"
 
-  private val indexer: ActorRef = system.actorOf(Props(new Indexer(
-    client = client,
-    indexName = IndexName,
-    typeName = TypeName,
-    postApi = postApi
-  )), name = IndexerName)
+  private val client = makeClient(Index(IndexName))
 
-  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) = {
-    val query = Query(s"$IndexName/$TypeName", text, staff, troll)
-    paginatorBuilder(query, page)
-  }
+  val api = new ForumSearchApi(client, postApi)
+
+  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
+    paginatorBuilder(Query(text, staff, troll), page)
 
   def cli = new lila.common.Cli {
-    import akka.pattern.ask
-    private implicit def timeout = makeTimeout minutes 20
     def process = {
-      case "forum" :: "search" :: "reset" :: Nil =>
-        (indexer ? lila.search.actorApi.Reset) inject "Forum search index rebuilt"
+      case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
     }
   }
 
+  import Query.jsonWriter
+
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-    indexer = indexer,
-    maxPerPage = PaginatorMaxPerPage,
-    converter = res => postApi viewsFromIds (res.getHits.hits.toList map (_.id))
-  )
+    searchApi = api,
+    maxPerPage = PaginatorMaxPerPage)
+
+  system.actorOf(Props(new Actor {
+    import lila.forum.actorApi._
+    def receive = {
+      case InsertPost(post) => api store post
+      case RemovePost(id)   => client deleteById Id(id)
+      case RemoveTopic(id)  => client deleteByQuery StringQuery(s"${Fields.topicId}:$id")
+    }
+  }), name = ActorName)
 }
 
 object Env {
 
-  lazy val current = "[boot] forumSearch" describes new Env(
+  lazy val current = "forumSearch" boot new Env(
     config = lila.common.PlayApp loadConfig "forumSearch",
     postApi = lila.forum.Env.current.postApi,
-    client = lila.search.Env.current.client,
+    makeClient = lila.search.Env.current.makeClient,
     system = lila.common.PlayApp.system)
 }

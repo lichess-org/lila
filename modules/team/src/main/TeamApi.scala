@@ -53,6 +53,8 @@ final class TeamApi(
 
   def mine(me: User): Fu[List[Team]] = $find.byIds[Team](cached teamIds me.id)
 
+  def hasTeams(me: User): Boolean = cached.teamIds(me.id).nonEmpty
+
   def hasCreatedRecently(me: User): Fu[Boolean] =
     TeamRepo.userHasCreatedSince(me.id, creationPeriod)
 

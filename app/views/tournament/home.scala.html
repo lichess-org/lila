@@ -4,12 +4,13 @@
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
 @jsAt("javascripts/vendor/dragscroll.js")
 @embedJs {
-var lichess = lichess || {};
-lichess.tournamentSchedule = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
+var app = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
 data: @Html(J.stringify(json)),
 i18n: @jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 });
+lichess.StrongSocket.defaults.params.flag = "tournament";
+lichess.StrongSocket.defaults.events.reload = app.update;
 }
 }
 
@@ -46,9 +47,8 @@ moreJs = moreJs,
 side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 url = s"$netBaseUrl${routes.Tournament.home.url}",
-title = "Chess tournament featuring various time controls and variants",
-description = "Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. " +
-"Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.").some) {
+title = s"${trans.tournamentHomeTitle()}",
+description = s"${trans.tournamentHomeDescription()}").some) {
 <div class="content_box tournament_box no_padding">
   @if(ctx.isAuth) {
   <div class="create_tournament">

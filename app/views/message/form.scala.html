@@ -1,9 +1,16 @@
-@(form: Form[_], reqUser: Option[User] = None, reqTitle: Option[String] = None)(implicit ctx: Context)
+@(form: Form[_], reqUser: Option[User] = None, reqTitle: Option[String] = None, canMessage: Boolean)(implicit ctx: Context)
 
 @message.layout(
 title = trans.composeMessage.str()) {
 <div class="message_new">
   <h1>@trans.composeMessage()</h1>
+  @reqUser.ifFalse(canMessage).map { u =>
+  <br />
+  <br />
+  <hr />
+  <br />
+  <p>Sorry, @u.username doesn't accept new messages.</p>
+  }.getOrElse {
   <div class="center form">
     <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
       <div class="field_to">
@@ -51,5 +58,6 @@ title = trans.composeMessage.str()) {
       </div>
     </form>
   </div>
+  }
 </div>
 }

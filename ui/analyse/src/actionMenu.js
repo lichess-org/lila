@@ -69,12 +69,12 @@ module.exports = {
         deleteButton(ctrl.data, ctrl.userId),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.step.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithTheMachine')),
           m('br'),
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.step.fen + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithAFriend'))
         ])

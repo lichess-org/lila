@@ -14,7 +14,6 @@ var init = require('./init');
 var blind = require('./blind');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
-var relayClockCtrl = require('./relayClock/ctrl');
 var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
@@ -45,7 +44,8 @@ module.exports = function(opts) {
     replayHash: '',
     moveToSubmit: null,
     buttonFeedback: null,
-    goneBerserk: {}
+    goneBerserk: {},
+    resignConfirm: false
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -133,13 +133,17 @@ module.exports = function(opts) {
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
-
+    this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
       m.redraw();
     } else this.socket.send('move', move, {
       ackable: true
     });
+  }.bind(this);
+
+  var showYourMoveNotification = function() {
+    if (game.isPlayerTurn(this.data)) lichess.desktopNotification("It's your move!");
   }.bind(this);
 
   this.apiMove = function(o) {
@@ -154,6 +158,7 @@ module.exports = function(opts) {
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
     this.setTitle();
+    showYourMoveNotification();
     if (!this.replaying()) {
       this.vm.ply++;
       this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
@@ -225,7 +230,6 @@ module.exports = function(opts) {
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    else if (this.relayClock) this.relayClock.update(this.data.relay.white.tenths, this.data.relay.black.tenths);
     if (!this.replaying()) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
@@ -239,20 +243,13 @@ module.exports = function(opts) {
     this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
-  this.relayClock = this.data.relay ? new relayClockCtrl(this.data.relay.clock) : false;
-
   this.isClockRunning = function() {
-    return (this.data.relay && this.data.game.turns > 1) ||
-      this.data.clock && game.playable(this.data) &&
+    return this.data.clock && game.playable(this.data) &&
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
   var clockTick = function() {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
-  }.bind(this);
-
-  var relayClockTick = function() {
-    if (this.isClockRunning()) this.relayClock.tick(this.data.game.player);
   }.bind(this);
 
   var makeCorrespondenceClock = function() {
@@ -270,7 +267,6 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) setInterval(clockTick, 100);
-  else if (this.relayClock) setInterval(relayClockTick, 100);
   else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
@@ -285,10 +281,19 @@ module.exports = function(opts) {
     this.chessground.cancelPremove();
   }.bind(this);
 
+  this.resign = function(v) {
+    if (this.vm.resignConfirm) {
+      if (v) this.socket.send('resign');
+      else this.vm.resignConfirm = false;
+    } else if (v !== false) {
+      if (this.data.pref.confirmResign) this.vm.resignConfirm = true;
+      else this.socket.send('resign');
+    }
+  }.bind(this);
+
   this.goBerserk = function() {
     this.socket.berserk();
     $.sound.berserk();
-    this.setBerserk(this.data.player.color);
   }.bind(this);
 
   this.setBerserk = function(color) {

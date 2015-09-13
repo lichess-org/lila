@@ -33,6 +33,8 @@ final class Env(
         api.processTroll(userId, by)
       case lila.hub.actorApi.report.Shutup(userId, text) =>
         api.autoInsultReport(userId, text)
+      case lila.hub.actorApi.report.Booster(userId, accomplice) =>
+        api.autoBoostReport(userId, accomplice)
     }
   }), name = ActorName)
 
@@ -41,7 +43,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] report" describes new Env(
+  lazy val current = "report" boot new Env(
     config = lila.common.PlayApp loadConfig "report",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,

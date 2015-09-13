@@ -9,7 +9,6 @@ div.user_show .staff {
 div.user_show div.content_box_top > span,
 div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
-  text-decoration: none;
 }
 div.user_show div.content_box_top > span strong {
   font-weight: normal;
@@ -103,25 +102,22 @@ div.user_show .honorific {
   font-weight: bold;
   font-size: 1.4em;
 }
-div.user_show a.honorific {
-  text-decoration: none;
-}
-div.user_show a.honorific:hover {
-  text-decoration: underline;
-}
 div.user_show .social {
   position: relative;
   border-top: 0;
   padding: 0 0 5px 10px;
   height: 52px;
 }
-div.user_show .relation_actions {
+div.user_show .user_actions {
   position: absolute;
   top: 12px;
   right: 12px;
   font-size: 1.2em;
 }
-div.user_show .relation_actions form {
+div.user_show .user_actions form {
+  display: inline;
+}
+div.user_show .relation_actions {
   display: inline;
 }
 div.user_show div.meat {
@@ -150,6 +146,9 @@ div.sub_ratings h3 {
   letter-spacing: 2px;
   margin: 0;
   display: inline-block;
+}
+div.sub_ratings h3 a:hover {
+  text-decoration: underline;
 }
 #site_header div.sub_ratings strong {
   font-weight: bold;
@@ -258,9 +257,6 @@ div.user_show .mod_zone .slist {
   border-top: none;
   font-size: 0.9em;
   margin-bottom: 1em;
-}
-div.user_show .mod_zone .slist a {
-  text-decoration: none;
 }
 div.user_show .mod_zone .same {
   font-style: italic;
@@ -373,10 +369,6 @@ div.user_show div.content_box_inter.tabs {
 div.crosstable {
   margin: 25px 10px 15px 10px;
 }
-div.user_show .evaluation .peerLink {
-  text-align: center;
-  text-decoration: none;
-}
 div.user_show .reportCard {
   margin: 0 auto 10px auto;
 }
@@ -385,6 +377,7 @@ div.user_show .reportCard th {
   font-size: 1.6em;
   text-align: center;
   padding: 0 5px 0 5px;
+  display: table-cell;
 }
 div.user_show .reportCard td {
   text-align: center;
@@ -420,17 +413,47 @@ div.user_show .results .aggregate {
 }
 div.user_show .reportCard .mark {
   color: #dc322f;
-  /* red */
-}
-div.user_show .reportCard .noMark {
-  /*color: #dc322f;*/
-  /* red */
 }
 div.user_show .reportCard .report {
   color: #B8AA1A;
-  /* red */
 }
-div.user_show .reportCard .noReport {
-  /*color: #dc322f;*/
-  /* red */
+
+div.user_show .search {
+  white-space: nowrap;
+  margin: 10px 0;
+}
+div.user_show .search table {
+  display: inline-block;
+  box-sizing: border-box;
+  margin-left: 20px;
+  width: 360px;
+}
+div.user_show .search table tbody {
+  display: block;
+}
+div.user_show .search table:first-child {
+  width: 400px;
+}
+div.user_show .search .header {
+  font-size: 1.3em;
+}
+div.user_show .search td {
+  padding: 5px 0;
+}
+div.user_show .search label {
+  margin-right: 10px;
+}
+div.user_show .search .single select {
+  width: 100%;
+}
+div.user_show .search table .half {
+  float: left;
+  width: 49%;
+  padding-right: 1%;
+  text-align: right;
+}
+div.user_show .search_status {
+  text-align: right;
+  padding: 10px 25px;
+  border-bottom: 1px solid #e4e4e4;
 }

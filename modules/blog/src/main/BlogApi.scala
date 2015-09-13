@@ -1,7 +1,9 @@
 package lila.blog
 
 import io.prismic._
+import lila.memo.AsyncCache
 import play.api.mvc.RequestHeader
+import scala.concurrent.duration._
 
 final class BlogApi(prismicUrl: String, collection: String) {
 
@@ -31,16 +33,20 @@ final class BlogApi(prismicUrl: String, collection: String) {
     case _      => play.api.Logger("prismic") info message
   }
 
-  def prismicApi = Api.get(prismicUrl, cache = cache, logger = logger)
+  private val fetchPrismicApi = AsyncCache.single[Api](
+    f = Api.get(prismicUrl, cache = cache, logger = logger),
+    timeToLive = 1 minute)
+
+  def prismicApi = fetchPrismicApi(true)
 }
 
 object BlogApi {
 
-  def extract(body: fragments.StructuredText): String =
+  def extract(body: Fragment.StructuredText): String =
     body.blocks
       .takeWhile(_.isInstanceOf[Fragment.StructuredText.Block.Paragraph])
       .take(2).map {
-        case Fragment.StructuredText.Block.Paragraph(text, _, _, _) => s"<p>$text</p>"
+        case Fragment.StructuredText.Block.Paragraph(text, _, _) => s"<p>$text</p>"
         case _ => ""
       }.mkString
 

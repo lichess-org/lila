@@ -84,6 +84,7 @@ module.exports = function(cfg, router, i18n) {
   this.chessground = new chessground.controller(merge.recursive({
     fen: cfg.puzzle.fen,
     orientation: this.data.puzzle.color,
+    coordinates: this.data.pref.coords !== 0,
     turnColor: this.data.puzzle.opponentColor,
     movable: {
       free: false,

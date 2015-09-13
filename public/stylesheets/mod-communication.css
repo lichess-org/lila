@@ -32,7 +32,6 @@
 #communication .player_chats .game .title {
   text-align: center;
   font-weight: bold;
-  text-decoration: none;
   border-bottom: 1px solid #ccc;
 }
 #communication .player_chats .game .chat {

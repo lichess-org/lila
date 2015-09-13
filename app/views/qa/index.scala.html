@@ -4,14 +4,12 @@
 @popularBox(popular)
 }
 
-@title = @{"Questions & Answers"}
-
 @layout(
-title = title,
+title = trans.questionsAndAnswers.str(),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some,
 openGraph = lila.app.ui.OpenGraph(
-title = title,
+title = trans.questionsAndAnswers.str(),
 url = s"$netBaseUrl${routes.QaQuestion.index().url}",
 description = "Community knowledge and frequently asked questions about lichess.org").some) {
 

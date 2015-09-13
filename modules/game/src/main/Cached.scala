@@ -19,8 +19,6 @@ final class Cached(
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
   def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
 
-  def nbRelayed: Fu[Int] = count(Query.relayed)
-
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
   private implicit val userHandler = User.userBSONHandler
@@ -44,16 +42,17 @@ final class Cached(
     timeToLive = 5.seconds)
 
   private val count = mongoCache(
-      prefix = "game:count",
-      f = (o: JsObject) => $count(o),
-      timeToLive = defaultTtl)
+    prefix = "game:count",
+    f = (o: JsObject) => $count(o),
+    timeToLive = defaultTtl)
 
   object Divider {
 
     private val cache = Builder.size[String, chess.Division](5000)
 
-    def apply(game: Game, initialFen: Option[String]): chess.Division = {
-      Option(cache getIfPresent game.id) | {
+    def apply(game: Game, initialFen: Option[String]): chess.Division =
+      if (!Game.divisionSensiblevariants.contains(game.variant)) chess.Division.empty
+      else Option(cache getIfPresent game.id) | {
         val div = chess.Replay.boards(
           moveStrs = game.pgnMoves,
           initialFen = initialFen,
@@ -62,6 +61,5 @@ final class Cached(
         cache.put(game.id, div)
         div
       }
-    }
   }
 }

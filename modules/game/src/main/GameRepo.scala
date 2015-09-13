@@ -323,7 +323,10 @@ object GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    $query.all sort Query.sortCreated skip (Random nextInt 100))
+    $query.all sort Query.sortCreated skip (Random nextInt 1000))
+
+  def random(nb: Int): Fu[List[Game]] = $find(
+    $query.all sort Query.sortCreated skip (Random nextInt 1000), nb)
 
   def findMirror(game: Game): Fu[Option[Game]] = $find.one($query(
     BSONDocument(
@@ -344,22 +347,6 @@ object GameRepo {
     gameTube.coll.find(
       BSONDocument(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
     ).one[Game]
-
-  def setRelayClocks(id: String, white: Int, black: Int): Funit =
-    gameTube.coll.update(
-      $select(id),
-      BSONDocument("$set" -> BSONDocument(
-        s"${F.relay}.white.tenths" -> white,
-        s"${F.relay}.white.at" -> DateTime.now,
-        s"${F.relay}.black.tenths" -> black,
-        s"${F.relay}.black.at" -> DateTime.now))).void
-
-  def setRelayClock(id: String, color: Color, tenths: Int): Funit =
-    gameTube.coll.update(
-      $select(id),
-      BSONDocument("$set" -> BSONDocument(
-        s"${F.relay}.${color.name}.tenths" -> tenths,
-        s"${F.relay}.${color.name}.at" -> DateTime.now))).void
 
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 

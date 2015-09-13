@@ -60,6 +60,20 @@ private[report] final class ReportApi {
     }
   }
 
+  def autoBoostReport(userId: String, accompliceId: String): Funit = {
+    UserRepo.byId(userId) zip
+      UserRepo.byId(accompliceId) zip
+      UserRepo.lichess flatMap {
+        case ((Some(user), Some(accomplice)), Some(lichess)) => create(ReportSetup(
+          user = user,
+          reason = "boost",
+          text = s"with their accomplice @${accomplice.username}",
+          gameId = "",
+          move = ""), lichess)
+        case _ => funit
+      }
+  }
+
   def clean(userId: String): Funit = $update(
     Json.obj(
       "user" -> userId,

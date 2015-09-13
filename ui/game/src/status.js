@@ -24,7 +24,7 @@ function finished(data) {
 }
 
 function aborted(data) {
-  return data.game.status.id == ids.aborted;
+  return data.game.status.id === ids.aborted;
 }
 
 function playing(data) {

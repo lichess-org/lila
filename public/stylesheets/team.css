@@ -47,7 +47,6 @@
   display: block;
   margin-bottom: 4px;
   padding-bottom: 5px;
-  text-decoration: none;
 }
 #team table.slist a.team-name span.team-icon {
   float: left;
@@ -119,9 +118,6 @@
   border-bottom: 1px solid #ccc;
   padding: 0 0 5px 20px;
 }
-#team .forum h2 a {
-  text-decoration: none;
-}
 #team .forum li {
   padding: 20px 10px 20px 20px;
 }
@@ -132,7 +128,6 @@
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
-  text-decoration: none;
 }
 #team .forum time {
   font-size: 0.8em;

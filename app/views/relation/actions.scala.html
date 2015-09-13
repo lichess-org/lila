@@ -1,41 +1,43 @@
 @(userId: String, relation: Option[lila.relation.Relation], followable: Boolean, blocked: Boolean, signup: Boolean = false)(implicit ctx: Context)
 
-@ctx.userId.map { myId =>
-@if(myId != userId) {
-@if(!blocked) {
-<a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@userId#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
-<a data-hint="@trans.composeMessage()" href="@routes.Message.form()?user=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
-}
-@relation match {
-case None => {
-@if(followable && !blocked) {
-<a
-  class="icon button relation hint--bottom"
-  href="@routes.Relation.follow(userId)"
-  data-hint="@trans.follow()"><span data-icon="h"></span></a>
-}
-<a
-  class="icon button relation hint--bottom"
-  href="@routes.Relation.block(userId)"
-  data-hint="@trans.block()"><span data-icon="k"></span></a>
-}
-case Some(true) => {
-<a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
-  <span data-icon="h" class="base">&nbsp;@trans.following()</span>
-  <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
-</a>
-}
-case Some(false) => {
-<a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
-  <span data-icon="k" class="base">&nbsp;@trans.blocked()</span>
-  <span data-icon="k" class="hover">&nbsp;@trans.unblock()</span>
-</a>
-}
-}
-}
-}.getOrElse {
-@if(signup) {
-@trans.youNeedAnAccountToDoThat()
-<a href="@routes.Auth.login" class="signup">@trans.signUp</a>
-}
-}
+<div class="relation_actions">
+  @ctx.userId.map { myId =>
+  @if(myId != userId) {
+  @if(!blocked) {
+  <a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@userId#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
+  <a data-hint="@trans.composeMessage()" href="@routes.Message.form()?user=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
+  }
+  @relation match {
+  case None => {
+  @if(followable && !blocked) {
+  <a
+    class="icon button relation hint--bottom"
+    href="@routes.Relation.follow(userId)"
+    data-hint="@trans.follow()"><span data-icon="h"></span></a>
+  }
+  <a
+    class="icon button relation hint--bottom"
+    href="@routes.Relation.block(userId)"
+    data-hint="@trans.block()"><span data-icon="k"></span></a>
+  }
+  case Some(true) => {
+  <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
+    <span data-icon="h" class="base">&nbsp;@trans.following()</span>
+    <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
+  </a>
+  }
+  case Some(false) => {
+  <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
+    <span data-icon="k" class="base">&nbsp;@trans.blocked()</span>
+    <span data-icon="k" class="hover">&nbsp;@trans.unblock()</span>
+  </a>
+  }
+  }
+  }
+  }.getOrElse {
+  @if(signup) {
+  @trans.youNeedAnAccountToDoThat()
+  <a href="@routes.Auth.login" class="signup">@trans.signUp</a>
+  }
+  }
+</div>

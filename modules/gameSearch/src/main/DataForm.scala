@@ -19,7 +19,8 @@ private[gameSearch] final class DataForm {
       "black" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
     "winnerColor" -> optional(numberIn(Query.winnerColors)),
-    "variant" -> optional(numberIn(Query.variants)),
+    "perf" -> optional(numberIn(Query.perfs)),
+    "source" -> optional(numberIn(Query.sources)),
     "mode" -> optional(numberIn(Query.modes)),
     "opening" -> optional(stringIn(Query.openings)),
     "turnsMin" -> optional(numberIn(Query.turns)),
@@ -35,17 +36,18 @@ private[gameSearch] final class DataForm {
     "dateMax" -> optional(stringIn(Query.dates)),
     "status" -> optional(numberIn(Query.statuses)),
     "analysed" -> optional(number),
-    "sort" -> mapping(
+    "sort" -> optional(mapping(
       "field" -> stringIn(Sorting.fields),
       "order" -> stringIn(Sorting.orders)
-    )(SearchSort.apply)(SearchSort.unapply)
+    )(SearchSort.apply)(SearchSort.unapply))
   )(SearchData.apply)(SearchData.unapply)) fill SearchData()
 }
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
     winnerColor: Option[Int] = None,
-    variant: Option[Int] = None,
+    perf: Option[Int] = None,
+    source: Option[Int] = None,
     mode: Option[Int] = None,
     opening: Option[String] = None,
     turnsMin: Option[Int] = None,
@@ -61,15 +63,17 @@ private[gameSearch] case class SearchData(
     dateMax: Option[String] = None,
     status: Option[Int] = None,
     analysed: Option[Int] = None,
-    sort: SearchSort = SearchSort()) {
+    sort: Option[SearchSort] = None) {
 
-  def query(indexType: String) = Query(
-    indexType = indexType,
+  def sortOrDefault = sort | SearchSort()
+
+  def query = Query(
     user1 = players.cleanA,
     user2 = players.cleanB,
     winner = players.cleanWinner,
     winnerColor = winnerColor,
-    variant = variant,
+    perf = perf,
+    source = source,
     rated = mode flatMap Mode.apply map (_.rated),
     opening = opening map (_.trim.toLowerCase),
     turns = Range(turnsMin, turnsMax),
@@ -82,12 +86,9 @@ private[gameSearch] case class SearchData(
     analysed = analysed map (_ == 1),
     whiteUser = players.cleanWhite,
     blackUser = players.cleanBlack,
-    sorting = Sorting(sort.field, sort.order))
+    sorting = Sorting(sortOrDefault.field, sortOrDefault.order))
 
-  def nonEmptyQuery(indexType: String) = {
-    val q = query(indexType)
-    q.nonEmpty option q
-  }
+  def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {

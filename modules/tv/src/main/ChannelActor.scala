@@ -12,11 +12,17 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 
   implicit private def timeout = makeTimeout(50 millis)
 
+  // the game featured on this channel
   private var oneId = none[String]
+
+  // the list of candidates by descending interest order
+  private var manyIds = List.empty[String]
 
   def receive = {
 
-    case GetGameId => sender ! oneId
+    case GetGameId       => sender ! oneId
+
+    case GetGameIds(max) => sender ! manyIds.take(max)
 
     case SetGame(game) =>
       context.parent ! TvActor.Selected(channel, game, oneId)
@@ -29,6 +35,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
         case Some(game) => rematch(game) orElse feature(candidates) foreach elect
         case _          => feature(candidates) foreach elect
       }
+      manyIds = candidates.sortBy(-score(_)).map(_.id)
     }
   }
 
@@ -79,6 +86,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 object ChannelActor {
 
   case object GetGameId
+  case class GetGameIds(max: Int)
   private case class SetGame(game: Game)
 
   case class Select(candidates: List[Game])

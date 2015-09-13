@@ -26,7 +26,6 @@ div.sidebar a {
   display: block;
   padding: 1em;
   font-size: 120%;
-  text-decoration: none;
 }
 #lichess_message td.subject a:hover {
   text-decoration: underline;

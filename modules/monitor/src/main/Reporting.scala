@@ -10,7 +10,6 @@ import play.api.libs.concurrent._
 
 import actorApi._
 import lila.hub.actorApi.monitor._
-import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.{ NbMembers, PopulationGet }
 
 private[monitor] final class Reporting(
@@ -22,7 +21,7 @@ private[monitor] final class Reporting(
 
   private val bus = context.system.lilaBus
 
-  bus.subscribe(self, 'moveEvent, 'nbMembers)
+  bus.subscribe(self, 'nbMembers)
 
   override def postStop() {
     bus.unsubscribe(self)
@@ -38,8 +37,11 @@ private[monitor] final class Reporting(
   var mps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
+  val moveMillis = scala.collection.mutable.ArrayBuffer.empty[Int]
+  var moveAvgMillis = 0
 
   var idle = true
+  var lastUpdated = nowMillis
 
   val osStats = ManagementFactory.getOperatingSystemMXBean
   val threadStats = ManagementFactory.getThreadMXBean
@@ -49,7 +51,9 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent     => moveWindowCount.add
+    case Move(millis) =>
+      moveWindowCount.add
+      moveMillis += millis
 
     case AddRequest       => reqWindowCount.add
 
@@ -58,12 +62,16 @@ private[monitor] final class Reporting(
     case NbMembers(nb, _) => nbMembers = nb
 
     case GetNbMoves       => sender ! moveWindowCount.get
+    case GetMoveLatency   => sender ! moveAvgMillis
 
-    case Update => socket ? PopulationGet foreach {
-      case 0 => idle = true
-      case _ => {
-        val before = nowMillis
-        MongoStatus(db.db)(mongoStatus) onComplete {
+    case Update =>
+      if (moveMillis.size > 0) moveAvgMillis = moveMillis.sum / moveMillis.size
+      moveMillis.clear
+      socket ? PopulationGet foreach {
+        case 0 => idle = true
+        case _ => {
+          val before = nowMillis
+          MongoStatus(db.db)(mongoStatus) onComplete {
             case Failure(e) => logwarn("[reporting] " + e.getMessage)
             case Success(mongoS) => {
               latency = (nowMillis - before).toInt
@@ -71,15 +79,15 @@ private[monitor] final class Reporting(
               loadAvg = osStats.getSystemLoadAverage.toFloat
               nbThreads = threadStats.getThreadCount
               memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-              rps = moveWindowCount.get
-              mps = reqWindowCount.get
+              mps = moveWindowCount.get
+              rps = reqWindowCount.get
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
               socket ! MonitorData(monitorData(idle))
               idle = false
             }
           }
+        }
       }
-    }
   }
 
   private def monitorData(idle: Boolean) = List(
@@ -91,21 +99,10 @@ private[monitor] final class Reporting(
     "memory" -> memory,
     "rps" -> rps,
     "mps" -> mps,
+    "mlat" -> moveAvgMillis,
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> idle.fold("??", mongoStatus.qps.toString)) map {
       case (name, value) => s"$value:$name"
     }
-
-  private def dataLine(data: List[(String, Any)]) = new {
-
-    def header = data map (_._1) mkString " "
-
-    def line = data map {
-      case (name, value) => {
-        val s = value.toString
-        List.fill(name.size - s.size)(" ").mkString + s + " "
-      }
-    } mkString
-  }
 }

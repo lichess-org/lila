@@ -37,7 +37,7 @@ $(function() {
       });
       return false;
     });
-    if (location.search.indexOf('mod') != -1) $(this).click();
+    if (location.search.indexOf('mod') === 1) $(this).click();
   });
 
   $("div.user_show .note_zone_toggle").each(function() {
@@ -55,7 +55,10 @@ $(function() {
       $.ajax({
         url: $form.attr('action'),
         method: $form.attr('method'),
-        data: $form.serialize()
+        data: $form.serialize(),
+        success: function() {
+          $form.find('.saved').fadeIn();
+        }
       });
     });
   });

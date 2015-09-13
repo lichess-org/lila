@@ -62,6 +62,7 @@ final class Env(
       player = player,
       drawer = drawer,
       socketHub = socketHub,
+      monitorMove = (ms: Int) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
@@ -196,7 +197,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] round" describes new Env(
+  lazy val current = "round" boot new Env(
     config = lila.common.PlayApp loadConfig "round",
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,

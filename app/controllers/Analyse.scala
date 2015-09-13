@@ -33,7 +33,11 @@ object Analyse extends LilaController {
 
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
     addCallbacks(id) {
-      env.analyser.getOrGenerate(id, me.id, concurrent = isGranted(_.MarkEngine), auto = false)
+      env.analyser.getOrGenerate(id,
+        userId = me.id,
+        userIp = ctx.req.remoteAddress.some,
+        concurrent = isGranted(_.MarkEngine),
+        auto = false)
     }
 
   private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
@@ -62,9 +66,8 @@ object Analyse extends LilaController {
     else GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.simulId ?? Env.simul.repo.find) zip
-        Env.relay.api.round(pov.game) zip
         Env.game.crosstableApi(pov.game) flatMap {
-          case (((analysis, simul), relay), crosstable) =>
+          case ((analysis, simul), crosstable) =>
             val pgn = Env.api.pgnDump(pov.game, initialFen)
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,
               tv = none,
@@ -79,7 +82,6 @@ object Analyse extends LilaController {
                   analysis,
                   analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves, pov.game.startedAtTurn) },
                   simul,
-                  relay,
                   new TimeChart(pov.game, pov.game.pgnMoves),
                   crosstable,
                   userTv,
@@ -92,9 +94,8 @@ object Analyse extends LilaController {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.simulId ?? Env.simul.repo.find) zip
-        (pov.game.relayId ?? Env.relay.repo.byId) zip
         Env.game.crosstableApi(pov.game) map {
-          case (((analysis, simul), relay), crosstable) =>
+          case ((analysis, simul), crosstable) =>
             val pgn = Env.api.pgnDump(pov.game, initialFen)
             Ok(html.analyse.replayBot(
               pov,
@@ -102,7 +103,6 @@ object Analyse extends LilaController {
               Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
               analysis,
               simul,
-              relay,
               crosstable))
         }
     }
