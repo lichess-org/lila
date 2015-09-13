@@ -45,6 +45,7 @@ module.exports = function(env) {
   this.loadPage(this.data.standing);
 
   var setPage = function(page) {
+    m.redraw.strategy('all');
     this.vm.page = page;
     xhr.loadPage(this, page)
   }.bind(this);
