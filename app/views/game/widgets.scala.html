@@ -93,7 +93,7 @@
       case (List(w, b), i) => {@(i+1). @w @b}
       case (List(w), i) => {@(i+1). @w}
       case _ => {}
-      }.mkString(" ")@if(g.turns > 6) { ... @g.fullMoveNumber moves }
+      }.mkString(" ")@if(g.turns > 6) { ... @{1 + (g.turns - 1) / 2} moves }
     </div>
     }
     } else {
