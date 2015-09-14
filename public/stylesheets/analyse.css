@@ -364,3 +364,8 @@ table.modAssessment td.noMatch {
 .copyable {
   width: 455px;
 }
+.forecast {
+  position: absolute;
+  top: 41px;
+  left: -211px;
+}

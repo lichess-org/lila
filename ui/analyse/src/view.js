@@ -294,7 +294,7 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable[readonly][spellCheck=false]', {
-        value: pgnExport(ctrl)
+        value: pgnExport.all(ctrl)
       })
     ])
   ]);
@@ -378,6 +378,10 @@ module.exports = function(ctrl) {
     m('div.underboard', [
       m('div.center', inputs(ctrl)),
       m('div.right')
+    ]),
+    m('div.forecast.side_box.padded', [
+      'Conditional premoves',
+      pgnExport.since(ctrl, ctrl.vm.initialPathStr)
     ])
   ];
 };
