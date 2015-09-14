@@ -28,6 +28,7 @@ module.exports = function(opts) {
   this.vm = {
     path: initialPath,
     pathStr: treePath.write(initialPath),
+    initialPathStr: opts.data.path,
     step: null,
     cgConfig: null,
     comments: true,

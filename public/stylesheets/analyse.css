@@ -174,6 +174,10 @@ div.game_control .jumps {
   display: inline-block;
   padding: 2px 7px;
 }
+.lichess_ground .replay .turn .move .initial {
+  float: right;
+  font-size: 0.8em;
+}
 .lichess_ground .replay .turn .move.empty {
   opacity: 0.5;
 }
