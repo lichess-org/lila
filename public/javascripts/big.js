@@ -1034,26 +1034,19 @@ lichess.desktopNotification = function(msg) {
         return false;
       });
 
-      var acceptLanguages = $('body').data('accept-languages');
-      if (acceptLanguages) {
-        $('#top .lichess_language').one('mouseover', function() {
-          var $links = $(this).find('.language_links'),
-            langs = acceptLanguages.split(',');
-          $.ajax({
-            url: $links.data('url'),
-            cache: false,
-            success: function(list) {
-              $links.prepend(list.map(function(lang) {
-                var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-                return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
-              }).join(''));
-            }
-          });
+      $('#top .lichess_language').one('mouseover', function() {
+        var $links = $(this).find('.language_links'),
+          langs = $('body').data('accept-languages').split(',');
+        $.ajax({
+          url: $links.data('url'),
+          cache: false,
+          success: function(list) {
+            $links.prepend(list.map(function(lang) {
+              var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
+              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+            }).join(''));
+          }
         });
-      }
-
-      $('#incomplete_translation a.close').one('click', function() {
-        $(this).parent().remove();
       });
 
       $('#translation_call .close').click(function() {
@@ -1075,19 +1068,6 @@ lichess.desktopNotification = function(msg) {
         var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
         t.find('span').html(count > 0 ? count : "");
         return false;
-      });
-
-      $("#import_game form").submit(function() {
-        var pgn = $(this).find('textarea').val();
-        var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
-        var delay = 50;
-        var duration = nbMoves * delay * 2.1 + 1000;
-        $(this).find('button').hide().end()
-          .find('.error').hide().end()
-          .find('.progression').show().animate({
-            width: '100%'
-          }, duration);
-        return true;
       });
 
       // minimal touchscreen support for topmenu
