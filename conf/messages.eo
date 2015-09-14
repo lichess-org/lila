@@ -1,5 +1,5 @@
 playWithAFriend=Ludi kun amiko
-playWithTheMachine=Ludi kontraŭ la maŝino
+playWithTheMachine=Ludi kontraŭ la komputilo
 toInviteSomeoneToPlayGiveThisUrl=Por inviti iun al ludo, donu ĉi tiun ligilon
 gameOver=Ludo finiĝis
 waitingForOpponent=Atendante kontraŭulon
@@ -500,3 +500,10 @@ keyGoToStartOrEnd=iri al komenco/fino
 keyShowOrHideComments=(mal)montri komentojn
 keyEnterOrExitVariation=eniru/forlasu variaĵon
 keyYouCanDrawArrowsCirclesAndScrollToMove=Premu shift+alklakon aŭ dekstran alklakon por desegni cirklojn kaj sagojn sur la tabulo. Vi povas ankaŭ rulumi super la tabulo por moviĝi ene de la ludo.
+newTournament=Nova konkurso
+tournamentHomeTitle=Ŝaka konkurso kun diversaj tempokontroloj kaj variaĵoj
+tournamentHomeDescription=Ludu en rapidaj konkursoj! Aliĝu al oficialaj konkursoj aŭ kreu vian propran. Unminuta ŝako, Kvinminuta ŝako, Klasika ŝako, Ŝak960, Triŝako kaj aliaj variaĵoj haveblas por senfina ĝuo.
+tournamentNotFound=Konkurso netrovita
+tournamentDoesNotExist=Konkurso ne ekzistas
+tournamentMayHaveBeenCanceled=Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.
+returnToTournamentsHomepage=Reen al la hejmpaĝo de la konkursoj
