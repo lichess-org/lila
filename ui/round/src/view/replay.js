@@ -69,7 +69,8 @@ function renderTable(ctrl) {
       renderTd(pairs[i][0], ctrl.vm.ply, true),
       renderTd(pairs[i][1], ctrl.vm.ply, false)
     ]));
-  trs.push(renderResult(ctrl, true));
+  if (ctrl.conditionable()) trs.push(renderConditional(ctrl));
+  else trs.push(renderResult(ctrl, true));
 
   return m('table',
     m('tbody', {
@@ -79,6 +80,14 @@ function renderTable(ctrl) {
         }
       },
       trs));
+}
+
+function renderConditional(ctrl) {
+  return m('tr.forecast', m('td.result[colspan=3]',
+    m('a.button', {
+      href: '/' + ctrl.data.game.id + ctrl.data.player.id + '/forecast'
+    }, 'Conditional premoves')
+  ));
 }
 
 function renderButtons(ctrl) {
