@@ -47,14 +47,15 @@ function renderMove(ctrl, move, path) {
     },
     children: [
       defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
+        defined(move.mate) ? renderEvalTag('#' + move.mate) : (
+          pathStr === ctrl.vm.initialPathStr ? m('span', {
+            class: 'initial',
+            'data-icon': '7',
+            title: 'Current move'
+          }) : null
+        )
       ),
-      move.san,
-      pathStr === ctrl.vm.initialPathStr ? m('span', {
-        class: 'initial',
-        'data-icon': '7',
-        title: 'Current move'
-      }) : null
+      move.san
     ]
   };
 }
