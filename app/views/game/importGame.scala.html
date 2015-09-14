@@ -4,9 +4,27 @@
 @cssTag("import.css")
 }
 
+@moreJs = {
+@embedJs {
+$("#import_game form").submit(function() {
+var pgn = $(this).find('textarea').val();
+var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
+var delay = 50;
+var duration = nbMoves * delay * 2.1 + 1000;
+$(this).find('button').hide().end()
+.find('.error').hide().end()
+.find('.progression').show().animate({
+width: '100%'
+}, duration);
+return true;
+});
+}
+}
+
 @game.layout(
 title = trans.importGame.str(),
 moreCss = moreCss,
+moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = "Paste PGN chess game",
 url = s"$netBaseUrl${routes.Importer.importGame.url}",

@@ -89,10 +89,15 @@ object Tv {
       name = V.Horde.name,
       icon = P.Horde.iconChar.toString,
       filters = Seq(variant(V.Horde), freshBlitz))
+    case object Computer extends Channel(
+      name = "Computer",
+      icon = ":",
+      filters = Seq(computerFromInitialPosition, freshBlitz))
     val all = List(
       Best,
       Bullet, Blitz, Classical,
-      Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde)
+      Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde,
+      Computer)
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
@@ -105,4 +110,5 @@ object Tv {
     g.finished && !g.olderThan(7)
   } // rematch time
   private val freshBlitz = fresh(40)
+  private def computerFromInitialPosition = (g: Game) => g.hasAi && !g.fromPosition
 }

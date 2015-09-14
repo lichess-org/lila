@@ -463,9 +463,6 @@ a:hover,
 a:visited {
   text-decoration: none;
 }
-a:hover {
-  opacity: 0.8;
-}
 button.a {
   border: none;
   background: none;
