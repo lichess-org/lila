@@ -223,12 +223,12 @@ module.exports = function(opts) {
     }
   }.bind(this);
 
-  this.conditionable = function() {
-    return game.isPlayerPlaying(this.data) &&
-      this.data.game.player !== this.data.player.color &&
-      this.data.correspondence &&
-      !this.replaying();
-  }.bind(this);
+//   this.conditionable = function() {
+//     return game.isPlayerPlaying(this.data) &&
+//       this.data.game.player !== this.data.player.color &&
+//       this.data.correspondence &&
+//       !this.replaying();
+//   }.bind(this);
 
   this.reload = function(cfg) {
     m.startComputation();
