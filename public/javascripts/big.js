@@ -345,6 +345,11 @@ lichess.desktopNotification = function(msg) {
     });
   }
 };
+lichess.unique = function(xs) {
+  return xs.filter(function(x, i) {
+    return xs.indexOf(x) === i;
+  });
+};
 
 (function() {
 
@@ -1425,9 +1430,9 @@ lichess.desktopNotification = function(msg) {
       self.set(self.element.data('preload').split(','));
     },
     repaint: function() {
-      this.users = $.unique(this.users).filter(function(u) {
+      this.users = lichess.unique(this.users.filter(function(u) {
         return u !== '';
-      });
+      }));
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
       this.$list.html(this.users.map(this._renderUser).join(""));

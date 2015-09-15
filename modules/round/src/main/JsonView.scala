@@ -231,7 +231,12 @@ final class JsonView(
           "destination" -> pref.destination,
           "coords" -> pref.coords
         ),
-        "userAnalysis" -> true)
+        "userAnalysis" -> true,
+        "forecast" -> (pov.game.forecastable && !pov.isMyTurn).option {
+          Json.obj(
+            "gamePly" -> pov.game.turns
+          )
+        })
     }
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(

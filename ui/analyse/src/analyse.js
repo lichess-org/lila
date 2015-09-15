@@ -23,7 +23,25 @@ module.exports = function(steps, analysis) {
         }
       }
     }
-  }
+  };
+
+  this.getNodes = function(path) {
+    var tree = this.tree;
+    var nodes = [];
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        nodes.push(tree[i]);
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
+            break;
+          }
+          return nodes;
+        }
+      }
+    }
+  };
 
   this.addStep = function(step, path) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
@@ -45,7 +63,7 @@ module.exports = function(steps, analysis) {
       if (curStep.san === step.san) return nextPath;
       for (var i = 0; i < curStep.variations.length; i++) {
         if (curStep.variations[i][0].san === step.san)
-           return treePath.withVariation(nextPath, i + 1);
+          return treePath.withVariation(nextPath, i + 1);
       }
       curStep.variations.push([step]);
       return treePath.withVariation(nextPath, curStep.variations.length);

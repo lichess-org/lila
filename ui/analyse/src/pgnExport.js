@@ -1,23 +1,28 @@
 module.exports = {
   all: function(ctrl) {
     var s = '';
-    ctrl.analyse.tree.forEach(function(node, i) {
+    ctrl.analyse.getNodes(ctrl.vm.path).forEach(function(node, i) {
       if (i === 0) return;
-      if (i > ctrl.vm.path[0].ply) return;
       if (i % 2 === 1) s += ((i + 1) / 2) + '. '
       else s += '';
       s += node.san + ' ';
     });
     return s.trim();
   },
-  since: function(ctrl, ply) {
-    var s = '';
-    ctrl.analyse.tree.forEach(function(node, i) {
-      if (i === 0 || i <= ply) return;
-      if (i > ctrl.vm.path[0].ply) return;
-      if (i % 2 === 1) s += ((i + 1) / 2) + '. '
+  arraySince: function(ctrl, ply) {
+    return ctrl.analyse.tree.filter(function(node, i) {
+      return i > ply && i <= ctrl.vm.path[0].ply;
+    }).map(function(node) {
+      return node.san;
+    });
+  },
+  renderSanSince: function(sans, ply) {
+    var s = ply % 2 === 0 ? '' : ((ply + 1) / 2) + '...&nbsp;';
+    sans.forEach(function(san, i) {
+      var p = ply + i + 1;
+      if (p % 2 === 1) s += ((p + 1) / 2) + '.&nbsp;'
       else s += '';
-      s += node.san + ' ';
+      s += san + ' ';
     });
     return s.trim();
   }
