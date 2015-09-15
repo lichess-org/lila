@@ -12,6 +12,7 @@ var promotion = require('./promotion');
 var readDests = require('./util').readDests;
 var throttle = require('./util').throttle;
 var socket = require('./socket');
+var forecast = require('./forecast');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -24,6 +25,8 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
+  if (initialPath[0].ply >= this.data.steps.length)
+    initialPath = treePath.default(this.data.steps.length - 1);
 
   this.vm = {
     path: initialPath,
@@ -186,6 +189,8 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   this.router = opts.routes;
+
+  this.forecast = opts.data.forecast ? forecast.ctrl(opts.data.forecast) : null;
 
   this.trans = function(key) {
     var str = opts.i18n[key] || key;

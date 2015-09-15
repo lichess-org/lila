@@ -12,6 +12,7 @@ var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
+var forecast = require('./forecast');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -41,19 +42,17 @@ function renderMove(ctrl, move, path) {
   return {
     tag: 'a',
     attrs: {
-      class: 'move' + (pathStr === ctrl.vm.pathStr ? ' active' : ''),
+      class: classSet({
+        'move': true,
+        'active': pathStr === ctrl.vm.pathStr,
+        'current': pathStr === ctrl.vm.initialPathStr
+      }),
       'data-path': pathStr,
       'href': '#' + path[0].ply
     },
     children: [
       defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : (
-          pathStr === ctrl.vm.initialPathStr ? m('span', {
-            class: 'initial',
-            'data-icon': '7',
-            title: 'Current move'
-          }) : null
-        )
+        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
       ),
       move.san
     ]
@@ -379,9 +378,6 @@ module.exports = function(ctrl) {
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    m('div.forecast.side_box.padded', [
-      'Conditional premoves',
-      pgnExport.since(ctrl, ctrl.vm.initialPathStr)
-    ])
+    ctrl.forecast ? forecast.view(ctrl) : null
   ];
 };
