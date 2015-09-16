@@ -2166,7 +2166,6 @@ lichess.unique = function(xs) {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
-    console.log(data);
     if (lichess.openInMobileApp(data.game.id)) return;
     if (data.chat) $('#chat').chat({
       messages: data.chat,
