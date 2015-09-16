@@ -45,6 +45,10 @@ module.exports = function(send, ctrl) {
     anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
   }.bind(this);
 
+  this.sendForecasts = function(req) {
+    this.send('forecasts', req);
+  }.bind(this);
+
   var withoutStandardVariant = function(obj) {
     if (obj.variant === 'standard') delete obj.variant;
   };

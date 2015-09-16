@@ -160,25 +160,37 @@ module.exports = function(cfg) {
   };
   fixAll();
 
+  var isCandidate = function(fc) {
+    fc = truncate(fc);
+    if (fc.length < 2) return false;
+    var collisions = forecasts.filter(function(f) {
+      return contains(f, fc);
+    });
+    if (collisions.length) return false;
+    var incomplete = fc.filter(function(s) {
+      return !s.dests;
+    });
+    if (incomplete.length) return false;
+    return true;
+  };
+
   return {
     addSteps: function(fc) {
       fc = truncate(fc);
-      if (fc.length === 0) return;
+      if (!isCandidate(fc)) return;
+      fc.forEach(function(step) {
+        delete step.variations;
+      });
       forecasts.push(fc);
       fixAll();
+      save();
     },
-    isCandidate: function(fc) {
-      fc = truncate(fc);
-      if (fc.length < 2) return false;
-      var collisions = forecasts.filter(function(f) {
-        return contains(f, fc);
-      });
-      return collisions.length === 0;
-    },
+    isCandidate: isCandidate,
     removeIndex: function(index) {
       forecasts = forecasts.filter(function(fc, i) {
         return i !== index;
       });
+      save();
     },
     list: function() {
       return forecasts;
