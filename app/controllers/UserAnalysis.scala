@@ -64,6 +64,8 @@ object UserAnalysis extends LilaController with TheftPrevention {
             Env.round.forecastApi.load(pov) map {
               case None     => Ok(Json.obj("none" -> true))
               case Some(fc) => Ok(Json toJson fc) as JSON
+            } recover {
+              case Forecast.OutOfSync => Ok(Json.obj("reload" -> true))
             })
       }
   }
