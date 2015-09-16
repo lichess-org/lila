@@ -124,6 +124,9 @@ div.game_control a.menu {
   overflow: auto;
   overflow-x: hidden;
   border: 1px solid #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .lichess_ground .action_menu {
   border-color: transparent;
@@ -369,6 +372,9 @@ table.modAssessment td.noMatch {
   top: 53px;
   left: -241px;
   width: 226px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .forecast san {
   font-weight: bold;
@@ -387,6 +393,7 @@ table.modAssessment td.noMatch {
   margin-left: -2px;
   transition: 0.13s;
   position: relative;
+  cursor: pointer;
 }
 .forecast .entry::before {
   opacity: 0.4;

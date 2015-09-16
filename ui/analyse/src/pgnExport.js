@@ -1,27 +1,27 @@
 module.exports = {
-  renderNodesTxt: function(nodes) {
-    if (!nodes[0]) return '';
-    if (!nodes[0].san) nodes = nodes.slice(1);
-    if (!nodes[0]) return '';
-    var s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '... ';
-    nodes.forEach(function(node) {
-      if (node.ply === 0) return;
-      if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '. '
+  renderStepsTxt: function(steps) {
+    if (!steps[0]) return '';
+    if (!steps[0].san) steps = steps.slice(1);
+    if (!steps[0]) return '';
+    var s = steps[0].ply % 2 === 1 ? '' : Math.floor((steps[0].ply + 1) / 2) + '... ';
+    steps.forEach(function(step) {
+      if (step.ply === 0) return;
+      if (step.ply % 2 === 1) s += ((step.ply + 1) / 2) + '. '
       else s += '';
-      s += node.san + ' ';
+      s += step.san + ' ';
     });
     return s.trim();
   },
-  renderNodesHtml: function(nodes) {
-    if (!nodes[0]) return '';
-    if (!nodes[0].san) nodes = nodes.slice(1);
-    if (!nodes[0]) return '';
-    var s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '...&nbsp;';
-    nodes.forEach(function(node) {
-      if (node.ply === 0) return;
-      if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '.&nbsp;'
+  renderStepsHtml: function(steps) {
+    if (!steps[0]) return '';
+    if (!steps[0].san) steps = steps.slice(1);
+    if (!steps[0]) return '';
+    var s = steps[0].ply % 2 === 1 ? '' : Math.floor((steps[0].ply + 1) / 2) + '...&nbsp;';
+    steps.forEach(function(step) {
+      if (step.ply === 0) return;
+      if (step.ply % 2 === 1) s += ((step.ply + 1) / 2) + '.&nbsp;'
       else s += '';
-      s += '<san>' + node.san + '</san> ';
+      s += '<san>' + step.san + '</san> ';
     });
     return s.trim();
   }

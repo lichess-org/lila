@@ -25,9 +25,9 @@ module.exports = function(steps, analysis) {
     }
   };
 
-  this.getNodes = function(path) {
+  this.getSteps = function(path) {
     var tree = this.tree;
-    var nodes = [];
+    var steps = [];
     for (var j in path) {
       var p = path[j];
       for (var i = 0, nb = tree.length; i < nb; i++) {
@@ -36,16 +36,16 @@ module.exports = function(steps, analysis) {
             tree = tree[i].variations[p.variation - 1];
             break;
           }
-          nodes.push(tree[i]);
-          return nodes;
-        } else nodes.push(tree[i]);
+          steps.push(tree[i]);
+          return steps;
+        } else steps.push(tree[i]);
       }
     }
   }.bind(this);
 
-  this.getNodesAfterPly = function(path, ply) {
-    return this.getNodes(path).filter(function(node) {
-      return node.ply > ply;
+  this.getStepsAfterPly = function(path, ply) {
+    return this.getSteps(path).filter(function(step) {
+      return step.ply > ply;
     });
   }.bind(this);
 
@@ -76,6 +76,13 @@ module.exports = function(steps, analysis) {
     }
     tree.push(step);
     return nextPath;
+  }.bind(this);
+
+  this.addSteps = function(steps, path) {
+    var step = steps[0];
+    if (!step) return path;
+    var newPath = this.addStep(step, path);
+    return this.addSteps(steps.slice(1), newPath);
   }.bind(this);
 
   this.addDests = function(dests, path) {

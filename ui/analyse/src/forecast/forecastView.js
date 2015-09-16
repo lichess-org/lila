@@ -1,33 +1,43 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
+var treePath = require('../path');
 
 module.exports = function(ctrl) {
   var fctrl = ctrl.forecast;
-  var cNodes = ctrl.analyse.getNodesAfterPly(ctrl.vm.path, fctrl.gamePly());
-  var isCandidate = fctrl.isCandidate(cNodes);
+  var cSteps = ctrl.analyse.getStepsAfterPly(ctrl.vm.path, fctrl.gamePly());
+  var isCandidate = fctrl.isCandidate(cSteps);
   return m('div.forecast', [
     m('div.box', [
       m('div.top', 'Conditional premoves'),
-      m('div.list', fctrl.list().map(function(nodes, i) {
+      m('div.list', fctrl.list().map(function(steps, i) {
         return m('div.entry', {
           'data-icon': 'G',
-          class: 'text'
+          class: 'text',
+          onclick: function() {
+            ctrl.userJump(ctrl.analyse.addSteps(steps, treePath.default(fctrl.gamePly())));
+          }
         }, [
           m('a', {
             class: 'del',
-            onclick: partial(fctrl.removeIndex, i)
+            onclick: function(e) {
+              fctrl.removeIndex(i);
+              e.stopPropagation();
+            }
           }, 'x'),
-          m.trust(pgnExport.renderNodesHtml(nodes))
+          m.trust(pgnExport.renderStepsHtml(steps))
         ])
       })),
       m('button', {
         class: 'add button text',
         'data-icon': isCandidate ? 'O' : "",
         'disabled': !isCandidate,
+        onclick: function() {
+          fctrl.addSteps(cSteps);
+        }
       }, isCandidate ? [
         m('span', 'Add current variation'),
-        m('span', m.trust(pgnExport.renderNodesHtml(cNodes)))
+        m('span', m.trust(pgnExport.renderStepsHtml(cSteps)))
       ] : [
         m('span', 'Play a variation to create'),
         m('span', 'conditional premoves')
