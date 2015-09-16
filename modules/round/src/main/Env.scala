@@ -62,6 +62,7 @@ final class Env(
       rematcher = rematcher,
       player = player,
       drawer = drawer,
+      forecastApi = forecastApi,
       socketHub = socketHub,
       monitorMove = (ms: Int) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
