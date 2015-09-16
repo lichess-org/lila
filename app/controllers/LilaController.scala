@@ -66,10 +66,10 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def OpenBody(f: BodyContext => Fu[Result]): Action[AnyContent] =
+  protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
-  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext => Fu[Result]): Action[A] =
+  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p)(req => reqToCtx(req) flatMap f)
 
   protected def OpenNoCtx(f: RequestHeader => Fu[Result]): Action[AnyContent] =
@@ -87,10 +87,10 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def AuthBody(f: BodyContext => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def AuthBody(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     AuthBody(BodyParsers.parse.anyContent)(f)
 
-  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext => UserModel => Fu[Result]): Action[A] =
+  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       reqToCtx(req) flatMap { implicit ctx =>
         ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
@@ -109,13 +109,13 @@ private[controllers] trait LilaController
         isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
     }
 
-  protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext => UserModel => Fu[Result]): Action[A] =
+  protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     AuthBody(p) { implicit ctx =>
       me =>
         isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
     }
 
-  protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
@@ -261,7 +261,7 @@ private[controllers] trait LilaController
       pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
-  protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
+  protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
       val ctx = UserContext(req, d.map(_.user))
       pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }

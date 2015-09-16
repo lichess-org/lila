@@ -67,8 +67,8 @@ sealed abstract class BaseContext(
   val userContext: lila.user.UserContext,
   val pageData: PageData) extends Context
 
-final class BodyContext(
-    val bodyContext: BodyUserContext,
+final class BodyContext[A](
+    val bodyContext: BodyUserContext[A],
     data: PageData) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
@@ -86,6 +86,6 @@ object Context {
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)
 
-  def apply(userContext: BodyUserContext, pageData: PageData): BodyContext =
+  def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
     new BodyContext(userContext, pageData)
 }

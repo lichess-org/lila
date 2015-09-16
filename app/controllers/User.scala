@@ -73,7 +73,7 @@ object User extends LilaController {
     username: String,
     filterOption: Option[String],
     page: Int,
-    status: Results.Status = Results.Ok)(implicit ctx: BodyContext) =
+    status: Results.Status = Results.Ok)(implicit ctx: BodyContext[_]) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         if (u.enabled || isGranted(_.UserSpy)) negotiate(
@@ -92,7 +92,7 @@ object User extends LilaController {
       }
     }
 
-  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext) = for {
+  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext[_]) = for {
     info ← Env.current.userInfo(u, ctx)
     filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
@@ -111,7 +111,7 @@ object User extends LilaController {
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
-  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext) = {
+  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext[_]) = {
     import lila.app.mashup.GameFilter.{ All, Playing }
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)

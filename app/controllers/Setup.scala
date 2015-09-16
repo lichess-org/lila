@@ -222,7 +222,7 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  private def process[A](form: Context => Form[A])(op: A => BodyContext => Fu[(Pov, Call)]) =
+  private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[(Pov, Call)]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       form(ctx).bindFromRequest.fold(
