@@ -114,7 +114,9 @@ div.game_control a {
 }
 div.game_control .jumps {
   display: inline-block;
-  margin-right: 10px;
+}
+div.game_control a.menu {
+  margin-left: 10px;
 }
 .lichess_ground .replay,
 .lichess_ground .action_menu {
