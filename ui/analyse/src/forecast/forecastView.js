@@ -31,7 +31,6 @@ module.exports = function(ctrl) {
       m('button', {
         class: 'add button text',
         'data-icon': isCandidate ? 'O' : "",
-        'disabled': !isCandidate,
         onclick: function() {
           fctrl.addSteps(cSteps);
         }

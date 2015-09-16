@@ -123,6 +123,7 @@ GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: 
 GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
+POST  /$fullId<\w{12}>forecasts                  controllers.UserAnalysis.forecasts(fullId: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)

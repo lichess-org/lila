@@ -4,6 +4,7 @@ import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import play.api.libs.json.Json
+import play.api.mvc._
 
 import lila.app._
 import lila.game.{ GameRepo, Pov }
@@ -48,5 +49,11 @@ object UserAnalysis extends LilaController {
         }
       }
     }
+  }
+
+  def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>
+    me =>
+      // println(ctx.body.json)
+      ???
   }
 }
