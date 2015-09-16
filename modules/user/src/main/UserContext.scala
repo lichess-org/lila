@@ -32,7 +32,7 @@ sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[Use
   )
 }
 
-final class BodyUserContext(val body: Request[_], m: Option[User])
+final class BodyUserContext[A](val body: Request[A], m: Option[User])
   extends BaseUserContext(body, m)
 
 final class HeaderUserContext(r: RequestHeader, m: Option[User])
@@ -51,6 +51,6 @@ object UserContext {
   def apply(req: RequestHeader, me: Option[User]): HeaderUserContext =
     new HeaderUserContext(req, me)
 
-  def apply(req: Request[_], me: Option[User]): BodyUserContext =
+  def apply[A](req: Request[A], me: Option[User]): BodyUserContext[A] =
     new BodyUserContext(req, me)
 }
