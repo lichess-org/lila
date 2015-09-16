@@ -12,7 +12,7 @@
     <file>/var/log/lichess/all.log</file>
     <encoder><pattern>%date [%level] %logger{15} %message%n%xException</pattern></encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <fileNamePattern>/var/log/lichess/all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
       <maxHistory>14</maxHistory>
     </rollingPolicy>
   </appender>
@@ -45,7 +45,7 @@
       <file>/var/log/lichess/boot.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>boot-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <fileNamePattern>/var/log/lichess/boot-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>
@@ -55,7 +55,7 @@
       <file>/var/log/lichess/timer.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>timer-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <fileNamePattern>/var/log/lichess/timer-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>
@@ -65,7 +65,7 @@
       <file>/var/log/lichess/autoanalyse.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>autoanalyse-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <fileNamePattern>/var/log/lichess/autoanalyse-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>
@@ -75,7 +75,7 @@
       <file>/var/log/lichess/tourpairing.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>tourpairing-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <fileNamePattern>/var/log/lichess/tourpairing-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>
