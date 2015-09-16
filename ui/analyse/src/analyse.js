@@ -31,17 +31,23 @@ module.exports = function(steps, analysis) {
     for (var j in path) {
       var p = path[j];
       for (var i = 0, nb = tree.length; i < nb; i++) {
-        nodes.push(tree[i]);
         if (p.ply === tree[i].ply) {
           if (p.variation) {
             tree = tree[i].variations[p.variation - 1];
             break;
           }
+          nodes.push(tree[i]);
           return nodes;
-        }
+        } else nodes.push(tree[i]);
       }
     }
-  };
+  }.bind(this);
+
+  this.getNodesAfterPly = function(path, ply) {
+    return this.getNodes(path).filter(function(node) {
+      return node.ply > ply;
+    });
+  }.bind(this);
 
   this.addStep = function(step, path) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
