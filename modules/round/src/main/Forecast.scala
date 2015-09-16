@@ -9,10 +9,12 @@ import lila.game.Game
 case class Forecast(
   _id: String, // player full id
   ply: Int,
-  steps: List[Forecast.Step],
+  steps: Forecast.Steps,
   date: DateTime)
 
 object Forecast {
+
+  type Steps = List[List[Step]]
 
   case class Step(
     ply: Int,
@@ -22,5 +24,7 @@ object Forecast {
     check: Option[Boolean],
     dests: String)
 
-  implicit val forecastStepJsonReader = Json.reads[Step]
+  implicit val forecastStepJsonFormat = Json.format[Step]
+
+  implicit val forecastJsonWriter = Json.writes[Forecast]
 }

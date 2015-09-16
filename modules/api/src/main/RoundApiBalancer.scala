@@ -24,18 +24,17 @@ private[api] final class RoundApiBalancer(
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
       ctx: Context)
-    case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color)
+    case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean)
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
-        override def debug = true
         def process = {
           case Player(pov, apiVersion, ctx) =>
             api.player(pov, apiVersion)(ctx)
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes)(ctx)
-          case UserAnalysis(pov, pref, initialFen, orientation) =>
-            api.userAnalysisJson(pov, pref, initialFen, orientation)
+          case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
+            api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
         }
       })), "api.round.router")
   }
@@ -51,6 +50,6 @@ private[api] final class RoundApiBalancer(
     withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
     router ? Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) mapTo manifest[JsObject]
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color): Fu[JsObject] =
-    router ? UserAnalysis(pov, pref, initialFen, orientation) mapTo manifest[JsObject]
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
+    router ? UserAnalysis(pov, pref, initialFen, orientation, owner) mapTo manifest[JsObject]
 }

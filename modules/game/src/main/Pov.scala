@@ -36,6 +36,8 @@ case class Pov(game: Game, color: Color) {
 
   def loss = game lostBy color
 
+  def forecastable = game.forecastable && game.turnColor != color
+
   override def toString = ref.toString
 }
 

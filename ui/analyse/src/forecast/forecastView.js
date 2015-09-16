@@ -5,9 +5,9 @@ var treePath = require('../path');
 
 module.exports = function(ctrl) {
   var fctrl = ctrl.forecast;
-  var cSteps = ctrl.analyse.getStepsAfterPly(ctrl.vm.path, fctrl.gamePly());
+  var cSteps = ctrl.analyse.getStepsAfterPly(ctrl.vm.path, ctrl.data.game.turns);
   var isCandidate = fctrl.isCandidate(cSteps);
-  return m('div.forecast', [
+  return m('div.forecast' + (fctrl.loading() ? '.loading' : ''), [
     m('div.box', [
       m('div.top', 'Conditional premoves'),
       m('div.list', fctrl.list().map(function(steps, i) {
@@ -15,7 +15,7 @@ module.exports = function(ctrl) {
           'data-icon': 'G',
           class: 'text',
           onclick: function() {
-            ctrl.userJump(ctrl.analyse.addSteps(steps, treePath.default(fctrl.gamePly())));
+            ctrl.userJump(ctrl.analyse.addSteps(steps, treePath.default(ctrl.data.game.turns)));
           }
         }, [
           m('a', {
@@ -41,13 +41,6 @@ module.exports = function(ctrl) {
         m('span', 'Play a variation to create'),
         m('span', 'conditional premoves')
       ])
-    ]),
-    m('div.back_to_game',
-      m('a', {
-        class: 'button text',
-        href: '/' + ctrl.data.game.id + '/' + ctrl.data.player.id,
-        'data-icon': 'i'
-      }, ctrl.trans('backToGame'))
-    )
+    ])
   ]);
 };

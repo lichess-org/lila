@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.mvc._
-import play.api.mvc.Results.Redirect
-
+import play.api.mvc.Results._
+import play.api.http.ContentTypes._
 import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, AnonCookie }
@@ -24,4 +24,10 @@ private[controllers] trait TheftPrevention {
         ctx.req.cookies.get(AnonCookie.name).map(_.value) != Some(pov.playerId)
     }
   }
+
+  protected def isMyPov(pov: Pov)(implicit ctx: Context) = !isTheft(pov)
+
+  protected lazy val theftResponse = Unauthorized(play.api.libs.json.Json.obj(
+    "error" -> "This game requires authentication"
+  )) as JSON
 }
