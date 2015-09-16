@@ -4,8 +4,15 @@
 @cssTag("analyse.css")
 }
 
-@jsI18n = {
-@Html(J.stringify(i18nJsObject(
+@moreJs = {
+@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@round.jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.user_analysis = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @Html(J.stringify(i18nJsObject(
 trans.flipBoard,
 trans.backToGame,
 trans.gameAborted,
@@ -31,17 +38,6 @@ trans.continueFromHere,
 trans.playWithTheMachine,
 trans.playWithAFriend
 )))
-}
-
-@moreJs = {
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
-@round.jsRoutes()
-@embedJs {
-lichess = lichess || {};
-lichess.user_analysis = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
-routes: roundRoutes.controllers,
-i18n: @jsI18n()
 };
 @pov.map { p =>
 lichess.user_analysis.data.inGame = true;
@@ -60,11 +56,4 @@ title = "Chess analysis board",
 url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
 description = "Analyse chess positions and variations on an interactive chess board").some) {
 <div class="analyse cg-512">@miniBoardContent</div>
-@pov.map { p =>
-<div class="back_to_game">
-  <a class="button" href="@routes.Round.watcher(p.gameId, p.color.name)">
-    <span data-icon="i" class="text">@trans.backToGame()</span>
-  </a>
-</div>
-}
 }

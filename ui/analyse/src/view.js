@@ -12,7 +12,7 @@ var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
-var forecast = require('./forecast');
+var forecastView = require('./forecast/forecastView');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -293,7 +293,7 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable[readonly][spellCheck=false]', {
-        value: pgnExport.all(ctrl)
+        value: pgnExport.renderNodesTxt(ctrl.analyse.getNodes(ctrl.vm.path))
       })
     ])
   ]);
@@ -378,6 +378,6 @@ module.exports = function(ctrl) {
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    ctrl.forecast ? forecast.view(ctrl) : null
+    ctrl.forecast ? forecastView(ctrl) : null
   ];
 };

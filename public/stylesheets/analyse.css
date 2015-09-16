@@ -326,7 +326,6 @@ div.shortcuts li {
 }
 .back_to_game {
   margin-top: 30px;
-  width: 512px;
   text-align: center;
 }
 table.modAssessment {
@@ -371,6 +370,9 @@ table.modAssessment td.noMatch {
   left: -241px;
   width: 226px;
 }
+.forecast san {
+  font-weight: bold;
+}
 .forecast .entries {
   border: 1px solid #ccc;
 }
@@ -392,7 +394,7 @@ table.modAssessment td.noMatch {
 .forecast .entry:hover {
   background: #e0e0e0;
 }
-.forecast .entry .delete {
+.forecast .entry .del {
   position: absolute;
   right: 5px;
   top: 8px;
@@ -409,10 +411,10 @@ table.modAssessment td.noMatch {
   border-radius: 50%;
   color: #dc322f;
 }
-.forecast .entry:hover .delete {
+.forecast .entry:hover .del {
   opacity: 0.8;
 }
-.forecast .entry:hover .delete:hover {
+.forecast .entry:hover .del:hover {
   opacity: 1;
 }
 .forecast .add {
@@ -429,4 +431,6 @@ table.modAssessment td.noMatch {
 }
 .forecast .add span {
   display: block;
+  white-space: normal;
+  font-weight: normal;
 }
