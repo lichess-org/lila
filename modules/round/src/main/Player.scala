@@ -5,7 +5,7 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 import scalaz.Validation.FlatMap._
 
-import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
@@ -41,6 +41,7 @@ private[round] final class Player(
                         if (progress.game.playableByAi) round ! AiPlay
                         if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+                        if (pov.game.forecastable) round ! ForecastPlay(move)
                     } inject progress.events
                   })
           }

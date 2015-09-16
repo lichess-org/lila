@@ -1,6 +1,7 @@
 module.exports = {
   game: require('./game'),
   status: require('./status'),
+  router: require('./router'),
   view: {
     status: require('./view/status'),
     user: require('./view/user'),

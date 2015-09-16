@@ -347,3 +347,6 @@
 .icon-graph:before {
   content: "^";
 }
+.icon-info-circled:before {
+  content: "\e005";
+}

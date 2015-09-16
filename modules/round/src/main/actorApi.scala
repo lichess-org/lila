@@ -125,11 +125,11 @@ case class TakebackNo(playerId: String)
 case class Moretime(playerId: String)
 case object Outoftime
 case object Abandon
+case class ForecastPlay(lastMove: chess.Move)
 case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
 case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
-case class PeerId(color: Color, peerId: String)
 }
 
 private[round] case object GetNbRounds

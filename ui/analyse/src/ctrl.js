@@ -12,6 +12,8 @@ var promotion = require('./promotion');
 var readDests = require('./util').readDests;
 var throttle = require('./util').throttle;
 var socket = require('./socket');
+var forecastCtrl = require('./forecast/forecastCtrl');
+var router = require('game').router;
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -24,10 +26,13 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
+  if (initialPath[0].ply >= this.data.steps.length)
+    initialPath = treePath.default(this.data.steps.length - 1);
 
   this.vm = {
     path: initialPath,
     pathStr: treePath.write(initialPath),
+    initialPathStr: '' + opts.data.path,
     step: null,
     cgConfig: null,
     comments: true,
@@ -185,6 +190,10 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   this.router = opts.routes;
+
+  this.forecast = opts.data.forecast ? forecastCtrl(
+    opts.data.forecast,
+    router.forecasts(this.data)) : null;
 
   this.trans = function(key) {
     var str = opts.i18n[key] || key;

@@ -2,7 +2,7 @@ var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var game = require('game').game;
 var status = require('game').status;
-var renderStatus = require('./status');
+var renderStatus = require('game').view.status;
 var m = require('mithril');
 
 var emptyTd = m('td.move', '...');

@@ -47,6 +47,7 @@ final class Env(
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
+    val CollectionForecast = config getString "collection.forecast"
   }
   import settings._
 
@@ -61,6 +62,7 @@ final class Env(
       rematcher = rematcher,
       player = player,
       drawer = drawer,
+      forecastApi = forecastApi,
       socketHub = socketHub,
       monitorMove = (ms: Int) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
@@ -111,6 +113,8 @@ final class Env(
     bus = system.lilaBus)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
+
+  lazy val forecastApi = new ForecastApi(db(CollectionForecast))
 
   private lazy val finisher = new Finisher(
     messenger = messenger,

@@ -7,11 +7,13 @@ var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
+var router = require('game').router;
 var treePath = require('./path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
+var forecastView = require('./forecast/forecastView');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -41,7 +43,11 @@ function renderMove(ctrl, move, path) {
   return {
     tag: 'a',
     attrs: {
-      class: 'move' + (pathStr === ctrl.vm.pathStr ? ' active' : ''),
+      class: classSet({
+        'move': true,
+        'active': pathStr === ctrl.vm.pathStr,
+        'current': pathStr === ctrl.vm.initialPathStr
+      }),
       'data-path': pathStr,
       'href': '#' + path[0].ply
     },
@@ -288,7 +294,7 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable[readonly][spellCheck=false]', {
-        value: pgnExport(ctrl)
+        value: pgnExport.renderStepsTxt(ctrl.analyse.getSteps(ctrl.vm.path))
       })
     ])
   ]);
@@ -339,7 +345,7 @@ function buttons(ctrl) {
           }
         };
       })),
-      ctrl.data.inGame ? null : m('a.button', {
+      ctrl.data.inGame ? null : m('a.button.menu', {
         onclick: ctrl.actionMenu.toggle,
         class: ctrl.actionMenu.open ? 'active' : ''
       }, m('span', {
@@ -372,6 +378,16 @@ module.exports = function(ctrl) {
     m('div.underboard', [
       m('div.center', inputs(ctrl)),
       m('div.right')
+    ]),
+    m('div.analeft', [
+      ctrl.forecast ? forecastView(ctrl) : null,
+      m('div.back_to_game',
+        m('a', {
+          class: 'button text',
+          href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+          'data-icon': 'i'
+        }, ctrl.trans('backToGame'))
+      )
     ])
   ];
 };

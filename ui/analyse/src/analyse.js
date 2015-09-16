@@ -23,7 +23,31 @@ module.exports = function(steps, analysis) {
         }
       }
     }
-  }
+  };
+
+  this.getSteps = function(path) {
+    var tree = this.tree;
+    var steps = [];
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
+            break;
+          }
+          steps.push(tree[i]);
+          return steps;
+        } else steps.push(tree[i]);
+      }
+    }
+  }.bind(this);
+
+  this.getStepsAfterPly = function(path, ply) {
+    return this.getSteps(path).filter(function(step) {
+      return step.ply > ply;
+    });
+  }.bind(this);
 
   this.addStep = function(step, path) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
@@ -45,13 +69,20 @@ module.exports = function(steps, analysis) {
       if (curStep.san === step.san) return nextPath;
       for (var i = 0; i < curStep.variations.length; i++) {
         if (curStep.variations[i][0].san === step.san)
-           return treePath.withVariation(nextPath, i + 1);
+          return treePath.withVariation(nextPath, i + 1);
       }
       curStep.variations.push([step]);
       return treePath.withVariation(nextPath, curStep.variations.length);
     }
     tree.push(step);
     return nextPath;
+  }.bind(this);
+
+  this.addSteps = function(steps, path) {
+    var step = steps[0];
+    if (!step) return path;
+    var newPath = this.addStep(step, path);
+    return this.addSteps(steps.slice(1), newPath);
   }.bind(this);
 
   this.addDests = function(dests, path) {

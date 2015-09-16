@@ -21,6 +21,7 @@ private[round] final class Round(
     rematcher: Rematcher,
     player: Player,
     drawer: Drawer,
+    forecastApi: ForecastApi,
     socketHub: ActorRef,
     monitorMove: Int => Unit,
     moretimeDuration: Duration,
@@ -152,6 +153,17 @@ private[round] final class Round(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
         GameRepo save progress inject progress.events
+      }
+    }
+
+    case ForecastPlay(lastMove) => handle { game =>
+      forecastApi.nextMove(game, lastMove) map { mOpt =>
+        mOpt foreach { move =>
+          self ! HumanPlay(
+            game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds, _ => ()
+          )
+        }
+        Nil
       }
     }
 

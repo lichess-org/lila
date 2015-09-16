@@ -167,10 +167,6 @@ private[round] final class Socket(
 
     case TvSelect(msg)          => watchers.foreach(_ push msg)
 
-    case round.PeerId(color, peerId) => ownerOf(!color) foreach {
-      _ push makeMessage("peerId", peerId)
-    }
-
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")
     }

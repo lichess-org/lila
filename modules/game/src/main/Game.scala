@@ -408,6 +408,8 @@ case class Game(
 
   def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore hasAi.fold(Game.aiAbandonedDate, Game.abandonedDate))
 
+  def forecastable = started && playable && isCorrespondence && !hasAi
+
   def hasBookmarks = bookmarks > 0
 
   def showBookmarks = hasBookmarks ?? bookmarks.toString
