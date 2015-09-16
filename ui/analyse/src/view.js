@@ -344,7 +344,7 @@ function buttons(ctrl) {
           }
         };
       })),
-      ctrl.data.inGame ? null : m('a.button', {
+      ctrl.data.inGame ? null : m('a.button.menu', {
         onclick: ctrl.actionMenu.toggle,
         class: ctrl.actionMenu.open ? 'active' : ''
       }, m('span', {
