@@ -4,13 +4,17 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 import chess.Pos
+import chess.format.UciMove
 import lila.game.Game
 
 case class Forecast(
-  _id: String, // player full id
-  ply: Int,
-  steps: Forecast.Steps,
-  date: DateTime)
+    _id: String, // player full id
+    ply: Int,
+    steps: Forecast.Steps,
+    date: DateTime) {
+
+  def apply(g: Game): (Forecast, Option[UciMove]) = (this, none)
+}
 
 object Forecast {
 

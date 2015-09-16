@@ -6,6 +6,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import org.joda.time.DateTime
 
+import chess.format.UciMove
 import chess.Pos
 import Forecast.Step
 import lila.game.{ Pov, Game }
@@ -42,7 +43,15 @@ final class ForecastApi(coll: Coll) {
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game): Fu[Option[String]] = ???
+  def nextMove(g: Game): Fu[Option[UciMove]] = g.forecastable ?? {
+    load(Pov player g) flatMap {
+      case None => fuccess(none)
+      case Some(fc) => fc(g) match {
+        case (newFc, uciMoveOption) =>
+          coll.update(BSONDocument("_id" -> fc._id), newFc) inject uciMoveOption
+      }
+    }
+  }
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
