@@ -8,7 +8,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
-import lila.round.JsonView
+import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
 import lila.tournament.{ TournamentRepo, Tournament }
@@ -17,6 +17,7 @@ import lila.user.User
 private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
+    forecastApi: lila.round.ForecastApi,
     analysisApi: AnalysisApi,
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
@@ -62,8 +63,13 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
-    jsonView.userAnalysisJson(pov, pref, orientation) map withSteps(pov, none, initialFen)_
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
+    owner.??(forecastApi load pov).flatMap { fco =>
+      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
+        withSteps(pov, none, initialFen)_ map
+        withUserAnalysisGame(pov)_ map
+        withForecast(pov, fco)_
+    }
 
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
@@ -75,6 +81,18 @@ private[api] final class RoundApi(
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
+
+  private def withUserAnalysisGame(pov: Pov)(json: JsObject) =
+    json ++ Json.obj(
+      "inGame" -> true,
+      "path" -> pov.game.turns)
+
+  private def withForecast(pov: Pov, fco: Option[Forecast])(json: JsObject) =
+    if (pov.forecastable) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+      import Forecast.forecastJsonWriter
+      Json toJson fc
+    })
+    else json
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
     case (pgn, analysis) => json + ("analysis" -> Json.obj(

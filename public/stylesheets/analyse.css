@@ -367,14 +367,20 @@ table.modAssessment td.noMatch {
 .copyable {
   width: 455px;
 }
-.forecast {
+.analeft {
   position: absolute;
   top: 53px;
   left: -241px;
   width: 226px;
+}
+.forecast {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  transition: opacity 0.13s;
+}
+.forecast.loading {
+  opacity: 0.7;
 }
 .forecast san {
   font-weight: bold;

@@ -47,6 +47,7 @@ final class Env(
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
+    val CollectionForecast = config getString "collection.forecast"
   }
   import settings._
 
@@ -111,6 +112,8 @@ final class Env(
     bus = system.lilaBus)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
+
+  lazy val forecastApi = new ForecastApi(db(CollectionForecast))
 
   private lazy val finisher = new Finisher(
     messenger = messenger,

@@ -7,6 +7,7 @@ var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
+var router = require('game').router;
 var treePath = require('./path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
@@ -378,6 +379,15 @@ module.exports = function(ctrl) {
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    ctrl.forecast ? forecastView(ctrl) : null
+    m('div.analeft', [
+      ctrl.forecast ? forecastView(ctrl) : null,
+      m('div.back_to_game',
+        m('a', {
+          class: 'button text',
+          href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+          'data-icon': 'i'
+        }, ctrl.trans('backToGame'))
+      )
+    ])
   ];
 };

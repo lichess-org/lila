@@ -36,10 +36,6 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private lazy val theftResponse = Unauthorized(Json.obj(
-    "error" -> "This game requires authentication"
-  )) as JSON
-
   def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
     GameRepo pov fullId flatMap {
       case Some(pov) =>

@@ -202,7 +202,7 @@ final class JsonView(
           ).noNull
       }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color) =
+  def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color, owner: Boolean) =
     (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
       import pov._
       val fen = Forsyth >> game.toChess
@@ -219,6 +219,7 @@ final class JsonView(
           "player" -> game.turnColor.name,
           "status" -> game.status),
         "player" -> Json.obj(
+          "id" -> owner.option(pov.playerId),
           "color" -> color.name
         ),
         "opponent" -> Json.obj(
@@ -231,12 +232,7 @@ final class JsonView(
           "destination" -> pref.destination,
           "coords" -> pref.coords
         ),
-        "userAnalysis" -> true,
-        "forecast" -> (pov.game.forecastable && !pov.isMyTurn).option {
-          Json.obj(
-            "gamePly" -> pov.game.turns
-          )
-        })
+        "userAnalysis" -> true)
     }
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
