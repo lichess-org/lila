@@ -52,18 +52,6 @@ object Step {
         "fen" -> fen))
   }
 
-  // ply: Int,
-  // move: Option[Step.Move],
-  // fen: String,
-  // check: Boolean,
-  // // None when not computed yet
-  // dests: Option[Map[Pos, List[Pos]]],
-  // eval: Option[Int] = None,
-  // mate: Option[Int] = None,
-  // nag: Option[String] = None,
-  // comments: List[String] = Nil,
-  // variations: List[List[Step]] = Nil) {
-
   private implicit val stepMoveOptionJsonReader: Reads[Option[Move]] = (
     (__ \ "uci").readNullable[String] and
     (__ \ "san").readNullable[String]
@@ -74,13 +62,6 @@ object Step {
         neSan <- san.filter(_.nonEmpty)
       } yield Move(orig, dest, neSan)
     }
-
-  // private val moveJsonTransformer = (__ \ 'move).json.put {
-  //     Json.obj(
-  //       "uci" ->
-  //     __.read[Option[Move]].get
-  //   }
-  // )
 
   implicit val stepJsonReader: Reads[Step] = (
     (__ \ "ply").read[Int](min(0)) and
