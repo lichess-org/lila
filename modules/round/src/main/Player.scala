@@ -41,7 +41,7 @@ private[round] final class Player(
                         if (progress.game.playableByAi) round ! AiPlay
                         if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                        if (pov.game.forecastable) round ! ForecastPlay
+                        if (pov.game.forecastable) round ! ForecastPlay(move)
                     } inject progress.events
                   })
           }

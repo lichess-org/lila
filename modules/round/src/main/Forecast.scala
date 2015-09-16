@@ -3,9 +3,9 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.Pos
 import chess.format.UciMove
-import lila.game.Game
+import chess.Pos
+import lila.game.{ Game, Move }
 
 case class Forecast(
     _id: String, // player full id
@@ -13,7 +13,13 @@ case class Forecast(
     steps: Forecast.Steps,
     date: DateTime) {
 
-  def apply(g: Game): (Forecast, Option[UciMove]) = (this, none)
+  def apply(g: Game, lastMove: Move): (Forecast, Option[UciMove]) = (this, nextMove(g))
+
+  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[UciMove]) {
+    case (None, fst :: snd :: rest) if => 
+    case (found, _)                 => found
+  }
+
 }
 
 object Forecast {

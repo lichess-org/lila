@@ -156,8 +156,8 @@ private[round] final class Round(
       }
     }
 
-    case ForecastPlay => handle { game =>
-      forecastApi.nextMove(game) map { mOpt =>
+    case ForecastPlay(lastMove) => handle { game =>
+      forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
           self ! HumanPlay(
             game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds, _ => ()
