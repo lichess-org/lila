@@ -63,8 +63,11 @@ module.exports = function(cfg, saveUrl) {
       url: saveUrl,
       data: forecasts
     }).then(function(data) {
-      loading(false);
-      forecasts = data.steps;
+      if (data.reload) location.reload();
+      else {
+        loading(false);
+        forecasts = data.steps || [];
+      }
     });
   };
 
