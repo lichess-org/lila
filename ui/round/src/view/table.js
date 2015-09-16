@@ -9,7 +9,6 @@ var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
-var renderStatus = require('./status');
 var renderUser = require('game').view.user;
 var button = require('./button');
 var m = require('mithril');
