@@ -43,10 +43,10 @@ final class ForecastApi(coll: Coll) {
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game): Fu[Option[UciMove]] = g.forecastable ?? {
+  def nextMove(g: Game, last: chess.Move): Fu[Option[UciMove]] = g.forecastable ?? {
     load(Pov player g) flatMap {
       case None => fuccess(none)
-      case Some(fc) => fc(g) match {
+      case Some(fc) => fc(g, last) match {
         case (newFc, uciMoveOption) =>
           coll.update(BSONDocument("_id" -> fc._id), newFc) inject uciMoveOption
       }
