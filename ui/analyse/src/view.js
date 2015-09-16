@@ -293,7 +293,7 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable[readonly][spellCheck=false]', {
-        value: pgnExport.renderNodesTxt(ctrl.analyse.getNodes(ctrl.vm.path))
+        value: pgnExport.renderStepsTxt(ctrl.analyse.getSteps(ctrl.vm.path))
       })
     ])
   ]);
