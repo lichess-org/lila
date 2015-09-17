@@ -29,20 +29,9 @@ module.exports = function(ctrl) {
         ])
       })),
       m('button', {
-        class: 'add button text',
+        class: 'add button text' + (isCandidate ? ' enabled' : ''),
         'data-icon': isCandidate ? 'O' : "",
-        onclick: function() {
-          fctrl.addSteps(cSteps);
-        },
-        config: function(el) {
-          if (isCandidate && !fctrl.seenAvailable()) {
-            fctrl.seenAvailable(true);
-            el.classList.add('glowed');
-            setTimeout(function() {
-              el.classList.remove('glowed');
-            }, 1000);
-          }
-        }
+        onclick: partial(fctrl.addSteps, cSteps)
       }, isCandidate ? [
         m('span', 'Add current variation'),
         m('span', m.trust(pgnExport.renderStepsHtml(cSteps)))

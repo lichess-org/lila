@@ -395,13 +395,14 @@ table.modAssessment td.noMatch {
   color: #999;
 }
 .forecast .entry {
-  padding: 10px 5px 10px 0px;
+  padding: 12px 2px 12px 10px;
   margin-left: -2px;
   transition: 0.13s;
   position: relative;
   cursor: pointer;
 }
 .forecast .entry::before {
+  margin-left: -10px;
   opacity: 0.4;
 }
 .forecast .entry:hover {
@@ -442,6 +443,13 @@ table.modAssessment td.noMatch {
   float: left;
   margin: 1px 10px 0px 0px;
   opacity: 0.6;
+  transition: opacity 0.13s;
+}
+.forecast .add.enabled::before {
+  color: #759900;
+}
+.forecast .add:hover::before {
+  opacity: 0.9;
 }
 .forecast .add span {
   display: block;
