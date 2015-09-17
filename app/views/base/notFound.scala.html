@@ -1,0 +1,27 @@
+@()(implicit ctx: Context)
+
+@site.layout(
+title = "Page not found",
+moreCss = cssTag("notFound.css")) {
+
+<div class="content_box small_box">
+  <header>
+    <h1>404</h1>
+    <strong>Page not found!</strong>
+    <p>Return to <a class="underline" href="@routes.Lobby.home">the homepage</a>, or play…</p>
+  </header>
+  <div class="game">
+    <iframe
+      src="@staticUrl(s"vendor/ChessPursuit/bin-release/index.html")"
+      frameBorder='0'
+      width="400"
+      height="500">
+    </iframe>
+    <p class="credits">
+      <a class="underline" href="https://github.com/Saturnyn/ChessPursuit">ChessPursuit</a>
+      courtesy of
+      <a class="underline" href="https://github.com/Saturnyn">Saturnyn</a>
+    </p>
+  </div>
+</div>
+}

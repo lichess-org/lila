@@ -85,5 +85,8 @@ object Main extends LilaController {
     }
   }
 
+  def notFound(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map { implicit ctx =>
+      NotFound(html.base.notFound())
     }
 }
