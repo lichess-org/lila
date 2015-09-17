@@ -52,40 +52,6 @@ object Step {
         "fen" -> fen))
   }
 
-  private implicit val stepMoveOptionJsonReader: Reads[Option[Move]] = (
-    (__ \ "uci").readNullable[String] and
-    (__ \ "san").readNullable[String]
-  ) { (uci, san) =>
-      for {
-        orig <- uci.map(_ take 2) flatMap Pos.posAt
-        dest <- uci.map(_ drop 2 take 2) flatMap Pos.posAt
-        neSan <- san.filter(_.nonEmpty)
-      } yield Move(orig, dest, neSan)
-    }
-
-  implicit val stepJsonReader: Reads[Step] = (
-    (__ \ "ply").read[Int](min(0)) and
-    (__ \ "move").read[Option[Move]] and
-    (__ \ "fen").read[String] and
-    (__ \ "check").read[Boolean] and
-    (__ \ "dests").readNullable[String].map {
-      _ map {
-        _.split(' ').map(_.toList).flatMap {
-          case first :: rest => for {
-            orig <- Pos piotr first
-            dests <- rest.flatMap(Pos.piotr).some.filter(_.nonEmpty)
-          } yield orig -> dests
-          case _ => None
-        }.toMap
-      }
-    } and
-    (__ \ "eval").readNullable[Int] and
-    (__ \ "mate").readNullable[Int] and
-    (__ \ "nag").readNullable[String] and
-    (__ \ "comments").readNullable[List[String]].map(~_) and
-    (__ \ "variations").readNullable[List[List[Step]]].map(~_)
-  )(Step.apply _)
-
   private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =
     if (cond) o + (k -> writes.writes(v)) else o
 
