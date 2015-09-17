@@ -64,7 +64,7 @@ private[api] final class RoundApi(
     }
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
-    owner.??(forecastApi load pov).flatMap { fco =>
+    owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
         withSteps(pov, none, initialFen)_ map
         withUserAnalysisGame(pov)_ map

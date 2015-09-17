@@ -28,14 +28,13 @@ final class ForecastApi(coll: Coll) {
       BSONDocument("_id" -> pov.fullId),
       Forecast(
         _id = pov.fullId,
-        ply = step.ply,
         steps = steps,
         date = DateTime.now),
       upsert = true).void
     case _ => fufail(Forecast.OutOfSync)
   }
 
-  def load(pov: Pov): Fu[Option[Forecast]] =
+  def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
     pov.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).one[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
@@ -43,12 +42,22 @@ final class ForecastApi(coll: Coll) {
         else fuccess(fc.some)
     }
 
+  def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
+    pov.game.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).one[Forecast] flatMap {
+      case None => fuccess(none)
+      case Some(fc) =>
+        if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
+        else fuccess(fc.some)
+    }
+
   def nextMove(g: Game, last: chess.Move): Fu[Option[UciMove]] = g.forecastable ?? {
-    load(Pov player g) flatMap {
+    loadForPlay(Pov player g) flatMap {
       case None => fuccess(none)
       case Some(fc) => fc(g, last) match {
-        case (newFc, uciMoveOption) =>
-          coll.update(BSONDocument("_id" -> fc._id), newFc) inject uciMoveOption
+        case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+          coll.update(BSONDocument("_id" -> fc._id), newFc) inject uciMove.some
+        case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
+        case _                      => clearPov(Pov player g) inject none
       }
     }
   }

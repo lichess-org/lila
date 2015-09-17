@@ -61,7 +61,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
         else ctx.body.body.validate[Forecast.Steps].fold(
           err => BadRequest(err.toString).fuccess,
           forecasts => Env.round.forecastApi.save(pov, forecasts) >>
-            Env.round.forecastApi.load(pov) map {
+            Env.round.forecastApi.loadForDisplay(pov) map {
               case None     => Ok(Json.obj("none" -> true))
               case Some(fc) => Ok(Json toJson fc) as JSON
             } recover {
