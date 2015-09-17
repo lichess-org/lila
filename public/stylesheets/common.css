@@ -348,7 +348,7 @@ div.content_box .loader:after {
   border: 1px solid #c0c0c0;
   display: none;
   position: absolute;
-  z-index: 2147483647;
+  z-index: 900000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 #powerTip > .title {
@@ -413,6 +413,17 @@ div.content_box .loader:after {
   text-align: center;
   border-bottom: 1px solid #c0c0c0;
   padding: 3px 0;
+}
+#powerTip > .info .title {
+  display: block;
+  padding: 10px 15px;
+  border-bottom: 1px solid #c0c0c0;
+  text-align: center;
+  text-transform: uppercase;
+}
+#powerTip > .info .content {
+  display: block;
+  padding: 15px 15px;
 }
 .clearfix::after {
   content: ".";
@@ -2225,7 +2236,7 @@ textarea.copyable {
   transform: translate3d(0, 0, 0);
   visibility: hidden;
   opacity: 0;
-  z-index: 1000000;
+  z-index: 900005;
   pointer-events: none;
   transition: 0.2s ease;
   transition-delay: 0ms;
@@ -2240,7 +2251,7 @@ textarea.copyable {
   position: absolute;
   background: transparent;
   border: 6px solid transparent;
-  z-index: 1000001;
+  z-index: 900006;
 }
 [data-hint]:after {
   content: attr(data-hint);

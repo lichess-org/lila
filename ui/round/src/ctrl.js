@@ -325,6 +325,15 @@ module.exports = function(opts) {
     }.bind(this), 500);
   }.bind(this);
 
+  this.forecastInfo = function() {
+    var key = 'forecast-info-seen5';
+    if (game.forecastable(this.data) && !this.replaying() && this.data.game.turns > 1 && !lichess.storage.get(key)) {
+      lichess.storage.set(key, 1);
+      return true;
+    }
+    return false;
+  }.bind(this);
+
   this.router = opts.routes;
 
   this.trans = function(key) {

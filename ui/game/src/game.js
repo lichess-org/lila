@@ -38,7 +38,7 @@ function drawable(data) {
   return playable(data) &&
     data.game.turns >= 2 &&
     !data.player.offeringDraw &&
-    !data.opponent.ai;
+    !hasAi(data);
 }
 
 function resignable(data) {
@@ -75,6 +75,10 @@ function userAnalysable(data) {
   return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
+function forecastable(data) {
+  return playable(data) && data.correspondence && !hasAi(data) && !isPlayerTurn(data);
+}
+
 function setOnGame(data, color, onGame) {
   var player = getPlayer(data, color);
   onGame = onGame || player.ai;
@@ -109,5 +113,6 @@ module.exports = {
   getPlayer: getPlayer,
   nbMoves: nbMoves,
   setOnGame: setOnGame,
-  setIsGone: setIsGone
+  setIsGone: setIsGone,
+  forecastable: forecastable
 };
