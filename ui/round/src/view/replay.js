@@ -89,7 +89,7 @@ function analyseButton(ctrl) {
         'button analysis': true,
         'hint--top': !showInfo,
         'hint--bottom': showInfo,
-        'active': showInfo
+        'glowed': showInfo
       }),
       'data-hint': ctrl.trans('analysis'),
       href: ctrl.router.UserAnalysis.game(ctrl.data.game.id, ctrl.data.player.color).url + '#' + ctrl.vm.ply,
