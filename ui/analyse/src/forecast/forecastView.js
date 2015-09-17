@@ -5,7 +5,7 @@ var treePath = require('../path');
 
 module.exports = function(ctrl) {
   var fctrl = ctrl.forecast;
-  var cSteps = ctrl.analyse.getStepsAfterPly(ctrl.vm.path, ctrl.data.game.turns);
+  var cSteps = fctrl.truncate(ctrl.analyse.getStepsAfterPly(ctrl.vm.path, ctrl.data.game.turns));
   var isCandidate = fctrl.isCandidate(cSteps);
   return m('div.forecast' + (fctrl.loading() ? '.loading' : ''), [
     m('div.box', [

@@ -29,7 +29,7 @@ final class ForecastApi(coll: Coll) {
       Forecast(
         _id = pov.fullId,
         steps = steps,
-        date = DateTime.now),
+        date = DateTime.now).truncate,
       upsert = true).void
     case _ => fufail(Forecast.OutOfSync)
   }

@@ -23,7 +23,7 @@ module.exports = function(cfg, saveUrl) {
 
   var truncate = function(fc) {
     // must end with player move
-    return fc.length % 2 !== 0 ? fc.slice(0, -1) : fc;
+    return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   };
 
   var fixAll = function() {
@@ -92,6 +92,7 @@ module.exports = function(cfg, saveUrl) {
     list: function() {
       return forecasts;
     },
+    truncate: truncate,
     loading: loading
   };
 };
