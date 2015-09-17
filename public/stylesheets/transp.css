@@ -33,6 +33,7 @@ body.transp::before {
 }
 body.transp div.training .box,
 body.transp div.side_box,
+body.transp div.box,
 body.transp div.table,
 body.transp div.table_wrap > div.clock > div.time,
 body.transp #friend_box .content a:hover,
@@ -146,6 +147,7 @@ body.transp #streams_on_air a.stream span {
 body.transp .crosstable th,
 body.transp #chat div.top,
 body.transp div.side_box .top,
+body.transp div.box .top,
 body.transp #friend_box .title,
 body.transp div.undertable_top,
 body.transp .button,

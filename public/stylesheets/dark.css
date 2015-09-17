@@ -217,7 +217,8 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
-body.dark #now_playing > a:hover {
+body.dark #now_playing > a:hover,
+body.dark .lichess_ground .replay .move.current {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #top a.signin,
@@ -227,6 +228,7 @@ body.dark #hooks_wrap .hook_filter .checkable {
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a:hover,
 body.dark #hooks_wrap div.tabs a.active,
+body.dark .forecast .entry:hover,
 body.dark #tournament_schedule {
   background-color: #303030;
 }
@@ -303,6 +305,7 @@ body.dark div.table_wrap > div.clock.running > div.time {
   background: #505a60;
   color: #fff;
 }
+body.dark .forecast .entry .del,
 body.dark div.table_wrap > div.clock.running.emerg > div.time,
 body.dark div.table_wrap > div.clock.outoftime > div.time {
   background-color: #a00000;
