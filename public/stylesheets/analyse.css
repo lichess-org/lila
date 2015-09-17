@@ -435,6 +435,7 @@ table.modAssessment td.noMatch {
   width: 100%;
   text-align: left;
   border-width: 1px 0 0 0;
+  transition: 0.5s;
 }
 .forecast .add::before {
   font-size: 32px;

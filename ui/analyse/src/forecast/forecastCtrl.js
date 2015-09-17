@@ -6,6 +6,7 @@ module.exports = function(cfg, saveUrl) {
 
   var forecasts = cfg.steps || [];
   var loading = m.prop(false);
+  var seenAvailable = m.prop(false);
 
   var keyOf = function(fc) {
     return fc.map(function(step) {
@@ -93,6 +94,7 @@ module.exports = function(cfg, saveUrl) {
       return forecasts;
     },
     truncate: truncate,
-    loading: loading
+    loading: loading,
+    seenAvailable: seenAvailable
   };
 };
