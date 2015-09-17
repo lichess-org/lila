@@ -379,15 +379,15 @@ module.exports = function(ctrl) {
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    m('div.analeft', [
+    ctrl.data.game.id === 'synthetic' ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
-      m('div.back_to_game',
+      game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {
           class: 'button text',
           href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
           'data-icon': 'i'
         }, ctrl.trans('backToGame'))
-      )
+      ) : null
     ])
   ];
 };
