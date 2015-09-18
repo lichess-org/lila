@@ -380,7 +380,7 @@ div.lichess_board {
   background-image: url(../images/board/maple.jpg);
 }
 
-.kingOfTheHill .cg-board::after {
+.kingOfTheHill .cg-board::before {
   width: 25%;
   height: 25%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
