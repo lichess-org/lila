@@ -72,9 +72,9 @@ object Schedule {
     import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Bullet, _)                => 25
-      case (Hourly, SuperBlitz, _)            => 50
-      case (Hourly, Blitz, _)                 => 55
+      case (Hourly, Bullet, _)                => 26
+      case (Hourly, SuperBlitz, _)            => 56
+      case (Hourly, Blitz, _)                 => 56
       case (Hourly, Classical, _)             => 0 // N/A
 
       case (Daily | Nightly, Bullet, _)       => 60
