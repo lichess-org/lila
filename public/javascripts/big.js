@@ -469,7 +469,6 @@ lichess.unique = function(xs) {
         }
       },
       mlat: function(e) {
-        console.log(e);
         var $t = $('#top .server strong');
         if ($t.is(':visible')) {
           $t.text(e);
@@ -834,7 +833,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 theme: theme
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is2d div.no-square').hover(function() {
               var s = $(this).data("set");
@@ -846,7 +844,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 set: set
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is3d div.theme').hover(function() {
               $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
@@ -857,7 +854,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 theme: theme3d
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is3d div.no-square').hover(function() {
               $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
@@ -868,7 +864,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 set: set3d
               });
-              $themepicker.removeClass("shown");
             });
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
@@ -895,7 +890,6 @@ lichess.unique = function(xs) {
                 bg: background
               });
               $(this).addClass('active').siblings().removeClass('active');
-              $themepicker.removeClass("shown");
               return false;
             }).hover(function() {
               showBg($(this).data('bg'));
@@ -908,7 +902,6 @@ lichess.unique = function(xs) {
                 is3d: is3d
               });
               $(this).addClass('active').siblings().removeClass('active');
-              $themepicker.removeClass("shown");
               return false;
             }).hover(function() {
               showDimensions($(this).data('is3d'));
@@ -1031,9 +1024,12 @@ lichess.unique = function(xs) {
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
         setTimeout(function() {
-          $('html').one('click', function(e) {
+          var handler = function(e) {
+            if ($.contains($p[0], e.target)) return;
             $p.removeClass('shown');
-          });
+            $('html').off('click', handler);
+          };
+          $('html').on('click', handler);
         }, 10);
         if ($p.hasClass('auth')) lichess.socket.send('moveLat', true);
         return false;
