@@ -78,7 +78,9 @@ private[round] final class Rematcher(
     users <- UserRepo byIds pov.game.userIds
   } yield Game.make(
     game = ChessGame(
-      board = Board(pieces, variant = pov.game.variant),
+      board = Board(pieces, variant = pov.game.variant).withCastles {
+        situation.fold(Castles.init)(_.situation.board.history.castles)
+      },
       clock = pov.game.clock map (_.reset),
       turns = situation ?? (_.turns),
       startedAtTurn = situation ?? (_.turns)),
@@ -88,7 +90,6 @@ private[round] final class Rematcher(
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
     daysPerTurn = pov.game.daysPerTurn,
-    castles = situation.fold(Castles.init)(_.situation.board.history.castles),
     pgnImport = None)
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player = {

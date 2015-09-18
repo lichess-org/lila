@@ -501,7 +501,6 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
-    castles: Castles = Castles.init,
     daysPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
@@ -513,7 +512,7 @@ object Game {
     turns = game.turns,
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
-    castleLastMoveTime = CastleLastMoveTime.init.copy(castles = castles),
+    castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,

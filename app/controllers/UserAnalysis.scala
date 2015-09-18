@@ -36,8 +36,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       mode = chess.Mode.Casual,
       variant = chess.variant.Standard,
       source = lila.game.Source.Api,
-      pgnImport = None,
-      castles = from.situation.board.history.castles).copy(id = "synthetic"),
+      pgnImport = None).copy(id = "synthetic"),
     from.situation.color)
 
   def game(id: String, color: String) = Open { implicit ctx =>
