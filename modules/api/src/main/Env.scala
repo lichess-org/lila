@@ -112,7 +112,7 @@ final class Env(
     lightUser = userEnv.lightUser,
     seekApi = lobbyEnv.seekApi)
 
-  private def makeUrl(path: String): String = s"${Net.BaseUrl}$path"
+  private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus, renderer)
 }

@@ -54,7 +54,7 @@ private[api] final class UserApi(
           jsonView(u, extended = true) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
-              "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/{$g.color.name}")),
+              "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/s{$g.color.name}")),
               "nbFollowing" -> following,
               "nbFollowers" -> followers,
               "count" -> Json.obj(
