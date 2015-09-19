@@ -40,13 +40,13 @@ object UserAnalysis extends LilaController with TheftPrevention {
     from.situation.color)
 
   def game(id: String, color: String) = Open { implicit ctx =>
-    OptionFuOk(GameRepo game id) { game =>
+    OptionFuResult(GameRepo game id) { game =>
       GameRepo initialFen game.id flatMap { initialFen =>
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov)) map { data =>
-          html.board.userAnalysis(data, pov.some)
+          Ok(html.board.userAnalysis(data, pov.some))
         }
-      }
+      } map NoCache
     }
   }
 
