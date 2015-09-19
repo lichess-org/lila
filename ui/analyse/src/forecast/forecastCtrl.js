@@ -18,7 +18,10 @@ module.exports = function(cfg, saveUrl) {
   };
 
   var collides = function(fc1, fc2) {
-    return fc1.length === fc2.length && keyOf(fc1.slice(0, -1)).indexOf(keyOf(fc2.slice(0, -1))) === 0;
+    for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
+      if (fc1[i].uci !== fc2[i].uci) return i % 2 === 1;
+    }
+    return true;
   };
 
   var truncate = function(fc) {
