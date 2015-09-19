@@ -45,7 +45,9 @@ private[simul] final class SimulApi(
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
       color = setup.color)
-    repo.createdByHostId(me.id) foreach { _.map(_.id).foreach(abort) }
+    repo.createdByHostId(me.id) foreach {
+      _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
+    }
     (repo create simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
