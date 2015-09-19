@@ -233,7 +233,7 @@ description = describeUser(u)).some) {
       <strong class="name">@name</strong>
       }
       @p.nonEmptyBio.map { bio =>
-      <p class="bio">@shorten(bio, 400)</p>
+      <p class="bio">@Html(addLinks(shorten(bio, 400).body))</p>
       }
       }
       }
