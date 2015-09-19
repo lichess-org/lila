@@ -3,6 +3,7 @@ var classSet = require('chessground').util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var renderStatus = require('game').view.status;
+var router = require('game').router;
 var m = require('mithril');
 
 var emptyTd = m('td.move', '...');
@@ -92,7 +93,7 @@ function analyseButton(ctrl) {
         'glowed': showInfo
       }),
       'data-hint': ctrl.trans('analysis'),
-      href: ctrl.router.UserAnalysis.game(ctrl.data.game.id, ctrl.data.player.color).url + '#' + ctrl.vm.ply,
+      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
       config: showInfo ? function(el) {
         setTimeout(function() {
           $(el).powerTip({
@@ -119,7 +120,7 @@ function renderButtons(ctrl) {
     'data-hint': ctrl.trans('flipBoard'),
   };
   if (ctrl.data.tv) flipAttrs.href = '/tv/' + ctrl.data.tv.channel + (ctrl.data.tv.flip ? '' : '?flip=1');
-  else if (ctrl.data.player.spectator) flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
+  else if (ctrl.data.player.spectator) flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color);
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [

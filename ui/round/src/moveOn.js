@@ -1,5 +1,6 @@
 var game = require('game').game;
 var xhr = require('./xhr');
+var router = require('game').router;
 var m = require('mithril');
 
 module.exports = function(ctrl, key) {
@@ -35,10 +36,10 @@ module.exports = function(ctrl, key) {
 
   this.next = function(force) {
     if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
-    if (force) redirect(ctrl.router.Round.next(ctrl.data.game.id).url);
+    if (force) redirect('/round-next/' + ctrl.data.game.id);
     else if (ctrl.data.simul) {
       if (ctrl.data.simul.hostId === ctrl.userId && ctrl.data.simul.nbPlaying > 1)
-        redirect(ctrl.router.Round.next(ctrl.data.game.id).url)
+        redirect('/round-next/' + ctrl.data.game.id);
     } else xhr.whatsNext(ctrl).then(function(data) {
       if (data.next) redirect('/' + data.next);
     }.bind(this));

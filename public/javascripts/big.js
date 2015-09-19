@@ -1277,9 +1277,7 @@ lichess.unique = function(xs) {
               o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
           },
           end: function() {
-            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color, 'sides'].join('/') : ((
-              data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer
-            )(data.game.id, data.player.color).url);
+            var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
             $.ajax({
               url: url,
               cache: false,

@@ -189,8 +189,6 @@ module.exports = function(opts) {
 
   this.socket = new socket(opts.socketSend, this);
 
-  this.router = opts.routes;
-
   this.forecast = opts.data.forecast ? forecastCtrl(
     opts.data.forecast,
     router.forecasts(this.data)) : null;

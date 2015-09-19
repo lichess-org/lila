@@ -1,4 +1,5 @@
 var partial = require('chessground').util.partial;
+var router = require('game').router;
 var m = require('mithril');
 
 var baseSpeeds = [{
@@ -45,7 +46,7 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
-    else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url + '#' + ctrl.vm.step.ply;
+    else flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color) + '#' + ctrl.vm.step.ply;
 
     return m('div.action_menu',
       m('div.inner', [
@@ -69,12 +70,12 @@ module.exports = {
         deleteButton(ctrl.data, ctrl.userId),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithTheMachine')),
           m('br'),
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(ctrl.data, 'friend') + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithAFriend'))
         ])

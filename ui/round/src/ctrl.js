@@ -334,8 +334,6 @@ module.exports = function(opts) {
     return false;
   }.bind(this);
 
-  this.router = opts.routes;
-
   this.trans = function(key) {
     var str = opts.i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
