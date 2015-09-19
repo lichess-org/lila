@@ -52,10 +52,6 @@ module.exports = function(cfg, saveUrl) {
       return contains(f, fc);
     });
     if (collisions.length) return false;
-    var incomplete = fc.filter(function(s) {
-      return !s.dests;
-    });
-    if (incomplete.length) return false;
     return true;
   };
 
