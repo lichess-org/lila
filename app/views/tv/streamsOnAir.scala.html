@@ -1,6 +1,6 @@
 @(ss: List[lila.tv.StreamOnAir])
 @ss.map { s =>
-<a class="stream" href="@routes.Tv.streamIn(s.id)">
+<a class="stream" href="@routes.Tv.streamIn(s.id)" title="@s.name">
   <span class="text" data-icon="1">@s.streamerName</span>
   @s.name
 </a>
