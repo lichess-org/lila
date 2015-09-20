@@ -1,7 +1,7 @@
 var status = require('./status');
 
 function playable(data) {
-  return data.game.status.id < status.ids.aborted;
+  return data.game.status.id < status.ids.aborted && !imported(data);
 }
 
 function isPlayerPlaying(data) {
@@ -57,8 +57,12 @@ function moretimeable(data) {
   return data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
 
+function imported(data) {
+  return data.game.source === 'import';
+}
+
 function replayable(data) {
-  return data.source == 'import' || status.finished(data);
+  return imported(data) || status.finished(data);
 }
 
 function getPlayer(data, color) {
