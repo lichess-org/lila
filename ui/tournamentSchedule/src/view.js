@@ -9,8 +9,10 @@ function leftPos(time) {
   return scale * (time - startTime) / 1000 / 60;
 }
 
-function speedGrouper(t) {
-  if (t.schedule && t.schedule.speed === 'superblitz') {
+function laneGrouper(t) {
+  if (t.variant.key !== 'standard') {
+    return 99;
+  } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
     return t.perf.position;
@@ -177,7 +179,7 @@ module.exports = function(ctrl) {
 
   // group system tournaments into dedicated lanes for PerfType
   var tourLanes = splitOverlaping(
-    bubbleUp(group(ctrl.data.systemTours, speedGrouper), ctrl.data.userTours));
+    bubbleUp(group(ctrl.data.systemTours, laneGrouper), ctrl.data.userTours));
 
   return m('div.schedule.dragscroll', {
     config: function(el, isUpdate) {
