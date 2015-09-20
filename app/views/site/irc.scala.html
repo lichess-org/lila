@@ -9,7 +9,7 @@ or use your own <a rel="nofollow" href="http://www.wikihow.com/Get-Started-with-
 Server: freenode<br />
 Channels: <br />
 <ul class="channels">
-  @myIrcChannels(teams).map { chan =>
+  @teamChans(teams).map { chan =>
   <li><a href="irc://irc.freenode.net/@chan">#@chan</a></li>
   }
 </ul>
