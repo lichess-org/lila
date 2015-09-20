@@ -43,7 +43,7 @@
   @trans.nbConnectedPlayers("<strong>?</strong>")
 </a>
 <br />
-<a id="nb_games_in_play" href="@routes.Game.playing">
+<a id="nb_games_in_play" href="@routes.Tv.games">
   @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
 </a>
 @if(lila.common.HTTPRequest.isMobile(ctx.req)) {

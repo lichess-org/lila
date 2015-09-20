@@ -29,8 +29,6 @@ final class Tv(actor: ActorRef) {
 
   def getBest = getGame(Tv.Channel.Best)
 
-  def getBestGames(max: Int) = getGames(Tv.Channel.Best, max)
-
   def getChampions: Fu[Champions] =
     actor ? TvActor.GetChampions mapTo manifest[Champions]
 }
