@@ -501,7 +501,7 @@ $(function() {
 
 
     $('#rating_distribution_chart').each(function() {
-      var colors = ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00", "#CC79A7", "#DF5353", "#66558C", "#FFFFFF", "#888888"];
+      var colors = Highcharts.getOptions().colors;
       var ratingAt = function(i) {
         return 800 + i * 25;
       };
@@ -522,7 +522,19 @@ $(function() {
           data: freq.map(function(nb, i) {
             return [ratingAt(i), nb];
           }),
-          color: colors[0],
+          color: colors[1],
+          fillColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1.1
+            },
+            stops: [
+              [0, colors[1]],
+              [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')]
+            ]
+          },
           marker: {
             radius: 5
           },
@@ -537,8 +549,7 @@ $(function() {
           data: cumul.map(function(p, i) {
             return [ratingAt(i), p];
           }),
-          color: 'rgba(230,159,0,0.5)',
-          // color: colors[5],
+          color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),
           marker: {
             radius: 1
           },

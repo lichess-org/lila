@@ -6,5 +6,11 @@
 }
 .content_box .desc {
   padding: 0 25px 25px 25px;
-  font-size: 1.2em;
+  font-size: 1.3em;
+}
+.content_box .desc::before {
+  font-size: 70px;
+  float: left;
+  opacity: 0.7;
+  margin-right: 10px;
 }
