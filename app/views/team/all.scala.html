@@ -3,5 +3,5 @@
 @team.list(
 name = trans.teams.str(),
 teams = teams,
-next = teams.nextPage map { n => routes.Team.home(n) },
+next = teams.nextPage map { n => routes.Team.all(n) },
 tab = "all")
