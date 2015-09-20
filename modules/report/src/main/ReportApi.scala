@@ -12,7 +12,7 @@ import tube.reportTube
 
 private[report] final class ReportApi {
 
-  def create(setup: ReportSetup, by: User): Funit =
+  def create(setup: ReportSetup, by: User): Funit = !by.troll ?? {
     Reason(setup.reason).fold[Funit](fufail(s"Invalid report reason ${setup.reason}")) { reason =>
       val user = setup.user
       val report = Report.make(
@@ -30,6 +30,7 @@ private[report] final class ReportApi {
         else $insert(report)
       }
     }
+  }
 
   private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||
