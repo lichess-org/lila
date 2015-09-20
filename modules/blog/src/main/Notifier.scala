@@ -18,7 +18,7 @@ private[blog] final class Notifier(
         _ ?? { post =>
           ThreadRepo.visibleByUserContainingExists(user = lichessUserId, containing = post.id) foreach {
             case true => funit
-            case false => UserRepo recentlySeenIds DateTime.now.minusWeeks(2) foreach { userIds =>
+            case false => UserRepo recentlySeenNotKidIds DateTime.now.minusWeeks(2) foreach { userIds =>
               (ThreadRepo reallyDeleteByCreatorId lichessUserId) >> {
                 val thread = makeThread(post)
                 val futures = userIds.toStream map { userId =>
