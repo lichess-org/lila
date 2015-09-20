@@ -146,8 +146,8 @@ object Round extends LilaController with TheftPrevention {
         else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
         else if (pov.game.joinable) join(pov)
         else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
-          case Some(player) => renderPlayer(pov withColor player.color)
-          case None if HTTPRequest.isHuman(ctx.req) =>
+          case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
+          case _ if HTTPRequest.isHuman(ctx.req) =>
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               Env.game.crosstableApi(pov.game) zip
