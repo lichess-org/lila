@@ -2,7 +2,7 @@ package lila.tournament
 
 import akka.actor._
 import akka.pattern.pipe
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Duration }
 import scala.concurrent.duration._
 
 import actorApi._
@@ -48,9 +48,14 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
       val firstSundayOfCurrentMonth = firstDayOfMonth.plusDays(7 - firstDayOfMonth.getDayOfWeek)
       val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
+      val prevSaturday = nextSaturday.minusDays(7)
+      val prevSunday = nextSaturday.minusDays(6)
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
+      def orNextShift(date: DateTime) = date.plusHours(
+        21 * math.ceil(new Duration(date, rightNow).getMillis().toDouble / (21*60*60*1000)).toInt
+      )
 
       val std = StartingPosition.initial
       val opening1 = StartingPosition.randomFeaturable
@@ -76,26 +81,26 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         ),
 
         List( // daily tournaments!
-          Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
-          Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
-          Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
-          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow)
+          Schedule(Daily, Bullet, Standard, std, at(prevSaturday, 18) |> orNextShift),
+          Schedule(Daily, SuperBlitz, Standard, std, at(prevSaturday, 19) |> orNextShift),
+          Schedule(Daily, Blitz, Standard, std, at(prevSaturday, 20) |> orNextShift),
+          Schedule(Daily, Classical, Standard, std, at(prevSaturday, 21) |> orNextShift)
         ),
 
         List( // daily variant tournaments!
-          Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
-          Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 23) |> orTomorrow),
-          Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 0)),
-          Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
-          Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
-          Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3))
+          Schedule(Daily, Blitz, Chess960, std, at(prevSaturday, 22) |> orNextShift),
+          Schedule(Daily, Blitz, KingOfTheHill, std, at(prevSaturday, 23) |> orNextShift),
+          Schedule(Daily, Blitz, ThreeCheck, std, at(prevSunday, 0) |> orNextShift),
+          Schedule(Daily, Blitz, Antichess, std, at(prevSunday, 1) |> orNextShift),
+          Schedule(Daily, Blitz, Atomic, std, at(prevSunday, 2) |> orNextShift),
+          Schedule(Daily, Blitz, Horde, std, at(prevSunday, 3) |> orNextShift)
         ),
 
         List( // nightly tournaments!
-          Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
-          Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
-          Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
-          Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow)
+          Schedule(Nightly, Bullet, Standard, std, at(prevSunday, 6) |> orNextShift),
+          Schedule(Nightly, SuperBlitz, Standard, std, at(prevSunday, 7) |> orNextShift),
+          Schedule(Nightly, Blitz, Standard, std, at(prevSunday, 8) |> orNextShift),
+          Schedule(Nightly, Classical, Standard, std, at(prevSunday, 9) |> orNextShift)
         ),
 
         List( // random opening replaces hourly 2 times a day
