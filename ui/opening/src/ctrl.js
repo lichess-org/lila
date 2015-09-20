@@ -64,8 +64,8 @@ module.exports = function(cfg, router, i18n) {
     m.redraw();
   }.bind(this);
 
-  var onMove = function(orig, dest, meta) {
-    $.sound.move();
+  var onMove = function(orig, dest, captured) {
+    $.sound[captured ? 'capture' : 'move']();
     submitMove(orig + dest);
     setTimeout(function() {
       this.chessground.set({
@@ -101,10 +101,10 @@ module.exports = function(cfg, router, i18n) {
     movable: {
       color: this.data.opening.color,
       free: false,
-      dests: init.dests,
-      events: {
-        after: onMove
-      }
+      dests: init.dests
+    },
+    events: {
+      move: onMove
     },
     drawable: {
       enabled: true
