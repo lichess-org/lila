@@ -14,7 +14,7 @@
     }.getOrElse {
     <div class="none"></div>
     }
-    @game.widgets(pager.currentPageResults)
+    @game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
   </div>
   } else {
   <div class="search_status">
