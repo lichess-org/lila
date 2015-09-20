@@ -1,0 +1,38 @@
+@(perfType: lila.rating.PerfType, data: List[Int])(implicit ctx: Context)
+
+@moreJs = {
+@jsTagCompiled("chart2.js")
+@embedJs {
+var lichess_rating_distribution = {data:@data.mkString("[", ",", "]")};
+@ctx.me.map(_.perfs(perfType).intRating).map { rating =>
+lichess_rating_distribution.my_rating = @rating;
+}
+}
+}
+
+@percentile = @{
+}
+
+@layout(
+title = s"Weekly ${perfType.name} rating distribution",
+active = perfType.key,
+moreJs = moreJs) {
+
+<div class="content_box no_padding stat">
+  <h1 class="lichess_title">Weekly @perfType.name rating distribution</h1>
+  <p class="desc">
+    @ctx.me.map(_.perfs(perfType).intRating).map { rating =>
+    @lila.user.Stat.percentile(data, rating) match {
+    case (under, sum) => {
+    <strong>@sum.localize</strong> @perfType players this week.<br />
+    Your rating: <strong>@rating</strong>.<br />
+    You are better than <strong>@(under * 100 / sum)</strong>% of @perfType.name players.
+    }
+    }
+    }
+  </p>
+  <div id="rating_distribution_chart">
+    <div class="loader fast"></div>
+  </div>
+</div>
+}

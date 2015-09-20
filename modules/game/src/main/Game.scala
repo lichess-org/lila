@@ -233,7 +233,7 @@ case class Game(
 
   def aborted = status == Status.Aborted
 
-  def playable = status < Status.Aborted
+  def playable = status < Status.Aborted && !imported
 
   def playableBy(p: Player): Boolean = playable && turnOf(p)
 

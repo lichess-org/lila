@@ -10,6 +10,7 @@ import reactivemongo.bson._
 
 import lila.common.PimpedJson._
 import lila.db.api._
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import lila.rating.{ Glicko, Perf, PerfType }
 
@@ -23,6 +24,9 @@ trait UserRepo {
 
   import User.ID
   import User.{ BSONFields => F }
+
+  private val coll = userTube.coll
+  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 
   val normalize = User normalize _
 
@@ -72,8 +76,8 @@ trait UserRepo {
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
-  def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] =
-    userTube.coll.find(
+  def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
+    coll.find(
       BSONDocument("_id" -> BSONDocument("$in" -> List(u1, u2))),
       BSONDocument(s"${F.count}.game" -> true)
     ).cursor[BSONDocument]().collect[List]() map { docs =>
@@ -84,6 +88,7 @@ trait UserRepo {
           case _            => none
         }
       }
+  }
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)
@@ -270,7 +275,7 @@ trait UserRepo {
 
   def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
-  def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = userTube.coll.find(
+  def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     BSONDocument("_id" -> id),
     BSONDocument(s"${F.perfs}.${perfType.key}" -> true)
   ).one[BSONDocument].map {
@@ -290,17 +295,42 @@ trait UserRepo {
 
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
-  def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
-    val col = userTube.coll
-    import col.BatchCommands.AggregationFramework, AggregationFramework.{ Match, Group, SumField }
-
-    col.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
+  def idsSumToints(ids: Iterable[String]): Fu[Int] =
+    ids.nonEmpty ?? coll.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       List(Group(BSONBoolean(true))(F.toints -> SumField(F.toints)))).map(
         _.documents.headOption flatMap { obj =>
           toJSON(obj).asOpt[JsObject]
         } flatMap { _ int F.toints }
       ).map(~_)
-  }
+
+  // from 800 to 2500 by Stat.group
+  def ratingDistribution(perf: Perf.Key, since: DateTime): Fu[List[Int]] =
+    lila.rating.PerfType(perf).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
+      val field = s"perfs.$perf"
+      coll.aggregate(
+        Match(BSONDocument(s"$field.la" -> BSONDocument("$gt" -> since))),
+        List(Project(BSONDocument(
+          "_id" -> false,
+          "r" -> BSONDocument(
+            "$subtract" -> BSONArray(
+              s"$$$field.gl.r",
+              BSONDocument("$mod" -> BSONArray(s"$$$field.gl.r", Stat.group))
+            )
+          )
+        )),
+          GroupField("r")("nb" -> SumValue(1))
+        )).map { res =>
+          val hash = res.documents.flatMap { obj =>
+            for {
+              rating <- obj.getAs[Double]("_id")
+              nb <- obj.getAs[Int]("nb")
+            } yield rating.toInt -> nb
+          }.toMap
+          (800 to 2500 by Stat.group).map { r =>
+            hash.getOrElse(r, 0)
+          }.toList
+        }
+    }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])

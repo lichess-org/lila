@@ -84,4 +84,22 @@ final class Cached(
         _ sort UserRepo.sortPerfDesc(perf)
       )(_.asOpt[User.ID]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }
   }
+
+  object ratingDistribution {
+
+    import lila.db.BSON.MapValue.MapHandler
+
+    private type NbUsers = Int
+
+    def apply(perf: Perf.Key) = cache(perf)
+
+    private val cache = mongoCache[Perf.Key, List[NbUsers]](
+      prefix = "user:rating:distribution",
+      f = compute,
+      timeToLive = 3 hour)
+
+    private def compute(perf: Perf.Key): Fu[List[NbUsers]] =
+      // UserRepo.ratingDistribution(perf, since = oneWeekAgo)
+      UserRepo.ratingDistribution(perf, since = DateTime.now minusMonths 7)
+  }
 }

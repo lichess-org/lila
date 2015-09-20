@@ -340,6 +340,9 @@ POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
 POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
 POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
 
+# Stats
+GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
+
 # API
 GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
