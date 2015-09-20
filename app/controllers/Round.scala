@@ -58,7 +58,7 @@ object Round extends LilaController with TheftPrevention {
           myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
-            (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
+            (pov.game.isCorrespondence ?? otherPovs(pov.gameId)) flatMap {
               case (((tour, simul), crosstable), playing) =>
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
