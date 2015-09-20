@@ -216,7 +216,7 @@ private[controllers] trait LilaController
 
   def notFound(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-      if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
+      if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx.req
       else fuccess(Results.NotFound("Resource not found")),
     api = _ => fuccess(Results.NotFound(Json.obj("error" -> "Resource not found")))
   )
