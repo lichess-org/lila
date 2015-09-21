@@ -144,9 +144,9 @@ object TournamentRepo {
     }.foldLeft(List[Tournament]() -> none[Freq]) {
       case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
       case ((tours, skip), (tour, sched)) => (tour :: tours, sched.freq match {
-        case Freq.Daily   => Freq.Nightly.some
-        case Freq.Nightly => Freq.Daily.some
-        case _            => skip
+        case Freq.Daily    => Freq.Oriental.some
+        case Freq.Oriental => Freq.Daily.some
+        case _             => skip
       })
     }._1.reverse
   }
