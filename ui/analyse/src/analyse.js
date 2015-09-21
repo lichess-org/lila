@@ -101,4 +101,21 @@ module.exports = function(steps, analysis) {
       }
     }
   }.bind(this);
+
+  this.addEval = function(path, eval) {
+    var tree = this.tree;
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
+            break;
+          }
+          tree[i].eval = eval.cp;
+          return;
+        }
+      }
+    }
+  }.bind(this);
 }

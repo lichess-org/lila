@@ -13,6 +13,7 @@ var readDests = require('./util').readDests;
 var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
+var stockfish = require('./ai');
 var router = require('game').router;
 var m = require('mithril');
 
@@ -170,6 +171,7 @@ module.exports = function(opts) {
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
+    this.ai.start(newPath, this.analyse.getSteps(newPath));
   }.bind(this);
 
   this.addDests = function(dests, path) {
@@ -192,6 +194,11 @@ module.exports = function(opts) {
   this.forecast = opts.data.forecast ? forecastCtrl(
     opts.data.forecast,
     router.forecasts(this.data)) : null;
+
+  this.ai = stockfish(throttle(200, false, function(path, eval) {
+    this.analyse.addEval(path, eval);
+    m.redraw();
+  }.bind(this)));
 
   this.trans = function(key) {
     var str = opts.i18n[key] || key;
