@@ -56,7 +56,8 @@ private[round] final class Player(
   def ai(game: Game): Fu[Progress] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
-        case lila.ai.actorApi.PlayResult(progress, move) =>
+        case lila.ai.actorApi.PlayResult(progress, move, upstreamIp) =>
+          upstreamIp foreach { notifyMove(move, progress.game, _) }
           moveFinish(progress.game, game.turnColor) map { progress.++ }
       },
       fufail(s"Not AI turn")

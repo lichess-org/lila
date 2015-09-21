@@ -32,7 +32,7 @@ final class Client(
         (c, move) = result
         progress = game.update(c, move)
         _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
-      } yield PlayResult(progress, move)) recoverWith {
+      } yield PlayResult(progress, move, moveResult.upstreamIp)) recoverWith {
         case e if tries < 4 =>
           logwarn(s"[ai play] ${~moveResult.upstream} http://lichess.org/${game.id}#${game.turns} try $tries/3 ${e.getMessage}")
           doPlay(game, level, tries + 1)
