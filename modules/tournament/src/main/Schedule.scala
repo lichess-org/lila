@@ -35,15 +35,15 @@ object Schedule {
   object Freq {
     case object Hourly extends Freq
     case object Daily extends Freq
-    case object Nightly extends Freq // deprecated - use Oriental instead
-    case object Oriental extends Freq
+    case object Nightly extends Freq // deprecated - use Eastern instead
+    case object Eastern extends Freq
     case object Weekly extends Freq
     case object Monthly extends Freq
     case object Marathon extends Freq
     case object ExperimentalMarathon extends Freq { // for DB BC
       override val name = "Experimental Marathon"
     }
-    val all: List[Freq] = List(Hourly, Daily, Nightly, Oriental, Weekly, Monthly, Marathon, ExperimentalMarathon)
+    val all: List[Freq] = List(Hourly, Daily, Nightly, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon)
     def apply(name: String) = all find (_.name == name)
   }
 
@@ -73,29 +73,29 @@ object Schedule {
     import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Bullet, _)                           => 26
-      case (Hourly, SuperBlitz, _)                       => 56
-      case (Hourly, Blitz, _)                            => 56
-      case (Hourly, Classical, _)                        => 0 // N/A
+      case (Hourly, Bullet, _)                          => 26
+      case (Hourly, SuperBlitz, _)                      => 56
+      case (Hourly, Blitz, _)                           => 56
+      case (Hourly, Classical, _)                       => 0 // N/A
 
-      case (Daily | Nightly | Oriental, Bullet, _)       => 60
-      case (Daily | Nightly | Oriental, SuperBlitz, _)   => 90
-      case (Daily | Nightly | Oriental, Blitz, Standard) => 90
-      case (Daily | Nightly | Oriental, Blitz, _)        => 60 // variant daily is shorter
-      case (Daily | Nightly | Oriental, Classical, _)    => 60 * 2
+      case (Daily | Nightly | Eastern, Bullet, _)       => 60
+      case (Daily | Nightly | Eastern, SuperBlitz, _)   => 90
+      case (Daily | Nightly | Eastern, Blitz, Standard) => 90
+      case (Daily | Nightly | Eastern, Blitz, _)        => 60 // variant daily is shorter
+      case (Daily | Nightly | Eastern, Classical, _)    => 60 * 2
 
-      case (Weekly, Bullet, _)                           => 90
-      case (Weekly, SuperBlitz, _)                       => 60 * 2
-      case (Weekly, Blitz, _)                            => 60 * 2
-      case (Weekly, Classical, _)                        => 60 * 3
+      case (Weekly, Bullet, _)                          => 90
+      case (Weekly, SuperBlitz, _)                      => 60 * 2
+      case (Weekly, Blitz, _)                           => 60 * 2
+      case (Weekly, Classical, _)                       => 60 * 3
 
-      case (Monthly, Bullet, _)                          => 60 * 2
-      case (Monthly, SuperBlitz, _)                      => 60 * 3
-      case (Monthly, Blitz, _)                           => 60 * 3
-      case (Monthly, Classical, _)                       => 60 * 4
+      case (Monthly, Bullet, _)                         => 60 * 2
+      case (Monthly, SuperBlitz, _)                     => 60 * 3
+      case (Monthly, Blitz, _)                          => 60 * 3
+      case (Monthly, Classical, _)                      => 60 * 4
 
-      case (Marathon, _, _)                              => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _)                  => 60 * 4
+      case (Marathon, _, _)                             => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _)                 => 60 * 4
 
     }) filter (0!=)
   }

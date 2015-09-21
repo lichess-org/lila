@@ -92,19 +92,19 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         ),
 
         List( // oriental tournaments!
-          Schedule(Oriental, Bullet, Standard, std, at(today, 6) |> orTomorrow),
-          Schedule(Oriental, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
-          Schedule(Oriental, Blitz, Standard, std, at(today, 8) |> orTomorrow),
-          Schedule(Oriental, Classical, Standard, std, at(today, 9) |> orTomorrow)
+          Schedule(Eastern, Bullet, Standard, std, at(today, 6) |> orTomorrow),
+          Schedule(Eastern, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
+          Schedule(Eastern, Blitz, Standard, std, at(today, 8) |> orTomorrow),
+          Schedule(Eastern, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
         List( // oriental variant tournaments!
-          Schedule(Oriental, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
-          Schedule(Oriental, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
-          Schedule(Oriental, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
-          Schedule(Oriental, Blitz, Antichess, std, at(today, 13) |> orTomorrow),
-          Schedule(Oriental, Blitz, Atomic, std, at(today, 14) |> orTomorrow),
-          Schedule(Oriental, Blitz, Horde, std, at(today, 15) |> orTomorrow)
+          Schedule(Eastern, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
+          Schedule(Eastern, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
+          Schedule(Eastern, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
+          Schedule(Eastern, Blitz, Antichess, std, at(today, 13) |> orTomorrow),
+          Schedule(Eastern, Blitz, Atomic, std, at(today, 14) |> orTomorrow),
+          Schedule(Eastern, Blitz, Horde, std, at(today, 15) |> orTomorrow)
         ),
 
         List( // random opening replaces hourly 2 times a day
