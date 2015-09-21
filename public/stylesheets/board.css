@@ -236,9 +236,9 @@ div.lichess_board {
 }
 div.eval_gauge {
   position: absolute;
-  left: -15px;
+  right: -16px;
   top: 0;
-  width: 10px;
+  width: 16px;
   height: 512px;
   background: #aaa;
   background-size: 100% 100%;
@@ -246,7 +246,7 @@ div.eval_gauge {
   transition: opacity 0.5s;
 }
 div.eval_gauge.empty {
-  opacity: 0.9;
+  /* opacity: 0.9; */
 }
 div.eval_gauge::after {
   content: '';

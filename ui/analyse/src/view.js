@@ -53,7 +53,9 @@ function renderMove(ctrl, move, path) {
     },
     children: [
       defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
+        defined(move.mate) ? renderEvalTag('#' + move.mate) : (
+          defined(move.ceval) ? renderEvalTag(renderEval(move.ceval.cp)) : null
+        )
       ),
       move.san
     ]
@@ -302,10 +304,10 @@ function inputs(ctrl) {
 
 var gaugeLast = 0;
 
-function gauge(ctrl) {
-  var eval, has = typeof ctrl.vm.step.eval !== 'undefined';
+function renderGauge(ctrl) {
+  var eval, has = typeof ctrl.vm.step.ceval !== 'undefined';
   if (has) {
-    eval = Math.min(Math.max(ctrl.vm.step.eval / 100, -5), 5);
+    eval = Math.min(Math.max(ctrl.vm.step.ceval.cp / 100, -5), 5);
     gaugeLast = eval;
   } else eval = gaugeLast;
   var height = (eval + 5) * 10;
@@ -323,8 +325,7 @@ function gauge(ctrl) {
 }
 
 function visualBoard(ctrl) {
-  return m('div.lichess_board_wrap',
-    gauge(ctrl),
+  return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
         config: function(el, isUpdate) {
           if (!isUpdate) el.addEventListener('wheel', function(e) {
@@ -333,7 +334,9 @@ function visualBoard(ctrl) {
         }
       },
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl)));
+      renderPromotion(ctrl)),
+    renderGauge(ctrl)
+  ]);
 }
 
 function blindBoard(ctrl) {

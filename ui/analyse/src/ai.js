@@ -1,7 +1,7 @@
 module.exports = function(emit) {
 
   var worker = new Worker('/assets/vendor/stockfish6.js');
-  var minDepth = 11;
+  var minDepth = 10;
   var maxDepth = 18;
   var currentPath;
   var currentStep;
@@ -15,6 +15,7 @@ module.exports = function(emit) {
     if (/currmovenumber|lowerbound|upperbound/.test(msg.data)) return;
     var matches = msg.data.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
     if (!matches) return;
+    console.log(msg.data);
     var depth = parseInt(matches[1]);
     if (depth < minDepth) return;
     var cp = parseFloat(matches[3]);

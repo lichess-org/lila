@@ -86,23 +86,18 @@ module.exports = function(steps, analysis) {
   }.bind(this);
 
   this.addDests = function(dests, path) {
-    var tree = this.tree;
-    for (var j in path) {
-      var p = path[j];
-      for (var i = 0, nb = tree.length; i < nb; i++) {
-        if (p.ply === tree[i].ply) {
-          if (p.variation) {
-            tree = tree[i].variations[p.variation - 1];
-            break;
-          }
-          tree[i].dests = dests;
-          return;
-        }
-      }
-    }
+    return updateAtPath(path, function(step) {
+      step.dests = dests;
+    });
   }.bind(this);
 
-  this.addEval = function(path, eval) {
+  this.addClientEval = function(path, eval) {
+    return updateAtPath(path, function(step) {
+      step.ceval = eval;
+    });
+  }.bind(this);
+
+  var updateAtPath = function(path, update) {
     var tree = this.tree;
     for (var j in path) {
       var p = path[j];
@@ -112,7 +107,7 @@ module.exports = function(steps, analysis) {
             tree = tree[i].variations[p.variation - 1];
             break;
           }
-          tree[i].eval = eval.cp;
+          update(tree[i]);
           return;
         }
       }

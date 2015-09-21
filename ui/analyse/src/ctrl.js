@@ -111,6 +111,7 @@ module.exports = function(opts) {
     this.vm.pathStr = treePath.write(path);
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
+    this.chessground.setAutoShapes([]);
     showGround();
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
@@ -196,7 +197,13 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.ai = stockfish(throttle(200, false, function(path, eval) {
-    this.analyse.addEval(path, eval);
+    this.analyse.addClientEval(path, eval);
+    console.log(eval);
+    this.chessground.setAutoShapes([{
+      orig: eval.uci.slice(0, 2),
+      dest: eval.uci.slice(2, 4),
+      style: 4
+    }]);
     m.redraw();
   }.bind(this)));
 
