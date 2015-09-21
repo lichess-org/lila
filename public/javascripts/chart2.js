@@ -567,7 +567,7 @@ $(function() {
         xAxis: {
           type: 'category',
           title: {
-            text: 'Glicko2 Rating',
+            text: 'Glicko2 Rating'
           },
           labels: {
             rotation: -45
@@ -593,24 +593,24 @@ $(function() {
               width: 3,
               value: v
             }] : [];
-          })(lichess_rating_distribution.my_rating),
+          })(lichess_rating_distribution.my_rating)
         },
         yAxis: [{ // frequency
           title: {
-            text: 'Players',
-          },
+            text: 'Players'
+          }
         }, { // cumulative
           min: 0,
           max: 100,
           gridLineWidth: 0,
           title: {
-            text: 'Cumulative',
+            text: 'Cumulative'
           },
           labels: {
-            format: '{value}%',
+            format: '{value}%'
           },
           opposite: true
-        }],
+        }]
       }));
     });
   });

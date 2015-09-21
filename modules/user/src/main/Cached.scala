@@ -20,6 +20,7 @@ final class Cached(
     mongoCache: MongoCache.Builder) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1
+  private def oneMonth = DateTime.now minusMonth 1
 
   private val countCache = mongoCache.single[Int](
     prefix = "user:nb",
@@ -99,7 +100,6 @@ final class Cached(
       timeToLive = 3 hour)
 
     private def compute(perf: Perf.Key): Fu[List[NbUsers]] =
-      // UserRepo.ratingDistribution(perf, since = oneWeekAgo)
-      UserRepo.ratingDistribution(perf, since = DateTime.now minusMonths 7)
+      UserRepo.ratingDistribution(perf, since = oneMonthAgo)
   }
 }
