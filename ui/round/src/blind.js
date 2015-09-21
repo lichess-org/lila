@@ -6,12 +6,12 @@ var router = require('game').router;
 var element;
 
 var reload = throttle(1000, false, function(ctrl) {
-  var route = (ctrl.data.player.spectator ?
+  var url = (ctrl.data.player.spectator ?
     router.game(ctrl.data, ctrl.data.player.color) :
     router.player(ctrl.data)
   ) + '/text';
   $.ajax({
-    url: route.url,
+    url: url,
     cache: false,
     success: function(html) {
       $(element).html(html).find('form').submit(function() {
