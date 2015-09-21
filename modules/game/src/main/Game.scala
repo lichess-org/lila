@@ -235,6 +235,8 @@ case class Game(
 
   def playable = status < Status.Aborted && !imported
 
+  def playableEvenImported = status < Status.Aborted
+
   def playableBy(p: Player): Boolean = playable && turnOf(p)
 
   def playableBy(c: Color): Boolean = playableBy(player(c))

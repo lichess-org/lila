@@ -48,6 +48,11 @@ private[round] final class Round(
         pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
       } >>- monitorMove((nowMillis - p.atMillis).toInt)
 
+    case p: ImportPlay =>
+      handle(p.playerId) { pov =>
+        player.importMove(p)(pov)
+      }
+
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)

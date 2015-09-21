@@ -102,6 +102,14 @@ case class HumanPlay(
 
   val atMillis = nowMillis
 }
+
+case class ImportPlay(
+  playerId: String,
+  ip: String,
+  orig: chess.Pos,
+  dest: chess.Pos,
+  prom: Option[chess.PromotableRole])
+
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

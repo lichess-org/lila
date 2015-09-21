@@ -39,16 +39,12 @@ final class Importer(
     }
 
     def applyMove(pov: Pov, move: Move) {
-      roundMap ! Tell(pov.gameId, HumanPlay(
+      roundMap ! Tell(pov.gameId, ImportPlay(
         playerId = pov.playerId,
         ip = ip,
-        orig = move.orig.toString,
-        dest = move.dest.toString,
-        prom = move.promotion map (_.name),
-        blur = false,
-        lag = 0.millis,
-        onFailure = _ => ()
-      ))
+        orig = move.orig,
+        dest = move.dest,
+        prom = move.promotion))
     }
 
     gameExists {
