@@ -317,7 +317,12 @@ function blindBoard(ctrl) {
   return m('div.lichess_board_blind', [
     m('div.textual', {
       config: function(el, isUpdate) {
-        if (!isUpdate) blind.init(el, ctrl);
+        if (isUpdate) return;
+        var url = ctrl.data.player.spectator ?
+          router.game(ctrl.data, ctrl.data.player.color) :
+          router.player(ctrl.data);
+        url += '/text';
+        $(el).load(url);
       }
     }),
     chessground.view(ctrl.chessground)
