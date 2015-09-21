@@ -119,6 +119,7 @@ module.exports = function(opts) {
       this.vm.justPlayed = null;
     }
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
+    this.ai.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this);
 
   this.userJump = function(path) {
@@ -171,7 +172,6 @@ module.exports = function(opts) {
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
-    this.ai.start(newPath, this.analyse.getSteps(newPath));
   }.bind(this);
 
   this.addDests = function(dests, path) {

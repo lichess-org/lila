@@ -300,8 +300,31 @@ function inputs(ctrl) {
   ]);
 }
 
+var gaugeLast = 0;
+
+function gauge(ctrl) {
+  var eval, has = typeof ctrl.vm.step.eval !== 'undefined';
+  if (has) {
+    eval = Math.min(Math.max(ctrl.vm.step.eval / 100, -5), 5);
+    gaugeLast = eval;
+  } else eval = gaugeLast;
+  var height = (eval + 5) * 10;
+  if (ctrl.data.orientation === 'white') height = 100 - height;
+  return m('div', {
+    class: 'eval_gauge' + (has ? '' : ' empty')
+  }, [
+    m('div', {
+      class: 'opponent',
+      style: {
+        height: height + '%'
+      }
+    })
+  ]);
+}
+
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap',
+    gauge(ctrl),
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
         config: function(el, isUpdate) {
           if (!isUpdate) el.addEventListener('wheel', function(e) {
