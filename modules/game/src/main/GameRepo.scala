@@ -277,10 +277,10 @@ object GameRepo {
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Json.obj(
       F.createdAt -> $gt($date(DateTime.now minusMinutes 5)),
-      F.updatedAt -> $gt($date(DateTime.now minusSeconds 30))
+      F.updatedAt -> $gt($date(DateTime.now minusSeconds 40))
     ) ++ $or(Seq(
-        Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1300)),
-        Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1300))
+        Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1200)),
+        Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1200))
       ))
   )
 
