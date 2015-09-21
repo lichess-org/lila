@@ -20,7 +20,7 @@ final class Cached(
     mongoCache: MongoCache.Builder) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1
-  private def oneMonth = DateTime.now minusMonth 1
+  private def oneMonthAgo = DateTime.now minusMonths 1
 
   private val countCache = mongoCache.single[Int](
     prefix = "user:nb",
