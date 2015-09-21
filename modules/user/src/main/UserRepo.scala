@@ -308,7 +308,10 @@ trait UserRepo {
     lila.rating.PerfType(perf).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
       val field = s"perfs.$perf"
       coll.aggregate(
-        Match(BSONDocument(s"$field.la" -> BSONDocument("$gt" -> since))),
+        Match(BSONDocument(
+          s"$field.la" -> BSONDocument("$gt" -> since),
+          s"$field.nb" -> BSONDocument("$gt" -> 2)
+        )),
         List(Project(BSONDocument(
           "_id" -> false,
           "r" -> BSONDocument(
