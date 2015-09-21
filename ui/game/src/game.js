@@ -83,6 +83,10 @@ function forecastable(data) {
   return playable(data) && data.correspondence && !hasAi(data) && !isPlayerTurn(data);
 }
 
+function isCorrespondence(data) {
+  return data.game.speed === 'correspondence';
+}
+
 function setOnGame(data, color, onGame) {
   var player = getPlayer(data, color);
   onGame = onGame || player.ai;
@@ -118,5 +122,6 @@ module.exports = {
   nbMoves: nbMoves,
   setOnGame: setOnGame,
   setIsGone: setIsGone,
-  forecastable: forecastable
+  forecastable: forecastable,
+  isCorrespondence: isCorrespondence
 };
