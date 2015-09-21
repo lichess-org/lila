@@ -144,6 +144,9 @@ body.base .cg-board .cg-square.exploding {
 .other_games.blindfold .cg-piece {
   opacity: 0;
 }
+body.highlight .lichess_board.blindfold .cg-square.check {
+  background: none;
+}
 .is3d .cg-piece {
   /* original size:
      width: 140.625%;
