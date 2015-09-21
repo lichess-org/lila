@@ -18,6 +18,9 @@ case class Glicko(
   def interval = intervalMin -> intervalMax
 
   def provisional = deviation >= Glicko.provisionalDeviation
+  def established = !provisional
+
+  def establishedIntRating = established option intRating
 
   override def toString = s"$intRating $intDeviation"
 }
