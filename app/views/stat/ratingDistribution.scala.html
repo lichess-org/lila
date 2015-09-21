@@ -20,8 +20,8 @@ moreJs = moreJs) {
 
 <div class="content_box no_padding stat">
   <h1 class="lichess_title">Monthly @perfType.name rating distribution</h1>
+  @ctx.me.map(_.perfs(perfType).intRating).map { rating =>
   <p class="desc" data-icon="@perfType.iconChar">
-    @ctx.me.map(_.perfs(perfType).intRating).map { rating =>
     @lila.user.Stat.percentile(data, rating) match {
     case (under, sum) => {
     <strong>@sum.localize</strong> @perfType players this month.<br />
@@ -29,8 +29,8 @@ moreJs = moreJs) {
     You are better than <strong>@(under * 100 / sum)%</strong> of @perfType.name players.
     }
     }
-    }
   </p>
+  }
   <div id="rating_distribution_chart">
     <div class="loader fast"></div>
   </div>

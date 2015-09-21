@@ -35,7 +35,7 @@ module.exports = function(ctrl, key) {
   };
 
   this.next = function(force) {
-    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
+    if (!this.value || ctrl.data.player.spectator || !game.isCorrespondence(ctrl.data) || game.isPlayerTurn(ctrl.data)) return;
     if (force) redirect('/round-next/' + ctrl.data.game.id);
     else if (ctrl.data.simul) {
       if (ctrl.data.simul.hostId === ctrl.userId && ctrl.data.simul.nbPlaying > 1)
