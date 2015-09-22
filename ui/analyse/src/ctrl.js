@@ -198,18 +198,19 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.ceval = cevalCtrl(this.data.game.id === 'synthetic' || !game.playable(this.data),
-    throttle(200, false, function(path, eval) {
-      this.analyse.addClientEval(path, eval);
+    throttle(100, false, function(res) {
+      this.analyse.addClientEval(res.work.path, res.eval);
       this.chessground.setAutoShapes([{
-        orig: eval.uci.slice(0, 2),
-        dest: eval.uci.slice(2, 4),
+        orig: res.eval.uci.slice(0, 2),
+        dest: res.eval.uci.slice(2, 4),
         style: 4
       }]);
       m.redraw();
     }.bind(this)));
 
   var startCeval = function() {
-    this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
+    if (this.ceval.enabled())
+      this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this);
   startCeval();
 

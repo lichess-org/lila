@@ -37,7 +37,7 @@ module.exports = {
         class: 'button' + (ctrl.ceval.enabled() ? ' active' : ''),
         onclick: ctrl.toggleCeval
       }, 'Computer'),
-      m('cp', (ctrl.ceval.processing() && eval.cp === null) ? squareSpin : renderEval(eval.cp)),
+      m('cp', (ctrl.ceval.enabled() && eval.cp === null) ? squareSpin : renderEval(eval.cp)),
       m('info', [
         'depth: ' + eval.depth,
         m('br'),

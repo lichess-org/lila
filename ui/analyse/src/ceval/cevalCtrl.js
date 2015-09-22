@@ -1,71 +1,43 @@
 var m = require('mithril');
+var makeWorker = require('./cevalWorker');
 
 module.exports = function(allow, emit) {
 
+  var path = '/assets/vendor/stockfish6.js';
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
-  var minDepth = 9; // min depth to start displaying eval and bestmove
-  var maxDepth = 18; // stop computing after this depth
-  var current; // last (or current) input
-  var switching = false; // when switching to new step, info for previous can be emited
-  var processing = m.prop(false);
 
   var instance;
   var worker = function() {
     if (!instance) {
       console.log('new instance!');
-      instance = new Worker('/assets/vendor/stockfish6.js');
-      instance.onmessage = function(msg) {
-        if (!enabled() || !current) return;
-        if (/currmovenumber|lowerbound|upperbound/.test(msg.data)) return;
-        var matches = msg.data.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
-        if (!matches) return;
-        var depth = parseInt(matches[1]);
-        console.log(depth);
-        if (switching && depth > 1) return; // stale info for previous step
-        switching = false; // got depth 1, it's now computing the current step
-        if (depth < minDepth) return;
-        var cp = parseFloat(matches[3]);
-        if (current.ply % 2 === 1) cp = -cp;
-        var uci = matches[4].split(' ')[0];
-        emit(current.path, {
-          depth: depth,
-          cp: cp,
-          uci: uci
-        });
-        if (depth === maxDepth) processing(false);
-      };
+      instance = makeWorker({
+        path: path,
+        minDepth: 9,
+        maxDepth: 18
+      });
     }
     return instance;
   };
 
-  var send = function(text) {
-    console.log(text);
-    worker().postMessage(text);
-  };
-
   var start = function(path, steps) {
     if (!enabled()) return;
-    stop();
-    current = {
+    worker().work({
+      position: 'startpos',
+      moves: steps.map(function(step) {
+        return fixCastle(step.uci);
+      }).join(' '),
       path: path,
       steps: steps,
-      ply: steps[steps.length -1].ply
-    };
-    switching = true;
-    send('position startpos moves ' + steps.map(function(step) {
-      return fixCastle(step.uci);
-    }).join(' '));
-    send('go depth ' + maxDepth);
-    processing(true);
+      ply: steps[steps.length - 1].ply,
+      emit: emit
+    });
   };
 
   var stop = function() {
     if (!enabled() || !instance) return;
-    instance.terminate();
-    instance = null;
-    processing(false);
+    instance.stop();
   };
 
   var fixCastle = function(uci) {
@@ -87,7 +59,6 @@ module.exports = function(allow, emit) {
     stop: stop,
     allowed: allowed,
     enabled: enabled,
-    processing: processing,
     toggle: function(path, steps) {
       if (!allowed()) return;
       stop();
