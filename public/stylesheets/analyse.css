@@ -119,7 +119,7 @@ div.game_control a.menu {
   margin-left: 10px;
 }
 div.lichess_game div.lichess_ground {
-  transition: padding-left 0.3s;
+  transition: padding-left 0.4s;
 }
 div.eval_gauge {
   position: absolute;
@@ -130,10 +130,6 @@ div.eval_gauge {
   background: #fff;
   background-size: 100% 100%;
   border-radius: 3px;
-  transition: opacity 0.5s;
-}
-div.eval_gauge.empty {
-  /* opacity: 0.9; */
 }
 div.eval_gauge::after {
   content: '';
@@ -562,7 +558,7 @@ input.cmn-toggle-round + label {
   padding: 2px;
   width: 120px;
   height: 60px;
-  background-color: #dddddd;
+  background-color: #aaa;
   border-radius: 60px;
 }
 input.cmn-toggle-round + label:before,
@@ -576,7 +572,7 @@ input.cmn-toggle-round + label:after {
 }
 input.cmn-toggle-round + label:before {
   right: 1px;
-  background-color: #f1f1f1;
+  background-color: #ddd;
   border-radius: 60px;
   transition: background 0.4s;
 }
@@ -592,43 +588,4 @@ input.cmn-toggle-round:checked + label:before {
 }
 input.cmn-toggle-round:checked + label:after {
   margin-left: 60px;
-}
-input.cmn-toggle-round-flat + label {
-  padding: 2px;
-  width: 120px;
-  height: 60px;
-  background-color: #dddddd;
-  border-radius: 60px;
-  transition: background 0.4s;
-}
-input.cmn-toggle-round-flat + label:before,
-input.cmn-toggle-round-flat + label:after {
-  display: block;
-  position: absolute;
-  content: "";
-}
-input.cmn-toggle-round-flat + label:before {
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  right: 2px;
-  background-color: #fff;
-  border-radius: 60px;
-  transition: background 0.4s;
-}
-input.cmn-toggle-round-flat + label:after {
-  top: 4px;
-  left: 4px;
-  bottom: 4px;
-  width: 52px;
-  background-color: #dddddd;
-  border-radius: 52px;
-  transition: margin 0.4s, background 0.4s;
-}
-input.cmn-toggle-round-flat:checked + label {
-  background-color: #8ce196;
-}
-input.cmn-toggle-round-flat:checked + label:after {
-  margin-left: 60px;
-  background-color: #8ce196;
 }
