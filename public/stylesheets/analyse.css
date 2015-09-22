@@ -174,10 +174,14 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   left: 0;
   font-size: 2em;
   line-height: 40px;
+  height: 40px;
   width: 80px;
   text-align: center;
   font-weight: bold;
   background: #e0e0e0;
+}
+.lichess_ground .ceval_box cp .square-spin {
+  margin-top: 7px;
 }
 .lichess_ground .ceval_box info {
   position: absolute;

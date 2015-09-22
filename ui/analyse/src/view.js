@@ -300,6 +300,8 @@ function inputs(ctrl) {
   ]);
 }
 
+var squareSpin = m('span.square-spin');
+
 function renderCeval(ctrl) {
   if (!ctrl.ai.allowed()) return;
   var eval = ctrl.vm.step.ceval || {
@@ -312,7 +314,7 @@ function renderCeval(ctrl) {
       class: 'button' + (ctrl.ai.enabled() ? ' active' : ''),
       onclick: ctrl.toggleAi
     }, 'Computer'),
-    m('cp', eval.cp === null ? '...' : renderEval(eval.cp)),
+    m('cp', (ctrl.ai.processing() && eval.cp === null) ? squareSpin : renderEval(eval.cp)),
     m('info', [
       'depth: ' + eval.depth,
       m('br'),

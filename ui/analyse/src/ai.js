@@ -8,10 +8,12 @@ module.exports = function(allow, emit) {
   var maxDepth = 18; // stop computing after this depth
   var current; // last (or current) input
   var switching = false; // when switching to new step, info for previous can be emited
+  var processing = m.prop(false);
 
   var instance;
   var worker = function() {
     if (!instance) {
+      console.log('new instance!');
       instance = new Worker('/assets/vendor/stockfish6.js');
       instance.onmessage = function(msg) {
         if (!enabled() || !current) return;
@@ -31,6 +33,7 @@ module.exports = function(allow, emit) {
           cp: cp,
           uci: uci
         });
+        if (depth === maxDepth) processing(false);
       };
     }
     return instance;
@@ -54,11 +57,14 @@ module.exports = function(allow, emit) {
       return fixCastle(step.uci);
     }).join(' '));
     send('go depth ' + maxDepth);
+    processing(true);
   };
 
   var stop = function() {
-    if (!enabled()) return;
-    send('stop');
+    if (!enabled() || !instance) return;
+    instance.terminate();
+    instance = null;
+    processing(false);
   };
 
   var fixCastle = function(uci) {
@@ -80,6 +86,7 @@ module.exports = function(allow, emit) {
     stop: stop,
     allowed: allowed,
     enabled: enabled,
+    processing: processing,
     toggle: function(path, steps) {
       if (!allowed()) return;
       stop();
