@@ -1,5 +1,5 @@
 var m = require('mithril');
-var makeWorker = require('./cevalWorker');
+var makePool = require('./cevalPool');
 
 module.exports = function(allow, emit) {
 
@@ -7,23 +7,15 @@ module.exports = function(allow, emit) {
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
-
-  var instance;
-  var worker = function() {
-    if (!instance) {
-      console.log('new instance!');
-      instance = makeWorker({
-        path: path,
-        minDepth: 9,
-        maxDepth: 18
-      });
-    }
-    return instance;
-  };
+  var pool = makePool({
+    path: path,
+    minDepth: 9,
+    maxDepth: 18
+  }, 4);
 
   var start = function(path, steps) {
     if (!enabled()) return;
-    worker().work({
+    pool.start({
       position: 'startpos',
       moves: steps.map(function(step) {
         return fixCastle(step.uci);
@@ -36,8 +28,8 @@ module.exports = function(allow, emit) {
   };
 
   var stop = function() {
-    if (!enabled() || !instance) return;
-    instance.stop();
+    if (!enabled()) return;
+    pool.stop();
   };
 
   var fixCastle = function(uci) {
