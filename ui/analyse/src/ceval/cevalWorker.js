@@ -44,7 +44,7 @@ module.exports = function(opts, name) {
   return {
     start: function(work) {
       switching(true);
-      send(['position', work.position, 'moves', work.moves].join(' '));
+      send(['position', 'fen', work.position, 'moves', work.moves].join(' '));
       send('go depth ' + opts.maxDepth);
       instance.onmessage = function(msg) {
         processOutput(msg.data, work);

@@ -16,7 +16,7 @@ module.exports = function(allow, emit) {
     if (!enabled()) return;
     var step = steps[steps.length -1];
     pool.start({
-      position: 'startpos',
+      position: steps[0].fen,
       moves: steps.map(function(s) {
         return fixCastle(s.uci);
       }).join(' '),
