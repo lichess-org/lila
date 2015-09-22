@@ -245,7 +245,7 @@ body.dark div.table_not_started {
   background: none;
 }
 body.dark .lichess_ground .replay .turn .index,
-body.dark .lichess_ground .ceval_box cp,
+body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .analyse .meta,
 body.dark .lichess_ground .replay a.move:hover,
 body.dark .lichess_ground .replay td.move:hover,

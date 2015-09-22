@@ -17,14 +17,20 @@ module.exports = function(opts, name) {
     if (switching() && depth > 1) return; // stale info for previous work
     switching(false); // got depth 1, it's now computing the current work
     if (depth < opts.minDepth) return;
-    var cp = parseFloat(matches[3]);
-    if (work.ply % 2 === 1) cp = -cp;
+    var cp, mate;
+    if (matches[2] === 'cp') cp = parseFloat(matches[3]);
+    else mate = parseFloat(matches[3]);
+    if (work.ply % 2 === 1) {
+      if (matches[2] === 'cp') cp = -cp;
+      else mate = -mate;
+    }
     var uci = matches[4].split(' ')[0];
     work.emit({
       work: work,
       eval: {
         depth: depth,
         cp: cp,
+        mate: mate,
         uci: uci
       },
       name: name

@@ -22,7 +22,9 @@ module.exports = function(allow, emit) {
       path: path,
       steps: steps,
       ply: steps[steps.length - 1].ply,
-      emit: emit
+      emit: function(res) {
+        if (enabled()) emit(res);
+      }
     });
   };
 

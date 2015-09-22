@@ -169,17 +169,13 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   border: 1px solid #ccc;
   border-bottom: 0;
 }
-.lichess_ground .ceval_box button {
+.lichess_ground .ceval_box .switch {
   position: absolute;
   top: 0;
   right: 0;
-  display: block;
-  height: 40px;
-  border-width: 0 0 0 1px;
-  text-align: center;
-  vertical-align: middle;
+  transform: scale(0.5) translate(56px, -24px);
 }
-.lichess_ground .ceval_box cp {
+.lichess_ground .ceval_box pearl {
   position: absolute;
   top: 0;
   left: 0;
@@ -191,8 +187,13 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   font-weight: bold;
   background: #e0e0e0;
 }
-.lichess_ground .ceval_box cp .square-spin {
+.lichess_ground .ceval_box pearl .square-spin {
   margin-top: 7px;
+}
+.lichess_ground .ceval_box help {
+  display: block;
+  margin: 5px;
+  font-size: 0.9em;
 }
 .lichess_ground .ceval_box info {
   position: absolute;
@@ -542,4 +543,92 @@ table.modAssessment td.noMatch {
   display: block;
   white-space: normal;
   font-weight: normal;
+}
+
+/* switch toggle button */
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+input.cmn-toggle-round + label {
+  padding: 2px;
+  width: 120px;
+  height: 60px;
+  background-color: #dddddd;
+  border-radius: 60px;
+}
+input.cmn-toggle-round + label:before,
+input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #f1f1f1;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round + label:after {
+  width: 58px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: margin 0.4s;
+}
+input.cmn-toggle-round:checked + label:before {
+  background-color: #8ce196;
+}
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 60px;
+}
+input.cmn-toggle-round-flat + label {
+  padding: 2px;
+  width: 120px;
+  height: 60px;
+  background-color: #dddddd;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round-flat + label:before,
+input.cmn-toggle-round-flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+input.cmn-toggle-round-flat + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #fff;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round-flat + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 52px;
+  background-color: #dddddd;
+  border-radius: 52px;
+  transition: margin 0.4s, background 0.4s;
+}
+input.cmn-toggle-round-flat:checked + label {
+  background-color: #8ce196;
+}
+input.cmn-toggle-round-flat:checked + label:after {
+  margin-left: 60px;
+  background-color: #8ce196;
 }

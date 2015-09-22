@@ -35,22 +35,41 @@ module.exports = {
   },
   renderCeval: function(ctrl) {
     if (!ctrl.ceval.allowed()) return;
+    var enabled = ctrl.ceval.enabled();
     var eval = ctrl.vm.step.ceval || {
       cp: null,
+      mate: null,
       depth: 0,
       uci: ''
     };
+    var pearl;
+    if (eval.cp) pearl = renderEval(eval.cp);
+    else if (eval.mate) pearl = '#' + eval.mate;
+    else pearl = squareSpin;
     return m('div.ceval_box',
-      m('button', {
-        class: 'button' + (ctrl.ceval.enabled() ? ' active' : ''),
-        onclick: ctrl.toggleCeval
-      }, 'Computer'),
-      m('cp', (ctrl.ceval.enabled() && eval.cp === null) ? squareSpin : renderEval(eval.cp)),
-      m('info', [
+      m('div.switch', [
+        m('input', {
+          id: 'toggle-ceval',
+          class: 'cmn-toggle cmn-toggle-round',
+          type: 'checkbox',
+          onchange: function(e, x, y) {
+            console.log(e, x, y);
+          }
+        }),
+        m('label', {
+          'for': 'toggle-ceval'
+        })
+      ]),
+      enabled ? m('pearl', pearl) : m('help',
+        'Local computer evaluation',
+        m('br'),
+        'for quick analysis'
+      ),
+      enabled ? m('info', [
         'depth: ' + eval.depth,
         m('br'),
         'best: ' + eval.uci
-      ])
+      ]) : null
     );
   }
 };
