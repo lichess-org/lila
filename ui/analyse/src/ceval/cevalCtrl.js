@@ -3,15 +3,14 @@ var makePool = require('./cevalPool');
 
 module.exports = function(allow, emit) {
 
-  var path = '/assets/vendor/stockfish6.js';
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var pool = makePool({
-    path: path,
-    minDepth: 9,
+    path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
+    minDepth: 8,
     maxDepth: 18
-  }, 4);
+  }, 3);
 
   var start = function(path, steps) {
     if (!enabled()) return;
