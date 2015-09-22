@@ -201,7 +201,7 @@ module.exports = function(opts) {
     this.data.game.id === 'synthetic' || !game.playable(this.data)
   ) && this.data.game.variant.key === 'standard';
   this.ceval = cevalCtrl(allowCeval,
-    throttle(100, false, function(res) {
+    throttle(300, false, function(res) {
       this.analyse.addClientEval(res.work.path, res.eval);
       this.chessground.setAutoShapes([{
         orig: res.eval.uci.slice(0, 2),
@@ -211,10 +211,10 @@ module.exports = function(opts) {
       m.redraw();
     }.bind(this)));
 
-  var startCeval = function() {
+  var startCeval = throttle(500, false, function() {
     if (this.ceval.enabled())
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
-  }.bind(this);
+  }.bind(this));
   startCeval();
 
   this.toggleCeval = function() {
