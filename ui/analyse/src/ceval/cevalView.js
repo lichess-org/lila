@@ -47,8 +47,8 @@ module.exports = {
       uci: ''
     };
     var pearl;
-    if (eval.cp) pearl = renderEval(eval.cp);
-    else if (eval.mate) pearl = '#' + eval.mate;
+    if (typeof eval.cp !== 'undefined') pearl = renderEval(eval.cp);
+    else if (typeof eval.mate !== 'undefined') pearl = '#' + eval.mate;
     else pearl = squareSpin;
     return m('div.ceval_box',
       m('div.switch', [
