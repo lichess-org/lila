@@ -197,7 +197,10 @@ module.exports = function(opts) {
     opts.data.forecast,
     router.forecasts(this.data)) : null;
 
-  this.ceval = cevalCtrl(this.data.game.id === 'synthetic' || !game.playable(this.data),
+  var allowCeval = (
+    this.data.game.id === 'synthetic' || !game.playable(this.data)
+  ) && this.data.game.variant.key === 'standard';
+  this.ceval = cevalCtrl(allowCeval,
     throttle(100, false, function(res) {
       this.analyse.addClientEval(res.work.path, res.eval);
       this.chessground.setAutoShapes([{
