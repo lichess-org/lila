@@ -53,9 +53,7 @@ function renderMove(ctrl, move, path) {
     },
     children: [
       defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : (
-          defined(move.ceval) ? renderEvalTag(renderEval(move.ceval.cp)) : null
-        )
+        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
       ),
       move.san
     ]
@@ -302,9 +300,31 @@ function inputs(ctrl) {
   ]);
 }
 
+function renderCeval(ctrl) {
+  if (!ctrl.ai.allowed()) return;
+  var eval = ctrl.vm.step.ceval || {
+    cp: null,
+    depth: 0,
+    uci: ''
+  };
+  return m('div.ceval_box',
+    m('button', {
+      class: 'button' + (ctrl.ai.enabled() ? ' active' : ''),
+      onclick: ctrl.toggleAi
+    }, 'Computer'),
+    m('cp', eval.cp === null ? '...' : renderEval(eval.cp)),
+    m('info', [
+      'depth: ' + eval.depth,
+      m('br'),
+      'best: ' + eval.uci
+    ])
+  );
+}
+
 var gaugeLast = 0;
 
 function renderGauge(ctrl) {
+  if (!ctrl.ai.enabled()) return;
   var eval, has = typeof ctrl.vm.step.ceval !== 'undefined';
   if (has) {
     eval = Math.min(Math.max(ctrl.vm.step.ceval.cp / 100, -5), 5);
@@ -388,7 +408,13 @@ function buttons(ctrl) {
 
 module.exports = function(ctrl) {
   return [
-    m('div.top', [
+    m('div', {
+      class: classSet({
+        top: true,
+        ceval_allowed: ctrl.ai.allowed(),
+        ceval_enabled: ctrl.ai.enabled()
+      })
+    }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
@@ -396,14 +422,17 @@ module.exports = function(ctrl) {
         }
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-        m('div.lichess_ground',
+        m('div.lichess_ground', [
+          renderCeval(ctrl),
           ctrl.actionMenu.open ? actionMenu(ctrl) : m('div.replay', {
               config: function(el, isUpdate) {
                 autoScroll(el);
                 if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
               }
             },
-            renderAnalyse(ctrl)), buttons(ctrl))
+            renderAnalyse(ctrl)),
+          buttons(ctrl)
+        ])
       ])
     ]),
     m('div.underboard', [

@@ -1,47 +1,90 @@
-module.exports = function(emit) {
+var m = require('mithril');
 
-  var worker = new Worker('/assets/vendor/stockfish6.js');
-  var minDepth = 10;
-  var maxDepth = 18;
-  var currentPath;
-  var currentStep;
+module.exports = function(allow, emit) {
+
+  var allowed = m.prop(allow);
+  var enabled = m.prop(allowed());
+  var minDepth = 9; // min depth to start displaying eval and bestmove
+  var maxDepth = 18; // stop computing after this depth
+  var current; // last (or current) input
+  var switching = false; // when switching to new step, info for previous can be emited
+
+  var instance;
+  var worker = function() {
+    if (!instance) {
+      instance = new Worker('/assets/vendor/stockfish6.js');
+      instance.onmessage = function(msg) {
+        if (!enabled() || !current) return;
+        if (/currmovenumber|lowerbound|upperbound/.test(msg.data)) return;
+        var matches = msg.data.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
+        if (!matches) return;
+        var depth = parseInt(matches[1]);
+        console.log(depth);
+        if (switching && depth > 1) return; // stale info for previous step
+        switching = false; // got depth 1, it's now computing the current step
+        if (depth < minDepth) return;
+        var cp = parseFloat(matches[3]);
+        if (current.ply % 2 === 1) cp = -cp;
+        var uci = matches[4].split(' ')[0];
+        emit(current.path, {
+          depth: depth,
+          cp: cp,
+          uci: uci
+        });
+      };
+    }
+    return instance;
+  };
 
   var send = function(text) {
     console.log(text);
-    worker.postMessage(text);
+    worker().postMessage(text);
   };
 
-  worker.onmessage = function(msg) {
-    if (/currmovenumber|lowerbound|upperbound/.test(msg.data)) return;
-    var matches = msg.data.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
-    if (!matches) return;
-    console.log(msg.data);
-    var depth = parseInt(matches[1]);
-    if (depth < minDepth) return;
-    var cp = parseFloat(matches[3]);
-    if (currentStep.ply % 2 === 1) cp = -cp;
-    var uci = matches[4].split(' ')[0];
-    emit(currentPath, {
-      depth: depth,
-      cp: cp,
-      uci: uci
-    });
+  var start = function(path, steps) {
+    if (!enabled()) return;
+    stop();
+    current = {
+      path: path,
+      steps: steps,
+      ply: steps[steps.length -1].ply
+    };
+    switching = true;
+    send('position startpos moves ' + steps.map(function(step) {
+      return fixCastle(step.uci);
+    }).join(' '));
+    send('go depth ' + maxDepth);
   };
 
   var stop = function() {
+    if (!enabled()) return;
     send('stop');
   };
 
+  var fixCastle = function(uci) {
+    switch (uci) {
+      case 'e1h1':
+        return 'e1g1';
+      case 'e1a1':
+        return 'e1c1';
+      case 'e8h8':
+        return 'e8g8';
+      case 'e8a8':
+        return 'e8c8';
+    }
+    return uci;
+  }
+
   return {
-    start: function(path, steps) {
+    start: start,
+    stop: stop,
+    allowed: allowed,
+    enabled: enabled,
+    toggle: function(path, steps) {
+      if (!allowed()) return;
       stop();
-      currentPath = path;
-      currentStep = steps[steps.length -1];
-      send('position startpos moves ' + steps.map(function(step) {
-        return step.uci;
-      }).join(' '));
-      send('go depth ' + maxDepth);
-    },
-    stop: stop
+      enabled(!enabled());
+      if (enabled()) start(path, steps);
+    }
   };
 };

@@ -118,6 +118,73 @@ div.game_control .jumps {
 div.game_control a.menu {
   margin-left: 10px;
 }
+div.lichess_game div.lichess_ground {
+  transition: padding-left 0.3s;
+}
+div.eval_gauge {
+  position: absolute;
+  right: -29px;
+  top: 0;
+  width: 16px;
+  height: 512px;
+  background: #aaa;
+  background-size: 100% 100%;
+  border-radius: 3px;
+  transition: opacity 0.5s;
+}
+div.eval_gauge.empty {
+  /* opacity: 0.9; */
+}
+div.eval_gauge::after {
+  content: '';
+  display: block;
+  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+  box-shadow: 0 0 3px rgba(0,0,0,0.8) inset;
+}
+div.eval_gauge .opponent {
+  width: 100%;
+  height: 50%;
+  background: #555;
+  border-radius: 3px 3px 0 0;
+  transition: height 1s;
+  box-shadow: 0 12px 12px -12px rgba(220,220,220,0.4) inset;
+}
+div.ceval_enabled div.lichess_game div.lichess_ground {
+  padding-left: 34px;
+}
+.lichess_ground .ceval_box {
+  position: relative;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+.lichess_ground .ceval_box button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  height: 40px;
+  border-size: 0 1px;
+  text-align: center;
+  vertical-align: middle;
+}
+.lichess_ground .ceval_box cp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 2em;
+  line-height: 40px;
+  width: 80px;
+  text-align: center;
+  font-weight: bold;
+  background: #e0e0e0;
+}
+.lichess_ground .ceval_box info {
+  position: absolute;
+  top: 4px;
+  left: 90px;
+  display: inline-block;
+}
 .lichess_ground .replay,
 .lichess_ground .action_menu {
   height: calc(100% - 40px);
@@ -127,6 +194,11 @@ div.game_control a.menu {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  margin-left: 0px;
+}
+.ceval_allowed .lichess_ground .replay,
+.ceval_allowed .lichess_ground .action_menu {
+  height: calc(100% - 40px - 41px);
 }
 .lichess_ground .action_menu {
   border-color: transparent;

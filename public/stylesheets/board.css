@@ -234,34 +234,6 @@ div.lichess_game div.lichess_ground.for_bot p {
 div.lichess_board {
   position: relative;
 }
-div.eval_gauge {
-  position: absolute;
-  right: -16px;
-  top: 0;
-  width: 16px;
-  height: 512px;
-  background: #aaa;
-  background-size: 100% 100%;
-  border-radius: 3px;
-  transition: opacity 0.5s;
-}
-div.eval_gauge.empty {
-  /* opacity: 0.9; */
-}
-div.eval_gauge::after {
-  content: '';
-  display: block;
-  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
-  box-shadow: 0 0 3px rgba(0,0,0,0.8) inset;
-}
-div.eval_gauge .opponent {
-  width: 100%;
-  height: 50%;
-  background: #555;
-  border-radius: 3px 3px 0 0;
-  transition: height 1s;
-  box-shadow: 0 12px 12px -12px rgba(220,220,220,0.4) inset;
-}
 /* 3D boards */
 
 .Black-White-Aluminium .is3d .cg-board-wrap,

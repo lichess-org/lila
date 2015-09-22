@@ -15,6 +15,7 @@ var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var stockfish = require('./ai');
 var router = require('game').router;
+var game = require('game').game;
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -196,16 +197,21 @@ module.exports = function(opts) {
     opts.data.forecast,
     router.forecasts(this.data)) : null;
 
-  this.ai = stockfish(throttle(200, false, function(path, eval) {
-    this.analyse.addClientEval(path, eval);
-    console.log(eval);
-    this.chessground.setAutoShapes([{
-      orig: eval.uci.slice(0, 2),
-      dest: eval.uci.slice(2, 4),
-      style: 4
-    }]);
-    m.redraw();
-  }.bind(this)));
+  this.ai = stockfish(this.data.game.id === 'synthetic' || !game.playable(this.data),
+    throttle(200, false, function(path, eval) {
+      this.analyse.addClientEval(path, eval);
+      this.chessground.setAutoShapes([{
+        orig: eval.uci.slice(0, 2),
+        dest: eval.uci.slice(2, 4),
+        style: 4
+      }]);
+      m.redraw();
+    }.bind(this)));
+
+  this.toggleAi = function() {
+    this.chessground.setAutoShapes([]);
+    this.ai.toggle(this.vm.path, this.analyse.getSteps(this.vm.path));
+  }.bind(this);
 
   this.trans = function(key) {
     var str = opts.i18n[key] || key;
