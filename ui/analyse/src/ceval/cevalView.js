@@ -14,15 +14,19 @@ for (var i = 1; i < 10; i++) gaugeTicks.push(m('div', {
 module.exports = {
   renderGauge: function(ctrl) {
     if (!ctrl.ceval.enabled()) return;
-    var eval, has = typeof ctrl.vm.step.ceval !== 'undefined';
+    var data = ctrl.vm.step.ceval;
+    var eval, has = typeof data !== 'undefined';
     if (has) {
-      eval = Math.min(Math.max(ctrl.vm.step.ceval.cp / 100, -5), 5);
+      if (typeof data.cp !== 'undefined')
+        eval = Math.min(Math.max(data.cp / 100, -5), 5);
+      else
+        eval = data.mate > 0 ? 5 : -5;
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = (eval + 5) * 10;
     if (ctrl.data.orientation === 'white') height = 100 - height;
     return m('div', {
-      class: 'eval_gauge' + (has ? '' : ' empty')
+      class: 'eval_gauge' + (eval === null ? ' empty' : '')
     }, [
       m('div', {
         class: 'opponent',
@@ -52,9 +56,8 @@ module.exports = {
           id: 'toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
-          onchange: function(e, x, y) {
-            console.log(e, x, y);
-          }
+          checked: enabled,
+          onchange: ctrl.toggleCeval
         }),
         m('label', {
           'for': 'toggle-ceval'
