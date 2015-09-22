@@ -501,8 +501,6 @@ $(function() {
 
 
     $('#rating_distribution_chart').each(function() {
-      // temp fix
-      if (!document.getElementById('user_tag')) $(this).parent().find('.desc').remove();
       var colors = Highcharts.getOptions().colors;
       var ratingAt = function(i) {
         return 800 + i * 25;

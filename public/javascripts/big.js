@@ -1150,7 +1150,8 @@ lichess.unique = function(xs) {
       berserk: 'Berserk',
       check: 'Check',
       newChallenge: 'NewChallenge',
-      newPM: 'NewPM'
+      newPM: 'NewPM',
+      confirmation: 'Confirmation'
     };
     for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 

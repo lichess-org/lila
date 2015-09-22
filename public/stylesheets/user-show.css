@@ -1,7 +1,7 @@
 div.user_show div.content_box_top .connected {
   color: #759900;
 }
-div.user_show .staff {
+#lichess div.user_show .staff {
   color: #aa3333;
   font-weight: bold;
   margin-bottom: 1em;

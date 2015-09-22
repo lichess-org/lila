@@ -91,20 +91,20 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3))
         ),
 
-        List( // nightly tournaments!
-          Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
-          Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
-          Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
-          Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow)
+        List( // oriental tournaments!
+          Schedule(Eastern, Bullet, Standard, std, at(today, 6) |> orTomorrow),
+          Schedule(Eastern, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
+          Schedule(Eastern, Blitz, Standard, std, at(today, 8) |> orTomorrow),
+          Schedule(Eastern, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
-        List( // nightly variant tournaments!
-          Schedule(Nightly, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
-          Schedule(Nightly, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
-          Schedule(Nightly, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
-          Schedule(Nightly, Blitz, Antichess, std, at(today, 13) |> orTomorrow),
-          Schedule(Nightly, Blitz, Atomic, std, at(today, 14) |> orTomorrow),
-          Schedule(Nightly, Blitz, Horde, std, at(today, 15) |> orTomorrow)
+        List( // oriental variant tournaments!
+          Schedule(Eastern, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
+          Schedule(Eastern, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
+          Schedule(Eastern, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
+          Schedule(Eastern, Blitz, Antichess, std, at(today, 13) |> orTomorrow),
+          Schedule(Eastern, Blitz, Atomic, std, at(today, 14) |> orTomorrow),
+          Schedule(Eastern, Blitz, Horde, std, at(today, 15) |> orTomorrow)
         ),
 
         List( // random opening replaces hourly 2 times a day

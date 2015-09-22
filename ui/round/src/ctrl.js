@@ -313,11 +313,12 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.submitMove = function(v) {
-    if (v && this.vm.moveToSubmit) this.socket.send('move', this.vm.moveToSubmit, {
-      ackable: true
-    });
-    else this.jump(this.vm.ply);
-
+    if (v && this.vm.moveToSubmit) {
+      this.socket.send('move', this.vm.moveToSubmit, {
+        ackable: true
+      });
+      $.sound.confirmation();
+    } else this.jump(this.vm.ply);
     this.vm.moveToSubmit = null;
     this.vm.buttonFeedback = setTimeout(function() {
       this.vm.buttonFeedback = null;
