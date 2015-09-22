@@ -2,8 +2,9 @@ var m = require('mithril');
 
 module.exports = function(allow, emit) {
 
+  var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
-  var enabled = m.prop(allowed());
+  var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var minDepth = 9; // min depth to start displaying eval and bestmove
   var maxDepth = 18; // stop computing after this depth
   var current; // last (or current) input
@@ -92,6 +93,7 @@ module.exports = function(allow, emit) {
       stop();
       enabled(!enabled());
       if (enabled()) start(path, steps);
+      lichess.storage.set(storageKey, enabled() ? '1' : '0');
     }
   };
 };
