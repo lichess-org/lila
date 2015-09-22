@@ -3,6 +3,7 @@ var chessground = require('chessground');
 var classSet = require('chessground').util.classSet;
 var defined = require('./util').defined;
 var empty = require('./util').empty;
+var renderEval = require('./util').renderEval;
 var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
@@ -14,11 +15,7 @@ var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
-
-function renderEval(e) {
-  e = Math.round(e / 10) / 10;
-  return (e > 0 ? '+' : '') + e;
-}
+var cevalView = require('./ceval/cevalView');
 
 function renderEvalTag(e) {
   return {
@@ -300,52 +297,6 @@ function inputs(ctrl) {
   ]);
 }
 
-var squareSpin = m('span.square-spin');
-
-function renderCeval(ctrl) {
-  if (!ctrl.ai.allowed()) return;
-  var eval = ctrl.vm.step.ceval || {
-    cp: null,
-    depth: 0,
-    uci: ''
-  };
-  return m('div.ceval_box',
-    m('button', {
-      class: 'button' + (ctrl.ai.enabled() ? ' active' : ''),
-      onclick: ctrl.toggleAi
-    }, 'Computer'),
-    m('cp', (ctrl.ai.processing() && eval.cp === null) ? squareSpin : renderEval(eval.cp)),
-    m('info', [
-      'depth: ' + eval.depth,
-      m('br'),
-      'best: ' + eval.uci
-    ])
-  );
-}
-
-var gaugeLast = 0;
-
-function renderGauge(ctrl) {
-  if (!ctrl.ai.enabled()) return;
-  var eval, has = typeof ctrl.vm.step.ceval !== 'undefined';
-  if (has) {
-    eval = Math.min(Math.max(ctrl.vm.step.ceval.cp / 100, -5), 5);
-    gaugeLast = eval;
-  } else eval = gaugeLast;
-  var height = (eval + 5) * 10;
-  if (ctrl.data.orientation === 'white') height = 100 - height;
-  return m('div', {
-    class: 'eval_gauge' + (has ? '' : ' empty')
-  }, [
-    m('div', {
-      class: 'opponent',
-      style: {
-        height: height + '%'
-      }
-    })
-  ]);
-}
-
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
@@ -357,7 +308,7 @@ function visualBoard(ctrl) {
       },
       chessground.view(ctrl.chessground),
       renderPromotion(ctrl)),
-    renderGauge(ctrl)
+    cevalView.renderGauge(ctrl)
   ]);
 }
 
@@ -413,8 +364,8 @@ module.exports = function(ctrl) {
     m('div', {
       class: classSet({
         top: true,
-        ceval_allowed: ctrl.ai.allowed(),
-        ceval_enabled: ctrl.ai.enabled()
+        ceval_allowed: ctrl.ceval.allowed(),
+        ceval_enabled: ctrl.ceval.enabled()
       })
     }, [
       m('div.lichess_game', {
@@ -425,7 +376,7 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
-          renderCeval(ctrl),
+          cevalView.renderCeval(ctrl),
           ctrl.actionMenu.open ? actionMenu(ctrl) : m('div.replay', {
               config: function(el, isUpdate) {
                 autoScroll(el);

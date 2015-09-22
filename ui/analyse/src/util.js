@@ -17,6 +17,10 @@ module.exports = {
   empty: function(a) {
     return !a || a.length === 0;
   },
+  renderEval: function(e) {
+    e = Math.round(e / 10) / 10;
+    return (e > 0 ? '+' : '') + e;
+  },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js
    *

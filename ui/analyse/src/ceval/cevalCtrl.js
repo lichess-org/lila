@@ -92,7 +92,6 @@ module.exports = function(allow, emit) {
       if (!allowed()) return;
       stop();
       enabled(!enabled());
-      if (enabled()) start(path, steps);
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
     }
   };

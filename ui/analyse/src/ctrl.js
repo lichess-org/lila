@@ -13,7 +13,7 @@ var readDests = require('./util').readDests;
 var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
-var stockfish = require('./ai');
+var cevalCtrl = require('./ceval/cevalCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var m = require('mithril');
@@ -121,7 +121,7 @@ module.exports = function(opts) {
       this.vm.justPlayed = null;
     }
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
-    this.ai.start(this.vm.path, this.analyse.getSteps(this.vm.path));
+    startCeval();
   }.bind(this);
 
   this.userJump = function(path) {
@@ -197,7 +197,7 @@ module.exports = function(opts) {
     opts.data.forecast,
     router.forecasts(this.data)) : null;
 
-  this.ai = stockfish(this.data.game.id === 'synthetic' || !game.playable(this.data),
+  this.ceval = cevalCtrl(this.data.game.id === 'synthetic' || !game.playable(this.data),
     throttle(200, false, function(path, eval) {
       this.analyse.addClientEval(path, eval);
       this.chessground.setAutoShapes([{
@@ -208,9 +208,15 @@ module.exports = function(opts) {
       m.redraw();
     }.bind(this)));
 
-  this.toggleAi = function() {
+  var startCeval = function() {
+    this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
+  }.bind(this);
+  startCeval();
+
+  this.toggleCeval = function() {
     this.chessground.setAutoShapes([]);
-    this.ai.toggle(this.vm.path, this.analyse.getSteps(this.vm.path));
+    this.ceval.toggle();
+    startCeval();
   }.bind(this);
 
   this.trans = function(key) {
