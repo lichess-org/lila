@@ -66,7 +66,7 @@ module.exports = {
       enabled ? m('pearl', pearl) : m('help',
         'Local computer evaluation',
         m('br'),
-        'for quick analysis'
+        'for variation analysis (BETA)'
       ),
       enabled ? m('info', [
         'depth: ' + (eval.depth || 0),
