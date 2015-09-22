@@ -43,7 +43,7 @@ module.exports = function(allow, emit) {
         return 'e8c8';
     }
     return uci;
-  }
+  };
 
   return {
     start: start,

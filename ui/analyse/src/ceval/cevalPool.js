@@ -7,14 +7,11 @@ module.exports = function(opts, nb) {
   var token = -1;
 
   var getWorker = function() {
-    if (workers.length >= nb) {
-      token = (token + 1) % workers.length;
-      return workers[token];
-    } else {
-      var worker = makeWorker(opts, 'W' + (workers.length + 1));
-      workers.push(worker);
-      return worker;
-    }
+    if (!workers.length)
+      for (var i = 1; i <= nb; i++)
+        workers.push(makeWorker(opts, 'W' + i));
+    token = (token + 1) % workers.length;
+    return workers[token];
   };
 
   var stopAll = function() {

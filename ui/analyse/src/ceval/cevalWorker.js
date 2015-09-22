@@ -31,6 +31,9 @@ module.exports = function(opts, name) {
     });
   };
 
+  // warmup
+  send('uci');
+
   return {
     start: function(work) {
       switching(true);
