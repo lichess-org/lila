@@ -211,11 +211,16 @@ module.exports = function(opts) {
       m.redraw();
     }.bind(this)));
 
+  this.canUseCeval = function() {
+    return typeof this.vm.step.eval === 'undefined' &&
+      typeof this.vm.step.mate === 'undefined' &&
+      this.vm.step.dests !== '';
+  }.bind(this);
+
   var startCeval = throttle(500, false, function() {
-    if (this.ceval.enabled())
+    if (this.ceval.enabled() && this.canUseCeval())
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this));
-  startCeval();
 
   this.toggleCeval = function() {
     this.chessground.setAutoShapes([]);
@@ -233,4 +238,5 @@ module.exports = function(opts) {
 
   showGround();
   keyboard(this);
+  startCeval();
 };

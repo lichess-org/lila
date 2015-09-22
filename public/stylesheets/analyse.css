@@ -119,7 +119,7 @@ div.game_control a.menu {
   margin-left: 10px;
 }
 div.lichess_game div.lichess_ground {
-  transition: padding-left 0.4s;
+  transition: padding-left 0.3s;
 }
 div.eval_gauge {
   position: absolute;
@@ -130,6 +130,10 @@ div.eval_gauge {
   background: #fff;
   background-size: 100% 100%;
   border-radius: 3px;
+}
+div.eval_gauge.reverse {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
 }
 div.eval_gauge::after {
   content: '';
@@ -142,13 +146,15 @@ div.eval_gauge .tick {
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 2px ridge #ccc;
+  border-bottom: 2px ridge #eee;
+  opacity: 0.4;
 }
 div.eval_gauge .tick.zero {
-  border-bottom: 7px solid #dc322f;
+  opacity: 1;
+  border-bottom: 7px solid #dc322f!important;
   margin-top: -3px;
 }
-div.eval_gauge .opponent {
+div.eval_gauge .black {
   width: 100%;
   height: 50%;
   background: #888;
@@ -156,7 +162,7 @@ div.eval_gauge .opponent {
   transition: height 1s;
   box-shadow: 0 12px 12px -12px rgba(220,220,220,0.6) inset;
 }
-div.ceval_enabled div.lichess_game div.lichess_ground {
+div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 34px;
 }
 .lichess_ground .ceval_box {
@@ -170,6 +176,7 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   top: 0;
   right: 0;
   transform: scale(0.5) translate(56px, -24px);
+  -webkit-transform: scale(0.5) translate(56px, -24px);
 }
 .lichess_ground .ceval_box pearl {
   position: absolute;
@@ -208,8 +215,8 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   -ms-user-select: none;
   margin-left: 0px;
 }
-.ceval_allowed .lichess_ground .replay,
-.ceval_allowed .lichess_ground .action_menu {
+.ceval_displayed .lichess_ground .replay,
+.ceval_displayed .lichess_ground .action_menu {
   height: calc(100% - 40px - 41px);
 }
 .lichess_ground .action_menu {
@@ -219,6 +226,7 @@ div.ceval_enabled div.lichess_game div.lichess_ground {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 .lichess_ground .action_menu .button {
   display: block;

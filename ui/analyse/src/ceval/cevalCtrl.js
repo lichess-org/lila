@@ -14,14 +14,15 @@ module.exports = function(allow, emit) {
 
   var start = function(path, steps) {
     if (!enabled()) return;
+    var step = steps[steps.length -1];
     pool.start({
       position: 'startpos',
-      moves: steps.map(function(step) {
-        return fixCastle(step.uci);
+      moves: steps.map(function(s) {
+        return fixCastle(s.uci);
       }).join(' '),
       path: path,
       steps: steps,
-      ply: steps[steps.length - 1].ply,
+      ply: step.ply,
       emit: function(res) {
         if (enabled()) emit(res);
       }
@@ -52,7 +53,7 @@ module.exports = function(allow, emit) {
     stop: stop,
     allowed: allowed,
     enabled: enabled,
-    toggle: function(path, steps) {
+    toggle: function() {
       if (!allowed()) return;
       stop();
       enabled(!enabled());

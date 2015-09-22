@@ -519,7 +519,7 @@ body.dark ol.scheduled_tournaments li.marathon {
 body.dark div.eval_gauge  {
   background: #a0a0a0;
 }
-body.dark div.eval_gauge .opponent {
+body.dark div.eval_gauge .black {
   background: #666;
 }
 body.dark div.eval_gauge .tick {

@@ -18,7 +18,7 @@ module.exports = {
     return !a || a.length === 0;
   },
   renderEval: function(e) {
-    e = Math.round(e / 10) / 10;
+    e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
     return (e > 0 ? '+' : '') + e;
   },
   /**

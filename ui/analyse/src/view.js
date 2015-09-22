@@ -364,8 +364,8 @@ module.exports = function(ctrl) {
     m('div', {
       class: classSet({
         top: true,
-        ceval_allowed: ctrl.ceval.allowed(),
-        ceval_enabled: ctrl.ceval.enabled()
+        ceval_displayed: ctrl.ceval.allowed() && ctrl.canUseCeval(),
+        gauge_displayed: ctrl.ceval.enabled() && ctrl.canUseCeval()
       })
     }, [
       m('div.lichess_game', {

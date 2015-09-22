@@ -1,5 +1,6 @@
 var m = require('mithril');
 var renderEval = require('../util').renderEval;
+var classSet = require('chessground').util.classSet;
 
 var gaugeLast = 0;
 var squareSpin = m('span.square-spin');
@@ -14,6 +15,7 @@ for (var i = 1; i < 10; i++) gaugeTicks.push(m('div', {
 module.exports = {
   renderGauge: function(ctrl) {
     if (!ctrl.ceval.enabled()) return;
+    if (!ctrl.canUseCeval()) return;
     var data = ctrl.vm.step.ceval;
     var eval, has = typeof data !== 'undefined';
     if (has) {
@@ -23,13 +25,16 @@ module.exports = {
         eval = data.mate > 0 ? 5 : -5;
       gaugeLast = eval;
     } else eval = gaugeLast;
-    var height = (eval + 5) * 10;
-    if (ctrl.data.orientation === 'white') height = 100 - height;
+    var height = 100 - (eval + 5) * 10;
     return m('div', {
-      class: 'eval_gauge' + (eval === null ? ' empty' : '')
+      class: classSet({
+        eval_gauge: true,
+        empty: eval === null,
+        reverse: ctrl.data.orientation === 'black'
+      })
     }, [
       m('div', {
-        class: 'opponent',
+        class: 'black',
         style: {
           height: height + '%'
         }
@@ -39,17 +44,12 @@ module.exports = {
   },
   renderCeval: function(ctrl) {
     if (!ctrl.ceval.allowed()) return;
+    if (!ctrl.canUseCeval()) return;
     var enabled = ctrl.ceval.enabled();
-    var eval = ctrl.vm.step.ceval || {
-      cp: null,
-      mate: null,
-      depth: 0,
-      uci: ''
-    };
-    var pearl;
+    var eval = ctrl.vm.step.ceval || {};
+    var pearl = squareSpin;
     if (typeof eval.cp !== 'undefined') pearl = renderEval(eval.cp);
     else if (typeof eval.mate !== 'undefined') pearl = '#' + eval.mate;
-    else pearl = squareSpin;
     return m('div.ceval_box',
       m('div.switch', [
         m('input', {
@@ -69,9 +69,9 @@ module.exports = {
         'for quick analysis'
       ),
       enabled ? m('info', [
-        'depth: ' + eval.depth,
+        'depth: ' + (eval.depth || 0),
         m('br'),
-        'best: ' + eval.uci
+        'best: ' + (eval.uci || '-')
       ]) : null
     );
   }
