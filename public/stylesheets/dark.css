@@ -65,6 +65,7 @@ body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
 body.dark #tournament_side,
+body.dark .lichess_ground .ceval_box,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
@@ -244,6 +245,7 @@ body.dark div.table_not_started {
   background: none;
 }
 body.dark .lichess_ground .replay .turn .index,
+body.dark .lichess_ground .ceval_box cp,
 body.dark .lichess_ground .analyse .meta,
 body.dark .lichess_ground .replay a.move:hover,
 body.dark .lichess_ground .replay td.move:hover,
@@ -513,6 +515,19 @@ body.dark .fire_trophy.wayOfBerserk span {
 body.dark ol.scheduled_tournaments li.marathon {
   background: #2a2a2a;
   box-shadow: 0 0 9px rgba(0,0,0,0.9);
+}
+body.dark div.eval_gauge  {
+  background: #a0a0a0;
+}
+body.dark div.eval_gauge .opponent {
+  background: #666;
+}
+body.dark div.eval_gauge .tick {
+  border-color: #999;
+}
+body.dark .square-spin {
+  background: #666;
+  border-color: #aaa;
 }
 body.dark ::-webkit-scrollbar,
 body.dark ::-webkit-scrollbar-corner {

@@ -3,6 +3,13 @@ var renderEval = require('../util').renderEval;
 
 var gaugeLast = 0;
 var squareSpin = m('span.square-spin');
+var gaugeTicks = [];
+for (var i = 1; i < 10; i++) gaugeTicks.push(m('div', {
+  class: i === 5 ? 'zero tick' : 'tick',
+  style: {
+    height: (i * 10) + '%'
+  }
+}));
 
 module.exports = {
   renderGauge: function(ctrl) {
@@ -22,7 +29,8 @@ module.exports = {
         style: {
           height: height + '%'
         }
-      })
+      }),
+      gaugeTicks
     ]);
   },
   renderCeval: function(ctrl) {
