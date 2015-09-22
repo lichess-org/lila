@@ -1,6 +1,7 @@
 package lila.game
 
 import chess.Color.{ White, Black }
+import chess.format.UciMove
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.Variant
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
@@ -129,7 +130,9 @@ case class Game(
   }
 
   lazy val toChessHistory = ChessHistory(
-    lastMove = castleLastMoveTime.lastMove,
+    lastMove = castleLastMoveTime.lastMove map {
+      case (orig, dest) => UciMove(orig, dest)
+    },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
     checkCount = checkCount)
@@ -156,7 +159,7 @@ case class Game(
       checkCount = history.checkCount,
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
-        lastMove = history.lastMove,
+        lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.kingPos ifTrue situation.check),
       binaryMoveTimes = isPgnImport.fold(
@@ -575,7 +578,7 @@ case class CastleLastMoveTime(
     lastMoveTime: Option[Int], // tenths of seconds since game creation
     check: Option[Pos]) {
 
-  def lastMoveString = lastMove map { case (a, b) => a.toString + b.toString }
+  def lastMoveString = lastMove map { case (a, b) => s"$a$b" }
 }
 
 object CastleLastMoveTime {

@@ -24,9 +24,9 @@ object StepBuilder {
           Step(
             ply = g.turns,
             move = for {
-              pos <- g.board.history.lastMove
+              uci <- g.board.history.lastMove
               san <- g.pgnMoves.lastOption
-            } yield Step.Move(pos._1, pos._2, san),
+            } yield Step.Move(uci, san),
             fen = Forsyth >> g,
             check = g.situation.check,
             dests = None)
@@ -79,10 +79,9 @@ object StepBuilder {
           Step(
             ply = g.turns,
             move = for {
-              pos <- g.board.history.lastMove
-              (orig, dest) = pos
+              uci <- g.board.history.lastMove
               san <- g.pgnMoves.lastOption
-            } yield Step.Move(orig, dest, san),
+            } yield Step.Move(uci, san),
             fen = Forsyth >> g,
             check = g.situation.check,
             dests = None)

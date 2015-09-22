@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ UciMove, pgn => chessPgn }
 
 object Rewind {
 
@@ -29,7 +29,7 @@ object Rewind {
         checkCount = rewindedHistory.checkCount,
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
-          lastMove = rewindedHistory.lastMove,
+          lastMove = rewindedHistory.lastMove.map(_.origDest),
           lastMoveTime = Some(((nowMillis - game.createdAt.getMillis) / 100).toInt),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),

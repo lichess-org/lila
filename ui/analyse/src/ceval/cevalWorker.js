@@ -6,6 +6,7 @@ module.exports = function(opts, name) {
   var switching = m.prop(false); // when switching to new work, info for previous can be emited
 
   var send = function(text) {
+    console.log(name, text);
     instance.postMessage(text);
   };
 
