@@ -14,15 +14,12 @@ final class Env(
 
   def forms = DataForm
 
-  private val donorCache = lila.memo.AsyncCache[String, Boolean](
-    userId => api.donatedByUser(userId) map (_ >= 200),
-    maxCapacity = 5000)
+  lazy val api = new DonationApi(
+    db(CollectionDonation),
+    MonthlyGoal,
+    serverDonors = ServerDonors)
 
-  def isDonor(userId: String) =
-    if (ServerDonors contains userId) fuccess(true)
-    else donorCache(userId)
-
-  lazy val api = new DonationApi(db(CollectionDonation), MonthlyGoal)
+  val isDonor = api isDonor _
 }
 
 object Env {
