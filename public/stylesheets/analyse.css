@@ -123,7 +123,7 @@ div.lichess_game div.lichess_ground {
 }
 div.eval_gauge {
   position: absolute;
-  right: -29px;
+  right: -22px;
   top: 0;
   width: 16px;
   height: 512px;
@@ -163,7 +163,7 @@ div.eval_gauge .black {
   box-shadow: 0 12px 12px -12px rgba(220,220,220,0.6) inset;
 }
 div.gauge_displayed div.lichess_game div.lichess_ground {
-  padding-left: 34px;
+  padding-left: 27px;
 }
 .lichess_ground .ceval_box {
   position: relative;
@@ -547,6 +547,21 @@ table.modAssessment td.noMatch {
   display: block;
   white-space: normal;
   font-weight: normal;
+}
+
+body.coords_2 .gauge_displayed .cg-square[data-coord-x]::after,
+body.coords_2 .gauge_displayed .cg-square[data-coord-y]::before {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  font-weight: normal;
+}
+body.coords_2 .gauge_displayed .cg-square[data-coord-x]::after {
+  left: 1px;
+  bottom: 1px;
+}
+body.coords_2 .gauge_displayed .cg-square[data-coord-y]::before {
+  top: 1px;
+  right: 1px;
 }
 
 /* switch toggle button */

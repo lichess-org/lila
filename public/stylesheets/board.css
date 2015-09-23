@@ -62,10 +62,7 @@
   right: 1px;
   top: 1px;
 }
-body.coords_1 .cg-square[data-coord-x]::after {
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
-}
+body.coords_1 .cg-square[data-coord-x]::after,
 body.coords_1 .cg-square[data-coord-y]::before {
   color: #fff;
   text-shadow: 0 1px 2px #000;
