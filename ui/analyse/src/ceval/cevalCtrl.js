@@ -18,7 +18,7 @@ module.exports = function(allow, emit) {
     pool.start({
       position: steps[0].fen,
       moves: steps.map(function(s) {
-        return fixCastle(s.uci);
+        return fixCastle(s.uci, s.san);
       }).join(' '),
       path: path,
       steps: steps,
@@ -34,7 +34,8 @@ module.exports = function(allow, emit) {
     pool.stop();
   };
 
-  var fixCastle = function(uci) {
+  var fixCastle = function(uci, san) {
+    if (san !== 'O-O' && san !== 'O-O-O') return uci;
     switch (uci) {
       case 'e1h1':
         return 'e1g1';
