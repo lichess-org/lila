@@ -202,6 +202,7 @@ module.exports = function(opts) {
   ) && this.data.game.variant.key === 'standard';
   this.ceval = cevalCtrl(allowCeval,
     throttle(300, false, function(res) {
+      if (!this.canUseCeval()) return;
       this.analyse.addClientEval(res.work.path, res.eval);
       this.chessground.setAutoShapes([{
         orig: res.eval.uci.slice(0, 2),
