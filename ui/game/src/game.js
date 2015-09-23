@@ -123,5 +123,8 @@ module.exports = {
   setOnGame: setOnGame,
   setIsGone: setIsGone,
   forecastable: forecastable,
-  isCorrespondence: isCorrespondence
+  isCorrespondence: isCorrespondence,
+  isSwitchable: function(data) {
+    return data.simul || isCorrespondence(data);
+  }
 };
