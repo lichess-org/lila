@@ -199,7 +199,7 @@ module.exports = function(opts) {
 
   var allowCeval = (
     this.data.game.id === 'synthetic' || !game.playable(this.data)
-  ) && this.data.game.variant.key === 'standard';
+  ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
   this.ceval = cevalCtrl(allowCeval,
     throttle(300, false, function(res) {
       if (!this.canUseCeval()) return;
@@ -215,6 +215,7 @@ module.exports = function(opts) {
   this.canUseCeval = function() {
     return typeof this.vm.step.eval === 'undefined' &&
       typeof this.vm.step.mate === 'undefined' &&
+      (this.vm.step.uci || this.data.game.variant.key !== 'standard') &&
       this.vm.step.dests !== '';
   }.bind(this);
 
