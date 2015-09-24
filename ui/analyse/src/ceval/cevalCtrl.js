@@ -4,7 +4,7 @@ var makePool = require('./cevalPool');
 module.exports = function(allow, emit) {
 
   var minDepth = 8;
-  var maxDepth = 12;
+  var maxDepth = 18;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');

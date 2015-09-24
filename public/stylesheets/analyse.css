@@ -163,7 +163,7 @@ div.eval_gauge .black {
   transition: height 1s;
 }
 div.gauge_displayed div.lichess_game div.lichess_ground {
-  padding-left: 27px;
+  padding-left: 28px;
 }
 .lichess_ground .ceval_box {
   position: relative;

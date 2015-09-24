@@ -2,9 +2,9 @@ var chessground = require('chessground');
 var opposite = chessground.util.opposite;
 var data = require('./data');
 var analyse = require('./analyse');
+var treePath = require('./path');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
-var treePath = require('./path');
 var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var control = require('./control');
@@ -211,9 +211,11 @@ module.exports = function(opts) {
       this.analyse.updateAtPath(res.work.path, function(step) {
         if (step.ceval && step.ceval.depth >= res.eval.depth) return;
         step.ceval = res.eval;
-        setAutoShapesFromEval();
-        m.redraw();
-      });
+        if (treePath.write(res.work.path) === this.vm.pathStr) {
+          setAutoShapesFromEval();
+          m.redraw();
+        }
+      }.bind(this));
     }.bind(this)));
 
   this.canUseCeval = function(step) {
