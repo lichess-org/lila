@@ -522,8 +522,8 @@ body.dark div.eval_gauge  {
 body.dark div.eval_gauge .black {
   background: #666;
 }
-body.dark div.eval_gauge .tick {
-  border-color: #999;
+body.dark div.eval_gauge tick {
+  border-color: #a0a0a0;
 }
 body.dark .square-spin {
   background: #666;

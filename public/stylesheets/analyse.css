@@ -154,6 +154,7 @@ div.eval_gauge tick.zero {
   opacity: 1;
   border-bottom: 7px solid #dc322f!important;
   margin-top: -3px;
+  opacity: 0.5;
 }
 div.eval_gauge .black {
   width: 100%;
@@ -175,8 +176,8 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   position: absolute;
   top: 0;
   right: 0;
-  transform: scale(0.5) translate(56px, -24px);
-  -webkit-transform: scale(0.5) translate(56px, -24px);
+  transform: scale(0.35) translate(79px, -35px);
+  -webkit-transform: scale(0.35) translate(79px, -35px);
 }
 .lichess_ground .ceval_box pearl {
   position: absolute;
@@ -245,6 +246,14 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .action_menu form.delete .button::before {
   font-size: 1.2em;
+}
+.lichess_ground .action_menu .setting {
+  padding: 5px 0 5px 10px;
+}
+.lichess_ground .action_menu .switch {
+  float: right;
+  transform: scale(0.35) translate(114px, -68px);
+  -webkit-transform: scale(0.35) translate(114px, -68px);
 }
 .lichess_ground .replay .turn > .index {
   display: inline-block;

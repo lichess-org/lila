@@ -50,16 +50,16 @@ module.exports = {
     if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
     else if (defined(eval.mate)) pearl = '#' + eval.mate;
     return m('div.ceval_box',
-      m('div.switch', [
+      m('div.switch.small', [
         m('input', {
-          id: 'toggle-ceval',
+          id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
           onchange: ctrl.toggleCeval
         }),
         m('label', {
-          'for': 'toggle-ceval'
+          'for': 'analyse-toggle-ceval'
         })
       ]),
       enabled ? m('pearl', pearl) : m('help',
