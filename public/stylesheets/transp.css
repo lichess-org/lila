@@ -91,7 +91,8 @@ body.transp form.translation_form div.message:nth-child(even),
 body.transp div.content_box table.datatable tr:nth-child(odd),
 body.transp div.game_config .optional_config,
 body.transp div.game_config .ratings,
-body.transp div.search_status {
+body.transp div.search_status,
+body.transp div.ceval_box {
   background: rgba(0, 0, 0, 0.3);
 }
 body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
