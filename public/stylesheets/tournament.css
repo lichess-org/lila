@@ -473,7 +473,8 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.hourly {
   background-color: #3D9333;
 }
-#tournament_schedule .tournament.daily {
+#tournament_schedule .tournament.daily,
+#tournament_schedule .tournament.eastern {
   background-color: #0072B2;
 }
 #tournament_schedule .tournament.nightly {
