@@ -2,9 +2,13 @@ var piotr2key = require('./piotr').piotr2key;
 
 var UNDEF = 'undefined';
 
+var defined = function(v) {
+  return typeof v !== UNDEF;
+};
+
 module.exports = {
   readDests: function(lines) {
-    if (typeof lines === UNDEF) return null;
+    if (!defined(lines)) return null;
     var dests = {};
     if (lines) lines.split(' ').forEach(function(line) {
       dests[piotr2key[line[0]]] = line.split('').slice(1).map(function(c) {
@@ -13,9 +17,7 @@ module.exports = {
     });
     return dests;
   },
-  defined: function(v) {
-    return typeof v !== UNDEF;
-  },
+  defined: defined,
   empty: function(a) {
     return !a || a.length === 0;
   },
@@ -25,6 +27,22 @@ module.exports = {
   },
   synthetic: function(data) {
     return data.game.id === 'synthetic';
+  },
+  storedProp: function(k, defaultValue) {
+    var sk = 'analyse.' + k;
+    var value;
+    var isBoolean = defaultValue === true || defaultValue === false;
+    return function(v) {
+      if (defined(v) && v !== value) {
+        value = v + '';
+        lichess.storage.set(sk, v);
+      }
+      else if (!defined(value)) {
+        value = lichess.storage.get(sk);
+        if (value === null) value = defaultValue + '';
+      }
+      return isBoolean ? value === 'true' : value;
+    };
   },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js

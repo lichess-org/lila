@@ -39,7 +39,8 @@ module.exports = function(opts) {
     step: null,
     cgConfig: null,
     comments: true,
-    flip: false
+    flip: false,
+    showAutoShapes: util.storedProp('show-auto-shapes', true)
   };
 
   this.flip = function() {
@@ -229,15 +230,18 @@ module.exports = function(opts) {
 
   this.toggleCeval = function() {
     this.ceval.toggle();
-    if (this.ceval.enabled())
-      setAutoShapesFromEval();
-    else
-      this.chessground.setAutoShapes([]);
+    if (this.ceval.enabled()) setAutoShapesFromEval();
+    else this.chessground.setAutoShapes([]);
     startCeval();
   }.bind(this);
 
+  this.toggleAutoShapes = function() {
+    if (this.vm.showAutoShapes(!this.vm.showAutoShapes())) setAutoShapesFromEval();
+    else this.chessground.setAutoShapes([]);
+  }.bind(this);
+
   var setAutoShapesFromEval = function() {
-    if (!this.ceval.enabled()) return;
+    if (!this.ceval.enabled() || !this.vm.showAutoShapes()) return;
     var s = this.vm.step,
       shapes = [];
     if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));

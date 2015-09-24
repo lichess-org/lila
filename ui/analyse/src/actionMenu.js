@@ -67,6 +67,9 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }) : null,
+        m('a.button.text', {
+          onclick: ctrl.toggleAutoShapes
+        }, 'Show analysis arrows'),
         deleteButton(ctrl.data, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
