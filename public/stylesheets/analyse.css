@@ -140,8 +140,9 @@ div.eval_gauge::after {
   display: block;
   position: absolute; top: 0; bottom: 0; left: 0; right: 0;
   box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
+  border-radius: 3px;
 }
-div.eval_gauge .tick {
+div.eval_gauge tick {
   position: absolute;
   top: 0;
   left: 0;
@@ -149,7 +150,7 @@ div.eval_gauge .tick {
   border-bottom: 2px ridge #eee;
   opacity: 0.4;
 }
-div.eval_gauge .tick.zero {
+div.eval_gauge tick.zero {
   opacity: 1;
   border-bottom: 7px solid #dc322f!important;
   margin-top: -3px;

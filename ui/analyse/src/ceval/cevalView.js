@@ -5,8 +5,7 @@ var classSet = require('chessground').util.classSet;
 var gaugeLast = 0;
 var squareSpin = m('span.square-spin');
 var gaugeTicks = [];
-for (var i = 1; i < 10; i++) gaugeTicks.push(m('div', {
-  class: i === 5 ? 'zero tick' : 'tick',
+for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
   style: {
     height: (i * 10) + '%'
   }
