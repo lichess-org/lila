@@ -85,18 +85,12 @@ module.exports = function(steps, analysis) {
   }.bind(this);
 
   this.addDests = function(dests, path) {
-    return updateAtPath(path, function(step) {
+    return this.updateAtPath(path, function(step) {
       step.dests = dests;
     });
   }.bind(this);
 
-  this.addClientEval = function(path, eval) {
-    return updateAtPath(path, function(step) {
-      step.ceval = eval;
-    });
-  }.bind(this);
-
-  var updateAtPath = function(path, update) {
+  this.updateAtPath = function(path, update) {
     var tree = this.tree;
     for (var j in path) {
       var p = path[j];

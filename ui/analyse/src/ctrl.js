@@ -91,6 +91,7 @@ module.exports = function(opts) {
     this.chessground.set(config);
     if (opts.onChange) opts.onChange(config.fen, this.vm.path);
     if (!dests) getDests();
+    setAutoShapesFromEval();
   }.bind(this);
 
   var getDests = throttle(200, false, function() {
@@ -114,7 +115,6 @@ module.exports = function(opts) {
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
-    setAutoShapesFromEval(this.currentAnyEval());
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
       if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
@@ -208,31 +208,43 @@ module.exports = function(opts) {
 
   this.ceval = cevalCtrl(allowCeval,
     throttle(300, false, function(res) {
-      if (!this.canUseCeval()) return;
-      this.analyse.addClientEval(res.work.path, res.eval);
-      setAutoShapesFromEval(res.eval);
-      m.redraw();
+      this.analyse.updateAtPath(res.work.path, function(step) {
+        console.log(res.eval);
+        if (step.ceval && step.ceval.depth >= res.eval.depth) return;
+        step.ceval = res.eval;
+        setAutoShapesFromEval();
+        m.redraw();
+      });
     }.bind(this)));
 
-  this.canUseCeval = function() {
-    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.vm.step.eval.best);
+  this.canUseCeval = function(step) {
+    return step.dests !== '' && (!step.eval || !step.eval.best);
   }.bind(this);
 
   var startCeval = throttle(500, false, function() {
-    if (this.ceval.enabled() && this.canUseCeval())
+    if (this.ceval.enabled() && this.canUseCeval(this.vm.step))
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this));
 
   this.toggleCeval = function() {
-    setAutoShapesFromEval(null);
+    setAutoShapesFromEval();
     this.ceval.toggle();
     startCeval();
   }.bind(this);
 
-  var setAutoShapesFromEval = function(eval) {
-    this.chessground.setAutoShapes((eval && eval.best) ? [{
-      orig: eval.best.slice(0, 2),
-      dest: eval.best.slice(2, 4),
+  // var prevAutoShapeBestUci = null;
+  var setAutoShapesFromEval = function() {
+    var step = this.vm.step,
+      best = null;
+    console.log(step);
+    if (step.eval && step.eval.best) best = step.eval.best;
+    else if (step.ceval && step.ceval.best) best = step.ceval.best;
+    // if (prevAutoShapeBestUci === best) return;
+    console.log(best);
+    // prevAutoShapeBestUci = best;
+    this.chessground.setAutoShapes(best ? [{
+      orig: best.slice(0, 2),
+      dest: best.slice(2, 4),
       style: 4
     }] : []);
   }.bind(this);

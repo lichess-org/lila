@@ -3,18 +3,21 @@ var makePool = require('./cevalPool');
 
 module.exports = function(allow, emit) {
 
+  var minDepth = 8;
+  var maxDepth = 12;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var pool = makePool({
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
-    minDepth: 8,
-    maxDepth: 18
+    minDepth: minDepth,
+    maxDepth: maxDepth
   }, 3);
 
   var start = function(path, steps) {
     if (!enabled()) return;
     var step = steps[steps.length -1];
+    if (step.ceval && step.ceval.depth >= maxDepth) return;
     pool.start({
       position: steps[0].fen,
       moves: steps.map(function(s) {

@@ -129,7 +129,7 @@ div.eval_gauge {
   height: 512px;
   background: #fff;
   background-size: 100% 100%;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 div.eval_gauge.reverse {
   transform: rotateX(180deg);
@@ -140,7 +140,7 @@ div.eval_gauge::after {
   display: block;
   position: absolute; top: 0; bottom: 0; left: 0; right: 0;
   box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 div.eval_gauge tick {
   position: absolute;
@@ -159,9 +159,8 @@ div.eval_gauge .black {
   width: 100%;
   height: 50%;
   background: #888;
-  border-radius: 3px 3px 0 0;
+  border-radius: 5px 5px 0 0;
   transition: height 1s;
-  box-shadow: 0 12px 12px -12px rgba(220,220,220,0.6) inset;
 }
 div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 27px;
