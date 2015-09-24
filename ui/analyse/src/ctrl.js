@@ -113,8 +113,8 @@ module.exports = function(opts) {
     this.vm.pathStr = treePath.write(path);
     if (window.history.replaceState)
       window.history.replaceState(null, null, '#' + path[0].ply);
-    this.chessground.setAutoShapes([]);
     showGround();
+    setAutoShapesFromEval(this.currentAnyEval());
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
       if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
@@ -194,6 +194,10 @@ module.exports = function(opts) {
 
   this.socket = new socket(opts.socketSend, this);
 
+  this.currentAnyEval = function() {
+    return this.vm.step ? (this.vm.step.eval || this.vm.step.ceval) : null;
+  }.bind(this);
+
   this.forecast = opts.data.forecast ? forecastCtrl(
     opts.data.forecast,
     router.forecasts(this.data)) : null;
@@ -206,16 +210,12 @@ module.exports = function(opts) {
     throttle(300, false, function(res) {
       if (!this.canUseCeval()) return;
       this.analyse.addClientEval(res.work.path, res.eval);
-      this.chessground.setAutoShapes([{
-        orig: res.eval.uci.slice(0, 2),
-        dest: res.eval.uci.slice(2, 4),
-        style: 4
-      }]);
+      setAutoShapesFromEval(res.eval);
       m.redraw();
     }.bind(this)));
 
   this.canUseCeval = function() {
-    return this.vm.step.dests !== '';
+    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.vm.step.eval.best);
   }.bind(this);
 
   var startCeval = throttle(500, false, function() {
@@ -224,9 +224,17 @@ module.exports = function(opts) {
   }.bind(this));
 
   this.toggleCeval = function() {
-    this.chessground.setAutoShapes([]);
+    setAutoShapesFromEval(null);
     this.ceval.toggle();
     startCeval();
+  }.bind(this);
+
+  var setAutoShapesFromEval = function(eval) {
+    this.chessground.setAutoShapes((eval && eval.best) ? [{
+      orig: eval.best.slice(0, 2),
+      dest: eval.best.slice(2, 4),
+      style: 4
+    }] : []);
   }.bind(this);
 
   this.trans = function(key) {

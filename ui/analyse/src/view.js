@@ -37,6 +37,7 @@ var emptyMove = m('em.move.empty', '...');
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
+  var eval = path[1] ? {} : (move.eval || move.ceval || {});
   return {
     tag: 'a',
     attrs: {
@@ -49,8 +50,8 @@ function renderMove(ctrl, move, path) {
       'href': '#' + path[0].ply
     },
     children: [
-      defined(move.eval) ? renderEvalTag(util.renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
+      defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
+        defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
       move.san
     ]
@@ -365,7 +366,7 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed() && ctrl.canUseCeval(),
-        gauge_displayed: ctrl.ceval.enabled() && ctrl.canUseCeval()
+        gauge_displayed: ctrl.data.analysis || ctrl.currentAnyEval()
       })
     }, [
       m('div.lichess_game', {

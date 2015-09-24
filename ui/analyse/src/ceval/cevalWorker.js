@@ -25,14 +25,14 @@ module.exports = function(opts, name) {
       if (matches[2] === 'cp') cp = -cp;
       else mate = -mate;
     }
-    var uci = matches[4].split(' ')[0];
+    var best = matches[4].split(' ')[0];
     work.emit({
       work: work,
       eval: {
         depth: depth,
         cp: cp,
         mate: mate,
-        uci: uci
+        best: best
       },
       name: name
     });
