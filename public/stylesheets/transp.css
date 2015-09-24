@@ -53,6 +53,7 @@ body.transp .ui-state-hover,
 body.transp #topmenu section:hover > a,
 body.transp #topmenu div,
 body.transp #start_buttons a,
+body.transp .analyse div.ceval_box,
 body.transp .analyse .lichess_ground .replay,
 body.transp .lichess_ground .replay .turn .index,
 body.transp .lichess_ground .analyse .meta,
@@ -91,8 +92,7 @@ body.transp form.translation_form div.message:nth-child(even),
 body.transp div.content_box table.datatable tr:nth-child(odd),
 body.transp div.game_config .optional_config,
 body.transp div.game_config .ratings,
-body.transp div.search_status,
-body.transp div.ceval_box {
+body.transp div.search_status {
   background: rgba(0, 0, 0, 0.3);
 }
 body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
