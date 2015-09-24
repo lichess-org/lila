@@ -51,11 +51,11 @@ module.exports = {
     return m('div.action_menu',
       m('div.inner', [
         m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-        m('a.button.text[data-icon=m]', {
+        ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
           href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
         }, ctrl.trans('boardEditor')),
-        m('a.button.text[data-icon=U]', {
+        ctrl.ongoing ? null : m('a.button.text[data-icon=U]', {
           onclick: function() {
             $.modal($('.continue_with.' + ctrl.data.game.id));
           }
@@ -68,7 +68,7 @@ module.exports = {
           }, 'Auto play ' + speed.name);
         }) : null,
         deleteButton(ctrl.data, ctrl.userId),
-        m('div.continue_with.' + ctrl.data.game.id, [
+        ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
             href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'

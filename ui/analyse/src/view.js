@@ -1,11 +1,11 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var classSet = require('chessground').util.classSet;
-var defined = require('./util').defined;
-var empty = require('./util').empty;
-var renderEval = require('./util').renderEval;
+var classSet = chessground.util.classSet;
+var partial = chessground.util.partial;
+var util = require('./util');
+var defined = util.defined;
+var empty = util.empty;
 var game = require('game').game;
-var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
@@ -49,7 +49,7 @@ function renderMove(ctrl, move, path) {
       'href': '#' + path[0].ply
     },
     children: [
-      defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
+      defined(move.eval) ? renderEvalTag(util.renderEval(move.eval)) : (
         defined(move.mate) ? renderEvalTag('#' + move.mate) : null
       ),
       move.san
@@ -349,7 +349,7 @@ function buttons(ctrl) {
           }
         };
       })),
-      ctrl.data.inGame ? null : m('a.button.menu', {
+      m('a.button.menu', {
         onclick: ctrl.actionMenu.toggle,
         class: ctrl.actionMenu.open ? 'active' : ''
       }, m('span', {
@@ -376,14 +376,16 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
-          cevalView.renderCeval(ctrl),
-          ctrl.actionMenu.open ? actionMenu(ctrl) : m('div.replay', {
-              config: function(el, isUpdate) {
-                autoScroll(el);
-                if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
-              }
-            },
-            renderAnalyse(ctrl)),
+          ctrl.actionMenu.open ? actionMenu(ctrl) : [
+            cevalView.renderCeval(ctrl),
+            m('div.replay', {
+                config: function(el, isUpdate) {
+                  autoScroll(el);
+                  if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
+                }
+              },
+              renderAnalyse(ctrl))
+          ],
           buttons(ctrl)
         ])
       ])
@@ -392,7 +394,7 @@ module.exports = function(ctrl) {
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    ctrl.data.game.id === 'synthetic' ? null : m('div.analeft', [
+    util.synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {

@@ -1,5 +1,4 @@
 var treePath = require('./path');
-var defined = require('./util').defined;
 
 module.exports = function(steps, analysis) {
 

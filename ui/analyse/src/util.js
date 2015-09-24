@@ -1,8 +1,10 @@
 var piotr2key = require('./piotr').piotr2key;
 
+var UNDEF = 'undefined';
+
 module.exports = {
   readDests: function(lines) {
-    if (typeof lines === 'undefined') return null;
+    if (typeof lines === UNDEF) return null;
     var dests = {};
     if (lines) lines.split(' ').forEach(function(line) {
       dests[piotr2key[line[0]]] = line.split('').slice(1).map(function(c) {
@@ -12,7 +14,7 @@ module.exports = {
     return dests;
   },
   defined: function(v) {
-    return typeof v !== 'undefined';
+    return typeof v !== UNDEF;
   },
   empty: function(a) {
     return !a || a.length === 0;
@@ -20,6 +22,9 @@ module.exports = {
   renderEval: function(e) {
     e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
     return (e > 0 ? '+' : '') + e;
+  },
+  synthetic: function(data) {
+    return data.game.id === 'synthetic';
   },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js

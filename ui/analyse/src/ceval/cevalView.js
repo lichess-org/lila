@@ -1,5 +1,6 @@
 var m = require('mithril');
-var renderEval = require('../util').renderEval;
+var util = require('../util');
+var defined = util.defined;
 var classSet = require('chessground').util.classSet;
 
 var gaugeLast = 0;
@@ -16,9 +17,9 @@ module.exports = {
     if (!ctrl.ceval.enabled()) return;
     if (!ctrl.canUseCeval()) return;
     var data = ctrl.vm.step.ceval;
-    var eval, has = typeof data !== 'undefined';
+    var eval, has = defined(data);
     if (has) {
-      if (typeof data.cp !== 'undefined')
+      if (defined(data.cp))
         eval = Math.min(Math.max(data.cp / 100, -5), 5);
       else
         eval = data.mate > 0 ? 5 : -5;
@@ -47,8 +48,8 @@ module.exports = {
     var enabled = ctrl.ceval.enabled();
     var eval = ctrl.vm.step.ceval || {};
     var pearl = squareSpin;
-    if (typeof eval.cp !== 'undefined') pearl = renderEval(eval.cp);
-    else if (typeof eval.mate !== 'undefined') pearl = '#' + eval.mate;
+    if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
+    else if (defined(eval.mate)) pearl = '#' + eval.mate;
     return m('div.ceval_box',
       m('div.switch', [
         m('input', {

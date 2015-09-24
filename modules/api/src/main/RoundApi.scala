@@ -67,7 +67,6 @@ private[api] final class RoundApi(
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
         withSteps(pov, none, initialFen)_ map
-        withUserAnalysisGame(pov)_ map
         withForecast(pov, fco)_
     }
 
@@ -81,11 +80,6 @@ private[api] final class RoundApi(
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
-
-  private def withUserAnalysisGame(pov: Pov)(json: JsObject) =
-    json ++ Json.obj(
-      "inGame" -> true,
-      "path" -> pov.game.turns)
 
   private def withForecast(pov: Pov, fco: Option[Forecast])(json: JsObject) =
     if (pov.forecastable) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>

@@ -232,6 +232,7 @@ final class JsonView(
           "destination" -> pref.destination,
           "coords" -> pref.coords
         ),
+        "path" -> pov.game.turns,
         "userAnalysis" -> true)
     }
 

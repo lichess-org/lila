@@ -9,7 +9,7 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var control = require('./control');
 var promotion = require('./promotion');
-var readDests = require('./util').readDests;
+var util = require('./util');
 var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
@@ -21,11 +21,12 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.data = data({}, opts.data);
+  this.userId = opts.userId;
+  this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+
   this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
-
-  this.userId = opts.userId;
 
   var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
   if (initialPath[0].ply >= this.data.steps.length)
@@ -66,7 +67,7 @@ module.exports = function(opts) {
       s = this.analyse.getStep(this.vm.path);
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
-    var dests = readDests(s.dests);
+    var dests = util.readDests(s.dests);
     var config = {
       fen: s.fen,
       turnColor: color,
@@ -198,8 +199,9 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   var allowCeval = (
-    this.data.game.id === 'synthetic' || !game.playable(this.data)
+    util.synthetic(this.data) || !game.playable(this.data)
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
+
   this.ceval = cevalCtrl(allowCeval,
     throttle(300, false, function(res) {
       if (!this.canUseCeval()) return;
@@ -213,10 +215,7 @@ module.exports = function(opts) {
     }.bind(this)));
 
   this.canUseCeval = function() {
-    return typeof this.vm.step.eval === 'undefined' &&
-      typeof this.vm.step.mate === 'undefined' &&
-      (this.vm.step.uci || this.data.game.variant.key !== 'standard') &&
-      this.vm.step.dests !== '';
+    return this.vm.step.dests !== '';
   }.bind(this);
 
   var startCeval = throttle(500, false, function() {
