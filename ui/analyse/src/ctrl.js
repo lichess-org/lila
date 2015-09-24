@@ -226,13 +226,18 @@ module.exports = function(opts) {
   }.bind(this));
 
   this.toggleCeval = function() {
-    setAutoShapesFromEval();
     this.ceval.toggle();
+    if (this.ceval.enabled())
+      setAutoShapesFromEval();
+    else
+      this.chessground.setAutoShapes([]);
     startCeval();
   }.bind(this);
 
   var setAutoShapesFromEval = function() {
-    var s = this.vm.step, shapes = [];
+    if (!this.ceval.enabled()) return;
+    var s = this.vm.step,
+      shapes = [];
     if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));
     if (s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
     this.chessground.setAutoShapes(shapes);
