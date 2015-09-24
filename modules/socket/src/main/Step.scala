@@ -14,8 +14,7 @@ case class Step(
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
-    eval: Option[Int] = None,
-    mate: Option[Int] = None,
+    eval: Option[Step.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
     variations: List[List[Step]] = Nil) {
@@ -32,12 +31,21 @@ object Step {
     def uciString = uci.uci
   }
 
+  case class Eval(
+    cp: Option[Int] = None,
+    mate: Option[Int] = None,
+    best: Option[UciMove])
+
+  private implicit val uciJsonWriter: Writes[UciMove] = Writes { uci =>
+    JsString(uci.uci)
+  }
+  private implicit val evalJsonWriter = Json.writes[Eval]
+
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
     import step._
     (
       add("check", true, check) _ compose
       add("eval", eval) _ compose
-      add("mate", mate) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
       add("variations", variations, variations.nonEmpty) _ compose

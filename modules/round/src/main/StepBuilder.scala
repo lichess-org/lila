@@ -45,8 +45,10 @@ object StepBuilder {
       case (step, index) =>
         analysis.infos.lift(index - 1).fold(step) { info =>
           step.copy(
-            eval = info.score map (_.ceiled.centipawns),
-            mate = info.mate)
+            eval = Step.Eval(
+              cp = info.score.map(_.ceiled.centipawns),
+              mate = info.mate,
+              best = info.best).some)
         }
     }
 
