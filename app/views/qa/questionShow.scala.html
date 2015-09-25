@@ -1,7 +1,7 @@
 @(q: lila.qa.Question, answers: List[lila.qa.Answer], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]], captcha: Option[lila.common.Captcha])(implicit ctx: Context)
 
 @side = {
-@relatedBox(related)
+@if(!related.isEmpty){@relatedBox(related)}
 @popularBox(popular)
 }
 
