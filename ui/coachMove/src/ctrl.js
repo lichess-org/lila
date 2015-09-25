@@ -61,11 +61,5 @@ module.exports = function(opts) {
     this.vm.inspecting = key;
   }.bind(this);
 
-  this.trans = function(key) {
-    var str = env.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(env.i18n);
 };

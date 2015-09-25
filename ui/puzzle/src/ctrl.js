@@ -174,11 +174,5 @@ module.exports = function(cfg, router, i18n) {
 
   this.router = router;
 
-  this.trans = function(key) {
-    var str = i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(i18n);
 };

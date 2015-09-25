@@ -100,11 +100,5 @@ module.exports = function(env) {
   sound.countDown(this.data);
   redirectToMyGame();
 
-  this.trans = function(key) {
-    var str = env.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(env.i18n);
 };

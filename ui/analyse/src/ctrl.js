@@ -266,13 +266,7 @@ module.exports = function(opts) {
     };
   };
 
-  this.trans = function(key) {
-    var str = opts.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(opts.i18n);
 
   showGround();
   keyboard(this);
