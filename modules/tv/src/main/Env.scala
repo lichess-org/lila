@@ -1,7 +1,7 @@
 package lila.tv
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 
@@ -19,7 +19,6 @@ final class Env(
   private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
   private val CollectionWhitelist = config getString "streaming.collection.whitelist"
-  private val StreamerList = config.getConfigList("streamers").toList
 
   lazy val tv = new Tv(tvActor)
 
@@ -35,7 +34,15 @@ final class Env(
 
   private lazy val whitelist = new Whitelist(db(CollectionWhitelist))
 
-  private lazy val streamerList = new StreamerList(StreamerList)
+  lazy val streamerList = new StreamerList(new {
+    import reactivemongo.bson._
+    private val coll = db("flag")
+    def get = coll.find(BSONDocument("_id" -> "streamer")).one[BSONDocument].map {
+      ~_.flatMap(_.getAs[String]("text"))
+    }
+    def set(text: String) =
+      coll.update(BSONDocument("_id" -> "streamer"), BSONDocument("text" -> text), upsert = true).void
+  })
 
   def streamsOnAir = streaming.onAir
 
