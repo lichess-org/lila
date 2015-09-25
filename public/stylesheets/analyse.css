@@ -199,12 +199,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   margin: 5px;
   font-size: 0.9em;
 }
-.lichess_ground .ceval_box info {
-  position: absolute;
-  top: 4px;
-  left: 90px;
-  display: inline-block;
-}
 .lichess_ground .replay,
 .lichess_ground .action_menu {
   height: calc(100% - 40px);

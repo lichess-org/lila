@@ -66,16 +66,7 @@ module.exports = {
         'Local computer evaluation',
         m('br'),
         'for variation analysis (BETA)'
-      ),
-      enabled ? m('info', isServer ? [
-        'Server',
-        m('br'),
-        'analysis'
-      ] : [
-        'depth: ' + (eval.depth || 0),
-        m('br'),
-        'best: ' + (eval.best || '-')
-      ]) : null
+      )
     );
   }
 };
