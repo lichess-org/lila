@@ -2241,7 +2241,12 @@ lichess.unique = function(xs) {
     cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
-    $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
+    $('.advice_summary', element)
+      .appendTo($('.underboard .right', element))
+      .show()
+      .on('click', 'tr.nag', function() {
+        analyse.jumpToNag($(this).data('color'), $(this).data('nag'));
+      });
 
     $panels = $('div.analysis_panels > div');
     var $menu = $('div.analysis_menu');

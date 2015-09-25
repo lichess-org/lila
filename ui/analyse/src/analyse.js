@@ -106,4 +106,12 @@ module.exports = function(steps, analysis) {
       }
     }
   }.bind(this);
+
+  this.plyOfNextNag = function(color, nag, fromPly) {
+    var len = this.tree.length;
+    for (var i = 1; i < len; i++) {
+      var ply = (fromPly + i) % len;
+      if(this.tree[ply].nag === nag && (ply % 2 === (color === 'white' ? 1 : 0))) return ply;
+    }
+  }.bind(this);
 }

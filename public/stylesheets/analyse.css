@@ -399,6 +399,12 @@ div.advice_summary td {
   padding: 2px 8px;
   text-align: center;
 }
+div.advice_summary tr.nag {
+  cursor: pointer;
+}
+div.advice_summary tr.nag:hover {
+  text-decoration: underline;
+}
 div.advice_summary .spacerlol {
   padding: 5px;
 }

@@ -65,7 +65,7 @@ chessground = false) {
     </thead>
     <tbody>
       @for((nag, nb) <- pairs) {
-      <tr>
+      <tr @if(nb > 0) {class="nag" data-color="@color.name" data-nag="@nag.symbol"}>
         <td><strong>@nb</strong></td>
         <th>@nagName(nag)</th>
       </tr>
