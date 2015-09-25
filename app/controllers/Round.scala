@@ -58,7 +58,7 @@ object Round extends LilaController with TheftPrevention {
           myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
-            (pov.game.isSwitchable ?? otherPovs(pov.gameId)) flatMap {
+            (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
               case (((tour, simul), crosstable), playing) =>
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
@@ -90,9 +90,11 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
+  private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
-      _ filter { _.game.id != gameId }
+      _ filter { pov =>
+        pov.game.id != game.id && pov.game.isSimul == game.isSimul
+      }
     }
   }
 
@@ -103,7 +105,7 @@ object Round extends LilaController with TheftPrevention {
 
   def others(gameId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(gameId) map { povs =>
+      otherPovs(currentGame) map { povs =>
         Ok(html.round.others(povs))
       }
     }
@@ -111,7 +113,7 @@ object Round extends LilaController with TheftPrevention {
 
   def whatsNext(gameId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(gameId) map getNext(currentGame) map { next =>
+      otherPovs(currentGame) map getNext(currentGame) map { next =>
         Ok(Json.obj("next" -> next.map(_.fullId)))
       }
     }
@@ -120,7 +122,7 @@ object Round extends LilaController with TheftPrevention {
   def next(gameId: String) = Auth { implicit ctx =>
     me =>
       OptionFuResult(GameRepo game gameId) { currentGame =>
-        otherPovs(gameId) map getNext(currentGame) map {
+        otherPovs(currentGame) map getNext(currentGame) map {
           _ orElse Pov(currentGame, me)
         } flatMap {
           case Some(next) => renderPlayer(next)
