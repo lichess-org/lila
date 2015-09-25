@@ -320,6 +320,22 @@ lichess.storage = {
     });
   }
 };
+lichess.once = function(key) {
+  if (!lichess.storage.get(key)) {
+    lichess.storage.set(key, 1);
+    return true;
+  }
+  return false;
+};
+lichess.trans = function(i18n) {
+  return function(key) {
+    var str = i18n[key] || key;
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
+  };
+};
 
 lichess.isPageVisible = true;
 // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications

@@ -327,21 +327,13 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.forecastInfo = function() {
-    var key = 'forecast-info-seen5';
-    if (game.forecastable(this.data) && !this.replaying() && this.data.game.turns > 1 && !lichess.storage.get(key)) {
-      lichess.storage.set(key, 1);
-      return true;
-    }
-    return false;
+    return game.forecastable(this.data) &&
+      !this.replaying() &&
+      this.data.game.turns > 1 &&
+      lichess.once('forecast-info-seen5');
   }.bind(this);
 
-  this.trans = function(key) {
-    var str = opts.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(opts.i18n);
 
   init(this);
 };
