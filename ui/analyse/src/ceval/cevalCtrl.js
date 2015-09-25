@@ -38,7 +38,7 @@ module.exports = function(allow, emit) {
   };
 
   var fixCastle = function(uci, san) {
-    if (san.indexOf('O-O') !== 0) return;
+    if (san.indexOf('O-O') !== 0) return uci;
     switch (uci) {
       case 'e1h1':
         return 'e1g1';
