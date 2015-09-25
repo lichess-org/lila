@@ -69,7 +69,7 @@ module.exports = {
         }) : null,
         ctrl.showEvalGauge() ? m('div.setting', (function(id) {
           return [
-            m('div.switch.small', [
+            m('div.switch', [
               m('input', {
                 id: id,
                 class: 'cmn-toggle cmn-toggle-round',

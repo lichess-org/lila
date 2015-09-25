@@ -1332,13 +1332,9 @@ lichess.unique = function(xs) {
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
     var loadPlaying = function() {
-      var $moveOn = $nowPlaying.find('.move_on').click(function() {
-        setMoveOn(round.moveOn.toggle());
-      });
-      var setMoveOn = function(value) {
-        $moveOn.toggleClass('enabled', value);
-      };
-      setMoveOn(round.moveOn.get());
+      var $moveOn = $nowPlaying.find('.move_on input').change(function() {
+        round.moveOn.toggle();
+      }).prop('checked', round.moveOn.get());
     };
     loadPlaying();
     $nowPlaying.on('click', '>a', function() {

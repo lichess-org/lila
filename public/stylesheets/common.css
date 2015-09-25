@@ -1983,14 +1983,17 @@ a.mini_board {
 #now_playing .move_on {
   font-size: 0.7em;
   float: right;
+  display: block;
+  height: 1.5em;
+  text-align: right;
+  line-height: 22px;
 }
-#now_playing .move_on i {
-  font-size: 1.2em;
-  display: none;
+#now_playing .move_on label {
+  cursor: pointer;
 }
-#now_playing .move_on.enabled i {
-  display: inline-block;
-  margin-right: 10px;
+#now_playing .move_on .switch {
+  float: right;
+  margin-left: 20px;
 }
 #now_playing.other_games > a {
   padding: 5px;
@@ -2460,6 +2463,54 @@ textarea.copyable {
   100% {
     text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
   }
+}
+/* switch toggle button */
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+input.cmn-toggle-round + label {
+  padding: 1px;
+  width: 40px;
+  height: 20px;
+  background-color: #aaa;
+  border-radius: 20px;
+}
+input.cmn-toggle-round + label:before,
+input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #ddd;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+input.cmn-toggle-round + label:after {
+  width: 20px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+  transition: margin 0.2s;
+}
+input.cmn-toggle-round:checked + label:before {
+  background-color: #8ce196;
+}
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 20px;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {

@@ -50,7 +50,7 @@ module.exports = {
     if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
     else if (defined(eval.mate)) pearl = '#' + eval.mate;
     return m('div.ceval_box',
-      m('div.switch.small', [
+      m('div.switch', [
         m('input', {
           id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
