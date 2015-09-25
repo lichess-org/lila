@@ -81,23 +81,6 @@ object Tv extends LilaController {
       }
   }
 
-  def streamConfig = Auth { implicit ctx =>
-    me =>
-      Env.tv.streamerList.store.get.map { text =>
-        Ok(html.tv.streamConfig(Env.tv.streamerList.form.fill(text)))
-      }
-  }
-
-  def streamConfigSave = SecureBody(_.StreamConfig) { implicit ctx =>
-    me =>
-      implicit val req = ctx.body
-      FormFuResult(Env.tv.streamerList.form) { err =>
-        fuccess(html.tv.streamConfig(err))
-      } { text =>
-        Env.tv.streamerList.store.set(text) inject Redirect(routes.Tv.streamConfig)
-      }
-  }
-
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
