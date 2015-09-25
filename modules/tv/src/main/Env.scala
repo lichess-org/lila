@@ -18,8 +18,8 @@ final class Env(
 
   private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
-  private val UstreamApiKey = config getString "streaming.ustream_api_key"
   private val CollectionWhitelist = config getString "streaming.collection.whitelist"
+  private val StreamerList = config.getConfigList("streamers").toList
 
   lazy val tv = new Tv(tvActor)
 
@@ -31,10 +31,11 @@ final class Env(
   private lazy val streaming = new Streaming(
     system = system,
     renderer = hub.actor.renderer,
-    ustreamApiKey = UstreamApiKey,
     whitelist = whitelist)
 
   private lazy val whitelist = new Whitelist(db(CollectionWhitelist))
+
+  private lazy val streamerList = new StreamerList(StreamerList)
 
   def streamsOnAir = streaming.onAir
 
