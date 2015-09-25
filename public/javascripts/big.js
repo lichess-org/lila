@@ -1576,27 +1576,26 @@ lichess.unique = function(xs) {
   $.widget("lichess.clock", {
     _create: function() {
       var self = this;
-      this.options.time = this.options.time * 1000;
+      // this.options.time: seconds Integer
+      this.time = this.options.time * 1000;
       this.timeEl = this.element.find('>.time')[0];
-      var endTime = new Date().getTime() + self.options.time;
       var tick = function() {
-        var curTime = Math.round(endTime - new Date().getTime());
-        if (curTime <= 0) {
-          clearInterval(self.options.interval);
-          curTime = 0;
-        }
-        self.options.time = curTime;
+        self.time -= 1000;
+        if (self.time <= 0) clearInterval(self.interval);
         self._show();
       };
-      self.options.interval = setInterval(tick, 100);
-      tick();
+      setTimeout(function() {
+        tick();
+        self.interval = setInterval(tick, 1000);
+      }, 1000 - (new Date().getTime()) % 1000);
+      self._show();
     },
     destroy: function() {
-      clearInterval(this.options.interval);
+      clearInterval(this.interval);
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
-      this.timeEl.innerHTML = this._formatDate(new Date(this.options.time));
+      this.timeEl.innerHTML = this._formatDate(new Date(this.time));
     },
     _bold: function(x) {
       return '<b>' + x + '</b>';
@@ -1605,7 +1604,7 @@ lichess.unique = function(xs) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
       var b = this._bold;
-      if (this.options.time >= 3600000) {
+      if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else {
