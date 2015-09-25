@@ -8,6 +8,7 @@ import play.api.Play.current
 
 private final class Streaming(
     system: ActorSystem,
+    ustreamApiKey: String,
     renderer: ActorSelection,
     whitelist: Whitelist) {
 
