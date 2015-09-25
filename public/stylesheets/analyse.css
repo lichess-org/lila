@@ -250,6 +250,9 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .lichess_ground .action_menu .setting {
   padding: 5px 0 5px 10px;
 }
+.lichess_ground .action_menu .setting label {
+  cursor: pointer;
+}
 .lichess_ground .action_menu .switch {
   float: right;
   transform: scale(0.35) translate(114px, -68px);

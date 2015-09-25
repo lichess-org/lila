@@ -67,23 +67,27 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }) : null,
-        m('div.setting', [
-          m('div.switch.small', [
-            m('input', {
-              id: 'analyse-toggle-ceval',
-              class: 'cmn-toggle cmn-toggle-round',
-              type: 'checkbox',
-              checked: ctrl.vm.showAutoShapes(),
-              onchange: function(e) {
-                ctrl.toggleAutoShapes(e.target.checked);
-              }
-            }),
+        m('div.setting', (function(id) {
+          return [
+            m('div.switch.small', [
+              m('input', {
+                id: id,
+                class: 'cmn-toggle cmn-toggle-round',
+                type: 'checkbox',
+                checked: ctrl.vm.showAutoShapes(),
+                onchange: function(e) {
+                  ctrl.toggleAutoShapes(e.target.checked);
+                }
+              }),
+              m('label', {
+                'for': id
+              })
+            ]),
             m('label', {
-              'for': 'analyse-toggle-ceval'
-            })
-          ]),
-          'Analysis arrows'
-        ]),
+              'for': id
+            }, 'Analysis arrows')
+          ];
+        })('analyse-toggle-ceval')),
         deleteButton(ctrl.data, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
