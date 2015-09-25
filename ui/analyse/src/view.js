@@ -366,7 +366,7 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed() && ctrl.canUseCeval(ctrl.vm.step),
-        gauge_displayed: ctrl.data.analysis || ctrl.currentAnyEval()
+        gauge_displayed: ctrl.showEvalGauge()
       })
     }, [
       m('div.lichess_game', {

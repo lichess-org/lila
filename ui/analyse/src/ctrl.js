@@ -239,6 +239,10 @@ module.exports = function(opts) {
     startCeval();
   }.bind(this);
 
+  this.showEvalGauge = function() {
+    return this.data.analysis || this.ceval.enabled();
+  }.bind(this);
+
   this.toggleAutoShapes = function(v) {
     if (this.vm.showAutoShapes(v)) setAutoShapesFromEval();
     else this.chessground.setAutoShapes([]);

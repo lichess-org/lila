@@ -67,7 +67,7 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }) : null,
-        m('div.setting', (function(id) {
+        ctrl.showEvalGauge() ? m('div.setting', (function(id) {
           return [
             m('div.switch.small', [
               m('input', {
@@ -87,7 +87,7 @@ module.exports = {
               'for': id
             }, 'Analysis arrows')
           ];
-        })('analyse-toggle-ceval')),
+        })('analyse-toggle-ceval')) : null,
         deleteButton(ctrl.data, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {

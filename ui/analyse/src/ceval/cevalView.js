@@ -14,7 +14,7 @@ for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
 
 module.exports = {
   renderGauge: function(ctrl) {
-    if (ctrl.ongoing) return;
+    if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
     var data = ctrl.currentAnyEval();
     var eval, has = defined(data);
     if (has) {
