@@ -235,8 +235,7 @@ module.exports = function(opts) {
 
   this.toggleCeval = function() {
     this.ceval.toggle();
-    if (this.ceval.enabled()) setAutoShapesFromEval();
-    else this.chessground.setAutoShapes([]);
+    setAutoShapesFromEval();
     startCeval();
   }.bind(this);
 
