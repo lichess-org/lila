@@ -20,7 +20,7 @@ module.exports = function(allow, emit) {
     if (step.ceval && step.ceval.depth >= maxDepth) return;
     pool.start({
       position: steps[0].fen,
-      moves: steps.map(function(s) {
+      moves: steps.slice(1).map(function(s) {
         return fixCastle(s.uci, s.san);
       }).join(' '),
       path: path,
