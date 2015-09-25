@@ -2099,8 +2099,11 @@ div.undertable.half:first-child {
   margin-right: 14px;
 }
 div.undertable.leaderboard td:first-child {
-  max-width: 150px;
+  max-width: 135px;
   overflow: hidden;
+}
+div.undertable.leaderboard {
+  white-space: nowrap;
 }
 div.lichess_overboard.joining .submit {
   font-size: 1.2em;
