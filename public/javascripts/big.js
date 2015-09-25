@@ -1578,32 +1578,33 @@ lichess.unique = function(xs) {
       var self = this;
       this.options.time = this.options.time * 1000;
       this.timeEl = this.element.find('>.time')[0];
-      var end_time = new Date().getTime() + self.options.time;
+      var endTime = new Date().getTime() + self.options.time;
       var tick = function() {
-        var current_time = Math.round(end_time - new Date().getTime());
-        if (current_time <= 0) {
+        var curTime = Math.round(endTime - new Date().getTime());
+        if (curTime <= 0) {
           clearInterval(self.options.interval);
-          current_time = 0;
+          curTime = 0;
         }
-        self.options.time = current_time;
+        self.options.time = curTime;
         self._show();
       };
-      self.options.interval = setInterval(tick, 1000);
+      self.options.interval = setInterval(tick, 100);
       tick();
     },
     destroy: function() {
-      this.stop();
+      clearInterval(this.options.interval);
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
       this.timeEl.innerHTML = this._formatDate(new Date(this.options.time));
     },
+    _bold: function(x) {
+      return '<b>' + x + '</b>';
+    },
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
-      var b = function(x) {
-        return '<b>' + x + '</b>';
-      };
+      var b = this._bold;
       if (this.options.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
