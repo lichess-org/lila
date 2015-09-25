@@ -27,11 +27,13 @@ final class Cached(
 
   val isRematch = new ExpireSetMemo(3.hours)
 
+  // very expensive
   val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
     prefix = "player:active:day",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 1 hour)
 
+  // very very expensive
   val activePlayerUidsWeek = mongoCache[Int, List[UidNb]](
     prefix = "player:active:week",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
