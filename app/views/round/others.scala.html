@@ -1,12 +1,12 @@
 @(playing: List[Pov])(implicit ctx: Context)
 @defining("round-toggle-autoswitch") { id =>
 <h3>
-  <span class="move_on hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
+  <span class="move_on">
     <span class="switch">
       <input id="@id" class="cmn-toggle cmn-toggle-round" type="checkbox" />
       <label for="@id"></label>
     </span>
-    <label for="@id">@trans.autoSwitch()</label>
+    <label class="hint--bottom-left" for="@id" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">@trans.autoSwitch()</label>
   </span>
   @trans.gamesBeingPlayedRightNow()
 </h3>
