@@ -1993,7 +1993,7 @@ a.mini_board {
 }
 #now_playing .move_on .switch {
   float: right;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 #now_playing.other_games > a {
   padding: 5px;
