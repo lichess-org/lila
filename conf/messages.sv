@@ -498,4 +498,5 @@ newTournament=Ny turnering
 tournamentHomeTitle=Schackturnering med olika betänketider och schackvarianter
 tournamentNotFound=Turnering ej funnen
 tournamentDoesNotExist=Denna turnering finns inte
+tournamentMayHaveBeenCanceled=Den kan ha blivit inställd om alla spelare lämnade den innan start.
 returnToTournamentsHomepage=Återgå till turneringens hemsida
