@@ -13,6 +13,8 @@ final class Env(
     hub: lila.hub.Env,
     onStart: String => Unit,
     aiPlay: Game => Fu[Progress],
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi,
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"
@@ -42,7 +44,9 @@ final class Env(
 
   system.actorOf(Props(new Challenger(
     roundHub = hub.socket.round,
-    renderer = hub.actor.renderer
+    renderer = hub.actor.renderer,
+    prefApi = prefApi,
+    relationApi = relationApi
   )), name = ChallengerName)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
@@ -57,5 +61,7 @@ object Env {
     hub = lila.hub.Env.current,
     onStart = lila.game.Env.current.onStart,
     aiPlay = lila.round.Env.current.aiPlay,
+    prefApi = lila.pref.Env.current.api,
+    relationApi = lila.relation.Env.current.api,
     system = lila.common.PlayApp.system)
 }
