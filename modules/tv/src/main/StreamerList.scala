@@ -37,6 +37,7 @@ final class StreamerList(
     }
   } match {
     case Failure(e: Exception) => (Nil, List(e))
+    case Failure(e)            => throw e
     case Success(v)            => v
   }
 
@@ -62,9 +63,13 @@ object StreamerList {
   case object Hitbox extends Service
 
   case class Streamer(
-    service: Service,
-    streamerName: String,
-    lichessName: String,
-    featured: Boolean,
-    chat: Boolean)
+      service: Service,
+      streamerName: String,
+      lichessName: String,
+      featured: Boolean,
+      chat: Boolean) {
+
+    def twitch = service == Twitch
+    def hitbox = service == Hitbox
+  }
 }

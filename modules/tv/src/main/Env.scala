@@ -18,7 +18,6 @@ final class Env(
 
   private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
-  private val CollectionWhitelist = config getString "streaming.collection.whitelist"
 
   lazy val tv = new Tv(tvActor)
 
@@ -30,9 +29,7 @@ final class Env(
   private lazy val streaming = new Streaming(
     system = system,
     renderer = hub.actor.renderer,
-    whitelist = whitelist)
-
-  private lazy val whitelist = new Whitelist(db(CollectionWhitelist))
+    streamerList = streamerList)
 
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._
