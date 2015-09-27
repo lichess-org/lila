@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mkdir -p local
+cd local
+git clone https://github.com/ddugovic/polyglot.git
+cd polyglot
+git checkout learn
+cd src
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
+./configure --disable-assert
+make
+cd ../..
+
+git clone https://github.com/ddugovic/chess960-opening-book.git
+polyglot/src/polyglot make-book -pgn chess960-opening-book/chess960_book_3moves.pgn -bin chess960.bin -min-game 1 -uniform
+wget ftp://ftp.cs.kent.ac.uk/pub/djb/pgn-extract/eco.pgn
+polyglot/src/polyglot make-book -pgn eco.pgn -bin eco.bin -min-game 1
+polyglot/src/polyglot merge-book -in1 eco.bin -in2 chess960.bin -out book.bin
+cd ..
