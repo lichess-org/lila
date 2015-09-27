@@ -32,6 +32,7 @@ module.exports = {
       return;
     }
     if (countDownTimeout) return;
+    if (data.secondsToStart > 60 * 60 * 24) return;
     countDownTimeout = setTimeout(
       doCountDown(Math.min(data.secondsToStart, 10)), (data.secondsToStart - 10) * 1000);
   }
