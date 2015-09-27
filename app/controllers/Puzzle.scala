@@ -2,11 +2,11 @@ package controllers
 
 import scala.util.{ Try, Success, Failure }
 
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
-import play.twirl.api.Html
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
@@ -65,8 +65,15 @@ object Puzzle extends LilaController {
 
   def history = Auth { implicit ctx =>
     me =>
-      XhrOnly {
-        env userInfos me map { ui => Ok(views.html.puzzle.history(ui)) }
+      env userInfos me flatMap { ui =>
+        negotiate(
+          html = XhrOnly {
+            fuccess { Ok(views.html.puzzle.history(ui)) }
+          },
+          api = _ => fuccess {
+            Ok(JsData history ui)
+          }
+        )
       }
   }
 

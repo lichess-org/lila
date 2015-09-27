@@ -10,6 +10,20 @@ import lila.puzzle._
 
 object JsData extends lila.Steroids {
 
+  def history(infos: UserInfos) = Json.obj(
+    "attempts" -> infos.history.map { a =>
+      Json.obj(
+        "puzzleId" -> a.puzzleId,
+        "date" -> a.date,
+        "win" -> a.win,
+        "time" -> a.time,
+        "puzzleRating" -> a.puzzleRating,
+        "puzzleRatingDiff" -> a.puzzleRatingDiff,
+        "userRating" -> a.userRating,
+        "userRatingDiff" -> a.userRatingDiff,
+        "vote" -> a.vote)
+    })
+
   def apply(
     puzzle: Puzzle,
     userInfos: Option[lila.puzzle.UserInfos],
