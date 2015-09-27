@@ -365,7 +365,7 @@ module.exports = function(ctrl) {
     m('div', {
       class: classSet({
         top: true,
-        ceval_displayed: ctrl.ceval.allowed() && ctrl.canUseCeval(ctrl.vm.step),
+        ceval_displayed: ctrl.ceval.allowed(),
         gauge_displayed: ctrl.showEvalGauge()
       })
     }, [

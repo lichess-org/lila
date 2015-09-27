@@ -49,6 +49,7 @@ module.exports = {
     var pearl = squareSpin;
     if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
     else if (defined(eval.mate)) pearl = '#' + eval.mate;
+    else if (ctrl.vm.step.dests === '') pearl = '-';
     return m('div.ceval_box',
       m('div.switch', [
         m('input', {

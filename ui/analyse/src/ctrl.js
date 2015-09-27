@@ -185,7 +185,11 @@ module.exports = function(opts) {
 
   this.addDests = function(dests, path) {
     this.analyse.addDests(dests, treePath.read(path));
-    if (path === this.vm.pathStr) showGround();
+    if (path === this.vm.pathStr) {
+      showGround();
+      m.redraw();
+      if (dests === '') this.ceval.stop();
+    }
     this.chessground.playPremove();
   }.bind(this);
 
@@ -240,7 +244,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.data.analysis || this.ceval.enabled();
+    return (this.data.analysis || this.ceval.enabled()) && this.vm.step.dests !== '';
   }.bind(this);
 
   this.toggleAutoShapes = function(v) {
