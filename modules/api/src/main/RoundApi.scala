@@ -67,7 +67,7 @@ private[api] final class RoundApi(
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
         withSteps(pov, none, initialFen)_ map
-        withForecast(pov, fco)_
+        withForecast(pov, owner, fco)_
     }
 
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
@@ -81,8 +81,8 @@ private[api] final class RoundApi(
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
-  private def withForecast(pov: Pov, fco: Option[Forecast])(json: JsObject) =
-    if (pov.forecastable) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+  private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
+    if (pov.forecastable && owner) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
       import Forecast.forecastJsonWriter
       Json toJson fc
     })
