@@ -129,10 +129,8 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
         </a>
       </div>
-      @defining(reportNbUnprocessed) { nb =>
-      @if(nb > 0) {
-      <a class="fright link text" href="@routes.Report.list" data-icon="@icon.mod"><strong>@nb</strong></a>
-      }
+      @if(isGranted(_.SeeReport)) {
+      <a class="fright link text" href="@routes.Report.list" data-icon="@icon.mod"><strong>@reportNbUnprocessed</strong></a>
       }
       }
       <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>

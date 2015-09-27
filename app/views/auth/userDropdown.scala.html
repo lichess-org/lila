@@ -7,12 +7,6 @@
   }
   <a href="@routes.Pref.form("game-display")"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
   <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
-  @if(isGranted(_.StaffForum)) {
-  <span class="sep"></span>
-  <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
-  <a href="@routes.Mod.log()">Mod log</a>
-  <a href="@routes.Report.list()">User reports</a>
-  }
   <span class="sep"></span>
   <div class="status">
     <div class="led"></div>

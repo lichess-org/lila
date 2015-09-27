@@ -2,7 +2,9 @@
 
 @title = @{ "Mod logs" }
 
-@base.layout(title = title) {
+@layout(
+title = title,
+active = "log") {
 
 <style type="text/css">
   #modlog_table td {
@@ -11,7 +13,7 @@
   }
 </style>
 <div id="modlog_table" class="content_box no_padding">
-  <h1>@title</h1>
+  <h1 data-icon="?" class="text">@title</h1>
   <table class="slist">
     <thead>
       <tr>

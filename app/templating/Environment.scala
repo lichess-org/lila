@@ -58,8 +58,7 @@ object Environment
     "Due to temporary maintenance on the servers, only casual games are available."
   }
 
-  def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
-    isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
+  def reportNbUnprocessed: Int = lila.report.Env.current.api.nbUnprocessed.await
 
   val openingBrace = "{"
   val closingBrace = "}"

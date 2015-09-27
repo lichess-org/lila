@@ -1,0 +1,28 @@
+@(title: String, active: String, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+
+@menu = {
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("report")" href="@routes.Report.list">Reports</a>
+}
+@if(isGranted(_.StreamConfig)) {
+<a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
+}
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>
+}
+@if(isGranted(_.StaffForum)) {
+<a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
+}
+}
+
+@evenMoreJs = {
+@moreJs
+}
+
+@base.layout(
+title = title,
+moreJs = evenMoreJs,
+moreCss = moreCss,
+menu = menu.some) {
+@body
+}
