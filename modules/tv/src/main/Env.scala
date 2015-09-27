@@ -50,7 +50,7 @@ final class Env(
       tvActor -> TvActor.Select
     }
 
-    scheduler.once(20.seconds) {
+    scheduler.once(2.seconds) {
       streaming.actor ! Streaming.Search
       scheduler.message(StreamingSearch) {
         streaming.actor -> Streaming.Search

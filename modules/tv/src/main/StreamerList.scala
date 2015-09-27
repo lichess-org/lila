@@ -62,6 +62,13 @@ object StreamerList {
   case object Twitch extends Service
   case object Hitbox extends Service
 
+  def findTwitch = find(Twitch) _
+  def findHitboox = find(Hitbox) _
+  def find(service: Service)(streamers: List[Streamer])(name: String) =
+    streamers.find { s =>
+      s.service == service && s.streamerName.toLowerCase == name.toLowerCase
+    }
+
   case class Streamer(
       service: Service,
       streamerName: String,
@@ -71,5 +78,7 @@ object StreamerList {
 
     def twitch = service == Twitch
     def hitbox = service == Hitbox
+
+    def id = s"$streamerName@${service.toString.toLowerCase}"
   }
 }

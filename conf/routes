@@ -30,7 +30,7 @@ GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
-GET   /tv/stream/$id<[0-9a-f]{8}>      controllers.Tv.streamIn(id: String)
+GET   /tv/stream/:id                   controllers.Tv.streamIn(id: String)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)

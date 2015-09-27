@@ -42,7 +42,7 @@ private final class Streaming(
           .withHeaders("Accept" -> "application/vnd.twitchtv.v3+json")
           .get() map { res =>
             res.json.validate[Twitch.Result] match {
-              case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
+              case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
                 logwarn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
@@ -50,17 +50,13 @@ private final class Streaming(
           }
         val hitbox = WS.url("http://api.hitbox.tv/media/live/" + streamers.filter(_.twitch).map(_.streamerName).mkString(",")).get() map { res =>
           res.json.validate[Hitbox.Result] match {
-            case JsSuccess(data, _) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
+            case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
             case JsError(err) =>
               logwarn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
               Nil
           }
         }
-        (twitch |+| hitbox) flatMap { streams =>
-          streams.map { s =>
-            whitelist withChat s.streamer map s.withChat
-          }.sequenceFu
-        } map StreamsOnAir.apply pipeTo self
+        (twitch |+| hitbox) map StreamsOnAir.apply pipeTo self
       }
 
       case event@StreamsOnAir(streams) if onAir != streams =>

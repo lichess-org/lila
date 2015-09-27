@@ -9,31 +9,22 @@
 
 @side = {
 <div class="side">
-  @if(s.chat) {
-  @s.service match {
-  case "twitch" => {
+  @if(s.streamer.chat) {
+  @s.streamer.service match {
+  case lila.tv.StreamerList.Twitch => {
   <iframe
     frameborder="0"
     scrolling="no"
     src="http://twitch.tv/@s.streamId/chat?popout="
     height="418"></iframe>
   }
-  case "ustream" => {
-  <iframe
-    src="//www.ustream.tv/socialstream/@s.streamId"
-    style="border: 0 none transparent;"
-    frameborder="0"
-    height="400"></iframe>
-  }
-  case "hitbox" => {
+  case lila.tv.StreamerList.Hitbox => {
   <iframe
     width="330"
     height="392"
     src="http://www.hitbox.tv/embedchat/@s.streamId"
     frameborder="0"
     allowfullscreen></iframe>
-  }
-  case _ => {
   }
   }
   }
@@ -57,8 +48,8 @@ side = side.some,
 moreCss = moreCss) {
 <div class="tv_stream">
   <h2 class="stream_title">@s.name</h2>
-  @s.service match {
-  case "twitch" => {
+  @s.streamer.service match {
+  case lila.tv.StreamerList.Twitch => {
   <object
     type="application/x-shockwave-flash"
     width="694"
@@ -73,31 +64,12 @@ moreCss = moreCss) {
     <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
   </object>
   }
-  case "ustream" => {
-  <object width="694" height="465" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
-    <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
-    <param name="allowfullscreen" value="true"/>
-    <param name="allowscriptaccess" value="always"/>
-    <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
-    <embed
-    flashvars="cid=@s.streamId&amp;autoplay=true"
-    width="694"
-    height="465"
-    allowfullscreen="true"
-    allowscriptaccess="always"
-    src="http://www.ustream.tv/flash/viewer.swf"
-    type="application/x-shockwave-flash"></embed>
-  </object>
-  }
-  case "hitbox" => {
+  case lila.tv.StreamerList.Hitbox => {
   <iframe
     width="694"
     height="391"
     src="http://hitbox.tv/#!/embed/@s.streamId?autoplay=true"
     frameborder="0" allowfullscreen></iframe>
-  }
-  case service => {
-  Not supported stream service @service
   }
   }
 </div>
