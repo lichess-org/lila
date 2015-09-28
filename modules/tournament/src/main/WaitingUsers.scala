@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 private[tournament] case class WaitingUsers(
     hash: Map[String, DateTime],
@@ -11,9 +12,11 @@ private[tournament] case class WaitingUsers(
   // 3+0  -> 16 -> 16
   // 5+0  -> 24 -> 24
   // 10+0 -> 44 -> 35
-  private val waitSeconds = {
+  val waitSeconds = {
     (clock.fold(60)(_.estimateTotalTime) / 15) + 4
   } min 35 max 10
+
+  val waitDuration = waitSeconds.seconds
 
   lazy val all = hash.keys.toList
   lazy val size = hash.size
@@ -26,15 +29,21 @@ private[tournament] case class WaitingUsers(
     else all
   }
 
-  def waitSecondsOf(userId: String) = hash get userId map { d =>
-    nowSeconds - d.getSeconds
-  }
-
   def waiting = {
     val since = date minusSeconds waitSeconds
     hash.collect {
       case (u, d) if d.isBefore(since) => u
     }.toList
+  }
+
+  def minWaitToPairing: Option[Duration] =
+    hash.foldLeft(none[Duration]) {
+      case (res, (u, d))               =>
+      case (u, d) if d.isBefore(since) => u
+    }.toList
+
+  def waitSecondsOf(userId: String) = hash get userId map { d =>
+    nowSeconds - d.getSeconds
   }
 
   def update(us: Seq[String], clock: Option[chess.Clock]) = {

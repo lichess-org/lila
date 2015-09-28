@@ -89,6 +89,11 @@ object TournamentRepo {
     BSONDocument("$set" -> BSONDocument("winner" -> userId))
   ).void
 
+  def setPairsAt(tourId: String, pairsAt: DateTime) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("pairsAt" -> pairsAt))
+  ).void
+
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(
       BSONDocument("schedule" -> BSONDocument("$exists" -> false)),

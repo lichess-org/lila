@@ -44,6 +44,7 @@ object BSONHandlers {
         createdAt = r date "createdAt",
         createdBy = r str "createdBy",
         startsAt = startsAt,
+        pairsAt = r dateO "pairsAt",
         winnerId = r strO "winner")
     }
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
@@ -66,6 +67,7 @@ object BSONHandlers {
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy),
       "startsAt" -> w.date(o.startsAt),
+      "pairsAt" -> o.pairsAt.map(w.date),
       "winner" -> o.winnerId)
   }
 

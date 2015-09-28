@@ -41,6 +41,7 @@ final class Env(
     val SequencerTimeout = config duration "sequencer.timeout"
     val SequencerMapName = config getString "sequencer.map_name"
     val NetDomain = config getString "net.domain"
+    val PairingDelay = config duration "pairing.delay"
   }
   import settings._
 
@@ -54,6 +55,7 @@ final class Env(
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
+    pairingDelay = PairingDelay,
     clearJsonViewCache = jsonView.clearCache,
     router = hub.actor.router,
     renderer = hub.actor.renderer,
@@ -120,7 +122,7 @@ final class Env(
       organizer -> actorApi.AllCreatedTournaments
     }
 
-    scheduler.message(3 seconds) {
+    scheduler.message(PairingDelay) {
       organizer -> actorApi.StartedTournaments
     }
 

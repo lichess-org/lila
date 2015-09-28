@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
+import scala.concurrent.duration._
 
 import scala.util.Random
 
@@ -18,16 +19,16 @@ object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(
     tour: Tournament,
-    users: WaitingUsers): Fu[Pairings] = for {
+    users: WaitingUsers): Fu[(Pairings, Option[Duration])] = for {
     recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)
     data = Data(tour, recentPairings, ranking, nbActiveUsers)
     pairings <- {
-      if (recentPairings.isEmpty) evenOrAll(data, users)
+      if (recentPairings.isEmpty) evenOrAll(data, users).map(_ -> none)
       else tryPairings(data, users.waiting) flatMap {
-        case Nil => fuccess(Nil)
-        case _   => evenOrAll(data, users)
+        case Nil => fuccess(Nil -> none)
+        case _   => evenOrAll(data, users).map(_ -> none)
       }
     }
   } yield pairings

@@ -27,6 +27,7 @@ private[tournament] final class TournamentApi(
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
+    pairingDelay: Duration,
     clearJsonViewCache: String => Funit,
     router: ActorSelection,
     renderer: ActorSelection,
@@ -59,19 +60,21 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
+  def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: DateTime) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       tour.system.pairingSystem.createPairings(tour, users) flatMap {
         case Nil => funit
-        case pairings if nowMillis - startAt > 1000 =>
-          play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+        case pairings if nowMillis - startAt.getMillis > 1000 =>
+          play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt.getMillis}ms")
           funit
         case pairings => pairings.map { pairing =>
           PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-        }.sequenceFu.map {
-          _ map StartGame.apply foreach { sendTo(tour.id, _) }
+        }.sequenceFu.flatMap { games =>
+          TournamentRepo.setPairsAt(tour.id, startAt plus pairingDelay.toMillis) inject {
+            games map StartGame.apply foreach { sendTo(tour.id, _) }
+          }
         } >>- {
-          val time = nowMillis - startAt
+          val time = nowMillis - startAt.getMillis
           if (time > 100)
             play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
         }
