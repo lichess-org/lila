@@ -5,13 +5,17 @@ module.exports = function(allow, emit) {
 
   var minDepth = 8;
   var maxDepth = 18;
+  var multiPv = 3;
+
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+
   var pool = makePool({
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
-    maxDepth: maxDepth
+    maxDepth: maxDepth,
+    multiPv: multiPv
   }, 3);
 
   var start = function(path, steps) {
@@ -62,6 +66,20 @@ module.exports = function(allow, emit) {
       stop();
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
+    },
+    merge: function(eval, res, white) {
+      if (!eval) {
+        res.multi = [];
+        res.multi[res.pv] = res;
+        return res;
+      }
+      if (
+        depth: depth,
+        pv: pv,
+        cp: cp,
+        mate: mate,
+        best: best
+      },
     }
   };
 };

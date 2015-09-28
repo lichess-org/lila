@@ -12,24 +12,25 @@ module.exports = function(opts, name) {
 
   var processOutput = function(text, work) {
     if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
-    var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
+    var matches = text.match(/depth (\d+) .*multipv (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
     if (!matches) return;
     var depth = parseInt(matches[1]);
     if (switching() && depth > 1) return; // stale info for previous work
     switching(false); // got depth 1, it's now computing the current work
     if (depth < opts.minDepth) return;
-    var cp, mate;
-    if (matches[2] === 'cp') cp = parseFloat(matches[3]);
-    else mate = parseFloat(matches[3]);
+    var cp, mate, pv = parseInt(matches[2]);
+    if (matches[3] === 'cp') cp = parseFloat(matches[4]);
+    else mate = parseFloat(matches[4]);
     if (work.ply % 2 === 1) {
-      if (matches[2] === 'cp') cp = -cp;
+      if (matches[3] === 'cp') cp = -cp;
       else mate = -mate;
     }
-    var best = matches[4].split(' ')[0];
+    var best = matches[5].split(' ')[0];
     work.emit({
       work: work,
       eval: {
         depth: depth,
+        pv: pv,
         cp: cp,
         mate: mate,
         best: best
@@ -40,6 +41,7 @@ module.exports = function(opts, name) {
 
   // warmup
   send('uci');
+  send('setoption name MultiPV value ' + opts.multiPv);
 
   return {
     start: function(work) {

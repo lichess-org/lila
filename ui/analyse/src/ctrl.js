@@ -220,7 +220,7 @@ module.exports = function(opts) {
     throttle(300, false, function(res) {
       this.analyse.updateAtPath(res.work.path, function(step) {
         if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-        step.ceval = res.eval;
+        step.ceval = this.ceval.merge(step.ceval, res.eval, step.ply % 2 === 0);
         if (treePath.write(res.work.path) === this.vm.pathStr) {
           setAutoShapesFromEval();
           m.redraw();
