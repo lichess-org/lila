@@ -66,7 +66,7 @@ module.exports = {
       enabled ? m('pearl', pearl) : m('help',
         'Local computer evaluation',
         m('br'),
-        'for variation analysis (BETA)'
+        'for variation analysis'
       )
     );
   }
