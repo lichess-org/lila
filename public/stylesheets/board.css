@@ -393,28 +393,28 @@ div.lichess_board {
 .is2d .cg-board-wrap.minimal-dom {
   background: none;
 }
-.mono-piece {
+mono-piece {
   width: 32px;
   height: 32px;
   background-size: cover;
   display: inline-block;
 }
-.mono-piece.pawn {
+mono-piece.pawn {
   background-image: url(../piece/mono/P.svg);
 }
-.mono-piece.bishop {
+mono-piece.bishop {
   background-image: url(../piece/mono/B.svg);
 }
-.mono-piece.knight {
+mono-piece.knight {
   background-image: url(../piece/mono/N.svg);
 }
-.mono-piece.rook {
+mono-piece.rook {
   background-image: url(../piece/mono/R.svg);
 }
-.mono-piece.queen {
+mono-piece.queen {
   background-image: url(../piece/mono/Q.svg);
 }
-.mono-piece.king {
+mono-piece.king {
   background-image: url(../piece/mono/K.svg);
 }
 .Basic .is3d .pawn.white {
@@ -1396,11 +1396,11 @@ div.cemetery:first-child {
 div.cemetery:last-child {
   margin-bottom: 5px;
 }
-div.cemetery .tomb {
+div.cemetery tomb {
   display: inline-block;
   margin-left: 10px;
 }
-div.cemetery .mono-piece {
+div.cemetery mono-piece {
   margin-left: -10px;
 }
 div.berserk_alert {
