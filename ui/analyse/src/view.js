@@ -42,8 +42,7 @@ function renderMove(ctrl, move, path) {
         'active': pathStr === ctrl.vm.pathStr,
         'current': pathStr === ctrl.vm.initialPathStr
       }),
-      'data-path': pathStr,
-      // 'href': '#' + path[0].ply
+      'data-path': pathStr
     },
     children: [
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (

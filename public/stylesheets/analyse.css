@@ -482,9 +482,6 @@ table.modAssessment td.noMatch {
 .forecast.loading {
   opacity: 0.7;
 }
-.forecast san {
-  font-weight: bold;
-}
 .forecast .entries {
   border: 1px solid #ccc;
 }
@@ -555,6 +552,14 @@ table.modAssessment td.noMatch {
   display: block;
   white-space: normal;
   font-weight: normal;
+}
+.forecast sans {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+.forecast sans san {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-weight: bold;
 }
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {
