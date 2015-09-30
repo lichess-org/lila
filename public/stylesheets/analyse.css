@@ -250,15 +250,8 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   float: right;
 }
 .lichess_ground .replay turn index {
-  display: inline-block;
   width: 26px;
   text-align: center;
-  font-size: 13px;
-  height: 22px;
-  display: inline-block;
-  line-height: 22px;
-  padding: 2px 0;
-  background: #e0e0e0;
 }
 .lichess_ground .replay move {
   display: inline-block;
@@ -267,10 +260,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .lichess_ground .replay turn move {
   position: relative;
   width: calc(50% - 14px - 13px);
-  font-size: 17px;
-  height: 22px;
-  line-height: 22px;
-  display: inline-block;
   padding: 2px 7px;
 }
 .lichess_ground .replay move.current {
@@ -278,17 +267,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .replay turn move.empty {
   opacity: 0.5;
-}
-.lichess_ground .replay move:not(.empty) {
-  cursor: pointer;
-  transition: background-color 0.13s;
-}
-.lichess_ground .replay move:not(.empty):hover {
-  background: #e0e0e0;
-}
-.lichess_ground .replay move.active {
-  color: #d85000;
-  font-weight: bold;
 }
 .lichess_ground .replay eval {
   position: absolute;

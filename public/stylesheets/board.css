@@ -1044,30 +1044,43 @@ div.table {
   margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
-}
-.lichess_ground .replay table {
-  width: 100%;
+  position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
-.lichess_ground .replay td.index {
-  width: 15%;
+.lichess_ground .replay turn {
+  display: block;
+  height: 26px;
+}
+.lichess_ground .replay turn > index,
+.lichess_ground .replay turn > move {
+  display: inline-block;
+  height: 22px;
+  line-height: 22px;
+}
+.lichess_ground .replay turn > index {
+  width: 34px;
+  padding: 2px 0;
+  background: #e0e0e0;
   text-align: center;
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .replay td.move {
+.lichess_ground .replay turn > move {
+  width: calc(50% - 14px - 13px);
   font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 1.3em;
+  font-size: 17px;
   padding: 2px 5px;
+}
+.lichess_ground .replay move:not(.empty) {
   cursor: pointer;
   transition: background-color 0.13s;
 }
-.lichess_ground .replay td.move:hover {
+.lichess_ground .replay move:not(.empty):hover {
   background: #e0e0e0;
 }
-.lichess_ground .replay td.move.active {
+.lichess_ground .replay move.active {
   color: #d85000;
   font-weight: bold;
 }
