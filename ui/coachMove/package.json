@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "coach": "../coach",
-    "chessground": "2.11.1",
+    "chessground": "2.12.1",
     "mithril": "0.2.0"
   }
 }

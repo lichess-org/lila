@@ -399,10 +399,10 @@ body.dark #top .dropdown {
   border-top: 0;
   right: -1px;
 }
-body.pirouetti.dark div.cemetery div.cg-piece.black {
+body.pirouetti.dark div.cemetery piece.black {
   -webkit-filter: brightness(2) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
-body.alpha.dark div.cemetery div.cg-piece.black {
+body.alpha.dark div.cemetery piece.black {
   -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
 body.dark .scroll-shadow-soft,

@@ -38,89 +38,89 @@
   top: 0;
   height: 100%;
 }
-.cg-square {
+square {
   position: absolute;
   width: 12.5%;
   height: 12.5%;
   transition: 0.13s;
 }
-.cg-square[data-coord-x]::after,
-.cg-square[data-coord-y]::before {
+square[data-coord-x]::after,
+square[data-coord-y]::before {
   position: absolute;
   font-size: 11px;
   line-height: 11px;
   opacity: 0.7;
   text-transform: uppercase;
 }
-.cg-square[data-coord-x]::after {
+square[data-coord-x]::after {
   content: attr(data-coord-x);
   left: 1px;
   bottom: 1px;
 }
-.cg-square[data-coord-y]::before {
+square[data-coord-y]::before {
   content: attr(data-coord-y);
   right: 1px;
   top: 1px;
 }
-body.coords_1 .cg-square[data-coord-x]::after,
-body.coords_1 .cg-square[data-coord-y]::before {
+body.coords_1 square[data-coord-x]::after,
+body.coords_1 square[data-coord-y]::before {
   color: #fff;
   text-shadow: 0 1px 2px #000;
 }
-body.coords_2 .cg-square[data-coord-x]::after {
+body.coords_2 square[data-coord-x]::after {
   bottom: -12px;
   left: calc(50% - 3.5px);
   font-weight: bold;
 }
-body.coords_2 .is3d .cg-square[data-coord-x]::after {
+body.coords_2 .is3d square[data-coord-x]::after {
   bottom: calc(-10px - 22%);
 }
-body.coords_2 .cg-square[data-coord-y]::before {
+body.coords_2 square[data-coord-y]::before {
   right: -9px;
   top: calc(50% - 7px);
   font-weight: bold;
 }
-body.highlight .manipulable .cg-square.drag-over {
+body.highlight .manipulable square.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
-body.destination .cg-board .cg-square.move-dest {
+body.destination .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
 }
-body.destination .cg-board .cg-square.oc.move-dest {
+body.destination .cg-board square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
-body.destination .cg-board .cg-square.premove-dest {
+body.destination .cg-board square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
 }
-body.destination .cg-board .cg-square.oc.premove-dest {
+body.destination .cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
 }
-body.highlight .cg-board .cg-square.move-dest.drag-over,
-body.highlight .cg-board .cg-square.move-dest:hover {
+body.highlight .cg-board square.move-dest.drag-over,
+body.highlight .cg-board square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
 }
-body.highlight .cg-board .cg-square.premove-dest.drag-over,
-body.highlight .cg-board .cg-square.premove-dest:hover {
+body.highlight .cg-board square.premove-dest.drag-over,
+body.highlight .cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
-body.base .cg-board .cg-square.selected {
+body.base .cg-board square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
-body.highlight .cg-board .cg-square.last-move,
-.mini_board .cg-board .cg-square.last-move {
+body.highlight .cg-board square.last-move,
+.mini_board .cg-board square.last-move {
   background-color: rgba(155, 199, 0, 0.41);
 }
-body.highlight .cg-board .cg-square.check {
+body.highlight .cg-board square.check {
   background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
 }
-body.base .cg-board .cg-square.current-premove {
+body.base .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-body.base .cg-board .cg-square.exploding {
+body.base .cg-board square.exploding {
   background-color: rgba(255, 0, 0, 0.5);
 }
-.cg-piece {
+piece {
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -132,19 +132,19 @@ body.base .cg-board .cg-square.exploding {
   z-index: 2;
   /* no less than 2 */
 }
-.mini_board .cg-piece {
+.mini_board piece {
   transform: none;
   -webkit-transform: none;
   z-index: initial;
 }
-.lichess_board.blindfold .cg-piece,
-.other_games.blindfold .cg-piece {
+.lichess_board.blindfold piece,
+.other_games.blindfold piece {
   opacity: 0;
 }
-body.highlight .lichess_board.blindfold .cg-square.check {
+body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
-.is3d .cg-piece {
+.is3d piece {
   /* original size:
   width: 140.625%;
   height: 179.6875%; */
@@ -154,25 +154,25 @@ height: 197.925%;
 left: -18%;
 bottom: -20%;
 }
-.is2d .cg-piece {
+.is2d piece {
   width: 100%;
   height: 100%;
   left: 0;
   bottom: 0;
 }
-.cg-piece.dragging {
+piece.dragging {
   z-index: 3;
   cursor: move;
 }
-.cg-piece.ghost {
+piece.ghost {
   opacity: 0.3;
 }
 /* minimal dom overrides */
 
-.minimal-dom .cg-square {
+.minimal-dom square {
   transition: none;
 }
-.minimal-dom .cg-piece {
+.minimal-dom piece {
   position: absolute;
   width: 12.5%;
   height: 12.5%;
@@ -427,7 +427,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Bishop-Flipped.png);
 }
 .Basic .is3d .knight.white,
-#top .is3d .cg-piece.Basic {
+#top .is3d piece.Basic {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Knight.png);
 }
 .Basic .is3d .orientation-black .knight.white {
@@ -476,7 +476,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Bishop-Flipped.png);
 }
 .Glass .is3d .knight.white,
-#top .is3d .cg-piece.Glass {
+#top .is3d piece.Glass {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Knight.png);
 }
 .Glass .is3d .orientation-black .knight.white {
@@ -525,7 +525,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Bishop-Flipped.png);
 }
 .Wood .is3d .knight.white,
-#top .is3d .cg-piece.Wood {
+#top .is3d piece.Wood {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Knight.png);
 }
 .Wood .is3d .orientation-black .knight.white {
@@ -574,7 +574,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Bishop-Flipped.png);
 }
 .Metal .is3d .knight.white,
-#top .is3d .cg-piece.Metal {
+#top .is3d piece.Metal {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Knight.png);
 }
 .Metal .is3d .orientation-black .knight.white {
@@ -623,7 +623,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop-Flipped.png);
 }
 .RedVBlue .is3d .knight.white,
-#top .is3d .cg-piece.RedVBlue {
+#top .is3d piece.RedVBlue {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight.png);
 }
 .RedVBlue .is3d .orientation-black .knight.white {
@@ -672,7 +672,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Bishop-Flipped.png);
 }
 .Trimmed .is3d .knight.white,
-#top .is3d .cg-piece.Trimmed {
+#top .is3d piece.Trimmed {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Knight.png);
 }
 .Trimmed .is3d .orientation-black .knight.white {
@@ -721,7 +721,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop-Flipped.png);
 }
 .Experimental .is3d .knight.white,
-#top .is3d .cg-piece.Experimental {
+#top .is3d piece.Experimental {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight.png);
 }
 .Experimental .is3d .orientation-black .knight.white {
@@ -770,7 +770,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop-Flipped.png);
 }
 .ModernJade .is3d .knight.white,
-#top .is3d .cg-piece.ModernJade {
+#top .is3d piece.ModernJade {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight.png);
 }
 .ModernJade .is3d .orientation-black .knight.white {
@@ -819,7 +819,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop-Flipped.png);
 }
 .ModernWood .is3d .knight.white,
-#top .is3d .cg-piece.ModernWood {
+#top .is3d piece.ModernWood {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight.png);
 }
 .ModernWood .is3d .orientation-black .knight.white {
@@ -858,55 +858,55 @@ div.lichess_board {
 .ModernWood .is3d .king.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
 }
-#top .cg-piece.cburnett {
+#top piece.cburnett {
   background-image: url(../piece-src/cburnett/wN.svg);
 }
-#top .cg-piece.merida {
+#top piece.merida {
   background-image: url(../piece/merida/wN.svg);
 }
-#top .cg-piece.chess7 {
+#top piece.chess7 {
   background-image: url(../piece/chess7/wN.svg);
 }
-#top .cg-piece.spatial {
+#top piece.spatial {
   background-image: url(../piece/spatial/wN.svg);
 }
-#top .cg-piece.alpha {
+#top piece.alpha {
   background-image: url(../piece/alpha/wN.svg);
 }
-#top .cg-piece.pirouetti {
+#top piece.pirouetti {
   background-image: url(../piece-src/pirouetti/wN.svg);
 }
-#top .cg-piece.reillycraig {
+#top piece.reillycraig {
   background-image: url(../piece/reillycraig/wN.svg);
 }
-#top .cg-piece.fantasy {
+#top piece.fantasy {
   background-image: url(../piece/fantasy/wN.svg);
 }
-#top .cg-piece.shapes {
+#top piece.shapes {
   background-image: url(../piece/shapes/wN.svg);
 }
-#top .cg-piece.chessnut {
+#top piece.chessnut {
   background-image: url(../piece/chessnut/wN.svg);
 }
-#top .cg-piece.companion {
+#top piece.companion {
   background-image: url(../piece/companion/wN.svg);
 }
-.pirouetti .is2d .cg-piece.piece.white {
+.pirouetti .is2d piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
 }
-.pirouetti .is2d .cg-piece.piece.black {
+.pirouetti .is2d piece.piece.black {
   -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
 }
-.pirouetti .is2d .cg-piece.piece.ui-draggable-dragging,
+.pirouetti .is2d piece.piece.ui-draggable-dragging,
 .pirouetti .is2d .piece.animating {
   -webkit-filter: none!important;
 }
-body.kappa .cg-board.orientation-white .cg-piece.king.white,
-body.kappa .cg-board.orientation-black .cg-piece.king.black {
+body.kappa .cg-board.orientation-white piece.king.white,
+body.kappa .cg-board.orientation-black piece.king.black {
   background-image: url(../piece/other/kappa.png);
 }
-body.doggy .cg-board.orientation-white .cg-piece.pawn.white,
-body.doggy .cg-board.orientation-black .cg-piece.pawn.black {
+body.doggy .cg-board.orientation-white piece.pawn.white,
+body.doggy .cg-board.orientation-black piece.pawn.black {
   background-image: url(../piece/other/doggy.png);
 }
 div.lichess_overboard {
@@ -999,7 +999,7 @@ div.dont_touch {
   text-align: center;
   z-index: 5;
 }
-#promotion_choice div.cg-square {
+#promotion_choice square {
   cursor: pointer;
   border-radius: 50%;
   background-color: #b0b0b0;
@@ -1007,25 +1007,25 @@ div.dont_touch {
   box-sizing: border-box;
   transition: 0.2s;
 }
-.is2d #promotion_choice div.cg-piece {
+.is2d #promotion_choice piece {
   transition: 0.2s;
   transform: scale(0.8);
   -webkit-transform: scale(0.8);
 }
-.is3d #promotion_choice div.cg-piece {
+.is3d #promotion_choice piece {
   transform: scale(0.7);
   -webkit-transform: scale(0.7);
   left: -18%;
   bottom: -40%;
 }
-.is3d #promotion_choice div.cg-piece {
+.is3d #promotion_choice piece {
   background-position: 0 -6px;
 }
-#promotion_choice div.cg-square:hover {
+#promotion_choice square:hover {
   box-shadow: inset 0 0 48px 8px #d85000;
   border-radius: 0%;
 }
-.is2d #promotion_choice div.cg-square:hover div.cg-piece {
+.is2d #promotion_choice square:hover piece {
   transform: none;
   -webkit-transform: none;
 }
@@ -1351,7 +1351,7 @@ div.current_player div.no-square .loader {
   margin-top: 5px;
   font-size: 5.8px;
 }
-.is3d div.current_player div.cg-piece {
+.is3d div.current_player piece {
   width: 100%;
   height: 132%;
   left: 0;
