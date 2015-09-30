@@ -146,6 +146,7 @@ module.exports = function(opts) {
   this.jumpToNag = function(color, nag) {
     var ply = this.analyse.plyOfNextNag(color, nag, this.vm.step.ply);
     if (ply) this.jumpToMain(ply);
+    m.redraw();
   }.bind(this);
 
   var forsyth = function(role) {
