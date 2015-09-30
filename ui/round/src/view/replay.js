@@ -11,9 +11,8 @@ var emptyMove = m('move', '...');
 function renderMove(step, curPly, orEmpty) {
   return step ? {
     tag: 'move',
-    attrs: {
-      class: step.ply === curPly ? 'active' : '',
-      'data-ply': step.ply
+    attrs: step.ply !== curPly ? {} : {
+      class: 'active'
     },
     children: [step.san]
   } : (orEmpty ? emptyMove : null)
@@ -150,8 +149,9 @@ module.exports = function(ctrl) {
         if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
       onclick: function(e) {
-        var ply = e.target.getAttribute('data-ply');
-        if (ply) ctrl.jump(parseInt(ply));
+        var turn = parseInt($(e.target).siblings('index').text());
+        var ply = 2 * turn - 2 + $(e.target).index();
+        if (ply) ctrl.jump(ply);
       }
     }, renderMoves(ctrl)) : renderResult(ctrl)
   ]);
