@@ -30,6 +30,7 @@ case class Modlog(
     case Modlog.deleteQaQuestion => "delete Q&A question"
     case Modlog.deleteQaAnswer   => "delete Q&A answer"
     case Modlog.deleteQaComment  => "delete Q&A comment"
+    case Modlog.streamConfig     => "update streams config"
     case a                       => a
   }
 
@@ -60,6 +61,7 @@ object Modlog {
   val deleteQaQuestion = "deleteQaQuestion"
   val deleteQaAnswer = "deleteQaAnswer"
   val deleteQaComment = "deleteQaComment"
+  val streamConfig = "streamConfig"
 
   import lila.db.JsTube
   import JsTube.Helpers._
