@@ -216,17 +216,16 @@ module.exports = function(opts) {
     util.synthetic(this.data) || !game.playable(this.data)
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
-  this.ceval = cevalCtrl(allowCeval,
-    throttle(300, false, function(res) {
-      this.analyse.updateAtPath(res.work.path, function(step) {
-        if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-        step.ceval = res.eval;
-        if (treePath.write(res.work.path) === this.vm.pathStr) {
-          setAutoShapesFromEval();
-          m.redraw();
-        }
-      }.bind(this));
-    }.bind(this)));
+  this.ceval = cevalCtrl(allowCeval, function(res) {
+    this.analyse.updateAtPath(res.work.path, function(step) {
+      if (step.ceval && step.ceval.depth >= res.eval.depth) return;
+      step.ceval = this.ceval.merge(step.ceval, res.eval, step.ply % 2 === 0);
+      if (treePath.write(res.work.path) === this.vm.pathStr) {
+        setAutoShapesFromEval();
+        m.redraw();
+      }
+    }.bind(this));
+  }.bind(this));
 
   this.canUseCeval = function(step) {
     return step.dests !== '';
@@ -250,7 +249,6 @@ module.exports = function(opts) {
   this.toggleAutoShapes = function(v) {
     if (this.vm.showAutoShapes(v)) setAutoShapesFromEval();
     else this.chessground.setAutoShapes([]);
-    console.log();
   }.bind(this);
 
   var setAutoShapesFromEval = function() {
@@ -258,7 +256,12 @@ module.exports = function(opts) {
     var s = this.vm.step,
       shapes = [];
     if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));
-    if (this.ceval.enabled() && s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
+    if (this.ceval.enabled() && s.ceval && s.ceval.best) {
+      shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
+      s.ceval.multi.slice(1).forEach(function(e) {
+        shapes.push(makeAutoShapeFromUci(e.best, 'paleBlueSmall'));
+      });
+    }
     this.chessground.setAutoShapes(shapes);
   }.bind(this);
 

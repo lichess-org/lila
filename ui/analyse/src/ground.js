@@ -36,7 +36,15 @@ function makeConfig(data, config, onMove) {
 }
 
 function make(data, config, onMove) {
-  return new chessground.controller(makeConfig(data, config, onMove));
+  var c = new chessground.controller(makeConfig(data, config, onMove));
+  c.data.drawable.brushes.paleBlueSmall = {
+    key: 'pbs',
+    color: '#003088',
+    opacity: 0.45,
+    lineWidth: 8,
+    circleMargin: 0
+  };
+  return c;
 }
 
 function promote(ground, key, role) {
