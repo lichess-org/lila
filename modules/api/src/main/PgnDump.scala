@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.pgn.Pgn
+import chess.format.pgn.{ Pgn, Parser }
 import lila.db.api.$query
 import lila.db.Implicits._
 import lila.game.Game
@@ -15,7 +15,11 @@ final class PgnDump(
   def apply(game: Game, initialFen: Option[String]): Pgn = {
     val pgn = dumper(game, initialFen)
     game.tournamentId.flatMap(tournamentName).orElse {
-      game.simulId.flatMap(simulName)
+      game.simulId.flatMap(simulName).orElse {
+        game.pgnImport.flatMap { pgni =>
+          Parser.full(pgni.pgn).toOption.flatMap(_ tag "event")
+        }
+      }
     }.fold(pgn)(pgn.withEvent)
   }
 
