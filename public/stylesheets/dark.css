@@ -219,7 +219,7 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 }
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
-body.dark .lichess_ground .replay .move.current {
+body.dark .lichess_ground .replay move.current {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #top a.signin,
@@ -244,10 +244,10 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark .lichess_ground .replay .turn .index,
+body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .analyse .meta,
-body.dark .lichess_ground .replay a.move:hover,
+body.dark .lichess_ground .replay move:hover,
 body.dark .lichess_ground .replay td.move:hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
