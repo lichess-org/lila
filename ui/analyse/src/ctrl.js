@@ -216,17 +216,16 @@ module.exports = function(opts) {
     util.synthetic(this.data) || !game.playable(this.data)
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
-  this.ceval = cevalCtrl(allowCeval,
-    throttle(300, false, function(res) {
-      this.analyse.updateAtPath(res.work.path, function(step) {
-        if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-        step.ceval = res.eval;
-        if (treePath.write(res.work.path) === this.vm.pathStr) {
-          setAutoShapesFromEval();
-          m.redraw();
-        }
-      }.bind(this));
-    }.bind(this)));
+  this.ceval = cevalCtrl(allowCeval, function(res) {
+    this.analyse.updateAtPath(res.work.path, function(step) {
+      if (step.ceval && step.ceval.depth >= res.eval.depth) return;
+      step.ceval = res.eval;
+      if (treePath.write(res.work.path) === this.vm.pathStr) {
+        setAutoShapesFromEval();
+        m.redraw();
+      }
+    }.bind(this));
+  }.bind(this));
 
   this.canUseCeval = function(step) {
     return step.dests !== '';
