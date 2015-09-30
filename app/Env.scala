@@ -39,7 +39,8 @@ final class Env(
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
     isDonor = Env.donation.isDonor,
-    isHostingSimul = Env.simul.isHosting) _
+    isHostingSimul = Env.simul.isHosting,
+    isStreamer = Env.tv.isStreamer.apply) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
