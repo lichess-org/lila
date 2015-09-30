@@ -8,6 +8,7 @@ module.exports = function(allow, emit) {
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var started = false;
   var pool = makePool({
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
@@ -30,11 +31,13 @@ module.exports = function(allow, emit) {
         if (enabled()) emit(res);
       }
     });
+    started = true;
   };
 
   var stop = function() {
-    if (!enabled()) return;
+    if (!enabled() || !started) return;
     pool.stop();
+    started = false;
   };
 
   var fixCastle = function(uci, san) {

@@ -123,6 +123,7 @@ module.exports = function(opts) {
       this.vm.justPlayed = null;
     }
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
+    this.ceval.stop();
     startCeval();
   }.bind(this);
 
@@ -231,7 +232,7 @@ module.exports = function(opts) {
     return step.dests !== '';
   }.bind(this);
 
-  var startCeval = throttle(500, false, function() {
+  var startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && this.canUseCeval(this.vm.step))
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this));
