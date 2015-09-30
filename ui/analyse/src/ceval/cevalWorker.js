@@ -26,6 +26,7 @@ module.exports = function(opts, name) {
       else mate = -mate;
     }
     var best = matches[5].split(' ')[0];
+    console.log(text);
     work.emit({
       work: work,
       eval: {

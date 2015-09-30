@@ -1,5 +1,6 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
+var cevalSort = require('./cevalSort');
 
 module.exports = function(allow, emit) {
 
@@ -20,7 +21,7 @@ module.exports = function(allow, emit) {
 
   var start = function(path, steps) {
     if (!enabled()) return;
-    var step = steps[steps.length -1];
+    var step = steps[steps.length - 1];
     if (step.ceval && step.ceval.depth >= maxDepth) return;
     pool.start({
       position: steps[0].fen,
@@ -56,6 +57,16 @@ module.exports = function(allow, emit) {
     return uci;
   };
 
+  var copyEval = function(e) {
+    return {
+      depth: e.depth,
+      pv: e.pv,
+      cp: e.cp,
+      mate: e.mate,
+      best: e.best
+    };
+  };
+
   return {
     start: start,
     stop: stop,
@@ -69,17 +80,17 @@ module.exports = function(allow, emit) {
     },
     merge: function(eval, res, white) {
       if (!eval) {
-        res.multi = [];
-        res.multi[res.pv] = res;
+        res.multi = [copyEval(res)];
         return res;
       }
-      if (
-        depth: depth,
-        pv: pv,
-        cp: cp,
-        mate: mate,
-        best: best
-      },
+      var multi = eval.multi.filter(function(x) {
+        return x.pv !== res.pv;
+      });
+      multi.push(res);
+      multi.sort(cevalSort(white));
+      eval = copyEval(multi[0]);
+      eval.multi = multi;
+      return eval;
     }
   };
 };
