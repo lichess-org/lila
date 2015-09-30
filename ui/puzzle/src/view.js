@@ -133,7 +133,7 @@ function renderPlayTable(ctrl) {
       m('div.table_inner', [
         m('div.current_player',
           m('div.player.' + ctrl.chessground.data.turnColor, [
-            m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+            m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
             m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
           ])
         ),

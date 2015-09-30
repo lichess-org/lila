@@ -94,7 +94,8 @@ object Tv extends LilaController {
       FormFuResult(Env.tv.streamerList.form) { err =>
         fuccess(html.tv.streamConfig(err))
       } { text =>
-        Env.tv.streamerList.store.set(text) inject Redirect(routes.Tv.streamConfig)
+        Env.tv.streamerList.store.set(text) >>
+          Env.mod.logApi.streamConfig(me.username) inject Redirect(routes.Tv.streamConfig)
       }
   }
 

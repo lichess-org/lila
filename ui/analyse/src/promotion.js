@@ -44,13 +44,13 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
   return m('div#promotion_choice.' + vertical, {
     onclick: partial(cancel, ctrl)
   }, pieces.map(function(serverRole, i) {
-    return m('div.cg-square', {
+    return m('square', {
       style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
       onclick: function(e) {
         e.stopPropagation();
         finish(ctrl, serverRole);
       }
-    }, m('div.cg-piece.' + serverRole + '.' + color));
+    }, m('piece.' + serverRole + '.' + color));
   }));
 }
 

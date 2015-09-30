@@ -7,6 +7,10 @@ import play.api.libs.json.Json
 
 final class ModlogApi {
 
+  def streamConfig(mod: String) = add {
+    Modlog(mod, none, Modlog.streamConfig)
+  }
+
   def engine(mod: String, user: String, v: Boolean) = add {
     Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
   }
