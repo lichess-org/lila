@@ -19,10 +19,7 @@ var cevalView = require('./ceval/cevalView');
 
 function renderEvalTag(e) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'eval'
-    },
+    tag: 'eval',
     children: [e]
   };
 }
@@ -32,22 +29,20 @@ function autoScroll(movelist) {
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
 }
 
-var emptyMove = m('em.move.empty', '...');
+var emptyMove = m('move.empty', '...');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
   var eval = path[1] ? {} : (move.eval || move.ceval || {});
   return {
-    tag: 'a',
+    tag: 'move',
     attrs: {
       class: classSet({
-        'move': true,
         'active': pathStr === ctrl.vm.pathStr,
         'current': pathStr === ctrl.vm.initialPathStr
       }),
-      'data-path': pathStr,
-      'href': '#' + path[0].ply
+      'data-path': pathStr
     },
     children: [
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
@@ -162,20 +157,14 @@ function renderMeta(ctrl, move, path) {
 
 function renderIndex(txt) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'index'
-    },
+    tag: 'index',
     children: [txt]
   };
 }
 
-function renderTurnDiv(children) {
+function renderTurnEl(children) {
   return {
-    tag: 'div',
-    attrs: {
-      class: 'turn',
-    },
+    tag: 'turn',
     children: children
   };
 }
@@ -190,20 +179,20 @@ function renderTurn(ctrl, turn, path) {
   var bMeta = renderMeta(ctrl, turn.black, bPath);
   if (wMove) {
     if (wMeta) return [
-      renderTurnDiv([index, wMove, emptyMove]),
+      renderTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
-        renderTurnDiv([index, emptyMove, bMove]),
+        renderTurnEl([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
     return [
-      renderTurnDiv([index, wMove, bMove]),
+      renderTurnEl([index, wMove, bMove]),
       bMeta
     ];
   }
   return [
-    renderTurnDiv([index, emptyMove, bMove]),
+    renderTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
 }

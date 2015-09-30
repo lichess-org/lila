@@ -249,48 +249,26 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .lichess_ground .action_menu .switch {
   float: right;
 }
-.lichess_ground .replay .turn > .index {
-  display: inline-block;
+.lichess_ground .replay turn index {
   width: 26px;
   text-align: center;
-  font-size: 13px;
-  height: 22px;
-  display: inline-block;
-  line-height: 22px;
-  padding: 2px 0;
-  background: #e0e0e0;
 }
-.lichess_ground .replay .move {
+.lichess_ground .replay move {
   display: inline-block;
   font-family: 'ChessSansPiratf', sans-serif;
 }
-.lichess_ground .replay .turn .move {
+.lichess_ground .replay turn move {
   position: relative;
   width: calc(50% - 14px - 13px);
-  font-size: 17px;
-  height: 22px;
-  line-height: 22px;
-  display: inline-block;
   padding: 2px 7px;
 }
-.lichess_ground .replay .move.current {
+.lichess_ground .replay move.current {
   background: rgba(191, 231, 255, 0.7);
 }
-.lichess_ground .replay .turn .move.empty {
+.lichess_ground .replay turn move.empty {
   opacity: 0.5;
 }
-.lichess_ground .replay a.move {
-  cursor: pointer;
-  transition: background-color 0.13s;
-}
-.lichess_ground .replay a.move:hover {
-  background: #e0e0e0;
-}
-.lichess_ground .replay a.move.active {
-  color: #d85000;
-  font-weight: bold;
-}
-.lichess_ground .replay .eval {
+.lichess_ground .replay eval {
   position: absolute;
   top: 2px;
   right: 5px;
@@ -300,7 +278,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   opacity: 0.7;
   transition: 0.13s;
 }
-.lichess_ground .replay .move:hover .eval {
+.lichess_ground .replay move:hover eval {
   opacity: 1;
 }
 .lichess_ground .analyse .meta {
@@ -338,17 +316,17 @@ body .lichess_ground .analyse .undefined {
   font-weight: 300;
   padding: 3px 0 3px 5px;
 }
-.lichess_ground .variation .index {
+.lichess_ground .variation index {
   margin-left: 5px;
 }
-.lichess_ground .variation .index:first-child {
+.lichess_ground .variation index:first-child {
   margin-left: 0;
 }
-.lichess_ground .variation .move {
+.lichess_ground .variation move {
   padding: 2px 2px;
   font-weight: normal;
 }
-.lichess_ground .variation a.move:hover {
+.lichess_ground .variation move:hover {
   background: #eee;
 }
 .lichess_ground .analyse .variation .variation {
@@ -482,9 +460,6 @@ table.modAssessment td.noMatch {
 .forecast.loading {
   opacity: 0.7;
 }
-.forecast san {
-  font-weight: bold;
-}
 .forecast .entries {
   border: 1px solid #ccc;
 }
@@ -556,8 +531,16 @@ table.modAssessment td.noMatch {
   white-space: normal;
   font-weight: normal;
 }
+.forecast sans {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+.forecast sans san {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-weight: bold;
+}
 
-body.coords_2 .gauge_displayed .cg-square[data-coord-y]::before {
+body.coords_2 .gauge_displayed square[data-coord-y]::before {
   color: #fff;
   text-shadow: 0 1px 2px #000;
   font-weight: normal;

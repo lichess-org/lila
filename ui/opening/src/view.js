@@ -25,7 +25,7 @@ function renderPlayTable(ctrl) {
       m('div.table_inner', [
         m('div.current_player',
           m('div.player.' + ctrl.data.opening.color, [
-            m('div.no-square', m('div.cg-piece.king.' + ctrl.data.opening.color)),
+            m('div.no-square', m('piece.king.' + ctrl.data.opening.color)),
             m('p', ctrl.trans('yourTurn'))
           ])
         ),

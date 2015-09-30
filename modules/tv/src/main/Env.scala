@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 
 import scala.collection.JavaConversions._
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -40,6 +41,14 @@ final class Env(
     def set(text: String) =
       coll.update(BSONDocument("_id" -> "streamer"), BSONDocument("text" -> text), upsert = true).void
   })
+
+  object isStreamer {
+    private val cache = lila.memo.MixedCache.single[Set[String]](
+      f = streamerList.lichessIds,
+      timeToLive = 1 minute,
+      default = Set.empty)
+    def apply(id: String) = cache get true contains id
+  }
 
   def streamsOnAir = streaming.onAir
 

@@ -25,7 +25,7 @@ module.exports = function(ctrl) {
               e.stopPropagation();
             }
           }, 'x'),
-          m.trust(pgnExport.renderStepsHtml(steps))
+          m('sans', m.trust(pgnExport.renderStepsHtml(steps)))
         ])
       })),
       m('button', {
@@ -34,7 +34,7 @@ module.exports = function(ctrl) {
         onclick: partial(fctrl.addSteps, cSteps)
       }, isCandidate ? [
         m('span', 'Add current variation'),
-        m('span', m.trust(pgnExport.renderStepsHtml(cSteps)))
+        m('span', m('sans', m.trust(pgnExport.renderStepsHtml(cSteps))))
       ] : [
         m('span', 'Play a variation to create'),
         m('span', 'conditional premoves')

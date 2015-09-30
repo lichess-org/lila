@@ -1512,7 +1512,7 @@ body #themepicker div.is3d,
   position: relative;
   margin: 0px -3px -3px -3px;
 }
-#themepicker .is3d .cg-piece {
+#themepicker .is3d piece {
   width: 100%;
   height: 100%;
   left: 0;
