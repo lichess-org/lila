@@ -884,12 +884,11 @@ lichess.unique = function(xs) {
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
                 .addClass(bg === 'transp' ? 'transp dark' : bg);
-              if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
+              if ((bg === 'dark' || bg === 'transp') && !$('link[href*="dark.css"]').length)
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
                 });
-              }
-              if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+              if (bg === 'transp' && !$('link[href*="transp.css"]').length) {
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
                 });
@@ -898,6 +897,10 @@ lichess.unique = function(xs) {
             };
             var showDimensions = function(is3d) {
               $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+              if (is3d && !$('link[href*="board-3d.css"]').length)
+                $('link[href*="board.css"]').clone().each(function() {
+                  $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
+                });
               setZoom(getZoom());
             };
             $themepicker.find('.background a').click(function() {
