@@ -508,16 +508,18 @@ lichess.unique = function(xs) {
         }
       },
       challengeReminder: function(data) {
+        var $toggle = $('#challenge_notifications_tag');
+        var $notifs = $('#challenge_notifications');
         if (!lichess.storage.get('challenge-refused-' + data.id)) {
           var refreshButton = function() {
-            var nb = $('#challenge_notifications > div').length;
-            $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
+            var nb = $notifs.find('> div').length;
+            $toggle.attr('data-count', nb).toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            $('#challenge_notifications').append(data.html);
+            $notifs.append(data.html);
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -532,7 +534,7 @@ lichess.unique = function(xs) {
             $('body').trigger('lichess.content_loaded');
             if (lichess.once('challenge-' + data.id)) {
               if (!lichess.quietMode) {
-                $('#top .challenge_notifications').addClass('shown');
+                if (!$notifs.is(':visible')) $toggle.click();
                 $.sound.newChallenge();
               }
               var op = $notif.find('.user_link').text();
