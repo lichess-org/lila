@@ -11,9 +11,9 @@ sbt publish-local
 cd ..
 
 rm -rf scala-kit
-git clone https://github.com/ornicar/scala-kit --branch 1210thib
+git clone https://github.com/ornicar/scala-kit --branch lichess-fork
 cd scala-kit
-sbt -Dversion=1.2.10-THIB publish-local
+sbt -Dversion=1.2.11-THIB publish-local
 cd ..
 
 rm -rf maxmind-geoip2-scala
