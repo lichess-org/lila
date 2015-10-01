@@ -68,14 +68,15 @@ module.exports = {
     if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
     else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
     var rating = p.rating + p.perf + (p.provisional ? '?' : '');
+    var fullName = (p.title ? p.title + ' ' : '') + p.name;
     return {
       tag: 'a',
       attrs: {
-        class: 'text ulpt user_link',
+        class: 'text ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
         href: '/@/' + p.name
       },
       children: [
-        (p.title ? p.title + ' ' : '') + p.name,
+        fullName,
         m('span.progress', [rating, perf])
       ]
     };

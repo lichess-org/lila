@@ -127,6 +127,9 @@ ol.scheduled_tournaments a {
   padding-top: 20px;
   overflow: hidden;
 }
+#tournament a.user_link.long {
+  letter-spacing: -0.5px;
+}
 #tournament a.user_link .progress {
   font-style: italic;
   font-size: 0.8em;
