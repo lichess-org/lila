@@ -534,13 +534,12 @@ lichess.unique = function(xs) {
               return false;
             });
             $('body').trigger('lichess.content_loaded');
-            if (!lichess.storage.get('challenge-' + data.id)) {
+            if (lichess.once('challenge-' + data.id)) {
               if (!lichess.quietMode) {
                 $('#top .challenge_notifications').addClass('shown');
                 $.sound.newChallenge();
               }
               lichess.desktopNotification("You got challenged!");
-              lichess.storage.set('challenge-' + data.id, 1);
             }
             refreshButton();
           }
