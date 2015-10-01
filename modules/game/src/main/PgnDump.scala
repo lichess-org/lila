@@ -3,7 +3,7 @@ package lila.game
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Forsyth
-import chess.format.pgn.{ Pgn, Tag }
+import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
 import chess.OpeningExplorer
 import makeTimeout.short
@@ -18,7 +18,10 @@ final class PgnDump(
   import PgnDump._
 
   def apply(game: Game, initialFen: Option[String]): Pgn = {
-    val ts = tags(game, initialFen)
+    val imported = game.pgnImport.flatMap { pgni =>
+      Parser.full(pgni.pgn).toOption
+    }
+    val ts = tags(game, initialFen, imported)
     val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
     val moves2 = fenSituation.??(_.situation.color.black).fold(".." :: game.pgnMoves, game.pgnMoves)
     Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
@@ -47,13 +50,17 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde)
 
-  private def tags(game: Game, initialFen: Option[String]): List[Tag] = gameLightUsers(game) match {
+  private def tags(
+    game: Game,
+    initialFen: Option[String],
+    imported: Option[ParsedPgn]): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(
-      Tag(_.Event, 
+      Tag(_.Event, imported.flatMap(_ tag "event") | {
         if (game.imported) "Import"
-        else game.rated.fold("Rated game", "Casual game")),
+        else game.rated.fold("Rated game", "Casual game")
+      }),
       Tag(_.Site, gameUrl(game.id)),
-      Tag(_.Date, dateFormat.print(game.createdAt)),
+      Tag(_.Date, imported.flatMap(_ tag "date") | dateFormat.print(game.createdAt)),
       Tag(_.White, player(game.whitePlayer, wu)),
       Tag(_.Black, player(game.blackPlayer, bu)),
       Tag(_.Result, result(game)),

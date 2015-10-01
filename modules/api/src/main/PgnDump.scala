@@ -15,11 +15,7 @@ final class PgnDump(
   def apply(game: Game, initialFen: Option[String]): Pgn = {
     val pgn = dumper(game, initialFen)
     game.tournamentId.flatMap(tournamentName).orElse {
-      game.simulId.flatMap(simulName).orElse {
-        game.pgnImport.flatMap { pgni =>
-          Parser.full(pgni.pgn).toOption.flatMap(_ tag "event")
-        }
-      }
+      game.simulId.flatMap(simulName)
     }.fold(pgn)(pgn.withEvent)
   }
 
