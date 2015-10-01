@@ -473,7 +473,7 @@ lichess.unique = function(xs) {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
+        $('#message_notifications_tag').data('count', e || "0").parent().toggle(e > 0);
         if (e) {
           $.sound.newPM();
           var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
@@ -515,8 +515,7 @@ lichess.unique = function(xs) {
         if (!lichess.storage.get('challenge-refused-' + data.id)) {
           var refreshButton = function() {
             var nb = $('#challenge_notifications > div').length;
-            $('#nb_challenges').text(nb);
-            $('#challenge_notifications_tag').toggleClass('none', !nb);
+            $('#challenge_notifications_tag').data('count', nb).toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);

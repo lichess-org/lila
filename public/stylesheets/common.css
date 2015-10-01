@@ -907,12 +907,30 @@ body.offline #reconnecting,
 }
 #top .fright {
   float: right;
+  position: relative;
 }
+[data-count]::after,
 .unread {
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   border-radius: 2px;
   font-size: 0.9em;
+}
+[data-count]::after {
+  content: attr(data-count);
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: 11px;
+  padding: 1px 4px 1px 3px;
+  line-height: 10px;
+}
+.count--red[data-count]::after {
+  background: #FD2934;
+  border-color: #FD000D;
+}
+[data-count='0']::after {
+  display: none;
 }
 #top .shown a.toggle {
   background: #fff;
@@ -1761,8 +1779,8 @@ a.button:active {
 .ui-state-active,
 .ui-widget-header,
 div.pagination span.current,
+[data-count]::after,
 .unread,
-#top span.new_challenges,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,
 #import_game .progression {
