@@ -469,7 +469,7 @@ lichess.unique = function(xs) {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#message_notifications_tag').data('count', e || "0").parent().toggle(e > 0);
+        $('#message_notifications_tag').attr('data-count', e || 0).parent().toggle(e > 0);
         if (e) {
           $.sound.newPM();
           var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
