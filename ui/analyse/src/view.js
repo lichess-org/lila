@@ -35,9 +35,9 @@ function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
   var eval = path[1] ? {} : (move.eval || move.ceval || {});
-  var attrs = {
+  var attrs = path[1] ? {
     'data-path': pathStr
-  };
+  } : {};
   var classes = classSet({
     'active': pathStr === ctrl.vm.pathStr,
     'current': pathStr === ctrl.vm.initialPathStr
@@ -252,11 +252,10 @@ function renderAnalyse(ctrl) {
   }
   return m('div.analyse', {
       onmousedown: function(e) {
-        var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) {
-          e.preventDefault();
-          ctrl.userJump(treePath.read(path));
-        }
+        var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        var path = el.getAttribute('data-path') ||
+          '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
+        if (path) ctrl.userJump(treePath.read(path));
       },
       onclick: function(e) {
         return false;
