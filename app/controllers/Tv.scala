@@ -95,7 +95,7 @@ object Tv extends LilaController {
         fuccess(html.tv.streamConfig(err))
       } { text =>
         Env.tv.streamerList.store.set(text) >>
-          Env.mod.logApi.streamConfig(me.username) inject Redirect(routes.Tv.streamConfig)
+          Env.mod.logApi.streamConfig(me.id) inject Redirect(routes.Tv.streamConfig)
       }
   }
 
