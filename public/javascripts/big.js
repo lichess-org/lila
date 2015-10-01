@@ -346,20 +346,16 @@ window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
-  if (lichess.isPageVisible || !("Notification" in window) || Notification.permission === "denied") return;
-  if (Notification.permission === "granted") {
-    var notification = new Notification("lichess", {
+  var title = 'lichess.org';
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
+  if (Notification.permission === 'granted') new Notification(title, {
+    body: msg
+  });
+  else Notification.requestPermission(function(p) {
+    if (p === 'granted') new Notification(title, {
       body: msg
     });
-  } else {
-    Notification.requestPermission(function(permission) {
-      if (permission === "granted") {
-        var notification = new Notification("lichess", {
-          body: msg
-        });
-      }
-    });
-  }
+  });
 };
 lichess.unique = function(xs) {
   return xs.filter(function(x, i) {
@@ -539,7 +535,8 @@ lichess.unique = function(xs) {
                 $('#top .challenge_notifications').addClass('shown');
                 $.sound.newChallenge();
               }
-              lichess.desktopNotification("You got challenged!");
+              var op = $notif.find('.user_link').text();
+              lichess.desktopNotification(op + ' challenges you!');
             }
             refreshButton();
           }
