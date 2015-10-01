@@ -57,14 +57,16 @@ function renderMoves(ctrl) {
   }
 
   var rows = [];
-  for (var i = 0, len = pairs.length; i < len; i++)
-    rows.push(m('turn', [{
+  for (var i = 0, len = pairs.length; i < len; i++) rows.push({
+    tag: 'turn',
+    children: [{
         tag: 'index',
         children: [i + 1]
       },
       renderMove(pairs[i][0], ctrl.vm.ply, true),
       renderMove(pairs[i][1], ctrl.vm.ply, false)
-    ]));
+    ]
+  });
   rows.push(renderResult(ctrl));
 
   return rows;
