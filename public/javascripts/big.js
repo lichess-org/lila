@@ -515,7 +515,7 @@ lichess.unique = function(xs) {
         if (!lichess.storage.get('challenge-refused-' + data.id)) {
           var refreshButton = function() {
             var nb = $('#challenge_notifications > div').length;
-            $('#challenge_notifications_tag').data('count', nb).toggleClass('none', !nb);
+            $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
