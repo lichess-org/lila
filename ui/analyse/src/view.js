@@ -38,11 +38,9 @@ function renderMove(ctrl, move, path) {
   var attrs = path[1] ? {
     'data-path': pathStr
   } : {};
-  var classes = classSet({
-    'active': pathStr === ctrl.vm.pathStr,
-    'current': pathStr === ctrl.vm.initialPathStr
-  });
-  if (classes) attrs.class = classes;
+  var classes = pathStr === ctrl.vm.pathStr ? ['active'] : [];
+  if (pathStr === ctrl.vm.initialPathStr) classes.push('current');
+  if (classes.length) attrs.class = classes.join(' ');
   return {
     tag: 'move',
     attrs: attrs,
