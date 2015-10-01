@@ -150,7 +150,7 @@ module.exports = function(ctrl) {
         autoScroll(el);
         if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
-      onclick: function(e) {
+      onmousedown: function(e) {
         var turn = parseInt($(e.target).siblings('index').text());
         var ply = 2 * turn - 2 + $(e.target).index();
         if (ply) ctrl.jump(ply);
