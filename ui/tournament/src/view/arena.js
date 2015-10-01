@@ -44,7 +44,8 @@ function playerTr(ctrl, player) {
         }) : rank(player),
         util.player(player)
       ]),
-      ctrl.data.startsAt ? m('td') : m('td.sheet', {
+      ctrl.data.startsAt ? m('td') : m('td', {
+        class: 'sheet' + (player.sheet.scores.length > 40 ? ' long' : ''),
         config: function(el, isUpdate) {
           if (!isUpdate) {
             $(el).on('click', '> *', function() {

@@ -241,6 +241,9 @@ ol.scheduled_tournaments a {
   font-family: monospace;
   letter-spacing: 0;
 }
+#tournament table.standing .sheet.long {
+  letter-spacing: -2px;
+}
 #tournament table.standing .sheet > * {
   cursor: pointer;
 }
