@@ -35,15 +35,17 @@ function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
   var eval = path[1] ? {} : (move.eval || move.ceval || {});
+  var attrs = {
+    'data-path': pathStr
+  };
+  var classes = classSet({
+    'active': pathStr === ctrl.vm.pathStr,
+    'current': pathStr === ctrl.vm.initialPathStr
+  });
+  if (classes) attrs.class = classes;
   return {
     tag: 'move',
-    attrs: {
-      class: classSet({
-        'active': pathStr === ctrl.vm.pathStr,
-        'current': pathStr === ctrl.vm.initialPathStr
-      }),
-      'data-path': pathStr
-    },
+    attrs: attrs,
     children: [
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
@@ -147,7 +149,7 @@ function renderMeta(ctrl, move, path) {
       ctrl,
       variation,
       treePath.withVariation(path, i + 1),
-      i === 0 ? colorClass + commentClass : null
+      i === 0 ? colorClass + (commentClass || '') : null
     ));
   });
   return m('div', {
