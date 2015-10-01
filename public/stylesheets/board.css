@@ -423,14 +423,14 @@ mono-piece.king {
 .Basic .is3d .bishop.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Bishop.png);
 }
-.Basic .is3d .orientation-black .bishop.white {
+.Basic .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Bishop-Flipped.png);
 }
 .Basic .is3d .knight.white,
 #top .is3d piece.Basic {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Knight.png);
 }
-.Basic .is3d .orientation-black .knight.white {
+.Basic .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Knight-Flipped.png);
 }
 .Basic .is3d .rook.white {
@@ -448,13 +448,13 @@ mono-piece.king {
 .Basic .is3d .bishop.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Bishop.png);
 }
-.Basic .is3d .orientation-white .bishop.black {
+.Basic .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Bishop-Flipped.png);
 }
 .Basic .is3d .knight.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Knight.png);
 }
-.Basic .is3d .orientation-white .knight.black {
+.Basic .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Knight-Flipped.png);
 }
 .Basic .is3d .rook.black {
@@ -472,14 +472,14 @@ mono-piece.king {
 .Glass .is3d .bishop.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Bishop.png);
 }
-.Glass .is3d .orientation-black .bishop.white {
+.Glass .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Bishop-Flipped.png);
 }
 .Glass .is3d .knight.white,
 #top .is3d piece.Glass {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Knight.png);
 }
-.Glass .is3d .orientation-black .knight.white {
+.Glass .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Knight-Flipped.png);
 }
 .Glass .is3d .rook.white {
@@ -497,13 +497,13 @@ mono-piece.king {
 .Glass .is3d .bishop.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Bishop.png);
 }
-.Glass .is3d .orientation-white .bishop.black {
+.Glass .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Bishop-Flipped.png);
 }
 .Glass .is3d .knight.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Knight.png);
 }
-.Glass .is3d .orientation-white .knight.black {
+.Glass .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Knight-Flipped.png);
 }
 .Glass .is3d .rook.black {
@@ -521,14 +521,14 @@ mono-piece.king {
 .Wood .is3d .bishop.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Bishop.png);
 }
-.Wood .is3d .orientation-black .bishop.white {
+.Wood .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Bishop-Flipped.png);
 }
 .Wood .is3d .knight.white,
 #top .is3d piece.Wood {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Knight.png);
 }
-.Wood .is3d .orientation-black .knight.white {
+.Wood .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Knight-Flipped.png);
 }
 .Wood .is3d .rook.white {
@@ -546,13 +546,13 @@ mono-piece.king {
 .Wood .is3d .bishop.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Bishop.png);
 }
-.Wood .is3d .orientation-white .bishop.black {
+.Wood .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Bishop-Flipped.png);
 }
 .Wood .is3d .knight.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Knight.png);
 }
-.Wood .is3d .orientation-white .knight.black {
+.Wood .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Knight-Flipped.png);
 }
 .Wood .is3d .rook.black {
@@ -570,14 +570,14 @@ mono-piece.king {
 .Metal .is3d .bishop.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Bishop.png);
 }
-.Metal .is3d .orientation-black .bishop.white {
+.Metal .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Bishop-Flipped.png);
 }
 .Metal .is3d .knight.white,
 #top .is3d piece.Metal {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Knight.png);
 }
-.Metal .is3d .orientation-black .knight.white {
+.Metal .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Knight-Flipped.png);
 }
 .Metal .is3d .rook.white {
@@ -595,13 +595,13 @@ mono-piece.king {
 .Metal .is3d .bishop.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Bishop.png);
 }
-.Metal .is3d .orientation-white .bishop.black {
+.Metal .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Bishop-Flipped.png);
 }
 .Metal .is3d .knight.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Knight.png);
 }
-.Metal .is3d .orientation-white .knight.black {
+.Metal .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Knight-Flipped.png);
 }
 .Metal .is3d .rook.black {
@@ -619,14 +619,14 @@ mono-piece.king {
 .RedVBlue .is3d .bishop.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop.png);
 }
-.RedVBlue .is3d .orientation-black .bishop.white {
+.RedVBlue .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop-Flipped.png);
 }
 .RedVBlue .is3d .knight.white,
 #top .is3d piece.RedVBlue {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight.png);
 }
-.RedVBlue .is3d .orientation-black .knight.white {
+.RedVBlue .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight-Flipped.png);
 }
 .RedVBlue .is3d .rook.white {
@@ -644,13 +644,13 @@ mono-piece.king {
 .RedVBlue .is3d .bishop.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop.png);
 }
-.RedVBlue .is3d .orientation-white .bishop.black {
+.RedVBlue .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop-Flipped.png);
 }
 .RedVBlue .is3d .knight.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight.png);
 }
-.RedVBlue .is3d .orientation-white .knight.black {
+.RedVBlue .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight-Flipped.png);
 }
 .RedVBlue .is3d .rook.black {
@@ -668,14 +668,14 @@ mono-piece.king {
 .Trimmed .is3d .bishop.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Bishop.png);
 }
-.Trimmed .is3d .orientation-black .bishop.white {
+.Trimmed .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Bishop-Flipped.png);
 }
 .Trimmed .is3d .knight.white,
 #top .is3d piece.Trimmed {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Knight.png);
 }
-.Trimmed .is3d .orientation-black .knight.white {
+.Trimmed .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Knight-Flipped.png);
 }
 .Trimmed .is3d .rook.white {
@@ -693,13 +693,13 @@ mono-piece.king {
 .Trimmed .is3d .bishop.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Bishop.png);
 }
-.Trimmed .is3d .orientation-white .bishop.black {
+.Trimmed .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Bishop-Flipped.png);
 }
 .Trimmed .is3d .knight.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Knight.png);
 }
-.Trimmed .is3d .orientation-white .knight.black {
+.Trimmed .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Knight-Flipped.png);
 }
 .Trimmed .is3d .rook.black {
@@ -717,14 +717,14 @@ mono-piece.king {
 .Experimental .is3d .bishop.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop.png);
 }
-.Experimental .is3d .orientation-black .bishop.white {
+.Experimental .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop-Flipped.png);
 }
 .Experimental .is3d .knight.white,
 #top .is3d piece.Experimental {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight.png);
 }
-.Experimental .is3d .orientation-black .knight.white {
+.Experimental .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight-Flipped.png);
 }
 .Experimental .is3d .rook.white {
@@ -742,13 +742,13 @@ mono-piece.king {
 .Experimental .is3d .bishop.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop.png);
 }
-.Experimental .is3d .orientation-white .bishop.black {
+.Experimental .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop-Flipped.png);
 }
 .Experimental .is3d .knight.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight.png);
 }
-.Experimental .is3d .orientation-white .knight.black {
+.Experimental .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight-Flipped.png);
 }
 .Experimental .is3d .rook.black {
@@ -766,14 +766,14 @@ mono-piece.king {
 .ModernJade .is3d .bishop.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop.png);
 }
-.ModernJade .is3d .orientation-black .bishop.white {
+.ModernJade .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop-Flipped.png);
 }
 .ModernJade .is3d .knight.white,
 #top .is3d piece.ModernJade {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight.png);
 }
-.ModernJade .is3d .orientation-black .knight.white {
+.ModernJade .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight-Flipped.png);
 }
 .ModernJade .is3d .rook.white {
@@ -791,13 +791,13 @@ mono-piece.king {
 .ModernJade .is3d .bishop.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop.png);
 }
-.ModernJade .is3d .orientation-white .bishop.black {
+.ModernJade .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop-Flipped.png);
 }
 .ModernJade .is3d .knight.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight.png);
 }
-.ModernJade .is3d .orientation-white .knight.black {
+.ModernJade .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight-Flipped.png);
 }
 .ModernJade .is3d .rook.black {
@@ -815,14 +815,14 @@ mono-piece.king {
 .ModernWood .is3d .bishop.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop.png);
 }
-.ModernWood .is3d .orientation-black .bishop.white {
+.ModernWood .is3d .cg-512 .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop-Flipped.png);
 }
 .ModernWood .is3d .knight.white,
 #top .is3d piece.ModernWood {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight.png);
 }
-.ModernWood .is3d .orientation-black .knight.white {
+.ModernWood .is3d .cg-512 .orientation-black .knight.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight-Flipped.png);
 }
 .ModernWood .is3d .rook.white {
@@ -840,13 +840,13 @@ mono-piece.king {
 .ModernWood .is3d .bishop.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop.png);
 }
-.ModernWood .is3d .orientation-white .bishop.black {
+.ModernWood .is3d .cg-512 .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop-Flipped.png);
 }
 .ModernWood .is3d .knight.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight.png);
 }
-.ModernWood .is3d .orientation-white .knight.black {
+.ModernWood .is3d .cg-512 .orientation-white .knight.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight-Flipped.png);
 }
 .ModernWood .is3d .rook.black {
