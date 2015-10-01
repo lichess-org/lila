@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var classSet = require('chessground').util.classSet;
 var util = require('./util');
 var button = require('./button');
 
@@ -30,11 +31,15 @@ function rank(p) {
 }
 
 function playerTr(ctrl, player) {
+  var isLong = player.sheet.scores.length > 40;
   return {
     tag: 'tr',
     attrs: {
       key: player.id,
-      class: ctrl.userId === player.name.toLowerCase() ? 'me' : ''
+      class: classSet({
+        'me': ctrl.userId === player.name.toLowerCase(),
+        'long': isLong
+      })
     },
     children: [
       m('td', [
@@ -45,7 +50,7 @@ function playerTr(ctrl, player) {
         util.player(player)
       ]),
       ctrl.data.startsAt ? m('td') : m('td', {
-        class: 'sheet' + (player.sheet.scores.length > 40 ? ' long' : ''),
+        class: 'sheet',
         config: function(el, isUpdate) {
           if (!isUpdate) {
             $(el).on('click', '> *', function() {

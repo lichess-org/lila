@@ -128,12 +128,17 @@ ol.scheduled_tournaments a {
   overflow: hidden;
 }
 #tournament a.user_link.long {
-  letter-spacing: -0.5px;
+  letter-spacing: -0.7px;
 }
 #tournament a.user_link .progress {
   font-style: italic;
   font-size: 0.8em;
   padding-left: 5px;
+  letter-spacing: 0;
+}
+#tournament tr.long a.user_link .progress {
+  display: block;
+  padding-left: 20px;
 }
 #tournament a.user_link .progress span {
   padding-left: 5px;
@@ -241,8 +246,10 @@ ol.scheduled_tournaments a {
   font-family: monospace;
   letter-spacing: 0;
 }
-#tournament table.standing .sheet.long {
-  letter-spacing: -2px;
+#tournament table.standing tr.long .sheet {
+  letter-spacing: -2.5px;
+  padding-right: 0;
+  padding-left: 0;
 }
 #tournament table.standing .sheet > * {
   cursor: pointer;
