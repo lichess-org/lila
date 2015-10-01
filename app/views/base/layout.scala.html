@@ -129,7 +129,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
         </a>
       </div>
-      @if(isGranted(_.SeeReport)) {
+      @if(isGranted(_.SeeReport) && reportNbUnprocessed != 0) {
       <a class="fright link text" href="@routes.Report.list" data-icon="@icon.mod"><strong>@reportNbUnprocessed</strong></a>
       }
       }
