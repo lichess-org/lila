@@ -114,7 +114,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
             case (hour, opening) => List(
               Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
               Schedule(Hourly, SuperBlitz, Standard, opening, at(today, hour) |> orTomorrow),
-              Schedule(Hourly, Blitz, Standard, opening, at(today, hour) |> orTomorrow)
+              Schedule(Hourly, Blitz, Standard, opening, at(today, hour) |> orTomorrow),
+              Schedule(Hourly, Classical, Standard, opening, at(today, hour) |> orTomorrow)
             )
           },
 
@@ -123,11 +124,12 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
           List(
-            Schedule(Hourly, Bullet, Standard, std, at(date, hour)),
-            Schedule(Hourly, Bullet, Standard, std, at(date, hour, 30)),
-            Schedule(Hourly, SuperBlitz, Standard, std, at(date, hour)),
-            Schedule(Hourly, Blitz, Standard, std, at(date, hour))
-          )
+            Schedule(Hourly, Bullet, Standard, std, at(date, hour)).some,
+            Schedule(Hourly, Bullet, Standard, std, at(date, hour, 30)).some,
+            Schedule(Hourly, SuperBlitz, Standard, std, at(date, hour)).some,
+            Schedule(Hourly, Blitz, Standard, std, at(date, hour)).some,
+            (hour % 2 == 0) option Schedule(Hourly, Classical, Standard, std, at(date, hour))
+          ).flatten
         }
 
       ).flatten

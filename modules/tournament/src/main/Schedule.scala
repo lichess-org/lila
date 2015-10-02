@@ -25,6 +25,8 @@ case class Schedule(
   def sameFreq(other: Schedule) = freq == other.freq
 
   def similarTo(other: Schedule) = sameSpeed(other) && sameVariant(other) && sameFreq(other)
+
+  override def toString = s"$freq $variant $speed $at"
 }
 
 object Schedule {
@@ -76,7 +78,7 @@ object Schedule {
       case (Hourly, Bullet, _)                          => 26
       case (Hourly, SuperBlitz, _)                      => 56
       case (Hourly, Blitz, _)                           => 56
-      case (Hourly, Classical, _)                       => 0 // N/A
+      case (Hourly, Classical, _)                       => 116
 
       case (Daily | Nightly | Eastern, Bullet, _)       => 60
       case (Daily | Nightly | Eastern, SuperBlitz, _)   => 90
