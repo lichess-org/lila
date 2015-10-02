@@ -13,13 +13,13 @@ sealed trait ThemeObject {
 
   def all: NonEmptyList[Theme]
 
+  def default: Theme
+
   lazy val list = all.list
 
   lazy val listString = list mkString " "
 
   lazy val allByName = list map { c => c.name -> c } toMap
-
-  lazy val default = "brown"
 
   def apply(name: String) = (allByName get name) | default
 
@@ -34,6 +34,8 @@ object Theme extends ThemeObject {
     "green", "marble", "brown", "leather",
     "grey", "metal", "olive", "purple"
   ) map { name => new Theme(name) }
+
+  lazy val default = allByName get "brown" err "Can't find default theme D:"
 }
 
 object Theme3d extends ThemeObject {
@@ -55,4 +57,6 @@ object Theme3d extends ThemeObject {
     "Jade",
     "Woodi"
   ) map { name => new Theme(name) }
+
+  lazy val default = allByName get "Woodi" err "Can't find default theme D:"
 }
