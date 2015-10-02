@@ -152,11 +152,6 @@ ol.scheduled_tournaments a {
   border-radius: 100px;
   transition: box-shadow 1.5s;
 }
-#tournament a.pov.glow {
-  box-shadow: 0 0 10px 3px #fff,
-  0 0 30px 5px #e89000,
-  0 0 60px 10px #d85000;
-}
 #tournament a.pov span {
   display: block;
   font-weight: bold;
@@ -263,23 +258,25 @@ ol.scheduled_tournaments a {
   padding-right: 20px;
 }
 #tournament table.standing .sheet > *:hover {
-  background: #888;
   color: #fff;
   border-radius: 2px;
+}
+#tournament score:hover {
+  background: #888;
 }
 #tournament double {
   color: #d59120;
   font-weight: bold;
 }
 #tournament double:hover {
-  background: #d59120!important;
+  background: #d59120;
 }
 #tournament streak {
   color: #759900;
   font-weight: bold;
 }
 #tournament streak:hover {
-  background: #759900!important;
+  background: #759900;
 }
 #tournament table.standing td.around-bar {
   padding: 0;

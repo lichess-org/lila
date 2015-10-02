@@ -4,19 +4,12 @@ var classSet = require('chessground').util.classSet;
 var util = require('./util');
 var button = require('./button');
 
-var scoreTagName = {
-  1: 'span',
-  2: 'streak',
-  3: 'double'
-};
+var scoreTagNames = ['score', 'streak', 'double'];
 
 function scoreTag(s, i) {
   return {
-    tag: scoreTagName[s[1] || 1],
-    attrs: {
-      class: 'glpt'
-    },
-    children: [Array.isArray(s) ? s[0] : [s]]
+    tag: scoreTagNames[(s[1] || 1) - 1],
+    children: [Array.isArray(s) ? s[0] : s]
   };
 }
 
@@ -32,14 +25,16 @@ function rank(p) {
 
 function playerTr(ctrl, player) {
   var isLong = player.sheet.scores.length > 40;
+  var userId = player.name.toLowerCase();
   return {
     tag: 'tr',
     attrs: {
-      key: player.id,
+      key: userId,
       class: classSet({
-        'me': ctrl.userId === player.name.toLowerCase(),
+        'me': ctrl.userId === userId,
         'long': isLong
-      })
+      }),
+      'data-user': userId
     },
     children: [
       m('td', [
@@ -49,35 +44,7 @@ function playerTr(ctrl, player) {
         }) : rank(player),
         util.player(player)
       ]),
-      ctrl.data.startsAt ? m('td') : m('td', {
-        class: 'sheet',
-        config: function(el, isUpdate) {
-          if (!isUpdate) {
-            $(el).on('click', '> *', function() {
-              location.href = ['/tournament', ctrl.data.id, 'show', player.name, $(this).index() + 1].join('/');
-            });
-          }
-          $(el).find('.glpt').removeClass('glpt').powerTip({
-            intentPollInterval: 300,
-            fadeInTime: 100,
-            fadeOutTime: 100,
-            placement: 'w',
-            mouseOnToPopup: true,
-            closeDelay: 200,
-            popupId: 'miniGame'
-          }).on({
-            powerTipPreRender: function() {
-              $.ajax({
-                url: ['/tournament', ctrl.data.id, 'mini', player.name, $(this).index() + 1].join('/'),
-                success: function(html) {
-                  $('#miniGame').html(html);
-                  $('body').trigger('lichess.content_loaded');
-                }
-              });
-            }
-          }).data('powertip', ' ');
-        }
-      }, player.sheet.scores.map(scoreTag)),
+      ctrl.data.startsAt ? m('td') : m('td.sheet', player.sheet.scores.map(scoreTag)),
       ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
@@ -155,12 +122,19 @@ module.exports = {
             ] : ' (' + pag.nbResults + ')'
           ]),
           m('th.legend[colspan=2]', [
-            m('streak', 'Streak starter'),
-            m('double', 'Double points'),
+            m('streak.nover', 'Streak starter'),
+            m('double.nover', 'Double points'),
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
+      m('tbody', {
+        onclick: function(e) {
+          var el = e.target;
+          if (scoreTagNames.indexOf(el.tagName.toLowerCase()) === -1) return;
+          var user = $(el).closest('tr').data('user');
+          location.href = ['/tournament', ctrl.data.id, 'show', user, $(el).index() + 1].join('/');
+        }
+      }, pag.currentPageResults.map(partial(playerTr, ctrl)))
     ];
   }
 };

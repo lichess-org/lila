@@ -85,7 +85,7 @@ object Tournament extends LilaController {
     val userId = lila.user.User normalize user
     OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
       GameRepo game pairing.id map {
-        _.flatMap { Pov.ofUserId(_, userId) }.fold(NotFound("nope"))(withPov)
+        _.flatMap { Pov.ofUserId(_, userId) }.fold(NotFound(Redirect(routes.Tournament show id)))(withPov)
       }
     }
   }
