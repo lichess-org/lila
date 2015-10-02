@@ -83,7 +83,9 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       <div id="message_notifications_parent" class="message_notifications fright @if(ctx.nbMessages == 0) {none}">
         <a id="message_notifications_tag" class="toggle link" data-count="@ctx.nbMessages" data-href="@routes.Message.preview">
-          <span data-icon="e"></span>
+          <span class="hint--bottom-left" data-hint="@trans.inbox()">
+            <span data-icon="e"></span>
+          </span>
         </a>
         <div id="message_notifications" class="links dropdown">
           <div id="message_notifications_display" class="content"></div>
@@ -92,7 +94,9 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       <div class="challenge_notifications fright">
         <a id="challenge_notifications_tag" class="toggle link none" data-count="0">
-          <span data-icon="U"></span>
+          <span class="hint--bottom-left" data-hint="Challenges">
+            <span data-icon="U"></span>
+          </span>
         </a>
         <div id="challenge_notifications" class="links dropdown"></div>
       </div>
@@ -119,7 +123,9 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       @if(ctx.teamNbRequests > 0) {
       <a class="fright link" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
-        @trans.teams()
+        <span class="hint--bottom-left" data-hint="@trans.teams()">
+          <span data-icon="f"></span>
+        </span>
       </a>
       }
       <div id="themepicker" class="fright">
