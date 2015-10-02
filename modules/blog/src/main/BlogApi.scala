@@ -20,7 +20,6 @@ final class BlogApi(prismicUrl: String, collection: String) {
   // -- Build a Prismic context
   def context(ref: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
     prismicApi map { api =>
-      play.api.Logger("prismic").debug(s"use master ref: ${api.master.ref}")
       BlogApi.Context(
         api,
         ref.map(_.trim).filterNot(_.isEmpty).getOrElse(api.master.ref),
@@ -35,13 +34,8 @@ final class BlogApi(prismicUrl: String, collection: String) {
   }
 
   private val fetchPrismicApi = AsyncCache.single[Api](
-    f = {
-      play.api.Logger("prismic").debug(s"fetching API")
-      Api.get(prismicUrl, cache = cache, logger = logger) addEffect { api =>
-        play.api.Logger("prismic").debug(s"fetched master ref: ${api.master.ref}")
-      }
-    },
-    timeToLive = 5 seconds)
+    f = Api.get(prismicUrl, cache = cache, logger = logger),
+    timeToLive = 10 seconds)
 
   def prismicApi = fetchPrismicApi(true)
 }
