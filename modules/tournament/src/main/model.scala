@@ -16,3 +16,7 @@ case class VisibleTournaments(
   created: List[Tournament],
   started: List[Tournament],
   finished: List[Tournament])
+
+case class PairingPov(
+  pairing: Pairing,
+  pov: lila.game.Pov)

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
 final class JsonView(
@@ -54,6 +54,19 @@ final class JsonView(
   def clearCache(id: String) =
     firstPageCache.remove(id) >> cachableData.remove(id)
 
+  def player(user: User, povs: List[Pov]): JsObject = Json.obj(
+    "pairings" -> povs.map { pov =>
+      Json.obj(
+        "id" -> pov.gameId,
+        "color" -> pov.color.name,
+        "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+        "win" -> pov.win,
+        "status" -> pov.game.status.id,
+        "berserk" -> pov.player.berserk.option(true)
+      ).noNull
+    }
+  )
+
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
     sheets <- rankedPlayers.map { p =>
@@ -83,12 +96,15 @@ final class JsonView(
     "rank" -> i.rank,
     "withdraw" -> i.withdraw)
 
-  private def gameUserJson(player: lila.game.Player) = {
-    val light = player.userId flatMap getLightUser
+  private def gameUserJson(player: lila.game.Player): JsObject =
+    gameUserJson(player.userId, player.rating)
+
+  private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
+    val light = userId flatMap getLightUser
     Json.obj(
       "name" -> light.map(_.name),
       "title" -> light.map(_.title),
-      "rating" -> player.rating
+      "rating" -> rating
     ).noNull
   }
 

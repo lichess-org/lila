@@ -90,6 +90,14 @@ object Tournament extends LilaController {
     }
   }
 
+  def player(id: String, username: String) = Open { implicit ctx =>
+    JsonOptionFuOk(UserRepo named username) { user =>
+      env.api.playerPovs(id, lila.user.User normalize username, 50) map { povs =>
+        env.jsonView.player(user, povs)
+      }
+    }
+  }
+
   def join(id: String) = Auth { implicit ctx =>
     implicit me =>
       NoLame {

@@ -33,6 +33,14 @@ object PairingRepo {
       selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds))
     ).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
+  def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
+    coll.find(
+      selectTour(tourId) ++ BSONDocument("u" -> userId),
+      BSONDocument("_id" -> true)
+    ).sort(recentSort).cursor[BSONDocument]().collect[List](nb).map {
+        _.flatMap(_.getAs[String]("_id"))
+      }
+
   def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
     (nb > 0) ?? coll.find(
       selectTour(tourId) ++ BSONDocument("u" -> userId)

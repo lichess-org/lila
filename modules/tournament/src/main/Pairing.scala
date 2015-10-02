@@ -6,7 +6,7 @@ import lila.game.{ Game, PovRef, IdGenerator }
 import org.joda.time.DateTime
 
 case class Pairing(
-    id: String, // game In
+    id: String, // game Id
     tourId: String,
     status: chess.Status,
     user1: String,

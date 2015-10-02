@@ -11,7 +11,7 @@ import scalaz.NonEmptyList
 import actorApi._
 import lila.common.Debouncer
 import lila.db.api._
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
@@ -253,6 +253,13 @@ private[tournament] final class TournamentApi(
         case ((created, started), finished) =>
           VisibleTournaments(created, started, finished)
       }
+
+  def playerPovs(tourId: String, userId: String, nb: Int): Fu[List[Pov]] =
+    PairingRepo.recentIdsByTourAndUserId(tourId, userId, nb) flatMap { ids =>
+      GameRepo games ids map {
+        _.flatMap { Pov.ofUserId(_, userId) }
+      }
+    }
 
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)
