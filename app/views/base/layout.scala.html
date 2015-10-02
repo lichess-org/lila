@@ -118,7 +118,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       @if(ctx.teamNbRequests > 0) {
-      <a class="fright link" href="@routes.Team.requests()">
+      <a class="fright link" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
         @trans.teams()
       </a>
       }
