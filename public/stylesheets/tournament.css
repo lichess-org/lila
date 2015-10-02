@@ -213,6 +213,9 @@ ol.scheduled_tournaments a {
   padding-left: 10px;
   white-space: nowrap;
 }
+#tournament table.standing tbody tr {
+  cursor: pointer;
+}
 #tournament table.standing tr.me td:first-child {
   border-left: 10px solid #d59120;
   padding-left: 5px;
@@ -246,9 +249,6 @@ ol.scheduled_tournaments a {
   padding-right: 0;
   padding-left: 0;
 }
-#tournament table.standing .sheet > * {
-  cursor: pointer;
-}
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
@@ -257,26 +257,13 @@ ol.scheduled_tournaments a {
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
 }
-#tournament table.standing .sheet > *:hover {
-  color: #fff;
-  border-radius: 2px;
-}
-#tournament score:hover {
-  background: #888;
-}
 #tournament double {
   color: #d59120;
   font-weight: bold;
 }
-#tournament double:hover {
-  background: #d59120;
-}
 #tournament streak {
   color: #759900;
   font-weight: bold;
-}
-#tournament streak:hover {
-  background: #759900;
 }
 #tournament table.standing td.around-bar {
   padding: 0;
@@ -336,29 +323,57 @@ ol.scheduled_tournaments a {
 #tournament .join_password input {
   padding: 3px 5px;
 }
+.setup {
+  text-transform: uppercase;
+}
 #tournament_side {
   float: right;
   width: 246px;
   max-height: 510px;
   overflow-y: hidden;
   border: 1px solid #ccc;
-  padding: 3px;
   overflow: auto;
   text-align: center;
 }
-.setup {
-  text-transform: uppercase;
+#tournament_side .square-spin {
+  width: 50px;
+  height: 50px;
+  margin: 30px;
 }
-#tournament_side a {
+#tournament_side .player h2 {
+  font-size: 1.2em;
+  padding: 10px 0;
+  background: #fff;
+}
+#tournament_side .player table {
+  margin: 10px 0;
+  text-align: left;
+}
+#tournament_side .player table tr:hover {
+  background: #fff;
+}
+#tournament_side .player table td {
+  padding: 3px 5px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #e0e0e0;
+}
+#tournament_side .player table td:first-child {
+  padding-left: 10px;
+}
+#tournament_side .all_pairings {
+  font-style: italic;
+  margin: 3px;
+}
+#tournament_side .all_pairings a {
   padding: 0.3em 0.2em;
   display: block;
   white-space: nowrap;
   overflow: hidden;
 }
-#tournament_side {
-  font-style: italic;
-}
-#tournament_side > a > * {
+#tournament_side .all_pairings > a > * {
   margin: 0 5px;
   font-weight: bold;
   font-style: normal;

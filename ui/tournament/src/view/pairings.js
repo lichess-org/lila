@@ -32,5 +32,5 @@ module.exports = function(ctrl) {
       ]
     };
   };
-  return ctrl.data.pairings.map(pairing);
+  return m('div.all_pairings', ctrl.data.pairings.map(pairing));
 };

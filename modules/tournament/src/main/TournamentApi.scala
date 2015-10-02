@@ -254,7 +254,20 @@ private[tournament] final class TournamentApi(
           VisibleTournaments(created, started, finished)
       }
 
-  def playerPovs(tourId: String, userId: String, nb: Int): Fu[List[Pov]] =
+  def playerInfo(tourId: String, user: User): Fu[Option[PlayerInfoExt]] =
+    TournamentRepo byId tourId flatMap {
+      _ ?? { tour =>
+        PlayerRepo.find(tour.id, user.id) flatMap {
+          _ ?? { player =>
+            playerPovs(tour.id, user.id, 50) map { povs =>
+              PlayerInfoExt(tour, user, player, povs).some
+            }
+          }
+        }
+      }
+    }
+
+  private def playerPovs(tourId: String, userId: String, nb: Int): Fu[List[Pov]] =
     PairingRepo.recentIdsByTourAndUserId(tourId, userId, nb) flatMap { ids =>
       GameRepo games ids map {
         _.flatMap { Pov.ofUserId(_, userId) }

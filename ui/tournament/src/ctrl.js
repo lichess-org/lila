@@ -18,7 +18,11 @@ module.exports = function(env) {
     page: this.data.standing.page,
     pages: {},
     focusOnMe: !!this.data.me,
-    joinLoader: false
+    joinLoader: false,
+    playerInfo: {
+      id: null,
+      data: null
+    }
   };
 
   this.reload = function(data) {
@@ -95,6 +99,24 @@ module.exports = function(env) {
     this.vm.focusOnMe = !this.vm.focusOnMe;
     if (this.vm.focusOnMe) this.scrollToMe();
   }.bind(this);
+
+  this.showPlayerInfo = function(userId) {
+    this.vm.playerInfo = {
+      id: this.vm.playerInfo.id === userId ? null : userId,
+      data: null
+    };
+    if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
+  }.bind(this);
+
+  this.setPlayerInfoData = function(data) {
+    if (data.player.id !== this.vm.playerInfo.id) return;
+    this.vm.playerInfo.data = data;
+  }.bind(this);
+
+  setTimeout(function() {
+    this.showPlayerInfo('voat');
+    m.redraw();
+  }.bind(this), 500);
 
   sound.end(this.data);
   sound.countDown(this.data);

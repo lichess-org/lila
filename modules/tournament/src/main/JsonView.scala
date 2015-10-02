@@ -54,18 +54,31 @@ final class JsonView(
   def clearCache(id: String) =
     firstPageCache.remove(id) >> cachableData.remove(id)
 
-  def player(user: User, povs: List[Pov]): JsObject = Json.obj(
-    "pairings" -> povs.map { pov =>
-      Json.obj(
-        "id" -> pov.gameId,
-        "color" -> pov.color.name,
-        "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
-        "win" -> pov.win,
-        "status" -> pov.game.status.id,
-        "berserk" -> pov.player.berserk.option(true)
-      ).noNull
-    }
-  )
+  def playerInfo(info: PlayerInfoExt): JsObject = info match {
+    case PlayerInfoExt(tour, user, player, povs) => Json.obj(
+      "player" -> Json.obj(
+        "id" -> user.id,
+        "name" -> user.username,
+        "title" -> user.title,
+        "rating" -> player.rating,
+        "provisional" -> player.provisional.option(true),
+        "withdraw" -> player.withdraw.option(true),
+        "score" -> player.score,
+        "perf" -> player.perf,
+        "fire" -> player.fire
+      ).noNull,
+      "pairings" -> povs.map { pov =>
+        Json.obj(
+          "id" -> pov.gameId,
+          "color" -> pov.color.name,
+          "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+          "win" -> pov.win,
+          "status" -> pov.game.status.id,
+          "berserk" -> pov.player.berserk.option(true)
+        ).noNull
+      }
+    )
+  }
 
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)

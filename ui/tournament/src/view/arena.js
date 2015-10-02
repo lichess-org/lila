@@ -34,7 +34,7 @@ function playerTr(ctrl, player) {
         'me': ctrl.userId === userId,
         'long': isLong
       }),
-      'data-user': userId
+      onclick: partial(ctrl.showPlayerInfo, userId)
     },
     children: [
       m('td', [
@@ -127,14 +127,7 @@ module.exports = {
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', {
-        onclick: function(e) {
-          var el = e.target;
-          if (scoreTagNames.indexOf(el.tagName.toLowerCase()) === -1) return;
-          var user = $(el).closest('tr').data('user');
-          location.href = ['/tournament', ctrl.data.id, 'show', user, $(el).index() + 1].join('/');
-        }
-      }, pag.currentPageResults.map(partial(playerTr, ctrl)))
+      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
     ];
   }
 };
