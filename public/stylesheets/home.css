@@ -342,18 +342,6 @@ body.dark #hooks_wrap {
   font-size: 30px;
   margin-right: 10px;
 }
-#hook .color {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-position: 0 -240px;
-}
-#hook .color.black {
-  background-position: 0 -256px;
-}
 /*********** MISC *********/
 
 #site_header {

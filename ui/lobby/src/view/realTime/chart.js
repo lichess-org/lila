@@ -81,7 +81,6 @@ function renderHook(ctrl, hook) {
   html += '<span class="clock">' + hook.clock + '</span>';
   html += '<span class="mode">' +
     '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + ctrl.trans(hook.mode ? 'rated' : 'casual') + '</span>';
-  html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
   return html;
 }
 
