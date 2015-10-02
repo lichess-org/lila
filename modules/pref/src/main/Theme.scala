@@ -19,7 +19,7 @@ sealed trait ThemeObject {
 
   lazy val allByName = list map { c => c.name -> c } toMap
 
-  lazy val default = all.head
+  lazy val default = "brown"
 
   def apply(name: String) = (allByName get name) | default
 
