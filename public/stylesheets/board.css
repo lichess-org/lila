@@ -31,7 +31,6 @@ square {
   position: absolute;
   width: 12.5%;
   height: 12.5%;
-  transition: 0.13s;
 }
 square[data-coord-x]::after,
 square[data-coord-y]::before {
@@ -145,9 +144,6 @@ piece.ghost {
 }
 /* minimal dom overrides */
 
-.minimal-dom square {
-  transition: none;
-}
 .minimal-dom piece {
   position: absolute;
   width: 12.5%;
@@ -165,7 +161,7 @@ piece.ghost {
   opacity: 0.6;
 }
 .cg-board-wrap svg * {
-  transition: 0.35s;
+  transition: 0.3s;
 }
 /* lichess */
 
