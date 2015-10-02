@@ -139,5 +139,5 @@ module.exports = function(opts) {
       window.history.replaceState(null, null, '#');
   }.bind(this);
 
-  this.trans = lichess.trans(env.i18n);
+  this.trans = lichess.trans(opts.i18n);
 };
