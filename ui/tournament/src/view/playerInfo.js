@@ -17,16 +17,26 @@ function result(win, stat) {
 module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
   if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('span.square-spin');
-  return m('div.player', [
+  return m('div.player', {
+    config: function(el, isUpdate) {
+      if (!isUpdate) $('body').trigger('lichess.content_loaded');
+    }
+  }, [
     m('h2', util.player(data.player)),
     m('table', data.pairings.map(function(p) {
-      return m('tr', [
+      var res = result(p.win, p.status);
+      return m('tr', {
+        onclick: function() {
+          window.open('/' + p.id + '/' + p.color, '_blank');
+        },
+        class: res === '1' ? 'win' : (res === '0' ? 'loss' : '')
+      }, [
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
         m('td', p.op.rating),
         m('td', {
           'class': 'is color-icon ' + p.color
         }),
-        m('td', result(p.win, p.status))
+        m('td', res)
       ]);
     }))
   ]);
