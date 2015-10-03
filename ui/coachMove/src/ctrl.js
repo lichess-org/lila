@@ -61,5 +61,5 @@ module.exports = function(opts) {
     this.vm.inspecting = key;
   }.bind(this);
 
-  this.trans = lichess.trans(env.i18n);
+  this.trans = lichess.trans(opts.i18n);
 };
