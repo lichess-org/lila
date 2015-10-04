@@ -23,7 +23,7 @@ module.exports = function(ctrl) {
     }
   }, [
     m('h2', util.player(data.player)),
-    m('table', data.pairings.map(function(p) {
+    m('div.scroll-shadow-soft', m('table', data.pairings.map(function(p) {
       var res = result(p.win, p.status);
       return m('tr', {
         onclick: function() {
@@ -38,6 +38,6 @@ module.exports = function(ctrl) {
         }),
         m('td', res)
       ]);
-    }))
+    })))
   ]);
 };

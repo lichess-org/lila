@@ -14,10 +14,7 @@ module.exports = function(ctrl) {
   var side = handler.side(ctrl);
 
   return [
-    side ? m('div', {
-      id: 'tournament_side',
-      class: 'scroll-shadow-soft'
-    }, side) : null,
+    side ? m('div#tournament_side', side) : null,
     m('div', {
         class: util.classSet({
           'content_box no_padding tournament_box tournament_show': true,

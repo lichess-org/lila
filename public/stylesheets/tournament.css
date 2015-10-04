@@ -330,11 +330,13 @@ ol.scheduled_tournaments a {
   position: relative;
   float: right;
   width: 251px;
-  max-height: 510px;
-  overflow-y: hidden;
   border: 1px solid #ccc;
-  overflow: auto;
   text-align: center;
+  transition: 0.13s;
+}
+#tournament_side .scroll-shadow-soft {
+  max-height: 510px;
+  overflow: auto;
 }
 #tournament_side .square-spin {
   width: 50px;
@@ -372,15 +374,17 @@ ol.scheduled_tournaments a {
   padding-left: 10px;
   padding-left: 7px;
   border-left: 3px solid transparent;
+  border-left-color: #fff;
+  transition: 0.13s;
 }
 #tournament_side .player tr:hover td:first-child {
-  border-left-color: #ccc;
+  border-left-color: #888!important;
 }
 #tournament_side .player tr.win:hover td:first-child {
-  border-left-color: #759900;
+  border-left-color: #759900!important;
 }
 #tournament_side .player tr.loss:hover td:first-child {
-  border-left-color: #dc322f;
+  border-left-color: #dc322f!important;
 }
 #tournament_side .player td:last-child {
   font-weight: bold;
