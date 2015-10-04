@@ -11,7 +11,7 @@
     <div class="setup">
       @sim.variants.map(_.name).mkString(", ") • @trans.casual()
     </div>
-    @trans.simulHostExtraTime(): @sim.clock.hostExtraMinutes @if(sim.clock.hostExtraMinutes == 1) { minute } else { minutes }
+    @trans.simulHostExtraTime(): <data class="moment-duration" value="@sim.clock.hostExtraMinutes" data-unit="minutes"></data>
     <br />
     Host color: @sim.color.getOrElse("random").capitalize
   </div>

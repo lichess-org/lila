@@ -787,6 +787,13 @@ lichess.unique = function(xs) {
       setMomentFromNow();
       $('body').on('lichess.content_loaded', setMomentFromNow);
       setInterval(setMomentFromNow, 2000);
+      function setMomentDuration() {
+        $("data.moment-duration").removeClass('moment-duration').each(function() {
+          var duration = moment.duration(this.getAttribute('value'), this.getAttribute('data-unit'));
+          this.textContent = duration.humanize();
+        });
+      }
+      setMomentDuration();
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
