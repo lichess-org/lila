@@ -378,6 +378,7 @@ GET   /privacy                         controllers.Page.privacy
 # Donate
 GET   /donate                          controllers.Donation.index
 GET   /donate/thanks                   controllers.Donation.thanks
+POST  /donate/thanks                   controllers.Donation.thanksRedirect
 POST  /donate/ipn                      controllers.Donation.ipn
 
 POST  /jslog                           controllers.Main.jslog
