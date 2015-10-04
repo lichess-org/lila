@@ -215,6 +215,10 @@ ol.scheduled_tournaments a {
 }
 #tournament table.standing tbody tr {
   cursor: pointer;
+  transition: 0.13s;
+}
+#tournament table.standing tbody tr:hover {
+  background: rgba(191, 231, 255, 0.7);
 }
 #tournament table.standing tr.me td:first-child {
   border-left: 10px solid #d59120;
@@ -329,7 +333,7 @@ ol.scheduled_tournaments a {
 #tournament_side {
   position: relative;
   float: right;
-  width: 251px;
+  width: 252px;
   border: 1px solid #ccc;
   text-align: center;
   transition: 0.13s;
@@ -404,7 +408,6 @@ ol.scheduled_tournaments a {
 }
 #tournament_side .all_pairings {
   font-style: italic;
-  margin: 3px;
 }
 #tournament_side .all_pairings a {
   padding: 0.3em 0.2em;
