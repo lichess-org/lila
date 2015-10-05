@@ -352,13 +352,13 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftimePlayer: Option[Player] =
-    outoftimePlayerClock orElse outoftimePlayerCorrespondence
+  def outoftimePlayer(playerLag: Color => Int): Option[Player] =
+    outoftimePlayerClock(playerLag) orElse outoftimePlayerCorrespondence
 
-  private def outoftimePlayerClock: Option[Player] = for {
+  private def outoftimePlayerClock(playerLag: Color => Int): Option[Player] = for {
     c ← clock
     if started && playable && (bothPlayersHaveMoved || isSimul)
-    if (!c.isRunning && !c.isInit) || (c outoftime player.color)
+    if (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
   } yield player
 
   private def outoftimePlayerCorrespondence: Option[Player] = for {

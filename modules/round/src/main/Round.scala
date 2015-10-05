@@ -11,6 +11,7 @@ import lila.hub.actorApi.map._
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
+import chess.Color
 import makeTimeout.large
 
 private[round] final class Round(
@@ -37,6 +38,16 @@ private[round] final class Round(
     context.system.lilaBus unsubscribe self
   }
 
+  object lags { // player lag in millis
+    var white = 0
+    var black = 0
+    def get(c: Color) = c.fold(white, black)
+    def set(c: Color, v: Int) {
+      if (c.white) white = v
+      else black = v
+    }
+  }
+
   def process = {
 
     case ReceiveTimeout => fuccess {
@@ -45,7 +56,12 @@ private[round] final class Round(
 
     case p: HumanPlay =>
       handle(p.playerId) { pov =>
-        pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
+        pov.game.outoftimePlayer(lags.get) match {
+          case None =>
+            lags.set(pov.color, p.lag.toMillis.toInt)
+            player.human(p, self)(pov)
+          case Some(ootp) => outOfTime(pov.game)(ootp)
+        }
       } >>- monitorMove((nowMillis - p.atMillis).toInt)
 
     case p: ImportPlay =>
@@ -103,7 +119,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftimePlayer ?? outOfTime(game)
+      game.outoftimePlayer(lags.get) ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -174,7 +190,6 @@ private[round] final class Round(
 
     case Deploy(RemindDeployPost, _) => handle { game =>
       game.clock.filter(_ => game.playable) ?? { clock =>
-        import chess.Color
         val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
         val progress = (game withClock newClock) + Event.Clock(newClock)
@@ -206,7 +221,7 @@ private[round] final class Round(
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov(GameRepo pov PlayerRef(gameId, playerId))(op)
 
-  protected def handle(color: chess.Color)(op: Pov => Fu[Events]): Funit =
+  protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(GameRepo pov PovRef(gameId, color))(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
