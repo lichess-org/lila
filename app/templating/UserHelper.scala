@@ -273,8 +273,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     case GameFilter.Playing  => info.nbPlaying + " playing"
     case GameFilter.Bookmark => trans.nbBookmarks(info.nbBookmark)
     case GameFilter.Imported => trans.nbImportedGames(info.nbImported)
-    case GameFilter.Search   => Html(trans.advancedSearch.str().replaceFirst(" ", "\n"))
-  }).toString)
+    case GameFilter.Search   => trans.advancedSearch()
+  }).toString().replaceFirst(" ", "\n"))
 
   def describeUser(user: User) = {
     val name = user.titleUsername
