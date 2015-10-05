@@ -74,7 +74,9 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       <div class="lichess_language fright">
         <a class="toggle link" href="#">@langName(lang)</a>
         <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
-          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+          <ul>
+            <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+          </ul>
         </form>
       </div>
       @ctx.me.map { me =>
