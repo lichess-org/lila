@@ -67,7 +67,7 @@ private[i18n] object Contributors {
     "eu" -> List("Anonymous"),
     "bn" -> List("Ankit Peet"),
     "id" -> List("KenXeiko"),
-    "la" -> List("3_1415maldaumen"),
+    "la" -> List("3_1415maldaumen", "Orsi"),
     "jv" -> List("errorfilename"),
     "ky" -> List("tmed"),
     "pi" -> List("novalis78"),
