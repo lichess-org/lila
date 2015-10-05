@@ -114,7 +114,8 @@ object PlayerRepo {
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
-  def ranking(tourId: String): Fu[Ranking] =
+  // freaking expensive (marathons)
+  private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
       Group(BSONBoolean(true))("uids" -> Push("uid")))).
       map(res => aggregationUserIdList(res.documents.toStream)).

@@ -92,8 +92,8 @@ object Tournament extends LilaController {
 
   def player(id: String, userId: String) = Open { implicit ctx =>
     JsonOptionFuOk(UserRepo byId userId) { user =>
-      env.api.playerInfo(id, user) map {
-        _ map env.jsonView.playerInfo
+      env.api.playerInfo(id, user) flatMap {
+        _ ?? env.jsonView.playerInfo
       }
     }
   }

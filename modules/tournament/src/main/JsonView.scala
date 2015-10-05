@@ -10,7 +10,8 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
 final class JsonView(
-    getLightUser: String => Option[LightUser]) {
+    getLightUser: String => Option[LightUser],
+    cached: Cached) {
 
   private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
 
@@ -54,18 +55,23 @@ final class JsonView(
   def clearCache(id: String) =
     firstPageCache.remove(id) >> cachableData.remove(id)
 
-  def playerInfo(info: PlayerInfoExt): JsObject = info match {
-    case PlayerInfoExt(tour, user, player, povs) => Json.obj(
+  def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
+    ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
+    userSheet <- info.tour.system.scoringSystem.sheet(info.tour, info.user.id)
+  } yield (info, userSheet) match {
+    case (PlayerInfoExt(tour, user, player, povs), sheet: arena.ScoringSystem.Sheet) => Json.obj(
       "player" -> Json.obj(
         "id" -> user.id,
         "name" -> user.username,
         "title" -> user.title,
+        "rank" -> ranking.get(user.id).map(1+),
         "rating" -> player.rating,
         "provisional" -> player.provisional.option(true),
         "withdraw" -> player.withdraw.option(true),
         "score" -> player.score,
         "perf" -> player.perf,
-        "fire" -> player.fire
+        "fire" -> player.fire,
+        "nb" -> sheetNbs(sheet)
       ).noNull,
       "pairings" -> povs.map { pov =>
         Json.obj(
@@ -79,6 +85,11 @@ final class JsonView(
       }
     )
   }
+
+  private def sheetNbs(sheet: arena.ScoringSystem.Sheet) = Json.obj(
+    "game" -> sheet.scores.size,
+    "berserk" -> sheet.scores.count(_.isBerserk),
+    "win" -> sheet.scores.count(_.isWin))
 
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)

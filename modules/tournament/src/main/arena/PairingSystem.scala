@@ -18,10 +18,10 @@ object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(
     tour: Tournament,
-    users: WaitingUsers): Fu[Pairings] = for {
+    users: WaitingUsers,
+    ranking: Ranking): Fu[Pairings] = for {
     recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
-    ranking <- PlayerRepo.ranking(tour.id)
     data = Data(tour, recentPairings, ranking, nbActiveUsers)
     pairings <- {
       if (recentPairings.isEmpty) evenOrAll(data, users)

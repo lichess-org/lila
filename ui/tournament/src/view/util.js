@@ -90,5 +90,8 @@ module.exports = {
         time: time
       });
     };
+  },
+  ratio2percent: function(r) {
+    return Math.round(100 * r) + '%';
   }
 };

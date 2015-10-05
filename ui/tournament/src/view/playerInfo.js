@@ -17,13 +17,19 @@ function result(win, stat) {
 module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
   if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('span.square-spin');
+  var nb = data.player.nb;
   return m('div.player', {
     config: function(el, isUpdate) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }
   }, [
-    m('h2', util.player(data.player)),
-    m('div.scroll-shadow-soft', m('table', data.pairings.map(function(p) {
+    m('h2', [m('span.rank', data.player.rank + '. '), util.player(data.player)]),
+    m('div.stats', m('table', [
+      m('tr', [m('th', 'Games played'), m('td', nb.game)]),
+      m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
+      m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))])
+    ])),
+    m('div.scroll-shadow-soft', m('table.pairings', data.pairings.map(function(p, i) {
       var res = result(p.win, p.status);
       return m('tr', {
         onclick: function() {
@@ -31,6 +37,7 @@ module.exports = function(ctrl) {
         },
         class: res === '1' ? 'win' : (res === '0' ? 'loss' : '')
       }, [
+        m('th', nb.game - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
         m('td', p.op.rating),
         m('td', {

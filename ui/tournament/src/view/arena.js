@@ -2,6 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var util = require('./util');
+var ratio2percent = util.ratio2percent;
 var button = require('./button');
 
 var scoreTagNames = ['score', 'streak', 'double'];

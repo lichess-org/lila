@@ -354,55 +354,69 @@ ol.scheduled_tournaments a {
   font-size: 1.2em;
   padding: 10px 0;
   background: #fff;
+}
+#tournament_side .player .stats {
+  background: #fff;
+  padding: 10px 0;
   border-bottom: 1px solid #ccc;
 }
 #tournament_side .player table {
+  margin: auto;
+}
+#tournament_side .player .stats td {
+  font-weight: bold;
+  padding-left: 10px;
+}
+#tournament_side .player .pairings {
   text-align: left;
   width: 100%;
   box-sizing: border-box;
 }
-#tournament_side .player tr {
+#tournament_side .player .pairings tr {
   cursor: pointer;
   transition: background-color 0.13s;
 }
-#tournament_side .player tr:hover {
+#tournament_side .player .pairings tr:hover {
   background: #fff;
 }
-#tournament_side .player td {
+#tournament_side .player .pairings tr > * {
   padding: 3px 5px;
   border-bottom: 1px solid #e0e0e0;
 }
-#tournament_side .player td:first-child {
-  width: 130px;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-left: 10px;
+#tournament_side .player .pairings th {
   padding-left: 7px;
   border-left: 3px solid transparent;
   border-left-color: #fff;
   transition: 0.13s;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
-#tournament_side .player tr:hover td:first-child {
+#tournament_side .player .pairings tr:hover th {
   border-left-color: #888!important;
 }
-#tournament_side .player tr.win:hover td:first-child {
+#tournament_side .player .pairings tr.win:hover th {
   border-left-color: #759900!important;
 }
-#tournament_side .player tr.loss:hover td:first-child {
+#tournament_side .player .pairings tr.loss:hover th {
   border-left-color: #dc322f!important;
 }
-#tournament_side .player td:last-child {
+#tournament_side .player .pairings td:nth-child(2) {
+  width: 110px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#tournament_side .player .pairings td:last-child {
   font-weight: bold;
   text-align: center;
   opacity: 0.8;
 }
-#tournament_side .player tr.win td:last-child {
+#tournament_side .player .pairings tr.win td:last-child {
   color: #759900;
   opacity: 1;
 }
-#tournament_side .player tr.loss td:last-child {
+#tournament_side .player .pairings tr.loss td:last-child {
   color: #dc322f;
   opacity: 1;
 }
