@@ -27,6 +27,13 @@ body.coords_2 .is3d square[data-coord-x]::after {
   left: -18%;
   bottom: -20%;
 }
+.is3d .is2d piece {
+  /* copy of board.css to override miniboards */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 .is3d .minimal-dom piece {
   /* copy of board.css to override miniboards */
   width: 12.5%;
