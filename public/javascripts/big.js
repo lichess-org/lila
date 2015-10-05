@@ -1589,10 +1589,10 @@ lichess.unique = function(xs) {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
-      this.time = this.options.time * 1000;
+      this.time = Math.max(0, this.options.time) * 1000;
       this.timeEl = this.element.find('>.time')[0];
       var tick = function() {
-        self.time -= 1000;
+        self.time = Math.max(0, self.time - 1000);
         if (self.time <= 0) clearInterval(self.interval);
         self._show();
       };
@@ -1607,6 +1607,7 @@ lichess.unique = function(xs) {
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
+      if (this.time < 0) return;
       this.timeEl.innerHTML = this._formatDate(new Date(this.time));
     },
     _bold: function(x) {
@@ -1619,9 +1620,7 @@ lichess.unique = function(xs) {
       if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
-      } else {
-        return b(minutes) + ':' + b(seconds);
-      }
+      } else return b(minutes) + ':' + b(seconds);
     },
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);
