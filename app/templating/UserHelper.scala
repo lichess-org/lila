@@ -125,7 +125,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.titleNameHtml)
-    val klass = userClass(userId, none, false)
+    val klass = userClass(userId, none, true)
     val href = userHref(name)
     s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
   }
