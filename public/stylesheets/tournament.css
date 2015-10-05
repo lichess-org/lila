@@ -127,20 +127,20 @@ ol.scheduled_tournaments a {
   padding-top: 20px;
   overflow: hidden;
 }
-#tournament a.user_link.long {
+#tournament .user_link.long {
   letter-spacing: -0.7px;
 }
-#tournament a.user_link .progress {
+#tournament .user_link .progress {
   font-style: italic;
   font-size: 0.8em;
   padding-left: 5px;
   letter-spacing: 0;
 }
-#tournament tr.long a.user_link .progress {
+#tournament tr.long .user_link .progress {
   display: block;
   padding-left: 20px;
 }
-#tournament a.user_link .progress span {
+#tournament .user_link .progress span {
   padding-left: 5px;
 }
 #tournament a.pov {
