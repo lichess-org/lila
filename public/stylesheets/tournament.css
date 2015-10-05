@@ -366,6 +366,7 @@ ol.scheduled_tournaments a {
 #tournament_side .player .stats td {
   font-weight: bold;
   padding-left: 10px;
+  text-align: right;
 }
 #tournament_side .player .pairings {
   text-align: left;

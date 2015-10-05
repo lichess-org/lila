@@ -57,9 +57,9 @@ final class JsonView(
 
   def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
     ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
-    userSheet <- info.tour.system.scoringSystem.sheet(info.tour, info.user.id)
-  } yield (info, userSheet) match {
-    case (PlayerInfoExt(tour, user, player, povs), sheet: arena.ScoringSystem.Sheet) => Json.obj(
+    sheet <- info.tour.system.scoringSystem.sheet(info.tour, info.user.id)
+  } yield info match {
+    case PlayerInfoExt(tour, user, player, povs) => Json.obj(
       "player" -> Json.obj(
         "id" -> user.id,
         "name" -> user.username,
@@ -86,10 +86,12 @@ final class JsonView(
     )
   }
 
-  private def sheetNbs(sheet: arena.ScoringSystem.Sheet) = Json.obj(
-    "game" -> sheet.scores.size,
-    "berserk" -> sheet.scores.count(_.isBerserk),
-    "win" -> sheet.scores.count(_.isWin))
+  private def sheetNbs(sheet: ScoreSheet) = sheet match {
+    case s: arena.ScoringSystem.Sheet => Json.obj(
+      "game" -> s.scores.size,
+      "berserk" -> s.scores.count(_.isBerserk),
+      "win" -> s.scores.count(_.isWin))
+  }
 
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
@@ -180,7 +182,11 @@ final class JsonView(
           sheets <- rankedPlayers.map { p =>
             tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
           }.sequenceFu.map(_.toMap)
-        } yield JsArray(rankedPlayers.map(playerJson(sheets, tour))).some
+        } yield JsArray(rankedPlayers.map { rp =>
+          playerJson(sheets, tour)(rp) + (
+            "nb" -> sheets.get(rp.player.userId).map(sheetNbs).getOrElse(JsNull)
+          )
+        }).some
       }
     }
 
