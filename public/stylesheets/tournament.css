@@ -352,12 +352,12 @@ ol.scheduled_tournaments a {
 }
 #tournament_side .player h2 {
   font-size: 1.2em;
-  padding: 10px 0;
+  padding-top: 12px;
   background: #fff;
 }
 #tournament_side .player .stats {
   background: #fff;
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #ccc;
 }
 #tournament_side .player table {
