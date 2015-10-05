@@ -503,4 +503,5 @@ keyYouCanDrawArrowsCirclesAndScrollToMove=از شیفت+کلیک یا راست �
 newTournament=مسابقه جدید
 tournamentNotFound=مسابقات یافت نشد
 tournamentDoesNotExist=این مسابقات وجود ندارد
+tournamentMayHaveBeenCanceled=ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند
 returnToTournamentsHomepage=بازگشت به صفحه اصلی مسابقات
