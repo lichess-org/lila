@@ -1,13 +1,13 @@
 package lila.tournament
 
+import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-
-import actorApi._
 import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.WithUserIds
 import makeTimeout.short
+import org.joda.time.DateTime
 
 private[tournament] final class Organizer(
     api: TournamentApi,
@@ -36,7 +36,7 @@ private[tournament] final class Organizer(
     }
 
     case StartedTournaments =>
-      val startAt = nowMillis
+      val startAt = DateTime.now
       TournamentRepo.started foreach {
         _ foreach { tour =>
           PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
@@ -62,7 +62,7 @@ private[tournament] final class Organizer(
       _ filterNot isOnline foreach { api.withdraw(tour.id, _) }
     }
 
-  private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long) =
+  private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: DateTime) =
     getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) foreach {
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds diff playingUserIds
