@@ -67,9 +67,9 @@ function reload(ground, data, fen, flip) {
 }
 
 function promote(ground, key, role) {
-  var pieces = {};
   var piece = ground.data.pieces[key];
-  if (piece && piece.role == 'pawn') {
+  if (piece && piece.role === 'pawn') {
+    var pieces = {};
     pieces[key] = {
       color: piece.color,
       role: role

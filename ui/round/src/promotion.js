@@ -13,7 +13,10 @@ function start(ctrl, orig, dest, isPremove) {
   if (piece && piece.role == 'pawn' && (
     (dest[1] == 8 && ctrl.data.player.color == 'white') ||
     (dest[1] == 1 && ctrl.data.player.color == 'black'))) {
-    if (ctrl.data.pref.autoQueen == 3 || (ctrl.data.pref.autoQueen == 2 && isPremove)) return false;
+    if (ctrl.data.pref.autoQueen === 3 || (ctrl.data.pref.autoQueen === 2 && isPremove)) {
+      ground.promote(ctrl.chessground, dest, 'queen');
+      return false;
+    }
     m.startComputation();
     promoting = [orig, dest];
     m.endComputation();
