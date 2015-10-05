@@ -113,11 +113,6 @@ module.exports = function(env) {
     this.vm.playerInfo.data = data;
   }.bind(this);
 
-  setTimeout(function() {
-    this.showPlayerInfo('voat');
-    m.redraw();
-  }.bind(this), 500);
-
   sound.end(this.data);
   sound.countDown(this.data);
   redirectToMyGame();

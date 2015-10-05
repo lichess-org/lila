@@ -99,9 +99,8 @@ object PlayerRepo {
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
-  import coll.BatchCommands.AggregationFramework,
-    AggregationFramework.{ Descending, Group, Match, Push, Sort }
-  
+  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ Descending, Group, Match, Push, Sort }
+
   def userIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId)), List(
       Group(BSONBoolean(true))("uids" -> Push("uid")))).
