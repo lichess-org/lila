@@ -49,7 +49,7 @@ module.exports = function(env) {
   this.loadPage(this.data.standing);
 
   var setPage = function(page) {
-    m.redraw.strategy('all');
+    // m.redraw.strategy('all');
     this.vm.page = page;
     xhr.loadPage(this, page)
   }.bind(this);
@@ -106,6 +106,7 @@ module.exports = function(env) {
       data: null
     };
     if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
+    m.redraw();
   }.bind(this);
 
   this.setPlayerInfoData = function(data) {

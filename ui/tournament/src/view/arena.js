@@ -127,7 +127,12 @@ module.exports = {
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
+      m('tbody', {
+        config: function() {
+          // reload user badges
+          $('body').trigger('lichess.content_loaded');
+        }
+      }, pag.currentPageResults.map(partial(playerTr, ctrl)))
     ];
   }
 };
