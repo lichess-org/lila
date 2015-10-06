@@ -15,7 +15,7 @@ object $update {
   def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)
 
   def apply[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false): Funit =
-      implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
+    implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
 
   def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A => JsObject): Funit =
     $find byId id flatten "[db] cannot update missing doc" flatMap { doc =>
@@ -35,8 +35,8 @@ object $update {
 
   // UNCHECKED
 
-  def unchecked[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false) {
-    implicitly[InColl[A]].coll.uncheckedUpdate(selector, update, upsert, multi)
+  def unchecked[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false) {
+    implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
   }
 
   def fieldUnchecked[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false) {

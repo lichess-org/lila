@@ -78,7 +78,7 @@ trait UserRepo {
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
-      BSONDocument("_id" -> BSONDocument("$in" -> List(u1, u2))),
+      BSONDocument("_id" -> BSONDocument("$in" -> BSONArray(u1, u2))),
       BSONDocument(s"${F.count}.game" -> true)
     ).cursor[BSONDocument]().collect[List]() map { docs =>
         docs.sortBy {
@@ -89,6 +89,18 @@ trait UserRepo {
         }
       }
   }
+
+  def firstGetsWhite(u1: String, u2: String): Fu[Boolean] = coll.find(
+    BSONDocument("_id" -> BSONDocument("$in" -> BSONArray(u1.pp, u2.pp))),
+    BSONDocument("_id" -> true)
+  ).sort(BSONDocument(F.colorIt -> 1)).one[BSONDocument].map {
+      _.pp.fold(scala.util.Random.nextBoolean) { doc =>
+        doc.getAs[String]("_id") contains u1
+      }
+    }.addEffect { v =>
+      $update.unchecked($select(u1), $incBson(F.colorIt -> v.fold(1, -1)))
+      $update.unchecked($select(u2), $incBson(F.colorIt -> v.fold(-1, 1)))
+    }
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)
