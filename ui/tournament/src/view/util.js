@@ -69,12 +69,13 @@ module.exports = {
     else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
     var rating = p.rating + p.perf + (p.provisional ? '?' : '');
     var fullName = (p.title ? p.title + ' ' : '') + p.name;
+    var attrs = {
+      class: 'ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
+    };
+    attrs[tag === 'a' ? 'href' : 'data-href'] = '/@/' + p.name;
     return {
       tag: tag,
-      attrs: {
-        class: 'ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
-        href: tag === 'a' ? '/@/' + p.name : null
-      },
+      attrs: attrs,
       children: [
         fullName,
         m('span.progress', [rating, perf])
