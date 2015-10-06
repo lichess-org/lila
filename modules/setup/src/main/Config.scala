@@ -3,7 +3,7 @@ package lila.setup
 import chess.format.Forsyth
 import chess.{ Game => ChessGame, Board, Situation, Clock, Speed }
 
-import lila.game.{ GameRepo, Game, Pov }
+import lila.game.Game
 import lila.lobby.Color
 import lila.tournament.{ System => TournamentSystem }
 
@@ -51,8 +51,6 @@ private[setup] trait Config {
 trait GameGenerator { self: Config =>
 
   def game: Game
-
-  def pov = Pov(game, creatorColor)
 }
 
 trait Positional { self: Config =>

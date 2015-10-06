@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Mode, Clock, Color => ChessColor }
-import lila.game.{ Game, Player, Source }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
 import lila.rating.RatingRange
 
@@ -31,6 +31,8 @@ case class FriendConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   }
+
+  def pov = Pov(game, creatorColor)
 }
 
 object FriendConfig extends BaseHumanConfig {
