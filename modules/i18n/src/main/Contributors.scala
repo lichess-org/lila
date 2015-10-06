@@ -41,7 +41,7 @@ private[i18n] object Contributors {
     "ar" -> List("Ziad Dabash"),
     "zh" -> List("神爱", "Unihedron"),
     "gl" -> List("José Manuel Castroagudín Silva"),
-    "hr" -> List("Betyárcsimbók"),
+    "hr" -> List("Betyárcsimbók", "Icosagon"),
     "mk" -> List("Давид и Стефан Тимовски"),
     "id" -> List("Night1301"),
     "ja" -> List("ネイサン　アイブス", "Unihedron"),
