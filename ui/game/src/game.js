@@ -125,6 +125,6 @@ module.exports = {
   forecastable: forecastable,
   isCorrespondence: isCorrespondence,
   isSwitchable: function(data) {
-    return data.simul || isCorrespondence(data);
+    return !hasAi(data) && (data.simul || isCorrespondence(data));
   }
 };

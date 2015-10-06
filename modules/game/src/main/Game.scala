@@ -368,7 +368,7 @@ case class Game(
 
   def isCorrespondence = speed == chess.Speed.Correspondence
 
-  def isSwitchable = isCorrespondence || isSimul
+  def isSwitchable = nonAi && (isCorrespondence || isSimul)
 
   def hasClock = clock.isDefined
 
