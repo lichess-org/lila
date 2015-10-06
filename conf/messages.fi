@@ -495,3 +495,4 @@ newTournament=Uusi turnaus
 tournamentNotFound=Turnausta ei löydy
 tournamentDoesNotExist=Tätä turnausta ei ole.
 tournamentMayHaveBeenCanceled=Se on ehkä peruttu, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.
+returnToTournamentsHomepage=Palaa turnausten aloitussivulle
