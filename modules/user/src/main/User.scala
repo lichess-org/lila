@@ -128,6 +128,7 @@ object User {
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
     val mustConfirmEmail = "mustConfirmEmail"
+    val colorIt = "colorIt"
   }
 
   import lila.db.BSON
