@@ -14,6 +14,10 @@ i18n: @jsI18n()
 }
 }
 
+@atom = {
+<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
+}
+
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, userTv = userTv),
@@ -21,7 +25,8 @@ chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
-chessground = false) {
+chessground = false,
+atom = atom.some) {
 <div class="round cg-512">@miniBoardContent</div>
 @cross.map { c =>
 <div class="crosstable" style="display:none">

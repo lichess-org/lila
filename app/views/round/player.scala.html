@@ -17,6 +17,10 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 }
 }
 
+@atom = {
+<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
+}
+
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul),
@@ -25,7 +29,8 @@ underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
 chessground = false,
-playing = true) {
+playing = true,
+atom = atom.some) {
 <div class="round cg-512">
   <div class="top">@miniBoardContent</div>
   <div class="underboard">

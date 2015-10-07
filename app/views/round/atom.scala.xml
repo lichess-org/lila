@@ -6,14 +6,14 @@
   <link rel="alternate" type="text/html" href="@url"/>
   <link rel="self" type="application/atom+xml" href="@url"/>
   <title>@titleGame(pov.game)</title>
+  @pov.game.updatedAt.map { date =>
+  <updated>@atomDate(date)</updated>
+  }
   <entry>
     <id>Start</id>
     <link rel="alternate" type="text/html" href="@url"/>
     <title>@describePov(pov)</title>
   </entry>
-  @pov.game.updatedAt.map { date =>
-  <updated>@atomDate(date)</updated>
-  }
   @pgn.turns.map { turn =>
   @turn.white.map { move =>
   @defining(turn.number * 2 - 1) { ply =>
@@ -27,7 +27,7 @@
   @turn.black.map { move =>
   @defining(turn.number * 2) { ply =>
   <entry>
-    <id>@url#@ply</id>
+    <id>@ply</id>
     <link rel="alternate" type="text/html" href="@url#@ply"/>
     <title>@(turn.number)... @move.san</title>
   </entry>
