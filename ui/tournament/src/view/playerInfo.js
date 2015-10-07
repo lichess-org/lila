@@ -18,9 +18,10 @@ module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
   if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('span.square-spin');
   var nb = data.player.nb;
-  var avgOp = nb.game ? Math.round(data.pairings.reduce(function(a, b) {
+  var pairingsLen = data.pairings.length
+  var avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
-  }, 0) / data.pairings.length) : null;
+  }, 0) / pairingsLen) : null;
   return m('div.player', {
     config: function(el, isUpdate) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
@@ -43,7 +44,7 @@ module.exports = function(ctrl) {
         },
         class: res === '1' ? 'win' : (res === '0' ? 'loss' : '')
       }, [
-        m('th', nb.game - i),
+        m('th', Math.max(nb.game, pairingsLen) - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
         m('td', p.op.rating),
         m('td', {
