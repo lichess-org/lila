@@ -57,7 +57,7 @@ lichess.StrongSocket.defaults = {
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
-      ($('body').data('ports') + '').split(',').map(function(port) {
+      [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
         return 'socket.' + document.domain + ':' + port;
       })),
     onFirstConnect: $.noop,
@@ -1149,7 +1149,7 @@ lichess.unique = function(xs) {
 
   $.sound = (function() {
     var version = 1;
-    var baseUrl = $('body').data('sound-dir');
+    var baseUrl = '/assets/sound';
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
 

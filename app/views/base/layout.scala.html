@@ -56,9 +56,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-set="@ctx.currentSoundSet"
-    data-sound-dir="@routes.Assets.at("sound")"
     data-bg="@ctx.currentBg"
-    data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />

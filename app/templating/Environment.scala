@@ -48,7 +48,6 @@ object Environment
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  val portsString = apiEnv.Net.ExtraPorts mkString ","
 
   def isProd = apiEnv.isProd
 
