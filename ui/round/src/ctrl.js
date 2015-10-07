@@ -89,7 +89,7 @@ module.exports = function(opts) {
     if (s.san) {
       if (s.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
-      if (/\+|\#/.test(s.san)) sound.check();
+      if (/[+#]/.test(s.san)) sound.check();
     }
     return true;
   }.bind(this);
