@@ -1320,6 +1320,7 @@ body.fpmenu #fpmenu {
 #message_notifications_display .content,
 #challenge_notifications .setup {
   display: block;
+  overflow: hidden;
 }
 #challenge_notifications .setup {
   text-transform: uppercase;
