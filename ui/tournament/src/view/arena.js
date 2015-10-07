@@ -106,7 +106,7 @@ module.exports = {
     return [
       m('thead',
         m('tr', ctrl.data.startsAt ? [
-          m('th.large', ctrl.data.nbPlayers + ' Players'),
+          m('th.large', ctrl.data.nbPlayers + ' ' + ctrl.trans('players')),
           ctrl.userId ? m('th',
             ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
           ) : m('th')
