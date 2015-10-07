@@ -33,7 +33,7 @@ module.exports = {
       util.title(ctrl),
       m('div.standing_wrap',
         pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
+          return m('table.slist.standing.created' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),
       m('br'),
       m('br'),
