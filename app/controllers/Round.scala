@@ -93,7 +93,7 @@ object Round extends LilaController with TheftPrevention {
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
       _ filter { pov =>
-        pov.game.id != game.id && pov.game.isSimul == game.isSimul
+        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
     }
   }
