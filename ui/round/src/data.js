@@ -1,17 +1,33 @@
-module.exports = function(old, cfg) {
+function firstPly(d) {
+  return d.steps[0].ply;
+};
 
-  var data = cfg;
+function lastPly(d) {
+  return d.steps[d.steps.length - 1].ply;
+};
 
-  if (data.clock) {
-    data.clock.showTenths = data.pref.clockTenths;
-    data.clock.showBar = data.pref.clockBar;
-  }
+function plyStep(d, ply) {
+  return d.steps[ply - firstPly(d)];
+};
 
-  if (data.correspondence)
-    data.correspondence.showBar = data.pref.clockBar;
+module.exports = {
+  merge: function(old, cfg) {
+    var data = cfg;
 
-  if (data.game.variant.key === 'horde')
-    data.pref.showCaptured = false;
+    if (data.clock) {
+      data.clock.showTenths = data.pref.clockTenths;
+      data.clock.showBar = data.pref.clockBar;
+    }
 
-  return data;
+    if (data.correspondence)
+      data.correspondence.showBar = data.pref.clockBar;
+
+    if (data.game.variant.key === 'horde')
+      data.pref.showCaptured = false;
+
+    return data;
+  },
+  firstPly: firstPly,
+  lastPly: lastPly,
+  plyStep: plyStep
 };

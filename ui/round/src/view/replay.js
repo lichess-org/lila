@@ -1,3 +1,4 @@
+var data = require('../data');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var game = require('game').game;
@@ -44,8 +45,8 @@ function renderResult(ctrl) {
 
 function renderMoves(ctrl) {
   var steps = ctrl.data.steps;
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = data.firstPly(ctrl.data);
+  var lastPly = data.lastPly(ctrl.data);
   if (typeof lastPly === 'undefined') return;
 
   var pairs = [];
@@ -103,8 +104,8 @@ function analyseButton(ctrl) {
 }
 
 function renderButtons(ctrl) {
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = data.firstPly(ctrl.data);
+  var lastPly = data.lastPly(ctrl.data);
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
@@ -114,7 +115,7 @@ function renderButtons(ctrl) {
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', ctrl.firstPly()],
+      ['first', 'W', firstPly],
       ['prev', 'Y', ctrl.vm.ply - 1],
       ['next', 'X', ctrl.vm.ply + 1],
       ['last', 'V', lastPly]
