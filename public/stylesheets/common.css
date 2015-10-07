@@ -925,10 +925,6 @@ body.offline #reconnecting,
   padding: 1px 4px 1px 3px;
   line-height: 10px;
 }
-.count--red[data-count]::after {
-  background: #FD2934 !important;
-  border-color: #FD000D !important;
-}
 [data-count='0']::after {
   display: none;
 }

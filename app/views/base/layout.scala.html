@@ -136,7 +136,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </a>
       </div>
       @if(isGranted(_.SeeReport)) {
-      <a class="fright link text count--red" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
+      <a class="fright link text" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
       }
       }
       <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
