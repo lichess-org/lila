@@ -52,9 +52,11 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
 
+      val isHalloween = today.getMonthOfYear == 10 && today.geetDayOfMonth == 31
+
       val std = StartingPosition.initial
-      val opening1 = StartingPosition.randomFeaturable
-      val opening2 = StartingPosition.randomFeaturable
+      val opening1 = isHalloween ? StartingPosition.halloween | StartingPosition.randomFeaturable
+      val opening2 = isHalloween ? StartingPosition.frankeinstein StartingPosition.randomFeaturable
 
       val nextSchedules: List[Schedule] = List(
 
@@ -91,14 +93,14 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3))
         ),
 
-        List( // oriental tournaments!
+        List( // eastern tournaments!
           Schedule(Eastern, Bullet, Standard, std, at(today, 6) |> orTomorrow),
           Schedule(Eastern, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
           Schedule(Eastern, Blitz, Standard, std, at(today, 8) |> orTomorrow),
           Schedule(Eastern, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
-        List( // oriental variant tournaments!
+        List( // eastern variant tournaments!
           Schedule(Eastern, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
           Schedule(Eastern, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
           Schedule(Eastern, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
