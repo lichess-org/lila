@@ -393,7 +393,9 @@ lichess.unique = function(xs) {
         document.cookie = cookie;
       }
     }
-    location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    var href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    $.redirect.inProgress = href;
+    location.href = href;
   };
   $.fp = {};
   $.fp.range = function(to) {
@@ -580,6 +582,7 @@ lichess.unique = function(xs) {
 
   lichess.hasToReload = false;
   lichess.reload = function() {
+    if ($.redirect.inProgress) return;
     lichess.hasToReload = true;
     location.reload();
   };
