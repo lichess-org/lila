@@ -244,7 +244,6 @@ final class JsonView(
     "rated" -> game.rated,
     "initialFen" -> (initialFen | chess.format.Forsyth.initial),
     "fen" -> (Forsyth >> game.toChess),
-    "moves" -> game.pgnMoves.mkString(" "),
     "player" -> game.turnColor.name,
     "winner" -> game.winnerColor.map(_.name),
     "turns" -> game.turns,
