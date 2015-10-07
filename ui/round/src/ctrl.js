@@ -26,7 +26,7 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   this.vm = {
-    ply: round.lastPly(this.data),
+    ply: Math.max(round.lastPly(this.data) - 1, round.firstPly(this.data)),
     flip: false,
     redirecting: false,
     replayHash: '',
@@ -56,7 +56,7 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
+  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onMove);
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -91,6 +91,7 @@ module.exports = function(opts) {
       else sound.move();
       if (/\+|\#/.test(s.san)) sound.check();
     }
+    return true;
   }.bind(this);
 
   this.replayEnabledByPref = function() {
@@ -218,7 +219,7 @@ module.exports = function(opts) {
     this.data = round.merge(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    if (!this.replaying()) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
+    if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();

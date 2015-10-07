@@ -1,18 +1,20 @@
 var chessground = require('chessground');
 var game = require('game').game;
 var util = require('./util');
+var round = require('./round');
 var m = require('mithril');
 
 function str2move(mo) {
   return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
 }
 
-function makeConfig(data, fen, flip) {
+function makeConfig(data, ply, flip) {
+  var step = round.plyStep(data, ply);
   return {
-    fen: fen,
+    fen: step.fen,
     orientation: flip ? data.opponent.color : data.player.color,
     turnColor: data.game.player,
-    lastMove: str2move(data.game.lastMove),
+    lastMove: str2move(step.uci),
     check: data.game.check,
     coordinates: data.pref.coords !== 0,
     autoCastle: data.game.variant.key === 'standard',
@@ -50,8 +52,8 @@ function makeConfig(data, fen, flip) {
   };
 }
 
-function make(data, fen, userMove, onMove) {
-  var config = makeConfig(data, fen);
+function make(data, ply, userMove, onMove) {
+  var config = makeConfig(data, ply);
   config.movable.events = {
     after: userMove
   };
@@ -62,8 +64,8 @@ function make(data, fen, userMove, onMove) {
   return new chessground.controller(config);
 }
 
-function reload(ground, data, fen, flip) {
-  ground.set(makeConfig(data, fen, flip));
+function reload(ground, data, ply, flip) {
+  ground.set(makeConfig(data, ply, flip));
 }
 
 function promote(ground, key, role) {
