@@ -256,13 +256,17 @@ private[tournament] final class TournamentApi(
           VisibleTournaments(created, started, finished)
       }
 
-  def playerInfo(tourId: String, user: User): Fu[Option[PlayerInfoExt]] =
-    TournamentRepo byId tourId flatMap {
-      _ ?? { tour =>
-        PlayerRepo.find(tour.id, user.id) flatMap {
-          _ ?? { player =>
-            playerPovs(tour.id, user.id, 50) map { povs =>
-              PlayerInfoExt(tour, user, player, povs).some
+  def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfoExt]] =
+    UserRepo named userId flatMap {
+      _ ?? { user =>
+        TournamentRepo byId tourId flatMap {
+          _ ?? { tour =>
+            PlayerRepo.find(tour.id, user.id) flatMap {
+              _ ?? { player =>
+                playerPovs(tour.id, user.id, 50) map { povs =>
+                  PlayerInfoExt(tour, user, player, povs).some
+                }
+              }
             }
           }
         }

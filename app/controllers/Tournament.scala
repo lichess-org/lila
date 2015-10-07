@@ -42,14 +42,18 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id) zip env.jsonView(tour, page, ctx.userId) zip chatOf(tour) map {
+          env.version(tour.id) zip env.jsonView(tour, page, ctx.userId, none) zip chatOf(tour) map {
             case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
           }
         }
       },
       api = _ => repo byId id flatMap {
-        case None       => NotFound(Json.obj("error" -> "No such tournament")).fuccess
-        case Some(tour) => env.jsonView(tour, page, ctx.userId) map { Ok(_) }
+        case None => NotFound(Json.obj("error" -> "No such tournament")).fuccess
+        case Some(tour) => get("playerInfo") ?? {
+          env.api.playerInfo(tour.id, _)
+        } flatMap { playerInfoExt =>
+          env.jsonView(tour, page, ctx.userId, playerInfoExt)
+        } map { Ok(_) }
       } map (_ as JSON)
     ) map NoCache
   }
@@ -91,8 +95,8 @@ object Tournament extends LilaController {
   }
 
   def player(id: String, userId: String) = Open { implicit ctx =>
-    JsonOptionFuOk(UserRepo byId userId) { user =>
-      env.api.playerInfo(id, user) flatMap {
+    JsonOk {
+      env.api.playerInfo(id, userId) flatMap {
         _ ?? env.jsonView.playerInfo
       }
     }

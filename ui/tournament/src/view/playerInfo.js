@@ -27,7 +27,10 @@ module.exports = function(ctrl) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }
   }, [
-    m('h2', [m('span.rank', data.player.rank + '. '), util.player(data.player)]),
+    m('h2', [
+      data.player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', data.player.rank + '. '),
+      util.player(data.player)
+    ]),
     m('div.stats', m('table', [
       m('tr', [m('th', 'Games played'), m('td', nb.game)]),
       nb.game ? [

@@ -28,6 +28,8 @@ module.exports = function(env) {
   this.reload = function(data) {
     if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
     this.data = data;
+    if (data.playerInfo && data.playerInfo.player.id === this.vm.playerInfo.id)
+      this.vm.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.vm.focusOnMe) this.scrollToMe();
     startWatching();

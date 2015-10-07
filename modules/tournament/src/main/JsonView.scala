@@ -15,13 +15,20 @@ final class JsonView(
 
   private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
 
-  def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
+  def apply(
+    tour: Tournament,
+    page: Option[Int],
+    me: Option[String],
+    playerInfoExt: Option[PlayerInfoExt]): Fu[JsObject] = for {
     data <- cachableData(tour.id)
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
       case (Some(i), _) => standing(tour, i.page)
       case _            => standing(tour, 1)
+    }
+    playerInfoJson <- playerInfoExt ?? { pie =>
+      playerInfo(pie).map(_.some)
     }
   } yield Json.obj(
     "id" -> tour.id,
@@ -45,7 +52,8 @@ final class JsonView(
     "lastGames" -> data.games,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
-    "podium" -> data.podium
+    "podium" -> data.podium,
+    "playerInfo" -> playerInfoJson
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =

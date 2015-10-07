@@ -34,7 +34,8 @@ function reloadTournament(ctrl) {
     url: '/tournament/' + ctrl.data.id,
     config: xhrConfig,
     data: {
-      page: ctrl.vm.focusOnMe ? null : ctrl.vm.page
+      page: ctrl.vm.focusOnMe ? null : ctrl.vm.page,
+      playerInfo: ctrl.vm.playerInfo.id
     }
   }).then(ctrl.reload, reloadPage);
 }
