@@ -129,6 +129,9 @@ GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game
 POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
+GET   /$gameId<\w{8}>.atom                       controllers.Round.atom(gameId: String, color: String = "white")
+GET   /$gameId<\w{8}>/$color<white|black>.atom   controllers.Round.atom(gameId: String, color: String)
+
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
