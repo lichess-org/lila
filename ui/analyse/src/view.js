@@ -16,6 +16,7 @@ var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
+var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
   return {
@@ -25,8 +26,10 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  raf(function() {
+    var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
+    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
 }
 
 var emptyMove = m('move.empty', '...');
@@ -370,7 +373,6 @@ module.exports = function(ctrl) {
             m('div.replay', {
                 config: function(el, isUpdate) {
                   autoScroll(el);
-                  if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
                 }
               },
               renderAnalyse(ctrl))

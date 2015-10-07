@@ -1,6 +1,7 @@
 var round = require('../round');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
 var status = require('game').status;
 var renderStatus = require('game').view.status;
@@ -134,8 +135,10 @@ function renderButtons(ctrl) {
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('turn:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  raf(function() {
+    var plyEl = movelist.querySelector('.active') || movelist.querySelector('turn:first-child');
+    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
 }
 
 module.exports = function(ctrl) {
@@ -147,9 +150,8 @@ module.exports = function(ctrl) {
   return m('div.replay', [
     renderButtons(ctrl),
     ctrl.replayEnabledByPref() ? m('div.moves', {
-      config: function(el, isUpdate) {
+      config: function(el) {
         autoScroll(el);
-        if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
       onmousedown: function(e) {
         var turn = parseInt($(e.target).siblings('index').text());
