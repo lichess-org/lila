@@ -52,11 +52,11 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
 
-      val isHalloween = today.getMonthOfYear == 10 && today.geetDayOfMonth == 31
+      val isHalloween = today.getMonthOfYear == 10 && today.getDayOfMonth == 31
 
       val std = StartingPosition.initial
-      val opening1 = isHalloween ? StartingPosition.halloween | StartingPosition.randomFeaturable
-      val opening2 = isHalloween ? StartingPosition.frankeinstein StartingPosition.randomFeaturable
+      val opening1 = isHalloween ? StartingPosition.presets.halloween | StartingPosition.randomFeaturable
+      val opening2 = isHalloween ? StartingPosition.presets.frankenstein | StartingPosition.randomFeaturable
 
       val nextSchedules: List[Schedule] = List(
 
