@@ -108,14 +108,12 @@ lichess.StrongSocket.prototype = {
         //   console.log(m, 'skip');
         //   return;
         // }
-        if (m.t == "n") {
-          self.pong();
-        } else self.debug(e.data);
-        if (m.t == "b") {
-          m.d.forEach(function(mm) {
-            self.handle(mm);
-          });
-        } else self.handle(m);
+        if (m.t === 'n') self.pong();
+        // else self.debug(e.data);
+        if (m.t === 'b') m.d.forEach(function(mm) {
+          self.handle(mm);
+        });
+        else self.handle(m);
       };
     } catch (e) {
       self.onError(e);
