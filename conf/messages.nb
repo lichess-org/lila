@@ -274,7 +274,6 @@ progressThisMonth=Månedlig framgang
 leaderboardThisWeek=Ukens ledere
 leaderboardThisMonth=Månedens ledere
 activeToday=Aktive i dag
-activeThisWeek=Aktive denne uken
 activePlayers=Aktive spillere
 bewareTheGameIsRatedButHasNoClock=Merk at spillet er rangert, men har ingen tidskontroll!
 training=Trening

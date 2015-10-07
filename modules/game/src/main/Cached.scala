@@ -33,12 +33,6 @@ final class Cached(
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 1 hour)
 
-  // very very expensive
-  val activePlayerUidsWeek = mongoCache[Int, List[UidNb]](
-    prefix = "player:active:week",
-    (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
-    timeToLive = 6 hours)
-
   private val countShortTtl = AsyncCache[JsObject, Int](
     f = (o: JsObject) => $count(o),
     timeToLive = 5.seconds)

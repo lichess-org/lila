@@ -272,7 +272,6 @@ progressThisMonth=Месечен напредок
 leaderboardThisWeek=Оваа недела во водство
 leaderboardThisMonth=Овој месец во водство
 activeToday=Активни денес
-activeThisWeek=Активни оваа недела
 activePlayers=Активни играчи
 bewareTheGameIsRatedButHasNoClock=Внимавајте, играта е оценета но нема часовник.
 training=обука

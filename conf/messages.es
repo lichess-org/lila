@@ -274,7 +274,6 @@ progressThisMonth=Progreso este mes
 leaderboardThisWeek=Progreso esta semana
 leaderboardThisMonth=Progreso este mes
 activeToday=Activos hoy
-activeThisWeek=Activos esta semana
 activePlayers=Jugadores en activo
 bewareTheGameIsRatedButHasNoClock=¡Cuidado, el juego es puntado pero sin reloj!
 training=Entrenamiento

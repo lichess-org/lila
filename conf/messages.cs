@@ -274,7 +274,6 @@ progressThisMonth=Růst tento měsíc
 leaderboardThisWeek=Růst tento týden
 leaderboardThisMonth=Růst tento měsíc
 activeToday=Aktivní dnes
-activeThisWeek=Aktivní tento týden
 activePlayers=Aktivní hráči
 bewareTheGameIsRatedButHasNoClock=Pozor, hra je o body i když je bez hodin!
 training=Trénink

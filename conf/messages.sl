@@ -274,7 +274,6 @@ progressThisMonth=Napredek ta mesec
 leaderboardThisWeek=Vodilni ta teden
 leaderboardThisMonth=Vodilni ta mesec
 activeToday=Aktivnost danes
-activeThisWeek=Altivnost ta teden
 activePlayers=Aktivni igralci
 bewareTheGameIsRatedButHasNoClock=Pozor, igra je rangirana, vendar ni časovno omejena!
 training=Šahovski problemi

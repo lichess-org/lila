@@ -274,7 +274,6 @@ progressThisMonth=Miesięczny postęp
 leaderboardThisWeek=Liderzy tego tygodnia
 leaderboardThisMonth=Liderzy tego miesiąca
 activeToday=Aktywni dzisiaj
-activeThisWeek=Aktywni w tym tygodniu
 activePlayers=Aktywni gracze
 bewareTheGameIsRatedButHasNoClock=Uważaj, gra jest rankingowa, nie ma jednak limitu czasu!
 training=Trening

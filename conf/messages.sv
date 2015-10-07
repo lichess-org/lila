@@ -274,7 +274,6 @@ progressThisMonth=Månadens framsteg
 leaderboardThisWeek=Veckans toppspelare
 leaderboardThisMonth=Månadens toppspelare
 activeToday=Aktivast i dag
-activeThisWeek=Aktivast denna vecka
 activePlayers=Aktiva spelare
 bewareTheGameIsRatedButHasNoClock=OBS! Spelet är rankat men har ingen tidsgräns.
 training=Träning

@@ -250,7 +250,6 @@ progressThisMonth=Adhartas am mìos seo
 leaderboardThisWeek=Sàr-chluicheadairean na seachdaine
 leaderboardThisMonth=Sàr-chluicheadairean a’ mhìosa
 activeToday=Gnìomhach an-diugh
-activeThisWeek=Gnìomhach an seachdain seo
 activePlayers=Cluicheadairean gnìomhach
 bewareTheGameIsRatedButHasNoClock=Thoir an aire, thèid an geama seo rangachadh ach chan eil uaireadair aige!
 training=Trèanadh

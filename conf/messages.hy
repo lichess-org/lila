@@ -271,7 +271,6 @@ progressThisMonth=Առաջխաղացում այս ամիս
 leaderboardThisWeek=Շաբաթվա առաջատարը
 leaderboardThisMonth=Նախորդ ամսվա առաջատարը
 activeToday=Ակտիվ այսօր
-activeThisWeek=Ակտիվ այս շաբաթ
 activePlayers=Ակտիվ խաղացողներ
 bewareTheGameIsRatedButHasNoClock=Զգուշացում․ խաղը միավորներով է սակայն առանց ժամանակի
 training=Մարզում

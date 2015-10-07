@@ -1,4 +1,4 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], horde: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], horde: List[User], nbDay: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -84,7 +84,7 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
     <div class="group">
       @userTopPerf(blitz, PerfType.Blitz)
       @userTopPerf(threeCheck, PerfType.ThreeCheck)
-      @userTopActive(nbWeek, trans.activeThisWeek(), icon = 'U'.some)
+      @userTopActive(nbDay, trans.activeToday(), icon = 'U'.some)
     </div>
 
     <div class="group">
