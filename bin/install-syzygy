@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -d local/tb ]; then
+  exit 0;
+fi
+
+cd local
+curl -O 91.121.169.81/syzygy/syzygy-5-man.tgz
+tar xzf syzygy-5-man.tgz
+mv syzygy tb
+cd ..

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+./bin/install-stockfish
+./bin/install-polyglot
+./bin/install-syzygy
+
+cp conf/polyglot.ini /etc/polyglot.ini
+vim /etc/polyglot.ini
+vim conf/application.conf
+
+./local/Stockfish/src/stockfish bench
