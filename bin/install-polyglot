@@ -4,8 +4,7 @@ mkdir -p local
 cd local
 git clone https://github.com/ddugovic/polyglot.git
 cd polyglot
-git checkout learn
-git checkout 2d5bbd35dd1c44a1a7556793e16b9070047848fb .
+git checkout 2d5bbd35dd1c44a1a7556793e16b9070047848fb
 cd src
 touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
 ./configure --disable-assert
