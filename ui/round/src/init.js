@@ -1,6 +1,7 @@
 var m = require('mithril');
 var title = require('./title');
 var blur = require('./blur');
+var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
 var keyboard = require('./keyboard');
@@ -31,7 +32,7 @@ module.exports = function(ctrl) {
 
   keyboard.init(ctrl);
 
-  setTimeout(function() {
-    if (ctrl.jump(ctrl.vm.ply + 1)) m.redraw();
-  }, 400);
+  if (!ctrl.data.player.spectator) setTimeout(function() {
+    if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
+  }, 500);
 };

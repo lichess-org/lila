@@ -26,7 +26,7 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   this.vm = {
-    ply: Math.max(round.lastPly(this.data) - 1, round.firstPly(this.data)),
+    ply: this.data.player.spectator ? round.lastPly(this.data) : Math.max(round.lastPly(this.data) - 1, round.firstPly(this.data)),
     flip: false,
     redirecting: false,
     replayHash: '',
