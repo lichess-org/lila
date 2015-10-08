@@ -5,7 +5,7 @@ import scala.concurrent.duration.FiniteDuration
 import actorApi._
 
 private[ai] case class Config(
-    execPath: String,
+    command: List[String],
     hashSize: Int,
     nbThreads: Int,
     nbInstances: Int,
