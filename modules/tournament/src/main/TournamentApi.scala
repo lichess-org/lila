@@ -11,7 +11,7 @@ import scalaz.NonEmptyList
 import actorApi._
 import lila.common.Debouncer
 import lila.db.api._
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
@@ -61,16 +61,21 @@ private[tournament] final class TournamentApi(
 
   def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      tour.system.pairingSystem.createPairings(tour, users) flatMap {
-        case Nil => funit
-        case pairings => pairings.map { pairing =>
-          PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-        }.sequenceFu.map {
-          _ map StartGame.apply foreach { sendTo(tour.id, _) }
-        } >>- {
-          val time = nowMillis - startAt
-          if (time > 100)
-            play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
+      cached.ongoingRanking(tour.id) flatMap { ranking =>
+        tour.system.pairingSystem.createPairings(tour, users, ranking) flatMap {
+          case Nil => funit
+          case pairings if nowMillis - startAt > 1000 =>
+            play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+            funit
+          case pairings => pairings.map { pairing =>
+            PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
+          }.sequenceFu.map {
+            _ map StartGame.apply foreach { sendTo(tour.id, _) }
+          } >>- {
+            val time = nowMillis - startAt
+            if (time > 100)
+              play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
+          }
         }
       }
     }
@@ -250,6 +255,30 @@ private[tournament] final class TournamentApi(
         case ((created, started), finished) =>
           VisibleTournaments(created, started, finished)
       }
+
+  def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfoExt]] =
+    UserRepo named userId flatMap {
+      _ ?? { user =>
+        TournamentRepo byId tourId flatMap {
+          _ ?? { tour =>
+            PlayerRepo.find(tour.id, user.id) flatMap {
+              _ ?? { player =>
+                playerPovs(tour.id, user.id, 50) map { povs =>
+                  PlayerInfoExt(tour, user, player, povs).some
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  private def playerPovs(tourId: String, userId: String, nb: Int): Fu[List[Pov]] =
+    PairingRepo.recentIdsByTourAndUserId(tourId, userId, nb) flatMap { ids =>
+      GameRepo games ids map {
+        _.flatMap { Pov.ofUserId(_, userId) }
+      }
+    }
 
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)

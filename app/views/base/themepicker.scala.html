@@ -25,7 +25,7 @@
     </div>
     <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
       @lila.pref.PieceSet.list.map { set =>
-      <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
+      <div class="no-square" data-set="@set.name"><piece class="@set.name"></piece></div>
       }
     </div>
   </div>
@@ -37,7 +37,7 @@
     </div>
     <div class="piece_set" data-href="@routes.Pref.set("pieceSet3d")">
       @lila.pref.PieceSet3d.list.map { set =>
-      <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
+      <div class="no-square" data-set="@set.name"><piece class="@set.name"></piece></div>
       }
     </div>
   </div>

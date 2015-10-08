@@ -35,7 +35,7 @@ final class BlogApi(prismicUrl: String, collection: String) {
 
   private val fetchPrismicApi = AsyncCache.single[Api](
     f = Api.get(prismicUrl, cache = cache, logger = logger),
-    timeToLive = 5 seconds)
+    timeToLive = 10 seconds)
 
   def prismicApi = fetchPrismicApi(true)
 }

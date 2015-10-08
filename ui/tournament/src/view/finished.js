@@ -3,6 +3,7 @@ var partial = require('chessground').util.partial;
 var util = require('./util');
 var arena = require('./arena');
 var pairings = require('./pairings');
+var playerInfo = require('./playerInfo');
 var pagination = require('../pagination');
 
 module.exports = {
@@ -18,5 +19,7 @@ module.exports = {
       util.games(ctrl.data.lastGames)
     ];
   },
-  side: pairings
+  side: function(ctrl) {
+    return ctrl.vm.playerInfo.id ? playerInfo(ctrl) : pairings(ctrl);
+  }
 };

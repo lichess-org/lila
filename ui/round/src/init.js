@@ -1,5 +1,7 @@
+var m = require('mithril');
 var title = require('./title');
 var blur = require('./blur');
+var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
 var keyboard = require('./keyboard');
@@ -11,7 +13,6 @@ module.exports = function(ctrl) {
 
   title.init(ctrl);
   ctrl.setTitle();
-
   blur.init(ctrl);
 
   if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.genericNotify();
@@ -30,4 +31,8 @@ module.exports = function(ctrl) {
   }
 
   keyboard.init(ctrl);
+
+  if (!ctrl.data.player.spectator) setTimeout(function() {
+    if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
+  }, 500);
 };

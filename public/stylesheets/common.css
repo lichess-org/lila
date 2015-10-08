@@ -907,12 +907,26 @@ body.offline #reconnecting,
 }
 #top .fright {
   float: right;
+  position: relative;
 }
+#top [data-count]::after,
 .unread {
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   border-radius: 2px;
   font-size: 0.9em;
+}
+#top [data-count]::after {
+  content: attr(data-count);
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: 11px;
+  padding: 1px 4px 1px 3px;
+  line-height: 10px;
+}
+#top [data-count='0']::after {
+  display: none;
 }
 #top .shown a.toggle {
   background: #fff;
@@ -1302,6 +1316,7 @@ body.fpmenu #fpmenu {
 #message_notifications_display .content,
 #challenge_notifications .setup {
   display: block;
+  overflow: hidden;
 }
 #challenge_notifications .setup {
   text-transform: uppercase;
@@ -1512,7 +1527,7 @@ body #themepicker div.is3d,
   position: relative;
   margin: 0px -3px -3px -3px;
 }
-#themepicker .is3d .cg-piece {
+#themepicker .is3d piece {
   width: 100%;
   height: 100%;
   left: 0;
@@ -1761,8 +1776,8 @@ a.button:active {
 .ui-state-active,
 .ui-widget-header,
 div.pagination span.current,
+[data-count]::after,
 .unread,
-#top span.new_challenges,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,
 #import_game .progression {

@@ -12,9 +12,9 @@ var m = require('mithril');
 
 function materialTag(role) {
   return {
-    tag: 'div',
+    tag: 'mono-piece',
     attrs: {
-      class: 'mono-piece ' + role
+      class: role
     }
   };
 }
@@ -30,10 +30,10 @@ function renderMaterial(ctrl, material, checks) {
       content = [];
       for (var i = 0; i < count; i++) content.push(piece);
     }
-    children.push(m('div.tomb', content));
+    children.push(m('tomb', content));
   }
   for (var i = 0; i < checks; i++) {
-    children.push(m('div.tomb', m('div.mono-piece.king[title=Check]')));
+    children.push(m('tomb', m('mono-piece.king[title=Check]')));
   }
   return m('div.cemetery', children);
 }
@@ -70,7 +70,7 @@ function renderVariantReminder(ctrl) {
         setTimeout(function() {
           el.remove();
         }, 600);
-      }, 500);
+      }, 800);
     }
   });
 }
@@ -106,6 +106,17 @@ var emptyMaterialDiff = {
   black: []
 };
 
+function blursAndHolds(ctrl) {
+  var stuff = [];
+  ['blursOf', 'holdOf'].forEach(function(f) {
+    ['opponent', 'player'].forEach(function(p) {
+      var r = mod[f](ctrl, ctrl.data[p]);
+      if (r) stuff.push(r);
+    });
+  });
+  if (stuff.length) return m('div.blurs', stuff);
+}
+
 module.exports = function(ctrl) {
   var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : emptyMaterialDiff;
   return [
@@ -127,9 +138,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null),
-      m('div.blurs', [
-        [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
-      ])
+      blursAndHolds(ctrl)
     ])
   ];
 };

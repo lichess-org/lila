@@ -27,3 +27,10 @@ div.doc_box .body ul li {
 div.doc_box .body li {
   margin-left: 2em;
 }
+div.doc_box .body a:not(.user_link) {
+  text-decoration: underline;
+}
+div.doc_box .body a {
+div.doc_box .body a:hover {
+  text-decoration: none;
+}

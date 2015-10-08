@@ -28,7 +28,8 @@ case class UserInfo(
     nbPosts: Int,
     playTime: User.PlayTime,
     donor: Boolean,
-    trophies: Trophies) {
+    trophies: Trophies,
+    isStreamer: Boolean) {
 
   def nbRated = user.count.rated
 
@@ -36,12 +37,18 @@ case class UserInfo(
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 
-  def allTrophies = (donor ?? List(Trophy(
-    _id = "",
-    user = user.id,
-    kind = Trophy.Kind.Donor,
-    date = org.joda.time.DateTime.now)
-  )) ::: trophies
+  def allTrophies = List(
+    donor option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Donor,
+      date = org.joda.time.DateTime.now),
+    isStreamer option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Streamer,
+      date = org.joda.time.DateTime.now)
+  ).flatten ::: trophies
 }
 
 object UserInfo {
@@ -57,7 +64,8 @@ object UserInfo {
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
     isDonor: String => Fu[Boolean],
-    isHostingSimul: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
+    isHostingSimul: String => Fu[Boolean],
+    isStreamer: String => Boolean)(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -89,7 +97,8 @@ object UserInfo {
               nbPosts = nbPosts,
               playTime = playTime,
               donor = isDonor,
-              trophies = trophies)
+              trophies = trophies,
+              isStreamer = isStreamer(user.id))
           }
       }
 }

@@ -127,12 +127,20 @@ ol.scheduled_tournaments a {
   padding-top: 20px;
   overflow: hidden;
 }
-#tournament a.user_link .progress {
+#tournament .user_link.long {
+  letter-spacing: -0.7px;
+}
+#tournament .user_link .progress {
   font-style: italic;
   font-size: 0.8em;
   padding-left: 5px;
+  letter-spacing: 0;
 }
-#tournament a.user_link .progress span {
+#tournament tr.long .user_link .progress {
+  display: block;
+  padding-left: 20px;
+}
+#tournament .user_link .progress span {
   padding-left: 5px;
 }
 #tournament a.pov {
@@ -143,11 +151,6 @@ ol.scheduled_tournaments a {
   position: relative;
   border-radius: 100px;
   transition: box-shadow 1.5s;
-}
-#tournament a.pov.glow {
-  box-shadow: 0 0 10px 3px #fff,
-  0 0 30px 5px #e89000,
-  0 0 60px 10px #d85000;
 }
 #tournament a.pov span {
   display: block;
@@ -210,6 +213,16 @@ ol.scheduled_tournaments a {
   padding-left: 10px;
   white-space: nowrap;
 }
+#tournament table.standing tbody tr {
+  transition: 0.13s;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+#tournament table.standing:not(.created) tbody tr:hover {
+  background: rgba(191, 231, 255, 0.7);
+  cursor: pointer;
+}
 #tournament table.standing tr.me td:first-child {
   border-left: 10px solid #d59120;
   padding-left: 5px;
@@ -238,8 +251,10 @@ ol.scheduled_tournaments a {
   font-family: monospace;
   letter-spacing: 0;
 }
-#tournament table.standing .sheet > * {
-  cursor: pointer;
+#tournament table.standing tr.long .sheet {
+  letter-spacing: -2.5px;
+  padding-right: 0;
+  padding-left: 0;
 }
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
@@ -249,24 +264,13 @@ ol.scheduled_tournaments a {
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
 }
-#tournament table.standing .sheet > *:hover {
-  background: #888;
-  color: #fff;
-  border-radius: 2px;
-}
 #tournament double {
   color: #d59120;
   font-weight: bold;
 }
-#tournament double:hover {
-  background: #d59120!important;
-}
 #tournament streak {
   color: #759900;
   font-weight: bold;
-}
-#tournament streak:hover {
-  background: #759900!important;
 }
 #tournament table.standing td.around-bar {
   padding: 0;
@@ -326,29 +330,111 @@ ol.scheduled_tournaments a {
 #tournament .join_password input {
   padding: 3px 5px;
 }
-#tournament_side {
-  float: right;
-  width: 246px;
-  max-height: 510px;
-  overflow-y: hidden;
-  border: 1px solid #ccc;
-  padding: 3px;
-  overflow: auto;
-  text-align: center;
-}
 .setup {
   text-transform: uppercase;
 }
-#tournament_side a {
+#tournament_side {
+  position: relative;
+  float: right;
+  width: 252px;
+  border: 1px solid #ccc;
+  text-align: center;
+  transition: 0.13s;
+}
+#tournament_side .scroll-shadow-soft {
+  max-height: 510px;
+  overflow: auto;
+}
+#tournament_side .square-spin {
+  width: 50px;
+  height: 50px;
+  margin: 30px;
+  opacity: 0.5;
+}
+#tournament_side .player h2 {
+  font-size: 1.2em;
+  padding-top: 12px;
+  background: #fff;
+}
+#tournament_side .player .stats {
+  background: #fff;
+  padding: 12px 0;
+  border-bottom: 1px solid #ccc;
+}
+#tournament_side .player table {
+  margin: auto;
+}
+#tournament_side .player .stats td {
+  font-weight: bold;
+  padding-left: 10px;
+  text-align: right;
+}
+#tournament_side .player .pairings {
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+#tournament_side .player .pairings tr {
+  cursor: pointer;
+  transition: background-color 0.13s;
+}
+#tournament_side .player .pairings tr:hover {
+  background: #fff;
+}
+#tournament_side .player .pairings tr > * {
+  padding: 3px 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+#tournament_side .player .pairings th {
+  padding-left: 7px;
+  border-left: 3px solid transparent;
+  border-left-color: #fff;
+  transition: 0.13s;
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+#tournament_side .player .pairings tr:hover th {
+  border-left-color: #888!important;
+}
+#tournament_side .player .pairings tr.win:hover th {
+  border-left-color: #759900!important;
+}
+#tournament_side .player .pairings tr.loss:hover th {
+  border-left-color: #dc322f!important;
+}
+#tournament_side .player .pairings td:nth-child(2) {
+  width: 110px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#tournament_side .player .pairings td:last-child {
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.8;
+}
+#tournament_side .player .pairings tr.win td:last-child {
+  color: #759900;
+  opacity: 1;
+}
+#tournament_side .player .pairings tr.loss td:last-child {
+  color: #dc322f;
+  opacity: 1;
+}
+#tournament_side .player .color-icon {
+  opacity: 0.6;
+}
+#tournament_side .all_pairings {
+  font-style: italic;
+}
+#tournament_side .all_pairings a {
   padding: 0.3em 0.2em;
   display: block;
   white-space: nowrap;
   overflow: hidden;
 }
-#tournament_side {
-  font-style: italic;
-}
-#tournament_side > a > * {
+#tournament_side .all_pairings > a > * {
   margin: 0 5px;
   font-weight: bold;
   font-style: normal;

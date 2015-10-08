@@ -16,39 +16,37 @@ var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
+var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'eval'
-    },
+    tag: 'eval',
     children: [e]
   };
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  raf(function() {
+    var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
+    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
 }
 
-var emptyMove = m('em.move.empty', '...');
+var emptyMove = m('move.empty', '...');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
   var eval = path[1] ? {} : (move.eval || move.ceval || {});
+  var attrs = path[1] ? {
+    'data-path': pathStr
+  } : {};
+  var classes = pathStr === ctrl.vm.pathStr ? ['active'] : [];
+  if (pathStr === ctrl.vm.initialPathStr) classes.push('current');
+  if (classes.length) attrs.class = classes.join(' ');
   return {
-    tag: 'a',
-    attrs: {
-      class: classSet({
-        'move': true,
-        'active': pathStr === ctrl.vm.pathStr,
-        'current': pathStr === ctrl.vm.initialPathStr
-      }),
-      'data-path': pathStr,
-      'href': '#' + path[0].ply
-    },
+    tag: 'move',
+    attrs: attrs,
     children: [
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
@@ -152,7 +150,7 @@ function renderMeta(ctrl, move, path) {
       ctrl,
       variation,
       treePath.withVariation(path, i + 1),
-      i === 0 ? colorClass + commentClass : null
+      i === 0 ? colorClass + (commentClass || '') : null
     ));
   });
   return m('div', {
@@ -162,20 +160,14 @@ function renderMeta(ctrl, move, path) {
 
 function renderIndex(txt) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'index'
-    },
+    tag: 'index',
     children: [txt]
   };
 }
 
-function renderTurnDiv(children) {
+function renderTurnEl(children) {
   return {
-    tag: 'div',
-    attrs: {
-      class: 'turn',
-    },
+    tag: 'turn',
     children: children
   };
 }
@@ -190,20 +182,20 @@ function renderTurn(ctrl, turn, path) {
   var bMeta = renderMeta(ctrl, turn.black, bPath);
   if (wMove) {
     if (wMeta) return [
-      renderTurnDiv([index, wMove, emptyMove]),
+      renderTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
-        renderTurnDiv([index, emptyMove, bMove]),
+        renderTurnEl([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
     return [
-      renderTurnDiv([index, wMove, bMove]),
+      renderTurnEl([index, wMove, bMove]),
       bMeta
     ];
   }
   return [
-    renderTurnDiv([index, emptyMove, bMove]),
+    renderTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
 }
@@ -261,11 +253,10 @@ function renderAnalyse(ctrl) {
   }
   return m('div.analyse', {
       onmousedown: function(e) {
-        var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) {
-          e.preventDefault();
-          ctrl.userJump(treePath.read(path));
-        }
+        var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        var path = el.getAttribute('data-path') ||
+          '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
+        if (path) ctrl.userJump(treePath.read(path));
       },
       onclick: function(e) {
         return false;
@@ -382,7 +373,6 @@ module.exports = function(ctrl) {
             m('div.replay', {
                 config: function(el, isUpdate) {
                   autoScroll(el);
-                  if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
                 }
               },
               renderAnalyse(ctrl))

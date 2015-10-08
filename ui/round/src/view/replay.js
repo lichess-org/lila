@@ -1,25 +1,26 @@
+var round = require('../round');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
 var status = require('game').status;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
 var m = require('mithril');
 
-var emptyTd = m('td.move', '...');
+var emptyMove = m('move', '...');
 
-function renderTd(step, curPly, orEmpty) {
+function renderMove(step, curPly, orEmpty) {
   return step ? {
-    tag: 'td',
-    attrs: {
-      class: 'move' + (step.ply === curPly ? ' active' : ''),
-      'data-ply': step.ply
+    tag: 'move',
+    attrs: step.ply !== curPly ? {} : {
+      class: 'active'
     },
     children: [step.san]
-  } : (orEmpty ? emptyTd : null)
+  } : (orEmpty ? emptyMove : null)
 }
 
-function renderResult(ctrl, asTable) {
+function renderResult(ctrl) {
   var result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
@@ -33,13 +34,7 @@ function renderResult(ctrl, asTable) {
   }
   if (result || status.aborted(ctrl.data)) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return asTable ? [
-      m('tr', m('td.result[colspan=3]', result)),
-      m('tr.status', m('td[colspan=3]', [
-        renderStatus(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
-      ]))
-    ] : [
+    return [
       m('p.result', result),
       m('p.status', [
         renderStatus(ctrl),
@@ -49,10 +44,10 @@ function renderResult(ctrl, asTable) {
   }
 }
 
-function renderTable(ctrl) {
+function renderMoves(ctrl) {
   var steps = ctrl.data.steps;
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = round.firstPly(ctrl.data);
+  var lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === 'undefined') return;
 
   var pairs = [];
@@ -63,23 +58,20 @@ function renderTable(ctrl) {
     for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
   }
 
-  var trs = [];
-  for (var i = 0, len = pairs.length; i < len; i++)
-    trs.push(m('tr', [
-      m('td.index', i + 1),
-      renderTd(pairs[i][0], ctrl.vm.ply, true),
-      renderTd(pairs[i][1], ctrl.vm.ply, false)
-    ]));
-  trs.push(renderResult(ctrl, true));
-
-  return m('table',
-    m('tbody', {
-        onclick: function(e) {
-          var ply = e.target.getAttribute('data-ply');
-          if (ply) ctrl.jump(parseInt(ply));
-        }
+  var rows = [];
+  for (var i = 0, len = pairs.length; i < len; i++) rows.push({
+    tag: 'turn',
+    children: [{
+        tag: 'index',
+        children: [i + 1]
       },
-      trs));
+      renderMove(pairs[i][0], ctrl.vm.ply, true),
+      renderMove(pairs[i][1], ctrl.vm.ply, false)
+    ]
+  });
+  rows.push(renderResult(ctrl));
+
+  return rows;
 }
 
 function analyseButton(ctrl) {
@@ -113,8 +105,8 @@ function analyseButton(ctrl) {
 }
 
 function renderButtons(ctrl) {
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = round.firstPly(ctrl.data);
+  var lastPly = round.lastPly(ctrl.data);
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
@@ -124,7 +116,7 @@ function renderButtons(ctrl) {
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', ctrl.firstPly()],
+      ['first', 'W', firstPly],
       ['prev', 'Y', ctrl.vm.ply - 1],
       ['next', 'X', ctrl.vm.ply + 1],
       ['last', 'V', lastPly]
@@ -143,8 +135,10 @@ function renderButtons(ctrl) {
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('tr:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  raf(function() {
+    var plyEl = movelist.querySelector('.active') || movelist.querySelector('turn:first-child');
+    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
 }
 
 module.exports = function(ctrl) {
@@ -156,10 +150,14 @@ module.exports = function(ctrl) {
   return m('div.replay', [
     renderButtons(ctrl),
     ctrl.replayEnabledByPref() ? m('div.moves', {
-      config: function(el, isUpdate) {
+      config: function(el) {
         autoScroll(el);
-        if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
-    }, renderTable(ctrl)) : renderResult(ctrl, false)
+      onmousedown: function(e) {
+        var turn = parseInt($(e.target).siblings('index').text());
+        var ply = 2 * turn - 2 + $(e.target).index();
+        if (ply) ctrl.jump(ply);
+      }
+    }, renderMoves(ctrl)) : renderResult(ctrl)
   ]);
 }

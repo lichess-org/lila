@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Mode, Color => ChessColor }
-import lila.game.{ Game, Player, Source }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
 
 case class AiConfig(
@@ -34,6 +34,8 @@ case class AiConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   } start
+
+  def pov = Pov(game, creatorColor)
 }
 
 object AiConfig extends BaseConfig {

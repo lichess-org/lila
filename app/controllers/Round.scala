@@ -93,7 +93,7 @@ object Round extends LilaController with TheftPrevention {
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
       _ filter { pov =>
-        pov.game.id != game.id && pov.game.isSimul == game.isSimul
+        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
     }
   }
@@ -111,9 +111,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def whatsNext(gameId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(currentGame) map getNext(currentGame) map { next =>
+  def whatsNext(fullId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo pov fullId) { currentPov =>
+      if (currentPov.isMyTurn) fuccess {
+        Ok(Json.obj("nope" -> true))
+      }
+      else otherPovs(currentPov.game) map getNext(currentPov.game) map { next =>
         Ok(Json.obj("next" -> next.map(_.fullId)))
       }
     }
@@ -241,6 +244,16 @@ object Round extends LilaController with TheftPrevention {
   def mini(gameId: String, color: String) = Open { implicit ctx =>
     OptionOk(GameRepo.pov(gameId, color)) { pov =>
       html.game.mini(pov)
+    }
+  }
+
+  def atom(gameId: String, color: String) = Action.async { implicit req =>
+    GameRepo.pov(gameId, color) flatMap {
+      case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
+        val pgn = Env.game.pgnDump(pov.game, initialFen)
+        Ok(views.xml.round.atom(pov, pgn)) as XML
+      }
+      case _ => NotFound("no such game").fuccess
     }
   }
 }

@@ -1,7 +1,7 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var partial = chessground.util.partial;
-var data = require('./data');
+var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
 var ground = require('./ground');
@@ -21,24 +21,12 @@ var util = require('./util');
 
 module.exports = function(opts) {
 
-  this.data = data({}, opts.data);
+  this.data = round.merge({}, opts.data);
 
   this.userId = opts.userId;
 
-  this.firstPly = function() {
-    return this.data.steps[0].ply;
-  }.bind(this);
-
-  this.lastPly = function() {
-    return this.data.steps[this.data.steps.length - 1].ply;
-  }.bind(this);
-
-  this.plyStep = function(ply) {
-    return this.data.steps[ply - this.firstPly()];
-  }.bind(this);
-
   this.vm = {
-    ply: this.lastPly(),
+    ply: this.data.player.spectator ? round.lastPly(this.data) : Math.max(round.lastPly(this.data) - 1, round.firstPly(this.data)),
     flip: false,
     redirecting: false,
     replayHash: '',
@@ -68,10 +56,10 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
+  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onMove);
 
   this.replaying = function() {
-    return this.vm.ply !== this.lastPly();
+    return this.vm.ply !== round.lastPly(this.data);
   }.bind(this);
 
   this.stepsHash = function(steps) {
@@ -83,9 +71,9 @@ module.exports = function(opts) {
   };
 
   this.jump = function(ply) {
-    if (ply < this.firstPly() || ply > this.lastPly()) return;
+    if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;
-    var s = this.plyStep(ply);
+    var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
@@ -101,8 +89,9 @@ module.exports = function(opts) {
     if (s.san) {
       if (s.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
-      if (/\+|\#/.test(s.san)) sound.check();
+      if (/[+#]/.test(s.san)) sound.check();
     }
+    return true;
   }.bind(this);
 
   this.replayEnabledByPref = function() {
@@ -204,7 +193,7 @@ module.exports = function(opts) {
     }
     d.game.threefold = !!o.threefold;
     d.steps.push({
-      ply: this.lastPly() + 1,
+      ply: round.lastPly(this.data) + 1,
       fen: o.fen,
       san: o.san,
       uci: o.uci,
@@ -227,10 +216,10 @@ module.exports = function(opts) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
-    this.data = data(this.data, cfg);
+    this.data = round.merge(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    if (!this.replaying()) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
+    if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();

@@ -18,12 +18,18 @@ module.exports = function(env) {
     page: this.data.standing.page,
     pages: {},
     focusOnMe: !!this.data.me,
-    joinLoader: false
+    joinLoader: false,
+    playerInfo: {
+      id: null,
+      data: null
+    }
   };
 
   this.reload = function(data) {
     if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
     this.data = data;
+    if (data.playerInfo && data.playerInfo.player.id === this.vm.playerInfo.id)
+      this.vm.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.vm.focusOnMe) this.scrollToMe();
     startWatching();
@@ -45,7 +51,7 @@ module.exports = function(env) {
   this.loadPage(this.data.standing);
 
   var setPage = function(page) {
-    m.redraw.strategy('all');
+    // m.redraw.strategy('all');
     this.vm.page = page;
     xhr.loadPage(this, page)
   }.bind(this);
@@ -94,6 +100,20 @@ module.exports = function(env) {
     if (!this.data.me) return;
     this.vm.focusOnMe = !this.vm.focusOnMe;
     if (this.vm.focusOnMe) this.scrollToMe();
+  }.bind(this);
+
+  this.showPlayerInfo = function(userId) {
+    this.vm.playerInfo = {
+      id: this.vm.playerInfo.id === userId ? null : userId,
+      data: null
+    };
+    if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
+    m.redraw();
+  }.bind(this);
+
+  this.setPlayerInfoData = function(data) {
+    if (data.player.id !== this.vm.playerInfo.id) return;
+    this.vm.playerInfo.data = data;
   }.bind(this);
 
   sound.end(this.data);

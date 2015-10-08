@@ -274,7 +274,6 @@ progressThisMonth=پیشرفت‌ این ماه
 leaderboardThisWeek=بهترین های این هفته
 leaderboardThisMonth=بهترین های این ماه
 activeToday=فعالیت امروز
-activeThisWeek=فعالیت این هفته
 activePlayers=بازیکنان فعال
 bewareTheGameIsRatedButHasNoClock=مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!
 training=تمرین
@@ -503,4 +502,5 @@ keyYouCanDrawArrowsCirclesAndScrollToMove=از شیفت+کلیک یا راست �
 newTournament=مسابقه جدید
 tournamentNotFound=مسابقات یافت نشد
 tournamentDoesNotExist=این مسابقات وجود ندارد
+tournamentMayHaveBeenCanceled=ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند
 returnToTournamentsHomepage=بازگشت به صفحه اصلی مسابقات

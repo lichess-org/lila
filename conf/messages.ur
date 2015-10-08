@@ -259,7 +259,6 @@ progressThisMonth=ماہ وار پیش رفت
 leaderboardThisWeek=ہفتہ وار لیڈر
 leaderboardThisMonth=ماہانہ لیڈر
 activeToday=آج سب سے فعال
-activeThisWeek=اس ہفتے سب سے فعال
 activePlayers=فعال کھلاڑی
 bewareTheGameIsRatedButHasNoClock=مقابلہ سنجیدہ ہے مگر دورانیہ لامحدود ہے
 training=تربیت

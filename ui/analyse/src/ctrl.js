@@ -123,6 +123,7 @@ module.exports = function(opts) {
       this.vm.justPlayed = null;
     }
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
+    this.ceval.stop();
     startCeval();
   }.bind(this);
 
@@ -145,6 +146,7 @@ module.exports = function(opts) {
   this.jumpToNag = function(color, nag) {
     var ply = this.analyse.plyOfNextNag(color, nag, this.vm.step.ply);
     if (ply) this.jumpToMain(ply);
+    m.redraw();
   }.bind(this);
 
   var forsyth = function(role) {
@@ -216,23 +218,22 @@ module.exports = function(opts) {
     util.synthetic(this.data) || !game.playable(this.data)
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
-  this.ceval = cevalCtrl(allowCeval,
-    throttle(300, false, function(res) {
-      this.analyse.updateAtPath(res.work.path, function(step) {
-        if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-        step.ceval = res.eval;
-        if (treePath.write(res.work.path) === this.vm.pathStr) {
-          setAutoShapesFromEval();
-          m.redraw();
-        }
-      }.bind(this));
-    }.bind(this)));
+  this.ceval = cevalCtrl(allowCeval, function(res) {
+    this.analyse.updateAtPath(res.work.path, function(step) {
+      if (step.ceval && step.ceval.depth >= res.eval.depth) return;
+      step.ceval = res.eval;
+      if (treePath.write(res.work.path) === this.vm.pathStr) {
+        setAutoShapesFromEval();
+        m.redraw();
+      }
+    }.bind(this));
+  }.bind(this));
 
   this.canUseCeval = function(step) {
     return step.dests !== '';
   }.bind(this);
 
-  var startCeval = throttle(500, false, function() {
+  var startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && this.canUseCeval(this.vm.step))
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this));

@@ -13,8 +13,8 @@ object Regulator {
     }
 
   private def regulationDivider(perfType: PerfType): Int = perfType match {
-    case PerfType.Bullet => 80
-    case PerfType.Blitz  => 70
-    case _               => 50
+    case PerfType.Bullet => 70
+    case PerfType.Blitz  => 50
+    case _               => 40
   }
 }

@@ -3,10 +3,14 @@
 @import lila.evaluation.Display
 
 <div class="actions clearfix">
+  @if(isGranted(_.MarkTroll)) {
+  <a class="button hint--bottom" href="@routes.Mod.communication(u.id)" data-hint="View communications">Coms</a>
+  }
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom">
     <input class="button" type="submit" value="Evaluate" />
   </form>
+  •
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)" data-hint="This user is clearly cheating." class="hint--bottom">

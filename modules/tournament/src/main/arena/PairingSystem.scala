@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
+import lila.user.UserRepo
 
 import scala.util.Random
 
@@ -18,23 +19,24 @@ object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(
     tour: Tournament,
-    users: WaitingUsers): Fu[Pairings] = for {
+    users: WaitingUsers,
+    ranking: Ranking): Fu[Pairings] = for {
     recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
-    ranking <- PlayerRepo.ranking(tour.id)
     data = Data(tour, recentPairings, ranking, nbActiveUsers)
-    pairings <- {
-      if (recentPairings.isEmpty) evenOrAll(data, users)
-      else tryPairings(data, users.waiting) flatMap {
-        case Nil => fuccess(Nil)
-        case _   => evenOrAll(data, users)
-      }
+    preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
+    else makePreps(data, users.waiting) flatMap {
+      case Nil => fuccess(Nil)
+      case _   => evenOrAll(data, users)
     }
+    pairings <- preps.map { prep =>
+      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
+    }.sequenceFu
   } yield pairings
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
-    tryPairings(data, users.evenNumber) flatMap {
-      case Nil if users.isOdd => tryPairings(data, users.all)
+    makePreps(data, users.evenNumber) flatMap {
+      case Nil if users.isOdd => makePreps(data, users.all)
       case x                  => fuccess(x)
     }
 
@@ -42,7 +44,7 @@ object PairingSystem extends AbstractPairingSystem {
   val overallLimit = 40
   val extraNaiveLimit = overallLimit - smartHardLimit
 
-  private def tryPairings(data: Data, users: List[String]): Fu[Pairings] = {
+  private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
@@ -53,13 +55,12 @@ object PairingSystem extends AbstractPairingSystem {
     }
   }
 
-  private def naivePairings(tour: Tournament, players: RankedPlayers) =
+  private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {
-      case List(p1, p2) if Random.nextBoolean => Pairing(tour, p1.player, p2.player)
-      case List(p1, p2)                       => Pairing(tour, p2.player, p1.player)
+      case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): Pairings = {
+  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = {
     import data._
 
     type Score = Int
@@ -124,33 +125,23 @@ object PairingSystem extends AbstractPairingSystem {
         }
       }
 
-    def firstPlayerGetsWhite(p1: Player, p2: Player) =
-      recentPairings.find(_.contains(p1.userId, p2.userId)) match {
-        case Some(p) => p.user1 != p1.userId
-        case None    => Random.nextBoolean
-      }
-
     (players match {
       case x if x.size < 2 => Nil
-      case List(p1, p2) if nbActiveUsers == 2 =>
-        if (firstPlayerGetsWhite(p1.player, p2.player)) List(p1.player -> p2.player)
-        else List(p2.player -> p1.player)
+      case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
       case ps => findBetter(Nil, Int.MaxValue) match {
         case Found(best) => best map {
-          case (rp0, rp1) if Random.nextBoolean => rp0.player -> rp1.player
-          case (rp0, rp1)                       => rp1.player -> rp0.player
+          case (rp0, rp1) => rp0.player -> rp1.player
         }
         case _ =>
           logwarn("Could not make smart pairings for arena tournament")
           players map (_.player) grouped 2 collect {
-            case List(p1, p2) if firstPlayerGetsWhite(p1, p2) => (p1, p2)
-            case List(p1, p2)                                 => (p2, p1)
+            case List(p1, p2) => (p1, p2)
           } toList
       }
     }) map {
-      Pairing(tour, _)
+      Pairing.prep(tour, _)
     }
   }
 }

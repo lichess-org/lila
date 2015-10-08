@@ -245,6 +245,5 @@ progressThisMonth=Ny fivoarana tamin'ity volana ity
 leaderboardThisWeek=Ny mpifaninana mendrika tamin'ity erinandro ity
 leaderboardThisMonth=Ny mpifaninana mendrika tamin'ity volana ity
 activeToday=Mpifaninana nilalao be indrindra androany
-activeThisWeek=Mpifaninana nilalao be indrindra tamin'ity erinandro ity
 activePlayers=Mpifaninana nilalao be indrindra
 bewareTheGameIsRatedButHasNoClock=Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !

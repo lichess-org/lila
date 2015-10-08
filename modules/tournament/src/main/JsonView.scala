@@ -6,21 +6,29 @@ import scala.concurrent.duration._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
 final class JsonView(
-    getLightUser: String => Option[LightUser]) {
+    getLightUser: String => Option[LightUser],
+    cached: Cached) {
 
   private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
 
-  def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
+  def apply(
+    tour: Tournament,
+    page: Option[Int],
+    me: Option[String],
+    playerInfoExt: Option[PlayerInfoExt]): Fu[JsObject] = for {
     data <- cachableData(tour.id)
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
       case (Some(i), _) => standing(tour, i.page)
       case _            => standing(tour, 1)
+    }
+    playerInfoJson <- playerInfoExt ?? { pie =>
+      playerInfo(pie).map(_.some)
     }
   } yield Json.obj(
     "id" -> tour.id,
@@ -44,7 +52,8 @@ final class JsonView(
     "lastGames" -> data.games,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
-    "podium" -> data.podium
+    "podium" -> data.podium,
+    "playerInfo" -> playerInfoJson
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
@@ -53,6 +62,44 @@ final class JsonView(
 
   def clearCache(id: String) =
     firstPageCache.remove(id) >> cachableData.remove(id)
+
+  def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
+    ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
+    sheet <- info.tour.system.scoringSystem.sheet(info.tour, info.user.id)
+  } yield info match {
+    case PlayerInfoExt(tour, user, player, povs) => Json.obj(
+      "player" -> Json.obj(
+        "id" -> user.id,
+        "name" -> user.username,
+        "title" -> user.title,
+        "rank" -> ranking.get(user.id).map(1+),
+        "rating" -> player.rating,
+        "provisional" -> player.provisional.option(true),
+        "withdraw" -> player.withdraw.option(true),
+        "score" -> player.score,
+        "perf" -> player.perf,
+        "fire" -> player.fire,
+        "nb" -> sheetNbs(sheet)
+      ).noNull,
+      "pairings" -> povs.map { pov =>
+        Json.obj(
+          "id" -> pov.gameId,
+          "color" -> pov.color.name,
+          "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+          "win" -> pov.win,
+          "status" -> pov.game.status.id,
+          "berserk" -> pov.player.berserk.option(true)
+        ).noNull
+      }
+    )
+  }
+
+  private def sheetNbs(sheet: ScoreSheet) = sheet match {
+    case s: arena.ScoringSystem.Sheet => Json.obj(
+      "game" -> s.scores.size,
+      "berserk" -> s.scores.count(_.isBerserk),
+      "win" -> s.scores.count(_.isWin))
+  }
 
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
@@ -83,12 +130,15 @@ final class JsonView(
     "rank" -> i.rank,
     "withdraw" -> i.withdraw)
 
-  private def gameUserJson(player: lila.game.Player) = {
-    val light = player.userId flatMap getLightUser
+  private def gameUserJson(player: lila.game.Player): JsObject =
+    gameUserJson(player.userId, player.rating)
+
+  private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
+    val light = userId flatMap getLightUser
     Json.obj(
       "name" -> light.map(_.name),
       "title" -> light.map(_.title),
-      "rating" -> player.rating
+      "rating" -> rating
     ).noNull
   }
 
@@ -140,7 +190,11 @@ final class JsonView(
           sheets <- rankedPlayers.map { p =>
             tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
           }.sequenceFu.map(_.toMap)
-        } yield JsArray(rankedPlayers.map(playerJson(sheets, tour))).some
+        } yield JsArray(rankedPlayers.map { rp =>
+          playerJson(sheets, tour)(rp) + (
+            "nb" -> sheets.get(rp.player.userId).map(sheetNbs).getOrElse(JsNull)
+          )
+        }).some
       }
     }
 

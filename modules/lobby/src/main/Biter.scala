@@ -25,7 +25,7 @@ private[lobby] object Biter {
   private def join(hook: Hook, uid: String, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] = for {
     userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
     ownerOption ← hook.userId ?? UserRepo.byId
-    creatorColor = hook.realColor.resolve
+    creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)
     game = blame(
       !creatorColor, userOption,
       blame(creatorColor, ownerOption, makeGame(hook))
@@ -36,13 +36,22 @@ private[lobby] object Biter {
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] = for {
     user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
     owner ← UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
-    creatorColor = seek.realColor.resolve
+    creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
     game = blame(
       !creatorColor, user.some,
       blame(creatorColor, owner.some, makeGame(seek))
     ).start
     _ ← GameRepo insertDenormalized game
   } yield JoinSeek(user.id, seek, game, creatorColor)
+
+  private def assignCreatorColor(
+    creatorUser: Option[User],
+    joinerUser: Option[User],
+    color: Color): Fu[chess.Color] = color match {
+    case Color.Random => UserRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
+    case Color.White  => fuccess(chess.White)
+    case Color.Black  => fuccess(chess.Black)
+  }
 
   private def blame(color: ChessColor, userOption: Option[User], game: Game) =
     userOption.fold(game) { user =>

@@ -142,7 +142,7 @@ object User extends LilaController {
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
-      nbWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
+      nbDay ← Env.game.cached activePlayerUidsDay nb flatMap { pairs =>
         UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
@@ -160,7 +160,7 @@ object User extends LilaController {
           antichess = antichess,
           atomic = atomic,
           horde = horde,
-          nbWeek = nbWeek,
+          nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
           implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }

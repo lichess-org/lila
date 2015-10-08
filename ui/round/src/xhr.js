@@ -25,7 +25,7 @@ function reload(ctrl) {
 function whatsNext(ctrl) {
   return m.request({
     method: 'GET',
-    url: uncache('/whats-next/' + ctrl.data.game.id),
+    url: uncache('/whats-next/' + ctrl.data.game.id + ctrl.data.player.id),
     config: xhrConfig
   });
 }

@@ -274,7 +274,6 @@ progressThisMonth=Πρόοδος αυτόν τον μήνα
 leaderboardThisWeek=Πρόοδος αυτήν την εβδομάδα
 leaderboardThisMonth=Πρόοδος αυτόν τον μήνα
 activeToday=Ενεργοί σήμερα
-activeThisWeek=Ενεργοί αυτήν την εβδομάδα
 activePlayers=Ενεργοί παίκτες
 bewareTheGameIsRatedButHasNoClock=Προσοχή, το παιχνίδι βαθμολογείται αλλά του λείπει ρολόι!
 training=Εξάσκηση

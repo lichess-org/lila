@@ -6,7 +6,7 @@ import lila.game.{ Game, PovRef, IdGenerator }
 import org.joda.time.DateTime
 
 case class Pairing(
-    id: String, // game In
+    id: String, // game Id
     tourId: String,
     status: chess.Status,
     user1: String,
@@ -57,14 +57,9 @@ case class Pairing(
 
 private[tournament] object Pairing {
 
-  def apply(tour: Tournament, u1: String, u2: String): Pairing = apply(tour, u1, u2, None)
-  def apply(tour: Tournament, u1: String, u2: String, d: DateTime): Pairing = apply(tour, u1, u2, Some(d))
-  def apply(tour: Tournament, p1: Player, p2: Player): Pairing = apply(tour, p1.userId, p2.userId)
-  def apply(tour: Tournament, ps: (Player, Player)): Pairing = apply(tour, ps._1, ps._2)
-
-  def apply(tour: Tournament, u1: String, u2: String, d: Option[DateTime]): Pairing = new Pairing(
+  def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,
-    tourId = tour.id,
+    tourId = tourId,
     status = chess.Status.Created,
     user1 = u1,
     user2 = u2,
@@ -72,4 +67,14 @@ private[tournament] object Pairing {
     turns = none,
     berserk1 = 0,
     berserk2 = 0)
+
+  case class Prep(tourId: String, user1: String, user2: String) {
+    def toPairing(firstGetsWhite: Boolean) =
+      if (firstGetsWhite) Pairing(tourId, user1, user2)
+      else Pairing(tourId, user2, user1)
+  }
+
+  def prep(tour: Tournament, ps: (Player, Player)) = Pairing.Prep(tour.id, ps._1.userId, ps._2.userId)
+  def prep(tour: Tournament, u1: String, u2: String) = Pairing.Prep(tour.id, u1, u2)
+  def prep(tour: Tournament, p1: Player, p2: Player) = Pairing.Prep(tour.id, p1.userId, p2.userId)
 }

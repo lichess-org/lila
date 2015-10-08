@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.pgn.Pgn
+import chess.format.pgn.{ Pgn, Parser }
 import lila.db.api.$query
 import lila.db.Implicits._
 import lila.game.Game

@@ -22,6 +22,10 @@ object ScoringSystem extends AbstractScoringSystem {
       case (None, _)            => 1
       case _                    => 0
     }) + (~win ?? berserk)
+
+    def isBerserk = berserk > 0
+
+    def isWin = win contains true
   }
 
   case class Sheet(scores: List[Score]) extends ScoreSheet {

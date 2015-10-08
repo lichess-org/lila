@@ -33,6 +33,7 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
+    val RankingCacheTtl = config duration "ranking.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -46,11 +47,13 @@ final class Env(
 
   lazy val forms = new DataForm
 
-  lazy val cached = new Cached(CreatedCacheTtl)
+  lazy val cached = new Cached(
+    createdTtl = CreatedCacheTtl,
+    rankingTtl = RankingCacheTtl)
 
   lazy val api = new TournamentApi(
     cached = cached,
-    scheduleJsonView = scheduleJsonView ,
+    scheduleJsonView = scheduleJsonView,
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
@@ -75,7 +78,7 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, cached)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 

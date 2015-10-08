@@ -99,9 +99,8 @@ object PlayerRepo {
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
-  import coll.BatchCommands.AggregationFramework,
-    AggregationFramework.{ Descending, Group, Match, Push, Sort }
-  
+  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ Descending, Group, Match, Push, Sort }
+
   def userIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId)), List(
       Group(BSONBoolean(true))("uids" -> Push("uid")))).
@@ -115,7 +114,8 @@ object PlayerRepo {
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
-  def ranking(tourId: String): Fu[Ranking] =
+  // freaking expensive (marathons)
+  private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
       Group(BSONBoolean(true))("uids" -> Push("uid")))).
       map(res => aggregationUserIdList(res.documents.toStream)).

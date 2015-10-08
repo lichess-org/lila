@@ -32,7 +32,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def pref = pageData.pref
   def blindMode = pageData.blindMode
 
-  def is3d = ctxPref("is3d") ?? ("true" ==)
+  def is3d = ctxPref("is3d") contains "true"
 
   def currentTheme =
     ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)

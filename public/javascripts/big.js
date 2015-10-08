@@ -57,7 +57,7 @@ lichess.StrongSocket.defaults = {
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
-      ($('body').data('ports') + '').split(',').map(function(port) {
+      [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
         return 'socket.' + document.domain + ':' + port;
       })),
     onFirstConnect: $.noop,
@@ -108,14 +108,12 @@ lichess.StrongSocket.prototype = {
         //   console.log(m, 'skip');
         //   return;
         // }
-        if (m.t == "n") {
-          self.pong();
-        } else self.debug(e.data);
-        if (m.t == "b") {
-          m.d.forEach(function(mm) {
-            self.handle(mm);
-          });
-        } else self.handle(m);
+        if (m.t === 'n') self.pong();
+        // else self.debug(e.data);
+        if (m.t === 'b') m.d.forEach(function(mm) {
+          self.handle(mm);
+        });
+        else self.handle(m);
       };
     } catch (e) {
       self.onError(e);
@@ -346,20 +344,16 @@ window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
-  if (lichess.isPageVisible || !("Notification" in window) || Notification.permission === "denied") return;
-  if (Notification.permission === "granted") {
-    var notification = new Notification("lichess", {
+  var title = 'lichess.org';
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
+  if (Notification.permission === 'granted') new Notification(title, {
+    body: msg
+  });
+  else Notification.requestPermission(function(p) {
+    if (p === 'granted') new Notification(title, {
       body: msg
     });
-  } else {
-    Notification.requestPermission(function(permission) {
-      if (permission === "granted") {
-        var notification = new Notification("lichess", {
-          body: msg
-        });
-      }
-    });
-  }
+  });
 };
 lichess.unique = function(xs) {
   return xs.filter(function(x, i) {
@@ -397,7 +391,9 @@ lichess.unique = function(xs) {
         document.cookie = cookie;
       }
     }
-    location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    var href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    $.redirect.inProgress = href;
+    location.href = href;
   };
   $.fp = {};
   $.fp.range = function(to) {
@@ -473,7 +469,7 @@ lichess.unique = function(xs) {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
+        $('#message_notifications_tag').attr('data-count', e || 0).parent().toggle(e > 0);
         if (e) {
           $.sound.newPM();
           var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
@@ -512,17 +508,18 @@ lichess.unique = function(xs) {
         }
       },
       challengeReminder: function(data) {
+        var $toggle = $('#challenge_notifications_tag');
+        var $notifs = $('#challenge_notifications');
         if (!lichess.storage.get('challenge-refused-' + data.id)) {
           var refreshButton = function() {
-            var nb = $('#challenge_notifications > div').length;
-            $('#nb_challenges').text(nb);
-            $('#challenge_notifications_tag').toggleClass('none', !nb);
+            var nb = $notifs.find('> div').length;
+            $toggle.attr('data-count', nb).toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            $('#challenge_notifications').append(data.html);
+            $notifs.append(data.html);
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -535,13 +532,13 @@ lichess.unique = function(xs) {
               return false;
             });
             $('body').trigger('lichess.content_loaded');
-            if (!lichess.storage.get('challenge-' + data.id)) {
+            if (lichess.once('challenge-' + data.id)) {
               if (!lichess.quietMode) {
-                $('#top .challenge_notifications').addClass('shown');
+                if (!$notifs.is(':visible')) $toggle.click();
                 $.sound.newChallenge();
               }
-              lichess.desktopNotification("You got challenged!");
-              lichess.storage.set('challenge-' + data.id, 1);
+              var op = $notif.find('.user_link').text();
+              lichess.desktopNotification(op + ' challenges you!');
             }
             refreshButton();
           }
@@ -583,6 +580,7 @@ lichess.unique = function(xs) {
 
   lichess.hasToReload = false;
   lichess.reload = function() {
+    if ($.redirect.inProgress) return;
     lichess.hasToReload = true;
     location.reload();
   };
@@ -884,12 +882,11 @@ lichess.unique = function(xs) {
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
                 .addClass(bg === 'transp' ? 'transp dark' : bg);
-              if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
+              if ((bg === 'dark' || bg === 'transp') && !$('link[href*="dark.css"]').length)
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
                 });
-              }
-              if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+              if (bg === 'transp' && !$('link[href*="transp.css"]').length) {
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
                 });
@@ -898,6 +895,10 @@ lichess.unique = function(xs) {
             };
             var showDimensions = function(is3d) {
               $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+              if (is3d && !$('link[href*="board-3d.css"]').length)
+                $('link[href*="board.css"]').clone().each(function() {
+                  $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
+                });
               setZoom(getZoom());
             };
             $themepicker.find('.background a').click(function() {
@@ -1058,7 +1059,7 @@ lichess.unique = function(xs) {
           url: $links.data('url'),
           cache: false,
           success: function(list) {
-            $links.prepend(list.map(function(lang) {
+            $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
               return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
@@ -1146,7 +1147,7 @@ lichess.unique = function(xs) {
 
   $.sound = (function() {
     var version = 1;
-    var baseUrl = $('body').data('sound-dir');
+    var baseUrl = '/assets/sound';
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
 
@@ -1589,10 +1590,10 @@ lichess.unique = function(xs) {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
-      this.time = this.options.time * 1000;
+      this.time = Math.max(0, this.options.time) * 1000;
       this.timeEl = this.element.find('>.time')[0];
       var tick = function() {
-        self.time -= 1000;
+        self.time = Math.max(0, self.time - 1000);
         if (self.time <= 0) clearInterval(self.interval);
         self._show();
       };
@@ -1607,6 +1608,7 @@ lichess.unique = function(xs) {
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
+      if (this.time < 0) return;
       this.timeEl.innerHTML = this._formatDate(new Date(this.time));
     },
     _bold: function(x) {
@@ -1619,9 +1621,7 @@ lichess.unique = function(xs) {
       if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
-      } else {
-        return b(minutes) + ':' + b(seconds);
-      }
+      } else return b(minutes) + ':' + b(seconds);
     },
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);

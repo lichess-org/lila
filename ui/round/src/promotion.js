@@ -13,7 +13,10 @@ function start(ctrl, orig, dest, isPremove) {
   if (piece && piece.role == 'pawn' && (
     (dest[1] == 8 && ctrl.data.player.color == 'white') ||
     (dest[1] == 1 && ctrl.data.player.color == 'black'))) {
-    if (ctrl.data.pref.autoQueen == 3 || (ctrl.data.pref.autoQueen == 2 && isPremove)) return false;
+    if (ctrl.data.pref.autoQueen === 3 || (ctrl.data.pref.autoQueen === 2 && isPremove)) {
+      ground.promote(ctrl.chessground, dest, 'queen');
+      return false;
+    }
     m.startComputation();
     promoting = [orig, dest];
     m.endComputation();
@@ -42,13 +45,13 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
   return m('div#promotion_choice.' + vertical, {
     onclick: partial(cancel, ctrl)
   }, pieces.map(function(serverRole, i) {
-    return m('div.cg-square', {
+    return m('square', {
       style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
       onclick: function(e) {
         e.stopPropagation();
         finish(ctrl, serverRole);
       }
-    }, m('div.cg-piece.' + serverRole + '.' + color));
+    }, m('piece.' + serverRole + '.' + color));
   }));
 }
 

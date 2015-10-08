@@ -274,7 +274,6 @@ progressThisMonth=Vooruitgang deze maand
 leaderboardThisWeek=Leiders deze week
 leaderboardThisMonth=Leiders deze maand
 activeToday=Vandaag actief
-activeThisWeek=Deze week actief
 activePlayers=Actieve spelers
 bewareTheGameIsRatedButHasNoClock=Let op, de partij is met rating maar heeft geen klok!
 training=Training

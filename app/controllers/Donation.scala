@@ -24,6 +24,8 @@ object Donation extends LilaController {
     }
   }
 
+  def thanksRedirect = Action(Redirect(routes.Donation.thanks))
+
   def ipn = Action.async { implicit req =>
     Env.donation.forms.ipn.bindFromRequest.fold(
       err => {
