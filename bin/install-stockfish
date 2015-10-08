@@ -4,8 +4,8 @@ mkdir -p local
 cd local
 rm -rf Stockfish
 git clone https://github.com/ornicar/Stockfish
-git checkout 50beb252a3eeb644ac1fe8cb195326f76b48623e
 cd Stockfish/src
+git checkout aa48190afda20cd25e5ef42c8b72638c83030d9d
 if [[ $1 = "old" ]]; then
   make build ARCH=x86-64
 else
