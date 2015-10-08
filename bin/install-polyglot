@@ -1,0 +1,18 @@
+#!/bin/bash
+
+mkdir -p local
+cd local
+git clone https://github.com/ddugovic/polyglot.git
+cd polyglot
+git checkout learn
+git checkout 2d5bbd35dd1c44a1a7556793e16b9070047848fb .
+cd src
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
+./configure --disable-assert
+make
+cd ../..
+cp -a polyglot/src/polyglot Stockfish/src/stockfish ../bin/
+
+wget ftp://ftp.cs.kent.ac.uk/pub/djb/pgn-extract/eco.pgn
+../bin/polyglot make-book -pgn eco.pgn -bin eco.bin -min-game 1
+cd ..
