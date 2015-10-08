@@ -55,6 +55,7 @@
   @if(isGranted(_.SetEmail) && !isGranted(_.SetEmail, u)) {
   <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
     <input type="email" value="@email" name="email" placeholder="Email address" />
+    <button type="submit" class="thin button" data-icon="E"></button>
   </form>
   }
 </div>
