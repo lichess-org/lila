@@ -2,9 +2,8 @@
 
 ./bin/install-stockfish
 ./bin/install-polyglot
-./bin/install-syzygy
+# ./bin/install-syzygy
+./bin/install-polyglot-default-config
 
-vim polyglot.ini
 vim application.conf
-
-./local/Stockfish/src/stockfish bench
+vim polyglot.ini

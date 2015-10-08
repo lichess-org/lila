@@ -2,6 +2,7 @@
 
 mkdir -p local
 cd local
+rm -rf polyglot
 git clone https://github.com/ddugovic/polyglot.git
 cd polyglot
 git checkout 2d5bbd35dd1c44a1a7556793e16b9070047848fb
