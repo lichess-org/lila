@@ -25,10 +25,7 @@ final class Env(
 
   private val config = new Config(
     command = c.getStringList("command").toList,
-    hashSize = c getInt "hash_size",
-    nbThreads = c getInt "threads",
     nbInstances = c getInt "instances",
-    syzygyPath = if (c hasPath "syzygy_path") c getString "syzygy_path" else "<empty>",
     playMaxMoveTime = c duration "play.movetime",
     analyseMoveTime = c duration "analyse.movetime",
     playTimeout = c duration "play.timeout",
