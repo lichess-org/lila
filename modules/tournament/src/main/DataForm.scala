@@ -28,7 +28,7 @@ final class DataForm {
   val minuteChoices = options(minutes, "%d minute{s}")
   val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
-  val waitMinutes = Seq(1, 2, 5, 10)
+  val waitMinutes = Seq(1, 2, 5, 10, 15, 20, 30, 45, 60, 90, 120)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 2
 
