@@ -26,7 +26,12 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   this.vm = {
-    ply: this.data.player.spectator ? round.lastPly(this.data) : Math.max(round.lastPly(this.data) - 1, round.firstPly(this.data)),
+    ply: (function() {
+      var lp = round.lastPly(this.data);
+      if (this.data.player.spectator) return lp;
+      if ((lp % 2 === 1) === (this.data.player.color === 'white')) return lp;
+      return Math.max(lp - 1, round.firstPly(this.data));
+    }.bind(this))(),
     flip: false,
     redirecting: false,
     replayHash: '',
