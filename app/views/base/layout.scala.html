@@ -86,7 +86,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         @auth.userDropdown(me, playing)
       </div>
       <div id="message_notifications_parent" class="message_notifications fright @if(ctx.nbMessages == 0) {none}">
-        <a id="message_notifications_tag" class="toggle link" data-count="@ctx.nbMessages" data-href="@routes.Message.preview">
+        <a id="message_notifications_tag" class="toggle link data-count" data-count="@ctx.nbMessages" data-href="@routes.Message.preview">
           <span class="hint--bottom-left" data-hint="@trans.inbox()">
             <span data-icon="e"></span>
           </span>
@@ -97,7 +97,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       <div class="challenge_notifications fright">
-        <a id="challenge_notifications_tag" class="toggle link none" data-count="0">
+        <a id="challenge_notifications_tag" class="toggle link data-count" data-count="0">
           <span class="hint--bottom-left" data-hint="Challenges">
             <span data-icon="U"></span>
           </span>
@@ -126,7 +126,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       @if(ctx.teamNbRequests > 0) {
-      <a class="fright link" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
+      <a class="fright link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
         <span class="hint--bottom-left" data-hint="@trans.teams()">
           <span data-icon="f"></span>
         </span>
@@ -138,7 +138,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </a>
       </div>
       @if(isGranted(_.SeeReport)) {
-      <a class="fright link text" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
+      <a class="fright link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
       }
       }
       <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>

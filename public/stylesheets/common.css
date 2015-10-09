@@ -909,14 +909,14 @@ body.offline #reconnecting,
   float: right;
   position: relative;
 }
-#top [data-count]::after,
+.data-count::after,
 .unread {
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   border-radius: 2px;
   font-size: 0.9em;
 }
-#top [data-count]::after {
+.data-count::after {
   content: attr(data-count);
   top: 0;
   right: 0;
@@ -925,7 +925,7 @@ body.offline #reconnecting,
   padding: 1px 4px 1px 3px;
   line-height: 10px;
 }
-#top [data-count='0']::after {
+.data-count[data-count='0']::after {
   display: none;
 }
 #top .shown a.toggle {
@@ -1776,7 +1776,7 @@ a.button:active {
 .ui-state-active,
 .ui-widget-header,
 div.pagination span.current,
-[data-count]::after,
+.data-count::after,
 .unread,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,
