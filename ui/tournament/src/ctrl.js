@@ -22,8 +22,12 @@ module.exports = function(env) {
     playerInfo: {
       id: null,
       data: null
-    }
+    },
+    disableClicks: true
   };
+  setTimeout(function() {
+    this.vm.disableClicks = false;
+  }.bind(this), 1500);
 
   this.reload = function(data) {
     if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
