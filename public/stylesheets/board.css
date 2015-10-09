@@ -530,8 +530,7 @@ div.table {
 }
 .lichess_ground .replay .buttons {
   text-align: center;
-  margin: 2px 0 5px 0;
-  font-size: 0.8em;
+  margin: 8px 0 5px 0;
 }
 .lichess_ground .replay a.button {
   opacity: 0.9;
