@@ -39,13 +39,17 @@ module.exports = function(ctrl) {
         m('tr', [m('th', 'Average opponent'), m('td', avgOp)])
       ] : null
     ])),
-    m('div.scroll-shadow-soft', m('table.pairings', data.pairings.map(function(p, i) {
+    m('div.scroll-shadow-soft', m('table.pairings', {
+      onclick: function(e) {
+        var href = e.getAttribute('data-href');
+        if (href) window.open(href, '_blank');
+      }
+    }, data.pairings.map(function(p, i) {
       var res = result(p.win, p.status);
       return m('tr', {
-        onclick: function() {
-          window.open('/' + p.id + '/' + p.color, '_blank');
-        },
-        class: res === '1' ? 'win' : (res === '0' ? 'loss' : '')
+        key: p.id,
+        'data-href': '/' + p.id + '/' + p.color,
+        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : ''))
       }, [
         m('th', Math.max(nb.game, pairingsLen) - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
