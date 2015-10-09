@@ -74,29 +74,39 @@ function renderMoves(ctrl) {
   return rows;
 }
 
+var analyseButtonIcon = m('span[data-icon="A"]');
+
 function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
+  var attrs = {
+    class: classSet({
+      'button analysis': true,
+      'hint--top': !showInfo,
+      'hint--bottom': showInfo,
+      'glowed': showInfo,
+      'text': ctrl.data.forecastCount
+    }),
+    'data-hint': ctrl.trans('analysis'),
+    href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
+  };
+  if (showInfo) attrs.config = function(el) {
+    setTimeout(function() {
+      $(el).powerTip({
+        manual: true,
+        fadeInTime: 300,
+        fadeOutTime: 300,
+        placement: 'n'
+      }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
+    }, 1000);
+  };
   return [
-    m('a', {
-      class: classSet({
-        'button analysis': true,
-        'hint--top': !showInfo,
-        'hint--bottom': showInfo,
-        'glowed': showInfo
+    m('a', attrs, [
+      m('span', {
+        'data-icon': 'A',
+        class: ctrl.data.forecastCount ? 'text' : null
       }),
-      'data-hint': ctrl.trans('analysis'),
-      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
-      config: showInfo ? function(el) {
-        setTimeout(function() {
-          $(el).powerTip({
-            manual: true,
-            fadeInTime: 300,
-            fadeOutTime: 300,
-            placement: 'n'
-          }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
-        }, 1000);
-      } : null
-    }, m('span[data-icon="A"]')),
+      ctrl.data.forecastCount
+    ]),
     showInfo ? m('div.forecast-info.info.none', [
       m('strong.title.text[data-icon=]', 'New feature'),
       m('span.content', 'Use the analysis board to create conditional premoves!')

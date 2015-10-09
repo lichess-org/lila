@@ -29,13 +29,15 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (pov.game.simulId ?? getSimul) zip
-        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case (((json, tourOption), simulOption), note) => (
+        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
+        forecastApi.loadForDisplay(pov) map {
+          case ((((json, tourOption), simulOption), note), forecast) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withSteps(pov, none, initialFen)_ compose
-            withNote(note)_
+            withNote(note)_ compose
+            withForecastCount(forecast.map(_.steps.size))_
           )(json)
         }
     }
@@ -80,6 +82,11 @@ private[api] final class RoundApi(
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
+
+  private def withForecastCount(count: Option[Int])(json: JsObject) =
+    count.filter(0 !=).fold(json) { c =>
+      json + ("forecastCount" -> JsNumber(c))
+    }
 
   private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
     if (pov.forecastable && owner) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
