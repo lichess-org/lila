@@ -57,6 +57,7 @@ final class PrefApi(
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       coachShare = r.getD("coachShare", Pref.default.coachShare),
+      correspEmail = r.getD("correspEmail", Pref.default.correspEmail),
       tags = r.getD("tags", Pref.default.tags))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
@@ -92,6 +93,7 @@ final class PrefApi(
       "submitMove" -> o.submitMove,
       "confirmResign" -> o.confirmResign,
       "coachShare" -> o.coachShare,
+      "correspEmail" -> o.correspEmail,
       "tags" -> o.tags)
   }
 

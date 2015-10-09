@@ -39,6 +39,7 @@ case class Pref(
     submitMove: Int,
     confirmResign: Int,
     coachShare: Int,
+    correspEmail: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -166,6 +167,17 @@ object Pref {
       NOBODY -> "With nobody",
       FRIENDS -> "With friends",
       EVERYBODY -> "With everybody")
+  }
+
+  object CorrespEmail {
+    val NO = 0
+    val MY_TURN = 10
+    val BEFORE_FLAG = 20
+
+    val choices = Seq(
+      NO -> "No",
+      MY_TURN -> "When it's my turn",
+      BEFORE_FLAG -> "Before I flag")
   }
 
   object Blindfold {
@@ -314,6 +326,7 @@ object Pref {
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     coachShare = CoachShare.FRIENDS,
+    correspEmail = CorrespEmail.NO,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero
