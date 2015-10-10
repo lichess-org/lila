@@ -621,6 +621,7 @@ lichess.unique = function(xs) {
         coordinates: false,
         viewOnly: !playable,
         minimalDom: !playable,
+        resizable: false,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove
       };
@@ -995,6 +996,8 @@ lichess.unique = function(xs) {
           // if on a board with a game
           $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
         }
+
+        document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
       var manuallySetZoom = $.fp.debounce(setZoom, 10);

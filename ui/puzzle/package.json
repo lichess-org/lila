@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "chessli.js": "file:../chessli",
-    "chessground": "2.12.2",
+    "chessground": "2.13.0",
     "lodash": "~3.7.0",
     "merge": "~1.2.0",
     "mithril": "0.2.0"
