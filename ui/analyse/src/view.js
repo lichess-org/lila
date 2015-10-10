@@ -84,7 +84,9 @@ function renderVariationContent(ctrl, variation, path) {
       black: move
     });
   }
-  for (i = 0, nb = variation.length; i < nb; i += 2) turns.push({
+  var visiting = treePath.contains(path, ctrl.vm.path);
+  var maxPlies = Math.min(visiting ? 999 : (path[2] ? 2 : 4), variation.length);
+  for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(variation[i].ply),
     white: variation[i],
     black: variation[i + 1]

@@ -38,6 +38,15 @@ module.exports = {
     return path.length === 1;
   },
 
+  contains: function(p1, p2) {
+    if (p2.length < p1.length) return;
+    for (var i = 0; i < p2.length; i++) {
+      if (!p1[i].variation) return true;
+      if (p1[i].ply !== p2[i].ply || p1[i].variation !== p2[i].variation) return false;
+    }
+    return false;
+  },
+
   currentPly: function(path) {
     return path[path.length - 1].ply;
   },
