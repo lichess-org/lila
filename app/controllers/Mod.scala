@@ -106,7 +106,10 @@ object Mod extends LilaController {
     lila.memo.AsyncCache[String, String](ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
-      WS.url("http://check.getipintel.net/check.php").withQueryString("ip" -> ip).get().map(_.body)
+      WS.url("http://check.getipintel.net/check.php").withQueryString(
+        "ip" -> ip,
+        "contact" -> "lichess.contact@gmail.com"
+      ).get().map(_.body)
     }, maxCapacity = 2000)
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
