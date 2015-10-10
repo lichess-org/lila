@@ -34,6 +34,10 @@ module.exports = {
     }).join(',');
   },
 
+  isRoot: function(path) {
+    return path.length === 1;
+  },
+
   currentPly: function(path) {
     return path[path.length - 1].ply;
   },
@@ -41,7 +45,9 @@ module.exports = {
   withPly: function(path, ply) {
     var p2 = path.slice(0);
     var last = p2.length - 1;
-    p2[last] = copy(p2[last], {ply: ply});
+    p2[last] = copy(p2[last], {
+      ply: ply
+    });
     return p2;
   },
 

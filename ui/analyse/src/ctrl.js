@@ -236,12 +236,12 @@ module.exports = function(opts) {
     }.bind(this));
   }.bind(this));
 
-  this.canUseCeval = function(step) {
-    return step.dests !== '';
+  var canUseCeval = function() {
+    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.analyse.nextStepEvalBest(this.vm.path));
   }.bind(this);
 
   var startCeval = throttle(800, false, function() {
-    if (this.ceval.enabled() && this.canUseCeval(this.vm.step))
+    if (this.ceval.enabled() && canUseCeval())
       this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
   }.bind(this));
 
@@ -266,7 +266,9 @@ module.exports = function(opts) {
     var s = this.vm.step,
       shapes = [];
     if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));
-    if (this.ceval.enabled() && s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
+    var nextStepBest = this.analyse.nextStepEvalBest(this.vm.path);
+    if (nextStepBest) shapes.push(makeAutoShapeFromUci(nextStepBest, 'paleBlue'));
+    else if (this.ceval.enabled() && s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
     this.chessground.setAutoShapes(shapes);
   }.bind(this);
 

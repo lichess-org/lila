@@ -8,6 +8,10 @@ module.exports = function(steps, analysis) {
     return this.tree[0].ply;
   }.bind(this);
 
+  var lastPly = function() {
+    return this.tree[this.tree.length - 1].ply;
+  }.bind(this);
+
   this.getStep = function(path) {
     var tree = this.tree;
     for (var j in path) {
@@ -46,6 +50,13 @@ module.exports = function(steps, analysis) {
     return this.getSteps(path).filter(function(step) {
       return step.ply > ply;
     });
+  }.bind(this);
+
+  this.nextStepEvalBest = function(path) {
+    if (!treePath.isRoot(path)) return;
+    var nextPly = path[0].ply + 1;
+    var nextStep = this.tree[nextPly - this.firstPly()];
+    return (nextStep && nextStep.eval) ? nextStep.eval.best : null;
   }.bind(this);
 
   this.addStep = function(step, path) {
