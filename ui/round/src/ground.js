@@ -10,12 +10,13 @@ function str2move(mo) {
 
 function makeConfig(data, ply, flip) {
   var step = round.plyStep(data, ply);
+  console.log(step);
   return {
     fen: step.fen,
     orientation: flip ? data.opponent.color : data.player.color,
     turnColor: data.game.player,
     lastMove: str2move(step.uci),
-    check: data.game.check,
+    check: step.check,
     coordinates: data.pref.coords !== 0,
     autoCastle: data.game.variant.key === 'standard',
     highlight: {
