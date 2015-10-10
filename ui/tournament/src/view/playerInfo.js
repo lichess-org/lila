@@ -41,7 +41,7 @@ module.exports = function(ctrl) {
     ])),
     m('div.scroll-shadow-soft', m('table.pairings', {
       onclick: function(e) {
-        var href = e.getAttribute('data-href');
+        var href = e.target.parentNode.getAttribute('data-href');
         if (href) window.open(href, '_blank');
       }
     }, data.pairings.map(function(p, i) {
