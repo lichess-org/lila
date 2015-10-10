@@ -26,12 +26,7 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   this.vm = {
-    ply: (function() {
-      var lp = round.lastPly(this.data);
-      if (this.data.player.spectator) return lp;
-      if ((lp % 2 === 1) === (this.data.player.color === 'white')) return lp;
-      return Math.max(lp - 1, round.firstPly(this.data));
-    }.bind(this))(),
+    ply: init.startPly(this.data),
     flip: false,
     redirecting: false,
     replayHash: '',
@@ -329,5 +324,5 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  init(this);
+  init.yolo(this);
 };

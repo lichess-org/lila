@@ -7,32 +7,42 @@ var status = require('game').status;
 var keyboard = require('./keyboard');
 var k = Mousetrap;
 
-module.exports = function(ctrl) {
+module.exports = {
 
-  var d = ctrl.data;
+  startPly: function(data) {
+    var lp = round.lastPly(data);
+    if (data.player.spectator) return lp;
+    if ((lp % 2 === 1) === (data.player.color === 'white')) return lp;
+    return Math.max(lp - 1, round.firstPly(data));
+  },
+  yolo: function(ctrl) {
 
-  title.init(ctrl);
-  ctrl.setTitle();
-  blur.init(ctrl);
+    var d = ctrl.data;
 
-  if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.genericNotify();
+    title.init(ctrl);
+    ctrl.setTitle();
+    blur.init(ctrl);
 
-  if (game.isPlayerPlaying(d)) {
-    window.addEventListener('beforeunload', function(e) {
-      if (!lichess.hasToReload && !ctrl.data.blind && game.playable(ctrl.data) && ctrl.data.clock) {
-        document.body.classList.remove('fpmenu');
-        ctrl.socket.send('bye');
-        var msg = 'There is a game in progress!';
-        (e || window.event).returnValue = msg;
-        return msg;
-      }
-    });
-    k.bind(['esc'], ctrl.chessground.cancelMove);
+    if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.genericNotify();
+
+    if (game.isPlayerPlaying(d)) {
+      window.addEventListener('beforeunload', function(e) {
+        if (!lichess.hasToReload && !ctrl.data.blind && game.playable(ctrl.data) && ctrl.data.clock) {
+          document.body.classList.remove('fpmenu');
+          ctrl.socket.send('bye');
+          var msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
+        }
+      });
+      k.bind(['esc'], ctrl.chessground.cancelMove);
+    }
+
+    keyboard.init(ctrl);
+
+    if (!ctrl.data.player.spectator && ctrl.vm.ply !== round.lastPly(ctrl.data))
+      setTimeout(function() {
+        if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
+      }, 500);
   }
-
-  keyboard.init(ctrl);
-
-  if (!ctrl.data.player.spectator) setTimeout(function() {
-    if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
-  }, 500);
 };
