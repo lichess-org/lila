@@ -30,7 +30,7 @@ final class PgnDump(
   def exportGamesFromIds(ids: List[String]): Enumerator[String] = PgnStream {
     import lila.game.tube.gameTube
     import lila.game.BSONHandlers.gameBSONHandler
-    $query.byIds(ids).cursor[Game]()
+    pimpQB($query byIds ids).sort(Query.sortCreated).cursor[Game]()
   }
 
   private def PgnStream(cursor: reactivemongo.api.Cursor[Game]): Enumerator[String] = {
