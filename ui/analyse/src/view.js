@@ -25,12 +25,12 @@ function renderEvalTag(e) {
   };
 }
 
-function autoScroll(movelist) {
+var autoScroll = util.throttle(500, false, function autoScroll(movelist) {
   raf(function() {
     var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
     if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
   });
-}
+});
 
 var emptyMove = m('move.empty', '...');
 
