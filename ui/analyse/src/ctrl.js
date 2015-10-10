@@ -90,7 +90,7 @@ module.exports = function(opts) {
     if (!this.chessground)
       this.chessground = ground.make(this.data, config, userMove);
     this.chessground.set(config);
-    if (opts.onChange) opts.onChange(config.fen, this.vm.path);
+    onChange();
     if (!dests) getDests();
     setAutoShapesFromEval();
   }.bind(this);
@@ -109,6 +109,10 @@ module.exports = function(opts) {
     capture: throttle(50, false, $.sound.capture),
     check: throttle(50, false, $.sound.check)
   };
+
+  var onChange = opts.onChange ? throttle(500, false, function() {
+    opts.onChange(this.vm.step.fen, this.vm.path);
+  }.bind(this)) : $.noop;
 
   var updateHref = window.history.replaceState ? throttle(1000, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
