@@ -25,12 +25,14 @@ function renderEvalTag(e) {
   };
 }
 
-var autoScroll = util.throttle(500, false, function autoScroll(movelist) {
-  raf(function() {
-    var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
-    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+function autoScroll(el) {
+  return util.throttle(500, false, function autoScroll() {
+    raf(function() {
+      var plyEl = el.querySelector('.active') || el.querySelector('.turn:first-child');
+      if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    });
   });
-});
+}
 
 var emptyMove = m('move.empty', '...');
 
@@ -374,7 +376,7 @@ module.exports = function(ctrl) {
             cevalView.renderCeval(ctrl),
             m('div.replay', {
                 config: function(el, isUpdate) {
-                  autoScroll(el);
+                  if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
                 }
               },
               renderAnalyse(ctrl))

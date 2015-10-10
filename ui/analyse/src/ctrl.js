@@ -40,7 +40,8 @@ module.exports = function(opts) {
     cgConfig: null,
     comments: true,
     flip: false,
-    showAutoShapes: util.storedProp('show-auto-shapes', true)
+    showAutoShapes: util.storedProp('show-auto-shapes', true),
+    autoScroll: null
   };
 
   this.flip = function() {
@@ -132,6 +133,7 @@ module.exports = function(opts) {
     this.ceval.stop();
     startCeval();
     updateHref();
+    this.vm.autoScroll && this.vm.autoScroll();
   }.bind(this);
 
   this.userJump = function(path) {
