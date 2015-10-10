@@ -12,12 +12,18 @@
 #board_editor .spare {
   height: 64px;
   padding-left: 64px;
+  width: 512px;
+  box-sizing: border-box;
+}
+body.dark #board_editor .spare.black {
+  background: #444;
+  border-radius: 3px;
 }
 #board_editor .spare.top {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #board_editor .spare.bottom {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 #board_editor .spare .no-square {
   position: relative;
