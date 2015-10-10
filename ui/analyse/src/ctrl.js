@@ -110,11 +110,13 @@ module.exports = function(opts) {
     check: throttle(50, false, $.sound.check)
   };
 
+  var updateHref = window.history.replaceState ? throttle(1000, false, function() {
+    window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
+  }.bind(this), false) : $.noop;
+
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
-    if (window.history.replaceState)
-      window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
@@ -125,6 +127,7 @@ module.exports = function(opts) {
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
     this.ceval.stop();
     startCeval();
+    updateHref();
   }.bind(this);
 
   this.userJump = function(path) {
