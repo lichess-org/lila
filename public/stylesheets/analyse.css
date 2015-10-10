@@ -323,7 +323,7 @@ body .lichess_ground .analyse .undefined {
   margin-left: 0;
 }
 .lichess_ground .variation move {
-  padding: 2px 2px;
+  padding: 1px 1.5px;
   font-weight: normal;
 }
 .lichess_ground .variation move:hover {
