@@ -151,6 +151,7 @@ body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
+body.dark div.search_status,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
@@ -292,7 +293,6 @@ body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
-body.dark div.search_status,
 body.dark #tournament_side .player h2,
 body.dark #tournament_side .player .stats,
 body.dark #tournament_side .pairings tr:hover,
