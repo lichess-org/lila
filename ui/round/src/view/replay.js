@@ -3,6 +3,7 @@ var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
+var util = require('../util');
 var status = require('game').status;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
@@ -144,12 +145,12 @@ function renderButtons(ctrl) {
   ]);
 }
 
-function autoScroll(movelist) {
+var autoScroll = util.throttle(300, false, function autoScroll(movelist) {
   raf(function() {
     var plyEl = movelist.querySelector('.active') || movelist.querySelector('turn:first-child');
     if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
   });
-}
+});
 
 module.exports = function(ctrl) {
   var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.data.game.status.id + ctrl.data.game.winner + ctrl.vm.flip;
