@@ -439,13 +439,13 @@ body.dark .is.color-icon.white::before {
 body.dark .is.color-icon.black::before {
   content: 'K';
 }
-body.dark::-webkit-input-placeholder {
+body.dark ::-webkit-input-placeholder {
   color: #666!important;
 }
-body.dark::-moz-placeholder {
+body.dark ::-moz-placeholder {
   color: #666!important;
 }
-body.dark:-ms-input-placeholder {
+body.dark :-ms-input-placeholder {
   color: #666!important;
 }
 body.dark #lobby_playban,
