@@ -1486,7 +1486,8 @@ lichess.unique = function(xs) {
         messages: [],
         initialNote: '',
         gameId: null,
-        presets: []
+        presets: [],
+        presetCount: 0
       }, this.options);
       var self = this;
       var $parent = self.element.parent();
@@ -1535,11 +1536,10 @@ lichess.unique = function(xs) {
           self.element.addClass('hidden');
         }
         if (self.options.messages.length > 0) self._appendMany(self.options.messages);
-        var presetCount = 0;
         self.element.on('click', '.presets button', function() {
           $input.val($(this).data('hint'));
           $form.submit();
-          if (++presetCount >= 2) self.element.find('.presets').remove();
+          if (++self.options.presetCount >= 2) self.element.find('.presets').remove();
           $input.focus();
         });
         self._renderPresets();
@@ -1579,8 +1579,8 @@ lichess.unique = function(xs) {
       this._appendHtml(this._render(msg));
     },
     setPresets: function(presets) {
-      if (presets.join('|') !== presets.join('|')) return;
-      console.log(presets);
+      if (presets.join('|') === this.options.presets.join('|')) return;
+      this.options.presetCount = 0;
       this.options.presets = presets;
       this._renderPresets();
     },
