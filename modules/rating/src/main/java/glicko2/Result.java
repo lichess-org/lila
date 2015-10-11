@@ -63,11 +63,7 @@ public class Result {
 	 * @return
 	 */
 	private boolean validPlayers(Rating player1, Rating player2) {
-		if (player1.equals(player2)) {
-			return false;
-		} else {
-			return true;
-		}
+		return !player1.equals(player2);
 	}
 	
 	
@@ -78,11 +74,7 @@ public class Result {
 	 * @return boolean (true if player participated in the match)
 	 */
 	public boolean participated(Rating player) {
-		if ( winner.equals(player) || loser.equals(player) ) {
-			return true;
-		} else {
-			return false;
-		}
+		return winner.equals(player) || loser.equals(player);
 	}
 	
 	
