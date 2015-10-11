@@ -154,7 +154,7 @@ function renderMeta(ctrl, move, path) {
       ctrl,
       variation,
       treePath.withVariation(path, i + 1),
-      i === 0 ? colorClass + (commentClass || '') : null
+      i === 0 ? colorClass + commentClass : null
     ));
   });
   return m('div', {
