@@ -49,9 +49,7 @@ final class Api(
           text = data.text,
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
-            val thread = (me.troll && !Granter(_.MarkTroll)(invited)).fold(
-              t deleteFor invited,
-              t)
+            val thread = me.troll.fold(t deleteFor invited, t)
             sendUnlessBlocked(thread) >>-
               updateUser(invited.id) >>- {
                 val text = data.subject + " " + data.text
