@@ -19,13 +19,13 @@
   background: #C4A86F!important;
   color: #fff!important;
   border-color: rgba(0, 0, 0, 0.3);
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 #tv_channels > a::before {
   color: #C4A86F;
   font-size: 27px;
   float: right;
-  margin: -1px 0px 0 8px;
+  margin: -1px 0 0 8px;
   opacity: 0.5;
 }
 #tv_channels > a.active::before {
@@ -61,7 +61,7 @@
   opacity: 1;
 }
 #tv_channels td {
-  padding: 4px 0px;
+  padding: 4px 0;
   border-top: 1px solid #eaeaea;
   transition: background 0.13s;
 }

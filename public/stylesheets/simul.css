@@ -143,7 +143,7 @@
 }
 .variant_icons span {
   font-size: 4em;
-  text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 20px #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
 }
 .variant_icons span:not(:first-child) {
   margin-left: -0.5em;

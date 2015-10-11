@@ -54,7 +54,7 @@ ol.scheduled_tournaments a {
   margin-right: 32px;
 }
 #tournament .podium {
-  margin: 0px 0 20px 0;
+  margin: 0 0 20px 0;
 }
 #tournament .podium > div {
   display: inline-block;
@@ -511,7 +511,7 @@ ol.scheduled_tournaments li.marathon {
   box-sizing: border-box;
   padding: 4px 0;
   background-color: #303E43;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   border-radius: 2px;
   transition: -webkit-filter 0.13s, filter 0.13s;
   color: #fff;
@@ -551,7 +551,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.finished {
   opacity: 0.7;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.3) inset;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
 }
 #tournament_schedule .tournament.user-created {
   background-color: #009E73;
