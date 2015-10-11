@@ -145,10 +145,15 @@ function renderButtons(ctrl) {
   ]);
 }
 
-function autoScroll(el) {
+function autoScroll(el, ctrl) {
   raf(function() {
-    var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
-    if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    var st;
+    if (ctrl.vm.ply === round.lastPly(ctrl.data)) st = 9999;
+    else {
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (st !== undefined) el.scrollTop = st;
   });
 }
 
@@ -163,7 +168,7 @@ module.exports = function(ctrl) {
     ctrl.replayEnabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
         if (isUpdate) return;
-        var f = partial(autoScroll, el);
+        var f = partial(autoScroll, el, ctrl);
         ctrl.vm.autoScroll = {
           now: f,
           throttle: util.throttle(300, false, f)

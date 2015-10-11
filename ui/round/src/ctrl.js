@@ -228,6 +228,7 @@ module.exports = function(opts) {
     this.moveOn.next();
     setQuietMode();
     m.endComputation();
+    this.vm.autoScroll && this.vm.autoScroll.now();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
