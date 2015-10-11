@@ -138,7 +138,11 @@ div.eval_gauge.reverse {
 div.eval_gauge::after {
   content: '';
   display: block;
-  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
   border-radius: 5px;
 }
@@ -206,7 +210,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  margin-left: 0px;
+  margin-left: 0;
 }
 .ceval_displayed .lichess_ground .replay {
   height: calc(100% - 40px - 41px);
@@ -516,7 +520,7 @@ table.modAssessment td.noMatch {
 .forecast .add::before {
   font-size: 32px;
   float: left;
-  margin: 1px 10px 0px 0px;
+  margin: 1px 10px 0 0;
   opacity: 0.6;
   transition: opacity 0.13s;
 }

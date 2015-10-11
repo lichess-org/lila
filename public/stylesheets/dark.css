@@ -1,6 +1,6 @@
 body.dark {
   background-color: #1a1a1a;
-  background-image: linear-gradient(to bottom, #2c2c2c 0%, #1a1a1a 116px);
+  background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
   color: #8c8c8c;
 }
 body.dark a,
@@ -280,7 +280,7 @@ body.dark #timeline .entry {
 body.dark #site_header div.side_menu a.active,
 body.dark #hooks_wrap .table_wrap,
 body.dark div.content_box h1 {
-  text-shadow: 0px 1px 0px #000;
+  text-shadow: 0 1px 0 #000;
 }
 body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
@@ -326,8 +326,8 @@ body.dark #miniGame {
 }
 body.dark div.content_box_top {
   background-color: #343434;
-  background-image: linear-gradient(to bottom, #3a3a3a 0%, #343434 100%);
-  text-shadow: 0px 1px 0px #000;
+  background-image: linear-gradient(to bottom, #3a3a3a, #343434 100%);
+  text-shadow: 0 1px 0 #000;
 }
 /* soft inactive gradient */
 
@@ -349,8 +349,8 @@ body.dark #video .card .info,
 body.dark #video .card .reveal,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
-  background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
-  text-shadow: 0px 1px 0px #000;
+  background: linear-gradient(to bottom, rgba(40, 40, 40, 1), rgba(34, 34, 34, 1) 100%);
+  text-shadow: 0 1px 0 #000;
 }
 body.dark .button,
 body.dark a.button,
@@ -365,15 +365,15 @@ body.dark a.button:hover,
 body.dark .ui-state-hover {
   border-color: #383838;
   background: rgb(44, 44, 44);
-  background: -moz-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: -moz-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(44, 44, 44, 1)), color-stop(100%, rgba(40, 40, 40, 1)));
-  background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
+  background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
 }
 body.dark #hooks_wrap .hooks_chart .plot {
   color: #aaa;
-  text-shadow: 0px 0px 3px #000;
+  text-shadow: 0 0 3px #000;
 }
 body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
@@ -428,7 +428,7 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-attachment: local, local, scroll, scroll;
 }
 body.dark div.side_box div.game_infos .bookmark {
-  background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1) 0%, rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1), rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5)!important;
@@ -487,7 +487,7 @@ body.dark #fpmenu .perf::before {
 }
 body.dark #topmenu section > a {
   color: #777;
-  text-shadow: 0px 1px 1px #000;
+  text-shadow: 0 1px 1px #000;
 }
 body.dark #topmenu section:hover > a {
   background: #2b2b2b;
@@ -503,9 +503,9 @@ body.dark #topmenu div a:hover {
   color: #b0b0b0;
 }
 body.dark .variant_icons span {
-  text-shadow: 0px 0px 5px #000,
-  0px 0px 10px #000,
-  0px 0px 20px #000;
+  text-shadow: 0 0 5px #000,
+  0 0 10px #000,
+  0 0 20px #000;
 }
 body.dark #tv_channels > a:hover {
   background: #333;

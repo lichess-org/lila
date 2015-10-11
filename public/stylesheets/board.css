@@ -152,8 +152,8 @@ piece.ghost {
 .cg-board-wrap svg {
   overflow: hidden;
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -391,7 +391,7 @@ div.lichess_overboard p.explanations {
 div.premove_alert,
 div.dont_touch {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 0;
   width: 512px;
   text-align: center;
@@ -571,7 +571,7 @@ div.table.spectator {
 div.table_not_started {
   position: absolute;
   top: 100px;
-  left: 0px;
+  left: 0;
   width: 242px;
   border: none;
   padding: 0;
@@ -629,7 +629,7 @@ div.table_wrap > .clock_bottom .bar {
 div.table_wrap > .clock .bar span {
   display: block;
   height: 4px;
-  width: 0px;
+  width: 0;
   background: #759900;
 }
 div.table_wrap > .clock .bar.berserk span {
@@ -834,10 +834,10 @@ div.berserk_alert {
   color: #D85000;
 }
 div.berserk_alert.top {
-  top: 0px;
+  top: 0;
 }
 div.berserk_alert.bottom {
-  bottom: 0px;
+  bottom: 0;
 }
 div.under_chat {
   width: 228px;
@@ -845,7 +845,7 @@ div.under_chat {
 }
 @media (max-width: 1070px) {
   div.under_chat {
-    margin-left: 0px;
+    margin-left: 0;
     width: 198px;
   }
 }
@@ -891,7 +891,7 @@ div.under_chat .watchers:hover {
 }
 #chat a.send {
   position: absolute;
-  top: 0px;
+  top: 0;
   right: 2px;
   padding-top: 3px;
   display: block;

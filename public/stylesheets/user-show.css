@@ -65,7 +65,7 @@ div.user_show .trophy.icon3d:hover {
 div.user_show .fire_trophy.marathonTopFifty span {
   transform: scale(0.25) translate(-112px, 36px);
   -webkit-transform: scale(0.25) translate(-112px, 36px);
-  text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
+  text-shadow: 0 0 20px #ffae34, 0 0 25px #ec760c, 0 0 30px #cd4606;
 }
 div.user_show .fire_trophy.marathonTopFifty span:hover {
   transform: scale(0.25) translate(-112px, 28px);

@@ -294,8 +294,8 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-radius: 0 10.2em 10.2em 0;
   top: -0.1em;
   left: 5.1em;
-  -webkit-transform-origin: 0px 5.1em;
-  transform-origin: 0px 5.1em;
+  -webkit-transform-origin: 0 5.1em;
+  transform-origin: 0 5.1em;
   -webkit-animation: load2 2s infinite ease;
   animation: load2 2s infinite ease;
 }
@@ -611,7 +611,7 @@ div.content_box_top {
   padding: 10px 0 0 20px;
   background-color: #f0f0f0;
   background-image: linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
-  text-shadow: 0px 1px 0px #FFF;
+  text-shadow: 0 1px 0 #FFF;
 }
 div.content_box_top .link:hover {
   background: #fff;
@@ -730,7 +730,7 @@ div.side_box .padded {
 @media (max-width: 1070px) {
   div.side_box,
   #site_header a.stream {
-    margin-left: 0px!important;
+    margin-left: 0!important;
     width: 196px!important;
   }
 }
@@ -822,13 +822,13 @@ div.side_box .players .player {
 div.side_box .game_infos::before {
   position: absolute;
   top: 2px;
-  left: 0px;
+  left: 0;
   font-size: 30px;
   opacity: 0.7;
 }
 div.side_box .game_infos .bookmark {
   position: absolute;
-  right: 0px;
+  right: 0;
   background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
   opacity: 0;
   transform: translate(0, -20px);
@@ -1164,7 +1164,7 @@ body.fpmenu #fpmenu {
   display: block;
   padding: 9px 12px;
   text-transform: uppercase;
-  text-shadow: 0px 1px 1px #fff;
+  text-shadow: 0 1px 1px #fff;
 }
 #topmenu section:hover > a {
   background: #fff;
@@ -1305,7 +1305,7 @@ body.fpmenu #fpmenu {
   padding: 6px 8px 7px 8px;
   margin-bottom: 8px;
   border-radius: 2px;
-  box-shadow: 0 0 3px 0px #d85000;
+  box-shadow: 0 0 3px 0 #d85000;
   transition: box-shadow 1.5s;
 }
 #message_notifications .user_link,
@@ -1525,7 +1525,7 @@ body #themepicker div.is3d,
   height: 72px;
   padding: 8px;
   position: relative;
-  margin: 0px -3px -3px -3px;
+  margin: 0 -3px -3px -3px;
 }
 #themepicker .is3d piece {
   width: 100%;
@@ -1618,8 +1618,8 @@ body #themepicker div.is3d,
 }
 #friend_box {
   position: fixed;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
   z-index: 3;
   background: #fff;
   border: 1px solid #ccc;
@@ -1713,7 +1713,7 @@ table.slist thead {
   background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  text-shadow: 0px 1px 0px #FFF;
+  text-shadow: 0 1px 0 #FFF;
   color: #848484;
 }
 #chat div.top,
@@ -1767,7 +1767,7 @@ a.button:hover,
 }
 .button:active,
 a.button:active {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
 /* active gradient */
 
@@ -1782,10 +1782,10 @@ div.progressbar.flashy div,
 #simul .game_list .host.vstext,
 #import_game .progression {
   color: #fff !important;
-  text-shadow: 0px 1px 0px #000 !important;
+  text-shadow: 0 1px 0 #000 !important;
   background: #d85000 !important;
   border-color: #b84400 !important;
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
 div.checkmateFen {
   float: left;
@@ -1931,7 +1931,7 @@ div.game_list.playing {
 }
 div.game_list.playing > div {
   display: inline-block;
-  margin: 0px 10.5px 11px 11px;
+  margin: 0 10.5px 11px 11px;
 }
 div.vstext {
   width: 212px;
@@ -2199,7 +2199,7 @@ div.progressbar {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 1px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
 div.progressbar div {
   background: #d8a050;
@@ -2302,7 +2302,7 @@ textarea.copyable {
   content: attr(data-hint);
   background: #404040;
   color: #e0e0e0;
-  text-shadow: 0 -1px 0px black;
+  text-shadow: 0 -1px 0 black;
   padding: 8px 10px;
   line-height: 12px;
   white-space: nowrap;
@@ -2413,8 +2413,8 @@ textarea.copyable {
 #modal-overlay {
   display: block;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   overflow: auto;

@@ -38,7 +38,7 @@
 
 #import_game .progression {
   margin: 20px 0;
-  width: 0px;
+  width: 0;
   display: none;
   height: 2em;
   border-radius: 5px;
