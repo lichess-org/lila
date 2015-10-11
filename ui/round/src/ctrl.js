@@ -213,6 +213,7 @@ module.exports = function(opts) {
       setTimeout(this.chessground.playPremove, d.game.variant.key === 'atomic' ? 100 : 10);
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
+    onChange();
   }.bind(this);
 
   this.reload = function(cfg) {
@@ -229,6 +230,7 @@ module.exports = function(opts) {
     setQuietMode();
     m.endComputation();
     this.vm.autoScroll && this.vm.autoScroll.now();
+    onChange();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -326,7 +328,13 @@ module.exports = function(opts) {
       lichess.once('forecast-info-seen5');
   }.bind(this);
 
+  var onChange = function() {
+    opts.onChange && setTimeout(partial(opts.onChange,this.data), 200);
+  }.bind(this);
+
   this.trans = lichess.trans(opts.i18n);
 
   init.yolo(this);
+
+  onChange();
 };

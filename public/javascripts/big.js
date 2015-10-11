@@ -1323,11 +1323,22 @@ lichess.unique = function(xs) {
           }
         }
       });
+    var $chat;
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.onChange = function(data) {
+      var presets = [];
+      if (data.steps.length < 3) presets = [
+        'hi/Hello', 'gl/Good luck', 'hf/Have fun', 'u2/You too'
+      ];
+      else if (data.game.status.id >= 30) presets = [
+        'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
+      ];
+      $chat.chat('setPresets', presets);
+    };
     round = LichessRound(cfg);
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    $('#chat').chat({
+    $chat = $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
       gameId: data.game.id
@@ -1474,7 +1485,8 @@ lichess.unique = function(xs) {
       this.options = $.extend({
         messages: [],
         initialNote: '',
-        gameId: null
+        gameId: null,
+        presets: []
       }, this.options);
       var self = this;
       var $parent = self.element.parent();
@@ -1523,6 +1535,14 @@ lichess.unique = function(xs) {
           self.element.addClass('hidden');
         }
         if (self.options.messages.length > 0) self._appendMany(self.options.messages);
+        var presetCount = 0;
+        self.element.on('click', '.presets button', function() {
+          $input.val($(this).data('hint'));
+          $form.submit();
+          if (++presetCount >= 2) self.element.find('.presets').remove();
+          $input.focus();
+        });
+        self._renderPresets();
       }
 
       $panels = self.element.find('div.chat_panels > div');
@@ -1557,6 +1577,23 @@ lichess.unique = function(xs) {
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
+    },
+    setPresets: function(presets) {
+      if (presets.join('|') !== presets.join('|')) return;
+      console.log(presets);
+      this.options.presets = presets;
+      this._renderPresets();
+    },
+    _renderPresets: function() {
+      var $e = this.element.find('.messages_container');
+      $e.find('.presets').remove();
+      if (!this.options.presets.length) return;
+      $e.append($('<div>').addClass('presets').html(
+        this.options.presets.map(function(p) {
+          var s = p.split('/');
+          return '<button class="button hint--top thin" data-hint="' + s[1] + '">' + s[0] + '</button>';
+        }).join('')
+      ));
     },
     _appendMany: function(objs) {
       var self = this,

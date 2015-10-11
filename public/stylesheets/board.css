@@ -928,6 +928,13 @@ div.under_chat .watchers:hover {
   color: #aaa;
   font-weight: bold;
 }
+#chat .presets {
+  margin-top: 3px;
+}
+#chat .presets button {
+  margin-right: 3px;
+  padding: 3px 5px;
+}
 #chat.hidden ol.messages,
 #chat.hidden form {
   opacity: 0;
