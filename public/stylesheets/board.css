@@ -857,6 +857,7 @@ div.under_chat .watchtv {
   margin-top: -24px;
 }
 div.under_chat .watchers {
+  margin-top: 25px;
   opacity: 0.65;
   transition: 0.13s;
 }
