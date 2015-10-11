@@ -1329,10 +1329,10 @@ lichess.unique = function(xs) {
     cfg.onChange = function(data) {
       var presets = [];
       if (data.steps.length < 3) presets = [
-        'hi/Hello', 'gl/Good luck', 'hf/Have fun', 'u2/You too'
+        'hi/Hello!', 'gl/Good luck!', 'hf/Have fun!', 'u2/You too!'
       ];
       else if (data.game.status.id >= 30) presets = [
-        'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
+        'gg/Good game!', 'wp/Well played!', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
       ];
       $chat.chat('setPresets', presets);
     };
