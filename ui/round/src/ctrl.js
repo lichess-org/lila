@@ -33,7 +33,8 @@ module.exports = function(opts) {
     moveToSubmit: null,
     buttonFeedback: null,
     goneBerserk: {},
-    resignConfirm: false
+    resignConfirm: false,
+    autoScroll: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -91,6 +92,7 @@ module.exports = function(opts) {
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }
+    this.vm.autoScroll && this.vm.autoScroll.throttle();
     return true;
   }.bind(this);
 
@@ -210,6 +212,7 @@ module.exports = function(opts) {
       // https://github.com/ornicar/lila/issues/343
       setTimeout(this.chessground.playPremove, d.game.variant.key === 'atomic' ? 100 : 10);
     }
+    this.vm.autoScroll && this.vm.autoScroll.now();
   }.bind(this);
 
   this.reload = function(cfg) {

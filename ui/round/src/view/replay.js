@@ -145,12 +145,12 @@ function renderButtons(ctrl) {
   ]);
 }
 
-var autoScroll = util.throttle(300, false, function autoScroll(movelist) {
+function autoScroll(el) {
   raf(function() {
-    var plyEl = movelist.querySelector('.active') || movelist.querySelector('turn:first-child');
-    if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+    if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
   });
-});
+}
 
 module.exports = function(ctrl) {
   var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.data.game.status.id + ctrl.data.game.winner + ctrl.vm.flip;
@@ -161,8 +161,13 @@ module.exports = function(ctrl) {
   return m('div.replay', [
     renderButtons(ctrl),
     ctrl.replayEnabledByPref() ? m('div.moves', {
-      config: function(el) {
-        autoScroll(el);
+      config: function(el, isUpdate) {
+        if (isUpdate) return;
+        var f = partial(autoScroll, el);
+        ctrl.vm.autoScroll = {
+          now: f,
+          throttle: util.throttle(300, false, f)
+        };
       },
       onmousedown: function(e) {
         var turn = parseInt($(e.target).siblings('index').text());
