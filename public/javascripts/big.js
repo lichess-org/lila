@@ -347,10 +347,12 @@ lichess.desktopNotification = function(msg) {
   var title = 'lichess.org';
   if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   if (Notification.permission === 'granted') new Notification(title, {
+    icon: 'http://lichess1.org/assets/banner128x128.png',
     body: msg
   });
   else Notification.requestPermission(function(p) {
     if (p === 'granted') new Notification(title, {
+      icon: 'http://lichess1.org/assets/banner128x128.png',
       body: msg
     });
   });
