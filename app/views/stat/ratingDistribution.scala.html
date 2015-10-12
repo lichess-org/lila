@@ -26,7 +26,9 @@ moreJs = moreJs) {
     case (under, sum) => {
     <strong>@sum.localize</strong> @perfType players this month.<br />
     Your rating is <strong>@rating</strong>.<br />
-    You are better than <strong>@(under * 100 / sum)%</strong> of @perfType.name players.
+    @defining(under * 100 / sum) { score =>
+      You are better than @if(score != 100){<strong>@score%</strong> of} else {<strong>all</strong>} @perfType.name players.
+    }
     }
     }
     }.getOrElse {
