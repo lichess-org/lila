@@ -1334,7 +1334,7 @@ lichess.unique = function(xs) {
     var $chat;
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
-    cfg.onChange = function(data) {
+    cfg.onChange = data.player.spectator ? $.noop : function(data) {
       var presets = [];
       if (data.steps.length < 3) presets = [
         'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
