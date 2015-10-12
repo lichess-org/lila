@@ -336,25 +336,31 @@ lichess.trans = function(i18n) {
 };
 
 lichess.isPageVisible = true;
+lichess.notifications = [];
 // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
 window.addEventListener('focus', function() {
   lichess.isPageVisible = true;
+  lichess.notifications.forEach(function(n) {
+    n.close();
+  });
+  lichess.notifications = [];
 });
 window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
   var title = 'lichess.org';
-  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
-  if (Notification.permission === 'granted') new Notification(title, {
-    icon: 'http://lichess1.org/assets/banner128x128.png',
-    body: msg
-  });
-  else Notification.requestPermission(function(p) {
-    if (p === 'granted') new Notification(title, {
-      icon: 'http://lichess1.org/assets/banner128x128.png',
+  var icon = 'http://lichess1.org/assets/images/logo.256.png';
+  var notify = function() {
+    lichess.notifications.push(new Notification(title, {
+      icon: icon,
       body: msg
-    });
+    }));
+  };
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
+  if (Notification.permission === 'granted') notify();
+  else Notification.requestPermission(function(p) {
+    if (p === 'granted') notify();
   });
 };
 lichess.unique = function(xs) {
