@@ -261,6 +261,7 @@ object Pref {
 
     def block(from: User, to: User, pref: Int, follow: Boolean): Option[String] = pref match {
       case NEVER => "{{user}} doesn't accept challenges.".some
+      case RATING if from.perfs.bestRating > to.perfs.bestRating => none
       case RATING if math.abs(from.perfs.bestRating - to.perfs.bestRating) > ratingThreshold =>
         s"{{user}} only accepts challenges if rating is ± $ratingThreshold.".some
       case FRIEND if !follow => "{{user}} only accepts challenges from friends.".some
