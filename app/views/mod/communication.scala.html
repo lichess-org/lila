@@ -71,11 +71,7 @@ side = side.some) {
       @thread.posts.map { post =>
       <div class="post">
         @userIdLink(thread.senderOf(post).some)
-        @if(thread.isWrittenBy(post, u)) {
         @autoLink(post.text)
-        } else {
-        [hidden]
-        }
       </div>
       }
     </div>
