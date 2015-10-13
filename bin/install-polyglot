@@ -10,9 +10,6 @@ cd src
 touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
 ./configure --disable-assert
 make
-cd ../..
-cp -a polyglot/src/polyglot Stockfish/src/stockfish ../bin/
-
-wget ftp://ftp.cs.kent.ac.uk/pub/djb/pgn-extract/eco.pgn
-../bin/polyglot make-book -pgn eco.pgn -bin eco.bin -min-game 1
-cd ..
+cd ../../..
+cp -a local/polyglot/src/polyglot local/Stockfish/src/stockfish bin/
+curl -o local/eco.bin https://raw.githubusercontent.com/ornicar/lichess-data/master/polyglot-db-26k.bin
