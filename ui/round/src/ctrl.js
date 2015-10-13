@@ -65,7 +65,7 @@ module.exports = function(opts) {
 
   this.stepsHash = function(steps) {
     var h = '';
-    for (i in steps) {
+    for (var i in steps) {
       h += steps[i].san;
     }
     return h;
