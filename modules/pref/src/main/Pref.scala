@@ -307,7 +307,7 @@ object Pref {
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.RATING,
+    challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
