@@ -134,6 +134,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
+    if (this.chessground.data.premovable.current) return;
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(this.trans('yourTurn'));
   }.bind(this);
 
