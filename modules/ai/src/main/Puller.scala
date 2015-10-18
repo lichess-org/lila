@@ -15,7 +15,7 @@ private[ai] final class Puller(
 
   import Puller._
 
-  private val name: String = s"fsm-$id"
+  private val name: String = s"$id"
   private val master = context.parent
   private val worker: ActorRef = context.actorOf(
     Props(classOf[ActorFSM], name, Process(config.execPath, s"SF-$id") _, config, logger),
