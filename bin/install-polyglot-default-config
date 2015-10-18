@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [ -f polyglot.ini ]; then
-  exit 0;
-fi
-
-curl -o polyglot.ini https://raw.githubusercontent.com/ornicar/lila/master/conf/polyglot.ini
