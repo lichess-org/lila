@@ -13,11 +13,14 @@
   height: 64px;
   padding-left: 64px;
   width: 512px;
+  border-radius: 3px;
   box-sizing: border-box;
 }
-body.dark #board_editor .spare.black {
+#board_editor .spare.black {
   background: #444;
-  border-radius: 3px;
+}
+#board_editor .spare.white {
+  background: #ccc;
 }
 #board_editor .spare.top {
   margin-bottom: 15px;
