@@ -50,4 +50,9 @@ object Dependencies {
     val caching = "io.spray" %% "spray-caching" % version
     val util = "io.spray" %% "spray-util" % version
   }
+  object akka {
+    val version = "2.4.0"
+    val actor = "com.typesafe.akka" %% "akka-actor" % version
+    val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+  }
 }
