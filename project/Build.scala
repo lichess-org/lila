@@ -26,7 +26,7 @@ object ApplicationBuild extends Build {
     // offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
-      jgit, findbugs, RM, PRM,
+      jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
       spray.caching, maxmind, prismic),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
