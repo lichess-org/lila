@@ -218,8 +218,6 @@ private[round] final class Socket(
     notifyOwner(!color, "gone", gone)
   }
 
-  private val ackEvent = Json.obj("t" -> "ack")
-
   def ownerOf(color: Color): Option[Member] =
     members.values find { m => m.owner && m.color == color }
 
