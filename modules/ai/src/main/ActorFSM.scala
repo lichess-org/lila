@@ -21,12 +21,12 @@ private[ai] final class ActorFSM(
   startWith(Starting, none)
 
   when(Starting) {
-    case Event(Out(t), _) if t startsWith "PolyGlot" =>
+    case Event(Out(t), _) if t startsWith "Stockfish" =>
       process write "uci"
       stay
     case Event(Out("uciok"), job) =>
       config.init foreach process.write
-      loginfo(s"[$name] stockfish polyglot is ready")
+      loginfo(s"[$name] stockfish is ready")
       job.fold(goto(Idle))(start)
     case Event(req: Req, none) => stay using Job(req, sender, None).some
   }
