@@ -42,7 +42,7 @@ case class Analysis(
 
   def valid = infos.nonEmpty
 
-  def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusHours 6))
+  def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusHours 12))
 
   def nbEmptyInfos = infos.count(_.isEmpty)
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
