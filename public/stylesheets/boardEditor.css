@@ -16,10 +16,10 @@
   border-radius: 3px;
   box-sizing: border-box;
 }
-body.dark #board_editor .spare.black {
+#board_editor .spare.black {
   background: #444;
 }
-body.dark #board_editor .spare.white {
+#board_editor .spare.white {
   background: #ccc;
 }
 #board_editor .spare.top {
