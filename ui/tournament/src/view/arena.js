@@ -45,7 +45,10 @@ function playerTr(ctrl, player) {
         }) : rank(player),
         util.player(player, 'span')
       ]),
-      ctrl.data.startsAt ? m('td') : m('td.sheet', player.sheet.scores.map(scoreTag)),
+      ctrl.data.startsAt ? m('td') : m('td', {
+        class: 'sheet hint--top',
+        'data-hint': 'Click to view ' + player.name + ' pairings'
+      }, player.sheet.scores.map(scoreTag)),
       ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
