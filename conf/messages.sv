@@ -501,6 +501,7 @@ keyEnterOrExitVariation=påbörja/avsluta variant
 keyYouCanDrawArrowsCirclesAndScrollToMove=Tryck ned shift och klicka (alternativt högerklicka) för att rita ut cirklar eller pilar på brädet. Du kan också skrolla över brädet för att göra drag i partiet.
 newTournament=Ny turnering
 tournamentHomeTitle=Schackturnering med olika betänketider och schackvarianter
+tournamentHomeDescription=Spela snabba schackturneringar! Delta i en officiell planerad turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlöst schackskoj.
 tournamentNotFound=Turnering ej funnen
 tournamentDoesNotExist=Denna turnering finns inte
 tournamentMayHaveBeenCanceled=Den kan ha blivit inställd om alla spelare lämnade den innan start.
