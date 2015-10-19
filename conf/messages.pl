@@ -1,7 +1,7 @@
 playWithAFriend=Zagraj z przyjacielem
 playWithTheMachine=Zagraj z komputerem
 toInviteSomeoneToPlayGiveThisUrl=Aby zaprosić kogoś do gry, przekaż mu ten adres
-gameOver=Koniec partii
+gameOver=Koniec gry
 waitingForOpponent=Oczekiwanie na przeciwnika
 waiting=Czekaj
 yourTurn=Twój ruch
@@ -194,7 +194,7 @@ xCreatedTeamY=%s stworzył zespół %s
 averageElo=Średni ranking
 location=Miejsce
 settings=Ustawienia
-filterGames=Filtruj partie
+filterGames=Filtruj gry
 reset=Przywróć domyślne
 apply=Zastosuj
 leaderboard=Najlepsi gracze
