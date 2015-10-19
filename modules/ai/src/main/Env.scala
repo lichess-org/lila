@@ -24,7 +24,9 @@ final class Env(
   val ServerOnly = c getBoolean "server-only"
 
   private val config = new Config(
-    command = c.getStringList("command").toList,
+    execPath = c getString "exec_path",
+    hashSize = c getInt "hash_size",
+    nbThreads = c getInt "threads",
     nbInstances = c getInt "instances",
     playMaxMoveTime = c duration "play.movetime",
     analyseMoveTime = c duration "analyse.movetime",

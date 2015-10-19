@@ -27,6 +27,7 @@ module.exports = function(opts) {
 
   this.vm = {
     ply: init.startPly(this.data),
+    initializing: true,
     flip: false,
     redirecting: false,
     replayHash: '',

@@ -57,9 +57,9 @@ private[ai] final class Process(
 
 object Process {
 
-  def apply(command: List[String], name: String)(out: String => Unit, err: String => Unit, debug: Boolean) =
+  def apply(execPath: String, name: String)(out: String => Unit, err: String => Unit, debug: Boolean) =
     new Process(
-      builder = SProcess(command),
+      builder = SProcess(execPath),
       name = name,
       out = out,
       err = err,

@@ -42,7 +42,9 @@ module.exports = {
 
     if (!ctrl.data.player.spectator && ctrl.vm.ply !== round.lastPly(ctrl.data))
       setTimeout(function() {
+        ctrl.vm.initializing = false;
         if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
       }, 500);
+    else ctrl.vm.initializing = false;
   }
 };

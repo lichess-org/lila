@@ -136,7 +136,7 @@ function renderButtons(ctrl) {
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
           disabled: (ctrl.broken || !enabled),
-          glowed: b[0] === 'last' && ctrl.isLate()
+          glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
         }),
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
@@ -147,8 +147,9 @@ function renderButtons(ctrl) {
 
 function autoScroll(el, ctrl) {
   raf(function() {
+    if (ctrl.data.steps.length < 7) return;
     var st;
-    if (ctrl.vm.ply === round.lastPly(ctrl.data)) st = 9999;
+    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
     else {
       var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
       if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
@@ -168,11 +169,12 @@ module.exports = function(ctrl) {
     ctrl.replayEnabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
         if (isUpdate) return;
-        var f = partial(autoScroll, el, ctrl);
+        var scrollNow = partial(autoScroll, el, ctrl);
         ctrl.vm.autoScroll = {
-          now: f,
-          throttle: util.throttle(300, false, f)
+          now: scrollNow,
+          throttle: util.throttle(300, false, scrollNow)
         };
+        scrollNow();
       },
       onmousedown: function(e) {
         var turn = parseInt($(e.target).siblings('index').text());

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-./bin/install-stockfish
-./bin/install-polyglot
-# ./bin/install-syzygy
-./bin/install-polyglot-default-config
-
-vim application.conf
-vim polyglot.ini
