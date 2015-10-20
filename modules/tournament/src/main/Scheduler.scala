@@ -100,15 +100,6 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Eastern, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
-        List( // eastern variant tournaments!
-          Schedule(Eastern, Blitz, Chess960, std, at(today, 10) |> orTomorrow),
-          Schedule(Eastern, Blitz, KingOfTheHill, std, at(today, 11) |> orTomorrow),
-          Schedule(Eastern, Blitz, ThreeCheck, std, at(today, 12) |> orTomorrow),
-          Schedule(Eastern, Blitz, Antichess, std, at(today, 13) |> orTomorrow),
-          Schedule(Eastern, Blitz, Atomic, std, at(today, 14) |> orTomorrow),
-          Schedule(Eastern, Blitz, Horde, std, at(today, 15) |> orTomorrow)
-        ),
-
         List( // random opening replaces hourly 2 times a day
           11 -> opening1,
           23 -> opening2
