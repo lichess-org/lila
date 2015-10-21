@@ -8,7 +8,7 @@ var noteIt = 0;
 
 sound.stop = function() {
   try {
-    oscillator.noteOff(0);
+    oscillator.disconnect();
   } catch (e) {}
 };
 
@@ -17,7 +17,7 @@ sound.play = function(freq) {
   oscillator.type = 'sawtooth';
   oscillator.connect(filter);
   oscillator.frequency.value = freq;
-  oscillator.noteOn(0);
+  oscillator.start(0);
 };
 
 (function init(g) {
@@ -27,7 +27,7 @@ sound.play = function(freq) {
     gain_node.connect(context.destination);
     gain_node.gain.value = 0.1;
     filter = context.createBiquadFilter();
-    filter.type = filter.LOWPASS;
+    filter.type = 'lowpass';
     filter.connect(gain_node);
   } catch (e) {
     console.log('No web audio oscillator support in this browser');
