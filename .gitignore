@@ -20,3 +20,5 @@ node_modules/
 local/
 
 RUNNING_PID
+
+.idea/*
