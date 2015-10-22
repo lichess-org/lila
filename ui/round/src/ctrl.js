@@ -135,6 +135,13 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
+    if (this.chessground.data.premovable.current)
+    {
+      var premove = this.chessground.data.premovable.current;
+      var orig = premove[0], dest = premove[1];
+      var canMove = chessground.board.canMove(this.chessground.data, orig, dest);
+      if (chessground.board.canMove(this.chessground.data, orig, dest)) return;
+    }
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(this.trans('yourTurn'));
   }.bind(this);
 
@@ -187,6 +194,7 @@ module.exports = function(opts) {
         check: o.check
       });
       if (o.check) $.sound.check();
+      showYourMoveNotification();
     }
     if (o.clock) {
       var c = o.clock
