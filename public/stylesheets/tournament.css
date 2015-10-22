@@ -479,6 +479,7 @@ div.faq_box {
 ol.tournament_leaderboard li {
   padding: 5px 0;
   list-style: decimal-leading-zero inside;
+  white-space: nowrap;
 }
 ol.scheduled_tournaments li {
   padding: 5px 0;
