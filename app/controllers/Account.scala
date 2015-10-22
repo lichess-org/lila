@@ -67,14 +67,14 @@ object Account extends LilaController {
       }
   }
 
-  private def emailForm(id: String) = UserRepo email id map { email =>
-    Env.security.forms.changeEmail.fill(
+  private def emailForm(user: UserModel) = UserRepo email user.id map { email =>
+    Env.security.forms.changeEmail(user).fill(
       lila.security.DataForm.ChangeEmail(~email, ""))
   }
 
   def email = Auth { implicit ctx =>
     me =>
-      emailForm(me.id) map { form =>
+      emailForm(me) map { form =>
         Ok(html.account.email(me, form))
       }
   }
@@ -82,14 +82,14 @@ object Account extends LilaController {
   def emailApply = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
-      FormFuResult(Env.security.forms.changeEmail) { err =>
+      FormFuResult(Env.security.forms.changeEmail(me)) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
         val email = Env.security.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
         for {
           ok ← UserRepo.checkPassword(me.id, data.passwd)
           _ ← ok ?? UserRepo.email(me.id, email)
-          form <- emailForm(me.id)
+          form <- emailForm(me)
         } yield {
           val content = html.account.email(me, form, ok.some)
           ok.fold(Ok(content), BadRequest(content))

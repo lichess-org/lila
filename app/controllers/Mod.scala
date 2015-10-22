@@ -70,8 +70,8 @@ object Mod extends LilaController {
       implicit def req = ctx.body
       OptionFuResult(UserRepo named username) { user =>
         if (isGranted(_.SetEmail) && !isGranted(_.SetEmail, user))
-          Env.security.forms.modEmail.bindFromRequest.fold(
-            err => fuccess(redirect(user.username, mod = true)),
+          Env.security.forms.modEmail(user).bindFromRequest.fold(
+            err => BadRequest(err.toString).fuccess,
             email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
           )
         else fuccess(authorizationFailed(ctx.req))

@@ -7,6 +7,7 @@ import play.api.data.validation.Constraints
 import lila.common.LameName
 import lila.db.api.$count
 import lila.user.tube.userTube
+import lila.user.User
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
@@ -27,8 +28,8 @@ final class DataForm(
 
   private val anyEmail = nonEmptyText.verifying(Constraints.emailAddress)
   private val acceptableEmail = anyEmail.verifying(emailAddress.acceptableConstraint)
-  private val uniqueEmail = email.verifying(emailAddress.uniqueConstraint)
-  private val acceptableUniqueEmail = acceptableEmail.verifying(emailAddress.uniqueConstraint)
+  private def acceptableUniqueEmail(forUser: Option[User]) =
+    acceptableEmail.verifying(emailAddress uniqueConstraint forUser)
 
   object signup {
 
@@ -47,7 +48,7 @@ final class DataForm(
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail,
+      "email" -> acceptableUniqueEmail(none),
       "g-recaptcha-response" -> nonEmptyText,
       "gameId" -> nonEmptyText,
       "move" -> nonEmptyText
@@ -57,7 +58,7 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> optional(acceptableUniqueEmail)
+      "email" -> optional(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
 
     def websiteWithCaptcha = withCaptcha(website)
@@ -89,14 +90,12 @@ final class DataForm(
       _.samePasswords
     ))
 
-  val changeEmail = Form(mapping(
-    "email" -> acceptableUniqueEmail,
+  def changeEmail(user: User) = Form(mapping(
+    "email" -> acceptableUniqueEmail(user.some),
     "passwd" -> nonEmptyText
-  )(ChangeEmail.apply)(ChangeEmail.unapply)
-    .verifying("This email already exists", e => !emailAddress.isTaken(e.email))
-  )
+  )(ChangeEmail.apply)(ChangeEmail.unapply))
 
-  val modEmail = Form(single("email" -> acceptableUniqueEmail))
+  def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
   val closeAccount = Form(single("passwd" -> nonEmptyText))
 }

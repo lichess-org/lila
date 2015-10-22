@@ -1,5 +1,7 @@
 package lila.security
 
+import lila.user.User
+
 import play.api.data.validation._
 
 /**
@@ -34,8 +36,12 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
 
   def isValid(email: String) = validate(email).isDefined
 
-  def isTaken(email: String): Boolean = validate(email) ?? { e =>
-    lila.user.UserRepo.idByEmail(e).await.isDefined
+  private def isTakenBy(email: String, forUser: Option[User]): Option[String] = validate(email) ?? { e =>
+    (lila.user.UserRepo.idByEmail(e).await, forUser) match {
+      case (None, _)                  => none
+      case (Some(userId), Some(user)) => userId != user.id option userId
+      case (someUserId, _)            => someUserId
+    }
   }
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
@@ -43,9 +49,11 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
-  val uniqueConstraint = Constraint[String]("constraint.email_unique") { e =>
-    if (isTaken(e)) Invalid(ValidationError("error.email_unique"))
-    else Valid
+  def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
+    isTakenBy(e, forUser) match {
+      case Some(userId) => Invalid(ValidationError(s"Email already in use by $userId"))
+      case None         => Valid
+    }
   }
 
   private def isGmail(domain: String) = domain == "gmail.com"
