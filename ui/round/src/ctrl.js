@@ -150,7 +150,6 @@ module.exports = function(opts) {
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
     this.setTitle();
-    showYourMoveNotification();
     if (!this.replaying()) {
       this.vm.ply++;
       this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
@@ -211,7 +210,10 @@ module.exports = function(opts) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
-      setTimeout(this.chessground.playPremove, d.game.variant.key === 'atomic' ? 100 : 10);
+      var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
+      setTimeout(function() {
+        if (!this.chessground.playPremove()) showYourMoveNotification();
+      }.bind(this), premoveDelay);
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
