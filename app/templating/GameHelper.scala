@@ -55,7 +55,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.turns} moves"
+    val moves = s"${game.toChess.fullMoveNumber} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
