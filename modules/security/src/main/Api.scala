@@ -19,14 +19,14 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  def saveAuthentication(user: User, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
-    if (tor.isExitNode(req.remoteAddress) && !Granter(_.Admin)(user)) fufail(Api.AuthFromTorExitNode)
-    else UserRepo mustConfirmEmail user.id flatMap {
-      case true => fufail(Api MustConfirmEmail user.id)
+  def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
+    if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
+    else UserRepo mustConfirmEmail userId flatMap {
+      case true => fufail(Api MustConfirmEmail userId)
       case false =>
         val sessionId = Random nextStringUppercase 12
         Store.save(
-          sessionId, user.id, req, apiVersion, tor isExitNode req.remoteAddress
+          sessionId, userId, req, apiVersion, tor isExitNode req.remoteAddress
         ) inject sessionId
     }
 
