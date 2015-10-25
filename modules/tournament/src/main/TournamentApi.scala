@@ -212,7 +212,7 @@ private[tournament] final class TournamentApi(
   def ejectLame(userId: String) {
     TournamentRepo.allEnterable foreach {
       _ foreach { tour =>
-        PlayerRepo.existsActive(tour.id, userId) foreach {
+        PlayerRepo.exists(tour.id, userId) foreach {
           _ ?? ejectLame(tour.id, userId)
         }
       }
