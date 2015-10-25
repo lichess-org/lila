@@ -1,6 +1,6 @@
 package lila.round
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import actorApi._
 import akka.actor._
@@ -52,7 +52,9 @@ private[round] final class History(
   }
 
   private def waitForLoadedEvents {
-    if (events == null) events = load.await
+    if (events == null) {
+      events = scala.concurrent.Await.result(load, 5.seconds)
+    }
   }
 
   private var persistenceEnabled = withPersistence
