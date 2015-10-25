@@ -69,7 +69,7 @@ side = side.some) {
         @userIdLink(thread.creatorId.some) -&gt; @userIdLink(thread.invitedId.some)
       </p>
       @thread.posts.map { post =>
-      <div class="post">
+      <div class="post @if(thread.isWrittenBy(post, u)) { author }">
         @userIdLink(thread.senderOf(post).some)
         @autoLink(post.text)
       </div>
