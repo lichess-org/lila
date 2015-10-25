@@ -70,9 +70,11 @@ private[round] object History {
   val size = 30
 
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
-    load = load(coll, gameId, withPersistence),
+    load = serverStarting ?? load(coll, gameId, withPersistence),
     persist = persist(coll, gameId) _,
     withPersistence = withPersistence)
+
+  private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
 
   private def load(coll: Coll, gameId: String, withPersistence: Boolean): Fu[VersionedEvents] =
     coll.find(BSONDocument("_id" -> gameId)).one[BSONDocument].map {
