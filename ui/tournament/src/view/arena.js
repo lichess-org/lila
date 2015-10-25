@@ -47,7 +47,7 @@ function playerTr(ctrl, player) {
       ]),
       ctrl.data.startsAt ? m('td') : m('td', {
         class: 'sheet hint--top',
-        'data-hint': 'Click to view ' + player.name + ' pairings'
+        'data-hint': 'Click to view ' + player.name + '\'s pairings'
       }, player.sheet.scores.map(scoreTag)),
       ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
