@@ -32,7 +32,7 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
 
   // blocking function, required by Play2 form
   private def authenticateUser(username: String, password: String): Option[User] =
-    UserRepo.authenticate(username.toLowerCase, password).await
+    UserRepo.authenticate(username.toLowerCase, password) awaitSeconds 1
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall accepts req flatMap {

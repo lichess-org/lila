@@ -27,7 +27,7 @@ trait CaptchedForm {
     anyCaptcha map (form -> _)
 
   def validateCaptcha(data: CaptchedData) =
-    getCaptcha(data.gameId).await valid data.move.trim.toLowerCase
+    getCaptcha(data.gameId) awaitSeconds 1 valid data.move.trim.toLowerCase
 
   val captchaFailMessage = "captcha.fail"
 }

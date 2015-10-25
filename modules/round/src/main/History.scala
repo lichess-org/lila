@@ -53,7 +53,7 @@ private[round] final class History(
 
   private def waitForLoadedEvents {
     if (events == null) {
-      events = scala.concurrent.Await.result(load, 5.seconds)
+      events = load awaitSeconds 3
     }
   }
 
