@@ -89,7 +89,7 @@ object BinaryFormat {
             timer = timer.toDouble / 100)
         }
       // compatibility with 5 bytes timers
-      // #TODO remove me!
+      // #TODO remove me! But fix the DB first!
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
         PausedClock(
           color = color,
