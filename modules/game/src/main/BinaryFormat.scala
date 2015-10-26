@@ -96,7 +96,9 @@ object BinaryFormat {
           limit = b1 * 60,
           increment = b2,
           whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
+          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+          whiteBerserk = whiteBerserk,
+          blackBerserk = blackBerserk)
       case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
 
