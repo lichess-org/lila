@@ -4,8 +4,8 @@ import lila.db.{ BSON, ByteArray }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode }
 import chess.variant.Variant
+import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode }
 
 object BSONHandlers {
 
@@ -38,17 +38,19 @@ object BSONHandlers {
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
+      val wPlayer = player(whitePlayer, White, whiteId, whiteUid)
+      val bPlayer = player(blackPlayer, Black, blackId, blackUid)
       val createdAtValue = r date createdAt
       Game(
         id = r str id,
-        whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
-        blackPlayer = player(blackPlayer, Black, blackId, blackUid),
+        whitePlayer = wPlayer,
+        blackPlayer = bPlayer,
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
         status = r.get[Status](status),
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
-        clock = r.getO[Color => Clock](clock)(clockBSONHandler(createdAtValue)) map (_(Color(0 == nbTurns % 2))),
+        clock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
@@ -84,7 +86,7 @@ object BSONHandlers {
       status -> o.status,
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),
-      clock -> (o.clock map { c => clockBSONHandler(o.createdAt).write(_ => c) }),
+      clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
       positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
@@ -107,12 +109,12 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  def clockBSONHandler(since: DateTime) = new BSONHandler[BSONBinary, Color => Clock] {
-    def read(bin: BSONBinary) = BinaryFormat clock since read {
-      ByteArrayBSONHandler read bin
-    }
-    def write(clock: Color => Clock) = ByteArrayBSONHandler write {
-      BinaryFormat clock since write clock(chess.White)
-    }
+  def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
+    def read(bin: BSONBinary) = BinaryFormat.clock(since).read(
+      ByteArrayBSONHandler read bin, whiteBerserk, blackBerserk
+    )
+  }
+  def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler write {
+    BinaryFormat clock since write clock
   }
 }

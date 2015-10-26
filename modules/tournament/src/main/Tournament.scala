@@ -72,7 +72,7 @@ case class Tournament(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = system.berserkable && clock.increment == 0
+  def berserkable = system.berserkable && clock.chessClock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 }
