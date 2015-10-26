@@ -84,15 +84,6 @@ object BinaryFormat {
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             timer = timer.toDouble / 100)
         }
-      // compatibility with 5 bytes timers
-      // #TODO remove me!
-      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
-        PausedClock(
-          color = color,
-          limit = b1 * 60,
-          increment = b2,
-          whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
       case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
 
