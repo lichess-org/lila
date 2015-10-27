@@ -1,6 +1,6 @@
 package lila.round
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import actorApi._
 import akka.actor._
@@ -52,7 +52,9 @@ private[round] final class History(
   }
 
   private def waitForLoadedEvents {
-    if (events == null) events = load.await
+    if (events == null) {
+      events = load awaitSeconds 3
+    }
   }
 
   private var persistenceEnabled = withPersistence
@@ -70,9 +72,11 @@ private[round] object History {
   val size = 30
 
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
-    load = load(coll, gameId, withPersistence),
+    load = serverStarting ?? load(coll, gameId, withPersistence),
     persist = persist(coll, gameId) _,
     withPersistence = withPersistence)
+
+  private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
 
   private def load(coll: Coll, gameId: String, withPersistence: Boolean): Fu[VersionedEvents] =
     coll.find(BSONDocument("_id" -> gameId)).one[BSONDocument].map {

@@ -48,7 +48,7 @@ case class Tournament(
 
   def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
-  def isStillWorthEntering = secondsToFinish > minutes * 60 / 2
+  def isStillWorthEntering = isMarathon || secondsToFinish > minutes * 60 / 2
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
@@ -72,7 +72,7 @@ case class Tournament(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = system.berserkable && clock.increment == 0
+  def berserkable = system.berserkable && clock.chessClock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 }

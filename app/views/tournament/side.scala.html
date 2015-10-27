@@ -19,10 +19,16 @@
     </div>
   </div>
   @if(tour.createdBy == "lichess") {
-  @if(tour.id == "summer15") {
-  <a href="http://en.lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
-  } else {
+  @tour.id match {
+  case "summer15" => {
+  <a href="http://lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
+  }
+  case "autumn15" => {
+  <a href="http://lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">About</a>
+  }
+  case _ => {
   @trans.tournamentOfficial()
+  }
   }
   } else {
   @trans.by(usernameOrId(tour.createdBy))

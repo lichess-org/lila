@@ -27,8 +27,8 @@
   case Some(System.Arena) => {
   A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
   If you win two games consecutively you will start a double point streak, known as a
-  <span class="streakstarter">Streak Starter</span>.
-  The following games will continue to be worth <span class="double">Double Points</span> until you fail to win
+  <streak>Streak Starter</streak>.
+  The following games will continue to be worth <double>Double Points</double> until you fail to win
   a game. That is, a win will be worth 4 points, a draw: 2 points, and a loss will remain
   worth no points.
   <br />
@@ -38,7 +38,10 @@
   When a player clicks the <em>Berserk</em> button at the beginning of the game,
   they lose half of their clock time, but the win is worth one extra tournament point.
   <br />
-  <em>Berserk</em> is not available when the clock has an increment (like 0+1 or 5+2).
+  Going <em>Berserk</em> in time controls with an increment also cancels the increment.
+  (1+2 is an exception, it gives 1+0)
+  <br />
+  <em>Berserk</em> is not available for games with zero initial time (0+1, 0+2).
   <br />
   <em>Berserk</em> only grants an extra point if you play at least 7 moves in the game.
   }

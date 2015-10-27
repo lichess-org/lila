@@ -42,10 +42,12 @@
 #communication .player_chats .game:hover .chat {
   overflow-y: auto;
 }
-#communication .player_chats .line {
+#communication .player_chats .line,
+#communication .threads .post {
   opacity: 0.5;
 }
-#communication .player_chats .line.author {
+#communication .player_chats .line.author,
+#communication .threads .post.author {
   opacity: 1;
 }
 

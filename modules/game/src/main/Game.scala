@@ -287,11 +287,11 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
-  def berserkable = status == Status.Started && playedTurns < 2
+  def berserkable = clock.??(_.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
-      val newClock = c halfTime color
+      val newClock = c berserk color
       withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
         Event.Clock(newClock) +
         Event.Berserk(color)

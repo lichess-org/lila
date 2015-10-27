@@ -19,20 +19,20 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  def saveAuthentication(user: User, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
-    if (tor.isExitNode(req.remoteAddress) && !Granter(_.Admin)(user)) fufail(Api.AuthFromTorExitNode)
-    else UserRepo mustConfirmEmail user.id flatMap {
-      case true => fufail(Api MustConfirmEmail user.id)
+  def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
+    if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
+    else UserRepo mustConfirmEmail userId flatMap {
+      case true => fufail(Api MustConfirmEmail userId)
       case false =>
         val sessionId = Random nextStringUppercase 12
         Store.save(
-          sessionId, user.id, req, apiVersion, tor isExitNode req.remoteAddress
+          sessionId, userId, req, apiVersion, tor isExitNode req.remoteAddress
         ) inject sessionId
     }
 
   // blocking function, required by Play2 form
   private def authenticateUser(username: String, password: String): Option[User] =
-    UserRepo.authenticate(username.toLowerCase, password).await
+    UserRepo.authenticate(username.toLowerCase, password) awaitSeconds 1
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall accepts req flatMap {

@@ -30,7 +30,7 @@ object Auth extends LilaController {
     implicit val req = ctx.req
     u.ipBan.fold(
       Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-      api.saveAuthentication(u, ctx.mobileApiVersion) flatMap { sessionId =>
+      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {
             get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
@@ -145,7 +145,7 @@ object Auth extends LilaController {
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
     implicit val req = ctx.req
     Env.security.emailConfirm.confirm(token) flatMap {
-      case Some(user) => api.saveAuthentication(user, ctx.mobileApiVersion) map { sessionId =>
+      case Some(user) => api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
         Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
       } recoverWith authRecovery
       case _ => notFound

@@ -67,7 +67,7 @@ object BinaryFormat {
         timer(clock.timerOption getOrElse 0d) map (_.toByte)
     }
 
-    def read(ba: ByteArray): Color => Clock = color => ba.value map toInt match {
+    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => ba.value map toInt match {
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) =>
         readTimer(b9, b10, b11, b12) match {
           case 0 => PausedClock(
@@ -75,24 +75,30 @@ object BinaryFormat {
             limit = b1 * 60,
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-            blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
+            blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+            whiteBerserk = whiteBerserk,
+            blackBerserk = blackBerserk)
           case timer => RunningClock(
             color = color,
             limit = b1 * 60,
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+            whiteBerserk = whiteBerserk,
+            blackBerserk = blackBerserk,
             timer = timer.toDouble / 100)
         }
       // compatibility with 5 bytes timers
-      // #TODO remove me!
+      // #TODO remove me! But fix the DB first!
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
         PausedClock(
           color = color,
           limit = b1 * 60,
           increment = b2,
           whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
+          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+          whiteBerserk = whiteBerserk,
+          blackBerserk = blackBerserk)
       case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
 
