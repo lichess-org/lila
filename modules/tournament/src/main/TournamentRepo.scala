@@ -48,7 +48,8 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def allEnterable: Fu[List[Tournament]] = coll.find(enterableSelect).cursor[Tournament]().collect[List]()
+  def allEnterable: Fu[List[Tournament]] =
+    coll.find(enterableSelect).cursor[Tournament]().collect[List]()
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).toList[Tournament](None)
 
@@ -168,4 +169,11 @@ object TournamentRepo {
 
   def isFinished(id: String): Fu[Boolean] =
     coll.count(BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
+
+  def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
+    coll.find(enterableSelect ++ BSONDocument(
+      "_id" -> BSONDocument("$ne" -> tourId),
+      "schedule.freq" -> BSONDocument("$ne" -> Schedule.Freq.Marathon.name),
+      "nbPlayers" -> BSONDocument("$ne" -> 0)
+    )).cursor[Tournament]().collect[List]()
 }
