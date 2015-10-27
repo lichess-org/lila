@@ -102,10 +102,13 @@ object Schedule {
     }) filter (0!=)
   }
 
+  private val blitzIncHours = Set(1, 7, 13, 19)
+
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Speed.Bullet     => TournamentClock(60, 0)
-    case Speed.SuperBlitz => TournamentClock(3 * 60, 0)
-    case Speed.Blitz      => TournamentClock(5 * 60, 0)
-    case Speed.Classical  => TournamentClock(10 * 60, 0)
+    case Speed.Bullet                                        => TournamentClock(60, 0)
+    case Speed.SuperBlitz                                    => TournamentClock(3 * 60, 0)
+    case Speed.Blitz if blitzIncHours(sched.at.getHourOfDay) => TournamentClock(3 * 60, 2)
+    case Speed.Blitz                                         => TournamentClock(5 * 60, 0)
+    case Speed.Classical                                     => TournamentClock(10 * 60, 0)
   }
 }
