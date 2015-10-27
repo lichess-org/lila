@@ -131,7 +131,7 @@ private[tournament] final class TournamentApi(
   def join(tourId: String, me: User) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-        withdrawAllBut(tour.id, me.id)
+        withdrawAllNonMarathonBut(tour.id, me.id)
         sendTo(tour.id, Joining(me.id))
         socketReload(tour.id)
         publish()
@@ -143,10 +143,10 @@ private[tournament] final class TournamentApi(
   private def updateNbPlayers(tourId: String) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawAllBut(tourId: String, userId: String) {
+  private def withdrawAllNonMarathonBut(tourId: String, userId: String) {
     TournamentRepo.allEnterable foreach {
-      _ filter (_.id != tourId) foreach { other =>
-        PlayerRepo.existsActive(other.id, userId) foreach {
+      _.filter(t => t.id != tourId && !t.isMarathon) foreach { other =>
+        PlayerRepo.exists(other.id, userId) foreach {
           _ ?? withdraw(other.id, userId)
         }
       }
