@@ -447,7 +447,7 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
-    if ((playable && !isPgnImport) || fromPosition || !Game.openingSensiblevariants(variant)) none
+    if (fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }

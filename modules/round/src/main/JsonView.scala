@@ -210,6 +210,7 @@ final class JsonView(
         "game" -> Json.obj(
           "id" -> gameId,
           "variant" -> game.variant,
+          "opening" -> game.opening,
           "initialFen" -> {
             if (pov.game.pgnMoves.isEmpty) fen
             else (initialFen | chess.format.Forsyth.initial)

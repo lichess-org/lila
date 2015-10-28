@@ -8,4 +8,6 @@ case class TournamentClock(limit: Int, increment: Int) {
   def show = s"${limitInMinutes}+${increment}"
 
   def chessClock = chess.Clock(limit, increment)
+
+  def hasIncrement = increment > 0
 }

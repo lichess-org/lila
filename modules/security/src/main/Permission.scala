@@ -31,9 +31,8 @@ object Permission {
     ViewBlurs, MarkEngine, MarkBooster, StaffForum, UserSpy, UserEvaluate, SeeReport))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-    ViewBlurs, MarkTroll, MarkEngine, MarkBooster, StaffForum, ModerateForum, UserSpy,
-    UserEvaluate, SeeReport, IpBan, CloseAccount, ReopenAccount, SetTitle, SetEmail,
-    ModerateQa, StreamConfig))
+    Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
+    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 

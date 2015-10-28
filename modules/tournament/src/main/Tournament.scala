@@ -29,7 +29,10 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def fullName = if (isMarathon) name else s"$name $system"
+  def fullName =
+    if (isMarathon) name
+    else if (scheduled && clock.hasIncrement) s"$name Inc $system"
+    else s"$name $system"
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true

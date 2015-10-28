@@ -144,8 +144,8 @@ private[tournament] final class TournamentApi(
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
   private def withdrawAllNonMarathonBut(tourId: String, userId: String) {
-    TournamentRepo.allEnterable foreach {
-      _.filter(t => t.id != tourId && !t.isMarathon) foreach { other =>
+    TournamentRepo toursToWithdrawWhenEntering tourId foreach {
+      _ foreach { other =>
         PlayerRepo.exists(other.id, userId) foreach {
           _ ?? withdraw(other.id, userId)
         }
