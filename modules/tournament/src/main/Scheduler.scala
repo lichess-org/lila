@@ -100,10 +100,19 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Eastern, Classical, Standard, std, at(today, 9) |> orTomorrow)
         ),
 
+        (isHalloween ? // replace more thematic tournaments on halloween
+        List(
+          3  -> opening1,
+          7  -> opening2,
+          11 -> opening1,
+          15 -> opening2,
+          19 -> opening1,
+          23 -> opening2
+        ) |
         List( // random opening replaces hourly 2 times a day
           11 -> opening1,
           23 -> opening2
-        ).flatMap {
+        )).flatMap {
             case (hour, opening) => List(
               Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
               Schedule(Hourly, SuperBlitz, Standard, opening, at(today, hour) |> orTomorrow),
