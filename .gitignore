@@ -1,5 +1,4 @@
 conf/application.conf
-conf/base.conf
 logs
 project/project
 project/target
