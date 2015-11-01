@@ -581,6 +581,7 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .name {
   color: white;
   overflow: hidden;
+  text-overflow: ellipsis;
   display: block;
   white-space: nowrap;
 }
