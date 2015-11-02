@@ -286,5 +286,5 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"$name played $nbGames games since $createdAt.$currentRating"
   }
 
-  private val donorBadge = """<span data-icon="&#xe001;" class="donor is-gold"></span>"""
+  private val donorBadge = """<span data-icon="&#xe001;" class="donor is-gold" title="Lichess donor"></span>"""
 }
