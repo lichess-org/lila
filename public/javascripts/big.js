@@ -2003,11 +2003,10 @@ lichess.unique = function(xs) {
         });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
-      var timeInputSliderIndex = 0;
       $timeInput.add($incrementInput).each(function() {
-        var isTimeSlider = timeInputSliderIndex == 0;
         var $input = $(this),
           $value = $input.siblings('span');
+        var isTimeSlider = $input.parent().hasClass('time_choice');
         $input.hide().after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
@@ -2022,7 +2021,6 @@ lichess.unique = function(xs) {
             toggleButtons();
           }
         }));
-        timeInputSliderIndex++;
       });
       $daysInput.each(function() {
         var $input = $(this),
