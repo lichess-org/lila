@@ -13,7 +13,7 @@ private[setup] trait Config {
   val timeMode: TimeMode
 
   // Clock time in minutes
-  val time: Int
+  val time: Double
 
   // Clock increment in seconds
   val increment: Int
@@ -43,7 +43,7 @@ private[setup] trait Config {
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock =
-    Clock(time * 60, clockHasTime.fold(increment, 1))
+    Clock((time * 60).toInt, clockHasTime.fold(increment, 1))
 
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
@@ -114,7 +114,7 @@ trait BaseConfig {
 
   private val timeMin = 0
   private val timeMax = 180
-  def validateTime(t: Int) = t >= timeMin && t <= timeMax
+  def validateTime(t: Double) = t >= timeMin && t <= timeMax && (t % 1 == 0 || t == 0.5)
 
   private val incrementMin = 0
   private val incrementMax = 180

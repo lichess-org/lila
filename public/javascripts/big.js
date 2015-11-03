@@ -1842,6 +1842,33 @@ lichess.unique = function(xs) {
     var $startButtons = $('#start_buttons');
 
     function sliderTime(v) {
+      if (v <= 1) return v;
+      if (v <= 10.5) return v * 2 - 1;
+      switch (v) {
+        case 11:
+          return 25;
+        case 11.5:
+          return 30;
+        case 12:
+          return 35;
+        case 12.5:
+          return 40;
+        case 13:
+          return 45;
+        case 13.5:
+          return 60;
+        case 14:
+          return 90;
+        case 14.5:
+          return 120;
+        case 15:
+          return 150;
+        default:
+          return 180;
+      }
+    }
+
+    function sliderIncrement(v) {
       if (v <= 20) return v;
       switch (v) {
         case 21:
@@ -1882,7 +1909,7 @@ lichess.unique = function(xs) {
     }
 
     function sliderInitVal(v, f, max) {
-      for (var i = 0; i < max; i++) {
+      for (var i = 0; i < max; i += 0.5) {
         if (f(i) === v) return i;
       }
     }
@@ -1976,23 +2003,26 @@ lichess.unique = function(xs) {
         });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
+      var timeInputSliderIndex = 0;
       $timeInput.add($incrementInput).each(function() {
+        var isTimeSlider = timeInputSliderIndex == 0;
         var $input = $(this),
           $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseInt($input.val()), sliderTime, 100),
+          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: 30,
+          max: isTimeSlider ? 15.5 : 30,
           range: 'min',
-          step: 1,
+          step: isTimeSlider ? 0.5 : 1,
           slide: function(event, ui) {
-            var time = sliderTime(ui.value);
+            var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
             $value.text(time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
           }
         }));
+        timeInputSliderIndex++;
       });
       $daysInput.each(function() {
         var $input = $(this),

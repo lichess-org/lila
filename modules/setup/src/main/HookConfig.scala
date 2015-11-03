@@ -9,7 +9,7 @@ import lila.user.User
 case class HookConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Int,
+    time: Double,
     increment: Int,
     days: Int,
     mode: Mode,
@@ -65,7 +65,7 @@ case class HookConfig(
   def updateFrom(game: lila.game.Game) = copy(
     variant = game.variant,
     timeMode = TimeMode ofGame game,
-    time = game.clock.map(_.limitInMinutes) | time,
+    time = game.clock.map(_.limitInMinutes).getOrElse(time),
     increment = game.clock.map(_.increment) | increment,
     days = game.daysPerTurn | days,
     mode = game.mode)
@@ -73,7 +73,7 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
+  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     val useRatingRange = realMode.rated || membersOnly
     new HookConfig(
@@ -91,7 +91,7 @@ object HookConfig extends BaseHumanConfig {
   val default = HookConfig(
     variant = variantDefault,
     timeMode = TimeMode.RealTime,
-    time = 5,
+    time = 5d,
     increment = 8,
     days = 2,
     mode = Mode.default,
@@ -107,7 +107,7 @@ object HookConfig extends BaseHumanConfig {
     def reads(r: BSON.Reader): HookConfig = HookConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
-      time = r int "t",
+      time = r double "t",
       increment = r int "i",
       days = r int "d",
       mode = Mode orDefault (r int "m"),
