@@ -1842,30 +1842,10 @@ lichess.unique = function(xs) {
     var $startButtons = $('#start_buttons');
 
     function sliderTime(v) {
-      if (v <= 1) return v;
-      if (v <= 10.5) return v * 2 - 1;
-      switch (v) {
-        case 11:
-          return 25;
-        case 11.5:
-          return 30;
-        case 12:
-          return 35;
-        case 12.5:
-          return 40;
-        case 13:
-          return 45;
-        case 13.5:
-          return 60;
-        case 14:
-          return 90;
-        case 14.5:
-          return 120;
-        case 15:
-          return 150;
-        default:
-          return 180;
-      }
+      var times =  [0, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+          16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180];
+      if (v < times.length) return times[v];
+      else return 180;
     }
 
     function sliderIncrement(v) {
@@ -1908,9 +1888,8 @@ lichess.unique = function(xs) {
       }
     }
 
-    function sliderInitVal(v, f, max, step) {
-      step = step || 1;
-      for (var i = 0; i < max; i += step) {
+    function sliderInitVal(v, f, max) {
+      for (var i = 0; i < max; i += 1) {
         if (f(i) === v) return i;
       }
     }
@@ -2009,11 +1988,11 @@ lichess.unique = function(xs) {
           $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100, isTimeSlider ? 0.5 : 1),
+          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: isTimeSlider ? 15.5 : 30,
+          max: isTimeSlider ? 31 : 30,
           range: 'min',
-          step: isTimeSlider ? 0.5 : 1,
+          step: 1,
           slide: function(event, ui) {
             var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
             $value.text(time);
@@ -2027,7 +2006,7 @@ lichess.unique = function(xs) {
         var $input = $(this),
           $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseInt($input.val()), sliderDays, 20, 1),
+          value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
           max: 7,
           range: 'min',
