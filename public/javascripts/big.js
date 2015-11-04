@@ -1889,7 +1889,7 @@ lichess.unique = function(xs) {
     }
 
     function sliderInitVal(v, f, max) {
-      for (var i = 0; i < max; i += 1) {
+      for (var i = 0; i < max; i++) {
         if (f(i) === v) return i;
       }
     }
