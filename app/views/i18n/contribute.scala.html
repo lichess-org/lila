@@ -14,8 +14,10 @@ Lichess is open source and needs contributors to get better.
 @if(mines.nonEmpty) {
 <h2>Do you speak @{ (mines.size > 1).fold("these languages", "this language") }?</h2>
 @i18n.translations(mines)
-}
 <br />
 <h2>What about these ones?</h2>
+} else {
+<h2>You can help by translating any languages you know.</h2>
+}
 @i18n.translations(all)
 }
