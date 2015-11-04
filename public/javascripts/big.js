@@ -1842,7 +1842,7 @@ lichess.unique = function(xs) {
     var $startButtons = $('#start_buttons');
 
     function sliderTime(v) {
-      var times =  [0, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+      var times =  [0, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
           16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180];
       if (v < times.length) return times[v];
       else return 180;
@@ -1990,7 +1990,7 @@ lichess.unique = function(xs) {
         $input.hide().after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: isTimeSlider ? 31 : 30,
+          max: isTimeSlider ? 33 : 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {

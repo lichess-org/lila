@@ -119,13 +119,13 @@ object BinaryFormat {
       // an alternative way to describe 0.5.
       // The max limit where limit % 60 == 0, returns 180 for limit / 60
       // So, for the limits where limit % 30 == 0, we can use the space
-      // from 181-255, where 181 represents 0.5 (and 182 would represent 1.5,
-      // but that doesn't exist).
-      if (limit % 60 == 0) limit / 60 else (limit - 30) / 60 + 181
+      // from 181-255, where 181 represents 0.5, 182 represents 0.75 and
+      // 185 represents 1.5.
+      if (limit % 60 == 0) limit / 60 else (limit - 30) / 15 + 181
     }
 
     private def readClockLimit(b: Int) = {
-      if (b < 181) b * 60 else (b - 181) * 60 + 30
+      if (b < 181) b * 60 else (b - 181) * 15 + 30
     }
   }
 

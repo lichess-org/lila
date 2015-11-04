@@ -114,7 +114,7 @@ trait BaseConfig {
 
   private val timeMin = 0
   private val timeMax = 180
-  def validateTime(t: Double) = t >= timeMin && t <= timeMax && (t % 1 == 0 || t == 0.5)
+  def validateTime(t: Double) = t >= timeMin && t <= timeMax && (t % 1 == 0 || List(0.5, 0.75, 1.5).contains(t))
 
   private val incrementMin = 0
   private val incrementMax = 180

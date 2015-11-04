@@ -9,7 +9,7 @@
     @setup.select(form("timeMode"), translatedTimeModeChoices)
   </div>
   <div class="time_choice slider">
-    @trans.minutesPerSide(): <span>@(new DecimalFormat("#.#").format(form("time").value.getOrElse("0").toDouble))</span>
+    @trans.minutesPerSide(): <span>@(new DecimalFormat("#.##").format(form("time").value.getOrElse("0").toDouble))</span>
     @setup.input(form("time"))
   </div>
   <div class="increment_choice slider">
