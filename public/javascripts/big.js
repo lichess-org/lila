@@ -1908,8 +1908,9 @@ lichess.unique = function(xs) {
       }
     }
 
-    function sliderInitVal(v, f, max) {
-      for (var i = 0; i < max; i += 0.5) {
+    function sliderInitVal(v, f, max, step) {
+      step = step || 1;
+      for (var i = 0; i < max; i += step) {
         if (f(i) === v) return i;
       }
     }
@@ -2008,7 +2009,7 @@ lichess.unique = function(xs) {
           $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
+          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100, isTimeSlider ? 0.5 : 1),
           min: 0,
           max: isTimeSlider ? 15.5 : 30,
           range: 'min',
@@ -2026,7 +2027,7 @@ lichess.unique = function(xs) {
         var $input = $(this),
           $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
+          value: sliderInitVal(parseInt($input.val()), sliderDays, 20, 1),
           min: 1,
           max: 7,
           range: 'min',
