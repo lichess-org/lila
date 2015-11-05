@@ -115,8 +115,8 @@ trait BaseConfig {
   private val timeMin = 0
   private val timeMax = 180
   private val acceptableFractions = Set(1/2d, 3/4d, 3/2d)
-  def validateTime(t: Double) = 
-    t >= timeMin && t <= timeMax && (t % 1 == 0 || acceptableFractions(t))
+  def validateTime(t: Double) =
+    t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
   private val incrementMin = 0
   private val incrementMax = 180
