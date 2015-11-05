@@ -6,12 +6,12 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
+import chess.Color
 import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import chess.Color
 import makeTimeout.large
 
 private[round] final class Round(
@@ -211,8 +211,7 @@ private[round] final class Round(
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
     finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
-      game.toChess.board.variant.drawsOnInsufficientMaterial &&
-        chess.InsufficientMatingMaterial(game.toChess.board, color)
+      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
