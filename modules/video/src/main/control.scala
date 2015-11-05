@@ -21,7 +21,8 @@ case class Filter(tags: List[String]) {
 case class UserControl(
     filter: Filter,
     tags: List[TagNb],
-    query: Option[String]) {
+    query: Option[String],
+    bot: Boolean) {
 
   def toggleTag(tag: String) = copy(
     filter = filter toggle tag,
@@ -31,4 +32,6 @@ case class UserControl(
     filter.tags.nonEmpty option s"tags=${filter.tags.sorted mkString "^"}".replace(" ", "+"),
     query.map { q => s"q=$q" }
   ).flatten mkString "&"
+
+  def queryStringUnlessBot = !bot ?? queryString
 }
