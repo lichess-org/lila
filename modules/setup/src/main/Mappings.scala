@@ -1,6 +1,7 @@
 package lila.setup
 
 import play.api.data.Forms._
+import play.api.data.format.Formats._
 
 import chess.format.Forsyth
 import chess.Mode
@@ -14,7 +15,7 @@ object Mappings {
   val aiVariants = number.verifying(Config.aiVariants contains _)
   val variantWithVariants = number.verifying(Config.variantsWithVariants contains _)
   val variantWithFenAndVariants = number.verifying(Config.variantsWithFenAndVariants contains _)
-  val time = number.verifying(HookConfig validateTime _)
+  val time = of[Double].verifying(HookConfig validateTime _)
   val increment = number.verifying(HookConfig validateIncrement _)
   val days = number(min = 1, max = 14)
   def timeMode = number.verifying(TimeMode.ids contains _)

@@ -61,7 +61,7 @@ object BinaryFormat {
     def write(clock: Clock): ByteArray = ByteArray {
       def time(t: Float) = writeSignedInt24((t * 100).toInt)
       def timer(seconds: Double) = writeTimer((seconds * 100).toLong)
-      Array(writeInt8(clock.limit / 60), writeInt8(clock.increment)) ++
+      Array(writeClockLimit(clock.limit), writeInt8(clock.increment)) ++
         time(clock.whiteTime) ++
         time(clock.blackTime) ++
         timer(clock.timerOption getOrElse 0d) map (_.toByte)
@@ -72,7 +72,7 @@ object BinaryFormat {
         readTimer(b9, b10, b11, b12) match {
           case 0 => PausedClock(
             color = color,
-            limit = b1 * 60,
+            limit = readClockLimit(b1),
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
@@ -80,7 +80,7 @@ object BinaryFormat {
             blackBerserk = blackBerserk)
           case timer => RunningClock(
             color = color,
-            limit = b1 * 60,
+            limit = readClockLimit(b1),
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
@@ -93,7 +93,7 @@ object BinaryFormat {
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
         PausedClock(
           color = color,
-          limit = b1 * 60,
+          limit = readClockLimit(b1),
           increment = b2,
           whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
           blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
@@ -111,6 +111,21 @@ object BinaryFormat {
     private def readTimer(b1: Int, b2: Int, b3: Int, b4: Int) = {
       val l = (b1 << 24) + (b2 << 16) + (b3 << 8) + b4
       if (l == 0) 0 else l + decay
+    }
+
+    private def writeClockLimit(limit: Int) = {
+      // The database expects a byte for a limit, and this is limit / 60.
+      // For 0.5+0, this does not give a round number, so there needs to be
+      // an alternative way to describe 0.5.
+      // The max limit where limit % 60 == 0, returns 180 for limit / 60
+      // So, for the limits where limit % 30 == 0, we can use the space
+      // from 181-255, where 181 represents 0.5, 182 represents 0.75 and
+      // 185 represents 1.5.
+      if (limit % 60 == 0) limit / 60 else (limit - 30) / 15 + 181
+    }
+
+    private def readClockLimit(b: Int) = {
+      if (b < 181) b * 60 else (b - 181) * 15 + 30
     }
   }
 
