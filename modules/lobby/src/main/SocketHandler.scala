@@ -24,7 +24,7 @@ private[lobby] final class SocketHandler(
     socket: ActorRef,
     uid: String,
     member: Member): Handler.Controller = {
-    lazy val RateLimit = new lila.memo.RateLimitGlobal(2 seconds)
+    lazy val RateLimit = new lila.memo.RateLimitGlobal(1 second)
     PartialFunction {
       case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
       case ("join", o) => RateLimit {
