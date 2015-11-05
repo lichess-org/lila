@@ -24,26 +24,21 @@ private[lobby] final class SocketHandler(
     socket: ActorRef,
     uid: String,
     member: Member): Handler.Controller = {
-    lazy val RateLimit = new lila.memo.RateLimitGlobal(1 second)
-    PartialFunction {
-      case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-      case ("join", o) => RateLimit {
-        o str "d" foreach { id =>
-          lobby ! BiteHook(id, uid, member.user)
-        }
+    case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+    case ("join", o) =>
+      o str "d" foreach { id =>
+        lobby ! BiteHook(id, uid, member.user)
       }
-      case ("cancel", o) => lobby ! CancelHook(uid)
-      case ("joinSeek", o) => RateLimit {
-        for {
-          id <- o str "d"
-          user <- member.user
-        } lobby ! BiteSeek(id, user)
-      }
-      case ("cancelSeek", o) => for {
+    case ("cancel", o) => lobby ! CancelHook(uid)
+    case ("joinSeek", o) =>
+      for {
         id <- o str "d"
         user <- member.user
-      } lobby ! CancelSeek(id, user)
-    }
+      } lobby ! BiteSeek(id, user)
+    case ("cancelSeek", o) => for {
+      id <- o str "d"
+      user <- member.user
+    } lobby ! CancelSeek(id, user)
   }
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =
