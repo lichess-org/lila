@@ -32,22 +32,17 @@ private[lobby] final class SocketHandler(
           lobby ! BiteHook(id, uid, member.user)
         }
       }
-      case ("cancel", o) => RateLimit {
-        lobby ! CancelHook(uid)
-      }
+      case ("cancel", o) => lobby ! CancelHook(uid)
       case ("joinSeek", o) => RateLimit {
         for {
           id <- o str "d"
           user <- member.user
         } lobby ! BiteSeek(id, user)
       }
-
-      case ("cancelSeek", o) => RateLimit {
-        for {
-          id <- o str "d"
-          user <- member.user
-        } lobby ! CancelSeek(id, user)
-      }
+      case ("cancelSeek", o) => for {
+        id <- o str "d"
+        user <- member.user
+      } lobby ! CancelSeek(id, user)
     }
   }
 
