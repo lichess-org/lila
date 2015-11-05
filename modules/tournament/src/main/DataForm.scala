@@ -10,7 +10,7 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes = 0 to 7 by 1
+  val clockTimes = Seq(0, 0.5) ++ 1 to 7 by 1
   val clockTimesPrivate = clockTimes ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockTimeDefault = 2
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
