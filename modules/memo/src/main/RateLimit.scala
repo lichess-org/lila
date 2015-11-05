@@ -1,6 +1,5 @@
-package lila.security
+package lila.memo
 
-import lila.memo.ExpireSetMemo
 import scala.concurrent.duration.Duration
 import ornicar.scalalib.Zero
 
