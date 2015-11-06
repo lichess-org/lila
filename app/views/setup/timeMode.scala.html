@@ -9,7 +9,7 @@
     @setup.select(form("timeMode"), translatedTimeModeChoices)
   </div>
   <div class="time_choice slider">
-    @trans.minutesPerSide(): <span>@(new DecimalFormat("#.##").format(form("time").value.fold(0d)(_.toDouble)))</span>
+    @trans.minutesPerSide(): <span>@(chess.Clock.showLimit(~form("time").value.flatMap(chess.parseIntOption) * 60))</span>
     @setup.input(form("time"))
   </div>
   <div class="increment_choice slider">
