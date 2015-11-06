@@ -1,6 +1,6 @@
 @(vv: lila.video.VideoView, control: lila.video.UserControl)(implicit ctx: Context)
 
-<a class="card paginated_element" href="@routes.Video.show(vv.video.id)?@control.queryString">
+<a class="card paginated_element" href="@routes.Video.show(vv.video.id)?@control.queryStringUnlessBot">
   @if(vv.view) {
   <span class="view">watched</span>
   }

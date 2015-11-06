@@ -3,8 +3,6 @@ package lila.gameSearch
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.api.$find
-import lila.game.tube.gameTube
 import lila.search._
 
 final class Env(

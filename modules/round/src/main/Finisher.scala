@@ -6,7 +6,6 @@ import chess.{ Status, Color, Speed }
 
 import lila.db.api._
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.{ PlaybanApi, Outcome }
