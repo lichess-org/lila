@@ -1,9 +1,9 @@
-@(pov: Pov, bg: String, theme: String)
+@(pov: Pov, bg: String, theme: String, channel: lila.tv.Tv.Channel)
 
 <!doctype html>
 <html>
   <head>
-    <title>lichess.org TV</title>
+    <title>lichess.org TV: @channel.name</title>
     @if(bg == "dark") {
     @cssTag("dark.css")
     }
