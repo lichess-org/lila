@@ -14,7 +14,7 @@ final class DisposableEmailDomain(providerUrl: String) {
         loginfo(s"[disposable email] registered ${domains.size} domains")
       }
       catch {
-        case e => logerr(s"Can't update disposable emails: $e")
+        case e: Exception => logerr(s"Can't update disposable emails: $e")
       }
     }
   }
