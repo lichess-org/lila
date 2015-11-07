@@ -4,6 +4,11 @@ $(function() {
   var $usernames = $form.find(".usernames input");
   var $userRows = $form.find(".user_row");
   var $result = $(".search_result");
+  var playersRegexp = /(?:^http:\/\/.*?)\/search\?.*?&?(?:players\.winner=(.*?))?&?(?:players\.white=(.*?))?&?(?:players\.black=(.*?))?&.*$/g;
+  var match = playersRegexp.exec(window.location.href);
+  var $playersWinner = isPlayerChosen(match[1]);
+  var $playersWhite  = isPlayerChosen(match[2]);
+  var $playersBlack  = isPlayerChosen(match[3]);
 
   var serialize = function(all) {
     var sel = $form.find(":input");
@@ -51,10 +56,26 @@ $(function() {
     var options = ["<option value=''></option>"];
     $usernames.each(function() {
       var user = $.trim($(this).val());
-      if (user.length) options.push("<option value='" + user + "'>" + user + "</option>");
+      if (user.length) {
+        var option = [];
+        option.push("<option value='" + user + "'");
+        option.push(isSelected(row, "winner", user, $playersWinner));
+        option.push(isSelected(row, "whiteUser", user, $playersWhite));
+        option.push(isSelected(row, "blackUser", user, $playersBlack));
+        option.push(">" + user + "</option>");
+        options.push(option.join(""));
+      }
     });
     $(row).find('select').html(options.join(""));
     $(row).toggle(options.length > 1);
+  }
+
+  function isPlayerChosen(match) {
+    return typeof match !== "undefined" ? match.replace(/\+/g, " ") : "";
+  }
+
+  function isSelected(row, rowClassName, user, player) {
+    return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
   }
 
   $form.find("select, input[type=checkbox]").change(realtimeResults);
