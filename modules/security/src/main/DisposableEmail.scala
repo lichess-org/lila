@@ -9,8 +9,13 @@ final class DisposableEmailDomain(providerUrl: String) {
 
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
-      domains = res.json.as[List[String]]
-      loginfo(s"[disposable email] registered ${domains.size} domains")
+      try {
+        domains = res.json.as[List[String]]
+        loginfo(s"[disposable email] registered ${domains.size} domains")
+      }
+      catch {
+        case e => logerr(s"Can't update disposable emails: $e")
+      }
     }
   }
 
