@@ -1923,10 +1923,10 @@ lichess.unique = function(xs) {
         var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
         var ratedOk = !isHook || !rated || timeMode != '0';
         if (timeOk && ratedOk) {
-          $form.find('.color_submits button').show();
+          $form.find('.color_submits button').toggleClass('nope', false);
           $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf($variantSelect.val()) === -1);
         } else
-          $form.find('.color_submits button').hide();
+          $form.find('.color_submits button').toggleClass('nope', true);
       };
       var showRating = function() {
         var timeMode = $timeModeSelect.val();
