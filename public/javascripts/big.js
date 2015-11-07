@@ -1841,11 +1841,19 @@ lichess.unique = function(xs) {
 
     var $startButtons = $('#start_buttons');
 
+    var sliderTimes = [
+      0, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+      16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    ];
+
     function sliderTime(v) {
-      var times =  [0, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-          16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180];
-      if (v < times.length) return times[v];
-      else return 180;
+      return v < sliderTimes.length ? sliderTimes[v] : 180;
+    }
+
+    function showTime(v) {
+      if (v === 1 / 2) return '½';
+      if (v === 3 / 4) return '¾';
+      return v;
     }
 
     function sliderIncrement(v) {
@@ -1995,7 +2003,7 @@ lichess.unique = function(xs) {
           step: 1,
           slide: function(event, ui) {
             var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
-            $value.text(time);
+            $value.text(isTimeSlider ? showTime(time) : time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
