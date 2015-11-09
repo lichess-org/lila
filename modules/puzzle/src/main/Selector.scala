@@ -44,7 +44,7 @@ private[puzzle] final class Selector(
         val rating = user.perfs.puzzle.intRating min 2300 max 900
         val step = toleranceStepFor(rating)
         api.attempt.playedIds(user, maxAttempts) flatMap { ids =>
-          val delayMs = 500 + (3000 * user.perfs.puzzle.nb / 5000).max(4000)
+          val delayMs = 1000 + (3000 * user.perfs.puzzle.nb / 5000).min(4000)
           akka.pattern.after(delayMs.millis, scheduler) {
             tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
           }
