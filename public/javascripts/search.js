@@ -4,8 +4,8 @@ $(function() {
   var $usernames = $form.find(".usernames input");
   var $userRows = $form.find(".user_row");
   var $result = $(".search_result");
-  var playersRegexp = /(?:^http:\/\/.*?)\/search\?.*?&?(?:players\.winner=(.*?))?&?(?:players\.white=(.*?))?&?(?:players\.black=(.*?))?&.*$/g;
-  var match = playersRegexp.exec(window.location.href);
+  var playersRegexp = /^\??(?:.*&?players.winner=([\w-\+]+))?(?:&?players.white=([\w-\+]+))?(?:&?players.black=([\w-\+]+))?.*$/g;
+  var match = playersRegexp.exec(window.location.search);
   var $playersWinner = isPlayerChosen(match[1]);
   var $playersWhite  = isPlayerChosen(match[2]);
   var $playersBlack  = isPlayerChosen(match[3]);
