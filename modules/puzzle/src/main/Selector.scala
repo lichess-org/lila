@@ -13,6 +13,7 @@ import lila.user.User
 private[puzzle] final class Selector(
     puzzleColl: Coll,
     api: PuzzleApi,
+    scheduler: akka.actor.Scheduler,
     anonMinRating: Int,
     maxAttempts: Int) {
 
@@ -43,7 +44,10 @@ private[puzzle] final class Selector(
         val rating = user.perfs.puzzle.intRating min 2300 max 900
         val step = toleranceStepFor(rating)
         api.attempt.playedIds(user, maxAttempts) flatMap { ids =>
-          tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+          val delayMs = 500 + (3000 * user.perfs.puzzle.nb / 5000).max(4000)
+          akka.pattern.after(delayMs.millis, scheduler) {
+            tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+          }
         }
     }
   }
