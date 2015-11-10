@@ -1,3 +1,9 @@
+.security .explanation {
+  margin: 0 20px 20px 20px;
+}
 .security table .icon span {
   font-size: 3em;
+}
+.security table .ip {
+  font-weight: bold;
 }
