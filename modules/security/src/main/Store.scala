@@ -18,8 +18,7 @@ object Store {
     sessionId: String,
     userId: String,
     req: RequestHeader,
-    apiVersion: Option[Int],
-    isTor: Boolean): Funit =
+    apiVersion: Option[Int]): Funit =
     storeColl.insert(BSONDocument(
       "_id" -> sessionId,
       "user" -> userId,
@@ -27,8 +26,7 @@ object Store {
       "ua" -> lila.common.HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
-      "api" -> apiVersion,
-      "tor" -> isTor.option(true)
+      "api" -> apiVersion
     )).void
 
   def userId(sessionId: String): Fu[Option[String]] =
