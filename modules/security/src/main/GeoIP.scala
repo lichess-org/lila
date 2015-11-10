@@ -26,7 +26,7 @@ case class Location(
 
   def shortCountry: String = ~country.split(',').headOption
 
-  override def toString = List(shortCountry.some, region, city).flatten mkString " / "
+  override def toString = List(shortCountry.some, region, city).flatten mkString " > "
 }
 
 object Location {
