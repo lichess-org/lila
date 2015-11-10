@@ -12,3 +12,6 @@
 .security table .ip {
   font-weight: bold;
 }
+.security table .current {
+  color: #759900;
+}

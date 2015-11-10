@@ -1,4 +1,4 @@
-@(u: User, sessions: List[lila.security.LocatedSession])(implicit ctx: Context)
+@(u: User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit ctx: Context)
 
 @title = @{ s"${u.username} - Security" }
 
@@ -21,15 +21,20 @@
           <span class="location">@s.location</span>
           <p class="ua">@s.session.ua</p>
           @s.session.date.map { date =>
-          <p class="date">@momentFromNow(date)</p>
+          <p class="date">
+            @momentFromNow(date)
+            @if(s.session.id == curSessionId) { <span class="current">[CURRENT]</span> }
+          </p>
           }
         </td>
         <td>
+          @if(s.session.id != curSessionId) {
           <form action="@routes.Account.signout(s.session.id)" method="POST">
             <button type="submit" class="button text hint--top" data-hint="@trans.logOut()">
               <span data-icon="L"></span>
             </button>
           </form>
+          }
         </td>
       </tr>
       }

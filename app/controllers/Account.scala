@@ -135,8 +135,8 @@ object Account extends LilaController {
   def security = Auth { implicit ctx =>
     me =>
       Env.security.api.dedup(me.id, ctx.req) >>
-        Env.security.api.locatedOpenSessions(me.id, 20) map { sessions =>
-          Ok(html.account.security(me, sessions))
+        Env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
+          Ok(html.account.security(me, sessions, ~Env.security.api.reqSessionId(ctx.req)))
         }
   }
 
