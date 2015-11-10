@@ -27,6 +27,9 @@ module.exports = function(ctrl) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }
   }, [
+    m('close[data-icon=L]', {
+      onclick: partial(ctrl.showPlayerInfo, data.player.id)
+    }),
     m('h2', [
       data.player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', data.player.rank + '. '),
       util.player(data.player)

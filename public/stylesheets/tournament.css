@@ -356,6 +356,17 @@ ol.scheduled_tournaments a {
   padding-top: 12px;
   background: #fff;
 }
+#tournament_side .player close {
+  position: absolute;
+  top: 0px;
+  right: 3px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+#tournament_side .player close:hover {
+  opacity: 1;
+}
 #tournament_side .player .stats {
   background: #fff;
   padding: 12px 0;
