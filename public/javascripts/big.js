@@ -335,7 +335,7 @@ lichess.trans = function(i18n) {
   };
 };
 
-lichess.isPageVisible = true;
+lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];
 // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
 window.addEventListener('focus', function() {

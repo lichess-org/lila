@@ -137,6 +137,7 @@ module.exports = function(opts) {
   var showYourMoveNotification = function() {
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(this.trans('yourTurn'));
   }.bind(this);
+  setTimeout(showYourMoveNotification, 500);
 
   this.apiMove = function(o) {
     m.startComputation();
