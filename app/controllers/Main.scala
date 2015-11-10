@@ -71,6 +71,12 @@ object Main extends LilaController {
     }
   }
 
+  def lag = Open { implicit ctx =>
+    fuccess {
+      html.site.lag()
+    }
+  }
+
   def mobile = Open { implicit ctx =>
     OptionOk(Prismic oneShotBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)

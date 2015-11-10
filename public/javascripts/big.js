@@ -497,7 +497,7 @@ lichess.unique = function(xs) {
           var hue = ((1 - ratio) * 120).toString(10);
           var color = ['hsl(', hue, ',100%,40%)'].join('');
           $('#top .status .led').css('background', color);
-        } else lichess.socket.send('moveLat', false);
+        }
       },
       redirect: function(o) {
         setTimeout(function() {

@@ -367,6 +367,7 @@ GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
+GET   /lag                             controllers.Main.lag
 
 # Map
 GET   /network                         controllers.WorldMap.index
