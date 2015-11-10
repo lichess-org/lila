@@ -51,12 +51,23 @@ object Store {
       BSONDocument("_id" -> sessionId),
       BSONDocument("$set" -> BSONDocument("up" -> false))).void
 
+  def closeUserAndSessionId(userId: String, sessionId: String): Funit =
+    storeColl.update(
+      BSONDocument("user" -> userId, "_id" -> sessionId),
+      BSONDocument("$set" -> BSONDocument("up" -> false))).void
+
   // useful when closing an account,
   // we want to logout too
   def disconnect(userId: String): Funit = storeColl.update(
     BSONDocument("user" -> userId),
     BSONDocument("$set" -> BSONDocument("up" -> false)),
     multi = true).void
+
+  private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
+  def openSessions(userId: String, nb: Int): Fu[List[UserSession]] =
+    storeColl.find(
+      BSONDocument("user" -> userId, "up" -> true)
+    ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().collect[List](nb)
 
   def setFingerprint(id: String, fingerprint: String) = {
     import java.util.Base64

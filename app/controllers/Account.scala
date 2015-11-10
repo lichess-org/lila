@@ -131,4 +131,16 @@ object Account extends LilaController {
       implicit val req = ctx.req
       (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
   }
+
+  def security = Auth { implicit ctx =>
+    me =>
+      Env.security.api.locatedOpenSessions(me.id, 20) map { sessions =>
+        Ok(html.account.security(me, sessions))
+      }
+  }
+
+  def signout(sessionId: String) = Auth { ctx =>
+    me =>
+      lila.security.Store.closeUserAndSessionId(me.id, sessionId) inject Redirect(routes.Lobby.home)
+  }
 }

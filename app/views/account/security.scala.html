@@ -1,0 +1,41 @@
+@(u: User, sessions: List[lila.security.LocatedSession])(implicit ctx: Context)
+
+@title = @{ s"${u.username} - Security" }
+
+@account.layout(title = title, active = "security") {
+<div class="content_box small_box high security">
+  <div class="signup_box">
+    <h1 class="lichess_title">Security</h1>
+    <p class="explanation">
+      This is a list of devices that have logged into your account.
+      Revoke any sessions that you do not recognize.
+    </p>
+    <br />
+    <br />
+    <br />
+    <table class="slist">
+      @sessions.map { s =>
+      <tr>
+        <td class="icon">
+          <span class="is-green" data-icon="&#xe00@if(s.session.isMobile){7}else{6};"></span>
+        </td>
+        <td class="info">
+          <p class="ip">@s.session.ip</p>
+          <p class="location">@s.location</p>
+          @s.session.date.map { date =>
+          <p class="date">@momentFromNow(date)</p>
+          }
+        </td>
+        <td>
+          <form action="@routes.Account.signout(s.session.id)" method="POST">
+            <button type="submit" class="button text hint-top" data-hint="@trans.logOut()">
+              <span data-icon="L"></span>
+            </button>
+          </form>
+        </td>
+      </tr>
+      }
+    </table>
+  </div>
+</div>
+}

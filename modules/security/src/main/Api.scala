@@ -8,7 +8,7 @@ import reactivemongo.bson._
 
 import lila.user.{ User, UserRepo }
 
-private[security] final class Api(firewall: Firewall, tor: Tor) {
+final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
 
   val AccessUri = "access_uri"
 
@@ -48,6 +48,13 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
             }
           }
         }
+      }
+    }
+
+  def locatedOpenSessions(userId: String, nb: Int): Fu[List[LocatedSession]] =
+    Store.openSessions(userId, nb) map {
+      _.map { session =>
+        LocatedSession(session, geoIP(session.ip))
       }
     }
 

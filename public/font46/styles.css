@@ -350,3 +350,9 @@
 .icon-info-circled:before {
   content: "\e005";
 }
+.icon-screen-desktop:before {
+  content: "\e006";
+}
+.icon-phone-mobile:before {
+  content: "\e007";
+}
