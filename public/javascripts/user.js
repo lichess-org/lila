@@ -80,7 +80,3 @@ $(function() {
     });
   });
 });
-
-function str_repeat(input, multiplier) {
-  return new Array(multiplier + 1).join(input);
-}
