@@ -39,7 +39,7 @@ private[controllers] trait LilaController
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
   protected def NoCache(res: Result): Result = res.withHeaders(
-    CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+    CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
   )
 
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
