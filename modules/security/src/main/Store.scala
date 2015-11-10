@@ -89,6 +89,24 @@ object Store {
   def findInfoByUser(userId: String): Fu[List[Info]] =
     storeColl.find(
       BSONDocument("user" -> userId),
-      BSONDocument("_id" -> false, "ip" -> true, "ua" -> true, "tor" -> true, "fp" -> true)
+      BSONDocument("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
     ).cursor[Info]().collect[List]()
+
+  private case class DedupInfo(_id: String, ip: String, ua: String) {
+    def compositeKey = s"$ip $ua"
+  }
+  private implicit val DedupInfoBSONHandler = Macros.handler[DedupInfo]
+
+  def dedup(userId: String, keepSessionId: String): Funit =
+    storeColl.find(BSONDocument(
+      "user" -> userId,
+      "up" -> true
+    )).sort(BSONDocument("date" -> -1))
+      .cursor[DedupInfo]().collect[List]() flatMap { sessions =>
+        val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
+          .filter(_._id != keepSessionId)
+        storeColl.remove(
+          BSONDocument("_id" -> BSONDocument("$in" -> olds.map(_._id)))
+        ).void
+      }
 }

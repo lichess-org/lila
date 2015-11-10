@@ -70,7 +70,9 @@ final class Env(
 
   lazy val userSpy = UserSpy(firewall, geoIP) _
 
-  lazy val disconnect = Store disconnect _
+  def store = Store
+
+  lazy val disconnect = store disconnect _
 
   lazy val emailConfirm = new EmailConfirm(
     apiUrl = EmailConfirmMailgunApiUrl,

@@ -56,10 +56,13 @@ final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
       }
     }
 
+  def dedup(userId: String, req: RequestHeader): Funit =
+    reqSessionId(req) ?? { Store.dedup(userId, _) }
+
   def setFingerprint(req: RequestHeader, fingerprint: String): Funit =
     reqSessionId(req) ?? { Store.setFingerprint(_, fingerprint) }
 
-  private def reqSessionId(req: RequestHeader) = req.session get "sessionId"
+  def reqSessionId(req: RequestHeader) = req.session get "sessionId"
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
