@@ -15,7 +15,7 @@ module.exports = {
       m('div.tournament_clock.title_tag', {
           config: util.clock(ctrl.data.secondsToFinish)
         },
-        m('div.time.text[data-icon=p]')),
+        m('div.time')),
       util.title(ctrl),
       gameId ? m('a.is.is-after.pov.button.glowed', {
         href: '/' + gameId
