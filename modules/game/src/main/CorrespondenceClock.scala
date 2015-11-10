@@ -18,4 +18,6 @@ case class CorrespondenceClock(
 
   // in seconds
   def estimateTotalTime = increment * 40 / 2
+
+  def incrementHours = increment / 60 / 60
 }
