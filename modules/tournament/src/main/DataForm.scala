@@ -10,11 +10,15 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes = 0 to 7 by 1
-  val clockTimesPrivate = clockTimes ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockTimeDefault = 2
-  val clockTimeChoices = options(clockTimes, "%d minute{s}")
-  val clockTimePrivateChoices = options(clockTimesPrivate, "%d minute{s}")
+  val clockTimes: Seq[Double] = Seq(1 / 2d, 3 / 4d, 3 / 2d) ++ (0d to 7d by 1d)
+  val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
+  val clockTimeDefault = 2d
+  private def formatLimit(l: Double) = 
+    chess.Clock.showLimit(l * 60 toInt) + {
+      if (l <= 1) " minute" else " minutes"
+    }
+  val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
+  val clockTimePrivateChoices = optionsDouble(clockTimesPrivate, formatLimit)
 
   val clockIncrements = 0 to 2 by 1
   val clockIncrementsPrivate = clockIncrements ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
@@ -39,7 +43,7 @@ final class DataForm {
   val positionDefault = StartingPosition.initial.eco
 
   lazy val create = Form(mapping(
-    "clockTime" -> numberIn(clockTimePrivateChoices),
+    "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> numberIn(waitMinuteChoices),
@@ -63,7 +67,7 @@ final class DataForm {
 }
 
 private[tournament] case class TournamentSetup(
-    clockTime: Int,
+    clockTime: Double,
     clockIncrement: Int,
     minutes: Int,
     waitMinutes: Int,
