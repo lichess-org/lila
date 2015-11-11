@@ -85,7 +85,7 @@ module.exports = {
             ]),
             m('label', {
               'for': id
-            }, 'Analysis arrows')
+            }, 'Computer analysis arrows')
           ];
         })('analyse-toggle-ceval')) : null,
         deleteButton(ctrl.data, ctrl.userId),
