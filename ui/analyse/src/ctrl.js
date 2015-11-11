@@ -41,6 +41,7 @@ module.exports = function(opts) {
     comments: true,
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
+    showGauge: util.storedProp('show-gauge', true),
     autoScroll: null
   };
 
@@ -254,13 +255,20 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return (this.data.analysis || this.ceval.enabled()) && this.vm.step.dests !== '';
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.step.dests !== '';
   }.bind(this);
+
+  this.hasAnyComputerAnalysis = function() {
+    return this.data.analysis || this.ceval.enabled();
+  }
 
   this.toggleAutoShapes = function(v) {
     if (this.vm.showAutoShapes(v)) setAutoShapesFromEval();
     else this.chessground.setAutoShapes([]);
-    console.log();
+  }.bind(this);
+
+  this.toggleGauge = function(v) {
+    this.vm.showGauge(!this.vm.showGauge());
   }.bind(this);
 
   var setAutoShapesFromEval = function() {

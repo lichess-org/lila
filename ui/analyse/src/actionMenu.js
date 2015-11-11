@@ -67,27 +67,49 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }) : null,
-        ctrl.showEvalGauge() ? m('div.setting', (function(id) {
-          return [
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showAutoShapes(),
-                onchange: function(e) {
-                  ctrl.toggleAutoShapes(e.target.checked);
-                }
-              }),
+        ctrl.hasAnyComputerAnalysis() ? [
+          (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showAutoShapes(),
+                  onchange: function(e) {
+                    ctrl.toggleAutoShapes(e.target.checked);
+                  }
+                }),
+                m('label', {
+                  'for': id
+                })
+              ]),
               m('label', {
                 'for': id
-              })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer analysis arrows')
-          ];
-        })('analyse-toggle-ceval')) : null,
+              }, 'Computer arrows')
+            ]);
+          })('analyse-toggle-ceval'), (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showGauge(),
+                  onchange: function(e) {
+                    ctrl.toggleGauge(e.target.checked);
+                  }
+                }),
+                m('label', {
+                  'for': id
+                })
+              ]),
+              m('label', {
+                'for': id
+              }, 'Computer gauge')
+            ]);
+          })('analyse-toggle-gauge')
+        ] : null,
         deleteButton(ctrl.data, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
