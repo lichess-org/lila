@@ -16,6 +16,9 @@
       case false => {<span class="is-red" data-icon="L"></span>}
       }
     </h1>
+    @form("email").value.map { email =>
+    <p>You have already registered the email: @email</p>
+    }.getOrElse {
     <p>@trans.emailIsOptional()</p>
     <form action="@routes.Account.emailApply" method="POST">
       <ul>
@@ -32,6 +35,7 @@
         </li>
       </ul>
     </form>
+    }
   </div>
 </div>
 }

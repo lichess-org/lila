@@ -290,6 +290,8 @@ trait UserRepo {
 
   def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
+  def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
+
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     BSONDocument("_id" -> id),
     BSONDocument(s"${F.perfs}.${perfType.key}" -> true)
