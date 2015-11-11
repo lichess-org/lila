@@ -44,7 +44,7 @@ module.exports = {
       setTimeout(function() {
         ctrl.vm.initializing = false;
         if (ctrl.jump(round.lastPly(ctrl.data))) m.redraw();
-      }, 500);
+      }, 200);
     else ctrl.vm.initializing = false;
   }
 };
