@@ -30,5 +30,10 @@ var register = function(socket, hold) {
 };
 
 module.exports = {
+  applies: function(data) {
+    return data.game.variant.key === 'standard' && !(
+      data.player.user && data.player.user.title
+    );
+  },
   register: register
 };
