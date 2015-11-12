@@ -1,7 +1,8 @@
 package lila.common
 
-import play.api.data.Forms._
 import play.api.data.format.Formats._
+import play.api.data.Forms._
+import play.api.libs.json._
 
 object Form {
 
@@ -34,4 +35,11 @@ object Form {
 
   private def pluralize(pattern: String, nb: Double) =
     pattern.replace("{s}", (nb < 1).fold("s", ""))
+
+  private val jsonGlobalErrorRenamer = __.json update (
+    (__ \ "global").json copyFrom (__ \ "").json.pick
+  ) andThen (__ \ "").json.prune
+
+  def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
+    form.errorsAsJson validate jsonGlobalErrorRenamer getOrElse form.errorsAsJson
 }

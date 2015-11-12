@@ -310,4 +310,7 @@ private[controllers] trait LilaController
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
+
+  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
+    lila.common.Form errorsAsJson form
 }

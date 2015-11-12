@@ -68,7 +68,7 @@ object Auth extends LilaController {
       api.loginForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
-          api = _ => Unauthorized(err.errorsAsJson).fuccess
+          api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
         _.fold(InternalServerError("Authentication error").fuccess)(authenticateUser)
       )
@@ -124,7 +124,7 @@ object Auth extends LilaController {
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj(
-            "error" -> err.errorsAsJson
+            "error" -> errorsAsJson(err)
           ))),
           data => {
             val email = data.email flatMap env.emailAddress.validate
