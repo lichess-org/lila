@@ -48,7 +48,7 @@ final class Aggregator(api: StatApi, sequencer: ActorRef) {
       pimpQB($query(gameQuery(user))).sort(Query.sortChronological).one[Game]
 
   private def computeFrom(user: User, from: DateTime): Funit =
-    lila.common.Chronometer(s"aggregator:${user.username}") {
+    lila.common.Chronometer.log(s"aggregator:${user.username}") {
       {
         pimpQB($query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from)))))
           .sort(Query.sortChronological)
