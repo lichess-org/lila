@@ -81,7 +81,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
           Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
           Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
-          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow)
+          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
+          Schedule(Daily, SuperBullet, Standard, std, at(today, 22) |> orTomorrow)
         ),
 
         List( // daily variant tournaments!

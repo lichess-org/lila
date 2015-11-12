@@ -76,29 +76,29 @@ object Schedule {
     import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, SuperBullet | Bullet, _)            => 26
-      case (Hourly, SuperBlitz, _)                      => 56
-      case (Hourly, Blitz, _)                           => 56
-      case (Hourly, Classical, _)                       => 116
+      case (Hourly, SuperBullet | Bullet, _)                    => 26
+      case (Hourly, SuperBlitz, _)                              => 56
+      case (Hourly, Blitz, _)                                   => 56
+      case (Hourly, Classical, _)                               => 116
 
-      case (Daily | Nightly | Eastern, Bullet, _)       => 60
-      case (Daily | Nightly | Eastern, SuperBlitz, _)   => 90
-      case (Daily | Nightly | Eastern, Blitz, Standard) => 90
-      case (Daily | Nightly | Eastern, Blitz, _)        => 60 // variant daily is shorter
-      case (Daily | Nightly | Eastern, Classical, _)    => 60 * 2
+      case (Daily | Nightly | Eastern, SuperBullet | Bullet, _) => 60
+      case (Daily | Nightly | Eastern, SuperBlitz, _)           => 90
+      case (Daily | Nightly | Eastern, Blitz, Standard)         => 90
+      case (Daily | Nightly | Eastern, Blitz, _)                => 60 // variant daily is shorter
+      case (Daily | Nightly | Eastern, Classical, _)            => 60 * 2
 
-      case (Weekly, SuperBullet | Bullet, _)            => 90
-      case (Weekly, SuperBlitz, _)                      => 60 * 2
-      case (Weekly, Blitz, _)                           => 60 * 2
-      case (Weekly, Classical, _)                       => 60 * 3
+      case (Weekly, SuperBullet | Bullet, _)                    => 90
+      case (Weekly, SuperBlitz, _)                              => 60 * 2
+      case (Weekly, Blitz, _)                                   => 60 * 2
+      case (Weekly, Classical, _)                               => 60 * 3
 
-      case (Monthly, SuperBullet | Bullet, _)           => 60 * 2
-      case (Monthly, SuperBlitz, _)                     => 60 * 3
-      case (Monthly, Blitz, _)                          => 60 * 3
-      case (Monthly, Classical, _)                      => 60 * 4
+      case (Monthly, SuperBullet | Bullet, _)                   => 60 * 2
+      case (Monthly, SuperBlitz, _)                             => 60 * 3
+      case (Monthly, Blitz, _)                                  => 60 * 3
+      case (Monthly, Classical, _)                              => 60 * 4
 
-      case (Marathon, _, _)                             => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _)                 => 60 * 4
+      case (Marathon, _, _)                                     => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _)                         => 60 * 4
 
     }) filter (0!=)
   }
