@@ -76,7 +76,7 @@ object Setup extends LilaController with TheftPrevention {
       env.forms.friend(ctx).bindFromRequest.fold(
         f => negotiate(
           html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(f.errorsAsJson))
+          api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ), {
           case config if config.isPersistent => ???
           // env.challengeApi.create(config) inject Redirect(routes.Lobby.home)
@@ -139,8 +139,8 @@ object Setup extends LilaController with TheftPrevention {
       NoPlaybanOrCurrent {
         env.forms.hook(ctx).bindFromRequest.fold(
           err => negotiate(
-            html = BadRequest(err.errorsAsJson.toString).fuccess,
-            api = _ => BadRequest(err.errorsAsJson).fuccess),
+            html = BadRequest(errorsAsJson(err).toString).fuccess,
+            api = _ => BadRequest(errorsAsJson(err)).fuccess),
           preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
             mobileHookAllowAnon(preConfig) flatMap {
               case (blocking, config) =>
@@ -253,7 +253,7 @@ object Setup extends LilaController with TheftPrevention {
       form(ctx).bindFromRequest.fold(
         f => negotiate(
           html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(f.errorsAsJson))
+          api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ),
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(

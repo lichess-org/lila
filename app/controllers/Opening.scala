@@ -75,7 +75,7 @@ object Opening extends LilaController {
     implicit val req = ctx.body
     OptionFuResult(env.api.opening find id) { opening =>
       attemptForm.bindFromRequest.fold(
-        err => fuccess(BadRequest(err.errorsAsJson) as JSON),
+        err => fuccess(BadRequest(errorsAsJson(err)) as JSON),
         data => {
           val (found, failed) = data
           val win = found == opening.goal && failed == 0
