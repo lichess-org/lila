@@ -104,13 +104,15 @@ object Schedule {
   }
 
   private val blitzIncHours = Set(1, 7, 13, 19)
+  private def makeInc(sched: Schedule) =
+    sched.freq == Freq.Hourly && blitzIncHours(sched.at.getHourOfDay)
 
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Speed.SuperBullet                                   => TournamentClock(30, 0)
-    case Speed.Bullet                                        => TournamentClock(60, 0)
-    case Speed.SuperBlitz                                    => TournamentClock(3 * 60, 0)
-    case Speed.Blitz if blitzIncHours(sched.at.getHourOfDay) => TournamentClock(3 * 60, 2)
-    case Speed.Blitz                                         => TournamentClock(5 * 60, 0)
-    case Speed.Classical                                     => TournamentClock(10 * 60, 0)
+    case Speed.SuperBullet             => TournamentClock(30, 0)
+    case Speed.Bullet                  => TournamentClock(60, 0)
+    case Speed.SuperBlitz              => TournamentClock(3 * 60, 0)
+    case Speed.Blitz if makeInc(sched) => TournamentClock(3 * 60, 2)
+    case Speed.Blitz                   => TournamentClock(5 * 60, 0)
+    case Speed.Classical               => TournamentClock(10 * 60, 0)
   }
 }
