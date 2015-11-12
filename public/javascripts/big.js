@@ -374,7 +374,9 @@ lichess.unique = function(xs) {
   /////////////
   // ctrl.js //
   /////////////
-
+  $.ajaxSetup({
+    cache: false
+  });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   };
@@ -761,7 +763,6 @@ lichess.unique = function(xs) {
         lichess.storage.remove("inboxDesktopNotification");
         $.ajax({
           url: $(this).data('href'),
-          cache: false,
           success: function(html) {
             $('#message_notifications_display').html(html)
               .find('a.mark_as_read').click(function() {
@@ -825,7 +826,6 @@ lichess.unique = function(xs) {
         var $themepicker = $('#themepicker');
         $.ajax({
           url: $(this).data('url'),
-          cache: false,
           success: function(html) {
             $themepicker.append(html);
             var $body = $('body');
@@ -1068,7 +1068,6 @@ lichess.unique = function(xs) {
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
           url: $links.data('url'),
-          cache: false,
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
@@ -1309,7 +1308,6 @@ lichess.unique = function(xs) {
             var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
             $.ajax({
               url: url,
-              cache: false,
               success: function(html) {
                 var $html = $(html);
                 $('#site_header div.side').replaceWith($html.find('>.side'));
@@ -1322,7 +1320,6 @@ lichess.unique = function(xs) {
           tournamentStanding: function(id) {
             $.ajax({
               url: '/tournament/' + id + '/game-standing',
-              cache: false,
               success: function(html) {
                 $('#site_header div.game_tournament').replaceWith(html);
                 startTournamentClock();
@@ -1784,7 +1781,6 @@ lichess.unique = function(xs) {
           reload_timeline: function() {
             $.ajax({
               url: $("#timeline").data('href'),
-              cache: false,
               success: function(html) {
                 $('#timeline').html(html);
                 resizeTimeline();
@@ -1816,7 +1812,6 @@ lichess.unique = function(xs) {
             setTimeout(function() {
               $.ajax({
                 url: $newposts.data('url'),
-                cache: false,
                 success: function(data) {
                   $newposts.find('ol').html(data).end().scrollTop(0);
                   $('body').trigger('lichess.content_loaded');
@@ -2123,7 +2118,6 @@ lichess.unique = function(xs) {
       $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
-        cache: false,
         success: function(html) {
           $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);

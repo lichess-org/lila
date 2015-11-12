@@ -9,7 +9,6 @@ function withHighcharts(f) {
     var highstockUrl = 'http://lichess1.org/assets/vendor/highcharts4/highstock.js';
     $.ajax({
       dataType: "script",
-      cache: true,
       url: (typeof lichess_rating_series !== 'undefined') ? highstockUrl : highchartsUrl
     }).done(function() {
       Highcharts.makeFont = function(size) {

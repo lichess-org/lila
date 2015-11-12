@@ -22,7 +22,6 @@ $(function() {
       else $zone.html("Loading...").show();
       $.ajax({
         url: $(this).attr("href"),
-        cache: false,
         success: function(html) {
           $zone.html(html);
           var $this = $(this);
