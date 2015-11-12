@@ -38,7 +38,7 @@ object Message extends LilaController {
             html.message.thread(thread, forms.post, blocked,
               answerable = !Env.message.LichessSenders.contains(thread.creatorId))
           }
-        }
+        } map NoCache
       }
   }
 
