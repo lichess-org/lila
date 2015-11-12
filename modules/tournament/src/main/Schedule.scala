@@ -52,12 +52,12 @@ object Schedule {
     def name = toString.toLowerCase
   }
   object Speed {
-    case object SuperBullet extends Speed
+    case object HyperBullet extends Speed
     case object Bullet extends Speed
     case object SuperBlitz extends Speed
     case object Blitz extends Speed
     case object Classical extends Speed
-    val all: List[Speed] = List(SuperBullet, Bullet, SuperBlitz, Blitz, Classical)
+    val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
   }
@@ -75,23 +75,23 @@ object Schedule {
     import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, SuperBullet | Bullet, _)          => 26
+      case (Hourly, HyperBullet | Bullet, _)          => 26
       case (Hourly, SuperBlitz, _)                    => 56
       case (Hourly, Blitz, _)                         => 56
       case (Hourly, Classical, _)                     => 116
 
-      case (Daily | Eastern, SuperBullet | Bullet, _) => 60
+      case (Daily | Eastern, HyperBullet | Bullet, _) => 60
       case (Daily | Eastern, SuperBlitz, _)           => 90
       case (Daily | Eastern, Blitz, Standard)         => 90
       case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
       case (Daily | Eastern, Classical, _)            => 60 * 2
 
-      case (Weekly, SuperBullet | Bullet, _)          => 90
+      case (Weekly, HyperBullet | Bullet, _)          => 90
       case (Weekly, SuperBlitz, _)                    => 60 * 2
       case (Weekly, Blitz, _)                         => 60 * 2
       case (Weekly, Classical, _)                     => 60 * 3
 
-      case (Monthly, SuperBullet | Bullet, _)         => 60 * 2
+      case (Monthly, HyperBullet | Bullet, _)         => 60 * 2
       case (Monthly, SuperBlitz, _)                   => 60 * 3
       case (Monthly, Blitz, _)                        => 60 * 3
       case (Monthly, Classical, _)                    => 60 * 4
@@ -107,7 +107,7 @@ object Schedule {
     sched.freq == Freq.Hourly && blitzIncHours(sched.at.getHourOfDay)
 
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Speed.SuperBullet             => TournamentClock(30, 0)
+    case Speed.HyperBullet             => TournamentClock(30, 0)
     case Speed.Bullet                  => TournamentClock(60, 0)
     case Speed.SuperBlitz              => TournamentClock(3 * 60, 0)
     case Speed.Blitz if makeInc(sched) => TournamentClock(3 * 60, 2)

@@ -82,7 +82,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
           Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
           Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
-          Schedule(Daily, SuperBullet, Standard, std, at(today, 22) |> orTomorrow)
+          Schedule(Daily, HyperBullet, Standard, std, at(today, 22) |> orTomorrow)
         ),
 
         List( // daily variant tournaments!
@@ -126,7 +126,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = Set(1, 7, 13, 19)(hour).fold[Schedule.Speed](SuperBullet, Bullet)
+          val bulletType = Set(1, 7, 13, 19)(hour).fold[Schedule.Speed](HyperBullet, Bullet)
           List(
             Schedule(Hourly, Bullet, Standard, std, at(date, hour)).some,
             Schedule(Hourly, bulletType, Standard, std, at(date, hour, 30)).some,
