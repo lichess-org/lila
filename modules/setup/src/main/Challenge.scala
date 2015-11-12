@@ -1,13 +1,13 @@
-package lila.lobby
+package lila.setup
 
 import chess.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import actorApi.LobbyUser
 import lila.game.PerfPicker
-import lila.rating.RatingRange
+import lila.lobby.Color
+import lila.rating.{ PerfType, RatingRange }
 import lila.user.{ User, Perfs }
 
 // correspondence chess, persistent
@@ -17,7 +17,7 @@ case class Challenge(
     daysPerTurn: Option[Int],
     mode: Int,
     color: String,
-    user: LobbyUser,
+    challenger: Challenge.Challenger,
     destUserId: String,
     createdAt: DateTime) {
 
@@ -29,12 +29,13 @@ case class Challenge(
 
   val realMode = Mode orDefault mode
 
-  def rating = perfType map (_.key) flatMap user.ratingMap.get
-
   def render: JsObject = Json.obj(
     "id" -> _id,
-    "username" -> user.username,
-    "rating" -> rating,
+    "challenger" -> Json.obj(
+      "id" -> challenger.id,
+      "username" -> challenger.username,
+      "rating" -> challenger.rating
+    ),
     "destUserId" -> destUserId,
     "variant" -> Json.obj(
       "key" -> realVariant.key,
@@ -53,6 +54,8 @@ case class Challenge(
 
 object Challenge {
 
+  private[setup] case class Challenger(id: String, username: String, rating: Int)
+
   val idSize = 8
 
   def make(
@@ -62,19 +65,20 @@ object Challenge {
     color: String,
     user: User,
     destUserId: String,
-    ratingRange: RatingRange): Seek = new Seek(
+    ratingRange: RatingRange): Challenge = new Challenge(
     _id = Random nextStringUppercase idSize,
     variant = variant.id,
     daysPerTurn = daysPerTurn,
     mode = mode.id,
     color = color,
-    user = LobbyUser.make(user, Set.empty),
+    challenger = Challenger(user.id, user.username, user.perfs {
+      PerfPicker.perfType(Speed.Correspondence, variant, daysPerTurn) | PerfType.Correspondence
+    }.intRating),
     destUserId = destUserId,
     createdAt = DateTime.now)
 
   import reactivemongo.bson.Macros
-  import lila.db.BSON.MapValue.MapHandler
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
-  private[lobby] implicit val challengeBSONHandler = Macros.handler[Challenge]
+  private[setup] implicit val challengerBSONHandler = Macros.handler[Challenger]
+  private[setup] implicit val challengeBSONHandler = Macros.handler[Challenge]
 }

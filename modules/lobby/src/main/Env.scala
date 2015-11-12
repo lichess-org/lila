@@ -29,7 +29,6 @@ final class Env(
     val CollectionSeekArchive = config getString "collection.seek_archive"
     val SeekMaxPerPage = config getInt "seek.max_per_page"
     val SeekMaxPerUser = config getInt "seek.max_per_user"
-    val CollectionChallenge = config getString "collection.challenge"
   }
   import settings._
 
@@ -45,8 +44,6 @@ final class Env(
     blocking = blocking,
     maxPerPage = SeekMaxPerPage,
     maxPerUser = SeekMaxPerUser)
-
-  lazy val challengeApi = new ChallengeApi(coll = db(CollectionChallenge))
 
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,

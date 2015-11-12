@@ -70,14 +70,29 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def friend(userId: Option[String]) = process(env.forms.friend) { config =>
-    implicit ctx =>
-      (ctx.userId ?? GameRepo.removeChallengesOf) >> {
-        env.processor friend config map { pov =>
-          pov -> routes.Setup.await(pov.fullId, userId)
+  def friend(userId: Option[String]) =
+    OpenBody { implicit ctx =>
+      implicit val req = ctx.body
+      env.forms.friend(ctx).bindFromRequest.fold(
+        f => negotiate(
+          html = Lobby.renderHome(Results.BadRequest),
+          api = _ => fuccess(BadRequest(f.errorsAsJson))
+        ), {
+          case config if config.isPersistent => ???
+          // env.challengeApi.create(config) inject Redirect(routes.Lobby.home)
+          case config => (ctx.userId ?? GameRepo.removeChallengesOf) >> {
+            env.processor friend config flatMap { pov =>
+              negotiate(
+                html = fuccess(redirectPov(pov, routes.Setup.await(pov.fullId, userId))),
+                api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
+                  Created(data) as JSON
+                }
+              )
+            }
+          }
         }
-      }
-  }
+      )
+    }
 
   def decline(gameId: String) = Auth { implicit ctx =>
     me =>
