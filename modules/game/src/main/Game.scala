@@ -6,6 +6,7 @@ import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.Variant
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
+import scala.concurrent.duration.FiniteDuration
 
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -140,7 +141,8 @@ case class Game(
   def update(
     game: ChessGame,
     move: Move,
-    blur: Boolean = false): Progress = {
+    blur: Boolean = false,
+    lag: Option[FiniteDuration] = None): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
     def copyPlayer(player: Player) = player.copy(
@@ -164,7 +166,11 @@ case class Game(
         check = situation.kingPos ifTrue situation.check),
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
-        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt => moveTimes :+ (nowTenths - lmt).toInt }
+        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
+          moveTimes :+ {
+            (nowTenths - lmt - (lag.??(_.toMillis) / 100)).toInt max 0
+          }
+        }
       ),
       status = situation.status | status,
       clock = game.clock)

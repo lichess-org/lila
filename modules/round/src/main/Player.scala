@@ -27,7 +27,7 @@ private[round] final class Player(
           promotion = Role promotable promS
           newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
           (newChessGame, move) = newChessGameAndMove
-        } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ")
+        } yield game.update(newChessGame, move, blur, lag.some) -> move).prefixFailuresWith(s"$pov ")
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, move) =>
               (GameRepo save progress) >>-
