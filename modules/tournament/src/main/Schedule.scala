@@ -18,13 +18,13 @@ case class Schedule(
     case _                                         => s"${freq.toString} ${variant.name}"
   }
 
-  def sameSpeed(other: Schedule) = speed == other.speed
+  def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
 
   def sameFreq(other: Schedule) = freq == other.freq
 
-  def similarTo(other: Schedule) = sameSpeed(other) && sameVariant(other) && sameFreq(other)
+  def similarTo(other: Schedule) = similarSpeed(other) && sameVariant(other) && sameFreq(other)
 
   override def toString = s"$freq $variant $speed $at"
 }
@@ -60,6 +60,12 @@ object Schedule {
     val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
+    def similar(s1: Speed, s2: Speed) = (s1, s2) match {
+      case (a, b) if a == b      => true
+      case (HyperBullet, Bullet) => true
+      case (Bullet, HyperBullet) => true
+      case _                     => false
+    }
   }
 
   sealed trait Season
