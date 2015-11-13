@@ -51,8 +51,14 @@ object Store {
 
   def closeUserAndSessionId(userId: String, sessionId: String): Funit =
     storeColl.update(
-      BSONDocument("user" -> userId, "_id" -> sessionId),
+      BSONDocument("user" -> userId, "_id" -> sessionId, "up" -> true),
       BSONDocument("$set" -> BSONDocument("up" -> false))).void
+
+  def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
+    storeColl.update(
+      BSONDocument("user" -> userId, "_id" -> BSONDocument("$ne" -> sessionId), "up" -> true),
+      BSONDocument("$set" -> BSONDocument("up" -> false)),
+      multi = true).void
 
   // useful when closing an account,
   // we want to logout too

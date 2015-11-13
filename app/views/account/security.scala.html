@@ -10,6 +10,12 @@
       This is a list of devices that have logged into your account.
       Revoke any sessions that you do not recognize.
     </p>
+    <div class="explanation">
+      Alternatively you can
+      <form class="revoke-all" action="@routes.Account.signout("all")" method="POST">
+        <button type="submit" class="button hint--top thin confirm">revoke all sessions</button>
+      </form>.
+    </div>
     <table class="slist">
       @sessions.map { s =>
       <tr>
