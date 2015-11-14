@@ -938,7 +938,7 @@ div.under_chat .watchers:hover {
 }
 #chat.hidden ol.messages,
 #chat.hidden form {
-  opacity: 0;
+  display: none;
 }
 div.game_tournament {
   max-height: 300px;
