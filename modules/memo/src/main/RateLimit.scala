@@ -22,25 +22,9 @@ final class RateLimitGlobal(duration: Duration) {
 }
 
 /**
- * very simple side effect throttler
- * that allows one call per duration and per key,
- */
-final class RateLimitByKey(duration: Duration) {
-
-  private val storage = new ExpireSetMemo(ttl = duration)
-
-  def apply[A: Zero](key: String)(op: => A): A = {
-    (!storage.get(key)) ?? {
-      storage put key
-      op
-    }
-  }
-}
-
-/**
  * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimitNumberByKey(nb: Int, duration: Duration) {
+final class RateLimitByKey(nb: Int, duration: Duration) {
 
   private val storage = Builder.expiry[String, Int](ttl = duration)
 

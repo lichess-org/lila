@@ -19,8 +19,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val FormRateLimit = new lila.memo.RateLimitByKey(500 millis)
-  private val PostRateLimit = new lila.memo.RateLimitByKey(500 millis)
+  private val PostRateLimit = new lila.memo.RateLimitByKey(5, 1 minute)
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
@@ -92,10 +91,8 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def hookForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) FormRateLimit(ctx.req.remoteAddress) {
-      NoPlaybanOrCurrent {
-        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
-      }
+    if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
+      env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
     }
     else fuccess {
       Redirect(routes.Lobby.home + "#hook")
