@@ -210,7 +210,7 @@ private[tournament] final class TournamentApi(
     }
 
   def ejectLame(userId: String) {
-    TournamentRepo.allEnterable foreach {
+    TournamentRepo.recentStartedOrFinished foreach {
       _ foreach { tour =>
         PlayerRepo.exists(tour.id, userId) foreach {
           _ ?? ejectLame(tour.id, userId)
@@ -220,7 +220,7 @@ private[tournament] final class TournamentApi(
   }
 
   def ejectLame(tourId: String, userId: String) {
-    Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
+    Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >>
         updateNbPlayers(tour.id) >>-
         socketReload(tour.id) >>- publish()
