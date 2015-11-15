@@ -1,7 +1,7 @@
 playWithAFriend=Cum amico ludere
 playWithTheMachine=Cum machina ludere
 toInviteSomeoneToPlayGiveThisUrl=Dare hoc URL ad quendam invitandum
-gameOver=Ludus perfectus
+gameOver=Ludus perfectus est
 waitingForOpponent=Expectans adversarium
 waiting=Expectans
 yourTurn=Potes ludere
@@ -11,7 +11,7 @@ toggleTheChat=Disputationis fenestram aperire aut claudere
 toggleSound=Sonum audire aut silentium indicire
 chat=Fenestra disputationis
 resign=Decedere
-checkmate=Mattus
+checkmate=Mattus est
 stalemate=Mattus nemini
 white=Albus
 black=Niger
