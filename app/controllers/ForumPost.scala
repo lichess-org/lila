@@ -1,9 +1,13 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import lila.app._
 import views._
 
 object ForumPost extends LilaController with ForumController {
+
+  private val CreateRateLimit = new lila.memo.RateLimitNumberByKey(4, 5 minutes)
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
@@ -25,21 +29,23 @@ object ForumPost extends LilaController with ForumController {
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx =>
-    CategGrantWrite(categSlug) {
-      implicit val req = ctx.body
-      OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {
-        case (categ, topic, posts) =>
-          if (topic.closed) fuccess(BadRequest("This topic is closed"))
-          else forms.post.bindFromRequest.fold(
-            err => forms.anyCaptcha flatMap { captcha =>
-              ctx.userId ?? Env.timeline.status(s"forum:${topic.id}") map { unsub =>
-                BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub))
+    CreateRateLimit(ctx.req.remoteAddress) {
+      CategGrantWrite(categSlug) {
+        implicit val req = ctx.body
+        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {
+          case (categ, topic, posts) =>
+            if (topic.closed) fuccess(BadRequest("This topic is closed"))
+            else forms.post.bindFromRequest.fold(
+              err => forms.anyCaptcha flatMap { captcha =>
+                ctx.userId ?? Env.timeline.status(s"forum:${topic.id}") map { unsub =>
+                  BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub))
+                }
+              },
+              data => postApi.makePost(categ, topic, data) map { post =>
+                Redirect(routes.ForumPost.redirect(post.id))
               }
-            },
-            data => postApi.makePost(categ, topic, data) map { post =>
-              Redirect(routes.ForumPost.redirect(post.id))
-            }
-          )
+            )
+        }
       }
     }
   }

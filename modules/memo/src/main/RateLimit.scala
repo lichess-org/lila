@@ -1,12 +1,11 @@
 package lila.memo
 
-import scala.concurrent.duration.Duration
 import ornicar.scalalib.Zero
+import scala.concurrent.duration.Duration
 
 /**
  * very simple side effect throttler
  * that allows one call per duration,
- * and discards the rest
  */
 final class RateLimitGlobal(duration: Duration) {
 
@@ -25,7 +24,6 @@ final class RateLimitGlobal(duration: Duration) {
 /**
  * very simple side effect throttler
  * that allows one call per duration and per key,
- * and discards the rest
  */
 final class RateLimitByKey(duration: Duration) {
 
@@ -37,4 +35,19 @@ final class RateLimitByKey(duration: Duration) {
       op
     }
   }
+}
+
+/**
+ * side effect throttler that allows X ops per Y unit of time
+ */
+final class RateLimitNumberByKey(nb: Int, duration: Duration) {
+
+  private val storage = Builder.expiry[String, Int](ttl = duration)
+
+  def apply[A](key: String)(op: => A)(implicit default: Zero[A]): A =
+    ~Option(storage getIfPresent key) match {
+      case a if a <= nb =>
+        storage.put(key, a + 1); op
+      case _ => default.zero
+    }
 }
