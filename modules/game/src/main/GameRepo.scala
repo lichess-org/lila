@@ -233,10 +233,7 @@ object GameRepo {
       .filter(Forsyth.initial !=)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
-      F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours {
-        if (g2.hasClock) 1
-        else g.correspondenceClock.fold(7 * 24)(_.incrementHours.min(7 * 24))
-      }),
+      F.checkAt -> (!g2.isPgnImport).option(DateTime.now plusHours g2.hasClock.fold(1, 10 * 24)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     $insert bson bson
