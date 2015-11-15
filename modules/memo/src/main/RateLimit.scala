@@ -4,27 +4,9 @@ import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration
 
 /**
- * very simple side effect throttler
- * that allows one call per duration,
- */
-final class RateLimitGlobal(duration: Duration) {
-
-  private val durationMillis = duration.toMillis
-
-  private var lastHit: Long = nowMillis - durationMillis - 10
-
-  def apply[A: Zero](op: => A): A = {
-    (nowMillis > lastHit + durationMillis) ?? {
-      lastHit = nowMillis
-      op
-    }
-  }
-}
-
-/**
  * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimitByKey(nb: Int, duration: Duration) {
+final class RateLimit(nb: Int, duration: Duration) {
 
   private val storage = Builder.expiry[String, Int](ttl = duration)
 
