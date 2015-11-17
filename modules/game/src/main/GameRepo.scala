@@ -248,6 +248,9 @@ object GameRepo {
   def unsetCheckAt(g: Game) =
     $update($select(g.id), BSONDocument("$unset" -> BSONDocument(F.checkAt -> true)))
 
+  def unsetPlayingUids(g: Game): Unit =
+    $update.unchecked($select(g.id), BSONDocument("$unset" -> BSONDocument(F.playingUids -> true)))
+
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
     $update($select(g.id), BSONDocument(
