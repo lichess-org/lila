@@ -20,34 +20,29 @@ $(function() {
       var $zone = $("div.user_show .mod_zone");
       if ($zone.is(':visible')) $zone.hide();
       else $zone.html("Loading...").show();
-      $.ajax({
-        url: $(this).attr("href"),
-        success: function(html) {
-          $zone.html(html);
-          var $this = $(this);
-          $this.find('form.fide_title select').on('change', function() {
-            $(this).parent('form').submit();
-          });
-          $('body').trigger('lichess.content_loaded');
-          var relatedUsers = +$('.reportCard thead th:last').text();
-          if (relatedUsers > 100) {
-            $this.find('.others').css('display', 'none').before('<a class="others-show">Show ' + relatedUsers + ' related users</a>');
-            $this.find('.others-show').click(function() {
-              $(this).next().css('display', '');
-              $(this).remove();
-            });
-          }
-          $this.find('li.ip').slice(0, 3).each(function() {
-            var $li = $(this);
-            $.ajax({
-              url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
-              success: function(res) {
-                var p = Math.round(parseFloat(res) * 100);
-                $li.append($('<span class="intel">' + p + '% proxy</span>'));
-              }
-            });
+      $zone.load($(this).attr("href"), function() {
+        $zone.find('form.fide_title select').on('change', function() {
+          $(this).parent('form').submit();
+        });
+        $('body').trigger('lichess.content_loaded');
+        var relatedUsers = +$('.reportCard thead th:last').text();
+        if (relatedUsers > 100) {
+          $zone.find('.others').css('display', 'none').before('<a class="others-show">Show ' + relatedUsers + ' related users</a>');
+          $zone.find('.others-show').click(function() {
+            $(this).next().css('display', '');
+            $(this).remove();
           });
         }
+        $zone.find('li.ip').slice(0, 3).each(function() {
+          var $li = $(this);
+          $.ajax({
+            url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
+            success: function(res) {
+              var p = Math.round(parseFloat(res) * 100);
+              $li.append($('<span class="intel">' + p + '% proxy</span>'));
+            }
+          });
+        });
       });
       return false;
     });
