@@ -41,24 +41,22 @@ function paginate(ctrl, page) {
 }
 
 module.exports = {
-  render: function(pag, table) {
-    return pag.currentPageResults ? table() : m('div.loader')
-  },
   renderPager: function(ctrl, pag) {
+    var enabled = !!pag.currentPageResults;
     return pag.nbPages > -1 ? [
       button('First', 'W', function() {
         ctrl.userSetPage(1);
-      }, ctrl.vm.page > 1),
+      }, enabled && ctrl.vm.page > 1),
       button('Prev', 'Y', function() {
         ctrl.userSetPage(ctrl.vm.page - 1);
-      }, ctrl.vm.page > 1),
-      m('span.page', (pag.from + 1) + '-' + pag.to + ' / ' + pag.nbResults),
+      }, enabled && ctrl.vm.page > 1),
+      m('span.page', (pag.nbResults ? (pag.from + 1) : 0) + '-' + pag.to + ' / ' + pag.nbResults),
       button('Next', 'X', function() {
         ctrl.userSetPage(ctrl.vm.page + 1);
-      }, ctrl.vm.page < pag.nbPages),
+      }, enabled && ctrl.vm.page < pag.nbPages),
       button('Last', 'V', function() {
         ctrl.userSetPage(pag.nbPages);
-      }, ctrl.vm.page < pag.nbPages),
+      }, enabled && ctrl.vm.page < pag.nbPages),
       scrollToMeButton(ctrl, pag)
     ] : null;
   },

@@ -3,7 +3,7 @@ var partial = require('chessground').util.partial;
 var xhr = require('../xhr');
 
 function orJoinLoader(ctrl, f) {
-  return ctrl.vm.joinLoader ? m('div.loader.fast') : f();
+  return ctrl.vm.joinLoader ? m('div.square-spin') : f();
 }
 
 function withdraw(ctrl) {

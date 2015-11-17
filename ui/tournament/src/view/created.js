@@ -31,10 +31,7 @@ module.exports = {
     return [
       startingMoment(ctrl.data),
       util.title(ctrl),
-      m('div.standing_wrap',
-        pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing.created' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
-        })),
+      arena.standing(ctrl, pag, 'created'),
       m('br'),
       m('br'),
       m('div.content_box_content', {

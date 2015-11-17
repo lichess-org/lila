@@ -104,27 +104,27 @@ module.exports = {
       podiumPosition(ctrl.data.podium[2], ctrl.data, 'third')
     ]);
   },
-  standing: function(ctrl, pag) {
+  standing: function(ctrl, pag, klass) {
     var player = util.currentPlayer(ctrl, pag);
-    return [
-      m('thead',
-        m('tr', ctrl.data.startsAt ? [
-          m('th.large', ctrl.data.nbPlayers + ' ' + ctrl.trans('players')),
-          ctrl.userId ? m('th',
-            ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
-          ) : m('th')
-        ] : [
-          m('th.pager[colspan=3]', [
-            button.joinWithdraw(ctrl),
-            pagination.renderPager(ctrl, pag)
-          ])
-        ])),
-      m('tbody', {
-        config: function() {
-          // reload user badges
-          $('body').trigger('lichess.content_loaded');
-        }
-      }, pag.currentPageResults.map(partial(playerTr, ctrl)))
-    ];
+    return m('div.standing_wrap',
+      m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
+        m('thead',
+          m('tr',
+            m('th.pager[colspan=3]', [
+              button.joinWithdraw(ctrl),
+              pagination.renderPager(ctrl, pag)
+            ])
+          )),
+        m('tbody', {
+            config: function() {
+              // reload user badges
+              $('body').trigger('lichess.content_loaded');
+            }
+          }, pag.currentPageResults ?
+          pag.currentPageResults.map(partial(playerTr, ctrl)) :
+          m('tr.square-wrap', m('td.square-spin[colspan=3]'))
+        )
+      ])
+    );
   }
 };

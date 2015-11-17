@@ -193,13 +193,18 @@ ol.scheduled_tournaments a {
 #tournament .pager .page {
   margin: 0 5px;
 }
-#tournament div.loader {
-  margin: 100px auto;
-  font-size: 20px;
+#tournament .square-wrap {
+  text-align: center;
+  -webkit-transform: scale(5);
 }
-#tournament thead div.loader {
-  margin: 0;
-  font-size: 3px;
+#tournament .square-spin {
+  opacity: 0.7;
+  margin: 150px auto;
+}
+#tournament thead .square-spin {
+  width: 20px;
+  height: 20px;
+  margin: 4px 5px 0 0;
   float: right;
 }
 #tournament table.standing {
@@ -220,7 +225,7 @@ ol.scheduled_tournaments a {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-#tournament table.standing:not(.created) tbody tr:hover {
+#tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
   cursor: pointer;
 }

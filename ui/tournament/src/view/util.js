@@ -58,7 +58,7 @@ module.exports = {
     ]);
   },
   currentPlayer: function(ctrl, pag) {
-    if (!ctrl.userId) return null;
+    if (!ctrl.userId || !pag.currentPageResults) return null;
     return pag.currentPageResults.filter(function(p) {
       return p.name.toLowerCase() === ctrl.userId;
     })[0] || null;
