@@ -4,6 +4,7 @@ import play.api.libs.json.Json
 
 import lila.db.api._
 import lila.db.Implicits._
+import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 import tube.postTube
 
@@ -65,15 +66,20 @@ sealed abstract class PostRepo(troll: Boolean) {
     if (langs.isEmpty) Json.obj()
     else Json.obj("lang" -> $in(langs))
 
+  def findDuplicate(post: Post): Fu[Option[Post]] = $find.one(Json.obj(
+    "createdAt" -> $gt($date(DateTime.now.minusHours(1))),
+    "userId" -> ~post.userId,
+    "text" -> post.text
+  ))
+
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] = {
     val col = postTube.coll
-    import col.BatchCommands.AggregationFramework,
-      AggregationFramework.{ Match, GroupField }
+    import col.BatchCommands.AggregationFramework, AggregationFramework.{ Match, GroupField }
 
     col.aggregate(Match(BSONDocument("topicId" -> topicId)),
       List(GroupField("userId")())).map(
-      _.documents.map(_.getAs[String]("_id")).flatten)
+        _.documents.map(_.getAs[String]("_id")).flatten)
   }
 }

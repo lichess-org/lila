@@ -41,26 +41,30 @@ final class PostApi(
           troll = ctx.troll,
           hidden = topic.hidden,
           categId = categ.id)
-        $insert(post) >>
-          $update(topic withPost post) >> {
-            shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
-          } >>
-          $update(categ withTopic post) >>-
-          (indexer ! InsertPost(post)) >>
-          (env.recent.invalidate inject post) >>-
-          ctx.userId.?? { userId =>
-            shutup ! post.isTeam.fold(
-              lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
-              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
-          } >>-
-          ((ctx.userId ifFalse post.troll) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-              post.isStaff.fold(
-                prop toStaffFriendsOf userId,
-                prop toFollowersOf userId toUsers topicUserIds exceptUser userId
-              )
-            )
-          }) inject post
+        PostRepo findDuplicate post flatMap {
+          case Some(dup) => fuccess(dup)
+          case _ =>
+            $insert(post) >>
+              $update(topic withPost post) >> {
+                shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
+              } >>
+              $update(categ withTopic post) >>-
+              (indexer ! InsertPost(post)) >>
+              (env.recent.invalidate inject post) >>-
+              ctx.userId.?? { userId =>
+                shutup ! post.isTeam.fold(
+                  lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
+                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
+              } >>-
+              ((ctx.userId ifFalse post.troll) ?? { userId =>
+                timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
+                  post.isStaff.fold(
+                    prop toStaffFriendsOf userId,
+                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                  )
+                )
+              }) inject post
+        }
     }
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
