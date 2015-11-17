@@ -41,23 +41,26 @@ function paginate(ctrl, page) {
 }
 
 module.exports = {
-  render: function(ctrl, pag, table) {
-    return [
-      pag.currentPageResults ? table() : m('div.loader'),
-      pag.nbPages > 1 ? m('div.pager', [
-        button('First', 'W', function() {
-          ctrl.userSetPage(1);
-        }, ctrl.vm.page > 1),
-        button('Prev', 'Y', function() {
-          ctrl.userSetPage(ctrl.vm.page - 1);
-        }, ctrl.vm.page > 1),
-        m('span.page', (pag.from + 1) + '-' + pag.to + ' / ' + pag.nbResults),
-        button('Next', 'X', function() {
-          ctrl.userSetPage(ctrl.vm.page + 1);
-        }, ctrl.vm.page < pag.nbPages),
-        scrollToMeButton(ctrl, pag)
-      ]) : null
-    ];
+  render: function(pag, table) {
+    return pag.currentPageResults ? table() : m('div.loader')
+  },
+  renderPager: function(ctrl, pag) {
+    return pag.nbPages > -1 ? [
+      button('First', 'W', function() {
+        ctrl.userSetPage(1);
+      }, ctrl.vm.page > 1),
+      button('Prev', 'Y', function() {
+        ctrl.userSetPage(ctrl.vm.page - 1);
+      }, ctrl.vm.page > 1),
+      m('span.page', (pag.from + 1) + '-' + pag.to + ' / ' + pag.nbResults),
+      button('Next', 'X', function() {
+        ctrl.userSetPage(ctrl.vm.page + 1);
+      }, ctrl.vm.page < pag.nbPages),
+      button('Last', 'V', function() {
+        ctrl.userSetPage(pag.nbPages);
+      }, ctrl.vm.page < pag.nbPages),
+      scrollToMeButton(ctrl, pag)
+    ] : null;
   },
   players: function(ctrl) {
     return paginate(ctrl, ctrl.vm.page);

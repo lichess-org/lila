@@ -13,7 +13,7 @@ module.exports = {
       util.title(ctrl),
       arena.podium(ctrl),
       m('div.standing_wrap',
-        pagination.render(ctrl, pag, function() {
+        pagination.render(pag, function() {
           return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),
       util.games(ctrl.data.lastGames)

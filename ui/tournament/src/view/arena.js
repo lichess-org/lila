@@ -4,6 +4,7 @@ var classSet = require('chessground').util.classSet;
 var util = require('./util');
 var ratio2percent = util.ratio2percent;
 var button = require('./button');
+var pagination = require('../pagination');
 
 var scoreTagNames = ['score', 'streak', 'double'];
 
@@ -113,16 +114,9 @@ module.exports = {
             ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
           ) : m('th')
         ] : [
-          m('th.large', [
-            ctrl.trans('standing'), (player && !player.withdraw) ? [
-              m('strong.player_rank', player.rank),
-              ' / ' + pag.nbResults
-            ] : ' (' + pag.nbResults + ')'
-          ]),
-          m('th.legend[colspan=2]', [
-            m('streak.nover', 'Streak starter'),
-            m('double.nover', 'Double points'),
-            button.joinWithdraw(ctrl)
+          m('th.pager[colspan=3]', [
+            button.joinWithdraw(ctrl),
+            pagination.renderPager(ctrl, pag)
           ])
         ])),
       m('tbody', {
