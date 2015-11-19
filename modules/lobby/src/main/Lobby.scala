@@ -89,15 +89,20 @@ private[lobby] final class Lobby(
         socket ! RemoveSeek(seek.id)
       }
 
-    case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
-      val createdBefore = DateTime.now minusSeconds 5
-      val hooks = {
-        (HookRepo notInUids uids.toSet).filter {
-          _.createdAt isBefore createdBefore
-        } ::: HookRepo.cleanupOld
-      }.toSet
-      if (hooks.nonEmpty) self ! RemoveHooks(hooks)
-    }
+    case Broom =>
+      play.api.Logger("lobby").debug("broom")
+      socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
+        val createdBefore = DateTime.now minusSeconds 5
+        val hooks = {
+          (HookRepo notInUids uids.toSet).filter {
+            _.createdAt isBefore createdBefore
+          } ::: HookRepo.cleanupOld
+        }.toSet
+        if (hooks.nonEmpty) {
+          play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+          self ! RemoveHooks(hooks)
+        }
+      }
 
     case RemoveHooks(hooks) => hooks foreach remove
 
