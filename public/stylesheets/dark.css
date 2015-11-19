@@ -224,7 +224,7 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
 body.dark .lichess_ground .replay move.current,
-body.dark #tournament table.standing:not(.created) tbody tr:hover {
+body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #top a.signin,
