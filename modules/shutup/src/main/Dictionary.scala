@@ -37,6 +37,7 @@ buk?kake
 bull?shit
 cancer
 cawk
+chessbot
 chink
 choad
 clit
