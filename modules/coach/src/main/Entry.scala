@@ -12,16 +12,15 @@ case class Entry(
   perf: PerfType,
   eco: Ecopening,
   opponent: Opponent,
-  cpl: Grouped[Numbers],
+  cpl: Option[Grouped[Numbers]],
   movetime: Grouped[Numbers],
-  luck: Grouped[Ratio],
-  opportunism: Grouped[Ratio],
+  luck: Option[Grouped[Ratio]],
+  opportunism: Option[Grouped[Ratio]],
   nbMoves: Grouped[Int],
   result: Result,
   status: Status,
   endPhase: Phase,
   ratingDiff: Int,
-  analysed: Boolean,
   date: DateTime)
 
 case class Opponent(rating: Int, strength: RelativeStrength)
