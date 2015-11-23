@@ -7,6 +7,10 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
 }
 
+function uncache(url) {
+  return url + '?_=' + new Date().getTime();
+}
+
 // when the tournament no longer exists
 function reloadPage() {
   location.reload();
@@ -23,7 +27,7 @@ function tourAction(action, ctrl) {
 function loadPage(ctrl, p) {
   return m.request({
     method: 'GET',
-    url: '/tournament/' + ctrl.data.id + '/standing/' + p,
+    url: uncache('/tournament/' + ctrl.data.id + '/standing/' + p),
     config: xhrConfig
   }).then(ctrl.loadPage, reloadPage);
 }
@@ -31,7 +35,7 @@ function loadPage(ctrl, p) {
 function reloadTournament(ctrl) {
   return m.request({
     method: 'GET',
-    url: '/tournament/' + ctrl.data.id,
+    url: uncache('/tournament/' + ctrl.data.id),
     config: xhrConfig,
     data: {
       page: ctrl.vm.focusOnMe ? null : ctrl.vm.page,
@@ -43,7 +47,7 @@ function reloadTournament(ctrl) {
 function playerInfo(ctrl, userId) {
   return m.request({
     method: 'GET',
-    url: ['/tournament', ctrl.data.id, 'player', userId].join('/'),
+    url: uncache(['/tournament', ctrl.data.id, 'player', userId].join('/')),
     config: xhrConfig
   }).then(ctrl.setPlayerInfoData, reloadPage);
 }
