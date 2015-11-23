@@ -10,7 +10,7 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes: Seq[Double] = Seq(1 / 2d, 3 / 4d, 3 / 2d) ++ (0d to 7d by 1d)
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
   val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
