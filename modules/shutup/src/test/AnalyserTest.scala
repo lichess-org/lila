@@ -45,5 +45,14 @@ class DetectTest extends Specification {
       ratio("hello there") must_== 0
       ratio("") must_== 0
     }
+    "chessbot variations" in {
+      find("foo chessbot bar") must_== List("chessbot")
+      find("foo chess-bot bar") must_== List("chess-bot")
+      find("foo chess_bot bar") must_== List("chess_bot")
+      find("foo chess-bot.com bar") must_== List("chess-bot.com")
+      find("foo chess_bot_com bar") must_== List("chess_bot_com")
+      find("foo chessbotcom bar") must_== List("chessbotcom")
+      find("foo http://chess-bot.com bar") must_== List("chess-bot.com")
+    }
   }
 }
