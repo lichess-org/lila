@@ -17,7 +17,7 @@ function withdraw(ctrl) {
 
 function join(ctrl) {
   return orJoinLoader(ctrl, function() {
-    return m('button.button.right.text', {
+    return m('button.button.right.text.glowed', {
       'data-icon': 'G',
       onclick: ctrl.join
     }, ctrl.trans('join'));
