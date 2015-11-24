@@ -93,11 +93,7 @@ object PovToEntry {
     opponent = Opponent(
       rating = opRating,
       strength = RelativeStrength(opRating - myRating)),
-    cpl = makeCpl(from),
-    // movetime: Grouped[Numbers],
-    // luck: Option[Grouped[Ratio]],
-    // opportunism: Option[Grouped[Ratio]],
-    nbMoves = makeNbMoves(from),
+    moves = Nil,
     result = from.pov.game.winnerUserId match {
       case None                 => Result.Draw
       case Some(u) if u == myId => Result.Win

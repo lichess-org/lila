@@ -3,7 +3,8 @@ package lila.coach
 import reactivemongo.bson._
 import reactivemongo.bson.Macros
 
-import chess.Color
+import chess.{ Role, Color }
+import lila.db.BSON
 import lila.db.BSON._
 import lila.db.Implicits._
 import lila.game.BSONHandlers.StatusBSONHandler
@@ -34,6 +35,32 @@ private[coach] object BSONHandlers {
   private implicit val PhaseBSONHandler = new BSONHandler[BSONInteger, Phase] {
     def read(b: BSONInteger) = Phase.all.find(_.id == b.value) err s"Invalid phase ${b.value}"
     def write(e: Phase) = BSONInteger(e.id)
+  }
+  private implicit val NagBSONHandler = new BSONHandler[BSONInteger, Nag] {
+    def read(b: BSONInteger) = Nag.all.find(_.id == b.value) err s"Invalid nag ${b.value}"
+    def write(e: Nag) = BSONInteger(e.id)
+  }
+  private implicit val RoleBSONHandler = new BSONHandler[BSONString, Role] {
+    def read(b: BSONString) = Role.allByForsyth get b.value.head err s"Invalid role ${b.value}"
+    def write(e: Role) = BSONString(e.forsyth.toString)
+  }
+  private implicit def MoveHandler = new BSON[Move] {
+    def reads(r: Reader) = Move(
+      phase = r.get[Phase]("p"),
+      tenths = r.get[Int]("t"),
+      role = r.get[Role]("r"),
+      eval = r.intO("e"),
+      mate = r.intO("m"),
+      cpl = r.intO("c"),
+      nag = r.getO[Nag]("n"))
+    def writes(w: Writer, b: Move) = BSONDocument(
+      "p" -> b.phase,
+      "t" -> b.tenths,
+      "r" -> b.role,
+      "e" -> b.eval,
+      "m" -> b.mate,
+      "c" -> b.cpl,
+      "n" -> b.nag)
   }
   private implicit def NumbersHandler = new BSONHandler[BSONValue, Numbers] {
     def read(b: BSONValue) = b match {

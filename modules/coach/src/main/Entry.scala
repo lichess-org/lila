@@ -14,11 +14,12 @@ case class Entry(
     perf: PerfType,
     eco: Option[Ecopening],
     opponent: Opponent,
-    cpl: Option[Grouped[Numbers]],
+    moves: List[Move],
+    // cpl: Option[Grouped[Numbers]],
     // movetime: Grouped[Numbers],
     // luck: Option[Grouped[Ratio]],
     // opportunism: Option[Grouped[Ratio]],
-    nbMoves: Grouped[Int],
+    // nbMoves: Grouped[Int],
     result: Result,
     status: Status,
     finalPhase: Phase,
@@ -32,7 +33,24 @@ object Entry {
   val currentVersion = 1
 }
 
+case class Move(
+  phase: Phase,
+  tenths: Int,
+  role: Role,
+  eval: Option[Int],
+  mate: Option[Int],
+  cpl: Option[Int],
+  nag: Option[Nag])
+
 case class Opponent(rating: Int, strength: RelativeStrength)
+
+sealed abstract class Nag(val id: Int)
+object Nag {
+  object Inaccuracy extends Nag(1)
+  object Mistake extends Nag(2)
+  object Blunder extends Nag(3)
+  val all = List(Inaccuracy, Mistake, Blunder)
+}
 
 sealed abstract class Result(val id: Int)
 object Result {
