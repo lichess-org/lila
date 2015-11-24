@@ -3,9 +3,9 @@ package lila.coach
 import chess.{ Color, Status }
 import lila.rating.PerfType
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
 
 case class Entry(
+  version: Int,
   userId: String,
   gameId: String,
   color: Color,
@@ -25,27 +25,30 @@ case class Entry(
 
 case class Opponent(rating: Int, strength: RelativeStrength)
 
-sealed trait Result
+sealed abstract class Result(val id: Int)
 object Result {
-  object Win extends Result
-  object Draw extends Result
-  object Loss extends Result
+  object Win extends Result(1)
+  object Draw extends Result(2)
+  object Loss extends Result(3)
+  val all = List(Win, Draw, Loss)
 }
 
-sealed trait Phase
+sealed abstract class Phase(val id: Int)
 object Phase {
-  object Opening extends Phase
-  object Middle extends Phase
-  object End extends Phase
+  object Opening extends Phase(1)
+  object Middle extends Phase(2)
+  object End extends Phase(3)
+  val all = List(Opening, Middle, End)
 }
 
-sealed trait RelativeStrength
+sealed abstract class RelativeStrength(val id: Int)
 object RelativeStrength {
-  object MuchWeaker extends RelativeStrength
-  object Weaker extends RelativeStrength
-  object Equal extends RelativeStrength
-  object Strong extends RelativeStrength
-  object MuchStronger extends RelativeStrength
+  object MuchWeaker extends RelativeStrength(10)
+  object Weaker extends RelativeStrength(20)
+  object Equal extends RelativeStrength(30)
+  object Strong extends RelativeStrength(40)
+  object MuchStronger extends RelativeStrength(50)
+  val all = List(MuchWeaker, Weaker, Equal, Strong, MuchStronger)
 }
 
 case class ByMovetime[A](values: List[A])
@@ -56,9 +59,9 @@ object ByMovetime {
 
 case class ByPhase[A](opening: A, middle: Option[A], end: Option[A], all: A)
 
-case class ByPieceRole[A](pawn: A, knight: A, bishop: A, rook: A, queen: A, king: A)
+case class ByPieceRole[A](pawn: Option[A], knight: Option[A], bishop: Option[A], rook: Option[A], queen: Option[A], king: Option[A])
 
-case class ByPositionQuality[A](losing: A, bad: A, equal: A, good: A, winning: A)
+case class ByPositionQuality[A](losing: Option[A], bad: Option[A], equal: Option[A], good: Option[A], winning: Option[A])
 
 case class Grouped[A](
   byPhase: ByPhase[A],
@@ -68,11 +71,11 @@ case class Grouped[A](
 
 case class Numbers(size: Int, mean: Int, median: Double, sd: Double)
 
-case class Ratio(n: Int, d: Int) // n/d
-
 object Numbers {
   def apply(nbs: List[Int]): Option[Numbers] = nbs match {
     case Nil => none
     case xs  => Numbers(nbs.size, 0, 0, 0).some
   }
 }
+
+case class Ratio(n: Int, d: Int) // n/d
