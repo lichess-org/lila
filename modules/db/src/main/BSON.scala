@@ -108,15 +108,21 @@ object BSON {
   //     }
   //   }
 
-  // List Handler
-  final class ListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) extends BSONHandler[BSONArray, List[T]] {
+  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
       reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
     }.toList
     def write(repr: List[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
-  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new ListHandler
+
+  implicit def bsonArrayToVectorHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, Vector[T]] = new BSONHandler[BSONArray, Vector[T]] {
+    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
+      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
+    }.toVector
+    def write(repr: Vector[T]) =
+      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
+  }
 
   final class Reader(val doc: BSONDocument) {
 

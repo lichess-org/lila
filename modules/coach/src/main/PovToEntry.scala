@@ -60,10 +60,20 @@ object PovToEntry {
         byPhase <- byPhaseOpt
       } yield Grouped(
         byPhase,
-        ByMovetime(Nil),
+        ByMovetime(Vector.empty),
         ByPieceRole(none, none, none, none, none, none),
         ByPositionQuality(none, none, none, none, none))
     }
+
+  private def makeNbMoves(from: RichPov): Grouped[Int] = Grouped(
+    ByPhase(
+      opening = from.division.openingSize / 2,
+      middle = from.division.middleSize map (_ / 2),
+      end = from.division.endSize map (_ / 2),
+      all = from.pov.game.playerMoves(from.pov.color)),
+    ByMovetime.accumulate(from.pov.game.moveTimes(from.pov.color)),
+    ByPieceRole(none, none, none, none, none, none),
+    ByPositionQuality(none, none, none, none, none))
 
   private def convert(from: RichPov): Option[Entry] = for {
     myId <- from.pov.player.userId
@@ -82,16 +92,21 @@ object PovToEntry {
       rating = opRating,
       strength = RelativeStrength(opRating - myRating)),
     cpl = makeCpl(from),
+    // cpl: Option[Grouped[Numbers]],
+    // movetime: Grouped[Numbers],
+    // luck: Option[Grouped[Ratio]],
+    // opportunism: Option[Grouped[Ratio]],
+    nbMoves = makeNbMoves(from),
+    result = from.pov.game.winnerUserId match {
+      case None                 => Result.Draw
+      case Some(u) if u == myId => Result.Win
+      case _                    => Result.Loss
+    },
+    status = from.pov.game.status,
+    finalPhase =
+      if (from.division.end.isDefined) Phase.End
+      else if (from.division.middle.isDefined) Phase.Middle
+      else Phase.Opening,
+    ratingDiff = ~from.pov.player.ratingDiff,
     date = from.pov.game.createdAt)
-  // cpl: Option[Grouped[Numbers]],
-  // movetime: Grouped[Numbers],
-  // luck: Option[Grouped[Ratio]],
-  // opportunism: Option[Grouped[Ratio]],
-  // nbMoves: Grouped[Int],
-  // result: Result,
-  // status: Status,
-  // finalPhase: Phase,
-  // ratingDiff: Int,
-  // date: DateTime)
-  //   )
 }

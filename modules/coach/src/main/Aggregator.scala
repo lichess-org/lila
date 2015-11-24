@@ -36,7 +36,8 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
     }
 
   private def gameQuery(user: User) = Query.user(user.id) ++ Query.rated ++ Query.finished
-  private val maxGames = 5 * 1000
+  private val maxGames = 5 * 10
+  // private val maxGames = 5 * 1000
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
@@ -48,6 +49,7 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
 
   private def computeFrom(user: User, from: DateTime): Funit =
     lila.common.Chronometer.log(s"coach aggregator:${user.username}") {
+      loginfo(s"[coach] start aggregating ${user.username} games")
       pimpQB($query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from)))))
         .sort(Query.sortChronological)
         .cursor[Game]()
@@ -55,12 +57,18 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
         Enumeratee.mapM[lila.game.Game].apply[Either[Game, Entry]] { game =>
           PovToEntry(game, user.id).addFailureEffect { e =>
             println(e)
-            println(e.getStackTrace)
+            e.printStackTrace
           }
         } |>>>
-        Iteratee.foldM[Either[Game, Entry], Unit](()) {
-          case (_, Right(e)) => storage insert e
-          case (_, Left(g))  => logwarn(s"[coach] invalid game http://l.org/${g.id}"); funit
-        }
+        Iteratee.foldM[Either[Game, Entry], Int](0) {
+          case (nb, Right(e)) =>
+            if (nb % 100 == 0) loginfo(s"[coach ${user.username}] aggregated $nb games")
+            storage insert e inject (nb + 1)
+          case (nb, Left(g)) =>
+            logwarn(s"[coach ${user.username}] invalid game http://l.org/${g.id}")
+            fuccess(nb)
+        } addEffect { nb =>
+          loginfo(s"[coach ${user.username}] done aggregating $nb games")
+        } void
     }
 }

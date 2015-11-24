@@ -38,15 +38,14 @@ private[coach] object BSONHandlers {
   private implicit def NumbersHandler = new BSONHandler[BSONDocument, Numbers] {
     def read(b: BSONDocument) = Numbers(
       size = b.getAs[Int]("s") err s"Missing numbers size",
-      mean = (b.getAs[Int]("m") err s"Missing numbers mean") / 100d,
-      median = (b.getAs[Int]("n") err s"Missing numbers median") / 100d,
-      deviation = (b.getAs[Int]("d") err s"Missing numbers deviation") / 100d
-    )
+      mean = b.getAs[Double]("m") err s"Missing numbers mean",
+      median = b.getAs[Double]("n") err s"Missing numbers median",
+      deviation = b.getAs[Double]("d") err s"Missing numbers deviation")
     def write(b: Numbers) = BSONDocument(
       "s" -> b.size,
-      "m" -> math.round(b.mean * 100),
-      "n" -> math.round(b.median * 100),
-      "d" -> math.round(b.deviation * 100))
+      "m" -> b.mean,
+      "n" -> b.median,
+      "d" -> b.deviation)
   }
   private implicit val OpponentBSONHandler = Macros.handler[Opponent]
   private implicit val RatioBSONHandler = Macros.handler[Ratio]
@@ -97,7 +96,7 @@ private[coach] object BSONHandlers {
       "w" -> b.winning)
   }
   private implicit def ByMovetimeHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) = new BSONHandler[BSONArray, ByMovetime[T]] {
-    private val h = new ListHandler[T]
+    private val h = bsonArrayToVectorHandler[T]
     def read(b: BSONArray) = ByMovetime(h read b)
     def write(b: ByMovetime[T]) = h write b.values
   }

@@ -17,11 +17,11 @@ case class Entry(
     // movetime: Grouped[Numbers],
     // luck: Option[Grouped[Ratio]],
     // opportunism: Option[Grouped[Ratio]],
-    // nbMoves: Grouped[Int],
-    // result: Result,
-    // status: Status,
-    // finalPhase: Phase,
-    // ratingDiff: Int,
+    nbMoves: Grouped[Int],
+    result: Result,
+    status: Status,
+    finalPhase: Phase,
+    ratingDiff: Int,
     date: DateTime) {
 
   def id = _id
@@ -66,10 +66,18 @@ object RelativeStrength {
   }
 }
 
-case class ByMovetime[A](values: List[A])
+case class ByMovetime[A](values: Vector[A])
 
 object ByMovetime {
-  val uppers = List(10, 30, 50, 100, 200, 6000)
+  val uppers = List(10, 20, 30, 50, 100, 200, 600, Int.MaxValue)
+  val vectorSize = uppers.size
+  def accumulate(data: List[Int]): ByMovetime[Int] = ByMovetime {
+    data.foldLeft(Vector.fill(vectorSize)(0)) {
+      case (acc, time) =>
+        val index = uppers.indexWhere(_ >= time)
+        acc.updated(index, acc(index) + 1)
+    }
+  }
 }
 
 case class ByPhase[A](opening: A, middle: Option[A], end: Option[A], all: A)
