@@ -43,6 +43,7 @@ GET   /@/:username/suggestions         controllers.Relation.suggest(username: St
 GET   /rel/blocks                      controllers.Relation.blocks
 
 # Coach
+POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
