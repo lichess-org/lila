@@ -17,7 +17,7 @@ module.exports = function(env) {
   this.vm = {
     page: this.data.standing.page,
     pages: {},
-    focusOnMe: !!this.data.me,
+    focusOnMe: this.data.me && !this.data.me.withdraw,
     joinLoader: false,
     playerInfo: {
       id: null,
