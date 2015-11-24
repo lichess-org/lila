@@ -120,6 +120,20 @@ object ByPieceRole {
       case King   => acc.copy(king = inc(acc.king))
     }
   }
+  def numbers(data: List[(String, Int)]): ByPieceRole[Numbers] = {
+    val hash = data.foldLeft(Map.empty[Role, List[Int]]) {
+      case (acc, (pgn, v)) =>
+        val role = pgnMoveToRole(pgn)
+        acc.updated(role, v :: ~acc.get(role))
+    }.mapValues(Numbers.apply)
+    ByPieceRole(
+      pawn = hash get Pawn flatten,
+      knight = hash get Knight flatten,
+      bishop = hash get Bishop flatten,
+      rook = hash get Rook flatten,
+      queen = hash get Queen flatten,
+      king = hash get King flatten)
+  }
 }
 
 case class ByPositionQuality[A](losing: Option[A], bad: Option[A], equal: Option[A], good: Option[A], winning: Option[A])

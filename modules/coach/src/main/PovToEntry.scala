@@ -59,7 +59,7 @@ object PovToEntry {
       } yield Grouped(
         byPhase,
         ByMovetime.numbers(from.pov.game.moveTimes(from.pov.color) zip diffs),
-        ByPieceRole.empty[Numbers],
+        ByPieceRole.numbers(from.pov.game.pgnMoves(from.pov.color) zip diffs),
         none)
     }
 
@@ -94,7 +94,6 @@ object PovToEntry {
       rating = opRating,
       strength = RelativeStrength(opRating - myRating)),
     cpl = makeCpl(from),
-    // cpl: Option[Grouped[Numbers]],
     // movetime: Grouped[Numbers],
     // luck: Option[Grouped[Ratio]],
     // opportunism: Option[Grouped[Ratio]],
