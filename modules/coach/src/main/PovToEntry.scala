@@ -1,5 +1,6 @@
 package lila.coach
 
+import lila.analyse.Accuracy
 import lila.game.{ Game, Pov }
 import lila.user.User
 
@@ -10,7 +11,7 @@ object PovToEntry {
     initialFen: Option[String],
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
-    // accuracy: Option[lila.analyse.Accuracy.DividedAccuracy],
+    // accuracy: Option[Accuracy.DividedAccuracy],
     moveAccuracy: Option[List[Int]])
 
   def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
@@ -31,7 +32,7 @@ object PovToEntry {
               initialFen = fen,
               analysis = an,
               division = division,
-              moveAccuracy = an.map { lila.analyse.Accuracy.diffsList(pov, _) }
+              moveAccuracy = an.map { Accuracy.diffsList(pov, _) }
             ).some
         }
     }
@@ -61,8 +62,8 @@ object PovToEntry {
       } yield Grouped(
         byPhase,
         ByMovetime(Vector.empty),
-        ByPieceRole(none, none, none, none, none, none),
-        ByPositionQuality(none, none, none, none, none))
+        ByPieceRole.empty[Numbers],
+        none)
     }
 
   private def makeNbMoves(from: RichPov): Grouped[Int] = Grouped(
@@ -72,8 +73,12 @@ object PovToEntry {
       end = from.division.endSize map (_ / 2),
       all = from.pov.game.playerMoves(from.pov.color)),
     ByMovetime.accumulate(from.pov.game.moveTimes(from.pov.color)),
-    ByPieceRole(none, none, none, none, none, none),
-    ByPositionQuality(none, none, none, none, none))
+    ByPieceRole.accumulate(from.pov.game pgnMoves from.pov.color),
+    from.analysis.map { an =>
+      ByPositionQuality.accumulate(
+        Accuracy.colorInfos(from.pov, an).flatMap(_.forceCentipawns),
+        from.pov.color)
+    })
 
   private def convert(from: RichPov): Option[Entry] = for {
     myId <- from.pov.player.userId

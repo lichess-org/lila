@@ -105,7 +105,7 @@ private[coach] object BSONHandlers {
       byPhase = b.getAs[ByPhase[T]]("p") err s"Missing group byPhase",
       byMovetime = b.getAs[ByMovetime[T]]("m") err s"Missing group byMovetime",
       byPieceRole = b.getAs[ByPieceRole[T]]("r") err s"Missing group byPieceRole",
-      byPositionQuality = b.getAs[ByPositionQuality[T]]("q") err s"Missing group byPositionQuality")
+      byPositionQuality = b.getAs[ByPositionQuality[T]]("q"))
     def write(b: Grouped[T]) = BSONDocument(
       "p" -> b.byPhase,
       "m" -> b.byMovetime,

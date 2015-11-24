@@ -36,7 +36,7 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
     }
 
   private def gameQuery(user: User) = Query.user(user.id) ++ Query.rated ++ Query.finished
-  private val maxGames = 5 * 10
+  private val maxGames = 10 * 10
   // private val maxGames = 5 * 1000
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =

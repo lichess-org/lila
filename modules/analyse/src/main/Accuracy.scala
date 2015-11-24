@@ -24,7 +24,14 @@ object Accuracy {
       case (list, _) => list
     }.reverse
 
-  def apply(pov: Pov, analysis: Analysis): Option[Int] = {
+  def colorInfos(pov: Pov, analysis: Analysis): List[Info] = {
+    val pivot = if (pov.color == pov.game.startColor) 0 else 1
+    analysis.infos.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    }
+  }
+
+  def mean(pov: Pov, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)
     val nb = diffs.size
     (nb != 0) option (diffs.sum / nb)

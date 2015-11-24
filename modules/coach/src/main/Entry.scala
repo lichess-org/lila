@@ -1,6 +1,7 @@
 package lila.coach
 
-import chess.{ Color, Status }
+import chess.{ Color, Status, Role }
+import lila.game.PgnMoves
 import lila.rating.PerfType
 import org.joda.time.DateTime
 
@@ -84,13 +85,64 @@ case class ByPhase[A](opening: A, middle: Option[A], end: Option[A], all: A)
 
 case class ByPieceRole[A](pawn: Option[A], knight: Option[A], bishop: Option[A], rook: Option[A], queen: Option[A], king: Option[A])
 
+object ByPieceRole {
+  import chess.{ Knight, Bishop, Rook, Queen, King, Pawn }
+  def empty[A] = ByPieceRole[A](none[A], none[A], none[A], none[A], none[A], none[A])
+  def pgnMoveToRole(pgn: String): Role = pgn.head match {
+    case 'N'       => Knight
+    case 'B'       => Bishop
+    case 'R'       => Rook
+    case 'Q'       => Queen
+    case 'K' | 'O' => King
+    case _         => Pawn
+  }
+  private def inc(v: Option[Int]) = Some(1 + (v getOrElse 0))
+  def accumulate(pgnMoves: PgnMoves): ByPieceRole[Int] = pgnMoves.foldLeft(empty[Int]) {
+    case (acc, pgnMove) => pgnMoveToRole(pgnMove) match {
+      case Pawn   => acc.copy(pawn = inc(acc.pawn))
+      case Knight => acc.copy(knight = inc(acc.knight))
+      case Bishop => acc.copy(bishop = inc(acc.bishop))
+      case Rook   => acc.copy(rook = inc(acc.rook))
+      case Queen  => acc.copy(queen = inc(acc.queen))
+      case King   => acc.copy(king = inc(acc.king))
+    }
+  }
+}
+
 case class ByPositionQuality[A](losing: Option[A], bad: Option[A], equal: Option[A], good: Option[A], winning: Option[A])
+
+object ByPositionQuality {
+  def empty[A] = ByPositionQuality[A](none[A], none[A], none[A], none[A], none[A])
+  sealed trait Quality
+  case object Losing extends Quality
+  case object Bad extends Quality
+  case object Equal extends Quality
+  case object Good extends Quality
+  case object Winning extends Quality
+  def evaluate(color: Color, cp: Int) = color.fold(cp, -cp) match {
+    case a if a <= -500 => Losing
+    case a if a <= -200 => Bad
+    case a if a >= 200  => Good
+    case a if a >= 500  => Winning
+    case _              => Equal
+  }
+  private def inc(v: Option[Int]) = Some(1 + (v getOrElse 0))
+  def accumulate(cps: List[Int], color: Color): ByPositionQuality[Int] = cps.foldLeft(empty[Int]) {
+    case (acc, cp) => evaluate(color, cp) match {
+      case Losing  => acc.copy(losing = inc(acc.losing))
+      case Bad     => acc.copy(bad = inc(acc.bad))
+      case Equal   => acc.copy(equal = inc(acc.equal))
+      case Good    => acc.copy(good = inc(acc.good))
+      case Winning => acc.copy(winning = inc(acc.winning))
+    }
+  }
+}
 
 case class Grouped[A](
   byPhase: ByPhase[A],
   byMovetime: ByMovetime[A],
   byPieceRole: ByPieceRole[A],
-  byPositionQuality: ByPositionQuality[A])
+  byPositionQuality: Option[ByPositionQuality[A]])
 
 case class Numbers(size: Int, mean: Double, median: Double, deviation: Double)
 
