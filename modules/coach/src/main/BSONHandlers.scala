@@ -6,8 +6,8 @@ import reactivemongo.bson.Macros
 import chess.Color
 import lila.db.BSON._
 import lila.db.Implicits._
-import lila.rating.PerfType
 import lila.game.BSONHandlers.StatusBSONHandler
+import lila.rating.PerfType
 
 private[coach] object BSONHandlers {
 
@@ -35,8 +35,20 @@ private[coach] object BSONHandlers {
     def read(b: BSONInteger) = Phase.all.find(_.id == b.value) err s"Invalid phase ${b.value}"
     def write(e: Phase) = BSONInteger(e.id)
   }
+  private implicit def NumbersHandler = new BSONHandler[BSONDocument, Numbers] {
+    def read(b: BSONDocument) = Numbers(
+      size = b.getAs[Int]("s") err s"Missing numbers size",
+      mean = (b.getAs[Int]("m") err s"Missing numbers mean") / 100d,
+      median = (b.getAs[Int]("n") err s"Missing numbers median") / 100d,
+      deviation = (b.getAs[Int]("d") err s"Missing numbers deviation") / 100d
+    )
+    def write(b: Numbers) = BSONDocument(
+      "s" -> b.size,
+      "m" -> math.round(b.mean * 100),
+      "n" -> math.round(b.median * 100),
+      "d" -> math.round(b.deviation * 100))
+  }
   private implicit val OpponentBSONHandler = Macros.handler[Opponent]
-  private implicit val NumbersBSONHandler = Macros.handler[Numbers]
   private implicit val RatioBSONHandler = Macros.handler[Ratio]
 
   private implicit def ByPhaseHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) = new BSONHandler[BSONDocument, ByPhase[T]] {
@@ -93,12 +105,12 @@ private[coach] object BSONHandlers {
     def read(b: BSONDocument) = Grouped(
       byPhase = b.getAs[ByPhase[T]]("p") err s"Missing group byPhase",
       byMovetime = b.getAs[ByMovetime[T]]("m") err s"Missing group byMovetime",
-      byPieceRole = b.getAs[ByPieceRole[T]]("p") err s"Missing group byPieceRole",
+      byPieceRole = b.getAs[ByPieceRole[T]]("r") err s"Missing group byPieceRole",
       byPositionQuality = b.getAs[ByPositionQuality[T]]("q") err s"Missing group byPositionQuality")
     def write(b: Grouped[T]) = BSONDocument(
       "p" -> b.byPhase,
       "m" -> b.byMovetime,
-      "p" -> b.byPieceRole,
+      "r" -> b.byPieceRole,
       "q" -> b.byPositionQuality)
   }
   implicit val EntryBSONHandler = Macros.handler[Entry]

@@ -7,8 +7,10 @@ object Statistics {
   import Erf._
   import scala.annotation._
 
-  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double =
-    a.map(i => pow(n.toDouble(i) - average(a), 2)).list.sum / a.length
+  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
+    val mean = average(a)
+    a.map(i => pow(n.toDouble(i) - mean, 2)).list.sum / a.size
+  }
 
   def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double =
     sqrt(variance(a))

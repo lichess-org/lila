@@ -29,29 +29,4 @@ object Accuracy {
     val nb = diffs.size
     (nb != 0) option (diffs.sum / nb)
   }
-
-  case class DividedAccuracy(
-    all: Int,
-    opening: Int,
-    middle: Option[Int],
-    end: Option[Int])
-
-  def apply(pov: Pov, analysis: Analysis, div: chess.Division): Option[DividedAccuracy] = {
-    val diffs = diffsList(pov, analysis)
-    val openingDiffs = div.middle.fold(diffs)(m => diffs.take(m / 2))
-    val middleDiffs = div.middle.?? { m =>
-      div.end.fold(diffs.drop(m / 2)) { e =>
-        diffs.drop(m / 2).take((e - m) / 2)
-      }
-    }
-    val endDiffs = div.end.?? { e =>
-      diffs.drop(e / 2)
-    }
-    diffs.nonEmpty option DividedAccuracy(
-      all = (diffs.sum / diffs.size),
-      opening = openingDiffs.sum / openingDiffs.size,
-      middle = middleDiffs.nonEmpty option (middleDiffs.sum / middleDiffs.size),
-      end = endDiffs.nonEmpty option (endDiffs.sum / endDiffs.size)
-    )
-  }
 }

@@ -10,11 +10,11 @@ object PovToEntry {
     initialFen: Option[String],
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
-    accuracy: Option[lila.analyse.Accuracy.DividedAccuracy],
+    // accuracy: Option[lila.analyse.Accuracy.DividedAccuracy],
     moveAccuracy: Option[List[Int]])
 
-  def apply(game: Game, userId: String): Fu[Option[Entry]] =
-    enrich(game, userId) map (_ flatMap convert)
+  def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
+    enrich(game, userId) map (_ flatMap convert toRight game)
 
   private def enrich(game: Game, userId: String): Fu[Option[RichPov]] =
     lila.game.Pov.ofUserId(game, userId) ?? { pov =>
@@ -31,10 +31,38 @@ object PovToEntry {
               initialFen = fen,
               analysis = an,
               division = division,
-              accuracy = an.flatMap { lila.analyse.Accuracy(pov, _, division) },
               moveAccuracy = an.map { lila.analyse.Accuracy.diffsList(pov, _) }
             ).some
         }
+    }
+
+  private def makeCpl(from: RichPov): Option[Grouped[Numbers]] =
+    from.moveAccuracy.filter(_.nonEmpty) flatMap { diffs =>
+      val div = from.division
+      val openingDiffs = div.middle.fold(diffs)(m => diffs.take(m / 2))
+      val middleDiffs = div.middle.?? { m =>
+        div.end.fold(diffs.drop(m / 2)) { e =>
+          diffs.drop(m / 2).take((e - m) / 2)
+        }
+      }
+      val endDiffs = div.end.?? { e =>
+        diffs.drop(e / 2)
+      }
+      val byPhaseOpt = for {
+        opening <- Numbers(openingDiffs)
+        all <- Numbers(diffs)
+      } yield ByPhase(
+        opening = opening,
+        middle = Numbers(middleDiffs),
+        end = Numbers(endDiffs),
+        all = all)
+      for {
+        byPhase <- byPhaseOpt
+      } yield Grouped(
+        byPhase,
+        ByMovetime(Nil),
+        ByPieceRole(none, none, none, none, none, none),
+        ByPositionQuality(none, none, none, none, none))
     }
 
   private def convert(from: RichPov): Option[Entry] = for {
@@ -53,7 +81,7 @@ object PovToEntry {
     opponent = Opponent(
       rating = opRating,
       strength = RelativeStrength(opRating - myRating)),
-    cpl = none,
+    cpl = makeCpl(from),
     date = from.pov.game.createdAt)
   // cpl: Option[Grouped[Numbers]],
   // movetime: Grouped[Numbers],

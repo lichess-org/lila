@@ -84,12 +84,15 @@ case class Grouped[A](
   byPieceRole: ByPieceRole[A],
   byPositionQuality: ByPositionQuality[A])
 
-case class Numbers(size: Int, mean: Int, median: Double, sd: Double)
+case class Numbers(size: Int, mean: Double, median: Double, deviation: Double)
 
 object Numbers {
-  def apply(nbs: List[Int]): Option[Numbers] = nbs match {
-    case Nil => none
-    case xs  => Numbers(nbs.size, 0, 0, 0).some
+  def apply(nbs: List[Int]): Option[Numbers] = nbs.toNel map { nel =>
+    Numbers(
+      size = nel.size,
+      mean = Math.mean(nel),
+      median = Math.median(nel),
+      deviation = Math.deviation(nel))
   }
 }
 

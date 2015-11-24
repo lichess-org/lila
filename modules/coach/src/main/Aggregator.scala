@@ -52,15 +52,15 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
         .sort(Query.sortChronological)
         .cursor[Game]()
         .enumerate(maxGames, stopOnError = true) &>
-        Enumeratee.mapM[lila.game.Game].apply[Option[Entry]] { game =>
-          PovToEntry(game.pp, user.id).thenPp.addFailureEffect { e =>
+        Enumeratee.mapM[lila.game.Game].apply[Either[Game, Entry]] { game =>
+          PovToEntry(game, user.id).addFailureEffect { e =>
             println(e)
             println(e.getStackTrace)
           }
         } |>>>
-        Iteratee.foldM[Option[Entry], Unit](()) {
-          case (_, Some(e)) => storage insert e.pp
-          case (comp, _)    => logwarn("[coach computeFrom] invalid game"); funit
+        Iteratee.foldM[Either[Game, Entry], Unit](()) {
+          case (_, Right(e)) => storage insert e
+          case (_, Left(g))  => logwarn(s"[coach] invalid game http://l.org/${g.id}"); funit
         }
     }
 }
