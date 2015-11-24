@@ -53,7 +53,7 @@ object PovToEntry {
     opponent = Opponent(
       rating = opRating,
       strength = RelativeStrength(opRating - myRating)),
-    cpl = ???,
+    cpl = none,
     date = from.pov.game.createdAt)
   // cpl: Option[Grouped[Numbers]],
   // movetime: Grouped[Numbers],

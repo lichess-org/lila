@@ -53,10 +53,13 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
         .cursor[Game]()
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.mapM[lila.game.Game].apply[Option[Entry]] { game =>
-          PovToEntry(game, user.id)
+          PovToEntry(game.pp, user.id).thenPp.addFailureEffect { e =>
+            println(e)
+            println(e.getStackTrace)
+          }
         } |>>>
         Iteratee.foldM[Option[Entry], Unit](()) {
-          case (_, Some(e)) => storage insert e
+          case (_, Some(e)) => storage insert e.pp
           case (comp, _)    => logwarn("[coach computeFrom] invalid game"); funit
         }
     }

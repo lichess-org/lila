@@ -100,6 +100,10 @@
           <h2>Let other players message you</h2>
           @base.radios(form("message"), translatedMessageChoices)
         </li>
+        <li>
+          <h2>Share your coach data</h2>
+          @base.radios(form("coachShare"), lila.pref.Pref.CoachShare.choices)
+        </li>
       </ul>
       }
       <p class="saved text none" data-icon="E">@trans.yourPreferencesHaveBeenSaved()</p>
