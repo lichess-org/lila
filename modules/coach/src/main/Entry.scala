@@ -5,23 +5,31 @@ import lila.rating.PerfType
 import org.joda.time.DateTime
 
 case class Entry(
-  version: Int,
-  userId: String,
-  gameId: String,
-  color: Color,
-  perf: PerfType,
-  eco: Ecopening,
-  opponent: Opponent,
-  cpl: Option[Grouped[Numbers]],
-  movetime: Grouped[Numbers],
-  luck: Option[Grouped[Ratio]],
-  opportunism: Option[Grouped[Ratio]],
-  nbMoves: Grouped[Int],
-  result: Result,
-  status: Status,
-  endPhase: Phase,
-  ratingDiff: Int,
-  date: DateTime)
+    _id: String,
+    version: Int,
+    userId: String,
+    gameId: String,
+    color: Color,
+    perf: PerfType,
+    eco: Option[Ecopening],
+    opponent: Opponent,
+    cpl: Option[Grouped[Numbers]],
+    // movetime: Grouped[Numbers],
+    // luck: Option[Grouped[Ratio]],
+    // opportunism: Option[Grouped[Ratio]],
+    // nbMoves: Grouped[Int],
+    // result: Result,
+    // status: Status,
+    // finalPhase: Phase,
+    // ratingDiff: Int,
+    date: DateTime) {
+
+  def id = _id
+}
+
+object Entry {
+  val currentVersion = 1
+}
 
 case class Opponent(rating: Int, strength: RelativeStrength)
 
@@ -46,9 +54,16 @@ object RelativeStrength {
   object MuchWeaker extends RelativeStrength(10)
   object Weaker extends RelativeStrength(20)
   object Equal extends RelativeStrength(30)
-  object Strong extends RelativeStrength(40)
+  object Stronger extends RelativeStrength(40)
   object MuchStronger extends RelativeStrength(50)
-  val all = List(MuchWeaker, Weaker, Equal, Strong, MuchStronger)
+  val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
+  def apply(diff: Int) = diff match {
+    case d if d < -300 => MuchWeaker
+    case d if d < -100 => Weaker
+    case d if d > 100  => Stronger
+    case d if d > 300  => MuchStronger
+    case _             => Equal
+  }
 }
 
 case class ByMovetime[A](values: List[A])

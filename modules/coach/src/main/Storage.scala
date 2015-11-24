@@ -20,5 +20,25 @@ final class Storage(coll: Coll) {
   private val sortChronological = BSONDocument("date" -> 1)
   private val sortAntiChronological = BSONDocument("date" -> -1)
 
-  def insert(e: Entry) = coll.insert(e).void
+  private def fetchRange(userId: String, range: Range): Fu[List[Entry]] =
+    coll.find(selectUserId(userId))
+      .skip(range.min)
+      .sort(sortChronological)
+      .cursor[Entry]()
+      .collect[List](range.size)
+
+  def fetchFirst(userId: String): Fu[Option[Entry]] =
+    coll.find(selectUserId(userId)).sort(sortChronological).one[Entry]
+
+  def fetchLast(userId: String): Fu[Option[Entry]] =
+    coll.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry]
+
+  def count(userId: String): Fu[Int] =
+    coll.count(selectUserId(userId).some)
+
+  def insert(p: Entry) = coll.insert(p).void
+
+  def remove(p: Entry) = coll.remove(selectId(p.id)).void
+
+  def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
 }
