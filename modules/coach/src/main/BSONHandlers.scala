@@ -35,13 +35,16 @@ private[coach] object BSONHandlers {
     def read(b: BSONInteger) = Phase.all.find(_.id == b.value) err s"Invalid phase ${b.value}"
     def write(e: Phase) = BSONInteger(e.id)
   }
-  private implicit def NumbersHandler = new BSONHandler[BSONDocument, Numbers] {
-    def read(b: BSONDocument) = Numbers(
-      size = b.getAs[Int]("s") err s"Missing numbers size",
-      mean = b.getAs[Double]("m") err s"Missing numbers mean",
-      median = b.getAs[Double]("n") err s"Missing numbers median",
-      deviation = b.getAs[Double]("d") err s"Missing numbers deviation")
-    def write(b: Numbers) = BSONDocument(
+  private implicit def NumbersHandler = new BSONHandler[BSONValue, Numbers] {
+    def read(b: BSONValue) = b match {
+      case d: BSONDocument => Numbers(
+        size = d.getAs[Int]("s") err s"Missing numbers size",
+        mean = d.getAs[Double]("m") err s"Missing numbers mean",
+        median = d.getAs[Double]("n") err s"Missing numbers median",
+        deviation = d.getAs[Double]("d") err s"Missing numbers deviation")
+      case _ => Numbers.empty
+    }
+    def write(b: Numbers) = if (b.isEmpty) BSONBoolean(false) else BSONDocument(
       "s" -> b.size,
       "m" -> b.mean,
       "n" -> b.median,

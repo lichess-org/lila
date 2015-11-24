@@ -11,7 +11,6 @@ object PovToEntry {
     initialFen: Option[String],
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
-    // accuracy: Option[Accuracy.DividedAccuracy],
     moveAccuracy: Option[List[Int]])
 
   def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
@@ -21,19 +20,17 @@ object PovToEntry {
     lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
         (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
-          case (fen, an) =>
-            val division = chess.Replay.boards(
+          case (fen, an) => RichPov(
+            pov = pov,
+            initialFen = fen,
+            analysis = an,
+            division = chess.Replay.boards(
               moveStrs = game.pgnMoves,
               initialFen = fen,
               variant = game.variant
-            ).toOption.fold(chess.Division.empty)(chess.Divider.apply)
-            RichPov(
-              pov = pov,
-              initialFen = fen,
-              analysis = an,
-              division = division,
-              moveAccuracy = an.map { Accuracy.diffsList(pov, _) }
-            ).some
+            ).toOption.fold(chess.Division.empty)(chess.Divider.apply),
+            moveAccuracy = an.map { Accuracy.diffsList(pov, _) }
+          ).some
         }
     }
 
@@ -61,7 +58,7 @@ object PovToEntry {
         byPhase <- byPhaseOpt
       } yield Grouped(
         byPhase,
-        ByMovetime(Vector.empty),
+        ByMovetime.numbers(from.pov.game.moveTimes(from.pov.color) zip diffs),
         ByPieceRole.empty[Numbers],
         none)
     }

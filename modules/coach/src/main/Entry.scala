@@ -70,13 +70,26 @@ object RelativeStrength {
 case class ByMovetime[A](values: Vector[A])
 
 object ByMovetime {
-  val uppers = List(10, 20, 30, 50, 100, 200, 600, Int.MaxValue)
+  type Tenths = Int
+  val uppers = List[Tenths](10, 20, 30, 50, 100, 200, 600, Int.MaxValue)
   val vectorSize = uppers.size
-  def accumulate(data: List[Int]): ByMovetime[Int] = ByMovetime {
+  val indicesVector = 0.to(vectorSize - 1).toVector
+  private def upperOf(mt: Tenths) = uppers.indexWhere(_ >= mt)
+  def accumulate(data: List[Tenths]): ByMovetime[Int] = ByMovetime {
     data.foldLeft(Vector.fill(vectorSize)(0)) {
       case (acc, time) =>
-        val index = uppers.indexWhere(_ >= time)
+        val index = upperOf(time)
         acc.updated(index, acc(index) + 1)
+    }
+  }
+  def numbers(data: List[(Tenths, Int)]): ByMovetime[Numbers] = ByMovetime {
+    val hash = data.foldLeft(Map.empty[Tenths, List[Int]]) {
+      case (acc, (time, v)) =>
+        val index = upperOf(time)
+        acc.updated(index, v :: ~acc.get(index))
+    }
+    indicesVector.map { i =>
+      hash get i flatMap Numbers.apply getOrElse Numbers.empty
     }
   }
 }
@@ -144,9 +157,13 @@ case class Grouped[A](
   byPieceRole: ByPieceRole[A],
   byPositionQuality: Option[ByPositionQuality[A]])
 
-case class Numbers(size: Int, mean: Double, median: Double, deviation: Double)
+case class Numbers(size: Int, mean: Double, median: Double, deviation: Double) {
+
+  def isEmpty = size == 0
+}
 
 object Numbers {
+  def empty = Numbers(0, 0, 0, 0)
   def apply(nbs: List[Int]): Option[Numbers] = nbs.toNel map { nel =>
     Numbers(
       size = nel.size,
