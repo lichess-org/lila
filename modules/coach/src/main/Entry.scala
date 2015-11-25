@@ -36,7 +36,6 @@ case class Move(
   eval: Option[Int], // before the move was played, relative to player
   mate: Option[Int], // before the move was played, relative to player
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
-  // nag: Option[Nag],
   opportunism: Boolean)
 
 object Move {
@@ -44,19 +43,6 @@ object Move {
 }
 
 case class Opponent(rating: Int, strength: RelativeStrength)
-
-// sealed abstract class Nag(val id: Int)
-// object Nag {
-//   object Inaccuracy extends Nag(1)
-//   object Mistake extends Nag(2)
-//   object Blunder extends Nag(3)
-//   val all = List(Inaccuracy, Mistake, Blunder)
-//   def byCpl(cpl: Int): Option[Nag] =
-//     if (cpl >= 300) Some(Blunder)
-//     else if (cpl >= 100) Some(Mistake)
-//     else if (cpl >= 50) Some(Inaccuracy)
-//     else None
-// }
 
 sealed abstract class Result(val id: Int)
 object Result {

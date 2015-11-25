@@ -36,10 +36,6 @@ private[coach] object BSONHandlers {
     def read(b: BSONInteger) = Phase.all.find(_.id == b.value) err s"Invalid phase ${b.value}"
     def write(e: Phase) = BSONInteger(e.id)
   }
-  // private implicit val NagBSONHandler = new BSONHandler[BSONInteger, Nag] {
-  //   def read(b: BSONInteger) = Nag.all.find(_.id == b.value) err s"Invalid nag ${b.value}"
-  //   def write(e: Nag) = BSONInteger(e.id)
-  // }
   private implicit val RoleBSONHandler = new BSONHandler[BSONString, Role] {
     def read(b: BSONString) = Role.allByForsyth get b.value.head err s"Invalid role ${b.value}"
     def write(e: Role) = BSONString(e.forsyth.toString)
@@ -52,7 +48,6 @@ private[coach] object BSONHandlers {
       eval = r.intO("e"),
       mate = r.intO("m"),
       cpl = r.intO("c"),
-      // nag = r.getO[Nag]("n"),
       opportunism = r.boolD("o"))
     def writes(w: Writer, b: Move) = BSONDocument(
       "p" -> b.phase,
@@ -61,7 +56,6 @@ private[coach] object BSONHandlers {
       "e" -> b.eval,
       "m" -> b.mate,
       "c" -> b.cpl,
-      // "n" -> b.nag,
       "o" -> w.boolO(b.opportunism))
   }
   private implicit val OpponentBSONHandler = Macros.handler[Opponent]
