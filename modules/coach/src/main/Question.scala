@@ -2,8 +2,12 @@ package lila.coach
 
 case class Question(
   yAxis: Metric,
-  xAxis: Dimension,
-  filters: List[Dimension])
+  xAxis: Dimension[_],
+  filters: List[Filter[_]])
+
+case class Filter[A](
+  dimension: Dimension[A],
+  selected: List[A])
 
 case class Answer(
   question: Question,
