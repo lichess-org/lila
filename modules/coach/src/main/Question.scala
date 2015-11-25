@@ -1,18 +1,18 @@
 package lila.coach
 
-case class Question(
+case class Question[X, Dim <: Dimension[X]](
   yAxis: Metric,
-  xAxis: Dimension[_],
+  xAxis: Dim,
   filters: List[Filter[_]])
 
 case class Filter[A](
   dimension: Dimension[A],
   selected: List[A])
 
-case class Answer(
-  question: Question,
-  values: List[Value])
+case class Answer[X, Dim <: Dimension[X]](
+  question: Question[X, Dim],
+  values: List[Value[X]])
 
-case class Value(
-  name: String,
+case class Value[X](
+  x: X,
   value: Double)
