@@ -13,12 +13,14 @@ final class Env(
     areFriends: (String, String) => Fu[Boolean],
     lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
-    db: lila.db.Env) {
+    lifecycle: play.api.inject.ApplicationLifecycle) {
 
   private val settings = new {
     val CollectionEntry = config getString "collection.entry"
   }
   import settings._
+
+  private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
 
   // private lazy val jsonWriters = new JSONWriters(lightUser = lightUser)
 
@@ -41,5 +43,5 @@ object Env {
     areFriends = lila.relation.Env.current.api.areFriends,
     lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
-    db = lila.db.Env.current)
+    lifecycle = lila.common.PlayApp.lifecycle)
 }
