@@ -37,7 +37,7 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
 
   private def gameQuery(user: User) = Query.user(user.id) ++ Query.rated ++ Query.finished
   // private val maxGames = 1 * 10
-  private val maxGames = 5 * 1000
+  private val maxGames = 10 * 1000
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
@@ -50,7 +50,9 @@ final class Aggregator(storage: Storage, sequencer: ActorRef) {
   private def computeFrom(user: User, from: DateTime): Funit =
     lila.common.Chronometer.log(s"coach aggregator:${user.username}") {
       loginfo(s"[coach] start aggregating ${user.username} games")
-      pimpQB($query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from)))))
+      val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
+      // val query = $query(gameQuery(user) ++ Query.analysed(true) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
+      pimpQB(query)
         .sort(Query.sortChronological)
         .cursor[Game]()
         .enumerate(maxGames, stopOnError = true) &>

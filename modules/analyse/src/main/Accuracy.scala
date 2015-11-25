@@ -24,11 +24,13 @@ object Accuracy {
       case (list, _) => list
     }.reverse
 
-  def colorInfos(pov: Pov, analysis: Analysis): List[Info] = {
-    val pivot = if (pov.color == pov.game.startColor) 0 else 1
-    analysis.infos.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
-    }
+  def prevColorInfos(pov: Pov, analysis: Analysis): List[Info] = {
+    (pov.color == pov.game.startColor).fold(
+      Info.start(pov.game.startedAtTurn) :: analysis.infos,
+      analysis.infos
+    ).zipWithIndex.collect {
+        case (e, i) if (i % 2) == 0 => e
+      }
   }
 
   def mean(pov: Pov, analysis: Analysis): Option[Int] = {
