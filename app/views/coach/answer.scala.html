@@ -1,0 +1,6 @@
+@(answer: lila.coach.Answer[_, _], u: User)(implicit ctx: Context)
+
+@coach.layout(u, title = s"${u.username} coach") {
+
+@answer
+}

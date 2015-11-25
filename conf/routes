@@ -44,6 +44,7 @@ GET   /rel/blocks                      controllers.Relation.blocks
 
 # Coach
 POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
+GET   /coach/:username                 controllers.Coach.ask(username: String)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)

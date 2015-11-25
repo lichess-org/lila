@@ -36,7 +36,7 @@ final class CoachApi(coll: Coll) {
       }
   }
 
-  private val unwindMoves = Unwind("$moves").some
+  private val unwindMoves = Unwind("moves").some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
 

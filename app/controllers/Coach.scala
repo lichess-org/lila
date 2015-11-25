@@ -16,6 +16,19 @@ object Coach extends LilaController {
     }
   }
 
+  def ask(username: String) = Open { implicit ctx =>
+    import lila.coach.{ Question, Dimension, Metric }
+    Accessible(username) { user =>
+      env.api.ask(Question[lila.coach.Ecopening, Dimension[lila.coach.Ecopening]](
+        xAxis = Dimension.Opening: Dimension[lila.coach.Ecopening],
+        yAxis = Metric.Movetime,
+        filters = Nil
+      ), user) map { answer =>
+        Ok(html.coach.answer(answer, user))
+      }
+    }
+  }
+
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     lila.user.UserRepo named username flatMap {
       case None => notFound
