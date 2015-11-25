@@ -12,35 +12,35 @@ import lila.rating.PerfType
 
 private[coach] object BSONHandlers {
 
-  private implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, Color] {
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, Color] {
     def read(b: BSONBoolean) = Color(b.value)
     def write(c: Color) = BSONBoolean(c.white)
   }
-  private implicit val PerfTypeBSONHandler = new BSONHandler[BSONInteger, PerfType] {
+  implicit val PerfTypeBSONHandler = new BSONHandler[BSONInteger, PerfType] {
     def read(b: BSONInteger) = PerfType.byId get b.value err s"Invalid perf type id ${b.value}"
     def write(p: PerfType) = BSONInteger(p.id)
   }
-  private implicit val EcopeningBSONHandler = new BSONHandler[BSONString, Ecopening] {
+  implicit val EcopeningBSONHandler = new BSONHandler[BSONString, Ecopening] {
     def read(b: BSONString) = EcopeningDB.allByEco get b.value err s"Invalid ECO ${b.value}"
     def write(e: Ecopening) = BSONString(e.eco)
   }
-  private implicit val RelativeStrengthBSONHandler = new BSONHandler[BSONInteger, RelativeStrength] {
+  implicit val RelativeStrengthBSONHandler = new BSONHandler[BSONInteger, RelativeStrength] {
     def read(b: BSONInteger) = RelativeStrength.all.find(_.id == b.value) err s"Invalid relative strength ${b.value}"
     def write(e: RelativeStrength) = BSONInteger(e.id)
   }
-  private implicit val ResultBSONHandler = new BSONHandler[BSONInteger, Result] {
+  implicit val ResultBSONHandler = new BSONHandler[BSONInteger, Result] {
     def read(b: BSONInteger) = Result.all.find(_.id == b.value) err s"Invalid result ${b.value}"
     def write(e: Result) = BSONInteger(e.id)
   }
-  private implicit val PhaseBSONHandler = new BSONHandler[BSONInteger, Phase] {
+  implicit val PhaseBSONHandler = new BSONHandler[BSONInteger, Phase] {
     def read(b: BSONInteger) = Phase.all.find(_.id == b.value) err s"Invalid phase ${b.value}"
     def write(e: Phase) = BSONInteger(e.id)
   }
-  private implicit val RoleBSONHandler = new BSONHandler[BSONString, Role] {
+  implicit val RoleBSONHandler = new BSONHandler[BSONString, Role] {
     def read(b: BSONString) = Role.allByForsyth get b.value.head err s"Invalid role ${b.value}"
     def write(e: Role) = BSONString(e.forsyth.toString)
   }
-  private implicit def MoveHandler = new BSON[Move] {
+  implicit def MoveHandler = new BSON[Move] {
     def reads(r: Reader) = Move(
       phase = r.get[Phase]("p"),
       tenths = r.get[Int]("t"),
@@ -58,6 +58,6 @@ private[coach] object BSONHandlers {
       "c" -> b.cpl,
       "o" -> w.boolO(b.opportunism))
   }
-  private implicit val OpponentBSONHandler = Macros.handler[Opponent]
+  implicit val OpponentBSONHandler = Macros.handler[Opponent]
   implicit val EntryBSONHandler = Macros.handler[Entry]
 }

@@ -13,12 +13,8 @@ import lila.user.UserRepo
 
 final class Storage(coll: Coll) {
 
+  import Storage._
   import BSONHandlers._
-
-  private def selectId(id: String) = BSONDocument("_id" -> id)
-  private def selectUserId(id: String) = BSONDocument("userId" -> id)
-  private val sortChronological = BSONDocument("date" -> 1)
-  private val sortAntiChronological = BSONDocument("date" -> -1)
 
   private def fetchRange(userId: String, range: Range): Fu[List[Entry]] =
     coll.find(selectUserId(userId))
@@ -41,4 +37,15 @@ final class Storage(coll: Coll) {
   def remove(p: Entry) = coll.remove(selectId(p.id)).void
 
   def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
+}
+
+object Storage {
+  def selectId(id: String) = BSONDocument("_id" -> id)
+  def selectUserId(id: String) = BSONDocument("userId" -> id)
+  val sortChronological = BSONDocument("date" -> 1)
+  val sortAntiChronological = BSONDocument("date" -> -1)
+
+  def combineDocs(docs: List[BSONDocument]) = docs.foldLeft(BSONDocument()) {
+    case (acc, doc) => acc ++ doc
+  }
 }

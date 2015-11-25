@@ -17,7 +17,8 @@ trait Types {
 
   type Sort = Seq[(String, api.SortOrder)]
 
-  type BSONWrites[A] = BSONWriter[A, BSONValue]
+  type BSONValueReader[A] = BSONReader[_ <: BSONValue, A]
+  type BSONValueHandler[A] = BSONHandler[_ <: BSONValue, A]
 }
 
 trait Implicits extends Types {
