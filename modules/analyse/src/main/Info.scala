@@ -18,7 +18,7 @@ case class Info(
 
   def encode: String = List(
     best ?? (_.keysPiotr),
-    variation mkString " ",
+    variation take Info.LineMaxPlies mkString " ",
     mate ?? (_.toString),
     score ?? (_.centipawns.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
@@ -44,6 +44,8 @@ case class Info(
 }
 
 object Info {
+
+  val LineMaxPlies = 16
 
   private val separator = ","
   private val listSeparator = ";"
