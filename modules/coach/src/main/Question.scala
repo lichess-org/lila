@@ -15,4 +15,4 @@ case class Answer[X, Dim <: Dimension[X]](
 
 case class Value[X](
   x: X,
-  value: Double)
+  y: Double)
