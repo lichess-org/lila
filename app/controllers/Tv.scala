@@ -39,8 +39,9 @@ object Tv extends LilaController {
           Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             Env.game.crosstableApi(game) zip
             Env.tv.tv.getChampions map {
-              case ((data, cross), champions) =>
+              case ((data, cross), champions) => NoCache {
                 Ok(html.tv.index(channel, champions, pov, data, cross, flip))
+              }
             }
         },
         api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
@@ -56,8 +57,9 @@ object Tv extends LilaController {
   private def lichessGames(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
     Env.tv.tv.getChampions zip
       Env.tv.tv.getGames(channel, 9) map {
-        case (champs, games) =>
+        case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
+        }
       }
 
   def streamIn(id: String) = Open { implicit ctx =>
