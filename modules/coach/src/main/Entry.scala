@@ -46,6 +46,7 @@ object Result {
   object Draw extends Result(2, "Draw")
   object Loss extends Result(3, "Defeat")
   val all = List(Win, Draw, Loss)
+  val byId = all map { p => (p.id, p) } toMap
 }
 
 sealed abstract class Phase(val id: Int, val name: String)
@@ -54,6 +55,7 @@ object Phase {
   object Middle extends Phase(2, "Middlegame")
   object End extends Phase(3, "Endgame")
   val all = List(Opening, Middle, End)
+  val byId = all map { p => (p.id, p) } toMap
   def of(div: chess.Division, ply: Int): Phase =
     div.middle.fold[Phase](Opening) {
       case m if m > ply => Opening
@@ -72,6 +74,7 @@ object RelativeStrength {
   object Stronger extends RelativeStrength(40, "Stronger")
   object MuchStronger extends RelativeStrength(50, "Much stronger")
   val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
+  val byId = all map { p => (p.id, p) } toMap
   def apply(diff: Int) = diff match {
     case d if d < -300 => MuchWeaker
     case d if d < -100 => Weaker

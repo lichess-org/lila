@@ -21,12 +21,13 @@ module.exports = function(env) {
       url: '/coach/data/' + this.userId,
       data: {
         metric: this.vm.metric.key,
-        dimension: this.vm.dimension.key
+        dimension: this.vm.dimension.key,
+        filters: this.vm.filters
       }
     }).then(function(answer) {
-      console.log(answer);
       this.vm.answer = answer;
     }.bind(this));
+    m.redraw();
   }.bind(this));
 
   this.validCombination = function(dimension, metric) {
@@ -47,6 +48,11 @@ module.exports = function(env) {
     this.vm.dimension = this.ui.dimensions.filter(function(x) {
       return x.key === key;
     })[0];
+    askQuestion();
+  }.bind(this);
+
+  this.setFilter = function(dimensionKey, valueKeys) {
+    this.vm.filters[dimensionKey] = valueKeys;
     askQuestion();
   }.bind(this);
 

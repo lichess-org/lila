@@ -7,12 +7,17 @@ module.exports = {
       ctrl.ui.dimensions.map(function(dimension) {
         return m('select', {
           multiple: true,
-          config: function(e) {
+          config: function(e, isUpdate) {
+            if (isUpdate) return;
             $(e).multipleSelect({
               placeholder: dimension.name,
               width: '240px',
               selectAll: false,
-              filter: dimension.key === 'opening'
+              filter: dimension.key === 'opening',
+              // single: dimension.key === 'color',
+              onClick: function() {
+                ctrl.setFilter(dimension.key, $(e).multipleSelect("getSelects"));
+              }
             });
           }
         }, dimension.values.map(function(value) {

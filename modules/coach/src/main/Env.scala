@@ -24,8 +24,6 @@ final class Env(
 
   lazy val share = new Share(getPref, areFriends)
 
-  lazy val dataForm = new DataForm
-
   lazy val jsonView = new JsonView
 
   private lazy val storage = new Storage(coll = db(CollectionEntry))

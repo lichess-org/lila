@@ -32,5 +32,5 @@ object Metric {
   case object NbMoves extends Metric("nbMoves", "Number of moves", Move, Count)
 
   val all = List(MeanCpl, Movetime, RatingDiff, NbMoves)
-  def byKey(key: String) = all.find(_.key == key)
+  val byKey = all map { p => (p.key, p) } toMap
 }

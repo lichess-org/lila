@@ -3,7 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import play.api.libs.json.Json
-import play.api.mvc.Result
+import play.api.mvc._
 import views._
 
 object Coach extends LilaController {
@@ -24,18 +24,17 @@ object Coach extends LilaController {
     }
   }
 
-  def json(username: String) = OpenBody { implicit ctx =>
+  def json(username: String) = OpenBody(BodyParsers.parse.json) { implicit ctx =>
+    import lila.coach.JsonQuestion, JsonQuestion._
     Accessible(username) { user =>
-      implicit val req = ctx.body
-      FormFuResult(env.dataForm.question)(
-        _ => fuccess(Json.obj("error" -> "bad request"))
-      ) {
-          _.question.fold(fuccess(BadRequest(Json.obj("error" -> "bad request")))) { q =>
-            env.api.ask(q, user) map
-              lila.coach.Chart.fromAnswer map
-              env.jsonView.chart.apply map { Ok(_) }
-          }
+      ctx.body.body.validate[JsonQuestion].fold(
+        err => BadRequest(Json.obj("error" -> err.toString)).fuccess,
+        qJson => qJson.pp.question.fold(BadRequest.fuccess) { q =>
+          env.api.ask(q, user) map
+            lila.coach.Chart.fromAnswer map
+            env.jsonView.chart.apply map { Ok(_) }
         }
+      )
     }
   }
 

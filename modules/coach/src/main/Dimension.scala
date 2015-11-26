@@ -46,7 +46,7 @@ object Dimension {
     "pieceRole", "Piece moved", "moves.r", Move, _.name)
 
   val all = List(Perf, Phase, Result, Color, Opening, OpponentStrength, PieceRole)
-  def byKey(key: String) = all.find(_.key == key)
+  val byKey = all map { p => (p.key, p) } toMap
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
     case Perf             => PerfType.nonPuzzle
@@ -56,6 +56,16 @@ object Dimension {
     case Opening          => EcopeningDB.all
     case OpponentStrength => RelativeStrength.all
     case PieceRole        => chess.Role.all
+  }
+
+  def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
+    case Perf             => PerfType.byKey get key
+    case Phase            => parseIntOption(key) flatMap lila.coach.Phase.byId.get
+    case Result           => parseIntOption(key) flatMap lila.coach.Result.byId.get
+    case Color            => chess.Color(key)
+    case Opening          => EcopeningDB.allByEco get key
+    case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
+    case PieceRole        => chess.Role.all.find(_.name == key)
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
