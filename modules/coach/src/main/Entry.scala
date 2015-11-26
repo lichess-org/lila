@@ -44,19 +44,19 @@ object Move {
 
 case class Opponent(rating: Int, strength: RelativeStrength)
 
-sealed abstract class Result(val id: Int)
+sealed abstract class Result(val id: Int, val name: String)
 object Result {
-  object Win extends Result(1)
-  object Draw extends Result(2)
-  object Loss extends Result(3)
+  object Win extends Result(1, "Victory")
+  object Draw extends Result(2, "Draw")
+  object Loss extends Result(3, "Defeat")
   val all = List(Win, Draw, Loss)
 }
 
-sealed abstract class Phase(val id: Int)
+sealed abstract class Phase(val id: Int, val name: String)
 object Phase {
-  object Opening extends Phase(1)
-  object Middle extends Phase(2)
-  object End extends Phase(3)
+  object Opening extends Phase(1, "Opening")
+  object Middle extends Phase(2, "Middlegame")
+  object End extends Phase(3, "Endgame")
   val all = List(Opening, Middle, End)
   def of(div: chess.Division, ply: Int): Phase =
     div.middle.fold[Phase](Opening) {
@@ -68,13 +68,13 @@ object Phase {
     }
 }
 
-sealed abstract class RelativeStrength(val id: Int)
+sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
-  object MuchWeaker extends RelativeStrength(10)
-  object Weaker extends RelativeStrength(20)
-  object Equal extends RelativeStrength(30)
-  object Stronger extends RelativeStrength(40)
-  object MuchStronger extends RelativeStrength(50)
+  object MuchWeaker extends RelativeStrength(10, "Much weaker")
+  object Weaker extends RelativeStrength(20, "Weaker")
+  object Equal extends RelativeStrength(30, "Equal")
+  object Stronger extends RelativeStrength(40, "Strong")
+  object MuchStronger extends RelativeStrength(50, "Much stronger")
   val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
   def apply(diff: Int) = diff match {
     case d if d < -300 => MuchWeaker

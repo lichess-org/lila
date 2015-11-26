@@ -10,9 +10,9 @@ final class CoachApi(coll: Coll) {
   import Storage._
   import coll.BatchCommands.AggregationFramework._
 
-  def ask[X, Dim <: Dimension[X]](
-    question: Question[X, Dim],
-    user: User): Fu[Answer[X, Dim]] = {
+  def ask[X](
+    question: Question[X],
+    user: User): Fu[Answer[X]] = {
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })

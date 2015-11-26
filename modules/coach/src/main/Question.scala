@@ -1,7 +1,7 @@
 package lila.coach
 
-case class Question[X, Dim <: Dimension[X]](
-  xAxis: Dim,
+case class Question[X](
+  xAxis: Dimension[X],
   yAxis: Metric,
   filters: List[Filter[_]])
 
@@ -18,8 +18,8 @@ case class Filter[A](
   }
 }
 
-case class Answer[X, Dim <: Dimension[X]](
-  question: Question[X, Dim],
+case class Answer[X](
+  question: Question[X],
   clusters: List[Cluster[X]])
 
 case class Cluster[X](

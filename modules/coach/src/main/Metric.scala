@@ -17,4 +17,7 @@ object Metric {
   case object RatingDiff extends Metric("ratingDiff", "Rating gain")
 
   case object NbMoves extends Metric("nbMoves", "Number of moves")
+
+  val all = List(MeanCpl, Movetime, RatingDiff, NbMoves)
+  def byKey(key: String) = all.find(_.key == key)
 }

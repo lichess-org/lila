@@ -21,7 +21,9 @@ case class Ecopening(
       case _               => ""
     }.mkString(" ")
 
-  override def toString = s"$eco $name ($moves)"
+  def ecoName = s"$eco $name"
+
+  override def toString = s"$ecoName ($moves)"
 }
 
 object Ecopening {

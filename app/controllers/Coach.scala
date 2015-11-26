@@ -19,8 +19,8 @@ object Coach extends LilaController {
   def ask(username: String) = Open { implicit ctx =>
     import lila.coach.{ Question, Dimension, Metric }
     Accessible(username) { user =>
-      env.api.ask(Question[lila.coach.Ecopening, Dimension[lila.coach.Ecopening]](
-        xAxis = Dimension.Opening: Dimension[lila.coach.Ecopening],
+      env.api.ask(Question[lila.coach.Ecopening](
+        xAxis = Dimension.Opening,
         yAxis = Metric.Movetime,
         filters = Nil
       ), user) map { answer =>
