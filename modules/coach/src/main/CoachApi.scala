@@ -28,7 +28,7 @@ final class CoachApi(coll: Coll) {
           for {
             id <- doc.getAs[X]("_id")(question.dimension.bson)
             value <- doc.getAs[BSONNumberLike]("v")
-            nb <- doc.getAs[Int]("nb")
+            nb <- doc.getAs[Int]("n")
           } yield Cluster(id,
             Point.Data(question.metric.name, value.toDouble),
             Point.Size(question.metric.position.tellNumber, nb))
@@ -44,7 +44,10 @@ final class CoachApi(coll: Coll) {
   private val unwindMoves = Unwind("moves").some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
-  private def count = "nb" -> SumValue(1)
+  private def group(d: Dimension[_], f: GroupFunction) = GroupField(d.dbKey)(
+    "v" -> f,
+    "n" -> SumValue(1)
+  ).some
 
   private def makePipeline(
     dimension: Dimension[_],
@@ -53,40 +56,20 @@ final class CoachApi(coll: Coll) {
     case M.MeanCpl => List(
       unwindMoves,
       moveMatcher,
-      GroupField(dimension.dbKey)(
-        "v" -> Avg("moves.c"),
-        count
-      ).some
-    // sortNb,
-    // limit(20)
+      group(dimension, Avg("moves.c"))
     )
     case M.NbMoves => List(
       unwindMoves,
       moveMatcher,
-      GroupField(dimension.dbKey)(
-        "v" -> SumValue(1),
-        count
-      ).some
-    // sortNb,
-    // limit(20)
+      group(dimension, SumValue(1))
     )
     case M.Movetime => List(
       unwindMoves,
       moveMatcher,
-      GroupField(dimension.dbKey)(
-        "v" -> GroupFunction("$avg", BSONDocument("$divide" -> BSONArray("$moves.t", 10))),
-        count
-      ).some
-    // sortNb,
-    // limit(20)
+      group(dimension, GroupFunction("$avg", BSONDocument("$divide" -> BSONArray("$moves.t", 10))))
     )
     case M.RatingDiff => List(
-      GroupField(dimension.dbKey)(
-        "v" -> Avg("ratingDiff"),
-        count
-      ).some
-    // sortNb,
-    // limit(20)
+      group(dimension, Avg("ratingDiff"))
     )
     // case M.Result => List(
     //   GroupField(x.dbKey)(
