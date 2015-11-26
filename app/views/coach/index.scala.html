@@ -2,6 +2,7 @@
 
 @moreJs = {
 @highchartsLatestTag
+@jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.coach${isProd??(".min")}.js")
 @embedJs {
 $(function() {
@@ -14,9 +15,14 @@ userId: "@u.id"
 }
 }
 
+@moreCss = {
+@cssTag("coach.css")
+@cssVendorTag("multiple-select/multiple-select.css")
+}
+
 @coach.layout(u,
 title = s"${u.username} coach",
 moreJs = moreJs,
-moreCss = cssTag("coach.css")) {
+moreCss = moreCss) {
 <div id="coach"></div>
 }

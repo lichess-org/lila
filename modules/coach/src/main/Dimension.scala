@@ -66,9 +66,9 @@ object Dimension {
       case Phase            => toJson(v.id, v.name)
       case Result           => toJson(v.id, v.name)
       case Color            => toJson(v.name, v.name)
-      case Opening          => toJson(v.eco, v.name)
+      case Opening          => toJson(v.eco, v.ecoName)
       case OpponentStrength => toJson(v.id, v.name)
-      case PieceRole        => toJson(v.name, v.name)
+      case PieceRole        => toJson(v.name, v.toString)
     }
   }
 }

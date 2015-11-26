@@ -35,9 +35,8 @@ final class CoachApi(coll: Coll) {
         }
         Answer(
           question,
-          clusters |>
-            postProcess(question) |>
-            postSort(question))
+          clusters |> postProcess(question) |> postSort(question)
+        )
       }
   }
 

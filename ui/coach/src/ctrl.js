@@ -9,6 +9,7 @@ module.exports = function(env) {
   this.vm = {
     metric: env.ui.metrics[0],
     dimension: env.ui.dimensions[0],
+    filters: {},
     answer: null
   };
 
