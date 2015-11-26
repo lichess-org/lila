@@ -38,10 +38,6 @@ case class Move(
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
   opportunism: Boolean)
 
-object Move {
-
-}
-
 case class Opponent(rating: Int, strength: RelativeStrength)
 
 sealed abstract class Result(val id: Int, val name: String)

@@ -1,0 +1,21 @@
+@(u: User, ui: String)(implicit ctx: Context)
+
+@moreJs = {
+@jsAt(s"compiled/lichess.coach${isProd??(".min")}.js")
+@embedJs {
+$(function() {
+LichessCoach(document.getElementById('coach'), {
+ui: @Html(ui),
+i18n: @jsI18n(),
+userId: "@u.id"
+});
+});
+}
+}
+
+@coach.layout(u,
+title = s"${u.username} coach",
+moreJs = moreJs,
+moreCss = cssTag("coach.css")) {
+<div id="coach"></div>
+}

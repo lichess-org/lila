@@ -6,6 +6,8 @@ private[coach] object EcopeningDB {
 
   val MAX_MOVES = 25
 
+  lazy val all = allByEco.values.toList
+
   lazy val allByFen: Map[FEN, Ecopening] = allByEco.map {
     case (_, opening) => opening.fen -> opening
   }

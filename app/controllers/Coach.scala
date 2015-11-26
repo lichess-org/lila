@@ -16,6 +16,14 @@ object Coach extends LilaController {
     }
   }
 
+  def index(username: String) = Open { implicit ctx =>
+    Accessible(username) { user =>
+      fuccess {
+        Ok(html.coach.index(user, env.jsonView.stringifiedUi))
+      }
+    }
+  }
+
   def ask(username: String) = Open { implicit ctx =>
     import lila.coach.{ Question, Dimension, Metric }
     Accessible(username) { user =>

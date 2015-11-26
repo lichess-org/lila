@@ -50,4 +50,23 @@ object Dimension {
 
   val all = List(Perf, Phase, Result, Color, Opening, OpponentStrength, PieceRole)
   def byKey(key: String) = all.find(_.key == key)
+
+  def valuesOf[X](d: Dimension[X]): List[X] = d match {
+    case Perf             => PerfType.nonPuzzle
+    case Phase            => lila.coach.Phase.all
+    case Result           => lila.coach.Result.all
+    case Color            => chess.Color.all
+    case Opening          => EcopeningDB.all
+    case OpponentStrength => RelativeStrength.all
+    case PieceRole        => chess.Role.all
+  }
+
+  def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
+    import play.api.libs.json._
+    d match {
+      case Perf  => Json.obj("key" -> v.key, "name" -> v.name)
+      case Phase => Json.obj("key" -> v.id, "name" -> v.name)
+      case _     => Json.obj()
+    }
+  }
 }

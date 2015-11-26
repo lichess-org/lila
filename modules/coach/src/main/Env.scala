@@ -22,11 +22,11 @@ final class Env(
 
   private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
 
-  // private lazy val jsonWriters = new JSONWriters(lightUser = lightUser)
-
   lazy val share = new Share(getPref, areFriends)
 
-  // lazy val jsonView = new JsonView(jsonWriters)
+  lazy val dataForm = new DataForm
+
+  lazy val jsonView = new JsonView
 
   private lazy val storage = new Storage(coll = db(CollectionEntry))
 
