@@ -1,6 +1,18 @@
 var m = require('mithril');
 
 function makeChart(el, data) {
+  var series = data.series.map(function(s, i) {
+    var c = {
+      name: s.name,
+      data: s.data,
+      yAxis: i,
+      type: 'column'
+    };
+    if (s.isSize) {
+      c.color = 'rgba(0,0,0,0.1)';
+    }
+    return c;
+  });
   $(el).highcharts({
     chart: {
       type: 'column',
@@ -19,37 +31,27 @@ function makeChart(el, data) {
       text: null
     },
     xAxis: {
-      categories: data.xAxis.categories
+      categories: data.xAxis.categories,
+      crosshair: true
     },
-    // yAxis: [{
-    //   lineWidth: 1,
-    //   gridLineWidth: 1
-    // }, {
-    //   opposite: true,
-    //   title: {
-    //     text: 'Seconds per move'
-    //   },
-    //   labels: {
-    //     formatter: absFormatter
-    //   },
-    //   lineWidth: 1,
-    //   gridLineWidth: 1
-    // }],
-    plotOptions: {
-      column: {
-        stacking: 'normal'
-      },
-      line: {
-        color: 'rgba(0,0,0,0.7)',
-        lineWidth: 1
-      }
-    },
-    series: data.series.map(function(s) {
+    yAxis: data.yAxis.map(function(a, i) {
       return {
-        name: s.name,
-        data: s.data
+        title: {
+          text: a.name
+        },
+        opposite: a.isSize
       };
     }),
+    plotOptions: {
+      // column: {
+      //   stacking: 'normal'
+      // },
+      // line: {
+      //   color: 'rgba(0,0,0,0.7)',
+      //   lineWidth: 1
+      // }
+    },
+    series: series,
     credits: {
       enabled: false
     },

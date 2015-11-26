@@ -69,7 +69,7 @@ object RelativeStrength {
   object MuchWeaker extends RelativeStrength(10, "Much weaker")
   object Weaker extends RelativeStrength(20, "Weaker")
   object Equal extends RelativeStrength(30, "Equal")
-  object Stronger extends RelativeStrength(40, "Strong")
+  object Stronger extends RelativeStrength(40, "Stronger")
   object MuchStronger extends RelativeStrength(50, "Much stronger")
   val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
   def apply(diff: Int) = diff match {

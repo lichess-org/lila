@@ -23,9 +23,24 @@ case class Answer[X](
   clusters: List[Cluster[X]])
 
 case class Cluster[X](
-  x: X,
-  points: List[Point])
+    x: X,
+    data: Point,
+    size: Point) {
 
-case class Point(
-  name: String,
-  y: Double)
+  def points = List(data, size)
+}
+
+sealed trait Point {
+  val name: String
+  val y: Double
+  val isSize: Boolean
+}
+object Point {
+  case class Data(name: String, y: Double) extends Point {
+    val isSize = false
+  }
+  case class Size(y: Double) extends Point {
+    val name = "Number of moves"
+    val isSize = true
+  }
+}

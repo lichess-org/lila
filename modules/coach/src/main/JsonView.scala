@@ -32,6 +32,7 @@ final class JsonView {
 
   object chart {
     private implicit val xAxisWrites = Json.writes[Chart.Xaxis]
+    private implicit val yAxisWrites = Json.writes[Chart.Yaxis]
     private implicit val SerieWrites = Json.writes[Chart.Serie]
     private implicit val ChartWrites = Json.writes[Chart]
 

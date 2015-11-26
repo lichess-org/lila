@@ -28,9 +28,9 @@ final class CoachApi(coll: Coll) {
             id <- doc.getAs[X]("_id")(question.xAxis.bson)
             value <- doc.getAs[Double]("v")
             nb <- doc.getAs[Int]("nb")
-          } yield Cluster(id, List(
-            Point(question.yAxis.name, value),
-            Point("Number", nb)))
+          } yield Cluster(id,
+            Point.Data(question.yAxis.name, value),
+            Point.Size(nb))
         }
         Answer(question, clusters)
       }
