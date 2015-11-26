@@ -1,8 +1,8 @@
 package lila.coach
 
 case class Question[X](
-  xAxis: Dimension[X],
-  yAxis: Metric,
+  dimension: Dimension[X],
+  metric: Metric,
   filters: List[Filter[_]])
 
 case class Filter[A](
@@ -34,13 +34,13 @@ sealed trait Point {
   val name: String
   val y: Double
   val isSize: Boolean
+  lazy val key = s"$name$isSize"
 }
 object Point {
   case class Data(name: String, y: Double) extends Point {
     val isSize = false
   }
-  case class Size(y: Double) extends Point {
-    val name = "Number of moves"
+  case class Size(name: String, y: Double) extends Point {
     val isSize = true
   }
 }

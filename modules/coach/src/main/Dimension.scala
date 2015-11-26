@@ -10,22 +10,19 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val key: String,
     val name: String,
     val dbKey: String,
-    val position: Dimension.Position,
+    val position: Position,
     val valueName: A => String) {
 
   implicit def bson = implicitly[BSONValueHandler[A]]
 
-  def isInGame = position == Dimension.Game
-  def isInMove = position == Dimension.Move
+  def isInGame = position == Position.Game
+  def isInMove = position == Position.Move
 }
 
 object Dimension {
 
-  sealed trait Position
-  case object Game extends Position
-  case object Move extends Position
-
   import BSONHandlers._
+  import Position._
 
   case object Perf extends Dimension[PerfType](
     "perf", "Variant", "perf", Game, _.name)

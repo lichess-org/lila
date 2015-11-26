@@ -22,18 +22,23 @@ object Chart {
     data: List[Double])
 
   def fromAnswer[X](answer: Answer[X]): Chart = Chart(
-    xAxis = Xaxis(answer.clusters.map(_.x).map(answer.question.xAxis.valueName)),
+    xAxis = Xaxis(answer.clusters.map(_.x).map(answer.question.dimension.valueName)),
     yAxis = answer.clusters.headOption.?? { c =>
       List(Yaxis(c.data.name, false), Yaxis(c.size.name, true))
     },
     series = answer.clusters.flatMap { c =>
       c.points.map { c -> _ }
     }.foldLeft(Map.empty[String, Serie]) {
-      case (acc, (cluster, point)) => acc.updated(point.name,
-        acc.get(point.name) match {
+      case (acc, (cluster, point)) => acc.updated(point.key,
+        acc.get(point.key) match {
           case None    => Serie(point.name, point.isSize, List(point.y))
           case Some(s) => s.copy(data = point.y :: s.data)
         })
-    }.map { _._2 }.toList
+    }.map {
+      case (_, serie) => serie.copy(data = serie.data.reverse)
+    }.toList.foldLeft(List.empty[Serie]) {
+      case (acc, s) if s.isSize && acc.exists(_.name == s.name) => acc
+      case (acc, s) => acc :+ s
+    }
   )
 }

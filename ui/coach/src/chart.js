@@ -6,17 +6,30 @@ function makeChart(el, data) {
       name: s.name,
       data: s.data,
       yAxis: i,
-      type: 'column'
+      type: 'column',
+      animation: {
+        duration: 300
+      }
     };
     if (s.isSize) {
       c.color = 'rgba(0,0,0,0.1)';
+    } else {
+      c.dataLabels = {
+        enabled: true,
+        // format: '{point.y:.1f}'
+      };
+      // c.tooltip = {
+      //   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      //   pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+      // };
+      c.colorByPoint = false;
     }
     return c;
   });
   $(el).highcharts({
     chart: {
       type: 'column',
-      spacing: [0, 0, 0, 0],
+      spacing: [20, 0, 20, 0],
       animation: {
         duration: 300
       },
@@ -43,13 +56,9 @@ function makeChart(el, data) {
       };
     }),
     plotOptions: {
-      // column: {
-      //   stacking: 'normal'
-      // },
-      // line: {
-      //   color: 'rgba(0,0,0,0.7)',
-      //   lineWidth: 1
-      // }
+      series: {
+        // borderWidth: 0,
+      }
     },
     series: series,
     credits: {
