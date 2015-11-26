@@ -31,10 +31,10 @@ final class Env(
   private lazy val aggregationPipeline = new AggregationPipeline
 
   lazy val api = new CoachApi(
-    coll = db(CollectionEntry),
+    storage = storage,
     pipeline = aggregationPipeline)
 
-  lazy val aggregator = new Aggregator(
+  lazy val indexer = new Indexer(
     storage = storage,
     sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None)))
 }

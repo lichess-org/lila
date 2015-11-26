@@ -1,0 +1,16 @@
+@(u: User)(implicit ctx: Context)
+
+@coach.layout(u,
+title = s"${u.username} coach",
+moreJs = jsTag("coach-refresh.js")) {
+
+<div class="content_box small_box">
+  <div class="head">
+    <h1 class="text" data-icon="^">@u.username's coach</h1>
+  </div>
+  <br /><br /><br />
+  <p>@userLink(u) has not used the coach yet!</p>
+  <br /><br />
+  @refreshForm(u, s"Start ${u.username} coach")
+</div>
+}

@@ -85,5 +85,6 @@ object Query {
 
   val sortCreated = $sort desc F.createdAt
   val sortChronological = $sort asc F.createdAt
+  val sortAntiChronological = $sort desc F.createdAt
   val sortUpdatedNoIndex = $sort desc F.updatedAt
 }

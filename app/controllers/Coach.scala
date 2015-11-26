@@ -12,14 +12,17 @@ object Coach extends LilaController {
 
   def refresh(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.aggregator(user) inject Ok
+      env.indexer(user) inject Ok
     }
   }
 
   def index(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      fuccess {
-        Ok(html.coach.index(user, env.jsonView.stringifiedUi))
+      import lila.coach.CoachApi.UserStatus._
+      env.api.userStatus(user).map {
+        case NoGame => Ok(html.coach.noGame(user))
+        case Empty  => Ok(html.coach.empty(user))
+        case s      => Ok(html.coach.index(user, env.jsonView.stringifiedUi, s == Stale))
       }
     }
   }

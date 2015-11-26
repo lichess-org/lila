@@ -7,7 +7,19 @@ module.exports = function(ctrl) {
   return m('div', {
     class: ctrl.vm.answer ? '' : 'loading',
   }, [
-    form.filters(ctrl),
+    m('div.left', [
+      form.filters(ctrl),
+      m('div.refresh', {
+        config: function(e, isUpdate) {
+          if (isUpdate) return;
+          var $ref = $('.coach-stale');
+          if ($ref.length) {
+            $(e).append($ref.show());
+            lichess.refreshCoachForm();
+          }
+        }
+      })
+    ]),
     form.axis(ctrl),
     chart(ctrl),
     // table.horiz(ctrl),

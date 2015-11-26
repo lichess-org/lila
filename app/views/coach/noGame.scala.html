@@ -1,0 +1,6 @@
+@(u: User)(implicit ctx: Context)
+
+@coach.layout(u, title = s"${u.username} has not played a rated game yet!") {
+
+Before using the coach, @userLink(u) has to play at least one rated game.
+}

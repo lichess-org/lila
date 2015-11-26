@@ -6,11 +6,14 @@
   -webkit-transform: scale(5);
 }
 
-#coach .filters {
+#coach .left {
   position: absolute;
   top: 80px;
   left: -260px;
   width: 240px;
+}
+#coach .coach-stale {
+  margin-top: 10px;
 }
 
 #coach .ms-parent {

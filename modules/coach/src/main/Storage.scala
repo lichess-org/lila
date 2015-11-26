@@ -4,17 +4,21 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
 import reactivemongo.bson.Macros
-import reactivemongo.core.commands._
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import scala.concurrent.duration._
+import scalaz.NonEmptyList
 
 import lila.db.BSON._
 import lila.db.Implicits._
 import lila.user.UserRepo
 
-final class Storage(coll: Coll) {
+private final class Storage(coll: Coll) {
 
   import Storage._
   import BSONHandlers._
+
+  def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
+    coll.aggregate(operators.head, operators.tail)
 
   private def fetchRange(userId: String, range: Range): Fu[List[Entry]] =
     coll.find(selectUserId(userId))

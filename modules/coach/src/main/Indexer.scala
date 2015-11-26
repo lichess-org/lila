@@ -15,7 +15,7 @@ import lila.game.{ Game, Query }
 import lila.hub.Sequencer
 import lila.user.User
 
-final class Aggregator(storage: Storage, sequencer: ActorRef) {
+final class Indexer(storage: Storage, sequencer: ActorRef) {
 
   private implicit val timeout = makeTimeout.minutes(5)
 

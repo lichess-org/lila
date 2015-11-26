@@ -1,9 +1,12 @@
-@(u: User, ui: String)(implicit ctx: Context)
+@(u: User, ui: String, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @highchartsLatestTag
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.coach${isProd??(".min")}.js")
+@if(stale) {
+@jsTag("coach-refresh.js")
+}
 @embedJs {
 $(function() {
 LichessCoach(document.getElementById('coach'), {
@@ -25,4 +28,10 @@ title = s"${u.username} coach",
 moreJs = moreJs,
 moreCss = moreCss) {
 <div id="coach"></div>
+@if(stale) {
+<div class="coach-stale none">
+  <p>There are new games to analyse!</p>
+  @refreshForm(u, "Update the coach")
+</div>
+}
 }
