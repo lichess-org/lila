@@ -66,6 +66,15 @@ object Phase {
     }
 }
 
+// sealed abstract class Castling(val id: Int, val name: String)
+// object Castling {
+//   object Kingside extends Phase(1, "Kingside castling")
+//   object Queenside extends Phase(2, "Queenside castling")
+//   object None extends Phase(3, "No castling")
+//   val all = List(Kingside, Queenside, None)
+//   val byId = all map { p => (p.id, p) } toMap
+// }
+
 sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
   object MuchWeaker extends RelativeStrength(10, "Much weaker")

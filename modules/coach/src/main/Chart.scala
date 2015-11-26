@@ -10,6 +10,7 @@ case class Chart(
 object Chart {
 
   case class Xaxis(
+    name: String,
     categories: List[String])
 
   case class Yaxis(
@@ -29,7 +30,9 @@ object Chart {
       else Serie(point.name, answer.question.metric.dataType.name, false, List(point.y))
 
     Chart(
-      xAxis = Xaxis(answer.clusters.map(_.x).map(answer.question.dimension.valueName)),
+      xAxis = Xaxis(
+        answer.question.dimension.name,
+        answer.clusters.map(_.x).map(answer.question.dimension.valueName)),
       yAxis = answer.clusters.headOption.?? { c =>
         List(Yaxis(c.data.name, false), Yaxis(c.size.name, true))
       },

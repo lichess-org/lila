@@ -14,15 +14,12 @@ final class CoachApi(coll: Coll) {
   def ask[X](
     question: Question[X],
     user: User): Fu[Answer[X]] = {
-    println(question)
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })
-    println(gameMatcher)
     val moveMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInMove => f.matcher
     }).some.filterNot(_.isEmpty) map Match
-    println(moveMatcher)
     coll.aggregate(
       Match(selectUserId(user.id) ++ gameMatcher),
       makePipeline(question.dimension, question.metric, moveMatcher).flatten

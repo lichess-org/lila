@@ -79,7 +79,7 @@ function makeChart(el, data) {
 
 module.exports = function(ctrl) {
   if (!ctrl.validCombinationCurrent()) return m('div', 'Invalid dimension/metric combination');
-  if (!ctrl.vm.answer) return m('div.square-spin');
+  if (!ctrl.vm.answer) return m('div.square-wrap', m('div.square-in', m('div.square-spin')));
   return m('div.chart', {
     config: function(el) {
       makeChart(el, ctrl.vm.answer);

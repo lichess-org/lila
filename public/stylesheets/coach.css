@@ -1,5 +1,9 @@
-#coach {
-  /* position: relative; */
+#coach .square-wrap {
+  text-align: center;
+  margin-top: 180px;
+}
+#coach .square-in {
+  -webkit-transform: scale(5);
 }
 
 #coach .filters {
@@ -37,4 +41,11 @@
 }
 #coach .ms-drop ul > li label input {
   margin-right: 5px;
+}
+
+#coach table {
+  border: 1px solid #d4d4d4;
+}
+#coach table td.data {
+  font-weight: bold;
 }

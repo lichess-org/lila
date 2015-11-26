@@ -1,6 +1,7 @@
 var m = require('mithril');
-var chart = require('./chart');
 var form = require('./form');
+var chart = require('./chart');
+var table = require('./table');
 
 module.exports = function(ctrl) {
   return m('div', {
@@ -8,6 +9,8 @@ module.exports = function(ctrl) {
   }, [
     form.filters(ctrl),
     form.axis(ctrl),
-    chart(ctrl)
+    chart(ctrl),
+    // table.horiz(ctrl),
+    table.vert(ctrl)
   ]);
 };

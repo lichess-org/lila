@@ -45,6 +45,9 @@ object Dimension {
   case object PieceRole extends Dimension[Role](
     "pieceRole", "Piece moved", "moves.r", Move, _.name)
 
+  // case object Castling extends Dimension[Castling](
+  //   "castling", "Castling side", "moves.c", Move, _.name)
+
   val all = List(Perf, Phase, Result, Color, Opening, OpponentStrength, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
 

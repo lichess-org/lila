@@ -29,7 +29,7 @@ object Coach extends LilaController {
     Accessible(username) { user =>
       ctx.body.body.validate[JsonQuestion].fold(
         err => BadRequest(Json.obj("error" -> err.toString)).fuccess,
-        qJson => qJson.pp.question.fold(BadRequest.fuccess) { q =>
+        qJson => qJson.question.fold(BadRequest.fuccess) { q =>
           env.api.ask(q, user) map
             lila.coach.Chart.fromAnswer map
             env.jsonView.chart.apply map { Ok(_) }

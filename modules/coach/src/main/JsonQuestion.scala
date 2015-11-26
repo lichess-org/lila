@@ -14,7 +14,7 @@ case class JsonQuestion(
       realFilters = filters.map {
         case (filterKey, valueKeys) => {
           def build[X](dimension: Dimension[X]) = Filter[X](dimension, valueKeys.flatMap { Dimension.valueByKey(dimension, _) }).some
-          filterKey.pp match {
+          filterKey match {
             case Perf.key             => build(Perf)
             case Phase.key            => build(Phase)
             case Result.key           => build(Result)
@@ -24,7 +24,7 @@ case class JsonQuestion(
             case PieceRole.key        => build(PieceRole)
             case _                    => none
           }
-        }.pp
+        }
       }.flatten.filterNot(_.isEmpty).toList
       question <- {
         def build[X](dimension: Dimension[X]) = Question[X](dimension, realMetric, realFilters).some
