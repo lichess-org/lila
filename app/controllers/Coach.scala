@@ -24,6 +24,21 @@ object Coach extends LilaController {
     }
   }
 
+  def json(username: String) = OpenBody { implicit ctx =>
+    Accessible(username) { user =>
+      implicit val req = ctx.body
+      FormFuResult(env.dataForm.question)(
+        _ => fuccess(Json.obj("error" -> "bad request"))
+      ) {
+          _.question.fold(fuccess(BadRequest(Json.obj("error" -> "bad request")))) { q =>
+            env.api.ask(q, user) map
+              lila.coach.Chart.fromAnswer map
+              env.jsonView.chart.apply map { Ok(_) }
+          }
+        }
+    }
+  }
+
   def ask(username: String) = Open { implicit ctx =>
     import lila.coach.{ Question, Dimension, Metric }
     Accessible(username) { user =>

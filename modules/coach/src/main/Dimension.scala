@@ -63,10 +63,15 @@ object Dimension {
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
     import play.api.libs.json._
+    def toJson[A : Writes](key: A, name: String) = Json.obj("key" -> key, "name" -> name)
     d match {
-      case Perf  => Json.obj("key" -> v.key, "name" -> v.name)
-      case Phase => Json.obj("key" -> v.id, "name" -> v.name)
-      case _     => Json.obj()
+      case Perf             => toJson(v.key, v.name)
+      case Phase            => toJson(v.id, v.name)
+      case Result           => toJson(v.id, v.name)
+      case Color            => toJson(v.name, v.name)
+      case Opening          => toJson(v.eco, v.name)
+      case OpponentStrength => toJson(v.id, v.name)
+      case PieceRole        => toJson(v.name, v.name)
     }
   }
 }

@@ -28,10 +28,4 @@ object Chart {
     }.map {
       case (name, data) => Serie(name, data)
     }.toList)
-
-  private implicit val xAxisWrites = Json.writes[Xaxis]
-  private implicit val SerieWrites = Json.writes[Serie]
-  implicit val ChartWrites = Json.writes[Chart]
-
-  def toJson(chart: Chart) = ChartWrites writes chart
 }

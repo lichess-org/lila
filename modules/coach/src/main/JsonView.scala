@@ -8,14 +8,14 @@ final class JsonView {
 
   lazy val stringifiedUi = Json stringify {
     Json.obj(
-      "dimensions" -> Json.obj(
-        D.Perf.key -> D.Perf,
-        D.Phase.key -> D.Phase,
-        D.Result.key -> D.Result,
-        D.Color.key -> D.Color,
-        D.Opening.key -> D.Opening,
-        D.OpponentStrength.key -> D.OpponentStrength,
-        D.PieceRole.key -> D.PieceRole),
+      "dimensions" -> List(
+        Json toJson D.Perf,
+        Json toJson D.Phase,
+        Json toJson D.Result,
+        Json toJson D.Color,
+        Json toJson D.Opening,
+        Json toJson D.OpponentStrength,
+        Json toJson D.PieceRole),
       "metrics" -> Metric.all)
   }
 
@@ -28,5 +28,13 @@ final class JsonView {
 
   private implicit def metricWriter: OWrites[Metric] = OWrites { m =>
     Json.obj("key" -> m.key, "name" -> m.name)
+  }
+
+  object chart {
+    private implicit val xAxisWrites = Json.writes[Chart.Xaxis]
+    private implicit val SerieWrites = Json.writes[Chart.Serie]
+    private implicit val ChartWrites = Json.writes[Chart]
+
+    def apply(c: Chart) = ChartWrites writes c
   }
 }
