@@ -17,10 +17,11 @@ final class CoachApi(
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
     storage.aggregate(pipeline(question, user.id)).map { res =>
       val clusters = res.documents.flatMap { doc =>
+        println(lila.db.BSON.debug(doc))
         for {
           id <- doc.getAs[X]("_id")(question.dimension.bson)
           value <- doc.getAs[BSONNumberLike]("v")
-          nb <- doc.getAs[Int]("n")
+          nb <- doc.getAs[Int]("nb")
         } yield Cluster(id,
           Point.Data(question.metric.name, value.toDouble),
           Point.Size(question.metric.position.tellNumber, nb))

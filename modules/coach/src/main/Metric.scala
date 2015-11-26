@@ -33,4 +33,9 @@ object Metric {
 
   val all = List(MeanCpl, Movetime, RatingDiff, NbMoves)
   val byKey = all map { p => (p.key, p) } toMap
+
+  def requiresAnalysis(m: Metric) = m match {
+    case MeanCpl => true
+    case _       => false
+  }
 }

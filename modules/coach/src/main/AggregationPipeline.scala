@@ -16,7 +16,7 @@ private final class AggregationPipeline {
   private def limit(nb: Int) = Limit(nb).some
   private def group(d: Dimension[_], f: GroupFunction) = GroupField(d.dbKey)(
     "v" -> f,
-    "n" -> SumValue(1)
+    "nb" -> SumValue(1)
   ).some
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
@@ -28,9 +28,13 @@ private final class AggregationPipeline {
       case f if f.dimension.isInMove => f.matcher
     }).some.filterNot(_.isEmpty) map Match
 
-    NonEmptyList[PipelineOperator](
-      Match(selectUserId(userId) ++ gameMatcher),
-      (question.metric match {
+    NonEmptyList.nel[PipelineOperator](
+      Match(
+        selectUserId(userId) ++
+          gameMatcher ++
+          Metric.requiresAnalysis(question.metric).??(BSONDocument("analysed" -> true))
+      ),
+      ((question.metric match {
         case M.MeanCpl => List(
           unwindMoves,
           moveMatcher,
@@ -56,9 +60,10 @@ private final class AggregationPipeline {
         //   ).some
         // )
         case _ => Nil
-      }).:::(dimension match {
+      }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))
         case _         => Nil
-      }).flatten: _*)
+      })).flatten
+    )
   }
 }

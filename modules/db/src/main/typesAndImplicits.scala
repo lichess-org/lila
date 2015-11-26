@@ -4,6 +4,7 @@ import play.api.libs.json._, Json.JsValueWrapper
 import reactivemongo.api._
 import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
+import ornicar.scalalib.Zero
 
 object Types extends Types
 object Implicits extends Implicits
@@ -22,6 +23,9 @@ trait Types {
 }
 
 trait Implicits extends Types {
+
+  implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
+    Zero.instance(BSONDocument())
 
   implicit def docId[ID](doc: Identified[ID]): ID = doc.id
 
