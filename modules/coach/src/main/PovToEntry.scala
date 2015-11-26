@@ -74,10 +74,8 @@ object PovToEntry {
     opRating <- from.pov.opponent.rating
     perfType <- from.pov.game.perfType
   } yield Entry(
-    _id = ornicar.scalalib.Random nextStringUppercase 8,
-    version = Entry.currentVersion,
+    _id = from.pov.game.id + from.pov.color.letter,
     userId = myId,
-    gameId = from.pov.game.id,
     color = from.pov.color,
     perf = perfType,
     eco = Ecopening fromGame from.pov.game,

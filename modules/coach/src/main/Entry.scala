@@ -1,15 +1,13 @@
 package lila.coach
 
 import chess.{ Color, Status, Role }
-import lila.game.PgnMoves
+import lila.game.{ PgnMoves, Game }
 import lila.rating.PerfType
 import org.joda.time.DateTime
 
 case class Entry(
-    _id: String,
-    version: Int,
+    _id: String, // gameId + w/b
     userId: String,
-    gameId: String,
     color: Color,
     perf: PerfType,
     eco: Option[Ecopening],
@@ -23,6 +21,8 @@ case class Entry(
     date: DateTime) {
 
   def id = _id
+
+  def gameId = id take Game.gameIdSize
 }
 
 object Entry {
