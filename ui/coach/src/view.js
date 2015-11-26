@@ -11,7 +11,8 @@ function axisForm(ctrl) {
     }, ctrl.ui.metrics.map(function(y) {
       return m('option', {
         value: y.key,
-        selected: ctrl.vm.metric === y.key
+        disabled: !ctrl.validCombination(ctrl.vm.dimension, y),
+        selected: ctrl.vm.metric.key === y.key
       }, y.name);
     })),
     ' by ',
@@ -22,7 +23,8 @@ function axisForm(ctrl) {
     }, ctrl.ui.dimensions.map(function(x) {
       return m('option', {
         value: x.key,
-        selected: ctrl.vm.dimension === x.key
+        disabled: !ctrl.validCombination(x, ctrl.vm.metric),
+        selected: ctrl.vm.dimension.key === x.key
       }, x.name);
     }))
   ]);

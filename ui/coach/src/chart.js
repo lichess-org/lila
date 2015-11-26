@@ -1,5 +1,11 @@
 var m = require('mithril');
 
+function dataTypeFormat(dt) {
+  if (dt === 'seconds') return '{point.y:.1f}';
+  if (dt === 'average') return '{point.y:,.1f}';
+  return '{point.y:,.0f}';
+}
+
 function makeChart(el, data) {
   var series = data.series.map(function(s, i) {
     var c = {
@@ -16,12 +22,13 @@ function makeChart(el, data) {
     } else {
       c.dataLabels = {
         enabled: true,
-        // format: '{point.y:.1f}'
+        format: dataTypeFormat(s.dataType)
       };
-      // c.tooltip = {
-      //   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      //   pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-      // };
+      c.tooltip = {
+        // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
+        shared: true
+      };
       c.colorByPoint = false;
     }
     return c;
@@ -71,6 +78,7 @@ function makeChart(el, data) {
 }
 
 module.exports = function(ctrl) {
+  if (!ctrl.validCombinationCurrent()) return m('div', 'Invalid dimension/metric combination');
   if (!ctrl.vm.answer) return m('div.square-spin');
   return m('div.chart', {
     config: function(el) {

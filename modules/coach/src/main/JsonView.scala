@@ -23,11 +23,19 @@ final class JsonView {
     Json.obj(
       "key" -> d.key,
       "name" -> d.name,
+      "position" -> d.position,
       "values" -> Dimension.valuesOf(d).map(Dimension.valueToJson(d)))
   }
 
   private implicit def metricWriter: OWrites[Metric] = OWrites { m =>
-    Json.obj("key" -> m.key, "name" -> m.name)
+    Json.obj(
+      "key" -> m.key,
+      "name" -> m.name,
+      "position" -> m.position)
+  }
+
+  private implicit def positionWriter: Writes[Position] = Writes { p =>
+    JsString(p.name)
   }
 
   object chart {

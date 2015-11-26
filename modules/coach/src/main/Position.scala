@@ -3,6 +3,8 @@ package lila.coach
 sealed trait Position {
 
   def tellNumber: String
+
+  def name = toString.toLowerCase
 }
 
 object Position {

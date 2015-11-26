@@ -47,13 +47,13 @@ final class CoachApi(coll: Coll) {
   private def count = "nb" -> SumValue(1)
 
   private def makePipeline(
-    x: Dimension[_],
-    y: Metric,
-    moveMatcher: Option[Match]): List[Option[PipelineOperator]] = y match {
+    dimension: Dimension[_],
+    metric: Metric,
+    moveMatcher: Option[Match]): List[Option[PipelineOperator]] = (metric match {
     case M.MeanCpl => List(
       unwindMoves,
       moveMatcher,
-      GroupField(x.dbKey)(
+      GroupField(dimension.dbKey)(
         "v" -> Avg("moves.c"),
         count
       ).some
@@ -63,7 +63,7 @@ final class CoachApi(coll: Coll) {
     case M.NbMoves => List(
       unwindMoves,
       moveMatcher,
-      GroupField(x.dbKey)(
+      GroupField(dimension.dbKey)(
         "v" -> SumValue(1),
         count
       ).some
@@ -73,7 +73,7 @@ final class CoachApi(coll: Coll) {
     case M.Movetime => List(
       unwindMoves,
       moveMatcher,
-      GroupField(x.dbKey)(
+      GroupField(dimension.dbKey)(
         "v" -> GroupFunction("$avg", BSONDocument("$divide" -> BSONArray("$moves.t", 10))),
         count
       ).some
@@ -81,7 +81,7 @@ final class CoachApi(coll: Coll) {
     // limit(20)
     )
     case M.RatingDiff => List(
-      GroupField(x.dbKey)(
+      GroupField(dimension.dbKey)(
         "v" -> Avg("ratingDiff"),
         count
       ).some
@@ -95,7 +95,10 @@ final class CoachApi(coll: Coll) {
     //   ).some
     // )
     case _ => Nil
-  }
+  }) ::: (dimension match {
+    case D.Opening => List(sortNb, limit(12))
+    case _         => Nil
+  })
 
   private def postProcess[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
     clusters
