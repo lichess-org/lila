@@ -28,7 +28,11 @@ final class Env(
 
   private lazy val storage = new Storage(coll = db(CollectionEntry))
 
-  lazy val api = new CoachApi(coll = db(CollectionEntry))
+  private lazy val aggregationPipeline = new AggregationPipeline
+
+  lazy val api = new CoachApi(
+    coll = db(CollectionEntry),
+    pipeline = aggregationPipeline)
 
   lazy val aggregator = new Aggregator(
     storage = storage,
