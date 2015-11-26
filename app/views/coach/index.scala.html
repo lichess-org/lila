@@ -1,6 +1,7 @@
 @(u: User, ui: String)(implicit ctx: Context)
 
 @moreJs = {
+@highchartsTag
 @jsAt(s"compiled/lichess.coach${isProd??(".min")}.js")
 @embedJs {
 $(function() {

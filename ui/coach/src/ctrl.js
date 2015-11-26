@@ -7,13 +7,13 @@ module.exports = function(env) {
   this.userId = env.userId;
 
   this.vm = {
-    loading: true,
     metric: env.ui.metrics[0].key,
-    dimension: 'opponentStrength'
+    dimension: 'opponentStrength',
+    answer: null
   };
 
-  var requestData = throttle(1000, false, function() {
-    this.vm.loading = true;
+  var askQuestion = throttle(1000, false, function() {
+    this.vm.answer = null;
     m.request({
       method: 'post',
       url: '/coach/data/' + this.userId,
@@ -21,23 +21,22 @@ module.exports = function(env) {
         metric: this.vm.metric,
         dimension: this.vm.dimension
       }
-    }).then(function(data) {
-      console.log(data);
-      this.data = data;
-      this.vm.loading = false;
+    }).then(function(answer) {
+      console.log(answer);
+      this.vm.answer = answer;
     }.bind(this));
   }.bind(this));
 
-  requestData();
+  askQuestion();
 
   this.setMetric = function(key) {
     this.vm.metric = key;
-    requestData();
+    askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
     this.vm.dimension = key;
-    requestData();
+    askQuestion();
   }.bind(this);
 
   this.trans = lichess.trans(env.i18n);
