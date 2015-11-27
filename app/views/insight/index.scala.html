@@ -1,0 +1,37 @@
+@(u: User, ui: String, stale: Boolean)(implicit ctx: Context)
+
+@moreJs = {
+@highchartsLatestTag
+@jsAt("vendor/multiple-select/multiple-select.js")
+@jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
+@if(stale) {
+@jsTag("insight-refresh.js")
+}
+@embedJs {
+$(function() {
+LichessInsight(document.getElementById('insight'), {
+ui: @Html(ui),
+i18n: @jsI18n(),
+userId: "@u.id"
+});
+});
+}
+}
+
+@moreCss = {
+@cssTag("insight.css")
+@cssVendorTag("multiple-select/multiple-select.css")
+}
+
+@insight.layout(u,
+title = s"${u.username} chess insights",
+moreJs = moreJs,
+moreCss = moreCss) {
+<div id="insight"></div>
+@if(stale) {
+<div class="insight-stale none">
+  <p>There are new games to learn from!</p>
+  @refreshForm(u, "Update insights")
+</div>
+}
+}

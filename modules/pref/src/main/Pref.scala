@@ -38,7 +38,7 @@ case class Pref(
     puzzleDifficulty: Int,
     submitMove: Int,
     confirmResign: Int,
-    coachShare: Int,
+    insightShare: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -157,7 +157,7 @@ object Pref {
       YES -> "Yes")
   }
 
-  object CoachShare {
+  object InsightShare {
     val NOBODY = 0
     val FRIENDS = 1
     val EVERYBODY = 2
@@ -314,7 +314,7 @@ object Pref {
     puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
-    coachShare = CoachShare.FRIENDS,
+    insightShare = InsightShare.FRIENDS,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

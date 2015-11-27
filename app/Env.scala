@@ -136,5 +136,5 @@ object Env {
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
-  def coach = lila.coach.Env.current
+  def insight = lila.insight.Env.current
 }

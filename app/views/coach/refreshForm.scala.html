@@ -1,8 +1,0 @@
-@(u: User, action: String)(implicit ctx: Context)
-
-<form class="coach-refresh" method="post" action="@routes.Coach.refresh(u.username)">
-  <button data-icon="E" class="button text">@action</button>
-  <div class="crunshing none">
-    <span class="square-spin"></span> Now crunshing data just for you!
-  </div>
-</form>

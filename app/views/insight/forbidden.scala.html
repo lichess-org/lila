@@ -1,0 +1,6 @@
+@(u: User)(implicit ctx: Context)
+
+@insight.layout(u, title = s"${u.username} chess insights are protected") {
+
+You cannot see @userLink(u) chess insights!
+}

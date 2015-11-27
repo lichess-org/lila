@@ -1,0 +1,54 @@
+#insight .square-wrap {
+  text-align: center;
+  margin-top: 180px;
+}
+#insight .square-in {
+  -webkit-transform: scale(5);
+}
+
+#insight .left {
+  position: absolute;
+  top: 80px;
+  left: -260px;
+  width: 240px;
+}
+#insight .insight-stale {
+  margin-top: 10px;
+}
+
+#insight .ms-parent {
+  display: block;
+  margin-top: 10px;
+}
+#insight .ms-parent > * {
+  position: absoule;
+  top: 0;
+  left: 0;
+}
+#insight .ms-choice {
+  padding: 5px 10px;
+}
+
+#insight .ms-drop {
+  margin-left: 100%;
+}
+#insight .ms-drop ul {
+  padding: 0;
+}
+#insight .ms-drop ul > li label {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#insight .ms-drop ul > li label:hover {
+  background: #f0f0f0;
+}
+#insight .ms-drop ul > li label input {
+  margin-right: 5px;
+}
+
+#insight table {
+  border: 1px solid #d4d4d4;
+}
+#insight table td.data {
+  font-weight: bold;
+}
