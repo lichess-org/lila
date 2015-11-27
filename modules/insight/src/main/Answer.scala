@@ -4,25 +4,19 @@ case class Answer[X](
   question: Question[X],
   clusters: List[Cluster[X]])
 
+// a row per dimension value
 case class Cluster[X](
-    x: X,
-    data: Point,
-    size: Point) {
+  x: X, // dimension value
+  insight: Insight, // metric values
+  size: Int // sample size
+  )
 
-  def points = List(data, size)
+sealed trait Insight
+object Insight {
+  case class Single(point: Point) extends Insight
+  case class Stacked(points: Map[MetricValueName, Point]) extends Insight
 }
 
-sealed trait Point {
-  val name: String
-  val y: Double
-  val isSize: Boolean
-  lazy val key = s"$name$isSize"
-}
-object Point {
-  case class Data(name: String, y: Double) extends Point {
-    val isSize = false
-  }
-  case class Size(name: String, y: Double) extends Point {
-    val isSize = true
-  }
-}
+case class MetricValueName(name: String)
+
+case class Point(y: Double)

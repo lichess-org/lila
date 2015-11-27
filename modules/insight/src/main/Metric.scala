@@ -25,17 +25,22 @@ object Metric {
 
   case object Movetime extends Metric("movetime", "Move time", Move, Seconds)
 
-  // case object Result extends Metric("result", "Result", Game)
+  case object Result extends Metric("result", "Result", Game, Count)
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Average)
 
   case object NbMoves extends Metric("nbMoves", "Number of moves", Move, Count)
 
-  val all = List(MeanCpl, Movetime, RatingDiff, NbMoves)
+  val all = List(MeanCpl, Movetime, Result, RatingDiff, NbMoves)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresAnalysis(m: Metric) = m match {
     case MeanCpl => true
     case _       => false
+  }
+
+  def isStacked(m: Metric) = m match {
+    case Result => true
+    case _      => false
   }
 }

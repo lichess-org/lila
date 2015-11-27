@@ -20,7 +20,7 @@ private final class AggregationPipeline {
   ).some
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
-    import question.dimension
+    import question.{ dimension, metric }
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })
@@ -32,9 +32,9 @@ private final class AggregationPipeline {
       Match(
         selectUserId(userId) ++
           gameMatcher ++
-          Metric.requiresAnalysis(question.metric).??(BSONDocument("analysed" -> true))
+          Metric.requiresAnalysis(metric).??(BSONDocument("analysed" -> true))
       ),
-      ((question.metric match {
+      ((metric match {
         case M.MeanCpl => List(
           unwindMoves,
           moveMatcher,
@@ -53,13 +53,15 @@ private final class AggregationPipeline {
         case M.RatingDiff => List(
           group(dimension, Avg("ratingDiff"))
         )
-        // case M.Result => List(
-        //   GroupField(x.dbKey)(
-        //     "nb" -> SumValue(1),
-        //     "v" -> Avg("moves.c")
-        //   ).some
-        // )
-        case _ => Nil
+        case M.Result => List(
+          GroupMulti("dimension" -> dimension.dbKey, "metric" -> "result")(
+            "v" -> SumValue(1)
+          ).some,
+          GroupField("_id.metric")(
+            "stack" -> PushMulti(
+              "dimension" -> "_.id.dimension",
+              "v" -> "v")).some
+        )
       }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))
         case _         => Nil

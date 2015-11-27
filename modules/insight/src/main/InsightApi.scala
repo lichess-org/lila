@@ -16,16 +16,7 @@ final class InsightApi(
 
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
     storage.aggregate(pipeline(question, user.id)).map { res =>
-      val clusters = res.documents.flatMap { doc =>
-        for {
-          id <- doc.getAs[X]("_id")(question.dimension.bson)
-          value <- doc.getAs[BSONNumberLike]("v")
-          nb <- doc.getAs[Int]("nb")
-        } yield Cluster(id,
-          Point.Data(question.metric.name, value.toDouble),
-          Point.Size(question.metric.position.tellNumber, nb))
-      }
-      Answer(question, postSort(question)(clusters))
+      Answer(question, AggregationClusters(question, res))
     }
 
   def userStatus(user: User): Fu[UserStatus] =
@@ -37,15 +28,6 @@ final class InsightApi(
         case _ => UserStatus.Fresh
       }
     }
-
-  private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {
-    case D.Opening => clusters
-    case _         => sortLike[Cluster[X], X](clusters, D.valuesOf(q.dimension), _.x)
-  }
-
-  private def sortLike[A, B](la: List[A], lb: List[B], f: A => B): List[A] = la.sortWith {
-    case (x, y) => lb.indexOf(f(x)) < lb.indexOf(f(y))
-  }
 }
 
 object InsightApi {

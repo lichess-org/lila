@@ -4,8 +4,10 @@ import play.api.libs.json._
 
 case class Chart(
   xAxis: Chart.Xaxis,
-  yAxis: List[Chart.Yaxis],
-  series: List[Chart.Serie])
+  valueYaxis: Chart.Yaxis,
+  sizeYaxis: Chart.Yaxis,
+  series: List[Chart.Serie],
+  sizeSerie: Chart.Serie)
 
 object Chart {
 
@@ -13,43 +15,64 @@ object Chart {
     name: String,
     categories: List[String])
 
-  case class Yaxis(
-    name: String,
-    isSize: Boolean)
+  case class Yaxis(name: String)
 
   case class Serie(
     name: String,
     dataType: String,
-    isSize: Boolean,
+    stack: Option[String],
     data: List[Double])
 
   def fromAnswer[X](answer: Answer[X]): Chart = {
 
-    def startSerie(point: Point) =
-      if (point.isSize) Serie(point.name, Metric.DataType.Count.name, true, List(point.y))
-      else Serie(point.name, answer.question.metric.dataType.name, false, List(point.y))
+    import answer._, question._
+
+    def xAxis = Xaxis(
+      name = dimension.name,
+      categories = clusters.map(_.x).map(dimension.valueName))
+
+    def sizeSerie = Serie(
+      name = metric.position.tellNumber,
+      dataType = Metric.DataType.Count.name,
+      stack = none,
+      data = clusters.map(_.size.toDouble))
+
+    def series = clusters.foldLeft(Map.empty[String, Serie]) {
+      case (acc, cluster) =>
+        // val clusterName = dimension valueName cluster.x
+        cluster.insight match {
+          case Insight.Single(point) =>
+            val key = metric.name
+            acc.updated(key, acc.get(key) match {
+              case None => Serie(
+                name = metric.name,
+                dataType = metric.dataType.name,
+                stack = none,
+                data = List(point.y))
+              case Some(s) => s.copy(data = point.y :: s.data)
+            })
+          case Insight.Stacked(points) => points.foldLeft(acc) {
+            case (acc, (metricValueName, point)) =>
+              val key = s"${metric.name}/${metricValueName.name}"
+              acc.updated(key, acc.get(key) match {
+                case None => Serie(
+                  name = metricValueName.name,
+                  dataType = metric.dataType.name,
+                  stack = metric.name.some,
+                  data = List(point.y))
+                case Some(s) => s.copy(data = point.y :: s.data)
+              })
+          }
+        }
+    }.map {
+      case (_, serie) => serie.copy(data = serie.data.reverse)
+    }.toList
 
     Chart(
-      xAxis = Xaxis(
-        answer.question.dimension.name,
-        answer.clusters.map(_.x).map(answer.question.dimension.valueName)),
-      yAxis = answer.clusters.headOption.?? { c =>
-        List(Yaxis(c.data.name, false), Yaxis(c.size.name, true))
-      },
-      series = answer.clusters.flatMap { c =>
-        c.points.map { c -> _ }
-      }.foldLeft(Map.empty[String, Serie]) {
-        case (acc, (cluster, point)) => acc.updated(point.key,
-          acc.get(point.key) match {
-            case None    => startSerie(point)
-            case Some(s) => s.copy(data = point.y :: s.data)
-          })
-      }.map {
-        case (_, serie) => serie.copy(data = serie.data.reverse)
-      }.toList.foldLeft(List.empty[Serie]) {
-        case (acc, s) if s.isSize && acc.exists(_.name == s.name) => acc
-        case (acc, s) => acc :+ s
-      }
-    )
+      xAxis = xAxis,
+      valueYaxis = Yaxis(metric.name),
+      sizeYaxis = Yaxis(metric.position.tellNumber),
+      series = series,
+      sizeSerie = sizeSerie)
   }
 }
