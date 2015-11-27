@@ -18,12 +18,12 @@ var colors = {
   green: '#759900',
   red: '#dc322f',
   orange: '#d59120',
-  grey: '#888888',
+  blue: '#007599',
   translucid: 'rgba(0,0,0,0.3)'
 };
 var resultColors = {
   Victory: colors.green,
-  Draw: colors.grey,
+  Draw: colors.blue,
   Defeat: colors.red
 };
 
@@ -62,9 +62,10 @@ function makeChart(el, data) {
     if (data.valueYaxis.name === 'Result') c.color = resultColors[s.name];
     return c;
   });
-  $(el).highcharts({
+  var chartConf = {
     chart: {
       type: 'column',
+      alignTicks: true,
       spacing: [20, 0, 20, 0],
       animation: {
         duration: 300
@@ -92,6 +93,7 @@ function makeChart(el, data) {
           format: yAxisTypeFormat(a.dataType)
         },
         opposite: i % 2 === 1,
+        min: a.dataType === 'percent' ? 0 : undefined,
         max: a.dataType === 'percent' ? 100 : undefined
       };
     }),
@@ -107,7 +109,9 @@ function makeChart(el, data) {
     legend: {
       enabled: false
     }
-  });
+  };
+  console.log(chartConf);
+  $(el).highcharts(chartConf);
 }
 
 module.exports = function(ctrl) {

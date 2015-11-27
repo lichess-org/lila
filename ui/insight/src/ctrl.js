@@ -6,9 +6,23 @@ module.exports = function(env) {
   this.ui = env.ui;
   this.userId = env.userId;
 
+  var findMetric = function(key) {
+    return this.ui.metrics.filter(function(x) {
+      return x.key === key;
+    })[0];
+  }.bind(this);
+
+  var findDimension = function(key) {
+    return this.ui.dimensions.filter(function(x) {
+      return x.key === key;
+    })[0];
+  }.bind(this);
+
   this.vm = {
-    metric: env.ui.metrics[0],
-    dimension: env.ui.dimensions[0],
+    // metric: env.ui.metrics[0],
+    // dimension: env.ui.dimensions[0],
+    metric: findMetric('result'),
+    dimension: findDimension('opening'),
     filters: {},
     answer: null
   };
@@ -38,16 +52,12 @@ module.exports = function(env) {
   }.bind(this);
 
   this.setMetric = function(key) {
-    this.vm.metric = this.ui.metrics.filter(function(x) {
-      return x.key === key;
-    })[0];
+    this.vm.metric = findMetric(key);
     askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
-    this.vm.dimension = this.ui.dimensions.filter(function(x) {
-      return x.key === key;
-    })[0];
+    this.vm.dimension = findDimension(key);
     askQuestion();
   }.bind(this);
 
