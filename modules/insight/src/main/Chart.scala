@@ -15,7 +15,9 @@ object Chart {
     name: String,
     categories: List[String])
 
-  case class Yaxis(name: String)
+  case class Yaxis(
+    name: String,
+    dataType: String)
 
   case class Serie(
     name: String,
@@ -70,8 +72,8 @@ object Chart {
 
     Chart(
       xAxis = xAxis,
-      valueYaxis = Yaxis(metric.name),
-      sizeYaxis = Yaxis(metric.position.tellNumber),
+      valueYaxis = Yaxis(metric.name, metric.dataType.name),
+      sizeYaxis = Yaxis(metric.position.tellNumber, Metric.DataType.Count.name),
       series = series,
       sizeSerie = sizeSerie)
   }

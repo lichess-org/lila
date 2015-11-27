@@ -33,8 +33,12 @@ object AggregationClusters {
           case Metric.MetricValue(id, name) =>
             name -> Point(stack.find(_.metric == id).??(_.v.toDouble))
         }
-        nb = stack.map(_.v.toInt).sum
-      } yield Cluster(x, Insight.Stacked(points), nb)
+        total = stack.map(_.v.toInt).sum
+        percents = if (total == 0) points
+        else points.map {
+          case (n, p) => n -> Point(100 * p.y / total)
+        }
+      } yield Cluster(x, Insight.Stacked(percents), total)
     }
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {

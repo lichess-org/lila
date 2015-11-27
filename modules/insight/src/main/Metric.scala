@@ -15,6 +15,7 @@ object Metric {
     case object Seconds extends DataType
     case object Count extends DataType
     case object Average extends DataType
+    case object Percent extends DataType
   }
 
   import BSONHandlers._
@@ -25,7 +26,7 @@ object Metric {
 
   case object Movetime extends Metric("movetime", "Move time", Move, Seconds)
 
-  case object Result extends Metric("result", "Result", Game, Count)
+  case object Result extends Metric("result", "Result", Game, Percent)
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Average)
 

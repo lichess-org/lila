@@ -1,10 +1,14 @@
 var m = require('mithril');
 var numeral = require('numeral');
 
-function dataTypeFormat(dt) {
-  if (dt === 'seconds') return '0.0';
-  if (dt === 'average') return '0.0';
-  return '0,0';
+function formatNumber(dt, n) {
+  if (dt === 'percent') n = n / 100;
+  var f;
+  if (dt === 'seconds') f = '0.0';
+  else if (dt === 'average') f = '0.0';
+  else if (dt === 'percent') f = '0%';
+  else f = '0,0';
+  return numeral(n).format(f);
 }
 
 module.exports = {
@@ -47,9 +51,9 @@ module.exports = {
         return m('tr', [
           m('th', c),
           answer.series.map(function(serie) {
-            return m('td.data', numeral(serie.data[i]).format(dataTypeFormat(serie.dataType)));
+            return m('td.data', formatNumber(serie.dataType, serie.data[i]))
           }),
-          m('td.size', numeral(answer.sizeSerie.data[i]).format(dataTypeFormat(answer.sizeSerie.dataType)))
+          m('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i]))
         ]);
       }))
     ]);

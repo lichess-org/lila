@@ -3,7 +3,15 @@ var m = require('mithril');
 function dataTypeFormat(dt) {
   if (dt === 'seconds') return '{point.y:.1f}';
   if (dt === 'average') return '{point.y:,.1f}';
+  if (dt === 'percent') return '{point.percentage:.0f}%';
   return '{point.y:,.0f}';
+}
+
+function yAxisTypeFormat(dt) {
+  if (dt === 'seconds') return '{value:.1f}';
+  if (dt === 'average') return '{value:,.1f}';
+  if (dt === 'percent') return '{value:.0f}%';
+  return '{value:,.0f}';
 }
 
 var colors = {
@@ -80,7 +88,11 @@ function makeChart(el, data) {
         title: {
           text: a.name
         },
-        opposite: i % 2 === 1
+        labels: {
+          format: yAxisTypeFormat(a.dataType)
+        },
+        opposite: i % 2 === 1,
+        max: a.dataType === 'percent' ? 100 : undefined
       };
     }),
     plotOptions: {
