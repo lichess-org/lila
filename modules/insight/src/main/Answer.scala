@@ -14,9 +14,7 @@ case class Cluster[X](
 sealed trait Insight
 object Insight {
   case class Single(point: Point) extends Insight
-  case class Stacked(points: Map[MetricValueName, Point]) extends Insight
+  case class Stacked(points: List[(Metric.MetricValueName, Point)]) extends Insight
 }
-
-case class MetricValueName(name: String)
 
 case class Point(y: Double)

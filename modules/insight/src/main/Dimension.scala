@@ -34,7 +34,7 @@ object Dimension {
     "result", "Result", "result", Game, _.name)
 
   case object Color extends Dimension[Color](
-    "color", "Color", "color", Game, _.name)
+    "color", "Color", "color", Game, _.toString)
 
   case object Opening extends Dimension[Ecopening](
     "opening", "Opening", "eco", Game, _.ecoName)

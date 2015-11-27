@@ -20,18 +20,20 @@ object AggregationClusters {
       } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb)
     }
 
-  private case class StackEntry(metricKey: String, value: BSONNumberLike)
+  private case class StackEntry(metric: Int, v: BSONNumberLike)
   private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
 
   private def stacked[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
     res.documents.flatMap { doc =>
+      val metricValues = Metric valuesOf question.metric
       for {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         stack <- doc.getAs[List[StackEntry]]("stack")
-        points = stack.map {
-          case StackEntry(key, value) => MetricValueName(key) -> Point(value.toDouble)
-        }.toMap
-        nb = stack.map(_.value.toInt).sum
+        points = metricValues.map {
+          case Metric.MetricValue(id, name) =>
+            name -> Point(stack.find(_.metric == id).??(_.v.toDouble))
+        }
+        nb = stack.map(_.v.toInt).sum
       } yield Cluster(x, Insight.Stacked(points), nb)
     }
 

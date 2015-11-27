@@ -43,4 +43,14 @@ object Metric {
     case Result => true
     case _      => false
   }
+
+  def valuesOf(metric: Metric): List[MetricValue] = metric match {
+    case Result => lila.insight.Result.all.map { r =>
+      MetricValue(r.id, MetricValueName(r.name))
+    }
+    case _ => Nil
+  }
+
+  case class MetricValueName(name: String)
+  case class MetricValue(id: Int, name: MetricValueName)
 }

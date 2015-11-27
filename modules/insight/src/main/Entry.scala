@@ -47,6 +47,7 @@ object Result {
   object Loss extends Result(3, "Defeat")
   val all = List(Win, Draw, Loss)
   val byId = all map { p => (p.id, p) } toMap
+  val idList = all.map(_.id)
 }
 
 sealed abstract class Phase(val id: Int, val name: String)

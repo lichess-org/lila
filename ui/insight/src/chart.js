@@ -6,31 +6,52 @@ function dataTypeFormat(dt) {
   return '{point.y:,.0f}';
 }
 
+var colors = {
+  green: '#759900',
+  red: '#dc322f',
+  orange: '#d59120',
+  grey: '#888888',
+  translucid: 'rgba(0,0,0,0.3)'
+};
+var resultColors = {
+  Victory: colors.green,
+  Draw: colors.grey,
+  Defeat: colors.red
+};
+
 function makeChart(el, data) {
-  var series = data.series.map(function(s, i) {
+  var sizeSerie = {
+    name: data.sizeSerie.name,
+    data: data.sizeSerie.data,
+    yAxis: 1,
+    type: 'column',
+    stack: 'size',
+    animation: {
+      duration: 300
+    },
+    color: 'rgba(0,0,0,0.1)'
+  };
+  var valueSeries = data.series.map(function(s) {
     var c = {
       name: s.name,
       data: s.data,
-      yAxis: i,
+      yAxis: 0,
       type: 'column',
+      stack: s.stack,
       animation: {
         duration: 300
-      }
-    };
-    if (s.isSize) {
-      c.color = 'rgba(0,0,0,0.1)';
-    } else {
-      c.dataLabels = {
+      },
+      dataLabels: {
         enabled: true,
         format: dataTypeFormat(s.dataType)
-      };
-      c.tooltip = {
+      },
+      tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
         pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
         shared: true
-      };
-      c.colorByPoint = false;
-    }
+      }
+    };
+    if (data.valueYaxis.name === 'Result') c.color = resultColors[s.name];
     return c;
   });
   $(el).highcharts({
@@ -54,20 +75,20 @@ function makeChart(el, data) {
       categories: data.xAxis.categories,
       crosshair: true
     },
-    yAxis: data.yAxis.map(function(a, i) {
+    yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
       return {
         title: {
           text: a.name
         },
-        opposite: a.isSize
+        opposite: i % 2 === 1
       };
     }),
     plotOptions: {
-      series: {
-        // borderWidth: 0,
+      column: {
+        stacking: 'normal'
       }
     },
-    series: series,
+    series: valueSeries.concat(sizeSerie),
     credits: {
       enabled: false
     },

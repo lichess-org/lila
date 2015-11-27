@@ -57,9 +57,9 @@ private final class AggregationPipeline {
           GroupMulti("dimension" -> dimension.dbKey, "metric" -> "result")(
             "v" -> SumValue(1)
           ).some,
-          GroupField("_id.metric")(
+          GroupField("_id.dimension")(
             "stack" -> PushMulti(
-              "dimension" -> "_.id.dimension",
+              "metric" -> "_id.metric",
               "v" -> "v")).some
         )
       }) ::: (dimension match {
