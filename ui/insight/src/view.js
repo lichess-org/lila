@@ -23,6 +23,6 @@ module.exports = function(ctrl) {
     form.axis(ctrl),
     chart(ctrl),
     // table.horiz(ctrl),
-    // table.vert(ctrl)
+    table.vert(ctrl)
   ]);
 };

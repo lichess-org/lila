@@ -37,19 +37,19 @@ module.exports = {
       m('thead',
         m('tr', [
           m('th', answer.xAxis.name),
-          answer.yAxis.map(function(yAxis) {
-            return m('th', yAxis.name);
-          })
+          answer.series.map(function(serie) {
+            return m('th', serie.name);
+          }),
+          m('th', answer.sizeYaxis.name)
         ])
       ),
       m('tbody', answer.xAxis.categories.map(function(c, i) {
         return m('tr', [
           m('th', c),
           answer.series.map(function(serie) {
-            return m('td', {
-              class: serie.isSize ? 'size' : 'data'
-            }, numeral(serie.data[i]).format(dataTypeFormat(serie.dataType)));
-          })
+            return m('td.data', numeral(serie.data[i]).format(dataTypeFormat(serie.dataType)));
+          }),
+          m('td.size', numeral(answer.sizeSerie.data[i]).format(dataTypeFormat(answer.sizeSerie.dataType)))
         ]);
       }))
     ]);
