@@ -58,6 +58,7 @@ private final class AggregationPipeline {
             "v" -> SumValue(1)
           ).some,
           GroupField("_id.dimension")(
+            "nb" -> SumField("v"),
             "stack" -> PushMulti(
               "metric" -> "_id.metric",
               "v" -> "v")).some
