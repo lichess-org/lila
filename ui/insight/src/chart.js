@@ -107,7 +107,7 @@ function makeChart(el, data) {
       enabled: false
     },
     legend: {
-      enabled: false
+      enabled: true
     }
   };
   console.log(chartConf);
