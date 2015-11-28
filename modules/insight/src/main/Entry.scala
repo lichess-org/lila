@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.{ Color, Status, Role }
+import chess.{ Color, Role }
 import lila.game.{ PgnMoves, Game }
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -14,7 +14,7 @@ case class Entry(
     opponent: Opponent,
     moves: List[Move],
     result: Result,
-    status: Status,
+    termination: Termination,
     finalPhase: Phase,
     ratingDiff: Int,
     analysed: Boolean,
@@ -23,10 +23,6 @@ case class Entry(
   def id = _id
 
   def gameId = id take Game.gameIdSize
-}
-
-object Entry {
-  val currentVersion = 1
 }
 
 case class Move(
@@ -40,11 +36,39 @@ case class Move(
 
 case class Opponent(rating: Int, strength: RelativeStrength)
 
+sealed abstract class Termination(val id: Int, val name: String)
+object Termination {
+  case object ClockFlag extends Termination(1, "Clock flag")
+  case object RageQuit extends Termination(2, "Rage quit")
+  case object Resignation extends Termination(3, "Resignation")
+  case object Draw extends Termination(4, "Draw")
+  case object Stalemate extends Termination(5, "Stalemate")
+  case object Checkmate extends Termination(6, "Checkmate")
+
+  val all = List(ClockFlag, RageQuit, Resignation, Draw, Stalemate, Checkmate)
+  val byId = all map { p => (p.id, p) } toMap
+
+  import chess.{ Status => S }
+
+  def fromStatus(s: chess.Status) = s match {
+    case S.Timeout             => RageQuit
+    case S.Outoftime           => ClockFlag
+    case S.Resign              => Resignation
+    case S.Draw                => Draw
+    case S.Stalemate           => Stalemate
+    case S.Mate | S.VariantEnd => Checkmate
+    case S.Cheat               => Resignation
+    case S.Created | S.Started | S.Aborted | S.NoStart =>
+      logwarn(s"[insight] Unfinished game in the insight indexer")
+      Resignation
+  }
+}
+
 sealed abstract class Result(val id: Int, val name: String)
 object Result {
-  object Win extends Result(1, "Victory")
-  object Draw extends Result(2, "Draw")
-  object Loss extends Result(3, "Defeat")
+  case object Win extends Result(1, "Victory")
+  case object Draw extends Result(2, "Draw")
+  case object Loss extends Result(3, "Defeat")
   val all = List(Win, Draw, Loss)
   val byId = all map { p => (p.id, p) } toMap
   val idList = all.map(_.id)
@@ -52,9 +76,9 @@ object Result {
 
 sealed abstract class Phase(val id: Int, val name: String)
 object Phase {
-  object Opening extends Phase(1, "Opening")
-  object Middle extends Phase(2, "Middlegame")
-  object End extends Phase(3, "Endgame")
+  case object Opening extends Phase(1, "Opening")
+  case object Middle extends Phase(2, "Middlegame")
+  case object End extends Phase(3, "Endgame")
   val all = List(Opening, Middle, End)
   val byId = all map { p => (p.id, p) } toMap
   def of(div: chess.Division, ply: Int): Phase =
@@ -78,11 +102,11 @@ object Phase {
 
 sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
-  object MuchWeaker extends RelativeStrength(10, "Much weaker")
-  object Weaker extends RelativeStrength(20, "Weaker")
-  object Equal extends RelativeStrength(30, "Equal")
-  object Stronger extends RelativeStrength(40, "Stronger")
-  object MuchStronger extends RelativeStrength(50, "Much stronger")
+  case object MuchWeaker extends RelativeStrength(10, "Much weaker")
+  case object Weaker extends RelativeStrength(20, "Weaker")
+  case object Equal extends RelativeStrength(30, "Equal")
+  case object Stronger extends RelativeStrength(40, "Stronger")
+  case object MuchStronger extends RelativeStrength(50, "Much stronger")
   val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
   val byId = all map { p => (p.id, p) } toMap
   def apply(diff: Int) = diff match {

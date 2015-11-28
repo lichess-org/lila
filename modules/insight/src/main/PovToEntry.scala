@@ -15,7 +15,9 @@ object PovToEntry {
     moveAccuracy: Option[List[Int]])
 
   def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
-    enrich(game, userId) map (_ flatMap convert toRight game)
+    enrich(game, userId) map (_ flatMap convert toRight game) addFailureEffect { e =>
+      println(s"http://l.org/${game.id}")
+    }
 
   private def enrich(game: Game, userId: String): Fu[Option[RichPov]] =
     lila.game.Pov.ofUserId(game, userId) ?? { pov =>
@@ -88,7 +90,7 @@ object PovToEntry {
       case Some(u) if u == myId => Result.Win
       case _                    => Result.Loss
     },
-    status = from.pov.game.status,
+    termination = Termination fromStatus from.pov.game.status,
     finalPhase =
       if (from.division.end.isDefined) Phase.End
       else if (from.division.middle.isDefined) Phase.Middle

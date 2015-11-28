@@ -82,7 +82,10 @@ function makeChart(el, data) {
     },
     xAxis: {
       categories: data.xAxis.categories,
-      crosshair: true
+      crosshair: true,
+      labels: {
+        rotation: -30
+      }
     },
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
       return {

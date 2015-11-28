@@ -4,9 +4,7 @@
 @highchartsLatestTag
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
-@if(stale) {
 @jsTag("insight-refresh.js")
-}
 @embedJs {
 $(function() {
 LichessInsight(document.getElementById('insight'), {

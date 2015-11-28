@@ -13,6 +13,11 @@
   -webkit-transform: scale(5);
 }
 
+#insight .chart {
+  width: 100%;
+  height: 500px;
+}
+
 #insight .left {
   position: absolute;
   top: 80px;

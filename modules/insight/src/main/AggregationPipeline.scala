@@ -86,6 +86,12 @@ private final class AggregationPipeline {
           ).some,
           regroupStacked
         )
+        case M.Termination => List(
+          GroupMulti("dimension" -> dimension.dbKey, "metric" -> "termination")(
+            "v" -> SumValue(1)
+          ).some,
+          regroupStacked
+        )
         case M.PieceRole => List(
           projectForMove,
           unwindMoves,

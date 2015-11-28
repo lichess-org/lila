@@ -6,34 +6,12 @@ function formatNumber(dt, n) {
   var f;
   if (dt === 'seconds') f = '0.0';
   else if (dt === 'average') f = '0.0';
-  else if (dt === 'percent') f = '0%';
+  else if (dt === 'percent') f = '0.0%';
   else f = '0,0';
   return numeral(n).format(f);
 }
 
 module.exports = {
-  // horiz: function(ctrl) {
-  //   var answer = ctrl.vm.answer;
-  //   if (!answer) return null;
-  //   return m('table', [
-  //     m('thead',
-  //       m('tr', [
-  //         m('th'),
-  //         answer.xAxis.categories.map(function(c) {
-  //           return m('th', c);
-  //         })
-  //       ])
-  //     ),
-  //     m('tbody', answer.yAxis.map(function(yAxis, i) {
-  //       return m('tr', [
-  //         m('th', yAxis.name),
-  //         answer.series[i].data.map(function(d) {
-  //           return m('td', d);
-  //         })
-  //       ]);
-  //     }))
-  //   ]);
-  // },
   vert: function(ctrl) {
     var answer = ctrl.vm.answer;
     if (!answer) return null;

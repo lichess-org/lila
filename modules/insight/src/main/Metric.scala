@@ -30,6 +30,8 @@ object Metric {
 
   case object Result extends Metric("result", "Result", Game, Percent)
 
+  case object Termination extends Metric("termination", "Termination", Game, Percent)
+
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Average)
 
   case object OpponentRating extends Metric("opponentRating", "Opponent rating", Game, Average)
@@ -38,7 +40,7 @@ object Metric {
 
   case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Percent)
 
-  val all = List(MeanCpl, Movetime, Result, RatingDiff, OpponentRating, NbMoves, PieceRole)
+  val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresAnalysis(m: Metric) = m match {
@@ -47,13 +49,17 @@ object Metric {
   }
 
   def isStacked(m: Metric) = m match {
-    case Result    => true
-    case PieceRole => true
-    case _         => false
+    case Result      => true
+    case Termination => true
+    case PieceRole   => true
+    case _           => false
   }
 
   def valuesOf(metric: Metric): List[MetricValue] = metric match {
     case Result => lila.insight.Result.all.map { r =>
+      MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+    }
+    case Termination => lila.insight.Termination.all.map { r =>
       MetricValue(BSONInteger(r.id), MetricValueName(r.name))
     }
     case PieceRole => chess.Role.all.reverse.map { r =>
