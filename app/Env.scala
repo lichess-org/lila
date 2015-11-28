@@ -75,7 +75,8 @@ final class Env(
       Env.tv,
       Env.blog,
       Env.video,
-      Env.shutup // required to load the actor
+      Env.shutup, // required to load the actor
+      Env.insight // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }

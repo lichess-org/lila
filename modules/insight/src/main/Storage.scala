@@ -2,9 +2,9 @@ package lila.insight
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 import reactivemongo.bson.Macros
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import scala.concurrent.duration._
 import scalaz.NonEmptyList
 
@@ -38,9 +38,13 @@ private final class Storage(coll: Coll) {
 
   def insert(p: Entry) = coll.insert(p).void
 
+  def update(p: Entry) = coll.update(selectId(p.id), p, upsert = true).void
+
   def remove(p: Entry) = coll.remove(selectId(p.id)).void
 
   def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
+
+  def exists(id: String) = coll.count(selectId(id).some).map(0!=)
 }
 
 object Storage {

@@ -1,7 +1,7 @@
 package lila.insight
 
 import chess.{ Color, Role }
-import lila.game.{ PgnMoves, Game }
+import lila.game.{ PgnMoves, Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
 
@@ -23,6 +23,11 @@ case class Entry(
   def id = _id
 
   def gameId = id take Game.gameIdSize
+}
+
+case object Entry {
+
+  def povToId(pov: Pov) = pov.game.id + pov.color.letter
 }
 
 case class Move(

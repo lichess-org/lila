@@ -60,7 +60,7 @@ final class Env(
         }
     }
   }), name = ActorName)
-  system.lilaBus.subscribe(actorApi, 'finishGame)
+  system.lilaBus.subscribe(actorApi, 'finishGame, 'analysisReady)
 }
 
 object Env {

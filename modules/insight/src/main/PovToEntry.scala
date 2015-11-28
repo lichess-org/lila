@@ -76,7 +76,7 @@ object PovToEntry {
     opRating <- from.pov.opponent.rating
     perfType <- from.pov.game.perfType
   } yield Entry(
-    _id = from.pov.game.id + from.pov.color.letter,
+    _id = Entry povToId from.pov,
     userId = myId,
     color = from.pov.color,
     perf = perfType,

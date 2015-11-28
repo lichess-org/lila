@@ -4,12 +4,13 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 
 import lila.db.Implicits._
-import lila.game.GameRepo
+import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
 final class InsightApi(
     storage: Storage,
-    pipeline: AggregationPipeline) {
+    pipeline: AggregationPipeline,
+    indexer: Indexer) {
 
   import lila.insight.{ Dimension => D, Metric => M }
   import InsightApi._
@@ -28,6 +29,16 @@ final class InsightApi(
         case _ => UserStatus.Fresh
       }
     }
+
+  def indexAll = indexer.all _
+
+  def updateGame(g: Game) = Pov(g).map { pov =>
+    pov.player.userId ?? { userId =>
+      storage exists Entry.povToId(pov) flatMap {
+        _ ?? indexer.one(g, userId)
+      }
+    }
+  }.sequenceFu.void
 }
 
 object InsightApi {

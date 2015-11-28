@@ -15,15 +15,23 @@ import lila.game.{ Game, Query }
 import lila.hub.Sequencer
 import lila.user.User
 
-final class Indexer(storage: Storage, sequencer: ActorRef) {
+private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
   private implicit val timeout = makeTimeout.minutes(5)
 
-  def apply(user: User): Funit = {
+  def all(user: User): Funit = {
     val p = scala.concurrent.Promise[Unit]()
     sequencer ! Sequencer.work(compute(user), p.some)
     p.future
   }
+
+  def one(game: Game, userId: String): Funit =
+    PovToEntry(game, userId) flatMap {
+      case Right(e) => storage update e
+      case Left(g) =>
+        logwarn(s"[insight $userId] invalid game http://l.org/${g.id}")
+        funit
+    }
 
   private def compute(user: User): Funit = storage.fetchLast(user.id) flatMap {
     case None    => fromScratch(user)

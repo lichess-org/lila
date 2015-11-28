@@ -30,13 +30,21 @@ final class Env(
 
   private lazy val aggregationPipeline = new AggregationPipeline
 
-  lazy val api = new InsightApi(
-    storage = storage,
-    pipeline = aggregationPipeline)
-
-  lazy val indexer = new Indexer(
+  private lazy val indexer = new Indexer(
     storage = storage,
     sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None)))
+
+  lazy val api = new InsightApi(
+    storage = storage,
+    pipeline = aggregationPipeline,
+    indexer = indexer)
+
+  system.actorOf(Props(new Actor {
+    system.lilaBus.subscribe(self, 'analysisReady)
+    def receive = {
+      case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
+    }
+  }))
 }
 
 object Env {

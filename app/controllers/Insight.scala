@@ -13,7 +13,7 @@ object Insight extends LilaController {
 
   def refresh(username: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      env.indexer(user) inject Ok
+      env.api indexAll user inject Ok
     }
   }
 
