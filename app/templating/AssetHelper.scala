@@ -40,6 +40,11 @@ trait AssetHelper { self: I18nHelper =>
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
+  val highchartsLatestTag = cdnOrLocal(
+    cdn = "http://code.highcharts.com/4.1/highcharts.js",
+    test = "window.Highcharts",
+    local = staticUrl("vendor/highcharts4/highcharts-4.1.9.js"))
+
   val highchartsMoreTag = Html {
     """<script src="http://code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }

@@ -105,9 +105,9 @@ case class Game(
   lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
 
   def moveTimes(color: Color): List[Int] = {
-    val x = if (color == startColor) 0 else 1
+    val pivot = if (color == startColor) 0 else 1
     moveTimes.toList.zipWithIndex.collect {
-      case (e, i) if ((i + x) % 2) == 0 => e
+      case (e, i) if (i % 2) == pivot => e
     }
   }
 
@@ -116,6 +116,13 @@ case class Game(
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
   def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
+
+  def pgnMoves(color: Color): PgnMoves = {
+    val pivot = if (color == startColor) 0 else 1
+    pgnMoves.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    }
+  }
 
   lazy val toChess: ChessGame = {
 

@@ -61,8 +61,8 @@ object PerfType {
   )
 
   case object Atomic extends PerfType(14,
-    key="atomic",
-    name= chess.variant.Atomic.name,
+    key = "atomic",
+    name = chess.variant.Atomic.name,
     title = "Atomic variant",
     iconChar = '>'
   )
@@ -93,6 +93,7 @@ object PerfType {
 
   val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, Puzzle, Opening)
   val byKey = all map { p => (p.key, p) } toMap
+  val byId = all map { p => (p.id, p) } toMap
 
   val default = Standard
 

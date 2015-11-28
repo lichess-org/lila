@@ -158,6 +158,10 @@ object GameRepo {
       _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
     }
 
+  def lastFinishedRated(user: User): Fu[Option[Game]] = $find.one {
+    $query(Query.user(user.id) ++ Query.rated ++ Query.finished) sort Query.sortAntiChronological
+  }
+
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }

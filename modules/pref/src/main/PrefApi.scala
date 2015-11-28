@@ -56,7 +56,7 @@ final class PrefApi(
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
-      coachShare = r.getD("coachShare", Pref.default.coachShare),
+      insightShare = r.getD("insightShare", Pref.default.insightShare),
       tags = r.getD("tags", Pref.default.tags))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
@@ -91,7 +91,7 @@ final class PrefApi(
       "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
       "confirmResign" -> o.confirmResign,
-      "coachShare" -> o.coachShare,
+      "insightShare" -> o.insightShare,
       "tags" -> o.tags)
   }
 

@@ -42,12 +42,10 @@ GET   /@/:username/followers           controllers.Relation.followers(username: 
 GET   /@/:username/suggestions         controllers.Relation.suggest(username: String)
 GET   /rel/blocks                      controllers.Relation.blocks
 
-# Coach
-GET   /coach/opening/:username/:color.json controllers.Coach.openingJson(username: String, color: String)
-GET   /coach/opening/:username/:color  controllers.Coach.opening(username: String, color: String)
-GET   /coach/move/:username.json       controllers.Coach.moveJson(username: String)
-GET   /coach/move/:username            controllers.Coach.move(username: String)
-POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
+# Insight
+POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)
+POST  /insights/data/:username         controllers.Insight.json(username: String)
+GET   /@/:username/insights            controllers.Insight.index(username: String)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
