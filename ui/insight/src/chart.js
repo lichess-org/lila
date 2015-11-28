@@ -45,9 +45,9 @@ function makeChart(el, data) {
       yAxis: 0,
       type: 'column',
       stack: s.stack,
-      animation: {
-        duration: 300
-      },
+      // animation: {
+      //   duration: 300
+      // },
       dataLabels: {
         enabled: true,
         format: dataTypeFormat(s.dataType)
@@ -66,15 +66,15 @@ function makeChart(el, data) {
       type: 'column',
       alignTicks: true,
       spacing: [20, 0, 20, 0],
-      animation: {
-        duration: 300
-      },
       backgroundColor: null,
       borderWidth: 0,
       borderRadius: 0,
       plotBackgroundColor: null,
       plotShadow: false,
-      plotBorderWidth: 0
+      plotBorderWidth: 0,
+      style: {
+        font: "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
+      }
     },
     title: {
       text: null
@@ -101,6 +101,9 @@ function makeChart(el, data) {
     }),
     plotOptions: {
       column: {
+        animation: {
+          duration: 300
+        },
         stacking: 'normal'
       }
     },
@@ -112,7 +115,6 @@ function makeChart(el, data) {
       enabled: true
     }
   };
-  console.log(chartConf);
   $(el).highcharts(chartConf);
 }
 

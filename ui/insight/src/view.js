@@ -1,14 +1,25 @@
 var m = require('mithril');
-var form = require('./form');
+var axis = require('./axis');
+var filters = require('./filters');
 var chart = require('./chart');
 var table = require('./table');
 
 module.exports = function(ctrl) {
   return m('div', {
     class: ctrl.vm.answer ? '' : 'loading',
+    // config: function(el, isUpdate) {
+    //   if (isUpdate) return;
+    //   $(el).find('.ms-parent').each(function() {
+    //     $(this).hover(function() {
+    //       $(this).prev().multipleSelect('open');
+    //     }, function() {
+    //       $(this).prev().multipleSelect('close');
+    //     });
+    //   });
+    // }
   }, [
     m('div.left', [
-      form.filters(ctrl),
+      filters(ctrl),
       m('div.refresh', {
         config: function(e, isUpdate) {
           if (isUpdate) return;
@@ -20,15 +31,16 @@ module.exports = function(ctrl) {
         }
       })
     ]),
-    m('p.preview',
-      'lichess insights ',
-      m('strong', 'developer preview'),
-      ' - not even a beta',
-      ' - use with light background'
-    ),
-    form.axis(ctrl),
+    m('div.top', [
+      axis(ctrl),
+      m('h2', [
+        m('a', {
+          href: '/@/' + ctrl.username,
+        }, ctrl.username),
+        '\'s chess insights'
+      ])
+    ]),
     chart(ctrl),
-    // table.horiz(ctrl),
     table.vert(ctrl)
   ]);
 };

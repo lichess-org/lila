@@ -12,6 +12,7 @@ ui: @Html(ui),
 initialQuestion: @Html(toJson(question)),
 i18n: @jsI18n(),
 userId: "@u.id",
+username: "@u.username",
 pageUrl: "@routes.Insight.index(u.username)",
 postUrl: "@routes.Insight.json(u.username)"
 });

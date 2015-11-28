@@ -4,6 +4,7 @@ var throttle = require('./throttle');
 module.exports = function(env) {
 
   this.ui = env.ui;
+  this.username = env.username;
 
   var findMetric = function(key) {
     return this.ui.metrics.filter(function(x) {

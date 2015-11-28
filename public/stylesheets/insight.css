@@ -1,10 +1,3 @@
-.preview {
-  padding: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  background: rgba(99,0,0,0.5);
-  color: #fff;
-}
 #insight .square-wrap {
   text-align: center;
   margin-top: 180px;
@@ -28,21 +21,53 @@
   margin-top: 10px;
 }
 
-#insight .ms-parent {
+#insight .top {
+  background: #fff;
+  border: 1px solid #ccc;
+  height: 60px;
+}
+#insight .top h2 {
+  font-size: 2em;
+  line-height: 60px;
+  margin-left: 15px;
+}
+#insight .top > * {
+  display: inline-block;
+}
+#insight .axis-form {
+  float: right;
+}
+#insight .axis-form .ms-choice {
+  padding: 30px 10px;
+  border-width: 0 1px;
+  border-radius: 0;
+  font-size: 14px;
+}
+#insight .axis-form .ms-choice span {
+  line-height: 60px;
+}
+#insight .axis-form .ms-choice div {
+  top: 18px;
+}
+
+#insight .filters .ms-parent {
   display: block;
   margin-top: 10px;
 }
-#insight .ms-parent > * {
-  position: absoule;
+#insight .filters .ms-choice {
+  padding: 5px 10px;
+}
+
+#insight .filters .ms-drop {
+  margin-left: 100%;
   top: 0;
   left: 0;
 }
 #insight .ms-choice {
-  padding: 5px 10px;
+  border-color: #ccc;
 }
-
-#insight .ms-drop {
-  margin-left: 100%;
+#insight .ms-choice:focus {
+  outline:0;
 }
 #insight .ms-drop ul {
   padding: 0;
