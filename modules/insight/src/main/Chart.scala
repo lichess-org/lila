@@ -34,7 +34,7 @@ object Chart {
       categories = clusters.map(_.x).map(dimension.valueName))
 
     def sizeSerie = Serie(
-      name = metric.position.tellNumber,
+      name = metric.per.tellNumber,
       dataType = Metric.DataType.Count.name,
       stack = none,
       data = clusters.map(_.size.toDouble))
@@ -79,7 +79,7 @@ object Chart {
     Chart(
       xAxis = xAxis,
       valueYaxis = Yaxis(metric.name, metric.dataType.name),
-      sizeYaxis = Yaxis(metric.position.tellNumber, Metric.DataType.Count.name),
+      sizeYaxis = Yaxis(metric.per.tellNumber, Metric.DataType.Count.name),
       series = sortedSeries,
       sizeSerie = sizeSerie)
   }

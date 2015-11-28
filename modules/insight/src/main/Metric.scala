@@ -6,6 +6,7 @@ sealed abstract class Metric(
   val key: String,
   val name: String,
   val position: Position,
+  val per: Position,
   val dataType: Metric.DataType)
 
 object Metric {
@@ -24,21 +25,21 @@ object Metric {
   import DataType._
   import Position._
 
-  case object MeanCpl extends Metric("meanCpl", "Average centipawn loss", Move, Average)
+  case object MeanCpl extends Metric("meanCpl", "Average centipawn loss", Move, Move, Average)
 
-  case object Movetime extends Metric("movetime", "Move time", Move, Seconds)
+  case object Movetime extends Metric("movetime", "Move time", Move, Move, Seconds)
 
-  case object Result extends Metric("result", "Result", Game, Percent)
+  case object Result extends Metric("result", "Result", Game, Game, Percent)
 
-  case object Termination extends Metric("termination", "Termination", Game, Percent)
+  case object Termination extends Metric("termination", "Termination", Game, Game, Percent)
 
-  case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Average)
+  case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Game, Average)
 
-  case object OpponentRating extends Metric("opponentRating", "Opponent rating", Game, Average)
+  case object OpponentRating extends Metric("opponentRating", "Opponent rating", Game, Game, Average)
 
-  case object NbMoves extends Metric("nbMoves", "Moves per game", Game, Count)
+  case object NbMoves extends Metric("nbMoves", "Moves per game", Move, Game, Count)
 
-  case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Percent)
+  case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Move, Percent)
 
   val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
