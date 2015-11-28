@@ -18,8 +18,7 @@ var colors = {
   green: '#759900',
   red: '#dc322f',
   orange: '#d59120',
-  blue: '#007599',
-  translucid: 'rgba(0,0,0,0.3)'
+  blue: '#007599'
 };
 var resultColors = {
   Victory: colors.green,
@@ -37,7 +36,7 @@ function makeChart(el, data) {
     animation: {
       duration: 300
     },
-    color: 'rgba(80,80,80,0.3)'
+    color: 'rgba(80,80,80,0.2)'
   };
   var valueSeries = data.series.map(function(s) {
     var c = {

@@ -36,8 +36,8 @@ private final class AggregationPipeline {
     }).some.filterNot(_.isEmpty) map Match
 
     // #TODO make it depend on move matchers and metric
-    def projectForMove = Project(BSONDocument(
-      "_id" -> false,
+    def projectForMove(keepId: Boolean = false) = Project(BSONDocument(
+      "_id" -> keepId,
       "moves" -> true
     ) ++ dimension.dbKey.startsWith("moves.").fold(
         BSONDocument(),
@@ -52,21 +52,34 @@ private final class AggregationPipeline {
       ),
       sampleGames :: ((metric match {
         case M.MeanCpl => List(
-          projectForMove,
+          projectForMove(),
           unwindMoves,
           matchMoves,
           sampleMoves,
           group(dimension, Avg("moves.c"))
         )
         case M.NbMoves => List(
-          projectForMove,
+          projectForMove(keepId = true),
           unwindMoves,
           matchMoves,
           sampleMoves,
-          group(dimension, SumValue(1))
+          GroupField(dimension.dbKey)(
+            "v" -> SumValue(1),
+            "games" -> AddToSet("_id")
+          ).some,
+          Project(BSONDocument(
+            "v" -> true,
+            "nbGames" -> BSONDocument("$size" -> "$games")
+          )).some,
+          Project(BSONDocument(
+            "v" -> BSONDocument(
+              "$divide" -> BSONArray("$v", "$nbGames")
+            ),
+            "nb" -> "$nbGames"
+          )).some
         )
         case M.Movetime => List(
-          projectForMove,
+          projectForMove(),
           unwindMoves,
           matchMoves,
           sampleMoves,
@@ -93,7 +106,7 @@ private final class AggregationPipeline {
           regroupStacked
         )
         case M.PieceRole => List(
-          projectForMove,
+          projectForMove(),
           unwindMoves,
           matchMoves,
           sampleMoves,
