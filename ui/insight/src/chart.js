@@ -64,7 +64,7 @@ function makeChart(el, data) {
   var chartConf = {
     chart: {
       type: 'column',
-      alignTicks: false,
+      alignTicks: data.valueYaxis.dataType !== 'percent',
       spacing: [20, 0, 20, 10],
       backgroundColor: null,
       borderWidth: 0,
