@@ -35,6 +35,15 @@ private final class AggregationPipeline {
       case f if f.dimension.isInMove => f.matcher
     }).some.filterNot(_.isEmpty) map Match
 
+    // #TODO make it depend on move matchers and metric
+    def projectForMove = Project(BSONDocument(
+      "_id" -> false,
+      "moves" -> true
+    ) ++ dimension.dbKey.startsWith("moves.").fold(
+        BSONDocument(),
+        BSONDocument(dimension.dbKey -> true)
+      )).some
+
     NonEmptyList.nel[PipelineOperator](
       Match(
         selectUserId(userId) ++
@@ -43,22 +52,27 @@ private final class AggregationPipeline {
       ),
       sampleGames :: ((metric match {
         case M.MeanCpl => List(
+          projectForMove,
           unwindMoves,
           matchMoves,
           sampleMoves,
           group(dimension, Avg("moves.c"))
         )
         case M.NbMoves => List(
+          projectForMove,
           unwindMoves,
           matchMoves,
           sampleMoves,
           group(dimension, SumValue(1))
         )
         case M.Movetime => List(
+          projectForMove,
           unwindMoves,
           matchMoves,
           sampleMoves,
-          group(dimension, GroupFunction("$avg", BSONDocument("$divide" -> BSONArray("$moves.t", 10))))
+          group(dimension, GroupFunction("$avg",
+            BSONDocument("$divide" -> BSONArray("$moves.t", 10))
+          ))
         )
         case M.RatingDiff => List(
           group(dimension, Avg("ratingDiff"))
@@ -73,6 +87,7 @@ private final class AggregationPipeline {
           regroupStacked
         )
         case M.PieceRole => List(
+          projectForMove,
           unwindMoves,
           matchMoves,
           sampleMoves,
