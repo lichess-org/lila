@@ -64,7 +64,7 @@ function makeChart(el, data) {
   var chartConf = {
     chart: {
       type: 'column',
-      alignTicks: true,
+      alignTicks: false,
       spacing: [20, 0, 20, 10],
       backgroundColor: null,
       borderWidth: 0,
@@ -82,22 +82,27 @@ function makeChart(el, data) {
     xAxis: {
       categories: data.xAxis.categories,
       crosshair: true,
-      // labels: {
-      //   rotation: -30
-      // }
     },
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
-      return {
+      var isPercent = data.valueYaxis.dataType === 'percent';
+      var isSize = i % 2 === 1;
+      var c = {
         title: {
           text: i === 1 ? a.name : false
         },
         labels: {
           format: yAxisTypeFormat(a.dataType)
         },
-        opposite: i % 2 === 1,
-        min: a.dataType === 'percent' ? 0 : undefined,
-        max: a.dataType === 'percent' ? 100 : undefined
+        opposite: isSize,
+        min: !isSize && isPercent ? 0 : undefined,
+        max: !isSize && isPercent ? 100 : undefined,
       };
+      if (isSize && isPercent) {
+        c.minorGridLineWidth = 0;
+        c.gridLineWidth = 0;
+        c.alternateGridColor = null;
+      }
+      return c;
     }),
     plotOptions: {
       column: {
