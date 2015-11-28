@@ -74,7 +74,7 @@ object Dimension {
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
     import play.api.libs.json._
     def toJson[A: Writes](key: A) = Json.obj(
-      "key" -> key,
+      "key" -> key.toString,
       "name" -> d.valueName(v))
     d match {
       case Perf             => toJson(v.key)

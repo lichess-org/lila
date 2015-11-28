@@ -46,4 +46,12 @@ final class JsonView {
 
     def apply(c: Chart) = ChartWrites writes c
   }
+
+  def question(metric: String, dimension: String, filters: String) = Json.obj(
+    "metric" -> metric,
+    "dimension" -> dimension,
+    "filters" -> (filters.split('/').map(_ split ':').collect {
+      case Array(key, values) => key -> JsArray(values.split(',').map(JsString.apply))
+    }.toMap: Map[String, JsArray])
+  )
 }

@@ -2,6 +2,7 @@ package controllers
 
 import lila.api.Context
 import lila.app._
+import lila.insight.{ Metric, Dimension }
 import play.api.libs.json.Json
 import play.api.mvc._
 import views._
@@ -16,13 +17,22 @@ object Insight extends LilaController {
     }
   }
 
-  def index(username: String) = Open { implicit ctx =>
+  def index(username: String) = path(username,
+    metric = Metric.MeanCpl.key,
+    dimension = Dimension.PieceRole.key,
+    filters = "")
+
+  def path(username: String, metric: String, dimension: String, filters: String) = Open { implicit ctx =>
     Accessible(username) { user =>
       import lila.insight.InsightApi.UserStatus._
       env.api.userStatus(user).map {
         case NoGame => Ok(html.insight.noGame(user))
         case Empty  => Ok(html.insight.empty(user))
-        case s      => Ok(html.insight.index(user, env.jsonView.stringifiedUi, s == Stale))
+        case s => Ok(html.insight.index(
+          u = user,
+          ui = env.jsonView.stringifiedUi,
+          question = env.jsonView.question(metric, dimension, filters),
+          stale = s == Stale))
       }
     }
   }

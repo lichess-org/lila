@@ -4,7 +4,6 @@ var throttle = require('./throttle');
 module.exports = function(env) {
 
   this.ui = env.ui;
-  this.userId = env.userId;
 
   var findMetric = function(key) {
     return this.ui.metrics.filter(function(x) {
@@ -19,20 +18,19 @@ module.exports = function(env) {
   }.bind(this);
 
   this.vm = {
-    // metric: findMetric('pieceRole'),
-    // dimension: findDimension('opening'),
-    metric: findMetric('meanCpl'),
-    dimension: findDimension('pieceRole'),
-    filters: {},
+    metric: findMetric(env.initialQuestion.metric),
+    dimension: findDimension(env.initialQuestion.dimension),
+    filters: env.initialQuestion.filters,
     answer: null
   };
 
   var askQuestion = throttle(1000, false, function() {
+    this.pushState();
     this.vm.answer = null;
     if (!this.validCombinationCurrent()) return;
     m.request({
       method: 'post',
-      url: '/insights/data/' + this.userId,
+      url: env.postUrl,
       data: {
         metric: this.vm.metric.key,
         dimension: this.vm.dimension.key,
@@ -43,6 +41,15 @@ module.exports = function(env) {
     }.bind(this));
     m.redraw();
   }.bind(this));
+
+  this.pushState = function() {
+    var url = [env.pageUrl, this.vm.metric.key, this.vm.dimension.key].join('/');
+    var filters = Object.keys(this.vm.filters).map(function(filterKey) {
+      return filterKey + ':' + this.vm.filters[filterKey].join(',');
+    }.bind(this)).join('/');
+    if (filters.length) url += '/' + filters;
+    if (window.history.replaceState) window.history.replaceState({}, null, url);
+  }.bind(this);
 
   this.validCombination = function(dimension, metric) {
     return dimension.position === 'game' || metric.position === 'move';
@@ -62,7 +69,8 @@ module.exports = function(env) {
   }.bind(this);
 
   this.setFilter = function(dimensionKey, valueKeys) {
-    this.vm.filters[dimensionKey] = valueKeys;
+    if (!valueKeys.length) delete this.vm.filters[dimensionKey];
+    else this.vm.filters[dimensionKey] = valueKeys;
     askQuestion();
   }.bind(this);
 
