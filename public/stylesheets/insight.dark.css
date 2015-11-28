@@ -19,7 +19,3 @@ body.dark #insight .ms-parent button {
 body.dark #insight .ms-drop ul > li label:hover {
   background: #343434;
 }
-body.dark #insight .filters p {
-  border-color: #3d3d3d;
-  background: linear-gradient(to bottom, #353535, #303030);
-}

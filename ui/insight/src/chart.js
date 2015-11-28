@@ -26,6 +26,21 @@ var resultColors = {
   Defeat: colors.red
 };
 
+var theme = (function() {
+  var light = $('body').hasClass('light');
+  return {
+    text: {
+      weak: light ? '#808080' : '#808080',
+      strong: light ? '#505050' : '#b0b0b0'
+    },
+    line: {
+      weak: light ? '#ccc' : '#404040',
+      strong: light ? '#a0a0a0' : '#606060',
+      fat: '#d85000' // light ? '#a0a0a0' : '#707070'
+    }
+  };
+})();
+
 function makeChart(el, data) {
   var sizeSerie = {
     name: data.sizeSerie.name,
@@ -36,7 +51,7 @@ function makeChart(el, data) {
     animation: {
       duration: 300
     },
-    color: 'rgba(80,80,80,0.2)'
+    color: 'rgba(120,120,120,0.2)'
   };
   var valueSeries = data.series.map(function(s) {
     var c = {
@@ -55,10 +70,14 @@ function makeChart(el, data) {
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
         pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
-        shared: true
+        shared: true,
+        style: {
+          fontWeight: 'bold',
+          color: theme.text.strong
+        }
       }
     };
-    if (data.valueYaxis.name === 'Result') c.color = resultColors[s.name];
+    if (data.valueYaxis.name === 'Game result') c.color = resultColors[s.name];
     return c;
   });
   var chartConf = {
@@ -82,6 +101,19 @@ function makeChart(el, data) {
     xAxis: {
       categories: data.xAxis.categories,
       crosshair: true,
+      labels: {
+        style: {
+          color: theme.text.weak
+        }
+      },
+      title: {
+        style: {
+          color: theme.text.weak
+        }
+      },
+      gridLineColor: theme.line.weak,
+      lineColor: theme.line.strong,
+      tickColor: theme.line.strong,
     },
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
       var isPercent = data.valueYaxis.dataType === 'percent';
@@ -90,12 +122,21 @@ function makeChart(el, data) {
         title: {
           text: i === 1 ? a.name : false
         },
-        labels: {
-          format: yAxisTypeFormat(a.dataType)
-        },
         opposite: isSize,
         min: !isSize && isPercent ? 0 : undefined,
         max: !isSize && isPercent ? 100 : undefined,
+        labels: {
+          format: yAxisTypeFormat(a.dataType),
+          style: {
+            color: theme.text.weak
+          }
+        },
+        title: {
+          style: {
+            color: theme.text.weak
+          }
+        },
+        gridLineColor: theme.line.weak,
       };
       if (isSize && isPercent) {
         c.minorGridLineWidth = 0;
@@ -109,15 +150,33 @@ function makeChart(el, data) {
         animation: {
           duration: 300
         },
-        stacking: 'normal'
+        stacking: 'normal',
+        dataLabels: {
+          color: theme.text.strong
+        },
+        marker: {
+          lineColor: theme.text.weak
+        },
+        borderColor: theme.line.strong
       }
     },
     series: valueSeries.concat(sizeSerie),
     credits: {
       enabled: false
     },
+    labels: {
+      style: {
+        color: theme.text.strong
+      }
+    },
     legend: {
-      enabled: true
+      enabled: true,
+      itemStyle: {
+        color: theme.text.strong
+      },
+      itemHiddenStyle: {
+        color: theme.text.weak
+      }
     }
   };
   $(el).highcharts(chartConf);
