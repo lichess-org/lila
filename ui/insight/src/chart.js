@@ -37,7 +37,7 @@ function makeChart(el, data) {
     animation: {
       duration: 300
     },
-    color: 'rgba(0,0,0,0.1)'
+    color: 'rgba(80,80,80,0.3)'
   };
   var valueSeries = data.series.map(function(s) {
     var c = {
