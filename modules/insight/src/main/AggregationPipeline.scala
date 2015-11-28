@@ -18,6 +18,11 @@ private final class AggregationPipeline {
     "v" -> f,
     "nb" -> SumValue(1)
   ).some
+  private val regroupStacked = GroupField("_id.dimension")(
+    "nb" -> SumField("v"),
+    "stack" -> PushMulti(
+      "metric" -> "_id.metric",
+      "v" -> "v")).some
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
     import question.{ dimension, metric }
@@ -60,11 +65,7 @@ private final class AggregationPipeline {
           GroupMulti("dimension" -> dimension.dbKey, "metric" -> "result")(
             "v" -> SumValue(1)
           ).some,
-          GroupField("_id.dimension")(
-            "nb" -> SumField("v"),
-            "stack" -> PushMulti(
-              "metric" -> "_id.metric",
-              "v" -> "v")).some
+          regroupStacked
         )
         case M.PieceRole => List(
           unwindMoves,
@@ -72,11 +73,7 @@ private final class AggregationPipeline {
           GroupMulti("dimension" -> dimension.dbKey, "metric" -> "moves.r")(
             "v" -> SumValue(1)
           ).some,
-          GroupField("_id.dimension")(
-            "nb" -> SumField("v"),
-            "stack" -> PushMulti(
-              "metric" -> "_id.metric",
-              "v" -> "v")).some
+          regroupStacked
         )
       }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))

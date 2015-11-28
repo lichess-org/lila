@@ -24,7 +24,7 @@ object Metric {
   import DataType._
   import Position._
 
-  case object MeanCpl extends Metric("meanCpl", "Mean CPL", Move, Average)
+  case object MeanCpl extends Metric("meanCpl", "Average centipawn loss", Move, Average)
 
   case object Movetime extends Metric("movetime", "Move time", Move, Seconds)
 
