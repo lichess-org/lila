@@ -58,7 +58,7 @@ object Dimension {
     case Color            => chess.Color.all
     case Opening          => EcopeningDB.all
     case OpponentStrength => RelativeStrength.all
-    case PieceRole        => chess.Role.all
+    case PieceRole        => chess.Role.all.reverse
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {

@@ -69,11 +69,18 @@ object Chart {
       case (_, serie) => serie.copy(data = serie.data.reverse)
     }.toList
 
+    def sortedSeries = answer.clusters.headOption.fold(series) {
+      _.insight match {
+        case Insight.Single(_)       => series
+        case Insight.Stacked(points) => Util.sortLike[Serie, String](series, points.map(_._1.name), _.name)
+      }
+    }
+
     Chart(
       xAxis = xAxis,
       valueYaxis = Yaxis(metric.name, metric.dataType.name),
       sizeYaxis = Yaxis(metric.position.tellNumber, Metric.DataType.Count.name),
-      series = series,
+      series = sortedSeries,
       sizeSerie = sizeSerie)
   }
 }
