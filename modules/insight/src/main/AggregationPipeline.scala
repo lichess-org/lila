@@ -11,6 +11,8 @@ private final class AggregationPipeline {
   import lila.insight.{ Dimension => D, Metric => M }
   import Storage._
 
+  private val sampleGames = Sample(10 * 1000)
+  private val sampleMoves = Sample(200 * 1000).some
   private val unwindMoves = Unwind("moves").some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
@@ -29,7 +31,7 @@ private final class AggregationPipeline {
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })
-    val moveMatcher = combineDocs(question.filters.collect {
+    val matchMoves = combineDocs(question.filters.collect {
       case f if f.dimension.isInMove => f.matcher
     }).some.filterNot(_.isEmpty) map Match
 
@@ -39,20 +41,23 @@ private final class AggregationPipeline {
           gameMatcher ++
           Metric.requiresAnalysis(metric).??(BSONDocument("analysed" -> true))
       ),
-      ((metric match {
+      sampleGames :: ((metric match {
         case M.MeanCpl => List(
           unwindMoves,
-          moveMatcher,
+          matchMoves,
+          sampleMoves,
           group(dimension, Avg("moves.c"))
         )
         case M.NbMoves => List(
           unwindMoves,
-          moveMatcher,
+          matchMoves,
+          sampleMoves,
           group(dimension, SumValue(1))
         )
         case M.Movetime => List(
           unwindMoves,
-          moveMatcher,
+          matchMoves,
+          sampleMoves,
           group(dimension, GroupFunction("$avg", BSONDocument("$divide" -> BSONArray("$moves.t", 10))))
         )
         case M.RatingDiff => List(
@@ -69,7 +74,8 @@ private final class AggregationPipeline {
         )
         case M.PieceRole => List(
           unwindMoves,
-          moveMatcher,
+          matchMoves,
+          sampleMoves,
           GroupMulti("dimension" -> dimension.dbKey, "metric" -> "moves.r")(
             "v" -> SumValue(1)
           ).some,

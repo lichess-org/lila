@@ -39,7 +39,7 @@ object AggregationClusters {
         else points.map {
           case (n, p) => n -> Point(100 * p.y / total)
         }
-      } yield Cluster(x, Insight.Stacked(percents), total).pp
+      } yield Cluster(x, Insight.Stacked(percents), total)
     }
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {
