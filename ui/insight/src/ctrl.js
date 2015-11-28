@@ -19,10 +19,10 @@ module.exports = function(env) {
   }.bind(this);
 
   this.vm = {
-    // metric: env.ui.metrics[0],
-    // dimension: env.ui.dimensions[0],
-    metric: findMetric('pieceRole'),
-    dimension: findDimension('opening'),
+    // metric: findMetric('pieceRole'),
+    // dimension: findDimension('opening'),
+    metric: findMetric('meanCpl'),
+    dimension: findDimension('pieceRole'),
     filters: {},
     answer: null
   };
