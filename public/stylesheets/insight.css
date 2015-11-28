@@ -13,25 +13,25 @@
 
 #insight .left {
   position: absolute;
-  top: 80px;
-  left: -250px;
-  width: 220px;
+  top: 61px;
+  left: -239px;
+  width: 240px;
 }
 #insight .insight-stale {
   margin-top: 10px;
 }
 
-#insight .top {
+#insight header {
   background: #fff;
   border: 1px solid #ccc;
   height: 60px;
 }
-#insight .top h2 {
+#insight header h2 {
   font-size: 2em;
   line-height: 60px;
   margin-left: 15px;
 }
-#insight .top > * {
+#insight header > * {
   display: inline-block;
 }
 #insight .axis-form {
@@ -48,6 +48,7 @@
 }
 #insight .axis-form .ms-choice span {
   line-height: 60px;
+  text-align: center;
 }
 #insight .axis-form .ms-choice div {
   top: 18px;
@@ -70,6 +71,7 @@
   padding: 20px 10px;
   border-width: 1px 1px 0 1px;
   background: #e0e0e0;
+  transition: background 0.13s;
 }
 #insight .filters .ms-parent:last-child .ms-choice {
   border-width: 1px;
@@ -91,21 +93,25 @@
 }
 #insight .filters .ms-drop ul > li label input {
   margin-right: 5px;
+  cursor: pointer;
 }
 
 #insight .filters .ms-drop {
-  margin-left: 100%;
+  margin-left: 99%;
   top: 0;
   left: 0;
 }
 #insight .ms-parent,
 #insight .ms-parent button {
   color: #505050;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 #insight .ms-choice {
   border-color: #ccc;
 }
-#insight .ms-choice:focus {
+#insight .ms-choice:focus,
+#insight .ms-parent input:focus {
   outline:0;
 }
 #insight .ms-drop ul {
@@ -121,8 +127,21 @@
 }
 
 #insight .filters p {
-  margin-bottom: 5px;
+  padding: 5px;
   text-transform: uppercase;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+}
+
+#insight .info.box {
+  margin-bottom: 20px;
+}
+#insight .info.box .content {
+  padding: 7px;
+}
+#insight .info.box .insight-stale button {
+  width: 100%;
 }
 
 #insight table {

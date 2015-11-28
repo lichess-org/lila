@@ -1,4 +1,4 @@
-@(u: User, ui: String, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
+@(u: User, nbGames: Int, ui: String, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @highchartsLatestTag
@@ -13,6 +13,8 @@ initialQuestion: @Html(toJson(question)),
 i18n: @jsI18n(),
 userId: "@u.id",
 username: "@u.username",
+nbGames: @nbGames,
+stale: @stale,
 pageUrl: "@routes.Insight.index(u.username)",
 postUrl: "@routes.Insight.json(u.username)"
 });

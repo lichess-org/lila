@@ -15,6 +15,8 @@ final class InsightApi(
   import lila.insight.{ Dimension => D, Metric => M }
   import InsightApi._
 
+  def count(user: User) = storage count user.id
+
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
     storage.aggregate(pipeline(question, user.id)).map { res =>
       Answer(question, AggregationClusters(question, res))

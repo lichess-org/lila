@@ -9,19 +9,29 @@ module.exports = function(ctrl) {
     class: ctrl.vm.answer ? '' : 'loading'
   }, [
     m('div.left', [
+      m('div.info.box', [
+        m('div.top', [
+          m('a.username', {
+            href: '/@/' + ctrl.user.name
+          }, ctrl.user.name)
+        ]),
+        m('div.content', [
+          m('p.nbGames', 'Insights over ' + ctrl.user.nbGames + ' rated games.'),
+          m('div.refresh', {
+            config: function(e, isUpdate) {
+              if (isUpdate) return;
+              var $ref = $('.insight-stale');
+              if ($ref.length) {
+                $(e).html($ref.show());
+                lichess.refreshInsightForm();
+              }
+            }
+          })
+        ])
+      ]),
       filters(ctrl),
-      m('div.refresh', {
-        config: function(e, isUpdate) {
-          if (isUpdate) return;
-          var $ref = $('.insight-stale');
-          if ($ref.length) {
-            $(e).append($ref.show());
-            lichess.refreshInsightForm();
-          }
-        }
-      })
     ]),
-    m('div.top', [
+    m('header', [
       axis(ctrl),
       m('h2', 'Chess Insights')
     ]),

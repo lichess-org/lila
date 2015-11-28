@@ -25,14 +25,17 @@ object Insight extends LilaController {
   def path(username: String, metric: String, dimension: String, filters: String) = Open { implicit ctx =>
     Accessible(username) { user =>
       import lila.insight.InsightApi.UserStatus._
-      env.api.userStatus(user).map {
-        case NoGame => Ok(html.insight.noGame(user))
-        case Empty  => Ok(html.insight.empty(user))
-        case s => Ok(html.insight.index(
-          u = user,
-          ui = env.jsonView.stringifiedUi,
-          question = env.jsonView.question(metric, dimension, filters),
-          stale = s == Stale))
+      env.api userStatus user flatMap {
+        case NoGame => Ok(html.insight.noGame(user)).fuccess
+        case Empty  => Ok(html.insight.empty(user)).fuccess
+        case s => env.api count user map { nbGames =>
+          Ok(html.insight.index(
+            u = user,
+            nbGames = nbGames,
+            ui = env.jsonView.stringifiedUi,
+            question = env.jsonView.question(metric, dimension, filters),
+            stale = s == Stale))
+        }
       }
     }
   }

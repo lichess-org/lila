@@ -780,7 +780,6 @@ div.chat_panels div.active {
 }
 div.chat_panels .preferences {
   padding: 8px;
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   overflow-y: auto;
@@ -1708,10 +1707,6 @@ div.user_show div.content_box_inter.tabs,
 #qa .answers-header,
 table.slist thead {
   background: rgb(245, 245, 245);
-  background: -moz-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 245, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(245, 245, 245, 1)), color-stop(100%, rgba(240, 240, 240, 1)));
-  background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
@@ -1759,10 +1754,6 @@ a.button:hover,
 .ui-state-hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
-  background: -moz-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(248, 248, 248, 1)), color-stop(100%, rgba(243, 243, 243, 1)));
-  background: -webkit-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
   background: linear-gradient(to bottom, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
 }
 .button:active,
@@ -2495,7 +2486,8 @@ textarea.copyable {
   position: relative;
   cursor: pointer;
   outline: none;
-  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 input.cmn-toggle-round + label {
   padding: 1px;

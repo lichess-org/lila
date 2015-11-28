@@ -4,7 +4,12 @@ var throttle = require('./throttle');
 module.exports = function(env) {
 
   this.ui = env.ui;
-  this.username = env.username;
+  this.user = {
+    id: env.userId,
+    name: env.username,
+    nbGames: env.nbGames,
+    stale: env.stale
+  };
 
   var findMetric = function(key) {
     return this.ui.metrics.filter(function(x) {

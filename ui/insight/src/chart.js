@@ -65,7 +65,7 @@ function makeChart(el, data) {
     chart: {
       type: 'column',
       alignTicks: true,
-      spacing: [20, 0, 20, 0],
+      spacing: [20, 0, 20, 10],
       backgroundColor: null,
       borderWidth: 0,
       borderRadius: 0,
@@ -89,7 +89,7 @@ function makeChart(el, data) {
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function(a, i) {
       return {
         title: {
-          text: a.name
+          text: i === 1 ? a.name : false
         },
         labels: {
           format: yAxisTypeFormat(a.dataType)
