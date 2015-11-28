@@ -5,7 +5,6 @@ module.exports = function(ctrl) {
     m('select.metric', {
       multiple: true,
       config: function(e, isUpdate) {
-        if (isUpdate) return;
         $(e).multipleSelect({
           width: '200px',
           single: true,
@@ -24,11 +23,10 @@ module.exports = function(ctrl) {
         selected: ctrl.vm.metric.key === y.key
       }, y.name);
     })),
-    ' by ',
+    m('span.by', 'by'),
     m('select.dimension', {
       multiple: true,
       config: function(e, isUpdate) {
-        if (isUpdate) return;
         $(e).multipleSelect({
           width: '200px',
           single: true,

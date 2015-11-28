@@ -2,7 +2,7 @@ var m = require('mithril');
 
 module.exports = function(ctrl) {
   return m('div.filters', [
-    m('p', 'Filter results by:'),
+    m('p', 'Filter results'),
     ctrl.ui.dimensions.map(function(dimension) {
       return m('select', {
         multiple: true,

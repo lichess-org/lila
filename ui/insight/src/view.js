@@ -6,17 +6,7 @@ var table = require('./table');
 
 module.exports = function(ctrl) {
   return m('div', {
-    class: ctrl.vm.answer ? '' : 'loading',
-    // config: function(el, isUpdate) {
-    //   if (isUpdate) return;
-    //   $(el).find('.ms-parent').each(function() {
-    //     $(this).hover(function() {
-    //       $(this).prev().multipleSelect('open');
-    //     }, function() {
-    //       $(this).prev().multipleSelect('close');
-    //     });
-    //   });
-    // }
+    class: ctrl.vm.answer ? '' : 'loading'
   }, [
     m('div.left', [
       filters(ctrl),
@@ -33,12 +23,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.top', [
       axis(ctrl),
-      m('h2', [
-        m('a', {
-          href: '/@/' + ctrl.username,
-        }, ctrl.username),
-        '\'s chess insights'
-      ])
+      m('h2', 'Chess Insights')
     ]),
     chart(ctrl),
     table.vert(ctrl)
