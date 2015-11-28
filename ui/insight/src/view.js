@@ -7,7 +7,7 @@ var help = require('./help');
 
 module.exports = function(ctrl) {
   return m('div', {
-    class: ctrl.vm.answer ? '' : 'loading'
+    class: ctrl.vm.loading ? 'loading' : 'ready'
   }, [
     m('div.left', [
       m('div.info.box', [

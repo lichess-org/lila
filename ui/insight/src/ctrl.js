@@ -27,13 +27,15 @@ module.exports = function(env) {
     metric: findMetric(env.initialQuestion.metric),
     dimension: findDimension(env.initialQuestion.dimension),
     filters: env.initialQuestion.filters,
+    loading: true,
     answer: null
   };
 
   var askQuestion = throttle(1000, false, function() {
+    if (!this.validCombinationCurrent()) return m.redraw();
     this.pushState();
-    this.vm.answer = null;
-    if (!this.validCombinationCurrent()) return;
+    this.vm.loading = true;
+    m.redraw();
     m.request({
       method: 'post',
       url: env.postUrl,
@@ -44,8 +46,8 @@ module.exports = function(env) {
       }
     }).then(function(answer) {
       this.vm.answer = answer;
+      this.vm.loading = false;
     }.bind(this));
-    m.redraw();
   }.bind(this));
 
   this.pushState = function() {
