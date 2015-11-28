@@ -43,7 +43,7 @@ object Dimension {
     "opponentStrength", "Opponent strength", "opponent.strength", Game, _.name)
 
   case object PieceRole extends Dimension[Role](
-    "pieceRole", "Piece moved", "moves.r", Move, _.name)
+    "pieceRole", "Piece moved", "moves.r", Move, _.toString)
 
   // case object Castling extends Dimension[Castling](
   //   "castling", "Castling side", "moves.c", Move, _.name)
@@ -73,15 +73,17 @@ object Dimension {
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
     import play.api.libs.json._
-    def toJson[A : Writes](key: A, name: String) = Json.obj("key" -> key, "name" -> name)
+    def toJson[A: Writes](key: A) = Json.obj(
+      "key" -> key,
+      "name" -> d.valueName(v))
     d match {
-      case Perf             => toJson(v.key, v.name)
-      case Phase            => toJson(v.id, v.name)
-      case Result           => toJson(v.id, v.name)
-      case Color            => toJson(v.name, v.name)
-      case Opening          => toJson(v.eco, v.ecoName)
-      case OpponentStrength => toJson(v.id, v.name)
-      case PieceRole        => toJson(v.name, v.toString)
+      case Perf             => toJson(v.key)
+      case Phase            => toJson(v.id)
+      case Result           => toJson(v.id)
+      case Color            => toJson(v.name)
+      case Opening          => toJson(v.eco)
+      case OpponentStrength => toJson(v.id)
+      case PieceRole        => toJson(v.name)
     }
   }
 }
