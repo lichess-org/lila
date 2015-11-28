@@ -29,6 +29,11 @@ postUrl: "@routes.Insight.json(u.username)"
 @moreCss = {
 @cssTag("insight.css")
 @cssVendorTag("multiple-select/multiple-select.css")
+@ctx.currentBg match {
+case "dark" => { @cssTag("insight.dark.css") }
+case "transp" => { @cssTag("insight.dark.css")@cssTag("insight.transp.css") }
+case _ => {}
+}
 }
 
 @insight.layout(u,
