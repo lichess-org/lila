@@ -28,14 +28,16 @@ object Insight extends LilaController {
       env.api userStatus user flatMap {
         case NoGame => Ok(html.insight.noGame(user)).fuccess
         case Empty  => Ok(html.insight.empty(user)).fuccess
-        case s => env.api count user map { nbGames =>
-          Ok(html.insight.index(
-            u = user,
-            nbGames = nbGames,
-            ui = env.jsonView.stringifiedUi,
-            question = env.jsonView.question(metric, dimension, filters),
-            stale = s == Stale))
-        }
+        case s => for {
+          nbGames <- env.api count user
+          prefId <- env.share getPrefId user
+        } yield Ok(html.insight.index(
+          u = user,
+          nbGames = nbGames,
+          prefId = prefId,
+          ui = env.jsonView.stringifiedUi,
+          question = env.jsonView.question(metric, dimension, filters),
+          stale = s == Stale))
       }
     }
   }

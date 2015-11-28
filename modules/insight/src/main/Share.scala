@@ -7,6 +7,8 @@ final class Share(
     getPref: String => Fu[Pref],
     areFriends: (String, String) => Fu[Boolean]) {
 
+  def getPrefId(insighted: User) = getPref(insighted.id) map (_.insightShare)
+
   def grant(insighted: User, to: Option[User]): Fu[Boolean] = getPref(insighted.id) flatMap { pref =>
     pref.insightShare match {
       case _ if to.contains(insighted) => fuccess(true)

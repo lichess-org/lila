@@ -146,6 +146,9 @@
 #insight .info.box .insight-stale button {
   width: 100%;
 }
+#insight .info .share a {
+  text-decoration: underline;
+}
 
 #insight .help.box {
   margin-top: 20px;
