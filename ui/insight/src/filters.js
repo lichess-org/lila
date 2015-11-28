@@ -1,8 +1,8 @@
 var m = require('mithril');
 
 module.exports = function(ctrl) {
-  return m('div.filters', [
-    m('p', 'Filter results'),
+  return m('div.filters.box', [
+    m('div.top', 'Filter results'),
     ctrl.ui.dimensions.map(function(dimension) {
       return m('select', {
         multiple: true,
@@ -10,7 +10,7 @@ module.exports = function(ctrl) {
           if (isUpdate) return;
           $(e).multipleSelect({
             placeholder: dimension.name,
-            width: '240px',
+            width: '239px',
             selectAll: false,
             filter: dimension.key === 'opening',
             // single: dimension.key === 'color',

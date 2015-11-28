@@ -1,6 +1,7 @@
 package lila.insight
 
 import reactivemongo.bson._
+import play.twirl.api.Html
 
 import chess.{ Color, Role }
 import lila.db.Types._
@@ -11,7 +12,8 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val name: String,
     val dbKey: String,
     val position: Position,
-    val valueName: A => String) {
+    val valueName: A => String,
+    val description: Html) {
 
   implicit def bson = implicitly[BSONValueHandler[A]]
 
@@ -25,25 +27,32 @@ object Dimension {
   import Position._
 
   case object Perf extends Dimension[PerfType](
-    "perf", "Variant", "perf", Game, _.name)
+    "perf", "Variant", "perf", Game, _.name,
+    Html("The rating category of the game, like Bullet, Blitz, or Chess960."))
 
   case object Phase extends Dimension[Phase](
-    "phase", "Game phase", "moves.p", Move, _.name)
+    "phase", "Game phase", "moves.p", Move, _.name,
+    Html("The portion of the game: Opening, Middlegame, or Endgame."))
 
   case object Result extends Dimension[Result](
-    "result", "Result", "result", Game, _.name)
+    "result", "Game result", "result", Game, _.name,
+    Html("Whether you won, lost, or drew the game."))
 
   case object Color extends Dimension[Color](
-    "color", "Color", "color", Game, _.toString)
+    "color", "Color", "color", Game, _.toString,
+    Html("The side you are playing: White or Black."))
 
   case object Opening extends Dimension[Ecopening](
-    "opening", "Opening", "eco", Game, _.ecoName)
+    "opening", "Opening", "eco", Game, _.ecoName,
+    Html("ECO identification of the initial moves, like \"A58 Benko Gambit\"."))
 
   case object OpponentStrength extends Dimension[RelativeStrength](
-    "opponentStrength", "Opponent strength", "opponent.strength", Game, _.name)
+    "opponentStrength", "Opponent strength", "opponent.strength", Game, _.name,
+    Html("Rating of your opponent compared to yours. Much weaker:-250, Weaker:-100, Stronger:+100, Much stronger:+250."))
 
   case object PieceRole extends Dimension[Role](
-    "pieceRole", "Piece moved", "moves.r", Move, _.toString)
+    "pieceRole", "Piece moved", "moves.r", Move, _.toString,
+    Html("The type of piece you move."))
 
   // case object Castling extends Dimension[Castling](
   //   "castling", "Castling side", "moves.c", Move, _.name)

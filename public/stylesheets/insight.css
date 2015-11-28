@@ -69,12 +69,12 @@
 }
 #insight .filters .ms-choice {
   padding: 20px 10px;
-  border-width: 1px 1px 0 1px;
+  border-width: 0 1px 1px 0;
   background: #e0e0e0;
   transition: background 0.13s;
 }
 #insight .filters .ms-parent:last-child .ms-choice {
-  border-width: 1px;
+  border-bottom: 0;
 }
 #insight .filters .ms-parent:hover .ms-choice,
 #insight .filters .ms-parent.selected .ms-choice {
@@ -126,22 +126,31 @@
   background: #f0f0f0;
 }
 
-#insight .filters p {
-  padding: 5px;
-  text-transform: uppercase;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-}
-
 #insight .info.box {
   margin-bottom: 20px;
 }
-#insight .info.box .content {
+#insight .box .content {
   padding: 7px;
+}
+#insight .box .top {
+  text-transform: uppercase;
 }
 #insight .info.box .insight-stale button {
   width: 100%;
+}
+
+#insight .help.box {
+  margin-top: 20px;
+}
+#insight .help .dimension {
+  margin-top: 10px;
+}
+#insight .help h3 {
+  margin: 0;
+  font-weight: bold;
+}
+#insight .help a {
+  text-decoration: underline;
 }
 
 #insight table {

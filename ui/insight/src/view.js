@@ -3,6 +3,7 @@ var axis = require('./axis');
 var filters = require('./filters');
 var chart = require('./chart');
 var table = require('./table');
+var help = require('./help');
 
 module.exports = function(ctrl) {
   return m('div', {
@@ -11,7 +12,7 @@ module.exports = function(ctrl) {
     m('div.left', [
       m('div.info.box', [
         m('div.top', [
-          m('a.username', {
+          m('a.username.user_link.ulpt', {
             href: '/@/' + ctrl.user.name
           }, ctrl.user.name)
         ]),
@@ -30,6 +31,7 @@ module.exports = function(ctrl) {
         ])
       ]),
       filters(ctrl),
+      help(ctrl)
     ]),
     m('header', [
       axis(ctrl),

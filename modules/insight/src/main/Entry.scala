@@ -115,10 +115,10 @@ object RelativeStrength {
   val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
   val byId = all map { p => (p.id, p) } toMap
   def apply(diff: Int) = diff match {
-    case d if d < -300 => MuchWeaker
+    case d if d < -250 => MuchWeaker
     case d if d < -100 => Weaker
     case d if d > 100  => Stronger
-    case d if d > 300  => MuchStronger
+    case d if d > 250  => MuchStronger
     case _             => Equal
   }
 }

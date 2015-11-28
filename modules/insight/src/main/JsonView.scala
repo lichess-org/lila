@@ -24,6 +24,7 @@ final class JsonView {
       "key" -> d.key,
       "name" -> d.name,
       "position" -> d.position,
+      "description" -> d.description.body,
       "values" -> Dimension.valuesOf(d).map(Dimension.valueToJson(d)))
   }
 
@@ -31,6 +32,7 @@ final class JsonView {
     Json.obj(
       "key" -> m.key,
       "name" -> m.name,
+      "description" -> m.description.body,
       "position" -> m.position)
   }
 
