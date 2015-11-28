@@ -20,6 +20,12 @@ module.exports = function(ctrl) {
         }
       })
     ]),
+    m('p.preview',
+      'lichess insights ',
+      m('strong', 'developer preview'),
+      ' - not even a beta',
+      ' - use with light background'
+    ),
     form.axis(ctrl),
     chart(ctrl),
     // table.horiz(ctrl),

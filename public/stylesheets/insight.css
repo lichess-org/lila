@@ -1,3 +1,10 @@
+.preview {
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  background: rgba(99,0,0,0.5);
+  color: #fff;
+}
 #insight .square-wrap {
   text-align: center;
   margin-top: 180px;
