@@ -1,7 +1,7 @@
 $(function() {
   lichess.refreshCoachForm = function() {
     $('form.insight-refresh').submit(function() {
-      $.modal($(this).find('.crunshing'));
+      $.modal($(this).find('.crunching'));
       $.post($(this).attr('action'), function() {
         location.reload();
       });
