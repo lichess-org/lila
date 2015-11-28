@@ -1,0 +1,25 @@
+body.dark #insight header,
+body.dark #insight .filters .ms-parent:hover .ms-choice,
+body.dark #insight .filters .ms-parent.selected .ms-choice {
+  background-color: #2b2b2b;
+}
+body.dark #insight header,
+body.dark #insight .ms-choice,
+body.dark #insight table {
+  border-color: #3d3d3d;
+}
+body.dark #insight .filters .ms-choice {
+  background-color: #505050;
+}
+body.dark #insight .filters .ms-choice > span.placeholder,
+body.dark #insight .ms-parent,
+body.dark #insight .ms-parent button {
+  color: #a0a0a0;
+}
+body.dark #insight .ms-drop ul > li label:hover {
+  background: #343434;
+}
+body.dark #insight .filters p {
+  border-color: #3d3d3d;
+  background: linear-gradient(to bottom, #353535, #303030);
+}
