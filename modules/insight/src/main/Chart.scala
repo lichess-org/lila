@@ -41,7 +41,6 @@ object Chart {
 
     def series = clusters.foldLeft(Map.empty[String, Serie]) {
       case (acc, cluster) =>
-        // val clusterName = dimension valueName cluster.x
         cluster.insight match {
           case Insight.Single(point) =>
             val key = metric.name

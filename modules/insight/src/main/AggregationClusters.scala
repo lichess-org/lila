@@ -20,12 +20,13 @@ object AggregationClusters {
       } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb)
     }
 
-  private case class StackEntry(metric: Int, v: BSONNumberLike)
+  private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
   private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
 
   private def stacked[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
     res.documents.flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
+      // println(lila.db.BSON debug doc)
       for {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         stack <- doc.getAs[List[StackEntry]]("stack")
@@ -38,7 +39,7 @@ object AggregationClusters {
         else points.map {
           case (n, p) => n -> Point(100 * p.y / total)
         }
-      } yield Cluster(x, Insight.Stacked(percents), total)
+      } yield Cluster(x, Insight.Stacked(percents), total).pp
     }
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {

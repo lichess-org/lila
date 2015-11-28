@@ -1,5 +1,7 @@
 package lila.insight
 
+import reactivemongo.bson._
+
 sealed abstract class Metric(
   val key: String,
   val name: String,
@@ -30,9 +32,13 @@ object Metric {
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Average)
 
+  case object OpponentRating extends Metric("opponentRating", "Opponent rating", Game, Average)
+
   case object NbMoves extends Metric("nbMoves", "Number of moves", Move, Count)
 
-  val all = List(MeanCpl, Movetime, Result, RatingDiff, NbMoves)
+  case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Percent)
+
+  val all = List(MeanCpl, Movetime, Result, RatingDiff, OpponentRating, NbMoves, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresAnalysis(m: Metric) = m match {
@@ -41,17 +47,21 @@ object Metric {
   }
 
   def isStacked(m: Metric) = m match {
-    case Result => true
-    case _      => false
+    case Result    => true
+    case PieceRole => true
+    case _         => false
   }
 
   def valuesOf(metric: Metric): List[MetricValue] = metric match {
     case Result => lila.insight.Result.all.map { r =>
-      MetricValue(r.id, MetricValueName(r.name))
+      MetricValue(BSONInteger(r.id), MetricValueName(r.name))
+    }
+    case PieceRole => chess.Role.all.map { r =>
+      MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
     }
     case _ => Nil
   }
 
   case class MetricValueName(name: String)
-  case class MetricValue(id: Int, name: MetricValueName)
+  case class MetricValue(key: BSONValue, name: MetricValueName)
 }

@@ -53,8 +53,23 @@ private final class AggregationPipeline {
         case M.RatingDiff => List(
           group(dimension, Avg("ratingDiff"))
         )
+        case M.OpponentRating => List(
+          group(dimension, Avg("opponent.rating"))
+        )
         case M.Result => List(
           GroupMulti("dimension" -> dimension.dbKey, "metric" -> "result")(
+            "v" -> SumValue(1)
+          ).some,
+          GroupField("_id.dimension")(
+            "nb" -> SumField("v"),
+            "stack" -> PushMulti(
+              "metric" -> "_id.metric",
+              "v" -> "v")).some
+        )
+        case M.PieceRole => List(
+          unwindMoves,
+          moveMatcher,
+          GroupMulti("dimension" -> dimension.dbKey, "metric" -> "moves.r")(
             "v" -> SumValue(1)
           ).some,
           GroupField("_id.dimension")(

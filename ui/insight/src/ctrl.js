@@ -21,7 +21,7 @@ module.exports = function(env) {
   this.vm = {
     // metric: env.ui.metrics[0],
     // dimension: env.ui.dimensions[0],
-    metric: findMetric('result'),
+    metric: findMetric('pieceRole'),
     dimension: findDimension('opening'),
     filters: {},
     answer: null
