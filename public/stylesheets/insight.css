@@ -120,7 +120,7 @@
 }
 #insight .ms-choice:focus,
 #insight .ms-parent input:focus {
-  outline:0;
+  outline: 0;
 }
 #insight .ms-drop ul {
   padding: 0;
