@@ -78,7 +78,12 @@ module.exports = function(env) {
     askQuestion();
   }.bind(this);
 
-  this.trans = lichess.trans(env.i18n);
+  this.clearFilters = function() {
+    this.vm.filters = {};
+    askQuestion();
+  }.bind(this);
+
+  // this.trans = lichess.trans(env.i18n);
 
   askQuestion();
 };

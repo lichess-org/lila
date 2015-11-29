@@ -1,13 +1,21 @@
 var m = require('mithril');
 
 module.exports = function(ctrl) {
+  var isFiltered = !!Object.keys(ctrl.vm.filters).length;
   return m('div.filters.box', [
-    m('div.top', 'Filter results'),
+    m('div.top', [
+      isFiltered ? m('a.clear.hint--top', {
+        'data-hint': 'Clear all filters',
+        onclick: ctrl.clearFilters
+      }, m('span', {
+        'data-icon': 'L',
+      })) : null,
+      'Filter results'
+    ]),
     ctrl.ui.dimensions.map(function(dimension) {
       return m('select', {
         multiple: true,
         config: function(e, isUpdate) {
-          if (isUpdate) return;
           $(e).multipleSelect({
             placeholder: dimension.name,
             width: '239px',
