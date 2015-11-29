@@ -28,7 +28,7 @@ var resultColors = {
 
 var theme = (function() {
   var light = $('body').hasClass('light');
-  return {
+  var t = {
     light: light,
     text: {
       weak: light ? '#808080' : '#9a9a9a',
@@ -40,6 +40,11 @@ var theme = (function() {
       fat: '#d85000' // light ? '#a0a0a0' : '#707070'
     }
   };
+  if (!light) t.colors = [
+    "#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+    "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
+  ];
+  return t;
 })();
 
 function makeChart(el, data) {
@@ -116,9 +121,6 @@ function makeChart(el, data) {
       var isPercent = data.valueYaxis.dataType === 'percent';
       var isSize = i % 2 === 1;
       var c = {
-        title: {
-          text: i === 1 ? a.name : false
-        },
         opposite: isSize,
         min: !isSize && isPercent ? 0 : undefined,
         max: !isSize && isPercent ? 100 : undefined,
@@ -129,6 +131,7 @@ function makeChart(el, data) {
           }
         },
         title: {
+          text: i === 1 ? a.name : false,
           style: {
             color: theme.text.weak
           }
@@ -197,6 +200,7 @@ function makeChart(el, data) {
       }
     }
   };
+  if (theme.colors) chartConf.colors = theme.colors;
   $(el).highcharts(chartConf);
 }
 
