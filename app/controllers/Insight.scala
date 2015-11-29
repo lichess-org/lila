@@ -61,7 +61,7 @@ object Insight extends LilaController {
       case None => notFound
       case Some(u) => env.share.grant(u, ctx.me) flatMap {
         case true                          => f(u)
-        case false if isGranted(_.UserSpy) => f(u)
+        // case false if isGranted(_.UserSpy) => f(u)
         case false                         => fuccess(Forbidden(html.insight.forbidden(u)))
       }
     }

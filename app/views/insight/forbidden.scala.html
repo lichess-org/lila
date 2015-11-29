@@ -1,6 +1,15 @@
 @(u: User)(implicit ctx: Context)
 
-@insight.layout(u, title = s"${u.username}'s chess insights are protected") {
+@site.message(
+title = s"${u.username}'s chess insights are protected",
+back = true) {
 
-You cannot see @userLink(u) chess insights!
+Sorry, you cannot see @userLink(u) chess insights.
+<br />
+<br />
+<br />
+Maybe ask them to change their <a class="button" href="@routes.Pref.form("privacy")">privacy settings</a> ?
+<br />
+<br />
+<br />
 }
