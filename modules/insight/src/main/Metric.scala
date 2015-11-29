@@ -45,7 +45,7 @@ object Metric {
   case object OpponentRating extends Metric("opponentRating", "Opponent rating", Game, Game, Average,
     Html("Rating of your opponent for the relevant game category."))
 
-  case object NbMoves extends Metric("nbMoves", "Moves per game", Move, Game, Count,
+  case object NbMoves extends Metric("nbMoves", "Moves per game", Move, Game, Average,
     Html("Number of moves you play in the game. Doesn't count the opponent moves."))
 
   case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Move, Percent,
