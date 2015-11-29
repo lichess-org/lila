@@ -33,7 +33,7 @@ final class InsightApi(
     }
 
   def userStatus(user: User): Fu[UserStatus] =
-    GameRepo lastFinishedRated user flatMap {
+    GameRepo lastFinishedRatedNotFromPosition user flatMap {
       case None => fuccess(UserStatus.NoGame)
       case Some(game) => storage fetchLast user map {
         case None => UserStatus.Empty
