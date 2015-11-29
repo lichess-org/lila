@@ -16,6 +16,7 @@ module.exports = function(ctrl) {
       return m('select', {
         multiple: true,
         config: function(e, isUpdate) {
+          if (isUpdate && ctrl.vm.filters[dimension.key]) return;
           $(e).multipleSelect({
             placeholder: dimension.name,
             width: '239px',
