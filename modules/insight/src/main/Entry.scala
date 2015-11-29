@@ -117,8 +117,8 @@ object RelativeStrength {
   def apply(diff: Int) = diff match {
     case d if d < -200 => MuchWeaker
     case d if d < -100 => Weaker
-    case d if d > 100  => Stronger
     case d if d > 200  => MuchStronger
+    case d if d > 100  => Stronger
     case _             => Equal
   }
 }
