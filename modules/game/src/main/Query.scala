@@ -80,6 +80,9 @@ object Query {
   def variant(v: chess.variant.Variant) =
     Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
+  def notFromPosition =
+    Json.obj(F.variant -> $ne(chess.variant.FromPosition.id))
+
   def createdSince(d: DateTime) =
     Json.obj(F.createdAt -> $gt($date(d)))
 
