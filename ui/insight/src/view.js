@@ -8,7 +8,13 @@ var info = require('./info');
 
 module.exports = function(ctrl) {
   return m('div', {
-    class: ctrl.vm.loading ? 'loading' : 'ready'
+    class: ctrl.vm.loading ? 'loading' : 'ready',
+    config: function(el, isUpdate) {
+      if (isUpdate) return;
+      setTimeout(function() {
+        lichess.userPowertip($('.insight-ulpt'), 'e');
+      }, 600);
+    }
   }, [
     m('div.left', [
       info(ctrl),

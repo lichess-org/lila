@@ -707,7 +707,7 @@ lichess.unique = function(xs) {
         return false;
       });
 
-      function userPowertip($els, placement) {
+      lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
@@ -726,7 +726,7 @@ lichess.unique = function(xs) {
             });
           }
         }).data('powertip', ' ');
-      }
+      };
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
@@ -751,9 +751,9 @@ lichess.unique = function(xs) {
       }
 
       function updatePowertips() {
-        userPowertip($('#site_header .ulpt'), 'e');
-        userPowertip($('#friend_box .ulpt'), 'nw');
-        userPowertip($('.ulpt'), 'w');
+        lichess.userPowertip($('#site_header .ulpt'), 'e');
+        lichess.userPowertip($('#friend_box .ulpt'), 'nw');
+        lichess.userPowertip($('.ulpt'), 'w');
         gamePowertip($('.glpt'), 'w');
       }
       setTimeout(updatePowertips, 600);

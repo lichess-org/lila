@@ -6,7 +6,7 @@ module.exports = function(ctrl) {
   var shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return m('div.info.box', [
     m('div.top', [
-      m('a.username.user_link.ulpt', {
+      m('a.username.user_link.insight-ulpt', {
         href: '/@/' + ctrl.user.name
       }, ctrl.user.name)
     ]),
