@@ -18,7 +18,7 @@ private final class Storage(coll: Coll) {
   import BSONHandlers._
 
   def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
-    coll.aggregate(operators.head, operators.tail)
+    coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
 
   private def fetchRange(userId: String, range: Range): Fu[List[Entry]] =
     coll.find(selectUserId(userId))
