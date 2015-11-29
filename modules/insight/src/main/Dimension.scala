@@ -1,7 +1,7 @@
 package lila.insight
 
-import reactivemongo.bson._
 import play.twirl.api.Html
+import reactivemongo.bson._
 
 import chess.{ Color, Role }
 import lila.db.Types._
@@ -38,6 +38,10 @@ object Dimension {
     "result", "Game result", "result", Game, _.name,
     Html("Whether you won, lost, or drew the game."))
 
+  case object Termination extends Dimension[Termination](
+    "termination", "Game termination", "termination", Game, _.name,
+    Html("The way the game ended, like Checkmate or Resignation."))
+
   case object Color extends Dimension[Color](
     "color", "Color", "color", Game, _.toString,
     Html("The side you are playing: White or Black."))
@@ -57,13 +61,14 @@ object Dimension {
   // case object Castling extends Dimension[Castling](
   //   "castling", "Castling side", "moves.c", Move, _.name)
 
-  val all = List(Perf, Phase, Result, Color, Opening, OpponentStrength, PieceRole)
+  val all = List(Perf, Phase, Result, Termination, Color, Opening, OpponentStrength, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
     case Perf             => PerfType.nonPuzzle
     case Phase            => lila.insight.Phase.all
     case Result           => lila.insight.Result.all
+    case Termination      => lila.insight.Termination.all
     case Color            => chess.Color.all
     case Opening          => EcopeningDB.all
     case OpponentStrength => RelativeStrength.all
@@ -74,6 +79,7 @@ object Dimension {
     case Perf             => PerfType.byKey get key
     case Phase            => parseIntOption(key) flatMap lila.insight.Phase.byId.get
     case Result           => parseIntOption(key) flatMap lila.insight.Result.byId.get
+    case Termination      => parseIntOption(key) flatMap lila.insight.Termination.byId.get
     case Color            => chess.Color(key)
     case Opening          => EcopeningDB.allByEco get key
     case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
@@ -82,17 +88,17 @@ object Dimension {
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
     import play.api.libs.json._
-    def toJson[A: Writes](key: A) = Json.obj(
-      "key" -> key.toString,
+    Json.obj(
+      "key" -> (d match {
+        case Perf             => v.key
+        case Phase            => v.id
+        case Result           => v.id
+        case Termination      => v.id
+        case Color            => v.name
+        case Opening          => v.eco
+        case OpponentStrength => v.id
+        case PieceRole        => v.name
+      }).toString,
       "name" -> d.valueName(v))
-    d match {
-      case Perf             => toJson(v.key)
-      case Phase            => toJson(v.id)
-      case Result           => toJson(v.id)
-      case Color            => toJson(v.name)
-      case Opening          => toJson(v.eco)
-      case OpponentStrength => toJson(v.id)
-      case PieceRole        => toJson(v.name)
-    }
   }
 }

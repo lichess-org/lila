@@ -11,6 +11,7 @@ final class JsonView {
       Json toJson D.Perf,
       Json toJson D.Phase,
       Json toJson D.Result,
+      Json toJson D.Termination,
       Json toJson D.Color,
       Json toJson D.OpponentStrength,
       Json toJson D.PieceRole,

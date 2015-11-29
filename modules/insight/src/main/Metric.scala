@@ -37,7 +37,7 @@ object Metric {
     Dimension.Result.description)
 
   case object Termination extends Metric("termination", "Termination", Game, Game, Percent,
-    Html("The way the game ended, like Checkmate or Resignation."))
+    Dimension.Termination.description)
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Game, Average,
     Html("The rating points you win or lose when the game ends."))
