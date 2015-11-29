@@ -29,6 +29,7 @@ var resultColors = {
 var theme = (function() {
   var light = $('body').hasClass('light');
   return {
+    light: light,
     text: {
       weak: light ? '#808080' : '#9a9a9a',
       strong: light ? '#505050' : '#c0c0c0'
@@ -71,10 +72,6 @@ function makeChart(el, data) {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
         pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
         shared: true,
-        style: {
-          fontWeight: 'bold',
-          color: theme.text.strong
-        }
       }
     };
     if (data.valueYaxis.name === 'Game result') c.color = resultColors[s.name];
@@ -166,6 +163,27 @@ function makeChart(el, data) {
     },
     labels: {
       style: {
+        color: theme.text.strong
+      }
+    },
+    tooltip: {
+      backgroundColor: {
+        linearGradient: {
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 1
+        },
+        stops: theme.light ? [
+          [0, 'rgba(200, 200, 200, .8)'],
+          [1, 'rgba(250, 250, 250, .8)']
+        ] : [
+          [0, 'rgba(56, 56, 56, .8)'],
+          [1, 'rgba(16, 16, 16, .8)']
+        ]
+      },
+      style: {
+        fontWeight: 'bold',
         color: theme.text.strong
       }
     },
