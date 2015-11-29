@@ -30,8 +30,8 @@ var theme = (function() {
   var light = $('body').hasClass('light');
   return {
     text: {
-      weak: light ? '#808080' : '#808080',
-      strong: light ? '#505050' : '#b0b0b0'
+      weak: light ? '#808080' : '#9a9a9a',
+      strong: light ? '#505050' : '#c0c0c0'
     },
     line: {
       weak: light ? '#ccc' : '#404040',
@@ -172,7 +172,7 @@ function makeChart(el, data) {
     legend: {
       enabled: true,
       itemStyle: {
-        color: theme.text.strong
+        color: theme.text.weak
       },
       itemHiddenStyle: {
         color: theme.text.weak
