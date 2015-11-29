@@ -6,18 +6,24 @@ final class JsonView {
 
   private def D = Dimension
 
-  lazy val stringifiedUi = Json stringify {
-    Json.obj(
-      "dimensions" -> List(
-        Json toJson D.Perf,
-        Json toJson D.Phase,
-        Json toJson D.Result,
-        Json toJson D.Color,
-        Json toJson D.Opening,
-        Json toJson D.OpponentStrength,
-        Json toJson D.PieceRole),
-      "metrics" -> Metric.all)
-  }
+  def ui(ecos: Set[String]) = Json.obj(
+    "dimensions" -> List(
+      Json toJson D.Perf,
+      Json toJson D.Phase,
+      Json toJson D.Result,
+      Json toJson D.Color,
+      Json toJson D.OpponentStrength,
+      Json toJson D.PieceRole,
+      Json.obj(
+        "key" -> D.Opening.key,
+        "name" -> D.Opening.name,
+        "position" -> D.Opening.position,
+        "description" -> D.Opening.description.body,
+        "values" -> Dimension.valuesOf(D.Opening).filter { o =>
+          ecos contains o.eco
+        }.map(Dimension.valueToJson(D.Opening)))
+    ),
+    "metrics" -> Metric.all)
 
   private implicit def dimensionWriter[X]: OWrites[Dimension[X]] = OWrites { d =>
     Json.obj(

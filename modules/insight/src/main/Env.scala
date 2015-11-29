@@ -17,6 +17,7 @@ final class Env(
 
   private val settings = new {
     val CollectionEntry = config getString "collection.entry"
+    val CollectionUserCache = config getString "collection.user_cache"
   }
   import settings._
 
@@ -34,8 +35,11 @@ final class Env(
     storage = storage,
     sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None)))
 
+  private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
+
   lazy val api = new InsightApi(
     storage = storage,
+    userCacheApi = userCacheApi,
     pipeline = aggregationPipeline,
     indexer = indexer)
 

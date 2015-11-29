@@ -6,7 +6,7 @@ case class Ecopening(
     name: String,
     moves: String,
     fen: Ecopening.FEN,
-    lastMoveUci: String) {
+    lastMoveUci: String) extends Ordered[Ecopening] {
 
   lazy val moveList = moves.split(' ').toList
 
@@ -22,6 +22,8 @@ case class Ecopening(
     }.mkString(" ")
 
   def ecoName = s"$eco $name"
+
+  def compare(other: Ecopening) = eco compare other.eco
 
   override def toString = s"$ecoName ($moves)"
 }

@@ -29,13 +29,13 @@ object Insight extends LilaController {
         case NoGame => Ok(html.insight.noGame(user)).fuccess
         case Empty  => Ok(html.insight.empty(user)).fuccess
         case s => for {
-          nbGames <- env.api count user
+          cache <- env.api userCache user
           prefId <- env.share getPrefId user
         } yield Ok(html.insight.index(
           u = user,
-          nbGames = nbGames,
+          cache = cache,
           prefId = prefId,
-          ui = env.jsonView.stringifiedUi,
+          ui = env.jsonView.ui(cache.ecos),
           question = env.jsonView.question(metric, dimension, filters),
           stale = s == Stale))
       }

@@ -45,9 +45,14 @@ private final class Storage(coll: Coll) {
   def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
 
   def exists(id: String) = coll.count(selectId(id).some).map(0!=)
+
+  def ecos(userId: String): Fu[Set[String]] =
+    coll.distinct("eco", selectUserId(userId).some).map {
+      _.collect { case BSONString(eco) => eco } toSet
+    }
 }
 
-object Storage {
+private object Storage {
   def selectId(id: String) = BSONDocument("_id" -> id)
   def selectUserId(id: String) = BSONDocument("userId" -> id)
   val sortChronological = BSONDocument("date" -> 1)

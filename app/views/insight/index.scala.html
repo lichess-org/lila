@@ -1,4 +1,4 @@
-@(u: User, nbGames: Int, prefId: Int, ui: String, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
+@(u: User, cache: lila.insight.UserCache, prefId: Int, ui: play.api.libs.json.JsObject, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @highchartsLatestTag
@@ -8,14 +8,14 @@
 @embedJs {
 $(function() {
 LichessInsight(document.getElementById('insight'), {
-ui: @Html(ui),
+ui: @Html(toJson(ui)),
 initialQuestion: @Html(toJson(question)),
 i18n: @jsI18n(),
 myUserId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 user: {
 id: "@u.id",
 name: "@u.username",
-nbGames: @nbGames,
+nbGames: @cache.count,
 stale: @stale,
 shareId: @prefId
 },
