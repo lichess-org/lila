@@ -9,7 +9,7 @@ module.exports = function(ctrl) {
         onclick: ctrl.clearFilters
       }, m('span', {
         'data-icon': 'L',
-      })) : null,
+      }, 'CLEAR')) : null,
       'Filter results'
     ]),
     ctrl.ui.dimensions.map(function(dimension) {

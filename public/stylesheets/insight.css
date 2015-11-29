@@ -146,7 +146,6 @@
 #insight .filters.box .top a {
   float: right;
   text-transform: none;
-  margin-top: -1px;
 }
 #insight .info.box .insight-stale button {
   width: 100%;
