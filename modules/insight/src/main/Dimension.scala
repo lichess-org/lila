@@ -48,7 +48,7 @@ object Dimension {
 
   case object OpponentStrength extends Dimension[RelativeStrength](
     "opponentStrength", "Opponent strength", "opponent.strength", Game, _.name,
-    Html("Rating of your opponent compared to yours. Much weaker:-250, Weaker:-100, Stronger:+100, Much stronger:+250."))
+    Html("Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200."))
 
   case object PieceRole extends Dimension[Role](
     "pieceRole", "Piece moved", "moves.r", Move, _.toString,
