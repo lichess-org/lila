@@ -7,8 +7,8 @@ import reactivemongo.bson._
 object $operator extends $operator
 trait $operator {
   import play.modules.reactivemongo.json._
-  
-def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
+
+  def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
   def $set(pairs: (String, Json.JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
   def $set(pairs: JsObject) = Json.obj("$set" -> pairs)
   def $setBson(pairs: (String, BSONValue)*) = BSONDocument("$set" -> BSONDocument(pairs))

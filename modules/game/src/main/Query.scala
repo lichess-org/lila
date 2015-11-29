@@ -80,6 +80,11 @@ object Query {
   def variant(v: chess.variant.Variant) =
     Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
+  lazy val notHordeOrSincePawnsAreWhite = $or(Seq(
+    Json.obj(F.variant -> $ne(chess.variant.Horde.id)),
+    Json.obj(F.createdAt -> $gt($date(new DateTime(2015, 4, 11, 10, 0))))
+  ))
+
   def notFromPosition =
     Json.obj(F.variant -> $ne(chess.variant.FromPosition.id))
 

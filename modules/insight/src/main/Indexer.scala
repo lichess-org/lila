@@ -47,7 +47,8 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     Query.rated ++
     Query.finished ++
     Query.turnsMoreThan(2) ++
-    Query.notFromPosition
+    Query.notFromPosition ++
+    Query.notHordeOrSincePawnsAreWhite
 
   // private val maxGames = 1 * 10
   private val maxGames = 10 * 1000
