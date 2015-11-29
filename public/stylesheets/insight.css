@@ -19,7 +19,7 @@
   opacity: 0.5;
 }
 
-#insight .left {
+#insight .left-side {
   position: absolute;
   top: 61px;
   left: -239px;
@@ -171,7 +171,24 @@
 #insight table {
   margin-left: 20px;
   border: 1px solid #d4d4d4;
+  width: calc(100% - 20px);
 }
 #insight table td.data {
   font-weight: bold;
+}
+#insight .game_list {
+  margin: 0 0 20px 5px;
+}
+#insight .game_list .cg-board-wrap {
+  margin: auto;
+  width: 178px;
+  height: 178px;
+  position: relative;
+}
+#insight .game_list .vstext {
+  width: 168px;
+}
+#insight .game_list > div {
+  display: inline-block;
+  margin: 0 0 0 15px;
 }

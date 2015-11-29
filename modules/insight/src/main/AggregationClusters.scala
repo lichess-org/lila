@@ -17,7 +17,8 @@ object AggregationClusters {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         value <- doc.getAs[BSONNumberLike]("v")
         nb <- doc.getAs[Int]("nb")
-      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb)
+        ids <- doc.getAs[List[String]]("ids")
+      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids)
     }
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
@@ -39,7 +40,8 @@ object AggregationClusters {
         else points.map {
           case (n, p) => n -> Point(100 * p.y / total)
         }
-      } yield Cluster(x, Insight.Stacked(percents), total)
+        ids <- doc.getAs[List[String]]("ids")
+      } yield Cluster(x, Insight.Stacked(percents), total, ids)
     }
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {

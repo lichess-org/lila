@@ -70,6 +70,9 @@ object GameRepo {
     $query(Query user userId) sort Query.sortCreated
   )
 
+  def userPovsByGameIds(gameIds: List[String], user: User): Fu[List[Pov]] =
+    $find.byOrderedIds(gameIds) map { _.flatMap(g => Pov(g, user)) }
+
   def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] = $find(
     $query(Query user user) sort Query.sortCreated, nb
   ) map { _.flatMap(g => Pov(g, user)) }
