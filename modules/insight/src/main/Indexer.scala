@@ -43,8 +43,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
       _.?? { g => computeFrom(user, g.createdAt) }
     }
 
-  private def gameQuery(user: User) =
-    Query.user(user.id) ++ Query.rated ++ Query.finished ++ Query.turnsMoreThan(2)
+  private def gameQuery(user: User) = Query.user(user.id) ++
+    Query.rated ++
+    Query.finished ++
+    Query.turnsMoreThan(2) ++
+    Query.notFromPosition
 
   // private val maxGames = 1 * 10
   private val maxGames = 10 * 1000
