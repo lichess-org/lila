@@ -24,7 +24,7 @@ module.exports = function(ctrl) {
     ]),
     m('header', [
       axis(ctrl),
-      m('h2', 'Chess Insights')
+      m('h2', 'Chess Insights [BETA]')
     ]),
     chart(ctrl),
     boards(ctrl),
