@@ -27,7 +27,7 @@ object Dimension {
   import Position._
 
   case object Perf extends Dimension[PerfType](
-    "perf", "Variant", "perf", Game, _.name,
+    "variant", "Variant", "perf", Game, _.name,
     Html("The rating category of the game, like Bullet, Blitz, or Chess960."))
 
   case object Phase extends Dimension[Phase](
@@ -55,7 +55,7 @@ object Dimension {
     Html("Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200."))
 
   case object PieceRole extends Dimension[Role](
-    "pieceRole", "Piece moved", "moves.r", Move, _.toString,
+    "piece", "Piece moved", "moves.r", Move, _.toString,
     Html("The type of piece you move."))
 
   case object MovetimeRange extends Dimension[MovetimeRange](

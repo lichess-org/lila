@@ -27,7 +27,7 @@ object Metric {
   import DataType._
   import Position._
 
-  case object MeanCpl extends Metric("meanCpl", "Average centipawn loss", Move, Move, Average,
+  case object MeanCpl extends Metric("acpl", "Average centipawn loss", Move, Move, Average,
     Html("""Precision of your moves. Lower is better. <a href="http://lichess.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
 
   case object Movetime extends Metric("movetime", "Move time", Move, Move, Seconds,
@@ -48,10 +48,13 @@ object Metric {
   case object NbMoves extends Metric("nbMoves", "Moves per game", Move, Game, Average,
     Html("Number of moves you play in the game. Doesn't count the opponent moves."))
 
-  case object PieceRole extends Metric("pieceRole", "Piece moved", Move, Move, Percent,
+  case object PieceRole extends Metric("piece", "Piece moved", Move, Move, Percent,
     Dimension.PieceRole.description)
 
-  val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole)
+  case object Opportunism extends Metric("opportunism", "Opportunism", Move, Move, Percent,
+    Html("How often you take advantage of your opponent blunders. 100% means you punish them all, 0% means you counter-blunder them all."))
+
+  val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole, Opportunism)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresAnalysis(m: Metric) = m match {

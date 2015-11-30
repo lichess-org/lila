@@ -38,7 +38,7 @@ case class Move(
   eval: Option[Int], // before the move was played, relative to player
   mate: Option[Int], // before the move was played, relative to player
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
-  opportunism: Boolean)
+  opportunism: Option[Boolean])
 
 case class Opponent(rating: Int, strength: RelativeStrength)
 

@@ -53,9 +53,10 @@ private final class AggregationPipeline {
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })
-    val matchMoves = combineDocs(question.filters.collect {
-      case f if f.dimension.isInMove => f.matcher
-    }).some.filterNot(_.isEmpty) map Match
+    def matchMoves(extraMatcher: BSONDocument = BSONDocument()) =
+      combineDocs(extraMatcher :: question.filters.collect {
+        case f if f.dimension.isInMove => f.matcher
+      }).some.filterNot(_.isEmpty) map Match
 
     // #TODO make it depend on move matchers and metric?
     def projectForMove = Project(BSONDocument(
@@ -86,15 +87,31 @@ private final class AggregationPipeline {
         case M.MeanCpl => List(
           projectForMove,
           unwindMoves,
-          matchMoves,
+          matchMoves(),
           sampleMoves,
           group(dimension, Avg("moves.c")),
           sliceIds
         )
+        case M.Opportunism => List(
+          projectForMove,
+          unwindMoves,
+          matchMoves(BSONDocument("moves.o" -> BSONDocument("$exists" -> true))),
+          sampleMoves,
+          group(dimension, GroupFunction("$push", BSONDocument(
+            "$cond" -> BSONArray("$moves.o", 1, 0)
+          ))),
+          sliceIds,
+          Project(BSONDocument(
+            "_id" -> true,
+            "v" -> BSONDocument("$multiply" -> BSONArray(100, BSONDocument("$avg" -> "$v"))),
+            "nb" -> true,
+            "ids" -> true
+          )).some
+        )
         case M.NbMoves => List(
           projectForMove,
           unwindMoves,
-          matchMoves,
+          matchMoves(),
           sampleMoves,
           group(dimension, SumValue(1)),
           Project(BSONDocument(
@@ -113,7 +130,7 @@ private final class AggregationPipeline {
         case M.Movetime => List(
           projectForMove,
           unwindMoves,
-          matchMoves,
+          matchMoves(),
           sampleMoves,
           group(dimension, GroupFunction("$avg",
             BSONDocument("$divide" -> BSONArray("$moves.t", 10))
@@ -141,7 +158,7 @@ private final class AggregationPipeline {
         case M.PieceRole => List(
           projectForMove,
           unwindMoves,
-          matchMoves,
+          matchMoves(),
           sampleMoves,
           groupMulti(dimension, "moves.r"),
           regroupStacked,

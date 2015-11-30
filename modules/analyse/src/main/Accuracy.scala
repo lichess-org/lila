@@ -13,16 +13,17 @@ object Accuracy {
     case (_, Some(m1), _, Some(m2)) => withSignOf(Score.CEILING, m2) - withSignOf(Score.CEILING, m1)
   }
 
-  def diffsList(pov: Pov, analysis: Analysis): List[Int] = (pov.color == pov.game.startColor).fold(
-    Info.start(pov.game.startedAtTurn) :: analysis.infos,
-    analysis.infos
-  ).grouped(2).foldLeft(List[Int]()) {
-      case (list, List(i1, i2)) =>
-        makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
-          (if (pov.color.white) -diff else diff).max(0) :: list
-        }
-      case (list, _) => list
-    }.reverse
+  def diffsList(pov: Pov, analysis: Analysis): List[Int] =
+    (pov.color == pov.game.startColor).fold(
+      Info.start(pov.game.startedAtTurn) :: analysis.infos,
+      analysis.infos
+    ).grouped(2).foldLeft(List[Int]()) {
+        case (list, List(i1, i2)) =>
+          makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
+            (if (pov.color.white) -diff else diff).max(0) :: list
+          }
+        case (list, _) => list
+      }.reverse
 
   def prevColorInfos(pov: Pov, analysis: Analysis): List[Info] = {
     (pov.color == pov.game.startColor).fold(
