@@ -56,7 +56,8 @@ private object BSONHandlers {
       eval = r.intO("e"),
       mate = r.intO("m"),
       cpl = r.intO("c"),
-      opportunism = r.boolO("o"))
+      opportunism = r.boolO("o"),
+      luck = r.boolO("l"))
     def writes(w: Writer, b: Move) = BSONDocument(
       "p" -> b.phase,
       "t" -> b.tenths,
@@ -64,7 +65,8 @@ private object BSONHandlers {
       "e" -> b.eval,
       "m" -> b.mate,
       "c" -> b.cpl,
-      "o" -> b.opportunism)
+      "o" -> b.opportunism,
+      "l" -> b.luck)
   }
   implicit val OpponentBSONHandler = Macros.handler[Opponent]
   implicit val EntryBSONHandler = Macros.handler[Entry]

@@ -3,7 +3,7 @@ var m = require('mithril');
 function dataTypeFormat(dt) {
   if (dt === 'seconds') return '{point.y:.1f}';
   if (dt === 'average') return '{point.y:,.1f}';
-  if (dt === 'percent') return '{point.percentage:.0f}%';
+  if (dt === 'percent') return '{point.y:.1f}%';
   return '{point.y:,.0f}';
 }
 
@@ -71,7 +71,7 @@ function makeChart(el, data) {
       // },
       dataLabels: {
         enabled: true,
-        format: dataTypeFormat(s.dataType)
+        format: s.stack ? '{point.percentage:.0f}%' : dataTypeFormat(s.dataType)
       },
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',

@@ -108,6 +108,22 @@ private final class AggregationPipeline {
             "ids" -> true
           )).some
         )
+        case M.Luck => List(
+          projectForMove,
+          unwindMoves,
+          matchMoves(BSONDocument("moves.l" -> BSONDocument("$exists" -> true))),
+          sampleMoves,
+          group(dimension, GroupFunction("$push", BSONDocument(
+            "$cond" -> BSONArray("$moves.l", 1, 0)
+          ))),
+          sliceIds,
+          Project(BSONDocument(
+            "_id" -> true,
+            "v" -> BSONDocument("$multiply" -> BSONArray(100, BSONDocument("$avg" -> "$v"))),
+            "nb" -> true,
+            "ids" -> true
+          )).some
+        )
         case M.NbMoves => List(
           projectForMove,
           unwindMoves,

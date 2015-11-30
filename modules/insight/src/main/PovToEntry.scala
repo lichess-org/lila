@@ -1,18 +1,22 @@
 package lila.insight
 
+import chess.format.Nag
 import chess.Role
-import lila.analyse.Accuracy
+import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
 
 object PovToEntry {
+
+  private type Ply = Int
 
   case class RichPov(
     pov: Pov,
     initialFen: Option[String],
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
-    moveAccuracy: Option[List[Int]])
+    moveAccuracy: Option[List[Int]],
+    advices: Map[Ply, Advice])
 
   def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
     enrich(game, userId) map (_ flatMap convert toRight game) addFailureEffect { e =>
@@ -42,7 +46,8 @@ object PovToEntry {
               initialFen = fen,
               variant = game.variant
             ).toOption.fold(chess.Division.empty)(chess.Divider.apply),
-            moveAccuracy = an.map { Accuracy.diffsList(pov, _) }
+            moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
+            advices = an.?? { _.advices.map { a => a.info.ply -> a }.toMap }
           ).some
         }
     }
@@ -69,6 +74,20 @@ object PovToEntry {
         case ((tenths, role), i) =>
           val ply = i * 2 + from.pov.color.fold(1, 2)
           val prevInfo = prevInfos lift i
+          val opportunism = from.advices.get(ply - 1) flatMap {
+            case o if o.nag == Nag.Blunder => from.advices get ply match {
+              case Some(p) if p.nag == Nag.Blunder => false.some
+              case _                               => true.some
+            }
+            case _ => none
+          }
+          val luck = from.advices.get(ply) flatMap {
+            case o if o.nag == Nag.Blunder => from.advices.get(ply + 1) match {
+              case Some(p) if p.nag == Nag.Blunder => true.some
+              case _                               => false.some
+            }
+            case _ => none
+          }
           Move(
             phase = Phase.of(from.division, ply),
             tenths = tenths,
@@ -76,7 +95,8 @@ object PovToEntry {
             eval = prevInfo.flatMap(_.score).map(_.ceiled.centipawns),
             mate = prevInfo.flatMap(_.mate),
             cpl = cpDiffs lift i,
-            opportunism = false)
+            opportunism = opportunism,
+            luck = luck)
       }
   }
 
