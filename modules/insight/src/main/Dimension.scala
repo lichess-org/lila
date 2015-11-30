@@ -58,6 +58,10 @@ object Dimension {
     "pieceRole", "Piece moved", "moves.r", Move, _.toString,
     Html("The type of piece you move."))
 
+  case object MovetimeRange extends Dimension[MovetimeRange](
+    "movetime", "Move time", "moves.t", Move, _.name,
+    Html("Time you spend thinking on each move, in seconds."))
+
   // case object Castling extends Dimension[Castling](
   //   "castling", "Castling side", "moves.c", Move, _.name)
 
@@ -73,6 +77,7 @@ object Dimension {
     case Opening          => EcopeningDB.all
     case OpponentStrength => RelativeStrength.all
     case PieceRole        => chess.Role.all.reverse
+    case MovetimeRange    => lila.insight.MovetimeRange.all
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
@@ -84,6 +89,7 @@ object Dimension {
     case Opening          => EcopeningDB.allByEco get key
     case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
     case PieceRole        => chess.Role.all.find(_.name == key)
+    case MovetimeRange    => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
@@ -98,7 +104,20 @@ object Dimension {
         case Opening          => v.eco
         case OpponentStrength => v.id
         case PieceRole        => v.name
+        case MovetimeRange    => v.id
       }).toString,
       "name" -> d.valueName(v))
+  }
+
+  def filtersOf[X](d: Dimension[X], selected: List[X]): BSONDocument = d match {
+    case Dimension.MovetimeRange => selected match {
+      case Nil => BSONDocument()
+      case xs  => BSONDocument(d.dbKey -> BSONDocument("$in" -> xs.flatMap(_.tenths.list)))
+    }
+    case _ => selected map d.bson.write match {
+      case Nil     => BSONDocument()
+      case List(x) => BSONDocument(d.dbKey -> x)
+      case xs      => BSONDocument(d.dbKey -> BSONDocument("$in" -> BSONArray(xs)))
+    }
   }
 }

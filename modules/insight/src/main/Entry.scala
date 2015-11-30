@@ -4,6 +4,7 @@ import chess.{ Color, Role }
 import lila.game.{ PgnMoves, Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
+import scalaz.NonEmptyList
 
 case class Entry(
     _id: String, // gameId + w/b
@@ -109,16 +110,30 @@ sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
   case object MuchWeaker extends RelativeStrength(10, "Much weaker")
   case object Weaker extends RelativeStrength(20, "Weaker")
-  case object Equal extends RelativeStrength(30, "Equal")
+  case object Similar extends RelativeStrength(30, "Similar")
   case object Stronger extends RelativeStrength(40, "Stronger")
   case object MuchStronger extends RelativeStrength(50, "Much stronger")
-  val all = List(MuchWeaker, Weaker, Equal, Stronger, MuchStronger)
+  val all = List(MuchWeaker, Weaker, Similar, Stronger, MuchStronger)
   val byId = all map { p => (p.id, p) } toMap
   def apply(diff: Int) = diff match {
     case d if d < -200 => MuchWeaker
     case d if d < -100 => Weaker
     case d if d > 200  => MuchStronger
     case d if d > 100  => Stronger
-    case _             => Equal
+    case _             => Similar
   }
+}
+
+sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: NonEmptyList[Int])
+object MovetimeRange {
+  case object MTR1 extends MovetimeRange(1, "0 to 1 second", NonEmptyList(1, 5, 10))
+  case object MTR3 extends MovetimeRange(3, "1 to 3 seconds", NonEmptyList(15, 20, 30))
+  case object MTR5 extends MovetimeRange(5, "3 to 5 seconds", NonEmptyList(40, 50))
+  case object MTR10 extends MovetimeRange(10, "5 to 10 seconds", NonEmptyList(60, 80, 100))
+  case object MTR30 extends MovetimeRange(30, "10 to 30 seconds", NonEmptyList(150, 200, 300))
+  case object MTRInf extends MovetimeRange(60, "More than 30 seconds", NonEmptyList(400, 600))
+  val all = List(MTR1, MTR3, MTR5, MTR10, MTR30, MTRInf)
+  val reversedNoInf = all.reverse drop 1
+  val byId = all map { p => (p.id, p) } toMap
+  def apply(tenths: Int) = all.find(_.id >= tenths) | MTRInf
 }

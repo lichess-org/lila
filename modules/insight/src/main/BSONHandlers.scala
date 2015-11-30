@@ -44,6 +44,10 @@ private object BSONHandlers {
     def read(b: BSONInteger) = Termination.byId get b.value err s"Invalid termination ${b.value}"
     def write(e: Termination) = BSONInteger(e.id)
   }
+  implicit val MovetimeRangeBSONHandler = new BSONHandler[BSONInteger, MovetimeRange] {
+    def read(b: BSONInteger) = MovetimeRange.byId get b.value err s"Invalid movetime range ${b.value}"
+    def write(e: MovetimeRange) = BSONInteger(e.id)
+  }
   implicit def MoveHandler = new BSON[Move] {
     def reads(r: Reader) = Move(
       phase = r.get[Phase]("p"),

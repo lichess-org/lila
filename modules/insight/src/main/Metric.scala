@@ -31,7 +31,7 @@ object Metric {
     Html("""Precision of your moves. Lower is better. <a href="http://lichess.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
 
   case object Movetime extends Metric("movetime", "Move time", Move, Move, Seconds,
-    Html("Time you spend thinking on each move, in seconds."))
+    Dimension.MovetimeRange.description)
 
   case object Result extends Metric("result", "Game result", Game, Game, Percent,
     Dimension.Result.description)

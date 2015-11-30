@@ -23,6 +23,7 @@ case class JsonQuestion(
             case Opening.key          => build(Opening)
             case OpponentStrength.key => build(OpponentStrength)
             case PieceRole.key        => build(PieceRole)
+            case MovetimeRange.key    => build(MovetimeRange)
             case _                    => none
           }
         }
@@ -38,6 +39,7 @@ case class JsonQuestion(
           case Opening.key          => build(Opening)
           case OpponentStrength.key => build(OpponentStrength)
           case PieceRole.key        => build(PieceRole)
+          case MovetimeRange.key    => build(MovetimeRange)
           case _                    => none
         }
       }

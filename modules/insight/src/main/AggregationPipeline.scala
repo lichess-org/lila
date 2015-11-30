@@ -11,23 +11,36 @@ private final class AggregationPipeline {
   import lila.insight.{ Dimension => D, Metric => M }
   import Storage._
 
+  private lazy val movetimeIdDispatcher =
+    MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)) {
+      case (acc, mtr) => BSONDocument(
+        "$cond" -> BSONArray(
+          BSONDocument("$lte" -> BSONArray("$moves.t", mtr.tenths.last)),
+          mtr.id,
+          acc))
+    }
+  private def dimensionGroupId(dim: Dimension[_]): BSONValue = dim match {
+    case Dimension.MovetimeRange => movetimeIdDispatcher
+    case d                       => BSONString("$" + d.dbKey)
+  }
+
   private val sampleGames = Sample(10 * 1000)
   private val sortDate = Sort(Descending("date"))
   private val sampleMoves = Sample(200 * 1000).some
   private val unwindMoves = Unwind("moves").some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
-  private def group(d: Dimension[_], f: GroupFunction) = GroupField(d.dbKey)(
+  private def group(d: Dimension[_], f: GroupFunction) = Group(dimensionGroupId(d))(
     "v" -> f,
     "nb" -> SumValue(1),
     "ids" -> AddToSet("_id")
   ).some
-  private def groupMulti(dimension: Dimension[_], metricDbKey: String) = GroupMulti(
-    "dimension" -> dimension.dbKey,
-    "metric" -> metricDbKey)(
-      "v" -> SumValue(1),
-      "ids" -> AddToSet("_id")
-    ).some
+  private def groupMulti(d: Dimension[_], metricDbKey: String) = Group(BSONDocument(
+    "dimension" -> dimensionGroupId(d),
+    "metric" -> ("$" + metricDbKey)))(
+    "v" -> SumValue(1),
+    "ids" -> AddToSet("_id")
+  ).some
   private val regroupStacked = GroupField("_id.dimension")(
     "nb" -> SumField("v"),
     "ids" -> First("ids"),
@@ -83,10 +96,7 @@ private final class AggregationPipeline {
           unwindMoves,
           matchMoves,
           sampleMoves,
-          GroupField(dimension.dbKey)(
-            "v" -> SumValue(1),
-            "ids" -> AddToSet("_id")
-          ).some,
+          group(dimension, SumValue(1)),
           Project(BSONDocument(
             "v" -> true,
             "ids" -> true,
