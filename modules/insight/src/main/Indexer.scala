@@ -87,7 +87,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
             e.printStackTrace
           }
         } &>
-        Enumeratee.grouped(Iteratee takeUpTo 25) |>>>
+        Enumeratee.grouped(Iteratee takeUpTo 50) |>>>
         Iteratee.foldM[Seq[Seq[Entry]], Int](0) {
           case (nb, xs) =>
             val entries = xs.flatten
