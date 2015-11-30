@@ -2,7 +2,7 @@ package lila.insight
 
 import chess.Role
 import lila.analyse.Accuracy
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
 
 object PovToEntry {
@@ -19,8 +19,18 @@ object PovToEntry {
       println(s"http://l.org/${game.id}")
     }
 
+  private def removeWrongAnalysis(game: Game): Boolean = {
+    if (game.metadata.analysed && !game.analysable) {
+      GameRepo setUnanalysed game.id
+      lila.analyse.AnalysisRepo remove game.id
+      true
+    }
+    false
+  }
+
   private def enrich(game: Game, userId: String): Fu[Option[RichPov]] =
-    lila.game.Pov.ofUserId(game, userId) ?? { pov =>
+    if (removeWrongAnalysis(game)) fuccess(none)
+    else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
         (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
           case (fen, an) => RichPov(

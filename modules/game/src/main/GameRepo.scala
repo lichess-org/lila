@@ -179,6 +179,9 @@ object GameRepo {
   def setAnalysed(id: ID) {
     $update.fieldUnchecked(id, F.analysed, true)
   }
+  def setUnanalysed(id: ID) {
+    $update.fieldUnchecked(id, F.analysed, false)
+  }
 
   def isAnalysed(id: ID): Fu[Boolean] =
     $count.exists($select(id) ++ Query.analysed(true))
