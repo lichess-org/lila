@@ -37,7 +37,13 @@
 #insight header h2 {
   font-size: 2em;
   line-height: 60px;
-  margin-left: 15px;
+}
+#insight header h2::before {
+  font-size: 42px;
+  vertical-align: top;
+  line-height: 60px;
+  margin-left: 10px;
+  opacity: 0.5;
 }
 #insight header > * {
   display: inline-block;
