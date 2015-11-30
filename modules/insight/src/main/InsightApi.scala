@@ -12,6 +12,7 @@ final class InsightApi(
     storage: Storage,
     userCacheApi: UserCacheApi,
     pipeline: AggregationPipeline,
+    notifier: Notifier,
     indexer: Indexer) {
 
   import lila.insight.{ Dimension => D, Metric => M }
@@ -46,8 +47,13 @@ final class InsightApi(
       }
     }
 
-  def indexAll(user: User) =
+  def indexAll(user: User) = lila.common.Chronometer.result {
     indexer.all(user) >> userCacheApi.remove(user.id)
+  } map {
+    case (result, millis) =>
+      if (millis > 1000 * 60 * 2) notifier dataIsReady user
+      result
+  }
 
   def updateGame(g: Game) = Pov(g).map { pov =>
     pov.player.userId ?? { userId =>
