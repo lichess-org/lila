@@ -63,6 +63,16 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
   private def computeFrom(user: User, from: DateTime): Funit =
     lila.common.Chronometer.log(s"insight aggregator:${user.username}") {
+      def toEntry(game: Game): Fu[Option[Entry]] =
+        PovToEntry(game, user.id).addFailureEffect { e =>
+          println(e)
+          e.printStackTrace
+        } map {
+          case Right(e) => e.some
+          case Left(g) =>
+            logwarn(s"[insight ${user.username}] invalid game http://lichess.org/${g.id}")
+            none
+        }
       loginfo(s"[insight] start aggregating ${user.username} games")
       val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
       // val query = $query(gameQuery(user) ++ Query.analysed(true) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
@@ -70,19 +80,19 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         .sort(Query.sortChronological)
         .cursor[Game]()
         .enumerate(maxGames, stopOnError = true) &>
-        Enumeratee.mapM[lila.game.Game].apply[Either[Game, Entry]] { game =>
-          PovToEntry(game, user.id).addFailureEffect { e =>
+        Enumeratee.grouped(Iteratee takeUpTo 4) &>
+        Enumeratee.mapM[Seq[Game]].apply[Seq[Entry]] { games =>
+          games.map(toEntry).sequenceFu.map(_.flatten).addFailureEffect { e =>
             println(e)
             e.printStackTrace
           }
-        } |>>>
-        Iteratee.foldM[Either[Game, Entry], Int](0) {
-          case (nb, Right(e)) =>
-            if (nb % 100 == 0) loginfo(s"[insight ${user.username}] aggregated $nb games")
-            storage insert e inject (nb + 1)
-          case (nb, Left(g)) =>
-            logwarn(s"[insight ${user.username}] invalid game http://l.org/${g.id}")
-            fuccess(nb)
+        } &>
+        Enumeratee.grouped(Iteratee takeUpTo 25) |>>>
+        Iteratee.foldM[Seq[Seq[Entry]], Int](0) {
+          case (nb, xs) =>
+            val entries = xs.flatten
+            loginfo(s"[insight ${user.username}] $nb")
+            storage bulkInsert entries inject (nb + entries.size)
         } addEffect { nb =>
           loginfo(s"[insight ${user.username}] done aggregating $nb games")
         } void
