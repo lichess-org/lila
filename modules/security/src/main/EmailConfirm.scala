@@ -15,11 +15,7 @@ final class EmailConfirm(
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
     val url = s"$baseUrl/signup/confirm/$token"
-    WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
-      "from" -> Seq(sender),
-      "to" -> Seq(email),
-      "subject" -> Seq(s"Confirm your lichess.org account, ${user.username}"),
-      "text" -> Seq(s"""
+    val body = s"""
 Final step!
 
 Confirm your email address to complete your lichess account. It's easy — just click on the link below.
@@ -28,6 +24,22 @@ $url
 
 
 Please do not reply to this message; it was sent from an unmonitored email address. This message is a service email related to your use of lichess.org.
+"""
+    WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
+      "from" -> Seq(sender),
+      "to" -> Seq(email),
+      "subject" -> Seq(s"Confirm your lichess.org account, ${user.username}"),
+      "text" -> Seq(body),
+      "html" -> Seq(body + s"""
+<div itemscope itemtype="http://schema.org/EmailMessage">
+  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ConfirmAction">
+    <meta itemprop="name" content="Activate Account"/>
+    <div itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler">
+      <link itemprop="url" href="$url"/>
+    </div>
+  </div>
+  <meta itemprop="description" content="Confirm your email address and activate your registered account on lichess.org"/>
+</div>
 """))).void
   }
 
