@@ -196,6 +196,10 @@
   border: none;
   background: none;
 }
+#insight .game_list {
+  height: 218px;
+  white-space: nowrap;
+}
 #insight .game_list > div {
   display: inline-block;
   margin: 0 0 0 14.8px;
