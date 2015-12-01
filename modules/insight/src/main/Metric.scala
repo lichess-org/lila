@@ -36,7 +36,7 @@ object Metric {
   case object Result extends Metric("result", "Game result", Game, Game, Percent,
     Dimension.Result.description)
 
-  case object Termination extends Metric("termination", "Termination", Game, Game, Percent,
+  case object Termination extends Metric("termination", "Game termination", Game, Game, Percent,
     Dimension.Termination.description)
 
   case object RatingDiff extends Metric("ratingDiff", "Rating gain", Game, Game, Average,
