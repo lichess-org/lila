@@ -124,10 +124,6 @@ object PovToEntry {
       case _                    => Result.Loss
     },
     termination = Termination fromStatus from.pov.game.status,
-    finalPhase =
-      if (from.division.end.isDefined) Phase.End
-      else if (from.division.middle.isDefined) Phase.Middle
-      else Phase.Opening,
     ratingDiff = ~from.pov.player.ratingDiff,
     analysed = from.analysis.isDefined,
     provisional = from.provisional,

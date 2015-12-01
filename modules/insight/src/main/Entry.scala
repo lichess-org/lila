@@ -16,13 +16,10 @@ case class Entry(
     moves: List[Move],
     result: Result,
     termination: Termination,
-    finalPhase: Phase,
     ratingDiff: Int,
     analysed: Boolean,
     provisional: Boolean,
     date: DateTime) {
-
-  def id = _id
 
   def gameId = id take Game.gameIdSize
 }
@@ -30,6 +27,17 @@ case class Entry(
 case object Entry {
 
   def povToId(pov: Pov) = pov.game.id + pov.color.letter
+
+  object BSONFields = {
+    val userId = "u"
+    val color = "c"
+    val perf = "p"
+    val eco = "e"
+    val opponent = "o"
+    val moves = "m"
+    val result = "r"
+    val termination = "t"
+    val finalPhase = "f"
 }
 
 case class Move(
