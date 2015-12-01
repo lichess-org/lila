@@ -19,6 +19,7 @@ case class Entry(
     finalPhase: Phase,
     ratingDiff: Int,
     analysed: Boolean,
+    provisional: Boolean,
     date: DateTime) {
 
   def id = _id

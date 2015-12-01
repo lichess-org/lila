@@ -12,6 +12,7 @@ import lila.db.Implicits._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.tube.gameTube
 import lila.game.{ Game, Query }
+import lila.rating.PerfType
 import lila.hub.Sequencer
 import lila.user.User
 
@@ -25,8 +26,8 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     p.future
   }
 
-  def one(game: Game, userId: String): Funit =
-    PovToEntry(game, userId) flatMap {
+  def one(game: Game, userId: String, provisional: Boolean): Funit =
+    PovToEntry(game, userId, provisional) flatMap {
       case Right(e) => storage update e
       case Left(g) =>
         logwarn(s"[insight $userId] invalid game http://l.org/${g.id}")
@@ -63,8 +64,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
   private def computeFrom(user: User, from: DateTime): Funit =
     lila.common.Chronometer.log(s"insight aggregator:${user.username}") {
-      def toEntry(game: Game): Fu[Option[Entry]] =
-        PovToEntry(game, user.id).addFailureEffect { e =>
+      var nbByPerf = collection.immutable.Map.empty[PerfType, Int]
+      def toEntry(game: Game): Fu[Option[Entry]] = game.perfType ?? { pt =>
+        val nb = nbByPerf.getOrElse(pt, 0) + 1
+        nbByPerf = nbByPerf.updated(pt, nb)
+        PovToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
           println(e)
           e.printStackTrace
         } map {
@@ -73,6 +77,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
             logwarn(s"[insight ${user.username}] invalid game http://lichess.org/${g.id}")
             none
         }
+      }
       loginfo(s"[insight] start aggregating ${user.username} games")
       val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
       // val query = $query(gameQuery(user) ++ Query.analysed(true) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))

@@ -48,7 +48,7 @@ private final class Storage(coll: Coll) {
 
   def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
 
-  def exists(id: String) = coll.count(selectId(id).some).map(0!=)
+  def find(id: String) = coll.find(selectId(id)).one[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
     coll.distinct("eco", selectUserId(userId).some).map {

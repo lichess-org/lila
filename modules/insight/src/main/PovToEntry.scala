@@ -12,16 +12,18 @@ object PovToEntry {
 
   case class RichPov(
     pov: Pov,
+    provisional: Boolean,
     initialFen: Option[String],
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
     moveAccuracy: Option[List[Int]],
     advices: Map[Ply, Advice])
 
-  def apply(game: Game, userId: String): Fu[Either[Game, Entry]] =
-    enrich(game, userId) map (_ flatMap convert toRight game) addFailureEffect { e =>
-      println(s"http://l.org/${game.id}")
-    }
+  def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
+    enrich(game, userId, provisional) map
+      (_ flatMap convert toRight game) addFailureEffect { e =>
+        println(s"http://l.org/${game.id}")
+      }
 
   private def removeWrongAnalysis(game: Game): Boolean = {
     if (game.metadata.analysed && !game.analysable) {
@@ -32,13 +34,14 @@ object PovToEntry {
     false
   }
 
-  private def enrich(game: Game, userId: String): Fu[Option[RichPov]] =
+  private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
         (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
           case (fen, an) => RichPov(
             pov = pov,
+            provisional = provisional,
             initialFen = fen,
             analysis = an,
             division = chess.Replay.boards(
@@ -127,5 +130,6 @@ object PovToEntry {
       else Phase.Opening,
     ratingDiff = ~from.pov.player.ratingDiff,
     analysed = from.analysis.isDefined,
+    provisional = from.provisional,
     date = from.pov.game.createdAt)
 }
