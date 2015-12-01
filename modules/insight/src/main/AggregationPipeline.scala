@@ -73,6 +73,7 @@ private final class AggregationPipeline {
     )).some
     def sliceStackedIds = Project(BSONDocument(
       "_id" -> true,
+      "nb" -> true,
       "stack" -> true,
       "ids" -> BSONDocument("$slice" -> BSONArray("$ids", 4))
     )).some
