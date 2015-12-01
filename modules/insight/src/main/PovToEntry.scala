@@ -109,14 +109,13 @@ object PovToEntry {
     opRating <- from.pov.opponent.rating
     perfType <- from.pov.game.perfType
   } yield Entry(
-    _id = Entry povToId from.pov,
+    id = Entry povToId from.pov,
     userId = myId,
     color = from.pov.color,
     perf = perfType,
     eco = Ecopening fromGame from.pov.game,
-    opponent = Opponent(
-      rating = opRating,
-      strength = RelativeStrength(opRating - myRating)),
+    opponentRating = opRating,
+    opponentStrength = RelativeStrength(opRating - myRating),
     moves = makeMoves(from),
     result = from.pov.game.winnerUserId match {
       case None                 => Result.Draw

@@ -7,12 +7,13 @@ import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
 case class Entry(
-    _id: String, // gameId + w/b
+    id: String, // gameId + w/b
     userId: String,
     color: Color,
     perf: PerfType,
     eco: Option[Ecopening],
-    opponent: Opponent,
+    opponentRating: Int,
+    opponentStrength: RelativeStrength,
     moves: List[Move],
     result: Result,
     termination: Termination,
@@ -28,16 +29,22 @@ case object Entry {
 
   def povToId(pov: Pov) = pov.game.id + pov.color.letter
 
-  object BSONFields = {
+  object BSONFields {
+    val id = "_id"
     val userId = "u"
     val color = "c"
     val perf = "p"
     val eco = "e"
-    val opponent = "o"
+    val opponentRating = "or"
+    val opponentStrength = "os"
     val moves = "m"
     val result = "r"
     val termination = "t"
-    val finalPhase = "f"
+    val ratingDiff = "rd"
+    val analysed = "a"
+    val provisional = "p"
+    val date = "d"
+  }
 }
 
 case class Move(
@@ -49,8 +56,6 @@ case class Move(
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
   opportunism: Option[Boolean],
   luck: Option[Boolean])
-
-case class Opponent(rating: Int, strength: RelativeStrength)
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
