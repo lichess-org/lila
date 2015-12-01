@@ -7,6 +7,7 @@ module.exports = function(ctrl) {
       config: function(e, isUpdate) {
         $(e).multipleSelect({
           width: '200px',
+          maxHeight: '400px',
           single: true,
           onClick: function(v) {
             ctrl.setMetric(v.value);
@@ -29,6 +30,7 @@ module.exports = function(ctrl) {
       config: function(e, isUpdate) {
         $(e).multipleSelect({
           width: '200px',
+          maxHeight: '400px',
           single: true,
           onClick: function(v) {
             ctrl.setDimension(v.value);
