@@ -146,9 +146,6 @@
 #insight .box .content {
   padding: 7px;
 }
-#insight .box .top {
-  text-transform: uppercase;
-}
 #insight .filters.box .top a {
   float: right;
   text-transform: none;
@@ -182,19 +179,27 @@
 #insight table td.data {
   font-weight: bold;
 }
-#insight .game_list {
-  margin: 0 0 20px 5px;
+#insight .game-sample {
+  margin: 20px 0 0 20px;
+}
+#insight .game-sample .top {
+  text-align: center;
 }
 #insight .game_list .cg-board-wrap {
   margin: auto;
-  width: 178px;
-  height: 178px;
+  width: 182px;
+  height: 182px;
   position: relative;
 }
 #insight .game_list .vstext {
-  width: 168px;
+  width: 172px;
+  border: none;
+  background: none;
 }
 #insight .game_list > div {
   display: inline-block;
-  margin: 0 0 0 15px;
+  margin: 0 0 0 14.8px;
+}
+#insight .game_list > div:first-child {
+  margin-left: 0;
 }

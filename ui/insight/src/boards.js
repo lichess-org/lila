@@ -36,5 +36,8 @@ module.exports = function(ctrl) {
 
   if (!ctrl.vm.answer) return;
 
-  return m('div.boards.game_list.playing', ctrl.vm.answer.games.map(miniGame));
+  return m('div.game-sample.box', [
+    m('div.top', 'Some of the games used to generate this insight'),
+    m('div.boards.game_list', ctrl.vm.answer.games.map(miniGame))
+  ]);
 }

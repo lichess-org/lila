@@ -30,7 +30,7 @@ module.exports = function(ctrl) {
       }, 'Chess Insights [BETA]')
     ]),
     chart(ctrl),
-    boards(ctrl),
-    table.vert(ctrl)
+    table.vert(ctrl),
+    boards(ctrl)
   ]);
 };
