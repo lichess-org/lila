@@ -89,6 +89,7 @@ private object BSONHandlers {
     def writes(w: Writer, e: Entry) = BSONDocument(
       id -> e.id,
       userId -> e.userId,
+      color -> e.color,
       perf -> e.perf,
       eco -> e.eco,
       opponentRating -> e.opponentRating,

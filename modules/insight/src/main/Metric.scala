@@ -65,6 +65,12 @@ object Metric {
     case _       => false
   }
 
+  def requiresStableRating(m: Metric) = m match {
+    case RatingDiff     => true
+    case OpponentRating => true
+    case _              => false
+  }
+
   def isStacked(m: Metric) = m match {
     case Result      => true
     case Termination => true

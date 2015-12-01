@@ -16,6 +16,7 @@ private final class Storage(coll: Coll) {
 
   import Storage._
   import BSONHandlers._
+  import Entry.{BSONFields => F}
 
   def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
     coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
@@ -51,16 +52,19 @@ private final class Storage(coll: Coll) {
   def find(id: String) = coll.find(selectId(id)).one[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
-    coll.distinct("eco", selectUserId(userId).some).map {
+    coll.distinct(F.eco, selectUserId(userId).some).map {
       _.collect { case BSONString(eco) => eco } toSet
     }
 }
 
 private object Storage {
-  def selectId(id: String) = BSONDocument("_id" -> id)
-  def selectUserId(id: String) = BSONDocument("userId" -> id)
-  val sortChronological = BSONDocument("date" -> 1)
-  val sortAntiChronological = BSONDocument("date" -> -1)
+
+  import Entry.{BSONFields => F}
+
+  def selectId(id: String) = BSONDocument(F.id -> id)
+  def selectUserId(id: String) = BSONDocument(F.userId -> id)
+  val sortChronological = BSONDocument(F.date -> 1)
+  val sortAntiChronological = BSONDocument(F.date -> -1)
 
   def combineDocs(docs: List[BSONDocument]) = docs.foldLeft(BSONDocument()) {
     case (acc, doc) => acc ++ doc

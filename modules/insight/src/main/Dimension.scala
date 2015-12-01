@@ -25,41 +25,42 @@ object Dimension {
 
   import BSONHandlers._
   import Position._
+  import Entry.{ BSONFields => F }
 
   case object Perf extends Dimension[PerfType](
-    "variant", "Variant", "perf", Game, _.name,
+    "variant", "Variant", F.perf, Game, _.name,
     Html("The rating category of the game, like Bullet, Blitz, or Chess960."))
 
   case object Phase extends Dimension[Phase](
-    "phase", "Game phase", "moves.p", Move, _.name,
+    "phase", "Game phase", F.moves("p"), Move, _.name,
     Html("The portion of the game: Opening, Middlegame, or Endgame."))
 
   case object Result extends Dimension[Result](
-    "result", "Game result", "result", Game, _.name,
+    "result", "Game result", F.result, Game, _.name,
     Html("Whether you won, lost, or drew the game."))
 
   case object Termination extends Dimension[Termination](
-    "termination", "Game termination", "termination", Game, _.name,
+    "termination", "Game termination", F.termination, Game, _.name,
     Html("The way the game ended, like Checkmate or Resignation."))
 
   case object Color extends Dimension[Color](
-    "color", "Color", "color", Game, _.toString,
+    "color", "Color", F.color, Game, _.toString,
     Html("The side you are playing: White or Black."))
 
   case object Opening extends Dimension[Ecopening](
-    "opening", "Opening", "eco", Game, _.ecoName,
+    "opening", "Opening", F.eco, Game, _.ecoName,
     Html("ECO identification of the initial moves, like \"A58 Benko Gambit\"."))
 
   case object OpponentStrength extends Dimension[RelativeStrength](
-    "opponentStrength", "Opponent strength", "opponent.strength", Game, _.name,
+    "opponentStrength", "Opponent strength", F.opponentStrength, Game, _.name,
     Html("Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200."))
 
   case object PieceRole extends Dimension[Role](
-    "piece", "Piece moved", "moves.r", Move, _.toString,
+    "piece", "Piece moved", F.moves("r"), Move, _.toString,
     Html("The type of piece you move."))
 
   case object MovetimeRange extends Dimension[MovetimeRange](
-    "movetime", "Move time", "moves.t", Move, _.name,
+    "movetime", "Move time", F.moves("t"), Move, _.name,
     Html("Time you spend thinking on each move, in seconds."))
 
   // case object Castling extends Dimension[Castling](
@@ -67,6 +68,11 @@ object Dimension {
 
   val all = List(Perf, Phase, Result, Termination, Color, Opening, OpponentStrength, PieceRole)
   val byKey = all map { p => (p.key, p) } toMap
+
+  def requiresStableRating(d: Dimension[_]) = d match {
+    case OpponentStrength => true
+    case _                => false
+  }
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
     case Perf             => PerfType.nonPuzzle

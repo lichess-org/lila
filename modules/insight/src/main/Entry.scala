@@ -37,12 +37,13 @@ case object Entry {
     val eco = "e"
     val opponentRating = "or"
     val opponentStrength = "os"
-    val moves = "m"
+    val moves: String = "m"
+    def moves(f: String): String = s"$moves.$f"
     val result = "r"
     val termination = "t"
     val ratingDiff = "rd"
     val analysed = "a"
-    val provisional = "p"
+    val provisional = "pr"
     val date = "d"
   }
 }

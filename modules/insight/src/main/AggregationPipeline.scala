@@ -10,12 +10,13 @@ private final class AggregationPipeline {
 
   import lila.insight.{ Dimension => D, Metric => M }
   import Storage._
+  import Entry.{ BSONFields => F }
 
   private lazy val movetimeIdDispatcher =
     MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)) {
       case (acc, mtr) => BSONDocument(
         "$cond" -> BSONArray(
-          BSONDocument("$lte" -> BSONArray("$moves.t", mtr.tenths.last)),
+          BSONDocument("$lte" -> BSONArray(F.moves("t"), mtr.tenths.last)),
           mtr.id,
           acc))
     }
@@ -25,9 +26,9 @@ private final class AggregationPipeline {
   }
 
   private val sampleGames = Sample(10 * 1000)
-  private val sortDate = Sort(Descending("date"))
+  private val sortDate = Sort(Descending(F.date))
   private val sampleMoves = Sample(200 * 1000).some
-  private val unwindMoves = Unwind("moves").some
+  private val unwindMoves = Unwind(F.moves).some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
   private def group(d: Dimension[_], f: GroupFunction) = Group(dimensionGroupId(d))(
@@ -60,8 +61,8 @@ private final class AggregationPipeline {
 
     // #TODO make it depend on move matchers and metric?
     def projectForMove = Project(BSONDocument(
-      "moves" -> true
-    ) ++ dimension.dbKey.startsWith("moves.").fold(
+      F.moves -> true
+    ) ++ dimension.dbKey.startsWith(F.moves("")).fold(
         BSONDocument(),
         BSONDocument(dimension.dbKey -> true)
       )).some
@@ -82,7 +83,10 @@ private final class AggregationPipeline {
       Match(
         selectUserId(userId) ++
           gameMatcher ++
-          Metric.requiresAnalysis(metric).??(BSONDocument("analysed" -> true))
+          Metric.requiresAnalysis(metric).??(BSONDocument(F.analysed -> true)) ++
+          (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
+            BSONDocument(F.provisional -> BSONDocument("$ne" -> true))
+          }
       ),
       /* sortDate :: */ sampleGames :: ((metric match {
         case M.MeanCpl => List(
@@ -90,16 +94,16 @@ private final class AggregationPipeline {
           unwindMoves,
           matchMoves(),
           sampleMoves,
-          group(dimension, Avg("moves.c")),
+          group(dimension, Avg(F.moves("c"))),
           sliceIds
         )
         case M.Opportunism => List(
           projectForMove,
           unwindMoves,
-          matchMoves(BSONDocument("moves.o" -> BSONDocument("$exists" -> true))),
+          matchMoves(BSONDocument(F.moves("o") -> BSONDocument("$exists" -> true))),
           sampleMoves,
           group(dimension, GroupFunction("$push", BSONDocument(
-            "$cond" -> BSONArray("$moves.o", 1, 0)
+            "$cond" -> BSONArray("$" + F.moves("o"), 1, 0)
           ))),
           sliceIds,
           Project(BSONDocument(
@@ -112,10 +116,10 @@ private final class AggregationPipeline {
         case M.Luck => List(
           projectForMove,
           unwindMoves,
-          matchMoves(BSONDocument("moves.l" -> BSONDocument("$exists" -> true))),
+          matchMoves(BSONDocument(F.moves("l") -> BSONDocument("$exists" -> true))),
           sampleMoves,
           group(dimension, GroupFunction("$push", BSONDocument(
-            "$cond" -> BSONArray("$moves.l", 1, 0)
+            "$cond" -> BSONArray("$" + F.moves("l"), 1, 0)
           ))),
           sliceIds,
           Project(BSONDocument(
@@ -150,25 +154,25 @@ private final class AggregationPipeline {
           matchMoves(),
           sampleMoves,
           group(dimension, GroupFunction("$avg",
-            BSONDocument("$divide" -> BSONArray("$moves.t", 10))
+            BSONDocument("$divide" -> BSONArray("$" + F.moves("t"), 10))
           )),
           sliceIds
         )
         case M.RatingDiff => List(
-          group(dimension, Avg("ratingDiff")),
+          group(dimension, Avg(F.ratingDiff)),
           sliceIds
         )
         case M.OpponentRating => List(
-          group(dimension, Avg("opponent.rating")),
+          group(dimension, Avg(F.opponentRating)),
           sliceIds
         )
         case M.Result => List(
-          groupMulti(dimension, "result"),
+          groupMulti(dimension,F.result),
           regroupStacked,
           sliceStackedIds
         )
         case M.Termination => List(
-          groupMulti(dimension, "termination"),
+          groupMulti(dimension,F.termination),
           regroupStacked,
           sliceStackedIds
         )
@@ -177,7 +181,7 @@ private final class AggregationPipeline {
           unwindMoves,
           matchMoves(),
           sampleMoves,
-          groupMulti(dimension, "moves.r"),
+          groupMulti(dimension,F.moves("r")),
           regroupStacked,
           sliceStackedIds
         )
