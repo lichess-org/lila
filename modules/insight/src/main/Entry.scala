@@ -12,8 +12,10 @@ case class Entry(
     color: Color,
     perf: PerfType,
     eco: Option[Ecopening],
+    myCastling: Castling,
     opponentRating: Int,
     opponentStrength: RelativeStrength,
+    oppenentCastling: Castling,
     moves: List[Move],
     result: Result,
     termination: Termination,
@@ -35,8 +37,10 @@ case object Entry {
     val color = "c"
     val perf = "p"
     val eco = "e"
+    val myCastling = "mc"
     val opponentRating = "or"
     val opponentStrength = "os"
+    val opponentCastling = "oc"
     val moves: String = "m"
     def moves(f: String): String = s"$moves.$f"
     val result = "r"
@@ -113,14 +117,14 @@ object Phase {
     }
 }
 
-// sealed abstract class Castling(val id: Int, val name: String)
-// object Castling {
-//   object Kingside extends Phase(1, "Kingside castling")
-//   object Queenside extends Phase(2, "Queenside castling")
-//   object None extends Phase(3, "No castling")
-//   val all = List(Kingside, Queenside, None)
-//   val byId = all map { p => (p.id, p) } toMap
-// }
+sealed abstract class Castling(val id: Int, val name: String)
+object Castling {
+  object Kingside extends Phase(1, "Kingside castling")
+  object Queenside extends Phase(2, "Queenside castling")
+  object None extends Phase(3, "No castling")
+  val all = List(Kingside, Queenside, None)
+  val byId = all map { p => (p.id, p) } toMap
+}
 
 sealed abstract class RelativeStrength(val id: Int, val name: String)
 object RelativeStrength {
