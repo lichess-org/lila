@@ -15,7 +15,7 @@ case class Entry(
     myCastling: Castling,
     opponentRating: Int,
     opponentStrength: RelativeStrength,
-    oppenentCastling: Castling,
+    opponentCastling: Castling,
     moves: List[Move],
     result: Result,
     termination: Termination,
@@ -119,11 +119,16 @@ object Phase {
 
 sealed abstract class Castling(val id: Int, val name: String)
 object Castling {
-  object Kingside extends Phase(1, "Kingside castling")
-  object Queenside extends Phase(2, "Queenside castling")
-  object None extends Phase(3, "No castling")
+  object Kingside extends Castling(1, "Kingside castling")
+  object Queenside extends Castling(2, "Queenside castling")
+  object None extends Castling(3, "No castling")
   val all = List(Kingside, Queenside, None)
   val byId = all map { p => (p.id, p) } toMap
+  def fromMoves(moves: List[String]) = moves.find(_ startsWith "O") match {
+    case Some("O-O")   => Kingside
+    case Some("O-O-O") => Queenside
+    case _             => None
+  }
 }
 
 sealed abstract class RelativeStrength(val id: Int, val name: String)

@@ -24,6 +24,8 @@ case class JsonQuestion(
             case OpponentStrength.key => build(OpponentStrength)
             case PieceRole.key        => build(PieceRole)
             case MovetimeRange.key    => build(MovetimeRange)
+            case MyCastling.key       => build(MyCastling)
+            case OpCastling.key       => build(OpCastling)
             case _                    => none
           }
         }
@@ -40,6 +42,8 @@ case class JsonQuestion(
           case OpponentStrength.key => build(OpponentStrength)
           case PieceRole.key        => build(PieceRole)
           case MovetimeRange.key    => build(MovetimeRange)
+          case MyCastling.key       => build(MyCastling)
+          case OpCastling.key       => build(OpCastling)
           case _                    => none
         }
       }

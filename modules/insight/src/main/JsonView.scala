@@ -16,6 +16,8 @@ final class JsonView {
       Json toJson D.OpponentStrength,
       Json toJson D.PieceRole,
       Json toJson D.MovetimeRange,
+      Json toJson D.MyCastling,
+      Json toJson D.OpCastling,
       Json.obj(
         "key" -> D.Opening.key,
         "name" -> D.Opening.name,

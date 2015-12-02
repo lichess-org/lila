@@ -63,10 +63,18 @@ object Dimension {
     "movetime", "Move time", F.moves("t"), Move, _.name,
     Html("Time you spend thinking on each move, in seconds."))
 
-  // case object Castling extends Dimension[Castling](
-  //   "castling", "Castling side", "moves.c", Move, _.name)
+  case object MyCastling extends Dimension[Castling](
+    "myCastling", "My castling side", "mc", Game, _.name,
+    Html("Which side you castled in the game: kingside, queenside, or none."))
 
-  val all = List(Perf, Phase, Result, Termination, Color, Opening, OpponentStrength, PieceRole)
+  case object OpCastling extends Dimension[Castling](
+    "opCastling", "Opponent castling side", "oc", Game, _.name,
+    Html("Which side your opponent castled in the game: kingside, queenside, or none."))
+
+  val all = List(
+    Perf, Phase, Result, Termination,
+    Color, Opening, OpponentStrength, PieceRole,
+    MyCastling, OpCastling)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresStableRating(d: Dimension[_]) = d match {
@@ -75,42 +83,45 @@ object Dimension {
   }
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
-    case Perf             => PerfType.nonPuzzle
-    case Phase            => lila.insight.Phase.all
-    case Result           => lila.insight.Result.all
-    case Termination      => lila.insight.Termination.all
-    case Color            => chess.Color.all
-    case Opening          => EcopeningDB.all
-    case OpponentStrength => RelativeStrength.all
-    case PieceRole        => chess.Role.all.reverse
-    case MovetimeRange    => lila.insight.MovetimeRange.all
+    case Perf                    => PerfType.nonPuzzle
+    case Phase                   => lila.insight.Phase.all
+    case Result                  => lila.insight.Result.all
+    case Termination             => lila.insight.Termination.all
+    case Color                   => chess.Color.all
+    case Opening                 => EcopeningDB.all
+    case OpponentStrength        => RelativeStrength.all
+    case PieceRole               => chess.Role.all.reverse
+    case MovetimeRange           => lila.insight.MovetimeRange.all
+    case MyCastling | OpCastling => lila.insight.Castling.all
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
-    case Perf             => PerfType.byKey get key
-    case Phase            => parseIntOption(key) flatMap lila.insight.Phase.byId.get
-    case Result           => parseIntOption(key) flatMap lila.insight.Result.byId.get
-    case Termination      => parseIntOption(key) flatMap lila.insight.Termination.byId.get
-    case Color            => chess.Color(key)
-    case Opening          => EcopeningDB.allByEco get key
-    case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
-    case PieceRole        => chess.Role.all.find(_.name == key)
-    case MovetimeRange    => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
+    case Perf                    => PerfType.byKey get key
+    case Phase                   => parseIntOption(key) flatMap lila.insight.Phase.byId.get
+    case Result                  => parseIntOption(key) flatMap lila.insight.Result.byId.get
+    case Termination             => parseIntOption(key) flatMap lila.insight.Termination.byId.get
+    case Color                   => chess.Color(key)
+    case Opening                 => EcopeningDB.allByEco get key
+    case OpponentStrength        => parseIntOption(key) flatMap RelativeStrength.byId.get
+    case PieceRole               => chess.Role.all.find(_.name == key)
+    case MovetimeRange           => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
+    case MyCastling | OpCastling => parseIntOption(key) flatMap lila.insight.Castling.byId.get
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
     import play.api.libs.json._
     Json.obj(
       "key" -> (d match {
-        case Perf             => v.key
-        case Phase            => v.id
-        case Result           => v.id
-        case Termination      => v.id
-        case Color            => v.name
-        case Opening          => v.eco
-        case OpponentStrength => v.id
-        case PieceRole        => v.name
-        case MovetimeRange    => v.id
+        case Perf                    => v.key
+        case Phase                   => v.id
+        case Result                  => v.id
+        case Termination             => v.id
+        case Color                   => v.name
+        case Opening                 => v.eco
+        case OpponentStrength        => v.id
+        case PieceRole               => v.name
+        case MovetimeRange           => v.id
+        case MyCastling | OpCastling => v.id
       }).toString,
       "name" -> d.valueName(v))
   }

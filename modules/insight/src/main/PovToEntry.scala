@@ -103,28 +103,33 @@ object PovToEntry {
       }
   }
 
-  private def convert(from: RichPov): Option[Entry] = for {
-    myId <- from.pov.player.userId
-    myRating <- from.pov.player.rating
-    opRating <- from.pov.opponent.rating
-    perfType <- from.pov.game.perfType
+  private def convert(from: RichPov): Option[Entry] = {
+    import from._
+    for {
+    myId <- pov.player.userId
+    myRating <- pov.player.rating
+    opRating <- pov.opponent.rating
+    perfType <- pov.game.perfType
   } yield Entry(
-    id = Entry povToId from.pov,
+    id = Entry povToId pov,
     userId = myId,
-    color = from.pov.color,
+    color = pov.color,
     perf = perfType,
-    eco = Ecopening fromGame from.pov.game,
+    eco = Ecopening fromGame pov.game,
+    myCastling = Castling.fromMoves(pov.game pgnMoves pov.color),
     opponentRating = opRating,
     opponentStrength = RelativeStrength(opRating - myRating),
+    opponentCastling = Castling.fromMoves(pov.game pgnMoves !pov.color),
     moves = makeMoves(from),
-    result = from.pov.game.winnerUserId match {
+    result = pov.game.winnerUserId match {
       case None                 => Result.Draw
       case Some(u) if u == myId => Result.Win
       case _                    => Result.Loss
     },
-    termination = Termination fromStatus from.pov.game.status,
-    ratingDiff = ~from.pov.player.ratingDiff,
-    analysed = from.analysis.isDefined,
-    provisional = from.provisional,
-    date = from.pov.game.createdAt)
+    termination = Termination fromStatus pov.game.status,
+    ratingDiff = ~pov.player.ratingDiff,
+    analysed = analysis.isDefined,
+    provisional = provisional,
+    date = pov.game.createdAt)
+  }
 }

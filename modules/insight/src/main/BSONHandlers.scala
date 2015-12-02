@@ -48,6 +48,10 @@ private object BSONHandlers {
     def read(b: BSONInteger) = MovetimeRange.byId get b.value err s"Invalid movetime range ${b.value}"
     def write(e: MovetimeRange) = BSONInteger(e.id)
   }
+  implicit val CastlingBSONHandler = new BSONHandler[BSONInteger, Castling] {
+    def read(b: BSONInteger) = Castling.byId get b.value err s"Invalid Castling ${b.value}"
+    def write(e: Castling) = BSONInteger(e.id)
+  }
   implicit def MoveBSONHandler = new BSON[Move] {
     def reads(r: Reader) = Move(
       phase = r.get[Phase]("p"),
@@ -94,8 +98,10 @@ private object BSONHandlers {
       color -> e.color,
       perf -> e.perf,
       eco -> e.eco,
+      myCastling -> e.myCastling,
       opponentRating -> e.opponentRating,
       opponentStrength -> e.opponentStrength,
+      opponentCastling -> e.opponentCastling,
       moves -> e.moves,
       result -> e.result,
       termination -> e.termination,
