@@ -11,12 +11,13 @@ import scalaz.NonEmptyList
 import lila.db.BSON._
 import lila.db.Implicits._
 import lila.user.UserRepo
+import lila.rating.PerfType
 
 private final class Storage(coll: Coll) {
 
   import Storage._
   import BSONHandlers._
-  import Entry.{BSONFields => F}
+  import Entry.{ BSONFields => F }
 
   def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
     coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
@@ -48,11 +49,23 @@ private final class Storage(coll: Coll) {
     coll.distinct(F.eco, selectUserId(userId).some).map {
       _.collect { case BSONString(eco) => eco } toSet
     }
+
+  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregate(
+    Match(BSONDocument(F.userId -> userId)),
+    List(GroupField(F.perf)("nb" -> SumValue(1)))
+  ).map {
+      _.documents.flatMap { doc =>
+        for {
+          perfType <- doc.getAs[PerfType]("_id")
+          nb <- doc.getAs[Int]("nb")
+        } yield perfType -> nb
+      }.toMap
+    }
 }
 
 private object Storage {
 
-  import Entry.{BSONFields => F}
+  import Entry.{ BSONFields => F }
 
   def selectId(id: String) = BSONDocument(F.id -> id)
   def selectUserId(id: String) = BSONDocument(F.userId -> id)
