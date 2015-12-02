@@ -137,6 +137,7 @@ object PovToEntry {
       perfType <- pov.game.perfType
     } yield Entry(
       id = Entry povToId pov,
+      number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,

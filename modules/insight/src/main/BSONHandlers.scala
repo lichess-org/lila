@@ -87,6 +87,7 @@ private object BSONHandlers {
     import Entry.BSONFields._
     def reads(r: Reader) = Entry(
       id = r.str(id),
+      number = r.int(number),
       userId = r.str(userId),
       color = r.get[Color](color),
       perf = r.get[PerfType](perf),
@@ -105,6 +106,7 @@ private object BSONHandlers {
       date = r.date(date))
     def writes(w: Writer, e: Entry) = BSONDocument(
       id -> e.id,
+      number -> e.number,
       userId -> e.userId,
       color -> e.color,
       perf -> e.perf,

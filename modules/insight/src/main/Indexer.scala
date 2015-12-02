@@ -26,9 +26,9 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     p.future
   }
 
-  def one(game: Game, userId: String, provisional: Boolean): Funit =
-    PovToEntry(game, userId, provisional) flatMap {
-      case Right(e) => storage update e
+  def update(game: Game, userId: String, previous: Entry): Funit =
+    PovToEntry(game, userId, previous.provisional) flatMap {
+      case Right(e) => storage update e.copy(number = previous.number)
       case Left(g) =>
         logwarn(s"[insight $userId] invalid game http://l.org/${g.id}")
         funit
@@ -36,12 +36,12 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
   private def compute(user: User): Funit = storage.fetchLast(user.id) flatMap {
     case None    => fromScratch(user)
-    case Some(e) => computeFrom(user, e.date plusSeconds 1)
+    case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
   }
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user) flatMap {
-      _.?? { g => computeFrom(user, g.createdAt) }
+      _.?? { g => computeFrom(user, g.createdAt, 1) }
     }
 
   private def gameQuery(user: User) = Query.user(user.id) ++
@@ -62,7 +62,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     } orElse
       pimpQB($query(gameQuery(user))).sort(Query.sortChronological).one[Game]
 
-  private def computeFrom(user: User, from: DateTime): Funit =
+  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
     lila.common.Chronometer.log(s"insight aggregator:${user.username}") {
       storage nbByPerf user.id flatMap { nbs =>
         var nbByPerf = nbs
@@ -93,11 +93,14 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
             }
           } &>
           Enumeratee.grouped(Iteratee takeUpTo 50) |>>>
-          Iteratee.foldM[Seq[Seq[Entry]], Int](0) {
-            case (nb, xs) =>
-              val entries = xs.flatten
-              loginfo(s"[insight ${user.username}] $nb")
-              storage bulkInsert entries inject (nb + entries.size)
+          Iteratee.foldM[Seq[Seq[Entry]], Int](fromNumber) {
+            case (number, xs) =>
+              val entries = xs.flatten.sortBy(_.date).zipWithIndex.map {
+                case (e, i) => e.copy(number = number + i)
+              }
+              val nextNumber = number + entries.size
+              loginfo(s"[insight ${user.username}] $nextNumber")
+              storage bulkInsert entries inject nextNumber
           }
       } addEffect { nb =>
         loginfo(s"[insight ${user.username}] done aggregating $nb games")

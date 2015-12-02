@@ -8,6 +8,7 @@ import scalaz.NonEmptyList
 
 case class Entry(
     id: String, // gameId + w/b
+    number: Int, // auto increment over userId
     userId: String,
     color: Color,
     perf: PerfType,
@@ -34,6 +35,7 @@ case object Entry {
 
   object BSONFields {
     val id = "_id"
+    val number = "n"
     val userId = "u"
     val color = "c"
     val perf = "p"
