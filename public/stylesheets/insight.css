@@ -82,7 +82,7 @@
   display: block;
 }
 #insight .filters .ms-choice {
-  padding: 20px 10px;
+  padding: 15px 10px;
   border-width: 0 1px 1px 0;
   background: #e0e0e0;
   transition: background 0.13s;
@@ -99,11 +99,11 @@
 }
 #insight .filters .ms-choice span {
   text-align: right;
-  line-height: 40px;
+  line-height: 30px;
   background: none;
 }
 #insight .filters .ms-choice div {
-  top: 9px;
+  top: 4px;
 }
 #insight .filters .ms-drop ul > li label input {
   margin-right: 5px;
