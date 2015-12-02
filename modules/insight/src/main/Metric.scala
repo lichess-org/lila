@@ -57,7 +57,10 @@ object Metric {
   case object Luck extends Metric("luck", "Luck", Move, Move, Percent,
     Html("How often your opponent fails to punish your blunders. 100% means they miss all your blunders, 0% means they spot them all."))
 
-  val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole, Opportunism, Luck)
+  case object Material extends Metric("material", "Material imbalance", Move, Move, Average,
+    Dimension.MaterialRange.description)
+
+  val all = List(MeanCpl, Movetime, Result, Termination, RatingDiff, OpponentRating, NbMoves, PieceRole, Opportunism, Luck, Material)
   val byKey = all map { p => (p.key, p) } toMap
 
   def requiresAnalysis(m: Metric) = m match {

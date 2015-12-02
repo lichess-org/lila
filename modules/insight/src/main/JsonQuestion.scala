@@ -27,6 +27,7 @@ case class JsonQuestion(
             case MyCastling.key       => build(MyCastling)
             case OpCastling.key       => build(OpCastling)
             case QueenTrade.key       => build(QueenTrade)
+            case MaterialRange.key    => build(MaterialRange)
             case _                    => none
           }
         }
@@ -46,6 +47,7 @@ case class JsonQuestion(
           case MyCastling.key       => build(MyCastling)
           case OpCastling.key       => build(OpCastling)
           case QueenTrade.key       => build(QueenTrade)
+          case MaterialRange.key    => build(MaterialRange)
           case _                    => none
         }
       }

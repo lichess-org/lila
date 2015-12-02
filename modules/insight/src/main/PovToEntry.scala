@@ -111,7 +111,7 @@ object PovToEntry {
           eval = prevInfo.flatMap(_.score).map(_.ceiled.centipawns),
           mate = prevInfo.flatMap(_.mate),
           cpl = cpDiffs lift i map (_ min 1000),
-          imbalance = board.materialImbalance * from.pov.color.fold(1, -1),
+          material = board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck)
     }

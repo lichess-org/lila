@@ -61,7 +61,7 @@ case class Move(
   eval: Option[Int], // before the move was played, relative to player
   mate: Option[Int], // before the move was played, relative to player
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
-  imbalance: Int, // material imbalance, relative to player
+  material: Int, // material imbalance, relative to player
   opportunism: Option[Boolean],
   luck: Option[Boolean])
 
@@ -169,7 +169,24 @@ object MovetimeRange {
   case object MTR30 extends MovetimeRange(30, "10 to 30 seconds", NonEmptyList(150, 200, 300))
   case object MTRInf extends MovetimeRange(60, "More than 30 seconds", NonEmptyList(400, 600))
   val all = List(MTR1, MTR3, MTR5, MTR10, MTR30, MTRInf)
-  val reversedNoInf = all.reverse drop 1
+  def reversedNoInf = all.reverse drop 1
   val byId = all map { p => (p.id, p) } toMap
-  def apply(tenths: Int) = all.find(_.id >= tenths) | MTRInf
+}
+
+sealed abstract class MaterialRange(val id: Int, val name: String, val imbalance: Int) {
+  def negative = imbalance <= 0
+}
+object MaterialRange {
+  case object Down4 extends MaterialRange(1, "Less than -6", -6)
+  case object Down3 extends MaterialRange(2, "-3 to -6", -3)
+  case object Down2 extends MaterialRange(3, "-1 to -3", -1)
+  case object Down1 extends MaterialRange(4, "0 to -1", 0)
+  case object Equal extends MaterialRange(5, "Equal", 0)
+  case object Up1 extends MaterialRange(6, "0 to +1", 1)
+  case object Up2 extends MaterialRange(7, "+1 to +3", 3)
+  case object Up3 extends MaterialRange(8, "+3 to +6", 6)
+  case object Up4 extends MaterialRange(9, "More than +6", Int.MaxValue)
+  val all = List(Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4)
+  def reversedButEqualAndLast = all.diff(List(Equal, Up4)).reverse
+  val byId = all map { p => (p.id, p) } toMap
 }

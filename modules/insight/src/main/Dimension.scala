@@ -64,16 +64,20 @@ object Dimension {
     Html("Time you spend thinking on each move, in seconds."))
 
   case object MyCastling extends Dimension[Castling](
-    "myCastling", "My castling side", "mc", Game, _.name,
+    "myCastling", "My castling side", F.myCastling, Game, _.name,
     Html("Which side you castled in the game: kingside, queenside, or none."))
 
   case object OpCastling extends Dimension[Castling](
-    "opCastling", "Opponent castling side", "oc", Game, _.name,
+    "opCastling", "Opponent castling side", F.opponentCastling, Game, _.name,
     Html("Which side your opponent castled in the game: kingside, queenside, or none."))
 
   case object QueenTrade extends Dimension[QueenTrade](
-    "queenTrade", "Queen trade", "q", Game, _.name,
+    "queenTrade", "Queen trade", F.queenTrade, Game, _.name,
     Html("Whether queens were traded before the endgame or not."))
+
+  case object MaterialRange extends Dimension[MaterialRange](
+    "material", "Material imbalance", F.moves("i"), Move, _.name,
+    Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=5."))
 
   val all = List(
     Perf, Phase, Result, Termination,
@@ -98,6 +102,7 @@ object Dimension {
     case MovetimeRange           => lila.insight.MovetimeRange.all
     case MyCastling | OpCastling => lila.insight.Castling.all
     case QueenTrade              => lila.insight.QueenTrade.all
+    case MaterialRange           => lila.insight.MaterialRange.all
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
@@ -112,6 +117,7 @@ object Dimension {
     case MovetimeRange           => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
     case MyCastling | OpCastling => parseIntOption(key) flatMap lila.insight.Castling.byId.get
     case QueenTrade              => lila.insight.QueenTrade(key == "true").some
+    case MaterialRange           => parseIntOption(key) flatMap lila.insight.MaterialRange.byId.get
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
@@ -129,6 +135,7 @@ object Dimension {
         case MovetimeRange           => v.id
         case MyCastling | OpCastling => v.id
         case QueenTrade              => v.id
+        case MaterialRange           => v.id
       }).toString,
       "name" -> d.valueName(v))
   }

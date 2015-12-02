@@ -56,6 +56,10 @@ private object BSONHandlers {
     def read(b: BSONBoolean) = QueenTrade(b.value)
     def write(e: QueenTrade) = BSONBoolean(e.id)
   }
+  implicit val MaterialRangeBSONHandler = new BSONHandler[BSONInteger, MaterialRange] {
+    def read(b: BSONInteger) = MaterialRange.byId get b.value err s"Invalid material range ${b.value}"
+    def write(e: MaterialRange) = BSONInteger(e.id)
+  }
   implicit def MoveBSONHandler = new BSON[Move] {
     def reads(r: Reader) = Move(
       phase = r.get[Phase]("p"),
@@ -64,7 +68,7 @@ private object BSONHandlers {
       eval = r.intO("e"),
       mate = r.intO("m"),
       cpl = r.intO("c"),
-      imbalance = r.int("i"),
+      material = r.int("i"),
       opportunism = r.boolO("o"),
       luck = r.boolO("l"))
     def writes(w: Writer, b: Move) = BSONDocument(
@@ -74,7 +78,7 @@ private object BSONHandlers {
       "e" -> b.eval,
       "m" -> b.mate,
       "c" -> b.cpl,
-      "i" -> b.imbalance,
+      "i" -> b.material,
       "o" -> b.opportunism,
       "l" -> b.luck)
   }

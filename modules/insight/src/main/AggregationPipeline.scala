@@ -20,8 +20,20 @@ private final class AggregationPipeline {
           mtr.id,
           acc))
     }
+  private lazy val materialIdDispatcher = BSONDocument(
+    "$cond" -> BSONArray(
+      BSONDocument("$eq" -> BSONArray("$" + F.moves("i"), 0)),
+      MaterialRange.Equal.id,
+      MaterialRange.reversedButEqualAndLast.foldLeft[BSONValue](BSONInteger(MaterialRange.Up4.id)) {
+        case (acc, mat) => BSONDocument(
+          "$cond" -> BSONArray(
+            BSONDocument(mat.negative.fold("$lt", "$lte") -> BSONArray("$" + F.moves("i"), mat.imbalance)),
+            mat.id,
+            acc))
+      }))
   private def dimensionGroupId(dim: Dimension[_]): BSONValue = dim match {
     case Dimension.MovetimeRange => movetimeIdDispatcher
+    case Dimension.MaterialRange => materialIdDispatcher
     case d                       => BSONString("$" + d.dbKey)
   }
 
@@ -94,6 +106,14 @@ private final class AggregationPipeline {
           matchMoves(),
           sampleMoves,
           group(dimension, Avg(F.moves("c"))),
+          sliceIds
+        )
+        case M.Material => List(
+          projectForMove,
+          unwindMoves,
+          matchMoves(),
+          sampleMoves,
+          group(dimension, Avg(F.moves("i"))),
           sliceIds
         )
         case M.Opportunism => List(
