@@ -16,7 +16,7 @@ private final class AggregationPipeline {
     MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)) {
       case (acc, mtr) => BSONDocument(
         "$cond" -> BSONArray(
-          BSONDocument("$lte" -> BSONArray(F.moves("t"), mtr.tenths.last)),
+          BSONDocument("$lte" -> BSONArray("$" + F.moves("t"), mtr.tenths.last)),
           mtr.id,
           acc))
     }
@@ -48,6 +48,18 @@ private final class AggregationPipeline {
     "stack" -> PushMulti(
       "metric" -> "_id.metric",
       "v" -> "v")).some
+  private val sliceIds = Project(BSONDocument(
+    "_id" -> true,
+    "v" -> true,
+    "nb" -> true,
+    "ids" -> BSONDocument("$slice" -> BSONArray("$ids", 4))
+  )).some
+  private val sliceStackedIds = Project(BSONDocument(
+    "_id" -> true,
+    "nb" -> true,
+    "stack" -> true,
+    "ids" -> BSONDocument("$slice" -> BSONArray("$ids", 4))
+  )).some
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
     import question.{ dimension, metric }
@@ -60,29 +72,16 @@ private final class AggregationPipeline {
       }).some.filterNot(_.isEmpty) map Match
 
     // #TODO make it depend on move matchers and metric?
-    def projectForMove = Project(BSONDocument(
-      F.moves -> true
-    ) ++ dimension.dbKey.startsWith(F.moves("")).fold(
-        BSONDocument(),
-        BSONDocument(dimension.dbKey -> true)
-      )).some
-    def sliceIds = Project(BSONDocument(
-      "_id" -> true,
-      "v" -> true,
-      "nb" -> true,
-      "ids" -> BSONDocument("$slice" -> BSONArray("$ids", 4))
-    )).some
-    def sliceStackedIds = Project(BSONDocument(
-      "_id" -> true,
-      "nb" -> true,
-      "stack" -> true,
-      "ids" -> BSONDocument("$slice" -> BSONArray("$ids", 4))
-    )).some
+    def projectForMove = Project(
+      BSONDocument(F.moves -> true) ++
+        (!dimension.dbKey.startsWith(F.moves(""))).??(BSONDocument(dimension.dbKey -> true))
+    ).some
 
     NonEmptyList.nel[PipelineOperator](
       Match(
         selectUserId(userId) ++
           gameMatcher ++
+          (dimension == Dimension.Opening).??(BSONDocument(F.eco -> BSONDocument("$exists" -> true))) ++
           Metric.requiresAnalysis(metric).??(BSONDocument(F.analysed -> true)) ++
           (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
             BSONDocument(F.provisional -> BSONDocument("$ne" -> true))
@@ -167,12 +166,12 @@ private final class AggregationPipeline {
           sliceIds
         )
         case M.Result => List(
-          groupMulti(dimension,F.result),
+          groupMulti(dimension, F.result),
           regroupStacked,
           sliceStackedIds
         )
         case M.Termination => List(
-          groupMulti(dimension,F.termination),
+          groupMulti(dimension, F.termination),
           regroupStacked,
           sliceStackedIds
         )
@@ -181,7 +180,7 @@ private final class AggregationPipeline {
           unwindMoves,
           matchMoves(),
           sampleMoves,
-          groupMulti(dimension,F.moves("r")),
+          groupMulti(dimension, F.moves("r")),
           regroupStacked,
           sliceStackedIds
         )
