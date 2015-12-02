@@ -21,13 +21,6 @@ private final class Storage(coll: Coll) {
   def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
     coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
 
-  private def fetchRange(userId: String, range: Range): Fu[List[Entry]] =
-    coll.find(selectUserId(userId))
-      .skip(range.min)
-      .sort(sortChronological)
-      .cursor[Entry]()
-      .collect[List](range.size)
-
   def fetchFirst(userId: String): Fu[Option[Entry]] =
     coll.find(selectUserId(userId)).sort(sortChronological).one[Entry]
 

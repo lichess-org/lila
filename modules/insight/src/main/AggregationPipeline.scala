@@ -83,10 +83,8 @@ private final class AggregationPipeline {
         case f if f.dimension.isInMove => f.matcher
       }).some.filterNot(_.isEmpty) map Match
 
-    // #TODO make it depend on move matchers and metric?
     def projectForMove = Project(
-      BSONDocument(F.moves -> true) ++
-        (!dimension.dbKey.startsWith(F.moves(""))).??(BSONDocument(dimension.dbKey -> true))
+      BSONDocument(dimension.dbKey -> true, metric.dbKey -> true)
     ).some
 
     NonEmptyList.nel[PipelineOperator](
