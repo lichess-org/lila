@@ -97,39 +97,52 @@ object PovToEntry {
             role = role,
             eval = prevInfo.flatMap(_.score).map(_.ceiled.centipawns),
             mate = prevInfo.flatMap(_.mate),
-            cpl = cpDiffs lift i,
+            cpl = cpDiffs lift i map (_ min 1000),
             opportunism = opportunism,
             luck = luck)
+      }
+  }
+
+  private def queenTrade(from: RichPov) = QueenTrade {
+    val ply = from.division.end | from.division.plies
+    chess.Replay.lastBoard(
+      moveStrs = from.pov.game.pgnMoves take ply,
+      initialFen = none,
+      variant = from.pov.game.variant).toOption ?? { board =>
+        chess.Color.all.forall { color =>
+          !board.hasPiece(chess.Piece(color, chess.Queen))
+        }
       }
   }
 
   private def convert(from: RichPov): Option[Entry] = {
     import from._
     for {
-    myId <- pov.player.userId
-    myRating <- pov.player.rating
-    opRating <- pov.opponent.rating
-    perfType <- pov.game.perfType
-  } yield Entry(
-    id = Entry povToId pov,
-    userId = myId,
-    color = pov.color,
-    perf = perfType,
-    eco = Ecopening fromGame pov.game,
-    myCastling = Castling.fromMoves(pov.game pgnMoves pov.color),
-    opponentRating = opRating,
-    opponentStrength = RelativeStrength(opRating - myRating),
-    opponentCastling = Castling.fromMoves(pov.game pgnMoves !pov.color),
-    moves = makeMoves(from),
-    result = pov.game.winnerUserId match {
-      case None                 => Result.Draw
-      case Some(u) if u == myId => Result.Win
-      case _                    => Result.Loss
-    },
-    termination = Termination fromStatus pov.game.status,
-    ratingDiff = ~pov.player.ratingDiff,
-    analysed = analysis.isDefined,
-    provisional = provisional,
-    date = pov.game.createdAt)
+      myId <- pov.player.userId
+      myRating <- pov.player.rating
+      opRating <- pov.opponent.rating
+      perfType <- pov.game.perfType
+    } yield Entry(
+      id = Entry povToId pov,
+      userId = myId,
+      color = pov.color,
+      perf = perfType,
+      eco = Ecopening fromGame pov.game,
+      myCastling = Castling.fromMoves(pov.game pgnMoves pov.color),
+      opponentRating = opRating,
+      opponentStrength = RelativeStrength(opRating - myRating),
+      opponentCastling = Castling.fromMoves(pov.game pgnMoves !pov.color),
+      moves = makeMoves(from),
+      queenTrade = queenTrade(from),
+      result = pov.game.winnerUserId match {
+        case None                 => Result.Draw
+        case Some(u) if u == myId => Result.Win
+        case _                    => Result.Loss
+      },
+      termination = Termination fromStatus pov.game.status,
+      ratingDiff = ~pov.player.ratingDiff,
+      analysed = analysis.isDefined,
+      provisional = provisional,
+      date = pov.game.createdAt)
   }
 }
