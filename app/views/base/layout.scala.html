@@ -41,7 +41,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @atom.getOrElse {
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     }
-    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="white">
+    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
     @if(withLangAnnotations){@langAnnotations}
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
