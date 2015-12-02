@@ -52,6 +52,10 @@ private object BSONHandlers {
     def read(b: BSONInteger) = Castling.byId get b.value err s"Invalid Castling ${b.value}"
     def write(e: Castling) = BSONInteger(e.id)
   }
+  implicit val QueenTradeBSONHandler = new BSONHandler[BSONBoolean, QueenTrade] {
+    def read(b: BSONBoolean) = QueenTrade(b.value)
+    def write(e: QueenTrade) = BSONBoolean(e.id)
+  }
   implicit def MoveBSONHandler = new BSON[Move] {
     def reads(r: Reader) = Move(
       phase = r.get[Phase]("p"),
@@ -86,6 +90,7 @@ private object BSONHandlers {
       opponentStrength = r.get[RelativeStrength](opponentStrength),
       opponentCastling = r.get[Castling](opponentCastling),
       moves = r.get[List[Move]](moves),
+      queenTrade = r.get[QueenTrade](queenTrade),
       result = r.get[Result](result),
       termination = r.get[Termination](termination),
       ratingDiff = r.int(ratingDiff),
@@ -103,6 +108,7 @@ private object BSONHandlers {
       opponentStrength -> e.opponentStrength,
       opponentCastling -> e.opponentCastling,
       moves -> e.moves,
+      queenTrade -> e.queenTrade,
       result -> e.result,
       termination -> e.termination,
       ratingDiff -> e.ratingDiff,

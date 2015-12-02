@@ -71,6 +71,10 @@ object Dimension {
     "opCastling", "Opponent castling side", "oc", Game, _.name,
     Html("Which side your opponent castled in the game: kingside, queenside, or none."))
 
+  case object QueenTrade extends Dimension[QueenTrade](
+    "queenTrade", "Queen trade", "q", Game, _.name,
+    Html("Whether queens were traded before the endgame or not."))
+
   val all = List(
     Perf, Phase, Result, Termination,
     Color, Opening, OpponentStrength, PieceRole,
@@ -93,6 +97,7 @@ object Dimension {
     case PieceRole               => chess.Role.all.reverse
     case MovetimeRange           => lila.insight.MovetimeRange.all
     case MyCastling | OpCastling => lila.insight.Castling.all
+    case QueenTrade              => lila.insight.QueenTrade.all
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
@@ -106,6 +111,7 @@ object Dimension {
     case PieceRole               => chess.Role.all.find(_.name == key)
     case MovetimeRange           => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
     case MyCastling | OpCastling => parseIntOption(key) flatMap lila.insight.Castling.byId.get
+    case QueenTrade              => lila.insight.QueenTrade(key == "true").some
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
@@ -122,6 +128,7 @@ object Dimension {
         case PieceRole               => v.name
         case MovetimeRange           => v.id
         case MyCastling | OpCastling => v.id
+        case QueenTrade              => v.id
       }).toString,
       "name" -> d.valueName(v))
   }

@@ -17,6 +17,7 @@ case class Entry(
     opponentStrength: RelativeStrength,
     opponentCastling: Castling,
     moves: List[Move],
+    queenTrade: QueenTrade,
     result: Result,
     termination: Termination,
     ratingDiff: Int,
@@ -43,6 +44,7 @@ case object Entry {
     val opponentCastling = "oc"
     val moves: String = "m"
     def moves(f: String): String = s"$moves.$f"
+    val queenTrade = "q"
     val result = "r"
     val termination = "t"
     val ratingDiff = "rd"
@@ -129,6 +131,14 @@ object Castling {
     case Some("O-O-O") => Queenside
     case _             => None
   }
+}
+
+sealed abstract class QueenTrade(val id: Boolean, val name: String)
+object QueenTrade {
+  object Yes extends QueenTrade(true, "Queen trade")
+  object No extends QueenTrade(false, "No queen trade")
+  val all = List(Yes, No)
+  def apply(v: Boolean): QueenTrade = if (v) Yes else No
 }
 
 sealed abstract class RelativeStrength(val id: Int, val name: String)

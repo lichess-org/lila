@@ -18,6 +18,7 @@ final class JsonView {
       Json toJson D.MovetimeRange,
       Json toJson D.MyCastling,
       Json toJson D.OpCastling,
+      Json toJson D.QueenTrade,
       Json.obj(
         "key" -> D.Opening.key,
         "name" -> D.Opening.name,
