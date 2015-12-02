@@ -1,10 +1,11 @@
 package lila.insight
 
 import chess.format.Nag
-import chess.Role
+import chess.{ Role, Board }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
+import scalaz.NonEmptyList
 
 object PovToEntry {
 
@@ -17,6 +18,8 @@ object PovToEntry {
     analysis: Option[lila.analyse.Analysis],
     division: chess.Division,
     moveAccuracy: Option[List[Int]],
+    boards: NonEmptyList[Board],
+    movetimes: NonEmptyList[Int],
     advices: Map[Ply, Advice])
 
   def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
@@ -39,19 +42,23 @@ object PovToEntry {
     else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
         (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
-          case (fen, an) => RichPov(
+          case (fen, an) => for {
+            boards <- chess.Replay.boards(
+              moveStrs = game.pgnMoves,
+              initialFen = fen,
+              variant = game.variant).toOption.flatMap(_.toNel)
+            movetimes <- game.moveTimes(pov.color).toNel
+          } yield RichPov(
             pov = pov,
             provisional = provisional,
             initialFen = fen,
             analysis = an,
-            division = chess.Replay.boards(
-              moveStrs = game.pgnMoves,
-              initialFen = fen,
-              variant = game.variant
-            ).toOption.fold(chess.Division.empty)(chess.Divider.apply),
+            division = chess.Divider(boards.list),
             moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
+            boards = boards,
+            movetimes = movetimes,
             advices = an.?? { _.advices.map { a => a.info.ply -> a }.toMap }
-          ).some
+          )
         }
     }
 
@@ -71,48 +78,54 @@ object PovToEntry {
         from.pov.color.fold(is, is.map(_.reverse))
       }
     }
-    from.pov.game.moveTimes(from.pov.color).zip(
-      from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
-    ).zipWithIndex.map {
-        case ((tenths, role), i) =>
-          val ply = i * 2 + from.pov.color.fold(1, 2)
-          val prevInfo = prevInfos lift i
-          val opportunism = from.advices.get(ply - 1) flatMap {
-            case o if o.nag == Nag.Blunder => from.advices get ply match {
-              case Some(p) if p.nag == Nag.Blunder => false.some
-              case _                               => true.some
-            }
-            case _ => none
-          }
-          val luck = from.advices.get(ply) flatMap {
-            case o if o.nag == Nag.Blunder => from.advices.get(ply + 1) match {
-              case Some(p) if p.nag == Nag.Blunder => true.some
-              case _                               => false.some
-            }
-            case _ => none
-          }
-          Move(
-            phase = Phase.of(from.division, ply),
-            tenths = tenths,
-            role = role,
-            eval = prevInfo.flatMap(_.score).map(_.ceiled.centipawns),
-            mate = prevInfo.flatMap(_.mate),
-            cpl = cpDiffs lift i map (_ min 1000),
-            opportunism = opportunism,
-            luck = luck)
+    val movetimes = from.movetimes.list
+    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val boards = {
+      val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
+      from.boards.list.zipWithIndex.collect {
+        case (e, i) if (i % 2) == pivot => e
       }
+    }
+    movetimes.zip(roles).zip(boards).zipWithIndex.map {
+      case (((tenths, role), board), i) =>
+        val ply = i * 2 + from.pov.color.fold(1, 2)
+        val prevInfo = prevInfos lift i
+        val opportunism = from.advices.get(ply - 1) flatMap {
+          case o if o.nag == Nag.Blunder => from.advices get ply match {
+            case Some(p) if p.nag == Nag.Blunder => false.some
+            case _                               => true.some
+          }
+          case _ => none
+        }
+        val luck = from.advices.get(ply) flatMap {
+          case o if o.nag == Nag.Blunder => from.advices.get(ply + 1) match {
+            case Some(p) if p.nag == Nag.Blunder => true.some
+            case _                               => false.some
+          }
+          case _ => none
+        }
+        Move(
+          phase = Phase.of(from.division, ply),
+          tenths = tenths,
+          role = role,
+          eval = prevInfo.flatMap(_.score).map(_.ceiled.centipawns),
+          mate = prevInfo.flatMap(_.mate),
+          cpl = cpDiffs lift i map (_ min 1000),
+          imbalance = board.materialImbalance * from.pov.color.fold(1, -1),
+          opportunism = opportunism,
+          luck = luck)
+    }
   }
 
   private def queenTrade(from: RichPov) = QueenTrade {
-    val ply = from.division.end | from.division.plies
-    chess.Replay.lastBoard(
-      moveStrs = from.pov.game.pgnMoves take ply,
-      initialFen = none,
-      variant = from.pov.game.variant).toOption ?? { board =>
-        chess.Color.all.forall { color =>
-          !board.hasPiece(chess.Piece(color, chess.Queen))
-        }
+    from.division.end.fold(from.boards.last.some)(from.boards.list.lift) match {
+      case Some(board) => chess.Color.all.forall { color =>
+        !board.hasPiece(chess.Piece(color, chess.Queen))
       }
+      case _ =>
+        logwarn(s"[insight] http://l.org/${from.pov.game.id} missing endgame board")
+        false
+    }
   }
 
   private def convert(from: RichPov): Option[Entry] = {

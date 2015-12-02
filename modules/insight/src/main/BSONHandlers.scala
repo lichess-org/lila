@@ -64,6 +64,7 @@ private object BSONHandlers {
       eval = r.intO("e"),
       mate = r.intO("m"),
       cpl = r.intO("c"),
+      imbalance = r.int("i"),
       opportunism = r.boolO("o"),
       luck = r.boolO("l"))
     def writes(w: Writer, b: Move) = BSONDocument(
@@ -73,6 +74,7 @@ private object BSONHandlers {
       "e" -> b.eval,
       "m" -> b.mate,
       "c" -> b.cpl,
+      "i" -> b.imbalance,
       "o" -> b.opportunism,
       "l" -> b.luck)
   }
