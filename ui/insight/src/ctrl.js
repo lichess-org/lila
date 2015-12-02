@@ -27,8 +27,14 @@ module.exports = function(env) {
     answer: null
   };
 
+  var reset = function() {
+    this.vm.metric = this.ui.metrics[0];
+    this.vm.dimension = this.ui.dimensions[0];
+    this.vm.filters = {};
+  }.bind(this);
+
   var askQuestion = throttle(1000, false, function() {
-    if (!this.validCombinationCurrent()) return m.redraw();
+    if (!this.validCombinationCurrent()) reset();
     this.pushState();
     this.vm.loading = true;
     m.redraw();
@@ -56,7 +62,9 @@ module.exports = function(env) {
   }.bind(this);
 
   this.validCombination = function(dimension, metric) {
-    return dimension.position === 'game' || metric.position === 'move';
+    return dimension && metric && (
+      dimension.position === 'game' || metric.position === 'move'
+    );
   };
   this.validCombinationCurrent = function() {
     return this.validCombination(this.vm.dimension, this.vm.metric);
