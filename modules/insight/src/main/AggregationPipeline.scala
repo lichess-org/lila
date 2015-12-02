@@ -74,7 +74,7 @@ private final class AggregationPipeline {
   )).some
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
-    import question.{ dimension, metric }
+    import question.{ dimension, metric, filters }
     val gameMatcher = combineDocs(question.filters.collect {
       case f if f.dimension.isInGame => f.matcher
     })
@@ -82,10 +82,11 @@ private final class AggregationPipeline {
       combineDocs(extraMatcher :: question.filters.collect {
         case f if f.dimension.isInMove => f.matcher
       }).some.filterNot(_.isEmpty) map Match
-
-    def projectForMove = Project(
-      BSONDocument(dimension.dbKey -> true, metric.dbKey -> true)
-    ).some
+    def projectForMove = Project(BSONDocument({
+      metric.dbKey :: dimension.dbKey :: filters.collect {
+        case Filter(d, _) if d.isInMove => d.dbKey
+      }
+    }.distinct.map(_ -> BSONBoolean(true)))).some
 
     NonEmptyList.nel[PipelineOperator](
       Match(
