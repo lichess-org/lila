@@ -16,7 +16,7 @@ private final class AggregationPipeline {
     MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)) {
       case (acc, mtr) => BSONDocument(
         "$cond" -> BSONArray(
-          BSONDocument("$lte" -> BSONArray(F.moves("t"), mtr.tenths.last)),
+          BSONDocument("$lte" -> BSONArray("$" + F.moves("t"), mtr.tenths.last)),
           mtr.id,
           acc))
     }
