@@ -242,6 +242,10 @@ div.lichess_board {
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
+.grey2 .is2d .cg-board,
+#top div.color_demo.grey2 {
+  background-image: url(../images/board/grey2.jpg);
+}
 .wood .is2d .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood-1024.jpg);
@@ -261,6 +265,10 @@ div.lichess_board {
 .maple .is2d .cg-board,
 #top div.color_demo.maple {
   background-image: url(../images/board/maple.jpg);
+}
+.red .is2d .cg-board,
+#top div.color_demo.red {
+  background-image: url(../images/board/red.jpg);
 }
 
 .kingOfTheHill .cg-board::before {
