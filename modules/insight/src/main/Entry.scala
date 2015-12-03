@@ -192,3 +192,5 @@ object MaterialRange {
   def reversedButEqualAndLast = all.diff(List(Equal, Up4)).reverse
   val byId = all map { p => (p.id, p) } toMap
 }
+
+case class Period(number: Int, size: Int)

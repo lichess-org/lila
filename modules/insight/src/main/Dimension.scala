@@ -79,6 +79,10 @@ object Dimension {
     "material", "Material imbalance", F.moves("i"), Move, _.name,
     Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=5."))
 
+  case object Period extends Dimension[Period](
+    "period", "Playing period", F.number, Game, _.name,
+    Html("Chronological groups of your games"))
+
   val all = List(
     Perf, Phase, Result, Termination,
     Color, Opening, OpponentStrength, PieceRole,
