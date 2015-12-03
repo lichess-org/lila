@@ -90,19 +90,22 @@ private[lobby] final class Lobby(
       }
 
     case Broom =>
-      play.api.Logger("lobby").debug("broom")
-      socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
-        val createdBefore = DateTime.now minusSeconds 5
-        val hooks = {
-          (HookRepo notInUids uids.toSet).filter {
-            _.createdAt isBefore createdBefore
-          } ::: HookRepo.cleanupOld
-        }.toSet
-        if (hooks.nonEmpty) {
-          play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
-          self ! RemoveHooks(hooks)
-        }
-      }
+      (socket ? GetUids mapTo manifest[Iterable[String]]).effectFold(
+        err => play.api.Logger("lobby").warn(s"broom cannot get uids from socket: $err"),
+        uids => {
+          val createdBefore = DateTime.now minusSeconds 5
+          val hooks = {
+            (HookRepo notInUids uids.toSet).filter {
+              _.createdAt isBefore createdBefore
+            } ::: HookRepo.cleanupOld
+          }.toSet
+          play.api.Logger("lobby").debug(
+            s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
+          if (hooks.nonEmpty) {
+            play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+            self ! RemoveHooks(hooks)
+          }
+        })
 
     case RemoveHooks(hooks) => hooks foreach remove
 
