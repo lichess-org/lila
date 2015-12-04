@@ -97,7 +97,7 @@ module.exports = function(opts) {
     setAutoShapesFromEval();
   }.bind(this);
 
-  var getDests = throttle(400, false, function() {
+  var getDests = throttle(800, false, function() {
     if (this.vm.step.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
