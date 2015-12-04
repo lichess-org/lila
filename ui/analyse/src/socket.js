@@ -37,12 +37,14 @@ module.exports = function(send, ctrl) {
   }.bind(this);
 
   this.sendAnaMove = function(req) {
+    clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
 
   this.sendAnaDests = function(req) {
+    clearTimeout(anaDestsTimeout);
     withoutStandardVariant(req);
     if (anaDestsCache[req.path]) return handlers.dest(anaDestsCache[req.path]);
     this.send('anaDests', req);
