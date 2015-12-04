@@ -97,7 +97,7 @@ module.exports = function(opts) {
     setAutoShapesFromEval();
   }.bind(this);
 
-  var getDests = throttle(200, false, function() {
+  var getDests = throttle(400, false, function() {
     if (this.vm.step.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
@@ -116,7 +116,7 @@ module.exports = function(opts) {
     opts.onChange(this.vm.step.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = window.history.replaceState ? throttle(1000, false, function() {
+  var updateHref = window.history.replaceState ? throttle(750, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
   }.bind(this), false) : $.noop;
 
