@@ -5,6 +5,8 @@ module.exports = function(send, ctrl) {
   var anaMoveTimeout;
   var anaDestsTimeout;
 
+  var anaDestsCache = {};
+
   var handlers = {
     step: function(data) {
       ctrl.addStep(data.step, data.path);
@@ -16,6 +18,7 @@ module.exports = function(send, ctrl) {
       ctrl.reset();
     },
     dests: function(data) {
+      anaDestsCache[data.path] = data;
       ctrl.addDests(data.dests, data.path);
       clearTimeout(anaDestsTimeout);
     },
@@ -41,6 +44,7 @@ module.exports = function(send, ctrl) {
 
   this.sendAnaDests = function(req) {
     withoutStandardVariant(req);
+    if (anaDestsCache[req.path]) return handlers.dest(anaDestsCache[req.path]);
     this.send('anaDests', req);
     anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
   }.bind(this);
