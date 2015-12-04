@@ -1071,7 +1071,7 @@ lichess.unique = function(xs) {
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });
