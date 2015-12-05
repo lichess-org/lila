@@ -7,7 +7,7 @@ function renderHook(ctrl, hook) {
   return m('tr', {
     key: hook.id,
     title: hook.disabled ? '' : (
-      (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel')
+      (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' | ' + hook.perf.name : ctrl.trans('cancel')
     ),
     'data-id': hook.id,
     class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : '')
