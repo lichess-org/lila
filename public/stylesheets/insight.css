@@ -59,6 +59,7 @@
   border-width: 0 1px;
   border-radius: 0;
   font-size: 14px;
+  transition: 0.15s;
 }
 #insight .axis-form .ms-choice span {
   line-height: 60px;
@@ -113,8 +114,8 @@ div.panel-tabs a.active {
 }
 #insight .clear {
   position: absolute;
-  top: -20px;
-  right: 0;
+  top: 2px;
+  right: 8px;
 }
 #insight .filters .box {
   border-bottom-width: 0;

@@ -1,7 +1,7 @@
 var m = require('mithril');
 var throttle = require('./throttle');
 
-module.exports = function(env) {
+module.exports = function(env, domElement) {
 
   this.ui = env.ui;
   this.user = env.user;
@@ -46,19 +46,19 @@ module.exports = function(env) {
     this.vm.loading = true;
     m.redraw();
     setTimeout(function() {
-    m.request({
-      method: 'post',
-      url: env.postUrl,
-      data: {
-        metric: this.vm.metric.key,
-        dimension: this.vm.dimension.key,
-        filters: this.vm.filters
-      }
-    }).then(function(answer) {
-      this.vm.answer = answer;
-      this.vm.loading = false;
-    }.bind(this));
-    }.bind(this), 1000);
+      m.request({
+        method: 'post',
+        url: env.postUrl,
+        data: {
+          metric: this.vm.metric.key,
+          dimension: this.vm.dimension.key,
+          filters: this.vm.filters
+        }
+      }).then(function(answer) {
+        this.vm.answer = answer;
+        this.vm.loading = false;
+      }.bind(this));
+    }.bind(this), 1);
   }.bind(this));
 
   this.pushState = function() {
@@ -81,11 +81,13 @@ module.exports = function(env) {
 
   this.setMetric = function(key) {
     this.vm.metric = findMetric(key);
+    this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
     this.vm.dimension = findDimension(key);
+    this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
@@ -100,6 +102,10 @@ module.exports = function(env) {
     this.vm.metric = findMetric(q.metric);
     this.vm.filters = q.filters;
     askQuestion();
+    $(domElement).find('select.ms').multipleSelect('open');
+    setTimeout(function() {
+      $(domElement).find('select.ms').multipleSelect('close');
+    }, 1000);
   }.bind(this);
 
   this.clearFilters = function() {

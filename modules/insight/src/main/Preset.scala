@@ -21,6 +21,9 @@ object Preset {
       Question(D.Opening, M.Result, List(
         Filter(D.Perf, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)),
         Filter(D.Color, List(chess.White))
-      )))
+      ))),
+
+    Preset("Am I more accurate when I trade queens?",
+      Question(D.PieceRole, M.MeanCpl, Nil))
   )
 }

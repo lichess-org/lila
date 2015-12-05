@@ -2,7 +2,7 @@ var m = require('mithril');
 
 module.exports = function(ctrl) {
   return m('div.axis-form', [
-    m('select.metric', {
+    m('select.ms.metric', {
       multiple: true,
       config: function(e, isUpdate) {
         $(e).multipleSelect({
@@ -11,9 +11,6 @@ module.exports = function(ctrl) {
           single: true,
           onClick: function(v) {
             ctrl.setMetric(v.value);
-          },
-          onFocus: function(v) {
-            console.log('onFocus', v);
           }
         });
       }
@@ -30,7 +27,7 @@ module.exports = function(ctrl) {
       }))
     })),
     m('span.by', 'by'),
-    m('select.dimension', {
+    m('select.ms.dimension', {
         multiple: true,
         config: function(e, isUpdate) {
           $(e).multipleSelect({
