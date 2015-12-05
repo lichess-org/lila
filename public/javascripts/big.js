@@ -1333,7 +1333,7 @@ lichess.unique = function(xs) {
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     cfg.onChange = data.player.spectator ? $.noop : function(data) {
       var presets = [];
-      if (data.steps.length < 3) presets = [
+      if (data.steps.length < 4) presets = [
         'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
       ];
       else if (data.game.status.id >= 30) presets = [
