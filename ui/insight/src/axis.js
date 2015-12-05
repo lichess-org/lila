@@ -22,6 +22,7 @@ module.exports = function(ctrl) {
         label: categ.name
       }, categ.items.map(function(y) {
         return m('option', {
+          title: y.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
           value: y.key,
           disabled: !ctrl.validCombination(ctrl.vm.dimension, y),
           selected: ctrl.vm.metric.key === y.key
@@ -47,6 +48,7 @@ module.exports = function(ctrl) {
           label: categ.name
         }, categ.items.map(function(x) {
           return m('option', {
+            title: x.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
             value: x.key,
             disabled: !ctrl.validCombination(x, ctrl.vm.metric),
             selected: ctrl.vm.dimension.key === x.key
