@@ -78,6 +78,26 @@
   color: #fff;
 }
 
+#insight .filters .topless a {
+  color: #999;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0 1px 1px #fff;
+  cursor: pointer;
+}
+#insight .filters .topless .clear {
+  float: right;
+  text-transform: none;
+}
+#insight .filters .topless .toggle span {
+  margin-left: 4px;
+}
+#insight .filters .box {
+  border-bottom-width: 0;
+}
+#insight .filters .box:last-child {
+  border-bottom-width: 1px
+}
 #insight .filters .ms-parent {
   display: block;
 }
@@ -141,14 +161,10 @@
 }
 
 #insight .info.box {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 #insight .box .content {
   padding: 7px;
-}
-#insight .filters.box .top a {
-  float: right;
-  text-transform: none;
 }
 #insight .info.box .insight-stale button {
   width: 100%;

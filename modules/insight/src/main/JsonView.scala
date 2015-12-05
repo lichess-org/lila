@@ -6,30 +6,48 @@ final class JsonView {
 
   private def D = Dimension
 
-  def ui(ecos: Set[String]) = Json.obj(
-    "dimensions" -> List(
-      Json toJson D.Perf,
-      Json toJson D.Phase,
-      Json toJson D.Result,
-      Json toJson D.Termination,
-      Json toJson D.Color,
-      Json toJson D.OpponentStrength,
-      Json toJson D.PieceRole,
-      Json toJson D.MovetimeRange,
-      Json toJson D.MyCastling,
-      Json toJson D.OpCastling,
-      Json toJson D.QueenTrade,
-      Json toJson D.MaterialRange,
-      Json.obj(
-        "key" -> D.Opening.key,
-        "name" -> D.Opening.name,
-        "position" -> D.Opening.position,
-        "description" -> D.Opening.description.body,
-        "values" -> Dimension.valuesOf(D.Opening).filter { o =>
-          ecos contains o.eco
-        }.map(Dimension.valueToJson(D.Opening)))
-    ),
-    "metrics" -> Metric.all)
+  case class Categ(key: String, name: String, items: List[JsValue])
+  private implicit val categWrites = Json.writes[Categ]
+
+  def ui(ecos: Set[String]) = {
+
+    val openingJson = Json.obj(
+      "key" -> D.Opening.key,
+      "name" -> D.Opening.name,
+      "position" -> D.Opening.position,
+      "description" -> D.Opening.description.body,
+      "values" -> Dimension.valuesOf(D.Opening).filter { o =>
+        ecos contains o.eco
+      }.map(Dimension.valueToJson(D.Opening)))
+
+    Json.obj(
+      "dimensionCategs" -> List(
+        Categ("setup", "Setup", List(
+          Json toJson D.Perf,
+          Json toJson D.Color,
+          Json toJson D.OpponentStrength
+        )),
+        //game
+        Categ("game", "Game", List(
+          openingJson,
+          Json toJson D.MyCastling,
+          Json toJson D.OpCastling,
+          Json toJson D.QueenTrade
+        )),
+        // move
+        Categ("move", "Move", List(
+          Json toJson D.Phase,
+          Json toJson D.PieceRole,
+          Json toJson D.MovetimeRange,
+          Json toJson D.MaterialRange
+        )),
+        // result
+        Categ("result", "Result", List(
+          Json toJson D.Result,
+          Json toJson D.Termination))
+      ),
+      "metrics" -> Metric.all)
+  }
 
   private implicit def dimensionWriter[X]: OWrites[Dimension[X]] = OWrites { d =>
     Json.obj(

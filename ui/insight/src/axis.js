@@ -26,23 +26,26 @@ module.exports = function(ctrl) {
     })),
     m('span.by', 'by'),
     m('select.dimension', {
-      multiple: true,
-      config: function(e, isUpdate) {
-        $(e).multipleSelect({
-          width: '200px',
-          maxHeight: '400px',
-          single: true,
-          onClick: function(v) {
-            ctrl.setDimension(v.value);
-          }
+        multiple: true,
+        config: function(e, isUpdate) {
+          $(e).multipleSelect({
+            width: '200px',
+            maxHeight: '400px',
+            single: true,
+            onClick: function(v) {
+              ctrl.setDimension(v.value);
+            }
+          });
+        }
+      },
+      ctrl.ui.dimensionCategs.map(function(categ) {
+        return categ.items.map(function(x) {
+          return m('option', {
+            value: x.key,
+            disabled: !ctrl.validCombination(x, ctrl.vm.metric),
+            selected: ctrl.vm.dimension.key === x.key
+          }, x.name);
         });
-      }
-    }, ctrl.ui.dimensions.map(function(x) {
-      return m('option', {
-        value: x.key,
-        disabled: !ctrl.validCombination(x, ctrl.vm.metric),
-        selected: ctrl.vm.dimension.key === x.key
-      }, x.name);
-    }))
+      }))
   ]);
 };
