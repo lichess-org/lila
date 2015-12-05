@@ -151,7 +151,7 @@
 #insight .ms-drop ul {
   padding: 0;
 }
-#insight .ms-drop ul > li label {
+#insight .ms-drop ul > li label:not(.optgroup) {
   padding: 4px 8px;
   cursor: pointer;
   transition: background 0.13s;
@@ -167,12 +167,10 @@
   text-transform: uppercase;
   font-weight: normal;
   opacity: 0.6;
-  padding-top: 5px;
-  padding-bottom: 3px;
+  padding: 6px 8px 2px 8px;
 }
 #insight .ms-drop ul > li:first-child label.optgroup {
   margin-top: 0;
-  padding-top: 0;
 }
 
 #insight .info.box {
