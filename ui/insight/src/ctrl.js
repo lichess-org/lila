@@ -8,10 +8,13 @@ module.exports = function(env) {
   this.own = env.myUserId === this.user.id;
   this.dimensions = [].concat.apply([], this.ui.dimensionCategs.map(function(c) {
     return c.items;
-  }));;
+  }));
+  this.metrics = [].concat.apply([], this.ui.metricCategs.map(function(c) {
+    return c.items;
+  }));
 
   var findMetric = function(key) {
-    return this.ui.metrics.filter(function(x) {
+    return this.metrics.filter(function(x) {
       return x.key === key;
     })[0];
   }.bind(this);
@@ -32,7 +35,7 @@ module.exports = function(env) {
   };
 
   var reset = function() {
-    this.vm.metric = this.ui.metrics[0];
+    this.vm.metric = this.metrics[0];
     this.vm.dimension = this.dimensions[0];
     this.vm.filters = {};
   }.bind(this);

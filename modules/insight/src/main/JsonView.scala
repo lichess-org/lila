@@ -4,9 +4,9 @@ import play.api.libs.json._
 
 final class JsonView {
 
-  private def D = Dimension
+  import lila.insight.{ Dimension => D, Metric => M }
 
-  case class Categ(key: String, name: String, items: List[JsValue])
+  case class Categ(name: String, items: List[JsValue])
   private implicit val categWrites = Json.writes[Categ]
 
   def ui(ecos: Set[String]) = {
@@ -22,31 +22,51 @@ final class JsonView {
 
     Json.obj(
       "dimensionCategs" -> List(
-        Categ("setup", "Setup", List(
+        Categ("Setup", List(
           Json toJson D.Perf,
           Json toJson D.Color,
           Json toJson D.OpponentStrength
         )),
         //game
-        Categ("game", "Game", List(
+        Categ("Game", List(
           openingJson,
           Json toJson D.MyCastling,
           Json toJson D.OpCastling,
           Json toJson D.QueenTrade
         )),
         // move
-        Categ("move", "Move", List(
+        Categ("Move", List(
           Json toJson D.PieceRole,
           Json toJson D.MovetimeRange,
           Json toJson D.MaterialRange,
           Json toJson D.Phase
         )),
         // result
-        Categ("result", "Result", List(
+        Categ("Result", List(
           Json toJson D.Termination,
           Json toJson D.Result))
       ),
-      "metrics" -> Metric.all)
+      "metricCategs" -> List(
+        Categ("Setup", List(
+          Json toJson M.OpponentRating
+        )),
+        Categ("Move", List(
+          Json toJson M.Movetime,
+          Json toJson M.PieceRole,
+          Json toJson M.Material,
+          Json toJson M.NbMoves
+        )),
+        Categ("Evaluation", List(
+          Json toJson M.MeanCpl,
+          Json toJson M.Opportunism,
+          Json toJson M.Luck
+        )),
+        // result
+        Categ("Result", List(
+          Json toJson M.Termination,
+          Json toJson M.Result))
+      )
+    )
   }
 
   private implicit def dimensionWriter[X]: OWrites[Dimension[X]] = OWrites { d =>

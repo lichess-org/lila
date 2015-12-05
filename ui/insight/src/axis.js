@@ -17,12 +17,16 @@ module.exports = function(ctrl) {
           }
         });
       }
-    }, ctrl.ui.metrics.map(function(y) {
-      return m('option', {
-        value: y.key,
-        disabled: !ctrl.validCombination(ctrl.vm.dimension, y),
-        selected: ctrl.vm.metric.key === y.key
-      }, y.name);
+    }, ctrl.ui.metricCategs.map(function(categ) {
+      return m('optgroup', {
+        label: categ.name
+      }, categ.items.map(function(y) {
+        return m('option', {
+          value: y.key,
+          disabled: !ctrl.validCombination(ctrl.vm.dimension, y),
+          selected: ctrl.vm.metric.key === y.key
+        }, y.name);
+      }))
     })),
     m('span.by', 'by'),
     m('select.dimension', {
