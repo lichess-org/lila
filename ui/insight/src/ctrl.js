@@ -31,7 +31,7 @@ module.exports = function(env) {
     filters: env.initialQuestion.filters,
     loading: true,
     answer: null,
-    showFilters: !!Object.keys(env.initialQuestion.filters).length
+    panel: !!Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
   };
 
   var reset = function() {
@@ -45,6 +45,7 @@ module.exports = function(env) {
     this.pushState();
     this.vm.loading = true;
     m.redraw();
+    setTimeout(function() {
     m.request({
       method: 'post',
       url: env.postUrl,
@@ -57,6 +58,7 @@ module.exports = function(env) {
       this.vm.answer = answer;
       this.vm.loading = false;
     }.bind(this));
+    }.bind(this), 1000);
   }.bind(this));
 
   this.pushState = function() {
@@ -90,6 +92,13 @@ module.exports = function(env) {
   this.setFilter = function(dimensionKey, valueKeys) {
     if (!valueKeys.length) delete this.vm.filters[dimensionKey];
     else this.vm.filters[dimensionKey] = valueKeys;
+    askQuestion();
+  }.bind(this);
+
+  this.setQuestion = function(q) {
+    this.vm.dimension = findDimension(q.dimension);
+    this.vm.metric = findMetric(q.metric);
+    this.vm.filters = q.filters;
     askQuestion();
   }.bind(this);
 

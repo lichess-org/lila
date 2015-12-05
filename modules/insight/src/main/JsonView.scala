@@ -46,27 +46,42 @@ final class JsonView {
           Json toJson D.Termination,
           Json toJson D.Result))
       ),
-      "metricCategs" -> List(
-        Categ("Setup", List(
-          Json toJson M.OpponentRating
-        )),
-        Categ("Move", List(
-          Json toJson M.Movetime,
-          Json toJson M.PieceRole,
-          Json toJson M.Material,
-          Json toJson M.NbMoves
-        )),
-        Categ("Evaluation", List(
-          Json toJson M.MeanCpl,
-          Json toJson M.Opportunism,
-          Json toJson M.Luck
-        )),
-        // result
-        Categ("Result", List(
-          Json toJson M.Termination,
-          Json toJson M.Result,
-          Json toJson M.RatingDiff))
-      )
+      "metricCategs" -> metricCategs,
+      "presets" -> Preset.all
+    )
+  }
+
+  private val metricCategs = List(
+    Categ("Setup", List(
+      Json toJson M.OpponentRating
+    )),
+    Categ("Move", List(
+      Json toJson M.Movetime,
+      Json toJson M.PieceRole,
+      Json toJson M.Material,
+      Json toJson M.NbMoves
+    )),
+    Categ("Evaluation", List(
+      Json toJson M.MeanCpl,
+      Json toJson M.Opportunism,
+      Json toJson M.Luck
+    )),
+    // result
+    Categ("Result", List(
+      Json toJson M.Termination,
+      Json toJson M.Result,
+      Json toJson M.RatingDiff))
+  )
+
+  private implicit def presetWriter[X]: OWrites[Preset] = OWrites { p =>
+    Json.obj(
+      "name" -> p.name,
+      "dimension" -> p.question.dimension.key,
+      "metric" -> p.question.metric.key,
+      "filters" -> JsObject(p.question.filters.map {
+        case Filter(dimension, selected) =>
+          dimension.key -> JsArray(selected.map(Dimension.valueKey(dimension)).map(JsString.apply))
+      })
     )
   }
 

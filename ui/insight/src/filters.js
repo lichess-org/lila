@@ -28,34 +28,14 @@ function select(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  var isFiltered = !!Object.keys(ctrl.vm.filters).length;
-  var show = ctrl.vm.showFilters;
   return m('div.filters', [
-    m('div.topless', [
-      isFiltered ? m('a.clear.hint--top', {
-        'data-hint': 'Clear all filters',
-        onclick: ctrl.clearFilters
-      }, m('span', {
-        'data-icon': 'L',
-      }, 'CLEAR')) : null,
-      m('a.toggle', {
-        onclick: function() {
-          ctrl.vm.showFilters = !ctrl.vm.showFilters;
-        }
-      }, [
-        show ? 'Hide filters' : 'Show filters',
-        m('span', {
-          'data-icon': show ? 'S' : 'R'
-        })
-      ])
-    ]),
-    show ? m('div.items',
+    m('div.items',
       ctrl.ui.dimensionCategs.map(function(categ) {
         return m('div.categ.box', [
           m('div.top', categ.name),
           categ.items.map(select(ctrl))
         ]);
       })
-    ) : null
+    )
   ]);
 };

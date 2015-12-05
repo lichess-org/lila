@@ -121,24 +121,25 @@ object Dimension {
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
-    import play.api.libs.json._
-    Json.obj(
-      "key" -> (d match {
-        case Perf                    => v.key
-        case Phase                   => v.id
-        case Result                  => v.id
-        case Termination             => v.id
-        case Color                   => v.name
-        case Opening                 => v.eco
-        case OpponentStrength        => v.id
-        case PieceRole               => v.name
-        case MovetimeRange           => v.id
-        case MyCastling | OpCastling => v.id
-        case QueenTrade              => v.id
-        case MaterialRange           => v.id
-      }).toString,
+    play.api.libs.json.Json.obj(
+      "key" -> valueKey(d)(v),
       "name" -> d.valueName(v))
   }
+
+  def valueKey[X](d: Dimension[X])(v: X): String = (d match {
+    case Perf                    => v.key
+    case Phase                   => v.id
+    case Result                  => v.id
+    case Termination             => v.id
+    case Color                   => v.name
+    case Opening                 => v.eco
+    case OpponentStrength        => v.id
+    case PieceRole               => v.name
+    case MovetimeRange           => v.id
+    case MyCastling | OpCastling => v.id
+    case QueenTrade              => v.id
+    case MaterialRange           => v.id
+  }).toString
 
   def filtersOf[X](d: Dimension[X], selected: List[X]): BSONDocument = d match {
     case Dimension.MovetimeRange => selected match {

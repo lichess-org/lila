@@ -1,6 +1,7 @@
 var m = require('mithril');
 var axis = require('./axis');
 var filters = require('./filters');
+var presets = require('./presets');
 var chart = require('./chart');
 var table = require('./table');
 var help = require('./help');
@@ -19,7 +20,27 @@ module.exports = function(ctrl) {
   }, [
     m('div.left-side', [
       info(ctrl),
-      filters(ctrl),
+      m('div.panel-tabs', [
+        m('a[data-panel=preset]', {
+          class: 'tab' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
+          onclick: function() {
+            ctrl.vm.panel = 'preset';
+          }
+        }, 'Presets'),
+        m('a[data-panel=filter]', {
+          class: 'tab' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
+          onclick: function() {
+            ctrl.vm.panel = 'filter';
+          }
+        }, 'Filters'), !!Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
+          'data-hint': 'Clear all filters',
+          onclick: ctrl.clearFilters
+        }, m('span', {
+          'data-icon': 'L',
+        }, 'CLEAR')) : null,
+      ]),
+      ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
+      ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
       help(ctrl)
     ]),
     m('header', [
