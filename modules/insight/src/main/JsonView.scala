@@ -36,15 +36,15 @@ final class JsonView {
         )),
         // move
         Categ("move", "Move", List(
-          Json toJson D.Phase,
           Json toJson D.PieceRole,
           Json toJson D.MovetimeRange,
-          Json toJson D.MaterialRange
+          Json toJson D.MaterialRange,
+          Json toJson D.Phase
         )),
         // result
         Categ("result", "Result", List(
-          Json toJson D.Result,
-          Json toJson D.Termination))
+          Json toJson D.Termination,
+          Json toJson D.Result))
       ),
       "metrics" -> Metric.all)
   }

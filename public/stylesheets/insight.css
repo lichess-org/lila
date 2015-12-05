@@ -74,8 +74,8 @@
   display: none;
 }
 #insight .axis-form .ms-drop ul > li.selected label {
-  background: #d87500;
-  color: #fff;
+  background: #d87500!important;
+  color: #fff!important;
 }
 
 #insight .filters .topless a {
@@ -155,9 +155,21 @@
   padding: 4px 8px;
   cursor: pointer;
   transition: background 0.13s;
+  text-indent: 1em;
 }
-#insight .ms-drop ul > li label:hover {
+#insight .ms-drop ul > li label:not(.optgroup):hover {
   background: #f0f0f0;
+}
+#insight .ms-drop ul > li label.optgroup {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  text-indent: 0em;
+  text-transform: uppercase;
+  font-weight: normal;
+  opacity: 0.6;
+}
+#insight .ms-drop ul > li:first-child label.optgroup {
+  border-top: 0;
 }
 
 #insight .info.box {

@@ -39,13 +39,15 @@ module.exports = function(ctrl) {
         }
       },
       ctrl.ui.dimensionCategs.map(function(categ) {
-        return categ.items.map(function(x) {
+        return m('optgroup', {
+          label: categ.name
+        }, categ.items.map(function(x) {
           return m('option', {
             value: x.key,
             disabled: !ctrl.validCombination(x, ctrl.vm.metric),
             selected: ctrl.vm.dimension.key === x.key
           }, x.name);
-        });
+        }));
       }))
   ]);
 };
