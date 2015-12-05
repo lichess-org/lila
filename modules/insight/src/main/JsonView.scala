@@ -64,7 +64,8 @@ final class JsonView {
         // result
         Categ("Result", List(
           Json toJson M.Termination,
-          Json toJson M.Result))
+          Json toJson M.Result,
+          Json toJson M.RatingDiff))
       )
     )
   }
