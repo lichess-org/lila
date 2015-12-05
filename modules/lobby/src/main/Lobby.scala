@@ -8,7 +8,7 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.db.api._
 import lila.game.GameRepo
-import lila.hub.actorApi.GetUids
+import lila.hub.actorApi.{GetUids,SocketUids}
 import lila.socket.actorApi.Broom
 import makeTimeout.short
 import org.joda.time.DateTime
@@ -90,17 +90,17 @@ private[lobby] final class Lobby(
       }
 
     case Broom =>
-      (socket ? GetUids mapTo manifest[Iterable[String]]).effectFold(
+      (socket ? GetUids mapTo manifest[SocketUids]).effectFold(
         err => play.api.Logger("lobby").warn(s"broom cannot get uids from socket: $err"),
-        uids => {
+        socketUids => {
           val createdBefore = DateTime.now minusSeconds 5
           val hooks = {
-            (HookRepo notInUids uids.toSet).filter {
+            (HookRepo notInUids socketUids.uids).filter {
               _.createdAt isBefore createdBefore
             } ::: HookRepo.cleanupOld
           }.toSet
           play.api.Logger("lobby").debug(
-            s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
+            s"broom uids:${socketUids.uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
           if (hooks.nonEmpty) {
             play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
             self ! RemoveHooks(hooks)
