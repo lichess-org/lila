@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ TournamentRepo, Tournament }
+import lila.tournament.{ TournamentRepo, Tournament, SecondsToDoFirstMove }
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -108,7 +108,8 @@ private[api] final class RoundApi(
         "id" -> tour.id,
         "name" -> tour.name,
         "running" -> tour.isStarted,
-        "berserkable" -> tour.berserkable
+        "berserkable" -> tour.berserkable,
+        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(tour)
       ))
     }
 

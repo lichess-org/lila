@@ -10,6 +10,14 @@ import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.NoStartColor
 import lila.user.{ User, UserRepo }
 
+object SecondsToDoFirstMove {
+    def secondsToMoveFor(tour: Tournament) = tour.speed match {
+        case chess.Speed.Bullet => 20
+        case chess.Speed.Blitz  => 25
+        case _                  => 30
+    }
+}
+
 final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem,
@@ -44,15 +52,9 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMoveFor(tour), true) >>-
+      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), SecondsToDoFirstMove.secondsToMoveFor(tour), true) >>-
       onStart(game2.id)
   } yield game2
-
-  private def secondsToMoveFor(tour: Tournament) = tour.speed match {
-    case chess.Speed.Bullet => 20
-    case chess.Speed.Blitz  => 25
-    case _                  => 30
-  }
 
   private def getUser(username: String): Fu[User] =
     UserRepo named username flatMap {
