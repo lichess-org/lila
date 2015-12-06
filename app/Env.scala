@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    val scheduler: lila.common.Scheduler,
     system: ActorSystem,
     appPath: String) {
 
@@ -88,6 +89,7 @@ object Env {
 
   lazy val current = "app" boot new Env(
     config = lila.common.PlayApp.loadConfig,
+    scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system,
     appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
 

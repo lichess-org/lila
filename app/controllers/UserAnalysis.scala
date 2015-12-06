@@ -1,5 +1,6 @@
 package controllers
 
+import scala.concurrent.duration._
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.Situation
@@ -78,7 +79,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
             err => BadRequest(err.toString).fuccess,
             forecasts => Env.round.forecastApi.playAndSave(
               pov, uci, forecasts, ctx.req.remoteAddress
-            ) inject Ok(Json.obj("reload" -> true))
+            ) >> Env.current.scheduler.after(1.second) {
+                Ok(Json.obj("reload" -> true))
+              }
           )
         }
       }
