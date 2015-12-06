@@ -89,10 +89,14 @@ private[api] final class RoundApi(
     }
 
   private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
-    if (pov.forecastable && owner) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-      import Forecast.forecastJsonWriter
-      Json toJson fc
-    })
+    if (pov.game.forecastable && owner) json + (
+      "forecast" -> {
+        if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+          import Forecast.forecastJsonWriter
+          Json toJson fc
+        }
+        else Json.obj("onMyTurn" -> true)
+      })
     else json
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {

@@ -8,7 +8,7 @@ module.exports = function(steps, analysis) {
     return this.tree[0].ply;
   }.bind(this);
 
-  var lastPly = function() {
+  this.lastPly = function() {
     return this.tree[this.tree.length - 1].ply;
   }.bind(this);
 

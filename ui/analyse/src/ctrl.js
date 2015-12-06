@@ -23,12 +23,13 @@ module.exports = function(opts) {
   this.data = data({}, opts.data);
   this.userId = opts.userId;
   this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+  this.onMyTurn = this.data
 
   this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
-  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
+  var initialPath = opts.path ? (opts.path === 'last' ? treePath.default(this.analyse.lastPly()) : treePath.read(opts.path)) : treePath.default(this.analyse.firstPly());
   if (initialPath[0].ply >= this.data.steps.length)
     initialPath = treePath.default(this.data.steps.length - 1);
 

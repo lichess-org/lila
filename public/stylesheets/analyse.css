@@ -543,6 +543,12 @@ table.modAssessment td.noMatch {
   font-family: 'ChessSansPiratf', sans-serif;
   font-weight: bold;
 }
+.forecast button.on-my-turn {
+  margin-top: 20px;
+}
+.forecast button.on-my-turn::before {
+  color: #759900;
+}
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {
   color: #fff;
