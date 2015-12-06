@@ -67,13 +67,19 @@ module.exports = function(env, domElement) {
     }.bind(this), 1);
   }.bind(this));
 
-  this.pushState = function() {
-    var url = [env.pageUrl, this.vm.metric.key, this.vm.dimension.key].join('/');
-    var filters = Object.keys(this.vm.filters).map(function(filterKey) {
-      return filterKey + ':' + this.vm.filters[filterKey].join(',');
-    }.bind(this)).join('/');
+  this.makeUrl = function(dKey, mKey, filters) {
+    var url = [env.pageUrl, mKey, dKey].join('/');
+    var filters = Object.keys(filters).map(function(filterKey) {
+      return filterKey + ':' + filters[filterKey].join(',');
+    }).join('/');
     if (filters.length) url += '/' + filters;
-    if (window.history.replaceState) window.history.replaceState({}, null, url);
+    return url;
+  };
+
+  this.pushState = function() {
+    if (window.history.replaceState)
+      window.history.replaceState({}, null, this.makeUrl(
+        this.vm.dimension.key, this.vm.metric.key, this.vm.filters));
   }.bind(this);
 
   this.validCombination = function(dimension, metric) {
@@ -115,8 +121,10 @@ module.exports = function(env, domElement) {
   }.bind(this);
 
   this.clearFilters = function() {
-    this.vm.filters = {};
-    askQuestion();
+    if (Object.keys(this.vm.filters).length) {
+      this.vm.filters = {};
+      askQuestion();
+    }
   }.bind(this);
 
   // this.trans = lichess.trans(env.i18n);

@@ -34,7 +34,7 @@ $(function() {
         placement: "top"
       }, {
         title: "Ask a question: metric",
-        content: "To start asking your own questions, start by selecting a metric.<br>" +
+        content: "To ask your own questions, start by selecting a metric.<br>" +
           "For instance, let's ask a question about move times.",
         target: "#insight div.ms.metric",
         placement: "left",
@@ -75,6 +75,5 @@ $(function() {
       }]
     };
     var t = hopscotch.startTour(tour);
-    console.log(t);
   }, 1000);
 });

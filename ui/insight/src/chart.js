@@ -209,7 +209,8 @@ module.exports = function(ctrl) {
   return [
     m('div.chart', {
       config: function(el) {
-        if (!ctrl.vm.loading) makeChart(el, ctrl.vm.answer);
+        if (ctrl.vm.loading) return;
+        makeChart(el, ctrl.vm.answer);
       }
     }),
     m('div.square-in', m('div.square-spin')),

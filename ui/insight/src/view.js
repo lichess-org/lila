@@ -8,6 +8,30 @@ var help = require('./help');
 var info = require('./info');
 var boards = require('./boards');
 
+function cache(view, dataToKey) {
+  var prev = null;
+  return function(data) {
+    var key = dataToKey(data);
+    if (prev === key) return {
+      subtree: "retain"
+    };
+    prev = key;
+    return view(data);
+  };
+}
+
+var renderMeat = cache(function(ctrl) {
+  if (!ctrl.vm.answer) return;
+  return m('div', [
+    chart(ctrl),
+    table.vert(ctrl),
+    boards(ctrl)
+  ]);
+}, function(ctrl) {
+  var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';
+});
+
 module.exports = function(ctrl) {
   return m('div', {
     class: ctrl.vm.loading ? 'loading' : 'ready',
@@ -50,8 +74,6 @@ module.exports = function(ctrl) {
         'data-icon': '7'
       }, 'Chess Insights [BETA]')
     ]),
-    chart(ctrl),
-    table.vert(ctrl),
-    boards(ctrl)
+    m('div.meat', renderMeat(ctrl))
   ]);
 };
