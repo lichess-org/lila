@@ -1,6 +1,6 @@
 $(function() {
 
-  setTimeout(function() {
+  if (lichess.once('insight-tour')) setTimeout(function() {
     var tour = {
       id: "insights",
       showPrevButton: true,
@@ -70,7 +70,7 @@ $(function() {
         content: "By default, your data is visible to your lichess friends only.<br>" +
           "You can make it public or private <a href='/account/preferences/privacy'>from your privacy settings</a>.<br><br>" +
           "Have fun :)",
-        target: "#insight .share",
+        target: "#insight .info",
         placement: "right"
       }]
     };
