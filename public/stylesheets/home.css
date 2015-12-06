@@ -170,7 +170,7 @@ body.dark #hooks_wrap {
   width: 110px;
 }
 #hooks_wrap .table_wrap td {
-  padding: 8px 12px;
+  padding: 9px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   white-space: nowrap;
