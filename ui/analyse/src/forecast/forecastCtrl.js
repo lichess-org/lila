@@ -81,6 +81,7 @@ module.exports = function(cfg, saveUrl) {
   var save = function() {
     if (cfg.onMyTurn) return;
     loading(true);
+    m.redraw();
     m.request({
       method: 'POST',
       url: saveUrl,
@@ -97,6 +98,7 @@ module.exports = function(cfg, saveUrl) {
   var playAndSave = function(step) {
     if (!cfg.onMyTurn) return;
     loading(true);
+    m.redraw();
     m.request({
       method: 'POST',
       url: saveUrl + '/' + step.uci,

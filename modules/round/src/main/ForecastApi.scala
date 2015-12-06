@@ -56,7 +56,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
         blur = true,
         lag = Duration.Zero,
         promise = promise.some))
-      promise.future >> saveSteps(pov, steps)
+      saveSteps(pov, steps) >> promise.future
     }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
