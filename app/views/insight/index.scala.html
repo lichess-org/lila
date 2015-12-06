@@ -2,12 +2,15 @@
 
 @moreJs = {
 @highchartsLatestTag
+@hopscotchJsTag
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
 @jsTag("insight-refresh.js")
+@jsTag("insight-tour.js")
 @embedJs {
 $(function() {
-LichessInsight(document.getElementById('insight'), {
+lichess = lichess || {};
+lichess.insight = LichessInsight(document.getElementById('insight'), {
 ui: @Html(toJson(ui)),
 initialQuestion: @Html(toJson(question)),
 i18n: @jsI18n(),
@@ -27,6 +30,7 @@ postUrl: "@routes.Insight.json(u.username)"
 }
 
 @moreCss = {
+@hopscotchCssTag
 @cssTag("insight.css")
 @cssVendorTag("multiple-select/multiple-select.css")
 @ctx.currentBg match {

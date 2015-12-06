@@ -24,13 +24,13 @@ module.exports = function(ctrl) {
         m('a[data-panel=preset]', {
           class: 'tab' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
           onclick: function() {
-            ctrl.vm.panel = 'preset';
+            ctrl.setPanel('preset');
           }
         }, 'Presets'),
         m('a[data-panel=filter]', {
           class: 'tab' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
           onclick: function() {
-            ctrl.vm.panel = 'filter';
+            ctrl.setPanel('filter');
           }
         }, 'Filters'), !!Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
           'data-hint': 'Clear all filters',

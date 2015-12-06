@@ -13,4 +13,6 @@ module.exports = function(element, opts) {
     },
     view: view
   });
+
+  return controller;
 };

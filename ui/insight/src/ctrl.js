@@ -34,6 +34,12 @@ module.exports = function(env, domElement) {
     panel: !!Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
   };
 
+  this.setPanel = function(p) {
+    this.vm.panel = p;
+    m.redraw();
+  }.bind(this);
+
+
   var reset = function() {
     this.vm.metric = this.metrics[0];
     this.vm.dimension = this.dimensions[0];

@@ -65,6 +65,7 @@ module.exports = function(cfg, saveUrl) {
 
   var reloadToLastPly = function() {
     loading(true);
+    m.redraw();
     if (window.history.replaceState) window.history.replaceState(null, null, '#last');
     location.reload();
   };
