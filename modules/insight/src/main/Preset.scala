@@ -23,7 +23,25 @@ object Preset {
         Filter(D.Color, List(chess.White))
       ))),
 
-    Preset("Am I more accurate when I trade queens?",
-      Question(D.PieceRole, M.MeanCpl, Nil))
+    Preset("When I trade queens, how do games end?",
+      Question(D.Perf, M.Result, List(
+        Filter(D.QueenTrade, List(QueenTrade.Yes))
+      ))),
+
+    Preset("How often do I punish the opponent blunders in each game phase?",
+      Question(D.Phase, M.Opportunism, Nil)),
+
+    Preset("Do I gain rating when I don't castle kingside?",
+      Question(D.Perf, M.RatingDiff, List(
+        Filter(D.MyCastling, List(Castling.Queenside, Castling.None))
+      ))),
+
+    Preset("What are my opponent average ratings in each variant?",
+      Question(D.Perf, M.OpponentRating, Nil)),
+
+    Preset("How well do I move each piece in the opening?",
+      Question(D.PieceRole, M.MeanCpl, List(
+        Filter(D.Phase, List(Phase.Opening))
+      )))
   )
 }
