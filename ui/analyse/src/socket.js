@@ -7,6 +7,10 @@ module.exports = function(send, ctrl) {
 
   var anaDestsCache = {};
 
+  setTimeout(function() {
+    send("startWatching", ctrl.data.game.id);
+  }, 1000);
+
   var handlers = {
     step: function(data) {
       ctrl.addStep(data.step, data.path);
@@ -25,6 +29,10 @@ module.exports = function(send, ctrl) {
     destsFailure: function(data) {
       console.log(data);
       clearTimeout(anaDestsTimeout);
+    },
+    fen: function(e) {
+      if (ctrl.forecast && e.id === ctrl.data.game.id)
+        ctrl.forecast.reloadToLastPly();
     }
   };
 

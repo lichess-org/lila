@@ -64,6 +64,7 @@ module.exports = function(cfg, saveUrl) {
   fixAll();
 
   var reloadToLastPly = function() {
+    loading(true);
     if (window.history.replaceState) window.history.replaceState(null, null, '#last');
     location.reload();
   };
@@ -141,6 +142,7 @@ module.exports = function(cfg, saveUrl) {
     loading: loading,
     onMyTurn: cfg.onMyTurn,
     findStartingWithStep: findStartingWithStep,
-    playAndSave: playAndSave
+    playAndSave: playAndSave,
+    reloadToLastPly: reloadToLastPly
   };
 };
