@@ -23,17 +23,17 @@ object Preset {
         Filter(D.Color, List(chess.White))
       ))),
 
-    Preset("When I trade queens, how do games end?",
-      Question(D.Perf, M.Result, List(
-        Filter(D.QueenTrade, List(QueenTrade.Yes))
-      ))),
-
     Preset("How often do I punish the opponent blunders in each game phase?",
       Question(D.Phase, M.Opportunism, Nil)),
 
     Preset("Do I gain rating when I don't castle kingside?",
       Question(D.Perf, M.RatingDiff, List(
         Filter(D.MyCastling, List(Castling.Queenside, Castling.None))
+      ))),
+
+    Preset("When I trade queens, how do games end?",
+      Question(D.Perf, M.Result, List(
+        Filter(D.QueenTrade, List(QueenTrade.Yes))
       ))),
 
     Preset("What are my opponent average ratings in each variant?",
