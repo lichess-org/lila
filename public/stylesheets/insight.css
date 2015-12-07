@@ -207,6 +207,9 @@ div.panel-tabs a.active {
 #insight .info.box .insight-stale button {
   width: 100%;
 }
+#insight .info.box .help {
+  float: right;
+}
 #insight .info .share a {
   text-decoration: underline;
 }
