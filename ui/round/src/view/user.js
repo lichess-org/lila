@@ -1,5 +1,5 @@
 var m = require('mithril');
-var game = require('../game');
+var game = require('game').game;
 
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
