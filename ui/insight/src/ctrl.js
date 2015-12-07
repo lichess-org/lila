@@ -96,12 +96,18 @@ module.exports = function(env, domElement) {
 
   this.setMetric = function(key) {
     this.vm.metric = findMetric(key);
+    if (!this.validCombinationCurrent()) this.vm.dimension = this.dimensions.filter(function(d) {
+      return this.validCombination(d, this.vm.metric);
+    }.bind(this))[0];
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
     this.vm.dimension = findDimension(key);
+    if (!this.validCombinationCurrent()) this.vm.metric = this.metrics.filter(function(m) {
+      return this.validCombination(this.vm.dimension, m);
+    }.bind(this))[0];
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
