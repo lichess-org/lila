@@ -2,7 +2,7 @@ module.exports = function(ctrl, hooks) {
   var f = ctrl.data.filter;
   var seen = [], hidden = 0, visible = [];
   hooks.forEach(function(hook) {
-    var variant = hook.variant || 'standard';
+    var variant = hook.variant;
     if (hook.action === 'cancel') visible.push(hook);
     else {
       if (!$.fp.contains(f.variant, variant) || !$.fp.contains(f.mode, hook.ra || 0) || !$.fp.contains(f.speed, hook.s) ||

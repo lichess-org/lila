@@ -13,7 +13,6 @@ function storageKey(key) {
 
 module.exports = {
   confirm: function(variant) {
-    variant = variant || 'standard';
     return Object.keys(variantConfirms).every(function(key) {
       var v = variantConfirms[key]
       if (variant === key && !lichess.storage.get(storageKey(key))) {
