@@ -2,7 +2,6 @@
 
 @moreJs = {
 @highchartsLatestTag
-@hopscotchJsTag
 @jsAt("vendor/multiple-select/multiple-select.js")
 @jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
 @jsTag("insight-refresh.js")
@@ -30,7 +29,6 @@ postUrl: "@routes.Insight.json(u.username)"
 }
 
 @moreCss = {
-@hopscotchCssTag
 @cssTag("insight.css")
 @cssVendorTag("multiple-select/multiple-select.css")
 @ctx.currentBg match {
