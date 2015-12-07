@@ -914,6 +914,8 @@ lichess.unique = function(xs) {
               background = $(this).data('bg');
               $.post($(this).parent().data('href'), {
                 bg: background
+              }, function() {
+                if (window.Highcharts) location.reload();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
