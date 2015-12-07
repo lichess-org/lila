@@ -225,6 +225,10 @@ ol.scheduled_tournaments a {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
+#tournament table.standing.loading tbody {
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
 #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
   cursor: pointer;

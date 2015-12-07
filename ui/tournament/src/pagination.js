@@ -25,21 +25,6 @@ function scrollToMeButton(ctrl, pag) {
   }, 'Me');
 }
 
-function paginate(ctrl, page) {
-  var nbResults = ctrl.data.nbPlayers;
-  var from = (page - 1) * maxPerPage;
-  var to = Math.min(nbResults, page * maxPerPage);
-  return {
-    currentPage: page,
-    maxPerPage: maxPerPage,
-    from: from,
-    to: to,
-    currentPageResults: ctrl.vm.pages[page],
-    nbResults: nbResults,
-    nbPages: Math.ceil(nbResults / maxPerPage)
-  };
-}
-
 module.exports = {
   renderPager: function(ctrl, pag) {
     var enabled = !!pag.currentPageResults;
@@ -60,8 +45,20 @@ module.exports = {
       scrollToMeButton(ctrl, pag)
     ] : null;
   },
-  players: function(ctrl) {
-    return paginate(ctrl, ctrl.vm.page);
+  players: function paginate(ctrl) {
+    var page = ctrl.vm.page;
+    var nbResults = ctrl.data.nbPlayers;
+    var from = (page - 1) * maxPerPage;
+    var to = Math.min(nbResults, page * maxPerPage);
+    return {
+      currentPage: page,
+      maxPerPage: maxPerPage,
+      from: from,
+      to: to,
+      currentPageResults: ctrl.vm.pages[page],
+      nbResults: nbResults,
+      nbPages: Math.ceil(nbResults / maxPerPage)
+    };
   },
   myPage: function(ctrl) {
     if (!ctrl.data.me) return;

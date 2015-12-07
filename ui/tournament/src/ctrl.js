@@ -17,6 +17,7 @@ module.exports = function(env) {
   this.vm = {
     page: this.data.standing.page,
     pages: {},
+    lastPageDisplayed: null,
     focusOnMe: this.data.me && !this.data.me.withdraw,
     joinLoader: false,
     playerInfo: {
@@ -55,9 +56,9 @@ module.exports = function(env) {
   this.loadPage(this.data.standing);
 
   var setPage = function(page) {
-    // m.redraw.strategy('all');
     this.vm.page = page;
     xhr.loadPage(this, page)
+    m.redraw();
   }.bind(this);
 
   this.userSetPage = function(page) {
