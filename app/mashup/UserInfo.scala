@@ -29,7 +29,8 @@ case class UserInfo(
     playTime: User.PlayTime,
     donor: Boolean,
     trophies: Trophies,
-    isStreamer: Boolean) {
+    isStreamer: Boolean,
+    insightVisible: Boolean) {
 
   def nbRated = user.count.rated
 
@@ -65,7 +66,8 @@ object UserInfo {
     getRanks: String => Fu[Map[String, Int]],
     isDonor: String => Fu[Boolean],
     isHostingSimul: String => Fu[Boolean],
-    isStreamer: String => Boolean)(user: User, ctx: Context): Fu[UserInfo] =
+    isStreamer: String => Boolean,
+    insightShare: lila.insight.Share)(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -78,8 +80,9 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip
+      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       PlayTime(user) flatMap {
-        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), playTime) =>
+        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -98,7 +101,8 @@ object UserInfo {
               playTime = playTime,
               donor = isDonor,
               trophies = trophies,
-              isStreamer = isStreamer(user.id))
+              isStreamer = isStreamer(user.id),
+              insightVisible = insightVisible)
           }
       }
 }

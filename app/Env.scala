@@ -41,7 +41,8 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
-    isStreamer = Env.tv.isStreamer.apply) _
+    isStreamer = Env.tv.isStreamer.apply,
+    insightShare = Env.insight.share) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
