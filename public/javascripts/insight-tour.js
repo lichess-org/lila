@@ -6,7 +6,7 @@ lichess.startInsightTour = function() {
     steps: [{
       title: "Welcome to chess insights!",
       content: "Know your strengths and weaknesses!<br>" +
-        "Insights let you analyse your playing style,<br>" +
+        "Insights let you analyse your playing style, " +
         "using pertinent metrics and dimensions.<br><br>" +
         "It's a powerful tool, let's take some time to see how it works.",
       target: "#insight header h2",
