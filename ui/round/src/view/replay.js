@@ -104,7 +104,7 @@ function analyseButton(ctrl) {
     m('a', attrs, [
       m('span', {
         'data-icon': 'A',
-        class: ctrl.data.forecastCount ? 'text' : null
+        class: ctrl.data.forecastCount ? 'text' : ''
       }),
       ctrl.data.forecastCount
     ]),
