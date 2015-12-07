@@ -28,6 +28,7 @@ module.exports = function(opts) {
   this.vm = {
     ply: init.startPly(this.data),
     initializing: true,
+    firstSeconds: true,
     flip: false,
     redirecting: false,
     replayHash: '',
@@ -39,6 +40,10 @@ module.exports = function(opts) {
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
+  setTimeout(function() {
+    this.vm.firstSeconds = false;
+    m.redraw();
+  }.bind(this), 2000);
 
   this.socket = new socket(opts.socketSend, this);
 
