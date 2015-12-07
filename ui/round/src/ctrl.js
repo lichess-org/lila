@@ -326,15 +326,19 @@ module.exports = function(opts) {
     }.bind(this), 500);
   }.bind(this);
 
+  var forecastable = function(d) {
+    return game.playable(d) && d.correspondence && !d.opponent.ai;
+  }
+
   this.forecastInfo = function() {
-    return game.forecastable(this.data) &&
+    return forecastable(this.data) &&
       !this.replaying() &&
       this.data.game.turns > 1 &&
-      lichess.once('forecast-info-seen5');
+      lichess.once('forecast-info-seen6');
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(partial(opts.onChange,this.data), 200);
+    opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
