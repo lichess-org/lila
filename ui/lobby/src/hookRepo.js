@@ -3,7 +3,7 @@ function ratingOrder(a, b) {
 }
 
 function timeOrder(a, b) {
-  return a.time < b.time ? -1 : 1;
+  return a.t < b.t ? -1 : 1;
 }
 
 function sort(ctrl, hooks) {

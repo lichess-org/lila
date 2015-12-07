@@ -12,6 +12,7 @@ module.exports = function(env) {
   this.data = env.data;
   this.playban = env.playban;
   this.currentGame = env.currentGame;
+  this.perfIcons = env.perfIcons;
 
   hookRepo.initAll(this);
   seekRepo.initAll(this);
