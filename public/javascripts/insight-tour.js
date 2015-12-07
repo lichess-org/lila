@@ -14,8 +14,9 @@ lichess.startInsightTour = function() {
     }, {
       title: "Insights answer questions",
       content: "Here are a few examples of the questions you can ask. Try clicking them!",
-      target: "#insight .panel-tabs",
-      placement: "right",
+      target: "#insight .panel-tabs a.preset",
+      placement: "top",
+      yOffset: 10,
       onShow: function() {
         lichess.insight.setPanel('preset');
       }
@@ -24,7 +25,8 @@ lichess.startInsightTour = function() {
       content: "Colorful bars represent the answer to the question posed.<br>" +
         "Gray bars represent the size of each data sample, like the number of moves.",
       target: "#insight .chart",
-      placement: "left"
+      placement: "left",
+      xOffset: 50
     }, {
       title: "The same data, in a table",
       content: "This table provides an alternative way to read the answer.<br>" +
@@ -53,6 +55,7 @@ lichess.startInsightTour = function() {
         "For instance, select games where you play black and castle kingside.",
       target: "#insight .panel-tabs a.filter",
       placement: "top",
+      yOffset: 10,
       onShow: function() {
         lichess.insight.clearFilters();
         lichess.insight.setPanel('filter');
@@ -69,8 +72,9 @@ lichess.startInsightTour = function() {
       content: "By default, your data is visible to your lichess friends only.<br>" +
         "You can make it public or private <a href='/account/preferences/privacy'>from your privacy settings</a>.<br><br>" +
         "Have fun :)",
-      target: "#insight .info",
-      placement: "right"
+      target: "#insight .info .share",
+      placement: "right",
+      yOffset: -20
     }]
   };
   var t = hopscotch.startTour(tour);
