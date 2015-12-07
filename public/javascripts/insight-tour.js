@@ -13,7 +13,7 @@ lichess.startInsightTour = function() {
       placement: "bottom"
     }, {
       title: "Insights answer questions",
-      content: "Here are a few examples of the questions you can ask. Try clicking them!",
+      content: "Here are a few example questions you can ask. Try clicking them!",
       target: "#insight .panel-tabs a.preset",
       placement: "top",
       yOffset: 10,
@@ -30,7 +30,7 @@ lichess.startInsightTour = function() {
     }, {
       title: "The same data, in a table",
       content: "This table provides an alternative way to read the answer.<br>" +
-        "Farther down the page are a few of the games used to answer the question.",
+        "Further down the page are a few of the games used to answer the question.",
       target: "#insight table.slist",
       placement: "top"
     }, {
@@ -52,7 +52,7 @@ lichess.startInsightTour = function() {
     }, {
       title: "Ask a question: filters",
       content: "Make your question more precise by filtering the results.<br>" +
-        "For instance, select games where you play black and castle kingside.",
+        "For instance, you can select games where you only played black and castled kingside.",
       target: "#insight .panel-tabs a.filter",
       placement: "top",
       yOffset: 10,
