@@ -2043,15 +2043,14 @@ lichess.unique = function(xs) {
             $span.text(ui.values[0] + " - " + ui.values[1]);
           }
         });
-        var $ratingRangeConfig = $this.parent();
-        $modeChoices.add($form.find('.members_only input')).on('change', function() {
-          var rated = $rated.prop('checked');
-          var membersOnly = $form.find('.members_only input').prop('checked');
-          $ratingRangeConfig.toggle(rated || membersOnly);
-          $form.find('.members_only').toggle(!rated);
-          toggleButtons();
-        }).trigger('change');
       });
+      $modeChoices.add($form.find('.members_only input')).on('change', function() {
+        var rated = $rated.prop('checked');
+        var membersOnly = $form.find('.members_only input').prop('checked');
+        $form.find('.rating_range_config').toggle(rated || membersOnly);
+        $form.find('.members_only').toggle(!rated);
+        toggleButtons();
+      }).trigger('change');
       $timeModeSelect.on('change', function() {
         var timeMode = $(this).val();
         $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
@@ -2059,9 +2058,8 @@ lichess.unique = function(xs) {
         toggleButtons();
         showRating();
       }).trigger('change');
-      var $ratingRangeConfig = $form.find('.rating_range_config');
-      var $fenInput = $fenPosition.find('input');
 
+      var $fenInput = $fenPosition.find('input');
       var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();
