@@ -76,10 +76,13 @@ module.exports = function(env, domElement) {
     return url;
   };
 
+  this.makeCurrentUrl = function() {
+    return this.makeUrl(this.vm.dimension.key, this.vm.metric.key, this.vm.filters)
+  }.bind(this);
+
   this.pushState = function() {
     if (window.history.replaceState)
-      window.history.replaceState({}, null, this.makeUrl(
-        this.vm.dimension.key, this.vm.metric.key, this.vm.filters));
+      window.history.replaceState({}, null, this.makeCurrentUrl());
   }.bind(this);
 
   this.validCombination = function(dimension, metric) {

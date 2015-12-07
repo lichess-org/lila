@@ -109,6 +109,9 @@ div.panel-tabs a.active {
 #insight .presets a:hover::before {
   opacity: 1;
 }
+#insight .presets a.active {
+  color: #d87500!important;
+}
 #insight .panel-tabs {
   position: relative;
 }
