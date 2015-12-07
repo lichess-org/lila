@@ -648,6 +648,9 @@ div.table_wrap > .correspondence.clock > .time {
 div.table_wrap > .clock .time tenths {
   font-size: 80%;
 }
+div.table_wrap > .clock .time huns {
+  font-size: 60%;
+}
 div.table_wrap > .clock .time b {
   font-weight: bold;
 }
