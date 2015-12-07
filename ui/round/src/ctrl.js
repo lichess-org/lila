@@ -203,7 +203,7 @@ module.exports = function(opts) {
       check: o.check
     });
     game.setOnGame(d, playedColor, true);
-    this.data.forecastCount = 0;
+    delete this.data.forecastCount;
     m.endComputation();
     if (d.blind) blind.reload(this);
     if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
