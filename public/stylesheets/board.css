@@ -12,7 +12,6 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
   line-height: 0;
   background-size: cover;
 }
@@ -639,7 +638,7 @@ div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 30px;
+  font-size: 32px;
   font-family: monospace;
 }
 div.table_wrap > .correspondence.clock > .time {
@@ -697,11 +696,10 @@ div.table_wrap a.moretime {
   position: absolute;
   font-size: 20px;
   right: 0;
-  top: 0;
+  top: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
