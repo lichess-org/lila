@@ -34,7 +34,7 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
-    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig, Beta))
+    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 
