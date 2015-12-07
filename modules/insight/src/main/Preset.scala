@@ -13,17 +13,17 @@ object Preset {
     Preset("Do I gain more rating points against weaker or stronger opponents?",
       Question(D.OpponentStrength, M.RatingDiff, Nil)),
 
-    Preset("How fast do I move each piece in bullet and blitz games?",
+    Preset("How quickly do I move each piece in bullet and blitz games?",
       Question(D.PieceRole, M.Movetime, List(
         Filter(D.Perf, List(PerfType.Bullet, PerfType.Blitz))))),
 
-    Preset("What are my results for my favourite openings as white, in standard chess?",
+    Preset("What is the Win-Rate of my favourite openings as white?",
       Question(D.Opening, M.Result, List(
         Filter(D.Perf, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)),
         Filter(D.Color, List(chess.White))
       ))),
 
-    Preset("How often do I punish the opponent blunders in each game phase?",
+    Preset("How often do I punish blunders made by my opponent during each game phase?",
       Question(D.Phase, M.Opportunism, Nil)),
 
     Preset("Do I gain rating when I don't castle kingside?",
@@ -36,7 +36,7 @@ object Preset {
         Filter(D.QueenTrade, List(QueenTrade.Yes))
       ))),
 
-    Preset("What are my opponent average ratings in each variant?",
+    Preset("What is the average rating of my opponents across each variant?",
       Question(D.Perf, M.OpponentRating, Nil)),
 
     Preset("How well do I move each piece in the opening?",
