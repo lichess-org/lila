@@ -63,6 +63,8 @@ body.dark #hooks_wrap {
   left: 0;
   height: 20px;
   line-height: 20px;
+  width: 512px;
+  text-align: center;
 }
 #hooks_wrap .tabs a {
   display: inline-block;
