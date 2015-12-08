@@ -72,7 +72,7 @@ module.exports = function(ctrl) {
       m('h2', {
         class: 'text',
         'data-icon': '7'
-      }, 'Chess Insights [BETA]')
+      }, 'Chess Insights')
     ]),
     m('div.meat', renderMeat(ctrl))
   ]);
