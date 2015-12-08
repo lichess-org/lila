@@ -58,21 +58,19 @@ object Insight extends LilaController {
 
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     lila.user.UserRepo named username flatMap {
-      case None => notFound
-      case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true                             => f(u)
-        case false if isGranted(_.SeeInsight) => f(u)
-        case false                            => fuccess(Forbidden(html.insight.forbidden(u)))
+      _.fold(notFound) { u =>
+        env.share.grant(u, ctx.me) flatMap {
+          _.fold(f(u), fuccess(Forbidden(html.insight.forbidden(u))))
+        }
       }
     }
 
   private def AccessibleJson(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     lila.user.UserRepo named username flatMap {
-      case None => notFoundJson(s"No such user: $username")
-      case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true                             => f(u)
-        case false if isGranted(_.SeeInsight) => f(u)
-        case false                            => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
+      _.fold(notFoundJson(s"No such user: $username")) { u =>
+        env.share.grant(u, ctx.me) flatMap {
+          _.fold(f(u), fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected"))))
+        }
       }
     } map (_ as JSON)
 }

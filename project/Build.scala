@@ -190,7 +190,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val insight = project("insight",
-    Seq(common, chess, game, user, analyse, relation, pref, socket, round)
+    Seq(common, chess, game, user, analyse, relation, pref, socket, round, security)
   ).settings(
       libraryDependencies ++= provided(play.api, RM, PRM)
     )
