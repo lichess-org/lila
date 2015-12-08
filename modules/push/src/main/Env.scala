@@ -4,21 +4,19 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 
-final class Env(
-    config: Config,
-    db: lila.db.Env) {
+final class Env(config: Config) {
 
   private val settings = new {
-    val CollectionDevice = config getString "collection.device"
+    val GoogleApiKey = config getString "google.api_key"
   }
   import settings._
 
-  lazy val deviceApi = new DeviceApi(db(CollectionPlayban))
+  lazy val deviceApi = new DeviceApi(
+    googleApiKey = GoogleApiKey)
 }
 
 object Env {
 
   lazy val current: Env = "push" boot new Env(
-    config = lila.common.PlayApp loadConfig "push",
-    db = lila.db.Env.current)
+    config = lila.common.PlayApp loadConfig "push")
 }

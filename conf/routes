@@ -75,7 +75,7 @@ POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
-POST  /account/register-mobile-id/:id  controllers.Account.registerMobileId(id: String)
+POST  /account/register-device-id/:id  controllers.Account.registerDeviceId(id: String)
 
 # Site
 GET   /socket                          controllers.Main.websocket
