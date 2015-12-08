@@ -39,10 +39,13 @@ object PairingSystem extends AbstractPairingSystem {
 
   private def logRematch(tour: Tournament, pairings: Pairings, recent: Pairings) {
     pairings.foreach { p =>
-      recent find p.similar foreach { r =>
-        play.api.Logger("tourpairing").warn(
-          s"rematch http://lichess.org/tournament/${tour.id} ${p.id} ${p.user1} vs ${p.user2} like ${r.id}")
-      }
+      List(
+        recent find { _ contains p.user1 },
+        recent find { _ contains p.user2 }
+      ).flatten filter p.similar foreach { r =>
+          play.api.Logger("tourpairing").warn(
+            s"rematch http://lichess.org/tournament/${tour.id} ${p.id} ${p.user1} vs ${p.user2} like ${r.id}")
+        }
     }
   }
 
