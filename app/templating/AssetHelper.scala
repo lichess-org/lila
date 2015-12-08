@@ -8,8 +8,6 @@ trait AssetHelper { self: I18nHelper =>
 
   def assetVersion = lila.api.Env.current.assetVersion.get
 
-  def insightIsPublic = lila.api.Env.current.insightIsPublic.get
-
   def isProd: Boolean
 
   val assetDomain = lila.api.Env.current.Net.AssetDomain
