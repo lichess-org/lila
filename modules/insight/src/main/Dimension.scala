@@ -41,7 +41,7 @@ object Dimension {
 
   case object Termination extends Dimension[Termination](
     "termination", "Game termination", F.termination, Game, _.name,
-    Html("The way the game ended, like Checkmate or Resignation."))
+    Html("The way that the game ended, like Checkmate or Resignation."))
 
   case object Color extends Dimension[Color](
     "color", "Color", F.color, Game, _.toString,
@@ -61,15 +61,15 @@ object Dimension {
 
   case object MovetimeRange extends Dimension[MovetimeRange](
     "movetime", "Move time", F.moves("t"), Move, _.name,
-    Html("Time you spend thinking on each move, in seconds."))
+    Html("The amount of time you spend thinking on each move, in seconds."))
 
   case object MyCastling extends Dimension[Castling](
     "myCastling", "My castling side", F.myCastling, Game, _.name,
-    Html("Which side you castled in the game: kingside, queenside, or none."))
+    Html("The side you castled on during the game: kingside, queenside, or none."))
 
   case object OpCastling extends Dimension[Castling](
     "opCastling", "Opponent castling side", F.opponentCastling, Game, _.name,
-    Html("Which side your opponent castled in the game: kingside, queenside, or none."))
+    Html("The side your opponent castled on during the game: kingside, queenside, or none."))
 
   case object QueenTrade extends Dimension[QueenTrade](
     "queenTrade", "Queen trade", F.queenTrade, Game, _.name,
