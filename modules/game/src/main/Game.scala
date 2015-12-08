@@ -508,7 +508,7 @@ object Game {
   def abandonedDate = DateTime.now minusDays abandonedDays
 
   val aiAbandonedDays = 3
-  def aiAbandonedDate = DateTime.now minusDays abandonedDays
+  def aiAbandonedDate = DateTime.now minusDays aiAbandonedDays
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
