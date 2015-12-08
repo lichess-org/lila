@@ -1,5 +1,5 @@
 function ratingOrder(a, b) {
-  return a.rating > b.rating ? -1 : 1;
+  return (a.rating || 0) > (b.rating || 0) ? -1 : 1;
 }
 
 function timeOrder(a, b) {
