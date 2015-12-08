@@ -58,6 +58,18 @@ final class Env(
     def get = cache get true
   }
 
+  object insightIsPublic {
+    import reactivemongo.bson._
+    private val coll = db("flag")
+    private val cache = lila.memo.MixedCache.single[Boolean](
+      f = coll.find(BSONDocument("_id" -> "insight")).one[BSONDocument].map {
+        _.??(~_.getAs[Boolean]("public"))
+      },
+      timeToLive = 1 minute,
+      default = false)
+    def get = cache get true
+  }
+
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"

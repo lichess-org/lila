@@ -269,7 +269,7 @@ description = describeUser(u)).some) {
         </div>
       </div>
     </div>
-    @if(info.insightVisible && isGranted(_.Beta)) {
+    @if(info.insightVisible && (insightIsPublic || isGranted(_.Beta))) {
     <a class="insight" href="@routes.Insight.index(u.username)">
       <span class="icon" data-icon="7"></span>
       <strong>Chess Insights</strong>
