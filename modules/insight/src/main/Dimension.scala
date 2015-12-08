@@ -77,7 +77,7 @@ object Dimension {
 
   case object MaterialRange extends Dimension[MaterialRange](
     "material", "Material imbalance", F.moves("i"), Move, _.name,
-    Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=5."))
+    Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9."))
 
   val all = List(
     Perf, Phase, Result, Termination,
