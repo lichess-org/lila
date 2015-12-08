@@ -1,5 +1,5 @@
 var m = require('mithril');
-var game = require('../game');
+var game = require('game').game;
 
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
@@ -8,7 +8,7 @@ function ratingDiff(player) {
   if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
 }
 
-function relayUser(ctrl, player, klass) {
+function relayUser(player, klass) {
   return m('span', {
     class: 'text ' + klass,
     'data-icon': '8'
@@ -20,14 +20,14 @@ function relayUser(ctrl, player, klass) {
 
 module.exports = function(ctrl, player, klass) {
   var d = ctrl.data;
-  if (d.relay) return relayUser(ctrl, d.relay[player.color], klass);
+  if (d.relay) return relayUser(d.relay[player.color], klass);
   var perf = player.user ? player.user.perfs[d.game.perf] : null;
   var rating = player.rating ? player.rating : (perf ? perf.rating : null);
   var playerOnGameIcon = m('span.status.hint--top', {
     'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
-  }, m('span', {
+  }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
     'data-icon': (player.onGame ? '3' : '0')
-  }))
+  }) : null)
   return player.user ? [
     m('a', {
       class: 'text ulpt user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),

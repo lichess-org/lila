@@ -60,9 +60,9 @@ object Insight extends LilaController {
     lila.user.UserRepo named username flatMap {
       case None => notFound
       case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true                          => f(u)
-        case false if isGranted(_.UserSpy) => f(u)
-        case false                         => fuccess(Forbidden(html.insight.forbidden(u)))
+        case true                             => f(u)
+        case false if isGranted(_.SeeInsight) => f(u)
+        case false                            => fuccess(Forbidden(html.insight.forbidden(u)))
       }
     }
 
@@ -70,9 +70,9 @@ object Insight extends LilaController {
     lila.user.UserRepo named username flatMap {
       case None => notFoundJson(s"No such user: $username")
       case Some(u) => env.share.grant(u, ctx.me) flatMap {
-        case true                          => f(u)
-        case false if isGranted(_.UserSpy) => f(u)
-        case false                         => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
+        case true                             => f(u)
+        case false if isGranted(_.SeeInsight) => f(u)
+        case false                            => fuccess(Forbidden(Json.obj("error" -> s"User $username data is protected")))
       }
     } map (_ as JSON)
 }

@@ -68,9 +68,6 @@ trait AssetHelper { self: I18nHelper =>
     jsAt(s"vendor/moment/locale/$l.js", static = true)
   }
 
-  def hopscotchJsTag = jsAt("""vendor/hopscotch/dist/js/hopscotch.min.js""")
-  def hopscotchCssTag = cssVendorTag("""hopscotch/dist/css/hopscotch.min.css""")
-
   val tagmanagerTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",

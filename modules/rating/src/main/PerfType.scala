@@ -3,11 +3,14 @@ package lila.rating
 import chess.Speed
 
 sealed abstract class PerfType(
-  val id: Int,
-  val key: Perf.Key,
-  val name: String,
-  val title: String,
-  val iconChar: Char)
+    val id: Int,
+    val key: Perf.Key,
+    val name: String,
+    val title: String,
+    val iconChar: Char) {
+
+  def iconString = iconChar.toString
+}
 
 object PerfType {
 
@@ -106,4 +109,8 @@ object PerfType {
   val nonGame: List[PerfType] = List(Puzzle, Opening)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde)
   val variants: List[PerfType] = List(Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde)
+
+  val nonPuzzleIconByName = nonPuzzle.map { pt =>
+    pt.name -> pt.iconString
+  } toMap
 }

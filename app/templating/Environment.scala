@@ -68,6 +68,15 @@ object Environment
     val mod = Html("&#xe002;")
   }
 
+  val nonPuzzlePerfTypeNameIcons = {
+    import play.api.libs.json.Json
+    Html {
+      Json stringify {
+        Json toJson lila.rating.PerfType.nonPuzzleIconByName
+      }
+    }
+  }
+
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
     if (ctx.kid) Html("") else f
 }

@@ -32,7 +32,19 @@ object PairingSystem extends AbstractPairingSystem {
     pairings <- preps.map { prep =>
       UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
     }.sequenceFu
-  } yield pairings
+  } yield {
+    logRematch(tour, pairings, recentPairings)
+    pairings
+  }
+
+  private def logRematch(tour: Tournament, pairings: Pairings, recent: Pairings) {
+    pairings.foreach { p =>
+      recent find p.similar foreach { r =>
+        play.api.Logger("tourpairing").warn(
+          s"rematch http://lichess.org/tournament/${tour.id} ${p.id} ${p.user1} vs ${p.user2} like ${r.id}")
+      }
+    }
+  }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {

@@ -7,27 +7,27 @@ function renderHook(ctrl, hook) {
   return m('tr', {
     key: hook.id,
     title: hook.disabled ? '' : (
-      (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' | ' + hook.perf.name : ctrl.trans('cancel')
+      (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' | ' + hook.perf : ctrl.trans('cancel')
     ),
     'data-id': hook.id,
     class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : '')
   }, tds([
     m('span', {
-      class: 'is is2 color-icon ' + (hook.color || 'random')
+      class: 'is is2 color-icon ' + (hook.c || 'random')
     }), (hook.rating ? m('a.ulink', {
-      href: '/@/' + hook.username
-    }, hook.username) : 'Anonymous'),
+      href: '/@/' + hook.u
+    }, hook.u) : 'Anonymous'),
     hook.rating ? hook.rating : '',
     hook.clock, [m('span', {
       class: 'varicon',
-      'data-icon': hook.perf.icon
-    }), ctrl.trans(hook.mode === 1 ? 'rated' : 'casual')]
+      'data-icon': ctrl.perfIcons[hook.perf]
+    }), ctrl.trans(hook.ra ? 'rated' : 'casual')]
   ]));
 };
 
 function isStandard(value) {
   return function(hook) {
-    return (hook.variant.key === 'standard') === value;
+    return (hook.variant === 'standard') === value;
   };
 }
 
