@@ -15,12 +15,16 @@ final class Env(
     userSpy: String => Fu[UserSpy],
     userIdsSharingIp: String => Fu[List[String]]) {
 
-  private val CollectionPlayerAssessment= config getString "collection.player_assessment"
-  private val CollectionBoosting = config getString "collection.boosting"
-  private val CollectionModlog = config getString "collection.modlog"
-  private val ActorName = config getString "actor.name"
-  private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
-  private val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
+  private object settings {
+    val CollectionPlayerAssessment = config getString "collection.player_assessment"
+    val CollectionBoosting = config getString "collection.boosting"
+    val CollectionModlog = config getString "collection.modlog"
+    val ActorName = config getString "actor.name"
+    val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
+    val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
+    val NeuralApiEndpoint = config getString "neural.api.endpoint"
+  }
+  import settings._
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
@@ -46,6 +50,12 @@ final class Env(
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
     userIdsSharingIp = userIdsSharingIp)
+
+  private val neuralApi = new NeuralApi(
+    endpoint = NeuralApiEndpoint,
+    assessApi = assessApi)
+
+  def callNeural = neuralApi.apply _
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
