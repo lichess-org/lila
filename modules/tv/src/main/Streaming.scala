@@ -66,8 +66,7 @@ private final class Streaming(
           "key" -> googleApiKey
         ).get() map { res =>
             res.json.validate[Youtube.Result] match {
-              case JsSuccess(data, _) => data.streamsOnAir(streamers) take max
-              // case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
+              case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
                 logwarn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil

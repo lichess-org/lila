@@ -16,11 +16,13 @@ final class StreamerList(
     validate(text)._1
   }
 
+  def find(id: String): Fu[Option[Streamer]] = get map (_ find (_.id == id))
+
   private[tv] def lichessIds: Fu[Set[String]] = get map {
     _.filter(_.featured).map(_.lichessName.toLowerCase).toSet
   }
 
-  def validate(text: String): (List[Streamer], List[Exception]) = Try {
+  private[tv] def validate(text: String): (List[Streamer], List[Exception]) = Try {
     ConfigFactory.parseString(text).getConfigList("streamers").toList.map { c =>
       Try {
         Streamer(

@@ -23,7 +23,7 @@ final class Env(
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
-    streamsOnAir = () => Env.tv.streamsOnAir,
+    streamsOnAir = () => Env.tv.streamsOnAir.all,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
