@@ -6,13 +6,12 @@ import lila.common.PimpedConfig._
 
 final class Env(config: Config) {
 
-  private val settings = new {
-    val GoogleApiKey = config getString "google.api_key"
-  }
-  import settings._
+    private val AerogearConfig = Aerogear.Config(
+      url = config getString "aerogear.url",
+      variantId = config getString "aerogear.variant_id",
+      secret = config getString "aerogear.secret")
 
-  lazy val deviceApi = new DeviceApi(
-    googleApiKey = GoogleApiKey)
+  lazy val aerogear = new Aerogear(AerogearConfig)
 }
 
 object Env {
