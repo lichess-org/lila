@@ -7,17 +7,17 @@ module.exports = function(send, ctrl) {
   this.send = send;
 
   var handlers = {
-    hook_add: function(hook) {
+    had: function(hook) {
       hookRepo.add(ctrl, hook);
       if (hook.action === 'cancel') ctrl.flushHooks(true);
       if (ctrl.vm.tab === 'real_time') m.redraw();
     },
-    hook_remove: function(id) {
+    hrm: function(id) {
       hookRepo.remove(ctrl, id);
       if (ctrl.vm.tab === 'real_time') m.redraw();
     },
-    hook_list: function(ids) {
-      hookRepo.syncIds(ctrl, ids);
+    hli: function(ids) {
+      hookRepo.syncIds(ctrl, ids.split(','));
       if (ctrl.vm.tab === 'real_time') m.redraw();
     },
     reload_seeks: function() {

@@ -504,11 +504,11 @@ object Game {
   val unplayedHours = 24
   def unplayedDate = DateTime.now minusHours unplayedHours
 
-  val abandonedDays = 15
+  val abandonedDays = 21
   def abandonedDate = DateTime.now minusDays abandonedDays
 
   val aiAbandonedDays = 3
-  def aiAbandonedDate = DateTime.now minusDays abandonedDays
+  def aiAbandonedDate = DateTime.now minusDays aiAbandonedDays
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize

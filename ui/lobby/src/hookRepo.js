@@ -1,9 +1,9 @@
 function ratingOrder(a, b) {
-  return a.rating > b.rating ? -1 : 1;
+  return (a.rating || 0) > (b.rating || 0) ? -1 : 1;
 }
 
 function timeOrder(a, b) {
-  return a.time < b.time ? -1 : 1;
+  return a.t < b.t ? -1 : 1;
 }
 
 function sort(ctrl, hooks) {
@@ -12,6 +12,7 @@ function sort(ctrl, hooks) {
 
 function init(hook) {
   hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
+  hook.variant = hook.variant || 'standard';
 }
 
 function initAll(ctrl) {

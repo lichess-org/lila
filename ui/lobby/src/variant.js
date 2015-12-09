@@ -15,7 +15,7 @@ module.exports = {
   confirm: function(variant) {
     return Object.keys(variantConfirms).every(function(key) {
       var v = variantConfirms[key]
-      if (variant.key === key && !lichess.storage.get(storageKey(key))) {
+      if (variant === key && !lichess.storage.get(storageKey(key))) {
         var c = confirm(v);
         if (c) lichess.storage.set(storageKey(key), 1);
         return c;

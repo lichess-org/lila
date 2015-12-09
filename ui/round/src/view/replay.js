@@ -104,13 +104,17 @@ function analyseButton(ctrl) {
     m('a', attrs, [
       m('span', {
         'data-icon': 'A',
-        class: ctrl.data.forecastCount ? 'text' : null
+        class: ctrl.data.forecastCount ? 'text' : ''
       }),
       ctrl.data.forecastCount
     ]),
     showInfo ? m('div.forecast-info.info.none', [
-      m('strong.title.text[data-icon=]', 'New feature'),
-      m('span.content', 'Use the analysis board to create conditional premoves!')
+      m('strong.title.text[data-icon=]', 'Speed up your game!'),
+      m('span.content', [
+        'Use the analysis board to create conditional premoves.',
+        m('br'),
+        'Now available on your turn!'
+      ])
     ]) : null
   ];
 }

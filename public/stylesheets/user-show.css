@@ -176,9 +176,57 @@ div.user_show .user-infos {
   width: 305px;
   height: 325px;
 }
+div.user_show .with_insights .user-infos {
+  height: 265px;
+}
 div.user_show .user-infos:hover {
   overflow-y: auto;
 }
+div.user_show .insight {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 14px;
+  width: 306px;
+  height: 60px;
+  border-top: 1px solid #c0c0c0;
+  border-left: 1px solid #c0c0c0;
+}
+div.user_show .insight .icon {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+div.user_show .insight .icon::before {
+  color: #3893E8;
+  font-size: 40px;
+  line-height: 60px;
+  opacity: 0.8;
+}
+div.user_show .insight strong {
+  color: #3893E8;
+  display: block;
+  font-weight: normal;
+  font-size: 1.5em;
+  margin: 10px 0 1px 0;
+}
+div.user_show .insight em {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 275px;
+}
+div.user_show .insight:hover {
+  background: #3893E8;
+}
+div.user_show .insight:hover,
+div.user_show .insight:hover *,
+div.user_show .insight:hover .icon::before {
+  transition: 0.13s;
+  color: #fff;
+}
+
 div.user_show .name,
 div.user_show .bio,
 div.user_show .stats,

@@ -55,6 +55,9 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     enabled ! scheduler.scheduleOnce(delay)(op)
   }
 
+  def after[A](delay: FiniteDuration)(op: => A) =
+    akka.pattern.after(delay, scheduler)(fuccess(op))
+
   private def info(msg: String) {
     loginfo("[cron] " + msg)
   }

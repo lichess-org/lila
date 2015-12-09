@@ -114,7 +114,9 @@ final class Env(
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
 
-  lazy val forecastApi = new ForecastApi(db(CollectionForecast))
+  lazy val forecastApi: ForecastApi = new ForecastApi(
+    coll = db(CollectionForecast),
+    roundMap = hub.actor.roundMap)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,

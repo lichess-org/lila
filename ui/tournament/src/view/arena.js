@@ -96,6 +96,8 @@ function podiumPosition(p, data, pos) {
   ]);
 }
 
+var lastBody = null;
+
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
@@ -106,6 +108,10 @@ module.exports = {
   },
   standing: function(ctrl, pag, klass) {
     var player = util.currentPlayer(ctrl, pag);
+    var tableBody = pag.currentPageResults ?
+      pag.currentPageResults.map(partial(playerTr, ctrl)) :
+      (lastBody ? lastBody : m('tr.square-wrap', m('td.square-spin[colspan=3]')));
+    if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
         m('thead',
@@ -116,14 +122,11 @@ module.exports = {
             ])
           )),
         m('tbody', {
-            config: function() {
-              // reload user badges
-              $('body').trigger('lichess.content_loaded');
-            }
-          }, pag.currentPageResults ?
-          pag.currentPageResults.map(partial(playerTr, ctrl)) :
-          m('tr.square-wrap', m('td.square-spin[colspan=3]'))
-        )
+          config: function() {
+            // reload user badges
+            $('body').trigger('lichess.content_loaded');
+          }
+        }, tableBody)
       ])
     );
   }

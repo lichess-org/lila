@@ -30,16 +30,16 @@ final class Live(
         case None => fufail("No such playing game: " + id)
         case Some(game) => UciMove(move) match {
           case None => move match {
-            case "1-0"     => fuccess {
+            case "1-0" => fuccess {
               roundMap ! Tell(game.id, Resign(game.blackPlayer.id))
             }
-            case "0-1"     => fuccess {
+            case "0-1" => fuccess {
               roundMap ! Tell(game.id, Resign(game.whitePlayer.id))
             }
             case "1/2-1/2" => fuccess {
               roundMap ! Tell(game.id, DrawForce)
             }
-            case m         => fufail("Invalid move: " + m)
+            case m => fufail("Invalid move: " + m)
           }
           case Some(uci) => fuccess {
             applyMove(Pov(game, game.player.color), uci, ip)
@@ -56,8 +56,7 @@ final class Live(
       dest = move.dest.toString,
       prom = move.promotion map (_.name),
       blur = false,
-      lag = 0.millis,
-      onFailure = _ => ()
+      lag = 0.millis
     ))
   }
 }

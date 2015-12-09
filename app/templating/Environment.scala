@@ -36,7 +36,6 @@ object Environment
     with SecurityHelper
     with TeamHelper
     with AnalysisHelper
-    with IRCHelper
     with TournamentHelper
     with SimulHelper {
 
@@ -66,6 +65,15 @@ object Environment
     val dev = Html("&#xe000;")
     val donator = Html("&#xe001;")
     val mod = Html("&#xe002;")
+  }
+
+  val nonPuzzlePerfTypeNameIcons = {
+    import play.api.libs.json.Json
+    Html {
+      Json stringify {
+        Json toJson lila.rating.PerfType.nonPuzzleIconByName
+      }
+    }
   }
 
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =

@@ -5,6 +5,7 @@ import lila.common.PimpedJson._
 import play.api.libs.json._
 
 case class Chart(
+  question: JsonQuestion,
   xAxis: Chart.Xaxis,
   valueYaxis: Chart.Yaxis,
   sizeYaxis: Chart.Yaxis,
@@ -99,6 +100,7 @@ object Chart {
     }
 
     Chart(
+      question = JsonQuestion fromQuestion question,
       xAxis = xAxis,
       valueYaxis = Yaxis(metric.name, metric.dataType.name),
       sizeYaxis = Yaxis(metric.per.tellNumber, Metric.DataType.Count.name),

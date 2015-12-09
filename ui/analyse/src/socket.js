@@ -5,6 +5,12 @@ module.exports = function(send, ctrl) {
   var anaMoveTimeout;
   var anaDestsTimeout;
 
+  var anaDestsCache = {};
+
+  setTimeout(function() {
+    send("startWatching", ctrl.data.game.id);
+  }, 1000);
+
   var handlers = {
     step: function(data) {
       ctrl.addStep(data.step, data.path);
@@ -16,12 +22,17 @@ module.exports = function(send, ctrl) {
       ctrl.reset();
     },
     dests: function(data) {
+      anaDestsCache[data.path] = data;
       ctrl.addDests(data.dests, data.path);
       clearTimeout(anaDestsTimeout);
     },
     destsFailure: function(data) {
       console.log(data);
       clearTimeout(anaDestsTimeout);
+    },
+    fen: function(e) {
+      if (ctrl.forecast && e.id === ctrl.data.game.id)
+        ctrl.forecast.reloadToLastPly();
     }
   };
 
@@ -34,13 +45,16 @@ module.exports = function(send, ctrl) {
   }.bind(this);
 
   this.sendAnaMove = function(req) {
+    clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
 
   this.sendAnaDests = function(req) {
+    clearTimeout(anaDestsTimeout);
     withoutStandardVariant(req);
+    if (anaDestsCache[req.path]) return handlers.dest(anaDestsCache[req.path]);
     this.send('anaDests', req);
     anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
   }.bind(this);

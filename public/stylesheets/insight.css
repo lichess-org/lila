@@ -13,9 +13,9 @@
 #insight .chart {
   width: 100%;
   height: 500px;
-  transition: opacity 0.5s;
 }
 #insight .loading .chart {
+  -webkit-filter: blur(3px);
   opacity: 0.5;
 }
 
@@ -59,6 +59,7 @@
   border-width: 0 1px;
   border-radius: 0;
   font-size: 14px;
+  transition: 0.15s;
 }
 #insight .axis-form .ms-choice span {
   line-height: 60px;
@@ -74,10 +75,57 @@
   display: none;
 }
 #insight .axis-form .ms-drop ul > li.selected label {
-  background: #d87500;
-  color: #fff;
+  background: #d87500!important;
+  color: #fff!important;
 }
 
+div.panel-tabs a.tab {
+  background: #e0e0e0;
+  border: 1px solid #c0c0c0;
+  height: 20px;
+  padding: 3px 8px 0 8px;
+  margin: -1px -1px -1px 0;
+  display: inline-block;
+}
+div.panel-tabs a.active {
+  background: #f5f5f5;
+  border-bottom-color: #f5f5f5;
+}
+#insight .presets {
+  background: #f5f5f5;
+}
+#insight .presets a {
+  display: block;
+  padding: 8px;
+  transition: background 0.13s;
+}
+#insight .presets a::before {
+  opacity: 0.7;
+  transition: opacity 0.13s;
+}
+#insight .presets a:hover {
+  background: #fff;
+}
+#insight .presets a:hover::before {
+  opacity: 1;
+}
+#insight .presets a.active {
+  color: #d87500!important;
+}
+#insight .panel-tabs {
+  position: relative;
+}
+#insight .clear {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+#insight .filters .box {
+  border-bottom-width: 0;
+}
+#insight .filters .box:last-child {
+  border-bottom-width: 1px
+}
 #insight .filters .ms-parent {
   display: block;
 }
@@ -131,27 +179,39 @@
 #insight .ms-drop ul {
   padding: 0;
 }
-#insight .ms-drop ul > li label {
+#insight .ms-drop ul > li label:not(.optgroup) {
   padding: 4px 8px;
   cursor: pointer;
   transition: background 0.13s;
+  text-indent: 1em;
 }
-#insight .ms-drop ul > li label:hover {
+#insight .ms-drop ul > li label:not(.optgroup):hover {
   background: #f0f0f0;
+}
+#insight .ms-drop ul > li label.optgroup {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  text-indent: 0em;
+  text-transform: uppercase;
+  font-weight: normal;
+  opacity: 0.6;
+  padding: 6px 8px 2px 8px;
+}
+#insight .ms-drop ul > li:first-child label.optgroup {
+  margin-top: 0;
 }
 
 #insight .info.box {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 #insight .box .content {
   padding: 7px;
 }
-#insight .filters.box .top a {
-  float: right;
-  text-transform: none;
-}
 #insight .info.box .insight-stale button {
   width: 100%;
+}
+#insight .info.box .help {
+  float: right;
 }
 #insight .info .share a {
   text-decoration: underline;

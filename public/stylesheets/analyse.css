@@ -462,7 +462,7 @@ table.modAssessment td.noMatch {
   transition: opacity 0.13s;
 }
 .forecast.loading {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 .forecast .entries {
   border: 1px solid #ccc;
@@ -542,6 +542,12 @@ table.modAssessment td.noMatch {
 .forecast sans san {
   font-family: 'ChessSansPiratf', sans-serif;
   font-weight: bold;
+}
+.forecast button.on-my-turn {
+  margin-top: 20px;
+}
+.forecast button.on-my-turn::before {
+  color: #759900;
 }
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {

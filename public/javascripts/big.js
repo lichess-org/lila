@@ -914,6 +914,8 @@ lichess.unique = function(xs) {
               background = $(this).data('bg');
               $.post($(this).parent().data('href'), {
                 bg: background
+              }, function() {
+                if (window.Highcharts) location.reload();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
@@ -1071,7 +1073,7 @@ lichess.unique = function(xs) {
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });
@@ -1333,7 +1335,7 @@ lichess.unique = function(xs) {
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     cfg.onChange = data.player.spectator ? $.noop : function(data) {
       var presets = [];
-      if (data.steps.length < 3) presets = [
+      if (data.steps.length < 4) presets = [
         'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
       ];
       else if (data.game.status.id >= 30) presets = [
@@ -2041,15 +2043,14 @@ lichess.unique = function(xs) {
             $span.text(ui.values[0] + " - " + ui.values[1]);
           }
         });
-        var $ratingRangeConfig = $this.parent();
-        $modeChoices.add($form.find('.members_only input')).on('change', function() {
-          var rated = $rated.prop('checked');
-          var membersOnly = $form.find('.members_only input').prop('checked');
-          $ratingRangeConfig.toggle(rated || membersOnly);
-          $form.find('.members_only').toggle(!rated);
-          toggleButtons();
-        }).trigger('change');
       });
+      $modeChoices.add($form.find('.members_only input')).on('change', function() {
+        var rated = $rated.prop('checked');
+        var membersOnly = $form.find('.members_only input').prop('checked');
+        $form.find('.rating_range_config').toggle(rated || membersOnly);
+        $form.find('.members_only').toggle(!rated);
+        toggleButtons();
+      }).trigger('change');
       $timeModeSelect.on('change', function() {
         var timeMode = $(this).val();
         $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
@@ -2057,9 +2058,8 @@ lichess.unique = function(xs) {
         toggleButtons();
         showRating();
       }).trigger('change');
-      var $ratingRangeConfig = $form.find('.rating_range_config');
-      var $fenInput = $fenPosition.find('input');
 
+      var $fenInput = $fenPosition.find('input');
       var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();

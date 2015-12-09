@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    val scheduler: lila.common.Scheduler,
     system: ActorSystem,
     appPath: String) {
 
@@ -40,7 +41,8 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
-    isStreamer = Env.tv.isStreamer.apply) _
+    isStreamer = Env.tv.isStreamer.apply,
+    insightShare = Env.insight.share) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -88,6 +90,7 @@ object Env {
 
   lazy val current = "app" boot new Env(
     config = lila.common.PlayApp.loadConfig,
+    scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system,
     appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
 

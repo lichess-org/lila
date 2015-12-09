@@ -5,7 +5,7 @@ var view = require('./view');
 
 module.exports = function(element, opts) {
 
-  var controller = new ctrl(opts);
+  var controller = new ctrl(opts, element);
 
   m.module(element, {
     controller: function() {
@@ -13,4 +13,6 @@ module.exports = function(element, opts) {
     },
     view: view
   });
+
+  return controller;
 };

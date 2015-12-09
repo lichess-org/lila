@@ -13,6 +13,8 @@ case class Post(
   def isByInvited = !isByCreator
 
   def isUnRead = !isRead
+
+  def similar(other: Post) = text == other.text && isByCreator == other.isByCreator
 }
 
 object Post {

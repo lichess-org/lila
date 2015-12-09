@@ -1,6 +1,7 @@
 package lila.round
 
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -45,8 +46,12 @@ private[round] final class SocketHandler(
         case ("move", o) => parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) =>
             member push ackEvent
+            val promise = Promise[Unit]
+            promise.future onFailure {
+              case _: Exception => socket ! Resync(uid)
+            }
             round(HumanPlay(
-              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
+              playerId, member.ip, orig, dest, prom, blur, lag.millis, promise.some
             ))
         }
         case ("rematch-yes", _)  => round(RematchYes(playerId))

@@ -28,6 +28,7 @@ module.exports = function(opts) {
   this.vm = {
     ply: init.startPly(this.data),
     initializing: true,
+    firstSeconds: true,
     flip: false,
     redirecting: false,
     replayHash: '',
@@ -39,6 +40,10 @@ module.exports = function(opts) {
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
+  setTimeout(function() {
+    this.vm.firstSeconds = false;
+    m.redraw();
+  }.bind(this), 2000);
 
   this.socket = new socket(opts.socketSend, this);
 
@@ -203,6 +208,7 @@ module.exports = function(opts) {
       check: o.check
     });
     game.setOnGame(d, playedColor, true);
+    delete this.data.forecastCount;
     m.endComputation();
     if (d.blind) blind.reload(this);
     if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
@@ -325,15 +331,19 @@ module.exports = function(opts) {
     }.bind(this), 500);
   }.bind(this);
 
+  var forecastable = function(d) {
+    return game.playable(d) && d.correspondence && !d.opponent.ai;
+  }
+
   this.forecastInfo = function() {
-    return game.forecastable(this.data) &&
+    return forecastable(this.data) &&
       !this.replaying() &&
       this.data.game.turns > 1 &&
-      lichess.once('forecast-info-seen5');
+      lichess.once('forecast-info-seen6');
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(partial(opts.onChange,this.data), 200);
+    opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);

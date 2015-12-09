@@ -202,7 +202,7 @@ description = describeUser(u)).some) {
   @if(filters.current.name == "search") {
   @search.user(u, searchForm)
   } else {
-  <div class="meat">
+  <div class="meat@if(info.insightVisible){ with_insights}">
     @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
       <span>Chart loading&#8230;</span>
@@ -269,6 +269,13 @@ description = describeUser(u)).some) {
         </div>
       </div>
     </div>
+    @if(info.insightVisible) {
+    <a class="insight" href="@routes.Insight.index(u.username)">
+      <span class="icon" data-icon="7"></span>
+      <strong>Chess Insights</strong>
+      <em>Analytics from @if(ctx.is(u)){your}else{@u.username's} games</em>
+    </a>
+    }
   </div>
   }
   @if(u.hasGames || info.nbImported > 0) {

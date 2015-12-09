@@ -4,32 +4,86 @@ import play.api.libs.json._
 
 final class JsonView {
 
-  private def D = Dimension
+  import lila.insight.{ Dimension => D, Metric => M }
 
-  def ui(ecos: Set[String]) = Json.obj(
-    "dimensions" -> List(
-      Json toJson D.Perf,
-      Json toJson D.Phase,
-      Json toJson D.Result,
-      Json toJson D.Termination,
-      Json toJson D.Color,
-      Json toJson D.OpponentStrength,
-      Json toJson D.PieceRole,
-      Json toJson D.MovetimeRange,
-      Json toJson D.MyCastling,
-      Json toJson D.OpCastling,
-      Json toJson D.QueenTrade,
-      Json toJson D.MaterialRange,
-      Json.obj(
-        "key" -> D.Opening.key,
-        "name" -> D.Opening.name,
-        "position" -> D.Opening.position,
-        "description" -> D.Opening.description.body,
-        "values" -> Dimension.valuesOf(D.Opening).filter { o =>
-          ecos contains o.eco
-        }.map(Dimension.valueToJson(D.Opening)))
-    ),
-    "metrics" -> Metric.all)
+  case class Categ(name: String, items: List[JsValue])
+  private implicit val categWrites = Json.writes[Categ]
+
+  def ui(ecos: Set[String]) = {
+
+    val openingJson = Json.obj(
+      "key" -> D.Opening.key,
+      "name" -> D.Opening.name,
+      "position" -> D.Opening.position,
+      "description" -> D.Opening.description.body,
+      "values" -> Dimension.valuesOf(D.Opening).filter { o =>
+        ecos contains o.eco
+      }.map(Dimension.valueToJson(D.Opening)))
+
+    Json.obj(
+      "dimensionCategs" -> List(
+        Categ("Setup", List(
+          Json toJson D.Perf,
+          Json toJson D.Color,
+          Json toJson D.OpponentStrength
+        )),
+        //game
+        Categ("Game", List(
+          openingJson,
+          Json toJson D.MyCastling,
+          Json toJson D.OpCastling,
+          Json toJson D.QueenTrade
+        )),
+        // move
+        Categ("Move", List(
+          Json toJson D.PieceRole,
+          Json toJson D.MovetimeRange,
+          Json toJson D.MaterialRange,
+          Json toJson D.Phase
+        )),
+        // result
+        Categ("Result", List(
+          Json toJson D.Termination,
+          Json toJson D.Result))
+      ),
+      "metricCategs" -> metricCategs,
+      "presets" -> Preset.all
+    )
+  }
+
+  private val metricCategs = List(
+    Categ("Setup", List(
+      Json toJson M.OpponentRating
+    )),
+    Categ("Move", List(
+      Json toJson M.Movetime,
+      Json toJson M.PieceRole,
+      Json toJson M.Material,
+      Json toJson M.NbMoves
+    )),
+    Categ("Evaluation", List(
+      Json toJson M.MeanCpl,
+      Json toJson M.Opportunism,
+      Json toJson M.Luck
+    )),
+    // result
+    Categ("Result", List(
+      Json toJson M.Termination,
+      Json toJson M.Result,
+      Json toJson M.RatingDiff))
+  )
+
+  private implicit def presetWriter[X]: OWrites[Preset] = OWrites { p =>
+    Json.obj(
+      "name" -> p.name,
+      "dimension" -> p.question.dimension.key,
+      "metric" -> p.question.metric.key,
+      "filters" -> JsObject(p.question.filters.map {
+        case Filter(dimension, selected) =>
+          dimension.key -> JsArray(selected.map(Dimension.valueKey(dimension)).map(JsString.apply))
+      })
+    )
+  }
 
   private implicit def dimensionWriter[X]: OWrites[Dimension[X]] = OWrites { d =>
     Json.obj(

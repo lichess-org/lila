@@ -38,6 +38,7 @@ case class Ask(id: String, msg: Any)
 case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
+case class SocketUids(uids: Set[String])
 case object GetUserIds
 
 package report {

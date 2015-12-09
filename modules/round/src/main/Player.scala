@@ -19,7 +19,7 @@ private[round] final class Player(
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
-    case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) => pov match {
+    case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color => {
         (for {
           orig ← posAt(origS) toValid "Wrong orig " + origS
@@ -43,9 +43,11 @@ private[round] final class Player(
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                         if (pov.game.forecastable) round ! ForecastPlay(move)
                     } inject progress.events
-                  })
+                  }) >>- promiseOption.foreach(_.success(()))
           }
-      } addFailureEffect onFailure
+      } addFailureEffect { e =>
+        promiseOption.foreach(_ failure e)
+      }
       case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")
       case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
       case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")

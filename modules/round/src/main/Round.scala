@@ -181,8 +181,7 @@ private[round] final class Round(
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
           self ! HumanPlay(
-            game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds, _ => ()
-          )
+            game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds)
         }
         Nil
       }

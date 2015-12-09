@@ -23,12 +23,13 @@ module.exports = function(opts) {
   this.data = data({}, opts.data);
   this.userId = opts.userId;
   this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+  this.onMyTurn = this.data
 
   this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
-  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
+  var initialPath = opts.path ? (opts.path === 'last' ? treePath.default(this.analyse.lastPly()) : treePath.read(opts.path)) : treePath.default(this.analyse.firstPly());
   if (initialPath[0].ply >= this.data.steps.length)
     initialPath = treePath.default(this.data.steps.length - 1);
 
@@ -97,7 +98,7 @@ module.exports = function(opts) {
     setAutoShapesFromEval();
   }.bind(this);
 
-  var getDests = throttle(200, false, function() {
+  var getDests = throttle(800, false, function() {
     if (this.vm.step.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
@@ -116,7 +117,7 @@ module.exports = function(opts) {
     opts.onChange(this.vm.step.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = window.history.replaceState ? throttle(1000, false, function() {
+  var updateHref = window.history.replaceState ? throttle(750, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
   }.bind(this), false) : $.noop;
 

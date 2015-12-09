@@ -2,6 +2,7 @@ package lila.round
 package actorApi
 
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.Promise
 
 import chess.Color
 
@@ -98,7 +99,7 @@ case class HumanPlay(
     prom: Option[String],
     blur: Boolean,
     lag: FiniteDuration,
-    onFailure: Exception => Unit) {
+    promise: Option[Promise[Unit]] = None) {
 
   val atMillis = nowMillis
 }

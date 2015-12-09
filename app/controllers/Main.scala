@@ -59,12 +59,6 @@ object Main extends LilaController {
     }
   }
 
-  def irc = Open { implicit ctx =>
-    ctx.me ?? Env.team.api.mine map {
-      html.site.irc(_)
-    }
-  }
-
   def themepicker = Open { implicit ctx =>
     fuccess {
       html.base.themepicker()

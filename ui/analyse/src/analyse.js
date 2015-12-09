@@ -8,7 +8,7 @@ module.exports = function(steps, analysis) {
     return this.tree[0].ply;
   }.bind(this);
 
-  var lastPly = function() {
+  this.lastPly = function() {
     return this.tree[this.tree.length - 1].ply;
   }.bind(this);
 
@@ -47,6 +47,7 @@ module.exports = function(steps, analysis) {
   }.bind(this);
 
   this.getStepsAfterPly = function(path, ply) {
+    if (path[0].ply <= ply) return [];
     return this.getSteps(path).filter(function(step) {
       return step.ply > ply;
     });

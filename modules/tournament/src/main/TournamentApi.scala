@@ -284,7 +284,7 @@ private[tournament] final class TournamentApi(
     sequencers ! Tell(tourId, Sequencer work work)
   }
 
-  private def Sequencing[T <: Tournament](tourId: String)(fetch: String => Fu[Option[T]])(run: T => Funit) {
+  private def Sequencing(tourId: String)(fetch: String => Fu[Option[Tournament]])(run: Tournament => Funit) {
     sequence(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
