@@ -73,8 +73,7 @@ private final class Streaming(
                 Nil
             }
           }
-        // (twitch |+| hitbox |+| youtube) map StreamsOnAir.apply pipeTo self
-        (twitch |+| youtube) map StreamsOnAir.apply pipeTo self
+        (twitch |+| hitbox |+| youtube) map StreamsOnAir.apply pipeTo self
       }
 
       case event@StreamsOnAir(streams) if onAir != streams =>
