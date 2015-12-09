@@ -26,6 +26,8 @@
     frameborder="0"
     allowfullscreen></iframe>
   }
+  case lila.tv.StreamerList.Youtube => {
+  }
   }
   }
   <div class="side_box padded for_selector">
@@ -69,6 +71,13 @@ moreCss = moreCss) {
     width="694"
     height="391"
     src="http://hitbox.tv/#!/embed/@s.streamId?autoplay=true"
+    frameborder="0" allowfullscreen></iframe>
+  }
+  case lila.tv.StreamerList.Youtube => {
+  <iframe
+    width="694"
+    height="391"
+    src="https://www.youtube.com/embed/@s.url"
     frameborder="0" allowfullscreen></iframe>
   }
   }
