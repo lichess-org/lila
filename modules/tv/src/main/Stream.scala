@@ -11,6 +11,8 @@ case class StreamOnAir(
     streamId: String) {
 
   def id = streamer.id
+
+  def highlight = streamer.streamerName != "ornicar2"
 }
 
 case class StreamsOnAir(streams: List[StreamOnAir])
