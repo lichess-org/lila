@@ -36,7 +36,6 @@ object Environment
     with SecurityHelper
     with TeamHelper
     with AnalysisHelper
-    with IRCHelper
     with TournamentHelper
     with SimulHelper {
 

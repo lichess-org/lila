@@ -70,19 +70,22 @@ final class Api(
       !_ ?? $insert(thread)
     }
 
-  def makePost(thread: Thread, text: String, me: User) = {
+  def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
     val post = Post.make(
       text = text,
       isByCreator = thread isCreator me)
-    val newThread = thread + post
-    $update[ThreadRepo.ID, Thread](newThread) >>- {
-      UserRepo.named(thread receiverOf post) foreach {
-        _.map(_.id) foreach updateUser
-      }
-    } >>- {
-      val toUserId = newThread otherUserId me
-      shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
-    } inject newThread
+    if (thread endsWith post) fuccess(thread) // prevent duplicate post
+    else {
+      val newThread = thread + post
+      $update[ThreadRepo.ID, Thread](newThread) >>- {
+        UserRepo.named(thread receiverOf post) foreach {
+          _.map(_.id) foreach updateUser
+        }
+      } >>- {
+        val toUserId = newThread otherUserId me
+        shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+      } inject newThread
+    }
   }
 
   def deleteThread(id: String, me: User): Funit =

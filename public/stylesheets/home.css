@@ -638,9 +638,11 @@ div.game_config div.color_submits button.random span {
   text-overflow: ellipsis;
 }
 #streams_on_air a.stream span {
-  color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
+}
+#streams_on_air a.stream.highlight span {
+  color: #d59120;
 }
 #streams_on_air a.stream span:before {
   vertical-align: -3px;

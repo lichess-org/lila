@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], neural: Option[lila.mod.NeuralApi.Result])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -153,6 +153,11 @@
         </td>
       </tr>
     </table>
+    @neural.map { n =>
+    <div class="neural">
+      [beta] Neural opinion on this player: <strong>@n.decision</strong> (in @n.millis ms)
+    </div>
+    }
     <table class="slist">
       <thead>
         <tr>

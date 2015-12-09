@@ -42,7 +42,7 @@ object User extends LilaController {
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
-      Env.donation.isDonor(user.id) zip
+        Env.donation.isDonor(user.id) zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
@@ -183,10 +183,11 @@ object User extends LilaController {
     me => OptionFuOk(UserRepo named username) { user =>
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
-        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) flatMap {
-          case ((email, spy), playerAggregateAssessment) =>
+        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
+        Env.mod.callNeural(user) flatMap {
+          case (((email, spy), playerAggregateAssessment), neuralResult) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans, neuralResult)
             }
         }
     }

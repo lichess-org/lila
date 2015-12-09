@@ -63,10 +63,13 @@ object Tv extends LilaController {
       }
 
   def streamIn(id: String) = Open { implicit ctx =>
-    Env.tv.streamsOnAir flatMap { streams =>
-      streams find (_.id == id) match {
-        case None    => notFound
-        case Some(s) => fuccess(Ok(html.tv.stream(s, streams filterNot (_.id == id))))
+    OptionFuResult(Env.tv.streamerList find id) { streamer =>
+      Env.tv.streamsOnAir.all flatMap { streams =>
+        val others = streams.filter(_.id != id)
+        streams find (_.id == id) match {
+          case None    => fuccess(Ok(html.tv.notStreaming(streamer, others)))
+          case Some(s) => fuccess(Ok(html.tv.stream(s, others)))
+        }
       }
     }
   }

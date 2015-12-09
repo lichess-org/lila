@@ -47,6 +47,7 @@ module.exports = function(steps, analysis) {
   }.bind(this);
 
   this.getStepsAfterPly = function(path, ply) {
+    if (path[0].ply <= ply) return [];
     return this.getSteps(path).filter(function(step) {
       return step.ply > ply;
     });
