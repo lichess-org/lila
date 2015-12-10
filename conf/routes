@@ -369,10 +369,6 @@ GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 
-# Map
-GET   /network                         controllers.WorldMap.index
-GET   /network/stream                  controllers.WorldMap.stream
-
 # Pages
 GET   /thanks                          controllers.Page.thanks
 GET   /help-lichess                    controllers.Page.helpLichess

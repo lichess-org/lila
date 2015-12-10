@@ -50,7 +50,7 @@ object ApplicationBuild extends Build {
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
-    history, worldMap, opening, video, shutup,
+    history, opening, video, shutup,
     playban, insight)
 
   lazy val moduleRefs = modules map projectToRef
@@ -79,10 +79,6 @@ object ApplicationBuild extends Build {
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
-  )
-
-  lazy val worldMap = project("worldMap", Seq(common, hub, memo)).settings(
-    libraryDependencies ++= provided(play.api, maxmind)
   )
 
   lazy val qa = project("qa", Seq(common, db, memo, user, security)).settings(
