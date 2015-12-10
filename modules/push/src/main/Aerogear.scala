@@ -33,6 +33,9 @@ private object Aerogear {
     Json.obj(
       "alert" -> p.alert,
       "sound" -> p.sound,
+      "criteria" -> Json.obj(
+        "alias" -> List(p.userId),
+        "categories" -> List("move")),
       "user-data" -> p.userData
     )
   }
