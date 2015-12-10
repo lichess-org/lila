@@ -72,7 +72,14 @@ private final class Streaming(
                 Nil
             }
           }
-        (twitch |+| hitbox |+| youtube) map StreamsOnAir.apply pipeTo self
+        (twitch |+| hitbox |+| youtube) map { ss =>
+          StreamsOnAir {
+            ss.foldLeft(List.empty[StreamOnAir]) {
+              case (acc, s) if acc.exists(_.id == s.id) => acc
+              case (acc, s) => acc :+ s
+            }
+          }
+        } pipeTo self
       }
 
       case event@StreamsOnAir(streams) if onAir != streams =>

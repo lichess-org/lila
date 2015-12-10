@@ -175,9 +175,10 @@ object Auth extends LilaController {
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
       data => {
-        UserRepo enabledByEmail data.email flatMap {
-          case Some(user) if env.emailAddress.isValid(data.email) =>
-            Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+        val email = env.emailAddress.validate(data.email) | data.email
+        UserRepo enabledByEmail email flatMap {
+          case Some(user) =>
+            Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))
           case _ => forms.passwordResetWithCaptcha map {
             case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
           }
