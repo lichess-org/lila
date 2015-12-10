@@ -33,22 +33,25 @@ object ThreadRepo {
       )),
       List(
         Project(BSONDocument(
-          "creatorId" -> true,
+          "m" -> BSONDocument("$eq" -> BSONArray("$creatorId", userId)),
           "posts.isByCreator" -> true,
           "posts.isRead" -> true
         )),
         Unwind("posts"),
         Match(BSONDocument(
-          "posts.isRead" -> false,
-          "posts.isByCreator" -> BSONDocument(
-            "$ne" -> BSONArray("$creatorId", userId)
-          )
+          "posts.isRead" -> false
         )),
-        Project(BSONDocument("_id" -> true))
+        Project(BSONDocument(
+          "u" -> BSONDocument("$ne" -> BSONArray("$posts.isByCreator", "$m"))
+        )),
+        Match(BSONDocument(
+          "u" -> true
+        )),
+        Group(BSONBoolean(true))("ids" -> AddToSet("_id"))
       ),
       allowDiskUse = false
     ).map {
-        _.documents.flatMap { _.getAs[String]("_id") }.toList
+        _.documents.headOption ?? { ~_.getAs[List[String]]("ids") }
       }
   }
 
