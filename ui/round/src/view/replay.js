@@ -113,7 +113,7 @@ function analyseButton(ctrl) {
       m('span.content', [
         'Use the analysis board to create conditional premoves.',
         m('br'),
-        'Now available on your turn!'
+        'Now available when waiting for opponent move!'
       ])
     ]) : null
   ];
