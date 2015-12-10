@@ -156,9 +156,4 @@ object Account extends LilaController {
       else
         lila.security.Store.closeUserAndSessionId(me.id, sessionId)
   }
-
-  def registerDeviceId(id: String) = Auth { implicit ctx =>
-    me =>
-      Env.push.deviceApi.register(me, id)
-  }
 }

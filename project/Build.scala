@@ -221,7 +221,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val push = project("push", Seq(common, db, user)).settings(
+  lazy val push = project("push", Seq(common, db, user, game)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
