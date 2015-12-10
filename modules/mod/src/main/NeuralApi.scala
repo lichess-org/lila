@@ -19,6 +19,10 @@ private final class NeuralApi(
       case pas => Chronometer.result {
         callEndpoint(toJson(pas))
       } map (Result.apply _).tupled map some
+    } recover {
+      case e: Exception =>
+        play.api.Logger("neural").warn(e.toString)
+        none
     }
 
   private def toJson(pas: List[PlayerAssessment]) = JsArray {
