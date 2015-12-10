@@ -37,19 +37,21 @@ private final class PushApi(
     def filter(g: Game) = g.isCorrespondence && g.playable && g.nonAi
     GameRepo game move.gameId flatMap {
       case Some(game) if filter(game) =>
-        Pov.ofUserId(game, userId) ?? { pov =>
-          aerogear push Aerogear.Push(
-            userId = userId,
-            alert = s"${opponentName(pov)} played ${move.move}, it's your turn!",
-            sound = "default",
-            userData = Json.obj(
-              "gameId" -> game.id,
-              "color" -> pov.color.name)
-          )
+        game.pgnMoves.lastOption ?? { sanMove =>
+          Pov.ofUserId(game, userId) ?? { pov =>
+            aerogear push Aerogear.Push(
+              userId = userId,
+              alert = s"${opponentName(pov)} played $sanMove, it's your turn!",
+              sound = "default",
+              userData = Json.obj(
+                "gameId" -> game.id,
+                "color" -> pov.color.name)
+            )
+          }
         }
       case _ => funit
     }
   }
 
-  private def opponentName(pov: Pov) = Namer.player(pov.opponent)
+  private def opponentName(pov: Pov) = Namer playerString pov.opponent
 }
