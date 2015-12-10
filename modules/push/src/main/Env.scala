@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     getLightUser: String => Option[lila.common.LightUser],
+    roundSocketHub: ActorSelection,
     system: ActorSystem) {
 
   private val AerogearConfig = Aerogear.Config(
@@ -19,7 +20,7 @@ final class Env(
 
   private lazy val aerogear = new Aerogear(AerogearConfig)
 
-  private lazy val api = new PushApi(aerogear, getLightUser)
+  private lazy val api = new PushApi(aerogear, getLightUser, roundSocketHub)
 
   system.actorOf(Props(new Actor {
     override def preStart() {
@@ -38,5 +39,6 @@ object Env {
   lazy val current: Env = "push" boot new Env(
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
+    roundSocketHub = lila.hub.Env.current.socket.round,
     config = lila.common.PlayApp loadConfig "push")
 }
