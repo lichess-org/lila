@@ -62,48 +62,43 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     } orElse
       pimpQB($query(gameQuery(user))).sort(Query.sortChronological).one[Game]
 
-  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
-    lila.common.Chronometer.log(s"insight aggregator:${user.username}") {
-      storage nbByPerf user.id flatMap { nbs =>
-        var nbByPerf = nbs
-        def toEntry(game: Game): Fu[Option[Entry]] = game.perfType ?? { pt =>
-          val nb = nbByPerf.getOrElse(pt, 0) + 1
-          nbByPerf = nbByPerf.updated(pt, nb)
-          PovToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
+  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
+    storage nbByPerf user.id flatMap { nbs =>
+      var nbByPerf = nbs
+      def toEntry(game: Game): Fu[Option[Entry]] = game.perfType ?? { pt =>
+        val nb = nbByPerf.getOrElse(pt, 0) + 1
+        nbByPerf = nbByPerf.updated(pt, nb)
+        PovToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
+          println(e)
+          e.printStackTrace
+        } map {
+          case Right(e) => e.some
+          case Left(g) =>
+            logwarn(s"[insight ${user.username}] invalid game http://lichess.org/${g.id}")
+            none
+        }
+      }
+      val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
+      pimpQB(query)
+        .sort(Query.sortChronological)
+        .cursor[Game]()
+        .enumerate(maxGames, stopOnError = true) &>
+        Enumeratee.grouped(Iteratee takeUpTo 4) &>
+        Enumeratee.mapM[Seq[Game]].apply[Seq[Entry]] { games =>
+          games.map(toEntry).sequenceFu.map(_.flatten).addFailureEffect { e =>
             println(e)
             e.printStackTrace
-          } map {
-            case Right(e) => e.some
-            case Left(g) =>
-              logwarn(s"[insight ${user.username}] invalid game http://lichess.org/${g.id}")
-              none
           }
-        }
-        loginfo(s"[insight] start aggregating ${user.username} games")
-        val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
-        pimpQB(query)
-          .sort(Query.sortChronological)
-          .cursor[Game]()
-          .enumerate(maxGames, stopOnError = true) &>
-          Enumeratee.grouped(Iteratee takeUpTo 4) &>
-          Enumeratee.mapM[Seq[Game]].apply[Seq[Entry]] { games =>
-            games.map(toEntry).sequenceFu.map(_.flatten).addFailureEffect { e =>
-              println(e)
-              e.printStackTrace
+        } &>
+        Enumeratee.grouped(Iteratee takeUpTo 50) |>>>
+        Iteratee.foldM[Seq[Seq[Entry]], Int](fromNumber) {
+          case (number, xs) =>
+            val entries = xs.flatten.sortBy(_.date).zipWithIndex.map {
+              case (e, i) => e.copy(number = number + i)
             }
-          } &>
-          Enumeratee.grouped(Iteratee takeUpTo 50) |>>>
-          Iteratee.foldM[Seq[Seq[Entry]], Int](fromNumber) {
-            case (number, xs) =>
-              val entries = xs.flatten.sortBy(_.date).zipWithIndex.map {
-                case (e, i) => e.copy(number = number + i)
-              }
-              val nextNumber = number + entries.size
-              loginfo(s"[insight ${user.username}] $nextNumber")
-              storage bulkInsert entries inject nextNumber
-          }
-      } addEffect { nb =>
-        loginfo(s"[insight ${user.username}] done aggregating $nb games")
-      } void
-    }
+            val nextNumber = number + entries.size
+            storage bulkInsert entries inject nextNumber
+        }
+    } void
+  }
 }
