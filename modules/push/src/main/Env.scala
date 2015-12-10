@@ -7,6 +7,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    getLightUser: String => Option[lila.common.LightUser],
     system: ActorSystem) {
 
   private val AerogearConfig = Aerogear.Config(
@@ -18,7 +19,7 @@ final class Env(
 
   private lazy val aerogear = new Aerogear(AerogearConfig)
 
-  private lazy val api = new PushApi(aerogear)
+  private lazy val api = new PushApi(aerogear, getLightUser)
 
   system.actorOf(Props(new Actor {
     override def preStart() {
@@ -36,5 +37,6 @@ object Env {
 
   lazy val current: Env = "push" boot new Env(
     system = lila.common.PlayApp.system,
+    getLightUser = lila.user.Env.current.lightUser,
     config = lila.common.PlayApp loadConfig "push")
 }
