@@ -27,7 +27,8 @@ private object Aerogear {
     userId: String,
     alert: String,
     sound: String, // ???
-    userData: JsObject)
+    userData: JsObject,
+    categories: List[String])
 
   private implicit val pushWrites: OWrites[Push] = OWrites { p =>
     Json.obj(
@@ -35,7 +36,7 @@ private object Aerogear {
       "sound" -> p.sound,
       "criteria" -> Json.obj(
         "alias" -> List(p.userId),
-        "categories" -> List("move")),
+        "categories" -> p.categories),
       "user-data" -> p.userData
     )
   }

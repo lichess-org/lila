@@ -25,6 +25,7 @@ private final class PushApi(
           userId = userId,
           alert = s"Your game with ${opponentName(pov)} is over. $result",
           sound = "default",
+          categories = List("move"),
           userData = Json.obj(
             "gameId" -> game.id,
             "color" -> pov.color.name,
@@ -43,6 +44,7 @@ private final class PushApi(
               userId = userId,
               alert = s"${opponentName(pov)} played $sanMove, it's your turn!",
               sound = "default",
+              categories = List("gameEnd"),
               userData = Json.obj(
                 "gameId" -> game.id,
                 "color" -> pov.color.name)
