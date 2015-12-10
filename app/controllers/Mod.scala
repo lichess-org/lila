@@ -8,6 +8,7 @@ import views._
 import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.libs.json.Json
 
 import lila.evaluation.{ PlayerAssessment }
 
@@ -114,6 +115,13 @@ object Mod extends LilaController {
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
     me =>
       ipIntelCache(ip).map { Ok(_) }
+  }
+
+  def whois(ip: String) = Open { implicit ctx =>
+    Env.security.whois(ip, ~get("key")) map {
+      case Left(msg)   => BadRequest(Json.obj("error" -> msg))
+      case Right(data) => Ok(data)
+    }
   }
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))

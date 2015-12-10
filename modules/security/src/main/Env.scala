@@ -14,6 +14,7 @@ final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
     messenger: akka.actor.ActorSelection,
+    userJson: lila.user.JsonView,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
@@ -44,6 +45,7 @@ final class Env(
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
+    val WhoisKey = config getString "whois.key"
   }
   import settings._
 
@@ -73,6 +75,12 @@ final class Env(
   def store = Store
 
   lazy val disconnect = store disconnect _
+
+  lazy val whois = new Whois(
+    key = WhoisKey,
+    api = api,
+    tor = tor,
+    userJson = userJson)
 
   lazy val emailConfirm = new EmailConfirm(
     apiUrl = EmailConfirmMailgunApiUrl,
@@ -114,5 +122,6 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher,
-    messenger = lila.hub.Env.current.actor.messenger)
+    messenger = lila.hub.Env.current.actor.messenger,
+    userJson = lila.user.Env.current.jsonView)
 }
