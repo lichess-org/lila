@@ -298,7 +298,7 @@ private[tournament] final class TournamentApi(
   }
 
   private object publish {
-    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
       (_: Debouncer.Nothing) =>
         fetchVisibleTournaments foreach { vis =>
           site ! SendToFlag("tournament", Json.obj(

@@ -109,7 +109,7 @@ private[lobby] final class Lobby(
 
     case RemoveHooks(hooks) => hooks foreach remove
 
-    case Resync             => socket ! HookIds(HookRepo.list map (_.id))
+    case Resync             => socket ! HookIds(HookRepo.list.map(_.id))
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
