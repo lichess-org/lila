@@ -83,7 +83,12 @@ final class Env(
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
-  lazy val leaderboardApi = new LeaderboardApi(leaderboardColl)
+  lazy val leaderboardApi = new LeaderboardApi(
+    coll = leaderboardColl)
+
+  private lazy val leaderboardIndexer = new LeaderboardIndexer(
+    tournamentColl = tournamentColl,
+    leaderboardColl = leaderboardColl)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
@@ -113,6 +118,13 @@ final class Env(
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        leaderboardIndexer.generateAll inject "Done!"
+    }
+  }
 
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,

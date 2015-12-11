@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+import play.api.libs.iteratee._
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -10,6 +11,8 @@ import lila.db.Types.Coll
 
 final class LeaderboardApi(coll: Coll) {
 
+  import LeaderboardApi._
+  import BSONHandlers._
 }
 
 object LeaderboardApi {

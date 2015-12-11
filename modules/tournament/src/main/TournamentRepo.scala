@@ -18,10 +18,10 @@ object TournamentRepo {
 
   private val createdSelect = BSONDocument("status" -> Status.Created.id)
   private val startedSelect = BSONDocument("status" -> Status.Started.id)
-  private val finishedSelect = BSONDocument("status" -> Status.Finished.id)
+  private[tournament] val finishedSelect = BSONDocument("status" -> Status.Finished.id)
   private val startedOrFinishedSelect = BSONDocument("status" -> BSONDocument("$gte" -> Status.Started.id))
   private val unfinishedSelect = BSONDocument("status" -> BSONDocument("$ne" -> Status.Finished.id))
-  private val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
+  private[tournament] val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
   private def sinceSelect(date: DateTime) = BSONDocument("startsAt" -> BSONDocument("$gt" -> date))
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
