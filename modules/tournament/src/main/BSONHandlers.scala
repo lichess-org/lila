@@ -21,7 +21,7 @@ object BSONHandlers {
 
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
-      val variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault)
+      val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
       val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
       val startsAt = r date "startsAt"
       Tournament(
@@ -119,5 +119,29 @@ object BSONHandlers {
       "t" -> o.turns,
       "b1" -> w.intO(o.berserk1),
       "b2" -> w.intO(o.berserk2))
+  }
+
+  implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
+    def reads(r: BSON.Reader) = LeaderboardApi.Entry(
+      id = r str "_id",
+      userId = r str "u",
+      tourId = r str "t",
+      score = r int "s",
+      rank = r int "r",
+      freq = Schedule.Freq.byId(r int "f") err "Invalid leaderboard freq",
+      speed = Schedule.Speed.byId(r int "p") err "Invalid leaderboard speed",
+      variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
+      date = r date "d")
+
+    def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = BSONDocument(
+      "_id" -> o.id,
+      "u" -> o.userId,
+      "t" -> o.tourId,
+      "s" -> o.score,
+      "r" -> o.rank,
+      "f" -> o.freq.id,
+      "p" -> o.speed.id,
+      "v" -> o.variant.some.filter(_.exotic).map(_.id),
+      "d" -> w.date(o.date))
   }
 }

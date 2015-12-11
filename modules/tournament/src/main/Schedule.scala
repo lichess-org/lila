@@ -31,35 +31,37 @@ case class Schedule(
 
 object Schedule {
 
-  sealed trait Freq {
+  sealed abstract class Freq(val id: Int) {
     val name = toString.toLowerCase
   }
   object Freq {
-    case object Hourly extends Freq
-    case object Daily extends Freq
-    case object Eastern extends Freq
-    case object Weekly extends Freq
-    case object Monthly extends Freq
-    case object Marathon extends Freq
-    case object ExperimentalMarathon extends Freq { // for DB BC
+    case object Hourly extends Freq(10)
+    case object Daily extends Freq(20)
+    case object Eastern extends Freq(30)
+    case object Weekly extends Freq(40)
+    case object Monthly extends Freq(50)
+    case object Marathon extends Freq(60)
+    case object ExperimentalMarathon extends Freq(61) { // for DB BC
       override val name = "Experimental Marathon"
     }
     val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
   }
 
-  sealed trait Speed {
+  sealed abstract class Speed(val id: Int) {
     def name = toString.toLowerCase
   }
   object Speed {
-    case object HyperBullet extends Speed
-    case object Bullet extends Speed
-    case object SuperBlitz extends Speed
-    case object Blitz extends Speed
-    case object Classical extends Speed
+    case object HyperBullet extends Speed(10)
+    case object Bullet extends Speed(20)
+    case object SuperBlitz extends Speed(30)
+    case object Blitz extends Speed(40)
+    case object Classical extends Speed(50)
     val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b      => true
       case (HyperBullet, Bullet) => true
