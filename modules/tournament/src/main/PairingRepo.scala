@@ -56,16 +56,13 @@ object PairingRepo {
     coll.aggregate(
       Match(selectTour(tourId)),
       List(
-        Project(BSONDocument(
-          "u" -> true,
-          "_id" -> false
-        )),
+        Project(BSONDocument("u" -> true, "_id" -> false)),
         Unwind("u"),
         GroupField("u")("nb" -> SumValue(1))
       )).map {
         _.documents.flatMap { doc =>
           doc.getAs[String]("_id") flatMap { uid =>
-            doc.getAs[Int]("nb").filter(0<) map { uid -> _ }
+            doc.getAs[Int]("nb") map { uid -> _ }
           }
         }.toMap
       }
