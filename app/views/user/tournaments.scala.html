@@ -1,0 +1,10 @@
+@(u: User, entries: List[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context)
+
+@user.layout(title = s"${u.username} tournaments") {
+<div class="content_box no_padding">
+  <h1>@userLink(u, withOnline = false) tournaments</h1>
+  @entries.map { e =>
+  @e
+  }
+</div>
+}

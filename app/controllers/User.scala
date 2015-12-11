@@ -222,6 +222,10 @@ object User extends LilaController {
     }
   }
 
+  def tournaments(username: String) = Open { implicit ctx =>
+    ???
+  }
+
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term =>
       JsonOk(UserRepo usernamesLike term)
