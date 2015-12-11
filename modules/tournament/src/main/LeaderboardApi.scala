@@ -35,6 +35,7 @@ object LeaderboardApi {
     id: String, // same as tournament player id
     userId: String,
     tourId: String,
+    nbGames: Int,
     score: Int,
     rank: Int,
     freq: Schedule.Freq,

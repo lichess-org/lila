@@ -51,6 +51,26 @@ object PairingRepo {
   def count(tourId: String): Fu[Int] =
     coll.count(selectTour(tourId).some)
 
+  def countByTourIdAndUserIds(tourId: String): Fu[Map[String, Int]] = {
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregate(
+      Match(selectTour(tourId)),
+      List(
+        Project(BSONDocument(
+          "u" -> true,
+          "_id" -> false
+        )),
+        Unwind("u"),
+        GroupField("u")("nb" -> SumValue(1))
+      )).map {
+        _.documents.flatMap { doc =>
+          doc.getAs[String]("_id") flatMap { uid =>
+            doc.getAs[Int]("nb").filter(0<) map { uid -> _ }
+          }
+        }.toMap
+      }
+  }
+
   def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: String): Fu[List[Pairing]] =
