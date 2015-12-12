@@ -53,10 +53,14 @@
   opacity: 0.8;
 }
 
-table.perf_results {
+.chart_page .perf_results {
+  width: 50%;
+}
+
+.perf_results table {
   height: 300px;
 }
-table.perf_results thead th,
-table.perf_results td {
+.perf_results thead th,
+.perf_results td {
   text-align: right;
 }
