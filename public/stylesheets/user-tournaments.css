@@ -1,8 +1,22 @@
 #tournament_list table.slist {
   line-height: 2.3em;
+  white-space: nowrap;
 }
 #tournament_list table.slist h1 {
-  padding: 15px 0;
+  padding: 0;
+}
+#tournament_list table.slist h1 * {
+  display: inline-block;
+  line-height: 72px;
+}
+#tournament_list table.slist .count {
+  vertical-align: center;
+  color: #d59120;
+  font-size: 1.8em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  -webkit-transform: translateY(5px);
+  padding-right: 10px;
 }
 #tournament_list table.slist td {
   padding-top: 1em;
