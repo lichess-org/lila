@@ -390,6 +390,17 @@ div.advice_summary .spacerlol {
   width: 512px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
 }
+span.mod {
+  display: inline-block;
+  border-left: 3px solid;
+  padding-left: 2px;
+}
+span.blurs {
+  border-color: #DDCF3F;
+}
+span.hold {
+  border-color: #E73B38;
+}
 div.shortcuts .inner {
   display: none;
 }
