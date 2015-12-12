@@ -18,7 +18,9 @@ object UserTournament extends LilaController {
           Env.tournament.leaderboardApi.bestByUser(user, page).map { entries =>
             Ok(html.userTournament.best(user, entries))
           }
-        // case "top" => ???
+        case "chart" => fuccess {
+            Ok(html.userTournament.chart(user))
+        }
         case _     => notFound
       }
     }

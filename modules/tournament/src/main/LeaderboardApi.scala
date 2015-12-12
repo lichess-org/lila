@@ -43,6 +43,8 @@ final class LeaderboardApi(
 
 object LeaderboardApi {
 
+  val rankRatioMultiplier = 100 * 1000
+
   case class TourEntry(tour: Tournament, entry: Entry)
 
   case class Entry(
@@ -52,7 +54,7 @@ object LeaderboardApi {
     nbGames: Int,
     score: Int,
     rank: Int,
-    weightedRank: Int, // for sorting. function of rank and tour.nbPlayers. less is better.
+    rankRatio: Int, // ratio * 100000. function of rank and tour.nbPlayers. less is better.
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
