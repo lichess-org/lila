@@ -734,6 +734,7 @@ lichess.unique = function(xs) {
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
+          smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'miniGame'

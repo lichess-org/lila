@@ -19,6 +19,10 @@ private final class NeuralApi(
       case pas => Chronometer.result {
         callEndpoint(toJson(pas))
       } map (Result.apply _).tupled map some
+    } recover {
+      case e: Exception =>
+        play.api.Logger("neural").warn(e.toString)
+        none
     }
 
   private def toJson(pas: List[PlayerAssessment]) = JsArray {
@@ -39,29 +43,21 @@ private final class NeuralApi(
     }
   }
 
-  private def callEndpoint(input: JsValue): Fu[Decision] = {
-    WS.url(endpoint).post(Map(
-      "input" -> Seq(Json stringify input)
-    )) flatMap {
-      case res if res.status == 200 => res.body.lines.next match {
-        case "NO-ACTION" => fuccess(Decision.NoAction)
-        case "REPORT"    => fuccess(Decision.Report)
-        case "MARK"      => fuccess(Decision.Mark)
-        case err         => fufail(s"[neural] invalid response <$err>")
-      }
-      case res => fufail(s"[neural] ${res.status} ${res.body}")
-    }
+  private implicit val answerReads = Json.reads[Answer]
+
+  private def callEndpoint(input: JsValue): Fu[Answer] = WS.url(endpoint).post(Map(
+    "input" -> Seq(Json stringify input)
+  )) flatMap {
+    case res if res.status == 200 => res.json.validate[Answer].fold(
+      err => fufail(s"[neural] Can't parse answer ${res.body} $err"),
+      fuccess _)
+    case res => fufail(s"[neural] ${res.status} ${res.body}")
   }
+
 }
 
 object NeuralApi {
 
-  case class Result(decision: Decision, millis: Int)
-
-  sealed trait Decision
-  object Decision {
-    case object NoAction extends Decision
-    case object Report extends Decision
-    case object Mark extends Decision
-  }
+  case class Answer(decision: String, cheatPercent: Int, nonCheatPercent: Int)
+  case class Result(answer: Answer, millis: Int)
 }

@@ -143,7 +143,7 @@ description = describeUser(u)).some) {
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
-    <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
+    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {

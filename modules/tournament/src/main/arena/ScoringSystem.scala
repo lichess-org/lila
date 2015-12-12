@@ -1,6 +1,7 @@
 package lila.tournament
 package arena
 
+import lila.common.Maths
 import lila.tournament.{ Score => AbstractScore }
 import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 

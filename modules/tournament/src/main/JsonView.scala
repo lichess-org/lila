@@ -177,7 +177,6 @@ final class JsonView(
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "perf" -> p.perf,
-      // "opposition" -> none[Int], //(tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
       "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }
@@ -197,17 +196,6 @@ final class JsonView(
         }).some
       }
     }
-
-  // private def opposition(tour: Tournament, p: Player): Int =
-  //   tour.userPairings(p.id).foldLeft((0, 0)) {
-  //     case ((count, sum), pairing) => (
-  //       count + 1,
-  //       (pairing opponentOf p.id flatMap tour.playerByUserId).fold(sum)(_.rating + sum)
-  //     )
-  //   } match {
-  //     case (0, _)       => 0
-  //     case (count, sum) => sum / count
-  //   }
 
   private def pairingUserJson(userId: String) = getLightUser(userId).fold(userId)(_.name)
 

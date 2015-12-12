@@ -30,6 +30,7 @@ final class Env(
     val CollectionTournament = config getString "collection.tournament"
     val CollectionPlayer = config getString "collection.player"
     val CollectionPairing = config getString "collection.pairing"
+    val CollectionLeaderboard = config getString "collection.leaderboard"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
@@ -82,6 +83,14 @@ final class Env(
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
+  lazy val leaderboardApi = new LeaderboardApi(
+    coll = leaderboardColl,
+    maxPerPage = 20)
+
+  private lazy val leaderboardIndexer = new LeaderboardIndexer(
+    tournamentColl = tournamentColl,
+    leaderboardColl = leaderboardColl)
+
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
@@ -111,6 +120,13 @@ final class Env(
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
+  def cli = new lila.common.Cli {
+    def process = {
+      case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        leaderboardIndexer.generateAll inject "Done!"
+    }
+  }
+
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
     system = system,
@@ -135,6 +151,7 @@ final class Env(
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)
   private[tournament] lazy val playerColl = db(CollectionPlayer)
+  private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
 }
 
 object Env {
