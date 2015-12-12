@@ -3,6 +3,7 @@ package lila.tournament
 import chess.variant.Variant
 import chess.{ Speed, Mode, StartingPosition }
 import lila.db.BSON
+import lila.rating.PerfType
 import reactivemongo.bson._
 
 object BSONHandlers {
@@ -132,7 +133,7 @@ object BSONHandlers {
       rankRatio = r int "w",
       freq = Schedule.Freq.byId(r int "f") err "Invalid leaderboard freq",
       speed = Schedule.Speed.byId(r int "p") err "Invalid leaderboard speed",
-      variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
+      perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
       date = r date "d")
 
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = BSONDocument(
@@ -145,7 +146,11 @@ object BSONHandlers {
       "w" -> o.rankRatio,
       "f" -> o.freq.id,
       "p" -> o.speed.id,
-      "v" -> o.variant.some.filter(_.exotic).map(_.id),
+      "v" -> o.perf.id,
       "d" -> w.date(o.date))
   }
+
+  import LeaderboardApi.ChartData.AggregationResult
+  implicit val leaderboardAggregationResultBSONHandler =
+    Macros.handler[AggregationResult]
 }

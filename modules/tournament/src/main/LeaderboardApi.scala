@@ -5,11 +5,12 @@ import play.api.libs.iteratee._
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import chess.variant.Variant
+import lila.common.Maths
 import lila.common.paginator.Paginator
 import lila.db.BSON._
 import lila.db.paginator.BSONAdapter
 import lila.db.Types.Coll
+import lila.rating.PerfType
 import lila.user.User
 
 final class LeaderboardApi(
@@ -22,6 +23,28 @@ final class LeaderboardApi(
   def recentByUser(user: User, page: Int) = paginator(user, page, BSONDocument("d" -> -1))
 
   def bestByUser(user: User, page: Int) = paginator(user, page, BSONDocument("w" -> 1))
+
+  def chart(user: User): Fu[ChartData] = {
+    import reactivemongo.bson._
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregate(
+      Match(BSONDocument("u" -> user.id)),
+      List(GroupField("v")("nb" -> SumValue(1), "points" -> Push("s"), "ratios" -> Push("w")))
+    ).map {
+        _.documents map leaderboardAggregationResultBSONHandler.read
+      }.map { aggs =>
+        ChartData {
+          aggs.flatMap { agg =>
+            PerfType.byId get agg._id map {
+              _ -> ChartData.PerfResult(
+                nb = agg.nb,
+                points = ChartData.Ints(agg.points),
+                rank = ChartData.Ints(agg.ratios))
+            }
+          }
+        }
+      }
+  }
 
   private def paginator(user: User, page: Int, sort: BSONDocument): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new BSONAdapter[Entry](
@@ -57,6 +80,24 @@ object LeaderboardApi {
     rankRatio: Int, // ratio * 100000. function of rank and tour.nbPlayers. less is better.
     freq: Schedule.Freq,
     speed: Schedule.Speed,
-    variant: Variant,
+    perf: PerfType,
     date: DateTime)
+
+  case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)])
+
+  object ChartData {
+
+    case class Ints(v: List[Int]) {
+      def mean = v.toNel map Maths.mean[Int]
+      def median = v.toNel map Maths.median[Int]
+    }
+
+    case class PerfResult(nb: Int, points: Ints, rank: Ints) {
+      private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
+      def rankPercentMean = rank.mean map rankPercent
+      def rankPercentMedian = rank.median map rankPercent
+    }
+
+    case class AggregationResult(_id: Int, nb: Int, points: List[Int], ratios: List[Int])
+  }
 }

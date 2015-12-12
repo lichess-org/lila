@@ -1,0 +1,33 @@
+@(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context)
+
+@layout(u,
+title = s"${u.username} tournaments",
+path = "chart") {
+<div class="content_box no_padding">
+  <table class="slist">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Tournaments</th>
+        <th>Mean points</th>
+        <th>Median points</th>
+        <th>Mean Rank</th>
+        <th>Median Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      @data.perfResults.map {
+      case (pt, res) => {
+      <tr>
+        <th><span data-icon="@pt.iconChar" class="text">@pt.name</th>
+        <td>@res.nb.localize</td>
+        <td>@res.points.mean.map(_.toInt)</td>
+        <td>@res.points.median.map(_.toInt)</td>
+        <td>@res.rankPercentMean%</td>
+        <td>@res.rankPercentMedian%</td>
+      }
+      }
+    </tbody>
+  </table>
+</div>
+}

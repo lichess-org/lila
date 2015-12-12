@@ -40,19 +40,21 @@ private final class LeaderboardIndexer(
         PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0) map {
           _.flatMap {
             case RankedPlayer(rank, player) =>
-              nbGames get player.userId map { nbGames =>
-                Entry(
-                  id = player._id,
-                  tourId = tour.id,
-                  userId = player.userId,
-                  nbGames = nbGames,
-                  score = player.score,
-                  rank = rank,
-                  rankRatio = rank * LeaderboardApi.rankRatioMultiplier / tour.nbPlayers,
-                  freq = sched.freq,
-                  speed = sched.speed,
-                  variant = tour.variant,
-                  date = tour.startsAt)
+              tour.perfType flatMap { perfType =>
+                nbGames get player.userId map { nbGames =>
+                  Entry(
+                    id = player._id,
+                    tourId = tour.id,
+                    userId = player.userId,
+                    nbGames = nbGames,
+                    score = player.score,
+                    rank = rank,
+                    rankRatio = rank * LeaderboardApi.rankRatioMultiplier / tour.nbPlayers,
+                    freq = sched.freq,
+                    speed = sched.speed,
+                    perf = perfType,
+                    date = tour.startsAt)
+                }
               }
           }
         }
