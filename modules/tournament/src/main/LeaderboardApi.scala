@@ -41,7 +41,7 @@ final class LeaderboardApi(
                 points = ChartData.Ints(agg.points),
                 rank = ChartData.Ints(agg.ratios))
             }
-          }
+          }.sortLike(PerfType.leaderboardable, _._1)
         }
       }
   }
