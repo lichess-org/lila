@@ -40,8 +40,6 @@ trait ScoreSheet {
   def scores: List[Score]
   def total: Int
   def onFire: Boolean
-  def winRate: Double
-  def berserkRate: Double
 }
 
 trait ScoringSystem {

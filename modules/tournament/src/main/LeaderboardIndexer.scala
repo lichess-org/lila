@@ -52,8 +52,6 @@ private final class LeaderboardIndexer(
               score = player.score,
               rank = rank,
               rankRatio = Ratio(rank.toDouble / tour.nbPlayers),
-              winRate = Ratio(sheet.winRate),
-              berserkRate = Ratio(sheet.berserkRate),
               freq = sched.freq,
               speed = sched.speed,
               perf = perfType,
