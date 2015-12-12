@@ -77,9 +77,9 @@ object Main extends LilaController {
     }
   }
 
-  def mobileRegister(deviceId: String) = Auth { implicit ctx =>
+  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx =>
     me =>
-      Env.push.registerDevice(me, deviceId)
+      Env.push.registerDevice(me, platform, deviceId)
   }
 
   def jslog = Open { ctx =>

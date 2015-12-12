@@ -17,9 +17,10 @@ final class DeviceApi(coll: Coll) {
   private[push] def findByUserId(userId: String): Fu[List[Device]] =
     coll.find(BSONDocument("userId" -> userId)).cursor[Device]().collect[List]()
 
-  def register(user: User, deviceId: String) =
+  def register(user: User, platform: String, deviceId: String) =
     coll.update(BSONDocument("_id" -> deviceId), Device(
       _id = deviceId,
+      platform = platform,
       userId = user.id,
       seenAt = DateTime.now
     ), upsert = true).void
