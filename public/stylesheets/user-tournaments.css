@@ -47,3 +47,11 @@
   color: #d59120;
   opacity: 0.8;
 }
+
+table.perf_results {
+  height: 300px;
+}
+table.perf_results thead th,
+table.perf_results td {
+  text-align: right;
+}

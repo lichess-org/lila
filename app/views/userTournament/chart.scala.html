@@ -4,15 +4,13 @@
 title = s"${u.username} tournaments",
 path = "chart") {
 <div class="content_box no_padding">
-  <table class="slist">
+  <table class="slist perf_results">
     <thead>
       <tr>
         <th></th>
         <th>Tournaments</th>
-        <th>Mean points</th>
-        <th>Median points</th>
-        <th>Mean Rank</th>
-        <th>Median Rank</th>
+        <th>Points avg</th>
+        <th>Rank avg</th>
       </tr>
     </thead>
     <tbody>
@@ -21,9 +19,7 @@ path = "chart") {
       <tr>
         <th><span data-icon="@pt.iconChar" class="text">@pt.name</th>
         <td>@res.nb.localize</td>
-        <td>@res.points.mean.map(_.toInt)</td>
         <td>@res.points.median.map(_.toInt)</td>
-        <td>@res.rankPercentMean%</td>
         <td>@res.rankPercentMedian%</td>
       }
       }
