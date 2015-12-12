@@ -4,23 +4,24 @@
 }
 #tournament_list table.slist h1 {
   padding: 0;
-}
-#tournament_list table.slist h1 * {
-  display: inline-block;
   line-height: 72px;
 }
 #tournament_list table.slist .count {
   vertical-align: center;
   color: #d59120;
-  font-size: 1.8em;
+  font-size: 40px;
   font-family: 'Roboto';
   font-weight: 300;
-  -webkit-transform: translateY(5px);
-  padding-right: 10px;
+  text-align: center;
+  line-height: 72px;
+  width: 80px;
 }
 #tournament_list table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+#tournament_list table.slist td.icon {
+  text-align: center;
 }
 #tournament_list table.slist .header {
   letter-spacing: 2px;
