@@ -77,6 +77,11 @@ object Main extends LilaController {
     }
   }
 
+  def mobileRegister(deviceId: String) = Auth { implicit ctx =>
+    me =>
+      Env.push.registerDevice(me, deviceId)
+  }
+
   def jslog = Open { ctx =>
     val referer = HTTPRequest.referer(ctx.req)
     loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")

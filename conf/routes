@@ -372,6 +372,9 @@ GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 
+# Mobile Push
+GET   /mobile/register/:deviceId       controllers.Main.mobileRegister(deviceId: String)
+
 # Pages
 GET   /thanks                          controllers.Page.thanks
 GET   /help-lichess                    controllers.Page.helpLichess

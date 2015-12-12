@@ -11,7 +11,7 @@ import lila.user.User
 import play.api.libs.json._
 
 private final class PushApi(
-    aerogear: Aerogear,
+    googlePush: GooglePush,
     implicit val lightUser: String => Option[LightUser],
     roundSocketHub: ActorSelection) {
 
@@ -25,16 +25,15 @@ private final class PushApi(
             case Some(false) => "You lost."
             case _           => "It's a draw."
           }
-          aerogear push Aerogear.Push(
-            userId = userId,
-            alert = s"Your game with ${opponentName(pov)} is over. $result",
-            sound = "default",
-            categories = List("move"),
-            userData = Json.obj(
+          googlePush.apply(userId, Json.obj(
+            "userId" -> userId,
+            "title" -> s"Your game with ${opponentName(pov)} is over. $result",
+            "categories" -> List("gameEnd"),
+            "userData" -> Json.obj(
               "gameId" -> game.id,
               "color" -> pov.color.name,
               "win" -> pov.win)
-          )
+          ))
         }
       }
     }.sequenceFu.void
@@ -46,15 +45,14 @@ private final class PushApi(
         game.pgnMoves.lastOption ?? { sanMove =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              aerogear push Aerogear.Push(
-                userId = userId,
-                alert = s"${opponentName(pov)} played $sanMove, it's your turn!",
-                sound = "default",
-                categories = List("gameEnd"),
-                userData = Json.obj(
+              googlePush.apply(userId, Json.obj(
+                "userId" -> userId,
+                "title" -> s"${opponentName(pov)} played $sanMove, it's your turn!",
+                "categories" -> List("move"),
+                "userData" -> Json.obj(
                   "gameId" -> game.id,
                   "color" -> pov.color.name)
-              )
+              ))
             }
           }
         }

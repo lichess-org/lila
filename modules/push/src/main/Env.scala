@@ -1,26 +1,34 @@
 package lila.push
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
     roundSocketHub: ActorSelection,
     system: ActorSystem) {
 
-  private val AerogearConfig = Aerogear.Config(
-    url = config getString "aerogear.url",
-    variantId = config getString "aerogear.variant_id",
-    secret = config getString "aerogear.secret",
-    applicationId = config getString "aerogear.application_id",
-    masterSecret = config getString "aerogear.master_secret")
+  private val CollectionDevice = config getString "push_device"
+  private val GooglePushUrl = config getString "google.url"
+  private val GooglePushKey = config getString "google.key"
 
-  private lazy val aerogear = new Aerogear(AerogearConfig)
+  private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
-  private lazy val api = new PushApi(aerogear, getLightUser, roundSocketHub)
+  def registerDevice = deviceApi.register _
+
+  private lazy val googlePush = new GooglePush(
+    deviceApi.findByUserId _,
+    url = GooglePushUrl,
+    key = GooglePushKey)
+
+  private lazy val pushApi = new PushApi(
+    googlePush,
+    getLightUser,
+    roundSocketHub)
 
   system.actorOf(Props(new Actor {
     override def preStart() {
@@ -28,8 +36,8 @@ final class Env(
     }
     import akka.pattern.pipe
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => api finish game
-      case move: lila.hub.actorApi.round.MoveEvent   => api move move
+      case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
+      case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move
     }
   }))
 }
@@ -37,6 +45,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "push" boot new Env(
+    db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
     roundSocketHub = lila.hub.Env.current.socket.round,
