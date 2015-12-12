@@ -94,15 +94,16 @@ object Schedule {
       case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
       case (Daily | Eastern, Classical, _)            => 60 * 2
 
-      case (Weekly, HyperBullet | Bullet, _)          => 90
-      case (Weekly, SuperBlitz, _)                    => 60 * 2
-      case (Weekly, Blitz, _)                         => 60 * 2
-      case (Weekly, Classical, _)                     => 60 * 3
+      case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
+      case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
+      case (Weekly, Blitz, Standard)                  => 60 * 3
+      case (Weekly, Blitz, _)                         => 60 * 2 // variant weekly is shorter
+      case (Weekly, Classical, _)                     => 60 * 4
 
-      case (Monthly, HyperBullet | Bullet, _)         => 60 * 2
-      case (Monthly, SuperBlitz, _)                   => 60 * 3
-      case (Monthly, Blitz, _)                        => 60 * 3
-      case (Monthly, Classical, _)                    => 60 * 4
+      case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
+      case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
+      case (Monthly, Blitz, _)                        => 60 * 4
+      case (Monthly, Classical, _)                    => 60 * 5
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4
