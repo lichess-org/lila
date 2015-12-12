@@ -1,0 +1,19 @@
+@(u: User, title: String, active: String, moreJs: Html)(body: Html)(implicit ctx: Context)
+
+@menu = {
+<a class="@active.active("all")" href="@routes.UserTournament.all(u.username)">
+  Recently played
+</a>
+<a class="@active.active("best")" href="@routes.UserTournament.best(u.username)">
+  Best results
+</a>
+<a class="@active.active("chart")" href="@routes.UserTournament.chart(u.username)">
+  Charts &amp; Stats
+</a>
+}
+
+@base.layout(
+title = title,
+menu = menu.some,
+moreCss = cssTag("user-tournaments.css"),
+moreJs = moreJs)(body)

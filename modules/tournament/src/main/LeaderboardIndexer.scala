@@ -41,6 +41,7 @@ private final class LeaderboardIndexer(
           _.flatMap {
             case RankedPlayer(rank, player) =>
               nbGames get player.userId map { nbGames =>
+                val weightedRank = rank * 10000 - tour.nbPlayers
                 Entry(
                   id = player._id,
                   tourId = tour.id,
@@ -48,6 +49,7 @@ private final class LeaderboardIndexer(
                   nbGames = nbGames,
                   score = player.score,
                   rank = rank,
+                  weightedRank = weightedRank,
                   freq = sched.freq,
                   speed = sched.speed,
                   variant = tour.variant,

@@ -1,6 +1,9 @@
 #tournament_list table.slist {
   line-height: 2.3em;
 }
+#tournament_list table.slist h1 {
+  padding: 15px 0;
+}
 #tournament_list table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;

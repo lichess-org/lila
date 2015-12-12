@@ -222,14 +222,6 @@ object User extends LilaController {
     }
   }
 
-  def tournaments(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
-      Env.tournament.leaderboardApi.recentByUser(user, 50).map { entries =>
-        html.user.tournaments(user, entries)
-      }
-    }
-  }
-
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term =>
       JsonOk(UserRepo usernamesLike term)

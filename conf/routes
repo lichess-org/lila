@@ -49,9 +49,13 @@ GET   /insights/:username              controllers.Insight.index(username: Strin
 GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
 GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
 
+# UserTournament
+GET   /@/:username/tournaments         controllers.UserTournament.all(username: String)
+GET   /@/:username/tournaments/best    controllers.UserTournament.best(username: String)
+GET   /@/:username/tournaments/chart   controllers.UserTournament.chart(username: String)
+
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
-GET   /@/:username/tournaments         controllers.User.tournaments(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)

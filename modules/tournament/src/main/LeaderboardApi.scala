@@ -18,13 +18,19 @@ final class LeaderboardApi(coll: Coll) {
   def recentByUser(user: User, max: Int): Fu[List[TourEntry]] =
     coll.find(BSONDocument("u" -> user.id))
       .sort(BSONDocument("d" -> -1))
-      .cursor[Entry]().collect[List](max).flatMap { entries =>
-        TournamentRepo byIds entries.map(_.tourId) map { tours =>
-          entries.flatMap { entry =>
-            tours.find(_.id == entry.tourId).map { TourEntry(_, entry) }
-          }
-        }
+      .cursor[Entry]().collect[List](max) flatMap withTournaments
+
+  def bestByUser(user: User, max: Int): Fu[List[TourEntry]] =
+    coll.find(BSONDocument("u" -> user.id))
+      .sort(BSONDocument("w" -> 1))
+      .cursor[Entry]().collect[List](max) flatMap withTournaments
+
+  private def withTournaments(entries: List[Entry]): Fu[List[TourEntry]] =
+    TournamentRepo byIds entries.map(_.tourId) map { tours =>
+      entries.flatMap { entry =>
+        tours.find(_.id == entry.tourId).map { TourEntry(_, entry) }
       }
+    }
 }
 
 object LeaderboardApi {
@@ -38,6 +44,7 @@ object LeaderboardApi {
     nbGames: Int,
     score: Int,
     rank: Int,
+    weightedRank: Int, // for sorting. function of rank and tour.nbPlayers. less is better.
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
