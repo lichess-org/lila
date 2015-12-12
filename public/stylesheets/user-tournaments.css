@@ -42,6 +42,11 @@
   font-size: 1.7em;
   display: block;
 }
+#tournament_list table.slist .games,
+#tournament_list table.slist .score,
+#tournament_list table.slist .rank {
+  font-size: 1.2em;
+}
 #tournament_list .icon span {
   font-size: 4em;
   color: #d59120;

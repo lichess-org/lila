@@ -1,6 +1,7 @@
 package lila.tournament
 package arena
 
+import lila.common.Maths
 import lila.tournament.{ Score => AbstractScore }
 import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 
@@ -31,6 +32,9 @@ object ScoringSystem extends AbstractScoringSystem {
   case class Sheet(scores: List[Score]) extends ScoreSheet {
     val total = scores.foldLeft(0)(_ + _.value)
     def onFire = firstTwoAreWins(scores)
+    lazy val size = scores.size
+    def winRate = if (size > 0) scores.count(_.isWin) / size else 0
+    def berserkRate = if (size > 0) scores.count(_.isBerserk) else 0
   }
 
   val emptySheet = Sheet(Nil)

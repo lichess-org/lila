@@ -66,9 +66,11 @@ final class LeaderboardApi(
 
 object LeaderboardApi {
 
-  val rankRatioMultiplier = 100 * 1000
+  private val rankRatioMultiplier = 100 * 1000
 
   case class TourEntry(tour: Tournament, entry: Entry)
+
+  case class Ratio(value: Double)
 
   case class Entry(
     id: String, // same as tournament player id
@@ -77,7 +79,9 @@ object LeaderboardApi {
     nbGames: Int,
     score: Int,
     rank: Int,
-    rankRatio: Int, // ratio * 100000. function of rank and tour.nbPlayers. less is better.
+    rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
+    winRate: Ratio, // ratio * rankRatioMultiplier.
+    berserkRate: Ratio, // ratio * rankRatioMultiplier.
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     perf: PerfType,

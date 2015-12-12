@@ -34,30 +34,32 @@ private final class LeaderboardIndexer(
       }
   }.void
 
-  private def generateTour(tour: Tournament): Fu[List[Entry]] =
-    tour.schedule ?? { sched =>
-      PairingRepo.countByTourIdAndUserIds(tour.id) flatMap { nbGames =>
-        PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0) map {
-          _.flatMap {
-            case RankedPlayer(rank, player) =>
-              tour.perfType flatMap { perfType =>
-                nbGames get player.userId map { nbGames =>
-                  Entry(
-                    id = player._id,
-                    tourId = tour.id,
-                    userId = player.userId,
-                    nbGames = nbGames,
-                    score = player.score,
-                    rank = rank,
-                    rankRatio = rank * LeaderboardApi.rankRatioMultiplier / tour.nbPlayers,
-                    freq = sched.freq,
-                    speed = sched.speed,
-                    perf = perfType,
-                    date = tour.startsAt)
-                }
-              }
+  private def generateTour(tour: Tournament): Fu[List[Entry]] = tour.schedule ?? { sched =>
+    for {
+      nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
+      players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0)
+      entries <- lila.common.Future.traverseSequentially[RankedPlayer, Option[Entry]](players) {
+        case RankedPlayer(rank, player) =>
+          tour.system.scoringSystem.sheet(tour, player.userId).map { sheet =>
+            for {
+              perfType <- tour.perfType
+              nb <- nbGames get player.userId
+            } yield Entry(
+              id = player._id,
+              tourId = tour.id,
+              userId = player.userId,
+              nbGames = nb,
+              score = player.score,
+              rank = rank,
+              rankRatio = Ratio(rank.toDouble / tour.nbPlayers),
+              winRate = Ratio(sheet.winRate),
+              berserkRate = Ratio(sheet.berserkRate),
+              freq = sched.freq,
+              speed = sched.speed,
+              perf = perfType,
+              date = tour.startsAt)
           }
-        }
-      }
-    }
+      }.map(_.flatten)
+    } yield entries
+  }
 }

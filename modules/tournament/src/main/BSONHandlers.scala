@@ -8,17 +8,22 @@ import reactivemongo.bson._
 
 object BSONHandlers {
 
-  private implicit val StartingPositionBSONHandler = new BSONHandler[BSONString, StartingPosition] {
+  private implicit val startingPositionBSONHandler = new BSONHandler[BSONString, StartingPosition] {
     def read(bsonStr: BSONString): StartingPosition = StartingPosition.byEco(bsonStr.value) err s"No such starting position: ${bsonStr.value}"
     def write(x: StartingPosition) = BSONString(x.eco)
   }
 
-  private implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
+  private implicit val statusBSONHandler = new BSONHandler[BSONInteger, Status] {
     def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
     def write(x: Status) = BSONInteger(x.id)
   }
 
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
+
+  private implicit val leaderboardRatio  = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
+    def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
+    def write(x: LeaderboardApi.Ratio) = BSONInteger((x.value * 100000).toInt)
+  }
 
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
@@ -130,7 +135,9 @@ object BSONHandlers {
       nbGames = r int "g",
       score = r int "s",
       rank = r int "r",
-      rankRatio = r int "w",
+      rankRatio = r.get[LeaderboardApi.Ratio]("w"),
+      winRate = r.get[LeaderboardApi.Ratio]("wr"),
+      berserkRate = r.getO[LeaderboardApi.Ratio]("br") | LeaderboardApi.Ratio(0),
       freq = Schedule.Freq.byId(r int "f") err "Invalid leaderboard freq",
       speed = Schedule.Speed.byId(r int "p") err "Invalid leaderboard speed",
       perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
@@ -144,6 +151,8 @@ object BSONHandlers {
       "s" -> o.score,
       "r" -> o.rank,
       "w" -> o.rankRatio,
+      "wr" -> o.winRate,
+      "br" -> o.berserkRate.some.filter(_.value > 0),
       "f" -> o.freq.id,
       "p" -> o.speed.id,
       "v" -> o.perf.id,
@@ -151,6 +160,5 @@ object BSONHandlers {
   }
 
   import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler =
-    Macros.handler[AggregationResult]
+  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
 }
