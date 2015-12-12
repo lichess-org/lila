@@ -25,10 +25,9 @@ private final class PushApi(
             case Some(false) => "You lost."
             case _           => "It's a draw."
           }
-          googlePush.apply(userId, Json.obj(
+          val title = s"Your game with ${opponentName(pov)} is over."
+          googlePush.apply(userId, title, result, Json.obj(
             "userId" -> userId,
-            "title" -> s"Your game with ${opponentName(pov)} is over. $result",
-            "categories" -> List("gameEnd"),
             "userData" -> Json.obj(
               "gameId" -> game.id,
               "color" -> pov.color.name,
@@ -45,10 +44,10 @@ private final class PushApi(
         game.pgnMoves.lastOption ?? { sanMove =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              googlePush.apply(userId, Json.obj(
+              val title = "it's your turn!"
+              val body = s"${opponentName(pov)} played $sanMove"
+              googlePush.apply(userId, title, body, Json.obj(
                 "userId" -> userId,
-                "title" -> s"${opponentName(pov)} played $sanMove, it's your turn!",
-                "categories" -> List("move"),
                 "userData" -> Json.obj(
                   "gameId" -> game.id,
                   "color" -> pov.color.name)
