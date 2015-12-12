@@ -1,5 +1,5 @@
-@(u: User, entries: List[lila.tournament.LeaderboardApi.TourEntry], title: String)(implicit ctx: Context)
-@if(entries.isEmpty) {
+@(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], title: String)(implicit ctx: Context)
+@if(pager.nbResults == 0) {
 @u.username hasn't played in any scheduled tournament yet!
 } else {
 <div id="tournament_list">
@@ -14,8 +14,13 @@
         <th>Rank</th>
       </tr>
     </thead>
-    <tbody>
-      @entries.map { e =>
+    <tbody class="infinitescroll">
+      @pager.nextPage.map { np =>
+      <tr><th class="pager none">
+          <a href="@routes.UserTournament.path(u.username, path, np)">Next</a>
+      </th></tr>
+      }
+      @pager.currentPageResults.map { e =>
       <tr>
         <td class="icon">
           <span data-icon="@tournamentIconChar(e.tour)"></span>

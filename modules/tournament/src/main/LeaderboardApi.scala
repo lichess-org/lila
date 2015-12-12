@@ -6,26 +6,34 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import chess.variant.Variant
+import lila.common.paginator.Paginator
 import lila.db.BSON._
+import lila.db.paginator.BSONAdapter
 import lila.db.Types.Coll
 import lila.user.User
 
-final class LeaderboardApi(coll: Coll) {
+final class LeaderboardApi(
+    coll: Coll,
+    maxPerPage: Int) {
 
   import LeaderboardApi._
   import BSONHandlers._
 
-  def recentByUser(user: User, max: Int): Fu[List[TourEntry]] =
-    coll.find(BSONDocument("u" -> user.id))
-      .sort(BSONDocument("d" -> -1))
-      .cursor[Entry]().collect[List](max) flatMap withTournaments
+  def recentByUser(user: User, page: Int) = paginator(user, page, BSONDocument("d" -> -1))
 
-  def bestByUser(user: User, max: Int): Fu[List[TourEntry]] =
-    coll.find(BSONDocument("u" -> user.id))
-      .sort(BSONDocument("w" -> 1))
-      .cursor[Entry]().collect[List](max) flatMap withTournaments
+  def bestByUser(user: User, page: Int) = paginator(user, page, BSONDocument("w" -> 1))
 
-  private def withTournaments(entries: List[Entry]): Fu[List[TourEntry]] =
+  private def paginator(user: User, page: Int, sort: BSONDocument): Fu[Paginator[TourEntry]] = Paginator(
+    adapter = new BSONAdapter[Entry](
+      collection = coll,
+      selector = BSONDocument("u" -> user.id),
+      projection = BSONDocument(),
+      sort = sort
+    ) mapFutureList withTournaments,
+    currentPage = page,
+    maxPerPage = maxPerPage)
+
+  private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
     TournamentRepo byIds entries.map(_.tourId) map { tours =>
       entries.flatMap { entry =>
         tours.find(_.id == entry.tourId).map { TourEntry(_, entry) }

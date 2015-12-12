@@ -84,7 +84,8 @@ final class Env(
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
   lazy val leaderboardApi = new LeaderboardApi(
-    coll = leaderboardColl)
+    coll = leaderboardColl,
+    maxPerPage = 20)
 
   private lazy val leaderboardIndexer = new LeaderboardIndexer(
     tournamentColl = tournamentColl,

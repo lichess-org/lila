@@ -1,28 +1,26 @@
 package controllers
 
 import lila.app._
+import lila.user.UserRepo
 import play.api.mvc._
 import views._
-import lila.user.UserRepo
 
 object UserTournament extends LilaController {
 
-  def all(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
-      Env.tournament.leaderboardApi.recentByUser(user, 50).map { entries =>
-        html.userTournament.all(user, entries)
+  def path(username: String, path: String, page: Int) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { user =>
+      path match {
+        case "recent" =>
+          Env.tournament.leaderboardApi.recentByUser(user, page).map { entries =>
+            Ok(html.userTournament.recent(user, entries))
+          }
+        case "best" =>
+          Env.tournament.leaderboardApi.bestByUser(user, page).map { entries =>
+            Ok(html.userTournament.best(user, entries))
+          }
+        // case "top" => ???
+        case _     => notFound
       }
     }
-  }
-
-  def best(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
-      Env.tournament.leaderboardApi.bestByUser(user, 50).map { entries =>
-        html.userTournament.best(user, entries)
-      }
-    }
-  }
-  def chart(username: String) = Open { implicit ctx =>
-    ???
   }
 }
