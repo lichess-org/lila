@@ -12,7 +12,7 @@ final class Env(
     roundSocketHub: ActorSelection,
     system: ActorSystem) {
 
-  private val CollectionDevice = config getString "push_device"
+  private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
 
