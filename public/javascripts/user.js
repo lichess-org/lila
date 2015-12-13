@@ -88,15 +88,20 @@ lichess.startTournamentStatsTour = function() {
   $('head').append($('<link rel="stylesheet" type="text/css" />')
     .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
   $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(function() {
-    hopscotch.startTour({
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
       id: "user-tournaments",
       showPrevButton: true,
       steps: [{
-        title: "New feature: tournament stats",
+        title: "New: your tournament stats",
         content: "You can now click your tournament points to review your " +
           "recent and best tournaments.",
-        target: "#lichess .tournament_points",
-        placement: "bottom"
+        target: "#lichess .tournament_stats",
+        placement: "bottom",
+        xOffset: 30,
       }]
     });
   });
