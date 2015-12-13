@@ -12,7 +12,7 @@ private final class GooglePush(
   def apply(userId: String, title: String, body: String, payload: JsObject): Funit =
     getDevice(userId) flatMap {
       _ ?? { device =>
-        WS.url(s"$url/gcm/send")
+        WS.url(url)
           .withHeaders(
             "Authorization" -> s"key=$key",
             "Accept" -> "application/json",
