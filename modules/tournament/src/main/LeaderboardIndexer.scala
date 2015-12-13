@@ -5,7 +5,6 @@ import play.api.libs.iteratee._
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import chess.variant.Variant
 import lila.db.BSON._
 import lila.db.Types.Coll
 
@@ -42,26 +41,24 @@ private final class LeaderboardIndexer(
       ordered = false
     ).void
 
-  private def generateTour(tour: Tournament): Fu[List[Entry]] = tour.schedule ?? { sched =>
-    for {
-      nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
-      players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0)
-    } yield players.flatMap {
-      case RankedPlayer(rank, player) => for {
-        perfType <- tour.perfType
-        nb <- nbGames get player.userId
-      } yield Entry(
-        id = player._id,
-        tourId = tour.id,
-        userId = player.userId,
-        nbGames = nb,
-        score = player.score,
-        rank = rank,
-        rankRatio = Ratio(if (tour.nbPlayers > 0) rank.toDouble / tour.nbPlayers else 0),
-        freq = sched.freq,
-        speed = sched.speed,
-        perf = perfType,
-        date = tour.startsAt)
-    }
+  private def generateTour(tour: Tournament): Fu[List[Entry]] = for {
+    nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
+    players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0)
+  } yield players.flatMap {
+    case RankedPlayer(rank, player) => for {
+      perfType <- tour.perfType
+      nb <- nbGames get player.userId
+    } yield Entry(
+      id = player._id,
+      tourId = tour.id,
+      userId = player.userId,
+      nbGames = nb,
+      score = player.score,
+      rank = rank,
+      rankRatio = Ratio(if (tour.nbPlayers > 0) rank.toDouble / tour.nbPlayers else 0),
+      freq = tour.schedule.map(_.freq),
+      speed = tour.schedule.map(_.speed),
+      perf = perfType,
+      date = tour.startsAt)
   }
 }

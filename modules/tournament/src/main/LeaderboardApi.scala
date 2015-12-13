@@ -80,8 +80,8 @@ object LeaderboardApi {
     score: Int,
     rank: Int,
     rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
-    freq: Schedule.Freq,
-    speed: Schedule.Speed,
+    freq: Option[Schedule.Freq],
+    speed: Option[Schedule.Speed],
     perf: PerfType,
     date: DateTime)
 

@@ -136,8 +136,8 @@ object BSONHandlers {
       score = r int "s",
       rank = r int "r",
       rankRatio = r.get[LeaderboardApi.Ratio]("w"),
-      freq = Schedule.Freq.byId(r int "f") err "Invalid leaderboard freq",
-      speed = Schedule.Speed.byId(r int "p") err "Invalid leaderboard speed",
+      freq = r intO "f" flatMap Schedule.Freq.byId,
+      speed = r intO "p" flatMap Schedule.Speed.byId,
       perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
       date = r date "d")
 
@@ -149,8 +149,8 @@ object BSONHandlers {
       "s" -> o.score,
       "r" -> o.rank,
       "w" -> o.rankRatio,
-      "f" -> o.freq.id,
-      "p" -> o.speed.id,
+      "f" -> o.freq.map(_.id),
+      "p" -> o.speed.map(_.id),
       "v" -> o.perf.id,
       "d" -> w.date(o.date))
   }
