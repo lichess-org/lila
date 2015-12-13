@@ -85,13 +85,26 @@ object LeaderboardApi {
     perf: PerfType,
     date: DateTime)
 
-  case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)])
+  case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {
+    import ChartData._
+    def allPerfResults = perfResults.map(_._2) match {
+      case head :: tail => tail.foldLeft(head) {
+        case (acc, res) => PerfResult(
+          nb = acc.nb + res.nb,
+          points = res.points ::: acc.points,
+          rank = res.rank ::: acc.rank)
+      }
+      case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
+    }
+  }
 
   object ChartData {
 
     case class Ints(v: List[Int]) {
       def mean = v.toNel map Maths.mean[Int]
       def median = v.toNel map Maths.median[Int]
+      def sum = v.sum
+      def :::(i: Ints) = Ints(v ::: i.v)
     }
 
     case class PerfResult(nb: Int, points: Ints, rank: Ints) {

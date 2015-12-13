@@ -53,10 +53,16 @@
   opacity: 0.8;
 }
 
-table.perf_results {
+.stats p {
+  padding: 0 20px 20px 20px;
+}
+.stats table.perf_results {
   height: 300px;
 }
-table.perf_results thead th,
-table.perf_results td {
+.stats table.perf_results thead th,
+.stats table.perf_results td {
   text-align: right;
+}
+.stats table.perf_results th span::before {
+  font-size: 2em;
 }
