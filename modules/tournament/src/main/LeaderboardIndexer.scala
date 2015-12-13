@@ -37,7 +37,7 @@ private final class LeaderboardIndexer(
       generateTour(tour) flatMap saveEntries
 
   private def saveEntries(entries: Seq[Entry]) =
-    leaderboardColl.bulkInsert(
+    entries.nonEmpty ?? leaderboardColl.bulkInsert(
       documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
       ordered = false
     ).void
@@ -46,26 +46,22 @@ private final class LeaderboardIndexer(
     for {
       nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
       players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0)
-      entries <- lila.common.Future.traverseSequentially[RankedPlayer, Option[Entry]](players) {
-        case RankedPlayer(rank, player) =>
-          tour.system.scoringSystem.sheet(tour, player.userId).map { sheet =>
-            for {
-              perfType <- tour.perfType
-              nb <- nbGames get player.userId
-            } yield Entry(
-              id = player._id,
-              tourId = tour.id,
-              userId = player.userId,
-              nbGames = nb,
-              score = player.score,
-              rank = rank,
-              rankRatio = Ratio(rank.toDouble / tour.nbPlayers),
-              freq = sched.freq,
-              speed = sched.speed,
-              perf = perfType,
-              date = tour.startsAt)
-          }
-      }.map(_.flatten)
-    } yield entries
+    } yield players.flatMap {
+      case RankedPlayer(rank, player) => for {
+        perfType <- tour.perfType
+        nb <- nbGames get player.userId
+      } yield Entry(
+        id = player._id,
+        tourId = tour.id,
+        userId = player.userId,
+        nbGames = nb,
+        score = player.score,
+        rank = rank,
+        rankRatio = Ratio(if (tour.nbPlayers > 0) rank.toDouble / tour.nbPlayers else 0),
+        freq = sched.freq,
+        speed = sched.speed,
+        perf = perfType,
+        date = tour.startsAt)
+    }
   }
 }
