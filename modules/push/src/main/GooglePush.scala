@@ -5,18 +5,13 @@ import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 
 private final class GooglePush(
-    getDevices: String => Fu[List[Device]],
+    getDevice: String => Fu[Option[Device]],
     url: String,
     key: String) {
 
   def apply(userId: String, title: String, body: String, payload: JsObject): Funit =
-    getDevices(userId) flatMap { devices =>
-      // deal only with one device per user for now, the one registered last
-      // next is to implement devices groups management (and purging old devices):
-      // https://developers.google.com/cloud-messaging/notifications#managing_device_groups
-      devices.sortWith(_.seenAt isAfter _.seenAt).headOption.fold {
-        fufail(s"[push] no device found for this user"): Funit
-      } { device =>
+    getDevice(userId) flatMap {
+      _ ?? { device =>
         WS.url(s"$url/gcm/send")
           .withHeaders(
             "Authorization" -> s"key=$key",
@@ -36,5 +31,4 @@ private final class GooglePush(
           }
       }
     }
-
 }

@@ -21,7 +21,7 @@ final class Env(
   def registerDevice = deviceApi.register _
 
   private lazy val googlePush = new GooglePush(
-    deviceApi.findByUserId _,
+    deviceApi.findLastByUserId _,
     url = GooglePushUrl,
     key = GooglePushKey)
 
