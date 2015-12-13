@@ -17,6 +17,13 @@
 @embedJs(s"var lichess_rating_series = $ratingChart;")
 }
 }
+@if(ctx.is(u) && u.toints > 0) {
+@embedJs {
+$(function() {
+if (lichess.once('user-tournaments-tour')) setTimeout(lichess.startUserTournaments, 1000);
+});
+}
+}
 }
 
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
@@ -143,7 +150,7 @@ description = describeUser(u)).some) {
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
-    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
+    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_points">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {

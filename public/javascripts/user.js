@@ -80,4 +80,24 @@ $(function() {
       return false;
     });
   });
+
 });
+lichess = lichess || {};
+lichess.startTournamentStatsTour = function() {
+  var baseUrl = $('body').data('asset-url');
+  $('head').append($('<link rel="stylesheet" type="text/css" />')
+    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
+  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(function() {
+    hopscotch.startTour({
+      id: "user-tournaments",
+      showPrevButton: true,
+      steps: [{
+        title: "New feature: tournament stats",
+        content: "You can now click your tournament points to review your " +
+          "recent and best tournaments.",
+        target: "#lichess .tournament_points",
+        placement: "bottom"
+      }]
+    });
+  });
+}
