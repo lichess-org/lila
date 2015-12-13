@@ -28,6 +28,9 @@
   cursor: pointer;
   transition: transform 0.3s;
   padding: 0!important;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #tournament_list table.slist .header:hover {
   transform: translateX(3px);
