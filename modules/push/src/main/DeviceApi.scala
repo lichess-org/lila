@@ -7,7 +7,7 @@ import lila.db.BSON._
 import lila.db.Types.Coll
 import lila.user.User
 
-final class DeviceApi(coll: Coll) {
+private final class DeviceApi(coll: Coll) {
 
   private implicit val DeviceBSONHandler = Macros.handler[Device]
 
@@ -29,4 +29,7 @@ final class DeviceApi(coll: Coll) {
       userId = user.id,
       seenAt = DateTime.now
     ), upsert = true).void
+
+  def unregister(user: User) =
+    coll.remove(BSONDocument("userId" -> user.id)).void
 }

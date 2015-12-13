@@ -19,6 +19,7 @@ final class Env(
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
   def registerDevice = deviceApi.register _
+  def unregisterDevices = deviceApi.unregister _
 
   private lazy val googlePush = new GooglePush(
     deviceApi.findLastByUserId _,
