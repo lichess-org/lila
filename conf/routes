@@ -373,7 +373,7 @@ GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 
 # Mobile Push
-GET   /mobile/register/:deviceId       controllers.Main.mobileRegister(deviceId: String)
+GET   /mobile/register/:platform/:deviceId       controllers.Main.mobileRegister(platform: String, deviceId: String)
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
