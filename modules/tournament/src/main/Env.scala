@@ -66,6 +66,7 @@ final class Env(
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
+    indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
 

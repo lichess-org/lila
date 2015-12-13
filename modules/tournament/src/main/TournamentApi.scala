@@ -36,6 +36,7 @@ private[tournament] final class TournamentApi(
     lobby: ActorSelection,
     roundMap: ActorRef,
     trophyApi: lila.user.TrophyApi,
+    indexLeaderboard: Tournament => Funit,
     roundSocketHub: ActorSelection) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
@@ -112,6 +113,7 @@ private[tournament] final class TournamentApi(
             _ foreach { p => UserRepo.incToints(p.userId, p.score) }
           }
           awardTrophies(tour)
+          indexLeaderboard(tour)
         }
       }
     }

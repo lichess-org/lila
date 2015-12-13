@@ -28,11 +28,19 @@ private final class LeaderboardIndexer(
         case (number, entries) =>
           if (number % 10000 == 0)
             play.api.Logger("tournament").info(s"Generating leaderboards... $number")
-          leaderboardColl.bulkInsert(
-            documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
-            ordered = false) inject (number + entries.size)
+          saveEntries(entries) inject (number + entries.size)
       }
   }.void
+
+  def indexOne(tour: Tournament): Funit =
+    leaderboardColl.remove(BSONDocument("t" -> tour.id)) >>
+      generateTour(tour) flatMap saveEntries
+
+  private def saveEntries(entries: Seq[Entry]) =
+    leaderboardColl.bulkInsert(
+      documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
+      ordered = false
+    ).void
 
   private def generateTour(tour: Tournament): Fu[List[Entry]] = tour.schedule ?? { sched =>
     for {
