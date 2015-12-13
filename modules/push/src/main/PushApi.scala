@@ -30,6 +30,7 @@ private final class PushApi(
             "userId" -> userId,
             "userData" -> Json.obj(
               "gameId" -> game.id,
+              "fullId" -> pov.fullId,
               "color" -> pov.color.name,
               "win" -> pov.win)
           ))
@@ -50,6 +51,7 @@ private final class PushApi(
                 "userId" -> userId,
                 "userData" -> Json.obj(
                   "gameId" -> game.id,
+                  "fullId" -> pov.fullId,
                   "color" -> pov.color.name)
               ))
             }
