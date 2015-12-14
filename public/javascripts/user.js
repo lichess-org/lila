@@ -101,7 +101,7 @@ lichess.startTournamentStatsTour = function() {
           "recent and best tournaments.",
         target: "#lichess .tournament_stats",
         placement: "bottom",
-        xOffset: 30,
+        xOffset: 30
       }]
     });
   });
