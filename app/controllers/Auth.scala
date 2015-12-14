@@ -118,8 +118,13 @@ object Auth extends LilaController {
               UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) => env.emailConfirm.send(user, email) inject
-                    Redirect(routes.Auth.checkYourEmail(user.username))
+                  case (user, email) => env.emailConfirm.send(user, email) >> {
+                    if (env.emailConfirm.effective)
+                      Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                    else api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
+                      Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
+                    }
+                  }
                 }
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
