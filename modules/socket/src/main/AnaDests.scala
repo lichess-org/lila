@@ -8,9 +8,14 @@ case class AnaDests(
     fen: String,
     path: String) {
 
-  def dests: String = chess.Game(variant.some, fen.some).situation.destinations map {
-    case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-  } mkString " "
+  def isInitial =
+    variant.standard && fen == chess.format.Forsyth.initial && path == "0"
+
+  def dests: String =
+    if (isInitial) "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+    else chess.Game(variant.some, fen.some).situation.destinations map {
+      case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+    } mkString " "
 }
 
 object AnaDests {
