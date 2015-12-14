@@ -16,7 +16,7 @@ private final class LeaderboardIndexer(
   import BSONHandlers._
 
   def generateAll: Funit = leaderboardColl.remove(BSONDocument()) >> {
-    tournamentColl.find(TournamentRepo.finishedSelect ++ TournamentRepo.scheduledSelect)
+    tournamentColl.find(TournamentRepo.finishedSelect)
       .sort(BSONDocument("startsAt" -> -1))
       .cursor[Tournament]()
       .enumerate(20 * 1000, stopOnError = true) &>
