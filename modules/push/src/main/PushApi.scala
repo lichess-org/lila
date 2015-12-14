@@ -45,7 +45,7 @@ private final class PushApi(
         game.pgnMoves.lastOption ?? { sanMove =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              val title = "it's your turn!"
+              val title = "It's your turn!"
               val body = s"${opponentName(pov)} played $sanMove"
               googlePush.apply(userId, title, body, Json.obj(
                 "userId" -> userId,
