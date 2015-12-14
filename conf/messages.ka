@@ -427,6 +427,7 @@ noInternetConnection=ინტერნეტთან წვდომა არ
 connectedToLichess=კავშირი lichess.org-თან დამყარებულია
 signedOut=თქვენ გამოსული ხართ სისტემიდან
 loginSuccessful=თქვენი ავტორიზირებული ხართ სისტემაში
+playOnTheBoardOffline=ადგილობრივი თამაში
 playOfflineComputer=ეთამაშეთ რობოტს
 opponent=მოწინააღმდეგე
 learn=სწავლა
