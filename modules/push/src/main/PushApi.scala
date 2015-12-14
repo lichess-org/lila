@@ -20,13 +20,13 @@ private final class PushApi(
     else game.userIds.map { userId =>
       Pov.ofUserId(game, userId) ?? { pov =>
         IfAway(pov) {
-          val result = pov.win match {
+          val title = pov.win match {
             case Some(true)  => "You won!"
             case Some(false) => "You lost."
             case _           => "It's a draw."
           }
-          val title = s"Your game with ${opponentName(pov)} is over."
-          googlePush.apply(userId, title, result, Json.obj(
+          val body = s"Your game with ${opponentName(pov)} is over."
+          googlePush.apply(userId, title, body, Json.obj(
             "userId" -> userId,
             "userData" -> Json.obj(
               "gameId" -> game.id,
