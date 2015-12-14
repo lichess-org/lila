@@ -1,12 +1,12 @@
-@(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], title: String)(implicit ctx: Context)
+@(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], title: String, count: String)(implicit ctx: Context)
 @if(pager.nbResults == 0) {
-@u.username hasn't played in any scheduled tournament yet!
+@u.username hasn't played in any tournament yet!
 } else {
 <div id="tournament_list">
   <table class="slist">
     <thead>
       <tr>
-        <th class="count">@pager.nbResults</th>
+        <th class="count">@count</th>
         <th>
           <h1>@userLink(u, withOnline = true) tournaments</h1>
         </th>
@@ -22,7 +22,7 @@
       </th></tr>
       }
       @pager.currentPageResults.map { e =>
-      <tr class="paginated_element">
+      <tr class="paginated_element@if(e.tour.scheduled) { scheduled }">
         <td class="icon">
           <span data-icon="@tournamentIconChar(e.tour)"></span>
         </td>

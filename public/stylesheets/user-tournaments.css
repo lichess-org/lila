@@ -52,6 +52,9 @@
 }
 #tournament_list .icon span {
   font-size: 4em;
+  opacity: 0.7;
+}
+#tournament_list .scheduled .icon span {
   color: #d59120;
   opacity: 0.8;
 }
