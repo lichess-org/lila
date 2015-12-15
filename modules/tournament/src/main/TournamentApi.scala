@@ -121,11 +121,12 @@ private[tournament] final class TournamentApi(
 
   private def awardTrophies(tour: Tournament): Funit =
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
-      PlayerRepo.bestByTourWithRank(tour.id, 50).flatMap {
+      PlayerRepo.bestByTourWithRank(tour.id, 100).flatMap {
         _.map {
           case rp if rp.rank == 1  => trophyApi.award(rp.player.userId, _.MarathonWinner)
           case rp if rp.rank <= 10 => trophyApi.award(rp.player.userId, _.MarathonTopTen)
-          case rp                  => trophyApi.award(rp.player.userId, _.MarathonTopFifty)
+          case rp if rp.rank <= 50 => trophyApi.award(rp.player.userId, _.MarathonTopFifty)
+          case rp                  => trophyApi.award(rp.player.userId, _.MarathonTopHundred)
         }.sequenceFu.void
       }
     }
