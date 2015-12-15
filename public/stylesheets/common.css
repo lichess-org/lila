@@ -1783,6 +1783,14 @@ div.progressbar.flashy div,
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
+.button.active-soft,
+.button.active-soft:hover {
+  color: #fff !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #bbb !important;
+  border-color: #aaa !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+}
 div.checkmateFen {
   float: left;
   width: 250px;

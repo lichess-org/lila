@@ -368,6 +368,14 @@ body.dark .ui-state-hover {
   background: rgb(44, 44, 44);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
 }
+body.dark .button.active-soft,
+body.dark .button.active-soft:hover {
+  color: #ccc !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #444 !important;
+  border-color: #404040 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35) inset !important;
+}
 body.dark #hooks_wrap .hooks_chart .plot {
   color: #aaa;
   text-shadow: 0 0 3px #000;

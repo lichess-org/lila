@@ -19,7 +19,7 @@ function button(text, icon, click, enable) {
 function scrollToMeButton(ctrl, pag) {
   if (!ctrl.data.me) return;
   return m('button', {
-    class: 'button text' + (ctrl.vm.focusOnMe ? ' active' : ''),
+    class: 'button text' + (ctrl.vm.focusOnMe ? ' active-soft' : ''),
     'data-icon': '7',
     onclick: ctrl.toggleFocusOnMe
   }, 'Me');
