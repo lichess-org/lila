@@ -2460,7 +2460,8 @@ textarea.copyable {
 }
 .fire_trophy.marathonWinner span,
 .fire_trophy.marathonTopTen span,
-.fire_trophy.marathonTopFifty span {
+.fire_trophy.marathonTopFifty span,
+.fire_trophy.marathonTopHundred span {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }
