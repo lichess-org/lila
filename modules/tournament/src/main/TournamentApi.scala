@@ -135,7 +135,6 @@ private[tournament] final class TournamentApi(
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
         withdrawAllNonMarathonBut(tour.id, me.id)
-        sendTo(tour.id, Joining(me.id))
         socketReload(tour.id)
         publish()
         if (!tour.`private`) timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
