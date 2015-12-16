@@ -153,9 +153,9 @@ private[round] final class Round(
       }
     }
 
-    case HoldAlert(playerId, mean, sd) => handle(playerId) { pov =>
+    case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        loginfo(s"hold alert http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        loginfo(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
       }
     }
