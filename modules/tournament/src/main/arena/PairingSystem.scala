@@ -32,22 +32,7 @@ object PairingSystem extends AbstractPairingSystem {
     pairings <- preps.map { prep =>
       UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
     }.sequenceFu
-  } yield {
-    if (tour.nbPlayers > 50) logRematch(tour, pairings, recentPairings)
-    pairings
-  }
-
-  private def logRematch(tour: Tournament, pairings: Pairings, recent: Pairings) {
-    pairings.foreach { p =>
-      List(
-        recent find { _ contains p.user1 },
-        recent find { _ contains p.user2 }
-      ).flatten.filter(p.similar).distinct foreach { r =>
-          play.api.Logger("tourpairing").warn(
-            s"rematch http://lichess.org/tournament/${tour.id} ${p.id} ${p.user1} vs ${p.user2} like ${r.id}")
-        }
-    }
-  }
+  } yield pairings
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
@@ -55,18 +40,19 @@ object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val smartHardLimit = 22
-  val overallLimit = 40
-  val extraNaiveLimit = overallLimit - smartHardLimit
+  val pairingGroupSize = 20
 
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (recentPairings.isEmpty) naivePairings(tour, idles)
-      else
-        smartPairings(data, idles take smartHardLimit) :::
-          naivePairings(tour, idles drop smartHardLimit take extraNaiveLimit)
+      else idles.grouped(pairingGroupSize).toList match {
+        case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
+        case a :: b :: Nil    => smartPairings(data, a) ::: smartPairings(data, b)
+        case a :: Nil         => smartPairings(data, a)
+        case Nil              => Nil
+      }
     }
   }
 
@@ -75,7 +61,7 @@ object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = {
+  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
     type Score = Int
@@ -89,10 +75,10 @@ object PairingSystem extends AbstractPairingSystem {
     }.toMap
 
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).exists(u2==) || lastOpponents.get(u2).exists(u1==)
+      lastOpponents.get(u1).contains(u2) || lastOpponents.get(u2).contains(u1)
 
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).exists(u2==) && lastOpponents.get(u2).exists(u1==)
+      lastOpponents.get(u1).contains(u2) && lastOpponents.get(u2).contains(u1)
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {

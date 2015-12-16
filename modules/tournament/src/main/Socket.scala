@@ -54,7 +54,7 @@ private[tournament] final class Socket(
     case Reload => notifyReload
 
     case GetWaitingUsers =>
-      waitingUsers = waitingUsers.update(userIds, clock)
+      waitingUsers = waitingUsers.update(userIds.toSet, clock)
       sender ! waitingUsers
 
     case PingVersion(uid, v) => {
