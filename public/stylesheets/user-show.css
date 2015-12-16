@@ -25,6 +25,10 @@ div.user_show .fire_trophy {
   width: 70px;
   height: 80px;
 }
+div.user_show .fire_trophy.marathonTopFifty,
+div.user_show .fire_trophy.marathonTopHundred {
+  width: 40px;
+}
 div.user_show .fire_trophy span {
   transform: scale(0.35) translate(-103px, -3px);
   -webkit-transform: scale(0.35) translate(-103px, -3px);
