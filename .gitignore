@@ -17,5 +17,6 @@ data/
 dist/
 node_modules/
 local/
+.vagrant
 
 RUNNING_PID
