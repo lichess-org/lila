@@ -126,10 +126,10 @@ object PlayerRepo {
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
 
-  def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
+  private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>
       ranking get p.userId map { RankedPlayer(_, p) }
-    }.sortBy(-_.rank)
+    }.sortBy(_.rank)
 
   def rankedByTourAndUserIds(tourId: String, userIds: Iterable[String], ranking: Ranking): Fu[RankedPlayers] =
     byTourAndUserIds(tourId, userIds) map { rankPlayers(_, ranking) }
