@@ -118,8 +118,10 @@ object Auth extends LilaController {
               UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) => env.emailConfirm.send(user, email) inject
-                    Redirect(routes.Auth.checkYourEmail(user.username))
+                  case (user, email) => env.emailConfirm.send(user, email) >> {
+                    if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                    else saveAuthAndRedirect(user)
+                  }
                 }
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
@@ -143,13 +145,16 @@ object Auth extends LilaController {
   }
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
-    implicit val req = ctx.req
     Env.security.emailConfirm.confirm(token) flatMap {
-      case Some(user) => api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
-        Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
-      } recoverWith authRecovery
-      case _ => notFound
+      _.fold(notFound)(saveAuthAndRedirect)
     }
+  }
+
+  private def saveAuthAndRedirect(user: UserModel)(implicit ctx: Context) = {
+    implicit val req = ctx.req
+    api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
+      Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
+    } recoverWith authRecovery
   }
 
   private def noTorResponse(implicit ctx: Context) = negotiate(

@@ -95,7 +95,7 @@ object Chart {
     def sortedSeries = answer.clusters.headOption.fold(series) {
       _.insight match {
         case Insight.Single(_)       => series
-        case Insight.Stacked(points) => Util.sortLike[Serie, String](series, points.map(_._1.name), _.name)
+        case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
       }
     }
 

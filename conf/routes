@@ -49,6 +49,9 @@ GET   /insights/:username              controllers.Insight.index(username: Strin
 GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
 GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
 
+# UserTournament
+GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
+
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
@@ -369,9 +372,9 @@ GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 
-# Map
-GET   /network                         controllers.WorldMap.index
-GET   /network/stream                  controllers.WorldMap.stream
+# Mobile Push
+POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
+POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
 GET   /thanks                          controllers.Page.thanks

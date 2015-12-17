@@ -25,6 +25,10 @@ div.user_show .fire_trophy {
   width: 70px;
   height: 80px;
 }
+div.user_show .fire_trophy.marathonTopFifty,
+div.user_show .fire_trophy.marathonTopHundred {
+  width: 40px;
+}
 div.user_show .fire_trophy span {
   transform: scale(0.35) translate(-103px, -3px);
   -webkit-transform: scale(0.35) translate(-103px, -3px);
@@ -46,7 +50,8 @@ div.user_show .fire_trophy.marathonTopTen span:hover {
   transform: scale(0.3) translate(-112px, 6px);
   -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
-div.user_show .fire_trophy.marathonTopFifty span {
+div.user_show .fire_trophy.marathonTopFifty span,
+div.user_show .fire_trophy.marathonTopHundred span {
   animation: none;
   -moz-animation: none;
   -webkit-animation: none;
@@ -70,6 +75,16 @@ div.user_show .fire_trophy.marathonTopFifty span {
 div.user_show .fire_trophy.marathonTopFifty span:hover {
   transform: scale(0.25) translate(-112px, 28px);
   -webkit-transform: scale(0.25) translate(-112px, 28px);
+}
+div.user_show .fire_trophy.marathonTopHundred span {
+  transform: scale(0.2) translate(-112px, 90px);
+  -webkit-transform: scale(0.2) translate(-112px, 90px);
+  text-shadow: none;
+  color: #cd4606;
+}
+div.user_show .fire_trophy.marathonTopHundred span:hover {
+  transform: scale(0.2) translate(-112px, 60px);
+  -webkit-transform: scale(0.2) translate(-112px, 60px);
 }
 div.user_show .fire_trophy.marathonSurvivor span {
   transform: scale(0.3) translate(-112px, 14px);

@@ -1,11 +1,11 @@
 package controllers
 
-import scala.concurrent.duration._
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import play.api.libs.json.Json
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.app._
 import lila.game.{ GameRepo, Pov }
@@ -77,11 +77,14 @@ object UserAnalysis extends LilaController with TheftPrevention {
         else {
           ctx.body.body.validate[Forecast.Steps].fold(
             err => BadRequest(err.toString).fuccess,
-            forecasts => Env.round.forecastApi.playAndSave(
-              pov, uci, forecasts, ctx.req.remoteAddress
-            ) >> Env.current.scheduler.after(500 millis) {
-                Ok(Json.obj("reload" -> true))
-              }
+            forecasts => {
+              def wait = 50 + (Forecast maxPlies forecasts min 10) * 50
+              Env.round.forecastApi.playAndSave(
+                pov, uci, forecasts, ctx.req.remoteAddress
+              ) >> Env.current.scheduler.after(wait.millis) {
+                  Ok(Json.obj("reload" -> true))
+                }
+            }
           )
         }
       }

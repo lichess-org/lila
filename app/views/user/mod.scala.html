@@ -155,7 +155,9 @@
     </table>
     @neural.map { n =>
     <div class="neural">
-      [beta] Neural opinion on this player: <strong>@n.decision</strong> (in @n.millis ms)
+      [beta] Neural decision: <strong>@n.answer.decision</strong>.
+      Cheating odds: @n.answer.cheatPercent% vs @n.answer.nonCheatPercent%.
+      Took @n.millis ms.
     </div>
     }
     <table class="slist">

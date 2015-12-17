@@ -99,17 +99,6 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  // if request comes from mobile
-  // and the hook is casual,
-  // reuse the saved "membersOnly" value
-  // from the site preferred hook setup
-  private def mobileHookAllowAnon(config: HookConfig)(implicit ctx: Context): Fu[HookConfig] =
-    if (lila.api.Mobile.Api requested ctx.req)
-      env.forms.hookConfig map { saved =>
-        config.copy(allowAnon = saved.allowAnon)
-      }
-    else fuccess(config)
-
   private def hookResponse(hookId: String) =
     Ok(Json.obj(
       "ok" -> true,
@@ -123,13 +112,12 @@ object Setup extends LilaController with TheftPrevention {
           err => negotiate(
             html = BadRequest(errorsAsJson(err).toString).fuccess,
             api = _ => BadRequest(errorsAsJson(err)).fuccess),
-          preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
-            mobileHookAllowAnon(preConfig) flatMap {
-              case (blocking, config) =>
-                env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
-                  case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
-                }
-            }
+          config => (ctx.userId ?? Env.relation.api.blocking) flatMap {
+            blocking =>
+              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
+                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+              }
+          }
         )
       }
     }

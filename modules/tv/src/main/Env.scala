@@ -19,7 +19,7 @@ final class Env(
 
   private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
-  private val GoogleApiKey = config getString "google.api_key"
+  private val GoogleApiKey = config getString "streaming.google.api_key"
   private val Keyword = config getString "streaming.keyword"
 
   lazy val tv = new Tv(tvActor)

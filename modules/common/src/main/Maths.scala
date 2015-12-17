@@ -1,10 +1,10 @@
-package lila.insight
+package lila.common
 
 import scala.annotation._
 import scala.math.{ pow, abs, sqrt, E, exp }
 import scalaz.NonEmptyList
 
-object Math {
+object Maths {
 
   def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
     val m = mean(a)
@@ -13,6 +13,7 @@ object Math {
 
   def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = sqrt(variance(a))
 
+  // ridiculously performance optimized mean function
   def mean[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
     @tailrec def recurse(a: List[T], sum: T, depth: Int): Double = {
       a match {

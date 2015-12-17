@@ -122,7 +122,6 @@ body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a,
 body.dark #hooks_wrap .hooks_chart > div.grid,
-body.dark #tournament_schedule .timeheader,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -170,6 +169,7 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+body.dark #tournament_schedule .timeheader,
 body.dark #opening .meter .step {
   border-color: #505050;
 }
@@ -367,6 +367,14 @@ body.dark .ui-state-hover {
   border-color: #383838;
   background: rgb(44, 44, 44);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
+}
+body.dark .button.active-soft,
+body.dark .button.active-soft:hover {
+  color: #ccc !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #444 !important;
+  border-color: #404040 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35) inset !important;
 }
 body.dark #hooks_wrap .hooks_chart .plot {
   color: #aaa;

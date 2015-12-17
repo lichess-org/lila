@@ -14,6 +14,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
+import lila.hub.actorApi.round.IsOnGame
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
@@ -121,9 +122,11 @@ private[round] final class Socket(
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
-    case GetVersion    => sender ! history.getVersion
+    case GetVersion      => sender ! history.getVersion
 
-    case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
+    case IsGone(color)   => playerGet(color, _.isGone) pipeTo sender
+
+    case IsOnGame(color) => sender ! ownerOf(color).isDefined
 
     case GetSocketStatus =>
       playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {

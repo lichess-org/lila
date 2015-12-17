@@ -78,7 +78,8 @@ final class Env(
       Env.blog,
       Env.video,
       Env.shutup, // required to load the actor
-      Env.insight // required to load the actor
+      Env.insight, // required to load the actor
+      Env.push // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }
@@ -135,10 +136,10 @@ object Env {
   def donation = lila.donation.Env.current
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
-  def worldMap = lila.worldMap.Env.current
   def opening = lila.opening.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
   def insight = lila.insight.Env.current
+  def push = lila.push.Env.current
 }

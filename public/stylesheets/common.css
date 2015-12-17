@@ -375,6 +375,9 @@ div.content_box .loader:after {
   z-index: 900000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
+#miniGame {
+  min-height: 262px;
+}
 #powerTip > .title {
   padding: 5px;
   border-bottom: 1px solid #c0c0c0;
@@ -1780,6 +1783,14 @@ div.progressbar.flashy div,
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
+.button.active-soft,
+.button.active-soft:hover {
+  color: #fff !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #bbb !important;
+  border-color: #aaa !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+}
 div.checkmateFen {
   float: left;
   width: 250px;
@@ -2449,7 +2460,8 @@ textarea.copyable {
 }
 .fire_trophy.marathonWinner span,
 .fire_trophy.marathonTopTen span,
-.fire_trophy.marathonTopFifty span {
+.fire_trophy.marathonTopFifty span,
+.fire_trophy.marathonTopHundred span {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }

@@ -59,6 +59,12 @@ private[puzzle] final class PuzzleApi(
         .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
         .cursor[Puzzle]().collect[List](nb / 2)
     }.sequenceFu.map(_.flatten)
+
+    def disable(id: PuzzleId): Funit =
+      puzzleColl.update(
+        BSONDocument("_id" -> id),
+        BSONDocument("$set" -> BSONDocument(Puzzle.BSONFields.vote -> Vote.disable))
+      ).void
   }
 
   object attempt {
@@ -95,8 +101,7 @@ private[puzzle] final class PuzzleApi(
 
     def playedIds(user: User, max: Int): Fu[BSONArray] = {
       val col = attemptColl
-      import col.BatchCommands.AggregationFramework,
-        AggregationFramework.{ Group, Limit, Match, Push }
+      import col.BatchCommands.AggregationFramework, AggregationFramework.{ Group, Limit, Match, Push }
 
       val playedIdsGroup =
         Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))

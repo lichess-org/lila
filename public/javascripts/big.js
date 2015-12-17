@@ -57,9 +57,9 @@ lichess.StrongSocket.defaults = {
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
-      [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
+      /lichess\.org/.test(document.domain) ? [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
         return 'socket.' + document.domain + ':' + port;
-      })),
+      }) : []),
     onFirstConnect: $.noop,
     baseUrlKey: 'surl3'
   }
@@ -734,6 +734,7 @@ lichess.unique = function(xs) {
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
+          smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'miniGame'

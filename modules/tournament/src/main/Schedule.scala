@@ -31,35 +31,37 @@ case class Schedule(
 
 object Schedule {
 
-  sealed trait Freq {
+  sealed abstract class Freq(val id: Int) {
     val name = toString.toLowerCase
   }
   object Freq {
-    case object Hourly extends Freq
-    case object Daily extends Freq
-    case object Eastern extends Freq
-    case object Weekly extends Freq
-    case object Monthly extends Freq
-    case object Marathon extends Freq
-    case object ExperimentalMarathon extends Freq { // for DB BC
+    case object Hourly extends Freq(10)
+    case object Daily extends Freq(20)
+    case object Eastern extends Freq(30)
+    case object Weekly extends Freq(40)
+    case object Monthly extends Freq(50)
+    case object Marathon extends Freq(60)
+    case object ExperimentalMarathon extends Freq(61) { // for DB BC
       override val name = "Experimental Marathon"
     }
     val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
   }
 
-  sealed trait Speed {
+  sealed abstract class Speed(val id: Int) {
     def name = toString.toLowerCase
   }
   object Speed {
-    case object HyperBullet extends Speed
-    case object Bullet extends Speed
-    case object SuperBlitz extends Speed
-    case object Blitz extends Speed
-    case object Classical extends Speed
+    case object HyperBullet extends Speed(10)
+    case object Bullet extends Speed(20)
+    case object SuperBlitz extends Speed(30)
+    case object Blitz extends Speed(40)
+    case object Classical extends Speed(50)
     val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b      => true
       case (HyperBullet, Bullet) => true
@@ -92,15 +94,16 @@ object Schedule {
       case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
       case (Daily | Eastern, Classical, _)            => 60 * 2
 
-      case (Weekly, HyperBullet | Bullet, _)          => 90
-      case (Weekly, SuperBlitz, _)                    => 60 * 2
-      case (Weekly, Blitz, _)                         => 60 * 2
-      case (Weekly, Classical, _)                     => 60 * 3
+      case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
+      case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
+      case (Weekly, Blitz, Standard)                  => 60 * 3
+      case (Weekly, Blitz, _)                         => 60 * 2 // variant weekly is shorter
+      case (Weekly, Classical, _)                     => 60 * 4
 
-      case (Monthly, HyperBullet | Bullet, _)         => 60 * 2
-      case (Monthly, SuperBlitz, _)                   => 60 * 3
-      case (Monthly, Blitz, _)                        => 60 * 3
-      case (Monthly, Classical, _)                    => 60 * 4
+      case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
+      case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
+      case (Monthly, Blitz, _)                        => 60 * 4
+      case (Monthly, Classical, _)                    => 60 * 5
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4

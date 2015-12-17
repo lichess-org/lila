@@ -136,7 +136,7 @@ case object Outoftime
 case object Abandon
 case class ForecastPlay(lastMove: chess.Move)
 case class Cheat(color: Color)
-case class HoldAlert(playerId: String, mean: Int, sd: Int)
+case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: String)
 case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
 }

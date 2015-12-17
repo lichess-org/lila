@@ -339,7 +339,6 @@ other=Adhbhar eile
 by=le %s
 thisTopicIsNowClosed=Tha an cuspair seo dùinte a-nis.
 blog=Bloga
-map=Mapa
 notes=Nòtaichean
 community=Coimhearsnachd
 tools=Goireasean

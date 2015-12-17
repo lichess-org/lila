@@ -549,7 +549,7 @@ ol.scheduled_tournaments li.marathon {
   display: inline;
   box-sizing: border-box;
   height: 100%;
-  border-left: 1px dashed #ccc;
+  border-left: 1px dashed #bbb;
   padding: 2px 5px;
 }
 #tournament_schedule .timeheader.hour {

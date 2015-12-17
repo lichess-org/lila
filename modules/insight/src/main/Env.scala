@@ -13,13 +13,11 @@ final class Env(
     areFriends: (String, String) => Fu[Boolean],
     lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
-    hub: lila.hub.Env,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
   private val settings = new {
     val CollectionEntry = config getString "collection.entry"
     val CollectionUserCache = config getString "collection.user_cache"
-    val NotifierSender = config getString "notifier.sender"
   }
   import settings._
 
@@ -39,15 +37,10 @@ final class Env(
 
   private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
 
-  private lazy val notifier = new Notifier(
-    sender = NotifierSender,
-    messenger = hub.actor.messenger)
-
   lazy val api = new InsightApi(
     storage = storage,
     userCacheApi = userCacheApi,
     pipeline = aggregationPipeline,
-    notifier = notifier,
     indexer = indexer)
 
   system.actorOf(Props(new Actor {
@@ -66,6 +59,5 @@ object Env {
     areFriends = lila.relation.Env.current.api.areFriends,
     lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
     lifecycle = lila.common.PlayApp.lifecycle)
 }

@@ -6,12 +6,32 @@ import com.roundeights.hasher.{ Hasher, Algo }
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 
-final class EmailConfirm(
+trait EmailConfirm {
+
+  def effective: Boolean
+
+  def send(user: User, email: String): Funit
+
+  def confirm(token: String): Fu[Option[User]]
+}
+
+object EmailConfirmSkip extends EmailConfirm {
+
+  def effective = false
+
+  def send(user: User, email: String) = UserRepo setEmailConfirmed user.id
+
+  def confirm(token: String): Fu[Option[User]] = fuccess(none)
+}
+
+final class EmailConfirmMailGun(
     apiUrl: String,
     apiKey: String,
     sender: String,
     baseUrl: String,
-    secret: String) {
+    secret: String) extends EmailConfirm {
+
+  def effective = true
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
     val url = s"$baseUrl/signup/confirm/$token"
