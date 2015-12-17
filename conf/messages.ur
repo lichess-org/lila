@@ -327,7 +327,6 @@ by=منجانب: %s
 thisTopicIsNowClosed=یہ موضوع مزید تبصروں کے لیے بند ہے
 donate=عطیہ دیں
 blog=بلاگ
-map=نقشہ
 questionsAndAnswers=سوال جواب
 notes=نوٹ
 typePrivateNotesHere=ذاتی نوٹ یہاں تحریر کریں

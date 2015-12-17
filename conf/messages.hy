@@ -345,7 +345,6 @@ by=ըստ %s
 thisTopicIsNowClosed=Այս թեման այժմ փակ է.
 donate=նվիրաբերել
 blog=Օրագիր
-map=քարտեզ
 questionsAndAnswers=Հարցեր եւ պատասխաններ
 notes=Նշումներ
 typePrivateNotesHere=Մասնավոր նշումները մուտքագրեք այստեղ
