@@ -32,7 +32,8 @@ final class PgnDump(
       dateFormat.print(game.createdAt),
       player(game.whitePlayer, wu),
       player(game.blackPlayer, bu),
-      game.id)
+      game.id
+    ).replace(" ", "_")
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
