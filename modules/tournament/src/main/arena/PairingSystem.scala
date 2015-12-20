@@ -1,6 +1,7 @@
 package lila.tournament
 package arena
 
+import lila.common.Chronometer
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 import lila.user.UserRepo
 
@@ -20,19 +21,25 @@ object PairingSystem extends AbstractPairingSystem {
   def createPairings(
     tour: Tournament,
     users: WaitingUsers,
-    ranking: Ranking): Fu[Pairings] = for {
-    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
-    nbActiveUsers <- PlayerRepo.countActive(tour.id)
-    data = Data(tour, recentPairings, ranking, nbActiveUsers)
-    preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
-    else makePreps(data, users.waiting) flatMap {
-      case Nil => fuccess(Nil)
-      case _   => evenOrAll(data, users)
+    ranking: Ranking): Fu[Pairings] = Chronometer.result {
+    for {
+      recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
+      nbActiveUsers <- PlayerRepo.countActive(tour.id)
+      data = Data(tour, recentPairings, ranking, nbActiveUsers)
+      preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
+      else makePreps(data, users.waiting) flatMap {
+        case Nil => fuccess(Nil)
+        case _   => evenOrAll(data, users)
+      }
+      pairings <- preps.map { prep =>
+        UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
+      }.sequenceFu
+    } yield pairings
+  } map {
+    _.resultAndLogIfSlow(500, "tourpairing") { lap =>
+      s"Arena createPairind http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
     }
-    pairings <- preps.map { prep =>
-      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
-    }.sequenceFu
-  } yield pairings
+  }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {

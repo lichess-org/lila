@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import chess.format.UciMove
 import lila.analyse.Info
+import lila.common.Chronometer
 import lila.game.{ Game, GameRepo }
 import play.api.libs.ws.{ WS, WSRequest }
 import play.api.Play.current
@@ -25,8 +26,8 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = doPlay(game, level, 1)
 
   private def doPlay(game: Game, level: Int, tries: Int = 1): Fu[PlayResult] =
-    lila.common.Chronometer.result(getMoveResult(game, level)) flatMap {
-      case (moveResult, millis) =>
+    Chronometer.result(getMoveResult(game, level)) flatMap {
+      case Chronometer.Lap(moveResult, millis) =>
         val aiLagSeconds = game.clock.??(_.isRunning) ?? {
           (millis - config.moveTime(level)) / 1000f
         }
