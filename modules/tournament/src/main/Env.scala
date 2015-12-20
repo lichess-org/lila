@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
@@ -104,7 +105,9 @@ final class Env(
     }), name = SocketName)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some)
+    new Sequencer(
+      receiveTimeout = SequencerTimeout.some,
+      executionTimeout = 5.seconds.some)
   }), name = SequencerMapName)
 
   private val organizer = system.actorOf(Props(new Organizer(

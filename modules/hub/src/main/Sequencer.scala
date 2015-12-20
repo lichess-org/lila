@@ -6,7 +6,9 @@ import scala.util.Try
 
 import akka.actor._
 
-final class Sequencer(receiveTimeout: Option[FiniteDuration]) extends Actor {
+final class Sequencer(
+    receiveTimeout: Option[FiniteDuration],
+    executionTimeout: Option[FiniteDuration] = None) extends Actor {
 
   receiveTimeout.foreach(context.setReceiveTimeout)
 
@@ -37,10 +39,16 @@ final class Sequencer(receiveTimeout: Option[FiniteDuration]) extends Actor {
   private def processThenDone(work: Any) {
     work match {
       case ReceiveTimeout => self ! PoisonPill
-      case Sequencer.Work(run, promiseOption) => run() andThenAnyway {
-        promiseOption.foreach(_.success(()))
-        self ! Done
-      }
+      case Sequencer.Work(run, promiseOption, timeoutOption) =>
+        timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
+          run().withTimeout(
+            duration = timeout,
+            error = lila.common.LilaException(s"Sequencer timed out after $timeout")
+          )(context.system)
+        } andThenAnyway {
+          promiseOption.foreach(_.success(()))
+          self ! Done
+        }
       case x => logwarn(s"[Sequencer] Unsupported message $x")
     }
   }
@@ -48,7 +56,13 @@ final class Sequencer(receiveTimeout: Option[FiniteDuration]) extends Actor {
 
 object Sequencer {
 
-  case class Work(run: () => Funit, promise: Option[Promise[Unit]] = None)
+  case class Work(
+    run: () => Funit,
+    promise: Option[Promise[Unit]] = None,
+    timeout: Option[FiniteDuration] = None)
 
-  def work(run: => Funit, promise: Option[Promise[Unit]] = None): Work = Work(() => run, promise)
+  def work(
+    run: => Funit,
+    promise: Option[Promise[Unit]] = None,
+    timeout: Option[FiniteDuration] = None): Work = Work(() => run, promise, timeout)
 }
