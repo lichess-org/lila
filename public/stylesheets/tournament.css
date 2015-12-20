@@ -584,6 +584,12 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.marathon {
   background-color: #66558C;
+  background-image: url(http://lichess1.org/assets/images/background/flatlights.png);
+  background-blend-mode: lighten;
+}
+#tournament_schedule .tournament.thematic {
+  background-image: url(http://lichess1.org/assets/images/background/flatgrids.png);
+  background-blend-mode: screen;
 }
 #tournament_schedule .icon {
   float: left;
