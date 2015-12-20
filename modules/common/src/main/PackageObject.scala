@@ -1,6 +1,7 @@
 package lila
 
 import scala.concurrent.Future
+import scala.concurrent.duration.FiniteDuration
 
 import ornicar.scalalib
 import scalaz.{ Monad, Monoid, OptionT, ~> }
@@ -206,6 +207,11 @@ trait WithPlay { self: PackageObject =>
     def awaitSeconds(seconds: Int): A = {
       import scala.concurrent.duration._
       scala.concurrent.Await.result(fua, seconds.seconds)
+    }
+
+    def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
+      Future firstCompletedOf Seq(fua,
+        akka.pattern.after(duration, system.scheduler)(fufail(error)))
     }
   }
 
