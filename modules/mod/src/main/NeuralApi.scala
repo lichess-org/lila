@@ -18,7 +18,7 @@ private final class NeuralApi(
       case pas if pas.size < 1 => fuccess(none)
       case pas => Chronometer.result {
         callEndpoint(toJson(pas))
-      } map (Result.apply _).tupled map some
+      } map (_.tuple) map (Result.apply _).tupled map some
     } recover {
       case e: Exception =>
         play.api.Logger("neural").warn(e.toString)
