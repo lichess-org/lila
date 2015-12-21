@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     system: ActorSystem,
     firewall: Firewall,
+    lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     userIdsSharingIp: String => Fu[List[String]]) {
 
@@ -35,6 +36,7 @@ final class Env(
     userSpy = userSpy,
     firewall = firewall,
     reporter = hub.actor.report,
+    lightUserApi = lightUserApi,
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
@@ -82,5 +84,6 @@ object Env {
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
     userSpy = lila.security.Env.current.userSpy,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)
 }

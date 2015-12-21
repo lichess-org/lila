@@ -4,13 +4,14 @@ import chess.Color
 import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
+    lightUserApi: LightUserApi,
     lilaBus: lila.common.Bus) {
 
   def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
@@ -88,7 +89,9 @@ final class ModApi(
   }
 
   def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
-    UserRepo.setTitle(user.id, title) >> logApi.setTitle(mod, user.id, title)
+    UserRepo.setTitle(user.id, title) >>
+      lightUserApi.invalidate(user.id) >>
+      logApi.setTitle(mod, user.id, title)
   }
 
   def setEmail(mod: String, username: String, email: String): Funit = withUser(username) { user =>
