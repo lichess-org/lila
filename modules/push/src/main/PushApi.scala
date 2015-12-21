@@ -2,6 +2,7 @@ package lila.push
 
 import akka.actor._
 import akka.pattern.ask
+import chess.format.Forsyth
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
@@ -32,6 +33,8 @@ private final class PushApi(
               "gameId" -> game.id,
               "fullId" -> pov.fullId,
               "color" -> pov.color.name,
+              "fen" -> Forsyth.exportBoard(game.toChess.board),
+              "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "win" -> pov.win)
           ))
         }
@@ -52,7 +55,10 @@ private final class PushApi(
                 "userData" -> Json.obj(
                   "gameId" -> game.id,
                   "fullId" -> pov.fullId,
-                  "color" -> pov.color.name)
+                  "color" -> pov.color.name,
+                  "fen" -> Forsyth.exportBoard(game.toChess.board),
+                  "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                  "secondsLeft" -> pov.remainingSeconds)
               ))
             }
           }

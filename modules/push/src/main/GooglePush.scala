@@ -9,7 +9,7 @@ private final class GooglePush(
     url: String,
     key: String) {
 
-  def apply(userId: String, title: String, body: String, payload: JsObject): Funit =
+  def apply(userId: String, title: String, body: String, payload: => JsObject): Funit =
     getDevice(userId) flatMap {
       _ ?? { device =>
         WS.url(url)
