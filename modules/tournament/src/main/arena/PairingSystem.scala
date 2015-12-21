@@ -37,8 +37,8 @@ object PairingSystem extends AbstractPairingSystem {
         UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
       }.sequenceFu
     } yield pairings
-  }.logIfSlow(500, "tourpairing") { lap =>
-    s"Arena createPairing http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
+  }.logIfSlow(500, "tourpairing") { pairings =>
+    s"createPairing http://lichess.org/tournament/${tour.id} ${pairings.size} pairings"
   }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
@@ -61,6 +61,8 @@ object PairingSystem extends AbstractPairingSystem {
         case Nil              => Nil
       }
     }
+  }.logIfSlow(500, "tourpairing") { preps =>
+    s"makePreps http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${preps.size} preps"
   }
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =

@@ -214,7 +214,7 @@ trait WithPlay { self: PackageObject =>
         akka.pattern.after(duration, system.scheduler)(fufail(error)))
     }
 
-    def logIfSlow(millis: Int, logger: String)(msg: lila.common.Chronometer.Lap[A] => String) =
+    def logIfSlow(millis: Int, logger: String)(msg: A => String) =
       lila.common.Chronometer.result(fua).map {
         _.resultAndLogIfSlow(millis, logger)(msg)
       }

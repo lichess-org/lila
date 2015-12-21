@@ -5,8 +5,8 @@ object Chronometer {
   case class Lap[A](result: A, millis: Int) {
     def tuple = result -> millis
 
-    def resultAndLogIfSlow(ms: Int, logger: String)(msg: Lap[A] => String): A = {
-      if (millis > ms) play.api.Logger(logger).debug(msg(this))
+    def resultAndLogIfSlow(threshold: Int, logger: String)(msg: A => String): A = {
+      if (millis >= threshold) play.api.Logger(logger).debug(s"<${millis}ms> ${msg(result)}")
       result
     }
   }
