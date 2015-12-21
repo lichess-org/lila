@@ -1,7 +1,7 @@
 package lila
 
-import scala.concurrent.Future
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.Future
 
 import ornicar.scalalib
 import scalaz.{ Monad, Monoid, OptionT, ~> }
@@ -213,6 +213,11 @@ trait WithPlay { self: PackageObject =>
       Future firstCompletedOf Seq(fua,
         akka.pattern.after(duration, system.scheduler)(fufail(error)))
     }
+
+    def logIfSlow(millis: Int, logger: String)(msg: lila.common.Chronometer.Lap[A] => String) =
+      lila.common.Chronometer.result(fua).map {
+        _.resultAndLogIfSlow(millis, logger)(msg)
+      }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {

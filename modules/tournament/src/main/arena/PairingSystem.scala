@@ -21,7 +21,7 @@ object PairingSystem extends AbstractPairingSystem {
   def createPairings(
     tour: Tournament,
     users: WaitingUsers,
-    ranking: Ranking): Fu[Pairings] = Chronometer.result {
+    ranking: Ranking): Fu[Pairings] = {
     for {
       recentPairings <- PairingRepo.recentUidsByTourAndUserIds(tour.id, users.all, Math.min(100, users.size * 4))
       nbActiveUsers <- PlayerRepo.countActive(tour.id)
@@ -35,10 +35,8 @@ object PairingSystem extends AbstractPairingSystem {
         UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
       }.sequenceFu
     } yield pairings
-  } map {
-    _.resultAndLogIfSlow(500, "tourpairing") { lap =>
-      s"Arena createPairing http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
-    }
+  }.logIfSlow(500, "tourpairing") { lap =>
+    s"Arena createPairing http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
   }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
