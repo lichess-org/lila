@@ -21,22 +21,25 @@ private final class PushApi(
     else game.userIds.map { userId =>
       Pov.ofUserId(game, userId) ?? { pov =>
         IfAway(pov) {
-          val title = pov.win match {
-            case Some(true)  => "You won!"
-            case Some(false) => "You lost."
-            case _           => "It's a draw."
+          googlePush(userId) {
+            GooglePush.Data(
+              title = pov.win match {
+                case Some(true)  => "You won!"
+                case Some(false) => "You lost."
+                case _           => "It's a draw."
+              },
+              body = s"Your game with ${opponentName(pov)} is over.",
+              payload = Json.obj(
+                "userId" -> userId,
+                "userData" -> Json.obj(
+                  "gameId" -> game.id,
+                  "fullId" -> pov.fullId,
+                  "color" -> pov.color.name,
+                  "fen" -> Forsyth.exportBoard(game.toChess.board),
+                  "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                  "win" -> pov.win)
+              ))
           }
-          val body = s"Your game with ${opponentName(pov)} is over."
-          googlePush.apply(userId, title, body, Json.obj(
-            "userId" -> userId,
-            "userData" -> Json.obj(
-              "gameId" -> game.id,
-              "fullId" -> pov.fullId,
-              "color" -> pov.color.name,
-              "fen" -> Forsyth.exportBoard(game.toChess.board),
-              "lastMove" -> game.castleLastMoveTime.lastMoveString,
-              "win" -> pov.win)
-          ))
         }
       }
     }.sequenceFu.void
@@ -48,18 +51,21 @@ private final class PushApi(
         game.pgnMoves.lastOption ?? { sanMove =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              val title = "It's your turn!"
-              val body = s"${opponentName(pov)} played $sanMove"
-              googlePush.apply(userId, title, body, Json.obj(
-                "userId" -> userId,
-                "userData" -> Json.obj(
-                  "gameId" -> game.id,
-                  "fullId" -> pov.fullId,
-                  "color" -> pov.color.name,
-                  "fen" -> Forsyth.exportBoard(game.toChess.board),
-                  "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                  "secondsLeft" -> pov.remainingSeconds)
-              ))
+              googlePush(userId) {
+                GooglePush.Data(
+                  title = "It's your turn!",
+                  body = s"${opponentName(pov)} played $sanMove",
+                  payload = Json.obj(
+                    "userId" -> userId,
+                    "userData" -> Json.obj(
+                      "gameId" -> game.id,
+                      "fullId" -> pov.fullId,
+                      "color" -> pov.color.name,
+                      "fen" -> Forsyth.exportBoard(game.toChess.board),
+                      "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                      "secondsLeft" -> pov.remainingSeconds)
+                  ))
+              }
             }
           }
         }
