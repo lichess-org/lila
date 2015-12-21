@@ -20,7 +20,7 @@ object BSONHandlers {
 
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
 
-  private implicit val leaderboardRatio  = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
+  private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
     def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
     def write(x: LeaderboardApi.Ratio) = BSONInteger((x.value * 100000).toInt)
   }
@@ -125,6 +125,13 @@ object BSONHandlers {
       "t" -> o.turns,
       "b1" -> w.intO(o.berserk1),
       "b2" -> w.intO(o.berserk2))
+  }
+
+  implicit val pairingUidsReader = new BSONDocumentReader[Pairing.Uids] {
+    def read(doc: BSONDocument) = ~doc.getAs[List[String]]("u") match {
+      case List(u1, u2) => Pairing.Uids(u1, u2)
+      case x            => sys error s"Invalid pairing uids $x"
+    }
   }
 
   implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {

@@ -28,10 +28,11 @@ object PairingRepo {
   def recentByTour(tourId: String, nb: Int): Fu[List[Pairing]] =
     coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
-  def recentByTourAndUserIds(tourId: String, userIds: Iterable[String], nb: Int): Fu[List[Pairing]] =
+  def recentUidsByTourAndUserIds(tourId: String, userIds: Iterable[String], nb: Int): Fu[List[Pairing.Uids]] =
     coll.find(
-      selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds))
-    ).sort(recentSort).cursor[Pairing]().collect[List](nb)
+      selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds)),
+      BSONDocument("_id" -> false, "u" -> true)
+    ).sort(recentSort).cursor[Pairing.Uids]().collect[List](nb)
 
   def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
     coll.find(

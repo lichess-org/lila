@@ -32,9 +32,6 @@ case class Pairing(
   def quickDraw = draw && turns.??(20 >)
   def notSoQuickFinish = finished && turns.??(14 <=)
 
-  def opponentOf(user: String): Option[String] =
-    if (user == user1) user2.some else if (user == user2) user1.some else none
-
   def wonBy(user: String): Boolean = winner.??(user ==)
   def draw: Boolean = finished && winner.isEmpty
 
@@ -58,6 +55,12 @@ case class Pairing(
 }
 
 private[tournament] object Pairing {
+
+  case class Uids(u1: String, u2: String) {
+    def contains(user: String): Boolean = u1 == user || u2 == user
+    def opponentOf(user: String): Option[String] =
+      if (user == u1) Some(u2) else if (user == u2) Some(u1) else None
+  }
 
   def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,

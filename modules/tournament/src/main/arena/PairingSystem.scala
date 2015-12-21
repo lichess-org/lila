@@ -12,7 +12,7 @@ object PairingSystem extends AbstractPairingSystem {
 
   case class Data(
     tour: Tournament,
-    recentPairings: List[Pairing],
+    recentPairings: List[Pairing.Uids],
     ranking: Map[String, Int],
     nbActiveUsers: Int)
 
@@ -23,7 +23,7 @@ object PairingSystem extends AbstractPairingSystem {
     users: WaitingUsers,
     ranking: Ranking): Fu[Pairings] = Chronometer.result {
     for {
-      recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
+      recentPairings <- PairingRepo.recentUidsByTourAndUserIds(tour.id, users.all, Math.min(100, users.size * 4))
       nbActiveUsers <- PlayerRepo.countActive(tour.id)
       data = Data(tour, recentPairings, ranking, nbActiveUsers)
       preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
@@ -37,7 +37,7 @@ object PairingSystem extends AbstractPairingSystem {
     } yield pairings
   } map {
     _.resultAndLogIfSlow(500, "tourpairing") { lap =>
-      s"Arena createPairind http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
+      s"Arena createPairing http://lichess.org/tournament/${tour.id} ${lap.result.size} pairings in ${lap.millis}ms"
     }
   }
 
