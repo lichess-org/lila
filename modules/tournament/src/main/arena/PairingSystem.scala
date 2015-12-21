@@ -14,7 +14,7 @@ object PairingSystem extends AbstractPairingSystem {
     tour: Tournament,
     recentPairings: List[Pairing.Uids],
     ranking: Map[String, Int],
-    nbActiveUsers: Int)
+    onlyTwoActivePlayers: Boolean)
 
   // if waiting users can make pairings
   // then pair all users
@@ -24,8 +24,10 @@ object PairingSystem extends AbstractPairingSystem {
     ranking: Ranking): Fu[Pairings] = {
     for {
       recentPairings <- PairingRepo.recentUidsByTourAndUserIds(tour.id, users.all, Math.min(100, users.size * 4))
-      nbActiveUsers <- PlayerRepo.countActive(tour.id)
-      data = Data(tour, recentPairings, ranking, nbActiveUsers)
+      onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
+        fuccess(false),
+        PlayerRepo.countActive(tour.id).map(2==))
+      data = Data(tour, recentPairings, ranking, onlyTwoActivePlayers)
       preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
         case Nil => fuccess(Nil)
@@ -133,7 +135,7 @@ object PairingSystem extends AbstractPairingSystem {
 
     (players match {
       case x if x.size < 2 => Nil
-      case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
+      case List(p1, p2) if onlyTwoActivePlayers => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
       case ps => findBetter(Nil, Int.MaxValue) match {
