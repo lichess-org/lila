@@ -127,13 +127,6 @@ object BSONHandlers {
       "b2" -> w.intO(o.berserk2))
   }
 
-  implicit val pairingUidsReader = new BSONDocumentReader[Pairing.Uids] {
-    def read(doc: BSONDocument) = ~doc.getAs[List[String]]("u") match {
-      case List(u1, u2) => Pairing.Uids(u1, u2)
-      case x            => sys error s"Invalid pairing uids $x"
-    }
-  }
-
   implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
     def reads(r: BSON.Reader) = LeaderboardApi.Entry(
       id = r str "_id",

@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+import play.api.libs.iteratee._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
@@ -28,11 +29,18 @@ object PairingRepo {
   def recentByTour(tourId: String, nb: Int): Fu[List[Pairing]] =
     coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
-  def recentUidsByTourAndUserIds(tourId: String, userIds: Iterable[String], nb: Int): Fu[List[Pairing.Uids]] =
+  def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
     coll.find(
       selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds)),
       BSONDocument("_id" -> false, "u" -> true)
-    ).sort(recentSort).cursor[Pairing.Uids]().collect[List](nb)
+    ).sort(recentSort).cursor[BSONDocument]().enumerate(nb) |>>>
+      Iteratee.fold(scala.collection.immutable.Map.empty[String, String]) { (acc, doc) =>
+        ~doc.getAs[List[String]]("u") match {
+          case List(u1, u2) =>
+            val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
+            acc.contains(u2).fold(acc1, acc1.updated(u2, u1))
+        }
+      } map Pairing.LastOpponents.apply
 
   def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
     coll.find(

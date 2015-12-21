@@ -56,11 +56,7 @@ case class Pairing(
 
 private[tournament] object Pairing {
 
-  case class Uids(u1: String, u2: String) {
-    def contains(user: String): Boolean = u1 == user || u2 == user
-    def opponentOf(user: String): Option[String] =
-      if (user == u1) Some(u2) else if (user == u2) Some(u1) else None
-  }
+  case class LastOpponents(hash: Map[String, String])
 
   def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,

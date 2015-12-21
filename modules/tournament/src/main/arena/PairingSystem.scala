@@ -12,7 +12,7 @@ object PairingSystem extends AbstractPairingSystem {
 
   case class Data(
     tour: Tournament,
-    recentPairings: List[Pairing.Uids],
+    lastOpponents: Pairing.LastOpponents,
     ranking: Map[String, Int],
     onlyTwoActivePlayers: Boolean)
 
@@ -23,12 +23,12 @@ object PairingSystem extends AbstractPairingSystem {
     users: WaitingUsers,
     ranking: Ranking): Fu[Pairings] = {
     for {
-      recentPairings <- PairingRepo.recentUidsByTourAndUserIds(tour.id, users.all, Math.min(100, users.size * 4))
+      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
         fuccess(false),
         PlayerRepo.countActive(tour.id).map(2==))
-      data = Data(tour, recentPairings, ranking, onlyTwoActivePlayers)
-      preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
+      data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
+      preps <- if (lastOpponents.hash.isEmpty) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
         case Nil => fuccess(Nil)
         case _   => evenOrAll(data, users)
@@ -53,7 +53,7 @@ object PairingSystem extends AbstractPairingSystem {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (recentPairings.isEmpty) naivePairings(tour, idles)
+      if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
         case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
         case a :: b :: Nil    => smartPairings(data, a) ::: smartPairings(data, b)
@@ -75,17 +75,11 @@ object PairingSystem extends AbstractPairingSystem {
     type RankedPairing = (RankedPlayer, RankedPlayer)
     type Combination = List[RankedPairing]
 
-    val lastOpponents: Map[String, String] = players.flatMap { p =>
-      recentPairings.find(_ contains p.player.userId).flatMap(_ opponentOf p.player.userId) map {
-        p.player.userId -> _
-      }
-    }.toMap
-
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).contains(u2) || lastOpponents.get(u2).contains(u1)
+      lastOpponents.hash.get(u1).contains(u2) || lastOpponents.hash.get(u2).contains(u1)
 
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).contains(u2) && lastOpponents.get(u2).contains(u1)
+      lastOpponents.hash.get(u1).contains(u2) && lastOpponents.hash.get(u2).contains(u1)
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
