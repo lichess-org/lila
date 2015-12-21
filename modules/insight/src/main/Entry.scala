@@ -70,19 +70,19 @@ case class Move(
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
   case object ClockFlag extends Termination(1, "Clock flag")
-  case object RageQuit extends Termination(2, "Rage quit")
+  case object Disconnect extends Termination(2, "Disconnect")
   case object Resignation extends Termination(3, "Resignation")
   case object Draw extends Termination(4, "Draw")
   case object Stalemate extends Termination(5, "Stalemate")
   case object Checkmate extends Termination(6, "Checkmate")
 
-  val all = List(ClockFlag, RageQuit, Resignation, Draw, Stalemate, Checkmate)
+  val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
   val byId = all map { p => (p.id, p) } toMap
 
   import chess.{ Status => S }
 
   def fromStatus(s: chess.Status) = s match {
-    case S.Timeout             => RageQuit
+    case S.Timeout             => Disconnect
     case S.Outoftime           => ClockFlag
     case S.Resign              => Resignation
     case S.Draw                => Draw
