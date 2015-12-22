@@ -15,6 +15,12 @@ final class Stream(
     geoIp: MaxMindIpGeo,
     geoIpCacheTtl: Duration) {
 
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case move: MoveEvent => channel push move
+    }
+  })), 'moveEvent)
+
   private val (enumerator, channel) = Concurrent.broadcast[MoveEvent]
 
   private val ipCache = lila.memo.Builder.cache(geoIpCacheTtl, localizeIp)
@@ -45,10 +51,4 @@ final class Stream(
     }
 
   val producer = enumerator &> processor
-
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case move: MoveEvent => channel push move
-    }
-  })), 'moveEvent)
 }

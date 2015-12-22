@@ -195,6 +195,8 @@ case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
 case class IsOnGame(color: chess.Color)
+case class Open(gameId: String)
+case class Close(gameId: String)
 }
 
 package evaluation {
