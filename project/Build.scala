@@ -112,6 +112,10 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
+  lazy val perfStat = project("rating", Seq(common, db, chess, user, game)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
   lazy val history = project("history", Seq(common, db, memo, game, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
