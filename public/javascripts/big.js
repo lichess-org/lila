@@ -142,7 +142,6 @@ lichess.StrongSocket.prototype = {
       if (!again) setTimeout(function() {
         this.send(t, d, o, true);
       }.bind(this), 1000);
-      else console.log(e, 'again');
     }
   },
   sendAckable: function(t, d) {
