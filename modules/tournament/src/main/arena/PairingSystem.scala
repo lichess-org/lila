@@ -61,7 +61,7 @@ object PairingSystem extends AbstractPairingSystem {
         case Nil              => Nil
       }
     }
-  }.logIfSlow(500, "tourpairing") { preps =>
+  }.logIfSlow(200, "tourpairing") { preps =>
     s"makePreps http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${preps.size} preps"
   }
 
