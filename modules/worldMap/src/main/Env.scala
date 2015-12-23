@@ -2,6 +2,7 @@ package lila.worldMap
 
 import com.typesafe.config.Config
 
+import akka.actor._
 import com.sanoma.cda.geoip.MaxMindIpGeo
 import lila.common.PimpedConfig._
 
@@ -11,15 +12,19 @@ final class Env(
 
   private val GeoIPFile = config getString "geoip.file"
   private val GeoIPCacheTtl = config duration "geoip.cache_ttl"
-  private val PlayersCacheSize = config getInt "players.cache_size"
 
-  lazy val players = new Players(PlayersCacheSize)
+  private val stream = system.actorOf(
+    Props(new Stream(
+      geoIp = MaxMindIpGeo(GeoIPFile, 0),
+      geoIpCacheTtl = GeoIPCacheTtl)))
 
-  lazy val stream = new Stream(
-    system = system,
-    players = players,
-    geoIp = MaxMindIpGeo(GeoIPFile, 0),
-    geoIpCacheTtl = GeoIPCacheTtl)
+  def getStream = {
+    import play.api.libs.iteratee._
+    import play.api.libs.json._
+    import akka.pattern.ask
+    import makeTimeout.short
+    stream ? Stream.Get mapTo manifest[Enumerator[JsValue]]
+  }
 }
 
 object Env {

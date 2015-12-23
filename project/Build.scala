@@ -81,7 +81,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val worldMap = project("worldMap", Seq(common, hub, memo)).settings(
+  lazy val worldMap = project("worldMap", Seq(common, hub, memo, rating)).settings(
     libraryDependencies ++= provided(play.api, maxmind)
   )
 

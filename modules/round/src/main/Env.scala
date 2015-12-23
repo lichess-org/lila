@@ -54,7 +54,6 @@ final class Env(
   lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
-    override val withEvents = true
     def mkActor(id: String) = new Round(
       gameId = id,
       messenger = messenger,
@@ -72,10 +71,6 @@ final class Env(
       case actorApi.GetNbRounds =>
         nbRounds = size
         hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
-      case lila.hub.ActorMap.Add(id, _) =>
-        system.lilaBus.publish(lila.hub.actorApi.round.Open(id), 'roundDoor)
-      case lila.hub.ActorMap.Remove(id, _) =>
-        system.lilaBus.publish(lila.hub.actorApi.round.Close(id), 'roundDoor)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
