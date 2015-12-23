@@ -78,6 +78,7 @@ private[round] final class Socket(
   override def postStop() {
     super.postStop()
     lilaBus.unsubscribe(self)
+    lilaBus.publish(lila.hub.actorApi.round.SocketEvent.Stop(gameId), 'roundDoor)
   }
 
   private def refreshSubscriptions {
@@ -146,6 +147,9 @@ private[round] final class Socket(
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) refreshSubscriptions
+      if (member.owner) lilaBus.publish(
+        lila.hub.actorApi.round.SocketEvent.OwnerJoin(gameId, color, ip),
+        'roundDoor)
 
     case Nil                  =>
     case eventList: EventList => notify(eventList.events)

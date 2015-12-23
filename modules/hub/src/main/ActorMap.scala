@@ -13,8 +13,6 @@ trait ActorMap extends Actor {
 
   def mkActor(id: String): Actor
 
-  def withEvents = false
-
   def actorMapReceive: Receive = {
 
     case Get(id)       => sender ! getOrMake(id)
@@ -32,9 +30,7 @@ trait ActorMap extends Actor {
     case Terminated(actor) =>
       context unwatch actor
       actors foreach {
-        case (id, a) if (a == actor) =>
-          actors -= id
-          if (withEvents) self ! ActorMap.Remove(id, a)
+        case (id, a) if (a == actor) => actors -= id
       }
   }
 
@@ -44,15 +40,11 @@ trait ActorMap extends Actor {
     context.actorOf(Props(mkActor(id)), name = id) ~ { actor =>
       actors += (id -> actor)
       context watch actor
-      if (withEvents) self ! ActorMap.Add(id, actor)
     }
   }
 }
 
 object ActorMap {
-
-  case class Add(id: String, actor: ActorRef)
-  case class Remove(id: String, actor: ActorRef)
 
   def apply(make: String => Actor) = new ActorMap {
     def mkActor(id: String) = make(id)
