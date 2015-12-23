@@ -94,6 +94,7 @@ object User {
     "IM" -> "International Master",
     "WIM" -> "Woman Intl. Master",
     "FM" -> "FIDE Master",
+    "WFM" -> "Woman FIDE Master",
     "NM" -> "National Master",
     "CM" -> "FIDE Candidate Master",
     "WCM" -> "FIDE Woman Candidate Master",
