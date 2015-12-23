@@ -24,7 +24,7 @@ final class Live(
     GameRepo insertDenormalized g inject g
   }
 
-  def move(id: String, move: String, ip: String) =
+  def move(id: String, move: String) =
     GameRepo game id flatMap {
       _ filter (g => g.playable && g.imported) match {
         case None => fufail("No such playing game: " + id)
@@ -42,16 +42,15 @@ final class Live(
             case m => fufail("Invalid move: " + m)
           }
           case Some(uci) => fuccess {
-            applyMove(Pov(game, game.player.color), uci, ip)
+            applyMove(Pov(game, game.player.color), uci)
           }
         }
       }
     }
 
-  private def applyMove(pov: Pov, move: UciMove, ip: String) {
+  private def applyMove(pov: Pov, move: UciMove) {
     roundMap ! Tell(pov.gameId, HumanPlay(
       playerId = pov.playerId,
-      ip = ip,
       orig = move.orig.toString,
       dest = move.dest.toString,
       prom = move.promotion map (_.name),

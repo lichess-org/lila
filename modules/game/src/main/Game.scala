@@ -259,6 +259,8 @@ case class Game(
 
   def playableByAi: Boolean = playable && player.isAi
 
+  def mobilePushable = isCorrespondence && playable && nonAi
+
   def continuable = status != Status.Mate && status != Status.Stalemate
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)

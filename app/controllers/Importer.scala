@@ -20,7 +20,7 @@ object Importer extends LilaController {
       failure => fuccess {
         Ok(html.game.importGame(failure))
       },
-      data => env.importer(data, ctx.userId, ctx.ip) map { game =>
+      data => env.importer(data, ctx.userId) map { game =>
         if (game.analysable) Analyse.addCallbacks(game.id) {
           Env.analyse.analyser.getOrGenerate(
             game.id,

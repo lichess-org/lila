@@ -42,14 +42,12 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   def playAndSave(
     pov: Pov,
     uciMove: String,
-    steps: Forecast.Steps,
-    ip: String): Funit =
+    steps: Forecast.Steps): Funit =
     if (!pov.isMyTurn) fufail("not my turn")
     else UciMove(uciMove).fold[Funit](fufail(s"Invalid move $uciMove")) { uci =>
       val promise = Promise[Unit]
       roundMap ! Tell(pov.game.id, actorApi.round.HumanPlay(
         playerId = pov.playerId,
-        ip = ip,
         orig = uci.orig.key,
         dest = uci.dest.key,
         prom = uci.promotion.map(_.name),

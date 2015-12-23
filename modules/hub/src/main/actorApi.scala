@@ -186,17 +186,17 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  piece: Char,
   color: chess.Color,
-  ip: String,
+  mobilePushable: Boolean,
   opponentUserId: Option[String],
   simulId: Option[String])
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
 case class IsOnGame(color: chess.Color)
-case class Open(gameId: String)
-case class Close(gameId: String)
+sealed trait DoorEvent
+case class Open(gameId: String) extends DoorEvent
+case class Close(gameId: String) extends DoorEvent
 }
 
 package evaluation {

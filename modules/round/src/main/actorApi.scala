@@ -93,7 +93,6 @@ package round {
 
 case class HumanPlay(
     playerId: String,
-    ip: String,
     orig: String,
     dest: String,
     prom: Option[String],
@@ -106,7 +105,6 @@ case class HumanPlay(
 
 case class ImportPlay(
   playerId: String,
-  ip: String,
   orig: chess.Pos,
   dest: chess.Pos,
   prom: Option[chess.PromotableRole])
