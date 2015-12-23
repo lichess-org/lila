@@ -79,9 +79,8 @@ object UserAnalysis extends LilaController with TheftPrevention {
             err => BadRequest(err.toString).fuccess,
             forecasts => {
               def wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-              Env.round.forecastApi.playAndSave(
-                pov, uci, forecasts, ctx.req.remoteAddress
-              ) >> Env.current.scheduler.after(wait.millis) {
+              Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                Env.current.scheduler.after(wait.millis) {
                   Ok(Json.obj("reload" -> true))
                 }
             }
