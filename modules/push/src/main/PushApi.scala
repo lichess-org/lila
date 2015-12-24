@@ -44,12 +44,12 @@ private final class PushApi(
       }
     }.sequenceFu.void
 
-  def move(move: MoveEvent): Funit = move.opponentUserId ?? { userId =>
-    def filter(g: Game) = g.isCorrespondence && g.playable && g.nonAi
+  def move(move: MoveEvent): Funit = move.mobilePushable ?? {
     GameRepo game move.gameId flatMap {
-      case Some(game) if filter(game) =>
-        game.pgnMoves.lastOption ?? { sanMove =>
-          Pov.ofUserId(game, userId) ?? { pov =>
+      _ ?? { game =>
+        val pov = Pov(game, !move.color)
+        game.player(!move.color).userId ?? { userId =>
+          game.pgnMoves.lastOption ?? { sanMove =>
             IfAway(pov) {
               googlePush(userId) {
                 GooglePush.Data(
@@ -69,7 +69,7 @@ private final class PushApi(
             }
           }
         }
-      case _ => funit
+      }
     }
   }
 

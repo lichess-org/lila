@@ -3,7 +3,6 @@ package actorApi
 
 import lila.common.LightUser
 
-import akka.actor.ActorRef
 import play.api.libs.json._
 import play.twirl.api.Html
 
@@ -186,15 +185,19 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  piece: Char,
   color: chess.Color,
-  ip: String,
+  mobilePushable: Boolean,
   opponentUserId: Option[String],
   simulId: Option[String])
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
 case class IsOnGame(color: chess.Color)
+sealed trait SocketEvent
+object SocketEvent {
+  case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
+  case class Stop(gameId: String) extends SocketEvent
+}
 }
 
 package evaluation {

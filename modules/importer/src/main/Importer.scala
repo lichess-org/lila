@@ -18,7 +18,7 @@ final class Importer(
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
 
-  def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
+  def apply(data: ImportData, user: Option[String]): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
@@ -40,7 +40,6 @@ final class Importer(
     def applyMove(pov: Pov, move: Move) {
       roundMap ! Tell(pov.gameId, ImportPlay(
         playerId = pov.playerId,
-        ip = ip,
         orig = move.orig,
         dest = move.dest,
         prom = move.promotion))

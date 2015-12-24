@@ -51,7 +51,7 @@ private[round] final class SocketHandler(
               case _: Exception => socket ! Resync(uid)
             }
             round(HumanPlay(
-              playerId, member.ip, orig, dest, prom, blur, lag.millis, promise.some
+              playerId, orig, dest, prom, blur, lag.millis, promise.some
             ))
         }
         case ("rematch-yes", _)  => round(RematchYes(playerId))
