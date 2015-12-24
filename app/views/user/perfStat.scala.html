@@ -1,0 +1,7 @@
+@(u: User, perfStat: lila.perfStat.PerfStat)(implicit ctx: Context)
+
+@perfStat
+
+<a href="@routes.User.showFilter(u.username, "search")?perf=@perfStat.perfType.id">
+  View all @perfStat.perfType.name games
+</a>

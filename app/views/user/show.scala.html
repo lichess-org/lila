@@ -4,8 +4,6 @@
 
 @title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
 
-@searchUrl = @{ routes.User.showFilter(u.username, "search") }
-
 @evenMoreJs = {
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
@@ -32,7 +30,7 @@ if (lichess.once('user-tournaments-tour')) setTimeout(lichess.startTournamentSta
     @if(lila.rating.PerfType.nonGame.contains(perfType)) {
     @name.getOrElse(perfType.name).toUpperCase
     } else {
-    <a href="@searchUrl?perf=@perfType.id">
+    <a href="@routes.User.perfStat(u.username, perfType.key)">
       @name.getOrElse(perfType.name).toUpperCase
     </a>
     }

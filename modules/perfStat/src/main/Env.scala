@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    system: ActorSystem,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -16,8 +17,17 @@ final class Env(
   }
   import settings._
 
-  lazy val api = new PerfStatApi(
+  lazy val storage = new PerfStatStorage(
     coll = db(CollectionPerfStat))
+
+  lazy val indexer = new PerfStatIndexer(
+    storage = storage,
+    sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None, None)))
+
+  def get(user: lila.user.User, perfType: lila.rating.PerfType) =
+    storage.find(user.id, perfType) orElse {
+      indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
+    } map (_ | PerfStat.init(user.id, perfType))
 
   // system.actorOf(Props(new Actor {
   //   system.lilaBus.subscribe(self, 'analysisReady)
@@ -31,5 +41,6 @@ object Env {
 
   lazy val current: Env = "perfStat" boot new Env(
     config = lila.common.PlayApp loadConfig "perfStat",
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current)
 }

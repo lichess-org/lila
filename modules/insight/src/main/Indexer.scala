@@ -18,7 +18,7 @@ import lila.user.User
 
 private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
-  private implicit val timeout = makeTimeout.minutes(5)
+  private implicit val timeout = makeTimeout minutes 5
 
   def all(user: User): Funit = {
     val p = scala.concurrent.Promise[Unit]()

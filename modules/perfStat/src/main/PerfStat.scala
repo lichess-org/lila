@@ -17,11 +17,13 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak) {
 
-  def +(pov: Pov) = if (!pov.game.finished) this else copy(
+  def id = _id
+
+  def agg(pov: Pov) = if (!pov.game.finished) this else copy(
     highest = RatingAt.agg(highest, pov, 1),
     lowest = RatingAt.agg(lowest, pov, -1),
-    bestWin = Result.agg(bestWin, pov, 1),
-    worstLoss = Result.agg(worstLoss, pov, -1),
+    bestWin = (~pov.win).fold(Result.agg(bestWin, pov, 1), bestWin),
+    worstLoss = (~pov.loss).fold(Result.agg(worstLoss, pov, -1), worstLoss),
     count = count(pov),
     resultStreak = resultStreak agg pov,
     playStreak = playStreak agg pov
@@ -40,17 +42,23 @@ object PerfStat {
     lowest = none,
     bestWin = none,
     worstLoss = none,
-    count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, opAvg = 0),
-    resultStreak = ResultStreak(win = 0, loss = 0, lastRes = none),
+    count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, opAvg = Avg(0, 0)),
+    resultStreak = ResultStreak(curWin = 0, curLoss = 0, maxWin = 0, maxLoss = 0),
     playStreak = PlayStreak(curNb = 0, curSeconds = 0, maxNb = 0, maxSeconds = 0, lastDate = none)
   )
 }
 
-case class ResultStreak(win: Int, loss: Int, lastRes: Option[Boolean]) {
+case class ResultStreak(
+    curWin: Int,
+    curLoss: Int,
+    maxWin: Int,
+    maxLoss: Int) {
   def agg(pov: Pov) = copy(
-    win = (~pov.win && lastRes.contains(true)).fold(win + 1, win),
-    loss = (~pov.loss && lastRes.contains(false)).fold(loss + 1, loss),
-    lastRes = pov.win)
+    curWin = (~pov.win).fold(curWin + 1, 0),
+    curLoss = (~pov.loss).fold(curLoss + 1, 0)).setMax
+  private def setMax = copy(
+    maxWin = curWin max maxWin,
+    maxLoss = curLoss max maxLoss)
 }
 
 case class PlayStreak(
@@ -79,22 +87,26 @@ case class Count(
     win: Int,
     loss: Int,
     draw: Int,
-    opAvg: Double) {
+    opAvg: Avg) {
   def apply(pov: Pov) = copy(
     all = all + 1,
     rated = rated + pov.game.rated.fold(1, 0),
     win = win + pov.win.contains(true).fold(1, 0),
     loss = loss + pov.win.contains(false).fold(1, 0),
     draw = draw + pov.win.isEmpty.fold(1, 0),
-    opAvg = pov.opponent.stableRating.fold(opAvg) { r =>
-      (opAvg * all / (all + 1)) + (r * 1 / (all + 1))
-    })
+    opAvg = pov.opponent.stableRating.fold(opAvg)(opAvg.agg))
+}
+
+case class Avg(avg: Double, pop: Int) {
+  def agg(v: Int) = copy(
+    avg = ((avg * pop) + v) / (pop + 1),
+    pop = pop + 1)
 }
 
 case class RatingAt(int: Int, at: DateTime, gameId: String)
 object RatingAt {
   def agg(cur: Option[RatingAt], pov: Pov, comp: Int) =
-    pov.player.ratingAfter.filter { r =>
+    pov.player.stableRatingAfter.filter { r =>
       cur.fold(true) { c => r.compare(c.int) == comp }
     }.map {
       RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.game.id)

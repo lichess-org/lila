@@ -80,7 +80,8 @@ final class Env(
       Env.shutup, // required to load the actor
       Env.insight, // required to load the actor
       Env.worldMap, // required to load the actor
-      Env.push // required to load the actor
+      Env.push, // required to load the actor
+      Env.perfStat // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }
@@ -144,4 +145,5 @@ object Env {
   def shutup = lila.shutup.Env.current
   def insight = lila.insight.Env.current
   def push = lila.push.Env.current
+  def perfStat = lila.perfStat.Env.current
 }

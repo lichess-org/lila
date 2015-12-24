@@ -222,6 +222,16 @@ object User extends LilaController {
     }
   }
 
+  def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { user =>
+      lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+        Env.perfStat.get(user, perfType).map { perfStat =>
+          Ok(html.user.perfStat(user, perfStat))
+        }
+      }
+    }
+  }
+
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term =>
       JsonOk(UserRepo usernamesLike term)
