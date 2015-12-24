@@ -29,12 +29,12 @@ final class Env(
       indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
     } map (_ | PerfStat.init(user.id, perfType))
 
-  // system.actorOf(Props(new Actor {
-  //   system.lilaBus.subscribe(self, 'analysisReady)
-  //   def receive = {
-  //     case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
-  //   }
-  // }))
+  system.actorOf(Props(new Actor {
+    context.system.lilaBus.subscribe(self, 'finishGame)
+    def receive = {
+      case lila.game.actorApi.FinishGame(game, _, _) => indexer addGame game
+    }
+  }))
 }
 
 object Env {
