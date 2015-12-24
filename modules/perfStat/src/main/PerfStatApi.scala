@@ -20,5 +20,7 @@ final class PerfStatApi(coll: Coll) {
   private implicit val RatingAtBSONHandler = Macros.handler[RatingAt]
   private implicit val ResultBSONHandler = Macros.handler[Result]
   private implicit val PlayStreakBSONHandler = Macros.handler[PlayStreak]
+  private implicit val ResultStreakBSONHandler = Macros.handler[ResultStreak]
+  private implicit val CountBSONHandler = Macros.handler[Count]
   private implicit val PerfStatBSONHandler = Macros.handler[PerfStat]
 }

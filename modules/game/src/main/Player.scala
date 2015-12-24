@@ -88,6 +88,8 @@ case class Player(
   }
 
   def ratingAfter = rating map (_ + ~ratingDiff)
+
+  def stableRating = rating ifFalse provisional
 }
 
 object Player {
