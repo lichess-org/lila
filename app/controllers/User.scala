@@ -223,10 +223,13 @@ object User extends LilaController {
   }
 
   def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { user =>
-      lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
-        Env.perfStat.get(user, perfType).map { perfStat =>
-          Ok(html.user.perfStat(user, perfStat))
+    OptionFuResult(UserRepo named username) { u =>
+      if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
+      else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+        Env.perfStat.get(u, perfType).flatMap { perfStat =>
+          Env.current.userInfo(u, ctx).map { info =>
+            Ok(html.user.perfStat(u, info, perfStat))
+          }
         }
       }
     }

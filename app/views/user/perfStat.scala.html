@@ -1,7 +1,24 @@
-@(u: User, perfStat: lila.perfStat.PerfStat)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, perfStat: lila.perfStat.PerfStat)(implicit ctx: Context)
 
-@perfStat
+@user.layout(
+title = s"${u.username} ${perfStat.perfType.name} stats",
+side = side(u, info).some,
+robots = false) {
+<div class="content_box no_padding user_show">
+  <div class="content_box_top">
+    <h1 class="lichess_title">
+      <a href="@routes.User.show(u.username)">
+        <span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span>
+        @u.titleUsername
+      </a>
+      @perfStat.perfType.name stats
+    </h1>
+  </div>
 
-<a href="@routes.User.showFilter(u.username, "search")?perf=@perfStat.perfType.id">
-  View all @perfStat.perfType.name games
-</a>
+  @perfStat
+
+  <a href="@routes.User.showFilter(u.username, "search")?perf=@perfStat.perfType.id">
+    View all @perfStat.perfType.name games
+  </a>
+</div>
+}

@@ -2,8 +2,6 @@
 
 @import lila.rating.PerfType
 
-@title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
-
 @evenMoreJs = {
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
@@ -24,66 +22,9 @@ if (lichess.once('user-tournaments-tour')) setTimeout(lichess.startTournamentSta
 }
 }
 
-@showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
-<div data-icon="@perfType.iconChar">
-  <h3 class="hint--top" data-hint="@perfType.title">
-    @if(lila.rating.PerfType.nonGame.contains(perfType)) {
-    @name.getOrElse(perfType.name).toUpperCase
-    } else {
-    <a href="@routes.User.perfStat(u.username, perfType.key)">
-      @name.getOrElse(perfType.name).toUpperCase
-    </a>
-    }
-  </h3>
-  <div class="rating">
-    <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
-    @showProgress(perf.progress)
-  </div>
-  <div class="rank" title="Rank is updated every 15 minutes">
-    @info.ranks.get(perfType.key).map { rank =>
-    Rank: @rank.localize@nth(rank)
-    }
-  </div>
-</div>
-}
-
-@side = {
-<div class="side sub_ratings">
-  @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
-  @showPerf(u.perfs.bullet, PerfType.Bullet)
-  @showPerf(u.perfs.blitz, PerfType.Blitz)
-  @showPerf(u.perfs.classical, PerfType.Classical)
-  @showPerf(u.perfs.correspondence, PerfType.Correspondence)
-  <br />
-  @if(u.perfs.chess960.nonEmpty) {
-  @showPerf(u.perfs.chess960, PerfType.Chess960)
-  }
-  @if(u.perfs.kingOfTheHill.nonEmpty) {
-  @showPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
-  }
-  @if(u.perfs.threeCheck.nonEmpty) {
-  @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
-  }
-  @if(u.perfs.antichess.nonEmpty) {
-  @showPerf(u.perfs.antichess, PerfType.Antichess)
-  }
-  @if(u.perfs.atomic.nonEmpty) {
-  @showPerf(u.perfs.atomic, PerfType.Atomic)
-  }
-  @if(u.perfs.horde.nonEmpty) {
-  @showPerf(u.perfs.horde, PerfType.Horde)
-  }
-  <br />
-  }
-  @showPerf(u.perfs.puzzle, PerfType.Puzzle)
-  @showPerf(u.perfs.opening, PerfType.Opening)
-</div>
-}
-
 @user.layout(
-title = title,
-side = side.some,
+title =  s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
+side = side(u, info).some,
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = lila.app.ui.OpenGraph(
