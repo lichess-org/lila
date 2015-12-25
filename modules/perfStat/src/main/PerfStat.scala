@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 
 case class PerfStat(
     _id: String, // userId/perfId
-    userId: String,
+    userId: UserId,
     perfType: PerfType,
     highest: Option[RatingAt],
     lowest: Option[RatingAt],
@@ -36,7 +36,7 @@ object PerfStat {
 
   def init(userId: String, perfType: PerfType) = PerfStat(
     _id = makeId(userId, perfType),
-    userId = userId,
+    userId = UserId(userId),
     perfType = perfType,
     highest = none,
     lowest = none,
@@ -113,12 +113,14 @@ object RatingAt {
     } orElse cur
 }
 
-case class Result(opInt: Int, opId: String, at: DateTime, gameId: String)
+case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
 object Result {
   def agg(cur: Option[Result], pov: Pov, comp: Int) =
     pov.opponent.rating.filter { r =>
       cur.fold(true) { c => r.compare(c.opInt) == comp }
     }.map {
-      Result(_, ~pov.opponent.userId, pov.game.updatedAtOrCreatedAt, pov.game.id)
+      Result(_, UserId(~pov.opponent.userId), pov.game.updatedAtOrCreatedAt, pov.game.id)
     } orElse cur
 }
+
+case class UserId(value: String)

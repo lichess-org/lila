@@ -12,7 +12,7 @@ lichess = lichess || {};
 lichess.insight = LichessInsight(document.getElementById('insight'), {
 ui: @Html(toJson(ui)),
 initialQuestion: @Html(toJson(question)),
-i18n: @jsI18n(),
+i18n: {},
 myUserId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 user: {
 id: "@u.id",

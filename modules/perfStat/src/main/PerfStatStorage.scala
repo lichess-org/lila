@@ -17,6 +17,10 @@ final class PerfStatStorage(coll: Coll) {
     def read(b: BSONInteger) = PerfType.byId get b.value err s"Invalid perf type id ${b.value}"
     def write(p: PerfType) = BSONInteger(p.id)
   }
+  implicit val UserIdBSONHandler = new BSONHandler[BSONString, UserId] {
+    def read(b: BSONString) = UserId(b.value)
+    def write(u: UserId) = BSONString(u.value)
+  }
   private implicit val RatingAtBSONHandler = Macros.handler[RatingAt]
   private implicit val ResultBSONHandler = Macros.handler[Result]
   private implicit val PlayStreakBSONHandler = Macros.handler[PlayStreak]

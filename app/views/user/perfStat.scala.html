@@ -1,9 +1,23 @@
-@(u: User, info: lila.app.mashup.UserInfo, perfStat: lila.perfStat.PerfStat)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+
+@moreJs = {
+@jsAt(s"compiled/lichess.perfStat${isProd??(".min")}.js")
+@embedJs {
+$(function() {
+lichess = lichess || {};
+lichess.perfStat = LichessPerfStat(document.getElementById('perfStat'), {
+data: @Html(toJson(data)),
+i18n: {}
+});
+});
+}
+}
 
 @user.layout(
-title = s"${u.username} ${perfStat.perfType.name} stats",
+title = s"${u.username} ${perfType.name} stats",
 side = side(u, info).some,
-robots = false) {
+robots = false,
+evenMoreJs = moreJs) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     <h1 class="lichess_title">
@@ -11,14 +25,12 @@ robots = false) {
         <span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span>
         @u.titleUsername
       </a>
-      @perfStat.perfType.name stats
+      @perfType.name stats
     </h1>
   </div>
-
-  @perfStat
-
-  <a href="@routes.User.showFilter(u.username, "search")?perf=@perfStat.perfType.id">
-    View all @perfStat.perfType.name games
-  </a>
+    <div class="content_box_content" id="perfStat"></div>
+  <!-- <a href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id"> -->
+  <!--   View all @perfType.name games -->
+  <!-- </a> -->
 </div>
 }

@@ -228,7 +228,8 @@ object User extends LilaController {
       else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
         Env.perfStat.get(u, perfType).flatMap { perfStat =>
           Env.current.userInfo(u, ctx).map { info =>
-            Ok(html.user.perfStat(u, info, perfStat))
+            val data = Env.perfStat.jsonView(perfStat)
+            Ok(html.user.perfStat(u, info, perfStat.perfType, data))
           }
         }
       }

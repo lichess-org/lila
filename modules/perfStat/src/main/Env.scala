@@ -10,6 +10,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     system: ActorSystem,
+    lightUser: String => Option[lila.common.LightUser],
     db: lila.db.Env) {
 
   private val settings = new {
@@ -23,6 +24,8 @@ final class Env(
   lazy val indexer = new PerfStatIndexer(
     storage = storage,
     sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None, None)))
+
+  lazy val jsonView = new JsonView(lightUser)
 
   def get(user: lila.user.User, perfType: lila.rating.PerfType) =
     storage.find(user.id, perfType) orElse {
@@ -42,5 +45,6 @@ object Env {
   lazy val current: Env = "perfStat" boot new Env(
     config = lila.common.PlayApp loadConfig "perfStat",
     system = lila.common.PlayApp.system,
+    lightUser = lila.user.Env.current.lightUser,
     db = lila.db.Env.current)
 }
