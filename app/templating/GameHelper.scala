@@ -28,10 +28,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
   }
 
-  def describePov(pov: Pov) = {
+  def describePov(pov: Pov, me: Player = None) = {
     import pov._
-    val p1 = playerText(player, withRating = true)
-    val p2 = playerText(opponent, withRating = true)
+    val p1 = if (me == player) "I" else playerText(player, withRating = me == None)
+    val p2 = if (me == opponent) "me" else playerText(opponent, withRating = me == None)
     val speedAndClock = game.clock.fold(chess.Speed.Correspondence.name) { c =>
       s"${chess.Speed(c.some).name} (${c.show})"
     }
@@ -40,23 +40,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     else if (game.variant.exotic) game.variant.name else "chess"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
-      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
-      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
-      case (_, _, Draw | Stalemate)                         => "Game is a draw"
+      case (Some(w), _, Mate)                               => s"${if (me == w) "I" else playerText(w)} won by checkmate"
+      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${if (me == l) "I" else playerText(l)} resigned"
+      case (_, Some(l), Outoftime)                          => if (me == l) "I forfeit by time" else s"${playerText(l)} forfeits by time"
+      case (_, _, Draw | Stalemate)                         => "Game was drawn"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case chess.variant.KingOfTheHill => "King in the center"
-        case chess.variant.ThreeCheck    => "Three checks"
-        case chess.variant.Antichess     => "Lose all your pieces to win"
-        case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
-        case chess.variant.Horde         => "Destroy the horde to win"
-        case _                           => "Variant ending"
+        case chess.variant.KingOfTheHill => "Victory by king in the center"
+        case chess.variant.ThreeCheck    => "Victory by three checks"
+        case chess.variant.Antichess     => "All our pieces were lost to win"
+        case chess.variant.Atomic        => "The king was exploded to win"
+        case chess.variant.Horde         => "The horde was destroied to win"
+        case _                           => "Victoy by variant ending"
       }
       case _ => "Game is still being played"
     }
     val moves = s"${game.toChess.fullMoveNumber} moves"
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+    val pov = s"$p1 played $p2 in a $mode $speedAndClock game of $variant. $result after $moves."
+    if (me == None) s"$pov Click to replay, analyse, and discuss the game!" else pov
   }
 
   def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {

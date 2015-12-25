@@ -94,6 +94,7 @@ chessground = true) {
 <div class="underboard_content" style="display:none">
   <div class="analysis_panels">
     <div class="panel fen_pgn">
+      <p><strong>WEB</strong> @shareButtons("game", pov)</p>
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
       <p><strong>PGN</strong>
         <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> Download annotated</a>
@@ -120,7 +121,7 @@ chessground = true) {
     @if(cross.isDefined) {
     <a data-panel="crosstable" class="crosstable">Crosstable</a>
     }
-    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="fen_pgn" class="fen_pgn">Sharing</a>
   </div>
 </div>
 }

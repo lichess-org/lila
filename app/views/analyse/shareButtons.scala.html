@@ -1,0 +1,9 @@
+@(type: String/*, caption: String, link: String, hashtags: String, title: String*/, pov: Pov)(implicit ctx: Context)
+
+@userId = ctx.userId
+@caption = @describePov(pov, if (pov.playerId == userId) player else opponent)
+@link = @routes.Round.watcher(pov.gameId, pov.color.name)
+@hashtag = @{if (game.variant == chess.variant.FromPosition) "PositionSetup" else if (game.variant.exotic) s"${game.variant.name}chess"}
+//@title = 
+
+Share this @type on <a data-icon="h" href="https://www.facebook.com/dialog/feed?app_id=@env.FacebookAppID&display=popup&caption=@caption&link=@link"> Facebook</a> / <a data-icon="h" href="https://twitter.com/intent/tweet?text=@caption&url=@link&related=lichessorg&hashtags=Lichess,chess@hashtag map{value=>,@value}"> Twitter</a> / <a data-icon="h" href="https://plus.google.com/share?url=@link"> Google+</a> / <a data-icon="h" href="https://reddit.com/submit?url=@link&title=@title"> Reddit</a>

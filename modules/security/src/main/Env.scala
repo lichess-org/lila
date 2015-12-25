@@ -50,6 +50,8 @@ final class Env(
 
   val RecaptchaPublicKey = config getString "recaptcha.public_key"
 
+  val FacebookAppID = config getString "facebook.app_id"
+
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
