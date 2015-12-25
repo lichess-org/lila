@@ -32,6 +32,9 @@ elif [ $mode = "timshell" ]; then
 elif [ $mode = "sarah" ]; then
   REMOTE="sarah"
   REMOTE_DIR="/home/lichess"
+elif [ $mode = "khiaw" ]; then
+  REMOTE="khiaw"
+  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1
