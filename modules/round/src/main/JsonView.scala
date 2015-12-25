@@ -9,6 +9,7 @@ import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import lila.common.Maths.truncateAt
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
@@ -335,8 +336,8 @@ object JsonView {
       "running" -> c.isRunning,
       "initial" -> c.limit,
       "increment" -> c.increment,
-      "white" -> c.remainingTime(Color.White),
-      "black" -> c.remainingTime(Color.Black),
+      "white" -> truncateAt(c.remainingTime(Color.White), 2),
+      "black" -> truncateAt(c.remainingTime(Color.Black), 2),
       "emerg" -> c.emergTime)
   }
 
