@@ -3,6 +3,7 @@ package lila.worldMap
 import akka.actor._
 import com.google.common.cache.LoadingCache
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
+import java.security.MessageDigest
 import lila.hub.actorApi.round.SocketEvent
 import play.api.libs.iteratee._
 import play.api.libs.json._
@@ -14,13 +15,15 @@ private final class Stream(
     geoIp: MaxMindIpGeo,
     geoIpCacheTtl: Duration) extends Actor {
 
-  import Stream.gameWriter
+  import Stream.game2json
 
   override def preStart() {
     context.system.lilaBus.subscribe(self, 'roundDoor)
   }
 
   val games = scala.collection.mutable.Map.empty[String, Stream.Game]
+
+  private def makeMd5 = MessageDigest getInstance "MD5"
 
   def receive = {
     case SocketEvent.OwnerJoin(id, color, ip) =>
@@ -36,14 +39,14 @@ private final class Stream(
       games -= id
       channel push Stream.Event.Remove(id)
     case Stream.Get => sender ! {
-      Enumerator enumerate games.values.map(gameWriter.writes) andThen producer
+      Enumerator enumerate games.values.map(game2json(makeMd5)) andThen producer
     }
   }
 
   val (enumerator, channel) = Concurrent.broadcast[Stream.Event]
 
   val producer = enumerator &> Enumeratee.map[Stream.Event].apply[JsValue] {
-    case Stream.Event.Add(game)  => Json toJson game
+    case Stream.Event.Add(game)  => game2json(makeMd5)(game)
     case Stream.Event.Remove(id) => Json.obj("id" -> id)
   }
 
@@ -67,16 +70,14 @@ object Stream {
 
   private def truncate(d: Double) = lila.common.Maths.truncateAt(d, 4)
 
-  private implicit def gameWriter: Writes[Game] = Writes { game =>
-    Json.obj(
-      "id" -> game.id,
-      "ps" -> Json.toJson {
-        game.points.map { p =>
-          List(p.lat, p.lon) map truncate
-        }
+  private def game2json(md5: MessageDigest)(game: Game): JsValue = Json.obj(
+    "id" -> md5.digest(game.id getBytes "UTF-8").take(6),
+    "ps" -> Json.toJson {
+      game.points.map { p =>
+        List(p.lat, p.lon) map truncate
       }
-    )
-  }
+    }
+  )
 
   case class Point(lat: Double, lon: Double)
 
