@@ -51,21 +51,22 @@ $(function() {
       r: 1.5,
       'stroke-width': 1
     }).attr(pos);
-    var shadow = paper.circle().attr({
-      opacity: 0.03,
-      fill: "#fff",
-      r: 6
-    }).attr(pos);
+    // var shadow = paper.circle().attr({
+    //   opacity: 0.008,
+    //   fill: "#fff",
+    //   r: 10 + Math.random() * 30
+    // }).attr(pos);
     return function() {
       dot.remove();
-      shadow.remove();
+      // shadow.remove();
     };
   };
 
   var drawLine = function(pos) {
-    var str = "M" + pos[0].cx + "," + pos[0].cy + "T" + pos[1].cx + "," + pos[1].cy;
-    var line = paper.path(str).attr({
-      opacity: 0.5,
+    var line = paper.path(
+      "M" + pos[0].cx + "," + pos[0].cy + "T" + pos[1].cx + "," + pos[1].cy
+    ).attr({
+      opacity: 0.12,
       stroke: "#FE7727",
       'stroke-width': 1
     });

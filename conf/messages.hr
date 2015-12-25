@@ -1,4 +1,4 @@
-playWithAFriend=igraj protiv prijatelja
+playWithAFriend=Igraj protiv prijatelja
 playWithTheMachine=Igraj protiv računala
 toInviteSomeoneToPlayGiveThisUrl=Za poziv na igru, pošalji ovaj URL
 gameOver=Igra gotova
@@ -20,7 +20,7 @@ createAGame=Kreiraj igru
 whiteIsVictorious=Bijeli je pobjednik
 blackIsVictorious=Crni je pobjednik
 kingInTheCenter=Kralj na centru
-threeChecks=Tri  šaha
+threeChecks=Tri šaha
 variantEnding=Kraj varijacije
 playWithTheSameOpponentAgain=Igraj opet s istim protivnikom
 newOpponent=Novi protivnik

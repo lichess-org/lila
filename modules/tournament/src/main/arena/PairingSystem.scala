@@ -52,7 +52,9 @@ object PairingSystem extends AbstractPairingSystem {
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking).logIfSlow(200, "tourpairing") { ranked =>
+      s"makePreps.rankedByTourAndUserIds http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${ranked.size} ranked"
+    } map { idles =>
       if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
         case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)

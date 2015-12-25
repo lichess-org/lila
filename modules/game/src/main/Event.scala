@@ -7,6 +7,7 @@ import chess.Pos
 import chess.Pos.{ piotr, allPiotrs }
 import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock, Status }
 import lila.chat.{ Line, UserLine, PlayerLine }
+import lila.common.Maths.truncateAt
 
 sealed trait Event {
   def typ: String
@@ -172,9 +173,8 @@ object Event {
   case class Clock(white: Float, black: Float) extends Event {
     def typ = "clock"
     def data = Json.obj(
-      "white" -> white,
-      "black" -> black
-    )
+      "white" -> truncateAt(white, 2),
+      "black" -> truncateAt(black, 2))
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(

@@ -31,4 +31,9 @@ object Maths {
     if (size % 2 == 0) (n.toDouble(lower.last) + n.toDouble(upper.head)) / 2.0
     else n toDouble upper.head
   }
+
+  def truncateAt(n: Double, p: Int): Double = {
+    val s = math.pow(10, p)
+    (math floor n * s) / s
+  }
 }
