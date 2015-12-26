@@ -229,7 +229,9 @@ object User extends LilaController {
         for {
           perfStat <- Env.perfStat.get(u, perfType)
           ranks <- Env.user.cached.ranking.getAll(u.id)
-          distribution <- Env.user.cached.ratingDistribution(perfType.key)
+          distribution <- u.perfs(perfType).established ?? {
+            Env.user.cached.ratingDistribution(perfType.key) map some
+          }
           data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
         } yield Ok(html.user.perfStat(u, ranks, perfType, data))
       }

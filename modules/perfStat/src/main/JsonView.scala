@@ -14,13 +14,15 @@ final class JsonView(getLightUser: String => Option[LightUser]) {
     user: User,
     stat: PerfStat,
     rank: Option[Int],
-    ratingDistribution: List[Int]) = Json.obj(
+    ratingDistribution: Option[List[Int]]) = Json.obj(
     "user" -> user,
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
-    "percentile" -> (lila.user.Stat.percentile(ratingDistribution, user.perfs(stat.perfType).intRating) match {
-      case (under, sum) => Math.round(under * 100.0 / sum)
-    }),
+    "percentile" -> ratingDistribution.map { distrib =>
+      lila.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
+        case (under, sum) => Math.round(under * 100.0 / sum)
+      }
+    },
     "stat" -> stat)
 
   private def truncate(v: Double) = lila.common.Maths.truncateAt(v, 2)
@@ -36,7 +38,8 @@ final class JsonView(getLightUser: String => Option[LightUser]) {
     Json.obj(
       "rating" -> truncate(p.rating),
       "deviation" -> truncate(p.deviation),
-      "volatility" -> truncate(p.volatility))
+      "volatility" -> truncate(p.volatility),
+      "provisional" -> p.provisional)
   }
   private implicit def perfWriter: OWrites[Perf] = OWrites { p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
