@@ -227,9 +227,9 @@ object User extends LilaController {
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
       else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
         Env.perfStat.get(u, perfType).flatMap { perfStat =>
-          Env.current.userInfo(u, ctx).map { info =>
+          Env.user.cached.ranking.getAll(u.id).map { ranks =>
             val data = Env.perfStat.jsonView(perfStat)
-            Ok(html.user.perfStat(u, info, perfStat.perfType, data))
+            Ok(html.user.perfStat(u, ranks, perfStat.perfType, data))
           }
         }
       }

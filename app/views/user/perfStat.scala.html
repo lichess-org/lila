@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(u: User, rankMap: lila.rating.UserRankMap, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.perfStat${isProd??(".min")}.js")
@@ -15,7 +15,7 @@ i18n: {}
 
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
-side = side(u, info, perfType.some).some,
+side = side(u, rankMap, perfType.some).some,
 robots = false,
 evenMoreJs = moreJs) {
 <div class="content_box no_padding user_show">

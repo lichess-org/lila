@@ -14,7 +14,7 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
-    ranks: Map[lila.rating.Perf.Key, Int],
+    ranks: lila.rating.UserRankMap,
     nbUsers: Int,
     nbPlaying: Int,
     hasSimul: Boolean,

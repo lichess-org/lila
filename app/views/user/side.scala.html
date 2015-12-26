@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, active: Option[lila.rating.PerfType])(implicit ctx: Context)
+@(u: User, rankMap: lila.rating.UserRankMap, active: Option[lila.rating.PerfType])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -16,7 +16,7 @@
     @showProgress(perf.progress)
   </span>
   <span class="rank" title="Rank is updated every 15 minutes">
-    @info.ranks.get(perfType.key).map { rank =>
+    @rankMap.get(perfType.key).map { rank =>
     Rank: @rank.localize@nth(rank)
     }
   </span>
