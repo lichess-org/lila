@@ -23,6 +23,7 @@ final class PerfStatStorage(coll: Coll) {
   }
   private implicit val RatingAtBSONHandler = Macros.handler[RatingAt]
   private implicit val ResultBSONHandler = Macros.handler[Result]
+  private implicit val ResultsBSONHandler = Macros.handler[Results]
   private implicit val StreakBSONHandler = Macros.handler[Streak]
   private implicit val StreaksBSONHandler = Macros.handler[Streaks]
   private implicit val PlayStreakBSONHandler = Macros.handler[PlayStreak]

@@ -97,18 +97,14 @@ module.exports = function(ctrl) {
         ratingAt(r)
       ]);
     }),
-    fMap(d.stat.bestWin, function(r) {
-      return m('div', [
-        m('h2', 'Best win'),
-        result(r)
-      ]);
-    }),
-    fMap(d.stat.worstLoss, function(r) {
-      return m('div', [
-        m('h2', 'Worst loss'),
-        result(r)
-      ]);
-    }),
+    m('div', [
+      m('h2', 'Best wins'),
+      d.stat.bestWins.results.map(result)
+    ]),
+    m('div', [
+      m('h2', 'Worst losses'),
+      d.stat.worstLosses.results.map(result)
+    ]),
     fMap(d.stat.count, function(c) {
       var per = function(v) {
         return m('span.percent', ['(', percent(v, c.all), ')']);

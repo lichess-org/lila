@@ -11,8 +11,8 @@ case class PerfStat(
     perfType: PerfType,
     highest: Option[RatingAt],
     lowest: Option[RatingAt],
-    bestWin: Option[Result],
-    worstLoss: Option[Result],
+    bestWins: Results,
+    worstLosses: Results,
     count: Count,
     resultStreak: ResultStreak,
     playStreak: PlayStreak) {
@@ -22,8 +22,8 @@ case class PerfStat(
   def agg(pov: Pov) = if (!pov.game.finished) this else copy(
     highest = RatingAt.agg(highest, pov, 1),
     lowest = RatingAt.agg(lowest, pov, -1),
-    bestWin = (~pov.win).fold(Result.agg(bestWin, pov, 1), bestWin),
-    worstLoss = (~pov.loss).fold(Result.agg(worstLoss, pov, -1), worstLoss),
+    bestWins = (~pov.win).fold(bestWins.agg(pov, -1), bestWins),
+    worstLosses = (~pov.loss).fold(worstLosses.agg(pov, 1), worstLosses),
     count = count(pov),
     resultStreak = resultStreak agg pov,
     playStreak = playStreak agg pov
@@ -40,8 +40,8 @@ object PerfStat {
     perfType = perfType,
     highest = none,
     lowest = none,
-    bestWin = none,
-    worstLoss = none,
+    bestWins = Results(Nil),
+    worstLosses = Results(Nil),
     count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, opAvg = Avg(0, 0)),
     resultStreak = ResultStreak(win = Streaks.init, loss = Streaks.init),
     playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none)
@@ -121,13 +121,20 @@ object RatingAt {
 }
 
 case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
-object Result {
-  def agg(cur: Option[Result], pov: Pov, comp: Int) =
-    pov.opponent.rating.filter { r =>
-      cur.fold(true) { c => r.compare(c.opInt) == comp }
-    }.map {
-      Result(_, UserId(~pov.opponent.userId), pov.game.updatedAtOrCreatedAt, pov.game.id)
-    } orElse cur
+
+case class Results(results: List[Result]) {
+  def agg(pov: Pov, comp: Int) = pov.opponent.rating.fold(this) { opInt =>
+    copy(
+      results = (Result(
+        opInt,
+        UserId(~pov.opponent.userId),
+        pov.game.updatedAtOrCreatedAt,
+        pov.game.id
+      ) :: results).sortBy(_.opInt * comp) take Results.nb)
+  }
+}
+object Results {
+  val nb = 5
 }
 
 case class UserId(value: String)
