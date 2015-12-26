@@ -1,29 +1,26 @@
-@(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, active: Option[lila.rating.PerfType])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
-<div data-icon="@perfType.iconChar">
+
+<a data-icon="@perfType.iconChar"
+  @if(lila.rating.PerfType.isGame(perfType)) {href="@routes.User.perfStat(u.username, perfType.key)"}
+  @if(active.contains(perfType)) {class="active"}>
   <h3 class="hint--top" data-hint="@perfType.title">
-    @if(lila.rating.PerfType.nonGame.contains(perfType)) {
     @name.getOrElse(perfType.name).toUpperCase
-    } else {
-    <a href="@routes.User.perfStat(u.username, perfType.key)">
-      @name.getOrElse(perfType.name).toUpperCase
-    </a>
-    }
   </h3>
-  <div class="rating">
+  <span class="rating">
     <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
     <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
     @showProgress(perf.progress)
-  </div>
-  <div class="rank" title="Rank is updated every 15 minutes">
+  </span>
+  <span class="rank" title="Rank is updated every 15 minutes">
     @info.ranks.get(perfType.key).map { rank =>
     Rank: @rank.localize@nth(rank)
     }
-  </div>
-</div>
+  </span>
+</a>
 }
 
 <div class="side sub_ratings">

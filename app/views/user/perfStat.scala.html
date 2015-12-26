@@ -15,7 +15,7 @@ i18n: {}
 
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
-side = side(u, info).some,
+side = side(u, info, perfType.some).some,
 robots = false,
 evenMoreJs = moreJs) {
 <div class="content_box no_padding user_show">

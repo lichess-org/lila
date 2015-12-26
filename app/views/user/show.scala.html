@@ -24,7 +24,7 @@ if (lichess.once('user-tournaments-tour')) setTimeout(lichess.startTournamentSta
 
 @user.layout(
 title =  s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
-side = side(u, info).some,
+side = side(u, info, none).some,
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = lila.app.ui.OpenGraph(

@@ -110,6 +110,8 @@ object PerfType {
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde)
   val variants: List[PerfType] = List(Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde)
 
+  def isGame(pt: PerfType) = !nonGame.contains(pt)
+
   val nonPuzzleIconByName = nonPuzzle.map { pt =>
     pt.name -> pt.iconString
   } toMap

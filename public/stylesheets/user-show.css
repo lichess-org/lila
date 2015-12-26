@@ -142,18 +142,33 @@ div.user_show div.meat {
 div.engine_warning {
   margin: 10px 0;
 }
-div.sub_ratings > div {
-  margin: 20px 0 0 -10px;
-  white-space: nowrap;
+div.sub_ratings {
+  margin-right: -11px;
 }
-div.sub_ratings > div::before {
+div.sub_ratings > a {
+  padding: 10px 0 10px 5px;
+  white-space: nowrap;
+  display: block;
+  transition: 0.13s;
+}
+div.sub_ratings > a::before {
   font-size: 40px;
   float: left;
-  margin: 1px 5px 0 0;
+  margin: -2px 5px 0 0;
   opacity: 0.6;
 }
-div.sub_ratings > div:hover::before {
-  opacity: 1;
+div.sub_ratings > a:hover {
+  background: #fafafa;
+  margin-left: -3px;
+}
+div.sub_ratings > a.active {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-right: 0;
+  margin-left: -10px;
+}
+div.sub_ratings > a > span {
+  display: block;
 }
 div.sub_ratings h3 {
   font-weight: 100;
