@@ -18,12 +18,6 @@ function streaks(s, display) {
   ]);
 }
 
-function formatSeconds(s) {
-  var d = moment.duration(s, 'seconds');
-  var hours = d.days() * 24 + d.hours();
-  return hours + ' hours, ' + d.minutes() + ' minutes';
-}
-
 var lessThan = 'Less than one hour between games.';
 
 module.exports = {
@@ -34,10 +28,10 @@ module.exports = {
           title: lessThan
         }, 'Games played in a row')),
         streaks(s, function(v) {
-          return [
+          return v ? [
             m('strong', v),
             ' game' + (v > 1 ? 's' : '')
-          ];
+          ] : 'none';
         })
       ];
     });
@@ -48,26 +42,8 @@ module.exports = {
         m('h2', m('span', {
           title: 'less than one hour between games'
         }, 'Max time spent playing')),
-        streaks(s, formatSeconds)
+        streaks(s, util.formatSeconds)
       ];
     });
   }
 };
-
-// fMap(d.stat.playStreak.nb, function(s) {
-//   return m('div', [
-//     m('h2', 'Games played in a row (less than one hour between games)'),
-//     streaks(s)
-//   ]);
-// }),
-// fMap(d.stat.playStreak.time, function(s) {
-//   return m('div', [
-//     m('h2', 'Max time spent playing (less than one hour between games)'),
-//     streaks(s, function(s) {
-//       return [
-//         m('strong', formatSeconds(s.v)),
-//         fromTo(s)
-//       ];
-//     })
-//   ]);
-// })

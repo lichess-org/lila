@@ -99,6 +99,8 @@ case class Game(
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
+  def durationSeconds = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt
+
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   // in tenths of seconds

@@ -1,14 +1,15 @@
 var m = require('mithril');
+var util = require('./util');
 
 function percent(x, y) {
-  if (y == 0) return 'N/A';
-  return Math.round(x * 100 / y) + '%';
+  if (y === 0) return 0;
+  return Math.round(x * 100 / y);
 }
 
 module.exports = function(d) {
   var c = d.stat.count;
   var per = function(x, y) {
-    return percent(x, y || c.all);
+    return percent(x, y || c.all) + '%';
   };
   return [
     m('div.half', m('table', m('tbody', [
@@ -31,7 +32,11 @@ module.exports = function(d) {
         m('th', 'Berserked games'),
         m('td', c.berserk),
         m('td', per(c.berserk, c.tour)),
-      ])
+      ]),
+      c.seconds ? m('tr.full', [
+        m('th', 'Time spent playing'),
+        m('td[colspan=2]', util.formatSeconds(c.seconds, 'short'))
+      ]) : null
     ]))),
     m('div.half', m('table', m('tbody', [
       m('tr', [
@@ -41,8 +46,8 @@ module.exports = function(d) {
       ]),
       m('tr.full', [
         m('th', 'Victories'),
-        m('td', c.win),
-        m('td', per(c.win))
+        m('td', util.green(c.win)),
+        m('td', util.green(per(c.win)))
       ]),
       m('tr.full', [
         m('th', 'Draws'),
@@ -51,9 +56,16 @@ module.exports = function(d) {
       ]),
       m('tr.full', [
         m('th', 'Defeats'),
-        m('td', c.loss),
-        m('td', per(c.loss))
-      ])
+        m('td', util.red(c.loss)),
+        m('td', util.red(per(c.loss)))
+      ]),
+      m('tr.full', (function(color) {
+        return [
+          m('th', 'Disconnections'),
+          m('td', color(c.disconnects)),
+          m('td', color(per(c.disconnects, c.loss)))
+        ];
+      })(percent(c.disconnects, c.loss) >= 15 ? util.red : util.identity))
     ])))
   ];
 };

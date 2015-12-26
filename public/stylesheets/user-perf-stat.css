@@ -14,12 +14,6 @@
   text-transform: uppercase;
   margin-left: 10px;
 }
-#perfStat .content_box_top .righty {
-  float: right;
-  margin-right: 20px;
-  line-height: 30px;
-  text-transform: lowercase;
-}
 #perfStat h2 {
   font-size: 1.5em;
   text-transform: uppercase;
@@ -36,6 +30,12 @@
 }
 #perfStat time {
   display: inline;
+}
+#perfStat green {
+  color: #759900;
+}
+#perfStat red {
+  color: #dc322f;
 }
 #perfStat .content_box_content a {
   color: #3893E8;
@@ -98,7 +98,7 @@
 }
 #perfStat .result th,
 #perfStat .result td {
-  padding: 12px 0;
+  padding: 10px 0;
 }
 #perfStat .result td:first-child {
   text-indent: 20px;

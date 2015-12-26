@@ -53,5 +53,20 @@ module.exports = {
         m('h3', 'Current streak'), (f || streak)(s.cur)
       ])
     ];
+  },
+  green: function(v) {
+    return m('green', v);
+  },
+  red: function(v) {
+    return m('red', v);
+  },
+  identity: function(v) {
+    return v;
+  },
+  formatSeconds: function(s, format) {
+    var d = moment.duration(s, 'seconds');
+    var hours = d.days() * 24 + d.hours();
+    if (format === 'short') return hours + 'h, ' + d.minutes() + 'm';
+    return hours + ' hours, ' + d.minutes() + ' minutes';
   }
 };

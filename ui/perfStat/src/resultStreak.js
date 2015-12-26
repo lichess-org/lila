@@ -1,33 +1,37 @@
 var m = require('mithril');
 var util = require('./util');
 
-function streak(s, title) {
+function streak(s, title, color) {
   return m('div.streak', [
     m('h3', [
       title + ': ',
-      m('strong', s.v),
-      ' game' + (s.v > 1 ? 's' : '')
+      s.v > 0 ? color([
+        m('strong', s.v),
+        ' game' + (s.v > 1 ? 's' : '')
+      ]) : 'none'
     ]),
     util.fromTo(s)
   ]);
 }
 
-function streaks(s) {
-  return [
-    streak(s.max, 'Longest'),
-    streak(s.cur, 'Current')
-  ];
+function streaks(color) {
+  return function(s) {
+    return [
+      streak(s.max, 'Longest', color),
+      streak(s.cur, 'Current', color)
+    ];
+  };
 }
 
 module.exports = function(d) {
   return [
     m('div.half', [
-      m('h2', 'Winning streaks'),
-      util.fMap(d.stat.resultStreak.win, streaks, util.noData)
+      m('h2', 'Winning streak'),
+      util.fMap(d.stat.resultStreak.win, streaks(util.green), util.noData)
     ]),
     m('div.half', [
-      m('h2', 'Losing streaks'),
-      util.fMap(d.stat.resultStreak.loss, streaks, util.noData)
+      m('h2', 'Losing streak'),
+      util.fMap(d.stat.resultStreak.loss, streaks(util.red), util.noData)
     ])
   ];
 };
