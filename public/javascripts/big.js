@@ -706,6 +706,8 @@ lichess.unique = function(xs) {
         return false;
       });
 
+      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
+
       lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
@@ -724,7 +726,7 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
+        }).data('powertip', powerTipLoader);
       };
 
       function gamePowertip($els, placement) {
@@ -747,7 +749,7 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
+        }).data('powertip', powerTipLoader);
       }
 
       function updatePowertips() {

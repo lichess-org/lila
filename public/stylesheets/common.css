@@ -452,6 +452,17 @@ div.content_box .loader:after {
   display: block;
   padding: 15px 15px;
 }
+#powerTip .square-wrap,
+#miniGame .square-wrap {
+  text-align: center;
+  -webkit-transform: scale(2);
+}
+#powerTip .square-spin {
+  margin: 23px auto 20px auto;
+}
+#miniGame .square-spin {
+  margin: 82px auto 0 auto;
+}
 .clearfix::after {
   content: ".";
   display: block;
@@ -2281,8 +2292,7 @@ textarea.copyable {
 [data-hint]:before,
 [data-hint]:after {
   position: absolute;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  will-change: transform;
   visibility: hidden;
   opacity: 0;
   z-index: 900005;
