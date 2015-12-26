@@ -5,14 +5,15 @@
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
 
 <a data-icon="@perfType.iconChar"
-  @if(lila.rating.PerfType.isGame(perfType)) {href="@routes.User.perfStat(u.username, perfType.key)"}
-  @if(active.contains(perfType)) {class="active"}>
-  <h3 class="hint--top" data-hint="@perfType.title">
-    @name.getOrElse(perfType.name).toUpperCase
-  </h3>
+  title="@perfType.title"
+  @if(lila.rating.PerfType.isGame(perfType)) {
+  href="@routes.User.perfStat(u.username, perfType.key)"
+  class="game @if(active.contains(perfType)) {active}"
+  }>
+  <h3>@name.getOrElse(perfType.name).toUpperCase</h3>
   <span class="rating">
-    <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span class="hint--bottom">@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
+    <strong>@perf.glicko.intRating@if(perf.provisional){?}</strong>
+    <span>@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
     @showProgress(perf.progress)
   </span>
   <span class="rank" title="Rank is updated every 15 minutes">

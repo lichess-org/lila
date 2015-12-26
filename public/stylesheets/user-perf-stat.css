@@ -2,6 +2,9 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
 }
+#perfStat .content_box_content {
+  min-height: 600px;
+}
 #perfStat .lichess_title {
   font-size: 1.8em;
 }
@@ -60,6 +63,9 @@
 #perfStat table {
   margin-top: -15px;
   width: 100%;
+}
+#perfStat .glicko p {
+  font-size: 1.2em;
 }
 #perfStat .counter table {
   font-size: 1.2em;

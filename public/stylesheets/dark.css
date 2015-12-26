@@ -77,6 +77,7 @@ body.dark div.content_box_inter a:hover,
 body.dark input.copyable,
 body.dark textarea.copyable,
 body.dark #site_header div.side_menu a.active,
+body.dark div.sub_ratings > a.active,
 body.dark div.game_row,
 body.dark div.side form.search input,
 body.dark #lichess_forum div.post,
@@ -106,6 +107,9 @@ body.dark #team .team-left,
 body.dark #team .team-right,
 body.dark #team h2,
 body.dark #team.team_show div.content_box_top,
+body.dark #perfStat div.content_box_top,
+body.dark #perfStat .counter tr:first-child,
+body.dark #perfStat .result thead tr,
 body.dark .leaderboard_title,
 body.dark #friend_box,
 body.dark #friend_box .title,
@@ -158,6 +162,7 @@ body.dark div.chat_menu > a {
 body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
+body.dark #perfStat .counter tr.full td:last-child,
 body.dark #modal-wrap {
   background-color: #303030;
 }
@@ -214,6 +219,7 @@ body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
+body.dark div.sub_ratings > a.game:hover,
 body.dark #hooks_wrap .table_wrap td,
 body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
@@ -261,6 +267,7 @@ body.dark div.lichess_overboard,
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
+body.dark div.sub_ratings > a.game.active,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
@@ -272,6 +279,8 @@ body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
+body.dark #perfStat .counter tr,
+body.dark #perfStat .result tr,
 body.dark #video .card .info,
 body.dark #video .card .reveal,
 body.dark #timeline,

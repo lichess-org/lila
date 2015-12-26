@@ -143,6 +143,7 @@ div.engine_warning {
   margin: 10px 0;
 }
 div.sub_ratings {
+  margin-top: 10px;
   margin-left: -13px;
   width: 224px;
 }
@@ -151,6 +152,10 @@ div.sub_ratings > a {
   white-space: nowrap;
   display: block;
   transition: 0.13s;
+  cursor: default;
+}
+div.sub_ratings > a.game {
+  cursor: pointer;
 }
 div.sub_ratings > a::before {
   font-size: 40px;
@@ -158,11 +163,11 @@ div.sub_ratings > a::before {
   margin: -2px 5px 0 0;
   opacity: 0.6;
 }
-div.sub_ratings > a:hover {
+div.sub_ratings > a.game:hover {
   background: #fafafa;
   margin-left: -3px;
 }
-div.sub_ratings > a.active {
+div.sub_ratings > a.game.active {
   background: #fff;
   border: 1px solid #ccc;
   border-right: 0;
@@ -178,9 +183,6 @@ div.sub_ratings h3 {
   letter-spacing: 2px;
   margin: 0;
   display: inline-block;
-}
-div.sub_ratings h3 a:hover {
-  text-decoration: underline;
 }
 #site_header div.sub_ratings strong {
   font-weight: bold;
