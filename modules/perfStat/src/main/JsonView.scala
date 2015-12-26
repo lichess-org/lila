@@ -21,6 +21,7 @@ final class JsonView(getLightUser: String => Option[LightUser]) {
   }
   private implicit val ratingAtWrites = Json.writes[RatingAt]
   private implicit val resultWrites = Json.writes[Result]
+  private implicit val streakWrites = Json.writes[Streak]
   private implicit val playStreakWrites = Json.writes[PlayStreak]
   private implicit val resultStreakWrites = Json.writes[ResultStreak]
   private implicit val avgWrites = Json.writes[Avg]
