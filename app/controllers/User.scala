@@ -233,7 +233,10 @@ object User extends LilaController {
             Env.user.cached.ratingDistribution(perfType.key) map some
           }
           data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
-        } yield Ok(html.user.perfStat(u, ranks, perfType, data))
+          response <- negotiate(
+            html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
+            api = _ => Ok(data).fuccess)
+        } yield response
       }
     }
   }
