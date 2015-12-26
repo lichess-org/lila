@@ -26,33 +26,26 @@ function progress(p) {
 module.exports = function(d) {
   return [
     m('h2', [
-      m('span', {
+      'Glicko2 rating: ',
+      m('strong', {
         title: 'Yes, ratings have decimal accuracy.'
-      }, [
-        'Glicko2 rating: ',
-        m('strong', d.perf.glicko.rating),
-        '.'
-      ]),
-      ' ',
+      }, d.perf.glicko.rating),
+      '. ',
       m('span.details', d.perf.glicko.provisional ? provisional() : percentile(d))
     ]),
     m('p', [
       'Progression over the last twelve games: ',
       m('span.progress', progress(d.perf.progress) || 'none'),
       '. ',
-      m('span', {
+      'Rating deviation: ',
+      m('strong', {
         title: 'Lower value means the rating is more stable. Above 110, the rating is considered provisional.'
-      }, [
-        'Rating deviation: ',
-        m('strong', d.perf.glicko.deviation)
-      ]),
+      }, d.perf.glicko.deviation),
       '. ',
-      m('span', {
+      'Rating volatility: ',
+      m('strong', {
         title: 'Lower value means the player is more consistent.'
-      }, [
-        'Rating volatility: ',
-        m('strong', d.perf.glicko.volatility)
-      ]),
+      }, d.perf.glicko.volatility),
       '.'
     ])
   ];
