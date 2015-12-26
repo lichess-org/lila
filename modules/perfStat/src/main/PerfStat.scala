@@ -42,7 +42,7 @@ object PerfStat {
     lowest = none,
     bestWins = Results(Nil),
     worstLosses = Results(Nil),
-    count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, opAvg = Avg(0, 0)),
+    count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, tour = 0, berserk = 0, opAvg = Avg(0, 0)),
     resultStreak = ResultStreak(win = Streaks.init, loss = Streaks.init),
     playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none)
   )
@@ -94,6 +94,8 @@ case class Count(
     win: Int,
     loss: Int,
     draw: Int,
+    tour: Int,
+    berserk: Int,
     opAvg: Avg) {
   def apply(pov: Pov) = copy(
     all = all + 1,
@@ -101,6 +103,8 @@ case class Count(
     win = win + pov.win.contains(true).fold(1, 0),
     loss = loss + pov.win.contains(false).fold(1, 0),
     draw = draw + pov.win.isEmpty.fold(1, 0),
+    tour = tour + pov.game.isTournament.fold(1, 0),
+    berserk = berserk + pov.player.berserk.fold(1, 0),
     opAvg = pov.opponent.stableRating.fold(opAvg)(opAvg.agg))
 }
 

@@ -114,13 +114,15 @@ module.exports = function(ctrl) {
       d.stat.worstLosses.results.map(result)
     ]),
     fMap(d.stat.count, function(c) {
-      var per = function(v) {
-        return m('span.percent', ['(', percent(v, c.all), ')']);
+      var per = function(x, y) {
+        return m('span.percent', ['(', percent(x, y || c.all), ')']);
       };
       return m('div', [
         m('h2', 'Counters'),
         m('p', 'Total games: ' + c.all),
         m('p', ['Rated games: ' + c.rated, per(c.rated)]),
+        m('p', ['Tournament games: ' + c.tour, per(c.tour)]),
+        m('p', ['Berserked games: ' + c.berserk, per(c.berserk, c.tour)]),
         m('p', 'Average opponent rating: ' + c.opAvg),
         m('p', ['Victories: ' + c.win, per(c.win)]),
         m('p', ['Draws: ' + c.draw, per(c.draw)]),
