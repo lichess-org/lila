@@ -43,35 +43,49 @@ object PerfStat {
     bestWin = none,
     worstLoss = none,
     count = Count(all = 0, rated = 0, win = 0, loss = 0, draw = 0, opAvg = Avg(0, 0)),
-    resultStreak = ResultStreak(win = Streak.init, loss = Streak.init),
-    playStreak = PlayStreak(nb = Streak.init, time = Streak.init, lastDate = none)
+    resultStreak = ResultStreak(win = Streaks.init, loss = Streaks.init),
+    playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none)
   )
 }
 
-case class ResultStreak(win: Streak, loss: Streak) {
-  def agg(pov: Pov) = copy(win = win(~pov.win)(1), loss = loss(~pov.loss)(1))
+case class ResultStreak(win: Streaks, loss: Streaks) {
+  def agg(pov: Pov) = copy(win = win(~pov.win, pov)(1), loss = loss(~pov.loss, pov)(1))
 }
 
-case class PlayStreak(nb: Streak, time: Streak, lastDate: Option[DateTime]) {
+case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
   def agg(pov: Pov) = {
     val cont = lastDate.fold(true) { ld => pov.game.createdAt.isBefore(ld plusMinutes 60) }
     val seconds = (pov.game.updatedAtOrCreatedAt.getSeconds - pov.game.createdAt.getSeconds).toInt
     copy(
-      nb = nb(cont)(1),
-      time = time(cont)(seconds),
+      nb = nb(cont, pov)(1),
+      time = time(cont, pov)(seconds),
       lastDate = pov.game.updatedAtOrCreatedAt.some)
   }
 }
 
-case class Streak(cur: Int, max: Int) {
-  def apply(cont: Boolean)(v: Int) = cont.fold(inc _, reset _)(v).setMax
-  private def inc(by: Int) = copy(cur = cur + by)
-  private def reset(to: Int) = copy(cur = to)
-  private def setMax = copy(max = cur max max)
+case class Streaks(cur: Streak, max: Streak) {
+  def apply(cont: Boolean, pov: Pov)(v: Int) = copy(
+    cur = cur(cont, pov)(v)
+  ).setMax
+  private def setMax = copy(max = if (cur.v >= max.v) cur else max)
+}
+object Streaks {
+  val init = Streaks(Streak.init, Streak.init)
+}
+case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
+  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc _, reset _)(pov, v)
+  private def inc(pov: Pov, by: Int) = copy(
+    v = v + by,
+    to = pov.player.ratingAfter.map { RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.gameId) })
+  private def reset(pov: Pov, to: Int) = copy(
+    v = to,
+    from = pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) })
 }
 object Streak {
-  val init = Streak(0, 0)
+  val init = Streak(0, none, none)
 }
+
+case class Bounds(from: RatingAt, to: RatingAt)
 
 case class Count(
     all: Int,
