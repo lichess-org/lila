@@ -56,34 +56,40 @@ case class ResultStreak(win: Streaks, loss: Streaks) {
 
 case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
   def agg(pov: Pov) = {
-    val cont = lastDate.fold(true) { ld => pov.game.createdAt.isBefore(ld plusMinutes 60) }
+    val cont = isContinued(pov.game.createdAt)
     val seconds = (pov.game.updatedAtOrCreatedAt.getSeconds - pov.game.createdAt.getSeconds).toInt
     copy(
       nb = nb(cont, pov)(1),
       time = time(cont, pov)(seconds),
       lastDate = pov.game.updatedAtOrCreatedAt.some)
   }
+  def checkCurrent =
+    if (isContinued(DateTime.now)) this
+    else copy(nb = nb.reset, time = time.reset)
+  private def isContinued(at: DateTime) = lastDate.fold(true) { ld =>
+    at.isBefore(ld plusMinutes PlayStreak.expirationMinutes)
+  }
+}
+object PlayStreak {
+  val expirationMinutes = 60
 }
 
 case class Streaks(cur: Streak, max: Streak) {
   def apply(cont: Boolean, pov: Pov)(v: Int) = copy(
     cur = cur(cont, pov)(v)
   ).setMax
+  def reset = copy(cur = Streak.init)
   private def setMax = copy(max = if (cur.v >= max.v) cur else max)
 }
 object Streaks {
   val init = Streaks(Streak.init, Streak.init)
 }
 case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
-  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc(pov, v), reset(pov))
+  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc(pov, v), Streak.init)
   private def inc(pov: Pov, by: Int) = copy(
     v = v + by,
     from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
     to = pov.player.ratingAfter.map { RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.gameId) })
-  private def reset(pov: Pov) = copy(
-    v = 0,
-    from = none,
-    to = none)
 }
 object Streak {
   val init = Streak(0, none, none)
