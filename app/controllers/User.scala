@@ -226,12 +226,12 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { u =>
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
       else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
-        Env.perfStat.get(u, perfType).flatMap { perfStat =>
-          Env.user.cached.ranking.getAll(u.id).map { ranks =>
-            val data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key)
-            Ok(html.user.perfStat(u, ranks, perfType, data))
-          }
-        }
+        for {
+          perfStat <- Env.perfStat.get(u, perfType)
+          ranks <- Env.user.cached.ranking.getAll(u.id)
+          distribution <- Env.user.cached.ratingDistribution(perfType.key)
+          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
+        } yield Ok(html.user.perfStat(u, ranks, perfType, data))
       }
     }
   }

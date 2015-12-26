@@ -10,10 +10,17 @@ import play.api.libs.json._
 
 final class JsonView(getLightUser: String => Option[LightUser]) {
 
-  def apply(user: User, stat: PerfStat, rank: Option[Int]) = Json.obj(
+  def apply(
+    user: User,
+    stat: PerfStat,
+    rank: Option[Int],
+    ratingDistribution: List[Int]) = Json.obj(
     "user" -> user,
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
+    "percentile" -> (lila.user.Stat.percentile(ratingDistribution, user.perfs(stat.perfType).intRating) match {
+      case (under, sum) => Math.round(under * 100.0 / sum)
+    }),
     "stat" -> stat)
 
   private def truncate(v: Double) = lila.common.Maths.truncateAt(v, 2)
