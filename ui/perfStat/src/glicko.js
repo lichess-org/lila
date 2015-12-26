@@ -18,13 +18,18 @@ function percentile(d) {
   ];
 }
 
+function progress(p) {
+  if (p > 0) return m('span.positive[data-icon=N]', p);
+  else if (p < 0) return m('span.negative[data-icon=M]', -p);
+}
+
 module.exports = function(d) {
   return [
     m('h2', [
       m('span', {
         title: 'Yes, ratings have decimal accuracy.'
       }, [
-        'Exact Glicko2 rating: ',
+        'Glicko2 rating: ',
         m('strong', d.perf.glicko.rating),
         '.'
       ]),
@@ -33,7 +38,7 @@ module.exports = function(d) {
     ]),
     m('p', [
       'Progression over the last twelve games: ',
-      m('strong', (d.perf.progress > 0 ? '+' : '') + d.perf.progress),
+      m('span.progress', progress(d.perf.progress) || 'none'),
       '. ',
       m('span', {
         title: 'Lower value means the rating is more stable. Above 110, the rating is considered provisional.'

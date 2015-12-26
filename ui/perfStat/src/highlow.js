@@ -5,7 +5,7 @@ function ratingAt(title, opt) {
   return util.fMap(opt, function(r) {
     return [
       m('h2', [title + ': ', m('strong', r.int)]),
-      util.gameLink(r.gameId, ['reached the ', util.date(r.at)])
+      util.gameLink(r.gameId, ['reached ', util.date(r.at)])
     ];
   }, [
     m('h2', title + ': '),

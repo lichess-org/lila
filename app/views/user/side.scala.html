@@ -14,7 +14,7 @@
   <span class="rating">
     <strong>@perf.glicko.intRating@if(perf.provisional){?}</strong>
     <span>@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
-    @showProgress(perf.progress)
+    @showProgress(perf.progress, withTitle = false)
   </span>
   <span class="rank" title="Rank is updated every 15 minutes">
     @rankMap.get(perfType.key).map { rank =>
