@@ -49,30 +49,38 @@ function streak(s) {
   return [
     m('strong', s.v),
     ' games',
-    fMap(s.from, function(r) {
-      return [
-        ', from ',
-        gameLink(r.gameId, date(r.at)),
-        ' to ',
-        fMap(s.to, function(r) {
-          return gameLink(r.gameId, date(r.at));
-        }, 'now')
-      ];
-    })
+    fromTo(s)
   ];
 }
 
-function streaks(s) {
+function fromTo(s) {
+  return fMap(s.from, function(r) {
+    return [
+      ', from ',
+      gameLink(r.gameId, date(r.at)),
+      ' to ',
+      fMap(s.to, function(r) {
+        return gameLink(r.gameId, date(r.at));
+      }, 'now')
+    ];
+  });
+}
+
+function streaks(s, f) {
   return [
     m('div.streak', [
-      m('h3', 'Longest streak'),
-      streak(s.max)
+      m('h3', 'Longest streak'), (f || streak)(s.max)
     ]),
     m('div.streak', [
-      m('h3', 'Current streak'),
-      streak(s.cur)
+      m('h3', 'Current streak'), (f || streak)(s.cur)
     ])
   ];
+}
+
+function formatSeconds(s) {
+  var d = moment.duration(s, 'seconds');
+  var hours = d.days() * 24 + d.hours();
+  return hours + ' hours and ' + d.minutes() + ' minutes';
 }
 
 module.exports = function(ctrl) {
@@ -129,6 +137,23 @@ module.exports = function(ctrl) {
       return m('div', [
         m('h2', 'Losing streak'),
         streaks(s)
+      ]);
+    }),
+    fMap(d.stat.playStreak.nb, function(s) {
+      return m('div', [
+        m('h2', 'Games played in a row (less than one hour between games)'),
+        streaks(s)
+      ]);
+    }),
+    fMap(d.stat.playStreak.time, function(s) {
+      return m('div', [
+        m('h2', 'Max time spent playing (less than one hour between games)'),
+        streaks(s, function(s) {
+          return [
+            m('strong', formatSeconds(s.v)),
+            fromTo(s)
+          ];
+        })
       ]);
     })
   ];
