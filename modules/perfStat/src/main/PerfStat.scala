@@ -49,7 +49,9 @@ object PerfStat {
 }
 
 case class ResultStreak(win: Streaks, loss: Streaks) {
-  def agg(pov: Pov) = copy(win = win(~pov.win, pov)(1), loss = loss(~pov.loss, pov)(1))
+  def agg(pov: Pov) = copy(
+    win = win(~pov.win, pov)(1),
+    loss = loss(~pov.loss, pov)(1))
 }
 
 case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
@@ -73,13 +75,14 @@ object Streaks {
   val init = Streaks(Streak.init, Streak.init)
 }
 case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
-  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc _, reset _)(pov, v)
+  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc(pov, v), reset(pov))
   private def inc(pov: Pov, by: Int) = copy(
     v = v + by,
+    from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
     to = pov.player.ratingAfter.map { RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.gameId) })
-  private def reset(pov: Pov, to: Int) = copy(
-    v = to,
-    from = pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
+  private def reset(pov: Pov) = copy(
+    v = 0,
+    from = none,
     to = none)
 }
 object Streak {

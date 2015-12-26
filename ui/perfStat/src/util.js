@@ -29,7 +29,7 @@ function fromTo(s) {
         return gameLink(r.gameId, date(r.at));
       }, 'now')
     ];
-  });
+  }, m.trust('&nbsp;'));
 }
 
 module.exports = {

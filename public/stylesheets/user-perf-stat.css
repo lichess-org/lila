@@ -115,6 +115,9 @@
 #perfStat .resultStreak .streak,
 #perfStat .playStreak .streak {
   margin: 10px 0 10px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #perfStat .playStreak {
   white-space: nowrap;
