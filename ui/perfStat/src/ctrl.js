@@ -4,6 +4,5 @@ module.exports = function(env) {
 
   this.data = env.data;
 
-  this.vm = {
-  };
+  console.log(this.data);
 };

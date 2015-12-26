@@ -4,8 +4,7 @@
 @jsAt(s"compiled/lichess.perfStat${isProd??(".min")}.js")
 @embedJs {
 $(function() {
-lichess = lichess || {};
-lichess.perfStat = LichessPerfStat(document.getElementById('perfStat'), {
+LichessPerfStat(document.getElementById('perfStatContent'), {
 data: @Html(toJson(data)),
 i18n: {}
 });
@@ -13,24 +12,25 @@ i18n: {}
 }
 }
 
+@moreCss = {
+@cssTag("user-perf-stat.css")
+}
+
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
 side = side(u, rankMap, perfType.some).some,
 robots = false,
-evenMoreJs = moreJs) {
-<div class="content_box no_padding user_show">
+evenMoreJs = moreJs,
+evenMoreCss = moreCss) {
+<div class="content_box no_padding" id="perfStat">
   <div class="content_box_top">
+    <span class="righty"><strong>@u.perfs(perfType).nb.localize</strong> @trans.games()</span>
     <h1 class="lichess_title">
-      <a href="@routes.User.show(u.username)">
-        <span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span>
-        @u.titleUsername
+      <a href="@routes.User.show(u.username)" data-icon="I" class="text">
+        @u.username <span>@perfType.name stats</span>
       </a>
-      @perfType.name stats
     </h1>
   </div>
-    <div class="content_box_content" id="perfStat"></div>
-  <!-- <a href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id"> -->
-  <!--   View all @perfType.name games -->
-  <!-- </a> -->
+  <div class="content_box_content" id="perfStatContent"></div>
 </div>
 }

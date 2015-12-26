@@ -12,7 +12,7 @@
   </h3>
   <span class="rating">
     <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
+    <span class="hint--bottom">@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
     @showProgress(perf.progress)
   </span>
   <span class="rank" title="Rank is updated every 15 minutes">

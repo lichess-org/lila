@@ -1,0 +1,23 @@
+#perfStat .content_box_top {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+#perfStat .lichess_title {
+  font-size: 1.8em;
+}
+#perfStat .lichess_title span {
+  color: #909090;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+#perfStat .content_box_top .righty {
+  float: right;
+  margin-right: 20px;
+  line-height: 30px;
+  text-transform: lowercase;
+}
+#perfStat h2 {
+  font-size: 1.5em;
+  margin-top: 1em;
+}

@@ -79,7 +79,8 @@ case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
     to = pov.player.ratingAfter.map { RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.gameId) })
   private def reset(pov: Pov, to: Int) = copy(
     v = to,
-    from = pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) })
+    from = pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
+    to = none)
 }
 object Streak {
   val init = Streak(0, none, none)

@@ -143,7 +143,8 @@ div.engine_warning {
   margin: 10px 0;
 }
 div.sub_ratings {
-  margin-right: -11px;
+  margin-left: -13px;
+  width: 224px;
 }
 div.sub_ratings > a {
   padding: 10px 0 10px 5px;
@@ -169,6 +170,7 @@ div.sub_ratings > a.active {
 }
 div.sub_ratings > a > span {
   display: block;
+  text-transform: lowercase;
 }
 div.sub_ratings h3 {
   font-weight: 100;
