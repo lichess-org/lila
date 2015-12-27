@@ -160,6 +160,11 @@
       Took @n.millis ms.
     </div>
     }
+    @if(isGranted(_.Admin) && u.roles.nonEmpty) {
+    <div class="mod_roles">
+      Mod permissions: @u.roles.mkString(", ")
+    </div>
+    }
     <table class="slist">
       <thead>
         <tr>

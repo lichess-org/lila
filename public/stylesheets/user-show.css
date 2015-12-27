@@ -334,7 +334,8 @@ div.user_show .mod_zone .actions {
   width: 100%;
   text-align: center;
 }
-div.user_show .mod_zone .neural {
+div.user_show .mod_zone .neural,
+div.user_show .mod_zone .mod_roles {
   padding: 10px 0;
 }
 div.user_show .mod_zone .neural strong {
