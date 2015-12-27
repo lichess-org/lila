@@ -455,7 +455,6 @@ div.content_box .loader:after {
 #powerTip .square-wrap,
 #miniGame .square-wrap {
   text-align: center;
-  -webkit-transform: scale(2);
 }
 #powerTip .square-spin {
   margin: 23px auto 20px auto;
