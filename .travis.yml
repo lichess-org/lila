@@ -8,6 +8,7 @@ notifications:
     on_success: change
     on_failure: always
     use_notice: true
+    skip_join: true
 
 # https://docs.travis-ci.com/user/languages/java/#Testing-Against-Multiple-JDKs
 jdk:
