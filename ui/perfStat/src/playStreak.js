@@ -40,7 +40,7 @@ module.exports = {
     return util.fMap(d.stat.playStreak.time, function(s) {
       return [
         m('h2', m('span', {
-          title: 'less than one hour between games'
+          title: lessThan
         }, 'Max time spent playing')),
         streaks(s, util.formatSeconds)
       ];
