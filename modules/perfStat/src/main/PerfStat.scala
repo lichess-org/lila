@@ -148,7 +148,7 @@ object RatingAt {
 case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
 
 case class Results(results: List[Result]) {
-  def agg(pov: Pov, comp: Int) = pov.opponent.rating.fold(this) { opInt =>
+  def agg(pov: Pov, comp: Int) = pov.opponent.rating.ifTrue(pov.game.rated).fold(this) { opInt =>
     copy(
       results = (Result(
         opInt,
