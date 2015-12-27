@@ -19,15 +19,18 @@ case class PerfStat(
 
   def id = _id
 
-  def agg(pov: Pov) = if (!pov.game.finished) this else copy(
-    highest = RatingAt.agg(highest, pov, 1),
-    lowest = RatingAt.agg(lowest, pov, -1),
-    bestWins = (~pov.win).fold(bestWins.agg(pov, -1), bestWins),
-    worstLosses = (~pov.loss).fold(worstLosses.agg(pov, 1), worstLosses),
-    count = count(pov),
-    resultStreak = resultStreak agg pov,
-    playStreak = playStreak agg pov
-  )
+  def agg(pov: Pov) = if (!pov.game.finished) this else {
+    val thisYear = pov.game.createdAt isAfter DateTime.now.minusYears(1)
+    copy(
+      highest = RatingAt.agg(highest, pov, 1),
+      lowest = thisYear(pov).fold(RatingAt.agg(lowest, pov, -1), lowest),
+      bestWins = (~pov.win).fold(bestWins.agg(pov, -1), bestWins),
+      worstLosses = (thisYear && ~pov.loss).fold(worstLosses.agg(pov, 1), worstLosses),
+      count = count(pov),
+      resultStreak = resultStreak agg pov,
+      playStreak = playStreak agg pov
+    )
+  }
 }
 
 object PerfStat {
