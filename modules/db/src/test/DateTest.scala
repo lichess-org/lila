@@ -11,7 +11,7 @@ import play.api.test._
 import reactivemongo.api._
 import reactivemongo.bson._
 
-class DateTest extends Specification with WithColl {
+class DateTest extends Specification {
 
   val date = DateTime.now
   import play.modules.reactivemongo.json.ImplicitBSONHandlers._
