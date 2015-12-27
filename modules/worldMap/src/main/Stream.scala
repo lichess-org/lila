@@ -52,9 +52,7 @@ private final class Stream(
 
   val ipCache = lila.memo.Builder.cache(geoIpCacheTtl, ipToPoint)
   def ipToPoint(ip: String): Option[Stream.Point] =
-    geoIp getLocation ip flatMap Location.apply map { loc =>
-      Stream.Point(loc.lat, loc.lon)
-    }
+    geoIp getLocation ip flatMap Stream.toPoint
 }
 
 object Stream {
@@ -80,6 +78,9 @@ object Stream {
   )
 
   case class Point(lat: Double, lon: Double)
+  def toPoint(ipLoc: IpLocation): Option[Point] = ipLoc.geoPoint map { p =>
+    Point(p.latitude, p.longitude)
+  }
 
   sealed trait Event
   object Event {
