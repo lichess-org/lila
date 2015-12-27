@@ -23,7 +23,7 @@ case class PerfStat(
     val thisYear = pov.game.createdAt isAfter DateTime.now.minusYears(1)
     copy(
       highest = RatingAt.agg(highest, pov, 1),
-      lowest = thisYear(pov).fold(RatingAt.agg(lowest, pov, -1), lowest),
+      lowest = thisYear.fold(RatingAt.agg(lowest, pov, -1), lowest),
       bestWins = (~pov.win).fold(bestWins.agg(pov, -1), bestWins),
       worstLosses = (thisYear && ~pov.loss).fold(worstLosses.agg(pov, 1), worstLosses),
       count = count(pov),
