@@ -68,8 +68,9 @@ object Stream {
 
   private def truncate(d: Double) = lila.common.Maths.truncateAt(d, 4)
 
+  private val bytes2base64 = java.util.Base64.getEncoder.encodeToString _
   private def game2json(md5: MessageDigest)(game: Game): JsValue = Json.obj(
-    "id" -> md5.digest(game.id getBytes "UTF-8").take(6),
+    "id" -> bytes2base64(md5.digest(game.id getBytes "UTF-8") take 6),
     "ps" -> Json.toJson {
       game.points.map { p =>
         List(p.lat, p.lon) map truncate
