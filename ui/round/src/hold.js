@@ -2,7 +2,7 @@ var holds = [];
 var nb = 8;
 var was = false;
 
-var register = function(socket, hold) {
+function register(socket, hold) {
   if (!hold) return;
   holds.push(hold);
   var set = false;
@@ -27,7 +27,23 @@ var register = function(socket, hold) {
     sd: Math.round(sd)
   });
   was = set;
-};
+}
+
+function find(el) {
+  try {
+    var prev, w, done = false;
+    [].forEach.call(el.querySelectorAll('square'), function(n) {
+      w = n.offsetWidth;
+      if (!done && prev && w !== prev) {
+        if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0') {
+          done = true;
+          $.post('/jslog');
+        }
+      }
+      prev = w;
+    });
+  } catch (e) {}
+}
 
 module.exports = {
   applies: function(data) {
@@ -35,5 +51,6 @@ module.exports = {
       data.player.user && data.player.user.title
     );
   },
-  register: register
+  register: register,
+  find: find
 };

@@ -48,8 +48,10 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    if (hold.applies(this.data))
+    if (hold.applies(this.data)) {
       hold.register(this.socket, meta.holdTime);
+      if (this.vm.ply > 10 && this.vm.ply <= 12) hold.find(opts.element);
+    }
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
