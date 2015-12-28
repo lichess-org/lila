@@ -68,6 +68,13 @@ object Trophy {
       url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
       "fire_trophy".some)
 
+    object MarathonSurvivor2 extends Kind(
+      key = "marathonSurvivor2",
+      name = "Winter Marathon survivor",
+      icon = ",".some,
+      url = "http://lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament".some,
+      "fire_trophy".some)
+
     object BongcloudWarrior extends Kind(
       key = "bongcloudWarrior",
       name = "Bongcloud Warrior",
@@ -106,7 +113,7 @@ object Trophy {
     val all = List(
       ZugMiracle,
       WayOfBerserk,
-      MarathonSurvivor,
+      MarathonSurvivor, MarathonSurvivor2,
       MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonTopHundred,
       BongcloudWarrior,
       Developer, Moderator,

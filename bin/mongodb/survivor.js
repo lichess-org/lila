@@ -1,6 +1,6 @@
 db.tournament.aggregate({
   $match: {
-    _id: "eY3dydc7"
+    _id: "winter15"
   }
 }, {
   $project: {
@@ -26,8 +26,8 @@ db.tournament.aggregate({
   }
 }).result.forEach(function(r) {
   db.trophy.insert({
-    _id: 'survivor/' + r._id,
-    kind: 'marathonSurvivor',
+    _id: 'survivor2/' + r._id,
+    kind: 'marathonSurvivor2',
     user: r._id,
     date: new Date()
   });

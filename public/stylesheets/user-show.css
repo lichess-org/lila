@@ -86,13 +86,19 @@ div.user_show .fire_trophy.marathonTopHundred span:hover {
   transform: scale(0.2) translate(-112px, 60px);
   -webkit-transform: scale(0.2) translate(-112px, 60px);
 }
-div.user_show .fire_trophy.marathonSurvivor span {
+div.user_show .fire_trophy.marathonSurvivor span,
+div.user_show .fire_trophy.marathonSurvivor2 span {
   transform: scale(0.3) translate(-112px, 14px);
   -webkit-transform: scale(0.3) translate(-112px, 14px);
 }
-div.user_show .fire_trophy.marathonSurvivor span:hover {
+div.user_show .fire_trophy.marathonSurvivor span:hover,
+div.user_show .fire_trophy.marathonSurvivor2 span:hover {
   transform: scale(0.3) translate(-112px, 6px);
   -webkit-transform: scale(0.3) translate(-112px, 6px);
+}
+div.user_show .fire_trophy.marathonSurvivor2 span {
+  filter: hue-rotate(140deg);
+  -webkit-filter: hue-rotate(140deg);
 }
 div.user_show .fire_trophy.bongcloudWarrior span {
   filter: hue-rotate(70deg);
