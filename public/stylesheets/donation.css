@@ -18,6 +18,10 @@
 .donate_box .donors em {
   font-style: italic;
 }
+.donate_box .block-img img {
+  width: 100%;
+  height: auto;
+}
 #site_header .progress div.progressbar {
   overflow: hidden;
 }
