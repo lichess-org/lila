@@ -101,7 +101,6 @@ email=Ηλ. Ταχυδρομείο
 emailIsOptional=Το Hλ.Tαχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για επαναφορά του.
 passwordReset=Επαναφορά κωδικού
 forgotPassword=Ξεχάσατε τον κωδικό;
-learnMoreAboutLichess=Μάθετε περισσότερα σχετικά με το Lichess
 rank=Επίπεδο
 gamesPlayed=Παιγμένα παιχνίδια
 nbGamesWithYou=%s παιχνίδια με εσάς

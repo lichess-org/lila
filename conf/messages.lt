@@ -101,7 +101,6 @@ email=El. paštas
 emailIsOptional=El. paštas nėra privalomas. „Lichess“ naudos jūsų el. pašto adresą jūsų slaptažodžiui atkurti, jeigu jį pamiršte.
 passwordReset=Slaptažodžio atkūrimas
 forgotPassword=Pamiršote slaptažodį?
-learnMoreAboutLichess=Sužinokite daugiau apie „Lichess“
 rank=Rangas
 gamesPlayed=sužaistos partijos
 nbGamesWithYou=Partijų su jumis: %s

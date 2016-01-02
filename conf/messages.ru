@@ -101,7 +101,6 @@ email=Электронная почта
 emailIsOptional=Указывать электронную почту не обязательно. Lichess будет использовать её для сброса пароля, если вы его забудете.
 passwordReset=Сброс пароля
 forgotPassword=Забыли пароль?
-learnMoreAboutLichess=Узнать больше о Lichess
 rank=Уровень
 gamesPlayed=Партий сыграно
 nbGamesWithYou=%s партий с вами

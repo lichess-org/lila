@@ -101,7 +101,6 @@ email=Е-пошта
 emailIsOptional=Е-пошта није обавезна. Lichess ће користити адресу ваше е-поште за ресетовање лозинке у случају да је заборавите.
 passwordReset=Ресетовање лозинке
 forgotPassword=Заборавили сте лозинку?
-learnMoreAboutLichess=Сазнај више о Lichess-у
 rank=Ранг
 gamesPlayed=Број одиграних партија
 nbGamesWithYou=%s моје игре

@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=El email es opcional. Lichess usará tu email para resetear tu contraseña si la olvidas.
 passwordReset=Cambiar contraseña
 forgotPassword=¿Olvidaste tu contraseña?
-learnMoreAboutLichess=Aprende más sobre Lichess
 rank=Posición
 gamesPlayed=Partidas jugadas
 nbGamesWithYou=%s juegos contigo

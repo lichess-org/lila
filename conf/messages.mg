@@ -85,7 +85,6 @@ username=Solon'anarana
 password=Teny miafina
 haveAnAccount=Efa manana kaonty?
 changePassword=Ovay ny teny miafina
-learnMoreAboutLichess=Fahalalana fanampiny momba an'i Lichess
 rank=Laharana
 gamesPlayed=Lalao nolalaovina
 nbGamesWithYou=%s lalao niaraka taminao

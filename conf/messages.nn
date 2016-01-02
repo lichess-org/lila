@@ -101,7 +101,6 @@ email=Epost
 emailIsOptional=Epost er valfritt. Lichess vil nytta den til å setja passordet på nytt om du gløymer det.
 passwordReset=Sett passordet på nytt.
 forgotPassword=Har du gløymt passordet?
-learnMoreAboutLichess=Lær meir om Lichess
 rank=Nivå
 gamesPlayed=spelte parti
 nbGamesWithYou=%s parti med deg

@@ -101,7 +101,6 @@ email=इ-मेल
 emailIsOptional=ई-मेल वैकल्पिक है। Lichess आपका ई-मेल आपके पासवर्ड को फिर से बनाने के लिए इस्तेमाल करेगा अगर आप उसे भूल जाते हैं तो ।
 passwordReset=पासवर्ड बदलें
 forgotPassword=क्या आप पासवर्ड भूल गए हैं?
-learnMoreAboutLichess=और जाने Lichess के बारे में
 rank=श्रेणी (रैंक)
 gamesPlayed=खेले हुए खेल
 nbGamesWithYou=आपके साथ %s खेल

@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Email is optioneel. Lichess gebruikt het om een nieuw wachtwoord te verzenden indien u dit vergeten bent.
 passwordReset=Nieuw wachtwoord
 forgotPassword=Wachtwoord vergeten?
-learnMoreAboutLichess=Leer meer over Lichess
 rank=Positie
 gamesPlayed=Gespeelde partijen
 nbGamesWithYou=%s partijen met u

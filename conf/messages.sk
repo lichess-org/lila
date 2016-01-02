@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=E-mail je nepovinný. Lichess použije vašu emailovú adresu na resetovanie hesla účtu, ak by ste ho zabudli.
 passwordReset=Obnova hesla
 forgotPassword=Zabudli ste heslo?
-learnMoreAboutLichess=Dozvedieť sa viac o Lichess-e
 rank=Priečka
 gamesPlayed=Odohraných hier
 nbGamesWithYou=%s hier s tebou

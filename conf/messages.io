@@ -66,7 +66,6 @@ timeControl=Tempodirekto
 username=Uzeronomo
 password=Pasovorto
 haveAnAccount=Ka vu havas konto?
-learnMoreAboutLichess=Lernar plusa pri Lichess
 rank=Rango
 gamesPlayed=Ludi ludita
 declineInvitation=Refuzar invito

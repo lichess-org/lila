@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Email tidak diwajibkan. Lichess akan menggunakan email anda untuk me-reset password anda bila anda lupa.
 passwordReset=Reset password
 forgotPassword=Lupa password?
-learnMoreAboutLichess=Pelajari lebih lanjut tentang Lichess
 rank=Peringkat
 gamesPlayed=Permainan yang telah dimainkan
 nbGamesWithYou=%s bermain dengan anda

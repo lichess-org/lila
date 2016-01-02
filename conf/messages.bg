@@ -101,7 +101,6 @@ email=Ел. Поща
 emailIsOptional=Ел.поща не е задължителна.  Lichess  ще използва вашия адрес, за да възстанови паролата ви, ако я забравите
 passwordReset=Смяна на ключа
 forgotPassword=Забравихте си ключа ?
-learnMoreAboutLichess=Научи повече за Lichess
 rank=Звание
 gamesPlayed=Изиграни игри
 nbGamesWithYou=%s игри с вас

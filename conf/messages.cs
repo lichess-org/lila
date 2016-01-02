@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Email je dobrovolný. Lichess ho použije pro resetování hesla, když ho zapomenete.
 passwordReset=Změna hesla
 forgotPassword=Zapomněl jste heslo?
-learnMoreAboutLichess=Dozvědět se více o projektu Lichess
 rank=Pořadí
 gamesPlayed=Odehraných partií
 nbGamesWithYou=%s her s vámi

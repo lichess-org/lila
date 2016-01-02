@@ -101,7 +101,6 @@ email=Email cím
 emailIsOptional=Email cím megadása nem kötelező. Esetlegesen elfelejtett jelszó visszanyeréséhez szükséges.
 passwordReset=Jelszó újrabeállítása
 forgotPassword=Elfelejtette a jelszavát?
-learnMoreAboutLichess=További információ a Lichess-ről
 rank=Rang
 gamesPlayed=Lejátszott játékok
 nbGamesWithYou=%s játék veled

@@ -101,7 +101,6 @@ email=E-poštni naslov
 emailIsOptional=E-poštni naslov ni obvezen. Lichess ga bo uporabil v primeru pozabljenega gesla.
 passwordReset=Ponovna nastavitev gesla
 forgotPassword=Pozabil geslo?
-learnMoreAboutLichess=Spoznaj Lichess
 rank=Rang
 gamesPlayed=Št. odigranih iger
 nbGamesWithYou=%s iger s teboj

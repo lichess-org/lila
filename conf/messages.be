@@ -101,7 +101,6 @@ email=Электронная пошта
 emailIsOptional=Электронная пошта (не абавязкова). Lichess выкарыстоўвае для зьмены пароля, калі вы яго забылі.
 passwordReset=Зьмяніць пароль
 forgotPassword=Забылі пароль?
-learnMoreAboutLichess=Даведацца больш пра Lichess
 rank=Ранг
 gamesPlayed=Партый згуляна
 nbGamesWithYou=%s гульняў з табой

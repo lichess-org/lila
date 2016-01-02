@@ -101,7 +101,6 @@ email=ইমেল
 emailIsOptional=আপনি যদি password ভুলে যান তাহলে সেটিকে পরিবর্তন করার জন্য আপনার email প্রয়োজন হবে
 passwordReset=password পরিবর্তন
 forgotPassword=password ভুলে গেছেন ?
-learnMoreAboutLichess=Lichess  সম্পর্কে আরও তথ্য জানুন
 rank=মর্যাদাক্রম
 gamesPlayed=খেলা খেলেছেন
 nbGamesWithYou=%s টি খেলা আপনার সঙ্গে

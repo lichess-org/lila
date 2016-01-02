@@ -101,7 +101,6 @@ email=E-post
 emailIsOptional=E-postadresse er valgfritt. Lichess vil bruke den til å tilbakestille passordet ditt hvis du glemmer det.
 passwordReset=Tilbakestill passord
 forgotPassword=Glemt passord?
-learnMoreAboutLichess=Lær mer om Lichess
 rank=Rangering
 gamesPlayed=Partier spilt
 nbGamesWithYou=%s partier med deg

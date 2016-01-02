@@ -101,7 +101,6 @@ email=Correu electrònic
 emailIsOptional=El correu electrònic és opcional. Lichess l'utilitzarà per reiniciar la contrasenya si l'oblides.
 passwordReset=Reinici de contrasenya
 forgotPassword=Has oblidat la contrasenya?
-learnMoreAboutLichess=Vull saber més sobre el lichess
 rank=Classificació
 gamesPlayed=Partides jugades
 nbGamesWithYou=%s partides amb tu

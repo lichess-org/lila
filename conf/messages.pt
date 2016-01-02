@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=E-mail é opcional. Lichess usará para redefinir sua senha em caso de esquecimento.
 passwordReset=Redefinição de senha
 forgotPassword=Esqueceu sua senha?
-learnMoreAboutLichess=Saiba mais sobre o Lichess
 rank=Posição
 gamesPlayed=Partidas realizadas
 nbGamesWithYou=%s partidas consigo

@@ -101,7 +101,6 @@ email=e-Mail
 emailIsOptional=e-Mail je neoavezan. Lichess ce je koristiti da resetuje vasu Lozinku ako je zaboravite.
 passwordReset=resetuj Lozinku
 forgotPassword=Zaboravio si Lozinku ?
-learnMoreAboutLichess=Naučite više o Lichessu
 rank=Poredak
 gamesPlayed=Broj odigranih partija
 nbGamesWithYou=%s odigranih partija protiv Vas

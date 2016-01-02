@@ -101,7 +101,6 @@ email=E-Posta
 emailIsOptional=E-Posta isteğe bağlıdır. Lichess, şifrenizi unutursanız adresinizi yenilemek için kullanacaktır.
 passwordReset=Şifreyi yenile
 forgotPassword=Şifremi unuttum ?
-learnMoreAboutLichess=Lichess hakkında daha fazlası
 rank=Sıralama
 gamesPlayed=Oynanılmış oyunlar
 nbGamesWithYou=Sizinle oynadığı oyun sayısı: %s

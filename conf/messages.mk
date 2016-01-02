@@ -100,7 +100,6 @@ email=е-пошта
 emailIsOptional=е-поштата е опционална. Lichess ќе ја употреби Вашата е-пошта за задавање нова лозинка,ако сте ја заборавиле старата.
 passwordReset=Задај нова лозинката
 forgotPassword=Сте ја заборавиле лозинката?
-learnMoreAboutLichess=Научете повеќе за Lichess
 rank=Ранг
 gamesPlayed=Одиграни партии
 nbGamesWithYou=%s игри со тебе

@@ -98,7 +98,6 @@ email=Էլ. փոստ
 emailIsOptional=էլ. փոստը ընտրված է: Մենք կօգտագործենք Ձեր էլեկտրոնային հասցեն վերականգնելու Ձեր գաղտնաբառը, եթե դուք մոռանաք այն:
 passwordReset=վերականգնել ծածկագիրը
 forgotPassword=Մոռացել ե՞ք գաղտնաբառը
-learnMoreAboutLichess=Իմանլ ավելին Lichess-ի մասին
 rank=Միավորներ
 gamesPlayed=Խաղացած խաղեր
 nbGamesWithYou=%s Խաղեր՝ ձեր հետ

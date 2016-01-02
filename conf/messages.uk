@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Вказувати email необов'язково. Lichess використає його в разі, якщо ви забудете пароль.
 passwordReset=Скинути пароль
 forgotPassword=Забули пароль?
-learnMoreAboutLichess=Дізнатися більше про Lichess
 rank=Ранг
 gamesPlayed=Партій зіграно
 nbGamesWithYou=%s партій з Вами

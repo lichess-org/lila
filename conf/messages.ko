@@ -101,7 +101,6 @@ email=메일
 emailIsOptional=메일 주소는 선택 항목입니다. 비밀번호를 잊어버렸을 때 초기화하기 위해 메일 주소를 사용합니다.
 passwordReset=비밀번호 초기화
 forgotPassword=비밀번호를 잊어버리셨나요?
-learnMoreAboutLichess=Lichess에 대해 좀 더 알아보기
 rank=순위
 gamesPlayed=게임
 nbGamesWithYou=귀하와 %s번 플레이

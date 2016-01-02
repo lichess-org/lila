@@ -100,7 +100,6 @@ email=Thư điện tử
 emailIsOptional=Thư điện tử không bắt buộc. Lichess sẽ dùng thư điện tử của bạn để thiết lập lại mật mã đăng nhập nếu bạn quên nó..
 passwordReset=Thiết lập lại mật mã đăng nhập
 forgotPassword=Quên mật mã đăng nhập?
-learnMoreAboutLichess=Tìm hiểu thêm về Lichess
 rank=Xếp hạng
 gamesPlayed=Ván đã chơi
 nbGamesWithYou=%s những ván cờ với bạn
