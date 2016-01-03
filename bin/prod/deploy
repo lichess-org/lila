@@ -8,6 +8,9 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="clyde"
   REMOTE_DIR="/home/lichess"
+elif [ $mode = "stage" ]; then
+  REMOTE="khiaw"
+  REMOTE_DIR="/home/lichess-stage"
 elif [ $mode = "salim2" ]; then
   REMOTE="salim2"
   REMOTE_DIR="/home/lila"
@@ -45,7 +48,7 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
-if [ $mode == "main" ]; then
+if [ $mode == "main" ] || [ $mode == "stage" ]; then
   bin/prod/compile-client
 fi
 
@@ -75,7 +78,7 @@ RSYNC_OPTIONS=" \
   --exclude '.git/' \
   --exclude bin/.translate_version"
 
-if [ $mode != "main" ]; then
+if [ $mode == "main" ] && [ $mode != "stage" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
   --exclude public";
 fi
@@ -95,7 +98,7 @@ if [ $mode == "main" ]; then
   bin/cli-prod deploy post
 fi
 
-if [ $mode == "main" ]; then
+if [ $mode == "main" ] || [ $mode == "stage" ]; then
   lilalog "Restart lichess"
   ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
 fi
