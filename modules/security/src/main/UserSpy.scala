@@ -75,16 +75,13 @@ object UserSpy {
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
-      storeColl.find(
+      storeColl.distinct("user",
         BSONDocument(
           field -> BSONDocument("$in" -> values),
           "user" -> BSONDocument("$ne" -> user.id)
-        ),
-        BSONDocument("user" -> true)
-      ).cursor[BSONDocument]().collect[List]() map {
-          _.flatMap(_.getAs[String]("user"))
-        } flatMap { userIds =>
-          userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)
+        ).some
+      ) map lila.db.BSON.asStrings flatMap { userIds =>
+          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }
     }
 }

@@ -46,9 +46,7 @@ private final class Storage(coll: Coll) {
   def find(id: String) = coll.find(selectId(id)).one[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
-    coll.distinct(F.eco, selectUserId(userId).some).map {
-      _.collect { case BSONString(eco) => eco } toSet
-    }
+    coll.distinct(F.eco, selectUserId(userId).some) map lila.db.BSON.asStrings map (_.toSet)
 
   def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregate(
     Match(BSONDocument(F.userId -> userId)),
