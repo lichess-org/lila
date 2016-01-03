@@ -157,7 +157,10 @@ module.exports = function(cfg, router, i18n) {
     var move = puzzle.getOpponentNextMove(this.data);
     this.playOpponentMove(puzzle.str2move(move));
     this.data.progress.push(move);
-    if (puzzle.getCurrentLines(this.data) == 'win') xhr.attempt(this, true);
+    if (puzzle.getCurrentLines(this.data) == 'win') {
+      this.chessground.stop();
+      xhr.attempt(this, true);
+    }
   }.bind(this);
 
   this.playInitialMove = function(id) {
