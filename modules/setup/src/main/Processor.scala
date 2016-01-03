@@ -25,14 +25,22 @@ private[setup] final class Processor(
     saveConfig(_ withFilter config)
 
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = blamePov(config.pov, ctx.me)
-    saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized pov.game) >>-
-      onStart(pov.game.id) >>
-      pov.game.player.isHuman.fold(
-        fuccess(pov),
-        aiPlay(pov.game) map { progress => pov withGame progress.game }
-      )
+    val prePov = blamePov(config.pov, ctx.me)
+    lila.user.UserRepo getAiUser config.level flatMap { aiUser =>
+      val pov = prePov withGame {
+        prePov.game.updatePlayer(
+          !prePov.color,
+          _.withUser(aiUser.id, PerfPicker.mainOrDefault(prePov.game)(aiUser.perfs))
+        ).copy(mode = chess.Mode.Rated)
+      }
+      saveConfig(_ withAi config) >>
+        (GameRepo insertDenormalized pov.game) >>-
+        onStart(pov.game.id) >>
+        pov.game.player.isHuman.fold(
+          fuccess(pov),
+          aiPlay(pov.game) map { progress => pov withGame progress.game }
+        )
+    }
   }
 
   def friend(config: FriendConfig)(implicit ctx: UserContext): Fu[Pov] = {

@@ -229,6 +229,16 @@ trait UserRepo {
       }
     }
 
+  def getAiUser(level: Int) =
+    s"ailevel$level" |> { username =>
+      byId(username) orElse create(
+        username = username,
+        password = username,
+        email = none,
+        blind = false,
+        mobileApiVersion = none) flatten "wut"
+    }
+
   def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
   def idExists(id: String): Fu[Boolean] = $count exists id
 
