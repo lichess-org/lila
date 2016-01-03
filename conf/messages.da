@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Email er valgfri. Lichess vil bruge din email til at sende et nyt pasord, hvis du glemmer det eksisterende.
 passwordReset=Reset pasord
 forgotPassword=Glemt adgangskode?
-learnMoreAboutLichess=Få mere at vide om Lichess
 rank=Rang
 gamesPlayed=Antal partier spillet
 nbGamesWithYou=%s partier med dig

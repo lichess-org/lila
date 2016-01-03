@@ -101,7 +101,6 @@ email=إيميل
 emailIsOptional=الإيميل اختياري، سيستخدمه الموقع لإعادة تعيين كلمة المرور في حال نسيتها.
 passwordReset=إعادرة تعيين كلمة المرور
 forgotPassword=هل نسيت كلمة المرور؟
-learnMoreAboutLichess=Lichess معرفة المزيد حول
 rank=المرتبة
 gamesPlayed=عدد مرات اللعب
 nbGamesWithYou=%s مباراة معك

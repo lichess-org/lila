@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=Die Email-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, wenn Du es vergisst.
 passwordReset=Passwort zurücksetzen
 forgotPassword=Passwort vergessen?
-learnMoreAboutLichess=Mehr über Lichess erfahren
 rank=Rang
 gamesPlayed=Gespielte Partien
 nbGamesWithYou=%s Spiele mit Dir

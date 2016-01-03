@@ -101,7 +101,6 @@ email=E-mail
 emailIsOptional=E-mailul este optional. Lichess va reseta parola ta daca o uiti(uitucule).
 passwordReset=Reseteaza parola
 forgotPassword=Ti-ai pierdut parola mai ?
-learnMoreAboutLichess=Aflați detalii despre Lichess
 rank=Clasificare
 gamesPlayed=Partide jucate
 nbGamesWithYou=%s partide cu tine

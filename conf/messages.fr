@@ -101,7 +101,6 @@ email=Courriel
 emailIsOptional=Le courriel est facultatif. Lichess l'utilisera pour réinitialiser votre mot de passe si vous l'oubliez.
 passwordReset=Réinitialisation du mot de passe
 forgotPassword=Mot de passe oublié?
-learnMoreAboutLichess=En savoir plus sur Lichess
 rank=Classement
 gamesPlayed=Parties jouées
 nbGamesWithYou=%s parties avec vous

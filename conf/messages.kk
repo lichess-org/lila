@@ -61,7 +61,6 @@ time=уақыт
 username=Есіміңіз
 password=Пароль
 haveAnAccount=Тіркелдің бе?
-learnMoreAboutLichess=Lichess туралы мағлұмат
 rank=Деңгей
 gamesPlayed=Ойындар ойналған
 declineInvitation=Ұсынысты қабылдамау

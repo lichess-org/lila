@@ -100,7 +100,6 @@ email=Email
 emailIsOptional=Email on valikuline. Lichess kasutab teie e-posti aadressi, et lähtestada parool, kui sa unustad selle.
 passwordReset=Salasõna lähtestamine
 forgotPassword=Unustasid salasõna?
-learnMoreAboutLichess=Uuri rohkem Lichessi kohta
 rank=Asetus
 gamesPlayed=Mänge mängitud
 nbGamesWithYou=%s mängudest sinuga

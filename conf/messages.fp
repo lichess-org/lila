@@ -62,7 +62,6 @@ timeControl=Controlo d’o tèmps
 username=Nom d'usor
 password=Contrasinyi
 haveAnAccount=T'as jà un aconto?
-learnMoreAboutLichess=Savér més sus Lichess
 rank=Rang
 gamesPlayed=Passes joyìyes
 declineInvitation=Refusar l'invitacion

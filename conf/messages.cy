@@ -101,7 +101,6 @@ email=Cyfeiriad e-bost
 emailIsOptional=Mae cyfeiriad e-bost yn ddiorfod. Defnydd Lichess eich cyfeiriad e-bost i ailosod eich cyfrinair os ydych chi wedi'i anghofio.
 passwordReset=Ailosod y cyfrinair
 forgotPassword=Wedi anghofio'r cyfrinair?
-learnMoreAboutLichess=Dysgwch mwy am Lichess
 rank=Graddfa
 gamesPlayed=Gêmau wedi'u chwarae
 nbGamesWithYou=%s o gêmau yn eich erbyn

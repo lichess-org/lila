@@ -100,7 +100,6 @@ email=Tölvupóstfang
 emailIsOptional=Tölvupóstfang er valkvætt. Lichess mun nota það til þess að senda þér nýtt lykilorð ef þú týnir þínu.
 passwordReset=Breyta lykilorði
 forgotPassword=Gleymdirðu lykilorðinu?
-learnMoreAboutLichess=Lærðu meira um Lichess
 rank=Staða
 gamesPlayed=Leikir spilaðir
 nbGamesWithYou=%s skákir með þér

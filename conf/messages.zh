@@ -101,7 +101,6 @@ email=电邮
 emailIsOptional=电邮是选填的。若您忘记了密码，Lichess将会以电邮的方式重置密码。
 passwordReset=重置密码
 forgotPassword=忘记密码？
-learnMoreAboutLichess=了解Lichess
 rank=排名
 gamesPlayed=盘棋已完成
 nbGamesWithYou=和你下了%s盘棋

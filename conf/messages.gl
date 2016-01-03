@@ -101,7 +101,6 @@ email=Email
 emailIsOptional=O correo é opcional. Lichess usará o teu enderezo de correo para cambiar a túa clave si a esqueces.
 passwordReset=Cambiar clave
 forgotPassword=¿Esqueciches o teu contrasinal?
-learnMoreAboutLichess=Coñecer máis sobre Lichess
 rank=Clasificación
 gamesPlayed=Partidas xogadas
 nbGamesWithYou=%s xogos con vostede

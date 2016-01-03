@@ -101,7 +101,6 @@ email=E-mail
 emailIsOptional=E-mail jest opcjonalny. Lichess użyje tego adresu e-mail w celu zresetowania zapomnianego hasła.
 passwordReset=Resetuj hasło
 forgotPassword=Zapomniałeś hasła?
-learnMoreAboutLichess=Dowiedz się więcej o Lichess
 rank=Miejsce
 gamesPlayed=rozegranych gier
 nbGamesWithYou=%s gier z tobą

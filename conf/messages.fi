@@ -101,7 +101,6 @@ email=Sähköpostiosoite
 emailIsOptional=Sähköposti ei ole pakollinen. Lichess käyttää sähköpostiasi salasanan uusimiseen.
 passwordReset=Salasanan uusiminen
 forgotPassword=Unohditko salasanasi?
-learnMoreAboutLichess=Opi lisää Lichessistä
 rank=Sijoitus
 gamesPlayed=Pelatut pelit
 nbGamesWithYou=%s pelejä kanssasi

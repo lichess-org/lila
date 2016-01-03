@@ -34,7 +34,10 @@ private[ai] case class Config(
     8 -> (if (variant == ThreeCheck) 14 else 12)
   ) get levelBox(level)
 
-  def init = List.empty[String]
+  def init = List(
+    setoption("Hash", hashSize),
+    setoption("Threads", nbThreads),
+    setoption("Ponder", false))
 
   def prepare(req: Req) = (req match {
     case r: PlayReq => setoption("Skill Level", skill(r.level))

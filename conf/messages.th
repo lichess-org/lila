@@ -101,7 +101,6 @@ email=อีเมล
 emailIsOptional=อีเมลเป็นตัวเลือกซึ่ง Lichess จะใช้เพื่อการตั้งรหัสผ่านของคุณใหม่ในกรณีที่คุณลืมมัน
 passwordReset=ตั้งรหัสผ่านใหม่
 forgotPassword=ลืมรหัสผ่าน?
-learnMoreAboutLichess=เรียนรู้เพิ่มเติมเกี่ยวกับ Lichess
 rank=อันดับ
 gamesPlayed=เกมที่ได้เล่น
 nbGamesWithYou=%s เกมเล่นกับคุณ

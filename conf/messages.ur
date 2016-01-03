@@ -96,7 +96,6 @@ changeEmail=ای میل تبدیل کریں
 email=ای میل
 passwordReset=خفیہ کلمہ پھر سے داخل کریں
 forgotPassword=خفیہ کلمہ یاد نہیں؟
-learnMoreAboutLichess=Lichess کے بارے میں مزید جانیں
 rank=درجہ
 gamesPlayed=مقابلوں میں شریک
 nbGamesWithYou=آپکے ساتھ %s مقابلے

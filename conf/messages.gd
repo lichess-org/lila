@@ -97,7 +97,6 @@ email=Post-d
 emailIsOptional=Tha am post-d roghainneil. cleachdaich Lichess an seòladh puist-d agad gus am facal-faire agad ath-shuidheachadh ma dhìochuimhnicheas tu e.
 passwordReset=Ath-shuidheachadh an fhacail-fhaire
 forgotPassword=An do dhìochuimhnich thu am facal-faire?
-learnMoreAboutLichess=Ionnsaich barrachd mu Lichess
 rank=Inbhe
 gamesPlayed=Geamannan air an cluich
 nbGamesWithYou=%s geamannan còmhla riut
