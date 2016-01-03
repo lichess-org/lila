@@ -1,11 +1,13 @@
 package lila.security
 
+import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
 
 final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
@@ -82,6 +84,14 @@ final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
           ).some
         ) map lila.db.BSON.asStrings
       }
+
+  def recentUserIdsByFingerprint(fp: String): Fu[List[String]] = tube.storeColl.distinct(
+    "user",
+    BSONDocument(
+      "fp" -> fp,
+      "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
+    ).some
+  ) map lila.db.BSON.asStrings
 }
 
 object Api {

@@ -163,8 +163,14 @@ object Auth extends LilaController {
 
   def setFingerprint(hash: String, ms: Int) = Auth { ctx =>
     me =>
-      // if (ms > 1000) logwarn(s"[Fingerprint] ${me.username} $ms ms / ${~HTTPRequest.userAgent(ctx.req)}")
-      api.setFingerprint(ctx.req, hash) inject Ok
+      api.setFingerprint(ctx.req, hash) >>
+        api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
+          case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
+            case nb if nb >= otherIds.size / 2 => Env.report.api.autoRecidiveReport(me.id)
+            case _                             => funit
+          }
+          case _ => funit
+        } inject Ok
   }
 
   def passwordReset = Open { implicit ctx =>

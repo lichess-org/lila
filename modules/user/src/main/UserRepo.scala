@@ -355,6 +355,12 @@ trait UserRepo {
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
+  def countEngines(userIds: List[String]): Fu[Int] =
+    coll.count(BSONDocument(
+      "_id" -> BSONDocument("$in" -> userIds),
+      F.engine -> true
+    ).some)
+
   def mustConfirmEmail(id: String): Fu[Boolean] =
     $count.exists($select(id) ++ Json.obj(F.mustConfirmEmail -> $exists(true)))
 
