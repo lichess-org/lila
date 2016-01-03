@@ -69,22 +69,18 @@ final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
   def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    tube.storeColl.find(
-      BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)),
-      BSONDocument(field -> true)
-    ).cursor[BSONDocument]().collect[List]().map {
-        _.flatMap(_.getAs[String](field))
-      }.flatMap {
+    tube.storeColl.distinct(
+      field,
+      BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)).some
+    ).flatMap {
         case Nil => fuccess(Nil)
-        case values => tube.storeColl.find(
+        case values => tube.storeColl.distinct(
+          "user",
           BSONDocument(
-            field -> BSONDocument("$in" -> values.distinct),
+            field -> BSONDocument("$in" -> values),
             "user" -> BSONDocument("$ne" -> userId)
-          ),
-          BSONDocument("user" -> true)
-        ).cursor[BSONDocument]().collect[List]().map {
-            _.flatMap(_.getAs[String]("user"))
-          }
+          ).some
+        ) map lila.db.BSON.asStrings
       }
 }
 

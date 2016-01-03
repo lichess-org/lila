@@ -173,4 +173,11 @@ object BSON {
   def debugDoc(doc: BSONDocument): String = (doc.elements.toList map {
     case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
+
+  def asString(v: BSONValue): Option[String] = v match {
+    case BSONString(s) => Some(s)
+    case _             => None
+  }
+
+  def asStrings(vs: List[BSONValue]): List[String] = vs flatMap asString
 }
