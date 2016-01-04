@@ -221,6 +221,7 @@ module.exports = function(opts) {
     var id = path[0].variation;
     this.analyse.deleteVariation(ply, id);
     if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
+    this.toggleVariationMenu(null);
   }.bind(this);
 
   this.promoteVariation = function(path) {
@@ -228,6 +229,7 @@ module.exports = function(opts) {
     var id = path[0].variation;
     this.analyse.promoteVariation(ply, id);
     if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply);
+    this.toggleVariationMenu(null);
   }.bind(this);
 
   this.reset = function() {

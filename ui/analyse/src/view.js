@@ -65,21 +65,20 @@ function plyToTurn(ply) {
 function renderVariation(ctrl, variation, path, klass) {
   var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: classSet({
+    class: klass + ' ' + classSet({
       variation: true,
-      klass: klass,
       menu: showMenu
     })
   }, [
     m('span', {
       class: 'menu',
-      'data-icon': '[',
+      'data-icon': showMenu ? 'L' : '[',
       onclick: partial(ctrl.toggleVariationMenu, path)
     }),
     showMenu ? [
       m('a', {
         class: 'delete text',
-        'data-icon': 'L',
+        'data-icon': 'q',
         onclick: partial(ctrl.deleteVariation, path)
       }, 'Delete variation'),
       m('a', {
@@ -259,6 +258,7 @@ function renderTree(ctrl, tree) {
 }
 
 function renderAnalyse(ctrl) {
+  console.log(ctrl.analyse.tree);
   var result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':

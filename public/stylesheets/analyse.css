@@ -317,8 +317,6 @@ body .lichess_ground .analyse .undefined {
 }
 .lichess_ground .analyse .meta > .variation {
   padding: 3px 0 3px 5px;
-}
-.lichess_ground .analyse .meta > .variation:not(.menu) {
   font-family: 'Roboto';
   font-weight: 300;
 }
@@ -326,15 +324,21 @@ body .lichess_ground .analyse .undefined {
   float: right;
   margin-right: 3px;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0;
+  transition: opacity 0.13s;
+}
+.lichess_ground .analyse .meta > .variation:hover .menu {
+  opacity: 0.5;
 }
 .lichess_ground .analyse .meta > .variation .menu:hover {
-  opacity: 1;
+  opacity: 1!important;
 }
-.lichess_ground .analyse .meta > .variation.menu {
+.lichess_ground .analyse .meta > .menu {
   background: #fff;
+  font-family: 'Noto Sans';
+  font-weight: normal;
 }
-.lichess_ground .analyse .meta > .variation.menu a {
+.lichess_ground .analyse .meta > .menu a {
   display: block;
   line-height: 1.8em;
 }
@@ -352,6 +356,7 @@ body .lichess_ground .analyse .undefined {
 }
 .lichess_ground .variation index {
   margin-left: 5px;
+  font-size: 0.9em;
 }
 .lichess_ground .variation index:first-child {
   margin-left: 0;
