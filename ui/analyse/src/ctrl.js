@@ -228,7 +228,8 @@ module.exports = function(opts) {
     var ply = path[0].ply;
     var id = path[0].variation;
     this.analyse.promoteVariation(ply, id);
-    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply);
+    if (treePath.contains(path, this.vm.path))
+      this.jump(this.vm.path.splice(1));
     this.toggleVariationMenu(null);
   }.bind(this);
 

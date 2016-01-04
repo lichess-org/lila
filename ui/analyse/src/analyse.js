@@ -2,6 +2,9 @@ var treePath = require('./path');
 
 module.exports = function(steps, analysis) {
 
+  steps.forEach(function(s) {
+    s.fixed = true;
+  });
   this.tree = steps;
 
   this.firstPly = function() {
@@ -27,6 +30,9 @@ module.exports = function(steps, analysis) {
       }
     }
   };
+  this.getStepAtPly = function(ply) {
+    return this.getStep(treePath.default(ply));
+  }.bind(this);
 
   this.getSteps = function(path) {
     var tree = this.tree;
@@ -128,7 +134,7 @@ module.exports = function(steps, analysis) {
 
   this.promoteVariation = function(ply, id) {
     var stepId = ply + this.firstPly();
-    var variation = this.getStep(treePath.default(ply)).variations[id - 1];
+    var variation = this.getStepAtPly(ply).variations[id - 1];
     this.deleteVariation(ply, id);
     var demoted = this.tree.splice(stepId);
     this.tree = this.tree.concat(variation);

@@ -72,21 +72,25 @@ function renderVariation(ctrl, variation, path, klass) {
   }, [
     m('span', {
       class: 'menu',
-      'data-icon': showMenu ? 'L' : '[',
+      'data-icon': showMenu ? 'L' : '',
       onclick: partial(ctrl.toggleVariationMenu, path)
     }),
-    showMenu ? [
-      m('a', {
-        class: 'delete text',
-        'data-icon': 'q',
-        onclick: partial(ctrl.deleteVariation, path)
-      }, 'Delete variation'),
-      m('a', {
-        class: 'promote text',
-        'data-icon': 'E',
-        onclick: partial(ctrl.promoteVariation, path)
-      }, 'Promote to main line')
-    ] :
+    showMenu ? (function() {
+      var promotable = util.synthetic(ctrl.data) ||
+        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      return [
+        m('a', {
+          class: 'delete text',
+          'data-icon': 'q',
+          onclick: partial(ctrl.deleteVariation, path)
+        }, 'Delete variation'),
+        promotable ? m('a', {
+          class: 'promote text',
+          'data-icon': 'E',
+          onclick: partial(ctrl.promoteVariation, path)
+        }, 'Promote to main line') : null
+      ];
+    })() :
     renderVariationContent(ctrl, variation, path)
   ]);
 }
