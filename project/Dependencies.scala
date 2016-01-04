@@ -13,7 +13,6 @@ object Dependencies {
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
     val commons = Seq(
@@ -21,7 +20,6 @@ object Dependencies {
       sonatype,
       awesomepom,
       typesafe,
-      roundeights,
       prismic,
       t2v, jgitMaven, sprayRepo)
   }
@@ -32,7 +30,7 @@ object Dependencies {
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"
   val guava = "com.google.guava" % "guava" % "18.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
-  val hasher = "com.roundeights" %% "hasher" % "1.0.0"
+  val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.8.1"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.9"
