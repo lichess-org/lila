@@ -63,14 +63,31 @@ function plyToTurn(ply) {
 }
 
 function renderVariation(ctrl, variation, path, klass) {
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: 'variation' + (klass ? ' ' + klass : '')
+    class: classSet({
+      variation: true,
+      klass: klass,
+      menu: showMenu
+    })
   }, [
     m('span', {
-      class: 'delete',
-      'data-icon': 'L',
-      onclick: partial(ctrl.deleteVariation, path)
+      class: 'menu',
+      'data-icon': '[',
+      onclick: partial(ctrl.toggleVariationMenu, path)
     }),
+    showMenu ? [
+      m('a', {
+        class: 'delete text',
+        'data-icon': 'L',
+        onclick: partial(ctrl.deleteVariation, path)
+      }, 'Delete variation'),
+      m('a', {
+        class: 'promote text',
+        'data-icon': 'E',
+        onclick: partial(ctrl.promoteVariation, path)
+      }, 'Promote to main line')
+    ] :
     renderVariationContent(ctrl, variation, path)
   ]);
 }

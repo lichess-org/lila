@@ -126,6 +126,17 @@ module.exports = function(steps, analysis) {
     });
   }.bind(this);
 
+  this.promoteVariation = function(ply, id) {
+    var stepId = ply + this.firstPly();
+    var variation = this.getStep(treePath.default(ply)).variations[id - 1];
+    this.deleteVariation(ply, id);
+    var demoted = this.tree.splice(stepId);
+    this.tree = this.tree.concat(variation);
+    var lastMainPly = this.tree[stepId];
+    lastMainPly.variations = lastMainPly.variations || [];
+    lastMainPly.variations.push(demoted);
+  }.bind(this);
+
   this.plyOfNextNag = function(color, nag, fromPly) {
     var len = this.tree.length;
     for (var i = 1; i < len; i++) {
