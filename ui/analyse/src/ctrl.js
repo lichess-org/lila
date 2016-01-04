@@ -206,6 +206,13 @@ module.exports = function(opts) {
     this.chessground.playPremove();
   }.bind(this);
 
+  this.deleteVariation = function(path) {
+    var ply = path[0].ply;
+    var id = path[0].variation;
+    this.analyse.deleteVariation(ply, id);
+    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
+  }.bind(this);
+
   this.reset = function() {
     this.chessground.set(this.vm.situation);
     m.redraw();

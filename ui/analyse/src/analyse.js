@@ -119,6 +119,13 @@ module.exports = function(steps, analysis) {
     }
   }.bind(this);
 
+  this.deleteVariation = function(ply, id) {
+    this.updateAtPath(treePath.default(ply), function(node) {
+      node.variations.splice(id - 1, 1);
+      if (!node.variations.length) delete node.variations;
+    });
+  }.bind(this);
+
   this.plyOfNextNag = function(color, nag, fromPly) {
     var len = this.tree.length;
     for (var i = 1; i < len; i++) {

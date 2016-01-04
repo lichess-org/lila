@@ -65,7 +65,14 @@ function plyToTurn(ply) {
 function renderVariation(ctrl, variation, path, klass) {
   return m('div', {
     class: 'variation' + (klass ? ' ' + klass : '')
-  }, renderVariationContent(ctrl, variation, path));
+  }, [
+    m('span', {
+      class: 'delete',
+      'data-icon': 'L',
+      onclick: partial(ctrl.deleteVariation, path)
+    }),
+    renderVariationContent(ctrl, variation, path)
+  ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {

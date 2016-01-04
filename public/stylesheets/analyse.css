@@ -320,6 +320,15 @@ body .lichess_ground .analyse .undefined {
   font-weight: 300;
   padding: 3px 0 3px 5px;
 }
+.lichess_ground .analyse .meta > .variation .delete {
+  float: right;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.lichess_ground .analyse .meta > .variation .delete:hover {
+  opacity: 1;
+  color: #ac524f;
+}
 .lichess_ground .variation index {
   margin-left: 5px;
 }
