@@ -1,3 +1,5 @@
+var util = require('./util');
+
 module.exports = function(send, ctrl) {
 
   this.send = send;
@@ -7,7 +9,7 @@ module.exports = function(send, ctrl) {
 
   var anaDestsCache = {};
 
-  setTimeout(function() {
+  if (!util.synthetic(ctrl.data)) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
