@@ -8,6 +8,7 @@ sealed trait Reason {
 object Reason {
 
   case object Cheat extends Reason
+  case object CheatPrint extends Reason
   case object Insult extends Reason
   case object Troll extends Reason
   case object Boost extends Reason
@@ -15,7 +16,7 @@ object Reason {
 
   val communication: Set[Reason] = Set(Insult, Troll, Other)
 
-  val all = List(Cheat, Insult, Troll, Boost, Other)
+  val all = List(Cheat, CheatPrint, Insult, Troll, Boost, Other)
   val names = all map (_.name)
   val byName = all map { v => (v.name, v) } toMap
 

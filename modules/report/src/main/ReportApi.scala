@@ -41,7 +41,7 @@ private[report] final class ReportApi {
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
-        reason = "cheater print",
+        reason = "cheatprint",
         text = "Shares print with known cheaters",
         gameId = "",
         move = ""), lichess)
