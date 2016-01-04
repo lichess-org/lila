@@ -29,9 +29,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   def update(game: Game, userId: String, previous: Entry): Funit =
     PovToEntry(game, userId, previous.provisional) flatMap {
       case Right(e) => storage update e.copy(number = previous.number)
-      case Left(g) =>
-        logwarn(s"[insight $userId] invalid game http://l.org/${g.id}")
-        funit
+      case _        => funit
     }
 
   private def compute(user: User): Funit = storage.fetchLast(user.id) flatMap {
@@ -71,12 +69,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         PovToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
           println(e)
           e.printStackTrace
-        } map {
-          case Right(e) => e.some
-          case Left(g) =>
-            logwarn(s"[insight ${user.username}] invalid game http://lichess.org/${g.id}")
-            none
-        }
+        } map (_.toOption)
       }
       val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
       pimpQB(query)
