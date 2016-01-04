@@ -10,6 +10,8 @@ notifications:
     use_notice: true
     skip_join: true
   slack: lichess:sVTqlE0OQNMPq1n6qRnVnfrz
+    on_success: change
+    on_failure: always
 
 # https://docs.travis-ci.com/user/languages/java/#Testing-Against-Multiple-JDKs
 jdk:
