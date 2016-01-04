@@ -258,6 +258,7 @@ function renderAnalyse(ctrl) {
   return m('div.analyse', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        if (el.tagName !== 'MOVE') return;
         var path = el.getAttribute('data-path') ||
           '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
         if (path) ctrl.userJump(treePath.read(path));
