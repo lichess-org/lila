@@ -11,8 +11,8 @@ private final class SlackClient(url: String) {
       .post(Json.obj(
         "username" -> msg.username,
         "text" -> msg.text,
-        "icon_emoji" -> s":${msg.icon}:"))
-      .flatMap {
+        "icon_emoji" -> s":${msg.icon}:",
+        "channel" -> s"#${msg.channel}")).flatMap {
         case res if res.status == 200 => funit
         case res                      => fufail(s"[slack] $url $msg ${res.status} ${res.body}")
       }

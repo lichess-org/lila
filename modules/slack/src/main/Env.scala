@@ -12,7 +12,7 @@ final class Env(
 
   private val IncomingUrl = config getString "incoming.url"
 
-  private lazy val api = new SlackApi(client, getLightUser)
+  lazy val api = new SlackApi(client, getLightUser)
 
   private lazy val client = new SlackClient(url = IncomingUrl)
 
