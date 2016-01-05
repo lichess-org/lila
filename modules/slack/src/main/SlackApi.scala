@@ -28,6 +28,6 @@ final class SlackApi(
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
     icon = "oncoming_police_car",
-    text = s"Let's have a look at <http://lichess.org/@/${user.username}>",
+    text = s"Let's have a look at <http://lichess.org/@/${user.username}?mod>",
     channel = "deputy"))
 }
