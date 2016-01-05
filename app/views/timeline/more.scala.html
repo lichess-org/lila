@@ -21,7 +21,7 @@
 <div id="timeline_more" class="content_box small_box no_padding">
   <h1>@trans.timeline()</h1>
   <table class="datatable"><tbody>
-      @entries.map { e =>
+      @entries.filter(e => e.okForKid || ctx.noKid).map { e =>
       <tr>
         <td>@timeline.entry(e)</td>
       </tr>

@@ -316,12 +316,47 @@ body .lichess_ground .analyse .undefined {
   padding-bottom: 3px;
 }
 .lichess_ground .analyse .meta > .variation {
+  padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
-  padding: 3px 0 3px 5px;
+}
+.lichess_ground .analyse .meta > .variation span.menu {
+  float: right;
+  margin-right: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.13s;
+}
+.lichess_ground .analyse .meta > .variation:hover .menu {
+  opacity: 0.7;
+}
+.lichess_ground .analyse .meta > .variation .menu:hover {
+  opacity: 1!important;
+}
+.lichess_ground .analyse .meta > .menu {
+  background: #fff;
+  font-family: 'Noto Sans';
+  font-weight: normal;
+}
+.lichess_ground .analyse .meta > .menu a {
+  display: block;
+  line-height: 1.8em;
+}
+.lichess_ground .analyse .meta > .menu a.delete {
+  color: #ac524f;
+}
+.lichess_ground .analyse .meta > .menu a.promote {
+  color: #759900;
+}
+.lichess_ground .analyse .meta > .menu a::before {
+  opacity: 0.5;
+}
+.lichess_ground .analyse .meta > .menu a:hover::before {
+  opacity: 1;
 }
 .lichess_ground .variation index {
   margin-left: 5px;
+  font-size: 0.9em;
 }
 .lichess_ground .variation index:first-child {
   margin-left: 0;

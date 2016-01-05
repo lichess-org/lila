@@ -63,9 +63,36 @@ function plyToTurn(ply) {
 }
 
 function renderVariation(ctrl, variation, path, klass) {
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: 'variation' + (klass ? ' ' + klass : '')
-  }, renderVariationContent(ctrl, variation, path));
+    class: klass + ' ' + classSet({
+      variation: true,
+      menu: showMenu
+    })
+  }, [
+    m('span', {
+      class: 'menu',
+      'data-icon': showMenu ? 'L' : '',
+      onclick: partial(ctrl.toggleVariationMenu, path)
+    }),
+    showMenu ? (function() {
+      var promotable = util.synthetic(ctrl.data) ||
+        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      return [
+        m('a', {
+          class: 'delete text',
+          'data-icon': 'q',
+          onclick: partial(ctrl.deleteVariation, path)
+        }, 'Delete variation'),
+        promotable ? m('a', {
+          class: 'promote text',
+          'data-icon': 'E',
+          onclick: partial(ctrl.promoteVariation, path)
+        }, 'Promote to main line') : null
+      ];
+    })() :
+    renderVariationContent(ctrl, variation, path)
+  ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {
@@ -235,6 +262,7 @@ function renderTree(ctrl, tree) {
 }
 
 function renderAnalyse(ctrl) {
+  console.log(ctrl.analyse.tree);
   var result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
@@ -258,6 +286,7 @@ function renderAnalyse(ctrl) {
   return m('div.analyse', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        if (el.tagName !== 'MOVE') return;
         var path = el.getAttribute('data-path') ||
           '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
         if (path) ctrl.userJump(treePath.read(path));

@@ -2,6 +2,9 @@ var treePath = require('./path');
 
 module.exports = function(steps, analysis) {
 
+  steps.forEach(function(s) {
+    s.fixed = true;
+  });
   this.tree = steps;
 
   this.firstPly = function() {
@@ -27,6 +30,9 @@ module.exports = function(steps, analysis) {
       }
     }
   };
+  this.getStepAtPly = function(ply) {
+    return this.getStep(treePath.default(ply));
+  }.bind(this);
 
   this.getSteps = function(path) {
     var tree = this.tree;
@@ -117,6 +123,24 @@ module.exports = function(steps, analysis) {
         }
       }
     }
+  }.bind(this);
+
+  this.deleteVariation = function(ply, id) {
+    this.updateAtPath(treePath.default(ply), function(node) {
+      node.variations.splice(id - 1, 1);
+      if (!node.variations.length) delete node.variations;
+    });
+  }.bind(this);
+
+  this.promoteVariation = function(ply, id) {
+    var stepId = ply + this.firstPly();
+    var variation = this.getStepAtPly(ply).variations[id - 1];
+    this.deleteVariation(ply, id);
+    var demoted = this.tree.splice(stepId);
+    this.tree = this.tree.concat(variation);
+    var lastMainPly = this.tree[stepId];
+    lastMainPly.variations = lastMainPly.variations || [];
+    lastMainPly.variations.push(demoted);
   }.bind(this);
 
   this.plyOfNextNag = function(color, nag, fromPly) {

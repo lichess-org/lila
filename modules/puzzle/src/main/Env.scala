@@ -7,9 +7,9 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
     renderer: ActorSelection,
-    system: ActorSystem) {
+    system: ActorSystem,
+    lifecycle: play.api.inject.ApplicationLifecycle) {
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
@@ -20,6 +20,8 @@ final class Env(
   import settings._
 
   val AnimationDuration = config duration "animation.duration"
+
+  private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
@@ -33,7 +35,6 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    scheduler = system.scheduler,
     anonMinRating = config getInt "selector.anon_min_rating",
     maxAttempts = config getInt "selector.max_attempts")
 
@@ -68,7 +69,7 @@ object Env {
 
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
-    db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system,
+    lifecycle = lila.common.PlayApp.lifecycle)
 }

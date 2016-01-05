@@ -78,6 +78,13 @@ object Mod extends LilaController {
       }
   }
 
+  def notifySlack(username: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(UserRepo named username) { user =>
+        Env.slack.api.userMod(user = user, mod = me) inject redirect(user.username)
+      }
+  }
+
   def log = Secure(_.SeeReport) { implicit ctx =>
     me => modLogApi.recent map { html.mod.log(_) }
   }

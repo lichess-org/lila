@@ -17,15 +17,15 @@ cd scala-kit
 sbt -Dversion=1.2.11-THIB publish-local
 cd ..
 
-rm -rf ReactiveMongo
-git clone https://github.com/ornicar/ReactiveMongo --branch lichess-fork
-cd ReactiveMongo
-sbt -Dversion=0.12.0-THIB publish-local
-cd ..
-
 rm -rf maxmind-geoip2-scala
 git clone https://github.com/ornicar/maxmind-geoip2-scala --branch customBuild
 cd maxmind-geoip2-scala
+sbt publish-local
+cd ..
+
+rm -rf hasher
+git clone https://github.com/Nycto/Hasher
+cd Hasher
 sbt publish-local
 cd ..
 

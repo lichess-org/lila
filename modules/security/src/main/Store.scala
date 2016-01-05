@@ -86,8 +86,7 @@ object Store {
       ))).void
   }
 
-  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[String]) {
-    def isTorExitNode = ~tor
+  case class Info(ip: String, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
   }
   private implicit val InfoBSONHandler = Macros.handler[Info]

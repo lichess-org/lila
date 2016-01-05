@@ -43,7 +43,8 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
-    autoScroll: null
+    autoScroll: null,
+    variationMenu: null
   };
 
   this.flip = function() {
@@ -124,6 +125,7 @@ module.exports = function(opts) {
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
+    this.toggleVariationMenu(null);
     showGround();
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
@@ -204,6 +206,31 @@ module.exports = function(opts) {
       if (dests === '') this.ceval.stop();
     }
     this.chessground.playPremove();
+  }.bind(this);
+
+  this.toggleVariationMenu = function(path) {
+    if (!path) this.vm.variationMenu = null;
+    else {
+      var key = treePath.write(path.slice(0, 1));
+      this.vm.variationMenu = this.vm.variationMenu === key ? null : key;
+    }
+  }.bind(this);
+
+  this.deleteVariation = function(path) {
+    var ply = path[0].ply;
+    var id = path[0].variation;
+    this.analyse.deleteVariation(ply, id);
+    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
+    this.toggleVariationMenu(null);
+  }.bind(this);
+
+  this.promoteVariation = function(path) {
+    var ply = path[0].ply;
+    var id = path[0].variation;
+    this.analyse.promoteVariation(ply, id);
+    if (treePath.contains(path, this.vm.path))
+      this.jump(this.vm.path.splice(1));
+    this.toggleVariationMenu(null);
   }.bind(this);
 
   this.reset = function() {
@@ -296,4 +323,13 @@ module.exports = function(opts) {
   showGround();
   keyboard(this);
   startCeval();
+
+  // this.jumpToMain(2);
+  // userMove('h2', 'h3');
+  // setTimeout(function() {
+  //   $('.variation span.menu').click();
+  //   setTimeout(function() {
+  //     $('.variation.menu .promote').click();
+  //   }, 500);
+  // }.bind(this), 1500);
 };
