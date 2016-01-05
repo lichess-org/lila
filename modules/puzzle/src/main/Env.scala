@@ -35,7 +35,6 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    scheduler = system.scheduler,
     anonMinRating = config getInt "selector.anon_min_rating",
     maxAttempts = config getInt "selector.max_attempts")
 
