@@ -35,7 +35,7 @@ final class Api(
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).??(thread =>
-      (ThreadRepo setRead thread) >>- updateUser(me.id)
+      (ThreadRepo setRead thread) >>- updateUser(me)
     )
   } yield threadOption
 
@@ -51,7 +51,7 @@ final class Api(
           invitedId = data.user.id) |> { t =>
             val thread = me.troll.fold(t deleteFor invited, t)
             sendUnlessBlocked(thread) >>-
-              updateUser(invited.id) >>- {
+              updateUser(invited) >>- {
                 val text = data.subject + " " + data.text
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
               } inject thread
@@ -79,7 +79,7 @@ final class Api(
       val newThread = thread + post
       $update[ThreadRepo.ID, Thread](newThread) >>- {
         UserRepo.named(thread receiverOf post) foreach {
-          _.map(_.id) foreach updateUser
+          _ foreach updateUser
         }
       } >>- {
         val toUserId = newThread otherUserId me
@@ -91,14 +91,14 @@ final class Api(
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption =>
       (threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)) >>-
-        updateUser(me.id)
+        updateUser(me)
     }
 
   val unreadIds = unreadCache apply _
 
-  def updateUser(user: String) {
-    (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids =>
-      bus.publish(SendTo(user, "nbm", ids.size), 'users)
+  def updateUser(user: lila.user.User) {
+    if (!user.kid) (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids =>
+      bus.publish(SendTo(user.id, "nbm", ids.size), 'users)
     }
   }
 }

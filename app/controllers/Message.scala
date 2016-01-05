@@ -21,7 +21,7 @@ object Message extends LilaController {
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
       NotForKids {
-        api updateUser me.id
+        api updateUser me
         api.inbox(me, page) map { html.message.inbox(me, _) }
       }
   }
