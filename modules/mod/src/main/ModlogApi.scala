@@ -90,6 +90,9 @@ final class ModlogApi {
     "action" -> Modlog.unbooster
   ))
 
+  def userHistory(userId: String): Fu[List[Modlog]] =
+    $find($query(Json.obj("user" -> userId)) sort $sort.desc("date"), 100)
+
   private def add(m: Modlog): Funit = {
     play.api.Logger("ModApi").info(m.toString)
     $insert(m)

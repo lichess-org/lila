@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], neural: Option[lila.mod.NeuralApi.Result])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], neural: Option[lila.mod.NeuralApi.Result])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -153,18 +153,6 @@
         </td>
       </tr>
     </table>
-    @neural.map { n =>
-    <div class="neural">
-      [beta] Neural decision: <strong>@n.answer.decision</strong>.
-      Cheating odds: @n.answer.cheatPercent% vs @n.answer.nonCheatPercent%.
-      Took @n.millis ms.
-    </div>
-    }
-    @if(isGranted(_.Admin) && u.roles.nonEmpty) {
-    <div class="mod_roles">
-      Mod permissions: @u.roles.mkString(", ")
-    </div>
-    }
     <table class="slist">
       <thead>
         <tr>
@@ -235,6 +223,29 @@
     </table>
   </div>
   }
+  @neural.map { n =>
+  <div class="neural">
+    [beta] Neural decision: <strong>@n.answer.decision</strong>.
+    Cheating odds: @n.answer.cheatPercent% vs @n.answer.nonCheatPercent%.
+    Took @n.millis ms.
+  </div>
+  }
+  @if(isGranted(_.Admin) && u.roles.nonEmpty) {
+  <div class="mod_roles">
+    Mod permissions: @u.roles.mkString(", ")
+  </div>
+  }
+  <div class="mod_log">
+    <strong>Moderation history@if(history.isEmpty){: nothing to show.}</strong>
+    @if(history.nonEmpty) {
+    <ul>
+      @history.map { e =>
+      <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @momentFromNow(e.date)</li>
+      }
+    </ul>
+    <br />
+    }
+  </div>
   @if(spy.otherUsers.size < 1) {
   <strong>No similar user found</strong>
   } else {
