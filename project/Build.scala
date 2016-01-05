@@ -51,7 +51,7 @@ object ApplicationBuild extends Build {
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
-    playban, insight, perfStat)
+    playban, insight, perfStat, slack)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -226,6 +226,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val push = project("push", Seq(common, db, user, game)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val slack = project("slack", Seq(common, hub, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

@@ -8,7 +8,8 @@ import reactivemongo.bson._
 final class DonationApi(
     coll: Coll,
     monthlyGoal: Int,
-    serverDonors: Set[String]) {
+    serverDonors: Set[String],
+    bus: lila.common.Bus) {
 
   private implicit val donationBSONHandler = Macros.handler[Donation]
 
@@ -40,7 +41,14 @@ final class DonationApi(
   def create(donation: Donation) = {
     coll insert donation recover
       lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
-  } >> donation.userId.??(donorCache.remove)
+  } >> donation.userId.??(donorCache.remove) >>- progress.foreach { prog =>
+    bus.publish(lila.hub.actorApi.DonationEvent(
+      userId = donation.userId,
+      gross = donation.gross,
+      net = donation.net,
+      message = donation.message.trim.some.filter(_.nonEmpty),
+      progress = prog.percent), 'donation)
+  }
 
   // in $ cents
   def donatedByUser(userId: String): Fu[Int] =
