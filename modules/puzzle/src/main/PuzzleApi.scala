@@ -99,12 +99,10 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
-    private val playedIdsGroup =
-      Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
-
-    def playedIds(user: User, max: Int): Fu[BSONArray] = attemptColl.distinct(Attempt.BSONFields.puzzleId,
-      BSONDocument(Attempt.BSONFields.userId -> user.id).some
-    ) map BSONArray.apply
+    def playedIds(user: User, max: Int): Fu[BSONArray] =
+      attemptColl.distinct(Attempt.BSONFields.puzzleId,
+        BSONDocument(Attempt.BSONFields.userId -> user.id).some
+      ) map BSONArray.apply
 
     def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
       BSONDocument(Attempt.BSONFields.userId -> user.id),
