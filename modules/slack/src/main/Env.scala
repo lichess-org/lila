@@ -11,10 +11,13 @@ final class Env(
     system: ActorSystem) {
 
   private val IncomingUrl = config getString "incoming.url"
+  private val IncomingDefaultChannel = config getString "incoming.default_channel"
 
   lazy val api = new SlackApi(client, getLightUser)
 
-  private lazy val client = new SlackClient(url = IncomingUrl)
+  private lazy val client = new SlackClient(
+    url = IncomingUrl,
+    defaultChannel = IncomingDefaultChannel)
 
   system.actorOf(Props(new Actor {
     override def preStart() {

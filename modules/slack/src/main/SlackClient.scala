@@ -4,7 +4,9 @@ import play.api.libs.json._
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 
-private final class SlackClient(url: String) {
+import lila.common.PimpedJson._
+
+private final class SlackClient(url: String, defaultChannel: String) {
 
   def apply(msg: SlackMessage): Funit =
     WS.url(url)
@@ -12,7 +14,8 @@ private final class SlackClient(url: String) {
         "username" -> msg.username,
         "text" -> msg.text,
         "icon_emoji" -> s":${msg.icon}:",
-        "channel" -> s"#${msg.channel}")).flatMap {
+        "channel" -> (msg.channel != defaultChannel).option(s"#${msg.channel}")
+      ).noNull).flatMap {
         case res if res.status == 200 => funit
         case res                      => fufail(s"[slack] $url $msg ${res.status} ${res.body}")
       }
