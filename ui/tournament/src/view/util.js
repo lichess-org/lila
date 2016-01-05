@@ -64,10 +64,10 @@ module.exports = {
     })[0] || null;
   },
   player: function(p, tag) {
-    var perf, tag = tag || 'a';
-    if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
-    else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
-    var rating = p.rating + p.perf + (p.provisional ? '?' : '');
+    var ratingDiff, tag = tag || 'a';
+    if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);
+    else if (p.ratingDiff < 0) ratingDiff = m('span.negative[data-icon=M]', -p.ratingDiff);
+    var rating = p.rating + p.ratingDiff + (p.provisional ? '?' : '');
     var fullName = (p.title ? p.title + ' ' : '') + p.name;
     var attrs = {
       class: 'ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
@@ -78,7 +78,7 @@ module.exports = {
       attrs: attrs,
       children: [
         fullName,
-        m('span.progress', [rating, perf])
+        m('span.progress', [rating, ratingDiff])
       ]
     };
   },

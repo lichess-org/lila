@@ -68,15 +68,15 @@ function podiumUsername(p) {
 }
 
 function podiumStats(p, data) {
-  var perf;
-  if (p.perf === 0) perf = m('span', ' =');
-  else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
-  else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+  var ratingDiff;
+  if (p.ratingDiff === 0) ratingDiff = m('span', ' =');
+  else if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);
+  else if (p.ratingDiff < 0) ratingDiff = m('span.negative[data-icon=M]', -p.ratingDiff);
   var nb = p.nb;
   return [
     m('span.rating.progress', [
-      p.rating + p.perf,
-      perf
+      p.rating + p.ratingDiff,
+      ratingDiff
     ]),
     m('table.stats', [
       m('tr', [m('th', 'Games played'), m('td', nb.game)]),

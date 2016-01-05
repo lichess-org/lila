@@ -77,7 +77,7 @@ final class JsonView(
         "provisional" -> player.provisional.option(true),
         "withdraw" -> player.withdraw.option(true),
         "score" -> player.score,
-        "perf" -> player.perf,
+        "ratingDiff" -> player.ratingDiff,
         "fire" -> player.fire,
         "nb" -> sheetNbs(sheet)
       ).noNull,
@@ -176,7 +176,7 @@ final class JsonView(
       "provisional" -> p.provisional.option(true),
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
-      "perf" -> p.perf,
+      "ratingDiff" -> p.ratingDiff,
       "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }

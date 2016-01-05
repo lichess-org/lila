@@ -204,7 +204,7 @@ private[tournament] final class TournamentApi(
           player.copy(
             score = sheet.total,
             fire = sheet.onFire,
-            perf = perf.fold(player.perf)(_.intRating - player.rating),
+            ratingDiff = perf.fold(player.ratingDiff)(_.intRating - player.rating),
             provisional = perf.fold(player.provisional)(_.provisional)
           ).recomputeMagicScore
         }
