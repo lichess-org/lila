@@ -4,8 +4,8 @@ import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
-import reactivemongo.core.commands._
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
@@ -99,17 +99,12 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
-    def playedIds(user: User, max: Int): Fu[BSONArray] = {
-      val col = attemptColl
-      import col.BatchCommands.AggregationFramework, AggregationFramework.{ Group, Limit, Match, Push }
+    private val playedIdsGroup =
+      Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
 
-      val playedIdsGroup =
-        Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
-
-      col.aggregate(Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
-        List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
-          _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
-    }
+    def playedIds(user: User, max: Int): Fu[BSONArray] = attemptColl.distinct(Attempt.BSONFields.puzzleId,
+      BSONDocument(Attempt.BSONFields.userId -> user.id).some
+    ) map BSONArray.apply
 
     def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
       BSONDocument(Attempt.BSONFields.userId -> user.id),
