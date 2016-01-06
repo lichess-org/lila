@@ -11,7 +11,8 @@ import lila.user.User
 
 final class JsonView(
     getLightUser: String => Option[LightUser],
-    cached: Cached) {
+    cached: Cached,
+    performance: Performance) {
 
   private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
 
@@ -67,7 +68,7 @@ final class JsonView(
     ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
     pairings <- PairingRepo.finishedByPlayerChronological(info.tour.id, info.user.id)
     sheet = info.tour.system.scoringSystem.sheet(info.tour, info.user.id, pairings)
-    tpr <- performance(info.tour, info.player)
+    tpr <- performance(info.tour, info.player, pairings)
   } yield info match {
     case PlayerInfoExt(tour, user, player, povs) => Json.obj(
       "player" -> Json.obj(
@@ -81,7 +82,8 @@ final class JsonView(
         "score" -> player.score,
         "ratingDiff" -> player.ratingDiff,
         "fire" -> player.fire,
-        "nb" -> sheetNbs(sheet)
+        "nb" -> sheetNbs(sheet),
+        "performance" -> tpr
       ).noNull,
       "pairings" -> povs.map { pov =>
         Json.obj(

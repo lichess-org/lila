@@ -14,7 +14,10 @@ private[tournament] case class Player(
     score: Int = 0,
     ratingDiff: Int = 0,
     magicScore: Int = 0,
-    fire: Boolean = false) {
+    fire: Boolean = false,
+    performance: Option[Int] = none) {
+
+  def id = _id
 
   def active = !withdraw
 
@@ -24,6 +27,8 @@ private[tournament] case class Player(
 
   def doWithdraw = copy(withdraw = true)
   def unWithdraw = copy(withdraw = false)
+
+  def finalRating = rating + ratingDiff
 
   def recomputeMagicScore = copy(magicScore = (score * 1000000) + (ratingDiff * 1000) + rating)
 }

@@ -126,6 +126,9 @@ object PlayerRepo {
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
 
+  def setPerformance(player: Player, performance: Int) =
+    coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void
+
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>
       ranking get p.userId map { RankedPlayer(_, p) }

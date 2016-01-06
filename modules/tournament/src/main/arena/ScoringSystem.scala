@@ -36,7 +36,7 @@ object ScoringSystem extends AbstractScoringSystem {
 
   val emptySheet = Sheet(Nil)
 
-  def sheet(tour: Tournament, userId: String, pairings: List[Pairing]): Sheet = Sheet {
+  def sheet(tour: Tournament, userId: String, pairings: Pairings): Sheet = Sheet {
     val nexts = (pairings drop 1 map Some.apply) :+ None
     pairings.zip(nexts).foldLeft(List[Score]()) {
       case (scores, (p, n)) =>

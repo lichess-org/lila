@@ -47,5 +47,5 @@ trait ScoringSystem {
 
   def emptySheet: Sheet
 
-  def sheet(tournament: Tournament, userId: String, pairings: List[Pairing]): Sheet
+  def sheet(tournament: Tournament, userId: String, pairings: Pairings): Sheet
 }
