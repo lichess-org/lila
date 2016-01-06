@@ -65,29 +65,29 @@ final class CrosstableApi(coll: Coll) {
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-        val col = tube.gameTube.coll
-        import col.BatchCommands.AggregationFramework,
-          AggregationFramework.{ Match, GroupField, SumValue }
-        
+        val gameColl = tube.gameTube.coll
+
         val selector = BSONDocument(
           Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
           Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id))
 
+        import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
+
         for {
-          localResults <- col.find(selector,
+          localResults <- gameColl.find(selector,
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-          .cursor[BSONDocument]().collect[List](maxGames).map {
-            _.map { doc =>
-              doc.getAs[String](Game.BSONFields.id).map { id =>
-                Result(id, doc.getAs[String](Game.BSONFields.winnerId))
-              }
-            }.flatten.reverse
-          }
-          nbGames <- col.count(selector.some)
+            .cursor[BSONDocument]().collect[List](maxGames).map {
+              _.map { doc =>
+                doc.getAs[String](Game.BSONFields.id).map { id =>
+                  Result(id, doc.getAs[String](Game.BSONFields.winnerId))
+                }
+              }.flatten.reverse
+            }
+          nbGames <- gameColl.count(selector.some)
           ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults, nbGames)
 
-          crosstable <- col.aggregate(Match(selector), List(
+          crosstable <- gameColl.aggregate(Match(selector), List(
             GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
             _.documents.foldLeft(ctDraft) {
               case (ct, obj) => toJSON(obj).asOpt[JsObject] flatMap { o =>

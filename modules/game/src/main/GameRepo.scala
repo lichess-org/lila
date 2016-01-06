@@ -313,7 +313,7 @@ object GameRepo {
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     val col = gameTube.coll
-    import col.BatchCommands.AggregationFramework, AggregationFramework.{
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
       Descending,
       GroupField,
       Limit,
@@ -412,7 +412,7 @@ object GameRepo {
 
   def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
     val col = gameTube.coll
-    import col.BatchCommands.AggregationFramework, AggregationFramework.{
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
       Descending,
       GroupField,
       Limit,
