@@ -78,7 +78,7 @@ RSYNC_OPTIONS=" \
   --exclude '.git/' \
   --exclude bin/.translate_version"
 
-if [ $mode == "main" ] && [ $mode != "stage" ]; then
+if [ $mode != "main" ] && [ $mode != "stage" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
   --exclude public";
 fi
