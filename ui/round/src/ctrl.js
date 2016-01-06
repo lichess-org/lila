@@ -336,7 +336,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var forecastable = function(d) {
-    return game.playable(d) && d.correspondence && !d.opponent.ai;
+    return game.isPlayerPlaying(d) && d.correspondence && !d.opponent.ai;
   }
 
   this.forecastInfo = function() {
