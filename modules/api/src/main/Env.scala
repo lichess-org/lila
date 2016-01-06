@@ -99,6 +99,7 @@ final class Env(
       noteApi = noteApi,
       forecastApi = forecastApi,
       analysisApi = analysisApi,
+      bookmarkApi = bookmarkApi,
       getSimul = getSimul,
       lightUser = userEnv.lightUser),
     system = system,
