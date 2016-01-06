@@ -39,7 +39,8 @@ module.exports = function(ctrl) {
       nb.game ? [
         m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
         m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))]),
-        m('tr', [m('th', 'Average opponent'), m('td', avgOp)])
+        m('tr', [m('th', 'Average opponent'), m('td', avgOp)]),
+        data.player.performance ? m('tr', [m('th', 'Performance'), m('td', data.player.performance)]) : null
       ] : null
     ])),
     m('div.scroll-shadow-soft', m('table.pairings', {

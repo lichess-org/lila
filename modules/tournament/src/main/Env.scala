@@ -71,6 +71,8 @@ final class Env(
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
 
+  private lazy val performance = new Performance
+
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
@@ -81,7 +83,7 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val jsonView = new JsonView(lightUser, cached)
+  lazy val jsonView = new JsonView(lightUser, cached, performance)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 

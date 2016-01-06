@@ -197,14 +197,15 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def updatePlayer(tour: Tournament)(userId: String): Funit =
+  private def updatePlayer(tour: Tournament)(userId: String): Funit =
     (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
-        tour.system.scoringSystem.sheet(tour, userId) map { sheet =>
+        PairingRepo.finishedByPlayerChronological(tour.id, userId) map { pairings =>
+          val sheet = tour.system.scoringSystem.sheet(tour, userId, pairings)
           player.copy(
             score = sheet.total,
             fire = sheet.onFire,
-            perf = perf.fold(player.perf)(_.intRating - player.rating),
+            ratingDiff = perf.fold(player.ratingDiff)(_.intRating - player.rating),
             provisional = perf.fold(player.provisional)(_.provisional)
           ).recomputeMagicScore
         }

@@ -174,6 +174,7 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+body.dark #powerTip > .info .title,
 body.dark #tournament_schedule .timeheader,
 body.dark #opening .meter .step {
   border-color: #505050;
@@ -203,6 +204,7 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
+body.dark .lichess_ground .analyse .meta > .menu,
 body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);

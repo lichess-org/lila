@@ -84,9 +84,10 @@ object BSONHandlers {
       provisional = r boolD "pr",
       withdraw = r boolD "w",
       score = r intD "s",
-      perf = r intD "p",
+      ratingDiff = r intD "p",
       magicScore = r int "m",
-      fire = r boolD "f")
+      fire = r boolD "f",
+      performance = r intO "e")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
       "_id" -> o._id,
       "tid" -> o.tourId,
@@ -95,9 +96,10 @@ object BSONHandlers {
       "pr" -> w.boolO(o.provisional),
       "w" -> w.boolO(o.withdraw),
       "s" -> w.intO(o.score),
-      "p" -> w.intO(o.perf),
+      "p" -> w.intO(o.ratingDiff),
       "m" -> o.magicScore,
-      "f" -> w.boolO(o.fire))
+      "f" -> w.boolO(o.fire),
+      "e" -> o.performance)
   }
 
   implicit val pairingHandler = new BSON[Pairing] {

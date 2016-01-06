@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 import scala.concurrent.duration._
 import scalaz.NonEmptyList
 

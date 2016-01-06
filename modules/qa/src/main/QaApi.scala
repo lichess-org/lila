@@ -289,8 +289,7 @@ final class QaApi(
     // list all tags found in questions collection
     def all: Fu[List[Tag]] = cache(true) {
       val col = questionColl
-      import col.BatchCommands.AggregationFramework,
-        AggregationFramework.{ AddToSet, Group, Project, Unwind }
+      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ AddToSet, Group, Project, Unwind }
 
       col.aggregate(Project(BSONDocument("tags" -> BSONBoolean(true))), List(
         Unwind("tags"), Group(BSONBoolean(true))("tags" -> AddToSet("tags")))).

@@ -19,6 +19,7 @@ private[api] final class RoundApi(
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     analysisApi: AnalysisApi,
+    bookmarkApi: lila.bookmark.BookmarkApi,
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
@@ -37,6 +38,7 @@ private[api] final class RoundApi(
             withSimul(pov, simulOption)_ compose
             withSteps(pov, none, initialFen)_ compose
             withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withForecastCount(forecast.map(_.steps.size))_
           )(json)
         }
@@ -59,6 +61,7 @@ private[api] final class RoundApi(
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_
           )(json)
@@ -82,6 +85,9 @@ private[api] final class RoundApi(
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
+
+  private def withBookmark(v: Boolean)(json: JsObject) =
+    if (v) json else json + ("bookmarked" -> JsBoolean(true))
 
   private def withForecastCount(count: Option[Int])(json: JsObject) =
     count.filter(0 !=).fold(json) { c =>

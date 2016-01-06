@@ -99,7 +99,7 @@ object PlayerRepo {
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
-  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ Descending, Group, Match, Push, Sort }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
 
   def userIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId)), List(
@@ -125,6 +125,9 @@ object PlayerRepo {
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
+
+  def setPerformance(player: Player, performance: Int) =
+    coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>

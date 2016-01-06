@@ -11,7 +11,8 @@ import lila.user.User
 
 final class JsonView(
     getLightUser: String => Option[LightUser],
-    cached: Cached) {
+    cached: Cached,
+    performance: Performance) {
 
   private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
 
@@ -65,7 +66,9 @@ final class JsonView(
 
   def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
     ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
-    sheet <- info.tour.system.scoringSystem.sheet(info.tour, info.user.id)
+    pairings <- PairingRepo.finishedByPlayerChronological(info.tour.id, info.user.id)
+    sheet = info.tour.system.scoringSystem.sheet(info.tour, info.user.id, pairings)
+    tpr <- performance(info.tour, info.player, pairings)
   } yield info match {
     case PlayerInfoExt(tour, user, player, povs) => Json.obj(
       "player" -> Json.obj(
@@ -77,9 +80,10 @@ final class JsonView(
         "provisional" -> player.provisional.option(true),
         "withdraw" -> player.withdraw.option(true),
         "score" -> player.score,
-        "perf" -> player.perf,
+        "ratingDiff" -> player.ratingDiff,
         "fire" -> player.fire,
-        "nb" -> sheetNbs(sheet)
+        "nb" -> sheetNbs(sheet),
+        "performance" -> tpr
       ).noNull,
       "pairings" -> povs.map { pov =>
         Json.obj(
@@ -104,7 +108,9 @@ final class JsonView(
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
     sheets <- rankedPlayers.map { p =>
-      tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
+      PairingRepo.finishedByPlayerChronological(tour.id, p.player.userId) map { pairings =>
+        p.player.userId -> tour.system.scoringSystem.sheet(tour, p.player.userId, pairings)
+      }
     }.sequenceFu.map(_.toMap)
   } yield Json.obj(
     "page" -> page,
@@ -176,7 +182,7 @@ final class JsonView(
       "provisional" -> p.provisional.option(true),
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
-      "perf" -> p.perf,
+      "ratingDiff" -> p.ratingDiff,
       "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }
@@ -187,7 +193,9 @@ final class JsonView(
         for {
           rankedPlayers <- PlayerRepo.bestByTourWithRank(id, 3)
           sheets <- rankedPlayers.map { p =>
-            tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
+            PairingRepo.finishedByPlayerChronological(tour.id, p.player.userId) map { pairings =>
+              p.player.userId -> tour.system.scoringSystem.sheet(tour, p.player.userId, pairings)
+            }
           }.sequenceFu.map(_.toMap)
         } yield JsArray(rankedPlayers.map { rp =>
           playerJson(sheets, tour)(rp) + (

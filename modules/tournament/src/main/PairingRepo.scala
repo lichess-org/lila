@@ -14,8 +14,8 @@ object PairingRepo {
   private lazy val coll = Env.current.pairingColl
 
   private def selectId(id: String) = BSONDocument("_id" -> id)
-  private def selectTour(tourId: String) = BSONDocument("tid" -> tourId)
-  private def selectUser(userId: String) = BSONDocument("u" -> userId)
+  def selectTour(tourId: String) = BSONDocument("tid" -> tourId)
+  def selectUser(userId: String) = BSONDocument("u" -> userId)
   private def selectTourUser(tourId: String, userId: String) = BSONDocument(
     "tid" -> tourId,
     "u" -> userId)
@@ -26,7 +26,7 @@ object PairingRepo {
 
   def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).one[Pairing]
 
-  def recentByTour(tourId: String, nb: Int): Fu[List[Pairing]] =
+  def recentByTour(tourId: String, nb: Int): Fu[Pairings] =
     coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().collect[List](nb)
 
   def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
@@ -79,13 +79,13 @@ object PairingRepo {
 
   def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
-  def findPlaying(tourId: String): Fu[List[Pairing]] =
+  def findPlaying(tourId: String): Fu[Pairings] =
     coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().collect[List]()
 
   def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
-  def finishedByPlayerChronological(tourId: String, userId: String): Fu[List[Pairing]] =
+  def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
     coll.find(
       selectTourUser(tourId, userId) ++ selectFinished
     ).sort(chronoSort).cursor[Pairing]().collect[List]()
@@ -111,7 +111,7 @@ object PairingRepo {
       BSONDocument("$set" -> BSONDocument(field -> value))).void
   }
 
-  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(

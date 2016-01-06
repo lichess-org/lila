@@ -76,7 +76,7 @@ sealed abstract class PostRepo(troll: Boolean) {
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] = {
     val col = postTube.coll
-    import col.BatchCommands.AggregationFramework, AggregationFramework.{ Match, GroupField }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ Match, GroupField }
 
     col.aggregate(Match(BSONDocument("topicId" -> topicId)),
       List(GroupField("userId")())).map(
