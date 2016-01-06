@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.hub.actorApi.{ DonationEvent, Deploy, RemindDeployPre, RemindDeployPost }
 
 final class Env(
     config: Config,
@@ -21,11 +22,12 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     override def preStart() {
-      system.lilaBus.subscribe(self, 'donation)
+      system.lilaBus.subscribe(self, 'donation, 'deploy)
     }
-    import akka.pattern.pipe
     def receive = {
-      case d: lila.hub.actorApi.DonationEvent => api donation d
+      case d: DonationEvent            => api donation d
+      case Deploy(RemindDeployPre, _)  => api.deployPre
+      case Deploy(RemindDeployPost, _) => api.deployPost
     }
   }))
 }
