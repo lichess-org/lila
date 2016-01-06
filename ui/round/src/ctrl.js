@@ -21,7 +21,7 @@ var util = require('./util');
 
 module.exports = function(opts) {
 
-  this.data = round.merge({}, opts.data);
+  this.data = round.merge({}, opts.data).data;
 
   this.userId = opts.userId;
 
@@ -230,7 +230,8 @@ module.exports = function(opts) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
-    this.data = round.merge(this.data, cfg);
+    var merged = round.merge(this.data, cfg);
+    this.data = merged.data;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
@@ -241,6 +242,9 @@ module.exports = function(opts) {
     m.endComputation();
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+    if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
+    if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
+    if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
