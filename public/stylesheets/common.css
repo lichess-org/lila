@@ -430,6 +430,11 @@ div.content_box .loader:after {
 #powerTip > .actions td:last-child a {
   border-right: 0;
 }
+#powerTip .confirm {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
 #powerTip > .game_legend {
   text-align: center;
   border-bottom: 1px solid #c0c0c0;

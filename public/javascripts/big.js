@@ -1510,9 +1510,29 @@ lichess.unique = function(xs) {
         var $input = self.element.find('input.lichess_say')
           .focus(function() {
             document.body.classList.add('typing');
+            warning();
           }).blur(function() {
             document.body.classList.remove('typing');
           });
+
+        var warning = function() {
+          if (lichess.once('chat-nice-notice')) $input.powerTip({
+            manual: true,
+            fadeInTime: 300,
+            fadeOutTime: 300,
+            placement: 'n'
+          }).data('powertipjq', $('<div class="info">').html([
+            $('<strong class="title text" data-icon="">').text('Public notice'),
+            $('<div class="content">').html([
+              'Failure to be nice towards other players can lead to losing chat privileges or account closure!',
+              $('<div class="confirm">').html(
+                $('<button class="button">').text('OK').click(function() {
+                  $input.focus();
+                })
+              )
+            ])
+          ])).powerTip('show');
+        };
 
         // send a message
         $form.submit(function() {
