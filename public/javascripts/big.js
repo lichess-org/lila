@@ -1305,8 +1305,14 @@ lichess.unique = function(xs) {
           },
           tvSelect: function(o) {
             if (data.tv && data.tv.channel == o.channel) lichess.reload();
-            else $('#tv_channels a.' + o.channel + ' span').text(
-              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
+            else $('#tv_channels a.' + o.channel + ' span').html(
+              o.player ? [
+                o.player.title,
+                o.player.name,
+                '(' + o.player.rating + ')'
+              ].filter(function(x) {
+                return x;
+              }).join('&nbsp') : 'Anonymous');
           },
           end: function() {
             var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');

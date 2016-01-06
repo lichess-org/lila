@@ -25,7 +25,7 @@
       <strong>@c.name</strong>
       <span>
         @champions.get(c).map { p =>
-        @p.user.name (@p.rating)
+        @Html(p.user.titleNameHtml)&nbsp;(@p.rating)
         }.getOrElse { - }
       </span>
     </a>
