@@ -45,9 +45,6 @@ trait $operator {
   import org.joda.time.DateTime
   def $date(value: DateTime) = BSONFormats toJSON BSONDateTime(value.getMillis)
 
-  import reactivemongo.bson.Subtype.GenericBinarySubtype
-  def $bin(value: Array[Byte]) = BSONFormats toJSON BSONBinary(value, GenericBinarySubtype)
-
   private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, Json.JsValueWrapper)] = pairs map {
     case (k, v) => k -> Json.toJsFieldJsValueWrapper(v)
   }

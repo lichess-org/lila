@@ -1,7 +1,6 @@
 package lila.game
 
 import play.api.libs.json.JsObject
-import play.modules.reactivemongo.json.BSONFormats.toJSON
 import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands._
 
@@ -90,12 +89,11 @@ final class CrosstableApi(coll: Coll) {
           crosstable <- gameColl.aggregate(Match(selector), List(
             GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
             _.documents.foldLeft(ctDraft) {
-              case (ct, obj) => toJSON(obj).asOpt[JsObject] flatMap { o =>
-                o int "nb" map { nb =>
-                  ct.addWins(o str "_id", nb)
-                }
-              } getOrElse ct
-            })
+              case (ct, obj) => obj.getAs[Int]("nb").fold(ct) { nb =>
+                ct.addWins(obj.getAs[String]("_id"), nb)
+              }
+            }
+          )
 
           _ <- coll insert crosstable
         } yield crosstable.some
