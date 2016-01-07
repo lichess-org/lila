@@ -102,14 +102,10 @@ object PlayerRepo {
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
 
   def userIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId)), List(
-      Group(BSONBoolean(true))("uids" -> Push("uid")))).
-      map(res => aggregationUserIdList(res.documents.toStream))
+    coll.distinct("uid", selectTour(tourId).some) map lila.db.BSON.asStrings
 
   def activeUserIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId) ++ selectActive), List(
-      Group(BSONBoolean(true))("uids" -> Push("uid")))).
-      map(res => aggregationUserIdList(res.documents.toStream))
+    coll.distinct("uid", (selectTour(tourId) ++ selectActive).some) map lila.db.BSON.asStrings
 
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
