@@ -12,7 +12,7 @@ sealed trait ESClient {
 
   def deleteById(id: Id): Funit
 
-  def deleteByQuery(query: StringQuery): Funit
+  def deleteByIds(ids: List[Id]): Funit
 }
 
 final class ESClientHttp(
@@ -34,8 +34,8 @@ final class ESClientHttp(
   def deleteById(id: lila.search.Id) = writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByQuery(query: lila.search.StringQuery) = writeable ??
-    HTTP(s"delete/query/${index.name}/${query.value}", Json.obj())
+  def deleteByIds(ids: List[lila.search.Id]) = writeable ??
+    HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
   def createTempIndex = {
     val tempIndex = Index(s"${index.name}_${ornicar.scalalib.Random.nextString(4)}")
@@ -80,6 +80,6 @@ final class ESClientStub extends ESClient {
   def store(id: Id, doc: JsObject) = funit
   def storeBulk(docs: Seq[(Id, JsObject)]) = funit
   def deleteById(id: Id) = funit
-  def deleteByQuery(query: StringQuery) = funit
+  def deleteByIds(ids: List[Id]) = funit
   def putMapping = funit
 }
