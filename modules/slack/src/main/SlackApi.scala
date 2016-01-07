@@ -34,7 +34,7 @@ final class SlackApi(
   def deployPre: Funit = client(SlackMessage(
     username = "deployment",
     icon = "rocket",
-    text = "Lichess will be updated in a few minutes! Fasten your seatbelt.",
+    text = "Lichess will be updated in a few minutes! Fasten your seatbelts.",
     channel = "general"))
 
   def deployPost: Funit = client(SlackMessage(
