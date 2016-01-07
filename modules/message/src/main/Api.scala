@@ -75,16 +75,18 @@ final class Api(
       text = text,
       isByCreator = thread isCreator me)
     if (thread endsWith post) fuccess(thread) // prevent duplicate post
-    else {
-      val newThread = thread + post
-      $update[ThreadRepo.ID, Thread](newThread) >>- {
-        UserRepo.named(thread receiverOf post) foreach {
-          _ foreach updateUser
-        }
-      } >>- {
-        val toUserId = newThread otherUserId me
-        shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
-      } inject newThread
+    else blocks(thread receiverOf post, me.id) flatMap {
+      case true => fuccess(thread)
+      case false =>
+        val newThread = thread + post
+        $update[ThreadRepo.ID, Thread](newThread) >>- {
+          UserRepo.named(thread receiverOf post) foreach {
+            _ foreach updateUser
+          }
+        } >>- {
+          val toUserId = newThread otherUserId me
+          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+        } inject newThread
     }
   }
 

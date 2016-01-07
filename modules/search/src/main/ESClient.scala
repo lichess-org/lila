@@ -12,7 +12,7 @@ sealed trait ESClient {
 
   def deleteById(id: Id): Funit
 
-  def deleteByQuery(query: StringQuery): Funit
+  def deleteByIds(ids: List[Id]): Funit
 }
 
 final class ESClientHttp(
@@ -34,16 +34,16 @@ final class ESClientHttp(
   def deleteById(id: lila.search.Id) = writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByQuery(query: lila.search.StringQuery) = writeable ??
-    HTTP(s"delete/query/${index.name}/${query.value}", Json.obj())
+  def deleteByIds(ids: List[lila.search.Id]) = writeable ??
+    HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
-  def createTempIndex = {
-    val tempIndex = Index(s"${index.name}_${ornicar.scalalib.Random.nextString(4)}")
-    val tempClient = new ESClientHttpTemp(
-      index,
-      new ESClientHttp(endpoint, tempIndex, writeable))
-    tempClient.putMapping inject tempClient
-  }
+  def putMapping =
+    HTTP(s"mapping/${index.name}/${index.name}", Json.obj())
+
+  def storeBulk(docs: Seq[(Id, JsObject)]) =
+    HTTP(s"store/bulk/${index.name}/${index.name}", JsObject(docs map {
+      case (Id(id), doc) => id -> JsString(Json.stringify(doc))
+    }))
 
   private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
     WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
@@ -55,31 +55,12 @@ final class ESClientHttp(
   private val logger = play.api.Logger("ESClientHttp")
 }
 
-final class ESClientHttpTemp(
-    mainIndex: Index,
-    client: ESClientHttp) {
-
-  def putMapping =
-    client.HTTP(s"mapping/${tempIndex.name}/${mainIndex.name}", Json.obj())
-
-  def tempIndex = client.index
-
-  def storeBulk(docs: Seq[(Id, JsObject)]) =
-    client.HTTP(s"store/bulk/${tempIndex.name}/${mainIndex.name}", JsObject(docs map {
-      case (Id(id), doc) => id -> JsString(Json.stringify(doc))
-    }))
-
-  def aliasBackToMain =
-    client.HTTP(s"alias/${tempIndex.name}/${mainIndex.name}", Json.obj())
-
-}
-
 final class ESClientStub extends ESClient {
   def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
   def count[Q: Writes](query: Q) = fuccess(CountResponse(0))
   def store(id: Id, doc: JsObject) = funit
   def storeBulk(docs: Seq[(Id, JsObject)]) = funit
   def deleteById(id: Id) = funit
-  def deleteByQuery(query: StringQuery) = funit
+  def deleteByIds(ids: List[Id]) = funit
   def putMapping = funit
 }
