@@ -323,7 +323,8 @@ object Quote {
     new Quote("These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his King", "Jamie Walter Adams"),
     new Quote("Chess isn’t a game of speed, it is a game of speech through actions", "Matthew Selman"),
     new Quote("Life like Chess is about knowing to do the right move at the right time", "Kaleb Rivera"),
-    new Quote("Come on Harry!", "Simon Williams")
+    new Quote("Come on Harry!", "Simon Williams"),
+    new Quote("Some people think that if their opponent plays a beautiful game, it’s okay to lose. I don’t. You have to be merciless.", "Magnus Carlsen")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
