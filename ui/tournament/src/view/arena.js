@@ -36,7 +36,7 @@ function playerTr(ctrl, player) {
         'me': ctrl.userId === userId,
         'long': isLong
       }),
-      onclick: partial(ctrl.showPlayerInfo, userId)
+      onclick: partial(ctrl.showPlayerInfo, player)
     },
     children: [
       m('td', [

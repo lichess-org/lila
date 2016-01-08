@@ -1,7 +1,5 @@
 @(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, searchForm: Form[_], rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
 
-@import lila.rating.PerfType
-
 @evenMoreJs = {
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
@@ -53,31 +51,7 @@ description = describeUser(u)).some) {
       <span data-icon="-"></span>
     </a>
     }
-    @if(!u.lame) {
-    @info.ranks.map {
-    case (perf, rank) if rank == 1 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
-      <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 10 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 10!">
-      <img src="@staticUrl("images/trophy/Big-Silver-Cup.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 50 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
-      <img src="@staticUrl("images/trophy/Fancy-Gold.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 100 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
-      <img src="@staticUrl("images/trophy/Gold-Cup.png")" height=80 />
-    </span>
-    }
-    case _ => {}
-    }
-    }
+    @perfTrophies(u, info.ranks)
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {
     <span class="staff">CLOSED</span>

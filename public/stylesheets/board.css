@@ -883,6 +883,10 @@ div.under_chat .watchers:hover {
   overflow-y: auto;
   word-wrap: break-word;
 }
+body.no-select #chat li {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
 #chat form {
   position: relative;
 }

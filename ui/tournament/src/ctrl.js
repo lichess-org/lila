@@ -22,6 +22,7 @@ module.exports = function(env) {
     joinLoader: false,
     playerInfo: {
       id: null,
+      player: null,
       data: null
     },
     disableClicks: true
@@ -107,9 +108,11 @@ module.exports = function(env) {
     if (this.vm.focusOnMe) this.scrollToMe();
   }.bind(this);
 
-  this.showPlayerInfo = function(userId) {
+  this.showPlayerInfo = function(player) {
+    var userId = player.name.toLowerCase();
     this.vm.playerInfo = {
       id: this.vm.playerInfo.id === userId ? null : userId,
+      player: player,
       data: null
     };
     if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
