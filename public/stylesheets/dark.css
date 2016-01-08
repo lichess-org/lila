@@ -174,6 +174,9 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+
+body.dark .pull-quote p,
+body.dark .pull-quote p:after,
 body.dark #powerTip > .info .title,
 body.dark #tournament_schedule .timeheader,
 body.dark #opening .meter .step {
@@ -397,6 +400,8 @@ body.dark #hooks_wrap .hooks_chart > span.label {
 body.dark .loader {
   box-shadow: inset 0 0 0 1em #444;
 }
+
+body.dark .pull-quote p:after,
 body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
