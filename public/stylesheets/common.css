@@ -498,6 +498,10 @@ body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
+.messages * {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
 a,
 a:visited,
 button,
