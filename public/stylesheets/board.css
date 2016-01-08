@@ -387,6 +387,11 @@ div.lichess_overboard p.explanations {
   line-height: 1.4em;
   text-align: center;
 }
+div.lichess_overboard .pull-quote {
+  margin-top: 30px;
+  width: 300px;
+  font-size: 0.9em;
+}
 div.premove_alert,
 div.dont_touch {
   position: absolute;

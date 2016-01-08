@@ -281,6 +281,7 @@ body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.dark #video_side .tag_list a.checked,
 body.dark div.lichess_overboard .loader:before,
 body.dark div.lichess_overboard .loader:after,
+body.dark div.lichess_overboard .pull-quote p:after,
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
