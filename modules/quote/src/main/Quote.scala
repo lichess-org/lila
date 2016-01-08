@@ -328,7 +328,8 @@ object Quote {
     new Quote("It's one of those types of positions where he has pieces on squares.", "John ~ZugAddict~ Chernoff"),
     new Quote("On the bright side, I no longer have any more pieces to lose.", "John ~ZugAddict~ Chernoff"),
     new Quote("Tactics... Tactics are your friends. But they are weird friends who do strange things.", "John ~ZugAddict~ Chernoff"),
-    new Quote("You can't take the pawn because then the other will Queen. Like wonder twin powers." , "John ~ZugAddict~ Chernoff")
+    new Quote("You can't take the pawn because then the other will Queen. Like wonder twin powers." , "John ~ZugAddict~ Chernoff"),
+    new Quote("Most gods throw dice, but Fate plays chess, and you don't find out til too late that he's been playing with two queens all along.", "Terry Pratchett")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
