@@ -49,7 +49,7 @@ module.exports = function(cfg, router, i18n) {
     m.endComputation(); // give feedback ASAP, don't wait for delayed action
   }.bind(this);
 
-  var onMove = function(orig, dest, captured) {
+  var moveSound = function(orig, dest, captured) {
     $.sound[captured ? 'capture' : 'move']();
   }.bind(this);
 
@@ -94,7 +94,7 @@ module.exports = function(cfg, router, i18n) {
       },
     },
     events: {
-      move: onMove
+      move: moveSound
     },
     animation: {
       enabled: true,
@@ -135,7 +135,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.playOpponentMove = function(move) {
-    onMove(move[0], move[1], this.chessground.data.pieces[move[1]]);
+    moveSound(move[0], move[1], this.chessground.data.pieces[move[1]]);
     m.startComputation();
     chess.move(this.data.chess, move);
     this.chessground.set({
@@ -172,12 +172,12 @@ module.exports = function(cfg, router, i18n) {
   this.jump = function(to) {
     var prevStep = this.data.replay.step;
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
-    if (prevStep + 1 == to) {
-      // step forward, call onMove to play sound
+    if (prevStep + 1 === to) {
+      // step forward, call moveSound
       var state = this.data.replay.history[to];
-      onMove(state.move[0], state.move[1], state.capture);
-    } else if (prevStep - 1 == to) {
-      // step backward, play move sound
+      moveSound(state.move[0], state.move[1], state.capture);
+    } else if (prevStep - 1 === to) {
+      // step backward, just play move sound
       $.sound.move();
     }
   }.bind(this);
