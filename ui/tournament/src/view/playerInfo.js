@@ -14,9 +14,19 @@ function result(win, stat) {
   }
 }
 
+function playerTitle(player) {
+  return m('h2', [
+    player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', player.rank + '. '),
+    util.player(player)
+  ]);
+}
+
 module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
-  if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('span.square-spin');
+  if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('div.player', [
+    playerTitle(ctrl.vm.playerInfo.player),
+    m('div.stats', m('span.square-spin'))
+  ]);
   var nb = data.player.nb;
   var pairingsLen = data.pairings.length
   var avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
@@ -28,12 +38,9 @@ module.exports = function(ctrl) {
     }
   }, [
     m('close[data-icon=L]', {
-      onclick: partial(ctrl.showPlayerInfo, data.player.id)
+      onclick: partial(ctrl.showPlayerInfo, data.player)
     }),
-    m('h2', [
-      data.player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', data.player.rank + '. '),
-      util.player(data.player)
-    ]),
+    playerTitle(data.player),
     m('div.stats', m('table', [
       m('tr', [m('th', 'Games played'), m('td', nb.game)]),
       nb.game ? [
