@@ -323,7 +323,20 @@ object Quote {
     new Quote("These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his King", "Jamie Walter Adams"),
     new Quote("Chess isn’t a game of speed, it is a game of speech through actions", "Matthew Selman"),
     new Quote("Life like Chess is about knowing to do the right move at the right time", "Kaleb Rivera"),
-    new Quote("Come on Harry!", "Simon Williams")
+    new Quote("Come on Harry!", "Simon Williams"),
+    new Quote("It's one of those types of positions where he has pieces on squares.", "ZugAddict"),
+    new Quote("Why did he go there and make me lose my pawn?!", "ZugAddict"),
+    new Quote("I was winning that up until the point in time when I wasn't. Then I wasn't.", "ZugAddict"),
+    new Quote("You can't take the pawn because then the other will Queen. Like wonder twin powers." , "ZugAddict"),
+    new Quote("No he's the one who is supposed to be thinking here, I don't want to be thinking here, but he's making me be the one thinking here!", "ZugAddict"),
+    new Quote("Now's good time to sac the exchange, because this position sucks.", "ZugAddict"),
+    new Quote("And the rest is just technique, which means that I have no idea how to win this endgame.", "ZugAddict"),
+    new Quote("I have the Caro-Kann in every fibre in my being... and I need more fibre in my being!", "ZugAddict"),
+    new Quote("On the bright side, I no longer have any more pieces to lose.", "ZugAddict"),
+    new Quote("I laugh at the absurdity of it all.", "ZugAddict"),
+    new Quote("This is a Sicialian, so there is never a checkmate, except for when there is, like there.", "ZugAddict"),
+    new Quote("Tactics... Tactics are your friends. But they are weird friends who do strange things.", "ZugAddict"),
+    new Quote("My opponent is like... a very retarded genius", "ZugAddict")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
