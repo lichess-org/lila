@@ -34,6 +34,10 @@ module.exports = {
       arena.standing(ctrl, pag, 'created'),
       m('br'),
       m('br'),
+      m('blockquote.pull-quote', [
+          m('p', ctrl.data.quote.text),
+          m('footer', ctrl.data.quote.author)
+      ]),
       m('div.content_box_content', {
         config: function(el, isUpdate) {
           if (!isUpdate) $(el).html($('#tournament_faq').show());

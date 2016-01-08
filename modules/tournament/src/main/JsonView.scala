@@ -8,6 +8,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
+import lila.quote.Quote.quoteWriter
 
 final class JsonView(
     getLightUser: String => Option[LightUser],
@@ -54,7 +55,8 @@ final class JsonView(
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
     "podium" -> data.podium,
-    "playerInfo" -> playerInfoJson
+    "playerInfo" -> playerInfoJson,
+    "quote" -> lila.quote.Quote.one(tour.id)
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =

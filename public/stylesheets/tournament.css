@@ -331,6 +331,9 @@ ol.scheduled_tournaments a {
 #tournament .join_password input {
   padding: 3px 5px;
 }
+#tournament .pull-quote {
+  width: 300px;
+}
 .setup {
   text-transform: uppercase;
 }
