@@ -45,7 +45,6 @@ whiteLeftTheGame=Hvit forlot partiet
 blackLeftTheGame=Svart forlot partiet
 shareThisUrlToLetSpectatorsSeeTheGame=Del denne lenken for å la andre følge dette spillet
 replayAndAnalyse=Spill gjennom og analyser
-computerAnalysisInProgress=Datamaskinanalyse pågår
 theComputerAnalysisHasFailed=Datamaskinanalysen fungerte ikke
 viewTheComputerAnalysis=Se datamaskinanalysen
 requestAComputerAnalysis=Be om datamaskinanalyse

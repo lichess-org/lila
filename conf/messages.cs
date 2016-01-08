@@ -45,7 +45,6 @@ whiteLeftTheGame=Bílý opustil hru
 blackLeftTheGame=Černý opustil hru
 shareThisUrlToLetSpectatorsSeeTheGame=Pomocí tohoto odkazu můžete pozvat ostatní ke sledování této partie
 replayAndAnalyse=Přehrát a analyzovat partii
-computerAnalysisInProgress=Počítačová analýza právě probíha
 theComputerAnalysisHasFailed=Počítačová analýza selhala
 viewTheComputerAnalysis=Zobrazit počítačovou analýzu
 requestAComputerAnalysis=Vyžádat počítačovou analýzu

@@ -45,7 +45,6 @@ whiteLeftTheGame=Τα λευκά έφυγαν από το παιχνίδι
 blackLeftTheGame=Τα μαύρα έφυγαν από το παιχνίδι
 shareThisUrlToLetSpectatorsSeeTheGame=Στείλτε αυτήν τη διεύθυνση και επιτρέψτε σε θεατές να δουν το παιχνίδι
 replayAndAnalyse=Ξαναπαίξτε και αναλύστε
-computerAnalysisInProgress=Ανάλυση υπολογιστή σε εξέλιξη
 theComputerAnalysisHasFailed=Η υπολογιστική ανάλυση απέτυχε
 viewTheComputerAnalysis=Δείτε την ανάλυση του υπολογιστή
 requestAComputerAnalysis=Ζητήστε υπολογιστική ανάλυση

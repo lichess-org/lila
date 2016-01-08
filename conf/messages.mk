@@ -44,7 +44,6 @@ whiteLeftTheGame=Белиот ја напушти играта
 blackLeftTheGame=Црниот ја напушти играта
 shareThisUrlToLetSpectatorsSeeTheGame=Сподели го овој линк, да може други да ја набљудуваат играта
 replayAndAnalyse=Повтори ја играта и анализирај
-computerAnalysisInProgress=Се спроведува компјутерска анализа
 theComputerAnalysisHasFailed=Компјутерската анализа беше безуспешна
 viewTheComputerAnalysis=Погледнете ја компјутерската анализа
 requestAComputerAnalysis=Побарајте компјутерска анализа

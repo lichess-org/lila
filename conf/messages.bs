@@ -45,7 +45,6 @@ whiteLeftTheGame=Bijeli je napustio partiju
 blackLeftTheGame=Crni je napustio partiju
 shareThisUrlToLetSpectatorsSeeTheGame=Podijelite ovaj link kako bi drugi mogli vidjeti partiju
 replayAndAnalyse=Ponovite i analizirajte
-computerAnalysisInProgress=Računarska analiza u toku
 theComputerAnalysisHasFailed=Računarska analiza nije uspjela
 viewTheComputerAnalysis=Pogledajte računarsku analizu
 requestAComputerAnalysis=Zahtijevajte računarsku analizu

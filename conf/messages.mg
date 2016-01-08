@@ -42,7 +42,6 @@ whiteLeftTheGame=Nandao ny lalao ny fotsy
 blackLeftTheGame=Nandao ny lalao ny mainty
 shareThisUrlToLetSpectatorsSeeTheGame=Zarao ity URL ity ahafahan'ny mpijery manaraka ny lalao
 replayAndAnalyse=Averina ny hetsika tamin'ny lalao ary hadihadiana
-computerAnalysisInProgress=Eo am-panadihadiana ny solosaina
 theComputerAnalysisHasFailed=Nandamoaka ny fanadihadiana nataon'ny solosaina
 viewTheComputerAnalysis=Jereo ny fanadihadiana nataon'ny solosaina
 requestAComputerAnalysis=Angataho ny fanadihadian'ny solosaina

@@ -45,7 +45,6 @@ whiteLeftTheGame=Białe porzuciły grę
 blackLeftTheGame=Czarne porzuciły grę
 shareThisUrlToLetSpectatorsSeeTheGame=Podziel się tym linkiem, aby zaprosić widzów do obserwowania tej gry
 replayAndAnalyse=Odtwórz i analizuj
-computerAnalysisInProgress=Analiza komputerowa w toku
 theComputerAnalysisHasFailed=Analiza komputerowa nie powiodła się
 viewTheComputerAnalysis=Zobacz analizę komputerową
 requestAComputerAnalysis=Poproś o analizę komputerową

@@ -42,7 +42,6 @@ whiteLeftTheGame=سفید کھلاڑی غیر موجود ہے
 blackLeftTheGame=سیاہ کھلاڑی غیر موجود ہے
 shareThisUrlToLetSpectatorsSeeTheGame=یہ رابطہ آپ ناظرین کو دے سکتے ہیں
 replayAndAnalyse=چالوں کا معائنہ اور تجزیہ کریں
-computerAnalysisInProgress=خودکار تجزیہ جاری ہے
 theComputerAnalysisHasFailed=خودکار تجزیہ کسی وجہ سے ناکام رہا
 viewTheComputerAnalysis=تجزیے کا معائنہ کریں
 requestAComputerAnalysis=خودکار تجزیہ کے لیے پیش کریں

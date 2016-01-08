@@ -45,7 +45,6 @@ whiteLeftTheGame=白が退席しました
 blackLeftTheGame=黒が退席しました
 shareThisUrlToLetSpectatorsSeeTheGame=誰かに対局を見てほしい場合、このURLを伝えてください
 replayAndAnalyse=棋譜再生と解析
-computerAnalysisInProgress=コンピューター解析中です
 theComputerAnalysisHasFailed=コンピューターの解析に失敗しました
 viewTheComputerAnalysis=コンピューターの解析を見る
 requestAComputerAnalysis=コンピューターの解析をリクエスト

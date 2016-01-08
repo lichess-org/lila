@@ -45,7 +45,6 @@ whiteLeftTheGame=Las blancas han abandonado la partida
 blackLeftTheGame=Las negras han abandonado la partida
 shareThisUrlToLetSpectatorsSeeTheGame=Comparte este enlace para que los espectadores puedan ver la partida
 replayAndAnalyse=Repetición y análisis
-computerAnalysisInProgress=Análisis de la computadora en progreso
 theComputerAnalysisHasFailed=El análisis de la computadora ha fallado
 viewTheComputerAnalysis=Ver el análisis de la computadora
 requestAComputerAnalysis=Solicitar un análisis de la computadora

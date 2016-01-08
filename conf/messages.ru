@@ -45,7 +45,6 @@ whiteLeftTheGame=Белые вышли из игры
 blackLeftTheGame=Черные вышли из игры
 shareThisUrlToLetSpectatorsSeeTheGame=Поделитесь этой ссылкой с другими для просмотра игры
 replayAndAnalyse=Повтор и анализ игры
-computerAnalysisInProgress=Производится компьютерный анализ
 theComputerAnalysisHasFailed=Произошёл сбой.
 viewTheComputerAnalysis=Просмотреть компьютерный анализ
 requestAComputerAnalysis=Запросить компьютерный анализ

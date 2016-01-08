@@ -45,7 +45,6 @@ whiteLeftTheGame=Beli je zapustil igro
 blackLeftTheGame=Črni je zapustil igro
 shareThisUrlToLetSpectatorsSeeTheGame=S tem naslovom lahko povabiš v igro opazovalce
 replayAndAnalyse=Predvajaj in analiziraj
-computerAnalysisInProgress=Računalniška analiza v teku
 theComputerAnalysisHasFailed=Računalniška analiza je spodletela
 viewTheComputerAnalysis=Poglej računalniško analizo
 requestAComputerAnalysis=Zahtevaj računalniško analizo

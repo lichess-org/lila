@@ -45,7 +45,6 @@ whiteLeftTheGame=Белыя пакінулі гульню
 blackLeftTheGame=Чорныя пакінулі гульню
 shareThisUrlToLetSpectatorsSeeTheGame=Падзяліцца гэтай спасылкай каб дазволіць назіральнікам глядзець гульню
 replayAndAnalyse=Паўтор і аналіз
-computerAnalysisInProgress=Выконваецца камп'ютарны аналіз
 theComputerAnalysisHasFailed=Камп'ютарны аналіз ня ўдаўся
 viewTheComputerAnalysis=Прагледзець камп'ютарны аналіз
 requestAComputerAnalysis=Запытаць камп'ютарный аналіз

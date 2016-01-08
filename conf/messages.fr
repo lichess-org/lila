@@ -45,7 +45,6 @@ whiteLeftTheGame=Les blancs ont quitté la partie
 blackLeftTheGame=Les noirs ont quitté la partie
 shareThisUrlToLetSpectatorsSeeTheGame=Partagez ce lien pour permettre à des spectateurs de voir la partie
 replayAndAnalyse=Revoir les coups joués et analyser la partie
-computerAnalysisInProgress=Analyse automatique en cours
 theComputerAnalysisHasFailed=L'analyse automatique a échoué
 viewTheComputerAnalysis=Voir l'analyse automatique
 requestAComputerAnalysis=Demander une analyse automatique

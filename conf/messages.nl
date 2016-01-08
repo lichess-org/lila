@@ -45,7 +45,6 @@ whiteLeftTheGame=Wit is weggegaan
 blackLeftTheGame=Zwart is weggegaan
 shareThisUrlToLetSpectatorsSeeTheGame=Verstuur deze link om anderen de partij te laten zien
 replayAndAnalyse=Partij naspelen met analyse
-computerAnalysisInProgress=Computeranalyse is bezig
 theComputerAnalysisHasFailed=De computeranalyse is mislukt
 viewTheComputerAnalysis=Bekijk de computeranalyse
 requestAComputerAnalysis=Verzoek een computeranalyse

@@ -45,7 +45,6 @@ whiteLeftTheGame=Gadaelodd Gwyn y gêm
 blackLeftTheGame=Gadaelodd Du'r gêm
 shareThisUrlToLetSpectatorsSeeTheGame=Rhannu'r cyfeiriad hwn i adael ymwelwyr i weld y gêm
 replayAndAnalyse=Ailchwarae ac dadansoddi
-computerAnalysisInProgress=Dadansoddiad cyfrifiadurol ar ei hanner
 theComputerAnalysisHasFailed=Methodd y cyfrifiadur ddadansoddi.
 viewTheComputerAnalysis=Gweld y dadansoddiad cyfrifiadurol
 requestAComputerAnalysis=Gofyn am ddadansoddiad cyfrifiadurol
