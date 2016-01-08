@@ -14,9 +14,14 @@
   text-transform: uppercase;
   margin-left: 10px;
 }
-#perfStat .lichess_title .view_games {
+#perfStat div.content_box_top > .view_games {
   float: right;
   font-size: 14px;
+  margin-right: 10px;
+}
+#perfStat div.content_box_top > .trophy {
+  float: right;
+  margin-top: -47px;
   margin-right: 10px;
 }
 #perfStat h2 {
