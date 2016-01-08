@@ -98,7 +98,7 @@ atom = atom.some) {
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
       }.getOrElse {
-      @analyse.computing()
+      @analyse.computing(pov.gameId)
       }
       }.getOrElse {
       @if(analysis.isEmpty) {
