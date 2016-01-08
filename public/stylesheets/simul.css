@@ -93,6 +93,10 @@
 #simul .half.accepted tr.me {
   border-right: 10px solid #d59120;
 }
+#simul .pull-quote {
+  margin-top: 30px;
+  width: 300px;
+}
 #simul .title_tag {
   float: right;
   font-size: 20px;

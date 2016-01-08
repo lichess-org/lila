@@ -332,6 +332,7 @@ ol.scheduled_tournaments a {
   padding: 3px 5px;
 }
 #tournament .pull-quote {
+  margin-top: 30px;
   width: 300px;
 }
 .setup {

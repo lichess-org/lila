@@ -32,8 +32,6 @@ module.exports = {
       startingMoment(ctrl.data),
       util.title(ctrl),
       arena.standing(ctrl, pag, 'created'),
-      m('br'),
-      m('br'),
       m('blockquote.pull-quote', [
           m('p', ctrl.data.quote.text),
           m('footer', ctrl.data.quote.author)

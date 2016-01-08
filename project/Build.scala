@@ -207,7 +207,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val simul = project("simul", Seq(
-    common, hub, socket, chess, game, round, chat, memo)).settings(
+    common, hub, socket, chess, game, round, chat, memo, quote)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
