@@ -37,7 +37,7 @@ private[report] final class ReportApi {
       (report.isAutomatic && report.isOther && user.troll) ||
       (report.isTroll && user.troll)
 
-  def autoRecidiveReport(userId: String): Funit = {
+  def autoCheatPrintReport(userId: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,

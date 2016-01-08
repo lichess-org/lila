@@ -73,17 +73,19 @@ object Store {
       BSONDocument("user" -> userId, "up" -> true)
     ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().collect[List](nb)
 
-  def setFingerprint(id: String, fingerprint: String) = {
+  def setFingerprint(id: String, fingerprint: String): Fu[String] = {
     import java.util.Base64
     import org.apache.commons.codec.binary.Hex
-    val hash = Base64.getEncoder encodeToString {
-      Hex decodeHex fingerprint.toArray
-    } take 8
-    storeColl.update(
-      BSONDocument("_id" -> id),
-      BSONDocument("$set" -> BSONDocument(
-        "fp" -> hash
-      ))).void
+    scala.concurrent.Future {
+      Base64.getEncoder encodeToString {
+        Hex decodeHex fingerprint.toArray
+      } take 8
+    } flatMap { hash =>
+      storeColl.update(
+        BSONDocument("_id" -> id),
+        BSONDocument("$set" -> BSONDocument("fp" -> hash))
+      ) inject hash
+    }
   }
 
   case class Info(ip: String, ua: String, fp: Option[String]) {
