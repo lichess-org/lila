@@ -321,5 +321,6 @@ object Quotes {
     new Quote("I’m not a materialistic person, in that, I don’t suffer the lack or loss of money.  The absence of worldly goods I don’t look back on. For Chess is a way I can be as materialistic as I want without having to sell my soul ", "Jamie Walter Adams"),
     new Quote("These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his King", "Jamie Walter Adams"),
     new Quote("Chess isn’t a game of speed, it is a game of speech through actions", "Matthew Selman"),
-    new Quote("Life like Chess is about knowing to do the right move at the right time", "Kaleb Rivera"))
+    new Quote("Life like Chess is about knowing to do the right move at the right time", "Kaleb Rivera")
+    new Quote("Come on Harry!", "Simon Williams"))
 }
