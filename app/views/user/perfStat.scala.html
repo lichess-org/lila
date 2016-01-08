@@ -24,6 +24,9 @@ evenMoreCss = moreCss) {
 <div class="content_box no_padding" id="perfStat">
   <div class="content_box_top">
     <h1 class="lichess_title">
+      <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id">
+        View the games
+      </a>
       <a href="@routes.User.show(u.username)" data-icon="I" class="text">
         @u.username <span>@perfType.name stats</span>
       </a>
