@@ -324,7 +324,8 @@ object Quote {
     new Quote("Chess isn’t a game of speed, it is a game of speech through actions", "Matthew Selman"),
     new Quote("Life like Chess is about knowing to do the right move at the right time", "Kaleb Rivera"),
     new Quote("Come on Harry!", "Simon Williams"),
-    new Quote("Some people think that if their opponent plays a beautiful game, it’s okay to lose. I don’t. You have to be merciless.", "Magnus Carlsen")
+    new Quote("Some people think that if their opponent plays a beautiful game, it’s okay to lose. I don’t. You have to be merciless.", "Magnus Carlsen"),
+    new Quote("Most gods throw dice, but Fate plays chess, and you don't find out til too late that he's been playing with two queens all along.", "Terry Pratchett")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
