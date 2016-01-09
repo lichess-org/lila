@@ -99,10 +99,10 @@ private[lobby] final class Lobby(
               _.createdAt isBefore createdBefore
             } ::: HookRepo.cleanupOld
           }.toSet
-          play.api.Logger("lobby").debug(
-            s"broom uids:${socketUids.uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
+          // play.api.Logger("lobby").debug(
+          //   s"broom uids:${socketUids.uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
           if (hooks.nonEmpty) {
-            play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+            // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
             self ! RemoveHooks(hooks)
           }
         })
