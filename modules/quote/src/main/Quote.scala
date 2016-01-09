@@ -331,6 +331,7 @@ object Quote {
     , new Quote("You can't take the pawn because then the other will Queen. Like wonder twin powers." , "John ~ZugAddict~ Chernoff")
     , new Quote("Most gods throw dice, but Fate plays chess, and you don't find out til too late that he's been playing with two queens all along.", "Terry Pratchett")
     , new Quote("Atomic is just like regular chess, except you're exploding, everything's exploding, and you're in bullet hell", "Unihedron 0")
+    , new Quote("lichess is better, but it's free", "Thibault Duplessis")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
