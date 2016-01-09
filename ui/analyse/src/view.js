@@ -262,7 +262,6 @@ function renderTree(ctrl, tree) {
 }
 
 function renderAnalyse(ctrl) {
-  console.log(ctrl.analyse.tree);
   var result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
