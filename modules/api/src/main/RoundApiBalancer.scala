@@ -3,6 +3,7 @@ package lila.api
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
+import scala.concurrent.duration._
 
 import chess.format.pgn.Pgn
 import lila.analyse.Analysis
@@ -28,6 +29,7 @@ private[api] final class RoundApiBalancer(
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
+        val futureTimeout = 20.seconds
         def process = {
           case Player(pov, apiVersion, ctx) => {
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
