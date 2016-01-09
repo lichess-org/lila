@@ -27,6 +27,9 @@ object HTTPRequest {
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
+  def lastRemoteAddress(req: RequestHeader): String = 
+    req.remoteAddress.split(", ").lastOption | req.remoteAddress
+
   def sid(req: RequestHeader): Option[String] = req.session get "sid"
 
   val isBot = UaMatcher {

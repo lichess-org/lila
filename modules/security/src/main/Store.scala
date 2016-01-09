@@ -10,6 +10,7 @@ import reactivemongo.bson.Macros
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
+import lila.common.HTTPRequest
 import tube.storeColl
 
 object Store {
@@ -22,8 +23,8 @@ object Store {
     storeColl.insert(BSONDocument(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> req.remoteAddress,
-      "ua" -> lila.common.HTTPRequest.userAgent(req).|("?"),
+      "ip" -> HTTPRequest.lastRemoteAddress(req),
+      "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
       "api" -> apiVersion
