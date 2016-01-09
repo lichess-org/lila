@@ -138,6 +138,7 @@ module.exports = function(opts) {
     startCeval();
     updateHref();
     this.vm.autoScroll && this.vm.autoScroll();
+    promotion.cancel(this);
   }.bind(this);
 
   this.userJump = function(path) {
