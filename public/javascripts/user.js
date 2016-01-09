@@ -81,13 +81,9 @@ $(function() {
     });
   });
 
-});
-lichess = lichess || {};
-lichess.startTournamentStatsTour = function() {
-  var baseUrl = $('body').data('asset-url');
-  $('head').append($('<link rel="stylesheet" type="text/css" />')
-    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
-  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(function() {
+  if ($('div.user_show').data('me') &&
+    $('a.tournament_stats').data('toints') != 0 &&
+    lichess.once('user-tournaments-tour')) lichess.hopscotch(function() {
     hopscotch.configure({
       i18n: {
         doneBtn: 'OK, got it'
@@ -105,4 +101,4 @@ lichess.startTournamentStatsTour = function() {
       }]
     });
   });
-}
+});

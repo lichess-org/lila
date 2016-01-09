@@ -317,7 +317,8 @@ lichess.storage = {
     });
   }
 };
-lichess.once = function(key) {
+lichess.once = function(key, mod) {
+  if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
     lichess.storage.set(key, 1);
     return true;
@@ -333,6 +334,12 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.hopscotch = function(f) {
+  var baseUrl = $('body').data('asset-url');
+  $('head').append($('<link rel="stylesheet" type="text/css" />')
+    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
+  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
+}
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];

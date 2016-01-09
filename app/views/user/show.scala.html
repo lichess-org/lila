@@ -11,13 +11,6 @@
 @embedJs(s"var lichess_rating_series = $ratingChart;")
 }
 }
-@if(ctx.is(u) && u.toints > 0) {
-@embedJs {
-$(function() {
-if (lichess.once('user-tournaments-tour')) setTimeout(lichess.startTournamentStatsTour , 1000);
-});
-}
-}
 }
 
 @user.layout(
@@ -30,7 +23,7 @@ image = staticUrl("images/large_tile.png").some,
 title = u.titleUsernameWithBestRating,
 url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
-<div class="content_box no_padding user_show">
+<div class="content_box no_padding user_show" data-me="@ctx.is(u)">
   <div class="content_box_top">
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
@@ -63,7 +56,7 @@ description = describeUser(u)).some) {
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
-    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
+    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
