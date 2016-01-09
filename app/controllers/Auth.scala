@@ -168,8 +168,8 @@ object Auth extends LilaController {
           !me.lame ?? {
             api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
               case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
-                case nb if nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
-                case _                             => funit
+                case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
+                case _                                        => funit
               }
               case _ => funit
             }
