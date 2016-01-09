@@ -329,7 +329,7 @@ object Quote {
     , new Quote("On the bright side, I no longer have any more pieces to lose.", "John ~ZugAddict~ Chernoff")
     , new Quote("Tactics... Tactics are your friends. But they are weird friends who do strange things.", "John ~ZugAddict~ Chernoff")
     , new Quote("You can't take the pawn because then the other will queen. Like wonder twin powers." , "John ~ZugAddict~ Chernoff")
-    , new Quote("Most gods throw dice, but Fate plays chess, and you don't find out til too late that he's been playing with two queens all along.", "Terry Pratchett")
+    , new Quote("Most of the gods throw dice but Fate plays chess, and you don't find out until too late that he's been using two queens all along.", "Terry Pratchett")
     , new Quote("Atomic is just like regular chess, except you're exploding, everything's exploding, and you're in bullet hell", "Unihedron 0")
     , new Quote("lichess is better, but it's free", "Thibault Duplessis")
   )
