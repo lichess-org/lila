@@ -29,6 +29,10 @@ object Prismic {
 
   def getBookmark(name: String): Fu[Option[Document]] = prismicApi flatMap { api =>
     api.bookmarks.get(name) ?? getDocument
+  } recover {
+    case e: Exception =>
+      play.api.Logger("prismic").error(s"bookmark:$name $e")
+      none
   }
 
   def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>
