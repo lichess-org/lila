@@ -29,10 +29,11 @@ private[api] final class RoundApiBalancer(
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
         def process = {
-          case Player(pov, apiVersion, ctx) =>
+          case Player(pov, apiVersion, ctx) => {
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
               play.api.Logger("RoundApiBalancer").error(s"$pov $e")
             }
+          }.logIfSlow(500, "RoundApiBalancer") { _ => s"inner player $pov" }
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
@@ -43,10 +44,11 @@ private[api] final class RoundApiBalancer(
 
   import implementation._
 
-  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] = {
     router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
       play.api.Logger("RoundApiBalancer").error(s"$pov $e")
     }
+  }.logIfSlow(500, "RoundApiBalancer") { _ => s"outer player $pov" }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
