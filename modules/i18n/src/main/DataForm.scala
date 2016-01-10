@@ -10,7 +10,8 @@ import tube.translationTube
 
 final class DataForm(
     keys: I18nKeys,
-    val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
+    val captcher: akka.actor.ActorSelection,
+    callApi: CallApi) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
     "comment" -> optional(nonEmptyText),
@@ -40,7 +41,7 @@ final class DataForm(
         comment = metadata.comment,
         author = user.some,
         createdAt = DateTime.now)
-      $insert(translation)
+      $insert(translation) >>- callApi.submit(code)
     }
   }
 
