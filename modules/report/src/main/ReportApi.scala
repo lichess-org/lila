@@ -110,7 +110,7 @@ private[report] final class ReportApi {
   def processEngine(userId: String, byModId: String): Funit = $update(
     Json.obj(
       "user" -> userId,
-      "reason" -> Reason.Cheat.name
+      "reason" -> $in(List(Reason.Cheat.name, Reason.CheatPrint.name))
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true)
