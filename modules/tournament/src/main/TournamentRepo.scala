@@ -4,8 +4,10 @@ import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONArray }
 
 import BSONHandlers._
+import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
+import lila.db.paginator.BSONAdapter
 
 object TournamentRepo {
 
@@ -83,6 +85,16 @@ object TournamentRepo {
       )))
       .sort(BSONDocument("startsAt" -> -1))
       .cursor[Tournament]().collect[List](limit)
+
+  def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
+    adapter = new BSONAdapter[Tournament](
+      collection = coll,
+      selector = finishedSelect,
+      projection = BSONDocument(),
+      sort = BSONDocument("startsAt" -> -1)
+    ),
+    currentPage = page,
+    maxPerPage = maxPerPage)
 
   def setStatus(tourId: String, status: Status) = coll.update(
     selectId(tourId),

@@ -19,10 +19,14 @@ object Tournament extends LilaController {
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
-  val home = Open { implicit ctx =>
-    env.api.fetchVisibleTournaments zip
+  def home(page: Int) = Open { implicit ctx =>
+    val finishedPaginator = repo.finishedPaginator(maxPerPage = 30, page = page)
+    if (HTTPRequest isXhr ctx.req) finishedPaginator map { pag =>
+      Ok(html.tournament.finishedPaginator(pag))
+    }
+    else env.api.fetchVisibleTournaments zip
       repo.scheduledDedup zip
-      repo.finished(30) zip
+      finishedPaginator zip
       UserRepo.allSortToints(10) map {
         case (((visible, scheduled), finished), leaderboard) =>
           Ok(html.tournament.home(scheduled, finished, leaderboard, env scheduleJsonView visible))
