@@ -81,7 +81,7 @@ $(function() {
     });
   });
 
-  if ($('div.user_show').data('me') &&
+  if ($('div.user_show.myself').length &&
     $('a.tournament_stats').data('toints') != 0 &&
     lichess.once('user-tournaments-tour')) lichess.hopscotch(function() {
     hopscotch.configure({
@@ -94,10 +94,29 @@ $(function() {
       steps: [{
         title: "New: your tournament stats",
         content: "You can now click your tournament points to review your " +
-          "recent and best tournaments.",
+          "recent and best tournaments!",
         target: "#lichess .tournament_stats",
         placement: "bottom",
         xOffset: 30
+      }]
+    });
+  });
+  else if ($('div.user_show.myself').length &&
+    $('div.sub_ratings .relevant').length &&
+    lichess.once('user-perf-stats-tour')) lichess.hopscotch(function() {
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
+      id: 'perf-stats',
+      showPrevButton: true,
+      steps: [{
+        title: "New: performance stats",
+        content: "You can now click your ratings to display stats about your play!",
+        target: $('div.sub_ratings .relevant')[0],
+        placement: "right",
+        xOffset: -40
       }]
     });
   });

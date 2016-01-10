@@ -23,7 +23,7 @@ image = staticUrl("images/large_tile.png").some,
 title = u.titleUsernameWithBestRating,
 url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
-<div class="content_box no_padding user_show" data-me="@ctx.is(u)">
+<div class="content_box no_padding user_show@if(ctx.is(u)){ myself}">
   <div class="content_box_top">
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>

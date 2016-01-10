@@ -3,12 +3,11 @@
 @import lila.rating.PerfType
 
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
-
 <a data-icon="@perfType.iconChar"
   title="@perfType.title"
   @if(lila.rating.PerfType.isGame(perfType)) {
   href="@routes.User.perfStat(u.username, perfType.key)"
-  class="game @if(active.contains(perfType)) {active}"
+  class="game@if(active.contains(perfType)){ active}@if(perf.nb >= 10){ relevant}"
   }>
   <h3>@name.getOrElse(perfType.name).toUpperCase</h3>
   <span class="rating">
