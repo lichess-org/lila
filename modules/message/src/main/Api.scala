@@ -41,7 +41,8 @@ final class Api(
 
   def markThreadAsRead(id: String, me: User): Funit = thread(id, me).void
 
-  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] =
+  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
+    val fromMod = Granter(_.MessageAnyone)(me)
     UserRepo named data.user.id flatMap {
       _.fold(fufail[Thread]("No such recipient")) { invited =>
         Thread.make(
@@ -50,23 +51,25 @@ final class Api(
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
             val thread = me.troll.fold(t deleteFor invited, t)
-            sendUnlessBlocked(thread) >>-
+            sendUnlessBlocked(thread, fromMod) >>-
               updateUser(invited) >>- {
-                val text = data.subject + " " + data.text
+                val text = s"${data.subject} ${data.text}"
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
               } inject thread
           }
       }
     }
+  }
 
   def lichessThread(lt: LichessThread): Funit = sendUnlessBlocked(Thread.make(
     name = lt.subject,
     text = lt.message,
     creatorId = lt.from,
-    invitedId = lt.to)) >> unreadCache.clear(lt.to)
+    invitedId = lt.to), fromMod = false) >> unreadCache.clear(lt.to)
 
-  private def sendUnlessBlocked(thread: Thread): Funit =
-    blocks(thread.invitedId, thread.creatorId) flatMap {
+  private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Funit =
+    if (fromMod) $insert(thread)
+    else blocks(thread.invitedId, thread.creatorId) flatMap {
       !_ ?? $insert(thread)
     }
 

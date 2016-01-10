@@ -28,6 +28,7 @@ object Permission {
   case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
   case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object Beta extends Permission("ROLE_BETA")
+  case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -35,7 +36,8 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
-    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig))
+    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
+    MessageAnyone))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 
