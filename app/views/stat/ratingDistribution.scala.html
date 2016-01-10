@@ -24,7 +24,7 @@ moreJs = moreJs) {
     case (under, sum) => {
     @trans.nbPerfTypePlayersThisMonth(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
     @trans.yourPerfTypeRatingisRating(perfType.name, s"""<strong>$rating</strong>""")<br />
-    @trans.youAreBetterThanPercentThanPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
+    @trans.youAreBetterThanPercentOfPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
     }
     }
     }.getOrElse {

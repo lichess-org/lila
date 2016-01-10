@@ -39,7 +39,6 @@ blackResigned=Nèyr a depità
 whiteLeftTheGame=Bllanc a modà la passa
 blackLeftTheGame=Nèyr a modà la passa
 shareThisUrlToLetSpectatorsSeeTheGame=Partàji cetì lèm per lassèr de spector véyre dèns la passa
-replayAndAnalyse=Rejoyèr é analisar
 flipBoard=Virèr la tràbla
 threefoldRepetition=Tripla repeticion
 claimADraw=Cllamar l'egalità

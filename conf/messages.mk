@@ -43,7 +43,6 @@ blackResigned=Црниот се откажа
 whiteLeftTheGame=Белиот ја напушти играта
 blackLeftTheGame=Црниот ја напушти играта
 shareThisUrlToLetSpectatorsSeeTheGame=Сподели го овој линк, да може други да ја набљудуваат играта
-replayAndAnalyse=Повтори ја играта и анализирај
 theComputerAnalysisHasFailed=Компјутерската анализа беше безуспешна
 viewTheComputerAnalysis=Погледнете ја компјутерската анализа
 requestAComputerAnalysis=Побарајте компјутерска анализа

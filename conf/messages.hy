@@ -42,7 +42,6 @@ blackResigned=Սևերը հանձնվեցին
 whiteLeftTheGame=Սպիտակները լքեցին խաղը
 blackLeftTheGame=Սևերը լքեցին խաղը
 shareThisUrlToLetSpectatorsSeeTheGame=Տարածել այս հասցեն, որպեսզի հանդիսատեսները տեսնեն խաղի ընթացքը
-replayAndAnalyse=Խաղի քննություն
 theComputerAnalysisHasFailed=Համակարգչային անալիզը չստացվեց
 viewTheComputerAnalysis=Ցույց տալ համակարգչային անալիզը
 requestAComputerAnalysis=Համակարգչային անալիզ պատվիրել
