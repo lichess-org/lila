@@ -10,28 +10,26 @@ lichess_rating_distribution.my_rating = @rating;
 }
 }
 
-@percentile = @{
-}
+@title = { @trans.monthlyPerfTypeRatingDistribution(perfType.name) }
 
 @layout(
-title = s"Monthly ${perfType.name} rating distribution",
+title = title.toString,
 active = perfType.key,
 moreJs = moreJs) {
-
 <div class="content_box no_padding stat">
-  <h1 class="lichess_title">Monthly @perfType.name rating distribution</h1>
+  <h1 class="lichess_title">@title</h1>
   <p class="desc" data-icon="@perfType.iconChar">
     @ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
     @lila.user.Stat.percentile(data, rating) match {
     case (under, sum) => {
-    <strong>@sum.localize</strong> @perfType players this month.<br />
-    Your rating is <strong>@rating</strong>.<br />
-    You are better than <strong>@("%.1f" format under * 100.0 / sum)%</strong> of @perfType.name players.
+    @trans.nbPerfTypePlayersThisMonth(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
+    @trans.yourPerfTypeRatingisRating(perfType.name, s"""<strong>$rating</strong>""")<br />
+    @trans.youAreBetterThanPercentThanPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
     }
     }
     }.getOrElse {
-    <strong>@data.sum.localize</strong> @perfType players this month.<br />
-    You do not have an established @perfType rating.<br />
+    @trans.nbPerfTypePlayersThisMonth(s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
+    @trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.name)<br />
     }
   </p>
   <div id="rating_distribution_chart">
