@@ -83,7 +83,8 @@ function podiumStats(p, data) {
       nb.game ? [
         m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
         m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))])
-      ] : null
+      ] : null,
+      p.performance ? m('tr', [m('th', 'Performance'), m('td', p.performance)]) : null
     ])
   ];
 }

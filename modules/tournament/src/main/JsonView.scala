@@ -7,8 +7,8 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, Pov }
-import lila.user.User
 import lila.quote.Quote.quoteWriter
+import lila.user.User
 
 final class JsonView(
     getLightUser: String => Option[LightUser],
@@ -173,7 +173,10 @@ final class JsonView(
       s.onFire.fold(o + ("fire" -> JsBoolean(true)), o)
   }
 
-  private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {
+  private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer): JsObject =
+    playerJson(sheets get rankedPlayer.player.userId, tour, rankedPlayer)
+
+  private def playerJson(sheet: Option[ScoreSheet], tour: Tournament, rankedPlayer: RankedPlayer): JsObject = {
     val p = rankedPlayer.player
     val light = getLightUser(p.userId)
     Json.obj(
@@ -185,25 +188,24 @@ final class JsonView(
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "ratingDiff" -> p.ratingDiff,
-      "sheet" -> sheets.get(p.userId).map(sheetJson)
+      "sheet" -> sheet.map(sheetJson)
     ).noNull
   }
 
   private def podiumJson(id: String): Fu[Option[JsArray]] =
     TournamentRepo finishedById id flatMap {
       _ ?? { tour =>
-        for {
-          rankedPlayers <- PlayerRepo.bestByTourWithRank(id, 3)
-          sheets <- rankedPlayers.map { p =>
-            PairingRepo.finishedByPlayerChronological(tour.id, p.player.userId) map { pairings =>
-              p.player.userId -> tour.system.scoringSystem.sheet(tour, p.player.userId, pairings)
-            }
-          }.sequenceFu.map(_.toMap)
-        } yield JsArray(rankedPlayers.map { rp =>
-          playerJson(sheets, tour)(rp) + (
-            "nb" -> sheets.get(rp.player.userId).map(sheetNbs).getOrElse(JsNull)
-          )
-        }).some
+        PlayerRepo.bestByTourWithRank(id, 3).flatMap {
+          _.map {
+            case rp@RankedPlayer(_, player) => for {
+              pairings <- PairingRepo.finishedByPlayerChronological(tour.id, player.userId)
+              sheet = tour.system.scoringSystem.sheet(tour, player.userId, pairings)
+              tpr <- performance(tour, player, pairings)
+            } yield playerJson(sheet.some, tour, rp) ++ Json.obj(
+              "nb" -> sheetNbs(sheet),
+              "performance" -> tpr)
+          }.sequenceFu
+        } map { l => JsArray(l).some }
       }
     }
 
