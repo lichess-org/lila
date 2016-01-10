@@ -616,6 +616,7 @@ ol.scheduled_tournaments li.marathon {
 #tournament_list table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;
+  white-space: nowrap;
 }
 #tournament_list table.slist .header {
   letter-spacing: 2px;
