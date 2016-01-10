@@ -352,6 +352,14 @@ object Quote {
     , new Quote("Attackers may sometimes regret bad moves, but it is much worse to forever regret an opportunity you allowed to pass you by", "Garry Kasparov")
     , new Quote("My favorite victory is when it is not even clear where my opponent made a mistake", "Peter Leko")
     , new Quote("Win with grace, lose with dignity", "Susan Polgar")
+    , new Quote("Pawns are such fascinating pieces, too...So small, almost insignificant, and yet--they can depose kings.", "Lavie Tidhar")
+    , new Quote("The move is there, but you must see it.", "Savielly Tartakower")
+    , new Quote("The kings are an apt metaphor for human beings: utterly constrained by the rules of the game, defenseless against bombardment from all sides, able only to temporarily dodge disaster by moving one step in any direction.", "Jennifer duBois")
+    , new Quote("If chess is an art, Alekhine. If chess is a science, Capablanca. If chess is a struggle, Lasker. --on who he thought was the best player", "Savielly Tartakower")
+    , new Quote("Chess is a good mistress, but a bad master.", "Gerald Abrahams")
+    , new Quote("I often play a move I know how to refute.", "Bent Larsen")
+    , new Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch")
+    , new Quote("If you don't know what to do, find your worst piece and look for a better square.", "Gerard Schwarz")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
