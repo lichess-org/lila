@@ -96,8 +96,8 @@ object User {
     "FM" -> "FIDE Master",
     "WFM" -> "Woman FIDE Master",
     "NM" -> "National Master",
-    "CM" -> "FIDE Candidate Master",
-    "WCM" -> "FIDE Woman Candidate Master",
+    "CM" -> "Candidate Master",
+    "WCM" -> "Woman Candidate Master",
     "WNM" -> "Woman National Master",
     "LM" -> "Lichess Master")
 
