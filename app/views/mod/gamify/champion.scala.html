@@ -1,8 +1,8 @@
-@(champ: Option[lila.mod.Gamify.ModMixed], img: String, title: String, period: String)(implicit ctx: Context)
+@(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(implicit ctx: Context)
 
 <div class="champ">
   <img src="@staticUrl(s"images/mod/$img.png")" />
-  <h2>@title</h2>
+  <h2>Mod of the @period.name</h2>
   @champ.map { m =>
   <h3>@userIdLink(m.modId.some, withOnline = false)</h3>
   <table>
@@ -22,5 +22,5 @@
     </tbody>
   </table>
   }.getOrElse { Nobody! }
-  <a class="current" href="@routes.Mod.gamifyPeriod(period)">View current leaderboard</a>
+  <a class="current button" href="@routes.Mod.gamifyPeriod(period.name)">View @period.name leaderboard</a>
 </div>

@@ -1,10 +1,10 @@
 @(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(implicit ctx: Context)
 
-@title = @{ s"Moderators of the ${period.toString.toLowerCase}" }
+@title = @{ s"Moderators of the ${period.name}" }
 
 @mod.layout(
 title = title,
-active = "leaderboard",
+active = "gamify",
 moreCss = cssTag("mod-gamify.css")) {
 
 <div id="mod-gamify" class="content_box">

@@ -48,7 +48,8 @@
 }
 #mod-gamify .champ a.current {
   display: block;
-  margin: 30px 0 20px 0;
+  margin: 30px auto 20px auto;
+  width: 70%;
 }
 #mod-gamify .period table {
   width: 100%;
@@ -76,4 +77,8 @@
 }
 #mod-gamify .period table td.score {
   font-size: 1.5em;
+}
+#mod-gamify .history {
+  padding: 20px;
+  margin-top: 20px;
 }

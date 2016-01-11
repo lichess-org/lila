@@ -67,12 +67,14 @@ final class Gamify(
 
 object Gamify {
 
-  sealed trait Period
+  sealed trait Period {
+    def name = toString.toLowerCase
+  }
   object Period {
     case object Day extends Period
     case object Week extends Period
     case object Month extends Period
-    def apply(p: String) = List(Day, Week, Month).find(_.toString.toLowerCase == p)
+    def apply(p: String) = List(Day, Week, Month).find(_.name == p)
   }
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]) {

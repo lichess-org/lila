@@ -1,5 +1,7 @@
 @(leaderboards: lila.mod.Gamify.Leaderboards)(implicit ctx: Context)
 
+@import lila.mod.Gamify.Period
+
 @title = @{ "Moderator hall of fame" }
 
 @mod.layout(
@@ -11,14 +13,17 @@ moreCss = cssTag("mod-gamify.css")) {
   <h1>@title</h1>
   <div class="champs clearfix">
     <div class="third">
-      @champion(leaderboards.daily.headOption, "reward1", "Mod of the day", "day")
+      @champion(leaderboards.daily.headOption, "reward1", Period.Day)
     </div>
     <div class="third">
-      @champion(leaderboards.weekly.headOption, "reward2", "Mod of the week", "week")
+      @champion(leaderboards.weekly.headOption, "reward2", Period.Week)
     </div>
     <div class="third">
-      @champion(leaderboards.monthly.headOption, "reward3", "Mod of the month", "month")
+      @champion(leaderboards.monthly.headOption, "reward3", Period.Month)
     </div>
+  </div>
+  <div class="history">
+    TODO: History of former champions for past months.
   </div>
 </div>
 }
