@@ -7,19 +7,18 @@ title = title,
 active = "gamify",
 moreCss = cssTag("mod-gamify.css")) {
 
-<div id="mod-gamify" class="content_box">
-  <h1>@title</h1>
+<div id="mod-gamify" class="content_box no_padding">
+  <h1>
+    <a href="@routes.Mod.gamify" data-icon="I" class="text">@title</a>
+  </h1>
   <div class="period">
-    <table>
+    <table class="slist">
       <thead>
         <tr>
           <th colspan="2"></th>
           <th>Actions</th>
           <th>Reports</th>
           <th>Score</th>
-          <th>Trolls</th>
-          <th>Cheats</th>
-          <th>Others</th>
         </tr>
       </thead>
       <tbody>
@@ -31,9 +30,6 @@ moreCss = cssTag("mod-gamify.css")) {
           <td>@m.action.localize</td>
           <td>@m.report.localize</td>
           <td class="score">@m.score.localize</td>
-          <td>WIP</td>
-          <td>WIP</td>
-          <td>WIP</td>
         </tr>
         }
         }

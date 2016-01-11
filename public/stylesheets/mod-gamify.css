@@ -2,9 +2,11 @@
   font-family: 'PT Serif';
   font-size: 3em;
   letter-spacing: 5px;
-  text-align: center;
   display: block;
+}
+#mod-gamify.index h1 {
   margin-bottom: 30px;
+  text-align: center;
 }
 #mod-gamify .third {
   float: left;
@@ -62,21 +64,20 @@
 #mod-gamify .period table thead th {
   padding: 7px;
 }
-#mod-gamify .period table thead th:first-child {
-  padding: 0;
-}
-#mod-gamify .period table * {
-  text-align: right;
-}
 #mod-gamify .period table tbody {
   font-size: 1.3em;
 }
 #mod-gamify .period table tbody th {
   text-align: left;
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 #mod-gamify .period table td.score {
   font-size: 1.5em;
+}
+#mod-gamify .period table thead th:nth-child(n+1),
+#mod-gamify .period table tr td {
+  text-align: right;
+  padding-right: 25px;
 }
 #mod-gamify .history {
   margin-top: 20px;
@@ -89,7 +90,7 @@
 
 #mod-gamify .history table tr.year th:first-child {
   padding-left: 25px;
-  font-size: 1.8em;
+  font-size: 2.6em;
 }
 #mod-gamify .history table tr.year th:nth-child(n+3),
 #mod-gamify .history table tr td {
