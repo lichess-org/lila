@@ -1,0 +1,24 @@
+@(leaderboards: lila.mod.Gamify.Leaderboards)(implicit ctx: Context)
+
+@title = @{ "Moderator hall of fame" }
+
+@mod.layout(
+title = title,
+active = "gamify",
+moreCss = cssTag("mod-gamify.css")) {
+
+<div id="mod-gamify" class="content_box no_padding">
+  <h1>@title</h1>
+  <div class="champs clearfix">
+    <div class="third">
+      @champion(leaderboards.daily.headOption, "reward1", "Mod of the day", "day")
+    </div>
+    <div class="third">
+      @champion(leaderboards.weekly.headOption, "reward2", "Mod of the week", "week")
+    </div>
+    <div class="third">
+      @champion(leaderboards.monthly.headOption, "reward3", "Mod of the month", "month")
+    </div>
+  </div>
+</div>
+}

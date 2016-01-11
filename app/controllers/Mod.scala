@@ -132,7 +132,15 @@ object Mod extends LilaController {
   def gamify = Secure(_.SeeReport) { implicit ctx =>
     me =>
       Env.mod.gamify.leaderboards map { leaderboards =>
-        Ok(html.mod.gamify(leaderboards))
+        Ok(html.mod.gamify.index(leaderboards))
+      }
+  }
+  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+        Env.mod.gamify.leaderboards map { leaderboards =>
+          Ok(html.mod.gamify.period(leaderboards, period))
+        }
       }
   }
 }

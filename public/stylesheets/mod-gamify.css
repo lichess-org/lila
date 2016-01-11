@@ -1,0 +1,79 @@
+#mod-gamify h1 {
+  font-family: 'PT Serif';
+  font-size: 3em;
+  letter-spacing: 5px;
+  text-align: center;
+  display: block;
+  margin-bottom: 30px;
+}
+#mod-gamify .third {
+  float: left;
+  width: 33.33%;
+}
+#mod-gamify .champ {
+  text-align: center;
+}
+#mod-gamify .champ h2 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+#mod-gamify .champ h3 {
+  font-family: 'PT Serif';
+  font-size: 3em;
+  color: #d59120;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 15px 0 25px 0;
+}
+#mod-gamify .champ h3 a {
+  color: #d59120;
+}
+#mod-gamify .champ table {
+  margin: auto;
+}
+#mod-gamify .champ table tr th {
+  text-transform: uppercase;
+}
+#mod-gamify .champ table tr td {
+  font-size: 2em;
+  font-family: monospace;
+  text-align: right;
+  line-height: 50px;
+}
+#mod-gamify .champ table tr:first-child td {
+  font-size: 3em;
+}
+#mod-gamify .champ a.current {
+  display: block;
+  margin: 30px 0 20px 0;
+}
+#mod-gamify .period table {
+  width: 100%;
+}
+#mod-gamify .period table thead {
+  font-family: 'PT Serif';
+  font-size: 1.2em;
+}
+#mod-gamify .period table td,
+#mod-gamify .period table thead th {
+  padding: 7px;
+}
+#mod-gamify .period table thead th:first-child {
+  padding: 0;
+}
+#mod-gamify .period table * {
+  text-align: right;
+}
+#mod-gamify .period table tbody {
+  font-size: 1.3em;
+}
+#mod-gamify .period table tbody th {
+  text-align: left;
+  font-size: 1.5em;
+}
+#mod-gamify .period table td.score {
+  font-size: 1.5em;
+}

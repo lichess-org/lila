@@ -67,7 +67,21 @@ final class Gamify(
 
 object Gamify {
 
-  case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed])
+  sealed trait Period
+  object Period {
+    case object Day extends Period
+    case object Week extends Period
+    case object Month extends Period
+    def apply(p: String) = List(Day, Week, Month).find(_.toString.toLowerCase == p)
+  }
+
+  case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]) {
+    def apply(period: Period) = period match {
+      case Period.Day   => daily
+      case Period.Week  => weekly
+      case Period.Month => monthly
+    }
+  }
 
   case class ModCount(modId: String, count: Int)
   case class ModMixed(modId: String, action: Int, report: Int) {
