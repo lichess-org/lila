@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -140,14 +140,14 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       <div class="undertable_inner scroll-shadow-hard">
         <table>
           <tbody>
-            @leaderboard.map {
-            case (u, pt) => {
+            @leaderboard.map { l =>
             <tr>
-              <td>@userLink(u)</td>
-              <td>@showPerfRating(u, pt, klass = "title")</td>
-              <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
+              <td>@lightUserLink(l.user)</td>
+              @lila.rating.PerfType(l.perfKey).map { pt =>
+              <td data-icon="@pt.iconChar">l.rating</td>
+              }
+              <td>@showProgress(l.progress, withTitle = false)</td>
             </tr>
-            }
             }
           </tbody>
         </table>

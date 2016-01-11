@@ -1,20 +1,18 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], horde: List[User], nbDay: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User.LightPerf], blitz: List[User.LightPerf], classical: List[User.LightPerf], chess960: List[User.LightPerf], kingOfTheHill: List[User.LightPerf], threeCheck: List[User.LightPerf], antichess: List[User.LightPerf], atomic: List[User.LightPerf], horde: List[User.LightPerf], nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
-@userTopPerf(users: List[User], perfType: PerfType) = {
+@userTopPerf(users: List[User.LightPerf], perfType: PerfType) = {
 <div class="user_top">
   <h2 class="text" data-icon="@perfType.iconChar">
-    <a href="@routes.User.top200(perfType.key)">
-      @perfType.name
-    </a>
+    <a href="@routes.User.top200(perfType.key)">@perfType.name</a>
   </h2>
   <table>
     <tbody>
-      @users.map { u =>
+      @users.map { l =>
       <tr>
-        <td>@userLink(u)</td>
-        <td>@u.perfs(perfType.key).map(_.intRating)</td>
+        <td>@lightUserLink(l.user)</td>
+        <td>@l.rating</td>
       </tr>
       }
     </tbody>
@@ -22,15 +20,15 @@
 </div>
 }
 
-@userTopActive(users: List[(User, Int)], title: Any, icon: Option[Char] = None) = {
+@userTopActive(users: List[User.LightCount], title: Any, icon: Option[Char] = None) = {
 <div class="user_top">
   <h2 class="text"@icon.map { i => data-icon="@i" }>@title</h2>
   <table>
     <tbody>
       @users.map { u =>
       <tr>
-        <td>@userLink(u._1)</td>
-        <td title="@trans.gamesPlayed()">#@u._2.localize</td>
+        <td>@lightUserLink(u.user)</td>
+        <td title="@trans.gamesPlayed()">#@u.count.localize</td>
       </tr>
       }
     </tbody>

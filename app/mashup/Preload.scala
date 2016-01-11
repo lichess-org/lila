@@ -16,7 +16,7 @@ import play.api.libs.json._
 
 final class Preload(
     tv: Tv,
-    leaderboard: Boolean => Fu[List[(User, PerfType)]],
+    leaderboard: Boolean => Fu[List[User.LightPerf]],
     tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
     streamsOnAir: () => Fu[List[StreamOnAir]],
@@ -26,7 +26,7 @@ final class Preload(
     getPlayban: String => Fu[Option[TempBan]],
     lightUser: String => Option[LightUser]) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],

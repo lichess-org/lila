@@ -139,11 +139,11 @@ object User extends LilaController {
       antichess <- env.cached top10Perf PerfType.Antichess.key
       atomic <- env.cached top10Perf PerfType.Atomic.key
       horde <- env.cached top10Perf PerfType.Horde.key
-      nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
-        user -> user.count.game
-      }
-      nbDay ← Env.game.cached activePlayerUidsDay nb flatMap { pairs =>
-        UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
+      nbAllTime ← env.cached topNbGame nb
+      nbDay ← Env.game.cached activePlayerUidsDay nb map {
+        _ flatMap { pair =>
+          env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
+        }
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 50
@@ -163,9 +163,15 @@ object User extends LilaController {
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          implicit val lightPerfWrites = play.api.libs.json.Writes[UserModel.LightPerf] { l =>
+            Json.obj(
+              "id" -> l.user.id,
+              "username" -> l.user.name,
+              "title" -> l.user.title,
+              "perfs" -> Json.obj(
+                l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
+          }
           Ok(Json.obj(
-            "online" -> online,
             "bullet" -> bullet,
             "blitz" -> blitz,
             "classical" -> classical,

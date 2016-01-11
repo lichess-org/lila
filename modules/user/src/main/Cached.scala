@@ -12,8 +12,8 @@ import lila.db.BSON._
 import lila.db.Implicits._
 import lila.memo.{ ExpireSetMemo, MongoCache }
 import lila.rating.{ Perf, PerfType }
-import User.LightPerf
 import tube.userTube
+import User.{ LightPerf, LightCount }
 
 final class Cached(
     nbTtl: FiniteDuration,
@@ -30,13 +30,15 @@ final class Cached(
 
   def countEnabled: Fu[Int] = countCache(true)
 
-  private implicit val userHandler = User.userBSONHandler
   private implicit val LightUserBSONHandler = reactivemongo.bson.Macros.handler[LightUser]
   private implicit val LightPerfBSONHandler = reactivemongo.bson.Macros.handler[LightPerf]
+  private implicit val LightCountBSONHandler = reactivemongo.bson.Macros.handler[LightCount]
 
-  val top10Perf = mongoCache[Perf.Key, List[User]](
+  val top10Perf = mongoCache[Perf.Key, List[LightPerf]](
     prefix = "user:top10:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 10),
+    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 10) map {
+      _ flatMap (_ lightPerf perf)
+    },
     timeToLive = 10 minutes)
 
   val top200Perf = mongoCache[Perf.Key, List[User.LightPerf]](
@@ -46,26 +48,20 @@ final class Cached(
     },
     timeToLive = 10 minutes)
 
-  private case class UserPerf(user: User, perfKey: String)
-  private implicit val UserPerfBSONHandler = reactivemongo.bson.Macros.handler[UserPerf]
-
-  private val topTodayCache = mongoCache.single[List[UserPerf]](
+  private val topTodayCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:today",
     f = PerfType.leaderboardable.map { perf =>
-      UserRepo.topPerfSince(perf.key, DateTime.now minusHours 12, 1) map2 { (u: User) =>
-        UserPerf(u, perf.key)
+      UserRepo.topPerfSince(perf.key, DateTime.now minusHours 12, 1).map {
+        _.headOption flatMap (_ lightPerf perf.key)
       }
-    }.sequenceFu map (_.flatten),
+    }.sequenceFu.map(_.flatten),
     timeToLive = 9 minutes)
 
-  def topToday(x: Boolean): Fu[List[(User, PerfType)]] =
-    topTodayCache(x) map2 { (up: UserPerf) =>
-      (up.user, PerfType(up.perfKey) err s"No such perf ${up.perfKey}")
-    }
+  def topToday = topTodayCache.apply _
 
-  val topNbGame = mongoCache[Int, List[User]](
+  val topNbGame = mongoCache[Int, List[User.LightCount]](
     prefix = "user:top:nbGame",
-    f = UserRepo.topNbGame,
+    f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
     timeToLive = 34 minutes)
 
   val topOnline = lila.memo.AsyncCache[Int, List[User]](

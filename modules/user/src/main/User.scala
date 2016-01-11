@@ -72,8 +72,10 @@ case class User(
   def lameOrTroll = lame || troll
 
   def lightPerf(key: String) = perfs(key) map { perf =>
-    User.LightPerf(light, perf.intRating, perf.progress)
+    User.LightPerf(light, key, perf.intRating, perf.progress)
   }
+
+  def lightCount = User.LightCount(light, count.game)
 }
 
 object User {
@@ -82,10 +84,8 @@ object User {
 
   val anonymous = "Anonymous"
 
-  case class LightPerf(
-    user: LightUser,
-    rating: Int,
-    progress: Int)
+  case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
+  case class LightCount(user: LightUser, count: Int)
 
   case class Active(user: User)
 
