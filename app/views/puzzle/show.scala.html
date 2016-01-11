@@ -64,6 +64,6 @@ url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
 description = s"Tactic puzzle #${puzzle.id}: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
-).str() + s". Played by ${puzzle.attempts} players.").some) {
+).str() + s" Played by ${puzzle.attempts} players.").some) {
 <div class="round cg-512">@miniBoardContent</div>
 }
