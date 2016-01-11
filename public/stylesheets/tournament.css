@@ -514,7 +514,14 @@ ol.scheduled_tournaments li.marathon {
   box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 #tournament_schedule {
-  /* margin-left: -200px; */
+  min-height: 400px;
+  position: relative;
+}
+#tournament_schedule .square-spin {
+  position: absolute;
+  top: 190px;
+  left: 50%;
+  opacity: 0.7;
 }
 #tournament_schedule .schedule {
   position: relative;
