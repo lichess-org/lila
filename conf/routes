@@ -274,6 +274,7 @@ POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(usernam
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: String)
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
+GET   /mod/leaderboard                 controllers.Mod.gamify
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home

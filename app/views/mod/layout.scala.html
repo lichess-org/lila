@@ -13,6 +13,9 @@
 @if(isGranted(_.StaffForum)) {
 <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
 }
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("leaderboard")" href="@routes.Mod.gamify">Leaderboards</a>
+}
 }
 
 @evenMoreJs = {

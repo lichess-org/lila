@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     system: ActorSystem,
     firewall: Firewall,
+    reportColl: Coll,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     userIdsSharingIp: String => Fu[List[String]]) {
@@ -27,7 +28,7 @@ final class Env(
   }
   import settings._
 
-  private[mod] lazy val modlogColl = db(CollectionModlog)
+  private[mod] lazy val logColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi
 
@@ -52,6 +53,10 @@ final class Env(
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
     userIdsSharingIp = userIdsSharingIp)
+
+  lazy val gamify = new Gamify(
+    logColl = logColl,
+    reportColl = reportColl)
 
   private val neuralApi = new NeuralApi(
     endpoint = NeuralApiEndpoint,
@@ -83,6 +88,7 @@ object Env {
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
+    reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)

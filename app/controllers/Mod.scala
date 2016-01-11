@@ -128,4 +128,11 @@ object Mod extends LilaController {
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
     me => assessApi.refreshAssessByUsername(username) inject redirect(username)
   }
+
+  def gamify = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      Env.mod.gamify.leaderboards map { leaderboards =>
+        Ok(html.mod.gamify(leaderboards))
+      }
+  }
 }

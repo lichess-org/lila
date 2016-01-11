@@ -1,0 +1,47 @@
+#mod-gamify h1 {
+  color: #d59120;
+  font-family: 'PT Serif';
+  font-size: 3em;
+  letter-spacing: 5px;
+}
+#mod-gamify h1::before {
+  animation: fire 1.25s ease-in-out infinite alternate;
+  font-size: 60px;
+  margin-right: 20px;
+  color: #d59120;
+}
+#mod-gamify .global {
+  width: 100%;
+  margin-top: 30px;
+}
+#mod-gamify .global .third {
+  float: left;
+  width: 31.3%;
+  margin-right: 3%;
+}
+#mod-gamify .global .third:last-child {
+  margin-right: 0;
+}
+#mod-gamify .global table {
+  width: 100%;
+}
+#mod-gamify .global table thead {
+  font-family: 'PT Serif';
+  font-size: 1.2em;
+}
+#mod-gamify .global table td,
+#mod-gamify .global table thead th {
+  padding: 7px;
+}
+#mod-gamify .global table thead th:first-child {
+  padding: 0;
+}
+#mod-gamify .global table * {
+  text-align: right;
+}
+#mod-gamify .global table *:first-child {
+  text-align: left;
+}
+#mod-gamify .global table td:last-child {
+  font-weight: bold;
+}

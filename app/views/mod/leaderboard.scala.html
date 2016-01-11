@@ -1,0 +1,24 @@
+@(leaderboard: List[lila.mod.Gamify.ModMixed], title: String)(implicit ctx: Context)
+
+<table>
+  <thead>
+    <tr>
+      <th>@title</th>
+      <th title="Actions taken">A</th>
+      <th title="Reports Closed">R</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    @leaderboard.take(10).zipWithIndex.map {
+    case (m, i) => {
+    <tr>
+      <th>@userIdLink(m.modId.some, withOnline = false)</th>
+      <td>@m.action.localize</td>
+      <td>@m.report.localize</td>
+      <td>@m.score.localize</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
