@@ -1,8 +1,18 @@
-@(leaderboards: lila.mod.Gamify.Leaderboards)(implicit ctx: Context)
+@(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(implicit ctx: Context)
 
 @import lila.mod.Gamify.Period
 
 @title = @{ "Moderator hall of fame" }
+
+@yearHeader(year: Int) = @{
+Html(s"""<tr class="year">
+  <th>$year</th>
+  <th>Champions of the past</th>
+  <th>Score</th>
+  <th>Actions taken</th>
+  <th>Reports closed</th>
+</tr>""")
+}
 
 @mod.layout(
 title = title,
@@ -23,7 +33,25 @@ moreCss = cssTag("mod-gamify.css")) {
     </div>
   </div>
   <div class="history">
-    TODO: History of former champions for past months.
+    <table class="slist">
+      <tbody>
+        @history.headOption.filterNot(_.date.getMonthOfYear == 12).map { h =>
+        @yearHeader(h.date.getYear)
+        }
+        @history.map { h =>
+        @if(h.date.getMonthOfYear == 12) {
+        @yearHeader(h.date.getYear)
+        }
+        <tr>
+          <th>@h.date.monthOfYear.getAsText</th>
+          <th>@userIdLink(h.champion.modId.some, withOnline = false)</th>
+          <td class="score">@h.champion.score.localize</td>
+          <td>@h.champion.action.localize</td>
+          <td>@h.champion.report.localize</td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
 }

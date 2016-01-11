@@ -21,6 +21,7 @@ final class Env(
     val CollectionPlayerAssessment = config getString "collection.player_assessment"
     val CollectionBoosting = config getString "collection.boosting"
     val CollectionModlog = config getString "collection.modlog"
+    val CollectionGamingHistory = config getString "collection.gaming_history"
     val ActorName = config getString "actor.name"
     val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
     val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
@@ -56,7 +57,8 @@ final class Env(
 
   lazy val gamify = new Gamify(
     logColl = logColl,
-    reportColl = reportColl)
+    reportColl = reportColl,
+    historyColl = db(CollectionGamingHistory))
 
   private val neuralApi = new NeuralApi(
     endpoint = NeuralApiEndpoint,

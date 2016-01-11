@@ -79,6 +79,24 @@
   font-size: 1.5em;
 }
 #mod-gamify .history {
-  padding: 20px;
   margin-top: 20px;
+  font-size: 1.2em;
+}
+#mod-gamify .history table tr.year th {
+  font-family: 'PT Serif';
+  padding: 20px 0;
+}
+
+#mod-gamify .history table tr.year th:first-child {
+  padding-left: 25px;
+  font-size: 1.8em;
+}
+#mod-gamify .history table tr.year th:nth-child(n+3),
+#mod-gamify .history table tr td {
+  text-align: right;
+  padding-right: 25px;
+}
+#mod-gamify .history table a,
+#mod-gamify .history table .score {
+  font-size: 1.2em;
 }
