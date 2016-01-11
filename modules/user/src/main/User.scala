@@ -2,6 +2,8 @@ package lila.user
 
 import scala.concurrent.duration._
 
+import lila.common.LightUser
+
 import chess.Speed
 import org.joda.time.DateTime
 
@@ -33,7 +35,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = lila.common.LightUser(id = id, name = username, title = title)
+  def light = LightUser(id = id, name = username, title = title)
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
@@ -68,6 +70,10 @@ case class User(
   def lame = booster || engine
 
   def lameOrTroll = lame || troll
+
+  def lightPerf(key: String) = perfs(key) map { perf =>
+    User.LightPerf(light, perf.intRating, perf.progress)
+  }
 }
 
 object User {
@@ -75,6 +81,11 @@ object User {
   type ID = String
 
   val anonymous = "Anonymous"
+
+  case class LightPerf(
+    user: LightUser,
+    rating: Int,
+    progress: Int)
 
   case class Active(user: User)
 

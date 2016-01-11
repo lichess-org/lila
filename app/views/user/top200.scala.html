@@ -1,0 +1,27 @@
+@(perfType: lila.rating.PerfType, users: List[lila.user.User.LightPerf])(implicit ctx: Context)
+
+@user.layout(trans.onlinePlayers.str()) {
+<div class="content_box small_box">
+  <h1>
+    <a href="@routes.User.list" data-icon="I" class="text">
+      @perfType.name top 200
+    </a>
+  </h1>
+  <br />
+  <br />
+  <table class="slist">
+    <tbody>
+      @users.zipWithIndex.map {
+      case (u, i) => {
+      <tr>
+        <td>@(i + 1)</td>
+        <td>@lightUserLink(u.user)</td>
+        <td>@u.rating</td>
+        <td>@showProgress(u.progress)</td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
+</div>
+}

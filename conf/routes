@@ -62,6 +62,7 @@ GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: Strin
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /player                          controllers.User.list
+GET   /player/top200/:perfKey          controllers.User.top200(perfKey: String)
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
 

@@ -130,15 +130,15 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached topPerf PerfType.Bullet.key
-      blitz ← env.cached topPerf PerfType.Blitz.key
-      classical ← env.cached topPerf PerfType.Classical.key
-      chess960 ← env.cached topPerf PerfType.Chess960.key
-      kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
-      threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
-      antichess <- env.cached topPerf PerfType.Antichess.key
-      atomic <- env.cached topPerf PerfType.Atomic.key
-      horde <- env.cached topPerf PerfType.Horde.key
+      bullet ← env.cached top10Perf PerfType.Bullet.key
+      blitz ← env.cached top10Perf PerfType.Blitz.key
+      classical ← env.cached top10Perf PerfType.Classical.key
+      chess960 ← env.cached top10Perf PerfType.Chess960.key
+      kingOfTheHill ← env.cached top10Perf PerfType.KingOfTheHill.key
+      threeCheck ← env.cached top10Perf PerfType.ThreeCheck.key
+      antichess <- env.cached top10Perf PerfType.Antichess.key
+      atomic <- env.cached top10Perf PerfType.Atomic.key
+      horde <- env.cached top10Perf PerfType.Horde.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
@@ -177,6 +177,14 @@ object User extends LilaController {
             "horde" -> horde))
         })
     } yield res
+  }
+
+  def top200(perfKey: String) = Open { implicit ctx =>
+    lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+      env.cached top200Perf perfType.key map { users =>
+        Ok(html.user.top200(perfType, users))
+      }
+    }
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>

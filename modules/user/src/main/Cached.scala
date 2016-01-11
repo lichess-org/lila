@@ -12,6 +12,7 @@ import lila.db.BSON._
 import lila.db.Implicits._
 import lila.memo.{ ExpireSetMemo, MongoCache }
 import lila.rating.{ Perf, PerfType }
+import User.LightPerf
 import tube.userTube
 
 final class Cached(
@@ -29,13 +30,20 @@ final class Cached(
 
   def countEnabled: Fu[Int] = countCache(true)
 
-  val leaderboardSize = 10
-
   private implicit val userHandler = User.userBSONHandler
+  private implicit val LightUserBSONHandler = reactivemongo.bson.Macros.handler[LightUser]
+  private implicit val LightPerfBSONHandler = reactivemongo.bson.Macros.handler[LightPerf]
 
-  val topPerf = mongoCache[Perf.Key, List[User]](
-    prefix = "user:top:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, leaderboardSize),
+  val top10Perf = mongoCache[Perf.Key, List[User]](
+    prefix = "user:top10:perf",
+    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 10),
+    timeToLive = 10 minutes)
+
+  val top200Perf = mongoCache[Perf.Key, List[User.LightPerf]](
+    prefix = "user:top200:perf",
+    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 200) map {
+      _ flatMap (_ lightPerf perf)
+    },
     timeToLive = 10 minutes)
 
   private case class UserPerf(user: User, perfKey: String)
