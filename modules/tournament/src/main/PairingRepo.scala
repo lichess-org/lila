@@ -42,9 +42,19 @@ object PairingRepo {
         }
       } map Pairing.LastOpponents.apply
 
+  def opponentsOf(tourId: String, userId: String): Fu[Set[String]] =
+    coll.find(
+      selectTourUser(tourId, userId),
+      BSONDocument("_id" -> false, "u" -> true)
+    ).cursor[BSONDocument]().collect[List]().map {
+        _.flatMap { doc =>
+          ~doc.getAs[List[String]]("u").filter(userId!=)
+        }.toSet
+      }
+
   def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
     coll.find(
-      selectTour(tourId) ++ BSONDocument("u" -> userId),
+      selectTourUser(tourId, userId),
       BSONDocument("_id" -> true)
     ).sort(recentSort).cursor[BSONDocument]().collect[List](nb).map {
         _.flatMap(_.getAs[String]("_id"))
@@ -52,13 +62,13 @@ object PairingRepo {
 
   def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
     (nb > 0) ?? coll.find(
-      selectTour(tourId) ++ BSONDocument("u" -> userId)
+      selectTourUser(tourId, userId)
     ).sort(chronoSort).skip(nb - 1).one[Pairing]
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
   def removeByTourAndUserId(tourId: String, userId: String) =
-    coll.remove(selectTour(tourId) ++ selectUser(userId)).void
+    coll.remove(selectTourUser(tourId, userId)).void
 
   def count(tourId: String): Fu[Int] =
     coll.count(selectTour(tourId).some)
