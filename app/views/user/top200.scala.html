@@ -1,6 +1,6 @@
 @(perfType: lila.rating.PerfType, users: List[lila.user.User.LightPerf])(implicit ctx: Context)
 
-@title = @{ "s{perfType.name} top 200" }
+@title = @{ s"${perfType.name} top 200" }
 
 @user.layout(
 title = title,
