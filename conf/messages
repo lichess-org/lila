@@ -90,6 +90,7 @@ nbDays=%s days
 nbHours=%s hours
 time=Time
 rating=Rating
+ratingStats=Rating stats
 username=User name
 password=Password
 haveAnAccount=Have an account?
