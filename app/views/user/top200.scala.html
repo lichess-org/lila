@@ -1,7 +1,7 @@
 @(perfType: lila.rating.PerfType, users: List[lila.user.User.LightPerf])(implicit ctx: Context)
 
 @title = @{ "s{perfType.name} top 200" }
-e
+
 @user.layout(
 title = title,
 openGraph = lila.app.ui.OpenGraph(
