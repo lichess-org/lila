@@ -22,7 +22,7 @@ final class Winners(
   private def fetchScheduled(nb: Int): Fu[List[Winner]] = {
     val since = DateTime.now minusMonths 1
     List(Freq.Marathon, Freq.Monthly, Freq.Weekly, Freq.Daily).map { freq =>
-      TournamentRepo.lastFinishedScheduledByFreq(freq, since, 4) flatMap toursToWinners
+      TournamentRepo.lastFinishedScheduledByFreqStandard(freq, since, 4) flatMap toursToWinners
     }.sequenceFu.map(_.flatten)
   }
 

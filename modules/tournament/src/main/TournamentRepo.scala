@@ -1,7 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.bson.{ BSONDocument, BSONArray }
+import reactivemongo.bson.{ BSONDocument, BSONArray, BSONInteger }
 
 import BSONHandlers._
 import lila.common.paginator.Paginator
@@ -25,6 +25,9 @@ object TournamentRepo {
   private val unfinishedSelect = BSONDocument("status" -> BSONDocument("$ne" -> Status.Finished.id))
   private[tournament] val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
   private def sinceSelect(date: DateTime) = BSONDocument("startsAt" -> BSONDocument("$gt" -> date))
+  private def variantSelect(variant: chess.variant.Variant) =
+    if (variant.standard) BSONDocument("variant" -> BSONDocument("$exists" -> false))
+    else BSONDocument("variant" -> variant.id)
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
@@ -173,8 +176,8 @@ object TournamentRepo {
     }._1.reverse
   }
 
-  def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime, nb: Int): Fu[List[Tournament]] = coll.find(
-    finishedSelect ++ sinceSelect(since) ++ BSONDocument(
+  def lastFinishedScheduledByFreqStandard(freq: Schedule.Freq, since: DateTime, nb: Int): Fu[List[Tournament]] = coll.find(
+    finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ BSONDocument(
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
