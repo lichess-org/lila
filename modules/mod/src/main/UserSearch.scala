@@ -2,7 +2,9 @@ package lila.mod
 
 import lila.user.{ User, UserRepo }
 
-final class UserSearch(securityApi: lila.security.Api) {
+final class UserSearch(
+  securityApi: lila.security.Api,
+emailAddress: lila.security.EmailAddress) {
 
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
   private val ipPattern = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r.pattern
@@ -22,5 +24,7 @@ final class UserSearch(securityApi: lila.security.Api) {
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 
-  private def searchEmail(email: String) = UserRepo byEmail email map (_.toList)
+  private def searchEmail(email: String) = emailAddress.validate(email) ?? { fixed =>
+    UserRepo byEmail fixed map (_.toList)
+  }
 }

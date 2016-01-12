@@ -15,7 +15,8 @@ final class Env(
     reportColl: Coll,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
-    securityApi: lila.security.Api) {
+    securityApi: lila.security.Api,
+    emailAddress: lila.security.EmailAddress) {
 
   private object settings {
     val CollectionPlayerAssessment = config getString "collection.player_assessment"
@@ -61,7 +62,8 @@ final class Env(
     historyColl = db(CollectionGamingHistory))
 
   lazy val search = new UserSearch(
-    securityApi = securityApi)
+    securityApi = securityApi,
+    emailAddress = emailAddress)
 
   private val neuralApi = new NeuralApi(
     endpoint = NeuralApiEndpoint,
@@ -96,5 +98,6 @@ object Env {
     reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    securityApi = lila.security.Env.current.api)
+    securityApi = lila.security.Env.current.api,
+    emailAddress = lila.security.Env.current.emailAddress)
 }
