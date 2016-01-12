@@ -225,6 +225,7 @@ private[tournament] final class TournamentApi(
   def ejectLame(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >>
+        (tour.isStarted ?? PairingRepo.removeByTourAndUserId(tour.id, userId)) >>
         updateNbPlayers(tour.id) >>-
         socketReload(tour.id) >>- publish()
     }

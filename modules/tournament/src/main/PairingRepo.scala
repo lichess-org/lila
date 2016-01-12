@@ -57,6 +57,9 @@ object PairingRepo {
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
+  def removeByTourAndUserId(tourId: String, userId: String) =
+    coll.remove(selectTour(tourId) ++ selectUser(userId)).void
+
   def count(tourId: String): Fu[Int] =
     coll.count(selectTour(tourId).some)
 
