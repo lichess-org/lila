@@ -39,15 +39,14 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml {
-    import lila.rating.PerfType._
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
       "Lichess " -> "",
-      "Bullet" -> icon(Bullet.iconChar),
-      "Blitz" -> icon(Blitz.iconChar),
-      "SuperBlitz" -> icon(Blitz.iconChar),
-      "Classical" -> icon(Classical.iconChar)
-    )
+      "Marathon" -> icon('\\'),
+      "SuperBlitz" -> icon(lila.rating.PerfType.Blitz.iconChar)
+    ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
+        pt.name -> icon(pt.iconChar)
+      }
     def apply(name: String) = Html {
       replacements.foldLeft(name) {
         case (n, (from, to)) => n.replace(from, to)
@@ -66,10 +65,10 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   private def longTournamentDescription(tour: Tournament) =
     s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.fullName}. " +
-    s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
-    tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
-      s"${usernameOrId(winnerId)} takes the prize home!"
-    }
+      s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
+      tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
+        s"${usernameOrId(winnerId)} takes the prize home!"
+      }
 
   def tournamentOpenGraph(tour: Tournament) = lila.app.ui.OpenGraph(
     title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
