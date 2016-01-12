@@ -120,4 +120,21 @@ $(function() {
       }]
     });
   });
+  else if ($('#perfStat.correspondence .view_games').length &&
+    lichess.once('user-correspondence-view-games')) lichess.hopscotch(function() {
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
+      id: 'correspondence-games',
+      showPrevButton: true,
+      steps: [{
+        title: "Recently finished games",
+        content: "Would you like to display the list of your correspondence games, sorted by completion date?",
+        target: $('#perfStat.correspondence .view_games')[0],
+        placement: "bottom"
+      }]
+    });
+  });
 });
