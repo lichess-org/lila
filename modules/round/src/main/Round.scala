@@ -24,7 +24,7 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Int => Unit,
+    monitorMove: Option[Int] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -62,7 +62,7 @@ private[round] final class Round(
             player.human(p, self)(pov)
           case Some(ootp) => outOfTime(pov.game)(ootp)
         }
-      } >>- monitorMove((nowMillis - p.atMillis).toInt)
+      } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
 
     case p: ImportPlay =>
       handle(p.playerId) { pov =>
@@ -73,7 +73,7 @@ private[round] final class Round(
       game.playableByAi ?? {
         player ai game map (_.events)
       }
-    }
+    } >>- monitorMove(none)
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
