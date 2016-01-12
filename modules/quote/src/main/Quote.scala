@@ -360,8 +360,9 @@ object Quote {
     , new Quote("I often play a move I know how to refute.", "Bent Larsen")
     , new Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch")
     , new Quote("If you don't know what to do, find your worst piece and look for a better square.", "Gerard Schwarz")
+    , new Quote("Players who balk at playing one-minute chess are failing to see the whole picture. They shouldn’t be worrying that they will make more mistakes – they should be rubbing their hands in glee at the thought of all the mistakes their opponents will make.", "Hikaru Nakamura")
   )
-
+  
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
     Json.obj(
       "text" -> q.text,
