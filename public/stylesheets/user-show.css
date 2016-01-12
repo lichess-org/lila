@@ -148,6 +148,7 @@ div.sub_ratings {
   width: 224px;
 }
 div.sub_ratings > a {
+  position: relative;
   padding: 10px 0 10px 5px;
   white-space: nowrap;
   display: block;
@@ -176,6 +177,19 @@ div.sub_ratings > a.game.active {
 div.sub_ratings > a > span {
   display: block;
   text-transform: lowercase;
+}
+div.sub_ratings > a > i {
+  position: absolute;
+  top: calc(50% - 6px);
+  right: 12px;
+  font-size: 8px;
+  opacity: 0.2;
+}
+div.sub_ratings > a:hover > i {
+  opacity: 0.6;
+}
+div.sub_ratings > a.active > i {
+  display: none;
 }
 div.sub_ratings h3 {
   font-weight: 100;
