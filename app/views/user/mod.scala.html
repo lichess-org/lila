@@ -303,7 +303,11 @@
           <ul>
             @ips.map { ip =>
             <li class="ip">
-              <span class="address@if(ip.blocked) { blocked }">@ip.ip</span>
+              @if(ip.blocked){
+              <a href="@{routes.Mod.search}?q=@ip.ip" class="address blocked">@ip.ip</a>
+              }else{
+              <span class="address">@ip.ip</span>
+              }
             </li>
             }
           </ul>
