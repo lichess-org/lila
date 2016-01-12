@@ -502,6 +502,6 @@ tournamentMayHaveBeenCanceled=Den kan ha blivit inställd om alla spelare lämna
 returnToTournamentsHomepage=Återgå till turneringens hemsida
 monthlyPerfTypeRatingDistribution=Månatlig %s rating fördelning
 nbPerfTypePlayersThisMonth=%s %s spelare denna månad.
-yourPerfTypeRatingisRating=Din &s rating är %s.
+yourPerfTypeRatingisRating=Din %s rating är %s.
 youAreBetterThanPercentOfPerfTypePlayers=Du är bättre än %s av %s spelarna.
 youDoNotHaveAnEstablishedPerfTypeRating=Du har inte en etablerad %s rating.
