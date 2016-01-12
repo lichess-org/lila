@@ -1,7 +1,7 @@
 #lichess {
   position: relative;
 }
-div.lobby_and_ground {
+#lobby {
   position: relative;
 }
 #start_buttons {

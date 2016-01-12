@@ -184,9 +184,10 @@ div.sub_ratings > a > i {
   right: 12px;
   font-size: 8px;
   opacity: 0.2;
+  transition: 0.13s;
 }
 div.sub_ratings > a:hover > i {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 div.sub_ratings > a.active > i {
   display: none;

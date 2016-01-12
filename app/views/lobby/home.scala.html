@@ -93,7 +93,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
-<div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
+<div id="lobby" class="@if(playban.isDefined){playban}@if(currentGame.isDefined){ current_game}">
   @playban.map(playbanInfo(_))
   @currentGame.map(currentGameInfo(_))
   <div id="hooks_wrap"></div>
