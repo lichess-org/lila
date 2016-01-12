@@ -15,7 +15,7 @@ final class Env(
     reportColl: Coll,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
-    userIdsSharingIp: String => Fu[List[String]]) {
+    securityApi: lila.security.Api) {
 
   private object settings {
     val CollectionPlayerAssessment = config getString "collection.player_assessment"
@@ -53,12 +53,15 @@ final class Env(
     modApi = api,
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
-    userIdsSharingIp = userIdsSharingIp)
+    userIdsSharingIp = securityApi.userIdsSharingIp)
 
   lazy val gamify = new Gamify(
     logColl = logColl,
     reportColl = reportColl,
     historyColl = db(CollectionGamingHistory))
+
+  lazy val search = new UserSearch(
+    securityApi = securityApi)
 
   private val neuralApi = new NeuralApi(
     endpoint = NeuralApiEndpoint,
@@ -93,5 +96,5 @@ object Env {
     reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)
+    securityApi = lila.security.Env.current.api)
 }

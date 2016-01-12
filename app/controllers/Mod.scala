@@ -144,4 +144,12 @@ object Mod extends LilaController {
         }
       }
   }
+
+  def search = Secure(_.UserSearch) { implicit ctx =>
+    me =>
+      val query = (~get("q")).trim
+      Env.mod.search(query) map { users =>
+        html.mod.search(query, users)
+      }
+  }
 }

@@ -276,6 +276,7 @@ POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: Str
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
+GET   /mod/search                      controllers.Mod.search
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home

@@ -85,13 +85,18 @@ final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
         ) map lila.db.BSON.asStrings
       }
 
-  def recentUserIdsByFingerprint(fp: String): Fu[List[String]] = tube.storeColl.distinct(
-    "user",
-    BSONDocument(
-      "fp" -> fp,
-      "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
-    ).some
-  ) map lila.db.BSON.asStrings
+  def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
+
+  def recentUserIdsByIp = recentUserIdsByField("ip") _
+
+  private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
+    tube.storeColl.distinct(
+      "user",
+      BSONDocument(
+        field -> value,
+        "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
+      ).some
+    ) map lila.db.BSON.asStrings
 }
 
 object Api {
