@@ -117,6 +117,7 @@ trait UserRepo {
     "antichess" -> (_.antichess),
     "atomic" -> (_.atomic),
     "horde" -> (_.horde),
+    "racingKings" -> (_.racingKings),
     "bullet" -> (_.bullet),
     "blitz" -> (_.blitz),
     "classical" -> (_.classical),
