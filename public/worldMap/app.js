@@ -1,5 +1,6 @@
 $(function() {
-  var worldWith = window.innerWidth - 30,
+  var loading = true,
+    worldWith = window.innerWidth - 30,
     mapRatio = 0.4,
     worldHeight = worldWith * mapRatio,
     scale = worldWith / 1000;
@@ -8,15 +9,14 @@ $(function() {
     stroke: "none"
   });
   paper.setStart();
-  for (var country in worldmap.shapes) {
-    paper.path(worldmap.shapes[country]).attr({
+  worldShapes.forEach(function(shape) {
+    paper.path(shape).attr({
       'stroke': '#05121b',
       'stroke-width': 0.5,
       'stroke-opacity': 0.25,
-      fill: "#67777F",
-      "fill-opacity": 0.25
+      fill: "#1d2b33"
     }).transform("s" + scale + "," + scale + " 0,0");
-  }
+  });
   var world = paper.setFinish();
   world.getXY = function(lat, lon) {
     return {
@@ -39,9 +39,21 @@ $(function() {
       point[1] + Math.random() - 0.5);
   };
 
-  var source = new EventSource("/network/stream");
+  var source = new EventSource("http://en.lichess.org/network/stream");
 
   var removeFunctions = {};
+
+  var appearPoint = function(pos) {
+    var appear = paper.circle().attr({
+      opacity: 0.4,
+      fill: "#fff",
+      r: 3,
+      'stroke-width': 0
+    }).attr(pos);
+    setTimeout(function() {
+      appear.remove();
+    }, 130);
+  }
 
   var drawPoint = function(pos) {
     var dot = paper.circle().attr({
@@ -51,16 +63,25 @@ $(function() {
       r: 1.5,
       'stroke-width': 1
     }).attr(pos);
-    // var shadow = paper.circle().attr({
-    //   opacity: 0.008,
-    //   fill: "#fff",
-    //   r: 10 + Math.random() * 30
-    // }).attr(pos);
+    if (!loading) appearPoint(pos);
     return function() {
       dot.remove();
-      // shadow.remove();
+      appearPoint(pos);
     };
   };
+
+  var appearLine = function(pos) {
+    var appear = paper.path(
+      "M" + pos[0].cx + "," + pos[0].cy + "T" + pos[1].cx + "," + pos[1].cy
+    ).attr({
+      opacity: 0.25,
+      stroke: "#fff",
+      'stroke-width': 1
+    });
+    setTimeout(function() {
+      appear.remove();
+    }, 130);
+  }
 
   var drawLine = function(pos) {
     var line = paper.path(
@@ -70,13 +91,16 @@ $(function() {
       stroke: "#FE7727",
       'stroke-width': 1
     });
+    if (!loading) appearLine(pos);
     return function() {
       line.remove();
+      appearLine(pos);
     };
   }
 
   source.addEventListener('message', function(e) {
     var data = JSON.parse(e.data);
+    if (data.loadComplete) loading = false;
     if (removeFunctions[data.id]) {
       removeFunctions[data.id].forEach(function(f) {
         f();
@@ -88,4 +112,8 @@ $(function() {
     removeFunctions[data.id] = pos.map(drawPoint);
     if (data.ps[1]) removeFunctions[data.id].push(drawLine(pos));
   }, false);
+
+  setTimeout(function() {
+    loading = false;
+  }, 5000);
 });

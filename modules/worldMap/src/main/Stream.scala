@@ -25,6 +25,8 @@ private final class Stream(
 
   private def makeMd5 = MessageDigest getInstance "MD5"
 
+  private val loadCompleteJson = Json.obj("loadComplete" -> true)
+
   def receive = {
     case SocketEvent.OwnerJoin(id, color, ip) =>
       ipCache get ip foreach { point =>
@@ -39,7 +41,9 @@ private final class Stream(
       games -= id
       channel push Stream.Event.Remove(id)
     case Stream.Get => sender ! {
-      Enumerator enumerate games.values.map(game2json(makeMd5)) andThen producer
+      Enumerator.enumerate(games.values.map(game2json(makeMd5))) andThen
+        Enumerator.enumerate(List(loadCompleteJson)) andThen
+        producer
     }
   }
 

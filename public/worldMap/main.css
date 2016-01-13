@@ -23,20 +23,22 @@ a {
 }
 
 .extension {
-  color: #606060;
+  color: #666;
 }
 
-.wrapL {
-  float: left;
-  margin-right: 20px;
-}
-
-.clear {
-  clear: both;
-}
-
-#stats {
+#legend {
   position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 20px;
+  background: #19252c;
+  border-radius: 3px;
+  line-height: 30px;
+}
+#legend h1 {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 0 0 10px 0;
 }
 
 #sound {
