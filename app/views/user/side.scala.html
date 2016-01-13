@@ -51,6 +51,9 @@
   @if(u.perfs.horde.nonEmpty) {
   @showPerf(u.perfs.horde, PerfType.Horde)
   }
+  @if(u.perfs.racingKings.nonEmpty) {
+  @showPerf(u.perfs.racingKings, PerfType.RacingKings)
+  }
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
