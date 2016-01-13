@@ -84,7 +84,7 @@ final class JsonView(
         "score" -> player.score,
         "ratingDiff" -> player.ratingDiff,
         "fire" -> player.fire,
-        "nb" -> sheetNbs(sheet),
+        "nb" -> sheetNbs(user.id, sheet, pairings),
         "performance" -> tpr
       ).noNull,
       "pairings" -> povs.map { pov =>
@@ -100,10 +100,12 @@ final class JsonView(
     )
   }
 
-  private def sheetNbs(sheet: ScoreSheet) = sheet match {
+  private def sheetNbs(userId: String, sheet: ScoreSheet, pairings: Pairings) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
       "game" -> s.scores.size,
-      "berserk" -> s.scores.count(_.isBerserk),
+      "berserk" -> pairings.foldLeft(0) {
+        case (nb, p) => nb + p.berserkOf(userId)
+      },
       "win" -> s.scores.count(_.isWin))
   }
 
@@ -202,7 +204,7 @@ final class JsonView(
               sheet = tour.system.scoringSystem.sheet(tour, player.userId, pairings)
               tpr <- performance(tour, player, pairings)
             } yield playerJson(sheet.some, tour, rp) ++ Json.obj(
-              "nb" -> sheetNbs(sheet),
+              "nb" -> sheetNbs(player.userId, sheet, pairings),
               "performance" -> tpr)
           }.sequenceFu
         } map { l => JsArray(l).some }
