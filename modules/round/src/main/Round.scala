@@ -56,11 +56,10 @@ private[round] final class Round(
 
     case p: HumanPlay =>
       handle(p.playerId) { pov =>
-        pov.game.outoftimePlayer(lags.get) match {
-          case None =>
-            lags.set(pov.color, p.lag.toMillis.toInt)
-            player.human(p, self)(pov)
-          case Some(ootp) => outOfTime(pov.game)(ootp)
+        if (pov.game outoftime lags.get) outOfTime(pov.game)
+        else {
+          lags.set(pov.color, p.lag.toMillis.toInt)
+          player.human(p, self)(pov)
         }
       } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
 
@@ -119,7 +118,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftimePlayer(lags.get) ?? outOfTime(game)
+      game.outoftime(lags.get) ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -208,9 +207,9 @@ private[round] final class Round(
     }
   }
 
-  private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
-      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation, color)
+  private def outOfTime(game: Game) =
+    finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>
+      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =

@@ -369,19 +369,17 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftimePlayer(playerLag: Color => Int): Option[Player] =
-    outoftimePlayerClock(playerLag) orElse outoftimePlayerCorrespondence
+  def outoftime(playerLag: Color => Int): Boolean =
+    outoftimeClock(playerLag) || outoftimeCorrespondence
 
-  private def outoftimePlayerClock(playerLag: Color => Int): Option[Player] = for {
-    c ← clock
-    if started && playable && (bothPlayersHaveMoved || isSimul)
-    if (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
-  } yield player
+  private def outoftimeClock(playerLag: Color => Int): Boolean = clock ?? { c =>
+    started && playable && (bothPlayersHaveMoved || isSimul) && {
+      (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
+    }
+  }
 
-  private def outoftimePlayerCorrespondence: Option[Player] = for {
-    c ← playableCorrespondenceClock
-    if c outoftime player.color
-  } yield player
+  private def outoftimeCorrespondence: Boolean =
+    playableCorrespondenceClock ?? { _ outoftime player.color }
 
   def isCorrespondence = speed == chess.Speed.Correspondence
 
