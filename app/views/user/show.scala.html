@@ -145,7 +145,7 @@ description = describeUser(u)).some) {
       @p.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
-      @p.nonEmptyBio.map { bio =>
+      @p.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
       <p class="bio">@Html(addLinks(shorten(bio, 400).body))</p>
       }
       }
