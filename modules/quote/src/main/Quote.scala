@@ -305,7 +305,7 @@ object Quote {
     , new Quote("Bobby Fischer is the greatest chess player who has ever lived", "Ken Smith")
     , new Quote("Up to this point white has been following well-known analysis. But now he makes a fatal error: he begins to use his own head", "Siegbert Tarrasch")
     , new Quote("Fischer was a master of clarity and a king of artful positioning. His opponents would see where he was going but were powerless to stop him", "Bruce Pandolfini")
-    , new Quote("No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous. As white, his opening game is predictable - you can make plans against it - but so strong that your plans almost never work. In the middle game his precision and invention are fabulous, and in the end game you simply cannot beat him", "Anonymous German Expert")
+    , new Quote("No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous.", "Anonymous German Expert")
     , new Quote("White lost because he failed to remember the right continuation and had to think up the moves himself", "Siegbert Tarrasch")
     , new Quote("Not only will I predict his triumph over Botvinnik, but I’ll go further and say that he’ll probably be the greatest chess player that ever lived", "John Collins")
     , new Quote("I consider Fischer to be one of the greatest opening experts ever", "Keith Hayward")
