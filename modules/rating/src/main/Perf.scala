@@ -38,6 +38,7 @@ case class Perf(
   def nonEmpty = nb > 0
 
   def provisional = glicko.provisional
+  def established = glicko.established
 }
 
 case object Perf {

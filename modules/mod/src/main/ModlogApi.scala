@@ -7,6 +7,10 @@ import play.api.libs.json.Json
 
 final class ModlogApi {
 
+  def streamConfig(mod: String) = add {
+    Modlog(mod, none, Modlog.streamConfig)
+  }
+
   def engine(mod: String, user: String, v: Boolean) = add {
     Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
   }
@@ -85,6 +89,9 @@ final class ModlogApi {
     "user" -> userId,
     "action" -> Modlog.unbooster
   ))
+
+  def userHistory(userId: String): Fu[List[Modlog]] =
+    $find($query(Json.obj("user" -> userId)) sort $sort.desc("date"), 100)
 
   private def add(m: Modlog): Funit = {
     play.api.Logger("ModApi").info(m.toString)

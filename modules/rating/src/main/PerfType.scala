@@ -3,11 +3,14 @@ package lila.rating
 import chess.Speed
 
 sealed abstract class PerfType(
-  val id: Int,
-  val key: Perf.Key,
-  val name: String,
-  val title: String,
-  val iconChar: Char)
+    val id: Int,
+    val key: Perf.Key,
+    val name: String,
+    val title: String,
+    val iconChar: Char) {
+
+  def iconString = iconChar.toString
+}
 
 object PerfType {
 
@@ -61,8 +64,8 @@ object PerfType {
   )
 
   case object Atomic extends PerfType(14,
-    key="atomic",
-    name= chess.variant.Atomic.name,
+    key = "atomic",
+    name = chess.variant.Atomic.name,
     title = "Atomic variant",
     iconChar = '>'
   )
@@ -99,6 +102,7 @@ object PerfType {
 
   val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle, Opening)
   val byKey = all map { p => (p.key, p) } toMap
+  val byId = all map { p => (p.id, p) } toMap
 
   val default = Standard
 
@@ -111,4 +115,21 @@ object PerfType {
   val nonGame: List[PerfType] = List(Puzzle, Opening)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val variants: List[PerfType] = List(Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+
+  def isGame(pt: PerfType) = !nonGame.contains(pt)
+
+  val nonPuzzleIconByName = nonPuzzle.map { pt =>
+    pt.name -> pt.iconString
+  } toMap
+
+  def variantOf(pt: PerfType): chess.variant.Variant = pt match {
+    case Chess960      => chess.variant.Chess960
+    case KingOfTheHill => chess.variant.KingOfTheHill
+    case ThreeCheck    => chess.variant.ThreeCheck
+    case Antichess     => chess.variant.Antichess
+    case Atomic        => chess.variant.Atomic
+    case Horde         => chess.variant.Horde
+    case RacingKings   => chess.variant.RacingKings
+    case _             => chess.variant.Standard
+  }
 }

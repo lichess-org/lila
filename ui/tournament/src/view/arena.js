@@ -1,21 +1,17 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var classSet = require('chessground').util.classSet;
 var util = require('./util');
+var ratio2percent = util.ratio2percent;
 var button = require('./button');
+var pagination = require('../pagination');
 
-var scoreTagName = {
-  1: 'span',
-  2: 'streak',
-  3: 'double'
-};
+var scoreTagNames = ['score', 'streak', 'double'];
 
 function scoreTag(s, i) {
   return {
-    tag: scoreTagName[s[1] || 1],
-    attrs: {
-      class: 'glpt'
-    },
-    children: [Array.isArray(s) ? s[0] : [s]]
+    tag: scoreTagNames[(s[1] || 1) - 1],
+    children: [Array.isArray(s) ? s[0] : s]
   };
 }
 
@@ -30,11 +26,17 @@ function rank(p) {
 }
 
 function playerTr(ctrl, player) {
+  var isLong = player.sheet.scores.length > 40;
+  var userId = player.name.toLowerCase();
   return {
     tag: 'tr',
     attrs: {
-      key: player.id,
-      class: ctrl.userId === player.name.toLowerCase() ? 'me' : ''
+      key: userId,
+      class: classSet({
+        'me': ctrl.userId === userId,
+        'long': isLong
+      }),
+      onclick: partial(ctrl.showPlayerInfo, player)
     },
     children: [
       m('td', [
@@ -42,35 +44,10 @@ function playerTr(ctrl, player) {
           'data-icon': 'b',
           'title': ctrl.trans('withdraw')
         }) : rank(player),
-        util.player(player)
+        util.player(player, 'span')
       ]),
-      ctrl.data.startsAt ? m('td') : m('td.sheet', {
-        config: function(el, isUpdate) {
-          if (!isUpdate) {
-            $(el).on('click', '> *', function() {
-              location.href = ['/tournament', ctrl.data.id, 'show', player.name, $(this).index() + 1].join('/');
-            });
-          }
-          $(el).find('.glpt').removeClass('glpt').powerTip({
-            intentPollInterval: 300,
-            fadeInTime: 100,
-            fadeOutTime: 100,
-            placement: 'w',
-            mouseOnToPopup: true,
-            closeDelay: 200,
-            popupId: 'miniGame'
-          }).on({
-            powerTipPreRender: function() {
-              $.ajax({
-                url: ['/tournament', ctrl.data.id, 'mini', player.name, $(this).index() + 1].join('/'),
-                success: function(html) {
-                  $('#miniGame').html(html);
-                  $('body').trigger('lichess.content_loaded');
-                }
-              });
-            }
-          }).data('powertip', ' ');
-        }
+      ctrl.data.startsAt ? m('td') : m('td', {
+        class: 'sheet'
       }, player.sheet.scores.map(scoreTag)),
       ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
@@ -91,28 +68,24 @@ function podiumUsername(p) {
 }
 
 function podiumStats(p, data) {
-  var perf;
-  if (p.perf === 0) perf = m('span', ' =');
-  else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
-  else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
-  var nbGames = p.sheet.scores.length;
-  var winP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
-    return s[1] === 3 ? s[0] >= 3 : (s >= 2 || s[0] >= 2);
-  }).length * 100 / nbGames) : 0;
-  var berserkP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
-    return s === 3 || s[0] === 3 || s[0] === 5;
-  }).length * 100 / nbGames) : 0;
+  var ratingDiff;
+  if (p.ratingDiff === 0) ratingDiff = m('span', ' =');
+  else if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);
+  else if (p.ratingDiff < 0) ratingDiff = m('span.negative[data-icon=M]', -p.ratingDiff);
+  var nb = p.nb;
   return [
     m('span.rating.progress', [
-      p.rating + p.perf,
-      perf
+      p.rating + p.ratingDiff,
+      ratingDiff
     ]),
-    m('table.stats', m('tbody', [
-      m('tr', [m('th', 'Win rate'), m('td', winP + '%')]),
-      berserkP > 0 ? m('tr', [m('th', 'Berserk win rate'), m('td', berserkP + '%')]) : null,
-      p.opposition ? m('tr', [m('th', 'Opponents rating'), m('td', p.opposition)]) : null,
-      m('tr', [m('th', 'Games played'), m('td', nbGames)])
-    ]))
+    m('table.stats', [
+      m('tr', [m('th', 'Games played'), m('td', nb.game)]),
+      nb.game ? [
+        m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
+        m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))])
+      ] : null,
+      p.performance ? m('tr', [m('th', 'Performance'), m('td', p.performance)]) : null
+    ])
   ];
 }
 
@@ -124,6 +97,8 @@ function podiumPosition(p, data, pos) {
   ]);
 }
 
+var lastBody = null;
+
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
@@ -132,29 +107,28 @@ module.exports = {
       podiumPosition(ctrl.data.podium[2], ctrl.data, 'third')
     ]);
   },
-  standing: function(ctrl, pag) {
+  standing: function(ctrl, pag, klass) {
     var player = util.currentPlayer(ctrl, pag);
-    return [
-      m('thead',
-        m('tr', ctrl.data.startsAt ? [
-          m('th.large', ctrl.data.nbPlayers + ' Players'),
-          ctrl.userId ? m('th',
-            ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
-          ) : m('th')
-        ] : [
-          m('th.large', [
-            ctrl.trans('standing'), (player && !player.withdraw) ? [
-              m('strong.player_rank', player.rank),
-              ' / ' + pag.nbResults
-            ] : ' (' + pag.nbResults + ')'
-          ]),
-          m('th.legend[colspan=2]', [
-            m('streak', 'Streak starter'),
-            m('double', 'Double points'),
-            button.joinWithdraw(ctrl)
-          ])
-        ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
-    ];
+    var tableBody = pag.currentPageResults ?
+      pag.currentPageResults.map(partial(playerTr, ctrl)) :
+      (lastBody ? lastBody : m('tr.square-wrap', m('td.square-spin[colspan=3]')));
+    if (pag.currentPageResults) lastBody = tableBody;
+    return m('div.standing_wrap',
+      m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
+        m('thead',
+          m('tr',
+            m('th.pager[colspan=3]', [
+              button.joinWithdraw(ctrl),
+              pagination.renderPager(ctrl, pag)
+            ])
+          )),
+        m('tbody', {
+          config: function() {
+            // reload user badges
+            $('body').trigger('lichess.content_loaded');
+          }
+        }, tableBody)
+      ])
+    );
   }
 };

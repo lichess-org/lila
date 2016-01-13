@@ -21,6 +21,9 @@ sealed trait UserContext {
   def troll = me.??(_.troll)
 
   def ip = req.remoteAddress
+
+  def kid = me.??(_.kid)
+  def noKid = !kid
 }
 
 sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[User]) extends UserContext {
@@ -42,8 +45,6 @@ trait UserContextWrapper extends UserContext {
   val userContext: UserContext
   val req = userContext.req
   val me = userContext.me
-  val kid = me.??(_.kid)
-  val noKid = !kid
 }
 
 object UserContext {

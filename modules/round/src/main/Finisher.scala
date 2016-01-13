@@ -6,7 +6,6 @@ import chess.{ Status, Color, Speed }
 
 import lila.db.api._
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.{ PlaybanApi, Outcome }
@@ -75,13 +74,13 @@ private[round] final class Finisher(
 
   private def notifyTimeline(game: Game)(color: Color) = {
     import lila.hub.actorApi.timeline.{ Propagate, GameEnd }
-    if (!game.aborted) {
-      game.player(color).userId foreach { userId =>
+    if (!game.aborted) game.player(color).userId foreach { userId =>
+      game.perfType foreach { perfType =>
         timeline ! (Propagate(GameEnd(
           playerId = game fullIdOf color,
           opponent = game.player(!color).userId,
           win = game.winnerColor map (color ==),
-          perf = game.perfKey)) toUser userId)
+          perf = perfType.key)) toUser userId)
       }
     }
   }

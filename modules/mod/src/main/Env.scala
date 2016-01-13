@@ -12,17 +12,25 @@ final class Env(
     hub: lila.hub.Env,
     system: ActorSystem,
     firewall: Firewall,
+    reportColl: Coll,
+    lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
-    userIdsSharingIp: String => Fu[List[String]]) {
+    securityApi: lila.security.Api,
+    emailAddress: lila.security.EmailAddress) {
 
-  private val CollectionPlayerAssessment= config getString "collection.player_assessment"
-  private val CollectionBoosting = config getString "collection.boosting"
-  private val CollectionModlog = config getString "collection.modlog"
-  private val ActorName = config getString "actor.name"
-  private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
-  private val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
+  private object settings {
+    val CollectionPlayerAssessment = config getString "collection.player_assessment"
+    val CollectionBoosting = config getString "collection.boosting"
+    val CollectionModlog = config getString "collection.modlog"
+    val CollectionGamingHistory = config getString "collection.gaming_history"
+    val ActorName = config getString "actor.name"
+    val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
+    val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
+    val NeuralApiEndpoint = config getString "neural.api.endpoint"
+  }
+  import settings._
 
-  private[mod] lazy val modlogColl = db(CollectionModlog)
+  private[mod] lazy val logColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi
 
@@ -31,6 +39,7 @@ final class Env(
     userSpy = userSpy,
     firewall = firewall,
     reporter = hub.actor.report,
+    lightUserApi = lightUserApi,
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
@@ -45,7 +54,22 @@ final class Env(
     modApi = api,
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
-    userIdsSharingIp = userIdsSharingIp)
+    userIdsSharingIp = securityApi.userIdsSharingIp)
+
+  lazy val gamify = new Gamify(
+    logColl = logColl,
+    reportColl = reportColl,
+    historyColl = db(CollectionGamingHistory))
+
+  lazy val search = new UserSearch(
+    securityApi = securityApi,
+    emailAddress = emailAddress)
+
+  private val neuralApi = new NeuralApi(
+    endpoint = NeuralApiEndpoint,
+    assessApi = assessApi)
+
+  def callNeural = neuralApi.apply _
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
@@ -60,7 +84,7 @@ final class Env(
         }
     }
   }), name = ActorName)
-  system.lilaBus.subscribe(actorApi, 'finishGame)
+  system.lilaBus.subscribe(actorApi, 'finishGame, 'analysisReady)
 }
 
 object Env {
@@ -71,6 +95,9 @@ object Env {
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
+    reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
-    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)
+    lightUserApi = lila.user.Env.current.lightUserApi,
+    securityApi = lila.security.Env.current.api,
+    emailAddress = lila.security.Env.current.emailAddress)
 }

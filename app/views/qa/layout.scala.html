@@ -3,7 +3,9 @@
 @sideSection = {
 <div class="side">
   @searchForm()
+  @NotForKids {
   <a class="ask" href="@routes.QaQuestion.ask">Ask a question</a>
+  }
   @side
 </div>
 }

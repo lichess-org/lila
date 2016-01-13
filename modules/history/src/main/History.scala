@@ -40,7 +40,7 @@ object History {
 
   import reactivemongo.bson._
   import lila.db.BSON
-  import BSON.Map.MapReader
+  import BSON.MapDocument.MapReader
 
   private[history] implicit val BSONReader = new BSONDocumentReader[History] {
 

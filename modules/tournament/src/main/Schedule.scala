@@ -18,45 +18,56 @@ case class Schedule(
     case _                                         => s"${freq.toString} ${variant.name}"
   }
 
-  def sameSpeed(other: Schedule) = speed == other.speed
+  def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
 
   def sameFreq(other: Schedule) = freq == other.freq
 
-  def similarTo(other: Schedule) = sameSpeed(other) && sameVariant(other) && sameFreq(other)
+  def similarTo(other: Schedule) = similarSpeed(other) && sameVariant(other) && sameFreq(other)
+
+  override def toString = s"$freq $variant $speed $at"
 }
 
 object Schedule {
 
-  sealed trait Freq {
+  sealed abstract class Freq(val id: Int) {
     val name = toString.toLowerCase
   }
   object Freq {
-    case object Hourly extends Freq
-    case object Daily extends Freq
-    case object Nightly extends Freq
-    case object Weekly extends Freq
-    case object Monthly extends Freq
-    case object Marathon extends Freq
-    case object ExperimentalMarathon extends Freq { // for DB BC
+    case object Hourly extends Freq(10)
+    case object Daily extends Freq(20)
+    case object Eastern extends Freq(30)
+    case object Weekly extends Freq(40)
+    case object Monthly extends Freq(50)
+    case object Marathon extends Freq(60)
+    case object ExperimentalMarathon extends Freq(61) { // for DB BC
       override val name = "Experimental Marathon"
     }
-    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly, Marathon, ExperimentalMarathon)
+    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
   }
 
-  sealed trait Speed {
+  sealed abstract class Speed(val id: Int) {
     def name = toString.toLowerCase
   }
   object Speed {
-    case object Bullet extends Speed
-    case object SuperBlitz extends Speed
-    case object Blitz extends Speed
-    case object Classical extends Speed
-    val all: List[Speed] = List(Bullet, SuperBlitz, Blitz, Classical)
+    case object HyperBullet extends Speed(10)
+    case object Bullet extends Speed(20)
+    case object SuperBlitz extends Speed(30)
+    case object Blitz extends Speed(40)
+    case object Classical extends Speed(50)
+    val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
+    def byId(id: Int) = all find (_.id == id)
+    def similar(s1: Speed, s2: Speed) = (s1, s2) match {
+      case (a, b) if a == b      => true
+      case (HyperBullet, Bullet) => true
+      case (Bullet, HyperBullet) => true
+      case _                     => false
+    }
   }
 
   sealed trait Season
@@ -72,37 +83,44 @@ object Schedule {
     import chess.variant._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Bullet, _)                => 26
-      case (Hourly, SuperBlitz, _)            => 56
-      case (Hourly, Blitz, _)                 => 56
-      case (Hourly, Classical, _)             => 0 // N/A
+      case (Hourly, HyperBullet | Bullet, _)          => 26
+      case (Hourly, SuperBlitz, _)                    => 56
+      case (Hourly, Blitz, _)                         => 56
+      case (Hourly, Classical, _)                     => 116
 
-      case (Daily | Nightly, Bullet, _)       => 60
-      case (Daily | Nightly, SuperBlitz, _)   => 90
-      case (Daily | Nightly, Blitz, Standard) => 90
-      case (Daily | Nightly, Blitz, _)        => 60 // variant daily is shorter
-      case (Daily | Nightly, Classical, _)    => 60 * 2
+      case (Daily | Eastern, HyperBullet | Bullet, _) => 60
+      case (Daily | Eastern, SuperBlitz, _)           => 90
+      case (Daily | Eastern, Blitz, Standard)         => 90
+      case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
+      case (Daily | Eastern, Classical, _)            => 60 * 2
 
-      case (Weekly, Bullet, _)                => 90
-      case (Weekly, SuperBlitz, _)            => 60 * 2
-      case (Weekly, Blitz, _)                 => 60 * 2
-      case (Weekly, Classical, _)             => 60 * 3
+      case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
+      case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
+      case (Weekly, Blitz, Standard)                  => 60 * 3
+      case (Weekly, Blitz, _)                         => 60 * 2 // variant weekly is shorter
+      case (Weekly, Classical, _)                     => 60 * 4
 
-      case (Monthly, Bullet, _)               => 60 * 2
-      case (Monthly, SuperBlitz, _)           => 60 * 3
-      case (Monthly, Blitz, _)                => 60 * 3
-      case (Monthly, Classical, _)            => 60 * 4
+      case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
+      case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
+      case (Monthly, Blitz, _)                        => 60 * 4
+      case (Monthly, Classical, _)                    => 60 * 5
 
-      case (Marathon, _, _)                   => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _)       => 60 * 4
+      case (Marathon, _, _)                           => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _)               => 60 * 4
 
     }) filter (0!=)
   }
 
+  private val blitzIncHours = Set(1, 7, 13, 19)
+  private def makeInc(sched: Schedule) =
+    sched.freq == Freq.Hourly && blitzIncHours(sched.at.getHourOfDay)
+
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Speed.Bullet     => TournamentClock(60, 0)
-    case Speed.SuperBlitz => TournamentClock(3 * 60, 0)
-    case Speed.Blitz      => TournamentClock(5 * 60, 0)
-    case Speed.Classical  => TournamentClock(10 * 60, 0)
+    case Speed.HyperBullet             => TournamentClock(30, 0)
+    case Speed.Bullet                  => TournamentClock(60, 0)
+    case Speed.SuperBlitz              => TournamentClock(3 * 60, 0)
+    case Speed.Blitz if makeInc(sched) => TournamentClock(3 * 60, 2)
+    case Speed.Blitz                   => TournamentClock(5 * 60, 0)
+    case Speed.Classical               => TournamentClock(10 * 60, 0)
   }
 }

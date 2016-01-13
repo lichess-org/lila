@@ -3,7 +3,6 @@ package actorApi
 
 import lila.common.LightUser
 
-import akka.actor.ActorRef
 import play.api.libs.json._
 import play.twirl.api.Html
 
@@ -38,6 +37,7 @@ case class Ask(id: String, msg: Any)
 case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
+case class SocketUids(uids: Set[String])
 case object GetUserIds
 
 package report {
@@ -177,7 +177,7 @@ case class AutoAnalyse(gameId: String)
 package monitor {
 case object AddRequest
 case object Update
-case class Move(micros: Int)
+case class Move(millis: Option[Int])
 }
 
 package round {
@@ -185,14 +185,19 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  piece: Char,
   color: chess.Color,
-  ip: String,
+  mobilePushable: Boolean,
   opponentUserId: Option[String],
   simulId: Option[String])
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
+case class IsOnGame(color: chess.Color)
+sealed trait SocketEvent
+object SocketEvent {
+  case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
+  case class Stop(gameId: String) extends SocketEvent
+}
 }
 
 package evaluation {
@@ -212,3 +217,5 @@ case class OnlineFriends(users: List[LightUser])
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }
+
+case class DonationEvent(userId: Option[String], gross: Int, net: Int, message: Option[String], progress: Int)

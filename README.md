@@ -1,4 +1,4 @@
-[lichess.org](http://lichess.org)
+[lichess.org](http://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
 ---------------------------------
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
@@ -6,7 +6,7 @@
 It's a free online chess game focused on [realtime](http://lichess.org/games) and ease of use
 
 It has a [search engine](http://lichess.org/games/search),
-[computer analysis](http://lichess.org/analyse/ief49lif),
+[computer analysis](http://lichess.org/ief49lif),
 [tournaments](http://lichess.org/tournament),
 [simuls](http://lichess.org/simul),
 [forums](http://lichess.org/forum),

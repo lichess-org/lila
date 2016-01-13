@@ -32,5 +32,9 @@ module.exports = function(ctrl) {
       ]
     };
   };
-  return ctrl.data.pairings.map(pairing);
+  return m('div.all_pairings.scroll-shadow-soft', {
+    onclick: function() {
+      return !ctrl.vm.disableClicks;
+    }
+  }, ctrl.data.pairings.map(pairing));
 };

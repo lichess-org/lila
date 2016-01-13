@@ -3,6 +3,7 @@ var classSet = chessground.util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
+var router = require('game').router;
 var m = require('mithril');
 
 function analysisBoardOrientation(data) {
@@ -153,7 +154,7 @@ module.exports = {
   },
   viewRematch: function(ctrl) {
     if (ctrl.data.game.rematch) return m('a.viewRematch.button.text[data-icon=v]', {
-      href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
+      href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
     }, ctrl.trans('viewRematch'));
   },
   joinRematch: function(ctrl) {
@@ -161,7 +162,7 @@ module.exports = {
       ctrl.trans('rematchOfferAccepted'),
       m('a.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
-        href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
+        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
       }, ctrl.trans('joinTheGame'))
     ];
   },
@@ -193,7 +194,7 @@ module.exports = {
     var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
-      href: ctrl.router.Round.watcher(ctrl.data.game.id, analysisBoardOrientation(ctrl.data)).url + hash
+      href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
     }, ctrl.trans('analysis'));
   },
   newOpponent: function(ctrl) {

@@ -1,7 +1,7 @@
 package lila.tournament
 
-import scala.concurrent.duration.FiniteDuration
 import org.joda.time.DateTime
+import scala.concurrent.duration.FiniteDuration
 
 import lila.db.BSON._
 import lila.user.{ User, UserRepo }
@@ -22,23 +22,19 @@ final class Winners(
   private def fetchScheduled(nb: Int): Fu[List[Winner]] = {
     val since = DateTime.now minusMonths 1
     List(Freq.Marathon, Freq.Monthly, Freq.Weekly, Freq.Daily).map { freq =>
-      TournamentRepo.lastFinishedScheduledByFreq(freq, since, 4) flatMap toursToWinners
-    }.sequenceFu map (_.flatten) flatMap { winners =>
-      TournamentRepo.lastFinishedScheduledByFreq(
-        Freq.Hourly, since, math.max(0, nb - winners.size)
-      ) flatMap toursToWinners map (winners ::: _)
-    }
+      TournamentRepo.lastFinishedScheduledByFreqStandard(freq, since, 4) flatMap toursToWinners
+    }.sequenceFu.map(_.flatten)
   }
 
   private def toursToWinners(tours: List[Tournament]): Fu[List[Winner]] =
-    tours.map { tour =>
+    tours.sortBy(_.minutes).map { tour =>
       PlayerRepo winner tour.id flatMap {
         case Some(player) => UserRepo isEngine player.userId map { engine =>
           !engine option Winner(tour.id, tour.name, player.userId)
         }
         case _ => fuccess(none)
       }
-    }.sequenceFu map (_.flatten)
+    }.sequenceFu map (_.flatten take 10)
 
   def scheduled(nb: Int): Fu[List[Winner]] = scheduledCache apply nb
 }

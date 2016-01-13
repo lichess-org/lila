@@ -1,8 +1,9 @@
 #!/bin/sh
+set -e
 
-dir=`mktemp -d`
+dir=$(mktemp -d)
 echo "Building in $dir"
-cd $dir
+cd "$dir"
 
 rm -rf scalalib
 git clone https://github.com/ornicar/scalalib
@@ -11,9 +12,9 @@ sbt publish-local
 cd ..
 
 rm -rf scala-kit
-git clone https://github.com/ornicar/scala-kit --branch 1210thib
+git clone https://github.com/ornicar/scala-kit --branch lichess-fork
 cd scala-kit
-sbt -Dversion=1.2.10-THIB publish-local
+sbt -Dversion=1.2.11-THIB publish-local
 cd ..
 
 rm -rf maxmind-geoip2-scala
@@ -22,4 +23,10 @@ cd maxmind-geoip2-scala
 sbt publish-local
 cd ..
 
-rm -rf $dir
+rm -rf hasher
+git clone https://github.com/Nycto/Hasher
+cd Hasher
+sbt publish-local
+cd ..
+
+rm -rf "$dir"

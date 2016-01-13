@@ -70,11 +70,28 @@ form.better_analysis {
 }
 .future_game_analysis.progress {
   margin-top: 0;
+  height: 100%;
   overflow: hidden;
 }
 .future_game_analysis .loader {
-  margin-top: 20px;
   font-size: 15px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+.underboard_content .quote.panel .pull-quote {
+  margin: 0 auto;
+  width: 322px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.future_game_analysis .quote {
+  margin-left: 190px;
+  width: 322px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .future_game_analysis .button {
   display: inline-block;
@@ -118,6 +135,89 @@ div.game_control .jumps {
 div.game_control a.menu {
   margin-left: 10px;
 }
+div.lichess_game div.lichess_ground {
+  transition: padding-left 0.3s;
+}
+div.eval_gauge {
+  position: absolute;
+  right: -22px;
+  top: 0;
+  width: 16px;
+  height: 512px;
+  background: #fff;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+div.eval_gauge.reverse {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+}
+div.eval_gauge::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 5px rgba(0,0,0,0.7) inset;
+  border-radius: 5px;
+}
+div.eval_gauge tick {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px ridge #eee;
+  opacity: 0.4;
+}
+div.eval_gauge tick.zero {
+  opacity: 1;
+  border-bottom: 7px solid #dc322f!important;
+  margin-top: -3px;
+  opacity: 0.45;
+}
+div.eval_gauge .black {
+  width: 100%;
+  height: 50%;
+  background: #888;
+  border-radius: 5px 5px 0 0;
+  transition: height 1s;
+}
+div.gauge_displayed div.lichess_game div.lichess_ground {
+  padding-left: 28px;
+}
+.lichess_ground .ceval_box {
+  position: relative;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+.lichess_ground .ceval_box .switch {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+}
+.lichess_ground .ceval_box pearl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 2em;
+  line-height: 40px;
+  height: 40px;
+  width: 80px;
+  text-align: center;
+  font-weight: bold;
+  background: #e0e0e0;
+}
+.lichess_ground .ceval_box pearl .square-spin {
+  margin-top: 7px;
+}
+.lichess_ground .ceval_box help {
+  display: block;
+  margin: 5px;
+  font-size: 0.9em;
+}
 .lichess_ground .replay,
 .lichess_ground .action_menu {
   height: calc(100% - 40px);
@@ -127,6 +227,10 @@ div.game_control a.menu {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  margin-left: 0;
+}
+.ceval_displayed .lichess_ground .replay {
+  height: calc(100% - 40px - 41px);
 }
 .lichess_ground .action_menu {
   border-color: transparent;
@@ -135,6 +239,7 @@ div.game_control a.menu {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 .lichess_ground .action_menu .button {
   display: block;
@@ -155,48 +260,36 @@ div.game_control a.menu {
 .lichess_ground .action_menu form.delete .button::before {
   font-size: 1.2em;
 }
-.lichess_ground .replay .turn > .index {
-  display: inline-block;
+.lichess_ground .action_menu .setting {
+  padding: 5px 0 5px 10px;
+  line-height: 22px;
+}
+.lichess_ground .action_menu .setting label {
+  cursor: pointer;
+}
+.lichess_ground .action_menu .switch {
+  float: right;
+}
+.lichess_ground .replay turn index {
   width: 26px;
   text-align: center;
-  font-size: 13px;
-  height: 22px;
-  display: inline-block;
-  line-height: 22px;
-  padding: 2px 0;
-  background: #e0e0e0;
 }
-.lichess_ground .replay .move {
+.lichess_ground .replay move {
   display: inline-block;
   font-family: 'ChessSansPiratf', sans-serif;
 }
-.lichess_ground .replay .turn .move {
+.lichess_ground .replay turn move {
   position: relative;
   width: calc(50% - 14px - 13px);
-  font-size: 17px;
-  height: 22px;
-  line-height: 22px;
-  display: inline-block;
   padding: 2px 7px;
 }
-.lichess_ground .replay .move.current {
+.lichess_ground .replay move.current {
   background: rgba(191, 231, 255, 0.7);
 }
-.lichess_ground .replay .turn .move.empty {
+.lichess_ground .replay turn move.empty {
   opacity: 0.5;
 }
-.lichess_ground .replay a.move {
-  cursor: pointer;
-  transition: background-color 0.13s;
-}
-.lichess_ground .replay a.move:hover {
-  background: #e0e0e0;
-}
-.lichess_ground .replay a.move.active {
-  color: #d85000;
-  font-weight: bold;
-}
-.lichess_ground .replay .eval {
+.lichess_ground .replay eval {
   position: absolute;
   top: 2px;
   right: 5px;
@@ -206,7 +299,7 @@ div.game_control a.menu {
   opacity: 0.7;
   transition: 0.13s;
 }
-.lichess_ground .replay .move:hover .eval {
+.lichess_ground .replay move:hover eval {
   opacity: 1;
 }
 .lichess_ground .analyse .meta {
@@ -240,21 +333,56 @@ body .lichess_ground .analyse .undefined {
   padding-bottom: 3px;
 }
 .lichess_ground .analyse .meta > .variation {
+  padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
-  padding: 3px 0 3px 5px;
 }
-.lichess_ground .variation .index {
-  margin-left: 5px;
+.lichess_ground .analyse .meta > .variation span.menu {
+  float: right;
+  margin-right: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.13s;
 }
-.lichess_ground .variation .index:first-child {
-  margin-left: 0;
+.lichess_ground .analyse .meta > .variation:hover .menu {
+  opacity: 0.7;
 }
-.lichess_ground .variation .move {
-  padding: 2px 2px;
+.lichess_ground .analyse .meta > .variation .menu:hover {
+  opacity: 1!important;
+}
+.lichess_ground .analyse .meta > .menu {
+  background: #fff;
+  font-family: 'Noto Sans';
   font-weight: normal;
 }
-.lichess_ground .variation a.move:hover {
+.lichess_ground .analyse .meta > .menu a {
+  display: block;
+  line-height: 1.8em;
+}
+.lichess_ground .analyse .meta > .menu a.delete {
+  color: #ac524f;
+}
+.lichess_ground .analyse .meta > .menu a.promote {
+  color: #759900;
+}
+.lichess_ground .analyse .meta > .menu a::before {
+  opacity: 0.5;
+}
+.lichess_ground .analyse .meta > .menu a:hover::before {
+  opacity: 1;
+}
+.lichess_ground .variation index {
+  margin-left: 5px;
+  font-size: 0.9em;
+}
+.lichess_ground .variation index:first-child {
+  margin-left: 0;
+}
+.lichess_ground .variation move {
+  padding: 1px 1.5px;
+  font-weight: normal;
+}
+.lichess_ground .variation move:hover {
   background: #eee;
 }
 .lichess_ground .analyse .variation .variation {
@@ -299,6 +427,12 @@ div.advice_summary td {
   padding: 2px 8px;
   text-align: center;
 }
+div.advice_summary tr.nag {
+  cursor: pointer;
+}
+div.advice_summary tr.nag:hover {
+  text-decoration: underline;
+}
 div.advice_summary .spacerlol {
   padding: 5px;
 }
@@ -307,6 +441,17 @@ div.advice_summary .spacerlol {
   height: 200px;
   width: 512px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
+}
+span.mod {
+  display: inline-block;
+  border-left: 3px solid;
+  padding-left: 2px;
+}
+span.blurs {
+  border-color: #DDCF3F;
+}
+span.hold {
+  border-color: #E73B38;
 }
 div.shortcuts .inner {
   display: none;
@@ -380,10 +525,7 @@ table.modAssessment td.noMatch {
   transition: opacity 0.13s;
 }
 .forecast.loading {
-  opacity: 0.7;
-}
-.forecast san {
-  font-weight: bold;
+  opacity: 0.5;
 }
 .forecast .entries {
   border: 1px solid #ccc;
@@ -441,7 +583,7 @@ table.modAssessment td.noMatch {
 .forecast .add::before {
   font-size: 32px;
   float: left;
-  margin: 1px 10px 0px 0px;
+  margin: 1px 10px 0 0;
   opacity: 0.6;
   transition: opacity 0.13s;
 }
@@ -455,4 +597,26 @@ table.modAssessment td.noMatch {
   display: block;
   white-space: normal;
   font-weight: normal;
+}
+.forecast sans {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+.forecast sans san {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-weight: bold;
+}
+.forecast button.on-my-turn {
+  margin-top: 20px;
+}
+.forecast button.on-my-turn::before {
+  color: #759900;
+}
+
+body.coords_2 .gauge_displayed square[data-coord-y]::before {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  font-weight: normal;
+  top: 1px;
+  right: 1px;
 }

@@ -22,12 +22,12 @@ final class Env(
     val ContextGitUrl = config getString "context.git.url"
     val ContextGitFile = config getString "context.git.file"
     val CdnDomain = config getString "cdn_domain"
+    val CallThreshold = config getInt "call.threshold"
   }
   import settings._
 
   // public settings
   val RequestHandlerProtocol = config getString "request_handler.protocol"
-  val CallThreshold = config getInt "call.threshold"
 
   private[i18n] lazy val translationColl = db(CollectionTranslation)
 
@@ -63,7 +63,8 @@ final class Env(
 
   lazy val forms = new DataForm(
     keys = keys,
-    captcher = captcher)
+    captcher = captcher,
+    callApi = callApi)
 
   def upstreamFetch = new UpstreamFetch(id => UpstreamUrlPattern format id)
 
@@ -73,6 +74,13 @@ final class Env(
     system = system)
 
   lazy val context = new Context(ContextGitUrl, ContextGitFile, keys)
+
+  private lazy val callApi = new CallApi(
+    hideCallsCookieName = hideCallsCookieName,
+    minGames = CallThreshold,
+    transInfos = transInfos)
+
+  val call = callApi.apply _
 
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge

@@ -1,14 +1,17 @@
 var throttle = require('./util').throttle;
+var router = require('game').router;
 
 // #FIXME jQuery crap here
 
 var element;
 
 var reload = throttle(1000, false, function(ctrl) {
-  var route = ctrl.data.player.spectator ? ctrl.router.Round.watcherText(ctrl.data.game.id, ctrl.data.player.color) : ctrl.router.Round.playerText(ctrl.data.game.id + ctrl.data.player.id);
+  var url = (ctrl.data.player.spectator ?
+    router.game(ctrl.data, ctrl.data.player.color) :
+    router.player(ctrl.data)
+  ) + '/text';
   $.ajax({
-    url: route.url,
-    cache: false,
+    url: url,
     success: function(html) {
       $(element).html(html).find('form').submit(function() {
         var text = $(this).find('.move').val();

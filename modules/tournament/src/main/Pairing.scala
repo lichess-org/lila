@@ -6,7 +6,7 @@ import lila.game.{ Game, PovRef, IdGenerator }
 import org.joda.time.DateTime
 
 case class Pairing(
-    id: String, // game In
+    id: String, // game Id
     tourId: String,
     status: chess.Status,
     user1: String,
@@ -24,18 +24,20 @@ case class Pairing(
   def contains(u1: String, u2: String): Boolean = contains(u1) && contains(u2)
   def notContains(user: String) = !contains(user)
 
+  def opponentOf(userId: String) =
+    if (userId == user1) user2.some
+    else if (userId == user2) user1.some
+    else none
+
   def finished = status >= chess.Status.Mate
   def playing = !finished
 
-  def lostBy(user: String) = winner.??(user !=)
   def quickFinish = finished && turns.??(20 >)
   def quickDraw = draw && turns.??(20 >)
   def notSoQuickFinish = finished && turns.??(14 <=)
 
-  def opponentOf(user: String): Option[String] =
-    if (user == user1) user2.some else if (user == user2) user1.some else none
-
   def wonBy(user: String): Boolean = winner.??(user ==)
+  def lostBy(user: String): Boolean = winner.??(user !=)
   def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: String): Option[Color] =
@@ -53,18 +55,17 @@ case class Pairing(
 
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
+
+  def similar(other: Pairing) = other.contains(user1, user2)
 }
 
 private[tournament] object Pairing {
 
-  def apply(tour: Tournament, u1: String, u2: String): Pairing = apply(tour, u1, u2, None)
-  def apply(tour: Tournament, u1: String, u2: String, d: DateTime): Pairing = apply(tour, u1, u2, Some(d))
-  def apply(tour: Tournament, p1: Player, p2: Player): Pairing = apply(tour, p1.userId, p2.userId)
-  def apply(tour: Tournament, ps: (Player, Player)): Pairing = apply(tour, ps._1, ps._2)
+  case class LastOpponents(hash: Map[String, String])
 
-  def apply(tour: Tournament, u1: String, u2: String, d: Option[DateTime]): Pairing = new Pairing(
+  def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,
-    tourId = tour.id,
+    tourId = tourId,
     status = chess.Status.Created,
     user1 = u1,
     user2 = u2,
@@ -72,4 +73,14 @@ private[tournament] object Pairing {
     turns = none,
     berserk1 = 0,
     berserk2 = 0)
+
+  case class Prep(tourId: String, user1: String, user2: String) {
+    def toPairing(firstGetsWhite: Boolean) =
+      if (firstGetsWhite) Pairing(tourId, user1, user2)
+      else Pairing(tourId, user2, user1)
+  }
+
+  def prep(tour: Tournament, ps: (Player, Player)) = Pairing.Prep(tour.id, ps._1.userId, ps._2.userId)
+  def prep(tour: Tournament, u1: String, u2: String) = Pairing.Prep(tour.id, u1, u2)
+  def prep(tour: Tournament, p1: Player, p2: Player) = Pairing.Prep(tour.id, p1.userId, p2.userId)
 }

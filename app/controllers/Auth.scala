@@ -68,7 +68,7 @@ object Auth extends LilaController {
       api.loginForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
-          api = _ => Unauthorized(err.errorsAsJson).fuccess
+          api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
         _.fold(InternalServerError("Authentication error").fuccess)(authenticateUser)
       )
@@ -118,13 +118,15 @@ object Auth extends LilaController {
               UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) => env.emailConfirm.send(user, email) inject
-                    Redirect(routes.Auth.checkYourEmail(user.username))
+                  case (user, email) => env.emailConfirm.send(user, email) >> {
+                    if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                    else saveAuthAndRedirect(user)
+                  }
                 }
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj(
-            "error" -> err.errorsAsJson
+            "error" -> errorsAsJson(err)
           ))),
           data => {
             val email = data.email flatMap env.emailAddress.validate
@@ -143,23 +145,37 @@ object Auth extends LilaController {
   }
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
-    implicit val req = ctx.req
     Env.security.emailConfirm.confirm(token) flatMap {
-      case Some(user) => api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
-        Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
-      } recoverWith authRecovery
-      case _ => notFound
+      _.fold(notFound)(saveAuthAndRedirect)
     }
+  }
+
+  private def saveAuthAndRedirect(user: UserModel)(implicit ctx: Context) = {
+    implicit val req = ctx.req
+    api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
+      Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
+    } recoverWith authRecovery
   }
 
   private def noTorResponse(implicit ctx: Context) = negotiate(
     html = Unauthorized(html.auth.tor()).fuccess,
     api = _ => Unauthorized(Json.obj("error" -> "Can't login from TOR, sorry!")).fuccess)
 
-  def setFingerprint(hash: String, ms: Int) = Auth { ctx =>
+  def setFingerprint(fp: String, ms: Int) = Auth { ctx =>
     me =>
-      // if (ms > 1000) logwarn(s"[Fingerprint] ${me.username} $ms ms / ${~HTTPRequest.userAgent(ctx.req)}")
-      api.setFingerprint(ctx.req, hash) inject Ok
+      api.setFingerprint(ctx.req, fp) flatMap {
+        _ ?? { hash =>
+          !me.lame ?? {
+            api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
+              case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
+                case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
+                case _                                        => funit
+              }
+              case _ => funit
+            }
+          }
+        }
+      } inject Ok
   }
 
   def passwordReset = Open { implicit ctx =>
@@ -175,9 +191,10 @@ object Auth extends LilaController {
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
       data => {
-        UserRepo enabledByEmail data.email flatMap {
-          case Some(user) if env.emailAddress.isValid(data.email) =>
-            Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+        val email = env.emailAddress.validate(data.email) | data.email
+        UserRepo enabledByEmail email flatMap {
+          case Some(user) =>
+            Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))
           case _ => forms.passwordResetWithCaptcha map {
             case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
           }

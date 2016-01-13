@@ -1,7 +1,7 @@
 var status = require('./status');
 
 function playable(data) {
-  return data.game.status.id < status.ids.aborted;
+  return data.game.status.id < status.ids.aborted && !imported(data);
 }
 
 function isPlayerPlaying(data) {
@@ -57,8 +57,12 @@ function moretimeable(data) {
   return data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
 
+function imported(data) {
+  return data.game.source === 'import';
+}
+
 function replayable(data) {
-  return data.source == 'import' || status.finished(data);
+  return imported(data) || status.finished(data);
 }
 
 function getPlayer(data, color) {
@@ -75,8 +79,8 @@ function userAnalysable(data) {
   return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
-function forecastable(data) {
-  return playable(data) && data.correspondence && !hasAi(data) && !isPlayerTurn(data);
+function isCorrespondence(data) {
+  return data.game.speed === 'correspondence';
 }
 
 function setOnGame(data, color, onGame) {
@@ -114,5 +118,8 @@ module.exports = {
   nbMoves: nbMoves,
   setOnGame: setOnGame,
   setIsGone: setIsGone,
-  forecastable: forecastable
+  isCorrespondence: isCorrespondence,
+  isSwitchable: function(data) {
+    return !hasAi(data) && (data.simul || isCorrespondence(data));
+  }
 };

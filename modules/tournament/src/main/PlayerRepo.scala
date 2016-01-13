@@ -99,23 +99,19 @@ object PlayerRepo {
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
-  import coll.BatchCommands.AggregationFramework,
-    AggregationFramework.{ Descending, Group, Match, Push, Sort }
-  
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
+
   def userIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId)), List(
-      Group(BSONBoolean(true))("uids" -> Push("uid")))).
-      map(res => aggregationUserIdList(res.documents.toStream))
+    coll.distinct("uid", selectTour(tourId).some) map lila.db.BSON.asStrings
 
   def activeUserIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId) ++ selectActive), List(
-      Group(BSONBoolean(true))("uids" -> Push("uid")))).
-      map(res => aggregationUserIdList(res.documents.toStream))
+    coll.distinct("uid", (selectTour(tourId) ++ selectActive).some) map lila.db.BSON.asStrings
 
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
-  def ranking(tourId: String): Fu[Ranking] =
+  // freaking expensive (marathons)
+  private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
       Group(BSONBoolean(true))("uids" -> Push("uid")))).
       map(res => aggregationUserIdList(res.documents.toStream)).
@@ -126,10 +122,13 @@ object PlayerRepo {
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
 
-  def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
+  def setPerformance(player: Player, performance: Int) =
+    coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void
+
+  private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>
       ranking get p.userId map { RankedPlayer(_, p) }
-    }.sortBy(-_.rank)
+    }.sortBy(_.rank)
 
   def rankedByTourAndUserIds(tourId: String, userIds: Iterable[String], ranking: Ranking): Fu[RankedPlayers] =
     byTourAndUserIds(tourId, userIds) map { rankPlayers(_, ranking) }

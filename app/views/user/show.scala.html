@@ -1,11 +1,5 @@
 @(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, searchForm: Form[_], rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
 
-@import lila.rating.PerfType
-
-@title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
-
-@searchUrl = @{ routes.User.showFilter(u.username, "search") }
-
 @evenMoreJs = {
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
@@ -19,69 +13,9 @@
 }
 }
 
-@showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
-<div data-icon="@perfType.iconChar">
-  <h3 class="hint--top" data-hint="@perfType.title">
-    @if(lila.rating.PerfType.nonGame.contains(perfType)) {
-    @name.getOrElse(perfType.name).toUpperCase
-    } else {
-    <a href="@searchUrl?perf=@perfType.id">
-      @name.getOrElse(perfType.name).toUpperCase
-    </a>
-    }
-  </h3>
-  <div class="rating">
-    <strong class="hint--bottom" data-hint="Glicko rating ±@perf.glicko.intDeviation">@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span class="hint--bottom">/ @perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
-    @showProgress(perf.progress)
-  </div>
-  <div class="rank" title="Rank is updated every 15 minutes">
-    @info.ranks.get(perfType.key).map { rank =>
-    Rank: @rank.localize@nth(rank)
-    }
-  </div>
-</div>
-}
-
-@side = {
-<div class="side sub_ratings">
-  @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
-  @showPerf(u.perfs.bullet, PerfType.Bullet)
-  @showPerf(u.perfs.blitz, PerfType.Blitz)
-  @showPerf(u.perfs.classical, PerfType.Classical)
-  @showPerf(u.perfs.correspondence, PerfType.Correspondence)
-  <br />
-  @if(u.perfs.chess960.nonEmpty) {
-  @showPerf(u.perfs.chess960, PerfType.Chess960)
-  }
-  @if(u.perfs.kingOfTheHill.nonEmpty) {
-  @showPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
-  }
-  @if(u.perfs.threeCheck.nonEmpty) {
-  @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
-  }
-  @if(u.perfs.antichess.nonEmpty) {
-  @showPerf(u.perfs.antichess, PerfType.Antichess)
-  }
-  @if(u.perfs.atomic.nonEmpty) {
-  @showPerf(u.perfs.atomic, PerfType.Atomic)
-  }
-  @if(u.perfs.horde.nonEmpty) {
-  @showPerf(u.perfs.horde, PerfType.Horde)
-  }
-  @if(u.perfs.racingKings.nonEmpty) {
-  @showPerf(u.perfs.racingKings, PerfType.RacingKings)
-  }
-  <br />
-  }
-  @showPerf(u.perfs.puzzle, PerfType.Puzzle)
-  @showPerf(u.perfs.opening, PerfType.Opening)
-</div>
-}
-
 @user.layout(
-title = title,
-side = side.some,
+title =  s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
+side = side(u, info.ranks, none).some,
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = lila.app.ui.OpenGraph(
@@ -89,7 +23,7 @@ image = staticUrl("images/large_tile.png").some,
 title = u.titleUsernameWithBestRating,
 url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
-<div class="content_box no_padding user_show">
+<div class="content_box no_padding user_show@if(ctx.is(u)){ myself}">
   <div class="content_box_top">
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
@@ -110,31 +44,7 @@ description = describeUser(u)).some) {
       <span data-icon="-"></span>
     </a>
     }
-    @if(!u.lame) {
-    @info.ranks.map {
-    case (perf, rank) if rank == 1 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
-      <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 10 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 10!">
-      <img src="@staticUrl("images/trophy/Big-Silver-Cup.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 50 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
-      <img src="@staticUrl("images/trophy/Fancy-Gold.png")" height=80 />
-    </span>
-    }
-    case (perf, rank) if rank <= 100 => {
-    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
-      <img src="@staticUrl("images/trophy/Gold-Cup.png")" height=80 />
-    </span>
-    }
-    case _ => {}
-    }
-    }
+    @perfTrophies(u, info.ranks)
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
@@ -146,7 +56,7 @@ description = describeUser(u)).some) {
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
-    <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
+    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
@@ -205,7 +115,7 @@ description = describeUser(u)).some) {
   @if(filters.current.name == "search") {
   @search.user(u, searchForm)
   } else {
-  <div class="meat">
+  <div class="meat@if(info.insightVisible){ with_insights}">
     @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
       <span>Chart loading&#8230;</span>
@@ -235,8 +145,8 @@ description = describeUser(u)).some) {
       @p.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
-      @p.nonEmptyBio.map { bio =>
-      <p class="bio">@shorten(bio, 400)</p>
+      @p.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
+      <p class="bio">@Html(addLinks(shorten(bio, 400).body))</p>
       }
       }
       }
@@ -272,6 +182,13 @@ description = describeUser(u)).some) {
         </div>
       </div>
     </div>
+    @if(info.insightVisible) {
+    <a class="insight" href="@routes.Insight.index(u.username)">
+      <span class="icon" data-icon="7"></span>
+      <strong>Chess Insights</strong>
+      <em>Analytics from @if(ctx.is(u)){your}else{@u.username's} games</em>
+    </a>
+    }
   </div>
   }
   @if(u.hasGames || info.nbImported > 0) {

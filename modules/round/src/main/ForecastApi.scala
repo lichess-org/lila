@@ -5,13 +5,16 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import org.joda.time.DateTime
+import scala.concurrent.duration.Duration
+import scala.concurrent.Promise
 
 import chess.format.UciMove
 import chess.Pos
 import Forecast.Step
 import lila.game.{ Pov, Game }
+import lila.hub.actorApi.map.Tell
 
-final class ForecastApi(coll: Coll) {
+final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -22,17 +25,37 @@ final class ForecastApi(coll: Coll) {
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
   import Forecast._
 
+  private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = coll.update(
+    BSONDocument("_id" -> pov.fullId),
+    Forecast(
+      _id = pov.fullId,
+      steps = steps,
+      date = DateTime.now).truncate,
+    upsert = true).void
+
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
     case None => coll.remove(BSONDocument("_id" -> pov.fullId)).void
-    case Some(step) if pov.game.turns == step.ply - 1 => coll.update(
-      BSONDocument("_id" -> pov.fullId),
-      Forecast(
-        _id = pov.fullId,
-        steps = steps,
-        date = DateTime.now).truncate,
-      upsert = true).void
+    case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
     case _ => fufail(Forecast.OutOfSync)
   }
+
+  def playAndSave(
+    pov: Pov,
+    uciMove: String,
+    steps: Forecast.Steps): Funit =
+    if (!pov.isMyTurn) fufail("not my turn")
+    else UciMove(uciMove).fold[Funit](fufail(s"Invalid move $uciMove")) { uci =>
+      val promise = Promise[Unit]
+      roundMap ! Tell(pov.game.id, actorApi.round.HumanPlay(
+        playerId = pov.playerId,
+        orig = uci.orig.key,
+        dest = uci.dest.key,
+        prom = uci.promotion.map(_.name),
+        blur = true,
+        lag = Duration.Zero,
+        promise = promise.some))
+      saveSteps(pov, steps) >> promise.future
+    }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
     pov.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).one[Forecast] flatMap {

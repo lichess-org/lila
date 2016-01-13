@@ -46,7 +46,9 @@ private[game] object GameDiff {
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
-    dOpt(clock, _.clock, (o: Option[Clock]) => o map { c => BSONHandlers clockBSONHandler a.createdAt write (_ => c) })
+    dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
+      BSONHandlers.clockBSONWrite(a.createdAt, c)
+    })
     dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
     for (i ← 0 to 1) {
       import Player.BSONFields._

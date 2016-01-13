@@ -39,7 +39,7 @@ private[controllers] trait LilaController
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
   protected def NoCache(res: Result): Result = res.withHeaders(
-    CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+    CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
   )
 
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
@@ -216,7 +216,7 @@ private[controllers] trait LilaController
 
   def notFound(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-      if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
+      if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx.req
       else fuccess(Results.NotFound("Resource not found")),
     api = _ => fuccess(Results.NotFound(Json.obj("error" -> "Resource not found")))
   )
@@ -310,4 +310,7 @@ private[controllers] trait LilaController
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
+
+  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
+    lila.common.Form errorsAsJson form
 }

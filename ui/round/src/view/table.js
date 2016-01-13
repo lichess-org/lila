@@ -9,7 +9,7 @@ var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
-var renderUser = require('game').view.user;
+var renderUser = require('./user');
 var button = require('./button');
 var m = require('mithril');
 
@@ -84,7 +84,7 @@ function renderTablePlay(ctrl) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 20)
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', d.tournament.nbSecondsForFirstMove)
     ) : null
   ]);
   return [

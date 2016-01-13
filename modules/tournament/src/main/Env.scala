@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
@@ -30,9 +31,11 @@ final class Env(
     val CollectionTournament = config getString "collection.tournament"
     val CollectionPlayer = config getString "collection.player"
     val CollectionPairing = config getString "collection.pairing"
+    val CollectionLeaderboard = config getString "collection.leaderboard"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
+    val RankingCacheTtl = config duration "ranking.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -46,11 +49,13 @@ final class Env(
 
   lazy val forms = new DataForm
 
-  lazy val cached = new Cached(CreatedCacheTtl)
+  lazy val cached = new Cached(
+    createdTtl = CreatedCacheTtl,
+    rankingTtl = RankingCacheTtl)
 
   lazy val api = new TournamentApi(
     cached = cached,
-    scheduleJsonView = scheduleJsonView ,
+    scheduleJsonView = scheduleJsonView,
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
@@ -62,8 +67,11 @@ final class Env(
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
+    indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
+
+  private lazy val performance = new Performance
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -75,9 +83,17 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, cached, performance)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
+
+  lazy val leaderboardApi = new LeaderboardApi(
+    coll = leaderboardColl,
+    maxPerPage = 20)
+
+  private lazy val leaderboardIndexer = new LeaderboardIndexer(
+    tournamentColl = tournamentColl,
+    leaderboardColl = leaderboardColl)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
@@ -91,7 +107,9 @@ final class Env(
     }), name = SocketName)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some)
+    new Sequencer(
+      receiveTimeout = SequencerTimeout.some,
+      executionTimeout = 5.seconds.some)
   }), name = SequencerMapName)
 
   private val organizer = system.actorOf(Props(new Organizer(
@@ -107,6 +125,13 @@ final class Env(
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        leaderboardIndexer.generateAll inject "Done!"
+    }
+  }
 
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
@@ -132,6 +157,7 @@ final class Env(
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)
   private[tournament] lazy val playerColl = db(CollectionPlayer)
+  private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
 }
 
 object Env {

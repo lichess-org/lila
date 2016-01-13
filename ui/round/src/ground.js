@@ -1,6 +1,7 @@
 var chessground = require('chessground');
 var game = require('game').game;
 var util = require('./util');
+var round = require('./round');
 var m = require('mithril');
 
 function str2move(mo) {
@@ -15,13 +16,14 @@ function boardOrientation(data, flip) {
   }
 }
 
-function makeConfig(data, fen, flip) {
+function makeConfig(data, ply, flip) {
+  var step = round.plyStep(data, ply);
   return {
-    fen: fen,
+    fen: step.fen,
     orientation: boardOrientation(data, flip),
     turnColor: data.game.player,
-    lastMove: str2move(data.game.lastMove),
-    check: data.game.check,
+    lastMove: str2move(step.uci),
+    check: step.check,
     coordinates: data.pref.coords !== 0,
     autoCastle: data.game.variant.key === 'standard',
     highlight: {
@@ -58,8 +60,8 @@ function makeConfig(data, fen, flip) {
   };
 }
 
-function make(data, fen, userMove, onMove) {
-  var config = makeConfig(data, fen);
+function make(data, ply, userMove, onMove) {
+  var config = makeConfig(data, ply);
   config.movable.events = {
     after: userMove
   };
@@ -70,14 +72,14 @@ function make(data, fen, userMove, onMove) {
   return new chessground.controller(config);
 }
 
-function reload(ground, data, fen, flip) {
-  ground.set(makeConfig(data, fen, flip));
+function reload(ground, data, ply, flip) {
+  ground.set(makeConfig(data, ply, flip));
 }
 
 function promote(ground, key, role) {
-  var pieces = {};
   var piece = ground.data.pieces[key];
-  if (piece && piece.role == 'pawn') {
+  if (piece && piece.role === 'pawn') {
+    var pieces = {};
     pieces[key] = {
       color: piece.color,
       role: role

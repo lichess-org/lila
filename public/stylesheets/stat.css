@@ -1,0 +1,17 @@
+.content_box {
+  min-height: 570px;
+}
+.content_box .loader {
+  margin-top: 120px;
+}
+.content_box .desc {
+  padding: 0 25px 25px 25px;
+  font-size: 1.3em;
+  overflow: hidden;
+}
+.content_box .desc::before {
+  font-size: 70px;
+  float: left;
+  opacity: 0.7;
+  margin-right: 10px;
+}

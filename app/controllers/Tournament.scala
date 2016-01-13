@@ -19,10 +19,14 @@ object Tournament extends LilaController {
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
-  val home = Open { implicit ctx =>
-    env.api.fetchVisibleTournaments zip
+  def home(page: Int) = Open { implicit ctx =>
+    val finishedPaginator = repo.finishedPaginator(maxPerPage = 30, page = page)
+    if (HTTPRequest isXhr ctx.req) finishedPaginator map { pag =>
+      Ok(html.tournament.finishedPaginator(pag))
+    }
+    else env.api.fetchVisibleTournaments zip
       repo.scheduledDedup zip
-      repo.finished(30) zip
+      finishedPaginator zip
       UserRepo.allSortToints(10) map {
         case (((visible, scheduled), finished), leaderboard) =>
           Ok(html.tournament.home(scheduled, finished, leaderboard, env scheduleJsonView visible))
@@ -42,14 +46,18 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id) zip env.jsonView(tour, page, ctx.userId) zip chatOf(tour) map {
+          env.version(tour.id) zip env.jsonView(tour, page, ctx.userId, none) zip chatOf(tour) map {
             case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
           }
         }
       },
       api = _ => repo byId id flatMap {
-        case None       => NotFound(Json.obj("error" -> "No such tournament")).fuccess
-        case Some(tour) => env.jsonView(tour, page, ctx.userId) map { Ok(_) }
+        case None => NotFound(Json.obj("error" -> "No such tournament")).fuccess
+        case Some(tour) => get("playerInfo") ?? {
+          env.api.playerInfo(tour.id, _)
+        } flatMap { playerInfoExt =>
+          env.jsonView(tour, page, ctx.userId, playerInfoExt)
+        } map { Ok(_) }
       } map (_ as JSON)
     ) map NoCache
   }
@@ -85,7 +93,15 @@ object Tournament extends LilaController {
     val userId = lila.user.User normalize user
     OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
       GameRepo game pairing.id map {
-        _.flatMap { Pov.ofUserId(_, userId) }.fold(NotFound("nope"))(withPov)
+        _.flatMap { Pov.ofUserId(_, userId) }.fold(Redirect(routes.Tournament show id))(withPov)
+      }
+    }
+  }
+
+  def player(id: String, userId: String) = Open { implicit ctx =>
+    JsonOk {
+      env.api.playerInfo(id, userId) flatMap {
+        _ ?? env.jsonView.playerInfo
       }
     }
   }

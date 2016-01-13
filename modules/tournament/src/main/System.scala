@@ -28,7 +28,8 @@ object System {
 trait PairingSystem {
   def createPairings(
     tournament: Tournament,
-    users: WaitingUsers): Fu[Pairings]
+    users: WaitingUsers,
+    ranking: Ranking): Fu[Pairings]
 }
 
 trait Score {
@@ -46,5 +47,5 @@ trait ScoringSystem {
 
   def emptySheet: Sheet
 
-  def sheet(tournament: Tournament, userId: String): Fu[Sheet]
+  def sheet(tournament: Tournament, userId: String, pairings: Pairings): Sheet
 }

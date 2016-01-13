@@ -71,7 +71,7 @@ trait StringHelper { self: NumberHelper =>
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)
 
-  def base64encode(str: String) = {
+  private def base64encode(str: String) = {
     import java.util.Base64
     import java.nio.charset.StandardCharsets
     Base64.getEncoder.encodeToString(str getBytes StandardCharsets.UTF_8)

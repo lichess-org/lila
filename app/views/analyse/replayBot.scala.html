@@ -55,7 +55,7 @@ chessground = true) {
         </div>
       </div>
       <div class="lichess_ground for_bot">
-        <h1>@titlePov(pov)</h1>
+        <h1>@titleGame(pov.game)</h1>
         <p>@describePov(pov)</p>
         <p>@pov.game.opening.map(_.fullName)</p>
       </div>
@@ -82,7 +82,7 @@ chessground = true) {
       </tr>
       }
       <tr>
-        <td><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
+        <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
         <th>Average centipawn loss</th>
       </tr>
       <tr><td class="spacerlol" colspan=2></td></tr>

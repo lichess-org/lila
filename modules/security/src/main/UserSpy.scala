@@ -40,27 +40,21 @@ object UserSpy {
   type Fingerprint = String
   type Value = String
 
-  case class IPData(ip: IP, blocked: Boolean, location: Location, tor: Boolean)
+  case class IPData(ip: IP, blocked: Boolean, location: Location)
 
   private[security] def apply(firewall: Firewall, geoIP: GeoIP)(userId: String): Fu[UserSpy] = for {
     user ← UserRepo named userId flatten "[spy] user not found"
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
     blockedIps ← (ips map firewall.blocksIp).sequenceFu
-    tors = ips.map { ip =>
-      infos.exists { x => x.ip == ip && x.isTorExitNode }
-    }
     locations <- scala.concurrent.Future {
-      ips zip tors map {
-        case (_, true) => Location.tor
-        case (ip, _)   => geoIP orUnknown ip
-      }
+      ips map geoIP.orUnknown
     }
     sharingIp ← exploreSimilar("ip")(user)
     sharingFingerprint ← exploreSimilar("fp")(user)
   } yield UserSpy(
-    ips = ips zip blockedIps zip locations zip tors map {
-      case (((ip, blocked), location), tor) => IPData(ip, blocked, location, tor)
+    ips = ips zip blockedIps zip locations map {
+      case ((ip, blocked), location) => IPData(ip, blocked, location)
     },
     uas = infos.map(_.ua).distinct,
     usersSharingIp = (sharingIp + user).toList.sortBy(-_.createdAt.getMillis),
@@ -81,16 +75,13 @@ object UserSpy {
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
-      storeColl.find(
+      storeColl.distinct("user",
         BSONDocument(
           field -> BSONDocument("$in" -> values),
           "user" -> BSONDocument("$ne" -> user.id)
-        ),
-        BSONDocument("user" -> true)
-      ).cursor[BSONDocument]().collect[List]() map {
-          _.flatMap(_.getAs[String]("user"))
-        } flatMap { userIds =>
-          userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)
+        ).some
+      ) map lila.db.BSON.asStrings flatMap { userIds =>
+          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }
     }
 }

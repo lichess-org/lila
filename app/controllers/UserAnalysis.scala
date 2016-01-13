@@ -5,9 +5,11 @@ import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import play.api.libs.json.Json
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.app._
 import lila.game.{ GameRepo, Pov }
+import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import views._
 
 object UserAnalysis extends LilaController with TheftPrevention {
@@ -40,13 +42,13 @@ object UserAnalysis extends LilaController with TheftPrevention {
     from.situation.color)
 
   def game(id: String, color: String) = Open { implicit ctx =>
-    OptionFuOk(GameRepo game id) { game =>
+    OptionFuResult(GameRepo game id) { game =>
       GameRepo initialFen game.id flatMap { initialFen =>
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov)) map { data =>
-          html.board.userAnalysis(data, pov.some)
+          Ok(html.board.userAnalysis(data, pov.some))
         }
-      }
+      } map NoCache
     }
   }
 
@@ -54,8 +56,6 @@ object UserAnalysis extends LilaController with TheftPrevention {
     me =>
       import lila.round.Forecast
       OptionFuResult(GameRepo pov fullId) { pov =>
-        import lila.round.Forecast.forecastStepJsonFormat
-        import lila.round.Forecast.forecastJsonWriter
         if (isTheft(pov)) fuccess(theftResponse)
         else ctx.body.body.validate[Forecast.Steps].fold(
           err => BadRequest(err.toString).fuccess,
@@ -66,6 +66,26 @@ object UserAnalysis extends LilaController with TheftPrevention {
             } recover {
               case Forecast.OutOfSync => Ok(Json.obj("reload" -> true))
             })
+      }
+  }
+
+  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>
+    me =>
+      import lila.round.Forecast
+      OptionFuResult(GameRepo pov fullId) { pov =>
+        if (isTheft(pov)) fuccess(theftResponse)
+        else {
+          ctx.body.body.validate[Forecast.Steps].fold(
+            err => BadRequest(err.toString).fuccess,
+            forecasts => {
+              def wait = 50 + (Forecast maxPlies forecasts min 10) * 50
+              Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                Env.current.scheduler.after(wait.millis) {
+                  Ok(Json.obj("reload" -> true))
+                }
+            }
+          )
+        }
       }
   }
 }

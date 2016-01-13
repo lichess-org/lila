@@ -17,13 +17,25 @@ module.exports = function(env) {
   this.vm = {
     page: this.data.standing.page,
     pages: {},
-    focusOnMe: !!this.data.me,
-    joinLoader: false
+    lastPageDisplayed: null,
+    focusOnMe: this.data.me && !this.data.me.withdraw,
+    joinLoader: false,
+    playerInfo: {
+      id: null,
+      player: null,
+      data: null
+    },
+    disableClicks: true
   };
+  setTimeout(function() {
+    this.vm.disableClicks = false;
+  }.bind(this), 1500);
 
   this.reload = function(data) {
     if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
     this.data = data;
+    if (data.playerInfo && data.playerInfo.player.id === this.vm.playerInfo.id)
+      this.vm.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.vm.focusOnMe) this.scrollToMe();
     startWatching();
@@ -45,9 +57,9 @@ module.exports = function(env) {
   this.loadPage(this.data.standing);
 
   var setPage = function(page) {
-    m.redraw.strategy('all');
     this.vm.page = page;
     xhr.loadPage(this, page)
+    m.redraw();
   }.bind(this);
 
   this.userSetPage = function(page) {
@@ -96,15 +108,25 @@ module.exports = function(env) {
     if (this.vm.focusOnMe) this.scrollToMe();
   }.bind(this);
 
+  this.showPlayerInfo = function(player) {
+    var userId = player.name.toLowerCase();
+    this.vm.playerInfo = {
+      id: this.vm.playerInfo.id === userId ? null : userId,
+      player: player,
+      data: null
+    };
+    if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
+    m.redraw();
+  }.bind(this);
+
+  this.setPlayerInfoData = function(data) {
+    if (data.player.id !== this.vm.playerInfo.id) return;
+    this.vm.playerInfo.data = data;
+  }.bind(this);
+
   sound.end(this.data);
   sound.countDown(this.data);
   redirectToMyGame();
 
-  this.trans = function(key) {
-    var str = env.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(env.i18n);
 };

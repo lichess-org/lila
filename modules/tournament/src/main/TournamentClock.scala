@@ -3,9 +3,11 @@ package lila.tournament
 // All durations are expressed in seconds
 case class TournamentClock(limit: Int, increment: Int) {
 
-  def limitInMinutes = limit / 60
+  def limitInMinutes = chessClock.limitInMinutes
 
-  def show = s"${limitInMinutes}+${increment}"
+  def show = chessClock.show
 
-  def chessClock = chess.Clock(limit, increment)
+  lazy val chessClock = chess.Clock(limit, increment)
+
+  def hasIncrement = increment > 0
 }

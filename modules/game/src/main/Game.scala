@@ -1,10 +1,12 @@
 package lila.game
 
 import chess.Color.{ White, Black }
+import chess.format.UciMove
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.Variant
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
+import scala.concurrent.duration.FiniteDuration
 
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -97,15 +99,17 @@ case class Game(
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
+  def durationSeconds = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt
+
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   // in tenths of seconds
   lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
 
   def moveTimes(color: Color): List[Int] = {
-    val x = if (color == startColor) 0 else 1
+    val pivot = if (color == startColor) 0 else 1
     moveTimes.toList.zipWithIndex.collect {
-      case (e, i) if ((i + x) % 2) == 0 => e
+      case (e, i) if (i % 2) == pivot => e
     }
   }
 
@@ -114,6 +118,13 @@ case class Game(
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
   def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
+
+  def pgnMoves(color: Color): PgnMoves = {
+    val pivot = if (color == startColor) 0 else 1
+    pgnMoves.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    }
+  }
 
   lazy val toChess: ChessGame = {
 
@@ -129,7 +140,9 @@ case class Game(
   }
 
   lazy val toChessHistory = ChessHistory(
-    lastMove = castleLastMoveTime.lastMove,
+    lastMove = castleLastMoveTime.lastMove map {
+      case (orig, dest) => UciMove(orig, dest)
+    },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
     checkCount = checkCount)
@@ -137,7 +150,8 @@ case class Game(
   def update(
     game: ChessGame,
     move: Move,
-    blur: Boolean = false): Progress = {
+    blur: Boolean = false,
+    lag: Option[FiniteDuration] = None): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
     def copyPlayer(player: Player) = player.copy(
@@ -156,12 +170,16 @@ case class Game(
       checkCount = history.checkCount,
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
-        lastMove = history.lastMove,
+        lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.kingPos ifTrue situation.check),
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
-        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt => moveTimes :+ (nowTenths - lmt).toInt }
+        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
+          moveTimes :+ {
+            (nowTenths - lmt - (lag.??(_.toMillis) / 100)).toInt max 0
+          }
+        }
       ),
       status = situation.status | status,
       clock = game.clock)
@@ -233,13 +251,17 @@ case class Game(
 
   def aborted = status == Status.Aborted
 
-  def playable = status < Status.Aborted
+  def playable = status < Status.Aborted && !imported
+
+  def playableEvenImported = status < Status.Aborted
 
   def playableBy(p: Player): Boolean = playable && turnOf(p)
 
   def playableBy(c: Color): Boolean = playableBy(player(c))
 
   def playableByAi: Boolean = playable && player.isAi
+
+  def mobilePushable = isCorrespondence && playable && nonAi
 
   def continuable = status != Status.Mate && status != Status.Stalemate
 
@@ -282,11 +304,11 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
-  def berserkable = status == Status.Started && playedTurns < 2
+  def berserkable = clock.??(_.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
-      val newClock = c halfTime color
+      val newClock = c berserk color
       withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
         Event.Clock(newClock) +
         Event.Berserk(color)
@@ -347,13 +369,13 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftimePlayer: Option[Player] =
-    outoftimePlayerClock orElse outoftimePlayerCorrespondence
+  def outoftimePlayer(playerLag: Color => Int): Option[Player] =
+    outoftimePlayerClock(playerLag) orElse outoftimePlayerCorrespondence
 
-  private def outoftimePlayerClock: Option[Player] = for {
+  private def outoftimePlayerClock(playerLag: Color => Int): Option[Player] = for {
     c ← clock
     if started && playable && (bothPlayersHaveMoved || isSimul)
-    if (!c.isRunning && !c.isInit) || (c outoftime player.color)
+    if (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
   } yield player
 
   private def outoftimePlayerCorrespondence: Option[Player] = for {
@@ -362,6 +384,8 @@ case class Game(
   } yield player
 
   def isCorrespondence = speed == chess.Speed.Correspondence
+
+  def isSwitchable = nonAi && (isCorrespondence || isSimul)
 
   def hasClock = clock.isDefined
 
@@ -440,7 +464,7 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[chess.Opening] =
-    if ((playable && !isPgnImport) || fromPosition || !Game.openingSensiblevariants(variant)) none
+    if (fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
@@ -485,11 +509,11 @@ object Game {
   val unplayedHours = 24
   def unplayedDate = DateTime.now minusHours unplayedHours
 
-  val abandonedDays = 15
+  val abandonedDays = 21
   def abandonedDate = DateTime.now minusDays abandonedDays
 
   val aiAbandonedDays = 3
-  def aiAbandonedDate = DateTime.now minusDays abandonedDays
+  def aiAbandonedDate = DateTime.now minusDays aiAbandonedDays
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
@@ -572,7 +596,7 @@ case class CastleLastMoveTime(
     lastMoveTime: Option[Int], // tenths of seconds since game creation
     check: Option[Pos]) {
 
-  def lastMoveString = lastMove map { case (a, b) => a.toString + b.toString }
+  def lastMoveString = lastMove map { case (a, b) => s"$a$b" }
 }
 
 object CastleLastMoveTime {

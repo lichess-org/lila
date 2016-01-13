@@ -1,5 +1,6 @@
 package lila.socket
 
+import chess.format.UciMove
 import chess.Pos
 
 import play.api.libs.functional.syntax._
@@ -13,8 +14,7 @@ case class Step(
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
-    eval: Option[Int] = None,
-    mate: Option[Int] = None,
+    eval: Option[Step.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
     variations: List[List[Step]] = Nil) {
@@ -27,16 +27,25 @@ case class Step(
 
 object Step {
 
-  case class Move(orig: Pos, dest: Pos, san: String) {
-    def uci = s"$orig$dest"
+  case class Move(uci: UciMove, san: String) {
+    def uciString = uci.uci
   }
+
+  case class Eval(
+    cp: Option[Int] = None,
+    mate: Option[Int] = None,
+    best: Option[UciMove])
+
+  private implicit val uciJsonWriter: Writes[UciMove] = Writes { uci =>
+    JsString(uci.uci)
+  }
+  private implicit val evalJsonWriter = Json.writes[Eval]
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
     import step._
     (
       add("check", true, check) _ compose
       add("eval", eval) _ compose
-      add("mate", mate) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
       add("variations", variations, variations.nonEmpty) _ compose
@@ -47,7 +56,7 @@ object Step {
       })
     )(Json.obj(
         "ply" -> ply,
-        "uci" -> move.map(_.uci),
+        "uci" -> move.map(_.uciString),
         "san" -> move.map(_.san),
         "fen" -> fen))
   }

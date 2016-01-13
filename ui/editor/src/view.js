@@ -124,9 +124,11 @@ function inputs(ctrl, fen) {
 }
 
 function sparePieces(ctrl, color, orientation, position) {
-  return m('div.spare.' + position + '.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
-    return m('div.no-square', m('div', {
-      class: ['cg-piece', color, role].join(' '),
+  return m('div', {
+    class: ['spare', position, 'orientation-' + orientation, color].join(' ')
+  }, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+    return m('div.no-square', m('piece', {
+      class: color + ' ' + role,
       'data-color': color,
       'data-role': role
     }))

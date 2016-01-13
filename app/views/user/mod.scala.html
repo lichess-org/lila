@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], neural: Option[lila.mod.NeuralApi.Result])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -7,6 +7,13 @@
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom">
     <input class="button" type="submit" value="Evaluate" />
   </form>
+  @if(isGranted(_.MarkTroll)) {
+  <a class="button hint--bottom" href="@routes.Mod.communication(u.id)" data-hint="View communications">Coms</a>
+  }
+  <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #deputy" class="hint--bottom">
+    <input class="button" type="submit" value="Slack" />
+  </form>
+  •
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)" data-hint="This user is clearly cheating." class="hint--bottom">
@@ -51,6 +58,7 @@
   @if(isGranted(_.SetEmail) && !isGranted(_.SetEmail, u)) {
   <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
     <input type="email" value="@email" name="email" placeholder="Email address" />
+    <button type="submit" class="thin button" data-icon="E"></button>
   </form>
   }
 </div>
@@ -218,6 +226,29 @@
     </table>
   </div>
   }
+  @neural.map { n =>
+  <div class="neural">
+    [beta] Neural decision: <strong>@n.answer.decision</strong>.
+    Cheating odds: @n.answer.cheatPercent% vs @n.answer.nonCheatPercent%.
+    Took @n.millis ms.
+  </div>
+  }
+  @if(isGranted(_.Admin) && u.roles.nonEmpty) {
+  <div class="mod_roles">
+    Mod permissions: @u.roles.mkString(", ")
+  </div>
+  }
+  <div class="mod_log">
+    <strong>Moderation history@if(history.isEmpty){: nothing to show.}</strong>
+    @if(history.nonEmpty) {
+    <ul>
+      @history.map { e =>
+      <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @momentFromNow(e.date)</li>
+      }
+    </ul>
+    <br />
+    }
+  </div>
   @if(spy.otherUsers.size < 1) {
   <strong>No similar user found</strong>
   } else {
@@ -272,7 +303,7 @@
           <ul>
             @ips.map { ip =>
             <li class="ip">
-              <span class="address@if(ip.blocked) { blocked }">@ip.ip</span>
+              <a class="address @if(ip.blocked){blocked}" href="@{routes.Mod.search}?q=@ip.ip">@ip.ip</a>
             </li>
             }
           </ul>

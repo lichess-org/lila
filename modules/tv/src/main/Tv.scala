@@ -29,8 +29,6 @@ final class Tv(actor: ActorRef) {
 
   def getBest = getGame(Tv.Channel.Best)
 
-  def getBestGames(max: Int) = getGames(Tv.Channel.Best, max)
-
   def getChampions: Fu[Champions] =
     actor ? TvActor.GetChampions mapTo manifest[Champions]
 }
@@ -52,19 +50,19 @@ object Tv {
     case object Best extends Channel(
       name = "Top Rated",
       icon = "C",
-      filters = Seq(standard, freshBlitz))
+      filters = Seq(rated, standard, freshBlitz))
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
-      filters = Seq(standard, speed(S.Bullet), fresh(15)))
+      filters = Seq(rated, standard, speed(S.Bullet), fresh(15)))
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
-      filters = Seq(standard, speed(S.Blitz), freshBlitz))
+      filters = Seq(rated, standard, speed(S.Blitz), freshBlitz))
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
-      filters = Seq(standard, speed(S.Classical), fresh(60 * 3)))
+      filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 3)))
     case object Chess960 extends Channel(
       name = V.Chess960.name,
       icon = P.Chess960.iconChar.toString,
@@ -105,6 +103,7 @@ object Tv {
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
+  private def rated = (g: Game) => g.rated
   private def speed(speed: chess.Speed) = (g: Game) => g.speed == speed
   private def variant(variant: chess.variant.Variant) = (g: Game) => g.variant == variant
   private val standard = variant(V.Standard)

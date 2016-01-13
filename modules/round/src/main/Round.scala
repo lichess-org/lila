@@ -6,6 +6,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
+import chess.Color
 import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
@@ -23,7 +24,7 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Int => Unit,
+    monitorMove: Option[Int] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -37,6 +38,16 @@ private[round] final class Round(
     context.system.lilaBus unsubscribe self
   }
 
+  object lags { // player lag in millis
+    var white = 0
+    var black = 0
+    def get(c: Color) = c.fold(white, black)
+    def set(c: Color, v: Int) {
+      if (c.white) white = v
+      else black = v
+    }
+  }
+
   def process = {
 
     case ReceiveTimeout => fuccess {
@@ -45,14 +56,24 @@ private[round] final class Round(
 
     case p: HumanPlay =>
       handle(p.playerId) { pov =>
-        pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
-      } >>- monitorMove((nowMillis - p.atMillis).toInt)
+        pov.game.outoftimePlayer(lags.get) match {
+          case None =>
+            lags.set(pov.color, p.lag.toMillis.toInt)
+            player.human(p, self)(pov)
+          case Some(ootp) => outOfTime(pov.game)(ootp)
+        }
+      } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
+
+    case p: ImportPlay =>
+      handle(p.playerId) { pov =>
+        player.importMove(p)(pov)
+      }
 
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)
       }
-    }
+    } >>- monitorMove(none)
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -98,7 +119,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftimePlayer ?? outOfTime(game)
+      game.outoftimePlayer(lags.get) ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -132,9 +153,9 @@ private[round] final class Round(
       }
     }
 
-    case HoldAlert(playerId, mean, sd) => handle(playerId) { pov =>
+    case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        loginfo(s"hold alert http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        loginfo(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
       }
     }
@@ -160,8 +181,7 @@ private[round] final class Round(
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
           self ! HumanPlay(
-            game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds, _ => ()
-          )
+            game.player.id, move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds)
         }
         Nil
       }
@@ -169,7 +189,6 @@ private[round] final class Round(
 
     case Deploy(RemindDeployPost, _) => handle { game =>
       game.clock.filter(_ => game.playable) ?? { clock =>
-        import chess.Color
         val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
         val progress = (game withClock newClock) + Event.Clock(newClock)
@@ -191,8 +210,7 @@ private[round] final class Round(
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
     finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
-      game.toChess.board.variant.drawsOnInsufficientMaterial &&
-        chess.InsufficientMatingMaterial(game.toChess.board, color)
+      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
@@ -201,7 +219,7 @@ private[round] final class Round(
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov(GameRepo pov PlayerRef(gameId, playerId))(op)
 
-  protected def handle(color: chess.Color)(op: Pov => Fu[Events]): Funit =
+  protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(GameRepo pov PovRef(gameId, color))(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {

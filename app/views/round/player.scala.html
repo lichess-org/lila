@@ -6,17 +6,19 @@
 
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
-@jsRoutes()
 @embedJs {
 $(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
-routes: roundRoutes.controllers,
 i18n: @jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 });
 });
 }
+}
+
+@atom = {
+<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
 }
 
 @round.layout(
@@ -27,7 +29,8 @@ underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
 chessground = false,
-playing = true) {
+playing = true,
+atom = atom.some) {
 <div class="round cg-512">
   <div class="top">@miniBoardContent</div>
   <div class="underboard">

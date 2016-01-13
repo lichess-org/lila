@@ -1,5 +1,4 @@
 conf/application.conf
-conf/base.conf
 logs
 project/project
 project/target
@@ -12,9 +11,12 @@ public/piece/spatial
 public/piece/alpha
 target
 bin/.translate_version
+bin/polyglot
+bin/stockfish
 data/
 dist/
 node_modules/
 local/
+.vagrant
 
 RUNNING_PID

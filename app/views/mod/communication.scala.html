@@ -27,7 +27,7 @@ side = side.some) {
   </h1>
   <h2>Dubious public chats</h2>
   <p class="help">
-    Tournament, simul, &amp; relay public chat messages that triggered the butthurt detector:
+    Tournament, simul, &amp; public chat messages that triggered the butthurt detector:
   </p>
   @if(publicLines.isEmpty) {
   <strong>None!</strong>
@@ -69,13 +69,9 @@ side = side.some) {
         @userIdLink(thread.creatorId.some) -&gt; @userIdLink(thread.invitedId.some)
       </p>
       @thread.posts.map { post =>
-      <div class="post">
+      <div class="post @if(thread.isWrittenBy(post, u)) { author }">
         @userIdLink(thread.senderOf(post).some)
-        @if(thread.isWrittenBy(post, u)) {
         @autoLink(post.text)
-        } else {
-        [hidden]
-        }
       </div>
       }
     </div>

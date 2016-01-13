@@ -4,8 +4,10 @@ package actorApi
 import akka.actor.ActorRef
 
 case class UpstreamResult(response: String, upstream: Option[String])
-case class MoveResult(move: String, upstream: Option[String])
-case class PlayResult(progress: lila.game.Progress, move: chess.Move)
+case class MoveResult(move: String, upstream: Option[String]) {
+  def upstreamIp = upstream.map(_.takeWhile(':' !=))
+}
+case class PlayResult(progress: lila.game.Progress, move: chess.Move, upstreamIp: Option[String])
 
 case class AddTime(time: Int)
 

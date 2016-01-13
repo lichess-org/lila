@@ -14,6 +14,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
+import lila.hub.actorApi.round.IsOnGame
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
@@ -77,6 +78,7 @@ private[round] final class Socket(
   override def postStop() {
     super.postStop()
     lilaBus.unsubscribe(self)
+    lilaBus.publish(lila.hub.actorApi.round.SocketEvent.Stop(gameId), 'roundDoor)
   }
 
   private def refreshSubscriptions {
@@ -121,9 +123,11 @@ private[round] final class Socket(
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
-    case GetVersion    => sender ! history.getVersion
+    case GetVersion      => sender ! history.getVersion
 
-    case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
+    case IsGone(color)   => playerGet(color, _.isGone) pipeTo sender
+
+    case IsOnGame(color) => sender ! ownerOf(color).isDefined
 
     case GetSocketStatus =>
       playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
@@ -143,6 +147,9 @@ private[round] final class Socket(
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) refreshSubscriptions
+      if (member.owner) lilaBus.publish(
+        lila.hub.actorApi.round.SocketEvent.OwnerJoin(gameId, color, ip),
+        'roundDoor)
 
     case Nil                  =>
     case eventList: EventList => notify(eventList.events)
@@ -217,8 +224,6 @@ private[round] final class Socket(
   def notifyGone(color: Color, gone: Boolean) {
     notifyOwner(!color, "gone", gone)
   }
-
-  private val ackEvent = Json.obj("t" -> "ack")
 
   def ownerOf(color: Color): Option[Member] =
     members.values find { m => m.owner && m.color == color }

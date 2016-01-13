@@ -29,7 +29,10 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def fullName = if (isMarathon) name else s"$name $system"
+  def fullName =
+    if (isMarathon) name
+    else if (scheduled && clock.hasIncrement) s"$name Inc $system"
+    else s"$name $system"
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
@@ -48,7 +51,7 @@ case class Tournament(
 
   def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
-  def isStillWorthEntering = secondsToFinish > minutes * 60 / 2
+  def isStillWorthEntering = isMarathon || secondsToFinish > minutes * 60 / 2
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
@@ -72,7 +75,7 @@ case class Tournament(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = system.berserkable && clock.increment == 0
+  def berserkable = system.berserkable && clock.chessClock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 }

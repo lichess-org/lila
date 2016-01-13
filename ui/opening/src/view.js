@@ -25,7 +25,7 @@ function renderPlayTable(ctrl) {
       m('div.table_inner', [
         m('div.current_player',
           m('div.player.' + ctrl.data.opening.color, [
-            m('div.no-square', m('div.cg-piece.king.' + ctrl.data.opening.color)),
+            m('div.no-square', m('piece.king.' + ctrl.data.opening.color)),
             m('p', ctrl.trans('yourTurn'))
           ])
         ),
@@ -207,7 +207,6 @@ function renderHistory(ctrl) {
       context.hash = hash;
       $.ajax({
         url: '/training/opening/history',
-        cache: false,
         success: function(html) {
           el.innerHTML = html;
         }

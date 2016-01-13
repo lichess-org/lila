@@ -5,7 +5,7 @@
     <a href="/">@trans.play()</a>
     <div>
       <a href="/?any#hook">@trans.createAGame()</a>
-      <a href="@routes.Tournament.home">@trans.tournament()</a>
+      <a href="@routes.Tournament.home()">@trans.tournament()</a>
       <a href="@routes.Simul.home">@trans.simultaneousExhibitions()</a>
     </div>
   </section>
@@ -21,6 +21,7 @@
     <a href="@routes.Tv.index">@trans.watch()</a>
     <div>
       <a href="@routes.Tv.index">Lichess TV</a>
+      <a href="@routes.Tv.games">@trans.gamesBeingPlayedRightNow()</a>
       <a href="@routes.Video.index">@trans.videoLibrary()</a>
     </div>
   </section>
@@ -28,6 +29,7 @@
     <a href="@routes.User.list">@trans.community()</a>
     <div>
       <a href="@routes.User.list">@trans.players()</a>
+      <a href="@routes.Stat.ratingDistribution("blitz")">@trans.ratingStats()</a>
       @NotForKids {
       <a href="@routes.Team.home()">@trans.teams()</a>
       <a href="@routes.ForumCateg.index">@trans.forum()</a>

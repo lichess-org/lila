@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.format.Nag
 
-private[analyse] sealed trait Advice {
+sealed trait Advice {
   def nag: Nag
   def info: Info
   def prev: Info

@@ -1,0 +1,21 @@
+.security .explanation {
+  margin: 0 20px 20px 20px;
+}
+.security .revoke-all,
+.security .revoke-all button {
+  display: inline;
+}
+.security table td {
+}
+.security table .ua {
+  font-size: 0.8em;
+}
+.security table .icon span {
+  font-size: 3em;
+}
+.security table .ip {
+  font-weight: bold;
+}
+.security table .current {
+  color: #d59120;
+}

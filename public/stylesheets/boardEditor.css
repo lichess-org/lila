@@ -3,21 +3,34 @@
   min-height: 600px;
   padding-top: 5px;
 }
-#board_editor .cg-square.last-move {
+#board_editor square.last-move {
   background-color: transparent;
 }
-#board_editor .cg-square.selected {
+#board_editor square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
 #board_editor .spare {
   height: 64px;
   padding-left: 64px;
+  width: 512px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
+}
+#board_editor .spare.black {
+  background: #888;
+}
+#board_editor .spare.white {
+  background: #ccc;
+}
+body.dark #board_editor .spare.white {
+  background: #aaa;
 }
 #board_editor .spare.top {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #board_editor .spare.bottom {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 #board_editor .spare .no-square {
   position: relative;
@@ -28,17 +41,17 @@
 .is3d #board_editor .spare .no-square {
   height: 58.102px;
 }
-#board_editor .spare .cg-piece {
+#board_editor .spare piece {
   cursor: pointer;
 }
-.is3d .spare .cg-piece {
+.is3d .spare piece {
   /* original size:
      width: 140.625%;
      height: 179.6875%; */
   /* size on 3D board, with height/width = 90.78571% */
   width: 100%;
   height: 140.7465%;
-  left: 0%;
+  left: 0;
   top: -36%;
 }
 #editor-side {

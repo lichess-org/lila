@@ -29,7 +29,7 @@ private[puzzle] final class Selector(
 
   private val toleranceMax = 1000
 
-  val anonSkipMax = 2000
+  val anonSkipMax = 5000
 
   def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
     val isMate = scala.util.Random.nextBoolean

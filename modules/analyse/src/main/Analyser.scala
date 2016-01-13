@@ -19,7 +19,7 @@ case class ConcurrentAnalysisException(gameId: String, userId: String, userIp: O
 final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection,
-    modActor: ActorSelection,
+    bus: lila.common.Bus,
     limiter: Limiter) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
@@ -82,7 +82,7 @@ final class Analyser(
                     fufail(s"Analysis $id from $fromIp has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   indexer ! InsertGame(game)
                   AnalysisRepo.done(id, analysis, fromIp) >>- {
-                    modActor ! actorApi.AnalysisReady(game, analysis)
+                    bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
                   } >>- GameRepo.setAnalysed(game.id) inject analysis
                 }
                 else fufail(s"[analysis] invalid analysis ${analysis}\nwith errors $errors")

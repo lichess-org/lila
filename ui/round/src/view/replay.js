@@ -1,24 +1,27 @@
+var round = require('../round');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
+var util = require('../util');
 var status = require('game').status;
 var renderStatus = require('game').view.status;
+var router = require('game').router;
 var m = require('mithril');
 
-var emptyTd = m('td.move', '...');
+var emptyMove = m('move', '...');
 
-function renderTd(step, curPly, orEmpty) {
+function renderMove(step, curPly, orEmpty) {
   return step ? {
-    tag: 'td',
-    attrs: {
-      class: 'move' + (step.ply === curPly ? ' active' : ''),
-      'data-ply': step.ply
+    tag: 'move',
+    attrs: step.ply !== curPly ? {} : {
+      class: 'active'
     },
     children: [step.san]
-  } : (orEmpty ? emptyTd : null)
+  } : (orEmpty ? emptyMove : null)
 }
 
-function renderResult(ctrl, asTable) {
+function renderResult(ctrl) {
   var result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
@@ -32,13 +35,7 @@ function renderResult(ctrl, asTable) {
   }
   if (result || status.aborted(ctrl.data)) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return asTable ? [
-      m('tr', m('td.result[colspan=3]', result)),
-      m('tr.status', m('td[colspan=3]', [
-        renderStatus(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
-      ]))
-    ] : [
+    return [
       m('p.result', result),
       m('p.status', [
         renderStatus(ctrl),
@@ -48,10 +45,10 @@ function renderResult(ctrl, asTable) {
   }
 }
 
-function renderTable(ctrl) {
+function renderMoves(ctrl) {
   var steps = ctrl.data.steps;
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = round.firstPly(ctrl.data);
+  var lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === 'undefined') return;
 
   var pairs = [];
@@ -62,68 +59,79 @@ function renderTable(ctrl) {
     for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
   }
 
-  var trs = [];
-  for (var i = 0, len = pairs.length; i < len; i++)
-    trs.push(m('tr', [
-      m('td.index', i + 1),
-      renderTd(pairs[i][0], ctrl.vm.ply, true),
-      renderTd(pairs[i][1], ctrl.vm.ply, false)
-    ]));
-  trs.push(renderResult(ctrl, true));
-
-  return m('table',
-    m('tbody', {
-        onclick: function(e) {
-          var ply = e.target.getAttribute('data-ply');
-          if (ply) ctrl.jump(parseInt(ply));
-        }
+  var rows = [];
+  for (var i = 0, len = pairs.length; i < len; i++) rows.push({
+    tag: 'turn',
+    children: [{
+        tag: 'index',
+        children: [i + 1]
       },
-      trs));
+      renderMove(pairs[i][0], ctrl.vm.ply, true),
+      renderMove(pairs[i][1], ctrl.vm.ply, false)
+    ]
+  });
+  rows.push(renderResult(ctrl));
+
+  return rows;
 }
+
+var analyseButtonIcon = m('span[data-icon="A"]');
 
 function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
+  var attrs = {
+    class: classSet({
+      'button analysis': true,
+      'hint--top': !showInfo,
+      'hint--bottom': showInfo,
+      'glowed': showInfo,
+      'text': ctrl.data.forecastCount
+    }),
+    'data-hint': ctrl.trans('analysis'),
+    href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
+  };
+  if (showInfo) attrs.config = function(el) {
+    setTimeout(function() {
+      $(el).powerTip({
+        manual: true,
+        fadeInTime: 300,
+        fadeOutTime: 300,
+        placement: 'n'
+      }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
+    }, 1000);
+  };
   return [
-    m('a', {
-      class: classSet({
-        'button analysis': true,
-        'hint--top': !showInfo,
-        'hint--bottom': showInfo,
-        'glowed': showInfo
+    m('a', attrs, [
+      m('span', {
+        'data-icon': 'A',
+        class: ctrl.data.forecastCount ? 'text' : ''
       }),
-      'data-hint': ctrl.trans('analysis'),
-      href: ctrl.router.UserAnalysis.game(ctrl.data.game.id, ctrl.data.player.color).url + '#' + ctrl.vm.ply,
-      config: showInfo ? function(el) {
-        setTimeout(function() {
-          $(el).powerTip({
-            manual: true,
-            fadeInTime: 300,
-            fadeOutTime: 300,
-            placement: 'n'
-          }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
-        }, 1000);
-      } : null
-    }, m('span[data-icon="A"]')),
+      ctrl.data.forecastCount
+    ]),
     showInfo ? m('div.forecast-info.info.none', [
-      m('strong.title.text[data-icon=]', 'New feature'),
-      m('span.content', 'Use the analysis board to create conditional premoves!')
+      m('strong.title.text[data-icon=]', 'Speed up your game!'),
+      m('span.content', [
+        'Use the analysis board to create conditional premoves.',
+        m('br'),
+        'Now available on your turn!'
+      ])
     ]) : null
   ];
 }
 
 function renderButtons(ctrl) {
-  var firstPly = ctrl.firstPly();
-  var lastPly = ctrl.lastPly();
+  var firstPly = round.firstPly(ctrl.data);
+  var lastPly = round.lastPly(ctrl.data);
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
   };
   if (ctrl.data.tv) flipAttrs.href = '/tv/' + ctrl.data.tv.channel + (ctrl.data.tv.flip ? '' : '?flip=1');
-  else if (ctrl.data.player.spectator) flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
+  else if (ctrl.data.player.spectator) flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color);
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', ctrl.firstPly()],
+      ['first', 'W', firstPly],
       ['prev', 'Y', ctrl.vm.ply - 1],
       ['next', 'X', ctrl.vm.ply + 1],
       ['last', 'V', lastPly]
@@ -132,7 +140,7 @@ function renderButtons(ctrl) {
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
           disabled: (ctrl.broken || !enabled),
-          glowed: b[0] === 'last' && ctrl.isLate()
+          glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
         }),
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
@@ -141,9 +149,17 @@ function renderButtons(ctrl) {
   ]);
 }
 
-function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('tr:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+function autoScroll(el, ctrl) {
+  raf(function() {
+    if (ctrl.data.steps.length < 7) return;
+    var st;
+    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+    else {
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (st !== undefined) el.scrollTop = st;
+  });
 }
 
 module.exports = function(ctrl) {
@@ -156,9 +172,19 @@ module.exports = function(ctrl) {
     renderButtons(ctrl),
     ctrl.replayEnabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
-        autoScroll(el);
-        if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
+        if (isUpdate) return;
+        var scrollNow = partial(autoScroll, el, ctrl);
+        ctrl.vm.autoScroll = {
+          now: scrollNow,
+          throttle: util.throttle(300, false, scrollNow)
+        };
+        scrollNow();
       },
-    }, renderTable(ctrl)) : renderResult(ctrl, false)
+      onmousedown: function(e) {
+        var turn = parseInt($(e.target).siblings('index').text());
+        var ply = 2 * turn - 2 + $(e.target).index();
+        if (ply) ctrl.jump(ply);
+      }
+    }, renderMoves(ctrl)) : renderResult(ctrl)
   ]);
 }

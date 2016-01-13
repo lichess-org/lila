@@ -1,0 +1,269 @@
+#insight .square-in {
+  display: none;
+  position: absolute;
+  top: 280px;
+  left: 380px;
+  -webkit-transform: scale(5);
+  opacity: 0.7;
+}
+#insight .loading .square-in {
+  display: block;
+}
+
+#insight .chart {
+  width: 100%;
+  height: 500px;
+}
+#insight .loading .chart {
+  -webkit-filter: blur(3px);
+  opacity: 0.5;
+}
+
+#insight .left-side {
+  position: absolute;
+  top: 61px;
+  left: -239px;
+  width: 240px;
+}
+#insight .insight-stale {
+  margin-top: 10px;
+}
+
+#insight header {
+  background: #fff;
+  border: 1px solid #ccc;
+  height: 60px;
+}
+#insight header h2 {
+  font-size: 2em;
+  line-height: 60px;
+}
+#insight header h2::before {
+  font-size: 42px;
+  vertical-align: top;
+  line-height: 60px;
+  margin-left: 10px;
+  opacity: 0.5;
+}
+#insight header > * {
+  display: inline-block;
+}
+#insight .axis-form {
+  float: right;
+}
+#insight .axis-form .by {
+  padding: 0 20px;
+}
+#insight .axis-form .ms-choice {
+  padding: 30px 10px;
+  border-width: 0 1px;
+  border-radius: 0;
+  font-size: 14px;
+  transition: 0.15s;
+}
+#insight .axis-form .ms-choice span {
+  line-height: 60px;
+  text-align: center;
+}
+#insight .axis-form .ms-choice div {
+  top: 18px;
+}
+#insight .axis-form .ms-drop {
+  font-size: 14px;
+}
+#insight .axis-form .ms-drop ul > li label input {
+  display: none;
+}
+#insight .axis-form .ms-drop ul > li.selected label {
+  background: #d87500!important;
+  color: #fff!important;
+}
+
+div.panel-tabs a.tab {
+  background: #e0e0e0;
+  border: 1px solid #c0c0c0;
+  height: 20px;
+  padding: 3px 8px 0 8px;
+  margin: -1px -1px -1px 0;
+  display: inline-block;
+}
+div.panel-tabs a.active {
+  background: #f5f5f5;
+  border-bottom-color: #f5f5f5;
+}
+#insight .presets {
+  background: #f5f5f5;
+}
+#insight .presets a {
+  display: block;
+  padding: 8px;
+  transition: background 0.13s;
+}
+#insight .presets a::before {
+  opacity: 0.7;
+  transition: opacity 0.13s;
+}
+#insight .presets a:hover {
+  background: #fff;
+}
+#insight .presets a:hover::before {
+  opacity: 1;
+}
+#insight .presets a.active {
+  color: #d87500!important;
+}
+#insight .panel-tabs {
+  position: relative;
+}
+#insight .clear {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+#insight .filters .box {
+  border-bottom-width: 0;
+}
+#insight .filters .box:last-child {
+  border-bottom-width: 1px
+}
+#insight .filters .ms-parent {
+  display: block;
+}
+#insight .filters .ms-choice {
+  padding: 15px 10px;
+  border-width: 0 1px 1px 0;
+  background: #e0e0e0;
+  transition: background 0.13s;
+}
+#insight .filters .ms-parent:last-child .ms-choice {
+  border-bottom: 0;
+}
+#insight .filters .ms-parent:hover .ms-choice,
+#insight .filters .ms-parent.selected .ms-choice {
+  background: #fff;
+}
+#insight .filters .ms-choice > span.placeholder {
+  color: #505050;
+}
+#insight .filters .ms-choice span {
+  text-align: right;
+  line-height: 30px;
+  background: none;
+}
+#insight .filters .ms-choice div {
+  top: 4px;
+}
+#insight .filters .ms-drop ul > li label input {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+#insight .filters .ms-drop {
+  margin-left: 99%;
+  top: 0;
+  left: 0;
+}
+#insight .ms-parent,
+#insight .ms-parent button {
+  color: #505050;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+#insight .ms-choice {
+  border-color: #ccc;
+}
+#insight .ms-choice:focus,
+#insight .ms-parent input:focus {
+  outline: 0;
+}
+#insight .ms-drop ul {
+  padding: 0;
+}
+#insight .ms-drop ul > li label:not(.optgroup) {
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.13s;
+  text-indent: 1em;
+}
+#insight .ms-drop ul > li label:not(.optgroup):hover {
+  background: #f0f0f0;
+}
+#insight .ms-drop ul > li label.optgroup {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  text-indent: 0em;
+  text-transform: uppercase;
+  font-weight: normal;
+  opacity: 0.6;
+  padding: 6px 8px 2px 8px;
+}
+#insight .ms-drop ul > li:first-child label.optgroup {
+  margin-top: 0;
+}
+
+#insight .info.box {
+  margin-bottom: 10px;
+}
+#insight .box .content {
+  padding: 7px;
+}
+#insight .info.box .insight-stale button {
+  width: 100%;
+}
+#insight .info.box .help {
+  float: right;
+}
+#insight .info .share a {
+  text-decoration: underline;
+}
+
+#insight .help.box {
+  margin-top: 20px;
+}
+#insight .help .dimension {
+  margin-top: 10px;
+}
+#insight .help h3 {
+  margin: 0;
+  font-weight: bold;
+}
+#insight .help a {
+  text-decoration: underline;
+}
+
+#insight table {
+  margin-left: 20px;
+  border: 1px solid #d4d4d4;
+  width: calc(100% - 20px);
+}
+#insight table td.data {
+  font-weight: bold;
+}
+#insight .game-sample {
+  margin: 20px 0 0 20px;
+}
+#insight .game-sample .top {
+  text-align: center;
+}
+#insight .game_list .cg-board-wrap {
+  margin: auto;
+  width: 182px;
+  height: 182px;
+  position: relative;
+}
+#insight .game_list .vstext {
+  width: 172px;
+  border: none;
+  background: none;
+}
+#insight .game_list {
+  height: 218px;
+  white-space: nowrap;
+}
+#insight .game_list > div {
+  display: inline-block;
+  margin: 0 0 0 14.8px;
+}
+#insight .game_list > div:first-child {
+  margin-left: 0;
+}

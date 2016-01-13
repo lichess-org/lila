@@ -3,7 +3,7 @@ package lila.db
 import com.typesafe.config.Config
 import reactivemongo.api._
 import scala.concurrent.duration._
-import scala.concurrent.{ Future, Await }
+import scala.concurrent.Future
 import scala.util.{ Success, Failure }
 import Types._
 

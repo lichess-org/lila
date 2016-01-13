@@ -1,7 +1,7 @@
 var throttle = require('./util').throttle;
 
 function throttled(sound) {
-  return throttle(200, false, $.sound[sound]);
+  return throttle(100, false, $.sound[sound]);
 }
 
 module.exports = {

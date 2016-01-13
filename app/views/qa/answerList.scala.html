@@ -17,7 +17,7 @@
   @as.map { a =>
   <div class="answer-wrap" id="answer-@a.id">
     <div class="side">
-      @views.html.qa.vote(routes.QaAnswer.vote(q.id, a.id).url, a.vote)
+      @views.html.qa.vote(routes.QaAnswer.vote(q.id, a.id).url, a.vote, true)
       @if(a.accepted) {
       <span title="The question owner accepted this as the best answer" class="accept accepted" data-icon="E"></span>
       } else {

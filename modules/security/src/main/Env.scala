@@ -33,6 +33,7 @@ final class Env(
     val EmailConfirmMailgunSender = config getString "email_confirm.mailgun.sender"
     val EmailConfirmMailgunBaseUrl = config getString "email_confirm.mailgun.base_url"
     val EmailConfirmSecret = config getString "email_confirm.secret"
+    val EmailConfirmEnabled = config getBoolean "email_confirm.enabled"
     val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
     val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
@@ -70,14 +71,18 @@ final class Env(
 
   lazy val userSpy = UserSpy(firewall, geoIP) _
 
-  lazy val disconnect = Store disconnect _
+  def store = Store
 
-  lazy val emailConfirm = new EmailConfirm(
-    apiUrl = EmailConfirmMailgunApiUrl,
-    apiKey = EmailConfirmMailgunApiKey,
-    sender = EmailConfirmMailgunSender,
-    baseUrl = EmailConfirmMailgunBaseUrl,
-    secret = EmailConfirmSecret)
+  lazy val disconnect = store disconnect _
+
+  lazy val emailConfirm: EmailConfirm =
+    if (EmailConfirmEnabled) new EmailConfirmMailGun(
+      apiUrl = EmailConfirmMailgunApiUrl,
+      apiKey = EmailConfirmMailgunApiKey,
+      sender = EmailConfirmMailgunSender,
+      baseUrl = EmailConfirmMailgunBaseUrl,
+      secret = EmailConfirmSecret)
+    else EmailConfirmSkip
 
   lazy val passwordReset = new PasswordReset(
     apiUrl = PasswordResetMailgunApiUrl,
@@ -96,7 +101,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(firewall, tor)
+  lazy val api = new Api(firewall, tor, geoIP)
 
   def cli = new Cli
 

@@ -59,15 +59,15 @@ object Main extends LilaController {
     }
   }
 
-  def irc = Open { implicit ctx =>
-    ctx.me ?? Env.team.api.mine map {
-      html.site.irc(_)
-    }
-  }
-
   def themepicker = Open { implicit ctx =>
     fuccess {
       html.base.themepicker()
+    }
+  }
+
+  def lag = Open { implicit ctx =>
+    fuccess {
+      html.site.lag()
     }
   }
 
@@ -75,6 +75,16 @@ object Main extends LilaController {
     OptionOk(Prismic oneShotBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }
+  }
+
+  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx =>
+    me =>
+      Env.push.registerDevice(me, platform, deviceId)
+  }
+
+  def mobileUnregister = Auth { implicit ctx =>
+    me =>
+      Env.push.unregisterDevices(me)
   }
 
   def jslog = Open { ctx =>

@@ -9,7 +9,6 @@ function withHighcharts(f) {
     var highstockUrl = 'http://lichess1.org/assets/vendor/highcharts4/highstock.js';
     $.ajax({
       dataType: "script",
-      cache: true,
       url: (typeof lichess_rating_series !== 'undefined') ? highstockUrl : highchartsUrl
     }).done(function() {
       Highcharts.makeFont = function(size) {
@@ -346,7 +345,7 @@ $(function() {
       var $this = $(this);
       var cpMax = parseInt($this.data('max'), 10) / 100;
 
-      $(this).highcharts(mergeDefaults({
+      $this.highcharts(mergeDefaults({
         series: [{
           name: 'Advantage',
           data: $this.data('rows').map(function(row) {
@@ -424,7 +423,7 @@ $(function() {
         var series = $this.data('series');
         var timeMax = parseInt($this.data('max'), 10);
 
-        $(this).highcharts(mergeDefaults({
+        $this.highcharts(mergeDefaults({
           series: [{
             name: 'White',
             data: series.white
@@ -498,5 +497,120 @@ $(function() {
       lichess.analyse.onChange();
     };
     if ($('#movetimes_chart:visible:not(.rendered)').length) $.renderMoveTimesChart();
+
+
+    $('#rating_distribution_chart').each(function() {
+      var colors = Highcharts.getOptions().colors;
+      var ratingAt = function(i) {
+        return 800 + i * 25;
+      };
+      var arraySum = function(arr) {
+        return arr.reduce(function(a, b) {
+          return a + b;
+        }, 0);
+      };
+      var freq = lichess_rating_distribution.data;
+      var sum = arraySum(freq);
+      var cumul = [];
+      for (var i = 0; i < freq.length; i++)
+        cumul.push(Math.round(arraySum(freq.slice(0, i)) / sum * 100));
+      $(this).highcharts(mergeDefaults({
+        series: [{
+          name: 'Frequency',
+          type: 'area',
+          data: freq.map(function(nb, i) {
+            return [ratingAt(i), nb];
+          }),
+          color: colors[1],
+          fillColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1.1
+            },
+            stops: [
+              [0, colors[1]],
+              [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')]
+            ]
+          },
+          marker: {
+            radius: 5
+          },
+          lineWidth: 4,
+          tooltip: {
+            valueSuffix: ' players'
+          }
+        }, {
+          name: 'Cumulative',
+          type: 'line',
+          yAxis: 1,
+          data: cumul.map(function(p, i) {
+            return [ratingAt(i), p];
+          }),
+          color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),
+          marker: {
+            radius: 1
+          },
+          shadow: true,
+          tooltip: {
+            valueSuffix: '%'
+          }
+        }],
+        chart: {
+          zoomType: 'xy',
+          alignTicks: false
+        },
+        plotOptions: {},
+        title: noText,
+        xAxis: {
+          type: 'category',
+          title: {
+            text: 'Glicko2 Rating'
+          },
+          labels: {
+            rotation: -45
+          },
+          gridLineWidth: 1,
+          tickInterval: 100,
+          plotLines: (function(v) {
+            var right = v > 1800;
+            return v ? [{
+              label: {
+                text: 'Your rating',
+                verticalAlign: 'top',
+                align: right ? 'right' : 'left',
+                y: 13,
+                x: right ? -5 : 5,
+                style: {
+                  color: colors[2]
+                },
+                rotation: -0
+              },
+              dashStyle: 'dash',
+              color: colors[2],
+              width: 3,
+              value: v
+            }] : [];
+          })(lichess_rating_distribution.my_rating)
+        },
+        yAxis: [{ // frequency
+          title: {
+            text: 'Players'
+          }
+        }, { // cumulative
+          min: 0,
+          max: 100,
+          gridLineWidth: 0,
+          title: {
+            text: 'Cumulative'
+          },
+          labels: {
+            format: '{value}%'
+          },
+          opposite: true
+        }]
+      }));
+    });
   });
 });

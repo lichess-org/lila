@@ -9,6 +9,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.user.{ User => UserModel, UserRepo }
+import lila.security.Granter
 import views._
 
 object Message extends LilaController {
@@ -21,7 +22,7 @@ object Message extends LilaController {
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
       NotForKids {
-        api updateUser me.id
+        api updateUser me
         api.inbox(me, page) map { html.message.inbox(me, _) }
       }
   }
@@ -38,7 +39,7 @@ object Message extends LilaController {
             html.message.thread(thread, forms.post, blocked,
               answerable = !Env.message.LichessSenders.contains(thread.creatorId))
           }
-        }
+        } map NoCache
       }
   }
 
@@ -78,7 +79,8 @@ object Message extends LilaController {
   private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Html] =
     get("user") ?? UserRepo.named flatMap { user =>
       user.fold(fuccess(true))(u => security.canMessage(me.id, u.id)) map { canMessage =>
-        html.message.form(f(forms thread me), user, title, canMessage)
+        html.message.form(f(forms thread me), user, title, 
+          canMessage = canMessage || Granter(_.MessageAnyone)(me))
       }
     }
 

@@ -12,6 +12,9 @@ object PlayApp {
 
   def uptime = new Period(startedAt, DateTime.now)
 
+  def startedSinceMinutes(minutes: Int) =
+    startedAt.isBefore(DateTime.now minusMinutes minutes)
+
   def loadConfig: Config = withApp(_.configuration.underlying)
 
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix

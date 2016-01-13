@@ -64,8 +64,8 @@ module.exports = function(cfg, router, i18n) {
     m.redraw();
   }.bind(this);
 
-  var onMove = function(orig, dest, meta) {
-    $.sound.move();
+  var onMove = function(orig, dest, captured) {
+    $.sound[captured ? 'capture' : 'move']();
     submitMove(orig + dest);
     setTimeout(function() {
       this.chessground.set({
@@ -101,10 +101,10 @@ module.exports = function(cfg, router, i18n) {
     movable: {
       color: this.data.opening.color,
       free: false,
-      dests: init.dests,
-      events: {
-        after: onMove
-      }
+      dests: init.dests
+    },
+    events: {
+      move: onMove
     },
     drawable: {
       enabled: true
@@ -177,11 +177,5 @@ module.exports = function(cfg, router, i18n) {
 
   this.router = router;
 
-  this.trans = function() {
-    var str = i18n[arguments[0]] || arguments[0];
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(i18n);
 };

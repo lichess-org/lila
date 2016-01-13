@@ -9,7 +9,6 @@ import chess.{ Color, Move, Status }
 import makeTimeout.large
 
 import lila.db.api._
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
@@ -19,7 +18,7 @@ final class Importer(
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
 
-  def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
+  def apply(data: ImportData, user: Option[String]): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
@@ -39,16 +38,11 @@ final class Importer(
     }
 
     def applyMove(pov: Pov, move: Move) {
-      roundMap ! Tell(pov.gameId, HumanPlay(
+      roundMap ! Tell(pov.gameId, ImportPlay(
         playerId = pov.playerId,
-        ip = ip,
-        orig = move.orig.toString,
-        dest = move.dest.toString,
-        prom = move.promotion map (_.name),
-        blur = false,
-        lag = 0.millis,
-        onFailure = _ => ()
-      ))
+        orig = move.orig,
+        dest = move.dest,
+        prom = move.promotion))
     }
 
     gameExists {

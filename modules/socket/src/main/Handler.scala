@@ -4,6 +4,7 @@ import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.PimpedJson._
@@ -16,6 +17,8 @@ object Handler {
   type Connecter = PartialFunction[Any, (Controller, JsEnumerator, SocketMember)]
 
   val emptyController: Controller = PartialFunction.empty
+
+  lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds)
 
   def apply(
     hub: lila.hub.Env,
@@ -35,7 +38,7 @@ object Handler {
       case ("moveLat", o) => hub.channel.moveLat ! (~(o boolean "d")).fold(
         Channel.Sub(member),
         Channel.UnSub(member))
-      case ("anaMove", o) =>
+      case ("anaMove", o) => AnaRateLimit(uid) {
         AnaMove parse o foreach { anaMove =>
           anaMove.step match {
             case scalaz.Success(step) =>
@@ -47,7 +50,8 @@ object Handler {
               member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
           }
         }
-      case ("anaDests", o) =>
+      }
+      case ("anaDests", o) => AnaRateLimit(uid) {
         AnaDests parse o match {
           case Some(req) =>
             member push lila.socket.Socket.makeMessage("dests", Json.obj(
@@ -57,6 +61,7 @@ object Handler {
           case None =>
             member push lila.socket.Socket.makeMessage("destsFailure", "Bad dests request")
         }
+      }
       case _ => // logwarn("Unhandled msg: " + msg)
     }
 

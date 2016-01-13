@@ -2,9 +2,11 @@
 
 @moreCss = {
 @cssTag("user-form.css")
+@cssTag("account.css")
 }
 @moreJs = {
 @jsTag("user.js")
+@jsTag("account.js")
 }
 
 @menu = {
@@ -25,6 +27,10 @@
 </a>
 <a class="@active.active("kid")" href="@routes.Account.kid()">
   Kid mode
+</a>
+<div class="sep"></div>
+<a class="@active.active("security")" href="@routes.Account.security()">
+  Security
 </a>
 <div class="sep"></div>
 <a class="@active.active("close")" href="@routes.Account.close()">

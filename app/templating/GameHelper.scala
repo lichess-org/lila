@@ -18,14 +18,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
     image = cdnUrl(routes.Export.png(pov.game.id).url).some,
-    title = titlePov(pov),
+    title = titleGame(pov.game),
     url = s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
     description = describePov(pov))
 
-  def titlePov(pov: Pov) = {
-    val speed = chess.Speed(pov.game.clock).name
-    val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
-    s"$speed$variant Chess • ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}"
+  def titleGame(g: Game) = {
+    val speed = chess.Speed(g.clock).name
+    val variant = g.variant.exotic ?? s" ${g.variant.name}"
+    s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -56,7 +56,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.turns} moves"
+    val moves = s"${game.toChess.fullMoveNumber} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 

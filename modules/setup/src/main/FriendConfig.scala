@@ -1,14 +1,14 @@
 package lila.setup
 
 import chess.{ Mode, Clock, Color => ChessColor }
-import lila.game.{ Game, Player, Source }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
 import lila.rating.RatingRange
 
 case class FriendConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Int,
+    time: Double,
     increment: Int,
     days: Int,
     mode: Mode,
@@ -31,11 +31,13 @@ case class FriendConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   }
+
+  def pov = Pov(game, creatorColor)
 }
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -49,7 +51,7 @@ object FriendConfig extends BaseHumanConfig {
   val default = FriendConfig(
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
-    time = 5,
+    time = 5d,
     increment = 8,
     days = 2,
     mode = Mode.default,
@@ -63,7 +65,7 @@ object FriendConfig extends BaseHumanConfig {
     def reads(r: BSON.Reader): FriendConfig = FriendConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
-      time = r int "t",
+      time = r double "t",
       increment = r int "i",
       days = r int "d",
       mode = Mode orDefault (r int "m"),

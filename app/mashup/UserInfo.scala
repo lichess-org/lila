@@ -14,7 +14,7 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
-    ranks: Map[lila.rating.Perf.Key, Int],
+    ranks: lila.rating.UserRankMap,
     nbUsers: Int,
     nbPlaying: Int,
     hasSimul: Boolean,
@@ -28,7 +28,9 @@ case class UserInfo(
     nbPosts: Int,
     playTime: User.PlayTime,
     donor: Boolean,
-    trophies: Trophies) {
+    trophies: Trophies,
+    isStreamer: Boolean,
+    insightVisible: Boolean) {
 
   def nbRated = user.count.rated
 
@@ -36,12 +38,18 @@ case class UserInfo(
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 
-  def allTrophies = (donor ?? List(Trophy(
-    _id = "",
-    user = user.id,
-    kind = Trophy.Kind.Donor,
-    date = org.joda.time.DateTime.now)
-  )) ::: trophies
+  def allTrophies = List(
+    donor option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Donor,
+      date = org.joda.time.DateTime.now),
+    isStreamer option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Streamer,
+      date = org.joda.time.DateTime.now)
+  ).flatten ::: trophies
 }
 
 object UserInfo {
@@ -57,7 +65,9 @@ object UserInfo {
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
     isDonor: String => Fu[Boolean],
-    isHostingSimul: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
+    isHostingSimul: String => Fu[Boolean],
+    isStreamer: String => Boolean,
+    insightShare: lila.insight.Share)(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -70,8 +80,9 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip
+      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       PlayTime(user) flatMap {
-        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), playTime) =>
+        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -89,7 +100,9 @@ object UserInfo {
               nbPosts = nbPosts,
               playTime = playTime,
               donor = isDonor,
-              trophies = trophies)
+              trophies = trophies,
+              isStreamer = isStreamer(user.id),
+              insightVisible = insightVisible)
           }
       }
 }

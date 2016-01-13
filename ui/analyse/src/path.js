@@ -34,6 +34,19 @@ module.exports = {
     }).join(',');
   },
 
+  isRoot: function(path) {
+    return path.length === 1;
+  },
+
+  contains: function(p1, p2) {
+    if (p2.length < p1.length) return;
+    for (var i = 0; i < p2.length; i++) {
+      if (!p1[i].variation) return true;
+      if (p1[i].ply !== p2[i].ply || p1[i].variation !== p2[i].variation) return false;
+    }
+    return false;
+  },
+
   currentPly: function(path) {
     return path[path.length - 1].ply;
   },
@@ -41,7 +54,9 @@ module.exports = {
   withPly: function(path, ply) {
     var p2 = path.slice(0);
     var last = p2.length - 1;
-    p2[last] = copy(p2[last], {ply: ply});
+    p2[last] = copy(p2[last], {
+      ply: ply
+    });
     return p2;
   },
 

@@ -70,11 +70,18 @@ object Mod extends LilaController {
       implicit def req = ctx.body
       OptionFuResult(UserRepo named username) { user =>
         if (isGranted(_.SetEmail) && !isGranted(_.SetEmail, user))
-          Env.security.forms.modEmail.bindFromRequest.fold(
-            err => fuccess(redirect(user.username, mod = true)),
+          Env.security.forms.modEmail(user).bindFromRequest.fold(
+            err => BadRequest(err.toString).fuccess,
             email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
           )
         else fuccess(authorizationFailed(ctx.req))
+      }
+  }
+
+  def notifySlack(username: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(UserRepo named username) { user =>
+        Env.slack.api.userMod(user = user, mod = me) inject redirect(user.username)
       }
   }
 
@@ -106,7 +113,9 @@ object Mod extends LilaController {
     lila.memo.AsyncCache[String, String](ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
-      WS.url("http://check.getipintel.net/check.php").withQueryString("ip" -> ip).get().map(_.body)
+      val email = "lichess.contact@gmail.com"
+      val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
+      WS.url(url).get().map(_.body)
     }, maxCapacity = 2000)
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
@@ -118,5 +127,29 @@ object Mod extends LilaController {
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
     me => assessApi.refreshAssessByUsername(username) inject redirect(username)
+  }
+
+  def gamify = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      Env.mod.gamify.leaderboards zip
+        Env.mod.gamify.history(orCompute = true) map {
+          case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
+        }
+  }
+  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+        Env.mod.gamify.leaderboards map { leaderboards =>
+          Ok(html.mod.gamify.period(leaderboards, period))
+        }
+      }
+  }
+
+  def search = Secure(_.UserSearch) { implicit ctx =>
+    me =>
+      val query = (~get("q")).trim
+      Env.mod.search(query) map { users =>
+        html.mod.search(query, users)
+      }
   }
 }

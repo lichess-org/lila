@@ -38,7 +38,7 @@ private[round] final class Titivate(
         if (game.finished || game.isPgnImport) delayF {
           GameRepo unsetCheckAt game
         }
-        else if (game.outoftimePlayer.isDefined) delay {
+        else if (game.outoftimePlayer(_ => chess.Clock.maxGraceMillis).isDefined) delay {
           roundMap ! Tell(game.id, Outoftime)
         }
         else if (game.abandoned) delay {

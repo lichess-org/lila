@@ -3,6 +3,26 @@ var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
 var treePath = require('../path');
 
+var onMyTurn = function(ctrl, fctrl, cSteps) {
+  var firstStep = cSteps[0];
+  if (!firstStep) return;
+  var fcs = fctrl.findStartingWithStep(firstStep);
+  if (!fcs.length) return;
+  var lines = fcs.filter(function(fc) {
+    return fc.length > 1;
+  });
+  return m('button.on-my-turn', {
+    class: 'add button text',
+    'data-icon': 'E',
+    onclick: partial(fctrl.playAndSave, firstStep)
+  }, [
+    m('span', m('strong', 'Play ' + cSteps[0].san)),
+    lines.length ?
+    m('span', 'and save ' + lines.length + ' premove line' + (lines.length > 1 ? 's' : '')) :
+    m('span', 'No conditional premoves')
+  ]);
+};
+
 module.exports = function(ctrl) {
   var fctrl = ctrl.forecast;
   var cSteps = fctrl.truncate(ctrl.analyse.getStepsAfterPly(ctrl.vm.path, ctrl.data.game.turns));
@@ -25,7 +45,7 @@ module.exports = function(ctrl) {
               e.stopPropagation();
             }
           }, 'x'),
-          m.trust(pgnExport.renderStepsHtml(steps))
+          m('sans', m.trust(pgnExport.renderStepsHtml(steps)))
         ])
       })),
       m('button', {
@@ -34,11 +54,12 @@ module.exports = function(ctrl) {
         onclick: partial(fctrl.addSteps, cSteps)
       }, isCandidate ? [
         m('span', 'Add current variation'),
-        m('span', m.trust(pgnExport.renderStepsHtml(cSteps)))
+        m('span', m('sans', m.trust(pgnExport.renderStepsHtml(cSteps))))
       ] : [
         m('span', 'Play a variation to create'),
         m('span', 'conditional premoves')
       ])
-    ])
+    ]),
+    fctrl.onMyTurn ? onMyTurn(ctrl, fctrl, cSteps) : null
   ]);
 };

@@ -9,7 +9,7 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 240 by 30)
+  val clockTimes = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
   val clockTimeDefault = 20
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
@@ -17,7 +17,7 @@ final class DataForm {
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockExtras = (0 to 60 by 10) ++ (90 to 120 by 30)
+  val clockExtras = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 

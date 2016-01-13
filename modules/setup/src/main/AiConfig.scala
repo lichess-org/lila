@@ -1,13 +1,13 @@
 package lila.setup
 
 import chess.{ Mode, Color => ChessColor }
-import lila.game.{ Game, Player, Source }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
 
 case class AiConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Int,
+    time: Double,
     increment: Int,
     days: Int,
     level: Int,
@@ -34,11 +34,13 @@ case class AiConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   } start
+
+  def pov = Pov(game, creatorColor)
 }
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
+  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
     variant = chess.variant.Variant(v) err "Invalid game variant " + v,
     timeMode = TimeMode(tm) err s"Invalid time mode $tm",
     time = t,
@@ -51,7 +53,7 @@ object AiConfig extends BaseConfig {
   val default = AiConfig(
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
-    time = 5,
+    time = 5d,
     increment = 8,
     days = 2,
     level = 1,
@@ -69,7 +71,7 @@ object AiConfig extends BaseConfig {
     def reads(r: BSON.Reader): AiConfig = AiConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
-      time = r int "t",
+      time = r double "t",
       increment = r int "i",
       days = r int "d",
       level = r int "l",

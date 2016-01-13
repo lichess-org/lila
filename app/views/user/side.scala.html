@@ -1,0 +1,58 @@
+@(u: User, rankMap: lila.rating.UserRankMap, active: Option[lila.rating.PerfType])(implicit ctx: Context)
+
+@import lila.rating.PerfType
+
+@showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
+<a data-icon="@perfType.iconChar"
+  title="@perfType.title"
+  @if(lila.rating.PerfType.isGame(perfType)) {
+  href="@routes.User.perfStat(u.username, perfType.key)"
+  class="game@if(active.contains(perfType)){ active}@if(perf.nb >= 10){ relevant}"
+  }>
+  <h3>@name.getOrElse(perfType.name).toUpperCase</h3>
+  <span class="rating">
+    <strong>@perf.glicko.intRating@if(perf.provisional){?}</strong>
+    <span>@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
+    @showProgress(perf.progress, withTitle = false)
+  </span>
+  <span class="rank" title="Rank is updated every 15 minutes">
+    @rankMap.get(perfType.key).map { rank =>
+    Rank: @rank.localize@nth(rank)
+    }
+  </span>
+  @if(lila.rating.PerfType.isGame(perfType)) {
+  <i data-icon="G"></i>
+  }
+</a>
+}
+
+<div class="side sub_ratings">
+  @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
+  @showPerf(u.perfs.bullet, PerfType.Bullet)
+  @showPerf(u.perfs.blitz, PerfType.Blitz)
+  @showPerf(u.perfs.classical, PerfType.Classical)
+  @showPerf(u.perfs.correspondence, PerfType.Correspondence)
+  <br />
+  @if(u.perfs.chess960.nonEmpty) {
+  @showPerf(u.perfs.chess960, PerfType.Chess960)
+  }
+  @if(u.perfs.kingOfTheHill.nonEmpty) {
+  @showPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
+  }
+  @if(u.perfs.threeCheck.nonEmpty) {
+  @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
+  }
+  @if(u.perfs.antichess.nonEmpty) {
+  @showPerf(u.perfs.antichess, PerfType.Antichess)
+  }
+  @if(u.perfs.atomic.nonEmpty) {
+  @showPerf(u.perfs.atomic, PerfType.Atomic)
+  }
+  @if(u.perfs.horde.nonEmpty) {
+  @showPerf(u.perfs.horde, PerfType.Horde)
+  }
+  <br />
+  }
+  @showPerf(u.perfs.puzzle, PerfType.Puzzle)
+  @showPerf(u.perfs.opening, PerfType.Opening)
+</div>

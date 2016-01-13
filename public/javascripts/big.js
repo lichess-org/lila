@@ -52,14 +52,14 @@ lichess.StrongSocket.defaults = {
   options: {
     name: "unnamed",
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
-    pingDelay: 1000, // time between pong and ping
+    pingDelay: 1500, // time between pong and ping
     autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
-      ($('body').data('ports') + '').split(',').map(function(port) {
+      /lichess\.org/.test(document.domain) ? [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
         return 'socket.' + document.domain + ':' + port;
-      })),
+      }) : []),
     onFirstConnect: $.noop,
     baseUrlKey: 'surl3'
   }
@@ -108,14 +108,12 @@ lichess.StrongSocket.prototype = {
         //   console.log(m, 'skip');
         //   return;
         // }
-        if (m.t == "n") {
-          self.pong();
-        } else self.debug(e.data);
-        if (m.t == "b") {
-          m.d.forEach(function(mm) {
-            self.handle(mm);
-          });
-        } else self.handle(m);
+        if (m.t === 'n') self.pong();
+        // else self.debug(e.data);
+        if (m.t === 'b') m.d.forEach(function(mm) {
+          self.handle(mm);
+        });
+        else self.handle(m);
       };
     } catch (e) {
       self.onError(e);
@@ -144,7 +142,6 @@ lichess.StrongSocket.prototype = {
       if (!again) setTimeout(function() {
         this.send(t, d, o, true);
       }.bind(this), 1000);
-      else console.log(e, 'again');
     }
   },
   sendAckable: function(t, d) {
@@ -320,30 +317,57 @@ lichess.storage = {
     });
   }
 };
+lichess.once = function(key, mod) {
+  if (mod === 'always') return true;
+  if (!lichess.storage.get(key)) {
+    lichess.storage.set(key, 1);
+    return true;
+  }
+  return false;
+};
+lichess.trans = function(i18n) {
+  return function(key) {
+    var str = i18n[key] || key;
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
+  };
+};
+lichess.hopscotch = function(f) {
+  var baseUrl = $('body').data('asset-url');
+  $('head').append($('<link rel="stylesheet" type="text/css" />')
+    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
+  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
+}
 
-lichess.isPageVisible = true;
+lichess.isPageVisible = document.visibilityState !== 'hidden';
+lichess.notifications = [];
 // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
 window.addEventListener('focus', function() {
   lichess.isPageVisible = true;
+  lichess.notifications.forEach(function(n) {
+    n.close();
+  });
+  lichess.notifications = [];
 });
 window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
-  if (lichess.isPageVisible || !("Notification" in window) || Notification.permission === "denied") return;
-  if (Notification.permission === "granted") {
-    var notification = new Notification("lichess", {
+  var title = 'lichess.org';
+  var icon = 'http://lichess1.org/assets/images/logo.256.png';
+  var notify = function() {
+    lichess.notifications.push(new Notification(title, {
+      icon: icon,
       body: msg
-    });
-  } else {
-    Notification.requestPermission(function(permission) {
-      if (permission === "granted") {
-        var notification = new Notification("lichess", {
-          body: msg
-        });
-      }
-    });
-  }
+    }));
+  };
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
+  if (Notification.permission === 'granted') notify();
+  else Notification.requestPermission(function(p) {
+    if (p === 'granted') notify();
+  });
 };
 lichess.unique = function(xs) {
   return xs.filter(function(x, i) {
@@ -356,7 +380,9 @@ lichess.unique = function(xs) {
   /////////////
   // ctrl.js //
   /////////////
-
+  $.ajaxSetup({
+    cache: false
+  });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   };
@@ -381,7 +407,9 @@ lichess.unique = function(xs) {
         document.cookie = cookie;
       }
     }
-    location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    var href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    $.redirect.inProgress = href;
+    location.href = href;
   };
   $.fp = {};
   $.fp.range = function(to) {
@@ -457,7 +485,7 @@ lichess.unique = function(xs) {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
+        $('#message_notifications_tag').attr('data-count', e || 0).parent().toggle(e > 0);
         if (e) {
           $.sound.newPM();
           var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
@@ -469,7 +497,6 @@ lichess.unique = function(xs) {
         }
       },
       mlat: function(e) {
-        console.log(e);
         var $t = $('#top .server strong');
         if ($t.is(':visible')) {
           $t.text(e);
@@ -478,7 +505,7 @@ lichess.unique = function(xs) {
           var hue = ((1 - ratio) * 120).toString(10);
           var color = ['hsl(', hue, ',100%,40%)'].join('');
           $('#top .status .led').css('background', color);
-        } else lichess.socket.send('moveLat', false);
+        }
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -497,17 +524,18 @@ lichess.unique = function(xs) {
         }
       },
       challengeReminder: function(data) {
+        var $toggle = $('#challenge_notifications_tag');
+        var $notifs = $('#challenge_notifications');
         if (!lichess.storage.get('challenge-refused-' + data.id)) {
           var refreshButton = function() {
-            var nb = $('#challenge_notifications > div').length;
-            $('#nb_challenges').text(nb);
-            $('#challenge_notifications_tag').toggleClass('none', !nb);
+            var nb = $notifs.find('> div').length;
+            $toggle.attr('data-count', nb).toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            $('#challenge_notifications').append(data.html);
+            $notifs.append(data.html);
             $notif = $('#' + htmlId);
             $notif.find('> a').click(function() {
               lichess.hasToReload = true; // allow quit by accept challenge (simul)
@@ -520,13 +548,13 @@ lichess.unique = function(xs) {
               return false;
             });
             $('body').trigger('lichess.content_loaded');
-            if (!lichess.storage.get('challenge-' + data.id)) {
+            if (lichess.once('challenge-' + data.id)) {
               if (!lichess.quietMode) {
-                $('#top .challenge_notifications').addClass('shown');
+                if (!$notifs.is(':visible')) $toggle.click();
                 $.sound.newChallenge();
               }
-              lichess.desktopNotification("You got challenged!");
-              lichess.storage.set('challenge-' + data.id, 1);
+              var op = $notif.find('.user_link').text();
+              lichess.desktopNotification(op + ' challenges you!');
             }
             refreshButton();
           }
@@ -568,6 +596,7 @@ lichess.unique = function(xs) {
 
   lichess.hasToReload = false;
   lichess.reload = function() {
+    if ($.redirect.inProgress) return;
     lichess.hasToReload = true;
     location.reload();
   };
@@ -608,6 +637,7 @@ lichess.unique = function(xs) {
         coordinates: false,
         viewOnly: !playable,
         minimalDom: !playable,
+        resizable: false,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove
       };
@@ -683,7 +713,9 @@ lichess.unique = function(xs) {
         return false;
       });
 
-      function userPowertip($els, placement) {
+      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
+
+      lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
@@ -701,8 +733,8 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
-      }
+        }).data('powertip', powerTipLoader);
+      };
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
@@ -710,6 +742,7 @@ lichess.unique = function(xs) {
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
+          smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'miniGame'
@@ -723,13 +756,13 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
+        }).data('powertip', powerTipLoader);
       }
 
       function updatePowertips() {
-        userPowertip($('#site_header .ulpt'), 'e');
-        userPowertip($('#friend_box .ulpt'), 'nw');
-        userPowertip($('.ulpt'), 'w');
+        lichess.userPowertip($('#site_header .ulpt'), 'e');
+        lichess.userPowertip($('#friend_box .ulpt'), 'nw');
+        lichess.userPowertip($('.ulpt'), 'w');
         gamePowertip($('.glpt'), 'w');
       }
       setTimeout(updatePowertips, 600);
@@ -739,7 +772,6 @@ lichess.unique = function(xs) {
         lichess.storage.remove("inboxDesktopNotification");
         $.ajax({
           url: $(this).data('href'),
-          cache: false,
           success: function(html) {
             $('#message_notifications_display').html(html)
               .find('a.mark_as_read').click(function() {
@@ -803,7 +835,6 @@ lichess.unique = function(xs) {
         var $themepicker = $('#themepicker');
         $.ajax({
           url: $(this).data('url'),
-          cache: false,
           success: function(html) {
             $themepicker.append(html);
             var $body = $('body');
@@ -834,7 +865,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 theme: theme
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is2d div.no-square').hover(function() {
               var s = $(this).data("set");
@@ -846,7 +876,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 set: set
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is3d div.theme').hover(function() {
               $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
@@ -857,7 +886,6 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 theme: theme3d
               });
-              $themepicker.removeClass("shown");
             });
             $themepicker.find('.is3d div.no-square').hover(function() {
               $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
@@ -868,17 +896,15 @@ lichess.unique = function(xs) {
               $.post($(this).parent().data("href"), {
                 set: set3d
               });
-              $themepicker.removeClass("shown");
             });
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
                 .addClass(bg === 'transp' ? 'transp dark' : bg);
-              if ((bg === 'dark' || bg === 'transp') && $('link[href*="dark.css"]').length === 0) {
+              if ((bg === 'dark' || bg === 'transp') && !$('link[href*="dark.css"]').length)
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
                 });
-              }
-              if ((bg === 'transp') && $('link[href*="transp.css"]').length === 0) {
+              if (bg === 'transp' && !$('link[href*="transp.css"]').length) {
                 $('link[href*="common.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
                 });
@@ -887,15 +913,20 @@ lichess.unique = function(xs) {
             };
             var showDimensions = function(is3d) {
               $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+              if (is3d && !$('link[href*="board-3d.css"]').length)
+                $('link[href*="board.css"]').clone().each(function() {
+                  $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
+                });
               setZoom(getZoom());
             };
             $themepicker.find('.background a').click(function() {
               background = $(this).data('bg');
               $.post($(this).parent().data('href'), {
                 bg: background
+              }, function() {
+                if (window.Highcharts) location.reload();
               });
               $(this).addClass('active').siblings().removeClass('active');
-              $themepicker.removeClass("shown");
               return false;
             }).hover(function() {
               showBg($(this).data('bg'));
@@ -908,7 +939,6 @@ lichess.unique = function(xs) {
                 is3d: is3d
               });
               $(this).addClass('active').siblings().removeClass('active');
-              $themepicker.removeClass("shown");
               return false;
             }).hover(function() {
               showDimensions($(this).data('is3d'));
@@ -985,6 +1015,8 @@ lichess.unique = function(xs) {
           // if on a board with a game
           $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
         }
+
+        document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
       var manuallySetZoom = $.fp.debounce(setZoom, 10);
@@ -1031,9 +1063,12 @@ lichess.unique = function(xs) {
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
         setTimeout(function() {
-          $('html').one('click', function(e) {
+          var handler = function(e) {
+            if ($.contains($p[0], e.target)) return;
             $p.removeClass('shown');
-          });
+            $('html').off('click', handler);
+          };
+          $('html').on('click', handler);
         }, 10);
         if ($p.hasClass('auth')) lichess.socket.send('moveLat', true);
         return false;
@@ -1044,11 +1079,10 @@ lichess.unique = function(xs) {
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
           url: $links.data('url'),
-          cache: false,
           success: function(list) {
-            $links.prepend(list.map(function(lang) {
+            $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });
@@ -1134,7 +1168,7 @@ lichess.unique = function(xs) {
 
   $.sound = (function() {
     var version = 1;
-    var baseUrl = $('body').data('sound-dir');
+    var baseUrl = '/assets/sound';
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
 
@@ -1154,7 +1188,8 @@ lichess.unique = function(xs) {
       berserk: 'Berserk',
       check: 'Check',
       newChallenge: 'NewChallenge',
-      newPM: 'NewPM'
+      newPM: 'NewPM',
+      confirmation: 'Confirmation'
     };
     for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
@@ -1277,16 +1312,19 @@ lichess.unique = function(xs) {
           },
           tvSelect: function(o) {
             if (data.tv && data.tv.channel == o.channel) lichess.reload();
-            else $('#tv_channels a.' + o.channel + ' span').text(
-              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
+            else $('#tv_channels a.' + o.channel + ' span').html(
+              o.player ? [
+                o.player.title,
+                o.player.name,
+                '(' + o.player.rating + ')'
+              ].filter(function(x) {
+                return x;
+              }).join('&nbsp') : 'Anonymous');
           },
           end: function() {
-            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color, 'sides'].join('/') : ((
-              data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer
-            )(data.game.id, data.player.color).url);
+            var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
             $.ajax({
               url: url,
-              cache: false,
               success: function(html) {
                 var $html = $(html);
                 $('#site_header div.side').replaceWith($html.find('>.side'));
@@ -1299,7 +1337,6 @@ lichess.unique = function(xs) {
           tournamentStanding: function(id) {
             $.ajax({
               url: '/tournament/' + id + '/game-standing',
-              cache: false,
               success: function(html) {
                 $('#site_header div.game_tournament').replaceWith(html);
                 startTournamentClock();
@@ -1308,11 +1345,22 @@ lichess.unique = function(xs) {
           }
         }
       });
+    var $chat;
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.onChange = data.player.spectator ? $.noop : function(data) {
+      var presets = [];
+      if (data.steps.length < 4) presets = [
+        'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
+      ];
+      else if (data.game.status.id >= 30) presets = [
+        'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
+      ];
+      $chat.chat('setPresets', presets);
+    };
     round = LichessRound(cfg);
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    $('#chat').chat({
+    $chat = $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
       gameId: data.game.id
@@ -1321,13 +1369,9 @@ lichess.unique = function(xs) {
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
     var loadPlaying = function() {
-      var $moveOn = $nowPlaying.find('.move_on').click(function() {
-        setMoveOn(round.moveOn.toggle());
-      });
-      var setMoveOn = function(value) {
-        $moveOn.toggleClass('enabled', value);
-      };
-      setMoveOn(round.moveOn.get());
+      var $moveOn = $nowPlaying.find('.move_on input').change(function() {
+        round.moveOn.toggle();
+      }).prop('checked', round.moveOn.get());
     };
     loadPlaying();
     $nowPlaying.on('click', '>a', function() {
@@ -1463,7 +1507,9 @@ lichess.unique = function(xs) {
       this.options = $.extend({
         messages: [],
         initialNote: '',
-        gameId: null
+        gameId: null,
+        presets: [],
+        presetCount: 0
       }, this.options);
       var self = this;
       var $parent = self.element.parent();
@@ -1477,9 +1523,29 @@ lichess.unique = function(xs) {
         var $input = self.element.find('input.lichess_say')
           .focus(function() {
             document.body.classList.add('typing');
+            warning();
           }).blur(function() {
             document.body.classList.remove('typing');
           });
+
+        var warning = function() {
+          if (lichess.once('chat-nice-notice')) $input.powerTip({
+            manual: true,
+            fadeInTime: 300,
+            fadeOutTime: 300,
+            placement: 'n'
+          }).data('powertipjq', $('<div class="info">').html([
+            $('<strong class="title text" data-icon="">').text('Public notice'),
+            $('<div class="content">').html([
+              'Failure to be nice towards other players can lead to losing chat privileges or account closure!',
+              $('<div class="confirm">').html(
+                $('<button class="button">').text('OK').click(function() {
+                  $input.focus();
+                })
+              )
+            ])
+          ])).powerTip('show');
+        };
 
         // send a message
         $form.submit(function() {
@@ -1512,6 +1578,13 @@ lichess.unique = function(xs) {
           self.element.addClass('hidden');
         }
         if (self.options.messages.length > 0) self._appendMany(self.options.messages);
+        self.element.on('click', '.presets button', function() {
+          $input.val($(this).data('hint'));
+          $form.submit();
+          if (++self.options.presetCount >= 2) self.element.find('.presets').remove();
+          $input.focus();
+        });
+        self._renderPresets();
       }
 
       $panels = self.element.find('div.chat_panels > div');
@@ -1547,6 +1620,23 @@ lichess.unique = function(xs) {
     append: function(msg) {
       this._appendHtml(this._render(msg));
     },
+    setPresets: function(presets) {
+      if (presets.join('|') === this.options.presets.join('|')) return;
+      this.options.presetCount = 0;
+      this.options.presets = presets;
+      this._renderPresets();
+    },
+    _renderPresets: function() {
+      var $e = this.element.find('.messages_container');
+      $e.find('.presets').remove();
+      if (!this.options.presets.length) return;
+      $e.append($('<div>').addClass('presets').html(
+        this.options.presets.map(function(p) {
+          var s = p.split('/');
+          return '<button class="button hint--top thin" data-hint="' + s[1] + '">' + s[0] + '</button>';
+        }).join('')
+      ));
+    },
     _appendMany: function(objs) {
       var self = this,
         html = "";
@@ -1581,40 +1671,39 @@ lichess.unique = function(xs) {
   $.widget("lichess.clock", {
     _create: function() {
       var self = this;
-      this.options.time = this.options.time * 1000;
+      // this.options.time: seconds Integer
+      this.time = Math.max(0, this.options.time) * 1000;
       this.timeEl = this.element.find('>.time')[0];
-      var end_time = new Date().getTime() + self.options.time;
       var tick = function() {
-        var current_time = Math.round(end_time - new Date().getTime());
-        if (current_time <= 0) {
-          clearInterval(self.options.interval);
-          current_time = 0;
-        }
-        self.options.time = current_time;
+        self.time = Math.max(0, self.time - 1000);
+        if (self.time <= 0) clearInterval(self.interval);
         self._show();
       };
-      self.options.interval = setInterval(tick, 1000);
-      tick();
+      setTimeout(function() {
+        tick();
+        self.interval = setInterval(tick, 1000);
+      }, 1000 - (new Date().getTime()) % 1000);
+      self._show();
     },
     destroy: function() {
-      this.stop();
+      clearInterval(this.interval);
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
-      this.timeEl.innerHTML = this._formatDate(new Date(this.options.time));
+      if (this.time < 0) return;
+      this.timeEl.innerHTML = this._formatDate(new Date(this.time));
+    },
+    _bold: function(x) {
+      return '<b>' + x + '</b>';
     },
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
-      var b = function(x) {
-        return '<b>' + x + '</b>';
-      };
-      if (this.options.time >= 3600000) {
+      var b = this._bold;
+      if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
-      } else {
-        return b(minutes) + ':' + b(seconds);
-      }
+      } else return b(minutes) + ':' + b(seconds);
     },
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -1729,7 +1818,6 @@ lichess.unique = function(xs) {
           reload_timeline: function() {
             $.ajax({
               url: $("#timeline").data('href'),
-              cache: false,
               success: function(html) {
                 $('#timeline').html(html);
                 resizeTimeline();
@@ -1761,7 +1849,6 @@ lichess.unique = function(xs) {
             setTimeout(function() {
               $.ajax({
                 url: $newposts.data('url'),
-                cache: false,
                 success: function(data) {
                   $newposts.find('ol').html(data).end().scrollTop(0);
                   $('body').trigger('lichess.content_loaded');
@@ -1786,7 +1873,22 @@ lichess.unique = function(xs) {
 
     var $startButtons = $('#start_buttons');
 
+    var sliderTimes = [
+      0, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+      16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    ];
+
     function sliderTime(v) {
+      return v < sliderTimes.length ? sliderTimes[v] : 180;
+    }
+
+    function showTime(v) {
+      if (v === 1 / 2) return '½';
+      if (v === 3 / 4) return '¾';
+      return v;
+    }
+
+    function sliderIncrement(v) {
       if (v <= 20) return v;
       switch (v) {
         case 21:
@@ -1853,10 +1955,10 @@ lichess.unique = function(xs) {
         var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
         var ratedOk = !isHook || !rated || timeMode != '0';
         if (timeOk && ratedOk) {
-          $form.find('.color_submits button').show();
+          $form.find('.color_submits button').toggleClass('nope', false);
           $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf($variantSelect.val()) === -1);
         } else
-          $form.find('.color_submits button').hide();
+          $form.find('.color_submits button').toggleClass('nope', true);
       };
       var showRating = function() {
         var timeMode = $timeModeSelect.val();
@@ -1927,15 +2029,16 @@ lichess.unique = function(xs) {
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
           $value = $input.siblings('span');
+        var isTimeSlider = $input.parent().hasClass('time_choice');
         $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseInt($input.val()), sliderTime, 100),
+          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: 30,
+          max: isTimeSlider ? 33 : 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {
-            var time = sliderTime(ui.value);
-            $value.text(time);
+            var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
+            $value.text(isTimeSlider ? showTime(time) : time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
@@ -1978,15 +2081,14 @@ lichess.unique = function(xs) {
             $span.text(ui.values[0] + " - " + ui.values[1]);
           }
         });
-        var $ratingRangeConfig = $this.parent();
-        $modeChoices.add($form.find('.members_only input')).on('change', function() {
-          var rated = $rated.prop('checked');
-          var membersOnly = $form.find('.members_only input').prop('checked');
-          $ratingRangeConfig.toggle(rated || membersOnly);
-          $form.find('.members_only').toggle(!rated);
-          toggleButtons();
-        }).trigger('change');
       });
+      $modeChoices.add($form.find('.members_only input')).on('change', function() {
+        var rated = $rated.prop('checked');
+        var membersOnly = $form.find('.members_only input').prop('checked');
+        $form.find('.rating_range_config').toggle(rated || membersOnly);
+        $form.find('.members_only').toggle(!rated);
+        toggleButtons();
+      }).trigger('change');
       $timeModeSelect.on('change', function() {
         var timeMode = $(this).val();
         $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
@@ -1994,9 +2096,8 @@ lichess.unique = function(xs) {
         toggleButtons();
         showRating();
       }).trigger('change');
-      var $ratingRangeConfig = $form.find('.rating_range_config');
-      var $fenInput = $fenPosition.find('input');
 
+      var $fenInput = $fenPosition.find('input');
       var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();
@@ -2055,7 +2156,6 @@ lichess.unique = function(xs) {
       $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
-        cache: false,
         success: function(html) {
           $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);
@@ -2249,7 +2349,12 @@ lichess.unique = function(xs) {
     cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
-    $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
+    $('.advice_summary', element)
+      .appendTo($('.underboard .right', element))
+      .show()
+      .on('click', 'tr.nag', function() {
+        analyse.jumpToNag($(this).data('color'), $(this).data('nag'));
+      });
 
     $panels = $('div.analysis_panels > div');
     var $menu = $('div.analysis_menu');

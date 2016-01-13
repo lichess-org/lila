@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import chess.format.UciMove
 import lila.analyse.Info
+import lila.common.Chronometer
 import lila.game.{ Game, GameRepo }
 import play.api.libs.ws.{ WS, WSRequest }
 import play.api.Play.current
@@ -25,18 +26,26 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = doPlay(game, level, 1)
 
   private def doPlay(game: Game, level: Int, tries: Int = 1): Fu[PlayResult] =
-    getMoveResult(game, level) flatMap { moveResult =>
-      (for {
-        uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
-        result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
-        (c, move) = result
-        progress = game.update(c, move)
-        _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
-      } yield PlayResult(progress, move)) recoverWith {
-        case e if tries < 4 =>
-          logwarn(s"[ai play] ${~moveResult.upstream} http://lichess.org/${game.id}#${game.turns} try $tries/3 ${e.getMessage}")
-          doPlay(game, level, tries + 1)
-      }
+    Chronometer.result(getMoveResult(game, level)) flatMap {
+      case Chronometer.Lap(moveResult, millis) =>
+        val aiLagSeconds = game.clock.??(_.isRunning) ?? {
+          (millis - config.moveTime(level)) / 1000f
+        }
+        (for {
+          uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
+          result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
+          (c, move) = result
+          progress1 = game.update(c, move)
+          progress = progress1.game.clock.filter(_.isRunning).fold(progress1) { clock =>
+            val newClock = clock.giveTime(move.color, aiLagSeconds)
+            progress1.flatMap(_ withClock newClock) + lila.game.Event.Clock(newClock)
+          }
+          _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
+        } yield PlayResult(progress, move, moveResult.upstreamIp)) recoverWith {
+          case e if tries < 4 =>
+            logwarn(s"[ai play] ${~moveResult.upstream} http://lichess.org/${game.id}#${game.turns} try $tries/3 ${e.getMessage}")
+            doPlay(game, level, tries + 1)
+        }
     }
 
   private def getMoveResult(game: Game, level: Int): Fu[MoveResult] =

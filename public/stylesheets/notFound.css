@@ -5,7 +5,7 @@ div.content_box header h1 {
   font-size: 110px;
   float: left;
   font-weight: bold;
-  margin: -30px 30px 0 0px;
+  margin: -30px 30px 0 0;
   opacity: 0.3;
 }
 div.content_box header strong {

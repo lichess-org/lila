@@ -3,7 +3,7 @@ package mashup
 
 import lila.common.paginator.Paginator
 import lila.db.api.SortOrder
-import lila.game.{ Game, Query }
+import lila.game.{ Game, Query, GameRepo }
 import lila.user.User
 
 import play.api.libs.json._
@@ -109,10 +109,12 @@ object GameFilterMenu {
       case Win   => std(Query win user)
       case Loss  => std(Query loss user)
       case Draw  => std(Query draw user)
-      case Playing => pag.apply(
+      case Playing => pag(
         selector = Query nowPlaying user.id,
         sort = Seq(),
-        nb = nb)(page)
+        nb = nb)(page) addEffect { p =>
+          p.currentPageResults.filter(_.finishedOrAborted) foreach GameRepo.unsetPlayingUids
+        }
       case Search => userGameSearch(user, page)
     }
   }

@@ -42,7 +42,8 @@ case class Query(
       rated.nonEmpty ||
       opening.nonEmpty ||
       date.nonEmpty ||
-      duration.nonEmpty
+      duration.nonEmpty ||
+      analysed.nonEmpty
 }
 
 object Query {

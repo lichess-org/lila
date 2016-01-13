@@ -5,11 +5,21 @@ import lila.db.Types.Coll
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-final class DonationApi(coll: Coll, monthlyGoal: Int) {
+final class DonationApi(
+    coll: Coll,
+    monthlyGoal: Int,
+    serverDonors: Set[String],
+    bus: lila.common.Bus) {
 
   private implicit val donationBSONHandler = Macros.handler[Donation]
 
-  private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(200)))
+  private val minAmount = 200
+
+  private val donorCache = lila.memo.AsyncCache[String, Boolean](
+    userId => donatedByUser(userId).map(_ >= minAmount),
+    maxCapacity = 5000)
+
+  private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(minAmount)))
 
   def list(nb: Int) = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
@@ -24,8 +34,21 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
   )).cursor[Donation]()
     .collect[List](nb)
 
-  def create(donation: Donation) = coll insert donation recover
-    lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
+  def isDonor(userId: String) =
+    if (serverDonors contains userId) fuccess(true)
+    else donorCache(userId)
+
+  def create(donation: Donation) = {
+    coll insert donation recover
+      lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
+  } >> donation.userId.??(donorCache.remove) >>- progress.foreach { prog =>
+    bus.publish(lila.hub.actorApi.DonationEvent(
+      userId = donation.userId,
+      gross = donation.gross,
+      net = donation.net,
+      message = donation.message.trim.some.filter(_.nonEmpty),
+      progress = prog.percent), 'donation)
+  }
 
   // in $ cents
   def donatedByUser(userId: String): Fu[Int] =

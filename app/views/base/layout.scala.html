@@ -12,6 +12,7 @@ moreJs: Html = Html(""),
 zen: Boolean = false,
 playing: Boolean = false,
 openGraph: Option[lila.app.ui.OpenGraph] = None,
+atom: Option[Html] = None,
 chessground: Boolean = true,
 withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -27,6 +28,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     }
     @cssTag("common.css")
     @cssTag("board.css")
+    @if(ctx.is3d) { @cssTag("board-3d.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeEvenDoubleQuotes(o.description)))" name="description">
@@ -36,7 +38,10 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     }
     <meta name="google" content="notranslate" />
     @openGraph.map(_.html)
+    @atom.getOrElse {
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
+    }
+    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
     @if(withLangAnnotations){@langAnnotations}
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
@@ -55,9 +60,8 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-set="@ctx.currentSoundSet"
-    data-sound-dir="@routes.Assets.at("sound")"
     data-bg="@ctx.currentBg"
-    data-ports="@portsString"
+    data-asset-url="@assetBaseUrl"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
@@ -73,27 +77,33 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       <div class="lichess_language fright">
         <a class="toggle link" href="#">@langName(lang)</a>
         <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
-          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+          <ul>
+            <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+          </ul>
         </form>
       </div>
       @ctx.me.map { me =>
       <div class="auth fright">
         @auth.userDropdown(me, playing)
       </div>
+      @if(ctx.noKid) {
       <div id="message_notifications_parent" class="message_notifications fright @if(ctx.nbMessages == 0) {none}">
-        <a id="message_notifications_tag" class="toggle link" data-href="@routes.Message.preview">
-          <span data-icon="e"></span>
-          <span id="nb_messages" class="new_messages unread">@ctx.nbMessages</span>
+        <a id="message_notifications_tag" class="toggle link data-count" data-count="@ctx.nbMessages" data-href="@routes.Message.preview">
+          <span class="hint--bottom-left" data-hint="@trans.inbox()">
+            <span data-icon="e"></span>
+          </span>
         </a>
         <div id="message_notifications" class="links dropdown">
           <div id="message_notifications_display" class="content"></div>
           <div class="title"><a href="@routes.Message.inbox(page=1)">@trans.inbox() »</a></div>
         </div>
       </div>
+      }
       <div class="challenge_notifications fright">
-        <a id="challenge_notifications_tag" class="toggle link none">
-          <span data-icon="U"></span>
-          <span id="nb_challenges" class="new_challenges unread">0</span>
+        <a id="challenge_notifications_tag" class="toggle link none data-count" data-count="0">
+          <span class="hint--bottom-left" data-hint="Challenges">
+            <span data-icon="U"></span>
+          </span>
         </a>
         <div id="challenge_notifications" class="links dropdown"></div>
       </div>
@@ -119,9 +129,10 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       @if(ctx.teamNbRequests > 0) {
-      <a class="fright link" href="@routes.Team.requests()">
-        @trans.teams()
-        <span id="nb_messages" class="new_messages unread">@ctx.teamNbRequests</span>
+      <a class="fright link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
+        <span class="hint--bottom-left" data-hint="@trans.teams()">
+          <span data-icon="f"></span>
+        </span>
       </a>
       }
       <div id="themepicker" class="fright">
@@ -129,10 +140,8 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
         </a>
       </div>
-      @defining(reportNbUnprocessed) { nb =>
-      @if(nb > 0) {
-      <a class="fright link text" href="@routes.Report.list" data-icon="@icon.mod"><strong>@nb</strong></a>
-      }
+      @if(isGranted(_.SeeReport)) {
+      <a class="fright link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
       }
       }
       <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>

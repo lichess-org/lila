@@ -1,7 +1,7 @@
 div.user_show div.content_box_top .connected {
   color: #759900;
 }
-div.user_show .staff {
+#lichess div.user_show .staff {
   color: #aa3333;
   font-weight: bold;
   margin-bottom: 1em;
@@ -25,6 +25,10 @@ div.user_show .fire_trophy {
   width: 70px;
   height: 80px;
 }
+div.user_show .fire_trophy.marathonTopFifty,
+div.user_show .fire_trophy.marathonTopHundred {
+  width: 40px;
+}
 div.user_show .fire_trophy span {
   transform: scale(0.35) translate(-103px, -3px);
   -webkit-transform: scale(0.35) translate(-103px, -3px);
@@ -46,7 +50,8 @@ div.user_show .fire_trophy.marathonTopTen span:hover {
   transform: scale(0.3) translate(-112px, 6px);
   -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
-div.user_show .fire_trophy.marathonTopFifty span {
+div.user_show .fire_trophy.marathonTopFifty span,
+div.user_show .fire_trophy.marathonTopHundred span {
   animation: none;
   -moz-animation: none;
   -webkit-animation: none;
@@ -65,11 +70,21 @@ div.user_show .trophy.icon3d:hover {
 div.user_show .fire_trophy.marathonTopFifty span {
   transform: scale(0.25) translate(-112px, 36px);
   -webkit-transform: scale(0.25) translate(-112px, 36px);
-  text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
+  text-shadow: 0 0 20px #ffae34, 0 0 25px #ec760c, 0 0 30px #cd4606;
 }
 div.user_show .fire_trophy.marathonTopFifty span:hover {
   transform: scale(0.25) translate(-112px, 28px);
   -webkit-transform: scale(0.25) translate(-112px, 28px);
+}
+div.user_show .fire_trophy.marathonTopHundred span {
+  transform: scale(0.2) translate(-112px, 90px);
+  -webkit-transform: scale(0.2) translate(-112px, 90px);
+  text-shadow: none;
+  color: #cd4606;
+}
+div.user_show .fire_trophy.marathonTopHundred span:hover {
+  transform: scale(0.2) translate(-112px, 60px);
+  -webkit-transform: scale(0.2) translate(-112px, 60px);
 }
 div.user_show .fire_trophy.marathonSurvivor span {
   transform: scale(0.3) translate(-112px, 14px);
@@ -127,18 +142,54 @@ div.user_show div.meat {
 div.engine_warning {
   margin: 10px 0;
 }
-div.sub_ratings > div {
-  margin: 20px 0 0 -10px;
-  white-space: nowrap;
+div.sub_ratings {
+  margin-top: 10px;
+  margin-left: -13px;
+  width: 224px;
 }
-div.sub_ratings > div::before {
+div.sub_ratings > a {
+  position: relative;
+  padding: 10px 0 10px 5px;
+  white-space: nowrap;
+  display: block;
+  transition: 0.13s;
+  cursor: default;
+}
+div.sub_ratings > a.game {
+  cursor: pointer;
+}
+div.sub_ratings > a::before {
   font-size: 40px;
   float: left;
-  margin: 1px 5px 0 0;
+  margin: -2px 5px 0 0;
   opacity: 0.6;
 }
-div.sub_ratings > div:hover::before {
-  opacity: 1;
+div.sub_ratings > a.game:hover {
+  background: #fafafa;
+  margin-left: -3px;
+}
+div.sub_ratings > a.game.active {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-right: 0;
+  margin-left: -10px;
+}
+div.sub_ratings > a > span {
+  display: block;
+  text-transform: lowercase;
+}
+div.sub_ratings > a > i {
+  position: absolute;
+  top: calc(50% - 6px);
+  right: 12px;
+  font-size: 8px;
+  opacity: 0.2;
+}
+div.sub_ratings > a:hover > i {
+  opacity: 0.6;
+}
+div.sub_ratings > a.active > i {
+  display: none;
 }
 div.sub_ratings h3 {
   font-weight: 100;
@@ -146,9 +197,6 @@ div.sub_ratings h3 {
   letter-spacing: 2px;
   margin: 0;
   display: inline-block;
-}
-div.sub_ratings h3 a:hover {
-  text-decoration: underline;
 }
 #site_header div.sub_ratings strong {
   font-weight: bold;
@@ -176,9 +224,57 @@ div.user_show .user-infos {
   width: 305px;
   height: 325px;
 }
+div.user_show .with_insights .user-infos {
+  height: 265px;
+}
 div.user_show .user-infos:hover {
   overflow-y: auto;
 }
+div.user_show .insight {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 14px;
+  width: 305px;
+  height: 60px;
+  border-top: 1px solid #c0c0c0;
+  border-left: 1px solid #c0c0c0;
+}
+div.user_show .insight .icon {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+div.user_show .insight .icon::before {
+  color: #3893E8;
+  font-size: 40px;
+  line-height: 60px;
+  opacity: 0.8;
+}
+div.user_show .insight strong {
+  color: #3893E8;
+  display: block;
+  font-weight: normal;
+  font-size: 1.5em;
+  margin: 10px 0 1px 0;
+}
+div.user_show .insight em {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 275px;
+}
+div.user_show .insight:hover {
+  background: #3893E8;
+}
+div.user_show .insight:hover,
+div.user_show .insight:hover *,
+div.user_show .insight:hover .icon::before {
+  transition: 0.13s;
+  color: #fff;
+}
+
 div.user_show .name,
 div.user_show .bio,
 div.user_show .stats,
@@ -251,6 +347,13 @@ div.user_show .mod_zone {
 div.user_show .mod_zone .actions {
   width: 100%;
   text-align: center;
+}
+div.user_show .mod_zone .neural,
+div.user_show .mod_zone .mod_roles {
+  padding: 10px 0;
+}
+div.user_show .mod_zone .neural strong {
+  display: inline;
 }
 div.user_show .mod_zone .slist {
   border: 1px solid #ccc;

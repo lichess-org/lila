@@ -41,11 +41,11 @@
   width: 239px;
   margin: 10px;
   overflow: hidden;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.13s;
 }
 #video .card:hover {
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.26), 0px 6px 15px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.26), 0 6px 15px 0 rgba(0, 0, 0, 0.22);
 }
 #video .card .img {
   width: 100%;
@@ -61,7 +61,7 @@
   display: block;
   padding: 10px 8px;
   background: #f0f0f0 linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
-  text-shadow: 0px 1px 0px #FFF;
+  text-shadow: 0 1px 0 #FFF;
   border: 1px solid #ccc;
   border-top: 0;
 }
@@ -162,7 +162,7 @@
 }
 @media (max-width: 1070px) {
 #video_side {
-  margin-left: 0px;
+  margin-left: 0;
   width: 211px;
 }
 }
@@ -213,7 +213,7 @@
 }
 #video .tag_list a:hover {
   background: #fff;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 #video .tag_list a em {
   font-weight: bold;

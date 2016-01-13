@@ -57,10 +57,10 @@ private[qa] final class DataForm(
     "vote" -> number
   ))
 
-  private val languageMessage = "I didn't understand that. Is it written in english?"
+  private val languageMessage = "I didn't understand that. Is it written in English?"
 
   private def validateLanguage(str: String) =
-    detectLanguage(str).await.??(_ == Lang("en"))
+    detectLanguage(str).awaitSeconds(5).??(_ == Lang("en"))
 }
 
 private[qa] case class QuestionData(

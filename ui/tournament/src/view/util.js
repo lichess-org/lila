@@ -58,25 +58,27 @@ module.exports = {
     ]);
   },
   currentPlayer: function(ctrl, pag) {
-    if (!ctrl.userId) return null;
+    if (!ctrl.userId || !pag.currentPageResults) return null;
     return pag.currentPageResults.filter(function(p) {
       return p.name.toLowerCase() === ctrl.userId;
     })[0] || null;
   },
-  player: function(p) {
-    var perf;
-    if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
-    else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
-    var rating = p.rating + p.perf + (p.provisional ? '?' : '');
+  player: function(p, tag) {
+    var ratingDiff, tag = tag || 'a';
+    if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);
+    else if (p.ratingDiff < 0) ratingDiff = m('span.negative[data-icon=M]', -p.ratingDiff);
+    var rating = p.rating + p.ratingDiff + (p.provisional ? '?' : '');
+    var fullName = (p.title ? p.title + ' ' : '') + p.name;
+    var attrs = {
+      class: 'ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
+    };
+    attrs[tag === 'a' ? 'href' : 'data-href'] = '/@/' + p.name;
     return {
-      tag: 'a',
-      attrs: {
-        class: 'text ulpt user_link',
-        href: '/@/' + p.name
-      },
+      tag: tag,
+      attrs: attrs,
       children: [
-        (p.title ? p.title + ' ' : '') + p.name,
-        m('span.progress', [rating, perf])
+        fullName,
+        m('span.progress', [rating, ratingDiff])
       ]
     };
   },
@@ -89,5 +91,8 @@ module.exports = {
         time: time
       });
     };
+  },
+  ratio2percent: function(r) {
+    return Math.round(100 * r) + '%';
   }
 };

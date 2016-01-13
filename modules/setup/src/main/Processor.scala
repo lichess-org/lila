@@ -6,7 +6,6 @@ import chess.{ Game => ChessGame, Board, Color => ChessColor }
 import play.api.libs.json.{ Json, JsObject }
 
 import lila.db.api._
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
 import lila.i18n.I18nDomain
 import lila.lobby.actorApi.{ AddHook, AddSeek }

@@ -26,7 +26,7 @@ object BSON {
     def write(x: DateTime) = BSONDateTime(x.getMillis)
   }
 
-  object Map {
+  object MapDocument {
 
     implicit def MapReader[V](implicit vr: BSONDocumentReader[V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {
       def read(bson: BSONDocument): Map[String, V] =
@@ -77,46 +77,21 @@ object BSON {
     }
   }
 
-  //   object MapKeyValue {
-
-  //     type K = String
-
-  //     implicit def MapReader[V](
-  //       implicit kr: BSONReader[_ <: BSONValue, K],
-  //       vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-  //       def read(bson: BSONDocument): Map[K, V] =
-  //         bson.elements.map { tuple =>
-  //           kr.asInstanceOf[BSONReader[BSONValue, K]].read(tuple._1) -> vr.asInstanceOf[BSONReader[BSONValue, V]].read(tuple._2)
-  //         }.toMap
-  //     }
-
-  //     implicit def MapWriter[V](
-  //       implicit kw: BSONWriter[K, _ <: BSONValue],
-  //       vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-  //       def write(map: Map[K, V]): BSONDocument = BSONDocument {
-  //         map.toStream.map { tuple =>
-  //           kw.write(tuple._1) -> vw.write(tuple._2)
-  //         }
-  //       }
-  //     }
-
-  //     implicit def MapHandler[V](implicit kr: BSONReader[_ <: BSONValue, K], kw: BSONWriter[K, _ <: BSONValue], vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[BSONDocument, Map[K, V]] = new BSONHandler[BSONDocument, Map[K, V]] {
-  //       private val reader = MapReader[K, V]
-  //       private val writer = MapWriter[K, V]
-  //       def read(bson: BSONDocument): Map[K, V] = reader read bson
-  //       def write(map: Map[K, V]): BSONDocument = writer write map
-  //     }
-  //   }
-
-  // List Handler
-  final class ListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) extends BSONHandler[BSONArray, List[T]] {
+  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
       reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
     }.toList
     def write(repr: List[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
-  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new ListHandler
+
+  implicit def bsonArrayToVectorHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, Vector[T]] = new BSONHandler[BSONArray, Vector[T]] {
+    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
+      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
+    }.toVector
+    def write(repr: Vector[T]) =
+      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
+  }
 
   final class Reader(val doc: BSONDocument) {
 
@@ -198,4 +173,11 @@ object BSON {
   def debugDoc(doc: BSONDocument): String = (doc.elements.toList map {
     case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
+
+  def asString(v: BSONValue): Option[String] = v match {
+    case BSONString(s) => Some(s)
+    case _             => None
+  }
+
+  def asStrings(vs: List[BSONValue]): List[String] = vs flatMap asString
 }

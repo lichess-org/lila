@@ -1,4 +1,5 @@
 var partial = require('chessground').util.partial;
+var router = require('game').router;
 var m = require('mithril');
 
 var baseSpeeds = [{
@@ -45,16 +46,16 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
-    else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url + '#' + ctrl.vm.step.ply;
+    else flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color) + '#' + ctrl.vm.step.ply;
 
     return m('div.action_menu',
       m('div.inner', [
         m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-        m('a.button.text[data-icon=m]', {
+        ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
           href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
         }, ctrl.trans('boardEditor')),
-        m('a.button.text[data-icon=U]', {
+        ctrl.ongoing ? null : m('a.button.text[data-icon=U]', {
           onclick: function() {
             $.modal($('.continue_with.' + ctrl.data.game.id));
           }
@@ -66,15 +67,58 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }) : null,
+        ctrl.hasAnyComputerAnalysis() ? [
+          (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showAutoShapes(),
+                  onchange: function(e) {
+                    ctrl.toggleAutoShapes(e.target.checked);
+                  }
+                }),
+                m('label', {
+                  'for': id
+                })
+              ]),
+              m('label', {
+                'for': id
+              }, 'Computer arrows')
+            ]);
+          })('analyse-toggle-ceval'), (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showGauge(),
+                  onchange: function(e) {
+                    ctrl.toggleGauge(e.target.checked);
+                  }
+                }),
+                m('label', {
+                  'for': id
+                })
+              ]),
+              m('label', {
+                'for': id
+              }, 'Computer gauge')
+            ]);
+          })('analyse-toggle-gauge')
+        ] : null,
         deleteButton(ctrl.data, ctrl.userId),
-        m('div.continue_with.' + ctrl.data.game.id, [
+        ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithTheMachine')),
           m('br'),
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.step.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(ctrl.data, 'friend') + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithAFriend'))
         ])

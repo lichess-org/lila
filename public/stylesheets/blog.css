@@ -37,6 +37,12 @@
 #lichess_blog .body p {
   margin: 15px 0;
 }
+#lichess_blog .body a {
+  text-decoration: underline;
+}
+#lichess_blog .body a:hover {
+  text-decoration: none;
+}
 #lichess_blog .body strong {
   font-weight: bold;
 }

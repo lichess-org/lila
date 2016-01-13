@@ -38,7 +38,7 @@ object QaAnswer extends QaController {
       forms.vote.bindFromRequest.fold(
         err => fuccess(BadRequest),
         v => api.answer.vote(answerId, me, v == 1) map {
-          case Some(vote) => Ok(html.qa.vote(routes.QaAnswer.vote(questionId, answerId).url, vote))
+          case Some(vote) => Ok(html.qa.vote(routes.QaAnswer.vote(questionId, answerId).url, vote, true))
           case None       => NotFound
         }
       )

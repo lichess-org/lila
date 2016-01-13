@@ -133,7 +133,7 @@ function renderPlayTable(ctrl) {
       m('div.table_inner', [
         m('div.current_player',
           m('div.player.' + ctrl.chessground.data.turnColor, [
-            m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+            m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
             m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
           ])
         ),
@@ -278,7 +278,6 @@ function renderHistory(ctrl) {
       context.hash = hash;
       $.ajax({
         url: '/training/history',
-        cache: false,
         success: function(html) {
           el.innerHTML = html;
         }
@@ -296,7 +295,9 @@ function wheel(ctrl, e) {
   return false;
 }
 
-var loading = m('div.loader.fast');
+function loading() {
+  return m('div.loader');
+}
 
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
@@ -310,7 +311,7 @@ module.exports = function(ctrl) {
           }
         },
         chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.vm.loading ? loading : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
+      m('div.right', ctrl.vm.loading ? loading() : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
     m('div.underboard',
       m('div.center', [

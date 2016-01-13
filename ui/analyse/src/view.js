@@ -1,10 +1,11 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var classSet = require('chessground').util.classSet;
-var defined = require('./util').defined;
-var empty = require('./util').empty;
+var classSet = chessground.util.classSet;
+var partial = chessground.util.partial;
+var util = require('./util');
+var defined = util.defined;
+var empty = util.empty;
 var game = require('game').game;
-var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
@@ -14,46 +15,43 @@ var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
-
-function renderEval(e) {
-  e = Math.round(e / 10) / 10;
-  return (e > 0 ? '+' : '') + e;
-}
+var cevalView = require('./ceval/cevalView');
+var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'eval'
-    },
+    tag: 'eval',
     children: [e]
   };
 }
 
-function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
-  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+function autoScroll(el) {
+  return util.throttle(500, false, function autoScroll() {
+    raf(function() {
+      var plyEl = el.querySelector('.active') || el.querySelector('.turn:first-child');
+      if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    });
+  });
 }
 
-var emptyMove = m('em.move.empty', '...');
+var emptyMove = m('move.empty', '...');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
   var pathStr = treePath.write(path);
+  var eval = path[1] ? {} : (move.eval || move.ceval || {});
+  var attrs = path[1] ? {
+    'data-path': pathStr
+  } : {};
+  var classes = pathStr === ctrl.vm.pathStr ? ['active'] : [];
+  if (pathStr === ctrl.vm.initialPathStr) classes.push('current');
+  if (classes.length) attrs.class = classes.join(' ');
   return {
-    tag: 'a',
-    attrs: {
-      class: classSet({
-        'move': true,
-        'active': pathStr === ctrl.vm.pathStr,
-        'current': pathStr === ctrl.vm.initialPathStr
-      }),
-      'data-path': pathStr,
-      'href': '#' + path[0].ply
-    },
+    tag: 'move',
+    attrs: attrs,
     children: [
-      defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
-        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
+      defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
+        defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
       move.san
     ]
@@ -65,9 +63,36 @@ function plyToTurn(ply) {
 }
 
 function renderVariation(ctrl, variation, path, klass) {
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: 'variation' + (klass ? ' ' + klass : '')
-  }, renderVariationContent(ctrl, variation, path));
+    class: klass + ' ' + classSet({
+      variation: true,
+      menu: showMenu
+    })
+  }, [
+    m('span', {
+      class: 'menu',
+      'data-icon': showMenu ? 'L' : '',
+      onclick: partial(ctrl.toggleVariationMenu, path)
+    }),
+    showMenu ? (function() {
+      var promotable = util.synthetic(ctrl.data) ||
+        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      return [
+        m('a', {
+          class: 'delete text',
+          'data-icon': 'q',
+          onclick: partial(ctrl.deleteVariation, path)
+        }, 'Delete variation'),
+        promotable ? m('a', {
+          class: 'promote text',
+          'data-icon': 'E',
+          onclick: partial(ctrl.promoteVariation, path)
+        }, 'Promote to main line') : null
+      ];
+    })() :
+    renderVariationContent(ctrl, variation, path)
+  ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {
@@ -88,7 +113,9 @@ function renderVariationContent(ctrl, variation, path) {
       black: move
     });
   }
-  for (i = 0, nb = variation.length; i < nb; i += 2) turns.push({
+  var visiting = treePath.contains(path, ctrl.vm.path);
+  var maxPlies = Math.min(visiting ? 999 : (path[2] ? 2 : 4), variation.length);
+  for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(variation[i].ply),
     white: variation[i],
     black: variation[i + 1]
@@ -134,7 +161,7 @@ function renderOpening(ctrl, opening) {
 function renderMeta(ctrl, move, path) {
   if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
-  opening = (move && opening && opening.size == move.ply) ? renderOpening(ctrl, opening) : null;
+  opening = (move && opening && opening.size === move.ply) ? renderOpening(ctrl, opening) : null;
   if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);
@@ -164,20 +191,14 @@ function renderMeta(ctrl, move, path) {
 
 function renderIndex(txt) {
   return {
-    tag: 'span',
-    attrs: {
-      class: 'index'
-    },
+    tag: 'index',
     children: [txt]
   };
 }
 
-function renderTurnDiv(children) {
+function renderTurnEl(children) {
   return {
-    tag: 'div',
-    attrs: {
-      class: 'turn',
-    },
+    tag: 'turn',
     children: children
   };
 }
@@ -192,20 +213,20 @@ function renderTurn(ctrl, turn, path) {
   var bMeta = renderMeta(ctrl, turn.black, bPath);
   if (wMove) {
     if (wMeta) return [
-      renderTurnDiv([index, wMove, emptyMove]),
+      renderTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
-        renderTurnDiv([index, emptyMove, bMove]),
+        renderTurnEl([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
     return [
-      renderTurnDiv([index, wMove, bMove]),
+      renderTurnEl([index, wMove, bMove]),
       bMeta
     ];
   }
   return [
-    renderTurnDiv([index, emptyMove, bMove]),
+    renderTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
 }
@@ -263,11 +284,11 @@ function renderAnalyse(ctrl) {
   }
   return m('div.analyse', {
       onmousedown: function(e) {
-        var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) {
-          e.preventDefault();
-          ctrl.userJump(treePath.read(path));
-        }
+        var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        if (el.tagName !== 'MOVE') return;
+        var path = el.getAttribute('data-path') ||
+          '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
+        if (path) ctrl.userJump(treePath.read(path));
       },
       onclick: function(e) {
         return false;
@@ -301,7 +322,7 @@ function inputs(ctrl) {
 }
 
 function visualBoard(ctrl) {
-  return m('div.lichess_board_wrap',
+  return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
         config: function(el, isUpdate) {
           if (!isUpdate) el.addEventListener('wheel', function(e) {
@@ -310,14 +331,21 @@ function visualBoard(ctrl) {
         }
       },
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl)));
+      renderPromotion(ctrl)),
+    cevalView.renderGauge(ctrl)
+  ]);
 }
 
 function blindBoard(ctrl) {
   return m('div.lichess_board_blind', [
     m('div.textual', {
       config: function(el, isUpdate) {
-        if (!isUpdate) blind.init(el, ctrl);
+        if (isUpdate) return;
+        var url = ctrl.data.player.spectator ?
+          router.game(ctrl.data, ctrl.data.player.color) :
+          router.player(ctrl.data);
+        url += '/text';
+        $(el).load(url);
       }
     }),
     chessground.view(ctrl.chessground)
@@ -345,7 +373,7 @@ function buttons(ctrl) {
           }
         };
       })),
-      ctrl.data.inGame ? null : m('a.button.menu', {
+      m('a.button.menu', {
         onclick: ctrl.actionMenu.toggle,
         class: ctrl.actionMenu.open ? 'active' : ''
       }, m('span', {
@@ -357,7 +385,13 @@ function buttons(ctrl) {
 
 module.exports = function(ctrl) {
   return [
-    m('div.top', [
+    m('div', {
+      class: classSet({
+        top: true,
+        ceval_displayed: ctrl.ceval.allowed(),
+        gauge_displayed: ctrl.showEvalGauge()
+      })
+    }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
@@ -365,21 +399,25 @@ module.exports = function(ctrl) {
         }
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-        m('div.lichess_ground',
-          ctrl.actionMenu.open ? actionMenu(ctrl) : m('div.replay', {
-              config: function(el, isUpdate) {
-                autoScroll(el);
-                if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
-              }
-            },
-            renderAnalyse(ctrl)), buttons(ctrl))
+        m('div.lichess_ground', [
+          ctrl.actionMenu.open ? actionMenu(ctrl) : [
+            cevalView.renderCeval(ctrl),
+            m('div.replay', {
+                config: function(el, isUpdate) {
+                  if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
+                }
+              },
+              renderAnalyse(ctrl))
+          ],
+          buttons(ctrl)
+        ])
       ])
     ]),
     m('div.underboard', [
       m('div.center', inputs(ctrl)),
       m('div.right')
     ]),
-    ctrl.data.game.id === 'synthetic' ? null : m('div.analeft', [
+    util.synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {

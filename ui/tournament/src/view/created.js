@@ -31,12 +31,11 @@ module.exports = {
     return [
       startingMoment(ctrl.data),
       util.title(ctrl),
-      m('div.standing_wrap',
-        pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
-        })),
-      m('br'),
-      m('br'),
+      arena.standing(ctrl, pag, 'created'),
+      m('blockquote.pull-quote', [
+          m('p', ctrl.data.quote.text),
+          m('footer', ctrl.data.quote.author)
+      ]),
       m('div.content_box_content', {
         config: function(el, isUpdate) {
           if (!isUpdate) $(el).html($('#tournament_faq').show());

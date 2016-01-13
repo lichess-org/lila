@@ -12,7 +12,7 @@ private[setup] case object ApiConfig extends Config with GameGenerator {
   val variant = chess.variant.Standard
   val mode = Mode.Casual
   val timeMode = TimeMode.Unlimited
-  val time = 5
+  val time = 5d
   val increment = 8
   val days = 2
 

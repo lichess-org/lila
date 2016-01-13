@@ -4,16 +4,18 @@
 
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
-@jsRoutes()
 @embedJs {
 $(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
-routes: roundRoutes.controllers,
 i18n: @jsI18n()
 });
 });
 }
+}
+
+@atom = {
+<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
 }
 
 @round.layout(
@@ -23,7 +25,8 @@ chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
-chessground = false) {
+chessground = false,
+atom = atom.some) {
 <div class="round cg-512">@miniBoardContent</div>
 @cross.map { c =>
 <div class="crosstable" style="display:none">

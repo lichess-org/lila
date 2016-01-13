@@ -39,19 +39,37 @@ object Tv extends LilaController {
           Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             Env.game.crosstableApi(game) zip
             Env.tv.tv.getChampions map {
-              case ((data, cross), champions) =>
+              case ((data, cross), champions) => NoCache {
                 Ok(html.tv.index(channel, champions, pov, data, cross, flip))
+              }
             }
         },
         api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
       )
     }
 
+  def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
+
+  def gamesChannel(chanKey: String) = Open { implicit ctx =>
+    (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessGames)
+  }
+
+  private def lichessGames(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
+    Env.tv.tv.getChampions zip
+      Env.tv.tv.getGames(channel, 9) map {
+        case (champs, games) => NoCache {
+          Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
+        }
+      }
+
   def streamIn(id: String) = Open { implicit ctx =>
-    Env.tv.streamsOnAir flatMap { streams =>
-      streams find (_.id == id) match {
-        case None    => notFound
-        case Some(s) => fuccess(Ok(html.tv.stream(s, streams filterNot (_.id == id))))
+    OptionFuResult(Env.tv.streamerList find id) { streamer =>
+      Env.tv.streamsOnAir.all flatMap { streams =>
+        val others = streams.filter(_.id != id)
+        streams find (_.id == id) match {
+          case None    => fuccess(Ok(html.tv.notStreaming(streamer, others)))
+          case Some(s) => fuccess(Ok(html.tv.stream(s, others)))
+        }
       }
     }
   }
@@ -65,6 +83,24 @@ object Tv extends LilaController {
     Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
       manifest[TvBroadcast.EnumeratorType] map { enum =>
         Ok.chunked(enum &> EventSource()).as("text/event-stream")
+      }
+  }
+
+  def streamConfig = Auth { implicit ctx =>
+    me =>
+      Env.tv.streamerList.store.get.map { text =>
+        Ok(html.tv.streamConfig(Env.tv.streamerList.form.fill(text)))
+      }
+  }
+
+  def streamConfigSave = SecureBody(_.StreamConfig) { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      FormFuResult(Env.tv.streamerList.form) { err =>
+        fuccess(html.tv.streamConfig(err))
+      } { text =>
+        Env.tv.streamerList.store.set(text) >>
+          Env.mod.logApi.streamConfig(me.id) inject Redirect(routes.Tv.streamConfig)
       }
   }
 

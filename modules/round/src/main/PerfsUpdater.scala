@@ -7,7 +7,7 @@ import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov, PerfPicker }
 import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, PerfType => PT }
 import lila.user.{ UserRepo, User, Perfs }
 
 final class PerfsUpdater(historyApi: HistoryApi) {
@@ -133,17 +133,17 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       correspondence = (isStd && speed == Speed.Correspondence).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
     val r = lila.rating.Regulator
     val perfs2 = perfs1.copy(
-      chess960 = r(perfs.chess960, perfs1.chess960),
-      kingOfTheHill = r(perfs.kingOfTheHill, perfs1.kingOfTheHill),
-      threeCheck = r(perfs.threeCheck, perfs1.threeCheck),
-      antichess = r(perfs.antichess, perfs1.antichess),
-      atomic = r(perfs.atomic, perfs1.atomic),
-      horde = r(perfs.horde, perfs1.horde),
-      racingKings = r(perfs.racingKings, perfs1.racingKings),
-      bullet = r(perfs.bullet, perfs1.bullet),
-      blitz = r(perfs.blitz, perfs1.blitz),
-      classical = r(perfs.classical, perfs1.classical),
-      correspondence = r(perfs.correspondence, perfs1.correspondence))
+      chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
+      kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
+      threeCheck = r(PT.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
+      antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
+      atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
+      horde = r(PT.Horde, perfs.horde, perfs1.horde),
+      racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
+      bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
+      blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
+      classical = r(PT.Classical, perfs.classical, perfs1.classical),
+      correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence))
     if (isStd) perfs2.updateStandard else perfs2
   }
 

@@ -59,8 +59,7 @@ private[opening] final class OpeningApi(
 
     def playedIds(user: User, max: Int): Fu[BSONArray] = {
       val col = attemptColl
-      import col.BatchCommands.AggregationFramework,
-        AggregationFramework.{ Group, Limit, Match, Push }
+      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Group, Limit, Match, Push }
 
       val playedIdsGroup =
         Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))

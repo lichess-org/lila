@@ -2,11 +2,11 @@ package controllers
 
 import scala.util.{ Try, Success, Failure }
 
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
-import play.twirl.api.Html
 import play.api.Play.current
-import play.api.i18n.Messages.Implicits._
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
@@ -65,8 +65,15 @@ object Puzzle extends LilaController {
 
   def history = Auth { implicit ctx =>
     me =>
-      XhrOnly {
-        env userInfos me map { ui => Ok(views.html.puzzle.history(ui)) }
+      env userInfos me flatMap { ui =>
+        negotiate(
+          html = XhrOnly {
+            fuccess { Ok(views.html.puzzle.history(ui)) }
+          },
+          api = _ => fuccess {
+            Ok(JsData history ui)
+          }
+        )
       }
   }
 
@@ -86,7 +93,7 @@ object Puzzle extends LilaController {
     me =>
       implicit val req = ctx.body
       env.forms.difficulty.bindFromRequest.fold(
-        err => fuccess(BadRequest(err.errorsAsJson)),
+        err => fuccess(BadRequest(errorsAsJson(err))),
         value => Env.pref.api.setPref(
           me,
           (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value),
@@ -110,7 +117,7 @@ object Puzzle extends LilaController {
     implicit val req = ctx.body
     OptionFuResult(env.api.puzzle find id) { puzzle =>
       env.forms.attempt.bindFromRequest.fold(
-        err => fuccess(BadRequest(err.errorsAsJson)),
+        err => fuccess(BadRequest(errorsAsJson(err))),
         data => ctx.me match {
           case Some(me) => env.finisher(puzzle, me, data) flatMap {
             case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
@@ -147,7 +154,7 @@ object Puzzle extends LilaController {
       implicit val req = ctx.body
       OptionFuResult(env.api.attempt.find(id, me.id)) { attempt =>
         env.forms.vote.bindFromRequest.fold(
-          err => fuccess(BadRequest(err.errorsAsJson)),
+          err => fuccess(BadRequest(errorsAsJson(err))),
           vote => env.api.attempt.vote(attempt, vote == 1) map {
             case (p, a) => Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
           }

@@ -5,6 +5,7 @@ import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 import play.api.Play.current
+import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -17,6 +18,8 @@ import views._
 object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
+
+  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute)
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
@@ -96,17 +99,6 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  // if request comes from mobile
-  // and the hook is casual,
-  // reuse the saved "membersOnly" value
-  // from the site preferred hook setup
-  private def mobileHookAllowAnon(config: HookConfig)(implicit ctx: Context): Fu[HookConfig] =
-    if (lila.api.Mobile.Api requested ctx.req)
-      env.forms.hookConfig map { saved =>
-        config.copy(allowAnon = saved.allowAnon)
-      }
-    else fuccess(config)
-
   private def hookResponse(hookId: String) =
     Ok(Json.obj(
       "ok" -> true,
@@ -114,31 +106,34 @@ object Setup extends LilaController with TheftPrevention {
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    NoPlaybanOrCurrent {
-      env.forms.hook(ctx).bindFromRequest.fold(
-        err => negotiate(
-          html = BadRequest(err.errorsAsJson.toString).fuccess,
-          api = _ => BadRequest(err.errorsAsJson).fuccess),
-        preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
-          mobileHookAllowAnon(preConfig) flatMap {
-            case (blocking, config) =>
+    PostRateLimit(req.remoteAddress) {
+      NoPlaybanOrCurrent {
+        env.forms.hook(ctx).bindFromRequest.fold(
+          err => negotiate(
+            html = BadRequest(errorsAsJson(err).toString).fuccess,
+            api = _ => BadRequest(errorsAsJson(err)).fuccess),
+          config => (ctx.userId ?? Env.relation.api.blocking) flatMap {
+            blocking =>
               env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
                 case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
               }
           }
-      )
+        )
+      }
     }
   }
 
   def like(uid: String, gameId: String) = Open { implicit ctx =>
-    NoPlaybanOrCurrent {
-      env.forms.hookConfig flatMap { config =>
-        GameRepo game gameId map {
-          _.fold(config)(config.updateFrom)
-        } flatMap { config =>
-          (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
-            env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
-              case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+    PostRateLimit(ctx.req.remoteAddress) {
+      NoPlaybanOrCurrent {
+        env.forms.hookConfig flatMap { config =>
+          GameRepo game gameId map {
+            _.fold(config)(config.updateFrom)
+          } flatMap { config =>
+            (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
+              env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
+                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+              }
             }
           }
         }
@@ -228,7 +223,7 @@ object Setup extends LilaController with TheftPrevention {
       form(ctx).bindFromRequest.fold(
         f => negotiate(
           html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(f.errorsAsJson))
+          api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ),
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(

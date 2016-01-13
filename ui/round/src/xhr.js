@@ -1,4 +1,5 @@
 var m = require('mithril');
+var router = require('game').router;
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -15,8 +16,7 @@ function reload(ctrl) {
     url: uncache(ctrl.data.url.round),
     config: xhrConfig
   });
-  req.then(function() {
-  }, function(err) {
+  req.then(function() {}, function(err) {
     lichess.reload();
   });
   return req;
@@ -25,7 +25,7 @@ function reload(ctrl) {
 function whatsNext(ctrl) {
   return m.request({
     method: 'GET',
-    url: uncache(ctrl.router.Round.whatsNext(ctrl.data.game.id).url),
+    url: uncache('/whats-next/' + ctrl.data.game.id + ctrl.data.player.id),
     config: xhrConfig
   });
 }

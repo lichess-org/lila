@@ -15,7 +15,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
   // the game featured on this channel
   private var oneId = none[String]
 
-  // the list of candidates by descending interest order
+  // the list of candidates by descending rating order
   private var manyIds = List.empty[String]
 
   def receive = {
@@ -35,7 +35,9 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
         case Some(game) => rematch(game) orElse feature(candidates) foreach elect
         case _          => feature(candidates) foreach elect
       }
-      manyIds = candidates.sortBy(-score(_)).map(_.id)
+      manyIds = candidates.sortBy { g =>
+        -(~g.averageUsersRating)
+      }.map(_.id)
     }
   }
 

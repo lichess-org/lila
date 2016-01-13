@@ -95,7 +95,7 @@ object GreatPlayer {
     "Cozio" -> "Carlo_Cozio",
     "Cvitan" -> "Ognjen_Cvitan",
     "Czerniak" -> "Moshe_Czerniak",
-    "Damant" -> "Andr%C3%A9_Diamant",
+    "Diamant" -> "Andr%C3%A9_Diamant",
     "Damiano" -> "Pedro_Damiano",
     "Damjanović" -> "Mato_Damjanovi%C4%87",
     "de Firmian" -> "Nick_de_Firmian",

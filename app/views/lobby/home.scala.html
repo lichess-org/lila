@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -43,7 +43,7 @@
   @trans.nbConnectedPlayers("<strong>?</strong>")
 </a>
 <br />
-<a id="nb_games_in_play" href="@routes.Game.playing">
+<a id="nb_games_in_play" href="@routes.Tv.games">
   @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
 </a>
 @if(lila.common.HTTPRequest.isMobile(ctx.req)) {
@@ -62,6 +62,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.lobby = {
+perfIcons: @nonPuzzlePerfTypeNameIcons,
 data: @Html(J.stringify(data)),
 playban: @playban.fold(Html("null")){ pb =>
 @Html(J.stringify(J.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
@@ -113,7 +114,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
 }
 <div class="undertable">
   <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home">@trans.more() »</a>
+    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home()">@trans.more() »</a>
     <span class="title text" data-icon="g">@trans.openTournaments()</span>
   </div>
   <div id="enterable_tournaments" class="enterable_list undertable_inner scroll-shadow-hard">
@@ -139,14 +140,14 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       <div class="undertable_inner scroll-shadow-hard">
         <table>
           <tbody>
-            @leaderboard.map {
-            case (u, pt) => {
+            @leaderboard.map { l =>
             <tr>
-              <td>@userLink(u)</td>
-              <td>@showPerfRating(u, pt, klass = "title")</td>
-              <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
+              <td>@lightUserLink(l.user)</td>
+              @lila.rating.PerfType(l.perfKey).map { pt =>
+              <td data-icon="@pt.iconChar">@l.rating</td>
+              }
+              <td>@showProgress(l.progress, withTitle = false)</td>
             </tr>
-            }
             }
           </tbody>
         </table>
@@ -190,7 +191,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
 @if(lastPost.nonEmpty) {
 <div class="blog undertable">
   <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
+    <a class="more hint--bottom" data-hint="@trans.blog()" href="@routes.Blog.index()">@trans.more() »</a>
     <span class="title" data-icon="6"> @trans.latestUpdates()</span>
   </div>
   <div class="undertable_inner">

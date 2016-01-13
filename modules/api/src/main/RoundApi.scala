@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ TournamentRepo, Tournament }
+import lila.tournament.{ TournamentRepo, Tournament, SecondsToDoFirstMove }
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -19,6 +19,7 @@ private[api] final class RoundApi(
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     analysisApi: AnalysisApi,
+    bookmarkApi: lila.bookmark.BookmarkApi,
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
@@ -29,13 +30,16 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (pov.game.simulId ?? getSimul) zip
-        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case (((json, tourOption), simulOption), note) => (
+        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
+        forecastApi.loadForDisplay(pov) map {
+          case ((((json, tourOption), simulOption), note), forecast) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withSteps(pov, none, initialFen)_ compose
-            withNote(note)_
+            withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
+            withForecastCount(forecast.map(_.steps.size))_
           )(json)
         }
     }
@@ -57,6 +61,7 @@ private[api] final class RoundApi(
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_
           )(json)
@@ -67,8 +72,7 @@ private[api] final class RoundApi(
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
         withSteps(pov, none, initialFen)_ map
-        withUserAnalysisGame(pov)_ map
-        withForecast(pov, fco)_
+        withForecast(pov, owner, fco)_
     }
 
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
@@ -82,16 +86,23 @@ private[api] final class RoundApi(
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
-  private def withUserAnalysisGame(pov: Pov)(json: JsObject) =
-    json ++ Json.obj(
-      "inGame" -> true,
-      "path" -> pov.game.turns)
+  private def withBookmark(v: Boolean)(json: JsObject) =
+    if (v) json else json + ("bookmarked" -> JsBoolean(true))
 
-  private def withForecast(pov: Pov, fco: Option[Forecast])(json: JsObject) =
-    if (pov.forecastable) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-      import Forecast.forecastJsonWriter
-      Json toJson fc
-    })
+  private def withForecastCount(count: Option[Int])(json: JsObject) =
+    count.filter(0 !=).fold(json) { c =>
+      json + ("forecastCount" -> JsNumber(c))
+    }
+
+  private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
+    if (pov.game.forecastable && owner) json + (
+      "forecast" -> {
+        if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+          import Forecast.forecastJsonWriter
+          Json toJson fc
+        }
+        else Json.obj("onMyTurn" -> true)
+      })
     else json
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
@@ -107,7 +118,8 @@ private[api] final class RoundApi(
         "id" -> tour.id,
         "name" -> tour.name,
         "running" -> tour.isStarted,
-        "berserkable" -> tour.berserkable
+        "berserkable" -> tour.berserkable,
+        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(tour)
       ))
     }
 

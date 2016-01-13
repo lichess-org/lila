@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._, Results._
 
+import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.db.api.$find
@@ -67,33 +68,37 @@ object Account extends LilaController {
       }
   }
 
-  private def emailForm(id: String) = UserRepo email id map { email =>
-    Env.security.forms.changeEmail.fill(
+  private def emailForm(user: UserModel) = UserRepo email user.id map { email =>
+    Env.security.forms.changeEmail(user).fill(
       lila.security.DataForm.ChangeEmail(~email, ""))
   }
 
   def email = Auth { implicit ctx =>
     me =>
-      emailForm(me.id) map { form =>
+      emailForm(me) map { form =>
         Ok(html.account.email(me, form))
       }
   }
 
   def emailApply = AuthBody { implicit ctx =>
     me =>
-      implicit val req = ctx.body
-      FormFuResult(Env.security.forms.changeEmail) { err =>
-        fuccess(html.account.email(me, err))
-      } { data =>
-        val email = Env.security.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-        for {
-          ok ← UserRepo.checkPassword(me.id, data.passwd)
-          _ ← ok ?? UserRepo.email(me.id, email)
-          form <- emailForm(me.id)
-        } yield {
-          val content = html.account.email(me, form, ok.some)
-          ok.fold(Ok(content), BadRequest(content))
-        }
+      UserRepo hasEmail me.id flatMap {
+        case true => notFound
+        case false =>
+          implicit val req = ctx.body
+          FormFuResult(Env.security.forms.changeEmail(me)) { err =>
+            fuccess(html.account.email(me, err))
+          } { data =>
+            val email = Env.security.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+            for {
+              ok ← UserRepo.checkPassword(me.id, data.passwd)
+              _ ← ok ?? UserRepo.email(me.id, email)
+              form <- emailForm(me)
+            } yield {
+              val content = html.account.email(me, form, ok.some)
+              ok.fold(Ok(content), BadRequest(content))
+            }
+          }
       }
   }
 
@@ -130,5 +135,25 @@ object Account extends LilaController {
     me =>
       implicit val req = ctx.req
       (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
+  }
+
+  private def currentSessionId(implicit ctx: Context) =
+    ~Env.security.api.reqSessionId(ctx.req)
+
+  def security = Auth { implicit ctx =>
+    me =>
+      Env.security.api.dedup(me.id, ctx.req) >>
+        Env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
+          Ok(html.account.security(me, sessions, currentSessionId))
+        }
+  }
+
+  def signout(sessionId: String) = Auth { implicit ctx =>
+    me =>
+      if (sessionId == "all")
+        lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+          Redirect(routes.Account.security)
+      else
+        lila.security.Store.closeUserAndSessionId(me.id, sessionId)
   }
 }

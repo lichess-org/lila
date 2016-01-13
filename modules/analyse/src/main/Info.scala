@@ -18,7 +18,7 @@ case class Info(
 
   def encode: String = List(
     best ?? (_.keysPiotr),
-    variation mkString " ",
+    variation take Info.LineMaxPlies mkString " ",
     mate ?? (_.toString),
     score ?? (_.centipawns.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
@@ -34,10 +34,18 @@ case class Info(
 
   def isEmpty = score.isEmpty && mate.isEmpty
 
+  def forceCentipawns: Option[Int] = mate match {
+    case None             => score.map(_.centipawns)
+    case Some(m) if m < 0 => Some(Int.MinValue - m)
+    case Some(m)          => Some(Int.MaxValue - m)
+  }
+
   override def toString = s"Info $color [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
 }
 
 object Info {
+
+  val LineMaxPlies = 16
 
   private val separator = ","
   private val listSeparator = ";"

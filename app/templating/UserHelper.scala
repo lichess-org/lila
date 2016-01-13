@@ -191,14 +191,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     userId: String,
     rating: Option[Int],
     cssClass: Option[String] = None,
-    title: Option[String] = None,
+    withTitle: Boolean = false,
     withOnline: Boolean = true) = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(name)
     val content = rating.fold(name)(e => s"$name&nbsp;($e)")
-    val titleS = titleTag(title)
+    val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle)
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
     Html(s"""<a$dataIcon $klass $href>$space$titleS$content</a>""")
@@ -287,5 +287,5 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"$name played $nbGames games since $createdAt.$currentRating"
   }
 
-  private val donorBadge = """<span data-icon="&#xe001;" class="donor is-gold"></span>"""
+  private val donorBadge = """<span data-icon="&#xe001;" class="donor is-gold" title="Lichess donor"></span>"""
 }

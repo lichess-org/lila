@@ -10,11 +10,17 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes = 0 to 7 by 1
-  val clockTimesPrivate = clockTimes ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockTimeDefault = 2
-  val clockTimeChoices = options(clockTimes, "%d minute{s}")
-  val clockTimePrivateChoices = options(clockTimesPrivate, "%d minute{s}")
+  import DataForm._
+
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
+  val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
+  val clockTimeDefault = 2d
+  private def formatLimit(l: Double) =
+    chess.Clock.showLimit(l * 60 toInt) + {
+      if (l <= 1) " minute" else " minutes"
+    }
+  val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
+  val clockTimePrivateChoices = optionsDouble(clockTimesPrivate, formatLimit)
 
   val clockIncrements = 0 to 2 by 1
   val clockIncrementsPrivate = clockIncrements ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
@@ -28,7 +34,7 @@ final class DataForm {
   val minuteChoices = options(minutes, "%d minute{s}")
   val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
-  val waitMinutes = Seq(1, 2, 5, 10)
+  val waitMinutes = Seq(1, 2, 5, 10, 15, 20, 30, 45, 60, 90, 120)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 2
 
@@ -39,13 +45,11 @@ final class DataForm {
   val positionDefault = StartingPosition.initial.eco
 
   lazy val create = Form(mapping(
-    "clockTime" -> numberIn(clockTimePrivateChoices),
+    "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> numberIn(waitMinuteChoices),
-    "variant" -> number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id,
-      chess.variant.KingOfTheHill.id, chess.variant.ThreeCheck.id, chess.variant.Antichess.id,
-      chess.variant.Atomic.id, chess.variant.Horde.id, chess.variant.RacingKings.id) contains _),
+    "variant" -> number.verifying(validVariantIds contains _),
     "position" -> nonEmptyText.verifying(positions contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _))
@@ -63,8 +67,16 @@ final class DataForm {
     mode = Mode.Rated.id.some)
 }
 
+object DataForm {
+
+  val validVariants = List(chess.variant.Standard, chess.variant.Chess960, chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck, chess.variant.Antichess, chess.variant.Atomic, chess.variant.Horde)
+
+  val validVariantIds = validVariants.map(_.id).toSet
+}
+
 private[tournament] case class TournamentSetup(
-    clockTime: Int,
+    clockTime: Double,
     clockIncrement: Int,
     minutes: Int,
     waitMinutes: Int,

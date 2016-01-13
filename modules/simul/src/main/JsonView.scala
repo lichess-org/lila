@@ -6,6 +6,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
+import lila.quote.Quote.quoteWriter
 
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
@@ -30,7 +31,8 @@ final class JsonView(
         "pairings" -> simul.pairings.sortBy(-_.player.rating).map(pairingJson(games, simul.hostId)),
         "isCreated" -> simul.isCreated,
         "isRunning" -> simul.isRunning,
-        "isFinished" -> simul.isFinished)
+        "isFinished" -> simul.isFinished,
+        "quote" -> lila.quote.Quote.one(simul.id))
     }
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(

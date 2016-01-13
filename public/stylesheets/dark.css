@@ -1,6 +1,6 @@
 body.dark {
   background-color: #1a1a1a;
-  background-image: linear-gradient(to bottom, #2c2c2c 0%, #1a1a1a 116px);
+  background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
   color: #8c8c8c;
 }
 body.dark a,
@@ -65,6 +65,10 @@ body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
 body.dark #tournament_side,
+body.dark #tournament_side .player .stats,
+body.dark #tournament_side .player tr > *,
+body.dark #tournament_side .player tr:hover th,
+body.dark .lichess_ground .ceval_box,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
@@ -73,6 +77,7 @@ body.dark div.content_box_inter a:hover,
 body.dark input.copyable,
 body.dark textarea.copyable,
 body.dark #site_header div.side_menu a.active,
+body.dark div.sub_ratings > a.active,
 body.dark div.game_row,
 body.dark div.side form.search input,
 body.dark #lichess_forum div.post,
@@ -102,10 +107,14 @@ body.dark #team .team-left,
 body.dark #team .team-right,
 body.dark #team h2,
 body.dark #team.team_show div.content_box_top,
+body.dark #perfStat div.content_box_top,
+body.dark #perfStat .counter tr:first-child,
+body.dark #perfStat .result thead tr,
 body.dark .leaderboard_title,
 body.dark #friend_box,
 body.dark #friend_box .title,
 body.dark div.user_show div.user-infos,
+body.dark div.user_show .insight,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #miniGame,
@@ -117,7 +126,6 @@ body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a,
 body.dark #hooks_wrap .hooks_chart > div.grid,
-body.dark #tournament_schedule .timeheader,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -147,12 +155,14 @@ body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
+body.dark div.search_status,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
+body.dark #perfStat .counter tr.full td:last-child,
 body.dark #modal-wrap {
   background-color: #303030;
 }
@@ -164,6 +174,11 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+
+body.dark .pull-quote p,
+body.dark .pull-quote p:after,
+body.dark #powerTip > .info .title,
+body.dark #tournament_schedule .timeheader,
 body.dark #opening .meter .step {
   border-color: #505050;
 }
@@ -192,6 +207,7 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
+body.dark .lichess_ground .analyse .meta > .menu,
 body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
@@ -208,6 +224,7 @@ body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
+body.dark div.sub_ratings > a.game:hover,
 body.dark #hooks_wrap .table_wrap td,
 body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
@@ -218,7 +235,8 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 }
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
-body.dark .lichess_ground .replay .move.current {
+body.dark .lichess_ground .replay move.current,
+body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #top a.signin,
@@ -243,17 +261,19 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark .lichess_ground .replay .turn .index,
+body.dark .lichess_ground .replay index,
+body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .analyse .meta,
-body.dark .lichess_ground .replay a.move:hover,
-body.dark .lichess_ground .replay td.move:hover,
+body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
 body.dark div.lichess_overboard,
 body.dark div.content_box,
+body.dark .content_box .pull-quote p:after,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
+body.dark div.sub_ratings > a.game.active,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
@@ -261,10 +281,13 @@ body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.dark #video_side .tag_list a.checked,
 body.dark div.lichess_overboard .loader:before,
 body.dark div.lichess_overboard .loader:after,
+body.dark div.lichess_overboard .pull-quote p:after,
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
+body.dark #perfStat .counter tr,
+body.dark #perfStat .result tr,
 body.dark #video .card .info,
 body.dark #video .card .reveal,
 body.dark #timeline,
@@ -274,7 +297,7 @@ body.dark #timeline .entry {
 body.dark #site_header div.side_menu a.active,
 body.dark #hooks_wrap .table_wrap,
 body.dark div.content_box h1 {
-  text-shadow: 0px 1px 0px #000;
+  text-shadow: 0 1px 0 #000;
 }
 body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
@@ -287,7 +310,9 @@ body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
-body.dark div.search_status,
+body.dark #tournament_side .player h2,
+body.dark #tournament_side .player .stats,
+body.dark #tournament_side .pairings tr:hover,
 body.dark #friend_box,
 body.dark #powerTip,
 body.dark #miniGame {
@@ -318,8 +343,8 @@ body.dark #miniGame {
 }
 body.dark div.content_box_top {
   background-color: #343434;
-  background-image: linear-gradient(to bottom, #3a3a3a 0%, #343434 100%);
-  text-shadow: 0px 1px 0px #000;
+  background-image: linear-gradient(to bottom, #3a3a3a, #343434 100%);
+  text-shadow: 0 1px 0 #000;
 }
 /* soft inactive gradient */
 
@@ -341,8 +366,8 @@ body.dark #video .card .info,
 body.dark #video .card .reveal,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
-  background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
-  text-shadow: 0px 1px 0px #000;
+  background: linear-gradient(to bottom, rgba(40, 40, 40, 1), rgba(34, 34, 34, 1) 100%);
+  text-shadow: 0 1px 0 #000;
 }
 body.dark .button,
 body.dark a.button,
@@ -357,15 +382,19 @@ body.dark a.button:hover,
 body.dark .ui-state-hover {
   border-color: #383838;
   background: rgb(44, 44, 44);
-  background: -moz-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(44, 44, 44, 1)), color-stop(100%, rgba(40, 40, 40, 1)));
-  background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
+}
+body.dark .button.active-soft,
+body.dark .button.active-soft:hover {
+  color: #ccc !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #444 !important;
+  border-color: #404040 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35) inset !important;
 }
 body.dark #hooks_wrap .hooks_chart .plot {
   color: #aaa;
-  text-shadow: 0px 0px 3px #000;
+  text-shadow: 0 0 3px #000;
 }
 body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
@@ -373,6 +402,8 @@ body.dark #hooks_wrap .hooks_chart > span.label {
 body.dark .loader {
   box-shadow: inset 0 0 0 1em #444;
 }
+
+body.dark .pull-quote p:after,
 body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
@@ -397,10 +428,10 @@ body.dark #top .dropdown {
   border-top: 0;
   right: -1px;
 }
-body.pirouetti.dark div.cemetery div.cg-piece.black {
+body.pirouetti.dark div.cemetery piece.black {
   -webkit-filter: brightness(2) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
-body.alpha.dark div.cemetery div.cg-piece.black {
+body.alpha.dark div.cemetery piece.black {
   -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
 body.dark .scroll-shadow-soft,
@@ -420,7 +451,7 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-attachment: local, local, scroll, scroll;
 }
 body.dark div.side_box div.game_infos .bookmark {
-  background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1) 0%, rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1), rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5)!important;
@@ -431,13 +462,13 @@ body.dark .is.color-icon.white::before {
 body.dark .is.color-icon.black::before {
   content: 'K';
 }
-body.dark::-webkit-input-placeholder {
+body.dark ::-webkit-input-placeholder {
   color: #666!important;
 }
-body.dark::-moz-placeholder {
+body.dark ::-moz-placeholder {
   color: #666!important;
 }
-body.dark:-ms-input-placeholder {
+body.dark :-ms-input-placeholder {
   color: #666!important;
 }
 body.dark #lobby_playban,
@@ -479,7 +510,7 @@ body.dark #fpmenu .perf::before {
 }
 body.dark #topmenu section > a {
   color: #777;
-  text-shadow: 0px 1px 1px #000;
+  text-shadow: 0 1px 1px #000;
 }
 body.dark #topmenu section:hover > a {
   background: #2b2b2b;
@@ -495,9 +526,9 @@ body.dark #topmenu div a:hover {
   color: #b0b0b0;
 }
 body.dark .variant_icons span {
-  text-shadow: 0px 0px 5px #000,
-  0px 0px 10px #000,
-  0px 0px 20px #000;
+  text-shadow: 0 0 5px #000,
+  0 0 10px #000,
+  0 0 20px #000;
 }
 body.dark #tv_channels > a:hover {
   background: #333;
@@ -513,6 +544,32 @@ body.dark .fire_trophy.wayOfBerserk span {
 body.dark ol.scheduled_tournaments li.marathon {
   background: #2a2a2a;
   box-shadow: 0 0 9px rgba(0,0,0,0.9);
+}
+body.dark div.eval_gauge  {
+  background: #a0a0a0;
+}
+body.dark div.eval_gauge .black {
+  background: #666;
+}
+body.dark div.eval_gauge tick {
+  border-color: #a0a0a0;
+}
+body.dark .square-spin {
+  background: #666;
+  border-color: #aaa;
+}
+body.dark input.cmn-toggle-round + label {
+  background-color: #888;
+}
+body.dark input.cmn-toggle-round + label:before {
+  background-color: #555;
+}
+body.dark input.cmn-toggle-round + label:after {
+  background-color: #aaa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+body.dark input.cmn-toggle-round:checked + label:before {
+  background-color: #75aa00;
 }
 body.dark ::-webkit-scrollbar,
 body.dark ::-webkit-scrollbar-corner {

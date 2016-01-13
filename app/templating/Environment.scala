@@ -36,7 +36,6 @@ object Environment
     with SecurityHelper
     with TeamHelper
     with AnalysisHelper
-    with IRCHelper
     with TournamentHelper
     with SimulHelper {
 
@@ -48,7 +47,6 @@ object Environment
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  val portsString = apiEnv.Net.ExtraPorts mkString ","
 
   def isProd = apiEnv.isProd
 
@@ -58,8 +56,7 @@ object Environment
     "Due to temporary maintenance on the servers, only casual games are available."
   }
 
-  def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
-    isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
+  def reportNbUnprocessed: Int = lila.report.Env.current.api.nbUnprocessed.await
 
   val openingBrace = "{"
   val closingBrace = "}"
@@ -68,6 +65,15 @@ object Environment
     val dev = Html("&#xe000;")
     val donator = Html("&#xe001;")
     val mod = Html("&#xe002;")
+  }
+
+  val nonPuzzlePerfTypeNameIcons = {
+    import play.api.libs.json.Json
+    Html {
+      Json stringify {
+        Json toJson lila.rating.PerfType.nonPuzzleIconByName
+      }
+    }
   }
 
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =

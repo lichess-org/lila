@@ -17,13 +17,34 @@ module.exports = function(cfg, saveUrl) {
     return fc1.length >= fc2.length && keyOf(fc1).indexOf(keyOf(fc2)) === 0;
   };
 
+  var findStartingWithStep = function(step) {
+    return forecasts.filter(function(fc) {
+      return contains(fc, [step]);
+    });
+  };
+
   var collides = function(fc1, fc2) {
-    return fc1.length === fc2.length && keyOf(fc1.slice(0, -1)).indexOf(keyOf(fc2.slice(0, -1))) === 0;
+    var res = (function() {
+      for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
+        if (fc1[i].uci !== fc2[i].uci) {
+          if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
+          return i % 2 === 1;
+        }
+      }
+      return true;
+    })();
+    return res;
   };
 
   var truncate = function(fc) {
+    if (cfg.onMyTurn)
+      return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
+  };
+
+  var isLongEnough = function(fc) {
+    return fc.length >= (cfg.onMyTurn ? 1 : 2);
   };
 
   var fixAll = function() {
@@ -42,28 +63,54 @@ module.exports = function(cfg, saveUrl) {
   };
   fixAll();
 
+  var reloadToLastPly = function() {
+    loading(true);
+    m.redraw();
+    if (window.history.replaceState) window.history.replaceState(null, null, '#last');
+    location.reload();
+  };
+
   var isCandidate = function(fc) {
     fc = truncate(fc);
-    if (fc.length < 2) return false;
+    if (!isLongEnough(fc)) return false;
     var collisions = forecasts.filter(function(f) {
       return contains(f, fc);
     });
     if (collisions.length) return false;
-    var incomplete = fc.filter(function(s) {
-      return !s.dests;
-    });
-    if (incomplete.length) return false;
     return true;
   };
 
   var save = function() {
+    if (cfg.onMyTurn) return;
     loading(true);
+    m.redraw();
     m.request({
       method: 'POST',
       url: saveUrl,
       data: forecasts
     }).then(function(data) {
-      if (data.reload) location.reload();
+      if (data.reload) reloadToLastPly();
+      else {
+        loading(false);
+        forecasts = data.steps || [];
+      }
+    });
+  };
+
+  var playAndSave = function(step) {
+    if (!cfg.onMyTurn) return;
+    loading(true);
+    m.redraw();
+    m.request({
+      method: 'POST',
+      url: saveUrl + '/' + step.uci,
+      data: findStartingWithStep(step).filter(function(fc) {
+        return fc.length > 1;
+      }).map(function(fc) {
+        return fc.slice(1);
+      })
+    }).then(function(data) {
+      if (data.reload) reloadToLastPly();
       else {
         loading(false);
         forecasts = data.steps || [];
@@ -93,6 +140,10 @@ module.exports = function(cfg, saveUrl) {
       return forecasts;
     },
     truncate: truncate,
-    loading: loading
+    loading: loading,
+    onMyTurn: cfg.onMyTurn,
+    findStartingWithStep: findStartingWithStep,
+    playAndSave: playAndSave,
+    reloadToLastPly: reloadToLastPly
   };
 };

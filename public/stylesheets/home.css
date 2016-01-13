@@ -60,13 +60,15 @@ body.dark #hooks_wrap {
 #hooks_wrap .tabs {
   position: absolute;
   top: -22px;
-  left: 0px;
+  left: 0;
   height: 20px;
   line-height: 20px;
+  width: 512px;
+  text-align: center;
 }
 #hooks_wrap .tabs a {
   display: inline-block;
-  padding: 0px 8px;
+  padding: 0 8px;
   margin-right: 3px;
   border: 1px solid #ccc;
   background: #dadada;
@@ -143,7 +145,7 @@ body.dark #hooks_wrap {
   margin-left: 3px;
 }
 #hooks_wrap .table_wrap {
-  text-shadow: 0px 1px 0px #FFF;
+  text-shadow: 0 1px 0 #FFF;
   width: 100%;
   min-height: 78px;
   overflow: hidden;
@@ -170,7 +172,7 @@ body.dark #hooks_wrap {
   width: 110px;
 }
 #hooks_wrap .table_wrap td {
-  padding: 8px 12px;
+  padding: 9px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   white-space: nowrap;
@@ -244,8 +246,8 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .hooks_chart > div.grid {
   position: absolute;
-  left: 0px;
-  bottom: 0px;
+  left: 0;
+  bottom: 0;
 }
 #hooks_wrap .hooks_chart > div.grid.horiz {
   width: 100%;
@@ -265,7 +267,7 @@ body.dark #hooks_wrap {
   cursor: pointer;
   z-index: 1;
   font-size: 1.4em;
-  text-shadow: 0px 0px 3px #fff;
+  text-shadow: 0 0 3px #fff;
   opacity: 0.7;
   transition: 0.5s;
   -webkit-transform: scale(1);
@@ -341,18 +343,6 @@ body.dark #hooks_wrap {
 #hook .varicon::before {
   font-size: 30px;
   margin-right: 10px;
-}
-#hook .color {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-position: 0 -240px;
-}
-#hook .color.black {
-  background-position: 0 -256px;
 }
 /*********** MISC *********/
 
@@ -445,7 +435,7 @@ div.new_posts li span.extract {
 }
 #call_boxes {
   position: absolute;
-  top: 0px;
+  top: 0;
   right: 10px;
   width: 250px;
   z-index: 1;
@@ -591,6 +581,9 @@ div.game_config button {
   display: inline-block;
   margin: 0 5px;
 }
+div.game_config button.nope {
+  visibility: hidden;
+}
 div.game_config button:disabled {
   opacity: 0.3;
 }
@@ -645,9 +638,11 @@ div.game_config div.color_submits button.random span {
   text-overflow: ellipsis;
 }
 #streams_on_air a.stream span {
-  color: #d59120;
   font-family: 'Noto Sans';
   font-weight: bold;
+}
+#streams_on_air a.stream.highlight span {
+  color: #d59120;
 }
 #streams_on_air a.stream span:before {
   vertical-align: -3px;
@@ -691,7 +686,7 @@ div.game_config div.color_submits button.random span {
   margin-left: -30px;
   width: 230px;
   font-size: 0.9em;
-  height: 0px;
+  height: 0;
   overflow: hidden;
 }
 #timeline:hover {
@@ -699,7 +694,7 @@ div.game_config div.color_submits button.random span {
 }
 @media (max-width: 1070px) {
 #timeline {
-  margin-left: 0px;
+  margin-left: 0;
   width: 200px;
 }
 #featured_game {

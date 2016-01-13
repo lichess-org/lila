@@ -42,7 +42,7 @@ object User extends LilaController {
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
-      Env.donation.isDonor(user.id) zip
+        Env.donation.isDonor(user.id) zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
@@ -130,21 +130,21 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached topPerf PerfType.Bullet.key
-      blitz ← env.cached topPerf PerfType.Blitz.key
-      classical ← env.cached topPerf PerfType.Classical.key
-      chess960 ← env.cached topPerf PerfType.Chess960.key
-      kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
-      threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
-      antichess <- env.cached topPerf PerfType.Antichess.key
-      atomic <- env.cached topPerf PerfType.Atomic.key
-      horde <- env.cached topPerf PerfType.Horde.key
+      bullet ← env.cached top10Perf PerfType.Bullet.key
+      blitz ← env.cached top10Perf PerfType.Blitz.key
+      classical ← env.cached top10Perf PerfType.Classical.key
+      chess960 ← env.cached top10Perf PerfType.Chess960.key
+      kingOfTheHill ← env.cached top10Perf PerfType.KingOfTheHill.key
+      threeCheck ← env.cached top10Perf PerfType.ThreeCheck.key
+      antichess <- env.cached top10Perf PerfType.Antichess.key
+      atomic <- env.cached top10Perf PerfType.Atomic.key
+      horde <- env.cached top10Perf PerfType.Horde.key
       racingKings <- env.cached topPerf PerfType.RacingKings.key
-      nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
-        user -> user.count.game
-      }
-      nbWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
-        UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
+      nbAllTime ← env.cached topNbGame nb
+      nbDay ← Env.game.cached activePlayerUidsDay nb map {
+        _ flatMap { pair =>
+          env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
+        }
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 50
@@ -162,12 +162,18 @@ object User extends LilaController {
           atomic = atomic,
           horde = horde,
           racingKings = racingKings,
-          nbWeek = nbWeek,
+          nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          implicit val lightPerfWrites = play.api.libs.json.Writes[UserModel.LightPerf] { l =>
+            Json.obj(
+              "id" -> l.user.id,
+              "username" -> l.user.name,
+              "title" -> l.user.title,
+              "perfs" -> Json.obj(
+                l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
+          }
           Ok(Json.obj(
-            "online" -> online,
             "bullet" -> bullet,
             "blitz" -> blitz,
             "classical" -> classical,
@@ -181,14 +187,24 @@ object User extends LilaController {
     } yield res
   }
 
+  def top200(perfKey: String) = Open { implicit ctx =>
+    lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+      env.cached top200Perf perfType.key map { users =>
+        Ok(html.user.top200(perfType, users))
+      }
+    }
+  }
+
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
-        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) flatMap {
-          case ((email, spy), playerAggregateAssessment) =>
+        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
+        Env.mod.logApi.userHistory(user.id) zip
+        Env.mod.callNeural(user) flatMap {
+          case ((((email, spy), playerAggregateAssessment), history), neuralResult) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history, neuralResult)
             }
         }
     }
@@ -219,6 +235,25 @@ object User extends LilaController {
               html.user.opponents(user, relateds)
             }
           }
+      }
+    }
+  }
+
+  def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { u =>
+      if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
+      else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+        for {
+          perfStat <- Env.perfStat.get(u, perfType)
+          ranks <- Env.user.cached.ranking.getAll(u.id)
+          distribution <- u.perfs(perfType).established ?? {
+            Env.user.cached.ratingDistribution(perfType.key) map some
+          }
+          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
+          response <- negotiate(
+            html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
+            api = _ => Ok(data).fuccess)
+        } yield response
       }
     }
   }

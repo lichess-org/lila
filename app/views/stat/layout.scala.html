@@ -1,0 +1,15 @@
+@(title: String, active: String, moreJs: Html)(body: Html)(implicit ctx: Context)
+
+@menu = {
+@lila.rating.PerfType.leaderboardable.map { pt =>
+<a class="@active.active(pt.key)" href="@routes.Stat.ratingDistribution(pt.key)">
+  <strong>@pt.name</strong> ratings
+</a>
+}
+}
+
+@base.layout(
+title = title,
+menu = menu.some,
+moreCss = cssTag("stat.css"),
+moreJs = moreJs)(body)

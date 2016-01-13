@@ -5,12 +5,31 @@ var now;
 var startTime;
 var stopTime;
 
+function displayClockLimit(limit) {
+  switch (limit) {
+    case 30:
+      return '½';
+    case 45:
+      return '¾';
+    case 90:
+      return '1.5';
+    default:
+      return limit / 60;
+  }
+}
+
+function displayClock(clock) {
+  return displayClockLimit(clock.limit) + "+" + clock.increment;
+}
+
 function leftPos(time) {
   return scale * (time - startTime) / 1000 / 60;
 }
 
-function speedGrouper(t) {
-  if (t.schedule && t.schedule.speed === 'superblitz') {
+function laneGrouper(t) {
+  if (t.variant.key !== 'standard') {
+    return 99;
+  } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
     return t.perf.position;
@@ -110,7 +129,7 @@ function renderTournament(ctrl, tour) {
       title: tour.perf.name
     } : null),
     m('span.name', tour.fullName),
-    m('span.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
+    m('span.clock', displayClock(tour.clock)),
     tour.variant.key === 'standard' ? null : m('span.variant', tour.variant.name),
     tour.position ? m('span', 'Thematic') : null,
     m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
@@ -177,7 +196,7 @@ module.exports = function(ctrl) {
 
   // group system tournaments into dedicated lanes for PerfType
   var tourLanes = splitOverlaping(
-    bubbleUp(group(ctrl.data.systemTours, speedGrouper), ctrl.data.userTours));
+    bubbleUp(group(ctrl.data.systemTours, laneGrouper), ctrl.data.userTours));
 
   return m('div.schedule.dragscroll', {
     config: function(el, isUpdate) {

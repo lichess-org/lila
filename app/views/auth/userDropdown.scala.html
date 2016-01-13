@@ -7,16 +7,10 @@
   }
   <a href="@routes.Pref.form("game-display")"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
   <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
-  @if(isGranted(_.StaffForum)) {
   <span class="sep"></span>
-  <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
-  <a href="@routes.Mod.log()">Mod log</a>
-  <a href="@routes.Report.list()">User reports</a>
-  }
-  <span class="sep"></span>
-  <div class="status">
-    <div class="led"></div>
-    <div class="ping hint--left"  data-hint="PING: Network lag between you and lichess">PING&nbsp;&nbsp;<strong>?</strong>ms</div>
-    <div class="server hint--left" data-hint="SERVER: Time to process a move on lichess server">SERVER<strong>?</strong>ms</div>
-  </div>
+  <a class="status" href="/lag">
+    <span class="led"></span>
+    <span class="ping hint--left"  data-hint="PING: Network lag between you and lichess">PING&nbsp;&nbsp;<strong>?</strong>ms</span>
+    <span class="server hint--left" data-hint="SERVER: Time to process a move on lichess server">SERVER<strong>?</strong>ms</span>
+  </a>
 </div>

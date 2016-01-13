@@ -1,4 +1,5 @@
 var control = require('./control');
+var path = require('./path');
 var partial = require('chessground').util.partial;
 var m = require('mithril');
 
@@ -52,7 +53,8 @@ module.exports = function(ctrl) {
   this.toggle = function(delay) {
     if (this.active(delay)) this.stop();
     else {
-      if (!this.active()) move();
+      if (!this.active())
+        if (!move()) ctrl.jump(path.default(0));
       start(delay);
     }
   }.bind(this);

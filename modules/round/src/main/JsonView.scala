@@ -9,6 +9,7 @@ import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import lila.common.Maths.truncateAt
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
@@ -210,6 +211,7 @@ final class JsonView(
         "game" -> Json.obj(
           "id" -> gameId,
           "variant" -> game.variant,
+          "opening" -> game.opening,
           "initialFen" -> {
             if (pov.game.pgnMoves.isEmpty) fen
             else (initialFen | chess.format.Forsyth.initial)
@@ -232,6 +234,7 @@ final class JsonView(
           "destination" -> pref.destination,
           "coords" -> pref.coords
         ),
+        "path" -> pov.game.turns,
         "userAnalysis" -> true)
     }
 
@@ -243,7 +246,6 @@ final class JsonView(
     "rated" -> game.rated,
     "initialFen" -> (initialFen | chess.format.Forsyth.initial),
     "fen" -> (Forsyth >> game.toChess),
-    "moves" -> game.pgnMoves.mkString(" "),
     "player" -> game.turnColor.name,
     "winner" -> game.winnerColor.map(_.name),
     "turns" -> game.turns,
@@ -334,8 +336,8 @@ object JsonView {
       "running" -> c.isRunning,
       "initial" -> c.limit,
       "increment" -> c.increment,
-      "white" -> c.remainingTime(Color.White),
-      "black" -> c.remainingTime(Color.Black),
+      "white" -> truncateAt(c.remainingTime(Color.White), 2),
+      "black" -> truncateAt(c.remainingTime(Color.Black), 2),
       "emerg" -> c.emergTime)
   }
 

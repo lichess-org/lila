@@ -39,8 +39,8 @@ private[ai] final class ActorFSM(
   when(IsReady) {
     case Event(Out("readyok"), Some(Job(req, _, _))) =>
       logger(req match {
-        case r: PlayReq => s"$name P ${"-" * (r.level)}"
-        case r: AnalReq => s"$name A ${"#" * (Config.levelMax + 2)}"
+        case r: PlayReq => s"$name ${"-" * (r.level)}"
+        case r: AnalReq => s"$name ${"#" * (Config.levelMax + 2)}"
       })
       lastWrite = config go req
       lastWrite foreach process.write

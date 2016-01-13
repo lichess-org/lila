@@ -38,7 +38,7 @@ final class Env(
     }
   }), name = ActorName)
 
-  private[report] lazy val reportColl = db(CollectionReport)
+  lazy val reportColl = db(CollectionReport)
 }
 
 object Env {

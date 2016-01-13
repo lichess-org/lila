@@ -38,7 +38,7 @@ case class Pref(
     puzzleDifficulty: Int,
     submitMove: Int,
     confirmResign: Int,
-    coachShare: Int,
+    insightShare: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -157,7 +157,7 @@ object Pref {
       YES -> "Yes")
   }
 
-  object CoachShare {
+  object InsightShare {
     val NOBODY = 0
     val FRIENDS = 1
     val EVERYBODY = 2
@@ -261,6 +261,7 @@ object Pref {
 
     def block(from: User, to: User, pref: Int, follow: Boolean): Option[String] = pref match {
       case NEVER => "{{user}} doesn't accept challenges.".some
+      case RATING if from.perfs.bestRating > to.perfs.bestRating => none
       case RATING if math.abs(from.perfs.bestRating - to.perfs.bestRating) > ratingThreshold =>
         s"{{user}} only accepts challenges if rating is ± $ratingThreshold.".some
       case FRIEND if !follow => "{{user}} only accepts challenges from friends.".some
@@ -307,13 +308,13 @@ object Pref {
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.RATING,
+    challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
-    coachShare = CoachShare.FRIENDS,
+    insightShare = InsightShare.FRIENDS,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

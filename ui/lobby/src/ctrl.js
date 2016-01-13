@@ -12,6 +12,7 @@ module.exports = function(env) {
   this.data = env.data;
   this.playban = env.playban;
   this.currentGame = env.currentGame;
+  this.perfIcons = env.perfIcons;
 
   hookRepo.initAll(this);
   seekRepo.initAll(this);
@@ -127,13 +128,7 @@ module.exports = function(env) {
     }.bind(this), 2000);
   }.bind(this);
 
-  this.trans = function(key) {
-    var str = env.i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
+  this.trans = lichess.trans(env.i18n);
 
   if (this.playban) setTimeout(location.reload, this.playban.remainingSeconds * 1000);
 };
