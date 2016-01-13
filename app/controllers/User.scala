@@ -139,7 +139,6 @@ object User extends LilaController {
       antichess <- env.cached top10Perf PerfType.Antichess.key
       atomic <- env.cached top10Perf PerfType.Atomic.key
       horde <- env.cached top10Perf PerfType.Horde.key
-      racingKings <- env.cached topPerf PerfType.RacingKings.key
       nbAllTime ← env.cached topNbGame nb
       nbDay ← Env.game.cached activePlayerUidsDay nb map {
         _ flatMap { pair =>
@@ -161,7 +160,6 @@ object User extends LilaController {
           antichess = antichess,
           atomic = atomic,
           horde = horde,
-          racingKings = racingKings,
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
