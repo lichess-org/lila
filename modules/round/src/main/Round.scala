@@ -209,7 +209,7 @@ private[round] final class Round(
 
   private def outOfTime(game: Game) =
     finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>
-      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation, color)
+      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
