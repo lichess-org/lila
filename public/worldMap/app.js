@@ -4,7 +4,11 @@ $(function() {
     mapRatio = 0.4,
     worldHeight = worldWith * mapRatio,
     scale = worldWith / 1000;
+
   var paper = Raphael(document.getElementById("worldmap"), worldWith, worldHeight);
+  // var panZoom = paper.panzoom({ initialZoom: 6, initialPosition: { x: 120, y: 70} });
+  // panZoom.enable();
+
   paper.rect(0, 0, worldWith, worldHeight, 10).attr({
     stroke: "none"
   });
@@ -60,7 +64,7 @@ $(function() {
       opacity: 0.5,
       fill: "#fff",
       stroke: "#FE7727",
-      r: 1.5,
+      r: 0.5,
       'stroke-width': 1
     }).attr(pos);
     if (!loading) appearPoint(pos);
