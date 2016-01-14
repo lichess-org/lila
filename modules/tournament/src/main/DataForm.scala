@@ -68,9 +68,10 @@ final class DataForm {
 }
 
 object DataForm {
+  
+  import chess.variant._
 
-  val validVariants = List(chess.variant.Standard, chess.variant.Chess960, chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck, chess.variant.Antichess, chess.variant.Atomic, chess.variant.Horde)
+  val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
 
   val validVariantIds = validVariants.map(_.id).toSet
 }
