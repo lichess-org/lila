@@ -455,7 +455,7 @@ object Quote {
     , new Quote("Chess is a test of wills.", "Paul Keres")
     , new Quote("Chess is a unique cognitive nexus, a place where art and science come together in the human mind and are refined and improved by experience.", "Garry Kasparov")
     , new Quote("Chess is beautiful enough to waste your life for.", "Hans Ree")
-    , new Quote("Chess is eminently and emphatically the philospher's game.", "Paul Morphy")
+    , new Quote("Chess is eminently and emphatically the philosopher's game.", "Paul Morphy")
     , new Quote("Chess is far too complex to be definitively solved with any technology we can conceive of today. However, our looked-down-upon cousin, checkers, or draughts, suffered this fate quite recently thanks to the work of Jonathan Schaeffer at the University of Alberta and his unbeatable program Chinook.", "Garry Kasparov")
   )
 
