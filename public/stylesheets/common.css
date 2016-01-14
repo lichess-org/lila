@@ -2571,6 +2571,9 @@ input.cmn-toggle-round:checked + label:after {
   border-bottom: 1px solid #aaa;
   font-style: italic;
 }
+.pull-quote.long p {
+  font-size: 14px;
+}
 .pull-quote p:after {
   content: '';
   position: absolute;
