@@ -26,7 +26,7 @@ module.exports = function(opts) {
         steps: [{
           title: "Racing Kings",
           content: "This is a game of racing kings. " +
-            'Would you like to check out <a target="_blank" href="http://www.chessvariants.com/diffobjective.dir/racing.html">the rules</a>?',
+            'Would you like to check out <a target="_blank" href="http://lichess.org/racing-kings">the rules</a>?',
           target: "div.game_infos .variant-link",
           placement: "bottom"
         }]

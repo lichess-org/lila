@@ -25,5 +25,7 @@ object Page extends LilaController {
 
   def kingOfTheHill = page("king-of-the-hill")
 
+  def racingKings = page("racing-kings")
+
   def privacy = page("privacy")
 }
