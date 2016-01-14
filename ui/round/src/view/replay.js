@@ -120,14 +120,15 @@ function analyseButton(ctrl) {
 }
 
 function renderButtons(ctrl) {
-  var firstPly = round.firstPly(ctrl.data);
-  var lastPly = round.lastPly(ctrl.data);
+  var d = ctrl.data;
+  var firstPly = round.firstPly(d);
+  var lastPly = round.lastPly(d);
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
   };
-  if (ctrl.data.tv) flipAttrs.href = '/tv/' + ctrl.data.tv.channel + (ctrl.data.tv.flip ? '' : '?flip=1');
-  else if (ctrl.data.player.spectator) flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color);
+  if (d.tv) flipAttrs.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+  else if (d.player.spectator) flipAttrs.href = router.game(d, d.opponent.color);
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
@@ -145,7 +146,7 @@ function renderButtons(ctrl) {
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
       });
-    }), game.userAnalysable(ctrl.data) ? analyseButton(ctrl) : null
+    }), game.userAnalysable(d) ? analyseButton(ctrl) : null
   ]);
 }
 
@@ -162,15 +163,27 @@ function autoScroll(el, ctrl) {
   });
 }
 
+function racingKingsInit(d) {
+  if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator)
+    return m('div.message', {
+      'data-icon': '',
+    }, [
+      "You have the " + d.player.color + " pieces,",
+      d.player.color === 'white' ? [m('br'), m('strong', "it's your turn!")] : null
+    ]);
+}
+
 module.exports = function(ctrl) {
-  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.data.game.status.id + ctrl.data.game.winner + ctrl.vm.flip;
+  var d = ctrl.data;
+  var h = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
   if (ctrl.vm.replayHash === h) return {
     subtree: 'retain'
   };
   ctrl.vm.replayHash = h;
+  var message = (d.game.variant.key === 'racingKings' && d.game.turns === 0) ? racingKingsInit : null;
   return m('div.replay', [
     renderButtons(ctrl),
-    ctrl.replayEnabledByPref() ? m('div.moves', {
+    racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
         if (isUpdate) return;
         var scrollNow = partial(autoScroll, el, ctrl);
@@ -185,6 +198,6 @@ module.exports = function(ctrl) {
         var ply = 2 * turn - 2 + $(e.target).index();
         if (ply) ctrl.jump(ply);
       }
-    }, renderMoves(ctrl)) : renderResult(ctrl)
+    }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
 }

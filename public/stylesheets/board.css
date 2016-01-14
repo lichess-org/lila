@@ -625,6 +625,14 @@ div.table div.username span.status span {
 div.table div.username.on-game span.status span {
   color: #759900;
 }
+div.table .message {
+  margin: 20px 0;
+}
+div.table .message::before {
+  font-size: 3em;
+  float: left;
+  margin-right: 10px;
+}
 div.table .button.strong {
   padding-top: 1em;
   padding-bottom: 1em;
