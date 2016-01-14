@@ -150,7 +150,7 @@ body.dark div.doc_box h2,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
-body.dark div.side_box div.game_infos,
+body.dark div.side_box .game_infos,
 body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
@@ -553,6 +553,9 @@ body.dark div.eval_gauge .black {
 }
 body.dark div.eval_gauge tick {
   border-color: #a0a0a0;
+}
+body.dark div.side_box .game_infos .variant-link {
+  border-color: #8c8c8c;
 }
 body.dark .square-spin {
   background: #666;

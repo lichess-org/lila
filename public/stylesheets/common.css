@@ -869,6 +869,9 @@ div.side_box .game_infos:hover .bookmark {
 div.side_box .game_infos .setup {
   display: block;
 }
+div.side_box .game_infos .variant-link {
+  border-bottom: 1px dotted #747474;
+}
 div.side_box div.status {
   text-align: center;
   margin-top: 5px;
@@ -2597,6 +2600,9 @@ input.cmn-toggle-round:checked + label:after {
 }
 .pull-quote footer:before {
   content: '\2014';
+}
+.hopscotch-content a {
+  text-decoration: underline;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
