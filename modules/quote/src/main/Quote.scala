@@ -415,7 +415,6 @@ object Quote {
     , new Quote("Barcza is the most versatile player in the opening. He sometimes plays P-KKt3 on the first, sometimes on the second, sometimes on the third, and sometimes only on the fourth move.", "reputedly stated by Harry Golombek")
     , new Quote("Before Geller we did not understand the King's Indian Defence.", "Mikhail Botvinnik")
     , new Quote("Begone! Ignorant and impudent knight, not even in chess can a King be taken.", "King Louis VI (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)")
-    , new Quote("Best by test.", "Bobby Fischer (on 1. e4)")
     , new Quote("Black's d5-square is too weak.", "Ulf Andersson  (on the Dragon variation)")
     , new Quote("Blitz chess kills your ideas.", "Bobby Fischer")
     , new Quote("Bobby Fischer started off each game with a great advantage: after the opening he had used less time than his opponent and thus had more time available later on. The major reason why he never had serious time pressure was that his rapid opening play simply left sufficient time for the middlegame.", "Edmar Mednis")
