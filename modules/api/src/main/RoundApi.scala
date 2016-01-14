@@ -87,7 +87,7 @@ private[api] final class RoundApi(
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
-    if (v) json else json + ("bookmarked" -> JsBoolean(true))
+    if (v) json + ("bookmarked" -> JsBoolean(true)) else json
 
   private def withForecastCount(count: Option[Int])(json: JsObject) =
     count.filter(0 !=).fold(json) { c =>
