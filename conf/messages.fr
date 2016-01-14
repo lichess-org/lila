@@ -502,6 +502,6 @@ tournamentMayHaveBeenCanceled=Il a peut-être été annulé, tous les joueurs l'
 returnToTournamentsHomepage=Retour à la page des tournois
 monthlyPerfTypeRatingDistribution=Distribution des classements mensuels en %s
 nbPerfTypePlayersThisMonth=%s joueurs de %s ce mois-ci.
-yourPerfTypeRatingisRating=Votre classement en %s est %s.
+yourPerfTypeRatingisRating=Votre classement en %s est de %s.
 youAreBetterThanPercentOfPerfTypePlayers=Vous êtes meilleur que %s des joueurs de %s.
 youDoNotHaveAnEstablishedPerfTypeRating=Vous n'avez pas de classement établi en %s.
