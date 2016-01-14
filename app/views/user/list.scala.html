@@ -1,4 +1,4 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User.LightPerf], blitz: List[User.LightPerf], classical: List[User.LightPerf], chess960: List[User.LightPerf], kingOfTheHill: List[User.LightPerf], threeCheck: List[User.LightPerf], antichess: List[User.LightPerf], atomic: List[User.LightPerf], horde: List[User.LightPerf], nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User.LightPerf], blitz: List[User.LightPerf], classical: List[User.LightPerf], chess960: List[User.LightPerf], kingOfTheHill: List[User.LightPerf], threeCheck: List[User.LightPerf], antichess: List[User.LightPerf], atomic: List[User.LightPerf], horde: List[User.LightPerf], racingKings: List[User.LightPerf], nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -104,6 +104,10 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
       @userTopPerf(horde, PerfType.Horde)
       @userTopPerf(antichess, PerfType.Antichess)
       @userTopPerf(atomic, PerfType.Atomic)
+    </div>
+
+    <div class="group">
+      @userTopPerf(racingKings, PerfType.RacingKings)
     </div>
 
   </div>
