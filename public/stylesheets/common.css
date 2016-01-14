@@ -2590,7 +2590,8 @@ input.cmn-toggle-round:checked + label:after {
   -webkit-transform: skew(45deg) rotate(-45deg);
           transform: skew(45deg) rotate(-45deg);
 }
-.content_box .pull-quote p:after {
+.content_box .pull-quote p:after,
+.lichess_overboard .pull-quote p:after {
   background: #fff;
 }
 .pull-quote footer {
