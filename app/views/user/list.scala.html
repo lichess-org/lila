@@ -41,6 +41,9 @@
   <form class="search" action="@routes.User.show("")">
     <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
   </form>
+  @if(isGranted(_.UserSearch)) {
+  <a href="@routes.Mod.search" data-icon="y"> Advanced Search</a>
+  }
   <div class="user_lists">
     <div class="user_top">
       <h2>@trans.onlinePlayers()</h2>
