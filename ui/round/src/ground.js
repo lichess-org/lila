@@ -60,10 +60,11 @@ function makeConfig(data, ply, flip) {
   };
 }
 
-function make(data, ply, userMove, onMove) {
+function make(data, ply, userMove, userNewPiece, onMove) {
   var config = makeConfig(data, ply);
   config.movable.events = {
-    after: userMove
+    after: userMove,
+    afterNewPiece: userNewPiece
   };
   config.events = {
     move: onMove

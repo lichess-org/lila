@@ -8,6 +8,7 @@ var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
 var keyboard = require('../keyboard');
+var crazyDrag = require('../crazyDrag');
 var m = require('mithril');
 
 function materialTag(role) {
@@ -37,12 +38,27 @@ function crazyPocketTag(role, color) {
 function renderCrazyPocket(ctrl, color, position) {
   if (!ctrl.data.crazyhouse) return;
   var pocket = ctrl.data.crazyhouse.pockets[color === 'white' ? 0 : 1];
-  console.log(color, pocket);
-  return m('div.pocket.' + position,
-    Object.keys(pocket).map(function(role) {
+  var oKeys = Object.keys(pocket)
+  var crowded = oKeys.length > 4;
+  return m('div', {
+      class: 'pocket ' + position + (oKeys.length > 4 ? ' crowded' : ''),
+      config: position === 'bottom' ? function(el, isUpdate, context) {
+        if (isUpdate) return;
+        var onstart = partial(crazyDrag, ctrl);
+        el.addEventListener('mousedown', onstart);
+        context.onunload = function() {
+          el.removeEventListener('mousedown', onstart);
+        };
+      } : null
+    },
+    oKeys.map(function(role) {
       var pieces = [];
       for (var i = 0; i < pocket[role]; i++) pieces.push(crazyPocketTag(role, color));
-      return m('div.role', pieces);
+      return m('div', {
+        class: 'role',
+        'data-role': role,
+        'data-color': color,
+      }, pieces);
     })
   );
 }

@@ -606,19 +606,26 @@ div.table {
 }
 .lichess_ground .pocket .role {
   display:inline-block;
-  margin-left: -12px;
+  margin-left: -8px;
+  transition: background-color 0.13s;
+}
+.lichess_ground .pocket .role.crowded {
+  margin-left: -20px;
 }
 .lichess_ground .pocket .role:first-child {
   margin-left: 0;
 }
+.lichess_ground .pocket.bottom .role:hover {
+  background: #999;
+}
 .lichess_ground .pocket .no-square {
   position: relative;
   display:inline-block;
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
 }
 .lichess_ground .pocket .no-square {
-  margin-left: -40px;
+  margin-left: -46px;
   opacity: 0.25;
 }
 .lichess_ground .pocket .no-square:first-child {

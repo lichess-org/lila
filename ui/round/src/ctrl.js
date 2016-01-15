@@ -36,7 +36,8 @@ module.exports = function(opts) {
     buttonFeedback: null,
     goneBerserk: {},
     resignConfirm: false,
-    autoScroll: null
+    autoScroll: null,
+    element: opts.element
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -50,10 +51,14 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     if (hold.applies(this.data)) {
       hold.register(this.socket, meta.holdTime);
-      if (this.vm.ply > 10 && this.vm.ply <= 12) hold.find(opts.element);
+      if (this.vm.ply > 10 && this.vm.ply <= 12) hold.find(this.vm.element);
     }
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
+  }.bind(this);
+
+  var onUserNewPiece = function(role, pos) {
+    this.sendNewPiece(role, pos);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -65,7 +70,7 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onMove);
+  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onUserNewPiece, onMove);
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -137,6 +142,18 @@ module.exports = function(opts) {
       this.vm.moveToSubmit = move;
       m.redraw();
     } else this.socket.send('move', move, {
+      ackable: true
+    });
+  }.bind(this);
+
+  this.sendNewPiece = function(role, pos) {
+    var drop = {
+      role: role,
+      pos: pos
+    };
+    if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
+    this.resign(false);
+    this.socket.send('drop', drop, {
       ackable: true
     });
   }.bind(this);
