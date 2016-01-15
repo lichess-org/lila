@@ -90,6 +90,7 @@ nbDays=%s дни
 nbHours=%s часа
 time=Време
 rating=Оценка
+ratingStats=Измервания
 username=Потребител
 password=Ключ
 haveAnAccount=Имате сметка?
