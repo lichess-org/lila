@@ -30,7 +30,7 @@ case class Tournament(
   def isFinished = status == Status.Finished
 
   def fullName =
-    if (isMarathon) name
+    if (isMarathonOrUnique) name
     else if (scheduled && clock.hasIncrement) s"$name Inc $system"
     else s"$name $system"
 
@@ -38,6 +38,10 @@ case class Tournament(
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
     case _ => false
   }
+
+  def isUnique = schedule.map(_.freq) exists (Schedule.Freq.Unique ==)
+
+  def isMarathonOrUnique = isMarathon || isUnique
 
   def scheduled = schedule.isDefined
 
@@ -51,7 +55,7 @@ case class Tournament(
 
   def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
-  def isStillWorthEntering = isMarathon || secondsToFinish > minutes * 60 / 2
+  def isStillWorthEntering = isMarathonOrUnique || secondsToFinish > minutes * 60 / 2
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 

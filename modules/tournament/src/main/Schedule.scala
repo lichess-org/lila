@@ -44,7 +44,8 @@ object Schedule {
     case object ExperimentalMarathon extends Freq(61) { // for DB BC
       override val name = "Experimental Marathon"
     }
-    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon)
+    case object Unique extends Freq(90)
+    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Unique)
     def apply(name: String) = all find (_.name == name)
     def byId(id: Int) = all find (_.id == id)
   }
@@ -107,6 +108,8 @@ object Schedule {
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4
+
+      case (Unique, _, _)                             => 0
 
     }) filter (0!=)
   }

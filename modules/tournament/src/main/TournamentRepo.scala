@@ -138,6 +138,7 @@ object TournamentRepo {
   private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
     tour.schedule.map(_.freq) map {
       case Schedule.Freq.Marathon => 24 * 60
+      case Schedule.Freq.Unique   => 24 * 60
       case Schedule.Freq.Monthly  => 6 * 60
       case Schedule.Freq.Weekly   => 3 * 60
       case Schedule.Freq.Daily    => 1 * 60
@@ -197,7 +198,10 @@ object TournamentRepo {
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
     coll.find(enterableSelect ++ BSONDocument(
       "_id" -> BSONDocument("$ne" -> tourId),
-      "schedule.freq" -> BSONDocument("$ne" -> Schedule.Freq.Marathon.name),
+      "schedule.freq" -> BSONDocument("$nin" -> List(
+        Schedule.Freq.Marathon.name,
+        Schedule.Freq.Unique.name
+      )),
       "nbPlayers" -> BSONDocument("$ne" -> 0)
     )).cursor[Tournament]().collect[List]()
 }
