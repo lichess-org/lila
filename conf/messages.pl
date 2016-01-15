@@ -90,6 +90,7 @@ nbDays=%s dni
 nbHours=%s godzin
 time=Tempo gry
 rating=Ranking
+ratingStats=Statystyki rankingowe
 username=Nazwa użytkownika
 password=Hasło
 haveAnAccount=Masz już konto?
