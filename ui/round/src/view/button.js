@@ -171,7 +171,8 @@ module.exports = {
       m('a', {
         'data-icon': 'G',
         class: 'text button strong' + (ctrl.data.tournament.running ? ' glowed' : ''),
-        href: '/tournament/' + ctrl.data.tournament.id
+        href: '/tournament/' + ctrl.data.tournament.id,
+        onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
       ctrl.data.tournament.running ? m('form', {
         method: 'post',
