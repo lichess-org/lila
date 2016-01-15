@@ -90,6 +90,7 @@ nbDays=%s dní
 nbHours=%s hodin
 time=Tempo
 rating=Rating
+ratingStats=Statistiky hodnocení
 username=Uživatelské jméno
 password=Heslo
 haveAnAccount=Máte již účet?
