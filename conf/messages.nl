@@ -90,6 +90,7 @@ nbDays=%s dagen
 nbHours=%s uren
 time=Tijd
 rating=Sterkte
+ratingStats=rating statistieken
 username=Gebruikersnaam
 password=Wachtwoord
 haveAnAccount=Heeft u al een account?
