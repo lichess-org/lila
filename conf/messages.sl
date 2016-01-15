@@ -90,6 +90,7 @@ nbDays=%s dni
 nbHours=%s ur
 time=Čas
 rating=Rating
+ratingStats=Rating statistika
 username=Uporabniško ime
 password=Geslo
 haveAnAccount=Ali že imaš račun?
