@@ -1,9 +1,9 @@
 package lila.game
 
 import chess.Color.{ White, Black }
-import chess.format.UciMove
+import chess.format.Uci
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.variant.Variant
+import chess.variant.{ Variant, Crazyhouse }
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
@@ -29,6 +29,7 @@ case class Game(
     binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
+    crazyData: Option[Crazyhouse.Data] = None,
     next: Option[String] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
@@ -131,7 +132,7 @@ case class Game(
     val pieces = BinaryFormat.piece.read(binaryPieces, variant)
 
     ChessGame(
-      board = Board(pieces, toChessHistory, variant),
+      board = Board(pieces, toChessHistory, variant, crazyData),
       player = Color(0 == turns % 2),
       clock = clock,
       turns = turns,
@@ -141,7 +142,7 @@ case class Game(
 
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove map {
-      case (orig, dest) => UciMove(orig, dest)
+      case (orig, dest) => Uci.Move(orig, dest)
     },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
@@ -572,6 +573,7 @@ object Game {
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
+    val crazyData = "chd"
     val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
@@ -604,7 +606,7 @@ object CastleLastMoveTime {
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
+  private[game] implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
     def read(bin: BSONBinary) = BinaryFormat.castleLastMoveTime read {
       ByteArrayBSONHandler read bin
     }

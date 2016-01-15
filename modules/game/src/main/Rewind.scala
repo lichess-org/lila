@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.format.{ UciMove, pgn => chessPgn }
+import chess.format.{ pgn => chessPgn }
 
 object Rewind {
 

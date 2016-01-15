@@ -4,7 +4,7 @@ import lila.db.{ BSON, ByteArray }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import chess.variant.Variant
+import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode }
 
 object BSONHandlers {
@@ -18,10 +18,31 @@ object BSONHandlers {
     def write(x: Status) = BSONInteger(x.id)
   }
 
-  implicit val gameBSONHandler = new BSON[Game] {
+  private implicit val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
+
+    import Crazyhouse._
+
+    def reads(r: BSON.Reader) = Crazyhouse.Data(
+      pockets = {
+        val (white, black) = r.str("p").toList.flatMap(chess.Piece.fromChar).partition(_ is chess.White)
+        Pockets(
+          white = Pocket(white.map(_.role)),
+          black = Pocket(black.map(_.role)))
+      },
+      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr))
+
+    def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(
+      "p" -> {
+        o.pockets.white.roles.map(_.forsythUpper).mkString +
+          o.pockets.black.roles.map(_.forsyth).mkString
+      },
+      "t" -> o.promoted.map(_.piotr).toString
+    )
+  }
+
+  private[game] implicit val gameBSONHandler = new BSON[Game] {
 
     import Game.BSONFields._
-    import CastleLastMoveTime.castleLastMoveTimeBSONHandler
     import PgnImport.pgnImportBSONHandler
     import Player.playerBSONHandler
 
@@ -41,6 +62,7 @@ object BSONHandlers {
       val wPlayer = player(whitePlayer, White, whiteId, whiteUid)
       val bPlayer = player(blackPlayer, Black, blackId, blackUid)
       val createdAtValue = r date createdAt
+      val realVariant = Variant(r intD variant) | chess.variant.Standard
       Game(
         id = r str id,
         whitePlayer = wPlayer,
@@ -56,11 +78,12 @@ object BSONHandlers {
           val counts = r.intsD(checkCount)
           CheckCount(~counts.headOption, ~counts.lastOption)
         },
-        castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
+        castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
-        variant = Variant(r intD variant) | chess.variant.Standard,
+        variant = realVariant,
+        crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
         next = r strO next,
         bookmarks = r intD bookmarks,
         createdAt = createdAtValue,
@@ -89,11 +112,12 @@ object BSONHandlers {
       clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
       positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
-      castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
+      castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       daysPerTurn -> o.daysPerTurn,
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
+      crazyData -> o.crazyData,
       next -> o.next,
       bookmarks -> w.intO(o.bookmarks),
       createdAt -> w.date(o.createdAt),
@@ -109,12 +133,12 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
+  private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(
       ByteArrayBSONHandler read bin, whiteBerserk, blackBerserk
     )
   }
-  def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler write {
+  private[game] def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler write {
     BinaryFormat clock since write clock
   }
 }

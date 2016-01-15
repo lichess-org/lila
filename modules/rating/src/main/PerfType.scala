@@ -88,6 +88,12 @@ object PerfType {
     title = "Racing kings variant",
     iconChar = '')
 
+  case object Crazyhouse extends PerfType(18,
+    key = "crazyhouse",
+    name = chess.variant.Crazyhouse.name,
+    title = "Crazyhouse variant",
+    iconChar = '-')
+
   case object Puzzle extends PerfType(20,
     key = "puzzle",
     name = "Training",
