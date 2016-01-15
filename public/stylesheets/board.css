@@ -591,6 +591,48 @@ div.table {
 .lichess_ground .control.buttons a.replay_and_analyse {
   margin-bottom: 10px;
 }
+.lichess_ground .pocket {
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
+}
+.lichess_ground .pocket {
+  background: #888;
+}
+.lichess_ground .pocket.top {
+  margin-bottom: 15px;
+}
+.lichess_ground .pocket.bottom {
+  margin-top: 15px;
+}
+.lichess_ground .pocket .role {
+  display:inline-block;
+  margin-left: -12px;
+}
+.lichess_ground .pocket .role:first-child {
+  margin-left: 0;
+}
+.lichess_ground .pocket .no-square {
+  position: relative;
+  display:inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lichess_ground .pocket .no-square {
+  margin-left: -40px;
+  opacity: 0.25;
+}
+.lichess_ground .pocket .no-square:first-child {
+  margin-left: 0;
+}
+.lichess_ground .pocket .no-square:last-child {
+  opacity: 1;
+}
+.is3d .lichess_ground .pocket .no-square {
+  height: 58.102px;
+}
+.lichess_ground .pocket piece {
+  cursor: pointer;
+}
 div.table.spectator {
   top: 160px;
 }

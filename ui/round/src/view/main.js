@@ -19,6 +19,34 @@ function materialTag(role) {
   };
 }
 
+function crazyPocketTag(role, color) {
+  return {
+    tag: 'div',
+    attrs: {
+      class: 'no-square'
+    },
+    children: [{
+      tag: 'piece',
+      attrs: {
+        class: role + ' ' + color
+      }
+    }]
+  };
+}
+
+function renderCrazyPocket(ctrl, color, position) {
+  if (!ctrl.data.crazyhouse) return;
+  var pocket = ctrl.data.crazyhouse.pockets[color === 'white' ? 0 : 1];
+  console.log(color, pocket);
+  return m('div.pocket.' + position,
+    Object.keys(pocket).map(function(role) {
+      var pieces = [];
+      for (var i = 0; i < pocket[role]; i++) pieces.push(crazyPocketTag(role, color));
+      return m('div.role', pieces);
+    })
+  );
+}
+
 function renderMaterial(ctrl, material, checks) {
   var children = [];
   for (var role in material) {
@@ -130,9 +158,9 @@ module.exports = function(ctrl) {
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
           renderBerserk(ctrl, ctrl.data.opponent.color, 'top'),
-          renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
+          renderCrazyPocket(ctrl, ctrl.data.opponent.color, 'top') || renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
           renderTable(ctrl),
-          renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
+          renderCrazyPocket(ctrl, ctrl.data.player.color, 'bottom') || renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
           renderBerserk(ctrl, ctrl.data.player.color, 'bottom'))
       ])
     ]),

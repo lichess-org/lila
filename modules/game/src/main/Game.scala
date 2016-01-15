@@ -169,6 +169,7 @@ case class Game(
       turns = game.turns,
       positionHashes = history.positionHashes,
       checkCount = history.checkCount,
+      crazyData = situation.board.crazyData,
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove.map(_.origDest),

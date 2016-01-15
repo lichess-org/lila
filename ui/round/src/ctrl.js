@@ -157,6 +157,7 @@ module.exports = function(opts) {
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
+    d.crazyhouse = o.crazyhouse;
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
