@@ -26,6 +26,10 @@
 </a>
 }
 
+@showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) = {
+  @if(perf.nonEmpty) {@showPerf(perf, perfType)}
+}
+
 <div class="side sub_ratings">
   @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
   @showPerf(u.perfs.bullet, PerfType.Bullet)
@@ -33,27 +37,14 @@
   @showPerf(u.perfs.classical, PerfType.Classical)
   @showPerf(u.perfs.correspondence, PerfType.Correspondence)
   <br />
-  @if(u.perfs.chess960.nonEmpty) {
-  @showPerf(u.perfs.chess960, PerfType.Chess960)
-  }
-  @if(u.perfs.kingOfTheHill.nonEmpty) {
-  @showPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
-  }
-  @if(u.perfs.threeCheck.nonEmpty) {
-  @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
-  }
-  @if(u.perfs.antichess.nonEmpty) {
-  @showPerf(u.perfs.antichess, PerfType.Antichess)
-  }
-  @if(u.perfs.atomic.nonEmpty) {
-  @showPerf(u.perfs.atomic, PerfType.Atomic)
-  }
-  @if(u.perfs.horde.nonEmpty) {
-  @showPerf(u.perfs.horde, PerfType.Horde)
-  }
-  @if(u.perfs.racingKings.nonEmpty) {
-  @showPerf(u.perfs.racingKings, PerfType.RacingKings)
-  }
+  @showNonEmptyPerf(u.perfs.chess960, PerfType.Chess960)
+  @showNonEmptyPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
+  @showNonEmptyPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
+  @showNonEmptyPerf(u.perfs.antichess, PerfType.Antichess)
+  @showNonEmptyPerf(u.perfs.atomic, PerfType.Atomic)
+  @showNonEmptyPerf(u.perfs.horde, PerfType.Horde)
+  @showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings)
+  @showNonEmptyPerf(u.perfs.crazyhouse, PerfType.Crazyhouse)
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
