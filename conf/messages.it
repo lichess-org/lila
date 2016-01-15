@@ -90,6 +90,7 @@ nbDays=%s giorni
 nbHours=%s ore
 time=Tempo
 rating=Punteggio
+ratingStats=Statistiche Rating
 username=Username
 password=Password
 haveAnAccount=Hai un account?
