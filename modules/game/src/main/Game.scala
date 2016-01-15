@@ -198,8 +198,8 @@ case class Game(
     }
 
     val events = moveOrDrop.fold(
-      Event.Move(_, situation, state, clockEvent),
-      Event.Drop(_, situation, state, clockEvent)
+      Event.Move(_, situation, state, clockEvent, updated.crazyData),
+      Event.Drop(_, situation, state, clockEvent, updated.crazyData)
     ) ::
       {
         // abstraction leak, I know.
@@ -543,6 +543,7 @@ object Game {
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,
+    crazyData = (variant == Crazyhouse) option Crazyhouse.Data.init,
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,

@@ -18,7 +18,7 @@ object BSONHandlers {
     def write(x: Status) = BSONInteger(x.id)
   }
 
-  private implicit val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
+  private[game] implicit val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
 
     import Crazyhouse._
 
@@ -36,7 +36,7 @@ object BSONHandlers {
         o.pockets.white.roles.map(_.forsythUpper).mkString +
           o.pockets.black.roles.map(_.forsyth).mkString
       },
-      "t" -> o.promoted.map(_.piotr).toString
+      "t" -> o.promoted.map(_.piotr).mkString
     )
   }
 
