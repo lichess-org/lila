@@ -5,6 +5,8 @@ var view = require('./view/main');
 
 module.exports = function(element, opts) {
 
+  opts.element = element;
+
   var controller = new ctrl(opts);
 
   m.module(element, {

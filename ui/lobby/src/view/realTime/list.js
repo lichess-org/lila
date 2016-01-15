@@ -14,7 +14,7 @@ function renderHook(ctrl, hook) {
   }, tds([
     m('span', {
       class: 'is is2 color-icon ' + (hook.c || 'random')
-    }), (hook.rating ? m('a.ulink', {
+    }), (hook.rating ? m('a.ulink.ulpt', {
       href: '/@/' + hook.u
     }, hook.u) : 'Anonymous'),
     hook.rating ? hook.rating : '',

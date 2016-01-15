@@ -33,7 +33,12 @@ module.exports = function(env) {
 
   var doFlushHooks = function() {
     this.vm.stepHooks = this.data.hooks.slice(0);
-    if (this.vm.tab === 'real_time') m.redraw();
+    if (this.vm.tab === 'real_time') {
+      m.redraw();
+      setTimeout(function() {
+        lichess.userPowertip($('.ulpt', env.element), 'w');
+      }, 200);
+    }
   }.bind(this);
 
   this.flushHooks = function(now) {
