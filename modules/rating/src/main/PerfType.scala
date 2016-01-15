@@ -92,7 +92,7 @@ object PerfType {
     key = "crazyhouse",
     name = chess.variant.Crazyhouse.name,
     title = "Crazyhouse variant",
-    iconChar = '-')
+    iconChar = '')
 
   case object Puzzle extends PerfType(20,
     key = "puzzle",
