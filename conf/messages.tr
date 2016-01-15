@@ -90,6 +90,7 @@ nbDays=%s gün
 nbHours=%s saat
 time=Zaman
 rating=Derece
+ratingStats=seviye istatistikleri
 username=Kullanıcı Adı
 password=Şifre
 haveAnAccount=Üye misiniz?
