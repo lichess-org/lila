@@ -14,6 +14,7 @@ object Quote {
   lazy val size = all.size
 
   // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
+  // and other various sources
   val all = Vector(
       new Quote("When you see a good move, look for a better one.", "Emanuel Lasker")
     , new Quote("Nothing excites jaded Grandmasters more than a theoretical novelty.", "Dominic Lawson")
