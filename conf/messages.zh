@@ -90,6 +90,7 @@ nbDays=%s天
 nbHours=%s小时
 time=时间
 rating=评级
+ratingStats=评分数据
 username=用户名
 password=密码
 haveAnAccount=有账户吗？
