@@ -90,6 +90,7 @@ nbDays=ימים %s
 nbHours=%s שעות
 time=זמן
 rating=דירוג
+ratingStats=סטטיסטיקת דירוג
 username=שם משתמש
 password=סיסמה
 haveAnAccount=יש לך חשבון?
