@@ -90,6 +90,7 @@ nbDays=%s يوم
 nbHours=%s ساعة
 time=الوقت
 rating=التصنيف
+ratingStats=احصائيات التصنيف
 username=إسم المستخدم
 password=كلمة السر
 haveAnAccount=هل لديك حساب؟
