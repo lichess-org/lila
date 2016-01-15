@@ -90,6 +90,7 @@ nbDays=%s日
 nbHours=%s時間
 time=時間
 rating=レーティング
+ratingStats=レーティング分析
 username=ユーザー名
 password=パスワード
 haveAnAccount=アカウントをお持ちですか？
