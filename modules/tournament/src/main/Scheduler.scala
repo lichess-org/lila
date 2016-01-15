@@ -92,7 +92,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
           Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
           Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3)),
-          Schedule(Daily, Blitz, RacingKings, std, at(tomorrow, 4))
+          Schedule(Daily, Blitz, RacingKings, std, at(tomorrow, 4)),
+          Schedule(Daily, Blitz, Crazyhouse, std, at(tomorrow, 5))
         ),
 
         List( // eastern tournaments!
