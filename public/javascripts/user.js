@@ -1,6 +1,6 @@
 $(function() {
 
-  var $searchForm = $('form.search');
+  var $searchForm = $('form.search.public');
 
   if ($searchForm.length) {
     $searchInput = $searchForm.find('input.search_user');
