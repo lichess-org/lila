@@ -32,6 +32,24 @@ module.exports = function(opts) {
         }]
       });
     });
+    else if (opts.data.game.variant.key === 'racingKings' &&
+      lichess.once('round.crazyhouse')) lichess.hopscotch(function() {
+      hopscotch.configure({
+        i18n: {
+          doneBtn: 'OK, got it'
+        }
+      }).startTour({
+        id: "round-crazyhouse",
+        showPrevButton: true,
+        steps: [{
+          title: "Crazyhouse",
+          content: "This is a game of crazyhouse. " +
+            'Would you like to check out <a target="_blank" href="https://en.wikipedia.org/wiki/Crazyhouse">the rules</a>?',
+          target: "div.game_infos .variant-link",
+          placement: "bottom"
+        }]
+      });
+    });
   }, 2000);
 
   return {
