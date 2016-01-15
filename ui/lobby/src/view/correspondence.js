@@ -11,8 +11,8 @@ function renderSeek(ctrl, seek) {
   }, tds([
     m('span', {
       class: 'is is2 color-icon ' + (seek.color || 'random')
-    }), (seek.rating ? m('a.ulink', {
-      href: '/@/' + seek.username
+    }), (seek.rating ? m('span.ulpt', {
+      'data-href': '/@/' + seek.username
     }, seek.username) : 'Anonymous'),
     seek.rating ? seek.rating : '',
     seek.days ? ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞', [m('span', {
@@ -46,7 +46,6 @@ module.exports = function(ctrl) {
       m('tbody', {
         onclick: function(e) {
           var el = e.target;
-          if (el.classList.contains('ulink')) return;
           do {
             el = el.parentNode;
             if (el.nodeName === 'TR') {

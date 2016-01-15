@@ -14,8 +14,8 @@ function renderHook(ctrl, hook) {
   }, tds([
     m('span', {
       class: 'is is2 color-icon ' + (hook.c || 'random')
-    }), (hook.rating ? m('a.ulink.ulpt', {
-      href: '/@/' + hook.u
+    }), (hook.rating ? m('span.ulink.ulpt', {
+      'data-href': '/@/' + hook.u
     }, hook.u) : 'Anonymous'),
     hook.rating ? hook.rating : '',
     hook.clock, [m('span', {
@@ -95,7 +95,6 @@ module.exports = {
         class: ctrl.vm.stepping ? 'stepping' : '',
         onclick: function(e) {
           var el = e.target;
-          if (el.classList.contains('ulink')) return;
           do {
             el = el.parentNode;
             if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id'));
