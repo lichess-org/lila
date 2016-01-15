@@ -1,8 +1,8 @@
 package lila.round
 
-import chess.format.Forsyth
+import chess.format.{ Forsyth, Uci }
 import chess.Pos.posAt
-import chess.{ Status, Role, Color }
+import chess.{ Status, Role, Color, MoveOrDrop }
 import scalaz.Validation.FlatMap._
 
 import actorApi.round.{ HumanPlay, AiPlay, ImportPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
@@ -19,20 +19,26 @@ private[round] final class Player(
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
-    case HumanPlay(playerId, origS, destS, promS, blur, lag, promiseOption) => pov match {
+    case HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color => {
-        (for {
-          orig ← posAt(origS) toValid "Wrong orig " + origS
-          dest ← posAt(destS) toValid "Wrong dest " + destS
-          promotion = Role promotable promS
-          newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
-          (newChessGame, move) = newChessGameAndMove
-        } yield game.update(newChessGame, move, blur, lag.some) -> move).prefixFailuresWith(s"$pov ")
+        (uci match {
+          case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
+            case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+          }
+          case Uci.Drop(role, pos) => game.toChess.drop(role, pos, lag) map {
+            case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
+          }
+        }).map {
+          case (newChessGame, moveOrDrop) =>
+            game.update(newChessGame, moveOrDrop, blur, lag.some) -> moveOrDrop
+        }.prefixFailuresWith(s"$pov ")
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
-            case (progress, move) =>
+            case (progress, moveOrDrop) =>
               (GameRepo save progress) >>-
-                (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                notifyMove(move, progress.game) >>
+                moveOrDrop.left.toOption.foreach { move =>
+                  pov.game.hasAi ! uciMemo.add(pov.game, move)
+                } >>-
+                notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
@@ -41,7 +47,9 @@ private[round] final class Player(
                         if (progress.game.playableByAi) round ! AiPlay
                         if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                        if (pov.game.forecastable) round ! ForecastPlay(move)
+                        moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
+                          round ! ForecastPlay(move)
+                        }
                     } inject progress.events
                   }) >>- promiseOption.foreach(_.success(()))
           }
@@ -60,7 +68,7 @@ private[round] final class Player(
       case Pov(game, color) if game.turnOf(color) && game.playableEvenImported =>
         game.toChess(orig, dest, promotion).future.flatMap {
           case (newChessGame, move) =>
-            val progress = game.update(newChessGame, move)
+            val progress = game.update(newChessGame, Left(move))
             (GameRepo save progress) >>-
               (progress.game.finished ?? moveFinish(progress.game, color)) inject Nil
         }
@@ -72,20 +80,21 @@ private[round] final class Player(
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
         case lila.ai.actorApi.PlayResult(progress, move, _) =>
-          notifyMove(move, progress.game)
+          notifyMove(Left(move), progress.game)
           moveFinish(progress.game, game.turnColor) map { progress.++ }
       },
       fufail(s"Not AI turn")
     ) prefixFailure s"[ai play] game ${game.id} turn ${game.turns}"
 
-  private def notifyMove(move: chess.Move, game: Game) {
+  private def notifyMove(moveOrDrop: MoveOrDrop, game: Game) {
+    val color = moveOrDrop.fold(_.color, _.color)
     bus.publish(MoveEvent(
       gameId = game.id,
-      color = move.color,
+      color = color,
       fen = Forsyth exportBoard game.toChess.board,
-      move = move.keyString,
+      move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci),
       mobilePushable = game.mobilePushable,
-      opponentUserId = game.player(!move.color).userId,
+      opponentUserId = game.player(!color).userId,
       simulId = game.simulId
     ), 'moveEvent)
   }

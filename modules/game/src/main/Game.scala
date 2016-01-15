@@ -4,7 +4,7 @@ import chess.Color.{ White, Black }
 import chess.format.Uci
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Drop, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
 
@@ -150,7 +150,7 @@ case class Game(
 
   def update(
     game: ChessGame,
-    move: Move,
+    moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     lag: Option[FiniteDuration] = None): Progress = {
     val (history, situation) = (game.board.history, game.situation)
@@ -158,7 +158,7 @@ case class Game(
     def copyPlayer(player: Player) = player.copy(
       blurs = math.min(
         playerMoves(player.color),
-        player.blurs + (blur && move.color == player.color).fold(1, 0))
+        player.blurs + (blur && moveOrDrop.fold(_.color, _.color) == player.color).fold(1, 0))
     )
 
     val updated = copy(
@@ -197,7 +197,10 @@ case class Game(
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val events = Event.Move(move, situation, state, clockEvent) ::
+    val events = moveOrDrop.fold(
+      Event.Move(_, situation, state, clockEvent),
+      Event.Drop(_, situation, state, clockEvent)
+    ) ::
       {
         // abstraction leak, I know.
         (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(

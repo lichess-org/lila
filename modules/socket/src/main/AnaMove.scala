@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.format.UciMove
+import chess.format.Uci
 import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
 
@@ -17,7 +17,7 @@ case class AnaMove(
       case (game, move) => Step(
         ply = game.turns,
         move = game.pgnMoves.lastOption.map { san =>
-          Step.Move(UciMove(move), san)
+          Step.Move(Uci(move), san)
         },
         fen = chess.format.Forsyth >> game,
         check = game.situation.check,

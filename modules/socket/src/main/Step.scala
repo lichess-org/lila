@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.format.UciMove
+import chess.format.Uci
 import chess.Pos
 
 import play.api.libs.functional.syntax._
@@ -27,16 +27,16 @@ case class Step(
 
 object Step {
 
-  case class Move(uci: UciMove, san: String) {
+  case class Move(uci: Uci, san: String) {
     def uciString = uci.uci
   }
 
   case class Eval(
     cp: Option[Int] = None,
     mate: Option[Int] = None,
-    best: Option[UciMove])
+    best: Option[Uci.Move])
 
-  private implicit val uciJsonWriter: Writes[UciMove] = Writes { uci =>
+  private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
     JsString(uci.uci)
   }
   private implicit val evalJsonWriter = Json.writes[Eval]

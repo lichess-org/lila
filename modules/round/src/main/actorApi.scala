@@ -5,6 +5,7 @@ import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
 import chess.Color
+import chess.format.Uci
 
 import lila.game.{ Game, Event, PlayerRef }
 import lila.socket.SocketMember
@@ -93,9 +94,7 @@ package round {
 
 case class HumanPlay(
     playerId: String,
-    orig: String,
-    dest: String,
-    prom: Option[String],
+    uci: Uci,
     blur: Boolean,
     lag: FiniteDuration,
     promise: Option[Promise[Unit]] = None) {

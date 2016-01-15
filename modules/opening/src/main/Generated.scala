@@ -4,6 +4,7 @@ import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import scalaz.Validation.FlatMap._
 
 private[opening] case class Generated(
     fen: String,
@@ -42,7 +43,7 @@ private[opening] object Generated {
   implicit val generatedMoveJSONRead = Json.reads[Move]
   implicit val generatedJSONRead = Json.reads[Generated]
 
-  import chess.format.UciMove
+  import chess.format.Uci
 
   private[opening] def toPgn(
     situation: chess.Situation,
@@ -52,8 +53,8 @@ private[opening] object Generated {
       player = situation.color)
     (uciMoves.foldLeft(Try(game)) {
       case (game, moveStr) => game flatMap { g =>
-        (UciMove(moveStr) toValid s"Invalid UCI move $moveStr" flatMap {
-          case UciMove(orig, dest, prom) => g(orig, dest, prom) map (_._1)
+        (Uci.Move(moveStr) toValid s"Invalid UCI move $moveStr" flatMap {
+          case Uci.Move(orig, dest, prom) => g(orig, dest, prom) map (_._1)
         }).fold(errs => Failure(new Exception(errs.shows)), Success.apply)
       }
     }) map (_.pgnMoves)

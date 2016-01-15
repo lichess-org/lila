@@ -6,6 +6,7 @@ import scala.concurrent.Promise
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.Color
+import chess.format.Uci
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
@@ -44,14 +45,25 @@ private[round] final class SocketHandler(
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
         case ("move", o) => parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) =>
+          case (move, blur, lag) =>
             member push ackEvent
             val promise = Promise[Unit]
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid)
             }
             round(HumanPlay(
-              playerId, orig, dest, prom, blur, lag.millis, promise.some
+              playerId, move, blur, lag.millis, promise.some
+            ))
+        }
+        case ("drop", o) => parseDrop(o) foreach {
+          case (drop, blur, lag) =>
+            member push ackEvent
+            val promise = Promise[Unit]
+            promise.future onFailure {
+              case _: Exception => socket ! Resync(uid)
+            }
+            round(HumanPlay(
+              playerId, drop, blur, lag.millis, promise.some
             ))
         }
         case ("rematch-yes", _)  => round(RematchYes(playerId))
@@ -137,9 +149,19 @@ private[round] final class SocketHandler(
     orig ← d str "from"
     dest ← d str "to"
     prom = d str "promotion"
+    move <- Uci.Move.fromStrings(orig, dest, prom)
     blur = (d int "b") == Some(1)
     lag = d int "lag"
-  } yield (orig, dest, prom, blur, ~lag)
+  } yield (move, blur, ~lag)
+
+  private def parseDrop(o: JsObject) = for {
+    d ← o obj "d"
+    role ← d str "role"
+    pos ← d str "pos"
+    drop <- Uci.Drop.fromStrings(role, pos)
+    blur = (d int "b") == Some(1)
+    lag = d int "lag"
+  } yield (drop, blur, ~lag)
 
   private val ackEvent = Json.obj("t" -> "ack")
 }

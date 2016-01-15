@@ -6,7 +6,7 @@ import akka.actor._
 import akka.pattern.ask
 import scala.concurrent.duration._
 
-import chess.format.UciMove
+import chess.format.Uci
 import lila.analyse.Info
 import lila.common.Chronometer
 import lila.game.{ Game, GameRepo }
@@ -32,10 +32,10 @@ final class Client(
           (millis - config.moveTime(level)) / 1000f
         }
         (for {
-          uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
+          uciMove ← (Uci.Move(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
           result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
           (c, move) = result
-          progress1 = game.update(c, move)
+          progress1 = game.update(c, Left(move))
           progress = progress1.game.clock.filter(_.isRunning).fold(progress1) { clock =>
             val newClock = clock.giveTime(move.color, aiLagSeconds)
             progress1.flatMap(_ withClock newClock) + lila.game.Event.Clock(newClock)

@@ -40,7 +40,7 @@ object BSONHandlers {
     )
   }
 
-  private[game] implicit val gameBSONHandler = new BSON[Game] {
+  implicit val gameBSONHandler = new BSON[Game] {
 
     import Game.BSONFields._
     import PgnImport.pgnImportBSONHandler

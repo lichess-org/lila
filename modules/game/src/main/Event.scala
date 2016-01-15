@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 import chess.Pos
 import chess.Pos.{ piotr, allPiotrs }
-import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock, Status }
+import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import lila.chat.{ Line, UserLine, PlayerLine }
 import lila.common.Maths.truncateAt
 
@@ -31,7 +31,6 @@ object Event {
   case class Move(
       orig: Pos,
       dest: Pos,
-      color: Color,
       san: String,
       fen: String,
       check: Boolean,
@@ -65,7 +64,6 @@ object Event {
     def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): Move = Move(
       orig = move.orig,
       dest = move.dest,
-      color = move.piece.color,
       san = chess.format.pgn.Dumper(move),
       fen = chess.format.Forsyth.exportBoard(situation.board),
       check = situation.check,
@@ -77,6 +75,45 @@ object Event {
       castle = move.castle.map {
         case (king, rook) => Castling(king, rook, move.color)
       },
+      state = state,
+      clock = clock,
+      possibleMoves = situation.destinations)
+  }
+
+  case class Drop(
+      role: chess.Role,
+      pos: Pos,
+      san: String,
+      fen: String,
+      check: Boolean,
+      threefold: Boolean,
+      state: State,
+      clock: Option[Event],
+      possibleMoves: Map[Pos, List[Pos]]) extends Event {
+    def typ = "drop"
+    def data = Json.obj(
+      "uci" -> s"${role.pgn}@${pos.key}",
+      "san" -> san,
+      "fen" -> fen,
+      "check" -> check.option(true),
+      "threefold" -> threefold.option(true),
+      "ply" -> state.turns,
+      "status" -> state.status,
+      "winner" -> state.winner,
+      "wDraw" -> state.whiteOffersDraw.option(true),
+      "bDraw" -> state.blackOffersDraw.option(true),
+      "clock" -> clock.map(_.data),
+      "dests" -> PossibleMoves.json(possibleMoves)
+    ).noNull
+  }
+  object Drop {
+    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[Event]): Drop = Drop(
+      role = drop.piece.role,
+      pos = drop.pos,
+      san = chess.format.pgn.Dumper(drop),
+      fen = chess.format.Forsyth.exportBoard(situation.board),
+      check = situation.check,
+      threefold = situation.threefoldRepetition,
       state = state,
       clock = clock,
       possibleMoves = situation.destinations)

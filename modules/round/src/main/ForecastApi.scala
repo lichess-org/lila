@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
 
-import chess.format.UciMove
+import chess.format.Uci
 import chess.Pos
 import Forecast.Step
 import lila.game.{ Pov, Game }
@@ -44,13 +44,11 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     uciMove: String,
     steps: Forecast.Steps): Funit =
     if (!pov.isMyTurn) fufail("not my turn")
-    else UciMove(uciMove).fold[Funit](fufail(s"Invalid move $uciMove")) { uci =>
+    else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove")) { uci =>
       val promise = Promise[Unit]
       roundMap ! Tell(pov.game.id, actorApi.round.HumanPlay(
         playerId = pov.playerId,
-        orig = uci.orig.key,
-        dest = uci.dest.key,
-        prom = uci.promotion.map(_.name),
+        uci = uci,
         blur = true,
         lag = Duration.Zero,
         promise = promise.some))
@@ -73,7 +71,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game, last: chess.Move): Fu[Option[UciMove]] = g.forecastable ?? {
+  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] = g.forecastable ?? {
     loadForPlay(Pov player g) flatMap {
       case None => fuccess(none)
       case Some(fc) => fc(g, last) match {
