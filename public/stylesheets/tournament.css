@@ -36,6 +36,7 @@ ol.scheduled_tournaments a {
 }
 #tournament .title_tag.starting_in {
   margin-top: 13px;
+  text-align: right;
 }
 #tournament .title_tag .shy {
   line-height: 20px;
