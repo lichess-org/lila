@@ -21,7 +21,8 @@ case class AnaMove(
         },
         fen = chess.format.Forsyth >> game,
         check = game.situation.check,
-        dests = Some(!game.situation.end ?? game.situation.destinations))
+        dests = Some(!game.situation.end ?? game.situation.destinations),
+        crazyData = game.situation.board.crazyData)
     }
 }
 

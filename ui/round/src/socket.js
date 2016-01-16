@@ -17,6 +17,11 @@ module.exports = function(send, ctrl) {
       m.redraw();
     },
     move: function(o) {
+      o.isMove = true;
+      ctrl.apiMove(o);
+    },
+    drop: function(o) {
+      o.isDrop = true;
       ctrl.apiMove(o);
     },
     reload: function(o) {

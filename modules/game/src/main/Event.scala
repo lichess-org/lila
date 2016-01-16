@@ -5,8 +5,8 @@ import play.api.libs.json._
 
 import chess.Pos
 import chess.Pos.{ piotr, allPiotrs }
-import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import chess.variant.Crazyhouse
+import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
 import lila.chat.{ Line, UserLine, PlayerLine }
 import lila.common.Maths.truncateAt
@@ -100,6 +100,7 @@ object Event {
       crazyData: Option[Crazyhouse.Data]) extends Event {
     def typ = "drop"
     def data = Json.obj(
+      "role" -> role.name,
       "uci" -> s"${role.pgn}@${pos.key}",
       "san" -> san,
       "fen" -> fen,

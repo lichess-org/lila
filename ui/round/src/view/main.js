@@ -1,5 +1,6 @@
 var game = require('game').game;
 var perf = require('game').perf;
+var round = require('../round');
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
@@ -36,8 +37,9 @@ function crazyPocketTag(role, color) {
 }
 
 function renderCrazyPocket(ctrl, color, position) {
-  if (!ctrl.data.crazyhouse) return;
-  var pocket = ctrl.data.crazyhouse.pockets[color === 'white' ? 0 : 1];
+  var step = round.plyStep(ctrl.data, ctrl.vm.ply);
+  if (!step.crazy) return;
+  var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
   var oKeys = Object.keys(pocket)
   var crowded = oKeys.length > 4;
   return m('div', {

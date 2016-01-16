@@ -594,6 +594,8 @@ div.table {
 .lichess_ground .pocket {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
+  width: 100%;
+  height: 60px;
 }
 .lichess_ground .pocket {
   background: #888;

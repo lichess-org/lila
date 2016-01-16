@@ -57,8 +57,8 @@ module.exports = function(opts) {
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
-  var onUserNewPiece = function(role, pos) {
-    this.sendNewPiece(role, pos);
+  var onUserNewPiece = function(piece, pos) {
+    this.sendNewPiece(piece.role, pos);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -178,7 +178,8 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
+      if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
+      else this.chessground.apiNewPiece({role: o.role, color: playedColor}, o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
@@ -225,7 +226,8 @@ module.exports = function(opts) {
       fen: o.fen,
       san: o.san,
       uci: o.uci,
-      check: o.check
+      check: o.check,
+      crazyhouse: o.crazyhouse
     });
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
