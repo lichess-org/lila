@@ -256,7 +256,7 @@ $(function() {
       ];
       $(this).highcharts('StockChart', mergeDefaults({
         colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
-          "#CC79A7", "#DF5353", "#66558C", light ? "#000" : "#FFFFFF", "#888888"
+          "#CC79A7", "#DF5353", "#66558C", "#99E699", "#FFAEAA"
         ],
         rangeSelector: {
           enabled: true,
