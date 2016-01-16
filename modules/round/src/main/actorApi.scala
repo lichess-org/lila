@@ -102,11 +102,7 @@ case class HumanPlay(
   val atMillis = nowMillis
 }
 
-case class ImportPlay(
-  playerId: String,
-  orig: chess.Pos,
-  dest: chess.Pos,
-  prom: Option[chess.PromotableRole])
+case class ImportPlay(playerId: String, uci: Uci)
 
 case object AiPlay
 

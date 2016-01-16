@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import scala.util.{ Try, Success, Failure }
+import scalaz.Validation.FlatMap._
 
 import chess.format.{ Forsyth, Uci }
 import chess.Game

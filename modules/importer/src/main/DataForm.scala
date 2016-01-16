@@ -2,7 +2,7 @@ package lila.importer
 
 import chess.format.Forsyth
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Move, Status }
+import chess.{ Game => ChessGame, Board, Replay, Color, Mode, MoveOrDrop, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scalaz.Validation.FlatMap._
@@ -20,7 +20,7 @@ private[importer] final class DataForm {
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
-private[importer] case class Preprocessed(game: Game, moves: List[Move], result: Option[Result])
+private[importer] case class Preprocessed(game: Game, moves: List[MoveOrDrop], result: Option[Result])
 
 case class ImportData(pgn: String) {
 

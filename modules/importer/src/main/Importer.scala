@@ -5,7 +5,7 @@ import scala.concurrent.Future
 
 import akka.actor.ActorRef
 import akka.pattern.{ ask, after }
-import chess.{ Color, Move, Status }
+import chess.{ Color, MoveOrDrop, Status }
 import makeTimeout.large
 
 import lila.db.api._
@@ -31,18 +31,16 @@ final class Importer(
       }
     }
 
-    def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
+    def applyMoves(pov: Pov, moves: List[MoveOrDrop]): Funit = moves match {
       case Nil => after(delay, scheduler)(funit)
       case move :: rest =>
         after(delay, scheduler)(Future(applyMove(pov, move))) >> applyMoves(!pov, rest)
     }
 
-    def applyMove(pov: Pov, move: Move) {
+    def applyMove(pov: Pov, move: MoveOrDrop) {
       roundMap ! Tell(pov.gameId, ImportPlay(
         playerId = pov.playerId,
-        orig = move.orig,
-        dest = move.dest,
-        prom = move.promotion))
+        move.fold(_.toUci, _.toUci)))
     }
 
     gameExists {

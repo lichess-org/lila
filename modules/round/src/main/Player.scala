@@ -35,9 +35,7 @@ private[round] final class Player(
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               (GameRepo save progress) >>-
-                moveOrDrop.left.toOption.foreach { move =>
-                  pov.game.hasAi ! uciMemo.add(pov.game, move)
-                } >>-
+                (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
@@ -64,11 +62,11 @@ private[round] final class Player(
   }
 
   def importMove(play: ImportPlay)(pov: Pov): Fu[Events] = play match {
-    case ImportPlay(playerId, orig, dest, promotion) => pov match {
+    case ImportPlay(playerId, uci) => pov match {
       case Pov(game, color) if game.turnOf(color) && game.playableEvenImported =>
-        game.toChess(orig, dest, promotion).future.flatMap {
-          case (newChessGame, move) =>
-            val progress = game.update(newChessGame, Left(move))
+        game.toChess(uci).future.flatMap {
+          case (newChessGame, moveOrDrop) =>
+            val progress = game.update(newChessGame, moveOrDrop)
             (GameRepo save progress) >>-
               (progress.game.finished ?? moveFinish(progress.game, color)) inject Nil
         }
