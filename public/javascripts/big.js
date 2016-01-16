@@ -1119,7 +1119,9 @@ lichess.unique = function(xs) {
         document.body.classList.toggle('fpmenu');
       });
       Mousetrap.bind('esc', function() {
-        $('#ham-plate').click();
+        var $overboard = $('.lichess_overboard .close');
+        if ($overboard.length) $overboard.click();
+        else $('#ham-plate').click();
         return false;
       });
       Mousetrap.bind('g h', function() {
