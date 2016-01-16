@@ -90,6 +90,7 @@ nbDays=%s dies
 nbHours=%s hores
 time=Temps
 rating=Puntuació
+ratingStats=Estadístiques de puntuació
 username=Nom d'usuari
 password=Contrassenya
 haveAnAccount=Ja tens un compte?
