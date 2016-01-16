@@ -237,7 +237,9 @@ private[round] final class Round(
       case _             => false
     }) self ! Threefold
   } addFailureEffect {
-    case e: ClientErrorException =>
-    case e                       => logwarn(s"[round] ${gameId} $e")
+    case e: ClientErrorException => logwarn(s"[round] ${gameId} $e")
+    case e =>
+      println(e)
+      e.printStackTrace
   } void
 }
