@@ -1,18 +1,18 @@
-#### I need help contributing code to Lichess
+#### I need help contributing code to Lichess.
 
 __For setting up your development environment, [read this guide](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).__
 
 If you experience any issues, __fix them yourself__ or __demonstrate your efforts and make it easy to help__. As stated in the read-me file, I do **not** offer support for your Lichess instance.
 
-#### I want to report a bug or a problem about Lichess
+#### I want to report a bug or a problem about Lichess.
 
 [__Make an issue ticket.__](https://github.com/ornicar/lila/issues/new?title=Submitting a forum thread with the word "thibault" in its title crashes my browser!) However, note that issues that provide little value compared to the required effort may be closed. Before creating an issue, make sure that:
 
 1. You list the steps to reproduce the problem to show that other users may experience it as well, if the issue is not self-descriptive.
 2. Search to make sure it isn't a duplicate [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
-3. It is not a trivial problem or demand unrealistic dev time to fix, e.g. pluralization bugs
+3. It is not a trivial problem or demand unrealistic dev time to fix - Pluralization bugs and the such fall under this category.
 
-#### I want to suggest a feature for Lichess
+#### I want to suggest a feature for Lichess.
 
 Issue tickets on features that lack potential or effectiveness are not useful and may be closed. Discussions regarding whether a proposed new feature would be useful can be done on [The Lichess Feedback Forum](http://lichess.org/forum/lichess-feedback) to gauge feedback. The developers may also discuss the idea there, and if it is exemplary, a corresponding issue ticket will be made. __When you're ready, [make an issue ticket](https://github.com/ornicar/lila/issues/new?title=Please implement this chess variant idea I came up with)__ and link relevant, constructive comments regarding it in your issue ticket (such as a detailed Reddit post; Linking to an empty forum thread with only your own commentary adds no value). Make sure that the feature you propose:
 
