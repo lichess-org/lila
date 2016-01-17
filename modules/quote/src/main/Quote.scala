@@ -97,7 +97,6 @@ object Quote {
     , new Quote("He who fears an isolated queen’s pawn should give up chess.", "Siegbert Tarrasch")
     , new Quote("Different people feel differently about resigning.", "Bobby Fischer")
     , new Quote("Chess is not like life... it has rules!", "Mark Pasternak")
-    , new Quote("Why must I lose to this idiot?", "Aron Nimzovich")
     , new Quote("It’s always better to sacrifice your opponent’s men.", "Savielly Tartakover")
     , new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakover")
     , new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer")
