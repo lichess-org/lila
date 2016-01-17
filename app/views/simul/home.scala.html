@@ -29,7 +29,7 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Simul.home}",
-description = trans.aboutSimul()).some) {
+description = trans.aboutSimul.str()).some) {
 <div id="simul_list" data-href="@routes.Simul.homeReload()">
   @simul.homeInner(opens, starteds, finisheds)
 </div>
