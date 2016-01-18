@@ -59,7 +59,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var onUserNewPiece = function(piece, pos) {
-    if (crazyhouse.validateDrop(this.chessground, this.data.possibleDrops, piece, pos))
+    if (crazyhouse.validateDrop(this.chessground, this.data, piece, pos))
       this.sendNewPiece(piece.role, pos);
     else this.jump(this.vm.ply);
   }.bind(this);

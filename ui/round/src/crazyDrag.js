@@ -4,7 +4,7 @@ var game = require('game').game;
 
 module.exports = function(ctrl, e) {
   if (e.button !== 0) return; // only left click
-  if (!game.isPlayerTurn(ctrl.data)) return;
+  if (!game.isPlayerPlaying(ctrl.data)) return;
   var node = e.target.parentNode.parentNode;
   var role = node.getAttribute('data-role'),
     color = node.getAttribute('data-color');
