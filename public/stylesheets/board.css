@@ -639,7 +639,7 @@ div.table {
 .is3d .lichess_ground .pocket .no-square {
   height: 58.102px;
 }
-.lichess_ground .pocket piece {
+.lichess_ground .pocket.bottom piece {
   cursor: pointer;
 }
 div.table.spectator {
