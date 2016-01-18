@@ -599,6 +599,7 @@ div.table {
 }
 .lichess_ground .pocket {
   background: #888;
+  white-space: nowrap;
 }
 .lichess_ground .pocket.top {
   margin-bottom: 15px;
