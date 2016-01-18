@@ -5,10 +5,11 @@ import scala.math
 
 import play.api.libs.json._
 
+import chess.variant.Crazyhouse
 import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.game.JsonView._
+import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -120,6 +121,7 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
+            "possibleDrops" -> possibleDrops(pov),
             "takebackable" -> takebackable,
             "crazyhouse" -> pov.game.crazyData).noNull
       }
@@ -298,6 +300,12 @@ final class JsonView(
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {
       case (from, dests) => from.key -> dests.mkString
+    }
+  }
+
+  private def possibleDrops(pov: Pov) = (pov.game playableBy pov.player) ?? {
+    pov.game.toChess.situation.drops map { drops =>
+      JsString(drops.map(_.key).mkString)
     }
   }
 

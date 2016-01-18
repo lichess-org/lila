@@ -18,6 +18,7 @@ var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
+var crazyhouse = require('./crazyhouse');
 
 module.exports = function(opts) {
 
@@ -58,7 +59,9 @@ module.exports = function(opts) {
   }.bind(this);
 
   var onUserNewPiece = function(piece, pos) {
-    this.sendNewPiece(piece.role, pos);
+    if (crazyhouse.validateDrop(this.chessground, this.data.possibleDrops, piece, pos))
+      this.sendNewPiece(piece.role, pos);
+    else this.jump(this.vm.ply);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -151,7 +154,7 @@ module.exports = function(opts) {
       role: role,
       pos: pos
     };
-    if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
+    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
     this.resign(false);
     this.socket.send('drop', drop, {
       ackable: true
@@ -165,7 +168,8 @@ module.exports = function(opts) {
 
   this.apiMove = function(o) {
     m.startComputation();
-    var d = this.data;
+    var d = this.data,
+      playing = game.isPlayerPlaying(d);
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
@@ -174,12 +178,16 @@ module.exports = function(opts) {
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
+    d.possibleDrops = d.player.color === d.game.player ? o.drops : null;
     d.crazyhouse = o.crazyhouse;
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
       if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
-      else this.chessground.apiNewPiece({role: o.role, color: playedColor}, o.uci.substr(2, 2));
+      else this.chessground.apiNewPiece({
+        role: o.role,
+        color: playedColor
+      }, o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
@@ -209,7 +217,7 @@ module.exports = function(opts) {
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: game.isPlayerPlaying(d) ? util.parsePossibleMoves(d.possibleMoves) : {}
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
         },
         check: o.check
       });
@@ -227,13 +235,13 @@ module.exports = function(opts) {
       san: o.san,
       uci: o.uci,
       check: o.check,
-      crazyhouse: o.crazyhouse
+      crazy: o.crazyhouse
     });
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     m.endComputation();
     if (d.blind) blind.reload(this);
-    if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
+    if (playing && playedColor === d.player.color) this.moveOn.next();
 
     if (!this.replaying() && playedColor !== d.player.color) {
       // atrocious hack to prevent race condition
