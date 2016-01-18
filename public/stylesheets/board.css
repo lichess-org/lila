@@ -617,6 +617,7 @@ div.table {
 }
 .lichess_ground .pocket .role:first-child {
   margin-left: 0;
+  border-radius: 3px 0 0 3px;
 }
 .lichess_ground .pocket.bottom .role:hover {
   background: #999;
