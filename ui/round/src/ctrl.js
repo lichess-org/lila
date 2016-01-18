@@ -73,7 +73,11 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onUserNewPiece, onMove);
+  var onNewPiece = function(piece, pos) {
+    sound.move();
+  }.bind(this);
+
+  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onUserNewPiece, onMove, onNewPiece);
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);

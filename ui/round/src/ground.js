@@ -60,14 +60,15 @@ function makeConfig(data, ply, flip) {
   };
 }
 
-function make(data, ply, userMove, userNewPiece, onMove) {
+function make(data, ply, userMove, userNewPiece, onMove, onNewPiece) {
   var config = makeConfig(data, ply);
   config.movable.events = {
     after: userMove,
     afterNewPiece: userNewPiece
   };
   config.events = {
-    move: onMove
+    move: onMove,
+    dropNewPiece: onNewPiece
   };
   config.viewOnly = data.player.spectator;
   return new chessground.controller(config);
