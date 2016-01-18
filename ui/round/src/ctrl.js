@@ -87,15 +87,21 @@ module.exports = function(opts) {
     return h;
   };
 
+  var uciToLastMove = function(uci) {
+    if (!uci) return;
+    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+    return [uci.substr(0, 2), uci.substr(2, 2)];
+  };
+
   this.jump = function(ply) {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
-      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+      lastMove: uciToLastMove(s.uci),
       check: s.check,
-      turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
+        turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
