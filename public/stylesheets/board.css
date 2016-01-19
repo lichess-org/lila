@@ -600,6 +600,7 @@ div.table {
 .lichess_ground .pocket {
   background: #888;
   white-space: nowrap;
+  max-width: 244px;
 }
 .lichess_ground .pocket.top {
   margin-bottom: 10px;
