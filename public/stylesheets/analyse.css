@@ -233,7 +233,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   height: calc(100% - 40px - 41px);
 }
 .crazy .lichess_ground .replay {
-  height: calc(100% - 40px - 150px);
+  height: calc(100% - 40px - 140px);
 }
 .lichess_ground .action_menu {
   border-color: transparent;

@@ -595,20 +595,21 @@ div.table {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
   width: 100%;
-  height: 60px;
+  height: 56px;
 }
 .lichess_ground .pocket {
   background: #888;
   white-space: nowrap;
 }
 .lichess_ground .pocket.top {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .lichess_ground .pocket.bottom {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .lichess_ground .pocket .role {
   display:inline-block;
+  height: 56px;
   margin-left: -8px;
   transition: background-color 0.13s;
 }
