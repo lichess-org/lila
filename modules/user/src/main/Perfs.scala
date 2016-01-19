@@ -208,4 +208,17 @@ case object Perfs {
       "puzzle" -> notNew(o.puzzle),
       "opening" -> notNew(o.opening))
   }
+
+  case class Leaderboards(
+    bullet: List[User.LightPerf],
+    blitz: List[User.LightPerf],
+    classical: List[User.LightPerf],
+    crazyhouse: List[User.LightPerf],
+    chess960: List[User.LightPerf],
+    kingOfTheHill: List[User.LightPerf],
+    threeCheck: List[User.LightPerf],
+    antichess: List[User.LightPerf],
+    atomic: List[User.LightPerf],
+    horde: List[User.LightPerf],
+    racingKings: List[User.LightPerf])
 }

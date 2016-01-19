@@ -130,17 +130,7 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached top10Perf PerfType.Bullet.key
-      blitz ← env.cached top10Perf PerfType.Blitz.key
-      classical ← env.cached top10Perf PerfType.Classical.key
-      chess960 ← env.cached top10Perf PerfType.Chess960.key
-      kingOfTheHill ← env.cached top10Perf PerfType.KingOfTheHill.key
-      threeCheck ← env.cached top10Perf PerfType.ThreeCheck.key
-      antichess <- env.cached top10Perf PerfType.Antichess.key
-      atomic <- env.cached top10Perf PerfType.Atomic.key
-      horde <- env.cached top10Perf PerfType.Horde.key
-      racingKings <- env.cached top10Perf PerfType.RacingKings.key
-      crazyhouse <- env.cached top10Perf PerfType.Crazyhouse.key
+      leaderboards <- env.cached.leaderboards
       nbAllTime ← env.cached topNbGame nb
       nbDay ← Env.game.cached activePlayerUidsDay nb map {
         _ flatMap { pair =>
@@ -153,17 +143,7 @@ object User extends LilaController {
         html = fuccess(Ok(html.user.list(
           tourneyWinners = tourneyWinners,
           online = online,
-          bullet = bullet,
-          blitz = blitz,
-          classical = classical,
-          chess960 = chess960,
-          kingOfTheHill = kingOfTheHill,
-          threeCheck = threeCheck,
-          antichess = antichess,
-          atomic = atomic,
-          horde = horde,
-          racingKings = racingKings,
-          crazyhouse = crazyhouse,
+          leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
@@ -176,17 +156,17 @@ object User extends LilaController {
                 l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
           }
           Ok(Json.obj(
-            "bullet" -> bullet,
-            "blitz" -> blitz,
-            "classical" -> classical,
-            "crazyhouse" -> crazyhouse,
-            "chess960" -> chess960,
-            "kingOfTheHill" -> kingOfTheHill,
-            "threeCheck" -> threeCheck,
-            "antichess" -> antichess,
-            "atomic" -> atomic,
-            "horde" -> horde,
-            "racingKings" -> racingKings))
+            "bullet" -> leaderboards.bullet,
+            "blitz" -> leaderboards.blitz,
+            "classical" -> leaderboards.classical,
+            "crazyhouse" -> leaderboards.crazyhouse,
+            "chess960" -> leaderboards.chess960,
+            "kingOfTheHill" -> leaderboards.kingOfTheHill,
+            "threeCheck" -> leaderboards.threeCheck,
+            "antichess" -> leaderboards.antichess,
+            "atomic" -> leaderboards.atomic,
+            "horde" -> leaderboards.horde,
+            "racingKings" -> leaderboards.racingKings))
         })
     } yield res
   }

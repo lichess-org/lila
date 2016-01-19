@@ -1,4 +1,4 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User.LightPerf], blitz: List[User.LightPerf], classical: List[User.LightPerf], chess960: List[User.LightPerf], kingOfTheHill: List[User.LightPerf], threeCheck: List[User.LightPerf], antichess: List[User.LightPerf], atomic: List[User.LightPerf], horde: List[User.LightPerf], racingKings: List[User.LightPerf], crazyhouse: List[User.LightPerf], nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], leaderboards: lila.user.Perfs.Leaderboards, nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -73,8 +73,8 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
   <div class="user_lists">
 
     <div class="group">
-      @userTopPerf(bullet, PerfType.Bullet)
-      @userTopPerf(crazyhouse, PerfType.Crazyhouse)
+      @userTopPerf(leaderboards.bullet, PerfType.Bullet)
+      @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
       <div class="user_top">
         <h2 class="text" data-icon="g">@trans.tournamentWinners()</h2>
         <table class="tournament_winners"><tbody>
@@ -89,26 +89,26 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
     </div>
 
     <div class="group">
-      @userTopPerf(blitz, PerfType.Blitz)
-      @userTopPerf(crazyhouse, PerfType.Crazyhouse)
+      @userTopPerf(leaderboards.blitz, PerfType.Blitz)
+      @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
       @userTopActive(nbDay, trans.activeToday(), icon = 'U'.some)
     </div>
 
     <div class="group">
-      @userTopPerf(classical, PerfType.Classical)
-      @userTopPerf(threeCheck, PerfType.ThreeCheck)
+      @userTopPerf(leaderboards.classical, PerfType.Classical)
+      @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
       @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
     </div>
 
     <div class="group">
-      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
-      @userTopPerf(horde, PerfType.Horde)
-      @userTopPerf(antichess, PerfType.Antichess)
+      @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
+      @userTopPerf(leaderboards.horde, PerfType.Horde)
+      @userTopPerf(leaderboards.antichess, PerfType.Antichess)
     </div>
 
     <div class="group">
-      @userTopPerf(atomic, PerfType.Atomic)
-      @userTopPerf(racingKings, PerfType.RacingKings)
+      @userTopPerf(leaderboards.atomic, PerfType.Atomic)
+      @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
     </div>
 
   </div>
