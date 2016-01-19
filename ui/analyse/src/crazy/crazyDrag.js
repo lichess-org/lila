@@ -43,6 +43,5 @@ module.exports = function(ctrl, color, e) {
     started: true,
     newPiece: true
   };
-  console.log(ctrl.chessground.data.draggable.current);
   drag.processDrag(ctrl.chessground.data);
 }
