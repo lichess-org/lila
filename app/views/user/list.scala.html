@@ -74,7 +74,7 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
 
     <div class="group">
       @userTopPerf(bullet, PerfType.Bullet)
-      @userTopPerf(chess960, PerfType.Chess960)
+      @userTopPerf(crazyhouse, PerfType.Crazyhouse)
       <div class="user_top">
         <h2 class="text" data-icon="g">@trans.tournamentWinners()</h2>
         <table class="tournament_winners"><tbody>
@@ -90,25 +90,25 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
 
     <div class="group">
       @userTopPerf(blitz, PerfType.Blitz)
-      @userTopPerf(threeCheck, PerfType.ThreeCheck)
+      @userTopPerf(crazyhouse, PerfType.Crazyhouse)
       @userTopActive(nbDay, trans.activeToday(), icon = 'U'.some)
     </div>
 
     <div class="group">
       @userTopPerf(classical, PerfType.Classical)
-      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
+      @userTopPerf(threeCheck, PerfType.ThreeCheck)
       @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
     </div>
 
     <div class="group">
+      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
       @userTopPerf(horde, PerfType.Horde)
       @userTopPerf(antichess, PerfType.Antichess)
-      @userTopPerf(atomic, PerfType.Atomic)
     </div>
 
     <div class="group">
+      @userTopPerf(atomic, PerfType.Atomic)
       @userTopPerf(racingKings, PerfType.RacingKings)
-      @userTopPerf(crazyhouse, PerfType.Crazyhouse)
     </div>
 
   </div>
