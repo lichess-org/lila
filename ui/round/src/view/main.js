@@ -1,15 +1,13 @@
 var game = require('game').game;
 var perf = require('game').perf;
-var round = require('../round');
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
 var mod = require('game').view.mod;
-var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
 var keyboard = require('../keyboard');
-var crazyDrag = require('../crazyDrag');
+var crazyView = require('../crazy/crazyView');
 var m = require('mithril');
 
 function materialTag(role) {
@@ -19,50 +17,6 @@ function materialTag(role) {
       class: role
     }
   };
-}
-
-function crazyPocketTag(role, color) {
-  return {
-    tag: 'div',
-    attrs: {
-      class: 'no-square'
-    },
-    children: [{
-      tag: 'piece',
-      attrs: {
-        class: role + ' ' + color
-      }
-    }]
-  };
-}
-
-function renderCrazyPocket(ctrl, color, position) {
-  var step = round.plyStep(ctrl.data, ctrl.vm.ply);
-  if (!step.crazy) return;
-  var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-  var oKeys = Object.keys(pocket)
-  var crowded = oKeys.length > 4;
-  return m('div', {
-      class: 'pocket ' + position + (oKeys.length > 4 ? ' crowded' : ''),
-      config: position === 'bottom' ? function(el, isUpdate, context) {
-        if (isUpdate) return;
-        var onstart = partial(crazyDrag, ctrl);
-        el.addEventListener('mousedown', onstart);
-        context.onunload = function() {
-          el.removeEventListener('mousedown', onstart);
-        };
-      } : null
-    },
-    oKeys.map(function(role) {
-      var pieces = [];
-      for (var i = 0; i < pocket[role]; i++) pieces.push(crazyPocketTag(role, color));
-      return m('div', {
-        class: 'role',
-        'data-role': role,
-        'data-color': color,
-      }, pieces);
-    })
-  );
 }
 
 function renderMaterial(ctrl, material, checks) {
@@ -176,9 +130,9 @@ module.exports = function(ctrl) {
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
           renderBerserk(ctrl, ctrl.data.opponent.color, 'top'),
-          renderCrazyPocket(ctrl, ctrl.data.opponent.color, 'top') || renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
+          crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top') || renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
           renderTable(ctrl),
-          renderCrazyPocket(ctrl, ctrl.data.player.color, 'bottom') || renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
+          crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom') || renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
           renderBerserk(ctrl, ctrl.data.player.color, 'bottom'))
       ])
     ]),

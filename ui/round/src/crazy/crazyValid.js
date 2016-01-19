@@ -1,9 +1,8 @@
-var util = require('./util');
 var game = require('game').game;
 
 module.exports = {
 
-  validateDrop: function(chessground, data, piece, pos) {
+  drop: function(chessground, data, piece, pos) {
 
     if (!game.isPlayerTurn(data)) return false;
 

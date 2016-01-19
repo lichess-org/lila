@@ -18,7 +18,7 @@ var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
-var crazyhouse = require('./crazyhouse');
+var crazyValid = require('./crazy/crazyValid');
 
 module.exports = function(opts) {
 
@@ -59,7 +59,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var onUserNewPiece = function(piece, pos) {
-    if (!this.replaying() && crazyhouse.validateDrop(this.chessground, this.data, piece, pos))
+    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, piece, pos))
       this.sendNewPiece(piece.role, pos);
     else this.jump(this.vm.ply);
   }.bind(this);
