@@ -179,12 +179,14 @@ object User extends LilaController {
             "bullet" -> bullet,
             "blitz" -> blitz,
             "classical" -> classical,
+            "crazyhouse" -> crazyhouse,
             "chess960" -> chess960,
             "kingOfTheHill" -> kingOfTheHill,
             "threeCheck" -> threeCheck,
             "antichess" -> antichess,
             "atomic" -> atomic,
-            "horde" -> horde))
+            "horde" -> horde,
+            "racingKings" -> racingKings))
         })
     } yield res
   }
