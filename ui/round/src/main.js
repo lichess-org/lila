@@ -44,7 +44,7 @@ module.exports = function(opts) {
         steps: [{
           title: "Crazyhouse",
           content: "This is a game of crazyhouse. " +
-            'Would you like to check out <a target="_blank" href="https://en.wikipedia.org/wiki/Crazyhouse">the rules</a>?',
+            'Would you like to check out <a target="_blank" href="http://lichess.org/crazyhouse">the rules</a>?',
           target: "div.game_infos .variant-link",
           placement: "bottom"
         }]
