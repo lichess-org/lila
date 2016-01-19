@@ -1101,7 +1101,9 @@ div.underboard .right {
   width: 242px;
 }
 div.underboard .blurs {
+  position: relative;
   padding-top: 25px;
+  z-index: 1;
 }
 div.underboard a {
   display: inline-block;
