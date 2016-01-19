@@ -16,550 +16,1014 @@ object Quote {
   // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
   // and other various sources
   val all = Vector(
-      new Quote("When you see a good move, look for a better one.", "Emanuel Lasker")
-    , new Quote("Nothing excites jaded Grandmasters more than a theoretical novelty.", "Dominic Lawson")
-    , new Quote("The Pin is mightier than the sword.", "Fred Reinfeld")
-    , new Quote("We cannot resist the fascination of sacrifice, since a passion for sacrifices is part of a chess player’s nature.", "Rudolf Spielman")
-    , new Quote("All I want to do, ever, is just play chess.", "Bobby Fischer")
-    , new Quote("A win by an unsound combination, however showy, fills me with artistic horror.", "Wilhelm Steinitz")
-    , new Quote("The chessboard is the world, the pieces are the phenomena of the Universe, the rules of the game are what we call the laws of Nature and the player on the other side is hidden from us.", "Thomas Huxley")
-    , new Quote("Adequate compensation for a sacrifice is having a sound combination leading to a winning position; adequate compensation for a blunder is having your opponent snatch defeat from the jaws of victory.", "Bruce A. Moon")
-    , new Quote("Strategy requires thought, tactics require observation.", "Max Euwe")
-    , new Quote("I don’t believe in psychology. I believe in good moves.", "Bobby Fischer")
-    , new Quote("Modern chess is too much concerned with things like pawn structure. Forget it, Checkmate ends the game.", "Nigel Short")
-    , new Quote("Life is a kind of chess, with struggle, competition, good and ill events.", "Benjamin Franklin")
-    , new Quote("Even the laziest king flees wildly in the face of a double check!", "Aaron Nimzowitsch")
-    , new Quote("Combinations have always been the most intriguing aspect of chess.  The masters look for them, the public applauds them, the critics praise them. It is because combinations are possible that chess is more than a lifeless mathematical exercise. They are the poetry of the game; they are to chess what melody is to music. They represent the triumph of mind over matter.", "Reuben Fine")
-    , new Quote("I give 98 percent of my mental energy to chess.", "Bobby Fischer")
-    , new Quote("Chess is a fairy tale of 1001 blunders.", "Savielly Tartakower")
-    , new Quote("Chess is no whit inferior to the violin, and we have a large number of professional violinists.", "Mikhail Botvinnik")
-    , new Quote("Only the player with the initiative has the right to attack.", "Wilhelm Steinitz")
-    , new Quote("The winner of the game is the player who makes the next-to-last mistake.", "Savielly Tartakover")
-    , new Quote("Your body has to be in top condition. Your chess deteriorates as your body does. You can’t separate body from mind.", "Bobby Fischer")
-    , new Quote("Of chess it has been said that life is not long enough for it, but that is the fault of life, not chess.", "William Ewart Napier")
-    , new Quote("I have added these principles to the law: get the Knights into action before both Bishops are developed.", "Emanuel Lasker")
-    , new Quote("Life is like a game of chess, changing with each move.", "Chinese proverb")
-    , new Quote("You cannot play at chess if you are kind-hearted.", "French proverb")
-    , new Quote("Its just you and your opponent at the board and you’re trying to prove something.", "Bobby Fischer")
-    , new Quote("It is the aim of the modern school, not to treat every position according to one general law, but according to the principle inherent in the position.", "Richard Reti")
-    , new Quote("The pawns are the soul of the game.", "Francois Andre Danican Philidor")
-    , new Quote("In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middle game and the opening must be studied in relation to the endgame.", "Jose Raul Capablanca")
-    , new Quote("Without error there can be no brilliancy.", "Emanuel Lasker")
-    , new Quote("Chess is like war on a board.", "Bobby Fischer")
-    , new Quote("Chess is played with the mind and not with the hands!", "Renaud and Kahn")
-    , new Quote("Chess is mental torture.", "Garry Kasparov")
-    , new Quote("Many have become chess masters, no one has become the master of chess.", "Siegbert Tarrasch")
-    , new Quote("The most important feature of the chess position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece’s activity is the pawn structure.", "Michael Stean")
-    , new Quote("You have to have the fighting spirit. You have to force moves and take chances.", "Bobby Fischer")
-    , new Quote("Could we look into the head of a chess player, we should see there a whole world of feelings, images, ideas, emotion and passion.", "Alfred Binet")
-    , new Quote("Openings teach you openings. Endgames teach you chess!", "Stephan Gerzadowicz")
-    , new Quote("My style is somewhere between that of Tal and Petrosian.", "Reshevsky")
-    , new Quote("Play the opening like a book, the middle game like a magician, and the endgame like a machine.", "Spielmann")
-    , new Quote("That’s what chess is all about. One day you give your opponent a lesson, the next day he gives you one.", "Bobby Fischer")
-    , new Quote("Some part of a mistake is always correct.", "Savielly Tartakover")
-    , new Quote("Methodical thinking is of more use in chess than inspiration.", "C. J. S. Purdy")
-    , new Quote("When in doubt... play chess!", "Tevis")
-    , new Quote("Who is your opponent tonight, tonight I am playing against the black pieces.", "Akiba Rubinstein")
-    , new Quote("I like the moment when I break a man’s ego.", "Bobby Fischer")
-    , new Quote("Excellence at chess is one mark of a scheming mind.", "Sir Arthur Conan Doyle")
-    , new Quote("A bad day of chess is better than any good day at work.", "Anonymous")
-    , new Quote("Chess is the art of analysis.", "Mikhail Botvinnik")
-    , new Quote("The mistakes are there, waiting to be made.", "Savielly Tartakower")
-    , new Quote("There are tough players and nice guys, and I’m a tough player.", "Bobby Fischer")
-    , new Quote("After black’s reply to 1.e4 with 1..e5, leaves him always trying to get into the game.", "Howard Staunton")
-    , new Quote("A player surprised is half beaten.", "Proverb")
-    , new Quote("A passed pawn increases in strength as the number of pieces on the board diminishes.", "Capablanca")
-    , new Quote("The essence of chess is thinking about what chess is.", "David Bronstein")
-    , new Quote("I am the best player in the world and I am here to prove it.", "Bobby Fischer")
-    , new Quote("Chess is a forcing house where the fruits of character can ripen more fully than in life.", "Edward Morgan Foster")
-    , new Quote("Half the variations which are calculated in a tournament game turn out to be completely superfluous. Unfortunately, no one knows in advance which half.", "Jan Tinman")
-    , new Quote("Chess is as much a mystery as women.", "Purdy")
-    , new Quote("Good positions don’t win games, good moves do.", "Gerald Abrahams")
-    , new Quote("If I win a tournament, I win it by myself.  I do the playing. Nobody helps me.", "Bobby Fischer")
-    , new Quote("What would chess be without silly mistakes?", "Kurt Richter")
-    , new Quote("Before the endgame, the Gods have placed the middle game.", "Siegbert Tarrasch")
-    , new Quote("Chess was Capablanca’s mother tongue.", "Reti")
-    , new Quote("Alekhine is a poet who creates a work of art out of something that would hardly inspire another man to send home a picture post card.", "Max Euwe")
-    , new Quote("Don’t even mention losing to me. I can’t stand to think of it.", "Bobby Fischer")
-    , new Quote("During a chess competition a chess master should be a combination of a beast of prey and a monk.", "Alexander Alekhine")
-    , new Quote("No one ever won a game by resigning.", "Saviely Tartakower")
-    , new Quote("The defensive power of a pinned piece is only imaginary.", "Aaron Nimzovich")
-    , new Quote("When the chess game is over, the pawn and the king go back to the same box.", "Irish saying")
-    , new Quote("A strong memory, concentration, imagination, and a strong will is required to become a great chess player.", "Bobby Fischer")
-    , new Quote("Every chess master was once a beginner.", "Chernev")
-    , new Quote("One doesn’t have to play well, it’s enough to play better than your opponent.", "Siegbert Tarrasch")
-    , new Quote("Chess is above all, a fight!", "Emanuel Lasker")
-    , new Quote("Discovered check is the dive bomber of the chessboard.", "Reuben Fine")
-    , new Quote("I know people who have all the will in the world, but still can’t play good chess.", "Bobby Fischer")
-    , new Quote("A chess game is a dialogue, a conversation between a player and his opponent. Each move by the opponent may contain threats or be a blunder, but a player cannot defend against threats or take advantage of blunders if he does not first ask himself: What is my opponent planning after each move?", "Bruce A. Moon")
-    , new Quote("The hardest game to win is a won game.", "Emanuel Lasker")
-    , new Quote("The most powerful weapon in chess is to have the next move.", "David Bronstein")
-    , new Quote("He who fears an isolated queen’s pawn should give up chess.", "Siegbert Tarrasch")
-    , new Quote("Different people feel differently about resigning.", "Bobby Fischer")
-    , new Quote("Chess is not like life... it has rules!", "Mark Pasternak")
-    , new Quote("Why must I lose to this idiot?", "Aron Nimzovich")
-    , new Quote("It’s always better to sacrifice your opponent’s men.", "Savielly Tartakover")
-    , new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakover")
-    , new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer")
-    , new Quote("Help your pieces so they can help you.", "Paul Morphy")
-    , new Quote("In a gambit you give up a pawn for the sake of getting a lost game.", "Samuel Standige Boden")
-    , new Quote("It is not enough to be a good player... you must also play well.", "Siegbert Tarrasch")
-    , new Quote("A sacrifice is best refuted by accepting it.", "Wilhelm Steinitz")
-    , new Quote("Tactics flow from a superior position.", "Bobby Fischer")
-    , new Quote("Later, I began to succeed in decisive games. Perhaps because I realized a very simple truth: not only was I worried, but also my opponent.", "Mikhail Tal")
-    , new Quote("Chess is life.", "Bobby Fischer")
-    , new Quote("Chess is a beautiful mistress.", "Bent Larsen")
-    , new Quote("Some sacrifices are sound; the rest are mine.", "Mikhail Tal")
-    , new Quote("Best by test: 1. e4.", "Bobby Fischer")
-    , new Quote("A bad plan is better than none at all.", "Frank Marshall")
-    , new Quote("Chess books should be used as we use glasses: to assist the sight, although some players make use of them as if they thought they conferred sight.", "Jose Raul Capablanca")
-    , new Quote("There are two types of sacrifices: correct ones and mine.", "Mikhail Tal")
-    , new Quote("Morphy was probably the greatest genius of them all.", "Bobby Fischer")
-    , new Quote("My opponents make good moves too. Sometimes I don’t take these things into consideration.", "Bobby Fischer")
-    , new Quote("The combination player thinks forward; he starts from the given position, and tries the forceful moves in his mind.", "Emanuel Lasker")
-    , new Quote("A chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe you have an advantage, and the third... when you know you’re going to lose!", "Savielly Tartakower")
-    , new Quote("Chess demands total concentration.", "Bobby Fischer")
-    , new Quote("Chess, like love, like music, has the power to make people happy.", "Siegbert Tarrasch")
-    , new Quote("All my games are real.", "Bobby Fischer")
-    , new Quote("Chess is everything: art, science and sport.", "Anatoly Karpov")
-    , new Quote("Chess is the art which expresses the science of logic.", "Mikhail Botvinnik")
-    , new Quote("Not all artists are chess players, but all chess players are artists.", "Marcel Duchamp")
-    , new Quote("Chess is imagination.", "David Bronstein")
-    , new Quote("I’m not afraid of Spassky. The world knows I’m the best.", "Bobby Fischer")
-    , new Quote("Chess is thirty to forty percent psychology. You don’t have this when you play a computer. I can’t confuse it.", "Judith Polgar")
-    , new Quote("On the chessboard, lies and hypocrisy do not survive long.", "Emanuel Lasker")
-    , new Quote("Chess is war over the board. The object is to crush the opponents mind.", "Bobby Fischer")
-    , new Quote("The passed pawn is a criminal, who should be kept under lock and key.  Mild measures, such as police surveillance, are not sufficient.", "Aaron Nimzovich")
-    , new Quote("Chess holds its master in its own bonds, shackling the mind and brain so that the inner freedom of the very strongest must suffer.", "Albert Einstein")
-    , new Quote("Human affairs are like a chess game: only those who do not take it seriously can be called good players.", "Hung Tzu Ch’eng")
-    , new Quote("The blunders are all there on the board, waiting to be made.", "Savielly Tartakover")
-    , new Quote("Via the squares on the chessboard, the Indians explain the movement of time and the age, the higher influences which control the world and the ties which link chess with the human soul.", "Al-Masudi")
-    , new Quote("It is no time to be playing chess when the house is on fire.", "Italian proverb")
-    , new Quote("You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether its really a good idea and whether there are other better ideas.", "Stanley Kubrick")
-    , new Quote("Daring ideas are like chess men moved forward. They may be beaten, but they may start a winning game.", "Johann Wolfgang von Goethe")
-    , new Quote("Of all my Russian books, the defense contains and diffuses the greatest ’warmth’ which may seem odd seeing how supremely abstract chess is supposed to be.", "Vladimir Nabokov")
-    , new Quote("For surely of all the drugs in the world, chess must be the most permanently pleasurable.", "Assiac")
-    , new Quote("A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.", "Siegbert Tarrasch")
-    , new Quote("Chess problems demand from the composer the same virtues that characterize all worthwhile art: originality, invention, conciseness, harmony, complexity, and splendid insincerity.", "Vladimir Nabokov")
-    , new Quote("Personally, I rather look forward to a computer program winning the world chess Championship. Humanity needs a lesson in humility.", "Richard Dawkings")
-    , new Quote("The boy (then a 12 year old boy named Anatoly Karpov) doesn’t have a clue about chess, and there’s no future at all for him in this profession.", "Mikhail Botvinnik")
-    , new Quote("As one by one I mowed them down, my superiority soon became apparent.", "Jose Capablanca")
-    , new Quote("Though most people love to look at the games of the great attacking masters, some of the most successful players in history have been the quiet positional players. They slowly grind you down by taking away your space, tying up your pieces, and leaving you with virtually nothing to do!", "Yasser Seirawan")
-    , new Quote("Chess is ruthless; you’ve got to be prepared to kill people.", "Nigel Short")
-    , new Quote("There must have been a time when men were demigods, or they could not have invented chess.", "Gustav Schenk")
-    , new Quote("Chess is really ninety nine percent calculation.", "Soltis")
-    , new Quote("Chess is the gymnasium of the mind.", "Blaise Pascal")
-    , new Quote("The game of chess is not merely an idle amusement; several very valuable qualities of the mind are to be acquired and strengthened by it, so as to become habits ready on all occasions; for life is a kind of chess.", "Benjamin Franklin")
-    , new Quote("Winning isn’t everything... but losing is nothing.", "Mednis")
-    , new Quote("Only sissies castle.", "Rob Sillars")
-    , new Quote("Look at Garry Kasparov. After he loses, invariably he wins the next game. He just kills the next guy. That’s something that we have to learn to be able to do.", "Maurice Ashley")
-    , new Quote("There just isn’t enough televised chess.", "David Letterman")
-    , new Quote("Avoid the crowd. Do your own thinking independently. Be the chess player, not the chess piece.", "Ralph Charell")
-    , new Quote("Chess is a terrible game. If you have no center, your opponent has a freer position. If you do have a center, then you really have something to worry about!", "Siegbert Tarrasch")
-    , new Quote("Any material change in a position must come about by mate, a capture, or a pawn promotion.", "Purdy")
-    , new Quote("We don’t really know how the game was invented, though there are suspicions. As soon as we discover the culprits, we’ll let you know.", "Bruce Pandolfini")
-    , new Quote("The battle for the ultimate truth will never be won.  And that’s why chess is so fascinating.", "Hans Kmoch")
-    , new Quote("Chess makes man wiser and clear-sighted.", "Vladimir Putin")
-    , new Quote("I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. chess is much purer than art in its social position.", "Marcel Duchamp")
-    , new Quote("Blessed be the memory of him who gave the world this immortal game.", "A. G. Gardiner")
-    , new Quote("In the perfect chess combination as in a first-rate short story, the whole plot and counter-plot should lead up to a striking finale, the interest not being allayed until the very last moment.", "Yates and Winter")
-    , new Quote("Castle early and often.", "Rob Sillars")
-    , new Quote("I believe that chess possesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.", "Vlastimil Hort")
-    , new Quote("Chess is a more highly symbolic game, but the aggressions are therefore even more frankly represented in the play. It probably began as a war game; that is, the representation of a miniature battle between the forces of two kingdoms.", "Karl Meninger")
-    , new Quote("No chess Grandmaster is normal; they only differ in the extent of their madness.", "Viktor Korchnoi")
-    , new Quote("Chess is 99 percent tactics.", "Teichmann")
-    , new Quote("I’d rather have a pawn than a finger.", "Reuben Fine")
-    , new Quote("Chess mastery essentially consists of analyzing.", "Mikhail Botvinnik")
-    , new Quote("If your opponent cannot do anything active, then don’t rush the position; instead you should let him sit there, suffer, and beg you for a draw.", "Jeremy Silman")
-    , new Quote("The chess pieces are the block alphabet which shapes thoughts; and these thoughts, although making a visual design on the chessboard, express their beauty abstractly, like a poem.", "Marcel Duchamp")
-    , new Quote("Examine moves that smite! A good eye for smites is far more important than a knowledge of strategical principles.", "Purdy")
-    , new Quote("Chess is like life.", "Boris Spassky")
-    , new Quote("If your opponent offers you a draw, try to work out why he thinks he’s worse off.", "Nigel Short")
-    , new Quote("Chess teaches you to control the initial excitement you feel when you see something that looks good and it trains you to think objectively when you’re in trouble.", "Stanley Kubrick")
-    , new Quote("Let the perfectionist play postal.", "Yasser Seirawan")
-    , new Quote("If chess is a science, it’s a most inexact one. If chess is an art, it is too exacting to be seen as one. If chess is a sport, it’s too esoteric. If chess is a game, it’s too demanding to be just a game. If chess is a mistress, she’s a demanding one. If chess is a passion, it’s a rewarding one. If chess is life, it’s a sad one.", "Unknown")
-    , new Quote("Chess is a foolish expedient for making idle people believe they are doing something very clever when they are only wasting their time.", "George Bernard Shaw")
-    , new Quote("You must take your opponent into a deep dark forest where 2+2=5, and the path leading out is only wide enough for one.", "Mikhail Tal")
-    , new Quote("I feel as if I were a piece in a game of chess, when my opponent says of it: That piece cannot be moved.", "Soren Kierkegaard")
-    , new Quote("When your house is on fire, you cant be bothered with the neighbors.  Or, as we say in chess, if your king is under attack you don’t worry about losing a pawn on the queen’s side.", "Garry Kasparov")
-    , new Quote("Man is a frivolous, a specious creature, and like a chess player, cares more for the process of attaining his goal than for the goal itself.", "Dostoyevsky")
-    , new Quote("When asked, -How is that you pick better moves than your opponents?, I responded: I’m very glad you asked me that, because, as it happens, there is a very simple answer. I think up my own moves, and I make my opponent think up his.", "Alexander Alekhine")
-    , new Quote("Mistrust is the most necessary characteristic of the chess player.", "Siegbert Tarrasch")
-    , new Quote("What is the object of playing a gambit opening?... To acquire a reputation of being a dashing player at the cost of losing a game.", "Siegbert Tarrasch")
-    , new Quote("Pawns; they are the soul of this game, they alone form the attack and defense.", "Philidor")
-    , new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis")
-    , new Quote("There are two classes of men; those who are content to yield to circumstances and who play whist; those who aim to control circumstances, and who play chess.", "Mortimer Collins")
-    , new Quote("The tactician must know what to do whenever something needs doing; the strategist must know what to do when nothing needs doing.", "Savielly Tartakover")
-    , new Quote("When you are lonely, when you feel yourself an alien in the world, play chess. This will raise your spirits and be your counselor in war.", "Aristotle")
-    , new Quote("All chess players should have a hobby.", "Savielly Tartakower")
-    , new Quote("I played chess with him and would have beaten him sometimes only he always took back his last move, and ran the game out differently.", "Mark Twain")
-    , new Quote("The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.", "Gerald Abrahams")
-    , new Quote("In chess, just as in life, today’s bliss may be tomorrow’s poison.", "Assaic")
-    , new Quote("You may learn much more from a game you lose than from a game you win. You will have to lose hundreds of games before becoming a good player.", "Jose Raul Capablanca")
-    , new Quote("The way he plays chess demonstrates a man’s whole nature.", "Stanley Ellin")
-    , new Quote("You can only get good at chess if you love the game.", "Bobby Fischer")
-    , new Quote("A man that will take back a move at chess will pick a pocket.", "Richard Fenton")
-    , new Quote("Whoever sees no other aim in the game than that of giving checkmate to one’s opponent will never become a good chess player.", "Euwe")
-    , new Quote("In blitz, the Knight is stronger than the Bishop.", "Vlastimil Hort")
-    , new Quote("Chess is a fighting game which is purely intellectual and includes chance.", "Richard Reti")
-    , new Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb")
-    , new Quote("Pawn endings are to chess what putting is to golf.", "Cecil Purdy")
-    , new Quote("Chess opens and enriches your mind.", "Saudin Robovic")
-    , new Quote("The isolated pawn casts gloom over the entire chessboard.", "Aaron Nimzovich")
-    , new Quote("For me, chess is life and every game is like a new life. Every chess player gets to live many lives in one lifetime.", "Eduard Gufeld")
-    , new Quote("Chess is a terrific way for kids to build self image and self esteem.", "Saudin Robovic")
-    , new Quote("If a ruler does not understand chess, how can he rule over a kingdom?", "King Khusros II")
-    , new Quote("Chess is a cold bath for the mind.", "Sir John Simon")
-    , new Quote("Becoming successful at chess allows you to discover your own personality. That’s what I want for the kids I teach.", "Saudin Robovic")
-    , new Quote("Chess is so inspiring that I do not believe a good player is capable of having an evil thought during the game.", "Wilhelm Steinitz")
-    , new Quote("You are for me the queen on d8 and I am the pawn on d7!! ", "GM Eduard Gufeld")
-    , new Quote("By playing at chess then, we may learn: First: Foresight. Second: Circumspection. Third: Caution. And lastly, we learn by chess the habit of not being discouraged by present bad appearances in the state of our affairs, the habit of hoping for a favorable chance, and that of persevering in the secrets of resources.", "Benjamin Franklin")
-    , new Quote("I prefer to lose a really good game than to win a bad one.", "David Levy")
-    , new Quote("Capture of the adverse king is the ultimate but not the first object of the game.", "William Steinitz")
-    , new Quote("When I have white, I win because I am white; When I have black, I win because I am Bogolyubov.", "Bogolyubov")
-    , new Quote("Every pawn is a potential queen.", "James Mason")
-    , new Quote("Chess is in its essence a game, in its form an art, and in its execution a science.", "Baron Tassilo")
-    , new Quote("No price is too great for the scalp of the enemy king.", "Koblentz")
-    , new Quote("In life, as in chess, ones own pawns block ones way.  A mans very wealth, ease, leisure, children, books, which should help him to win, more often checkmate him.", "Charles Buxton")
-    , new Quote("Chess is a part of culture and if a culture is declining then chess too will decline.", "Mikhail Botvinnik")
-    , new Quote("A good sacrifice is one that is not necessarily sound but leaves your opponent dazed and confused.", "Rudolph Spielmann")
-    , new Quote("Chess, like any creative activity, can exist only through the combined efforts of those who have creative talent, and those who have the ability to organize their creative work.", "Mikhail Botvinnik")
-    , new Quote("One bad move nullifies forty good ones.", "Horowitz")
-    , new Quote("Place the contents of the chess box in a hat, shake them up vigorously, pour them on the board from a height of two feet, and you get the style of Steinitz.", "H. E. Bird")
-    , new Quote("I have never in my life played the French Defence, which is the dullest of all openings.", "Wilhelm Steinitz")
-    , new Quote("Pawns are born free, yet they are everywhere in chains.", "Rick Kennedy")
-    , new Quote("It is not a move, even the best move that you must seek, but a realizable plan.", "Eugene Znosko-Borovsky")
-    , new Quote("Those who say they understand chess, understand nothing.", "Robert Hubner")
-    , new Quote("Good offense and good defense both begin with good development.", "Bruce A. Moon")
-    , new Quote("Botvinnik tried to take the mystery out of chess, always relating it to situations in ordinary life. He used to call chess a typical inexact problem similar to those which people are always having to solve in everyday life.", "Garry Kasparov")
-    , new Quote("A good player is always lucky.", "Jose Raul Capablanca")
-    , new Quote("The sign of a great master is his ability to win a won game quickly and painlessly.", "Irving Chernev")
-    , new Quote("One of these modest little moves may be more embarrassing to your opponent than the biggest threat.", "Siegbert Tarrasch")
-    , new Quote("Live, lose, and learn, by observing your opponent how to win.", "Amber Steenbock")
-    , new Quote("The older I grow, the more I value pawns.", "Keres")
-    , new Quote("Everything is in a state of flux, and this includes the world of chess.", "Mikhail Botvinnik")
-    , new Quote("The beauty of a move lies not in its appearance but in the thought behind it.", "Aaron Nimzovich")
-    , new Quote("My God, Bobby Fischer plays so simply.", "Alexei Suetin")
-    , new Quote("You need not play well - just help your opponent to play badly.", "Genrikh Chepukaitis")
-    , new Quote("It is difficult to play against Einstein’s theory --on his first loss to Fischer.", "Mikhail Tal")
-    , new Quote("The only thing chess players have in common is chess.", "Lodewijk Prins")
-    , new Quote("Bobby just drops the pieces and they fall on the right squares.", "Miguel Najdorf")
-    , new Quote("We must make sure that chess will not be like a dead language, very interesting, but for a very small group.", "Sytze Faber")
-    , new Quote("The passion for playing chess is one of the most unaccountable in the world.", "H.G. Wells")
-    , new Quote("Chess is so interesting in itself, as not to need the view of gain to induce engaging in it; and thence it is never played for money.", "Benjamin Franklin")
-    , new Quote("The enormous mental resilience, without which no chess player can exist, was so much taken up by chess that he could never free his mind of this game.", "Albert Einstein")
-    , new Quote("Nowadays, when you’re not a Grandmaster at 14, you can forget about it.", "Anand Viswanathan")
-    , new Quote("Do you realize Fischer almost never has any bad pieces? He exchanges them, and the bad pieces remain with his opponents.", "Yuri Balashov")
-    , new Quote("It is always better to sacrifice your opponent’s men.", "Savielly Tartakower")
-    , new Quote("In chess, as it is played by masters, chance is practically eliminated.", "Emanuel Lasker")
-    , new Quote("You know you’re going to lose. Even when I was ahead I knew I was going to lose  --on playing against Fischer.", "Andrew Soltis")
-    , new Quote("I won’t play with you anymore. You have insulted my friend --when an opponent cursed himself for a blunder.", "Miguel Najdorf")
-    , new Quote("You know, comrade Pachman, I don’t enjoy being a Minister, I would rather play chess like you.", "Che Guevara")
-    , new Quote("It began to feel as though you were playing against chess itself --on playing against Robert Fischer.", "Walter Shipman")
-    , new Quote("Checkers is for tramps.", "Paul Morphy")
-    , new Quote("When you play Bobby, it is not a question if you win or lose.  It is a question if you survive.", "Boris Spassky")
-    , new Quote("When you absolutely don’t know what to do anymore, it is time to panic.", "John van der Wiel")
-    , new Quote("We like to think.", "Garry Kasparov")
-    , new Quote("Dazzling combinations are for the many, shifting wood is for the few.", "Georg Kieninger")
-    , new Quote("In complicated positions, Bobby Fischer hardly had to be afraid of anybody.", "Paul Keres")
-    , new Quote("It was clear to me that the vulnerable point of the American Grandmaster (Bobby Fischer) was in double-edged, hanging, irrational positions, where he often failed to find a win even in a won position.", "Efim Geller")
-    , new Quote("I love all positions. Give me a difficult positional game, I will play it.  But totally won positions, I cannot stand them.", "Hein Donner")
-    , new Quote("In Fischer’s hands, a slight theoretical advantage is as good a being a queen ahead.", "Isaac Kashdan")
-    , new Quote("I still hope to kill Fischer.", "Boris Spassky")
-    , new Quote("Is Bobby Fischer quite sane?", "Salo Flohr")
-    , new Quote("Robert Fischer is a law unto himself.", "Larry Evans")
-    , new Quote("Fischer is under obligation to nobody.", "Joseph Platz")
-    , new Quote("Bobby Fischer’s current state of mind is indeed a tragedy. One of the worlds greatest chess players - the pride and sorrow of American chess.", "Frank Brady")
-    , new Quote("Fischer is an American chess tragedy on par with Morphy and Pillsbury.", "Mig Greengard")
-    , new Quote("Nonsense was the last thing Fischer was interested in, as far as chess was concerned.", "Elie Agur")
-    , new Quote("Fischer is the strongest player in the world. In fact, the strongest player who ever lived.", "Larry Evans")
-    , new Quote("If you aren’t afraid of Spassky, then I have removed the element of money.", "Jim Slater")
-    , new Quote("I guess a certain amount of temperament is expected of chess geniuses.", "Ron Gross")
-    , new Quote("Fischer sacrificed virtually everything most of us weakies (to use his term) value, respect, and cherish, for the sake of an artful, often beautiful board game, for the ambivalent privilege of being its greatest master.", "Paul Kollar")
-    , new Quote("Fischer chess play was always razor-sharp, rational and brilliant. One of the best ever.", "Dave Regis")
-    , new Quote("Fischer wanted to give the Russians a taste of their own medicine.", "Larry Evans")
-    , new Quote("With or without the title, Bobby Fischer was unquestionably the greatest player of his time.", "Burt Hochberg")
-    , new Quote("Fischer is completely natural. He plays no roles.  He’s like a child. Very, very simple.", "Zita Rajcsanyi")
-    , new Quote("Spassky will not be psyched out by Fischer.", "Mike Goodall")
-    , new Quote("Already at 15 years of age he was a Grandmaster, a record at that time, and his battle to reach the top was the background for all the major chess events of the 1960.", "Tim Harding")
-    , new Quote("Fischer, who may or may not be mad as a hatter, has every right to be horrified.", "Jeremy Silman")
-    , new Quote("When I asked Fischer why he had not played a certain move in our game, he replied: ‘Well, you laughed when I wrote it down!’", "Mikhail Tal")
-    , new Quote("I look one move ahead... the best!", "Siegbert Tarrasch")
-    , new Quote("Fischer prefers to enter chess history alone.", "Miguel Najdorf")
-    , new Quote("Bobby is the most misunderstood, misquoted celebrity walking the face of this earth.", "Yasser Seirawan")
-    , new Quote("When you don’t know what to play, wait for an idea to come into your opponent’s mind. You may be sure that idea will be wrong.", "Siegbert Tarrasch")
-    , new Quote("There is no remorse like the remorse of chess.", "H. G. Wells")
-    , new Quote("By this measure (on the gap between Fischer & his contemporaries), I consider him the greatest world champion.", "Garry Kasparov")
-    , new Quote("By the beauty of his games, the clarity of his play, and the brilliance of his ideas, Fischer made himself an artist of the same stature as Brahms, Rembrandt, and Shakespeare.", "David Levy")
-    , new Quote("Chess is a terrible game. If you have no center, your opponent has a freer position. If you do have a center, then you really have something to worry about!", "Siegbert Tarrasch")
-    , new Quote("Many chess players were surprised when after the game, Fischer quietly explained: ’I had already analyzed this possibility’ in a position which I thought was not possible to foresee from the opening.", "Mikhail Tal")
-    , new Quote("Suddenly it was obvious to me in my analysis I had missed what Fischer had found with the greatest of ease at the board.", "Mikhail Botvinnik")
-    , new Quote("The king is a fighting piece. Use it!", "Wilhelm Steinitz")
-    , new Quote("A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.", "Siegbert Tarrasch")
-    , new Quote("Bobby Fischer is the greatest chess genius of all time!", "Alexander Kotov")
-    , new Quote("The laws of chess do not permit a free choice: you have to move whether you like it or not.", "Emanuel Lasker")
-    , new Quote("First-class players lose to second-class players because second-class players sometimes play a first-class game.", "Siegbert Tarrasch")
-    , new Quote("Bobby is the finest chess player this country ever produced. His memory for the moves, his brilliance in dreaming up combinations, and his fierce determination to win are uncanny.", "John Collins")
-    , new Quote("After a bad opening, there is hope for the middle game. After a bad middle game, there is hope for the endgame. But once you are in the endgame, the moment of truth has arrived.", "Edmar Mednis")
-    , new Quote("Weak points or holes in the opponent’s position must be occupied by pieces not pawns.", "Siegbert Tarrasch")
-    , new Quote("There is only one thing Fischer does in chess without pleasure: to lose!", "Boris Spassky")
-    , new Quote("Bobby Fischer is the greatest chess player who has ever lived.", "Ken Smith")
-    , new Quote("Up to this point white has been following well-known analysis. But now he makes a fatal error: he begins to use his own head.", "Siegbert Tarrasch")
-    , new Quote("Fischer was a master of clarity and a king of artful positioning. His opponents would see where he was going but were powerless to stop him.", "Bruce Pandolfini")
-    , new Quote("No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous.", "Anonymous German Expert")
-    , new Quote("White lost because he failed to remember the right continuation and had to think up the moves himself.", "Siegbert Tarrasch")
-    , new Quote("Not only will I predict his triumph over Botvinnik, but I’ll go further and say that he’ll probably be the greatest chess player that ever lived.", "John Collins")
-    , new Quote("I consider Fischer to be one of the greatest opening experts ever.", "Keith Hayward")
-    , new Quote("I like to say that Bobby Fischer was the greatest player ever. But what made Fischer a genius was his ability to blend an American freshness and pragmatism with Russian ideas about strategy.", "Bruce Pandolfini")
-    , new Quote("At this time Fischer is simply a level above all the best chessplayers in the world.", "John Jacobs")
-    , new Quote("I have always a slight feeling of pity for the man who has no knowledge of chess.", "Siegbert Tarrasch")
-    , new Quote("There’s never before been a chess player with such a thorough knowledge of the intricacies of the game and such an absolutely indomitable will to win. I think Bobby is the greatest player that ever lived.", "Lisa Lane")
-    , new Quote("He who takes the queen’s Knight’s pawn will sleep in the streets.", "Anonymous")
-    , new Quote("I had a toothache during the first game. In the second game I had a headache. In the third game it was an attack of rheumatism. In the fourth game, I wasn’t feeling well. And in the fifth game? Well, must one have to win every game?", "Siegbert Tarrasch")
-    , new Quote("The stomach is an essential part of the chess master.", "Bent Larsen")
-    , new Quote("I’m not a materialistic person, in that, I don’t suffer the lack or loss of money.  The absence of worldly goods I don’t look back on. For chess is a way I can be as materialistic as I want without having to sell my soul ", "Jamie Walter Adams")
-    , new Quote("These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his king.", "Jamie Walter Adams")
-    , new Quote("Chess isn’t a game of speed, it is a game of speech through actions.", "Matthew Selman")
-    , new Quote("Life like chess is about knowing to do the right move at the right time.", "Kaleb Rivera")
-    , new Quote("Come on Harry!", "Simon Williams")
-    , new Quote("Some people think that if their opponent plays a beautiful game, it’s okay to lose. I don’t. You have to be merciless.", "Magnus Carlsen")
-    , new Quote("It's one of those types of positions where he has pieces on squares.", "John ~ZugAddict~ Chernoff")
-    , new Quote("On the bright side, I no longer have any more pieces to lose.", "John ~ZugAddict~ Chernoff")
-    , new Quote("Tactics... Tactics are your friends. But they are weird friends who do strange things.", "John ~ZugAddict~ Chernoff")
-    , new Quote("You can't take the pawn because then the other will queen. Like wonder twin powers" , "John ~ZugAddict~ Chernoff")
-    , new Quote("Most of the gods throw dice but Fate plays chess, and you don't find out until too late that he's been using two queens all along.", "Terry Pratchett")
-    , new Quote("Atomic is just like regular chess, except you're exploding, everything's exploding, and you're in bullet hell.", "Unihedron 0")
-    , new Quote("lichess is better, but it's free.", "Thibault Duplessis")
-    , new Quote("When you trade, the key concern is not always the value of the pieces being exchanged, but what’s left on the board.", "Dan Heisman")
-    , new Quote("I detest the endgame. A well-played game should be practically decided in the middlegame.", "David Janowski")
-    , new Quote("Many men, many styles; what is chess style but the intangible expression of the will to win.", "Aaron Nimzowitsch")
-    , new Quote("Never play for the win, never play for the draw, just play chess!", "Khalifman")
-    , new Quote("In chess, knowledge is a very transient thing. It changes so fast that even a single mouse-slip sometimes changes the evaluation.", "Viswanathan Anand")
-    , new Quote("Having good strategies in playing chess is often a good indication of being focused in life.", "Martin Dansky")
-    , new Quote("Chess is an infinitely complex game, which one can play in infinitely numerous and varied ways.", "Vladimir Kramnik")
-    , new Quote("Chess: It’s like alcohol. It’s a drug. I have to control it, or it could overwhelm me.", "Charles Krauthammer")
-    , new Quote("Drawing general conclusions about your main weaknesses can provide a great stimulus to further growth.", "Alexander Kotov")
-    , new Quote("The good thing in chess is that very often the best moves are the most beautiful ones. The beauty of logic.", "Boris Gelfand")
-    , new Quote("Any experienced player knows how a change in the character of the play influences your psychological mood.", "Garry Kasparov")
-    , new Quote("Be a harsh critic of your own wins.", "Vasilios Kotronias")
-    , new Quote("Good players develop a tactical instinct, a sense of what is possible or likely and what is not worth calculating.", "Sam Reshevsky")
-    , new Quote("Lack of patience is probably the most common reason for losing a game, or drawing games that should have been won.", "Bent Larsen")
-    , new Quote("The scheme of a game is played on positional lines; the decision of it, as a rule, is effected by combinations.", "Richard Reti")
-    , new Quote("On the chessboard lies and hypocrisy do not last long.", "Emanuel Lasker")
-    , new Quote("The single most important thing in life is to believe in yourself regardless of what everyone else says.", "Hikaru Nakamura")
-    , new Quote("Attackers may sometimes regret bad moves, but it is much worse to forever regret an opportunity you allowed to pass you by.", "Garry Kasparov")
-    , new Quote("My favorite victory is when it is not even clear where my opponent made a mistake.", "Peter Leko")
-    , new Quote("Win with grace, lose with dignity.", "Susan Polgar")
-    , new Quote("Pawns are such fascinating pieces, too...So small, almost insignificant, and yet--they can depose kings.", "Lavie Tidhar")
-    , new Quote("The move is there, but you must see it.", "Savielly Tartakower")
-    , new Quote("The kings are an apt metaphor for human beings: utterly constrained by the rules of the game, defenseless against bombardment from all sides, able only to temporarily dodge disaster by moving one step in any direction.", "Jennifer duBois")
-    , new Quote("If chess is an art, Alekhine. If chess is a science, Capablanca. If chess is a struggle, Lasker. --on who he thought was the best player.", "Savielly Tartakower")
-    , new Quote("Chess is a good mistress, but a bad master.", "Gerald Abrahams")
-    , new Quote("I often play a move I know how to refute.", "Bent Larsen")
-    , new Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch")
-    , new Quote("If you don't know what to do, find your worst piece and look for a better square.", "Gerard Schwarz")
-    , new Quote("Players who balk at playing one-minute chess are failing to see the whole picture. They shouldn’t be worrying that they will make more mistakes – they should be rubbing their hands in glee at the thought of all the mistakes their opponents will make.", "Hikaru Nakamura")
-    , new Quote("A Chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe that you have an advantage, and the third ... when you know you're going to lose !", "Savielly Tartakower")
-    , new Quote("A Queen's sacrifice, even when fairly obvious, always rejoices the heart of the chess-lover.", "Savielly Tartakower")
-    , new Quote("A chess game, after all, is a fight in which all possible factors must be made use of, and in which a knowledge of the opponent's good and bad qualities is of the greatest importance.", "Emanuel Lasker")
-    , new Quote("A chess player never has a heart attack in a good position.", "Bent Larsen")
-    , new Quote("A computer beat me in chess, but it was no match when it came to kickboxing.", "Emo Phillips")
-    , new Quote("A considerable role in the forming of my style was played by an early attraction to study composition.", "Vasily Smyslov")
-    , new Quote("A defeatist spirit must inevitably lead to disaster.", "Eugene Znosko-Borovski")
-    , new Quote("A draw can be obtained not only by repeating moves, but also by one weak move.", "Savielly Tartakower")
-    , new Quote("A draw may be the beautiful and logical result of fine attacks and parries; and the public ought to appreciate such games, in contrast, of course, to the fear-and-laziness draws.", "Bent Larsen")
-    , new Quote("A gambit never becomes sheer routine as long as you fear you may lose the king and pawn ending!", "Bent Larsen")
-    , new Quote("A great chess player always has a very good memory.", "Leonid Shamkovich")
-    , new Quote("A knight ending is really a pawn ending.", "Mikhail Botvinnik")
-    , new Quote("A lot of these ideas are built under wrong presumptions which officials have that chess players are lazy bastards whose sole idea is to deceive (the) public and to make short draws and go home. It's not true. It's a lie. (On the Sofia Corsica rule)", "Boris Gelfand")
-    , new Quote("A male scorpion is stabbed to death after mating. In chess, the powerful queen often does the same to the king without giving him the satisfaction of a lover.", "Gregor Piatigorsky")
-    , new Quote("A pawn, when separated from his fellows, will seldom or never make a fortune.", "Francois-Andre Danican Philidor")
-    , new Quote("A plan is made for a few moves only, not for the whole game.", "Rueben Fine")
-    , new Quote("A player can sometimes afford the luxury of an inaccurate move, or even a definite error, in the opening or middlegame without necessarily obtaining a lost position. In the endgame ... an error can be decisive, and we are rarely presented with a second chance.", "Paul Keres")
-    , new Quote("A real sacrifice involves a radical change in the character of a game which cannot be effected without foresight, fantasy, and the willingness to risk.", "Leonid Shamkovich")
-    , new Quote("A sport, a struggle for results and a fight for prizes. I think that the discussion about “chess is science or chess is art” is already inappropriate. The purpose of modern chess is to reach a result.", "Alexander Morozevich")
-    , new Quote("A strong player requires only a few minutes of thought to get to the heart of the conflict. You see a solution immediately, and half an hour later merely convince yourself that your intuition has not deceived you.", "David Bronstein")
-    , new Quote("A win gives one a feeling of self-affirmation, and success - a feeling of self-expression, but only a sensible harmonization between these urges can bring really great achievements in chess.", "Oleg Romanishin")
-    , new Quote("Above all else, before playing in competitions a player must have regard to his health, for if he is suffering from ill-health he cannot hope for success. In this connection the best of all tonics is 15 to 20 days in the fresh air, in the country.", "Mikhail Botvinnik")
-    , new Quote("According to such great attacking players as Bronstein and Tal, most combinations are inspired by the player's memories of earlier games.", "Pal Benko")
-    , new Quote("After I won the title, I was confronted with the real world. People do not behave naturally anymore – hypocrisy is everywhere.", "Boris Spassky")
-    , new Quote("After a great deal of discussion in Soviet literature about the correct definition of a combination, it was decided that from the point of view of a methodical approach it was best to settle on this definition - A combination is a forced variation with a sacrifice.", "Alexander Kotov")
-    , new Quote("Agreeing to draws in the middlegame, equal or otherwise, deprives you of the opportunity to practice playing endgames, and the endgame is probably where you need the most practice.", "Pal Benko")
-    , new Quote("All chess masters have on occasion played a magnificent game and then lost it by a stupid mistake, perhaps in time pressure and it may perhaps seem unjust that all their beautiful ideas get no other recognition than a zero on the tournament table.", "Bent Larsen")
-    , new Quote("All chess players know what a combination is. Whether one makes it oneself, or is its victim, or reads of it, it stands out from the rest of the game and stirs one's admiration.", "Eugene Znosko-Borowski")
-    , new Quote("All conceptions in the game of chess have a geometrical basis.", "Eugene Znosko-Borowski")
-    , new Quote("All lines of play which lead to the imprisonment of the bishop are on principle to be condemned. (on the closed Ruy Lopez)", "Siegbert Tarrasch")
-    , new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer")
-    , new Quote("All that now seems to stand between Nigel and the prospect of the world crown is the unfortunate fact that fate brought him into this world only two years after Kasparov.", "(prophetic comment in 1987) - Garry Kasparov")
-    , new Quote("Along with my retirement from chess analytical work seems to have gone too.", "Mikhail Botvinnik")
-    , new Quote("Althought the Knight is generally considered to be on a par with the Bishop in strength, the latter piece is somehat stronger in the majority of cases in which they are opposed to each other.", "Jose Capablanca")
-    , new Quote("Amberley excelled at chess - a mark, Watson, of a scheming mind.", "Sir Arthur Conan Doyle")
-    , new Quote("Americans really don't know much about chess. But I think when I beat Spassky, that Americans will take a greater interest in chess. Americans like winners.", "Bobby Fischer")
-    , new Quote("Among top grandmasters the Dutch is a rare defense, which is good reason to play it! It has not been studied very deeply by many opponents, and theory, based on a small number of 'reliable' games, must be rather unreliable.", "Bent Larsen")
-    , new Quote("An amusing fact: as far as I can recall, when playing the Ruy Lopez I have not yet once in my life had to face the Marshall Attack!", "Anatoly Karpov")
-    , new Quote("An innovation need not be especially ingenious, but it must be well worked out.", "Paul Keres")
-    , new Quote("An isolated pawn spreads gloom all over the chessboard.", "Savielly Tartakower")
-    , new Quote("Analysis is a glittering opportunity for training: it is just here that capacity for work, perseverence and stamina are cultivated, and these qualities are, in truth, as necessary to a chess player as a marathon runner.", "Lev Polugaevsky")
-    , new Quote("Analysis, if it is really carried out with a complete concentration of his powers, forms and completes a chess player.", "Lev Polugaevsky")
-    , new Quote("Anyone who wishes to learn how to play chess well must make himself or herself thoroughly conversant with the play in positions where the players have castled on opposite sides.", "Alexander Kotov")
-    , new Quote("Apart from direct mistakes, there is nothing more ruinous than routine play, the aim of which is mechanical development.", "Alexei Suetin")
-    , new Quote("As Rousseau could not compose without his cat beside him, so I cannot play chess without my king's bishop. In its absense the game to me is lifeless and void. The vitalizing factor is missing, and I can devise no plan of attack.", "Siegbert Tarrasch")
-    , new Quote("As a chess player one has to be able to control one’s feelings, one has to be as cold as a machine.", "Levon Aronian")
-    , new Quote("As a rule, pawn endings have a forced character, and they can be worked out conclusively.", "Mark Dvoretsky")
-    , new Quote("As a rule, so-called \"positional\" sacrifices are considered more difficult, and therefore more praise-worthy, than those which are based exclusively on an exact calculation of tactical possibilities.", "Alexander Alekhine")
-    , new Quote("As a rule, the more mistakes there are in a game, the more memorable it remains, because you have suffered and worried over each mistake at the board.", "Victor Kortchnoi")
-    , new Quote("As long as my opponent has not yet castled, on each move I seek a pretext for an offensive. Even when I realize that the king is not in danger.", "Mikhail Tal")
-    , new Quote("As often as not, his strategy consists of stifling Black's activity and then winning in an endgame thanks to his superior pawn structure.", "Neil McDonald (1998)")
-    , new Quote("Attack! Always Attack!", "Adolf Anderssen")
-    , new Quote("Attackers may sometimes regret bad moves, but it is much worse to forever regret an opportunity you allowed to pass you by.", "Garry Kasparov")
-    , new Quote("Avoidance of mistakes is the beginning, as it is the end, of mastery in chess.", "Eugene Znosko-Borovsky")
-    , new Quote("Barcza is the most versatile player in the opening. He sometimes plays P-KKt3 on the first, sometimes on the second, sometimes on the third, and sometimes only on the fourth move.", "reputedly stated by Harry Golombek")
-    , new Quote("Before Geller we did not understand the King's Indian Defence.", "Mikhail Botvinnik")
-    , new Quote("Begone! Ignorant and impudent knight, not even in chess can a King be taken.", "King Louis VI (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)")
-    , new Quote("Black's d5-square is too weak.", "Ulf Andersson  (on the Dragon variation)")
-    , new Quote("Blitz chess kills your ideas.", "Bobby Fischer")
-    , new Quote("Bobby Fischer started off each game with a great advantage: after the opening he had used less time than his opponent and thus had more time available later on. The major reason why he never had serious time pressure was that his rapid opening play simply left sufficient time for the middlegame.", "Edmar Mednis")
-    , new Quote("Books on the openings abound; nor are works on the end game wanting; but those on the middle game can be counted on the fingers of one hand.", "Harry Golombek")
-    , new Quote("Boris Vasilievich was the only top-class player of his generation who played gambits regularly and without fear ... Over a period of 30 years he did not lose a single game with the King's Gambit, and among those defeated were numerous strong players of all generations, from Averbakh, Bronstein and Fischer, to Seirawan.", "Garry Kasparov")
-    , new Quote("Botvinnik tried to take the mystery out of Chess, always relating it to situations in ordinary life. He used to call chess a typical inexact problem similar to those which people are always having to solve in everyday life.", "Garry Kasparov")
-    , new Quote("But alas! Like many another consummation devoutly to be wished, the actual performance was a disappointing one. (on the long awaited Lasker-Capablanca match in 1921)", "Fred Reinfeld")
-    , new Quote("But how difficult it can be to gain the desired full point against an opponent of inferior strength, when this is demanded by the tournament position!", "Anatoly Karpov")
-    , new Quote("But whatever you might say and whatever I might say, a machine which can play chess with people is one of the most marvellous wonders of our 20th century!", "David Bronstein")
-    , new Quote("But you see when I play a game of Bobby, there is no style. Bobby played perfectly. And perfection has no style.", "Miguel Najdorf")
-    , new Quote("By all means examine the games of the great chess players, but don't swallow them whole. Their games are valuable not for their separate moves, but for their vision of chess, their way of thinking.", "Anatoly Karpov")
-    , new Quote("By positional play a master tries to prove and exploit true values, whereas by combinations he seeks to refute false values ... A combination produces an unexpected re-assessment of values.", "Emanuel Lasker")
-    , new Quote("By some ardent enthusiasts Chess has been elevated into a science or an art. It is neither; but its principal characteristic seems to be what human nature mostly delights in a fight.", "Emanuel Lasker")
-    , new Quote("By strictly observing Botvinnik's rule regarding the thorough analysis of one's own games, with the years I have come to realize that this provides the foundation for the continuous development of chess mastery.", "Garry Kasparov")
-    , new Quote("By the mid-1990s the number of people with some experience of using computers was many orders of magnitude greater than in the 1960s. In the Kasparov defeat they recognized that here was a great triumph for programmers, but not one that may compete with the human intelligence that helps us to lead our lives.", "Igor Aleksander")
-    , new Quote("By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely new.", "Garry Kasparov")
-    , new Quote("By what right does White, in an absolutely even position, such as after move one, when both sides have advanced 1. e4, sacrifice a pawn, whose recapture is quite uncertain, and open up his kingside to attack? And then follow up this policy by leaving the check of the black queen open? None whatever !", "Emanuel Lasker")
-    , new Quote("Can you imagine the relief it gives a mother when her child amuses herself quietly for hours on end?", "Klara Polgar")
-    , new Quote("Capablanca did not apply himself to opening theory (in which he never therefore achieved much), but delved deeply into the study of end-games and other simple positions which respond to technique rather than to imagination.", "Max Euwe")
-    , new Quote("Chess can help a child develop logical thinking, decision making, reasoning, and pattern recognition skills, which in turn can help math and verbal skills.", "Susan Polgar")
-    , new Quote("Chess can learn a lot from poker. First, chess media and sponsors should emphasize its glamorous aspects: worldwide traveling, parties and escape from real world responsibilities.", "Jennifer Shahade")
-    , new Quote("Chess can never reach its height by following in the path of science ... Let us, therefore, make a new effort and with the help of our imagination turn the struggle of technique into a battle of ideas.", "Jose Capablanca")
-    , new Quote("Chess continues to advance over time, so the players of the future will inevitably surpass me in the quality of their play, assuming the rules and regulations allow them to play serious chess. But it will likely be a long time before anyone spends 20 consecutive years as number, one as I did.", "Garry Kasparov")
-    , new Quote("Chess is a bond of brotherhood amongst all lovers of the noble game, as perfect as free masonry. It is a leveller of rank - title, wealth, nationality, politics, religion - all are forgotten across the board.", "Frederick Milne Edge")
-    , new Quote("Chess is a contest between two men which lends itself particularly to the conflicts surrounding aggression.", "Rueben Fine")
-    , new Quote("Chess is a contributor to net human unhappiness, since the pleasure of victory is greatly exceeded by the pain of defeat.", "Bill Hartston")
-    , new Quote("Chess is a cure for headaches.", "John Maynard Keynes")
-    , new Quote("Chess is a game sufficiently rich in meaning that it is easily capable of containing elements of both tragedy and comedy.", "Luke McShane")
-    , new Quote("Chess is a game which reflects most honor on human wit.", "Voltaire")
-    , new Quote("Chess is a great game. No matter how good one is, there is always somebody better. No matter how bad one is, there is always somebody worse.", "I.A. Horowitz")
-    , new Quote("Chess is a matter of delicate judgement, knowing when to punch and how to duck.", "Bobby Fischer")
-    , new Quote("Chess is a matter of vanity.", "Alexander Alekhine")
-    , new Quote("Chess is a meritocracy.", "Lawrence Day")
-    , new Quote("Chess is a miniature version of life. To be successful, you need to be disciplined, assess resources, consider responsible choices and adjust when circumstances change.", "Susan Polgar")
-    , new Quote("Chess is a natural cerebral high.", "Walter Browne")
-    , new Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb")
-    , new Quote("Chess is a sport. A violent sport.", "Marcel Duchamp")
-    , new Quote("Chess is a test of wills.", "Paul Keres")
-    , new Quote("Chess is a unique cognitive nexus, a place where art and science come together in the human mind and are refined and improved by experience.", "Garry Kasparov")
-    , new Quote("Chess is beautiful enough to waste your life for.", "Hans Ree")
-    , new Quote("Chess is eminently and emphatically the philosopher's game.", "Paul Morphy")
-    , new Quote("Chess is far too complex to be definitively solved with any technology we can conceive of today. However, our looked-down-upon cousin, checkers, or draughts, suffered this fate quite recently thanks to the work of Jonathan Schaeffer at the University of Alberta and his unbeatable program Chinook.", "Garry Kasparov")
-    , new Quote("Chess is infinite, and one has to make only one ill-considered move, and one`s opponent`s wildest dreams will become reality.", "David Bronstein")
-    , new Quote("Chess is like a language, the top players are very fluent at it. Talent can be developed scientifically but you have to find first what you are good at.", "Viswanathan Anand")
-    , new Quote("Chess is like body-building. If you train every day, you stay in top shape. It is the same with your brain – chess is a matter of daily training.", "Vladimir Kramnik")
-    , new Quote("Chess is my life.", "Victor Kortchnoi")
-    , new Quote("Chess is my profession. I am my own boss; I am free. I like literature and music, classical especially. I am in fact quite normal; I have a Bohemian profession without being myself a Bohemian. I am neither a conformist nor a great revolutionary.", "Bent Larsen")
-    , new Quote("Chess is not for the faint-hearted; it absorbs a person entirely. To get to the bottom of this game, he has to give himself up into slavery. Chess is difficult, it demands work, serious reflection and zealous research.", "Wilhelm Steinitz")
-    , new Quote("Chess is not for the timid.", "Irving Chernev")
-    , new Quote("Chess is not relaxing ; it's stressful even if you win.", "Jennifer Shahade")
-    , new Quote("Chess is one long regret.", "Stephen Leacock")
-    , new Quote("Chess is only a recreation and not an occupation.", "Vladimir Lenin")
-    , new Quote("Chess is something more than a game. It is an intellectual diversion which has certain artistic qualities and many scientific elements.", "Jose Capablanca")
-    , new Quote("Chess is the touchstone of intellect.", "Johann Wolfgang von Goethe")
-    , new Quote("Chess is thirty to forty percent psychology. You don't have this when you play a computer. I can't confuse it.", "Judit Polgar")
-    , new Quote("Chess is thriving. There are ever less round robin tournaments and ever more World Champions.", "Robert Huebner (1990, Schach)")
-    , new Quote("Chess is, above all, a fight.", "Emanuel Lasker")
-    , new Quote("Chess is, in essence, a game for children. Computers have exacerbated the trends towards youth because they now have an immensely powerful tool at their disposal and can absorb vast amounts of information extremely quickly.", "Nigel Short")
-    , new Quote("Chess masters as well as chess computers deserve less reverence than the public accords them.", "Eliot Hearst")
-    , new Quote("Chess programs are our enemies, they destroy the romance of chess. They take away the beauty of the game. Everything can be calculated.", "Levon Aronian")
-    , new Quote("Chess strategy as such today is still in its diapers, despite Tarrasch's statement 'We live today in a beautiful time of progress in all fields'. Not even the slightest attempt has been made to explore and formulate the laws of chess strategy.", "Aaron Nimzowitsch (1925)")
-    , new Quote("Chess strength in general and chess strength in a specific match are by no means one and the same thing.", "Garry Kasparov")
-    , new Quote("Chess will always be in the doldrums as a spectator sport while a draw is given equal mathematical value as a decisive result.", "Michael Basman")
-    , new Quote("Chess, like love, is infectious at any age.", "Salo Flohr")
-    , new Quote("Chess-play is a good and witty exercise of the mind for some kind of men, but if it proceed from overmuch study, in such a case it may do more harm than good; it is a game too troublesome for some men's brains.", "Robt. Burton (1621) (clergyman and Librarian at Oxford University)")
-    , new Quote("Combinations with a queen sacrifice are among the most striking and memorable ...", "Anatoly Karpov")
-    , new Quote("Concentrate on material gains. Whatever your opponent gives you take, unless you see a good reason not to.", "Bobby Fischer")
-    , new Quote("Condemned by theory, the Allgaier, certainly one of the most romantic of gambits, is generally successful in practice (and yet so rarely played). Why does the defender often seem hypnotized, quite demoralized?", "Tony Santasiere")
-    , new Quote("Confidence is very important – even pretending to be confident. If you make a mistake but do not let your opponent see what you are thinking then he may overlook the mistake.", "Viswanathan Anand")
-    , new Quote("Contrary to many young colleagues I do believe that it makes sense to study the classics.", "Magnus Carlsen")
-    , new Quote("Deschapelles became a first-rate player in three days, at the age of something like thirty. Nobody ever believed the statement, not even Deschapelles himself, although his biographer declares he had told the lie so often that he at last forgot the facts of the case.", "Frederick Milne Edge")
-    , new Quote("Despite the development of chess theory, there is much that remains secret and unexplored in chess.", "Vasily Smyslov")
-    , new Quote("Do not bring your Queen out too early.", "from Francisco Bernardina Calogno's poem 'On the Game of Chess' circa 1500")
-    , new Quote("Do not permit yourself to fall in love with the end-game play to the exclusion of entire games. It is well to have the whole story of how it happened; the complete play, not the denouement only. Do not embrace the rag-time and vaudeville of chess.", "Emanuel Lasker")
-    , new Quote("Do not pick a move from a list of computer lines - use your own brains. This is important, especially for young players. It's better to study a worse line well than to reproduce a better computer line.", "Laszlo Hazai")
-    , new Quote("Don't be afraid of losing, be afraid of playing a game and not learning something.", "Dan Heisman")
-    , new Quote("Don't even mention losing to me. I can't stand to think of it.", "Bobby Fischer")
-    , new Quote("Don't worry about your rating, work on your playing strength and your rating will follow.", "Dan Heisman")
-    , new Quote("Don't worry kids, you'll find work. After all, my machine will need strong chess player-programmers. You will be the first.", "Mikhail Botvinnik (to Karpov & students, 1965)")
-    , new Quote("Drawn games are sometimes more scintillating than any conclusive contest.", "Savielly Tartakower")
-    , new Quote("During a chess tournament a master must envisage himself as a cross between an ascetic monk and a beast of prey.", "Alexander Alekhine")
-    , new Quote("During the late Victorian period the majority of chess magazines printed increasing numbers of humourous stories, poems and anecdotes about the agonies and idiocies of women chess players, presumably as an antidote to the alarmed reaction of men to the fact that women were encroaching on their 'territory'.", "British Chess Magazine")
-    , new Quote("Emotional instability can be one of the factors giving rise to a failure by chess players in important duels. Under the influence of surging emotions (and not necessarily negative ones) we sometimes lose concentration and stop objectively evaluating the events that are taking place on the board.", "Mark Dvoretsky")
-    , new Quote("Endings of one rook and pawns are about the most common sort of endings arising on the chess board. Yet though they do occur so often, few have mastered them thoroughly. They are often of a very difficult nature, and sometimes while apparently very simple they are in reality extremely intricate.", "Jose Capablanca")
-    , new Quote("Enormous self-belief, intuition, the ability to take a risk at a critical moment and go in for a very dangerous play with counter-chances for the opponent - it is precisely these qualities that distinguish great players.", "Garry Kasparov")
-    , new Quote("Errors have nothing to do with luck; they are caused by time pressure, discomfort or unfamiliarilty with a position, distractions, feelings of intimidation, nervous tension, overambition, excessive caution, and dozens of other psychological factors.", "Pal Benko")
-    , new Quote("Even in the King's Gambit ... White is no longer trying to attack at all costs. He has had to adapt his approach and look for moves with a solid positional foundation", "Neil McDonald  (1998) ")
-    , new Quote("Even in the heat of a middlegame battle the master still has to bear in mind the outlines of a possible future ending.", "David Bronstein")
-    , new Quote("Even the best grandmasters in the world have had to work hard to acquire the technique of rook endings.", "Paul Keres")
-    , new Quote("Even the most distinguished players have in their careers experienced severe disappointments due to ignorance of the best lines or suspension of their own common sense.", "Tigran Petrosian")
-    , new Quote("Even when the time control has been reached, there is one situation where you want to act as if it has not: when your position is absolutely lost.", "Edmar Mednis")
-    , new Quote("Every Chess master was once a beginner.", "Irving Chernev")
-    , new Quote("Every great master will find it useful to have his own theory on the openings, which only he himself knows, a theory which is closely linked with plans for the middle game.", "Mikhail Botvinnik")
-    , new Quote("Every month I look through some ten thousand games, so not as to miss any new ideas and trends.", "Vladimir Kramnik")
-    , new Quote("Every move creates a weakness.", "Siegbert Tarrasch")
-    , new Quote("Excellent ! I will still be in time for the ballet !", "Jose Capablanca (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)")
-    , new Quote("Excelling at chess has long been considered a symbol of more general intelligence. That is an incorrect assumption in my view, as pleasant as it might be.", "Garry Kasparov")
-    , new Quote("Experience and the constant analysis of the most varied positions builds up a store of knowledge in a player's mind enabling him often at a glance to assess this or that position.", "Alexander Kotov")
-    , new Quote("Failing to open the center at the right moment - a common error by White in the Exchange Lopez - can allow Black an excellent game.", "Andy Soltis")
-    , new Quote("Far from all of the obvious moves that go without saying are correct.", "David Bronstein")
-    , new Quote("Few things are as psychologically brutal as chess.", "Garry Kasparov")
-    , new Quote("First and foremost it is essential to understand the essence, the overall idea of any fashionable variation, and only then include it in one's repertoire. Otherwise the tactical trees will conceal from the player the strategic picture of the wood, in which his orientation will most likely be lost.", "Lev Polugaevsky")
-    , new Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch")
-    , new Quote("First-class players lose to second-class players because second-class players sometimes play a first-class game.", "Siegbert Tarrasch")
-    , new Quote("Fischer is Fischer, but a knight is a knight!", "Mikhail Tal")
-    , new Quote("For a game it is too serious, for seriousness too much of a game.", "Moses Mendelssohn 1729-86")
-    , new Quote("For every door the computers have closed they have opened a new one.", "Viswanathan Anand")
-    , new Quote("For me right now I think being the world number one is a bigger deal than being the world champion because I think it shows better who plays the best chess. That sounds self-serving but I think it’s also right. (2012)", "Magnus Carlsen")
-    , new Quote("For me, chess is a language, and if it's not my native tongue, it is one I learned via the immersion method at a young age.", "Garry Kasparov")
-    , new Quote("For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that,. There is someting hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.", "Bent Larsen")
-    , new Quote("For me, chess is not a profession, it is a way of life, a passion. People may feel that I have conquered the peak and will not have to struggle. Financially, perhaps that is true; but as far as chess goes, I’m still learning a lot!", "Viswanathan Anand")
-    , new Quote("For my victory over Capablanca I am indebted primarily to my superiority in the field of psychology. Capablanca played, relying almost exclusively on his rich intuitive talent. But for the chess struggle nowadays one needs a subtle knowledge of human nature, an understanding of the opponent's psychology.", "Alexander Alekhine")
-    , new Quote("For pleasure you can read the games collections of Andersson and Chigorin, but for benefit you should study Tarrasch, Keres and Bronstein.", "Mikhail Tal")
-    , new Quote("Fortunately I’ve got a weak character, so I never did decide to dedicate myself to only one of my professions. And I’m very glad. After all, if I’d rejected chess or music then my life wouldn’t have been two times, but a hundred times less interesting.", "Mark Taimanov")
-    , new Quote("From time to time, like many other players, I glance through my own games of earlier years, and return to positions and variations which have gone out of practice. I attempt to restore them, to find new ideas and plans.", "Yefim Geller")
-    , new Quote("Furman astounded me with his chess depth, a depth which he revealed easily and naturally, as if all he were doing was establishing well-known truths.", "Anatoly Karpov")
-    , new Quote("GM Naiditsch reckoned that me playing the King's Indian against Anand was something akin to a samurai running at a machine gun with a sword.", "Hikaru Nakamura")
-    , new Quote("Genius. It's a word. What does it really mean? If I win I'm a genius. If I don't, I'm not.", "Bobby Fischer")
-    , new Quote("Go through detailed variations in your own time, think in a general way about the position in the opponent's time and you will soon find that you get into time trouble less often, that your games have more content to them, and that their general standard rises.", "Alexander Kotov")
-    , new Quote("Had I not played the Sicilian with Black I could have saved myself the trouble of studying for more than 20 years all the more popular lines of this opening, which comprise probably more than 25 percent of all published opening theory!", "Bent Larsen")
-    , new Quote("Has he some psychological antipathy to realism? I am no psychologist, and cannot say. The fact remains that Euwe commits the most inexplicable mistakes in thoroughly favorable positions, and that this weakness has consistently tarnished his record.", "Hans Kmoch")
-    , new Quote("Haste is never more dangerous than when you feel that victory is in your grasp.", "Eugene Znosko-Borovsky")
-    , new Quote("Haste, the great enemy.", "Eugene Znosko-Borowski")
-    , new Quote("Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?", "Daniel King")
-    , new Quote("He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. \"No, thank you,\" he would say and the fight would go on and on and on.", "Lubomir Kavalek on Bent Larsen")
-    , new Quote("He who analyses blitz is stupid.", "Rashid Nezhmetdinov")
-    , new Quote("He who has a slight disadvantage plays more attentively, inventively and more boldly than his antagonist who either takes it easy or aspires after too much. Thus a slight disadvantage is very frequently seen to convert into a good, solid advantage.", "Emanuel Lasker")
-    , new Quote("Here is a definition which correctly reflects the course of thought and action of a grandmaster: The plan in a game of chess is the sum total of successive strategical operations which are each carried out according to separate ideas arising from the demands of the position.", "Alexander Kotov")
-    , new Quote("How come the little things bother you when you are in a bad position? They don't bother you in good positions.", "Yasser Seirawan")
-    , new Quote("However hopeless the situation appears to be there yet always exists the possibility of putting up a stubborn resistance.", "Paul Keres")
-    , new Quote("I ... have two vocations: chess and engineering. If I played chess only, I believe that my success would not have been significantly greater. I can play chess well only when I have fully convalesced from chess and when the 'hunger for chess' once more awakens within me.", "Mikhail Botvinnik")
-    , new Quote("I always urge players to study composed problems and endgames.", "Pal Benko")
-    , new Quote("I am acutely conscious, from vast experience in opens, that guys around, say 2100 or more can definitely play chess and that one often has to work very hard to beat them.", "Nigel Short")
-    , new Quote("I am both sad and pleased that in his last tournament, Rashid Gibiatovich came to my home in Latvia. He did not take first place, but the prize for beauty, as always, he took with him. Players die, tournaments are forgotten, but the works of great artists are left behind them to live on forever. (on Nezhmetdinov)", "Mikhail Tal")
-    , new Quote("I am pleased that in a match for the World Championship I was able to conduct a game in the style of Akiba Rubinstein, where the entire strategic course was maintained from the first to the last move. (on Game 7 of his 2012 match with Anand)", "Boris Gelfand")
-    , new Quote("I am trying to beat the guy sitting across from me and trying to choose the moves that are most unpleasant for him and his style.", "Magnus Carlsen")
-    , new Quote("I believe in magic ... There is magic in the creative faculty such as great poets and philosophers conspicuously possess, and equally in the creative chessmaster.", "Emanuel Lasker")
-    , new Quote("I believe most definitely that one must not only grapple with the problems on the board, one must also make every effort to combat the thoughts and will of the opponent.", "Mikhail Tal")
-    , new Quote("I believe that the best style is a universal one, tactical and positional at the same time ...", "Susan Polgar")
-    , new Quote("I cannot claim to thoroughly enjoy coaching, because it is very hard work if you are even moderately conscientious. Nevertheless it does provide a degree of satisfaction, not to mention a steady income, which is why I do it occasionally.", "Nigel Short")
-    , new Quote("I cannot think that a player genuinely loving the game can get pleasure just from the number of points scored no matter how impressive the total. I will not speak of myself, but for the masters of the older generation, from whose games we learned, the aesthetic side was the most important.", "Alexander Kotov")
-    , new Quote("I can’t count the times I have lagged seemingly hopelessly far behind, and nobody except myself thinks I can win. But I have pulled myself in from desperate [situations]. When you are behind there are two strategies – counter-attack or all men to the defences. I’m good at finding the right balance between those.", "Magnus Carlsen")
-    , new Quote("I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.", "Mikhail Botvinnik")
-    , new Quote("Watch out for the tricky knights.", "ChessNetwork")
+      new Quote("A Chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe that you have an advantage, and the third ... when you know you're going to lose !", "Savielly Tartakower")"
+    , new Quote("A Queen's sacrifice, even when fairly obvious, always rejoices the heart of the chess-lover.", "Savielly Tartakower")"
+    , new Quote("A bad day of chess is better than any good day at work.", "Anonymous")"
+    , new Quote("A bad plan is better than none at all.", "Frank Marshall")"
+    , new Quote("A chess game is a dialogue, a conversation between a player and his opponent. Each move by the opponent may contain threats or be a blunder, but a player cannot defend against threats or take advantage of blunders if he does not first ask himself: What is my opponent planning after each move?", "Bruce A. Moon")"
+    , new Quote("A chess game is divided into three stages: the first, when you hope you have the advantage, the second when you believe you have an advantage, and the third... when you know you're going to lose!", "Savielly Tartakower")"
+    , new Quote("A chess game, after all, is a fight in which all possible factors must be made use of, and in which a knowledge of the opponent's good and bad qualities is of the greatest importance.", "Emanuel Lasker")"
+    , new Quote("A chess player never has a heart attack in a good position.", "Bent Larsen")"
+    , new Quote("A computer beat me in chess, but it was no match when it came to kickboxing.", "Emo Phillips")"
+    , new Quote("A considerable role in the forming of my style was played by an early attraction to study composition.", "Vasily Smyslov")"
+    , new Quote("A defeatist spirit must inevitably lead to disaster.", "Eugene Znosko-Borovski")"
+    , new Quote("A draw can be obtained not only by repeating moves, but also by one weak move.", "Savielly Tartakower")"
+    , new Quote("A draw may be the beautiful and logical result of fine attacks and parries; and the public ought to appreciate such games, in contrast, of course, to the fear-and-laziness draws.", "Bent Larsen")"
+    , new Quote("A gambit never becomes sheer routine as long as you fear you may lose the king and pawn ending!", "Bent Larsen")"
+    , new Quote("A good player is always lucky.", "Jose Raul Capablanca")"
+    , new Quote("A good sacrifice is one that is not necessarily sound but leaves your opponent dazed and confused.", "Rudolph Spielmann")"
+    , new Quote("A great chess player always has a very good memory.", "Leonid Shamkovich")"
+    , new Quote("A knight ending is really a pawn ending.", "Mikhail Botvinnik")"
+    , new Quote("A lot of these ideas are built under wrong presumptions which officials have that chess players are lazy bastards whose sole idea is to deceive (the) public and to make short draws and go home. It's not true. It's a lie. (On the Sofia Corsica rule)", "Boris Gelfand")"
+    , new Quote("A male scorpion is stabbed to death after mating. In chess, the powerful queen often does the same to the king without giving him the satisfaction of a lover.", "Gregor Piatigorsky")"
+    , new Quote("A man that will take back a move at chess will pick a pocket.", "Richard Fenton")"
+    , new Quote("A passed pawn increases in strength as the number of pieces on the board diminishes.", "Capablanca")"
+    , new Quote("A pawn, when separated from his fellows, will seldom or never make a fortune.", "Francois-Andre Danican Philidor")"
+    , new Quote("A plan is made for a few moves only, not for the whole game.", "Rueben Fine")"
+    , new Quote("A player can sometimes afford the luxury of an inaccurate move, or even a definite error, in the opening or middlegame without necessarily obtaining a lost position. In the endgame ... an error can be decisive, and we are rarely presented with a second chance.", "Paul Keres")"
+    , new Quote("A player surprised is half beaten.", "Proverb")"
+    , new Quote("A real sacrifice involves a radical change in the character of a game which cannot be effected without foresight, fantasy, and the willingness to risk.", "Leonid Shamkovich")"
+    , new Quote("A sacrifice is best refuted by accepting it.", "Wilhelm Steinitz")"
+    , new Quote("A sport, a struggle for results and a fight for prizes. I think that the discussion about “chess is science or chess is art” is already inappropriate. The purpose of modern chess is to reach a result.", "Alexander Morozevich")"
+    , new Quote("A strong memory, concentration, imagination, and a strong will is required to become a great chess player.", "Bobby Fischer")"
+    , new Quote("A strong player requires only a few minutes of thought to get to the heart of the conflict. You see a solution immediately, and half an hour later merely convince yourself that your intuition has not deceived you.", "David Bronstein")"
+    , new Quote("A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.", "Siegbert Tarrasch")"
+    , new Quote("A win by an unsound combination, however showy, fills me with artistic horror.", "Wilhelm Steinitz")"
+    , new Quote("A win gives one a feeling of self-affirmation, and success - a feeling of self-expression, but only a sensible harmonization between these urges can bring really great achievements in chess.", "Oleg Romanishin")"
+    , new Quote("Above all else, before playing in competitions a player must have regard to his health, for if he is suffering from ill-health he cannot hope for success. In this connection the best of all tonics is 15 to 20 days in the fresh air, in the country.", "Mikhail Botvinnik")"
+    , new Quote("According to such great attacking players as Bronstein and Tal, most combinations are inspired by the player's memories of earlier games.", "Pal Benko")"
+    , new Quote("Adequate compensation for a sacrifice is having a sound combination leading to a winning position; adequate compensation for a blunder is having your opponent snatch defeat from the jaws of victory.", "Bruce A. Moon")"
+    , new Quote("After I won the title, I was confronted with the real world. People do not behave naturally anymore – hypocrisy is everywhere.", "Boris Spassky")"
+    , new Quote("After a bad opening, there is hope for the middle game. After a bad middle game, there is hope for the endgame. But once you are in the endgame, the moment of truth has arrived.", "Edmar Mednis")"
+    , new Quote("After a great deal of discussion in Soviet literature about the correct definition of a combination, it was decided that from the point of view of a methodical approach it was best to settle on this definition - A combination is a forced variation with a sacrifice.", "Alexander Kotov")"
+    , new Quote("After black's reply to 1.e4 with 1..e5, leaves him always trying to get into the game.", "Howard Staunton")"
+    , new Quote("Agreeing to draws in the middlegame, equal or otherwise, deprives you of the opportunity to practice playing endgames, and the endgame is probably where you need the most practice.", "Pal Benko")"
+    , new Quote("Alekhine is a poet who creates a work of art out of something that would hardly inspire another man to send home a picture post card.", "Max Euwe")"
+    , new Quote("All I want to do, ever, is just play chess.", "Bobby Fischer")"
+    , new Quote("All chess masters have on occasion played a magnificent game and then lost it by a stupid mistake, perhaps in time pressure and it may perhaps seem unjust that all their beautiful ideas get no other recognition than a zero on the tournament table.", "Bent Larsen")"
+    , new Quote("All chess players know what a combination is. Whether one makes it oneself, or is its victim, or reads of it, it stands out from the rest of the game and stirs one's admiration.", "Eugene Znosko-Borowski")"
+    , new Quote("All chess players should have a hobby.", "Savielly Tartakower")"
+    , new Quote("All conceptions in the game of chess have a geometrical basis.", "Eugene Znosko-Borowski")"
+    , new Quote("All lines of play which lead to the imprisonment of the bishop are on principle to be condemned. (on the closed Ruy Lopez)", "Siegbert Tarrasch")"
+    , new Quote("All my games are real.", "Bobby Fischer")"
+    , new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer")"
+    , new Quote("All that now seems to stand between Nigel and the prospect of the world crown is the unfortunate fact that fate brought him into this world only two years after Kasparov.", "(prophetic comment in 1987) - Garry Kasparov")"
+    , new Quote("Along with my retirement from chess analytical work seems to have gone too.", "Mikhail Botvinnik")"
+    , new Quote("Already at 15 years of age he was a Grandmaster, a record at that time, and his battle to reach the top was the background for all the major chess events of the 1960.", "Tim Harding")"
+    , new Quote("Althought the Knight is generally considered to be on a par with the Bishop in strength, the latter piece is somehat stronger in the majority of cases in which they are opposed to each other.", "Jose Capablanca")"
+    , new Quote("Amberley excelled at chess - a mark, Watson, of a scheming mind.", "Sir Arthur Conan Doyle")"
+    , new Quote("Americans really don't know much about chess. But I think when I beat Spassky, that Americans will take a greater interest in chess. Americans like winners.", "Bobby Fischer")"
+    , new Quote("Among top grandmasters the Dutch is a rare defense, which is good reason to play it! It has not been studied very deeply by many opponents, and theory, based on a small number of 'reliable' games, must be rather unreliable.", "Bent Larsen")"
+    , new Quote("An amusing fact: as far as I can recall, when playing the Ruy Lopez I have not yet once in my life had to face the Marshall Attack!", "Anatoly Karpov")"
+    , new Quote("An innovation need not be especially ingenious, but it must be well worked out.", "Paul Keres")"
+    , new Quote("An isolated pawn spreads gloom all over the chessboard.", "Savielly Tartakower")"
+    , new Quote("Analysis is a glittering opportunity for training: it is just here that capacity for work, perseverence and stamina are cultivated, and these qualities are, in truth, as necessary to a chess player as a marathon runner.", "Lev Polugaevsky")"
+    , new Quote("Analysis, if it is really carried out with a complete concentration of his powers, forms and completes a chess player.", "Lev Polugaevsky")"
+    , new Quote("Any experienced player knows how a change in the character of the play influences your psychological mood.", "Garry Kasparov")"
+    , new Quote("Any material change in a position must come about by mate, a capture, or a pawn promotion.", "Purdy")"
+    , new Quote("Anyone who wishes to learn how to play chess well must make himself or herself thoroughly conversant with the play in positions where the players have castled on opposite sides.", "Alexander Kotov")"
+    , new Quote("Apart from direct mistakes, there is nothing more ruinous than routine play, the aim of which is mechanical development.", "Alexei Suetin")"
+    , new Quote("As Rousseau could not compose without his cat beside him, so I cannot play chess without my king's bishop. In its absense the game to me is lifeless and void. The vitalizing factor is missing, and I can devise no plan of attack.", "Siegbert Tarrasch")"
+    , new Quote("As a chess player one has to be able to control one's feelings, one has to be as cold as a machine.", "Levon Aronian")"
+    , new Quote("As a rule, pawn endings have a forced character, and they can be worked out conclusively.", "Mark Dvoretsky")"
+    , new Quote("As a rule, so-called \"positional\" sacrifices are considered more difficult, and therefore more praise-worthy, than those which are based exclusively on an exact calculation of tactical possibilities.", "Alexander Alekhine")"
+    , new Quote("As a rule, the more mistakes there are in a game, the more memorable it remains, because you have suffered and worried over each mistake at the board.", "Victor Kortchnoi")"
+    , new Quote("As long as my opponent has not yet castled, on each move I seek a pretext for an offensive. Even when I realize that the king is not in danger.", "Mikhail Tal")"
+    , new Quote("As often as not, his strategy consists of stifling Black's activity and then winning in an endgame thanks to his superior pawn structure.", "Neil McDonald (1998)")"
+    , new Quote("As one by one I mowed them down, my superiority soon became apparent.", "Jose Capablanca")"
+    , new Quote("At this time Fischer is simply a level above all the best chessplayers in the world.", "John Jacobs")"
+    , new Quote("Atomic is just like regular chess, except you're exploding, everything's exploding, and you're in bullet hell.", "Unihedron 0")"
+    , new Quote("Attack! Always Attack!", "Adolf Anderssen")"
+    , new Quote("Attackers may sometimes regret bad moves, but it is much worse to forever regret an opportunity you allowed to pass you by.", "Garry Kasparov")"
+    , new Quote("Avoid the crowd. Do your own thinking independently. Be the chess player, not the chess piece.", "Ralph Charell")"
+    , new Quote("Avoidance of mistakes is the beginning, as it is the end, of mastery in chess.", "Eugene Znosko-Borovsky")"
+    , new Quote("Barcza is the most versatile player in the opening. He sometimes plays P-KKt3 on the first, sometimes on the second, sometimes on the third, and sometimes only on the fourth move.", "reputedly stated by Harry Golombek")"
+    , new Quote("Be a harsh critic of your own wins.", "Vasilios Kotronias")"
+    , new Quote("Becoming successful at chess allows you to discover your own personality. That's what I want for the kids I teach.", "Saudin Robovic")"
+    , new Quote("Before Geller we did not understand the King's Indian Defence.", "Mikhail Botvinnik")"
+    , new Quote("Before the endgame, the Gods have placed the middle game.", "Siegbert Tarrasch")"
+    , new Quote("Begone! Ignorant and impudent knight, not even in chess can a King be taken.", "King Louis VI (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)")"
+    , new Quote("Best by test: 1. e4.", "Bobby Fischer")"
+    , new Quote("Black's d5-square is too weak.", "Ulf Andersson  (on the Dragon variation)")"
+    , new Quote("Blessed be the memory of him who gave the world this immortal game.", "A. G. Gardiner")"
+    , new Quote("Blitz chess kills your ideas.", "Bobby Fischer")"
+    , new Quote("Bobby Fischer is the greatest chess genius of all time!", "Alexander Kotov")"
+    , new Quote("Bobby Fischer is the greatest chess player who has ever lived.", "Ken Smith")"
+    , new Quote("Bobby Fischer started off each game with a great advantage: after the opening he had used less time than his opponent and thus had more time available later on. The major reason why he never had serious time pressure was that his rapid opening play simply left sufficient time for the middlegame.", "Edmar Mednis")"
+    , new Quote("Bobby Fischer's current state of mind is indeed a tragedy. One of the worlds greatest chess players - the pride and sorrow of American chess.", "Frank Brady")"
+    , new Quote("Bobby is the finest chess player this country ever produced. His memory for the moves, his brilliance in dreaming up combinations, and his fierce determination to win are uncanny.", "John Collins")"
+    , new Quote("Bobby is the most misunderstood, misquoted celebrity walking the face of this earth.", "Yasser Seirawan")"
+    , new Quote("Bobby just drops the pieces and they fall on the right squares.", "Miguel Najdorf")"
+    , new Quote("Books on the openings abound; nor are works on the end game wanting; but those on the middle game can be counted on the fingers of one hand.", "Harry Golombek")"
+    , new Quote("Boris Vasilievich was the only top-class player of his generation who played gambits regularly and without fear ... Over a period of 30 years he did not lose a single game with the King's Gambit, and among those defeated were numerous strong players of all generations, from Averbakh, Bronstein and Fischer, to Seirawan.", "Garry Kasparov")"
+    , new Quote("Botvinnik tried to take the mystery out of chess, always relating it to situations in ordinary life. He used to call chess a typical inexact problem similar to those which people are always having to solve in everyday life.", "Garry Kasparov")"
+    , new Quote("But alas! Like many another consummation devoutly to be wished, the actual performance was a disappointing one. (on the long awaited Lasker-Capablanca match in 1921)", "Fred Reinfeld")"
+    , new Quote("But how difficult it can be to gain the desired full point against an opponent of inferior strength, when this is demanded by the tournament position!", "Anatoly Karpov")"
+    , new Quote("But whatever you might say and whatever I might say, a machine which can play chess with people is one of the most marvellous wonders of our 20th century!", "David Bronstein")"
+    , new Quote("But you see when I play a game of Bobby, there is no style. Bobby played perfectly. And perfection has no style.", "Miguel Najdorf")"
+    , new Quote("By all means examine the games of the great chess players, but don't swallow them whole. Their games are valuable not for their separate moves, but for their vision of chess, their way of thinking.", "Anatoly Karpov")"
+    , new Quote("By playing at chess then, we may learn: First: Foresight. Second: Circumspection. Third: Caution. And lastly, we learn by chess the habit of not being discouraged by present bad appearances in the state of our affairs, the habit of hoping for a favorable chance, and that of persevering in the secrets of resources.", "Benjamin Franklin")"
+    , new Quote("By positional play a master tries to prove and exploit true values, whereas by combinations he seeks to refute false values ... A combination produces an unexpected re-assessment of values.", "Emanuel Lasker")"
+    , new Quote("By some ardent enthusiasts chess has been elevated into a science or an art. It is neither; but its principal characteristic seems to be what human nature mostly delights in a fight.", "Emanuel Lasker")"
+    , new Quote("By strictly observing Botvinnik's rule regarding the thorough analysis of one's own games, with the years I have come to realize that this provides the foundation for the continuous development of chess mastery.", "Garry Kasparov")"
+    , new Quote("By the beauty of his games, the clarity of his play, and the brilliance of his ideas, Fischer made himself an artist of the same stature as Brahms, Rembrandt, and Shakespeare.", "David Levy")"
+    , new Quote("By the mid-1990s the number of people with some experience of using computers was many orders of magnitude greater than in the 1960s. In the Kasparov defeat they recognized that here was a great triumph for programmers, but not one that may compete with the human intelligence that helps us to lead our lives.", "Igor Aleksander")"
+    , new Quote("By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely new.", "Garry Kasparov")"
+    , new Quote("By this measure (on the gap between Fischer & his contemporaries), I consider him the greatest world champion.", "Garry Kasparov")"
+    , new Quote("By what right does White, in an absolutely even position, such as after move one, when both sides have advanced 1. e4, sacrifice a pawn, whose recapture is quite uncertain, and open up his kingside to attack? And then follow up this policy by leaving the check of the black queen open? None whatever !", "Emanuel Lasker")"
+    , new Quote("Can you imagine the relief it gives a mother when her child amuses herself quietly for hours on end?", "Klara Polgar")"
+    , new Quote("Capablanca did not apply himself to opening theory (in which he never therefore achieved much), but delved deeply into the study of end-games and other simple positions which respond to technique rather than to imagination.", "Max Euwe")"
+    , new Quote("Capture of the adverse king is the ultimate but not the first object of the game.", "William Steinitz")"
+    , new Quote("Castle early and often.", "Rob Sillars")"
+    , new Quote("Checkers is for tramps.", "Paul Morphy")"
+    , new Quote("Chess books should be used as we use glasses: to assist the sight, although some players make use of them as if they thought they conferred sight.", "Jose Raul Capablanca")"
+    , new Quote("Chess can help a child develop logical thinking, decision making, reasoning, and pattern recognition skills, which in turn can help math and verbal skills.", "Susan Polgar")"
+    , new Quote("Chess can learn a lot from poker. First, chess media and sponsors should emphasize its glamorous aspects: worldwide traveling, parties and escape from real world responsibilities.", "Jennifer Shahade")"
+    , new Quote("Chess can never reach its height by following in the path of science ... Let us, therefore, make a new effort and with the help of our imagination turn the struggle of technique into a battle of ideas.", "Jose Capablanca")"
+    , new Quote("Chess continues to advance over time, so the players of the future will inevitably surpass me in the quality of their play, assuming the rules and regulations allow them to play serious chess. But it will likely be a long time before anyone spends 20 consecutive years as number, one as I did.", "Garry Kasparov")"
+    , new Quote("Chess demands total concentration.", "Bobby Fischer")"
+    , new Quote("Chess holds its master in its own bonds, shackling the mind and brain so that the inner freedom of the very strongest must suffer.", "Albert Einstein")"
+    , new Quote("Chess is 99 percent tactics.", "Teichmann")"
+    , new Quote("Chess is a beautiful mistress.", "Bent Larsen")"
+    , new Quote("Chess is a bond of brotherhood amongst all lovers of the noble game, as perfect as free masonry. It is a leveller of rank - title, wealth, nationality, politics, religion - all are forgotten across the board.", "Frederick Milne Edge")"
+    , new Quote("Chess is a cold bath for the mind.", "Sir John Simon")"
+    , new Quote("Chess is a contest between two men which lends itself particularly to the conflicts surrounding aggression.", "Rueben Fine")"
+    , new Quote("Chess is a contributor to net human unhappiness, since the pleasure of victory is greatly exceeded by the pain of defeat.", "Bill Hartston")"
+    , new Quote("Chess is a cure for headaches.", "John Maynard Keynes")"
+    , new Quote("Chess is a fairy tale of 1001 blunders.", "Savielly Tartakower")"
+    , new Quote("Chess is a fighting game which is purely intellectual and includes chance.", "Richard Reti")"
+    , new Quote("Chess is a foolish expedient for making idle people believe they are doing something very clever when they are only wasting their time.", "George Bernard Shaw")"
+    , new Quote("Chess is a forcing house where the fruits of character can ripen more fully than in life.", "Edward Morgan Foster")"
+    , new Quote("Chess is a game sufficiently rich in meaning that it is easily capable of containing elements of both tragedy and comedy.", "Luke McShane")"
+    , new Quote("Chess is a game which reflects most honor on human wit.", "Voltaire")"
+    , new Quote("Chess is a good mistress, but a bad master.", "Gerald Abrahams")"
+    , new Quote("Chess is a great game. No matter how good one is, there is always somebody better. No matter how bad one is, there is always somebody worse.", "I.A. Horowitz")"
+    , new Quote("Chess is a matter of delicate judgement, knowing when to punch and how to duck.", "Bobby Fischer")"
+    , new Quote("Chess is a matter of vanity.", "Alexander Alekhine")"
+    , new Quote("Chess is a meritocracy.", "Lawrence Day")"
+    , new Quote("Chess is a miniature version of life. To be successful, you need to be disciplined, assess resources, consider responsible choices and adjust when circumstances change.", "Susan Polgar")"
+    , new Quote("Chess is a more highly symbolic game, but the aggressions are therefore even more frankly represented in the play. It probably began as a war game; that is, the representation of a miniature battle between the forces of two kingdoms.", "Karl Meninger")"
+    , new Quote("Chess is a natural cerebral high.", "Walter Browne")"
+    , new Quote("Chess is a part of culture and if a culture is declining then chess too will decline.", "Mikhail Botvinnik")"
+    , new Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb")"
+    , new Quote("Chess is a sport. A violent sport.", "Marcel Duchamp")"
+    , new Quote("Chess is a terrible game. If you have no center, your opponent has a freer position. If you do have a center, then you really have something to worry about!", "Siegbert Tarrasch")"
+    , new Quote("Chess is a terrific way for kids to build self image and self esteem.", "Saudin Robovic")"
+    , new Quote("Chess is a test of wills.", "Paul Keres")"
+    , new Quote("Chess is a unique cognitive nexus, a place where art and science come together in the human mind and are refined and improved by experience.", "Garry Kasparov")"
+    , new Quote("Chess is above all, a fight!", "Emanuel Lasker")"
+    , new Quote("Chess is an infinitely complex game, which one can play in infinitely numerous and varied ways.", "Vladimir Kramnik")"
+    , new Quote("Chess is as much a mystery as women.", "Purdy")"
+    , new Quote("Chess is beautiful enough to waste your life for.", "Hans Ree")"
+    , new Quote("Chess is eminently and emphatically the philosopher's game.", "Paul Morphy")"
+    , new Quote("Chess is everything: art, science and sport.", "Anatoly Karpov")"
+    , new Quote("Chess is far too complex to be definitively solved with any technology we can conceive of today. However, our looked-down-upon cousin, checkers, or draughts, suffered this fate quite recently thanks to the work of Jonathan Schaeffer at the University of Alberta and his unbeatable program Chinook.", "Garry Kasparov")"
+    , new Quote("Chess is imagination.", "David Bronstein")"
+    , new Quote("Chess is in its essence a game, in its form an art, and in its execution a science.", "Baron Tassilo")"
+    , new Quote("Chess is infinite, and one has to make only one ill-considered move, and one's opponent's wildest dreams will become reality.", "David Bronstein")"
+    , new Quote("Chess is life.", "Bobby Fischer")"
+    , new Quote("Chess is like a language, the top players are very fluent at it. Talent can be developed scientifically but you have to find first what you are good at.", "Viswanathan Anand")"
+    , new Quote("Chess is like body-building. If you train every day, you stay in top shape. It is the same with your brain – chess is a matter of daily training.", "Vladimir Kramnik")"
+    , new Quote("Chess is like life.", "Boris Spassky")"
+    , new Quote("Chess is like war on a board.", "Bobby Fischer")"
+    , new Quote("Chess is mental torture.", "Garry Kasparov")"
+    , new Quote("Chess is my life.", "Victor Kortchnoi")"
+    , new Quote("Chess is my profession. I am my own boss; I am free. I like literature and music, classical especially. I am in fact quite normal; I have a Bohemian profession without being myself a Bohemian. I am neither a conformist nor a great revolutionary.", "Bent Larsen")"
+    , new Quote("Chess is no whit inferior to the violin, and we have a large number of professional violinists.", "Mikhail Botvinnik")"
+    , new Quote("Chess is not for the faint-hearted; it absorbs a person entirely. To get to the bottom of this game, he has to give himself up into slavery. Chess is difficult, it demands work, serious reflection and zealous research.", "Wilhelm Steinitz")"
+    , new Quote("Chess is not for the timid.", "Irving Chernev")"
+    , new Quote("Chess is not like life... it has rules!", "Mark Pasternak")"
+    , new Quote("Chess is not relaxing ; it's stressful even if you win.", "Jennifer Shahade")"
+    , new Quote("Chess is one long regret.", "Stephen Leacock")"
+    , new Quote("Chess is only a recreation and not an occupation.", "Vladimir Lenin")"
+    , new Quote("Chess is played with the mind and not with the hands!", "Renaud and Kahn")"
+    , new Quote("Chess is really ninety nine percent calculation.", "Soltis")"
+    , new Quote("Chess is ruthless; you've got to be prepared to kill people.", "Nigel Short")"
+    , new Quote("Chess is so inspiring that I do not believe a good player is capable of having an evil thought during the game.", "Wilhelm Steinitz")"
+    , new Quote("Chess is so interesting in itself, as not to need the view of gain to induce engaging in it; and thence it is never played for money.", "Benjamin Franklin")"
+    , new Quote("Chess is something more than a game. It is an intellectual diversion which has certain artistic qualities and many scientific elements.", "Jose Capablanca")"
+    , new Quote("Chess is the art of analysis.", "Mikhail Botvinnik")"
+    , new Quote("Chess is the art which expresses the science of logic.", "Mikhail Botvinnik")"
+    , new Quote("Chess is the gymnasium of the mind.", "Blaise Pascal")"
+    , new Quote("Chess is the touchstone of intellect.", "Johann Wolfgang von Goethe")"
+    , new Quote("Chess is thirty to forty percent psychology. You don't have this when you play a computer. I can't confuse it.", "Judit Polgar")"
+    , new Quote("Chess is thriving. There are ever less round robin tournaments and ever more World Champions.", "Robert Huebner (1990, Schach)")"
+    , new Quote("Chess is war over the board. The object is to crush the opponents mind.", "Bobby Fischer")"
+    , new Quote("Chess is, above all, a fight.", "Emanuel Lasker")"
+    , new Quote("Chess is, in essence, a game for children. Computers have exacerbated the trends towards youth because they now have an immensely powerful tool at their disposal and can absorb vast amounts of information extremely quickly.", "Nigel Short")"
+    , new Quote("Chess isn't a game of speed, it is a game of speech through actions.", "Matthew Selman")"
+    , new Quote("Chess makes man wiser and clear-sighted.", "Vladimir Putin")"
+    , new Quote("Chess masters as well as chess computers deserve less reverence than the public accords them.", "Eliot Hearst")"
+    , new Quote("Chess mastery essentially consists of analyzing.", "Mikhail Botvinnik")"
+    , new Quote("Chess opens and enriches your mind.", "Saudin Robovic")"
+    , new Quote("Chess problems demand from the composer the same virtues that characterize all worthwhile art: originality, invention, conciseness, harmony, complexity, and splendid insincerity.", "Vladimir Nabokov")"
+    , new Quote("Chess programs are our enemies, they destroy the romance of chess. They take away the beauty of the game. Everything can be calculated.", "Levon Aronian")"
+    , new Quote("Chess strategy as such today is still in its diapers, despite Tarrasch's statement 'We live today in a beautiful time of progress in all fields'. Not even the slightest attempt has been made to explore and formulate the laws of chess strategy.", "Aaron Nimzowitsch (1925)")"
+    , new Quote("Chess strength in general and chess strength in a specific match are by no means one and the same thing.", "Garry Kasparov")"
+    , new Quote("Chess teaches you to control the initial excitement you feel when you see something that looks good and it trains you to think objectively when you're in trouble.", "Stanley Kubrick")"
+    , new Quote("Chess was Capablanca's mother tongue.", "Reti")"
+    , new Quote("Chess will always be in the doldrums as a spectator sport while a draw is given equal mathematical value as a decisive result.", "Michael Basman")"
+    , new Quote("Chess, like any creative activity, can exist only through the combined efforts of those who have creative talent, and those who have the ability to organize their creative work.", "Mikhail Botvinnik")"
+    , new Quote("Chess, like love, is infectious at any age.", "Salo Flohr")"
+    , new Quote("Chess, like love, like music, has the power to make people happy.", "Siegbert Tarrasch")"
+    , new Quote("Chess-play is a good and witty exercise of the mind for some kind of men, but if it proceed from overmuch study, in such a case it may do more harm than good; it is a game too troublesome for some men's brains.", "Robt. Burton (1621) (clergyman and Librarian at Oxford University)")"
+    , new Quote("Chess: It's like alcohol. It's a drug. I have to control it, or it could overwhelm me.", "Charles Krauthammer")"
+    , new Quote("Combinations have always been the most intriguing aspect of chess.  The masters look for them, the public applauds them, the critics praise them. It is because combinations are possible that chess is more than a lifeless mathematical exercise. They are the poetry of the game; they are to chess what melody is to music. They represent the triumph of mind over matter.", "Reuben Fine")"
+    , new Quote("Combinations with a queen sacrifice are among the most striking and memorable ...", "Anatoly Karpov")"
+    , new Quote("Come on Harry!", "Simon Williams")"
+    , new Quote("Concentrate on material gains. Whatever your opponent gives you take, unless you see a good reason not to.", "Bobby Fischer")"
+    , new Quote("Condemned by theory, the Allgaier, certainly one of the most romantic of gambits, is generally successful in practice (and yet so rarely played). Why does the defender often seem hypnotized, quite demoralized?", "Tony Santasiere")"
+    , new Quote("Confidence is very important – even pretending to be confident. If you make a mistake but do not let your opponent see what you are thinking then he may overlook the mistake.", "Viswanathan Anand")"
+    , new Quote("Contrary to many young colleagues I do believe that it makes sense to study the classics.", "Magnus Carlsen")"
+    , new Quote("Could we look into the head of a chess player, we should see there a whole world of feelings, images, ideas, emotion and passion.", "Alfred Binet")"
+    , new Quote("Daring ideas are like chess men moved forward. They may be beaten, but they may start a winning game.", "Johann Wolfgang von Goethe")"
+    , new Quote("Dazzling combinations are for the many, shifting wood is for the few.", "Georg Kieninger")"
+    , new Quote("Deschapelles became a first-rate player in three days, at the age of something like thirty. Nobody ever believed the statement, not even Deschapelles himself, although his biographer declares he had told the lie so often that he at last forgot the facts of the case.", "Frederick Milne Edge")"
+    , new Quote("Despite the development of chess theory, there is much that remains secret and unexplored in chess.", "Vasily Smyslov")"
+    , new Quote("Different people feel differently about resigning.", "Bobby Fischer")"
+    , new Quote("Discovered check is the dive bomber of the chessboard.", "Reuben Fine")"
+    , new Quote("Do not bring your Queen out too early.", "from Francisco Bernardina Calogno's poem 'On the Game of Chess' circa 1500")"
+    , new Quote("Do not permit yourself to fall in love with the end-game play to the exclusion of entire games. It is well to have the whole story of how it happened; the complete play, not the denouement only. Do not embrace the rag-time and vaudeville of chess.", "Emanuel Lasker")"
+    , new Quote("Do not pick a move from a list of computer lines - use your own brains. This is important, especially for young players. It's better to study a worse line well than to reproduce a better computer line.", "Laszlo Hazai")"
+    , new Quote("Do you realize Fischer almost never has any bad pieces? He exchanges them, and the bad pieces remain with his opponents.", "Yuri Balashov")"
+    , new Quote("Don't be afraid of losing, be afraid of playing a game and not learning something.", "Dan Heisman")"
+    , new Quote("Don't even mention losing to me. I can't stand to think of it.", "Bobby Fischer")"
+    , new Quote("Don't worry about your rating, work on your playing strength and your rating will follow.", "Dan Heisman")"
+    , new Quote("Don't worry kids, you'll find work. After all, my machine will need strong chess player-programmers. You will be the first.", "Mikhail Botvinnik (to Karpov & students, 1965)")"
+    , new Quote("Drawing general conclusions about your main weaknesses can provide a great stimulus to further growth.", "Alexander Kotov")"
+    , new Quote("Drawn games are sometimes more scintillating than any conclusive contest.", "Savielly Tartakower")"
+    , new Quote("During a chess competition a chess master should be a combination of a beast of prey and a monk.", "Alexander Alekhine")"
+    , new Quote("During a chess tournament a master must envisage himself as a cross between an ascetic monk and a beast of prey.", "Alexander Alekhine")"
+    , new Quote("During the late Victorian period the majority of chess magazines printed increasing numbers of humourous stories, poems and anecdotes about the agonies and idiocies of women chess players, presumably as an antidote to the alarmed reaction of men to the fact that women were encroaching on their 'territory'.", "British Chess Magazine")"
+    , new Quote("Emotional instability can be one of the factors giving rise to a failure by chess players in important duels. Under the influence of surging emotions (and not necessarily negative ones) we sometimes lose concentration and stop objectively evaluating the events that are taking place on the board.", "Mark Dvoretsky")"
+    , new Quote("Endings of one rook and pawns are about the most common sort of endings arising on the chess board. Yet though they do occur so often, few have mastered them thoroughly. They are often of a very difficult nature, and sometimes while apparently very simple they are in reality extremely intricate.", "Jose Capablanca")"
+    , new Quote("Enormous self-belief, intuition, the ability to take a risk at a critical moment and go in for a very dangerous play with counter-chances for the opponent - it is precisely these qualities that distinguish great players.", "Garry Kasparov")"
+    , new Quote("Errors have nothing to do with luck; they are caused by time pressure, discomfort or unfamiliarilty with a position, distractions, feelings of intimidation, nervous tension, overambition, excessive caution, and dozens of other psychological factors.", "Pal Benko")"
+    , new Quote("Even in the King's Gambit ... White is no longer trying to attack at all costs. He has had to adapt his approach and look for moves with a solid positional foundation", "Neil McDonald  (1998) ")"
+    , new Quote("Even in the heat of a middlegame battle the master still has to bear in mind the outlines of a possible future ending.", "David Bronstein")"
+    , new Quote("Even the best grandmasters in the world have had to work hard to acquire the technique of rook endings.", "Paul Keres")"
+    , new Quote("Even the laziest king flees wildly in the face of a double check!", "Aaron Nimzowitsch")"
+    , new Quote("Even the most distinguished players have in their careers experienced severe disappointments due to ignorance of the best lines or suspension of their own common sense.", "Tigran Petrosian")"
+    , new Quote("Even when the time control has been reached, there is one situation where you want to act as if it has not: when your position is absolutely lost.", "Edmar Mednis")"
+    , new Quote("Every chess master was once a beginner.", "Irving Chernev")"
+    , new Quote("Every great master will find it useful to have his own theory on the openings, which only he himself knows, a theory which is closely linked with plans for the middle game.", "Mikhail Botvinnik")"
+    , new Quote("Every month I look through some ten thousand games, so not as to miss any new ideas and trends.", "Vladimir Kramnik")"
+    , new Quote("Every move creates a weakness.", "Siegbert Tarrasch")"
+    , new Quote("Every pawn is a potential queen.", "James Mason")"
+    , new Quote("Everything is in a state of flux, and this includes the world of chess.", "Mikhail Botvinnik")"
+    , new Quote("Examine moves that smite! A good eye for smites is far more important than a knowledge of strategical principles.", "Purdy")"
+    , new Quote("Excellence at chess is one mark of a scheming mind.", "Sir Arthur Conan Doyle")"
+    , new Quote("Excellent ! I will still be in time for the ballet !", "Jose Capablanca (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)")"
+    , new Quote("Excelling at chess has long been considered a symbol of more general intelligence. That is an incorrect assumption in my view, as pleasant as it might be.", "Garry Kasparov")"
+    , new Quote("Experience and the constant analysis of the most varied positions builds up a store of knowledge in a player's mind enabling him often at a glance to assess this or that position.", "Alexander Kotov")"
+    , new Quote("Failing to open the center at the right moment - a common error by White in the Exchange Lopez - can allow Black an excellent game.", "Andy Soltis")"
+    , new Quote("Far from all of the obvious moves that go without saying are correct.", "David Bronstein")"
+    , new Quote("Few things are as psychologically brutal as chess.", "Garry Kasparov")"
+    , new Quote("First and foremost it is essential to understand the essence, the overall idea of any fashionable variation, and only then include it in one's repertoire. Otherwise the tactical trees will conceal from the player the strategic picture of the wood, in which his orientation will most likely be lost.", "Lev Polugaevsky")"
+    , new Quote("First restrain, next blockade, lastly destroy.", "Aron Nimzowitsch")"
+    , new Quote("First-class players lose to second-class players because second-class players sometimes play a first-class game.", "Siegbert Tarrasch")"
+    , new Quote("Fischer chess play was always razor-sharp, rational and brilliant. One of the best ever.", "Dave Regis")"
+    , new Quote("Fischer is Fischer, but a knight is a knight!", "Mikhail Tal")"
+    , new Quote("Fischer is an American chess tragedy on par with Morphy and Pillsbury.", "Mig Greengard")"
+    , new Quote("Fischer is completely natural. He plays no roles.  He's like a child. Very, very simple.", "Zita Rajcsanyi")"
+    , new Quote("Fischer is the strongest player in the world. In fact, the strongest player who ever lived.", "Larry Evans")"
+    , new Quote("Fischer is under obligation to nobody.", "Joseph Platz")"
+    , new Quote("Fischer prefers to enter chess history alone.", "Miguel Najdorf")"
+    , new Quote("Fischer sacrificed virtually everything most of us weakies (to use his term) value, respect, and cherish, for the sake of an artful, often beautiful board game, for the ambivalent privilege of being its greatest master.", "Paul Kollar")"
+    , new Quote("Fischer wanted to give the Russians a taste of their own medicine.", "Larry Evans")"
+    , new Quote("Fischer was a master of clarity and a king of artful positioning. His opponents would see where he was going but were powerless to stop him.", "Bruce Pandolfini")"
+    , new Quote("Fischer, who may or may not be mad as a hatter, has every right to be horrified.", "Jeremy Silman")"
+    , new Quote("For a game it is too serious, for seriousness too much of a game.", "Moses Mendelssohn 1729-86")"
+    , new Quote("For every door the computers have closed they have opened a new one.", "Viswanathan Anand")"
+    , new Quote("For me right now I think being the world number one is a bigger deal than being the world champion because I think it shows better who plays the best chess. That sounds self-serving but I think it's also right. (2012)", "Magnus Carlsen")"
+    , new Quote("For me, chess is a language, and if it's not my native tongue, it is one I learned via the immersion method at a young age.", "Garry Kasparov")"
+    , new Quote("For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that,. There is someting hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.", "Bent Larsen")"
+    , new Quote("For me, chess is life and every game is like a new life. Every chess player gets to live many lives in one lifetime.", "Eduard Gufeld")"
+    , new Quote("For me, chess is not a profession, it is a way of life, a passion. People may feel that I have conquered the peak and will not have to struggle. Financially, perhaps that is true; but as far as chess goes, I'm still learning a lot!", "Viswanathan Anand")"
+    , new Quote("For my victory over Capablanca I am indebted primarily to my superiority in the field of psychology. Capablanca played, relying almost exclusively on his rich intuitive talent. But for the chess struggle nowadays one needs a subtle knowledge of human nature, an understanding of the opponent's psychology.", "Alexander Alekhine")"
+    , new Quote("For pleasure you can read the games collections of Andersson and Chigorin, but for benefit you should study Tarrasch, Keres and Bronstein.", "Mikhail Tal")"
+    , new Quote("For surely of all the drugs in the world, chess must be the most permanently pleasurable.", "Assiac")"
+    , new Quote("Fortunately I've got a weak character, so I never did decide to dedicate myself to only one of my professions. And I'm very glad. After all, if I'd rejected chess or music then my life wouldn't have been two times, but a hundred times less interesting.", "Mark Taimanov")"
+    , new Quote("From time to time, like many other players, I glance through my own games of earlier years, and return to positions and variations which have gone out of practice. I attempt to restore them, to find new ideas and plans.", "Yefim Geller")"
+    , new Quote("Furman astounded me with his chess depth, a depth which he revealed easily and naturally, as if all he were doing was establishing well-known truths.", "Anatoly Karpov")"
+    , new Quote("GM Naiditsch reckoned that me playing the King's Indian against Anand was something akin to a samurai running at a machine gun with a sword.", "Hikaru Nakamura")"
+    , new Quote("Genius. It's a word. What does it really mean? If I win I'm a genius. If I don't, I'm not.", "Bobby Fischer")"
+    , new Quote("Go through detailed variations in your own time, think in a general way about the position in the opponent's time and you will soon find that you get into time trouble less often, that your games have more content to them, and that their general standard rises.", "Alexander Kotov")"
+    , new Quote("Good offense and good defense both begin with good development.", "Bruce A. Moon")"
+    , new Quote("Good players develop a tactical instinct, a sense of what is possible or likely and what is not worth calculating.", "Sam Reshevsky")"
+    , new Quote("Good positions don't win games, good moves do.", "Gerald Abrahams")"
+    , new Quote("Had I not played the Sicilian with Black I could have saved myself the trouble of studying for more than 20 years all the more popular lines of this opening, which comprise probably more than 25 percent of all published opening theory!", "Bent Larsen")"
+    , new Quote("Half the variations which are calculated in a tournament game turn out to be completely superfluous. Unfortunately, no one knows in advance which half.", "Jan Tinman")"
+    , new Quote("Has he some psychological antipathy to realism? I am no psychologist, and cannot say. The fact remains that Euwe commits the most inexplicable mistakes in thoroughly favorable positions, and that this weakness has consistently tarnished his record.", "Hans Kmoch")"
+    , new Quote("Haste is never more dangerous than when you feel that victory is in your grasp.", "Eugene Znosko-Borovsky")"
+    , new Quote("Haste, the great enemy.", "Eugene Znosko-Borowski")"
+    , new Quote("Having good strategies in playing chess is often a good indication of being focused in life.", "Martin Dansky")"
+    , new Quote("Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?", "Daniel King")"
+    , new Quote("He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. \"No, thank you,\" he would say and the fight would go on and on and on.", "Lubomir Kavalek on Bent Larsen")"
+    , new Quote("He who analyses blitz is stupid.", "Rashid Nezhmetdinov")"
+    , new Quote("He who fears an isolated queen's pawn should give up chess.", "Siegbert Tarrasch")"
+    , new Quote("He who has a slight disadvantage plays more attentively, inventively and more boldly than his antagonist who either takes it easy or aspires after too much. Thus a slight disadvantage is very frequently seen to convert into a good, solid advantage.", "Emanuel Lasker")"
+    , new Quote("He who takes the queen's Knight's pawn will sleep in the streets.", "Anonymous")"
+    , new Quote("Help your pieces so they can help you.", "Paul Morphy")"
+    , new Quote("Here is a definition which correctly reflects the course of thought and action of a grandmaster: The plan in a game of chess is the sum total of successive strategical operations which are each carried out according to separate ideas arising from the demands of the position.", "Alexander Kotov")"
+    , new Quote("How come the little things bother you when you are in a bad position? They don't bother you in good positions.", "Yasser Seirawan")"
+    , new Quote("However hopeless the situation appears to be there yet always exists the possibility of putting up a stubborn resistance.", "Paul Keres")"
+    , new Quote("Human affairs are like a chess game: only those who do not take it seriously can be called good players.", "Hung Tzu Ch'eng")"
+    , new Quote("I ... have two vocations: chess and engineering. If I played chess only, I believe that my success would not have been significantly greater. I can play chess well only when I have fully convalesced from chess and when the 'hunger for chess' once more awakens within me.", "Mikhail Botvinnik")"
+    , new Quote("I always urge players to study composed problems and endgames.", "Pal Benko")"
+    , new Quote("I am acutely conscious, from vast experience in opens, that guys around, say 2100 or more can definitely play chess and that one often has to work very hard to beat them.", "Nigel Short")"
+    , new Quote("I am both sad and pleased that in his last tournament, Rashid Gibiatovich came to my home in Latvia. He did not take first place, but the prize for beauty, as always, he took with him. Players die, tournaments are forgotten, but the works of great artists are left behind them to live on forever. (on Nezhmetdinov)", "Mikhail Tal")"
+    , new Quote("I am pleased that in a match for the World Championship I was able to conduct a game in the style of Akiba Rubinstein, where the entire strategic course was maintained from the first to the last move. (on Game 7 of his 2012 match with Anand)", "Boris Gelfand")"
+    , new Quote("I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. chess is much purer than art in its social position.", "Marcel Duchamp")"
+    , new Quote("I am the best player in the world and I am here to prove it.", "Bobby Fischer")"
+    , new Quote("I am trying to beat the guy sitting across from me and trying to choose the moves that are most unpleasant for him and his style.", "Magnus Carlsen")"
+    , new Quote("I believe in magic ... There is magic in the creative faculty such as great poets and philosophers conspicuously possess, and equally in the creative chessmaster.", "Emanuel Lasker")"
+    , new Quote("I believe most definitely that one must not only grapple with the problems on the board, one must also make every effort to combat the thoughts and will of the opponent.", "Mikhail Tal")"
+    , new Quote("I believe that chess possesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.", "Vlastimil Hort")"
+    , new Quote("I believe that the best style is a universal one, tactical and positional at the same time ...", "Susan Polgar")"
+    , new Quote("I can't count the times I have lagged seemingly hopelessly far behind, and nobody except myself thinks I can win. But I have pulled myself in from desperate [situations]. When you are behind there are two strategies – counter-attack or all men to the defences. I'm good at finding the right balance between those.", "Magnus Carlsen")"
+    , new Quote("I cannot claim to thoroughly enjoy coaching, because it is very hard work if you are even moderately conscientious. Nevertheless it does provide a degree of satisfaction, not to mention a steady income, which is why I do it occasionally.", "Nigel Short")"
+    , new Quote("I cannot think that a player genuinely loving the game can get pleasure just from the number of points scored no matter how impressive the total. I will not speak of myself, but for the masters of the older generation, from whose games we learned, the aesthetic side was the most important.", "Alexander Kotov")"
+    , new Quote("I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.", "Mikhail Botvinnik")"
+    , new Quote("I consider Fischer to be one of the greatest opening experts ever.", "Keith Hayward")"
+    , new Quote("I consider chess an art, and accept all those responsibilities which art places upon its devotees.", "Alexander Alekhine")"
+    , new Quote("I could give any woman in the world a piece and a move; to Gaprindashvili even, a knight.", "Bobby Fischer")"
+    , new Quote("I definitely miss the rush from wiping out an opponent.", "Bruce Pandolfini")"
+    , new Quote("I detest the endgame. A well-played game should be practically decided in the middlegame.", "David Janowski")"
+    , new Quote("I didn't picture myself as even a grandmaster, to say nothing of aspiring to the chess crown. This was not because I was timid, I wasn't, but because I simply lived in one world, and the grandmasters existed in a completely different one. People like that were not really even people, but like gods or mythical heroes.", "Anatoly Karpov")"
+    , new Quote("I do not know to whom the aphorism 'There are no sound studies, only ones that haven't been busted yet' belongs, but it has measure of truth in it.", "Mark Dvoretsky")"
+    , new Quote("I do not play chess, I fight at chess. Therefore I willingly combine the tactical with the strategic, the fantastic with the scientific, the combinative with the positional, and I aim to respond to the demands of each given position", "Alexander Alekhine")"
+    , new Quote("I don't believe in psychology. I believe in good moves.", "Bobby Fischer")"
+    , new Quote("I don't know if people know this but I am pretty good at chess. I was always on the chess team at school when I was younger.", "Justin Bieber")"
+    , new Quote("I don't know whether computers are improving the style of play, I know they are changing it. Chess has become a different game, one could say that computers have changed the world of chess. That is pretty clear.", "Vladimir Kramnik")"
+    , new Quote("I don't like politics especially in chess. All I want is promote chess 24/7.", "Susan Polgar")"
+    , new Quote("I dropped the King's Indian in 1997 after one too many bad experiences against Kramnik .", "Garry Kasparov")"
+    , new Quote("I failed to make the chess team because of my height.", "Woody Allen")"
+    , new Quote("I feel as if I were a piece in a game of chess, when my opponent says of it: That piece cannot be moved.", "Soren Kierkegaard")"
+    , new Quote("I feel that anyone can become an IM (International Master) in two years, but he must study hard and play a great deal in order to achieve this goal.", "Miguel Quinteros")"
+    , new Quote("I feel that everyone is good. In this way I give every game my best effort. The moment that you let up is the time that you can be hit by the sucker punch.", "Walter Browne")"
+    , new Quote("I feel that it is no less interesting to be a trainer than to play oneself. I even take greater delight in the tournament successes of my lads than I do in my own.", "Mark Dvoretsky")"
+    , new Quote("I give 98 percent of my mental energy to chess. Others give only 2 percent.", "Bobby Fischer")"
+    , new Quote("I go over many games collections and pick up something from the style of each player.", "Mikhail Tal")"
+    , new Quote("I guess a certain amount of temperament is expected of chess geniuses.", "Ron Gross")"
+    , new Quote("I had a slightly inferior endgame that probably should have been drawn, but Kortchnoi kept torturing me with little threats until finally, exhausted and exasperated, I made a losing mistake.", "Pal Benko")"
+    , new Quote("I had a toothache during the first game. In the second game I had a headache. In the third game it was an attack of rheumatism. In the fourth game, I wasn't feeling well. And in the fifth game? Well, must one have to win every game?", "Siegbert Tarrasch")"
+    , new Quote("I have added these principles to the law: get the Knights into action before both Bishops are developed.", "Emanuel Lasker")"
+    , new Quote("I have also known some of the world's finest brains and some of these, though passionately fond of chess, have been pretty poor players. I used to know one of the world's leading mathematicians and whenever we played chess I had to give him the odds of a Queen to make matters more equal, and even then I always won.", "Harry Golombek")"
+    , new Quote("I have always a slight feeling of pity for the man who has no knowledge of chess.", "Siegbert Tarrasch")"
+    , new Quote("I have always disliked the fierce competitive spirit embodied in that highly intellectual game.", "Albert Einstein")"
+    , new Quote("I have always felt that Judit was a relatively slow starter, though she is extremely motivated, diligent, hard-working, and disciplined towards her goals in chess and in life.", "Susan Polgar")"
+    , new Quote("I have always had a slight feeling of pity for man who has no knowledge of chess.", "Siegbert Tarrasch")"
+    , new Quote("I have found after 1.d4 there are more opportunities for richer play.", "Anatoly Karpov")"
+    , new Quote("I have frequently stated that I regard chess as an art form, where creativity prevails over other factors.", "Vasily Smyslov")"
+    , new Quote("I have never in my life played the French Defence, which is the dullest of all openings.", "Wilhelm Steinitz")"
+    , new Quote("I have not given any drawn or lost games, because I thought them inadequate to the purpose of the book.", "Jose Capablanca (in his book 'My Chess Career' published in 1920)")"
+    , new Quote("I know people who have all the will in the world, but still can't play good chess.", "Bobby Fischer")"
+    , new Quote("I know that with perfect play, God versus God, Fritz versus Fritz, chess is a draw ...", "Nigel Short")"
+    , new Quote("I know the knights walke in this game too well, Hee maye skip over mee, and where am I then?", "Thomas Middleton (1624)")"
+    , new Quote("I learnt an enormous amount, but there came a point where I found there was too much stress. It was no fun any more. Outside of the chessboard I avoid conflict, so I thought this wasn't worth it. (on training sessions with Kasparov)", "Magnus Carlsen")"
+    , new Quote("I leave this to you.", "Bobby Fischer, Last Words")"
+    , new Quote("I like 1.e4 very much, but my results are better with 1.d4.", "Anatoly Karpov")"
+    , new Quote("I like the moment when I break a man's ego.", "Bobby Fischer")"
+    , new Quote("I like to make them squirm.", "Bobby Fischer")"
+    , new Quote("I like to play against people who are alive :) - (In response to the question: \"Which of the great dead players would you like to play?\")", "Judit Polgar")"
+    , new Quote("I like to say that Bobby Fischer was the greatest player ever. But what made Fischer a genius was his ability to blend an American freshness and pragmatism with Russian ideas about strategy.", "Bruce Pandolfini")"
+    , new Quote("I look one move ahead... the best!", "Siegbert Tarrasch")"
+    , new Quote("I lost the match. I blame only myself for this. There were many opportunities to win. But I missed them, no one else.", "Anatoly Karpov on Lyons/New York World Championship Match with Kasparov ")"
+    , new Quote("I love all positions. Give me a difficult positional game, I will play it.  But totally won positions, I cannot stand them.", "Hein Donner")"
+    , new Quote("I love the game and I hate the Russians because they've almost ruined it. They only risk the title when they have to, every three years. They play for draws with each other but play to win against the Western masters. Draws make for dull chess, wins make for fighting chess.", "Bobby Fischer")"
+    , new Quote("I maintain that in every position that arises, we should deliberately search, among other things, for pieces which have no retreat. If we see one, we automatically look to see if it can be netted.", "C.J.S. Purdy")"
+    , new Quote("I often play a move I know how to refute.", "Bent Larsen")"
+    , new Quote("I play way too much blitz chess. It rots the brain just as surely as alcohol.", "Nigel Short")"
+    , new Quote("I played chess with him and would have beaten him sometimes only he always took back his last move, and ran the game out differently.", "Mark Twain")"
+    , new Quote("I played like a child. (13 year old Magnus after a loss in the second game of a rapid chess match with Kasparov after having drawn the first game)", "Magnus Carlsen")"
+    , new Quote("I prefer to lose a really good game than to win a bad one.", "David Levy")"
+    , new Quote("I quit chess because I had developed a satisfactory strategic understanding of the game and whatever improvement remained was in technique. This would require a lot of effort for minimal returns.", "Duncan Suttles")"
+    , new Quote("I remember being with a girlfriend who asked me to look over some chess openings with her. I instantly fell asleep. I found that I could always take a nap in any situation by just looking at some opening variation – my eyes would shut right away.", "Pal Benko")"
+    , new Quote("I remember our class working on algebra. All the boys were quiet ... Suddenly Alekhine stood up excitedly, his face radiant ...\"Well, Alekhine, did you solve it?' teacher Bachinsky asked him. \"I did ... I sacrifice the knight, and the bishop moves ... and White wins!\".", "Georgy Rimsky-Korsakov (classmate of Alexander Alekhine)")"
+    , new Quote("I see my own style as being a symbiosis of the styles of Alekhine, Tal and Fischer.", "Garry Kasparov")"
+    , new Quote("I soon realized that it is not enough for a master simply to analyse variations scrupulously just like an accountant. He must learn to work out which particular moves he should consider and then examine just as many variations as necessary, no more and no less.", "Alexander Kotov")"
+    , new Quote("I spend around one hour per day on physical exercise. Exercise is a must for every chess player. As the proverb says, 'A sound mind in a sound body'.", "Humpy Koneru")"
+    , new Quote("I started by just sitting by the chessboard exploring things. I didn't even have books at first, and I just played by myself. I learnt a lot from that, and I feel that it is a big reason why I now have a good intuitive understanding of chess.", "Magnus Carlsen")"
+    , new Quote("I still hope to kill Fischer.", "Boris Spassky")"
+    , new Quote("I think a player constantly improves his understanding of chess with experience.", "Yasser Seirawan")"
+    , new Quote("I think it's almost definite that the game is a draw theoretically.", "Bobby Fischer")"
+    , new Quote("I think it's very natural to get nervous. I've usually got concerns about a specific thing in the opening which might worry me. I have to be relaxed and balanced emotionally and then I can concentrate on the moves during the game. Then things will be ok.", "Judit Polgar")"
+    , new Quote("I think the draw quotient has always been high in world championship matches because the amount of effort people put into neutralizing each other's openings. It's just now with computers that it has reached a new level.", "Viswanathan Anand")"
+    , new Quote("I walked about 55 kilometers and was awake for 25 hours. Now I have to think about setting a sleeping record. (after setting a World Record by playing 614 games simultaneously)", "Ehsan Ghaem-Maghami")"
+    , new Quote("I was labeled as a tricky player early on and have been regarded as tricky throughout my whole career. It was said that I was able to pull out tricks from nowhere.", "Judit Polgar")"
+    , new Quote("I will not hide the fact that I love to hear the spectators react after a sacrifice of a piece or pawn. I don't think that there is anything bad in such a feeling; no artist or musician is indifferent to the reactions of the public.", "Mikhail Tal")"
+    , new Quote("I won't play with you anymore. You have insulted my friend --when an opponent cursed himself for a blunder.", "Miguel Najdorf")"
+    , new Quote("I would never suggest to anyone that they drop school for chess. First of all even if you can make it in chess, your social skills need to be developed there.", "Viswanathan Anand")"
+    , new Quote("I would wish to stress to young people ( the old are either saints, or already dead ) that chess need not be a safe exit from memorized opening to scientific endgame ( middlegame murdered ). Chess can be alive always and rewarding !", "Tony Santasiere")"
+    , new Quote("I'd rather have a Pawn than a finger.", "Rueben Fine")"
+    , new Quote("I'd rather have a pawn than a finger.", "Reuben Fine")"
+    , new Quote("I'm not a materialistic person, in that, I don't suffer the lack or loss of money.  The absence of worldly goods I don't look back on. For chess is a way I can be as materialistic as I want without having to sell my soul ", "Jamie Walter Adams")"
+    , new Quote("I'm not afraid of Spassky. The world knows I'm the best.", "Bobby Fischer")"
+    , new Quote("I'm sorry Frank, I think you missed it. Queen to bishop three, bishop takes queen, knight takes bishop, mate.", "HAL 9000 in the movie \"2001: A Space Odyssey\" to astronaut Frank Poole")"
+    , new Quote("I'm submitting a formal complaint to the players - the games are far too interesting. They should be rationed to only one exciting game per round, as it is not fair to chess journalists. (after Round 2 of The London Chess Classic 2011)", "John Saunders")"
+    , new Quote("I've seen both in myself and my competitors how satisfaction can lead to a lack of vigilance, then to mistakes and missed opportunities.", "Garry Kasparov")"
+    , new Quote("If I win a tournament, I win it by myself.  I do the playing. Nobody helps me.", "Bobby Fischer")"
+    , new Quote("If a chess statistician were to try and satisfy his curiousity over which stage of the game proved decisive in the majority of cases, he would certainly come to the conclusion that it is the middlegame that provides the most decisive stage.", "Alexander Kotov")"
+    , new Quote("If a mistake or an inaccuracy occurs, there is no need to assume 'all is lost' and mope ; one must reorient oneself quickly, and find a new plan to fit the new situation.", "David Bronstein")"
+    , new Quote("If a ruler does not understand chess, how can he rule over a kingdom?", "King Khusros II")"
+    , new Quote("If chess is a science, it's a most inexact one. If chess is an art, it is too exacting to be seen as one. If chess is a sport, it's too esoteric. If chess is a game, it's too demanding to be just a game. If chess is a mistress, she's a demanding one. If chess is a passion, it's a rewarding one. If chess is life, it's a sad one.", "Unknown")"
+    , new Quote("If chess is a vast jungle, computers are the chainsaws in a giant environmentally insensitive logging company.", "Nigel Short")"
+    , new Quote("If chess is an art, Alekhine. If chess is a science, Capablanca. If chess is a struggle, Lasker. --on who he thought was the best player.", "Savielly Tartakower")"
+    , new Quote("If cunning alone were needed to excel, women would be the best chess players.", "Adolf Albin")"
+    , new Quote("If in a battle, I seize a bit of debatable land with a handful of soldiers, without having done anything to prevent an enemy bombardment of the position, would it ever occur to me to speak of a conquest of the terrain in question? Obviously not. Then why should I do so in chess?", "Aron Nimzowitsch")"
+    , new Quote("If it is true that a player's style is his person, then everyone plays as he is intended to by nature. I am naturally cautious, and I altogether dislike situations which involve risk.", "Tigran Petrosian")"
+    , new Quote("If once a man delays castling and his king remains in the center, files will open up against him, bishops sweep the board, rooks will dominate the seventh rank, and pawns turn into queens.", "Irving Chernev")"
+    , new Quote("If one would cancel all traffic rules and switch off all traffic lights, watching city traffic on TV would be also awfully interesting!", "Oleg Romanishin")"
+    , new Quote("If the defender is forced to give up the center, then every possible attack follows almost of itself.", "Siegbert Tarrasch")"
+    , new Quote("If the student forces himself to examine all the moves that smite, however absurd they look at first glance, he is on the way to becoming a master of tactics.", "Cecil Purdy")"
+    , new Quote("If the weather is too cold or rainy, I take shelter in the Regence Cafe, where I entertain myself by watching chess being played. Paris is the world center, and this cafe is the Paris centre for the finest skill at this game.", "Diderot (1713-1784)")"
+    , new Quote("If there were a 1:1 ratio of women and men in the chess world I would agree that all tournaments should be integrated. But a lot of women feel alienated at these mixed events, so it's positive to have occasional all women's events.", "Jennifer Shahade")"
+    , new Quote("If we are to elevate the game of chess to a popular sport, grandmasters must become gladiators, otherwise the game will languish on the periphery, a voice crying in the wilderness, condemned to live and die on a cold arctic shore. (2012)", "Michael Basman")"
+    , new Quote("If we talk about pure abilities and skills, I believe there should be no reason why women cannot play as well as men.", "Susan Polgar")"
+    , new Quote("If you are going to make your mark among masters, you have to work far harder and more intensively, or, to put it more exactly, the work is far more complex than that needed to gain the title of Master.", "Mikhail Botvinnik")"
+    , new Quote("If you are interested in improving, think of a draw offer as an offer to remain ignorant of what you would have learned in the remainder of the game.", "Dan Heisman")"
+    , new Quote("If you are weak in the endgame, you must spend more time analysing studies; in your training games you must aim at transposing to endgames, which will help you to acquire the requisite experience.", "Mikhail Botvinnik")"
+    , new Quote("If you aren't afraid of Spassky, then I have removed the element of money.", "Jim Slater")"
+    , new Quote("If you can play the first ten or fifteen moves in just as many minutes, you can be in a state of bliss for the rest of the game. If, on the other hand, Bronstein thinks for forty minutes about his first move, then time trouble is inevitable.", "Alexander Kotov")"
+    , new Quote("If you don't know what to do, find your worst piece and look for a better square.", "Gerard Schwarz")"
+    , new Quote("If you don't win, it's not a great tragedy, the worst that happens is that you lose a game.", "Bobby Fischer")"
+    , new Quote("If you have made a mistake or committed an inaccuracy there is no need to become annoyed and to think that everything is lost. You have to reorientate yourself quickly and find a new plan in the new situation.", "David Bronstein")"
+    , new Quote("If you study the classic examples of endgame play you will see how the king was brought up as soon as possible even though there seemed no particular hurry at the time.", "Alexander Kotov")"
+    , new Quote("If you watch it, you should watch it with other players and try to find moves, like it was before. Now on many sites you watch together with the computer and the pleasure is gone. (on watching broadcast games)", "Boris Gelfand")"
+    , new Quote("If you wish to succeed, you must brave the risk of failure.", "Garry Kasparov")"
+    , new Quote("If your opponent cannot do anything active, then don't rush the position; instead you should let him sit there, suffer, and beg you for a draw.", "Jeremy Silman")"
+    , new Quote("If your opponent has an exposed king it is frequently worth sacrificing a pawn to be able to bring your rooks into the game, especially if your opponent's rooks are languishing in the corner. Kasparov has made a career out of such sacrifices.", "Neil McDonald")"
+    , new Quote("If your opponent is short (on time), play just as you played earlier in the game. If you are short keep calm, I repeat, don't get flustered. Keep up the same neat writing of the moves, the same methodical examination of variations, but at a quicker rate.", "Alexander Kotov")"
+    , new Quote("If your opponent offers you a draw, try to work out why he thinks he's worse off.", "Nigel Short")"
+    , new Quote("Imagine playing the King's Gambit in such a way as to accumulate small advantages! What will they think of next? I prefer the old-fashioned gambit. Let the King, both Kings, tremble with insecurity ; and let us, by all means have a solid, spectacular checkmate!", "Tony Santasiere")"
+    , new Quote("In 1996, the players at the VSB tournament in Amsterdam sent me a card for my wedding with this dedication, 'Anand congrats on your wedding. You were a great player, now be ready to lose 50 points'.", "Viswanathan Anand")"
+    , new Quote("In Fischer's hands, a slight theoretical advantage is as good a being a queen ahead.", "Isaac Kashdan")"
+    , new Quote("In a gambit you give up a pawn for the sake of getting a lost game.", "Samuel Standige Boden")"
+    , new Quote("In a rook and pawn ending, the rook must be used aggressively. It must either attack enemy pawns, or give active support to the advance of one of its own pawns to the queening square.", "Siegbert Tarrasch")"
+    , new Quote("In almost any position the boundless possibilities of chess enable a new or at least a little-studied continuation to be found.", "Tigran Petrosian")"
+    , new Quote("In analysing complicated variations one must examine each branch of the tree once and once only.", "Alexander Kotov")"
+    , new Quote("In blitz, the Knight is stronger than the Bishop.", "Vlastimil Hort")"
+    , new Quote("In chess so much depends on opening theory, so the champions before the last century did not know as much as I do and other players do about opening theory. So if you just brought them back from the dead they wouldn't do well. They'd get bad openings.", "Bobby Fischer")"
+    , new Quote("In chess the rules are fixed and the outcome is unpredictable, whereas in Putin's Russia the rules are unpredictable and the outcome is fixed.", "Garry Kasparov")"
+    , new Quote("In chess, as in life, a man is his own most dangerous opponent.", "Vasily Smyslov")"
+    , new Quote("In chess, as in life, opportunity strikes but once.", "David Bronstein")"
+    , new Quote("In chess, as it is played by masters, chance is practically eliminated.", "Emanuel Lasker")"
+    , new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis")"
+    , new Quote("In chess, just as in life, today's bliss may be tomorrow's poison.", "Assaic")"
+    , new Quote("In chess, knowledge is a very transient thing. It changes so fast that even a single mouse-slip sometimes changes the evaluation.", "Viswanathan Anand")"
+    , new Quote("In chess, there is only one mistake: over-estimation of your opponent. All else is either bad luck or weakness.", "Savielly Tartakower")"
+    , new Quote("In choosing an opening plan players think most of all of harmonious development for the pieces, but sometimes leave the development of the queen out of their considerations. Yet the Queen is the most valuable and important piece and the whole outcome can depend upon how successfully she plays her role.", "Alexander Kotov")"
+    , new Quote("In complicated positions, Bobby Fischer hardly had to be afraid of anybody.", "Paul Keres")"
+    , new Quote("In general I consider that in chess everything rests on tactics. If one thinks of strategy as a block of marble, then tactics are the chisel with which a master operates, in creating works of chess art.", "Tigran Petrosian")"
+    , new Quote("In life, as in chess, ones own pawns block ones way.  A mans very wealth, ease, leisure, children, books, which should help him to win, more often checkmate him.", "Charles Buxton")"
+    , new Quote("In mathematics, if I find a new approach to a problem, another mathematician might claim that he has a better, more elegant solution. In chess, if anybody claims he is better than I, I can checkmate him.", "Emanuel Lasker")"
+    , new Quote("In modern praxis lost positions are salvaged most often when the play is highly complicated with many sharp dynamic variations to be calculated.", "Leonid Shamkovich")"
+    , new Quote("In my games I have sometimes found a combination intuitively simply feeling that it must be there. Yet I was not able to translate my thought processes into normal human language.", "Mikhail Tal")"
+    , new Quote("In my opinion, the style of a player should not be formed under the influence of any single great master.", "Vasily Smyslov")"
+    , new Quote("In order to become a grandmaster class player whose understanding of chess is superior to the thousands of ordinary players, you have to develop within yourself a large number of qualities, the qualities of an artistic creator, a calculating practitioner, a cold calm competitor.", "Alexander Kotov")"
+    , new Quote("In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middle game and the opening must be studied in relation to the endgame.", "Jose Raul Capablanca")"
+    , new Quote("In the Soviets' view, chess was not merely an art or a science or even a sport; it was what it had been invented to simulate: war.", "Pal Benko")"
+    , new Quote("In the current FIDE World Championship, on the knock-out system, weaker players have good chances. Those, who in a long match would practically have no chance, here may creep through.", "Vladimir Kramnik")"
+    , new Quote("In the endgame, the most common errors, besides those resulting from ignorance of theory, are caused by either impatience, complacency, exhaustion, or all of the above.", "Pal Benko")"
+    , new Quote("In the ending the king is a powerful piece for assisting his own pawns, or stopping the adverse pawns.", "Wilhelm Steinitz")"
+    , new Quote("In the laboratory the gambits all test unfavorably, but the old rule wears well, that all gambits are sound over the board.", "William Ewart Napier")"
+    , new Quote("In the middlegame, the king is merely an extra, but in the endgame, he is one of the star actors.", "Aaron Nimzowitsch")"
+    , new Quote("In the opening a master should play like a book, in the mid-game he should play like a magician, in the ending he should play like a machine.", "Rudolph Spielmann")"
+    , new Quote("In the perfect chess combination as in a first-rate short story, the whole plot and counter-plot should lead up to a striking finale, the interest not being allayed until the very last moment.", "Yates and Winter")"
+    , new Quote("Independence of thought is a most valuable quality in a chess-player, both at the board and when preparing for a game.", "David Bronstein")"
+    , new Quote("India and China are improving by leaps and bounds and it will be their chess players who will lead the revolution of the XXI century.", "Judit Polgar")"
+    , new Quote("Inevitably the machines must win, but there is still a long way to go before a human on his or her best day is unable to defeat the best computer.", "Garry Kasparov")"
+    , new Quote("Inexperienced players have a fear of this piece, which seems to them enigmatic, mysterious, and astonishing in its power. We must admit that it has remarkable characteristics which compel respect and occasionally surprise the most wary players.", "Eugene Znosko-Borowski")"
+    , new Quote("Intellectual activity is perhaps the greatest pleasure of life; chess is one of the forms of intellectual activity.", "Siegbert Tarrasch")"
+    , new Quote("Ironically, the main task of chess software companies today is to find ways to make the program weaker, not stronger, and to provide enough options that any user can pick from different levels and the machine will try to make enough mistakes to give him a chance.", "Garry Kasparov")"
+    , new Quote("Is Bobby Fischer quite sane?", "Salo Flohr")"
+    , new Quote("It began to feel as though you were playing against chess itself --on playing against Robert Fischer.", "Walter Shipman")"
+    , new Quote("It cannot be too greatly emphasized that the most important role in pawn endings is played by the king.", "Siegbert Tarrasch")"
+    , new Quote("It doesn't require much for misfortune to strike in the King's Gambit, one incautious move, and Black can be on the edge of the abyss.", "Anatoly Karpov")"
+    , new Quote("It has always been recognized that chess is an art, and its best practitioners have been described as artists.", "Alexander Kotov")"
+    , new Quote("It has been said that man is distinguished from animal in that he buys more books than he can read. I should like to suggest that the inclusion of a few chess books would help to make the distinction unmistakable.", "Edward Lasker")"
+    , new Quote("It has been stated that a characteristic mark of a combination is surprise; surprise for the defender, not for the assailant, since otherwise the combination will probably be unsound.", "Eugene Znosko-Borowski")"
+    , new Quote("It is ... impossible to keep one's excellence in a little glass casket, like a jewel, to take it out whenever wanted. On the contrary, it can only be conserved by continuous and good practice.", "Adolph Anderssen")"
+    , new Quote("It is a curse upon man. There is no happiness in chess.", "H.G. Wells")"
+    , new Quote("It is a delight to watch a young and gifted chess player. To him have come no sinister experiences; to him continual carping care is foreign. Therefore he loves the attack and the bold sacrifice; for theirin lies the shortest way to his ultimate objective.", "Richard Reti")"
+    , new Quote("It is a profound mistake to imagine mistake to imagine that the art of combination depends only on natural talent, and that it cannot be learned. Every player knows that all (or almost all) combinations arise from a recollection of familiar elements.", "Richard Reti")"
+    , new Quote("It is a well known fact that almost all the outstanding chess-players have been first-class analysts.", "Mikhail Botvinnik")"
+    , new Quote("It is a well known phenomenon that the same amateur who can conduct the middle game quite creditably, is usually perfectly helpless in the end game. One of the principal requisites of good chess is the ability to treat both the middle and end game equally well.", "Aaron Nimzowitsch")"
+    , new Quote("It is always advantageous to exchange your king's bishop pawn for the king's pawn, since this leads to the seizure of the centre and, in addition, to the opening of a file for the rook.", "Francois-Andre Danican Philidor")"
+    , new Quote("It is always better to sacrifice your opponent's men.", "Savielly Tartakower")"
+    , new Quote("It is annoying that the rules of chess do not allow a pawn to take either horizontally or backwards, but only forwards ... This psychological tuning is ideal for attacking purposes, but what about for defence?", "David Bronstein")"
+    , new Quote("It is asserted that my favourite player is Capablanca. They have even pinned a label on me: \"follower of the Capablanca style\". In fact, for me there cannot exist any one idol in principle. Thus if I were to name a few names, I would give Nimzowitsch, Capablanca and Rubinstein.", "Tigran Petrosian")"
+    , new Quote("It is better to follow out a plan consistently even if it isn't the best one than to play without a plan at all. The worst thing is to wander about aimlessly.", "Alexander Kotov")"
+    , new Quote("It is dangerous to maintain equality at the cost of placing the pieces passively.", "Anatoly Karpov")"
+    , new Quote("It is difficult to play against Einstein's theory --on his first loss to Fischer.", "Mikhail Tal")"
+    , new Quote("It is easy to play against the young players, for me they are like an open book.", "Tigran Petrosian")"
+    , new Quote("It is hardly useful if you trustingly play through variation after variation from a book. It is a great deal more useful and more interesting if you take part actively in the analysis, find something yourself, and try to refute some of the author's conclusions.", "Mark Dvoretsky")"
+    , new Quote("It is important that you don't let your opponent impose his style of play on you. A part of that begins mentally. At the chessboard if you start blinking every time he challenges you then in a certain sense you are withdrawing. That is very important to avoid.", "Viswanathan Anand")"
+    , new Quote("It is impossible to ignore a highly important factor of the chess struggle : psychology.", "Yuri Averbakh")"
+    , new Quote("It is no secret that any talented player must in his soul be an artist, and what could be dearer to his heart and soul than the victory of the subtle forces of reason over crude material strength! Probably everyone has his own reason for liking the King's Gambit, but my love for it can be seen in precisely those terms.", "David Bronstein")"
+    , new Quote("It is no time to be playing chess when the house is on fire.", "Italian proverb")"
+    , new Quote("It is not a move, even the best move that you must seek, but a realizable plan.", "Eugene Znosko-Borovsky")"
+    , new Quote("It is not enough to be a good player... you must also play well.", "Siegbert Tarrasch")"
+    , new Quote("It is not possible to become a great player without having learned how to analyse deeply and accurately.", "Mark Dvoretsky")"
+    , new Quote("It is one of the insights of modern players, and especially of the best ones, that one has to play the position itself, not some abstract idea of the position.", "John Watson")"
+    , new Quote("It is peculiar but a fact nevertheless, that the gamblers in chess have enthusiastic followers.", "Mikhail Botvinnik")"
+    , new Quote("It is rightly said that the most difficult thing in chess is winning a won position.", "Vladimir Kramnik")"
+    , new Quote("It is said that an ounce of common sense can outweigh a ton of 'variations'.", "Savielly Tartakower")"
+    , new Quote("It is the aim of the modern school, not to treat every position according to one general law, but according to the principle inherent in the position.", "Richard Reti")"
+    , new Quote("It is unjust, and sometimes very untrue, though it is a common theory, to hold that it is sacrifices which make the beauty of a combination, and that the combination is prettier by the magnitude of the sacrifices.", "Eugene Znosko-Borowski")"
+    , new Quote("It is unpleasant for the players, when the organizers arrange for play to take place in the morning. The games from such last rounds, in view of the large number of mistakes, are not fit for publication!", "Victor Kortchnoi")"
+    , new Quote("It is very difficult to play a single blitz game! You want to play for a long time. So I tend not to do that anymore.", "Viswanathan Anand")"
+    , new Quote("It is very important to learn to weigh up objectively (or assess intuitively) the totality of the competitive and psychological factors.", "Mark Dvoretsky")"
+    , new Quote("It is well-known that chess and music go well together, and many are those who have achieved unusual proficiency in both.", "Savielly Tartakower")"
+    , new Quote("It must be clearly understood that Soviet players do not seek simple systems in the opening, but try to formulate opening systems in which everything is complicated, distinctive, or new.", "Mikhail Botvinnik")"
+    , new Quote("It often happens that a player is so fond of his advantageous position that he is reluctant to transpose to a winning endgame.", "Samuel Reshevsky")"
+    , new Quote("It so often happens that, after sacrificing a pawn, a player aims not to obtain the initiative for it, but to regain sacrificed material.", "Yefim Geller")"
+    , new Quote("It was an impressive achievement, of course, and a human achievement by the members of the IBM team, but Deep Blue was only intelligent the way your programmable alarm clock is intelligent. Not that losing to a $10 million alarm clock made me feel any better.", "Garry Kasparov")"
+    , new Quote("It was clear to me that the vulnerable point of the American Grandmaster (Bobby Fischer) was in double-edged, hanging, irrational positions, where he often failed to find a win even in a won position.", "Efim Geller")"
+    , new Quote("It will be cheering to know that many people are skillful chessplayers, though in many instances their brains, in a general way, compare unfavorably with the cognitive faculties of a rabbit.", "Mortimer")"
+    , new Quote("It would be as naive to study the song of the nightingale, as it would be ridiculous to try and win a King's Gambit against a representative of the old chess guard.", "David Bronstein")"
+    , new Quote("It would be idle, and presumptuous, to wish to imitate the achievements of a Morphy or an Alekhine; but their methods and their manner of expressing themselves are within the reach of all.", "Eugene Znosko-Borowski")"
+    , new Quote("It's a funny thing, most players think that if they can get a higher rating, they become a better player, but it's the other way 'round.", "Stewart Rueben")"
+    , new Quote("It's always better to sacrifice your opponent's men.", "Savielly Tartakover")"
+    , new Quote("It's little quirks like this that could make life difficult for a chess machine.", "Bobby Fischer")"
+    , new Quote("It's one of those types of positions where he has pieces on squares.", "John ~ZugAddict~ Chernoff")"
+    , new Quote("It's true that in chess as in politics, fund-raising and glad-handing matter.", "Garry Kasparov")"
+    , new Quote("It's very important not to put pressure on a child. Make sure that she/he feels that whatever happens it's not the end of the world. If they cry after a loss that's normal, as adults also hate to lose. If they win a game you should make them feel very proud but make sure they know the next game will be another challenge.", "Judit Polgar")"
+    , new Quote("Its just you and your opponent at the board and you're trying to prove something.", "Bobby Fischer")"
+    , new Quote("Jacob, how do you actually become a Grand Wizard? (question posed to GM (not GW) Jacob Aagaard)")"
+    , new Quote("Just as it is wrong to work on chess by studying only the first 10-15 moves, so it is wrong to play one and the same opening system, even though it be rich in variations and nuances.", "Yefim Geller")"
+    , new Quote("Just as the pianist practices the most complicated pieces to improve the technique of his fingers, so too a grandmaster must keep his vision in trim by daily analysis of positions with sharp possibilities, and this applies whether he prefers such positions in his play or not.", "Alexander Kotov")"
+    , new Quote("Just reading about the various opinions concerning the conduct of the recent championship matches convinces me that the only thing to which two chessplayers could agree is that a third one is over-rated.", "Arpad Elo")"
+    , new Quote("Kortchnoi's heritage is many-faceted, over the decades he has several times corrected and changed his style. But the main thing has invariably remained his search for chess truth.", "Garry Kasparov")"
+    , new Quote("Lack of patience is probably the most common reason for losing a game, or drawing games that should have been won.", "Bent Larsen")"
+    , new Quote("Lack of proper endgame technique allows many players to escape from lost positions, even without any spectacular play on their part.", "Leonid Shamkovich")"
+    , new Quote("Lasker thought that his rationalism rendered him immune from the surprises of chess theory.", "Savielly Tartakower")"
+    , new Quote("Later, I began to succeed in decisive games. Perhaps because I realized a very simple truth: not only was I worried, but also my opponent.", "Mikhail Tal")"
+    , new Quote("Let the perfectionist play postal.", "Yasser Seirawan")"
+    , new Quote("Life is a kind of chess, with struggle, competition, good and ill events.", "Benjamin Franklin")"
+    , new Quote("Life is like a game of chess, changing with each move.", "Chinese proverb")"
+    , new Quote("Life like chess is about knowing to do the right move at the right time.", "Kaleb Rivera")"
+    , new Quote("Like dogs who sniff each other when meeting, chess players have a ritual at first acquaintance: they sit down to play speed chess.", "Anatoly Karpov")"
+    , new Quote("Like mortars in old war films, they are often ready to destroy the opponent's unsupported defences.", "Alexei Suetin")"
+    , new Quote("Like the alchemist of old, for ever searching for the philosopher's stone, the analyst to-day never stops looking for stronger moves to prevent the defender from establishing equality.", "Savielly Tartakower")"
+    , new Quote("Listen, I don't want to boast but I do happen to be national champion in Scotland. It just isn't conceivable that you can design a program strong enough to beat players like me.", "David Levy, 1969")"
+    , new Quote("Live by the sword and die by the sword. Sometimes I wonder just how many of these games I can play in the KID before I die of a heart attack.  (after defeating Viswanathan Anand at The London Chess Classic 2011)", "Hikaru Nakamura")"
+    , new Quote("Live, lose, and learn, by observing your opponent how to win.", "Amber Steenbock")"
+    , new Quote("Look at Garry Kasparov. After he loses, invariably he wins the next game. He just kills the next guy. That's something that we have to learn to be able to do.", "Maurice Ashley")"
+    , new Quote("Look at the catastrophic record Vishy Anand has against Garry Kasparov. Kasparov managed to beat him almost everywhere they played, even though Vishy Anand has belonged to the absolute top players in the world for fifteen years. This difference cannot be explained purely in chess terms, there must have been some psychology.", "Vladimir Kramnik")"
+    , new Quote("Losing can persuade you to change what doesn't need to be changed, and winning can convince you everything is fine even if you are on the brink of disaster.", "Garry Kasparov")"
+    , new Quote("Loss generally occurs when a player overrates his advantage or for other reasons seeks to derive from a minute advantage a great return such as a forced win.", "Emanuel Lasker")"
+    , new Quote("Man is a frivolous, a specious creature, and like a chess player, cares more for the process of attaining his goal than for the goal itself.", "Dostoyevsky")"
+    , new Quote("Many chess players were surprised when after the game, Fischer quietly explained: 'I had already analyzed this possibility' in a position which I thought was not possible to foresee from the opening.", "Mikhail Tal")"
+    , new Quote("Many have become chess masters, no one has become the master of chess.", "Siegbert Tarrasch")"
+    , new Quote("Many men, many styles; what is chess style but the intangible expression of the will to win.", "Aaron Nimzowitsch")"
+    , new Quote("Memorization of variations could be even worse than playing in a tournament without looking in the books at all.", "Mikhail Botvinnik")"
+    , new Quote("Method rules his training, which blends the physical with the mental. How many chess masters put in, prior to an important match, an allotted time daily to bicycling and shadow-boxing, followed by a cold douche and a brisk rub down?", "Hans Kmoch (on Max Euwe)")"
+    , new Quote("Methodical thinking is of more use in chess than inspiration.", "C. J. S. Purdy")"
+    , new Quote("Methodical thinking is of more use in chess than inspiration.", "Cecil Purdy")"
+    , new Quote("Mistrust is the most necessary characteristic of the chess player.", "Siegbert Tarrasch")"
+    , new Quote("Modern chess is too much concerned with things like pawn structure. Forget it, Checkmate ends the game.", "Nigel Short")"
+    , new Quote("Morphy was probably the greatest genius of them all.", "Bobby Fischer")"
+    , new Quote("Most chess players know, thanks to the study of master games, that two bishops are stronger than two knights or than bishop and knight, though very few know the reason for this advantage and how to turn it to account.", "Richard Reti")"
+    , new Quote("Most of all I like \"bad\" lines, that is those considered bad, in my opinion unjustly, by theory. The reason for the last quotation marks is that most so-called theory is only a collection of examples from master practice.", "Bent Larsen")"
+    , new Quote("Most of the gods throw dice but Fate plays chess, and you don't find out until too late that he's been using two queens all along.", "Terry Pratchett")"
+    , new Quote("Most players ... do not like losing, and consider defeat as something shameful. This is a wrong attitude. Those who wish to perfect themselves must regard their losses as lessons and learn from them what sorts of things to avoid in the future.", "Jose Capablanca")"
+    , new Quote("Most strong players are completely self-centered... They are blind to how other people feel or else simply don't care.", "Joel Lautier")"
+    , new Quote("My God, Bobby Fischer plays so simply.", "Alexei Suetin")"
+    , new Quote("My fascination for studies proved highly beneficial, it assisted the development of my aesthetic understanding of chess, and improved my endgame play.", "Vasily Smyslov")"
+    , new Quote("My favorite victory is when it is not even clear where my opponent made a mistake.", "Peter Leko")"
+    , new Quote("My forte was the middlegame. I had a good feeling for the critical moments of the play. This undoubtedly compensated for my lack of opening preparation and, possibly, not altogether perfect play in the endgame. In my games things often did not reach the endgame!", "Boris Spassky")"
+    , new Quote("My love of dynamic complications often led me to avoid simplicity when perhaps it was the wisest choice.", "Garry Kasparov")"
+    , new Quote("My most difficult opponent is myself. When I am playing I often involuntarily make a world champion out of a candidate master.", "Lev Polugaevsky")"
+    , new Quote("My opponent is Short and the match will be short.", "Kasparov's quip before his 1993 PCA World Championship match with Nigel Short.")"
+    , new Quote("My opponent left a glass of whisky 'en prise' and I took it 'en passant'.", "Henry Blackburne")"
+    , new Quote("My opponents make good moves too. Sometimes I don't take these things into consideration.", "Bobby Fischer")"
+    , new Quote("My sister bought me a set at a candy store and taught me the moves.", "Bobby Fischer")"
+    , new Quote("My studies with Botvinnik brought me immense benefit, particularly the homework assignments which forced me to refer to chess books and to work independently.", "Anatoly Karpov")"
+    , new Quote("My study of chess was accompanied by a strong attraction to music, and it was probably thanks to this that from childhood I became accustomed to thinking of chess as an art, for all the science and sport involved in it.", "Vasily Smyslov")"
+    , new Quote("My style is somewhere between that of Tal and Petrosian.", "Samuel Reshevsky")"
+    , new Quote("My theory of a key-move was always to make it just the reverse of what a player in 999 out of 1000 could look for.", "Sam Loyd")"
+    , new Quote("My very first book was a games collection of Anatoly Karpov. On the whole I was attracted by positonal play with some tactics, and already then I was aiming for universality.", "Vladimir Kramnik")"
+    , new Quote("Naturally, the psychological susceptibility of a match participant is significantly higher than a participant in a tournament, since each game substantially changes the over-all position.", "Mikhail Tal")"
+    , new Quote("Nervous energy is the ammunition we take into any mental battle. If you don't have enough of it, your concentration will fade. If you have a surplus, the results will explode.", "Garry Kasparov")"
+    , new Quote("Never before and never since have I seen, and I cannot even imagine, such an amazing rapidity of chess thinking that Capablanca possessed in 1913-14. In blitz games he gave all the St. Petersburg players odds of five minutes to one, and he won.", "Alexander Alekhine")"
+    , new Quote("Never in the history of chess have so many moves been repeated so often so quickly by so many people who didn't really understand them.", "Michael Stean")"
+    , new Quote("Never make a good move too soon.", "James Mason")"
+    , new Quote("Never play for the win, never play for the draw, just play chess!", "Khalifman")"
+    , new Quote("Ninety percent of the book variations have no great value, because either they contain mistakes or they are based on fallacious assumptions; just forget about the openings and spend all that time on the endings.", "Jose Capablanca")"
+    , new Quote("No chess Grandmaster is normal; they only differ in the extent of their madness.", "Viktor Korchnoi")"
+    , new Quote("No fantasy, however rich, no technique, however masterly, no penetration into the psychology of the opponent, however deep, can make a chess game a work of art, if these qualities do not lead to the main goal : the search for truth.", "Vasily Smyslov")"
+    , new Quote("No fool can play chess, and only fools do.", "German proverb")"
+    , new Quote("No matter how much theory progresses, how radically styles change, chess play is inconceivable without tactics.", "Samuel Reshevsky")"
+    , new Quote("No one ever won a game by resigning.", "Saviely Tartakower")"
+    , new Quote("No one has ever played these endgames with such elegant ease as Capablanca.", "Richard Reti")"
+    , new Quote("No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous.", "Anonymous German Expert")"
+    , new Quote("No pawn exchanges, no file-opening, no attack.", "Aaron Nimzowitsch")"
+    , new Quote("No price is too great for the scalp of the enemy king.", "Koblentz")"
+    , new Quote("Nonsense was the last thing Fischer was interested in, as far as chess was concerned.", "Elie Agur")"
+    , new Quote("Not all artists are chess players, but all chess players are artists.", "Marcel Duchamp")"
+    , new Quote("Not infrequently ...the theoretical is a synonym of the stereotyped. For the 'theoretical' in chess is nothing more than that which can be found in the textbooks and to which players try to conform because they cannot think up anything better or equal, anything original.", "Mikhail Chigorin")"
+    , new Quote("Not only will I predict his triumph over Botvinnik, but I'll go further and say that he'll probably be the greatest chess player that ever lived.", "John Collins")"
+    , new Quote("Not winning a tournament is not an option for me, unless it's no longer theoretically possible then of course winning becomes impossible. But up to that point, not winning is just not an option.", "Magnus Carlsen")"
+    , new Quote("Nothing excites jaded Grandmasters more than a theoretical novelty.", "Dominic Lawson")"
+    , new Quote("Now I have the pawn and the compensation.", "Roman Dzindzichashvili (during a blitz game)")"
+    , new Quote("Nowadays games immediately appear on the Internet and thus the life of novelties is measured in hours. Modern professionals do not have the right to be forgetful - it is 'life threatening'.", "Garry Kasparov")"
+    , new Quote("Nowadays grandmasters no longer study their opponent's games so much, but they study his character, his behaviour and his temperament in the most thorough fashion.", "David Bronstein")"
+    , new Quote("Nowadays tournaments are for nurseries. Look at those kiddies.", "Miguel Najdorf (pointing to Fischer, Spassky, and Larsen in 1966)")"
+    , new Quote("Nowadays, when you're not a Grandmaster at 14, you can forget about it.", "Anand Viswanathan")"
+    , new Quote("Objectivity and presence of mind are essential in such positions where sacrificial temptations are not always resistable.", "Leonid Shamkovich")"
+    , new Quote("Occasionally an opening is used against an opponent who is known to favour it himself. The idea is to force him to fight against his own weapons, when he will have to face not only real dangers but very often imaginary ones as well.", "Tigran Petrosian")"
+    , new Quote("Of all my Russian books, the defense contains and diffuses the greatest 'warmth' which may seem odd seeing how supremely abstract chess is supposed to be.", "Vladimir Nabokov")"
+    , new Quote("Of chess it has been said that life is not long enough for it, but that is the fault of life, not chess.", "William Ewart Napier")"
+    , new Quote("Of chess it has often been said that life is not long enough for it but that is the fault of life, not chess.", "William Ewart Napier")"
+    , new Quote("Of course, analysis can sometimes give more accurate results than intuition but usually it's just a lot of work. I normally do what my intuition tells me to do. Most of the time spent thinking is just to double-check.", "Magnus Carlsen")"
+    , new Quote("Of course, errors are not good for a chess game, but errors are unavoidable and in any case, a game without ant errors, or as they say 'flawless game' is colorless.", "Mikhail Tal")"
+    , new Quote("Often, in the Ruy Lopez, one must be patient, wait and carry on a lengthy and wearisome struggle.", "Boris Spassky")"
+    , new Quote("Oh! this opponent, this collaborator against his will, whose notion of Beauty always differs from yours and whose means (strength, imagination, technique) are often too limited to help you effectively! What torment, to have your thinking and your fantasy tied down by another person!", "Alexander Alekhine")"
+    , new Quote("On several occasions I have watched foreign grandmasters annotating games for Chess Informator (they were paid fifteen US dollars per game at the time). They would take a pen and a piece of paper, and within a few minutes they would put all the signs beside the moves and hand the paper in.", "Liu Wenzhe")"
+    , new Quote("On the bright side, I no longer have any more pieces to lose.", "John ~ZugAddict~ Chernoff")"
+    , new Quote("On the chessboard lies and hypocrisy do not last long.", "Emanuel Lasker")"
+    , new Quote("On the chessboard, lies and hypocrisy do not survive long.", "Emanuel Lasker")"
+    , new Quote("On the whole, the life of a chess professional is not as easy as it appears at first sight. One needs to devote some ten hours a day to chess and to everything connected with it : physical and psycholgical preparation.", "Vladimir Kramnik")"
+    , new Quote("Once I asked Teichman what he thought of Bird's chess: \"Same as his health,\" he replied, \"always alternating between being dangerously ill and dangerously well.\"", "William Ewart Napier")"
+    , new Quote("Once there is the slightest suggestion of combinational possibilities on the board, look for unusual moves. Apart from making your play creative and interesting it will help you to get better results.", "Alexander Kotov")"
+    , new Quote("Once upon a time supporters of the Steinitz-Tarrasch school had a very high opinion of a queen-side pawn majority. Modern strategy on the other hand categorically denies that such a majority is an independent factor of any importance.", "Alexander Kotov")"
+    , new Quote("Once we have chosen the right formation in the centre we have created opportunities for our pieces and laid the foundation of subsequent victory.", "Alexander Kotov")"
+    , new Quote("Once when Blackburne was giving a simultaneous exhibition, his opponent had ordered and just been served a glass of whisky. Instead of making his move, Blackburne drank the whiskey and went on to the next board. How I would have loved to have known him personally!", "Tony Santasiere")"
+    , new Quote("One bad move nullifies forty good ones.", "Horowitz")"
+    , new Quote("One can say that in the last decades chess has become more of a sport than of a science. I see it from an artistic point of view.", "Judit Polgar")"
+    , new Quote("One charming characteristic of many flank attacks I could mention is that they do not very often lead to simplification: if the attack is parried, there usually are still opportunities left for initiating action in another sector.", "Bent Larsen")"
+    , new Quote("One doesn't have to play well, it's enough to play better than your opponent.", "Siegbert Tarrasch")"
+    , new Quote("One of the advantages of playing the King's Gambit in modern times is that the average opponent knows little about the defense.", "Tony Santasiere")"
+    , new Quote("One of the advantages of the King's Gambit over other, more mundane openings, is that even when you lose it can occasionally be enjoyable.", "Joe Gallagher")"
+    , new Quote("One of the objectives of opening play is to try to surprise your opponent.", "Edmar Mednis")"
+    , new Quote("One of these modest little moves may be more embarrassing to your opponent than the biggest threat.", "Siegbert Tarrasch")"
+    , new Quote("Only play into a variation in which your opponent is strong if you have your own personal novelty ready!", "Edmar Mednis")"
+    , new Quote("Only sissies castle.", "Rob Sillars")"
+    , new Quote("Only the player with the initiative has the right to attack.", "Wilhelm Steinitz")"
+    , new Quote("Openings teach you openings. Endgames teach you chess!", "Stephan Gerzadowicz")"
+    , new Quote("Part of my preparation for the World Champion match against Kasparov was to be ready for his off-board tactics. I did not to react to them at all. Once you start thinking about these things during the game, even analysing them, you're caught.", "Vladimir Kramnik")"
+    , new Quote("Patience is the most valuable trait of the endgame player.", "Pal Benko")"
+    , new Quote("Pawn endings are to chess what putting is to golf.", "Cecil Purdy")"
+    , new Quote("Pawns are born free, yet they are everywhere in chains.", "Rick Kennedy")"
+    , new Quote("Pawns are such fascinating pieces, too...So small, almost insignificant, and yet--they can depose kings.", "Lavie Tidhar")"
+    , new Quote("Pawns not only create the sketch for the whole painting, they are also the soil, the foundation, of any position.", "Anatoly Karpov")"
+    , new Quote("Pawns; they are the soul of this game, they alone form the attack and defense.", "Philidor")"
+    , new Quote("People sometimes complain that there are fewer 'brilliant' sacrifices than there used to be in the past. However, the point is that players just don't allow them anymore!", "Alexander Grischuk (2012)")"
+    , new Quote("People who want to improve should take their defeats as lessons, and endeavor to learn what to avoid in the future. You must also have the courage of your convictions. If you think your move is good, make it.", "Jose Capablanca")"
+    , new Quote("Perhaps chess is the wrong game for the times. Poker is now everywhere, as amateurs dream of winning millions and being on television for playing a card game whose complexities can be detailed on a single piece of paper.", "Garry Kasparov")"
+    , new Quote("Personally, I rather look forward to a computer program winning the world chess Championship. Humanity needs a lesson in humility.", "Richard Dawkings")"
+    , new Quote("Place the board so that the sun is in your opponent's eyes.", "Ruy Lopez de Segura (c 1530-1580)")"
+    , new Quote("Place the contents of the chess box in a hat, shake them up vigorously, pour them on the board from a height of two feet, and you get the style of Steinitz.", "H. E. Bird")"
+    , new Quote("Play on both sides of the board is my favourite strategy.", "Alexander Alekhine")"
+    , new Quote("Play the move that forces the win in the simplest way. Leave the brilliancies to Alekhine, Keres and Tal.", "Irving Chernev")"
+    , new Quote("Play the open variation of the Ruy is my advice to all ordinary club players, and I recently even wrote a book about it, seen from Black's point of view. Why does everybody try to copy the grandmasters' strange positional maneuvers in the 5...B-K2 variation, instead of fighting for the in intiative?", "Bent Larsen ")"
+    , new Quote("Play the opening like a book, the middle game like a magician, and the endgame like a machine.", "Spielmann")"
+    , new Quote("Players who balk at playing one-minute chess are failing to see the whole picture. They shouldn't be worrying that they will make more mistakes – they should be rubbing their hands in glee at the thought of all the mistakes their opponents will make.", "Hikaru Nakamura")"
+    , new Quote("Playing black, I put great stake in the Ruy Lopez: I liked it, feel it, and understand it; in matches with Hjartarson and Timman it served me well.", "Anatoly Karpov (on preparing for World Championship versus Garry Kasparov)")"
+    , new Quote("Playing chess has many aspects that can be useful in everyday situations like planning, concentration and combinations. You learn to win but also to lose and to be creative.", "Judit Polgar")"
+    , new Quote("Playing chess is more athletic than artistic. Champions are more concerned with victory than beauty: it's war with occasionally graceful kicks.", "Jennifer Shahade")"
+    , new Quote("Playing for complications is an extreme measure that a player should adopt only when he cannot find a clear and logical plan.", "Alexander Alekhine")"
+    , new Quote("Playing rapid chess, one can lose the habit of concentrating for several hours in serious chess. That is why, if a player has big aims, he should limit his rapidplay in favour of serious chess.", "Vladimir Kramnik")"
+    , new Quote("Playing without a concurrent critical review of one's skills will simply get you nowhere.", "Edmar Mednis")"
+    , new Quote("Psychologically, the choice of an appropriate opening is of the utmost importance for a player's success in a tournament.", "Savielly Tartakower")"
+    , new Quote("Psychologically, you have to have confidence in yourself and this confidence should be based on fact.", "Bobby Fischer")"
+    , new Quote("Psychology is the most important factor in chess.", "Alexander Alekhine")"
+    , new Quote("Psychology plays a big part but I always say psychology will only be a differentiator when the players are of equal technical strength.", "Viswanathan Anand")"
+    , new Quote("Question to Rubinstein: \"Who is your opponent tonight?\" Answer: \"Tonight I am playing against the black pieces.\"", "Akiba Rubinstein")"
+    , new Quote("Quiet moves often make a stronger impression than a wild combination with heavy sacrifices.", "Mikhail Tal")"
+    , new Quote("Quite unique among chess openings, the King's gambit is especially apt for talent, for genius, for heroism.", "Tony Santasiere")"
+    , new Quote("Rating systems work perfectly for players who play only in round robin closed events. I think most of them are overrated. Organizers invite same people over and over because they have the same rating and their rating stays high.", "Alexander Khalifman (after winning 1999 FIDE World Championship while ranked # 44 in the world)")"
+    , new Quote("Real chessplayers think about chess more or less 24 hours a day. It is a passion and a fate that one has to live with, and it lasts a lifetime.", "Simen Agdestein")"
+    , new Quote("Remember the king cannot check. So in a mad rush to checkmate your opponent do not get mated because that way you would have indirectly blocked your emergency exit also.", "All About Chess, by Priya & R. Raman (from what may very well be the worst chess book in history, 2000)")"
+    , new Quote("Remember, my darling, the most dangerous thing for the family life is – chess!", "character from 1925 Russian silent film 'Chess Fever'")"
+    , new Quote("Repeating moves in an ending can be very useful. Apart from the obvious gain of time on the clock one notices that the side with the advantage gains psychological benefit.", "Sergey Belavenets")"
+    , new Quote("Reti took his hard-earned honours with becoming modesty, but he was the lion of the hour. Such moments are to chess players what the flush of victory is to generals in the field.", "Hermann Helms (on Reti's sensational defeat of Capablanca in New York, 1924)")"
+    , new Quote("Ridicule can do much, for instance embitter the existence of young talents.", "Aaron Nimzowitsch")"
+    , new Quote("Robert Fischer is a law unto himself.", "Larry Evans")"
+    , new Quote("Seize the outpost K5 with your knight, and you can go to sleep. Checkmate will come by itself.", "Savielly Tartakower")"
+    , new Quote("Setbacks and losses are both inevitable and essential if you're going to improve and become a good, even great, competitor. The art is in avoiding catastrophic losses in the key battles.", "Garry Kasparov")"
+    , new Quote("Shall we ever live to see the following wise prohibition, the audience is forbidden to smoke and the masters are forbidden to 'smoke out' the audience by playing exchanging variations?", "Savielly Tartakower")"
+    , new Quote("Short of actual blunders, lack of faith in one's position is the chief cause of defeat. To be sure, it is easy to recommend faith and not so easy to practise it.", "Fred Reinfeld")"
+    , new Quote("Show me three variations in the leading handbook on the openings, and I will show you two of those three that are defective.", "Emanuel Lasker")"
+    , new Quote("Since your mental state can have such dramatic effects on your body, obviously your physical condition can affect your mental well-being. It follows that regular physical conditioning should be part of your overall chess training.", "Pal Benko")"
+    , new Quote("Sir, the slowness of genius is hard to bear, but the slowness of mediocrity is insufferable.", "Henry Thomas Buckle")"
+    , new Quote("Sit there for five hours? Certainly not! A player must walk about between moves, it helps his thinking.", "Alexander Kotov")"
+    , new Quote("Sit your opponent with the sun in his eyes.", "Ruy Lopez (1561)")"
+    , new Quote("Some part of a mistake is always correct.", "Savielly Tartakover")"
+    , new Quote("Some people think that if their opponent plays a beautiful game, it's OK to lose. I don't. You have to be merciless.", "Magnus Carlsen")"
+    , new Quote("Some pieces in the King's Indian appear on a 'special price' list: the dark square bishops are at the top of that list.", "David Bronstein")"
+    , new Quote("Some sacrifices are sound; the rest are mine.", "Mikhail Tal")"
+    , new Quote("Some scientist needs to explain to spectators Einstein's relativity theory. Before his explanation, he says: 'I have to suffer a lot explaining something I don't understand myself.' This relates to my game: I didn't understand anything! (on losing to Magnus Carlsen at the 2011 Sao Paolo/Bilbao tournament)", "Vasily Ivanchuk")"
+    , new Quote("Some studies make such a deep impression on you that they stay etched in your memory forever.", "Jan Timman")"
+    , new Quote("Sometimes I even say that I have surpassed Lasker in using psychology. How? Well, sometimes I use psychology with a portion of risk. That is something else, something that Lasker wouldn't allow.", "Viktor Kortchnoi")"
+    , new Quote("Sometimes players need to gain time on the clock by repeating the position, but most often its purpose is to wear down the opponent psychologically.", "Pal Benko")"
+    , new Quote("Sometimes the hardest thing to do in a pressure situation is to allow the tension to persist. The temptation is to make a decision, any decision, even if it is an inferior choice.", "Garry Kasparov")"
+    , new Quote("Spassky will not be psyched out by Fischer.", "Mike Goodall")"
+    , new Quote("Strategically important points should be overprotected. If the pieces are so engaged, they get their regard in the fact that they will then find themselves well posted in every respect.", "Aron Nimzowitsch")"
+    , new Quote("Strategy requires thought, tactics require observation.", "Max Euwe")"
+    , new Quote("Suddenly it was obvious to me in my analysis I had missed what Fischer had found with the greatest of ease at the board.", "Mikhail Botvinnik")"
+    , new Quote("Tactics flow from a superior position.", "Bobby Fischer")"
+    , new Quote("Tactics involve calculations that can tax the human brain, but when you boil them down, they are actually the simplest part of chess and are almost trivial compared to strategy.", "Garry Kasparov")"
+    , new Quote("Tactics... Tactics are your friends. But they are weird friends who do strange things.", "John ~ZugAddict~ Chernoff")"
+    , new Quote("Tal's combinations often exert a sort of paralysing influence on the opponent's play. It would seem that the element of surprise plays a big part in this.", "Mark Taimanov")"
+    , new Quote("Tartakower once wrote that after planting a Knight in the center you can go to sleep. This is not to be taken literally, of course, but it contains more than a germ of truth.", "Samuel Reshevsky")"
+    , new Quote("Thank you, darling, for learning to play chess. It is an absolute necessity for any well organized family.", "Alexander Pushkin (in a letter to his wife)")"
+    , new Quote("Thanks to the Polgars the adjective 'men's' before events and the 'affirmative action' women's titles such as 'Woman Grandmaster' have become anachronisms (though they are still in use). (2007)", "Garry Kasparov")"
+    , new Quote("That's what chess is all about. One day you give your opponent a lesson, the next day he gives you one.", "Bobby Fischer")"
+    , new Quote("The 'classical' starting position is very harmonious and when you play the random version I felt the positions tend to lead to wing games. You are developing your bishops all the time and the battle becomes rather slow and consequently dynamism is lost. (on FischerRandom)", "Helgi Olafsson")"
+    , new Quote("The KID is sort of back in fashion these days. For some reason, no one bothers to take it seriously and refute it once and for all. (2012)", "Anish Giri")"
+    , new Quote("The King is a fighting piece, use it!", "Wilhelm Steinitz")"
+    , new Quote("The King plays a most important part in the endgame, and gains in power and activity as the number of pieces on the board diminishes. Acting in eight different directions, he becomes, instead of the weakest piece, one of the most formidable units.", "Eugene Znosko-Borowski")"
+    , new Quote("The Pin is mightier than the sword.", "Fred Reinfeld")"
+    , new Quote("The Queen's Gambit is like a piece of dead fish kept overlong on ice.", "Tony Santasiere")"
+    , new Quote("The Ruy Lopez occupied a constant place in my opening repertoire. In it is reflected the classical interpretation of the problem of the centre.", "Vasily Smyslov")"
+    , new Quote("The ability to create and to control the tension of battle is perhaps the principal attainment of the great player.", "Savielly Tartakower")"
+    , new Quote("The ability to work hard for days on end without losing focus is a talent. The ability to keep absorbing new information after many hours of study is a talent.", "Garry Kasparov")"
+    , new Quote("The aim was simple: to deprive Karpov of his favourite occupation : standing at the board, staring straight at his opponent. While I was wearing these glasses, all he could admire was his own reflection.", "Viktor Kortchnoi")"
+    , new Quote("The amount of points that can be gained (and saved) by correct endgame play is enormous, yet often underestimated by youngsters and amateurs.", "Edmar Mednis")"
+    , new Quote("The art of treating the opening stage of the game correctly and without error is basically the art of using time efficiently.", "Svetozar Gligoric")"
+    , new Quote("The attack and defence emanating from this classical opening produce some of the most beautiful chess it is possible to obtain. The Queen's Gambit possesses the merit of being the soundest of all the openings.", "Frank Marshall")"
+    , new Quote("The battle for the ultimate truth will never be won.  And that's why chess is so fascinating.", "Hans Kmoch")"
+    , new Quote("The beauty of a move lies not in its appearance but in the thought behind it.", "Aaron Nimzovich")"
+    , new Quote("The best chess masters of every epoch have been closely linked with the values of the society in which they lived and worked. All the changes of a cultural, political, and psychological background are reflected in the style and ideas of their play.", "Garry Kasparov")"
+    , new Quote("The best indicator of a chess player's form is his ability to sense the climax of the game.", "Boris Spassky")"
+    , new Quote("The best reason to abolish it, in my opinion, is that everyone should deal with his time in the best way; there is no good reason why you should get half a minute extra with each move, except that it's a bit easier for the arbiter. (on incremental time controls)", "Jan Timman")"
+    , new Quote("The best way to learn endings, as well as openings, is from the games of the masters.", "Jose Capablanca")"
+    , new Quote("The biggest problem I see among people who want to excel in chess, and in business and life in general, is not trusting these instincts enough. Too often they rely on having all the information, which the forces them to a conclusion. This effectively reduces them to the role of a microprocessor ...", "Garry Kasparov")"
+    , new Quote("The blunders are all there on the board, waiting to be made.", "Savielly Tartakover")"
+    , new Quote("The boy (then a 12 year old boy named Anatoly Karpov) doesn't have a clue about chess, and there's no future at all for him in this profession.", "Mikhail Botvinnik")"
+    , new Quote("The business of the endgame is maneuvring to control critical squares, advancing or blockading passed pawns, preparing a breakthrough by the king, or exploiting the subtle superiority of one piece over another.", "Pal Benko")"
+    , new Quote("The cherished dream of every chessplayer is to play a match with the World Champion. But here is the paradox: the closer you come to the realization of this goal, the less you think about it.", "Mikhail Tal")"
+    , new Quote("The chess pieces are the block alphabet which shapes thoughts; and these thoughts, although making a visual design on the chessboard, express their beauty abstractly, like a poem.", "Marcel Duchamp")"
+    , new Quote("The chessboard is the world, the pieces are the phenomena of the Universe, the rules of the game are what we call the laws of Nature and the player on the other side is hidden from us.", "Thomas Huxley")"
+    , new Quote("The choice of opening, whether to aim for quiet or risky play, depends not only on the style of a player, but also on the disposition with which he sits down at the board.", "Yefim Geller")"
+    , new Quote("The combination player thinks forward; he starts from the given position, and tries the forceful moves in his mind.", "Emanuel Lasker")"
+    , new Quote("The common game is chesse, almost the simplest will give both checke and eke a mate; by practice comes their skill.", "observation by Englishman visiting Moscow (1568)")"
+    , new Quote("The computer age has arrived, and it influences everything: analysis, preparation, information. Now a different talent is required : the ability to synthesize ideas.", "Boris Spassky")"
+    , new Quote("The concept of 'talent' is formed under completely abstract criteria, having nothing in common with reality. But the reality is such that I don't understand chess as a whole. But then again no one understands chess in its entirety. Perhaps talent is something else, in chess it is conditionality.", "Alexander Morozevich")"
+    , new Quote("The conflict between Black's activity and White's better structure is central to the modern approach to the King's Gambit.", "Neil MacDonald")"
+    , new Quote("The criterion of real strength is a deep penetration into the secrets of a position.", "Tigran Petrosian")"
+    , new Quote("The days when it was possible to win a serious game only by merit of sporting character or depth of chess understanding have vanished forever. Chess knowledge has become dominant, bypassing all the other factors that contribute to success.", "Anatoly Karpov")"
+    , new Quote("The defensive power of a pinned piece is only imaginary.", "Aaron Nimzovich")"
+    , new Quote("The draw by stalemate looks like a spot of discontinuity in the otherwise harmonious universe of values. To save a game by letting yourself be so completely humiliated as not being able to make a move looks rather undeserved.", "Mihail Marin")"
+    , new Quote("The endgame is an arena in which miraculous escapes are not uncommon.", "Leonid Shamkovich")"
+    , new Quote("The enormous mental resilience, without which no chess player can exist, was so much taken up by chess that he could never free his mind of this game.", "Albert Einstein")"
+    , new Quote("The essence of chess is thinking about what chess is.", "David Bronstein")"
+    , new Quote("The essential disadvantage of the isolated pawn ... lies not in the pawn itself, but in the square in front of the pawn.", "Richard Reti")"
+    , new Quote("The fact that a knight is temporarily on the edge of the board is of no great significance.", "Anatoly Karpov")"
+    , new Quote("The fact that a player is very short of time is to my mind, as little to be considered as an excuse as, for instance, the statement of the law-breaker that he was drunk at the time he committed the crime.", "Alexander Alekhine")"
+    , new Quote("The fact that the 7 hours time control allows us to play a great deep game is not of great importance for mass-media.", "Alexei Shirov")"
+    , new Quote("The fatal hour of this ancient game is approaching. In its modern form this game will soon die a drawing death, the inevitable victory of certainty and mechanization will leave its stamp on the fate of chess.", "Emanuel Lasker")"
+    , new Quote("The first chess book that I read was Dufresne's self-tutor, published with Lasker's Common Sense in Chess as an appendix.", "Vasily Smyslov")"
+    , new Quote("The first essential for an attack is the will to attack.", "Savielly Tartakower")"
+    , new Quote("The first great chess players, including the world champion, got by perfectly well without constant coaches.", "Anatoly Karpov")"
+    , new Quote("The first principle of attack : don't let the enemy develop !", "Rueben Fine")"
+    , new Quote("The future belongs to he who has the bishops.", "Siegbert Tarrasch")"
+    , new Quote("The game gives us a satisfaction that Life denies us. And for the chess player, the success which crowns his work, the great dispeller of sorrows, is named 'combination'.", "Emanuel Lasker")"
+    , new Quote("The game might be divided into three parts, the opening, the middle-game and the end-game. There is one thing you must strive for, to be equally efficient in the three parts.", "Jose Capablanca")"
+    , new Quote("The game of chess is not merely an idle amusement; several very valuable qualities of the mind are to be acquired and strengthened by it, so as to become habits ready on all occasions; for life is a kind of chess.", "Benjamin Franklin")"
+    , new Quote("The good thing in chess is that very often the best moves are the most beautiful ones. The beauty of logic.", "Boris Gelfand")"
+    , new Quote("The great mobility of the King forms one of the chief characteristics of all endgame strategy. In the middlegame the King is a mere 'super', in the endgame on the other hand, on of the 'principals'. We must therefore develop him, bring him nearer to the fighting line.", "Aaron Nimzowitsch")"
+    , new Quote("The hallmark of the artist is simplicity.", "Larry Evans")"
+    , new Quote("The hardest game to win is a won game.", "Emanuel Lasker")"
+    , new Quote("The hardest part of chess is winning a won game.", "Frank Marshall")"
+    , new Quote("The highest art of the chessplayer lies in not allowing your opponent to show you what he can do.", "Garry Kasparov")"
+    , new Quote("The infallible criterion by which to distinguish the true from the would-be strategist is the degree of originality of his conceptions. It makes little difference whether this originality is carried to excess, as was the case with Steinitz and Nimzowitsch.", "Alexander Alekhine")"
+    , new Quote("The isolated pawn casts gloom over the entire chessboard.", "Aaron Nimzowitsch")"
+    , new Quote("The key to ultimate succcess is the determination to progress day by day.", "Edmar Mednis")"
+    , new Quote("The king is a fighting piece. Use it!", "Wilhelm Steinitz")"
+    , new Quote("The king is a strong piece : use it !", "Rueben Fine")"
+    , new Quote("The king pawn and the queen pawn are the only ones to be moved in the early part of the game.", "Wilhelm Steinitz")"
+    , new Quote("The king, which during the opening and middlegame stage is often a burden because it has to be defended, becomes in the endgame a very important and aggressive piece, and the beginner should realize this, and utilize his king as much as possible.", "Jose Capablanca")"
+    , new Quote("The kings are an apt metaphor for human beings: utterly constrained by the rules of the game, defenseless against bombardment from all sides, able only to temporarily dodge disaster by moving one step in any direction.", "Jennifer duBois")"
+    , new Quote("The knight is renowned for, among other things, its suitability as a blockader ... Because its strength lies in short-range operations it is not uncomfortable standing in a single spot for long periods, as the Bishop is.", "Samuel Reshevsky")"
+    , new Quote("The laws of chess do not permit a free choice: you have to move whether you like it or not.", "Emanuel Lasker")"
+    , new Quote("The loser is always at fault.", "Vasily Panov")"
+    , new Quote("The loss of my childhood was the price for becoming the youngest world champion in history. When you have to fight every day from a young age, your soul can be contaminated. I lost my childhood. I never really had it. I have to be careful not to become cruel, because I became a soldier too early.", "Garry Kasparov")"
+    , new Quote("The machine does not teach playing flexibility, does not help in taking account of human facxtors in the battle, and on whole, strictly speaking, it restricts the possibilities for young players. (2013)", "Sergey Shipov")"
+    , new Quote("The main line of the Yugoslav Attack has become just too vast for most players to study in depth, and anyone intending to venture into such tricky waters needs to have an intimate knowledge of all the hidden reefs.", "John Nunn")"
+    , new Quote("The majority of people imagine a chess master as being a townsman who passes his life in an atmosphere of smoke and play in cafes and clubs: a neurasthenic individual, whose nerves and brains are continually working at tension: a one-sided person who has given up his whole soul to chess.", "Richard Reti")"
+    , new Quote("The masters and grandmasters can be divided into three groups : the inveterate time trouble merchants, those who sometimes get into trouble, and those for whom the phenomenon is a very rare occurence.", "Alexander Kotov")"
+    , new Quote("The middlegame I repeat is chess itself, chess with all its possibilities, its attacks, defences, sacrifices, etc.", "Eugene Znosko-Borovsky")"
+    , new Quote("The mistakes are there, waiting to be made.", "Savielly Tartakower")"
+    , new Quote("The most important feature of the chess position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece's activity is the pawn structure.", "Michael Stean")"
+    , new Quote("The most powerful weapon in chess is to have the next move.", "David Bronstein")"
+    , new Quote("The move is there, but you must see it.", "Savielly Tartakower")"
+    , new Quote("The night of QB3 is under obligation, the moment the enemy gives him the chance, of undertaking an invasion of the center by Kn-Q5.", "Aaron Nimzowitsch")"
+    , new Quote("The number of 'unneccessary' errors that have been committed on move 41 are legion.", "Edmar Mednis")"
+    , new Quote("The older I grow, the more I value pawns.", "Keres")"
+    , new Quote("The older I grow, the more I value pawns.", "Paul Keres")"
+    , new Quote("The only good Rook is a working Rook!", "Samuel Reshevsky")"
+    , new Quote("The only positive contribution to chess from Fischer in the last 20 years ... (on the Fischer clock)", "Viktor Kortchnoi")"
+    , new Quote("The only thing chess players have in common is chess.", "Lodewijk Prins")"
+    , new Quote("The passed Pawn is a criminal, who should be kept under lock and key. Mild measures, such as police surveillance are not sufficient.", "Aaron Nimzowitsch")"
+    , new Quote("The passion for playing chess is one of the most unaccountable in the world.", "H.G. Wells")"
+    , new Quote("The pawn move is a capital investment. Every one of the forty-eight should, from the beginning, be spent as if it were one of the last forty-eight apprehensive and responsible dollars between yourself and starvation.", "William Ewart Napier")"
+    , new Quote("The pawns are the soul of the game.", "Francois Andre Danican Philidor")"
+    , new Quote("The pin is mightier than the sword.", "Fred Reinfeld")"
+    , new Quote("The placing of the center pawns determines the 'topography' of a game of chess.", "Alexander Kotov")"
+    , new Quote("The pleasure to be derived from a chess combination lie in the feeling that a human mind is behind the game, dominating the inanimate pieces ... and giving them breath of life.", "Richard Reti")"
+    , new Quote("The power of hanging pawns is based precisely in their mobility, in their ability to create acute situations instantly.", "Boris Spassky")"
+    , new Quote("The preparation for active rook play entails what is called the opening of lines, which largely depends on pawn play, especially on the proper use of levers.", "Hans Kmoch")"
+    , new Quote("The problem is that nowadays, with so much information flying around, it is almost impossible to remember anything you saw just a week ago, never mind three years ago!", "Peter Leko")"
+    , new Quote("The process of making pieces in chess do something useful (whatever it may be) has received a special name: it is called the attack. The attack is that process by means of which you remove obstructions.", "Emanuel Lasker")"
+    , new Quote("The process of rating players can be compared to the measurement of the position of a cork bobbing up and down on the surface of agitated water with a yard stick tied to a rope and which is swaying in the wind.", "Arpad Elo")"
+    , new Quote("The proper timing of an attacking plan is a difficult matter which places great strain on a player's nerves. Mastery of this art is required for success in the international arena, but perfect mastery eludes even the very best chessplayers!", "Leonid Shamkovich")"
+    , new Quote("The proponents of Steinitz' theory, Tarrasch and his supporters, tried to express Steinitz' teaching in the form of laconic rules, and as often happens in such cases, they went too far. The laconic tended to become dogmatic, and chess began to lose its freshness, originality and charm.", "Alexander Kotov")"
+    , new Quote("The psychological effects of having to hold a prospectless position for what might seem an infinite amount of time does nothing to aid the defender's concentration.", "Michael Stean")"
+    , new Quote("The pupil wants not so much to learn, as to learn how to learn.", "Samuel Boden")"
+    , new Quote("The range of circumstances in which it is possible to presuppose the presence of a combination is very limited. The presence of such circumstances is the reason for the genesis of the idea in the master's brain.", "Emanuel Lasker")"
+    , new Quote("The retreat of a minor piece to the back rank, where it cuts the lines of communication between the rooks, is permissable only in exceptional cases.", "Alexander Alekhine")"
+    , new Quote("The rise of the Soviet school to the summit of world chess is a logical result of socialist cultural development.", "Alexander Kotov (1958)")"
+    , new Quote("The scheme of a game is played on positional lines; the decision of it, as a rule, is effected by combinations.", "Richard Reti")"
+    , new Quote("The shortcoming of hanging pawns is that they present a convenient target for attack. As the exchange of men proceeds, their potential strength lessens and during the endgame they turn out, as a rule, to be weak.", "Boris Spassky")"
+    , new Quote("The sign of a great master is his ability to win a won game quickly and painlessly.", "Irving Chernev")"
+    , new Quote("The single most important thing in life is to believe in yourself regardless of what everyone else says.", "Hikaru Nakamura")"
+    , new Quote("The skills that one must be acquainted with are as follows: riding, swimming, archery, boxing, hawking, chess, and verse writing. (the 7 accomplishments expected of a knight c 12th century)", "Petrus Alfonsi")"
+    , new Quote("The stock market and the gridiron and the battlefield aren't as tidy as the chessboard, but in all of them, a single, simple rule holds true: make good decisions and you'll succeed; make bad ones and you'll fail.", "Garry Kasparov")"
+    , new Quote("The stomach is an essential part of the chess master.", "Bent Larsen")"
+    , new Quote("The study of combinations should enrich the analytical spirit of studious amateurs. Thereafter the most gifted among them will be able to catch some sparks of the genius of masters, and in addition some rays of the glory that is the masters.", "Eugene Znosko-Borowski")"
+    , new Quote("The study of typical plans is something that the leading grandmasters devote a great deal of time to. I would say that the most far-seeing of them devote as much time to this as to the study of openings.", "Alexander Kotov")"
+    , new Quote("The system set up by F.I.D.E. ... Insures that there will always be a Russian world champion ... The Russians arranged it that way.", "Bobby Fischer (1962)")"
+    , new Quote("The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.", "Gerald Abrahams")"
+    , new Quote("The tactician must know what to do whenever something needs doing; the strategist must know what to do when nothing needs doing.", "Savielly Tartakover")"
+    , new Quote("The task of the positional player is systematically to accumulate slight advantages and try to convert temporary advantages into permanent ones, otherwise the player with the better position runs the risk of losing it.", "Wilhelm Steinitz")"
+    , new Quote("The technical phase can be boring because there is little opportunity for creavivity, for art. Boredom leads to complacency and mistakes.", "Garry Kasparov")"
+    , new Quote("The triumph of the analytical movement, which formed in the '30's and '40's, was precisely what earned the Soviet masters the acclaim of chessplayers the world over. Unfortunately, it must also be noted that, for today's chessmasters, the watchword is practicality.", "Mikhail Botvinnik")"
+    , new Quote("The true sweetness of chess, if it can ever be called sweet, is to see a victory snatched, by some happy impertinence, out of the shadows of apparently irrevocable disaster.", "H.G. Wells")"
+    , new Quote("The truth is that my chess development was nothing out of the ordinary, and it proceeded probably at a pace no faster than others.", "Anatoly Karpov")"
+    , new Quote("The turning point in my career came with the realization that Black should play to win instead of just steering for equality.", "Bobby Fischer")"
+    , new Quote("The way he plays chess demonstrates a man's whole nature.", "Stanley Ellin")"
+    , new Quote("The weaker the player the more terrible the Knight is to him, but as a player increases in strength the value of the Bishop becomes more evident to him, and of course there is, or should be, a corresponding decrease in his estimation of the value of the Knight as compared to the bishop.", "Jose Capablanca")"
+    , new Quote("The winner of the game is the player who makes the next-to-last mistake.", "Savielly Tartakover")"
+    , new Quote("The winning of a pawn among good players of even strength often means the winning of the game.", "Jose Capablanca")"
+    , new Quote("The worst enemy of the strategist is the clock. Time trouble ... Reduces us all to pure reflex and reaction, tactical play. Emotion and instinct cloud our strategic vision when there is no time for proper evaluation.", "Garry Kasparov")"
+    , new Quote("The young people have read my book. Now I have no chance.", "Efim Bogolubow")"
+    , new Quote("Theory regards this opening as incorrect, but it is impossible to agree with this. Out of the five tournament games played by me with the King's Gambit, I have won all five.", "David Bronstein")"
+    , new Quote("There are certain things which you must beware of and shun like the devil himself: these are drinking, chess, harlots, quarreling, and throwing dice for stakes.", "(Speculum Regale c 1250)")"
+    , new Quote("There are tough players and nice guys, and I'm a tough player.", "Bobby Fischer")"
+    , new Quote("There are two classes of men; those who are content to yield to circumstances and who play whist; those who aim to control circumstances, and who play chess.", "Mortimer Collins")"
+    , new Quote("There are two types of sacrifices: correct ones and mine.", "Mikhail Tal")"
+    , new Quote("There came a time when I realized that the ability to defend was, for a good chess player, insufficient. You can't be dependent upon your opponent's will, but must try to impose your will on him.", "Victor Kortchnoi")"
+    , new Quote("There can be no finer example of the inspiring powers of competition to shatter the status quo than Hungary's Judit Polgar.", "Garry Kasparov")"
+    , new Quote("There is no better place for learning to work independently and to extend your horizon than in higher school.", "Mikhail Botvinnik")"
+    , new Quote("There is no disputing that in the eyes of Schlechter, Teichmann or even Rubinstein, the backward pawn was something more substantial than lively piece play, but in our day the latter is more often preferred.", "David Bronstein")"
+    , new Quote("There is no doubt that Bronstein's shrewd understanding of chess psychology was crucial to his success. Without it, his impetuous style and technical flaws might have relegated him to a minor career.", "Pal Benko")"
+    , new Quote("There is no doubt that the reason for my awful oversight was over-confidence that sapped my sense of danger. So that is where to look for the cause of bad blunders : in the exulting feeling of self-congratulation.", "Alexander Kotov")"
+    , new Quote("There is no physical punishment in chess; suffering goes on inside the mind. You defend a bad position for hours, you suffer. You lose, you suffer like in any other sport. Suffering euphoria comes when the opponent blunders in a winning position, but it is undeserved.", "Lubomir Kavalek")"
+    , new Quote("There is no remorse like a remorse of chess. It is a curse upon man. There is no happiness in chess.", "H.G. Wells")"
+    , new Quote("There is not a single true chess-player in the world whose heart does not beat faster at the mere sound of such long beloved and familiar words as 'gambit games'.", "David Bronstein")"
+    , new Quote("There is nothing wrong with trying to exploit the natural human tendency to become impatient when forced to play a boring position.", "Pal Benko")"
+    , new Quote("There is only one thing Fischer does in chess without pleasure: to lose!", "Boris Spassky")"
+    , new Quote("There just isn't enough televised chess.", "David Letterman")"
+    , new Quote("There must have been a time when men were demigods, or they could not have invented chess.", "Gustav Schenk")"
+    , new Quote("There wasn't any particular player I modeled my game after. I tried to learn from everyone and create my own style. I studied past players. Truth be told I never had a favorite player. It's just not my nature to go around idolizing people. I just go try to learn.", "Magnus Carlsen")"
+    , new Quote("There's never before been a chess player with such a thorough knowledge of the intricacies of the game and such an absolutely indomitable will to win. I think Bobby is the greatest player that ever lived.", "Lisa Lane")"
+    , new Quote("There's not the mystery in ten murders that there is in one game of chess.", "Detective David Linley (character in Lord Dunsany's short story 'Two Bottles of Relish: A Play In One Act')")"
+    , new Quote("These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his king.", "Jamie Walter Adams")"
+    , new Quote("They (Europeans) overlook that the game is an image of battle, for which reason the terms Queen and Bishop are inappropriate and ought to be replaced by Supreme General and Elephant, as is the practice among eastern nations who were the founders and inventors of the game.", "Thomas Hyde (1694)")"
+    , new Quote("This game reminded me of the wonderful times of my youth, when 'the sunshine was brighter, and the girls were prettier', the openings were not so well studied, and chess was far more interesting.", "(after a victory vs. Morozevich in Khanty-Mansiysk 2011)")"
+    , new Quote("This is the essential element that cannot be measured by any analysis or device, and I believe it's at the heart of success in all things: the power of intuition and the ability to harness and use it like a master.", "Garry Kasparov")"
+    , new Quote("This is the most monotonous and annoying play you can imagine ; it rarely gives rise to combinations of some interest.", "Serafino Dubois")"
+    , new Quote("This sacrifice of a pawn nowadays is only played for drawing purposes. Especially against the very strongest masters it has proved to be quite useful to this end.", "Jan Hein Donner (1966 on the Marshall)")"
+    , new Quote("Those who know the marvels of chess and wonder why this game of all games does not enjoy greater popularity may also ask why Pepsi-Cola is consumed by more people than Chateau Lafite, or the Beatles are more familiar than Beethoven.", "Gregor Piatigorsky")"
+    , new Quote("Those who say they understand chess, understand nothing.", "Robert Hubner")"
+    , new Quote("Those who think that it is easy to play chess are mistaken. During a game a player lives on his nerves, and at the same time he must be perfectly composed.", "Victor Kortchnoi")"
+    , new Quote("Though I would have liked my chances in a rematch in 1998 if I were better prepared, it was clear then that computer superiority over humans in chess had always been just a matter of time.", "Garry Kasparov")"
+    , new Quote("Though most people love to look at the games of the great attacking masters, some of the most successful players in history have been the quiet positional players. They slowly grind you down by taking away your space, tying up your pieces, and leaving you with virtually nothing to do!", "Yasser Seirawan")"
+    , new Quote("Throughout chess history, great debates have raged about the pros and cons of hanging pawns. The debates are nonsense; the answer is cut and dried. If the pawns can be attacked and forced to move forward, they are weak. If they can be defended and remain where they are, they are strong.", "Yasser Seirawan")"
+    , new Quote("Throughout my chess career I sought out new challenges, looking for things no one had done before.", "Garry Kasparov")"
+    , new Quote("Time trouble is blunder time.", "Alexander Kotov")"
+    , new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakover")"
+    , new Quote("To find the best moves great Masters, with years of experience, engage in laborious research, and the moves thus found are blindly repeated by amateurs without any attempt to fathom their real meaning and how and why they stand in their context.", "Eugene Znosko-Borovsky")"
+    , new Quote("To find the right plan is just as hard as looking for its sound justification.", "Emanuel Lasker")"
+    , new Quote("To free your game, take off some of your adversary's men, if possible, for nothing.", "Captain Bertin")"
+    , new Quote("To have a knight planted in your game at K6 is worse than a rusty nail in your knee.", "Efim Bogolubow")"
+    , new Quote("To improve at chess you should in the first instance study the endgame.", "Jose Capablanca")"
+    , new Quote("To lose one's objective attitude to a position, nearly always means ruining your game.", "David Bronstein")"
+    , new Quote("To my surprise I found that when other top players in the precomputer age (before 1995, roughly) wrote about games in magazines and newspaper columns, they often made more mistakes in their annotations than the players had made at the board.", "Garry Kasparov")"
+    , new Quote("To my way of thinking, Troitzky has no peer among endgame composers; no one else has composed so many and such varied endings of the first rank.", "Jose Capablanca")"
+    , new Quote("To play a match for the World Championship is the cherished dream of every chess player.", "David Bronstein")"
+    , new Quote("To play for a draw, at any rate with white, is to some degree a crime against chess.", "Mikhail Tal")"
+    , new Quote("To prevent the threatened Marshall Gambit I always play this move. If Fischer on principle always allows the gambit, which has been revived by Spassky, I avoid it, also on principle!", "Borislav Ivkov (upon playing 8.a4)")"
+    , new Quote("To refer to the oft mooted question, \"Which piece is stronger, the Bishop or the Knight?\" it is clear that the value of the Bishop undergoes greater changes than that of the Knight.", "Emanuel Lasker")"
+    , new Quote("Today young people never play romantic openings like the King's Gambit ... They play without feeling. They only know what is written in books.", "Karl Robatsch")"
+    , new Quote("Today, chess programs have become so good that even grandmasters sometimes struggle to understand the logic behind some of their moves.", "Ken Rogoff, 2010")"
+    , new Quote("Torbjorn (Hansen, Magnus Carlsen's first teacher) himself went from 2104 to 2204 in rating during the year he trained with Magnus. This reflects the experience I have had. One learns nearly as much from teaching others.", "Simen Agdestein")"
+    , new Quote("Touch the pawns before your king with only infinite delicacy.", "Anthony Santasiere")"
+    , new Quote("Training in analysis (like any other form of chess training) should be treated very seriously.", "Mark Dvoretsky")"
+    , new Quote("Truth derives its strength not so much from itself as from the brilliant contrast it makes with what is only apparently true. This applies especially to chess, where it is often found that the profoundest moves do not much startle the imagination.", "Emanuel Lasker")"
+    , new Quote("Try to play after your opponent has eaten or drunk freely.", "Luis Ramírez de Lucena (c. 1465 – c.1530)")"
+    , new Quote("Turning chess into poker and hoping for a \"bluff\" is not one of my convictions.", "Tigran Petrosian")"
+    , new Quote("Two passed pawns advancing on the enemy pieces have brought me more than a dozen points in tournaments.", "David Bronstein")"
+    , new Quote("Two passed pawns on the sixth beat everything, up to a royal flush.", "Ian Rogers")"
+    , new Quote("Typically, in the last round of open tournaments the level of play is markedly lower, the number of blunders higher.", "Pal Benko")"
+    , new Quote("Ultimately chess is just chess, not the best thing in the world and not the worst thing in the world, but there is nothing quite like it.", "W.C. Fields")"
+    , new Quote("Under no circumstances should you play fast if you have a winning position. Forget the clock, use all your time and make good moves.", "Pal Benko")"
+    , new Quote("Unfortunately, many regard the critic as an enemy, instead of seeing him as a guide to the truth", "Wilhelm Steinitz")"
+    , new Quote("Unless a player has an 'understanding chess' rating of at least 2400, the amount of significant knowledge that he can impart on others is limited.", "Edmar Mednis")"
+    , new Quote("Unlike my esteemed colleague Garry Kasparov, I don't restrict the strength of opposition to Elo <2000, as fly-swatting makes poor spectator sport. (on simultaneous exhibitions)", "Nigel Short")"
+    , new Quote("Up to this point white has been following well-known analysis. But now he makes a fatal error: he begins to use his own head.", "Siegbert Tarrasch")"
+    , new Quote("Utter Crap  (review in Kingpin magazine of 'Unorthodox Openings' by Eric Schiller)", "Tony Miles")"
+    , new Quote("Vanity should never tempt a player to engage in a combat at the risk of loss of health. It is bad enough to lose without the additional annoyance of paying doctors' bills.", "Emanuel Lasker")"
+    , new Quote("Via the squares on the chessboard, the Indians explain the movement of time and the age, the higher influences which control the world and the ties which link chess with the human soul.", "Al-Masudi")"
+    , new Quote("Viewed in terms of psychoanalytic theory, the invention of chess expressed the triumph of secondary process thinking over the primary process. Actual warfare (is replaced by) a struggle which is organized, controlled, circumscribed and regulated.", "Norman Reider")"
+    , new Quote("Voltaire said once that he was ruined twice, once when he lost a lawsuit, and once when he won one. In the same way, a beginner at chess must get somewhat discouraged, for he loses if he accepts a sacrificed piece, but he also loses if he declines it.", "Tony Santasiere")"
+    , new Quote("Watch out for the tricky knights.", "ChessNetwork")"
+    , new Quote("We are in truth but pieces on this chess board of life, which in the end we leave, only to drop one by one into the grave of nothingness. (c 1120)", "Omar Khayyam")"
+    , new Quote("We cannot resist the fascination of sacrifice, since a passion for sacrifices is part of a chess player's nature.", "Rudolf Spielman")"
+    , new Quote("We don't really know how the game was invented, though there are suspicions. As soon as we discover the culprits, we'll let you know.", "Bruce Pandolfini")"
+    , new Quote("We learn by chess the habit of not being discouraged by present bad appearances in the state of our affairs, the habit of hoping for a favourable change, and that of persevering in search of resources.", "Benjamin Franklin")"
+    , new Quote("We like to think.", "Garry Kasparov")"
+    , new Quote("We must make sure that chess will not be like a dead language, very interesting, but for a very small group.", "Sytze Faber")"
+    , new Quote("We often hear the terms 'positional' and 'tactical' used as opposites. But this is as wrong as to consider a painting's composition unrelated to its subject. Just as there is no such thing as 'artistic' art, so there is no such thing as 'positional' chess.", "Samuel Reshevsky")"
+    , new Quote("We see no objection to ladies entering the tournament by correspondence but should recommend them to use the name of some male relative ( a father or a brother), unless her opponent is a lady also. Many ladies are clever chess players, and good housewives too.", "reply to reader of Household Chess Magazine (1865)")"
+    , new Quote("We should praise, rather, the courage of the player who, relying only on his intuition, plunges into a brilliant combination of which the issue does not appear to him too clear.", "Eugene Znosko-Borowski")"
+    , new Quote("Weak points or holes in the opponent's position must be occupied by pieces not pawns.", "Siegbert Tarrasch")"
+    , new Quote("What is the object of playing a gambit opening?... To acquire a reputation of being a dashing player at the cost of losing a game.", "Siegbert Tarrasch")"
+    , new Quote("What the devil possessed me to reply 1. ... e5?? I compltely forgot that Spassky, like Spielmann in the past, very much likes to play the King's Gambit. (on their famous game in the 1960 USSR Championship)", "David Bronstein")"
+    , new Quote("What we need are lots of girls who aren't as good as us, who'll treat us with the proper respect and reverance.", "David Norwood")"
+    , new Quote("What would chess be without silly mistakes?", "Kurt Richter")"
+    , new Quote("When I analyse a position, I have a sparring partner (Alexander Huzman-ed.) who understands chess amazingly well. In a way I feel sorry for him, because of his work with me he cannot play as much chess as he wants. He more or less gave up his playing career.", "Boris Gelfand")"
+    , new Quote("When I ask President Marcos for two million dollars, at worst he wants to know whether he should bring the money straight away or whether I can wait for a cheque in the post.", "Florencio Campomanes")"
+    , new Quote("When I asked Fischer why he had not played a certain move in our game, he replied: ‘Well, you laughed when I wrote it down!'", "Mikhail Tal")"
+    , new Quote("When I have white, I win because I am white; When I have black, I win because I am Bogolyubov.", "Bogolyubov")"
+    , new Quote("When I started out playing chess as a kid I thought I should be world champion. As a kid you have no idea what that means and you only sort of picture it. It is hard to imagine that I waited all those years and it happened in a late stage of my career.", "Viswanathan Anand")"
+    , new Quote("When I today ask myself whence I got the moral courage, for it takes moral courage to make a move (or form a plan) running counter to all tradition, I think I may say in answer, that it was only my intense preoccupation with the problem of the blockade which helped me to do so.", "Aron Nimzowitsch")"
+    , new Quote("When I was eleven, I just got good.", "Bobby Fischer")"
+    , new Quote("When I was preparing for one term's work in the Botvinnik school I had to spend a lot of time on king and pawn endings. So when I came to a tricky position in my own games I knew the winning method.", "Garry Kasparov")"
+    , new Quote("When Marx got into a difficult position he would get angry and losing a game would cause him to fly into a rage.  (on Karl Marx)", "Wilhelm Liebknecht")"
+    , new Quote("When a chess player looks at the board, he does not see a static mosaic, a 'still life', but a magnetic field of forces, charged with energy, as Faraday saw the stresses surrounding magnets and currents as curves in space; or as Van Gogh saw vortices in the skies of Provence.", "Arthur Koestler")"
+    , new Quote("When asked, -How is that you pick better moves than your opponents?, I responded: I'm very glad you asked me that, because, as it happens, there is a very simple answer. I think up my own moves, and I make my opponent think up his.", "Alexander Alekhine")"
+    , new Quote("When asked, \"How is that you pick better moves than your opponents?\", I responded: \"I'm very glad you asked that, because, as it happens, there is a very simple answer. I think up my own moves, and I make my opponent think up his\".", "Alexander Alekhine")"
+    , new Quote("When chess masters err, ordinary wood pushers tend to derive a measure of satisfaction, if not actual glee.", "I.A. Horowitz")"
+    , new Quote("When everything on the board is clear it can be so difficult to conceal your thoughts from your opponent.", "David Bronstein")"
+    , new Quote("When in doubt... play chess!", "Tevis")"
+    , new Quote("When men lose against me, they always have a headache ... or things of that kind. I have never beaten a completely healthy man!", "Susan Polgar")"
+    , new Quote("When my opponent's clock is going I discuss general considerations in an internal dialogue with myself. When my own clock is going I analyse conctrete variations.", "Mikhail Botvinnik")"
+    , new Quote("When the chess game is over, the pawn and the king go back to the same box.", "Irish saying")"
+    , new Quote("When you absolutely don't know what to do anymore, it is time to panic.", "John van der Wiel")"
+    , new Quote("When you are lonely, when you feel yourself an alien in the world, play chess. This will raise your spirits and be your counselor in war.", "Aristotle")"
+    , new Quote("When you defend, try not to worry or become upset. Keep your cool and trust your position, it's all you've got.", "Pal Benko")"
+    , new Quote("When you don't know what to play, wait for an idea to come into your opponent's mind. You may be sure that idea will be wrong.", "Siegbert Tarrasch")"
+    , new Quote("When you have a World Champion in your smartphone, the myth of the superior brainpower of human chess champions has lost its power.", "Hans Ree")"
+    , new Quote("When you have finished analysing all the variations and gone along all the branches of the tree of analysis you must first of all write the move down on your score sheet, before you play it.", "Alexander Kotov")"
+    , new Quote("When you look at them, kneel down or crouch in such a way that you can look through the glass stright into their faces and look them in the eye. You will see human beings across the passage of time. They have remarkable quality. They speak to you. (on the Isle of Lewis Pieces)", "British Museum curator Irving Finkel")"
+    , new Quote("When you play Bobby, it is not a question if you win or lose.  It is a question if you survive.", "Boris Spassky")"
+    , new Quote("When you play against an experienced opponent who exploits all the defensive resources at his command you sometimes have to walk time and again, along the narrow path of 'the only move'.", "David Bronstein")"
+    , new Quote("When you see a good move, look for a better one.", "Emanuel Lasker")"
+    , new Quote("When you sit down to play a game you should think only about the position, but not about the opponent. Whether chess is regarded as a science, or an art, or a sport, all the same psychology bears no relation to it and only stands in the way of real chess.", "Jose Capablanca")"
+    , new Quote("When you trade, the key concern is not always the value of the pieces being exchanged, but what's left on the board.", "Dan Heisman")"
+    , new Quote("When you're good at something, you should continue to do it. Too many players have stopped at a relatively young age ...", "Jan Timman")"
+    , new Quote("When your house is on fire, you can't be bothered with the neighbors. Or, as we say in chess, if your king is under attack, don't worry about losing a pawn on the queen's side.", "Garry Kasparov")"
+    , new Quote("Whenever Black succeeds in assuming the initiative in maintaining it to a successful conclusion, the sporting spirit of the chess lover feels gratified, because it shows that the resources of the game are far from being exhausted.", "Savielly Tartakower")"
+    , new Quote("While forced play winds through a labyrinth of variations like Ariadne's thread, you have to go in this direction.", "Igor Zaitsev")"
+    , new Quote("While some are as loathe to trade a Bishop for a Knight as a Cadillac for a Chevrolet, others are prepared to do so without hesitation.", "Larry Evans")"
+    , new Quote("White has no positional equivalent for the centralized pawn.", "Siegbert Tarrasch")"
+    , new Quote("White lost because he failed to remember the right continuation and had to think up the moves himself.", "Siegbert Tarrasch")"
+    , new Quote("Who is your opponent tonight, tonight I am playing against the black pieces.", "Akiba Rubinstein")"
+    , new Quote("Whoever has known bumper to bumper traffic snarls of a Sunday afternoon on the way home to the big city (and who has not?) would gladly give up a Rook for the open road.", "Tony Santasiere (commenting on Spielmann-Eljaschoff, Munich 1903)")"
+    , new Quote("Whoever sees no other aim in the game than that of giving checkmate to one's opponent will never become a good chess player.", "Euwe")"
+    , new Quote("Why are not more King's Gambits played nowadays? Well, in the first place, if you offfered the King's Gambit to a master, eight times out of ten he would decline it, either with 2...d5 or 2...Bc5.", "Frank Marshall (1914)")"
+    , new Quote("Why must I lose to this idiot?", "Aron Nimzovich")"
+    , new Quote("Win with grace, lose with dignity.", "Susan Polgar")"
+    , new Quote("Winning is not a secret that belongs to a very few, winning is something that we can learn by studying ourselves, studying the environment and making ourselves ready for any challenge that is in front of us.", "Garry Kasparov")"
+    , new Quote("Winning isn't everything but losing is nothing", "Edmar Mednis")"
+    , new Quote("With each success the ability to change is reduced. My longtime friend and coach, Grandmaster Yuri Dokhoian, aptly compared it to being dipped in bronze. Each victory added another coat.", "Garry Kasparov")"
+    , new Quote("With opposite coloured bishops the attacking side has in effect an extra piece in the shape of his bishop.", "Mikhail Botvinnik")"
+    , new Quote("With or without the title, Bobby Fischer was unquestionably the greatest player of his time.", "Burt Hochberg")"
+    , new Quote("With this mistake I deprived myself of the possibility to make a contribution to the treasury of chess art. (annotating his move 18. ...g4? versus Kortchnoi at Debrecen, Hungary in 1992)", "Garry Kasparov")"
+    , new Quote("Without error there can be no brilliancy.", "Emanuel Lasker")"
+    , new Quote("Yes, I have played a blitz game once. It was on a train, in 1929.", "Mikhail Botvinnik")"
+    , new Quote("Yes, perhaps I like defending more than attacking, but who has demonstrated that defence is a less risky and dangerous occupation than attack? And are there so few games that have found their way into the treasury of chess thanks to a virtuoso defence?", "Tigran Petrosian")"
+    , new Quote("You are for me the queen on d8 and I am the pawn on d7!! ", "GM Eduard Gufeld")"
+    , new Quote("You are not a born CEO or investor or chess grandmaster. You will achieve greatness only through an enormous amount of hard work over many years. (In \"What It Takes To Be Great\" FORTUNE Oct. 30, 2006)", "Geoffrey Colvin")"
+    , new Quote("You can only get good at chess if you love the game.", "Bobby Fischer")"
+    , new Quote("You can't overestimate the importance of psychology in chess, and as much as some players try to downplay it, I believe that winning requires a constant and strong psychology not just at the board but in every aspect of your life.", "Garry Kasparov")"
+    , new Quote("You can't take the pawn because then the other will queen. Like wonder twin powers" , "John ~ZugAddict~ Chernoff")"
+    , new Quote("You cannot play at chess if you are kind-hearted.", "French proverb")"
+    , new Quote("You have to accustom yourself to practical study at home, you have to devote time to studies, to the history of chess, the development of chess, of chess culture.", "Mikhail Botvinnik")"
+    , new Quote("You have to have the fighting spirit. You have to force moves and take chances.", "Bobby Fischer")"
+    , new Quote("You know you're going to lose. Even when I was ahead I knew I was going to lose.  --on playing against Fischer.", "Andrew Soltis")"
+    , new Quote("You know, comrade Pachman, I don't enjoy being a Minister, I would rather play chess like you, or make a revolution in Venezuela.", "Che Guevara")"
+    , new Quote("You may learn much more from a game you lose than from a game you win. You will have to lose hundreds of games before becoming a good player.", "Jose Raul Capablanca")"
+    , new Quote("You must be able to handle a variety of move orders during the first 5-6 moves, otherwise you'll find yourself 'tricked' time and time again.", "Edmar Mednis")"
+    , new Quote("You must not let your opponent know how you feel.", "Alexander Kotov")"
+    , new Quote("You must take your opponent into a deep dark forest where 2+2=5, and the path leading out is only wide enough for one.", "Mikhail Tal")"
+    , new Quote("You need not play well - just help your opponent to play badly.", "Genrikh Chepukaitis")"
+    , new Quote("You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether its really a good idea and whether there are other better ideas.", "Stanley Kubrick")"
+    , new Quote("You will already have noticed how often Capablanca repeated moves, often returning to positions which he had had before. This is not lack of deciciveness or slowness, but the employment of a basic endgame principle which is 'Do not hurry'.", "Alexander Kotov")"
+    , new Quote("You work for a long period of time and the results don't really show, but at some point everything just comes together and you start to play better, or get more confidence.", "Fabiano Caruana")"
+    , new Quote("Young players calculate everything, a requirement of their relative inexperience.", "Samuel Reshevsky")"
+    , new Quote("Young players expose themselves to grave risks when they blindly imitate the innovations of masters without themselves first checking all the details and consequences of these innovations.", "Alexander Alekhine")"
+    , new Quote("Your Soviet players are cheating, losing the games on purpose to my rival, Botvinnik, in order to increase his points on the score.", "Jose Capablanca (to Stalin in Moscow 1936 where he finished in 1st place, 1 point ahead of Botvinnik)")"
+    , new Quote("Your body has to be in top condition. Your chess deteriorates as your body does. You can't separate body from mind.", "Bobby Fischer")"
+    , new Quote("Your only task in the opening is to reach a playable middlegame.", "Lajos Portisch")"
+    , new Quote("Your practical results will improve when you play what you know, like and have confidence in.", "Edmar Mednis")"
+    , new Quote("Youth has triumphed. (upon defeating 86-year-old Dirk van Foreest)", "84-year-old Jacques Mieses")"
+    , new Quote("lichess is better, but it's free.", "Thibault Duplessis")"
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
