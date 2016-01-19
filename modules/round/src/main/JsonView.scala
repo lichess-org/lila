@@ -5,7 +5,6 @@ import scala.math
 
 import play.api.libs.json._
 
-import chess.variant.Crazyhouse
 import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
 import lila.game.JsonView._
