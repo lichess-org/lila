@@ -53,7 +53,7 @@ function renderMove(ctrl, move, path) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      move.san
+      move.san[0] === 'P' ? move.san.slice(1) : move.san
     ]
   };
 }
