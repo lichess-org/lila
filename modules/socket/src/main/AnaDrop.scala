@@ -4,22 +4,21 @@ import chess.format.Uci
 import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
 
-case class AnaMove(
-    orig: chess.Pos,
-    dest: chess.Pos,
+case class AnaDrop(
+    role: chess.Role,
+    pos: chess.Pos,
     variant: chess.variant.Variant,
     fen: String,
-    path: String,
-    promotion: Option[chess.PromotableRole]) {
+    path: String) {
 
   def step: Valid[Step] =
-    chess.Game(variant.some, fen.some)(orig, dest, promotion) map {
-      case (game, move) =>
+    chess.Game(variant.some, fen.some).drop(role, pos) map {
+      case (game, drop) =>
         val movable = !game.situation.end
         Step(
           ply = game.turns,
           move = game.pgnMoves.lastOption.map { san =>
-            Step.Move(Uci(move), san)
+            Step.Move(Uci(drop), san)
           },
           fen = chess.format.Forsyth >> game,
           check = game.situation.check,
@@ -29,21 +28,19 @@ case class AnaMove(
     }
 }
 
-object AnaMove {
+object AnaDrop {
 
   def parse(o: JsObject) = for {
     d ← o obj "d"
-    orig ← d str "orig" flatMap chess.Pos.posAt
-    dest ← d str "dest" flatMap chess.Pos.posAt
+    role ← d str "role" flatMap chess.Role.allByName.get
+    pos ← d str "pos" flatMap chess.Pos.posAt
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    prom = d str "promotion" flatMap chess.Role.promotable
-  } yield AnaMove(
-    orig = orig,
-    dest = dest,
+  } yield AnaDrop(
+    role = role,
+    pos = pos,
     variant = variant,
     fen = fen,
-    path = path,
-    promotion = prom)
+    path = path)
 }

@@ -619,7 +619,7 @@ div.table {
   margin-left: 0;
   border-radius: 3px 0 0 3px;
 }
-.lichess_ground .pocket.bottom .role:hover {
+.lichess_ground .pocket.usable .role:hover {
   background: #999;
 }
 .lichess_ground .pocket .no-square {
@@ -641,7 +641,7 @@ div.table {
 .is3d .lichess_ground .pocket .no-square {
   height: 58.102px;
 }
-.lichess_ground .pocket.bottom piece {
+.lichess_ground .pocket.usable piece {
   cursor: pointer;
 }
 div.table.spectator {

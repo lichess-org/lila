@@ -15,6 +15,7 @@ case class Step(
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
+    drops: Option[List[Pos]],
     eval: Option[Step.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
@@ -69,6 +70,9 @@ object Step {
         _.map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
         }.mkString(" ")
+      }) _ compose
+      add("drops", drops.map { drops =>
+        JsString(drops.map(_.key).mkString)
       }) _ compose
       add("crazy", crazyData)
     )(Json.obj(

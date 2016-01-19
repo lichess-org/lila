@@ -1,7 +1,5 @@
-var round = require('../round');
-var partial = require('chessground').util.partial;
 var crazyDrag = require('./crazyDrag');
-var game = require('game').game;
+var partial = require('chessground').util.partial;
 var m = require('mithril');
 
 function crazyPocketTag(role, color) {
@@ -21,22 +19,22 @@ function crazyPocketTag(role, color) {
 
 module.exports = {
   pocket: function(ctrl, color, position) {
-    var step = round.plyStep(ctrl.data, ctrl.vm.ply);
+    var step = ctrl.vm.step;
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
     var oKeys = Object.keys(pocket)
     var crowded = oKeys.length > 4;
-    var usable = position === 'bottom' && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
+    var usable = color === ctrl.chessground.data.movable.color;
     return m('div', {
         class: 'pocket ' + position + (oKeys.length > 4 ? ' crowded' : '') + (usable ? ' usable' : ''),
-        config: position === 'bottom' ? function(el, isUpdate, context) {
+        config: function(el, isUpdate, context) {
           if (isUpdate) return;
-          var onstart = partial(crazyDrag, ctrl);
+          var onstart = partial(crazyDrag, ctrl, color);
           el.addEventListener('mousedown', onstart);
           context.onunload = function() {
             el.removeEventListener('mousedown', onstart);
           };
-        } : null
+        }
       },
       oKeys.map(function(role) {
         var pieces = [];
@@ -50,4 +48,3 @@ module.exports = {
     );
   }
 };
-

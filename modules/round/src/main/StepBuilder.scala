@@ -30,6 +30,7 @@ object StepBuilder {
             fen = Forsyth >> g,
             check = g.situation.check,
             dests = None,
+            drops = None,
             crazyData = g.situation.board.crazyData)
         }
         JsArray(a.fold[Seq[Step]](steps) {
@@ -88,6 +89,7 @@ object StepBuilder {
             fen = Forsyth >> g,
             check = g.situation.check,
             dests = None,
+            drops = None,
             crazyData = g.situation.board.crazyData)
         }
     }
