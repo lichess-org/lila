@@ -3,6 +3,7 @@ package lila.donation
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 import org.joda.time.DateTime
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
 final class DonationApi(
@@ -26,13 +27,15 @@ final class DonationApi(
     .cursor[Donation]()
     .collect[List](nb)
 
-  def top(nb: Int) = coll.find(BSONDocument(
-    "userId" -> BSONDocument("$exists" -> true)
-  )).sort(BSONDocument(
-    "gross" -> -1,
-    "date" -> -1
-  )).cursor[Donation]()
-    .collect[List](nb)
+  def top(nb: Int): Fu[List[lila.user.User.ID]] = coll.aggregate(
+    Match(BSONDocument("userId" -> BSONDocument("$exists" -> true))), List(
+      GroupField("userId")("total" -> SumField("net")),
+      Sort(Descending("total")),
+      Limit(nb))).map {
+      _.documents.flatMap { obj =>
+        obj.getAs[String]("_id")
+      }
+    }
 
   def isDonor(userId: String) =
     if (serverDonors contains userId) fuccess(true)
