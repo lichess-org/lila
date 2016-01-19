@@ -106,7 +106,7 @@ object PerfType {
     title = "Opening trainer",
     iconChar = ']')
 
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, Opening)
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle, Opening)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -117,10 +117,10 @@ object PerfType {
 
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
-  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
+  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val nonGame: List[PerfType] = List(Puzzle, Opening)
-  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
-  val variants: List[PerfType] = List(Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
+  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+  val variants: List[PerfType] = List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
 
@@ -129,6 +129,7 @@ object PerfType {
   } toMap
 
   def variantOf(pt: PerfType): chess.variant.Variant = pt match {
+    case Crazyhouse    => chess.variant.Crazyhouse
     case Chess960      => chess.variant.Chess960
     case KingOfTheHill => chess.variant.KingOfTheHill
     case ThreeCheck    => chess.variant.ThreeCheck
@@ -136,7 +137,6 @@ object PerfType {
     case Atomic        => chess.variant.Atomic
     case Horde         => chess.variant.Horde
     case RacingKings   => chess.variant.RacingKings
-    case Crazyhouse    => chess.variant.Crazyhouse
     case _             => chess.variant.Standard
   }
 }

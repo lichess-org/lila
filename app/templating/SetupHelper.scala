@@ -37,26 +37,28 @@ trait SetupHelper { self: I18nHelper =>
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (chess.variant.Standard.id.toString, trans.standard.str(), chess.variant.Standard.title.some),
-    variantTuple(chess.variant.Chess960)
+    (chess.variant.Standard.id.toString, trans.standard.str(), chess.variant.Standard.title.some)
   )
 
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
+      variantTuple(chess.variant.Crazyhouse) :+
+      variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
       variantTuple(chess.variant.Antichess) :+
       variantTuple(chess.variant.Atomic) :+
       variantTuple(chess.variant.Horde) :+
-      variantTuple(chess.variant.RacingKings) :+
-      variantTuple(chess.variant.Crazyhouse)
+      variantTuple(chess.variant.RacingKings)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
+      variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
+      variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
       variantTuple(chess.variant.FromPosition)
