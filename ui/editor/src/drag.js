@@ -3,7 +3,7 @@ var util = require('chessground').util;
 var drag = require('chessground').drag;
 
 module.exports = function(ctrl, e) {
-  if (e.button !== 0) return; // only left click
+  if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   var role = e.target.getAttribute('data-role'),
   color = e.target.getAttribute('data-color');
   if (!role || !color) return;

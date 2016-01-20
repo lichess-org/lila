@@ -135,6 +135,8 @@ function sparePieces(ctrl, color, orientation, position) {
   }));
 }
 
+var eventNames = ['mousedown', 'touchstart'];
+
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
@@ -143,9 +145,13 @@ module.exports = function(ctrl) {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
       var onstart = partial(drag, ctrl);
-      document.addEventListener('mousedown', onstart);
+      eventNames.forEach(function(name) {
+        document.addEventListener(name, onstart);
+      });
       context.onunload = function() {
-        document.removeEventListener('mousedown', onstart);
+        eventNames.forEach(function(name) {
+          document.removeEventListener(name, onstart);
+        });
       };
     }
   }, [
