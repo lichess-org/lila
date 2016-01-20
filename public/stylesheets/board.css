@@ -599,6 +599,7 @@ div.table {
   background: #888;
   white-space: nowrap;
   max-width: 244px;
+  overflow: hidden;
 }
 .pocket.top {
   margin-bottom: 10px;
@@ -613,8 +614,11 @@ div.table {
   position: relative;
 }
 .pocket piece:first-child {
-  margin-left: 0;
   border-radius: 3px 0 0 3px;
+}
+.pocket.crowded piece {
+  width: 48.5px!important;
+  background-position: center;
 }
 .pocket.usable piece {
   cursor: pointer;

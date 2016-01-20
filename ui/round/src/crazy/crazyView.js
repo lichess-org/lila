@@ -11,10 +11,11 @@ module.exports = {
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var oKeys = Object.keys(pocket)
+    var oKeys = Object.keys(pocket);
+    var crowded = oKeys.length > 4;
     var usable = position === 'bottom' && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
     return m('div', {
-        class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
+        class: 'pocket is2d ' + position + (usable ? ' usable' : '') + (crowded ? ' crowded' : ''),
         config: position === 'bottom' ? function(el, isUpdate, context) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl);
