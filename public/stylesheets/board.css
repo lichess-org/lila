@@ -614,8 +614,8 @@ div.table {
   margin-left: -8px;
   transition: background-color 0.13s;
 }
-.lichess_ground .pocket .role.crowded {
-  margin-left: -20px;
+.lichess_ground .pocket.crowded .role {
+  margin-left: -15px;
 }
 .lichess_ground .pocket .role:first-child {
   margin-left: 0;
