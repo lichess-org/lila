@@ -25,10 +25,10 @@ module.exports = {
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
     var oKeys = Object.keys(pocket)
-    var crowded = oKeys.length > 4;
+    var crowded = oKeys.length >= 4;
     var usable = color === ctrl.chessground.data.movable.color;
     return m('div', {
-        class: 'pocket ' + position + (oKeys.length > 4 ? ' crowded' : '') + (usable ? ' usable' : ''),
+        class: 'pocket ' + position + (crowded ? ' crowded' : '') + (usable ? ' usable' : ''),
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl, color);
