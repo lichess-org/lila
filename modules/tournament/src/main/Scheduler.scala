@@ -66,7 +66,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18)),
           Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19)),
           Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20)),
-          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21))
+          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21)),
+          Schedule(Monthly, Classical, Crazyhouse, std, at(lastSundayOfCurrentMonth, 22))
         ),
 
         List( // weekly tournaments!
@@ -74,7 +75,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
           Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
           Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
-          Schedule(Weekly, Blitz, Chess960, std, at(nextSaturday, 22) |> orNextWeek)
+          Schedule(Weekly, Blitz, Crazyhouse, std, at(nextSaturday, 22) |> orNextWeek)
         ),
 
         List( // daily tournaments!

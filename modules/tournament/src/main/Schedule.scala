@@ -97,8 +97,7 @@ object Schedule {
 
       case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
       case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
-      case (Weekly, Blitz, Standard)                  => 60 * 3
-      case (Weekly, Blitz, _)                         => 60 * 2 // variant weekly is shorter
+      case (Weekly, Blitz, _)                         => 60 * 3
       case (Weekly, Classical, _)                     => 60 * 4
 
       case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
