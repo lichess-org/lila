@@ -27,7 +27,7 @@ module.exports = {
     var oKeys = Object.keys(pocket)
     var usable = color === ctrl.chessground.data.movable.color;
     return m('div', {
-        class: 'pocket ' + position + (usable ? ' usable' : ''),
+        class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl, color);

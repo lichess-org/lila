@@ -608,8 +608,8 @@ div.table {
 }
 .pocket piece {
   display:inline-block;
-  width: 56px;
-  height: 56px;
+  width: 56px!important;
+  height: 56px!important;
   position: relative;
 }
 .pocket piece:first-child {
