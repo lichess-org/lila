@@ -591,60 +591,48 @@ div.table {
 .lichess_ground .control.buttons a.replay_and_analyse {
   margin-bottom: 10px;
 }
-.lichess_ground .pocket {
+.pocket {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
   width: 100%;
   height: 56px;
-}
-.lichess_ground .pocket {
   background: #888;
   white-space: nowrap;
   max-width: 244px;
 }
-.lichess_ground .pocket.top {
+.pocket.top {
   margin-bottom: 10px;
 }
-.lichess_ground .pocket.bottom {
+.pocket.bottom {
   margin-top: 10px;
 }
-.lichess_ground .pocket .role {
-  display:inline-block;
-  height: 56px;
-  margin-left: -10px;
-  transition: background-color 0.13s;
-}
-.lichess_ground .pocket.crowded .role {
-  margin-left: -15px;
-}
-.lichess_ground .pocket .role:first-child {
-  margin-left: 0;
-  border-radius: 3px 0 0 3px;
-}
-.lichess_ground .pocket.usable .role:hover {
-  background: #999;
-}
-.lichess_ground .pocket .no-square {
-  position: relative;
+.pocket piece {
   display:inline-block;
   width: 56px;
   height: 56px;
+  position: relative;
 }
-.lichess_ground .pocket .no-square {
-  margin-left: -44px;
-  opacity: 0.30;
-}
-.lichess_ground .pocket .no-square:first-child {
+.pocket piece:first-child {
   margin-left: 0;
+  border-radius: 3px 0 0 3px;
 }
-.lichess_ground .pocket .no-square:last-child {
-  opacity: 1;
-}
-.is3d .lichess_ground .pocket .no-square {
-  height: 58.102px;
-}
-.lichess_ground .pocket.usable piece {
+.pocket.usable piece {
   cursor: pointer;
+  transition: background-color 0.13s;
+}
+.pocket.usable piece:hover {
+  background: #999;
+}
+.pocket piece::after {
+  content: attr(data-nb);
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  line-height: 14px;
+  padding: 3px 5px 4px 5px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 18px;
 }
 div.table.spectator {
   top: 160px;

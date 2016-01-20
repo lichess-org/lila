@@ -5,9 +5,10 @@ var game = require('game').game;
 module.exports = function(ctrl, e) {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !game.isPlayerPlaying(ctrl.data)) return;
-  var node = e.target.parentNode.parentNode;
+  var node = e.target;
   var role = node.getAttribute('data-role'),
     color = node.getAttribute('data-color');
+  console.log(node, role, color);
   if (!role || !color) return;
   e.stopPropagation();
   e.preventDefault();

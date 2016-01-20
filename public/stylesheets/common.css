@@ -1798,6 +1798,7 @@ a.button:active {
 .ui-widget-header,
 div.pagination span.current,
 .data-count::after,
+.pocket piece::after,
 .unread,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,

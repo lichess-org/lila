@@ -5,9 +5,8 @@ var game = require('game').game;
 module.exports = function(ctrl, color, e) {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.chessground.data.movable.color !== color) return;
-  var node = e.target.parentNode.parentNode;
-  var role = node.getAttribute('data-role'),
-    color = node.getAttribute('data-color');
+  var role = e.target.getAttribute('data-role'),
+    color = e.target.getAttribute('data-color');
   if (!role || !color) return;
   e.stopPropagation();
   e.preventDefault();
