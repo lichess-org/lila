@@ -81,11 +81,12 @@ module.exports = function(opts) {
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
     var dests = util.readDests(s.dests);
+    var drops = util.readDrops(s.drops);
     var config = {
       fen: s.fen,
       turnColor: color,
       movable: {
-        color: dests && Object.keys(dests).length > 0 ? color : null,
+        color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
       check: s.check,

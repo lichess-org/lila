@@ -1,4 +1,5 @@
 var game = require('game').game;
+var util = require('../util');
 
 module.exports = {
 
@@ -8,9 +9,9 @@ module.exports = {
 
     if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
 
-    if (typeof possibleDrops === 'undefined' || possibleDrops === null) return true;
+    var drops = util.readDrops(possibleDrops);
 
-    var drops = possibleDrops.match(/.{2}/g) || [];
+    if (drops === null) return true;
 
     return drops.indexOf(pos) !== -1;
   }
