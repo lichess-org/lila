@@ -183,6 +183,7 @@ name | type | default | description
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_opening** | 1 or 0 | 0 | include opening informations
+**with_movetimes** | 1 or 0 | 0 | include move time informations
 **token** | string | - | security token (unlocks secret game data)
 
 ```javascript
@@ -213,7 +214,9 @@ name | type | default | description
             "blunder": 1,
             "inaccuracy": 0,
             "mistake": 2
-          }
+          },
+        // rounded move times in tenths of seconds
+        "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
         },
         "black": ... // other player
       }
@@ -261,6 +264,7 @@ name | type | default | description
 --- | --- | --- | ---
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
+**with_movetimes** | 1 or 0 | 0 | include move time informations
 **with_fens** | 1 or 0 | 0 | include a list of FEN states
 **token** | string | - | security token (unlocks secret game data)
 
@@ -291,7 +295,9 @@ name | type | default | description
         "blunder": 1,
         "inaccuracy": 0,
         "mistake": 2
-      }
+      },
+      // rounded move times in tenths of seconds
+      "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
     },
     "black": ... // other player
   },

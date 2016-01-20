@@ -26,6 +26,7 @@ private[api] final class GameApi(
     withAnalysis: Boolean,
     withMoves: Boolean,
     withOpening: Boolean,
+    withMoveTimes: Boolean,
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
@@ -39,6 +40,7 @@ private[api] final class GameApi(
       withMoves = withMoves,
       withOpening = withOpening,
       withFens = false,
+      withMoveTimes = withMoveTimes,
       token = token) map { games =>
         Json.obj("list" -> games)
       }
@@ -49,6 +51,7 @@ private[api] final class GameApi(
     withMoves: Boolean,
     withOpening: Boolean,
     withFens: Boolean,
+    withMoveTimes: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
     $find byId id flatMap {
       _ ?? { g =>
@@ -57,6 +60,7 @@ private[api] final class GameApi(
           withMoves = withMoves,
           withOpening = withOpening,
           withFens = withFens && g.finished,
+          withMoveTimes = withMoveTimes,
           token = token
         )(List(g)) map (_.headOption)
       }
@@ -69,6 +73,7 @@ private[api] final class GameApi(
     withMoves: Boolean,
     withOpening: Boolean,
     withFens: Boolean,
+    withMoveTimes: Boolean,
     token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
       (games map GameRepo.initialFen).sequenceFu map { initialFens =>
@@ -83,7 +88,7 @@ private[api] final class GameApi(
               withFens = withFens,
               withBlurs = validToken,
               withHold = validToken,
-              withMoveTimes = validToken)
+              withMoveTimes = withMoveTimes)
         }
       }
     }

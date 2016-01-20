@@ -51,6 +51,7 @@ object Api extends LilaController {
       withAnalysis = getBool("with_analysis"),
       withMoves = getBool("with_moves"),
       withOpening = getBool("with_opening"),
+      withMoveTimes = getBool("with_movetimes"),
       token = get("token"),
       nb = getInt("nb")
     ) map (_.some)
@@ -63,6 +64,7 @@ object Api extends LilaController {
       withMoves = getBool("with_moves"),
       withOpening = getBool("with_opening"),
       withFens = getBool("with_fens"),
+      withMoveTimes = getBool("with_movetimes"),
       token = get("token"))
   }
 
