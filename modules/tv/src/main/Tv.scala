@@ -102,7 +102,7 @@ object Tv {
     val all = List(
       Best,
       Bullet, Blitz, Classical,
-      Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse,
+      Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
       Computer)
     val byKey = all.map { c => c.key -> c }.toMap
   }
