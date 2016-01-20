@@ -2,21 +2,6 @@ var crazyDrag = require('./crazyDrag');
 var partial = require('chessground').util.partial;
 var m = require('mithril');
 
-function crazyPocketTag(role, color) {
-  return {
-    tag: 'div',
-    attrs: {
-      class: 'no-square'
-    },
-    children: [{
-      tag: 'piece',
-      attrs: {
-        class: role + ' ' + color
-      }
-    }]
-  };
-}
-
 var eventNames = ['mousedown', 'touchstart'];
 
 module.exports = {

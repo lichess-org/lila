@@ -621,7 +621,7 @@ div.table {
   transition: background-color 0.13s;
 }
 .pocket.usable piece:hover {
-  background: #999;
+  background-color: #999;
 }
 .pocket piece::after {
   content: attr(data-nb);
