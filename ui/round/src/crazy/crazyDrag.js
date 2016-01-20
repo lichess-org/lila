@@ -3,7 +3,7 @@ var drag = require('chessground').drag;
 var game = require('game').game;
 
 module.exports = function(ctrl, e) {
-  if (e.button !== 0) return; // only left click
+  if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !game.isPlayerPlaying(ctrl.data)) return;
   var node = e.target.parentNode.parentNode;
   var role = node.getAttribute('data-role'),

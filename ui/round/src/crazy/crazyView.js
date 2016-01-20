@@ -19,6 +19,8 @@ function crazyPocketTag(role, color) {
   };
 }
 
+var eventNames = ['mousedown', 'touchstart'];
+
 module.exports = {
   pocket: function(ctrl, color, position) {
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
@@ -32,10 +34,14 @@ module.exports = {
         config: position === 'bottom' ? function(el, isUpdate, context) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl);
-          el.addEventListener('mousedown', onstart);
+          eventNames.forEach(function(name) {
+            el.addEventListener(name, onstart);
+          });
           context.onunload = function() {
-            el.removeEventListener('mousedown', onstart);
-          };
+            eventNames.forEach(function(name) {
+              el.removeEventListener(name, onstart);
+            });
+          }
         } : null
       },
       oKeys.map(function(role) {
@@ -50,4 +56,3 @@ module.exports = {
     );
   }
 };
-
