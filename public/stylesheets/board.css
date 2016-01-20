@@ -611,7 +611,7 @@ div.table {
 .lichess_ground .pocket .role {
   display:inline-block;
   height: 56px;
-  margin-left: -8px;
+  margin-left: -10px;
   transition: background-color 0.13s;
 }
 .lichess_ground .pocket.crowded .role {
@@ -631,8 +631,8 @@ div.table {
   height: 56px;
 }
 .lichess_ground .pocket .no-square {
-  margin-left: -46px;
-  opacity: 0.25;
+  margin-left: -44px;
+  opacity: 0.30;
 }
 .lichess_ground .pocket .no-square:first-child {
   margin-left: 0;
