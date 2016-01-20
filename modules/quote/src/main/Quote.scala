@@ -540,7 +540,6 @@ object Quote {
     , new Quote("Haste, the great enemy.", "Eugene Znosko-Borowski")
     , new Quote("Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?", "Daniel King")
     , new Quote("He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. \"No, thank you,\" he would say and the fight would go on and on and on.", "Lubomir Kavalek on Bent Larsen")
-    , new Quote("He who analyses blitz is stupid.", "Rashid Nezhmetdinov")
     , new Quote("He who has a slight disadvantage plays more attentively, inventively and more boldly than his antagonist who either takes it easy or aspires after too much. Thus a slight disadvantage is very frequently seen to convert into a good, solid advantage.", "Emanuel Lasker")
     , new Quote("Here is a definition which correctly reflects the course of thought and action of a grandmaster: The plan in a game of chess is the sum total of successive strategical operations which are each carried out according to separate ideas arising from the demands of the position.", "Alexander Kotov")
     , new Quote("How come the little things bother you when you are in a bad position? They don't bother you in good positions.", "Yasser Seirawan")
