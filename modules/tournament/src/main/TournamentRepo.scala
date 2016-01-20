@@ -177,12 +177,12 @@ object TournamentRepo {
     }._1.reverse
   }
 
-  def lastFinishedScheduledByFreqStandard(freq: Schedule.Freq, since: DateTime, nb: Int): Fu[List[Tournament]] = coll.find(
+  def lastFinishedScheduledByFreqStandard(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] = coll.find(
     finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ BSONDocument(
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
-  ).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](nb.some)
+  ).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](Schedule.Speed.mostPopular.size.some)
 
   def update(tour: Tournament) = coll.update(BSONDocument("_id" -> tour.id), tour)
 
