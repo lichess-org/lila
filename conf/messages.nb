@@ -90,6 +90,7 @@ nbDays=%s dager
 nbHours=%s timer
 time=Tid
 rating=Rating
+ratingStats=Ratingstatistikk
 username=Brukernavn
 password=Passord
 haveAnAccount=Har du en konto?
