@@ -64,7 +64,8 @@ object Setup extends LilaController with TheftPrevention {
     case Some(me) => Env.relation.api.blocks(user.id, me.id) flatMap {
       case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
       case false => Env.pref.api getPref user zip Env.relation.api.follows(user.id, me.id) map {
-        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow)
+        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
+          fromCheat = me.engine && !user.engine)
       }
     }
   }

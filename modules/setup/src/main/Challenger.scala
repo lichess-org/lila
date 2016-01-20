@@ -26,7 +26,8 @@ private[setup] final class Challenger(
         case ((Some(fromU), Some(toU)), html: Html) =>
           prefApi.getPref(toU) zip relationApi.follows(toU.id, fromU.id) flatMap {
             case (pref, follows) =>
-              lila.pref.Pref.Challenge.block(fromU, toU, pref.challenge, follows) match {
+              lila.pref.Pref.Challenge.block(fromU, toU, pref.challenge, follows,
+                fromCheat = fromU.engine && !toU.engine) match {
                 case None => fuccess {
                   bus.publish(SendTo(to, Json.obj(
                     "t" -> "challengeReminder",
