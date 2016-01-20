@@ -32,7 +32,7 @@ module.exports = function(opts) {
         }]
       });
     });
-    else if (opts.data.game.variant.key === 'racingKings' &&
+    else if (opts.data.game.variant.key === 'crazyhouse' &&
       lichess.once('round.crazyhouse')) lichess.hopscotch(function() {
       hopscotch.configure({
         i18n: {
