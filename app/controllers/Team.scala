@@ -93,7 +93,9 @@ object Team extends LilaController {
   def close(id: String) = Secure(_.CloseTeam) { implicit ctx =>
     me =>
       OptionFuResult(api team id) { team =>
-        api delete team inject Redirect(routes.Team all 1)
+        (api delete team) >>
+          Env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
+          Redirect(routes.Team all 1)
       }
   }
 
