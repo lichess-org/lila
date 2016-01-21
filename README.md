@@ -271,6 +271,7 @@ name | type | default | description
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_movetimes** | 1 or 0 | 0 | include move time informations
+**with_opening** | 1 or 0 | 0 | include opening informations
 **with_fens** | 1 or 0 | 0 | include a list of FEN states
 
 ```javascript
