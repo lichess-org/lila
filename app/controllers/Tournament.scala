@@ -137,6 +137,7 @@ object Tournament extends LilaController {
     me =>
       OptionResult(repo startedById id) { tour =>
         env.api finish tour
+        Env.mod.logApi.terminateTournament(me.id, tour.fullName)
         Redirect(routes.Tournament show tour.id)
       }
   }
