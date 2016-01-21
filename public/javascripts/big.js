@@ -629,7 +629,11 @@ lichess.unique = function(xs) {
     $elem.each(function() {
       var $this = $(this).removeClass('parse_fen');
       var lm = $this.data('lastmove');
-      var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
+      var lastMove = [];
+      if (lm) {
+        if (lm[1] === '@') lastMove = [lm.slice(2), lm.slice(2)];
+        else lm = [lm[0] + lm[1], lm[2] + lm[3]];
+      }
       var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
       var ground = $this.data('chessground');
       var playable = $this.data('playable');
