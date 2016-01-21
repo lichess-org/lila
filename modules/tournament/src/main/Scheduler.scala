@@ -125,7 +125,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
                 )
               },
 
-        // hourly tournaments!
+        // hourly standard tournaments!
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
@@ -136,6 +136,21 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
             Schedule(Hourly, SuperBlitz, Standard, std, at(date, hour)).some,
             Schedule(Hourly, Blitz, Standard, std, at(date, hour)).some,
             (hour % 2 == 0) option Schedule(Hourly, Classical, Standard, std, at(date, hour))
+          ).flatten
+        },
+
+        // hourly crazyhouse tournaments!
+        (0 to 6).toList.flatMap { hourDelta =>
+          val date = rightNow plusHours hourDelta
+          val hour = date.getHourOfDay
+          val speed = hour % 3 match {
+            case 0 => Bullet
+            case 1 => SuperBlitz
+            case _ => Blitz
+          }
+          List(
+            Schedule(Hourly, speed, Crazyhouse, std, at(date, hour)).some,
+            (speed == Bullet) option Schedule(Hourly, speed, Crazyhouse, std, at(date, hour, 30))
           ).flatten
         }
 
