@@ -7,7 +7,7 @@ case chess.variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
 case chess.variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
 case chess.variant.Antichess => {http://en.wikipedia.org/wiki/Losing_chess}
 case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.replace(" ", "_"))}
-case chess.variant.Atomic => {http://www.freechess.org/Help/HelpFiles/atomic.html}
+case chess.variant.Atomic => {@routes.Page.atomic}
 case chess.variant.Horde => {http://en.wikipedia.org/wiki/Dunsany%27s_chess#Horde_variant}
 case chess.variant.RacingKings => {@routes.Page.racingKings}
 case chess.variant.Crazyhouse => {@routes.Page.crazyhouse}

@@ -395,6 +395,7 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
 GET   /contact                         controllers.Page.contact
 GET   /king-of-the-hill                controllers.Page.kingOfTheHill
+GET   /atomic                          controllers.Page.atomic
 GET   /racing-kings                    controllers.Page.racingKings
 GET   /crazyhouse                      controllers.Page.crazyhouse
 GET   /privacy                         controllers.Page.privacy
