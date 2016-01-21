@@ -37,6 +37,9 @@
   float: right;
   margin: 20px;
 }
+#team form.inline {
+  display: inline-block;
+}
 #team table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;

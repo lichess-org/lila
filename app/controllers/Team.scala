@@ -90,6 +90,13 @@ object Team extends LilaController {
     }
   }
 
+  def close(id: String) = Secure(_.CloseTeam) { implicit ctx =>
+    me =>
+      OptionFuResult(api team id) { team =>
+        api delete team inject Redirect(routes.Team.show(team.id))
+      }
+  }
+
   def form = Auth { implicit ctx =>
     me =>
       NotForKids {

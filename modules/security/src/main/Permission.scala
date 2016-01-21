@@ -30,6 +30,7 @@ object Permission {
   case object Beta extends Permission("ROLE_BETA")
   case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
   case object UserSearch extends Permission("ROLE_USER_SEARCH")
+  case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -39,7 +40,7 @@ object Permission {
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
-    MessageAnyone))
+    MessageAnyone, CloseTeam))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 
