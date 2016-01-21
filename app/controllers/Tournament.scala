@@ -133,6 +133,14 @@ object Tournament extends LilaController {
       }
   }
 
+  def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx =>
+    me =>
+      OptionResult(repo startedById id) { tour =>
+        env.api finish tour
+        Redirect(routes.Tournament show tour.id)
+      }
+  }
+
   def form = Auth { implicit ctx =>
     me =>
       NoLame {
