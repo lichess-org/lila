@@ -558,6 +558,7 @@ object Quote {
     , new Quote("I can’t count the times I have lagged seemingly hopelessly far behind, and nobody except myself thinks I can win. But I have pulled myself in from desperate [situations]. When you are behind there are two strategies – counter-attack or all men to the defences. I’m good at finding the right balance between those.", "Magnus Carlsen")
     , new Quote("I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.", "Mikhail Botvinnik")
     , new Quote("Watch out for the tricky knights.", "ChessNetwork")
+    , new Quote("I think crazyhouse improves your standard chess.", "ChessNetwork")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
