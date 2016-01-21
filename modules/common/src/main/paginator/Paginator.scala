@@ -47,6 +47,12 @@ final class Paginator[A] private[paginator] (
    * Returns whether there is next page or not.
    */
   def hasNextPage: Boolean = nextPage.isDefined
+
+  def withCurrentPageResults[B](newResults: Seq[B]): Paginator[B] = new Paginator(
+    currentPage = currentPage,
+    maxPerPage = maxPerPage,
+    currentPageResults = newResults,
+    nbResults = nbResults)
 }
 
 object Paginator {

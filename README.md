@@ -179,7 +179,8 @@ name | type | default | description
 **username** | string | - | filter games by user
 **rated** | 1 or 0 | - | filter rated or casual games
 **analysed** | 1 or 0 | - | filter only analysed (or not analysed) games
-**nb** | int | 10 | maximum number of games to return
+**nb** | int | 100 | maximum number of games to return per page
+**page** | int | 1 | for pagination
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_opening** | 1 or 0 | 0 | include opening informations
@@ -188,7 +189,13 @@ name | type | default | description
 
 ```javascript
 {
-  "list": [
+  "currentPage": 3,
+  "previousPage": 2,
+  "nextPage": 4,
+  "maxPerPage": 100,
+  "nbPages": 43,
+  "nbResults": 4348,
+  "currentPageResults": [
     {
       "id": "39b12Ikl",
       "variant": "chess960", // standard/chess960/fromPosition/kingOfTheHill/threeCheck

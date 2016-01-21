@@ -53,7 +53,8 @@ object Api extends LilaController {
       withOpening = getBool("with_opening"),
       withMoveTimes = getBool("with_movetimes"),
       token = get("token"),
-      nb = getInt("nb")
+      nb = getInt("nb"),
+      page = getInt("page")
     ) map (_.some)
   }
 
