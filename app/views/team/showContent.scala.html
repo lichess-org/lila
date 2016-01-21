@@ -42,7 +42,7 @@
     }
     @if(isGranted(_.CloseTeam)) {
     <form class="inline" method="post" action="@routes.Team.close(t.id)">
-      <input class="submit button thin confirm" type="submit" value="Delete forever" />
+      <button data-icon="q" class="submit text button thin confirm" type="submit">Delete forever</button>
     </form>
     }
   </div>
