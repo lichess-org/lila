@@ -403,7 +403,7 @@ GET   /donate/thanks                   controllers.Donation.thanks
 POST  /donate/thanks                   controllers.Donation.thanksRedirect
 POST  /donate/ipn                      controllers.Donation.ipn
 
-POST  /jslog                           controllers.Main.jslog
+POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

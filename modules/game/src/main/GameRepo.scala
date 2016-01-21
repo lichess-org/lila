@@ -191,18 +191,19 @@ object GameRepo {
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson(F.bookmarks -> value))
 
-  def setHoldAlert(pov: Pov, mean: Int, sd: Int) = {
+  def setHoldAlert(pov: Pov, mean: Int, sd: Int, ply: Option[Int] = None) = {
     import Player.holdAlertBSONHandler
     $update(
       $select(pov.gameId),
       BSONDocument(
         "$set" -> BSONDocument(
           s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}" ->
-            Player.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)
+            Player.HoldAlert(ply = ply | pov.game.turns, mean = mean, sd = sd)
         )
       )
     ).void
   }
+  def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
 
   def finish(
     id: ID,
