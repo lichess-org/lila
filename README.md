@@ -185,7 +185,6 @@ name | type | default | description
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_opening** | 1 or 0 | 0 | include opening informations
 **with_movetimes** | 1 or 0 | 0 | include move time informations
-**token** | string | - | security token (unlocks secret game data)
 
 ```javascript
 {
@@ -273,7 +272,6 @@ name | type | default | description
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_movetimes** | 1 or 0 | 0 | include move time informations
 **with_fens** | 1 or 0 | 0 | include a list of FEN states
-**token** | string | - | security token (unlocks secret game data)
 
 ```javascript
 {
