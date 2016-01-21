@@ -1,7 +1,5 @@
 package lila.pref
 
-import play.api.libs.json._
-
 import lila.db.JsTube
 import lila.db.JsTube.Helpers._
 import lila.user.User
