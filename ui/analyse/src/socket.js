@@ -57,7 +57,7 @@ module.exports = function(send, ctrl) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     this.send('anaDrop', req);
-    anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
+    anaMoveTimeout = setTimeout(this.sendAnaDrop.bind(this, req), 3000);
   }.bind(this);
 
   this.sendAnaDests = function(req) {
