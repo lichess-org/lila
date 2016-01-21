@@ -150,4 +150,7 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Message.ALWAYS, trans.always.str())
   )
 
+  def translatedBlindfoldChoices(implicit ctx: Context) = List(
+    Pref.Blindfold.NO -> trans.no.str(),
+    Pref.Blindfold.YES -> trans.yes.str())
 }
