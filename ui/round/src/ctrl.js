@@ -58,9 +58,9 @@ module.exports = function(opts) {
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
-  var onUserNewPiece = function(piece, pos) {
-    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, piece, pos))
-      this.sendNewPiece(piece.role, pos);
+  var onUserNewPiece = function(role, key) {
+    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, role, key))
+      this.sendNewPiece(role, key);
     else this.jump(this.vm.ply);
   }.bind(this);
 
@@ -73,7 +73,7 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  var onNewPiece = function(piece, pos) {
+  var onNewPiece = function(piece, key) {
     sound.move();
   }.bind(this);
 
@@ -105,7 +105,7 @@ module.exports = function(opts) {
       fen: s.fen,
       lastMove: uciToLastMove(s.uci),
       check: s.check,
-        turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
+      turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
@@ -159,10 +159,10 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.sendNewPiece = function(role, pos) {
+  this.sendNewPiece = function(role, key) {
     var drop = {
       role: role,
-      pos: pos
+      pos: key
     };
     if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
     this.resign(false);
@@ -259,11 +259,17 @@ module.exports = function(opts) {
       // https://github.com/ornicar/lila/issues/343
       var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
       setTimeout(function() {
-        if (!this.chessground.playPremove()) showYourMoveNotification();
+        if (!this.chessground.playPremove() && !playPredrop()) showYourMoveNotification();
       }.bind(this), premoveDelay);
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+  }.bind(this);
+
+  var playPredrop = function() {
+    return this.chessground.playPredrop(function(drop) {
+      return crazyValid.drop(this.chessground, this.data, drop.role, drop.key);
+    }.bind(this));
   }.bind(this);
 
   this.reload = function(cfg) {

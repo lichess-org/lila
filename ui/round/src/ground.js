@@ -50,6 +50,13 @@ function makeConfig(data, ply, flip) {
         unset: m.redraw
       }
     },
+    predroppable: {
+      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+      events: {
+        set: m.redraw,
+        unset: m.redraw
+      }
+    },
     draggable: {
       showGhost: data.pref.highlight
     },

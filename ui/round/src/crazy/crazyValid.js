@@ -2,11 +2,11 @@ var game = require('game').game;
 
 module.exports = {
 
-  drop: function(chessground, data, piece, pos) {
+  drop: function(chessground, data, role, key) {
 
     if (!game.isPlayerTurn(data)) return false;
 
-    if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
+    if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
 
     var dropStr = data.possibleDrops;
 
@@ -14,6 +14,6 @@ module.exports = {
 
     var drops = dropStr.match(/.{2}/g) || [];
 
-    return drops.indexOf(pos) !== -1;
+    return drops.indexOf(key) !== -1;
   }
 };

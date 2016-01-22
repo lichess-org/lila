@@ -137,7 +137,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null),
+      m('div.center', ctrl.chessground.data.premovable.current || ctrl.chessground.data.predroppable.current.key ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null),
       blursAndHolds(ctrl)
     ])
   ];
