@@ -29,11 +29,14 @@ object BSON {
   object MapDocument {
 
     implicit def MapReader[V](implicit vr: BSONDocumentReader[V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {
-      def read(bson: BSONDocument): Map[String, V] =
-        bson.elements.map { tuple =>
+      def read(bson: BSONDocument): Map[String, V] = {
+        // mutable optimized implementation
+        val b = collection.immutable.Map.newBuilder[String, V]
+        for (tuple <- bson.elements)
           // assume that all values in the document are BSONDocuments
-          tuple._1 -> vr.read(tuple._2.seeAsTry[BSONDocument].get)
-        }.toMap
+          b += (tuple._1 -> vr.read(tuple._2.asInstanceOf[BSONDocument]))
+        b.result
+      }
     }
 
     implicit def MapWriter[V](implicit vw: BSONDocumentWriter[V]): BSONDocumentWriter[Map[String, V]] = new BSONDocumentWriter[Map[String, V]] {
@@ -55,10 +58,13 @@ object BSON {
   object MapValue {
 
     implicit def MapReader[V](implicit vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {
-      def read(bson: BSONDocument): Map[String, V] =
-        bson.elements.map { tuple =>
-          tuple._1 -> vr.asInstanceOf[BSONReader[BSONValue, V]].read(tuple._2)
-        }.toMap
+      def read(bson: BSONDocument): Map[String, V] = {
+        val valueReader = vr.asInstanceOf[BSONReader[BSONValue, V]]
+        // mutable optimized implementation
+        val b = collection.immutable.Map.newBuilder[String, V]
+        for (tuple <- bson.elements) b += (tuple._1 -> valueReader.read(tuple._2))
+        b.result
+      }
     }
 
     implicit def MapWriter[V](implicit vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[String, V]] = new BSONDocumentWriter[Map[String, V]] {
@@ -77,25 +83,32 @@ object BSON {
     }
   }
 
+  private def readStream[T](array: BSONArray, reader: BSONReader[BSONValue, T]): Stream[T] = {
+    array.stream.filter(_.isSuccess).map { v =>
+      reader.read(v.get)
+    }
+  }
+
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
-    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
-      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
-    }.toList
+    def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList
     def write(repr: List[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
 
   implicit def bsonArrayToVectorHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, Vector[T]] = new BSONHandler[BSONArray, Vector[T]] {
-    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
-      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
-    }.toVector
+    def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toVector
     def write(repr: Vector[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
 
   final class Reader(val doc: BSONDocument) {
 
-    val map = (doc.stream collect { case Success(e) => e }).toMap
+    val map = {
+      // mutable optimized implementation
+      val b = collection.immutable.Map.newBuilder[String, BSONValue]
+      for (tuple <- doc.stream if tuple.isSuccess) b += (tuple.get._1 -> tuple.get._2)
+      b.result
+    }
 
     def get[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
