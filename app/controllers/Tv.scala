@@ -74,7 +74,7 @@ object Tv extends LilaController {
     }
   }
 
-  def streamOut = Action.async {
+  def feed = Action.async {
     import makeTimeout.short
     import akka.pattern.ask
     import lila.round.TvBroadcast

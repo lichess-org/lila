@@ -23,7 +23,6 @@ POST  /games/export/:user              controllers.Game.exportConfirm(user: Stri
 GET   /tv                              controllers.Tv.index
 GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
-GET   /tv/stream                       controllers.Tv.streamOut
 GET   /tv/stream/config                controllers.Tv.streamConfig
 POST  /tv/stream/config                controllers.Tv.streamConfigSave
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
@@ -31,6 +30,7 @@ GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 GET   /tv/stream/:id                   controllers.Tv.streamIn(id: String)
+GET   /tv/feed                         controllers.Tv.feed
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
