@@ -165,10 +165,10 @@ $.ajax({
 });
 ```
 
-### `GET /api/game` fetch many games
+### `GET /api/user/<username>/games` fetch user games
 
 ```
-> curl http://en.lichess.org/api/game?username=thibault&rated=1&nb=10
+> curl http://en.lichess.org/api/user/thibault/games?nb=50&page=2
 ```
 
 Games are returned by descendant chronological order.
@@ -176,15 +176,13 @@ All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
-**username** | string | - | filter games by user
-**rated** | 1 or 0 | - | filter rated or casual games
-**analysed** | 1 or 0 | - | filter only analysed (or not analysed) games
 **nb** | int | 100 | maximum number of games to return per page
 **page** | int | 1 | for pagination
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_opening** | 1 or 0 | 0 | include opening informations
 **with_movetimes** | 1 or 0 | 0 | include move time informations
+**rated** | 1 or 0 | - | filter rated or casual games
 
 ```javascript
 {

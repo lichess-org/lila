@@ -15,6 +15,8 @@ case class Count(
     winH: Int) { // only against human opponents
 
   def gameH = winH + lossH + drawH
+
+  def casual = game - rated
 }
 
 object Count {

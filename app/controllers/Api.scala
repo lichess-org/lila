@@ -28,9 +28,9 @@ object Api extends LilaController {
     )) as JSON
   }
 
-  def user(username: String) = ApiResult { implicit ctx =>
+  def user(name: String) = ApiResult { implicit ctx =>
     userApi.one(
-      username = username,
+      username = name,
       token = get("token"))
   }
 
@@ -43,19 +43,23 @@ object Api extends LilaController {
     ) map (_.some)
   }
 
-  def games = ApiResult { implicit ctx =>
-    gameApi.list(
-      username = get("username"),
-      rated = getBoolOpt("rated"),
-      analysed = getBoolOpt("analysed"),
-      withAnalysis = getBool("with_analysis"),
-      withMoves = getBool("with_moves"),
-      withOpening = getBool("with_opening"),
-      withMoveTimes = getBool("with_movetimes"),
-      token = get("token"),
-      nb = getInt("nb"),
-      page = getInt("page")
-    ) map (_.some)
+  def userGames(name: String) = ApiResult { implicit ctx =>
+    lila.user.UserRepo named name flatMap {
+      _ ?? { user =>
+        gameApi.byUser(
+          user = user,
+          rated = getBoolOpt("rated"),
+          analysed = getBoolOpt("analysed"),
+          withAnalysis = getBool("with_analysis"),
+          withMoves = getBool("with_moves"),
+          withOpening = getBool("with_opening"),
+          withMoveTimes = getBool("with_movetimes"),
+          token = get("token"),
+          nb = getInt("nb"),
+          page = getInt("page")
+        ) map (_.some)
+      }
+    }
   }
 
   def game(id: String) = ApiResult { implicit ctx =>
