@@ -16,7 +16,7 @@ function result(win, stat) {
 
 function playerTitle(player) {
   return m('h2', [
-    player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', player.rank + '. '),
+    m('span.rank', player.rank + '. '),
     util.player(player)
   ]);
 }
