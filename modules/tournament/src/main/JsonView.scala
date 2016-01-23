@@ -67,7 +67,7 @@ final class JsonView(
     firstPageCache.remove(id) >> cachableData.remove(id)
 
   def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
-    ranking <- info.tour.isFinished.fold(cached.finishedRanking, cached.ongoingRanking)(info.tour.id)
+    ranking <- cached ranking info.tour
     pairings <- PairingRepo.finishedByPlayerChronological(info.tour.id, info.user.id)
     sheet = info.tour.system.scoringSystem.sheet(info.tour, info.user.id, pairings)
     tpr <- performance(info.tour, info.player, pairings)

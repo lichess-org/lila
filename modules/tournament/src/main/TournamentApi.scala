@@ -62,7 +62,7 @@ private[tournament] final class TournamentApi(
 
   def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      cached.ongoingRanking(tour.id) flatMap { ranking =>
+      cached ranking tour flatMap { ranking =>
         tour.system.pairingSystem.createPairings(tour, users, ranking) flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1000 =>
