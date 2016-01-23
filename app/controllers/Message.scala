@@ -35,7 +35,7 @@ object Message extends LilaController {
     implicit me =>
       NotForKids {
         OptionFuOk(api.thread(id, me)) { thread =>
-          relationApi.blocks(thread otherUserId me, me.id) map { blocked =>
+          relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
             html.message.thread(thread, forms.post, blocked,
               answerable = !Env.message.LichessSenders.contains(thread.creatorId))
           }
@@ -48,7 +48,7 @@ object Message extends LilaController {
       OptionFuResult(api.thread(id, me)) { thread =>
         implicit val req = ctx.body
         forms.post.bindFromRequest.fold(
-          err => relationApi.blocks(thread otherUserId me, me.id) map { blocked =>
+          err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
             BadRequest(html.message.thread(thread, err, blocked,
               answerable = !Env.message.LichessSenders.contains(thread.creatorId)))
           },

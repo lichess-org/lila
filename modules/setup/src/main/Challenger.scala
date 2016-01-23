@@ -24,7 +24,7 @@ private[setup] final class Challenger(
     case msg@RemindChallenge(gameId, from, to) =>
       UserRepo.named(from) zip UserRepo.named(to) zip (renderer ? msg) flatMap {
         case ((Some(fromU), Some(toU)), html: Html) =>
-          prefApi.getPref(toU) zip relationApi.follows(toU.id, fromU.id) flatMap {
+          prefApi.getPref(toU) zip relationApi.fetchFollows(toU.id, fromU.id) flatMap {
             case (pref, follows) =>
               lila.pref.Pref.Challenge.block(fromU, toU, pref.challenge, follows,
                 fromCheat = fromU.engine && !toU.engine) match {

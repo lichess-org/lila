@@ -16,9 +16,9 @@ object Relation extends LilaController {
   private def env = Env.relation
 
   private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
-    (ctx.userId ?? { env.api.relation(_, userId) }) zip
+    (ctx.userId ?? { env.api.fetchRelation(_, userId) }) zip
       (ctx.isAuth ?? { Env.pref.api followable userId }) zip
-      (ctx.userId ?? { env.api.blocks(userId, _) }) flatMap {
+      (ctx.userId ?? { env.api.fetchBlocks(userId, _) }) flatMap {
         case ((relation, followable), blocked) => negotiate(
           html = fuccess(Ok(mini.fold(
             html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
@@ -26,8 +26,8 @@ object Relation extends LilaController {
           ))),
           api = _ => fuccess(Ok(Json.obj(
             "followable" -> followable,
-            "following" -> relation.exists(true ==),
-            "blocking" -> relation.exists(false ==)
+            "following" -> relation.contains(true),
+            "blocking" -> relation.contains(false)
           )))
         )
       }
@@ -88,7 +88,7 @@ object Relation extends LilaController {
     UserRepo byIds userIds flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
-          ctx.userId ?? { env.api.relation(_, u.id) } map { rel =>
+          ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, 0, followables(u.id), rel)
           }
         }.sequenceFu

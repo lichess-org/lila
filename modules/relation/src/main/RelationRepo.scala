@@ -12,10 +12,10 @@ private[relation] object RelationRepo {
 
   val coll = relationTube.coll
 
-  def relation(id: ID): Fu[Option[Relation]] =
-    $primitive.one($select byId id, "r")(_.asOpt[Boolean])
+  // def relation(id: ID): Fu[Option[Relation]] =
+  //   $primitive.one($select byId id, "r")(_.asOpt[Boolean])
 
-  def relation(u1: ID, u2: ID): Fu[Option[Relation]] = relation(makeId(u1, u2))
+  // def relation(u1: ID, u2: ID): Fu[Option[Relation]] = relation(makeId(u1, u2))
 
   def followers(userId: ID) = relaters(userId, Follow)
   def following(userId: ID) = relating(userId, Follow)
@@ -60,5 +60,5 @@ private[relation] object RelationRepo {
         $remove(Json.obj("_id" -> $in(ids)))
       }
 
-  private def makeId(u1: String, u2: String) = u1 + "/" + u2
+  def makeId(u1: String, u2: String) = s"$u1/$u2"
 }

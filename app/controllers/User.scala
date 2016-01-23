@@ -43,10 +43,10 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
         Env.donation.isDonor(user.id) zip
-        (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
-        (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
+        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) map {
           case (((((pov, donor), blocked), crosstable), followable), relation) =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
@@ -102,12 +102,12 @@ object User extends LilaController {
       filter = filters.current,
       me = ctx.me,
       page = page)(ctx.body)
-    relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
+    relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
-      relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
+      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-    blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
+    blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
@@ -211,8 +211,8 @@ object User extends LilaController {
           fuccess(List.fill(50)(true))
         ) flatMap { followables =>
             (ops zip followables).map {
-              case ((u, nb), followable) => ctx.userId ?? { myId =>
-                relationApi.relation(myId, u.id)
+              case ((u, nb), followable) => ctx.userId ?? {
+                relationApi.fetchRelation(_, u.id)
               } map { lila.relation.Related(u, nb, followable, _) }
             }.sequenceFu map { relateds =>
               html.user.opponents(user, relateds)

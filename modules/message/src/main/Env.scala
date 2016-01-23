@@ -61,8 +61,8 @@ object Env {
     db = lila.db.Env.current,
     shutup = lila.hub.Env.current.actor.shutup,
     mongoCache = lila.memo.Env.current.mongoCache,
-    blocks = lila.relation.Env.current.api.blocks,
-    follows = lila.relation.Env.current.api.follows,
+    blocks = lila.relation.Env.current.api.fetchBlocks,
+    follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,
     system = lila.common.PlayApp.system)
 }
