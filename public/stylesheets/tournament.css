@@ -610,6 +610,9 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.marathon {
   background-color: #66558C;
 }
+#tournament_schedule .tournament.unique {
+  background-color: #d59120;
+}
 #tournament_schedule .icon {
   float: left;
   font-size: 2.4em;
