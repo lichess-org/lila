@@ -71,6 +71,11 @@ module.exports = {
     var fullName = (p.title ? p.title + ' ' : '') + p.name;
     var attrs = {
       class: 'ulpt user_link' + (fullName.length > 15 ? ' long' : ''),
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate) ctx.onunload = function() {
+          $.powerTip.destroy(el);
+        };
+      }
     };
     attrs[tag === 'a' ? 'href' : 'data-href'] = '/@/' + p.name;
     return {

@@ -23,7 +23,12 @@ module.exports = function(ctrl) {
       attrs: {
         key: p.id,
         href: '/' + p.id,
-        class: 'glpt'
+        class: 'glpt',
+        config: function(el, isUpdate, ctx) {
+          if (!isUpdate) ctx.onunload = function() {
+            $.powerTip.destroy(el);
+          };
+        }
       },
       children: [
         user(p, 0),

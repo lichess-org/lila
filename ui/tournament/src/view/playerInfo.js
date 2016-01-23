@@ -60,7 +60,12 @@ module.exports = function(ctrl) {
       return m('tr', {
         key: p.id,
         'data-href': '/' + p.id + '/' + p.color,
-        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : ''))
+        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')),
+        config: function(el, isUpdate, ctx) {
+          if (!isUpdate) ctx.onunload = function() {
+            $.powerTip.destroy(el);
+          };
+        }
       }, [
         m('th', Math.max(nb.game, pairingsLen) - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
