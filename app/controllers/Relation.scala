@@ -54,7 +54,7 @@ object Relation extends LilaController {
 
   def following(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api nbFollowers user.id flatMap { nbFollowers =>
+      env.api countFollowers user.id flatMap { nbFollowers =>
         RelatedPager(env.api.followingPaginatorAdapter(user.id), page) map { pag =>
           html.relation.following(user, pag, nbFollowers)
         }
@@ -98,28 +98,23 @@ object Relation extends LilaController {
   def suggest(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { opponents =>
-        Env.pref.api.followableIds(opponents map (_._1.id)) zip
-          env.api.onlinePopularUsers(20) flatMap {
-            case (followables, popular) =>
-              popular.filterNot(user ==).foldLeft(opponents filter {
-                case (u, _) => followables contains u.id
-              }) {
-                case (xs, x) => xs.exists(_._1 == x).fold(xs, xs :+ (x, 0))
-              }.map {
-                case (u, nb) => env.api.relation(user.id, u.id) map {
-                  lila.relation.Related(u, nb, true, _)
-                }
-              }.sequenceFu flatMap { rels =>
-                negotiate(
-                  html = fuccess(Ok(html.relation.suggest(user, rels))),
-                  api = _ => fuccess {
-                    implicit val userWrites = play.api.libs.json.Writes[UserModel] { Env.user.jsonView(_, true) }
-                    Ok(Json.obj(
-                      "user" -> user,
-                      "suggested" -> play.api.libs.json.JsArray(rels.map(_.toJson))))
-                  })
+        Env.pref.api.followableIds(opponents map (_._1.id)) flatMap { followables =>
+          opponents.collect {
+            case (u, nb) if followables contains u.id =>
+              env.api.relation(user.id, u.id) map {
+                lila.relation.Related(u, nb, true, _)
               }
+          }.sequenceFu flatMap { rels =>
+            negotiate(
+              html = fuccess(Ok(html.relation.suggest(user, rels))),
+              api = _ => fuccess {
+                implicit val userWrites = play.api.libs.json.Writes[UserModel] { Env.user.jsonView(_, true) }
+                Ok(Json.obj(
+                  "user" -> user,
+                  "suggested" -> play.api.libs.json.JsArray(rels.map(_.toJson))))
+              })
           }
+        }
       }
     }
   }

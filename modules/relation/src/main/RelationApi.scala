@@ -17,7 +17,6 @@ final class RelationApi(
     coll: Coll,
     actor: ActorSelection,
     bus: lila.common.Bus,
-    getOnlineUserIds: () => Set[String],
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: String => Fu[Boolean],
@@ -31,10 +30,10 @@ final class RelationApi(
 
   def blocks(userId: ID) = blockers(userId) ⊹ blocking(userId)
 
-  def nbFollowers(userId: ID) = followers(userId) map (_.size)
-  def nbFollowing(userId: ID) = following(userId) map (_.size)
-  def nbBlocking(userId: ID) = blocking(userId) map (_.size)
-  def nbBlockers(userId: ID) = blockers(userId) map (_.size)
+  // def nbFollowers(userId: ID) = followers(userId) map (_.size)
+  // def nbFollowing(userId: ID) = following(userId) map (_.size)
+  // def nbBlocking(userId: ID) = blocking(userId) map (_.size)
+  // def nbBlockers(userId: ID) = blockers(userId) map (_.size)
 
   def friends(userId: ID) = following(userId) zip followers(userId) map {
     case (f1, f2) => f1 intersect f2
@@ -56,6 +55,12 @@ final class RelationApi(
   def countFollowers(userId: String) =
     coll.count(BSONDocument("u2" -> userId, "r" -> Follow).some)
 
+  def countBlocking(userId: String) =
+    coll.count(BSONDocument("u1" -> userId, "r" -> Block).some)
+
+  def countBlockers(userId: String) =
+    coll.count(BSONDocument("u2" -> userId, "r" -> Block).some)
+
   def followingPaginatorAdapter(userId: ID) = new BSONAdapter[Followed](
     collection = coll,
     selector = BSONDocument("u1" -> userId, "r" -> Follow),
@@ -74,11 +79,6 @@ final class RelationApi(
     projection = BSONDocument("u2" -> true, "_id" -> false),
     sort = BSONDocument()).map(_.userId)
 
-  def onlinePopularUsers(max: Int): Fu[List[UserModel]] =
-    (getOnlineUserIds().toList map { id =>
-      nbFollowers(id) map (id -> _)
-    }).sequenceFu map (_ sortBy (-_._2) take max map (_._1)) flatMap UserRepo.byOrderedIds
-
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else followable(u2) zip relation(u1, u2) zip relation(u2, u1) flatMap {
@@ -92,11 +92,11 @@ final class RelationApi(
         ).toFriendsOf(u1).toUsers(List(u2)))
     }
 
-  private def limitFollow(u: ID) = nbFollowing(u) flatMap { nb =>
+  private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
     (nb >= maxFollow) ?? RelationRepo.drop(u, true, nb - maxFollow + 1)
   }
 
-  private def limitBlock(u: ID) = nbBlocking(u) flatMap { nb =>
+  private def limitBlock(u: ID) = countBlocking(u) flatMap { nb =>
     (nb >= maxBlock) ?? RelationRepo.drop(u, false, nb - maxBlock + 1)
   }
 
@@ -105,8 +105,7 @@ final class RelationApi(
     else relation(u1, u2) flatMap {
       case Some(Block) => funit
       case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >> refresh(u1, u2) >>-
-        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation) >>-
-        (nbBlockers(u2) zip nbFollowers(u2))
+        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =

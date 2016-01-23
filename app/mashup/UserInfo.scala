@@ -74,9 +74,9 @@ object UserInfo {
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip
-      relationApi.nbFollowing(user.id) zip
-      relationApi.nbFollowers(user.id) zip
-      (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
+      relationApi.countFollowing(user.id) zip
+      relationApi.countFollowers(user.id) zip
+      (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip

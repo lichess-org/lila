@@ -30,7 +30,6 @@ final class Env(
     coll = relationColl,
     actor = hub.actor.relation,
     bus = system.lilaBus,
-    getOnlineUserIds = getOnlineUserIds,
     timeline = hub.actor.timeline,
     reporter = hub.actor.report,
     followable = followable,
