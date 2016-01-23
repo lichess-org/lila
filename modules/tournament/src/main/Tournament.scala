@@ -23,7 +23,8 @@ case class Tournament(
     createdAt: DateTime,
     createdBy: String,
     startsAt: DateTime,
-    winnerId: Option[String] = None) {
+    winnerId: Option[String] = None,
+    leaderId: Option[String] = None) {
 
   def isCreated = status == Status.Created
   def isStarted = status == Status.Started
