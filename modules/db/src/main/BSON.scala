@@ -193,4 +193,13 @@ object BSON {
   }
 
   def asStrings(vs: List[BSONValue]): List[String] = vs flatMap asString
+
+  def asStringSet(vs: List[BSONValue]): Set[String] = {
+    val b = Set.newBuilder[String]
+    vs foreach {
+      case BSONString(s) => b += s
+      case _             =>
+    }
+    b.result
+  }
 }
