@@ -37,10 +37,10 @@ POST  /rel/follow/:userId              controllers.Relation.follow(userId: Strin
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
 POST  /rel/block/:userId               controllers.Relation.block(userId: String)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: String)
-GET   /@/:username/following           controllers.Relation.following(username: String)
-GET   /@/:username/followers           controllers.Relation.followers(username: String)
+GET   /@/:username/following           controllers.Relation.following(username: String, page: Int ?= 1)
+GET   /@/:username/followers           controllers.Relation.followers(username: String, page: Int ?= 1)
 GET   /@/:username/suggestions         controllers.Relation.suggest(username: String)
-GET   /rel/blocks                      controllers.Relation.blocks
+GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 
 # Insight
 POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)

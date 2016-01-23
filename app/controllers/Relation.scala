@@ -6,6 +6,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
+import lila.common.paginator.{ Paginator, AdapterLike }
 import lila.relation.Related
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -51,34 +52,39 @@ object Relation extends LilaController {
       env.api.unblock(me.id, userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
-  def following(username: String) = Open { implicit ctx =>
+  def following(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.following(user.id) flatMap followship flatMap { rels =>
-        env.api nbFollowers user.id map { followers =>
-          html.relation.following(user, rels, followers)
+      env.api nbFollowers user.id flatMap { nbFollowers =>
+        RelatedPager(env.api.followingPaginatorAdapter(user.id), page) map { pag =>
+          html.relation.following(user, pag, nbFollowers)
         }
       }
     }
   }
 
-  def followers(username: String) = Open { implicit ctx =>
+  def followers(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.followers(user.id) flatMap followship flatMap { rels =>
-        env.api nbFollowing user.id map { following =>
-          html.relation.followers(user, rels, following)
+      env.api countFollowing user.id flatMap { nbFollowing =>
+        RelatedPager(env.api.followersPaginatorAdapter(user.id), page) map { pag =>
+          html.relation.followers(user, pag, nbFollowing)
         }
       }
     }
   }
 
-  def blocks = Auth { implicit ctx =>
+  def blocks(page: Int) = Auth { implicit ctx =>
     me =>
-      env.api.blocking(me.id) flatMap followship map { rels =>
-        html.relation.blocks(me, rels)
+      RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
+        html.relation.blocks(me, pag)
       }
   }
 
-  private def followship(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
+  private def RelatedPager(adapter: AdapterLike[String], page: Int)(implicit ctx: Context) = Paginator(
+    adapter = adapter mapFutureList followship,
+    currentPage = page,
+    maxPerPage = 20)
+
+  private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byIds userIds flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>

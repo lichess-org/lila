@@ -5,7 +5,7 @@ import scala.util.Success
 
 import lila.db.api._
 import lila.db.Implicits._
-import lila.game.GameRepo
+import lila.db.paginator._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.tube.userTube
@@ -14,6 +14,7 @@ import tube.relationTube
 
 final class RelationApi(
     cached: Cached,
+    coll: Coll,
     actor: ActorSelection,
     bus: lila.common.Bus,
     getOnlineUserIds: () => Set[String],
@@ -45,6 +46,33 @@ final class RelationApi(
   def blocks(u1: ID, u2: ID) = blocking(u1) map (_ contains u2)
 
   def relation(u1: ID, u2: ID): Fu[Option[Relation]] = cached.relation(u1, u2)
+
+  import BSONHandlers._
+  import reactivemongo.bson._
+
+  def countFollowing(userId: String) =
+    coll.count(BSONDocument("u1" -> userId, "r" -> Follow).some)
+
+  def countFollowers(userId: String) =
+    coll.count(BSONDocument("u2" -> userId, "r" -> Follow).some)
+
+  def followingPaginatorAdapter(userId: ID) = new BSONAdapter[Followed](
+    collection = coll,
+    selector = BSONDocument("u1" -> userId, "r" -> Follow),
+    projection = BSONDocument("u2" -> true, "_id" -> false),
+    sort = BSONDocument()).map(_.userId)
+
+  def followersPaginatorAdapter(userId: ID) = new BSONAdapter[Follower](
+    collection = coll,
+    selector = BSONDocument("u2" -> userId, "r" -> Follow),
+    projection = BSONDocument("u1" -> true, "_id" -> false),
+    sort = BSONDocument()).map(_.userId)
+
+  def blockingPaginatorAdapter(userId: ID) = new BSONAdapter[Blocked](
+    collection = coll,
+    selector = BSONDocument("u1" -> userId, "r" -> Follow),
+    projection = BSONDocument("u2" -> true, "_id" -> false),
+    sort = BSONDocument()).map(_.userId)
 
   def onlinePopularUsers(max: Int): Fu[List[UserModel]] =
     (getOnlineUserIds().toList map { id =>
