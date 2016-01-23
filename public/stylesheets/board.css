@@ -101,8 +101,12 @@ body.highlight .cg-board square.check {
 body.base .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-body.base .cg-board square.exploding {
+body.base .cg-board square.exploding1 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.base .cg-board square.exploding2 {
   background-color: rgba(255, 0, 0, 0.5);
+  transition: background-color 0.1s;
 }
 piece {
   width: 100%;
