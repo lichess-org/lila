@@ -94,28 +94,4 @@ object Relation extends LilaController {
         }.sequenceFu
       }
     }
-
-  def suggest(username: String) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { user =>
-      lila.game.BestOpponents(user.id, 50) flatMap { opponents =>
-        Env.pref.api.followableIds(opponents map (_._1.id)) flatMap { followables =>
-          opponents.collect {
-            case (u, nb) if followables contains u.id =>
-              env.api.relation(user.id, u.id) map {
-                lila.relation.Related(u, nb, true, _)
-              }
-          }.sequenceFu flatMap { rels =>
-            negotiate(
-              html = fuccess(Ok(html.relation.suggest(user, rels))),
-              api = _ => fuccess {
-                implicit val userWrites = play.api.libs.json.Writes[UserModel] { Env.user.jsonView(_, true) }
-                Ok(Json.obj(
-                  "user" -> user,
-                  "suggested" -> play.api.libs.json.JsArray(rels.map(_.toJson))))
-              })
-          }
-        }
-      }
-    }
-  }
 }
