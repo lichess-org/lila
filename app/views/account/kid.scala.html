@@ -1,11 +1,11 @@
 @(u: User)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - Kid mode" }
+@title = @{ s"${u.username} - @trans.kidMode()" }
 
 @account.layout(title = title, active = "kid") {
 <div class="content_box small_box high">
   <div class="signup_box">
-    <h1 class="lichess_title">Kid mode</h1>
+    <h1 class="lichess_title">@trans.kidMode()</h1>
     <p class="explanation">
       This is about safety.<br />
       In kid mode, all site communications are disabled.<br />

@@ -15,7 +15,7 @@
     <span>@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
     @showProgress(perf.progress, withTitle = false)
   </span>
-  <span class="rank" title="Rank is updated every 15 minutes">
+  <span class="rank" title="@trans.rankIsUpdatedEveryFifteenMinute()">
     @rankMap.get(perfType.key).map { rank =>
     Rank: @rank.localize@nth(rank)
     }
