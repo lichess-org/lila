@@ -70,7 +70,7 @@ final class RelationApi(
 
   def blockingPaginatorAdapter(userId: ID) = new BSONAdapter[Blocked](
     collection = coll,
-    selector = BSONDocument("u1" -> userId, "r" -> Follow),
+    selector = BSONDocument("u1" -> userId, "r" -> Block),
     projection = BSONDocument("u2" -> true, "_id" -> false),
     sort = BSONDocument()).map(_.userId)
 

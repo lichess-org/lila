@@ -82,7 +82,7 @@ object Relation extends LilaController {
   private def RelatedPager(adapter: AdapterLike[String], page: Int)(implicit ctx: Context) = Paginator(
     adapter = adapter mapFutureList followship,
     currentPage = page,
-    maxPerPage = 20)
+    maxPerPage = 30)
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byIds userIds flatMap { users =>
