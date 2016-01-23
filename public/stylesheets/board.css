@@ -792,10 +792,10 @@ div.table_wrap .tournament_rank {
   right: 0;
 }
 div.table_wrap .tournament_rank.top {
-  top: 3px;
+  top: 5px;
 }
 div.table_wrap .tournament_rank.bottom {
-  bottom: 3px;
+  bottom: 5px;
 }
 div.table_next {
   top: 145px;
