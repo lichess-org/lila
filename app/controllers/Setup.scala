@@ -72,7 +72,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def friend(userId: Option[String]) = process(env.forms.friend) { config =>
     implicit ctx =>
-      (ctx.userId ?? GameRepo.removeChallengesOf) >> {
+      (ctx.userId ?? GameRepo.removeRecentChallengesOf) >> {
         env.processor friend config map { pov =>
           pov -> routes.Setup.await(pov.fullId, userId)
         }
