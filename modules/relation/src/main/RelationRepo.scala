@@ -1,6 +1,7 @@
 package lila.relation
 
 import play.api.libs.json._
+import reactivemongo.bson._
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -8,6 +9,8 @@ import lila.db.Implicits._
 import tube.relationTube
 
 private[relation] object RelationRepo {
+
+  val coll = relationTube.coll
 
   def relation(id: ID): Fu[Option[Relation]] =
     $primitive.one($select byId id, "r")(_.asOpt[Boolean])
@@ -21,14 +24,16 @@ private[relation] object RelationRepo {
   def blocking(userId: ID) = relating(userId, Block)
 
   private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
-    $projection(Json.obj("u2" -> userId), Seq("u1", "r")) { obj =>
-      obj str "u1" map { _ -> ~(obj boolean "r") }
-    } map (_.filter(_._2 == relation).map(_._1).toSet)
+    coll.distinct("u1", BSONDocument(
+      "u2" -> userId,
+      "r" -> relation
+    ).some) map lila.db.BSON.asStringSet
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
-    $projection(Json.obj("u1" -> userId), Seq("u2", "r")) { obj =>
-      obj str "u2" map { _ -> ~(obj boolean "r") }
-    } map (_.filter(_._2 == relation).map(_._1).toSet)
+    coll.distinct("u2", BSONDocument(
+      "u1" -> userId,
+      "r" -> relation
+    ).some) map lila.db.BSON.asStringSet
 
   def follow(u1: ID, u2: ID): Funit = save(u1, u2, Follow)
   def unfollow(u1: ID, u2: ID): Funit = remove(u1, u2)
