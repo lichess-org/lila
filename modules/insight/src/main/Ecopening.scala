@@ -4,11 +4,11 @@ case class Ecopening(
     eco: Ecopening.ECO,
     family: Ecopening.FamilyName,
     name: String,
-    moves: String,
+    private val moves: String,
     fen: Ecopening.FEN,
     lastMoveUci: String) extends Ordered[Ecopening] {
 
-  lazy val moveList = moves.split(' ').toList
+  private lazy val moveList = moves.split(' ').toList
 
   def firstMove = moveList.headOption
 
