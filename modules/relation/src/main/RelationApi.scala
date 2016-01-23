@@ -6,7 +6,6 @@ import scala.util.Success
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
-import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
@@ -91,6 +90,7 @@ final class RelationApi(
         case (Some(Follow), _) => funit
         case (_, Some(Block))  => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>-
+          reloadOnlineFriends(u1, u2) >>-
           (timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2)))
       }
     }
@@ -107,14 +107,14 @@ final class RelationApi(
     if (u1 == u2) funit
     else fetchBlocks(u1, u2) flatMap {
       case true => funit
-      case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>-
+      case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>- reloadOnlineFriends(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else fetchFollows(u1, u2) flatMap {
-      case true => RelationRepo.unfollow(u1, u2)
+      case true => RelationRepo.unfollow(u1, u2) >>- reloadOnlineFriends(u1, u2)
       case _    => funit
     }
 
@@ -123,8 +123,13 @@ final class RelationApi(
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else fetchBlocks(u1, u2) flatMap {
-      case true => RelationRepo.unblock(u1, u2) >>-
+      case true => RelationRepo.unblock(u1, u2) >>- reloadOnlineFriends(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
       case _ => funit
     }
+
+  private def reloadOnlineFriends(u1: ID, u2: ID) {
+    import lila.hub.actorApi.relation.ReloadOnlineFriends
+    List(u1, u2).foreach(actor ! ReloadOnlineFriends(_))
+  }
 }

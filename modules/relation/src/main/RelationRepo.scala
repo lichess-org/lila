@@ -12,11 +12,6 @@ private[relation] object RelationRepo {
 
   val coll = relationTube.coll
 
-  // def relation(id: ID): Fu[Option[Relation]] =
-  //   $primitive.one($select byId id, "r")(_.asOpt[Boolean])
-
-  // def relation(u1: ID, u2: ID): Fu[Option[Relation]] = relation(makeId(u1, u2))
-
   def followers(userId: ID) = relaters(userId, Follow)
   def following(userId: ID) = relating(userId, Follow)
 
