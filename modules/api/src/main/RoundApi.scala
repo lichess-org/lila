@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ TournamentRepo, Tournament, SecondsToDoFirstMove }
+import lila.tournament.{ Tournament, SecondsToDoFirstMove, TourAndRanks }
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -20,6 +20,7 @@ private[api] final class RoundApi(
     forecastApi: lila.round.ForecastApi,
     analysisApi: AnalysisApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
+    getTourAndRanks: Game => Fu[Option[TourAndRanks]],
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
@@ -28,7 +29,7 @@ private[api] final class RoundApi(
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         initialFen = initialFen,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) map {
@@ -53,7 +54,7 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
         initialFen = initialFen,
         withMoveTimes = withMoveTimes) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
           case (((json, tourOption), simulOption), note) => (
@@ -112,14 +113,17 @@ private[api] final class RoundApi(
     ))
   }
 
-  private def withTournament(pov: Pov, tourOption: Option[Tournament])(json: JsObject) =
-    tourOption.fold(json) { tour =>
+  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
+    tourOption.fold(json) { data =>
       json + ("tournament" -> Json.obj(
-        "id" -> tour.id,
-        "name" -> tour.name,
-        "running" -> tour.isStarted,
-        "berserkable" -> tour.berserkable,
-        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(tour)
+        "id" -> data.tour.id,
+        "name" -> data.tour.name,
+        "running" -> data.tour.isStarted,
+        "berserkable" -> data.tour.berserkable,
+        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(data.tour),
+        "ranks" -> Json.obj(
+          "white" -> data.whiteRank,
+          "black" -> data.blackRank)
       ))
     }
 

@@ -71,6 +71,8 @@ final class Env(
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
 
+  val tourAndRanks = api tourAndRanks _
+
   private lazy val performance = new Performance
 
   lazy val socketHandler = new SocketHandler(

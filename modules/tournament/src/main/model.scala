@@ -20,3 +20,8 @@ case class PlayerInfoExt(
   user: lila.user.User,
   player: Player,
   recentPovs: List[lila.game.Pov])
+
+case class TourAndRanks(
+  tour: Tournament,
+  whiteRank: Int,
+  blackRank: Int)

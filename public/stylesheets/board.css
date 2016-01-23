@@ -786,6 +786,17 @@ div.table_wrap a.moretime {
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
+div.table_wrap .tournament_rank {
+  position: absolute;
+  font-size: 20px;
+  right: 0;
+}
+div.table_wrap .tournament_rank.top {
+  top: 3px;
+}
+div.table_wrap .tournament_rank.bottom {
+  bottom: 3px;
+}
 div.table_next {
   top: 145px;
 }
