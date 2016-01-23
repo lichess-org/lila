@@ -538,3 +538,4 @@ youHaveThirtySecondsToRecognizeAsManySquaresAsPossible=Распознайте к
 youCanAnalyseAGameMoreEffectivelyIfYouDontNeedToSearchForSquareNames=Вам будет легче анализировать игру, так как не нужно искать необходимые клетки.
 itMakesItEasierToTalkToYourChessFriends=Становится легче разговаривать с друзьями, также понимающими "язык шахмат"
 mostChessCourcesAndExcercisesUseTheAlgebraicNotationExtensively=Многие шахматные курсы используют алгебраические вычисления на основе координат
+chessInsights=Шахматные идеи
