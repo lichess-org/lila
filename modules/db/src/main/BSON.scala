@@ -187,11 +187,6 @@ object BSON {
     case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
 
-  // def asString(v: BSONValue): Option[String] = v match {
-  //   case BSONString(s) => Some(s)
-  //   case _             => None
-  // }
-
   def asStrings(vs: List[BSONValue]): List[String] = {
     val b = new scala.collection.mutable.ListBuffer[String]
     vs foreach {
