@@ -506,3 +506,4 @@ nbPerfTypePlayersThisMonth=%s %s игроков за месяц
 yourPerfTypeRatingisRating=Ваш %s рейтинг %s.
 youAreBetterThanPercentOfPerfTypePlayers=Ваш рейтинг выше чем %s игроков %s.
 youDoNotHaveAnEstablishedPerfTypeRating=Ваш %s рейтинг еще не определен
+worldMap=Карта
