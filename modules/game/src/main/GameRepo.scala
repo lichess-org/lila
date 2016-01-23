@@ -165,6 +165,7 @@ object GameRepo {
       Query.user(user.id) ++
         Query.rated ++
         Query.finished ++
+        Query.turnsMoreThan(2) ++
         Query.notFromPosition
     } sort Query.sortAntiChronological
   }
