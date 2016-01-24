@@ -41,7 +41,8 @@ final class RelationApi(
   def fetchBlocking = RelationRepo blocking _
 
   def fetchFriends(userId: ID) = coll.aggregate(Match(BSONDocument(
-    "$or" -> BSONArray(BSONDocument("u1" -> userId), BSONDocument("u2" -> userId))
+    "$or" -> BSONArray(BSONDocument("u1" -> userId), BSONDocument("u2" -> userId)),
+    "r" -> Follow
   )), List(
     Group(BSONNull)(
       "u1" -> AddToSet("u1"),
