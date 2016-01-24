@@ -12,6 +12,7 @@ import lila.user.{ User => UserModel, UserRepo }
 import tube.relationTube
 
 import BSONHandlers._
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
 final class RelationApi(
@@ -39,8 +40,17 @@ final class RelationApi(
 
   def fetchBlocking = RelationRepo blocking _
 
-  def fetchFriends(userId: ID) = fetchFollowing(userId) zip fetchFollowers(userId) map {
-    case (f1, f2) => f1 intersect f2
+  def fetchFriends(userId: ID) = coll.aggregate(Match(BSONDocument(
+    "$or" -> BSONArray(BSONDocument("u1" -> userId), BSONDocument("u2" -> userId))
+  )), List(
+    Group(BSONNull)(
+      "u1" -> AddToSet("u1"),
+      "u2" -> AddToSet("u2")),
+    Project(BSONDocument(
+      "_id" -> BSONDocument("$setIntersection" -> BSONArray("$u1", "$u2"))
+    ))
+  )).map {
+    ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id"))
   }
 
   def fetchFollows(u1: ID, u2: ID) =
