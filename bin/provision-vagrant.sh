@@ -168,11 +168,10 @@ build_lila() {
     cd -- "$LILA_DIR"
     git submodule update --init --recursive
 
-    ./ui/build &
-    ./bin/install-stockfish &
-    ./bin/gen/geoip &
-    ./bin/build-deps.sh &
-    wait
+    ./ui/build
+    ./bin/install-stockfish
+    ./bin/gen/geoip
+    ./bin/build-deps.sh
 
     sbt compile
 }
