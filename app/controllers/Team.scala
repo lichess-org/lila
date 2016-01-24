@@ -75,7 +75,7 @@ object Team extends LilaController {
     me => OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.kick(team, userIds filterNot (me.id ==))
+          html.team.kick(team, userIds.filterNot(me.id ==).toList.sorted)
         }
       }
     }

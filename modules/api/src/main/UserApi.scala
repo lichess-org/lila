@@ -26,7 +26,7 @@ private[api] final class UserApi(
     token: Option[String],
     nb: Option[Int],
     engine: Option[Boolean]): Fu[JsObject] = (team match {
-    case Some(teamId) => lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.enabledByIds
+    case Some(teamId) => lila.team.MemberRepo userIdsByTeam teamId flatMap UserRepo.enabledByIds
     case None => $find(pimpQB($query(
       UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
     )) sort UserRepo.sortPerfDesc(lila.rating.PerfType.Standard.key), makeNb(nb, token))

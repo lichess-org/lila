@@ -57,9 +57,9 @@ trait UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
-  def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
+  def byOrderedIds(ids: Seq[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Iterable[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))
