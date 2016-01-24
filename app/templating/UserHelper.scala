@@ -192,11 +192,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     userId: String,
     rating: Option[Int],
     cssClass: Option[String] = None,
+    withPowerTip: Boolean = true,
     withTitle: Boolean = false,
     withOnline: Boolean = true) = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
-    val klass = userClass(userId, cssClass, withOnline)
+    val klass = userClass(userId, cssClass, withOnline, withPowerTip)
     val href = userHref(name)
     val content = rating.fold(name)(e => s"$name&nbsp;($e)")
     val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle)
