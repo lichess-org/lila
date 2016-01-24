@@ -354,6 +354,7 @@ module.exports = function(opts) {
   this.setBerserk = function(color) {
     if (this.vm.goneBerserk[color]) return;
     this.vm.goneBerserk[color] = true;
+    if (color !== this.data.player.color) $.sound.berserk();
     m.redraw();
   }.bind(this);
 
