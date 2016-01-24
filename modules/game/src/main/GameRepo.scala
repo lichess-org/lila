@@ -379,15 +379,6 @@ object GameRepo {
       )
     ).one[BSONDocument] map { _ flatMap extractPgnMoves }
 
-  def associatePgn(ids: Seq[ID]): Fu[Map[String, PgnMoves]] =
-    gameTube.coll.find($select byIds ids)
-      .cursor[BSONDocument]()
-      .collect[List]() map2 { (obj: BSONDocument) =>
-        extractPgnMoves(obj) flatMap { moves =>
-          obj.getAs[String]("_id") map (_ -> moves)
-        }
-      } map (_.flatten.toMap)
-
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
     $find.one(Json.obj(
       F.playerUids -> Json.obj("$all" -> List(u1, u2)),
