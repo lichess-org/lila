@@ -22,13 +22,7 @@ module.exports = function(ctrl) {
       tag: 'a',
       attrs: {
         key: p.id,
-        href: '/' + p.id,
-        class: 'glpt',
-        config: function(el, isUpdate, ctx) {
-          if (!isUpdate) ctx.onunload = function() {
-            $.powerTip.destroy(el);
-          };
-        }
+        href: '/' + p.id
       },
       children: [
         user(p, 0),
