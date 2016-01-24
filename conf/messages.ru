@@ -539,3 +539,4 @@ youCanAnalyseAGameMoreEffectivelyIfYouDontNeedToSearchForSquareNames=Вам бу
 itMakesItEasierToTalkToYourChessFriends=Становится легче разговаривать с друзьями, также понимающими "язык шахмат"
 mostChessCourcesAndExcercisesUseTheAlgebraicNotationExtensively=Многие шахматные курсы используют алгебраические вычисления на основе координат
 chessInsights=Шахматные идеи
+kidModeDescription=Это вопрос безопасности. Все коммуникации на сайте отключаются в детском режиме. Включите его для своих детей или школьников, чтобы обезопасить их от других пользователей.
