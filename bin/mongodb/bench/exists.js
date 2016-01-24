@@ -1,10 +1,14 @@
 var limit = 50 * 1000;
 var coll = db.relation;
+var query = {
+  _id: 'thibault/legendary22bcloud'
+};
+var expected = false;
 
 function timer(name, f) {
   print('Start ' + name);
   var start = new Date().getTime();
-  if (f() !== true) print('FAILS');
+  if (f() !== expected) print('FAILS');
   else {
     for (var i = 0; i < limit; i++) f();
     print(name + ': ' + (new Date().getTime() - start));
@@ -12,17 +16,11 @@ function timer(name, f) {
 }
 
 timer('count', function() {
-  return coll.count({
-    _id: 'thibault/legendarybcloud'
-  }) === 1;
+  return coll.count(query) === 1;
 });
 timer('find', function() {
-  return coll.find({
-    _id: 'thibault/legendarybcloud'
-  }).limit(1).length() === 1;
+  return coll.find(query).limit(1).length() === 1;
 });
 timer('findOne', function() {
-  return coll.findOne({
-    _id: 'thibault/legendarybcloud'
-  }) !== null;
+  return coll.findOne(query) !== null;
 });
