@@ -4,7 +4,7 @@
 title = thread.name) {
 <div class="thread_actions">
   <form action="@routes.Message.delete(thread.id)" method="post">
-    <button type="submit" class="delete button"> Delete</button>
+    <button type="submit" class="delete button"> @trans.delete()</button>
   </form>
 </div>
 
@@ -24,7 +24,7 @@ title = thread.name) {
 @if(answerable) {
 <div class="answer" id="bottom">
   @if(blocks) {
-  <p>This user blocks you. You cannot answer.</p>
+  <p>@trans.thisUserBlocksYouAndYouCannotAnswer</p>
   } else {
   <form action="@routes.Message.answer(thread.id)" method="post">
     <div class="field_body">

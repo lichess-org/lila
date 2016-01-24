@@ -540,3 +540,5 @@ itMakesItEasierToTalkToYourChessFriends=Становится легче разг
 mostChessCourcesAndExcercisesUseTheAlgebraicNotationExtensively=Многие шахматные курсы используют алгебраические вычисления на основе координат
 chessInsights=Шахматные идеи
 kidModeDescription=Это вопрос безопасности. Все коммуникации на сайте отключаются в детском режиме. Включите его для своих детей или школьников, чтобы обезопасить их от других пользователей.
+delete=Удалить
+thisUserBlocksYouAndYouCannotAnswer=Пользователь заблокировал Вас. Вы не можете ответить.
