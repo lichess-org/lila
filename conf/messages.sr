@@ -502,3 +502,7 @@ tournamentDoesNotExist=Turnir ne postoji
 tournamentMayHaveBeenCanceled=Možda je otkazan, jer su igrači napustili turnir pre njegovog početka
 returnToTournamentsHomepage=Vratite se na "tournaments" početnu stranu
 monthlyPerfTypeRatingDistribution=Месечна %s дитрибуција рејтинга
+nbPerfTypePlayersThisMonth=%s %s играчи овај месец.
+yourPerfTypeRatingisRating=твоје %s рејтинг је %s.
+youAreBetterThanPercentOfPerfTypePlayers=ви сте бољи од %s од %s играча.
+youDoNotHaveAnEstablishedPerfTypeRating=Немате утврђен %s рејтинг.
