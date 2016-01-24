@@ -18,7 +18,7 @@ module.exports = function(opts) {
       lichess.once('round.racing-kings')) lichess.hopscotch(function() {
       hopscotch.configure({
         i18n: {
-          doneBtn: 'OK, got it'
+          doneBtn: 'No thanks'
         }
       }).startTour({
         id: "round-racing-kings",
@@ -36,7 +36,7 @@ module.exports = function(opts) {
       lichess.once('round.crazyhouse')) lichess.hopscotch(function() {
       hopscotch.configure({
         i18n: {
-          doneBtn: 'OK, got it'
+          doneBtn: 'No thanks'
         }
       }).startTour({
         id: "round-crazyhouse",
