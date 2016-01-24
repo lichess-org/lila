@@ -41,8 +41,8 @@ private[timeline] final class Push(
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     propagations.map {
       case Users(ids)    => fuccess(ids)
-      case Followers(id) => getFollowerIds(id) map (_.toList)
-      case Friends(id)   => getFriendIds(id) map (_.toList)
+      case Followers(id) => getFollowerIds(id)
+      case Friends(id)   => getFriendIds(id)
       case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIds map {
         _ filter Granter(_.StaffForum) map (_.id)
       }
