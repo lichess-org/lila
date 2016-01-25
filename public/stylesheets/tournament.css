@@ -363,7 +363,8 @@ ol.scheduled_tournaments a {
   line-height: 0;
 }
 #tournament_side .featured .vstext {
-  height: 20px;
+  height: 22px;
+  line-height: 22px;
   border-width: 1px 1px 0 0;
   width: 100%;
   padding: 0;
@@ -374,10 +375,9 @@ ol.scheduled_tournaments a {
 }
 #tournament_side .featured .vstext strong {
   display: inline-block;
-  height: 20px;
+  height: 22px;
   width: 12.5%;
   text-align: center;
-  line-height: 20px;
   background: #ccc;
   margin-right: 10px;
 }
