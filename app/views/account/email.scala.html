@@ -16,7 +16,7 @@
       case false => {<span class="is-red" data-icon="L"></span>}
       }
     </h1>
-    @form("email").value.map { email =>
+    @form("email").value.filter(_.nonEmpty).map { email =>
     <p>You have already registered the email: @email</p>
     }.getOrElse {
     <p>@trans.emailIsOptional()</p>
