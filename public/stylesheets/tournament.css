@@ -227,6 +227,9 @@ ol.scheduled_tournaments a {
 #tournament table.standing .player_rank {
   margin-left: 10px;
 }
+#tournament table.standing td:first-child {
+  padding: 0.8em 0.6em;
+}
 #tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
   padding-left: 10px;
