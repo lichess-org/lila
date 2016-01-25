@@ -193,7 +193,7 @@ main() {
     local ip_address
     ip_address=$(get_ip_address)
 
-    info 'Lila is all set up! Add this entry entry to your hosts file on your'
+    info 'Lila is all set up! Add this entry to your hosts file on your'
     info 'host machine (not the virtual machine, or else I would have done it'
     info 'for you):'
     info
