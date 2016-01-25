@@ -124,7 +124,7 @@ object PlayerRepo {
               b += (u.get.asInstanceOf[BSONString].value -> r)
               r = r + 1
             }
-            b.result()
+            b.result
           case _ => Map.empty
         }
       }

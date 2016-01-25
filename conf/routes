@@ -387,23 +387,31 @@ GET   /network/stream                  controllers.WorldMap.stream
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
-# Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /help-lichess                    controllers.Page.helpLichess
-GET   /terms-of-service                controllers.Page.tos
-GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
-GET   /contact                         controllers.Page.contact
-GET   /king-of-the-hill                controllers.Page.kingOfTheHill
-GET   /atomic                          controllers.Page.atomic
-GET   /racing-kings                    controllers.Page.racingKings
-GET   /crazyhouse                      controllers.Page.crazyhouse
-GET   /privacy                         controllers.Page.privacy
-
 # Donate
 GET   /donate                          controllers.Donation.index
 GET   /donate/thanks                   controllers.Donation.thanks
 POST  /donate/thanks                   controllers.Donation.thanksRedirect
 POST  /donate/ipn                      controllers.Donation.ipn
+
+# Pages
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
+GET   /contact                         controllers.Page.contact
+
+# Variants
+GET   /variant/king-of-the-hill        controllers.Page.kingOfTheHill
+GET   /variant/atomic                  controllers.Page.atomic
+GET   /variant/antichess               controllers.Page.antichess
+GET   /variant/chess960                controllers.Page.chess960
+GET   /variant/horde                   controllers.Page.horde
+GET   /variant/racing-kings            controllers.Page.racingKings
+GET   /variant/crazyhouse              controllers.Page.crazyhouse
+
+# Help
+GET   /help/contribute                 controllers.Page.contribute
+GET   /help/master                     controllers.Page.master
+GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
