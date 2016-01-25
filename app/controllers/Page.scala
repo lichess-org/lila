@@ -31,7 +31,7 @@ object Page extends LilaController {
 
   def antichess = page("antichess")
 
-  def chess960 = page("chess960")
+  def fischerrandom = page("chess960")
 
   def horde = page("horde")
 

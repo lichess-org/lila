@@ -88,6 +88,22 @@ GET   /blog                            controllers.Blog.index(ref: Option[String
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
 
+# Pages
+GET   /thanks                          controllers.Page.thanks
+GET   /help-lichess                    controllers.Page.helpLichess
+GET   /terms-of-service                controllers.Page.tos
+GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
+GET   /contact                         controllers.Page.contact
+GET   /master                          controllers.Page.master
+GET   /king-of-the-hill                controllers.Page.kingOfTheHill
+GET   /atomic                          controllers.Page.atomic
+GET   /antichess                       controllers.Page.antichess
+GET   /chess960                        controllers.Page.fischerrandom
+GET   /horde                           controllers.Page.horde
+GET   /racing-kings                    controllers.Page.racingKings
+GET   /crazyhouse                      controllers.Page.crazyhouse
+GET   /privacy                         controllers.Page.privacy
+
 # Training - Opening
 GET   /training/opening                controllers.Opening.home
 GET   /training/opening/history        controllers.Opening.history
@@ -386,22 +402,6 @@ GET   /network/stream                  controllers.WorldMap.stream
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Main.mobileUnregister
-
-# Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /help-lichess                    controllers.Page.helpLichess
-GET   /terms-of-service                controllers.Page.tos
-GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
-GET   /contact                         controllers.Page.contact
-GET   /master                          controllers.Page.master
-GET   /king-of-the-hill                controllers.Page.kingOfTheHill
-GET   /atomic                          controllers.Page.atomic
-GET   /antichess                       controllers.Page.antichess
-GET   /chess960                        controllers.Page.chess960
-GET   /horde                           controllers.Page.horde
-GET   /racing-kings                    controllers.Page.racingKings
-GET   /crazyhouse                      controllers.Page.crazyhouse
-GET   /privacy                         controllers.Page.privacy
 
 # Donate
 GET   /donate                          controllers.Donation.index
