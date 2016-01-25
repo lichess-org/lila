@@ -38,7 +38,7 @@ module.exports = function(env) {
       this.vm.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.vm.focusOnMe) this.scrollToMe();
-    startWatching();
+    data.featured && startWatching(data.featured.id);
     sound.end(this.data);
     sound.countDown(this.data);
     this.vm.joinLoader = false;
@@ -79,21 +79,14 @@ module.exports = function(env) {
     this.vm.focusOnMe = true;
   }.bind(this);
 
-  var alreadyWatching = [];
-  var startWatching = function() {
-    var newIds = this.data.lastGames.map(function(p) {
-      return p.id;
-    }).filter(function(id) {
-      return alreadyWatching.indexOf(id) === -1;
-    });
-    if (newIds.length) {
+  var watchingGameId;
+  var startWatching = function(id) {
+    if (id !== watchingGameId) {
       setTimeout(function() {
-        this.socket.send("startWatching", newIds.join(' '));
+        this.socket.send("startWatching", id);
       }.bind(this), 1000);
-      newIds.forEach(alreadyWatching.push.bind(alreadyWatching));
     }
   }.bind(this);
-  startWatching();
 
   this.scrollToMe = function() {
     if (!this.data.me) return;

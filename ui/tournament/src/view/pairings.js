@@ -15,11 +15,7 @@ function user(p, it) {
 }
 
 function featured(f, n) {
-  return m('div.featured', {
-    config: function(el, isUpdate, ctx) {
-      if (ctx.id !== f.id) $('body').trigger('lichess.content_loaded');
-    }
-  }, [
+  return m('div.featured', [
     m('div.vstext.top', [
       m('strong', '#' + f.player2.rank),
       util.player(f.player2)

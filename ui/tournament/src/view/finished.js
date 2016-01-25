@@ -12,8 +12,7 @@ module.exports = {
     return [
       util.title(ctrl),
       arena.podium(ctrl),
-      arena.standing(ctrl, pag),
-      util.games(ctrl.data.lastGames)
+      arena.standing(ctrl, pag)
     ];
   },
   side: function(ctrl) {

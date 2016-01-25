@@ -17,7 +17,6 @@ final class JsonView(
 
   private case class CachableData(
     pairings: JsArray,
-    games: JsArray,
     featured: Option[JsObject],
     podium: Option[JsArray])
 
@@ -55,7 +54,6 @@ final class JsonView(
     "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
     "startsAt" -> tour.isCreated.option(ISODateTimeFormat.dateTime.print(tour.startsAt)),
     "pairings" -> data.pairings,
-    "lastGames" -> data.games,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
     "featured" -> data.featured,
@@ -153,13 +151,11 @@ final class JsonView(
   private val cachableData = lila.memo.AsyncCache[String, CachableData](id =>
     for {
       pairings <- PairingRepo.recentByTour(id, 40)
-      games <- GameRepo games pairings.take(4).map(_.gameId)
       tour <- TournamentRepo byId id
       featured <- tour ?? fetchFeaturedGame
       podium <- podiumJson(id)
     } yield CachableData(
       JsArray(pairings map pairingJson),
-      JsArray(games map gameJson),
       featured map featuredJson,
       podium),
     timeToLive = 1 second)
@@ -198,14 +194,6 @@ final class JsonView(
       "rating" -> rating
     ).noNull
   }
-
-  private def gameJson(g: Game) = Json.obj(
-    "id" -> g.id,
-    "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
-    "color" -> g.firstColor.name,
-    "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
-    "user1" -> gameUserJson(g.firstPlayer),
-    "user2" -> gameUserJson(g.secondPlayer))
 
   private def scheduleJson(s: Schedule) = Json.obj(
     "freq" -> s.freq.name,

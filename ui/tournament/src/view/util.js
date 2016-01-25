@@ -17,26 +17,6 @@ function miniBoard(game) {
   }, boardContent);
 }
 
-function miniGame(game) {
-  return m('div', [
-    miniBoard(game),
-    m('div.vstext.clearfix', [
-      m('div.left', [
-        game.user1.name,
-        m('br'),
-        game.user1.title ? game.user1.title + ' ' : '',
-        game.user1.rating
-      ]),
-      m('div.right', [
-        game.user2.name,
-        m('br'),
-        game.user2.rating,
-        game.user2.title ? ' ' + game.user2.title : ''
-      ])
-    ])
-  ]);
-}
-
 module.exports = {
   title: function(ctrl) {
     if (ctrl.data.schedule && ctrl.data.schedule.freq.indexOf('marathon') !== -1)
@@ -90,9 +70,6 @@ module.exports = {
         m('span.progress', [rating, ratingDiff])
       ]
     };
-  },
-  games: function(games) {
-    return m('div.game_list.playing', games.map(miniGame));
   },
   miniBoard: miniBoard,
   clock: function(time) {
