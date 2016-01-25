@@ -88,22 +88,6 @@ GET   /blog                            controllers.Blog.index(ref: Option[String
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
 
-# Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /help-lichess                    controllers.Page.helpLichess
-GET   /terms-of-service                controllers.Page.tos
-GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
-GET   /contact                         controllers.Page.contact
-GET   /master                          controllers.Page.master
-GET   /king-of-the-hill                controllers.Page.kingOfTheHill
-GET   /atomic                          controllers.Page.atomic
-GET   /antichess                       controllers.Page.antichess
-GET   /chess960                        controllers.Page.fischerrandom
-GET   /horde                           controllers.Page.horde
-GET   /racing-kings                    controllers.Page.racingKings
-GET   /crazyhouse                      controllers.Page.crazyhouse
-GET   /privacy                         controllers.Page.privacy
-
 # Training - Opening
 GET   /training/opening                controllers.Opening.home
 GET   /training/opening/history        controllers.Opening.history
@@ -408,6 +392,26 @@ GET   /donate                          controllers.Donation.index
 GET   /donate/thanks                   controllers.Donation.thanks
 POST  /donate/thanks                   controllers.Donation.thanksRedirect
 POST  /donate/ipn                      controllers.Donation.ipn
+
+# Pages
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
+GET   /contact                         controllers.Page.contact
+
+# Variants
+GET   /variant/king-of-the-hill        controllers.Page.kingOfTheHill
+GET   /variant/atomic                  controllers.Page.atomic
+GET   /variant/antichess               controllers.Page.antichess
+GET   /variant/chess960                controllers.Page.fischerrandom
+GET   /variant/horde                   controllers.Page.horde
+GET   /variant/racing-kings            controllers.Page.racingKings
+GET   /variant/crazyhouse              controllers.Page.crazyhouse
+
+# Help
+GET   /help/contribute                 controllers.Page.contribute
+GET   /help/master                     controllers.Page.master
+GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

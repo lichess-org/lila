@@ -17,7 +17,7 @@ object Page extends LilaController {
 
   def tos = page("tos")
 
-  def helpLichess = page("help")
+  def contribute = page("help")
 
   def streamHowTo = page("stream-howto")
 
