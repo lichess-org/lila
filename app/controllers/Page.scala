@@ -7,37 +7,37 @@ import views._
 
 object Page extends LilaController {
 
-  private def page(bookmark: String) = Open { implicit ctx =>
-    OptionOk(Prismic oneShotBookmark bookmark) {
+  private def bookmark(name: String) = Open { implicit ctx =>
+    OptionOk(Prismic oneShotBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
     }
   }
 
-  def thanks = page("thanks")
+  def thanks = bookmark("thanks")
 
-  def tos = page("tos")
+  def tos = bookmark("tos")
 
-  def contribute = page("help")
+  def contribute = bookmark("help")
 
-  def streamHowTo = page("stream-howto")
+  def streamHowTo = bookmark("stream-howto")
 
-  def contact = page("contact")
+  def contact = bookmark("contact")
 
-  def master = page("master")
+  def master = bookmark("master")
 
-  def kingOfTheHill = page("king-of-the-hill")
+  def kingOfTheHill = bookmark("king-of-the-hill")
 
-  def atomic = page("atomic")
+  def atomic = bookmark("atomic")
 
-  def antichess = page("antichess")
+  def antichess = bookmark("antichess")
 
-  def fischerrandom = page("chess960")
+  def chess960 = bookmark("chess960")
 
-  def horde = page("horde")
+  def horde = bookmark("horde")
 
-  def racingKings = page("racing-kings")
+  def racingKings = bookmark("racing-kings")
 
-  def crazyhouse = page("crazyhouse")
+  def crazyhouse = bookmark("crazyhouse")
 
-  def privacy = page("privacy")
+  def privacy = bookmark("privacy")
 }
