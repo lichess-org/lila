@@ -10,7 +10,7 @@ object CategRepo {
 
   def bySlug(slug: String) = $find byId slug
 
-  def withTeams(teams: List[String]): Fu[List[Categ]] = 
+  def withTeams(teams: Set[String]): Fu[List[Categ]] =
     $find($query($or(Seq(
       Json.obj("team" -> $exists(false)),
       Json.obj("team" -> $in(teams))
@@ -22,6 +22,6 @@ object CategRepo {
     _ sort $sort.desc("pos")
   )(_.asOpt[Int]) map (~_ + 1)
 
-  def nbPosts(id: String): Fu[Int] = 
+  def nbPosts(id: String): Fu[Int] =
     $primitive.one($select(id), "nbPosts")(_.asOpt[Int]) map (~_)
 }

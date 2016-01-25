@@ -178,7 +178,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
         <div class="content list"></div>
         <div class="nobody">
           <span>@trans.noFriendsOnline()</span>
-          <a class="find button" href="@routes.Relation.suggest(me.username)">
+          <a class="find button" href="@routes.User.opponents(me.username)">
             <span class="is3 text" data-icon="h">@trans.findFriends()</span>
           </a>
         </div>

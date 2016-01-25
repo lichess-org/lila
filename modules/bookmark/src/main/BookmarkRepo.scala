@@ -2,6 +2,8 @@ package lila.bookmark
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import reactivemongo.bson._
+
 import lila.db.api._
 import lila.db.Implicits._
 import tube.bookmarkTube
@@ -9,6 +11,7 @@ import tube.bookmarkTube
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
 private[bookmark] object BookmarkRepo {
+
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     $count exists selectId(gameId, userId) flatMap { e =>
       e.fold(
@@ -17,8 +20,8 @@ private[bookmark] object BookmarkRepo {
       ) inject !e
     }
 
-  def gameIdsByUserId(userId: String): Fu[List[String]] =
-    $primitive(userIdQuery(userId), "g")(_.asOpt[String])
+  def gameIdsByUserId(userId: String): Fu[Set[String]] =
+    bookmarkTube.coll.distinct("g", BSONDocument("u" -> userId).some) map lila.db.BSON.asStringSet
 
   def removeByGameId(gameId: String): Funit =
     $remove(Json.obj("g" -> gameId))

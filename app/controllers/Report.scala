@@ -50,7 +50,7 @@ object Report extends LilaController {
 
   def thanks(reported: String) = Auth { implicit ctx =>
     implicit me =>
-      Env.relation.api.blocks(me.id, reported) map { blocked =>
+      Env.relation.api.fetchBlocks(me.id, reported) map { blocked =>
         html.report.thanks(reported, blocked)
       }
   }

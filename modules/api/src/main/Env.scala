@@ -54,7 +54,7 @@ final class Env(
         _.flatMap(_.getAs[BSONNumberLike]("version"))
           .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
-      timeToLive = 1 minute,
+      timeToLive = 30.seconds,
       default = Net.AssetVersion)
     def get = cache get true
   }

@@ -57,9 +57,9 @@ trait UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
-  def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
+  def byOrderedIds(ids: Seq[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Iterable[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))
@@ -213,7 +213,8 @@ trait UserRepo {
   def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
   def idExists(id: String): Fu[Boolean] = $count exists id
 
-  def engineIds: Fu[Set[String]] = $primitive(Json.obj("engine" -> true), "_id")(_.asOpt[String]) map (_.toSet)
+  def engineIds: Fu[Set[String]] =
+    coll.distinct("_id", BSONDocument("engine" -> true).some) map lila.db.BSON.asStringSet
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement
@@ -285,11 +286,12 @@ trait UserRepo {
   }
 
   def recentlySeenNotKidIds(since: DateTime) =
-    $primitive(enabledSelect ++ Json.obj(
-      "seenAt" -> $gt($date(since)),
-      "count.game" -> $gt(4),
-      "kid" -> $ne(true)
-    ), "_id")(_.asOpt[String])
+    coll.distinct("_id", BSONDocument(
+      F.enabled -> true,
+      "seenAt" -> BSONDocument("$gt" -> since),
+      "count.game" -> BSONDocument("$gt" -> 9),
+      "kid" -> BSONDocument("$ne" -> true)
+    ).some) map lila.db.BSON.asStrings
 
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 

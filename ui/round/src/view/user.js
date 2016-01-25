@@ -3,7 +3,7 @@ var game = require('game').game;
 
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
-  if (player.ratingDiff === 0) return m('span.rp.null', 0);
+  if (player.ratingDiff === 0) return m('span.rp.null', '±0');
   if (player.ratingDiff > 0) return m('span.rp.up', '+' + player.ratingDiff);
   if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
 }

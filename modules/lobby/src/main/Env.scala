@@ -92,7 +92,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     onStart = lila.game.Env.current.onStart,
-    blocking = lila.relation.Env.current.api.blocking,
+    blocking = lila.relation.Env.current.api.fetchBlocking,
     playban = lila.playban.Env.current.api.currentBan _,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)

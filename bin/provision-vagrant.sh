@@ -168,11 +168,10 @@ build_lila() {
     cd -- "$LILA_DIR"
     git submodule update --init --recursive
 
-    ./ui/build &
-    ./bin/install-stockfish &
-    ./bin/gen/geoip &
-    ./bin/build-deps.sh &
-    wait
+    ./ui/build
+    ./bin/install-stockfish
+    ./bin/gen/geoip
+    ./bin/build-deps.sh
 
     sbt compile
 }
@@ -194,7 +193,7 @@ main() {
     local ip_address
     ip_address=$(get_ip_address)
 
-    info 'Lila is all set up! Add this entry entry to your hosts file on your'
+    info 'Lila is all set up! Add this entry to your hosts file on your'
     info 'host machine (not the virtual machine, or else I would have done it'
     info 'for you):'
     info

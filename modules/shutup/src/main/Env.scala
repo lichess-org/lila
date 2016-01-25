@@ -50,6 +50,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "shutup",
     reporter = lila.hub.Env.current.actor.report,
     system = lila.common.PlayApp.system,
-    follows = lila.relation.Env.current.api.follows _,
+    follows = lila.relation.Env.current.api.fetchFollows _,
     db = lila.db.Env.current)
 }

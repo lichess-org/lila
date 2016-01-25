@@ -26,7 +26,7 @@ private[api] final class UserApi(
     token: Option[String],
     nb: Option[Int],
     engine: Option[Boolean]): Fu[JsObject] = (team match {
-    case Some(teamId) => lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.enabledByIds
+    case Some(teamId) => lila.team.MemberRepo userIdsByTeam teamId flatMap UserRepo.enabledByIds
     case None => $find(pimpQB($query(
       UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
     )) sort UserRepo.sortPerfDesc(lila.rating.PerfType.Standard.key), makeNb(nb, token))
@@ -45,12 +45,12 @@ private[api] final class UserApi(
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
       (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
-      relationApi.nbFollowing(u.id) zip
-      relationApi.nbFollowers(u.id) zip
+      relationApi.countFollowing(u.id) zip
+      relationApi.countFollowers(u.id) zip
       ctx.isAuth.?? { prefApi followable u.id } zip
-      ctx.userId.?? { relationApi.relation(_, u.id) } zip
-      ctx.userId.?? { relationApi.relation(u.id, _) } map {
-        case ((((((gameOption, nbGamesWithMe), following), followers), followable), relation), revRelation) =>
+      ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
+      ctx.userId.?? { relationApi.fetchFollows(u.id, _) } map {
+        case ((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed) =>
           jsonView(u, extended = true) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
@@ -71,9 +71,9 @@ private[api] final class UserApi(
                 "me" -> nbGamesWithMe)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
-                "following" -> relation.exists(true ==),
-                "blocking" -> relation.exists(false ==),
-                "followsYou" -> revRelation.exists(true ==)
+                "following" -> relation.contains(true),
+                "blocking" -> relation.contains(false),
+                "followsYou" -> isFollowed
               ))
           }.noNull
       } map (_.some)

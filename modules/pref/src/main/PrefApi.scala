@@ -5,9 +5,9 @@ import scala.concurrent.duration.Duration
 
 import lila.db.BSON
 import lila.db.Types._
+import lila.hub.actorApi.SendTo
 import lila.memo.AsyncCache
 import lila.user.User
-import lila.hub.actorApi.SendTo
 import reactivemongo.bson._
 
 final class PrefApi(
@@ -115,15 +115,13 @@ final class PrefApi(
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.find(BSONDocument(
+    coll.distinct("_id", BSONDocument(
       "_id" -> BSONDocument("$in" -> userIds),
       "follow" -> false
-    ), BSONDocument("_id" -> true)).cursor[BSONDocument]().collect[List]() map {
-      _.flatMap(_.getAs[String]("_id")).toSet
-    }
+    ).some) map lila.db.BSON.asStringSet
 
   def followableIds(userIds: List[String]): Fu[Set[String]] =
-    unfollowableIds(userIds) map (uns => userIds.toSet diff uns)
+    unfollowableIds(userIds) map userIds.toSet.diff
 
   def followables(userIds: List[String]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables => userIds map followables.contains }

@@ -9,7 +9,7 @@ import tube._
 
 private[forum] final class CategApi(env: Env) {
 
-  def list(teams: List[String], troll: Boolean): Fu[List[CategView]] = for {
+  def list(teams: Set[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
     views ← (categs map { categ =>
       env.postApi get (categ lastPostId troll) map { topicPost =>

@@ -22,8 +22,7 @@ module.exports = function(ctrl) {
       tag: 'a',
       attrs: {
         key: p.id,
-        href: '/' + p.id,
-        class: 'glpt'
+        href: '/' + p.id
       },
       children: [
         user(p, 0),

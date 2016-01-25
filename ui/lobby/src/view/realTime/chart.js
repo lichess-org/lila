@@ -54,7 +54,7 @@ function renderPlot(ctrl, hook) {
         intentPollInterval: 100,
         fadeInTime: 0,
         fadeOutTime: 0,
-        placement: hook.rating > 2200 ? 'se' : 'ne',
+        placement: hook.rating > 1800 ? 'se' : 'ne',
         mouseOnToPopup: true,
         closeDelay: 200,
         popupId: 'hook'

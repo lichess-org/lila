@@ -11,9 +11,10 @@ private[team] final class Cached {
 
   def name(id: String) = nameCache get id
 
-  private[team] val teamIdsCache = MixedCache[String, List[String]](MemberRepo.teamIdsByUser,
+  private[team] val teamIdsCache = MixedCache[String, Set[String]](
+    MemberRepo.teamIdsByUser,
     timeToLive = 2 hours,
-    default = _ => Nil)
+    default = _ => Set.empty)
 
   def teamIds(userId: String) = teamIdsCache get userId
 

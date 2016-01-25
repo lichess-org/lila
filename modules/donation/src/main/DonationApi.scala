@@ -20,6 +20,15 @@ final class DonationApi(
     userId => donatedByUser(userId).map(_ >= minAmount),
     maxCapacity = 5000)
 
+  // in $ cents
+  private def donatedByUser(userId: String): Fu[Int] =
+    coll.aggregate(
+      Match(decentAmount ++ BSONDocument("userId" -> userId)), List(
+        Group(BSONNull)("net" -> SumField("net"))
+      )).map {
+        ~_.documents.headOption.flatMap { _.getAs[Int]("net") }
+      }
+
   private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(minAmount)))
 
   def list(nb: Int) = coll.find(decentAmount)
@@ -32,9 +41,7 @@ final class DonationApi(
       GroupField("userId")("total" -> SumField("net")),
       Sort(Descending("total")),
       Limit(nb))).map {
-      _.documents.flatMap { obj =>
-        obj.getAs[String]("_id")
-      }
+      _.documents.flatMap { _.getAs[String]("_id") }
     }
 
   def isDonor(userId: String) =
@@ -52,15 +59,6 @@ final class DonationApi(
       message = donation.message.trim.some.filter(_.nonEmpty),
       progress = prog.percent), 'donation)
   }
-
-  // in $ cents
-  def donatedByUser(userId: String): Fu[Int] =
-    coll.find(
-      decentAmount ++ BSONDocument("userId" -> userId),
-      BSONDocument("net" -> true, "_id" -> false)
-    ).cursor[BSONDocument]().collect[List]() map2 { (obj: BSONDocument) =>
-        ~obj.getAs[Int]("net")
-      } map (_.sum)
 
   def progress: Fu[Progress] = {
     val from = DateTime.now withDayOfMonth 1 withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
