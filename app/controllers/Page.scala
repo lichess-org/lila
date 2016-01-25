@@ -23,9 +23,17 @@ object Page extends LilaController {
 
   def contact = page("contact")
 
+  def master = page("master")
+
   def kingOfTheHill = page("king-of-the-hill")
 
   def atomic = page("atomic")
+
+  def antichess = page("antichess")
+
+  def fischerrandom = page("chess960")
+
+  def horde = page("horde")
 
   def racingKings = page("racing-kings")
 
