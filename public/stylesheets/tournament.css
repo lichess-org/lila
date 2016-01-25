@@ -355,9 +355,21 @@ ol.scheduled_tournaments a {
   position: relative;
   float: right;
   width: 252px;
-  border: 1px solid #ccc;
   text-align: center;
   transition: 0.13s;
+}
+#tournament_side .featured {
+  margin-bottom: 10px;
+}
+#tournament_side .box {
+  border: 1px solid #ccc;
+}
+#tournament_side .cg-board-wrap {
+  width: 252px;
+  height: 252px;
+}
+#tournament_side .vstext {
+  width: 240px;
 }
 #tournament_side .scroll-shadow-soft {
   max-height: 510px;

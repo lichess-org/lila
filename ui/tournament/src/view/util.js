@@ -3,19 +3,23 @@ var partial = require('chessground').util.partial;
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 
+function miniBoard(game) {
+  return m('a', {
+    key: game.id,
+    href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
+    class: 'mini_board live_' + game.id + ' parse_fen is2d',
+    'data-color': game.color,
+    'data-fen': game.fen,
+    'data-lastmove': game.lastMove,
+    config: function(el, isUpdate) {
+      if (!isUpdate) lichess.parseFen($(el));
+    }
+  }, boardContent);
+}
+
 function miniGame(game) {
   return m('div', [
-    m('a', {
-      key: game.id,
-      href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
-      class: 'mini_board live_' + game.id + ' parse_fen is2d',
-      'data-color': game.color,
-      'data-fen': game.fen,
-      'data-lastmove': game.lastMove,
-      config: function(el, isUpdate) {
-        if (!isUpdate) lichess.parseFen($(el));
-      }
-    }, boardContent),
+    miniBoard(game),
     m('div.vstext.clearfix', [
       m('div.left', [
         game.user1.name,
@@ -90,6 +94,7 @@ module.exports = {
   games: function(games) {
     return m('div.game_list.playing', games.map(miniGame));
   },
+  miniBoard: miniBoard,
   clock: function(time) {
     return function(el, isUpdate) {
       if (!isUpdate) $(el).clock({

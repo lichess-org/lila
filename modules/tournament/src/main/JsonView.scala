@@ -15,7 +15,11 @@ final class JsonView(
     cached: Cached,
     performance: Performance) {
 
-  private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
+  private case class CachableData(
+    pairings: JsArray,
+    games: JsArray,
+    featured: Option[JsObject],
+    podium: Option[JsArray])
 
   def apply(
     tour: Tournament,
@@ -54,6 +58,7 @@ final class JsonView(
     "lastGames" -> data.games,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
+    "featured" -> data.featured,
     "podium" -> data.podium,
     "playerInfo" -> playerInfoJson,
     "quote" -> lila.quote.Quote.one(tour.id)
@@ -100,6 +105,19 @@ final class JsonView(
     )
   }
 
+  private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
+    tour.featuredId.ifTrue(tour.isStarted) ?? PairingRepo.byId flatMap {
+      _ ?? { pairing =>
+        GameRepo game pairing.gameId flatMap {
+          _ ?? { game =>
+            cached ranking tour map { ranking =>
+              RankedPairing(ranking)(pairing) map { FeaturedGame(game, _) }
+            }
+          }
+        }
+      }
+    }
+
   private def sheetNbs(userId: String, sheet: ScoreSheet, pairings: Pairings) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
       "game" -> s.scores.size,
@@ -129,12 +147,20 @@ final class JsonView(
     for {
       pairings <- PairingRepo.recentByTour(id, 40)
       games <- GameRepo games pairings.take(4).map(_.gameId)
+      tour <- TournamentRepo byId id
+      featured <- tour ?? fetchFeaturedGame
       podium <- podiumJson(id)
     } yield CachableData(
       JsArray(pairings map pairingJson),
       JsArray(games map gameJson),
+      featured map featuredJson,
       podium),
     timeToLive = 1 second)
+
+  private def featuredJson(featured: FeaturedGame) = Json.obj(
+    "game" -> gameJson(featured.game),
+    "rank1" -> featured.rankedPairing.rank1,
+    "rank2" -> featured.rankedPairing.rank2)
 
   private def myInfoJson(i: PlayerInfo) = Json.obj(
     "rank" -> i.rank,

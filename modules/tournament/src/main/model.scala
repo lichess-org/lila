@@ -25,3 +25,23 @@ case class TourAndRanks(
   tour: Tournament,
   whiteRank: Int,
   blackRank: Int)
+
+case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
+
+  def bestRank = rank1 min rank2
+  def rankSum = rank1 + rank2
+
+  def bestColor = chess.Color(rank1 < rank2)
+}
+
+object RankedPairing {
+
+  def apply(ranking: Ranking)(pairing: Pairing): Option[RankedPairing] = for {
+    r1 <- ranking get pairing.user1
+    r2 <- ranking get pairing.user2
+  } yield RankedPairing(pairing, r1 + 1, r2 + 1)
+}
+
+case class FeaturedGame(
+  game: lila.game.Game,
+  rankedPairing: RankedPairing)

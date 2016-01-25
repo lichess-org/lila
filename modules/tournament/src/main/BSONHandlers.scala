@@ -50,7 +50,8 @@ object BSONHandlers {
         createdAt = r date "createdAt",
         createdBy = r str "createdBy",
         startsAt = startsAt,
-        winnerId = r strO "winner")
+        winnerId = r strO "winner",
+        featuredId = r strO "featured")
     }
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
       "_id" -> o.id,
@@ -72,7 +73,8 @@ object BSONHandlers {
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy),
       "startsAt" -> w.date(o.startsAt),
-      "winner" -> o.winnerId)
+      "winner" -> o.winnerId,
+      "featured" -> o.featuredId)
   }
 
   implicit val playerBSONHandler = new BSON[Player] {

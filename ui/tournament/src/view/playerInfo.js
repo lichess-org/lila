@@ -32,7 +32,7 @@ module.exports = function(ctrl) {
   var avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : null;
-  return m('div.player', {
+  return m('div.box.player', {
     config: function(el, isUpdate) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }

@@ -69,10 +69,11 @@ private[tournament] final class TournamentApi(
             play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             funit
           case pairings => pairings.map { pairing =>
-            PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-          }.sequenceFu.map {
-            _ map StartGame.apply foreach { sendTo(tour.id, _) }
-          } >>- {
+            PairingRepo.insert(pairing) >>
+              autoPairing(tour, pairing) addEffect { game =>
+                sendTo(tour.id, StartGame(game))
+              }
+          }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
             val time = nowMillis - startAt
             if (time > 100)
               play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
@@ -81,6 +82,16 @@ private[tournament] final class TournamentApi(
       }
     }
   }
+
+  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
+    tour.featuredId.ifTrue(pairings.nonEmpty) ?? PairingRepo.byId map2
+      RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
+        val candidates = pairings flatMap RankedPairing(ranking)
+        if (curOption.exists(_.pairing.playing)) funit
+        else candidates.sortBy(-_.bestRank).headOption ?? { best =>
+          TournamentRepo.setFeaturedGameId(tour.id, best.pairing.gameId)
+        }
+      }
 
   def tourAndRanks(game: Game): Fu[Option[TourAndRanks]] = ~{
     for {
