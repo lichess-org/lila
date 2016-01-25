@@ -402,7 +402,7 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
-          crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             m('div.replay', {
@@ -413,7 +413,7 @@ module.exports = function(ctrl) {
               renderAnalyse(ctrl))
           ],
           buttons(ctrl),
-          crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
         ])
       ])
     ]),
