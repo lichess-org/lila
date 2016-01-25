@@ -67,7 +67,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def showRatingDiff(diff: Int) = Html {
     diff match {
-      case 0          => """<span class="rp null">+0</span>"""
+      case 0          => """<span class="rp null">±0</span>"""
       case d if d > 0 => s"""<span class="rp up">+$d</span>"""
       case d          => s"""<span class="rp down">$d</span>"""
     }
