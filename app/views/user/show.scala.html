@@ -60,7 +60,7 @@ description = describeUser(u)).some) {
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
-    <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
+    <a class="intertab note_zone_toggle">@splitNumber(notes.size + " " + trans.notes())</a>
     }
     }
     <div class="user_actions">
@@ -185,7 +185,7 @@ description = describeUser(u)).some) {
     @if(info.insightVisible) {
     <a class="insight" href="@routes.Insight.index(u.username)">
       <span class="icon" data-icon="7"></span>
-      <strong>Chess Insights</strong>
+      <strong>@trans.chessInsights()</strong>
       <em>Analytics from @if(ctx.is(u)){your}else{@u.username's} games</em>
     </a>
     }
