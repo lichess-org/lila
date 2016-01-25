@@ -393,8 +393,12 @@ GET   /help-lichess                    controllers.Page.helpLichess
 GET   /terms-of-service                controllers.Page.tos
 GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
 GET   /contact                         controllers.Page.contact
+GET   /master                          controllers.Page.master
 GET   /king-of-the-hill                controllers.Page.kingOfTheHill
 GET   /atomic                          controllers.Page.atomic
+GET   /antichess                       controllers.Page.antichess
+GET   /chess960                        controllers.Page.chess960
+GET   /horde                           controllers.Page.horde
 GET   /racing-kings                    controllers.Page.racingKings
 GET   /crazyhouse                      controllers.Page.crazyhouse
 GET   /privacy                         controllers.Page.privacy
