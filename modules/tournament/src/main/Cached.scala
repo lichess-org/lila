@@ -25,17 +25,11 @@ private[tournament] final class Cached(
 
   // only applies to ongoing tournaments
   private val ongoingRanking = AsyncCache[String, Ranking](
-    tourId => PlayerRepo computeRanking tourId map {
-      case (ranking, leaderIdOption) =>
-        leaderIdOption foreach {
-          TournamentRepo.setLeaderId(tourId, _)
-        }
-        ranking
-    },
+    PlayerRepo.computeRanking,
     timeToLive = 3.seconds)
 
   // only applies to finished tournaments
   private val finishedRanking = AsyncCache[String, Ranking](
-    tourId => PlayerRepo computeRanking tourId map (_._1),
+    PlayerRepo.computeRanking,
     timeToLive = rankingTtl)
 }

@@ -111,16 +111,8 @@ object TournamentRepo {
 
   def setWinnerId(tourId: String, userId: String) = coll.update(
     selectId(tourId),
-    BSONDocument("$set" -> BSONDocument(
-      "winner" -> userId,
-      "leader" -> userId
-    ))
+    BSONDocument("$set" -> BSONDocument("winner" -> userId))
   ).void
-
-  def setLeaderId(tourId: String, userId: String) = coll.uncheckedUpdate(
-    selectId(tourId),
-    BSONDocument("$set" -> BSONDocument("leader" -> userId))
-  )
 
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(

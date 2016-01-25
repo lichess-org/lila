@@ -111,24 +111,21 @@ object PlayerRepo {
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
-  private[tournament] def computeRanking(tourId: String): Fu[(Ranking, Option[User.ID])] =
+  private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
       Group(BSONNull)("uids" -> Push("uid")))) map {
-      _.documents.headOption.fold((Map.empty: Ranking, none[String])) {
+      _.documents.headOption.fold(Map.empty: Ranking) {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
             // mutable optimized implementation
             val b = Map.newBuilder[String, Int]
             var r = 0
-            var leaderId = none[String]
             for (u <- uids) {
-              val uid = u.get.asInstanceOf[BSONString].value
-              b += (uid -> r)
-              if (r == 0) leaderId = uid.some
+              b += (u.get.asInstanceOf[BSONString].value -> r)
               r = r + 1
             }
-            b.result -> leaderId
-          case _ => Map.empty -> none
+            b.result()
+          case _ => Map.empty
         }
       }
     }
