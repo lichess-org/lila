@@ -317,19 +317,14 @@ object GameRepo {
     }).sequenceFu
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
-      Descending,
-      GroupField,
-      Limit,
-      Match,
-      Sort,
-      SumValue,
-      Unwind
-    }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     gameTube.coll.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
       Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
       Sort(Descending(F.createdAt)),
       Limit(1000), // only look in the last 1000 games
+      Project(BSONDocument(
+        F.playerUids -> true,
+        F.id -> false)),
       Unwind(F.playerUids),
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),

@@ -135,6 +135,13 @@ object PlayerRepo {
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
 
+  def pairByTourAndUserIds(tourId: String, id1: String, id2: String): Fu[Option[(Player, Player)]] =
+    byTourAndUserIds(tourId, List(id1, id2)) map {
+      case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
+      case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
+      case _                                        => none
+    }
+
   def setPerformance(player: Player, performance: Int) =
     coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void
 

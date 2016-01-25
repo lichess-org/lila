@@ -360,6 +360,26 @@ ol.scheduled_tournaments a {
 }
 #tournament_side .featured {
   margin-bottom: 10px;
+  line-height: 0;
+}
+#tournament_side .featured .vstext {
+  height: 20px;
+  border-width: 1px 1px 0 0;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+}
+#tournament_side .featured .vstext.bottom {
+  border-width: 0 1px 1px 0;
+}
+#tournament_side .featured .vstext strong {
+  display: inline-block;
+  height: 20px;
+  width: 12.5%;
+  text-align: center;
+  line-height: 20px;
+  background: #ccc;
+  margin-right: 10px;
 }
 #tournament_side .box {
   border: 1px solid #ccc;

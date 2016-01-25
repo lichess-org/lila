@@ -14,23 +14,21 @@ function user(p, it) {
   };
 }
 
-function featured(f) {
-  return m('div.featured', [
-    m('div.vstext.clearfix', [
-      m('div.left', [
-        f.game.user1.name,
-        m('br'),
-        f.game.user1.title ? f.game.user1.title + ' ' : '',
-        f.game.user1.rating
-      ]),
-      m('div.right', [
-        f.game.user2.name,
-        m('br'),
-        f.game.user2.rating,
-        f.game.user2.title ? ' ' + f.game.user2.title : ''
-      ])
+function featured(f, n) {
+  return m('div.featured', {
+    config: function(el, isUpdate, ctx) {
+      if (ctx.id !== f.id) $('body').trigger('lichess.content_loaded');
+    }
+  }, [
+    m('div.vstext.top', [
+      m('strong', '#' + f.player2.rank),
+      util.player(f.player2)
     ]),
-    util.miniBoard(f.game)
+    util.miniBoard(f),
+    m('div.vstext.bottom', [
+      m('strong', '#' + f.player1.rank),
+      util.player(f.player1)
+    ])
   ]);
 }
 

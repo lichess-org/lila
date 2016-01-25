@@ -42,6 +42,24 @@ object RankedPairing {
   } yield RankedPairing(pairing, r1 + 1, r2 + 1)
 }
 
+case class RankedPlayer(rank: Int, player: Player) {
+
+  def is(other: RankedPlayer) = player is other.player
+
+  override def toString = s"$rank. ${player.userId}[${player.rating}]"
+}
+
+object RankedPlayer {
+
+  def apply(ranking: Ranking)(player: Player): Option[RankedPlayer] =
+    ranking get player.userId map { rank =>
+      RankedPlayer(rank + 1, player)
+    }
+}
+
 case class FeaturedGame(
   game: lila.game.Game,
-  rankedPairing: RankedPairing)
+  player1: RankedPlayer,
+  player2: RankedPlayer)
+
+case class Winner(tourId: String, tourName: String, userId: String)

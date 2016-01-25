@@ -110,8 +110,15 @@ final class JsonView(
       _ ?? { pairing =>
         GameRepo game pairing.gameId flatMap {
           _ ?? { game =>
-            cached ranking tour map { ranking =>
-              RankedPairing(ranking)(pairing) map { FeaturedGame(game, _) }
+            cached ranking tour flatMap { ranking =>
+              PlayerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
+                for {
+                  players <- pairOption
+                  (p1, p2) = players
+                  rp1 <- RankedPlayer(ranking)(p1)
+                  rp2 <- RankedPlayer(ranking)(p2)
+                } yield FeaturedGame(game, rp1, rp2)
+              }
             }
           }
         }
@@ -157,10 +164,24 @@ final class JsonView(
       podium),
     timeToLive = 1 second)
 
-  private def featuredJson(featured: FeaturedGame) = Json.obj(
-    "game" -> gameJson(featured.game),
-    "rank1" -> featured.rankedPairing.rank1,
-    "rank2" -> featured.rankedPairing.rank2)
+  private def featuredJson(featured: FeaturedGame) = {
+    def playerJson(rp: RankedPlayer) = {
+      val light = getLightUser(rp.player.userId)
+      Json.obj(
+        "rank" -> rp.rank,
+        "name" -> light.fold(rp.player.userId)(_.name),
+        "title" -> light.flatMap(_.title),
+        "rating" -> rp.player.rating,
+        "ratingDiff" -> rp.player.ratingDiff)
+    }
+    Json.obj(
+      "id" -> featured.game.id,
+      "fen" -> (chess.format.Forsyth exportBoard featured.game.toChess.board),
+      "color" -> featured.game.firstColor.name,
+      "lastMove" -> ~featured.game.castleLastMoveTime.lastMoveString,
+      "player1" -> playerJson(featured.player1),
+      "player2" -> playerJson(featured.player2))
+  }
 
   private def myInfoJson(i: PlayerInfo) = Json.obj(
     "rank" -> i.rank,
@@ -173,7 +194,7 @@ final class JsonView(
     val light = userId flatMap getLightUser
     Json.obj(
       "name" -> light.map(_.name),
-      "title" -> light.map(_.title),
+      "title" -> light.flatMap(_.title),
       "rating" -> rating
     ).noNull
   }
@@ -210,7 +231,7 @@ final class JsonView(
     Json.obj(
       "rank" -> rankedPlayer.rank,
       "name" -> light.fold(p.userId)(_.name),
-      "title" -> light.map(_.title),
+      "title" -> light.flatMap(_.title),
       "rating" -> p.rating,
       "provisional" -> p.provisional.option(true),
       "withdraw" -> p.withdraw.option(true),
