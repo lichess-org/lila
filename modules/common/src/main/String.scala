@@ -5,10 +5,12 @@ import java.util.regex.Matcher.quoteReplacement
 
 object String {
 
+  private val slugR = """[^\w-]""".r
+
   def slugify(input: String) = {
     val nowhitespace = input.trim.replace(" ", "-")
     val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
-    val slug = """[^\w-]""".r.replaceAllIn(normalized, "")
+    val slug = slugR.replaceAllIn(normalized, "")
     slug.toLowerCase
   }
 
