@@ -19,7 +19,7 @@ function materialTag(role) {
   };
 }
 
-function renderMaterial(ctrl, material, checks) {
+function renderMaterial(ctrl, material, checks, score) {
   var children = [];
   for (var role in material) {
     var piece = materialTag(role);
@@ -35,6 +35,9 @@ function renderMaterial(ctrl, material, checks) {
   for (var i = 0; i < checks; i++) {
     children.push(m('tomb', m('mono-piece.king[title=Check]')));
   }
+  if (score || score === 0)
+    children.push(m('score', score > 0 ? '+' + score : score));
+
   return m('div.cemetery', children);
 }
 
@@ -118,7 +121,11 @@ function blursAndHolds(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : emptyMaterialDiff;
+  var d = ctrl.data, material, score;
+  if (d.pref.showCaptured) {
+    material = chessground.board.getMaterialDiff(ctrl.chessground.data);
+    score = chessground.board.getScore(ctrl.chessground.data) * (d.player.color === 'white' ? 1 : -1);
+  } else material = emptyMaterialDiff;
   return [
     m('div.top', [
       m('div.lichess_game', {
@@ -127,13 +134,13 @@ module.exports = function(ctrl) {
           $('body').trigger('lichess.content_loaded');
         }
       }, [
-        ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+        d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
-          renderBerserk(ctrl, ctrl.data.opponent.color, 'top'),
-          crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top') || renderMaterial(ctrl, material[ctrl.data.opponent.color], ctrl.data.player.checks),
+          renderBerserk(ctrl, d.opponent.color, 'top'),
+          crazyView.pocket(ctrl, d.opponent.color, 'top') || renderMaterial(ctrl, material[d.opponent.color], d.player.checks),
           renderTable(ctrl),
-          crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom') || renderMaterial(ctrl, material[ctrl.data.player.color], ctrl.data.opponent.checks),
-          renderBerserk(ctrl, ctrl.data.player.color, 'bottom'))
+          crazyView.pocket(ctrl, d.player.color, 'bottom') || renderMaterial(ctrl, material[d.player.color], d.opponent.checks, score),
+          renderBerserk(ctrl, d.player.color, 'bottom'))
       ])
     ]),
     m('div.underboard', [

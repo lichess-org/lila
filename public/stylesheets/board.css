@@ -911,6 +911,7 @@ div.cemetery {
   height: 32px;
   line-height: 0;
   white-space: nowrap;
+  line-height: 0;
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
@@ -924,6 +925,14 @@ div.cemetery tomb {
 }
 div.cemetery mono-piece {
   margin-left: -10px;
+}
+div.cemetery score {
+  display: inline-block;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 35px;
+  vertical-align: top;
 }
 div.berserk_alert {
   position: absolute;
