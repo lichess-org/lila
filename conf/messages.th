@@ -90,6 +90,7 @@ nbDays=%s วัน
 nbHours=%s ชั่วโมง
 time=เวลา
 rating=ระดับคะแนน
+ratingStats=สถิติระดับคะแนน
 username=ชื่อผู้ใช้
 password=รหัสผ่าน
 haveAnAccount=มีบัญชีแล้วหรือยัง?
