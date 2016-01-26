@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc._, Results._
+import play.api.mvc._
 import play.twirl.api.Html
 
 import lila.api.Context
@@ -67,12 +67,8 @@ object Tv extends LilaController {
       Env.tv.streamsOnAir.all flatMap { streams =>
         val others = streams.filter(_.id != id)
         streams find (_.id == id) match {
-          case None => fuccess(Ok(html.tv.notStreaming(streamer, others)))
-          case Some(s) => fuccess {
-            Ok(html.tv.stream(s, others)) withHeaders (
-              "Content-Security-Policy" -> """connect-src http://*.lichess.org ws://*.lichess.org:* http://lichess1.org http://www.twitch.tv http://www-cdn.jtvnw.net http://*.googleapis.com"""
-            )
-          }
+          case None    => fuccess(Ok(html.tv.notStreaming(streamer, others)))
+          case Some(s) => fuccess(Ok(html.tv.stream(s, others)))
         }
       }
     }
