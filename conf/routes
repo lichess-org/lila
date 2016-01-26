@@ -400,6 +400,7 @@ GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 
 # Variants
+GET   /variant                         controllers.Page.variant
 GET   /variant/king-of-the-hill        controllers.Page.kingOfTheHill
 GET   /variant/atomic                  controllers.Page.atomic
 GET   /variant/antichess               controllers.Page.antichess

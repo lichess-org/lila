@@ -25,6 +25,8 @@ object Page extends LilaController {
 
   def master = bookmark("master")
 
+  def variant = bookmark("variant")
+
   def kingOfTheHill = bookmark("king-of-the-hill")
 
   def atomic = bookmark("atomic")
