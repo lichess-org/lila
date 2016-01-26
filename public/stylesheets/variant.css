@@ -3,6 +3,9 @@ div.doc_box h2.headline {
   font-style: italic;
   margin-bottom: 30px;
 }
+div.doc_box div[data-oembed] {
+  text-align: center;
+}
 div.doc_box .body.content_box_content {
   padding-top: 0;
 }
