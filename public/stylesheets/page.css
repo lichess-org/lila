@@ -18,11 +18,18 @@ div.doc_box .body h3 em {
   font-family: 'Roboto';
   font-weight: 300;
 }
-div.doc_box .body p {
+div.doc_box .body p,
+div.doc_box .body ul,
+div.doc_box .body ol {
   margin: 1em 0;
 }
 div.doc_box .body ul li {
   list-style: disc inside;
+  margin: 0.5em 0;
+}
+div.doc_box .body ol li {
+  list-style: decimal inside;
+  margin: 0.5em 0;
 }
 div.doc_box .body li {
   margin-left: 2em;
