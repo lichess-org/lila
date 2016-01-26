@@ -3,39 +3,40 @@ div.doc_box h2.headline {
   font-style: italic;
   margin-bottom: 30px;
 }
-div.doc_box .body {
-  font-size: 1.2em;
+div.doc_box .body.content_box_content {
+  padding-top: 0;
 }
-div.doc_box .body h3 {
-  font-size: 1.3em;
+div.doc_box .variants {
+  margin-top: 0px;
+}
+div.doc_box a.variant {
+  text-decoration: none!important;
+  display: block;
+  height: 50px;
+  padding: 10px 20px;
+  transition: background 0.13s;
+}
+div.doc_box a.variant:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+div.doc_box a.variant::before {
+  float: left;
+  font-size: 40px;
+  line-height: 50px;
+  margin-right: 20px;
+  opacity: 0.7;
+  transition: opacity 0.13s;
+}
+div.doc_box a.variant:hover::before {
+  opacity: 1;
+}
+div.doc_box a.variant h2 {
+  font-size: 1.5em;
   font-family: 'Roboto';
   font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
-div.doc_box .body em {
-  font-style: italic;
-}
-div.doc_box .body h3 em {
-  font-family: 'Roboto';
-  font-weight: 300;
-}
-div.doc_box .body h2 {
-  font-size: 1.3em;
-  margin-top: 1.5em;
-  border-bottom: 1px solid #eee;
-}
-div.doc_box .body p {
-  margin: 1em 0;
-}
-div.doc_box .body ul li {
-  list-style: disc inside;
-}
-div.doc_box .body li {
-  margin-left: 2em;
-}
-div.doc_box .body a:not(.user_link) {
-  text-decoration: underline;
-}
-div.doc_box .body a {
-div.doc_box .body a:hover {
-  text-decoration: none;
+div.doc_box a.variant h3 {
+  margin: 0;
 }

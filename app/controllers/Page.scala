@@ -27,7 +27,11 @@ object Page extends LilaController {
 
   def privacy = bookmark("privacy")
 
-  def variantHome = bookmark("variant")
+  def variantHome = Open { implicit ctx =>
+    OptionOk(Prismic getBookmark "variant") {
+      case (doc, resolver) => views.html.site.variantHome(doc, resolver)
+    }
+  }
 
   def variant(key: String) = Open { implicit ctx =>
     (for {
