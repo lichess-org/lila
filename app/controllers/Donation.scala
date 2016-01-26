@@ -8,7 +8,7 @@ import views._
 object Donation extends LilaController {
 
   def index = Open { implicit ctx =>
-    OptionFuOk(Prismic.oneShotBookmark("donate")) {
+    OptionFuOk(Prismic.getBookmark("donate")) {
       case (doc, resolver) => Env.donation.api.list(100) zip
         Env.donation.api.top(10) zip
         Env.donation.api.progress map {
@@ -19,7 +19,7 @@ object Donation extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    OptionOk(Prismic.oneShotBookmark("donate-thanks")) {
+    OptionOk(Prismic.getBookmark("donate-thanks")) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
     }
   }

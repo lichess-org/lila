@@ -8,7 +8,7 @@ import views._
 object Page extends LilaController {
 
   private def bookmark(name: String) = Open { implicit ctx =>
-    OptionOk(Prismic oneShotBookmark name) {
+    OptionOk(Prismic getBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
     }
   }
@@ -25,21 +25,16 @@ object Page extends LilaController {
 
   def master = bookmark("master")
 
-  def variant = bookmark("variant")
-
-  def kingOfTheHill = bookmark("king-of-the-hill")
-
-  def atomic = bookmark("atomic")
-
-  def antichess = bookmark("antichess")
-
-  def chess960 = bookmark("chess960")
-
-  def horde = bookmark("horde")
-
-  def racingKings = bookmark("racing-kings")
-
-  def crazyhouse = bookmark("crazyhouse")
-
   def privacy = bookmark("privacy")
+
+  def variantHome = bookmark("variant")
+
+  def variant(key: String) = Open { implicit ctx =>
+    (for {
+      variant <- chess.variant.Variant.byKey get key
+      perfType <- lila.rating.PerfType byVariant variant
+    } yield OptionOk(Prismic getVariant variant) {
+      case (doc, resolver) => views.html.site.variant(doc, resolver, variant, perfType)
+    }) | notFound
+  }
 }

@@ -2,16 +2,8 @@
 @url = {
 @variant match {
 case chess.variant.Standard => {https://en.wikipedia.org/wiki/Chess}
-case chess.variant.Chess960 => {@routes.Page.chess960}
-case chess.variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
-case chess.variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
-case chess.variant.Antichess => {@routes.Page.antichess}
 case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.replace(" ", "_"))}
-case chess.variant.Atomic => {@routes.Page.atomic}
-case chess.variant.Horde => {@routes.Page.horde}
-case chess.variant.RacingKings => {@routes.Page.racingKings}
-case chess.variant.Crazyhouse => {@routes.Page.crazyhouse}
-case _ => {}
+case v => {@routes.Page.variant(v.key)}
 }
 }
 <a href="@url" rel="nofollow" target="_blank" @if(hintAsTitle){title}else{data-hint}="@variant.title" class="@cssClass variant-link">@name</a>
