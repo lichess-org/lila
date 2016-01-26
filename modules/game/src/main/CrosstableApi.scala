@@ -77,11 +77,11 @@ final class CrosstableApi(coll: Coll) {
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
             .cursor[BSONDocument]().collect[List](maxGames).map {
-              _.map { doc =>
+              _.flatMap { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))
                 }
-              }.flatten.reverse
+              }.reverse
             }
           nbGames <- gameColl.count(selector.some)
           ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults, nbGames)

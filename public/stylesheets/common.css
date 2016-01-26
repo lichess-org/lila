@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font48/fonts/lichess.eot");
-  src: url("../font48/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font48/fonts/lichess.woff") format("woff"), url("../font48/fonts/lichess.ttf") format("truetype"), url("../font48/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font49/fonts/lichess.eot");
+  src: url("../font49/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font49/fonts/lichess.woff") format("woff"), url("../font49/fonts/lichess.ttf") format("truetype"), url("../font49/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -909,6 +909,13 @@ div.side form.search input {
   padding: 8px 0 8px 8px;
   display: block;
   width: 203px;
+  transition: background 0.13s;
+}
+#site_header div.side_menu a::before {
+  opacity: 0.8;
+}
+#site_header div.side_menu a:hover {
+  background: rgba(255,255,255,0.5);
 }
 #site_header div.side_menu a.active {
   background: white;
@@ -1798,6 +1805,7 @@ a.button:active {
 .ui-widget-header,
 div.pagination span.current,
 .data-count::after,
+.pocket piece::after,
 .unread,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,

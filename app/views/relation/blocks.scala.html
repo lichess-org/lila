@@ -1,12 +1,12 @@
-@(u: User, users: List[lila.relation.Related])(implicit ctx: Context)
+@(u: User, pag: Paginator[lila.relation.Related])(implicit ctx: Context)
 
-@user.layout(title = u.username + " - " + trans.blocks(users.size)) {
+@user.layout(title = u.username + " - " + trans.blocks(pag.nbResults)) {
 <div class="content_box no_padding">
   <h1>
     @userLink(u, withOnline = false)
-    @trans.blocks(users.size)
+    @trans.blocks(pag.nbResults)
   </h1>
-  @user.simpleTable(users)
+  @user.simpleTable(pag, routes.Relation.blocks())
 </div>
 }
 

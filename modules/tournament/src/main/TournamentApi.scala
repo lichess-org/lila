@@ -62,20 +62,50 @@ private[tournament] final class TournamentApi(
 
   def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      cached.ongoingRanking(tour.id) flatMap { ranking =>
+      cached ranking tour flatMap { ranking =>
         tour.system.pairingSystem.createPairings(tour, users, ranking) flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1000 =>
             play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             funit
           case pairings => pairings.map { pairing =>
-            PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
-          }.sequenceFu.map {
-            _ map StartGame.apply foreach { sendTo(tour.id, _) }
-          } >>- {
+            PairingRepo.insert(pairing) >>
+              autoPairing(tour, pairing) addEffect { game =>
+                sendTo(tour.id, StartGame(game))
+              }
+          }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
             val time = nowMillis - startAt
             if (time > 100)
               play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
+          }
+        }
+      }
+    }
+  }
+
+  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
+    tour.featuredId.ifTrue(pairings.nonEmpty) ?? PairingRepo.byId map2
+      RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
+        pairings.flatMap(RankedPairing(ranking)).sortBy(_.bestRank).headOption ?? { bestCandidate =>
+          def switch = TournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
+          curOption.filter(_.pairing.playing) match {
+            case Some(current) if bestCandidate.bestRank < current.bestRank => switch
+            case Some(_) => funit
+            case _ => switch
+          }
+        }
+      }
+
+  def tourAndRanks(game: Game): Fu[Option[TourAndRanks]] = ~{
+    for {
+      tourId <- game.tournamentId
+      whiteId <- game.whitePlayer.userId
+      blackId <- game.blackPlayer.userId
+    } yield TournamentRepo byId tourId flatMap {
+      _ ?? { tour =>
+        cached ranking tour map { ranking =>
+          ranking.get(whiteId) |@| ranking.get(blackId) apply {
+            case (whiteR, blackR) => TourAndRanks(tour, whiteR + 1, blackR + 1)
           }
         }
       }

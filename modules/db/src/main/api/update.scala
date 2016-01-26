@@ -36,7 +36,7 @@ object $update {
   // UNCHECKED
 
   def unchecked[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false) {
-    implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
+    implicitly[InColl[A]].coll.uncheckedUpdate(selector, update, upsert = upsert, multi = multi)
   }
 
   def fieldUnchecked[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false) {

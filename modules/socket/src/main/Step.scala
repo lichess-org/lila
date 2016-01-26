@@ -1,7 +1,8 @@
 package lila.socket
 
-import chess.format.UciMove
+import chess.format.Uci
 import chess.Pos
+import chess.variant.Crazyhouse
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -14,10 +15,12 @@ case class Step(
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
+    drops: Option[List[Pos]],
     eval: Option[Step.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
-    variations: List[List[Step]] = Nil) {
+    variations: List[List[Step]] = Nil,
+    crazyData: Option[Crazyhouse.Data]) {
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
@@ -27,19 +30,33 @@ case class Step(
 
 object Step {
 
-  case class Move(uci: UciMove, san: String) {
+  case class Move(uci: Uci, san: String) {
     def uciString = uci.uci
   }
 
   case class Eval(
     cp: Option[Int] = None,
     mate: Option[Int] = None,
-    best: Option[UciMove])
+    best: Option[Uci.Move])
 
-  private implicit val uciJsonWriter: Writes[UciMove] = Writes { uci =>
+  private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
     JsString(uci.uci)
   }
   private implicit val evalJsonWriter = Json.writes[Eval]
+
+  // TODO copied from lila.game
+  // put all that shit somewhere else
+  implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+    JsObject(
+      Crazyhouse.storableRoles.flatMap { role =>
+        Some(v.roles.count(role ==)).filter(0 <).map { count =>
+          role.name -> JsNumber(count)
+        }
+      })
+  }
+  implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+  }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
     import step._
@@ -53,7 +70,11 @@ object Step {
         _.map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
         }.mkString(" ")
-      })
+      }) _ compose
+      add("drops", drops.map { drops =>
+        JsString(drops.map(_.key).mkString)
+      }) _ compose
+      add("crazy", crazyData)
     )(Json.obj(
         "ply" -> ply,
         "uci" -> move.map(_.uciString),

@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.Color
-import chess.format.UciMove
+import chess.format.Uci
 
 case class Info(
     ply: Int,
@@ -10,7 +10,7 @@ case class Info(
     // variation is first in UCI, then converted to PGN before storage
     variation: List[String] = Nil,
     // best is always in UCI (used for hilight)
-    best: Option[UciMove] = None) {
+    best: Option[Uci.Move] = None) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -57,7 +57,7 @@ object Info {
     case Array(cp)             => Info(ply, Score(cp)).some
     case Array(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
     case Array(cp, ma, va)     => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
+    case Array(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, Uci.Move piotr be).some
     case _                     => none
   }
 

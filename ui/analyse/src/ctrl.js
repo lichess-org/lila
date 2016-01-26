@@ -16,6 +16,7 @@ var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('./ceval/cevalCtrl');
 var router = require('game').router;
 var game = require('game').game;
+var crazyValid = require('./crazy/crazyValid');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -44,7 +45,8 @@ module.exports = function(opts) {
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
     autoScroll: null,
-    variationMenu: null
+    variationMenu: null,
+    element: opts.element
   };
 
   this.flip = function() {
@@ -58,6 +60,12 @@ module.exports = function(opts) {
     this.autoplay.toggle(delay);
     this.actionMenu.open = false;
   }.bind(this);
+
+  var uciToLastMove = function(uci) {
+    if (!uci) return;
+    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+    return [uci.substr(0, 2), uci.substr(2, 2)];
+  };
 
   var showGround = function() {
     var s;
@@ -73,15 +81,16 @@ module.exports = function(opts) {
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
     var dests = util.readDests(s.dests);
+    var drops = util.readDrops(s.drops);
     var config = {
       fen: s.fen,
       turnColor: color,
       movable: {
-        color: dests && Object.keys(dests).length > 0 ? color : null,
+        color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
       check: s.check,
-      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+      lastMove: uciToLastMove(s.uci)
     };
     if (!dests && !s.check) {
       // premove while dests are loading from server
@@ -92,7 +101,7 @@ module.exports = function(opts) {
     this.vm.step = s;
     this.vm.cgConfig = config;
     if (!this.chessground)
-      this.chessground = ground.make(this.data, config, userMove);
+      this.chessground = ground.make(this.data, config, userMove, userNewPiece);
     this.chessground.set(config);
     onChange();
     if (!dests) getDests();
@@ -167,6 +176,30 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
+  var pieceToSan = {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  };
+
+  var userNewPiece = function(piece, pos) {
+    if (crazyValid.drop(this.chessground, this.vm.step.drops, piece, pos)) {
+      this.vm.justPlayed = pieceToSan[piece.role] + '@' + pos;
+      sound.move();
+      var drop = {
+        role: piece.role,
+        pos: pos,
+        variant: this.data.game.variant.key,
+        fen: this.vm.step.fen,
+        path: this.vm.pathStr
+      };
+      this.socket.sendAnaDrop(drop);
+      preparePremoving();
+    } else this.jump(this.vm.path);
+  }.bind(this);
+
   var userMove = function(orig, dest, capture) {
     this.vm.justPlayed = orig + dest;
     sound[capture ? 'capture' : 'move']();
@@ -183,7 +216,10 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     this.socket.sendAnaMove(move);
-    // prepare premoving
+    preparePremoving();
+  }.bind(this);
+
+  var preparePremoving = function() {
     this.chessground.set({
       turnColor: this.chessground.data.movable.color,
       movable: {
@@ -324,13 +360,4 @@ module.exports = function(opts) {
   showGround();
   keyboard(this);
   startCeval();
-
-  // this.jumpToMain(2);
-  // userMove('h2', 'h3');
-  // setTimeout(function() {
-  //   $('.variation span.menu').click();
-  //   setTimeout(function() {
-  //     $('.variation.menu .promote').click();
-  //   }, 500);
-  // }.bind(this), 1500);
 };

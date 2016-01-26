@@ -78,6 +78,14 @@ final class ModlogApi {
     Modlog(mod, user.some, Modlog.deleteQaComment, details = Some(text take 140))
   }
 
+  def deleteTeam(mod: String, name: String, desc: String) = add {
+    Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
+  }
+
+  def terminateTournament(mod: String, name: String) = add {
+    Modlog(mod, none, Modlog.terminateTournament, details = name.some)
+  }
+
   def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
 
   def wasUnengined(userId: String) = $count.exists(Json.obj(

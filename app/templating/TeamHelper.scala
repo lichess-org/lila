@@ -14,7 +14,7 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.me.??(me => api.belongsTo(teamId, me.id))
 
-  def teamIds(userId: String): List[String] = api teamIds userId
+  def teamIds(userId: String): Set[String] = api teamIds userId
 
   def teamIdToName(id: String): String = api teamName id getOrElse id
 

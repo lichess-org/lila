@@ -20,17 +20,24 @@ object Tournament extends LilaController {
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
   def home(page: Int) = Open { implicit ctx =>
-    val finishedPaginator = repo.finishedPaginator(maxPerPage = 30, page = page)
-    if (HTTPRequest isXhr ctx.req) finishedPaginator map { pag =>
-      Ok(html.tournament.finishedPaginator(pag))
-    }
-    else env.api.fetchVisibleTournaments zip
-      repo.scheduledDedup zip
-      finishedPaginator zip
-      UserRepo.allSortToints(10) map {
-        case (((visible, scheduled), finished), leaderboard) =>
-          Ok(html.tournament.home(scheduled, finished, leaderboard, env scheduleJsonView visible))
-      } map NoCache
+    negotiate(
+      html = {
+        val finishedPaginator = repo.finishedPaginator(maxPerPage = 30, page = page)
+        if (HTTPRequest isXhr ctx.req) finishedPaginator map { pag =>
+          Ok(html.tournament.finishedPaginator(pag))
+        }
+        else env.api.fetchVisibleTournaments zip
+          repo.scheduledDedup zip
+          finishedPaginator zip
+          UserRepo.allSortToints(10) map {
+            case (((visible, scheduled), finished), leaderboard) =>
+              Ok(html.tournament.home(scheduled, finished, leaderboard, env scheduleJsonView visible))
+          } map NoCache
+      },
+      api = _ => env.api.fetchVisibleTournaments map { tours =>
+        Ok(env scheduleJsonView tours)
+      }
+    )
   }
 
   def help(sysStr: Option[String]) = Open { implicit ctx =>
@@ -130,6 +137,15 @@ object Tournament extends LilaController {
         env.api.withdraw(tour.id, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Tournament.show(tour.id))
+      }
+  }
+
+  def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx =>
+    me =>
+      OptionResult(repo startedById id) { tour =>
+        env.api finish tour
+        Env.mod.logApi.terminateTournament(me.id, tour.fullName)
+        Redirect(routes.Tournament show tour.id)
       }
   }
 

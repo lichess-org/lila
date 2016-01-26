@@ -3,7 +3,7 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.format.UciMove
+import chess.format.Uci
 import chess.{ Pos, Move }
 import lila.game.Game
 
@@ -12,7 +12,7 @@ case class Forecast(
     steps: Forecast.Steps,
     date: DateTime) {
 
-  def apply(g: Game, lastMove: Move): Option[(Forecast, UciMove)] =
+  def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
       copy(
         steps = steps.collect {
@@ -25,7 +25,7 @@ case class Forecast(
   // accept up to 30 lines of 30 moves each
   def truncate = copy(steps = steps.take(30).map(_ take 30))
 
-  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[UciMove]) {
+  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
     case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
     case (move, _) => move
   }
@@ -45,10 +45,10 @@ object Forecast {
       check: Option[Boolean],
       dests: String) {
 
-    def is(move: Move) = move.uciString == uci
-    def is(move: UciMove) = move.uci == uci
+    def is(move: Move) = move.toUci.uci == uci
+    def is(move: Uci.Move) = move.uci == uci
 
-    def uciMove = UciMove(uci)
+    def uciMove = Uci.Move(uci)
   }
 
   implicit val forecastStepJsonFormat = Json.format[Step]

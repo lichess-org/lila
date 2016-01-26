@@ -23,8 +23,7 @@ module.exports = {
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
       ]) : null,
-      arena.standing(ctrl, pag),
-      util.games(ctrl.data.lastGames)
+      arena.standing(ctrl, pag)
     ];
   },
   side: function(ctrl) {

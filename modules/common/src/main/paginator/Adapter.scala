@@ -24,7 +24,7 @@ trait AdapterLike[A] {
     def nbResults = AdapterLike.this.nbResults
 
     def slice(offset: Int, length: Int) =
-      AdapterLike.this.slice(offset, length) map (_.toList) map2 f
+      AdapterLike.this.slice(offset, length) map { _ map f }
   }
 
   def mapFuture[B](f: A => Fu[B]): AdapterLike[B] = new AdapterLike[B] {

@@ -27,13 +27,16 @@ final class PgnDump(
     Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
   }
 
+  private val fileR = """[\s,]""".r
+
   def filename(game: Game): String = gameLightUsers(game) match {
-    case (wu, bu) => "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
-      dateFormat.print(game.createdAt),
-      player(game.whitePlayer, wu),
-      player(game.blackPlayer, bu),
-      game.id
-    ).replace(" ", "_")
+    case (wu, bu) => fileR.replaceAllIn(
+      "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
+        dateFormat.print(game.createdAt),
+        player(game.whitePlayer, wu),
+        player(game.blackPlayer, bu),
+        game.id
+      ), "_")
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"

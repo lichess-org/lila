@@ -365,3 +365,6 @@
 .icon-flag-checkered:before {
   content: "\e00a";
 }
+.icon-h-square:before {
+  content: "\e00b";
+}

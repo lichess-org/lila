@@ -101,8 +101,12 @@ body.highlight .cg-board square.check {
 body.base .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-body.base .cg-board square.exploding {
+body.base .cg-board square.exploding1 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.base .cg-board square.exploding2 {
   background-color: rgba(255, 0, 0, 0.5);
+  transition: background-color 0.1s;
 }
 piece {
   width: 100%;
@@ -591,6 +595,53 @@ div.table {
 .lichess_ground .control.buttons a.replay_and_analyse {
   margin-bottom: 10px;
 }
+.pocket {
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
+  width: 100%;
+  height: 56px;
+  background: #888;
+  white-space: nowrap;
+  max-width: 244px;
+  overflow: hidden;
+}
+.pocket.top {
+  margin-bottom: 10px;
+}
+.pocket.bottom {
+  margin-top: 10px;
+}
+.pocket piece {
+  display:inline-block;
+  width: 56px!important;
+  height: 56px!important;
+  position: relative;
+}
+.pocket piece:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.pocket.crowded piece {
+  width: 48.5px!important;
+  background-position: center;
+}
+.pocket.usable piece {
+  cursor: pointer;
+  transition: background-color 0.13s;
+}
+.pocket.usable piece:hover {
+  background-color: #999;
+}
+.pocket piece::after {
+  content: attr(data-nb);
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  line-height: 14px;
+  padding: 3px 5px 4px 5px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 18px;
+}
 div.table.spectator {
   top: 160px;
 }
@@ -739,6 +790,17 @@ div.table_wrap a.moretime {
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
+div.table_wrap .tournament_rank {
+  position: absolute;
+  font-size: 20px;
+  right: 0;
+}
+div.table_wrap .tournament_rank.top {
+  top: 5px;
+}
+div.table_wrap .tournament_rank.bottom {
+  bottom: 5px;
+}
 div.table_next {
   top: 145px;
 }
@@ -849,6 +911,7 @@ div.cemetery {
   height: 32px;
   line-height: 0;
   white-space: nowrap;
+  line-height: 0;
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
@@ -862,6 +925,14 @@ div.cemetery tomb {
 }
 div.cemetery mono-piece {
   margin-left: -10px;
+}
+div.cemetery score {
+  display: inline-block;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 35px;
+  vertical-align: top;
 }
 div.berserk_alert {
   position: absolute;
@@ -979,7 +1050,8 @@ body.no-select #chat li {
   padding: 3px 5px;
 }
 #chat.hidden ol.messages,
-#chat.hidden form {
+#chat.hidden form,
+#chat.hidden .presets {
   display: none;
 }
 div.game_tournament {
@@ -1046,7 +1118,9 @@ div.underboard .right {
   width: 242px;
 }
 div.underboard .blurs {
+  position: relative;
   padding-top: 25px;
+  z-index: 1;
 }
 div.underboard a {
   display: inline-block;

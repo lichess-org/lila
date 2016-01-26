@@ -68,7 +68,7 @@ description = describeUser(u)).some) {
       <a class="button hint--bottom-left" href="@routes.Account.profile" data-hint="@trans.editProfile()">
         <span data-icon="%"></span>
       </a>
-      <a class="button hint--bottom-left" href="@routes.Relation.blocks" data-hint="@trans.listBlockedPlayers()">
+      <a class="button hint--bottom-left" href="@routes.Relation.blocks()" data-hint="@trans.listBlockedPlayers()">
         <span data-icon="k"></span>
       </a>
       }
@@ -176,7 +176,7 @@ description = describeUser(u)).some) {
         <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
         }
         <div class="teams">
-          @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
+          @teamIds(u.id).toList.sortBy(t => !myTeam(t)).map { teamId =>
           @teamLink(teamId, myTeam(teamId).option("mine"))
           }
         </div>

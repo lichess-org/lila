@@ -113,14 +113,34 @@ object PlayerRepo {
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
-      Group(BSONBoolean(true))("uids" -> Push("uid")))).
-      map(res => aggregationUserIdList(res.documents.toStream)).
-      map { _.zipWithIndex.toMap }
+      Group(BSONNull)("uids" -> Push("uid")))) map {
+      _.documents.headOption.fold(Map.empty: Ranking) {
+        _ get "uids" match {
+          case Some(BSONArray(uids)) =>
+            // mutable optimized implementation
+            val b = Map.newBuilder[String, Int]
+            var r = 0
+            for (u <- uids) {
+              b += (u.get.asInstanceOf[BSONString].value -> r)
+              r = r + 1
+            }
+            b.result
+          case _ => Map.empty
+        }
+      }
+    }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
+
+  def pairByTourAndUserIds(tourId: String, id1: String, id2: String): Fu[Option[(Player, Player)]] =
+    byTourAndUserIds(tourId, List(id1, id2)) map {
+      case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
+      case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
+      case _                                        => none
+    }
 
   def setPerformance(player: Player, performance: Int) =
     coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void

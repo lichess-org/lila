@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], neural: Option[lila.mod.NeuralApi.Result])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -224,13 +224,6 @@
         }
       </tbody>
     </table>
-  </div>
-  }
-  @neural.map { n =>
-  <div class="neural">
-    [beta] Neural decision: <strong>@n.answer.decision</strong>.
-    Cheating odds: @n.answer.cheatPercent% vs @n.answer.nonCheatPercent%.
-    Took @n.millis ms.
   </div>
   }
   @if(isGranted(_.Admin) && u.roles.nonEmpty) {

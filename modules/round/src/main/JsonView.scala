@@ -5,11 +5,12 @@ import scala.math
 
 import play.api.libs.json._
 
+import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
+import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
-import lila.common.Maths.truncateAt
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
@@ -119,7 +120,9 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
-            "takebackable" -> takebackable).noNull
+            "possibleDrops" -> possibleDrops(pov),
+            "takebackable" -> takebackable,
+            "crazyhouse" -> pov.game.crazyData).noNull
       }
 
   def watcherJson(
@@ -296,6 +299,12 @@ final class JsonView(
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {
       case (from, dests) => from.key -> dests.mkString
+    }
+  }
+
+  private def possibleDrops(pov: Pov) = (pov.game playableBy pov.player) ?? {
+    pov.game.toChess.situation.drops map { drops =>
+      JsString(drops.map(_.key).mkString)
     }
   }
 

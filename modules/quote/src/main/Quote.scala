@@ -97,7 +97,6 @@ object Quote {
     , new Quote("He who fears an isolated queen’s pawn should give up chess.", "Siegbert Tarrasch")
     , new Quote("Different people feel differently about resigning.", "Bobby Fischer")
     , new Quote("Chess is not like life... it has rules!", "Mark Pasternak")
-    , new Quote("Why must I lose to this idiot?", "Aron Nimzovich")
     , new Quote("It’s always better to sacrifice your opponent’s men.", "Savielly Tartakover")
     , new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakover")
     , new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer")
@@ -438,7 +437,7 @@ object Quote {
     , new Quote("Chess can help a child develop logical thinking, decision making, reasoning, and pattern recognition skills, which in turn can help math and verbal skills.", "Susan Polgar")
     , new Quote("Chess can learn a lot from poker. First, chess media and sponsors should emphasize its glamorous aspects: worldwide traveling, parties and escape from real world responsibilities.", "Jennifer Shahade")
     , new Quote("Chess can never reach its height by following in the path of science ... Let us, therefore, make a new effort and with the help of our imagination turn the struggle of technique into a battle of ideas.", "Jose Capablanca")
-    , new Quote("Chess continues to advance over time, so the players of the future will inevitably surpass me in the quality of their play, assuming the rules and regulations allow them to play serious chess. But it will likely be a long time before anyone spends 20 consecutive years as number, one as I did.", "Garry Kasparov")
+    , new Quote("Chess continues to advance over time, so the players of the future will inevitably surpass me in the quality of their play, assuming the rules and regulations allow them to play serious chess. But it will likely be a long time before anyone spends 20 consecutive years as number one, as I did.", "Garry Kasparov")
     , new Quote("Chess is a bond of brotherhood amongst all lovers of the noble game, as perfect as free masonry. It is a leveller of rank - title, wealth, nationality, politics, religion - all are forgotten across the board.", "Frederick Milne Edge")
     , new Quote("Chess is a contest between two men which lends itself particularly to the conflicts surrounding aggression.", "Rueben Fine")
     , new Quote("Chess is a contributor to net human unhappiness, since the pleasure of victory is greatly exceeded by the pain of defeat.", "Bill Hartston")
@@ -541,7 +540,6 @@ object Quote {
     , new Quote("Haste, the great enemy.", "Eugene Znosko-Borowski")
     , new Quote("Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?", "Daniel King")
     , new Quote("He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. \"No, thank you,\" he would say and the fight would go on and on and on.", "Lubomir Kavalek on Bent Larsen")
-    , new Quote("He who analyses blitz is stupid.", "Rashid Nezhmetdinov")
     , new Quote("He who has a slight disadvantage plays more attentively, inventively and more boldly than his antagonist who either takes it easy or aspires after too much. Thus a slight disadvantage is very frequently seen to convert into a good, solid advantage.", "Emanuel Lasker")
     , new Quote("Here is a definition which correctly reflects the course of thought and action of a grandmaster: The plan in a game of chess is the sum total of successive strategical operations which are each carried out according to separate ideas arising from the demands of the position.", "Alexander Kotov")
     , new Quote("How come the little things bother you when you are in a bad position? They don't bother you in good positions.", "Yasser Seirawan")
@@ -560,6 +558,7 @@ object Quote {
     , new Quote("I can’t count the times I have lagged seemingly hopelessly far behind, and nobody except myself thinks I can win. But I have pulled myself in from desperate [situations]. When you are behind there are two strategies – counter-attack or all men to the defences. I’m good at finding the right balance between those.", "Magnus Carlsen")
     , new Quote("I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.", "Mikhail Botvinnik")
     , new Quote("Watch out for the tricky knights.", "ChessNetwork")
+    , new Quote("I think crazyhouse improves your standard chess.", "ChessNetwork")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>

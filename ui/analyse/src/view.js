@@ -16,6 +16,7 @@ var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
+var crazyView = require('./crazy/crazyView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -53,7 +54,7 @@ function renderMove(ctrl, move, path) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      move.san
+      move.san[0] === 'P' ? move.san.slice(1) : move.san
     ]
   };
 }
@@ -389,7 +390,8 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed(),
-        gauge_displayed: ctrl.showEvalGauge()
+        gauge_displayed: ctrl.showEvalGauge(),
+        crazy: ctrl.data.game.variant.key === 'crazyhouse'
       })
     }, [
       m('div.lichess_game', {
@@ -400,6 +402,7 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             m('div.replay', {
@@ -409,7 +412,8 @@ module.exports = function(ctrl) {
               },
               renderAnalyse(ctrl))
           ],
-          buttons(ctrl)
+          buttons(ctrl),
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
         ])
       ])
     ]),

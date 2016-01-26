@@ -1,7 +1,5 @@
 package lila.pref
 
-import play.api.libs.json._
-
 import lila.db.JsTube
 import lila.db.JsTube.Helpers._
 import lila.user.User
@@ -259,8 +257,9 @@ object Pref {
       FRIEND -> "Only friends",
       ALWAYS -> "Always")
 
-    def block(from: User, to: User, pref: Int, follow: Boolean): Option[String] = pref match {
+    def block(from: User, to: User, pref: Int, follow: Boolean, fromCheat: Boolean): Option[String] = pref match {
       case NEVER => "{{user}} doesn't accept challenges.".some
+      case _ if fromCheat && !follow => "{{user}} only accepts challenges from friends.".some
       case RATING if from.perfs.bestRating > to.perfs.bestRating => none
       case RATING if math.abs(from.perfs.bestRating - to.perfs.bestRating) > ratingThreshold =>
         s"{{user}} only accepts challenges if rating is ± $ratingThreshold.".some

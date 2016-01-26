@@ -89,7 +89,7 @@ function renderTablePlay(ctrl) {
   ]);
   return [
     renderReplay(ctrl),
-    ctrl.vm.moveToSubmit ? null : (
+    (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
       button.feedback(ctrl) || m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
@@ -126,6 +126,13 @@ function goBerserk(ctrl) {
   }));
 }
 
+function tourRank(d, color, position) {
+  if (d.tournament) return m('div', {
+    class: 'tournament_rank ' + position,
+    title: 'Current tournament rank'
+  }, '#' + d.tournament.ranks[color]);
+}
+
 function renderClock(ctrl, color, position) {
   var time = ctrl.clock.data[color];
   var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
@@ -141,7 +148,8 @@ function renderClock(ctrl, color, position) {
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
       ctrl.data.player.color === color ? goBerserk(ctrl) : null
     ]),
-    position === 'bottom' ? button.moretime(ctrl) : null
+    position === 'bottom' ? button.moretime(ctrl) : null,
+    tourRank(ctrl.data, color, position)
   ];
 }
 

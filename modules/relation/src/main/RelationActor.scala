@@ -3,6 +3,7 @@ package lila.relation
 import akka.actor.{ Actor, ActorSelection }
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
+import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
@@ -44,13 +45,13 @@ private[relation] final class RelationActor(
   private def onlineIds: Set[ID] = onlines.keySet
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
-    api following userId map { ids =>
+    api fetchFollowing userId map { ids =>
       OnlineFriends(ids.flatMap(onlines.get).toList)
     }
 
   private def notifyFollowers(users: List[LightUser], message: String) {
     users foreach { user =>
-      api followers user.id map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers user.id map (_ filter onlines.contains) foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, user.titleName), 'users)
       }
     }

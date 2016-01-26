@@ -1,10 +1,15 @@
-@(users: List[lila.relation.Related])(implicit ctx: Context)
+@(pager: Paginator[lila.relation.Related], call: Call)(implicit ctx: Context)
 
 <table class="slist">
-  @if(users.size > 0) {
+  @if(pager.nbResults > 0) {
   <tbody class="infinitescroll">
-    @users.map { r =>
-    <tr>
+    @pager.nextPage.map { np =>
+    <tr><th class="pager none">
+        <a href="@call.url?page=@np">Next</a>
+    </th></tr>
+    }
+    @pager.currentPageResults.map { r =>
+    <tr class="paginated_element">
       <td>@userLink(r.user)</td>
       <td>@showBestPerf(r.user)</td>
       <td>@r.user.count.game @trans.games()</td>

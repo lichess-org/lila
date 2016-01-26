@@ -36,14 +36,19 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = _ => lila.game.GameRepo urgentGames me map { povs =>
-          Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
-          Ok {
-            import play.api.libs.json._
-            Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+        api = _ =>
+          Env.pref.api getPref me flatMap { prefs =>
+            lila.game.GameRepo urgentGames me map { povs =>
+              Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+              Ok {
+                import play.api.libs.json._
+                import lila.pref.JsonView._
+                Env.user.jsonView(me, extended = true) ++ Json.obj(
+                  "prefs" -> prefs,
+                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+              }
+            }
           }
-        }
       )
   }
 

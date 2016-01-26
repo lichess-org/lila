@@ -166,6 +166,7 @@ object GameRepo {
       Query.user(user.id) ++
         Query.rated ++
         Query.finished ++
+        Query.turnsMoreThan(2) ++
         Query.notFromPosition
     } sort Query.sortAntiChronological
   }
@@ -187,23 +188,27 @@ object GameRepo {
     $count.exists($select(id) ++ Query.analysed(true))
 
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    $primitive(($select byIds ids) ++ Query.analysed(true), "_id")(_.asOpt[String]) map (_.toSet)
+    gameTube.coll.distinct("_id", BSONDocument(
+      "_id" -> BSONDocument("$in" -> ids),
+      F.analysed -> true
+    ).some) map lila.db.BSON.asStringSet
 
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson(F.bookmarks -> value))
 
-  def setHoldAlert(pov: Pov, mean: Int, sd: Int) = {
+  def setHoldAlert(pov: Pov, mean: Int, sd: Int, ply: Option[Int] = None) = {
     import Player.holdAlertBSONHandler
     $update(
       $select(pov.gameId),
       BSONDocument(
         "$set" -> BSONDocument(
           s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}" ->
-            Player.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)
+            Player.HoldAlert(ply = ply | pov.game.turns, mean = mean, sd = sd)
         )
       )
     ).void
   }
+  def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
 
   def finish(
     id: ID,
@@ -254,8 +259,9 @@ object GameRepo {
     $insert bson bson
   }
 
-  def removeChallengesOf(userId: String) =
-    $remove(Query.created ++ Query.friend ++ Query.user(userId))
+  def removeRecentChallengesOf(userId: String) =
+    $remove(Query.created ++ Query.friend ++ Query.user(userId) ++
+      Query.createdSince(DateTime.now minusHours 1))
 
   def setCheckAt(g: Game, at: DateTime) =
     $update($select(g.id), BSONDocument("$set" -> BSONDocument(F.checkAt -> at)))
@@ -312,21 +318,14 @@ object GameRepo {
     }).sequenceFu
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
-    val col = gameTube.coll
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
-      Descending,
-      GroupField,
-      Limit,
-      Match,
-      Sort,
-      SumValue,
-      Unwind
-    }
-
-    col.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    gameTube.coll.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
       Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
       Sort(Descending(F.createdAt)),
       Limit(1000), // only look in the last 1000 games
+      Project(BSONDocument(
+        F.playerUids -> true,
+        F.id -> false)),
       Unwind(F.playerUids),
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
@@ -377,15 +376,6 @@ object GameRepo {
       )
     ).one[BSONDocument] map { _ flatMap extractPgnMoves }
 
-  def associatePgn(ids: Seq[ID]): Fu[Map[String, PgnMoves]] =
-    gameTube.coll.find($select byIds ids)
-      .cursor[BSONDocument]()
-      .collect[List]() map2 { (obj: BSONDocument) =>
-        extractPgnMoves(obj) flatMap { moves =>
-          obj.getAs[String]("_id") map (_ -> moves)
-        }
-      } map (_.flatten.toMap)
-
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
     $find.one(Json.obj(
       F.playerUids -> Json.obj("$all" -> List(u1, u2)),
@@ -409,7 +399,6 @@ object GameRepo {
     ).one[BSONDocument] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
 
   def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
-    val col = gameTube.coll
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
       Descending,
       GroupField,
@@ -420,7 +409,7 @@ object GameRepo {
       Unwind
     }
 
-    col.aggregate(Match(BSONDocument(
+    gameTube.coll.aggregate(Match(BSONDocument(
       F.createdAt -> BSONDocument("$gt" -> since),
       F.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
       s"${F.playerUids}.0" -> BSONDocument("$exists" -> true)

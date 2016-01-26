@@ -2,8 +2,8 @@
 
 <div class="team-left">
   <section class="infos">
-  <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
-  <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
+    <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
+    <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
   </section>
   <h2>@trans.teamBestPlayers()</h2>
   <ol class="userlist best_players">
@@ -39,6 +39,12 @@
     </form>
     }
     }
+    }
+    @if(isGranted(_.CloseTeam)) {
+    <form class="inline" method="post" action="@routes.Team.close(t.id)">
+      <button data-icon="q" class="submit text button thin confirm" type="submit"
+        title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
+    </form>
     }
   </div>
   <div class="forum">

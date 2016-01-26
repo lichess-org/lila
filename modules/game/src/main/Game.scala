@@ -1,10 +1,10 @@
 package lila.game
 
 import chess.Color.{ White, Black }
-import chess.format.UciMove
+import chess.format.Uci
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.variant.Variant
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
+import chess.variant.{ Variant, Crazyhouse }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
 
@@ -29,6 +29,7 @@ case class Game(
     binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
+    crazyData: Option[Crazyhouse.Data] = None,
     next: Option[String] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
@@ -131,7 +132,7 @@ case class Game(
     val pieces = BinaryFormat.piece.read(binaryPieces, variant)
 
     ChessGame(
-      board = Board(pieces, toChessHistory, variant),
+      board = Board(pieces, toChessHistory, variant, crazyData),
       player = Color(0 == turns % 2),
       clock = clock,
       turns = turns,
@@ -141,7 +142,7 @@ case class Game(
 
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove map {
-      case (orig, dest) => UciMove(orig, dest)
+      case (orig, dest) => Uci.Move(orig, dest)
     },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
@@ -149,7 +150,7 @@ case class Game(
 
   def update(
     game: ChessGame,
-    move: Move,
+    moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     lag: Option[FiniteDuration] = None): Progress = {
     val (history, situation) = (game.board.history, game.situation)
@@ -157,7 +158,7 @@ case class Game(
     def copyPlayer(player: Player) = player.copy(
       blurs = math.min(
         playerMoves(player.color),
-        player.blurs + (blur && move.color == player.color).fold(1, 0))
+        player.blurs + (blur && moveOrDrop.fold(_.color, _.color) == player.color).fold(1, 0))
     )
 
     val updated = copy(
@@ -168,6 +169,7 @@ case class Game(
       turns = game.turns,
       positionHashes = history.positionHashes,
       checkCount = history.checkCount,
+      crazyData = situation.board.crazyData,
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove.map(_.origDest),
@@ -196,7 +198,10 @@ case class Game(
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val events = Event.Move(move, situation, state, clockEvent) ::
+    val events = moveOrDrop.fold(
+      Event.Move(_, situation, state, clockEvent, updated.crazyData),
+      Event.Drop(_, situation, state, clockEvent, updated.crazyData)
+    ) ::
       {
         // abstraction leak, I know.
         (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
@@ -539,6 +544,7 @@ object Game {
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,
+    crazyData = (variant == Crazyhouse) option Crazyhouse.Data.init,
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
@@ -572,6 +578,7 @@ object Game {
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
+    val crazyData = "chd"
     val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
@@ -604,7 +611,7 @@ object CastleLastMoveTime {
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
+  private[game] implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
     def read(bin: BSONBinary) = BinaryFormat.castleLastMoveTime read {
       ByteArrayBSONHandler read bin
     }

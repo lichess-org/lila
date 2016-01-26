@@ -115,5 +115,5 @@ $(function() {
 
   setTimeout(function() {
     loading = false;
-  }, 5000);
+  }, 10000);
 });

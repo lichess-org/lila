@@ -31,20 +31,23 @@ case class Schedule(
 
 object Schedule {
 
-  sealed abstract class Freq(val id: Int) {
+  sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
+
     val name = toString.toLowerCase
+
+    def compare(other: Freq) = importance compare other.importance
   }
   object Freq {
-    case object Hourly extends Freq(10)
-    case object Daily extends Freq(20)
-    case object Eastern extends Freq(30)
-    case object Weekly extends Freq(40)
-    case object Monthly extends Freq(50)
-    case object Marathon extends Freq(60)
-    case object ExperimentalMarathon extends Freq(61) { // for DB BC
+    case object Hourly extends Freq(10, 10)
+    case object Daily extends Freq(20, 20)
+    case object Eastern extends Freq(30, 15)
+    case object Weekly extends Freq(40, 40)
+    case object Monthly extends Freq(50, 50)
+    case object Marathon extends Freq(60, 60)
+    case object ExperimentalMarathon extends Freq(61, 55) { // for DB BC
       override val name = "Experimental Marathon"
     }
-    case object Unique extends Freq(90)
+    case object Unique extends Freq(90, 59)
     val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Unique)
     def apply(name: String) = all find (_.name == name)
     def byId(id: Int) = all find (_.id == id)
@@ -91,14 +94,15 @@ object Schedule {
 
       case (Daily | Eastern, HyperBullet | Bullet, _) => 60
       case (Daily | Eastern, SuperBlitz, _)           => 90
-      case (Daily | Eastern, Blitz, Standard)         => 90
+      case (Daily | Eastern, Blitz, Standard)         => 120
+      case (Daily | Eastern, Classical, _)            => 150
+
+      case (Daily | Eastern, Blitz, Crazyhouse)       => 120
       case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
-      case (Daily | Eastern, Classical, _)            => 60 * 2
 
       case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
       case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
-      case (Weekly, Blitz, Standard)                  => 60 * 3
-      case (Weekly, Blitz, _)                         => 60 * 2 // variant weekly is shorter
+      case (Weekly, Blitz, _)                         => 60 * 3
       case (Weekly, Classical, _)                     => 60 * 4
 
       case (Monthly, HyperBullet | Bullet, _)         => 60 * 3

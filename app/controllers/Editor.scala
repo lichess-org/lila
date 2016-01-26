@@ -33,9 +33,10 @@ object Editor extends LilaController {
 
   def game(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
-      Redirect(routes.Editor.load(
-        get("fen") | (chess.format.Forsyth >> game.toChess)
-      ))
+      Redirect {
+        if (game.playable) routes.Round.watcher(game.id, "white")
+        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.toChess))
+      }
     }
   }
 }

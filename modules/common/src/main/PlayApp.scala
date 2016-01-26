@@ -15,6 +15,9 @@ object PlayApp {
   def startedSinceMinutes(minutes: Int) =
     startedAt.isBefore(DateTime.now minusMinutes minutes)
 
+  def startedSinceSeconds(seconds: Int) =
+    startedAt.isBefore(DateTime.now minusSeconds seconds)
+
   def loadConfig: Config = withApp(_.configuration.underlying)
 
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix

@@ -6,7 +6,7 @@ import lila.memo.MixedCache
 private[bookmark] final class Cached {
 
   private[bookmark] val gameIdsCache = MixedCache[String, Set[String]](
-    (userId: String) => BookmarkRepo gameIdsByUserId userId map (_.toSet),
+    BookmarkRepo.gameIdsByUserId,
     timeToLive = 1 day,
     default = _ => Set.empty)
 

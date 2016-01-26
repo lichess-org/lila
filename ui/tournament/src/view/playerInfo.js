@@ -16,7 +16,7 @@ function result(win, stat) {
 
 function playerTitle(player) {
   return m('h2', [
-    player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', player.rank + '. '),
+    m('span.rank', player.rank + '. '),
     util.player(player)
   ]);
 }
@@ -32,7 +32,7 @@ module.exports = function(ctrl) {
   var avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : null;
-  return m('div.player', {
+  return m('div.box.player', {
     config: function(el, isUpdate) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }
@@ -60,7 +60,12 @@ module.exports = function(ctrl) {
       return m('tr', {
         key: p.id,
         'data-href': '/' + p.id + '/' + p.color,
-        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : ''))
+        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')),
+        config: function(el, isUpdate, ctx) {
+          if (!isUpdate) ctx.onunload = function() {
+            $.powerTip.destroy(el);
+          };
+        }
       }, [
         m('th', Math.max(nb.game, pairingsLen) - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),

@@ -43,10 +43,10 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
         Env.donation.isDonor(user.id) zip
-        (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
-        (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
+        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) map {
           case (((((pov, donor), blocked), crosstable), followable), relation) =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
@@ -102,12 +102,12 @@ object User extends LilaController {
       filter = filters.current,
       me = ctx.me,
       page = page)(ctx.body)
-    relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
+    relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
-      relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
+      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-    blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
+    blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
@@ -130,16 +130,7 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached top10Perf PerfType.Bullet.key
-      blitz ← env.cached top10Perf PerfType.Blitz.key
-      classical ← env.cached top10Perf PerfType.Classical.key
-      chess960 ← env.cached top10Perf PerfType.Chess960.key
-      kingOfTheHill ← env.cached top10Perf PerfType.KingOfTheHill.key
-      threeCheck ← env.cached top10Perf PerfType.ThreeCheck.key
-      antichess <- env.cached top10Perf PerfType.Antichess.key
-      atomic <- env.cached top10Perf PerfType.Atomic.key
-      horde <- env.cached top10Perf PerfType.Horde.key
-      racingKings <- env.cached top10Perf PerfType.RacingKings.key
+      leaderboards <- env.cached.leaderboards
       nbAllTime ← env.cached topNbGame nb
       nbDay ← Env.game.cached activePlayerUidsDay nb map {
         _ flatMap { pair =>
@@ -152,16 +143,7 @@ object User extends LilaController {
         html = fuccess(Ok(html.user.list(
           tourneyWinners = tourneyWinners,
           online = online,
-          bullet = bullet,
-          blitz = blitz,
-          classical = classical,
-          chess960 = chess960,
-          kingOfTheHill = kingOfTheHill,
-          threeCheck = threeCheck,
-          antichess = antichess,
-          atomic = atomic,
-          horde = horde,
-          racingKings = racingKings,
+          leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
@@ -174,15 +156,17 @@ object User extends LilaController {
                 l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
           }
           Ok(Json.obj(
-            "bullet" -> bullet,
-            "blitz" -> blitz,
-            "classical" -> classical,
-            "chess960" -> chess960,
-            "kingOfTheHill" -> kingOfTheHill,
-            "threeCheck" -> threeCheck,
-            "antichess" -> antichess,
-            "atomic" -> atomic,
-            "horde" -> horde))
+            "bullet" -> leaderboards.bullet,
+            "blitz" -> leaderboards.blitz,
+            "classical" -> leaderboards.classical,
+            "crazyhouse" -> leaderboards.crazyhouse,
+            "chess960" -> leaderboards.chess960,
+            "kingOfTheHill" -> leaderboards.kingOfTheHill,
+            "threeCheck" -> leaderboards.threeCheck,
+            "antichess" -> leaderboards.antichess,
+            "atomic" -> leaderboards.atomic,
+            "horde" -> leaderboards.horde,
+            "racingKings" -> leaderboards.racingKings))
         })
     } yield res
   }
@@ -200,11 +184,10 @@ object User extends LilaController {
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
         (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
-        Env.mod.logApi.userHistory(user.id) zip
-        Env.mod.callNeural(user) flatMap {
-          case ((((email, spy), playerAggregateAssessment), history), neuralResult) =>
+        Env.mod.logApi.userHistory(user.id) flatMap {
+          case ((((email, spy), playerAggregateAssessment), history)) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history, neuralResult)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history)
             }
         }
     }
@@ -228,8 +211,8 @@ object User extends LilaController {
           fuccess(List.fill(50)(true))
         ) flatMap { followables =>
             (ops zip followables).map {
-              case ((u, nb), followable) => ctx.userId ?? { myId =>
-                relationApi.relation(myId, u.id)
+              case ((u, nb), followable) => ctx.userId ?? {
+                relationApi.fetchRelation(_, u.id)
               } map { lila.relation.Related(u, nb, followable, _) }
             }.sequenceFu map { relateds =>
               html.user.opponents(user, relateds)

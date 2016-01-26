@@ -26,7 +26,25 @@ module.exports = function(opts) {
         steps: [{
           title: "Racing Kings",
           content: "This is a game of racing kings. " +
-            'Would you like to check out <a target="_blank" href="http://lichess.org/racing-kings">the rules</a>?',
+            'You might want to check out <a target="_blank" href="http://lichess.org/racing-kings">the rules</a>.',
+          target: "div.game_infos .variant-link",
+          placement: "bottom"
+        }]
+      });
+    });
+    else if (opts.data.game.variant.key === 'crazyhouse' &&
+      lichess.once('round.crazyhouse')) lichess.hopscotch(function() {
+      hopscotch.configure({
+        i18n: {
+          doneBtn: 'OK, got it'
+        }
+      }).startTour({
+        id: "round-crazyhouse",
+        showPrevButton: true,
+        steps: [{
+          title: "Crazyhouse",
+          content: "This is a game of crazyhouse. " +
+            'You might want to check out <a target="_blank" href="http://lichess.org/crazyhouse">the rules</a>.',
           target: "div.game_infos .variant-link",
           placement: "bottom"
         }]

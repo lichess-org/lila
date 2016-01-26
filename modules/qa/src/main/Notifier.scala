@@ -20,7 +20,7 @@ private[qa] final class Notifier(
   private[qa] def createAnswer(q: Question, a: Answer, u: User) {
     val msg = Propagate(QaAnswer(u.id, q.id, q.title, a.id))
     timeline ! (msg toFollowersOf u.id toUser q.userId exceptUser u.id)
-    messenger ! LichessThread(
+    if (u.id != q.userId) messenger ! LichessThread(
       from = sender,
       to = q.userId,
       subject = s"""${u.username} replied to your question""",

@@ -36,6 +36,7 @@ ol.scheduled_tournaments a {
 }
 #tournament .title_tag.starting_in {
   margin-top: 13px;
+  text-align: right;
 }
 #tournament .title_tag .shy {
   line-height: 20px;
@@ -132,7 +133,7 @@ ol.scheduled_tournaments a {
 }
 #tournament div.tournament_show {
   width: 525px;
-  min-height: 600px;
+  min-height: 480px;
 }
 #tournament div.tournament_show div.game_list {
   margin: 0 0 0 15px;
@@ -225,6 +226,9 @@ ol.scheduled_tournaments a {
 }
 #tournament table.standing .player_rank {
   margin-left: 10px;
+}
+#tournament table.standing td:first-child {
+  padding: 0.8em 0.6em;
 }
 #tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
@@ -354,9 +358,41 @@ ol.scheduled_tournaments a {
   position: relative;
   float: right;
   width: 252px;
-  border: 1px solid #ccc;
   text-align: center;
   transition: 0.13s;
+}
+#tournament_side .featured {
+  margin-bottom: 10px;
+  line-height: 0;
+}
+#tournament_side .featured .vstext {
+  height: 22px;
+  line-height: 22px;
+  border-width: 1px 1px 0 0;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+}
+#tournament_side .featured .vstext.bottom {
+  border-width: 0 1px 1px 0;
+}
+#tournament_side .featured .vstext strong {
+  display: inline-block;
+  height: 22px;
+  width: 12.5%;
+  text-align: center;
+  background: #ccc;
+  margin-right: 10px;
+}
+#tournament_side .box {
+  border: 1px solid #ccc;
+}
+#tournament_side .cg-board-wrap {
+  width: 252px;
+  height: 252px;
+}
+#tournament_side .vstext {
+  width: 240px;
 }
 #tournament_side .scroll-shadow-soft {
   max-height: 510px;
@@ -591,6 +627,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.user-created {
   background-color: #009E73;
+  white-space: nowrap;
 }
 #tournament_schedule .tournament.hourly {
   background-color: #3D9333;
@@ -607,6 +644,9 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.marathon {
   background-color: #66558C;
+}
+#tournament_schedule .tournament.unique {
+  background-color: #d59120;
 }
 #tournament_schedule .icon {
   float: left;

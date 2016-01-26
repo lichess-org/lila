@@ -18,6 +18,7 @@ final class Env(
     forecastApi: lila.round.ForecastApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
+    getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     gamePgnDump: lila.game.PgnDump,
@@ -53,7 +54,7 @@ final class Env(
         _.flatMap(_.getAs[BSONNumberLike]("version"))
           .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
-      timeToLive = 1 minute,
+      timeToLive = 30.seconds,
       default = Net.AssetVersion)
     def get = cache get true
   }
@@ -100,6 +101,7 @@ final class Env(
       forecastApi = forecastApi,
       analysisApi = analysisApi,
       bookmarkApi = bookmarkApi,
+      getTourAndRanks = getTourAndRanks,
       getSimul = getSimul,
       lightUser = userEnv.lightUser),
     system = system,
@@ -136,6 +138,7 @@ object Env {
     forecastApi = lila.round.Env.current.forecastApi,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
+    getTourAndRanks = lila.tournament.Env.current.tourAndRanks,
     crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,

@@ -26,17 +26,14 @@ final class Env(
   import settings._
 
   lazy val api = new RelationApi(
-    cached = cached,
+    coll = relationColl,
     actor = hub.actor.relation,
     bus = system.lilaBus,
-    getOnlineUserIds = getOnlineUserIds,
     timeline = hub.actor.timeline,
     reporter = hub.actor.report,
     followable = followable,
     maxFollow = MaxFollow,
     maxBlock = MaxBlock)
-
-  private lazy val cached = new Cached
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
@@ -47,7 +44,7 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.once(10 seconds) {
+    scheduler.once(15 seconds) {
       scheduler.message(ActorNotifyFreq) {
         actor -> actorApi.NotifyMovement
       }

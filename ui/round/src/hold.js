@@ -29,7 +29,7 @@ function register(socket, hold) {
   was = set;
 }
 
-function find(el) {
+function find(el, d) {
   try {
     var prev, w, done = false;
     [].forEach.call(el.querySelectorAll('square'), function(n) {
@@ -37,7 +37,7 @@ function find(el) {
       if (!done && prev && w !== prev) {
         if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0') {
           done = true;
-          $.post('/jslog');
+          $.post('/jslog/' + d.game.id + d.player.id);
         }
       }
       prev = w;

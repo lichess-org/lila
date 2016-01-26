@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation], top: List[lila.donation.Donation], progress: lila.donation.Progress)(implicit ctx: Context)
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation], top: List[User.ID], progress: lila.donation.Progress)(implicit ctx: Context)
 
 @payPalVars = {
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -19,8 +19,8 @@
 </div>
 <h2>Top Donors</h2>
 <div class="donors">
-  @top.map { donation =>
-  <div>@userIdLink(donation.userId)</div>
+  @top.map { userId =>
+  <div>@userIdLink(userId.some)</div>
   }
 </div>
 <h2>Recent Donors</h2>

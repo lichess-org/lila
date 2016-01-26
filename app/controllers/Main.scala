@@ -72,7 +72,7 @@ object Main extends LilaController {
   }
 
   def mobile = Open { implicit ctx =>
-    OptionOk(Prismic oneShotBookmark "mobile-apk") {
+    OptionOk(Prismic getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }
   }
@@ -87,12 +87,15 @@ object Main extends LilaController {
       Env.push.unregisterDevices(me)
   }
 
-  def jslog = Open { ctx =>
+  def jslog(id: String) = Open { ctx =>
     val referer = HTTPRequest.referer(ctx.req)
     loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")
     ctx.userId.?? {
       Env.report.api.autoBotReport(_, referer)
     }
+    lila.game.GameRepo pov id map {
+      _ ?? lila.game.GameRepo.setBorderAlert
+    } inject Ok
   }
 
   def notFound(req: RequestHeader): Fu[Result] =

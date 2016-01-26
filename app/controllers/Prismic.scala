@@ -27,14 +27,6 @@ object Prismic {
       case _                                        => routes.Lobby.home.url
     }
 
-  def getBookmark(name: String): Fu[Option[Document]] = prismicApi flatMap { api =>
-    api.bookmarks.get(name) ?? getDocument
-  } recover {
-    case e: Exception =>
-      play.api.Logger("prismic").error(s"bookmark:$name $e")
-      none
-  }
-
   def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>
     api.forms("everything")
       .query(s"""[[:d = at(document.id, "$id")]]""")
@@ -44,9 +36,22 @@ object Prismic {
       }
   }
 
-  def oneShotBookmark(name: String) = fetchPrismicApi(true) flatMap { api =>
-    getBookmark(name) map2 { (doc: io.prismic.Document) =>
+  def getBookmark(name: String) = fetchPrismicApi(true) flatMap { api =>
+    api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
       doc -> makeLinkResolver(api)
     }
+  } recover {
+    case e: Exception =>
+      play.api.Logger("prismic").error(s"bookmark:$name $e")
+      none
+  }
+
+  def getVariant(variant: chess.variant.Variant) = prismicApi flatMap { api =>
+    api.forms("variant")
+      .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
+      .ref(api.master.ref)
+      .submit() map {
+        _.results.headOption map (_ -> makeLinkResolver(api))
+      }
   }
 }

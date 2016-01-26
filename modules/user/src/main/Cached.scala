@@ -34,6 +34,31 @@ final class Cached(
   private implicit val LightPerfBSONHandler = reactivemongo.bson.Macros.handler[LightPerf]
   private implicit val LightCountBSONHandler = reactivemongo.bson.Macros.handler[LightCount]
 
+  def leaderboards: Fu[Perfs.Leaderboards] = for {
+    bullet ← top10Perf(PerfType.Bullet.key)
+    blitz ← top10Perf(PerfType.Blitz.key)
+    classical ← top10Perf(PerfType.Classical.key)
+    chess960 ← top10Perf(PerfType.Chess960.key)
+    kingOfTheHill ← top10Perf(PerfType.KingOfTheHill.key)
+    threeCheck ← top10Perf(PerfType.ThreeCheck.key)
+    antichess <- top10Perf(PerfType.Antichess.key)
+    atomic <- top10Perf(PerfType.Atomic.key)
+    horde <- top10Perf(PerfType.Horde.key)
+    racingKings <- top10Perf(PerfType.RacingKings.key)
+    crazyhouse <- top10Perf(PerfType.Crazyhouse.key)
+  } yield Perfs.Leaderboards(
+    bullet = bullet,
+    blitz = blitz,
+    classical = classical,
+    crazyhouse = crazyhouse,
+    chess960 = chess960,
+    kingOfTheHill = kingOfTheHill,
+    threeCheck = threeCheck,
+    antichess = antichess,
+    atomic = atomic,
+    horde = horde,
+    racingKings = racingKings)
+
   val top10Perf = mongoCache[Perf.Key, List[LightPerf]](
     prefix = "user:top10:perf",
     f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 10) map {

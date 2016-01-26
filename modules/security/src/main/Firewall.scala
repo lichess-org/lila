@@ -84,6 +84,8 @@ final class Firewall(
     def clear { cache.clear }
     def contains(ip: String) = apply map (_ contains strToIp(ip))
     def fetch: Fu[Set[IP]] =
-      $primitive($select.all, "_id")(_.asOpt[String]) map { _.map(strToIp).toSet }
+      firewallTube.coll.distinct("_id") map { res =>
+        lila.db.BSON.asStringSet(res) map strToIp
+      }
   }
 }

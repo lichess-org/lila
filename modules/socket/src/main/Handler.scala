@@ -51,6 +51,19 @@ object Handler {
           }
         }
       }
+      case ("anaDrop", o) => AnaRateLimit(uid) {
+        AnaDrop parse o foreach { anaDrop =>
+          anaDrop.step match {
+            case scalaz.Success(step) =>
+              member push lila.socket.Socket.makeMessage("step", Json.obj(
+                "step" -> step.toJson,
+                "path" -> anaDrop.path
+              ))
+            case scalaz.Failure(err) =>
+              member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
+          }
+        }
+      }
       case ("anaDests", o) => AnaRateLimit(uid) {
         AnaDests parse o match {
           case Some(req) =>

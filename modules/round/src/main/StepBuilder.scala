@@ -29,7 +29,9 @@ object StepBuilder {
             } yield Step.Move(uci, san),
             fen = Forsyth >> g,
             check = g.situation.check,
-            dests = None)
+            dests = None,
+            drops = None,
+            crazyData = g.situation.board.crazyData)
         }
         JsArray(a.fold[Seq[Step]](steps) {
           case (pgn, analysis) => applyAnalysisAdvices(
@@ -86,7 +88,9 @@ object StepBuilder {
             } yield Step.Move(uci, san),
             fen = Forsyth >> g,
             check = g.situation.check,
-            dests = None)
+            dests = None,
+            drops = None,
+            crazyData = g.situation.board.crazyData)
         }
     }
   }

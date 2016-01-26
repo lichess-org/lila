@@ -17,7 +17,7 @@ function renderMove(step, curPly, orEmpty) {
     attrs: step.ply !== curPly ? {} : {
       class: 'active'
     },
-    children: [step.san]
+    children: [step.san[0] === 'P' ? step.san.slice(1) : step.san]
   } : (orEmpty ? emptyMove : null)
 }
 
