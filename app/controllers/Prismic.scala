@@ -27,7 +27,7 @@ object Prismic {
       case _                                        => routes.Lobby.home.url
     }
 
-  def getBookmark(name: String): Fu[Option[Document]] = prismicApi flatMap { api =>
+  def getBookmark(api: PrismicApi, name: String): Fu[Option[Document]] = {
     api.bookmarks.get(name) ?? getDocument
   } recover {
     case e: Exception =>
@@ -45,7 +45,7 @@ object Prismic {
   }
 
   def oneShotBookmark(name: String) = fetchPrismicApi(true) flatMap { api =>
-    getBookmark(name) map2 { (doc: io.prismic.Document) =>
+    getBookmark(api, name) map2 { (doc: io.prismic.Document) =>
       doc -> makeLinkResolver(api)
     }
   }
