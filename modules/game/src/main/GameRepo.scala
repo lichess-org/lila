@@ -82,6 +82,7 @@ object GameRepo {
       ++ Query.user(userId)
       ++ Query.analysed(true)
       ++ Query.turnsMoreThan(20)
+      ++ Query.turnsLessThan(100)
       ++ Query.clock(true)) sort ($sort asc F.createdAt), nb
   )
 

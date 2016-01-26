@@ -6,12 +6,30 @@ object Accuracy {
 
   def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
 
+  private val getEval: PartialFunction[(Option[Score], Option[Int]), Int] = {
+    case (Some(s1), _) => s1.ceiled.centipawns
+    case (_, Some(m1)) => withSignOf(Score.CEILING, m1)
+  }
+
   private val makeDiff: PartialFunction[(Option[Score], Option[Int], Option[Score], Option[Int]), Int] = {
     case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns
     case (Some(s1), _, _, Some(m2)) => withSignOf(Score.CEILING, m2) - s1.ceiled.centipawns
     case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Score.CEILING, m1)
     case (_, Some(m1), _, Some(m2)) => withSignOf(Score.CEILING, m2) - withSignOf(Score.CEILING, m1)
   }
+
+  // get the eval of the position before the player's turn
+  def evalsList(pov: Pov, analysis: Analysis): List[Int] =
+    (pov.color == pov.game.startColor).fold(
+      Info.start(pov.game.startedAtTurn) :: analysis.infos,
+      analysis.infos
+    ).grouped(2).foldLeft(List[Int]()) {
+        case (list, List(i1, i2)) =>
+          getEval.lift(i1.score, i1.mate).fold(list) { eval =>
+            (if (pov.color.white) -eval else eval) :: list
+          }
+        case (list, _) => list
+      }.reverse
 
   def diffsList(pov: Pov, analysis: Analysis): List[Int] =
     (pov.color == pov.game.startColor).fold(

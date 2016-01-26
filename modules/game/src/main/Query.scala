@@ -41,6 +41,8 @@ object Query {
 
   def turnsMoreThan(length: Int): JsObject = Json.obj(F.turns -> $gte(length))
 
+  def turnsLessThan(length: Int): JsObject = Json.obj(F.turns -> $lte(length))
+
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
