@@ -1,6 +1,7 @@
 div.doc_box h2.headline {
   font-size: 1.2em;
   font-style: italic;
+  font-weight: bold;
   margin-bottom: 30px;
 }
 div.doc_box div[data-oembed] {
