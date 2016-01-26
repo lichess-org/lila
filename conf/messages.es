@@ -1,14 +1,14 @@
 playWithAFriend=Jugar con un(a) amigo(a)
 playWithTheMachine=Jugar contra el ordenador
-toInviteSomeoneToPlayGiveThisUrl=Para invitar a alguien a jugar, pasa este enlace
+toInviteSomeoneToPlayGiveThisUrl=Para invitar a alguien a jugar, comparte este enlace
 gameOver=Fin del juego
 waitingForOpponent=Esperando oponente
 waiting=Esperando
 yourTurn=Tu turno
 aiNameLevelAiLevel=%s nivel %s
 level=Nivel
-toggleTheChat=Mostrar/Ocultar el chat
-toggleSound=Activar/Desactivar el sonido
+toggleTheChat=Mostrar/Ocultar chat
+toggleSound=Activar/Desactivar sonido
 chat=Chat
 resign=Rendirse
 checkmate=Jaque mate
