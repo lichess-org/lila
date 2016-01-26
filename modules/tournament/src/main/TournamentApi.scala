@@ -86,10 +86,14 @@ private[tournament] final class TournamentApi(
   private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? PairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
-        val candidates = pairings flatMap RankedPairing(ranking)
-        if (curOption.exists(_.pairing.playing)) funit
-        else candidates.sortBy(_.bestRank).headOption ?? { best =>
-          TournamentRepo.setFeaturedGameId(tour.id, best.pairing.gameId)
+        val bestCandidate = pairings.flatMap(RankedPairing(ranking)).sortBy(_.bestRank).headOption
+        def select(rp: RankedPairing) = TournamentRepo.setFeaturedGameId(tour.id, rp.pairing.gameId)
+        curOption.filter(_.pairing.playing) match {
+          case Some(current) =>
+            if (current.pairing.playing)
+              bestCandidate.filter(_.bestRank < current.bestRank) ?? select
+            else bestCandidate ?? select
+          case None => bestCandidate ?? select
         }
       }
 
