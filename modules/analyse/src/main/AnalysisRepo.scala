@@ -6,6 +6,7 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
 import lila.db.api._
 import lila.db.Implicits._
+import lila.game.Game
 import tube.analysisTube
 
 object AnalysisRepo {
@@ -43,6 +44,13 @@ object AnalysisRepo {
   def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     $find optionsByOrderedIds ids map2 { (a: Option[Analysis]) =>
       a.filter(_.done)
+    }
+
+  def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
+    doneByIds(games.map(_.id)) map { as =>
+      games zip as collect {
+        case (game, Some(analysis)) => game -> analysis
+      }
     }
 
   def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
