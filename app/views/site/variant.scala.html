@@ -8,8 +8,13 @@
 }
 }
 
+@moreCss = {
+@cssTag("doc.css")
+@cssTag("variant.css")
+}
+
 @base.layout(
-moreCss = cssTag("variant.css"),
+moreCss = moreCss,
 menu = menu.some,
 title = s"${variant.name} • ${variant.title}") {
 
