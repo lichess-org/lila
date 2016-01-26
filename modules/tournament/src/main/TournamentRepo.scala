@@ -1,8 +1,8 @@
 package lila.tournament
 
+import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONArray, BSONInteger }
-import chess.variant.Variant
 
 import BSONHandlers._
 import lila.common.paginator.Paginator
@@ -193,7 +193,8 @@ object TournamentRepo {
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
-  ).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](Schedule.Speed.mostPopular.size.some)
+  ).sort(BSONDocument("startsAt" -> -1))
+    .toList[Tournament](Schedule.Speed.mostPopular.size.some)
 
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] = coll.find(
     finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++

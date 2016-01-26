@@ -29,7 +29,7 @@ final class Winners(
   }
 
   private def toursToWinners(tours: List[Tournament]): Fu[List[Winner]] =
-    tours.sortBy(_.minutes).map { tour =>
+    tours.sortBy(_.schedule.map(_.freq)).reverse.map { tour =>
       PlayerRepo winner tour.id flatMap {
         case Some(player) => UserRepo isEngine player.userId map { engine =>
           !engine option Winner(tour.id, tour.name, player.userId)

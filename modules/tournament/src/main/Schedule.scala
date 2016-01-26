@@ -31,20 +31,23 @@ case class Schedule(
 
 object Schedule {
 
-  sealed abstract class Freq(val id: Int) {
+  sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
+
     val name = toString.toLowerCase
+
+    def compare(other: Freq) = importance compare other.importance
   }
   object Freq {
-    case object Hourly extends Freq(10)
-    case object Daily extends Freq(20)
-    case object Eastern extends Freq(30)
-    case object Weekly extends Freq(40)
-    case object Monthly extends Freq(50)
-    case object Marathon extends Freq(60)
-    case object ExperimentalMarathon extends Freq(61) { // for DB BC
+    case object Hourly extends Freq(10, 10)
+    case object Daily extends Freq(20, 20)
+    case object Eastern extends Freq(30, 15)
+    case object Weekly extends Freq(40, 40)
+    case object Monthly extends Freq(50, 50)
+    case object Marathon extends Freq(60, 60)
+    case object ExperimentalMarathon extends Freq(61, 55) { // for DB BC
       override val name = "Experimental Marathon"
     }
-    case object Unique extends Freq(90)
+    case object Unique extends Freq(90, 59)
     val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Unique)
     def apply(name: String) = all find (_.name == name)
     def byId(id: Int) = all find (_.id == id)
