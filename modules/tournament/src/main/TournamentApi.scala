@@ -88,7 +88,7 @@ private[tournament] final class TournamentApi(
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         val candidates = pairings flatMap RankedPairing(ranking)
         if (curOption.exists(_.pairing.playing)) funit
-        else candidates.sortBy(-_.bestRank).headOption ?? { best =>
+        else candidates.sortBy(_.bestRank).headOption ?? { best =>
           TournamentRepo.setFeaturedGameId(tour.id, best.pairing.gameId)
         }
       }
