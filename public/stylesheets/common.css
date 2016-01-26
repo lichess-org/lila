@@ -909,6 +909,10 @@ div.side form.search input {
   padding: 8px 0 8px 8px;
   display: block;
   width: 203px;
+  transition: background 0.13s;
+}
+#site_header div.side_menu a:hover {
+  background: rgba(255,255,255,0.5);
 }
 #site_header div.side_menu a.active {
   background: white;
