@@ -1,6 +1,7 @@
 div.doc_box h2.headline {
   font-size: 1.2em;
   font-style: italic;
+  margin-bottom: 30px;
 }
 div.doc_box .body {
   font-size: 1.2em;
@@ -24,6 +25,9 @@ div.doc_box .body h2 {
 }
 div.doc_box .body p {
   margin: 1em 0;
+}
+div.doc_box .body iframe {
+  width: 100%;
 }
 div.doc_box .body ul li {
   list-style: disc inside;

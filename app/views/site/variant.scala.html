@@ -1,7 +1,16 @@
 @(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, variant: chess.variant.Variant, perfType: lila.rating.PerfType)(implicit ctx: Context)
 
-@site.layout(
+@menu = {
+@lila.rating.PerfType.variants.map { pt =>
+<a class="@perfType.key.active(pt.key) text" href="@routes.Page.variant(pt.key)" data-icon="@pt.iconChar">
+  @pt.name
+</a>
+}
+}
+
+@base.layout(
 moreCss = cssTag("variant.css"),
+menu = menu.some,
 title = s"${variant.name} • ${variant.title}") {
 
 <div class="content_box small_box doc_box">

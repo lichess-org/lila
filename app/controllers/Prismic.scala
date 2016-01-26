@@ -49,13 +49,9 @@ object Prismic {
   def getVariant(variant: chess.variant.Variant) = prismicApi flatMap { api =>
     api.forms("variant")
       .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
-      .ref("Vqc_ySEAADcAVYS3")
+      .ref(api.master.ref)
       .submit() map {
         _.results.headOption map (_ -> makeLinkResolver(api))
       }
-  } recover {
-    case e: Exception =>
-      play.api.Logger("prismic").error(s"variant:${variant.key} $e")
-      none
   }
 }
