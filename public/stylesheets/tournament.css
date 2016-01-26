@@ -133,7 +133,7 @@ ol.scheduled_tournaments a {
 }
 #tournament div.tournament_show {
   width: 525px;
-  min-height: 600px;
+  min-height: 480px;
 }
 #tournament div.tournament_show div.game_list {
   margin: 0 0 0 15px;
