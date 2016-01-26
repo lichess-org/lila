@@ -106,7 +106,7 @@ module.exports = {
     ]);
   },
   submitMove: function(ctrl) {
-    if (ctrl.vm.moveToSubmit) return [
+    if (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) return [
       m('a.button.text[data-icon=E]', {
         onclick: partial(ctrl.submitMove, true),
       }, 'Submit move'),

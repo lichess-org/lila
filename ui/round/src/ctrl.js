@@ -34,6 +34,7 @@ module.exports = function(opts) {
     redirecting: false,
     replayHash: '',
     moveToSubmit: null,
+    dropToSubmit: null,
     buttonFeedback: null,
     goneBerserk: {},
     resignConfirm: false,
@@ -58,9 +59,9 @@ module.exports = function(opts) {
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
-  var onUserNewPiece = function(role, key) {
+  var onUserNewPiece = function(role, key, meta) {
     if (!this.replaying() && crazyValid.drop(this.chessground, this.data, role, key))
-      this.sendNewPiece(role, key);
+      this.sendNewPiece(role, key, meta.predrop);
     else this.jump(this.vm.ply);
   }.bind(this);
 
@@ -159,14 +160,17 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.sendNewPiece = function(role, key) {
+  this.sendNewPiece = function(role, key, isPredrop) {
     var drop = {
       role: role,
       pos: key
     };
     if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
     this.resign(false);
-    this.socket.send('drop', drop, {
+    if (this.userId && this.data.pref.submitMove && !isPredrop) {
+      this.vm.dropToSubmit = drop;
+      m.redraw();
+    } else this.socket.send('drop', drop, {
       ackable: true
     });
   }.bind(this);
@@ -369,13 +373,19 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.submitMove = function(v) {
-    if (v && this.vm.moveToSubmit) {
-      this.socket.send('move', this.vm.moveToSubmit, {
-        ackable: true
-      });
+    if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
+      if (this.vm.moveToSubmit)
+        this.socket.send('move', this.vm.moveToSubmit, {
+          ackable: true
+        });
+      else if (this.vm.dropToSubmit)
+        this.socket.send('drop', this.vm.dropToSubmit, {
+          ackable: true
+        });
       $.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.vm.moveToSubmit = null;
+    this.vm.dropToSubmit = null;
     this.vm.buttonFeedback = setTimeout(function() {
       this.vm.buttonFeedback = null;
       m.redraw();
