@@ -1041,7 +1041,8 @@ body.no-select #chat li {
   padding: 3px 5px;
 }
 #chat.hidden ol.messages,
-#chat.hidden form {
+#chat.hidden form,
+#chat.hidden .presets {
   display: none;
 }
 div.game_tournament {
