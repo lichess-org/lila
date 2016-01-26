@@ -911,6 +911,9 @@ div.side form.search input {
   width: 203px;
   transition: background 0.13s;
 }
+#site_header div.side_menu a::before {
+  opacity: 0.8;
+}
 #site_header div.side_menu a:hover {
   background: rgba(255,255,255,0.5);
 }
