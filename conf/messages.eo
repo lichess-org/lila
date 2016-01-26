@@ -500,3 +500,7 @@ tournamentNotFound=Konkurso netrovita
 tournamentDoesNotExist=Konkurso ne ekzistas
 tournamentMayHaveBeenCanceled=Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.
 returnToTournamentsHomepage=Reen al la hejmpaĝo de la konkursoj
+nbPerfTypePlayersThisMonth=%s %s ludantoj ĉi tiu monato.
+yourPerfTypeRatingisRating=Via %s taksado estas %s.
+youAreBetterThanPercentOfPerfTypePlayers=Vi estas pli bona ol %s de %s ludantoj.
+youDoNotHaveAnEstablishedPerfTypeRating=Vi ne havas starigitan taksadon je %s.
