@@ -90,6 +90,7 @@ nbDays=%s päivää
 nbHours=%s tuntia
 time=Aika
 rating=Vahvuusluku
+ratingStats=Vahvuuslukutilastot
 username=Käyttäjätunnus
 password=Salasana
 haveAnAccount=Onko sinulla jo tili?
