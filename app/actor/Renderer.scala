@@ -21,12 +21,6 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.RemindTournament(tournament, _) =>
       sender ! spaceless(V.tournament.reminder(tournament))
 
-    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) =>
-      val replyTo = sender
-      (GameRepo game gameId) zip (UserRepo named from) onSuccess {
-        case (Some(game), Some(user)) => replyTo ! spaceless(V.setup.challengeNotification(game, user))
-      }
-
     case lila.hub.actorApi.RemindDeployPre =>
       sender ! spaceless(V.notification.deploy("pre"))
     case lila.hub.actorApi.RemindDeployPost =>

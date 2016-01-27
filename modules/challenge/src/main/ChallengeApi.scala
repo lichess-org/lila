@@ -12,18 +12,18 @@ final class ChallengeApi(
 
   import BSONHandlers._
 
-  def findByChallengerId(userId: String): Fu[List[Challenge]] =
-    coll.find(BSONDocument("challenger.id" -> userId))
-      .sort(BSONDocument("createdAt" -> -1))
-      .cursor[Challenge]().collect[List]()
-
-  def insert(c: Challenge) =
+  def insert(c: Challenge): Funit =
     coll.insert(c) >> c.challenger.right.toOption.?? { challenger =>
       findByChallengerId(challenger.id).flatMap {
         case challenges if challenges.size <= maxPerUser => funit
         case challenges                                  => challenges.drop(maxPerUser).map(remove).sequenceFu.void
       }
     }
+
+  def findByChallengerId(userId: String): Fu[List[Challenge]] =
+    coll.find(BSONDocument("challenger.id" -> userId))
+      .sort(BSONDocument("createdAt" -> -1))
+      .cursor[Challenge]().collect[List]()
 
   def findByDestId(userId: String): Fu[List[Challenge]] =
     coll.find(BSONDocument("destUserId" -> userId))

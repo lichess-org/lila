@@ -161,8 +161,6 @@ private[round] final class Socket(
 
     case AnalysisAvailable                           => notifyAll("analysisAvailable")
 
-    case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined")
-
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)

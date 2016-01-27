@@ -1,0 +1,33 @@
+{
+  "name": "challenge",
+  "version": "1.0.0",
+  "description": "lichess.org chess performance statistics",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess",
+    "challenge"
+  ],
+  "author": "ornicar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "devDependencies": {
+    "browserify": "~9.0.8",
+    "gulp": "~3.9.0",
+    "gulp-streamify": "~0.0.5",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.4",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.1.1"
+  },
+  "dependencies": {
+    "mithril": "github:ornicar/mithril.js#v1.0.0"
+  }
+}

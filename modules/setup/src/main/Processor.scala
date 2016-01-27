@@ -11,7 +11,6 @@ import lila.i18n.I18nDomain
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
-import lila.challenge.Challenge
 import makeTimeout.short
 import tube.{ userConfigTube, anonConfigTube }
 

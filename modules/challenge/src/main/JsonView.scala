@@ -6,6 +6,10 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
 
   import Challenge._
 
+  def all(in: List[Challenge], out: List[Challenge]) = Json.obj(
+    "in" -> in.map(apply),
+    "out" -> out.map(apply))
+
   def apply(c: Challenge) = Json.obj(
     "id" -> c.id,
     "challenger" -> c.challenger.right.toOption.map { u =>
