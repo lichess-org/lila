@@ -59,7 +59,7 @@ final class JsonView(
     "featured" -> data.featured,
     "podium" -> data.podium,
     "playerInfo" -> playerInfoJson,
-    "quote" -> lila.quote.Quote.one(tour.id)
+    "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id))
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
