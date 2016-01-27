@@ -170,10 +170,11 @@ final class JsonView(
         "rating" -> rp.player.rating,
         "ratingDiff" -> rp.player.ratingDiff)
     }
+    val orientation = featured.game.playerByUserId(featured.player1.player.userId).fold(featured.game.firstColor)(_.color)
     Json.obj(
       "id" -> featured.game.id,
       "fen" -> (chess.format.Forsyth exportBoard featured.game.toChess.board),
-      "color" -> featured.game.firstColor.name,
+      "color" -> orientation.name,
       "lastMove" -> ~featured.game.castleLastMoveTime.lastMoveString,
       "player1" -> playerJson(featured.player1),
       "player2" -> playerJson(featured.player2))
