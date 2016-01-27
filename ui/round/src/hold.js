@@ -35,7 +35,7 @@ function find(el, d) {
     [].forEach.call(el.querySelectorAll('square'), function(n) {
       w = n.offsetWidth;
       if (!done && prev && w !== prev) {
-        if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0') {
+        if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0' && !n.classList.contains('last-move')) {
           done = true;
           $.post('/jslog/' + d.game.id + d.player.id);
         }
