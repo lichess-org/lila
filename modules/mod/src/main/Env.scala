@@ -26,6 +26,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
     val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
+    val NeuralApiEndpoint = config getString "neural.api.endpoint"
   }
   import settings._
 
@@ -63,6 +64,12 @@ final class Env(
   lazy val search = new UserSearch(
     securityApi = securityApi,
     emailAddress = emailAddress)
+
+  private val neuralApi = new NeuralApi(
+    endpoint = NeuralApiEndpoint,
+    assessApi = assessApi)
+ 
+  def callNeural = neuralApi.apply _
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
