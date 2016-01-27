@@ -11,12 +11,12 @@ import lila.i18n.I18nDomain
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
+import lila.challenge.Challenge
 import makeTimeout.short
 import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
     lobby: ActorSelection,
-    friendConfigMemo: FriendConfigMemo,
     router: ActorSelection,
     onStart: String => Unit,
     aiPlay: Game => Fu[Progress]) {
@@ -33,13 +33,6 @@ private[setup] final class Processor(
         fuccess(pov),
         aiPlay(pov.game) map { progress => pov withGame progress.game }
       )
-  }
-
-  def friend(config: FriendConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = blamePov(config.pov, ctx.me)
-    saveConfig(_ withFriend config) >>
-      (GameRepo.insertDenormalized(pov.game, ratedCheck = false)) >>-
-      friendConfigMemo.set(pov.game.id, config) inject pov
   }
 
   private def blamePov(pov: Pov, user: Option[User]): Pov = pov withGame {

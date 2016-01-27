@@ -2,16 +2,18 @@ package lila.challenge
 
 import play.api.libs.json._
 
-object JsonView {
+final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
 
   import Challenge._
 
   def apply(c: Challenge) = Json.obj(
     "id" -> c.id,
-    "challenger" -> c.challenger.map { u =>
+    "challenger" -> c.challenger.right.toOption.map { u =>
+      val light = getLightUser(u.id)
       Json.obj(
         "id" -> u.id,
-        "name" -> u.name,
+        "name" -> light.fold(u.id)(_.name),
+        "title" -> light.map(_.title),
         "rating" -> u.rating
       )
     },

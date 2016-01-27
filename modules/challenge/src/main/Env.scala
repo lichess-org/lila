@@ -9,6 +9,8 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     system: ActorSystem,
+    onStart: String => Unit,
+    lightUser: String => Option[lila.common.LightUser],
     db: lila.db.Env) {
 
   private val settings = new {
@@ -21,6 +23,10 @@ final class Env(
   lazy val api = new ChallengeApi(
     coll = db(CollectionChallenge),
     maxPerUser = MaxPerUser)
+
+  lazy val joiner = new Joiner(onStart = onStart)
+
+  lazy val jsonView = new JsonView(lightUser)
 }
 
 object Env {
@@ -28,5 +34,7 @@ object Env {
   lazy val current: Env = "challenge" boot new Env(
     config = lila.common.PlayApp loadConfig "challenge",
     system = lila.common.PlayApp.system,
+    onStart = lila.game.Env.current.onStart,
+    lightUser = lila.user.Env.current.lightUser,
     db = lila.db.Env.current)
 }

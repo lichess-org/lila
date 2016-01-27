@@ -46,8 +46,17 @@ private object BSONHandlers {
     def read(b: BSONBoolean) = Mode(b.value)
     def write(m: Mode) = BSONBoolean(m.rated)
   }
+  implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {
+    def reads(r: Reader) = (r.strO("id") |@| r.intO("rating")) {
+      case (id, rating) => Right(Registered(id, rating))
+    } orElse r.strO("secret").map { secret =>
+      Left(Anonymous(secret))
+    } err s"Can't read challenger ${r.debug}"
+    def writes(w: Writer, c: EitherChallenger) = c.fold(
+      a => BSONDocument("secret" -> a.secret),
+      r => BSONDocument("id" -> r.id, "rating" -> r.rating))
+  }
 
-  implicit val challengerBSONHandler = Macros.handler[Challenger]
-  implicit val challengeBSONHandler = Macros.handler[Challenge]
+  implicit val ChallengeBSONHandler = Macros.handler[Challenge]
 }
 

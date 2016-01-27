@@ -13,9 +13,10 @@ case class Challenge(
     timeControl: Challenge.TimeControl,
     mode: Mode,
     color: Challenge.ColorChoice,
-    challenger: Option[Challenge.Challenger],
+    challenger: EitherChallenger,
     destUserId: Option[String],
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    expiresAt: DateTime) {
 
   def id = _id
 
@@ -24,7 +25,8 @@ case class Challenge(
 
 object Challenge {
 
-  private[challenge] case class Challenger(id: String, name: String, rating: Int)
+  case class Registered(id: String, rating: Int)
+  case class Anonymous(secret: String)
 
   sealed trait TimeControl
   object TimeControl {
@@ -62,7 +64,7 @@ object Challenge {
     timeControl: TimeControl,
     rated: Boolean,
     color: String,
-    user: Option[lila.user.User],
+    challenger: Either[String, lila.user.User],
     destUserId: Option[String]): Challenge = new Challenge(
     _id = ornicar.scalalib.Random nextStringUppercase idSize,
     variant = variant,
@@ -73,12 +75,10 @@ object Challenge {
       case "black" => ColorChoice.Black
       case _       => ColorChoice.Random
     },
-    challenger = user.map { u =>
-      Challenger(
-        id = u.id,
-        name = u.username,
-        rating = u.perfs(perfType(variant, timeControl)).intRating)
+    challenger = challenger.left.map(Anonymous.apply).right.map { u =>
+      Registered(u.id, u.perfs(perfType(variant, timeControl)).intRating)
     },
     destUserId = destUserId,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now,
+    expiresAt = DateTime.now plusDays challenger.isLeft.fold(1, 7))
 }

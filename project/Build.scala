@@ -187,7 +187,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val setup = project("setup", Seq(
-    common, db, memo, hub, socket, chess, game, user, lobby, pref, relation, challenge)).settings(
+    common, db, memo, hub, socket, chess, game, user, lobby, pref, relation)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -223,7 +223,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val challenge = project("challenge", Seq(common, db, hub, game)).settings(
+  lazy val challenge = project("challenge", Seq(common, db, hub, setup, game)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

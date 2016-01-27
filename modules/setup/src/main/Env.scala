@@ -30,16 +30,9 @@ final class Env(
 
   lazy val processor = new Processor(
     lobby = hub.actor.lobby,
-    friendConfigMemo = friendConfigMemo,
     router = hub.actor.router,
     onStart = onStart,
     aiPlay = aiPlay)
-
-  lazy val friendJoiner = new FriendJoiner(
-    friendConfigMemo = friendConfigMemo,
-    onStart = onStart)
-
-  lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)

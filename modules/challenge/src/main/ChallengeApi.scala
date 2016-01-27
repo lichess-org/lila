@@ -18,7 +18,7 @@ final class ChallengeApi(
       .cursor[Challenge]().collect[List]()
 
   def insert(c: Challenge) =
-    coll.insert(c) >> c.challenger.?? { challenger =>
+    coll.insert(c) >> c.challenger.right.toOption.?? { challenger =>
       findByChallengerId(challenger.id).flatMap {
         case challenges if challenges.size <= maxPerUser => funit
         case challenges                                  => challenges.drop(maxPerUser).map(remove).sequenceFu.void
