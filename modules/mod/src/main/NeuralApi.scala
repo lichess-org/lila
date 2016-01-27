@@ -17,17 +17,18 @@ private final class NeuralApi(
   import NeuralApi._
 
   def apply(user: User): Fu[Option[Result]] = {
-    val games: Fu[List[Game]] = GameRepo.gamesForAssessment(user.id, 100)
-    val gameIds: Fu[List[String]] = games flatMap { gs => gs flatMap (g => g.id)}
-    val analysis: List[Fu[Option[Analysis]]] = games flatMap {
-      gs => gs map {
-        g => {
-          val i: Fu[Option[Analysis]] = AnalysisRepo.doneById(g.id)
-          i
-        }
-      }
+    GameRepo.gamesForAssessment(user.id, 100) flatMap ( gs =>
+      AnalysisRepo.associateToGames(gs)
+    ) flatMap { 
+      case gas if gas.size < 1 => fuccess(none)
+      case gas => Chronometer.result {
+        callEndpoint(toJson(gas, user))
+      } map (_.tuple) map (Result.apply _).tupled map some
+    } recover {
+      case e: Exception =>
+        play.api.Logger("neural").warn(e.toString)
+        none
     }
-    ???
   }
   /*
     GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
@@ -56,7 +57,8 @@ private final class NeuralApi(
     }
   */
 
-  private def toJson(game: Game, analysis: Analysis, user: User) = JsArray {
+  private def toJson(gameAnalysisPairs: List[(Game, Analysis)], user: User) = JsArray {
+    /*
     val color = game.player(user).fold(Color.white)(_.color)
     val player = game.player(color)
     val pov = Pov(game, color)
@@ -76,6 +78,8 @@ private final class NeuralApi(
       "rating" -> player.rating,
       "isProvisional" -> player.provisional
     )
+    */
+    ???
   }
 
   private implicit val answerReads = Json.reads[Answer]
