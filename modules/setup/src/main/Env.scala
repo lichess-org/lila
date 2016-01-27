@@ -20,9 +20,6 @@ final class Env(
   private val FriendMemoTtl = config duration "friend.memo.ttl"
   private val CollectionUserConfig = config getString "collection.user_config"
   private val CollectionAnonConfig = config getString "collection.anon_config"
-  private val ChallengerName = config getString "challenger.name"
-  private val CollectionChallenge = config getString "collection.challenge"
-  private val ChallengeMaxPerUser = config getInt "challenge.max_per_user"
 
   val CasualOnly = config getBoolean "casual_only"
 
@@ -43,17 +40,6 @@ final class Env(
     onStart = onStart)
 
   lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
-
-  lazy val challengeApi = new ChallengeApi(
-    coll = db(CollectionChallenge),
-    maxPerUser = ChallengeMaxPerUser)
-
-  system.actorOf(Props(new Challenger(
-    roundHub = hub.socket.round,
-    renderer = hub.actor.renderer,
-    prefApi = prefApi,
-    relationApi = relationApi
-  )), name = ChallengerName)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)

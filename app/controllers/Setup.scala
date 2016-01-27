@@ -80,7 +80,7 @@ object Setup extends LilaController with TheftPrevention {
         ), {
           case config if config.isPersistent => ???
           // env.challengeApi.create(config) inject Redirect(routes.Lobby.home)
-          case config => (ctx.userId ?? GameRepo.removeChallengesOf) >> {
+          case config =>
             env.processor friend config flatMap { pov =>
               negotiate(
                 html = fuccess(redirectPov(pov, routes.Setup.await(pov.fullId, userId))),
@@ -89,7 +89,6 @@ object Setup extends LilaController with TheftPrevention {
                 }
               )
             }
-          }
         }
       )
     }
