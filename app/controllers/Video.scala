@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.data._, Forms._
-import play.api.mvc._
 import play.twirl.api.Html
 
 import lila.api.Context

@@ -53,7 +53,9 @@ private[monitor] final class Reporting(
 
     case Move(millis) =>
       moveWindowCount.add
-      moveMillis += millis
+      millis foreach { m =>
+        moveMillis += m
+      }
 
     case AddRequest       => reqWindowCount.add
 

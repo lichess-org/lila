@@ -20,7 +20,10 @@ final class History[Metadata](ttl: Duration) {
   def since(v: Int): Option[List[Message]] =
     if (v > version) None
     else if (v == version) Some(Nil)
-    else ((v + 1 to version).toList map message).sequence
+    else {
+      val msgs = (v + 1 to version).toList flatMap message
+      (msgs.size == version - v) option msgs
+    }
 
   private def message(v: Int) = Option(messages getIfPresent v)
 

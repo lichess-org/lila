@@ -45,7 +45,6 @@
       @errMsg(form("text"))
     </div>
     @base.captcha(form("move"), form("gameId"), captcha)
-    @errMsg(form)
     <div class="actions">
       <input class="send button" type="submit" value="@trans.send()" />
       <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>

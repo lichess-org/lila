@@ -6,6 +6,14 @@ var partial = chessground.util.partial;
 var router = require('game').router;
 var m = require('mithril');
 
+function analysisBoardOrientation(data) {
+  if (data.game.variant.key === 'racingKings') {
+    return 'white';
+  } else {
+    return data.player.color;
+  }
+}
+
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
@@ -98,7 +106,7 @@ module.exports = {
     ]);
   },
   submitMove: function(ctrl) {
-    if (ctrl.vm.moveToSubmit) return [
+    if (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) return [
       m('a.button.text[data-icon=E]', {
         onclick: partial(ctrl.submitMove, true),
       }, 'Submit move'),
@@ -163,7 +171,8 @@ module.exports = {
       m('a', {
         'data-icon': 'G',
         class: 'text button strong' + (ctrl.data.tournament.running ? ' glowed' : ''),
-        href: '/tournament/' + ctrl.data.tournament.id
+        href: '/tournament/' + ctrl.data.tournament.id,
+        onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
       ctrl.data.tournament.running ? m('form', {
         method: 'post',
@@ -186,7 +195,7 @@ module.exports = {
     var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
-      href: router.game(ctrl.data, ctrl.data.player.color) + hash
+      href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
     }, ctrl.trans('analysis'));
   },
   newOpponent: function(ctrl) {

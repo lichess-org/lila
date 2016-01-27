@@ -8,10 +8,7 @@ title = trans.hostANewSimul.str()) {
   <div class="content_box small_box simul_box">
     <h1>@trans.hostANewSimul()</h1>
     <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
-      <p class="help">
-        @trans.whenCreateSimul()<br />
-        <a href="@routes.Simul.home">@trans.joinExistingSimul()</a>
-      </p>
+      <p class="help">@trans.whenCreateSimul()</p>
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }

@@ -17,6 +17,10 @@ module.exports = {
     });
     return dests;
   },
+  readDrops: function(line) {
+    if (typeof line === 'undefined' || line === null) return null;
+    return line.match(/.{2}/g) || [];
+  },
   defined: defined,
   empty: function(a) {
     return !a || a.length === 0;

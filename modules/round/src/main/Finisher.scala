@@ -74,13 +74,13 @@ private[round] final class Finisher(
 
   private def notifyTimeline(game: Game)(color: Color) = {
     import lila.hub.actorApi.timeline.{ Propagate, GameEnd }
-    if (!game.aborted) {
-      game.player(color).userId foreach { userId =>
+    if (!game.aborted) game.player(color).userId foreach { userId =>
+      game.perfType foreach { perfType =>
         timeline ! (Propagate(GameEnd(
           playerId = game fullIdOf color,
           opponent = game.player(!color).userId,
           win = game.winnerColor map (color ==),
-          perf = game.perfKey)) toUser userId)
+          perf = perfType.key)) toUser userId)
       }
     }
   }

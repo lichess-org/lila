@@ -24,7 +24,7 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Int => Unit,
+    monitorMove: Option[Int] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -56,13 +56,12 @@ private[round] final class Round(
 
     case p: HumanPlay =>
       handle(p.playerId) { pov =>
-        pov.game.outoftimePlayer(lags.get) match {
-          case None =>
-            lags.set(pov.color, p.lag.toMillis.toInt)
-            player.human(p, self)(pov)
-          case Some(ootp) => outOfTime(pov.game)(ootp)
+        if (pov.game outoftime lags.get) outOfTime(pov.game)
+        else {
+          lags.set(pov.color, p.lag.toMillis.toInt)
+          player.human(p, self)(pov)
         }
-      } >>- monitorMove((nowMillis - p.atMillis).toInt)
+      } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
 
     case p: ImportPlay =>
       handle(p.playerId) { pov =>
@@ -73,7 +72,7 @@ private[round] final class Round(
       game.playableByAi ?? {
         player ai game map (_.events)
       }
-    }
+    } >>- monitorMove(none)
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -119,7 +118,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftimePlayer(lags.get) ?? outOfTime(game)
+      game.outoftime(lags.get) ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -153,9 +152,9 @@ private[round] final class Round(
       }
     }
 
-    case HoldAlert(playerId, mean, sd) => handle(playerId) { pov =>
+    case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        loginfo(s"hold alert http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        loginfo(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
       }
     }
@@ -180,9 +179,7 @@ private[round] final class Round(
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
-          self ! HumanPlay(
-            game.player.id, "127.0.0.1", move.orig.key, move.dest.key, move.promotion.map(_.name), false, 0.seconds, _ => ()
-          )
+          self ! HumanPlay(game.player.id, move, false, 0.seconds)
         }
         Nil
       }
@@ -209,9 +206,9 @@ private[round] final class Round(
     }
   }
 
-  private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
-      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation, color)
+  private def outOfTime(game: Game) =
+    finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>
+      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
@@ -241,6 +238,8 @@ private[round] final class Round(
     }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e                       => logwarn(s"[round] ${gameId} $e")
+    case e =>
+      println(e)
+      e.printStackTrace
   } void
 }

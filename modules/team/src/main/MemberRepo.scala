@@ -2,6 +2,7 @@ package lila.team
 
 import play.api.libs.json.Json
 import reactivemongo.api._
+import reactivemongo.bson._
 
 import lila.db.api._
 import tube.memberTube
@@ -10,25 +11,25 @@ object MemberRepo {
 
   type ID = String
 
-  def userIdsByTeam(teamId: ID): Fu[List[ID]] = 
-    $primitive(teamQuery(teamId), "user")(_.asOpt[ID])
+  def userIdsByTeam(teamId: ID): Fu[Set[ID]] =
+    memberTube.coll.distinct("user", BSONDocument("team" -> teamId).some) map lila.db.BSON.asStringSet
 
-  def teamIdsByUser(userId: ID): Fu[List[ID]] = 
-    $primitive(userQuery(userId), "team")(_.asOpt[ID])
+  def teamIdsByUser(userId: ID): Fu[Set[ID]] =
+    memberTube.coll.distinct("team", BSONDocument("user" -> userId).some) map lila.db.BSON.asStringSet
 
-  def removeByteam(teamId: ID): Funit = 
+  def removeByteam(teamId: ID): Funit =
     $remove(teamQuery(teamId))
 
-  def removeByUser(userId: ID): Funit = 
+  def removeByUser(userId: ID): Funit =
     $remove(userQuery(userId))
 
-  def exists(teamId: ID, userId: ID): Fu[Boolean] = 
+  def exists(teamId: ID, userId: ID): Fu[Boolean] =
     $count.exists(selectId(teamId, userId))
 
-  def add(teamId: String, userId: String): Funit = 
+  def add(teamId: String, userId: String): Funit =
     $insert(Member.make(team = teamId, user = userId))
 
-  def remove(teamId: String, userId: String): Funit = 
+  def remove(teamId: String, userId: String): Funit =
     $remove(selectId(teamId, userId))
 
   def countByTeam(teamId: String): Fu[Int] =

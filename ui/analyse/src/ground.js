@@ -1,7 +1,7 @@
 var chessground = require('chessground');
 var game = require('game').game;
 
-function makeConfig(data, config, onMove) {
+function makeConfig(data, config, onMove, onNewPiece) {
   return {
     fen: config.fen,
     check: config.check,
@@ -14,7 +14,8 @@ function makeConfig(data, config, onMove) {
       dests: config.movable.dests
     },
     events: {
-      move: onMove
+      move: onMove,
+      dropNewPiece: onNewPiece
     },
     premovable: {
       enabled: true
@@ -35,8 +36,8 @@ function makeConfig(data, config, onMove) {
   };
 }
 
-function make(data, config, onMove) {
-  return new chessground.controller(makeConfig(data, config, onMove));
+function make(data, config, onMove, onNewPiece) {
+  return new chessground.controller(makeConfig(data, config, onMove, onNewPiece));
 }
 
 function promote(ground, key, role) {

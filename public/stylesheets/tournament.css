@@ -13,6 +13,18 @@ ol.scheduled_tournaments a {
 #tournament .finished h1 {
   text-align: center;
 }
+#tournament.id_whizcup2 .content_box {
+  background-image: url(../images/chesswhiz.logo.png);
+  background-position: 20px 5px;
+  background-repeat: no-repeat;
+  background-size: 60px 60px;
+}
+#tournament.id_whizcup2 h1 {
+  margin-left: 70px;
+}
+#tournament.id_whizcup2 h1::before {
+  display: none;
+}
 #tournament .title_tag {
   float: right;
   margin: 25px 25px 0 0;
@@ -24,6 +36,7 @@ ol.scheduled_tournaments a {
 }
 #tournament .title_tag.starting_in {
   margin-top: 13px;
+  text-align: right;
 }
 #tournament .title_tag .shy {
   line-height: 20px;
@@ -120,7 +133,7 @@ ol.scheduled_tournaments a {
 }
 #tournament div.tournament_show {
   width: 525px;
-  min-height: 600px;
+  min-height: 480px;
 }
 #tournament div.tournament_show div.game_list {
   margin: 0 0 0 15px;
@@ -178,27 +191,33 @@ ol.scheduled_tournaments a {
 #tournament div.standing_wrap {
   overflow: hidden;
 }
-#tournament div.pager {
+#tournament .pager {
   text-align: center;
-  margin: 10px 20px 0 20px;
   font-weight: bold;
-  opacity: 0.7;
-  transition: 0.13s;
+  user-select: none;
+  -webkit-user-select: none;
 }
-#tournament div.pager:hover {
-  opacity: 1;
-}
-#tournament div.pager > * {
+#tournament .pager > * {
   display: inline-block;
+}
+#tournament .pager button {
+  margin: 0 -1px;
+}
+#tournament .pager .page {
   margin: 0 5px;
 }
-#tournament div.loader {
-  margin: 100px auto;
-  font-size: 20px;
+#tournament .square-wrap {
+  text-align: center;
+  -webkit-transform: scale(5);
 }
-#tournament thead div.loader {
-  margin: 0;
-  font-size: 3px;
+#tournament .square-spin {
+  opacity: 0.7;
+  margin: 150px auto;
+}
+#tournament thead .square-spin {
+  width: 20px;
+  height: 20px;
+  margin: 4px 5px 0 0;
   float: right;
 }
 #tournament table.standing {
@@ -207,6 +226,9 @@ ol.scheduled_tournaments a {
 }
 #tournament table.standing .player_rank {
   margin-left: 10px;
+}
+#tournament table.standing td:first-child {
+  padding: 0.8em 0.6em;
 }
 #tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
@@ -219,7 +241,11 @@ ol.scheduled_tournaments a {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-#tournament table.standing:not(.created) tbody tr:hover {
+#tournament table.standing.loading tbody {
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+#tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
   cursor: pointer;
 }
@@ -235,15 +261,6 @@ ol.scheduled_tournaments a {
 }
 #tournament table.slist td:first-child rank.big {
   width: 30px;
-}
-#tournament table.standing .legend {
-  text-align: right;
-  font-size: 0.9em;
-}
-#tournament table.standing .legend double,
-#tournament table.standing .legend streak {
-  margin-right: 5px;
-  line-height: 30px;
 }
 #tournament table.standing .sheet,
 #tournament table.standing .total {
@@ -330,6 +347,10 @@ ol.scheduled_tournaments a {
 #tournament .join_password input {
   padding: 3px 5px;
 }
+#tournament .pull-quote {
+  margin-top: 30px;
+  width: 300px;
+}
 .setup {
   text-transform: uppercase;
 }
@@ -337,9 +358,41 @@ ol.scheduled_tournaments a {
   position: relative;
   float: right;
   width: 252px;
-  border: 1px solid #ccc;
   text-align: center;
   transition: 0.13s;
+}
+#tournament_side .featured {
+  margin-bottom: 10px;
+  line-height: 0;
+}
+#tournament_side .featured .vstext {
+  height: 22px;
+  line-height: 22px;
+  border-width: 1px 1px 0 0;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+}
+#tournament_side .featured .vstext.bottom {
+  border-width: 0 1px 1px 0;
+}
+#tournament_side .featured .vstext strong {
+  display: inline-block;
+  height: 22px;
+  width: 12.5%;
+  text-align: center;
+  background: #ccc;
+  margin-right: 10px;
+}
+#tournament_side .box {
+  border: 1px solid #ccc;
+}
+#tournament_side .cg-board-wrap {
+  width: 252px;
+  height: 252px;
+}
+#tournament_side .vstext {
+  width: 240px;
 }
 #tournament_side .scroll-shadow-soft {
   max-height: 510px;
@@ -509,7 +562,14 @@ ol.scheduled_tournaments li.marathon {
   box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 #tournament_schedule {
-  /* margin-left: -200px; */
+  min-height: 400px;
+  position: relative;
+}
+#tournament_schedule .square-spin {
+  position: absolute;
+  top: 190px;
+  left: 50%;
+  opacity: 0.7;
 }
 #tournament_schedule .schedule {
   position: relative;
@@ -548,7 +608,7 @@ ol.scheduled_tournaments li.marathon {
   display: inline;
   box-sizing: border-box;
   height: 100%;
-  border-left: 1px dashed #ccc;
+  border-left: 1px dashed #bbb;
   padding: 2px 5px;
 }
 #tournament_schedule .timeheader.hour {
@@ -567,6 +627,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.user-created {
   background-color: #009E73;
+  white-space: nowrap;
 }
 #tournament_schedule .tournament.hourly {
   background-color: #3D9333;
@@ -583,6 +644,9 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.marathon {
   background-color: #66558C;
+}
+#tournament_schedule .tournament.unique {
+  background-color: #d59120;
 }
 #tournament_schedule .icon {
   float: left;
@@ -611,6 +675,9 @@ ol.scheduled_tournaments li.marathon {
 #tournament_list table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+#tournament_list table.slist td.duration {
+  white-space: nowrap;
 }
 #tournament_list table.slist .header {
   letter-spacing: 2px;

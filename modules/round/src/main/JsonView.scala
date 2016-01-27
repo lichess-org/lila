@@ -5,7 +5,9 @@ import scala.math
 
 import play.api.libs.json._
 
+import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
+import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
@@ -118,7 +120,9 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
-            "takebackable" -> takebackable).noNull
+            "possibleDrops" -> possibleDrops(pov),
+            "takebackable" -> takebackable,
+            "crazyhouse" -> pov.game.crazyData).noNull
       }
 
   def watcherJson(
@@ -298,6 +302,12 @@ final class JsonView(
     }
   }
 
+  private def possibleDrops(pov: Pov) = (pov.game playableBy pov.player) ?? {
+    pov.game.toChess.situation.drops map { drops =>
+      JsString(drops.map(_.key).mkString)
+    }
+  }
+
   private def animationFactor(pref: Pref): Float = pref.animation match {
     case 0 => 0
     case 1 => 0.5f
@@ -335,8 +345,8 @@ object JsonView {
       "running" -> c.isRunning,
       "initial" -> c.limit,
       "increment" -> c.increment,
-      "white" -> c.remainingTime(Color.White),
-      "black" -> c.remainingTime(Color.Black),
+      "white" -> truncateAt(c.remainingTime(Color.White), 2),
+      "black" -> truncateAt(c.remainingTime(Color.Black), 2),
       "emerg" -> c.emergTime)
   }
 

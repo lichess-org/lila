@@ -78,10 +78,12 @@ function makeHistory(data) {
   var line = findBestLineFromProgress(data.puzzle.lines, data.progress);
   var c = chess.make(data.puzzle.fen);
   return [data.puzzle.initialMove].concat(line.map(str2move)).map(function(m) {
+    var cap = c.get(m[1]); // was last move a capture?
     chess.move(c, m);
     return {
       move: m,
       fen: c.fen(),
+      capture: cap,
       check: c.in_check(),
       turnColor: c.turn() == 'w' ? 'white' : 'black'
     };

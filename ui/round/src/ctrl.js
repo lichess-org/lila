@@ -18,35 +18,51 @@ var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
+var crazyValid = require('./crazy/crazyValid');
 
 module.exports = function(opts) {
 
-  this.data = round.merge({}, opts.data);
+  this.data = round.merge({}, opts.data).data;
 
   this.userId = opts.userId;
 
   this.vm = {
     ply: init.startPly(this.data),
     initializing: true,
+    firstSeconds: true,
     flip: false,
     redirecting: false,
     replayHash: '',
     moveToSubmit: null,
+    dropToSubmit: null,
     buttonFeedback: null,
     goneBerserk: {},
     resignConfirm: false,
-    autoScroll: null
+    autoScroll: null,
+    element: opts.element
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
+  setTimeout(function() {
+    this.vm.firstSeconds = false;
+    m.redraw();
+  }.bind(this), 2000);
 
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    if (hold.applies(this.data))
+    if (hold.applies(this.data)) {
       hold.register(this.socket, meta.holdTime);
+      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
+    }
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
+  }.bind(this);
+
+  var onUserNewPiece = function(role, key, meta) {
+    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, role, key))
+      this.sendNewPiece(role, key, meta.predrop);
+    else this.jump(this.vm.ply);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -58,7 +74,11 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onMove);
+  var onNewPiece = function(piece, key) {
+    sound.move();
+  }.bind(this);
+
+  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onUserNewPiece, onMove, onNewPiece);
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -72,13 +92,19 @@ module.exports = function(opts) {
     return h;
   };
 
+  var uciToLastMove = function(uci) {
+    if (!uci) return;
+    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+    return [uci.substr(0, 2), uci.substr(2, 2)];
+  };
+
   this.jump = function(ply) {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
-      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+      lastMove: uciToLastMove(s.uci),
       check: s.check,
       turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };
@@ -111,7 +137,7 @@ module.exports = function(opts) {
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
     this.chessground.set({
-      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
+      orientation: ground.boardOrientation(this.data, this.vm.flip)
     });
   }.bind(this);
 
@@ -134,6 +160,21 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
+  this.sendNewPiece = function(role, key, isPredrop) {
+    var drop = {
+      role: role,
+      pos: key
+    };
+    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
+    this.resign(false);
+    if (this.userId && this.data.pref.submitMove && !isPredrop) {
+      this.vm.dropToSubmit = drop;
+      m.redraw();
+    } else this.socket.send('drop', drop, {
+      ackable: true
+    });
+  }.bind(this);
+
   var showYourMoveNotification = function() {
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(this.trans('yourTurn'));
   }.bind(this);
@@ -141,7 +182,8 @@ module.exports = function(opts) {
 
   this.apiMove = function(o) {
     m.startComputation();
-    var d = this.data;
+    var d = this.data,
+      playing = game.isPlayerPlaying(d);
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
@@ -150,10 +192,16 @@ module.exports = function(opts) {
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
     d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
+    d.possibleDrops = d.player.color === d.game.player ? o.drops : null;
+    d.crazyhouse = o.crazyhouse;
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
+      if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
+      else this.chessground.apiNewPiece({
+        role: o.role,
+        color: playedColor
+      }, o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
@@ -183,7 +231,7 @@ module.exports = function(opts) {
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: game.isPlayerPlaying(d) ? util.parsePossibleMoves(d.possibleMoves) : {}
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
         },
         check: o.check
       });
@@ -200,12 +248,14 @@ module.exports = function(opts) {
       fen: o.fen,
       san: o.san,
       uci: o.uci,
-      check: o.check
+      check: o.check,
+      crazy: o.crazyhouse
     });
     game.setOnGame(d, playedColor, true);
+    delete this.data.forecastCount;
     m.endComputation();
     if (d.blind) blind.reload(this);
-    if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
+    if (playing && playedColor === d.player.color) this.moveOn.next();
 
     if (!this.replaying() && playedColor !== d.player.color) {
       // atrocious hack to prevent race condition
@@ -213,18 +263,25 @@ module.exports = function(opts) {
       // https://github.com/ornicar/lila/issues/343
       var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
       setTimeout(function() {
-        if (!this.chessground.playPremove()) showYourMoveNotification();
+        if (!this.chessground.playPremove() && !playPredrop()) showYourMoveNotification();
       }.bind(this), premoveDelay);
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
   }.bind(this);
 
+  var playPredrop = function() {
+    return this.chessground.playPredrop(function(drop) {
+      return crazyValid.drop(this.chessground, this.data, drop.role, drop.key);
+    }.bind(this));
+  }.bind(this);
+
   this.reload = function(cfg) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
-    this.data = round.merge(this.data, cfg);
+    var merged = round.merge(this.data, cfg);
+    this.data = merged.data;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
@@ -235,6 +292,9 @@ module.exports = function(opts) {
     m.endComputation();
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+    if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
+    if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
+    if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -298,6 +358,7 @@ module.exports = function(opts) {
   this.setBerserk = function(color) {
     if (this.vm.goneBerserk[color]) return;
     this.vm.goneBerserk[color] = true;
+    if (color !== this.data.player.color) $.sound.berserk();
     m.redraw();
   }.bind(this);
 
@@ -312,28 +373,38 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.submitMove = function(v) {
-    if (v && this.vm.moveToSubmit) {
-      this.socket.send('move', this.vm.moveToSubmit, {
-        ackable: true
-      });
+    if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
+      if (this.vm.moveToSubmit)
+        this.socket.send('move', this.vm.moveToSubmit, {
+          ackable: true
+        });
+      else if (this.vm.dropToSubmit)
+        this.socket.send('drop', this.vm.dropToSubmit, {
+          ackable: true
+        });
       $.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.vm.moveToSubmit = null;
+    this.vm.dropToSubmit = null;
     this.vm.buttonFeedback = setTimeout(function() {
       this.vm.buttonFeedback = null;
       m.redraw();
     }.bind(this), 500);
   }.bind(this);
 
+  var forecastable = function(d) {
+    return game.isPlayerPlaying(d) && d.correspondence && !d.opponent.ai;
+  }
+
   this.forecastInfo = function() {
-    return game.forecastable(this.data) &&
+    return forecastable(this.data) &&
       !this.replaying() &&
       this.data.game.turns > 1 &&
-      lichess.once('forecast-info-seen5');
+      lichess.once('forecast-info-seen6');
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(partial(opts.onChange,this.data), 200);
+    opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);

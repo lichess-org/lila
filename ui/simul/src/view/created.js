@@ -134,6 +134,10 @@ module.exports = function(ctrl) {
           })))
       ])
     ),
+    m('blockquote.pull-quote', [
+      m('p', ctrl.data.quote.text),
+      m('footer', ctrl.data.quote.author)
+    ]),
     m('div.join_choice', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key

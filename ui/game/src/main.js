@@ -4,7 +4,6 @@ module.exports = {
   router: require('./router'),
   view: {
     status: require('./view/status'),
-    user: require('./view/user'),
     mod: require('./view/mod')
   },
   perf: {

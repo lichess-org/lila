@@ -40,7 +40,7 @@ final class Env(
     def receive = {
       case InsertPost(post) => api store post
       case RemovePost(id)   => client deleteById Id(id)
-      case RemoveTopic(id)  => client deleteByQuery StringQuery(s"${Fields.topicId}:$id")
+      case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
     }
   }), name = ActorName)
 }

@@ -66,7 +66,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18)),
           Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19)),
           Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20)),
-          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21))
+          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21)),
+          Schedule(Monthly, Classical, Crazyhouse, std, at(lastSundayOfCurrentMonth, 22))
         ),
 
         List( // weekly tournaments!
@@ -74,23 +75,26 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
           Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
           Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
-          Schedule(Weekly, Blitz, Chess960, std, at(nextSaturday, 22) |> orNextWeek)
+          Schedule(Weekly, Blitz, Crazyhouse, std, at(nextSaturday, 22) |> orNextWeek)
         ),
 
         List( // daily tournaments!
           Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
           Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
           Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
-          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow)
+          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
+          Schedule(Daily, HyperBullet, Standard, std, at(today, 22) |> orTomorrow)
         ),
 
         List( // daily variant tournaments!
-          Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
-          Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 23) |> orTomorrow),
-          Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 0)),
-          Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
-          Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
-          Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3))
+          Schedule(Daily, Blitz, Crazyhouse, std, at(today, 22) |> orTomorrow),
+          Schedule(Daily, Blitz, Chess960, std, at(today, 23) |> orTomorrow),
+          Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 0) |> orTomorrow),
+          Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 1)),
+          Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 2)),
+          Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 3)),
+          Schedule(Daily, Blitz, Horde, std, at(tomorrow, 4)),
+          Schedule(Daily, Blitz, RacingKings, std, at(tomorrow, 5))
         ),
 
         List( // eastern tournaments!
@@ -101,37 +105,52 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         ),
 
         (isHalloween ? // replace more thematic tournaments on halloween
-        List(
-          3  -> opening1,
-          7  -> opening2,
-          11 -> opening1,
-          15 -> opening2,
-          19 -> opening1,
-          23 -> opening2
-        ) |
-        List( // random opening replaces hourly 2 times a day
-          11 -> opening1,
-          23 -> opening2
-        )).flatMap {
-            case (hour, opening) => List(
-              Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
-              Schedule(Hourly, SuperBlitz, Standard, opening, at(today, hour) |> orTomorrow),
-              Schedule(Hourly, Blitz, Standard, opening, at(today, hour) |> orTomorrow),
-              Schedule(Hourly, Classical, Standard, opening, at(today, hour) |> orTomorrow)
-            )
-          },
+          List(
+            3 -> opening1,
+            7 -> opening2,
+            11 -> opening1,
+            15 -> opening2,
+            19 -> opening1,
+            23 -> opening2
+          ) |
+            List( // random opening replaces hourly 2 times a day
+              11 -> opening1,
+              23 -> opening2
+            )).flatMap {
+                case (hour, opening) => List(
+                  Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
+                  Schedule(Hourly, SuperBlitz, Standard, opening, at(today, hour) |> orTomorrow),
+                  Schedule(Hourly, Blitz, Standard, opening, at(today, hour) |> orTomorrow),
+                  Schedule(Hourly, Classical, Standard, opening, at(today, hour) |> orTomorrow)
+                )
+              },
 
-        // hourly tournaments!
+        // hourly standard tournaments!
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = Set(1, 7, 13, 19)(hour).fold[Schedule.Speed](SuperBullet, Bullet)
+          val bulletType = Set(1, 7, 13, 19)(hour).fold[Schedule.Speed](HyperBullet, Bullet)
           List(
             Schedule(Hourly, Bullet, Standard, std, at(date, hour)).some,
             Schedule(Hourly, bulletType, Standard, std, at(date, hour, 30)).some,
             Schedule(Hourly, SuperBlitz, Standard, std, at(date, hour)).some,
             Schedule(Hourly, Blitz, Standard, std, at(date, hour)).some,
             (hour % 2 == 0) option Schedule(Hourly, Classical, Standard, std, at(date, hour))
+          ).flatten
+        },
+
+        // hourly crazyhouse tournaments!
+        (0 to 6).toList.flatMap { hourDelta =>
+          val date = rightNow plusHours hourDelta
+          val hour = date.getHourOfDay
+          val speed = hour % 3 match {
+            case 0 => Bullet
+            case 1 => SuperBlitz
+            case _ => Blitz
+          }
+          List(
+            Schedule(Hourly, speed, Crazyhouse, std, at(date, hour)).some,
+            (speed == Bullet) option Schedule(Hourly, speed, Crazyhouse, std, at(date, hour, 30))
           ).flatten
         }
 
@@ -150,7 +169,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
-    case s2 if s.sameSpeed(s2) && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }
 

@@ -28,7 +28,7 @@ object Analyse extends LilaController {
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
       makeAnalysis(id, me) injectAnyway
-        Ok(html.analyse.computing())
+        Ok(html.analyse.computing(id))
   }
 
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =

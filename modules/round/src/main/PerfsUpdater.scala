@@ -35,6 +35,10 @@ final class PerfsUpdater(historyApi: HistoryApi) {
             updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
           case chess.variant.Horde =>
             updateRatings(ratingsW.horde, ratingsB.horde, result, system)
+          case chess.variant.RacingKings =>
+            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system)
+          case chess.variant.Crazyhouse =>
+            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result, system)
           case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
@@ -72,6 +76,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     antichess: Rating,
     atomic: Rating,
     horde: Rating,
+    racingKings: Rating,
+    crazyhouse: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -84,6 +90,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     antichess = perfs.antichess.toRating,
     atomic = perfs.atomic.toRating,
     horde = perfs.horde.toRating,
+    racingKings = perfs.racingKings.toRating,
+    crazyhouse = perfs.crazyhouse.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -122,6 +130,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = game.ratingVariant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
       atomic = game.ratingVariant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
       horde = game.ratingVariant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
+      racingKings = game.ratingVariant.racingKings.fold(perfs.racingKings.add(ratings.racingKings, date), perfs.racingKings),
+      crazyhouse = game.ratingVariant.crazyhouse.fold(perfs.crazyhouse.add(ratings.crazyhouse, date), perfs.crazyhouse),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
@@ -134,6 +144,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
       atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
       horde = r(PT.Horde, perfs.horde, perfs1.horde),
+      racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
+      crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
       bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
       blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
       classical = r(PT.Classical, perfs.classical, perfs1.classical),

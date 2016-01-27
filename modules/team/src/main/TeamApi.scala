@@ -1,6 +1,5 @@
 package lila.team
 
-import org.joda.time.Period
 import actorApi._
 import akka.actor.ActorSelection
 import lila.db.api._
@@ -8,6 +7,7 @@ import lila.hub.actorApi.forum.MakeTeam
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.user.tube.userTube
 import lila.user.{ User, UserContext }
+import org.joda.time.Period
 import tube._
 
 final class TeamApi(
@@ -30,7 +30,6 @@ final class TeamApi(
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      irc = s.hasIrc,
       createdBy = me)
     $insert(team) >>
       MemberRepo.add(team.id, me.id) >>- {
@@ -47,8 +46,7 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen,
-      irc = e.hasIrc) |> { team => $update(team) >>- (indexer ! InsertTeam(team)) }
+      open = e.isOpen) |> { team => $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 
   def mine(me: User): Fu[List[Team]] = $find.byIds[Team](cached teamIds me.id)
@@ -113,15 +111,11 @@ final class TeamApi(
   } yield ()
 
   def doJoin(team: Team, userId: String): Funit = (!belongsTo(team.id, userId)) ?? {
-    MemberRepo userIdsByTeam team.id flatMap { previousMembers =>
-      MemberRepo.add(team.id, userId) >>
-        TeamRepo.incMembers(team.id, +1) >>- {
-          (cached.teamIdsCache invalidate userId)
-          (timeline ! Propagate(
-            TeamJoin(userId, team.id)
-          ).toFollowersOf(userId).toUsers(previousMembers))
-        }
-    }
+    MemberRepo.add(team.id, userId) >>
+      TeamRepo.incMembers(team.id, +1) >>- {
+        cached.teamIdsCache invalidate userId
+        timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
+      }
   } recover lila.db.recoverDuplicateKey(e => ())
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {

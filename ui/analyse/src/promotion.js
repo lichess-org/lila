@@ -31,14 +31,16 @@ function finish(ctrl, role) {
 }
 
 function cancel(ctrl) {
-  promoting = false;
-  ctrl.chessground.set(ctrl.vm.cgConfig);
-  m.redraw();
+  if (promoting) {
+    promoting = false;
+    ctrl.chessground.set(ctrl.vm.cgConfig);
+    m.redraw();
+  }
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
   if (!promoting) return;
-  var left =  (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] -1) * 12.5;
+  var left = (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] - 1) * 12.5;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {
@@ -58,13 +60,15 @@ module.exports = {
 
   start: start,
 
+  cancel: cancel,
+
   view: function(ctrl) {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
     if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
 
     return renderPromotion(ctrl, promoting.dest, pieces,
-        opposite(ctrl.chessground.data.turnColor),
-        ctrl.chessground.data.orientation);
+      opposite(ctrl.chessground.data.turnColor),
+      ctrl.chessground.data.orientation);
   }
 };

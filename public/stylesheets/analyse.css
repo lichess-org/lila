@@ -70,11 +70,28 @@ form.better_analysis {
 }
 .future_game_analysis.progress {
   margin-top: 0;
+  height: 100%;
   overflow: hidden;
 }
 .future_game_analysis .loader {
-  margin-top: 20px;
   font-size: 15px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+.underboard_content .quote.panel .pull-quote {
+  margin: 0 auto;
+  width: 322px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.future_game_analysis .quote {
+  margin-left: 190px;
+  width: 322px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .future_game_analysis .button {
   display: inline-block;
@@ -215,6 +232,9 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .ceval_displayed .lichess_ground .replay {
   height: calc(100% - 40px - 41px);
 }
+.crazy .lichess_ground .replay {
+  height: calc(100% - 40px - 140px);
+}
 .lichess_ground .action_menu {
   border-color: transparent;
 }
@@ -316,12 +336,47 @@ body .lichess_ground .analyse .undefined {
   padding-bottom: 3px;
 }
 .lichess_ground .analyse .meta > .variation {
+  padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
-  padding: 3px 0 3px 5px;
+}
+.lichess_ground .analyse .meta > .variation span.menu {
+  float: right;
+  margin-right: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.13s;
+}
+.lichess_ground .analyse .meta > .variation:hover .menu {
+  opacity: 0.7;
+}
+.lichess_ground .analyse .meta > .variation .menu:hover {
+  opacity: 1!important;
+}
+.lichess_ground .analyse .meta > .menu {
+  background: #fff;
+  font-family: 'Noto Sans';
+  font-weight: normal;
+}
+.lichess_ground .analyse .meta > .menu a {
+  display: block;
+  line-height: 1.8em;
+}
+.lichess_ground .analyse .meta > .menu a.delete {
+  color: #ac524f;
+}
+.lichess_ground .analyse .meta > .menu a.promote {
+  color: #759900;
+}
+.lichess_ground .analyse .meta > .menu a::before {
+  opacity: 0.5;
+}
+.lichess_ground .analyse .meta > .menu a:hover::before {
+  opacity: 1;
 }
 .lichess_ground .variation index {
   margin-left: 5px;
+  font-size: 0.9em;
 }
 .lichess_ground .variation index:first-child {
   margin-left: 0;
@@ -389,6 +444,17 @@ div.advice_summary .spacerlol {
   height: 200px;
   width: 512px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
+}
+span.mod {
+  display: inline-block;
+  border-left: 3px solid;
+  padding-left: 2px;
+}
+span.blurs {
+  border-color: #DDCF3F;
+}
+span.hold {
+  border-color: #E73B38;
 }
 div.shortcuts .inner {
   display: none;
@@ -462,7 +528,7 @@ table.modAssessment td.noMatch {
   transition: opacity 0.13s;
 }
 .forecast.loading {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 .forecast .entries {
   border: 1px solid #ccc;
@@ -542,6 +608,12 @@ table.modAssessment td.noMatch {
 .forecast sans san {
   font-family: 'ChessSansPiratf', sans-serif;
   font-weight: bold;
+}
+.forecast button.on-my-turn {
+  margin-top: 20px;
+}
+.forecast button.on-my-turn::before {
+  color: #759900;
 }
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {

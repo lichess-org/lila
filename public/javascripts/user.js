@@ -1,6 +1,6 @@
 $(function() {
 
-  var $searchForm = $('form.search');
+  var $searchForm = $('form.search.public');
 
   if ($searchForm.length) {
     $searchInput = $searchForm.find('input.search_user');
@@ -19,20 +19,21 @@ $(function() {
     $(this).click(function() {
       var $zone = $("div.user_show .mod_zone");
       if ($zone.is(':visible')) $zone.hide();
-      else $zone.html("Loading...").show().load($(this).attr("href"), function() {
-        var $this = $(this);
-        $this.find('form.fide_title select').on('change', function() {
+      else $zone.html("Loading...").show();
+      $zone.load($(this).attr("href"), function() {
+        $zone.find('form.fide_title select').on('change', function() {
           $(this).parent('form').submit();
         });
         $('body').trigger('lichess.content_loaded');
         var relatedUsers = +$('.reportCard thead th:last').text();
         if (relatedUsers > 100) {
-          $this.find('.others').css('display', 'none').before('<a class="others-show">Show ' + relatedUsers + ' related users</a>');
-          $this.find('.others-show').click(function () {
-            $(this).next().css('display', ''); $(this).remove();
+          $zone.find('.others').css('display', 'none').before('<a class="others-show">Show ' + relatedUsers + ' related users</a>');
+          $zone.find('.others-show').click(function() {
+            $(this).next().css('display', '');
+            $(this).remove();
           });
         }
-        $this.find('li.ip').slice(0, 3).each(function() {
+        $zone.find('li.ip').slice(0, 3).each(function() {
           var $li = $(this);
           $.ajax({
             url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
@@ -77,6 +78,63 @@ $(function() {
       $.post($(this).attr('href'));
       $zone.remove();
       return false;
+    });
+  });
+
+  if ($('div.user_show.myself').length &&
+    $('a.tournament_stats').data('toints') != 0 &&
+    lichess.once('user-tournaments-tour')) lichess.hopscotch(function() {
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
+      id: "user-tournaments",
+      showPrevButton: true,
+      steps: [{
+        title: "New: your tournament stats",
+        content: "You can now click your tournament points to review your " +
+          "recent and best tournaments!",
+        target: "#lichess .tournament_stats",
+        placement: "bottom",
+        xOffset: 30
+      }]
+    });
+  });
+  else if ($('div.user_show.myself').length &&
+    $('div.sub_ratings .relevant').length &&
+    lichess.once('user-perf-stats-tour')) lichess.hopscotch(function() {
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
+      id: 'perf-stats',
+      showPrevButton: true,
+      steps: [{
+        title: "New: performance stats",
+        content: "You can now click your ratings to display stats about your play!",
+        target: $('div.sub_ratings .relevant')[0],
+        placement: "right",
+        xOffset: -40
+      }]
+    });
+  });
+  else if ($('#perfStat.correspondence .view_games').length &&
+    lichess.once('user-correspondence-view-games')) lichess.hopscotch(function() {
+    hopscotch.configure({
+      i18n: {
+        doneBtn: 'OK, got it'
+      }
+    }).startTour({
+      id: 'correspondence-games',
+      showPrevButton: true,
+      steps: [{
+        title: "Recently finished games",
+        content: "Would you like to display the list of your correspondence games, sorted by completion date?",
+        target: $('#perfStat.correspondence .view_games')[0],
+        placement: "bottom"
+      }]
     });
   });
 });

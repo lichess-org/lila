@@ -15,9 +15,9 @@ class BinaryClockTest extends Specification {
   def write(c: Clock): List[String] =
     (BinaryFormat.clock(since) write c).showBytes.split(',').toList
   def read(bytes: List[String]): Clock =
-    (BinaryFormat.clock(since) read ByteArray.parseBytes(bytes))(chess.White)
+    (BinaryFormat.clock(since).read(ByteArray.parseBytes(bytes), false, false))(chess.White)
   def isomorphism(c: Clock): Clock =
-    (BinaryFormat.clock(since) read (BinaryFormat.clock(since) write c))(chess.White)
+    (BinaryFormat.clock(since).read(BinaryFormat.clock(since) write c, false, false))(chess.White)
 
   "binary Clock" should {
     val clock = Clock(120, 2)
@@ -60,7 +60,7 @@ class BinaryClockTest extends Specification {
       val c4 = clock.start
       isomorphism(c4).timerOption.get must beCloseTo(c4.timerOption.get, 1)
 
-      Clock(2, 60) |> { c =>
+      Clock(120, 60) |> { c =>
         isomorphism(c) must_== c
       }
     }

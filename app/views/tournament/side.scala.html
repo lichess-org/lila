@@ -26,6 +26,9 @@
   case "autumn15" => {
   <a href="http://lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">About</a>
   }
+  case "winter15" => {
+  <a href="http://lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament">About</a>
+  }
   case _ => {
   @trans.tournamentOfficial()
   }
@@ -43,5 +46,12 @@
   @tour.winnerId.map { userId =>
   <br /><br />
   @trans.winner(): @userIdLink(userId.some)
+  }
+  @if(isGranted(_.TerminateTournament) && tour.isStarted) {
+  <form class="terminate" method="post" action="@routes.Tournament.terminate(tour.id)"
+    style="margin-top: 7px; text-align: right;">
+    <button data-icon="j" class="submit text button thin confirm" type="submit"
+      title="Terminates the tournament immediately! Use only if the tournament is killing lichess!">Terminate now</button>
+  </form>
   }
 </div>

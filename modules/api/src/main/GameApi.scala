@@ -1,16 +1,21 @@
 package lila.api
 
 import play.api.libs.json._
+import reactivemongo.bson._
 
 import chess.format.pgn.Pgn
 import lila.analyse.{ AnalysisRepo, Analysis }
+import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
+import lila.db.paginator.{ BSONAdapter, CachedAdapter }
+import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.{ router => R }
+import lila.user.User
 import makeTimeout.short
 
 private[api] final class GameApi(
@@ -19,29 +24,45 @@ private[api] final class GameApi(
     pgnDump: PgnDump,
     analysisApi: AnalysisApi) {
 
-  def list(
-    username: Option[String],
+  def byUser(
+    user: User,
     rated: Option[Boolean],
     analysed: Option[Boolean],
     withAnalysis: Boolean,
     withMoves: Boolean,
     withOpening: Boolean,
+    withMoveTimes: Boolean,
     token: Option[String],
-    nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
-    G.status -> $gte(chess.Status.Mate.id),
-    G.playerUids -> username.map(_.toLowerCase),
-    G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
-    G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
-    G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
-  ).noNull) sort lila.game.Query.sortCreated, math.min(200, nb | 10)) flatMap
-    gamesJson(
-      withAnalysis = withAnalysis,
-      withMoves = withMoves,
-      withOpening = withOpening,
-      withFens = false,
-      token = token) map { games =>
-        Json.obj("list" -> games)
+    nb: Option[Int],
+    page: Option[Int]): Fu[JsObject] = Paginator(
+    adapter = new CachedAdapter(
+      adapter = new BSONAdapter[Game](
+        collection = gameTube.coll,
+        selector = BSONDocument(
+          G.playerUids -> user.id,
+          G.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), BSONDocument("$exists" -> false))),
+          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), BSONDocument("$exists" -> false)))
+        ),
+        projection = BSONDocument(),
+        sort = BSONDocument(G.createdAt -> -1)
+      ),
+      nbResults = fuccess {
+        rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
       }
+    ),
+    currentPage = math.max(0, page | 1),
+    maxPerPage = math.max(1, math.min(100, nb | 10))) flatMap { pag =>
+      gamesJson(
+        withAnalysis = withAnalysis,
+        withMoves = withMoves,
+        withOpening = withOpening,
+        withFens = false,
+        withMoveTimes = withMoveTimes,
+        token = token)(pag.currentPageResults) map { games =>
+          PaginatorJson(pag withCurrentPageResults games)
+        }
+    }
 
   def one(
     id: String,
@@ -49,6 +70,7 @@ private[api] final class GameApi(
     withMoves: Boolean,
     withOpening: Boolean,
     withFens: Boolean,
+    withMoveTimes: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
     $find byId id flatMap {
       _ ?? { g =>
@@ -57,6 +79,7 @@ private[api] final class GameApi(
           withMoves = withMoves,
           withOpening = withOpening,
           withFens = withFens && g.finished,
+          withMoveTimes = withMoveTimes,
           token = token
         )(List(g)) map (_.headOption)
       }
@@ -69,7 +92,8 @@ private[api] final class GameApi(
     withMoves: Boolean,
     withOpening: Boolean,
     withFens: Boolean,
-    token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
+    withMoveTimes: Boolean,
+    token: Option[String])(games: Seq[Game]): Fu[Seq[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
       (games map GameRepo.initialFen).sequenceFu map { initialFens =>
         val validToken = check(token)
@@ -83,7 +107,7 @@ private[api] final class GameApi(
               withFens = withFens,
               withBlurs = validToken,
               withHold = validToken,
-              withMoveTimes = validToken)
+              withMoveTimes = withMoveTimes)
         }
       }
     }

@@ -16,6 +16,7 @@ var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
+var crazyView = require('./crazy/crazyView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -53,7 +54,7 @@ function renderMove(ctrl, move, path) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      move.san
+      move.san[0] === 'P' ? move.san.slice(1) : move.san
     ]
   };
 }
@@ -63,9 +64,36 @@ function plyToTurn(ply) {
 }
 
 function renderVariation(ctrl, variation, path, klass) {
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: 'variation' + (klass ? ' ' + klass : '')
-  }, renderVariationContent(ctrl, variation, path));
+    class: klass + ' ' + classSet({
+      variation: true,
+      menu: showMenu
+    })
+  }, [
+    m('span', {
+      class: 'menu',
+      'data-icon': showMenu ? 'L' : '',
+      onclick: partial(ctrl.toggleVariationMenu, path)
+    }),
+    showMenu ? (function() {
+      var promotable = util.synthetic(ctrl.data) ||
+        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      return [
+        m('a', {
+          class: 'delete text',
+          'data-icon': 'q',
+          onclick: partial(ctrl.deleteVariation, path)
+        }, 'Delete variation'),
+        promotable ? m('a', {
+          class: 'promote text',
+          'data-icon': 'E',
+          onclick: partial(ctrl.promoteVariation, path)
+        }, 'Promote to main line') : null
+      ];
+    })() :
+    renderVariationContent(ctrl, variation, path)
+  ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {
@@ -258,6 +286,7 @@ function renderAnalyse(ctrl) {
   return m('div.analyse', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+        if (el.tagName !== 'MOVE') return;
         var path = el.getAttribute('data-path') ||
           '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
         if (path) ctrl.userJump(treePath.read(path));
@@ -361,7 +390,8 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed(),
-        gauge_displayed: ctrl.showEvalGauge()
+        gauge_displayed: ctrl.showEvalGauge(),
+        crazy: ctrl.data.game.variant.key === 'crazyhouse'
       })
     }, [
       m('div.lichess_game', {
@@ -372,6 +402,7 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             m('div.replay', {
@@ -381,7 +412,8 @@ module.exports = function(ctrl) {
               },
               renderAnalyse(ctrl))
           ],
-          buttons(ctrl)
+          buttons(ctrl),
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
         ])
       ])
     ]),

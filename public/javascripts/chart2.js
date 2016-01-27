@@ -9,7 +9,6 @@ function withHighcharts(f) {
     var highstockUrl = 'http://lichess1.org/assets/vendor/highcharts4/highstock.js';
     $.ajax({
       dataType: "script",
-      cache: true,
       url: (typeof lichess_rating_series !== 'undefined') ? highstockUrl : highchartsUrl
     }).done(function() {
       Highcharts.makeFont = function(size) {
@@ -257,7 +256,7 @@ $(function() {
       ];
       $(this).highcharts('StockChart', mergeDefaults({
         colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
-          "#CC79A7", "#DF5353", "#66558C", "#FFFFFF", "#888888"
+          "#CC79A7", "#DF5353", "#66558C", "#99E699", "#FFAEAA"
         ],
         rangeSelector: {
           enabled: true,

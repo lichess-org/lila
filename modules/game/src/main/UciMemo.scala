@@ -12,7 +12,7 @@ final class UciMemo(ttl: Duration) {
     val current = Option(memo getIfPresent game.id) | Vector.empty
     memo.put(game.id, current :+ uciMove)
   }
-  def add(game: Game, move: chess.Move) {
+  def add(game: Game, move: chess.MoveOrDrop) {
     add(game, UciDump.move(game.variant)(move))
   }
 

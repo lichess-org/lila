@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import scala.util.Random.shuffle
-
 import controllers._
 import play.api.i18n.{ Lang, Messages }
 import play.api.mvc.{ RequestHeader, Call }
@@ -35,11 +33,7 @@ trait I18nHelper {
   def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
   def shortLangName(lang: String): Option[String] = langName(lang) map (_ takeWhile (','!=))
 
-  def translationCall(implicit ctx: UserContext) =
-    if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
-    else (~ctx.me.map(_.count.game) >= i18nEnv.CallThreshold) ?? shuffle(
-      (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
-    ).headOption
+  def translationCall(implicit ctx: UserContext) = i18nEnv.call(ctx.me, ctx.req)
 
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"

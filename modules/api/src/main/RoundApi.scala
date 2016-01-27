@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ TournamentRepo, Tournament }
+import lila.tournament.{ Tournament, SecondsToDoFirstMove, TourAndRanks }
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -19,6 +19,8 @@ private[api] final class RoundApi(
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     analysisApi: AnalysisApi,
+    bookmarkApi: lila.bookmark.BookmarkApi,
+    getTourAndRanks: Game => Fu[Option[TourAndRanks]],
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
@@ -27,7 +29,7 @@ private[api] final class RoundApi(
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         initialFen = initialFen,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) map {
@@ -37,6 +39,7 @@ private[api] final class RoundApi(
             withSimul(pov, simulOption)_ compose
             withSteps(pov, none, initialFen)_ compose
             withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withForecastCount(forecast.map(_.steps.size))_
           )(json)
         }
@@ -51,7 +54,7 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
         initialFen = initialFen,
         withMoveTimes = withMoveTimes) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
           case (((json, tourOption), simulOption), note) => (
@@ -59,6 +62,7 @@ private[api] final class RoundApi(
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_
           )(json)
@@ -83,16 +87,23 @@ private[api] final class RoundApi(
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
+  private def withBookmark(v: Boolean)(json: JsObject) =
+    if (v) json + ("bookmarked" -> JsBoolean(true)) else json
+
   private def withForecastCount(count: Option[Int])(json: JsObject) =
     count.filter(0 !=).fold(json) { c =>
       json + ("forecastCount" -> JsNumber(c))
     }
 
   private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
-    if (pov.forecastable && owner) json + ("forecast" -> fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-      import Forecast.forecastJsonWriter
-      Json toJson fc
-    })
+    if (pov.game.forecastable && owner) json + (
+      "forecast" -> {
+        if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+          import Forecast.forecastJsonWriter
+          Json toJson fc
+        }
+        else Json.obj("onMyTurn" -> true)
+      })
     else json
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
@@ -102,13 +113,17 @@ private[api] final class RoundApi(
     ))
   }
 
-  private def withTournament(pov: Pov, tourOption: Option[Tournament])(json: JsObject) =
-    tourOption.fold(json) { tour =>
+  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
+    tourOption.fold(json) { data =>
       json + ("tournament" -> Json.obj(
-        "id" -> tour.id,
-        "name" -> tour.name,
-        "running" -> tour.isStarted,
-        "berserkable" -> tour.berserkable
+        "id" -> data.tour.id,
+        "name" -> data.tour.name,
+        "running" -> data.tour.isStarted,
+        "berserkable" -> data.tour.berserkable,
+        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(data.tour),
+        "ranks" -> Json.obj(
+          "white" -> data.whiteRank,
+          "black" -> data.blackRank)
       ))
     }
 

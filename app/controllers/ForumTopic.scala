@@ -1,10 +1,14 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import lila.app._
 import lila.forum.CategRepo
 import views._
 
 object ForumTopic extends LilaController with ForumController {
+
+  private val CreateRateLimit = new lila.memo.RateLimit(2, 5 minutes)
 
   def form(categSlug: String) = Open { implicit ctx =>
     NotForKids {
@@ -17,17 +21,19 @@ object ForumTopic extends LilaController with ForumController {
   }
 
   def create(categSlug: String) = OpenBody { implicit ctx =>
-    CategGrantWrite(categSlug) {
-      implicit val req = ctx.body
-      OptionFuResult(CategRepo bySlug categSlug) { categ =>
-        forms.topic.bindFromRequest.fold(
-          err => forms.anyCaptcha map { captcha =>
-            BadRequest(html.forum.topic.form(categ, err, captcha))
-          },
-          data => topicApi.makeTopic(categ, data) map { topic =>
-            Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
-          }
-        )
+    CreateRateLimit(ctx.req.remoteAddress) {
+      CategGrantWrite(categSlug) {
+        implicit val req = ctx.body
+        OptionFuResult(CategRepo bySlug categSlug) { categ =>
+          forms.topic.bindFromRequest.fold(
+            err => forms.anyCaptcha map { captcha =>
+              BadRequest(html.forum.topic.form(categ, err, captcha))
+            },
+            data => topicApi.makeTopic(categ, data) map { topic =>
+              Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+            }
+          )
+        }
       }
     }
   }

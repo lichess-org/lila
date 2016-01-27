@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font46/fonts/lichess.eot");
-  src: url("../font46/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font46/fonts/lichess.woff") format("woff"), url("../font46/fonts/lichess.ttf") format("truetype"), url("../font46/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font49/fonts/lichess.eot");
+  src: url("../font49/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font49/fonts/lichess.woff") format("woff"), url("../font49/fonts/lichess.ttf") format("truetype"), url("../font49/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -62,6 +62,13 @@ time {
   font-style: normal;
   font-weight: 400;
   src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/0Ue9FiUJwVhi4NGfHJS5uA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 .is::before,
 [data-icon]::before,
@@ -375,6 +382,9 @@ div.content_box .loader:after {
   z-index: 900000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
+#miniGame {
+  min-height: 262px;
+}
 #powerTip > .title {
   padding: 5px;
   border-bottom: 1px solid #c0c0c0;
@@ -427,6 +437,11 @@ div.content_box .loader:after {
 #powerTip > .actions td:last-child a {
   border-right: 0;
 }
+#powerTip .confirm {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
 #powerTip > .game_legend {
   text-align: center;
   border-bottom: 1px solid #c0c0c0;
@@ -448,6 +463,16 @@ div.content_box .loader:after {
 #powerTip > .info .content {
   display: block;
   padding: 15px 15px;
+}
+#powerTip .square-wrap,
+#miniGame .square-wrap {
+  text-align: center;
+}
+#powerTip .square-spin {
+  margin: 23px auto 20px auto;
+}
+#miniGame .square-spin {
+  margin: 82px auto 0 auto;
 }
 .clearfix::after {
   content: ".";
@@ -780,7 +805,6 @@ div.chat_panels div.active {
 }
 div.chat_panels .preferences {
   padding: 8px;
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   overflow-y: auto;
@@ -845,6 +869,9 @@ div.side_box .game_infos:hover .bookmark {
 div.side_box .game_infos .setup {
   display: block;
 }
+div.side_box .game_infos .variant-link {
+  border-bottom: 1px dotted #747474;
+}
 div.side_box div.status {
   text-align: center;
   margin-top: 5px;
@@ -882,6 +909,13 @@ div.side form.search input {
   padding: 8px 0 8px 8px;
   display: block;
   width: 203px;
+  transition: background 0.13s;
+}
+#site_header div.side_menu a::before {
+  opacity: 0.8;
+}
+#site_header div.side_menu a:hover {
+  background: rgba(255,255,255,0.5);
 }
 #site_header div.side_menu a.active {
   background: white;
@@ -1708,10 +1742,6 @@ div.user_show div.content_box_inter.tabs,
 #qa .answers-header,
 table.slist thead {
   background: rgb(245, 245, 245);
-  background: -moz-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 245, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(245, 245, 245, 1)), color-stop(100%, rgba(240, 240, 240, 1)));
-  background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
@@ -1759,16 +1789,14 @@ a.button:hover,
 .ui-state-hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
-  background: -moz-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(248, 248, 248, 1)), color-stop(100%, rgba(243, 243, 243, 1)));
-  background: -webkit-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
   background: linear-gradient(to bottom, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
 }
 .button:active,
 a.button:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
+.button:focus {outline:0;}
+
 /* active gradient */
 
 .button.active,
@@ -1777,6 +1805,7 @@ a.button:active {
 .ui-widget-header,
 div.pagination span.current,
 .data-count::after,
+.pocket piece::after,
 .unread,
 div.progressbar.flashy div,
 #simul .game_list .host.vstext,
@@ -1785,6 +1814,14 @@ div.progressbar.flashy div,
   text-shadow: 0 1px 0 #000 !important;
   background: #d85000 !important;
   border-color: #b84400 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+}
+.button.active-soft,
+.button.active-soft:hover {
+  color: #fff !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #bbb !important;
+  border-color: #aaa !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
 div.checkmateFen {
@@ -2277,8 +2314,7 @@ textarea.copyable {
 [data-hint]:before,
 [data-hint]:after {
   position: absolute;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  will-change: transform;
   visibility: hidden;
   opacity: 0;
   z-index: 900005;
@@ -2456,7 +2492,8 @@ textarea.copyable {
 }
 .fire_trophy.marathonWinner span,
 .fire_trophy.marathonTopTen span,
-.fire_trophy.marathonTopFifty span {
+.fire_trophy.marathonTopFifty span,
+.fire_trophy.marathonTopHundred span {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }
@@ -2493,7 +2530,8 @@ textarea.copyable {
   position: relative;
   cursor: pointer;
   outline: none;
-  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 input.cmn-toggle-round + label {
   padding: 1px;
@@ -2529,6 +2567,51 @@ input.cmn-toggle-round:checked + label:before {
 }
 input.cmn-toggle-round:checked + label:after {
   margin-left: 20px;
+}
+.pull-quote {
+  margin: 0 auto;
+  font-family: 'PT Serif';
+  font-size: 15px;
+  text-align: left;
+}
+.pull-quote p {
+  position: relative;
+  margin: 0 10px;
+  padding: 15px 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  font-style: italic;
+}
+.pull-quote.long p {
+  font-size: 14px;
+}
+.pull-quote p:after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 42px;
+  width: 15px;
+  height: 15px;
+  background: #eee;
+  border-left: 1.5px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  -webkit-transform: skew(45deg) rotate(-45deg);
+          transform: skew(45deg) rotate(-45deg);
+}
+.content_box .pull-quote p:after,
+.lichess_overboard .pull-quote p:after {
+  background: #fff;
+}
+.pull-quote footer {
+  margin: 10px;
+  line-height: 20px;
+  text-align: right;
+}
+.pull-quote footer:before {
+  content: '\2014';
+}
+.hopscotch-content a {
+  text-decoration: underline;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {

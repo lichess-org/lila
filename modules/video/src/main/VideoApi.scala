@@ -78,12 +78,7 @@ private[video] final class VideoApi(
       ).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.find(
-        BSONDocument(),
-        BSONDocument("_id" -> true)
-      ).cursor[BSONDocument]().collect[List]() map { doc =>
-          doc flatMap (_.getAs[String]("_id"))
-        }
+      videoColl.distinct("_id", none) map lila.db.BSON.asStrings
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new BSONAdapter[Video](
@@ -160,16 +155,12 @@ private[video] final class VideoApi(
       ).some) map (0!=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
-      viewColl.find(
+      viewColl.distinct(View.BSONFields.videoId,
         BSONDocument(
           "_id" -> BSONDocument("$in" -> videos.map { v =>
             View.makeId(v.id, user.id)
           })
-        ),
-        BSONDocument(View.BSONFields.videoId -> true, "_id" -> false)
-      ).cursor[BSONDocument]().collect[List]() map { docs =>
-          docs.flatMap(_.getAs[String](View.BSONFields.videoId)).toSet
-        }
+        ).some) map lila.db.BSON.asStringSet
   }
 
   object tag {
@@ -182,15 +173,7 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import videoColl.BatchCommands.AggregationFramework, AggregationFramework.{
-      Descending,
-      GroupField,
-      Match,
-      Project,
-      Unwind,
-      Sort,
-      SumValue
-    }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, Unwind, Sort, SumValue }
 
     private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
       f = filterTags => {

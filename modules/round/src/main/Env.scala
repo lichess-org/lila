@@ -64,7 +64,7 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      monitorMove = (ms: Int) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
+      monitorMove = (ms: Option[Int]) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
@@ -114,7 +114,9 @@ final class Env(
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
 
-  lazy val forecastApi = new ForecastApi(db(CollectionForecast))
+  lazy val forecastApi: ForecastApi = new ForecastApi(
+    coll = db(CollectionForecast),
+    roundMap = hub.actor.roundMap)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,

@@ -1,0 +1,40 @@
+@(u: User, rankMap: lila.rating.UserRankMap, perfType: lila.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+
+@moreJs = {
+@jsAt(s"compiled/lichess.perfStat${isProd??(".min")}.js")
+@embedJs {
+$(function() {
+LichessPerfStat(document.getElementById('perfStatContent'), {
+data: @Html(toJson(data))
+});
+});
+}
+}
+
+@moreCss = {
+@cssTag("user-perf-stat.css")
+}
+
+@user.layout(
+title = s"${u.username} ${perfType.name} stats",
+side = side(u, rankMap, perfType.some).some,
+robots = false,
+evenMoreJs = moreJs,
+evenMoreCss = moreCss) {
+<div class="content_box no_padding @perfType.key" id="perfStat">
+  <div class="content_box_top">
+    @if(u.perfs(perfType).nb > 0) {
+    <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id">
+      View the games
+    </a>
+    }
+    @perfTrophies(u, rankMap.filterKeys(perfType.key==))
+    <h1 class="lichess_title">
+      <a href="@routes.User.show(u.username)" data-icon="I" class="text">
+        @u.username <span>@perfType.name stats</span>
+      </a>
+    </h1>
+  </div>
+  <div class="content_box_content" id="perfStatContent"></div>
+</div>
+}

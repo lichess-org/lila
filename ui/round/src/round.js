@@ -25,7 +25,20 @@ module.exports = {
     if (data.game.variant.key === 'horde')
       data.pref.showCaptured = false;
 
-    return data;
+    var changes = {};
+    if (old.opponent) {
+      if (!old.opponent.offeringDraw && cfg.opponent.offeringDraw)
+        changes.drawOffer = true;
+      if (!old.opponent.proposingTakeback && cfg.opponent.proposingTakeback)
+        changes.takebackOffer = true;
+      if (!old.opponent.offeringRematch && cfg.opponent.offeringRematch)
+        changes.rematchOffer = true;
+    }
+
+    return {
+      data: data,
+      changes: changes
+    };
   },
   firstPly: firstPly,
   lastPly: lastPly,

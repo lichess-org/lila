@@ -86,10 +86,12 @@ private[forum] final class TopicApi(
     maxPerPage = maxPerPage)
 
   def delete(categ: Categ, topic: Topic): Funit =
-    (PostRepo removeByTopic topic.id zip $remove(topic)) >>
-      (env.categApi denormalize categ) >>-
-      (indexer ! RemoveTopic(topic.id)) >>
-      env.recent.invalidate
+    PostRepo.idsByTopicId(topic.id) flatMap { postIds =>
+      (PostRepo removeByTopic topic.id zip $remove(topic)) >>
+        (env.categApi denormalize categ) >>-
+        (indexer ! RemovePosts(postIds)) >>
+        env.recent.invalidate
+    }
 
   def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
     TopicRepo.close(topic.id, topic.open) >> {

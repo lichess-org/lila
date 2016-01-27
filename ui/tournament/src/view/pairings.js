@@ -3,8 +3,6 @@ var partial = require('chessground').util.partial;
 var util = require('./util');
 var status = require('game').status;
 
-var statusClasses = ['playing', 'draw', 'win', 'loss'];
-
 function user(p, it) {
   return {
     tag: p.s === 0 ? 'playing' : (
@@ -16,14 +14,27 @@ function user(p, it) {
   };
 }
 
+function featured(f, n) {
+  return m('div.featured', [
+    m('div.vstext.top', [
+      m('strong', '#' + f.player2.rank),
+      util.player(f.player2)
+    ]),
+    util.miniBoard(f),
+    m('div.vstext.bottom', [
+      m('strong', '#' + f.player1.rank),
+      util.player(f.player1)
+    ])
+  ]);
+}
+
 module.exports = function(ctrl) {
   var pairing = function(p) {
     return {
       tag: 'a',
       attrs: {
         key: p.id,
-        href: '/' + p.id,
-        class: 'glpt'
+        href: '/' + p.id
       },
       children: [
         user(p, 0),
@@ -32,9 +43,12 @@ module.exports = function(ctrl) {
       ]
     };
   };
-  return m('div.all_pairings.scroll-shadow-soft', {
-    onclick: function() {
-      return !ctrl.vm.disableClicks;
-    }
-  }, ctrl.data.pairings.map(pairing));
+  return [
+    ctrl.data.featured ? featured(ctrl.data.featured) : null,
+    m('div.box.all_pairings.scroll-shadow-soft', {
+      onclick: function() {
+        return !ctrl.vm.disableClicks;
+      }
+    }, ctrl.data.pairings.map(pairing))
+  ];
 };

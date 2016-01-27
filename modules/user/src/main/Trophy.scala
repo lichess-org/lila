@@ -54,6 +54,13 @@ object Trophy {
       url = none,
       "fire_trophy".some)
 
+    object MarathonTopHundred extends Kind(
+      key = "marathonTopHundred",
+      name = "Marathon Top 100",
+      icon = "\\".some,
+      url = none,
+      "fire_trophy".some)
+
     object MarathonSurvivor extends Kind(
       key = "marathonSurvivor",
       name = "Marathon #1 survivor",
@@ -100,7 +107,7 @@ object Trophy {
       ZugMiracle,
       WayOfBerserk,
       MarathonSurvivor,
-      MarathonWinner, MarathonTopTen, MarathonTopFifty,
+      MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonTopHundred,
       BongcloudWarrior,
       Developer, Moderator,
       Streamer)

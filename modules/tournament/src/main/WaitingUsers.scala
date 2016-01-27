@@ -37,7 +37,7 @@ private[tournament] case class WaitingUsers(
     }.toList
   }
 
-  def update(us: Seq[String], clock: Option[chess.Clock]) = {
+  def update(us: Set[String], clock: Option[chess.Clock]) = {
     val newDate = DateTime.now
     copy(
       date = newDate,
@@ -50,6 +50,8 @@ private[tournament] case class WaitingUsers(
   def intersect(us: Seq[String]) = copy(hash = hash filterKeys us.contains)
 
   def diff(us: Set[String]) = copy(hash = hash filterKeys { k => !us.contains(k) })
+
+  override def toString = all.toString
 }
 
 private[tournament] object WaitingUsers {

@@ -14,6 +14,8 @@ case class Perfs(
     antichess: Perf,
     atomic: Perf,
     horde: Perf,
+    racingKings: Perf,
+    crazyhouse: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -29,6 +31,8 @@ case class Perfs(
     "antichess" -> antichess,
     "atomic" -> atomic,
     "horde" -> horde,
+    "racingKings" -> racingKings,
+    "crazyhouse" -> crazyhouse,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -77,6 +81,8 @@ case class Perfs(
     "antichess" -> antichess,
     "atomic" -> atomic,
     "horde" -> horde,
+    "racingKings" -> racingKings,
+    "crazyhouse" -> crazyhouse,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -102,6 +108,8 @@ case class Perfs(
     case PerfType.Antichess      => antichess
     case PerfType.Atomic         => atomic
     case PerfType.Horde          => horde
+    case PerfType.RacingKings    => racingKings
+    case PerfType.Crazyhouse     => crazyhouse
     case PerfType.Puzzle         => puzzle
     case PerfType.Opening        => opening
   }
@@ -133,7 +141,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -144,6 +152,8 @@ case object Perfs {
     case chess.variant.Antichess     => Some(_.antichess)
     case chess.variant.Atomic        => Some(_.atomic)
     case chess.variant.Horde         => Some(_.horde)
+    case chess.variant.RacingKings   => Some(_.racingKings)
+    case chess.variant.Crazyhouse    => Some(_.crazyhouse)
     case _                           => none
   }
 
@@ -157,7 +167,7 @@ case object Perfs {
   val perfsBSONHandler = new BSON[Perfs] {
 
     implicit def perfHandler = Perf.perfBSONHandler
-    import BSON.Map._
+    import BSON.MapDocument._
 
     def reads(r: BSON.Reader): Perfs = {
       def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
@@ -169,6 +179,8 @@ case object Perfs {
         antichess = perf("antichess"),
         atomic = perf("atomic"),
         horde = perf("horde"),
+        racingKings = perf("racingKings"),
+        crazyhouse = perf("crazyhouse"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -187,6 +199,8 @@ case object Perfs {
       "antichess" -> notNew(o.antichess),
       "atomic" -> notNew(o.atomic),
       "horde" -> notNew(o.horde),
+      "racingKings" -> notNew(o.racingKings),
+      "crazyhouse" -> notNew(o.crazyhouse),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
@@ -194,4 +208,17 @@ case object Perfs {
       "puzzle" -> notNew(o.puzzle),
       "opening" -> notNew(o.opening))
   }
+
+  case class Leaderboards(
+    bullet: List[User.LightPerf],
+    blitz: List[User.LightPerf],
+    classical: List[User.LightPerf],
+    crazyhouse: List[User.LightPerf],
+    chess960: List[User.LightPerf],
+    kingOfTheHill: List[User.LightPerf],
+    threeCheck: List[User.LightPerf],
+    antichess: List[User.LightPerf],
+    atomic: List[User.LightPerf],
+    horde: List[User.LightPerf],
+    racingKings: List[User.LightPerf])
 }

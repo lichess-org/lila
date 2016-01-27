@@ -50,19 +50,19 @@ object Tv {
     case object Best extends Channel(
       name = "Top Rated",
       icon = "C",
-      filters = Seq(standard, freshBlitz))
+      filters = Seq(rated, standard, freshBlitz))
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
-      filters = Seq(standard, speed(S.Bullet), fresh(15)))
+      filters = Seq(rated, standard, speed(S.Bullet), fresh(15)))
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
-      filters = Seq(standard, speed(S.Blitz), freshBlitz))
+      filters = Seq(rated, standard, speed(S.Blitz), freshBlitz))
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
-      filters = Seq(standard, speed(S.Classical), fresh(60 * 3)))
+      filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 3)))
     case object Chess960 extends Channel(
       name = V.Chess960.name,
       icon = P.Chess960.iconChar.toString,
@@ -87,6 +87,14 @@ object Tv {
       name = V.Horde.name,
       icon = P.Horde.iconChar.toString,
       filters = Seq(variant(V.Horde), freshBlitz))
+    case object RacingKings extends Channel(
+      name = V.RacingKings.name,
+      icon = P.RacingKings.iconChar.toString,
+      filters = Seq(variant(V.RacingKings), freshBlitz))
+    case object Crazyhouse extends Channel(
+      name = V.Crazyhouse.name,
+      icon = P.Crazyhouse.iconChar.toString,
+      filters = Seq(variant(V.Crazyhouse), freshBlitz))
     case object Computer extends Channel(
       name = "Computer",
       icon = ":",
@@ -94,11 +102,12 @@ object Tv {
     val all = List(
       Best,
       Bullet, Blitz, Classical,
-      Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde,
+      Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
       Computer)
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
+  private def rated = (g: Game) => g.rated
   private def speed(speed: chess.Speed) = (g: Game) => g.speed == speed
   private def variant(variant: chess.variant.Variant) = (g: Game) => g.variant == variant
   private val standard = variant(V.Standard)

@@ -49,6 +49,9 @@
 #lichess_blog .body em {
   font-style: italic;
 }
+#lichess_blog .body .block-img {
+  text-align: center;
+}
 #lichess_blog ol li {
   list-style: decimal inside;
 }

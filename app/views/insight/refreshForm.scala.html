@@ -1,0 +1,18 @@
+@(u: User, action: String)(implicit ctx: Context)
+
+<form class="insight-refresh" method="post" action="@routes.Insight.refresh(u.username)">
+  <button data-icon="E" class="button text">@action</button>
+  <div class="crunching none">
+    <span class="square-spin"></span>
+    <br />
+    <strong>Now crunching data just for you!</strong>
+    <br />
+    <br />
+    <p>Would you like to watch<br />a live game while you wait?</p>
+    <br />
+    <script src="http://en.lichess.org/tv/embed?theme=brown&bg=light"></script>
+    <br />
+    <br />
+    <p>This can take a while,<br />maybe reload this page later!</p>
+  </div>
+</form>

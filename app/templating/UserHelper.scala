@@ -33,14 +33,16 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Correspondence,
     PerfType.Antichess,
     PerfType.Atomic,
-    PerfType.Horde)
+    PerfType.Horde,
+    PerfType.RacingKings,
+    PerfType.Crazyhouse)
 
   private def best4Of(u: User, perfTypes: List[PerfType]) =
     perfTypes.sortBy { pt => -u.perfs(pt).nb } take 4
 
   def miniViewSortedPerfTypes(u: User): List[PerfType] =
     best4Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
-      best4Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde))
+      best4Of(u, List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
     val title = s"$name rating over ${nb.localize} games"
@@ -65,7 +67,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def showRatingDiff(diff: Int) = Html {
     diff match {
-      case 0          => """<span class="rp null">+0</span>"""
+      case 0          => """<span class="rp null">±0</span>"""
       case d if d > 0 => s"""<span class="rp up">+$d</span>"""
       case d          => s"""<span class="rp down">$d</span>"""
     }
@@ -190,11 +192,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     userId: String,
     rating: Option[Int],
     cssClass: Option[String] = None,
+    withPowerTip: Boolean = true,
     withTitle: Boolean = false,
     withOnline: Boolean = true) = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
-    val klass = userClass(userId, cssClass, withOnline)
+    val klass = userClass(userId, cssClass, withOnline, withPowerTip)
     val href = userHref(name)
     val content = rating.fold(name)(e => s"$name&nbsp;($e)")
     val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle)

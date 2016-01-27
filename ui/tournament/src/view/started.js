@@ -22,11 +22,8 @@ module.exports = {
       }, [
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
-      ]) : null, m('div.standing_wrap',
-        pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
-        })),
-      util.games(ctrl.data.lastGames)
+      ]) : null,
+      arena.standing(ctrl, pag)
     ];
   },
   side: function(ctrl) {

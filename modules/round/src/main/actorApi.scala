@@ -2,8 +2,10 @@ package lila.round
 package actorApi
 
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.Promise
 
 import chess.Color
+import chess.format.Uci
 
 import lila.game.{ Game, Event, PlayerRef }
 import lila.socket.SocketMember
@@ -92,23 +94,15 @@ package round {
 
 case class HumanPlay(
     playerId: String,
-    ip: String,
-    orig: String,
-    dest: String,
-    prom: Option[String],
+    uci: Uci,
     blur: Boolean,
     lag: FiniteDuration,
-    onFailure: Exception => Unit) {
+    promise: Option[Promise[Unit]] = None) {
 
   val atMillis = nowMillis
 }
 
-case class ImportPlay(
-  playerId: String,
-  ip: String,
-  orig: chess.Pos,
-  dest: chess.Pos,
-  prom: Option[chess.PromotableRole])
+case class ImportPlay(playerId: String, uci: Uci)
 
 case object AiPlay
 
@@ -135,7 +129,7 @@ case object Outoftime
 case object Abandon
 case class ForecastPlay(lastMove: chess.Move)
 case class Cheat(color: Color)
-case class HoldAlert(playerId: String, mean: Int, sd: Int)
+case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: String)
 case class GoBerserk(color: Color)
 case class TournamentStanding(id: String)
 }

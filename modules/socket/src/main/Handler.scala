@@ -18,14 +18,14 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
+  lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds)
+
   def apply(
     hub: lila.hub.Env,
     socket: ActorRef,
     uid: String,
     join: Any,
     userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
-
-    lazy val AnaRateLimit = new lila.memo.RateLimitGlobal(1 / 3 second)
 
     def baseController(member: SocketMember): Controller = {
       case ("p", _) => socket ! Ping(uid)
@@ -38,7 +38,7 @@ object Handler {
       case ("moveLat", o) => hub.channel.moveLat ! (~(o boolean "d")).fold(
         Channel.Sub(member),
         Channel.UnSub(member))
-      case ("anaMove", o) => AnaRateLimit {
+      case ("anaMove", o) => AnaRateLimit(uid) {
         AnaMove parse o foreach { anaMove =>
           anaMove.step match {
             case scalaz.Success(step) =>
@@ -51,7 +51,20 @@ object Handler {
           }
         }
       }
-      case ("anaDests", o) => AnaRateLimit {
+      case ("anaDrop", o) => AnaRateLimit(uid) {
+        AnaDrop parse o foreach { anaDrop =>
+          anaDrop.step match {
+            case scalaz.Success(step) =>
+              member push lila.socket.Socket.makeMessage("step", Json.obj(
+                "step" -> step.toJson,
+                "path" -> anaDrop.path
+              ))
+            case scalaz.Failure(err) =>
+              member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
+          }
+        }
+      }
+      case ("anaDests", o) => AnaRateLimit(uid) {
         AnaDests parse o match {
           case Some(req) =>
             member push lila.socket.Socket.makeMessage("dests", Json.obj(

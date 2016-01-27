@@ -12,7 +12,6 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
   line-height: 0;
   background-size: cover;
 }
@@ -102,8 +101,12 @@ body.highlight .cg-board square.check {
 body.base .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-body.base .cg-board square.exploding {
+body.base .cg-board square.exploding1 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.base .cg-board square.exploding2 {
   background-color: rgba(255, 0, 0, 0.5);
+  transition: background-color 0.1s;
 }
 piece {
   width: 100%;
@@ -273,6 +276,28 @@ div.lichess_board {
   left: 37.5%;
 }
 
+/* Racing Kings board decorations */
+
+.racingKings .cg-board.orientation-white::before {
+  width: 100%;
+  height: 12.5%;
+  box-shadow: inset 0 -2px 10px rgba(0, 0, 0, 0.5);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.racingKings .cg-board.orientation-black::before {
+  width: 100%;
+  height: 12.5%;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 .is2d .cg-board-wrap.minimal-dom {
   background: none;
 }
@@ -387,6 +412,11 @@ div.lichess_overboard p.explanations {
   font-size: 12px;
   line-height: 1.4em;
   text-align: center;
+}
+div.lichess_overboard .pull-quote {
+  margin-top: 30px;
+  width: 300px;
+  font-size: 0.9em;
 }
 div.premove_alert,
 div.dont_touch {
@@ -565,6 +595,53 @@ div.table {
 .lichess_ground .control.buttons a.replay_and_analyse {
   margin-bottom: 10px;
 }
+.pocket {
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
+  width: 100%;
+  height: 56px;
+  background: #888;
+  white-space: nowrap;
+  max-width: 244px;
+  overflow: hidden;
+}
+.pocket.top {
+  margin-bottom: 10px;
+}
+.pocket.bottom {
+  margin-top: 10px;
+}
+.pocket piece {
+  display:inline-block;
+  width: 56px!important;
+  height: 56px!important;
+  position: relative;
+}
+.pocket piece:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.pocket.crowded piece {
+  width: 48.5px!important;
+  background-position: center;
+}
+.pocket.usable piece {
+  cursor: pointer;
+  transition: background-color 0.13s;
+}
+.pocket.usable piece:hover {
+  background-color: #999;
+}
+.pocket piece::after {
+  content: attr(data-nb);
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  line-height: 14px;
+  padding: 3px 5px 4px 5px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 18px;
+}
 div.table.spectator {
   top: 160px;
 }
@@ -598,6 +675,14 @@ div.table div.username span.status span {
 }
 div.table div.username.on-game span.status span {
   color: #759900;
+}
+div.table .message {
+  margin: 20px 0;
+}
+div.table .message::before {
+  font-size: 3em;
+  float: left;
+  margin-right: 10px;
 }
 div.table .button.strong {
   padding-top: 1em;
@@ -639,7 +724,7 @@ div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 30px;
+  font-size: 32px;
   font-family: monospace;
 }
 div.table_wrap > .correspondence.clock > .time {
@@ -647,6 +732,9 @@ div.table_wrap > .correspondence.clock > .time {
 }
 div.table_wrap > .clock .time tenths {
   font-size: 80%;
+}
+div.table_wrap > .clock .time huns {
+  font-size: 60%;
 }
 div.table_wrap > .clock .time b {
   font-weight: bold;
@@ -694,14 +782,24 @@ div.table_wrap a.moretime {
   position: absolute;
   font-size: 20px;
   right: 0;
-  top: 0;
+  top: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
+}
+div.table_wrap .tournament_rank {
+  position: absolute;
+  font-size: 20px;
+  right: 0;
+}
+div.table_wrap .tournament_rank.top {
+  top: 5px;
+}
+div.table_wrap .tournament_rank.bottom {
+  bottom: 5px;
 }
 div.table_next {
   top: 145px;
@@ -813,6 +911,7 @@ div.cemetery {
   height: 32px;
   line-height: 0;
   white-space: nowrap;
+  line-height: 0;
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
@@ -826,6 +925,14 @@ div.cemetery tomb {
 }
 div.cemetery mono-piece {
   margin-left: -10px;
+}
+div.cemetery score {
+  display: inline-block;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 35px;
+  vertical-align: top;
 }
 div.berserk_alert {
   position: absolute;
@@ -860,6 +967,8 @@ div.under_chat .watchers {
   margin-top: 25px;
   opacity: 0.65;
   transition: 0.13s;
+  height: 10em;
+  overflow: hidden;
 }
 div.under_chat .watchers:hover {
   opacity: 1;
@@ -879,6 +988,10 @@ div.under_chat .watchers:hover {
   overflow: hidden;
   overflow-y: auto;
   word-wrap: break-word;
+}
+body.no-select #chat li {
+  -moz-user-select: text;
+  -webkit-user-select: text;
 }
 #chat form {
   position: relative;
@@ -937,8 +1050,9 @@ div.under_chat .watchers:hover {
   padding: 3px 5px;
 }
 #chat.hidden ol.messages,
-#chat.hidden form {
-  opacity: 0;
+#chat.hidden form,
+#chat.hidden .presets {
+  display: none;
 }
 div.game_tournament {
   max-height: 300px;
@@ -1004,7 +1118,9 @@ div.underboard .right {
   width: 242px;
 }
 div.underboard .blurs {
+  position: relative;
   padding-top: 25px;
+  z-index: 1;
 }
 div.underboard a {
   display: inline-block;

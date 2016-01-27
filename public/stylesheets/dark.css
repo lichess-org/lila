@@ -64,7 +64,7 @@ body.dark div.table,
 body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
-body.dark #tournament_side,
+body.dark #tournament_side .box,
 body.dark #tournament_side .player .stats,
 body.dark #tournament_side .player tr > *,
 body.dark #tournament_side .player tr:hover th,
@@ -77,6 +77,7 @@ body.dark div.content_box_inter a:hover,
 body.dark input.copyable,
 body.dark textarea.copyable,
 body.dark #site_header div.side_menu a.active,
+body.dark div.sub_ratings > a.active,
 body.dark div.game_row,
 body.dark div.side form.search input,
 body.dark #lichess_forum div.post,
@@ -106,10 +107,14 @@ body.dark #team .team-left,
 body.dark #team .team-right,
 body.dark #team h2,
 body.dark #team.team_show div.content_box_top,
+body.dark #perfStat div.content_box_top,
+body.dark #perfStat .counter tr:first-child,
+body.dark #perfStat .result thead tr,
 body.dark .leaderboard_title,
 body.dark #friend_box,
 body.dark #friend_box .title,
 body.dark div.user_show div.user-infos,
+body.dark div.user_show .insight,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #miniGame,
@@ -121,7 +126,6 @@ body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a,
 body.dark #hooks_wrap .hooks_chart > div.grid,
-body.dark #tournament_schedule .timeheader,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -146,18 +150,18 @@ body.dark div.doc_box h2,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
-body.dark div.side_box div.game_infos,
+body.dark div.side_box .game_infos,
 body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
-body.dark div.search_status,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
+body.dark #perfStat .counter tr.full td:last-child,
 body.dark #modal-wrap {
   background-color: #303030;
 }
@@ -169,10 +173,17 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+
+body.dark .pull-quote p,
+body.dark .pull-quote p:after,
+body.dark #powerTip > .info .title,
+body.dark #tournament_schedule .timeheader,
 body.dark #opening .meter .step {
   border-color: #505050;
 }
 
+body.dark #tournament_side .featured .vstext strong,
+body.dark div.search_status,
 body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
@@ -197,6 +208,7 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
+body.dark .lichess_ground .analyse .meta > .menu,
 body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
@@ -213,6 +225,7 @@ body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
+body.dark div.sub_ratings > a.game:hover,
 body.dark #hooks_wrap .table_wrap td,
 body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
@@ -221,10 +234,12 @@ body.dark #now_playing > a {
 body.dark #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
+body.dark #site_header div.side_menu a:hover,
+body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
 body.dark .lichess_ground .replay move.current,
-body.dark #tournament table.standing:not(.created) tbody tr:hover {
+body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #top a.signin,
@@ -258,19 +273,24 @@ body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
 body.dark div.lichess_overboard,
 body.dark div.content_box,
+body.dark .content_box .pull-quote p:after,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
-body.dark #tournament_side,
+body.dark div.sub_ratings > a.game.active,
+body.dark #tournament_side .box,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.dark #video_side .tag_list a.checked,
 body.dark div.lichess_overboard .loader:before,
 body.dark div.lichess_overboard .loader:after,
+body.dark div.lichess_overboard .pull-quote p:after,
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
+body.dark #perfStat .counter tr,
+body.dark #perfStat .result tr,
 body.dark #video .card .info,
 body.dark #video .card .reveal,
 body.dark #timeline,
@@ -365,11 +385,15 @@ body.dark a.button:hover,
 body.dark .ui-state-hover {
   border-color: #383838;
   background: rgb(44, 44, 44);
-  background: -moz-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(44, 44, 44, 1)), color-stop(100%, rgba(40, 40, 40, 1)));
-  background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
+}
+body.dark .button.active-soft,
+body.dark .button.active-soft:hover {
+  color: #ccc !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #444 !important;
+  border-color: #404040 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35) inset !important;
 }
 body.dark #hooks_wrap .hooks_chart .plot {
   color: #aaa;
@@ -381,6 +405,8 @@ body.dark #hooks_wrap .hooks_chart > span.label {
 body.dark .loader {
   box-shadow: inset 0 0 0 1em #444;
 }
+
+body.dark .pull-quote p:after,
 body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
@@ -530,6 +556,9 @@ body.dark div.eval_gauge .black {
 }
 body.dark div.eval_gauge tick {
   border-color: #a0a0a0;
+}
+body.dark div.side_box .game_infos .variant-link {
+  border-color: #8c8c8c;
 }
 body.dark .square-spin {
   background: #666;

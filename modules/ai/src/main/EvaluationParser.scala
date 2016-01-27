@@ -6,8 +6,6 @@ import lila.analyse.{ Evaluation, Score }
 
 object EvaluationParser {
 
-  private val LineMaxPlies = 20
-
   private val cpRegex = """^info.*\scp\s(\-?\d+).*$""".r
   private val mateRegex = """^info.*\smate\s(\-?\d+).*$""".r
   private val lineRegex = """^.+\spv\s([\w\s]+)$""".r
@@ -24,7 +22,7 @@ object EvaluationParser {
     }
 
     val line = output match {
-      case lineRegex(line) => line.split(' ').toList take LineMaxPlies
+      case lineRegex(line) => line.split(' ') take lila.analyse.Info.LineMaxPlies toList
       case _               => Nil
     }
 

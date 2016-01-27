@@ -75,7 +75,7 @@ object Team extends LilaController {
     me => OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.kick(team, userIds filterNot (me.id ==))
+          html.team.kick(team, userIds.filterNot(me.id ==).toList.sorted)
         }
       }
     }
@@ -88,6 +88,15 @@ object Team extends LilaController {
         forms.kick.bindFromRequest.value ?? { api.kick(team, _) } inject Redirect(routes.Team.show(team.id))
       }
     }
+  }
+
+  def close(id: String) = Secure(_.CloseTeam) { implicit ctx =>
+    me =>
+      OptionFuResult(api team id) { team =>
+        (api delete team) >>
+          Env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
+          Redirect(routes.Team all 1)
+      }
   }
 
   def form = Auth { implicit ctx =>

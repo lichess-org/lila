@@ -1,5 +1,6 @@
 package lila
 
+import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Future
 
 import ornicar.scalalib
@@ -207,6 +208,16 @@ trait WithPlay { self: PackageObject =>
       import scala.concurrent.duration._
       scala.concurrent.Await.result(fua, seconds.seconds)
     }
+
+    def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
+      Future firstCompletedOf Seq(fua,
+        akka.pattern.after(duration, system.scheduler)(fufail(error)))
+    }
+
+    def logIfSlow(millis: Int, logger: String)(msg: A => String) =
+      lila.common.Chronometer.result(fua).map {
+        _.resultAndLogIfSlow(millis, logger)(msg)
+      }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {

@@ -1,40 +1,31 @@
 package lila.memo
 
-import scala.concurrent.duration.Duration
 import ornicar.scalalib.Zero
+import scala.concurrent.duration.Duration
 
 /**
- * very simple side effect throttler
- * that allows one call per duration,
- * and discards the rest
+ * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimitGlobal(duration: Duration) {
+final class RateLimit(nb: Int, duration: Duration) {
 
-  private val durationMillis = duration.toMillis
+  private type NbOps = Int
+  private type ClearAt = Long
 
-  private var lastHit: Long = nowMillis - durationMillis - 10
+  private val storage = Builder.expiry[String, (NbOps, ClearAt)](ttl = duration)
 
-  def apply[A: Zero](op: => A): A = {
-    (nowMillis > lastHit + durationMillis) ?? {
-      lastHit = nowMillis
-      op
+  private def makeClearAt = nowMillis + duration.toMillis
+
+  def apply[A](key: String)(op: => A)(implicit default: Zero[A]): A =
+    Option(storage getIfPresent key) match {
+      case None =>
+        storage.put(key, 1 -> makeClearAt)
+        op
+      case Some((a, clearAt)) if a <= nb =>
+        storage.put(key, (a + 1) -> clearAt)
+        op
+      case Some((_, clearAt)) if nowMillis > clearAt =>
+        storage.put(key, 1 -> makeClearAt)
+        op
+      case _ => default.zero
     }
-  }
-}
-
-/**
- * very simple side effect throttler
- * that allows one call per duration and per key,
- * and discards the rest
- */
-final class RateLimitByKey(duration: Duration) {
-
-  private val storage = new ExpireSetMemo(ttl = duration)
-
-  def apply[A: Zero](key: String)(op: => A): A = {
-    (!storage.get(key)) ?? {
-      storage put key
-      op
-    }
-  }
 }

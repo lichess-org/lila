@@ -23,31 +23,33 @@ POST  /games/export/:user              controllers.Game.exportConfirm(user: Stri
 GET   /tv                              controllers.Tv.index
 GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
-GET   /tv/stream                       controllers.Tv.streamOut
 GET   /tv/stream/config                controllers.Tv.streamConfig
 POST  /tv/stream/config                controllers.Tv.streamConfigSave
+GET   /tv/stream/:id                   controllers.Tv.streamIn(id: String)
+GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
-GET   /tv/stream/:id                   controllers.Tv.streamIn(id: String)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
 POST  /rel/block/:userId               controllers.Relation.block(userId: String)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: String)
-GET   /@/:username/following           controllers.Relation.following(username: String)
-GET   /@/:username/followers           controllers.Relation.followers(username: String)
-GET   /@/:username/suggestions         controllers.Relation.suggest(username: String)
-GET   /rel/blocks                      controllers.Relation.blocks
+GET   /@/:username/following           controllers.Relation.following(username: String, page: Int ?= 1)
+GET   /@/:username/followers           controllers.Relation.followers(username: String, page: Int ?= 1)
+GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 
-# Coach
-GET   /coach/opening/:username/:color.json controllers.Coach.openingJson(username: String, color: String)
-GET   /coach/opening/:username/:color  controllers.Coach.opening(username: String, color: String)
-GET   /coach/move/:username.json       controllers.Coach.moveJson(username: String)
-GET   /coach/move/:username            controllers.Coach.move(username: String)
-POST  /coach/refresh/:username         controllers.Coach.refresh(username: String)
+# Insight
+POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)
+POST  /insights/data/:username         controllers.Insight.json(username: String)
+GET   /insights/:username              controllers.Insight.index(username: String)
+GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
+GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
+
+# UserTournament
+GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
@@ -55,9 +57,11 @@ GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
+GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /player                          controllers.User.list
+GET   /player/top200/:perfKey          controllers.User.top200(perfKey: String)
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
 
@@ -129,6 +133,7 @@ GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: 
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: String)
+POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: String, uci: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
 GET   /$gameId<\w{8}>.atom                       controllers.Round.atom(gameId: String, color: String = "white")
@@ -144,7 +149,7 @@ GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fu
 GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
 
 # Tournament
-GET   /tournament                             controllers.Tournament.home
+GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
@@ -156,6 +161,7 @@ POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id
 GET   /tournament/$id<\w{8}>/mini/:user/:nb   controllers.Tournament.userGameNbMini(id: String, user: String, nb: Int)
 GET   /tournament/$id<\w{8}>/show/:user/:nb   controllers.Tournament.userGameNbShow(id: String, user: String, nb: Int)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
+POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
 # Simul
@@ -191,6 +197,7 @@ GET   /team/:id/edit                          controllers.Team.edit(id: String)
 POST  /team/:id/edit                          controllers.Team.update(id: String)
 GET   /team/:id/kick                          controllers.Team.kickForm(id: String)
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
+POST  /team/:id/close                         controllers.Team.close(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
@@ -266,7 +273,11 @@ POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
+POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: String)
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
+GET   /mod/leaderboard                 controllers.Mod.gamify
+GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
+GET   /mod/search                      controllers.Mod.search
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
@@ -323,7 +334,7 @@ GET   /monitor/status                  controllers.Monitor.statusParam
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
-GET   /report/thanks                   controllers.Report.thanks
+GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
 
@@ -353,8 +364,8 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 
 # API
 GET   /api/user                        controllers.Api.users
-GET   /api/user/:id                    controllers.Api.user(id: String)
-GET   /api/game                        controllers.Api.games
+GET   /api/user/:name                  controllers.Api.user(name: String)
+GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 POST  /api/opening                     controllers.Opening.importOne
 GET   /api/status                      controllers.Api.status
@@ -364,7 +375,6 @@ POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
-GET   /irc                             controllers.Main.irc
 GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
@@ -373,14 +383,9 @@ GET   /lag                             controllers.Main.lag
 GET   /network                         controllers.WorldMap.index
 GET   /network/stream                  controllers.WorldMap.stream
 
-# Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /help-lichess                    controllers.Page.helpLichess
-GET   /terms-of-service                controllers.Page.tos
-GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
-GET   /contact                         controllers.Page.contact
-GET   /king-of-the-hill                controllers.Page.kingOfTheHill
-GET   /privacy                         controllers.Page.privacy
+# Mobile Push
+POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
+POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Donate
 GET   /donate                          controllers.Donation.index
@@ -388,7 +393,22 @@ GET   /donate/thanks                   controllers.Donation.thanks
 POST  /donate/thanks                   controllers.Donation.thanksRedirect
 POST  /donate/ipn                      controllers.Donation.ipn
 
-POST  /jslog                           controllers.Main.jslog
+# Pages
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
+GET   /contact                         controllers.Page.contact
+
+# Variants
+GET   /variant                         controllers.Page.variantHome
+GET   /variant/:key                    controllers.Page.variant(key)
+
+# Help
+GET   /help/contribute                 controllers.Page.contribute
+GET   /help/master                     controllers.Page.master
+GET   /help/stream-on-lichess          controllers.Page.streamHowTo
+
+POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

@@ -5,7 +5,7 @@ package lila.shutup
  * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
  * - words do not partial match. "anal" will NOT match "analysis".
  */
-object Dictionary {
+private object Dictionary {
 
   def en: List[String] = dict("""
 (c|k)oc?k(y|suc?ker|)
@@ -37,6 +37,7 @@ buk?kake
 bull?shit
 cancer
 cawk
+chess(|-|_)bot(.?com)?
 chink
 choad
 clit

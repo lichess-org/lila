@@ -10,6 +10,7 @@ import reactivemongo.bson.Macros
 import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
+import lila.common.HTTPRequest
 import tube.storeColl
 
 object Store {
@@ -22,8 +23,8 @@ object Store {
     storeColl.insert(BSONDocument(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> req.remoteAddress,
-      "ua" -> lila.common.HTTPRequest.userAgent(req).|("?"),
+      "ip" -> HTTPRequest.lastRemoteAddress(req),
+      "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
       "api" -> apiVersion
@@ -36,7 +37,7 @@ object Store {
     ).one[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
 
   case class UserIdAndFingerprint(user: String, fp: Option[String])
-  private implicit val UserIdAndFingerprintBSONReader = Macros.handler[UserIdAndFingerprint]
+  private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
 
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     storeColl.find(
@@ -51,8 +52,14 @@ object Store {
 
   def closeUserAndSessionId(userId: String, sessionId: String): Funit =
     storeColl.update(
-      BSONDocument("user" -> userId, "_id" -> sessionId),
+      BSONDocument("user" -> userId, "_id" -> sessionId, "up" -> true),
       BSONDocument("$set" -> BSONDocument("up" -> false))).void
+
+  def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
+    storeColl.update(
+      BSONDocument("user" -> userId, "_id" -> BSONDocument("$ne" -> sessionId), "up" -> true),
+      BSONDocument("$set" -> BSONDocument("up" -> false)),
+      multi = true).void
 
   // useful when closing an account,
   // we want to logout too
@@ -67,21 +74,22 @@ object Store {
       BSONDocument("user" -> userId, "up" -> true)
     ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().collect[List](nb)
 
-  def setFingerprint(id: String, fingerprint: String) = {
+  def setFingerprint(id: String, fingerprint: String): Fu[String] = {
     import java.util.Base64
     import org.apache.commons.codec.binary.Hex
-    val hash = Base64.getEncoder encodeToString {
-      Hex decodeHex fingerprint.toArray
-    } take 8
-    storeColl.update(
-      BSONDocument("_id" -> id),
-      BSONDocument("$set" -> BSONDocument(
-        "fp" -> hash
-      ))).void
+    scala.concurrent.Future {
+      Base64.getEncoder encodeToString {
+        Hex decodeHex fingerprint.toArray
+      } take 8
+    } flatMap { hash =>
+      storeColl.update(
+        BSONDocument("_id" -> id),
+        BSONDocument("$set" -> BSONDocument("fp" -> hash))
+      ) inject hash
+    }
   }
 
-  case class Info(ip: String, ua: String, tor: Option[Boolean], fp: Option[String]) {
-    def isTorExitNode = ~tor
+  case class Info(ip: String, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
   }
   private implicit val InfoBSONHandler = Macros.handler[Info]

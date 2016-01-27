@@ -1,6 +1,10 @@
 .security .explanation {
   margin: 0 20px 20px 20px;
 }
+.security .revoke-all,
+.security .revoke-all button {
+  display: inline;
+}
 .security table td {
 }
 .security table .ua {

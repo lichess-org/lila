@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    val scheduler: lila.common.Scheduler,
     system: ActorSystem,
     appPath: String) {
 
@@ -22,7 +23,7 @@ final class Env(
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
-    streamsOnAir = () => Env.tv.streamsOnAir,
+    streamsOnAir = () => Env.tv.streamsOnAir.all,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
@@ -40,7 +41,8 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
-    isStreamer = Env.tv.isStreamer.apply) _
+    isStreamer = Env.tv.isStreamer.apply,
+    insightShare = Env.insight.share) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -75,7 +77,12 @@ final class Env(
       Env.tv,
       Env.blog,
       Env.video,
-      Env.shutup // required to load the actor
+      Env.shutup, // required to load the actor
+      Env.insight, // required to load the actor
+      Env.worldMap, // required to load the actor
+      Env.push, // required to load the actor
+      Env.perfStat, // required to load the actor
+      Env.slack // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }
@@ -87,6 +94,7 @@ object Env {
 
   lazy val current = "app" boot new Env(
     config = lila.common.PlayApp.loadConfig,
+    scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system,
     appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
 
@@ -136,5 +144,8 @@ object Env {
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
-  def coach = lila.coach.Env.current
+  def insight = lila.insight.Env.current
+  def push = lila.push.Env.current
+  def perfStat = lila.perfStat.Env.current
+  def slack = lila.slack.Env.current
 }

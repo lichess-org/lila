@@ -38,7 +38,7 @@
         </li>
         <li>
           <h2>@trans.blindfoldChess()</h2>
-          @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.radios(form("blindfold"), translatedBlindfoldChoices)
         </li>
       </ul>
       }
@@ -99,6 +99,10 @@
         <li>
           <h2>Let other players message you</h2>
           @base.radios(form("message"), translatedMessageChoices)
+        </li>
+        <li>
+          <h2>Share your insights data</h2>
+          @base.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
         </li>
       </ul>
       }

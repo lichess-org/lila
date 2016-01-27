@@ -1,6 +1,8 @@
-@()(implicit ctx: Context)
+@(id: String)(implicit ctx: Context)
 
 <div class="future_game_analysis progress">
-  @trans.computerAnalysisInProgress()
   <div class="loader"><span></span></div>
+  <div class="quote">
+    @base.quote(lila.quote.Quote.one(id))
+  </div>
 </div>

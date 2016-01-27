@@ -61,7 +61,7 @@ atom = atom.some) {
     <thead>
       <tr>
         <td>
-          <span class="is color-icon @color"></span>
+          <span class="is color-icon @color.name"></span>
         </td>
         <th>
           @playerLink(pov.game.player(color), withOnline = false)
@@ -76,7 +76,7 @@ atom = atom.some) {
       </tr>
       }
       <tr>
-        <td><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
+        <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
         <th>@trans.averageCentipawnLoss()</th>
       </tr>
       <tr><td class="spacerlol" colspan=2></td></tr>
@@ -98,7 +98,7 @@ atom = atom.some) {
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
       }.getOrElse {
-      @analyse.computing()
+      @analyse.computing(pov.gameId)
       }
       }.getOrElse {
       @if(analysis.isEmpty) {
@@ -114,6 +114,9 @@ atom = atom.some) {
       </div>
     </div>
     }
+    <div class="panel quote">
+      @base.quote(lila.quote.Quote.one(pov.gameId))
+    </div>
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
       <p><strong>PGN</strong>
@@ -160,6 +163,7 @@ atom = atom.some) {
     }
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="quote" class="quote" data-icon="c" title="Irrelevant chess quote"></a>
   </div>
 </div>
 }

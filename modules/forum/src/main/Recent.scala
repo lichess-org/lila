@@ -13,7 +13,7 @@ private[forum] final class Recent(
     nb: Int,
     publicCategIds: List[String]) {
 
-  private type GetTeams = String => List[String]
+  private type GetTeams = String => Set[String]
 
   def apply(user: Option[User], getTeams: GetTeams): Fu[List[MiniForumPost]] =
     userCacheKey(user, getTeams) |> { key => cache(key)(fetch(key)) }
@@ -32,7 +32,7 @@ private[forum] final class Recent(
     user.fold("en")(_.langs.mkString(",")) :: {
       (user.??(_.troll) ?? List("[troll]")) :::
         (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
-        ((user.map(_.id) ?? getTeams) map teamSlug)
+        ((user.map(_.id) ?? getTeams) map teamSlug).toList
     } mkString ";"
 
   private lazy val staffCategIds = "staff" :: publicCategIds

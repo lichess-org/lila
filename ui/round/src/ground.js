@@ -8,11 +8,19 @@ function str2move(mo) {
   return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
 }
 
+function boardOrientation(data, flip) {
+  if (data.game.variant.key === 'racingKings') {
+    return flip ? 'black': 'white';
+  } else {
+    return flip ? data.opponent.color : data.player.color;
+  }
+}
+
 function makeConfig(data, ply, flip) {
   var step = round.plyStep(data, ply);
   return {
     fen: step.fen,
-    orientation: flip ? data.opponent.color : data.player.color,
+    orientation: boardOrientation(data, flip),
     turnColor: data.game.player,
     lastMove: str2move(step.uci),
     check: step.check,
@@ -42,6 +50,13 @@ function makeConfig(data, ply, flip) {
         unset: m.redraw
       }
     },
+    predroppable: {
+      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+      events: {
+        set: m.redraw,
+        unset: m.redraw
+      }
+    },
     draggable: {
       showGhost: data.pref.highlight
     },
@@ -52,13 +67,15 @@ function makeConfig(data, ply, flip) {
   };
 }
 
-function make(data, ply, userMove, onMove) {
+function make(data, ply, userMove, userNewPiece, onMove, onNewPiece) {
   var config = makeConfig(data, ply);
   config.movable.events = {
-    after: userMove
+    after: userMove,
+    afterNewPiece: userNewPiece
   };
   config.events = {
-    move: onMove
+    move: onMove,
+    dropNewPiece: onNewPiece
   };
   config.viewOnly = data.player.spectator;
   return new chessground.controller(config);
@@ -85,6 +102,7 @@ function end(ground) {
 }
 
 module.exports = {
+  boardOrientation: boardOrientation,
   make: make,
   reload: reload,
   promote: promote,

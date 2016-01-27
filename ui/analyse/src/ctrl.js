@@ -16,6 +16,7 @@ var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('./ceval/cevalCtrl');
 var router = require('game').router;
 var game = require('game').game;
+var crazyValid = require('./crazy/crazyValid');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -23,12 +24,13 @@ module.exports = function(opts) {
   this.data = data({}, opts.data);
   this.userId = opts.userId;
   this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+  this.onMyTurn = this.data
 
   this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
-  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
+  var initialPath = opts.path ? (opts.path === 'last' ? treePath.default(this.analyse.lastPly()) : treePath.read(opts.path)) : treePath.default(this.analyse.firstPly());
   if (initialPath[0].ply >= this.data.steps.length)
     initialPath = treePath.default(this.data.steps.length - 1);
 
@@ -42,7 +44,9 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
-    autoScroll: null
+    autoScroll: null,
+    variationMenu: null,
+    element: opts.element
   };
 
   this.flip = function() {
@@ -56,6 +60,12 @@ module.exports = function(opts) {
     this.autoplay.toggle(delay);
     this.actionMenu.open = false;
   }.bind(this);
+
+  var uciToLastMove = function(uci) {
+    if (!uci) return;
+    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+    return [uci.substr(0, 2), uci.substr(2, 2)];
+  };
 
   var showGround = function() {
     var s;
@@ -71,15 +81,16 @@ module.exports = function(opts) {
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
     var dests = util.readDests(s.dests);
+    var drops = util.readDrops(s.drops);
     var config = {
       fen: s.fen,
       turnColor: color,
       movable: {
-        color: dests && Object.keys(dests).length > 0 ? color : null,
+        color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
       check: s.check,
-      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+      lastMove: uciToLastMove(s.uci)
     };
     if (!dests && !s.check) {
       // premove while dests are loading from server
@@ -90,14 +101,14 @@ module.exports = function(opts) {
     this.vm.step = s;
     this.vm.cgConfig = config;
     if (!this.chessground)
-      this.chessground = ground.make(this.data, config, userMove);
+      this.chessground = ground.make(this.data, config, userMove, userNewPiece);
     this.chessground.set(config);
     onChange();
     if (!dests) getDests();
     setAutoShapesFromEval();
   }.bind(this);
 
-  var getDests = throttle(200, false, function() {
+  var getDests = throttle(800, false, function() {
     if (this.vm.step.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
@@ -116,13 +127,14 @@ module.exports = function(opts) {
     opts.onChange(this.vm.step.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = window.history.replaceState ? throttle(1000, false, function() {
+  var updateHref = window.history.replaceState ? throttle(750, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
   }.bind(this), false) : $.noop;
 
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
+    this.toggleVariationMenu(null);
     showGround();
     if (!this.vm.step.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.step.uci) {
@@ -135,6 +147,7 @@ module.exports = function(opts) {
     startCeval();
     updateHref();
     this.vm.autoScroll && this.vm.autoScroll();
+    promotion.cancel(this);
   }.bind(this);
 
   this.userJump = function(path) {
@@ -163,6 +176,30 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
+  var pieceToSan = {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  };
+
+  var userNewPiece = function(piece, pos) {
+    if (crazyValid.drop(this.chessground, this.vm.step.drops, piece, pos)) {
+      this.vm.justPlayed = pieceToSan[piece.role] + '@' + pos;
+      sound.move();
+      var drop = {
+        role: piece.role,
+        pos: pos,
+        variant: this.data.game.variant.key,
+        fen: this.vm.step.fen,
+        path: this.vm.pathStr
+      };
+      this.socket.sendAnaDrop(drop);
+      preparePremoving();
+    } else this.jump(this.vm.path);
+  }.bind(this);
+
   var userMove = function(orig, dest, capture) {
     this.vm.justPlayed = orig + dest;
     sound[capture ? 'capture' : 'move']();
@@ -179,7 +216,10 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     this.socket.sendAnaMove(move);
-    // prepare premoving
+    preparePremoving();
+  }.bind(this);
+
+  var preparePremoving = function() {
     this.chessground.set({
       turnColor: this.chessground.data.movable.color,
       movable: {
@@ -203,6 +243,31 @@ module.exports = function(opts) {
       if (dests === '') this.ceval.stop();
     }
     this.chessground.playPremove();
+  }.bind(this);
+
+  this.toggleVariationMenu = function(path) {
+    if (!path) this.vm.variationMenu = null;
+    else {
+      var key = treePath.write(path.slice(0, 1));
+      this.vm.variationMenu = this.vm.variationMenu === key ? null : key;
+    }
+  }.bind(this);
+
+  this.deleteVariation = function(path) {
+    var ply = path[0].ply;
+    var id = path[0].variation;
+    this.analyse.deleteVariation(ply, id);
+    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
+    this.toggleVariationMenu(null);
+  }.bind(this);
+
+  this.promoteVariation = function(path) {
+    var ply = path[0].ply;
+    var id = path[0].variation;
+    this.analyse.promoteVariation(ply, id);
+    if (treePath.contains(path, this.vm.path))
+      this.jump(this.vm.path.splice(1));
+    this.toggleVariationMenu(null);
   }.bind(this);
 
   this.reset = function() {

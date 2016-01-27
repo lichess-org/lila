@@ -52,11 +52,11 @@ private[lobby] final class Socket(
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) =>
-      notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
+      notifyVersion("had", hook.render, Messadata(hook = hook.some))
 
     case AddSeek(_)         => notifySeeks
 
-    case RemoveHook(hookId) => notifyVersion("hook_remove", hookId, Messadata())
+    case RemoveHook(hookId) => notifyVersion("hrm", hookId, Messadata())
 
     case RemoveSeek(_)      => notifySeeks
 
@@ -68,7 +68,7 @@ private[lobby] final class Socket(
       membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
       membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
-    case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
+    case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 

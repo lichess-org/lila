@@ -1,16 +1,20 @@
 package lila.hub
 
-import scala.util.Try
 import scala.concurrent.duration._
+import scala.util.Try
 
 import akka.actor._
 import akka.pattern.pipe
+
+import lila.common.LilaException
 
 trait SequentialProvider extends Actor {
 
   import SequentialProvider.Envelope
 
   type ReceiveAsync = PartialFunction[Any, Fu[_]]
+
+  def futureTimeout: FiniteDuration
 
   def process: ReceiveAsync
 
@@ -64,8 +68,11 @@ trait SequentialProvider extends Actor {
     signal match {
       // we don't want to send Done after actor death
       case SequentialProvider.Terminate => self ! PoisonPill
-      case Envelope(msg, replyTo)       => (process orElse fallback)(msg) pipeTo replyTo andThenAnyway { self ! Done }
-      case x                            => logwarn(s"SequentialProvider should never have received $x")
+      case Envelope(msg, replyTo) =>
+        (process orElse fallback)(msg)
+          .withTimeout(futureTimeout, LilaException(s"Sequential provider timeout: $futureTimeout"))(context.system)
+          .pipeTo(replyTo) andThenAnyway { self ! Done }
+      case x => logwarn(s"SequentialProvider should never have received $x")
     }
   }
 }

@@ -68,12 +68,12 @@ trait Positional { self: Config =>
   def fenGame(builder: ChessGame => Game): Game = {
     val baseState = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
     val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
-      case sit@SituationPlus(Situation(board, color), turns) =>
+      case sit@SituationPlus(Situation(board, color), _) =>
         val game = ChessGame(
           board = board,
           player = color,
-          turns = turns,
-          startedAtTurn = turns,
+          turns = sit.turns,
+          startedAtTurn = sit.turns,
           clock = makeClock)
         if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
         else game -> baseState
@@ -106,9 +106,9 @@ trait BaseConfig {
     chess.variant.ThreeCheck.id :+
     chess.variant.FromPosition.id
   val variantsWithVariants =
-    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id
+    variants :+ chess.variant.Crazyhouse.id :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id :+ chess.variant.RacingKings.id
   val variantsWithFenAndVariants =
-    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id :+ chess.variant.FromPosition.id
+    variantsWithVariants :+ chess.variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

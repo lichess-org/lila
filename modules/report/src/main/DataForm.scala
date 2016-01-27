@@ -25,7 +25,7 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection) ex
 
   def createWithCaptcha = withCaptcha(create)
 
-  private def fetchUser(username: String) = UserRepo named username awaitSeconds 1
+  private def fetchUser(username: String) = UserRepo named username awaitSeconds 2
 }
 
 private[report] case class ReportSetup(

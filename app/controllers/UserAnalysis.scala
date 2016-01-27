@@ -5,9 +5,11 @@ import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import play.api.libs.json.Json
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.app._
 import lila.game.{ GameRepo, Pov }
+import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import views._
 
 object UserAnalysis extends LilaController with TheftPrevention {
@@ -54,8 +56,6 @@ object UserAnalysis extends LilaController with TheftPrevention {
     me =>
       import lila.round.Forecast
       OptionFuResult(GameRepo pov fullId) { pov =>
-        import lila.round.Forecast.forecastStepJsonFormat
-        import lila.round.Forecast.forecastJsonWriter
         if (isTheft(pov)) fuccess(theftResponse)
         else ctx.body.body.validate[Forecast.Steps].fold(
           err => BadRequest(err.toString).fuccess,
@@ -66,6 +66,26 @@ object UserAnalysis extends LilaController with TheftPrevention {
             } recover {
               case Forecast.OutOfSync => Ok(Json.obj("reload" -> true))
             })
+      }
+  }
+
+  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>
+    me =>
+      import lila.round.Forecast
+      OptionFuResult(GameRepo pov fullId) { pov =>
+        if (isTheft(pov)) fuccess(theftResponse)
+        else {
+          ctx.body.body.validate[Forecast.Steps].fold(
+            err => BadRequest(err.toString).fuccess,
+            forecasts => {
+              def wait = 50 + (Forecast maxPlies forecasts min 10) * 50
+              Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                Env.current.scheduler.after(wait.millis) {
+                  Ok(Json.obj("reload" -> true))
+                }
+            }
+          )
+        }
       }
   }
 }

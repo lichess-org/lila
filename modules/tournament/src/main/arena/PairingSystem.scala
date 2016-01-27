@@ -1,6 +1,7 @@
 package lila.tournament
 package arena
 
+import lila.common.Chronometer
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 import lila.user.UserRepo
 
@@ -11,28 +12,34 @@ object PairingSystem extends AbstractPairingSystem {
 
   case class Data(
     tour: Tournament,
-    recentPairings: List[Pairing],
+    lastOpponents: Pairing.LastOpponents,
     ranking: Map[String, Int],
-    nbActiveUsers: Int)
+    onlyTwoActivePlayers: Boolean)
 
   // if waiting users can make pairings
   // then pair all users
   def createPairings(
     tour: Tournament,
     users: WaitingUsers,
-    ranking: Ranking): Fu[Pairings] = for {
-    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
-    nbActiveUsers <- PlayerRepo.countActive(tour.id)
-    data = Data(tour, recentPairings, ranking, nbActiveUsers)
-    preps <- if (recentPairings.isEmpty) evenOrAll(data, users)
-    else makePreps(data, users.waiting) flatMap {
-      case Nil => fuccess(Nil)
-      case _   => evenOrAll(data, users)
-    }
-    pairings <- preps.map { prep =>
-      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
-    }.sequenceFu
-  } yield pairings
+    ranking: Ranking): Fu[Pairings] = {
+    for {
+      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
+      onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
+        fuccess(false),
+        PlayerRepo.countActive(tour.id).map(2==))
+      data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
+      preps <- if (lastOpponents.hash.isEmpty) evenOrAll(data, users)
+      else makePreps(data, users.waiting) flatMap {
+        case Nil => fuccess(Nil)
+        case _   => evenOrAll(data, users)
+      }
+      pairings <- preps.map { prep =>
+        UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
+      }.sequenceFu
+    } yield pairings
+  }.logIfSlow(500, "tourpairing") { pairings =>
+    s"createPairing http://lichess.org/tournament/${tour.id} ${pairings.size} pairings"
+  }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
@@ -40,19 +47,24 @@ object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val smartHardLimit = 22
-  val overallLimit = 40
-  val extraNaiveLimit = overallLimit - smartHardLimit
+  val pairingGroupSize = 18
 
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (recentPairings.isEmpty) naivePairings(tour, idles)
-      else
-        smartPairings(data, idles take smartHardLimit) :::
-          naivePairings(tour, idles drop smartHardLimit take extraNaiveLimit)
+    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking).logIfSlow(200, "tourpairing") { ranked =>
+      s"makePreps.rankedByTourAndUserIds http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${ranked.size} ranked"
+    } map { idles =>
+      if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
+      else idles.grouped(pairingGroupSize).toList match {
+        case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
+        case a :: b :: Nil    => smartPairings(data, a) ::: smartPairings(data, b)
+        case a :: Nil         => smartPairings(data, a)
+        case Nil              => Nil
+      }
     }
+  }.logIfSlow(200, "tourpairing") { preps =>
+    s"makePreps http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${preps.size} preps"
   }
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
@@ -60,24 +72,18 @@ object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = {
+  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
     type Score = Int
     type RankedPairing = (RankedPlayer, RankedPlayer)
     type Combination = List[RankedPairing]
 
-    val lastOpponents: Map[String, String] = players.flatMap { p =>
-      recentPairings.find(_ contains p.player.userId).flatMap(_ opponentOf p.player.userId) map {
-        p.player.userId -> _
-      }
-    }.toMap
-
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).exists(u2==) || lastOpponents.get(u2).exists(u1==)
+      lastOpponents.hash.get(u1).contains(u2) || lastOpponents.hash.get(u2).contains(u1)
 
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.get(u1).exists(u2==) && lastOpponents.get(u2).exists(u1==)
+      lastOpponents.hash.get(u1).contains(u2) && lastOpponents.hash.get(u2).contains(u1)
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
@@ -127,7 +133,7 @@ object PairingSystem extends AbstractPairingSystem {
 
     (players match {
       case x if x.size < 2 => Nil
-      case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
+      case List(p1, p2) if onlyTwoActivePlayers => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
       case ps => findBetter(Nil, Int.MaxValue) match {

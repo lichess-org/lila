@@ -3,7 +3,6 @@ package lila.user
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
 import reactivemongo.bson._
@@ -26,7 +25,7 @@ trait UserRepo {
   import User.{ BSONFields => F }
 
   private val coll = userTube.coll
-  import coll.BatchCommands.AggregationFramework, AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 
   val normalize = User normalize _
 
@@ -58,9 +57,9 @@ trait UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
-  def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
+  def byOrderedIds(ids: Seq[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Iterable[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))
@@ -108,29 +107,11 @@ trait UserRepo {
   val lichessId = "lichess"
   def lichess = byId(lichessId)
 
-  private type PerfLenses = List[(String, Perfs => Perf)]
-
-  private val perfLenses: PerfLenses = List(
-    "standard" -> (_.standard),
-    "chess960" -> (_.chess960),
-    "kingOfTheHill" -> (_.kingOfTheHill),
-    "threeCheck" -> (_.threeCheck),
-    "antichess" -> (_.antichess),
-    "atomic" -> (_.atomic),
-    "horde" -> (_.horde),
-    "bullet" -> (_.bullet),
-    "blitz" -> (_.blitz),
-    "classical" -> (_.classical),
-    "correspondence" -> (_.correspondence),
-    "puzzle" -> (_.puzzle),
-    "opening" -> (_.opening))
-
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val diff = perfLenses.flatMap {
-      case (name, lens) =>
-        lens(perfs).nb != lens(prev).nb option {
-          s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
-        }
+    val diff = PerfType.all flatMap { pt =>
+      perfs(pt).nb != prev(pt).nb option {
+        s"perfs.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
+      }
     }
     diff.nonEmpty ?? $update(
       $select(user.id),
@@ -232,7 +213,8 @@ trait UserRepo {
   def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
   def idExists(id: String): Fu[Boolean] = $count exists id
 
-  def engineIds: Fu[Set[String]] = $primitive(Json.obj("engine" -> true), "_id")(_.asOpt[String]) map (_.toSet)
+  def engineIds: Fu[Set[String]] =
+    coll.distinct("_id", BSONDocument("engine" -> true).some) map lila.db.BSON.asStringSet
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement
@@ -304,20 +286,19 @@ trait UserRepo {
   }
 
   def recentlySeenNotKidIds(since: DateTime) =
-    $primitive(enabledSelect ++ Json.obj(
-      "seenAt" -> $gt($date(since)),
-      "count.game" -> $gt(4),
-      "kid" -> $ne(true)
-    ), "_id")(_.asOpt[String])
+    coll.distinct("_id", BSONDocument(
+      F.enabled -> true,
+      "seenAt" -> BSONDocument("$gt" -> since),
+      "count.game" -> BSONDocument("$gt" -> 9),
+      "kid" -> BSONDocument("$ne" -> true)
+    ).some) map lila.db.BSON.asStrings
 
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      List(Group(BSONBoolean(true))(F.toints -> SumField(F.toints)))).map(
-        _.documents.headOption flatMap { obj =>
-          toJSON(obj).asOpt[JsObject]
-        } flatMap { _ int F.toints }
+      List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
+        _.documents.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
   // from 800 to 2500 by Stat.group
@@ -332,6 +313,7 @@ trait UserRepo {
         List(Project(BSONDocument(
           "_id" -> false,
           "r" -> BSONDocument(
+            // TODO mongodb 3.2
             "$subtract" -> BSONArray(
               s"$$$field.gl.r",
               BSONDocument("$mod" -> BSONArray(s"$$$field.gl.r", Stat.group))
@@ -354,6 +336,12 @@ trait UserRepo {
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
+
+  def countEngines(userIds: List[String]): Fu[Int] =
+    coll.count(BSONDocument(
+      "_id" -> BSONDocument("$in" -> userIds),
+      F.engine -> true
+    ).some)
 
   def mustConfirmEmail(id: String): Fu[Boolean] =
     $count.exists($select(id) ++ Json.obj(F.mustConfirmEmail -> $exists(true)))

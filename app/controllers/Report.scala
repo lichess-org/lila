@@ -43,15 +43,15 @@ object Report extends LilaController {
             BadRequest(html.report.form(err, user, captcha))
           }
         },
-        data => api.create(data, me) map { thread =>
-          Redirect(routes.Report.thanks)
+        data => api.create(data, me) map { report =>
+          Redirect(routes.Report.thanks(data.user.username))
         })
   }
 
-  def thanks = Auth { implicit ctx =>
+  def thanks(reported: String) = Auth { implicit ctx =>
     implicit me =>
-      fuccess {
-        html.report.thanks()
+      Env.relation.api.fetchBlocks(me.id, reported) map { blocked =>
+        html.report.thanks(reported, blocked)
       }
   }
 }

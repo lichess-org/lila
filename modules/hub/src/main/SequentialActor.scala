@@ -1,14 +1,19 @@
 package lila.hub
 
+import scala.concurrent.duration._
 import scala.util.Try
 
 import akka.actor._
+
+import lila.common.LilaException
 
 trait SequentialActor extends Actor {
 
   type ReceiveAsync = PartialFunction[Any, Funit]
 
   def process: ReceiveAsync
+
+  def futureTimeout: Option[FiniteDuration] = none
 
   private def idle: Receive = {
 
@@ -45,7 +50,10 @@ trait SequentialActor extends Actor {
       // we don't want to send Done after actor death
       case SequentialActor.Terminate => self ! PoisonPill
       case msg =>
-        (process orElse fallback)(msg) addFailureEffect onFailure andThenAnyway { self ! Done }
+        val future = (process orElse fallback)(msg)
+        futureTimeout.fold(future) { timeout =>
+          future.withTimeout(timeout, LilaException(s"Sequential actor timeout: $timeout"))(context.system)
+        }.addFailureEffect(onFailure).andThenAnyway { self ! Done }
     }
   }
 }

@@ -1,7 +1,6 @@
 package lila.analyse
 
 import chess.format.pgn.Reader
-import chess.format.UciMove
 import chess.Pos._
 import chess.Replay
 import org.specs2.mutable._

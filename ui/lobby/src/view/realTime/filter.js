@@ -76,7 +76,6 @@ module.exports = {
         if (ctx.loaded) return;
         $.ajax({
           url: '/setup/filter',
-          cache: false,
           success: function(html) {
             el.innerHTML = html;
             ctx.loaded = true;

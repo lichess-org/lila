@@ -54,6 +54,8 @@ case class Thread(
   )
 
   def hasPostsWrittenBy(userId: String) = posts exists (_.isByCreator == (creatorId == userId))
+
+  def endsWith(post: Post) = posts.lastOption ?? post.similar
 }
 
 object Thread {

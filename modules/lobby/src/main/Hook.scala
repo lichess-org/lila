@@ -9,6 +9,7 @@ import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
+import lila.common.PimpedJson._
 
 // realtime chess, volatile
 case class Hook(
@@ -57,21 +58,16 @@ case class Hook(
   def render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
-    "username" -> username,
+    "u" -> user.map(_.username),
     "rating" -> rating,
-    "variant" -> Json.obj(
-      "key" -> realVariant.key,
-      "short" -> realVariant.shortName,
-      "name" -> realVariant.name),
-    "mode" -> realMode.id,
+    "variant" -> realVariant.exotic.option(realVariant.key),
+    "ra" -> realMode.rated.option(1),
     "clock" -> clock.show,
-    "time" -> clock.estimateTotalTime,
-    "speed" -> speed.id,
-    "color" -> chess.Color(color).??(_.name),
-    "perf" -> Json.obj(
-      "icon" -> perfType.map(_.iconChar.toString),
-      "name" -> perfType.map(_.name))
-  )
+    "t" -> clock.estimateTotalTime,
+    "s" -> speed.id,
+    "c" -> chess.Color(color).map(_.name),
+    "perf" -> perfType.map(_.name)
+  ).noNull
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 

@@ -22,8 +22,6 @@ private[tournament] final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
-  private val joiningMemo = new ExpireSetMemo(uidTimeout)
-
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
@@ -56,7 +54,7 @@ private[tournament] final class Socket(
     case Reload => notifyReload
 
     case GetWaitingUsers =>
-      waitingUsers = waitingUsers.update(userIds, clock)
+      waitingUsers = waitingUsers.update(userIds.toSet, clock)
       sender ! waitingUsers
 
     case PingVersion(uid, v) => {
@@ -91,8 +89,6 @@ private[tournament] final class Socket(
       quit(uid)
       notifyCrowd
 
-    case Joining(userId) => joiningMemo put userId
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       notifyAll("crowd",
@@ -126,8 +122,6 @@ private[tournament] final class Socket(
       context.system.scheduler.scheduleOnce(300 millis, self, NotifyReload)
     }
   }
-
-  override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll

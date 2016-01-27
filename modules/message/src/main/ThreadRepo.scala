@@ -10,7 +10,7 @@ import lila.db.Implicits._
 import tube.threadTube
 
 object ThreadRepo {
-import play.modules.reactivemongo.json._
+  import play.modules.reactivemongo.json._
 
   type ID = String
 
@@ -24,34 +24,35 @@ import play.modules.reactivemongo.json._
     $find($query(visibleByUserQuery(user)) sort recentSort, nb)
 
   def userUnreadIds(userId: String): Fu[List[String]] = {
-    import BSONMapReduceCommandImplicits._
-
-    val command = BSONMapReduceCommand.MapReduce(
-      mapFunction = """function() {
-  var thread = this;
-  thread.posts.forEach(function(p) {
-    if (!p.isRead) {
-      if (thread.creatorId == "%s") {
-        if (!p.isByCreator) emit("i", thread._id);
-      } else if (p.isByCreator) emit("i", thread._id);
-    }
-  });
-  }""" format userId,
-      reduceFunction = """function(key, values) {
-  var ids = [];
-  for(var i in values) { ids.push(values[i]); }
-  return ids.join(';');
-  }""",
-      query = JsObjectWriter.write(
-        visibleByUserQuery(userId) ++ Json.obj("posts.isRead" -> false)
-      ).some,
-      sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
-
-    tube.threadTube.coll.runCommand(command) map { res =>
-      BSONFormats.toJSON(res).arr("results").flatMap(_.apply(0).toOption).flatMap(_ str "value")
-    } map {
-      _ ?? (_ split ';' toList)
-    }
+    import reactivemongo.bson._
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    threadTube.coll.aggregate(
+      Match(BSONDocument(
+        "visibleByUserIds" -> userId,
+        "posts.isRead" -> false
+      )),
+      List(
+        Project(BSONDocument(
+          "m" -> BSONDocument("$eq" -> BSONArray("$creatorId", userId)),
+          "posts.isByCreator" -> true,
+          "posts.isRead" -> true
+        )),
+        Unwind("posts"),
+        Match(BSONDocument(
+          "posts.isRead" -> false
+        )),
+        Project(BSONDocument(
+          "u" -> BSONDocument("$ne" -> BSONArray("$posts.isByCreator", "$m"))
+        )),
+        Match(BSONDocument(
+          "u" -> true
+        )),
+        Group(BSONBoolean(true))("ids" -> AddToSet("_id"))
+      ),
+      allowDiskUse = false
+    ).map {
+        _.documents.headOption ?? { ~_.getAs[List[String]]("ids") }
+      }
   }
 
   def setRead(thread: Thread): Funit = {

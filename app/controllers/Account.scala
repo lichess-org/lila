@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._, Results._
 
+import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.db.api.$find
@@ -35,14 +36,19 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = _ => lila.game.GameRepo urgentGames me map { povs =>
-          Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
-          Ok {
-            import play.api.libs.json._
-            Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+        api = _ =>
+          Env.pref.api getPref me flatMap { prefs =>
+            lila.game.GameRepo urgentGames me map { povs =>
+              Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+              Ok {
+                import play.api.libs.json._
+                import lila.pref.JsonView._
+                Env.user.jsonView(me, extended = true) ++ Json.obj(
+                  "prefs" -> prefs,
+                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+              }
+            }
           }
-        }
       )
   }
 
@@ -136,16 +142,23 @@ object Account extends LilaController {
       (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
   }
 
+  private def currentSessionId(implicit ctx: Context) =
+    ~Env.security.api.reqSessionId(ctx.req)
+
   def security = Auth { implicit ctx =>
     me =>
       Env.security.api.dedup(me.id, ctx.req) >>
         Env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
-          Ok(html.account.security(me, sessions, ~Env.security.api.reqSessionId(ctx.req)))
+          Ok(html.account.security(me, sessions, currentSessionId))
         }
   }
 
-  def signout(sessionId: String) = Auth { ctx =>
+  def signout(sessionId: String) = Auth { implicit ctx =>
     me =>
-      lila.security.Store.closeUserAndSessionId(me.id, sessionId)
+      if (sessionId == "all")
+        lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+          Redirect(routes.Account.security)
+      else
+        lila.security.Store.closeUserAndSessionId(me.id, sessionId)
   }
 }

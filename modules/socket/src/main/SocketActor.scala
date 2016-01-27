@@ -8,7 +8,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
-import lila.hub.actorApi.{ Deploy, GetUids, GetUserIds }
+import lila.hub.actorApi.{ Deploy, GetUids, SocketUids, GetUserIds }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -52,7 +52,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case NbMembers(_, pongMsg) => pong = pongMsg
 
-    case GetUids               => sender ! uids
+    case GetUids               => sender ! SocketUids(members.keySet.toSet)
 
     case GetUserIds            => sender ! userIds
 
@@ -133,8 +133,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def setAlive(uid: String) { aliveUids put uid }
-
-  def uids = members.keys
 
   def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member

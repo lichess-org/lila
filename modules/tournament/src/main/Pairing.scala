@@ -24,18 +24,20 @@ case class Pairing(
   def contains(u1: String, u2: String): Boolean = contains(u1) && contains(u2)
   def notContains(user: String) = !contains(user)
 
+  def opponentOf(userId: String) =
+    if (userId == user1) user2.some
+    else if (userId == user2) user1.some
+    else none
+
   def finished = status >= chess.Status.Mate
   def playing = !finished
 
-  def lostBy(user: String) = winner.??(user !=)
   def quickFinish = finished && turns.??(20 >)
   def quickDraw = draw && turns.??(20 >)
   def notSoQuickFinish = finished && turns.??(14 <=)
 
-  def opponentOf(user: String): Option[String] =
-    if (user == user1) user2.some else if (user == user2) user1.some else none
-
   def wonBy(user: String): Boolean = winner.??(user ==)
+  def lostBy(user: String): Boolean = winner.??(user !=)
   def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: String): Option[Color] =
@@ -53,9 +55,13 @@ case class Pairing(
 
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
+
+  def similar(other: Pairing) = other.contains(user1, user2)
 }
 
 private[tournament] object Pairing {
+
+  case class LastOpponents(hash: Map[String, String])
 
   def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,

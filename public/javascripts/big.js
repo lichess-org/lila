@@ -52,14 +52,14 @@ lichess.StrongSocket.defaults = {
   options: {
     name: "unnamed",
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
-    pingDelay: 1000, // time between pong and ping
+    pingDelay: 1500, // time between pong and ping
     autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
-      [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
+      /lichess\.org/.test(document.domain) ? [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029].map(function(port) {
         return 'socket.' + document.domain + ':' + port;
-      })),
+      }) : []),
     onFirstConnect: $.noop,
     baseUrlKey: 'surl3'
   }
@@ -142,7 +142,6 @@ lichess.StrongSocket.prototype = {
       if (!again) setTimeout(function() {
         this.send(t, d, o, true);
       }.bind(this), 1000);
-      else console.log(e, 'again');
     }
   },
   sendAckable: function(t, d) {
@@ -318,7 +317,8 @@ lichess.storage = {
     });
   }
 };
-lichess.once = function(key) {
+lichess.once = function(key, mod) {
+  if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
     lichess.storage.set(key, 1);
     return true;
@@ -334,6 +334,12 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.hopscotch = function(f) {
+  var baseUrl = $('body').data('asset-url');
+  $('head').append($('<link rel="stylesheet" type="text/css" />')
+    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
+  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
+}
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];
@@ -374,7 +380,9 @@ lichess.unique = function(xs) {
   /////////////
   // ctrl.js //
   /////////////
-
+  $.ajaxSetup({
+    cache: false
+  });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   };
@@ -621,7 +629,11 @@ lichess.unique = function(xs) {
     $elem.each(function() {
       var $this = $(this).removeClass('parse_fen');
       var lm = $this.data('lastmove');
-      var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
+      var lastMove = [];
+      if (lm) {
+        if (lm[1] === '@') lastMove = [lm.slice(2), lm.slice(2)];
+        else lastMove = [lm[0] + lm[1], lm[2] + lm[3]];
+      }
       var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
       var ground = $this.data('chessground');
       var playable = $this.data('playable');
@@ -705,7 +717,9 @@ lichess.unique = function(xs) {
         return false;
       });
 
-      function userPowertip($els, placement) {
+      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
+
+      lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
@@ -723,8 +737,8 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
-      }
+        }).data('powertip', powerTipLoader);
+      };
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
@@ -732,6 +746,7 @@ lichess.unique = function(xs) {
           fadeInTime: 100,
           fadeOutTime: 100,
           placement: placement,
+          smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'miniGame'
@@ -745,13 +760,13 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', ' ');
+        }).data('powertip', powerTipLoader);
       }
 
       function updatePowertips() {
-        userPowertip($('#site_header .ulpt'), 'e');
-        userPowertip($('#friend_box .ulpt'), 'nw');
-        userPowertip($('.ulpt'), 'w');
+        lichess.userPowertip($('#site_header .ulpt'), 'e');
+        lichess.userPowertip($('#friend_box .ulpt'), 'nw');
+        lichess.userPowertip($('.ulpt'), 'w');
         gamePowertip($('.glpt'), 'w');
       }
       setTimeout(updatePowertips, 600);
@@ -761,7 +776,6 @@ lichess.unique = function(xs) {
         lichess.storage.remove("inboxDesktopNotification");
         $.ajax({
           url: $(this).data('href'),
-          cache: false,
           success: function(html) {
             $('#message_notifications_display').html(html)
               .find('a.mark_as_read').click(function() {
@@ -825,7 +839,6 @@ lichess.unique = function(xs) {
         var $themepicker = $('#themepicker');
         $.ajax({
           url: $(this).data('url'),
-          cache: false,
           success: function(html) {
             $themepicker.append(html);
             var $body = $('body');
@@ -914,6 +927,8 @@ lichess.unique = function(xs) {
               background = $(this).data('bg');
               $.post($(this).parent().data('href'), {
                 bg: background
+              }, function() {
+                if (window.Highcharts) location.reload();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
@@ -1068,11 +1083,10 @@ lichess.unique = function(xs) {
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
           url: $links.data('url'),
-          cache: false,
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });
@@ -1109,7 +1123,9 @@ lichess.unique = function(xs) {
         document.body.classList.toggle('fpmenu');
       });
       Mousetrap.bind('esc', function() {
-        $('#ham-plate').click();
+        var $overboard = $('.lichess_overboard .close');
+        if ($overboard.length) $overboard.click();
+        else $('#ham-plate').click();
         return false;
       });
       Mousetrap.bind('g h', function() {
@@ -1302,14 +1318,19 @@ lichess.unique = function(xs) {
           },
           tvSelect: function(o) {
             if (data.tv && data.tv.channel == o.channel) lichess.reload();
-            else $('#tv_channels a.' + o.channel + ' span').text(
-              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
+            else $('#tv_channels a.' + o.channel + ' span').html(
+              o.player ? [
+                o.player.title,
+                o.player.name,
+                '(' + o.player.rating + ')'
+              ].filter(function(x) {
+                return x;
+              }).join('&nbsp') : 'Anonymous');
           },
           end: function() {
             var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
             $.ajax({
               url: url,
-              cache: false,
               success: function(html) {
                 var $html = $(html);
                 $('#site_header div.side').replaceWith($html.find('>.side'));
@@ -1322,7 +1343,6 @@ lichess.unique = function(xs) {
           tournamentStanding: function(id) {
             $.ajax({
               url: '/tournament/' + id + '/game-standing',
-              cache: false,
               success: function(html) {
                 $('#site_header div.game_tournament').replaceWith(html);
                 startTournamentClock();
@@ -1336,7 +1356,7 @@ lichess.unique = function(xs) {
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     cfg.onChange = data.player.spectator ? $.noop : function(data) {
       var presets = [];
-      if (data.steps.length < 3) presets = [
+      if (data.steps.length < 4) presets = [
         'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
       ];
       else if (data.game.status.id >= 30) presets = [
@@ -1509,9 +1529,29 @@ lichess.unique = function(xs) {
         var $input = self.element.find('input.lichess_say')
           .focus(function() {
             document.body.classList.add('typing');
+            warning();
           }).blur(function() {
             document.body.classList.remove('typing');
           });
+
+        var warning = function() {
+          if (lichess.once('chat-nice-notice')) $input.powerTip({
+            manual: true,
+            fadeInTime: 300,
+            fadeOutTime: 300,
+            placement: 'n'
+          }).data('powertipjq', $('<div class="info">').html([
+            $('<strong class="title text" data-icon="">').text('Public notice'),
+            $('<div class="content">').html([
+              'Failure to be nice towards other players can lead to losing chat privileges or account closure!',
+              $('<div class="confirm">').html(
+                $('<button class="button">').text('OK').click(function() {
+                  $input.focus();
+                })
+              )
+            ])
+          ])).powerTip('show');
+        };
 
         // send a message
         $form.submit(function() {
@@ -1784,7 +1824,6 @@ lichess.unique = function(xs) {
           reload_timeline: function() {
             $.ajax({
               url: $("#timeline").data('href'),
-              cache: false,
               success: function(html) {
                 $('#timeline').html(html);
                 resizeTimeline();
@@ -1816,7 +1855,6 @@ lichess.unique = function(xs) {
             setTimeout(function() {
               $.ajax({
                 url: $newposts.data('url'),
-                cache: false,
                 success: function(data) {
                   $newposts.find('ol').html(data).end().scrollTop(0);
                   $('body').trigger('lichess.content_loaded');
@@ -1958,6 +1996,9 @@ lichess.unique = function(xs) {
           case '8':
             key = "horde"
             break;
+          case '9':
+            key = "racingKings"
+            break;
         }
         $ratings.hide().filter('.' + key).show();
       };
@@ -2046,15 +2087,14 @@ lichess.unique = function(xs) {
             $span.text(ui.values[0] + " - " + ui.values[1]);
           }
         });
-        var $ratingRangeConfig = $this.parent();
-        $modeChoices.add($form.find('.members_only input')).on('change', function() {
-          var rated = $rated.prop('checked');
-          var membersOnly = $form.find('.members_only input').prop('checked');
-          $ratingRangeConfig.toggle(rated || membersOnly);
-          $form.find('.members_only').toggle(!rated);
-          toggleButtons();
-        }).trigger('change');
       });
+      $modeChoices.add($form.find('.members_only input')).on('change', function() {
+        var rated = $rated.prop('checked');
+        var membersOnly = $form.find('.members_only input').prop('checked');
+        $form.find('.rating_range_config').toggle(rated || membersOnly);
+        $form.find('.members_only').toggle(!rated);
+        toggleButtons();
+      }).trigger('change');
       $timeModeSelect.on('change', function() {
         var timeMode = $(this).val();
         $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
@@ -2062,9 +2102,8 @@ lichess.unique = function(xs) {
         toggleButtons();
         showRating();
       }).trigger('change');
-      var $ratingRangeConfig = $form.find('.rating_range_config');
-      var $fenInput = $fenPosition.find('input');
 
+      var $fenInput = $fenPosition.find('input');
       var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();
@@ -2123,7 +2162,6 @@ lichess.unique = function(xs) {
       $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
-        cache: false,
         success: function(html) {
           $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);

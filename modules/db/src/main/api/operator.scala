@@ -7,8 +7,8 @@ import reactivemongo.bson._
 object $operator extends $operator
 trait $operator {
   import play.modules.reactivemongo.json._
-  
-def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
+
+  def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
   def $set(pairs: (String, Json.JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
   def $set(pairs: JsObject) = Json.obj("$set" -> pairs)
   def $setBson(pairs: (String, BSONValue)*) = BSONDocument("$set" -> BSONDocument(pairs))
@@ -44,9 +44,6 @@ def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pair
 
   import org.joda.time.DateTime
   def $date(value: DateTime) = BSONFormats toJSON BSONDateTime(value.getMillis)
-
-  import reactivemongo.bson.Subtype.GenericBinarySubtype
-  def $bin(value: Array[Byte]) = BSONFormats toJSON BSONBinary(value, GenericBinarySubtype)
 
   private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, Json.JsValueWrapper)] = pairs map {
     case (k, v) => k -> Json.toJsFieldJsValueWrapper(v)

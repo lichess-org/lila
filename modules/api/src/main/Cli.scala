@@ -53,5 +53,6 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
       lila.team.Env.current.cli.process orElse
       lila.round.Env.current.cli.process orElse
       lila.puzzle.Env.current.cli.process orElse
+      lila.tournament.Env.current.cli.process orElse
       process
 }

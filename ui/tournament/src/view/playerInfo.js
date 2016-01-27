@@ -14,32 +14,40 @@ function result(win, stat) {
   }
 }
 
+function playerTitle(player) {
+  return m('h2', [
+    m('span.rank', player.rank + '. '),
+    util.player(player)
+  ]);
+}
+
 module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
-  if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('span.square-spin');
+  if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('div.player', [
+    playerTitle(ctrl.vm.playerInfo.player),
+    m('div.stats', m('span.square-spin'))
+  ]);
   var nb = data.player.nb;
   var pairingsLen = data.pairings.length
   var avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : null;
-  return m('div.player', {
+  return m('div.box.player', {
     config: function(el, isUpdate) {
       if (!isUpdate) $('body').trigger('lichess.content_loaded');
     }
   }, [
     m('close[data-icon=L]', {
-      onclick: partial(ctrl.showPlayerInfo, data.player.id)
+      onclick: partial(ctrl.showPlayerInfo, data.player)
     }),
-    m('h2', [
-      data.player.withdraw ? m('span.text[data-icon=b]') : m('span.rank', data.player.rank + '. '),
-      util.player(data.player)
-    ]),
+    playerTitle(data.player),
     m('div.stats', m('table', [
       m('tr', [m('th', 'Games played'), m('td', nb.game)]),
       nb.game ? [
         m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
         m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))]),
-        m('tr', [m('th', 'Average opponent'), m('td', avgOp)])
+        m('tr', [m('th', 'Average opponent'), m('td', avgOp)]),
+        data.player.performance ? m('tr', [m('th', 'Performance'), m('td', data.player.performance)]) : null
       ] : null
     ])),
     m('div.scroll-shadow-soft', m('table.pairings', {
@@ -52,7 +60,12 @@ module.exports = function(ctrl) {
       return m('tr', {
         key: p.id,
         'data-href': '/' + p.id + '/' + p.color,
-        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : ''))
+        class: 'glpt' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')),
+        config: function(el, isUpdate, ctx) {
+          if (!isUpdate) ctx.onunload = function() {
+            $.powerTip.destroy(el);
+          };
+        }
       }, [
         m('th', Math.max(nb.game, pairingsLen) - i),
         m('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),

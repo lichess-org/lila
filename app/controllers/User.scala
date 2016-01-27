@@ -42,11 +42,11 @@ object User extends LilaController {
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
-      Env.donation.isDonor(user.id) zip
-        (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        Env.donation.isDonor(user.id) zip
+        (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
-        (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
+        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) map {
           case (((((pov, donor), blocked), crosstable), followable), relation) =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
@@ -102,12 +102,12 @@ object User extends LilaController {
       filter = filters.current,
       me = ctx.me,
       page = page)(ctx.body)
-    relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
+    relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
-      relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
+      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-    blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
+    blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
@@ -130,20 +130,12 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached topPerf PerfType.Bullet.key
-      blitz ← env.cached topPerf PerfType.Blitz.key
-      classical ← env.cached topPerf PerfType.Classical.key
-      chess960 ← env.cached topPerf PerfType.Chess960.key
-      kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
-      threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
-      antichess <- env.cached topPerf PerfType.Antichess.key
-      atomic <- env.cached topPerf PerfType.Atomic.key
-      horde <- env.cached topPerf PerfType.Horde.key
-      nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
-        user -> user.count.game
-      }
-      nbDay ← Env.game.cached activePlayerUidsDay nb flatMap { pairs =>
-        UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
+      leaderboards <- env.cached.leaderboards
+      nbAllTime ← env.cached topNbGame nb
+      nbDay ← Env.game.cached activePlayerUidsDay nb map {
+        _ flatMap { pair =>
+          env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
+        }
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 50
@@ -151,42 +143,51 @@ object User extends LilaController {
         html = fuccess(Ok(html.user.list(
           tourneyWinners = tourneyWinners,
           online = online,
-          bullet = bullet,
-          blitz = blitz,
-          classical = classical,
-          chess960 = chess960,
-          kingOfTheHill = kingOfTheHill,
-          threeCheck = threeCheck,
-          antichess = antichess,
-          atomic = atomic,
-          horde = horde,
+          leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          implicit val lightPerfWrites = play.api.libs.json.Writes[UserModel.LightPerf] { l =>
+            Json.obj(
+              "id" -> l.user.id,
+              "username" -> l.user.name,
+              "title" -> l.user.title,
+              "perfs" -> Json.obj(
+                l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
+          }
           Ok(Json.obj(
-            "online" -> online,
-            "bullet" -> bullet,
-            "blitz" -> blitz,
-            "classical" -> classical,
-            "chess960" -> chess960,
-            "kingOfTheHill" -> kingOfTheHill,
-            "threeCheck" -> threeCheck,
-            "antichess" -> antichess,
-            "atomic" -> atomic,
-            "horde" -> horde))
+            "bullet" -> leaderboards.bullet,
+            "blitz" -> leaderboards.blitz,
+            "classical" -> leaderboards.classical,
+            "crazyhouse" -> leaderboards.crazyhouse,
+            "chess960" -> leaderboards.chess960,
+            "kingOfTheHill" -> leaderboards.kingOfTheHill,
+            "threeCheck" -> leaderboards.threeCheck,
+            "antichess" -> leaderboards.antichess,
+            "atomic" -> leaderboards.atomic,
+            "horde" -> leaderboards.horde,
+            "racingKings" -> leaderboards.racingKings))
         })
     } yield res
+  }
+
+  def top200(perfKey: String) = Open { implicit ctx =>
+    lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+      env.cached top200Perf perfType.key map { users =>
+        Ok(html.user.top200(perfType, users))
+      }
+    }
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
-        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) flatMap {
-          case ((email, spy), playerAggregateAssessment) =>
+        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
+        Env.mod.logApi.userHistory(user.id) flatMap {
+          case ((((email, spy), playerAggregateAssessment), history)) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history)
             }
         }
     }
@@ -210,13 +211,32 @@ object User extends LilaController {
           fuccess(List.fill(50)(true))
         ) flatMap { followables =>
             (ops zip followables).map {
-              case ((u, nb), followable) => ctx.userId ?? { myId =>
-                relationApi.relation(myId, u.id)
+              case ((u, nb), followable) => ctx.userId ?? {
+                relationApi.fetchRelation(_, u.id)
               } map { lila.relation.Related(u, nb, followable, _) }
             }.sequenceFu map { relateds =>
               html.user.opponents(user, relateds)
             }
           }
+      }
+    }
+  }
+
+  def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { u =>
+      if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
+      else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+        for {
+          perfStat <- Env.perfStat.get(u, perfType)
+          ranks <- Env.user.cached.ranking.getAll(u.id)
+          distribution <- u.perfs(perfType).established ?? {
+            Env.user.cached.ratingDistribution(perfType.key) map some
+          }
+          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
+          response <- negotiate(
+            html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
+            api = _ => Ok(data).fuccess)
+        } yield response
       }
     }
   }

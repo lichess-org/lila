@@ -278,7 +278,6 @@ function renderHistory(ctrl) {
       context.hash = hash;
       $.ajax({
         url: '/training/history',
-        cache: false,
         success: function(html) {
           el.innerHTML = html;
         }

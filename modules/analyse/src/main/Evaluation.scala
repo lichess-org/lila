@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.UciMove
+import chess.format.Uci
 
 case class Evaluation(
     score: Option[Score],
@@ -26,7 +26,7 @@ object Evaluation {
           case first :: rest if first != move => first :: rest
           case _                              => Nil
         }
-        val best = variation.headOption flatMap UciMove.apply
+        val best = variation.headOption flatMap Uci.Move.apply
         Info(
           ply = index + 1 + startedAtPly,
           score = after.score,

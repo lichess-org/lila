@@ -19,8 +19,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val FormRateLimit = new lila.memo.RateLimitByKey(500 millis)
-  private val PostRateLimit = new lila.memo.RateLimitByKey(500 millis)
+  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute)
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
@@ -62,10 +61,11 @@ object Setup extends LilaController with TheftPrevention {
 
   private def challenge(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
     case None => fuccess("Only registered players can send challenges.".some)
-    case Some(me) => Env.relation.api.blocks(user.id, me.id) flatMap {
+    case Some(me) => Env.relation.api.fetchBlocks(user.id, me.id) flatMap {
       case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
-      case false => Env.pref.api getPref user zip Env.relation.api.follows(user.id, me.id) map {
-        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow)
+      case false => Env.pref.api getPref user zip Env.relation.api.fetchFollows(user.id, me.id) map {
+        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
+          fromCheat = me.engine && !user.engine)
       }
     }
   }
@@ -107,26 +107,13 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def hookForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) FormRateLimit(ctx.req.remoteAddress) {
-      NoPlaybanOrCurrent {
-        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
-      }
+    if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
+      env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
     }
     else fuccess {
       Redirect(routes.Lobby.home + "#hook")
     }
   }
-
-  // if request comes from mobile
-  // and the hook is casual,
-  // reuse the saved "membersOnly" value
-  // from the site preferred hook setup
-  private def mobileHookAllowAnon(config: HookConfig)(implicit ctx: Context): Fu[HookConfig] =
-    if (lila.api.Mobile.Api requested ctx.req)
-      env.forms.hookConfig map { saved =>
-        config.copy(allowAnon = saved.allowAnon)
-      }
-    else fuccess(config)
 
   private def hookResponse(hookId: String) =
     Ok(Json.obj(
@@ -141,13 +128,12 @@ object Setup extends LilaController with TheftPrevention {
           err => negotiate(
             html = BadRequest(errorsAsJson(err).toString).fuccess,
             api = _ => BadRequest(errorsAsJson(err)).fuccess),
-          preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
-            mobileHookAllowAnon(preConfig) flatMap {
-              case (blocking, config) =>
-                env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
-                  case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
-                }
-            }
+          config => (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
+            blocking =>
+              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
+                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+              }
+          }
         )
       }
     }
@@ -160,7 +146,7 @@ object Setup extends LilaController with TheftPrevention {
           GameRepo game gameId map {
             _.fold(config)(config.updateFrom)
           } flatMap { config =>
-            (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
+            (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap { blocking =>
               env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
                 case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
               }

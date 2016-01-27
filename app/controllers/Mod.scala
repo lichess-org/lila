@@ -78,6 +78,13 @@ object Mod extends LilaController {
       }
   }
 
+  def notifySlack(username: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(UserRepo named username) { user =>
+        Env.slack.api.userMod(user = user, mod = me) inject redirect(user.username)
+      }
+  }
+
   def log = Secure(_.SeeReport) { implicit ctx =>
     me => modLogApi.recent map { html.mod.log(_) }
   }
@@ -120,5 +127,29 @@ object Mod extends LilaController {
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx =>
     me => assessApi.refreshAssessByUsername(username) inject redirect(username)
+  }
+
+  def gamify = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      Env.mod.gamify.leaderboards zip
+        Env.mod.gamify.history(orCompute = true) map {
+          case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
+        }
+  }
+  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx =>
+    me =>
+      lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+        Env.mod.gamify.leaderboards map { leaderboards =>
+          Ok(html.mod.gamify.period(leaderboards, period))
+        }
+      }
+  }
+
+  def search = Secure(_.UserSearch) { implicit ctx =>
+    me =>
+      val query = (~get("q")).trim
+      Env.mod.search(query) map { users =>
+        html.mod.search(query, users)
+      }
   }
 }

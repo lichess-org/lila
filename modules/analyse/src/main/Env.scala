@@ -13,8 +13,7 @@ final class Env(
     db: lila.db.Env,
     ai: ActorSelection,
     system: ActorSystem,
-    indexer: ActorSelection,
-    modActor: ActorSelection) {
+    indexer: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -27,7 +26,7 @@ final class Env(
   lazy val analyser = new Analyser(
     ai = ai,
     indexer = indexer,
-    modActor = modActor,
+    bus = system.lilaBus,
     limiter = new Limiter)
 
   lazy val paginator = new PaginatorBuilder(
@@ -64,6 +63,5 @@ object Env {
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
     system = lila.common.PlayApp.system,
-    indexer = lila.hub.Env.current.actor.gameSearch,
-    modActor = lila.hub.Env.current.actor.mod)
+    indexer = lila.hub.Env.current.actor.gameSearch)
 }

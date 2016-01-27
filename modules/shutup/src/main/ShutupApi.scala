@@ -22,7 +22,7 @@ final class ShutupApi(
   def getPublicLines(userId: String): Fu[List[String]] =
     coll.find(BSONDocument("_id" -> userId), BSONDocument("pub" -> 1))
       .one[BSONDocument].map {
-        ~_.map(~_.getAs[List[String]]("pub"))
+        ~_.flatMap(_.getAs[List[String]]("pub"))
       }
 
   def publicForumMessage(userId: String, text: String) = record(userId, text, TextType.PublicForumMessage)

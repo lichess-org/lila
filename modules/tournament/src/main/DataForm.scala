@@ -10,7 +10,9 @@ import lila.common.Form._
 
 final class DataForm {
 
-  val clockTimes: Seq[Double] = Seq(1 / 2d, 3 / 4d, 3 / 2d) ++ (0d to 7d by 1d)
+  import DataForm._
+
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
   val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
@@ -47,8 +49,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> numberIn(waitMinuteChoices),
-    "variant" -> number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
-      chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _),
+    "variant" -> number.verifying(validVariantIds contains _),
     "position" -> nonEmptyText.verifying(positions contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _))
@@ -64,6 +65,15 @@ final class DataForm {
     position = StartingPosition.initial.eco,
     `private` = None,
     mode = Mode.Rated.id.some)
+}
+
+object DataForm {
+  
+  import chess.variant._
+
+  val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
+
+  val validVariantIds = validVariants.map(_.id).toSet
 }
 
 private[tournament] case class TournamentSetup(

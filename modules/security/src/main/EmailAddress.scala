@@ -37,7 +37,7 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
   def isValid(email: String) = validate(email).isDefined
 
   private def isTakenBy(email: String, forUser: Option[User]): Option[String] = validate(email) ?? { e =>
-    (lila.user.UserRepo.idByEmail(e) awaitSeconds 1, forUser) match {
+    (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
       case (None, _)                  => none
       case (Some(userId), Some(user)) => userId != user.id option userId
       case (someUserId, _)            => someUserId

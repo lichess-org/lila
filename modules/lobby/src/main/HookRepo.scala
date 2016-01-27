@@ -6,9 +6,18 @@ object HookRepo {
 
   private var hooks = Vector[Hook]()
 
+  private val hardLimit = 100
+
   def findCompatible(hook: Hook): List[Hook] = list filter (_ compatibleWith hook)
 
-  def list = hooks.toList
+  def list = {
+    if (hooks.size > hardLimit) {
+      play.api.Logger("lobby").warn(s"Found ${hooks.size} hooks, cleaning up!")
+      cleanupOld
+      hooks = hooks.take(hardLimit / 2)
+    }
+    hooks.toList
+  }
 
   def byId(id: String) = hooks find (_.id == id)
 

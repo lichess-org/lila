@@ -37,6 +37,18 @@ private[report] final class ReportApi {
       (report.isAutomatic && report.isOther && user.troll) ||
       (report.isTroll && user.troll)
 
+  def autoCheatPrintReport(userId: String): Funit = {
+    UserRepo byId userId zip UserRepo.lichess flatMap {
+      case (Some(user), Some(lichess)) => create(ReportSetup(
+        user = user,
+        reason = "cheatprint",
+        text = "Shares print with known cheaters",
+        gameId = "",
+        move = ""), lichess)
+      case _ => funit
+    }
+  }
+
   def autoCheatReport(userId: String, text: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
@@ -98,7 +110,7 @@ private[report] final class ReportApi {
   def processEngine(userId: String, byModId: String): Funit = $update(
     Json.obj(
       "user" -> userId,
-      "reason" -> Reason.Cheat.name
+      "reason" -> $in(List(Reason.Cheat.name, Reason.CheatPrint.name))
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true)

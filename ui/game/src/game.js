@@ -79,10 +79,6 @@ function userAnalysable(data) {
   return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
-function forecastable(data) {
-  return playable(data) && data.correspondence && !hasAi(data) && !isPlayerTurn(data);
-}
-
 function isCorrespondence(data) {
   return data.game.speed === 'correspondence';
 }
@@ -122,7 +118,6 @@ module.exports = {
   nbMoves: nbMoves,
   setOnGame: setOnGame,
   setIsGone: setIsGone,
-  forecastable: forecastable,
   isCorrespondence: isCorrespondence,
   isSwitchable: function(data) {
     return !hasAi(data) && (data.simul || isCorrespondence(data));

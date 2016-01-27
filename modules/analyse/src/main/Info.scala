@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.Color
-import chess.format.UciMove
+import chess.format.Uci
 
 case class Info(
     ply: Int,
@@ -10,7 +10,7 @@ case class Info(
     // variation is first in UCI, then converted to PGN before storage
     variation: List[String] = Nil,
     // best is always in UCI (used for hilight)
-    best: Option[UciMove] = None) {
+    best: Option[Uci.Move] = None) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -18,7 +18,7 @@ case class Info(
 
   def encode: String = List(
     best ?? (_.keysPiotr),
-    variation mkString " ",
+    variation take Info.LineMaxPlies mkString " ",
     mate ?? (_.toString),
     score ?? (_.centipawns.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
@@ -34,10 +34,18 @@ case class Info(
 
   def isEmpty = score.isEmpty && mate.isEmpty
 
+  def forceCentipawns: Option[Int] = mate match {
+    case None             => score.map(_.centipawns)
+    case Some(m) if m < 0 => Some(Int.MinValue - m)
+    case Some(m)          => Some(Int.MaxValue - m)
+  }
+
   override def toString = s"Info $color [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
 }
 
 object Info {
+
+  val LineMaxPlies = 16
 
   private val separator = ","
   private val listSeparator = ";"
@@ -49,7 +57,7 @@ object Info {
     case Array(cp)             => Info(ply, Score(cp)).some
     case Array(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
     case Array(cp, ma, va)     => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
+    case Array(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, Uci.Move piotr be).some
     case _                     => none
   }
 

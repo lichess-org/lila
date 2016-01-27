@@ -12,7 +12,6 @@ var reload = throttle(1000, false, function(ctrl) {
   ) + '/text';
   $.ajax({
     url: url,
-    cache: false,
     success: function(html) {
       $(element).html(html).find('form').submit(function() {
         var text = $(this).find('.move').val();

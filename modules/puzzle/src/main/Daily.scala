@@ -20,7 +20,11 @@ private[puzzle] final class Daily(
 
   def apply(): Fu[Option[DailyPuzzle]] = cache apply true
 
-  private def find: Fu[Option[DailyPuzzle]] = findCurrent orElse findNew flatMap {
+  private def find: Fu[Option[DailyPuzzle]] = (findCurrent orElse findNew) recover {
+    case e: Exception =>
+      play.api.Logger("daily puzzle").error(e.toString)
+      none
+  } flatMap {
     case Some(puzzle) => makeDaily(puzzle)
     case None =>
       scheduler.scheduleOnce(10.seconds)(cache.clear)

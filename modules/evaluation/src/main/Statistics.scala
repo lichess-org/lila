@@ -7,22 +7,22 @@ object Statistics {
   import Erf._
   import scala.annotation._
 
-  def variance[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = {
-    val avg: Double = optionalAvg.fold(average(a)) { n.toDouble }
-
-    a.map(i => pow(n.toDouble(i) - avg, 2)).list.sum / a.length
+  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
+    val mean = average(a)
+    a.map(i => pow(n.toDouble(i) - mean, 2)).list.sum / a.size
   }
 
-  def deviation[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = sqrt(variance(a, optionalAvg))
+  def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double =
+    sqrt(variance(a))
 
   def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    @tailrec def average(a: List[T], sum: T = n.zero, depth: Int = 0): Double = {
+    @tailrec def average(a: List[T], sum: T, depth: Int): Double = {
       a match {
-        case List()  => n.toDouble(sum) / depth
+        case Nil     => n.toDouble(sum) / depth
         case x :: xs => average(xs, n.plus(sum, x), depth + 1)
       }
     }
-    average(a.list)
+    average(a.tail, a.head, 1)
   }
 
   // Coefficient of Variance
