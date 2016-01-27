@@ -59,26 +59,28 @@ object Challenge {
 
   val idSize = 8
 
+  private def randomId = ornicar.scalalib.Random nextStringUppercase idSize
+
   def make(
     variant: Variant,
     timeControl: TimeControl,
-    rated: Boolean,
+    mode: Mode,
     color: String,
-    challenger: Either[String, lila.user.User],
+    challenger: Option[lila.user.User],
     destUserId: Option[String]): Challenge = new Challenge(
-    _id = ornicar.scalalib.Random nextStringUppercase idSize,
+    _id = randomId,
     variant = variant,
     timeControl = timeControl,
-    mode = Mode(rated),
+    mode = mode,
     color = color match {
       case "white" => ColorChoice.White
       case "black" => ColorChoice.Black
       case _       => ColorChoice.Random
     },
-    challenger = challenger.left.map(Anonymous.apply).right.map { u =>
-      Registered(u.id, u.perfs(perfType(variant, timeControl)).intRating)
+    challenger = challenger.fold[EitherChallenger](Left(Anonymous(randomId))) { u =>
+      Right(Registered(u.id, u.perfs(perfType(variant, timeControl)).intRating))
     },
     destUserId = destUserId,
     createdAt = DateTime.now,
-    expiresAt = DateTime.now plusDays challenger.isLeft.fold(1, 7))
+    expiresAt = DateTime.now plusDays challenger.isDefined.fold(7, 1))
 }

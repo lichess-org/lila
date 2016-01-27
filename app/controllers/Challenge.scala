@@ -13,7 +13,7 @@ import lila.common.{ HTTPRequest, LilaCookie }
 import lila.user.UserRepo
 import views._
 
-object Setup extends LilaController {
+object Challenge extends LilaController {
 
   private def env = Env.setup
 

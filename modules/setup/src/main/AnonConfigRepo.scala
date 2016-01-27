@@ -13,8 +13,6 @@ import tube.anonConfigTube
 
 private[setup] object AnonConfigRepo {
 
-  private val sessionKey = "setup"
-
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
       _ ?? { config =>
@@ -49,5 +47,5 @@ private[setup] object AnonConfigRepo {
   } map (_ | FilterConfig.default)
 
   private def sessionId(req: RequestHeader): Option[String] =
-    req.session.get(LilaCookie.sessionId)
+    lila.common.HTTPRequest sid req
 }

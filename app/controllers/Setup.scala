@@ -78,10 +78,27 @@ object Setup extends LilaController with TheftPrevention {
           html = Lobby.renderHome(Results.BadRequest),
           api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ), {
-          case config if config.isPersistent => ???
-          // env.challengeApi.create(config) inject Redirect(routes.Lobby.home)
           case config =>
-            env.processor friend config flatMap { pov =>
+            import lila.challenge.Challenge._
+            Env.challenge.api.create( 
+              variant = config.variant,
+              timeControl = config.makeClock.map {
+                case chess.Clock(limit, inc) => TimeControl.Clock(limit, inc)
+              }.orElse config.makeDaysPerTurn.map {
+                TimeControl.Correspondence.apply
+              }.getOrElse TimeControl.Unlimited,
+              mode = config.mode,
+              color = config.color.name,
+              challenger = ctx.me match {
+                case Some(
+    rated: Boolean,
+    color: String,
+    challenger: Either[String, lila.user.User],
+    destUserId: Option[String]): Challenge = new Challenge(
+              
+              
+              
+              friend config flatMap { pov =>
               negotiate(
                 html = fuccess(redirectPov(pov, routes.Setup.await(pov.fullId, userId))),
                 api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
