@@ -340,6 +340,29 @@ lichess.hopscotch = function(f) {
     .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
   $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
+lichess.challengeBox = (function() {
+  var instance;
+  var load = function(then) {
+    var baseUrl = $('body').data('asset-url');
+    var isDev = $('body').data('dev');
+    $('head').append($('<link rel="stylesheet" type="text/css" />')
+      .attr('href', baseUrl + '/assets/stylesheet/challenge.css'));
+    $.getScript(baseUrl + "/assets/compiled/challenge" + (isDev ? '.min' : '') + '.js').done(function() {
+      instance = LichessChallenge({
+        element: document.getElementById('#challenge_notifications'),
+        setCount: function(nb) {
+          $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
+        }
+      });
+      then && then();
+    });
+  };
+  return {
+    load: function(f) {
+      if (!instance) load(f);
+    }
+  };
+})();
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];
@@ -1090,6 +1113,9 @@ lichess.unique = function(xs) {
             }).join(''));
           }
         });
+      });
+      $('#challenge_notifications').one('mouseover', function() {
+        lichess.challengeBox.load();
       });
 
       $('#translation_call .close').click(function() {
