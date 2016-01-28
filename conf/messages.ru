@@ -528,3 +528,6 @@ kidModeDescription=Это вопрос безопасности. В детско
 downloadAnnotated=Скачать аннотацию
 downloadRaw=Скачать в виде текста
 printFriendlyPDF=Скачать для печати
+somethingWentWrongOnThisPage=Что-то пошло не так
+worldMap=Карта игроков
+pageNotFound=Ничего нет!
