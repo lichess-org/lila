@@ -9,7 +9,9 @@ notifications:
     on_failure: always
     use_notice: true
     skip_join: true
-  slack: lichess:sVTqlE0OQNMPq1n6qRnVnfrz
+  slack:
+    rooms:
+      - lichess:sVTqlE0OQNMPq1n6qRnVnfrz
     on_success: change
     on_failure: always
 
