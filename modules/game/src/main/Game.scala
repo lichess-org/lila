@@ -62,7 +62,7 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val firstColor = (whitePlayer before blackPlayer).fold(White, Black)
+  lazy val firstColor = Color(whitePlayer before blackPlayer)
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
