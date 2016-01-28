@@ -346,10 +346,9 @@ lichess.challengeBox = (function() {
     var baseUrl = $('body').data('asset-url');
     var isDev = $('body').data('dev');
     $('head').append($('<link rel="stylesheet" type="text/css" />')
-      .attr('href', baseUrl + '/assets/stylesheet/challenge.css'));
-    $.getScript(baseUrl + "/assets/compiled/challenge" + (isDev ? '.min' : '') + '.js').done(function() {
-      instance = LichessChallenge({
-        element: document.getElementById('#challenge_notifications'),
+      .attr('href', baseUrl + '/assets/stylesheet/challengeBox.css'));
+    $.getScript(baseUrl + "/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessChallenge(document.getElementById('challenge_notifications'), {
         setCount: function(nb) {
           $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
         }
@@ -1114,9 +1113,9 @@ lichess.unique = function(xs) {
           }
         });
       });
-      $('#challenge_notifications').one('mouseover', function() {
+      $('#challenge_notifications_tag').one('mouseover click', function() {
         lichess.challengeBox.load();
-      });
+      }).trigger('click');
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));

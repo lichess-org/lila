@@ -10,4 +10,11 @@ function uncache(url) {
 }
 
 module.exports = {
+  load: function() {
+    return m.request({
+      method: 'GET',
+      url: uncache('/challenge'),
+      config: xhrConfig,
+    }).then(ctrl.update);
+  }
 };

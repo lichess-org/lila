@@ -46,8 +46,14 @@ private object BSONHandlers {
     def read(b: BSONBoolean) = Mode(b.value)
     def write(m: Mode) = BSONBoolean(m.rated)
   }
+  implicit val RatingBSONHandler = new BSON[Rating] {
+    def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
+    def writes(w: Writer, r: Rating) = BSONDocument(
+      "i" -> r.int,
+      "b" -> w.boolO(r.provisional))
+  }
   implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {
-    def reads(r: Reader) = (r.strO("id") |@| r.intO("rating")) {
+    def reads(r: Reader) = (r.strO("id") |@| r.getO[Rating]("rating")) {
       case (id, rating) => Right(Registered(id, rating))
     } orElse r.strO("secret").map { secret =>
       Left(Anonymous(secret))

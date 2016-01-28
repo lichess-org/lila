@@ -25,7 +25,12 @@ case class Challenge(
 
 object Challenge {
 
-  case class Registered(id: String, rating: Int)
+  case class Rating(int: Int, provisional: Boolean)
+  object Rating {
+    def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
+  }
+
+  case class Registered(id: String, rating: Rating)
   case class Anonymous(secret: String)
 
   sealed trait TimeControl
@@ -78,7 +83,7 @@ object Challenge {
       case _       => ColorChoice.Random
     },
     challenger = challenger.fold[EitherChallenger](Left(Anonymous(randomId))) { u =>
-      Right(Registered(u.id, u.perfs(perfType(variant, timeControl)).intRating))
+      Right(Registered(u.id, Rating(u.perfs(perfType(variant, timeControl)))))
     },
     destUserId = destUserId,
     createdAt = DateTime.now,

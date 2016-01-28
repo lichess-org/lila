@@ -2,6 +2,8 @@ package lila.challenge
 
 import play.api.libs.json._
 
+import lila.common.PimpedJson._
+
 final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
 
   import Challenge._
@@ -18,8 +20,9 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
         "id" -> u.id,
         "name" -> light.fold(u.id)(_.name),
         "title" -> light.map(_.title),
-        "rating" -> u.rating
-      )
+        "rating" -> u.rating.int,
+        "provisional" -> u.rating.provisional
+      ).noNull
     },
     "destUserId" -> c.destUserId,
     "variant" -> Json.obj(
@@ -28,12 +31,13 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
       "name" -> c.variant.name),
     "rated" -> c.mode.rated,
     "timeControl" -> (c.timeControl match {
-      case TimeControl.Clock(l, i) => Json.obj(
+      case c@TimeControl.Clock(l, i) => Json.obj(
         "type" -> "clock",
         "limit" -> l,
-        "increment" -> i)
+        "increment" -> i,
+        "show" -> c.show)
       case TimeControl.Correspondence(d) => Json.obj(
-        "type" -> "clock",
+        "type" -> "correspondence",
         "daysPerTurn" -> d)
       case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
     }),
