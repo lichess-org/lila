@@ -138,9 +138,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      env.checkOutoftime(pov.game)
-      watch(pov)
+    GameRepo.pov(gameId, color) flatMap {
+      case Some(pov) =>
+        env.checkOutoftime(pov.game)
+        watch(pov)
+      case None => Challenge reach gameId
     }
   }
 

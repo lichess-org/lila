@@ -12,6 +12,8 @@ final class ChallengeApi(
 
   import BSONHandlers._
 
+  def byId(id: String) = coll.find(BSONDocument("_id" -> id)).one[Challenge]
+
   def insert(c: Challenge): Funit =
     coll.insert(c) >> c.challenger.right.toOption.?? { challenger =>
       findByChallengerId(challenger.id).flatMap {
