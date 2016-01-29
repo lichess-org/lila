@@ -542,3 +542,6 @@ youCannotStartANewGameUntilThisOneIsFinished=Вы не можете начать
 ohNo=О нет!
 temporarilyBannedFromLobbyGames=Вы временно заблокированы!
 why=Почему?
+next=Далее
+delete=Удалить
+thisUserBlocksYouCannotAnswer=Пользователь Вас заблокировал. Вы не можете ответить.
