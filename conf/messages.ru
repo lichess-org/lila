@@ -561,3 +561,5 @@ overTheBoardOffline=Оффлайн игра
 vsComputerOffline=Игра с компьютером
 moreOfTheFeaturesYouLoveWillBeAddedSoon=Все Ваши любимые функции скоро появятся на телефоне.
 lookOutForUpdatesRegularly=Следите за обновлениями!
+theSiteIsBeingUpdatedBraceForImpact=Сайт обновляется! Осталось совсем немного.
+theSiteWillBeUpdatedInAFewMinutes=Сайт будет обновлён через несколько минут. Пристегните ремни!
