@@ -8,7 +8,7 @@
     <h1>@title</h1>
     <form class="wide team-request" action="@routes.Team.requestCreate(t.id)" method="POST">
       <label>
-        <span class="required">Message</span>
+        <span class="required">@trans.message()</span>
         @defining(form("message")) { message =>
         <textarea name="@message.name" id="@message.id">@message.value</textarea>
         @errMsg(message)
@@ -16,7 +16,7 @@
       </label>
       <label>
         <span></span>
-        <p class="info">Your join request will be reviewed by the team leader.</p>
+        <p class="info">@trans.yourJoinRequestWillBeReviewedByTheTeamLeader()</p>
       </label>
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
