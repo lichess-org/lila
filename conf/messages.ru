@@ -645,3 +645,4 @@ drawingTheGameWithinTheFirstTenMovesOfPlayWillEarnNeitherPlayerAnyPoints=Нас�
 about=Подробнее
 terminateNow=Удалить немедленно
 terminatesTheTournamentImmediately=Мгновенно завершает турнир. Использовать только в крайних случаях!
+lichessGames=Игры на Lichess
