@@ -5,7 +5,7 @@
   <p>You have a game in progress with <strong>@current.opponent</strong>.</p>
   <br />
   <br />
-  <a class="big text button" data-icon="G" href="@routes.Round.player(current.pov.fullId)">Join the game</a>
+  <a class="big text button" data-icon="G" href="@routes.Round.player(current.pov.fullId)">@trans.joinTheGame()</a>
   <br />
   <br />
   or
@@ -17,7 +17,7 @@
     </button>
   </form>
   <br />
-  <p>You can't start a new game until this one is finished.</p>
+  <p>@trans.youCannotStartANewGameUntilThisOneIsFinished()</p>
   <br />
   <br />
   <p>

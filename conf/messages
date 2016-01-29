@@ -541,3 +541,7 @@ youCanAnalyseAGameMoreEffectively=You can analyse a game more effectively if you
 aSquareNameAppearsOnTheBoard=A square name appears on the board and you must click on the correct square.
 youHaveThirtySecondsToRecognizeAsManySquaresAsPossible=You have 30 seconds to recognize as many squares as possible!
 computerAnalysisAvailable=Computer analysis available
+youCannotStartANewGameUntilThisOneIsFinished=You can't start a new game until this one is finished.
+ohNo=Oh no!
+temporarilyBannedFromLobbyGames=Temporarily banned from lobby games!
+why=Why?

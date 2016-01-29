@@ -1,11 +1,11 @@
 @(ban: lila.playban.TempBan)(implicit ctx: Context)
 
 <div id="lobby_playban">
-  <h2>Oh no!</h2>
-  <p>Temporarily banned from lobby games!</p>
+  <h2>@trans.ohNo()</h2>
+  <p>@trans.temporarilyBannedFromLobbyGames()</p>
   <br />
   <p>You will be able to play again <strong>@secondsFromNow(ban.remainingSeconds)</strong>.</p>
-  <h2>Why?</h2>
+  <h2>@trans.why()</h2>
   <p>Either you have <strong>aborted too many games</strong>,<br />
     or you have <strong>not played</strong> the games you started,<br />
     or you <strong>quit games without resigning</strong>.

@@ -538,3 +538,7 @@ youCanAnalyseAGameMoreEffectively=Вы можете более эффектив�
 aSquareNameAppearsOnTheBoard=Название клетки, на которую надо нажать, появляется на шахматной доске.
 youHaveThirtySecondsToRecognizeAsManySquaresAsPossible=Попытайтесь распознать как можно больше клеток за 30 секунд!
 computerAnalysisAvailable=Доступен компьютерный анализ
+youCannotStartANewGameUntilThisOneIsFinished=Вы не можете начать новую игру, пока не завершите эту.
+ohNo=О нет!
+temporarilyBannedFromLobbyGames=Вы временно заблокированы!
+why=Почему?
