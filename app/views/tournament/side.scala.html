@@ -21,13 +21,13 @@
   @if(tour.createdBy == "lichess") {
   @tour.id match {
   case "summer15" => {
-  <a href="http://lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
+  <a href="http://lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">@trans.about()</a>
   }
   case "autumn15" => {
-  <a href="http://lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">About</a>
+  <a href="http://lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">@trans.about()</a>
   }
   case "winter15" => {
-  <a href="http://lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament">About</a>
+  <a href="http://lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament">@trans.about()</a>
   }
   case _ => {
   @trans.tournamentOfficial()
@@ -51,7 +51,7 @@
   <form class="terminate" method="post" action="@routes.Tournament.terminate(tour.id)"
     style="margin-top: 7px; text-align: right;">
     <button data-icon="j" class="submit text button thin confirm" type="submit"
-      title="Terminates the tournament immediately! Use only if the tournament is killing lichess!">Terminate now</button>
+      title="@trans.terminatesTheTournamentImmediately()">@trans.terminateNow()</button>
   </form>
   }
 </div>
