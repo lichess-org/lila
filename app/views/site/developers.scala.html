@@ -3,11 +3,11 @@
 @site.layout(title = "Developers") {
 
 <div class="content_box small_box">
-  <h1 class="lichess_title">Embed lichess in your site</h1>
+  <h1 class="lichess_title">@trans.embedLichessOnYourSite()</h1>
 
   <p>
-    Do you have a website, and want to add a playable live chess section?<br />
-    Add the following line to your site html:
+    @trans.doYouHaveAWebsiteAndWantToAddAPlayableChessSection()<br />
+    @trans.addTheFollowingLineToYourSiteHTML():
   </p>
 
   <pre>&lt;script src="http://en.@netDomain/embed?w=1016&amp;h=650"&gt;&lt;/script&gt;</pre>
@@ -19,14 +19,14 @@
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-tv" class="lichess_title">Embed the Chess TV in your site</h1>
+  <h1 id="embed-tv" class="lichess_title">@trans.embedTheLichessTVInYourSite()</h1>
 
   <div style="text-align: center;">
     <script src="http://en.@netDomain/tv/embed?theme=wood&bg=light"></script>
   </div>
 
   <p>
-    Just add the following line to your site html:
+    @trans.justAddTheFollowingLineToYourSiteHTML():
   </p>
 
   <pre>&lt;script src="http://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
@@ -44,14 +44,14 @@
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-puzzle" class="lichess_title">Embed the daily puzzle in your site</h1>
+  <h1 id="embed-puzzle" class="lichess_title">@trans.embedTheDailyPuzzleInYourSite()</h1>
 
   <div style="text-align: center;">
     <script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"></script>
   </div>
 
   <p>
-    Just add the following line to your site html:
+    @trans.justAddTheFollowingLineToYourSiteHTML():
   </p>
 
   <pre>&lt;script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"&gt;&lt;/script&gt;</pre>
@@ -65,7 +65,7 @@
   </p>
 
   <p>
-    The text is automatically translated to your visitor language.
+    @trans.theTextIsAutomaticallyTranslatedToYourVisitorLanguage()
   </p>
 </div>
 
@@ -86,8 +86,8 @@
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="use-api" class="lichess_title">Lichess Widgets</h1>
-  <p>Let your website/blog visitors know that you're playing on lichess!</p>
+  <h1 id="use-api" class="lichess_title">@trans.lichessWidgets()</h1>
+  <p>@trans.letYourWebsiteVisitorsKnowThatYouArePlayingOnLichess()</p>
   <br />
   <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/lichess_widgets.css" />
   @if(ctx.currentBg == "dark") {
@@ -99,6 +99,6 @@
   @defining(ctx.me.fold("thibault")(_.id)) { userId =>
   <script>lichess_widgets.profile_scores("@ctx.currentBg", "@userId");</script>
   }
-  <p><a href="http://rubenwardy.github.io/lichess_widgets/">See more examples and installation instructions</a></p>
+  <p><a href="http://rubenwardy.github.io/lichess_widgets/">@trans.seeMoreExamplesAndInstallationInstructions()</a></p>
 </div>
 }
