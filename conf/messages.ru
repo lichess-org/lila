@@ -563,3 +563,5 @@ moreOfTheFeaturesYouLoveWillBeAddedSoon=Все Ваши любимые функ�
 lookOutForUpdatesRegularly=Следите за обновлениями!
 theSiteIsBeingUpdatedBraceForImpact=Сайт обновляется! Осталось совсем немного.
 theSiteWillBeUpdatedInAFewMinutes=Сайт будет обновлён через несколько минут. Пристегните ремни!
+sorryWeDoNotHaveAnyMorePuzzlesForYou=Извините, но у нас закончились задачи!
+youPlayedQuiteALotOfThem=Вы решили достаточно много, не так ли? :)
