@@ -12,7 +12,7 @@ more = video.tags.map("video:tag" -> _)).some) {
 <div class="show">
   <div class="content_box_top">
     @searchForm(control.query)
-    <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.queryString">Video library</a>
+    <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.queryString">@trans.videoLibrary()</a>
   </div>
   <iframe id="ytplayer" type="text/html" width="792" height="482"
     src="http://www.youtube.com/embed/@video.id?autoplay=1&origin=http://lichess.org&start=@video.startTime"

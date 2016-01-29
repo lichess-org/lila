@@ -17,19 +17,19 @@ control = control) {
   @if(videos.currentPageResults.size < 4) {
   <div class="not_much nb_@videos.nbResults">
     @if(videos.currentPageResults.isEmpty) {
-    No videos for this search:
+    @trans.noVideoForThisSearch()
     } else {
-    That's all we got for this search:
+    @trans.thatIsAllWeGotForThisSearch()
     }
     "@control.query"
     <br />
     <br />
-    <a href="@routes.Video.index" class="button">Clear search</a>
+    <a href="@routes.Video.index" class="button">@trans.clearSearch()</a>
   </div>
   }
   @videos.nextPage.map { next =>
   <div class="pager none">
-    <a href="@routes.Video.index?@control.queryString&page=@next">Next</a>
+    <a href="@routes.Video.index?@control.queryString&page=@next">@trans.next()</a>
   </div>
   }
 </div>
