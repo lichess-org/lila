@@ -589,3 +589,4 @@ noGameFound=Игры не найдены
 searchReady=Готов к поиску
 opponentName=Имя соперника
 challengeDeclined=Вызов отклонён
+hostColorForEachGame=Цвет игрока для каждой игры
