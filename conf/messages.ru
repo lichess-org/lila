@@ -588,3 +588,4 @@ downloadPGN=Скачать PGN
 noGameFound=Игры не найдены
 searchReady=Готов к поиску
 opponentName=Имя соперника
+challengeDeclined=Вызов отклонён
