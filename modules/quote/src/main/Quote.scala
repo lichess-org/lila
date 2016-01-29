@@ -559,6 +559,7 @@ object Quote {
     , new Quote("I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.", "Mikhail Botvinnik")
     , new Quote("Watch out for the tricky knights.", "ChessNetwork")
     , new Quote("I think crazyhouse improves your standard chess.", "ChessNetwork")
+    , new Quote("The biggest tool for chess improvement would be playing against stronger opposition" , "Peter Svidler")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
