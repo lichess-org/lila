@@ -565,3 +565,6 @@ theSiteIsBeingUpdatedBraceForImpact=Сайт обновляется! Остал�
 theSiteWillBeUpdatedInAFewMinutes=Сайт будет обновлён через несколько минут. Пристегните ремни!
 sorryWeDoNotHaveAnyMorePuzzlesForYou=Извините, но у нас закончились задачи!
 youPlayedQuiteALotOfThem=Вы решили достаточно много, не так ли? :)
+returnToLichessHomepage=Вернуться на главную страницу
+inTheMeanTimeYouCanBlockThisUser=Пока что Вы можете заблокировать этого игрока
+theModeratorsWillRiviewItVerySoonAndTakeAction=Скоро модераторы рассмотрят Вашу заявку и примут меры.

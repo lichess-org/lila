@@ -22,17 +22,17 @@ $button.find('span').text('Blocked!');
 
 <div class="content_box small_box">
   <h1 class="lichess_title">@title</h1>
-  <p>The moderators will review it very soon, and take appropriate action.</p>
+  <p>@trans.theModeratorsWillRiviewItVerySoonAndTakeAction()</p>
   <br /><br /><br />
   @if(!blocked) {
-  In the mean time, you can block this user:
+  @trans.inTheMeanTimeYouCanBlockThisUser()
   <button data-action="@routes.Relation.block(userId)" class="report-block icon button hint--top inline" type="submit" data-hint="@trans.block()">
-    <span class="text" data-icon="k">Block @usernameOrId(userId)</span>
+    <span class="text" data-icon="k">@trans.block() @usernameOrId(userId)</span>
   </button>
   <br /><br /><br />
   }
   <p>
-    <a href="@routes.Lobby.home">Return to lichess homepage</a>
+    <a href="@routes.Lobby.home">@trans.returnToLichessHomepage()</a>
   </p>
 </div>
 
