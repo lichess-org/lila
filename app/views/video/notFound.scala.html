@@ -5,12 +5,12 @@ title = "Video not found",
 control = control) {
 
 <div class="content_box_top">
-  <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index">Video library</a>
+  <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index">@trans.videoLibrary()</a>
 </div>
 <div class="not_found">
-  <h1>Video Not Found!</h1>
+  <h1>@trans.videoNotFound()</h1>
   <br />
   <br />
-  <a class="big button text" data-icon="i" href="@routes.Video.index">Return to the video library</a>
+  <a class="big button text" data-icon="i" href="@routes.Video.index">@trans.returnToTheVideoLibrary()</a>
 </div>
 }

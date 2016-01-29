@@ -14,7 +14,7 @@
   <h2>@trans.teamRecentMembers()</h2>
   <div class="userlist infinitescroll">
     @members.nextPage.map { np =>
-    <div class="pager none"><a href="@routes.Team.show(t.id, np)">Next</a></div>
+    <div class="pager none"><a href="@routes.Team.show(t.id, np)">@trans.next()</a></div>
     }
     @members.currentPageResults.map { member =>
     <div class="paginated_element">@userLink(member.user)</div>
@@ -31,7 +31,7 @@
   <div class="actions">
     @if(t.enabled && !info.mine) {
     @if(info.requestedByMe) {
-    <strong>Your join request is being reviewed by the team leader</strong>
+    <strong>@trans.yourJoinRequestIsBeingReviewedByTheTeamLeader()</strong>
     } else {
     @if(ctx.me.??(_.canTeam)) {
     <form class="inline" method="post" action="@routes.Team.join(t.id)">
@@ -43,7 +43,7 @@
     @if(isGranted(_.CloseTeam)) {
     <form class="inline" method="post" action="@routes.Team.close(t.id)">
       <button data-icon="q" class="submit text button thin confirm" type="submit"
-        title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
+        title="@trans.deletesTheTeamAndItsMemberships()">@trans.delete()</button>
     </form>
     }
   </div>

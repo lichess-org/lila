@@ -6,7 +6,7 @@
 <div id="team">
   <div class="content_box team_box">
     <h1>@title</h1>
-    <p class="undertitle">Who do you want to kick out of the team?</p>
+    <p class="undertitle">@trans.whoDoYouWantToKickOutOfTheTeam()</p>
     <form class="kick" action="@routes.Team.kick(t.id)" method="POST">
       @userIds.sorted.map { userId =>
       <button name="userId" class="submit button small confirm" value="@userId">@usernameOrId(userId)</button>

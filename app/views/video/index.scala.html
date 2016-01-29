@@ -16,14 +16,14 @@ control = control) {
     @if(control.filter.tags.nonEmpty) {
     @pluralize("video", videos.nbResults) found
     } else {
-    Free Chess video library
+    @trans.freeChessVideoLibrary()
     }
   </h1>
 </div>
 @if(control.filter.tags.isEmpty) {
 <p class="explain">
-  All videos are free for everyone.<br />
-  Click one or many tags on the left to filter.<br />
+  @trans.allVideosAreFreeToEveryone()<br />
+  @trans.clickOneOrManyTagsOnTheLeftToFilter()<br />
   We have carefully selected <strong>@count</strong> videos so far!
 </p>
 }
@@ -34,21 +34,21 @@ control = control) {
   @if(videos.currentPageResults.size < 4) {
   <div class="not_much nb_@videos.nbResults">
     @if(videos.currentPageResults.isEmpty) {
-    No videos for these tags:
+    @trans.noVideoForTheseTags()
     } else {
-    That's all we got for these tags:
+    @trans.thatIsAllWeGotForTheseTags()
     }
     @control.filter.tags.map { tag =>
     <a class="tag" data-icon="o" href="@routes.Video.index?tags=@tag">@tag.capitalize</a>
     }
     <br />
     <br />
-    <a href="@routes.Video.index" class="button">Clear search</a>
+    <a href="@routes.Video.index" class="button">@trans.clearSearch()</a>
   </div>
   }
   @videos.nextPage.map { next =>
   <div class="pager none">
-    <a href="@routes.Video.index?@control.queryString&page=@next">Next</a>
+    <a href="@routes.Video.index?@control.queryString&page=@next">@trans.next()</a>
   </div>
   }
 </div>
