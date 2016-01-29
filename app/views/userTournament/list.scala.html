@@ -10,15 +10,15 @@
         <th>
           <h1>@userLink(u, withOnline = true) tournaments</h1>
         </th>
-        <th>Games</th>
-        <th>Points</th>
-        <th>Rank</th>
+        <th>@trans.games()</th>
+        <th>@trans.points()</th>
+        <th>@trans.rank()</th>
       </tr>
     </thead>
     <tbody class="infinitescroll">
       @pager.nextPage.map { np =>
       <tr><th class="pager none">
-          <a href="@routes.UserTournament.path(u.username, path, np)">Next</a>
+          <a href="@routes.UserTournament.path(u.username, path, np)">@trans.next()</a>
       </th></tr>
       }
       @pager.currentPageResults.map { e =>
