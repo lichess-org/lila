@@ -651,3 +651,4 @@ about=About
 terminateNow=Terminate Now
 terminatesTheTournamentImmediately=Terminates the tournament immediately! Use only if the tournament is killing lichess!
 lichessGames=Lichess Games
+noneFound=None found.

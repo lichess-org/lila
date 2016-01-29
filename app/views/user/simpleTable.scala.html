@@ -5,7 +5,7 @@
   <tbody class="infinitescroll">
     @pager.nextPage.map { np =>
     <tr><th class="pager none">
-        <a href="@call.url?page=@np">Next</a>
+        <a href="@call.url?page=@np">@trans.next()</a>
     </th></tr>
     }
     @pager.currentPageResults.map { r =>
@@ -19,7 +19,7 @@
   </tbody>
   } else {
   <tbody>
-    <tr><td colspan="2">None found.<br /></td></tr>
+    <tr><td colspan="2">@trans.noneFound()<br /></td></tr>
   </tbody>
   }
 </table>
