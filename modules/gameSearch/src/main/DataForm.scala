@@ -32,8 +32,8 @@ private[gameSearch] final class DataForm {
     "aiLevelMax" -> optional(numberIn(Query.aiLevels)),
     "durationMin" -> optional(numberIn(Query.durations)),
     "durationMax" -> optional(numberIn(Query.durations)),
-    "dateMin" -> optional(stringIn(Query.dates)),
-    "dateMax" -> optional(stringIn(Query.dates)),
+    "dateMin" -> optional(dateConstraint),
+    "dateMax" -> optional(dateConstraint),
     "status" -> optional(numberIn(Query.statuses)),
     "analysed" -> optional(number),
     "sort" -> optional(mapping(
@@ -99,6 +99,9 @@ private[gameSearch] case class SearchData(
     case DateDelta(n, "y") => parseIntOption(n) map DateTime.now.minusYears
     case _                 => None
   }
+  private val dateConstraint = Constraints.pattern(
+    regex = DateDelta,
+    error = "Invalid date.")
 }
 
 private[gameSearch] case class SearchPlayer(
