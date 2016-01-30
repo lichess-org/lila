@@ -8,7 +8,9 @@ import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
+import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
+import views.html
 
 object Challenge extends LilaController {
 
@@ -24,15 +26,22 @@ object Challenge extends LilaController {
         }
   }
 
-  def reach(id: String)(implicit ctx: Context) =
-    env.api byId id map {
+  private[controllers] def reach(id: String)(implicit ctx: Context): Fu[Result] =
+    env.api byId id flatMap {
       case None                                 => notFound
-      case Some(challenge) if isMine(challenge) => html.challenge.mine(challenge)
-      case Some(challenge)                      => html.challenge.theirs(challenge)
+      case Some(challenge) if isMine(challenge) => Ok(html.challenge.mine(challenge)).fuccess
+      case Some(challenge)                      => Ok(html.challenge.theirs(challenge)).fuccess
     }
 
-  private def isMine(challenge: Challenge)(implicit ctx: Context) = challenge.challenger match {
-    case Left(anon)  => HTTPRequest sid req contains anon.secret
+  private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
+    case Left(anon)  => HTTPRequest sid ctx.req contains anon.secret
     case Right(user) => ctx.userId contains user.id
+  }
+
+  def cancel(id: String) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { challenge =>
+      if (isMine(challenge)) env.api remove challenge inject Redirect(routes.Lobby.home)
+      else notFound
+    }
   }
 }

@@ -188,16 +188,6 @@ object Setup extends LilaController with TheftPrevention {
   //   }
   // }
 
-  def cancel(fullId: String) = Open { implicit ctx =>
-    OptionResult(GameRepo pov fullId) { pov =>
-      if (pov.game.started) Redirect(routes.Round.player(pov.fullId))
-      else {
-        GameRepo remove pov.game.id
-        Redirect(routes.Lobby.home)
-      }
-    }
-  }
-
   def validateFen = Open { implicit ctx =>
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None    => BadRequest.fuccess

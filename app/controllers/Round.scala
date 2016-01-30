@@ -151,7 +151,6 @@ object Round extends LilaController with TheftPrevention {
       html =
         if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
         else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
-        else if (pov.game.joinable) join(pov)
         else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
           case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
           case _ if HTTPRequest.isHuman(ctx.req) =>
@@ -179,13 +178,13 @@ object Round extends LilaController with TheftPrevention {
     }
 
   // remove me
-  private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    GameRepo initialFen pov.game zip
-      Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
-      ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
-        case ((fen, data), opponent) => Ok(html.setup.join(
-          pov, data, opponent, none, fen))
-      }
+  // private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  //   GameRepo initialFen pov.game zip
+  //     Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
+  //     ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
+  //       case ((fen, data), opponent) => Ok(html.setup.join(
+  //         pov, data, opponent, none, fen))
+  //     }
 
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>

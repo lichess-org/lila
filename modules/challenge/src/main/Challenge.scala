@@ -20,6 +20,16 @@ case class Challenge(
 
   def id = _id
 
+  def daysPerTurn = timeControl match {
+    case Challenge.TimeControl.Correspondence(d) => d.some
+    case _                                       => none
+  }
+
+  def clock = timeControl match {
+    case c: Challenge.TimeControl.Clock => c.some
+    case _                              => none
+  }
+
   lazy val perfType = Challenge.perfType(variant, timeControl)
 }
 

@@ -144,7 +144,6 @@ final class JsonView(
               gameJson(game, initialFen) ++ Json.obj(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
                 "opening" -> game.opening,
-                "joinable" -> game.joinable,
                 "importedBy" -> game.pgnImport.flatMap(_.user)).noNull
             },
             "clock" -> game.clock.map(clockJson),

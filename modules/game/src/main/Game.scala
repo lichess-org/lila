@@ -252,8 +252,6 @@ case class Game(
 
   def notStarted = !started
 
-  def joinable = notStarted && !isPgnImport
-
   def aborted = status == Status.Aborted
 
   def playable = status < Status.Aborted && !imported
