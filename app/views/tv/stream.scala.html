@@ -52,19 +52,11 @@ moreCss = moreCss) {
   <h2 class="stream_title">@s.name</h2>
   @s.streamer.service match {
   case lila.tv.StreamerList.Twitch => {
-  <object
-    type="application/x-shockwave-flash"
+  <iframe
+    src="http://player.twitch.tv/?channel=@s.streamId"
     width="694"
     height="418"
-    id="live_embed_player_flash"
-    data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=@s.streamId"
-    bgcolor="transparent">
-    <param name="allowFullScreen" value="true" />
-    <param name="allowScriptAccess" value="always" />
-    <param name="allowNetworking" value="all" />
-    <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-    <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
-  </object>
+    allowfullscreen autoplay></iframe>
   }
   case lila.tv.StreamerList.Hitbox => {
   <iframe

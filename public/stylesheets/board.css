@@ -928,6 +928,7 @@ div.cemetery mono-piece {
 }
 div.cemetery score {
   display: inline-block;
+  float: right;
   font-family: 'Roboto';
   font-weight: 300;
   font-size: 15px;
