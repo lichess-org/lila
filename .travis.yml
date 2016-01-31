@@ -14,6 +14,7 @@ notifications:
       - lichess:sVTqlE0OQNMPq1n6qRnVnfrz
     on_success: change
     on_failure: always
+  email: false
 
 # https://docs.travis-ci.com/user/languages/java/#Testing-Against-Multiple-JDKs
 jdk:

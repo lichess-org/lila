@@ -271,7 +271,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.reset = function() {
-    this.chessground.set(this.vm.situation);
+    showGround();
     m.redraw();
   }.bind(this);
 

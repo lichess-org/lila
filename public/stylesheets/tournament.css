@@ -384,6 +384,14 @@ ol.scheduled_tournaments a {
   background: #ccc;
   margin-right: 10px;
 }
+#tournament_side .featured .vstext i {
+  float: right;
+}
+#tournament_side .featured .vstext i::before {
+  color: #D85000;
+  margin: 0 5px 0 0;
+  line-height: 22px;
+}
 #tournament_side .box {
   border: 1px solid #ccc;
 }

@@ -18,6 +18,7 @@ function user(p, it) {
 function featuredPlayer(f, orientation) {
   var p = f[orientation === 'top' ? opposite(f.color) : f.color];
   return m('div.vstext.' + orientation, [
+    p.berserk ? m('i[data-icon=`][title=Berserk]') : null,
     m('strong', '#' + p.rank),
     util.player(p)
   ])

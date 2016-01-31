@@ -82,8 +82,12 @@ private[round] final class Round(
       pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
-    case ResignColor(color) => handle(color) { pov =>
-      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
+    case ImportResign(color) => handle(color) { pov =>
+      (pov.game.isPgnImport && !pov.game.finished) ?? finisher.other(pov.game, _.Resign, Some(!color))
+    }
+
+    case ImportDraw => handle { game =>
+      (game.isPgnImport && !game.finished) ?? finisher.other(game, _.Draw, none)
     }
 
     case GoBerserk(color) => handle(color) { pov =>
