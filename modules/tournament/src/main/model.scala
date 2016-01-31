@@ -59,7 +59,7 @@ object RankedPlayer {
 
 case class FeaturedGame(
   game: lila.game.Game,
-  player1: RankedPlayer,
-  player2: RankedPlayer)
+  white: RankedPlayer,
+  black: RankedPlayer)
 
 case class Winner(tourId: String, tourName: String, userId: String)

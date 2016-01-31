@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var opposite = require('chessground').util.opposite;
 var util = require('./util');
 var status = require('game').status;
 
@@ -14,17 +15,19 @@ function user(p, it) {
   };
 }
 
-function featured(f, n) {
+function featuredPlayer(f, orientation) {
+  var p = f[orientation === 'top' ? opposite(f.color) : f.color];
+  return m('div.vstext.' + orientation, [
+    m('strong', '#' + p.rank),
+    util.player(p)
+  ])
+}
+
+function featured(f) {
   return m('div.featured', [
-    m('div.vstext.top', [
-      m('strong', '#' + f.player2.rank),
-      util.player(f.player2)
-    ]),
+    featuredPlayer(f, 'top'),
     util.miniBoard(f),
-    m('div.vstext.bottom', [
-      m('strong', '#' + f.player1.rank),
-      util.player(f.player1)
-    ])
+    featuredPlayer(f, 'bottom')
   ]);
 }
 

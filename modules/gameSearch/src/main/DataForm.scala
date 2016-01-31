@@ -4,6 +4,7 @@ import chess.{ Mode }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 
 import lila.common.Form._
 import lila.search.Range
@@ -32,8 +33,8 @@ private[gameSearch] final class DataForm {
     "aiLevelMax" -> optional(numberIn(Query.aiLevels)),
     "durationMin" -> optional(numberIn(Query.durations)),
     "durationMax" -> optional(numberIn(Query.durations)),
-    "dateMin" -> optional(dateConstraint),
-    "dateMax" -> optional(dateConstraint),
+    "dateMin" -> DataForm.dateField,
+    "dateMax" -> DataForm.dateField,
     "status" -> optional(numberIn(Query.statuses)),
     "analysed" -> optional(number),
     "sort" -> optional(mapping(
@@ -41,6 +42,15 @@ private[gameSearch] final class DataForm {
       "order" -> stringIn(Sorting.orders)
     )(SearchSort.apply)(SearchSort.unapply))
   )(SearchData.apply)(SearchData.unapply)) fill SearchData()
+}
+
+private[gameSearch] object DataForm {
+
+  val DateDelta = """^(\d+)(\w)$""".r
+  private val dateConstraint = Constraints.pattern(
+    regex = DateDelta,
+    error = "Invalid date.")
+  val dateField = optional(nonEmptyText.verifying(dateConstraint))
 }
 
 private[gameSearch] case class SearchData(
@@ -90,7 +100,8 @@ private[gameSearch] case class SearchData(
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 
-  private val DateDelta = """^(\d+)(\w)$""".r
+  import DataForm.DateDelta
+
   private def toDate(delta: String): Option[DateTime] = delta match {
     case DateDelta(n, "h") => parseIntOption(n) map DateTime.now.minusHours
     case DateDelta(n, "d") => parseIntOption(n) map DateTime.now.minusDays
