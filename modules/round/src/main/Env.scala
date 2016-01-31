@@ -199,6 +199,12 @@ final class Env(
     else if (pov.game.playable)
       roundMap ! Tell(pov.game.id, actorApi.round.Resign(pov.playerId))
   }
+
+  def userTvChange(userId: String) {
+    system.lilaBus.publish(
+      lila.game.actorApi.UserTvChange(userId),
+      Symbol(s"userTvChange:$userId"))
+  }
 }
 
 object Env {

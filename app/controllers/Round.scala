@@ -81,7 +81,9 @@ object Round extends LilaController with TheftPrevention {
         Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
       }
     }
-  ) map NoCache
+  ) map NoCache addEffect {
+    _ => ctx.userId foreach env.userTvChange
+  }
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>

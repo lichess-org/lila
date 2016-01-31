@@ -10,7 +10,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
-import lila.game.actorApi.{ StartGame, UserStartGame }
+import lila.game.actorApi.{ StartGame, UserTvChange }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
@@ -84,7 +84,7 @@ private[round] final class Socket(
   private def refreshSubscriptions {
     lilaBus.unsubscribe(self)
     watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
-      lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
+      lilaBus.subscribe(self, Symbol(s"userTvChange:$userId"))
     }
   }
 
@@ -174,7 +174,7 @@ private[round] final class Socket(
 
     case TvSelect(msg)          => watchers.foreach(_ push msg)
 
-    case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
+    case UserTvChange(userId) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")
     }
 
