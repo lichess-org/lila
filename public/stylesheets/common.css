@@ -1978,7 +1978,7 @@ div.vstext {
   white-space: nowrap;
   padding: 5px;
   border: 1px solid #ccc;
-  border-top: 0;
+  border-width: 0 1px 1px 1px;
   position: relative;
 }
 div.vstext > .center {
