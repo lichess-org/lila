@@ -19,6 +19,15 @@ module.exports = function(env) {
     this.vm.reloading = false;
   }.bind(this);
 
+  this.decline = function(id) {
+    this.data.in.forEach(function(c) {
+      if (c.id === id) {
+        xhr.decline(id).then(this.update);
+        c.declined = true;
+      }
+    });
+  }.bind(this);
+
   xhr.load().then(this.update);
 
   this.trans = lichess.trans(env.i18n);

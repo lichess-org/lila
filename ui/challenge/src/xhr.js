@@ -16,5 +16,12 @@ module.exports = {
       url: uncache('/challenge'),
       config: xhrConfig,
     });
+  },
+  decline: function(id) {
+    return m.request({
+      method: 'POST',
+      url: '/challenge/' + id + '/decline',
+      config: xhrConfig,
+    });
   }
 };

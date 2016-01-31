@@ -82,6 +82,7 @@ object Setup extends LilaController with TheftPrevention {
             import lila.challenge.Challenge._
             val challenge = lila.challenge.Challenge.make(
               variant = config.variant,
+              initialFen = config.fen,
               timeControl = config.makeClock map { c =>
                 TimeControl.Clock(c.limit, c.increment)
               } orElse config.makeDaysPerTurn.map {

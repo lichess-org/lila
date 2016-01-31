@@ -9,7 +9,9 @@ import lila.rating.PerfType
 
 case class Challenge(
     _id: String,
+    state: Challenge.State,
     variant: Variant,
+    initialFen: Option[String],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     color: Challenge.ColorChoice,
@@ -34,6 +36,15 @@ case class Challenge(
 }
 
 object Challenge {
+
+  sealed abstract class State(val id: Int)
+  object State {
+    case object Created extends State(10)
+    case object Accepted extends State(20)
+    case object Declined extends State(30)
+    val all = List(Created, Accepted, Declined)
+    def apply(id: Int): Option[State] = all.find(_.id == id)
+  }
 
   case class Rating(int: Int, provisional: Boolean)
   object Rating {
@@ -78,13 +89,16 @@ object Challenge {
 
   def make(
     variant: Variant,
+    initialFen: Option[String],
     timeControl: TimeControl,
     mode: Mode,
     color: String,
     challenger: Option[lila.user.User],
     destUserId: Option[String]): Challenge = new Challenge(
     _id = randomId,
+    state = State.Created,
     variant = variant,
+    initialFen = initialFen.ifTrue(variant == chess.variant.FromPosition),
     timeControl = timeControl,
     mode = mode,
     color = color match {

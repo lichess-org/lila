@@ -42,6 +42,10 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
+  implicit val StateBSONHandler = new BSONHandler[BSONInteger, State] {
+    def read(b: BSONInteger): State = State(b.value) err s"No such state: ${b.value}"
+    def write(x: State) = BSONInteger(x.id)
+  }
   implicit val ModeBSONHandler = new BSONHandler[BSONBoolean, Mode] {
     def read(b: BSONBoolean) = Mode(b.value)
     def write(m: Mode) = BSONBoolean(m.rated)
@@ -65,4 +69,3 @@ private object BSONHandlers {
 
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]
 }
-

@@ -232,7 +232,8 @@ GET   /challenge                       controllers.Challenge.all
 GET   /challenge                       controllers.Challenge.all
 # GET   /challenge/$fullId<\w{12}>/await           controllers.Setup.await(fullId: String, user: Option[String] ?= None)
 # GET   /challenge/$fullId<\w{12}>/cancel          controllers.Setup.cancel(fullId: String)
-# POST  /challenge/$id<\w{8}>/join                 controllers.Setup.join(id: String)
+POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String)
+POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 
 # Video

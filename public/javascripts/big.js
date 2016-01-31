@@ -340,15 +340,15 @@ lichess.hopscotch = function(f) {
     .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
   $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
-lichess.challengeBox = (function() {
+lichess.challengeApp = (function() {
   var instance;
   var load = function(then) {
     var baseUrl = $('body').data('asset-url');
     var isDev = $('body').data('dev');
     $('head').append($('<link rel="stylesheet" type="text/css" />')
-      .attr('href', baseUrl + '/assets/stylesheet/challengeBox.css'));
+      .attr('href', baseUrl + '/assets/stylesheets/challengeApp.css'));
     $.getScript(baseUrl + "/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(document.getElementById('challenge_notifications'), {
+      instance = LichessChallenge(document.getElementById('challenge_app'), {
         setCount: function(nb) {
           $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
         }
@@ -1114,7 +1114,7 @@ lichess.unique = function(xs) {
         });
       });
       $('#challenge_notifications_tag').one('mouseover click', function() {
-        lichess.challengeBox.load();
+        lichess.challengeApp.load();
       }).trigger('click');
 
       $('#translation_call .close').click(function() {

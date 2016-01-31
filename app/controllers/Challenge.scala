@@ -24,9 +24,9 @@ object Challenge extends LilaController {
   }
 
   private[controllers] def renderAll(me: lila.user.User)(implicit ctx: Context) =
-    env.api.findByDestId(me.id) zip
-      env.api.findByChallengerId(me.id) map {
-        case (out, in) => Ok(env.jsonView.all(in, out)) as JSON
+    env.api.createdByDestId(me.id) zip
+      env.api.createdByChallengerId(me.id) map {
+        case (in, out) => Ok(env.jsonView.all(in, out)) as JSON
       }
   private[controllers] def renderOne(challenge: ChallengeModel)(implicit ctx: Context) =
     Ok(env.jsonView.one(challenge)) as JSON
@@ -41,6 +41,24 @@ object Challenge extends LilaController {
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
     case Left(anon)  => HTTPRequest sid ctx.req contains anon.secret
     case Right(user) => ctx.userId contains user.id
+  }
+
+  private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
+    challenge.destUserId.fold(true)(ctx.userId.contains)
+
+  def accept(id: String) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { challenge =>
+      if (isForMe(challenge)) ???
+      else notFound
+    }
+  }
+
+  def decline(id: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(env.api byId id) { challenge =>
+        if (isForMe(challenge)) (env.api decline challenge) >> renderAll(me)
+        else notFound
+      }
   }
 
   def cancel(id: String) = Open { implicit ctx =>
