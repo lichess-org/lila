@@ -161,25 +161,28 @@ final class JsonView(
     timeToLive = 1 second)
 
   private def featuredJson(featured: FeaturedGame) = {
-    def playerJson(rp: RankedPlayer) = {
+    val game = featured.game
+    def playerJson(rp: RankedPlayer, p: lila.game.Player) = {
       val light = getLightUser(rp.player.userId)
       Json.obj(
         "rank" -> rp.rank,
         "name" -> light.fold(rp.player.userId)(_.name),
         "title" -> light.flatMap(_.title),
         "rating" -> rp.player.rating,
-        "ratingDiff" -> rp.player.ratingDiff)
+        "ratingDiff" -> rp.player.ratingDiff,
+        "berserk" -> p.berserk.option(true)
+      ).noNull
     }
     Json.obj(
-      "id" -> featured.game.id,
-      "fen" -> (chess.format.Forsyth exportBoard featured.game.toChess.board),
-      "color" -> (featured.game.variant match {
+      "id" -> game.id,
+      "fen" -> (chess.format.Forsyth exportBoard game.toChess.board),
+      "color" -> (game.variant match {
         case chess.variant.RacingKings => chess.White
-        case _                         => featured.game.firstColor
+        case _                         => game.firstColor
       }).name,
-      "lastMove" -> ~featured.game.castleLastMoveTime.lastMoveString,
-      "white" -> playerJson(featured.white),
-      "black" -> playerJson(featured.black))
+      "lastMove" -> ~game.castleLastMoveTime.lastMoveString,
+      "white" -> playerJson(featured.white, game player chess.White),
+      "black" -> playerJson(featured.black, game player chess.Black))
   }
 
   private def myInfoJson(i: PlayerInfo) = Json.obj(
