@@ -12,17 +12,18 @@ import lila.game._
 private[importer] final class DataForm {
 
   lazy val importForm = Form(mapping(
-    "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _)
+    "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _),
+    "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(ImportData.unapply))
 
   private def checkPgn(pgn: String): Boolean =
-    ImportData(pgn).preprocess(none).isSuccess
+    ImportData(pgn, none).preprocess(none).isSuccess
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
 private[importer] case class Preprocessed(game: Game, moves: List[MoveOrDrop], result: Option[Result])
 
-case class ImportData(pgn: String) {
+case class ImportData(pgn: String, analyse: Option[String]) {
 
   private type TagPicker = Tag.type => TagType
 

@@ -10,7 +10,7 @@ $("#import_game form").submit(function() {
 var pgn = $(this).find('textarea').val();
 var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
 var delay = 50;
-var duration = nbMoves * delay * 2.1 + 1000;
+var duration = nbMoves * delay * 2 + 500;
 $(this).find('button').hide().end()
 .find('.error').hide().end()
 .find('.progression').show().animate({
@@ -36,14 +36,21 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
     a <strong>computer analysis</strong>, a <strong>game chat</strong> and a <strong>sharable URL</strong>.
   </p>
   <form class="import" action="@routes.Importer.sendGame()" method="post">
-    <label>
+    <label class="pgn">
       <span>@trans.pasteThePgnStringHere() :</span>
       @defining(form("pgn")) { field =>
       <textarea name="@field.name" id="@field.id">@field.value</textarea>
       @errMsg(field)
       }
     </label>
-    <button class="submit button" type="submit" data-icon="G"> @trans.importGame()</button>
+    <p class="analyse">
+      <span>
+        <input name="@form("analyse").name" id="import_analyse" class="cmn-toggle cmn-toggle-round" type="checkbox" />
+        <label for="import_analyse"></label>
+      </span>
+      <label for="import_analyse">@trans.requestAComputerAnalysis()</label>
+    </p>
+    <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
     <div class="progression"></div>
   </form>
 </div>
