@@ -10,7 +10,11 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
 
-final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
+final class Api(
+    firewall: Firewall,
+    tor: Tor,
+    geoIP: GeoIP,
+    emailAddress: EmailAddress) {
 
   val AccessUri = "access_uri"
 
@@ -31,8 +35,11 @@ final class Api(firewall: Firewall, tor: Tor, geoIP: GeoIP) {
     }
 
   // blocking function, required by Play2 form
-  private def authenticateUser(username: String, password: String): Option[User] =
-    UserRepo.authenticate(username.toLowerCase, password) awaitSeconds 2
+  private def authenticateUser(usernameOrEmail: String, password: String): Option[User] =
+    (emailAddress.validate(usernameOrEmail) match {
+      case Some(email) => UserRepo.authenticateByEmail(email, password)
+      case None        => UserRepo.authenticateById(User normalize usernameOrEmail, password)
+    }) awaitSeconds 2
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall accepts req flatMap {

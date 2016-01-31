@@ -23,7 +23,7 @@ object Cli extends LilaController {
   }
 
   private def CliAuth(password: String)(op: => Fu[Result]): Fu[Result] =
-    lila.user.UserRepo.checkPassword(Env.api.CliUsername, password) flatMap {
+    lila.user.UserRepo.checkPasswordById(Env.api.CliUsername, password) flatMap {
       _.fold(op, fuccess(Unauthorized))
     }
 }

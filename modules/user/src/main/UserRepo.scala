@@ -176,8 +176,11 @@ trait UserRepo {
   def incToints(id: ID, nb: Int) = $update($select(id), $incBson("toints" -> nb))
   def removeAllToints = $update($select.all, $unset("toints"), multi = true)
 
-  def authenticate(id: ID, password: String): Fu[Option[User]] =
-    checkPassword(id, password) flatMap { _ ?? ($find byId id) }
+  def authenticateById(id: ID, password: String): Fu[Option[User]] =
+    checkPasswordById(id, password) flatMap { _ ?? ($find byId id) }
+
+  def authenticateByEmail(email: String, password: String): Fu[Option[User]] =
+    checkPasswordByEmail(email, password) flatMap { _ ?? byEmail(email) }
 
   private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Boolean) {
     def compare(p: String) = password == sha512.fold(hash512(p, salt), hash(p, salt))
@@ -193,8 +196,14 @@ trait UserRepo {
     lazy val reader = (__.json update merge(defaults)) andThen Json.reads[AuthData]
   }
 
-  def checkPassword(id: ID, password: String): Fu[Boolean] =
-    $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj =>
+  def checkPasswordById(id: ID, password: String): Fu[Boolean] =
+    checkPassword($select(id), password)
+
+  def checkPasswordByEmail(email: String, password: String): Fu[Boolean] =
+    checkPassword(Json.obj(F.email -> email), password)
+
+  private def checkPassword(select: JsObject, password: String): Fu[Boolean] =
+    $projection.one(select, Seq("password", "salt", "enabled", "sha512", "email")) { obj =>
       (AuthData.reader reads obj).asOpt
     } map {
       _ ?? (data => data.enabled && data.compare(password))
