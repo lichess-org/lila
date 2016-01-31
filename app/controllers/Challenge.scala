@@ -20,11 +20,16 @@ object Challenge extends LilaController {
 
   def all = Auth { implicit ctx =>
     me =>
-      env.api.findByDestId(me.id) zip
-        env.api.findByChallengerId(me.id) map {
-          case (out, in) => Ok(env.jsonView.all(in, out)) as JSON
-        }
+      renderAll(me)
   }
+
+  private[controllers] def renderAll(me: lila.user.User)(implicit ctx: Context) =
+    env.api.findByDestId(me.id) zip
+      env.api.findByChallengerId(me.id) map {
+        case (out, in) => Ok(env.jsonView.all(in, out)) as JSON
+      }
+  private[controllers] def renderOne(challenge: ChallengeModel)(implicit ctx: Context) =
+    Ok(env.jsonView.one(challenge)) as JSON
 
   private[controllers] def reach(id: String)(implicit ctx: Context): Fu[Result] =
     env.api byId id flatMap {

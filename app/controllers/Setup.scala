@@ -92,9 +92,11 @@ object Setup extends LilaController with TheftPrevention {
               challenger = ctx.me,
               destUserId = userId)
             (Env.challenge.api insert challenge) >> negotiate(
-              html = fuccess(Redirect(routes.Challenge.all)),
-              api = apiVersion => ??? // TODO fix me!
-            )
+              html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+              api = _ => ctx.me match {
+                case None     => Challenge.renderOne(challenge).fuccess
+                case Some(me) => Challenge.renderAll(me)
+              })
         }
       )
     }

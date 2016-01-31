@@ -15,6 +15,6 @@ module.exports = {
       method: 'GET',
       url: uncache('/challenge'),
       config: xhrConfig,
-    }).then(ctrl.update);
+    });
   }
 };

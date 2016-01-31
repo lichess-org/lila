@@ -19,7 +19,7 @@ module.exports = function(env) {
     this.vm.reloading = false;
   }.bind(this);
 
-  xhr.load();
+  xhr.load().then(this.update);
 
   this.trans = lichess.trans(env.i18n);
 };

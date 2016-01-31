@@ -11,7 +11,7 @@ function user(u) {
     },
     children: [
       fullName,
-      m('span.progress', [rating, ratingDiff])
+      m('span.progress', rating)
     ]
   };
 }
