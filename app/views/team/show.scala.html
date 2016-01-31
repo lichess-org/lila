@@ -1,6 +1,9 @@
 @(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context)
 
-@team.layout(title = t.name) {
+@team.layout(title = t.name, openGraph = lila.app.ui.OpenGraph(
+title = s"${t.name} team",
+url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+description = shorten(t.description.replace("\n", ""), 152).body).some) {
 <div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers("<strong>" + t.nbMembers.localize + "</strong>")</span>
