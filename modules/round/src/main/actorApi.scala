@@ -103,6 +103,8 @@ case class HumanPlay(
 }
 
 case class ImportPlay(playerId: String, uci: Uci)
+case class ImportResign(color: Color)
+case object ImportDraw
 
 case object AiPlay
 
@@ -112,7 +114,6 @@ case class Abort(playerId: String)
 case object AbortForMaintenance
 case object Threefold
 case class Resign(playerId: String)
-case class ResignColor(color: Color)
 case class ResignForce(playerId: String)
 case class NoStartColor(color: Color)
 case class DrawForce(playerId: String)

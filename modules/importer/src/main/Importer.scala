@@ -25,8 +25,8 @@ final class Importer(
 
     def applyResult(game: Game, result: Result) {
       result match {
-        case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
-        case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
+        case Result(Status.Draw, _)             => roundMap ! Tell(game.id, ImportDraw)
+        case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, ImportResign(color))
         case _                                  =>
       }
     }

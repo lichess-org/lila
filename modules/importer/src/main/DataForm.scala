@@ -47,7 +47,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case v => v
         }
 
-        val result = tag(_.Result) filterNot (_ => game.situation.end) collect {
+        val result = tag(_.Result) ifFalse game.situation.end collect {
           case "1-0"     => Result(Status.Resign, Color.White.some)
           case "0-1"     => Result(Status.Resign, Color.Black.some)
           case "1/2-1/2" => Result(Status.Draw, none)
