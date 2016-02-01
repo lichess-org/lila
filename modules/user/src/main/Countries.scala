@@ -64,6 +64,7 @@ object Countries {
     "FI" -> "Finland",
     "FJ" -> "Fiji",
     "FM" -> "Micronesia",
+    "FO" -> "Faroe Islands",
     "FR" -> "France",
     "GA" -> "Gabon",
     "GB" -> "United Kingdom",
