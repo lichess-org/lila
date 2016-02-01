@@ -22,7 +22,7 @@ object Spam {
 
   private val replacements = List(
     """velocitychess.com/ref/\w+""".r -> "velocitychess.com",
-    """chess24.com?ref=\w+""".r -> "chess24.com"
+    """chess24.com?ref=\w+""".r -> "chess24.com",
     """chess.com/register?refId=\w+""" -> "chess.com/register"
   )
 }
