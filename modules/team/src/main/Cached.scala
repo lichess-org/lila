@@ -20,5 +20,5 @@ private[team] final class Cached {
 
   val nbRequests = AsyncCache(
     (userId: String) => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    maxCapacity = 8192)
+    maxCapacity = 20000)
 }
