@@ -71,3 +71,7 @@
 #tv_channels tr:hover td {
   background-color: #f8f8f8;
 }
+
+.tv_stream iframe {
+  border: none;
+}
