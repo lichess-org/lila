@@ -101,28 +101,25 @@ private[round] final class SocketHandler(
   def watcher(
     gameId: String,
     colorName: String,
-    version: Int,
     uid: String,
     user: Option[User],
     ip: String,
     userTv: Option[String]): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, version, uid, "", user, ip, userTv = userTv) map some }
+      _ ?? { join(_, none, uid, "", user, ip, userTv = userTv) map some }
     }
 
   def player(
     pov: Pov,
-    version: Int,
     uid: String,
     token: String,
     user: Option[User],
     ip: String): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), version, uid, token, user, ip, userTv = none)
+    join(pov, Some(pov.playerId), uid, token, user, ip, userTv = none)
 
   private def join(
     pov: Pov,
     playerId: Option[String],
-    version: Int,
     uid: String,
     token: String,
     user: Option[User],
@@ -131,7 +128,6 @@ private[round] final class SocketHandler(
     val join = Join(
       uid = uid,
       user = user,
-      version = version,
       color = pov.color,
       playerId = playerId,
       ip = ip,

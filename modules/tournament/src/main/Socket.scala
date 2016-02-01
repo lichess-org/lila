@@ -78,7 +78,7 @@ private[tournament] final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Join(uid, user, version) =>
+    case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)

@@ -69,9 +69,7 @@ lichess.StrongSocket.prototype = {
     var self = this;
     self.destroy();
     self.autoReconnect = true;
-    var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
-      version: self.version
-    }));
+    var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param(self.settings.params);
     self.debug("connection attempt to " + fullUrl, true);
     try {
       if (window.MozWebSocket) self.ws = new MozWebSocket(fullUrl);
