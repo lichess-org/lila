@@ -393,10 +393,14 @@ lichess.desktopNotification = function(msg) {
   var title = 'lichess.org';
   var icon = 'http://lichess1.org/assets/images/logo.256.png';
   var notify = function() {
-    lichess.notifications.push(new Notification(title, {
+    var notification = new Notification(title, {
       icon: icon,
       body: msg
-    }));
+    });
+    notification.onclick = function() {
+      window.focus();
+    }
+    lichess.notifications.push(notification);
   };
   if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   if (Notification.permission === 'granted') notify();
