@@ -35,7 +35,7 @@ final class PostApi(
           author = data.author,
           userId = ctx.me map (_.id),
           ip = ctx.req.remoteAddress.some,
-          text = data.text,
+          text = lila.security.Spam.replace(data.text),
           number = number + 1,
           lang = lang map (_.language),
           troll = ctx.troll,
