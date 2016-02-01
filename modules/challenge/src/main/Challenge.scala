@@ -18,8 +18,7 @@ case class Challenge(
     color: Challenge.ColorChoice,
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
-    createdAt: DateTime,
-    expiresAt: DateTime) {
+    createdAt: DateTime) {
 
   def id = _id
 
@@ -118,6 +117,5 @@ object Challenge {
       Right(toRegistered(variant, timeControl)(u))
     },
     destUser = destUser map toRegistered(variant, timeControl),
-    createdAt = DateTime.now,
-    expiresAt = DateTime.now plusDays challenger.isDefined.fold(7, 1))
+    createdAt = DateTime.now)
 }
