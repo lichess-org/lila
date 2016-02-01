@@ -21,8 +21,7 @@ private[simul] case class Messadata(trollish: Boolean = false)
 
 private[simul] case class Join(
   uid: String,
-  user: Option[User],
-  version: Int)
+  user: Option[User])
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)

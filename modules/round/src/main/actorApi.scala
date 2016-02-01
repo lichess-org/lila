@@ -69,7 +69,6 @@ case class Watcher(
 case class Join(
   uid: String,
   user: Option[User],
-  version: Int,
   color: Color,
   playerId: Option[String],
   ip: String,
