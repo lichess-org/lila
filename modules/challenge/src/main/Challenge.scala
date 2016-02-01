@@ -18,7 +18,8 @@ case class Challenge(
     color: Challenge.ColorChoice,
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    seenAt: DateTime) {
 
   def id = _id
 
@@ -44,9 +45,10 @@ object Challenge {
   object Status {
     case object Created extends Status(10)
     case object Canceled extends Status(20)
+    case object Abandoned extends Status(25)
     case object Declined extends Status(30)
     case object Accepted extends Status(40)
-    val all = List(Created, Canceled, Declined, Accepted)
+    val all = List(Created, Canceled, Abandoned, Declined, Accepted)
     def apply(id: Int): Option[Status] = all.find(_.id == id)
   }
 
@@ -117,5 +119,6 @@ object Challenge {
       Right(toRegistered(variant, timeControl)(u))
     },
     destUser = destUser map toRegistered(variant, timeControl),
-    createdAt = DateTime.now)
+    createdAt = DateTime.now,
+    seenAt = DateTime.now)
 }

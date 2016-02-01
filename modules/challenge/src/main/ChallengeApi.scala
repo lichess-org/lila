@@ -25,7 +25,7 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  val countInFor = AsyncCache(repo.countByDestId, maxCapacity = 20000)
+  val countInFor = AsyncCache(repo.countCreatedByDestId, maxCapacity = 20000)
 
   def createdByChallengerId = repo createdByChallengerId _
 
@@ -34,15 +34,19 @@ final class ChallengeApi(
   def createdByDestIds = repo createdByDestIds _
 
   def accept(c: Challenge) = (repo accept c) >> {
-    funit
+    c.destUserId ?? countInFor.remove
   }
 
   def cancel(c: Challenge) = (repo cancel c) >> {
-    funit
+    c.destUserId ?? countInFor.remove
+  }
+
+  def abandon(c: Challenge) = (repo abandon c) >> {
+    c.destUserId ?? countInFor.remove
   }
 
   def decline(c: Challenge) = (repo decline c) >> {
-    funit
+    c.destUserId ?? countInFor.remove
   }
 
   private def notify(user: Registered) {

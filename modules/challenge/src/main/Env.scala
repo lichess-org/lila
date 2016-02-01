@@ -12,7 +12,8 @@ final class Env(
     onStart: String => Unit,
     lightUser: String => Option[lila.common.LightUser],
     hub: lila.hub.Env,
-    db: lila.db.Env) {
+    db: lila.db.Env,
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val CollectionChallenge = config getString "collection.challenge"
@@ -33,6 +34,16 @@ final class Env(
   lazy val joiner = new Joiner(onStart = onStart)
 
   lazy val jsonView = new JsonView(lightUser)
+
+  private lazy val sweeper = new Sweeper(api, repo)
+
+  {
+    import scala.concurrent.duration._
+
+    scheduler.future(3 seconds, "sweep challenges") {
+      sweeper.realTime
+    }
+  }
 }
 
 object Env {
@@ -43,5 +54,6 @@ object Env {
     onStart = lila.game.Env.current.onStart,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    scheduler = lila.common.PlayApp.scheduler)
 }

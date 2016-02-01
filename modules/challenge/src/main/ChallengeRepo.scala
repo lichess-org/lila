@@ -2,8 +2,10 @@ package lila.challenge
 
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import lila.db.Types.Coll
+import lila.db.BSON.BSONJodaDateTimeHandler 
 import lila.user.{ User, UserRepo }
 
 private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
@@ -36,10 +38,16 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       .sort(BSONDocument("createdAt" -> 1))
       .cursor[Challenge]().collect[Stream]().map { _.groupBy(~_.destUserId) }
 
-  def countByDestId(userId: String): Fu[Int] =
+  def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ BSONDocument("destUser.id" -> userId)))
 
+  def unseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
+    coll.find(selectCreated ++ selectClock ++ BSONDocument(
+      "seenAt" -> BSONDocument("$lt" -> date)
+    )).cursor[Challenge]().collect[List](max)
+
   def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled)
+  def abandon(challenge: Challenge) = setStatus(challenge, Status.Abandoned)
   def decline(challenge: Challenge) = setStatus(challenge, Status.Declined)
   def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted)
 
@@ -52,5 +60,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     coll.remove(BSONDocument("_id" -> challenge.id)).void
 
   private val selectCreated = BSONDocument("status" -> Status.Created.id)
+
+  private val selectClock = BSONDocument("timeControl.l" -> BSONDocument("$exists" -> true))
 }
 
