@@ -24,6 +24,7 @@ case class Challenge(
   def id = _id
 
   def challengerUser = challenger.right.toOption
+  def challengerUserId = challengerUser.map(_.id)
   def destUserId = destUser.map(_.id)
 
   def daysPerTurn = timeControl match {

@@ -18,9 +18,7 @@ final class ChallengeApi(
     createdByDestId(userId) zip createdByChallengerId(userId) map (AllChallenges.apply _).tupled
 
   def create(c: Challenge): Funit = (repo insert c) >> {
-    c.destUser ?? notify
-    c.challengerUser ?? notify
-    funit
+    uncacheAndNotify(c)
   }
 
   def byId = repo byId _
@@ -34,25 +32,30 @@ final class ChallengeApi(
   def createdByDestIds = repo createdByDestIds _
 
   def accept(c: Challenge) = (repo accept c) >> {
-    c.destUserId ?? countInFor.remove
+    uncacheAndNotify(c)
   }
 
   def cancel(c: Challenge) = (repo cancel c) >> {
-    c.destUserId ?? countInFor.remove
+    uncacheAndNotify(c)
   }
 
   def abandon(c: Challenge) = (repo abandon c) >> {
-    c.destUserId ?? countInFor.remove
+    uncacheAndNotify(c)
   }
 
   def decline(c: Challenge) = (repo decline c) >> {
-    c.destUserId ?? countInFor.remove
+    uncacheAndNotify(c)
   }
 
-  private def notify(user: Registered) {
-    allFor(user.id) foreach { all =>
-      userRegister ! SendTo(user.id,
-        lila.socket.Socket.makeMessage("challenges", jsonView(all)))
+  private def uncacheAndNotify(c: Challenge) = {
+    (c.destUserId ?? countInFor.remove) >>-
+      (c.destUserId ?? notify) >>-
+      (c.challengerUserId ?? notify)
+  }
+
+  private def notify(userId: User.ID) {
+    allFor(userId) foreach { all =>
+      userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)))
     }
   }
 }
