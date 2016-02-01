@@ -1,9 +1,10 @@
 package lila.challenge
 
+import akka.actor.ActorSelection
 import scala.concurrent.duration._
 
-import akka.actor.ActorSelection
 import lila.hub.actorApi.SendTo
+import lila.memo.{ MixedCache, AsyncCache }
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -24,7 +25,7 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  def countInFor = repo countByDestId _
+  val countInFor = AsyncCache(repo.countByDestId, maxCapacity = 20000)
 
   def createdByChallengerId = repo createdByChallengerId _
 
