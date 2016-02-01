@@ -51,7 +51,7 @@ private[forum] final class TopicApi(
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,
           hidden = topic.hidden,
-          text = data.post.text,
+          text = lila.security.Spam.replace(data.post.text),
           lang = lang map (_.language),
           number = 1,
           categId = categ.id)
