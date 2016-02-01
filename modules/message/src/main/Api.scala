@@ -50,7 +50,7 @@ final class Api(
           text = data.text,
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
-            val thread = me.troll.fold(t deleteFor invited, t)
+            val thread = Automute(s"${data.subject} ${data.text}", me).fold(t deleteFor invited, t)
             sendUnlessBlocked(thread, fromMod) >>-
               updateUser(invited) >>- {
                 val text = s"${data.subject} ${data.text}"
