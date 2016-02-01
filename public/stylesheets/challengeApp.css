@@ -2,29 +2,30 @@
   width: 250px;
   z-index: 2;
   left: -95px;
+  background: transparent!important;
+  box-shadow: none!important;
 }
 #challenge_app .challenge {
   padding: 10px 10px;
-  border-bottom: 1px solid #ccc;
+  margin-top: 5px;
   position: relative;
-  height: 30px;
+  height: 76px;
   cursor: pointer;
   transition: 0.13s;
+  background: #fff;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
 }
 #challenge_app .challenge:hover {
-/* #challenge_app .challenge { */
-  background: rgba(191, 231, 255, 0.7);
-  height: 80px;
+  box-shadow: 0 1px 13px rgba(0, 0, 0, 0.7);
 }
 #challenge_app .challenge.declined {
-  height: 0px;
+  height: 0;
   padding: 0;
   opacity: 0;
 }
 #challenge_app .challenge .buttons {
-  opacity: 0;
   position: absolute;
-  top: 50px;
+  top: 54px;
   left: 0px;
   width: 100%;
   transition: 0.13s;
@@ -37,17 +38,20 @@
   color: #759900;
   width: 100%;
   display: block;
-  height: 50px;
+  height: 42px;
   padding: 0;
   background: transparent;
-  border-bottom: 0;
+  border-width: 1px 1px 0 0;
   font-size: 18px;
+  border-radius: 0;
+  transition: 0.13s;
 }
 #challenge_app .challenge button::before {
-  line-height: 50px;
+  line-height: 42px;
 }
 #challenge_app .challenge button.decline {
   color: #dc322f;
+  border-right: none;
 }
 #challenge_app .challenge button:hover {
   background: #759900;
@@ -55,10 +59,6 @@
 }
 #challenge_app .challenge button.decline:hover {
   background: #dc322f;
-}
-#challenge_app .challenge:hover .buttons {
-/* #challenge_app .challenge .buttons { */
-  opacity: 1;
 }
 #challenge_app .challenge:last-child {
   border-bottom: none;
@@ -68,17 +68,37 @@
   top: 10px;
   left: 10px;
   display: block;
-  font-size: 22px;
+  font-size: 24px;
 }
 #challenge_app .challenge .content {
   position: absolute;
   top: 10px;
-  left: 50px;
+  left: 52px;
   display: block;
   width: 200px;
-  height: 30px;
 }
 #challenge_app .challenge .title {
   display: block;
   font-weight: bold;
+  margin-bottom: 3px;
+}
+
+#challenge_app .many .challenge {
+  height: 36px;
+}
+#challenge_app .many .challenge:hover {
+  height: 76px;
+}
+#challenge_app .many .challenge .buttons {
+  opacity: 0;
+}
+#challenge_app .many .challenge:hover .buttons {
+  opacity: 1;
+}
+
+#challenge_app .empty {
+  text-align: center;
+  padding: 20px 0;
+  background: #fff;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
 }

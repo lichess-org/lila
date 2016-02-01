@@ -965,6 +965,9 @@ body.offline #reconnecting,
 #top .shown a.toggle {
   background: #fff;
 }
+#top .shown #challenge_notifications_tag.toggle {
+  height: 29px;
+}
 #ham-plate {
   cursor: pointer;
 }

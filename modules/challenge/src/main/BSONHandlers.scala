@@ -42,9 +42,9 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  implicit val StateBSONHandler = new BSONHandler[BSONInteger, State] {
-    def read(b: BSONInteger): State = State(b.value) err s"No such state: ${b.value}"
-    def write(x: State) = BSONInteger(x.id)
+  implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
+    def read(b: BSONInteger): Status = Status(b.value) err s"No such status: ${b.value}"
+    def write(x: Status) = BSONInteger(x.id)
   }
   implicit val ModeBSONHandler = new BSONHandler[BSONBoolean, Mode] {
     def read(b: BSONBoolean) = Mode(b.value)
@@ -56,15 +56,24 @@ private object BSONHandlers {
       "i" -> r.int,
       "b" -> w.boolO(r.provisional))
   }
+  implicit val RegisteredBSONHandler = new BSON[Registered] {
+    def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
+    def writes(w: Writer, r: Registered) = BSONDocument(
+      "id" -> r.id,
+      "r" -> r.rating)
+  }
+  implicit val AnonymousBSONHandler = new BSON[Anonymous] {
+    def reads(r: Reader) = Anonymous(r.str("s"))
+    def writes(w: Writer, a: Anonymous) = BSONDocument(
+      "s" -> a.secret)
+  }
   implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {
-    def reads(r: Reader) = (r.strO("id") |@| r.getO[Rating]("rating")) {
-      case (id, rating) => Right(Registered(id, rating))
-    } orElse r.strO("secret").map { secret =>
-      Left(Anonymous(secret))
-    } err s"Can't read challenger ${r.debug}"
+    def reads(r: Reader) =
+      if (r contains "id") Right(RegisteredBSONHandler reads r)
+      else Left(AnonymousBSONHandler reads r)
     def writes(w: Writer, c: EitherChallenger) = c.fold(
-      a => BSONDocument("secret" -> a.secret),
-      r => BSONDocument("id" -> r.id, "rating" -> r.rating))
+      a => AnonymousBSONHandler.writes(w, a),
+      r => RegisteredBSONHandler.writes(w, r))
   }
 
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]

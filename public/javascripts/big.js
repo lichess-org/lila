@@ -44,6 +44,9 @@ lichess.StrongSocket.defaults = {
       $('.live_' + e.id).each(function() {
         lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
+    },
+    challenges: function(d) {
+      lichess.challengeApp.update(d);
     }
   },
   params: {
@@ -342,23 +345,33 @@ lichess.hopscotch = function(f) {
 }
 lichess.challengeApp = (function() {
   var instance;
-  var load = function(then) {
+  var load = function(data) {
     var baseUrl = $('body').data('asset-url');
     var isDev = $('body').data('dev');
     $('head').append($('<link rel="stylesheet" type="text/css" />')
       .attr('href', baseUrl + '/assets/stylesheets/challengeApp.css'));
     $.getScript(baseUrl + "/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(document.getElementById('challenge_app'), {
+      var $toggle = $('#challenge_notifications_tag');
+      var element = document.getElementById('challenge_app');
+      instance = LichessChallenge(element, {
+        data: data,
         setCount: function(nb) {
-          $('#challenge_notifications_tag').attr('data-count', nb).toggleClass('none', !nb);
+          $toggle.attr('data-count', nb);
         }
       });
-      then && then();
+      if (!lichess.quietMode) {
+        if (!$(element).is(':visible')) $toggle.click();
+        $.sound.newChallenge();
+      }
     });
   };
   return {
-    load: function(f) {
-      if (!instance) load(f);
+    load: function() {
+      if (!instance) load();
+    },
+    update: function(data) {
+      if (!instance) load(data);
+      else instance.update(data);
     }
   };
 })();
@@ -1115,7 +1128,7 @@ lichess.unique = function(xs) {
       });
       $('#challenge_notifications_tag').one('mouseover click', function() {
         lichess.challengeApp.load();
-      }).trigger('click');
+      }); //.trigger('click');
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));

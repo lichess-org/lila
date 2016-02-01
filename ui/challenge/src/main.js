@@ -11,4 +11,8 @@ module.exports = function(element, opts) {
     },
     view: require('./view')
   });
+
+  return {
+    update: controller.update
+  };
 };

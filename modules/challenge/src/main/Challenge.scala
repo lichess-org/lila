@@ -6,21 +6,25 @@ import org.joda.time.DateTime
 
 import lila.game.PerfPicker
 import lila.rating.PerfType
+import lila.user.User
 
 case class Challenge(
     _id: String,
-    state: Challenge.State,
+    status: Challenge.Status,
     variant: Variant,
     initialFen: Option[String],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     color: Challenge.ColorChoice,
     challenger: EitherChallenger,
-    destUserId: Option[String],
+    destUser: Option[Challenge.Registered],
     createdAt: DateTime,
     expiresAt: DateTime) {
 
   def id = _id
+
+  def challengerUser = challenger.right.toOption
+  def destUserId = destUser.map(_.id)
 
   def daysPerTurn = timeControl match {
     case Challenge.TimeControl.Correspondence(d) => d.some
@@ -32,18 +36,19 @@ case class Challenge(
     case _                              => none
   }
 
-  lazy val perfType = Challenge.perfType(variant, timeControl)
+  lazy val perfType = Challenge.perfTypeOf(variant, timeControl)
 }
 
 object Challenge {
 
-  sealed abstract class State(val id: Int)
-  object State {
-    case object Created extends State(10)
-    case object Accepted extends State(20)
-    case object Declined extends State(30)
-    val all = List(Created, Accepted, Declined)
-    def apply(id: Int): Option[State] = all.find(_.id == id)
+  sealed abstract class Status(val id: Int)
+  object Status {
+    case object Created extends Status(10)
+    case object Canceled extends Status(20)
+    case object Declined extends Status(30)
+    case object Accepted extends Status(40)
+    val all = List(Created, Canceled, Declined, Accepted)
+    def apply(id: Int): Option[Status] = all.find(_.id == id)
   }
 
   case class Rating(int: Int, provisional: Boolean)
@@ -51,7 +56,7 @@ object Challenge {
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
   }
 
-  case class Registered(id: String, rating: Rating)
+  case class Registered(id: User.ID, rating: Rating)
   case class Anonymous(secret: String)
 
   sealed trait TimeControl
@@ -72,20 +77,23 @@ object Challenge {
     case object Black extends ColorChoice
   }
 
-  def speed(timeControl: TimeControl) = timeControl match {
+  private def speedOf(timeControl: TimeControl) = timeControl match {
     case c: TimeControl.Clock => Speed(c.chessClock)
     case _                    => Speed.Correspondence
   }
 
-  def perfType(variant: Variant, timeControl: TimeControl) =
-    PerfPicker.perfType(speed(timeControl), variant, timeControl match {
+  private def perfTypeOf(variant: Variant, timeControl: TimeControl) =
+    PerfPicker.perfType(speedOf(timeControl), variant, timeControl match {
       case TimeControl.Correspondence(d) => d.some
       case _                             => none
     }) | PerfType.Correspondence
 
-  val idSize = 8
+  private val idSize = 8
 
   private def randomId = ornicar.scalalib.Random nextStringUppercase idSize
+
+  private def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
+    Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
   def make(
     variant: Variant,
@@ -93,10 +101,10 @@ object Challenge {
     timeControl: TimeControl,
     mode: Mode,
     color: String,
-    challenger: Option[lila.user.User],
-    destUserId: Option[String]): Challenge = new Challenge(
+    challenger: Option[User],
+    destUser: Option[User]): Challenge = new Challenge(
     _id = randomId,
-    state = State.Created,
+    status = Status.Created,
     variant = variant,
     initialFen = initialFen.ifTrue(variant == chess.variant.FromPosition),
     timeControl = timeControl,
@@ -107,9 +115,9 @@ object Challenge {
       case _       => ColorChoice.Random
     },
     challenger = challenger.fold[EitherChallenger](Left(Anonymous(randomId))) { u =>
-      Right(Registered(u.id, Rating(u.perfs(perfType(variant, timeControl)))))
+      Right(toRegistered(variant, timeControl)(u))
     },
-    destUserId = destUserId,
+    destUser = destUser map toRegistered(variant, timeControl),
     createdAt = DateTime.now,
     expiresAt = DateTime.now plusDays challenger.isDefined.fold(7, 1))
 }

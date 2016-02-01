@@ -8,25 +8,16 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
 
   import Challenge._
 
-  def all(in: List[Challenge], out: List[Challenge]) = Json.obj(
-    "in" -> in.map(apply),
-    "out" -> out.map(apply))
+  def apply(a: AllChallenges): JsObject = Json.obj(
+    "in" -> a.in.map(apply),
+    "out" -> a.out.map(apply))
 
   def one(challenge: Challenge) = Json.obj("out" -> List(apply(challenge)))
 
-  def apply(c: Challenge) = Json.obj(
+  def apply(c: Challenge): JsObject = Json.obj(
     "id" -> c.id,
-    "challenger" -> c.challenger.right.toOption.map { u =>
-      val light = getLightUser(u.id)
-      Json.obj(
-        "id" -> u.id,
-        "name" -> light.fold(u.id)(_.name),
-        "title" -> light.map(_.title),
-        "rating" -> u.rating.int,
-        "provisional" -> u.rating.provisional
-      ).noNull
-    },
-    "destUserId" -> c.destUserId,
+    "challenger" -> c.challengerUser,
+    "destUser" -> c.destUser,
     "variant" -> Json.obj(
       "key" -> c.variant.key,
       "short" -> c.variant.shortName,
@@ -48,4 +39,15 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
       "icon" -> c.perfType.iconChar.toString,
       "name" -> c.perfType.name)
   )
+
+  private implicit val RegisteredWrites = OWrites[Registered] { r =>
+    val light = getLightUser(r.id)
+    Json.obj(
+      "id" -> r.id,
+      "name" -> light.fold(r.id)(_.name),
+      "title" -> light.map(_.title),
+      "rating" -> r.rating.int,
+      "provisional" -> r.rating.provisional
+    ).noNull
+  }
 }

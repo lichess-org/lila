@@ -24,10 +24,9 @@ object Challenge extends LilaController {
   }
 
   private[controllers] def renderAll(me: lila.user.User)(implicit ctx: Context) =
-    env.api.createdByDestId(me.id) zip
-      env.api.createdByChallengerId(me.id) map {
-        case (in, out) => Ok(env.jsonView.all(in, out)) as JSON
-      }
+    env.api allFor me.id map { all =>
+      Ok(env.jsonView(all)) as JSON
+    }
   private[controllers] def renderOne(challenge: ChallengeModel)(implicit ctx: Context) =
     Ok(env.jsonView.one(challenge)) as JSON
 
@@ -63,7 +62,7 @@ object Challenge extends LilaController {
 
   def cancel(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { challenge =>
-      if (isMine(challenge)) env.api remove challenge inject Redirect(routes.Lobby.home)
+      if (isMine(challenge)) env.api cancel challenge inject Redirect(routes.Lobby.home)
       else notFound
     }
   }

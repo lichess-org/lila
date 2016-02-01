@@ -66,13 +66,24 @@ function challenge(ctrl, dir) {
   };
 }
 
-module.exports = function(ctrl) {
-  if (ctrl.vm.initiating) return m('div.square-wrap', m('div.square-spin'));
-  var d = ctrl.data;
+function allChallenges(ctrl, d, nb) {
   return m('div', {
-    class: 'challenges' + (ctrl.vm.reloading ? ' reloading' : '')
+    class: 'challenges' +
+      (ctrl.vm.reloading ? ' reloading' : '') +
+      (nb > 3 ? ' many' : '')
   }, [
     d.in.map(challenge(ctrl, 'in')),
     d.out.map(challenge(ctrl, 'out')),
-  ])
+  ]);
+}
+
+function empty(ctrl, d) {
+  return m('div.empty', 'No challenges.');
+}
+
+module.exports = function(ctrl) {
+  if (ctrl.vm.initiating) return m('div.square-wrap', m('div.square-spin'));
+  var d = ctrl.data;
+  var nb = d.in.length + d.out.length;
+  return nb ? allChallenges(ctrl, d, nb) : empty(ctrl);
 };

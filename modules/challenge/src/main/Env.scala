@@ -11,6 +11,7 @@ final class Env(
     system: ActorSystem,
     onStart: String => Unit,
     lightUser: String => Option[lila.common.LightUser],
+    hub: lila.hub.Env,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -21,6 +22,11 @@ final class Env(
   import settings._
 
   lazy val api = new ChallengeApi(
+    repo = repo,
+    jsonView = jsonView,
+    userRegister = hub.actor.userRegister)
+
+  private lazy val repo = new ChallengeRepo(
     coll = db(CollectionChallenge),
     maxPerUser = MaxPerUser)
 
@@ -35,6 +41,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "challenge",
     system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart,
+    hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
     db = lila.db.Env.current)
 }

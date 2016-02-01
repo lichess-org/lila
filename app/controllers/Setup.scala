@@ -78,7 +78,7 @@ object Setup extends LilaController with TheftPrevention {
           html = Lobby.renderHome(Results.BadRequest),
           api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ), {
-          case config =>
+          case config => userId ?? UserRepo.byId flatMap { destUser =>
             import lila.challenge.Challenge._
             val challenge = lila.challenge.Challenge.make(
               variant = config.variant,
@@ -91,13 +91,14 @@ object Setup extends LilaController with TheftPrevention {
               mode = config.mode,
               color = config.color.name,
               challenger = ctx.me,
-              destUserId = userId)
-            (Env.challenge.api insert challenge) >> negotiate(
+              destUser = destUser)
+            (Env.challenge.api create challenge) >> negotiate(
               html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
               api = _ => ctx.me match {
                 case None     => Challenge.renderOne(challenge).fuccess
                 case Some(me) => Challenge.renderAll(me)
               })
+          }
         }
       )
     }

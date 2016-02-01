@@ -279,11 +279,12 @@ private[controllers] trait LilaController
             case OnlineFriends(users) => users
           } recover { case _ => Nil }) zip
             Env.team.api.nbRequests(me.id) zip
-            Env.message.api.unreadIds(me.id)
+            Env.message.api.unreadIds(me.id) zip
+            Env.challenge.api.countInFor(me.id)
         }
       } map {
-        case (pref, ((friends, teamNbRequests), messageIds)) =>
-          PageData(friends, teamNbRequests, messageIds.size, pref,
+        case (pref, (((friends, teamNbRequests), messageIds), nbChallenges)) =>
+          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }
