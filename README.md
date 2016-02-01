@@ -14,7 +14,6 @@ It has a [search engine](http://lichess.org/games/search),
 [tactic trainer](http://lichess.org/training),
 [opening trainer](http://lichess.org/training/opening),
 a [mobile app](http://lichess.org/mobile),
-a [monitoring console](http://lichess.org/monitor),
 and a [network world map](http://lichess.org/network).
 The UI is available in [80 languages](http://lichess.org/translation/contribute) thanks to the community.
 
