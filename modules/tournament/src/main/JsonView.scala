@@ -24,7 +24,8 @@ final class JsonView(
     tour: Tournament,
     page: Option[Int],
     me: Option[String],
-    playerInfoExt: Option[PlayerInfoExt]): Fu[JsObject] = for {
+    playerInfoExt: Option[PlayerInfoExt],
+    socketVersion: Option[Int]): Fu[JsObject] = for {
     data <- cachableData(tour.id)
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
     stand <- (myInfo, page) match {
@@ -59,7 +60,8 @@ final class JsonView(
     "featured" -> data.featured,
     "podium" -> data.podium,
     "playerInfo" -> playerInfoJson,
-    "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id))
+    "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)),
+    "socketVersion" -> socketVersion
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
