@@ -117,6 +117,9 @@ POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 GET   /analysis/*urlFen                controllers.UserAnalysis.load(urlFen: String)
 GET   /analysis                        controllers.UserAnalysis.index
 
+# Opening Explorer
+GET   /explorer                        controllers.Explorer.home
+
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)

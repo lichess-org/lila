@@ -1,0 +1,35 @@
+{
+  "name": "explorer",
+  "version": "1.0.0",
+  "description": "lichess.org opening explorer",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess",
+    "opening",
+    "explorer"
+  ],
+  "author": "Niklas Fiekas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "devDependencies": {
+    "browserify": "~9.0.8",
+    "gulp": "~3.9.0",
+    "gulp-streamify": "~0.0.5",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.4",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.1.1"
+  },
+  "dependencies": {
+    "chessground": "github:ornicar/chessground#v3.5.0",
+    "mithril": "github:ornicar/mithril.js#v1.0.0"
+  }
+}
