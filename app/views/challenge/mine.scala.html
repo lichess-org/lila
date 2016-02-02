@@ -7,7 +7,7 @@ side = Html("")) {
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_board"></div>
   </div>
-  <div class="lichess_overboard">
+  <div class="lichess_overboard" id="my_challenge">
     @c.destUserId.map { destId =>
     <h2>@trans.challengeToPlay()</h2>
     @userIdLink(destId.some, cssClass="target".some)

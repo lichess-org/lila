@@ -21,6 +21,8 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: DateTime) {
 
+      import Challenge._
+
   def id = _id
 
   def challengerUser = challenger.right.toOption
@@ -28,28 +30,32 @@ case class Challenge(
   def destUserId = destUser.map(_.id)
 
   def daysPerTurn = timeControl match {
-    case Challenge.TimeControl.Correspondence(d) => d.some
+    case TimeControl.Correspondence(d) => d.some
     case _                                       => none
   }
 
   def clock = timeControl match {
-    case c: Challenge.TimeControl.Clock => c.some
+    case c: TimeControl.Clock => c.some
     case _                              => none
   }
 
-  lazy val perfType = Challenge.perfTypeOf(variant, timeControl)
+  def openDest = destUser.isEmpty
+
+  lazy val perfType = perfTypeOf(variant, timeControl)
 }
 
 object Challenge {
 
+  type ID = String
+
   sealed abstract class Status(val id: Int)
   object Status {
     case object Created extends Status(10)
+    case object Offline extends Status(15)
     case object Canceled extends Status(20)
-    case object Abandoned extends Status(25)
     case object Declined extends Status(30)
     case object Accepted extends Status(40)
-    val all = List(Created, Canceled, Abandoned, Declined, Accepted)
+    val all = List(Created, Offline, Canceled, Declined, Accepted)
     def apply(id: Int): Option[Status] = all.find(_.id == id)
   }
 

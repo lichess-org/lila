@@ -701,7 +701,7 @@ lichess.unique = function(xs) {
       });
     }
 
-    if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    if (lichess.challenge) startChallenge(lichess.challenge);
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
@@ -1434,9 +1434,8 @@ lichess.unique = function(xs) {
     }
   }
 
-  function startPrelude(element, cfg) {
-    var data = cfg.data;
-    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
+  function startChallenge(data) {
+    if (data.player.spectator && lichess.openInMobileApp(data.id)) return;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {

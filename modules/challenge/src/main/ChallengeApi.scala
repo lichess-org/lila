@@ -1,8 +1,9 @@
 package lila.challenge
 
-import akka.actor.ActorSelection
+import akka.actor._
 import scala.concurrent.duration._
 
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo
 import lila.memo.{ MixedCache, AsyncCache }
 import lila.user.{ User, UserRepo }
@@ -10,6 +11,7 @@ import lila.user.{ User, UserRepo }
 final class ChallengeApi(
     repo: ChallengeRepo,
     jsonView: JsonView,
+    socketHub: ActorRef,
     userRegister: ActorSelection) {
 
   import Challenge._
@@ -29,8 +31,6 @@ final class ChallengeApi(
 
   def createdByDestId = repo createdByDestId _
 
-  def createdByDestIds = repo createdByDestIds _
-
   def accept(c: Challenge) = (repo accept c) >> {
     uncacheAndNotify(c)
   }
@@ -39,8 +39,14 @@ final class ChallengeApi(
     uncacheAndNotify(c)
   }
 
-  def abandon(c: Challenge) = (repo abandon c) >> {
+  def offline(c: Challenge) = (repo offline c) >> {
     uncacheAndNotify(c)
+  }
+
+  def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
+    case Some(Status.Created) => repo setSeen id
+    case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).flatMap { _ ?? uncacheAndNotify }
+    case _                    => fuccess(socketReload(id))
   }
 
   def decline(c: Challenge) = (repo decline c) >> {
@@ -50,7 +56,12 @@ final class ChallengeApi(
   private def uncacheAndNotify(c: Challenge) = {
     (c.destUserId ?? countInFor.remove) >>-
       (c.destUserId ?? notify) >>-
-      (c.challengerUserId ?? notify)
+      (c.challengerUserId ?? notify) >>-
+      socketReload(c.id)
+  }
+
+  private def socketReload(id: Challenge.ID) {
+    socketHub ! Tell(id, Socket.Reload)
   }
 
   private def notify(userId: User.ID) {

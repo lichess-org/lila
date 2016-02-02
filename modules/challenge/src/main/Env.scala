@@ -17,14 +17,33 @@ final class Env(
 
   private val settings = new {
     val CollectionChallenge = config getString "collection.challenge"
-    val ActorName = config getString "actor.name"
     val MaxPerUser = config getInt "max_per_user"
+    val HistoryMessageTtl = config duration "history.message.ttl"
+    val UidTimeout = config duration "uid.timeout"
+    val SocketTimeout = config duration "socket.timeout"
+    val SocketName = config getString "socket.name"
   }
   import settings._
+
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(challengeId: String) = new Socket(
+        challengeId = challengeId,
+        history = new lila.socket.History(ttl = HistoryMessageTtl),
+        getChallenge = repo.byId,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout)
+    }), name = SocketName)
+
+  lazy val socketHandler = new SocketHandler(
+    hub = hub,
+    socketHub = socketHub,
+    pingChallenge = api.ping)
 
   lazy val api = new ChallengeApi(
     repo = repo,
     jsonView = jsonView,
+    socketHub = socketHub,
     userRegister = hub.actor.userRegister)
 
   private lazy val repo = new ChallengeRepo(

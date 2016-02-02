@@ -7,6 +7,6 @@ private final class Sweeper(
     repo: ChallengeRepo) {
 
   def realTime: Funit = repo.unseenSince(DateTime.now minusSeconds 10, max = 50) flatMap { cs =>
-    lila.common.Future.applySequentially(cs)(api.abandon).void
+    lila.common.Future.applySequentially(cs)(api.offline).void
   }
 }

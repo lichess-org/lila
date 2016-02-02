@@ -2,7 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 import scala.concurrent.duration._
 
@@ -64,6 +64,16 @@ object Challenge extends LilaController {
     OptionFuResult(env.api byId id) { challenge =>
       if (isMine(challenge)) env.api cancel challenge inject Redirect(routes.Lobby.home)
       else notFound
+    }
+  }
+
+  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+    env.api byId id flatMap {
+      _ ?? { c =>
+        get("sri") ?? { uid =>
+          env.socketHandler.join(id, uid, ctx.userId, isMine(c))
+        }
+      }
     }
   }
 }
