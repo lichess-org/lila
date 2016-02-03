@@ -49,8 +49,8 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     BSONDocument(
       "$set" -> BSONDocument(
         "status" -> Status.Created.id,
-        "seenAt" -> DateTime.now),
-      "$unset" -> BSONDocument("expiresAt" -> true))
+        "seenAt" -> DateTime.now,
+        "expiresAt" -> inTwoWeeks))
   ).void
 
   def setSeen(id: Challenge.ID) = coll.update(
@@ -73,13 +73,10 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     status: Status,
     expiresAt: Option[DateTime => DateTime] = None) = coll.update(
     selectCreated ++ selectId(challenge.id),
-    BSONDocument(
-      "$set" -> BSONDocument("status" -> status.id).++(expiresAt.?? { date =>
-        BSONDocument("expiresAt" -> date(DateTime.now))
-      })
-    ) ++ expiresAt.isEmpty.?? {
-        BSONDocument("$unset" -> BSONDocument("expiresAt" -> true))
-      }
+    BSONDocument("$set" -> BSONDocument(
+      "status" -> status.id,
+      "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) }
+    ))
   ).void
 
   private def remove(challenge: Challenge) =

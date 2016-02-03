@@ -20,7 +20,7 @@ case class Challenge(
     destUser: Option[Challenge.Registered],
     createdAt: DateTime,
     seenAt: DateTime,
-    expiresAt: Option[DateTime]) {
+    expiresAt: DateTime) {
 
   import Challenge._
 
@@ -139,5 +139,5 @@ object Challenge {
     destUser = destUser map toRegistered(variant, timeControl),
     createdAt = DateTime.now,
     seenAt = DateTime.now,
-    expiresAt = None)
+    expiresAt = inTwoWeeks)
 }
