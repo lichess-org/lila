@@ -22,7 +22,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     coll.insert(c) >> c.challenger.right.toOption.?? { challenger =>
       createdByChallengerId(challenger.id).flatMap {
         case challenges if challenges.size <= maxPerUser => funit
-        case challenges                                  => challenges.drop(maxPerUser).map(remove).sequenceFu.void
+        case challenges                                  => challenges.drop(maxPerUser).map(_.id).map(remove).sequenceFu.void
       }
     }
 
@@ -36,13 +36,19 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       .sort(BSONDocument("createdAt" -> 1))
       .cursor[Challenge]().collect[List]()
 
-  def countCreatedByDestId(userId: String): Fu[Int] =
+  private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ BSONDocument("destUser.id" -> userId)))
 
-  def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selectClock ++ BSONDocument(
       "seenAt" -> BSONDocument("$lt" -> date)
     )).cursor[Challenge]().collect[List](max)
+
+  private[challenge] def expiredIds(max: Int): Fu[List[Challenge.ID]] =
+    coll.distinct(
+      "_id",
+      BSONDocument("expiresAt" -> BSONDocument("$lt" -> DateTime.now)).some
+    ) map lila.db.BSON.asStrings
 
   def setSeenAgain(id: Challenge.ID) = coll.update(
     selectId(id),
@@ -79,8 +85,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     ))
   ).void
 
-  private def remove(challenge: Challenge) =
-    coll.remove(selectId(challenge.id)).void
+  private[challenge] def remove(id: Challenge.ID) = coll.remove(selectId(id)).void
 
   private def selectId(id: Challenge.ID) = BSONDocument("_id" -> id)
   private val selectCreated = BSONDocument("status" -> Status.Created.id)

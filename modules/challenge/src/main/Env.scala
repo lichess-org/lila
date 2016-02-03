@@ -60,13 +60,11 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  private lazy val sweeper = new Sweeper(api, repo)
-
   {
     import scala.concurrent.duration._
 
     scheduler.future(3 seconds, "sweep challenges") {
-      sweeper.realTime
+      api.sweep
     }
   }
 }

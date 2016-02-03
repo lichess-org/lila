@@ -1,6 +1,7 @@
 package lila.challenge
 
 import akka.actor._
+import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.game.Game
@@ -35,9 +36,9 @@ final class ChallengeApi(
 
   def cancel(c: Challenge) = (repo cancel c) >> uncacheAndNotify(c)
 
-  def offline(c: Challenge) = (repo offline c) >> uncacheAndNotify(c)
+  private def offline(c: Challenge) = (repo offline c) >> uncacheAndNotify(c)
 
-  def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
+  private[challenge] def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
     case Some(Status.Created) => repo setSeen id
     case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).flatMap { _ ?? uncacheAndNotify }
     case _                    => fuccess(socketReload(id))
@@ -49,6 +50,17 @@ final class ChallengeApi(
     joiner(c, user).flatMap { game =>
       (repo accept c) >> uncacheAndNotify(c) inject game
     }
+
+  private[challenge] def sweep: Funit =
+    repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
+      lila.common.Future.applySequentially(cs)(offline).void
+    } >>
+      repo.expiredIds(max = 50).flatMap { ids =>
+        lila.common.Future.applySequentially(ids)(remove).void
+      }
+
+  private def remove(id: Challenge.ID) =
+    repo.remove(id) >> countInFor.remove(id)
 
   private def uncacheAndNotify(c: Challenge) = {
     (c.destUserId ?? countInFor.remove) >>-
