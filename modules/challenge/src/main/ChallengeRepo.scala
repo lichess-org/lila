@@ -39,7 +39,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ BSONDocument("destUser.id" -> userId)))
 
-  def unseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
+  def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selectClock ++ BSONDocument(
       "seenAt" -> BSONDocument("$lt" -> date)
     )).cursor[Challenge]().collect[List](max)
