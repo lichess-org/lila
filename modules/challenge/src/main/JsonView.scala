@@ -12,9 +12,11 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
     "in" -> a.in.map(apply),
     "out" -> a.out.map(apply))
 
-  def one(challenge: Challenge) = Json.obj("out" -> List(apply(challenge)))
+  def show(challenge: Challenge, socketVersion: Int) = Json.obj(
+    "challenge" -> apply(challenge),
+    "socketVersion" -> socketVersion)
 
-  def apply(c: Challenge): JsObject = Json.obj(
+  private def apply(c: Challenge): JsObject = Json.obj(
     "id" -> c.id,
     "challenger" -> c.challengerUser,
     "destUser" -> c.destUser,

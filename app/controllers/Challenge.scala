@@ -20,28 +20,27 @@ object Challenge extends LilaController {
 
   def all = Auth { implicit ctx =>
     me =>
-      renderAll(me)
+      env.api allFor me.id map { all =>
+        Ok(env.jsonView(all)) as JSON
+      }
   }
 
-  private[controllers] def renderAll(me: lila.user.User)(implicit ctx: Context) =
-    env.api allFor me.id map { all =>
-      Ok(env.jsonView(all)) as JSON
-    }
-  private[controllers] def renderOne(challenge: ChallengeModel)(implicit ctx: Context) =
-    Ok(env.jsonView.one(challenge)) as JSON
+  def show(id: String) = Open { implicit ctx =>
+    showId(id)
+  }
 
-  private[controllers] def reach(id: String)(implicit ctx: Context): Fu[Result] =
-    env.api byId id flatMap {
-      _ ?? { c =>
-        env version c.id flatMap { version =>
-          negotiate(
-            html = Ok(isMine(c).fold(
-              html.challenge.mine.apply _,
-              html.challenge.theirs.apply _
-            )(c, env.jsonView(c), version)).fuccess,
-            api = _ => Ok(env.jsonView(c)).fuccess)
-        }
-      }
+  protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
+    OptionFuResult(env.api byId id)(showChallenge)
+
+  protected[controllers] def showChallenge(c: ChallengeModel)(implicit ctx: Context): Fu[Result] =
+    env version c.id flatMap { version =>
+      val json = env.jsonView.show(c, version)
+      negotiate(
+        html = Ok(isMine(c).fold(
+          html.challenge.mine.apply _,
+          html.challenge.theirs.apply _
+        )(c, json)).fuccess,
+        api = _ => Ok(json).fuccess)
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
@@ -53,16 +52,18 @@ object Challenge extends LilaController {
     challenge.destUserId.fold(true)(ctx.userId.contains)
 
   def accept(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { challenge =>
-      if (isForMe(challenge)) ???
+    OptionFuResult(env.api byId id) { c =>
+      if (isForMe(c)) env.api.accept(c, ctx.me) map { game =>
+        Redirect(routes.Round.watcher(game.id, "white"))
+      }
       else notFound
     }
   }
 
   def decline(id: String) = Auth { implicit ctx =>
     me =>
-      OptionFuResult(env.api byId id) { challenge =>
-        if (isForMe(challenge)) (env.api decline challenge) >> renderAll(me)
+      OptionFuResult(env.api byId id) { c =>
+        if (isForMe(c)) env.api decline c
         else notFound
       }
   }

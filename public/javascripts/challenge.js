@@ -1,10 +1,10 @@
 lichess = lichess || {};
 lichess.startChallenge = function(element, opts) {
-  var challenge = opts.challenge;
+  var challenge = opts.data.challenge;
   if (!opts.owner && lichess.openInMobileApp(challenge.id)) return;
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
-    opts.socketVersion, {
+    opts.data.socketVersion, {
       options: {
         name: "challenge"
       },

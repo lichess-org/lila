@@ -28,7 +28,7 @@ case class Player(
     rating map { PlayerUser(uid, _, ratingDiff) }
   }
 
-  def withUser(id: String, perf: lila.rating.Perf): Player = copy(
+  def withUser(id: User.ID, perf: lila.rating.Perf): Player = copy(
     userId = id.some,
     rating = perf.intRating.some,
     provisional = perf.glicko.provisional)

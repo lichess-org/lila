@@ -141,7 +141,7 @@ object Round extends LilaController with TheftPrevention {
       case Some(pov) =>
         env.checkOutoftime(pov.game)
         watch(pov)
-      case None => Challenge reach gameId
+      case None => Challenge showId gameId
     }
   }
 

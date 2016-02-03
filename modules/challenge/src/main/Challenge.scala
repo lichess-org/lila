@@ -21,7 +21,7 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: DateTime) {
 
-      import Challenge._
+  import Challenge._
 
   def id = _id
 
@@ -31,18 +31,20 @@ case class Challenge(
 
   def daysPerTurn = timeControl match {
     case TimeControl.Correspondence(d) => d.some
-    case _                                       => none
+    case _                             => none
   }
 
   def clock = timeControl match {
     case c: TimeControl.Clock => c.some
-    case _                              => none
+    case _                    => none
   }
 
   def openDest = destUser.isEmpty
   def active = status == Status.Created || status == Status.Offline
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
+
+  lazy val chessColor = ColorChoice toChess color
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
@@ -86,6 +88,11 @@ object Challenge {
     case object Random extends ColorChoice
     case object White extends ColorChoice
     case object Black extends ColorChoice
+    def toChess(c: ColorChoice): chess.Color = c match {
+      case Random => chess.Color(scala.util.Random.nextBoolean)
+      case White  => chess.White
+      case Black  => chess.Black
+    }
   }
 
   private def speedOf(timeControl: TimeControl) = timeControl match {

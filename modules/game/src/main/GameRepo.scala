@@ -122,18 +122,6 @@ object GameRepo {
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white._2),
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
 
-  def setUsers(id: ID, white: Option[Player.UserInfo], black: Option[Player.UserInfo]) =
-    (white.isDefined || black.isDefined) ?? {
-      $update($select(id), BSONDocument("$set" -> BSONDocument(
-        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_.rating).map(BSONInteger.apply),
-        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_.rating).map(BSONInteger.apply),
-        s"${F.whitePlayer}.${Player.BSONFields.provisional}" -> white.map(_.provisional).filter(identity),
-        s"${F.blackPlayer}.${Player.BSONFields.provisional}" -> black.map(_.provisional).filter(identity),
-        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_.id), ~black.map(_.id))),
-        F.playingUids -> List(white.map(_.id), black.map(_.id)).flatten.distinct
-      )))
-    }
-
   def urgentGames(user: User): Fu[List[Pov]] =
     $find(Query nowPlaying user.id, 300) map { games =>
       val povs = games flatMap { Pov(_, user) }

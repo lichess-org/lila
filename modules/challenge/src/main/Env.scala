@@ -49,6 +49,7 @@ final class Env(
 
   lazy val api = new ChallengeApi(
     repo = repo,
+    joiner = new Joiner(onStart = onStart),
     jsonView = jsonView,
     socketHub = socketHub,
     userRegister = hub.actor.userRegister)
@@ -56,8 +57,6 @@ final class Env(
   private lazy val repo = new ChallengeRepo(
     coll = db(CollectionChallenge),
     maxPerUser = MaxPerUser)
-
-  lazy val joiner = new Joiner(onStart = onStart)
 
   lazy val jsonView = new JsonView(lightUser)
 

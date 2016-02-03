@@ -1,4 +1,4 @@
-@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, version: Int)(implicit ctx: Context)
+@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @import lila.challenge.Challenge.Status
 
@@ -7,10 +7,9 @@
 @embedJs {
 lichess.startChallenge(document.getElementById('my_challenge'), {
 socketUrl: '@routes.Challenge.websocket(c.id, apiVersion)',
-socketVersion: @version,
-xhrUrl: '@routes.Round.watcher(c.id, "white")',
+xhrUrl: '@routes.Challenge.show(c.id)',
 owner: true,
-challenge: @Html(toJson(json))
+data: @Html(toJson(json))
 });
 }
 }

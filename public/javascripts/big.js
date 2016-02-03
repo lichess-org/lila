@@ -1303,10 +1303,6 @@ lichess.unique = function(xs) {
     return play;
   })();
 
-  $.fn.orNot = function() {
-    return this.length === 0 ? false : this;
-  };
-
   $.trans = function() {
     var str = lichess_translations[arguments[0]];
     if (!str) return arguments[0];
