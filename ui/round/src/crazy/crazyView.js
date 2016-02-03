@@ -13,21 +13,23 @@ module.exports = {
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
     var oKeys = Object.keys(pocket);
     var crowded = oKeys.length > 4;
-    var usable = position === 'bottom' && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
+    var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');
+    var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : '') + (crowded ? ' crowded' : ''),
-        config: position === 'bottom' ? function(el, isUpdate, context) {
-          if (isUpdate) return;
+        config: function(el, isUpdate, ctx) {
+          if (ctx.flip === ctrl.vm.flip || !usablePos) return;
+          ctx.flip = ctrl.vm.flip;
           var onstart = partial(crazyDrag, ctrl);
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
           });
-          context.onunload = function() {
+          ctx.onunload = function() {
             eventNames.forEach(function(name) {
               el.removeEventListener(name, onstart);
             });
           }
-        } : null
+        }
       },
       oKeys.map(function(role) {
         return m('piece', {
