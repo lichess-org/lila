@@ -4,6 +4,7 @@
   left: -95px;
   background: transparent!important;
   box-shadow: none!important;
+  border: 0!important;
 }
 #challenge_app .challenge {
   padding: 10px 10px;
