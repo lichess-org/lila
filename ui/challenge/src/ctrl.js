@@ -44,7 +44,7 @@ module.exports = function(env) {
     this.data.in.forEach(function(c) {
       if (c.id === id) {
         c.declined = true;
-        xhr.decline(id).then(this.update);
+        xhr.decline(id);
       }
     }.bind(this));
   }.bind(this);
@@ -52,8 +52,8 @@ module.exports = function(env) {
   xhr.load().then(this.update);
 
   var showUser = function(user) {
-    var rating = u.rating + (u.provisional ? '?' : '');
-    var fullName = (u.title ? u.title + ' ' : '') + u.name;
+    var rating = user.rating + (user.provisional ? '?' : '');
+    var fullName = (user.title ? user.title + ' ' : '') + user.name;
     return fullName + ' (' + rating + ')';
   };
 

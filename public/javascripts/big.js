@@ -363,7 +363,7 @@ lichess.challengeApp = (function() {
     });
   };
   return {
-    load: function() {
+    preload: function() {
       if (!instance) load();
     },
     update: function(data) {
@@ -1126,9 +1126,8 @@ lichess.unique = function(xs) {
           }
         });
       });
-      $('#challenge_notifications_tag').one('mouseover click', function() {
-        lichess.challengeApp.load();
-      }).trigger('click');
+      $('#challenge_notifications_tag').one('mouseover click', lichess.challengeApp.preload);
+      // $('#challenge_notifications_tag').trigger('click');
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));

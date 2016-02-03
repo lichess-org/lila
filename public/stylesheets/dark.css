@@ -188,7 +188,6 @@ body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
 body.dark #top .language_links button:hover,
-body.dark #challenge_app > div.challenge:hover,
 body.dark #message_notifications div.notification:hover {
   background-color: #3e3e3e;
   color: #b0b0b0;
@@ -270,6 +269,7 @@ body.dark .lichess_ground .analyse .meta,
 body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #top .dropdown,
 body.dark #challenge_app div.challenge,
+body.dark #challenge_app div.empty,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
 body.dark div.lichess_overboard,
@@ -375,6 +375,7 @@ body.dark table.slist thead {
 }
 body.dark .button,
 body.dark a.button,
+body.dark #challenge_app .text,
 body.dark .ui-button,
 body.dark .ui-slider-handle,
 body.dark .ui-widget-content,

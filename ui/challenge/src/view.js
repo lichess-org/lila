@@ -51,7 +51,7 @@ function inButtons(ctrl, c) {
 
 function outButtons(ctrl, c) {
   return [
-    m('div.text', 'waiting...'),
+    m('span.text', 'waiting...'),
     m('form', {
       method: 'post',
       action: '/challenge/' + c.id + '/cancel'

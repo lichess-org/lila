@@ -31,22 +31,37 @@
   transition: 0.13s;
 }
 #challenge_app .challenge .buttons > * {
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 50%;
   text-align: center;
+}
+#challenge_app .challenge .buttons > *:last-child {
+  left: 50%;
 }
 #challenge_app .challenge button {
   cursor: pointer;
   color: #759900;
   width: 100%;
   display: block;
-  height: 42px;
   padding: 0;
   background: transparent;
-  border-width: 1px 1px 0 0;
   font-size: 18px;
   border-radius: 0;
   transition: 0.13s;
+  border-width: 1px 1px 0 0;
+}
+#challenge_app .challenge button,
+#challenge_app .challenge .text {
+  height: 42px;
+  box-sizing: border-box;
+}
+#challenge_app .challenge .text {
+  border: 1px solid #e2e2e2;
+  border-width: 1px 1px 0 0;
+  vertical-align: center;
+  line-height: 42px;
 }
 #challenge_app .challenge button::before {
   line-height: 42px;
