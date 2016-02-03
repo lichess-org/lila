@@ -1,0 +1,11 @@
+@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context)
+
+@jsTag("challenge.js")
+@embedJs {
+lichess.startChallenge(document.getElementById('challenge'), {
+socketUrl: '@routes.Challenge.websocket(c.id, apiVersion)',
+xhrUrl: '@routes.Challenge.show(c.id)',
+owner: @owner,
+data: @Html(toJson(json))
+});
+}

@@ -34,6 +34,7 @@ case class Challenge(
     case TimeControl.Correspondence(d) => d.some
     case _                             => none
   }
+  def unlimited = TimeControl == TimeControl.Unlimited
 
   def clock = timeControl match {
     case c: TimeControl.Clock => c.some

@@ -2,18 +2,6 @@
 
 @import lila.challenge.Challenge.Status
 
-@moreJs = {
-@jsTag("challenge.js")
-@embedJs {
-lichess.startChallenge(document.getElementById('my_challenge'), {
-socketUrl: '@routes.Challenge.websocket(c.id, apiVersion)',
-xhrUrl: '@routes.Challenge.show(c.id)',
-owner: true,
-data: @Html(toJson(json))
-});
-}
-}
-
 @cancelForm = {
 <form method="post" action="@routes.Challenge.cancel(c.id)">
   <button type="submit" class="button text" data-icon="L">@trans.cancel()</button>
@@ -23,10 +11,13 @@ data: @Html(toJson(json))
 @round.layout(
 title = c.destUserId.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).str(),
 side = Html(""),
-moreJs = moreJs) {
-<div class="lichess_game" id="my_challenge">
+moreJs = js(c, json, true)) {
+<div class="lichess_game" id="challenge">
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_board"></div>
+  </div>
+  <div class="lichess_ground">
+    @base.quote(lila.quote.Quote.one(c.id))
   </div>
   <div class="lichess_overboard">
     @c.status match {
@@ -45,9 +36,14 @@ moreJs = moreJs) {
       <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(c.id, "white")" />
       <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
       <div class="explanations">
-        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()<br />
+        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
+        <br /><br />
         @cancelForm
       </div>
+      }
+      @c.initialFen.map { fen =>
+      <br />
+      @views.html.game.miniBoard(fen, color = c.chessColor.name)
       }
     </div>
     }
@@ -70,17 +66,7 @@ moreJs = moreJs) {
     </div>
     }
     }
-    <p class="explanations">
-      @trans.variant(): @views.html.game.variantLink(c.variant, variantName(c.variant))<br />
-      @c.daysPerTurn.map { days =>
-      <span data-icon=";" class="text">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
-      }.getOrElse {
-      <span data-icon="p" class="text">@shortClockName(c.clock.map(_.chessClock))</span>
-      }
-      <br />
-      @trans.mode(): @modeName(c.mode)
-    </p>
-    @base.quote(lila.quote.Quote.one(c.id))
+    @explanation(c)
   </div>
 </div>
 }

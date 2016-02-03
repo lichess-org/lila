@@ -1,6 +1,7 @@
 var m = require('mithril');
 
 function user(u) {
+  if (!u) return 'Open challenge';
   var rating = u.rating + (u.provisional ? '?' : '');
   var fullName = (u.title ? u.title + ' ' : '') + u.name;
   return {
@@ -51,7 +52,12 @@ function inButtons(ctrl, c) {
 
 function outButtons(ctrl, c) {
   return [
-    m('span.text', 'waiting...'),
+    m('div.owner', [
+      m('span.waiting', 'waiting...'),
+      m('a.view', {
+        href: '/' + c.id
+      }, 'View challenge')
+    ]),
     m('form', {
       method: 'post',
       action: '/challenge/' + c.id + '/cancel'

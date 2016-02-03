@@ -53,15 +53,22 @@
   border-width: 1px 1px 0 0;
 }
 #challenge_app .challenge button,
-#challenge_app .challenge .text {
+#challenge_app .challenge .owner {
   height: 42px;
   box-sizing: border-box;
 }
-#challenge_app .challenge .text {
+#challenge_app .challenge .owner {
   border: 1px solid #e2e2e2;
   border-width: 1px 1px 0 0;
   vertical-align: center;
   line-height: 42px;
+}
+#challenge_app .challenge .owner .view,
+#challenge_app .challenge .owner:hover .waiting {
+  display: none;
+}
+#challenge_app .challenge .owner:hover .view {
+  display: block;
 }
 #challenge_app .challenge button::before {
   line-height: 42px;

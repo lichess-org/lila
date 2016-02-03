@@ -1,5 +1,6 @@
 lichess = lichess || {};
 lichess.startChallenge = function(element, opts) {
+  console.log(opts);
   var challenge = opts.data.challenge;
   if (!opts.owner && lichess.openInMobileApp(challenge.id)) return;
   lichess.socket = new lichess.StrongSocket(
