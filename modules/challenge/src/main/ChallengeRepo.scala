@@ -5,6 +5,7 @@ import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSO
 import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.Implicits.LilaBSONDocumentZero
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
@@ -45,9 +46,11 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
 
   def setSeenAgain(id: Challenge.ID) = coll.update(
     selectId(id),
-    BSONDocument("$set" -> BSONDocument(
-      "status" -> Status.Created.id,
-      "seenAt" -> DateTime.now))
+    BSONDocument(
+      "$set" -> BSONDocument(
+        "status" -> Status.Created.id,
+        "seenAt" -> DateTime.now),
+      "$unset" -> BSONDocument("expiresAt" -> true))
   ).void
 
   def setSeen(id: Challenge.ID) = coll.update(
@@ -55,19 +58,28 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     BSONDocument("$set" -> BSONDocument("seenAt" -> DateTime.now))
   ).void
 
-  def offline(challenge: Challenge) = setStatus(challenge, Status.Offline)
-  def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled)
-  def decline(challenge: Challenge) = setStatus(challenge, Status.Declined)
-  def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted)
+  def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
+  def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
+  def decline(challenge: Challenge) = setStatus(challenge, Status.Declined, Some(_ plusHours 3))
+  def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) = coll.find(
     selectId(id),
     BSONDocument("status" -> true, "_id" -> false)
   ).one[BSONDocument].map { _.flatMap(_.getAs[Status]("status")) }
 
-  private def setStatus(challenge: Challenge, status: Status) = coll.update(
+  private def setStatus(
+    challenge: Challenge,
+    status: Status,
+    expiresAt: Option[DateTime => DateTime] = None) = coll.update(
     selectCreated ++ selectId(challenge.id),
-    BSONDocument("$set" -> BSONDocument("status" -> status.id))
+    BSONDocument(
+      "$set" -> BSONDocument("status" -> status.id).++(expiresAt.?? { date =>
+        BSONDocument("expiresAt" -> date(DateTime.now))
+      })
+    ) ++ expiresAt.isEmpty.?? {
+        BSONDocument("$unset" -> BSONDocument("expiresAt" -> true))
+      }
   ).void
 
   private def remove(challenge: Challenge) =

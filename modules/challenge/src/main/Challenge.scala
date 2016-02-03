@@ -19,7 +19,8 @@ case class Challenge(
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
     createdAt: DateTime,
-    seenAt: DateTime) {
+    seenAt: DateTime,
+    expiresAt: Option[DateTime]) {
 
   import Challenge._
 
@@ -137,5 +138,6 @@ object Challenge {
     },
     destUser = destUser map toRegistered(variant, timeControl),
     createdAt = DateTime.now,
-    seenAt = DateTime.now)
+    seenAt = DateTime.now,
+    expiresAt = None)
 }
