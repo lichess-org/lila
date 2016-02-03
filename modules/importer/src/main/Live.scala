@@ -39,7 +39,7 @@ final class Live(
             case "1/2-1/2" => fuccess {
               roundMap ! Tell(game.id, DrawForce)
             }
-            case m => fufail("Invalid move: " + m)
+            case m => fufail("Importer invalid move: " + m)
           }
           case Some(uci) => fuccess {
             applyMove(Pov(game, game.player.color), uci)

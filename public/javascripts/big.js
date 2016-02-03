@@ -2244,7 +2244,7 @@ lichess.unique = function(xs) {
     });
     var tournament;
     lichess.socket = new lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
         receive: function(t, d) {
           tournament.socketReceive(t, d)
         },

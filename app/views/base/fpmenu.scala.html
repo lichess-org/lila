@@ -26,7 +26,7 @@
       <section class="login">
         <h2>@trans.signIn()</h2>
         <form action="@routes.Auth.authenticate" method="POST">
-          <input placeholder="@trans.username()" type="text" class="username" required="required" name="username" />
+          <input placeholder="@trans.usernameOrEmail()" type="text" class="username" required="required" name="username" />
           <input placeholder="@trans.password()" type="password" class="password" required="required" name="password" />
           <input type="submit" class="submit" value="@trans.signIn()" />
         </form>

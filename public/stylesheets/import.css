@@ -27,6 +27,9 @@
   float: left;
   margin-right: 10px;
 }
+#import_game form .analyse > label {
+  cursor: pointer;
+}
 
 #import_game button.submit {
   margin: 1em auto 0 auto;
