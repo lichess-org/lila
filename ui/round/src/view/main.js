@@ -122,9 +122,11 @@ function blursAndHolds(ctrl) {
 
 module.exports = function(ctrl) {
   var d = ctrl.data, material, score;
+  var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
+  var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
   if (d.pref.showCaptured) {
     material = chessground.board.getMaterialDiff(ctrl.chessground.data);
-    score = chessground.board.getScore(ctrl.chessground.data) * (d.player.color === 'white' ? 1 : -1);
+    score = chessground.board.getScore(ctrl.chessground.data) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [
@@ -136,11 +138,11 @@ module.exports = function(ctrl) {
       }, [
         d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
-          renderBerserk(ctrl, d.opponent.color, 'top'),
-          crazyView.pocket(ctrl, d.opponent.color, 'top') || renderMaterial(ctrl, material[d.opponent.color], d.player.checks),
+          renderBerserk(ctrl, topColor, 'top'),
+          crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
           renderTable(ctrl),
-          crazyView.pocket(ctrl, d.player.color, 'bottom') || renderMaterial(ctrl, material[d.player.color], d.opponent.checks, score),
-          renderBerserk(ctrl, d.player.color, 'bottom'))
+          crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score),
+          renderBerserk(ctrl, bottomColor, 'bottom'))
       ])
     ]),
     m('div.underboard', [
