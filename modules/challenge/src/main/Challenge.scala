@@ -40,6 +40,9 @@ case class Challenge(
   }
 
   def openDest = destUser.isEmpty
+  def active = status == Status.Created || status == Status.Offline
+  def declined = status == Status.Declined
+  def accepted = status == Status.Accepted
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }

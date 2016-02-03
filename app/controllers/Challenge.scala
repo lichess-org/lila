@@ -32,9 +32,16 @@ object Challenge extends LilaController {
 
   private[controllers] def reach(id: String)(implicit ctx: Context): Fu[Result] =
     env.api byId id flatMap {
-      case None                                 => notFound
-      case Some(challenge) if isMine(challenge) => Ok(html.challenge.mine(challenge)).fuccess
-      case Some(challenge)                      => Ok(html.challenge.theirs(challenge)).fuccess
+      _ ?? { c =>
+        env version c.id flatMap { version =>
+          negotiate(
+            html = Ok(isMine(c).fold(
+              html.challenge.mine.apply _,
+              html.challenge.theirs.apply _
+            )(c, env.jsonView(c), version)).fuccess,
+            api = _ => Ok(env.jsonView(c)).fuccess)
+        }
+      }
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {

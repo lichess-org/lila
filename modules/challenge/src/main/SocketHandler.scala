@@ -38,7 +38,7 @@ private[challenge] final class SocketHandler(
     member: Socket.Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid, v)
-      if (member.owner) pingChallenge(challengeId)
     }
+    case ("ping", _) if member.owner => pingChallenge(challengeId)
   }
 }

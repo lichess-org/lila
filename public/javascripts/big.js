@@ -701,8 +701,7 @@ lichess.unique = function(xs) {
       });
     }
 
-    if (lichess.challenge) startChallenge(lichess.challenge);
-    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
@@ -1432,48 +1431,6 @@ lichess.unique = function(xs) {
         $(this).toggleClass('hover');
       });
     }
-  }
-
-  function startChallenge(data) {
-    if (data.player.spectator && lichess.openInMobileApp(data.id)) return;
-    lichess.socket = new lichess.StrongSocket(
-      data.url.socket,
-      data.player.version, {
-        options: {
-          name: "prelude"
-        },
-        params: {
-          ran: "--ranph--"
-        },
-        events: {
-          declined: function() {
-            $('#challenge_await').remove();
-            $('#challenge_declined').show();
-          }
-        }
-      });
-
-    Chessground(element.querySelector('.lichess_board'), {
-      viewOnly: true,
-      fen: data.game.fen,
-      orientation: data.player.color,
-      check: data.game.check,
-      coordinates: data.pref.coords !== 0,
-      highlight: {
-        check: data.pref.highlight
-      },
-      disableContextMenu: true
-    });
-    setTimeout(function() {
-      $('.lichess_overboard_wrap', element).addClass('visible');
-    }, 100);
-    $('#challenge_await').each(function() {
-      setInterval(function() {
-        $('#challenge_await').each(function() {
-          lichess.socket.send('challenge', $(this).data('user'));
-        });
-      }, 1500);
-    });
   }
 
   $.widget("lichess.watchers", {

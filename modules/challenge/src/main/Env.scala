@@ -1,10 +1,14 @@
 package lila.challenge
 
 import akka.actor._
+import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
+import lila.hub.actorApi.map.Ask
+import lila.socket.actorApi.GetVersion
+import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -34,6 +38,9 @@ final class Env(
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout)
     }), name = SocketName)
+
+  def version(challengeId: Challenge.ID): Fu[Int] =
+    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[Int]
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
