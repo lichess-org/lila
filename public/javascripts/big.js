@@ -353,14 +353,13 @@ lichess.challengeApp = (function() {
       var element = document.getElementById('challenge_app');
       instance = LichessChallenge(element, {
         data: data,
+        show: function() {
+          if (!$(element).is(':visible')) $toggle.click();
+        },
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
         }
       });
-      if (!lichess.quietMode) {
-        if (!$(element).is(':visible')) $toggle.click();
-        $.sound.newChallenge();
-      }
     });
   };
   return {
@@ -1129,7 +1128,7 @@ lichess.unique = function(xs) {
       });
       $('#challenge_notifications_tag').one('mouseover click', function() {
         lichess.challengeApp.load();
-      }); //.trigger('click');
+      }).trigger('click');
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));

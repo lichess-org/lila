@@ -27,41 +27,59 @@ function timeControl(c) {
   }
 }
 
+function inButtons(ctrl, c) {
+  return [
+    m('form', {
+      method: 'post',
+      action: '/challenge/' + c.id + '/accept'
+    }, m('button', {
+      'type': 'submit',
+      class: 'submit button accept',
+      'data-icon': 'E'
+    })),
+    m('form', m('button', {
+      'type': 'submit',
+      class: 'submit button decline',
+      'data-icon': 'L',
+      onclick: function(e) {
+        ctrl.decline(c.id);
+        return false;
+      }
+    }))
+  ];
+}
+
+function outButtons(ctrl, c) {
+  return [
+    m('div.text', 'waiting...'),
+    m('form', {
+      method: 'post',
+      action: '/challenge/' + c.id + '/cancel'
+    }, m('button', {
+      'type': 'submit',
+      class: 'submit button decline',
+      'data-icon': 'L',
+    })),
+  ];
+}
+
 function challenge(ctrl, dir) {
   return function(c) {
     return m('div', {
-      class: 'challenge' + (c.declined ? ' declined' : ''),
+      class: 'challenge' + ' ' + dir + (c.declined ? ' declined' : ''),
     }, [
       m('i', {
         'data-icon': c.perf.icon
       }),
       m('div.content', [
-        m('span.title', user(c.challenger)),
+        m('span.title', user(dir === 'in' ? c.challenger : c.destUser)),
         m('span.desc', [
           c.rated ? 'Rated' : 'Casual',
           timeControl(c.timeControl),
           c.variant.name
         ].join(' '))
       ]),
-      m('div.buttons', [
-        m('form', {
-          method: 'post',
-          action: '/challenge/' + c.id + '/accept'
-        }, m('button', {
-          'type': 'submit',
-          class: 'submit button accept',
-          'data-icon': 'E'
-        })),
-        m('form', m('button', {
-          'type': 'submit',
-          class: 'submit button decline',
-          'data-icon': 'L',
-          onclick: function(e) {
-            ctrl.decline(c.id);
-            return false;
-          }
-        }))
-      ])
+      m('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c))
     ]);
   };
 }

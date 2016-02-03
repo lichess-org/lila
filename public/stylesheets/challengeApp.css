@@ -11,7 +11,6 @@
   margin-top: 5px;
   position: relative;
   height: 76px;
-  cursor: pointer;
   transition: 0.13s;
   background: #fff;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
@@ -31,11 +30,13 @@
   width: 100%;
   transition: 0.13s;
 }
-#challenge_app .challenge form {
+#challenge_app .challenge .buttons > * {
   display: inline-block;
   width: 50%;
+  text-align: center;
 }
 #challenge_app .challenge button {
+  cursor: pointer;
   color: #759900;
   width: 100%;
   display: block;

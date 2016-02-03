@@ -20,12 +20,24 @@ module.exports = function(env) {
   }
 
   this.update = function(data) {
-    console.log(data, 'update');
     this.data = data;
     this.vm.initiating = false;
     this.vm.reloading = false;
     env.setCount(this.countActiveIn());
+    this.notifyNew();
     m.redraw();
+  }.bind(this);
+
+  this.notifyNew = function() {
+    this.data.in.forEach(function(c) {
+      if (lichess.once('challenge-' + c.id)) {
+        if (!lichess.quietMode) {
+          env.show();
+          $.sound.newChallenge();
+        }
+        lichess.desktopNotification(showUser(c.challenger) + ' challenges you!');
+      }
+    });
   }.bind(this);
 
   this.decline = function(id) {
@@ -38,6 +50,12 @@ module.exports = function(env) {
   }.bind(this);
 
   xhr.load().then(this.update);
+
+  var showUser = function(user) {
+    var rating = u.rating + (u.provisional ? '?' : '');
+    var fullName = (u.title ? u.title + ' ' : '') + u.name;
+    return fullName + ' (' + rating + ')';
+  };
 
   this.trans = lichess.trans(env.i18n);
 };
