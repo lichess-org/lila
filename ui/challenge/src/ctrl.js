@@ -4,7 +4,7 @@ var xhr = require('./xhr');
 
 module.exports = function(env) {
 
-  this.data = env.data;
+  this.data;
 
   this.socket = new socket(env.socketSend, this);
 
