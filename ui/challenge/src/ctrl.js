@@ -40,7 +40,7 @@ module.exports = function(env) {
 
   this.notifyNew = function() {
     this.data.in.forEach(function(c) {
-      if (lichess.once('challenge-' + c.id)) {
+      if (lichess.once('c-' + c.id)) {
         if (!lichess.quietMode) {
           env.show();
           $.sound.newChallenge();
