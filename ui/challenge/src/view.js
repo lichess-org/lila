@@ -83,7 +83,7 @@ function challenge(ctrl, dir) {
           c.rated ? 'Rated' : 'Casual',
           timeControl(c.timeControl),
           c.variant.name
-        ].join(' '))
+        ].join(' • '))
       ]),
       m('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c))
     ]);
