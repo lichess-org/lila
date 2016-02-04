@@ -19,6 +19,16 @@ module.exports = function(env) {
     }).length;
   }
 
+  var all = function() {
+    return this.data.in ? this.data.in.concat(this.data.out) : [];
+  }.bind(this);
+
+  this.idsHash = function() {
+    return all().map(function(c) {
+      return c.id;
+    }).join('');
+  }.bind(this);
+
   this.update = function(data) {
     this.data = data;
     this.vm.initiating = false;

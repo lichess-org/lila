@@ -8,7 +8,7 @@ function user(u) {
     tag: 'a',
     attrs: {
       class: 'ulpt user_link',
-      'data-href': '/@/' + u.name
+      href: '/@/' + u.name
     },
     children: [
       fullName,
@@ -94,7 +94,14 @@ function allChallenges(ctrl, d, nb) {
   return m('div', {
     class: 'challenges' +
       (ctrl.vm.reloading ? ' reloading' : '') +
-      (nb > 3 ? ' many' : '')
+      (nb > 3 ? ' many' : ''),
+    config: function(el, iu, ctx) {
+      var hash = ctrl.idsHash();
+      if (ctx.hash !== hash) {
+        $('body').trigger('lichess.content_loaded');
+        ctx.hash = hash;
+      }
+    }
   }, [
     d.in.map(challenge(ctrl, 'in')),
     d.out.map(challenge(ctrl, 'out')),
