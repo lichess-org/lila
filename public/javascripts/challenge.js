@@ -1,7 +1,7 @@
 lichess = lichess || {};
 lichess.startChallenge = function(element, opts) {
-  console.log(opts);
   var challenge = opts.data.challenge;
+  var accepting;
   if (!opts.owner && lichess.openInMobileApp(challenge.id)) return;
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
@@ -19,7 +19,8 @@ lichess.startChallenge = function(element, opts) {
             url: opts.xhrUrl,
             success(html) {
               $('.lichess_overboard').replaceWith($(html).find('.lichess_overboard'));
-              $('#challenge_redirect').each(function() {
+              init();
+              if (!accepting) $('#challenge_redirect').each(function() {
                 location.href = $(this).attr('href');
               });
             }
@@ -27,6 +28,14 @@ lichess.startChallenge = function(element, opts) {
         }
       }
     });
+
+  var init = function() {
+    $('.lichess_overboard').find('form.accept').submit(function() {
+      accepting = true;
+      $(this).html('<div class="square-wrap"><div class="square-spin"></div></div>');
+    });
+  };
+  init();
 
   var pingNow = function() {
     if (document.getElementById('ping_challenge')) {
@@ -36,10 +45,10 @@ lichess.startChallenge = function(element, opts) {
   };
   pingNow();
 
-  Chessground(element.querySelector('.lichess_board'), {
+  var ground = Chessground(element.querySelector('.lichess_board'), {
     viewOnly: true,
     fen: challenge.initialFen,
-    orientation: challenge.color,
+    orientation: (opts.owner ^ challenge.color === 'black') ? 'white' : 'black',
     coordinates: false,
     disableContextMenu: true
   });
