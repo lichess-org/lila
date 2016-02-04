@@ -34,7 +34,10 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def LilaFunitToResult(funit: Funit): Fu[Result] = funit inject Ok("ok")
+  protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
+    negotiate(
+      html = fuccess(Ok("ok")),
+      api = _ => fuccess(Ok(Json.obj("ok" -> true)) as JSON))
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 

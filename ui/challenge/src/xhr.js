@@ -21,7 +21,14 @@ module.exports = {
     return m.request({
       method: 'POST',
       url: '/challenge/' + id + '/decline',
-      config: xhrConfig,
+      config: xhrConfig
+    });
+  },
+  cancel: function(id) {
+    return m.request({
+      method: 'POST',
+      url: '/challenge/' + id + '/cancel',
+      config: xhrConfig
     });
   }
 };

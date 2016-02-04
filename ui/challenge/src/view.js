@@ -35,18 +35,18 @@ function inButtons(ctrl, c) {
       action: '/challenge/' + c.id + '/accept'
     }, m('button', {
       'type': 'submit',
-      class: 'submit button accept',
+      class: 'button accept',
       'data-icon': 'E'
     })),
-    m('form', m('button', {
+    m('button', {
       'type': 'submit',
       class: 'submit button decline',
       'data-icon': 'L',
-      onclick: function(e) {
+      onclick: function() {
         ctrl.decline(c.id);
         return false;
       }
-    }))
+    })
   ];
 }
 
@@ -58,14 +58,14 @@ function outButtons(ctrl, c) {
         href: '/' + c.id
       }, 'View challenge')
     ]),
-    m('form', {
-      method: 'post',
-      action: '/challenge/' + c.id + '/cancel'
-    }, m('button', {
-      'type': 'submit',
-      class: 'submit button decline',
+    m('button', {
+      class: 'button decline',
       'data-icon': 'L',
-    })),
+      onclick: function() {
+        ctrl.cancel(c.id);
+        return false;
+      }
+    }),
   ];
 }
 
@@ -109,7 +109,7 @@ function allChallenges(ctrl, d, nb) {
 }
 
 function empty(ctrl, d) {
-  return m('div.empty', 'No challenges.');
+  return m('div.empty.text[data-icon=]', 'No challenges.');
 }
 
 module.exports = function(ctrl) {

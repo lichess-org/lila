@@ -59,6 +59,15 @@ module.exports = function(env) {
     }.bind(this));
   }.bind(this);
 
+  this.cancel = function(id) {
+    this.data.out.forEach(function(c) {
+      if (c.id === id) {
+        c.declined = true;
+        xhr.cancel(id);
+      }
+    }.bind(this));
+  }.bind(this);
+
   xhr.load().then(this.update);
 
   var showUser = function(user) {

@@ -74,8 +74,8 @@ object Challenge extends LilaController {
   }
 
   def cancel(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { challenge =>
-      if (isMine(challenge)) env.api cancel challenge inject Redirect(routes.Lobby.home)
+    OptionFuResult(env.api byId id) { c =>
+      if (isMine(c)) env.api cancel c
       else notFound
     }
   }
