@@ -68,7 +68,8 @@ module.exports = function(env) {
     }.bind(this));
   }.bind(this);
 
-  xhr.load().then(this.update);
+  if (env.data) this.update(data)
+  else xhr.load().then(this.update);
 
   var showUser = function(user) {
     var rating = user.rating + (user.provisional ? '?' : '');
