@@ -39,9 +39,13 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
     }),
     "color" -> c.color.toString.toLowerCase,
     "perf" -> Json.obj(
-      "icon" -> c.perfType.iconChar.toString,
+      "icon" -> iconChar(c).toString,
       "name" -> c.perfType.name)
   )
+
+  private def iconChar(c: Challenge) =
+    if (c.variant == chess.variant.FromPosition) '*'
+    else c.perfType.iconChar
 
   private implicit val RegisteredWrites = OWrites[Registered] { r =>
     val light = getLightUser(r.id)
