@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
-import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
+import play.api.mvc.Result
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
@@ -53,10 +53,15 @@ object Challenge extends LilaController {
 
   def accept(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { c =>
-      if (isForMe(c)) env.api.accept(c, ctx.me) map { game =>
-        Redirect(routes.Round.watcher(game.id, "white"))
+      isForMe(c) ?? env.api.accept(c, ctx.me).flatMap {
+        case Some(pov) => negotiate(
+          html = Setup.redirectPov(pov).fuccess,
+          api = apiVersion =>
+            Env.api.roundApi.player(pov, apiVersion) map { Ok(_) })
+        case None => negotiate(
+          html = Redirect(routes.Round.watcher(c.id, "white")).fuccess,
+          api = _ => notFoundJson("Someone else accepted the challenge"))
       }
-      else notFound
     }
   }
 

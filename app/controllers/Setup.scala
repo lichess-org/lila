@@ -37,9 +37,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def ai = process(env.forms.ai) { config =>
     implicit ctx =>
-      env.processor ai config map { pov =>
-        pov -> routes.Round.player(pov.fullId)
-      }
+      env.processor ai config
   }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
@@ -196,7 +194,7 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[(Pov, Call)]) =
+  private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       form(ctx).bindFromRequest.fold(
@@ -204,9 +202,9 @@ object Setup extends LilaController with TheftPrevention {
           html = Lobby.renderHome(Results.BadRequest),
           api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ),
-        config => op(config)(ctx) flatMap {
-          case (pov, call) => negotiate(
-            html = fuccess(redirectPov(pov, call)),
+        config => op(config)(ctx) flatMap { pov =>
+          negotiate(
+            html = fuccess(redirectPov(pov)),
             api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
               Created(data) as JSON
             }
@@ -215,11 +213,14 @@ object Setup extends LilaController with TheftPrevention {
       )
     }
 
-  private def redirectPov(pov: Pov, call: Call)(implicit ctx: Context, req: RequestHeader) =
-    if (ctx.isAuth) Redirect(call)
-    else Redirect(call) withCookies LilaCookie.cookie(
+  private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
+    implicit val req = ctx.req
+    val redir = Redirect(routes.Round.player(pov.fullId))
+    if (ctx.isAuth) redir
+    else redir withCookies LilaCookie.cookie(
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,
       httpOnly = false.some)
+  }
 }

@@ -4,7 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo
 import lila.memo.{ MixedCache, AsyncCache }
@@ -46,9 +46,10 @@ final class ChallengeApi(
 
   def decline(c: Challenge) = (repo decline c) >> uncacheAndNotify(c)
 
-  def accept(c: Challenge, user: Option[User]): Fu[Game] =
-    joiner(c, user).flatMap { game =>
-      (repo accept c) >> uncacheAndNotify(c) inject game
+  def accept(c: Challenge, user: Option[User]): Fu[Option[Pov]] =
+    joiner(c, user).flatMap {
+      case None      => fuccess(None)
+      case Some(pov) => (repo accept c) >> uncacheAndNotify(c) inject pov.some
     }
 
   private[challenge] def sweep: Funit =
