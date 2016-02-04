@@ -124,12 +124,8 @@ function spinner() {
     })));
 }
 
-function initiating() {
-  return m('div.initiating', spinner());
-}
-
 module.exports = function(ctrl) {
-  if (ctrl.vm.initiating) return initiating();
+  if (ctrl.vm.initiating) return m('div.initiating', spinner());
   var d = ctrl.data;
   var nb = d.in.length + d.out.length;
   return nb ? allChallenges(ctrl, d, nb) : empty(ctrl);
