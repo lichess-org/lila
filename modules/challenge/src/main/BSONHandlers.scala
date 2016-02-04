@@ -54,7 +54,7 @@ private object BSONHandlers {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) = BSONDocument(
       "i" -> r.int,
-      "b" -> w.boolO(r.provisional))
+      "p" -> w.boolO(r.provisional))
   }
   implicit val RegisteredBSONHandler = new BSON[Registered] {
     def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
