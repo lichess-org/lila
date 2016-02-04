@@ -163,30 +163,6 @@ object Setup extends LilaController with TheftPrevention {
     )
   }
 
-  def join(id: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game id) { game =>
-      ???
-    }
-  }
-
-  // def await(fullId: String, userId: Option[String]) = Open { implicit ctx =>
-  //   OptionFuResult(GameRepo pov fullId) { pov =>
-  //     pov.game.started.fold(
-  //       Redirect(routes.Round.player(pov.fullId)).fuccess,
-  //       Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) zip
-  //         (userId ?? UserRepo.named) flatMap {
-  //           case (data, user) => PreventTheft(pov) {
-  //             Ok(html.setup.await(
-  //               pov,
-  //               data,
-  //               env.friendConfigMemo get pov.game.id,
-  //               user)).fuccess
-  //           }
-  //         }
-  //     )
-  //   }
-  // }
-
   def validateFen = Open { implicit ctx =>
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None    => BadRequest.fuccess
