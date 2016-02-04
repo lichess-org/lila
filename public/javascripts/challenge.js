@@ -20,9 +20,6 @@ lichess.startChallenge = function(element, opts) {
             success(html) {
               $('.lichess_overboard').replaceWith($(html).find('.lichess_overboard'));
               init();
-              if (!accepting) $('#challenge_redirect').each(function() {
-                location.href = $(this).attr('href');
-              });
             }
           });
         }
@@ -30,9 +27,20 @@ lichess.startChallenge = function(element, opts) {
     });
 
   var init = function() {
+    if (!accepting) $('#challenge_redirect').each(function() {
+      location.href = $(this).attr('href');
+    });
     $('.lichess_overboard').find('form.accept').submit(function() {
       accepting = true;
-      $(this).html('<div class="square-wrap"><div class="square-spin"></div></div>');
+      $(this).html(lichess.spinnerHtml);
+    });
+    $('.lichess_overboard').find('form.xhr').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: $(this).attr('action'),
+        method: 'post'
+      });
+      $(this).html(lichess.spinnerHtml);
     });
   };
   init();

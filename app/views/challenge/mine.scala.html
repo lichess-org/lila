@@ -3,7 +3,7 @@
 @import lila.challenge.Challenge.Status
 
 @cancelForm = {
-<form method="post" action="@routes.Challenge.cancel(c.id)">
+<form method="post" action="@routes.Challenge.cancel(c.id)" class="xhr">
   <button type="submit" class="button text" data-icon="L">@trans.cancel()</button>
 </form>
 }
