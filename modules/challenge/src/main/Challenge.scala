@@ -15,7 +15,8 @@ case class Challenge(
     initialFen: Option[String],
     timeControl: Challenge.TimeControl,
     mode: Mode,
-    color: Challenge.ColorChoice,
+    colorChoice: Challenge.ColorChoice,
+    finalColor: chess.Color,
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
     createdAt: DateTime,
@@ -28,13 +29,14 @@ case class Challenge(
 
   def challengerUser = challenger.right.toOption
   def challengerUserId = challengerUser.map(_.id)
+  def challengerIsAnon = challenger.isLeft
   def destUserId = destUser.map(_.id)
 
   def daysPerTurn = timeControl match {
     case TimeControl.Correspondence(d) => d.some
     case _                             => none
   }
-  def unlimited = TimeControl == TimeControl.Unlimited
+  def unlimited = timeControl == TimeControl.Unlimited
 
   def clock = timeControl match {
     case c: TimeControl.Clock => c.some
@@ -45,8 +47,6 @@ case class Challenge(
   def active = status == Status.Created || status == Status.Offline
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
-
-  lazy val chessColor = ColorChoice toChess color
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
@@ -90,11 +90,6 @@ object Challenge {
     case object Random extends ColorChoice
     case object White extends ColorChoice
     case object Black extends ColorChoice
-    def toChess(c: ColorChoice): chess.Color = c match {
-      case Random => chess.Color(scala.util.Random.nextBoolean)
-      case White  => chess.White
-      case Black  => chess.Black
-    }
   }
 
   private def speedOf(timeControl: TimeControl) = timeControl match {
@@ -121,24 +116,29 @@ object Challenge {
     timeControl: TimeControl,
     mode: Mode,
     color: String,
-    challenger: Option[User],
-    destUser: Option[User]): Challenge = new Challenge(
-    _id = randomId,
-    status = Status.Created,
-    variant = variant,
-    initialFen = initialFen.ifTrue(variant == chess.variant.FromPosition),
-    timeControl = timeControl,
-    mode = mode,
-    color = color match {
-      case "white" => ColorChoice.White
-      case "black" => ColorChoice.Black
-      case _       => ColorChoice.Random
-    },
-    challenger = challenger.fold[EitherChallenger](Left(Anonymous(randomId))) { u =>
-      Right(toRegistered(variant, timeControl)(u))
-    },
-    destUser = destUser map toRegistered(variant, timeControl),
-    createdAt = DateTime.now,
-    seenAt = DateTime.now,
-    expiresAt = inTwoWeeks)
+    challenger: Either[String, User],
+    destUser: Option[User]): Challenge = {
+    val (colorChoice, finalColor) = color match {
+      case "white" => ColorChoice.White -> chess.White
+      case "black" => ColorChoice.Black -> chess.Black
+      case _       => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
+    }
+    new Challenge(
+      _id = randomId,
+      status = Status.Created,
+      variant = variant,
+      initialFen = initialFen.ifTrue(variant == chess.variant.FromPosition),
+      timeControl = timeControl,
+      mode = mode,
+      colorChoice = colorChoice,
+      finalColor = finalColor,
+      challenger = challenger.fold[EitherChallenger](
+        sid => Left(Anonymous(sid)),
+        u => Right(toRegistered(variant, timeControl)(u))
+      ),
+      destUser = destUser map toRegistered(variant, timeControl),
+      createdAt = DateTime.now,
+      seenAt = DateTime.now,
+      expiresAt = inTwoWeeks)
+  }
 }

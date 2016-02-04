@@ -26,6 +26,10 @@ private object BSONHandlers {
       case ColorChoice.Random => 0
     })
   }
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
+    def read(b: BSONBoolean) = chess.Color(b.value)
+    def write(c: chess.Color) = BSONBoolean(c.white)
+  }
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
     def reads(r: Reader) = (r.intO("l") |@| r.intO("i")) {
       case (limit, inc) => TimeControl.Clock(limit, inc)

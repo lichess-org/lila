@@ -37,7 +37,7 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
         "daysPerTurn" -> d)
       case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
     }),
-    "color" -> c.color.toString.toLowerCase,
+    "color" -> c.colorChoice.toString.toLowerCase,
     "perf" -> Json.obj(
       "icon" -> iconChar(c).toString,
       "name" -> c.perfType.name)

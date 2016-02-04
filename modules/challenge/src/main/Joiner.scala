@@ -40,8 +40,8 @@ private[challenge] final class Joiner(onStart: String => Unit) {
           }
           val game = Game.make(
             game = chessGame,
-            whitePlayer = makePlayer(chess.White, c.chessColor.fold(challengerUser, destUser)),
-            blackPlayer = makePlayer(chess.Black, c.chessColor.fold(destUser, challengerUser)),
+            whitePlayer = makePlayer(chess.White, c.finalColor.fold(challengerUser, destUser)),
+            blackPlayer = makePlayer(chess.Black, c.finalColor.fold(destUser, challengerUser)),
             mode = (realVariant == chess.variant.FromPosition).fold(Mode.Casual, c.mode),
             variant = realVariant,
             source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
@@ -57,31 +57,7 @@ private[challenge] final class Joiner(onStart: String => Unit) {
                   turns = sit.turns)
               }
             }.start
-          (GameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.chessColor).some
+          (GameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }
-
-  // def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
-  //   game.notStarted option {
-  //     val color = (friendConfigMemo get game.id map (!_.creatorColor)) orElse
-  //       // damn, no cache. maybe the opponent was logged, so we can guess?
-  //       Some(ChessColor.Black).ifTrue(game.whitePlayer.hasUser) orElse
-  //       Some(ChessColor.White).ifTrue(game.blackPlayer.hasUser) getOrElse
-  //       ChessColor.Black // well no. we're fucked. toss the coin.
-  //     val g1 = user.fold(game) { u =>
-  //       game.updatePlayer(color, _.withUser(u.id, PerfPicker.mainOrDefault(game)(u.perfs)))
-  //     }
-  //     for {
-  //       _ ← GameRepo.setUsers(g1.id, g1.player(_.white).userInfos, g1.player(_.black).userInfos)
-  //       p1 = Progress(game, g1.start)
-  //       p2 = p1 + Event.RedirectOwner(
-  //         !color,
-  //         p1.game fullIdOf !color,
-  //         AnonCookie.json(p1.game, !color))
-  //       _ ← GameRepo save p2
-  //     } yield {
-  //       onStart(p2.game.id)
-  //       Pov(p2.game, color) -> p2.events
-  //     }
-  //   } toValid "Can't join started game " + game.id
 }

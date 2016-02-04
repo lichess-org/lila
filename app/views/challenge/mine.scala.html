@@ -43,7 +43,7 @@ moreJs = js(c, json, true)) {
       }
       @c.initialFen.map { fen =>
       <br />
-      @views.html.game.miniBoard(fen, color = c.chessColor.name)
+      @views.html.game.miniBoard(fen, color = c.finalColor.name)
       }
     </div>
     }

@@ -150,7 +150,7 @@ object Round extends LilaController with TheftPrevention {
       html =
         if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
         else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
-        else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
+        else playablePovForReq(pov.game) match {
           case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
           case _ if HTTPRequest.isHuman(ctx.req) =>
             myTour(pov.game.tournamentId, false) zip

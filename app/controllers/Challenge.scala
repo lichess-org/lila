@@ -3,13 +3,14 @@ package controllers
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
-import play.api.mvc.Result
+import play.api.mvc.{ Result, Cookie }
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
+import lila.game.{ GameRepo, AnonCookie }
 import views.html
 
 object Challenge extends LilaController {
@@ -36,11 +37,27 @@ object Challenge extends LilaController {
     env version c.id flatMap { version =>
       val json = env.jsonView.show(c, version)
       negotiate(
-        html = Ok(isMine(c).fold(
-          html.challenge.mine.apply _,
-          html.challenge.theirs.apply _
-        )(c, json)).fuccess,
+        html = challengeAnonOwnerCookie(c) map { cookieOption =>
+          Ok(isMine(c).fold(
+            html.challenge.mine.apply _,
+            html.challenge.theirs.apply _
+          )(c, json)) |> { res =>
+            cookieOption.fold(res) { res.withCookies(_) }
+          }
+        },
         api = _ => Ok(json).fuccess)
+    }
+
+  private def challengeAnonOwnerCookie(c: ChallengeModel)(implicit ctx: Context): Fu[Option[Cookie]] =
+    (c.accepted && c.challengerIsAnon) ?? GameRepo.game(c.id).map {
+      _ map { game =>
+        implicit val req = ctx.req
+        LilaCookie.cookie(
+          AnonCookie.name,
+          game.player(c.finalColor).id,
+          maxAge = AnonCookie.maxAge.some,
+          httpOnly = false.some)
+      }
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {

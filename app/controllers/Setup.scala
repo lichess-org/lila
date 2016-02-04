@@ -88,7 +88,11 @@ object Setup extends LilaController with TheftPrevention {
               } getOrElse TimeControl.Unlimited,
               mode = config.mode,
               color = config.color.name,
-              challenger = ctx.me,
+              challenger = (ctx.me, HTTPRequest sid req) match {
+                case (Some(user), _) => Right(user)
+                case (_, Some(sid))  => Left(sid)
+                case _               => Left("no_sid")
+              },
               destUser = destUser)
             (Env.challenge.api create challenge) >> negotiate(
               html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
