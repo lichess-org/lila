@@ -569,47 +569,6 @@ lichess.unique = function(xs) {
           $('body').trigger('lichess.content_loaded');
         }
       },
-      challengeReminder: function(data) {
-        var $toggle = $('#challenge_notifications_tag');
-        var $notifs = $('#challenge_notifications');
-        if (!lichess.storage.get('challenge-refused-' + data.id)) {
-          var refreshButton = function() {
-            var nb = $notifs.find('> div').length;
-            $toggle.attr('data-count', nb).toggleClass('none', !nb);
-          };
-          var htmlId = 'challenge_reminder_' + data.id;
-          var $notif = $('#' + htmlId);
-          if ($notif.length) clearTimeout($notif.data('timeout'));
-          else {
-            $notifs.append(data.html);
-            $notif = $('#' + htmlId);
-            $notif.find('> a').click(function() {
-              lichess.hasToReload = true; // allow quit by accept challenge (simul)
-            });
-            $notif.find('a.decline').click(function() {
-              $.post($(this).attr("href"));
-              lichess.storage.set('challenge-refused-' + data.id, 1);
-              $('#' + htmlId).remove();
-              refreshButton();
-              return false;
-            });
-            $('body').trigger('lichess.content_loaded');
-            if (lichess.once('challenge-' + data.id)) {
-              if (!lichess.quietMode) {
-                if (!$notifs.is(':visible')) $toggle.click();
-                $.sound.newChallenge();
-              }
-              var op = $notif.find('.user_link').text();
-              lichess.desktopNotification(op + ' challenges you!');
-            }
-            refreshButton();
-          }
-          $notif.data('timeout', setTimeout(function() {
-            $notif.remove();
-            refreshButton();
-          }, 3000));
-        }
-      },
       deployPre: function(html) {
         $('#notifications').append(html);
         setTimeout(function() {
