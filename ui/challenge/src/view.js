@@ -112,8 +112,24 @@ function empty(ctrl, d) {
   return m('div.empty.text[data-icon=]', 'No challenges.');
 }
 
+function spinner() {
+  return m('div.spinner',
+    m('svg', {
+      viewBox: '0 0 40 40'
+    }, m('circle', {
+      cx: 20,
+      cy: 20,
+      r: 18,
+      fill: 'none'
+    })));
+}
+
+function initiating() {
+  return m('div.initiating', spinner());
+}
+
 module.exports = function(ctrl) {
-  if (ctrl.vm.initiating) return m('div.square-wrap', m('div.square-spin'));
+  if (ctrl.vm.initiating) return initiating();
   var d = ctrl.data;
   var nb = d.in.length + d.out.length;
   return nb ? allChallenges(ctrl, d, nb) : empty(ctrl);

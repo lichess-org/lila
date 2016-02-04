@@ -1,7 +1,7 @@
 #challenge_app {
   width: 250px;
   z-index: 2;
-  left: -95px;
+  left: -104px;
   background: transparent!important;
   box-shadow: none!important;
   border: 0!important;
@@ -120,7 +120,8 @@
   opacity: 1;
 }
 
-#challenge_app .empty {
+#challenge_app .empty,
+#challenge_app .initiating {
   text-align: center;
   padding: 20px 0;
   background: #fff;
