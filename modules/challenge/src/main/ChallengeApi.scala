@@ -4,7 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo
 import lila.memo.{ MixedCache, AsyncCache }
@@ -50,6 +50,31 @@ final class ChallengeApi(
     joiner(c, user).flatMap {
       case None      => fuccess(None)
       case Some(pov) => (repo accept c) >> uncacheAndNotify(c) inject pov.some
+    }
+
+  def rematchOf(game: Game, user: User): Fu[Boolean] =
+    game.playerByUserId(user.id).map { Pov(game, _) } ?? { pov =>
+      for {
+        initialFen <- GameRepo initialFen pov.game
+        challengerOption <- pov.player.userId ?? UserRepo.byId
+        destUserOption <- pov.opponent.userId ?? UserRepo.byId
+        success <- (destUserOption |@| challengerOption).tupled ?? {
+          case (destUser, challenger) => create(Challenge.make(
+            variant = pov.game.variant,
+            initialFen = initialFen,
+            timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
+              case (Some(clock), _) => TimeControl.Clock(clock.limit, clock.increment)
+              case (_, Some(days))  => TimeControl.Correspondence(days)
+              case _                => TimeControl.Unlimited
+            },
+            mode = pov.game.mode,
+            color = (!pov.color).name,
+            challenger = Right(challenger),
+            destUser = Some(destUser),
+            rematchOf = pov.game.id.some
+          )) inject true
+        }
+      } yield success
     }
 
   private[challenge] def sweep: Funit =

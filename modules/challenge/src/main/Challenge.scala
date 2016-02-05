@@ -19,6 +19,7 @@ case class Challenge(
     finalColor: chess.Color,
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
+    rematchOf: Option[String],
     createdAt: DateTime,
     seenAt: DateTime,
     expiresAt: DateTime) {
@@ -117,7 +118,8 @@ object Challenge {
     mode: Mode,
     color: String,
     challenger: Either[String, User],
-    destUser: Option[User]): Challenge = {
+    destUser: Option[User],
+    rematchOf: Option[String]): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White -> chess.White
       case "black" => ColorChoice.Black -> chess.Black
@@ -137,6 +139,7 @@ object Challenge {
         u => Right(toRegistered(variant, timeControl)(u))
       ),
       destUser = destUser map toRegistered(variant, timeControl),
+      rematchOf = rematchOf,
       createdAt = DateTime.now,
       seenAt = DateTime.now,
       expiresAt = inTwoWeeks)

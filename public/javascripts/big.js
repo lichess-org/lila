@@ -355,11 +355,11 @@ lichess.hopscotch = function(f) {
 }
 lichess.challengeApp = (function() {
   var instance;
+  var $toggle = $('#challenge_notifications_tag');
   var load = function(data) {
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
     lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      var $toggle = $('#challenge_notifications_tag');
       var element = document.getElementById('challenge_app');
       instance = LichessChallenge(element, {
         data: data,
@@ -379,6 +379,9 @@ lichess.challengeApp = (function() {
     update: function(data) {
       if (!instance) load(data);
       else instance.update(data);
+    },
+    open: function() {
+      $toggle.click();
     }
   };
 })();

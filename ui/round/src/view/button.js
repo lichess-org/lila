@@ -120,14 +120,13 @@ module.exports = {
   },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted) {
-      if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {
-        return m('a.button.hint--bottom', {
-          'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
-          onclick: partial(ctrl.socket.send, 'rematch-yes', null)
-        }, ctrl.trans('rematch'));
-      } else {
-        return m('a.button.disabled', ctrl.trans('rematch'));
-      }
+      return m('a.button.hint--bottom', {
+        'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
+        onclick: function() {
+          if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
+          else ctrl.challengeRematch();
+        }
+      }, ctrl.trans('rematch'));
     }
   },
   answerOpponentRematch: function(ctrl) {

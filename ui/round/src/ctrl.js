@@ -18,6 +18,7 @@ var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
+var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
 
 module.exports = function(opts) {
@@ -296,6 +297,14 @@ module.exports = function(opts) {
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
   }.bind(this);
+
+  this.challengeRematch = function() {
+    xhr.challengeRematch(this.data.game.id).then(function() {
+      lichess.challengeApp.open();
+    }, function() {
+      console.log('failure');
+    });
+  };
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,

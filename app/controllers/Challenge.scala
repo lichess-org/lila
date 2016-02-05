@@ -97,6 +97,15 @@ object Challenge extends LilaController {
     }
   }
 
+  def rematchOf(gameId: String) = Auth { implicit ctx =>
+    me =>
+    OptionFuResult(GameRepo game gameId) { g =>
+      env.api.rematchOf(g, me) map {
+        _.fold(Ok, BadRequest)
+      }
+    }
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     env.api byId id flatMap {
       _ ?? { c =>
