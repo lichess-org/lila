@@ -303,6 +303,24 @@ module.exports = function(opts) {
     this.vm.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(function() {
       lichess.challengeApp.open();
+      if (lichess.once('rematch-challenge')) setTimeout(function() {
+        lichess.hopscotch(function() {
+          hopscotch.configure({
+            i18n: {
+              doneBtn: 'OK, got it'
+            }
+          }).startTour({
+            id: "rematch-challenge",
+            showPrevButton: true,
+            steps: [{
+              title: "Challenged to a rematch",
+              content: 'Your opponent is offline, but they can accept this challenge later!',
+              target: "#challenge_app",
+              placement: "bottom"
+            }]
+          });
+        });
+      }, 1000);
     });
   };
 
