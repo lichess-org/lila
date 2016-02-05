@@ -40,7 +40,8 @@ module.exports = function(opts) {
     goneBerserk: {},
     resignConfirm: false,
     autoScroll: null,
-    element: opts.element
+    element: opts.element,
+    challengeRematched: false
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -299,10 +300,9 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.challengeRematch = function() {
+    this.vm.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(function() {
       lichess.challengeApp.open();
-    }, function() {
-      console.log('failure');
     });
   };
 

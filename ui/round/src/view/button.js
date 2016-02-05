@@ -118,6 +118,12 @@ module.exports = {
   feedback: function(ctrl) {
     if (ctrl.vm.buttonFeedback) return m('div.button-feedback.loader.fast');
   },
+  challengeRematched(ctrl) {
+    if (ctrl.vm.challengeRematched) return [
+      m('br'),
+      ctrl.trans('rematchOfferSent')
+    ];
+  },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted) {
       return m('a.button.hint--bottom', {
