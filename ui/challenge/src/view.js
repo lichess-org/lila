@@ -53,7 +53,7 @@ function inButtons(ctrl, c) {
 function outButtons(ctrl, c) {
   return [
     m('div.owner', [
-      m('span.waiting', 'waiting...'),
+      m('span.waiting', 'Pending...'),
       m('a.view', {
         href: '/' + c.id
       }, 'View challenge')
