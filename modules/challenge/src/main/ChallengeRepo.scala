@@ -36,6 +36,14 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       .sort(BSONDocument("createdAt" -> 1))
       .cursor[Challenge]().collect[List]()
 
+  def like(c: Challenge) = ~(for {
+    challengerId <- c.challengerUserId
+    destUserId <- c.destUserId
+    if c.active
+  } yield coll.find(selectCreated ++ BSONDocument(
+    "challenger.id" -> challengerId,
+    "destUser.id" -> destUserId)).one[Challenge])
+
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ BSONDocument("destUser.id" -> userId)))
 

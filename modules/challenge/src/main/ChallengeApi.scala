@@ -22,9 +22,9 @@ final class ChallengeApi(
   def allFor(userId: User.ID): Fu[AllChallenges] =
     createdByDestId(userId) zip createdByChallengerId(userId) map (AllChallenges.apply _).tupled
 
-  def create(c: Challenge): Funit = (repo insert c) >> {
-    uncacheAndNotify(c)
-  }
+  def create(c: Challenge): Funit = {
+    repo like c flatMap { _ ?? repo.cancel }
+  } >> (repo insert c) >> uncacheAndNotify(c)
 
   def byId = repo byId _
 
