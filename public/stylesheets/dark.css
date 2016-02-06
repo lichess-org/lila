@@ -175,7 +175,6 @@ body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
 
-body.dark .lichess_ground .explorer_box .bar span,
 body.dark .pull-quote p,
 body.dark .pull-quote p:after,
 body.dark #powerTip > .info .title,
@@ -215,6 +214,7 @@ body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
+body.dark .lichess_ground .explorer_box tr:nth-child(odd),
 body.dark #chat .messages,
 body.dark div.side_box,
 body.dark div.box,
