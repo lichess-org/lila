@@ -5,7 +5,7 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-for app in insight editor puzzle round analyse lobby tournament tournamentSchedule opening simul perfStat explorer; do
+for app in insight editor puzzle round analyse lobby tournament tournamentSchedule opening simul perfStat; do
   cd ui/$app
   npm install --no-optional && gulp $target
   cd -
