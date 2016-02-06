@@ -368,7 +368,7 @@ module.exports = function(opts) {
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);
-    userMove(move[0], move[1]);
+    this.chessground.apiMove(move[0], move[1]);
   }.bind(this);
 
   this.toggleExplorer = function() {
