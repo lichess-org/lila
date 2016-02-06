@@ -5,6 +5,7 @@ module.exports = function(allow) {
 
   var storageKey = 'explorer-enabled';
   var allowed = m.prop(allow);
+  lichess.storage.set(storageKey, '1');
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
 
   var cache = {};
