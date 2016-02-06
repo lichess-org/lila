@@ -322,7 +322,7 @@ module.exports = function(opts) {
         });
       }, 1000);
     });
-  };
+  }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
