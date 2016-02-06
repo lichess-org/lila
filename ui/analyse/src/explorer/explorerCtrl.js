@@ -18,15 +18,20 @@ module.exports = function(allow) {
     });
   });
 
-  function setFen(fen) {
+  var empty = {
+    moves: {}
+  };
+
+  function setStep(step) {
     if (!enabled()) return;
-    if (!cache[fen]) fetch(fen);
+    if (step.ply > 40) cache[step.fen] = empty;
+    if (!cache[step.fen]) fetch(step.fen);
   }
 
   return {
     allowed: allowed,
     enabled: enabled,
-    setFen: setFen,
+    setStep: setStep,
     current: function(ctrl) {
       return cache[ctrl.vm.step.fen];
     },

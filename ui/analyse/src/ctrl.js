@@ -146,7 +146,7 @@ module.exports = function(opts) {
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
     this.ceval.stop();
     startCeval();
-    this.explorer.setFen(this.vm.step.fen);
+    this.explorer.setStep(this.vm.step);
     updateHref();
     this.vm.autoScroll && this.vm.autoScroll();
     promotion.cancel(this);
@@ -380,5 +380,5 @@ module.exports = function(opts) {
   showGround();
   keyboard(this);
   startCeval();
-  this.explorer.setFen(this.vm.step.fen);
+  this.explorer.setStep(this.vm.step);
 };
