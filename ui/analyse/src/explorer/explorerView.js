@@ -18,7 +18,7 @@ function resultBar(move) {
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
-function show(data) {
+function show(data, ctrl) {
   var moves = Object.keys(data.moves).map(function(move) {
     return data.moves[move];
   }).filter(function(x) {
@@ -35,8 +35,14 @@ function show(data) {
       //     m('th', 'Result')
       //   ])
       // ]),
-      m('tbody', moves.map(function(move) {
-        return m('tr', [
+      m('tbody', {
+        onclick: function(e) {
+          ctrl.explorerMove($(e.target).parents('tr').data('uci'));
+        }
+      }, moves.map(function(move) {
+        return m('tr', {
+          'data-uci': move.uci
+        }, [
           m('td', move.san),
           m('td', move.total),
           m('td', resultBar(move))
@@ -50,6 +56,6 @@ module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
     var data = ctrl.explorer.get(ctrl.vm.step.fen);
-    return m('div.explorer_box', data ? show(data) : empty());
+    return m('div.explorer_box', data ? show(data, ctrl) : empty());
   }
 };

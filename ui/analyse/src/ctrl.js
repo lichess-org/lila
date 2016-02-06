@@ -349,10 +349,15 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(shapes);
   }.bind(this);
 
+  var decomposeUci = function(uci) {
+    return [uci.slice(0, 2), uci.slice(2, 4)];
+  };
+
   var makeAutoShapeFromUci = function(uci, brush) {
+    var move = decomposeUci(uci);
     return {
-      orig: uci.slice(0, 2),
-      dest: uci.slice(2, 4),
+      orig: move[0],
+      dest: move[1],
       brush: brush
     };
   };
@@ -360,6 +365,11 @@ module.exports = function(opts) {
   var allowExplorer = util.synthetic(this.data) || !game.playable(this.data);
 
   this.explorer = explorerCtrl(allowExplorer);
+
+  this.explorerMove = function(uci) {
+    var move = decomposeUci(uci);
+    userMove(move[0], move[1]);
+  }.bind(this);
 
   this.toggleExplorer = function() {
     this.explorer.toggle();
