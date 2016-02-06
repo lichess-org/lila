@@ -228,8 +228,25 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   overflow-x: hidden;
   white-space: nowrap;
 }
+.lichess_ground .explorer_box .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.lichess_ground .explorer_box.loading .overlay {
+  display: block;
+}
+.lichess_ground .explorer_box .data {
+  transition: opacity 0.13s;
+}
+.lichess_ground .explorer_box.loading .data {
+  opacity: 0.4;
+}
 .lichess_ground .explorer_box .spinner {
-  margin-top: 85px;
+  margin-top: 88px;
 }
 .lichess_ground .explorer_box td {
   cursor: pointer;
@@ -237,6 +254,9 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .explorer_box tr:nth-child(odd) {
   background: #fafafa;
+}
+.lichess_ground .explorer_box tr {
+  transition: background-color 0.13s;
 }
 .lichess_ground .explorer_box tr:hover {
   background: rgba(191, 231, 255, 0.7);

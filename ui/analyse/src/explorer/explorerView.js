@@ -1,9 +1,5 @@
 var m = require('mithril');
 
-function empty() {
-  return m('div.empty', m.trust(lichess.spinnerHtml));
-}
-
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
   var section = function(key) {
@@ -18,44 +14,56 @@ function resultBar(move) {
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
-function show(data, ctrl) {
-  var moves = Object.keys(data.moves).map(function(move) {
-    return data.moves[move];
-  }).filter(function(x) {
-    return x.total > 0;
-  }).sort(function(a, b) {
-    return b.total - a.total;
-  });
-  return m('div.data',
-    m('table', [
-      // m('thead', [
-      //   m('tr', [
-      //     m('th', 'Move'),
-      //     m('th', 'Games'),
-      //     m('th', 'Result')
-      //   ])
-      // ]),
-      m('tbody', {
-        onclick: function(e) {
-          ctrl.explorerMove($(e.target).parents('tr').data('uci'));
-        }
-      }, moves.map(function(move) {
-        return m('tr', {
-          'data-uci': move.uci
-        }, [
-          m('td', move.san),
-          m('td', move.total),
-          m('td', resultBar(move))
-        ]);
-      }))
-    ])
-  );
+var lastShow = null;
+
+function show(ctrl) {
+  if (!ctrl.explorer.loading()) {
+    var data = ctrl.explorer.get(ctrl.vm.step.fen);
+    var moves = Object.keys(data.moves).map(function(move) {
+      return data.moves[move];
+    }).filter(function(x) {
+      return x.total > 0;
+    }).sort(function(a, b) {
+      return b.total - a.total;
+    });
+    lastShow = m('div.data',
+      m('table', [
+        // m('thead', [
+        //   m('tr', [
+        //     m('th', 'Move'),
+        //     m('th', 'Games'),
+        //     m('th', 'Result')
+        //   ])
+        // ]),
+        m('tbody', moves.map(function(move) {
+          return m('tr', {
+            'data-uci': move.uci
+          }, [
+            m('td', move.san),
+            m('td', move.total),
+            m('td', resultBar(move))
+          ]);
+        }))
+      ])
+    );
+  }
+  return lastShow;
 }
+
+var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
-    var data = ctrl.explorer.get(ctrl.vm.step.fen);
-    return m('div.explorer_box', data ? show(data, ctrl) : empty());
+    return m('div', {
+      class: 'explorer_box' + (ctrl.explorer.loading() ? ' loading' : ''),
+      onclick: function(e) {
+        var $tr = $(e.target).parents('tr');
+        if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
+      }
+    }, [
+      overlay,
+      show(ctrl)
+    ]);
   }
 };
