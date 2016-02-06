@@ -32,24 +32,30 @@ object Account extends LilaController {
       }
   }
 
-  def info = Auth { implicit ctx =>
-    me =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          Env.pref.api getPref me flatMap { prefs =>
-            lila.game.GameRepo urgentGames me map { povs =>
-              Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
-              Ok {
-                import play.api.libs.json._
-                import lila.pref.JsonView._
-                Env.user.jsonView(me, extended = true) ++ Json.obj(
-                  "prefs" -> prefs,
-                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
-              }
+  def info = Open { implicit ctx =>
+    negotiate(
+      html = notFound,
+      api = _ => ctx.me match {
+        case None => fuccess {
+          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+            unauthorizedApiResult,
+            unauthorizedApiResult withCookies LilaCookie.makeSessionId(ctx.req)
+          )
+        }
+        case Some(me) => Env.pref.api getPref me flatMap { prefs =>
+          lila.game.GameRepo urgentGames me map { povs =>
+            Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+            Ok {
+              import play.api.libs.json._
+              import lila.pref.JsonView._
+              Env.user.jsonView(me, extended = true) ++ Json.obj(
+                "prefs" -> prefs,
+                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
             }
           }
-      )
+        }
+      }
+    )
   }
 
   def passwd = Auth { implicit ctx =>
