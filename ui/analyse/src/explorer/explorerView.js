@@ -26,7 +26,7 @@ function show(ctrl) {
     }).sort(function(a, b) {
       return b.total - a.total;
     });
-    lastShow = m('div.data',
+    lastShow = moves.length ? m('div.data',
       m('table', [
         // m('thead', [
         //   m('tr', [
@@ -45,7 +45,7 @@ function show(ctrl) {
           ]);
         }))
       ])
-    );
+    ) : m('div.data.empty', 'No game found');
   }
   return lastShow;
 }
