@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Vorauszug aktiviert - Zum Abbrechen irgendwo
 thisPlayerUsesChessComputerAssistance=Dieser Spieler verwendet einen Schachcomputer als Hilfe
 thisPlayerArtificiallyIncreasesTheirRating=Dieser Spieler benutzt Hilfsmittel, um seine Wertung zu erhöhen
 opening=Eröffnung
+openingExplorer=Eröffnungsdatenbank
 takeback=Zugrücknahme
 proposeATakeback=Zugrücknahme vorschlagen
 takebackPropositionSent=Zugrücknahme angefordert

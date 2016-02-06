@@ -181,6 +181,7 @@ final class I18nKeys(translator: Translator) {
   val `thisPlayerUsesChessComputerAssistance` = new Key("thisPlayerUsesChessComputerAssistance")
   val `thisPlayerArtificiallyIncreasesTheirRating` = new Key("thisPlayerArtificiallyIncreasesTheirRating")
   val `opening` = new Key("opening")
+  val `openingExplorer` = new Key("openingExplorer")
   val `takeback` = new Key("takeback")
   val `proposeATakeback` = new Key("proposeATakeback")
   val `takebackPropositionSent` = new Key("takebackPropositionSent")
