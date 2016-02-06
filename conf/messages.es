@@ -21,6 +21,7 @@ whiteIsVictorious=Las blancas ganan
 blackIsVictorious=Las negras ganan
 kingInTheCenter=Rey en el centro
 threeChecks=Triple jaque
+raceFinished=finalizo race
 variantEnding=Final alternativo
 playWithTheSameOpponentAgain=Jugar contra el mismo rival
 newOpponent=Nuevo oponente
