@@ -17,7 +17,7 @@ zen = true) {
     <h1 class="lichess_title">@trans.signUp()</h1>
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
-        @auth.formFields(form("username"), form("password"), form("email").some)
+        @auth.formFields(form("username"), form("password"), form("email").some, register = true)
         <li>
           @base.captcha(form("move"), form("gameId"), captcha)
         </li>
