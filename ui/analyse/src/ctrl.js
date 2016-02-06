@@ -14,6 +14,7 @@ var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('./ceval/cevalCtrl');
+var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
@@ -145,6 +146,7 @@ module.exports = function(opts) {
     if (/\+|\#/.test(this.vm.step.san)) sound.check();
     this.ceval.stop();
     startCeval();
+    this.explorer.setFen(this.vm.step.fen);
     updateHref();
     this.vm.autoScroll && this.vm.autoScroll();
     promotion.cancel(this);
@@ -354,6 +356,14 @@ module.exports = function(opts) {
       brush: brush
     };
   };
+
+  var allowExplorer = util.synthetic(this.data) || !game.playable(this.data);
+
+  this.explorer = explorerCtrl(allowExplorer);
+
+  this.toggleExplorer = function() {
+    this.explorer.toggle();
+  }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
 

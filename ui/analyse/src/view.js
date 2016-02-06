@@ -17,6 +17,7 @@ var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
+var explorerView = require('./explorer/explorerView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -390,6 +391,7 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed(),
+        explorer_displayed: ctrl.explorer.allowed(),
         gauge_displayed: ctrl.showEvalGauge(),
         crazy: ctrl.data.game.variant.key === 'crazyhouse'
       })
@@ -410,7 +412,8 @@ module.exports = function(ctrl) {
                   if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
                 }
               },
-              renderAnalyse(ctrl))
+              renderAnalyse(ctrl)),
+            explorerView.renderExplorer(ctrl)
           ],
           buttons(ctrl),
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
