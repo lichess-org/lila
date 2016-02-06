@@ -92,6 +92,7 @@ nbHours=%s hours
 time=Time
 rating=Rating
 ratingStats=Rating stats
+username=User name
 usernameOrEmail=User name or email
 password=Password
 haveAnAccount=Have an account?
