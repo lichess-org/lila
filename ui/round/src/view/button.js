@@ -118,7 +118,7 @@ module.exports = {
   feedback: function(ctrl) {
     if (ctrl.vm.buttonFeedback) return m('div.button-feedback.loader.fast');
   },
-  challengeRematched(ctrl) {
+  challengeRematched: function(ctrl) {
     if (ctrl.vm.challengeRematched) return [
       m('br'),
       ctrl.trans('rematchOfferSent')
