@@ -369,6 +369,34 @@ div.content_box .loader:after {
   75% { transform: perspective(100px) rotateX(0) rotateY(180deg); }
   100% { transform: perspective(100px) rotateX(0) rotateY(0); }
 }
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+}
+.spinner svg {
+  animation: spinnerRotate 1.5s linear infinite;
+}
+.spinner circle {
+  fill: transparent;
+  stroke: #42a5f5;
+  stroke-width: 4;
+  animation: spinnerDash 1.275s ease-in-out infinite, spinnerColor 5.1s linear infinite;
+}
+@keyframes spinnerRotate {
+  100% { transform: rotate(360deg); }
+}
+@keyframes spinnerDash {
+  0%,10% { stroke-dasharray: 1,270; stroke-dashoffset: 0 }
+  40% { stroke-dasharray: 89,240; stroke-dashoffset: 0 }
+  100% { stroke-dasharray: 1,240; stroke-dashoffset: -110 }
+}
+@keyframes spinnerColor {
+  0%,20%,100% { stroke: #42a5f5 }
+  30%,45% { stroke: #f44336 }
+  50%,70% { stroke: #fdd835 }
+  75%,95% { stroke: #4caf50 }
+}
 #powerTip,
 #hook,
 #miniGame {
