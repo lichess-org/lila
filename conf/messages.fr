@@ -21,6 +21,7 @@ whiteIsVictorious=Les blancs gagnent
 blackIsVictorious=Les noirs gagnent
 kingInTheCenter=Roi au centre
 threeChecks=Trois échecs
+raceFinished=Course terminée
 variantEnding=Fin par variante
 playWithTheSameOpponentAgain=Rejouer avec le même adversaire
 newOpponent=Nouvel adversaire
