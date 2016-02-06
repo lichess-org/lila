@@ -11,7 +11,6 @@ var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
 var renderUser = require('./user');
 var button = require('./button');
-var m = require('mithril');
 
 function compact(x) {
   if (Object.prototype.toString.call(x) === '[object Array]') {
