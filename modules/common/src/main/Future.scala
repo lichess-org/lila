@@ -11,9 +11,15 @@ object Future {
 
   def traverseSequentially[A, B](list: List[A])(f: A => Fu[B]): Fu[List[B]] =
     list match {
-      case h +: t => f(h).flatMap { r =>
+      case h :: t => f(h).flatMap { r =>
         traverseSequentially(t)(f) map (r +: _)
       }
-      case _ => fuccess(Nil)
+      case Nil => fuccess(Nil)
+    }
+
+  def applySequentially[A](list: List[A])(f: A => Funit): Funit =
+    list match {
+      case h :: t => f(h) >> applySequentially(t)(f)
+      case Nil    => funit
     }
 }

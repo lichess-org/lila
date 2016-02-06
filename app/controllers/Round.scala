@@ -70,7 +70,7 @@ object Round extends LilaController with TheftPrevention {
                 }
             }
         },
-        Redirect(routes.Setup.await(pov.fullId)).fuccess
+        notFound
       )
     },
     api = apiVersion => {
@@ -137,9 +137,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      env.checkOutoftime(pov.game)
-      watch(pov)
+    GameRepo.pov(gameId, color) flatMap {
+      case Some(pov) =>
+        env.checkOutoftime(pov.game)
+        watch(pov)
+      case None => Challenge showId gameId
     }
   }
 
@@ -148,8 +150,7 @@ object Round extends LilaController with TheftPrevention {
       html =
         if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
         else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
-        else if (pov.game.joinable) join(pov)
-        else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
+        else playablePovForReq(pov.game) match {
           case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
           case _ if HTTPRequest.isHuman(ctx.req) =>
             myTour(pov.game.tournamentId, false) zip
@@ -175,13 +176,14 @@ object Round extends LilaController with TheftPrevention {
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
-  private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    GameRepo initialFen pov.game zip
-      Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
-      ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
-        case ((fen, data), opponent) => Ok(html.setup.join(
-          pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))
-      }
+  // remove me
+  // private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  //   GameRepo initialFen pov.game zip
+  //     Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
+  //     ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
+  //       case ((fen, data), opponent) => Ok(html.setup.join(
+  //         pov, data, opponent, none, fen))
+  //     }
 
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>

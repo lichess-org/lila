@@ -142,6 +142,8 @@ object BSON {
 
     def toList = doc.elements.toList
 
+    def contains = map contains _
+
     def debug = BSON debug doc
   }
 

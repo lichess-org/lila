@@ -118,16 +118,22 @@ module.exports = {
   feedback: function(ctrl) {
     if (ctrl.vm.buttonFeedback) return m('div.button-feedback.loader.fast');
   },
+  challengeRematched(ctrl) {
+    if (ctrl.vm.challengeRematched) return [
+      m('br'),
+      ctrl.trans('rematchOfferSent')
+    ];
+  },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted) {
-      if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {
+      if (ctrl.data.opponent.onGame || (ctrl.data.player.user && ctrl.data.opponent.user))
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
-          onclick: partial(ctrl.socket.send, 'rematch-yes', null)
+          onclick: function() {
+            if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
+            else ctrl.challengeRematch();
+          }
         }, ctrl.trans('rematch'));
-      } else {
-        return m('a.button.disabled', ctrl.trans('rematch'));
-      }
     }
   },
   answerOpponentRematch: function(ctrl) {

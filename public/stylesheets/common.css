@@ -993,6 +993,9 @@ body.offline #reconnecting,
 #top .shown a.toggle {
   background: #fff;
 }
+#top .shown #challenge_notifications_tag.toggle {
+  height: 29px;
+}
 #ham-plate {
   cursor: pointer;
 }
@@ -1336,20 +1339,17 @@ body.fpmenu #fpmenu {
   padding: 5px 0;
   text-align: center;
 }
-#message_notifications,
-#challenge_notifications {
+#message_notifications {
   width: 250px;
   z-index: 2;
   left: -95px;
 }
-#message_notifications div.notification,
-#challenge_notifications div.notification {
+#message_notifications div.notification {
   border-bottom: 1px solid #c0c0c0;
   transition: background-color 0.13s;
   position: relative;
 }
-#message_notifications div.notification:hover,
-#challenge_notifications div.notification:hover {
+#message_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
 #notifications {
@@ -1371,17 +1371,12 @@ body.fpmenu #fpmenu {
   transition: box-shadow 1.5s;
 }
 #message_notifications .user_link,
-#challenge_notifications .user_link,
 #message_notifications .block .title {
   font-weight: bold;
 }
-#message_notifications_display .content,
-#challenge_notifications .setup {
+#message_notifications_display .content {
   display: block;
   overflow: hidden;
-}
-#challenge_notifications .setup {
-  text-transform: uppercase;
 }
 #message_notifications .actions {
   position: absolute;
@@ -1393,8 +1388,7 @@ body.fpmenu #fpmenu {
   margin-top: 5px;
   text-align: right;
 }
-#message_notifications a.block,
-#challenge_notifications div.notification {
+#message_notifications a.block {
   display: block;
   padding: 6px 8px 7px 8px;
 }
@@ -1408,27 +1402,6 @@ body.fpmenu #fpmenu {
 }
 #message_notifications .actions a:hover {
   color: #d85000;
-}
-#challenge_notifications .buttons {
-  margin: 1em 0;
-  text-align: center;
-  opacity: 0.7;
-  transition: opacity 0.13s;
-}
-#challenge_notifications .notification:hover .buttons {
-  opacity: 1;
-}
-#challenge_notifications .buttons form {
-  display: inline;
-}
-#challenge_notifications .buttons .button {
-  color: #759900;
-  font-size: 1.6em;
-  padding: 6px 30px;
-}
-#challenge_notifications .buttons .decline {
-  color: #dc322f;
-  margin-left: 1em;
 }
 form.wide input[type="text"],
 form.wide textarea {
@@ -2624,7 +2597,7 @@ input.cmn-toggle-round:checked + label:after {
   border-left: 1.5px solid #aaa;
   border-bottom: 1px solid #aaa;
   -webkit-transform: skew(45deg) rotate(-45deg);
-          transform: skew(45deg) rotate(-45deg);
+  transform: skew(45deg) rotate(-45deg);
 }
 .content_box .pull-quote p:after,
 .lichess_overboard .pull-quote p:after {

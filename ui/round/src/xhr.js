@@ -30,7 +30,16 @@ function whatsNext(ctrl) {
   });
 }
 
+function challengeRematch(gameId) {
+  return m.request({
+    method: 'POST',
+    url: '/challenge/rematch-of/' + gameId,
+    config: xhrConfig
+  });
+}
+
 module.exports = {
   reload: reload,
-  whatsNext: whatsNext
+  whatsNext: whatsNext,
+  challengeRematch: challengeRematch
 };

@@ -80,9 +80,6 @@ private[round] final class SocketHandler(
         case ("moretime", _)  => round(Moretime(playerId))
         case ("outoftime", _) => round(Outoftime)
         case ("bye", _)       => socket ! Bye(ref.color)
-        case ("challenge", o) => ((o str "d") |@| member.userId) apply {
-          case (to, from) => hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
-        }
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)
         }

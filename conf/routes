@@ -220,16 +220,21 @@ GET   /setup/ai                        controllers.Setup.aiForm
 POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
-POST  /setup/decline                   controllers.Setup.decline(gameId: String)
-GET   /$fullId<\w{12}>/await           controllers.Setup.await(fullId: String, user: Option[String] ?= None)
-GET   /$fullId<\w{12}>/cancel          controllers.Setup.cancel(fullId: String)
-POST  /$id<\w{8}>/join                 controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:uid/like/:gameId    controllers.Setup.like(uid: String, gameId: String)
 POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
+
+# Challenge
+GET   /challenge                       controllers.Challenge.all
+GET   /challenge/$id<\w{8}>            controllers.Challenge.show(id: String)
+POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String)
+POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
+POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
+GET   /challenge/$id<\w{8}>/socket/v:apiVersion controllers.Challenge.websocket(id: String, apiVersion: Int)
+POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
 
 # Video
 GET   /video                           controllers.Video.index

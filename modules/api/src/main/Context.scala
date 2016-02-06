@@ -10,13 +10,14 @@ case class PageData(
   friends: List[lila.common.LightUser],
   teamNbRequests: Int,
   nbMessages: Int,
+  nbChallenges: Int,
   pref: Pref,
   blindMode: Boolean,
   hasFingerprint: Boolean)
 
 object PageData {
 
-  val default = PageData(Nil, 0, 0, Pref.default, false, false)
+  val default = PageData(Nil, 0, 0, 0, Pref.default, false, false)
 
   def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }
@@ -29,6 +30,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def friends = pageData.friends
   def teamNbRequests = pageData.teamNbRequests
   def nbMessages = pageData.nbMessages
+  def nbChallenges = pageData.nbChallenges
   def pref = pageData.pref
   def blindMode = pageData.blindMode
 

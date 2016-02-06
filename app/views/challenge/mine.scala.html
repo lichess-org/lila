@@ -1,0 +1,72 @@
+@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject)(implicit ctx: Context)
+
+@import lila.challenge.Challenge.Status
+
+@cancelForm = {
+<form method="post" action="@routes.Challenge.cancel(c.id)" class="xhr">
+  <button type="submit" class="button text" data-icon="L">@trans.cancel()</button>
+</form>
+}
+
+@round.layout(
+title = c.destUserId.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).str(),
+side = Html(""),
+moreJs = js(c, json, true)) {
+<div class="lichess_game" id="challenge">
+  <div class="lichess_board_wrap cg-512">
+    <div class="lichess_board"></div>
+  </div>
+  <div class="lichess_ground">
+    @base.quote(lila.quote.Quote.one(c.id))
+  </div>
+  <div class="lichess_overboard">
+    @c.status match {
+    case Status.Created | Status.Offline => {
+    <div id="ping_challenge">
+      @c.destUserId.map { destId =>
+      <h2>@trans.challengeToPlay()</h2>
+      @userIdLink(destId.some, cssClass="target".some)
+      <span class="loader" id="ping_challenge"><span data-icon="U"></span></span>
+      <div class="explanations">
+        @trans.waitingForOpponent()<br />
+        @cancelForm
+      </div>
+      }.getOrElse {
+      @trans.toInviteSomeoneToPlayGiveThisUrl():
+      <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(c.id, "white")" />
+      <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
+      <div class="explanations">
+        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
+        <br /><br />
+        @cancelForm
+      </div>
+      }
+      @c.initialFen.map { fen =>
+      <br />
+      @views.html.game.miniBoard(fen, color = c.finalColor.name)
+      }
+    </div>
+    }
+    case Status.Declined => {
+    <div class="declined">
+      <h2>Challenge declined</h2>
+      <a class="button" href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+    </div>
+    }
+    case Status.Accepted => {
+    <div class="accepted">
+      <h2>Challenge accepted!</h2>
+      <a id="challenge_redirect" href="@routes.Round.watcher(c.id, "white")" class="button">@trans.joinTheGame()</a>
+    </div>
+    }
+    case Status.Canceled => {
+    <div class="canceled">
+      <h2>Challenge canceled.</h2>
+      <a class="button" href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+    </div>
+    }
+    }
+    @explanation(c)
+  </div>
+</div>
+}

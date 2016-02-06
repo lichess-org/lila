@@ -34,7 +34,10 @@ private[controllers] trait LilaController
 
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
-  protected implicit def LilaFunitToResult(funit: Funit): Fu[Result] = funit inject Ok("ok")
+  protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
+    negotiate(
+      html = fuccess(Ok("ok")),
+      api = _ => fuccess(Ok(Json.obj("ok" -> true)) as JSON))
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
@@ -279,11 +282,12 @@ private[controllers] trait LilaController
             case OnlineFriends(users) => users
           } recover { case _ => Nil }) zip
             Env.team.api.nbRequests(me.id) zip
-            Env.message.api.unreadIds(me.id)
+            Env.message.api.unreadIds(me.id) zip
+            Env.challenge.api.countInFor(me.id)
         }
       } map {
-        case (pref, ((friends, teamNbRequests), messageIds)) =>
-          PageData(friends, teamNbRequests, messageIds.size, pref,
+        case (pref, (((friends, teamNbRequests), messageIds), nbChallenges)) =>
+          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }

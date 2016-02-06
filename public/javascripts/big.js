@@ -44,6 +44,9 @@ lichess.StrongSocket.defaults = {
       $('.live_' + e.id).each(function() {
         lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
+    },
+    challenges: function(d) {
+      lichess.challengeApp.update(d);
     }
   },
   params: {
@@ -350,6 +353,38 @@ lichess.hopscotch = function(f) {
   lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
+lichess.challengeApp = (function() {
+  var instance;
+  var $toggle = $('#challenge_notifications_tag');
+  var load = function(data) {
+    var isDev = $('body').data('dev');
+    lichess.loadCss('/assets/stylesheets/challengeApp.css');
+    lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
+      var element = document.getElementById('challenge_app');
+      instance = LichessChallenge(element, {
+        data: data,
+        show: function() {
+          if (!$(element).is(':visible')) $toggle.click();
+        },
+        setCount: function(nb) {
+          $toggle.attr('data-count', nb);
+        }
+      });
+    });
+  };
+  return {
+    preload: function() {
+      if (!instance) load();
+    },
+    update: function(data) {
+      if (!instance) load(data);
+      else instance.update(data);
+    },
+    open: function() {
+      $toggle.click();
+    }
+  };
+})();
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];
@@ -537,47 +572,6 @@ lichess.unique = function(xs) {
           $('body').trigger('lichess.content_loaded');
         }
       },
-      challengeReminder: function(data) {
-        var $toggle = $('#challenge_notifications_tag');
-        var $notifs = $('#challenge_notifications');
-        if (!lichess.storage.get('challenge-refused-' + data.id)) {
-          var refreshButton = function() {
-            var nb = $notifs.find('> div').length;
-            $toggle.attr('data-count', nb).toggleClass('none', !nb);
-          };
-          var htmlId = 'challenge_reminder_' + data.id;
-          var $notif = $('#' + htmlId);
-          if ($notif.length) clearTimeout($notif.data('timeout'));
-          else {
-            $notifs.append(data.html);
-            $notif = $('#' + htmlId);
-            $notif.find('> a').click(function() {
-              lichess.hasToReload = true; // allow quit by accept challenge (simul)
-            });
-            $notif.find('a.decline').click(function() {
-              $.post($(this).attr("href"));
-              lichess.storage.set('challenge-refused-' + data.id, 1);
-              $('#' + htmlId).remove();
-              refreshButton();
-              return false;
-            });
-            $('body').trigger('lichess.content_loaded');
-            if (lichess.once('challenge-' + data.id)) {
-              if (!lichess.quietMode) {
-                if (!$notifs.is(':visible')) $toggle.click();
-                $.sound.newChallenge();
-              }
-              var op = $notif.find('.user_link').text();
-              lichess.desktopNotification(op + ' challenges you!');
-            }
-            refreshButton();
-          }
-          $notif.data('timeout', setTimeout(function() {
-            $notif.remove();
-            refreshButton();
-          }, 3000));
-        }
-      },
       deployPre: function(html) {
         $('#notifications').append(html);
         setTimeout(function() {
@@ -678,8 +672,7 @@ lichess.unique = function(xs) {
       });
     }
 
-    if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
-    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
@@ -1105,6 +1098,8 @@ lichess.unique = function(xs) {
           }
         });
       });
+      $('#challenge_notifications_tag').one('mouseover click', lichess.challengeApp.preload);
+      // $('#challenge_notifications_tag').trigger('click');
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));
@@ -1278,10 +1273,6 @@ lichess.unique = function(xs) {
     return play;
   })();
 
-  $.fn.orNot = function() {
-    return this.length === 0 ? false : this;
-  };
-
   $.trans = function() {
     var str = lichess_translations[arguments[0]];
     if (!str) return arguments[0];
@@ -1406,49 +1397,6 @@ lichess.unique = function(xs) {
         $(this).toggleClass('hover');
       });
     }
-  }
-
-  function startPrelude(element, cfg) {
-    var data = cfg.data;
-    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
-    lichess.socket = new lichess.StrongSocket(
-      data.url.socket,
-      data.player.version, {
-        options: {
-          name: "prelude"
-        },
-        params: {
-          ran: "--ranph--"
-        },
-        events: {
-          declined: function() {
-            $('#challenge_await').remove();
-            $('#challenge_declined').show();
-          }
-        }
-      });
-
-    Chessground(element.querySelector('.lichess_board'), {
-      viewOnly: true,
-      fen: data.game.fen,
-      orientation: data.player.color,
-      check: data.game.check,
-      coordinates: data.pref.coords !== 0,
-      highlight: {
-        check: data.pref.highlight
-      },
-      disableContextMenu: true
-    });
-    setTimeout(function() {
-      $('.lichess_overboard_wrap', element).addClass('visible');
-    }, 100);
-    $('#challenge_await').each(function() {
-      setInterval(function() {
-        $('#challenge_await').each(function() {
-          lichess.socket.send('challenge', $(this).data('user'));
-        });
-      }, 1500);
-    });
   }
 
   $.widget("lichess.watchers", {

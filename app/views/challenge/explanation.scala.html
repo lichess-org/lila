@@ -1,0 +1,10 @@
+@(c: lila.challenge.Challenge)(implicit ctx: Context)
+
+<p class="explanations">
+  @views.html.game.variantLink(c.variant, variantName(c.variant)) • @modeName(c.mode)<br />
+  @c.daysPerTurn.map { days =>
+  <span class="text" data-icon=";">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
+  }.getOrElse {
+  <span class="text" data-icon="p">@shortClockName(c.clock.map(_.chessClock))</span>
+  }
+</p>

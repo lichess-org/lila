@@ -20,7 +20,6 @@ final class Env(
   private val FriendMemoTtl = config duration "friend.memo.ttl"
   private val CollectionUserConfig = config getString "collection.user_config"
   private val CollectionAnonConfig = config getString "collection.anon_config"
-  private val ChallengerName = config getString "challenger.name"
 
   val CasualOnly = config getBoolean "casual_only"
 
@@ -31,23 +30,9 @@ final class Env(
 
   lazy val processor = new Processor(
     lobby = hub.actor.lobby,
-    friendConfigMemo = friendConfigMemo,
     router = hub.actor.router,
     onStart = onStart,
     aiPlay = aiPlay)
-
-  lazy val friendJoiner = new FriendJoiner(
-    friendConfigMemo = friendConfigMemo,
-    onStart = onStart)
-
-  lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
-
-  system.actorOf(Props(new Challenger(
-    roundHub = hub.socket.round,
-    renderer = hub.actor.renderer,
-    prefApi = prefApi,
-    relationApi = relationApi
-  )), name = ChallengerName)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)

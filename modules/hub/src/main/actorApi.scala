@@ -63,11 +63,6 @@ case class MarkCheater(userId: String)
 case class MarkBooster(userId: String)
 }
 
-package setup {
-case class RemindChallenge(gameId: String, from: String, to: String)
-case class DeclineChallenge(gameId: String)
-}
-
 package captcha {
 case object AnyCaptcha
 case class GetCaptcha(id: String)

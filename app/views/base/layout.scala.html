@@ -57,6 +57,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     "coords_" + ctx.pref.coords).mkString(" ")"
+    @if(!isProd){data-dev="true"}
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-set="@ctx.currentSoundSet"
@@ -101,12 +102,14 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       }
       <div class="challenge_notifications fright">
-        <a id="challenge_notifications_tag" class="toggle link none data-count" data-count="0">
+        <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">
           <span class="hint--bottom-left" data-hint="Challenges">
             <span data-icon="U"></span>
           </span>
         </a>
-        <div id="challenge_notifications" class="links dropdown"></div>
+        <div id="challenge_app" class="links dropdown">
+          <div class="initiating">@base.spinner()</div>
+        </div>
       </div>
       }.getOrElse {
       <a href="@routes.Auth.login" class="signin button fright text">@trans.signIn()</a>

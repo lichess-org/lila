@@ -1,0 +1,129 @@
+#challenge_app {
+  width: 250px;
+  z-index: 2;
+  left: -104px;
+  background: transparent!important;
+  box-shadow: none!important;
+  border: 0!important;
+}
+#challenge_app .challenge {
+  padding: 10px 10px;
+  margin-top: 5px;
+  position: relative;
+  height: 76px;
+  transition: 0.13s;
+  background: #fff;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+}
+#challenge_app .challenge:hover {
+  box-shadow: 0 1px 13px rgba(0, 0, 0, 0.7);
+}
+#challenge_app .challenge.declined {
+  height: 0;
+  padding: 0;
+  opacity: 0;
+}
+#challenge_app .challenge .buttons {
+  position: absolute;
+  top: 54px;
+  left: 0px;
+  width: 100%;
+  transition: 0.13s;
+}
+#challenge_app .challenge .buttons > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  text-align: center;
+}
+#challenge_app .challenge .buttons > *:last-child {
+  left: 50%;
+}
+#challenge_app .challenge button {
+  cursor: pointer;
+  color: #759900;
+  width: 100%;
+  display: block;
+  padding: 0;
+  background: transparent;
+  font-size: 18px;
+  border-radius: 0;
+  transition: 0.13s;
+  border-width: 1px 1px 0 0;
+}
+#challenge_app .challenge button,
+#challenge_app .challenge .owner {
+  height: 42px;
+  box-sizing: border-box;
+}
+#challenge_app .challenge .owner {
+  border: 1px solid #e2e2e2;
+  border-width: 1px 1px 0 0;
+  vertical-align: center;
+  line-height: 42px;
+}
+#challenge_app .challenge .owner .view,
+#challenge_app .challenge .owner:hover .waiting {
+  display: none;
+}
+#challenge_app .challenge .owner:hover .view {
+  display: block;
+}
+#challenge_app .challenge button::before {
+  line-height: 42px;
+}
+#challenge_app .challenge button.decline {
+  color: #dc322f;
+  border-right: none;
+}
+#challenge_app .challenge button:hover {
+  background: #759900;
+  color: #fff;
+}
+#challenge_app .challenge button.decline:hover {
+  background: #dc322f;
+}
+#challenge_app .challenge:last-child {
+  border-bottom: none;
+}
+#challenge_app .challenge i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: block;
+  font-size: 24px;
+}
+#challenge_app .challenge .content {
+  position: absolute;
+  top: 10px;
+  left: 52px;
+  display: block;
+  width: 200px;
+}
+#challenge_app .challenge .title {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+#challenge_app .many .challenge {
+  height: 36px;
+}
+#challenge_app .many .challenge:hover {
+  height: 76px;
+}
+#challenge_app .many .challenge .buttons {
+  opacity: 0;
+}
+#challenge_app .many .challenge:hover .buttons {
+  opacity: 1;
+}
+
+#challenge_app .empty,
+#challenge_app .initiating {
+  text-align: center;
+  padding: 20px 0;
+  background: #fff;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+}

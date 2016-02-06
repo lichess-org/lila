@@ -16,7 +16,6 @@ import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
     lobby: ActorSelection,
-    friendConfigMemo: FriendConfigMemo,
     router: ActorSelection,
     onStart: String => Unit,
     aiPlay: Game => Fu[Progress]) {
@@ -33,13 +32,6 @@ private[setup] final class Processor(
         fuccess(pov),
         aiPlay(pov.game) map { progress => pov withGame progress.game }
       )
-  }
-
-  def friend(config: FriendConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = blamePov(config.pov, ctx.me)
-    saveConfig(_ withFriend config) >>
-      (GameRepo.insertDenormalized(pov.game, ratedCheck = false)) >>-
-      friendConfigMemo.set(pov.game.id, config) inject pov
   }
 
   private def blamePov(pov: Pov, user: Option[User]): Pov = pov withGame {
@@ -69,6 +61,9 @@ private[setup] final class Processor(
       }
     }
   }
+
+  def saveFriendConfig(config: FriendConfig)(implicit ctx: UserContext) =
+    saveConfig(_ withFriend config)
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
     ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)

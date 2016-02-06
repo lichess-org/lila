@@ -27,10 +27,10 @@ object HTTPRequest {
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
-  def lastRemoteAddress(req: RequestHeader): String = 
+  def lastRemoteAddress(req: RequestHeader): String =
     req.remoteAddress.split(", ").lastOption | req.remoteAddress
 
-  def sid(req: RequestHeader): Option[String] = req.session get "sid"
+  def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 
   val isBot = UaMatcher {
     ("""(?i).*(googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +

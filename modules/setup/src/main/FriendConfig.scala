@@ -33,6 +33,8 @@ case class FriendConfig(
   }
 
   def pov = Pov(game, creatorColor)
+
+  def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 }
 
 object FriendConfig extends BaseHumanConfig {

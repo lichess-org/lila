@@ -48,6 +48,7 @@ function renderTableEnd(ctrl) {
     button.backToTournament(ctrl) || [
       button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
+      button.challengeRematched(ctrl) ||
       button.cancelRematch(ctrl) ||
       button.rematch(ctrl)
     ],

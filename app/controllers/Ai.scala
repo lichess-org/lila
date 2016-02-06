@@ -42,6 +42,6 @@ object Ai extends LilaController {
           infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)
         )
     }
-    funit
+    fuccess(Ok)
   }
 }

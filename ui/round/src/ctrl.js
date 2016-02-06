@@ -18,6 +18,7 @@ var moveOn = require('./moveOn');
 var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
+var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
 
 module.exports = function(opts) {
@@ -39,7 +40,8 @@ module.exports = function(opts) {
     goneBerserk: {},
     resignConfirm: false,
     autoScroll: null,
-    element: opts.element
+    element: opts.element,
+    challengeRematched: false
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -296,6 +298,31 @@ module.exports = function(opts) {
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
   }.bind(this);
+
+  this.challengeRematch = function() {
+    this.vm.challengeRematched = true;
+    xhr.challengeRematch(this.data.game.id).then(function() {
+      lichess.challengeApp.open();
+      if (lichess.once('rematch-challenge')) setTimeout(function() {
+        lichess.hopscotch(function() {
+          hopscotch.configure({
+            i18n: {
+              doneBtn: 'OK, got it'
+            }
+          }).startTour({
+            id: "rematch-challenge",
+            showPrevButton: true,
+            steps: [{
+              title: "Challenged to a rematch",
+              content: 'Your opponent is offline, but they can accept this challenge later!',
+              target: "#challenge_app",
+              placement: "bottom"
+            }]
+          });
+        });
+      }, 1000);
+    });
+  };
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,

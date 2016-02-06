@@ -110,6 +110,9 @@ private[gameSearch] case class SearchData(
     case DateDelta(n, "y") => parseIntOption(n) map DateTime.now.minusYears
     case _                 => None
   }
+  private val dateConstraint = Constraints.pattern(
+    regex = DateDelta,
+    error = "Invalid date.")
 }
 
 private[gameSearch] case class SearchPlayer(

@@ -24,7 +24,6 @@ final class Env(config: Config, system: ActorSystem) {
     val roundMap = select("actor.round.map")
     val lobby = select("actor.lobby")
     val relation = select("actor.relation")
-    val challenger = select("actor.challenger")
     val report = select("actor.report")
     val shutup = select("actor.shutup")
     val mod = select("actor.mod")
