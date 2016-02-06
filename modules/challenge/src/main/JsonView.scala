@@ -18,6 +18,7 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
 
   private def apply(c: Challenge): JsObject = Json.obj(
     "id" -> c.id,
+    "status" -> c.status.name,
     "challenger" -> c.challengerUser,
     "destUser" -> c.destUser,
     "variant" -> Json.obj(

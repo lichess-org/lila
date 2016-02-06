@@ -56,7 +56,9 @@ object Challenge {
 
   type ID = String
 
-  sealed abstract class Status(val id: Int)
+  sealed abstract class Status(val id: Int) {
+    val name = toString.toLowerCase
+  }
   object Status {
     case object Created extends Status(10)
     case object Offline extends Status(15)
