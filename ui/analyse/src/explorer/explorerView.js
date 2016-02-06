@@ -1,12 +1,49 @@
 var m = require('mithril');
 
 function empty() {
-  return m('div.empty', lichess.spinnerHtml);
+  return m('div.empty', m.trust(lichess.spinnerHtml));
+}
+
+function resultBar(move) {
+  var sum = move.white + move.draws + move.black;
+  var section = function(key) {
+    var percent = Math.round(move[key] * 100 / sum) + '%';
+    return percent === '0%' ? null : m('span', {
+      class: key,
+      style: {
+        width: percent
+      },
+    }, percent);
+  }
+  return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
 function show(data) {
+  var moves = Object.keys(data.moves).map(function(move) {
+    return data.moves[move];
+  }).filter(function(x) {
+    return x.total > 0;
+  }).sort(function(a, b) {
+    return b.total - a.total;
+  });
   return m('div.data',
-    JSON.stringify(data));
+    m('table', [
+      // m('thead', [
+      //   m('tr', [
+      //     m('th', 'Move'),
+      //     m('th', 'Games'),
+      //     m('th', 'Result')
+      //   ])
+      // ]),
+      m('tbody', moves.map(function(move) {
+        return m('tr', [
+          m('td', move.san),
+          m('td', move.total),
+          m('td', resultBar(move))
+        ]);
+      }))
+    ])
+  );
 }
 
 module.exports = {

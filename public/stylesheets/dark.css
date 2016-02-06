@@ -136,6 +136,7 @@ body.dark div.user_show .note_zone div,
 body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .lichess_ground .replay,
+body.dark .lichess_ground .explorer_box,
 body.dark .lichess_ground .analyse .meta,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
@@ -174,6 +175,7 @@ body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
 
+body.dark .lichess_ground .explorer_box .bar span,
 body.dark .pull-quote p,
 body.dark .pull-quote p:after,
 body.dark #powerTip > .info .title,
@@ -239,6 +241,7 @@ body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
 body.dark .lichess_ground .replay move.current,
+body.dark .lichess_ground .explorer_box tr:hover,
 body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }

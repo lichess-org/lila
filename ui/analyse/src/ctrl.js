@@ -370,4 +370,5 @@ module.exports = function(opts) {
   showGround();
   keyboard(this);
   startCeval();
+  this.explorer.setFen(this.vm.step.fen);
 };
