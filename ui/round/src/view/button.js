@@ -126,7 +126,7 @@ module.exports = {
   },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted) {
-      if (ctrl.data.opponent.onGame || (ctrl.data.player.user && ctrl.data.opponent.user))
+      if (ctrl.data.opponent.onGame || (!ctrl.data.game.clock && ctrl.data.player.user && ctrl.data.opponent.user))
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
           onclick: function() {
