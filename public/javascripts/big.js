@@ -333,11 +333,22 @@ lichess.trans = function(i18n) {
   };
 };
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
+lichess.assetUrl = function(url) {
+  return $('body').data('asset-url') + url + '?v=' + $('body').data('asset-version');
+};
+lichess.loadCss = function(url) {
+  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
+}
+lichess.loadScript = function(url, f) {
+  return $.ajax({
+    dataType: "script",
+    cache: true,
+    url: lichess.assetUrl(url)
+  });
+};
 lichess.hopscotch = function(f) {
-  var baseUrl = $('body').data('asset-url');
-  $('head').append($('<link rel="stylesheet" type="text/css" />')
-    .attr('href', baseUrl + '/assets/vendor/hopscotch/dist/css/hopscotch.min.css'));
-  $.getScript(baseUrl + "/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
+  lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
+  lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';

@@ -62,6 +62,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     data-sound-set="@ctx.currentSoundSet"
     data-bg="@ctx.currentBg"
     data-asset-url="@assetBaseUrl"
+    data-asset-version="@assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
