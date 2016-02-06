@@ -17,8 +17,8 @@ function resultBar(move) {
 var lastShow = null;
 
 function show(ctrl) {
-  if (!ctrl.explorer.loading()) {
-    var data = ctrl.explorer.get(ctrl.vm.step.fen);
+  var data = ctrl.explorer.current(ctrl);
+  if (data) {
     var moves = Object.keys(data.moves).map(function(move) {
       return data.moves[move];
     }).filter(function(x) {
@@ -56,7 +56,7 @@ module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
     return m('div', {
-      class: 'explorer_box' + (ctrl.explorer.loading() ? ' loading' : ''),
+      class: 'explorer_box' + (ctrl.explorer.current(ctrl) ? '' : ' loading'),
       onclick: function(e) {
         var $tr = $(e.target).parents('tr');
         if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));

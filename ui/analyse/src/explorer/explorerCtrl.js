@@ -1,24 +1,22 @@
 var m = require('mithril');
+var throttle = require('../util').throttle;
 
 module.exports = function(allow) {
 
   var storageKey = 'explorer-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
-  var loading = m.prop(true);
 
   var cache = {};
 
-  function fetch(fen) {
-    loading(true);
+  var fetch = throttle(500, false, function(fen) {
     m.request({
       method: 'GET',
       url: 'http://130.211.90.176/bullet?fen=' + fen
     }).then(function(data) {
       cache[fen] = data;
-      loading(false);
     });
-  }
+  });
 
   function setFen(fen) {
     if (!enabled()) return;
@@ -28,10 +26,9 @@ module.exports = function(allow) {
   return {
     allowed: allowed,
     enabled: enabled,
-    loading: loading,
     setFen: setFen,
-    get: function(fen) {
-      return cache[fen];
+    current: function(ctrl) {
+      return cache[ctrl.vm.step.fen];
     },
     toggle: function() {
       if (!allowed()) return;
