@@ -27,7 +27,7 @@ description = ~doc.getText("blog.shortlede")).some) {
   }
 </div>
 <div class="body">
-  @doc.getHtml("blog.body", prismic.linkResolver).map(Html.apply)
+  @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(Html.apply)
 </div>
 @NotForKids {
 <div id="disqus_thread"></div>
