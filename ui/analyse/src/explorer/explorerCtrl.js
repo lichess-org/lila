@@ -7,6 +7,7 @@ module.exports = function(allow) {
   var allowed = m.prop(allow);
   lichess.storage.set(storageKey, '1');
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var loading = m.prop(true);
 
   var cache = {};
 
@@ -16,6 +17,7 @@ module.exports = function(allow) {
       url: 'http://130.211.90.176/bullet?fen=' + fen
     }).then(function(data) {
       cache[fen] = data;
+      loading(false);
     });
   });
 
@@ -26,13 +28,17 @@ module.exports = function(allow) {
   function setStep(step) {
     if (!enabled()) return;
     if (step.ply > 40) cache[step.fen] = empty;
-    if (!cache[step.fen]) fetch(step.fen);
+    if (!cache[step.fen]) {
+      loading(true);
+      fetch(step.fen);
+    } else loading(false);
   }
 
   return {
     allowed: allowed,
     enabled: enabled,
     setStep: setStep,
+    loading: loading,
     current: function(ctrl) {
       return cache[ctrl.vm.step.fen];
     },
