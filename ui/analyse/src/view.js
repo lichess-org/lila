@@ -375,7 +375,7 @@ function buttons(ctrl) {
       ]),
       m('div', [
         m('button.button', {
-          onclick: ctrl.explorer.toggle,
+          onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
           'data-icon': ']',
           class: ctrl.explorer.enabled() ? 'active' : ''
         }),

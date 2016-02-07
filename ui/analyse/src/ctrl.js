@@ -372,10 +372,6 @@ module.exports = function(opts) {
     this.explorer.loading(true);
   }.bind(this);
 
-  this.toggleExplorer = function() {
-    this.explorer.toggle();
-  }.bind(this);
-
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
