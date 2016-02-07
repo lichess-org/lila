@@ -363,19 +363,28 @@ function buttons(ctrl) {
   }
   return [
     m('div.game_control', [
-      m('div.jumps', [
-        make('Y', control.prev),
-        make('W', control.first)
+      m('div', [
+        m('div.jumps', [
+          make('Y', control.prev),
+          make('W', control.first)
+        ]),
+        m('div.jumps', [
+          make('X', control.next),
+          make('V', control.last)
+        ])
       ]),
-      m('div.jumps', [
-        make('X', control.next),
-        make('V', control.last)
-      ]),
-      m('button.button.menu', {
-        onclick: ctrl.actionMenu.toggle,
-        'data-icon': '[',
-        class: ctrl.actionMenu.open ? 'active' : ''
-      })
+      m('div', [
+        m('button.button', {
+          onclick: ctrl.explorer.toggle,
+          'data-icon': ']',
+          class: ctrl.explorer.enabled() ? 'active' : ''
+        }),
+        ctrl.explorer.allowed ? m('button.button.menu', {
+          onclick: ctrl.actionMenu.toggle,
+          'data-icon': '[',
+          class: ctrl.actionMenu.open ? 'active' : ''
+        }) : null
+      ])
     ])
   ];
 }
@@ -386,7 +395,7 @@ module.exports = function(ctrl) {
       class: classSet({
         top: true,
         ceval_displayed: ctrl.ceval.allowed(),
-        explorer_displayed: ctrl.explorer.allowed(),
+        explorer_displayed: ctrl.explorer.enabled(),
         gauge_displayed: ctrl.showEvalGauge(),
         crazy: ctrl.data.game.variant.key === 'crazyhouse'
       })
