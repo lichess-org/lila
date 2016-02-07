@@ -18,7 +18,7 @@ function resultBar(move) {
 var lastShow = null;
 
 function show(ctrl) {
-  var data = ctrl.explorer.current(ctrl);
+  var data = ctrl.explorer.current();
   if (data) {
     lastShow = data.moves.length ? m('div.data', [
       m('table', [
@@ -55,7 +55,7 @@ var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
-    var loading = !ctrl.explorer.config.open() && (ctrl.explorer.loading() || !ctrl.explorer.current(ctrl));
+    var loading = !ctrl.explorer.config.open() && (ctrl.explorer.loading() || !ctrl.explorer.current());
     return m('div', {
       class: 'explorer_box' + (loading ? ' loading' : '')
     }, [
@@ -63,10 +63,7 @@ module.exports = {
       ctrl.explorer.config.open() ? renderConfig(ctrl) : show(ctrl),
       m('span.toconf', {
         'data-icon': ctrl.explorer.config.open() ? 'L' : '%',
-        onclick: function() {
-          ctrl.explorer.config.open(!ctrl.explorer.config.open());
-          return false;
-        }
+        onclick: partial(ctrl.explorer.toggleConfig)
       })
     ]);
   }

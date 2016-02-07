@@ -1,7 +1,7 @@
 var m = require('mithril');
 var throttle = require('../util').throttle;
 
-module.exports = function(allow) {
+module.exports = function(root, allow) {
 
   var storageKey = 'explorer-enabled';
   var allowed = m.prop(allow);
@@ -17,8 +17,12 @@ module.exports = function(allow) {
 
 
   var cache = {};
+  var clearCache = function() {
+    cache = {};
+  }
 
-  var fetch = throttle(500, false, function(fen) {
+  var fetch = throttle(500, false, function() {
+    var fen = root.vm.step.fen;
     m.request({
       method: 'GET',
       url: 'http://130.211.90.176/master?fen=' + fen
@@ -32,8 +36,9 @@ module.exports = function(allow) {
     moves: {}
   };
 
-  function setStep(step) {
+  function setStep() {
     if (!enabled()) return;
+    var step = root.vm.step;
     if (step.ply > 40) cache[step.fen] = empty;
     if (!cache[step.fen]) {
       loading(true);
@@ -47,21 +52,31 @@ module.exports = function(allow) {
     setStep: setStep,
     loading: loading,
     config: config,
-    current: function(ctrl) {
-      return cache[ctrl.vm.step.fen];
+    current: function() {
+      return cache[root.vm.step.fen];
     },
-    toggle: function(step) {
+    toggle: function() {
       if (!allowed()) return;
       enabled(!enabled());
       m.redraw();
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
-      setStep(step);
+      setStep();
+    },
+    toggleConfig: function() {
+      config.open(!config.open());
+      m.redraw();
+      return false;
     },
     toggleRating: function(rating) {
       var sel = config.rating.selected();
       if (sel.indexOf(rating) > -1)
-        config.rating.selected(sel.filter(function(r) { return r !== rating; }))
+        config.rating.selected(sel.filter(function(r) {
+          return r !== rating;
+        }))
       else config.rating.selected(sel.concat([rating]));
+      m.redraw();
+      clearCache();
+      setStep();
     }
   };
 };
