@@ -137,6 +137,7 @@ body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .lichess_ground .replay,
 body.dark .explorer_box,
+body.dark .explorer_box .config .rating .choices span,
 body.dark .lichess_ground .analyse .meta,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
@@ -162,6 +163,7 @@ body.dark div.chat_menu > a {
 body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
+body.dark .explorer_box .config .rating .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
 body.dark #modal-wrap {
   background-color: #303030;

@@ -396,11 +396,9 @@ body.dark .explorer_box .black {
   transition: background 0.13s;
   border: 1px solid #ccc;
   border-width: 1px 0 1px 1px;
-  box-shadow: 0 3px 5px rgba(255,255,255,0.2) inset;
 }
 .explorer_box .config .rating .choices span:first-child {
   border-radius: 3px 0 0 3px;
-  border-left-color: #ccc;
 }
 .explorer_box .config .rating .choices span:last-child {
   border-radius: 0 3px 3px 0;
@@ -410,8 +408,8 @@ body.dark .explorer_box .black {
   background: #fff;
 }
 .explorer_box .config .rating .choices span.selected {
-  background: #759900;
-  color: #fff;
+  background: #759900!important;
+  color: #fff!important;
   font-weight: bold;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
