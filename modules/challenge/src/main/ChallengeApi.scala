@@ -15,7 +15,8 @@ final class ChallengeApi(
     joiner: Joiner,
     jsonView: JsonView,
     socketHub: ActorRef,
-    userRegister: ActorSelection) {
+    userRegister: ActorSelection,
+    lilaBus: lila.common.Bus) {
 
   import Challenge._
 
@@ -24,7 +25,9 @@ final class ChallengeApi(
 
   def create(c: Challenge): Funit = {
     repo like c flatMap { _ ?? repo.cancel }
-  } >> (repo insert c) >> uncacheAndNotify(c)
+  } >> (repo insert c) >> uncacheAndNotify(c) >>- {
+    lilaBus.publish(Event.Create(c), 'challenge)
+  }
 
   def byId = repo byId _
 
@@ -48,8 +51,10 @@ final class ChallengeApi(
 
   def accept(c: Challenge, user: Option[User]): Fu[Option[Pov]] =
     joiner(c, user).flatMap {
-      case None      => fuccess(None)
-      case Some(pov) => (repo accept c) >> uncacheAndNotify(c) inject pov.some
+      case None => fuccess(None)
+      case Some(pov) => (repo accept c) >> uncacheAndNotify(c) >>- {
+        lilaBus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
+      } inject pov.some
     }
 
   def rematchOf(game: Game, user: User): Fu[Boolean] =
