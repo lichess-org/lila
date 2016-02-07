@@ -20,13 +20,13 @@ function show(ctrl) {
   if (data) {
     lastShow = data.moves.length ? m('div.data',
       m('table', [
-        // m('thead', [
-        //   m('tr', [
-        //     m('th', 'Move'),
-        //     m('th', 'Games'),
-        //     m('th', 'Result')
-        //   ])
-        // ]),
+        m('thead', [
+          m('tr', [
+            m('th', 'Move'),
+            m('th', 'Games'),
+            m('th', 'White / Draw / Black')
+          ])
+        ]),
         m('tbody', data.moves.map(function(move) {
           return m('tr', {
             'data-uci': move.uci
