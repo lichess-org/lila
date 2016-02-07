@@ -55,8 +55,9 @@ var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
+    var loading = ctrl.explorer.loading() || !ctrl.explorer.current(ctrl);
     return m('div', {
-      class: 'explorer_box' + (ctrl.explorer.current(ctrl) ? '' : ' loading'),
+      class: 'explorer_box' + (loading ? ' loading' : ''),
       onclick: function(e) {
         var $tr = $(e.target).parents('tr');
         if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));

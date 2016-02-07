@@ -6,6 +6,7 @@ module.exports = function(allow) {
   var storageKey = 'explorer-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var loading = m.prop(true);
 
   var cache = {};
 
@@ -15,6 +16,7 @@ module.exports = function(allow) {
       url: 'http://130.211.90.176/bullet?fen=' + fen
     }).then(function(data) {
       cache[fen] = data;
+      loading(false);
     });
   });
 
@@ -32,6 +34,7 @@ module.exports = function(allow) {
     allowed: allowed,
     enabled: enabled,
     setStep: setStep,
+    loading: loading,
     current: function(ctrl) {
       return cache[ctrl.vm.step.fen];
     },
