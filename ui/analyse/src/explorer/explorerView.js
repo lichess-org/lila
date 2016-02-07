@@ -3,13 +3,12 @@ var m = require('mithril');
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
   var section = function(key) {
-    var percent = Math.round(move[key] * 100 / sum) + '%';
-    return percent === '0%' ? null : m('span', {
+    return move[key] === 0 ? null : m('span', {
       class: key,
       style: {
-        width: percent
+        width: (Math.round(move[key] * 1000 / sum) / 10) + '%'
       },
-    }, percent);
+    }, Math.round(move[key] * 100 / sum) + '%');
   }
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
