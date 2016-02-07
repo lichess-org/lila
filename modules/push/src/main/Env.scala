@@ -9,6 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
+    isOnline: lila.user.User.ID => Boolean,
     roundSocketHub: ActorSelection,
     system: ActorSystem) {
 
@@ -29,16 +30,19 @@ final class Env(
   private lazy val pushApi = new PushApi(
     googlePush,
     getLightUser,
+    isOnline,
     roundSocketHub)
 
   system.actorOf(Props(new Actor {
     override def preStart() {
-      system.lilaBus.subscribe(self, 'finishGame, 'moveEvent)
+      system.lilaBus.subscribe(self, 'finishGame, 'moveEvent, 'challenge)
     }
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
       case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move
+      case lila.challenge.Event.Create(c)            => pushApi challengeCreate c
+      case lila.challenge.Event.Accept(c, joinerId)  => pushApi.challengeAccept(c, joinerId)
     }
   }))
 }
@@ -49,6 +53,7 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
+    isOnline = lila.user.Env.current.isOnline,
     roundSocketHub = lila.hub.Env.current.socket.round,
     config = lila.common.PlayApp loadConfig "push")
 }

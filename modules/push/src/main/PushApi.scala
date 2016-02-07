@@ -3,6 +3,7 @@ package lila.push
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Forsyth
+import lila.challenge.Challenge
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
@@ -14,6 +15,7 @@ import play.api.libs.json._
 private final class PushApi(
     googlePush: GooglePush,
     implicit val lightUser: String => Option[LightUser],
+    isOnline: User.ID => Boolean,
     roundSocketHub: ActorSelection) {
 
   def finish(game: Game): Funit =
@@ -32,6 +34,7 @@ private final class PushApi(
               payload = Json.obj(
                 "userId" -> userId,
                 "userData" -> Json.obj(
+                  "type" -> "gameFinish",
                   "gameId" -> game.id,
                   "fullId" -> pov.fullId,
                   "color" -> pov.color.name,
@@ -58,6 +61,7 @@ private final class PushApi(
                   payload = Json.obj(
                     "userId" -> userId,
                     "userData" -> Json.obj(
+                      "type" -> "gameMove",
                       "gameId" -> game.id,
                       "fullId" -> pov.fullId,
                       "color" -> pov.color.name,
@@ -71,6 +75,51 @@ private final class PushApi(
         }
       }
     }
+  }
+
+  def challengeCreate(c: Challenge): Funit = c.destUser.filterNot(u => isOnline(u.id)) ?? { dest =>
+    c.challengerUser ?? { challenger =>
+      lightUser(challenger.id) ?? { lightChallenger =>
+        googlePush(dest.id) {
+          GooglePush.Data(
+            title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
+            body = describeChallenge(c),
+            payload = Json.obj(
+              "userId" -> dest.id,
+              "userData" -> Json.obj(
+                "type" -> "challengeCreate",
+                "challengeId" -> c.id))
+          )
+        }
+      }
+    }
+  }
+
+  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit = c.challengerUser.filterNot(u => isOnline(u.id)) ?? { challenger =>
+    val lightJoiner = joinerId flatMap lightUser
+    googlePush(challenger.id) {
+      GooglePush.Data(
+        title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
+        body = describeChallenge(c),
+        payload = Json.obj(
+          "userId" -> challenger.id,
+          "userData" -> Json.obj(
+            "challengeId" -> c.id))
+      )
+    }
+  }
+
+  private def describeChallenge(c: Challenge) = {
+    import lila.challenge.Challenge.TimeControl._
+    List(
+      c.mode.fold("Casual", "Rated"),
+      c.timeControl match {
+        case Unlimited         => "Unlimited"
+        case Correspondence(d) => s"$d days"
+        case c: Clock          => c.show
+      },
+      c.variant.name
+    ) mkString " • "
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit = {

@@ -69,7 +69,9 @@ object Challenge {
     def apply(id: Int): Option[Status] = all.find(_.id == id)
   }
 
-  case class Rating(int: Int, provisional: Boolean)
+  case class Rating(int: Int, provisional: Boolean) {
+    def show = s"$int${provisional.fold("?", "")}"
+  }
   object Rating {
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
   }

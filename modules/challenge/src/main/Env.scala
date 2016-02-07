@@ -52,7 +52,8 @@ final class Env(
     joiner = new Joiner(onStart = onStart),
     jsonView = jsonView,
     socketHub = socketHub,
-    userRegister = hub.actor.userRegister)
+    userRegister = hub.actor.userRegister,
+    lilaBus = system.lilaBus)
 
   private lazy val repo = new ChallengeRepo(
     coll = db(CollectionChallenge),
