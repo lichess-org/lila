@@ -9,9 +9,17 @@ module.exports = function(root, allow) {
   var loading = m.prop(true);
   var config = {
     open: m.prop(true),
+    db: {
+      available: ['lichess', 'masters', 'me'],
+      selected: m.prop('lichess')
+    },
     rating: {
       available: [1600, 1800, 2000, 2200, 2500],
       selected: m.prop([2000, 2200, 2500])
+    },
+    speed: {
+      available: ['bullet', 'blitz', 'classical'],
+      selected: m.prop('blitz')
     }
   };
 
@@ -19,6 +27,7 @@ module.exports = function(root, allow) {
   var cache = {};
   var clearCache = function() {
     cache = {};
+    setStep();
   }
 
   var fetch = throttle(500, false, function() {
@@ -67,6 +76,11 @@ module.exports = function(root, allow) {
       m.redraw();
       return false;
     },
+    toggleDb: function(db) {
+      config.db.selected(db);
+      m.redraw();
+      clearCache();
+    },
     toggleRating: function(rating) {
       var sel = config.rating.selected();
       if (sel.indexOf(rating) > -1)
@@ -76,7 +90,11 @@ module.exports = function(root, allow) {
       else config.rating.selected(sel.concat([rating]));
       m.redraw();
       clearCache();
-      setStep();
+    },
+    toggleSpeed: function(speed) {
+      config.speed.selected(speed);
+      m.redraw();
+      clearCache();
     }
   };
 };

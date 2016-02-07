@@ -288,6 +288,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   font-size: 10px;
   opacity: 0.8;
 }
+.explorer_box .title,
 .explorer_box thead,
 .explorer_box tr:nth-child(even) {
   background: #fafafa;
@@ -374,21 +375,22 @@ body.dark .explorer_box .black {
 .explorer_box .toconf:hover {
   opacity: 1;
 }
-.explorer_box .config {
-  padding: 10px;
+.explorer_box .config .title {
+  line-height: 22px;
+  padding-left: 10px;
 }
 .explorer_box .config section {
-  margin-bottom: 10px;
+  padding: 10px 10px 0 10px;
 }
 .explorer_box .config label {
   font-weight: bold;
   display: block;
   line-height: 2em;
 }
-.explorer_box .config .rating .choices {
+.explorer_box .config .choices {
   display: flex;
 }
-.explorer_box .config .rating .choices span {
+.explorer_box .config .choices span {
   flex-grow: 1;
   padding: 5px 0;
   text-align: center;
@@ -396,18 +398,19 @@ body.dark .explorer_box .black {
   transition: background 0.13s;
   border: 1px solid #ccc;
   border-width: 1px 0 1px 1px;
+  text-transform: capitalize;
 }
-.explorer_box .config .rating .choices span:first-child {
+.explorer_box .config .choices span:first-child {
   border-radius: 3px 0 0 3px;
 }
-.explorer_box .config .rating .choices span:last-child {
+.explorer_box .config .choices span:last-child {
   border-radius: 0 3px 3px 0;
   border-right-width: 1px;
 }
-.explorer_box .config .rating .choices span:hover {
+.explorer_box .config .choices span:hover {
   background: #fff;
 }
-.explorer_box .config .rating .choices span.selected {
+.explorer_box .config .choices span.selected {
   background: #759900!important;
   color: #fff!important;
   font-weight: bold;
