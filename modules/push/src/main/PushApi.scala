@@ -104,6 +104,7 @@ private final class PushApi(
         payload = Json.obj(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
+            "type" -> "challengeAccept",
             "challengeId" -> c.id))
       )
     }
