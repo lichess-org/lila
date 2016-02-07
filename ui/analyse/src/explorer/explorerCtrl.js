@@ -27,7 +27,10 @@ module.exports = function(allow) {
   function setStep(step) {
     if (!enabled()) return;
     if (step.ply > 40) cache[step.fen] = empty;
-    if (!cache[step.fen]) fetch(step.fen);
+    if (!cache[step.fen]) {
+      loading(true);
+      fetch(step.fen);
+    } else loading(false);
   }
 
   return {
