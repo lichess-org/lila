@@ -355,32 +355,27 @@ function blindBoard(ctrl) {
 }
 
 function buttons(ctrl) {
+  var make = function(icon, effect) {
+    return m('button.button', {
+      'data-icon': icon,
+      onclick: partial(effect, ctrl)
+    });
+  }
   return [
     m('div.game_control', [
-      m('div.jumps.hint--bottom', [
-        ['first', 'W', control.first, ],
-        ['prev', 'Y', control.prev],
-        ['next', 'X', control.next],
-        ['last', 'V', control.last]
-      ].map(function(b) {
-        return {
-          tag: 'a',
-          attrs: {
-            class: 'button ' + b[0] + ' ' + classSet({
-              disabled: ctrl.broken,
-              glowed: ctrl.vm.late && b[0] === 'last'
-            }),
-            'data-icon': b[1],
-            onclick: partial(b[2], ctrl)
-          }
-        };
-      })),
-      m('a.button.menu', {
+      m('div.jumps', [
+        make('Y', control.prev),
+        make('W', control.first)
+      ]),
+      m('div.jumps', [
+        make('X', control.next),
+        make('V', control.last)
+      ]),
+      m('button.button.menu', {
         onclick: ctrl.actionMenu.toggle,
+        'data-icon': '[',
         class: ctrl.actionMenu.open ? 'active' : ''
-      }, m('span', {
-        'data-icon': '['
-      }))
+      })
     ])
   ];
 }

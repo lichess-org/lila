@@ -115,7 +115,6 @@ div.fen_pgn input.fen {
 }
 div.game_control {
   margin-top: 10px;
-  text-align: center;
   width: 244px;
   white-space: nowrap;
 }
@@ -131,8 +130,22 @@ div.game_control a {
 }
 div.game_control .jumps {
   display: inline-block;
+  position: relative;
 }
-div.game_control a.menu {
+div.game_control .jumps:last-child {
+  margin-left: 10px;
+}
+div.game_control .jumps button:last-child {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-top: 0;
+}
+div.game_control .jumps:hover button:last-child {
+  display: block;
+}
+div.game_control .menu {
   margin-left: 10px;
 }
 div.lichess_game div.lichess_ground {
@@ -220,7 +233,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .explorer_box {
   position: relative;
-  height: 218px;
+  height: 219px;
   border: 1px solid #ccc;
   margin-top: 10px;
   max-width: 242px;
