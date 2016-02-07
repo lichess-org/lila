@@ -376,6 +376,7 @@ body.dark .explorer_box .black {
   opacity: 1;
 }
 .explorer_box .config .title {
+  font-size: 10px;
   line-height: 22px;
   padding-left: 10px;
 }
@@ -388,6 +389,7 @@ body.dark .explorer_box .black {
   line-height: 2em;
 }
 .explorer_box .config .choices {
+  display: -ms-flex;
   display: flex;
 }
 .explorer_box .config .choices span {
