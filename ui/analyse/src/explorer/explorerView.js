@@ -19,14 +19,7 @@ var lastShow = null;
 function show(ctrl) {
   var data = ctrl.explorer.current(ctrl);
   if (data) {
-    var moves = Object.keys(data.moves).map(function(move) {
-      return data.moves[move];
-    }).filter(function(x) {
-      return x.total > 0;
-    }).sort(function(a, b) {
-      return b.total - a.total;
-    });
-    lastShow = moves.length ? m('div.data',
+    lastShow = data.moves.length ? m('div.data',
       m('table', [
         // m('thead', [
         //   m('tr', [
@@ -35,7 +28,7 @@ function show(ctrl) {
         //     m('th', 'Result')
         //   ])
         // ]),
-        m('tbody', moves.map(function(move) {
+        m('tbody', data.moves.map(function(move) {
           return m('tr', {
             'data-uci': move.uci
           }, [
