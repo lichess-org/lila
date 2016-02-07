@@ -36,12 +36,7 @@ object Account extends LilaController {
     negotiate(
       html = notFound,
       api = _ => ctx.me match {
-        case None => fuccess {
-          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
-            unauthorizedApiResult,
-            unauthorizedApiResult withCookies LilaCookie.makeSessionId(ctx.req)
-          )
-        }
+        case None => fuccess(unauthorizedApiResult)
         case Some(me) => Env.pref.api getPref me flatMap { prefs =>
           lila.game.GameRepo urgentGames me map { povs =>
             Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
@@ -55,7 +50,7 @@ object Account extends LilaController {
           }
         }
       }
-    )
+    ) map ensureSessionId(ctx.req)
   }
 
   def passwd = Auth { implicit ctx =>
