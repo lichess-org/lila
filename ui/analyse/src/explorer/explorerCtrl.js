@@ -7,6 +7,14 @@ module.exports = function(allow) {
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var loading = m.prop(true);
+  var config = {
+    open: m.prop(true),
+    rating: {
+      available: [1600, 1800, 2000, 2200, 2500],
+      selected: m.prop([2000, 2200, 2500])
+    }
+  };
+
 
   var cache = {};
 
@@ -38,6 +46,7 @@ module.exports = function(allow) {
     enabled: enabled,
     setStep: setStep,
     loading: loading,
+    config: config,
     current: function(ctrl) {
       return cache[ctrl.vm.step.fen];
     },
@@ -47,6 +56,12 @@ module.exports = function(allow) {
       m.redraw();
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep(step);
+    },
+    toggleRating: function(rating) {
+      var sel = config.rating.selected();
+      if (sel.indexOf(rating) > -1)
+        config.rating.selected(sel.filter(function(r) { return r !== rating; }))
+      else config.rating.selected(sel.concat([rating]));
     }
   };
 };

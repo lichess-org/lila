@@ -136,7 +136,7 @@ body.dark div.user_show .note_zone div,
 body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .lichess_ground .replay,
-body.dark .lichess_ground .explorer_box,
+body.dark .explorer_box,
 body.dark .lichess_ground .analyse .meta,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
@@ -214,8 +214,8 @@ body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
-body.dark .lichess_ground .explorer_box thead,
-body.dark .lichess_ground .explorer_box tr:nth-child(even),
+body.dark .explorer_box thead,
+body.dark .explorer_box tr:nth-child(even),
 body.dark #chat .messages,
 body.dark div.side_box,
 body.dark div.box,
@@ -242,7 +242,7 @@ body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
 body.dark .lichess_ground .replay move.current,
-body.dark .lichess_ground .explorer_box tr:hover,
+body.dark .explorer_box tr:hover,
 body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
