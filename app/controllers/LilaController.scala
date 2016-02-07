@@ -251,8 +251,12 @@ private[controllers] trait LilaController
 
   protected val unauthorizedApiResult = Unauthorized(Json.obj("error" -> "Login required"))
 
-  protected def authorizationFailed(req: RequestHeader): Result =
-    Forbidden("no permission")
+  protected def authorizationFailed(req: RequestHeader): Result = Forbidden("no permission")
+
+  protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
+    req.session.data.contains(LilaCookie.sessionId).fold(
+      res,
+      res withCookies LilaCookie.makeSessionId(req))
 
   protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] =
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {

@@ -30,13 +30,7 @@ object Lobby extends LilaController {
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament.cached promotable true,
       simuls = Env.simul allCreatedFeaturable true
-    ) map (html.lobby.home.apply _).tupled map { template =>
-        // the session cookie is required for anon lobby filter storage
-        ctx.req.session.data.contains(LilaCookie.sessionId).fold(
-          status(template),
-          status(template) withCookies LilaCookie.makeSessionId(ctx.req)
-        )
-      }
+    ) map (html.lobby.home.apply _).tupled map { status(_) } map ensureSessionId(ctx.req)
 
   def seeks = Open { implicit ctx =>
     negotiate(

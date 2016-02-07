@@ -35,17 +35,23 @@ object Challenge extends LilaController {
 
   protected[controllers] def showChallenge(c: ChallengeModel)(implicit ctx: Context): Fu[Result] =
     env version c.id flatMap { version =>
-      val json = env.jsonView.show(c, version)
-      negotiate(
-        html = challengeAnonOwnerCookie(c) map { cookieOption =>
-          Ok(isMine(c).fold(
-            html.challenge.mine.apply _,
-            html.challenge.theirs.apply _
-          )(c, json)) |> { res =>
+      val mine = isMine(c)
+      import lila.challenge.Direction
+      val direction: Option[Direction] =
+        if (mine) Direction.Out.some
+        else if (isForMe(c)) Direction.In.some
+        else none
+      val json = env.jsonView.show(c, version, direction)
+      challengeAnonOwnerCookie(c) flatMap { cookieOption =>
+        negotiate(
+          html = fuccess {
+            Ok(mine.fold(html.challenge.mine.apply _, html.challenge.theirs.apply _)(c, json))
+          },
+          api = _ => Ok(json).fuccess
+        ) map { res =>
             cookieOption.fold(res) { res.withCookies(_) }
           }
-        },
-        api = _ => Ok(json).fuccess)
+      }
     }
 
   private def challengeAnonOwnerCookie(c: ChallengeModel)(implicit ctx: Context): Fu[Option[Cookie]] =
@@ -99,11 +105,11 @@ object Challenge extends LilaController {
 
   def rematchOf(gameId: String) = Auth { implicit ctx =>
     me =>
-    OptionFuResult(GameRepo game gameId) { g =>
-      env.api.rematchOf(g, me) map {
-        _.fold(Ok, BadRequest)
+      OptionFuResult(GameRepo game gameId) { g =>
+        env.api.rematchOf(g, me) map {
+          _.fold(Ok, BadRequest)
+        }
       }
-    }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
