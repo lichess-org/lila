@@ -1,4 +1,6 @@
 var m = require('mithril');
+var partial = require('chessground').util.partial;
+var renderConfig = require('./explorerConfig');
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
@@ -16,9 +18,9 @@ function resultBar(move) {
 var lastShow = null;
 
 function show(ctrl) {
-  var data = ctrl.explorer.current(ctrl);
+  var data = ctrl.explorer.current();
   if (data) {
-    lastShow = data.moves.length ? m('div.data',
+    lastShow = data.moves.length ? m('div.data', [
       m('table', [
         m('thead', [
           m('tr', [
@@ -27,8 +29,14 @@ function show(ctrl) {
             m('th', 'White / Draw / Black')
           ])
         ]),
-        m('tbody', data.moves.map(function(move) {
+        m('tbody', {
+          onclick: function(e) {
+            var $tr = $(e.target).parents('tr');
+            if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
+          }
+        }, data.moves.map(function(move) {
           return m('tr', {
+            key: move.uci,
             'data-uci': move.uci
           }, [
             m('td', move.san),
@@ -37,7 +45,7 @@ function show(ctrl) {
           ]);
         }))
       ])
-    ) : m('div.data.empty', 'No game found');
+    ]) : m('div.data.empty', 'No game found');
   }
   return lastShow;
 }
@@ -47,16 +55,16 @@ var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
-    var loading = ctrl.explorer.loading() || !ctrl.explorer.current(ctrl);
+    var loading = !ctrl.explorer.config.open() && (ctrl.explorer.loading() || !ctrl.explorer.current());
     return m('div', {
-      class: 'explorer_box' + (loading ? ' loading' : ''),
-      onclick: function(e) {
-        var $tr = $(e.target).parents('tr');
-        if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
-      }
+      class: 'explorer_box' + (loading ? ' loading' : '')
     }, [
       overlay,
-      show(ctrl)
+      ctrl.explorer.config.open() ? renderConfig(ctrl) : show(ctrl),
+      m('span.toconf', {
+        'data-icon': ctrl.explorer.config.open() ? 'L' : '%',
+        onclick: partial(ctrl.explorer.toggleConfig)
+      })
     ]);
   }
 };

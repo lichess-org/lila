@@ -232,20 +232,20 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   margin: 5px;
   font-size: 0.9em;
 }
-.lichess_ground .explorer_box {
+.explorer_box {
   position: relative;
   height: 218px;
   border: 1px solid #ccc;
   margin-top: 10px;
   max-width: 242px;
-  overflow: auto;
+  overflow: scroll;
   overflow-x: hidden;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
-.lichess_ground .explorer_box .overlay {
+.explorer_box .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -253,56 +253,61 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   height: 100%;
   display: none;
 }
-.lichess_ground .explorer_box.loading .overlay {
+.explorer_box.loading .overlay {
   display: block;
 }
-.lichess_ground .explorer_box tbody {
+.explorer_box tbody {
   transition: opacity 0.13s;
 }
-.lichess_ground .explorer_box.loading tbody {
+.explorer_box.loading tbody {
   opacity: 0.4;
 }
-.lichess_ground .explorer_box .empty {
+.explorer_box .empty {
   text-align: center;
   margin-top: 97px;
 }
-.lichess_ground .explorer_box .spinner {
+.explorer_box .spinner {
   margin-top: 88px;
 }
-.lichess_ground .explorer_box thead th {
+.explorer_box thead th {
   font-size: 10px;
   opacity: 0.8;
-  padding: 4px 0 4px 7px;
+  padding-left: 7px;
+  line-height: 22px;
   text-align: center;
 }
-.lichess_ground .explorer_box td {
+.explorer_box thead th:last-child {
+  padding-left: 0;
+}
+.explorer_box td {
   cursor: pointer;
   padding: 7px 0 7px 7px;
   vertical-align: 0px;
 }
-.lichess_ground .explorer_box td:nth-child(2) {
+.explorer_box td:nth-child(2) {
   font-size: 10px;
   opacity: 0.8;
 }
-.lichess_ground .explorer_box thead,
-.lichess_ground .explorer_box tr:nth-child(even) {
+.explorer_box .title,
+.explorer_box thead,
+.explorer_box tr:nth-child(even) {
   background: #fafafa;
 }
-.lichess_ground .explorer_box tbody tr {
+.explorer_box tbody tr {
   transition: background-color 0.13s;
 }
-.lichess_ground .explorer_box tbody tr:hover {
+.explorer_box tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
 }
-.lichess_ground .explorer_box td:first-child {
+.explorer_box td:first-child {
   font-weight: bold;
   padding-left: 7px;
 }
-.lichess_ground .explorer_box td:last-child {
+.explorer_box td:last-child {
   width: 100%;
   padding-right: 7px;
 }
-.lichess_ground .explorer_box .bar span {
+.explorer_box .bar span {
   text-align: center;
   display: inline-block;
   overflow: hidden;
@@ -314,45 +319,102 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   line-height: 16px;
   font-size: 11px;
 }
-body.dark .lichess_ground .explorer_box .bar span {
+body.dark .explorer_box .bar span {
   border-color: #555;
 }
-.lichess_ground .explorer_box .bar span.white {
+.explorer_box .bar span.white {
   background: #fff;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.1) inset;
 }
-body.dark .lichess_ground .explorer_box .bar span.white {
+body.dark .explorer_box .bar span.white {
   background: #bbb;
   color: #222;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.25) inset;
 }
-.lichess_ground .explorer_box .draws,
-.lichess_ground .explorer_box .black {
+.explorer_box .draws,
+.explorer_box .black {
   color: #fff;
   box-shadow: 0 5px 7px rgba(255,255,255,0.2) inset;
 }
-.lichess_ground .explorer_box .draws {
+.explorer_box .draws {
   background: #888;
 }
-body.dark .lichess_ground .explorer_box .draws {
+body.dark .explorer_box .draws {
   background: #666;
 }
-.lichess_ground .explorer_box .black {
+.explorer_box .black {
   background: #555;
 }
-body.dark .lichess_ground .explorer_box .black {
+body.dark .explorer_box .black {
   background: #333;
   box-shadow: 0 5px 7px rgba(255,255,255,0.1) inset;
 }
-.lichess_ground .explorer_box .bar span:first-child {
+.explorer_box .bar span:first-child {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border-left-width: 1px;
 }
-.lichess_ground .explorer_box .bar span:last-child {
+.explorer_box .bar span:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border-right-width: 1px;
+}
+.explorer_box .toconf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  width: 22px;
+  height: 22px;
+  line-height: 20px;
+  text-align: center;
+  opacity: 0.7;
+}
+.explorer_box .toconf:hover {
+  opacity: 1;
+}
+.explorer_box .config .title {
+  line-height: 22px;
+  padding-left: 10px;
+}
+.explorer_box .config section {
+  padding: 10px 10px 0 10px;
+}
+.explorer_box .config label {
+  font-weight: bold;
+  display: block;
+  line-height: 2em;
+}
+.explorer_box .config .choices {
+  display: flex;
+}
+.explorer_box .config .choices span {
+  flex-grow: 1;
+  padding: 5px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.13s;
+  border: 1px solid #ccc;
+  border-width: 1px 0 1px 1px;
+  text-transform: capitalize;
+}
+.explorer_box .config .choices span:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.explorer_box .config .choices span:last-child {
+  border-radius: 0 3px 3px 0;
+  border-right-width: 1px;
+}
+.explorer_box .config .choices span:hover {
+  background: #fff;
+}
+.explorer_box .config .choices span.selected {
+  background: #759900!important;
+  color: #fff!important;
+  font-weight: bold;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
 .lichess_ground .replay,
 .lichess_ground .action_menu {
