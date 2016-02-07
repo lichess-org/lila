@@ -146,13 +146,13 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
-    negotiate(
-      html =
-        if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-        else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
-        else playablePovForReq(pov.game) match {
-          case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-          case _ if HTTPRequest.isHuman(ctx.req) =>
+    playablePovForReq(pov.game) match {
+      case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
+      case _ => negotiate(
+        html = {
+          if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
+          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               Env.game.crosstableApi(pov.game) zip
@@ -160,7 +160,7 @@ object Round extends LilaController with TheftPrevention {
                 case (((tour, simul), crosstable), data) =>
                   Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
               }
-          case _ => // web crawlers don't need the full thing
+          else // web crawlers don't need the full thing
             GameRepo.initialFen(pov.game.id) zip
               Env.game.crosstableApi(pov.game) map {
                 case (initialFen, crosstable) =>
@@ -168,8 +168,9 @@ object Round extends LilaController with TheftPrevention {
                   Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
               }
         },
-      api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
-    ) map NoCache
+        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
+      ) map NoCache
+    }
 
   private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
     tourId ?? { tid =>
