@@ -42,28 +42,12 @@ object Challenge extends LilaController {
         else if (isForMe(c)) Direction.In.some
         else none
       val json = env.jsonView.show(c, version, direction)
-      challengeAnonOwnerCookie(c) flatMap { cookieOption =>
-        negotiate(
-          html = fuccess {
-            Ok(mine.fold(html.challenge.mine.apply _, html.challenge.theirs.apply _)(c, json))
-          },
-          api = _ => Ok(json).fuccess
-        ) map { res =>
-            cookieOption.fold(res) { res.withCookies(_) }
-          }
-      }
-    }
-
-  private def challengeAnonOwnerCookie(c: ChallengeModel)(implicit ctx: Context): Fu[Option[Cookie]] =
-    (c.accepted && c.challengerIsAnon) ?? GameRepo.game(c.id).map {
-      _ map { game =>
-        implicit val req = ctx.req
-        LilaCookie.cookie(
-          AnonCookie.name,
-          game.player(c.finalColor).id,
-          maxAge = AnonCookie.maxAge.some,
-          httpOnly = false.some)
-      }
+      negotiate(
+        html = fuccess {
+          Ok(mine.fold(html.challenge.mine.apply _, html.challenge.theirs.apply _)(c, json))
+        },
+        api = _ => Ok(json).fuccess
+      ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
@@ -78,15 +62,31 @@ object Challenge extends LilaController {
     OptionFuResult(env.api byId id) { c =>
       isForMe(c) ?? env.api.accept(c, ctx.me).flatMap {
         case Some(pov) => negotiate(
-          html = Setup.redirectPov(pov).fuccess,
-          api = apiVersion =>
-            Env.api.roundApi.player(pov, apiVersion) map { Ok(_) })
+          html = Redirect(routes.Round.watcher(pov.game.id, "white")).fuccess,
+          api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
+        ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
         case None => negotiate(
           html = Redirect(routes.Round.watcher(c.id, "white")).fuccess,
           api = _ => notFoundJson("Someone else accepted the challenge"))
       }
     }
   }
+
+  private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(res: Result)(implicit ctx: Context): Fu[Result] =
+    cond ?? {
+      GameRepo.game(c.id).map {
+        _ map { game =>
+          implicit val req = ctx.req
+          LilaCookie.cookie(
+            AnonCookie.name,
+            game.player(owner.fold(c.finalColor, !c.finalColor)).id,
+            maxAge = AnonCookie.maxAge.some,
+            httpOnly = true.some)
+        }
+      }
+    } map { cookieOption =>
+      cookieOption.fold(res) { res.withCookies(_) }
+    }
 
   def decline(id: String) = Auth { implicit ctx =>
     me =>

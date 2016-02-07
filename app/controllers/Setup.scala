@@ -197,12 +197,12 @@ object Setup extends LilaController with TheftPrevention {
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
     implicit val req = ctx.req
-    val redir = Redirect(routes.Round.player(pov.fullId))
+    val redir = Redirect(routes.Round.watcher(pov.game.id, "white"))
     if (ctx.isAuth) redir
     else redir withCookies LilaCookie.cookie(
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,
-      httpOnly = false.some)
+      httpOnly = true.some)
   }
 }
