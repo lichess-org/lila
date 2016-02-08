@@ -6,7 +6,7 @@ module.exports = {
     var data = {
       open: m.prop(true),
       db: {
-        available: ['lichess', 'masters', 'me'],
+        available: ['lichess', 'masters'], //, 'me'],
         selected: m.prop('lichess')
       },
       rating: {
@@ -30,7 +30,7 @@ module.exports = {
     return {
       data: data,
       toggleOpen: function() {
-        config.open(!config.open());
+        data.open(!data.open());
         onUpdate();
       },
       toggleDb: function(db) {
