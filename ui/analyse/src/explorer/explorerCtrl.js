@@ -1,4 +1,5 @@
 var m = require('mithril');
+var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
 
 module.exports = function(root, allow) {
@@ -19,7 +20,7 @@ module.exports = function(root, allow) {
     },
     speed: {
       available: ['bullet', 'blitz', 'classical'],
-      selected: m.prop('blitz')
+      selected: m.prop(['blitz', 'classical'])
     }
   };
 
@@ -55,6 +56,15 @@ module.exports = function(root, allow) {
     } else loading(false);
   }
 
+  var toggleMany = function(c, value) {
+    if (c().indexOf(value) === -1) c(c().concat([value]));
+    else if (c().length > 1) c(c().filter(function(v) {
+      return v !== value;
+    }));
+    m.redraw();
+    clearCache();
+  };
+
   return {
     allowed: allowed,
     enabled: enabled,
@@ -81,20 +91,7 @@ module.exports = function(root, allow) {
       m.redraw();
       clearCache();
     },
-    toggleRating: function(rating) {
-      var sel = config.rating.selected();
-      if (sel.indexOf(rating) > -1)
-        config.rating.selected(sel.filter(function(r) {
-          return r !== rating;
-        }))
-      else config.rating.selected(sel.concat([rating]));
-      m.redraw();
-      clearCache();
-    },
-    toggleSpeed: function(speed) {
-      config.speed.selected(speed);
-      m.redraw();
-      clearCache();
-    }
+    toggleRating: partial(toggleMany, config.rating.selected),
+    toggleSpeed: partial(toggleMany, config.speed.selected)
   };
 };

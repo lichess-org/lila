@@ -32,7 +32,7 @@ module.exports = function(ctrl) {
       m('div.choices',
         c.speed.available.map(function(s) {
           return m('span', {
-            class: c.speed.selected() === s ? 'selected' : '',
+            class: c.speed.selected().indexOf(s) > -1 ? 'selected' : '',
             onclick: partial(ctrl.explorer.toggleSpeed, s)
           }, s);
         })
