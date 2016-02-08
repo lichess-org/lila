@@ -184,7 +184,6 @@ body.blind_mode .cg-board-wrap {
 }
 div.lichess_game div.lichess_ground {
   display: flex;
-  display: -ms-flex;
   flex-flow: column nowrap;
   justify-content: center;
   padding-left: 15px;
@@ -496,7 +495,6 @@ div.table_wrap {
   flex: 0 1 auto;
   width: 242px;
   display: flex;
-  display: -ms-flex;
   flex-flow: column nowrap;
   position: relative;
 }

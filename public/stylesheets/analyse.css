@@ -120,7 +120,6 @@ div.game_control {
 }
 div.game_control .buttons {
   display: flex;
-  display: -ms-flex;
   justify-content: space-between;
 }
 div.game_control .jumps {
@@ -400,7 +399,6 @@ body.dark .explorer_box .black {
 }
 .explorer_box .config .choices {
   display: flex;
-  display: -ms-flex;
 }
 .explorer_box .config .choices span {
   flex-grow: 1;

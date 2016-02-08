@@ -3,13 +3,11 @@
 }
 div.lobby_and_ground {
   display: flex;
-  display: -ms-flex;
 }
 #start_buttons {
   padding-left: 15px;
   width: 280px;
   display: flex;
-  display: -ms-flex;
   flex-flow: column nowrap;
   justify-content: center;
   position: relative;
