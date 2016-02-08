@@ -1,6 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
+var configCtrl = require('./explorerConfig').controller;
 
 module.exports = function(root, allow) {
 
@@ -8,22 +9,11 @@ module.exports = function(root, allow) {
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var loading = m.prop(true);
-  var config = {
-    open: m.prop(true),
-    db: {
-      available: ['lichess', 'masters', 'me'],
-      selected: m.prop('lichess')
-    },
-    rating: {
-      available: [1600, 1800, 2000, 2200, 2500],
-      selected: m.prop([2000, 2200, 2500])
-    },
-    speed: {
-      available: ['bullet', 'blitz', 'classical'],
-      selected: m.prop(['blitz', 'classical'])
-    }
-  };
 
+  var config = configCtrl(function() {
+    m.redraw();
+    clearCache();
+  });
 
   var cache = {};
   var clearCache = function() {
@@ -56,15 +46,6 @@ module.exports = function(root, allow) {
     } else loading(false);
   }
 
-  var toggleMany = function(c, value) {
-    if (c().indexOf(value) === -1) c(c().concat([value]));
-    else if (c().length > 1) c(c().filter(function(v) {
-      return v !== value;
-    }));
-    m.redraw();
-    clearCache();
-  };
-
   return {
     allowed: allowed,
     enabled: enabled,
@@ -81,17 +62,5 @@ module.exports = function(root, allow) {
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep();
     },
-    toggleConfig: function() {
-      config.open(!config.open());
-      m.redraw();
-      return false;
-    },
-    toggleDb: function(db) {
-      config.db.selected(db);
-      m.redraw();
-      clearCache();
-    },
-    toggleRating: partial(toggleMany, config.rating.selected),
-    toggleSpeed: partial(toggleMany, config.speed.selected)
   };
 };
