@@ -50,6 +50,14 @@ function show(ctrl) {
   return lastShow;
 }
 
+function showConfig(ctrl) {
+  return m('div.config', [
+    m('div.title', ctrl.data.game.variant.name + ' opening explorer'),
+    renderConfig(ctrl.explorer.config)
+  ]);
+}
+
+
 var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
 module.exports = {
@@ -61,7 +69,7 @@ module.exports = {
       class: 'explorer_box' + (loading ? ' loading' : '')
     }, [
       overlay,
-      config.data.open() ? renderConfig(config) : show(ctrl),
+      config.data.open() ? showConfig(ctrl) : show(ctrl),
       m('span.toconf', {
         'data-icon': config.data.open() ? 'L' : '%',
         onclick: config.toggleOpen

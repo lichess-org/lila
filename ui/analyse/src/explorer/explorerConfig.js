@@ -52,8 +52,7 @@ module.exports = {
   },
   view: function(ctrl) {
     var d = ctrl.data;
-    return m('div.config', [
-      m('div.title', 'Opening explorer configuration'),
+    return [
       m('section.db', [
         m('label', 'Database'),
         m('div.choices',
@@ -91,6 +90,6 @@ module.exports = {
           )
         ])
       ])
-    ]);
+    ];
   }
 };
