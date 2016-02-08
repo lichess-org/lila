@@ -24,6 +24,7 @@ module.exports = function(root, allow) {
     xhr(root.data.game.variant.key, fen, config.data).then(function(res) {
       cache[fen] = res;
       loading(false);
+      m.redraw();
     });
   });
 

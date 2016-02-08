@@ -11,7 +11,7 @@ function storedProp(keySuffix, initialValue) {
 }
 
 module.exports = {
-  controller: function(onUpdate) {
+  controller: function(onClose) {
     var data = {
       open: m.prop(true),
       db: {
@@ -33,18 +33,16 @@ module.exports = {
       else if (c().length > 1) c(c().filter(function(v) {
         return v !== value;
       }));
-      onUpdate();
     };
 
     return {
       data: data,
       toggleOpen: function() {
         data.open(!data.open());
-        onUpdate();
+        if (!data.open()) onClose();
       },
       toggleDb: function(db) {
         data.db.selected(db);
-        onUpdate();
       },
       toggleRating: partial(toggleMany, data.rating.selected),
       toggleSpeed: partial(toggleMany, data.speed.selected)
