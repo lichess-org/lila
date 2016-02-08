@@ -114,20 +114,14 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
+  flex: 0 0;
   margin-top: 10px;
   width: 244px;
-  display: flex;
-  justify-content: space-between;
 }
-div.game_control a {
-  font-size: 12px;
-  width: 25px;
-  height: 17px;
-  display: inline-block;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin: 0 -1px;
+div.game_control .buttons {
+  display: flex;
+  display: -ms-flex;
+  justify-content: space-between;
 }
 div.game_control .jumps {
   display: inline-block;
@@ -157,7 +151,7 @@ div.eval_gauge {
   right: -22px;
   top: 0;
   width: 16px;
-  height: 512px;
+  height: 100%;
   background: #fff;
   background-size: 100% 100%;
   border-radius: 5px;
@@ -203,7 +197,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .ceval_box {
   position: relative;
-  height: 40px;
+  flex: 0 0 40px;
   border: 1px solid #ccc;
   border-bottom: 0;
 }
@@ -234,16 +228,18 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .explorer_box {
   position: relative;
-  height: 218px;
+  flex: 1 1 0;
   border: 1px solid #ccc;
   margin-top: 10px;
-  max-width: 242px;
   overflow: scroll;
   overflow-x: hidden;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+.explorer_box.config {
+  min-height: 210px;
 }
 .explorer_box .overlay {
   position: absolute;
@@ -376,7 +372,6 @@ body.dark .explorer_box .black {
   opacity: 1;
 }
 .explorer_box .config {
-  height: 100%;
   overflow: hidden;
 }
 .explorer_box .config .title {
@@ -388,11 +383,15 @@ body.dark .explorer_box .black {
   transition: 0.3s;
 }
 .explorer_box .config .adv.hidden {
-  margin-top: 120px;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
   opacity: 0;
 }
 .explorer_box .config section {
-  padding: 10px 10px 0 10px;
+  padding: 8px 10px 0 10px;
+}
+.explorer_box .config section.db {
+  padding-top: 5px;
 }
 .explorer_box .config label {
   font-weight: bold;
@@ -400,8 +399,8 @@ body.dark .explorer_box .black {
   line-height: 2em;
 }
 .explorer_box .config .choices {
-  display: -ms-flex;
   display: flex;
+  display: -ms-flex;
 }
 .explorer_box .config .choices span {
   flex-grow: 1;
@@ -431,7 +430,6 @@ body.dark .explorer_box .black {
 }
 .lichess_ground .replay,
 .lichess_ground .action_menu {
-  height: calc(100% - 40px);
   overflow: auto;
   overflow-x: hidden;
   border: 1px solid #ccc;
@@ -440,26 +438,12 @@ body.dark .explorer_box .black {
   -ms-user-select: none;
   margin-left: 0;
 }
-.ceval_displayed .lichess_ground .replay {
-  height: calc(100% - 40px - 41px);
-}
-.crazy .lichess_ground .replay {
-  height: calc(100% - 40px - 140px);
-}
-.explorer_displayed .lichess_ground .replay {
-  height: calc(100% - 40px - 230px);
-}
-.ceval_displayed.explorer_displayed .lichess_ground .replay {
-  height: calc(100% - 40px - 41px - 230px);
+.lichess_ground .replay {
+  flex: 1 1 0;
 }
 .lichess_ground .action_menu {
+  flex: 1 0;
   border-color: transparent;
-}
-.lichess_ground .action_menu .inner {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
 }
 .lichess_ground .action_menu .button {
   display: block;

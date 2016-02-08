@@ -173,21 +173,21 @@ piece.ghost {
   min-height: 512px;
 }
 div.lichess_game {
+  display: flex;
   height: 512px;
 }
 div.lichess_game div.lichess_board_wrap {
-  display: table-cell;
   position: relative;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
 }
 div.lichess_game div.lichess_ground {
-  display: table-cell;
-  position: relative;
-  vertical-align: middle;
+  display: flex;
+  display: -ms-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   padding-left: 15px;
-  height: 512px;
   width: 242px;
 }
 div.lichess_game div.lichess_ground.for_bot h1 {
@@ -493,12 +493,16 @@ div.dont_touch {
   -webkit-transform: none;
 }
 div.table_wrap {
+  flex: 0 1 auto;
   width: 242px;
+  display: flex;
+  display: -ms-flex;
+  flex-flow: column nowrap;
   position: relative;
 }
 div.table {
+  flex: 1 1 100%;
   border: 1px solid #ccc;
-  height: auto;
   padding: 10px;
 }
 .lichess_ground .replay .moves {
@@ -599,7 +603,7 @@ div.table {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
   width: 100%;
-  height: 56px;
+  flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
   max-width: 244px;
@@ -697,72 +701,73 @@ div.table_wrap .whos_turn {
   text-align: center;
   font-weight: bold;
 }
-div.table_wrap > .clock {
+div.table_wrap .clock {
+  flex: 0 0;
   position: relative;
 }
-div.table_wrap > .clock .bar {
+div.table_wrap .clock .bar {
   position: absolute;
   width: 242px;
   height: 4px;
 }
-div.table_wrap > .clock_top .bar {
+div.table_wrap .clock_top .bar {
   bottom: -4px;
 }
-div.table_wrap > .clock_bottom .bar {
+div.table_wrap .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap > .clock .bar span {
+div.table_wrap .clock .bar span {
   display: block;
   height: 4px;
   width: 0;
   background: #759900;
 }
-div.table_wrap > .clock .bar.berserk span {
+div.table_wrap .clock .bar.berserk span {
   background: #dc322f;
 }
-div.table_wrap > .clock > .time {
+div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 32px;
   font-family: monospace;
 }
-div.table_wrap > .correspondence.clock > .time {
+div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
-div.table_wrap > .clock .time tenths {
+div.table_wrap .clock .time tenths {
   font-size: 80%;
 }
-div.table_wrap > .clock .time huns {
+div.table_wrap .clock .time huns {
   font-size: 60%;
 }
-div.table_wrap > .clock .time b {
+div.table_wrap .clock .time b {
   font-weight: bold;
 }
-div.table_wrap > .clock .time seph {
+div.table_wrap .clock .time seph {
   opacity: 0.7;
 }
-div.table_wrap > .clock .time sepl {
+div.table_wrap .clock .time sepl {
   opacity: 0.15;
 }
-div.table_wrap > .clock.running .time {
+div.table_wrap .clock.running .time {
   background: #fff077;
   color: #444;
 }
-div.table_wrap > .clock.running.emerg .time {
+div.table_wrap .clock.running.emerg .time {
   background-color: #eFAAAA;
   color: #444;
 }
-div.table_wrap > .clock.outoftime .time {
+div.table_wrap .clock.outoftime .time {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
-div.table_wrap > .clock_top .time {
+div.table_wrap .clock_top .time {
   border-bottom: 0;
   border-radius: 2px 2px 0 0;
 }
-div.table_wrap > .clock_bottom .time {
+div.table_wrap .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
@@ -908,7 +913,7 @@ div.table.finished div.player p {
   margin-top: 12px;
 }
 div.cemetery {
-  height: 32px;
+  flex: 0 0 32px;
   line-height: 0;
   white-space: nowrap;
   line-height: 0;

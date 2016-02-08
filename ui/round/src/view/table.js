@@ -44,14 +44,15 @@ function loader() {
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
+  var joinRematch = button.joinRematch(ctrl);
   var buttons = compact(ctrl.vm.redirecting ? loader() : [
     button.backToTournament(ctrl) || [
-      button.joinRematch(ctrl) ||
+      joinRematch ||
       button.answerOpponentRematch(ctrl) ||
       button.cancelRematch(ctrl) ||
       button.rematch(ctrl)
     ],
-    button.newOpponent(ctrl),
+    joinRematch ? null : button.newOpponent(ctrl),
     button.analysis(ctrl)
   ]);
   return [

@@ -1,7 +1,7 @@
 var m = require('mithril');
 
-// var endpoint = 'http://130.211.90.176/';
-var endpoint = 'http://127.0.0.1:9000/';
+var endpoint = 'http://130.211.90.176/';
+// var endpoint = 'http://127.0.0.1:9000/';
 
 module.exports = function(variant, fen, config) {
   var url;
