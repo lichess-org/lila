@@ -57,7 +57,7 @@ private final class ExplorerIndexer(endpoint: String) {
         Iteratee.foldM[Seq[Option[String]], Int](0) {
           case (number, pgnOptions) =>
             val pgns = pgnOptions.flatten
-            WS.url(url).put(pgns mkString separator pp) andThen {
+            WS.url(url).put(pgns mkString separator) andThen {
               case Success(res) if res.status == 200 => logger.info(number.toString)
               case Success(res)                      => logger.warn(s"[${res.status}]")
               case Failure(err)                      => logger.warn(s"$err")
