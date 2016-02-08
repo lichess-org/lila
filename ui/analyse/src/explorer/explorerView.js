@@ -1,5 +1,7 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
+var chessground = require('chessground');
+var partial = chessground.util.partial;
+var classSet = chessground.util.classSet;
 var renderConfig = require('./explorerConfig').view;
 
 function resultBar(move) {
@@ -64,14 +66,19 @@ module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
     var config = ctrl.explorer.config;
-    var loading = !config.data.open() && (ctrl.explorer.loading() || !ctrl.explorer.current());
+    var configOpened = config.data.open();
+    var loading = !configOpened && (ctrl.explorer.loading() || !ctrl.explorer.current());
     return m('div', {
-      class: 'explorer_box' + (loading ? ' loading' : '')
+      class: classSet({
+        explorer_box: true,
+        loading: loading,
+        config: configOpened
+      })
     }, [
       overlay,
-      config.data.open() ? showConfig(ctrl) : show(ctrl),
+      configOpened ? showConfig(ctrl) : show(ctrl),
       m('span.toconf', {
-        'data-icon': config.data.open() ? 'L' : '%',
+        'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen
       })
     ]);

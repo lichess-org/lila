@@ -361,8 +361,8 @@ function buttons(ctrl) {
       onclick: partial(effect, ctrl)
     });
   }
-  return [
-    m('div.game_control', [
+  return m('div.game_control',
+    m('div.buttons', [
       m('div', [
         m('div.jumps', [
           make('Y', control.prev),
@@ -374,7 +374,7 @@ function buttons(ctrl) {
         ])
       ]),
       m('div', [
-        m('button.button', {
+        ctrl.actionMenu.open ? null : m('button.button', {
           onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
           'data-icon': ']',
           class: ctrl.explorer.enabled() ? 'active' : ''
@@ -386,19 +386,13 @@ function buttons(ctrl) {
         }) : null
       ])
     ])
-  ];
+  );
 }
 
 module.exports = function(ctrl) {
   return [
     m('div', {
-      class: classSet({
-        top: true,
-        ceval_displayed: ctrl.ceval.allowed(),
-        explorer_displayed: ctrl.explorer.enabled(),
-        gauge_displayed: ctrl.showEvalGauge(),
-        crazy: ctrl.data.game.variant.key === 'crazyhouse'
-      })
+      class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
@@ -419,8 +413,8 @@ module.exports = function(ctrl) {
               renderAnalyse(ctrl)),
             explorerView.renderExplorer(ctrl)
           ],
-          buttons(ctrl),
-          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom'),
+          buttons(ctrl)
         ])
       ])
     ]),

@@ -48,80 +48,79 @@ module.exports = {
     if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
     else flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color) + '#' + ctrl.vm.step.ply;
 
-    return m('div.action_menu',
-      m('div.inner', [
-        m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-        ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-          href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
+    return m('div.action_menu', [
+      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
+      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
+        href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
+        rel: 'nofollow'
+      }, ctrl.trans('boardEditor')),
+      ctrl.ongoing ? null : m('a.button.text[data-icon=U]', {
+        onclick: function() {
+          $.modal($('.continue_with.' + ctrl.data.game.id));
+        }
+      }, ctrl.trans('continueFromHere')),
+      ctrl.analyse.tree.length > 4 ?
+      speedsOf(ctrl.data).map(function(speed) {
+        return m('a.button[data-icon=G]', {
+          class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+          onclick: partial(ctrl.togglePlay, speed.delay)
+        }, 'Auto play ' + speed.name);
+      }) : null,
+      ctrl.hasAnyComputerAnalysis() ? [
+        (function(id) {
+          return m('div.setting', [
+            m('div.switch', [
+              m('input', {
+                id: id,
+                class: 'cmn-toggle cmn-toggle-round',
+                type: 'checkbox',
+                checked: ctrl.vm.showAutoShapes(),
+                onchange: function(e) {
+                  ctrl.toggleAutoShapes(e.target.checked);
+                }
+              }),
+              m('label', {
+                'for': id
+              })
+            ]),
+            m('label', {
+              'for': id
+            }, 'Computer arrows')
+          ]);
+        })('analyse-toggle-ceval'), (function(id) {
+          return m('div.setting', [
+            m('div.switch', [
+              m('input', {
+                id: id,
+                class: 'cmn-toggle cmn-toggle-round',
+                type: 'checkbox',
+                checked: ctrl.vm.showGauge(),
+                onchange: function(e) {
+                  ctrl.toggleGauge(e.target.checked);
+                }
+              }),
+              m('label', {
+                'for': id
+              })
+            ]),
+            m('label', {
+              'for': id
+            }, 'Computer gauge')
+          ]);
+        })('analyse-toggle-gauge')
+      ] : null,
+      deleteButton(ctrl.data, ctrl.userId),
+      ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
+        m('a.button', {
+          href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
-        }, ctrl.trans('boardEditor')),
-        ctrl.ongoing ? null : m('a.button.text[data-icon=U]', {
-          onclick: function() {
-            $.modal($('.continue_with.' + ctrl.data.game.id));
-          }
-        }, ctrl.trans('continueFromHere')),
-        ctrl.analyse.tree.length > 4 ?
-        speedsOf(ctrl.data).map(function(speed) {
-          return m('a.button[data-icon=G]', {
-            class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-            onclick: partial(ctrl.togglePlay, speed.delay)
-          }, 'Auto play ' + speed.name);
-        }) : null,
-        ctrl.hasAnyComputerAnalysis() ? [
-          (function(id) {
-            return m('div.setting', [
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ctrl.vm.showAutoShapes(),
-                  onchange: function(e) {
-                    ctrl.toggleAutoShapes(e.target.checked);
-                  }
-                }),
-                m('label', {
-                  'for': id
-                })
-              ]),
-              m('label', {
-                'for': id
-              }, 'Computer arrows')
-            ]);
-          })('analyse-toggle-ceval'), (function(id) {
-            return m('div.setting', [
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ctrl.vm.showGauge(),
-                  onchange: function(e) {
-                    ctrl.toggleGauge(e.target.checked);
-                  }
-                }),
-                m('label', {
-                  'for': id
-                })
-              ]),
-              m('label', {
-                'for': id
-              }, 'Computer gauge')
-            ]);
-          })('analyse-toggle-gauge')
-        ] : null,
-        deleteButton(ctrl.data, ctrl.userId),
-        ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
-          m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
-            rel: 'nofollow'
-          }, ctrl.trans('playWithTheMachine')),
-          m('br'),
-          m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(ctrl.data, 'friend') + '?fen=' + ctrl.vm.step.fen,
-            rel: 'nofollow'
-          }, ctrl.trans('playWithAFriend'))
-        ])
-      ]));
+        }, ctrl.trans('playWithTheMachine')),
+        m('br'),
+        m('a.button', {
+          href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(ctrl.data, 'friend') + '?fen=' + ctrl.vm.step.fen,
+          rel: 'nofollow'
+        }, ctrl.trans('playWithAFriend'))
+      ])
+    ]);
   }
 };
