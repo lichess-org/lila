@@ -1,6 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var renderConfig = require('./explorerConfig');
+var renderConfig = require('./explorerConfig').view;
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
@@ -50,20 +50,29 @@ function show(ctrl) {
   return lastShow;
 }
 
+function showConfig(ctrl) {
+  return m('div.config', [
+    m('div.title', ctrl.data.game.variant.name + ' opening explorer'),
+    renderConfig(ctrl.explorer.config)
+  ]);
+}
+
+
 var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
-    var loading = !ctrl.explorer.config.open() && (ctrl.explorer.loading() || !ctrl.explorer.current());
+    var config = ctrl.explorer.config;
+    var loading = !config.data.open() && (ctrl.explorer.loading() || !ctrl.explorer.current());
     return m('div', {
       class: 'explorer_box' + (loading ? ' loading' : '')
     }, [
       overlay,
-      ctrl.explorer.config.open() ? renderConfig(ctrl) : show(ctrl),
+      config.data.open() ? showConfig(ctrl) : show(ctrl),
       m('span.toconf', {
-        'data-icon': ctrl.explorer.config.open() ? 'L' : '%',
-        onclick: partial(ctrl.explorer.toggleConfig)
+        'data-icon': config.data.open() ? 'L' : '%',
+        onclick: config.toggleOpen
       })
     ]);
   }

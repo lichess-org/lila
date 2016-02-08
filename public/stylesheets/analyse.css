@@ -375,10 +375,21 @@ body.dark .explorer_box .black {
 .explorer_box .toconf:hover {
   opacity: 1;
 }
+.explorer_box .config {
+  height: 100%;
+  overflow: hidden;
+}
 .explorer_box .config .title {
   font-size: 10px;
   line-height: 22px;
   padding-left: 10px;
+}
+.explorer_box .config .adv {
+  transition: 0.3s;
+}
+.explorer_box .config .adv.hidden {
+  margin-top: 120px;
+  opacity: 0;
 }
 .explorer_box .config section {
   padding: 10px 10px 0 10px;
