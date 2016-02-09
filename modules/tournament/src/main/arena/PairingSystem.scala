@@ -75,6 +75,9 @@ object PairingSystem extends AbstractPairingSystem {
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
+    val stopAt = nowMillis + 400
+    def continue = nowMillis < stopAt
+
     type Score = Int
     type RankedPairing = (RankedPlayer, RankedPlayer)
     type Combination = List[RankedPairing]
@@ -123,11 +126,12 @@ object PairingSystem extends AbstractPairingSystem {
           case (current, next) =>
             val toBeat = current.fold(than)(score)
             if (score(next) >= toBeat) current
-            else findBetter(next, toBeat) match {
+            else if (continue) findBetter(next, toBeat) match {
               case Found(b) => b.some
               case End      => next.some
               case NoBetter => current
             }
+            else current
         } match {
           case Some(best) => Found(best)
           case None       => NoBetter
