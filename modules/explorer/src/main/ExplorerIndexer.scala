@@ -31,7 +31,7 @@ private final class ExplorerIndexer(endpoint: String) {
   def apply(variantKey: String, sinceStr: String): Funit = Variant.byKey get variantKey match {
     case None => fufail(s"Invalid variant $variantKey")
     case Some(variant) => parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
-      val url = s"$endpoint/lichess/${variant.key}"
+      val url = s"$endpoint/import/lichess/${variant.key}"
       val query = $query(
         Query.createdSince(since) ++
           Query.rated ++
