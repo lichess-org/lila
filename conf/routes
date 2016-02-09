@@ -325,6 +325,7 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
+GET   /import/master/$id<\w{8}>        controllers.Importer.masterGame(id: String)
 
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
