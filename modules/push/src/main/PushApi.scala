@@ -95,20 +95,21 @@ private final class PushApi(
     }
   }
 
-  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit = c.challengerUser.filterNot(u => isOnline(u.id)) ?? { challenger =>
-    val lightJoiner = joinerId flatMap lightUser
-    googlePush(challenger.id) {
-      GooglePush.Data(
-        title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
-        body = describeChallenge(c),
-        payload = Json.obj(
-          "userId" -> challenger.id,
-          "userData" -> Json.obj(
-            "type" -> "challengeAccept",
-            "challengeId" -> c.id))
-      )
+  def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
+    c.challengerUser.ifTrue(c.finalColor.white).filterNot(u => isOnline(u.id)) ?? { challenger =>
+      val lightJoiner = joinerId flatMap lightUser
+      googlePush(challenger.id) {
+        GooglePush.Data(
+          title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
+          body = describeChallenge(c),
+          payload = Json.obj(
+            "userId" -> challenger.id,
+            "userData" -> Json.obj(
+              "type" -> "challengeAccept",
+              "challengeId" -> c.id))
+        )
+      }
     }
-  }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
