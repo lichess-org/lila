@@ -18,15 +18,15 @@ import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 private final class ExplorerIndexer(endpoint: String) {
 
   private val maxGames = Int.MaxValue
-  private val batchSize = 100
+  private val batchSize = 200
   private val minRating = 1600
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
+  private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern datePattern
+  private val dateTimeFormatter = org.joda.time.format.DateTimeFormat forPattern s"$datePattern HH:mm"
 
-  private def parseDate(str: String): Option[DateTime] = {
-    import org.joda.time.format.DateTimeFormat
-    Try(DateTimeFormat forPattern datePattern parseDateTime str).toOption
-  }
+  private def parseDate(str: String): Option[DateTime] =
+    Try(dateFormatter parseDateTime str).toOption
 
   def apply(variantKey: String, sinceStr: String): Funit = Variant.byKey get variantKey match {
     case None => fufail(s"Invalid variant $variantKey")
@@ -43,18 +43,24 @@ private final class ExplorerIndexer(endpoint: String) {
         .sort(Query.sortChronological)
         .cursor[Game]()
         .enumerate(maxGames, stopOnError = true) &>
-        Enumeratee.mapM[Game].apply[Option[String]](makeFastPgn) &>
+        Enumeratee.mapM[Game].apply[Option[(Game, String)]] { game =>
+          makeFastPgn(game) map {
+            _ map { game -> _ }
+          }
+        } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Option[String]], (Int, Long)](0 -> nowMillis) {
-          case ((number, millis), pgnOptions) =>
-            val pgns = pgnOptions.flatten
-            WS.url(url).put(pgns mkString separator) andThen {
-              case Success(res) if res.status == 200 => logger.info(s"${number} ${nowMillis - millis} ms")
-              case Success(res)                      => logger.warn(s"[${res.status}]")
-              case Failure(err)                      => logger.warn(s"$err")
-            } inject {
-              (number + pgns.size) -> nowMillis
-            }
+        Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
+          case (millis, pairOptions) =>
+            val pairs = pairOptions.flatten
+            WS.url(url).put(pairs.map(_._2) mkString separator) andThen {
+              case Success(res) if res.status == 200 =>
+                val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
+                val nb = pairs.size
+                val gameMs = (nowMillis - millis) / nb
+                logger.info(s"$date $nb/$batchSize $gameMs ms/game")
+              case Success(res) => logger.warn(s"[${res.status}]")
+              case Failure(err) => logger.warn(s"$err")
+            } inject nowMillis
         } void
     }
   }
