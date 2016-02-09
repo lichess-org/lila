@@ -1,7 +1,7 @@
 package lila.explorer
 
 import scala.util.Random.nextFloat
-import scala.util.{ Success, Failure }
+import scala.util.{ Try, Success, Failure }
 
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -21,13 +21,20 @@ private final class ExplorerIndexer(endpoint: String) {
   private val batchSize = 100
   private val minRating = 1600
   private val separator = "\n\n\n"
+  private val datePattern = "yyyy-MM-dd"
 
-  def apply(variantKey: String): Funit = Variant.byKey get variantKey match {
+  private def parseDate(str: String): Option[DateTime] = {
+    import org.joda.time.format.DateTimeFormat
+    Try(DateTimeFormat forPattern datePattern parseDateTime str).toOption
+  }
+
+  def apply(variantKey: String, sinceStr: String): Funit = Variant.byKey get variantKey match {
     case None => fufail(s"Invalid variant $variantKey")
-    case Some(variant) =>
+    case Some(variant) => parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       val url = s"$endpoint/lichess/${variant.key}"
       val query = $query(
-        Query.rated ++
+        Query.createdSince(since) ++
+          Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(10) ++
           Query.variant(variant) ++
@@ -49,6 +56,7 @@ private final class ExplorerIndexer(endpoint: String) {
               (number + pgns.size) -> nowMillis
             }
         } void
+    }
   }
 
   def apply(game: Game): Funit = makeFastPgn(game).flatMap {
