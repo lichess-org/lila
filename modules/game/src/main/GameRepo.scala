@@ -174,8 +174,6 @@ object GameRepo {
   def isAnalysed(id: ID): Fu[Boolean] =
     $count.exists($select(id) ++ Query.analysed(true))
 
-  def exists(id: ID) = $count.exists($select(id))
-
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
     gameTube.coll.distinct("_id", BSONDocument(
       "_id" -> BSONDocument("$in" -> ids),
