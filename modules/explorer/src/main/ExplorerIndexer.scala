@@ -1,5 +1,6 @@
 package lila.explorer
 
+import scala.util.Random.nextFloat
 import scala.util.{ Success, Failure }
 
 import chess.variant.Variant
@@ -68,10 +69,25 @@ private final class ExplorerIndexer(endpoint: String) {
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
+  // probability of the game being indexed, between 0 and 1
+  private def probability(game: Game, rating: Int) = {
+    import lila.rating.PerfType._
+    game.perfType ?? {
+      case Classical | Correspondence => 1
+      case Blitz if rating > 1800     => 1
+      case Blitz                      => 1f / 2
+      case Bullet if rating > 1800    => 2f / 3
+      case Bullet                     => 1f / 3
+      case _                          => 1 // keep all variant games
+    }
+  }
+
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
-    if ((whiteRating + blackRating) / 2 > minRating)
+    averageRating = (whiteRating + blackRating) / 2
+    if averageRating > minRating
+    if probability(game, averageRating) > nextFloat
     if valid(game)
   } yield GameRepo initialFen game map { initialFen =>
     val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
