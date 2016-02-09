@@ -17,6 +17,15 @@ final class Env(
     }
   }
 
+  def fetchPgn(id: String): Fu[Option[String]] = {
+    import play.api.libs.ws.WS
+    import play.api.Play.current
+    WS.url(s"$Endpoint/master/pgn/$id").get() map {
+      case res if res.status == 200 => res.body.some
+      case _                        => None
+    }
+  }
+
   system.actorOf(Props(new Actor {
     context.system.lilaBus.subscribe(self, 'finishGame)
     def receive = {

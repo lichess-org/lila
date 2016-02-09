@@ -6,7 +6,7 @@ import scala.util.{ Success, Failure }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import play.api.libs.ws.{ WS, WSAuthScheme }
+import play.api.libs.ws.WS
 import play.api.Play.current
 
 import lila.db.api._
