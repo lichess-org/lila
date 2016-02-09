@@ -72,6 +72,7 @@ private final class ExplorerIndexer(endpoint: String) {
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
+    if ((whiteRating + blackRating) / 2 > minRating)
     if valid(game)
   } yield GameRepo initialFen game map { initialFen =>
     val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
