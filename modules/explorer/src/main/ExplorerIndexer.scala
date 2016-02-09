@@ -6,6 +6,7 @@ import chess.variant.Variant
 import play.api.libs.iteratee._
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
+import org.joda.time.DateTime
 
 import lila.db.api._
 import lila.db.Implicits._
@@ -54,14 +55,16 @@ private final class ExplorerIndexer(endpoint: String) {
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.mapM[Game].apply[Option[String]](makeFastPgn) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Option[String]], Int](0) {
-          case (number, pgnOptions) =>
+        Iteratee.foldM[Seq[Option[String]], (Int, Long)](0 -> nowMillis) {
+          case ((number, millis), pgnOptions) =>
             val pgns = pgnOptions.flatten
             WS.url(url).put(pgns mkString separator) andThen {
-              case Success(res) if res.status == 200 => logger.info(number.toString)
+              case Success(res) if res.status == 200 => logger.info(s"${number} ${nowMillis - millis} ms")
               case Success(res)                      => logger.warn(s"[${res.status}]")
               case Failure(err)                      => logger.warn(s"$err")
-            } inject (number + pgns.size)
+            } inject {
+              (number + pgns.size) -> nowMillis
+            }
         } void
   }
 }
