@@ -33,12 +33,15 @@ private final class ExplorerIndexer(endpoint: String) {
     case Some(variant) => parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       val url = s"$endpoint/lichess/${variant.key}"
       val query = $query(
-        Query.createdSince(since) ++
+        (variant == chess.variant.Horde).fold(
+          Query.sinceHordePawnsAreWhite,
+          Query.createdSince(since)
+        ) ++
           Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(10) ++
-          Query.variant(variant) ++
-          (variant == chess.variant.Horde).??(Query.sinceHordePawnsAreWhite))
+          Query.variant(variant)
+      )
       pimpQB(query)
         .sort(Query.sortChronological)
         .cursor[Game]()
