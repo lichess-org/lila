@@ -8,7 +8,6 @@ final class Env(
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
-  private val ActorName = config getString "actor.name"
 
   private lazy val indexer = new ExplorerIndexer(endpoint = Endpoint)
 

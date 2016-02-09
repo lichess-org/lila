@@ -52,8 +52,7 @@ private final class ExplorerIndexer(endpoint: String) {
 
   def apply(game: Game): Funit = makeFastPgn(game).flatMap {
     _ ?? { pgn =>
-      val url = s"$endpoint/lichess/${game.variant.key}"
-      WS.url(url).put(pgn) andThen {
+      WS.url(s"$endpoint/lichess/${game.variant.key}").put(pgn) andThen {
         case Success(res) if res.status == 200 =>
         case Success(res)                      => logger.warn(s"[${res.status}]")
         case Failure(err)                      => logger.warn(s"$err")
