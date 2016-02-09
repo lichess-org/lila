@@ -1,17 +1,14 @@
 var m = require('mithril');
 
-var endpoint = 'http://130.211.90.176/';
-// var endpoint = 'http://127.0.0.1:9000/';
-
-module.exports = function(variant, fen, config) {
+module.exports = function(endpoint, variant, fen, config) {
   var url;
   var params = {
     fen: fen,
     moves: 12
   };
-  if (config.db.selected() === 'masters') url = 'master';
+  if (config.db.selected() === 'masters') url = '/master';
   else {
-    url = 'lichess';
+    url = '/lichess';
     params['variant'] = variant;
     params['speeds[]'] = config.speed.selected();
     params['ratings[]'] = config.rating.selected();

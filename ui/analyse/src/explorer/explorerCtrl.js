@@ -4,7 +4,7 @@ var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
 
-module.exports = function(root, allow) {
+module.exports = function(root, allow, endpoint) {
 
   var storageKey = 'explorer-enabled';
   var allowed = m.prop(allow);
@@ -21,7 +21,7 @@ module.exports = function(root, allow) {
 
   var fetch = throttle(500, false, function() {
     var fen = root.vm.step.fen;
-    xhr(root.data.game.variant.key, fen, config.data).then(function(res) {
+    xhr(endpoint, root.data.game.variant.key, fen, config.data).then(function(res) {
       cache[fen] = res;
       loading(false);
       m.redraw();
