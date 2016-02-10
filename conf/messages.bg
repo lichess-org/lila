@@ -92,6 +92,7 @@ nbHours=%s часа
 time=Време
 rating=Оценка
 ratingStats=Измервания
+username=Потребителско име
 usernameOrEmail=Потребител
 password=Ключ
 haveAnAccount=Имате сметка?
