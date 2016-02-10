@@ -92,6 +92,7 @@ nbHours=%s годин
 time=Час
 rating=Рейтинг
 ratingStats=Розподіл за рейтингом
+username=Псевдонім
 usernameOrEmail=Ім’я користувача
 password=Пароль
 haveAnAccount=Вже зареєстровані?
