@@ -62,8 +62,8 @@ private final class ExplorerIndexer(endpoint: String) {
               case Success(res) if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
-                val gameMs = (nowMillis - millis) / nb
-                logger.info(s"${variant.key} $date $nb/$batchSize $gameMs ms/game")
+                val gameMs = (nowMillis - millis) / nb.toDouble
+                logger.info(s"${variant.key} $date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
               case Success(res) => logger.warn(s"[${res.status}]")
               case Failure(err) => logger.warn(s"$err")
             } inject nowMillis
@@ -106,7 +106,9 @@ private final class ExplorerIndexer(endpoint: String) {
 
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
+    if whiteRating > 1500
     blackRating <- stableRating(game.blackPlayer)
+    if blackRating > 1500
     averageRating = (whiteRating + blackRating) / 2
     if averageRating > minRating
     if probability(game, averageRating) > nextFloat
