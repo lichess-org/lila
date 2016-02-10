@@ -20,6 +20,7 @@ private final class ExplorerIndexer(endpoint: String) {
   private val maxGames = Int.MaxValue
   private val batchSize = 200
   private val minRating = 1600
+  private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern datePattern
@@ -116,7 +117,7 @@ private final class ExplorerIndexer(endpoint: String) {
       s"[BlackElo $blackRating]",
       s"[Result ${PgnDump.result(game)}]")
     val allTags = fenTags ::: otherTags
-    s"${allTags.mkString("\n")}\n\n${game.pgnMoves.mkString(" ")}".some
+    s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
   })
 
   private val logger = play.api.Logger("explorer")
