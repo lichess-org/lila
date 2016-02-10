@@ -92,6 +92,7 @@ nbHours=%s horas
 time=Tiempo
 rating=Puntos
 ratingStats=Estadísticas de puntuación
+username=Nombre de usario
 usernameOrEmail=Nombre de usuario
 password=Contraseña
 haveAnAccount=¿Tienes una cuenta?
