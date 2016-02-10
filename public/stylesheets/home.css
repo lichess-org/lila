@@ -3,6 +3,7 @@
 }
 div.lobby_and_ground {
   display: flex;
+  position: relative;
 }
 #start_buttons {
   padding-left: 15px;
