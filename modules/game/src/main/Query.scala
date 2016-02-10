@@ -90,7 +90,9 @@ object Query {
   ))
 
   lazy val sinceHordePawnsAreWhite =
-    Json.obj(F.createdAt -> $gt($date(new DateTime(2015, 4, 11, 10, 0))))
+    Json.obj(F.createdAt -> $gt($date(hordeWhitePawnsSince)))
+
+  val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
   def notFromPosition =
     Json.obj(F.variant -> $ne(chess.variant.FromPosition.id))

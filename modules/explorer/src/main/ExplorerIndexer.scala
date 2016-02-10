@@ -29,19 +29,15 @@ private final class ExplorerIndexer(endpoint: String) {
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
 
-  def apply(variantKey: String, sinceStr: String): Funit = Variant.byKey get variantKey match {
-    case None => fufail(s"Invalid variant $variantKey")
-    case Some(variant) => parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
-      val url = s"$endpoint/import/lichess/${variant.key}"
+  def apply(sinceStr: String): Funit =
+    parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
+      logger.info(s"Start indexing since $since")
+      val url = s"$endpoint/import/lichess"
       val query = $query(
-        (variant == chess.variant.Horde).fold(
-          Query.sinceHordePawnsAreWhite,
-          Query.createdSince(since)
-        ) ++
+          Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(10) ++
-          Query.variant(variant) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1500)
       )
@@ -63,13 +59,12 @@ private final class ExplorerIndexer(endpoint: String) {
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
                 val gameMs = (nowMillis - millis) / nb.toDouble
-                logger.info(s"${variant.key} $date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
+                logger.info(s"$date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
               case Success(res) => logger.warn(s"[${res.status}]")
               case Failure(err) => logger.warn(s"$err")
             } inject nowMillis
         } void
     }
-  }
 
   def apply(game: Game): Funit = makeFastPgn(game).flatMap {
     _ ?? { pgn =>
@@ -85,7 +80,8 @@ private final class ExplorerIndexer(endpoint: String) {
     game.finished &&
       game.rated &&
       game.turns >= 10 &&
-      game.variant != chess.variant.FromPosition
+      game.variant != chess.variant.FromPosition &&
+      (game.variant != chess.variant.Horde || game.createdAt.isAfter(Query.hordeWhitePawnsSince))
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
@@ -118,6 +114,7 @@ private final class ExplorerIndexer(endpoint: String) {
     val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
     val otherTags = List(
       s"[LichessID ${game.id}]",
+      s"[Variant ${game.variant.name}]",
       s"[TimeControl ${game.clock.fold("-")(_.show)}]",
       s"[WhiteElo $whiteRating]",
       s"[BlackElo $blackRating]",
