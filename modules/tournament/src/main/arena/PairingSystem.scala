@@ -38,7 +38,7 @@ object PairingSystem extends AbstractPairingSystem {
       }.sequenceFu
     } yield pairings
   }.logIfSlow(500, "tourpairing") { pairings =>
-    s"createPairing http://lichess.org/tournament/${tour.id} ${pairings.size} pairings"
+    s"createPairings ${url(tour.id)} ${pairings.size} pairings"
   }
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
@@ -53,7 +53,7 @@ object PairingSystem extends AbstractPairingSystem {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking).logIfSlow(200, "tourpairing") { ranked =>
-      s"makePreps.rankedByTourAndUserIds http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${ranked.size} ranked"
+      s"makePreps.rankedByTourAndUserIds ${url(data.tour.id)} ${users.size} users, ${ranked.size} ranked"
     } map { idles =>
       if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
@@ -64,7 +64,7 @@ object PairingSystem extends AbstractPairingSystem {
       }
     }
   }.logIfSlow(200, "tourpairing") { preps =>
-    s"makePreps http://lichess.org/tournament/${data.tour.id} ${users.size} users, ${preps.size} preps"
+    s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
   }
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
@@ -72,10 +72,12 @@ object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
+  private val smartPairingsMaxMillis = 400
+
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
-    val stopAt = nowMillis + 400
+    val stopAt = nowMillis + smartPairingsMaxMillis
     def continue = nowMillis < stopAt
 
     type Score = Int
@@ -138,7 +140,7 @@ object PairingSystem extends AbstractPairingSystem {
         }
       }
 
-    (players match {
+    val preps = (players match {
       case x if x.size < 2 => Nil
       case List(p1, p2) if onlyTwoActivePlayers => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
@@ -156,5 +158,9 @@ object PairingSystem extends AbstractPairingSystem {
     }) map {
       Pairing.prep(tour, _)
     }
+    if (!continue) play.api.Logger("tourpairing").info(s"smartPairings cutoff! [${nowMillis - stopAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
+    preps
   }
+
+  private def url(tourId: String) = s"http://lichess.org/tournament/$tourId"
 }
