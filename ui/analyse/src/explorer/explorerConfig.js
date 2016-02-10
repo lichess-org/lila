@@ -20,11 +20,11 @@ module.exports = {
       },
       rating: {
         available: [1600, 1800, 2000, 2200, 2500],
-        selected: storedProp('rating', [2000, 2200, 2500])
+        selected: storedProp('rating', [1600, 1800, 2000, 2200, 2500])
       },
       speed: {
         available: ['bullet', 'blitz', 'classical'],
-        selected: storedProp('speed', ['blitz', 'classical'])
+        selected: storedProp('speed', ['bullet', 'blitz', 'classical'])
       }
     };
 
