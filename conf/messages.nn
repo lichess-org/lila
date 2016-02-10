@@ -92,6 +92,7 @@ nbHours=%s timar
 time=Tid
 rating=Rating
 ratingStats=Ratingstatistikk
+username=Brukarnavn
 usernameOrEmail=Brukarnamn
 password=Passord
 haveAnAccount=Har du ein konto her?
