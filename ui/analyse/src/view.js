@@ -28,9 +28,9 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(el) {
-  return util.throttle(500, false, function autoScroll() {
+  return util.throttle(300, false, function autoScroll() {
     raf(function() {
-      var plyEl = el.querySelector('.active') || el.querySelector('.turn:first-child');
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
       if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
     });
   });

@@ -16,7 +16,7 @@ module.exports = {
       open: m.prop(true),
       db: {
         available: ['lichess', 'masters'], //, 'me'],
-        selected: storedProp('db', 'masters')
+        selected: storedProp('db', 'lichess')
       },
       rating: {
         available: [1600, 1800, 2000, 2200, 2500],
