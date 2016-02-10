@@ -60,7 +60,7 @@ private final class ExplorerIndexer(endpoint: String) {
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
                 val gameMs = (nowMillis - millis) / nb
-                logger.info(s"$date $nb/$batchSize $gameMs ms/game")
+                logger.info(s"$variant $date $nb/$batchSize $gameMs ms/game")
               case Success(res) => logger.warn(s"[${res.status}]")
               case Failure(err) => logger.warn(s"$err")
             } inject nowMillis
