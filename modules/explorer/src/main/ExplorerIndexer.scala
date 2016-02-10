@@ -93,10 +93,11 @@ private final class ExplorerIndexer(endpoint: String) {
     game.perfType ?? {
       case Classical | Correspondence => 1
       case Blitz if rating > 1800     => 1
-      case Blitz                      => 1f / 2
-      case Bullet if rating > 2000    => 1
-      case Bullet if rating > 1800    => 2f / 3
-      case Bullet                     => 1f / 3
+      case Blitz                      => 1 / 3f
+      case Bullet if rating > 2200    => 1
+      case Bullet if rating > 2000    => 2 / 3f
+      case Bullet if rating > 1800    => 1 / 3f
+      case Bullet                     => 1 / 6f
       case _                          => 1 // keep all variant games
     }
   }
