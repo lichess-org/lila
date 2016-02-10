@@ -13,10 +13,10 @@ function storedProp(keySuffix, initialValue) {
 module.exports = {
   controller: function(onClose) {
     var data = {
-      open: m.prop(true),
+      open: m.prop(false),
       db: {
         available: ['lichess', 'masters'], //, 'me'],
-        selected: storedProp('db', 'masters')
+        selected: storedProp('db', 'lichess')
       },
       rating: {
         available: [1600, 1800, 2000, 2200, 2500],
