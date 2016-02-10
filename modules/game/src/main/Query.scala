@@ -73,6 +73,10 @@ object Query {
   def opponents(u1: User, u2: User) =
     Json.obj(F.playerUids -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
 
+  val noProvisional = Json.obj("p0.p" -> $exists(false), "p1.p" -> $exists(false))
+
+  def bothRatingsGreaterThan(v: Int) = Json.obj("p0.e" -> $gt(v), "p1.e" -> $gt(v))
+
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
   def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
