@@ -91,6 +91,7 @@ nbHours=%s timmar
 time=Tid
 rating=Rating
 ratingStats=Rating statistik
+username=Användarnamn
 usernameOrEmail=Användarnamn
 password=Lösenord
 haveAnAccount=Har du ett konto?
