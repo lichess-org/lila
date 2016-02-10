@@ -13,7 +13,7 @@ function storedProp(keySuffix, initialValue) {
 module.exports = {
   controller: function(onClose) {
     var data = {
-      open: m.prop(false),
+      open: m.prop(true),
       db: {
         available: ['lichess', 'masters'], //, 'me'],
         selected: storedProp('db', 'masters')
@@ -62,9 +62,12 @@ module.exports = {
           })
         )
       ]),
-      m('div', {
-        class: 'adv' + (d.db.selected() === 'masters' ? ' hidden' : '')
-      }, [
+      d.db.selected() === 'masters' ? m('div.masters', [
+        m('i[data-icon=C]'),
+        m('p', "Two million OTB games"),
+        m('p', "of 2200+ FIDE rated players"),
+        m('p', "from 1952 to 2016"),
+      ]) : m('div', [
         m('section.rating', [
           m('label', 'Players Average rating'),
           m('div.choices',

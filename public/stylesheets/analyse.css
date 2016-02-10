@@ -378,13 +378,14 @@ body.dark .explorer_box .black {
   line-height: 22px;
   padding-left: 10px;
 }
-.explorer_box .config .adv {
-  transition: 0.3s;
+.explorer_box .config .masters {
+  text-align: center;
+  font-style: italic;
 }
-.explorer_box .config .adv.hidden {
-  transform: translateX(-100%);
-  -webkit-transform: translateX(-100%);
-  opacity: 0;
+.explorer_box .config .masters i {
+  font-size: 30px;
+  display: inline-block;
+  margin: 15px 0;
 }
 .explorer_box .config section {
   padding: 8px 10px 0 10px;
