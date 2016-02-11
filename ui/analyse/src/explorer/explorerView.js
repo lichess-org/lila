@@ -49,7 +49,7 @@ function show(ctrl) {
             'data-uci': move.uci
           }, [
             m('td', move.san),
-            m('td', move.total),
+            m('td', lichess.numberFormat(move.total)),
             m('td', resultBar(move))
           ]);
         }))
@@ -71,10 +71,10 @@ var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
 function failing() {
   return m('div.failing.message', [
-      m('i[data-icon=,]'),
-      m('h3', 'Oops, sorry!'),
-      m('p', 'The explorer is temporarily'),
-      m('p', 'out of service. Try again soon!')
+    m('i[data-icon=,]'),
+    m('h3', 'Oops, sorry!'),
+    m('p', 'The explorer is temporarily'),
+    m('p', 'out of service. Try again soon!')
   ]);
 }
 
