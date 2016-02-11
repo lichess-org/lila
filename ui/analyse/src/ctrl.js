@@ -367,9 +367,7 @@ module.exports = function(opts) {
     };
   };
 
-  var allowExplorer = util.synthetic(this.data) || !game.playable(this.data);
-
-  this.explorer = explorerCtrl(this, allowExplorer, opts.explorerEndpoint);
+  this.explorer = explorerCtrl(this, opts.explorerEndpoint);
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);

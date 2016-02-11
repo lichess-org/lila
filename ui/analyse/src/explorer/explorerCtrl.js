@@ -4,11 +4,10 @@ var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
 
-module.exports = function(root, allow, endpoint) {
+module.exports = function(root, endpoint) {
 
   var storageKey = 'explorer-enabled';
-  var allowed = m.prop(allow);
-  var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var enabled = m.prop(lichess.storage.get(storageKey) === '1');
   var loading = m.prop(true);
   var failing = m.prop(false);
   var hoveringUci = m.prop(null);
@@ -50,7 +49,6 @@ module.exports = function(root, allow, endpoint) {
   }
 
   return {
-    allowed: allowed,
     enabled: enabled,
     setStep: setStep,
     loading: loading,
@@ -61,7 +59,6 @@ module.exports = function(root, allow, endpoint) {
       return cache[root.vm.step.fen];
     },
     toggle: function() {
-      if (!allowed()) return;
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep();
