@@ -512,7 +512,7 @@ body.dark .explorer_box .black {
 .lichess_ground .replay move:hover eval {
   opacity: 1;
 }
-.lichess_ground .analyse .meta {
+.lichess_ground .replay .meta {
   background-color: #e0e0e0;
   border: 1px solid #ccc;
   border-left: none;
@@ -520,65 +520,65 @@ body.dark .explorer_box .black {
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
 }
-.lichess_ground .analyse .white {
+.lichess_ground .replay .white {
   border-left: 3px solid;
 }
-.lichess_ground .analyse .black {
+.lichess_ground .replay .black {
   border-right: 3px solid;
   margin-right: 2px;
 }
-body .lichess_ground .analyse .inaccuracy {
+body .lichess_ground .replay .inaccuracy {
   border-color: #56B4E9;
 }
-body .lichess_ground .analyse .mistake {
+body .lichess_ground .replay .mistake {
   border-color: #E69F00;
 }
-body .lichess_ground .analyse .blunder {
+body .lichess_ground .replay .blunder {
   border-color: #DF5353;
 }
-body .lichess_ground .analyse .undefined {
+body .lichess_ground .replay .undefined {
   border-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
 }
-.lichess_ground .analyse .meta > .variation {
+.lichess_ground .replay .meta > .variation {
   padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .analyse .meta > .variation span.menu {
+.lichess_ground .replay .meta > .variation span.menu {
   float: right;
   margin-right: 3px;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.13s;
 }
-.lichess_ground .analyse .meta > .variation:hover .menu {
+.lichess_ground .replay .meta > .variation:hover .menu {
   opacity: 0.7;
 }
-.lichess_ground .analyse .meta > .variation .menu:hover {
+.lichess_ground .replay .meta > .variation .menu:hover {
   opacity: 1!important;
 }
-.lichess_ground .analyse .meta > .menu {
+.lichess_ground .replay .meta > .menu {
   background: #fff;
   font-family: 'Noto Sans';
   font-weight: normal;
 }
-.lichess_ground .analyse .meta > .menu a {
+.lichess_ground .replay .meta > .menu a {
   display: block;
   line-height: 1.8em;
 }
-.lichess_ground .analyse .meta > .menu a.delete {
+.lichess_ground .replay .meta > .menu a.delete {
   color: #ac524f;
 }
-.lichess_ground .analyse .meta > .menu a.promote {
+.lichess_ground .replay .meta > .menu a.promote {
   color: #759900;
 }
-.lichess_ground .analyse .meta > .menu a::before {
+.lichess_ground .replay .meta > .menu a::before {
   opacity: 0.5;
 }
-.lichess_ground .analyse .meta > .menu a:hover::before {
+.lichess_ground .replay .meta > .menu a:hover::before {
   opacity: 1;
 }
 .lichess_ground .variation index {
@@ -595,7 +595,7 @@ body .lichess_ground .analyse .undefined {
 .lichess_ground .variation move:hover {
   background: #eee;
 }
-.lichess_ground .analyse .variation .variation {
+.lichess_ground .replay .variation .variation {
   margin: 0 5px;
 }
 .lichess_ground .result {
