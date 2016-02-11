@@ -7,12 +7,13 @@ var renderConfig = require('./explorerConfig').view;
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
   var section = function(key) {
-    return move[key] === 0 ? null : m('span', {
+    var percent = move[key] * 100 / sum;
+    return percent === 0 ? null : m('span', {
       class: key,
       style: {
         width: (Math.round(move[key] * 1000 / sum) / 10) + '%'
       },
-    }, Math.round(move[key] * 100 / sum) + '%');
+    }, percent > 12 ? Math.round(percent) + '%' : null);
   }
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
@@ -35,6 +36,13 @@ function show(ctrl) {
           onclick: function(e) {
             var $tr = $(e.target).parents('tr');
             if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
+          },
+          onmouseover: function(e) {
+            var $tr = $(e.target).parents('tr');
+            if ($tr.length) ctrl.explorer.setHoveringUci($tr[0].getAttribute('data-uci'));
+          },
+          onmouseout: function(e) {
+            ctrl.explorer.setHoveringUci(null);
           }
         }, data.moves.map(function(move) {
           return m('tr', {
@@ -42,7 +50,7 @@ function show(ctrl) {
             'data-uci': move.uci
           }, [
             m('td', move.san),
-            m('td', move.total),
+            m('td', lichess.numberFormat(move.total)),
             m('td', resultBar(move))
           ]);
         }))
@@ -55,19 +63,28 @@ function show(ctrl) {
 function showConfig(ctrl) {
   return m('div.config', [
     m('div.title', ctrl.data.game.variant.name + ' opening explorer'),
-    renderConfig(ctrl.explorer.config)
+    renderConfig(ctrl.explorer.config, ctrl.data.game.variant)
   ]);
 }
 
 
 var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
+function failing() {
+  return m('div.failing.message', [
+    m('i[data-icon=,]'),
+    m('h3', 'Oops, sorry!'),
+    m('p', 'The explorer is temporarily'),
+    m('p', 'out of service. Try again soon!')
+  ]);
+}
+
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
-    var loading = !configOpened && (ctrl.explorer.loading() || !ctrl.explorer.current());
+    var loading = !configOpened && (ctrl.explorer.loading() || (!ctrl.explorer.current() && !ctrl.explorer.failing()));
     return m('div', {
       class: classSet({
         explorer_box: true,
@@ -76,7 +93,7 @@ module.exports = {
       })
     }, [
       overlay,
-      configOpened ? showConfig(ctrl) : show(ctrl),
+      configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl)),
       m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen

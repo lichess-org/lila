@@ -3,13 +3,15 @@ var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
+var storedProp = require('../util').storedProp;
 
-module.exports = function(root, allow, endpoint) {
+module.exports = function(root, endpoint) {
 
   var storageKey = 'explorer-enabled';
-  var allowed = m.prop(allow);
-  var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var enabled = storedProp('explorer.enabled', false);
   var loading = m.prop(true);
+  var failing = m.prop(false);
+  var hoveringUci = m.prop(null);
 
   var cache = {};
   var clearCache = function() {
@@ -24,6 +26,11 @@ module.exports = function(root, allow, endpoint) {
     xhr(endpoint, root.data.game.variant.key, fen, config.data).then(function(res) {
       cache[fen] = res;
       loading(false);
+      failing(false);
+      m.redraw();
+    }, function(err) {
+      loading(false);
+      failing(true);
       m.redraw();
     });
   });
@@ -43,19 +50,23 @@ module.exports = function(root, allow, endpoint) {
   }
 
   return {
-    allowed: allowed,
     enabled: enabled,
     setStep: setStep,
     loading: loading,
+    failing: failing,
+    hoveringUci: hoveringUci,
     config: config,
     current: function() {
       return cache[root.vm.step.fen];
     },
-    toggle: function(step) {
-      if (!allowed()) return;
+    toggle: function() {
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep();
     },
+    setHoveringUci: function(uci) {
+      hoveringUci(uci);
+      root.setAutoShapes();
+    }
   };
 };
