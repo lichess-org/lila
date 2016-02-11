@@ -388,6 +388,17 @@ lichess.unique = function(xs) {
     return xs.indexOf(x) === i;
   });
 };
+lichess.numberFormat = (function() {
+  if (Intl && Intl.NumberFormat) {
+    var formatter = new Intl.NumberFormat();
+    return function(n) {
+      return formatter.format(n);
+    }
+  }
+  return function(n) {
+    return n;
+  };
+})();
 
 (function() {
 
@@ -458,7 +469,7 @@ lichess.unique = function(xs) {
   $.spreadNumber = function(el, nbSteps, getDuration) {
     var previous, displayed;
     var display = function(prev, cur, it) {
-      var val = Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps);
+      var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
       if (val !== displayed) {
         el.textContent = val;
         displayed = val;
