@@ -1,14 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-
-function storedProp(keySuffix, initialValue) {
-  var key = 'explorer.' + keySuffix;
-  return function() {
-    if (arguments.length) lichess.storage.set(key, JSON.stringify(arguments[0]));
-    var ret = JSON.parse(lichess.storage.get(key));
-    return (ret !== null) ? ret : initialValue;
-  };
-}
+var storedProp = require('../util').storedProp;
+var storedJsonProp = require('../util').storedJsonProp;
 
 module.exports = {
   controller: function(onClose) {
@@ -16,15 +9,15 @@ module.exports = {
       open: m.prop(false),
       db: {
         available: ['lichess', 'masters'], //, 'me'],
-        selected: storedProp('db', 'lichess')
+        selected: storedProp('explorer.db', 'lichess')
       },
       rating: {
         available: [1600, 1800, 2000, 2200, 2500],
-        selected: storedProp('rating', [1600, 1800, 2000, 2200, 2500])
+        selected: storedJsonProp('explorer.rating', [1600, 1800, 2000, 2200, 2500])
       },
       speed: {
         available: ['bullet', 'blitz', 'classical'],
-        selected: storedProp('speed', ['bullet', 'blitz', 'classical'])
+        selected: storedJsonProp('explorer.speed', ['bullet', 'blitz', 'classical'])
       }
     };
 

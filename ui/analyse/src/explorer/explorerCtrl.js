@@ -3,11 +3,12 @@ var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
+var storedProp = require('../util').storedProp;
 
 module.exports = function(root, endpoint) {
 
   var storageKey = 'explorer-enabled';
-  var enabled = m.prop(lichess.storage.get(storageKey) === '1');
+  var enabled = storedProp('explorer.enabled', false);
   var loading = m.prop(true);
   var failing = m.prop(false);
   var hoveringUci = m.prop(null);
