@@ -21,7 +21,7 @@ object Auth extends LilaController {
   private def mobileUserOk(u: UserModel): Fu[Result] =
     lila.game.GameRepo urgentGames u map { povs =>
       Ok {
-        Env.user.jsonView(u, extended = true) ++ Json.obj(
+        Env.user.jsonView(u) ++ Json.obj(
           "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
       }
     }

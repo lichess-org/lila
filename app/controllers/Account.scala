@@ -33,19 +33,20 @@ object Account extends LilaController {
   }
 
   def info = Open { implicit ctx =>
-    negotiate(
-      html = notFound,
+      negotiate(
+        html = notFound,
       api = _ => ctx.me match {
         case None => fuccess(unauthorizedApiResult)
         case Some(me) => Env.pref.api getPref me flatMap { prefs =>
-          lila.game.GameRepo urgentGames me map { povs =>
-            Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
-            Ok {
-              import play.api.libs.json._
-              import lila.pref.JsonView._
-              Env.user.jsonView(me, extended = true) ++ Json.obj(
-                "prefs" -> prefs,
-                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+            lila.game.GameRepo urgentGames me map { povs =>
+              Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+              Ok {
+                import play.api.libs.json._
+                import lila.pref.JsonView._
+                Env.user.jsonView(me) ++ Json.obj(
+                  "prefs" -> prefs,
+                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+              }
             }
           }
         }

@@ -64,7 +64,7 @@ object User extends LilaController {
     negotiate(
       html = env.cached topOnline max map { html.user.online(_, max) },
       api = _ => env.cached topOnline getInt("nb").fold(10)(_ min max) map { list =>
-        Ok(Json.toJson(list.map(env.jsonView(_, true))))
+        Ok(Json.toJson(list.map(env.jsonView(_))))
       }
     )
   }
