@@ -401,6 +401,10 @@ body.dark .explorer_box .black {
 .explorer_box .config section.db {
   padding-top: 5px;
 }
+.explorer_box .config section.save {
+  text-align: center;
+  padding: 15px 0 10px 0;
+}
 .explorer_box .config label {
   font-weight: bold;
   display: block;
