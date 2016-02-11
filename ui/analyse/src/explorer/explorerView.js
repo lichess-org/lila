@@ -20,6 +20,10 @@ function resultBar(move) {
 
 var lastShow = null;
 
+function $trUci($tr) {
+  return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
+}
+
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data) {
@@ -33,13 +37,20 @@ function show(ctrl) {
           ])
         ]),
         m('tbody', {
+          config: function(el, isUpdate, ctx) {
+            if (!isUpdate || ctx.lastFen === ctrl.vm.step.fen) return;
+            ctx.lastFen = ctrl.vm.step.fen;
+            setTimeout(function() {
+              ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+            }, 100);
+          },
           onclick: function(e) {
             var $tr = $(e.target).parents('tr');
-            if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
+            if ($tr.length) ctrl.explorerMove($trUci($tr));
           },
           onmouseover: function(e) {
             var $tr = $(e.target).parents('tr');
-            if ($tr.length) ctrl.explorer.setHoveringUci($tr[0].getAttribute('data-uci'));
+            ctrl.explorer.setHoveringUci($trUci($tr));
           },
           onmouseout: function(e) {
             ctrl.explorer.setHoveringUci(null);
