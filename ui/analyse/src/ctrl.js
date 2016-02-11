@@ -178,17 +178,24 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
-  var pieceToSan = {
+  var roleToSan = {
     pawn: 'P',
     knight: 'N',
     bishop: 'B',
     rook: 'R',
     queen: 'Q'
   };
+  var sanToRole = {
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen'
+  };
 
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.step.drops, piece, pos)) {
-      this.vm.justPlayed = pieceToSan[piece.role] + '@' + pos;
+      this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
       sound.move();
       var drop = {
         role: piece.role,
@@ -360,18 +367,26 @@ module.exports = function(opts) {
 
   var makeAutoShapeFromUci = function(uci, brush) {
     var move = decomposeUci(uci);
-    return {
+    return uci[1] === '@' ? {
+      orig: move[1],
+      brush: brush
+    } : {
       orig: move[0],
       dest: move[1],
       brush: brush
     };
-  };
+  }
 
   this.explorer = explorerCtrl(this, opts.explorerEndpoint);
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);
-    this.chessground.apiMove(move[0], move[1]);
+    if (uci[1] === '@') this.chessground.apiNewPiece({
+        color: this.chessground.data.movable.color,
+        role: sanToRole[uci[0]]
+      },
+      uci[0])
+    else this.chessground.apiMove(move[0], move[1]);
     this.explorer.loading(true);
   }.bind(this);
 
