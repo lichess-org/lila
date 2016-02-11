@@ -370,6 +370,21 @@ body.dark .explorer_box .black {
 .explorer_box .toconf:hover {
   opacity: 1;
 }
+.explorer_box .message {
+  text-align: center;
+  font-style: italic;
+}
+.explorer_box .message i {
+  font-size: 30px;
+  display: inline-block;
+  margin: 12px 0;
+}
+.explorer_box .message h3 {
+  font-weight: bold;
+}
+.explorer_box .failing.message i {
+  font-size: 70px;
+}
 .explorer_box .config {
   overflow: hidden;
 }
@@ -377,15 +392,6 @@ body.dark .explorer_box .black {
   font-size: 10px;
   line-height: 22px;
   padding-left: 10px;
-}
-.explorer_box .config .masters {
-  text-align: center;
-  font-style: italic;
-}
-.explorer_box .config .masters i {
-  font-size: 30px;
-  display: inline-block;
-  margin: 12px 0;
 }
 .explorer_box .config section {
   padding: 8px 10px 0 10px;

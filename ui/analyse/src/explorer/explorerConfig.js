@@ -62,7 +62,7 @@ module.exports = {
           })
         )
       ]),
-      d.db.selected() === 'masters' ? m('div.masters', [
+      d.db.selected() === 'masters' ? m('div.masters.message', [
         m('i[data-icon=C]'),
         m('p', "Two million OTB games"),
         m('p', "of 2200+ FIDE rated players"),

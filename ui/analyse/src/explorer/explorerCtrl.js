@@ -10,6 +10,7 @@ module.exports = function(root, allow, endpoint) {
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var loading = m.prop(true);
+  var failing = m.prop(false);
 
   var cache = {};
   var clearCache = function() {
@@ -24,6 +25,11 @@ module.exports = function(root, allow, endpoint) {
     xhr(endpoint, root.data.game.variant.key, fen, config.data).then(function(res) {
       cache[fen] = res;
       loading(false);
+      failing(false);
+      m.redraw();
+    }, function(err) {
+      loading(false);
+      failing(true);
       m.redraw();
     });
   });
@@ -47,6 +53,7 @@ module.exports = function(root, allow, endpoint) {
     enabled: enabled,
     setStep: setStep,
     loading: loading,
+    failing: failing,
     config: config,
     current: function() {
       return cache[root.vm.step.fen];

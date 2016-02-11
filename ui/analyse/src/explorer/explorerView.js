@@ -62,12 +62,21 @@ function showConfig(ctrl) {
 
 var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
 
+function failing() {
+  return m('div.failing.message', [
+      m('i[data-icon=,]'),
+      m('h3', 'Oops, sorry!'),
+      m('p', 'The explorer is temporarily'),
+      m('p', 'out of service. Try again soon!')
+  ]);
+}
+
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.enabled()) return;
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
-    var loading = !configOpened && (ctrl.explorer.loading() || !ctrl.explorer.current());
+    var loading = !configOpened && (ctrl.explorer.loading() || (!ctrl.explorer.current() && !ctrl.explorer.failing()));
     return m('div', {
       class: classSet({
         explorer_box: true,
@@ -76,7 +85,7 @@ module.exports = {
       })
     }, [
       overlay,
-      configOpened ? showConfig(ctrl) : show(ctrl),
+      configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl)),
       m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen
