@@ -46,14 +46,12 @@ module.exports = {
     return [
       m('section.db', [
         m('label', 'Database'),
-        m('div.choices',
-          (variant.key === 'standard' ? d.db.available : ['lichess']).map(function(s) {
-            return m('span', {
-              class: d.db.selected() === s ? 'selected' : '',
-              onclick: partial(ctrl.toggleDb, s)
-            }, s);
-          })
-        )
+        m('div.choices', (variant.key === 'standard' ? d.db.available : ['lichess']).map(function(s) {
+          return m('span', {
+            class: d.db.selected() === s ? 'selected' : '',
+            onclick: partial(ctrl.toggleDb, s)
+          }, s);
+        }))
       ]),
       d.db.selected() === 'masters' ? m('div.masters.message', [
         m('i[data-icon=C]'),
@@ -82,7 +80,12 @@ module.exports = {
               }, s);
             })
           )
-        ])
+        ]),
+        m('section.save',
+          m('button.button.text[data-icon=E]', {
+            onclick: ctrl.toggleOpen
+          }, 'All set!')
+        )
       ])
     ];
   }
