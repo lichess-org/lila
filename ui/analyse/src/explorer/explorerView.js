@@ -59,7 +59,7 @@ function showMoveTable(ctrl, moves) {
         'data-uci': move.uci
       }, [
         m('td', move.san),
-        m('td', lichess.numberFormat(move.total)),
+        m('td', lichess.numberFormat(move.white + move.draws + move.black)),
         m('td', resultBar(move))
       ]);
     }))
