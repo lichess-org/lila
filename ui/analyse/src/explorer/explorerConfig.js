@@ -48,13 +48,13 @@ module.exports = {
       toggleSpeed: partial(toggleMany, data.speed.selected)
     };
   },
-  view: function(ctrl) {
+  view: function(ctrl, variant) {
     var d = ctrl.data;
     return [
       m('section.db', [
         m('label', 'Database'),
         m('div.choices',
-          d.db.available.map(function(s) {
+          (variant.key === 'standard' ? d.db.available : ['lichess']).map(function(s) {
             return m('span', {
               class: d.db.selected() === s ? 'selected' : '',
               onclick: partial(ctrl.toggleDb, s)

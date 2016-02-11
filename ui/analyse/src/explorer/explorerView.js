@@ -63,7 +63,7 @@ function show(ctrl) {
 function showConfig(ctrl) {
   return m('div.config', [
     m('div.title', ctrl.data.game.variant.name + ' opening explorer'),
-    renderConfig(ctrl.explorer.config)
+    renderConfig(ctrl.explorer.config, ctrl.data.game.variant)
   ]);
 }
 
