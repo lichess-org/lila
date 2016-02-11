@@ -333,7 +333,7 @@ body.dark .explorer_box .bar span.white {
   box-shadow: 0 5px 7px rgba(255,255,255,0.2) inset;
 }
 .explorer_box .draws {
-  background: #888;
+  background: #a0a0a0;
 }
 body.dark .explorer_box .draws {
   background: #666;

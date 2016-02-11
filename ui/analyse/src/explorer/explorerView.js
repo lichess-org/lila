@@ -7,12 +7,13 @@ var renderConfig = require('./explorerConfig').view;
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
   var section = function(key) {
-    return move[key] === 0 ? null : m('span', {
+    var percent = move[key] * 100 / sum;
+    return percent === 0 ? null : m('span', {
       class: key,
       style: {
         width: (Math.round(move[key] * 1000 / sum) / 10) + '%'
       },
-    }, Math.round(move[key] * 100 / sum) + '%');
+    }, percent > 12 ? Math.round(percent) + '%' : null);
   }
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
