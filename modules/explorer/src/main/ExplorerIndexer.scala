@@ -8,12 +8,14 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
+import org.joda.time.format.DateTimeFormat
 
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
+import lila.user.UserRepo
 
 private final class ExplorerIndexer(endpoint: String) {
 
@@ -23,8 +25,9 @@ private final class ExplorerIndexer(endpoint: String) {
   private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
-  private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern datePattern
-  private val dateTimeFormatter = org.joda.time.format.DateTimeFormat forPattern s"$datePattern HH:mm"
+  private val dateFormatter = DateTimeFormat forPattern datePattern
+  private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
+  private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
@@ -34,7 +37,7 @@ private final class ExplorerIndexer(endpoint: String) {
       logger.info(s"Start indexing since $since")
       val url = s"$endpoint/import/lichess"
       val query = $query(
-          Query.createdSince(since) ++
+        Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(10) ++
@@ -110,17 +113,25 @@ private final class ExplorerIndexer(endpoint: String) {
     if averageRating > minRating
     if probability(game, averageRating) > nextFloat
     if valid(game)
-  } yield GameRepo initialFen game map { initialFen =>
-    val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
-    val otherTags = List(
-      s"[LichessID ${game.id}]",
-      s"[Variant ${game.variant.name}]",
-      s"[TimeControl ${game.clock.fold("-")(_.show)}]",
-      s"[WhiteElo $whiteRating]",
-      s"[BlackElo $blackRating]",
-      s"[Result ${PgnDump.result(game)}]")
-    val allTags = fenTags ::: otherTags
-    s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
+  } yield GameRepo initialFen game flatMap { initialFen =>
+    UserRepo.usernamesByIds(game.userIds) map { usernames =>
+      def username(color: chess.Color) = game.player(color).userId flatMap { id =>
+        usernames.find(_.toLowerCase == id)
+      } orElse game.player(color).userId getOrElse "?"
+      val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
+      val otherTags = List(
+        s"[LichessID ${game.id}]",
+        s"[Variant ${game.variant.name}]",
+        s"[TimeControl ${game.clock.fold("-")(_.show)}]",
+        s"[White ${username(chess.White)}]",
+        s"[Black ${username(chess.Black)}]",
+        s"[WhiteElo $whiteRating]",
+        s"[BlackElo $blackRating]",
+        s"[Result ${PgnDump.result(game)}]",
+        s"[Date ${pgnDateFormat.print(game.createdAt)}]")
+      val allTags = fenTags ::: otherTags
+      s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
+    }
   })
 
   private val logger = play.api.Logger("explorer")
