@@ -34,7 +34,7 @@ private[api] final class UserApi(
     Json.obj(
       "list" -> JsArray(
         users map { u =>
-          jsonView(u, extended = team.isDefined) ++
+          jsonView(u) ++
             Json.obj("url" -> makeUrl(s"@/${u.username}"))
         }
       )
@@ -51,7 +51,7 @@ private[api] final class UserApi(
       ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
       ctx.userId.?? { relationApi.fetchFollows(u.id, _) } map {
         case ((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed) =>
-          jsonView(u, extended = true) ++ {
+          jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
               "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
