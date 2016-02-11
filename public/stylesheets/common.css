@@ -1604,8 +1604,69 @@ body #themepicker div.is3d,
   width: 10px;
   bottom: 0;
 }
-#themepicker input.background_image {
+#themepicker div.bg-selector {
   display: none;
+}
+#themepicker div.bg-selector > a {
+  width: 40px;
+  height: 40px;
+  background: scroll 50% 50%;
+  background-size: 250%;
+  margin: unset;
+  position: relative;
+}
+#themepicker div.bg-selector > .slideshow {
+  background-image: url(../images/background/diamond_upholstery.dark.png);
+}
+#themepicker div.bg-selector > .slideshow::after {
+  content: 'p'; /* clock */
+  position: absolute;
+  font-family: lichess;
+}
+#themepicker div.bg-selector > .using::after {
+  font-size: 16px;
+  margin-left: -18px;
+  margin-top: 22px;
+  content: 'r'; /* figure */
+  position: absolute;
+  font-family: lichess;
+  color: rgba(0, 0, 0, 0.6);
+}
+#themepicker div.bg-selector .reveal {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.13s;
+  text-decoration: none;
+}
+#themepicker div.bg-selector .reveal::before {
+  font-size: 18px;
+  bottom: 0;
+}
+#themepicker div.bg-selector > a.using > .reveal {
+  display: none;
+}
+#themepicker div.bg-selector > a:hover > .reveal {
+  opacity: 1;
+}
+#themepicker .bg-selector .drop:hover {
+  color: #dc322f;
+}
+#themepicker .bg-selector > .add {
+  opacity: 0.4;
+  position: absolute;
+  text-decoration: none;
+  font-size: 20px;
+  right: 8px;
+  width: initial;
+  height: initial;
+}
+#themepicker .bg-selector > .add:hover {
+  opacity: 1;
 }
 #sound_control {
   margin-right: 5px;
