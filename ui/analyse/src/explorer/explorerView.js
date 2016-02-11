@@ -24,49 +24,87 @@ function $trUci($tr) {
   return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
 }
 
+function showMoveTable(ctrl, moves) {
+  if (!moves.length) return null;
+  return m('table.moves', [
+    m('thead', [
+      m('tr', [
+        m('th', 'Move'),
+        m('th', 'Games'),
+        m('th', 'White / Draw / Black')
+      ])
+    ]),
+    m('tbody', {
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate || ctx.lastFen === ctrl.vm.step.fen) return;
+        ctx.lastFen = ctrl.vm.step.fen;
+        setTimeout(function() {
+          ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+        }, 100);
+      },
+      onclick: function(e) {
+        var $tr = $(e.target).parents('tr');
+        if ($tr.length) ctrl.explorerMove($trUci($tr));
+      },
+      onmouseover: function(e) {
+        var $tr = $(e.target).parents('tr');
+        ctrl.explorer.setHoveringUci($trUci($tr));
+      },
+      onmouseout: function(e) {
+        ctrl.explorer.setHoveringUci(null);
+      }
+    }, moves.map(function(move) {
+      return m('tr', {
+        key: move.uci,
+        'data-uci': move.uci
+      }, [
+        m('td', move.san),
+        m('td', lichess.numberFormat(move.total)),
+        m('td', resultBar(move))
+      ]);
+    }))
+  ]);
+}
+
+function showResult(winner) {
+  if (winner === 'white') return '1-0';
+  if (winner === 'black') return '0-1';
+  return '½-½';
+}
+
+function showGameTable(ctrl, games) {
+  if (!games.length) return null;
+  return m('table.games', [
+    m('thead', [
+      m('tr', [
+        m('th[colspan=4]', 'Top games')
+      ])
+    ]),
+    m('tbody', games.map(function(game) {
+      return m('tr', {
+        key: game.id,
+        'data-id': game.id
+      }, [
+        m('td', [game.white, game.black].map(function(p) {
+          return m('span', p.name);
+        })),
+        m('td', [game.white, game.black].map(function(p) {
+          return m('span', p.rating);
+        })),
+        m('td', showResult(game.winner)),
+        m('td', game.year)
+      ]);
+    }))
+  ]);
+}
+
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data) {
-    lastShow = data.moves.length ? m('div.data', [
-      m('table', [
-        m('thead', [
-          m('tr', [
-            m('th', 'Move'),
-            m('th', 'Games'),
-            m('th', 'White / Draw / Black')
-          ])
-        ]),
-        m('tbody', {
-          config: function(el, isUpdate, ctx) {
-            if (!isUpdate || ctx.lastFen === ctrl.vm.step.fen) return;
-            ctx.lastFen = ctrl.vm.step.fen;
-            setTimeout(function() {
-              ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
-            }, 100);
-          },
-          onclick: function(e) {
-            var $tr = $(e.target).parents('tr');
-            if ($tr.length) ctrl.explorerMove($trUci($tr));
-          },
-          onmouseover: function(e) {
-            var $tr = $(e.target).parents('tr');
-            ctrl.explorer.setHoveringUci($trUci($tr));
-          },
-          onmouseout: function(e) {
-            ctrl.explorer.setHoveringUci(null);
-          }
-        }, data.moves.map(function(move) {
-          return m('tr', {
-            key: move.uci,
-            'data-uci': move.uci
-          }, [
-            m('td', move.san),
-            m('td', lichess.numberFormat(move.total)),
-            m('td', resultBar(move))
-          ]);
-        }))
-      ])
-    ]) : m('div.data.empty', 'No game found');
+    var moveTable = showMoveTable(ctrl, data.moves);
+    var gameTable = showGameTable(ctrl, data.topGames);
+    if (moveTable || gameTable) lastShow = m('div.data', [moveTable, gameTable]);
+    else lastShow = m('div.data.empty', 'No game found');
   }
   return lastShow;
 }
