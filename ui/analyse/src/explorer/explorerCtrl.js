@@ -11,6 +11,7 @@ module.exports = function(root, allow, endpoint) {
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
   var loading = m.prop(true);
   var failing = m.prop(false);
+  var hoveringUci = m.prop(null);
 
   var cache = {};
   var clearCache = function() {
@@ -54,6 +55,7 @@ module.exports = function(root, allow, endpoint) {
     setStep: setStep,
     loading: loading,
     failing: failing,
+    hoveringUci: hoveringUci,
     config: config,
     current: function() {
       return cache[root.vm.step.fen];
@@ -64,5 +66,9 @@ module.exports = function(root, allow, endpoint) {
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep();
     },
+    setHoveringUci: function(uci) {
+      hoveringUci(uci);
+      root.setAutoShapes();
+    }
   };
 };

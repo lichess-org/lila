@@ -35,6 +35,13 @@ function show(ctrl) {
           onclick: function(e) {
             var $tr = $(e.target).parents('tr');
             if ($tr.length) ctrl.explorerMove($tr[0].getAttribute('data-uci'));
+          },
+          onmouseover: function(e) {
+            var $tr = $(e.target).parents('tr');
+            if ($tr.length) ctrl.explorer.setHoveringUci($tr[0].getAttribute('data-uci'));
+          },
+          onmouseout: function(e) {
+            ctrl.explorer.setHoveringUci(null);
           }
         }, data.moves.map(function(move) {
           return m('tr', {
