@@ -28,7 +28,7 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(el) {
-  return util.throttle(300, false, function autoScroll() {
+  return util.throttle(300, false, function() {
     raf(function() {
       var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
       if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
@@ -284,7 +284,7 @@ function renderAnalyse(ctrl) {
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
   }
-  return m('div.analyse', {
+  return m('div.replay', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
         if (el.tagName !== 'MOVE') return;
@@ -294,6 +294,9 @@ function renderAnalyse(ctrl) {
       },
       onclick: function(e) {
         return false;
+      },
+      config: function(el, isUpdate) {
+        if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
       }
     },
     tree);
@@ -405,12 +408,7 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
-            m('div.replay', {
-                config: function(el, isUpdate) {
-                  if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
-                }
-              },
-              renderAnalyse(ctrl)),
+            renderAnalyse(ctrl),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom'),

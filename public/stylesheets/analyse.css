@@ -445,6 +445,7 @@ body.dark .explorer_box .black {
 }
 .lichess_ground .replay {
   flex: 2 1 0;
+  position: relative; /* for autoscroll */
 }
 .lichess_ground .action_menu {
   flex: 1 0;
