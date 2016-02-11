@@ -385,7 +385,7 @@ module.exports = function(opts) {
         color: this.chessground.data.movable.color,
         role: sanToRole[uci[0]]
       },
-      uci[0])
+      move[1])
     else this.chessground.apiMove(move[0], move[1]);
     this.explorer.loading(true);
   }.bind(this);
