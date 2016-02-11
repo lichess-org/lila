@@ -47,7 +47,7 @@ module.exports = {
       return isBoolean ? value === 'true' : value;
     };
   },
-  storedJsonProp(keySuffix, defaultValue) {
+  storedJsonProp: function(keySuffix, defaultValue) {
     var key = 'explorer.' + keySuffix;
     return function() {
       if (arguments.length) lichess.storage.set(key, JSON.stringify(arguments[0]));
