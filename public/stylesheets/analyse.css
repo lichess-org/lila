@@ -274,16 +274,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .explorer_box thead th:last-child {
   padding-left: 0;
 }
-.explorer_box td {
-  cursor: pointer;
-  padding: 7px 0 7px 7px;
-  vertical-align: 0px;
-}
-.explorer_box td:nth-child(2) {
-  font-size: 10px;
-  opacity: 0.8;
-  text-align: right;
-}
 .explorer_box .title,
 .explorer_box thead,
 .explorer_box tr:nth-child(even) {
@@ -295,9 +285,20 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .explorer_box tbody tr:hover {
   background: rgba(191, 231, 255, 0.7);
 }
-.explorer_box td:first-child {
-  font-weight: bold;
+.explorer_box td {
+  cursor: pointer;
   padding-left: 7px;
+}
+.explorer_box td:first-child {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 14px;
+  line-height: 30px;
+  padding-left: 7px;
+}
+.explorer_box td:nth-child(2) {
+  font-size: 10px;
+  opacity: 0.8;
+  text-align: right;
 }
 .explorer_box td:last-child {
   width: 100%;
