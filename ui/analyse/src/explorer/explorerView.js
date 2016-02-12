@@ -56,7 +56,8 @@ function showMoveTable(ctrl, moves) {
     }, moves.map(function(move) {
       return m('tr', {
         key: move.uci,
-        'data-uci': move.uci
+        'data-uci': move.uci,
+        title: 'Average rating: ' + move.averageRating
       }, [
         m('td', move.san),
         m('td', lichess.numberFormat(move.white + move.draws + move.black)),
