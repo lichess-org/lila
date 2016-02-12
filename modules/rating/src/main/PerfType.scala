@@ -153,5 +153,5 @@ object PerfType {
   }
 
   def iconByVariant(variant: chess.variant.Variant): Char =
-    byVariant(variant).getOrElse(Classical).iconChar
+    byVariant(variant).fold('C')(_.iconChar)
 }
