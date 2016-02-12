@@ -43,7 +43,7 @@ module.exports = function(root, endpoint) {
   function setStep() {
     if (!enabled()) return;
     var step = root.vm.step;
-    if (step.ply > 40) cache[step.fen] = empty;
+    if (step.ply > 50) cache[step.fen] = empty;
     if (!cache[step.fen]) {
       loading(true);
       fetch(step.fen);
