@@ -113,7 +113,17 @@ function show(ctrl) {
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, recentTable, topTable]);
-    else lastShow = m('div.data.empty', 'No game found');
+    else lastShow = m('div.data.empty', [
+      m('div.title', 'No game found'),
+      m('div.message', [
+        m('i[data-icon=]'),
+        m('h3', "That's all we got!"),
+        m('p',
+          ctrl.explorer.config.fullHouse() ?
+          "Already searching through all available games." :
+          "Maybe include more games from the preferences menu?")
+      ])
+    ]);
   }
   return lastShow;
 }

@@ -38,7 +38,13 @@ module.exports = {
         data.db.selected(db);
       },
       toggleRating: partial(toggleMany, data.rating.selected),
-      toggleSpeed: partial(toggleMany, data.speed.selected)
+      toggleSpeed: partial(toggleMany, data.speed.selected),
+      fullHouse: function() {
+        return data.db.selected() === 'masters' || (
+          data.rating.selected().length === data.rating.available.length &&
+          data.speed.selected().length === data.speed.available.length
+        );
+      }
     };
   },
   view: function(ctrl, variant) {
