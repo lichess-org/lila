@@ -80,16 +80,23 @@ function showGameTable(ctrl, games) {
         m('th[colspan=4]', 'Top games')
       ])
     ]),
-    m('tbody', games.map(function(game) {
+    m('tbody', {
+      onclick: function(e) {
+        var $tr = $(e.target).parents('tr');
+        if (!$tr.length) return;
+        var baseUrl = ctrl.explorer.config.data.db.selected() === 'lichess' ? '/' : '/import/master/';
+        window.open(baseUrl + $tr.data('id'), '_blank');
+      }
+    }, games.map(function(game) {
       return m('tr', {
         key: game.id,
         'data-id': game.id
       }, [
         m('td', [game.white, game.black].map(function(p) {
-          return m('span', p.name);
+          return m('span', p.rating);
         })),
         m('td', [game.white, game.black].map(function(p) {
-          return m('span', p.rating);
+          return m('span', p.name);
         })),
         m('td', showResult(game.winner)),
         m('td', game.year)

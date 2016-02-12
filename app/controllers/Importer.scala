@@ -40,12 +40,12 @@ object Importer extends LilaController {
   }
 
   def masterGame(id: String) = Open { implicit ctx =>
-    lila.game.GameRepo exists id flatMap {
-      case true => fuccess(Ok)
-      case false => Env.explorer.fetchPgn(id) flatMap {
+    lila.game.GameRepo game id flatMap {
+      case Some(game) => fuccess(Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name)))
+      case _ => Env.explorer.fetchPgn(id) flatMap {
         case None => fuccess(NotFound)
-        case Some(pgn) => env.importer(lila.importer.ImportData(pgn, none), ctx.userId) map { _ =>
-          Ok
+        case Some(pgn) => env.importer(lila.importer.ImportData(pgn, none), ctx.userId) map { game =>
+          Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name))
         }
       }
     }
