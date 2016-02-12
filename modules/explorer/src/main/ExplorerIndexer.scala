@@ -130,7 +130,7 @@ private final class ExplorerIndexer(endpoint: String) {
         s"[Result ${PgnDump.result(game)}]",
         s"[Date ${pgnDateFormat.print(game.createdAt)}]")
       val allTags = fenTags ::: otherTags
-      s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
+      s"${allTags.mkString("\n")}\n\n${game.pgnMoves.mkString(" ")}".some
     }
   })
 
