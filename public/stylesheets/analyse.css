@@ -265,17 +265,19 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   margin-top: 88px;
 }
 .explorer_box thead th {
-  font-size: 10px;
-  opacity: 0.8;
+  text-transform: capitalize;
   padding-left: 7px;
+}
+.explorer_box thead th,
+.explorer_box .title {
+  font-size: 11px;
   line-height: 22px;
-  text-align: center;
+  background: #3b93da;
+  color: #fff;
 }
-.explorer_box thead th:last-child {
-  padding-left: 0;
+.explorer_box .config .title {
+  padding-left: 10px;
 }
-.explorer_box .title,
-.explorer_box thead,
 .explorer_box tr:nth-child(even) {
   background: #fafafa;
 }
@@ -376,6 +378,7 @@ body.dark .explorer_box .black {
   cursor: pointer;
   display: block;
   font-size: 15px;
+  color: #fff;
   width: 22px;
   height: 22px;
   line-height: 20px;
@@ -402,11 +405,6 @@ body.dark .explorer_box .black {
 }
 .explorer_box .config {
   overflow: hidden;
-}
-.explorer_box .config .title {
-  font-size: 10px;
-  line-height: 22px;
-  padding-left: 10px;
 }
 .explorer_box .config section {
   padding: 8px 10px 0 10px;
