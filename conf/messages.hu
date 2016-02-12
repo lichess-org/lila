@@ -90,6 +90,7 @@ nbDays=%s nap
 nbHours=%s óra
 time=Idő
 rating=Pontszám
+username=Felhasználónév
 usernameOrEmail=Felhasználónév
 password=Jelszó
 haveAnAccount=Van már fiókod?
