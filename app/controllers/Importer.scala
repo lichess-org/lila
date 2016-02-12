@@ -39,7 +39,7 @@ object Importer extends LilaController {
     )
   }
 
-  def masterGame(id: String) = Open { implicit ctx =>
+  def masterGame(id: String, orientation: String) = Open { implicit ctx =>
     lila.game.GameRepo game id flatMap {
       case Some(game) => fuccess(Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name)))
       case _ => Env.explorer.fetchPgn(id) flatMap {
@@ -49,7 +49,7 @@ object Importer extends LilaController {
           user = ctx.userId,
           forceId = id.some) map { game =>
             Redirect {
-              val url = routes.Round.watcher(game.id, game.firstPlayer.color.name).url
+              val url = routes.Round.watcher(game.id, orientation).url
               s"$url#${~getInt("ply")}"
             }
           }

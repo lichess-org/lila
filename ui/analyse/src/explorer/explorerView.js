@@ -85,10 +85,11 @@ function showGameTable(ctrl, type, games) {
       onclick: function(e) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
+        var orientation = ctrl.chessground.data.orientation;
         if (ctrl.explorer.config.data.db.selected() === 'lichess')
-          window.open('/' + $tr.data('id') + '#' + ctrl.vm.step.ply, '_blank');
+          window.open('/' + $tr.data('id') + '/' + orientation + '#' + ctrl.vm.step.ply, '_blank');
         else
-          window.open('/import/master' + $tr.data('id') + '?ply=' + ctrl.vm.step.ply, '_blank');
+          window.open('/import/master/' + $tr.data('id') + '/' + orientation + '?ply=' + ctrl.vm.step.ply, '_blank');
       }
     }, games.map(function(game) {
       return m('tr', {
