@@ -24,7 +24,7 @@ function $trUci($tr) {
   return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
 }
 
-function showMoveTable(ctrl, moves) {
+function showMoveTable(ctrl, moves, fen) {
   if (!moves.length) return null;
   return m('table.moves', [
     m('thead', [
@@ -36,8 +36,8 @@ function showMoveTable(ctrl, moves) {
     ]),
     m('tbody', {
       config: function(el, isUpdate, ctx) {
-        if (!isUpdate || ctx.lastFen === ctrl.vm.step.fen) return;
-        ctx.lastFen = ctrl.vm.step.fen;
+        if (!isUpdate || ctx.lastFen === fen) return;
+        ctx.lastFen = fen;
         setTimeout(function() {
           ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
         }, 100);
@@ -110,7 +110,7 @@ function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data) {
     var db = ctrl.explorer.config.data.db.selected();
-    var moveTable = showMoveTable(ctrl, data.moves);
+    var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, recentTable, topTable]);
