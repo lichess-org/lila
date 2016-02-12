@@ -44,9 +44,12 @@ object Importer extends LilaController {
       case Some(game) => fuccess(Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name)))
       case _ => Env.explorer.fetchPgn(id) flatMap {
         case None => fuccess(NotFound)
-        case Some(pgn) => env.importer(lila.importer.ImportData(pgn, none), ctx.userId) map { game =>
-          Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name))
-        }
+        case Some(pgn) => env.importer(
+          lila.importer.ImportData(pgn, none),
+          user = ctx.userId,
+          forceId = id.some) map { game =>
+            Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name))
+          }
       }
     }
   }
