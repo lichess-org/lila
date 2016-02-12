@@ -453,8 +453,9 @@ body.dark .explorer_box .black {
   background: #fff;
 }
 .explorer_box .config .choices span.selected {
-  background: #759900!important;
+  background: #3893E8!important;
   color: #fff!important;
+  text-shadow: 1px 0 0 rgba(0,0,0,0.5);
   font-weight: bold;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
@@ -901,9 +902,15 @@ table.modAssessment td.noMatch {
   background: #3893E8;
   color: #fff;
 }
-.mselect [data-icon]:before {
+.mselect a[data-icon]:before,
+.mselect .button[data-icon]:before {
   font-size: 1.5em;
   margin-right: 10px;
+  color: #3893E8;
+  transition: 0.13s;
+}
+.mselect a:hover:before {
+  color: #fff;
 }
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {
