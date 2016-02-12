@@ -72,12 +72,12 @@ function showResult(winner) {
   return '½-½';
 }
 
-function showGameTable(ctrl, games) {
+function showGameTable(ctrl, type, games) {
   if (!games.length) return null;
   return m('table.games', [
     m('thead', [
       m('tr', [
-        m('th[colspan=4]', 'Top games')
+        m('th[colspan=4]', type + ' games')
       ])
     ]),
     m('tbody', {
@@ -108,9 +108,11 @@ function showGameTable(ctrl, games) {
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data) {
+    var db = ctrl.explorer.config.data.db.selected();
     var moveTable = showMoveTable(ctrl, data.moves);
-    var gameTable = showGameTable(ctrl, data.topGames || []);
-    if (moveTable || gameTable) lastShow = m('div.data', [moveTable, gameTable]);
+    var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
+    var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
+    if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, recentTable, topTable]);
     else lastShow = m('div.data.empty', 'No game found');
   }
   return lastShow;
