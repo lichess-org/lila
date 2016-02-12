@@ -20,6 +20,7 @@ module.exports = function(root, endpoint) {
   }
 
   var config = configCtrl(clearCache);
+  if (root.data.game.variant.key !== 'standard') config.toggleDb('lichess');
 
   var fetch = throttle(500, false, function() {
     var fen = root.vm.step.fen;
