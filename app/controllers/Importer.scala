@@ -48,7 +48,10 @@ object Importer extends LilaController {
           lila.importer.ImportData(pgn, none),
           user = ctx.userId,
           forceId = id.some) map { game =>
-            Redirect(routes.Round.watcher(game.id, game.firstPlayer.color.name))
+            Redirect {
+              val url = routes.Round.watcher(game.id, game.firstPlayer.color.name).url
+              s"$url#${~getInt("ply")}"
+            }
           }
       }
     }
