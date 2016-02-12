@@ -102,7 +102,7 @@ function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data) {
     var moveTable = showMoveTable(ctrl, data.moves);
-    var gameTable = showGameTable(ctrl, data.topGames);
+    var gameTable = showGameTable(ctrl, data.topGames || []);
     if (moveTable || gameTable) lastShow = m('div.data', [moveTable, gameTable]);
     else lastShow = m('div.data.empty', 'No game found');
   }
