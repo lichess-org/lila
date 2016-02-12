@@ -86,13 +86,13 @@ module.exports = {
               }, s);
             })
           )
-        ]),
-        m('section.save',
-          m('button.button.text[data-icon=E]', {
-            onclick: ctrl.toggleOpen
-          }, 'All set!')
-        )
-      ])
+        ])
+      ]),
+      m('section.save',
+        m('button.button.text[data-icon=E]', {
+          onclick: ctrl.toggleOpen
+        }, 'All set!')
+      )
     ];
   }
 };
