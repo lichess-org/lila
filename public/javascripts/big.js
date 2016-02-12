@@ -742,6 +742,19 @@ lichess.numberFormat = (function() {
         return false;
       });
 
+      $('.mselect .button').on('click', function() {
+        var $p = $(this).parent();
+        $p.toggleClass('shown');
+        setTimeout(function() {
+          var handler = function(e) {
+            if ($.contains($p[0], e.target)) return;
+            $p.removeClass('shown');
+            $('html').off('click', handler);
+          };
+          $('html').on('click', handler);
+        }, 10);
+      });
+
       var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
 
       lichess.userPowertip = function($els, placement) {

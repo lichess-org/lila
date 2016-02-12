@@ -848,6 +848,64 @@ table.modAssessment td.noMatch {
   color: #759900;
 }
 
+.mselect {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  display:inline-block;
+  position: relative;
+  padding:0;
+  border:0;
+}
+.mselect .button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+.mselect .button i {
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  top: 14px;
+}
+.mselect .list {
+  width:100%;
+  margin:0;
+  padding:0;
+  position:absolute;
+  top:0;
+  text-align: left;
+  list-style-type:none;
+  font-weight: normal;
+  background:#FFF;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+  display: none;
+}
+.mselect.shown .list {
+  display: block;
+}
+.mselect .list a {
+  display: block;
+  padding: 10px;
+  background:#fff;
+  transition: 0.13s;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mselect .list a:hover{
+  background: #3893E8;
+  color: #fff;
+}
+.mselect [data-icon]:before {
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
 body.coords_2 .gauge_displayed square[data-coord-y]::before {
   color: #fff;
   text-shadow: 0 1px 2px #000;

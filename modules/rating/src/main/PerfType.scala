@@ -141,7 +141,6 @@ object PerfType {
   }
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] = variant match {
-    case chess.variant.Standard      => none
     case chess.variant.Crazyhouse    => Crazyhouse.some
     case chess.variant.Chess960      => Chess960.some
     case chess.variant.KingOfTheHill => KingOfTheHill.some
@@ -150,5 +149,9 @@ object PerfType {
     case chess.variant.Atomic        => Atomic.some
     case chess.variant.Horde         => Horde.some
     case chess.variant.RacingKings   => RacingKings.some
+    case _                           => none
   }
+
+  def iconByVariant(variant: chess.variant.Variant): Char =
+    byVariant(variant).getOrElse(Classical).iconChar
 }

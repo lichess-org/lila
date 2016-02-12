@@ -82,7 +82,7 @@ private[api] final class RoundApi(
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
       a = a,
-      initialFen = initialFen | chess.format.Forsyth.initial))
+      initialFen = initialFen | pov.game.variant.initialFen))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
