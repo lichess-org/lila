@@ -275,6 +275,11 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   background: #3b93da;
   color: #fff;
 }
+body.dark .explorer_box thead th,
+body.dark .explorer_box .title {
+  background: #215279;
+  color: #ccc;
+}
 .explorer_box .config .title {
   padding-left: 10px;
 }
@@ -340,9 +345,11 @@ body.dark .explorer_box .bar span.white {
 }
 body.dark .explorer_box .draws {
   background: #666;
+  color: #ddd;
 }
 .explorer_box .black {
   background: #555;
+  color: #ddd;
 }
 body.dark .explorer_box .black {
   background: #333;
@@ -359,7 +366,6 @@ body.dark .explorer_box .black {
   border-right-width: 1px;
 }
 .explorer_box .games {
-  border-top: 1px solid #ccc;
   width: 100%;
 }
 .explorer_box .games td {
