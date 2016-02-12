@@ -99,7 +99,7 @@ private final class ExplorerIndexer(endpoint: String) {
       case Bullet if rating > 2200    => 1
       case Bullet if rating > 2000    => 1 / 4f
       case Bullet if rating > 1800    => 1 / 20f
-      case Bullet                     => 1 / 30f
+      case Bullet                     => 1 / 40f
       case _                          => 1 // keep all variant games
     }
   }
