@@ -362,9 +362,12 @@ body.dark .explorer_box .black {
 }
 .explorer_box .games td {
   padding: 5px 0 5px 7px;
+  max-width: 120px;
 }
 .explorer_box .games td span {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .explorer_box .toconf {
   position: absolute;
