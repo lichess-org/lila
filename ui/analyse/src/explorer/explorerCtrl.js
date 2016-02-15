@@ -14,12 +14,13 @@ module.exports = function(root, endpoint) {
   var hoveringUci = m.prop(null);
 
   var cache = {};
-  var clearCache = function() {
+  var onConfigClose = function() {
+    m.redraw(true);
     cache = {};
     setStep();
   }
 
-  var config = configCtrl(root.data.game.variant, clearCache);
+  var config = configCtrl(root.data.game.variant, onConfigClose);
 
   var fetch = throttle(500, false, function() {
     var fen = root.vm.step.fen;
