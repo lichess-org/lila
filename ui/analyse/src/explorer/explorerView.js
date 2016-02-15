@@ -87,9 +87,9 @@ function showGameTable(ctrl, type, games) {
         if (!$tr.length) return;
         var orientation = ctrl.chessground.data.orientation;
         if (ctrl.explorer.config.data.db.selected() === 'lichess')
-          window.open('/' + $tr.data('id') + '/' + orientation + '#' + ctrl.vm.step.ply, '_blank');
+          window.open('/' + $tr.data('id') + '/' + orientation + '?fen=' + ctrl.vm.step.fen, '_blank');
         else
-          window.open('/import/master/' + $tr.data('id') + '/' + orientation + '?ply=' + ctrl.vm.step.ply, '_blank');
+          window.open('/import/master/' + $tr.data('id') + '/' + orientation + '?fen=' + ctrl.vm.step.fen, '_blank');
       }
     }, games.map(function(game) {
       return m('tr', {
