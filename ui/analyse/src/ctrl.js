@@ -377,7 +377,7 @@ module.exports = function(opts) {
     };
   }
 
-  this.explorer = explorerCtrl(this, opts.explorerEndpoint);
+  this.explorer = explorerCtrl(this, opts.explorer);
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);

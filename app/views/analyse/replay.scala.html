@@ -17,7 +17,10 @@ lichess.analyse = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 i18n: @round.jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
-explorerEndpoint: "@explorerEndpoint"
+explorer: {
+endpoint: "@explorerEndpoint",
+authorized: @isGranted(_.Beta)
+}
 };
 }
 }

@@ -377,7 +377,7 @@ function buttons(ctrl) {
         ])
       ]),
       m('div', [
-        ctrl.actionMenu.open ? null : m('button.button', {
+        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button', {
           onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
           'data-icon': ']',
           class: ctrl.explorer.enabled() ? 'active' : ''

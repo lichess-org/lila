@@ -5,7 +5,7 @@ var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
 var storedProp = require('../util').storedProp;
 
-module.exports = function(root, endpoint) {
+module.exports = function(root, opts) {
 
   var storageKey = 'explorer-enabled';
   var enabled = storedProp('explorer.enabled', false);
@@ -24,7 +24,7 @@ module.exports = function(root, endpoint) {
 
   var fetch = throttle(500, false, function() {
     var fen = root.vm.step.fen;
-    xhr(endpoint, root.data.game.variant.key, fen, config.data).then(function(res) {
+    xhr(opts.endpoint, root.data.game.variant.key, fen, config.data).then(function(res) {
       cache[fen] = res;
       loading(false);
       failing(false);
@@ -41,7 +41,7 @@ module.exports = function(root, endpoint) {
   };
 
   function setStep() {
-    if (!enabled()) return;
+    if (!opts.authorized || !enabled()) return;
     var step = root.vm.step;
     if (step.ply > 50) cache[step.fen] = empty;
     if (!cache[step.fen]) {
@@ -51,6 +51,7 @@ module.exports = function(root, endpoint) {
   }
 
   return {
+    authorized: opts.authorized,
     enabled: enabled,
     setStep: setStep,
     loading: loading,

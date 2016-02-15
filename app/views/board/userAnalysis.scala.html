@@ -38,7 +38,10 @@ trans.continueFromHere,
 trans.playWithTheMachine,
 trans.playWithAFriend
 ))),
-explorerEndpoint: "@explorerEndpoint"
+explorer: {
+endpoint: "@explorerEndpoint",
+authorized: @isGranted(_.Beta)
+}
 };
 }
 }
