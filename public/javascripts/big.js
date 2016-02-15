@@ -389,7 +389,7 @@ lichess.unique = function(xs) {
   });
 };
 lichess.numberFormat = (function() {
-  if (Intl && Intl.NumberFormat) {
+  if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
     return function(n) {
       return formatter.format(n);
