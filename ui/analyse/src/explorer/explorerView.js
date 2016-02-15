@@ -13,7 +13,7 @@ function resultBar(move) {
       style: {
         width: (Math.round(move[key] * 1000 / sum) / 10) + '%'
       },
-    }, percent > 12 ? Math.round(percent) + '%' : null);
+    }, percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : null);
   }
   return m('div.bar', ['white', 'draws', 'black'].map(section));
 }
