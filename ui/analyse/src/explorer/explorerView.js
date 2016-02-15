@@ -153,7 +153,7 @@ function failing() {
 
 module.exports = {
   renderExplorer: function(ctrl) {
-    if (!ctrl.explorer.enabled()) return;
+    if (!ctrl.explorer.authorized || !ctrl.explorer.enabled()) return;
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
     var loading = !configOpened && (ctrl.explorer.loading() || (!ctrl.explorer.current() && !ctrl.explorer.failing()));
