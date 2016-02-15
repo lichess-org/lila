@@ -4,12 +4,14 @@ var storedProp = require('../util').storedProp;
 var storedJsonProp = require('../util').storedJsonProp;
 
 module.exports = {
-  controller: function(onClose) {
+  controller: function(variant, onClose) {
     var data = {
       open: m.prop(false),
       db: {
         available: ['lichess', 'masters'], //, 'me'],
-        selected: storedProp('explorer.db', 'lichess')
+        selected: variant.key === 'standard' ? storedProp('explorer.db', 'lichess') : function() {
+          return 'lichess';
+        }
       },
       rating: {
         available: [1600, 1800, 2000, 2200, 2500],
