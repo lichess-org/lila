@@ -46,7 +46,7 @@ object Importer extends LilaController {
         case None => fuccess(NotFound)
         case Some(pgn) => env.importer(
           lila.importer.ImportData(pgn, none),
-          user = ctx.userId,
+          user = "lichess".some,
           forceId = id.some) map { game =>
             Redirect {
               val url = routes.Round.watcher(game.id, orientation).url
