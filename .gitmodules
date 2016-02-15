@@ -4,9 +4,6 @@
 [submodule "public/vendor/tagmanager"]
 	path = public/vendor/tagmanager
 	url = https://github.com/max-favilli/tagmanager
-[submodule "modules/swisssystem"]
-	path = modules/swisssystem
-	url = https://github.com/psuter/swisssystem
 [submodule "public/staunton"]
 	path = public/staunton
 	url = https://github.com/clarkerubber/Staunton-Pieces
