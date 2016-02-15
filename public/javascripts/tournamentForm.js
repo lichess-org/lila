@@ -2,13 +2,22 @@ $(function() {
   var $check = $('#tournament #isprivate');
   var $time = $('#tournament tr.time td');
   var $minutes = $('#tournament tr.minutes td');
+
+  function replace($el, $paste) {
+      var prvVal = $el.children().first().val();
+      $el.html($paste.html());
+      if (prvVal) {
+        $el.children().first().val(prvVal);
+      }
+  }
+
   function showPrivate() {
     if ($check.prop('checked')) {
-      $time.html($('#tournament .private_time').html());
-      $minutes.html($('#tournament .private_minutes').html());
+      replace($time, $('#tournament .private_time'));
+      replace($minutes, $('#tournament .private_minutes'));
     } else {
-      $time.html($('#tournament .public_time').html());
-      $minutes.html($('#tournament .public_minutes').html());
+      replace($time, $('#tournament .public_time'));
+      replace($minutes, $('#tournament .public_minutes'));
     }
   };
   $check.on('change', showPrivate);
