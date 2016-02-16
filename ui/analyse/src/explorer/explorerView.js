@@ -118,10 +118,10 @@ function show(ctrl) {
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, recentTable, topTable]);
     else lastShow = m('div.data.empty', [
-      m('div.title', 'No game found'),
+      m('div.title', showTitle(ctrl)),
       m('div.message', [
         m('i[data-icon=]'),
-        m('h3', "That's all we got!"),
+        m('h3', "No game found"),
         m('p',
           ctrl.explorer.config.fullHouse() ?
           "Already searching through all available games." :
@@ -132,9 +132,13 @@ function show(ctrl) {
   return lastShow;
 }
 
+function showTitle(ctrl) {
+  return ctrl.data.game.variant.name + ' opening explorer';
+}
+
 function showConfig(ctrl) {
   return m('div.config', [
-    m('div.title', ctrl.data.game.variant.name + ' opening explorer'),
+    m('div.title', showTitle(ctrl)),
     renderConfig(ctrl.explorer.config, ctrl.data.game.variant)
   ]);
 }
