@@ -32,9 +32,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
-    val speedAndClock = game.clock.fold(chess.Speed.Correspondence.name) { c =>
-      s"${chess.Speed(c.some).name} (${c.show})"
-    }
+    val speedAndClock =
+      if (game.imported) "imported"
+      else game.clock.fold(chess.Speed.Correspondence.name) { c =>
+        s"${chess.Speed(c.some).name} (${c.show})"
+      }
     val mode = game.mode.name
     val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
     else if (game.variant.exotic) game.variant.name else "chess"
