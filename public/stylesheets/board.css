@@ -583,17 +583,6 @@ div.table {
   opacity: 0.4;
   text-shadow: none !important;
 }
-.lichess_ground .control.buttons .button {
-  box-sizing: border-box;
-  width: 220px;
-  margin-top: 12px;
-}
-.lichess_ground .control.buttons a.fat {
-  font-size: 150%;
-}
-.lichess_ground .control.buttons a.replay_and_analyse {
-  margin-bottom: 10px;
-}
 .pocket {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
@@ -652,9 +641,10 @@ div.table_not_started {
   border: none;
   padding: 0;
 }
-div.table .loader {
+div.table .spinner {
   margin: 7px auto;
-  font-size: 4px;
+  width: 30px;
+  height: 30px;
 }
 div.table div.username {
   white-space: nowrap;
@@ -848,28 +838,85 @@ div.control.icons .resign_confirm .no {
   top: 0;
   left: 39px;
 }
-div.control.buttons .button {
-  display: inline-block;
-  text-align: center;
-  font-weight: bold;
-  padding: 10px 0;
-}
 div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-#claim_draw_zone,
-div.force_resign_zone,
-div.negotiation {
-  margin: 7px 0;
-  padding: 7px 0;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+.lichess_ground .suggestion,
+.lichess_ground .pending,
+.lichess_ground .negotiation {
+  margin: 7px -10px 0 -10px;
+  padding: 7px;
+  background: #d0d0d0;
 }
-#claim_draw_zone .button,
-div.negotiation .button,
-div.force_resign_zone .button {
-  display: inline-block;
+.lichess_ground .suggestion p {
+  margin-bottom: 7px;
+}
+.lichess_ground .suggestion .button {
+  display: block;
+}
+.lichess_ground .pending {
+  display: flex;
+  align-items: center;
+}
+.lichess_ground .pending p {
+  flex: 3 1;
+  margin-right: 7px;
+}
+.lichess_ground .pending .button {
+  flex: 1 1;
+}
+.lichess_ground .negotiation {
+  display: flex;
+  align-items: center;
+}
+.lichess_ground .negotiation p {
+  flex: 1 1 auto;
+  margin-right: 7px;
+}
+.lichess_ground .negotiation a {
+  flex: 0 0 50px;
+  height: 50px;
+  line-height: 44px;
+  font-size: 25px;
+  display: block;
+  background: #fff;
+}
+.lichess_ground .negotiation .accept {
+  color: #759900;
+  border-right: 1px solid #d0d0d0;
+  border-radius: 3px 0 0 3px;
+}
+.lichess_ground .negotiation .decline {
+  color: #dc322f;
+  border-radius: 0 3px 3px 0;
+}
+.lichess_ground .negotiation a:hover {
+  color: #fff;
+  background: #759900;
+}
+.lichess_ground .negotiation a.decline:hover {
+  background: #dc322f;
+}
+.lichess_ground .follow_up {
+  margin: 7px 0;
+}
+.lichess_ground .follow_up .button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom-width: 0;
+  border-radius: 0;
+}
+.lichess_ground .follow_up .button.strong {
+  margin-bottom: 7px;
+}
+.lichess_ground .follow_up .button:first-child {
+  border-radius: 3px 3px 0 0;
+}
+.lichess_ground .follow_up .button:last-child {
+  border-bottom-width: 1px;
+  border-radius: 0 0 3px 3px;
 }
 div.separator {
   margin: 10px 0;
