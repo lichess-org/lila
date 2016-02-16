@@ -114,7 +114,7 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
-  flex: 0 0;
+  flex: 0 0 30px;
   margin-top: 10px;
   width: 244px;
 }
