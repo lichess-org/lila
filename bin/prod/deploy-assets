@@ -16,6 +16,8 @@ else
   exit 1
 fi
 
+lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
+
 bin/prod/compile-client
 
 lilalog "Rsync scripts"
