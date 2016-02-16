@@ -192,7 +192,6 @@ ol.scheduled_tournaments a {
   overflow: hidden;
 }
 #tournament .pager {
-  text-align: center;
   font-weight: bold;
   user-select: none;
   -webkit-user-select: none;
@@ -214,10 +213,9 @@ ol.scheduled_tournaments a {
   opacity: 0.7;
   margin: 150px auto;
 }
-#tournament thead .square-spin {
-  width: 20px;
-  height: 20px;
-  margin: 4px 5px 0 0;
+#tournament thead .spinner {
+  width: 30px;
+  height: 30px;
   float: right;
 }
 #tournament table.standing {
