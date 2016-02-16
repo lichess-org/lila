@@ -22,7 +22,7 @@ function formatClockTime(ctrl, time, running) {
     return Math.floor(date.getMilliseconds() / 10) - tenths * 10;
   };
   var sep = (running && tenths < 5) ? sepLow : sepHigh;
-  if (ctrl.data.showTenths == 2 || (ctrl.data.showTenths == 1 && time < 10000)) {
+  if ((ctrl.data.showTenths == 2 && time < 3600000) || (ctrl.data.showTenths == 1 && time < 10000)) {
     var showHundredths = !running && secs < 1;
     return bold(minutes) + sep + bold(seconds) +
       '<tenths><seph>.</seph>' + bold(tenths) + (showHundredths ? '<huns>' + hundredths() + '</huns>' : '') + '</tenths>';
