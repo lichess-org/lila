@@ -9,7 +9,8 @@ var renderStatus = require('game').view.status;
 var router = require('game').router;
 var m = require('mithril');
 
-var emptyMove = m('move', '...');
+var emptyMove = m('move.empty', '...');
+var nullMove = m('move.empty', '');
 
 function renderMove(step, curPly, orEmpty) {
   return step ? {
@@ -18,7 +19,7 @@ function renderMove(step, curPly, orEmpty) {
       class: 'active'
     },
     children: [step.san[0] === 'P' ? step.san.slice(1) : step.san]
-  } : (orEmpty ? emptyMove : null)
+  } : (orEmpty ? emptyMove : nullMove)
 }
 
 function renderResult(ctrl) {
