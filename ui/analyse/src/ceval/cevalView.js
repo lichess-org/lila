@@ -67,7 +67,14 @@ module.exports = {
         'Local computer evaluation',
         m('br'),
         'for variation analysis'
-      )
+      ),
+      enabled ? m('div.bar', {
+        title: ctrl.ceval.curDepth() + '/' + ctrl.ceval.maxDepth + ' plies deep'
+      }, m('span', {
+        style: {
+          width: ctrl.ceval.percentComplete() + '%'
+        }
+      })) : null
     );
   }
 };

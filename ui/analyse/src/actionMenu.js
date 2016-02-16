@@ -65,8 +65,7 @@ module.exports = {
           class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
           onclick: partial(ctrl.togglePlay, speed.delay)
         }, 'Auto play ' + speed.name);
-      }) : null,
-      ctrl.hasAnyComputerAnalysis() ? [
+      }) : null, [
         (function(id) {
           return m('div.setting', [
             m('div.switch', [
@@ -108,7 +107,7 @@ module.exports = {
             }, 'Computer gauge')
           ]);
         })('analyse-toggle-gauge')
-      ] : null,
+      ],
       deleteButton(ctrl.data, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
         m('a.button', {
