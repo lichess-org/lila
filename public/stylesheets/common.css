@@ -518,7 +518,7 @@ html {
   min-height: 100%;
 }
 body {
-  font: 12px'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+  font: 12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #707070;
   background: #eee;
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
