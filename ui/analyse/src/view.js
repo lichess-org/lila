@@ -378,16 +378,20 @@ function buttons(ctrl) {
         ])
       ]),
       m('div', [
-        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button', {
+        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button.hint--bottom', {
           onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
-          'data-icon': ']',
+          'data-hint': 'Opening explorer',
           class: ctrl.explorer.enabled() ? 'active' : ''
-        }),
-        m('button.button.menu', {
+        }, m('i', {
+          'data-icon': ']'
+        })),
+        m('button.button.menu.hint--bottom', {
           onclick: ctrl.actionMenu.toggle,
-          'data-icon': '[',
+          'data-hint': 'Menu',
           class: ctrl.actionMenu.open ? 'active' : ''
-        })
+        }, m('i', {
+          'data-icon': '['
+        }))
       ])
     ])
   );

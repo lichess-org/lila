@@ -194,18 +194,18 @@ div.eval_gauge .black {
 div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 28px;
 }
-.lichess_ground .ceval_box {
+.ceval_box {
   position: relative;
   flex: 0 0 40px;
   border: 1px solid #ccc;
   border-bottom: 0;
 }
-.lichess_ground .ceval_box .switch {
+.ceval_box .switch {
   position: absolute;
   top: 9px;
   right: 10px;
 }
-.lichess_ground .ceval_box pearl {
+.ceval_box pearl {
   position: absolute;
   top: 0;
   left: 0;
@@ -217,13 +217,28 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   font-weight: bold;
   background: #e0e0e0;
 }
-.lichess_ground .ceval_box pearl .square-spin {
-  margin-top: 7px;
+.ceval_box pearl .spinner {
+  margin-top: 5px;
+  width: 25px;
+  height: 25px;
 }
-.lichess_ground .ceval_box help {
+.ceval_box help {
   display: block;
   margin: 5px;
   font-size: 0.9em;
+}
+.ceval_box .bar {
+  position: absolute;
+  width: 242px;
+  height: 4px;
+  top: 0px;
+}
+.ceval_box .bar span {
+  display: block;
+  height: 4px;
+  width: 0;
+  background: #759900;
+  transition: 1s;
 }
 .explorer_box {
   position: relative;

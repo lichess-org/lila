@@ -506,5 +506,5 @@ returnToTournamentsHomepage=Вернуться на страницу турни�
 monthlyPerfTypeRatingDistribution=Распределение по рейтингу %s за месяц
 nbPerfTypePlayersThisMonth=%s %s игроков за месяц
 yourPerfTypeRatingisRating=Ваш %s рейтинг %s.
-youAreBetterThanPercentOfPerfTypePlayers=Ваш рейтинг выше чем %s игроков %s.
+youAreBetterThanPercentOfPerfTypePlayers=Ваш рейтинг выше чем у %s игроков %s.
 youDoNotHaveAnEstablishedPerfTypeRating=Ваш %s рейтинг ещё не определен.

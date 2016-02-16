@@ -5,6 +5,7 @@ module.exports = function(allow, emit) {
 
   var minDepth = 8;
   var maxDepth = 18;
+  var curDepth = 0;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(allow);
   var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
@@ -14,6 +15,11 @@ module.exports = function(allow, emit) {
     minDepth: minDepth,
     maxDepth: maxDepth
   }, 3);
+
+  var onEmit = function(res) {
+    curDepth = res.eval.depth;
+    emit(res);
+  }
 
   var start = function(path, steps) {
     if (!enabled()) return;
@@ -28,7 +34,7 @@ module.exports = function(allow, emit) {
       steps: steps,
       ply: step.ply,
       emit: function(res) {
-        if (enabled()) emit(res);
+        if (enabled()) onEmit(res);
       }
     });
     started = true;
@@ -65,6 +71,13 @@ module.exports = function(allow, emit) {
       stop();
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
-    }
+    },
+    percentComplete: function() {
+      return Math.round(100 * curDepth / maxDepth);
+    },
+    curDepth: function() {
+      return curDepth;
+    },
+    maxDepth: maxDepth
   };
 };

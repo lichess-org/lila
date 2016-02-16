@@ -21,6 +21,7 @@ whiteIsVictorious=Hvit har vunnet
 blackIsVictorious=Svart har vunnet
 kingInTheCenter=Kongen i midten
 threeChecks=Tre-sjakk
+raceFinished=løp ferdig
 variantEnding=Variant slutt
 playWithTheSameOpponentAgain=Spill mot samme motstander en gang til
 newOpponent=Ny motstander
