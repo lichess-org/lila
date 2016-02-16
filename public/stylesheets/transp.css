@@ -82,6 +82,7 @@ body.transp input,
 body.transp textarea,
 body.transp div.analysis_menu > a.active,
 body.transp div.chat_menu > a,
+body.transp div.mselect > div.list > a,
 body.transp #opening .meter,
 body.transp div.game_row:nth-child(odd),
 body.transp #lichess_forum table.forum_table tr:nth-child(odd),
@@ -96,9 +97,13 @@ body.transp div.game_config .ratings,
 body.transp div.search_status {
   background: rgba(0, 0, 0, 0.3);
 }
+body.transp div.mselect > div.list > a:first-child {
+  background: #333;
+}
 body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.transp #chat .messages,
-body.transp #tournament_schedule {
+body.transp #tournament_schedule,
+body.transp div.mselect div.list {
   background: none;
 }
 body.transp div.user_show .trophy.icon3d,
