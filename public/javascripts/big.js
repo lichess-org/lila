@@ -332,6 +332,7 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.isTrident = window.navigator.userAgent.indexOf('Trident/') > -1;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetUrl = function(url) {
   return $('body').data('asset-url') + url + '?v=' + $('body').data('asset-version');
@@ -1012,7 +1013,7 @@ lichess.numberFormat = (function() {
 
       // Zoom
       var getZoom = function() {
-        return lichess.storage.get('zoom') || 1;
+        return lichess.isTrident ? 1 : (lichess.storage.get('zoom') || 1);
       };
       var setZoom = function(v) {
         lichess.storage.set('zoom', v);
