@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, variant: chess.variant.Variant)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, pov: Pov)(implicit ctx: Context)
 
 @import lila.rating.PerfType.iconByVariant
 
@@ -40,17 +40,17 @@ trans.playWithAFriend
 ))),
 explorer: {
 endpoint: "@explorerEndpoint",
-@*authorized: @isGranted(_.Beta)*@
-authorized: true
+authorized: @isGranted(_.Beta)
 }
 };
 }
 }
 
 @side = {
+@if(pov.game.synthetic) {
 <div class="mselect">
-  <div class="button" data-icon="@iconByVariant(variant)">
-    @variant.name
+  <div class="button" data-icon="@iconByVariant(pov.game.variant)">
+    @pov.game.variant.name
     <i data-icon="u"></i>
   </div>
   <div class="list">
@@ -59,6 +59,7 @@ authorized: true
     }
   </div>
 </div>
+}
 }
 
 @base.layout(

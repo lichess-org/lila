@@ -31,7 +31,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
     val pov = makePov(situation)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false) map { data =>
-      Ok(html.board.userAnalysis(data, variant))
+      Ok(html.board.userAnalysis(data, pov))
     }
   }
 
@@ -54,7 +54,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       GameRepo initialFen game.id flatMap { initialFen =>
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov)) map { data =>
-          Ok(html.board.userAnalysis(data, pov.game.variant))
+          Ok(html.board.userAnalysis(data, pov))
         }
       } map NoCache
     }
