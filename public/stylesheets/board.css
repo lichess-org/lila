@@ -494,12 +494,9 @@ div.dont_touch {
 div.table_wrap {
   flex: 0 1 auto;
   width: 242px;
-  display: flex;
-  flex-flow: column nowrap;
   position: relative;
 }
 div.table {
-  flex: 1 1 100%;
   border: 1px solid #ccc;
   padding: 10px;
 }
@@ -700,7 +697,6 @@ div.table_wrap .whos_turn {
   font-weight: bold;
 }
 div.table_wrap .clock {
-  flex: 0 0;
   position: relative;
 }
 div.table_wrap .clock .bar {
