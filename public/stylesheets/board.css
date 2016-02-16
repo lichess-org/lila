@@ -512,7 +512,7 @@ div.table {
   -ms-user-select: none;
 }
 .lichess_ground .replay turn {
-  display: block;
+  display: flex;
   height: 26px;
 }
 .lichess_ground .replay turn > index,
@@ -522,7 +522,7 @@ div.table {
   line-height: 22px;
 }
 .lichess_ground .replay turn > index {
-  width: 34px;
+  flex: 0 0 34px;
   padding: 2px 0;
   background: #e0e0e0;
   text-align: center;
@@ -530,7 +530,7 @@ div.table {
   font-weight: 300;
 }
 .lichess_ground .replay turn > move {
-  width: calc(50% - 14px - 13px);
+  flex: 1 1 50%;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
   padding: 2px 5px;
