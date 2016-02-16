@@ -273,14 +273,13 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   line-height: 22px;
   background: #3b93da;
   color: #fff;
+  text-align: left;
+  padding-left: 10px;
 }
 body.dark .explorer_box thead th,
 body.dark .explorer_box .title {
   background: #215279;
   color: #ccc;
-}
-.explorer_box .config .title {
-  padding-left: 10px;
 }
 .explorer_box tr:nth-child(even) {
   background: #fafafa;
@@ -398,15 +397,17 @@ body.dark .explorer_box .black {
   font-style: italic;
 }
 .explorer_box .message i {
-  font-size: 30px;
+  font-size: 32px;
   display: inline-block;
   margin: 12px 0;
+  opacity: 0.7;
 }
 .explorer_box .message h3 {
   font-weight: bold;
 }
 .explorer_box .message p {
   white-space: normal;
+  padding: 0 10px;
 }
 .explorer_box .failing.message i {
   font-size: 70px;
@@ -516,7 +517,6 @@ body.dark .explorer_box .black {
 }
 .lichess_ground .replay turn move {
   position: relative;
-  width: calc(50% - 14px - 13px);
   padding: 2px 7px;
 }
 .lichess_ground .replay move.current {

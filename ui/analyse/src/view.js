@@ -37,6 +37,7 @@ function autoScroll(el) {
 }
 
 var emptyMove = m('move.empty', '...');
+var nullMove = m('move.empty', '');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
@@ -211,7 +212,7 @@ function renderTurn(ctrl, turn, path) {
   var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
   var wMeta = renderMeta(ctrl, turn.white, wPath);
   var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
+  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : nullMove;
   var bMeta = renderMeta(ctrl, turn.black, bPath);
   if (wMove) {
     if (wMeta) return [
@@ -287,7 +288,7 @@ function renderAnalyse(ctrl) {
   return m('div.replay', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
-        if (el.tagName !== 'MOVE') return;
+        if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
         var path = el.getAttribute('data-path') ||
           '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
         if (path) ctrl.userJump(treePath.read(path));
