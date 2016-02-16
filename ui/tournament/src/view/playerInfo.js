@@ -25,7 +25,7 @@ module.exports = function(ctrl) {
   var data = ctrl.vm.playerInfo.data;
   if (!data || data.player.id !== ctrl.vm.playerInfo.id) return m('div.player', [
     playerTitle(ctrl.vm.playerInfo.player),
-    m('div.stats', m('span.square-spin'))
+    m('div.stats', m.trust(lichess.spinnerHtml))
   ]);
   var nb = data.player.nb;
   var pairingsLen = data.pairings.length

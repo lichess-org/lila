@@ -111,7 +111,7 @@ module.exports = {
     var player = util.currentPlayer(ctrl, pag);
     var tableBody = pag.currentPageResults ?
       pag.currentPageResults.map(partial(playerTr, ctrl)) :
-      (lastBody ? lastBody : m('tr.square-wrap', m('td.square-spin[colspan=3]')));
+      (lastBody ? lastBody : m.trust(lichess.spinnerHtml));
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
