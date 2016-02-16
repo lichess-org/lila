@@ -407,6 +407,10 @@ module.exports = function(opts) {
     opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
   }.bind(this);
 
+  this.forceResignable = function() {
+    return !this.data.opponent.ai && this.data.clock && this.data.opponent.isGone && game.resignable(this.data);
+  }.bind(this);
+
   this.trans = lichess.trans(opts.i18n);
 
   init.yolo(this);
