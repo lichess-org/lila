@@ -377,9 +377,9 @@ Supported browsers
 - Firefox, 6 months old or newer
 - Chrome, 6 months old or newer
 
-These two are the best, hand down. Use them if you can.
+These two are the best, hands down. Use them if you can.
 
-We also try to support:
+We also do our best to support:
 
 - Internet Explorer 11
 - Microsoft Edge
