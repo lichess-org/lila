@@ -45,11 +45,20 @@ module.exports = {
     var enabled = ctrl.ceval.enabled();
     var eval = ctrl.currentAnyEval() || {};
     var isServer = !!ctrl.vm.step.eval;
-    var pearl;
-    if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
-    else if (defined(eval.mate)) pearl = '#' + eval.mate;
-    else if (ctrl.vm.step.dests === '') pearl = '-';
-    else pearl = m.trust(lichess.spinnerHtml);
+    var pearl, percent;
+    if (defined(eval.cp)) {
+      pearl = util.renderEval(eval.cp);
+      percent = ctrl.ceval.percentComplete();
+    } else if (defined(eval.mate)) {
+      pearl = '#' + eval.mate;
+      percent = 100;
+    } else if (ctrl.vm.step.dests === '') {
+      pearl = '-';
+      percent = 0;
+    } else {
+      pearl = m.trust(lichess.spinnerHtml);
+      percent = 0;
+    }
     return m('div.ceval_box',
       m('div.switch', [
         m('input', {
@@ -72,7 +81,7 @@ module.exports = {
         title: ctrl.ceval.curDepth() + '/' + ctrl.ceval.maxDepth + ' plies deep'
       }, m('span', {
         style: {
-          width: ctrl.ceval.percentComplete() + '%'
+          width: percent + '%'
         }
       })) : null
     );
