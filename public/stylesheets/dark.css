@@ -138,7 +138,7 @@ body.dark div.analysis_menu > a,
 body.dark .lichess_ground .replay,
 body.dark .explorer_box,
 body.dark .explorer_box .config .choices span,
-body.dark .lichess_ground .analyse .meta,
+body.dark .lichess_ground .replay .meta,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
@@ -211,7 +211,7 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
-body.dark .lichess_ground .analyse .meta > .menu,
+body.dark .lichess_ground .replay .meta > .menu,
 body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
@@ -273,7 +273,7 @@ body.dark div.table_not_started {
 }
 body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .ceval_box pearl,
-body.dark .lichess_ground .analyse .meta,
+body.dark .lichess_ground .replay .meta,
 body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
