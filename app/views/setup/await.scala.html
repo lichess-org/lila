@@ -32,7 +32,7 @@ side = Html("")) {
     </div>
     <div id="challenge_declined" class="none">
       <h2>Challenge declined</h2>
-      <a href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+      <a href="@routes.Lobby.home()">@trans.newOpponent()</a>
     </div>
     }.getOrElse {
     @trans.toInviteSomeoneToPlayGiveThisUrl():
