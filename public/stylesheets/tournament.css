@@ -13,16 +13,16 @@ ol.scheduled_tournaments a {
 #tournament .finished h1 {
   text-align: center;
 }
-#tournament.id_whizcup2 .content_box {
+#tournament[class*=id_whizcup] .content_box {
   background-image: url(../images/chesswhiz.logo.png);
   background-position: 20px 5px;
   background-repeat: no-repeat;
   background-size: 60px 60px;
 }
-#tournament.id_whizcup2 h1 {
+#tournament[class*=id_whizcup] h1 {
   margin-left: 70px;
 }
-#tournament.id_whizcup2 h1::before {
+#tournament[class*=id_whizcup] h1::before {
   display: none;
 }
 #tournament .title_tag {
