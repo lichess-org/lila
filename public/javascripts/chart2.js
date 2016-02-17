@@ -5,12 +5,10 @@
 
 function withHighcharts(f) {
   setTimeout(function() {
-    var highchartsUrl = 'http://lichess1.org/assets/vendor/highcharts4/highcharts.js';
-    var highstockUrl = 'http://lichess1.org/assets/vendor/highcharts4/highstock.js';
-    $.ajax({
-      dataType: "script",
-      url: (typeof lichess_rating_series !== 'undefined') ? highstockUrl : highchartsUrl
-    }).done(function() {
+    var url = (typeof lichess_rating_series !== 'undefined') ?
+      'http://lichess1.org/assets/vendor/highcharts4/highstock.js' :
+      'http://lichess1.org/assets/vendor/highcharts4/highcharts.js';
+    lichess.loadScript(url, function() {
       Highcharts.makeFont = function(size) {
         return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
       };
