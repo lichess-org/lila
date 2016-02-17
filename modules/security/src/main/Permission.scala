@@ -47,7 +47,8 @@ object Permission {
 
   private lazy val all: List[Permission] = List(
     SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkTroll, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig)
+    UserSpy, MarkTroll, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
+  Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament)
 
   private lazy val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
 
