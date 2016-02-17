@@ -567,10 +567,10 @@ ol.scheduled_tournaments li.marathon {
   min-height: 400px;
   position: relative;
 }
-#tournament_schedule .square-spin {
-  position: absolute;
-  top: 190px;
-  left: 50%;
+#tournament_schedule .spinner {
+  width: 120px;
+  height: 120px;
+  padding-top: 120px;
   opacity: 0.7;
 }
 #tournament_schedule .schedule {

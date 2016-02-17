@@ -3,7 +3,7 @@
 <form class="insight-refresh" method="post" action="@routes.Insight.refresh(u.username)">
   <button data-icon="E" class="button text">@action</button>
   <div class="crunching none">
-    <span class="square-spin"></span>
+    @base.spinner()
     <br />
     <strong>Now crunching data just for you!</strong>
     <br />

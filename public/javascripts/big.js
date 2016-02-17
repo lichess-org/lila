@@ -758,8 +758,6 @@ lichess.numberFormat = (function() {
         }, 10);
       });
 
-      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
-
       lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
@@ -778,7 +776,7 @@ lichess.numberFormat = (function() {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       };
 
       function gamePowertip($els, placement) {
@@ -801,7 +799,7 @@ lichess.numberFormat = (function() {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       }
 
       function updatePowertips() {

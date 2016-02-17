@@ -570,10 +570,6 @@ body.dark div.eval_gauge tick {
 body.dark div.side_box .game_infos .variant-link {
   border-color: #8c8c8c;
 }
-body.dark .square-spin {
-  background: #666;
-  border-color: #aaa;
-}
 body.dark input.cmn-toggle-round + label {
   background-color: #888;
 }

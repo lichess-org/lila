@@ -345,30 +345,6 @@ div.content_box .loader:after {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.square-spin {
-  display: inline-block;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  width: 1em;
-  height: 1em;
-  background: #c0c0c0;
-  border: 1px solid #aaa;
-  -webkit-animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-  animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-}
-@-webkit-keyframes square-spin {
-  25% { -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0); }
-  50% { -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg); }
-  75% { -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg); }
-  100% { -webkit-transform: perspective(100px) rotateX(0) rotateY(0); }
-}
-
-@keyframes square-spin {
-  25% { transform: perspective(100px) rotateX(180deg) rotateY(0); }
-  50% { transform: perspective(100px) rotateX(180deg) rotateY(180deg); }
-  75% { transform: perspective(100px) rotateX(0) rotateY(180deg); }
-  100% { transform: perspective(100px) rotateX(0) rotateY(0); }
-}
 .spinner {
   width: 40px;
   height: 40px;
@@ -491,14 +467,10 @@ div.content_box .loader:after {
   display: block;
   padding: 15px 15px;
 }
-#powerTip .square-wrap,
-#miniGame .square-wrap {
-  text-align: center;
+#powerTip .spinner {
+  margin: 20px auto;
 }
-#powerTip .square-spin {
-  margin: 23px auto 20px auto;
-}
-#miniGame .square-spin {
+#miniGame .spinner {
   margin: 82px auto 0 auto;
 }
 .clearfix::after {

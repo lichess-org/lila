@@ -213,6 +213,6 @@ module.exports = function(ctrl) {
         makeChart(el, ctrl.vm.answer);
       }
     }),
-    m('div.square-in', m('div.square-spin')),
+    m.trust(lichess.spinnerHtml)
   ];
 };

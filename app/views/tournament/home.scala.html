@@ -58,7 +58,7 @@ description = s"${trans.tournamentHomeDescription()}").some) {
   }
   <h1>@trans.tournaments()</h1>
   <div id="tournament_schedule">
-    <span class="square-spin"></span>
+    @base.spinner()
   </div>
   <div id="tournament_list">
     <table class="slist finished">
