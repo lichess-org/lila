@@ -46,7 +46,6 @@ function renderTableEnd(ctrl) {
   var d = ctrl.data;
   var buttons = compact(ctrl.vm.redirecting ? spinner() : [
     button.backToTournament(ctrl) || [
-      button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
       button.cancelRematch(ctrl) ||
       button.followUp(ctrl)

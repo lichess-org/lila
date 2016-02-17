@@ -142,25 +142,18 @@ module.exports = {
       }, ctrl.trans('cancel'))
     ]);
   },
-  joinRematch: function(ctrl) {
-    if (ctrl.data.game.rematch) return m('div.suggestion', [
-      m('p', ctrl.trans('rematchOfferAccepted')),
-      m('a.button.glowed.hint--bottom', {
-        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
-      }, ctrl.trans('joinTheGame'))
-    ]);
-  },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('div.follow_up', [
+    var d = ctrl.data;
+    if (d.tournament) return m('div.follow_up', [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong' + (ctrl.data.tournament.running ? ' glowed' : ''),
-        href: '/tournament/' + ctrl.data.tournament.id,
+        class: 'text button strong' + (d.tournament.running ? ' glowed' : ''),
+        href: '/tournament/' + d.tournament.id,
         onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
-      ctrl.data.tournament.running ? m('form', {
+      d.tournament.running ? m('form', {
         method: 'post',
-        action: '/tournament/' + ctrl.data.tournament.id + '/withdraw'
+        action: '/tournament/' + d.tournament.id + '/withdraw'
       }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))) : null
     ]);
   },
@@ -171,36 +164,40 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   followUp: function(ctrl) {
-    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
-    var rematchable = (status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted && (ctrl.data.opponent.onGame || (!ctrl.data.game.clock && ctrl.data.player.user && ctrl.data.opponent.user));
-    var newable = (status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.game.source == 'lobby';
+    var d = ctrl.data;
+    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.game.clock && d.player.user && d.opponent.user));
+    var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
     return m('div.follow_up', [
       rematchable ? m('a.button', {
         onclick: function() {
-          if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
+          if (d.opponent.onGame) ctrl.socket.send('rematch-yes', null);
           else ctrl.challengeRematch();
         }
       }, ctrl.trans('rematch')) : null,
+      ctrl.data.game.rematch ? m('a.button.hint--top', {
+        'data-hint': ctrl.trans('joinTheGame'),
+        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
+      }, ctrl.trans('rematchOfferAccepted')) : null,
       newable ? m('a.button', {
-        href: '/?hook_like=' + ctrl.data.game.id,
+        href: '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
-      game.replayable(ctrl.data) ? m('a.button', {
+      game.replayable(d) ? m('a.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
-        href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
       }, ctrl.trans('analysis')) : null
     ]);
   },
   watcherFollowUp: function(ctrl) {
-    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
+    var d = ctrl.data;
     return m('div.follow_up', [
-      ctrl.data.game.rematch ? m('a.button.text[data-icon=v]', {
-        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
+      d.game.rematch ? m('a.button.text[data-icon=v]', {
+        href: router.game(d.game.rematch, d.opponent.color)
       }, ctrl.trans('viewRematch')) : null,
-      ctrl.data.tournament ? m('a.button', {
-        href: '/tournament/' + ctrl.data.tournament.id
+      d.tournament ? m('a.button', {
+        href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
-      game.replayable(ctrl.data) ? m('a.button', {
-        href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
+      game.replayable(d) ? m('a.button', {
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
       }, ctrl.trans('analysis')) : null
     ]);
   }
