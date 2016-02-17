@@ -73,6 +73,7 @@ form.better_analysis {
   height: 100%;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 .future_game_analysis .spinner {
   flex: 0 0 150px;
