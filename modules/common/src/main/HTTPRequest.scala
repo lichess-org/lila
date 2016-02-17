@@ -24,9 +24,11 @@ object HTTPRequest {
   val isAndroid = UaMatcher("""(?i).*android.+mobile.*""".r)
   val isIOS = UaMatcher("""(?i).*(iphone|ipad|ipod).*""".r)
   val isMobile = UaMatcher("""(?i).*(iphone|ipad|ipod|android.+mobile).*""".r)
-  def isTrident(req: RequestHeader) = userAgent(req) contains "Trident/"
-  def isChrome(req: RequestHeader) = userAgent(req) contains "Chrome/"
-  def isSafari(req: RequestHeader) = (userAgent(req) contains "Safari/") && !isChrome(req)
+
+  private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
+  def isTrident(req: RequestHeader) = uaContains(req, "Trident/")
+  def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
+  def isSafari(req: RequestHeader) = uaContains(req, "Safari/") && !isChrome(req)
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 

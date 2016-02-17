@@ -261,15 +261,13 @@ function progress(ctrl) {
   ]);
 }
 
-var loading = m('div.loader.fast');
-
 module.exports = function(ctrl) {
   var percent = Math.ceil(ctrl.vm.figuredOut.length * 100 / ctrl.data.opening.goal) + '%';
   return m('div#opening.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [
       m('div', chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.vm.loading ? loading : (
+      m('div.right', ctrl.vm.loading ? m.trust(lichess.spinnerHtml) : (
         ctrl.data.play ? renderPlayTable(ctrl) : renderViewTable(ctrl)
       ))
     ]),

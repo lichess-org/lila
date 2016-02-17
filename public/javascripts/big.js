@@ -751,8 +751,6 @@ lichess.numberFormat = (function() {
         }, 10);
       });
 
-      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
-
       lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
@@ -771,7 +769,7 @@ lichess.numberFormat = (function() {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       };
 
       function gamePowertip($els, placement) {
@@ -794,7 +792,7 @@ lichess.numberFormat = (function() {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       }
 
       function updatePowertips() {
@@ -2017,7 +2015,7 @@ lichess.numberFormat = (function() {
         });
       } else
         $form.find('form').one('submit', function() {
-          $(this).find('.color_submits').find('button').hide().end().append($('<div>').addClass('loader setup_loader fast'));
+          $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();

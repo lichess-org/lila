@@ -1,12 +1,13 @@
-#insight .square-in {
+#insight .spinner {
   display: none;
   position: absolute;
-  top: 280px;
-  left: 380px;
-  -webkit-transform: scale(5);
+  width: 80px;
+  height: 80px;
+  top: 238px;
+  left: 342px;
   opacity: 0.7;
 }
-#insight .loading .square-in {
+#insight .loading .spinner {
   display: block;
 }
 

@@ -25,7 +25,7 @@ function tourAction(action, ctrl) {
 }
 
 function loadPage(ctrl, p) {
-  return m.request({
+  m.request({
     method: 'GET',
     url: uncache('/tournament/' + ctrl.data.id + '/standing/' + p),
     config: xhrConfig

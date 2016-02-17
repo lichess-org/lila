@@ -37,13 +37,13 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-function loader() {
+function spinner() {
   return m.trust(lichess.spinnerHtml);
 }
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? loader() : [
+  var buttons = compact(ctrl.vm.redirecting ? spinner() : [
     button.backToTournament(ctrl) || [
       button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
@@ -61,7 +61,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? loader() : button.watcherFollowUp(ctrl));
+  var buttons = compact(ctrl.vm.redirecting ? spinner() : button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,

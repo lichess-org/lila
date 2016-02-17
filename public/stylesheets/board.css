@@ -402,9 +402,9 @@ div.lichess_overboard a.close {
 div.lichess_overboard a.close:hover {
   opacity: 1;
 }
-div.lichess_overboard .loader span {
-  font-size: 50px;
-  line-height: 103px;
+#challenge_await .spinner {
+  width: 90px;
+  height: 90px;
 }
 div.lichess_overboard p.explanations {
   margin: 1.5em 10px 0 10px;
@@ -935,10 +935,6 @@ div.current_player div.no-square {
   position: absolute;
   top: 0;
   left: 0;
-}
-div.current_player div.no-square .loader {
-  margin-top: 5px;
-  font-size: 5.8px;
 }
 div.current_player div.player p {
   height: 64px;
