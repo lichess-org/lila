@@ -342,7 +342,7 @@ lichess.assetUrl = function(url) {
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 }
-lichess.loadScript = function(url, f) {
+lichess.loadScript = function(url) {
   return $.ajax({
     dataType: "script",
     cache: true,

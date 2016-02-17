@@ -5,10 +5,8 @@
 
 function withHighcharts(f) {
   setTimeout(function() {
-    var url = (typeof lichess_rating_series !== 'undefined') ?
-      'http://lichess1.org/assets/vendor/highcharts4/highstock.js' :
-      'http://lichess1.org/assets/vendor/highcharts4/highcharts.js';
-    lichess.loadScript(url, function() {
+    var file = (typeof lichess_rating_series !== 'undefined') ? 'highstock.js' : 'highcharts.js';
+    lichess.loadScript('/assets/vendor/highcharts4/' + file).done(function() {
       Highcharts.makeFont = function(size) {
         return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
       };
