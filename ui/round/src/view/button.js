@@ -121,11 +121,6 @@ module.exports = {
   feedback: function(ctrl) {
     if (ctrl.vm.buttonFeedback) return m.trust(lichess.spinnerHtml);
   },
-  challengeRematched: function(ctrl) {
-    if (ctrl.vm.challengeRematched) return m('div.suggestion',
-      ctrl.trans('rematchOfferSent')
-    );
-  },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
@@ -145,14 +140,6 @@ module.exports = {
       m('a.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
       }, ctrl.trans('cancel'))
-    ]);
-  },
-  joinRematch: function(ctrl) {
-    if (ctrl.data.game.rematch) return m('div.suggestion', [
-      m('p', ctrl.trans('rematchOfferAccepted')),
-      m('a.button.glowed.hint--bottom', {
-        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
-      }, ctrl.trans('joinTheGame'))
     ]);
   },
   backToTournament: function(ctrl) {
@@ -177,23 +164,32 @@ module.exports = {
   },
   followUp: function(ctrl) {
     var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
-    var rematchable = (status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted && (ctrl.data.opponent.onGame || (!ctrl.data.game.clock && ctrl.data.player.user && ctrl.data.opponent.user));
+    var rematchable = !ctrl.data.game.rematch && (status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted && (ctrl.data.opponent.onGame || (!ctrl.data.game.clock && ctrl.data.player.user && ctrl.data.opponent.user));
     var newable = (status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.game.source == 'lobby';
-    return m('div.follow_up', [
-      rematchable ? m('a.button', {
-        onclick: function() {
-          if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
-          else ctrl.challengeRematch();
-        }
-      }, ctrl.trans('rematch')) : null,
-      newable ? m('a.button', {
-        href: '/?hook_like=' + ctrl.data.game.id,
-      }, ctrl.trans('newOpponent')) : null,
-      game.replayable(ctrl.data) ? m('a.button', {
-        onclick: partial(ctrl.socket.send, 'rematch-no', null),
-        href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
-      }, ctrl.trans('analysis')) : null
-    ]);
+    return [
+      ctrl.vm.challengeRematched ? m('div.suggestion',
+        ctrl.trans('rematchOfferSent')
+      ) : null,
+      m('div.follow_up', [
+        rematchable ? m('a.button', {
+          onclick: function() {
+            if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
+            else ctrl.challengeRematch();
+          }
+        }, ctrl.trans('rematch')) : null,
+        ctrl.data.game.rematch ? m('a.button.hint--top', {
+          'data-hint': ctrl.trans('joinTheGame'),
+          href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
+        }, ctrl.trans('rematchOfferAccepted')) : null,
+        newable ? m('a.button', {
+          href: '/?hook_like=' + ctrl.data.game.id,
+        }, ctrl.trans('newOpponent')) : null,
+        game.replayable(ctrl.data) ? m('a.button', {
+          onclick: partial(ctrl.socket.send, 'rematch-no', null),
+          href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
+        }, ctrl.trans('analysis')) : null
+      ])
+    ];
   },
   watcherFollowUp: function(ctrl) {
     var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
