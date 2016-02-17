@@ -1,6 +1,7 @@
 $(function() {
 
   var $searchForm = $('form.search.public');
+  var loadingSpinner = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none"></circle></svg></div>';
 
   if ($searchForm.length) {
     $searchInput = $searchForm.find('input.search_user');
@@ -19,7 +20,7 @@ $(function() {
     $(this).click(function() {
       var $zone = $("div.user_show .mod_zone");
       if ($zone.is(':visible')) $zone.hide();
-      else $zone.html("Loading...").show();
+      else $zone.html(loadingSpinner).show();
       $zone.load($(this).attr("href"), function() {
         $zone.find('form.fide_title select').on('change', function() {
           $(this).parent('form').submit();
