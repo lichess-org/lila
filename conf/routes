@@ -130,6 +130,7 @@ GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(game
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)
+GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: String)

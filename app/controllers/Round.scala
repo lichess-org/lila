@@ -246,6 +246,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
+  def miniFullId(fullId: String) = Open { implicit ctx =>
+    OptionOk(GameRepo pov fullId) { pov =>
+      html.game.mini(pov)
+    }
+  }
+
   def atom(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
