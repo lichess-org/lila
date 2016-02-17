@@ -1927,6 +1927,7 @@ a.mini_board {
 }
 #now_playing {
   margin: 4px 0 0 4px;
+  overflow: hidden;
 }
 #now_playing.other_games {
   width: 512px;
