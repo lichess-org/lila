@@ -45,6 +45,7 @@ final class Env(
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
+  val ExplorerEndpoint = config getString "explorer.endpoint"
 
   object assetVersion {
     import reactivemongo.bson._

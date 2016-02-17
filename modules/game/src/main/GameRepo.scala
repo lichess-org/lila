@@ -182,6 +182,8 @@ object GameRepo {
       F.analysed -> true
     ).some) map lila.db.BSON.asStringSet
 
+  def exists(id: String) = gameTube.coll.count(BSONDocument("_id" -> id).some).map(0<)
+
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson(F.bookmarks -> value))
 

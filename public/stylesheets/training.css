@@ -89,3 +89,7 @@ div.training > .board_and_ground > .right {
   padding-left: 15px;
   width: 242px;
 }
+div.training > .board_and_ground > .right .spinner {
+  width: 90px;
+  height: 90px;
+}

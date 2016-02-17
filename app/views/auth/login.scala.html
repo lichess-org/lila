@@ -9,7 +9,7 @@
       <p class="error">@error.message</p>
       }
       <ul>
-        @auth.formFields(form("username"), form("password"), none)
+        @auth.formFields(form("username"), form("password"), none, register = false)
         <li>
           <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
         </li>

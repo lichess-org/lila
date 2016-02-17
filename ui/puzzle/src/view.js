@@ -295,10 +295,6 @@ function wheel(ctrl, e) {
   return false;
 }
 
-function loading() {
-  return m('div.loader');
-}
-
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
@@ -311,7 +307,7 @@ module.exports = function(ctrl) {
           }
         },
         chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.vm.loading ? loading() : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
+      m('div.right', ctrl.vm.loading ? m.trust(lichess.spinnerHtml) : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
     m('div.underboard',
       m('div.center', [

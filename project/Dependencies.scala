@@ -23,7 +23,7 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.6"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.3"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "5.4"
   val config = "com.typesafe" % "config" % "1.3.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"
   val guava = "com.google.guava" % "guava" % "19.0"

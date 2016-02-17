@@ -173,21 +173,20 @@ piece.ghost {
   min-height: 512px;
 }
 div.lichess_game {
+  display: flex;
   height: 512px;
 }
 div.lichess_game div.lichess_board_wrap {
-  display: table-cell;
   position: relative;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
 }
 div.lichess_game div.lichess_ground {
-  display: table-cell;
-  position: relative;
-  vertical-align: middle;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   padding-left: 15px;
-  height: 512px;
   width: 242px;
 }
 div.lichess_game div.lichess_ground.for_bot h1 {
@@ -403,9 +402,9 @@ div.lichess_overboard a.close {
 div.lichess_overboard a.close:hover {
   opacity: 1;
 }
-div.lichess_overboard .loader span {
-  font-size: 50px;
-  line-height: 103px;
+#challenge_await .spinner {
+  width: 90px;
+  height: 90px;
 }
 div.lichess_overboard p.explanations {
   margin: 1.5em 10px 0 10px;
@@ -493,12 +492,12 @@ div.dont_touch {
   -webkit-transform: none;
 }
 div.table_wrap {
+  flex: 0 1 auto;
   width: 242px;
   position: relative;
 }
 div.table {
   border: 1px solid #ccc;
-  height: auto;
   padding: 10px;
 }
 .lichess_ground .replay .moves {
@@ -513,7 +512,7 @@ div.table {
   -ms-user-select: none;
 }
 .lichess_ground .replay turn {
-  display: block;
+  display: flex;
   height: 26px;
 }
 .lichess_ground .replay turn > index,
@@ -523,7 +522,7 @@ div.table {
   line-height: 22px;
 }
 .lichess_ground .replay turn > index {
-  width: 34px;
+  flex: 0 0 34px;
   padding: 2px 0;
   background: #e0e0e0;
   text-align: center;
@@ -531,7 +530,7 @@ div.table {
   font-weight: 300;
 }
 .lichess_ground .replay turn > move {
-  width: calc(50% - 14px - 13px);
+  flex: 1 1 50%;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
   padding: 2px 5px;
@@ -584,22 +583,11 @@ div.table {
   opacity: 0.4;
   text-shadow: none !important;
 }
-.lichess_ground .control.buttons .button {
-  box-sizing: border-box;
-  width: 220px;
-  margin-top: 12px;
-}
-.lichess_ground .control.buttons a.fat {
-  font-size: 150%;
-}
-.lichess_ground .control.buttons a.replay_and_analyse {
-  margin-bottom: 10px;
-}
 .pocket {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
   width: 100%;
-  height: 56px;
+  flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
   max-width: 244px;
@@ -653,9 +641,10 @@ div.table_not_started {
   border: none;
   padding: 0;
 }
-div.table .loader {
+div.table .spinner {
   margin: 7px auto;
-  font-size: 4px;
+  width: 30px;
+  height: 30px;
 }
 div.table div.username {
   white-space: nowrap;
@@ -697,72 +686,72 @@ div.table_wrap .whos_turn {
   text-align: center;
   font-weight: bold;
 }
-div.table_wrap > .clock {
+div.table_wrap .clock {
   position: relative;
 }
-div.table_wrap > .clock .bar {
+div.table_wrap .clock .bar {
   position: absolute;
   width: 242px;
   height: 4px;
 }
-div.table_wrap > .clock_top .bar {
+div.table_wrap .clock_top .bar {
   bottom: -4px;
 }
-div.table_wrap > .clock_bottom .bar {
+div.table_wrap .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap > .clock .bar span {
+div.table_wrap .clock .bar span {
   display: block;
   height: 4px;
   width: 0;
   background: #759900;
 }
-div.table_wrap > .clock .bar.berserk span {
+div.table_wrap .clock .bar.berserk span {
   background: #dc322f;
 }
-div.table_wrap > .clock > .time {
+div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 32px;
   font-family: monospace;
 }
-div.table_wrap > .correspondence.clock > .time {
+div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
-div.table_wrap > .clock .time tenths {
+div.table_wrap .clock .time tenths {
   font-size: 80%;
 }
-div.table_wrap > .clock .time huns {
+div.table_wrap .clock .time huns {
   font-size: 60%;
 }
-div.table_wrap > .clock .time b {
+div.table_wrap .clock .time b {
   font-weight: bold;
 }
-div.table_wrap > .clock .time seph {
+div.table_wrap .clock .time seph {
   opacity: 0.7;
 }
-div.table_wrap > .clock .time sepl {
+div.table_wrap .clock .time sepl {
   opacity: 0.15;
 }
-div.table_wrap > .clock.running .time {
+div.table_wrap .clock.running .time {
   background: #fff077;
   color: #444;
 }
-div.table_wrap > .clock.running.emerg .time {
+div.table_wrap .clock.running.emerg .time {
   background-color: #eFAAAA;
   color: #444;
 }
-div.table_wrap > .clock.outoftime .time {
+div.table_wrap .clock.outoftime .time {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
-div.table_wrap > .clock_top .time {
+div.table_wrap .clock_top .time {
   border-bottom: 0;
   border-radius: 2px 2px 0 0;
 }
-div.table_wrap > .clock_bottom .time {
+div.table_wrap .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
@@ -849,28 +838,85 @@ div.control.icons .resign_confirm .no {
   top: 0;
   left: 39px;
 }
-div.control.buttons .button {
-  display: inline-block;
-  text-align: center;
-  font-weight: bold;
-  padding: 10px 0;
-}
 div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-#claim_draw_zone,
-div.force_resign_zone,
-div.negotiation {
-  margin: 7px 0;
-  padding: 7px 0;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+.lichess_ground .suggestion,
+.lichess_ground .pending,
+.lichess_ground .negotiation {
+  margin: 7px -10px 0 -10px;
+  padding: 7px;
+  background: #d0d0d0;
 }
-#claim_draw_zone .button,
-div.negotiation .button,
-div.force_resign_zone .button {
-  display: inline-block;
+.lichess_ground .suggestion p {
+  margin-bottom: 7px;
+}
+.lichess_ground .suggestion .button {
+  display: block;
+}
+.lichess_ground .pending {
+  display: flex;
+  align-items: center;
+}
+.lichess_ground .pending p {
+  flex: 3 1;
+  margin-right: 7px;
+}
+.lichess_ground .pending .button {
+  flex: 1 1;
+}
+.lichess_ground .negotiation {
+  display: flex;
+  align-items: center;
+}
+.lichess_ground .negotiation p {
+  flex: 1 1 auto;
+  margin-right: 7px;
+}
+.lichess_ground .negotiation a {
+  flex: 0 0 50px;
+  height: 50px;
+  line-height: 44px;
+  font-size: 25px;
+  display: block;
+  background: #fff;
+}
+.lichess_ground .negotiation .accept {
+  color: #759900;
+  border-right: 1px solid #d0d0d0;
+  border-radius: 3px 0 0 3px;
+}
+.lichess_ground .negotiation .decline {
+  color: #dc322f;
+  border-radius: 0 3px 3px 0;
+}
+.lichess_ground .negotiation a:hover {
+  color: #fff;
+  background: #759900;
+}
+.lichess_ground .negotiation a.decline:hover {
+  background: #dc322f;
+}
+.lichess_ground .follow_up {
+  margin: 7px 0;
+}
+.lichess_ground .follow_up .button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom-width: 0;
+  border-radius: 0;
+}
+.lichess_ground .follow_up .button.strong {
+  margin-bottom: 7px;
+}
+.lichess_ground .follow_up .button:first-child {
+  border-radius: 3px 3px 0 0;
+}
+.lichess_ground .follow_up .button:last-child {
+  border-bottom-width: 1px;
+  border-radius: 0 0 3px 3px;
 }
 div.separator {
   margin: 10px 0;
@@ -890,10 +936,6 @@ div.current_player div.no-square {
   top: 0;
   left: 0;
 }
-div.current_player div.no-square .loader {
-  margin-top: 5px;
-  font-size: 5.8px;
-}
 div.current_player div.player p {
   height: 64px;
   line-height: 64px;
@@ -908,7 +950,7 @@ div.table.finished div.player p {
   margin-top: 12px;
 }
 div.cemetery {
-  height: 32px;
+  flex: 0 0 32px;
   line-height: 0;
   white-space: nowrap;
   line-height: 0;

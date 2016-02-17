@@ -67,9 +67,6 @@
   font-size: 1.3em;
   font-weight: bold;
 }
-#puzzle .right .loader {
-  font-size: 10px;
-}
 #puzzle .game_control {
   text-align: center;
   margin-top: 15px;

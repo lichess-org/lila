@@ -335,6 +335,9 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
+lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
+lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetUrl = function(url) {
   return $('body').data('asset-url') + url + '?v=' + $('body').data('asset-version');
@@ -423,6 +426,17 @@ lichess.unique = function(xs) {
     return xs.indexOf(x) === i;
   });
 };
+lichess.numberFormat = (function() {
+  if (window.Intl && Intl.NumberFormat) {
+    var formatter = new Intl.NumberFormat();
+    return function(n) {
+      return formatter.format(n);
+    }
+  }
+  return function(n) {
+    return n;
+  };
+})();
 
 (function() {
 
@@ -493,7 +507,7 @@ lichess.unique = function(xs) {
   $.spreadNumber = function(el, nbSteps, getDuration) {
     var previous, displayed;
     var display = function(prev, cur, it) {
-      var val = Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps);
+      var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
       if (val !== displayed) {
         el.textContent = val;
         displayed = val;
@@ -724,7 +738,18 @@ lichess.unique = function(xs) {
         return false;
       });
 
-      var powerTipLoader = '<div class="square-wrap"><div class="square-spin"></div></div>';
+      $('.mselect .button').on('click', function() {
+        var $p = $(this).parent();
+        $p.toggleClass('shown');
+        setTimeout(function() {
+          var handler = function(e) {
+            if ($.contains($p[0], e.target)) return;
+            $p.removeClass('shown');
+            $('html').off('click', handler);
+          };
+          $('html').on('click', handler);
+        }, 10);
+      });
 
       lichess.userPowertip = function($els, placement) {
         $els.removeClass('ulpt').powerTip({
@@ -744,7 +769,7 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       };
 
       function gamePowertip($els, placement) {
@@ -767,7 +792,7 @@ lichess.unique = function(xs) {
               }
             });
           }
-        }).data('powertip', powerTipLoader);
+        }).data('powertip', lichess.spinnerHtml);
       }
 
       function updatePowertips() {
@@ -981,7 +1006,7 @@ lichess.unique = function(xs) {
 
       // Zoom
       var getZoom = function() {
-        return lichess.storage.get('zoom') || 1;
+        return (lichess.isTrident || lichess.isSafari) ? 1 : (lichess.storage.get('zoom') || 1);
       };
       var setZoom = function(v) {
         lichess.storage.set('zoom', v);
@@ -1990,7 +2015,7 @@ lichess.unique = function(xs) {
         });
       } else
         $form.find('form').one('submit', function() {
-          $(this).find('.color_submits').find('button').hide().end().append($('<div>').addClass('loader setup_loader fast'));
+          $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
@@ -2237,7 +2262,6 @@ lichess.unique = function(xs) {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
-    if (lichess.openInMobileApp(data.game.id)) return;
     if (data.chat) $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,

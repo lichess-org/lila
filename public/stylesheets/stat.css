@@ -1,8 +1,10 @@
 .content_box {
   min-height: 570px;
 }
-.content_box .loader {
-  margin-top: 120px;
+.content_box .spinner {
+  width: 150px;
+  height: 150px;
+  margin-top: 100px;
 }
 .content_box .desc {
   padding: 0 25px 25px 25px;

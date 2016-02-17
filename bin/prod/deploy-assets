@@ -1,10 +1,24 @@
 #!/bin/sh
 . bin/lilarc
 
-bin/prod/compile-client
+mode=$1
+if [ -z $mode ]; then
+  echo "Empty deploy target"
+  exit 1
+elif [ $mode = "main" ]; then
+  REMOTE="clyde"
+  REMOTE_DIR="/home/lichess"
+elif [ $mode = "stage" ]; then
+  REMOTE="khiaw"
+  REMOTE_DIR="/home/lichess-stage"
+else
+  echo "Unknown deploy target $mode"
+  exit 1
+fi
 
-REMOTE="clyde"
-REMOTE_DIR="/home/lichess"
+lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
+
+bin/prod/compile-client
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR

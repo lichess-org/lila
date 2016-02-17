@@ -71,27 +71,18 @@ form.better_analysis {
 .future_game_analysis.progress {
   margin-top: 0;
   height: 100%;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
-.future_game_analysis .loader {
-  font-size: 15px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
+.future_game_analysis .spinner {
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+  margin: 0 20px;
 }
-.underboard_content .quote.panel .pull-quote {
-  margin: 0 auto;
-  width: 322px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.future_game_analysis .quote {
-  margin-left: 190px;
-  width: 322px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+.underboard_content .quote.panel.active {
+  display: flex;
+  align-items: center;
 }
 .future_game_analysis .button {
   display: inline-block;
@@ -114,25 +105,32 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
+  flex: 0 0 30px;
   margin-top: 10px;
-  text-align: center;
   width: 244px;
-  white-space: nowrap;
 }
-div.game_control a {
-  font-size: 12px;
-  width: 25px;
-  height: 17px;
-  display: inline-block;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin: 0 -1px;
+div.game_control .buttons {
+  display: flex;
+  justify-content: space-between;
 }
 div.game_control .jumps {
   display: inline-block;
+  position: relative;
 }
-div.game_control a.menu {
+div.game_control .jumps:last-child {
+  margin-left: -1px;
+}
+div.game_control .jumps button:last-child {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-top: 0;
+}
+div.game_control .jumps:hover button:last-child {
+  display: block;
+}
+div.game_control .menu {
   margin-left: 10px;
 }
 div.lichess_game div.lichess_ground {
@@ -143,7 +141,7 @@ div.eval_gauge {
   right: -22px;
   top: 0;
   width: 16px;
-  height: 512px;
+  height: 100%;
   background: #fff;
   background-size: 100% 100%;
   border-radius: 5px;
@@ -187,18 +185,18 @@ div.eval_gauge .black {
 div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 28px;
 }
-.lichess_ground .ceval_box {
+.ceval_box {
   position: relative;
-  height: 40px;
+  flex: 0 0 40px;
   border: 1px solid #ccc;
   border-bottom: 0;
 }
-.lichess_ground .ceval_box .switch {
+.ceval_box .switch {
   position: absolute;
   top: 9px;
   right: 10px;
 }
-.lichess_ground .ceval_box pearl {
+.ceval_box pearl {
   position: absolute;
   top: 0;
   left: 0;
@@ -210,17 +208,266 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   font-weight: bold;
   background: #e0e0e0;
 }
-.lichess_ground .ceval_box pearl .square-spin {
-  margin-top: 7px;
+.ceval_box pearl .spinner {
+  margin-top: 5px;
+  width: 25px;
+  height: 25px;
 }
-.lichess_ground .ceval_box help {
+.ceval_box help {
   display: block;
   margin: 5px;
   font-size: 0.9em;
 }
+.ceval_box .bar {
+  position: absolute;
+  width: 242px;
+  height: 4px;
+  top: 0px;
+}
+.ceval_box .bar span {
+  display: block;
+  height: 4px;
+  width: 0;
+  background: #759900;
+  transition: 1s;
+}
+.explorer_box {
+  position: relative;
+  flex: 3 1 0px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  overflow: scroll;
+  overflow-x: hidden;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.explorer_box.config {
+  min-height: 210px;
+}
+.explorer_box .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.explorer_box.loading .overlay {
+  display: block;
+}
+.explorer_box tbody {
+  transition: opacity 0.13s;
+}
+.explorer_box.loading tbody {
+  opacity: 0.4;
+}
+.explorer_box .empty {
+  text-align: center;
+}
+.explorer_box .spinner {
+  margin-top: 88px;
+}
+.explorer_box thead th {
+  text-transform: capitalize;
+  padding-left: 7px;
+}
+.explorer_box thead th,
+.explorer_box .title {
+  font-size: 11px;
+  line-height: 22px;
+  background: #3b93da;
+  color: #fff;
+  text-align: left;
+  padding-left: 10px;
+}
+body.dark .explorer_box thead th,
+body.dark .explorer_box .title {
+  background: #215279;
+  color: #ccc;
+}
+.explorer_box tr:nth-child(even) {
+  background: #fafafa;
+}
+.explorer_box tbody tr {
+  transition: background-color 0.13s;
+}
+.explorer_box tbody tr:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
+.explorer_box td {
+  cursor: pointer;
+  padding-left: 7px;
+}
+.explorer_box .moves td:first-child {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 14px;
+  line-height: 30px;
+  padding-left: 7px;
+}
+.explorer_box .moves td:nth-child(2) {
+  font-size: 10px;
+  opacity: 0.8;
+  text-align: right;
+}
+.explorer_box .moves td:last-child {
+  width: 100%;
+  padding-right: 7px;
+}
+.explorer_box .bar span {
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  border: 0px solid #ccc;
+  border-width: 1px 0;
+  box-sizing: border-box;
+  height: 16px;
+  line-height: 16px;
+  font-size: 11px;
+}
+body.dark .explorer_box .bar span {
+  border-color: #555;
+}
+.explorer_box .bar span.white {
+  background: #fff;
+  box-shadow: 0 -5px 7px rgba(0,0,0,0.1) inset;
+}
+body.dark .explorer_box .bar span.white {
+  background: #bbb;
+  color: #222;
+  box-shadow: 0 -5px 7px rgba(0,0,0,0.25) inset;
+}
+.explorer_box .draws,
+.explorer_box .black {
+  color: #fff;
+  box-shadow: 0 5px 7px rgba(255,255,255,0.2) inset;
+}
+.explorer_box .draws {
+  background: #a0a0a0;
+}
+body.dark .explorer_box .draws {
+  background: #666;
+  color: #ddd;
+}
+.explorer_box .black {
+  background: #555;
+  color: #ddd;
+}
+body.dark .explorer_box .black {
+  background: #333;
+  box-shadow: 0 5px 7px rgba(255,255,255,0.1) inset;
+}
+.explorer_box .bar span:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-left-width: 1px;
+}
+.explorer_box .bar span:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-right-width: 1px;
+}
+.explorer_box .games {
+  width: 100%;
+}
+.explorer_box .games td {
+  padding: 5px 0 5px 7px;
+  max-width: 110px;
+}
+.explorer_box .games td span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.explorer_box .toconf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  line-height: 20px;
+  text-align: center;
+  opacity: 0.7;
+}
+.explorer_box .toconf:hover {
+  opacity: 1;
+}
+.explorer_box .message {
+  text-align: center;
+  font-style: italic;
+}
+.explorer_box .message i {
+  font-size: 32px;
+  display: inline-block;
+  margin: 12px 0;
+  opacity: 0.7;
+}
+.explorer_box .message h3 {
+  font-weight: bold;
+}
+.explorer_box .message p {
+  white-space: normal;
+  padding: 0 10px;
+}
+.explorer_box .failing.message i {
+  font-size: 70px;
+}
+.explorer_box .config {
+  overflow: hidden;
+}
+.explorer_box .config section {
+  padding: 8px 10px 0 10px;
+}
+.explorer_box .config section.db {
+  padding-top: 5px;
+}
+.explorer_box .config section.save {
+  text-align: center;
+  padding: 15px 0 10px 0;
+}
+.explorer_box .config label {
+  font-weight: bold;
+  display: block;
+  line-height: 2em;
+}
+.explorer_box .config .choices {
+  display: flex;
+}
+.explorer_box .config .choices span {
+  flex-grow: 1;
+  padding: 5px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.13s;
+  border: 1px solid #ccc;
+  border-width: 1px 0 1px 1px;
+  text-transform: capitalize;
+}
+.explorer_box .config .choices span:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.explorer_box .config .choices span:last-child {
+  border-radius: 0 3px 3px 0;
+  border-right-width: 1px;
+}
+.explorer_box .config .choices span:hover {
+  background: #fff;
+}
+.explorer_box .config .choices span.selected {
+  background: #3893E8!important;
+  color: #fff!important;
+  text-shadow: 1px 0 0 rgba(0,0,0,0.5);
+  font-weight: bold;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
+}
 .lichess_ground .replay,
 .lichess_ground .action_menu {
-  height: calc(100% - 40px);
   overflow: auto;
   overflow-x: hidden;
   border: 1px solid #ccc;
@@ -229,20 +476,13 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   -ms-user-select: none;
   margin-left: 0;
 }
-.ceval_displayed .lichess_ground .replay {
-  height: calc(100% - 40px - 41px);
-}
-.crazy .lichess_ground .replay {
-  height: calc(100% - 40px - 140px);
+.lichess_ground .replay {
+  flex: 2 1 0px;
+  position: relative; /* for autoscroll */
 }
 .lichess_ground .action_menu {
+  flex: 1 0;
   border-color: transparent;
-}
-.lichess_ground .action_menu .inner {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
 }
 .lichess_ground .action_menu .button {
   display: block;
@@ -283,7 +523,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .lichess_ground .replay turn move {
   position: relative;
-  width: calc(50% - 14px - 13px);
   padding: 2px 7px;
 }
 .lichess_ground .replay move.current {
@@ -305,7 +544,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .lichess_ground .replay move:hover eval {
   opacity: 1;
 }
-.lichess_ground .analyse .meta {
+.lichess_ground .replay .meta {
   background-color: #e0e0e0;
   border: 1px solid #ccc;
   border-left: none;
@@ -313,65 +552,65 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
 }
-.lichess_ground .analyse .white {
+.lichess_ground .replay .white {
   border-left: 3px solid;
 }
-.lichess_ground .analyse .black {
+.lichess_ground .replay .black {
   border-right: 3px solid;
   margin-right: 2px;
 }
-body .lichess_ground .analyse .inaccuracy {
+body .lichess_ground .replay .inaccuracy {
   border-color: #56B4E9;
 }
-body .lichess_ground .analyse .mistake {
+body .lichess_ground .replay .mistake {
   border-color: #E69F00;
 }
-body .lichess_ground .analyse .blunder {
+body .lichess_ground .replay .blunder {
   border-color: #DF5353;
 }
-body .lichess_ground .analyse .undefined {
+body .lichess_ground .replay .undefined {
   border-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
 }
-.lichess_ground .analyse .meta > .variation {
+.lichess_ground .replay .meta > .variation {
   padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .analyse .meta > .variation span.menu {
+.lichess_ground .replay .meta > .variation span.menu {
   float: right;
   margin-right: 3px;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.13s;
 }
-.lichess_ground .analyse .meta > .variation:hover .menu {
+.lichess_ground .replay .meta > .variation:hover .menu {
   opacity: 0.7;
 }
-.lichess_ground .analyse .meta > .variation .menu:hover {
+.lichess_ground .replay .meta > .variation .menu:hover {
   opacity: 1!important;
 }
-.lichess_ground .analyse .meta > .menu {
+.lichess_ground .replay .meta > .menu {
   background: #fff;
   font-family: 'Noto Sans';
   font-weight: normal;
 }
-.lichess_ground .analyse .meta > .menu a {
+.lichess_ground .replay .meta > .menu a {
   display: block;
   line-height: 1.8em;
 }
-.lichess_ground .analyse .meta > .menu a.delete {
+.lichess_ground .replay .meta > .menu a.delete {
   color: #ac524f;
 }
-.lichess_ground .analyse .meta > .menu a.promote {
+.lichess_ground .replay .meta > .menu a.promote {
   color: #759900;
 }
-.lichess_ground .analyse .meta > .menu a::before {
+.lichess_ground .replay .meta > .menu a::before {
   opacity: 0.5;
 }
-.lichess_ground .analyse .meta > .menu a:hover::before {
+.lichess_ground .replay .meta > .menu a:hover::before {
   opacity: 1;
 }
 .lichess_ground .variation index {
@@ -388,7 +627,7 @@ body .lichess_ground .analyse .undefined {
 .lichess_ground .variation move:hover {
   background: #eee;
 }
-.lichess_ground .analyse .variation .variation {
+.lichess_ground .replay .variation .variation {
   margin: 0 5px;
 }
 .lichess_ground .result {
@@ -614,6 +853,70 @@ table.modAssessment td.noMatch {
 }
 .forecast button.on-my-turn::before {
   color: #759900;
+}
+
+.mselect {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  display:inline-block;
+  position: relative;
+  padding:0;
+  border:0;
+}
+.mselect .button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+.mselect .button i {
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  top: 14px;
+}
+.mselect .list {
+  width:100%;
+  margin:0;
+  padding:0;
+  position:absolute;
+  top:0;
+  text-align: left;
+  list-style-type:none;
+  font-weight: normal;
+  background:#FFF;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+  display: none;
+}
+.mselect.shown .list {
+  display: block;
+}
+.mselect .list a {
+  display: block;
+  padding: 10px;
+  background:#fff;
+  transition: 0.13s;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mselect .list a:hover{
+  background: #3893E8;
+  color: #fff;
+}
+.mselect a[data-icon]:before,
+.mselect .button[data-icon]:before {
+  font-size: 1.5em;
+  margin-right: 10px;
+  color: #3893E8;
+  transition: 0.13s;
+}
+.mselect a:hover:before {
+  color: #fff;
 }
 
 body.coords_2 .gauge_displayed square[data-coord-y]::before {

@@ -468,6 +468,8 @@ case class Game(
     if (fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 
+  def synthetic = id == "synthetic"
+
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 }
 

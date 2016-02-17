@@ -133,7 +133,7 @@ module.exports = function(steps, analysis) {
   }.bind(this);
 
   this.promoteVariation = function(ply, id) {
-    var stepId = ply + this.firstPly();
+    var stepId = ply - this.firstPly();
     var variation = this.getStepAtPly(ply).variations[id - 1];
     this.deleteVariation(ply, id);
     var demoted = this.tree.splice(stepId);

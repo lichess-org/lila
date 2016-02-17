@@ -19,7 +19,7 @@ module.exports = function(env) {
     pages: {},
     lastPageDisplayed: null,
     focusOnMe: this.data.me && !this.data.me.withdraw,
-    joinLoader: false,
+    joinSpinner: false,
     playerInfo: {
       id: null,
       player: null,
@@ -41,7 +41,7 @@ module.exports = function(env) {
     data.featured && startWatching(data.featured.id);
     sound.end(this.data);
     sound.countDown(this.data);
-    this.vm.joinLoader = false;
+    this.vm.joinSpinner = false;
     redirectToMyGame();
   }.bind(this);
 
@@ -69,13 +69,13 @@ module.exports = function(env) {
 
   this.withdraw = function() {
     xhr.withdraw(this);
-    this.vm.joinLoader = true;
+    this.vm.joinSpinner = true;
     this.vm.focusOnMe = false;
   }.bind(this);
 
   this.join = function() {
     xhr.join(this);
-    this.vm.joinLoader = true;
+    this.vm.joinSpinner = true;
     this.vm.focusOnMe = true;
   }.bind(this);
 

@@ -38,8 +38,6 @@ body.transp div.table,
 body.transp div.table_wrap > div.clock > div.time,
 body.transp #friend_box .content a:hover,
 body.transp div.undertable_inner,
-body.transp div.table .loader:before,
-body.transp div.table .loader:after,
 body.transp div.chat_menu > a.active,
 body.transp #hooks_wrap,
 body.transp #hooks_wrap div.tabs a:hover,
@@ -55,6 +53,7 @@ body.transp #topmenu div,
 body.transp #start_buttons a,
 body.transp .analyse div.ceval_box,
 body.transp .analyse .lichess_ground .replay,
+body.transp .analyse .lichess_ground .explorer_box,
 body.transp .lichess_ground .replay index,
 body.transp .lichess_ground .analyse .meta,
 body.transp .lichess_ground .replay move:hover,
@@ -69,8 +68,6 @@ body.transp #tournament_side,
 body.transp table.translations tbody tr,
 body.transp form.translation_form div.message,
 body.transp #video_side .tag_list a.checked,
-body.transp div.content_box .loader:before,
-body.transp div.content_box .loader:after,
 body.transp #powerTip,
 body.transp div.vstext {
   background: rgba(0, 0, 0, 0.6);
@@ -81,6 +78,7 @@ body.transp input,
 body.transp textarea,
 body.transp div.analysis_menu > a.active,
 body.transp div.chat_menu > a,
+body.transp div.mselect > div.list > a,
 body.transp #opening .meter,
 body.transp div.game_row:nth-child(odd),
 body.transp #lichess_forum table.forum_table tr:nth-child(odd),
@@ -95,9 +93,13 @@ body.transp div.game_config .ratings,
 body.transp div.search_status {
   background: rgba(0, 0, 0, 0.3);
 }
+body.transp div.mselect > div.list > a:first-child {
+  background: #333;
+}
 body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.transp #chat .messages,
-body.transp #tournament_schedule {
+body.transp #tournament_schedule,
+body.transp div.mselect div.list {
   background: none;
 }
 body.transp div.user_show .trophy.icon3d,

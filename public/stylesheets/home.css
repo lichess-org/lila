@@ -2,17 +2,19 @@
   position: relative;
 }
 div.lobby_and_ground {
+  display: flex;
   position: relative;
 }
 #start_buttons {
-  display: table-cell;
-  vertical-align: middle;
   padding-left: 15px;
-  height: 512px;
   width: 280px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  position: relative;
 }
 #start_buttons a {
-  margin: 2.5em 0;
+  margin: 1.2em 0;
   font-size: 1.3em;
   padding: 1em;
   text-align: center;
@@ -41,7 +43,6 @@ div.lobby_and_ground {
 /********** HOOKS **********/
 
 #hooks_wrap {
-  display: table-cell;
   width: 510px;
   height: 510px;
   min-width: 510px;
@@ -468,7 +469,9 @@ div.new_posts li span.extract {
 #daily_puzzle > div.vstext {
   text-align: center;
 }
-div.lichess_overboard .loader.setup_loader {
+div.lichess_overboard .color_submits .spinner {
+  width: 70px;
+  height: 70px;
   margin: 10px auto 20px auto;
 }
 div.game_config {

@@ -14,9 +14,11 @@
     <a class="d3 button" data-is3d="true">3D</a>
   </div>
   <input data-href="@routes.Pref.set("bgImg")" type="text" class="background_image" value="@ctx.bgImg" />
+  @if(!lila.common.HTTPRequest.isTrident(ctx.req) && !lila.common.HTTPRequest.isSafari(ctx.req)) {
   <div class="zoom_control">
     <i data-icon="<"></i><div class="slider"></div>
   </div>
+  }
   <div class="is2d">
     <div class="board" data-href="@routes.Pref.set("theme")">
       @lila.pref.Theme.list.map { theme =>

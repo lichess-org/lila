@@ -15,6 +15,8 @@ final class JsonView(
     cached: Cached,
     performance: Performance) {
 
+  import JsonView._
+
   private case class CachableData(
     pairings: JsArray,
     featured: Option[JsObject],
@@ -45,6 +47,9 @@ final class JsonView(
       Json.obj("name" -> tour.name, "url" -> url)
     },
     "nbPlayers" -> tour.nbPlayers,
+    "minutes" -> tour.minutes,
+    "clock" -> clockJson(tour.clock),
+    "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
     "private" -> tour.`private`.option(true),
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
@@ -203,10 +208,6 @@ final class JsonView(
     ).noNull
   }
 
-  private def scheduleJson(s: Schedule) = Json.obj(
-    "freq" -> s.freq.name,
-    "speed" -> s.speed.name)
-
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet =>
       val o = Json.obj(
@@ -265,4 +266,20 @@ final class JsonView(
       case _                       => 1
     }
     else 0))
+}
+
+object JsonView {
+
+  private[tournament] def scheduleJson(s: Schedule) = Json.obj(
+    "freq" -> s.freq.name,
+    "speed" -> s.speed.name)
+
+  private[tournament] def clockJson(c: TournamentClock) = Json.obj(
+    "limit" -> c.limit,
+    "increment" -> c.increment)
+
+  private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
+    "eco" -> s.eco,
+    "name" -> s.name,
+    "fen" -> s.fen)
 }

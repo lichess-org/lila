@@ -83,7 +83,8 @@ final class Env(
       Env.push, // required to load the actor
       Env.perfStat, // required to load the actor
       Env.slack, // required to load the actor
-      Env.challenge // required to load the actor
+      Env.challenge, // required to load the actor
+      Env.explorer // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
   }
@@ -150,4 +151,5 @@ object Env {
   def perfStat = lila.perfStat.Env.current
   def slack = lila.slack.Env.current
   def challenge = lila.challenge.Env.current
+  def explorer = lila.explorer.Env.current
 }

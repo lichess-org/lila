@@ -37,22 +37,20 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-function loader() {
-  return m('div.loader.fast');
+function spinner() {
+  return m.trust(lichess.spinnerHtml);
 }
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? loader() : [
+  var buttons = compact(ctrl.vm.redirecting ? spinner() : [
     button.backToTournament(ctrl) || [
       button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
       button.challengeRematched(ctrl) ||
       button.cancelRematch(ctrl) ||
-      button.rematch(ctrl)
-    ],
-    button.newOpponent(ctrl),
-    button.analysis(ctrl)
+      button.followUp(ctrl)
+    ]
   ]);
   return [
     renderReplay(ctrl),
@@ -63,11 +61,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? loader() : [
-    button.viewRematch(ctrl),
-    button.viewTournament(ctrl),
-    button.analysis(ctrl)
-  ]);
+  var buttons = compact(ctrl.vm.redirecting ? spinner() : button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
@@ -83,13 +77,13 @@ function renderTablePlay(ctrl) {
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', d.tournament.nbSecondsForFirstMove)
-    ) : null
+    button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.suggestion',
+      m('div.text[data-icon=j]',
+        ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', d.tournament.nbSecondsForFirstMove)
+      )) : null
   ]);
   return [
-    renderReplay(ctrl),
-    (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
+    renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit || ctrl.forceResignable()) ? null : (
       button.feedback(ctrl) || m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),

@@ -370,3 +370,20 @@ Credits
 -------
 
 See the [lichess Thanks page](http://lichess.org/thanks)
+
+Supported browsers
+------------------
+
+- Firefox, 6 months old or newer
+- Chrome, 6 months old or newer
+
+These two are the best, hands down. Use them if you can.
+
+We also do our best to support:
+
+- Internet Explorer 11
+- Microsoft Edge
+- Opera 34 and newer
+- Safari 9 and newer
+
+Others and older browsers are guaranteed not to work with lichess, and we don't care.

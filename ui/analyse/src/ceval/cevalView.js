@@ -4,7 +4,6 @@ var defined = util.defined;
 var classSet = require('chessground').util.classSet;
 
 var gaugeLast = 0;
-var squareSpin = m('span.square-spin');
 var gaugeTicks = [];
 for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
   style: {
@@ -46,10 +45,20 @@ module.exports = {
     var enabled = ctrl.ceval.enabled();
     var eval = ctrl.currentAnyEval() || {};
     var isServer = !!ctrl.vm.step.eval;
-    var pearl = squareSpin;
-    if (defined(eval.cp)) pearl = util.renderEval(eval.cp);
-    else if (defined(eval.mate)) pearl = '#' + eval.mate;
-    else if (ctrl.vm.step.dests === '') pearl = '-';
+    var pearl, percent;
+    if (defined(eval.cp)) {
+      pearl = util.renderEval(eval.cp);
+      percent = ctrl.ceval.percentComplete();
+    } else if (defined(eval.mate)) {
+      pearl = '#' + eval.mate;
+      percent = 100;
+    } else if (ctrl.vm.step.dests === '') {
+      pearl = '-';
+      percent = 0;
+    } else {
+      pearl = m.trust(lichess.spinnerHtml);
+      percent = 0;
+    }
     return m('div.ceval_box',
       m('div.switch', [
         m('input', {
@@ -67,7 +76,14 @@ module.exports = {
         'Local computer evaluation',
         m('br'),
         'for variation analysis'
-      )
+      ),
+      enabled ? m('div.bar', {
+        title: ctrl.ceval.curDepth() + '/' + ctrl.ceval.maxDepth + ' plies deep'
+      }, m('span', {
+        style: {
+          width: percent + '%'
+        }
+      })) : null
     );
   }
 };

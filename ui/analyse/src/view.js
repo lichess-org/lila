@@ -17,6 +17,7 @@ var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
+var explorerView = require('./explorer/explorerView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -27,15 +28,16 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(el) {
-  return util.throttle(500, false, function autoScroll() {
+  return util.throttle(300, false, function() {
     raf(function() {
-      var plyEl = el.querySelector('.active') || el.querySelector('.turn:first-child');
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
       if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
     });
   });
 }
 
 var emptyMove = m('move.empty', '...');
+var nullMove = m('move.empty', '');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
@@ -210,7 +212,7 @@ function renderTurn(ctrl, turn, path) {
   var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
   var wMeta = renderMeta(ctrl, turn.white, wPath);
   var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
+  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : nullMove;
   var bMeta = renderMeta(ctrl, turn.black, bPath);
   if (wMove) {
     if (wMeta) return [
@@ -283,16 +285,19 @@ function renderAnalyse(ctrl) {
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
   }
-  return m('div.analyse', {
+  return m('div.replay', {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
-        if (el.tagName !== 'MOVE') return;
+        if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
         var path = el.getAttribute('data-path') ||
           '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
         if (path) ctrl.userJump(treePath.read(path));
       },
       onclick: function(e) {
         return false;
+      },
+      config: function(el, isUpdate) {
+        if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
       }
     },
     tree);
@@ -354,45 +359,48 @@ function blindBoard(ctrl) {
 }
 
 function buttons(ctrl) {
-  return [
-    m('div.game_control', [
-      m('div.jumps.hint--bottom', [
-        ['first', 'W', control.first, ],
-        ['prev', 'Y', control.prev],
-        ['next', 'X', control.next],
-        ['last', 'V', control.last]
-      ].map(function(b) {
-        return {
-          tag: 'a',
-          attrs: {
-            class: 'button ' + b[0] + ' ' + classSet({
-              disabled: ctrl.broken,
-              glowed: ctrl.vm.late && b[0] === 'last'
-            }),
-            'data-icon': b[1],
-            onclick: partial(b[2], ctrl)
-          }
-        };
-      })),
-      m('a.button.menu', {
-        onclick: ctrl.actionMenu.toggle,
-        class: ctrl.actionMenu.open ? 'active' : ''
-      }, m('span', {
-        'data-icon': '['
-      }))
+  var make = function(icon, effect) {
+    return m('button.button', {
+      'data-icon': icon,
+      onclick: partial(effect, ctrl)
+    });
+  }
+  return m('div.game_control',
+    m('div.buttons', [
+      m('div', [
+        m('div.jumps', [
+          make('Y', control.prev),
+          make('W', control.first)
+        ]),
+        m('div.jumps', [
+          make('X', control.next),
+          make('V', control.last)
+        ])
+      ]),
+      m('div', [
+        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button.hint--bottom', {
+          onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
+          'data-hint': 'Opening explorer',
+          class: ctrl.explorer.enabled() ? 'active' : ''
+        }, m('i', {
+          'data-icon': ']'
+        })),
+        m('button.button.menu.hint--bottom', {
+          onclick: ctrl.actionMenu.toggle,
+          'data-hint': 'Menu',
+          class: ctrl.actionMenu.open ? 'active' : ''
+        }, m('i', {
+          'data-icon': '['
+        }))
+      ])
     ])
-  ];
+  );
 }
 
 module.exports = function(ctrl) {
   return [
     m('div', {
-      class: classSet({
-        top: true,
-        ceval_displayed: ctrl.ceval.allowed(),
-        gauge_displayed: ctrl.showEvalGauge(),
-        crazy: ctrl.data.game.variant.key === 'crazyhouse'
-      })
+      class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
@@ -405,15 +413,11 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
-            m('div.replay', {
-                config: function(el, isUpdate) {
-                  if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
-                }
-              },
-              renderAnalyse(ctrl))
+            renderAnalyse(ctrl),
+            explorerView.renderExplorer(ctrl)
           ],
-          buttons(ctrl),
-          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom')
+          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.player.color, 'bottom'),
+          buttons(ctrl)
         ])
       ])
     ]),

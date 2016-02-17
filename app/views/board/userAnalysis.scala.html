@@ -1,4 +1,6 @@
-@(data: play.api.libs.json.JsObject, pov: Option[Pov])(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, pov: Pov)(implicit ctx: Context)
+
+@import lila.rating.PerfType.iconByVariant
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -35,8 +37,28 @@ trans.boardEditor,
 trans.continueFromHere,
 trans.playWithTheMachine,
 trans.playWithAFriend
-)))
+))),
+explorer: {
+endpoint: "@explorerEndpoint",
+authorized: @isGranted(_.Beta)
+}
 };
+}
+}
+
+@side = {
+@if(pov.game.synthetic) {
+<div class="mselect">
+  <div class="button" data-icon="@iconByVariant(pov.game.variant)">
+    @pov.game.variant.name
+    <i data-icon="u"></i>
+  </div>
+  <div class="list">
+    @chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
+    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.variantOrLoad(v.key)">@v.name</a>
+    }
+  </div>
+</div>
 }
 }
 
@@ -44,6 +66,7 @@ trans.playWithAFriend
 title = trans.analysis.str(),
 moreCss = moreCss,
 moreJs = moreJs,
+side = side.some,
 chessground = false,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess analysis board",

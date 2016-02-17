@@ -40,12 +40,19 @@ module.exports = {
       if (defined(v) && v !== value) {
         value = v + '';
         lichess.storage.set(sk, v);
-      }
-      else if (!defined(value)) {
+      } else if (!defined(value)) {
         value = lichess.storage.get(sk);
         if (value === null) value = defaultValue + '';
       }
       return isBoolean ? value === 'true' : value;
+    };
+  },
+  storedJsonProp: function(keySuffix, defaultValue) {
+    var key = 'explorer.' + keySuffix;
+    return function() {
+      if (arguments.length) lichess.storage.set(key, JSON.stringify(arguments[0]));
+      var ret = JSON.parse(lichess.storage.get(key));
+      return (ret !== null) ? ret : defaultValue;
     };
   },
   /**

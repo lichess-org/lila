@@ -52,6 +52,8 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
+  def explorerEndpoint = apiEnv.ExplorerEndpoint
+
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
   }

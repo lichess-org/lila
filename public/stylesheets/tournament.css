@@ -13,16 +13,16 @@ ol.scheduled_tournaments a {
 #tournament .finished h1 {
   text-align: center;
 }
-#tournament.id_whizcup2 .content_box {
+#tournament[class*=id_whizcup] .content_box {
   background-image: url(../images/chesswhiz.logo.png);
   background-position: 20px 5px;
   background-repeat: no-repeat;
   background-size: 60px 60px;
 }
-#tournament.id_whizcup2 h1 {
+#tournament[class*=id_whizcup] h1 {
   margin-left: 70px;
 }
-#tournament.id_whizcup2 h1::before {
+#tournament[class*=id_whizcup] h1::before {
   display: none;
 }
 #tournament .title_tag {
@@ -192,7 +192,6 @@ ol.scheduled_tournaments a {
   overflow: hidden;
 }
 #tournament .pager {
-  text-align: center;
   font-weight: bold;
   user-select: none;
   -webkit-user-select: none;
@@ -206,18 +205,9 @@ ol.scheduled_tournaments a {
 #tournament .pager .page {
   margin: 0 5px;
 }
-#tournament .square-wrap {
-  text-align: center;
-  -webkit-transform: scale(5);
-}
-#tournament .square-spin {
-  opacity: 0.7;
-  margin: 150px auto;
-}
-#tournament thead .square-spin {
-  width: 20px;
-  height: 20px;
-  margin: 4px 5px 0 0;
+#tournament thead .spinner {
+  width: 30px;
+  height: 30px;
   float: right;
 }
 #tournament table.standing {
@@ -403,14 +393,18 @@ ol.scheduled_tournaments a {
   width: 240px;
 }
 #tournament_side .scroll-shadow-soft {
-  max-height: 510px;
+  max-height: 400px;
   overflow: auto;
 }
-#tournament_side .square-spin {
-  width: 50px;
-  height: 50px;
-  margin: 30px;
-  opacity: 0.5;
+#tournament tbody .spinner,
+#tournament_side .spinner {
+  width: 70px;
+  height: 70px;
+  margin: 30px auto;
+  opacity: 0.8;
+}
+#tournament tbody .spinner {
+  margin: 150px auto;
 }
 #tournament_side .player h2 {
   font-size: 1.2em;
@@ -573,10 +567,10 @@ ol.scheduled_tournaments li.marathon {
   min-height: 400px;
   position: relative;
 }
-#tournament_schedule .square-spin {
-  position: absolute;
-  top: 190px;
-  left: 50%;
+#tournament_schedule .spinner {
+  width: 120px;
+  height: 120px;
+  padding-top: 120px;
   opacity: 0.7;
 }
 #tournament_schedule .schedule {

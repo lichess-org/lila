@@ -75,6 +75,9 @@ trait UserRepo {
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
+  def usernamesByIds(ids: List[ID]) =
+    coll.distinct(F.username, BSONDocument("_id" -> BSONDocument("$in" -> ids)).some) map lila.db.BSON.asStrings
+
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
       BSONDocument("_id" -> BSONDocument("$in" -> BSONArray(u1, u2))),

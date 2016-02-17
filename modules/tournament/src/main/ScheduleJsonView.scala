@@ -11,6 +11,8 @@ import lila.user.User
 final class ScheduleJsonView(
     getLightUser: String => Option[LightUser]) {
 
+  import JsonView._
+
   def apply(tournaments: VisibleTournaments) = Json.obj(
     "created" -> tournaments.created.map(tournamentJson),
     "started" -> tournaments.started.map(tournamentJson),
@@ -38,19 +40,6 @@ final class ScheduleJsonView(
     "schedule" -> tour.schedule.map(scheduleJson),
     "winner" -> tour.winnerId.flatMap(getLightUser).map(userJson),
     "perf" -> tour.perfType.map(perfJson))
-
-  private def scheduleJson(s: Schedule) = Json.obj(
-    "freq" -> s.freq.name,
-    "speed" -> s.speed.name)
-
-  private def clockJson(c: TournamentClock) = Json.obj(
-    "limit" -> c.limit,
-    "increment" -> c.increment)
-
-  private def positionJson(s: chess.StartingPosition) = Json.obj(
-    "eco" -> s.eco,
-    "name" -> s.name,
-    "fen" -> s.fen)
 
   private def userJson(u: LightUser) = Json.obj(
     "id" -> u.id,

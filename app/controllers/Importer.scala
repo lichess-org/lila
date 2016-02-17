@@ -38,4 +38,21 @@ object Importer extends LilaController {
       }
     )
   }
+
+  def masterGame(id: String, orientation: String) = Open { implicit ctx =>
+    def redirectAtFen(game: lila.game.Game) = Redirect {
+      val url = routes.Round.watcher(game.id, orientation).url
+      s"$url?fen=${~get("fen")}"
+    }
+    lila.game.GameRepo game id flatMap {
+      case Some(game) => fuccess(redirectAtFen(game))
+      case _ => Env.explorer.fetchPgn(id) flatMap {
+        case None => fuccess(NotFound)
+        case Some(pgn) => env.importer(
+          lila.importer.ImportData(pgn, none),
+          user = "lichess".some,
+          forceId = id.some) map redirectAtFen
+      }
+    }
+  }
 }

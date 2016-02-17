@@ -1,125 +1,21 @@
 @(forLang: Lang)
-<style type="text/css">
-  @lila.i18n.Fonts(forLang) match {
-    case "cyrillic" => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/iLJc6PpCnnbQjYc1Jq4v01tXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/iLJc6PpCnnbQjYc1Jq4v0z8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1-XREeHhJi4GEUJI9ob_ak4.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ14raN7vELC11_xip9Rz-hMs.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/Fl4y0QdOxyyTHEGMXX8kcaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-      }
-    }
-    case "cyrillic-ext" => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/C7bP6N8yXZ-PGLzbFLtQKVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/C7bP6N8yXZ-PGLzbFLtQKT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1yUUniRZcd_wq8DYmIfsw2A.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ151r3JsPcQLi8jytr04NNhU.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/0eC6fl06luXEYWpBSJvXCKCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-      }
-    }
-    case "greek" => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/iPF-u8L1qkTPHaKjvXERn1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/iPF-u8L1qkTPHaKjvXERnz8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ189-ZSaZ3mOOsU9E1f6DGWc.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ18ZTcY6RJTMCp6-nlHd6HxI.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/I3S1wsgSg9YCurV6PUkTOaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-      }
-    }
-    case "latin-ext" => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/erE3KsIWUumgD1j_Ca-V-1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/erE3KsIWUumgD1j_Ca-V-z8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1xUOjZSKWg4xBWp_C_qQx0o.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1xa1RVmPjeKy21_GQJaLlJI.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/Pru33qjShpZSmG3z6VYwnaCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-      }
-    }
-    case "vietnamese" => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/mTzVK0-EJOCaJiOPeaz-h1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/mTzVK0-EJOCaJiOPeaz-hz8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ14ZI5FoslwusAsZHK_V0XCI.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ13wUvq1pQaUIDqPgpae5ItU.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/NYDWBdD4gIq26G5XYbHsFKCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-      }
-    }
-    case "latin" | _ => {
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 700;
-        src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1-gdm0LZdjqr5-oayXSOefg.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ13hCUOGz7vYGh680lGh-uXM.woff) format('woff');
-      }
-      @@font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 300;
-        src: local('Roboto Light'), local('Roboto-Light'), url(http://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-      }
-    }
-  }
-</style>
+@lila.i18n.Fonts(forLang) match {
+case "cyrillic" => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+}
+case "cyrillic-ext" => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+}
+case "greek" => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300&subset=latin,greek' rel='stylesheet' type='text/css'>
+}
+case "latin-ext" => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+}
+case "vietnamese" => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+}
+case "latin" | _ => {
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet' type='text/css'>
+}
+}
