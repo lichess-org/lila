@@ -68,7 +68,7 @@ module.exports = function(env) {
     }.bind(this));
   }.bind(this);
 
-  if (env.data) this.update(data)
+  if (env.data) this.update(env.data)
   else xhr.load().then(this.update);
 
   var showUser = function(user) {
