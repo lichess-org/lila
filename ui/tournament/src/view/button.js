@@ -2,12 +2,12 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var xhr = require('../xhr');
 
-function orJoinLoader(ctrl, f) {
-  return ctrl.vm.joinLoader ? m.trust(lichess.spinnerHtml) : f();
+function orJoinSpinner(ctrl, f) {
+  return ctrl.vm.joinSpinner ? m.trust(lichess.spinnerHtml) : f();
 }
 
 function withdraw(ctrl) {
-  return orJoinLoader(ctrl, function() {
+  return orJoinSpinner(ctrl, function() {
     return m('button.button.right.text', {
       'data-icon': 'b',
       onclick: ctrl.withdraw
@@ -16,7 +16,7 @@ function withdraw(ctrl) {
 }
 
 function join(ctrl) {
-  return orJoinLoader(ctrl, function() {
+  return orJoinSpinner(ctrl, function() {
     return m('button.button.right.text.glowed', {
       'data-icon': 'G',
       onclick: ctrl.join

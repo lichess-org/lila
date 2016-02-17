@@ -24,7 +24,7 @@ side = Html("")) {
     <div id="challenge_await" data-user="@user.id">
       <h2>@trans.challengeToPlay()</h2>
       @userLink(user, cssClass="target".some)
-      <span class="loader"><span data-icon="U"></span></span>
+      @base.spinner()
       <p class="explanations">
         @trans.waitingForOpponent()<br />
         <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>

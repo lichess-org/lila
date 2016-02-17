@@ -229,8 +229,6 @@ body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark div.undertable_inner,
-body.dark div.table .loader:before,
-body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
@@ -292,11 +290,7 @@ body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.dark #video_side .tag_list a.checked,
-body.dark div.lichess_overboard .loader:before,
-body.dark div.lichess_overboard .loader:after,
-body.dark div.lichess_overboard .pull-quote p:after,
-body.dark div.content_box .loader:before,
-body.dark div.content_box .loader:after {
+body.dark div.lichess_overboard .pull-quote p:after {
   background-color: #2b2b2b;
 }
 body.dark #perfStat .counter tr,
@@ -412,13 +406,8 @@ body.dark #hooks_wrap .hooks_chart .plot {
 body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
-body.dark .loader {
-  box-shadow: inset 0 0 0 1em #444;
-}
 
-body.dark .pull-quote p:after,
-body.dark .loader:before,
-body.dark .loader:after {
+body.dark .pull-quote p:after {
   background: #1a1a1a;
 }
 body.dark div.training > .side div.fail,
