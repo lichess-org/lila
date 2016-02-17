@@ -57,6 +57,9 @@ body.dark #hooks_wrap {
   position: relative;
   min-height: 510px;
 }
+#hooks_wrap .lobby_box.seeks {
+  max-height: 510px;
+}
 #hooks_wrap .tabs {
   position: absolute;
   top: -22px;
