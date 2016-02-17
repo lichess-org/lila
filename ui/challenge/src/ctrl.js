@@ -23,6 +23,12 @@ module.exports = function(env) {
     return this.data.in ? this.data.in.concat(this.data.out) : [];
   }.bind(this);
 
+  var showUser = function(user) {
+    var rating = user.rating + (user.provisional ? '?' : '');
+    var fullName = (user.title ? user.title + ' ' : '') + user.name;
+    return fullName + ' (' + rating + ')';
+  };
+
   this.idsHash = function() {
     return all().map(function(c) {
       return c.id;
@@ -68,14 +74,8 @@ module.exports = function(env) {
     }.bind(this));
   }.bind(this);
 
-  if (env.data) this.update(data)
+  if (env.data) this.update(env.data)
   else xhr.load().then(this.update);
-
-  var showUser = function(user) {
-    var rating = user.rating + (user.provisional ? '?' : '');
-    var fullName = (user.title ? user.title + ' ' : '') + user.name;
-    return fullName + ' (' + rating + ')';
-  };
 
   this.trans = lichess.trans(env.i18n);
 };

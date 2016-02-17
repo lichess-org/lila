@@ -122,10 +122,9 @@ module.exports = {
     if (ctrl.vm.buttonFeedback) return m.trust(lichess.spinnerHtml);
   },
   challengeRematched: function(ctrl) {
-    if (ctrl.vm.challengeRematched) return [
-      m('br'),
+    if (ctrl.vm.challengeRematched) return m('div.suggestion',
       ctrl.trans('rematchOfferSent')
-    ];
+    );
   },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return m('div.negotiation', [

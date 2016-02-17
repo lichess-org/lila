@@ -35,7 +35,7 @@ moreJs = js(c, json, false)) {
     case Status.Declined => {
     <div class="declined">
       <h2>Challenge declined</h2>
-      <a class="button" href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+      <a class="button" href="@routes.Lobby.home()">@trans.newOpponent()</a>
     </div>
     }
     case Status.Accepted => {
@@ -47,7 +47,7 @@ moreJs = js(c, json, false)) {
     case Status.Canceled => {
     <div class="canceled">
       <h2>Challenge canceled.</h2>
-      <a class="button" href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+      <a class="button" href="@routes.Lobby.home()">@trans.newOpponent()</a>
     </div>
     }
     }
