@@ -144,17 +144,20 @@ module.exports = {
   },
   backToTournament: function(ctrl) {
     var d = ctrl.data;
-    if (d.tournament) return m('div.follow_up', [
+    if (d.tournament && d.tournament.running) return m('div.follow_up', [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong' + (d.tournament.running ? ' glowed' : ''),
+        class: 'text button strong glowed',
         href: '/tournament/' + d.tournament.id,
         onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
-      d.tournament.running ? m('form', {
+      m('form', {
         method: 'post',
         action: '/tournament/' + d.tournament.id + '/withdraw'
-      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))) : null
+      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))),
+      game.replayable(d) ? m('a.button', {
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
+      }, ctrl.trans('analysis')) : null
     ]);
   },
   moretime: function(ctrl) {
