@@ -209,10 +209,10 @@ div.user_show .rating_history {
   width: 477px;
   height: 339px;
 }
-div.user_show .rating_history span {
-  position: absolute;
-  top: 164px;
-  left: 232px;
+div.user_show .rating_history .spinner {
+  width: 90px;
+  height: 90px;
+  margin: 120px auto 0 auto;
 }
 div.user_show .user-infos {
   position: absolute;

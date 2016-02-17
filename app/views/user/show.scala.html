@@ -118,7 +118,7 @@ description = describeUser(u)).some) {
   <div class="meat@if(info.insightVisible){ with_insights}">
     @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
-      <span>Chart loading&#8230;</span>
+      @base.spinner()
     </div>
     }
     <div class="user-infos scroll-shadow-hard">
