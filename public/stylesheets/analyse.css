@@ -71,27 +71,18 @@ form.better_analysis {
 .future_game_analysis.progress {
   margin-top: 0;
   height: 100%;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
-.future_game_analysis .loader {
-  font-size: 15px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
+.future_game_analysis .spinner {
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+  margin: 0 20px;
 }
-.underboard_content .quote.panel .pull-quote {
-  margin: 0 auto;
-  width: 322px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.future_game_analysis .quote {
-  margin-left: 190px;
-  width: 322px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+.underboard_content .quote.panel.active {
+  display: flex;
+  align-items: center;
 }
 .future_game_analysis .button {
   display: inline-block;

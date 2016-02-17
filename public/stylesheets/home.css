@@ -469,7 +469,9 @@ div.new_posts li span.extract {
 #daily_puzzle > div.vstext {
   text-align: center;
 }
-div.lichess_overboard .loader.setup_loader {
+div.lichess_overboard .color_submits .spinner {
+  width: 70px;
+  height: 70px;
   margin: 10px auto 20px auto;
 }
 div.game_config {

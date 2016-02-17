@@ -2067,7 +2067,7 @@ lichess.numberFormat = (function() {
         });
       } else
         $form.find('form').one('submit', function() {
-          $(this).find('.color_submits').find('button').hide().end().append($('<div>').addClass('loader setup_loader fast'));
+          $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
