@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Предварителен ход е зад�
 thisPlayerUsesChessComputerAssistance=Този играч използва компютърна помощ
 thisPlayerArtificiallyIncreasesTheirRating=Този играч изкуствено увеличава/намалява своята оценка
 opening=Отваряне
+openingExplorer=Изследовател на отварянето
 takeback=Върни ход
 proposeATakeback=Предложи връщане на ход
 takebackPropositionSent=Предложение за връщане на ход изпратено
