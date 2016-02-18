@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Pré-coup activé – Cliquez ailleurs pour 
 thisPlayerUsesChessComputerAssistance=Ce joueur utilise un programme d'échecs
 thisPlayerArtificiallyIncreasesTheirRating=Ce joueur augmente ou réduit son niveau artificiellement
 opening=Ouverture
+openingExplorer=Explorateur d'ouvertures
 takeback=Annuler le coup
 proposeATakeback=Proposer l'annulation du coup
 takebackPropositionSent=Annulation du coup proposée
