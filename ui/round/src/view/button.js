@@ -165,14 +165,11 @@ module.exports = {
   },
   followUp: function(ctrl) {
     var d = ctrl.data;
-    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.game.clock && d.player.user && d.opponent.user));
+    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && d.opponent.onGame;
     var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
     return m('div.follow_up', [
       rematchable ? m('a.button', {
-        onclick: function() {
-          if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
-          else ctrl.challengeRematch();
-        }
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-yes', null)
       }, ctrl.trans('rematch')) : null,
       ctrl.data.game.rematch ? m('a.button.hint--top', {
         'data-hint': ctrl.trans('joinTheGame'),
