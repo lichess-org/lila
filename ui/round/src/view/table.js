@@ -123,8 +123,9 @@ function goBerserk(ctrl) {
   }));
 }
 
-function tourRank(d, color, position) {
-  if (d.tournament && d.tournament.ranks) return m('div', {
+function tourRank(ctrl, color, position) {
+  var d = ctrl.data;
+  if (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) return m('div', {
     class: 'tournament_rank ' + position,
     title: 'Current tournament rank'
   }, '#' + d.tournament.ranks[color]);
@@ -143,11 +144,25 @@ function renderClock(ctrl, color, position) {
     }, [
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
+      renderBerserk(ctrl, color, position),
       ctrl.data.player.color === color ? goBerserk(ctrl) : null
     ]),
     position === 'bottom' ? button.moretime(ctrl) : null,
-    tourRank(ctrl.data, color, position)
+    tourRank(ctrl, color, position)
   ];
+}
+
+function showBerserk(ctrl, color) {
+  return ctrl.vm.goneBerserk[color] &&
+    ctrl.data.game.turns <= 1 &&
+    game.playable(ctrl.data);
+}
+
+function renderBerserk(ctrl, color, position) {
+  if (showBerserk(ctrl, color)) return m('div', {
+    class: 'berserk_alert ' + position,
+    'data-icon': '`'
+  });
 }
 
 function anyClock(ctrl, color, position) {

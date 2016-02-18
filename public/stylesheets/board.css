@@ -782,6 +782,17 @@ div.table_wrap a.moretime {
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
+
+div.table_wrap div.berserk_alert {
+  position: absolute;
+  right: 0;
+  top: -14px;
+  font-size: 34px;
+  color: #D85000;
+}
+div.table_wrap div.berserk_alert.bottom {
+  top: -3px;
+}
 div.table_wrap .tournament_rank {
   position: absolute;
   font-size: 20px;
@@ -983,18 +994,6 @@ div.cemetery score {
   font-size: 15px;
   line-height: 35px;
   vertical-align: top;
-}
-div.berserk_alert {
-  position: absolute;
-  left: 10px;
-  font-size: 45px;
-  color: #D85000;
-}
-div.berserk_alert.top {
-  top: 0;
-}
-div.berserk_alert.bottom {
-  bottom: 0;
 }
 div.under_chat {
   width: 228px;
