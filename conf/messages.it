@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Preselezione mossa - Un click ovunque la ann
 thisPlayerUsesChessComputerAssistance=Questo giocatore si fa aiutare da un computer
 thisPlayerArtificiallyIncreasesTheirRating=Questo giocatore incrementa il proprio punteggio irregolarmente
 opening=Apertura
+openingExplorer=Esplora aperture
 takeback=Ritira la mossa
 proposeATakeback=Proponi di ritirare la mossa
 takebackPropositionSent=Richiesta di ritiro mossa inviata
