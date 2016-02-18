@@ -35,7 +35,7 @@ body.dark .lichess_ground .pending,
 body.dark .lichess_ground .negotiation,
 body.dark #video .tag_list a {
   background: #363636;
-  color: #9a9a9a;
+  color: #aaa;
 }
 body.dark #video .tag_list a:hover {
   background: #3a3a3a;
@@ -384,6 +384,7 @@ body.dark .ui-widget-content,
 body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
+body.dark .lichess_ground .negotiation a,
 body.dark .button:hover,
 body.dark a.button:hover,
 body.dark .ui-state-hover {

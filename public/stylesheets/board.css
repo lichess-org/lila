@@ -896,10 +896,10 @@ div.control .button.disabled {
 }
 .lichess_ground .negotiation a:hover {
   color: #fff;
-  background: #759900;
+  background: #759900!important;
 }
 .lichess_ground .negotiation a.decline:hover {
-  background: #dc322f;
+  background: #dc322f!important;
 }
 .lichess_ground .follow_up {
   margin: 7px 0;
