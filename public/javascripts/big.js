@@ -1094,6 +1094,9 @@ lichess.numberFormat = (function() {
           itemSelector: ".infinitescroll .paginated_element",
           errorCallback: function() {
             $("#infscr-loading").remove();
+          },
+          loading: {
+            msg: $('<div id="infscr-loading">').html(lichess.spinnerHtml)
           }
         }, function() {
           $("#infscr-loading").remove();

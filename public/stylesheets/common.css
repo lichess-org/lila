@@ -252,7 +252,7 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
-#infscr-loading.spinner {
+#infscr-loading .spinner {
   margin: 10px auto;
 }
 @keyframes spinnerRotate {
