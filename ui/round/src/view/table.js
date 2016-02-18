@@ -38,13 +38,17 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-function spinner() {
-  return m.trust(lichess.spinnerHtml);
+function isSpinning(ctrl) {
+  return ctrl.vm.loading || ctrl.vm.redirecting;
+}
+
+function spinning(ctrl) {
+  if (isSpinning(ctrl)) return m.trust(lichess.spinnerHtml);
 }
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? spinner() : [
+  var buttons = compact(spinning(ctrl) || [
     button.backToTournament(ctrl) || [
       button.answerOpponentRematch(ctrl) ||
       button.cancelRematch(ctrl) ||
@@ -60,7 +64,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? spinner() : button.watcherFollowUp(ctrl));
+  var buttons = compact(spinning(ctrl) || button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
@@ -70,7 +74,7 @@ function renderTableWatch(ctrl) {
 
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
-  var buttons = button.submitMove(ctrl) || compact([
+  var buttons = spinning(ctrl) || button.submitMove(ctrl) || compact([
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
@@ -83,7 +87,7 @@ function renderTablePlay(ctrl) {
   ]);
   return [
     renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit || ctrl.forceResignable()) ? null : (
-      button.feedback(ctrl) || m('div.control.icons', [
+      isSpinning(ctrl) ? null : m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),

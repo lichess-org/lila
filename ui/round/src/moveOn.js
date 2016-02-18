@@ -31,7 +31,6 @@ module.exports = function(ctrl, key) {
     ctrl.setRedirecting();
     lichess.hasToReload = true;
     location.href = href;
-    m.redraw();
   };
 
   this.next = function(force) {

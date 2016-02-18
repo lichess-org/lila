@@ -31,11 +31,12 @@ module.exports = function(opts) {
     initializing: true,
     firstSeconds: true,
     flip: false,
+    loading: false,
+    loadingTimeout: null,
     redirecting: false,
     replayHash: '',
     moveToSubmit: null,
     dropToSubmit: null,
-    buttonFeedback: null,
     goneBerserk: {},
     resignConfirm: false,
     autoScroll: null,
@@ -292,6 +293,7 @@ module.exports = function(opts) {
     m.endComputation();
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+    this.setLoading(false);
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
@@ -336,17 +338,17 @@ module.exports = function(opts) {
   setQuietMode();
 
   this.takebackYes = function() {
-    this.socket.send('takeback-yes');
+    this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();
   }.bind(this);
 
   this.resign = function(v) {
     if (this.vm.resignConfirm) {
-      if (v) this.socket.send('resign');
+      if (v) this.socket.sendLoading('resign');
       else this.vm.resignConfirm = false;
     } else if (v !== false) {
       if (this.data.pref.confirmResign) this.vm.resignConfirm = true;
-      else this.socket.send('resign');
+      else this.socket.sendLoading('resign');
     }
   }.bind(this);
 
@@ -364,12 +366,27 @@ module.exports = function(opts) {
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
+  this.setLoading = function(v) {
+    clearTimeout(this.vm.loadingTimeout);
+    if (v) {
+      this.vm.loading = true;
+      this.vm.loadingTimeout = setTimeout(function() {
+        this.vm.loading = false;
+        m.redraw();
+      }.bind(this), 1000);
+    } else {
+      this.vm.loading = false;
+    }
+    m.redraw();
+  }.bind(this);
+
   this.setRedirecting = function() {
     this.vm.redirecting = true;
     setTimeout(function() {
       this.vm.redirecting = false;
       m.redraw();
-    }.bind(this), 2000);
+    }.bind(this), 2500);
+    m.redraw();
   }.bind(this);
 
   this.submitMove = function(v) {
@@ -386,10 +403,7 @@ module.exports = function(opts) {
     } else this.jump(this.vm.ply);
     this.vm.moveToSubmit = null;
     this.vm.dropToSubmit = null;
-    this.vm.buttonFeedback = setTimeout(function() {
-      this.vm.buttonFeedback = null;
-      m.redraw();
-    }.bind(this), 500);
+    this.setLoading(true);
   }.bind(this);
 
   var forecastable = function(d) {

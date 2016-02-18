@@ -10,6 +10,11 @@ module.exports = function(send, ctrl) {
 
   this.send = send;
 
+  this.sendLoading = function() {
+    ctrl.setLoading(true);
+    this.send.apply(this, arguments);
+  }.bind(this);
+
   var handlers = {
     takebackOffers: function(o) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
@@ -29,7 +34,6 @@ module.exports = function(send, ctrl) {
     },
     redirect: function() {
       ctrl.setRedirecting();
-      m.redraw();
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
@@ -79,11 +83,11 @@ module.exports = function(send, ctrl) {
     }
   };
 
-  this.moreTime = util.throttle(300, false, partial(send, 'moretime', null));
+  this.moreTime = util.throttle(300, false, partial(this.send, 'moretime', null));
 
-  this.outoftime = util.throttle(500, false, partial(send, 'outoftime', null));
+  this.outoftime = util.throttle(500, false, partial(this.send, 'outoftime', null));
 
-  this.berserk = util.throttle(200, false, partial(send, 'berserk', null));
+  this.berserk = util.throttle(200, false, partial(this.send, 'berserk', null));
 
   this.receive = function(type, data) {
     if (handlers[type]) {
