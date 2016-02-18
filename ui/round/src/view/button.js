@@ -175,6 +175,9 @@ module.exports = {
         'data-hint': ctrl.trans('joinTheGame'),
         href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
       }, ctrl.trans('rematchOfferAccepted')) : null,
+      d.tournament ? m('a.button', {
+        href: '/tournament/' + d.tournament.id
+      }, ctrl.trans('viewTournament')) : null,
       newable ? m('a.button', {
         href: '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
