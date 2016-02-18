@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Předtah byl zadán - kliknutím kamkoliv na
 thisPlayerUsesChessComputerAssistance=Tento uživatel hrává s pomocí počítače
 thisPlayerArtificiallyIncreasesTheirRating=Tento hráč výrazně zvýšil jeho hodnocení
 opening=Zahájení
+openingExplorer=Objevovat otevírání
 takeback=Vrátit tah
 proposeATakeback=Navrhnout vrácení tahu
 takebackPropositionSent=Návrh na vrácení byl tahu odeslán
