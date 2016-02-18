@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Predpremik poteze omogočen - klikni kjerkol
 thisPlayerUsesChessComputerAssistance=Ta igralec uporablja pomoč računalnika
 thisPlayerArtificiallyIncreasesTheirRating=Igralec uporablja pomoč računalnika za dvig ratinga
 opening=Otvoritev
+openingExplorer=Otvoritveni raziskovalec
 takeback=Popravek poteze
 proposeATakeback=Zaprosi za popravek poteze
 takebackPropositionSent=Prošnja za popravek poteze je poslana
