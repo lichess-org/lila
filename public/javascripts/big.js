@@ -1240,7 +1240,8 @@ lichess.numberFormat = (function() {
 
     var volumes = {
       lowtime: 0.5,
-      explode: 0.35
+      explode: 0.35,
+      confirmation: 0.5
     };
     var collection = new $.lazy(function(k) {
       return new Howl({
