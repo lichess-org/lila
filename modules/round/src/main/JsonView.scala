@@ -228,7 +228,8 @@ final class JsonView(
           "color" -> color.name
         ),
         "opponent" -> Json.obj(
-          "color" -> opponent.color.name
+          "color" -> opponent.color.name,
+          "ai" -> opponent.aiLevel
         ),
         "orientation" -> orientation.name,
         "pref" -> Json.obj(

@@ -1,11 +1,15 @@
 var m = require('mithril');
 
-module.exports = function(endpoint, variant, fen, config) {
+module.exports = function(endpoint, variant, fen, config, withGames) {
   var url;
   var params = {
     fen: fen,
     moves: 12
   };
+  if (!withGames) {
+    params.topGames = 0;
+    params.recentGames = 0;
+  }
   if (config.db.selected() === 'masters') url = '/master';
   else {
     url = '/lichess';

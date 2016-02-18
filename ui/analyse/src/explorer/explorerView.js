@@ -74,7 +74,7 @@ function showResult(winner) {
 }
 
 function showGameTable(ctrl, type, games) {
-  if (!games.length) return null;
+  if (!ctrl.explorer.withGames || !games.length) return null;
   return m('table.games', [
     m('thead', [
       m('tr', [
