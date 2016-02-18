@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Praemovimentum paratum - Ad hoc tollendum qu
 thisPlayerUsesChessComputerAssistance=Hic lusor computatralium scaccorum auxilio utitur
 thisPlayerArtificiallyIncreasesTheirRating=Hic lusor statum falso crescit/decrescit
 opening=Initium
+openingExplorer=Explicatio initiorum
 takeback=Reversio motus
 proposeATakeback=Motus reversionem offere
 takebackPropositionSent=Missa est motus reversionis conditio
