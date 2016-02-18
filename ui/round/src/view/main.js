@@ -130,7 +130,8 @@ module.exports = function(ctrl) {
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [
-      m('div.lichess_game', {
+      m('div', {
+        class: 'lichess_game variant_' + d.game.variant.key,
         config: function(el, isUpdate) {
           if (isUpdate) return;
           $('body').trigger('lichess.content_loaded');

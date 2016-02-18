@@ -511,6 +511,9 @@ div.table {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+.variant_crazyhouse .lichess_ground .replay .moves {
+  height: 100px;
+}
 .lichess_ground .replay turn {
   display: flex;
   height: 26px;
@@ -907,6 +910,10 @@ div.control .button.disabled {
   box-sizing: border-box;
   border-bottom-width: 0;
   border-radius: 0;
+  padding: 14px 0;
+}
+.variant_crazyhouse .lichess_ground .follow_up .button {
+  padding: 8px 0;
 }
 .lichess_ground .follow_up .button.strong {
   margin-bottom: 7px;
