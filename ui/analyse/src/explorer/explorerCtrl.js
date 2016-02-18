@@ -63,7 +63,6 @@ module.exports = function(root, opts) {
     },
     toggle: function() {
       enabled(!enabled());
-      lichess.storage.set(storageKey, enabled() ? '1' : '0');
       setStep();
     },
     setHoveringUci: function(uci) {
