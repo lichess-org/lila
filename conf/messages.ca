@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=El moviment automàtic està activat - Clica
 thisPlayerUsesChessComputerAssistance=Aquest jugador utilitza un programa informàtic d'escacs
 thisPlayerArtificiallyIncreasesTheirRating=Aquest jugador incrementa artificialment el seu ràting
 opening=Obertura
+openingExplorer=Explorador d'obertures
 takeback=Desfés la jugada
 proposeATakeback=Proposa desfer la jugada
 takebackPropositionSent=La proposta de desfer la jugada s'ha enviat
