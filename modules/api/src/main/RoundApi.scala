@@ -119,12 +119,14 @@ private[api] final class RoundApi(
         "id" -> data.tour.id,
         "name" -> data.tour.name,
         "running" -> data.tour.isStarted,
-        "berserkable" -> data.tour.berserkable,
-        "nbSecondsForFirstMove" -> SecondsToDoFirstMove.secondsToMoveFor(data.tour),
-        "ranks" -> Json.obj(
+        "berserkable" -> data.tour.isStarted.option(data.tour.berserkable),
+        "nbSecondsForFirstMove" -> data.tour.isStarted.option {
+          SecondsToDoFirstMove.secondsToMoveFor(data.tour)
+        },
+        "ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
-          "black" -> data.blackRank)
-      ))
+          "black" -> data.blackRank))
+      ).noNull)
     }
 
   private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =

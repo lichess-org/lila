@@ -124,7 +124,7 @@ function goBerserk(ctrl) {
 }
 
 function tourRank(d, color, position) {
-  if (d.tournament) return m('div', {
+  if (d.tournament && d.tournament.ranks) return m('div', {
     class: 'tournament_rank ' + position,
     title: 'Current tournament rank'
   }, '#' + d.tournament.ranks[color]);
