@@ -331,11 +331,11 @@ body.dark .explorer_box .title {
 body.dark .explorer_box .bar span {
   border-color: #555;
 }
-.explorer_box .bar span.white {
+.explorer_box .white {
   background: #fff;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.1) inset;
 }
-body.dark .explorer_box .bar span.white {
+body.dark .explorer_box .white {
   background: #bbb;
   color: #222;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.25) inset;
@@ -381,6 +381,14 @@ body.dark .explorer_box .black {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.explorer_box .games result {
+  display: block;
+  text-align: center;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
 }
 .explorer_box .toconf {
   position: absolute;

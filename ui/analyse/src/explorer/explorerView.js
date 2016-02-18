@@ -68,9 +68,9 @@ function showMoveTable(ctrl, moves, fen) {
 }
 
 function showResult(winner) {
-  if (winner === 'white') return '1-0';
-  if (winner === 'black') return '0-1';
-  return '½-½';
+  if (winner === 'white') return m('result.white', '1-0');
+  if (winner === 'black') return m('result.black', '0-1');
+  return m('result.draws', '½-½');
 }
 
 function showGameTable(ctrl, type, games) {
