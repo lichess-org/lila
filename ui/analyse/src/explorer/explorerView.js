@@ -158,15 +158,21 @@ function failing() {
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.authorized || !ctrl.explorer.enabled()) return;
+    var data = ctrl.explorer.current();
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
-    var loading = !configOpened && (ctrl.explorer.loading() || (!ctrl.explorer.current() && !ctrl.explorer.failing()));
+    var loading = !configOpened && (ctrl.explorer.loading() || (!data && !ctrl.explorer.failing()));
     return m('div', {
       class: classSet({
         explorer_box: true,
         loading: loading,
         config: configOpened
-      })
+      }),
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate || !data || ctx.lastFen === data.fen) return;
+        ctx.lastFen = data.fen;
+        el.scrollTop = 0;
+      }
     }, [
       overlay,
       configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl)),
