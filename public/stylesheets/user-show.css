@@ -53,9 +53,6 @@ div.user_show .fire_trophy.marathonTopTen span:hover {
 div.user_show .fire_trophy.marathonTopFifty span,
 div.user_show .fire_trophy.marathonTopHundred span {
   animation: none;
-  -moz-animation: none;
-  -webkit-animation: none;
-  -o-animation: none;
 }
 div.user_show .trophy.icon3d {
   margin-top: -10px!important;
@@ -107,9 +104,6 @@ div.user_show .trophy.donor:hover {
 }
 div.user_show .trophy.donor span:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
-  -moz-animation: fire 1.25s ease-in-out infinite alternate;
-  -webkit-animation: fire 1.25s ease-in-out infinite alternate;
-  -o-animation: fire 1.25s ease-in-out infinite alternate;
 }
 div.user_show .honorific {
   display: inline-block;
