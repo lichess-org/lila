@@ -14,9 +14,8 @@ for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-    var evs = ctrl.currentEvals();
-    var eval, has = defined(evs);
-    if (has) {
+    var eval, evs = ctrl.currentEvals();
+    if (evs) {
       if (defined(evs.fav.cp))
         eval = Math.min(Math.max(evs.fav.cp / 100, -5), 5);
       else
