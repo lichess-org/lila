@@ -67,8 +67,9 @@ function plyToTurn(ply) {
 
 function renderVariation(ctrl, variation, path, klass) {
   var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
+  var visiting = treePath.contains(path, ctrl.vm.path);
   return m('div', {
-    class: klass + ' variation' + (showMenu ? ' menu' : '')
+    class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
   }, [
     m('span', {
       class: 'menu',
@@ -91,19 +92,19 @@ function renderVariation(ctrl, variation, path, klass) {
         }, 'Promote to main line') : null
       ];
     })() :
-    renderVariationContent(ctrl, variation, path)
+    renderVariationContent(ctrl, variation, path, visiting)
   ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {
   return m('span.variation', [
     '(',
-    renderVariationContent(ctrl, variation, path),
+    renderVariationContent(ctrl, variation, path, treePath.contains(path, ctrl.vm.path)),
     ')'
   ]);
 }
 
-function renderVariationContent(ctrl, variation, path) {
+function renderVariationContent(ctrl, variation, path, full) {
   var turns = [];
   if (variation[0].ply % 2 === 0) {
     variation = variation.slice(0);
@@ -113,8 +114,7 @@ function renderVariationContent(ctrl, variation, path) {
       black: move
     });
   }
-  var visiting = treePath.contains(path, ctrl.vm.path);
-  var maxPlies = Math.min(visiting ? 999 : (path[2] ? 2 : 4), variation.length);
+  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), variation.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(variation[i].ply),
     white: variation[i],

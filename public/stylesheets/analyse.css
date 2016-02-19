@@ -587,6 +587,10 @@ body .lichess_ground .replay .undefined {
   padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
+  white-space: nowrap;
+}
+.lichess_ground .replay .meta > .variation.visiting {
+  white-space: normal;
 }
 .lichess_ground .replay .meta > .variation span.menu {
   float: right;
