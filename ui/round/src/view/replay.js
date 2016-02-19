@@ -120,6 +120,8 @@ function analyseButton(ctrl) {
   ];
 }
 
+var flipIcon = m('span[data-icon=B]');
+
 function renderButtons(ctrl) {
   var d = ctrl.data;
   var firstPly = round.firstPly(d);
@@ -127,12 +129,23 @@ function renderButtons(ctrl) {
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
+    'data-act': 'flip'
   };
-  if (d.tv) flipAttrs.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-  else if (d.player.spectator) flipAttrs.href = router.game(d, d.opponent.color);
-  else flipAttrs.onmousedown = ctrl.flip;
-  return m('div.buttons', [
-    m('a', flipAttrs, m('span[data-icon=B]')), [
+  return m('div.buttons', {
+    onmousedown: function(e) {
+      var ply = parseInt(e.target.getAttribute('data-ply'));
+      if (!isNaN(ply)) ctrl.jump(ply);
+      else {
+        var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+        if (action === 'flip') {
+          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+          else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
+          else ctrl.flip();
+        }
+      }
+    }
+  }, [
+    m('a', flipAttrs, flipIcon), [
       ['first', 'W', firstPly],
       ['prev', 'Y', ctrl.vm.ply - 1],
       ['next', 'X', ctrl.vm.ply + 1],
@@ -145,7 +158,7 @@ function renderButtons(ctrl) {
           glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
         }),
         'data-icon': b[1],
-        onmousedown: enabled ? partial(ctrl.jump, b[2]) : null
+        'data-ply': enabled ? b[2] : null
       });
     }), game.userAnalysable(d) ? analyseButton(ctrl) : null
   ]);
