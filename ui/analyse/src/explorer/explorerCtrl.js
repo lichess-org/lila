@@ -66,6 +66,7 @@ module.exports = function(root, opts) {
     toggle: function() {
       enabled(!enabled());
       setStep();
+      root.vm.autoScroll();
     },
     setHoveringUci: function(uci) {
       hoveringUci(uci);

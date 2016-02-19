@@ -297,7 +297,10 @@ function renderAnalyse(ctrl) {
         return false;
       },
       config: function(el, isUpdate) {
-        if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
+        if (!isUpdate) {
+          ctrl.vm.autoScroll = autoScroll(el);
+          ctrl.vm.autoScroll();
+        }
       }
     },
     tree);
