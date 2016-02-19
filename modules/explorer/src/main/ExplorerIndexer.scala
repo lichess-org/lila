@@ -78,9 +78,12 @@ private final class ExplorerIndexer(endpoint: String) {
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
     def apply(pgn: String) {
       buf += pgn
+      val startAt = nowMillis
       if (buf.size >= max) {
         WS.url(url).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
+            val gameMs = (nowMillis - startAt) / max
+            logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
           case Success(res)                      => logger.warn(s"[${res.status}]")
           case Failure(err)                      => logger.warn(s"$err")
         }
