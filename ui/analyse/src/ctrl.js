@@ -290,13 +290,22 @@ module.exports = function(opts) {
 
   this.socket = new socket(opts.socketSend, this);
 
-  this.currentAnyEval = function() {
-    return this.vm.step ? (this.vm.step.eval || this.vm.step.ceval) : null;
+  this.currentEvals = function() {
+    var step = this.vm.step;
+    return step && (step.eval || step.ceval) ? {
+      server: step.eval,
+      client: step.ceval,
+      fav: step.eval || step.ceval
+    } : null;
   }.bind(this);
 
   this.forecast = opts.data.forecast ? forecastCtrl(
     opts.data.forecast,
     router.forecasts(this.data)) : null;
+
+  this.nextStepBest = function() {
+    return this.analyse.nextStepEvalBest(this.vm.path);
+  }.bind(this);
 
   var allowCeval = (
     util.synthetic(this.data) || !game.playable(this.data)
@@ -314,7 +323,7 @@ module.exports = function(opts) {
   }.bind(this));
 
   var canUseCeval = function() {
-    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.analyse.nextStepEvalBest(this.vm.path));
+    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.nextStepBest());
   }.bind(this);
 
   var startCeval = throttle(800, false, function() {
@@ -353,7 +362,7 @@ module.exports = function(opts) {
     if (this.vm.showAutoShapes()) {
       if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));
       if (!explorerUci) {
-        var nextStepBest = this.analyse.nextStepEvalBest(this.vm.path);
+        var nextStepBest = this.nextStepBest();
         if (nextStepBest) shapes.push(makeAutoShapeFromUci(nextStepBest, 'paleBlue'));
         else if (this.ceval.enabled() && s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
       }

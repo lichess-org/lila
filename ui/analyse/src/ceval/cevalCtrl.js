@@ -3,6 +3,7 @@ var makePool = require('./cevalPool');
 
 module.exports = function(allow, emit) {
 
+  var nbWorkers = 3;
   var minDepth = 8;
   var maxDepth = 18;
   var curDepth = 0;
@@ -14,7 +15,7 @@ module.exports = function(allow, emit) {
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
     maxDepth: maxDepth
-  }, 3);
+  }, nbWorkers);
 
   var onEmit = function(res) {
     curDepth = res.eval.depth;
@@ -71,9 +72,6 @@ module.exports = function(allow, emit) {
       stop();
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
-    },
-    percentComplete: function() {
-      return Math.round(100 * curDepth / maxDepth);
     },
     curDepth: function() {
       return curDepth;
