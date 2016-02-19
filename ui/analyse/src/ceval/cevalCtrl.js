@@ -1,7 +1,6 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
-
-var initialPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+var initialFen = require('../util').initialFen;
 
 module.exports = function(allow, emit) {
 
@@ -40,7 +39,7 @@ module.exports = function(allow, emit) {
         if (enabled()) onEmit(res);
       }
     };
-    if (work.position === initialPosition && !work.moves.length) return work.emit({
+    if (work.position === initialFen && !work.moves.length) return work.emit({
       work: work,
       eval: {
         depth: maxDepth,
