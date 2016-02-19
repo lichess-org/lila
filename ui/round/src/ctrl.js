@@ -99,6 +99,11 @@ module.exports = function(opts) {
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
+  this.userJump = function(ply) {
+    this.chessground.selectSquare(null);
+    this.jump(ply);
+  }.bind(this);
+
   this.jump = function(ply) {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;

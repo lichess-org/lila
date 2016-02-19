@@ -154,6 +154,7 @@ module.exports = function(opts) {
 
   this.userJump = function(path) {
     this.autoplay.stop();
+    this.chessground.selectSquare(null);
     this.jump(path);
   }.bind(this);
 
