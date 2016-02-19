@@ -162,6 +162,7 @@ module.exports = {
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
     var loading = !configOpened && (ctrl.explorer.loading() || (!data && !ctrl.explorer.failing()));
+    var content = configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl));
     return m('div', {
       class: classSet({
         explorer_box: true,
@@ -175,8 +176,8 @@ module.exports = {
       }
     }, [
       overlay,
-      configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl)),
-      m('span.toconf', {
+      content,
+      (!content || ctrl.explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen
       })
