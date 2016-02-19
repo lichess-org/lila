@@ -86,10 +86,11 @@ function showGameTable(ctrl, type, games) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         var orientation = ctrl.chessground.data.orientation;
+        var fenParam = ctrl.vm.step.ply > 0 ? ('?fen=' + ctrl.vm.step.fen) : '';
         if (ctrl.explorer.config.data.db.selected() === 'lichess')
-          window.open('/' + $tr.data('id') + '/' + orientation + '?fen=' + ctrl.vm.step.fen, '_blank');
+          window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
         else
-          window.open('/import/master/' + $tr.data('id') + '/' + orientation + '?fen=' + ctrl.vm.step.fen, '_blank');
+          window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
       }
     }, games.map(function(game) {
       return m('tr', {

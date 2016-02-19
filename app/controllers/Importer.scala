@@ -42,7 +42,8 @@ object Importer extends LilaController {
   def masterGame(id: String, orientation: String) = Open { implicit ctx =>
     def redirectAtFen(game: lila.game.Game) = Redirect {
       val url = routes.Round.watcher(game.id, orientation).url
-      s"$url?fen=${~get("fen")}"
+      val fenParam = get("fen").??(f => s"?fen=$f")
+      s"$url$fenParam"
     }
     lila.game.GameRepo game id flatMap {
       case Some(game) => fuccess(redirectAtFen(game))
