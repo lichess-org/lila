@@ -363,34 +363,42 @@ function blindBoard(ctrl) {
 
 function buttons(ctrl) {
   var make = function(icon, effect) {
-    return m('button.button', {
-      'data-icon': icon,
-      onmousedown: partial(effect, ctrl)
+    return m('button', {
+      class: 'button',
+      'data-act': effect,
+      'data-icon': icon
     });
   }
   return m('div.game_control',
-    m('div.buttons', [
+    m('div.buttons', {
+      onmousedown: function(e) {
+        var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+        if (action === 'explorer') ctrl.explorer.toggle();
+        else if (action === 'menu') ctrl.actionMenu.toggle();
+        else if (control[action]) control[action](ctrl);
+      }
+    }, [
       m('div', [
         m('div.jumps', [
-          make('Y', control.prev),
-          make('W', control.first)
+          make('Y', 'prev'),
+          make('W', 'first')
         ]),
         m('div.jumps', [
-          make('X', control.next),
-          make('V', control.last)
+          make('X', 'next'),
+          make('V', 'last')
         ])
       ]),
       m('div', [
         (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button.hint--bottom', {
-          onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
           'data-hint': 'Opening explorer',
+          'data-act': 'explorer',
           class: ctrl.explorer.enabled() ? 'active' : ''
         }, m('i', {
           'data-icon': ']'
         })),
         m('button.button.menu.hint--bottom', {
-          onclick: ctrl.actionMenu.toggle,
           'data-hint': 'Menu',
+          'data-act': 'menu',
           class: ctrl.actionMenu.open ? 'active' : ''
         }, m('i', {
           'data-icon': '['
