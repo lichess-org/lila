@@ -68,10 +68,7 @@ function plyToTurn(ply) {
 function renderVariation(ctrl, variation, path, klass) {
   var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
   return m('div', {
-    class: klass + ' ' + classSet({
-      variation: true,
-      menu: showMenu
-    })
+    class: klass + ' variation' + (showMenu ? ' menu' : '')
   }, [
     m('span', {
       class: 'menu',
