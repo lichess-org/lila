@@ -146,19 +146,19 @@ function renderButtons(ctrl) {
     }
   }, [
     m('a', flipAttrs, flipIcon), [
-      ['first', 'W', firstPly],
-      ['prev', 'Y', ctrl.vm.ply - 1],
-      ['next', 'X', ctrl.vm.ply + 1],
-      ['last', 'V', lastPly]
-    ].map(function(b) {
-      var enabled = ctrl.vm.ply !== b[2] && b[2] >= firstPly && b[2] <= lastPly;
+      ['W', firstPly],
+      ['Y', ctrl.vm.ply - 1],
+      ['X', ctrl.vm.ply + 1],
+      ['V', lastPly]
+    ].map(function(b, i) {
+      var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return m('a', {
-        class: 'button ' + b[0] + ' ' + classSet({
+        class: 'button ' + classSet({
           disabled: (ctrl.broken || !enabled),
-          glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
+          glowed: i === 3 && ctrl.isLate() && !ctrl.vm.initializing
         }),
-        'data-icon': b[1],
-        'data-ply': enabled ? b[2] : null
+        'data-icon': b[0],
+        'data-ply': enabled ? b[1] : '-'
       });
     }), game.userAnalysable(d) ? analyseButton(ctrl) : null
   ]);
