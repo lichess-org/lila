@@ -130,7 +130,7 @@ function renderButtons(ctrl) {
   };
   if (d.tv) flipAttrs.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
   else if (d.player.spectator) flipAttrs.href = router.game(d, d.opponent.color);
-  else flipAttrs.onclick = ctrl.flip;
+  else flipAttrs.onmousedown = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
       ['first', 'W', firstPly],
@@ -145,7 +145,7 @@ function renderButtons(ctrl) {
           glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
         }),
         'data-icon': b[1],
-        onclick: enabled ? partial(ctrl.jump, b[2]) : null
+        onmousedown: enabled ? partial(ctrl.jump, b[2]) : null
       });
     }), game.userAnalysable(d) ? analyseButton(ctrl) : null
   ]);

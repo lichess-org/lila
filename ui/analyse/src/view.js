@@ -362,7 +362,7 @@ function buttons(ctrl) {
   var make = function(icon, effect) {
     return m('button.button', {
       'data-icon': icon,
-      onclick: partial(effect, ctrl)
+      onmousedown: partial(effect, ctrl)
     });
   }
   return m('div.game_control',
