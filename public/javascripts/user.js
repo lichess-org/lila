@@ -19,7 +19,7 @@ $(function() {
     $(this).click(function() {
       var $zone = $("div.user_show .mod_zone");
       if ($zone.is(':visible')) $zone.hide();
-      else $zone.html("Loading...").show();
+      else $zone.html(lichess.spinnerHtml).show();
       $zone.load($(this).attr("href"), function() {
         $zone.find('form.fide_title select').on('change', function() {
           $(this).parent('form').submit();

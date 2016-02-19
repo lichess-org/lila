@@ -14,11 +14,11 @@ function preventing(f) {
 }
 
 function prev(ctrl) {
-  ctrl.jump(ctrl.vm.ply - 1);
+  ctrl.userJump(ctrl.vm.ply - 1);
 }
 
 function next(ctrl) {
-  ctrl.jump(ctrl.vm.ply + 1);
+  ctrl.userJump(ctrl.vm.ply + 1);
 }
 
 module.exports = {
@@ -34,11 +34,11 @@ module.exports = {
       m.redraw();
     }));
     k.bind(['up', 'k'], preventing(function() {
-      ctrl.jump(1);
+      ctrl.userJump(1);
       m.redraw();
     }));
     k.bind(['down', 'j'], preventing(function() {
-      ctrl.jump(ctrl.data.steps.length - 1);
+      ctrl.userJump(ctrl.data.steps.length - 1);
       m.redraw();
     }));
     k.bind('f', preventing(ctrl.flip));

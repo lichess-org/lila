@@ -345,7 +345,7 @@ lichess.assetUrl = function(url) {
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 }
-lichess.loadScript = function(url, f) {
+lichess.loadScript = function(url) {
   return $.ajax({
     dataType: "script",
     cache: true,
@@ -1087,6 +1087,9 @@ lichess.numberFormat = (function() {
           itemSelector: ".infinitescroll .paginated_element",
           errorCallback: function() {
             $("#infscr-loading").remove();
+          },
+          loading: {
+            msg: $('<div id="infscr-loading">').html(lichess.spinnerHtml)
           }
         }, function() {
           $("#infscr-loading").remove();
@@ -1235,7 +1238,8 @@ lichess.numberFormat = (function() {
 
     var volumes = {
       lowtime: 0.5,
-      explode: 0.35
+      explode: 0.35,
+      confirmation: 0.5
     };
     var collection = new $.lazy(function(k) {
       return new Howl({

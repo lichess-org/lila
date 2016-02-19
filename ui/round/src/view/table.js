@@ -37,13 +37,17 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-function spinner() {
-  return m.trust(lichess.spinnerHtml);
+function isSpinning(ctrl) {
+  return ctrl.vm.loading || ctrl.vm.redirecting;
+}
+
+function spinning(ctrl) {
+  if (isSpinning(ctrl)) return m.trust(lichess.spinnerHtml);
 }
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? spinner() : [
+  var buttons = compact(spinning(ctrl) || [
     button.backToTournament(ctrl) || [
       button.answerOpponentRematch(ctrl) ||
       button.cancelRematch(ctrl) ||
@@ -59,7 +63,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? spinner() : button.watcherFollowUp(ctrl));
+  var buttons = compact(spinning(ctrl) || button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
@@ -69,7 +73,7 @@ function renderTableWatch(ctrl) {
 
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
-  var buttons = button.submitMove(ctrl) || compact([
+  var buttons = spinning(ctrl) || button.submitMove(ctrl) || compact([
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
@@ -82,7 +86,7 @@ function renderTablePlay(ctrl) {
   ]);
   return [
     renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit || ctrl.forceResignable()) ? null : (
-      button.feedback(ctrl) || m('div.control.icons', [
+      isSpinning(ctrl) ? null : m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
@@ -118,8 +122,9 @@ function goBerserk(ctrl) {
   }));
 }
 
-function tourRank(d, color, position) {
-  if (d.tournament) return m('div', {
+function tourRank(ctrl, color, position) {
+  var d = ctrl.data;
+  if (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) return m('div', {
     class: 'tournament_rank ' + position,
     title: 'Current tournament rank'
   }, '#' + d.tournament.ranks[color]);
@@ -138,11 +143,25 @@ function renderClock(ctrl, color, position) {
     }, [
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
+      renderBerserk(ctrl, color, position),
       ctrl.data.player.color === color ? goBerserk(ctrl) : null
     ]),
     position === 'bottom' ? button.moretime(ctrl) : null,
-    tourRank(ctrl.data, color, position)
+    tourRank(ctrl, color, position)
   ];
+}
+
+function showBerserk(ctrl, color) {
+  return ctrl.vm.goneBerserk[color] &&
+    ctrl.data.game.turns <= 1 &&
+    game.playable(ctrl.data);
+}
+
+function renderBerserk(ctrl, color, position) {
+  if (showBerserk(ctrl, color)) return m('div', {
+    class: 'berserk_alert ' + position,
+    'data-icon': '`'
+  });
 }
 
 function anyClock(ctrl, color, position) {

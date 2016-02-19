@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Premove aktiverat - Klicka var som helst fö
 thisPlayerUsesChessComputerAssistance=Den här spelaren tar hjälp av schackmotor
 thisPlayerArtificiallyIncreasesTheirRating=Den här spelaren ökar/minskar sin rating artificiellt
 opening=Öppning
+openingExplorer=Åbning opdagelse
 takeback=Gör om drag
 proposeATakeback=Frågar motståndaren om du får göra om draget
 takebackPropositionSent=Förslag att göra om draget skickat

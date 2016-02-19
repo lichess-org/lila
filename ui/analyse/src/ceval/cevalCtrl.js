@@ -1,8 +1,10 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
+var initialFen = require('../util').initialFen;
 
 module.exports = function(allow, emit) {
 
+  var nbWorkers = 3;
   var minDepth = 8;
   var maxDepth = 18;
   var curDepth = 0;
@@ -14,7 +16,7 @@ module.exports = function(allow, emit) {
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
     maxDepth: maxDepth
-  }, 3);
+  }, nbWorkers);
 
   var onEmit = function(res) {
     curDepth = res.eval.depth;
@@ -23,9 +25,9 @@ module.exports = function(allow, emit) {
 
   var start = function(path, steps) {
     if (!enabled()) return;
-    var step = steps[steps.length -1];
+    var step = steps[steps.length - 1];
     if (step.ceval && step.ceval.depth >= maxDepth) return;
-    pool.start({
+    var work = {
       position: steps[0].fen,
       moves: steps.slice(1).map(function(s) {
         return fixCastle(s.uci, s.san);
@@ -36,7 +38,18 @@ module.exports = function(allow, emit) {
       emit: function(res) {
         if (enabled()) onEmit(res);
       }
+    };
+    if (work.position === initialFen && !work.moves.length) return work.emit({
+      work: work,
+      eval: {
+        depth: maxDepth,
+        cp: 15, // I made stockfish work hard on this one
+        mate: 0, // so far, chess isn't solved
+        best: 'e2e4' // best by test
+      },
+      name: name
     });
+    pool.start(work);
     started = true;
   };
 
@@ -71,9 +84,6 @@ module.exports = function(allow, emit) {
       stop();
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');
-    },
-    percentComplete: function() {
-      return Math.round(100 * curDepth / maxDepth);
     },
     curDepth: function() {
       return curDepth;

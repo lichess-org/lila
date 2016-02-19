@@ -120,6 +120,8 @@ function analyseButton(ctrl) {
   ];
 }
 
+var flipIcon = m('span[data-icon=B]');
+
 function renderButtons(ctrl) {
   var d = ctrl.data;
   var firstPly = round.firstPly(d);
@@ -127,25 +129,36 @@ function renderButtons(ctrl) {
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
+    'data-act': 'flip'
   };
-  if (d.tv) flipAttrs.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-  else if (d.player.spectator) flipAttrs.href = router.game(d, d.opponent.color);
-  else flipAttrs.onclick = ctrl.flip;
-  return m('div.buttons', [
-    m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', firstPly],
-      ['prev', 'Y', ctrl.vm.ply - 1],
-      ['next', 'X', ctrl.vm.ply + 1],
-      ['last', 'V', lastPly]
-    ].map(function(b) {
-      var enabled = ctrl.vm.ply !== b[2] && b[2] >= firstPly && b[2] <= lastPly;
+  return m('div.buttons', {
+    onmousedown: function(e) {
+      var ply = parseInt(e.target.getAttribute('data-ply'));
+      if (!isNaN(ply)) ctrl.jump(ply);
+      else {
+        var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+        if (action === 'flip') {
+          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+          else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
+          else ctrl.flip();
+        }
+      }
+    }
+  }, [
+    m('a', flipAttrs, flipIcon), [
+      ['W', firstPly],
+      ['Y', ctrl.vm.ply - 1],
+      ['X', ctrl.vm.ply + 1],
+      ['V', lastPly]
+    ].map(function(b, i) {
+      var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return m('a', {
-        class: 'button ' + b[0] + ' ' + classSet({
+        class: 'button ' + classSet({
           disabled: (ctrl.broken || !enabled),
-          glowed: b[0] === 'last' && ctrl.isLate() && !ctrl.vm.initializing
+          glowed: i === 3 && ctrl.isLate() && !ctrl.vm.initializing
         }),
-        'data-icon': b[1],
-        onclick: enabled ? partial(ctrl.jump, b[2]) : null
+        'data-icon': b[0],
+        'data-ply': enabled ? b[1] : '-'
       });
     }), game.userAnalysable(d) ? analyseButton(ctrl) : null
   ]);
@@ -197,7 +210,7 @@ module.exports = function(ctrl) {
       onmousedown: function(e) {
         var turn = parseInt($(e.target).siblings('index').text());
         var ply = 2 * turn - 2 + $(e.target).index();
-        if (ply) ctrl.jump(ply);
+        if (ply) ctrl.userJump(ply);
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);

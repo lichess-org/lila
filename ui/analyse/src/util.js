@@ -7,6 +7,7 @@ var defined = function(v) {
 };
 
 module.exports = {
+  initialFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   readDests: function(lines) {
     if (!defined(lines)) return null;
     var dests = {};

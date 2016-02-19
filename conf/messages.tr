@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Önhamle etkin - iptal etmek için herhangi 
 thisPlayerUsesChessComputerAssistance=Bu oyuncu yardımcı satranç programı kullanıyor.
 thisPlayerArtificiallyIncreasesTheirRating=Bu oyuncu puanını sahte bir şekilde arttırıyor
 opening=Açılış
+openingExplorer=Açılış kâşifi
 takeback=Hamleni geri al.
 proposeATakeback=Hamleyi geri almayı teklif et.
 takebackPropositionSent=Hamleyi geri alma teklifi gönderildi.

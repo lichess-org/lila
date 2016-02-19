@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=מהלך-מראש מאופשר - לחץ במ
 thisPlayerUsesChessComputerAssistance=שחקן זה משתמש בסיוע מחשב שחמט
 thisPlayerArtificiallyIncreasesTheirRating=שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי
 opening=פתיחה
+openingExplorer=סייר הפתיחות
 takeback=החזר מהלך
 proposeATakeback=הצע החזרת המהלך האחרון
 takebackPropositionSent=הצעת החזרת המהלך האחרון נשלחה

@@ -41,15 +41,6 @@ function renderMaterial(ctrl, material, checks, score) {
   return m('div.cemetery', children);
 }
 
-function renderBerserk(ctrl, color, position) {
-  if (ctrl.data.game.turns > 1 || !game.playable(ctrl.data)) return;
-  if (!ctrl.vm.goneBerserk[color]) return;
-  return m('div', {
-    class: 'berserk_alert ' + position,
-    'data-icon': '`'
-  });
-}
-
 function wheel(ctrl, e) {
   if (game.isPlayerPlaying(ctrl.data)) return true;
   if (e.deltaY > 0) keyboard.next(ctrl);
@@ -121,7 +112,8 @@ function blursAndHolds(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  var d = ctrl.data, material, score;
+  var d = ctrl.data,
+    material, score;
   var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
   var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
   if (d.pref.showCaptured) {
@@ -130,19 +122,19 @@ module.exports = function(ctrl) {
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [
-      m('div.lichess_game', {
+      m('div', {
+        class: 'lichess_game variant_' + d.game.variant.key,
         config: function(el, isUpdate) {
           if (isUpdate) return;
           $('body').trigger('lichess.content_loaded');
         }
       }, [
         d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-        m('div.lichess_ground',
-          renderBerserk(ctrl, topColor, 'top'),
+        m('div.lichess_ground', [
           crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
           renderTable(ctrl),
-          crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score),
-          renderBerserk(ctrl, bottomColor, 'bottom'))
+          crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
+        ])
       ])
     ]),
     m('div.underboard', [

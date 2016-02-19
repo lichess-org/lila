@@ -8,6 +8,7 @@ final class Env(
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
+  private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(endpoint = Endpoint)
 
@@ -26,7 +27,7 @@ final class Env(
     }
   }
 
-  system.actorOf(Props(new Actor {
+  if (IndexFlow) system.actorOf(Props(new Actor {
     context.system.lilaBus.subscribe(self, 'finishGame)
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => indexer(game)

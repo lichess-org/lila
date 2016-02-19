@@ -20,7 +20,7 @@ sealed trait Advice {
         case CpAdvice(nag, _, _)      => nag.toString
       }) + "." + {
         withBestMove ?? {
-          info.variation.headOption ?? { move => s" The best move was $move." }
+          info.variation.headOption ?? { move => s" Best move was $move." }
         }
       }
 

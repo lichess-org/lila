@@ -14,13 +14,12 @@ for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-    var data = ctrl.currentAnyEval();
-    var eval, has = defined(data);
-    if (has) {
-      if (defined(data.cp))
-        eval = Math.min(Math.max(data.cp / 100, -5), 5);
+    var eval, evs = ctrl.currentEvals();
+    if (evs) {
+      if (defined(evs.fav.cp))
+        eval = Math.min(Math.max(evs.fav.cp / 100, -5), 5);
       else
-        eval = data.mate > 0 ? 5 : -5;
+        eval = evs.fav.mate > 0 ? 5 : -5;
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 5) * 10;
@@ -43,14 +42,15 @@ module.exports = {
   renderCeval: function(ctrl) {
     if (!ctrl.ceval.allowed()) return;
     var enabled = ctrl.ceval.enabled();
-    var eval = ctrl.currentAnyEval() || {};
-    var isServer = !!ctrl.vm.step.eval;
+    var evs = ctrl.currentEvals() || {};
     var pearl, percent;
-    if (defined(eval.cp)) {
-      pearl = util.renderEval(eval.cp);
-      percent = ctrl.ceval.percentComplete();
-    } else if (defined(eval.mate)) {
-      pearl = '#' + eval.mate;
+    if (defined(evs.fav) && defined(evs.fav.cp)) {
+      pearl = util.renderEval(evs.fav.cp);
+      percent = ctrl.nextStepBest() ?
+        100 :
+        (evs.client ? Math.round(100 * evs.client.depth / ctrl.ceval.maxDepth) : 0)
+    } else if (defined(evs.fav) && defined(evs.fav.mate)) {
+      pearl = '#' + evs.fav.mate;
       percent = 100;
     } else if (ctrl.vm.step.dests === '') {
       pearl = '-';
@@ -78,10 +78,20 @@ module.exports = {
         'for variation analysis'
       ),
       enabled ? m('div.bar', {
-        title: ctrl.ceval.curDepth() + '/' + ctrl.ceval.maxDepth + ' plies deep'
+        title: evs.client ?
+          ((evs.client.depth || 0) + '/' + ctrl.ceval.maxDepth + ' plies deep') : 'Server analysis'
       }, m('span', {
         style: {
           width: percent + '%'
+        },
+        config: function(el, isUpdate, ctx) {
+          // reinsert the node to avoid downward animation
+          if (isUpdate && ctx.percent > percent) {
+            var p = el.parentNode;
+            p.removeChild(el);
+            p.appendChild(el);
+          }
+          ctx.percent = percent;
         }
       })) : null
     );

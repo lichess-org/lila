@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Предварительный ход вкл
 thisPlayerUsesChessComputerAssistance=Этот игрок использует шахматную программу
 thisPlayerArtificiallyIncreasesTheirRating=Этот игрок искусственно увеличивает свой рейтинг
 opening=Дебют
+openingExplorer=Исследователь дебютов
 takeback=Вернуть ход
 proposeATakeback=Попросить соперника вернуть ход
 takebackPropositionSent=Предложение возврата отправлено

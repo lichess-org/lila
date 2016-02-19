@@ -23,7 +23,7 @@ module.exports = {
         ' disabled': !enabled
       }),
       'data-hint': ctrl.trans(hint),
-      onclick: enabled ? onclick || partial(ctrl.socket.send, socketMsg, null) : null
+      onclick: enabled ? onclick || partial(ctrl.socket.sendLoading, socketMsg, null) : null
     }, m('span', {
       'data-icon': icon
     }));
@@ -33,10 +33,10 @@ module.exports = {
       return m('div.suggestion', [
         m('p', ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
         m('a.button', {
-          onclick: partial(ctrl.socket.send, 'resign-force', null),
+          onclick: partial(ctrl.socket.sendLoading, 'resign-force', null),
         }, ctrl.trans('forceResignation')),
         m('a.button', {
-          onclick: partial(ctrl.socket.send, 'draw-force', null),
+          onclick: partial(ctrl.socket.sendLoading, 'draw-force', null),
         }, ctrl.trans('forceDraw'))
       ]);
   },
@@ -59,7 +59,7 @@ module.exports = {
     if (ctrl.data.game.threefold) return m('div.suggestion', [
       m('p', ctrl.trans('threefoldRepetition')),
       m('a.button', {
-        onclick: partial(ctrl.socket.send, 'draw-claim', null)
+        onclick: partial(ctrl.socket.sendLoading, 'draw-claim', null)
       }, ctrl.trans('claimADraw'))
     ]);
   },
@@ -67,7 +67,7 @@ module.exports = {
     if (ctrl.data.player.offeringDraw) return m('div.pending', [
       m('p', ctrl.trans('drawOfferSent')),
       m('a.button', {
-        onclick: partial(ctrl.socket.send, 'draw-no', null)
+        onclick: partial(ctrl.socket.sendLoading, 'draw-no', null)
       }, ctrl.trans('cancel'))
     ]);
   },
@@ -75,11 +75,11 @@ module.exports = {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentOffersADraw')),
       m('a.accept[data-icon=E]', {
-        onclick: partial(ctrl.socket.send, 'draw-yes', null),
+        onclick: partial(ctrl.socket.sendLoading, 'draw-yes', null),
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
-        onclick: partial(ctrl.socket.send, 'draw-no', null),
+        onclick: partial(ctrl.socket.sendLoading, 'draw-no', null),
         title: ctrl.trans('decline')
       }),
     ]);
@@ -88,7 +88,7 @@ module.exports = {
     if (ctrl.data.player.proposingTakeback) return m('div.pending', [
       m('p', ctrl.trans('takebackPropositionSent')),
       m('a.button', {
-        onclick: partial(ctrl.socket.send, 'takeback-no', null)
+        onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null)
       }, ctrl.trans('cancel'))
     ]);
   },
@@ -100,7 +100,7 @@ module.exports = {
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
-        onclick: partial(ctrl.socket.send, 'takeback-no', null),
+        onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null),
         title: ctrl.trans('decline')
       })
     ]);
@@ -118,19 +118,16 @@ module.exports = {
       })
     ]);
   },
-  feedback: function(ctrl) {
-    if (ctrl.vm.buttonFeedback) return m.trust(lichess.spinnerHtml);
-  },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
       m('a.accept[data-icon=E]', {
         title: ctrl.trans('joinTheGame'),
-        onclick: partial(ctrl.socket.send, 'rematch-yes', null)
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-yes', null)
       }),
       m('a.decline[data-icon=L]', {
         title: ctrl.trans('decline'),
-        onclick: partial(ctrl.socket.send, 'rematch-no', null)
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
       })
     ]);
   },
@@ -138,22 +135,26 @@ module.exports = {
     if (ctrl.data.player.offeringRematch) return m('div.pending', [
       m('p', ctrl.trans('rematchOfferSent')),
       m('a.button', {
-        onclick: partial(ctrl.socket.send, 'rematch-no', null),
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null),
       }, ctrl.trans('cancel'))
     ]);
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('div.follow_up', [
+    var d = ctrl.data;
+    if (d.tournament && d.tournament.running) return m('div.follow_up', [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong' + (ctrl.data.tournament.running ? ' glowed' : ''),
-        href: '/tournament/' + ctrl.data.tournament.id,
+        class: 'text button strong glowed',
+        href: '/tournament/' + d.tournament.id,
         onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
-      ctrl.data.tournament.running ? m('form', {
+      m('form', {
         method: 'post',
-        action: '/tournament/' + ctrl.data.tournament.id + '/withdraw'
-      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))) : null
+        action: '/tournament/' + d.tournament.id + '/withdraw'
+      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))),
+      game.replayable(d) ? m('a.button', {
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
+      }, ctrl.trans('analysis')) : null
     ]);
   },
   moretime: function(ctrl) {
@@ -163,45 +164,45 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   followUp: function(ctrl) {
-    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
-    var rematchable = !ctrl.data.game.rematch && (status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul && !ctrl.data.game.boosted && (ctrl.data.opponent.onGame || (!ctrl.data.game.clock && ctrl.data.player.user && ctrl.data.opponent.user));
-    var newable = (status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.game.source == 'lobby';
-    return [
+    var d = ctrl.data;
+    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.game.clock && d.player.user && d.opponent.user));
+    var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
+    return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion',
         ctrl.trans('rematchOfferSent')
-      ) : null,
-      m('div.follow_up', [
-        rematchable ? m('a.button', {
-          onclick: function() {
-            if (ctrl.data.opponent.onGame) ctrl.socket.send('rematch-yes', null);
-            else ctrl.challengeRematch();
-          }
-        }, ctrl.trans('rematch')) : null,
-        ctrl.data.game.rematch ? m('a.button.hint--top', {
-          'data-hint': ctrl.trans('joinTheGame'),
-          href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
-        }, ctrl.trans('rematchOfferAccepted')) : null,
-        newable ? m('a.button', {
-          href: '/?hook_like=' + ctrl.data.game.id,
-        }, ctrl.trans('newOpponent')) : null,
-        game.replayable(ctrl.data) ? m('a.button', {
-          onclick: partial(ctrl.socket.send, 'rematch-no', null),
-          href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
-        }, ctrl.trans('analysis')) : null
-      ])
-    ];
+      ) : (rematchable ? m('a.button', {
+        onclick: function() {
+          if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
+          else ctrl.challengeRematch();
+        }
+      }, ctrl.trans('rematch')) : null),
+      ctrl.data.game.rematch ? m('a.button.hint--top', {
+        'data-hint': ctrl.trans('joinTheGame'),
+        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
+      }, ctrl.trans('rematchOfferAccepted')) : null,
+      d.tournament ? m('a.button', {
+        href: '/tournament/' + d.tournament.id
+      }, ctrl.trans('viewTournament')) : null,
+      newable ? m('a.button', {
+        href: '/?hook_like=' + d.game.id,
+      }, ctrl.trans('newOpponent')) : null,
+      game.replayable(d) ? m('a.button', {
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null),
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
+      }, ctrl.trans('analysis')) : null
+    ]);
   },
   watcherFollowUp: function(ctrl) {
-    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
+    var d = ctrl.data;
     return m('div.follow_up', [
-      ctrl.data.game.rematch ? m('a.button.text[data-icon=v]', {
-        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
+      d.game.rematch ? m('a.button.text[data-icon=v]', {
+        href: router.game(d.game.rematch, d.opponent.color)
       }, ctrl.trans('viewRematch')) : null,
-      ctrl.data.tournament ? m('a.button', {
-        href: '/tournament/' + ctrl.data.tournament.id
+      d.tournament ? m('a.button', {
+        href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
-      game.replayable(ctrl.data) ? m('a.button', {
-        href: router.game(ctrl.data, analysisBoardOrientation(ctrl.data)) + hash
+      game.replayable(d) ? m('a.button', {
+        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
       }, ctrl.trans('analysis')) : null
     ]);
   }

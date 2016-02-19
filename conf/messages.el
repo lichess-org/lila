@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Προκίνηση ενεργοποιημέ�
 thisPlayerUsesChessComputerAssistance=Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή
 thisPlayerArtificiallyIncreasesTheirRating=Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία
 opening=Άνοιγμα
+openingExplorer=Άνοιγμα εξερευνητή
 takeback=Ανάκληση κίνησης
 proposeATakeback=Προσφέρετε ανάκληση της προηγούμενης κίνησης
 takebackPropositionSent=Προσφορά ανάκλησης κίνησης εστάλη

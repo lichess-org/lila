@@ -73,6 +73,7 @@ form.better_analysis {
   height: 100%;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 .future_game_analysis .spinner {
   flex: 0 0 150px;
@@ -220,7 +221,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .ceval_box .bar {
   position: absolute;
-  width: 242px;
+  width: 240px;
   height: 4px;
   top: 0px;
 }
@@ -330,11 +331,11 @@ body.dark .explorer_box .title {
 body.dark .explorer_box .bar span {
   border-color: #555;
 }
-.explorer_box .bar span.white {
+.explorer_box .white {
   background: #fff;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.1) inset;
 }
-body.dark .explorer_box .bar span.white {
+body.dark .explorer_box .white {
   background: #bbb;
   color: #222;
   box-shadow: 0 -5px 7px rgba(0,0,0,0.25) inset;
@@ -380,6 +381,14 @@ body.dark .explorer_box .black {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.explorer_box .games result {
+  display: block;
+  text-align: center;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
 }
 .explorer_box .toconf {
   position: absolute;
@@ -578,6 +587,10 @@ body .lichess_ground .replay .undefined {
   padding: 3px 0 3px 5px;
   font-family: 'Roboto';
   font-weight: 300;
+  white-space: nowrap;
+}
+.lichess_ground .replay .meta > .variation.visiting {
+  white-space: normal;
 }
 .lichess_ground .replay .meta > .variation span.menu {
   float: right;
@@ -661,6 +674,9 @@ div.copyables .pgn {
 div.copyables .pgn textarea {
   color: #747474;
   resize: vertical;
+  min-height: 6em;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 div.advice_summary {
   margin-top: -15px;

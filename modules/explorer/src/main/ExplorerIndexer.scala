@@ -5,10 +5,10 @@ import scala.util.{ Try, Success, Failure }
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import org.joda.time.format.DateTimeFormat
 
 import lila.db.api._
 import lila.db.Implicits._
@@ -28,6 +28,7 @@ private final class ExplorerIndexer(endpoint: String) {
   private val dateFormatter = DateTimeFormat forPattern datePattern
   private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
   private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
+  private val url = s"$endpoint/import/lichess"
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
@@ -35,7 +36,6 @@ private final class ExplorerIndexer(endpoint: String) {
   def apply(sinceStr: String): Funit =
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       logger.info(s"Start indexing since $since")
-      val url = s"$endpoint/import/lichess"
       val query = $query(
         Query.createdSince(since) ++
           Query.rated ++
@@ -69,13 +69,26 @@ private final class ExplorerIndexer(endpoint: String) {
         } void
     }
 
-  def apply(game: Game): Funit = makeFastPgn(game).flatMap {
-    _ ?? { pgn =>
-      WS.url(s"$endpoint/import/lichess").put(pgn) andThen {
-        case Success(res) if res.status == 200 =>
-        case Success(res)                      => logger.warn(s"[${res.status}]")
-        case Failure(err)                      => logger.warn(s"$err")
-      } void
+  def apply(game: Game): Funit = makeFastPgn(game) map {
+    _ foreach flowBuffer.apply
+  }
+
+  private object flowBuffer {
+    private val max = 50
+    private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
+    def apply(pgn: String) {
+      buf += pgn
+      val startAt = nowMillis
+      if (buf.size >= max) {
+        WS.url(url).put(buf mkString separator) andThen {
+          case Success(res) if res.status == 200 =>
+            val gameMs = (nowMillis - startAt) / max
+            logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
+          case Success(res)                      => logger.warn(s"[${res.status}]")
+          case Failure(err)                      => logger.warn(s"$err")
+        }
+        buf.clear
+      }
     }
   }
 

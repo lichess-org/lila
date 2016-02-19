@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Forhåndstrekk aktivert – klikk hvor som h
 thisPlayerUsesChessComputerAssistance=Denne spilleren bruker datamaskin
 thisPlayerArtificiallyIncreasesTheirRating=Denne spilleren øker/reduserer ratingen kunstig
 opening=Åpning
+openingExplorer=Åpningsbok
 takeback=Angre
 proposeATakeback=Foreslå å angre
 takebackPropositionSent=Angreforslag sendt

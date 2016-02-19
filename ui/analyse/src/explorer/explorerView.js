@@ -68,13 +68,13 @@ function showMoveTable(ctrl, moves, fen) {
 }
 
 function showResult(winner) {
-  if (winner === 'white') return '1-0';
-  if (winner === 'black') return '0-1';
-  return '½-½';
+  if (winner === 'white') return m('result.white', '1-0');
+  if (winner === 'black') return m('result.black', '0-1');
+  return m('result.draws', '½-½');
 }
 
 function showGameTable(ctrl, type, games) {
-  if (!games.length) return null;
+  if (!ctrl.explorer.withGames || !games.length) return null;
   return m('table.games', [
     m('thead', [
       m('tr', [
@@ -158,19 +158,26 @@ function failing() {
 module.exports = {
   renderExplorer: function(ctrl) {
     if (!ctrl.explorer.authorized || !ctrl.explorer.enabled()) return;
+    var data = ctrl.explorer.current();
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();
-    var loading = !configOpened && (ctrl.explorer.loading() || (!ctrl.explorer.current() && !ctrl.explorer.failing()));
+    var loading = !configOpened && (ctrl.explorer.loading() || (!data && !ctrl.explorer.failing()));
+    var content = configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl));
     return m('div', {
       class: classSet({
         explorer_box: true,
         loading: loading,
         config: configOpened
-      })
+      }),
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate || !data || ctx.lastFen === data.fen) return;
+        ctx.lastFen = data.fen;
+        el.scrollTop = 0;
+      }
     }, [
       overlay,
-      configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl)),
-      m('span.toconf', {
+      content,
+      (!content || ctrl.explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen
       })

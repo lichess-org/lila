@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Førehandstrekk blei aktivert - Klikk kor so
 thisPlayerUsesChessComputerAssistance=Denne spelaren brukar datahjelp
 thisPlayerArtificiallyIncreasesTheirRating=Denne spelaren aukar ratinga si på ein unaturleg måte
 opening=Opning
+openingExplorer=Opningsutforskar
 takeback=Angra
 proposeATakeback=Foreslå å gjera om trekket
 takebackPropositionSent=Forslag om å gjera om trekket blei sendt

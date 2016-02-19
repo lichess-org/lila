@@ -67,11 +67,9 @@ function plyToTurn(ply) {
 
 function renderVariation(ctrl, variation, path, klass) {
   var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
+  var visiting = treePath.contains(path, ctrl.vm.path);
   return m('div', {
-    class: klass + ' ' + classSet({
-      variation: true,
-      menu: showMenu
-    })
+    class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
   }, [
     m('span', {
       class: 'menu',
@@ -94,19 +92,19 @@ function renderVariation(ctrl, variation, path, klass) {
         }, 'Promote to main line') : null
       ];
     })() :
-    renderVariationContent(ctrl, variation, path)
+    renderVariationContent(ctrl, variation, path, visiting)
   ]);
 }
 
 function renderVariationNested(ctrl, variation, path) {
   return m('span.variation', [
     '(',
-    renderVariationContent(ctrl, variation, path),
+    renderVariationContent(ctrl, variation, path, treePath.contains(path, ctrl.vm.path)),
     ')'
   ]);
 }
 
-function renderVariationContent(ctrl, variation, path) {
+function renderVariationContent(ctrl, variation, path, full) {
   var turns = [];
   if (variation[0].ply % 2 === 0) {
     variation = variation.slice(0);
@@ -116,8 +114,7 @@ function renderVariationContent(ctrl, variation, path) {
       black: move
     });
   }
-  var visiting = treePath.contains(path, ctrl.vm.path);
-  var maxPlies = Math.min(visiting ? 999 : (path[2] ? 2 : 4), variation.length);
+  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), variation.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(variation[i].ply),
     white: variation[i],
@@ -297,7 +294,10 @@ function renderAnalyse(ctrl) {
         return false;
       },
       config: function(el, isUpdate) {
-        if (!isUpdate) ctrl.vm.autoScroll = autoScroll(el);
+        if (!isUpdate) {
+          ctrl.vm.autoScroll = autoScroll(el);
+          ctrl.vm.autoScroll();
+        }
       }
     },
     tree);
@@ -321,7 +321,7 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable[readonly][spellCheck=false]', {
-        value: pgnExport.renderStepsTxt(ctrl.analyse.getSteps(ctrl.vm.path))
+        value: pgnExport.renderFullTxt(ctrl)
       })
     ])
   ]);
@@ -360,34 +360,42 @@ function blindBoard(ctrl) {
 
 function buttons(ctrl) {
   var make = function(icon, effect) {
-    return m('button.button', {
-      'data-icon': icon,
-      onclick: partial(effect, ctrl)
+    return m('button', {
+      class: 'button',
+      'data-act': effect,
+      'data-icon': icon
     });
   }
   return m('div.game_control',
-    m('div.buttons', [
+    m('div.buttons', {
+      onmousedown: function(e) {
+        var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+        if (action === 'explorer') ctrl.explorer.toggle();
+        else if (action === 'menu') ctrl.actionMenu.toggle();
+        else if (control[action]) control[action](ctrl);
+      }
+    }, [
       m('div', [
         m('div.jumps', [
-          make('Y', control.prev),
-          make('W', control.first)
+          make('Y', 'prev'),
+          make('W', 'first')
         ]),
         m('div.jumps', [
-          make('X', control.next),
-          make('V', control.last)
+          make('X', 'next'),
+          make('V', 'last')
         ])
       ]),
       m('div', [
         (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button.hint--bottom', {
-          onclick: partial(ctrl.explorer.toggle, ctrl.vm.step),
           'data-hint': 'Opening explorer',
+          'data-act': 'explorer',
           class: ctrl.explorer.enabled() ? 'active' : ''
         }, m('i', {
           'data-icon': ']'
         })),
         m('button.button.menu.hint--bottom', {
-          onclick: ctrl.actionMenu.toggle,
           'data-hint': 'Menu',
+          'data-act': 'menu',
           class: ctrl.actionMenu.open ? 'active' : ''
         }, m('i', {
           'data-icon': '['

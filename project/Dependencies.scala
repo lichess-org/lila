@@ -22,7 +22,7 @@ object Dependencies {
       t2v, jgitMaven, sprayRepo)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.6"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.7"
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.4"
   val config = "com.typesafe" % "config" % "1.3.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"

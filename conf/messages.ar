@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=لديك نقلة إستباقية" اضغط
 thisPlayerUsesChessComputerAssistance=هذا اللاعب يستعين ببرامج شطرنج
 thisPlayerArtificiallyIncreasesTheirRating=هذا اللاعب يتصنع الخسارة بهدف زيادة تصنيف لاعبين آخرين
 opening=افتتاحية
+openingExplorer=مستكشف بدايات
 takeback=تراجع عن النقلة
 proposeATakeback=اقتراح تراجع عن النقلة
 takebackPropositionSent=تم إرسال مقترح تراجع عن النقلة
