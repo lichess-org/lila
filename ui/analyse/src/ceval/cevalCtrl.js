@@ -1,6 +1,8 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
 
+var initialPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
 module.exports = function(allow, emit) {
 
   var nbWorkers = 3;
@@ -24,9 +26,9 @@ module.exports = function(allow, emit) {
 
   var start = function(path, steps) {
     if (!enabled()) return;
-    var step = steps[steps.length -1];
+    var step = steps[steps.length - 1];
     if (step.ceval && step.ceval.depth >= maxDepth) return;
-    pool.start({
+    var work = {
       position: steps[0].fen,
       moves: steps.slice(1).map(function(s) {
         return fixCastle(s.uci, s.san);
@@ -37,7 +39,18 @@ module.exports = function(allow, emit) {
       emit: function(res) {
         if (enabled()) onEmit(res);
       }
+    };
+    if (work.position === initialPosition && !work.moves.length) return work.emit({
+      work: work,
+      eval: {
+        depth: maxDepth,
+        cp: 15, // I made stockfish work hard on this one
+        mate: 0, // so far, chess isn't solved
+        best: 'e2e4' // best by test
+      },
+      name: name
     });
+    pool.start(work);
     started = true;
   };
 
