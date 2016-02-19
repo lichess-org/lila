@@ -177,15 +177,6 @@ object Round extends LilaController with TheftPrevention {
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
-  // remove me
-  // private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
-  //   GameRepo initialFen pov.game zip
-  //     Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
-  //     ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
-  //       case ((fen, data), opponent) => Ok(html.setup.join(
-  //         pov, data, opponent, none, fen))
-  //     }
-
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>
       if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
