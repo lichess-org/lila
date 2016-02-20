@@ -56,8 +56,6 @@ $(function() {
     if (location.search.indexOf('note') != -1) $(this).click();
   });
 
-  $('.buttonset').buttonset().disableSelection();
-
   $('form.autosubmit').each(function() {
     var $form = $(this);
     $form.find('input').change(function() {

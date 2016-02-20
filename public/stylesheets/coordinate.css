@@ -1,22 +1,21 @@
 #trainer {
   margin-bottom: 160px;
 }
-form.color .color span {
+form.color .color i {
   display: block;
   width: 30px;
   height: 30px;
   background-size: 30px 30px;
   background-repeat: no-repeat;
   padding: 0;
-  margin: 10px 15px;
 }
-form.color .color_1 span {
+form.color .color_1 i {
   background-image: url(../piece/cburnett/wK.svg);
 }
-form.color .color_2 span {
+form.color .color_2 i {
   background-image: url(../piece/cburnett/wbK.svg);
 }
-form.color .color_3 span {
+form.color .color_3 i {
   background-image: url(../piece/cburnett/bK.svg);
 }
 #trainer .lichess_board {
@@ -26,9 +25,6 @@ form.color .color_3 span {
 #trainer.white .white .lichess_board,
 #trainer.black .black .lichess_board {
   display: block;
-}
-#trainer form.color {
-  text-align: center;
 }
 #trainer .overlay_container {
   position: absolute;

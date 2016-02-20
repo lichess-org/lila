@@ -22,7 +22,6 @@ url = s"$netBaseUrl${routes.Coordinate.home.url}",
 description = "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square.").some) {
 <div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
-  data-color-url="@routes.Coordinate.color()"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
   <div class="overlay_container">
     <div class="next_coord" id="next_coord0"></div>
@@ -48,14 +47,18 @@ description = "Knowing the chessboard coordinates is a very important chess skil
       </div>
       }
     </div>
-    <form class="color buttons" action="@routes.Coordinate.color" method="POST">
-      @List(Color.BLACK -> trans.black(), Color.RANDOM -> trans.randomColor(), Color.WHITE -> trans.white()).map {
-      case (id, name) => {
-      <input type="radio" id="coord_color_@id" name="coord_color" value="@id"
-      @(if(id == ctx.pref.coordColor) "checked" else "") />
-      <label for="coord_color_@id" data-hint="@name" class="color color_@id hint--bottom"></label>
+    <form class="color buttons" action="@routes.Coordinate.color">
+      <group class="radio">
+      @List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
+      <div>
+        <input type="radio" id="coord_color_@id" name="coord_color" value="@id"
+        @(if(id == ctx.pref.coordColor) "checked" else "") />
+        <label for="coord_color_@id" class="color color_@id">
+          <i></i>
+        </label>
+      </div>
       }
-      }
+      </group>
     </form>
   </div>
   <div class="board_and_ground">

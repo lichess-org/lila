@@ -35,19 +35,19 @@
       <form class="autosubmit" action="@routes.Pref.miniFormApply" method="POST">
         <div>
           <h2>@trans.tenthsOfSeconds()</h2>
-          @base.radios(form("clockTenths"), translatedClockTenthsChoices, container = true, prefix = "igp_")
+          @base.radios(form("clockTenths"), translatedClockTenthsChoices, prefix = "igp_")
         </div>
         <div>
           <h2>@trans.moveConfirmation()</h2>
-          @base.radios(form("submitMove"), submitMoveChoices, container = true, prefix = "igp_")
+          @base.radios(form("submitMove"), submitMoveChoices, prefix = "igp_")
         </div>
         <div>
           <h2>@trans.promoteToQueenAutomatically()</h2>
-          @base.radios(form("autoQueen"), translatedAutoQueenChoices, container = true, prefix = "igp_")
+          @base.radios(form("autoQueen"), translatedAutoQueenChoices, prefix = "igp_")
         </div>
         <div>
           <h2>@trans.blindfoldChess()</h2>
-          @base.radios(form("blindfold"), translatedBlindfoldChoices, container = true, prefix = "igp_")
+          @base.radios(form("blindfold"), translatedBlindfoldChoices, prefix = "igp_")
         </div>
       </form>
       <a target="_blank" class="prefs button text" data-icon="%" href="@routes.Pref.form("game-display")">@trans.preferences()</a>

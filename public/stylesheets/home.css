@@ -486,8 +486,12 @@ div.game_config {
 div.game_config.error {
   padding-bottom: 22px;
 }
-div.game_config div.ui-buttonset {
-  margin-bottom: 1em;
+div.game_config group.radio {
+  margin: 0 auto 1em auto;
+  width: 70%;
+}
+div.game_config group.radio label {
+  padding: 5px;
 }
 div.game_config .ui-button-text {
   text-transform: capitalize;
@@ -582,7 +586,7 @@ div.game_config .ratings {
 div.game_config .ratings > div {
   display: none;
 }
-div.game_config div.color_submits {
+div.game_config .color_submits {
   margin: 1em auto;
   text-align: center;
 }
@@ -602,17 +606,18 @@ div.game_config button.white {
   height: 50px;
   padding: 5px;
 }
-div.game_config button.black span,
-div.game_config button.white span {
+div.game_config button.black i,
+div.game_config button.white i {
+  display: block;
   width: 40px;
   height: 40px;
   padding: 0;
   background-size: 40px 40px;
 }
-div.game_config button.white span {
+div.game_config button.white i {
   background-image: url(../piece/cburnett/wK.svg);
 }
-div.game_config button.black span {
+div.game_config button.black i {
   background-image: url(../piece/cburnett/bK.svg);
 }
 div.game_config button.random {
@@ -620,9 +625,10 @@ div.game_config button.random {
   height: 75px;
   padding: 10px;
 }
-div.game_config div.color_submits button.random span {
+div.game_config .color_submits button.random i {
   background-image: url(../piece/cburnett/wbK.svg);
   background-size: 55px 55px;
+  display: block;
   width: 55px;
   height: 55px;
   padding: 0;

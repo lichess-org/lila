@@ -47,14 +47,6 @@ div.content_box.prefs h2 {
   display: block;
   margin-bottom: 20px;
 }
-div.content_box.prefs div.buttonset {
-  display: block;
-  margin: 10px 0;
-}
-div.content_box.prefs div.buttonset label {
-  font-weight: normal;
-}
-
 div.content_box.prefs form li {
   margin: 20px 0;
   border-top: 1px solid #eaeaea;

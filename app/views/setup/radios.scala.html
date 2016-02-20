@@ -1,14 +1,18 @@
 @(field: play.api.data.Field, options: Seq[(String,String, Option[String])])
 
+<group class="radio">
 @options.map { v =>
-<input
-type="radio"
-id="@(field.id)_@v._1"
-name="@field.name"
-value="@v._1"
-@(if(field.value == Some(v._1)) "checked" else "")
-/>
-<label @v._3.map { hint =>
-  data-hint="@hint" class="required hint--top"
-  }.getOrElse {class="required"} for="@(field.id)_@v._1">@v._2</label>
+<div>
+  <input
+  type="radio"
+  id="@(field.id)_@v._1"
+  name="@field.name"
+  value="@v._1"
+  @(if(field.value == Some(v._1)) "checked" else "")
+  />
+  <label @v._3.map { hint =>
+    data-hint="@hint" class="required hint--top"
+    }.getOrElse {class="required"} for="@(field.id)_@v._1">@v._2</label>
+</div>
 }
+</group>

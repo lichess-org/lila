@@ -6,6 +6,7 @@ body.dark {
 body.dark a,
 body.dark a:visited,
 body.dark #powerTip > .actions a,
+body.dark group.radio label,
 body.dark .button {
   color: #8a8a8a;
 }
@@ -365,6 +366,7 @@ body.dark #friend_box .title,
 body.dark div.undertable_top,
 body.dark .button,
 body.dark .button:visited,
+body.dark group.radio label,
 body.dark .ui-state-default,
 body.dark #translation_call,
 body.dark #notifications > div,
@@ -381,16 +383,17 @@ body.dark table.slist thead {
 body.dark .button,
 body.dark a.button,
 body.dark #challenge_app .owner,
-body.dark .ui-button,
+body.dark group.radio,
+body.dark group.radio label,
 body.dark .ui-slider-handle,
 body.dark .ui-widget-content,
 body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
 body.dark .lichess_ground .negotiation a,
+body.dark group.radio label:hover,
 body.dark .button:hover,
-body.dark a.button:hover,
-body.dark .ui-state-hover {
+body.dark a.button:hover {
   border-color: #383838;
   background: rgb(44, 44, 44);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);

@@ -146,41 +146,40 @@ body.blind_mode #blind_mode {
   margin-left: 0;
   height: auto;
 }
-/* jquery-ui */
-
-.ui-helper-hidden {
-  display: none;
-}
-.ui-helper-hidden-accessible {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
+group.radio {
+  display: flex;
+  border-radius: 3px;
   overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+  border: 1px solid #ccc;
 }
-.ui-button {
-  display: inline-block;
-  text-align: center;
+group.radio div {
+  flex: 1 1 auto;
+  position: relative;
 }
-.ui-button .ui-button-text {
-  display: block;
-  line-height: 1.4;
+group.radio input {
+  position:absolute;
+  left: -99999px;
 }
-.ui-button-text-only .ui-button-text {
-  padding: .4em 1em;
+group.radio label {
+  box-sizing: border-box;
+  padding: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor:pointer;
+  border-right: 1px solid #ccc;
+  transition: background 0.13s;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
-div.ui-buttonset {
-  margin-left: -0.4em;
+group.radio div:last-child label {
+  border-right: 0;
 }
-div.ui-buttonset .ui-button {
-  margin-right: -.4em;
-}
-.buttonset .button {
-  margin-left: -2px;
-  margin-right: -3px;
+group.radio input:checked + label {
+  background: #d81b60;
+  font-weight: 500;
+  color: #fff;
 }
 .difficulty > .button {
   display: block;
@@ -219,6 +218,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   background: #fff;
   position: relative;
   text-align: left;
+  cursor:pointer;
 }
 .ui-slider .ui-slider-handle {
   position: absolute;
@@ -226,6 +226,8 @@ ul.ui-autocomplete li a.ui-state-focus {
   width: 1.2em;
   height: 1.2em;
   cursor: default;
+  outline:0;
+  cursor:pointer;
 }
 .ui-slider .ui-slider-range {
   position: absolute;
@@ -427,8 +429,7 @@ input {
 a,
 a:visited,
 button,
-.button,
-.ui-button {
+.button {
   cursor: pointer;
 }
 a,
@@ -1620,7 +1621,8 @@ div.undertable_top,
 .button,
 a.button,
 .button:visited,
-.ui-state-default,
+group.radio label,
+.ui-slider-handle,
 #translation_call,
 #notifications > div,
 div.vstext,
@@ -1637,7 +1639,6 @@ div.undertable_top,
 .button,
 a.button,
 .button:visited,
-.ui-state-default,
 #translation_call,
 table.slist thead {
   font-weight: bold;
@@ -1657,7 +1658,6 @@ a.button.thin {
 }
 .button,
 a.button,
-.ui-button,
 .ui-slider-handle,
 .ui-widget-content {
   border-style: solid;
@@ -1672,7 +1672,8 @@ a.button,
 }
 .button:hover,
 a.button:hover,
-.ui-state-hover {
+.ui-slider-handle:hover,
+group.radio label:hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
   background: linear-gradient(to bottom, rgba(248, 248, 248, 1) 0%, rgba(243, 243, 243, 1) 100%);
@@ -1687,7 +1688,7 @@ a.button:active {
 
 .button.active,
 .button.active:hover,
-.ui-state-active,
+group.radio input:checked + label,
 .ui-widget-header,
 div.pagination span.current,
 .data-count::after,

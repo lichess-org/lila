@@ -2022,8 +2022,6 @@ lichess.numberFormat = (function() {
         $form.find('form').one('submit', function() {
           $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
-      $form.find('div.buttons').buttonset().disableSelection();
-      $form.find('button.submit').button().disableSelection();
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
           $value = $input.siblings('span');

@@ -47,7 +47,7 @@ function renderTrainingBox(ctrl) {
 }
 
 function renderDifficulty(ctrl) {
-  return m('div.difficulty.buttonset', map(ctrl.data.difficulty.choices, function(dif) {
+  return m('div.difficulty', map(ctrl.data.difficulty.choices, function(dif) {
     var id = dif[0],
       name = dif[1];
     return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
