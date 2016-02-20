@@ -284,7 +284,10 @@ object GameRepo {
     }
 
   def initialFen(game: Game): Fu[Option[String]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id)
+    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) map {
+      case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
+      case fen => fen
+    }
     else fuccess(none)
 
   def featuredCandidates: Fu[List[Game]] = $find(
