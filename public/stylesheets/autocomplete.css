@@ -26,12 +26,20 @@
   /* color: #fff; */
 }
 .tt-suggestion.tt-cursor {
-  background: #3893E8;
-  color: #fff;
+  background: #3893E8!important;
+  color: #fff!important;
 }
 .tt-hint {
   color: #aaa;
 }
 .tt-highlight {
   opacity: 0.5;
+}
+body.dark .tt-menu {
+  border-color: #3d3d3d;
+  background: #343434;
+}
+body.dark .tt-suggestion {
+  color: #9c9c9c;
+  border-color: #3d3d3d;
 }
