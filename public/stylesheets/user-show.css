@@ -474,7 +474,6 @@ div.user_show .reportCard th {
   font-size: 1.6em;
   text-align: center;
   padding: 0 5px 0 5px;
-  display: table-cell;
 }
 div.user_show .reportCard td {
   text-align: center;
