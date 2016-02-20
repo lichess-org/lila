@@ -95,7 +95,7 @@ final class Env(
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    bus = system.lilaBus)
+    busOption = system.lilaBus.some)
 
   scheduler.once(10 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)

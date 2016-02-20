@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 class DisposableEmailDomainTest extends Specification {
 
-  val d = new DisposableEmailDomain("")
+  val d = new DisposableEmailDomain("", None)
   d.setDomains(Json.parse(Fixtures.json))
 
   "disposable email domain" should {

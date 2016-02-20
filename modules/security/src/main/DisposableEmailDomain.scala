@@ -6,7 +6,7 @@ import play.api.Play.current
 
 final class DisposableEmailDomain(
     providerUrl: String,
-    bus: lila.common.Bus) {
+    busOption: Option[lila.common.Bus]) {
 
   private type Matcher = String => Boolean
 
@@ -40,9 +40,11 @@ final class DisposableEmailDomain(
     logerr(s"Can't update disposable emails: $e")
     if (!failed) {
       failed = true
-      bus.publish(
-        lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
-        'slack)
+      busOption.foreach { bus =>
+        bus.publish(
+          lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
+          'slack)
+      }
     }
   }
 
