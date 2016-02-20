@@ -146,7 +146,8 @@ private[report] final class ReportApi {
   def recent(nb: Int) = $find($query.all sort $sort.createdDesc, nb)
 
   def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUser]] =
-    recentUnprocessed |+| recentProcessed(nb) flatMap { reports =>
+    recentUnprocessed(nb) |+| recentProcessed(nb) flatMap { all =>
+      val reports = all take nb
       UserRepo byIds reports.map(_.user).distinct map { users =>
         reports.flatMap { r =>
           users.find(_.id == r.user) map { Report.WithUser(r, _) }
@@ -154,7 +155,8 @@ private[report] final class ReportApi {
       }
     }
 
-  def recentUnprocessed = $find($query(unprocessedSelect) sort $sort.createdDesc)
+  def recentUnprocessed(nb: Int) = 
+    $find($query(unprocessedSelect) sort $sort.createdDesc, nb)
 
   def recentProcessed(nb: Int) = $find($query(processedSelect) sort $sort.createdDesc, nb)
 
