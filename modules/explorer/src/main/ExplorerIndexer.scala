@@ -21,7 +21,6 @@ private final class ExplorerIndexer(endpoint: String) {
 
   private val maxGames = Int.MaxValue
   private val batchSize = 200
-  private val minRating = 1600
   private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
@@ -84,8 +83,8 @@ private final class ExplorerIndexer(endpoint: String) {
           case Success(res) if res.status == 200 =>
             val gameMs = (nowMillis - startAt) / max
             logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
-          case Success(res)                      => logger.warn(s"[${res.status}]")
-          case Failure(err)                      => logger.warn(s"$err")
+          case Success(res) => logger.warn(s"[${res.status}]")
+          case Failure(err) => logger.warn(s"$err")
         }
         buf.clear
       }
@@ -106,24 +105,27 @@ private final class ExplorerIndexer(endpoint: String) {
     import lila.rating.PerfType._
     game.perfType ?? {
       case Classical | Correspondence => 1
-      case Blitz if rating > 2000     => 1
-      case Blitz if rating > 1800     => 1
+      case Blitz if rating >= 2000    => 1
+      case Blitz if rating >= 1800    => 1
       case Blitz                      => 1 / 10f
-      case Bullet if rating > 2200    => 1
-      case Bullet if rating > 2000    => 1 / 5f
-      case Bullet if rating > 1800    => 1 / 40f
+      case Bullet if rating >= 2200   => 1
+      case Bullet if rating >= 2000   => 1 / 5f
+      case Bullet if rating >= 1800   => 1 / 40f
       case Bullet                     => 1 / 90f
-      case _                          => 1 // keep all variant games
+      case _ if rating >= 1600        => 1 // variant games
+      case _                          => 1 / 2f // noob variant games
     }
   }
 
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
-    if whiteRating > 1500
     blackRating <- stableRating(game.blackPlayer)
-    if blackRating > 1500
+    minPlayerRating = if (game.variant.exotic) 1400 else 1500
+    minAverageRating = if (game.variant.exotic) 1550 else 1600
+    if whiteRating >= minPlayerRating
+    if blackRating >= minPlayerRating
     averageRating = (whiteRating + blackRating) / 2
-    if averageRating > minRating
+    if averageRating >= minAverageRating
     if probability(game, averageRating) > nextFloat
     if valid(game)
   } yield GameRepo initialFen game flatMap { initialFen =>
