@@ -1068,12 +1068,40 @@ lichess.numberFormat = (function() {
       translateTexts();
       $('body').on('lichess.content_loaded', translateTexts);
 
-      $('input.autocomplete').each(function() {
-        var $a = $(this);
-        $a.autocomplete({
-          source: $a.data('provider'),
-          minLength: 2,
-          delay: 100
+
+      var userAutocomplete = function($input) {
+        lichess.loadCss('/assets/stylesheets/autocomplete.css');
+        lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+          $input.typeahead(null, {
+            minLength: 2,
+            hint: true,
+            highlight: false,
+            source: function(query, sync, async) {
+              $.ajax({
+                url: '/player/autocomplete?term=' + query,
+                success: function(res) {
+                  // hack to fix typeahead limit bug
+                  if (res.length === 10) res.push(null);
+                  async(res);
+                }
+              });
+            },
+            limit: 10,
+            templates: {
+              empty: '<div class="empty">No player found</div>',
+              pending: lichess.spinnerHtml,
+              suggestion: function(a) {
+                return '<span>' + a + '<span>';
+              }
+            }
+          }).focus();
+        });
+      };
+
+      $('input.user-autocomplete').each(function() {
+        if ($(this).attr('autofocus')) userAutocomplete($(this));
+        else $(this).one('focus', function() {
+          userAutocomplete($(this));
         });
       });
 

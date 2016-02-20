@@ -1,19 +1,39 @@
 $(function() {
 
-  var $searchForm = $('form.search.public');
-
-  if ($searchForm.length) {
-    $searchInput = $searchForm.find('input.search_user');
-    $searchInput.on('autocompleteselect', function(e, ui) {
-      setTimeout(function() {
-        $searchForm.submit();
-      }, 10);
+  $('input.user-autocomplete-jump').one('focus', function() {
+    var go = function(name) {
+      location.href = '/@/' + name;
+    }
+    var $input = $(this);
+    lichess.loadCss('/assets/stylesheets/autocomplete.css');
+    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+      $input.typeahead(null, {
+        minLength: 2,
+        hint: true,
+        highlight: true,
+        source: function(query, sync, async) {
+          $.ajax({
+            url: '/player/autocomplete?term=' + query,
+            success: function(res) {
+              // hack to fix typeahead limit bug
+              if (res.length === 10) res.push(null);
+              async(res);
+            }
+          });
+        },
+        limit: 10,
+        templates: {
+          empty: '<div class="empty">No player found</div>',
+          pending: lichess.spinnerHtml,
+          suggestion: $.userLink
+        }
+      }).bind('typeahead:select', function(ev, sel) {
+        go(sel);
+      }).keypress(function(e) {
+        if (e.which == 10 || e.which == 13) go($(this).val());
+      }).focus();
     });
-    $searchForm.submit(function() {
-      location.href = $searchForm.attr('action') + $searchInput.val();
-      return false;
-    });
-  }
+  });
 
   $("div.user_show .mod_zone_toggle").each(function() {
     $(this).click(function() {

@@ -1,0 +1,37 @@
+.tt-menu {
+  box-sizing: border-box;
+  width: 198px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+.tt-menu .empty {
+  padding: 5px 0 5px 10px;
+}
+.tt-menu .spinner {
+  margin: 10px auto;
+  width: 20px;
+  height: 20px;
+}
+.tt-suggestion {
+  color: #444;
+  padding: 5px 0 5px 10px;
+  line-height: 24px;
+  display: block;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+.tt-suggestion:hover {
+  background: rgba(56,147,232,0.2);
+  /* color: #fff; */
+}
+.tt-suggestion.tt-cursor {
+  background: #3893E8;
+  color: #fff;
+}
+.tt-hint {
+  color: #aaa;
+}
+.tt-highlight {
+  opacity: 0.5;
+}

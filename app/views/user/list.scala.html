@@ -38,8 +38,8 @@
 
 @side = {
 <div class="side">
-  <form class="search public" action="@routes.User.show("")">
-    <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
+  <form class="search public">
+    <input placeholder="@trans.search()" class="search_user user-autocomplete-jump" />
   </form>
   @if(isGranted(_.UserSearch)) {
   <form class="search" action="@routes.Mod.search" method="GET">

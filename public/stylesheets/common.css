@@ -812,9 +812,10 @@ div.side form.search {
   margin: 1em 0 0 0;
 }
 div.side form.search input {
+  box-sizing: border-box;
   border: 1px solid #ccc;
   padding: 3px 5px;
-  width: 186px;
+  width: 198px;
 }
 #site_header div.side_menu {
   margin-top: 15px;
