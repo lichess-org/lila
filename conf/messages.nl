@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Vooruitzetten ingesteld - klik ergens om dit
 thisPlayerUsesChessComputerAssistance=Deze speler maakt gebruik van een schaakprogramma
 thisPlayerArtificiallyIncreasesTheirRating=Deze speler verhoogt zijn rating kunstmatig
 opening=Opening
+openingExplorer=Openingverkenner
 takeback=Neem zet terug
 proposeATakeback=Stel zet terugnemen voor
 takebackPropositionSent=Terugname-voorstel verstuurd
