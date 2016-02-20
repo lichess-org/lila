@@ -1091,9 +1091,11 @@ lichess.numberFormat = (function() {
               empty: '<div class="empty">No player found</div>',
               pending: lichess.spinnerHtml,
               suggestion: function(a) {
-                return '<span>' + a + '<span>';
+                return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
               }
             }
+          }).bind('typeahead:render', function() {
+            $('body').trigger('lichess.content_loaded');
           }).focus();
         });
       };

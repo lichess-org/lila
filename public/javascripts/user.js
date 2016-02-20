@@ -25,8 +25,12 @@ $(function() {
         templates: {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
-          suggestion: $.userLink
+          suggestion: function(a) {
+            return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
+          }
         }
+      }).bind('typeahead:render', function() {
+        $('body').trigger('lichess.content_loaded');
       }).bind('typeahead:select', function(ev, sel) {
         go(sel);
       }).keypress(function(e) {
