@@ -1,7 +1,7 @@
 @(id: String)(implicit ctx: Context)
 
 <div class="future_game_analysis progress">
-  @base.spinner()
+  @base.spinner("monochrome".some)
   <div class="quote">
     @base.quote(lila.quote.Quote.one(id))
   </div>

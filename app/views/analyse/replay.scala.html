@@ -105,11 +105,9 @@ atom = atom.some) {
       @analyse.computing(pov.gameId)
       }
       }.getOrElse {
-      @if(analysis.isEmpty) {
       <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
-      }
       }
       <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
