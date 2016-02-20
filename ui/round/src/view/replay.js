@@ -182,8 +182,8 @@ function racingKingsInit(d) {
     return m('div.message', {
       'data-icon': '',
     }, [
-      "You have the " + d.player.color + " pieces,",
-      d.player.color === 'white' ? [m('br'), m('strong', "it's your turn!")] : null
+      "You have the " + d.player.color + " pieces",
+      d.player.color === 'white' ? [',', m('br'), m('strong', "it's your turn!")] : null
     ]);
 }
 
