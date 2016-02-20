@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Premovimiento activado - Hacer clic en cualq
 thisPlayerUsesChessComputerAssistance=Este jugador usa un motor de ajedrez
 thisPlayerArtificiallyIncreasesTheirRating=Este jugador incrementa/disminuye artificialmente su puntaje
 opening=Apertura
+openingExplorer=Explorador de aperturas
 takeback=Deshacer jugada
 proposeATakeback=Proponer deshacer jugada
 takebackPropositionSent=Propuesta de deshacer jugada enviada
