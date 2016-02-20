@@ -357,6 +357,9 @@ body.dark #hooks_wrap {
   position: absolute;
   top: 529px;
 }
+div.undertable {
+  width: 512px;
+}
 div.blog.undertable div.undertable_inner {
   height: auto;
   padding: 5px 5px 0 5px;
