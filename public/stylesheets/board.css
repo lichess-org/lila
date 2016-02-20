@@ -1146,10 +1146,11 @@ span.inline_userlist a {
   color: #aaa;
   font-weight: bold;
 }
+div.underboard {
+  display: flex;
+}
 div.underboard .center {
-  display: table-cell;
   position: relative;
-  width: 512px;
   text-align: center;
   padding-top: 15px;
 }
@@ -1159,8 +1160,6 @@ div.underboard .center .crosstable_placeholder {
 }
 div.underboard .blurs,
 div.underboard .right {
-  display: table-cell;
-  vertical-align: top;
   padding-left: 15px;
   width: 242px;
 }

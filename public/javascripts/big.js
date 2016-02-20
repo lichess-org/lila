@@ -1013,14 +1013,12 @@ lichess.numberFormat = (function() {
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
         var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
-        var $coordinateProgress = $('.progress_bar_container');
         var px = function(i) {
           return Math.round(i) + 'px';
         };
 
-        $boardWrap.css("width", px(512 * zoom));
-        $coordinateProgress.css("width", px(512 * zoom));
-        $('.underboard').css("margin-left", px((zoom - 1) * 250));
+        $('.underboard').css("width", px(512 * zoom + 242 + 15));
+        $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(512 * zoom));
         $lichessGame.find('.lichess_overboard').css("left", px(56 + (zoom - 1) * 254));
 
         if ($('body > .content').hasClass('is3d')) {

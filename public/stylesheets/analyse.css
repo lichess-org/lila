@@ -12,7 +12,6 @@ p.rematch_wrap {
   text-align: center;
 }
 div.analysis_menu {
-  width: 512px;
   text-align: center;
   border-top: 1px solid #c0c0c0;
   height: 21px;
@@ -38,7 +37,6 @@ div.analysis_panels {
   margin-top: -10px;
 }
 div.analysis_panels > div {
-  width: 512px;
   height: 210px;
   max-height: 210px;
   display: none;
@@ -697,7 +695,6 @@ div.advice_summary .spacerlol {
 #adv_chart,
 #movetimes_chart {
   height: 200px;
-  width: 512px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
 }
 span.mod {
