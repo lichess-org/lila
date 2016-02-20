@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Funkcja planowania ruchu aktywna - kliknij g
 thisPlayerUsesChessComputerAssistance=Ten gracz korzysta z pomocy programu szachowego
 thisPlayerArtificiallyIncreasesTheirRating=Ten gracz sztucznie zwiększa/obniża swój ranking
 opening=Debiut
+openingExplorer=przeglądarka otwarć
 takeback=Cofnij ruch
 proposeATakeback=Zaproponuj cofnięcie ruchu
 takebackPropositionSent=Propozycja cofnięcia ruchu została wysłana
