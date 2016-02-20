@@ -39,7 +39,7 @@ private final class ExplorerIndexer(endpoint: String) {
         Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
-          Query.turnsMoreThan(10) ++
+          Query.turnsMoreThan(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1500)
       )
