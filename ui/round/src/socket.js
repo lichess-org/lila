@@ -17,6 +17,7 @@ module.exports = function(send, ctrl) {
 
   var handlers = {
     takebackOffers: function(o) {
+      ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
       m.redraw();
@@ -47,6 +48,7 @@ module.exports = function(send, ctrl) {
     end: function(winner) {
       ctrl.data.game.winner = winner;
       ground.end(ctrl.chessground);
+      ctrl.setLoading(true);
       xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
         $.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
@@ -76,6 +78,7 @@ module.exports = function(send, ctrl) {
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
+        ctrl.setRedirecting(true);
         sound.move();
         lichess.hasToReload = true;
         location.href = '/' + gameId;
