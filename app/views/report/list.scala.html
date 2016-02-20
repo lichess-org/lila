@@ -19,7 +19,15 @@ moreCss = cssTag("report.css"),
 moreJs = moreJs) {
 
 <div id="report" class="content_box no_padding">
-  <h1 data-icon="@icon.mod" class="text">@title (@reports.count(_.report.unprocessed) new)</h1>
+  @defining(reports.count(_.report.unprocessed)) { nb =>
+  <h1 data-icon="@icon.mod" class="text">
+    @title
+    (@nb@if(nb>=50){+} new,
+    @reports.count(_.report.unprocessedCheat) cheats,
+    @reports.count(_.report.unprocessedTrollOrInsult) trolls,
+    @reports.count(_.report.unprocessedOther) others)
+  </h1>
+  }
   <table class="slist see">
     <thead>
       <tr>
@@ -31,7 +39,7 @@ moreJs = moreJs) {
     </thead>
     <tbody>
       @reports.map {
-      case lila.report.Report.WithUser(r, u) if (!r.isTroll || isGranted(_.MarkTroll)) => {
+      case lila.report.Report.WithUser(r, u) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>@userIdLink(r.createdBy.some)<br />@momentFormat(r.createdAt)</td>
         <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>

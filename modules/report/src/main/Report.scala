@@ -20,7 +20,11 @@ case class Report(
 
   def isCheat = realReason == Reason.Cheat
   def isOther = realReason == Reason.Other
-  def isTroll = realReason == Reason.Troll
+  def isTrollOrInsult = realReason == Reason.Troll || realReason == Reason.Insult
+
+  def unprocessedCheat = unprocessed && isCheat
+  def unprocessedOther = unprocessed && isOther
+  def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
 
   def isCommunication = Reason.communication contains realReason
 
@@ -31,7 +35,7 @@ case class Report(
 
   def unprocessed = processedBy.isEmpty
 
-  def realReason: Reason = Reason byName reason
+  lazy val realReason: Reason = Reason byName reason
 }
 
 object Report {

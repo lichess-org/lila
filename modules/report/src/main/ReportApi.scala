@@ -35,7 +35,7 @@ private[report] final class ReportApi {
   private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||
       (report.isAutomatic && report.isOther && user.troll) ||
-      (report.isTroll && user.troll)
+      (report.isTrollOrInsult && user.troll)
 
   def autoCheatPrintReport(userId: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
