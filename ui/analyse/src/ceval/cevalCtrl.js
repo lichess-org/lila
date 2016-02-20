@@ -39,18 +39,23 @@ module.exports = function(allow, emit) {
         if (enabled()) onEmit(res);
       }
     };
-    if (work.position === initialFen && !work.moves.length) return work.emit({
-      work: work,
-      eval: {
-        depth: maxDepth,
-        cp: 15, // I made stockfish work hard on this one
-        mate: 0, // so far, chess isn't solved
-        best: 'e2e4' // best by test
-      },
-      name: name
-    });
-    pool.start(work);
-    started = true;
+    if (work.position === initialFen && !work.moves.length) setTimeout(function() {
+      // this has to be delayed, or it slows down analysis first render.
+      work.emit({
+        work: work,
+        eval: {
+          depth: maxDepth,
+          cp: 15, // I made stockfish work hard on this one
+          mate: 0, // so far, chess isn't solved
+          best: 'e2e4' // best by test
+        },
+        name: name
+      });
+    }, 500);
+    else {
+      pool.start(work);
+      started = true;
+    }
   };
 
   var stop = function() {
