@@ -93,8 +93,11 @@ final class Env(
 
   lazy val emailAddress = new EmailAddress(disposableEmailDomain)
 
-  private lazy val disposableEmailDomain = new DisposableEmailDomain(DisposableEmailProviderUrl)
-  scheduler.once(20 seconds)(disposableEmailDomain.refresh)
+  private lazy val disposableEmailDomain = new DisposableEmailDomain(
+    providerUrl = DisposableEmailProviderUrl,
+    bus = system.lilaBus)
+
+  scheduler.once(10 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)

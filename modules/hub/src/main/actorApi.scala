@@ -80,6 +80,10 @@ case object GetHostIds
 case class PlayerMove(gameId: String)
 }
 
+package slack {
+  case class Error(msg: String)
+}
+
 package timeline {
 case class ReloadTimeline(user: String)
 

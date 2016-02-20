@@ -25,6 +25,12 @@ final class SlackApi(
     }
   }
 
+  def publishError(msg: String): Funit = client(SlackMessage(
+    username = "lichess error",
+    icon = "lightning",
+    text = msg,
+    channel = "general"))
+
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
     icon = "oncoming_police_car",

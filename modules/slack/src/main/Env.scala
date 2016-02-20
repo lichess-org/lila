@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.hub.actorApi.slack.Error
 import lila.hub.actorApi.{ DonationEvent, Deploy, RemindDeployPre, RemindDeployPost }
 
 final class Env(
@@ -22,12 +23,13 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     override def preStart() {
-      system.lilaBus.subscribe(self, 'donation, 'deploy)
+      system.lilaBus.subscribe(self, 'donation, 'deploy, 'slack)
     }
     def receive = {
       case d: DonationEvent            => api donation d
       case Deploy(RemindDeployPre, _)  => api.deployPre
       case Deploy(RemindDeployPost, _) => api.deployPost
+      case Error(msg)                  => api publishError msg
     }
   }))
 }
