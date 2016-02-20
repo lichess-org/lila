@@ -112,6 +112,9 @@ div.game_control .buttons {
   display: flex;
   justify-content: space-between;
 }
+div.game_control .buttons button[data-act=explorer] {
+  display: none;
+}
 div.game_control .jumps {
   display: inline-block;
   position: relative;
@@ -231,6 +234,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   transition: 1s;
 }
 .explorer_box {
+  display: none;
   position: relative;
   flex: 3 1 0px;
   border: 1px solid #ccc;
