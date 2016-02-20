@@ -203,6 +203,6 @@ object Setup extends LilaController with TheftPrevention {
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,
-      httpOnly = true.some)
+      httpOnly = false.some)
   }
 }

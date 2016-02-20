@@ -81,7 +81,7 @@ object Challenge extends LilaController {
             AnonCookie.name,
             game.player(owner.fold(c.finalColor, !c.finalColor)).id,
             maxAge = AnonCookie.maxAge.some,
-            httpOnly = true.some)
+            httpOnly = false.some)
         }
       }
     } map { cookieOption =>
