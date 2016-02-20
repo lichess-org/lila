@@ -135,7 +135,7 @@ private final class ExplorerIndexer(endpoint: String) {
       val otherTags = List(
         s"[LichessID ${game.id}]",
         s"[Variant ${game.variant.name}]",
-        s"[TimeControl ${game.clock.fold("-")(_.show)}]",
+        s"[TimeControl ${game.clock.fold("-") { c => s"${c.limit}+${c.increment}}}]",
         s"[White ${username(chess.White)}]",
         s"[Black ${username(chess.Black)}]",
         s"[WhiteElo $whiteRating]",
