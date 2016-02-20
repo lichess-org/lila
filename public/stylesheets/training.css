@@ -2,7 +2,7 @@ div.training {
   position: relative;
 }
 div.training .board_and_ground {
-  display: table;
+  display: flex;
 }
 div.training > .side {
   position: absolute;
@@ -84,8 +84,9 @@ div.training > .side .user_chart {
 }
 
 div.training > .board_and_ground > .right {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   padding-left: 15px;
   width: 242px;
 }
