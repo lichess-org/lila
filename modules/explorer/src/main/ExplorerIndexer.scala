@@ -20,7 +20,7 @@ import lila.user.UserRepo
 private final class ExplorerIndexer(endpoint: String) {
 
   private val maxGames = Int.MaxValue
-  private val batchSize = 200
+  private val batchSize = 100
   private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
