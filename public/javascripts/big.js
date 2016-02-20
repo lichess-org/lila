@@ -1316,13 +1316,19 @@ lichess.numberFormat = (function() {
     return text.replace(exp, "<a href='http://$1'>$1</a>");
   }
 
-  var startTournamentClock = function() {
+  function startTournamentClock() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
         time: parseFloat($(this).data("time"))
       });
     });
-  };
+  }
+
+  function topMenuIntent() {
+    $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
+      $(this).toggleClass('hover');
+    });
+  }
 
   /////////////
   // game.js //
@@ -1422,11 +1428,9 @@ lichess.numberFormat = (function() {
       window.history.replaceState(null, null, '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) {
       lichess.storage.set('last-game', data.game.id);
-      $('#topmenu').removeClass('hover').hoverIntent(function() {
-        $(this).toggleClass('hover');
-      });
+      topMenuIntent();
     }
-  }
+  };
 
   $.widget("lichess.watchers", {
     _create: function() {
@@ -2405,6 +2409,7 @@ lichess.numberFormat = (function() {
         selection.addRange(range);
       }
     });
+    topMenuIntent();
   }
 
   ////////////////
@@ -2428,6 +2433,7 @@ lichess.numberFormat = (function() {
     });
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     analyse = LichessAnalyse(cfg);
+    topMenuIntent();
   }
 
   /////////////// forum.js ////////////////////
