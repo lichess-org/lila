@@ -132,10 +132,11 @@ private final class ExplorerIndexer(endpoint: String) {
         usernames.find(_.toLowerCase == id)
       } orElse game.player(color).userId getOrElse "?"
       val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
+      val timeControl = game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }
       val otherTags = List(
         s"[LichessID ${game.id}]",
         s"[Variant ${game.variant.name}]",
-        s"[TimeControl ${game.clock.fold("-") { c => s"${c.limit}+${c.increment}}}]",
+        s"[TimeControl $timeControl]",
         s"[White ${username(chess.White)}]",
         s"[Black ${username(chess.Black)}]",
         s"[WhiteElo $whiteRating]",
