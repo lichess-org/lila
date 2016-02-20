@@ -19,27 +19,24 @@ moreJs = js(c, json, true)) {
   <div class="lichess_ground">
     @base.quote(lila.quote.Quote.one(c.id))
   </div>
-  <div class="lichess_overboard">
+  <div class="lichess_overboard padded">
     @c.status match {
     case Status.Created | Status.Offline => {
     <div id="ping_challenge">
       @c.destUserId.map { destId =>
       <h2>@trans.challengeToPlay()</h2>
       @userIdLink(destId.some, cssClass="target".some)
-      <span class="loader" id="ping_challenge"><span data-icon="U"></span></span>
-      <div class="explanations">
-        @trans.waitingForOpponent()<br />
-        @cancelForm
-      </div>
+      @base.spinner()
+      @trans.waitingForOpponent()<br />
+      @cancelForm
       }.getOrElse {
       @trans.toInviteSomeoneToPlayGiveThisUrl():
       <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(c.id, "white")" />
       <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
-      <div class="explanations">
-        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
-        <br /><br />
-        @cancelForm
-      </div>
+      <br />
+      @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
+      <br /><br />
+      @cancelForm
       }
       @c.initialFen.map { fen =>
       <br />
@@ -66,6 +63,7 @@ moreJs = js(c, json, true)) {
     </div>
     }
     }
+    <br />
     @explanation(c)
   </div>
 </div>

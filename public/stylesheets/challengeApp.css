@@ -10,12 +10,13 @@
   padding: 10px 10px;
   margin-top: 5px;
   position: relative;
-  height: 76px;
+  height: 36px;
   transition: 0.13s;
   background: #fff;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
 }
 #challenge_app .challenge:hover {
+  height: 76px;
   box-shadow: 0 1px 13px rgba(0, 0, 0, 0.7);
 }
 #challenge_app .challenge.declined {
@@ -25,10 +26,14 @@
 }
 #challenge_app .challenge .buttons {
   position: absolute;
+  opacity: 0;
   top: 54px;
   left: 0px;
   width: 100%;
   transition: 0.13s;
+}
+#challenge_app .challenge:hover .buttons {
+  opacity: 1;
 }
 #challenge_app .challenge .buttons > * {
   position: absolute;
@@ -107,18 +112,6 @@
   margin-bottom: 3px;
 }
 
-#challenge_app .many .challenge {
-  height: 36px;
-}
-#challenge_app .many .challenge:hover {
-  height: 76px;
-}
-#challenge_app .many .challenge .buttons {
-  opacity: 0;
-}
-#challenge_app .many .challenge:hover .buttons {
-  opacity: 1;
-}
 
 #challenge_app .empty,
 #challenge_app .initiating {

@@ -10,8 +10,9 @@ moreJs = js(c, json, false)) {
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_board"></div>
   </div>
-  <div class="lichess_overboard">
+  <div class="lichess_overboard padded">
     @userIdLink(c.challengerUserId)
+    <br />
     @explanation(c)
     @c.initialFen.map { fen =>
     <br />

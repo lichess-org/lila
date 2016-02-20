@@ -377,8 +377,8 @@ body.doggy .cg-board.orientation-black piece.pawn.black {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 5010;
   /* above top menu */
+  z-index: 5010;
   width: 400px;
   top: 50%;
   left: 56px;
@@ -390,6 +390,10 @@ div.lichess_overboard {
   background: #fff;
   box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.6);
   text-align: center;
+  box-sizing: border-box;
+}
+div.lichess_overboard.padded {
+  padding: 15px;
 }
 div.lichess_overboard a.close {
   float: right;
@@ -406,16 +410,10 @@ div.lichess_overboard a.close:hover {
   width: 90px;
   height: 90px;
 }
-div.lichess_overboard p.explanations {
-  margin: 1.5em 10px 0 10px;
-  font-size: 12px;
-  line-height: 1.4em;
-  text-align: center;
-}
-div.lichess_overboard .pull-quote {
-  margin-top: 30px;
-  width: 300px;
-  font-size: 0.9em;
+#ping_challenge .spinner {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
 }
 div.premove_alert,
 div.dont_touch {
