@@ -1153,6 +1153,7 @@ div.underboard .center {
   position: relative;
   text-align: center;
   padding-top: 15px;
+  width: 512px;
 }
 div.underboard .center .crosstable_placeholder {
   /* prevent crosstable FOUC */
