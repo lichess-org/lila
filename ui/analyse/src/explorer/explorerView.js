@@ -36,7 +36,16 @@ function showMoveTable(ctrl, moves, fen) {
     ]),
     m('tbody', {
       config: function(el, isUpdate, ctx) {
-        if (!isUpdate || ctx.lastFen === fen) return;
+        if (!isUpdate) {
+          el.addEventListener('mouseover', function(e) {
+            ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
+          });
+          el.addEventListener('mouseout', function(e) {
+            ctrl.explorer.setHoveringUci(null);
+          });
+          return;
+        }
+        if (ctx.lastFen === fen) return;
         ctx.lastFen = fen;
         setTimeout(function() {
           ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
@@ -46,13 +55,6 @@ function showMoveTable(ctrl, moves, fen) {
         var $tr = $(e.target).parents('tr');
         if ($tr.length) ctrl.explorerMove($trUci($tr));
       },
-      onmouseover: function(e) {
-        var $tr = $(e.target).parents('tr');
-        ctrl.explorer.setHoveringUci($trUci($tr));
-      },
-      onmouseout: function(e) {
-        ctrl.explorer.setHoveringUci(null);
-      }
     }, moves.map(function(move) {
       return m('tr', {
         key: move.uci,
