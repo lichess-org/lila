@@ -118,18 +118,6 @@ private final class ExplorerIndexer(endpoint: String) {
     }
   }
 
-  // current   all     1600    1800    2000    2200
-  // all       1263637 332806  541144  226767  152677
-  // bullet    178299  3503    9312    46844   109281
-  // blitz     597722  44693   364439  146146  41423
-  // classical 488126  284615  167445  34029   2037
-
-  // expected  all     1600    1800    2000    2200
-  // all
-  // bullet            126108  148992  140532  109281
-  // blitz             148976  145775  146146  41423
-  // classical         142307  167445  34029   2037
-
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
