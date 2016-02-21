@@ -981,16 +981,18 @@ lichess.numberFormat = (function() {
             }, function() {
               showDimensions(is3d);
             }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-            $themepicker.find('.slider').slider({
-              orientation: "horizontal",
-              min: 1,
-              max: 2,
-              range: 'min',
-              step: 0.01,
-              value: getZoom(),
-              slide: function(e, ui) {
-                manuallySetZoom(ui.value);
-              }
+            lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+              $themepicker.find('.slider').slider({
+                orientation: "horizontal",
+                min: 1,
+                max: 2,
+                range: 'min',
+                step: 0.01,
+                value: getZoom(),
+                slide: function(e, ui) {
+                  manuallySetZoom(ui.value);
+                }
+              });
             });
             $themepicker.find('input.background_image')
               .on('change keyup paste', $.fp.debounce(function() {
@@ -1302,16 +1304,18 @@ lichess.numberFormat = (function() {
       play.move(true);
     }, 50);
     $toggle.one('mouseover', function() {
-      $toggle.parent().find('.slider').slider({
-        orientation: "vertical",
-        min: 0,
-        max: 1,
-        range: 'min',
-        step: 0.01,
-        value: Howler.volume(),
-        slide: function(e, ui) {
-          manuallySetVolume(ui.value);
-        }
+      lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+        $toggle.parent().find('.slider').slider({
+          orientation: "vertical",
+          min: 0,
+          max: 1,
+          range: 'min',
+          step: 0.01,
+          value: Howler.volume(),
+          slide: function(e, ui) {
+            manuallySetVolume(ui.value);
+          }
+        });
       });
       var $selector = $toggle.parent().find('form');
       $selector.find('input').on('change', function() {
@@ -2052,60 +2056,62 @@ lichess.numberFormat = (function() {
         $form.find('form').one('submit', function() {
           $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
-      $timeInput.add($incrementInput).each(function() {
-        var $input = $(this),
-          $value = $input.siblings('span');
-        var isTimeSlider = $input.parent().hasClass('time_choice');
-        $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
-          min: 0,
-          max: isTimeSlider ? 33 : 30,
-          range: 'min',
-          step: 1,
-          slide: function(event, ui) {
-            var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
-            $value.text(isTimeSlider ? showTime(time) : time);
-            $input.attr('value', time);
-            showRating();
-            toggleButtons();
-          }
-        }));
-      });
-      $daysInput.each(function() {
-        var $input = $(this),
-          $value = $input.siblings('span');
-        $input.hide().after($('<div>').slider({
-          value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
-          min: 1,
-          max: 7,
-          range: 'min',
-          step: 1,
-          slide: function(event, ui) {
-            var days = sliderDays(ui.value);
-            $value.text(days);
-            $input.attr('value', days);
-          }
-        }));
-      });
-      $form.find('.rating_range').each(function() {
-        var $this = $(this);
-        var $input = $this.find("input");
-        var $span = $this.siblings("span.range");
-        var min = $input.data("min");
-        var max = $input.data("max");
-        var values = $input.val() ? $input.val().split("-") : [min, max];
+      lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+        $timeInput.add($incrementInput).each(function() {
+          var $input = $(this),
+            $value = $input.siblings('span');
+          var isTimeSlider = $input.parent().hasClass('time_choice');
+          $input.hide().after($('<div>').slider({
+            value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
+            min: 0,
+            max: isTimeSlider ? 33 : 30,
+            range: 'min',
+            step: 1,
+            slide: function(event, ui) {
+              var time = (isTimeSlider ? sliderTime : sliderIncrement)(ui.value);
+              $value.text(isTimeSlider ? showTime(time) : time);
+              $input.attr('value', time);
+              showRating();
+              toggleButtons();
+            }
+          }));
+        });
+        $daysInput.each(function() {
+          var $input = $(this),
+            $value = $input.siblings('span');
+          $input.hide().after($('<div>').slider({
+            value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
+            min: 1,
+            max: 7,
+            range: 'min',
+            step: 1,
+            slide: function(event, ui) {
+              var days = sliderDays(ui.value);
+              $value.text(days);
+              $input.attr('value', days);
+            }
+          }));
+        });
+        $form.find('.rating_range').each(function() {
+          var $this = $(this);
+          var $input = $this.find("input");
+          var $span = $this.siblings("span.range");
+          var min = $input.data("min");
+          var max = $input.data("max");
+          var values = $input.val() ? $input.val().split("-") : [min, max];
 
-        $span.text(values.join(' - '));
-        $this.slider({
-          range: true,
-          min: min,
-          max: max,
-          values: values,
-          step: 50,
-          slide: function(event, ui) {
-            $input.val(ui.values[0] + "-" + ui.values[1]);
-            $span.text(ui.values[0] + " - " + ui.values[1]);
-          }
+          $span.text(values.join(' - '));
+          $this.slider({
+            range: true,
+            min: min,
+            max: max,
+            values: values,
+            step: 50,
+            slide: function(event, ui) {
+              $input.val(ui.values[0] + "-" + ui.values[1]);
+              $span.text(ui.values[0] + " - " + ui.values[1]);
+            }
+          });
         });
       });
       $modeChoices.add($form.find('.members_only input')).on('change', function() {
