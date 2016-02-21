@@ -1628,6 +1628,7 @@ lichess.numberFormat = (function() {
       }).find('a[data-panel=preferences]').one('click', function() {
         self.element.find('.preferences form').each(function() {
           var $form = $(this);
+          $form.find('group.radio').removeClass('radio');
           $form.find('input').change(function() {
             $.ajax({
               url: $form.attr('action'),
