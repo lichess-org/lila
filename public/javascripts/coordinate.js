@@ -7,9 +7,9 @@ $(function() {
     var $right = $trainer.find('.board_and_ground > .right');
     var $bar = $trainer.find('.progress_bar');
     var $coords = [
-      $trainer.find('#next_coord0').disableSelection(),
-      $trainer.find('#next_coord1').disableSelection(),
-      $trainer.find('#next_coord2').disableSelection()
+      $trainer.find('#next_coord0'),
+      $trainer.find('#next_coord1'),
+      $trainer.find('#next_coord2')
     ];
     var $start = $right.find('.start');
     var $explanation = $right.find('.explanation');

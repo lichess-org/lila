@@ -1518,7 +1518,7 @@ body #themepicker div.is3d,
   width: 10px;
   bottom: 0;
 }
-#sound_control .selector {} #sound_control .selector div {
+#sound_control .selector div {
   margin: 5px 0;
 }
 #sound_control .selector label {
