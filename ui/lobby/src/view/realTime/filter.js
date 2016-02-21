@@ -15,6 +15,7 @@ function initialize(ctrl, el) {
       }
     });
   }, 200);
+
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
     $ratingRange.siblings('.range').text(values[0] + " - " + values[1]);
@@ -37,22 +38,23 @@ function initialize(ctrl, el) {
   });
   $ratingRange.each(function() {
     var $this = $(this);
-    var $input = $this.find("input");
-    var $span = $this.siblings(".range");
-    var min = $input.data("min");
-    var max = $input.data("max");
-    var values = $input.val() ? $input.val().split("-") : [min, max];
-    $span.text(values.join(' - '));
-
-    $this.slider({
-      range: true,
-      min: min,
-      max: max,
-      values: values,
-      step: 50,
-      slide: function(e, ui) {
-        changeRatingRange(ui.values);
-      }
+    lichess.slider().done(function() {
+      var $input = $this.find("input");
+      var $span = $this.siblings(".range");
+      var min = $input.data("min");
+      var max = $input.data("max");
+      var values = $input.val() ? $input.val().split("-") : [min, max];
+      $span.text(values.join(' - '));
+      $this.slider({
+        range: true,
+        min: min,
+        max: max,
+        values: values,
+        step: 50,
+        slide: function(e, ui) {
+          changeRatingRange(ui.values);
+        }
+      });
     });
   });
 }

@@ -356,6 +356,9 @@ lichess.hopscotch = function(f) {
   lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
+lichess.slider = function() {
+  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js');
+};
 lichess.challengeApp = (function() {
   var instance;
   var $toggle = $('#challenge_notifications_tag');
@@ -981,7 +984,7 @@ lichess.numberFormat = (function() {
             }, function() {
               showDimensions(is3d);
             }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-            lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+            lichess.slider().done(function() {
               $themepicker.find('.slider').slider({
                 orientation: "horizontal",
                 min: 1,
@@ -1304,7 +1307,7 @@ lichess.numberFormat = (function() {
       play.move(true);
     }, 50);
     $toggle.one('mouseover', function() {
-      lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+      lichess.slider().done(function() {
         $toggle.parent().find('.slider').slider({
           orientation: "vertical",
           min: 0,
@@ -2057,7 +2060,7 @@ lichess.numberFormat = (function() {
         $form.find('form').one('submit', function() {
           $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
         });
-      lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js').done(function() {
+      lichess.slider().done(function() {
         $timeInput.add($incrementInput).each(function() {
           var $input = $(this),
             $value = $input.siblings('span');
