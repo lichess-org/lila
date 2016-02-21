@@ -17,16 +17,16 @@ final class RankingApi(coll: lila.db.Types.Coll) {
 
   def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
-      save(userId, pt, perfs(pt).intRating)
+      save(userId, pt, perfs(pt))
     }
 
-  def save(userId: User.ID, perfType: PerfType, rating: Rating): Funit =
-    coll.update(BSONDocument(
+  def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
+    (perf.nb >= 30 && perf.glicko.established) ?? coll.update(BSONDocument(
       "_id" -> makeId(userId, perfType)
     ), BSONDocument(
       "user" -> userId,
       "perf" -> perfType.id,
-      "rating" -> rating,
+      "rating" -> perf.intRating,
       "expiresAt" -> DateTime.now.plusDays(7)),
       upsert = true).void
 
