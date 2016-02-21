@@ -677,7 +677,6 @@ div.copyables .pgn textarea {
   color: #747474;
   resize: vertical;
   min-height: 6em;
-  white-space: nowrap;
   overflow-x: hidden;
 }
 div.advice_summary {
