@@ -3,11 +3,11 @@ package lila.user
 import scala.concurrent.duration._
 
 import org.joda.time.DateTime
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.common.LightUser
-import lila.db.api.{ $count, $primitive }
+import lila.db.api.{ $count, $primitive, $gt }
 import lila.db.BSON._
 import lila.db.Implicits._
 import lila.memo.{ ExpireSetMemo, MongoCache }
@@ -109,7 +109,9 @@ final class Cached(
 
     private def compute(perf: Perf.Key): Fu[Map[User.ID, Int]] =
       $primitive(
-        UserRepo.topPerfSinceSelect(perf, oneWeekAgo),
+        UserRepo.topPerfSinceSelect(perf, oneWeekAgo) ++ Json.obj(
+          s"perfs.$perf.gl.r" -> $gt(1600)
+        ),
         "_id",
         _ sort UserRepo.sortPerfDesc(perf)
       )(_.asOpt[User.ID]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }
