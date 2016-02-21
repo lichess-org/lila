@@ -13,6 +13,7 @@ import lila.rating.{ Perf, PerfType }
 final class RankingApi(coll: lila.db.Types.Coll) {
 
   private type Rating = Int
+  private type PerfId = Int
 
   def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
@@ -24,23 +25,23 @@ final class RankingApi(coll: lila.db.Types.Coll) {
       "_id" -> makeId(userId, perfType)
     ), BSONDocument(
       "user" -> userId,
-      "perf" -> perfType.key,
+      "perf" -> perfType.id,
       "rating" -> rating,
       "expiresAt" -> DateTime.now.plusDays(7)),
       upsert = true).void
 
   def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =
     lila.common.Future.traverseSequentially(PerfType.leaderboardable) { perf =>
-      cache(perf.key) map { _ get userId map (perf.key -> _) }
+      cache(perf.id) map { _ get userId map (perf.key -> _) }
     } map (_.flatten.toMap)
 
-  private val cache = AsyncCache[Perf.Key, Map[User.ID, Rating]](
+  private val cache = AsyncCache[PerfId, Map[User.ID, Rating]](
     f = compute,
     timeToLive = 15 minutes)
 
-  private def compute(perfKey: Perf.Key): Fu[Map[User.ID, Rating]] = {
+  private def compute(perfId: PerfId): Fu[Map[User.ID, Rating]] = {
     val enumerator = coll.find(
-      BSONDocument("perf" -> perfKey),
+      BSONDocument("perf" -> perfId),
       BSONDocument("user" -> true, "_id" -> false)
     ).sort(BSONDocument("rating" -> -1)).cursor[BSONDocument]().enumerate()
     var rank = 1
@@ -55,5 +56,5 @@ final class RankingApi(coll: lila.db.Types.Coll) {
   }
 
   private def makeId(user: User.ID, perfType: PerfType) =
-    s"$user:${perfType.key}"
+    s"$user:${perfType.id}"
 }
