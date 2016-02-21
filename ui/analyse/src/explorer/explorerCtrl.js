@@ -5,6 +5,7 @@ var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./explorerXhr');
 var storedProp = require('../util').storedProp;
 var synthetic = require('../util').synthetic;
+var replayable = require('game').game.replayable;
 
 module.exports = function(root, opts) {
 
@@ -19,7 +20,7 @@ module.exports = function(root, opts) {
     cache = {};
     setStep();
   }
-  var withGames = synthetic(root.data) || root.data.opponent.ai;
+  var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
