@@ -104,18 +104,31 @@ private final class ExplorerIndexer(endpoint: String) {
   private def probability(game: Game, rating: Int) = {
     import lila.rating.PerfType._
     game.perfType ?? {
-      case Classical | Correspondence => 1
-      case Blitz if rating >= 2000    => 1
-      case Blitz if rating >= 1800    => 1
-      case Blitz                      => 1 / 10f
-      case Bullet if rating >= 2200   => 1
-      case Bullet if rating >= 2000   => 1 / 5f
-      case Bullet if rating >= 1800   => 1 / 40f
-      case Bullet                     => 1 / 90f
-      case _ if rating >= 1600        => 1 // variant games
-      case _                          => 1 / 2f // noob variant games
+      case Correspondence              => 1
+      case Classical if rating >= 1800 => 1
+      case Classical                   => 1 / 2f
+      case Blitz if rating >= 2000     => 1
+      case Blitz if rating >= 1800     => 2 / 5f
+      case Blitz                       => 1 / 3f
+      case Bullet if rating >= 2200    => 1
+      case Bullet if rating >= 2000    => 3 / 5f
+      case Bullet                      => 2 / 5f
+      case _ if rating >= 1600         => 1 // variant games
+      case _                           => 1 / 2f // noob variant games
     }
   }
+
+  // current   all     1600    1800    2000    2200
+  // all       1263637 332806  541144  226767  152677
+  // bullet    178299  3503    9312    46844   109281
+  // blitz     597722  44693   364439  146146  41423
+  // classical 488126  284615  167445  34029   2037
+
+  // expected  all     1600    1800    2000    2200
+  // all
+  // bullet            126108  148992  140532  109281
+  // blitz             148976  145775  146146  41423
+  // classical         142307  167445  34029   2037
 
   private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
