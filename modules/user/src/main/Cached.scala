@@ -18,7 +18,8 @@ import User.{ LightPerf, LightCount }
 final class Cached(
     nbTtl: FiniteDuration,
     onlineUserIdMemo: ExpireSetMemo,
-    mongoCache: MongoCache.Builder) {
+    mongoCache: MongoCache.Builder,
+    rankingApi: RankingApi) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
@@ -93,7 +94,7 @@ final class Cached(
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
     timeToLive = 10 seconds)
 
-  object ranking {
+  object rankingOld {
 
     def getAll(id: User.ID): Fu[Map[Perf.Key, Int]] =
       PerfType.leaderboardable.map { perf =>
@@ -117,6 +118,14 @@ final class Cached(
       )(_.asOpt[User.ID]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }
   }
 
+  object rankingNew {
+
+    def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =
+      rankingApi.weeklyStableRanking of userId
+  }
+
+  val ranking = rankingOld
+
   object ratingDistribution {
 
     import lila.db.BSON.MapValue.MapHandler
@@ -124,11 +133,6 @@ final class Cached(
     private type NbUsers = Int
 
     def apply(perf: Perf.Key) = cache(perf)
-
-    private val cache = mongoCache[Perf.Key, List[NbUsers]](
-      prefix = "user:rating:distribution",
-      f = compute,
-      timeToLive = 3 hour)
 
     private def compute(perf: Perf.Key): Fu[List[NbUsers]] =
       UserRepo.ratingDistribution(perf, since = oneMonthAgo)

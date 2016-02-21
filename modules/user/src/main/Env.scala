@@ -80,7 +80,8 @@ final class Env(
   lazy val cached = new Cached(
     nbTtl = CachedNbTtl,
     onlineUserIdMemo = onlineUserIdMemo,
-    mongoCache = mongoCache)
+    mongoCache = mongoCache,
+    rankingApi = rankingApi)
 }
 
 object Env {
