@@ -22,6 +22,7 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     lightUser: String => Option[lila.common.LightUser],
     userJsonView: lila.user.JsonView,
+    rankingApi: lila.user.RankingApi,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     isRematchCache: lila.memo.ExpireSetMemo,
@@ -112,7 +113,7 @@ final class Env(
     messenger = messenger,
     bus = system.lilaBus)
 
-  lazy val perfsUpdater = new PerfsUpdater(historyApi)
+  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
@@ -214,6 +215,7 @@ object Env {
     playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     userJsonView = lila.user.Env.current.jsonView,
+    rankingApi = lila.user.Env.current.rankingApi,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     isRematchCache = lila.game.Env.current.cached.isRematch,

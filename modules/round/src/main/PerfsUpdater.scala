@@ -8,9 +8,11 @@ import play.api.Logger
 import lila.game.{ GameRepo, Game, Pov, PerfPicker }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType => PT }
-import lila.user.{ UserRepo, User, Perfs }
+import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
-final class PerfsUpdater(historyApi: HistoryApi) {
+final class PerfsUpdater(
+    historyApi: HistoryApi,
+    rankingApi: RankingApi) {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
@@ -65,7 +67,9 @@ final class PerfsUpdater(historyApi: HistoryApi) {
           UserRepo.setPerfs(white, perfsW, white.perfs) zip
           UserRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
-          historyApi.add(black, game, perfsB)
+          historyApi.add(black, game, perfsB) zip
+          rankingApi.save(white.id, game.perfType, perfsW) zip
+          rankingApi.save(black.id, game.perfType, perfsB)
       }.void
     }
 
