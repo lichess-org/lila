@@ -28,6 +28,7 @@ module.exports = function(ctrl) {
   var cSteps = fctrl.truncate(ctrl.analyse.getStepsAfterPly(ctrl.vm.path, ctrl.data.game.turns));
   var isCandidate = fctrl.isCandidate(cSteps);
   return m('div.forecast' + (fctrl.loading() ? '.loading' : ''), [
+    fctrl.loading() ? m('div.overlay', m.trust(lichess.spinnerHtml)) : null,
     m('div.box', [
       m('div.top', 'Conditional premoves'),
       m('div.list', fctrl.list().map(function(steps, i) {

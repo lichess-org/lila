@@ -778,9 +778,19 @@ table.modAssessment td.noMatch {
   -moz-user-select: none;
   -ms-user-select: none;
   transition: opacity 0.13s;
+  position: relative;
 }
-.forecast.loading {
+.forecast.loading .box,
+.forecast.loading .add {
   opacity: 0.5;
+}
+.forecast .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 .forecast .entries {
   border: 1px solid #ccc;
