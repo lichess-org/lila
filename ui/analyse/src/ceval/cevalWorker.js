@@ -40,10 +40,13 @@ module.exports = function(opts, name) {
   // warmup
   send('uci');
 
+  // support chess960 and use standard chess as a subset
+  send('setoption name UCI_Chess960 value true');
+
   return {
     start: function(work) {
       switching(true);
-      send(['position', 'fen', work.position, 'moves', work.moves].join(' '));
+      send(['position', 'fen', work.position, 'moves'].concat(work.moves).join(' '));
       send('go depth ' + opts.maxDepth);
       instance.onmessage = function(msg) {
         processOutput(msg.data, work);
