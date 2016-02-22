@@ -16,7 +16,7 @@ module.exports = function(root, opts) {
 
   var cache = {};
   var onConfigClose = function() {
-    m.redraw(true);
+    m.redraw();
     cache = {};
     setStep();
   }
