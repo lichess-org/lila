@@ -335,6 +335,30 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.widget = function(name, prototype) {
+  var constructor = $[name] = function(options, element) {
+    this.element = $(element);
+    $.data(element, name, this);
+    this.options = options;
+    this._create();
+  };
+  constructor.prototype = prototype;
+  $.fn[name] = function(method) {
+    var args = Array.prototype.slice.call(arguments, 1),
+      returnValue = this;
+    if (method) this.each(function() {
+      var instance = $.data(this, name);
+      if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
+        return $.error("no such method '" + method + "' for " + name + " widget instance");
+      returnValue = instance[method].apply(instance, args);
+    });
+    else this.each(function() {
+      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
+      $.data(this, name, new constructor(args, this));
+    });
+    return returnValue;
+  };
+};
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
@@ -1466,7 +1490,7 @@ lichess.numberFormat = (function() {
     }
   };
 
-  $.widget("lichess.watchers", {
+  lichess.widget("watchers", {
     _create: function() {
       this.list = this.element.find("span.list");
       this.number = this.element.find("span.number");
@@ -1494,7 +1518,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.friends", {
+  lichess.widget("friends", {
     _create: function() {
       var self = this;
       self.$list = self.element.find("div.list");
@@ -1537,7 +1561,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.chat", {
+  lichess.widget("chat", {
     _create: function() {
       this.options = $.extend({
         messages: [],
@@ -1704,7 +1728,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.clock", {
+  lichess.widget("clock", {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
@@ -1723,7 +1747,7 @@ lichess.numberFormat = (function() {
     },
     destroy: function() {
       clearInterval(this.interval);
-      $.Widget.prototype.destroy.apply(this);
+      // $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
       if (this.time < 0) return;
