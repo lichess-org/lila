@@ -337,16 +337,18 @@ lichess.trans = function(i18n) {
 };
 lichess.widget = function(name, prototype) {
   var constructor = $[name] = function(options, element) {
-    this.element = $(element);
-    $.data(element, name, this);
-    this.options = options;
-    this._create();
+    var self = this;
+    self.element = $(element);
+    $.data(element, name, self);
+    self.options = options;
+    self._create();
   };
   constructor.prototype = prototype;
   $.fn[name] = function(method) {
-    var args = Array.prototype.slice.call(arguments, 1),
-      returnValue = this;
-    if (method) this.each(function() {
+    var returnValue = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+    console.log(name, this, method, args);
+    if (typeof method === 'string') this.each(function() {
       var instance = $.data(this, name);
       if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
         return $.error("no such method '" + method + "' for " + name + " widget instance");
@@ -354,7 +356,7 @@ lichess.widget = function(name, prototype) {
     });
     else this.each(function() {
       if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
-      $.data(this, name, new constructor(args, this));
+      $.data(this, name, new constructor(method, this));
     });
     return returnValue;
   };
@@ -1745,28 +1747,23 @@ lichess.numberFormat = (function() {
       }, 1000 - (new Date().getTime()) % 1000);
       self._show();
     },
-    destroy: function() {
-      clearInterval(this.interval);
-      // $.Widget.prototype.destroy.apply(this);
-    },
     _show: function() {
       if (this.time < 0) return;
       this.timeEl.innerHTML = this._formatDate(new Date(this.time));
     },
-    _bold: function(x) {
-      return '<b>' + x + '</b>';
-    },
     _formatDate: function(date) {
-      var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
-      var seconds = this._prefixInteger(date.getSeconds(), 2);
-      var b = this._bold;
+      var prefixInt = function(num, length) {
+        return (num / Math.pow(10, length)).toFixed(length).substr(2);
+      };
+      var b = function(x) {
+        return '<b>' + x + '</b>';
+      };
+      var minutes = prefixInt(date.getUTCMinutes(), 2);
+      var seconds = prefixInt(date.getSeconds(), 2);
       if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else return b(minutes) + ':' + b(seconds);
-    },
-    _prefixInteger: function(num, length) {
-      return (num / Math.pow(10, length)).toFixed(length).substr(2);
     }
   });
 
