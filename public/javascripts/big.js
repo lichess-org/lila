@@ -364,17 +364,17 @@ lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = function(url) {
-  return $('body').data('asset-url') + url + '?v=' + $('body').data('asset-version');
+lichess.assetUrl = function(url, noVersion) {
+  return $('body').data('asset-url') + url + (noVersion ? '' : '?v=' + $('body').data('asset-version'));
 };
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 }
-lichess.loadScript = function(url) {
+lichess.loadScript = function(url, noVersion) {
   return $.ajax({
     dataType: "script",
     cache: true,
-    url: lichess.assetUrl(url)
+    url: lichess.assetUrl(url, noVersion)
   });
 };
 lichess.hopscotch = function(f) {
@@ -382,7 +382,7 @@ lichess.hopscotch = function(f) {
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
 lichess.slider = function() {
-  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js');
+  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
 };
 lichess.challengeApp = (function() {
   var instance;

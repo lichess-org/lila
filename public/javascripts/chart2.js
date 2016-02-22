@@ -6,7 +6,7 @@
 function withHighcharts(f) {
   setTimeout(function() {
     var file = (typeof lichess_rating_series !== 'undefined') ? 'highstock.js' : 'highcharts.js';
-    lichess.loadScript('/assets/vendor/highcharts4/' + file).done(function() {
+    lichess.loadScript('/assets/vendor/highcharts4/' + file, true).done(function() {
       Highcharts.makeFont = function(size) {
         return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
       };
