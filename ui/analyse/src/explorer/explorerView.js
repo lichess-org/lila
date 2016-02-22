@@ -61,7 +61,7 @@ function showMoveTable(ctrl, moves, fen) {
         'data-uci': move.uci,
         title: 'Average rating: ' + move.averageRating
       }, [
-        m('td', move.san),
+        m('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
         m('td', lichess.numberFormat(move.white + move.draws + move.black)),
         m('td', resultBar(move))
       ]);

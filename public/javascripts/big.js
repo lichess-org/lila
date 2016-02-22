@@ -335,21 +335,46 @@ lichess.trans = function(i18n) {
     return str;
   };
 };
+lichess.widget = function(name, prototype) {
+  var constructor = $[name] = function(options, element) {
+    var self = this;
+    self.element = $(element);
+    $.data(element, name, self);
+    self.options = options;
+    self._create();
+  };
+  constructor.prototype = prototype;
+  $.fn[name] = function(method) {
+    var returnValue = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+    if (typeof method === 'string') this.each(function() {
+      var instance = $.data(this, name);
+      if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
+        return $.error("no such method '" + method + "' for " + name + " widget instance");
+      returnValue = instance[method].apply(instance, args);
+    });
+    else this.each(function() {
+      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
+      $.data(this, name, new constructor(method, this));
+    });
+    return returnValue;
+  };
+};
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = function(url) {
-  return $('body').data('asset-url') + url + '?v=' + $('body').data('asset-version');
+lichess.assetUrl = function(url, noVersion) {
+  return $('body').data('asset-url') + url + (noVersion ? '' : '?v=' + $('body').data('asset-version'));
 };
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 }
-lichess.loadScript = function(url) {
+lichess.loadScript = function(url, noVersion) {
   return $.ajax({
     dataType: "script",
     cache: true,
-    url: lichess.assetUrl(url)
+    url: lichess.assetUrl(url, noVersion)
   });
 };
 lichess.hopscotch = function(f) {
@@ -357,7 +382,7 @@ lichess.hopscotch = function(f) {
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
 lichess.slider = function() {
-  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js');
+  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
 };
 lichess.challengeApp = (function() {
   var instance;
@@ -1466,7 +1491,7 @@ lichess.numberFormat = (function() {
     }
   };
 
-  $.widget("lichess.watchers", {
+  lichess.widget("watchers", {
     _create: function() {
       this.list = this.element.find("span.list");
       this.number = this.element.find("span.number");
@@ -1494,7 +1519,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.friends", {
+  lichess.widget("friends", {
     _create: function() {
       var self = this;
       self.$list = self.element.find("div.list");
@@ -1537,7 +1562,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.chat", {
+  lichess.widget("chat", {
     _create: function() {
       this.options = $.extend({
         messages: [],
@@ -1704,7 +1729,7 @@ lichess.numberFormat = (function() {
     }
   });
 
-  $.widget("lichess.clock", {
+  lichess.widget("clock", {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
@@ -1721,28 +1746,23 @@ lichess.numberFormat = (function() {
       }, 1000 - (new Date().getTime()) % 1000);
       self._show();
     },
-    destroy: function() {
-      clearInterval(this.interval);
-      $.Widget.prototype.destroy.apply(this);
-    },
     _show: function() {
       if (this.time < 0) return;
       this.timeEl.innerHTML = this._formatDate(new Date(this.time));
     },
-    _bold: function(x) {
-      return '<b>' + x + '</b>';
-    },
     _formatDate: function(date) {
-      var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
-      var seconds = this._prefixInteger(date.getSeconds(), 2);
-      var b = this._bold;
+      var prefixInt = function(num, length) {
+        return (num / Math.pow(10, length)).toFixed(length).substr(2);
+      };
+      var b = function(x) {
+        return '<b>' + x + '</b>';
+      };
+      var minutes = prefixInt(date.getUTCMinutes(), 2);
+      var seconds = prefixInt(date.getSeconds(), 2);
       if (this.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else return b(minutes) + ':' + b(seconds);
-    },
-    _prefixInteger: function(num, length) {
-      return (num / Math.pow(10, length)).toFixed(length).substr(2);
     }
   });
 
