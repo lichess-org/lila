@@ -1760,7 +1760,7 @@ lichess.numberFormat = (function() {
       var minutes = prefixInt(date.getUTCMinutes(), 2);
       var seconds = prefixInt(date.getSeconds(), 2);
       if (this.time >= 3600000) {
-        var hours = this._prefixInteger(date.getUTCHours(), 2);
+        var hours = prefixInt(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else return b(minutes) + ':' + b(seconds);
     }
