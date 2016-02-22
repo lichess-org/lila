@@ -2,15 +2,18 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON._
 import lila.db.BSON.MapValue.MapHandler
-import lila.memo.AsyncCache
+import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }
 
-final class RankingApi(coll: lila.db.Types.Coll) {
+final class RankingApi(
+    coll: lila.db.Types.Coll,
+    mongoCache: MongoCache.Builder) {
 
   private type Rating = Int
   private type PerfId = Int
@@ -22,13 +25,13 @@ final class RankingApi(coll: lila.db.Types.Coll) {
 
   def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
     (perf.nb >= 2) ?? coll.update(BSONDocument(
-      "_id" -> s"$user:${perfType.id}"
+      "_id" -> s"$userId:${perfType.id}"
     ), BSONDocument(
       "user" -> userId,
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "stable" -> perf.established,
-      "date" -> DateTime.now),
+      "expiresAt" -> DateTime.now.plusDays(7)),
       upsert = true).void
 
   object weeklyStableRanking {
@@ -59,28 +62,28 @@ final class RankingApi(coll: lila.db.Types.Coll) {
     }
   }
 
-  object monthlyRatingDistribution {
+  object weeklyRatingDistribution {
 
-    private val cache = mongoCache[Perf.Key, List[NbUsers]](
+    private type NbUsers = Int
+
+    def apply(perf: PerfType) = cache(perf.id)
+
+    private val cache = mongoCache[PerfId, List[NbUsers]](
       prefix = "user:rating:distribution",
       f = compute,
       timeToLive = 3 hour)
 
     // from 800 to 2500 by Stat.group
-    def compute(perf: Perf.Key): Fu[List[Int]] =
-      lila.rating.PerfType(perf).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
-        val field = s"perfs.$perf"
+    private def compute(perfId: PerfId): Fu[List[NbUsers]] =
+      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregate(
-          Match(BSONDocument(
-            s"$field.la" -> BSONDocument("$gt" -> DateTime.now.minusMonths(1)),
-            s"$field.nb" -> BSONDocument("$gt" -> 2)
-          )),
+          Match(BSONDocument("perf" -> perfId)),
           List(Project(BSONDocument(
             "_id" -> false,
             "r" -> BSONDocument(
               "$subtract" -> BSONArray(
-                s"$$$field.gl.r",
-                BSONDocument("$mod" -> BSONArray(s"$$$field.gl.r", Stat.group))
+                "rating",
+                BSONDocument("$mod" -> BSONArray("rating", Stat.group))
               )
             )
           )),
@@ -88,9 +91,9 @@ final class RankingApi(coll: lila.db.Types.Coll) {
           )).map { res =>
             val hash = res.documents.flatMap { obj =>
               for {
-                rating <- obj.getAs[Double]("_id")
-                nb <- obj.getAs[Int]("nb")
-              } yield rating.toInt -> nb
+                rating <- obj.getAs[Int]("_id")
+                nb <- obj.getAs[NbUsers]("nb")
+              } yield rating -> nb
             }.toMap
             (800 to 2500 by Stat.group).map { r =>
               hash.getOrElse(r, 0)

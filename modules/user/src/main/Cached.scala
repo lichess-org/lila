@@ -126,15 +126,25 @@ final class Cached(
 
   val ranking = rankingOld
 
-  object ratingDistribution {
-
-    import lila.db.BSON.MapValue.MapHandler
+  object ratingDistributionOld {
 
     private type NbUsers = Int
 
-    def apply(perf: Perf.Key) = cache(perf)
+    def apply(perf: PerfType) = cache(perf.key)
+
+    private val cache = mongoCache[Perf.Key, List[NbUsers]](
+      prefix = "user:rating:distribution",
+      f = compute,
+      timeToLive = 3 hour)
 
     private def compute(perf: Perf.Key): Fu[List[NbUsers]] =
       UserRepo.ratingDistribution(perf, since = oneMonthAgo)
   }
+
+  object ratingDistributionNew {
+
+    def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
+  }
+
+  val ratingDistribution = ratingDistributionOld
 }
