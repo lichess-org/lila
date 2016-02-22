@@ -90,6 +90,7 @@ nbHours=%s valandos
 time=Laikas
 rating=Reitingas
 ratingStats=Įvertinimų statistika
+username=Vartotojo vardas
 usernameOrEmail=Vartotojo vardas
 password=Slaptažodis
 haveAnAccount=Turite paskyrą?
