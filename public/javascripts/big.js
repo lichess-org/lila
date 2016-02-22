@@ -347,7 +347,6 @@ lichess.widget = function(name, prototype) {
   $.fn[name] = function(method) {
     var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
-    console.log(name, this, method, args);
     if (typeof method === 'string') this.each(function() {
       var instance = $.data(this, name);
       if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
