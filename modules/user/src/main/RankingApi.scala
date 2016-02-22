@@ -47,7 +47,7 @@ final class RankingApi(
 
     private def compute(perfId: PerfId): Fu[Map[User.ID, Rating]] = {
       val enumerator = coll.find(
-        BSONDocument("perf" -> perfId),
+        BSONDocument("perf" -> perfId, "stable" -> true),
         BSONDocument("user" -> true, "_id" -> false)
       ).sort(BSONDocument("rating" -> -1)).cursor[BSONDocument]().enumerate()
       var rank = 1
