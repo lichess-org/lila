@@ -16,7 +16,8 @@ final class DisposableEmailDomain(
     WS.url(providerUrl).get() map { res =>
       setDomains(res.json)
     } recover {
-      case e: Exception => onError(e)
+      case _: java.net.ConnectException => // ignore network errors
+      case e: Exception                 => onError(e)
     }
   }
 
