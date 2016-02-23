@@ -3,6 +3,7 @@ package lila.tournament
 import chess.variant.Variant
 import chess.{ Speed, Mode, StartingPosition }
 import lila.db.BSON
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.rating.PerfType
 import reactivemongo.bson._
 
@@ -19,6 +20,8 @@ object BSONHandlers {
   }
 
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
+
+  private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
   private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
     def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
@@ -51,7 +54,8 @@ object BSONHandlers {
         createdBy = r str "createdBy",
         startsAt = startsAt,
         winnerId = r strO "winner",
-        featuredId = r strO "featured")
+        featuredId = r strO "featured",
+        spotlight = r.getO[Spotlight]("spotlight"))
     }
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
       "_id" -> o.id,
@@ -74,7 +78,8 @@ object BSONHandlers {
       "createdBy" -> w.str(o.createdBy),
       "startsAt" -> w.date(o.startsAt),
       "winner" -> o.winnerId,
-      "featured" -> o.featuredId)
+      "featured" -> o.featuredId,
+      "spotlight" -> o.spotlight)
   }
 
   implicit val playerBSONHandler = new BSON[Player] {

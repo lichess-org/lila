@@ -18,29 +18,6 @@ function miniBoard(game) {
 }
 
 module.exports = {
-  title: function(ctrl) {
-    if (ctrl.data.schedule && ctrl.data.schedule.freq.indexOf('marathon') !== -1)
-      return m('h1.marathon_title', [
-        m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
-        ctrl.data.fullName
-      ]);
-    return m('h1', {
-      class: 'text',
-      'data-icon': ctrl.data.isFinished ? '' : 'g'
-    }, [
-      ctrl.data.greatPlayer ? [
-        m('a', {
-          href: ctrl.data.greatPlayer.url,
-          target: '_blank'
-        }, ctrl.data.greatPlayer.name),
-        ' tournament'
-      ] : ctrl.data.fullName,
-      ctrl.data.private ? [
-        ' ',
-        m('span.text[data-icon=a]', ctrl.trans('isPrivate'))
-      ] : null
-    ]);
-  },
   currentPlayer: function(ctrl, pag) {
     if (!ctrl.userId || !pag.currentPageResults) return null;
     return pag.currentPageResults.filter(function(p) {
@@ -72,13 +49,6 @@ module.exports = {
     };
   },
   miniBoard: miniBoard,
-  clock: function(time) {
-    return function(el, isUpdate) {
-      if (!isUpdate) $(el).clock({
-        time: time
-      });
-    };
-  },
   ratio2percent: function(r) {
     return Math.round(100 * r) + '%';
   }

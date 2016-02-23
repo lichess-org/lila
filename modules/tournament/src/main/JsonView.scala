@@ -66,6 +66,7 @@ final class JsonView(
     "podium" -> data.podium,
     "playerInfo" -> playerInfoJson,
     "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)),
+    "spotlight" -> tour.spotlight,
     "socketVersion" -> socketVersion
   ).noNull
 
@@ -282,4 +283,13 @@ object JsonView {
     "eco" -> s.eco,
     "name" -> s.name,
     "fen" -> s.fen)
+
+  private[tournament] implicit def spotlightWrites: OWrites[Spotlight] = OWrites { s =>
+    Json.obj(
+      "headline" -> s.headline,
+      "description" -> s.description,
+      "iconImg" -> s.iconImg,
+      "iconFont" -> s.iconFont
+    ).noNull
+  }
 }

@@ -5,6 +5,7 @@ var arena = require('./arena');
 var pairings = require('./pairings');
 var playerInfo = require('./playerInfo');
 var pagination = require('../pagination');
+var header = require('./header');
 var myCurrentGameId = require('../tournament').myCurrentGameId;
 
 module.exports = {
@@ -12,11 +13,7 @@ module.exports = {
     var gameId = myCurrentGameId(ctrl);
     var pag = pagination.players(ctrl);
     return [
-      m('div.tournament_clock.title_tag', {
-          config: util.clock(ctrl.data.secondsToFinish)
-        },
-        m('div.time')),
-      util.title(ctrl),
+      header(ctrl),
       gameId ? m('a.is.is-after.pov.button.glowed', {
         href: '/' + gameId
       }, [

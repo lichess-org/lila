@@ -5,12 +5,13 @@ var arena = require('./arena');
 var pairings = require('./pairings');
 var playerInfo = require('./playerInfo');
 var pagination = require('../pagination');
+var header = require('./header');
 
 module.exports = {
   main: function(ctrl) {
     var pag = pagination.players(ctrl);
     return [
-      util.title(ctrl),
+      header(ctrl),
       arena.podium(ctrl),
       arena.standing(ctrl, pag)
     ];

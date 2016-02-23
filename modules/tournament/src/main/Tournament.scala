@@ -24,7 +24,8 @@ case class Tournament(
     createdBy: String,
     startsAt: DateTime,
     winnerId: Option[String] = None,
-    featuredId: Option[String] = None) {
+    featuredId: Option[String] = None,
+    spotlight: Option[Spotlight] = None) {
 
   def isCreated = status == Status.Created
   def isStarted = status == Status.Started
@@ -83,6 +84,12 @@ case class Tournament(
   def berserkable = system.berserkable && clock.chessClock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
+
+  def spotlightedNow = spotlight.filter { s =>
+    !isFinished && s.homepageHours.?? { hours =>
+      startsAt.minusHours(hours) isBefore DateTime.now
+    }
+  } map { this -> _ }
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])

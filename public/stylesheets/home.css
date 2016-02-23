@@ -662,8 +662,8 @@ div.game_config .color_submits button.random i {
 #streams_on_air a.stream span:before {
   vertical-align: -3px;
 }
-#marathon_promo {
-  display: block;
+.tour_spotlight {
+  display: flex;
   margin: 15px 0 5px -30px;
   color: #fff!important;
   background: #4166a0;
@@ -674,24 +674,38 @@ div.game_config .color_submits button.random i {
   white-space: nowrap;
   overflow: hidden;
 }
-#marathon_promo:hover {
+.tour_spotlight:hover {
   opacity: 1;
 }
-#marathon_promo::before {
+.tour_spotlight::before {
   font-size: 33px;
   float: left;
   margin: 2px 6px 0 0;
 }
-#marathon_promo span {
+.tour_spotlight .img {
+  flex: 0 0 50px;
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 10px 0 5px;
+  -webkit-filter: brightness(9);
+}
+.tour_spotlight .content {
   display: block;
 }
-#marathon_promo span.name {
+.tour_spotlight span {
+  display: block;
+}
+.tour_spotlight span.name {
   font-size: 15px;
 }
-#marathon_promo span.more {
+.tour_spotlight span.headline {
   font-size: 10px;
 }
-#marathon_promo span.more time {
+.tour_spotlight span.more {
+  font-size: 10px;
+}
+.tour_spotlight span.more time {
   margin-left: 3px;
 }
 #site_header a.store {

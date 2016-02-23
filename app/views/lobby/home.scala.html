@@ -13,18 +13,8 @@
 @NotForKids {
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 }
-@tours.find(_.isMarathon).map { marathon =>
-<a id="marathon_promo" href="@routes.Tournament.show(marathon.id)" data-icon="\">
-  <span class="name">@marathon.fullName</span>
-  <span class="more">
-    @trans.nbConnectedPlayers(marathon.nbPlayers.localize) •
-    @if(marathon.isStarted) {
-    finishes@momentFromNow(marathon.finishesAt)
-    } else {
-    starts@momentFromNow(marathon.startsAt)
-    }
-  </span>
-</a>
+@tours.flatMap(_.spotlightedNow).map {
+case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
 }
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">

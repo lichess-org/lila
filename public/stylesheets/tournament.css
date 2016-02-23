@@ -6,39 +6,54 @@ div.create_tournament {
 ol.scheduled_tournaments a {
   font-weight: bold;
 }
-#tournament.scheduled h1,
+#tournament .header {
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+#tournament .header img {
+  flex: 0 0 60px;
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+#tournament .header .img {
+  margin: 0 15px;
+}
+#tournament .header i::before {
+  font-size: 30px;
+  line-height: 60px;
+  margin: auto;
+}
+#tournament .header h1 {
+  flex: 9 1 auto;
+  padding: 0;
+}
+#tournament .header .clock {
+  flex: 1 1 auto;
+  margin: 0 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: right;
+}
+#tournament .header .clock span {
+  display: block;
+}
+#tournament.scheduled .header h1,
+#tournament.scheduled .header .img,
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
 }
-#tournament .finished h1 {
+#tournament .finished .header h1 {
   text-align: center;
 }
-#tournament[class*=id_whizcup] .content_box {
-  background-image: url(../images/chesswhiz.logo.png);
-  background-position: 20px 5px;
-  background-repeat: no-repeat;
-  background-size: 60px 60px;
-}
-#tournament[class*=id_whizcup] h1 {
-  margin-left: 70px;
-}
-#tournament[class*=id_whizcup] h1::before {
-  display: none;
-}
-#tournament .title_tag {
-  float: right;
-  margin: 25px 25px 0 0;
-}
-#tournament .title_tag .time {
+#tournament .header .time {
   font-family: monospace;
   font-weight: bold;
   font-size: 20px;
 }
-#tournament .title_tag.starting_in {
-  margin-top: 13px;
-  text-align: right;
-}
-#tournament .title_tag .shy {
+#tournament .header .shy {
   line-height: 20px;
   font-weight: bold;
   text-transform: uppercase;
