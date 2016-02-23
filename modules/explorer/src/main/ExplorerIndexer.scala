@@ -105,14 +105,15 @@ private final class ExplorerIndexer(endpoint: String) {
     import lila.rating.PerfType._
     game.perfType ?? {
       case Correspondence              => 1
-      case Classical if rating >= 1800 => 1
-      case Classical                   => 1 / 2f
+      case Classical if rating >= 1800 => 2 / 3f
+      case Classical                   => 1 / 3f
       case Blitz if rating >= 2000     => 1
-      case Blitz if rating >= 1800     => 2 / 5f
-      case Blitz                       => 1 / 3f
+      case Blitz if rating >= 1800     => 1 / 3f
+      case Blitz                       => 1 / 6f
       case Bullet if rating >= 2200    => 1
       case Bullet if rating >= 2000    => 3 / 5f
-      case Bullet                      => 2 / 5f
+      case Bullet if rating >= 1800    => 1 / 3f
+      case Bullet                      => 1 / 5f
       case _ if rating >= 1600         => 1 // variant games
       case _                           => 1 / 2f // noob variant games
     }
