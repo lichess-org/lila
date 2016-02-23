@@ -147,14 +147,7 @@ object User extends LilaController {
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          implicit val lightPerfWrites = play.api.libs.json.Writes[UserModel.LightPerf] { l =>
-            Json.obj(
-              "id" -> l.user.id,
-              "username" -> l.user.name,
-              "title" -> l.user.title,
-              "perfs" -> Json.obj(
-                l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)))
-          }
+          import lila.user.JsonView.lightPerfWrites
           Ok(Json.obj(
             "bullet" -> leaderboards.bullet,
             "blitz" -> leaderboards.blitz,
@@ -177,6 +170,15 @@ object User extends LilaController {
         Ok(html.user.top200(perfType, users))
       }
     }
+  }
+
+  def topWeek = Open { implicit ctx =>
+    negotiate(
+      html = notFound,
+      api = _ => env.cached.topToday(true).map { users =>
+        import lila.user.JsonView.lightPerfWrites
+        Ok(Json toJson users)
+      })
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>

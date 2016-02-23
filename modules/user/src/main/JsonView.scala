@@ -40,4 +40,14 @@ object JsonView {
   implicit val nameWrites = Writes[User] { u =>
     JsString(u.username)
   }
+
+  implicit val lightPerfWrites = Writes[User.LightPerf] { l =>
+    Json.obj(
+      "id" -> l.user.id,
+      "username" -> l.user.name,
+      "title" -> l.user.title,
+      "perfs" -> Json.obj(
+        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress))
+    ).noNull
+  }
 }
