@@ -34,3 +34,10 @@ final class JsonView(isOnline: String => Boolean) {
     "playTime" -> u.playTime
   ).noNull
 }
+
+object JsonView {
+
+  implicit val nameWrites = Writes[User] { u =>
+    JsString(u.username)
+  }
+}

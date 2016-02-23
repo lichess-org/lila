@@ -6,7 +6,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
-import lila.common.paginator.{ Paginator, AdapterLike }
+import lila.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
 import lila.relation.Related
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -53,23 +53,33 @@ object Relation extends LilaController {
   }
 
   def following(username: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
+    OptionFuResult(UserRepo named username) { user =>
       env.api countFollowers user.id flatMap { nbFollowers =>
-        RelatedPager(env.api.followingPaginatorAdapter(user.id), page) map { pag =>
-          html.relation.following(user, pag, nbFollowers)
+        RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.relation.following(user, pag, nbFollowers)).fuccess ,
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
         }
       }
     }
   }
 
   def followers(username: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
+    OptionFuResult(UserRepo named username) { user =>
       env.api countFollowing user.id flatMap { nbFollowing =>
-        RelatedPager(env.api.followersPaginatorAdapter(user.id), page) map { pag =>
-          html.relation.followers(user, pag, nbFollowing)
+        RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.relation.followers(user, pag, nbFollowing)).fuccess ,
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
         }
       }
     }
+  }
+
+  private def jsonRelatedPaginator(pag: Paginator[Related]) = {
+    import lila.user.JsonView.nameWrites
+    import lila.relation.JsonView.relatedWrites
+    Json.obj("paginator" -> PaginatorJson(pag))
   }
 
   def blocks(page: Int) = Auth { implicit ctx =>
