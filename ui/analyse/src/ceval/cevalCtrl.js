@@ -27,11 +27,10 @@ module.exports = function(allow, emit) {
     if (!enabled()) return;
     var step = steps[steps.length - 1];
     if (step.ceval && step.ceval.depth >= maxDepth) return;
+
     var work = {
       position: steps[0].fen,
-      moves: steps.slice(1).map(function(s) {
-        return fixCastle(s.uci, s.san);
-      }).join(' '),
+      moves: [],
       path: path,
       steps: steps,
       ply: step.ply,
@@ -39,6 +38,18 @@ module.exports = function(allow, emit) {
         if (enabled()) onEmit(res);
       }
     };
+
+    // send fen after latest castling move and the following moves
+    for (var i = 1; i < steps.length; i++) {
+      var step = steps[i];
+      if (step.san.indexOf('O-O') === 0) {
+        work.moves = [];
+        work.position = step.fen;
+      } else {
+        work.moves.push(step.uci);
+      }
+    }
+
     if (work.position === initialFen && !work.moves.length) setTimeout(function() {
       // this has to be delayed, or it slows down analysis first render.
       work.emit({
@@ -62,21 +73,6 @@ module.exports = function(allow, emit) {
     if (!enabled() || !started) return;
     pool.stop();
     started = false;
-  };
-
-  var fixCastle = function(uci, san) {
-    if (san.indexOf('O-O') !== 0) return uci;
-    switch (uci) {
-      case 'e1h1':
-        return 'e1g1';
-      case 'e1a1':
-        return 'e1c1';
-      case 'e8h8':
-        return 'e8g8';
-      case 'e8a8':
-        return 'e8c8';
-    }
-    return uci;
   };
 
   return {
