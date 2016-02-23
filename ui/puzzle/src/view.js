@@ -241,7 +241,7 @@ function renderViewControls(ctrl, fen) {
       var enabled = step != b[2] && b[2] >= 0 && b[2] < history.length;
       return m('a.button.' + b[0] + (enabled ? '' : '.disabled'), {
         'data-icon': b[1],
-        onclick: enabled ? partial(ctrl.jump, b[2]) : null
+        onmousedown: enabled ? partial(ctrl.jump, b[2]) : null
       });
     }))
   ]);
