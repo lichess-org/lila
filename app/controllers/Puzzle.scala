@@ -29,11 +29,12 @@ object Puzzle extends LilaController {
     OptionFuResult(env.daily() flatMap {
       _.map(_.id) ?? env.api.puzzle.find
     }) { puzzle =>
-      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) flatMap { asPlay =>
-        renderShow(puzzle, asPlay.fold("play", "try")) map { html =>
-          NoCache(Ok(html))
-        }
-      }
+      negotiate(
+        html = (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) flatMap { asPlay =>
+          renderShow(puzzle, asPlay.fold("play", "try")) map { Ok(_) }
+        },
+        api = _ => puzzleJson(puzzle) map { Ok(_) }
+      ) map { NoCache(_) }
     }
   }
 
@@ -54,14 +55,15 @@ object Puzzle extends LilaController {
 
   def load(id: PuzzleId) = Open { implicit ctx =>
     XhrOnly {
-      OptionFuOk(env.api.puzzle find id) { puzzle =>
-        (env userInfos ctx.me) zip
-          (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) map {
-            case (infos, asPlay) => JsData(puzzle, infos, asPlay.fold("play", "try"), animationDuration = env.AnimationDuration)
-          }
-      } map (_ as JSON)
+      OptionFuOk(env.api.puzzle find id)(puzzleJson) map (_ as JSON)
     }
   }
+
+  private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
+    (env userInfos ctx.me) zip
+      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) map {
+        case (infos, asPlay) => JsData(puzzle, infos, asPlay.fold("play", "try"), animationDuration = env.AnimationDuration)
+      }
 
   def history = Auth { implicit ctx =>
     me =>

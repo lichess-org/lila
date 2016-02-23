@@ -12,9 +12,9 @@ routes.javascript.Round.watcher
 @embedJs {
 LichessPuzzle(
 document.querySelector('#lichess .round'),
-@JsData(puzzle, userInfos, mode, animationDuration = animationDuration),
+@Html(toJson(JsData(puzzle, userInfos, mode, animationDuration = animationDuration))),
 puzzleRoutes.controllers,
-@Html(J.stringify(i18nJsObject(
+@Html(toJson(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,
 trans.goodMove,
