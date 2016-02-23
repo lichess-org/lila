@@ -286,8 +286,6 @@ object JsonView {
 
   private[tournament] implicit def spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json.obj(
-      "headline" -> s.headline,
-      "description" -> s.description,
       "iconImg" -> s.iconImg,
       "iconFont" -> s.iconFont
     ).noNull

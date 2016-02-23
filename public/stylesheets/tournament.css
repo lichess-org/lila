@@ -29,6 +29,10 @@ ol.scheduled_tournaments a {
   flex: 9 1 auto;
   padding: 0;
 }
+#tournament.Unique .header h1 {
+  font-size: 26px;
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+}
 #tournament .header .clock {
   flex: 1 1 auto;
   margin: 0 15px;
@@ -80,6 +84,9 @@ ol.scheduled_tournaments a {
 #tournament .marathon_title .fire_trophy span {
   margin-top: -78px;
   margin-right: 32px;
+}
+#tournament .description {
+  padding: 20px;
 }
 #tournament .podium {
   margin: 0 0 20px 0;
@@ -358,6 +365,12 @@ ol.scheduled_tournaments a {
 }
 .setup {
   text-transform: uppercase;
+}
+div.side_box .game_infos.spotlight {
+  padding-left: 0;
+}
+div.side_box .game_infos.spotlight a {
+  text-decoration: underline;
 }
 #tournament_side {
   position: relative;

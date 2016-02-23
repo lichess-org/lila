@@ -18,6 +18,11 @@
       (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
     </div>
   </div>
+  @tour.spotlight.map { s =>
+  <div class="game_infos spotlight">
+    @markdownLinks(s.description)
+  </div>
+  }
   @if(tour.createdBy == "lichess") {
   @tour.id match {
   case "summer15" => {

@@ -2447,7 +2447,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 .pull-quote {
   margin: 0 auto;
-  font-family: 'PT Serif';
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 15px;
   text-align: left;
 }

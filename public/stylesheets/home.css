@@ -664,6 +664,7 @@ div.game_config .color_submits button.random i {
 }
 .tour_spotlight {
   display: flex;
+  align-items: center;
   margin: 15px 0 5px -30px;
   color: #fff!important;
   background: #4166a0;

@@ -65,9 +65,11 @@ function title(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.header', [
-    image(ctrl.data),
-    title(ctrl),
-    clock(ctrl.data)
-  ]);
+  return [
+    m('div.header', [
+      image(ctrl.data),
+      title(ctrl),
+      clock(ctrl.data)
+    ])
+  ];
 }

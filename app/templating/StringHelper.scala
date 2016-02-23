@@ -37,6 +37,14 @@ trait StringHelper { self: NumberHelper =>
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 
+  private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
+
+  def markdownLinks(text: String) = Html {
+    markdownLinkRegex.replaceAllIn(escape(text), m => {
+      s"""<a href="${m group 2}">${m group 1}</a>"""
+    })
+  }
+
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
 
   def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
