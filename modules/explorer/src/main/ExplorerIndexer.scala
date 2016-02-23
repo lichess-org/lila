@@ -73,7 +73,7 @@ private final class ExplorerIndexer(endpoint: String) {
   }
 
   private object flowBuffer {
-    private val max = 50
+    private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
     def apply(pgn: String) {
       buf += pgn
