@@ -40,8 +40,8 @@ module.exports = function(opts, name) {
   // warmup
   send('uci');
 
-  // support chess960 and use standard chess as a subset
-  send('setoption name UCI_Chess960 value true');
+  if (opts.variant.key === 'chess960')
+    send('setoption name UCI_Chess960 value true');
 
   return {
     start: function(work) {

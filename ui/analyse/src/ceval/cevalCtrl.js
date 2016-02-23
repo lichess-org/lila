@@ -2,7 +2,7 @@ var m = require('mithril');
 var makePool = require('./cevalPool');
 var initialFen = require('../util').initialFen;
 
-module.exports = function(allow, emit) {
+module.exports = function(allow, variant, emit) {
 
   var nbWorkers = 3;
   var minDepth = 8;
@@ -15,7 +15,8 @@ module.exports = function(allow, emit) {
   var pool = makePool({
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
-    maxDepth: maxDepth
+    maxDepth: maxDepth,
+    variant: variant
   }, nbWorkers);
 
   var onEmit = function(res) {
