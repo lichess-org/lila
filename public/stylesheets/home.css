@@ -694,6 +694,11 @@ div.game_config .color_submits button.random i {
 #marathon_promo span.more time {
   margin-left: 3px;
 }
+#site_header a.store {
+  display: block;
+  margin-top: 20px;
+  opacity: 0.6;
+}
 #timeline {
   margin-top: 10px;
   border-top: 1px solid #e4e4e4;
