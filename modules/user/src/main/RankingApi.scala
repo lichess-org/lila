@@ -49,7 +49,7 @@ final class RankingApi(
                 user = light,
                 perfKey = perfKey,
                 rating = r.rating,
-                progress = r.prog)
+                progress = ~r.prog)
             }
           }
         }
@@ -126,5 +126,5 @@ final class RankingApi(
 
 object RankingApi {
 
-  private case class Ranking(user: String, rating: Int, prog: Int)
+  private case class Ranking(user: String, rating: Int, prog: Option[Int])
 }
