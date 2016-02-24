@@ -65,6 +65,14 @@ trait UserRepo {
   def byIdsSortRating(ids: Iterable[ID], nb: Int) =
     $find($query($select.byIds(ids) ++ goodLadSelect) sort sortPerfDesc(PerfType.Standard.key), nb)
 
+  def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
+    $primitive(
+      $select.byIds(ids) ++ goodLadSelect,
+      F.id,
+      _ sort sortPerfDesc(PerfType.Standard.key),
+      nb.some
+    )(_.asOpt[User.ID])
+
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc F.toints), nb)
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
