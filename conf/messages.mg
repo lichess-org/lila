@@ -243,7 +243,6 @@ country=Firenena
 preferences=Preferences
 watchLichessTV=Mijereva Lichess TV
 previouslyOnLichessTV=Teto amin'ny Lichess TV
-todaysLeaders=Ny mpifaninana sangany androany
 onlinePlayers=Ny mpilalao connectés
 activeToday=Mpifaninana nilalao be indrindra androany
 activePlayers=Mpifaninana nilalao be indrindra

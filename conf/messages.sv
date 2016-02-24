@@ -265,7 +265,6 @@ country=Land
 preferences=Inställningar
 watchLichessTV=Titta på Lichess TV
 previouslyOnLichessTV=Föregående Lichess TV
-todaysLeaders=Dagens toppspelare
 onlinePlayers=Spelare online
 activeToday=Aktivast i dag
 activePlayers=Aktiva spelare

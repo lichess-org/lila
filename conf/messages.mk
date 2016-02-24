@@ -259,7 +259,6 @@ country=Држава
 preferences=Поставки
 watchLichessTV=Гледај Личес ТВ
 previouslyOnLichessTV=Предходно на Личес ТВ
-todaysLeaders=Денешни лидери ( денес во водство )
 onlinePlayers=Вклучени играчи (играчи на линија )
 activeToday=Активни денес
 activePlayers=Активни играчи

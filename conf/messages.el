@@ -265,7 +265,6 @@ country=Χώρα
 preferences=Προτιμήσεις
 watchLichessTV=Παρακολουθήστε Lichess Tηλεόρ.
 previouslyOnLichessTV=Νωρίτερα στη Lichess Tηλεόρ.
-todaysLeaders=Καλύτεροι της ημέρας
 onlinePlayers=Συνδεδεμένοι παίκτες
 activeToday=Ενεργοί σήμερα
 activePlayers=Ενεργοί παίκτες

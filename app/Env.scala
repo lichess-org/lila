@@ -19,7 +19,7 @@ final class Env(
 
   lazy val preloader = new mashup.Preload(
     tv = Env.tv.tv,
-    leaderboard = Env.user.cached.topToday,
+    leaderboard = Env.user.cached.topWeek,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,

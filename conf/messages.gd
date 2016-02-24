@@ -256,7 +256,6 @@ country=Dùthaich
 preferences=Roghainnean
 watchLichessTV=Coimhead air TBh Lichess
 previouslyOnLichessTV=Air Tbh Lichess roimhe
-todaysLeaders=Sàr-chluicheadairean an-diugh
 onlinePlayers=Cluicheadairean air loidhne
 activeToday=Gnìomhach an-diugh
 activePlayers=Cluicheadairean gnìomhach

@@ -265,7 +265,6 @@ country=Država
 preferences=Nastavitve
 watchLichessTV=Glej Lichess TV
 previouslyOnLichessTV=Nazadnje na Lichess TV
-todaysLeaders=Današnji vodilni
 onlinePlayers=Igralci online
 activeToday=Aktivnost danes
 activePlayers=Aktivni igralci

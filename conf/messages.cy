@@ -262,7 +262,6 @@ country=Gwlad
 preferences=Hoffterau
 watchLichessTV=Gwylio ar lichess TV
 previouslyOnLichessTV=Ar Lichess TV yn barod
-todaysLeaders=Chwaraewyr gorau a chwaraeodd heddiw
 onlinePlayers=Chwarewyr ar-lein
 activeToday=Gweithredol heddiw
 activePlayers=Chwaraewyr gweithredol

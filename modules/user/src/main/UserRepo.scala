@@ -31,12 +31,6 @@ trait UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topPerfSince(perf: String, since: DateTime, nb: Int): Fu[List[User]] =
-    $find($query(topPerfSinceSelect(perf, since)) sort sortPerfDesc(perf), nb)
-
-  def topPerfSinceSelect(perf: String, since: DateTime) =
-    goodLadSelect ++ stablePerfSelect(perf) ++ perfSince(perf, since)
-
   def topNbGame(nb: Int): Fu[List[User]] =
     $find($query(enabledSelect) sort ($sort desc "count.game"), nb)
 
@@ -145,7 +139,6 @@ trait UserRepo {
     s"perfs.$perf.nb" -> $gte(30),
     s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
-  def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
@@ -312,39 +305,6 @@ trait UserRepo {
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
         _.documents.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
-
-  // from 800 to 2500 by Stat.group
-  def ratingDistribution(perf: Perf.Key, since: DateTime): Fu[List[Int]] =
-    lila.rating.PerfType(perf).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
-      val field = s"perfs.$perf"
-      coll.aggregate(
-        Match(BSONDocument(
-          s"$field.la" -> BSONDocument("$gt" -> since),
-          s"$field.nb" -> BSONDocument("$gt" -> 2)
-        )),
-        List(Project(BSONDocument(
-          "_id" -> false,
-          "r" -> BSONDocument(
-            // TODO mongodb 3.2
-            "$subtract" -> BSONArray(
-              s"$$$field.gl.r",
-              BSONDocument("$mod" -> BSONArray(s"$$$field.gl.r", Stat.group))
-            )
-          )
-        )),
-          GroupField("r")("nb" -> SumValue(1))
-        )).map { res =>
-          val hash = res.documents.flatMap { obj =>
-            for {
-              rating <- obj.getAs[Double]("_id")
-              nb <- obj.getAs[Int]("nb")
-            } yield rating.toInt -> nb
-          }.toMap
-          (800 to 2500 by Stat.group).map { r =>
-            hash.getOrElse(r, 0)
-          }.toList
-        }
-    }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])

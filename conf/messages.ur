@@ -246,7 +246,6 @@ country=ملک
 preferences=ترجیحات
 watchLichessTV=Lichess نشریات
 previouslyOnLichessTV=Lichess گذشتہ نشریات
-todaysLeaders=آج سب سے آگے
 onlinePlayers=آن لائن کھلاڑی
 activeToday=آج سب سے فعال
 activePlayers=فعال کھلاڑی

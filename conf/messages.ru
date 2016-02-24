@@ -265,7 +265,6 @@ country=Страна
 preferences=Предпочтения
 watchLichessTV=Смотреть Lichess TV
 previouslyOnLichessTV=Ранее на Lichess TV
-todaysLeaders=Сегодняшние лидеры
 onlinePlayers=Игроки в сети
 activeToday=Активные сегодня
 activePlayers=Активные игроки

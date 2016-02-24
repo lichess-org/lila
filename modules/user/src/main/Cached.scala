@@ -70,16 +70,14 @@ final class Cached(
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
     timeToLive = 10 minutes)
 
-  private val topTodayCache = mongoCache.single[List[User.LightPerf]](
-    prefix = "user:top:today",
+  private val topWeekCache = mongoCache.single[List[User.LightPerf]](
+    prefix = "user:top:week",
     f = PerfType.leaderboardable.map { perf =>
-      UserRepo.topPerfSince(perf.key, DateTime.now minusHours 12, 1).map {
-        _.headOption flatMap (_ lightPerf perf.key)
-      }
+      rankingApi.topPerf(perf.id, 1)
     }.sequenceFu.map(_.flatten),
     timeToLive = 9 minutes)
 
-  def topToday = topTodayCache.apply _
+  def topWeek = topWeekCache.apply _
 
   val topNbGame = mongoCache[Int, List[User.LightCount]](
     prefix = "user:top:nbGame",

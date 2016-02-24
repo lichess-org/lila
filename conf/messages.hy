@@ -258,7 +258,6 @@ country=Երկիր
 preferences=Նախընտրություններ
 watchLichessTV=Դիտել Lichess TV
 previouslyOnLichessTV=Նախորդները Lichess TV-ով
-todaysLeaders=Այսօրվա առաջատարը
 onlinePlayers=առցանց խաղացողներ
 activeToday=Ակտիվ այսօր
 activePlayers=Ակտիվ խաղացողներ

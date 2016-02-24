@@ -261,7 +261,6 @@ country=Краіна
 preferences=Перавагі
 watchLichessTV=Глядзець Lichess TV
 previouslyOnLichessTV=Раней на Lichess TV
-todaysLeaders=Сёньняшнія лідэры
 onlinePlayers=Гульцы он-лайн
 activeToday=Актыўныя сёньня
 activePlayers=Актыўныя гульцы
