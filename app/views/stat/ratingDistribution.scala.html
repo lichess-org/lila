@@ -10,7 +10,7 @@ lichess_rating_distribution.my_rating = @rating;
 }
 }
 
-@title = { @trans.monthlyPerfTypeRatingDistribution(perfType.name) }
+@title = { @trans.weeklyPerfTypeRatingDistribution(perfType.name) }
 
 @layout(
 title = title.toString,
@@ -22,13 +22,13 @@ moreJs = moreJs) {
     @ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
     @lila.user.Stat.percentile(data, rating) match {
     case (under, sum) => {
-    @trans.nbPerfTypePlayersThisMonth(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
+    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
     @trans.yourPerfTypeRatingisRating(perfType.name, s"""<strong>$rating</strong>""")<br />
     @trans.youAreBetterThanPercentOfPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
     }
     }
     }.getOrElse {
-    @trans.nbPerfTypePlayersThisMonth(s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
+    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
     @trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.name)<br />
     }
   </p>
