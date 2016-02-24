@@ -7,6 +7,8 @@ import User.PlayTime
 
 final class JsonView(isOnline: String => Boolean) {
 
+  import JsonView._
+
   private implicit val perfWrites: Writes[Perf] = Writes { o =>
     Json.obj(
       "games" -> o.nb,
@@ -33,6 +35,12 @@ final class JsonView(isOnline: String => Boolean) {
     "seenAt" -> u.seenAt,
     "playTime" -> u.playTime
   ).noNull
+
+  def lightPerfIsOnline(lp: User.LightPerf) = {
+    val json = lightPerfWrites.writes(lp)
+    if (isOnline(lp.user.id)) json ++ Json.obj("online" -> true)
+    else json
+  }
 }
 
 object JsonView {
@@ -41,7 +49,7 @@ object JsonView {
     JsString(u.username)
   }
 
-  implicit val lightPerfWrites = Writes[User.LightPerf] { l =>
+  implicit val lightPerfWrites = OWrites[User.LightPerf] { l =>
     Json.obj(
       "id" -> l.user.id,
       "username" -> l.user.name,

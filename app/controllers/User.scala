@@ -176,8 +176,7 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached.topWeek(true).map { users =>
-        import lila.user.JsonView.lightPerfWrites
-        Ok(Json toJson users)
+        Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
       })
   }
 
