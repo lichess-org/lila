@@ -83,8 +83,8 @@ final class RankingApi(
             "_id" -> false,
             "r" -> BSONDocument(
               "$subtract" -> BSONArray(
-                "rating",
-                BSONDocument("$mod" -> BSONArray("rating", Stat.group))
+                "$rating",
+                BSONDocument("$mod" -> BSONArray("$rating", Stat.group))
               )
             )
           )),

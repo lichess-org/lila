@@ -94,57 +94,14 @@ final class Cached(
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
     timeToLive = 10 seconds)
 
-  object rankingOld {
-
-    def getAll(id: User.ID): Fu[Map[Perf.Key, Int]] =
-      PerfType.leaderboardable.map { perf =>
-        cache(perf.key) map { _ get id map (perf.key -> _) }
-      }.sequenceFu map (_.flatten.toMap)
-
-    import lila.db.BSON.MapValue.MapHandler
-
-    private val cache = mongoCache[Perf.Key, Map[User.ID, Int]](
-      prefix = "user:ranking",
-      f = compute,
-      timeToLive = 15 minutes)
-
-    private def compute(perf: Perf.Key): Fu[Map[User.ID, Int]] =
-      $primitive(
-        UserRepo.topPerfSinceSelect(perf, oneWeekAgo) ++ Json.obj(
-          s"perfs.$perf.gl.r" -> $gt(1600)
-        ),
-        "_id",
-        _ sort UserRepo.sortPerfDesc(perf)
-      )(_.asOpt[User.ID]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }
-  }
-
-  object rankingNew {
+  object ranking {
 
     def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =
       rankingApi.weeklyStableRanking of userId
   }
 
-  val ranking = rankingOld
-
-  object ratingDistributionOld {
-
-    private type NbUsers = Int
-
-    def apply(perf: PerfType) = cache(perf.key)
-
-    private val cache = mongoCache[Perf.Key, List[NbUsers]](
-      prefix = "user:rating:distribution",
-      f = compute,
-      timeToLive = 3 hour)
-
-    private def compute(perf: Perf.Key): Fu[List[NbUsers]] =
-      UserRepo.ratingDistribution(perf, since = oneMonthAgo)
-  }
-
-  object ratingDistributionNew {
+  object ratingDistribution {
 
     def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
   }
-
-  val ratingDistribution = ratingDistributionOld
 }
