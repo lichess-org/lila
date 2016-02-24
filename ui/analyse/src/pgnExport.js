@@ -9,7 +9,7 @@ function renderStepsTxt(steps) {
     if (step.ply === 0) return;
     if (step.ply % 2 === 1) s += ((step.ply + 1) / 2) + '. '
     else s += '';
-    s += step.san + ((i + 11) % 10 === 0 ? '\n' : ' ');
+    s += step.san + ((i + 9) % 8 === 0 ? '\n' : ' ');
   });
   return s.trim();
 }
