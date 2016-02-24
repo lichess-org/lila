@@ -166,7 +166,7 @@ object User extends LilaController {
 
   def top200(perfKey: String) = Open { implicit ctx =>
     lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
-      env.cached top200Perf perfType.key map { users =>
+      env.cached top200Perf perfType.id map { users =>
         Ok(html.user.top200(perfType, users))
       }
     }

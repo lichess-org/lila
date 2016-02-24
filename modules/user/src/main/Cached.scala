@@ -36,17 +36,17 @@ final class Cached(
   private implicit val LightCountBSONHandler = reactivemongo.bson.Macros.handler[LightCount]
 
   def leaderboards: Fu[Perfs.Leaderboards] = for {
-    bullet ← top10Perf(PerfType.Bullet.key)
-    blitz ← top10Perf(PerfType.Blitz.key)
-    classical ← top10Perf(PerfType.Classical.key)
-    chess960 ← top10Perf(PerfType.Chess960.key)
-    kingOfTheHill ← top10Perf(PerfType.KingOfTheHill.key)
-    threeCheck ← top10Perf(PerfType.ThreeCheck.key)
-    antichess <- top10Perf(PerfType.Antichess.key)
-    atomic <- top10Perf(PerfType.Atomic.key)
-    horde <- top10Perf(PerfType.Horde.key)
-    racingKings <- top10Perf(PerfType.RacingKings.key)
-    crazyhouse <- top10Perf(PerfType.Crazyhouse.key)
+    bullet ← top10Perf(PerfType.Bullet.id)
+    blitz ← top10Perf(PerfType.Blitz.id)
+    classical ← top10Perf(PerfType.Classical.id)
+    chess960 ← top10Perf(PerfType.Chess960.id)
+    kingOfTheHill ← top10Perf(PerfType.KingOfTheHill.id)
+    threeCheck ← top10Perf(PerfType.ThreeCheck.id)
+    antichess <- top10Perf(PerfType.Antichess.id)
+    atomic <- top10Perf(PerfType.Atomic.id)
+    horde <- top10Perf(PerfType.Horde.id)
+    racingKings <- top10Perf(PerfType.RacingKings.id)
+    crazyhouse <- top10Perf(PerfType.Crazyhouse.id)
   } yield Perfs.Leaderboards(
     bullet = bullet,
     blitz = blitz,
@@ -60,18 +60,14 @@ final class Cached(
     horde = horde,
     racingKings = racingKings)
 
-  val top10Perf = mongoCache[Perf.Key, List[LightPerf]](
+  val top10Perf = mongoCache[Perf.ID, List[LightPerf]](
     prefix = "user:top10:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 10) map {
-      _ flatMap (_ lightPerf perf)
-    },
-    timeToLive = 10 minutes)
+    f = (perf: Perf.ID) => rankingApi.topPerf(perf, 10),
+    timeToLive = 10 seconds)
 
-  val top200Perf = mongoCache[Perf.Key, List[User.LightPerf]](
+  val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
     prefix = "user:top200:perf",
-    f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, oneWeekAgo, 200) map {
-      _ flatMap (_ lightPerf perf)
-    },
+    f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
     timeToLive = 10 minutes)
 
   private val topTodayCache = mongoCache.single[List[User.LightPerf]](

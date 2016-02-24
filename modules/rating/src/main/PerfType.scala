@@ -3,7 +3,7 @@ package lila.rating
 import chess.Speed
 
 sealed abstract class PerfType(
-    val id: Int,
+    val id: Perf.ID,
     val key: Perf.Key,
     val name: String,
     val title: String,
@@ -115,9 +115,11 @@ object PerfType {
   def apply(key: Perf.Key): Option[PerfType] = byKey get key
   def orDefault(key: Perf.Key): PerfType = apply(key) | default
 
-  def apply(id: Int): Option[PerfType] = byId get id
+  def apply(id: Perf.ID): Option[PerfType] = byId get id
 
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
+
+  def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
   val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val nonGame: List[PerfType] = List(Puzzle, Opening)

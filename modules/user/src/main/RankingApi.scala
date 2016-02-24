@@ -13,10 +13,13 @@ import lila.rating.{ Perf, PerfType }
 
 final class RankingApi(
     coll: lila.db.Types.Coll,
-    mongoCache: MongoCache.Builder) {
+    mongoCache: MongoCache.Builder,
+    lightUser: String => Option[lila.common.LightUser]) {
+
+  import RankingApi._
+  private implicit val rankingBSONHandler = reactivemongo.bson.Macros.handler[Ranking]
 
   private type Rating = Int
-  private type PerfId = Int
 
   def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
@@ -35,6 +38,23 @@ final class RankingApi(
       "expiresAt" -> DateTime.now.plusDays(7)),
       upsert = true).void
 
+  def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+    PerfType.id2key(perfId) ?? { perfKey =>
+      coll.find(BSONDocument("perf" -> perfId, "stable" -> true))
+        .sort(BSONDocument("rating" -> -1))
+        .cursor[Ranking]().collect[List](nb) map {
+          _.flatMap { r =>
+            lightUser(r.user).map { light =>
+              User.LightPerf(
+                user = light,
+                perfKey = perfKey,
+                rating = r.rating,
+                progress = r.prog)
+            }
+          }
+        }
+    }
+
   object weeklyStableRanking {
 
     def of(userId: User.ID): Fu[Map[Perf.Key, Int]] =
@@ -42,11 +62,11 @@ final class RankingApi(
         cache(perf.id) map { _ get userId map (perf.key -> _) }
       } map (_.flatten.toMap)
 
-    private val cache = AsyncCache[PerfId, Map[User.ID, Rating]](
+    private val cache = AsyncCache[Perf.ID, Map[User.ID, Rating]](
       f = compute,
       timeToLive = 15 minutes)
 
-    private def compute(perfId: PerfId): Fu[Map[User.ID, Rating]] = {
+    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rating]] = {
       val enumerator = coll.find(
         BSONDocument("perf" -> perfId, "stable" -> true),
         BSONDocument("user" -> true, "_id" -> false)
@@ -69,13 +89,13 @@ final class RankingApi(
 
     def apply(perf: PerfType) = cache(perf.id)
 
-    private val cache = mongoCache[PerfId, List[NbUsers]](
+    private val cache = mongoCache[Perf.ID, List[NbUsers]](
       prefix = "user:rating:distribution",
       f = compute,
       timeToLive = 3 hour)
 
     // from 800 to 2500 by Stat.group
-    private def compute(perfId: PerfId): Fu[List[NbUsers]] =
+    private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregate(
           Match(BSONDocument("perf" -> perfId)),
@@ -102,4 +122,9 @@ final class RankingApi(
           }
       }
   }
+}
+
+object RankingApi {
+
+  private case class Ranking(user: String, rating: Int, prog: Int)
 }

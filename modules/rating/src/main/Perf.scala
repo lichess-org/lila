@@ -44,6 +44,7 @@ case class Perf(
 case object Perf {
 
   type Key = String
+  type ID = Int
 
   case class Typed(perf: Perf, perfType: PerfType)
 
