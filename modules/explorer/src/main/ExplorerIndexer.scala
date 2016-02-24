@@ -41,7 +41,7 @@ private final class ExplorerIndexer(endpoint: String) {
           Query.finished ++
           Query.turnsMoreThan(8) ++
           Query.noProvisional ++
-          Query.bothRatingsGreaterThan(1500)
+          Query.bothRatingsGreaterThan(1501)
       )
       pimpQB(query)
         .sort(Query.sortChronological)
