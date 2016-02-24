@@ -106,10 +106,10 @@ private final class ExplorerIndexer(endpoint: String) {
     game.perfType ?? {
       case Correspondence              => 1
       case Classical if rating >= 1800 => 2 / 3f
-      case Classical                   => 1 / 3f
+      case Classical                   => 1 / 6f
       case Blitz if rating >= 2000     => 1
-      case Blitz if rating >= 1800     => 1 / 3f
-      case Blitz                       => 1 / 6f
+      case Blitz if rating >= 1800     => 1 / 5f
+      case Blitz                       => 1 / 12f
       case Bullet if rating >= 2200    => 1
       case Bullet if rating >= 2000    => 3 / 5f
       case Bullet if rating >= 1800    => 1 / 3f
