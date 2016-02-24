@@ -40,9 +40,11 @@ trait StringHelper { self: NumberHelper =>
   private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
   def markdownLinks(text: String) = Html {
-    markdownLinkRegex.replaceAllIn(escape(text), m => {
-      s"""<a href="${m group 2}">${m group 1}</a>"""
-    })
+    nl2br {
+      markdownLinkRegex.replaceAllIn(escape(text), m => {
+        s"""<a href="${m group 2}">${m group 1}</a>"""
+      })
+    }
   }
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
