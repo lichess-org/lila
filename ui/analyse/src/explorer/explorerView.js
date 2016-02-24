@@ -119,7 +119,7 @@ function show(ctrl) {
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
-    if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, recentTable, topTable]);
+    if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, topTable, recentTable]);
     else lastShow = m('div.data.empty', [
       m('div.title', showTitle(ctrl)),
       m('div.message', [
