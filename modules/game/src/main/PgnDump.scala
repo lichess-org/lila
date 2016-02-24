@@ -5,7 +5,6 @@ import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
-import chess.OpeningExplorer
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
@@ -73,7 +72,7 @@ final class PgnDump(
       Tag("PlyCount", game.turns),
       Tag(_.Variant, game.variant.name.capitalize),
       Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
-      Tag(_.ECO, game.opening.fold("?")(_.code)),
+      Tag(_.ECO, game.opening.fold("?")(_.eco)),
       Tag(_.Opening, game.opening.fold("?")(_.name)),
       Tag(_.Termination, {
         import chess.Status._

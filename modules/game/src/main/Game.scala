@@ -4,6 +4,7 @@ import chess.Color.{ White, Black }
 import chess.format.Uci
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
+import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
@@ -464,9 +465,9 @@ case class Game(
 
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
-  lazy val opening: Option[chess.Opening] =
+  lazy val opening: Option[FullOpening] =
     if (fromPosition || !Game.openingSensiblevariants(variant)) none
-    else chess.OpeningExplorer openingOf pgnMoves
+    else FullOpeningDB search pgnMoves
 
   def synthetic = id == "synthetic"
 
