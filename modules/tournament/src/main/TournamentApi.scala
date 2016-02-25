@@ -243,7 +243,7 @@ private[tournament] final class TournamentApi(
     }
 
   def ejectLame(userId: String) {
-    TournamentRepo.recentStartedOrFinished foreach {
+    TournamentRepo.recentAndNext foreach {
       _ foreach { tour =>
         PlayerRepo.exists(tour.id, userId) foreach {
           _ ?? ejectLame(tour.id, userId)

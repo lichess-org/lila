@@ -36,8 +36,8 @@ object TournamentRepo {
     coll.find(BSONDocument("_id" -> BSONDocument("$in" -> ids)))
       .cursor[Tournament]().collect[List]()
 
-  def recentStartedOrFinished: Fu[List[Tournament]] =
-    coll.find(sinceSelect(DateTime.now minusDays 2) ++ startedOrFinishedSelect)
+  def recentAndNext: Fu[List[Tournament]] =
+    coll.find(sinceSelect(DateTime.now minusDays 1))
       .cursor[Tournament]().collect[List]()
 
   def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
