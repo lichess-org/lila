@@ -18,7 +18,6 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
-var variantSelector = require('./variantSelector');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -182,18 +181,9 @@ module.exports = function(opts) {
     window.location = makeUrl(this.data.game.variant.key, fen);
   }.bind(this);
 
-  this.changeVariant = function(key) {
-    this.vm.redirecting = true;
-    window.location = makeUrl(key, this.vm.step.fen);
-  }.bind(this);
-
   var makeUrl = function(variantKey, fen) {
     return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
-
-  var forsyth = function(role) {
-    return role === 'knight' ? 'n' : role[0];
-  };
 
   var roleToSan = {
     pawn: 'P',
@@ -422,6 +412,4 @@ module.exports = function(opts) {
   keyboard(this);
   startCeval();
   this.explorer.setStep();
-
-  if (util.synthetic(this.data)) variantSelector(this.changeVariant);
 };
