@@ -332,7 +332,7 @@ function inputs(ctrl) {
         m('button.button', {
           onclick: function(e) {
             var pgn = $('.copyables .pgn textarea').val();
-            if (pgn !== pgnText) ctrl.changePgn(pgnText);
+            if (pgn !== pgnText) ctrl.changePgn(pgn);
           }
         }, 'Import PGN')
       ])
