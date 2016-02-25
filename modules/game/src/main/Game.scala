@@ -466,7 +466,7 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening: Option[FullOpening.AtPly] =
-    if (fromPosition || !Game.openingSensiblevariants(variant)) none
+    if (fromPosition || !Variant.openingSensibleVariants(variant)) none
     else FullOpeningDB search pgnMoves
 
   def synthetic = id == "synthetic"
@@ -475,19 +475,6 @@ case class Game(
 }
 
 object Game {
-
-  val openingSensiblevariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.ThreeCheck,
-    chess.variant.KingOfTheHill)
-
-  val divisionSensiblevariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.Chess960,
-    chess.variant.ThreeCheck,
-    chess.variant.KingOfTheHill,
-    chess.variant.Antichess,
-    chess.variant.FromPosition)
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,

@@ -2,6 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.format.pgn.Pgn
+import chess.opening._
 import chess.variant.Variant
 import lila.analyse.{ Analysis, Info }
 import lila.socket.Step
@@ -20,16 +21,21 @@ object StepBuilder {
       case (games, error) =>
         error foreach logChessError(id)
         val lastPly = games.lastOption.??(_.turns)
+        val openingOf: String => Option[FullOpening] =
+          if (Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
+          else _ => None
         val steps = games.map { g =>
+          val fen = Forsyth >> g
           Step(
             ply = g.turns,
             move = for {
               uci <- g.board.history.lastMove
               san <- g.pgnMoves.lastOption
             } yield Step.Move(uci, san),
-            fen = Forsyth >> g,
+            fen = fen,
             check = g.situation.check,
             dests = None,
+            opening = openingOf(fen),
             drops = None,
             crazyData = g.situation.board.crazyData)
         }

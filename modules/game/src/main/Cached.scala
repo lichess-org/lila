@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
+import chess.variant.Variant
 
 import lila.db.api.$count
 import lila.db.BSON._
@@ -47,7 +48,7 @@ final class Cached(
     private val cache = Builder.size[String, chess.Division](5000)
 
     def apply(game: Game, initialFen: Option[String]): chess.Division =
-      if (!Game.divisionSensiblevariants.contains(game.variant)) chess.Division.empty
+      if (!Variant.divisionSensibleVariants.contains(game.variant)) chess.Division.empty
       else Option(cache getIfPresent game.id) | {
         val div = chess.Replay.boards(
           moveStrs = game.pgnMoves,

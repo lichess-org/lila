@@ -59,6 +59,14 @@ module.exports = function(steps, analysis) {
     });
   }.bind(this);
 
+  this.getOpening = function(path) {
+    var opening;
+    this.getSteps(path).forEach(function(s) {
+      opening = s.opening || opening;
+    });
+    return opening;
+  }.bind(this);
+
   this.nextStepEvalBest = function(path) {
     if (!treePath.isRoot(path)) return;
     var nextPly = path[0].ply + 1;
@@ -102,9 +110,10 @@ module.exports = function(steps, analysis) {
     return this.addSteps(steps.slice(1), newPath);
   }.bind(this);
 
-  this.addDests = function(dests, path) {
+  this.addDests = function(dests, path, opening) {
     return this.updateAtPath(path, function(step) {
       step.dests = dests;
+      if (opening) step.opening = opening;
     });
   }.bind(this);
 

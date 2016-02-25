@@ -25,7 +25,7 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       anaDestsCache[data.path] = data;
-      ctrl.addDests(data.dests, data.path);
+      ctrl.addDests(data.dests, data.path, data.opening);
       clearTimeout(anaDestsTimeout);
     },
     destsFailure: function(data) {

@@ -184,6 +184,11 @@ div.eval_gauge .black {
 div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 28px;
 }
+.opening_box {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
 .ceval_box {
   position: relative;
   flex: 0 0 40px;

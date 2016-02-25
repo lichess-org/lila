@@ -277,8 +277,8 @@ module.exports = function(opts) {
     this.chessground.playPremove();
   }.bind(this);
 
-  this.addDests = function(dests, path) {
-    this.analyse.addDests(dests, treePath.read(path));
+  this.addDests = function(dests, path, opening) {
+    this.analyse.addDests(dests, treePath.read(path), opening);
     if (path === this.vm.pathStr) {
       showGround();
       m.redraw();

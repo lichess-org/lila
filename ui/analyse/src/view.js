@@ -154,15 +154,14 @@ function renderVariationTurn(ctrl, turn, path) {
   return [renderIndex(turn.turn + '...'), bMove, bMeta];
 }
 
-function renderOpening(ctrl, opening) {
-  console.log(ctrl.data, opening);
+function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
 function renderMeta(ctrl, move, path) {
   if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
-  opening = (move && opening && opening.ply === move.ply) ? renderOpening(ctrl, opening) : null;
+  opening = (move && opening && opening.ply === move.ply) ? renderCommentOpening(ctrl, opening) : null;
   if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);
@@ -419,6 +418,11 @@ function buttons(ctrl) {
   );
 }
 
+function renderOpeningBox(ctrl) {
+  var opening = ctrl.analyse.getOpening(ctrl.vm.path);
+  if (opening) return m('div.opening_box', opening.eco + ' ' + opening.name);
+}
+
 module.exports = function(ctrl) {
   return [
     m('div', {
@@ -435,6 +439,7 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.data.opponent.color, 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
+            renderOpeningBox(ctrl),
             renderAnalyse(ctrl),
             explorerView.renderExplorer(ctrl)
           ],

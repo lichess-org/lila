@@ -10,6 +10,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import makeTimeout.large
+import Step.openingWriter
 
 object Handler {
 
@@ -70,7 +71,9 @@ object Handler {
             member push lila.socket.Socket.makeMessage("dests", Json.obj(
               "dests" -> req.dests,
               "path" -> req.path
-            ))
+            ) ++ req.opening.?? { o =>
+                Json.obj("opening" -> o)
+              })
           case None =>
             member push lila.socket.Socket.makeMessage("destsFailure", "Bad dests request")
         }

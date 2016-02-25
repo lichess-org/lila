@@ -1,13 +1,15 @@
 package lila.socket
 
 import chess.format.Uci
+import chess.opening._
+import chess.variant.Variant
 import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
 
 case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
-    variant: chess.variant.Variant,
+    variant: Variant,
     fen: String,
     path: String,
     promotion: Option[chess.PromotableRole]) {
@@ -16,14 +18,18 @@ case class AnaMove(
     chess.Game(variant.some, fen.some)(orig, dest, promotion) map {
       case (game, move) =>
         val movable = !game.situation.end
+        val fen = chess.format.Forsyth >> game
         Step(
           ply = game.turns,
           move = game.pgnMoves.lastOption.map { san =>
             Step.Move(Uci(move), san)
           },
-          fen = chess.format.Forsyth >> game,
+          fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
+          opening = Variant.openingSensibleVariants(variant) ?? {
+            FullOpeningDB findByFen fen
+          },
           drops = movable.fold(game.situation.drops, Some(Nil)),
           crazyData = game.situation.board.crazyData)
     }

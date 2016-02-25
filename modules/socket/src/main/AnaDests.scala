@@ -1,10 +1,12 @@
 package lila.socket
 
+import chess.opening._
+import chess.variant.Variant
 import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
 
 case class AnaDests(
-    variant: chess.variant.Variant,
+    variant: Variant,
     fen: String,
     path: String) {
 
@@ -16,6 +18,10 @@ case class AnaDests(
     else chess.Game(variant.some, fen.some).situation.destinations map {
       case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
     } mkString " "
+
+  def opening = Variant.openingSensibleVariants(variant) ?? {
+    FullOpeningDB findByFen fen
+  }
 }
 
 object AnaDests {
