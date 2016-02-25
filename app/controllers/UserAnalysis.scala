@@ -18,19 +18,19 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def index = load("", Standard)
 
-  def parse(arg: String) = arg.split("/", 2).pp match {
+  def parse(arg: String) = arg.split("/", 2) match {
     case Array(key) => load("", Variant orDefault key)
-    case Array(key, fen) => (Variant.byKey get key).pp match {
-      case Some(variant) => load(fen.pp, variant)
+    case Array(key, fen) => Variant.byKey get key match {
+      case Some(variant) => load(fen, variant)
       case _             => load(arg, Standard)
     }
     case _ => load("", Standard)
   }
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
-    val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen") pp
-    val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty) pp
-    val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(variant), 1) pp
+    val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
+    val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
+    val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(variant), 1)
     val pov = makePov(situation)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false) map { data =>
