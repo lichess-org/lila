@@ -48,14 +48,14 @@ authorized: @isGranted(_.Beta)
 
 @side = {
 @if(pov.game.synthetic) {
-<div class="mselect">
+<div class="mselect variant_selector">
   <div class="button" data-icon="@iconByVariant(pov.game.variant)">
     @pov.game.variant.name
     <i data-icon="u"></i>
   </div>
   <div class="list">
     @chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
-    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parse(v.key)">@v.name</a>
+    <a data-icon="@iconByVariant(v)" data-variant="@v.key" href="@routes.UserAnalysis.parse(v.key)">@v.name</a>
     }
   </div>
 </div>

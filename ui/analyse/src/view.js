@@ -319,7 +319,7 @@ function inputs(ctrl) {
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.step.fen,
       onchange: function(e) {
-        ctrl.setFen(e.target.value);
+        if (fen !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
       }
     }),
     m('div.pgn', [
