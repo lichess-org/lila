@@ -68,7 +68,7 @@ function renderViewTable(ctrl) {
         }, m('span[data-icon=U]'))
       ]),
       m('p',
-        m('input.copyable[readonly][spellCheck=false]', {
+        m('input.copyable.autoselect[readonly][spellCheck=false]', {
           value: ctrl.data.opening.url
         })
       )

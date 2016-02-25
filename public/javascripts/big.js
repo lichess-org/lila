@@ -729,7 +729,7 @@ lichess.numberFormat = (function() {
 
       $('#friend_box').friends();
 
-      $('#lichess').on('click', '.copyable', function() {
+      $('#lichess').on('click', '.autoselect', function() {
         $(this).select();
       });
 

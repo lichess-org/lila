@@ -191,7 +191,7 @@ function renderViewTable(ctrl) {
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.puzzle.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.puzzle.attempts)))),
       m('p',
-        m('input.copyable[readonly][spellCheck=false]', {
+        m('input.copyable.autoselect[readonly][spellCheck=false]', {
           value: ctrl.data.puzzle.url
         })
       )

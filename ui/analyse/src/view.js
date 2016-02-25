@@ -313,14 +313,18 @@ function wheel(ctrl, e) {
 
 function inputs(ctrl) {
   if (!ctrl.data.userAnalysis) return null;
+  if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   return m('div.copyables', [
     m('label.name', 'FEN'),
-    m('input.copyable[readonly][spellCheck=false]', {
-      value: ctrl.vm.step.fen
+    m('input.copyable.autoselect[spellCheck=false]', {
+      value: ctrl.vm.step.fen,
+      onchange: function(e) {
+        ctrl.setFen(e.target.value);
+      }
     }),
     m('div.pgn', [
       m('label.name', 'PGN'),
-      m('textarea.copyable[readonly][spellCheck=false]', {
+      m('textarea.copyable.autoselect[readonly][spellCheck=false]', {
         value: pgnExport.renderFullTxt(ctrl)
       })
     ])

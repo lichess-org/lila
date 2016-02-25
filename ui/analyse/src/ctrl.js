@@ -47,7 +47,8 @@ module.exports = function(opts) {
     showGauge: util.storedProp('show-gauge', true),
     autoScroll: null,
     variationMenu: null,
-    element: opts.element
+    element: opts.element,
+    redirecting: false
   };
 
   this.flip = function() {
@@ -173,6 +174,12 @@ module.exports = function(opts) {
     var ply = this.analyse.plyOfNextNag(color, nag, this.vm.step.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
+  }.bind(this);
+
+  this.setFen = function(fen) {
+    if (fen === this.vm.step.fen) return;
+    this.vm.redirecting = true;
+    window.location = '/analysis/' + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }.bind(this);
 
   var forsyth = function(role) {
