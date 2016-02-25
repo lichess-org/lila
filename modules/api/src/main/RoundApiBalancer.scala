@@ -24,6 +24,7 @@ private[api] final class RoundApiBalancer(
       analysis: Option[(Pgn, Analysis)] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
+      withOpening: Boolean = false,
       ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean)
 
@@ -36,8 +37,8 @@ private[api] final class RoundApiBalancer(
               play.api.Logger("RoundApiBalancer").error(s"$pov $e")
             }
           }.logIfSlow(500, "RoundApiBalancer") { _ => s"inner player $pov" }
-          case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) =>
-            api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes)(ctx)
+          case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
+            api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
         }
@@ -55,8 +56,9 @@ private[api] final class RoundApiBalancer(
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
-    withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
-    router ? Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) mapTo manifest[JsObject]
+    withMoveTimes: Boolean = false,
+    withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
+    router ? Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) mapTo manifest[JsObject]
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
     router ? UserAnalysis(pov, pref, initialFen, orientation, owner) mapTo manifest[JsObject]

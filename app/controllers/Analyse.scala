@@ -74,7 +74,8 @@ object Analyse extends LilaController {
                 tv = none,
                 analysis.map(pgn -> _),
                 initialFenO = initialFen.some,
-                withMoveTimes = true) map { data =>
+                withMoveTimes = true,
+                withOpening = true) map { data =>
                   Ok(html.analyse.replay(
                     pov,
                     data,

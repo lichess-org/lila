@@ -16,13 +16,14 @@ object StepBuilder {
     pgnMoves: List[String],
     variant: Variant,
     a: Option[(Pgn, Analysis)],
-    initialFen: String): JsArray = {
+    initialFen: String,
+    withOpening: Boolean): JsArray = {
     chess.Replay.gameWhileValid(pgnMoves, initialFen, variant) match {
       case (games, error) =>
         error foreach logChessError(id)
         val lastPly = games.lastOption.??(_.turns)
         val openingOf: String => Option[FullOpening] =
-          if (Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
+          if (withOpening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
         val steps = games.map { g =>
           val fen = Forsyth >> g

@@ -37,7 +37,7 @@ private[api] final class RoundApi(
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withSteps(pov, none, initialFen)_ compose
+            withSteps(pov, none, initialFen, withOpening = false)_ compose
             withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withForecastCount(forecast.map(_.steps.size))_
@@ -48,7 +48,8 @@ private[api] final class RoundApi(
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
-    withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
+    withMoveTimes: Boolean = false,
+    withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
@@ -63,7 +64,7 @@ private[api] final class RoundApi(
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
-            withSteps(pov, analysis, initialFen)_ compose
+            withSteps(pov, analysis, initialFen, withOpening = withOpening)_ compose
             withAnalysis(analysis)_
           )(json)
         }
@@ -72,17 +73,18 @@ private[api] final class RoundApi(
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
-        withSteps(pov, none, initialFen)_ map
+        withSteps(pov, none, initialFen, withOpening = true)_ map
         withForecast(pov, owner, fco)_
     }
 
-  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
+  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
       a = a,
-      initialFen = initialFen | pov.game.variant.initialFen))
+      initialFen = initialFen | pov.game.variant.initialFen,
+      withOpening = withOpening))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
