@@ -10,7 +10,7 @@
   @if(isGranted(_.MarkTroll)) {
   <a class="button hint--bottom" href="@routes.Mod.communication(u.id)" data-hint="View communications">Coms</a>
   }
-  <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #deputy" class="hint--bottom">
+  <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #tavern" class="hint--bottom">
     <input class="button" type="submit" value="Slack" />
   </form>
   •

@@ -41,7 +41,7 @@ final class SlackApi(
     username = mod.username,
     icon = "oncoming_police_car",
     text = s"Let's have a look at <http://lichess.org/@/${user.username}?mod>",
-    channel = "deputy"))
+    channel = "tavern"))
 
   def deployPre: Funit = client(SlackMessage(
     username = "deployment",
