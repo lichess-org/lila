@@ -24,6 +24,8 @@ private[api] final class GameApi(
     pgnDump: PgnDump,
     analysisApi: AnalysisApi) {
 
+  import lila.round.JsonView.openingWriter
+
   def byUser(
     user: User,
     rated: Option[Boolean],
@@ -166,11 +168,7 @@ private[api] final class GameApi(
     }),
     "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
-    "opening" -> withOpening.?? {
-      g.opening map { opening =>
-        Json.obj("code" -> opening.code, "name" -> opening.name)
-      }
-    },
+    "opening" -> withOpening.??(g.opening),
     "fens" -> withFens ?? {
       chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)

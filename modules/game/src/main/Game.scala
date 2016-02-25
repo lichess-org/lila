@@ -465,7 +465,7 @@ case class Game(
 
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
-  lazy val opening: Option[FullOpening] =
+  lazy val opening: Option[FullOpening.AtPly] =
     if (fromPosition || !Game.openingSensiblevariants(variant)) none
     else FullOpeningDB search pgnMoves
 

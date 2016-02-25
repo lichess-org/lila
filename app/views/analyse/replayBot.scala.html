@@ -2,7 +2,7 @@
 
 @import pov._
 
-@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.fullName)}" }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.opening.ecoName)}" }
 
 @moreJs = {
 @embedJs {
@@ -57,7 +57,7 @@ chessground = true) {
       <div class="lichess_ground for_bot">
         <h1>@titleGame(pov.game)</h1>
         <p>@describePov(pov)</p>
-        <p>@pov.game.opening.map(_.fullName)</p>
+        <p>@pov.game.opening.map(_.opening.ecoName)</p>
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@ object JsData extends lila.Steroids {
 
   def apply(
     opening: Opening,
-    identified: List[Identified],
+    identified: List[String],
     userInfos: Option[lila.opening.UserInfos],
     play: Boolean,
     attempt: Option[Attempt],
@@ -35,11 +35,7 @@ object JsData extends lila.Steroids {
             "quality" -> quality.name)
         }),
         "url" -> s"$netBaseUrl${routes.Opening.show(opening.id)}",
-        "identified" -> identified.map { ident =>
-          Json.obj(
-            "name" -> ident.name,
-            "moves" -> ident.moves)
-        }
+        "identified" -> identified
       ),
       "pref" -> Json.obj(
         "coords" -> ctx.pref.coords

@@ -1,6 +1,7 @@
 package lila.gameSearch
 
-import chess.{ Mode, Status, Openings }
+import chess.{ Mode, Status }
+import chess.opening._
 import org.joda.time.DateTime
 
 import lila.rating.RatingRange
@@ -76,8 +77,8 @@ object Query {
 
   val modes = Mode.all map { mode => mode.id -> mode.name.capitalize }
 
-  val openings = Openings.generals map {
-    case (code, name) => code -> s"$code ${name.take(50)}"
+  val openings = EcopeningDB.all map { o =>
+    o.eco -> s"${o.eco} ${o.name.take(50)}"
   }
 
   val turns = options(

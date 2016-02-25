@@ -49,7 +49,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.ai -> game.aiLevel,
     Fields.date -> (lila.search.Date.formatter print game.updatedAtOrCreatedAt),
     Fields.duration -> game.estimateTotalTime,
-    Fields.opening -> (game.opening map (_.code.toLowerCase)),
+    Fields.opening -> (game.opening map (_.opening.eco.toLowerCase)),
     Fields.analysed -> analysed,
     Fields.whiteUser -> game.whitePlayer.userId,
     Fields.blackUser -> game.blackPlayer.userId,

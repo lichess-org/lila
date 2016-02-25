@@ -274,11 +274,8 @@ module.exports = function(ctrl) {
     m('div.underboard',
       m('div.center', [
         progress(ctrl),
-        m('table.identified', ctrl.data.opening.identified.map(function(ident) {
-          return m('tr', [
-            m('td', ident.name),
-            m('td', ident.moves)
-          ]);
+        m('ul.identified', ctrl.data.opening.identified.map(function(name) {
+          return m('li', name);
         })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null,
         ctrl.data.play ? null : renderContinueLinks(ctrl)
       ])

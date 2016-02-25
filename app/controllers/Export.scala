@@ -23,7 +23,7 @@ object Export extends LilaController {
             initialFen <- GameRepo initialFen game
             pgn = Env.api.pgnDump(game, initialFen)
             analysis ← (~get("as") != "raw") ?? (Env.analyse.analyser getDone game.id)
-          } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
+          } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
         }) map { content =>
           Ok(content).withHeaders(
             CONTENT_TYPE -> ContentTypes.TEXT,
@@ -71,8 +71,4 @@ object Export extends LilaController {
     if (HTTPRequest isFacebookBot ctx.req) result
     else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
-
-  private def gameOpening(game: GameModel) =
-    if (game.fromPosition || game.variant.exotic) none
-    else chess.OpeningExplorer openingOf game.pgnMoves
 }

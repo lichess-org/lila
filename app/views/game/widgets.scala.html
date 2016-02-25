@@ -86,7 +86,7 @@
     @defining(g openingPgnMoves 20) { pgnMoves =>
     @if(!g.fromPosition) {
     @g.opening.map { opening =>
-    <div class="opening">@opening.name</div>
+    <div class="opening">@opening.opening.ecoName</div>
     }
     }
     <div class="pgn">@pgnMoves.take(6).grouped(2).zipWithIndex.map {

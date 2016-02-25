@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.format.pgn.{ Pgn, Tag, Turn, Move }
-import chess.Opening
+import chess.opening._
 import chess.{ Status, Color, Clock }
 
 private[analyse] final class Annotator(netDomain: String) {
@@ -9,7 +9,7 @@ private[analyse] final class Annotator(netDomain: String) {
   def apply(
     p: Pgn,
     analysis: Option[Analysis],
-    opening: Option[Opening],
+    opening: Option[FullOpening.AtPly],
     winner: Option[Color],
     status: Status,
     clock: Option[Clock]): Pgn =
@@ -44,8 +44,8 @@ private[analyse] final class Annotator(netDomain: String) {
     case None       => p
   }
 
-  private def annotateOpening(opening: Option[Opening])(p: Pgn) = opening.fold(p) { o =>
-    p.updatePly(o.size, _.copy(opening = o.name.some))
+  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) = opening.fold(p) { o =>
+    p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
   }
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =

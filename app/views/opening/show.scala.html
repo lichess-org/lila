@@ -1,4 +1,4 @@
-@(opening: lila.opening.Opening, identified: List[lila.opening.Identified], userInfos: Option[lila.opening.UserInfos], animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(opening: lila.opening.Opening, identified: List[String], userInfos: Option[lila.opening.UserInfos], animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @evenMoreJs = {
 @helper.javascriptRouter("openingRoutes")(

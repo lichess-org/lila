@@ -155,13 +155,14 @@ function renderVariationTurn(ctrl, turn, path) {
 }
 
 function renderOpening(ctrl, opening) {
-  return m('div.comment.opening', opening.code + ': ' + opening.name);
+  console.log(ctrl.data, opening);
+  return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
 function renderMeta(ctrl, move, path) {
   if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
-  opening = (move && opening && opening.size === move.ply) ? renderOpening(ctrl, opening) : null;
+  opening = (move && opening && opening.ply === move.ply) ? renderOpening(ctrl, opening) : null;
   if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);

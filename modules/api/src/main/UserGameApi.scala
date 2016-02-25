@@ -47,9 +47,7 @@ final class UserGameApi(bookmarkApi: lila.bookmark.BookmarkApi) {
     }),
     "fen" -> Forsyth.exportBoard(g.toChess.board),
     "lastMove" -> g.castleLastMoveTime.lastMoveString,
-    "opening" -> g.opening.map { o =>
-      Json.obj("code" -> o.code, "name" -> o.name)
-    },
+    "opening" -> g.opening,
     "winner" -> g.winnerColor.map(_.name),
     "bookmarks" -> g.bookmarks,
     "bookmarked" -> bookmarked.option(true)

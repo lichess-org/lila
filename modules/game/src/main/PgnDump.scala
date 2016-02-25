@@ -72,8 +72,8 @@ final class PgnDump(
       Tag("PlyCount", game.turns),
       Tag(_.Variant, game.variant.name.capitalize),
       Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
-      Tag(_.ECO, game.opening.fold("?")(_.eco)),
-      Tag(_.Opening, game.opening.fold("?")(_.name)),
+      Tag(_.ECO, game.opening.fold("?")(_.opening.eco)),
+      Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
       Tag(_.Termination, {
         import chess.Status._
         game.status match {

@@ -25,7 +25,7 @@
   font-size: 1.3em;
   font-weight: bold;
 }
-#opening table.identified td {
+#opening .identified li {
   padding-right: 2em;
 }
 #opening .meter {

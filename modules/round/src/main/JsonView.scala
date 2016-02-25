@@ -359,11 +359,11 @@ object JsonView {
       "emerg" -> c.emerg)
   }
 
-  implicit val openingWriter: OWrites[chess.Opening] = OWrites { o =>
+  implicit val openingWriter: OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
     Json.obj(
-      "code" -> o.code,
-      "name" -> o.name,
-      "size" -> o.size
+      "eco" -> o.opening.eco,
+      "name" -> o.opening.name,
+      "ply" -> o.ply
     )
   }
 }

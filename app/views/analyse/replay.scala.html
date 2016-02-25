@@ -2,7 +2,7 @@
 
 @import pov._
 
-@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.fullName)}" }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.opening.ecoName)}" }
 
 @moreCss = {
 @cssTag("analyse.css")
