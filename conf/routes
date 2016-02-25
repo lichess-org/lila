@@ -117,6 +117,7 @@ POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 # User Analysis
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
+POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

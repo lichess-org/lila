@@ -5,8 +5,10 @@ import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import chess.variant.Standard
 import chess.variant.Variant
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
+import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.app._
@@ -61,6 +63,23 @@ object UserAnalysis extends LilaController with TheftPrevention {
         }
       } map NoCache
     }
+  }
+
+  // XHR only
+  def pgn = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    Env.importer.forms.importForm.bindFromRequest.fold(
+      failure => BadRequest(errorsAsJson(failure)).fuccess,
+      data => data.preprocess(user = none).fold(
+        err => BadRequest(Json.obj("error" -> err.shows)).fuccess,
+        data => {
+          val game = data.game.copy(id = "synthetic")
+          val pov = Pov(game, chess.Color(true))
+          Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = none, pov.color, owner = false) map { data =>
+            Ok(data)
+          }
+        })
+    ).map (_ as JSON)
   }
 
   def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>

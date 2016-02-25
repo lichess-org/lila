@@ -314,6 +314,7 @@ function wheel(ctrl, e) {
 function inputs(ctrl) {
   if (!ctrl.data.userAnalysis) return null;
   if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
+  var pgnText = pgnExport.renderFullTxt(ctrl);
   return m('div.copyables', [
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
@@ -324,9 +325,17 @@ function inputs(ctrl) {
     }),
     m('div.pgn', [
       m('label.name', 'PGN'),
-      m('textarea.copyable.autoselect[readonly][spellCheck=false]', {
-        value: pgnExport.renderFullTxt(ctrl)
-      })
+      m('textarea.copyable.autoselect[spellCheck=false]', {
+        value: pgnText
+      }),
+      m('div.action', [
+        m('button.button', {
+          onclick: function(e) {
+            var pgn = $('.copyables .pgn textarea').val();
+            if (pgn !== pgnText) ctrl.changePgn(pgnText);
+          }
+        }, 'Import PGN')
+      ])
     ])
   ]);
 }

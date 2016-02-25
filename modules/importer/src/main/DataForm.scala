@@ -66,7 +66,10 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           mode = Mode.Casual,
           variant = variant,
           source = Source.Import,
-          pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some).start
+          pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
+        ).copy(
+            binaryPgn = BinaryFormat.pgn write game.pgnMoves
+          ).start
 
         Preprocessed(dbGame, replay.chronoMoves, result)
     }
