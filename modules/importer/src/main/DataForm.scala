@@ -21,7 +21,7 @@ private[importer] final class DataForm {
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
-private[importer] case class Preprocessed(game: Game, moves: List[MoveOrDrop], result: Option[Result])
+private[importer] case class Preprocessed(game: Game, replay: Replay, result: Option[Result])
 
 case class ImportData(pgn: String, analyse: Option[String]) {
 
@@ -67,11 +67,9 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           variant = variant,
           source = Source.Import,
           pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
-        ).copy(
-            binaryPgn = BinaryFormat.pgn write game.pgnMoves
-          ).start
+        ).start
 
-        Preprocessed(dbGame, replay.chronoMoves, result)
+        Preprocessed(dbGame, replay, result)
     }
   }
 }
