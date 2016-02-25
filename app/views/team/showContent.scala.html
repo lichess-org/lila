@@ -7,8 +7,8 @@
   </section>
   <h2>@trans.teamBestPlayers()</h2>
   <ol class="userlist best_players">
-    @info.bestPlayers.map { player =>
-    <li>@userLink(player)</li>
+    @info.bestUserIds.map { userId =>
+    <li>@userIdLink(userId.some)</li>
     }
   </ol>
   <h2>@trans.teamRecentMembers()</h2>

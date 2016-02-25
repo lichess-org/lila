@@ -1,6 +1,5 @@
 var chessground = require('chessground');
 var opposite = chessground.util.opposite;
-var data = require('./data');
 var analyse = require('./analyse');
 var treePath = require('./path');
 var ground = require('./ground');
@@ -22,14 +21,20 @@ var m = require('mithril');
 
 module.exports = function(opts) {
 
-  this.data = data({}, opts.data);
   this.userId = opts.userId;
-  this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
-  this.onMyTurn = this.data
 
-  this.analyse = new analyse(this.data.steps);
-  this.actionMenu = new actionMenu();
-  this.autoplay = new autoplay(this);
+  var initialize = function(data) {
+    this.data = data;
+    if (!data.game.moveTimes) this.data.game.moveTimes = [];
+    this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+    this.analyse = new analyse(this.data.steps);
+    this.actionMenu = new actionMenu();
+    this.autoplay = new autoplay(this);
+    this.socket = new socket(opts.socketSend, this);
+    this.explorer = explorerCtrl(this, opts.explorer);
+  }.bind(this);
+
+  initialize(opts.data);
 
   var initialPath = opts.path ? (opts.path === 'last' ? treePath.default(this.analyse.lastPly()) : treePath.read(opts.path)) : treePath.default(this.analyse.firstPly());
   if (initialPath[0].ply >= this.data.steps.length)
@@ -47,7 +52,8 @@ module.exports = function(opts) {
     showGauge: util.storedProp('show-gauge', true),
     autoScroll: null,
     variationMenu: null,
-    element: opts.element
+    element: opts.element,
+    redirecting: false
   };
 
   this.flip = function() {
@@ -175,9 +181,35 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  var forsyth = function(role) {
-    return role === 'knight' ? 'n' : role[0];
-  };
+  this.changePgn = function(pgn) {
+    this.vm.redirecting = true;
+    $.ajax({
+      url: '/analysis/pgn',
+      method: 'post',
+      data: {
+        pgn: pgn
+      },
+      success: function(data) {
+        initialize(data);
+        this.vm.redirecting = false;
+        this.jumpToMain(this.analyse.firstPly());
+      }.bind(this),
+      error: function(error) {
+        console.log(error);
+        this.vm.redirecting = false;
+        m.redraw();
+      }.bind(this)
+    });
+  }.bind(this);
+
+  this.changeFen = function(fen) {
+    this.vm.redirecting = true;
+    window.location = makeUrl(this.data.game.variant.key, fen);
+  }.bind(this);
+
+  var makeUrl = function(variantKey, fen) {
+    return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
 
   var roleToSan = {
     pawn: 'P',
@@ -289,8 +321,6 @@ module.exports = function(opts) {
     return this.vm.step.fen.replace(/\s/g, '_');
   }.bind(this);
 
-  this.socket = new socket(opts.socketSend, this);
-
   this.currentEvals = function() {
     var step = this.vm.step;
     return step && (step.eval || step.ceval) ? {
@@ -386,8 +416,6 @@ module.exports = function(opts) {
       brush: brush
     };
   }
-
-  this.explorer = explorerCtrl(this, opts.explorer);
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);

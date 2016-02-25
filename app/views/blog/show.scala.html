@@ -17,29 +17,30 @@ image = doc.getImage("blog.image", "main").map(_.url),
 title = ~doc.getText("blog.title"),
 url = s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug).url}",
 description = ~doc.getText("blog.shortlede")).some) {
-
-<h1 class="blog_title">@doc.getText("blog.title")</h1>
-@meta(doc)
-<strong class="shortlede">@doc.getHtml("blog.shortlede", prismic.linkResolver).map(Html.apply)</strong>
-<div class="illustration">
-  @doc.getImage("blog.image", "main").map { img =>
-  <img src="@img.url" />
-  }
-</div>
-<div class="body">
-  @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(Html.apply)
-</div>
-@NotForKids {
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-  var disqus_shortname = 'lichessorg';
-  var disqus_identifier = '@doc.id';
-  var disqus_title = '@doc.getText("blog.title")';
-  (function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+<div id="@doc.id" class="post @doc.getText("blog.cssClasses")">
+  <h1 class="blog_title">@doc.getText("blog.title")</h1>
+  @meta(doc)
+  <strong class="shortlede">@doc.getHtml("blog.shortlede", prismic.linkResolver).map(Html.apply)</strong>
+  <div class="illustration">
+    @doc.getImage("blog.image", "main").map { img =>
+    <img src="@img.url" />
+    }
+  </div>
+  <div class="body">
+    @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(Html.apply)
+  </div>
+  @NotForKids {
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'lichessorg';
+    var disqus_identifier = '@doc.id';
+    var disqus_title = '@doc.getText("blog.title")';
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-}
+    })();
+  </script>
+  }
+</div>
 }

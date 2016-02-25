@@ -110,13 +110,13 @@ function inputs(ctrl, fen) {
   return m('div.copyables', [
     m('p', [
       m('strong.name', 'FEN'),
-      m('input.copyable[readonly][spellCheck=false]', {
+      m('input.copyable.autoselect[readonly][spellCheck=false]', {
         value: fen
       })
     ]),
     m('p', [
       m('strong.name', 'URL'),
-      m('input.copyable[readonly][spellCheck=false]', {
+      m('input.copyable.autoselect[readonly][spellCheck=false]', {
         value: editor.makeUrl(ctrl.data.baseUrl, fen)
       })
     ])

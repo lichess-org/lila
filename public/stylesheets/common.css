@@ -1652,6 +1652,7 @@ a.button:disabled {
 a.button {
   padding: 6px 11px;
   white-space: nowrap;
+  text-decoration: none!important;
 }
 .button.thin,
 a.button.thin {

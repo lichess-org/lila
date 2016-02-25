@@ -24,7 +24,7 @@
       @Html(lila.blog.BlogApi.extract(body))
       }
       <p class="more">
-        <a href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)" data-icon="G"> Continue reading this post</a>
+        <a class="button" href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)" data-icon="G"> Continue reading this post</a>
       </p>
     </div>
   </article>

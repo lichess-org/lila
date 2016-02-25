@@ -21,6 +21,9 @@
 #lichess_blog .illustration img {
   max-height: 300px;
 }
+#lichess_blog .post.no-icon .illustration {
+  display: none;
+}
 #lichess_blog .shortlede {
   display: block;
   text-align: center;

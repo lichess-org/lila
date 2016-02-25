@@ -5,8 +5,10 @@ import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import chess.variant.Standard
 import chess.variant.Variant
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
+import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.app._
@@ -18,11 +20,14 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def index = load("", Standard)
 
-  def variantOrLoad(something: String) =
-    Variant.byKey get something match {
-      case Some(variant) => load("", variant)
-      case None          => load(something, Standard)
+  def parse(arg: String) = arg.split("/", 2) match {
+    case Array(key) => load("", Variant orDefault key)
+    case Array(key, fen) => Variant.byKey get key match {
+      case Some(variant) => load(fen, variant)
+      case _             => load(arg, Standard)
     }
+    case _ => load("", Standard)
+  }
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
     val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
@@ -58,6 +63,22 @@ object UserAnalysis extends LilaController with TheftPrevention {
         }
       } map NoCache
     }
+  }
+
+  // XHR only
+  def pgn = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    Env.importer.forms.importForm.bindFromRequest.fold(
+      failure => BadRequest(errorsAsJson(failure)).fuccess,
+      data => Env.importer.importer.inMemory(data).fold(
+        err => BadRequest(Json.obj("error" -> err.shows)).fuccess,
+        game => {
+          val pov = Pov(game, chess.Color(true))
+          Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = none, pov.color, owner = false) map { data =>
+            Ok(data)
+          }
+        })
+    ).map(_ as JSON)
   }
 
   def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>

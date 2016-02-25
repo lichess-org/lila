@@ -2,6 +2,7 @@ package lila.app
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -87,6 +88,10 @@ final class Env(
       Env.explorer // required to load the actor
     )
     play.api.Logger("boot").info("Preloading complete")
+
+    scheduler.once(5 seconds) {
+      Env.slack.api.publishInfo("Lichess has restarted!")
+    }
   }
 
   if (Env.ai.ServerOnly) println("Running as AI server")

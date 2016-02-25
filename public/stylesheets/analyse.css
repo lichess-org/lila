@@ -676,6 +676,14 @@ div.copyables .pgn textarea {
   white-space: pre-wrap;
   overflow-x: hidden;
 }
+div.copyables .pgn .action {
+  display: none;
+  text-align: right;
+  margin-top: 10px;
+}
+div.copyables .pgn:hover .action {
+  display: block;
+}
 div.advice_summary {
   margin-top: -15px;
 }

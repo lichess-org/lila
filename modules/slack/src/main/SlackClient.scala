@@ -9,7 +9,7 @@ import lila.common.PimpedJson._
 private final class SlackClient(url: String, defaultChannel: String) {
 
   def apply(msg: SlackMessage): Funit =
-    WS.url(url)
+    url.nonEmpty ?? WS.url(url)
       .post(Json.obj(
         "username" -> msg.username,
         "text" -> msg.text,

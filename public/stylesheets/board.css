@@ -715,7 +715,7 @@ div.table_wrap .clock > .time {
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 32px;
-  font-family: monospace;
+  font-family: monospace, 'Noto Sans', 'Lucida Grande';
 }
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
@@ -1111,7 +1111,7 @@ div.game_tournament:hover {
 div.game_tournament .clock {
   text-align: center;
   font-size: 20px;
-  font-family: monospace;
+  font-family: monospace, 'Noto Sans', 'Lucida Grande';
   font-weight: bold;
   margin: 10px 0;
 }

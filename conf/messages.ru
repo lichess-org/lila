@@ -1,6 +1,6 @@
 playWithAFriend=Сыграть с другом
 playWithTheMachine=Партия с компьютером
-toInviteSomeoneToPlayGiveThisUrl=Чтобы сыграть с другом, отправьте ему эту ссылку
+toInviteSomeoneToPlayGiveThisUrl=Чтобы сыграть с другом, отправьте им эту ссылку
 gameOver=Игра окончена
 waitingForOpponent=Ожидание противника
 waiting=Ожидание

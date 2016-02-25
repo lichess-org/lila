@@ -45,14 +45,22 @@ final class Importer(
 
     gameExists {
       (data preprocess user).future flatMap {
-        case Preprocessed(g, moves, result) =>
-          val game = forceId.fold(g)(g.withId)
+        case Preprocessed(g, replay, result) =>
+          val game = forceId.fold(g)(g.withId).start
           (GameRepo insertDenormalized game) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
-          } >> applyMoves(Pov(game, Color.white), moves) >>-
+          } >> applyMoves(Pov(game, Color.white), replay.chronoMoves) >>-
             (result foreach { r => applyResult(game, r) }) >>
             (GameRepo game game.id).map(_ | game)
       }
     }
+  }
+
+  def inMemory(data: ImportData): Valid[Game] = data.preprocess(user = none).map {
+    case Preprocessed(game, replay, _) =>
+      game.copy(
+        id = "synthetic",
+        binaryPgn = lila.game.BinaryFormat.pgn write replay.state.pgnMoves
+      )
   }
 }
