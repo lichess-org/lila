@@ -19,7 +19,6 @@ module.exports = function(send, ctrl) {
       clearTimeout(anaMoveTimeout);
     },
     stepFailure: function(data) {
-      console.log(data);
       clearTimeout(anaMoveTimeout);
       ctrl.reset();
     },
