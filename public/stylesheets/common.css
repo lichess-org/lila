@@ -58,12 +58,6 @@ time {
   font-style: normal;
 }
 @font-face {
-  font-family: 'Noto Sans Exhaustive';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/0Ue9FiUJwVhi4NGfHJS5uA.ttf) format('truetype');
-}
-@font-face {
   font-family: 'PT Serif';
   font-style: italic;
   font-weight: 400;
@@ -1350,7 +1344,6 @@ div.auth input.login {
 }
 #top div.lichess_language.shown .language_links {
   display: block;
-  font-family: 'Noto Sans Exhaustive';
 }
 .language_links button {
   display: block;
