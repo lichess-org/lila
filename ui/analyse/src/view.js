@@ -371,14 +371,36 @@ function blindBoard(ctrl) {
   ]);
 }
 
-function buttons(ctrl) {
+var cachedButtons = (function() {
   var make = function(icon, effect) {
     return m('button', {
       class: 'button',
       'data-act': effect,
       'data-icon': icon
     });
-  }
+  };
+  return m('div', [
+    m('div.jumps', [
+      make('Y', 'prev'),
+      make('W', 'first')
+    ]),
+    m('div.jumps', [
+      make('X', 'next'),
+      make('V', 'last')
+    ])
+  ])
+})();
+
+function icon(c) {
+  return {
+    tag: 'i',
+    attrs: {
+      'data-icon': c
+    }
+  };
+}
+
+function buttons(ctrl) {
   return m('div.game_control',
     m('div.buttons', {
       onmousedown: function(e) {
@@ -388,31 +410,18 @@ function buttons(ctrl) {
         else if (control[action]) control[action](ctrl);
       }
     }, [
+      cachedButtons,
       m('div', [
-        m('div.jumps', [
-          make('Y', 'prev'),
-          make('W', 'first')
-        ]),
-        m('div.jumps', [
-          make('X', 'next'),
-          make('V', 'last')
-        ])
-      ]),
-      m('div', [
-        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button.button.hint--bottom', {
+        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button', {
           'data-hint': 'Opening explorer',
           'data-act': 'explorer',
-          class: ctrl.explorer.enabled() ? 'active' : ''
-        }, m('i', {
-          'data-icon': ']'
-        })),
-        m('button.button.menu.hint--bottom', {
+          class: 'button hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
+        }, icon(']')),
+        m('button', {
+          class: 'button menu hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
           'data-hint': 'Menu',
-          'data-act': 'menu',
-          class: ctrl.actionMenu.open ? 'active' : ''
-        }, m('i', {
-          'data-icon': '['
-        }))
+          'data-act': 'menu'
+        }, icon('['))
       ])
     ])
   );
