@@ -116,6 +116,8 @@ object BSON {
       map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
     def getD[A](k: String, default: A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse default
+    def getsD[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, List[A]]) =
+      getO[List[A]](k) getOrElse Nil
 
     def str(k: String) = get[String](k)
     def strO(k: String) = getO[String](k)
