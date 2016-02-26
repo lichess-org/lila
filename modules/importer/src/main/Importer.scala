@@ -24,10 +24,10 @@ final class Importer(
       GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     def applyResult(game: Game, result: Option[Result], situation: Situation): Game =
-      if (game.finished("finished")) game
-      else situation.status("status") match {
+      if (game.finished) game
+      else situation.status match {
         case Some(status) => game.finish(status, situation.winner).game
-        case _ => result("status").fold(game) {
+        case _ => result.fold(game) {
           case Result(Status.Draw, _)               => game.finish(Status.Draw, None).game
           case Result(Status.Resign, winner)        => game.finish(Status.Resign, winner).game
           case Result(Status.UnknownFinish, winner) => game.finish(Status.UnknownFinish, winner).game
