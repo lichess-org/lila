@@ -7,16 +7,7 @@
 @moreJs = {
 @embedJs {
 $("#import_game form").submit(function() {
-var pgn = $(this).find('textarea').val();
-var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
-var delay = 50;
-var duration = nbMoves * delay * 2 + 500;
-$(this).find('button').hide().end()
-.find('.error').hide().end()
-.find('.progression').show().animate({
-width: '100%'
-}, duration);
-return true;
+setTimeout(function() { $(this).html(lichess.spinnerHtml); }.bind(this), 50);
 });
 }
 }
@@ -51,7 +42,6 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
       <label for="import_analyse">@trans.requestAComputerAnalysis()</label>
     </p>
     <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
-    <div class="progression"></div>
   </form>
 </div>
 }

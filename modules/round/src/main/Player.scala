@@ -5,7 +5,7 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color, MoveOrDrop }
 import scalaz.Validation.FlatMap._
 
-import actorApi.round.{ HumanPlay, AiPlay, ImportPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
@@ -58,19 +58,6 @@ private[round] final class Player(
       case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
       case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")
       case _                                       => ClientErrorException.future(s"$pov move refused for some reason")
-    }
-  }
-
-  def importMove(play: ImportPlay)(pov: Pov): Fu[Events] = play match {
-    case ImportPlay(playerId, uci) => pov match {
-      case Pov(game, color) if game.turnOf(color) && game.playableEvenImported =>
-        game.toChess(uci).future.flatMap {
-          case (newChessGame, moveOrDrop) =>
-            val progress = game.update(newChessGame, moveOrDrop)
-            (GameRepo save progress) >>-
-              (progress.game.finished ?? moveFinish(progress.game, color)) inject Nil
-        }
-      case _ => ClientErrorException.future(s"$pov import move refused for some reason")
     }
   }
 

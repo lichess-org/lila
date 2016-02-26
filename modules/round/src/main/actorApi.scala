@@ -101,10 +101,6 @@ case class HumanPlay(
   val atMillis = nowMillis
 }
 
-case class ImportPlay(playerId: String, uci: Uci)
-case class ImportResign(color: Color)
-case object ImportDraw
-
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

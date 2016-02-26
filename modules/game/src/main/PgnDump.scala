@@ -82,6 +82,7 @@ final class PgnDump(
           case Timeout | Outoftime                           => "Time forfeit"
           case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
           case Cheat                                         => "Rules infraction"
+          case UnknownFinish                                 => "Unknown"
         }
       })
     ) ::: customStartPosition(game.variant).??(List(

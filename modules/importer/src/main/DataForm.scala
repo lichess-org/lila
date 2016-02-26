@@ -48,8 +48,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         }
 
         val result = tag(_.Result) ifFalse game.situation.end collect {
-          case "1-0"     => Result(Status.Resign, Color.White.some)
-          case "0-1"     => Result(Status.Resign, Color.Black.some)
+          case "1-0"     => Result(Status.UnknownFinish, Color.White.some)
+          case "0-1"     => Result(Status.UnknownFinish, Color.Black.some)
           case "1/2-1/2" => Result(Status.Draw, none)
         }
 
@@ -60,14 +60,16 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         }
 
         val dbGame = Game.make(
-          game = ChessGame(board = initBoard | (Board init variant)),
+          game = replay.state,
           whitePlayer = Player.white withName name(_.White, _.WhiteElo),
           blackPlayer = Player.black withName name(_.Black, _.BlackElo),
           mode = Mode.Casual,
           variant = variant,
           source = Source.Import,
           pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
-        ).start
+        ).copy(
+            binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
+          ).start
 
         Preprocessed(dbGame, replay, result)
     }

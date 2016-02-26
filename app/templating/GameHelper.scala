@@ -45,7 +45,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
       case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
-      case (_, _, Draw | Stalemate)                         => "Game is a draw"
+      case (Some(w), _, UnknownFinish)                      => s"${playerText(w)} won"
+      case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
         case chess.variant.KingOfTheHill => "King in the center"
@@ -144,7 +145,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case Some(p) if p.color.white => trans.whiteResigned()
       case _                        => trans.blackResigned()
     }
-    case S.Stalemate => trans.stalemate()
+    case S.UnknownFinish => trans.finished()
+    case S.Stalemate     => trans.stalemate()
     case S.Timeout => game.loser match {
       case Some(p) if p.color.white => trans.whiteLeftTheGame()
       case Some(_)                  => trans.blackLeftTheGame()

@@ -89,7 +89,7 @@ object Termination {
     case S.Stalemate           => Stalemate
     case S.Mate | S.VariantEnd => Checkmate
     case S.Cheat               => Resignation
-    case S.Created | S.Started | S.Aborted | S.NoStart =>
+    case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
       logwarn(s"[insight] Unfinished game in the insight indexer")
       Resignation
   }

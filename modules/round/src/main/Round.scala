@@ -63,11 +63,6 @@ private[round] final class Round(
         }
       } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
 
-    case p: ImportPlay =>
-      handle(p.playerId) { pov =>
-        player.importMove(p)(pov)
-      }
-
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)
@@ -80,14 +75,6 @@ private[round] final class Round(
 
     case Resign(playerId) => handle(playerId) { pov =>
       pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
-    }
-
-    case ImportResign(color) => handle(color) { pov =>
-      (pov.game.isPgnImport && !pov.game.finished) ?? finisher.other(pov.game, _.Resign, Some(!color))
-    }
-
-    case ImportDraw => handle { game =>
-      (game.isPgnImport && !game.finished) ?? finisher.other(game, _.Draw, none)
     }
 
     case GoBerserk(color) => handle(color) { pov =>
