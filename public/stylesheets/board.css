@@ -756,14 +756,9 @@ div.table_wrap .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
-div.table_wrap .berserk {
-  display: inline-block;
+div.table_wrap .berserk.button {
   font-size: 17px;
   margin-left: 5px;
-  line-height: 27px;
-  vertical-align: 2px;
-}
-div.table_wrap .berserk.button {
   line-height: 17px;
   vertical-align: -3px;
 }
