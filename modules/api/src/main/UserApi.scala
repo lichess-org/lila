@@ -18,30 +18,24 @@ private[api] final class UserApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
-    makeUrl: String => String,
-    apiToken: String) {
+    makeUrl: String => String) {
 
   def list(
-    team: Option[String],
-    token: Option[String],
+    teamId: String,
     nb: Option[Int],
-    engine: Option[Boolean]): Fu[JsObject] = (team match {
-    case Some(teamId) => lila.team.MemberRepo userIdsByTeam teamId flatMap UserRepo.enabledByIds
-    case None => $find(pimpQB($query(
-      UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
-    )) sort UserRepo.sortPerfDesc(lila.rating.PerfType.Standard.key), makeNb(nb, token))
-  }) map { users =>
-    Json.obj(
-      "list" -> JsArray(
-        users map { u =>
-          jsonView(u) ++
-            Json.obj("url" -> makeUrl(s"@/${u.username}"))
-        }
+    engine: Option[Boolean]): Fu[JsObject] =
+    lila.team.MemberRepo userIdsByTeam teamId map (_ take makeNb(nb)) flatMap UserRepo.enabledByIds map { users =>
+      Json.obj(
+        "list" -> JsArray(
+          users map { u =>
+            jsonView(u) ++
+              Json.obj("url" -> makeUrl(s"@/${u.username}"))
+          }
+        )
       )
-    )
-  }
+    }
 
-  def one(username: String, token: Option[String])(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
+  def one(username: String)(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
       (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
@@ -79,7 +73,5 @@ private[api] final class UserApi(
       } map (_.some)
   }
 
-  private def makeNb(nb: Option[Int], token: Option[String]) = math.min(check(token) ? 1000 | 100, nb | 10)
-
-  private def check(token: Option[String]) = token ?? (apiToken==)
+  private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
 }

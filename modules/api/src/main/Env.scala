@@ -78,7 +78,6 @@ final class Env(
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
     makeUrl = makeUrl,
-    apiToken = apiToken,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,

@@ -29,18 +29,17 @@ object Api extends LilaController {
   }
 
   def user(name: String) = ApiResult { implicit ctx =>
-    userApi.one(
-      username = name,
-      token = get("token"))
+    userApi one name
   }
 
   def users = ApiResult { implicit ctx =>
-    userApi.list(
-      team = get("team"),
-      engine = getBoolOpt("engine"),
-      token = get("token"),
-      nb = getInt("nb")
-    ) map (_.some)
+    get("team") ?? { teamId =>
+      userApi.list(
+        teamId = teamId,
+        engine = getBoolOpt("engine"),
+        nb = getInt("nb")
+      ).map(_.some)
+    }
   }
 
   def userGames(name: String) = ApiResult { implicit ctx =>
