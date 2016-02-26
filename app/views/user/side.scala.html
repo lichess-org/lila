@@ -7,7 +7,9 @@
   title="@perfType.title"
   @if(lila.rating.PerfType.isGame(perfType)) {
   href="@routes.User.perfStat(u.username, perfType.key)"
-  class="game@if(active.contains(perfType)){ active}@if(perf.nb >= 10){ relevant}"
+  class="game@if(active.contains(perfType)){ active}@if(perf.isEmpty){ empty}"
+  } else {
+  class="@if(perf.isEmpty){empty}"
   }>
   <h3>@name.getOrElse(perfType.name).toUpperCase</h3>
   <span class="rating">

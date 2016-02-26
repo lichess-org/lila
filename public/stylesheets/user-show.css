@@ -149,6 +149,9 @@ div.sub_ratings > a {
   transition: 0.13s;
   cursor: default;
 }
+div.sub_ratings > a.empty {
+  opacity: 0.5;
+}
 div.sub_ratings > a.game {
   cursor: pointer;
 }
