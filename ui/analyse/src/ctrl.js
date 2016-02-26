@@ -428,6 +428,10 @@ module.exports = function(opts) {
     this.explorer.loading(true);
   }.bind(this);
 
+  this.socketReceive = function(type, data) {
+    this.socket.receive(type, data);
+  }.bind(this);
+
   this.trans = lichess.trans(opts.i18n);
 
   showGround();

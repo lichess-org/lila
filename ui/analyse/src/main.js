@@ -12,7 +12,7 @@ module.exports = function(opts) {
   });
 
   return {
-    socketReceive: controller.socket.receive,
+    socketReceive: controller.socketReceive,
     jumpToIndex: function(index) {
       controller.jumpToIndex(index);
       m.redraw();
