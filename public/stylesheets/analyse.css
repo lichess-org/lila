@@ -191,6 +191,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  background: #e0e0e0;
 }
 .ceval_box {
   position: relative;
