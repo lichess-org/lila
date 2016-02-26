@@ -420,7 +420,13 @@ function buttons(ctrl) {
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.analyse.getOpening(ctrl.vm.path);
-  if (opening) return m('div.opening_box', opening.eco + ' ' + opening.name);
+  if (opening) return m('div', {
+    class: 'opening_box',
+    title: opening.eco + ' ' + opening.name
+  }, [
+    m('strong', opening.eco),
+    ' ' + opening.name
+  ]);
 }
 
 module.exports = function(ctrl) {

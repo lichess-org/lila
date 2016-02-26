@@ -188,6 +188,9 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   padding: 5px;
   border: 1px solid #ccc;
   border-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ceval_box {
   position: relative;
