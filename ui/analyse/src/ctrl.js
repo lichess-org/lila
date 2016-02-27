@@ -75,7 +75,17 @@ module.exports = function(opts) {
   };
 
   var showGround = function() {
-    var s = this.analyse.getStep(this.vm.path);
+    var s;
+    try {
+      s = this.analyse.getStep(this.vm.path);
+    } catch (e) {
+      console.log(e);
+    }
+    if (!s) {
+      this.vm.path = treePath.default(this.analyse.firstPly());
+      this.vm.pathStr = treePath.write(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
+    }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
     var dests = util.readDests(s.dests);
     var drops = util.readDrops(s.drops);
