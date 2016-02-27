@@ -42,6 +42,7 @@ module.exports = function(ctrl) {
   k.bind('c', preventing(function() {
     ctrl.vm.comments = !ctrl.vm.comments;
     m.redraw();
+    ctrl.autoScroll();
   }));
   k.bind(['esc'], ctrl.chessground.cancelMove);
   k.bind('f', preventing(ctrl.flip));

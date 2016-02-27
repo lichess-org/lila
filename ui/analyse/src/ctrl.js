@@ -128,6 +128,10 @@ module.exports = function(opts) {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
   }.bind(this), false) : $.noop;
 
+  this.autoScroll = function() {
+    this.vm.autoScroll && this.vm.autoScroll();
+  }.bind(this);
+
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
@@ -144,7 +148,7 @@ module.exports = function(opts) {
     startCeval();
     this.explorer.setStep();
     updateHref();
-    this.vm.autoScroll && this.vm.autoScroll();
+    this.autoScroll();
     promotion.cancel(this);
   }.bind(this);
 
