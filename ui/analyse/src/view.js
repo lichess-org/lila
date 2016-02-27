@@ -159,7 +159,6 @@ function renderCommentOpening(ctrl, opening) {
 }
 
 function renderMeta(ctrl, move, path) {
-  if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
   opening = (move && opening && opening.ply === move.ply) ? renderCommentOpening(ctrl, opening) : null;
   if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
@@ -167,7 +166,7 @@ function renderMeta(ctrl, move, path) {
   if (opening) children.push(opening);
   var colorClass = move.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (!empty(move.comments)) move.comments.forEach(function(comment) {
+  if (ctrl.vm.comments && !empty(move.comments)) move.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
@@ -177,6 +176,7 @@ function renderMeta(ctrl, move, path) {
   });
   if (!empty(move.variations)) move.variations.forEach(function(variation, i) {
     if (empty(variation)) return;
+    if (i === 0 && !empty(move.comments) && !ctrl.vm.comments) return;
     children.push(renderVariation(
       ctrl,
       variation,
@@ -184,7 +184,7 @@ function renderMeta(ctrl, move, path) {
       i === 0 ? colorClass + commentClass : null
     ));
   });
-  return m('div', {
+  if (children.length) return m('div', {
     class: 'meta'
   }, children);
 }

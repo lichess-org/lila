@@ -41,11 +41,6 @@ module.exports = function(ctrl) {
   }));
   k.bind('c', preventing(function() {
     ctrl.vm.comments = !ctrl.vm.comments;
-    if (!ctrl.vm.comments && ctrl.vm.path.length > 1) {
-      path = [ctrl.vm.path[0]];
-      path[0].variation = null;
-      ctrl.userJump(path);
-    }
     m.redraw();
   }));
   k.bind(['esc'], ctrl.chessground.cancelMove);
