@@ -27,7 +27,6 @@ final class Env(
   private val settings = new {
     val CollectionSimul = config getString "collection.simul"
     val SequencerTimeout = config duration "sequencer.timeout"
-    val SequencerMapName = config getString "sequencer.map_name"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
@@ -109,7 +108,7 @@ final class Env(
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(SequencerTimeout.some)
-  }), name = SequencerMapName)
+  }))
 
   private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
 
