@@ -74,13 +74,16 @@ module.exports = function(opts) {
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
-  var showGround = function() {
-    var s;
+  var tryToGetStep = function() {
     try {
-      s = this.analyse.getStep(this.vm.path);
+      return this.analyse.getStep(this.vm.path);
     } catch (e) {
       console.log(e);
     }
+  }.bind(this);
+
+  var showGround = function() {
+    var s = tryToGetStep();
     if (!s) {
       this.vm.path = treePath.default(this.analyse.firstPly());
       this.vm.pathStr = treePath.write(this.vm.path);
