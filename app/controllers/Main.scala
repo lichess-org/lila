@@ -98,7 +98,6 @@ object Main extends LilaController {
     } inject Ok
   }
 
-  private val explorerPgnDateFormat = org.joda.time.format.DateTimeFormat forPattern "yyyy.MM.dd";
   def explorerGameInfo(id: String) = Action.async { req =>
     lila.game.GameRepo game id map {
       _.fold(NotFound(s"Not game $id!")) { game =>
@@ -109,7 +108,7 @@ object Main extends LilaController {
           wRating <- game.whitePlayer.rating
           bRating <- game.blackPlayer.rating
         } yield Ok {
-          List(wName, wRating, bName, bRating, explorerPgnDateFormat.print(game.createdAt)) mkString "|"
+          List(wName, wRating, bName, bRating, game.createdAt.getYear) mkString "|"
         }
         res getOrElse NotFound(s"Not enough data for $id!")
       }
