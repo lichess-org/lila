@@ -108,7 +108,7 @@ function allChallenges(ctrl, d, nb) {
   ]);
 }
 
-function empty(ctrl, d) {
+function empty() {
   return m('div.empty.text[data-icon=]', 'No challenges.');
 }
 
@@ -128,5 +128,5 @@ module.exports = function(ctrl) {
   if (ctrl.vm.initiating) return m('div.initiating', spinner());
   var d = ctrl.data;
   var nb = d.in.length + d.out.length;
-  return nb ? allChallenges(ctrl, d, nb) : empty(ctrl);
+  return nb ? allChallenges(ctrl, d, nb) : empty();
 };

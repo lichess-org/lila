@@ -74,8 +74,21 @@ module.exports = function(opts) {
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
+  var tryToGetStep = function() {
+    try {
+      return this.analyse.getStep(this.vm.path);
+    } catch (e) {
+      console.log(e);
+    }
+  }.bind(this);
+
   var showGround = function() {
-    var s = this.analyse.getStep(this.vm.path);
+    var s = tryToGetStep();
+    if (!s) {
+      this.vm.path = treePath.default(this.analyse.firstPly());
+      this.vm.pathStr = treePath.write(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
+    }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
     var dests = util.readDests(s.dests);
     var drops = util.readDrops(s.drops);
@@ -128,6 +141,10 @@ module.exports = function(opts) {
     window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
   }.bind(this), false) : $.noop;
 
+  this.autoScroll = function() {
+    this.vm.autoScroll && this.vm.autoScroll();
+  }.bind(this);
+
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
@@ -144,7 +161,7 @@ module.exports = function(opts) {
     startCeval();
     this.explorer.setStep();
     updateHref();
-    this.vm.autoScroll && this.vm.autoScroll();
+    this.autoScroll();
     promotion.cancel(this);
   }.bind(this);
 
@@ -182,7 +199,7 @@ module.exports = function(opts) {
       success: function(data) {
         initialize(data);
         this.vm.redirecting = false;
-        this.jumpToMain(this.analyse.firstPly());
+        this.jumpToMain(this.analyse.lastPly());
       }.bind(this),
       error: function(error) {
         console.log(error);

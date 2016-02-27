@@ -15,11 +15,16 @@
   display:inline-block;
   margin-right: 10px;
 }
-#lichess_blog .illustration {
+#lichess_blog .illustration,
+#lichess_blog [data-oembed] {
   text-align: center;
 }
 #lichess_blog .illustration img {
   max-height: 300px;
+}
+#Vs0xMTAAAD4We4Ey [data-oembed] iframe {
+  width: 744px;
+  height: 417px;
 }
 #lichess_blog .post.no-icon .illustration {
   display: none;
