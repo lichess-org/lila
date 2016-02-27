@@ -84,9 +84,9 @@ final class Cached(
     f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
     timeToLive = 34 minutes)
 
-  val topOnline = lila.memo.AsyncCache[Int, List[User]](
-    f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
-    timeToLive = 10 seconds)
+  val top50Online = lila.memo.AsyncCache.single[List[User]](
+    f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
+    timeToLive = 15 seconds)
 
   object ranking {
 
