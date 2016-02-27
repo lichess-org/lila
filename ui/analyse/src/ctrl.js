@@ -199,7 +199,7 @@ module.exports = function(opts) {
       success: function(data) {
         initialize(data);
         this.vm.redirecting = false;
-        this.jumpToMain(this.analyse.firstPly());
+        this.jumpToMain(this.analyse.lastPly());
       }.bind(this),
       error: function(error) {
         console.log(error);
