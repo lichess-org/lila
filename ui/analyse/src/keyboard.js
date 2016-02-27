@@ -15,27 +15,27 @@ function preventing(f) {
 }
 
 module.exports = function(ctrl) {
-  k.bind(['left', 'h'], preventing(function() {
+  k.bind(['left', 'k'], preventing(function() {
     control.prev(ctrl);
     m.redraw();
   }));
-  k.bind(['shift+left', 'shift+h'], preventing(function() {
+  k.bind(['shift+left', 'shift+k'], preventing(function() {
     control.exitVariation(ctrl);
     m.redraw();
   }));
-  k.bind(['right', 'l'], preventing(function() {
+  k.bind(['right', 'j'], preventing(function() {
     control.next(ctrl);
     m.redraw();
   }));
-  k.bind(['shift+right', 'shift+l'], preventing(function() {
+  k.bind(['shift+right', 'shift+j'], preventing(function() {
     control.enterVariation(ctrl);
     m.redraw();
   }));
-  k.bind(['up', 'k'], preventing(function() {
+  k.bind(['up', 'h', '0'], preventing(function() {
     control.first(ctrl);
     m.redraw();
   }));
-  k.bind(['down', 'j'], preventing(function() {
+  k.bind(['down', 'l', '$'], preventing(function() {
     control.last(ctrl);
     m.redraw();
   }));
