@@ -95,7 +95,8 @@ function showGameTable(ctrl, type, games) {
           window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
       }
     }, games.map(function(game) {
-      return m('tr', {
+      // server might return null games
+      if (game) return m('tr', {
         key: game.id,
         'data-id': game.id
       }, [
