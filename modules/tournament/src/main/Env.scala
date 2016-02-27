@@ -42,7 +42,6 @@ final class Env(
     val OrganizerName = config getString "organizer.name"
     val ReminderName = config getString "reminder.name"
     val SequencerTimeout = config duration "sequencer.timeout"
-    val SequencerMapName = config getString "sequencer.map_name"
     val NetDomain = config getString "net.domain"
   }
   import settings._
@@ -112,7 +111,7 @@ final class Env(
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
       executionTimeout = 5.seconds.some)
-  }), name = SequencerMapName)
+  }))
 
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,
