@@ -1,7 +1,7 @@
 package lila.study
 
-import chess.Pos
 import chess.format.Uci
+import chess.Pos
 import org.joda.time.DateTime
 
 import lila.user.User
@@ -9,47 +9,26 @@ import lila.user.User
 case class Study(
     _id: Study.ID,
     owner: User.ID,
-    gameId: Option[String],
-    steps: List[Study.Step],
-    shapes: List[Study.Shape],
+    chapters: Map[Chapter.ID, Chapter],
     createdAt: DateTime) {
 
   import Study._
 
   def id = _id
+
+  def location(chapterId: Chapter.ID) =
+    chapters get chapterId map { Location(this, chapterId, _) }
 }
 
 object Study {
 
   type ID = String
-  type Brush = String
 
-  sealed trait Shape
-  object Shape {
-    case class Circle(brush: Brush, pos: Pos) extends Shape
-    case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
-  }
+  val idSize = 8
 
-  case class Step(
-      ply: Int,
-      move: Option[Step.Move],
-      fen: String,
-      check: Boolean,
-      variations: List[List[Step]]) {
-  }
-
-  object Step {
-    case class Move(uci: Uci, san: String)
-  }
-
-  def make(
-    id: ID,
-    owner: User.ID,
-    gameId: Option[String]): Study = Study(
-    _id = id,
+  def make(owner: User.ID, gameId: Option[String]) = Study(
+    _id = scala.util.Random.alphanumeric take idSize mkString,
     owner = owner,
-    gameId = gameId,
-    steps = Nil,
-    shapes = Nil,
+    chapters = Map(Chapter.makeId -> Chapter.make(gameId)),
     createdAt = DateTime.now)
 }

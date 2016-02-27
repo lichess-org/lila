@@ -119,6 +119,9 @@ GET   /analysis/*something             controllers.UserAnalysis.parse(something:
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
+GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
+POST  /study                           controllers.Study.create
+
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)

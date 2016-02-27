@@ -10,7 +10,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 
 private object BSONHandlers {
 
-  import Study._
+  import Chapter._
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -69,6 +69,14 @@ private object BSONHandlers {
       "c" -> w.boolO(s.check),
       "v" -> s.variations)
   }
+
+  private implicit val CrumbBSONHandler = Macros.handler[Crumb]
+
+  implicit val PathBSONHandler = Macros.handler[Path]
+
+  private implicit val ChapterBSONHandler = Macros.handler[Chapter]
+
+  private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

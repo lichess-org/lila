@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
+import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
 import makeTimeout.short
 
@@ -22,6 +23,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
+    val SequencerTimeout = config duration "sequencer.timeout"
   }
   import settings._
 
@@ -47,7 +49,14 @@ final class Env(
   lazy val api = new StudyApi(
     repo = repo,
     jsonView = jsonView,
+    sequencers = sequencerMap,
     socketHub = socketHub)
+
+  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
+    new Sequencer(
+      receiveTimeout = SequencerTimeout.some,
+      executionTimeout = 5.seconds.some)
+  }))
 
   private lazy val repo = new StudyRepo(coll = db(CollectionStudy))
 }

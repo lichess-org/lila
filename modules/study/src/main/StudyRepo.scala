@@ -18,5 +18,11 @@ private final class StudyRepo(coll: Coll) {
 
   def insert(s: Study): Funit = coll.insert(s).void
 
+  def setOwnerPath(ref: Location.Ref, path: Path): Funit =
+    coll.update(
+      selectId(ref.studyId),
+      BSONDocument("$set" -> BSONDocument(s"chapters.${ref.chapterId}.path" -> path))
+    ).void
+
   private def selectId(id: Study.ID) = BSONDocument("_id" -> id)
 }
