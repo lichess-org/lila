@@ -55,6 +55,8 @@ private final class ExplorerIndexer(endpoint: String) {
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
           case (millis, pairOptions) =>
+            if (pairOptions.size < batchSize)
+              sys error s"Got ${pairOptions.size}/$batchSize games, stopping import"
             val pairs = pairOptions.flatten
             WS.url(url).put(pairs.map(_._2) mkString separator) andThen {
               case Success(res) if res.status == 200 =>
