@@ -46,7 +46,7 @@ object Setup extends LilaController with TheftPrevention {
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
           case None => fuccess(html.setup.friend(form, none, none, validFen))
-          case Some(user) => challenge(user) map { error =>
+          case Some(user) => Challenge.restriction(user) map { error =>
             html.setup.friend(form, user.some, error, validFen)
           }
         }
@@ -54,17 +54,6 @@ object Setup extends LilaController with TheftPrevention {
     }
     else fuccess {
       Redirect(routes.Lobby.home + "#friend")
-    }
-  }
-
-  private def challenge(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
-    case None => fuccess("Only registered players can send challenges.".some)
-    case Some(me) => Env.relation.api.fetchBlocks(user.id, me.id) flatMap {
-      case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
-      case false => Env.pref.api getPref user zip Env.relation.api.fetchFollows(user.id, me.id) map {
-        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
-          fromCheat = me.engine && !user.engine)
-      }
     }
   }
 
@@ -129,7 +118,7 @@ object Setup extends LilaController with TheftPrevention {
           config => (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
             blocking =>
               env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
-                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+                case e: IllegalArgumentException => BadRequest(jsonError(e.getMessage)) as JSON
               }
           }
         )
@@ -146,7 +135,7 @@ object Setup extends LilaController with TheftPrevention {
           } flatMap { config =>
             (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap { blocking =>
               env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
-                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+                case e: IllegalArgumentException => BadRequest(jsonError(e.getMessage)) as JSON
               }
             }
           }

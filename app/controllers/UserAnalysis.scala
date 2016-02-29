@@ -71,7 +71,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
     Env.importer.forms.importForm.bindFromRequest.fold(
       failure => BadRequest(errorsAsJson(failure)).fuccess,
       data => Env.importer.importer.inMemory(data).fold(
-        err => BadRequest(Json.obj("error" -> err.shows)).fuccess,
+        err => BadRequest(jsonError(err.shows)).fuccess,
         game => {
           val pov = Pov(game, chess.Color(true))
           Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = none, pov.color, owner = false) map { data =>

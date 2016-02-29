@@ -2354,6 +2354,21 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
+#modal-wrap .close {
+  position:absolute;
+  top: -13px;
+  right: -13px;
+  display: block;
+  font-size: 16px;
+  line-height: 27px;
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border-radius: 50%;
+}
+#modal-wrap .close:hover {
+  background: #f0f0f0;
+}
 #konami {
   display: none;
   background: url(../images/easter.png);

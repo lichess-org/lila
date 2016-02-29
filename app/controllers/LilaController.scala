@@ -54,7 +54,7 @@ private[controllers] trait LilaController
   protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req =>
       reqToCtx(req) flatMap f map {
-        case None       => Left(NotFound(Json.obj("error" -> "socket resource not found")))
+        case None       => Left(NotFound(jsonError("socket resource not found")))
         case Some(pair) => Right(pair)
       }
     }
@@ -143,8 +143,8 @@ private[controllers] trait LilaController
         negotiate(
           html = Lobby.renderHome(Results.Forbidden),
           api = _ => fuccess {
-            Forbidden(Json.obj(
-              "error" -> s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts or unplayed games"
+            Forbidden(jsonError(
+              s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts or unplayed games"
             )) as JSON
           }
         )
@@ -157,8 +157,8 @@ private[controllers] trait LilaController
         negotiate(
           html = Lobby.renderHome(Results.Forbidden),
           api = _ => fuccess {
-            Forbidden(Json.obj(
-              "error" -> s"You are already playing ${current.opponent}"
+            Forbidden(jsonError(
+              s"You are already playing ${current.opponent}"
             )) as JSON
           }
         )
@@ -225,8 +225,10 @@ private[controllers] trait LilaController
   )
 
   def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess {
-    NotFound(Json.obj("error" -> msg))
+    NotFound(jsonError(msg))
   }
+
+  def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
@@ -249,7 +251,7 @@ private[controllers] trait LilaController
       api = _ => unauthorizedApiResult.fuccess
     )
 
-  protected val unauthorizedApiResult = Unauthorized(Json.obj("error" -> "Login required"))
+  protected val unauthorizedApiResult = Unauthorized(jsonError("Login required"))
 
   protected def authorizationFailed(req: RequestHeader): Result = Forbidden("no permission")
 

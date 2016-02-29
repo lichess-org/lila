@@ -10,7 +10,8 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
-import lila.game.{ GameRepo, AnonCookie }
+import lila.game.{ Pov, GameRepo, AnonCookie }
+import lila.user.UserRepo
 import views.html
 
 object Challenge extends LilaController {
@@ -106,10 +107,28 @@ object Challenge extends LilaController {
   def rematchOf(gameId: String) = Auth { implicit ctx =>
     me =>
       OptionFuResult(GameRepo game gameId) { g =>
-        env.api.rematchOf(g, me) map {
-          _.fold(Ok, BadRequest)
+        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
+          _ ?? { opponent =>
+            restriction(opponent) flatMap {
+              case Some(r) => BadRequest(jsonError(r.replace("{{user}}", opponent.username))).fuccess
+              case _ => env.api.rematchOf(g, me) map {
+                _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
+              }
+            }
+          }
         }
       }
+  }
+
+  def restriction(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
+    case None => fuccess("Only registered players can send challenges.".some)
+    case Some(me) => Env.relation.api.fetchBlocks(user.id, me.id) flatMap {
+      case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
+      case false => Env.pref.api getPref user zip Env.relation.api.fetchFollows(user.id, me.id) map {
+        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
+          fromCheat = me.engine && !user.engine)
+      }
+    }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>

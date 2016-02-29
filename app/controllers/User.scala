@@ -88,7 +88,7 @@ object User extends LilaController {
           })
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),
-          api = _ => fuccess(NotFound(Json.obj("error" -> "No such user, or account closed"))))
+          api = _ => fuccess(NotFound(jsonError("No such user, or account closed"))))
       }
     }
 

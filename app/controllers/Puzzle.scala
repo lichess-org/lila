@@ -79,7 +79,7 @@ object Puzzle extends LilaController {
       }
   }
 
-  private val noMorePuzzleJson = Json.obj("error" -> "No more puzzles for you!")
+  private val noMorePuzzleJson = jsonError("No more puzzles for you!")
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>

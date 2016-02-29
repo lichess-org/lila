@@ -9,7 +9,7 @@ import play.api.mvc._
 import play.api.mvc.Results._
 import views._
 
-private[controllers] trait TheftPrevention {
+private[controllers] trait TheftPrevention { self: LilaController =>
 
   protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
@@ -35,7 +35,7 @@ private[controllers] trait TheftPrevention {
       }.filterNot(_.isAi).map { Pov(game, _) }
     }
 
-  protected lazy val theftResponse = Unauthorized(play.api.libs.json.Json.obj(
-    "error" -> "This game requires authentication"
+  protected lazy val theftResponse = Unauthorized(jsonError(
+    "This game requires authentication"
   )) as JSON
 }
