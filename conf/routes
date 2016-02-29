@@ -8,7 +8,6 @@ GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # Timeline
 GET   /timeline                        controllers.Timeline.home
-GET   /timeline/more                   controllers.Timeline.more
 POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: String)
 
 # Search

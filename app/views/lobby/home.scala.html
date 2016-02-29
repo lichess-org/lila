@@ -21,7 +21,7 @@ case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
   @timeline.entries(userTimeline)
   <div class="links">
     @if(userTimeline.size >= 8) {
-    <a class="more" href="@routes.Timeline.more">@trans.more() »</a>
+    <a class="more" href="@routes.Timeline.home">@trans.more() »</a>
     }
   </div>
 </div>
