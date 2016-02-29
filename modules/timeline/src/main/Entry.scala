@@ -62,4 +62,11 @@ object Entry {
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
   implicit val EntryBSONHandler = Macros.handler[Entry]
+
+  implicit val entryWrites = OWrites[Entry] { e =>
+    Json.obj(
+      "type" -> e.typ,
+      "data" -> e.data,
+      "date" -> e.date)
+  }
 }

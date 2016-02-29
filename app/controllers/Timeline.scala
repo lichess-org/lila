@@ -14,9 +14,15 @@ object Timeline extends LilaController {
     me =>
       if (HTTPRequest.isXhr(ctx.req))
         Env.timeline.entryRepo.userEntries(me.id) map { html.timeline.entries(_) }
-      else negotiate(
-        html = Env.timeline.entryRepo.moreUserEntries(me.id) map { html.timeline.more(_) },
-        _ => ???)
+      else {
+        import lila.timeline.Entry.entryWrites
+        val nb = getInt("nb").fold(100)(_ min 100)
+        val entries = Env.timeline.entryRepo.moreUserEntries(me.id, nb)
+        negotiate(
+          html = entries map { html.timeline.more(_) },
+          _ => entries map { es => Ok(Json.obj("entries" -> es)) }
+        )
+      }
   }
 
   def unsub(channel: String) = Auth { implicit ctx =>
