@@ -19,7 +19,7 @@ i18n: @round.jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
 endpoint: "@explorerEndpoint",
-authorized: true
+authorized: @isExplorerAvailable.apply(ctx)
 }
 };
 }

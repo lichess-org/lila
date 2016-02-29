@@ -40,7 +40,7 @@ trans.playWithAFriend
 ))),
 explorer: {
 endpoint: "@explorerEndpoint",
-authorized: true
+authorized: @isExplorerAvailable.apply(ctx)
 }
 };
 }
