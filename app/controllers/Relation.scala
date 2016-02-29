@@ -54,24 +54,24 @@ object Relation extends LilaController {
 
   def following(username: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      env.api countFollowers user.id flatMap { nbFollowers =>
-        RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
-          negotiate(
-            html = Ok(html.relation.following(user, pag, nbFollowers)).fuccess ,
-            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
-        }
+      RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+        negotiate(
+          html = env.api countFollowers user.id map { nbFollowers =>
+            Ok(html.relation.following(user, pag, nbFollowers))
+          },
+          api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
       }
     }
   }
 
   def followers(username: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      env.api countFollowing user.id flatMap { nbFollowing =>
-        RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
-          negotiate(
-            html = Ok(html.relation.followers(user, pag, nbFollowing)).fuccess ,
-            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
-        }
+      RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
+        negotiate(
+          html = env.api countFollowing user.id map { nbFollowing =>
+            Ok(html.relation.followers(user, pag, nbFollowing))
+          },
+          api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
       }
     }
   }
