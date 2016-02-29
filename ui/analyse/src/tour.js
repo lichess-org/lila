@@ -15,8 +15,8 @@ module.exports = {
               content: 'Click this button to enable<br /><strong>lichess opening explorer</strong>.<br />' +
                 '<a href="http://lichess.org/blog/Vs0xMTAAAD4We4Ey/opening-explorer">Learn more about it</a>',
               target: "#open_explorer",
-              placement: "top",
-              xOffset: -10
+              placement: "left",
+              yOffset: -10
             }]
           });
         });
