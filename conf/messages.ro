@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Mutare anticipată activată - Apăsați ori
 thisPlayerUsesChessComputerAssistance=Acest jucător este asistat de un program de analiză
 thisPlayerArtificiallyIncreasesTheirRating=Jucătorul și-a crescut ratingul artificial.
 opening=Deschidere
+openingExplorer=Cercetarea deschiderilor
 takeback=Revocare
 proposeATakeback=Propune revocarea mutării
 takebackPropositionSent=Propunere de revocare trimisă
