@@ -35,9 +35,8 @@ case class Perf(
     glicko.volatility,
     nb)
 
-  def nonEmpty = !isEmpty
-
   def isEmpty = nb == 0
+  def nonEmpty = !isEmpty
 
   def provisional = glicko.provisional
   def established = glicko.established

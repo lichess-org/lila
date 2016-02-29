@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.api.{ Context, BodyContext }
@@ -88,7 +88,7 @@ object User extends LilaController {
           })
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),
-          api = _ => fuccess(NotFound(Json.obj("error" -> "No such user, or account closed"))))
+          api = _ => fuccess(NotFound(jsonError("No such user, or account closed"))))
       }
     }
 
@@ -147,7 +147,7 @@ object User extends LilaController {
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          import lila.user.JsonView.lightPerfWrites
+          implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
           Ok(Json.obj(
             "bullet" -> leaderboards.bullet,
             "blitz" -> leaderboards.blitz,
@@ -214,7 +214,7 @@ object User extends LilaController {
             (ops zip followables).map {
               case ((u, nb), followable) => ctx.userId ?? {
                 relationApi.fetchRelation(_, u.id)
-              } map { lila.relation.Related(u, nb, followable, _) }
+              } map { lila.relation.Related(u, nb.some, followable, _) }
             }.sequenceFu map { relateds =>
               html.user.opponents(user, relateds)
             }

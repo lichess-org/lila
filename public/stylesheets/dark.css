@@ -169,7 +169,8 @@ body.dark .crosstable td:nth-last-child(3) {
 }
 body.dark .explorer_box .config .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
-body.dark #modal-wrap {
+body.dark #modal-wrap,
+body.dark #modal-wrap .close {
   background-color: #303030;
 }
 body.dark #opening .meter ul,
@@ -177,7 +178,8 @@ body.dark #opening .meter li.dubious .step,
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
-body.dark #themepicker div.theme:hover {
+body.dark #themepicker div.theme:hover,
+body.dark #modal-wrap .close:hover {
   background-color: #505050;
 }
 

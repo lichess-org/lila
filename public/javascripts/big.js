@@ -2536,9 +2536,10 @@ lichess.numberFormat = (function() {
   };
 
   $.modal = function(html) {
-    var $wrap = $('<div id="modal-wrap">').html(html.clone().show());
+    if (!html.clone) html = $('<div>' + html + '</div>');
+    var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
     var $overlay = $('<div id="modal-overlay">').html($wrap);
-    $overlay.one('click', $.modal.close);
+    $overlay.add($wrap.find('.close')).one('click', $.modal.close);
     $wrap.click(function(e) {
       e.stopPropagation();
     });

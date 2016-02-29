@@ -12,8 +12,8 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
   def userEntries(userId: String): Fu[List[Entry]] =
     userEntries(userId, userMax)
 
-  def moreUserEntries(userId: String): Fu[List[Entry]] =
-    userEntries(userId, 100)
+  def moreUserEntries(userId: String, nb: Int): Fu[List[Entry]] =
+    userEntries(userId, nb)
 
   private def userEntries(userId: String, max: Int): Fu[List[Entry]] =
     coll.find(BSONDocument("users" -> userId))

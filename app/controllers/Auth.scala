@@ -125,9 +125,7 @@ object Auth extends LilaController {
                 }
           }),
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
-          err => fuccess(BadRequest(Json.obj(
-            "error" -> errorsAsJson(err)
-          ))),
+          err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
           data => {
             val email = data.email flatMap env.emailAddress.validate
             UserRepo.create(data.username, data.password, email, false, apiVersion.some)
@@ -159,7 +157,7 @@ object Auth extends LilaController {
 
   private def noTorResponse(implicit ctx: Context) = negotiate(
     html = Unauthorized(html.auth.tor()).fuccess,
-    api = _ => Unauthorized(Json.obj("error" -> "Can't login from TOR, sorry!")).fuccess)
+    api = _ => Unauthorized(jsonError("Can't login from TOR, sorry!")).fuccess)
 
   def setFingerprint(fp: String, ms: Int) = Auth { ctx =>
     me =>

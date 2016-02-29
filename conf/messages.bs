@@ -156,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=Potez unaprijed uključen - Kliknite bilo gd
 thisPlayerUsesChessComputerAssistance=Ovaj igrač koristi šahovski računar za pomoć
 thisPlayerArtificiallyIncreasesTheirRating=Ovaj igrač umjetno diže/spušta svoj rejting
 opening=Otvaranje
+openingExplorer=Pretraživač otvaranja
 takeback=Vratite potez
 proposeATakeback=Predložite vraćanje poteza
 takebackPropositionSent=Prijedlog za vračanje poteza poslan

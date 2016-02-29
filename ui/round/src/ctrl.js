@@ -328,7 +328,10 @@ module.exports = function(opts) {
           });
         });
       }, 1000);
-    });
+    }, function(data) {
+      this.vm.challengeRematched = false;
+      $.modal(data.error);
+    }.bind(this));
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(

@@ -57,23 +57,24 @@ final class Env(
     }
   }
 
-  private val bus = system.lilaBus
-
-  bus.subscribe(system.actorOf(
-    Props(new Actor {
-      def receive = {
-        case User.Active(user) =>
-          if (!user.seenRecently) UserRepo setSeenAt user.id
-          onlineUserIdMemo put user.id
-      }
-    })), 'userActive)
+  system.actorOf(Props(new Actor {
+    override def preStart() {
+      system.lilaBus.subscribe(self, 'adjustCheater, 'userActive)
+    }
+    def receive = {
+      case lila.hub.actorApi.mod.MarkCheater(userId) => rankingApi remove userId
+      case User.Active(user) =>
+        if (!user.seenRecently) UserRepo setSeenAt user.id
+        onlineUserIdMemo put user.id
+    }
+  }))
 
   {
     import scala.concurrent.duration._
     import lila.hub.actorApi.WithUserIds
 
     scheduler.effect(3 seconds, "refresh online user ids") {
-      bus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+      system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
     }
   }
 

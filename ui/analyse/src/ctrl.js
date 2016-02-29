@@ -17,6 +17,7 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
+var tour = require('./tour');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -445,4 +446,5 @@ module.exports = function(opts) {
   keyboard(this);
   startCeval();
   this.explorer.setStep();
+  tour.init(this.explorer);
 };

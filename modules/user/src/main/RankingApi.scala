@@ -38,6 +38,18 @@ final class RankingApi(
       "expiresAt" -> DateTime.now.plusDays(7)),
       upsert = true).void
 
+  def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
+    _ ?? { user =>
+      coll.remove(BSONDocument(
+        "_id" -> BSONDocument("$in" -> PerfType.leaderboardable.filter { pt =>
+          user.perfs(pt).nonEmpty
+        }.map { pt =>
+          s"${user.id}:${pt.id}"
+        })
+      )).void
+    }
+  }
+
   def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find(BSONDocument("perf" -> perfId, "stable" -> true))

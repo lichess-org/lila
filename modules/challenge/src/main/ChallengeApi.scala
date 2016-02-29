@@ -58,7 +58,7 @@ final class ChallengeApi(
     }
 
   def rematchOf(game: Game, user: User): Fu[Boolean] =
-    game.playerByUserId(user.id).map { Pov(game, _) } ?? { pov =>
+    Pov.ofUserId(game, user.id) ?? { pov =>
       for {
         initialFen <- GameRepo initialFen pov.game
         challengerOption <- pov.player.userId ?? UserRepo.byId
