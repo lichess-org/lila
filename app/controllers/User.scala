@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.api.{ Context, BodyContext }
@@ -147,7 +147,7 @@ object User extends LilaController {
           nbDay = nbDay,
           nbAllTime = nbAllTime))),
         api = _ => fuccess {
-          import lila.user.JsonView.lightPerfWrites
+          implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
           Ok(Json.obj(
             "bullet" -> leaderboards.bullet,
             "blitz" -> leaderboards.blitz,
