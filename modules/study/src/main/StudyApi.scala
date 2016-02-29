@@ -25,6 +25,10 @@ final class StudyApi(
     repo.setOwnerPath(_, path)
   }
 
+  def addStep(refId: Location.Ref.ID, step: Step) = sequenceRef(refId) {
+    repo.setOwnerPath(_, path)
+  }
+
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =
     Location.Ref.parseId(refId) ?? { ref =>
       sequence(ref.studyId) {
