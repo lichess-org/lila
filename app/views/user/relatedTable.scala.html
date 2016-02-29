@@ -7,9 +7,9 @@
       <td>@userLink(r.user)</td>
       <td>@showBestPerf(r.user)</td>
       <td>
-        @if(r.nbGames > 0) {
+        @r.nbGames.filter(_ > 0).map { nbGames =>
         <a href="@routes.User.showFilter(u.username, "search")?players.b=@r.user.username" class="hint--bottom" data-hint="Games count over your last 1000 games">
-          @r.nbGames @trans.games()
+          @nbGames @trans.games()
         </a>
         }
       </td>

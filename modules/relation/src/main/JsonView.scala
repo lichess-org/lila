@@ -1,6 +1,7 @@
 package lila.relation
 
 import play.api.libs.json._
+import lila.common.PimpedJson._
 
 object JsonView {
 
@@ -10,6 +11,7 @@ object JsonView {
         "user" -> r.user,
         "nbGames" -> r.nbGames,
         "followable" -> r.followable,
-        "relation" -> r.relation)
+        "relation" -> r.relation
+      ).noNull
     }
 }

@@ -99,7 +99,7 @@ object Relation extends LilaController {
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>
-            lila.relation.Related(u, 0, followables(u.id), rel)
+            lila.relation.Related(u, none, followables(u.id), rel)
           }
         }.sequenceFu
       }

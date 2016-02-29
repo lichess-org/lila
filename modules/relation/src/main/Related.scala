@@ -2,6 +2,6 @@ package lila.relation
 
 case class Related(
     user: lila.user.User,
-    nbGames: Int,
+    nbGames: Option[Int],
     followable: Boolean,
     relation: Option[Relation])
