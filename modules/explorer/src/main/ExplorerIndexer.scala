@@ -55,10 +55,8 @@ private final class ExplorerIndexer(endpoint: String) {
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
           case (millis, pairOptions) =>
-            if (pairOptions.size < batchSize)
-              sys error s"Got ${pairOptions.size}/$batchSize games, stopping import"
             val pairs = pairOptions.flatten
-            WS.url(url).put(pairs.map(_._2) mkString separator) andThen {
+            WS.url(url).put(pairs.map(_._2) mkString separator).andThen {
               case Success(res) if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
@@ -66,6 +64,9 @@ private final class ExplorerIndexer(endpoint: String) {
                 logger.info(s"$date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
               case Success(res) => logger.warn(s"[${res.status}]")
               case Failure(err) => logger.warn(s"$err")
+            } >>- {
+              if (pairOptions.size < batchSize)
+                sys error s"Got ${pairOptions.size}/$batchSize games, stopping import"
             } inject nowMillis
         } void
     }
