@@ -1,12 +1,11 @@
 package lila.study
 
-import chess.format.Uci
 import chess.Pos
 import org.joda.time.DateTime
 
 case class Chapter(
     gameId: Option[String],
-    steps: List[Chapter.Step],
+    steps: List[Step],
     shapes: List[Chapter.Shape],
     ownerPath: Path,
     createdAt: DateTime) {
@@ -22,18 +21,6 @@ object Chapter {
   object Shape {
     case class Circle(brush: Brush, pos: Pos) extends Shape
     case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
-  }
-
-  case class Step(
-      ply: Int,
-      move: Option[Step.Move],
-      fen: String,
-      check: Boolean,
-      variations: List[List[Step]]) {
-  }
-
-  object Step {
-    case class Move(uci: Uci, san: String)
   }
 
   val idSize = 4
