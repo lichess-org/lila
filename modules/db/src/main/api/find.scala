@@ -4,6 +4,7 @@ package api
 import Implicits._
 import play.api.libs.json._
 import reactivemongo.bson._
+import reactivemongo.api._
 
 object $find {
 
@@ -50,4 +51,7 @@ object $find {
 
   def apply[A: TubeInColl](b: QueryBuilder, nb: Int): Fu[List[A]] =
     b.toList[Option[A]](nb.some) map (_.flatten)
+
+  def apply[A: TubeInColl](b: QueryBuilder, nb: Int, readPreference: ReadPreference): Fu[List[A]] =
+    b.toList[Option[A]](nb.some, readPreference) map (_.flatten)
 }
