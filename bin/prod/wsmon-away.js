@@ -28,7 +28,7 @@ var runCommand = function(cmd) {
     console.log(stderr);
   });
 };
-// runCommand('jinfo `cat /home/lichess/RUNNING_PID`');
+runCommand('jinfo `cat /home/lichess/RUNNING_PID`');
 
 var restartLichess = function(msg) {
   logger('error', msg);
