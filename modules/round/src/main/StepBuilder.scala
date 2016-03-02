@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.Forsyth
+import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.format.pgn.Pgn
 import chess.opening._
 import chess.variant.Variant
@@ -28,6 +28,7 @@ object StepBuilder {
         val steps = games.map { g =>
           val fen = Forsyth >> g
           Step(
+            id = g.board.history.lastMove.map(UciCharPair.apply),
             ply = g.turns,
             move = for {
               uci <- g.board.history.lastMove
@@ -88,6 +89,7 @@ object StepBuilder {
         val lastPly = games.lastOption.??(_.turns)
         games.drop(1).map { g =>
           Step(
+            id = g.board.history.lastMove.map(UciCharPair.apply),
             ply = g.turns,
             move = for {
               uci <- g.board.history.lastMove

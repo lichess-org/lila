@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.format.Uci
+import chess.format.{ Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import lila.common.PimpedJson._
@@ -17,12 +17,14 @@ case class AnaMove(
   def step: Valid[Step] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) map {
       case (game, move) =>
+        val uci = Uci(move)
         val movable = !game.situation.end
         val fen = chess.format.Forsyth >> game
         Step(
+          id = UciCharPair(uci).some,
           ply = game.turns,
           move = game.pgnMoves.lastOption.map { san =>
-            Step.Move(Uci(move), san)
+            Step.Move(uci, san)
           },
           fen = fen,
           check = game.situation.check,

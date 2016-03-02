@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.format.Uci
+import chess.format.{ Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
@@ -10,6 +10,7 @@ import play.api.libs.json._
 import play.api.libs.json.Reads._
 
 case class Step(
+    id: Option[UciCharPair],
     ply: Int,
     move: Option[Step.Move],
     fen: String,
@@ -20,7 +21,7 @@ case class Step(
     eval: Option[Step.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
-    variations: List[List[Step]] = Nil,
+    children: List[Step] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) {
 
@@ -73,7 +74,7 @@ object Step {
       add("eval", eval) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
-      add("variations", variations, variations.nonEmpty) _ compose
+      add("children", children, children.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {
         _.map {
