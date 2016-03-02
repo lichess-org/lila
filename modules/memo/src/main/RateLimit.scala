@@ -19,7 +19,7 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
 
   logger.info(s"[start] $name ($nb/$duration)")
 
-  def apply[A](key: String)(op: => A)(implicit default: Zero[A]): A =
+  def apply[A](key: String, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
     Option(storage getIfPresent key) match {
       case None =>
         storage.put(key, 1 -> makeClearAt)
@@ -31,7 +31,7 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
         storage.put(key, 1 -> makeClearAt)
         op
       case _ =>
-        logger.info(s"$name ($nb/$duration) $key")
+        logger.info(s"$name ($nb/$duration) $msg $key")
         default.zero
     }
 }

@@ -27,27 +27,28 @@ private[lobby] final class SocketHandler(
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-    case ("join", o) => JoinRateLimit(uid) {
+    case ("join", o) =>
       o str "d" foreach { id =>
-        lobby ! BiteHook(id, uid, member.user)
+        JoinRateLimit(member.ip, s"hook:$id") {
+          lobby ! BiteHook(id, uid, member.user)
+        }
       }
-    }
     case ("cancel", o) => lobby ! CancelHook(uid)
-    case ("joinSeek", o) => JoinRateLimit(uid) {
-      for {
+    case ("joinSeek", o) => for {
         id <- o str "d"
         user <- member.user
-      } lobby ! BiteSeek(id, user)
-    }
+      } JoinRateLimit(member.ip, s"seek:$id") {
+        lobby ! BiteSeek(id, user)
+      }
     case ("cancelSeek", o) => for {
       id <- o str "d"
       user <- member.user
     } lobby ! CancelSeek(id, user)
   }
 
-  def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =
+  def apply(uid: String, ip: String, user: Option[User]): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid = uid, user = user, blocking = blockedUserIds)
+      val join = Join(uid = uid, ip = ip, user = user, blocking = blockedUserIds)
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
           (controller(socket, uid, member), enum, member)

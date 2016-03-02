@@ -1,3 +1,3 @@
 package lila
 
-package object common extends PackageObject with WithPlay 
+package object common extends PackageObject with WithPlay

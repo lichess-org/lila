@@ -6,13 +6,13 @@ import lila.socket.SocketMember
 import lila.user.User
 
 private[lobby] case class LobbyUser(
-  id: String,
-  username: String,
-  troll: Boolean,
-  engine: Boolean,
-  booster: Boolean,
-  ratingMap: Map[String, Int],
-  blocking: Set[String]) {
+    id: String,
+    username: String,
+    troll: Boolean,
+    engine: Boolean,
+    booster: Boolean,
+    ratingMap: Map[String, Int],
+    blocking: Set[String]) {
   def lame = engine || booster
 }
 
@@ -31,7 +31,8 @@ private[lobby] object LobbyUser {
 private[lobby] case class Member(
     channel: JsChannel,
     user: Option[LobbyUser],
-    uid: String) extends SocketMember {
+    uid: String,
+    ip: String) extends SocketMember {
 
   val userId = user map (_.id)
   val troll = user ?? (_.troll)
@@ -39,10 +40,11 @@ private[lobby] case class Member(
 
 private[lobby] object Member {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: String): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: String, ip: String): Member = Member(
     channel = channel,
     user = user map { LobbyUser.make(_, blocking) },
-    uid = uid)
+    uid = uid,
+    ip = ip)
 }
 
 private[lobby] case class HookMeta(hookId: Option[String] = None)
@@ -62,7 +64,7 @@ private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[Lob
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String])
+private[lobby] case class Join(uid: String, ip: String, user: Option[User], blocking: Set[String])
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: List[String])
 
