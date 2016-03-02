@@ -29,6 +29,7 @@ object TournamentRepo {
   private def variantSelect(variant: Variant) =
     if (variant.standard) BSONDocument("variant" -> BSONDocument("$exists" -> false))
     else BSONDocument("variant" -> variant.id)
+  private val nonEmptySelect = BSONDocument("nbPlayers" -> BSONDocument("$ne" -> 0))
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
@@ -65,6 +66,9 @@ object TournamentRepo {
 
   def allEnterable: Fu[List[Tournament]] =
     coll.find(enterableSelect).cursor[Tournament]().collect[List]()
+
+  def nonEmptyEnterable: Fu[List[Tournament]] =
+    coll.find(enterableSelect ++ nonEmptySelect).cursor[Tournament]().collect[List]()
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).toList[Tournament](None)
 
@@ -218,7 +222,6 @@ object TournamentRepo {
       "schedule.freq" -> BSONDocument("$nin" -> List(
         Schedule.Freq.Marathon.name,
         Schedule.Freq.Unique.name
-      )),
-      "nbPlayers" -> BSONDocument("$ne" -> 0)
-    )).cursor[Tournament]().collect[List]()
+      ))
+    ) ++ nonEmptySelect).cursor[Tournament]().collect[List]()
 }

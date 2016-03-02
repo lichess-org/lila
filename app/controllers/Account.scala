@@ -33,8 +33,8 @@ object Account extends LilaController {
   }
 
   def info = Open { implicit ctx =>
-      negotiate(
-        html = notFound,
+    negotiate(
+      html = notFound,
       api = _ => ctx.me match {
         case None => fuccess(unauthorizedApiResult)
         case Some(me) => Env.pref.api getPref me flatMap { prefs =>
@@ -121,16 +121,19 @@ object Account extends LilaController {
       } { password =>
         UserRepo.checkPasswordById(me.id, password) flatMap {
           case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-          case true =>
-            (UserRepo disable me) >>
-              relationEnv.api.unfollowAll(me.id) >>
-              Env.team.api.quitAll(me.id) >>
-              (Env.security disconnect me.id) inject {
-                Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-              }
+          case true => doClose(me) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
         }
       }
   }
+
+  private[controllers] def doClose(user: UserModel) =
+    (UserRepo disable user) >>
+      relationEnv.api.unfollowAll(user.id) >>
+      Env.team.api.quitAll(user.id) >>-
+      Env.tournament.api.withdrawAll(user) >>
+      (Env.security disconnect user.id)
 
   def kid = Auth { implicit ctx =>
     me =>

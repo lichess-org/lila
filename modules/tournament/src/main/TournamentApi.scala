@@ -195,6 +195,16 @@ private[tournament] final class TournamentApi(
     }
   }
 
+  def withdrawAll(user: User) {
+    TournamentRepo.nonEmptyEnterable foreach {
+      _ foreach { tour =>
+        PlayerRepo.exists(tour.id, user.id) foreach {
+          _ ?? withdraw(tour.id, user.id)
+        }
+      }
+    }
+  }
+
   def berserk(gameId: String, userId: String) {
     GameRepo game gameId foreach {
       _.flatMap(_.tournamentId) foreach { tourId =>
