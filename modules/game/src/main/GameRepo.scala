@@ -302,6 +302,7 @@ object GameRepo {
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
+  // #TODO expensive stuff, run on DB slave
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     gameTube.coll.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
@@ -363,13 +364,6 @@ object GameRepo {
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
     $find.one(Json.obj(
-      F.playerUids -> Json.obj("$all" -> List(u1, u2)),
-      F.createdAt -> Json.obj("$gt" -> $date(since))
-    ))
-  }
-
-  def countRecentGamesBetween(u1: String, u2: String, since: DateTime): Fu[Int] = {
-    $count(Json.obj(
       F.playerUids -> Json.obj("$all" -> List(u1, u2)),
       F.createdAt -> Json.obj("$gt" -> $date(since))
     ))

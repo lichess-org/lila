@@ -13,13 +13,10 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import lila.rating.{ Glicko, Perf, PerfType }
 
-object UserRepo extends UserRepo {
-  protected def userTube = tube.userTube
-}
+object UserRepo {
 
-trait UserRepo {
-
-  protected implicit def userTube: lila.db.BsTubeInColl[User]
+  import tube.userTube
+  import User.userBSONHandler
 
   import User.ID
   import User.{ BSONFields => F }
@@ -62,16 +59,23 @@ trait UserRepo {
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
 
+  // expensive, send to secondary
   def byIdsSortRating(ids: Iterable[ID], nb: Int) =
-    $find($query($select.byIds(ids) ++ goodLadSelect) sort sortPerfDesc(PerfType.Standard.key), nb)
+    coll.find(BSONDocument("_id" -> BSONDocument("$in" -> ids)) ++ goodLadSelectBson)
+      .sort(BSONDocument(s"perfs.standard.gl.r" -> -1))
+      .cursor[User](ReadPreference.secondaryPreferred)
+      .collect[List](nb)
 
+  // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
-    $primitive(
-      $select.byIds(ids) ++ goodLadSelect,
-      F.id,
-      _ sort sortPerfDesc(PerfType.Standard.key),
-      nb.some
-    )(_.asOpt[User.ID])
+    coll.find(
+      BSONDocument("_id" -> BSONDocument("$in" -> ids)) ++ goodLadSelectBson,
+      BSONDocument("_id" -> true))
+      .sort(BSONDocument(s"perfs.standard.gl.r" -> -1))
+      .cursor[BSONDocument](ReadPreference.secondaryPreferred)
+      .collect[List](nb).map {
+        _.flatMap { _.getAs[String]("_id") }
+      }
 
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc F.toints), nb)
 
@@ -147,6 +151,11 @@ trait UserRepo {
     s"perfs.$perf.nb" -> $gte(30),
     s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
+  val goodLadSelectBson = BSONDocument(
+    F.enabled -> true,
+    F.engine -> BSONDocument("$ne" -> true),
+    F.booster -> BSONDocument("$ne" -> true))
+
   val goodLadQuery = $query(goodLadSelect)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
