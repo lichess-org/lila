@@ -1,4 +1,5 @@
 package lila.socket
+package tree
 
 import chess.format.{ Uci, UciCharPair }
 import chess.opening.FullOpening
@@ -9,33 +10,71 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.libs.json.Reads._
 
-case class Step(
-    id: Option[UciCharPair],
-    ply: Int,
-    move: Option[Step.Move],
-    fen: String,
-    check: Boolean,
-    // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]],
-    drops: Option[List[Pos]],
-    eval: Option[Step.Eval] = None,
-    nag: Option[String] = None,
-    comments: List[String] = Nil,
-    children: List[Step] = Nil,
-    opening: Option[FullOpening] = None,
-    crazyData: Option[Crazyhouse.Data]) {
+sealed trait Node {
+  def ply: Int
+  def fen: String
+  def check: Boolean
+  // None when not computed yet
+  def dests: Option[Map[Pos, List[Pos]]]
+  def drops: Option[List[Pos]]
+  def eval: Option[Node.Eval]
+  def comments: List[String]
+  def children: List[Branch]
+  def opening: Option[FullOpening]
+  def crazyData: Option[Crazyhouse.Data]
+
+  // implementation dependant
+  def idOption: Option[UciCharPair]
+  def moveOption: Option[Uci.WithSan]
+  def nag: Option[String]
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
-
-  def toJson = Step.stepJsonWriter writes this
 }
 
-object Step {
+case class Root(
+    ply: Int,
+    fen: String,
+    check: Boolean,
+    // None when not computed yet
+    dests: Option[Map[Pos, List[Pos]]] = None,
+    drops: Option[List[Pos]] = None,
+    eval: Option[Node.Eval] = None,
+    comments: List[String] = Nil,
+    children: List[Branch] = Nil,
+    opening: Option[FullOpening] = None,
+    crazyData: Option[Crazyhouse.Data]) extends Node {
 
-  case class Move(uci: Uci, san: String) {
-    def uciString = uci.uci
-  }
+  def idOption = None
+  def moveOption = None
+  def nag = None
+
+  def addChild(branch: Branch) = copy(children = children :+ branch)
+}
+
+case class Branch(
+    id: UciCharPair,
+    ply: Int,
+    move: Uci.WithSan,
+    fen: String,
+    check: Boolean,
+    // None when not computed yet
+    dests: Option[Map[Pos, List[Pos]]] = None,
+    drops: Option[List[Pos]] = None,
+    eval: Option[Node.Eval] = None,
+    nag: Option[String] = None,
+    comments: List[String] = Nil,
+    children: List[Branch] = Nil,
+    opening: Option[FullOpening] = None,
+    crazyData: Option[Crazyhouse.Data]) extends Node {
+
+  def idOption = Some(id)
+  def moveOption = Some(move)
+
+  def addChild(branch: Branch) = copy(children = children :+ branch)
+}
+
+object Node {
 
   case class Eval(
     cp: Option[Int] = None,
@@ -67,9 +106,12 @@ object Step {
       "name" -> o.name)
   }
 
-  implicit val stepJsonWriter: Writes[Step] = Writes { step =>
-    import step._
+  implicit val nodeJsonWriter: Writes[Node] = Writes { node =>
+    import node._
     (
+      add("id", idOption.map(_.toString)) _ compose
+      add("uci", moveOption.map(_.uci.uci)) _ compose
+      add("san", moveOption.map(_.san)) _ compose
       add("check", true, check) _ compose
       add("eval", eval) _ compose
       add("nag", nag) _ compose
@@ -85,11 +127,7 @@ object Step {
         JsString(drops.map(_.key).mkString)
       }) _ compose
       add("crazy", crazyData)
-    )(Json.obj(
-        "ply" -> ply,
-        "uci" -> move.map(_.uciString),
-        "san" -> move.map(_.san),
-        "fen" -> fen))
+    )(Json.obj("ply" -> ply, "fen" -> fen))
   }
 
   private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =

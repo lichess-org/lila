@@ -21,12 +21,12 @@ case class Analysis(
     }
   }.toList
 
-  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
+  lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
   // ply -> UCI
-  def bestMoves: Map[Int, String] = (infos map { i =>
+  def bestMoves: Map[Int, String] = infos.flatMap { i =>
     i.best map { b => i.ply -> b.keys }
-  }).flatten.toMap
+  }.toMap
 
   def complete(infos: List[Info]) = copy(
     infos = infos,

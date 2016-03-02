@@ -77,14 +77,15 @@ private[api] final class RoundApi(
         withForecast(pov, owner, fco)_
     }
 
+  import lila.socket.tree.Node.nodeJsonWriter
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
-    obj + ("steps" -> lila.round.StepBuilder(
+    obj + ("tree" -> nodeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
       a = a,
       initialFen = initialFen | pov.game.variant.initialFen,
-      withOpening = withOpening))
+      withOpening = withOpening)))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
