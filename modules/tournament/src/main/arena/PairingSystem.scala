@@ -77,7 +77,8 @@ object PairingSystem extends AbstractPairingSystem {
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
-    val stopAt = nowMillis + smartPairingsMaxMillis
+    val startAt = nowMillis
+    val stopAt = startAt + smartPairingsMaxMillis
     def continue = nowMillis < stopAt
 
     type Score = Int
@@ -158,7 +159,7 @@ object PairingSystem extends AbstractPairingSystem {
     }) map {
       Pairing.prep(tour, _)
     }
-    if (!continue) play.api.Logger("tourpairing").info(s"smartPairings cutoff! [${nowMillis - stopAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
+    if (!continue) play.api.Logger("tourpairing").info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
     preps
   }
 
