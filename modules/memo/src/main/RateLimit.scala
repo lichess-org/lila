@@ -15,6 +15,8 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
 
   private def makeClearAt = nowMillis + duration.toMillis
 
+  private val logger = play.api.Logger("ratelimit")
+
   def apply[A](key: String)(op: => A)(implicit default: Zero[A]): A =
     Option(storage getIfPresent key) match {
       case None =>
@@ -27,7 +29,7 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
         storage.put(key, 1 -> makeClearAt)
         op
       case _ =>
-        play.api.Logger("ratelimit").info(s"$name ($nb/$duration) $key")
+        logger.info(s"$name ($nb/$duration) $key")
         default.zero
     }
 }

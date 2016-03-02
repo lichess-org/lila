@@ -90,6 +90,16 @@
       </rollingPolicy>
     </appender>
   </logger>
+  <logger name="ratelimit" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/ratelimit.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/ratelimit-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
 
   <!-- Set a specific actor to DEBUG -->
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
