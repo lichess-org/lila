@@ -5,21 +5,22 @@ import api._
 import Implicits._
 import play.api.libs.json._
 import reactivemongo.api.collections.bson.BSONCollection
-import reactivemongo.api.QueryOpts
+import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.common.paginator.AdapterLike
 
 final class Adapter[A: TubeInColl](
     selector: JsObject,
-    sort: Sort) extends AdapterLike[A] {
+    sort: Sort,
+    readPreference: ReadPreference = ReadPreference.primary) extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = $count(selector)
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] = $find(
     pimpQB($query(selector)).sort(sort: _*) skip offset,
-    length
-  )
+    length,
+    readPreference = readPreference)
 }
 
 final class CachedAdapter[A](
@@ -34,7 +35,8 @@ final class BSONAdapter[A: BSONDocumentReader](
     collection: BSONCollection,
     selector: BSONDocument,
     projection: BSONDocument,
-    sort: BSONDocument) extends AdapterLike[A] {
+    sort: BSONDocument,
+    readPreference: ReadPreference = ReadPreference.primary) extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = collection.count(Some(selector))
 
@@ -42,6 +44,6 @@ final class BSONAdapter[A: BSONDocumentReader](
     collection.find(selector, projection)
       .sort(sort)
       .copy(options = QueryOpts(skipN = offset))
-      .cursor[A]()
+      .cursor[A](readPreference = readPreference)
       .collect[List](length)
 }
