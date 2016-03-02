@@ -129,7 +129,8 @@ object Account extends LilaController {
   }
 
   private[controllers] def doClose(user: UserModel) =
-    (UserRepo disable user) >>
+    (UserRepo disable user) >>-
+      env.onlineUserIdMemo.remove(user.id) >>
       relationEnv.api.unfollowAll(user.id) >>
       Env.team.api.quitAll(user.id) >>-
       Env.tournament.api.withdrawAll(user) >>
