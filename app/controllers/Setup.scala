@@ -19,7 +19,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute)
+  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute, "setup post")
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
@@ -60,37 +60,39 @@ object Setup extends LilaController with TheftPrevention {
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.forms.friend(ctx).bindFromRequest.fold(
-        f => negotiate(
-          html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(errorsAsJson(f)))
-        ), {
-          case config => userId ?? UserRepo.byId flatMap { destUser =>
-            import lila.challenge.Challenge._
-            val challenge = lila.challenge.Challenge.make(
-              variant = config.variant,
-              initialFen = config.fen,
-              timeControl = config.makeClock map { c =>
-                TimeControl.Clock(c.limit, c.increment)
-              } orElse config.makeDaysPerTurn.map {
-                TimeControl.Correspondence.apply
-              } getOrElse TimeControl.Unlimited,
-              mode = config.mode,
-              color = config.color.name,
-              challenger = (ctx.me, HTTPRequest sid req) match {
-                case (Some(user), _) => Right(user)
-                case (_, Some(sid))  => Left(sid)
-                case _               => Left("no_sid")
-              },
-              destUser = destUser,
-              rematchOf = none)
-            env.processor.saveFriendConfig(config) >>
-              (Env.challenge.api create challenge) >> negotiate(
-                html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                api = _ => Challenge showChallenge challenge)
+      PostRateLimit(req.remoteAddress) {
+        env.forms.friend(ctx).bindFromRequest.fold(
+          f => negotiate(
+            html = Lobby.renderHome(Results.BadRequest),
+            api = _ => fuccess(BadRequest(errorsAsJson(f)))
+          ), {
+            case config => userId ?? UserRepo.byId flatMap { destUser =>
+              import lila.challenge.Challenge._
+              val challenge = lila.challenge.Challenge.make(
+                variant = config.variant,
+                initialFen = config.fen,
+                timeControl = config.makeClock map { c =>
+                  TimeControl.Clock(c.limit, c.increment)
+                } orElse config.makeDaysPerTurn.map {
+                  TimeControl.Correspondence.apply
+                } getOrElse TimeControl.Unlimited,
+                mode = config.mode,
+                color = config.color.name,
+                challenger = (ctx.me, HTTPRequest sid req) match {
+                  case (Some(user), _) => Right(user)
+                  case (_, Some(sid))  => Left(sid)
+                  case _               => Left("no_sid")
+                },
+                destUser = destUser,
+                rematchOf = none)
+              env.processor.saveFriendConfig(config) >>
+                (Env.challenge.api create challenge) >> negotiate(
+                  html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                  api = _ => Challenge showChallenge challenge)
+            }
           }
-        }
-      )
+        )
+      }
     }
 
   def hookForm = Open { implicit ctx =>
@@ -167,21 +169,23 @@ object Setup extends LilaController with TheftPrevention {
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
-      form(ctx).bindFromRequest.fold(
-        f => negotiate(
-          html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(errorsAsJson(f)))
-        ),
-        config => op(config)(ctx) flatMap { pov =>
-          negotiate(
-            html = fuccess(redirectPov(pov)),
-            api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
-              Created(data) as JSON
-            }
-          )
-        }
-      )
+      PostRateLimit(ctx.req.remoteAddress) {
+        implicit val req = ctx.body
+        form(ctx).bindFromRequest.fold(
+          f => negotiate(
+            html = Lobby.renderHome(Results.BadRequest),
+            api = _ => fuccess(BadRequest(errorsAsJson(f)))
+          ),
+          config => op(config)(ctx) flatMap { pov =>
+            negotiate(
+              html = fuccess(redirectPov(pov)),
+              api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
+                Created(data) as JSON
+              }
+            )
+          }
+        )
+      }
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {

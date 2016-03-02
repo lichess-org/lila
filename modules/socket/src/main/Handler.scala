@@ -19,7 +19,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds)
+  lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds, "socket analysis move")
 
   def apply(
     hub: lila.hub.Env,

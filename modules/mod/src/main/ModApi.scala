@@ -74,11 +74,9 @@ final class ModApi(
     }
   }
 
-  def closeAccount(mod: String, username: String): Funit = withUser(username) { user =>
+  def closeAccount(mod: String, username: String): Fu[Option[User]] = withUser(username) { user =>
     user.enabled ?? {
-      (UserRepo disable user) >>
-        (SecurityStore disconnect user.id) >>
-        logApi.closeAccount(mod, user.id)
+      logApi.closeAccount(mod, user.id) inject user.some
     }
   }
 

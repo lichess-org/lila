@@ -1,6 +1,6 @@
 playWithAFriend=和朋友下棋
 playWithTheMachine=和机器下棋
-toInviteSomeoneToPlayGiveThisUrl=欲邀请某人对弈，请分享这个网址
+toInviteSomeoneToPlayGiveThisUrl=邀人下棋，请分享这个网址
 gameOver=游戏结束
 waitingForOpponent=等待对手
 waiting=稍等
@@ -499,5 +499,5 @@ returnToTournamentsHomepage=返回比赛主页
 weeklyPerfTypeRatingDistribution=本月%s的评级分布
 nbPerfTypePlayersThisWeek=本月有%s名%s棋手。
 yourPerfTypeRatingisRating=您的%s评级是%s。
-youAreBetterThanPercentOfPerfTypePlayers=你比%s的%s棋手更强。
-youDoNotHaveAnEstablishedPerfTypeRating=你没有一个准确的%s评级。
+youAreBetterThanPercentOfPerfTypePlayers=您比%s的%s棋手更强。
+youDoNotHaveAnEstablishedPerfTypeRating=您没有准确的%s评级。

@@ -18,8 +18,6 @@ object Challenge extends LilaController {
 
   private def env = Env.challenge
 
-  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute)
-
   def all = Auth { implicit ctx =>
     me =>
       env.api allFor me.id map { all =>

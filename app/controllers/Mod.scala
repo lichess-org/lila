@@ -46,8 +46,9 @@ object Mod extends LilaController {
   }
 
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx =>
-    me => modApi.closeAccount(me.id, username) >>
-      Env.relation.api.unfollowAll(lila.user.User normalize username) inject redirect(username)
+    me => modApi.closeAccount(me.id, username) flatMap {
+      _ ?? Account.doClose
+    } inject redirect(username)
   }
 
   def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx =>

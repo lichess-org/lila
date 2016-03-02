@@ -312,7 +312,7 @@ function wheel(ctrl, e) {
 }
 
 function inputs(ctrl) {
-  if (!ctrl.data.userAnalysis) return null;
+  if (ctrl.ongoing || !ctrl.data.userAnalysis) return null;
   if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   var pgnText = pgnExport.renderFullTxt(ctrl);
   return m('div.copyables', [

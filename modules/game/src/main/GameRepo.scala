@@ -274,14 +274,7 @@ object GameRepo {
   )
 
   def initialFen(gameId: ID): Fu[Option[String]] =
-    $primitive.one($select(gameId), F.initialFen)(_.asOpt[String]) flatMap {
-      case None => fuccess(none)
-      case Some(fen) => Forsyth fixCastles fen match {
-        case None                        => $update($select(gameId), $unset(F.initialFen)) inject none
-        case Some(fixed) if fen == fixed => fuccess(fixed.some)
-        case Some(fixed)                 => $update.field(gameId, F.initialFen, fixed) inject fixed.some
-      }
-    }
+    $primitive.one($select(gameId), F.initialFen)(_.asOpt[String])
 
   def initialFen(game: Game): Fu[Option[String]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) map {
