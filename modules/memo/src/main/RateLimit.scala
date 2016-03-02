@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 /**
  * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimit(nb: Int, duration: Duration) {
+final class RateLimit(nb: Int, duration: Duration, name: String) {
 
   private type NbOps = Int
   private type ClearAt = Long
@@ -26,6 +26,8 @@ final class RateLimit(nb: Int, duration: Duration) {
       case Some((_, clearAt)) if nowMillis > clearAt =>
         storage.put(key, 1 -> makeClearAt)
         op
-      case _ => default.zero
+      case _ =>
+        play.api.Logger("ratelimit").info(s"$name ($nb/$duration) $key")
+        default.zero
     }
 }

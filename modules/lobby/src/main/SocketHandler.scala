@@ -20,7 +20,7 @@ private[lobby] final class SocketHandler(
     socket: ActorRef,
     blocking: String => Fu[Set[String]]) {
 
-  lazy val JoinRateLimit = new lila.memo.RateLimit(4, 1 minute)
+  lazy val JoinRateLimit = new lila.memo.RateLimit(4, 1 minute, "lobby join")
 
   private def controller(
     socket: ActorRef,
