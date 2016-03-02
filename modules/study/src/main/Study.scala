@@ -29,6 +29,6 @@ object Study {
   def make(owner: User.ID, gameId: Option[String]) = Study(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     owner = owner,
-    chapters = Map(Chapter.makeId -> Chapter.make(gameId)),
+    chapters = Map(Chapter.makeId -> Chapter.make(gameId, Node.Root.default)),
     createdAt = DateTime.now)
 }

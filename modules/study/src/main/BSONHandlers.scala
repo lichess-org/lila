@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.Uci
+import chess.format.{ Uci, UciCharPair }
 import chess.{ Pos, Role, PromotableRole }
 import reactivemongo.bson._
 
@@ -52,22 +52,45 @@ private object BSONHandlers {
     }
   }
 
-  import Step.Move
+  implicit val UciCharPairHandler = new BSONHandler[BSONString, UciCharPair] {
+    def read(bsonStr: BSONString): UciCharPair = bsonStr.value.toArray match {
+      case Array(a, b) => UciCharPair(a, b)
+      case _           => sys error s"Invalid UciCharPair ${bsonStr.value}"
+    }
+    def write(x: UciCharPair) = BSONString(x.toString)
+  }
+
+  import Node.Move
   private implicit val MoveBSONHandler = Macros.handler[Move]
 
-  private implicit def StepBSONHandler: BSON[Step] = new BSON[Step] {
-    def reads(r: Reader) = Step(
+  private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
+    def reads(r: Reader) = Node(
+      id = r.get[UciCharPair]("i"),
       ply = r int "p",
-      move = r.getO[Move]("m"),
+      move = r.get[Move]("m"),
       fen = r str "f",
       check = r boolD "c",
-      variations = r.getsD[List[Step]]("v"))
-    def writes(w: Writer, s: Step) = BSONDocument(
+      children = r.getsD[Node]("n"))
+    def writes(w: Writer, s: Node) = BSONDocument(
+      "i" -> s.id,
       "p" -> s.ply,
       "m" -> s.move,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "v" -> s.variations)
+      "n" -> s.children)
+  }
+  import Node.Root
+  private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+    def reads(r: Reader) = Root(
+      ply = r int "p",
+      fen = r str "f",
+      check = r boolD "c",
+      children = r.getsD[Node]("n"))
+    def writes(w: Writer, s: Root) = BSONDocument(
+      "p" -> s.ply,
+      "f" -> s.fen,
+      "c" -> w.boolO(s.check),
+      "n" -> s.children)
   }
 
   private implicit val CrumbBSONHandler = Macros.handler[Crumb]

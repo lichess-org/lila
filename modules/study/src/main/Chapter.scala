@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 
 case class Chapter(
     gameId: Option[String],
-    steps: List[Step],
+    root: Node.Root,
     shapes: List[Chapter.Shape],
     ownerPath: Path,
     createdAt: DateTime) {
@@ -27,9 +27,9 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(gameId: Option[String]) = Chapter(
+  def make(gameId: Option[String], root: Node.Root) = Chapter(
     gameId = gameId,
-    steps = Nil,
+    root = root,
     shapes = Nil,
     ownerPath = Path.init,
     createdAt = DateTime.now)
