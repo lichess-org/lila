@@ -17,6 +17,8 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
 
   private val logger = play.api.Logger("ratelimit")
 
+  logger.info(s"[start] $name ($nb/$duration)")
+
   def apply[A](key: String)(op: => A)(implicit default: Zero[A]): A =
     Option(storage getIfPresent key) match {
       case None =>
