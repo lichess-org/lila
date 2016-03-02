@@ -20,7 +20,7 @@ private[lobby] final class SocketHandler(
     socket: ActorRef,
     blocking: String => Fu[Set[String]]) {
 
-  lazy val JoinRateLimit = new lila.memo.RateLimit(4, 1 minute, "lobby join")
+  lazy val RateLimit = new lila.memo.RateLimit(5, 1 minute, "lobby action")
 
   private def controller(
     socket: ActorRef,
@@ -29,21 +29,25 @@ private[lobby] final class SocketHandler(
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
     case ("join", o) =>
       o str "d" foreach { id =>
-        JoinRateLimit(member.ip, s"hook:$id") {
+        RateLimit(member.ip, s"join hook $id") {
           lobby ! BiteHook(id, uid, member.user)
         }
       }
-    case ("cancel", o) => lobby ! CancelHook(uid)
+    case ("cancel", o) => RateLimit(member.ip, s"cancel seek uid=$uid") {
+      lobby ! CancelHook(uid)
+    }
     case ("joinSeek", o) => for {
-        id <- o str "d"
-        user <- member.user
-      } JoinRateLimit(member.ip, s"seek:$id") {
-        lobby ! BiteSeek(id, user)
-      }
+      id <- o str "d"
+      user <- member.user
+    } RateLimit(member.ip, s"join seek $id") {
+      lobby ! BiteSeek(id, user)
+    }
     case ("cancelSeek", o) => for {
       id <- o str "d"
       user <- member.user
-    } lobby ! CancelSeek(id, user)
+    } RateLimit(member.ip, s"cancel seek $id") {
+      lobby ! CancelSeek(id, user)
+    }
   }
 
   def apply(uid: String, ip: String, user: Option[User]): Fu[JsSocketHandler] =
