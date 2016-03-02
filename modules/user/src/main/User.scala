@@ -144,7 +144,7 @@ object User {
 
   import lila.db.BSON
 
-  val userBSONHandler = new BSON[User] {
+  implicit val userBSONHandler = new BSON[User] {
 
     import BSONFields._
     import reactivemongo.bson.BSONDocument
