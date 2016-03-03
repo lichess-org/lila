@@ -97,20 +97,22 @@ private[lobby] final class Lobby(
             play.api.Logger("lobby").warn(s"broom cannot get uids from socket: $err")
             HookRepo.truncateIfNeeded
           },
-          socketUids => {
-            val createdBefore = DateTime.now minusSeconds 5
-            val hooks = {
-              (HookRepo notInUids socketUids.uids).filter {
-                _.createdAt isBefore createdBefore
-              } ::: HookRepo.cleanupOld
-            }.toSet
-            // play.api.Logger("lobby").debug(
-            //   s"broom uids:${socketUids.uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
-            if (hooks.nonEmpty) {
-              // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
-              self ! RemoveHooks(hooks)
-            }
-          })
+          socketUids => self ! socketUids
+        )
+
+    case SocketUids(uids) =>
+      val createdBefore = DateTime.now minusSeconds 5
+      val hooks = {
+        (HookRepo notInUids uids).filter {
+          _.createdAt isBefore createdBefore
+        } ::: HookRepo.cleanupOld
+      }.toSet
+      // play.api.Logger("lobby").debug(
+      //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
+      if (hooks.nonEmpty) {
+        // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+        self ! RemoveHooks(hooks)
+      }
 
     case RemoveHooks(hooks) => hooks foreach remove
 
