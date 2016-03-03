@@ -1,6 +1,6 @@
 module.exports = {
   init: function(explorer) {
-    if (explorer.authorized && lichess.once('explorer')) {
+    if (lichess.once('explorer')) {
       if (!explorer.enabled()) setTimeout(function() {
         lichess.hopscotch(function() {
           hopscotch.configure({

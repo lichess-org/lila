@@ -412,7 +412,7 @@ function buttons(ctrl) {
     }, [
       cachedButtons,
       m('div', [
-        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button', {
+        ctrl.actionMenu.open ? null : m('button', {
           id: 'open_explorer',
           'data-hint': 'Opening explorer',
           'data-act': 'explorer',

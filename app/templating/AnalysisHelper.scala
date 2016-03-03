@@ -15,18 +15,4 @@ trait AnalysisHelper { self: I18nHelper with SecurityHelper =>
     case Nag.Inaccuracy => trans.inaccuracies()
     case nag            => nag.toString
   }
-
-  object isExplorerAvailable {
-    import reactivemongo.bson._
-    import scala.concurrent.duration._
-    private val coll = lila.db.Env.current("flag")
-    private val cache = lila.memo.MixedCache.single[Boolean](
-      f = coll.find(BSONDocument("_id" -> "explorer")).one[BSONDocument].map {
-        _ ?? (~_.getAs[Boolean]("enabled"))
-      },
-      timeToLive = 10 seconds,
-      default = false)
-    def apply(implicit ctx: lila.api.Context): Boolean =
-      isGranted(_.Beta) || (cache get true)
-  }
 }
