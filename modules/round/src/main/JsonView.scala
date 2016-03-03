@@ -260,7 +260,8 @@ final class JsonView(
     "source" -> game.source.map(sourceJson),
     "status" -> game.status,
     "boosted" -> game.boosted.option(true),
-    "tournamentId" -> game.tournamentId).noNull
+    "tournamentId" -> game.tournamentId,
+    "createdAt" -> game.createdAt).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
