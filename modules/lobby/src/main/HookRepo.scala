@@ -10,12 +10,16 @@ object HookRepo {
 
   def findCompatible(hook: Hook): List[Hook] = list filter (_ compatibleWith hook)
 
-  def list = {
+  def truncateIfNeeded {
     if (hooks.size > hardLimit) {
       play.api.Logger("lobby").warn(s"Found ${hooks.size} hooks, cleaning up!")
       cleanupOld
       hooks = hooks.take(hardLimit / 2)
     }
+  }
+
+  def list = {
+    truncateIfNeeded
     hooks.toList
   }
 

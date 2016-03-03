@@ -31,7 +31,7 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
         storage.put(key, 1 -> makeClearAt)
         op
       case _ =>
-        logger.info(s"$name ($nb/$duration) $msg $key")
+        logger.info(s"$name ($nb/$duration) $key $msg")
         default.zero
     }
 }
