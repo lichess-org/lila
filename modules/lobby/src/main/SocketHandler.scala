@@ -29,23 +29,23 @@ private[lobby] final class SocketHandler(
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
     case ("join", o) =>
       o str "d" foreach { id =>
-        RateLimit(member.ip, s"join hook $id") {
+        RateLimit(member.ip, s"$uid join hook $id") {
           lobby ! BiteHook(id, uid, member.user)
         }
       }
-    case ("cancel", o) => RateLimit(member.ip, s"cancel seek uid=$uid") {
+    case ("cancel", o) => RateLimit(member.ip, s"$uid cancel hooks") {
       lobby ! CancelHook(uid)
     }
     case ("joinSeek", o) => for {
       id <- o str "d"
       user <- member.user
-    } RateLimit(member.ip, s"join seek $id") {
+    } RateLimit(member.ip, s"$uid join seek $id") {
       lobby ! BiteSeek(id, user)
     }
     case ("cancelSeek", o) => for {
       id <- o str "d"
       user <- member.user
-    } RateLimit(member.ip, s"cancel seek $id") {
+    } RateLimit(member.ip, s"$uid cancel seek $id") {
       lobby ! CancelSeek(id, user)
     }
   }
