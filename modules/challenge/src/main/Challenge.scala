@@ -1,6 +1,6 @@
 package lila.challenge
 
-import chess.variant.Variant
+import chess.variant.{Variant, FromPosition}
 import chess.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 
@@ -102,11 +102,13 @@ object Challenge {
     case _                    => Speed.Correspondence
   }
 
-  private def perfTypeOf(variant: Variant, timeControl: TimeControl) =
+  private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     PerfPicker.perfType(speedOf(timeControl), variant, timeControl match {
       case TimeControl.Correspondence(d) => d.some
       case _                             => none
-    }) | PerfType.Correspondence
+    }).orElse {
+      (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
+    }.|(PerfType.Correspondence)
 
   private val idSize = 8
 
@@ -133,7 +135,7 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen = initialFen.ifTrue(variant == chess.variant.FromPosition),
+      initialFen = initialFen.ifTrue(variant == FromPosition),
       timeControl = timeControl,
       mode = mode,
       colorChoice = colorChoice,
