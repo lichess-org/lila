@@ -6,7 +6,7 @@ import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 import lila.rating.RatingRange
 
-private[setup] case object ApiConfig extends Config with GameGenerator {
+private[setup] case object ApiConfig extends Config {
 
   val color = Color.White
   val variant = chess.variant.Standard

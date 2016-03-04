@@ -47,11 +47,6 @@ private[setup] trait Config {
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
-trait GameGenerator { self: Config =>
-
-  def game: Game
-}
-
 trait Positional { self: Config =>
 
   import chess.format.Forsyth, Forsyth.SituationPlus
