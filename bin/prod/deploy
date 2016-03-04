@@ -52,10 +52,10 @@ if [ $mode == "main" ] || [ $mode == "stage" ]; then
   bin/prod/compile-client
 fi
 
-# if [ $mode == "main" ]; then
-#   lilalog "Notify users of pre deploy"
-#   bin/cli-prod deploy pre
-# fi
+if [ $mode == "main" ]; then
+  lilalog "Notify users of pre deploy"
+  bin/cli-prod deploy pre
+fi
 
 sbt ";stage;exit"
 if [ $? != 0 ]; then
@@ -93,10 +93,10 @@ echo "rsync complete"
 
 read -n 1 -p "Press [Enter] to continue."
 
-# if [ $mode == "main" ]; then
-#   lilalog "Notify users of post deploy"
-#   bin/cli-prod deploy post
-# fi
+if [ $mode == "main" ]; then
+  lilalog "Notify users of post deploy"
+  bin/cli-prod deploy post
+fi
 
 if [ $mode == "main" ] || [ $mode == "stage" ]; then
   lilalog "Restart lichess"
