@@ -1,6 +1,7 @@
 package lila.socket
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 import scala.util.Random
 
 import akka.actor.{ Deploy => _, _ }
@@ -73,6 +74,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def notifyAll(msg: JsObject) {
     members.values.foreach(_ push msg)
+  }
+
+  def notifyAllAsync[A: Writes](t: String, data: A) = Future {
+    notifyAll(t, data)
+  }
+
+  def notifyAllAsync(t: String) = Future {
+    notifyAll(t)
+  }
+
+  def notifyAllAsync(msg: JsObject) = Future {
+    notifyAll(msg)
   }
 
   def notifyMember[A: Writes](t: String, data: A)(member: M) {

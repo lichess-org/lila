@@ -45,11 +45,11 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
+    case ReloadTournaments(html) => notifyAllAsync(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html)      => notifyAll(makeMessage("simuls", html))
+    case ReloadSimuls(html)      => notifyAllAsync(makeMessage("simuls", html))
 
-    case NewForumPost            => notifyAll("reload_forum")
+    case NewForumPost            => notifyAllAsync("reload_forum")
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
@@ -73,11 +73,11 @@ private[lobby] final class Socket(
 
     case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
-    case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
+    case lila.hub.actorApi.round.NbRounds(nb) => notifyAllAsync(makeMessage("nbr", nb))
 
-    case ChangeFeatured(_, msg)               => notifyAll(msg)
+    case ChangeFeatured(_, msg)               => notifyAllAsync(msg)
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
