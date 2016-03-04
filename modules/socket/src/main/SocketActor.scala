@@ -16,7 +16,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val members = scala.collection.mutable.Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
-  var pong = Socket.initialPong
+  var pong = initialPong
 
   val lilaBus = context.system.lilaBus
 
@@ -50,8 +50,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     // when a member quits
     case Quit(uid)             => quit(uid)
-
-    case NbMembers(_, pongMsg) => pong = pongMsg
 
     case GetUids               => sender ! SocketUids(members.keySet.toSet)
 

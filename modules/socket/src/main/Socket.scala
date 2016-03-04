@@ -11,7 +11,5 @@ private[socket] trait Socket {
 
   def makeMessage(t: String): JsObject = JsObject(List("t" -> JsString(t)))
 
-  def makePong(n: Int) = makeMessage("n", n)
-
-  val initialPong = makePong(0)
+  val initialPong = makeMessage("n")
 }

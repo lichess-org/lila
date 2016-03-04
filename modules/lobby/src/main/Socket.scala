@@ -28,7 +28,7 @@ private[lobby] final class Socket(
 
   override def preStart {
     super.preStart
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers)
   }
 
   def receiveSpecific = {
@@ -75,7 +75,8 @@ private[lobby] final class Socket(
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
-    case lila.hub.actorApi.round.NbRounds(nb) => notifyAllAsync(makeMessage("nbr", nb))
+    case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
+    case lila.hub.actorApi.round.NbRounds(nb) => pong = pong + ("r" -> JsNumber(nb))
 
     case ChangeFeatured(_, msg)               => notifyAllAsync(msg)
   }
