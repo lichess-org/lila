@@ -329,7 +329,9 @@ function inputs(ctrl) {
         value: pgnText
       }),
       m('div.action', [
-        m('button.button', {
+        m('button', {
+          class: 'button text',
+          'data-icon': 'G',
           onclick: function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
