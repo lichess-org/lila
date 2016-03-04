@@ -12,7 +12,7 @@ case class AiConfig(
     days: Int,
     level: Int,
     color: Color,
-    fen: Option[String] = None) extends Config with GameGenerator with Positional {
+    fen: Option[String] = None) extends Config with Positional {
 
   val strictFen = true
 
