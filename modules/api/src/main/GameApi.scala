@@ -145,6 +145,7 @@ private[api] final class GameApi(
         "totalTime" -> clock.estimateTotalTime
       )
     },
+    "daysPerTurn" -> g.daysPerTurn,
     "players" -> JsObject(g.players.zipWithIndex map {
       case (p, i) => p.color.name -> Json.obj(
         "userId" -> p.userId,
