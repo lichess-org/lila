@@ -65,8 +65,8 @@ private final class ExplorerIndexer(
                 val nb = pairs.size
                 val gameMs = (nowMillis - millis) / nb.toDouble
                 logger.info(s"$date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
-              case Success(res) => logger.warn(s"[${res.status}]")
-              case Failure(err) => logger.warn(s"$err")
+              case Success(res) => sys error s"Stop import because of status ${res.status}"
+              case Failure(err) => sys error s"Stop import because of exception ${err.getMessage}"
             } >>- {
               if (pairOptions.size < batchSize)
                 sys error s"Got ${pairOptions.size}/$batchSize games, stopping import"
