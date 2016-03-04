@@ -8,9 +8,12 @@ final class Env(
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
+  private val MassImportEndpoint = config getString "mass_import.endpoint"
   private val IndexFlow = config getBoolean "index_flow"
 
-  private lazy val indexer = new ExplorerIndexer(endpoint = Endpoint)
+  private lazy val indexer = new ExplorerIndexer(
+    endpoint = Endpoint,
+    massImportEndpoint = MassImportEndpoint)
 
   def cli = new lila.common.Cli {
     def process = {

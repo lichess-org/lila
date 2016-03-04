@@ -17,7 +17,9 @@ import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 import lila.user.UserRepo
 
-private final class ExplorerIndexer(endpoint: String) {
+private final class ExplorerIndexer(
+    endpoint: String,
+    massImportEndpoint: String) {
 
   private val maxGames = Int.MaxValue
   private val batchSize = 100
@@ -27,7 +29,8 @@ private final class ExplorerIndexer(endpoint: String) {
   private val dateFormatter = DateTimeFormat forPattern datePattern
   private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
   private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
-  private val url = s"$endpoint/import/lichess"
+  private val endPointUrl = s"$endpoint/import/lichess"
+  private val massImportEndPointUrl = s"$massImportEndpoint/import/lichess"
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
@@ -56,7 +59,7 @@ private final class ExplorerIndexer(endpoint: String) {
         Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
           case (millis, pairOptions) =>
             val pairs = pairOptions.flatten
-            WS.url(url).put(pairs.map(_._2) mkString separator).andThen {
+            WS.url(massImportEndPointUrl).put(pairs.map(_._2) mkString separator).andThen {
               case Success(res) if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
@@ -82,7 +85,7 @@ private final class ExplorerIndexer(endpoint: String) {
       buf += pgn
       val startAt = nowMillis
       if (buf.size >= max) {
-        WS.url(url).put(buf mkString separator) andThen {
+        WS.url(endPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             val gameMs = (nowMillis - startAt) / max
             logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
