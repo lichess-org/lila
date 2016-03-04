@@ -128,7 +128,11 @@ function show(ctrl) {
         m('p',
           ctrl.explorer.config.fullHouse() ?
           "Already searching through all available games." :
-          "Maybe include more games from the preferences menu?")
+          "Maybe include more games from the preferences menu?"),
+        m('br'),
+        m('button.button.text[data-icon=L]', {
+          onclick: ctrl.explorer.toggle
+        }, 'Close')
       ])
     ]);
   }
