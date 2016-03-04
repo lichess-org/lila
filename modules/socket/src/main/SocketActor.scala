@@ -24,7 +24,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // to ensure the listener is ready (sucks, I know)
   val startsOnApplicationBoot: Boolean = false
 
-  override def preStart() {
+  override def preStart {
     if (startsOnApplicationBoot)
       context.system.scheduler.scheduleOnce(1 second) {
         lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)

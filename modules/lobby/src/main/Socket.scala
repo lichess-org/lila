@@ -22,11 +22,14 @@ import makeTimeout.short
 private[lobby] final class Socket(
     val history: History[Messadata],
     router: akka.actor.ActorSelection,
-    uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
+    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
 
   override val startsOnApplicationBoot = true
 
-  context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
+  override def preStart {
+    super.preStart
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
+  }
 
   def receiveSpecific = {
 
@@ -44,7 +47,7 @@ private[lobby] final class Socket(
 
     case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html) => notifyAll(makeMessage("simuls", html))
+    case ReloadSimuls(html)      => notifyAll(makeMessage("simuls", html))
 
     case NewForumPost            => notifyAll("reload_forum")
 

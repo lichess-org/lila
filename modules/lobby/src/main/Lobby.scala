@@ -18,7 +18,16 @@ private[lobby] final class Lobby(
     seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
-    onStart: String => Unit) extends Actor {
+    onStart: String => Unit,
+    broomPeriod: FiniteDuration,
+    resyncIdsPeriod: FiniteDuration) extends Actor {
+
+  override def preStart {
+    context.system.scheduler.scheduleOnce(10 seconds) {
+      scheduleBroom
+      scheduleResync
+    }
+  }
 
   def receive = {
 
@@ -92,13 +101,11 @@ private[lobby] final class Lobby(
     case Broom =>
       (socket ? GetUids mapTo manifest[SocketUids])
         .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
-        .effectFold(
-          err => {
-            play.api.Logger("lobby").warn(s"broom cannot get uids from socket: $err")
-            HookRepo.truncateIfNeeded
-          },
-          socketUids => self ! socketUids
-        )
+        .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
+        .addFailureEffect { err =>
+          HookRepo.truncateIfNeeded
+          scheduleBroom
+        } pipeTo self
 
     case SocketUids(uids) =>
       val createdBefore = DateTime.now minusSeconds 5
@@ -113,10 +120,21 @@ private[lobby] final class Lobby(
         // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
         self ! RemoveHooks(hooks)
       }
+      scheduleBroom
 
     case RemoveHooks(hooks) => hooks foreach remove
 
-    case Resync             => socket ! HookIds(HookRepo.list.map(_.id))
+    case Resync =>
+      socket ! HookIds(HookRepo.list.map(_.id))
+      scheduleResync
+  }
+
+  def scheduleBroom = context.system.scheduler.scheduleOnce(broomPeriod) {
+    self ! lila.socket.actorApi.Broom
+  }
+
+  def scheduleResync = context.system.scheduler.scheduleOnce(resyncIdsPeriod) {
+    self ! actorApi.Resync
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {

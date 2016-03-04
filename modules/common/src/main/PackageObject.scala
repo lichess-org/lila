@@ -159,15 +159,10 @@ trait WithPlay { self: PackageObject =>
     def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-    def logFailure(prefix: Throwable => String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception => logwarn(prefix(e) + " " + e.toString)
+    def logFailure(logger: => String, msg: Exception => String): Fu[A] = fua ~ (_ onFailure {
+      case e: Exception => play.api.Logger(logger).warn(msg(e))
     })
-    def logFailure(prefix: => String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception => logwarn(prefix + " " + e.toString)
-    })
-    def logFailureErr(prefix: => String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception => logerr(prefix + " " + e.toString)
-    })
+    def logFailure(logger: => String): Fu[A] = logFailure(logger, _.toString)
 
     def addEffect(effect: A => Unit) = fua ~ (_ foreach effect)
 
@@ -288,12 +283,4 @@ trait WithPlay { self: PackageObject =>
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
-
-  def printToFile(f: java.io.File)(op: java.io.PrintWriter => Unit): Funit = Future {
-    val p = new java.io.PrintWriter(f)
-    try { op(p) } finally { p.close() }
-  }
-
-  def printToFile(f: String)(op: java.io.PrintWriter => Unit): Funit =
-    printToFile(new java.io.File(f))(op)
 }
