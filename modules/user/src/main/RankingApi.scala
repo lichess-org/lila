@@ -128,7 +128,7 @@ final class RankingApi(
                 nb <- obj.getAs[NbUsers]("nb")
               } yield rating -> nb
             }.toMap
-            (800 to 2500 by Stat.group).map { r =>
+            (800 to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
           }
