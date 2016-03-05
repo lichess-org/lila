@@ -1,0 +1,26 @@
+.side {
+  margin-top: 20px;
+  margin-left: -30px;
+  width: 228px;
+  box-sizing: border-box;
+}
+div.side h2 {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 22px;
+}
+.side p,
+.side ul,
+.side ol {
+  font-size: 1.2em;
+  margin: 1em 0;
+}
+.side ul li {
+  list-style: disc inside;
+  margin: 0.5em 0;
+}
+.side a {
+  color: #3893E8;
+}
+.side a:hover {
+  text-decoration: underline;
+}

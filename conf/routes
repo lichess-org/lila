@@ -406,6 +406,7 @@ GET   /thanks                          controllers.Page.thanks
 GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
+GET   /swag                            controllers.Page.swag
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
