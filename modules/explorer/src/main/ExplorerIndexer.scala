@@ -46,9 +46,10 @@ private final class ExplorerIndexer(
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
       )
+      import reactivemongo.api._
       pimpQB(query)
         .sort(Query.sortChronological)
-        .cursor[Game]()
+        .cursor[Game](ReadPreference.secondaryPreferred)
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.mapM[Game].apply[Option[(Game, String)]] { game =>
           makeFastPgn(game) map {
