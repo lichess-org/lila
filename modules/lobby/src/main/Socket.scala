@@ -22,11 +22,14 @@ import makeTimeout.short
 private[lobby] final class Socket(
     val history: History[Messadata],
     router: akka.actor.ActorSelection,
-    uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
+    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
 
   override val startsOnApplicationBoot = true
 
-  context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
+  override def preStart {
+    super.preStart
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers)
+  }
 
   def receiveSpecific = {
 
@@ -36,17 +39,17 @@ private[lobby] final class Socket(
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
 
-    case Join(uid, user, blocks) =>
+    case Join(uid, ip, user, blocks) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid)
+      val member = Member(channel, user, blocks, uid, ip)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
+    case ReloadTournaments(html) => notifyAllAsync(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html) => notifyAll(makeMessage("simuls", html))
+    case ReloadSimuls(html)      => notifyAllAsync(makeMessage("simuls", html))
 
-    case NewForumPost            => notifyAll("reload_forum")
+    case NewForumPost            => notifyAllAsync("reload_forum")
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
@@ -70,11 +73,12 @@ private[lobby] final class Socket(
 
     case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
-    case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
+    case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
+    case lila.hub.actorApi.round.NbRounds(nb) => pong = pong + ("r" -> JsNumber(nb))
 
-    case ChangeFeatured(_, msg)               => notifyAll(msg)
+    case ChangeFeatured(_, msg)               => notifyAllAsync(msg)
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =

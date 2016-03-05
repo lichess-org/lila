@@ -329,7 +329,9 @@ function inputs(ctrl) {
         value: pgnText
       }),
       m('div.action', [
-        m('button.button', {
+        m('button', {
+          class: 'button text',
+          'data-icon': 'G',
           onclick: function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
@@ -412,7 +414,7 @@ function buttons(ctrl) {
     }, [
       cachedButtons,
       m('div', [
-        (ctrl.actionMenu.open || !ctrl.explorer.authorized) ? null : m('button', {
+        ctrl.actionMenu.open ? null : m('button', {
           id: 'open_explorer',
           'data-hint': 'Opening explorer',
           'data-act': 'explorer',

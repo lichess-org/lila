@@ -1,6 +1,7 @@
 package lila.socket
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 import scala.util.Random
 
 import akka.actor.{ Deploy => _, _ }
@@ -15,7 +16,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val members = scala.collection.mutable.Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
-  var pong = Socket.initialPong
+  var pong = initialPong
 
   val lilaBus = context.system.lilaBus
 
@@ -24,7 +25,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // to ensure the listener is ready (sucks, I know)
   val startsOnApplicationBoot: Boolean = false
 
-  override def preStart() {
+  override def preStart {
     if (startsOnApplicationBoot)
       context.system.scheduler.scheduleOnce(1 second) {
         lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
@@ -50,8 +51,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     // when a member quits
     case Quit(uid)             => quit(uid)
 
-    case NbMembers(_, pongMsg) => pong = pongMsg
-
     case GetUids               => sender ! SocketUids(members.keySet.toSet)
 
     case GetUserIds            => sender ! userIds
@@ -73,6 +72,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def notifyAll(msg: JsObject) {
     members.values.foreach(_ push msg)
+  }
+
+  def notifyAllAsync[A: Writes](t: String, data: A) = Future {
+    notifyAll(t, data)
+  }
+
+  def notifyAllAsync(t: String) = Future {
+    notifyAll(t)
+  }
+
+  def notifyAllAsync(msg: JsObject) = Future {
+    notifyAll(msg)
   }
 
   def notifyMember[A: Writes](t: String, data: A)(member: M) {

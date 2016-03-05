@@ -1,0 +1,28 @@
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context)
+
+@side = {
+<div class="side">
+  @Html(~doc.getHtml("doc.content", resolver))
+</div>
+}
+
+@site.layout(
+moreCss = cssTag("swag.css"),
+side = side.some,
+title = "Lichess Swag") {
+
+<div class="content_box swag no_padding">
+  <div id="myShop"><a href="//shop.spreadshirt.com/lichess-org">lichess-org</a></div>
+
+  <script>
+    var spread_shop_config = {
+      shopName: 'lichess-org',
+        locale: 'us_US',
+        prefix: '//shop.spreadshirt.com',
+        baseId: 'myShop'
+    };
+  </script>
+
+  <script type="text/javascript" src="//shop.spreadshirt.com/shopfiles/shopclient/shopclient.nocache.js"></script>
+</div>
+}

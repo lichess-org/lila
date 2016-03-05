@@ -9,7 +9,7 @@
 	url = https://github.com/clarkerubber/Staunton-Pieces
 [submodule "submodules/pdfexporter"]
 	path = submodules/pdfexporter
-	url = https://github.com/clarkerubber/lichessPDFExporter
+	url = https://github.com/ornicar/lichessPDFExporter
 [submodule "submodules/boardcreator"]
 	path = submodules/boardcreator
 	url = https://github.com/clarkerubber/board-creator

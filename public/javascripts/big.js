@@ -222,7 +222,7 @@ lichess.StrongSocket.prototype = {
       default:
         if (self.settings.receive) self.settings.receive(m.t, m.d);
         var h = self.settings.events[m.t];
-        if (h) h(m.d || null);
+        if (h) h(m.d || null, m);
         else if (!self.options.ignoreUnknownMessages) {
           self.debug('Message not supported ' + JSON.stringify(m));
         }
@@ -552,12 +552,6 @@ lichess.numberFormat = (function() {
     };
   };
 
-  var nbUserSpread = $.spreadNumber(
-    document.querySelector('#nb_connected_players > strong'),
-    5,
-    function() {
-      return lichess.socket.pingInterval();
-    });
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -571,7 +565,6 @@ lichess.numberFormat = (function() {
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
       },
-      n: nbUserSpread,
       message: function(msg) {
         $('#chat').chat("append", msg);
       },
@@ -1852,6 +1845,12 @@ lichess.numberFormat = (function() {
       function() {
         return lichess.socket.pingInterval();
       });
+    var nbUserSpread = $.spreadNumber(
+      document.querySelector('#nb_connected_players > strong'),
+      5,
+      function() {
+        return lichess.socket.pingInterval();
+      });
     var onFirstConnect = function() {
       var gameId = lichess.getParameterByName('hook_like');
       if (!gameId) return;
@@ -1871,6 +1870,12 @@ lichess.numberFormat = (function() {
           lobby.socketReceive(t, d);
         },
         events: {
+          n: function(nbUsers, msg) {
+            nbUserSpread(msg.d);
+            setTimeout(function() {
+              nbRoundSpread(msg.r);
+            }, lichess.socket.pingInterval() / 2);
+          },
           reload_timeline: function() {
             $.ajax({
               url: $("#timeline").data('href'),
@@ -1912,7 +1917,6 @@ lichess.numberFormat = (function() {
               });
             }, Math.round(Math.random() * 5000));
           },
-          nbr: nbRoundSpread,
           fen: function(e) {
             lichess.StrongSocket.defaults.events.fen(e);
             lobby.gameActivity(e.id);

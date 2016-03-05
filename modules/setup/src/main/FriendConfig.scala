@@ -13,26 +13,11 @@ case class FriendConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    fen: Option[String] = None) extends HumanConfig with GameGenerator with Positional {
+    fen: Option[String] = None) extends HumanConfig with Positional {
 
   val strictFen = false
 
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, color.name, fen).some
-
-  def game = fenGame { chessGame =>
-    val realVariant = chessGame.board.variant
-    Game.make(
-      game = chessGame,
-      whitePlayer = Player.white,
-      blackPlayer = Player.black,
-      mode = (realVariant == chess.variant.FromPosition).fold(Mode.Casual, mode),
-      variant = realVariant,
-      source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
-      daysPerTurn = makeDaysPerTurn,
-      pgnImport = None)
-  }
-
-  def pov = Pov(game, creatorColor)
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 }

@@ -18,8 +18,7 @@ data: @Html(play.api.libs.json.Json.stringify(data)),
 i18n: @round.jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
-endpoint: "@explorerEndpoint",
-authorized: @isExplorerAvailable.apply(ctx)
+endpoint: "@explorerEndpoint"
 }
 };
 }

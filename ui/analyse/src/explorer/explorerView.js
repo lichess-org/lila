@@ -128,7 +128,11 @@ function show(ctrl) {
         m('p',
           ctrl.explorer.config.fullHouse() ?
           "Already searching through all available games." :
-          "Maybe include more games from the preferences menu?")
+          "Maybe include more games from the preferences menu?"),
+        m('br'),
+        m('button.button.text[data-icon=L]', {
+          onclick: ctrl.explorer.toggle
+        }, 'Close')
       ])
     ]);
   }
@@ -160,7 +164,7 @@ function failing() {
 
 module.exports = {
   renderExplorer: function(ctrl) {
-    if (!ctrl.explorer.authorized || !ctrl.explorer.enabled()) return;
+    if (!ctrl.explorer.enabled()) return;
     var data = ctrl.explorer.current();
     var config = ctrl.explorer.config;
     var configOpened = config.data.open();

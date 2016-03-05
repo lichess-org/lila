@@ -43,7 +43,7 @@ module.exports = function(root, opts) {
   };
 
   function setStep() {
-    if (!opts.authorized || !enabled()) return;
+    if (!enabled()) return;
     var step = root.vm.step;
     if (step.ply > 50) cache[step.fen] = empty;
     if (!cache[step.fen]) {
@@ -53,7 +53,6 @@ module.exports = function(root, opts) {
   }
 
   return {
-    authorized: opts.authorized,
     enabled: enabled,
     setStep: setStep,
     loading: loading,

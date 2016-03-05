@@ -677,6 +677,7 @@ div.copyables label {
 }
 div.copyables .pgn {
   margin-top: 1em;
+  margin-bottom: 20px;
 }
 div.copyables .pgn textarea {
   color: #747474;

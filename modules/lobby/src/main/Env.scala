@@ -35,8 +35,7 @@ final class Env(
   private val socket = system.actorOf(Props(new Socket(
     history = history,
     router = hub.actor.router,
-    uidTtl = SocketUidTtl
-  )), name = SocketName)
+    uidTtl = SocketUidTtl)), name = SocketName)
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -50,7 +49,9 @@ final class Env(
     seekApi = seekApi,
     blocking = blocking,
     playban = playban,
-    onStart = onStart
+    onStart = onStart,
+    broomPeriod = BroomPeriod,
+    resyncIdsPeriod = ResyncIdsPeriod
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
@@ -70,19 +71,6 @@ final class Env(
         abortListener recreateSeek pov
     }
   }))
-
-  {
-    import scala.concurrent.duration._
-
-    scheduler.once(10 seconds) {
-      scheduler.message(BroomPeriod) {
-        lobby -> lila.socket.actorApi.Broom
-      }
-      scheduler.message(ResyncIdsPeriod) {
-        lobby -> actorApi.Resync
-      }
-    }
-  }
 }
 
 object Env {

@@ -57,14 +57,14 @@ private[monitor] final class Reporting(
         moveMillis += m
       }
 
-    case AddRequest       => reqWindowCount.add
+    case AddRequest     => reqWindowCount.add
 
-    case PopulationGet    => sender ! nbMembers
+    case PopulationGet  => sender ! nbMembers
 
-    case NbMembers(nb, _) => nbMembers = nb
+    case NbMembers(nb)  => nbMembers = nb
 
-    case GetNbMoves       => sender ! moveWindowCount.get
-    case GetMoveLatency   => sender ! moveAvgMillis
+    case GetNbMoves     => sender ! moveWindowCount.get
+    case GetMoveLatency => sender ! moveAvgMillis
 
     case Update =>
       if (moveMillis.size > 0) moveAvgMillis = moveMillis.sum / moveMillis.size
