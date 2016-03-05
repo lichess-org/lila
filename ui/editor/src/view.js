@@ -107,11 +107,15 @@ function controls(ctrl, fen) {
 }
 
 function inputs(ctrl, fen) {
+  if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   return m('div.copyables', [
     m('p', [
       m('strong.name', 'FEN'),
-      m('input.copyable.autoselect[readonly][spellCheck=false]', {
-        value: fen
+      m('input.copyable.autoselect[spellCheck=false]', {
+        value: fen,
+        onchange: function(e) {
+          if (e.target.value !== fen) ctrl.changeFen(e.target.value);
+        }
       })
     ]),
     m('p', [
