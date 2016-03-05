@@ -22,7 +22,7 @@ private final class ExplorerIndexer(
     massImportEndpoint: String) {
 
   private val maxGames = Int.MaxValue
-  private val batchSize = 100
+  private val batchSize = 150
   private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
