@@ -10,6 +10,10 @@ module.exports = function(cfg) {
 
   this.trans = partial(editor.trans, this.data.i18n);
 
+  this.vm = {
+    redirecting: false
+  };
+
   this.extraPositions = [{
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
     name: this.trans('startPosition')
@@ -79,6 +83,11 @@ module.exports = function(cfg) {
       fen = prompt('Paste FEN position').trim();
       if (!fen) return;
     }
+    this.changeFen(fen);
+  }.bind(this);
+
+  this.changeFen = function(fen) {
+    this.vm.redirecting = true;
     window.location = editor.makeUrl(this.data.baseUrl, fen);
   }.bind(this);
 
