@@ -19,7 +19,7 @@ div.side h2 {
   margin: 0.5em 0;
 }
 .side a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 .side a:hover {
   text-decoration: underline;
