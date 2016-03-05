@@ -59,17 +59,18 @@ private final class ExplorerIndexer(
         Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
           case (millis, pairOptions) =>
             val pairs = pairOptions.flatten
-            WS.url(massImportEndPointUrl).put(pairs.map(_._2) mkString separator).andThen {
-              case Success(res) if res.status == 200 =>
+            WS.url(massImportEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
+              case res if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
                 val gameMs = (nowMillis - millis) / nb.toDouble
                 logger.info(s"$date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
-              case Success(res) => sys error s"Stop import because of status ${res.status}"
-              case Failure(err) => sys error s"Stop import because of exception ${err.getMessage}"
-            } >>- {
+                funit
+              case res => fufail(s"Stop import because of status ${res.status}")
+            } >> {
               if (pairOptions.size < batchSize)
-                sys error s"Got ${pairOptions.size}/$batchSize games, stopping import"
+                fufail(s"Got ${pairOptions.size}/$batchSize games, stopping import")
+              else funit
             } inject nowMillis
         } void
     }
