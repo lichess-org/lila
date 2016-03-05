@@ -22,7 +22,7 @@ private final class ExplorerIndexer(
     massImportEndpoint: String) {
 
   private val maxGames = Int.MaxValue
-  private val batchSize = 150
+  private val batchSize = 50
   private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
@@ -34,6 +34,8 @@ private final class ExplorerIndexer(
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
+
+  type GamePGN = (Game, String)
 
   def apply(sinceStr: String): Funit =
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
@@ -51,27 +53,30 @@ private final class ExplorerIndexer(
         .sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondaryPreferred)
         .enumerate(maxGames, stopOnError = true) &>
-        Enumeratee.mapM[Game].apply[Option[(Game, String)]] { game =>
+        Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
           makeFastPgn(game) map {
             _ map { game -> _ }
           }
         } &>
+        (Enumeratee.collect { case Some(el) => el }) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Option[(Game, String)]], Long](nowMillis) {
-          case (millis, pairOptions) =>
-            val pairs = pairOptions.flatten
+        Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
+          case (millis, pairs) =>
             WS.url(massImportEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
               case res if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
                 val gameMs = (nowMillis - millis) / nb.toDouble
-                logger.info(s"$date $nb/$batchSize ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
+                logger.info(s"$date $nb ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
                 funit
               case res => fufail(s"Stop import because of status ${res.status}")
             } >> {
-              if (pairOptions.size < batchSize)
-                fufail(s"Got ${pairOptions.size}/$batchSize games, stopping import")
-              else funit
+              pairs.headOption match {
+                case None => fufail(s"No games left, import complete!")
+                case Some((g, _)) if (g.createdAt.isAfter(DateTime.now.minusMinutes(10))) =>
+                  fufail(s"Found a recent game, import complete!")
+                case _ => funit
+              }
             } inject nowMillis
         } void
     }
