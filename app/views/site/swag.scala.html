@@ -12,9 +12,17 @@ side = side.some,
 title = "Lichess Swag") {
 
 <div class="content_box swag no_padding">
-  <iframe src="https://shop.spreadshirt.com.au/lichess-org/"
-    width="100%" height="1200px"
-    frameBorder='0'>
-  </iframe>
+  <div id="myShop"><a href="//shop.spreadshirt.com/lichess-org">lichess-org</a></div>
+
+  <script>
+    var spread_shop_config = {
+      shopName: 'lichess-org',
+        locale: 'us_US',
+        prefix: '//shop.spreadshirt.com',
+        baseId: 'myShop'
+    };
+  </script>
+
+  <script type="text/javascript" src="//shop.spreadshirt.com/shopfiles/shopclient/shopclient.nocache.js"></script>
 </div>
 }
