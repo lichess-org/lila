@@ -1,0 +1,68 @@
+# Forward all traffic to a new server
+
+limit_req_zone $binary_remote_addr zone=nodos:32m rate=4r/s;
+limit_req_status 429;
+
+server {
+  listen       80;
+  server_name  www.lichess.org ~^www\.\w\w\.lichess\.org$;
+  return       301 http://lichess.org$request_uri;
+}
+
+# serve static files
+server {
+  listen 80;
+  server_name lichess1.org;
+
+  # forward all to anand
+  location / {
+    proxy_pass http://149.202.92.196:80/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+# websocket
+server {
+  listen 80;
+  server_name ~^socket\.\w\w\.lichess\.org$;
+
+  error_log /var/log/nginx/lichess.socket.error.log;
+
+  limit_req zone=nodos burst=10 nodelay;
+
+  # forward all to anand
+  location / {
+    proxy_pass http://149.202.92.196:80/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+# http
+server {
+  listen 80;
+  server_name lichess.org ~^\w\w\.lichess\.org$;
+
+  error_log /var/log/nginx/lichess.error.log;
+
+  limit_req zone=nodos burst=10 nodelay;
+
+  # forward all to anand
+  location / {
+    proxy_pass http://149.202.92.196:80/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+server {
+  listen       80 default_server;
+  return       301 http://lichess.org$request_uri;
+}
