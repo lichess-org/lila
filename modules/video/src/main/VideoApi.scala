@@ -1,6 +1,7 @@
 package lila.video
 
 import org.joda.time.DateTime
+import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
@@ -53,7 +54,8 @@ private[video] final class VideoApi(
             "$text" -> BSONDocument("$search" -> q)
           ),
           projection = textScore,
-          sort = textScore
+          sort = textScore,
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -85,7 +87,8 @@ private[video] final class VideoApi(
         collection = videoColl,
         selector = BSONDocument(),
         projection = BSONDocument(),
-        sort = BSONDocument("metadata.likes" -> -1)
+        sort = BSONDocument("metadata.likes" -> -1),
+        readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
       currentPage = page,
       maxPerPage = maxPerPage)
@@ -99,7 +102,8 @@ private[video] final class VideoApi(
             "tags" -> BSONDocument("$all" -> tags)
           ),
           projection = BSONDocument(),
-          sort = BSONDocument("metadata.likes" -> -1)
+          sort = BSONDocument("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -112,7 +116,8 @@ private[video] final class VideoApi(
             "author" -> author
           ),
           projection = BSONDocument(),
-          sort = BSONDocument("metadata.likes" -> -1)
+          sort = BSONDocument("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -122,7 +127,7 @@ private[video] final class VideoApi(
         "tags" -> BSONDocument("$in" -> video.tags),
         "_id" -> BSONDocument("$ne" -> video.id)
       )).sort(BSONDocument("metadata.likes" -> -1))
-        .cursor[Video]()
+        .cursor[Video](ReadPreference.secondaryPreferred)
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
