@@ -182,14 +182,10 @@ private[round] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-        case ((anons, users), Some(user)) => anons -> (user :: users)
-        case ((anons, users), None)       => (anons + 1) -> users
-      }
       val event = Event.Crowd(
         white = ownerOf(White).isDefined,
         black = ownerOf(Black).isDefined,
-        watchers = showSpectators(users, anons))
+        watchers = showSpectators(lightUser)(watchers))
       notifyAll(event.typ, event.data)
   }
 

@@ -89,11 +89,7 @@ private[simul] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-        case ((anons, users), Some(user)) => anons -> (user :: users)
-        case ((anons, users), None)       => (anons + 1) -> users
-      }
-      notifyVersion("crowd", showSpectators(users, anons), Messadata())
+      notifyAll("crowd", showSpectators(lightUser)(members.values))
   }
 
   def notifyCrowd {

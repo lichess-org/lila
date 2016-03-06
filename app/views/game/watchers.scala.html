@@ -1,4 +1,4 @@
 @()(implicit ctx: Context)
 <div class="watchers none" data-icon="v">
-  <span class="number">&nbsp;</span> @trans.spectators() <span class="list inline_userlist"></span>
+  <span class="number">&nbsp;</span> @trans.spectators.str().replace(":", "") <span class="list inline_userlist"></span>
 </div>

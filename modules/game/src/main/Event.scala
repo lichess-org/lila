@@ -294,7 +294,7 @@ object Event {
   case class Crowd(
       white: Boolean,
       black: Boolean,
-      watchers: List[String]) extends Event {
+      watchers: JsValue) extends Event {
     def typ = "crowd"
     def data = Json.obj(
       "white" -> white,
