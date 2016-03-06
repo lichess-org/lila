@@ -83,11 +83,13 @@ object Relation extends LilaController {
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
     import lila.user.JsonView.nameWrites
     import lila.relation.JsonView.relatedWrites
-    import play.api.libs.json.JsBoolean
+    import lila.common.PimpedJson._
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
-      val json = relatedWrites.writes(r)
-      if (Env.user.isOnline(r.user.id)) json + ("online" -> JsBoolean(true))
-      else json
+      relatedWrites.writes(r) ++ Json.obj(
+        "online" -> Env.user.isOnline(r.user.id).option(true),
+        "perfs" -> r.user.perfs.bestPerfType.map { best =>
+          Env.user.jsonView.perfs(r.user, best.some)
+        }).noNull
     }))
   }
 
