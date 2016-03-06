@@ -11,7 +11,7 @@ function mainlineChild(node) {
 
 function withMainlineChild(node, f) {
   var next = mainlineChild(node);
-  if (next) f(next);
+  if (next) return f(next);
 }
 
 function findMainline(node, predicate) {
@@ -58,6 +58,20 @@ function last(nodeList) {
   return nodeList[nodeList.length - 1];
 }
 
+function nodeAtPly(nodeList, ply) {
+  for (var i in nodeList)
+    if (nodeList[i].ply === ply) return nodeList[i];
+}
+
+function takePathWhile(nodeList, predicate) {
+  var path = '';
+  for (var i in nodeList) {
+    if (predicate(nodeList[i])) path += nodeList[i].id;
+    else break;
+  }
+  return path;
+}
+
 module.exports = {
   mutateAll: mutateAll,
   findMainline: findMainline,
@@ -69,5 +83,7 @@ module.exports = {
     return collect(from, pickFirstChild);
   },
   childById: childById,
-  last: last
+  last: last,
+  nodeAtPly: nodeAtPly,
+  takePathWhile: takePathWhile
 }

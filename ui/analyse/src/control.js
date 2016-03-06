@@ -1,88 +1,46 @@
-var path = require('./path');
+var treePath = require('./tree/path');
 var empty = require('./util').empty;
 
-function canGoForward(ctrl) {
-  var tree = ctrl.analyse.tree;
-  var ok = false;
-  ctrl.vm.path.forEach(function(step) {
-    for (i = 0, nb = tree.length; i < nb; i++) {
-      var move = tree[i];
-      if (step.ply === move.ply && step.variation) {
-        tree = move.variations[step.variation - 1];
-        break;
-      } else ok = step.ply < move.ply;
-    }
-  });
-  return ok;
-}
-
 function canEnterVariation(ctrl) {
-  var tree = ctrl.analyse.tree;
-  var ok = false;
-  ctrl.vm.path.forEach(function(step) {
-    for (i = 0, nb = tree.length; i < nb; i++) {
-      var move = tree[i];
-      if (step.ply === move.ply) {
-        if (step.variation) {
-          tree = move.variations[step.variation - 1];
-          break;
-        } else ok = !empty(move.variations);
-      }
-    }
-  });
-  return ok;
+  return ctrl.vm.node.children.length > 1;
 }
 
 module.exports = {
 
-  canGoForward: canGoForward,
+  canGoForward: function(ctrl) {
+    return ctrl.vm.node.children.length > 0;
+  },
 
   next: function(ctrl) {
-    if (!canGoForward(ctrl)) return;
-    var p = ctrl.vm.path;
-    p[p.length - 1].ply++;
-    ctrl.userJump(p);
+    var child = ctrl.vm.node.children[0];
+    if (!child) return;
+    ctrl.userJump(ctrl.vm.path + child.id);
   },
 
   prev: function(ctrl) {
-    var p = ctrl.vm.path;
-    var len = p.length;
-    if (len === 1) {
-      if (p[0].ply === ctrl.analyse.firstPly()) return;
-      p[0].ply--;
-    } else {
-      if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
-      else {
-        p.pop();
-        p[len - 2].variation = null;
-        if (p[len - 2].ply > 1) p[len - 2].ply--;
-      }
-    }
-    ctrl.userJump(p);
+    ctrl.userJump(treePath.init(ctrl.vm.path));
   },
 
   last: function(ctrl) {
-    ctrl.userJump([{
-      ply: ctrl.analyse.tree[ctrl.analyse.tree.length - 1].ply,
-      variation: null
-    }]);
+    ctrl.userJump(ctrl.tree.nodeListToPath(ctrl.vm.mainline));
   },
 
   first: function(ctrl) {
-    ctrl.userJump([{
-      ply: ctrl.analyse.firstPly(),
-      variation: null
-    }]);
+    ctrl.userJump(treePath.root);
   },
 
   enterVariation: function(ctrl) {
-    if (canEnterVariation(ctrl))
-      ctrl.userJump(path.withVariation(ctrl.vm.path, 1));
+    var child = ctrl.vm.node.children[1];
+    if (!child) return;
+    ctrl.userJump(ctrl.vm.path + child.id);
   },
 
   exitVariation: function(ctrl) {
-    var p = ctrl.vm.path
-    if (p.length > 1)
-      ctrl.userJump(path.withoutVariation(p));
+    var cur = ctrl.vm.node;
+    var nl = ctrl.vm.nodeList;
+    for (var i = nl - 2; i >= 0; i--) {
+      if (nl[i].children[0].id !== cur.id)
+        ctrl.userJump(ctrl.tree.nodeListToPath(nl.slice(0, i)));
+    }
   }
 };

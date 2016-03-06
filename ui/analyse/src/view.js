@@ -39,10 +39,10 @@ function autoScroll(el) {
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
 
-function renderMove(ctrl, node, path, depth) {
+function renderMove(ctrl, node, path, isMainline) {
   if (!node) return emptyMove;
-  var eval = depth === 1 ? (node.eval || node.ceval || {}) : {};
-  var attrs = depth === 1 ? {} : {
+  var eval = isMainline ? (node.eval || node.ceval || {}) : {};
+  var attrs = isMainline ? {} : {
     'data-path': path
   };
   var classes = path === ctrl.vm.path ? ['active'] : [];
@@ -202,18 +202,21 @@ function renderMainlineTurnEl(children) {
   };
 }
 
-function renderMainlineTurn(ctrl, turn) {
+function renderMainlineTurn(ctrl, turn, path) {
   var index = renderIndex(turn.turn);
-  var wPath = turn.white ? turn.white.id : null;
-  var wMove = wPath ? renderMove(ctrl, turn.white, wPath, 1) : null;
-  // var wMeta = renderMeta(ctrl, turn.white, wPath);
-  var wMeta = null;
-  var bPath = turn.black ? turn.black.id : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath, 1) : nullMove;
-  // var bMeta = renderMeta(ctrl, turn.black, bPath);
-  var bMeta = null;
+  var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
+  if (turn.white) {
+    wPath = path = path + turn.white.id;
+    wMove = renderMove(ctrl, turn.white, wPath, 1);
+    // var wMeta = renderMeta(ctrl, turn.white, wPath);
+  }
+  if (turn.black) {
+    bPath = path = path + turn.black.id;
+    bMove = renderMove(ctrl, turn.black, bPath, 1);
+    // var bMeta = renderMeta(ctrl, turn.black, bPath);
+  }
   if (wMove) {
-    if (wMeta) return [
+    if (wMeta) dom = [
       renderMainlineTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
@@ -221,15 +224,18 @@ function renderMainlineTurn(ctrl, turn) {
         bMeta
       ] : null,
     ];
-    return [
+    else dom = [
       renderMainlineTurnEl([index, wMove, bMove]),
       bMeta
     ];
-  }
-  return [
+  } else dom = [
     renderMainlineTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
+  return {
+    dom: dom,
+    path: path
+  };
 }
 
 function renderMainline(ctrl, mainline) {
@@ -255,9 +261,13 @@ function renderMainline(ctrl, mainline) {
   }
 
   // TODO ain't that a map?
-  var tags = [];
-  for (var i = 0, len = turns.length; i < len; i++)
-    tags.push(renderMainlineTurn(ctrl, turns[i]));
+  var tags = [],
+    path = '';
+  for (var i = 0, len = turns.length; i < len; i++) {
+    res = renderMainlineTurn(ctrl, turns[i], path);
+    path = res.path;
+    tags.push(res.dom);
+  }
 
   return tags;
 }
@@ -288,12 +298,11 @@ function renderAnalyse(ctrl) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
         if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
         var path = el.getAttribute('data-path');
-        if (!path) {
-          var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
-          var node = ctrl.tree.nodeAtPly(ctrl.vm.mainline, ply);
-          path = node ? node.id : null;
-        }
         if (path) ctrl.userJump(path);
+        else {
+          var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
+          ctrl.jumpToMain(ply);
+        }
       },
       onclick: function(e) {
         return false;

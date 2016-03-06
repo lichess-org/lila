@@ -2,6 +2,7 @@ var chessground = require('chessground');
 var opposite = chessground.util.opposite;
 var tree = require('./tree/tree');
 var treePath = require('./tree/path');
+var treeOps = require('./tree/ops');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var actionMenu = require('./actionMenu').controller;
@@ -37,7 +38,17 @@ module.exports = function(opts) {
 
   initialize(opts.data);
 
-  var initialPath = opts.path ? (opts.path === 'last' ? this.tree.lastPath() : opts.path) : treePath.root;
+  var initialPath = treePath.root;
+  if (opts.path) {
+    var mainline = treeOps.mainlineNodeList(this.tree.root);
+    if (opts.path === 'last') initialPath = treeOps.nodeListToPath(mainline);
+    else {
+      var ply = parseInt(opts.path);
+      if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
+        return n.ply <= ply;
+      });
+    }
+  }
 
   this.vm = {
     initialPath: initialPath,
@@ -55,9 +66,8 @@ module.exports = function(opts) {
   this.setPath = function(path) {
     this.vm.path = path;
     this.vm.nodeList = this.tree.getNodeList(path);
-    this.vm.node = this.tree.ops.last(this.vm.nodeList);
-    this.vm.mainline = this.tree.ops.mainlineNodeList(this.tree.root);
-    console.log(path, this.vm.nodeList);
+    this.vm.node = treeOps.last(this.vm.nodeList);
+    this.vm.mainline = treeOps.mainlineNodeList(this.tree.root);
   }.bind(this);
 
   this.setPath(initialPath);
@@ -130,7 +140,7 @@ module.exports = function(opts) {
   }.bind(this)) : $.noop;
 
   var updateHref = window.history.replaceState ? throttle(750, false, function() {
-    window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
+    window.history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false) : $.noop;
 
   this.autoScroll = function() {
@@ -163,10 +173,9 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToMain = function(ply) {
-    this.userJump([{
-      ply: ply,
-      variation: null
-    }]);
+    this.userJump(treeOps.takePathWhile(this.vm.mainline, function(n) {
+      return n.ply <= ply;
+    }));
   }.bind(this);
 
   this.jumpToIndex = function(index) {

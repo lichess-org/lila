@@ -2,7 +2,6 @@ var treePath = require('./path');
 var ops = require('./ops');
 
 module.exports = function(root) {
-  console.log(root);
 
   root.id = '';
   ops.mutateAll(root, function(node) {
@@ -21,12 +20,6 @@ module.exports = function(root) {
 
   function lastPly() {
     return lastNode().ply;
-  }
-
-  function lastPath() {
-    return ops.foldLeftMainline('', root, function(acc, node) {
-      return acc + node.id;
-    });
   }
 
   function nodeAtPath(path) {
@@ -104,11 +97,6 @@ module.exports = function(root) {
     return opening;
   }
 
-  function nodeAtPly(nodeList, ply) {
-    for (var i in nodeList)
-      if (nodeList[i].ply === ply) return nodeList[i];
-  }
-
   function updateAtPath(path, update) {
     var node = nodeAtPathOrNull(path);
     if (node) {
@@ -125,7 +113,6 @@ module.exports = function(root) {
     // nodeAtPath: nodeAtPath,
     getNodeList: getNodeList,
     getOpening: getOpening,
-    nodeAtPly: nodeAtPly,
     addDests: function(dests, path, opening) {
       return updateAtPath(path, function(node) {
         node.dests = dests;
