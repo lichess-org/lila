@@ -53,6 +53,9 @@ final class Paginator[A] private[paginator] (
     maxPerPage = maxPerPage,
     currentPageResults = newResults,
     nbResults = nbResults)
+
+  def mapResults[B](f: A => B): Paginator[B] =
+    withCurrentPageResults(currentPageResults map f)
 }
 
 object Paginator {
