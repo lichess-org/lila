@@ -9,7 +9,7 @@ var game = require('game').game;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
-var treePath = require('./path');
+var treePath = require('./tree/path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
@@ -39,15 +39,14 @@ function autoScroll(el) {
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
 
-function renderMove(ctrl, move, path) {
-  if (!move) return emptyMove;
-  var pathStr = treePath.write(path);
-  var eval = path[1] ? {} : (move.eval || move.ceval || {});
-  var attrs = path[1] ? {
-    'data-path': pathStr
-  } : {};
-  var classes = pathStr === ctrl.vm.pathStr ? ['active'] : [];
-  if (pathStr === ctrl.vm.initialPathStr) classes.push('current');
+function renderMove(ctrl, node, path, depth) {
+  if (!node) return emptyMove;
+  var eval = depth === 1 ? (node.eval || node.ceval || {}) : {};
+  var attrs = depth === 1 ? {} : {
+    'data-path': path
+  };
+  var classes = path === ctrl.vm.path ? ['active'] : [];
+  if (path === ctrl.vm.initialPath) classes.push('current');
   if (classes.length) attrs.class = classes.join(' ');
   return {
     tag: 'move',
@@ -56,7 +55,7 @@ function renderMove(ctrl, move, path) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      move.san[0] === 'P' ? move.san.slice(1) : move.san
+      node.san[0] === 'P' ? node.san.slice(1) : node.san
     ]
   };
 }
@@ -196,67 +195,69 @@ function renderIndex(txt) {
   };
 }
 
-function renderTurnEl(children) {
+function renderMainlineTurnEl(children) {
   return {
     tag: 'turn',
     children: children
   };
 }
 
-function renderTurn(ctrl, turn, path) {
+function renderMainlineTurn(ctrl, turn) {
   var index = renderIndex(turn.turn);
-  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
-  var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
-  var wMeta = renderMeta(ctrl, turn.white, wPath);
-  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : nullMove;
-  var bMeta = renderMeta(ctrl, turn.black, bPath);
+  var wPath = turn.white ? turn.white.id : null;
+  var wMove = wPath ? renderMove(ctrl, turn.white, wPath, 1) : null;
+  // var wMeta = renderMeta(ctrl, turn.white, wPath);
+  var wMeta = null;
+  var bPath = turn.black ? turn.black.id : null;
+  var bMove = bPath ? renderMove(ctrl, turn.black, bPath, 1) : nullMove;
+  // var bMeta = renderMeta(ctrl, turn.black, bPath);
+  var bMeta = null;
   if (wMove) {
     if (wMeta) return [
-      renderTurnEl([index, wMove, emptyMove]),
+      renderMainlineTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
-        renderTurnEl([index, emptyMove, bMove]),
+        renderMainlineTurnEl([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
     return [
-      renderTurnEl([index, wMove, bMove]),
+      renderMainlineTurnEl([index, wMove, bMove]),
       bMeta
     ];
   }
   return [
-    renderTurnEl([index, emptyMove, bMove]),
+    renderMainlineTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
 }
 
-function renderTree(ctrl, tree) {
+function renderMainline(ctrl, mainline) {
   var turns = [];
-  var initPly = ctrl.analyse.firstPly();
+  var initPly = mainline[0].ply;
   if (initPly % 2 === 0)
-    for (var i = 1, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 1, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: tree[i],
-      black: tree[i + 1]
+      white: mainline[i],
+      black: mainline[i + 1]
     });
   else {
     turns.push({
       turn: Math.floor(initPly / 2) + 1,
       white: null,
-      black: tree[1]
+      black: mainline[1]
     });
-    for (var i = 2, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 2, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: tree[i],
-      black: tree[i + 1]
+      white: mainline[i],
+      black: mainline[i + 1]
     });
   }
 
-  var path = treePath.default();
+  // TODO ain't that a map?
   var tags = [];
   for (var i = 0, len = turns.length; i < len; i++)
-    tags.push(renderTurn(ctrl, turns[i], path));
+    tags.push(renderMainlineTurn(ctrl, turns[i]));
 
   return tags;
 }
@@ -273,11 +274,11 @@ function renderAnalyse(ctrl) {
     default:
       result = '½-½';
   }
-  var tree = renderTree(ctrl, ctrl.analyse.tree);
+  var tags = renderMainline(ctrl, ctrl.vm.mainline);
   if (result) {
-    tree.push(m('div.result', result));
+    tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    tree.push(m('div.status', [
+    tags.push(m('div.status', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
@@ -286,9 +287,13 @@ function renderAnalyse(ctrl) {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
         if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
-        var path = el.getAttribute('data-path') ||
-          '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
-        if (path) ctrl.userJump(treePath.read(path));
+        var path = el.getAttribute('data-path');
+        if (!path) {
+          var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
+          var node = ctrl.tree.nodeAtPly(ctrl.vm.mainline, ply);
+          path = node ? node.id : null;
+        }
+        if (path) ctrl.userJump(path);
       },
       onclick: function(e) {
         return false;
@@ -300,7 +305,7 @@ function renderAnalyse(ctrl) {
         }
       }
     },
-    tree);
+    tags);
 }
 
 function wheel(ctrl, e) {
@@ -431,7 +436,7 @@ function buttons(ctrl) {
 }
 
 function renderOpeningBox(ctrl) {
-  var opening = ctrl.analyse.getOpening(ctrl.vm.path);
+  var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
   if (opening) return m('div', {
     class: 'opening_box',
     title: opening.eco + ' ' + opening.name

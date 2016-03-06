@@ -6,9 +6,9 @@ var eventNames = ['mousedown', 'touchstart'];
 
 module.exports = {
   pocket: function(ctrl, color, position) {
-    var step = ctrl.vm.step;
-    if (!step.crazy) return;
-    var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
+    var node = ctrl.vm.node;
+    if (!node.crazy) return;
+    var pocket = node.crazy.pockets[color === 'white' ? 0 : 1];
     var oKeys = Object.keys(pocket)
     var crowded = oKeys.length > 4;
     var usable = color === ctrl.chessground.data.movable.color;

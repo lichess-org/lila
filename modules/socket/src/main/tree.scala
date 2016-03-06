@@ -116,7 +116,6 @@ object Node {
       add("eval", eval) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
-      add("children", children, children.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {
         _.map {
@@ -127,7 +126,10 @@ object Node {
         JsString(drops.map(_.key).mkString)
       }) _ compose
       add("crazy", crazyData)
-    )(Json.obj("ply" -> ply, "fen" -> fen))
+    )(Json.obj(
+        "ply" -> ply,
+        "fen" -> fen,
+        "children" -> children))
   }
 
   private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =

@@ -46,13 +46,13 @@ module.exports = {
     var pearl, percent;
     if (defined(evs.fav) && defined(evs.fav.cp)) {
       pearl = util.renderEval(evs.fav.cp);
-      percent = ctrl.nextStepBest() ?
+      percent = ctrl.nextNodeBest() ?
         100 :
         (evs.client ? Math.round(100 * evs.client.depth / ctrl.ceval.maxDepth) : 0)
     } else if (defined(evs.fav) && defined(evs.fav.mate)) {
       pearl = '#' + evs.fav.mate;
       percent = 100;
-    } else if (ctrl.vm.step.dests === '') {
+    } else if (ctrl.vm.node.dests === '') {
       pearl = '-';
       percent = 0;
     } else {

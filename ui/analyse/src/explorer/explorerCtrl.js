@@ -18,14 +18,14 @@ module.exports = function(root, opts) {
   var onConfigClose = function() {
     m.redraw();
     cache = {};
-    setStep();
+    setNode();
   }
   var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
   var fetch = throttle(500, false, function() {
-    var fen = root.vm.step.fen;
+    var fen = root.vm.node.fen;
     xhr(opts.endpoint, root.data.game.variant.key, fen, config.data, withGames).then(function(res) {
       cache[fen] = res;
       loading(false);
@@ -42,30 +42,30 @@ module.exports = function(root, opts) {
     moves: {}
   };
 
-  function setStep() {
+  function setNode() {
     if (!enabled()) return;
-    var step = root.vm.step;
-    if (step.ply > 50) cache[step.fen] = empty;
-    if (!cache[step.fen]) {
+    var node = root.vm.node;
+    if (node.ply > 50) cache[node.fen] = empty;
+    if (!cache[node.fen]) {
       loading(true);
-      fetch(step.fen);
+      fetch(node.fen);
     } else loading(false);
   }
 
   return {
     enabled: enabled,
-    setStep: setStep,
+    setNode: setNode,
     loading: loading,
     failing: failing,
     hoveringUci: hoveringUci,
     config: config,
     withGames: withGames,
     current: function() {
-      return cache[root.vm.step.fen];
+      return cache[root.vm.node.fen];
     },
     toggle: function() {
       enabled(!enabled());
-      setStep();
+      setNode();
       root.autoScroll();
     },
     setHoveringUci: function(uci) {
