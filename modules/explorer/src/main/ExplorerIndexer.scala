@@ -58,7 +58,7 @@ private final class ExplorerIndexer(
             _ map { game -> _ }
           }
         } &>
-        (Enumeratee.collect { case Some(el) => el }) &>
+        Enumeratee.collect { case Some(el) => el } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
           case (millis, pairs) =>
@@ -137,7 +137,7 @@ private final class ExplorerIndexer(
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
     minPlayerRating = if (game.variant.exotic) 1400 else 1500
-    minAverageRating = if (game.variant.exotic) 1550 else 1600
+    minAverageRating = if (game.variant.exotic) 1520 else 1600
     if whiteRating >= minPlayerRating
     if blackRating >= minPlayerRating
     averageRating = (whiteRating + blackRating) / 2
