@@ -2173,11 +2173,13 @@ lichess.numberFormat = (function() {
               $fenPosition.find('a.board_editor').each(function() {
                 $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
               });
+              $form.find('.color_submits button').removeClass('nope');
               $('body').trigger('lichess.content_loaded');
             },
             error: function() {
               $fenInput.addClass("failure");
               $fenPosition.find('.preview').html("");
+              $form.find('.color_submits button').addClass('nope');
             }
           });
         }
