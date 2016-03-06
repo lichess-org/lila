@@ -122,12 +122,12 @@ private final class ExplorerIndexer(
       case Classical if rating >= 1800 => 2 / 5f
       case Classical                   => 1 / 12f
       case Blitz if rating >= 2000     => 1
-      case Blitz if rating >= 1800     => 1 / 8f
-      case Blitz                       => 1 / 20f
+      case Blitz if rating >= 1800     => 1 / 4f
+      case Blitz                       => 1 / 8f
       case Bullet if rating >= 2200    => 1
       case Bullet if rating >= 2000    => 1 / 3f
-      case Bullet if rating >= 1800    => 1 / 10f
-      case Bullet                      => 1 / 15f
+      case Bullet if rating >= 1800    => 1 / 5f
+      case Bullet                      => 1 / 7f
       case _ if rating >= 1600         => 1 // variant games
       case _                           => 1 / 2f // noob variant games
     }
