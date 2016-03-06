@@ -24,3 +24,6 @@ div.side h2 {
 .side a:hover {
   text-decoration: underline;
 }
+.swag .spinner {
+  margin: 100px auto;
+}
