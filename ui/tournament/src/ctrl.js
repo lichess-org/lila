@@ -82,6 +82,7 @@ module.exports = function(env) {
   var watchingGameId;
   var startWatching = function(id) {
     if (id !== watchingGameId) {
+      watchingGameId = id;
       setTimeout(function() {
         this.socket.send("startWatching", id);
       }.bind(this), 1000);

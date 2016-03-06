@@ -58,7 +58,7 @@ private final class ExplorerIndexer(
             _ map { game -> _ }
           }
         } &>
-        (Enumeratee.collect { case Some(el) => el }) &>
+        Enumeratee.collect { case Some(el) => el } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
           case (millis, pairs) =>
@@ -122,12 +122,12 @@ private final class ExplorerIndexer(
       case Classical if rating >= 1800 => 2 / 5f
       case Classical                   => 1 / 12f
       case Blitz if rating >= 2000     => 1
-      case Blitz if rating >= 1800     => 1 / 8f
-      case Blitz                       => 1 / 20f
+      case Blitz if rating >= 1800     => 1 / 4f
+      case Blitz                       => 1 / 8f
       case Bullet if rating >= 2200    => 1
       case Bullet if rating >= 2000    => 1 / 3f
-      case Bullet if rating >= 1800    => 1 / 10f
-      case Bullet                      => 1 / 15f
+      case Bullet if rating >= 1800    => 1 / 5f
+      case Bullet                      => 1 / 7f
       case _ if rating >= 1600         => 1 // variant games
       case _                           => 1 / 2f // noob variant games
     }
@@ -137,7 +137,7 @@ private final class ExplorerIndexer(
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
     minPlayerRating = if (game.variant.exotic) 1400 else 1500
-    minAverageRating = if (game.variant.exotic) 1550 else 1600
+    minAverageRating = if (game.variant.exotic) 1520 else 1600
     if whiteRating >= minPlayerRating
     if blackRating >= minPlayerRating
     averageRating = (whiteRating + blackRating) / 2

@@ -53,25 +53,29 @@ object Relation extends LilaController {
   }
 
   def following(username: String, page: Int) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { user =>
-      RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
-        negotiate(
-          html = env.api countFollowers user.id map { nbFollowers =>
-            Ok(html.relation.following(user, pag, nbFollowers))
-          },
-          api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+    Reasonable(page, 20) {
+      OptionFuResult(UserRepo named username) { user =>
+        RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html = env.api countFollowers user.id map { nbFollowers =>
+              Ok(html.relation.following(user, pag, nbFollowers))
+            },
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+        }
       }
     }
   }
 
   def followers(username: String, page: Int) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { user =>
-      RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
-        negotiate(
-          html = env.api countFollowing user.id map { nbFollowing =>
-            Ok(html.relation.followers(user, pag, nbFollowing))
-          },
-          api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+    Reasonable(page, 20) {
+      OptionFuResult(UserRepo named username) { user =>
+        RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html = env.api countFollowing user.id map { nbFollowing =>
+              Ok(html.relation.followers(user, pag, nbFollowing))
+            },
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+        }
       }
     }
   }
@@ -79,13 +83,22 @@ object Relation extends LilaController {
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
     import lila.user.JsonView.nameWrites
     import lila.relation.JsonView.relatedWrites
-    Json.obj("paginator" -> PaginatorJson(pag))
+    import lila.common.PimpedJson._
+    Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
+      relatedWrites.writes(r) ++ Json.obj(
+        "online" -> Env.user.isOnline(r.user.id).option(true),
+        "perfs" -> r.user.perfs.bestPerfType.map { best =>
+          Env.user.jsonView.perfs(r.user, best.some)
+        }).noNull
+    }))
   }
 
   def blocks(page: Int) = Auth { implicit ctx =>
     me =>
-      RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
-        html.relation.blocks(me, pag)
+      Reasonable(page, 20) {
+        RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
+          html.relation.blocks(me, pag)
+        }
       }
   }
 

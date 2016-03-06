@@ -9,6 +9,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
+import lila.common.LightUser
 import lila.hub.actorApi.{ Deploy, GetUids, SocketUids, GetUserIds }
 import lila.memo.ExpireSetMemo
 
@@ -44,20 +45,20 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)             => ping(uid)
+    case Ping(uid)   => ping(uid)
 
-    case Broom                 => broom
+    case Broom       => broom
 
     // when a member quits
-    case Quit(uid)             => quit(uid)
+    case Quit(uid)   => quit(uid)
 
-    case GetUids               => sender ! SocketUids(members.keySet.toSet)
+    case GetUids     => sender ! SocketUids(members.keySet.toSet)
 
-    case GetUserIds            => sender ! userIds
+    case GetUserIds  => sender ! userIds
 
-    case Resync(uid)           => resync(uid)
+    case Resync(uid) => resync(uid)
 
-    case d: Deploy             => onDeploy(d)
+    case d: Deploy   => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -151,9 +152,24 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
-  def showSpectators(users: List[lila.common.LightUser], nbAnons: Int) = nbAnons match {
-    case 0 => users.distinct.map(_.titleName)
-    case x => users.distinct.map(_.titleName) :+ ("Anonymous (%d)" format x)
+  val maxSpectatorUsers = 10
+
+  def showSpectators(lightUser: String => Option[LightUser])(watchers: Iterable[SocketMember]): JsValue = {
+
+    val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
+      case ((total, anons, userIds), member) => member.userId match {
+        case Some(userId) if !userIds(userId) && userIds.size < maxSpectatorUsers => (total + 1, anons, userIds + userId)
+        case Some(_) => (total + 1, anons, userIds)
+        case _ => (total + 1, anons + 1, userIds)
+      }
+    }
+
+    if (total == 0) JsNull
+    else if (userIds.size >= maxSpectatorUsers) Json.obj("nb" -> total)
+    else Json.obj(
+      "nb" -> total,
+      "users" -> userIds.flatMap { lightUser(_) }.map(_.titleName),
+      "anons" -> anons)
   }
 
   def withMember(uid: String)(f: M => Unit) {

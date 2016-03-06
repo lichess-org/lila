@@ -1489,26 +1489,20 @@ lichess.numberFormat = (function() {
       this.list = this.element.find("span.list");
       this.number = this.element.find("span.number");
     },
-    set: function(users) {
+    set: function(data) {
       var self = this;
-      if (Array.isArray(users)) {
-        if (users.length > 0) {
-          self.list.html(users.map(function(u) {
-            return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
-          }).join(", "));
-          if (self.number.length) {
-            var nb = 0;
-            users.forEach(function(u) {
-              nb += (u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1')));
-            });
-            self.number.html(nb);
-          }
-          self.element.show();
-        } else self.element.hide();
-      } else {
-        self.list.html(users + ' players in the chat');
-        self.element.show();
+      if (!data) {
+        self.element.hide();
+        return;
       }
+      if (self.number.length) self.number.text(data.nb);
+      if (data.users) {
+        var tags = data.users.map($.userLink);
+        if (data.anons) tags.push('Anonymous(' + data.anons + ')');
+        self.list.html(tags.join(', '));
+      } else if (!self.number.length) self.list.html(data.nb + ' players in the chat');
+
+      self.element.show();
     }
   });
 
@@ -2173,11 +2167,13 @@ lichess.numberFormat = (function() {
               $fenPosition.find('a.board_editor').each(function() {
                 $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
               });
+              $form.find('.color_submits button').removeClass('nope');
               $('body').trigger('lichess.content_loaded');
             },
             error: function() {
               $fenInput.addClass("failure");
               $fenPosition.find('.preview').html("");
+              $form.find('.color_submits button').addClass('nope');
             }
           });
         }

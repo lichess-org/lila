@@ -59,10 +59,11 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     override def preStart() {
-      system.lilaBus.subscribe(self, 'adjustCheater, 'userActive)
+      system.lilaBus.subscribe(self, 'adjustCheater, 'adjustBooster, 'userActive)
     }
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => rankingApi remove userId
+      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
       case User.Active(user) =>
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id

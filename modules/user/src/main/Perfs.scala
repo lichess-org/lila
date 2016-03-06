@@ -51,6 +51,8 @@ case class Perfs(
     }
   }
 
+  def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
+
   def bestRating: Int = bestRatingIn(PerfType.leaderboardable)
 
   def bestRatingIn(types: List[PerfType]): Int = {
