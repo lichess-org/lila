@@ -43,7 +43,11 @@ object Lobby extends LilaController {
 
   def socket(apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
-      Env.lobby.socketHandler(uid = uid, ip = ctx.req.remoteAddress, user = ctx.me) map some
+      Env.lobby.socketHandler(
+        uid = uid,
+        ip = ctx.req.remoteAddress,
+        user = ctx.me,
+        mobile = getBool("mobile")) map some
     }
   }
 

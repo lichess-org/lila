@@ -1,6 +1,7 @@
 package lila.lobby
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.ask
@@ -39,9 +40,9 @@ private[lobby] final class Socket(
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
 
-    case Join(uid, ip, user, blocks) =>
+    case Join(uid, ip, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, ip)
+      val member = Member(channel, user, blocks, uid, ip, mobile)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
@@ -76,9 +77,11 @@ private[lobby] final class Socket(
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
     case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
-    case lila.hub.actorApi.round.NbRounds(nb) => pong = pong + ("r" -> JsNumber(nb))
+    case lila.hub.actorApi.round.NbRounds(nb) =>
+      pong = pong + ("r" -> JsNumber(nb))
+      notifyMobileUsers(makeMessage("nbr", nb)) // BC, remove me
 
-    case ChangeFeatured(_, msg)               => notifyAllAsync(msg)
+    case ChangeFeatured(_, msg) => notifyAllAsync(msg)
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
@@ -97,5 +100,11 @@ private[lobby] final class Socket(
 
   private def notifySeeks() {
     notifyAll(makeMessage("reload_seeks"))
+  }
+
+  def notifyMobileUsers(msg: JsObject) = Future {
+    members.values.foreach { m =>
+      if (m.mobile) m push msg
+    }
   }
 }
