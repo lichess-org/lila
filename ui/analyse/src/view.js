@@ -64,8 +64,9 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-function renderVariation(ctrl, variation, path, klass) {
-  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
+function renderVariation(ctrl, node, parent, klass, depth) {
+  var path = parent.path + node.id;
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === path;
   var visiting = treePath.contains(path, ctrl.vm.path);
   return m('div', {
     class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
@@ -76,8 +77,7 @@ function renderVariation(ctrl, variation, path, klass) {
       onclick: partial(ctrl.toggleVariationMenu, path)
     }),
     showMenu ? (function() {
-      var promotable = util.synthetic(ctrl.data) ||
-        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      var promotable = util.synthetic(ctrl.data) || !parent.node.fixed;
       return [
         m('a', {
           class: 'delete text',
@@ -157,35 +157,37 @@ function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
-function renderMeta(ctrl, move, path) {
+function renderMeta(ctrl, node, path) {
   var opening = ctrl.data.game.opening;
-  opening = (move && opening && opening.ply === move.ply) ? renderCommentOpening(ctrl, opening) : null;
-  if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
-  var children = [];
-  if (opening) children.push(opening);
-  var colorClass = move.ply % 2 === 0 ? 'black ' : 'white ';
+  opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
+  if (!node || (!opening && empty(node.comments) && !node.children[1])) return;
+  var dom = [];
+  if (opening) dom.push(opening);
+  var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (ctrl.vm.comments && !empty(move.comments)) move.comments.forEach(function(comment) {
+  if (ctrl.vm.comments && !empty(node.comments)) node.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
-    children.push(m('div', {
+    dom.push(m('div', {
       class: 'comment ' + colorClass + commentClass
     }, comment));
   });
-  if (!empty(move.variations)) move.variations.forEach(function(variation, i) {
-    if (empty(variation)) return;
-    if (i === 0 && !empty(move.comments) && !ctrl.vm.comments) return;
-    children.push(renderVariation(
+  if (node.children[1]) node.children.slice(1).forEach(function(child, i) {
+    if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;
+    dom.push(renderVariation(
       ctrl,
-      variation,
-      treePath.withVariation(path, i + 1),
-      i === 0 ? colorClass + commentClass : null
+      child, {
+        node: node,
+        path: path
+      },
+      i === 0 ? colorClass + commentClass : null,
+      1
     ));
   });
-  if (children.length) return m('div', {
+  if (dom.length) return m('div', {
     class: 'meta'
-  }, children);
+  }, dom);
 }
 
 function renderIndex(txt) {
@@ -208,12 +210,12 @@ function renderMainlineTurn(ctrl, turn, path) {
   if (turn.white) {
     wPath = path = path + turn.white.id;
     wMove = renderMove(ctrl, turn.white, wPath, 1);
-    // var wMeta = renderMeta(ctrl, turn.white, wPath);
+    wMeta = renderMeta(ctrl, turn.white, wPath);
   }
   if (turn.black) {
     bPath = path = path + turn.black.id;
     bMove = renderMove(ctrl, turn.black, bPath, 1);
-    // var bMeta = renderMeta(ctrl, turn.black, bPath);
+    bMeta = renderMeta(ctrl, turn.black, bPath);
   }
   if (wMove) {
     if (wMeta) dom = [

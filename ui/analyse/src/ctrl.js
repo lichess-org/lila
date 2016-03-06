@@ -378,7 +378,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.step.dests !== '';
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.node.dests !== '';
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
