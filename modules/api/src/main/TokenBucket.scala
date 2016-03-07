@@ -38,7 +38,7 @@ private case class TokenRequest(key: Any)
  * @param rate refill rate in tokens per second
  * @param clock for mocking the current time.
  */
-private class TokenBucketGroup(size: Int, rate: Float, clock: Clock) extends Actor {
+private class TokenBucket(size: Int, rate: Float, clock: Clock) extends Actor {
 
   private val intervalMillis: Int = (1000 / rate).toInt
 
@@ -75,7 +75,7 @@ private class TokenBucketGroup(size: Int, rate: Float, clock: Clock) extends Act
   }
 }
 
-object TokenBucketGroup {
+object TokenBucket {
 
   private val defaultTimeout = Timeout(100, TimeUnit.MILLISECONDS)
 
@@ -101,7 +101,7 @@ object TokenBucketGroup {
     require(size <= 1000)
     require(rate >= 0.000001f)
     require(rate <= 1000)
-    new Consumer(system.actorOf(Props(new TokenBucketGroup(size, rate, clock))))
+    new Consumer(system.actorOf(Props(new TokenBucket(size, rate, clock))))
   }
 
   /**

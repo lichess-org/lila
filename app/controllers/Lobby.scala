@@ -41,7 +41,7 @@ object Lobby extends LilaController {
     )
   }
 
-  private val socketConsumer = lila.api.TokenBucketGroup.create(
+  private val socketConsumer = lila.api.TokenBucket.create(
     system = lila.common.PlayApp.system,
     size = 10,
     rate = 5)

@@ -6,7 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 
-import lila.api.TokenBucketGroup
+import lila.api.TokenBucket
 import lila.app._
 import lila.common.HTTPRequest
 
@@ -16,7 +16,7 @@ object LilaSocket {
 
   private val logger = play.api.Logger("ratelimit")
 
-  def rateLimited[A: FrameFormatter](consumer: TokenBucketGroup.Consumer)(f: AcceptType[A]): WebSocket[A, A] =
+  def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       val ip = HTTPRequest lastRemoteAddress req
       f(req).map { resultOrSocket =>
