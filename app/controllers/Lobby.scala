@@ -50,7 +50,6 @@ object Lobby extends LilaController {
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(
         uid = uid,
-        ip = ctx.req.remoteAddress,
         user = ctx.me,
         mobile = getBool("mobile")) map some
     }
