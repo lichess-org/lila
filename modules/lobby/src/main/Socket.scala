@@ -34,11 +34,12 @@ private[lobby] final class Socket(
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) =>
+    case PingVersion(uid, v) => Future {
       ping(uid)
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
+    }
 
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
