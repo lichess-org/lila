@@ -40,9 +40,9 @@ private[lobby] final class Socket(
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
 
-    case Join(uid, ip, user, blocks, mobile) =>
+    case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, ip, mobile)
+      val member = Member(channel, user, blocks, uid, mobile)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
