@@ -76,6 +76,8 @@ private[simul] final class Socket(
 
     case GetVersion => sender ! history.version
 
+    case GetUserIds  => sender ! members.values.flatMap(_.userId)
+
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
@@ -101,4 +103,8 @@ private[simul] final class Socket(
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll
+}
+
+case object Socket {
+  case object GetUserIds
 }

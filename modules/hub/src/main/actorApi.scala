@@ -38,7 +38,6 @@ case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
 case class SocketUids(uids: Set[String])
-case object GetUserIds
 
 package report {
 case class Cheater(userId: String, text: String)
