@@ -41,6 +41,11 @@ object Lobby extends LilaController {
     )
   }
 
+  private val socketConsumer = lila.api.TokenBucketGroup.create(
+    system = lila.common.PlayApp.system,
+    size = 10,
+    rate = 5)
+
   def socket(apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(

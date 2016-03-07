@@ -39,6 +39,12 @@
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
+  <logger name="lobby" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/lobby.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
   <logger name="timer" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/timer.log</file>
