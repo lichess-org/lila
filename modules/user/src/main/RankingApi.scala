@@ -122,7 +122,7 @@ final class RankingApi(
           )),
             GroupField("r")("nb" -> SumValue(1))
           )).map { res =>
-            val hash = res.documents.flatMap { obj =>
+            val hash = res.firstBatch.flatMap { obj =>
               for {
                 rating <- obj.getAs[Int]("_id")
                 nb <- obj.getAs[NbUsers]("nb")

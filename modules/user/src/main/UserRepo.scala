@@ -82,7 +82,7 @@ object UserRepo {
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
   def usernamesByIds(ids: List[ID]) =
-    coll.distinct(F.username, BSONDocument("_id" -> BSONDocument("$in" -> ids)).some) map lila.db.BSON.asStrings
+    coll.distinct[String, Set](F.username, BSONDocument("_id" -> BSONDocument("$in" -> ids)).some)
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
@@ -236,7 +236,7 @@ object UserRepo {
   def idExists(id: String): Fu[Boolean] = $count exists id
 
   def engineIds: Fu[Set[String]] =
-    coll.distinct("_id", BSONDocument("engine" -> true).some) map lila.db.BSON.asStringSet
+    coll.distinct[String, Set]("_id", BSONDocument("engine" -> true).some)
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement
@@ -308,19 +308,19 @@ object UserRepo {
   }
 
   def recentlySeenNotKidIds(since: DateTime) =
-    coll.distinct("_id", BSONDocument(
+    coll.distinct[String, Set]("_id", BSONDocument(
       F.enabled -> true,
       "seenAt" -> BSONDocument("$gt" -> since),
       "count.game" -> BSONDocument("$gt" -> 9),
       "kid" -> BSONDocument("$ne" -> true)
-    ).some) map lila.db.BSON.asStrings
+    ).some)
 
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregate(Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
-        _.documents.headOption flatMap { _.getAs[Int](F.toints) }
+        _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =

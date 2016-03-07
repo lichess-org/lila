@@ -21,7 +21,7 @@ private[bookmark] object BookmarkRepo {
     }
 
   def gameIdsByUserId(userId: String): Fu[Set[String]] =
-    bookmarkTube.coll.distinct("g", BSONDocument("u" -> userId).some) map lila.db.BSON.asStringSet
+    bookmarkTube.coll.distinct[String, Set]("g", BSONDocument("u" -> userId).some)
 
   def removeByGameId(gameId: String): Funit =
     $remove(Json.obj("g" -> gameId))

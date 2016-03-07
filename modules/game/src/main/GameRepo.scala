@@ -175,10 +175,10 @@ object GameRepo {
     $count.exists($select(id) ++ Query.analysed(true))
 
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    gameTube.coll.distinct("_id", BSONDocument(
+    gameTube.coll.distinct[String, Set]("_id", BSONDocument(
       "_id" -> BSONDocument("$in" -> ids),
       F.analysed -> true
-    ).some) map lila.db.BSON.asStringSet
+    ).some)
 
   def exists(id: String) = gameTube.coll.count(BSONDocument("_id" -> id).some).map(0<)
 
@@ -316,7 +316,7 @@ object GameRepo {
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
-      Limit(limit))).map(_.documents.flatMap { obj =>
+      Limit(limit))).map(_.firstBatch.flatMap { obj =>
       obj.getAs[String]("_id") flatMap { id =>
         obj.getAs[Int]("gs") map { id -> _ }
       }
@@ -398,7 +398,7 @@ object GameRepo {
       )),
       GroupField(F.playerUids)("nb" -> SumValue(1)),
       Sort(Descending("nb")),
-      Limit(max))).map(_.documents.flatMap { obj =>
+      Limit(max))).map(_.firstBatch.flatMap { obj =>
       obj.getAs[Int]("nb") map { nb =>
         UidNb(~obj.getAs[String]("_id"), nb)
       }

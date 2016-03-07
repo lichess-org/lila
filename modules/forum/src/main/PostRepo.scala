@@ -75,8 +75,8 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    postTube.coll.distinct("userId", BSONDocument("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    postTube.coll.distinct[String, collection.immutable.ListSet]("userId", BSONDocument("topicId" -> topicId).some) map (_.toList)
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    postTube.coll.distinct("_id", BSONDocument("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    postTube.coll.distinct[String, collection.immutable.ListSet]("_id", BSONDocument("topicId" -> topicId).some) map (_.toList)
 }

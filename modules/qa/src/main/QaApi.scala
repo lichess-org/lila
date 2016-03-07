@@ -293,7 +293,7 @@ final class QaApi(
 
       col.aggregate(Project(BSONDocument("tags" -> BSONBoolean(true))), List(
         Unwind("tags"), Group(BSONBoolean(true))("tags" -> AddToSet("tags")))).
-        map(_.documents.headOption.flatMap(_.getAs[List[String]]("tags")).
+        map(_.firstBatch.headOption.flatMap(_.getAs[List[String]]("tags")).
           getOrElse(List.empty[String]).map(_.toLowerCase).distinct)
     }
   }

@@ -26,7 +26,7 @@ final class DonationApi(
       Match(decentAmount ++ BSONDocument("userId" -> userId)), List(
         Group(BSONNull)("net" -> SumField("net"))
       )).map {
-        ~_.documents.headOption.flatMap { _.getAs[Int]("net") }
+        ~_.firstBatch.headOption.flatMap { _.getAs[Int]("net") }
       }
 
   private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(minAmount)))
@@ -41,7 +41,7 @@ final class DonationApi(
       GroupField("userId")("total" -> SumField("net")),
       Sort(Descending("total")),
       Limit(nb))).map {
-      _.documents.flatMap { _.getAs[String]("_id") }
+      _.firstBatch.flatMap { _.getAs[String]("_id") }
     }
 
   def isDonor(userId: String) =
@@ -50,7 +50,7 @@ final class DonationApi(
 
   def create(donation: Donation) = {
     coll insert donation recover
-      lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
+      lila.db.recoverDuplicateKey(e => println(e.message)) void
   } >> donation.userId.??(donorCache.remove) >>- progress.foreach { prog =>
     bus.publish(lila.hub.actorApi.DonationEvent(
       userId = donation.userId,

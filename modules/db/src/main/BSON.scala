@@ -188,22 +188,4 @@ object BSON {
   def debugDoc(doc: BSONDocument): String = (doc.elements.toList map {
     case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
-
-  def asStrings(vs: List[BSONValue]): List[String] = {
-    val b = new scala.collection.mutable.ListBuffer[String]
-    vs foreach {
-      case BSONString(s) => b += s
-      case _             =>
-    }
-    b.toList
-  }
-
-  def asStringSet(vs: List[BSONValue]): Set[String] = {
-    val b = Set.newBuilder[String]
-    vs foreach {
-      case BSONString(s) => b += s
-      case _             =>
-    }
-    b.result
-  }
 }
