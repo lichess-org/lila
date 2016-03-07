@@ -10,24 +10,29 @@ object ApplicationBuild extends Build {
   import BuildSettings._
   import Dependencies._
 
-  lazy val root = Project("lila", file(".")) enablePlugins _root_.play.sbt.PlayScala settings (
-    scalaVersion := globalScalaVersion,
-    resolvers ++= Dependencies.Resolvers.commons,
-    scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
-    sources in doc in Compile := List(),
-    // disable publishing the main API jar
-    publishArtifact in (Compile, packageDoc) := false,
-    // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false,
-    // don't stage the conf dir
-    externalizeResources := false,
-    // offline := true,
-    libraryDependencies ++= Seq(
-      scalaz, scalalib, hasher, config, apache,
-      jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
-      spray.caching, maxmind, prismic),
+  lazy val root = Project("lila", file("."))
+    .enablePlugins(_root_.play.sbt.PlayScala)
+    .dependsOn(api)
+    .aggregate(api)
+    .settings(Seq(
+      scalaVersion := globalScalaVersion,
+      resolvers ++= Dependencies.Resolvers.commons,
+      scalacOptions := compilerOptions,
+      incOptions := incOptions.value.withNameHashing(true),
+      updateOptions := updateOptions.value.withCachedResolution(true),
+      sources in doc in Compile := List(),
+      // disable publishing the main API jar
+      publishArtifact in (Compile, packageDoc) := false,
+      // disable publishing the main sources jar
+      publishArtifact in (Compile, packageSrc) := false,
+      // don't stage the conf dir
+      externalizeResources := false,
+      // offline := true,
+      libraryDependencies ++= Seq(
+        scalaz, scalalib, hasher, config, apache,
+        jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
+        spray.caching, maxmind, prismic,
+        kamon.core, kamon.play, kamon.akka),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -36,12 +41,21 @@ object ApplicationBuild extends Build {
         "lila.app.templating.Environment._",
         "lila.api.Context",
         "lila.common.paginator.Paginator"),
-        watchSources <<= sourceDirectory in Compile map { sources =>
-          (sources ** "*").get
-        },
-        // trump sbt-web into not looking at public/
-        resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-  ) dependsOn api aggregate api
+      watchSources <<= sourceDirectory in Compile map { sources =>
+        (sources ** "*").get
+      },
+      // trump sbt-web into not looking at public/
+      resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+    ))
+    // ) ++ aspectjSettings ++ Seq(
+    //     // Here we are effectively adding the `-javaagent` JVM startup
+    //     // option with the location of the AspectJ Weaver provided by
+    //     // the sbt-aspectj plugin.
+    //     javaOptions in run <++= AspectjKeys.weaverOptions in Aspectj,
+    //     // We need to ensure that the JVM is forked for the
+    //     // AspectJ Weaver to kick in properly and do it's magic.
+    //     fork in run := true
+    //   ))
 
   lazy val modules = Seq(
     chess, common, db, rating, user, security, wiki, hub, socket,

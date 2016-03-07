@@ -19,7 +19,8 @@ object BuildSettings {
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false)
+    publishArtifact in (Compile, packageSrc) := false
+  )
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws)
 

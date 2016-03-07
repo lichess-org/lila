@@ -31,8 +31,8 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.1"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.9-SNAPSHOT"
-  val PRM = ("org.reactivemongo" %% "play2-reactivemongo" % "0.11.9-SNAPSHOT").exclude("org.reactivemongo", "reactivemongo")
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.9"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.9"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
 
@@ -50,5 +50,11 @@ object Dependencies {
     val version = "2.4.1"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+  }
+  object kamon {
+    val version = "0.5.2"
+    val core = "io.kamon" %% "kamon-core" % version
+    val play = "io.kamon" %% "kamon-play-24" % version
+    val akka = "io.kamon" %% "kamon-akka" % version
   }
 }
