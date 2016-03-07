@@ -97,6 +97,11 @@ final class Env(
           case _: lila.hub.actorApi.Deploy =>
             logwarn("Enable history persistence")
             historyPersistenceEnabled = true
+            // if the deploy didn't go through, cancel persistence
+            system.scheduler.scheduleOnce(10.seconds) {
+              logwarn("Disabling round history persistence!")
+              historyPersistenceEnabled = false
+            }
           case msg: lila.game.actorApi.StartGame =>
             self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
