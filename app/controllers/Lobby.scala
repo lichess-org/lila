@@ -46,7 +46,7 @@ object Lobby extends LilaController {
     size = 10,
     rate = 5)
 
-  def socket(apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](socketConsumer) { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(
         uid = uid,
