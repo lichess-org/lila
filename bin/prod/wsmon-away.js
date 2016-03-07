@@ -136,10 +136,13 @@ setInterval(function() {
   var errorRetryDelay = initialErrorRetryDelay;
   var testDelay = 5000;
   var errorCount = 0;
-  var errorThreshold = 2 * 60 * 1000 / testDelay;
+  var errorInc = 5;
+  var errorThreshold = 2 * 60 * 1000 / testDelay * errorInc;
+  console.log(errorInc, 'errorInc');
+  console.log(errorThreshold, 'errorThreshold');
 
   function onError(err) {
-    errorCount++;
+    errorCount += errorInc;
     logger('error', 'HTTP error count: ' + errorCount + '/' + errorThreshold);
     if (errorCount < errorThreshold) {
       setTimeout(httpCheck, testDelay);
@@ -155,7 +158,10 @@ setInterval(function() {
   function httpCheck() {
     HttpClient.get('http://en.' + domain).on('response', function(res) {
       if (res.statusCode != 200) return onError(res.statusCode);
-      errorCount = 0;
+      if (errorCount > 0) {
+        errorCount--;
+        logger('info', 'HTTP('+errorCount+')');
+      }
       errorRetryDelay = initialErrorRetryDelay;
       setTimeout(httpCheck, testDelay);
     }).on('error', onError);
