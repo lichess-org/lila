@@ -48,9 +48,9 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
-if [ $mode == "main" ] || [ $mode == "stage" ]; then
-  bin/prod/compile-client
-fi
+# if [ $mode == "main" ] || [ $mode == "stage" ]; then
+#   bin/prod/compile-client
+# fi
 
 if [ $mode == "main" ]; then
   lilalog "Notify users of pre deploy"
