@@ -65,7 +65,7 @@ private[opening] final class OpeningApi(
         Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
 
       col.aggregate(Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
-        List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
+        List(Limit(max), playedIdsGroup)).map(_.firstBatch.headOption.flatMap(
           _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
     }
   }

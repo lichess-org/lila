@@ -115,10 +115,10 @@ final class PrefApi(
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.distinct("_id", BSONDocument(
+    coll.distinct[String, Set]("_id", BSONDocument(
       "_id" -> BSONDocument("$in" -> userIds),
       "follow" -> false
-    ).some) map lila.db.BSON.asStringSet
+    ).some)
 
   def followableIds(userIds: List[String]): Fu[Set[String]] =
     unfollowableIds(userIds) map userIds.toSet.diff

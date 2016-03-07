@@ -83,9 +83,8 @@ final class Firewall(
     def apply: Fu[Set[IP]] = cache(true)(fetch)
     def clear { cache.clear }
     def contains(ip: String) = apply map (_ contains strToIp(ip))
-    def fetch: Fu[Set[IP]] =
-      firewallTube.coll.distinct("_id") map { res =>
-        lila.db.BSON.asStringSet(res) map strToIp
-      }
+    def fetch: Fu[Set[IP]] = firewallTube.coll.distinct[String, Set]("_id") map {
+      _ map strToIp
+    }
   }
 }

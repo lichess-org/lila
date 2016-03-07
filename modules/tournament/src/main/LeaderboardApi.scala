@@ -31,7 +31,7 @@ final class LeaderboardApi(
       Match(BSONDocument("u" -> user.id)),
       List(GroupField("v")("nb" -> SumValue(1), "points" -> Push("s"), "ratios" -> Push("w")))
     ).map {
-        _.documents map leaderboardAggregationResultBSONHandler.read
+        _.firstBatch map leaderboardAggregationResultBSONHandler.read
       }.map { aggs =>
         ChartData {
           aggs.flatMap { agg =>

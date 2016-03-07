@@ -9,7 +9,7 @@ import lila.hub.actorApi.timeline.atomFormat._
 
 case class Entry(
     _id: BSONObjectID,
-    users: List[String],
+    users: Iterable[String],
     typ: String,
     chan: Option[String],
     data: JsObject,
@@ -39,7 +39,7 @@ case class Entry(
 
 object Entry {
 
-  private[timeline] def make(users: List[String], data: Atom): Option[Entry] = (data match {
+  private[timeline] def make(users: Iterable[String], data: Atom): Option[Entry] = (data match {
     case d: Follow      => "follow" -> Json.toJson(d)
     case d: TeamJoin    => "team-join" -> Json.toJson(d)
     case d: TeamCreate  => "team-create" -> Json.toJson(d)
