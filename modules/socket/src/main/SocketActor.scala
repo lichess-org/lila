@@ -52,8 +52,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     // when a member quits
     case Quit(uid)   => quit(uid)
 
-    case GetUids     => sender ! SocketUids(members.keySet.toSet)
-
     case Resync(uid) => resync(uid)
 
     case d: Deploy   => onDeploy(d)
@@ -147,6 +145,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
   }
+
+  def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
   val maxSpectatorUsers = 10
 
