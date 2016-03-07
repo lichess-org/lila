@@ -16,7 +16,7 @@ object LilaSocket {
 
   private val logger = play.api.Logger("ratelimit")
 
-  def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer)(f: AcceptType[A]): WebSocket[A, A] =
+  def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       val ip = HTTPRequest lastRemoteAddress req
       f(req).map { resultOrSocket =>
@@ -27,7 +27,7 @@ object LilaSocket {
               consumer(ip).map { credit =>
                 if (credit >= 0) in
                 else {
-                  logger.info(s"socket close $ip $in")
+                  logger.info(s"socket:$name socket close $ip $in")
                   Input.EOF
                 }
               }

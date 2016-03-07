@@ -59,8 +59,8 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    LilaSocket.rateLimited[A](consumer) { req =>
+  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    LilaSocket.rateLimited[A](consumer, name) { req =>
       reqToCtx(req) flatMap f map {
         case None       => Left(NotFound(jsonError("socket resource not found")))
         case Some(pair) => Right(pair)
