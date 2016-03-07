@@ -41,21 +41,33 @@ private[analyse] case class CpAdvice(
 
 private[analyse] object CpAdvice {
 
+  // private val cpNags = List(
+  //   0.20 -> Nag.Blunder,
+  //   0.10 -> Nag.Mistake,
+  //   0.05 -> Nag.Inaccuracy)
+
+  // def apply(prev: Info, info: Info): Option[CpAdvice] = for {
+  //   cp ← prev.score map (_.ceiled.centipawns)
+  //   infoCp ← info.score map (_.ceiled.centipawns)
+  //   a = -0.002409
+  //   b = 1.001726
+  //   c = 0.006963
+  //   d = 2.386803
+  //   before = a + (b-a)/(1 + math.exp(-c * (cp - d)));
+  //   after  = a + (b-a)/(1 + math.exp(-c * (infoCp - d)));
+  //   delta = (after - before) |> { d => info.color.fold(-d, d) }
+  //   nag ← cpNags find { case (d, n) => d <= delta } map (_._2)
+  // } yield CpAdvice(nag, info, prev)
+
   private val cpNags = List(
-    0.20 -> Nag.Blunder,
-    0.10 -> Nag.Mistake,
-    0.05 -> Nag.Inaccuracy)
+    300 -> Nag.Blunder,
+    100 -> Nag.Mistake,
+    50 -> Nag.Inaccuracy)
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
     cp ← prev.score map (_.ceiled.centipawns)
     infoCp ← info.score map (_.ceiled.centipawns)
-    a = -0.002409
-    b = 1.001726
-    c = 0.006963
-    d = 2.386803
-    before = a + (b-a)/(1 + math.exp(-c * (cp - d)));
-    after  = a + (b-a)/(1 + math.exp(-c * (infoCp - d)));
-    delta = (after - before) |> { d => info.color.fold(-d, d) }
+    delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
     nag ← cpNags find { case (d, n) => d <= delta } map (_._2)
   } yield CpAdvice(nag, info, prev)
 }
