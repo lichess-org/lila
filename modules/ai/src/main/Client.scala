@@ -37,8 +37,7 @@ final class Client(
           (c, move) = result
           progress1 = game.update(c, Left(move))
           progress = progress1.game.clock.filter(_.isRunning).fold(progress1) { clock =>
-            val newClock = clock.giveTime(move.color, aiLagSeconds)
-            progress1.flatMap(_ withClock newClock) + lila.game.Event.Clock(newClock)
+            progress1.flatMap(_ withClock clock.giveTime(move.color, aiLagSeconds))
           }
           _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
         } yield PlayResult(progress, move, moveResult.upstreamIp)) recoverWith {
