@@ -52,6 +52,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     // when a member quits
     case Quit(uid)   => quit(uid)
 
+    case GetUids     => sender ! SocketUids(members.keySet.toSet)
+
     case Resync(uid) => resync(uid)
 
     case d: Deploy   => onDeploy(d)
