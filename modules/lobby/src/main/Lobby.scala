@@ -100,7 +100,7 @@ private[lobby] final class Lobby(
 
     case Broom =>
       (socket ? GetUids mapTo manifest[SocketUids])
-        .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
+        .logIfSlow(10, "lobby") { r => s"GetUids size=${r.uids.size}" }
         .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
         .addFailureEffect { err =>
           HookRepo.truncateIfNeeded
