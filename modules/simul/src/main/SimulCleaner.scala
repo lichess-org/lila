@@ -2,7 +2,6 @@ package lila.simul
 
 import akka.actor._
 import akka.pattern.ask
-import lila.hub.actorApi.GetUserIds
 import lila.hub.actorApi.map.Ask
 import makeTimeout.short
 import org.joda.time.DateTime
@@ -15,7 +14,7 @@ private[simul] final class SimulCleaner(
   def apply {
     repo.allCreated foreach { simuls =>
       simuls.map { simul =>
-        socketHub ? Ask(simul.id, GetUserIds) mapTo
+        socketHub ? Ask(simul.id, Socket.GetUserIds) mapTo
           manifest[Iterable[String]] map
           (_.toSet contains simul.hostId) map {
             case true => repo setHostSeenNow simul
