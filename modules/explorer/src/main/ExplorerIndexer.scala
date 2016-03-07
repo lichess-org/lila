@@ -120,7 +120,7 @@ private final class ExplorerIndexer(
       case Correspondence              => 1
       case Classical if rating >= 2000 => 1
       case Classical if rating >= 1800 => 2 / 5f
-      case Classical                   => 1 / 12f
+      case Classical                   => 1 / 8f
       case Blitz if rating >= 2000     => 1
       case Blitz if rating >= 1800     => 1 / 4f
       case Blitz                       => 1 / 8f
