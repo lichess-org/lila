@@ -18,12 +18,18 @@ div.side h2 {
   list-style: disc inside;
   margin: 0.5em 0;
 }
-.side a {
+.side a,
+.swag a {
   color: #3893E8!important;
 }
-.side a:hover {
+.side a:hover,
+.swag a:hover {
   text-decoration: underline;
 }
 .swag .spinner {
   margin: 100px auto;
+}
+.swag .loading {
+  margin: 100px auto;
+  text-align: center;
 }
