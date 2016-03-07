@@ -15,6 +15,8 @@ import scala.concurrent.{ ExecutionContext, Future }
  * Implementation from https://github.com/sief/play-guard/blob/master/module/app/com/sief/ratelimit/TokenBucketGroup.scala
  * Modifications:
  * - No token count, always use 1
+ * - Return a consumer, not an actor ref
+ * - Removed overflow protection
  */
 
 /**
@@ -65,23 +67,11 @@ private class TokenBucketGroup(size: Int, rate: Float, clock: Clock) extends Act
   private def refillAll() {
     val now: Long = clock.now
     val diff: Long = now - lastRefill
-    val tokensToAdd: Long = (diff * ratePerMilli).toLong
+    val tokensToAdd: Int = (diff * ratePerMilli).toInt
     if (tokensToAdd > 0) {
-      buckets = buckets.mapValues(addTokens(_, tokensToAdd)).filterNot(_._2 >= size)
+      buckets = buckets.mapValues(tokensToAdd +).filterNot(_._2 >= size)
       lastRefill = now - diff % intervalMillis
     }
-  }
-
-  /**
-   * Helper to avoid overflow.
-   * @param currentLevel
-   * @param toAdd
-   * @return the sum or Int.MaxValue in case of overflow
-   */
-  private def addTokens(currentLevel: Int, toAdd: Long): Int = {
-    val r = currentLevel.toLong + toAdd
-    if (r > Int.MaxValue) Int.MaxValue
-    else r.toInt
   }
 }
 
@@ -92,7 +82,7 @@ object TokenBucketGroup {
   final class Consumer(actor: ActorRef) {
 
     def apply(key: Any)(implicit timeout: Timeout = defaultTimeout): Future[Int] =
-      (actor ? TokenRequest(key)).mapTo[Int]
+      consume(actor, key)
   }
 
   /**
