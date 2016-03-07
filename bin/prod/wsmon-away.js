@@ -28,14 +28,19 @@ var runCommand = function(cmd) {
     console.log(stderr);
   });
 };
-runCommand('jinfo `cat /home/lichess/RUNNING_PID`');
+// runCommand('jinfo `cat /home/lichess/RUNNING_PID`');
+
+var doRestartLichess = function() {
+  runCommand('/home/lichess/bin/prod/restart-now');
+}
 
 var restartLichess = function(msg) {
   logger('error', msg);
   logger('error', 'Restart lichess now');
+  doRestartLichess();
   // runCommand('jstack -F `cat /home/lichess/RUNNING_PID` > /root/lichess-auto-jstack');
   // setTimeout(function() {
-    // runCommand('systemctl restart lichess');
+    // doRestartLichess();
   // }, 3000);
 };
 
