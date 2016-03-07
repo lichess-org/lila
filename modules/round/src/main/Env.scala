@@ -98,7 +98,7 @@ final class Env(
             logwarn("Enable history persistence")
             historyPersistenceEnabled = true
             // if the deploy didn't go through, cancel persistence
-            system.scheduler.scheduleOnce(10.seconds) {
+            system.scheduler.scheduleOnce(10.minutes) {
               logwarn("Disabling round history persistence!")
               historyPersistenceEnabled = false
             }
