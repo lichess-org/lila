@@ -1,4 +1,4 @@
-import com.typesafe.sbt.packager.Keys._
+import com.typesafe.sbt.packager.Keys.scriptClasspath
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
@@ -35,7 +35,7 @@ object ApplicationBuild extends Build {
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
-        kamon.core, kamon.play, kamon.akka),
+        kamon.core, kamon.play, kamon.akka, kamon.statsd),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -50,15 +50,6 @@ object ApplicationBuild extends Build {
       // trump sbt-web into not looking at public/
       resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
     ))
-    // ) ++ aspectjSettings ++ Seq(
-    //     // Here we are effectively adding the `-javaagent` JVM startup
-    //     // option with the location of the AspectJ Weaver provided by
-    //     // the sbt-aspectj plugin.
-    //     javaOptions in run <++= AspectjKeys.weaverOptions in Aspectj,
-    //     // We need to ensure that the JVM is forked for the
-    //     // AspectJ Weaver to kick in properly and do it's magic.
-    //     fork in run := true
-    //   ))
 
   lazy val modules = Seq(
     chess, common, db, rating, user, security, wiki, hub, socket,
