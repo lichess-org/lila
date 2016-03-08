@@ -1,3 +1,4 @@
+import com.typesafe.sbt.packager.Keys._
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
@@ -27,6 +28,8 @@ object ApplicationBuild extends Build {
       publishArtifact in (Compile, packageSrc) := false,
       // don't stage the conf dir
       externalizeResources := false,
+      // shorter prod classpath
+      scriptClasspath := Seq("*"),
       // offline := true,
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
