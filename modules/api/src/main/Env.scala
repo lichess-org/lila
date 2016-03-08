@@ -118,7 +118,7 @@ final class Env(
 
   lazy val cli = new Cli(system.lilaBus, renderer)
 
-  system.actorOf(Props(new KamonPusher))
+  val kamonPusher = system.actorOf(Props(new KamonPusher))
 }
 
 object Env {

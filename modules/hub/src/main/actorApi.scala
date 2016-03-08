@@ -172,12 +172,6 @@ case class Analyse(
 case class AutoAnalyse(gameId: String)
 }
 
-package monitor {
-case object AddRequest
-case object Update
-case class Move(millis: Option[Int])
-}
-
 package round {
 case class MoveEvent(
   gameId: String,

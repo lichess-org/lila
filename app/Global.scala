@@ -6,7 +6,7 @@ import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
 import kamon.Kamon
 
-import lila.hub.actorApi.monitor.AddRequest
+import lila.api.KamonPusher.AddRequest
 
 object Global extends GlobalSettings {
 
@@ -25,7 +25,10 @@ object Global extends GlobalSettings {
     else if (Env.ai.ServerOnly) {
       Action(NotFound("I am an AI server")).some
     }
-    else Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
+    else {
+      Env.api.kamonPusher ! AddRequest
+      Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
+    }
 
   private def niceError(req: RequestHeader): Boolean =
     req.method == "GET" &&
