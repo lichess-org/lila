@@ -4,13 +4,20 @@ import lila.common.HTTPRequest
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
+import kamon.Kamon
 
 import lila.hub.actorApi.monitor.AddRequest
 
 object Global extends GlobalSettings {
 
+  Kamon.start()
+
   override def onStart(app: Application) {
     lila.app.Env.current
+  }
+
+  override def onStop(app: Application) {
+    Kamon.shutdown()
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] =
