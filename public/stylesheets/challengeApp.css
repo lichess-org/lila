@@ -105,6 +105,9 @@
   left: 52px;
   display: block;
   width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #challenge_app .challenge .title {
   display: block;
