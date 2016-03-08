@@ -318,7 +318,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val socket = project("socket", Seq(common, hub, memo)).settings(
-    libraryDependencies ++= provided(play.api)
+    libraryDependencies ++= provided(play.api, kamon.core)
   )
 
   lazy val hub = project("hub", Seq(common, chess)).settings(
