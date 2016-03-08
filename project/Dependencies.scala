@@ -59,4 +59,5 @@ object Dependencies {
     val statsd = "io.kamon" %% "kamon-statsd" % version
     val system = "io.kamon" %% "kamon-system-metrics" % version
   }
+  val aspectjweaver = "org.aspectj" % "aspectjweaver" % "1.8.7"
 }
