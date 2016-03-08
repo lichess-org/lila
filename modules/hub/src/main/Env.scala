@@ -34,7 +34,7 @@ final class Env(config: Config, system: ActorSystem) {
   }
 
   object channel {
-    val moveLat = select("channel.move_lat")
+    val roundMoveTime = select("round.channel.move_time")
   }
 
   object socket {

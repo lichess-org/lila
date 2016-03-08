@@ -19,7 +19,6 @@ final class Env(
   private val ActorName = config getString "actor.name"
   private val SocketName = config getString "socket.name"
   private val SocketUidTtl = config duration "socket.uid.ttl"
-  private val ChannelMoveLat = config getString "channel.move_lat"
 
   private lazy val socket = system.actorOf(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
@@ -35,23 +34,11 @@ final class Env(
       hub = hub
     )), name = ActorName)
 
-  private val moveLatChannel = system.actorOf(Props(new Channel), name = ChannelMoveLat)
-
   {
     import scala.concurrent.duration._
 
     scheduler.message(1 seconds) {
       reporting -> lila.hub.actorApi.monitor.Update
-    }
-
-    scheduler.effect(1 seconds, "move latency channel") {
-      import akka.pattern.ask
-      import makeTimeout.short
-      reporting ? actorApi.GetMoveLatency foreach {
-        case lat: Int => moveLatChannel ! Channel.Publish(
-          lila.socket.Socket.makeMessage("mlat", lat)
-        )
-      }
     }
   }
 

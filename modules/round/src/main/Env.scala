@@ -49,8 +49,13 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
     val CollectionForecast = config getString "collection.forecast"
+    val ChannelMoveTime = config getString "channel.move_time.name "
   }
   import settings._
+
+  private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
+
+  private val moveMonitor = new MoveMonitor(system, moveTimeChannel)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
@@ -65,7 +70,7 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      monitorMove = (ms: Option[Int]) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
+      monitorMove = moveMonitor.record,
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
