@@ -47,9 +47,19 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case v => v
         }
 
+        val status = tag(_.Termination).map(_.toLowerCase) match {
+          case Some("normal") | None    => Status.Resign
+          case Some("abandoned")        => Status.Aborted
+          case Some("time forfeit")     => Status.Outoftime
+          case Some("rules infraction") => Status.Cheat
+          case Some(_)                  => Status.UnknownFinish
+        }
+
         val result = tag(_.Result) ifFalse game.situation.end collect {
-          case "1-0"     => Result(Status.UnknownFinish, Color.White.some)
-          case "0-1"     => Result(Status.UnknownFinish, Color.Black.some)
+          case "1-0" => Result(status, Color.White.some)
+          case "0-1" => Result(status, Color.Black.some)
+          case "*" => Result(Status.Started, none)
+          case "1/2-1/2" if status == Status.Outoftime => Result(status, none)
           case "1/2-1/2" => Result(Status.Draw, none)
         }
 
