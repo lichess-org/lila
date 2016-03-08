@@ -56,7 +56,7 @@ object ApplicationBuild extends Build {
     chess, common, db, rating, user, security, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
-    ai, analyse, mod, monitor, site, round, lobby, setup,
+    ai, analyse, mod, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
@@ -68,7 +68,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, jgit, findbugs, RM)
+        play.api, hasher, config, apache, jgit, findbugs, RM, kamon.core)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
@@ -309,16 +309,12 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val monitor = project("monitor", Seq(common, hub, socket, db)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
-  )
-
   lazy val site = project("site", Seq(common, socket)).settings(
     libraryDependencies ++= provided(play.api)
   )
 
   lazy val socket = project("socket", Seq(common, hub, memo)).settings(
-    libraryDependencies ++= provided(play.api, kamon.core)
+    libraryDependencies ++= provided(play.api)
   )
 
   lazy val hub = project("hub", Seq(common, chess)).settings(

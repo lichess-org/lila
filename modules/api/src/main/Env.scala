@@ -11,8 +11,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     renderer: ActorSelection,
-    router: ActorSelection,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
@@ -117,6 +117,8 @@ final class Env(
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus, renderer)
+
+  system.actorOf(Props(new KamonPusher))
 }
 
 object Env {
@@ -125,7 +127,6 @@ object Env {
     config = lila.common.PlayApp.loadConfig,
     db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,
-    router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
     lobbyEnv = lila.lobby.Env.current,
@@ -143,5 +144,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)
 }

@@ -333,12 +333,6 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: Strin
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
 
-# Monitor
-GET   /monitor                         controllers.Monitor.index
-GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/status/:key             controllers.Monitor.status(key: String)
-GET   /monitor/status                  controllers.Monitor.statusParam
-
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create

@@ -18,10 +18,7 @@ object Global extends GlobalSettings {
     else if (Env.ai.ServerOnly) {
       Action(NotFound("I am an AI server")).some
     }
-    else {
-      Env.monitor.reporting ! AddRequest
-      Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
-    }
+    else Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
 
   private def niceError(req: RequestHeader): Boolean =
     req.method == "GET" &&

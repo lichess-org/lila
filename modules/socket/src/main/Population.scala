@@ -8,7 +8,6 @@ private[socket] final class Population extends Actor {
 
   var nb = 0
   val bus = context.system.lilaBus
-  val histogram = kamon.Kamon.metrics.histogram("socket.members")
 
   bus.subscribe(self, 'socketDoor)
 
@@ -21,8 +20,6 @@ private[socket] final class Population extends Actor {
     case _: SocketEnter[_] => nb = nb + 1
     case _: SocketLeave[_] => nb = nb - 1
 
-    case PopulationTell =>
-      bus.publish(NbMembers(nb), 'nbMembers)
-      histogram record nb
+    case PopulationTell    => bus.publish(NbMembers(nb), 'nbMembers)
   }
 }

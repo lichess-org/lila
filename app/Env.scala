@@ -127,7 +127,6 @@ object Env {
   def ai = lila.ai.Env.current
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
-  def monitor = lila.monitor.Env.current
   def site = lila.site.Env.current
   def round = lila.round.Env.current
   def lobby = lila.lobby.Env.current
