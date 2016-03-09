@@ -20,8 +20,8 @@ private[tournament] final class Organizer(
 
   def receive = {
 
-    case AllCreatedTournaments => TournamentRepo allCreated 30 foreach {
-      _ foreach { tour =>
+    case AllCreatedTournaments => TournamentRepo allCreated 30 foreach { tours =>
+      tours foreach { tour =>
         tour.schedule match {
           case None => PlayerRepo count tour.id foreach {
             case 0 => api wipe tour
@@ -34,24 +34,26 @@ private[tournament] final class Organizer(
           case _                                      => ejectLeavers(tour)
         }
       }
+      Kamon.metrics.histogram("tournament.created") record tours.size
     }
 
     case StartedTournaments =>
       val startAt = nowMillis
-      var totalPlayers = 0
-      TournamentRepo.started foreach {
-        _ foreach { tour =>
-          PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
+      TournamentRepo.started.flatMap { started =>
+        started.map { tour =>
+          PlayerRepo activeUserIds tour.id map { activeUserIds =>
             val nb = activeUserIds.size
             if (tour.secondsToFinish == 0) api finish tour
             else if (!tour.scheduled && nb < 2) api finish tour
             else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
             reminder ! RemindTournament(tour, activeUserIds)
-            totalPlayers = totalPlayers + nb
+            nb
           }
+        }.sequenceFu addEffect { playerCounts =>
+          Kamon.metrics.histogram("tournament.player") record playerCounts.sum
+          Kamon.metrics.histogram("tournament.started") record started.size
         }
       }
-      Kamon.metrics.histogram("tournament.player") record totalPlayers
 
     case FinishGame(game, _, _)                          => api finishGame game
 
