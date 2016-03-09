@@ -76,7 +76,8 @@ final class CrosstableApi(coll: Coll) {
           localResults <- gameColl.find(selector,
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-            .cursor[BSONDocument]().collect[List](maxGames).map {
+            .cursor[BSONDocument](readPreference = ReadPreference.secondaryPreferred)
+            .collect[List](maxGames).map {
               _.flatMap { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))
