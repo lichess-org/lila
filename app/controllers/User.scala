@@ -132,11 +132,12 @@ object User extends LilaController {
     for {
       leaderboards <- env.cached.leaderboards
       nbAllTime ← env.cached topNbGame nb
-      nbDay ← Env.game.cached activePlayerUidsDay nb map {
-        _ flatMap { pair =>
-          env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
-        }
-      }
+      nbDay ← fuccess(Nil)
+      // Env.game.cached activePlayerUidsDay nb map {
+      //   _ flatMap { pair =>
+      //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
+      //   }
+      // }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached top50Online true
       res <- negotiate(

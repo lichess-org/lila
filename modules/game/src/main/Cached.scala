@@ -29,10 +29,10 @@ final class Cached(
   val isRematch = new ExpireSetMemo(3.hours)
 
   // very expensive
-  val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
-    prefix = "player:active:day",
-    (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
-    timeToLive = 1 hour)
+  // val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
+  //   prefix = "player:active:day",
+  //   (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
+  //   timeToLive = 1 hour)
 
   private val countShortTtl = AsyncCache[JsObject, Int](
     f = (o: JsObject) => $count(o),
