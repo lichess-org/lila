@@ -377,7 +377,8 @@ object GameRepo {
       )
     ).one[BSONDocument] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
 
-  def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
+  // #TODO this breaks it all since reactivemongo > 0.11.9
+  def activePlayersSinceNOPENOPENOPE(since: DateTime, max: Int): Fu[List[UidNb]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
       Descending,
       GroupField,
