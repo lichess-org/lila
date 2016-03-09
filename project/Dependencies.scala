@@ -54,10 +54,6 @@ object Dependencies {
   object kamon {
     val version = "0.5.2"
     val core = "io.kamon" %% "kamon-core" % version
-    val play = "io.kamon" %% "kamon-play-24" % version
-    val akka = "io.kamon" %% "kamon-akka" % version
     val statsd = "io.kamon" %% "kamon-statsd" % version
-    val system = "io.kamon" %% "kamon-system-metrics" % version
   }
-  val aspectjweaver = "org.aspectj" % "aspectjweaver" % "1.8.7"
 }
