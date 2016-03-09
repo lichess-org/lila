@@ -209,7 +209,7 @@ trait WithPlay { self: PackageObject =>
         akka.pattern.after(duration, system.scheduler)(fufail(error)))
     }
 
-    def chronometer = lila.common.Chronometer.result(fua)
+    def chronometer = lila.common.Chronometer(fua)
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {

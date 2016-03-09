@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scalaz.NonEmptyList
+import kamon.Kamon
 
 import actorApi._
 import lila.common.Debouncer
@@ -63,7 +64,7 @@ private[tournament] final class TournamentApi(
   def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       cached ranking tour flatMap { ranking =>
-        tour.system.pairingSystem.createPairings(tour, users, ranking) flatMap {
+        tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1000 =>
             play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
@@ -74,10 +75,13 @@ private[tournament] final class TournamentApi(
                 sendTo(tour.id, StartGame(game))
               }
           }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
-            val time = nowMillis - startAt
-            if (time > 100)
-              play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
+            Kamon.metrics.counter("tournament.pairing") increment pairings.size
           }
+        } >>- {
+          val time = nowMillis - startAt
+          Kamon.metrics.histogram("tournament.makePairings") record time
+          if (time > 100)
+            play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} in ${time}ms")
         }
       }
     }

@@ -37,9 +37,9 @@ object PairingSystem extends AbstractPairingSystem {
         UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
       }.sequenceFu
     } yield pairings
-  }.logIfSlow(500, "tourpairing") { pairings =>
+  }.chronometer.logIfSlow(500, "tourpairing") { pairings =>
     s"createPairings ${url(tour.id)} ${pairings.size} pairings"
-  }
+  }.result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
@@ -52,9 +52,7 @@ object PairingSystem extends AbstractPairingSystem {
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking).logIfSlow(200, "tourpairing") { ranked =>
-      s"makePreps.rankedByTourAndUserIds ${url(data.tour.id)} ${users.size} users, ${ranked.size} ranked"
-    } map { idles =>
+    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
         case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
@@ -63,9 +61,9 @@ object PairingSystem extends AbstractPairingSystem {
         case Nil              => Nil
       }
     }
-  }.logIfSlow(200, "tourpairing") { preps =>
+  }.chronometer.logIfSlow(200, "tourpairing") { preps =>
     s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
-  }
+  }.result
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {

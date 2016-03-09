@@ -83,7 +83,7 @@ final class Api(
       BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)).some
     ).flatMap { values =>
         if (values.isEmpty) fuccess(Nil)
-        else tube.storeColl.distinct[String, collection.immutable.ListSet](
+        else tube.storeColl.distinct[String, List](
           "user",
           BSONDocument(
             field -> BSONDocument("$in" -> values),

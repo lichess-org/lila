@@ -26,7 +26,6 @@ final class Env(
     val CollectionCrosstable = config getString "collection.crosstable"
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
-    val ActorName = config getString "actor.name"
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
     val PdfExecPath = config getString "pdf.exec_path"

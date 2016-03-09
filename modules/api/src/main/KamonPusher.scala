@@ -28,9 +28,6 @@ private final class KamonPusher extends Actor {
     case NbRounds(nb) =>
       metrics.histogram("round.member") record nb
 
-    case AddRequest =>
-      metrics.counter("http.request").increment()
-
     case Tick =>
       metrics.histogram("jvm.thread") record threadStats.getThreadCount
       metrics.histogram("jvm.daemon") record threadStats.getDaemonThreadCount
@@ -39,8 +36,6 @@ private final class KamonPusher extends Actor {
 }
 
 object KamonPusher {
-
-  case object AddRequest
 
   private case object Tick
 }

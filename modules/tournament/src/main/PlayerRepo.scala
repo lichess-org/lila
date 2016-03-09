@@ -133,9 +133,10 @@ object PlayerRepo {
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
-    )).cursor[Player]().collect[List]().logIfSlow(200, "tourpairing") { players =>
-    s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
-  }
+    )).cursor[Player]().collect[List]()
+      .chronometer.logIfSlow(200, "tourpairing") { players =>
+        s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
+      }.result
 
   def pairByTourAndUserIds(tourId: String, id1: String, id2: String): Fu[Option[(Player, Player)]] =
     byTourAndUserIds(tourId, List(id1, id2)) map {
@@ -153,7 +154,9 @@ object PlayerRepo {
     }.sortBy(_.rank)
 
   def rankedByTourAndUserIds(tourId: String, userIds: Iterable[String], ranking: Ranking): Fu[RankedPlayers] =
-    byTourAndUserIds(tourId, userIds).map { rankPlayers(_, ranking) }.logIfSlow(200, "tourpairing") { players =>
-    s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
-  }
+    byTourAndUserIds(tourId, userIds).map { rankPlayers(_, ranking) }
+      .chronometer
+      .logIfSlow(200, "tourpairing") { players =>
+        s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
+      }.result
 }

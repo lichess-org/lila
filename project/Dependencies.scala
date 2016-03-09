@@ -14,7 +14,7 @@ object Dependencies {
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
     val commons = Seq(
-      sonatypeS,
+      // sonatypeS,
       sonatype,
       awesomepom,
       typesafe,

@@ -6,8 +6,6 @@ import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
 import kamon.Kamon
 
-import lila.api.KamonPusher.AddRequest
-
 object Global extends GlobalSettings {
 
   Kamon.start()
@@ -26,7 +24,7 @@ object Global extends GlobalSettings {
       Action(NotFound("I am an AI server")).some
     }
     else {
-      Env.api.kamonPusher ! AddRequest
+      Kamon.metrics.counter("http.request").increment()
       Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
     }
 
@@ -48,8 +46,10 @@ object Global extends GlobalSettings {
 
   override def onError(req: RequestHeader, ex: Throwable) =
     if (niceError(req)) {
-      if (lila.common.PlayApp.isProd)
+      if (lila.common.PlayApp.isProd) {
+        Kamon.metrics.counter("http.error").increment()
         fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.api.Context(req))))
+      }
       else super.onError(req, ex)
     }
     else fuccess(InternalServerError(ex.getMessage))

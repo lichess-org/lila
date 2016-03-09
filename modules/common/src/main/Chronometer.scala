@@ -1,11 +1,10 @@
 package lila.common
 
-import kamon.Kamon.metrics
+import kamon.Kamon
 
 object Chronometer {
 
   case class Lap[A](result: A, millis: Int) {
-    def tuple = result -> millis
 
     def logIfSlow(threshold: Int, logger: String)(msg: A => String) = {
       if (millis >= threshold) play.api.Logger(logger).debug(s"<${millis}ms> ${msg(result)}")
@@ -13,25 +12,30 @@ object Chronometer {
     }
 
     def kamon(histogram: String) = {
-      metrics.histogram(name) record millis
+      Kamon.metrics histogram histogram record millis
       this
     }
   }
 
-  def log[A](name: String)(f: => Fu[A]): Fu[A] = {
-    val start = nowMillis
-    logger debug s"$name - start"
-    f.addEffects(
-      err => logger warn s"$name - failed in ${nowMillis - start}ms - ${err.getMessage}",
-      _ => logger debug s"$name - done in ${nowMillis - start}ms")
-  }
+  case class FuLap[A](lap: Fu[Lap[A]]) {
 
-  def result[A](f: => Fu[A]): Fu[Lap[A]] = {
-    val start = nowMillis
-    f map {
-      Lap(_, (nowMillis - start).toInt)
+    def logIfSlow(threshold: Int, logger: String)(msg: A => String) = {
+      lap.foreach(_.logIfSlow(threshold, logger)(msg))
+      this
     }
+
+    def kamon(histogram: String) = {
+      lap.foreach(_ kamon histogram)
+      this
+    }
+
+    def result = lap.map(_.result)
   }
 
-  private lazy val logger = play.api.Logger("chrono")
+  def apply[A](f: => Fu[A]): FuLap[A] = {
+    val start = nowMillis
+    FuLap(f map {
+      Lap(_, (nowMillis - start).toInt)
+    })
+  }
 }

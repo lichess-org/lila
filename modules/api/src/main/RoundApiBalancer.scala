@@ -36,7 +36,7 @@ private[api] final class RoundApiBalancer(
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
               play.api.Logger("RoundApiBalancer").error(s"$pov $e")
             }
-          }.logIfSlow(500, "RoundApiBalancer") { _ => s"inner player $pov" }
+          }.chronometer.logIfSlow(500, "RoundApiBalancer") { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
@@ -51,7 +51,10 @@ private[api] final class RoundApiBalancer(
     router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
       play.api.Logger("RoundApiBalancer").error(s"$pov $e")
     }
-  }.logIfSlow(500, "RoundApiBalancer") { _ => s"outer player $pov" }
+  }.chronometer
+    .kamon("round.api.player")
+    .logIfSlow(500, "RoundApiBalancer") { _ => s"outer player $pov" }
+    .result
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,

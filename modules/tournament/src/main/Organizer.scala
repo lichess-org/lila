@@ -2,6 +2,7 @@ package lila.tournament
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import kamon.Kamon
 
 import actorApi._
 import lila.game.actorApi.FinishGame
@@ -50,7 +51,7 @@ private[tournament] final class Organizer(
           }
         }
       }
-      kamon.Kamon.metrics.histogram("tournament.players") record totalPlayers
+      Kamon.metrics.histogram("tournament.player") record totalPlayers
 
     case FinishGame(game, _, _)                          => api finishGame game
 
