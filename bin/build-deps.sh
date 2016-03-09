@@ -5,6 +5,19 @@ dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
 
+rm -rf reactivemongo
+git clone https://github.com/ReactiveMongo/ReactiveMongo
+cd ReactiveMongo
+git checkout 466f214da17ad79f2055f274ef674eeb636ffd64
+sbt publish-local
+cd ..
+
+rm -rf play-reactivemongo
+git clone https://github.com/ReactiveMongo/Play-ReactiveMongo
+cd Play-ReactiveMongo
+sbt publish-local
+cd ..
+
 rm -rf scalalib
 git clone https://github.com/ornicar/scalalib
 cd scalalib
