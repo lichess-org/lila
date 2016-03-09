@@ -29,7 +29,7 @@ private[lobby] final class Socket(
 
   override def preStart {
     super.preStart
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
   }
 
   def receiveSpecific = {

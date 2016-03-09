@@ -37,16 +37,20 @@ private[tournament] final class Organizer(
 
     case StartedTournaments =>
       val startAt = nowMillis
+      var totalPlayers = 0
       TournamentRepo.started foreach {
         _ foreach { tour =>
           PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
+            val nb = activeUserIds.size
             if (tour.secondsToFinish == 0) api finish tour
-            else if (!tour.scheduled && activeUserIds.size < 2) api finish tour
+            else if (!tour.scheduled && nb < 2) api finish tour
             else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
             reminder ! RemindTournament(tour, activeUserIds)
+            totalPlayers = totalPlayers + nb
           }
         }
       }
+      kamon.Kamon.metrics.histogram("tournament.players") record totalPlayers
 
     case FinishGame(game, _, _)                          => api finishGame game
 

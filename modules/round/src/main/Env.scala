@@ -76,7 +76,7 @@ final class Env(
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
-        hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
+        system.lilaBus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 

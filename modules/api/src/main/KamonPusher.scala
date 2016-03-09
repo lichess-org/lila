@@ -6,13 +6,14 @@ import kamon.Kamon.metrics
 import scala.concurrent.duration._
 
 import lila.socket.actorApi.NbMembers
+import lila.hub.actorApi.round.NbRounds
 
 private final class KamonPusher extends Actor {
 
   import KamonPusher._
 
   override def preStart() {
-    context.system.lilaBus.subscribe(self, 'nbMembers)
+    context.system.lilaBus.subscribe(self, 'nbMembers, 'nbRounds)
     context.system.scheduler.schedule(1 second, 1 second, self, Tick)
   }
 
@@ -23,6 +24,9 @@ private final class KamonPusher extends Actor {
 
     case NbMembers(nb) =>
       metrics.histogram("socket.member") record nb
+
+    case NbRounds(nb) =>
+      metrics.histogram("round.member") record nb
 
     case AddRequest =>
       metrics.counter("http.request").increment()

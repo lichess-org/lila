@@ -1,13 +1,20 @@
 package lila.common
 
+import kamon.Kamon.metrics
+
 object Chronometer {
 
   case class Lap[A](result: A, millis: Int) {
     def tuple = result -> millis
 
-    def resultAndLogIfSlow(threshold: Int, logger: String)(msg: A => String): A = {
+    def logIfSlow(threshold: Int, logger: String)(msg: A => String) = {
       if (millis >= threshold) play.api.Logger(logger).debug(s"<${millis}ms> ${msg(result)}")
-      result
+      this
+    }
+
+    def kamon(histogram: String) = {
+      metrics.histogram(name) record millis
+      this
     }
   }
 

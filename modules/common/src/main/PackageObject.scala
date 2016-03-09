@@ -209,10 +209,7 @@ trait WithPlay { self: PackageObject =>
         akka.pattern.after(duration, system.scheduler)(fufail(error)))
     }
 
-    def logIfSlow(millis: Int, logger: String)(msg: A => String) =
-      lila.common.Chronometer.result(fua).map {
-        _.resultAndLogIfSlow(millis, logger)(msg)
-      }
+    def chronometer = lila.common.Chronometer.result(fua)
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {

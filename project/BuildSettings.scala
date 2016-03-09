@@ -22,7 +22,7 @@ object BuildSettings {
     publishArtifact in (Compile, packageSrc) := false
   )
 
-  def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws)
+  def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws, kamon.core)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")

@@ -99,10 +99,12 @@ private[lobby] final class Lobby(
       }
 
     case Broom =>
-      (socket ? GetUids mapTo manifest[SocketUids])
-        .logIfSlow(10, "lobby") { r => s"GetUids size=${r.uids.size}" }
+      (socket ? GetUids mapTo manifest[SocketUids]).chronometer
+        .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
+        .kamon("lobby.socket.GetUids")
+        .result
         .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
-        .addFailureEffect { err =>
+        .addFailureEffect { _ =>
           HookRepo.truncateIfNeeded
           scheduleBroom
         } pipeTo self
