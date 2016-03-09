@@ -100,23 +100,6 @@ object Main extends LilaController {
     } inject Ok
   }
 
-  def explorerGameInfo(id: String) = Action.async { req =>
-    lila.game.GameRepo game id map {
-      _.fold(NotFound(s"Not game $id!")) { game =>
-        def name(p: lila.game.Player) = p.userId.flatMap(Env.user.lightUserApi.get).map(_.name)
-        val res = for {
-          wName <- name(game.whitePlayer)
-          bName <- name(game.blackPlayer)
-          wRating <- game.whitePlayer.rating
-          bRating <- game.blackPlayer.rating
-        } yield Ok {
-          List(wName, wRating, bName, bRating, game.createdAt.getYear) mkString "|"
-        }
-        res getOrElse NotFound(s"Not enough data for $id!")
-      }
-    }
-  }
-
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
       Kamon.metrics.counter("http.notfound").increment()
