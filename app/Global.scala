@@ -1,10 +1,10 @@
 package lila.app
 
+import kamon.Kamon
 import lila.common.HTTPRequest
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
-import kamon.Kamon
 
 object Global extends GlobalSettings {
 
@@ -41,13 +41,16 @@ object Global extends GlobalSettings {
   override def onBadRequest(req: RequestHeader, error: String) =
     if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
     else if (error startsWith "Cannot parse parameter") onHandlerNotFound(req)
-    else if (niceError(req)) controllers.Lobby.handleStatus(req, Results.BadRequest)
+    else if (niceError(req)) {
+      Kamon.metrics.counter("http.response.400").increment()
+      controllers.Lobby.handleStatus(req, Results.BadRequest)
+    }
     else fuccess(BadRequest(error))
 
   override def onError(req: RequestHeader, ex: Throwable) =
     if (niceError(req)) {
       if (lila.common.PlayApp.isProd) {
-        Kamon.metrics.counter("http.error").increment()
+        Kamon.metrics.counter("http.response.500").increment()
         fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.api.Context(req))))
       }
       else super.onError(req, ex)

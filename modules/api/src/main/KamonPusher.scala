@@ -8,7 +8,8 @@ import scala.concurrent.duration._
 import lila.socket.actorApi.NbMembers
 import lila.hub.actorApi.round.NbRounds
 
-private final class KamonPusher extends Actor {
+private final class KamonPusher(
+  countUsers: () => Int) extends Actor {
 
   import KamonPusher._
 
@@ -32,6 +33,7 @@ private final class KamonPusher extends Actor {
       metrics.histogram("jvm.thread") record threadStats.getThreadCount
       metrics.histogram("jvm.daemon") record threadStats.getDaemonThreadCount
       metrics.histogram("jvm.uptime") record app.uptime.toStandardSeconds.getSeconds
+      metrics.histogram("user.online") record countUsers()
   }
 }
 

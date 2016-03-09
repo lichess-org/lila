@@ -22,8 +22,9 @@ object Lobby extends LilaController {
     )
   }
 
-  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
+  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] = {
     reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
+  }
 
   def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(

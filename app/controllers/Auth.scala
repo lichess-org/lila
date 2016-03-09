@@ -5,6 +5,7 @@ import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.Play.current
+import kamon.Kamon
 
 import lila.api.Context
 import lila.app._
@@ -114,6 +115,7 @@ object Auth extends LilaController {
               case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
             }
             case true =>
+              Kamon.metrics.counter("user.register.website").increment()
               val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
               UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
                 .flatten(s"No user could be created for ${data.username}")
@@ -127,6 +129,7 @@ object Auth extends LilaController {
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
           data => {
+            Kamon.metrics.counter("user.register.mobile").increment()
             val email = data.email flatMap env.emailAddress.validate
             UserRepo.create(data.username, data.password, email, false, apiVersion.some)
               .flatten(s"No user could be created for ${data.username}") flatMap mobileUserOk

@@ -102,7 +102,7 @@ object Main extends LilaController {
 
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
-      Kamon.metrics.counter("http.notfound").increment()
+      Kamon.metrics.counter("http.response.404").increment()
       NotFound(html.base.notFound())
     }
 }
