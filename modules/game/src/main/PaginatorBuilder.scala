@@ -10,8 +10,6 @@ import tube.gameTube
 
 private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
 
-  private val readPreference = reactivemongo.api.ReadPreference.secondaryPreferred
-
   def recentlyCreated(selector: JsObject, nb: Option[Int] = None) =
     apply(selector, Seq(Query.sortCreated), nb) _
 
@@ -31,8 +29,7 @@ private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
   private def noCacheAdapter(selector: JsObject, sort: Sort): AdapterLike[Game] =
     new Adapter(
       selector = selector,
-      sort = sort,
-      readPreference = readPreference)
+      sort = sort)
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
     Paginator(adapter, currentPage = page, maxPerPage = maxPerPage)
