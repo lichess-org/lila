@@ -2,6 +2,7 @@ package lila.security
 
 import play.api.libs.ws.WS
 import play.api.Play.current
+import kamon.Kamon
 
 final class Tor(providerUrl: String) {
 
@@ -12,6 +13,7 @@ final class Tor(providerUrl: String) {
       ips = res.body.lines.filterNot(_ startsWith "#").toSet
       withIps(ips)
       loginfo(s"[tor] registered ${ips.size} exit nodes")
+      Kamon.metrics.histogram("security.tor") record ips.size
     }
   }
 
