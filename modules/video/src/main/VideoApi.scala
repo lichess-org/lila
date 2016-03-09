@@ -79,8 +79,7 @@ private[video] final class VideoApi(
         upsert = false
       ).void
 
-    def allIds: Fu[List[Video.ID]] =
-      videoColl.distinct[String, scala.collection.immutable.ListSet]("_id", none).map(_.toList)
+    def allIds: Fu[List[Video.ID]] = videoColl.distinct[String, List]("_id", none)
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new BSONAdapter[Video](

@@ -78,7 +78,7 @@ final class Api(
   def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    tube.storeColl.distinct[String, collection.immutable.ListSet](
+    tube.storeColl.distinct[String, List](
       field,
       BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)).some
     ).flatMap { values =>
@@ -89,7 +89,7 @@ final class Api(
             field -> BSONDocument("$in" -> values),
             "user" -> BSONDocument("$ne" -> userId)
           ).some
-        ) map (_.toList)
+        )
       }
 
   def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
@@ -97,13 +97,13 @@ final class Api(
   def recentUserIdsByIp = recentUserIdsByField("ip") _
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
-    tube.storeColl.distinct[String, collection.immutable.ListSet](
+    tube.storeColl.distinct[String, List](
       "user",
       BSONDocument(
         field -> value,
         "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
       ).some
-    ) map (_.toList)
+    )
 }
 
 object Api {

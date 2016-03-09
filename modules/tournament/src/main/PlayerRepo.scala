@@ -102,10 +102,10 @@ object PlayerRepo {
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
 
   def userIds(tourId: String): Fu[List[String]] =
-    coll.distinct[String, collection.immutable.ListSet]("uid", selectTour(tourId).some) map (_.toList)
+    coll.distinct[String, List]("uid", selectTour(tourId).some)
 
   def activeUserIds(tourId: String): Fu[List[String]] =
-    coll.distinct[String, collection.immutable.ListSet]("uid", (selectTour(tourId) ++ selectActive).some) map (_.toList)
+    coll.distinct[String, List]("uid", (selectTour(tourId) ++ selectActive).some)
 
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
