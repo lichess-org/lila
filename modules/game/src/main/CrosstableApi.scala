@@ -71,6 +71,7 @@ final class CrosstableApi(coll: Coll) {
           Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id))
 
         import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
+        import reactivemongo.api.ReadPreference
 
         for {
           localResults <- gameColl.find(selector,
