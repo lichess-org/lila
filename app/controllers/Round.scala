@@ -49,38 +49,40 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
-    html = {
-      if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-      pov.game.started.fold(
-        PreventTheft(pov) {
-          myTour(pov.game.tournamentId, true) zip
-            (pov.game.simulId ?? Env.simul.repo.find) zip
-            Env.game.crosstableApi(pov.game) zip
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
-              case (((tour, simul), crosstable), playing) =>
-                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                  Ok(html.round.player(pov, data,
-                    tour = tour,
-                    simul = simul,
-                    cross = crosstable,
-                    playing = playing,
-                    prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
-                }
-            }
-        },
-        notFound
-      )
-    },
-    api = apiVersion => {
-      if (isTheft(pov)) fuccess(theftResponse)
-      else {
+  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
+    negotiate(
+      html = {
         if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-        Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
+        pov.game.started.fold(
+          PreventTheft(pov) {
+            myTour(pov.game.tournamentId, true) zip
+              (pov.game.simulId ?? Env.simul.repo.find) zip
+              Env.game.crosstableApi(pov.game) zip
+              (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
+                case (((tour, simul), crosstable), playing) =>
+                  simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                  Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
+                    Ok(html.round.player(pov, data,
+                      tour = tour,
+                      simul = simul,
+                      cross = crosstable,
+                      playing = playing,
+                      prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
+                  }
+              }
+          }.chronometer.kamon("http.time.player.website").result,
+          notFound
+        )
+      },
+      api = apiVersion => {
+        if (isTheft(pov)) fuccess(theftResponse)
+        else {
+          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          Env.api.roundApi.player(pov, apiVersion).map { Ok(_) }
+            .chronometer.kamon("http.time.player.mobile").result
+        }
       }
-    }
-  ) map NoCache
+    ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
@@ -167,7 +169,7 @@ object Round extends LilaController with TheftPrevention {
                   val pgn = Env.api.pgnDump(pov.game, initialFen)
                   Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
               }
-        },
+        }.chronometer.kamon("http.time.watcher.website").result,
         api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none, withOpening = false) map { Ok(_) }
       ) map NoCache
     }
