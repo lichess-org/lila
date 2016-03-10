@@ -1,6 +1,7 @@
 package lila.report
 
 import akka.actor.ActorSelection
+import kamon.Kamon
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
@@ -29,7 +30,11 @@ private[report] final class ReportApi {
           }
         else $insert(report)
       }
-    }
+    } >>- monitorUnprocessed
+  }
+
+  private def monitorUnprocessed = nbUnprocessed foreach {
+    Kamon.metrics.histogram("mod.report.unprocessed").record(_)
   }
 
   private def isAlreadySlain(report: Report, user: User) =
@@ -104,7 +109,7 @@ private[report] final class ReportApi {
         ) ++ unprocessedSelect,
         $set("processedBy" -> by.id),
         multi = true)
-    }
+    } >>- monitorUnprocessed
   }
 
   def processEngine(userId: String, byModId: String): Funit = $update(
@@ -113,7 +118,7 @@ private[report] final class ReportApi {
       "reason" -> $in(List(Reason.Cheat.name, Reason.CheatPrint.name))
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
-    multi = true)
+    multi = true) >>- monitorUnprocessed
 
   def processTroll(userId: String, byModId: String): Funit = $update(
     Json.obj(
@@ -121,7 +126,7 @@ private[report] final class ReportApi {
       "reason" -> $in(List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name))
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
-    multi = true)
+    multi = true) >>- monitorUnprocessed
 
   def autoInsultReport(userId: String, text: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
@@ -133,10 +138,12 @@ private[report] final class ReportApi {
         move = ""), lichess)
       case _ => funit
     }
-  }
+  } >>- monitorUnprocessed
 
   def autoProcess(userId: String): Funit =
-    $update(Json.obj("user" -> userId.toLowerCase), Json.obj("processedBy" -> "lichess"))
+    $update(
+      Json.obj("user" -> userId.toLowerCase),
+      Json.obj("processedBy" -> "lichess")) >>- monitorUnprocessed
 
   private val unprocessedSelect = Json.obj("processedBy" -> $exists(false))
   private val processedSelect = Json.obj("processedBy" -> $exists(true))
@@ -155,7 +162,7 @@ private[report] final class ReportApi {
       }
     }
 
-  def recentUnprocessed(nb: Int) = 
+  def recentUnprocessed(nb: Int) =
     $find($query(unprocessedSelect) sort $sort.createdDesc, nb)
 
   def recentProcessed(nb: Int) = $find($query(processedSelect) sort $sort.createdDesc, nb)
