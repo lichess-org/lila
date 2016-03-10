@@ -5,7 +5,7 @@ import scala.util.Random
 
 import reactivemongo.api.QueryOpts
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONArray }
-import reactivemongo.core.commands.Count
+import kamon.Kamon
 
 import lila.db.Types.Coll
 import lila.user.User
@@ -19,7 +19,7 @@ private[opening] final class Selector(
 
   val anonSkipMax = 1500
 
-  def apply(me: Option[User]): Fu[Opening] = me match {
+  def apply(me: Option[User]): Fu[Opening] = (me match {
     case None =>
       openingColl.find(BSONDocument())
         .options(QueryOpts(skipN = Random nextInt anonSkipMax))
@@ -29,6 +29,8 @@ private[opening] final class Selector(
     } recoverWith {
       case e: Exception => apply(none)
     }
+  }).chronometer.kamon("opening.selector.time").result >>- {
+    Kamon.metrics.counter("opening.selector.count").increment()
   }
 
   private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
