@@ -73,6 +73,9 @@ object mon {
       val time = rec("explorer.index.time")
     }
   }
+  object timeline {
+    val notification = incX("timeline.notification")
+  }
   object insight {
     val request = rec("insight.request")
   }
