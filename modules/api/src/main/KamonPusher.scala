@@ -15,11 +15,14 @@ private final class KamonPusher(
 
   override def preStart() {
     context.system.lilaBus.subscribe(self, 'nbMembers, 'nbRounds)
-    context.system.scheduler.schedule(1 second, 1 second, self, Tick)
+    scheduleTick
   }
 
   private val threadStats = ManagementFactory.getThreadMXBean
   private val app = lila.common.PlayApp
+
+  private def scheduleTick =
+    context.system.scheduler.scheduleOnce(1 second, self, Tick)
 
   def receive = {
 
@@ -34,6 +37,7 @@ private final class KamonPusher(
       metrics.histogram("jvm.daemon") record threadStats.getDaemonThreadCount
       metrics.histogram("jvm.uptime") record app.uptime.toStandardSeconds.getSeconds
       metrics.histogram("user.online") record countUsers()
+      scheduleTick
   }
 }
 
