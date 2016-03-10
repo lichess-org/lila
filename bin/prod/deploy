@@ -91,16 +91,20 @@ echo "$rsync_command"
 $rsync_command
 echo "rsync complete"
 
-read -n 1 -p "Press [Enter] to continue."
+read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
   lilalog "Notify users of post deploy"
   bin/cli-prod deploy post
 fi
 
-if [ $mode == "main" ] || [ $mode == "stage" ]; then
+if [ $mode == "main" ]; then
   lilalog "Restart lichess"
   ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
+fi
+if [ $mode == "stage" ]; then
+  lilalog "Restart lichess-stage"
+  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
 fi
 
 lilalog "Deploy complete"
