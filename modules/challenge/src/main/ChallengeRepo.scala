@@ -36,6 +36,12 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       .sort(BSONDocument("createdAt" -> 1))
       .cursor[Challenge]().collect[List]()
 
+  def removeByUserId(userId: String): Funit =
+    coll.remove(BSONDocument("$or" -> BSONArray(
+      BSONDocument("challenger.id" -> userId),
+      BSONDocument("destUser.id" -> userId)
+    ))).void
+
   def like(c: Challenge) = ~(for {
     challengerId <- c.challengerUserId
     destUserId <- c.destUserId

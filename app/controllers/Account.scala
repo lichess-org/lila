@@ -133,6 +133,7 @@ object Account extends LilaController {
       env.onlineUserIdMemo.remove(user.id) >>
       relationEnv.api.unfollowAll(user.id) >>
       Env.team.api.quitAll(user.id) >>-
+      Env.challenge.api.removeByUserId(user.id) >>-
       Env.tournament.api.withdrawAll(user) >>
       (Env.security disconnect user.id)
 
