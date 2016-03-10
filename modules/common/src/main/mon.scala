@@ -151,6 +151,9 @@ object mon {
     object post {
       val create = inc("forum.post.create")
     }
+    object topic {
+      val view = inc("forum.topic.view")
+    }
   }
   object puzzle {
     object selector {

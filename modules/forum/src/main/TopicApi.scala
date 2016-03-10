@@ -28,8 +28,10 @@ private[forum] final class TopicApi(
         topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
       } yield categ -> topic).run
       res ← data ?? {
-        case (categ, topic) => (TopicRepo incViews topic) >>
-          (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
+        case (categ, topic) =>
+          lila.mon.forum.topic.view()
+          (TopicRepo incViews topic) >>
+            (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
       }
     } yield res
 
