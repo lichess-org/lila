@@ -19,8 +19,6 @@ final class RankingApi(
   import RankingApi._
   private implicit val rankingBSONHandler = reactivemongo.bson.Macros.handler[Ranking]
 
-  private type Rating = Int
-
   def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
       save(userId, pt, perfs(pt))
@@ -69,22 +67,24 @@ final class RankingApi(
 
   object weeklyStableRanking {
 
+    private type Rank = Int
+
     def of(userId: User.ID): Fu[Map[Perf.Key, Int]] =
       lila.common.Future.traverseSequentially(PerfType.leaderboardable) { perf =>
         cache(perf.id) map { _ get userId map (perf.key -> _) }
       } map (_.flatten.toMap)
 
-    private val cache = AsyncCache[Perf.ID, Map[User.ID, Rating]](
+    private val cache = AsyncCache[Perf.ID, Map[User.ID, Rank]](
       f = compute,
       timeToLive = 15 minutes)
 
-    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rating]] = {
+    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] = {
       val enumerator = coll.find(
         BSONDocument("perf" -> perfId, "stable" -> true),
         BSONDocument("user" -> true, "_id" -> false)
       ).sort(BSONDocument("rating" -> -1)).cursor[BSONDocument]().enumerate()
       var rank = 1
-      val b = Map.newBuilder[User.ID, Rating]
+      val b = Map.newBuilder[User.ID, Rank]
       val mapBuilder: Iteratee[BSONDocument, Unit] = Iteratee.foreach { doc =>
         doc.getAs[User.ID]("user") foreach { user =>
           b += (user -> rank)
