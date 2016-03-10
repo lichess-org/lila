@@ -27,7 +27,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
       jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
-      spray.caching, maxmind, prismic),
+      spray.caching, maxmind, prismic, kamon.core, kamon.statsd),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",

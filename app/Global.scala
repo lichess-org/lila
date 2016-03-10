@@ -4,6 +4,7 @@ import lila.common.HTTPRequest
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
+import kamon.Kamon
 
 import lila.hub.actorApi.monitor.AddRequest
 
@@ -11,6 +12,10 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     lila.app.Env.current
+    kamon.Kamon.start()
+  }
+  override def onStop(app: Application) {
+    kamon.Kamon.shutdown()
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] =
@@ -20,6 +25,7 @@ object Global extends GlobalSettings {
     }
     else {
       Env.monitor.reporting ! AddRequest
+      Kamon.metrics.counter("http.request").increment()
       Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
     }
 
