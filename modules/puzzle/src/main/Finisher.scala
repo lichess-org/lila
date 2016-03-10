@@ -22,8 +22,8 @@ private[puzzle] final class Finisher(
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
         val date = DateTime.now
-        val userPerf = user.perfs.puzzle.add(userRating, date)
-        val puzzlePerf = puzzle.perf.add(puzzleRating, date)
+        val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
+        val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
         val a = new Attempt(
           id = Attempt.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,

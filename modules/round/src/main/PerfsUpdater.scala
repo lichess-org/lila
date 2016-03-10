@@ -127,19 +127,22 @@ final class PerfsUpdater(
     val speed = game.speed
     val isStd = game.ratingVariant.standard
     val date = game.updatedAt | game.createdAt
+    def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
+      if (cond) perf.addOrReset(_.round.crazyGlicko, s"game ${game.id}")(rating, date)
+      else perf
     val perfs1 = perfs.copy(
-      chess960 = game.ratingVariant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
-      kingOfTheHill = game.ratingVariant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
-      threeCheck = game.ratingVariant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
-      antichess = game.ratingVariant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
-      atomic = game.ratingVariant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
-      horde = game.ratingVariant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
-      racingKings = game.ratingVariant.racingKings.fold(perfs.racingKings.add(ratings.racingKings, date), perfs.racingKings),
-      crazyhouse = game.ratingVariant.crazyhouse.fold(perfs.crazyhouse.add(ratings.crazyhouse, date), perfs.crazyhouse),
-      bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
-      blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
-      classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
-      correspondence = (isStd && speed == Speed.Correspondence).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
+      chess960 = addRatingIf(game.ratingVariant.chess960, perfs.chess960, ratings.chess960),
+      kingOfTheHill = addRatingIf(game.ratingVariant.kingOfTheHill, perfs.kingOfTheHill, ratings.kingOfTheHill),
+      threeCheck = addRatingIf(game.ratingVariant.threeCheck, perfs.threeCheck, ratings.threeCheck),
+      antichess = addRatingIf(game.ratingVariant.antichess, perfs.antichess, ratings.antichess),
+      atomic = addRatingIf(game.ratingVariant.atomic, perfs.atomic, ratings.atomic),
+      horde = addRatingIf(game.ratingVariant.horde, perfs.horde, ratings.horde),
+      racingKings = addRatingIf(game.ratingVariant.racingKings, perfs.racingKings, ratings.racingKings),
+      crazyhouse = addRatingIf(game.ratingVariant.crazyhouse, perfs.crazyhouse, ratings.crazyhouse),
+      bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),
+      blitz = addRatingIf(isStd && speed == Speed.Blitz, perfs.blitz, ratings.blitz),
+      classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
+      correspondence = addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence))
     val r = lila.rating.Regulator
     val perfs2 = perfs1.copy(
       chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),

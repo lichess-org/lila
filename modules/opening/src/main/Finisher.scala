@@ -20,8 +20,8 @@ private[opening] final class Finisher(
         val openingRating = opening.perf.toRating
         updateRatings(userRating, openingRating, win.fold(Glicko.Result.Win, Glicko.Result.Loss))
         val date = DateTime.now
-        val userPerf = user.perfs.opening.add(userRating, date)
-        val openingPerf = opening.perf.add(openingRating, date)
+        val userPerf = user.perfs.opening.addOrReset(_.opening.crazyGlicko, s"opening ${opening.id} user")(userRating, date)
+        val openingPerf = opening.perf.addOrReset(_.opening.crazyGlicko, s"opening ${opening.id}")(openingRating, date)
         val a = new Attempt(
           id = Attempt.makeId(opening.id, user.id),
           openingId = opening.id,

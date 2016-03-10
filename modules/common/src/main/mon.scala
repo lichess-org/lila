@@ -65,6 +65,7 @@ object mon {
       val time = rec("round.move")
       val count = inc("round.move")
     }
+    val crazyGlicko = inc("round.crazy_glicko")
   }
   object explorer {
     object index {
@@ -160,12 +161,14 @@ object mon {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
     }
+    val crazyGlicko = inc("puzzle.crazy_glicko")
   }
   object opening {
     object selector {
       val count = inc("opening.selector")
       val time = rec("opening.selector")
     }
+    val crazyGlicko = inc("opening.crazy_glicko")
   }
   object analysis {
     def success(ip: String) = inc(s"analysis.$ip.success")
@@ -202,9 +205,12 @@ object mon {
   type Rec = Int => Unit
   type Inc = () => Unit
   type IncX = Int => Unit
+
   type RecPath = lila.mon.type => Rec
+  type IncPath = lila.mon.type => Inc
 
   def recPath(f: lila.mon.type => Rec): Rec = f(lila.mon)
+  def incPath(f: lila.mon.type => Inc): Inc = f(lila.mon)
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
