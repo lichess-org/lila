@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 import scala.util.Random
 
 import reactivemongo.api.QueryOpts
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONArray, BSONValue }
+import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONArray }
 import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
@@ -31,8 +31,6 @@ private[puzzle] final class Selector(
 
   val anonSkipMax = 5000
 
-  private type IDs = Traversable[BSONValue]
-
   def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
     val isMate = scala.util.Random.nextBoolean
     me match {
@@ -57,7 +55,7 @@ private[puzzle] final class Selector(
       case d             => 200
     }
 
-  private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: IDs, isMate: Boolean): Fu[Option[Puzzle]] =
+  private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: BSONArray, isMate: Boolean): Fu[Option[Puzzle]] =
     puzzleColl.find(mateSelector(isMate) ++ BSONDocument(
       Puzzle.BSONFields.id -> BSONDocument("$nin" -> ids),
       Puzzle.BSONFields.rating -> BSONDocument(

@@ -99,10 +99,10 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
-    def playedIds(user: User, max: Int) =
-      lila.db.LowLevelDistinct(attemptColl)(Attempt.BSONFields.puzzleId,
+    def playedIds(user: User, max: Int): Fu[BSONArray] =
+      attemptColl.distinct(Attempt.BSONFields.puzzleId,
         BSONDocument(Attempt.BSONFields.userId -> user.id).some
-      )
+      ) map BSONArray.apply
 
     def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
       BSONDocument(Attempt.BSONFields.userId -> user.id),

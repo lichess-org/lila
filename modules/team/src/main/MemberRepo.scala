@@ -12,10 +12,10 @@ object MemberRepo {
   type ID = String
 
   def userIdsByTeam(teamId: ID): Fu[Set[ID]] =
-    memberTube.coll.distinct[ID, Set]("user", BSONDocument("team" -> teamId).some)
+    memberTube.coll.distinct("user", BSONDocument("team" -> teamId).some) map lila.db.BSON.asStringSet
 
   def teamIdsByUser(userId: ID): Fu[Set[ID]] =
-    memberTube.coll.distinct[ID, Set]("team", BSONDocument("user" -> userId).some)
+    memberTube.coll.distinct("team", BSONDocument("user" -> userId).some) map lila.db.BSON.asStringSet
 
   def removeByteam(teamId: ID): Funit =
     $remove(teamQuery(teamId))

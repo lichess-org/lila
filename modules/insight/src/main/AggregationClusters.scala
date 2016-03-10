@@ -12,7 +12,7 @@ object AggregationClusters {
     }
 
   private def single[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
-    res.firstBatch.flatMap { doc =>
+    res.documents.flatMap { doc =>
       for {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         value <- doc.getAs[BSONNumberLike]("v")
@@ -25,7 +25,7 @@ object AggregationClusters {
   private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
 
   private def stacked[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
-    res.firstBatch.flatMap { doc =>
+    res.documents.flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
       // println(lila.db.BSON debug doc)
       for {

@@ -38,7 +38,7 @@ private[timeline] final class Push(
       }
   }
 
-  private def propagate(propagations: List[Propagation]): Fu[Set[String]] =
+  private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     propagations.map {
       case Users(ids)    => fuccess(ids)
       case Followers(id) => getFollowerIds(id)
@@ -48,13 +48,13 @@ private[timeline] final class Push(
       }
       case ExceptUser(_) => fuccess(Nil)
     }.sequence map { users =>
-      propagations.foldLeft(users.flatten.toSet) {
+      propagations.foldLeft(users.flatten.distinct) {
         case (us, ExceptUser(id)) => us filter (id!=)
         case (us, _)              => us
       }
     }
 
-  private def makeEntry(users: Set[String], data: Atom): Fu[Entry] =
+  private def makeEntry(users: List[String], data: Atom): Fu[Entry] =
     Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry =>

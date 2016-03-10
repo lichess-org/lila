@@ -51,7 +51,7 @@ final class RelationApi(
       "_id" -> BSONDocument("$setIntersection" -> BSONArray("$u1", "$u2"))
     ))
   )).map {
-    ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
+    ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
   def fetchFollows(u1: ID, u2: ID) =

@@ -84,7 +84,7 @@ final class Gamify(
     )), List(
       GroupField("mod")("nb" -> SumValue(1)),
       Sort(Descending("nb")))).map {
-      _.firstBatch.flatMap { obj =>
+      _.documents.flatMap { obj =>
         obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
       }
     }
@@ -97,7 +97,7 @@ final class Gamify(
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb")))).map {
-        _.firstBatch.flatMap { obj =>
+        _.documents.flatMap { obj =>
           obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
         }
       }

@@ -82,7 +82,7 @@ object PairingRepo {
         Unwind("u"),
         GroupField("u")("nb" -> SumValue(1))
       )).map {
-        _.firstBatch.flatMap { doc =>
+        _.documents.flatMap { doc =>
           doc.getAs[String]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
@@ -131,12 +131,12 @@ object PairingRepo {
       Project(BSONDocument(
         "u" -> BSONBoolean(true), "_id" -> BSONBoolean(false))),
       Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
-      _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
+      _.documents.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
 
   def playingGameIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
       Group(BSONBoolean(true))("ids" -> Push("_id")))).map(
-      _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
+      _.documents.headOption.flatMap(_.getAs[List[String]]("ids")).
         getOrElse(List.empty[String]))
 }
