@@ -34,7 +34,7 @@ private final class KamonPusher(
     case Tick =>
       lila.mon.jvm.thread(threadStats.getThreadCount)
       lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
-      lila.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds.pp)
+      lila.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds)
       lila.mon.user.online(countUsers())
       scheduleTick
   }
@@ -43,4 +43,17 @@ private final class KamonPusher(
 object KamonPusher {
 
   private case object Tick
+}
+
+import kamon.statsd._
+import kamon.metric.{ MetricKey, Entity }
+import com.typesafe.config.Config
+
+// trying to organize metrics with dots
+class KeepDotsMetricKeyGenerator(config: Config) extends SimpleMetricKeyGenerator(config) {
+
+  override def createNormalizer(strategy: String): Normalizer = strategy match {
+    case "keep-dots" => (s: String) ⇒ s.replace(": ", "-").replace(" ", "_").replace("/", "_") //.replace(".", "_")
+    case _ => super.createNormalizer(strategy)
+  }
 }

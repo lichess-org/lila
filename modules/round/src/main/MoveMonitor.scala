@@ -8,15 +8,12 @@ private final class MoveMonitor(
     system: ActorSystem,
     channel: ActorRef) {
 
-  private val timeName = "round.move.time"
-  private val countName = "round.move.count"
-
   def record(ms: Option[Int]) = {
     ms foreach lila.mon.round.move.time
     lila.mon.round.move.count()
   }
 
-  Kamon.metrics.subscribe("histogram", timeName, system.actorOf(Props(new Actor {
+  Kamon.metrics.subscribe("histogram", "round.move", system.actorOf(Props(new Actor {
     def receive = {
       case tick: TickMetricSnapshot => tick.metrics.collectFirst {
         case (entity, snapshot) if entity.category == "histogram" => snapshot
