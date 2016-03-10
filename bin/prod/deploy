@@ -52,8 +52,6 @@ if [ "$2" == "asset" ]; then
    bin/prod/compile-client
 fi
 
-exit 0
-
 if [ $mode == "main" ]; then
   lilalog "Notify users of pre deploy"
   bin/cli-prod deploy pre
