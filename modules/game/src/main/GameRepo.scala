@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.bson.{ BSONDocument, BSONArray, BSONBinary, BSONInteger }
+import kamon.Kamon
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -246,6 +247,11 @@ object GameRepo {
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     $insert bson bson
+  } >>- {
+    Kamon.metrics.counter(s"game.create.variant.${g.variant.key}")
+    Kamon.metrics.counter(s"game.create.source.${g.source.fold("unknown")(_.name)}")
+    Kamon.metrics.counter(s"game.create.speed.${g.speed.name}")
+    Kamon.metrics.counter(s"game.create.mode.${g.mode.name}")
   }
 
   def removeRecentChallengesOf(userId: String) =
