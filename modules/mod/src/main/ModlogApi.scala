@@ -4,6 +4,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import tube.modlogTube
 import play.api.libs.json.Json
+import kamon.Kamon
 
 final class ModlogApi {
 
@@ -102,6 +103,7 @@ final class ModlogApi {
     $find($query(Json.obj("user" -> userId)) sort $sort.desc("date"), 100)
 
   private def add(m: Modlog): Funit = {
+    Kamon.metrics.counter("mod.log.create").increment()
     play.api.Logger("ModApi").info(m.toString)
     $insert(m)
   }
