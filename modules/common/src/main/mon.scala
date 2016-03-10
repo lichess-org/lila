@@ -155,9 +155,9 @@ object mon {
     }
   }
   object analysis {
-    def count(ip: String) = inc(s"analysis.$ip.count")
-    def time(ip: String) = rec(s"analysis.$ip.time")
+    def success(ip: String) = inc(s"analysis.$ip.success")
     def fail(ip: String) = inc(s"analysis.$ip.fail")
+    def time(ip: String) = rec(s"analysis.$ip")
   }
   object game {
     def finish(status: String) = inc(s"game.finish.$status")

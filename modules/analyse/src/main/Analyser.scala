@@ -85,7 +85,7 @@ final class Analyser(
                   } >>- {
                     GameRepo.setAnalysed(game.id)
                     val time = (nowMillis - a1.date.getMillis).toInt
-                    lila.mon.analysis.count(fromIp)()
+                    lila.mon.analysis.success(fromIp)()
                     lila.mon.analysis.time(fromIp)(time)
                   } inject analysis
                 }
