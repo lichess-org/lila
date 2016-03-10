@@ -2,6 +2,7 @@ package lila.round
 
 import reactivemongo.bson._
 
+import kamon.Kamon
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import org.joda.time.DateTime
@@ -25,13 +26,16 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
   import Forecast._
 
-  private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = coll.update(
-    BSONDocument("_id" -> pov.fullId),
-    Forecast(
-      _id = pov.fullId,
-      steps = steps,
-      date = DateTime.now).truncate,
-    upsert = true).void
+  private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
+    Kamon.metrics.counter("round.forecast.save").increment()
+    coll.update(
+      BSONDocument("_id" -> pov.fullId),
+      Forecast(
+        _id = pov.fullId,
+        steps = steps,
+        date = DateTime.now).truncate,
+      upsert = true).void
+  }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
     case None => coll.remove(BSONDocument("_id" -> pov.fullId)).void
