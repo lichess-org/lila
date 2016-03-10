@@ -11,6 +11,7 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.user.User
 
 import play.api.libs.json._
+import kamon.Kamon
 
 private final class PushApi(
     googlePush: GooglePush,
