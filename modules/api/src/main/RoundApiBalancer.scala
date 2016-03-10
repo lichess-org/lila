@@ -60,8 +60,11 @@ private[api] final class RoundApiBalancer(
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
-    withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
+    withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] = {
     router ? Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) mapTo manifest[JsObject]
+  }.chronometer
+    .mon(_.round.api.watcher)
+    .result
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
     router ? UserAnalysis(pov, pref, initialFen, orientation, owner) mapTo manifest[JsObject]
