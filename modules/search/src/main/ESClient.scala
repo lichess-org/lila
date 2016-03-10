@@ -1,5 +1,6 @@
 package lila.search
 
+import kamon.Kamon
 import play.api.libs.json._
 
 sealed trait ESClient {
@@ -22,14 +23,17 @@ final class ESClientHttp(
   import play.api.libs.ws.WS
   import play.api.Play.current
 
-  def store(id: Id, doc: JsObject) = writeable ??
+  def store(id: Id, doc: JsObject) = writeable ?? monitor("store") {
     HTTP(s"store/${index.name}/${id.value}", doc)
+  }
 
-  def search[Q: Writes](query: Q, from: From, size: Size) =
+  def search[Q: Writes](query: Q, from: From, size: Size) = monitor("search") {
     HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
+  }
 
-  def count[Q: Writes](query: Q) =
+  def count[Q: Writes](query: Q) = monitor("count") {
     HTTP(s"count/${index.name}", query, CountResponse.apply)
+  }
 
   def deleteById(id: lila.search.Id) = writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
@@ -52,7 +56,8 @@ final class ESClientHttp(
     }
   private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
-  private val logger = play.api.Logger("ESClientHttp")
+  private def monitor[A](name: String)(f: Fu[A]) =
+    f.chronometer.kamon(s"search.client.$name").result
 }
 
 final class ESClientStub extends ESClient {
