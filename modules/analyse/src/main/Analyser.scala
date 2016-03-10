@@ -1,10 +1,10 @@
 package lila.analyse
 
-import scala.concurrent.Future
-import scala.util.{ Success, Failure }
-
 import akka.actor.ActorSelection
 import chess.format.UciDump
+import kamon.Kamon
+import scala.concurrent.Future
+import scala.util.{ Success, Failure }
 
 import lila.db.api._
 import lila.game.actorApi.InsertGame
@@ -83,7 +83,12 @@ final class Analyser(
                   indexer ! InsertGame(game)
                   AnalysisRepo.done(id, analysis, fromIp) >>- {
                     bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-                  } >>- GameRepo.setAnalysed(game.id) inject analysis
+                  } >>- {
+                    GameRepo.setAnalysed(game.id)
+                    val time = (nowMillis - a1.date.getMillis).toInt
+                    Kamon.metrics.counter(s"analysis.complete.$fromIp").increment()
+                    Kamon.metrics.histogram(s"analysis.time") record time
+                  } inject analysis
                 }
                 else fufail(s"[analysis] invalid analysis ${analysis}\nwith errors $errors")
             })
@@ -97,6 +102,9 @@ final class Analyser(
 
   def completeErr(id: String, err: String, fromIp: String) =
     $find.byId[Game](id) zip getNotDone(id) flatMap {
-      case (Some(game), Some(a1)) if game.analysable => AnalysisRepo remove id
+      case (Some(game), Some(a1)) if game.analysable =>
+        Kamon.metrics.counter(s"analysis.fail.$fromIp").increment()
+        AnalysisRepo remove id
+      case _ => fufail(s"[analysis] invalid analysis $id")
     }
 }
