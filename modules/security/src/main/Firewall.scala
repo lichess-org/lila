@@ -36,7 +36,7 @@ final class Firewall(
     cookieName.fold(blocksIp(req.remoteAddress)) { cn =>
       blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
     } addEffect { v =>
-      Kamon.metrics.counter("security.firewall.block").increment()
+      if (v) Kamon.metrics.counter("security.firewall.block").increment()
     }
   }
   else fuccess(false)
