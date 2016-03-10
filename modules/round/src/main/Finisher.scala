@@ -3,6 +3,7 @@ package lila.round
 import chess.Color._
 import chess.Status._
 import chess.{ Status, Color, Speed }
+import kamon.Kamon
 
 import lila.db.api._
 import lila.game.actorApi.{ FinishGame, AbortedBy }
@@ -39,12 +40,14 @@ private[round] final class Finisher(
 
   private def apply(
     game: Game,
-    status: Status.type => Status,
+    makeStatus: Status.type => Status,
     winner: Option[Color] = None,
     message: Option[SelectI18nKey] = None): Fu[Events] = {
-    val prog = game.finish(status(Status), winner)
+    val status = makeStatus(Status)
+    val prog = game.finish(status, winner)
     if (game.nonAi && game.isCorrespondence)
       Color.all foreach notifyTimeline(prog.game)
+    Kamon.metrics.counter(s"game.finish.${status.name}").increment()
     casualOnly.fold(
       GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
       fuccess(prog.game)
