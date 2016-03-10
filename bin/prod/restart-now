@@ -1,14 +1,13 @@
 #!/bin/sh
-. bin/lilarc
 
 DIR="/home/lichess"
 
-lilalog "Notify users of post deploy"
+echo "Notify users of post deploy"
 bin/cli-prod deploy post
 
 sleep 1
 
-lilalog "Restart lichess"
+echo "Restart lichess"
 service lichess restart
 
-lilalog "Restart complete"
+echo "Restart complete"
