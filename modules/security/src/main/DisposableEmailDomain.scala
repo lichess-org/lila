@@ -15,6 +15,7 @@ final class DisposableEmailDomain(
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
       setDomains(res.json)
+      lila.mon.email.disposableDomain(matchers.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
       case e: Exception                 => onError(e)
@@ -27,7 +28,6 @@ final class DisposableEmailDomain(
       val regex = s"""(.+\\.|)${d.replace(".", "\\.")}"""
       makeMatcher(regex)
     }
-    lila.mon.email.disposableDomain(matchers.size)
     failed = false
   }
   catch {
