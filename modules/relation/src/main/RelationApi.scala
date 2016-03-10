@@ -12,6 +12,7 @@ import lila.user.{ User => UserModel, UserRepo }
 import tube.relationTube
 
 import BSONHandlers._
+import kamon.Kamon
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
@@ -100,9 +101,11 @@ final class RelationApi(
       case true => fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
         case (Some(Follow), _) => funit
         case (_, Some(Block))  => funit
-        case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>-
-          reloadOnlineFriends(u1, u2) >>-
-          (timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2)))
+        case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
+          reloadOnlineFriends(u1, u2)
+          timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
+          Kamon.metrics.counter("relation.follow").increment()
+        }
       }
     }
 
@@ -118,15 +121,21 @@ final class RelationApi(
     if (u1 == u2) funit
     else fetchBlocks(u1, u2) flatMap {
       case true => funit
-      case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>- reloadOnlineFriends(u1, u2) >>-
+      case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>- {
+        reloadOnlineFriends(u1, u2)
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
+        Kamon.metrics.counter("relation.block").increment()
+      }
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else fetchFollows(u1, u2) flatMap {
-      case true => RelationRepo.unfollow(u1, u2) >>- reloadOnlineFriends(u1, u2)
-      case _    => funit
+      case true => RelationRepo.unfollow(u1, u2) >>- {
+        reloadOnlineFriends(u1, u2)
+        Kamon.metrics.counter("relation.unfollow").increment()
+      }
+      case _ => funit
     }
 
   def unfollowAll(u1: ID): Funit = RelationRepo.unfollowAll(u1)
@@ -134,8 +143,11 @@ final class RelationApi(
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
     else fetchBlocks(u1, u2) flatMap {
-      case true => RelationRepo.unblock(u1, u2) >>- reloadOnlineFriends(u1, u2) >>-
+      case true => RelationRepo.unblock(u1, u2) >>- {
+        reloadOnlineFriends(u1, u2)
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
+        Kamon.metrics.counter("relation.block").increment()
+      }
       case _ => funit
     }
 
