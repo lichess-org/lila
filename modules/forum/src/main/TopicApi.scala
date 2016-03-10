@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import akka.actor.ActorSelection
+import kamon.Kamon
 
 import lila.common.paginator._
 import lila.db.api._
@@ -65,12 +66,14 @@ private[forum] final class TopicApi(
             shutup ! post.isTeam.fold(
               lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
               lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text))
-          } >>-
-          ((ctx.userId ifFalse post.troll) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-              post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
-            )
-          }) inject topic
+          } >>- {
+            (ctx.userId ifFalse post.troll) ?? { userId =>
+              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
+                post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
+              )
+            }
+            Kamon.metrics.counter("forum.post.create").increment()
+          } inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(

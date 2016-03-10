@@ -4,6 +4,7 @@ import actorApi._
 import akka.actor.ActorSelection
 import org.joda.time.DateTime
 import play.api.libs.json._
+import kamon.Kamon
 
 import lila.common.paginator._
 import lila.db.api._
@@ -55,15 +56,17 @@ final class PostApi(
                 shutup ! post.isTeam.fold(
                   lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
                   lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
-              } >>-
-              ((ctx.userId ifFalse post.troll) ?? { userId =>
-                timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-                  post.isStaff.fold(
-                    prop toStaffFriendsOf userId,
-                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+              } >>- {
+                (ctx.userId ifFalse post.troll) ?? { userId =>
+                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
+                    post.isStaff.fold(
+                      prop toStaffFriendsOf userId,
+                      prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                    )
                   )
-                )
-              }) inject post
+                }
+                Kamon.metrics.counter("forum.post.create").increment()
+              } inject post
         }
     }
 
