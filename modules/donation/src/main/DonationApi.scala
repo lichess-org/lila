@@ -1,5 +1,6 @@
 package lila.donation
 
+import kamon.Kamon
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 import org.joda.time.DateTime
@@ -73,6 +74,10 @@ final class DonationApi(
         ~obj.getAs[Int]("net")
       } map (_.sum) map { amount =>
         Progress(from, monthlyGoal, amount)
+      } addEffect { prog =>
+        Kamon.metrics.histogram("donation.amount.goal") record prog.goal
+        Kamon.metrics.histogram("donation.amount.current") record prog.current
+        Kamon.metrics.histogram("donation.amount.percent") record prog.percent
       }
   }
 }
