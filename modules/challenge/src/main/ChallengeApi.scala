@@ -82,7 +82,7 @@ final class ChallengeApi(
       } yield success
     }
 
-  def removeByUserId = repo removeCreatedByChallengerId  _
+  def removeByUserId = repo removeByUserId  _
 
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
