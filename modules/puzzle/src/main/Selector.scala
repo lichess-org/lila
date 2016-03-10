@@ -5,7 +5,7 @@ import scala.util.Random
 
 import reactivemongo.api.QueryOpts
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONArray }
-import reactivemongo.core.commands.Count
+import kamon.Kamon
 
 import lila.db.Types.Coll
 import lila.user.User
@@ -32,6 +32,7 @@ private[puzzle] final class Selector(
   val anonSkipMax = 5000
 
   def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
+    Kamon.metrics.counter("puzzle.selector.count").increment()
     val isMate = scala.util.Random.nextBoolean
     me match {
       case None =>
@@ -46,7 +47,7 @@ private[puzzle] final class Selector(
           tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
         }
     }
-  }
+  }.chronometer.kamon("puzzle.selector.time").result
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
