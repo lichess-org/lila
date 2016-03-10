@@ -66,7 +66,7 @@ private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorC
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
 private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String], mobile: Boolean)
 private[lobby] case object Resync
-private[lobby] case class HookIds(ids: List[String])
+private[lobby] case class HookIds(ids: Vector[String])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)

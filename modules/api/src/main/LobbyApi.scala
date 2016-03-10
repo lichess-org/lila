@@ -22,7 +22,7 @@ final class LobbyApi(
   import makeTimeout.large
 
   def apply(implicit ctx: Context): Fu[JsObject] =
-    (lobby ? HooksFor(ctx.me)).mapTo[List[Hook]] zip
+    (lobby ? HooksFor(ctx.me)).mapTo[Vector[Hook]] zip
       ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
       (ctx.me ?? GameRepo.urgentGames) zip
       getFilter(ctx) map {

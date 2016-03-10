@@ -36,7 +36,7 @@ private[lobby] final class Lobby(
       val replyTo = sender
       (userOption.map(_.id) ?? blocking) foreach { blocks =>
         val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.list.filter { hook =>
+        replyTo ! HookRepo.vector.filter { hook =>
           ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
         }
       }
@@ -104,13 +104,13 @@ private[lobby] final class Lobby(
       }
 
     case Broom =>
+      HookRepo.truncateIfNeeded
       (socket ? GetUids mapTo manifest[SocketUids]).chronometer
         .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
         .kamon("lobby.socket.GetUids")
         .result
         .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
         .addFailureEffect { _ =>
-          HookRepo.truncateIfNeeded
           scheduleBroom
         } pipeTo self
 
@@ -119,7 +119,7 @@ private[lobby] final class Lobby(
       val hooks = {
         (HookRepo notInUids uids).filter {
           _.createdAt isBefore createdBefore
-        } ::: HookRepo.cleanupOld
+        } ++ HookRepo.cleanupOld
       }.toSet
       // play.api.Logger("lobby").debug(
       //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
@@ -134,7 +134,7 @@ private[lobby] final class Lobby(
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync =>
-      socket ! HookIds(HookRepo.list.map(_.id))
+      socket ! HookIds(HookRepo.vector.map(_.id))
       scheduleResync
   }
 
@@ -156,9 +156,9 @@ private[lobby] final class Lobby(
   private def findCompatible(hook: Hook): Fu[Option[Hook]] =
     findCompatibleIn(hook, HookRepo findCompatible hook)
 
-  private def findCompatibleIn(hook: Hook, in: List[Hook]): Fu[Option[Hook]] = in match {
-    case Nil => fuccess(none)
-    case h :: rest => Biter.canJoin(h, hook.user) ?? !{
+  private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Fu[Option[Hook]] = in match {
+    case Vector() => fuccess(none)
+    case h +: rest => Biter.canJoin(h, hook.user) ?? !{
       (h.user |@| hook.user).tupled ?? {
         case (u1, u2) =>
           GameRepo.lastGameBetween(u1.id, u2.id, DateTime.now minusHours 1) map {
