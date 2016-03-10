@@ -5,6 +5,7 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
+import kamon.Kamon
 
 private final class Streaming(
     system: ActorSystem,
@@ -89,6 +90,7 @@ private final class Streaming(
           case html: play.twirl.api.Html =>
             context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
         }
+        Kamon.metrics.histogram("tv.streamers") record streams.size
     }
   }))
 
