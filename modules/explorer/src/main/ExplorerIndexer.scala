@@ -94,10 +94,14 @@ private final class ExplorerIndexer(
       if (buf.size >= max) {
         WS.url(endPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
-            val gameMs = (nowMillis - startAt) / max
-            logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
-          case Success(res) => logger.warn(s"[${res.status}]")
-          case Failure(err) => logger.warn(s"$err")
+            lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
+            lila.mon.explorer.index.success()
+          case Success(res) =>
+            logger.warn(s"[${res.status}]")
+            lila.mon.explorer.index.failure()
+          case Failure(err) =>
+            logger.warn(s"$err")
+            lila.mon.explorer.index.failure()
         }
         buf.clear
       }

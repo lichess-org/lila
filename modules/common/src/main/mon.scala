@@ -66,6 +66,13 @@ object mon {
       val count = inc("round.move")
     }
   }
+  object explorer {
+    object index {
+      val success = inc("explorer.index.success")
+      val failure = inc("explorer.index.failure")
+      val time = rec("explorer.index.time")
+    }
+  }
   object insight {
     val request = rec("insight.request")
   }
