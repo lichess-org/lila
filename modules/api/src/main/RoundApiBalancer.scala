@@ -52,7 +52,7 @@ private[api] final class RoundApiBalancer(
       play.api.Logger("RoundApiBalancer").error(s"$pov $e")
     }
   }.chronometer
-    .kamon("round.api.player")
+    .mon(_.round.api.player)
     .logIfSlow(500, "RoundApiBalancer") { _ => s"outer player $pov" }
     .result
 

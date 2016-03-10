@@ -1,6 +1,5 @@
 package lila.search
 
-import kamon.Kamon
 import play.api.libs.json._
 
 sealed trait ESClient {
@@ -56,8 +55,8 @@ final class ESClientHttp(
     }
   private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
-  private def monitor[A](name: String)(f: Fu[A]) =
-    f.chronometer.kamon(s"search.client.$name").result
+  private def monitor[A](op: String)(f: Fu[A]) =
+    f.chronometer.mon(_.search.client(op)).result
 }
 
 final class ESClientStub extends ESClient {

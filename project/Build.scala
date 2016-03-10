@@ -67,7 +67,8 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, jgit, findbugs, RM, kamon.statsd)
+        play.api, hasher, config, apache, jgit, findbugs, RM,
+        kamon.core, kamon.statsd)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
@@ -119,7 +120,7 @@ object ApplicationBuild extends Build {
   // )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= provided(play.api, play.test, RM)
+    libraryDependencies ++= provided(play.api, play.test, RM, kamon.core)
   )
 
   lazy val rating = project("rating", Seq(common, db, chess)).settings(
@@ -186,7 +187,7 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user,
-    i18n, ai, pref, chat, history, playban)).settings(
+    i18n, ai, pref, chat, history, playban, kamon.core)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, hasher)
   )
 

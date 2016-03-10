@@ -6,7 +6,6 @@ import play.api.libs.concurrent.Akka
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._, Results._
-import kamon.Kamon
 
 import lila.app._
 import lila.common.HTTPRequest
@@ -91,7 +90,7 @@ object Main extends LilaController {
   def jslog(id: String) = Open { ctx =>
     val referer = HTTPRequest.referer(ctx.req)
     loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")
-    Kamon.metrics.counter("cheat.css-bot").increment()
+    lila.mon.cheat.cssBot()
     ctx.userId.?? {
       Env.report.api.autoBotReport(_, referer)
     }
@@ -102,7 +101,7 @@ object Main extends LilaController {
 
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
-      Kamon.metrics.counter("http.response.404").increment()
+      lila.mon.http.response.code404()
       NotFound(html.base.notFound())
     }
 }

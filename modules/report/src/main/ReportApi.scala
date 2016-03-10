@@ -1,7 +1,6 @@
 package lila.report
 
 import akka.actor.ActorSelection
-import kamon.Kamon
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
@@ -33,9 +32,7 @@ private[report] final class ReportApi {
     } >>- monitorUnprocessed
   }
 
-  private def monitorUnprocessed = nbUnprocessed foreach {
-    Kamon.metrics.histogram("mod.report.unprocessed").record(_)
-  }
+  private def monitorUnprocessed = nbUnprocessed foreach lila.mon.mod.report.unprocessed
 
   private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||

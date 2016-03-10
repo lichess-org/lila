@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import kamon.Kamon
 
 import actorApi._
 import lila.game.actorApi.FinishGame
@@ -34,7 +33,7 @@ private[tournament] final class Organizer(
           case _                                      => ejectLeavers(tour)
         }
       }
-      Kamon.metrics.histogram("tournament.created") record tours.size
+      lila.mon.tournament.created(tours.size)
     }
 
     case StartedTournaments =>
@@ -50,8 +49,8 @@ private[tournament] final class Organizer(
             nb
           }
         }.sequenceFu addEffect { playerCounts =>
-          Kamon.metrics.histogram("tournament.player") record playerCounts.sum
-          Kamon.metrics.histogram("tournament.started") record started.size
+          lila.mon.tournament.player(playerCounts.sum)
+          lila.mon.tournament.started(started.size)
         }
       }
 

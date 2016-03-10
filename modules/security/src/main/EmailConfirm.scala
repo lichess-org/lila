@@ -5,7 +5,6 @@ import lila.user.{ User, UserRepo }
 import com.roundeights.hasher.{ Hasher, Algo }
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
-import kamon.Kamon
 
 trait EmailConfirm {
 
@@ -35,7 +34,7 @@ final class EmailConfirmMailGun(
   def effective = true
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
-    Kamon.metrics.counter("security.email.confirm").increment()
+    lila.mon.email.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(sender),

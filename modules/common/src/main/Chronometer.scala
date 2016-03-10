@@ -24,6 +24,13 @@ object Chronometer {
       this
     }
 
+    def mon(path: lila.mon.RecPath) = {
+      lap foreach { l =>
+        lila.mon.recPath(path)(l.millis)
+      }
+      this
+    }
+
     def kamon(histogram: String) = {
       lap.foreach(_ kamon histogram)
       this

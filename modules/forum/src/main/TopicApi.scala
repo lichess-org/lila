@@ -2,7 +2,6 @@ package lila.forum
 
 import actorApi._
 import akka.actor.ActorSelection
-import kamon.Kamon
 
 import lila.common.paginator._
 import lila.db.api._
@@ -72,7 +71,7 @@ private[forum] final class TopicApi(
                 post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
               )
             }
-            Kamon.metrics.counter("forum.post.create").increment()
+            lila.mon.forum.post.create()
           } inject topic
     }
 

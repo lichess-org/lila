@@ -11,12 +11,9 @@ private final class MoveMonitor(
   private val timeName = "round.move.time"
   private val countName = "round.move.count"
 
-  private val time = Kamon.metrics.histogram(timeName)
-  private val count = Kamon.metrics.counter(countName)
-
   def record(ms: Option[Int]) = {
-    ms foreach { x => time.record(x) }
-    count.increment()
+    ms foreach lila.mon.round.move.time
+    lila.mon.round.move.count()
   }
 
   Kamon.metrics.subscribe("histogram", timeName, system.actorOf(Props(new Actor {

@@ -1,7 +1,6 @@
 package lila.socket
 
 import akka.actor._
-import kamon.Kamon
 
 import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers }
 
@@ -20,10 +19,12 @@ private[socket] final class Population extends Actor {
 
     case _: SocketEnter[_] =>
       nb = nb + 1
-      Kamon.metrics.counter("socket.enter").increment()
+      lila.mon.socket.open()
 
-    case _: SocketLeave[_] => nb = nb - 1
+    case _: SocketLeave[_] =>
+      nb = nb - 1
+      lila.mon.socket.close()
 
-    case PopulationTell    => bus.publish(NbMembers(nb), 'nbMembers)
+    case PopulationTell => bus.publish(NbMembers(nb), 'nbMembers)
   }
 }

@@ -3,7 +3,6 @@ package lila.security
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import kamon.Kamon
 
 final class DisposableEmailDomain(
     providerUrl: String,
@@ -24,13 +23,11 @@ final class DisposableEmailDomain(
 
   private[security] def setDomains(json: JsValue): Unit = try {
     val ds = json.as[List[String]]
-    if (ds.size != matchers.size)
-      loginfo(s"[disposable email] registered ${matchers.size} -> ${ds.size} domains")
     matchers = ds.map { d =>
       val regex = s"""(.+\\.|)${d.replace(".", "\\.")}"""
       makeMatcher(regex)
     }
-    Kamon.metrics.histogram("security.disposable_email_domains") record matchers.size
+    lila.mon.email.disposableDomain(matchers.size)
     failed = false
   }
   catch {

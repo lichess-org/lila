@@ -57,7 +57,7 @@ object Tournament extends LilaController {
             case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
               html.tournament.show(tour, _, chat)
             }
-          }.map { Ok(_) }.chronometer.kamon("http.time.tournament.website").result
+          }.map { Ok(_) }.chronometer.mon(_.http.response.tournament.show.website).result
         }
       },
       api = _ => repo byId id flatMap {
@@ -68,7 +68,7 @@ object Tournament extends LilaController {
               case (playerInfoExt, socketVersion) =>
                 env.jsonView(tour, page, ctx.userId, playerInfoExt, socketVersion)
             } map { Ok(_) }
-        }.chronometer.kamon("http.time.tournament.mobile").result
+        }.chronometer.mon(_.http.response.tournament.show.mobile).result
       } map (_ as JSON)
     ) map NoCache
   }

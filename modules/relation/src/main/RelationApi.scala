@@ -12,7 +12,6 @@ import lila.user.{ User => UserModel, UserRepo }
 import tube.relationTube
 
 import BSONHandlers._
-import kamon.Kamon
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
@@ -104,7 +103,7 @@ final class RelationApi(
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
-          Kamon.metrics.counter("relation.follow").increment()
+          lila.mon.relation.follow()
         }
       }
     }
@@ -124,7 +123,7 @@ final class RelationApi(
       case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>- {
         reloadOnlineFriends(u1, u2)
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
-        Kamon.metrics.counter("relation.block").increment()
+        lila.mon.relation.block()
       }
     }
 
@@ -133,7 +132,7 @@ final class RelationApi(
     else fetchFollows(u1, u2) flatMap {
       case true => RelationRepo.unfollow(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
-        Kamon.metrics.counter("relation.unfollow").increment()
+        lila.mon.relation.unfollow()
       }
       case _ => funit
     }
@@ -146,7 +145,7 @@ final class RelationApi(
       case true => RelationRepo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
-        Kamon.metrics.counter("relation.block").increment()
+        lila.mon.relation.unblock()
       }
       case _ => funit
     }

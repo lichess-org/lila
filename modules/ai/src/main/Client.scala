@@ -26,7 +26,7 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = doPlay(game, level, 1)
 
   private def doPlay(game: Game, level: Int, tries: Int = 1): Fu[PlayResult] =
-    getMoveResult(game, level).chronometer.kamon("ai.client.play").lap flatMap {
+    getMoveResult(game, level).chronometer.mon(_.ai.client.play).lap flatMap {
       case Chronometer.Lap(moveResult, millis) =>
         val aiLagSeconds = game.clock.??(_.isRunning) ?? {
           (millis - config.moveTime(level)) / 1000f

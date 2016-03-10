@@ -1,6 +1,5 @@
 package lila.app
 
-import kamon.Kamon
 import lila.common.HTTPRequest
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -8,14 +7,13 @@ import play.api.{ Application, GlobalSettings, Mode }
 
 object Global extends GlobalSettings {
 
-  Kamon.start()
-
   override def onStart(app: Application) {
+    kamon.Kamon.start()
     lila.app.Env.current
   }
 
   override def onStop(app: Application) {
-    Kamon.shutdown()
+    kamon.Kamon.shutdown()
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] =
@@ -24,7 +22,7 @@ object Global extends GlobalSettings {
       Action(NotFound("I am an AI server")).some
     }
     else {
-      Kamon.metrics.counter("http.request").increment()
+      lila.mon.http.request.all()
       Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
     }
 
@@ -42,7 +40,7 @@ object Global extends GlobalSettings {
     if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
     else if (error startsWith "Cannot parse parameter") onHandlerNotFound(req)
     else if (niceError(req)) {
-      Kamon.metrics.counter("http.response.400").increment()
+      lila.mon.http.response.code400()
       controllers.Lobby.handleStatus(req, Results.BadRequest)
     }
     else fuccess(BadRequest(error))
@@ -50,7 +48,7 @@ object Global extends GlobalSettings {
   override def onError(req: RequestHeader, ex: Throwable) =
     if (niceError(req)) {
       if (lila.common.PlayApp.isProd) {
-        Kamon.metrics.counter("http.response.500").increment()
+        lila.mon.http.response.code500()
         fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.api.Context(req))))
       }
       else super.onError(req, ex)

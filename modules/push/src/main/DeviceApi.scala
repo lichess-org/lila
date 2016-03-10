@@ -2,7 +2,6 @@ package lila.push
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
-import kamon.Kamon
 
 import lila.db.BSON._
 import lila.db.Types.Coll
@@ -24,7 +23,7 @@ private final class DeviceApi(coll: Coll) {
       .one[Device]
 
   def register(user: User, platform: String, deviceId: String) = {
-    Kamon.metrics.counter(s"push.register.$platform").increment()
+    lila.mon.push.register(platform)()
     coll.update(BSONDocument("_id" -> deviceId), Device(
       _id = deviceId,
       platform = platform,

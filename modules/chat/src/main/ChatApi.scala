@@ -1,7 +1,6 @@
 package lila.chat
 
 import chess.Color
-import kamon.Kamon
 import reactivemongo.bson.BSONDocument
 
 import lila.db.Types.Coll
@@ -80,7 +79,7 @@ final class ChatApi(
         "$each" -> List(line),
         "$slice" -> -maxLinesPerChat)
     )),
-    upsert = true) >>- Kamon.metrics.counter("chat.message").increment()
+    upsert = true) >>- lila.mon.chat.message()
 
   private object Writer {
 

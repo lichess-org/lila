@@ -4,7 +4,6 @@ import actorApi._
 import akka.actor.ActorSelection
 import org.joda.time.DateTime
 import play.api.libs.json._
-import kamon.Kamon
 
 import lila.common.paginator._
 import lila.db.api._
@@ -65,7 +64,7 @@ final class PostApi(
                     )
                   )
                 }
-                Kamon.metrics.counter("forum.post.create").increment()
+                lila.mon.forum.post.create()
               } inject post
         }
     }

@@ -34,7 +34,7 @@ final class InsightApi(
       GameRepo.userPovsByGameIds(gameIds, user) map { povs =>
         Answer(question, clusters, povs)
       }
-    }.chronometer.kamon("insight.ask.time").result
+    }.chronometer.mon(_.insight.request).result
 
   def userStatus(user: User): Fu[UserStatus] =
     GameRepo lastFinishedRatedNotFromPosition user flatMap {

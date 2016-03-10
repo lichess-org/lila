@@ -2,7 +2,6 @@ package lila.round
 
 import reactivemongo.bson._
 
-import kamon.Kamon
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 import org.joda.time.DateTime
@@ -27,7 +26,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   import Forecast._
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
-    Kamon.metrics.counter("round.forecast.save").increment()
+    lila.mon.round.forecast.create()
     coll.update(
       BSONDocument("_id" -> pov.fullId),
       Forecast(

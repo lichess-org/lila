@@ -3,7 +3,6 @@ package lila.security
 import scala.concurrent.duration._
 
 import java.net.InetAddress
-import kamon.Kamon
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
@@ -36,7 +35,7 @@ final class Firewall(
     cookieName.fold(blocksIp(req.remoteAddress)) { cn =>
       blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
     } addEffect { v =>
-      if (v) Kamon.metrics.counter("security.firewall.block").increment()
+      if (v) lila.mon.security.firewall.block()
     }
   }
   else fuccess(false)
@@ -89,8 +88,8 @@ final class Firewall(
     def fetch: Fu[Set[IP]] =
       firewallTube.coll.distinct("_id") map { res =>
         lila.db.BSON.asStringSet(res) map strToIp
-    } addEffect { ips =>
-      Kamon.metrics.histogram("security.firewall.ips") record ips.size
-    }
+      } addEffect { ips =>
+        lila.mon.security.firewall.ip(ips.size)
+      }
   }
 }

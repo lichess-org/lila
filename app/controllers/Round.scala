@@ -70,7 +70,7 @@ object Round extends LilaController with TheftPrevention {
                       prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
                   }
               }
-          }.chronometer.kamon("http.time.player.website").result,
+          }.chronometer.mon(_.http.response.player.website).result,
           notFound
         )
       },
@@ -79,7 +79,7 @@ object Round extends LilaController with TheftPrevention {
         else {
           if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
           Env.api.roundApi.player(pov, apiVersion).map { Ok(_) }
-            .chronometer.kamon("http.time.player.mobile").result
+            .chronometer.mon(_.http.response.player.mobile).result
         }
       }
     ) map NoCache
@@ -169,7 +169,7 @@ object Round extends LilaController with TheftPrevention {
                   val pgn = Env.api.pgnDump(pov.game, initialFen)
                   Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
               }
-        }.chronometer.kamon("http.time.watcher.website").result,
+        }.chronometer.mon(_.http.response.watcher.website).result,
         api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none, withOpening = false) map { Ok(_) }
       ) map NoCache
     }

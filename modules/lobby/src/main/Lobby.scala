@@ -12,7 +12,6 @@ import lila.hub.actorApi.{ GetUids, SocketUids }
 import lila.socket.actorApi.Broom
 import makeTimeout.short
 import org.joda.time.DateTime
-import kamon.Kamon
 
 private[lobby] final class Lobby(
     socket: ActorRef,
@@ -42,7 +41,7 @@ private[lobby] final class Lobby(
       }
 
     case msg@AddHook(hook) => {
-      Kamon.metrics.counter("lobby.hook.add").increment()
+      lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       findCompatible(hook) foreach {
@@ -52,7 +51,7 @@ private[lobby] final class Lobby(
     }
 
     case msg@AddSeek(seek) =>
-      Kamon.metrics.counter("lobby.seek.add").increment()
+      lila.mon.lobby.seek.create()
       findCompatible(seek) foreach {
         case Some(s) => self ! BiteSeek(s.id, seek.user)
         case None    => self ! SaveSeek(msg)
@@ -75,7 +74,7 @@ private[lobby] final class Lobby(
     }
 
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
-      Kamon.metrics.counter("lobby.hook.bite").increment()
+      lila.mon.lobby.hook.join()
       HookRepo byId hookId foreach { hook =>
         HookRepo byUid uid foreach remove
         Biter(hook, uid, user) pipeTo self
@@ -83,7 +82,7 @@ private[lobby] final class Lobby(
     }
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
-      Kamon.metrics.counter("lobby.seek.bite").increment()
+      lila.mon.lobby.seek.join()
       seekApi find seekId foreach {
         _ foreach { seek =>
           Biter(seek, user) pipeTo self
@@ -107,7 +106,7 @@ private[lobby] final class Lobby(
       HookRepo.truncateIfNeeded
       (socket ? GetUids mapTo manifest[SocketUids]).chronometer
         .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
-        .kamon("lobby.socket.GetUids")
+        .mon(_.lobby.socket.getUids)
         .result
         .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
         .addFailureEffect { _ =>
@@ -128,8 +127,8 @@ private[lobby] final class Lobby(
         self ! RemoveHooks(hooks)
       }
       scheduleBroom
-      Kamon.metrics.histogram("lobby.socket.member") record uids.size
-      Kamon.metrics.histogram("lobby.hook") record HookRepo.size
+      lila.mon.lobby.socket.member(uids.size)
+      lila.mon.lobby.hook.size(HookRepo.size)
 
     case RemoveHooks(hooks) => hooks foreach remove
 

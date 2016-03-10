@@ -5,7 +5,6 @@ import lila.user.{ User, UserRepo }
 import com.roundeights.hasher.{ Hasher, Algo }
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
-import kamon.Kamon
 
 final class PasswordReset(
     apiUrl: String,
@@ -15,7 +14,7 @@ final class PasswordReset(
     secret: String) {
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
-    Kamon.metrics.counter("security.email.reset_password").increment()
+    lila.mon.email.resetPassword()
     val url = s"$baseUrl/password/reset/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(sender),

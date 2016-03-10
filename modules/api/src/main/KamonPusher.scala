@@ -2,7 +2,6 @@ package lila.api
 
 import akka.actor._
 import java.lang.management.ManagementFactory
-import kamon.Kamon.metrics
 import scala.concurrent.duration._
 
 import lila.socket.actorApi.NbMembers
@@ -27,16 +26,16 @@ private final class KamonPusher(
   def receive = {
 
     case NbMembers(nb) =>
-      metrics.histogram("socket.member") record nb
+      lila.mon.socket.member(nb)
 
     case NbRounds(nb) =>
-      metrics.histogram("round.member") record nb
+      lila.mon.round.actor.member(nb)
 
     case Tick =>
-      metrics.histogram("jvm.thread") record threadStats.getThreadCount
-      metrics.histogram("jvm.daemon") record threadStats.getDaemonThreadCount
-      metrics.histogram("jvm.uptime") record app.uptime.toStandardSeconds.getSeconds
-      metrics.histogram("user.online") record countUsers()
+      lila.mon.jvm.thread(threadStats.getThreadCount)
+      lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
+      lila.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds.pp)
+      lila.mon.user.online(countUsers())
       scheduleTick
   }
 }

@@ -5,7 +5,6 @@ import scala.util.Random
 
 import reactivemongo.api.QueryOpts
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONArray }
-import kamon.Kamon
 
 import lila.db.Types.Coll
 import lila.user.User
@@ -29,9 +28,7 @@ private[opening] final class Selector(
     } recoverWith {
       case e: Exception => apply(none)
     }
-  }).chronometer.kamon("opening.selector.time").result >>- {
-    Kamon.metrics.counter("opening.selector.count").increment()
-  }
+  }).chronometer.mon(_.opening.selector.time).result >>- lila.mon.opening.selector.count()
 
   private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
     openingColl.find(BSONDocument(
