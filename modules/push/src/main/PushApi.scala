@@ -24,6 +24,7 @@ private final class PushApi(
       Pov.ofUserId(game, userId) ?? { pov =>
         IfAway(pov) {
           googlePush(userId) {
+            Kamon.metrics.counter(s"push.finish").increment()
             GooglePush.Data(
               title = pov.win match {
                 case Some(true)  => "You won!"
@@ -55,6 +56,7 @@ private final class PushApi(
           game.pgnMoves.lastOption ?? { sanMove =>
             IfAway(pov) {
               googlePush(userId) {
+                Kamon.metrics.counter(s"push.move").increment()
                 GooglePush.Data(
                   title = "It's your turn!",
                   body = s"${opponentName(pov)} played $sanMove",
@@ -81,6 +83,7 @@ private final class PushApi(
     c.challengerUser ?? { challenger =>
       lightUser(challenger.id) ?? { lightChallenger =>
         googlePush(dest.id) {
+          Kamon.metrics.counter(s"push.challenge.create").increment()
           GooglePush.Data(
             title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
             body = describeChallenge(c),
@@ -99,6 +102,7 @@ private final class PushApi(
     c.challengerUser.ifTrue(c.finalColor.white).filterNot(u => isOnline(u.id)) ?? { challenger =>
       val lightJoiner = joinerId flatMap lightUser
       googlePush(challenger.id) {
+        Kamon.metrics.counter(s"push.challenge.accept").increment()
         GooglePush.Data(
           title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
           body = describeChallenge(c),
