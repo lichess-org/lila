@@ -82,12 +82,14 @@ private final class Streaming(
         } pipeTo self
       }
 
-      case event@StreamsOnAir(streams) if onAir != streams =>
-        onAir = streams
-        import makeTimeout.short
-        renderer ? event foreach {
-          case html: play.twirl.api.Html =>
-            context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+      case event@StreamsOnAir(streams) =>
+        if (onAir != streams) {
+          onAir = streams
+          import makeTimeout.short
+          renderer ? event foreach {
+            case html: play.twirl.api.Html =>
+              context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+          }
         }
         streamerList.get foreach { all =>
           all foreach { streamer =>
