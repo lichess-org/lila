@@ -78,7 +78,14 @@ object mon {
     val notification = incX("timeline.notification")
   }
   object insight {
-    val request = rec("insight.request")
+    object request {
+      val count = inc("insight.request")
+      val time = rec("insight.request")
+    }
+    object index {
+      val count = inc("insight.index")
+      val time = rec("insight.index")
+    }
   }
   object search {
     def client(op: String) = rec(s"search.client.$op")
