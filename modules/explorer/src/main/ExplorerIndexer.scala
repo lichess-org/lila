@@ -95,13 +95,13 @@ private final class ExplorerIndexer(
         WS.url(endPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
-            lila.mon.explorer.index.success()
+            lila.mon.explorer.index.success(max)
           case Success(res) =>
             logger.warn(s"[${res.status}]")
-            lila.mon.explorer.index.failure()
+            lila.mon.explorer.index.failure(max)
           case Failure(err) =>
             logger.warn(s"$err")
-            lila.mon.explorer.index.failure()
+            lila.mon.explorer.index.failure(max)
         }
         buf.clear
       }

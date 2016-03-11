@@ -77,8 +77,8 @@ object mon {
   }
   object explorer {
     object index {
-      val success = inc("explorer.index.success")
-      val failure = inc("explorer.index.failure")
+      val success = incX("explorer.index.success")
+      val failure = incX("explorer.index.failure")
       val time = rec("explorer.index.time")
     }
   }
@@ -141,7 +141,10 @@ object mon {
     }
   }
   object tv {
-    val streamer = rec("tv.streamer")
+    object stream {
+      val count = rec("tv.streamer.count")
+      def name(n: String) = rec(s"tv.streamer.name.$n")
+    }
   }
   object relation {
     val follow = inc("relation.follow")
