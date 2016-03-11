@@ -59,7 +59,8 @@ object ApplicationBuild extends Build {
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
-    playban, insight, perfStat, slack, quote, challenge, explorer)
+    playban, insight, perfStat, slack, quote, challenge,
+    fishnet, explorer)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -222,6 +223,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val ai = project("ai", Seq(common, hub, chess, game, analyse, rating)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val fishnet = project("fishnet", Seq(common, chess, game, analyse, db)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

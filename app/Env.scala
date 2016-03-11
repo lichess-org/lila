@@ -156,4 +156,5 @@ object Env {
   def slack = lila.slack.Env.current
   def challenge = lila.challenge.Env.current
   def explorer = lila.explorer.Env.current
+  def fishnet = lila.fishnet.Env.current
 }
