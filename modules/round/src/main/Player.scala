@@ -34,7 +34,7 @@ private[round] final class Player(
         }.prefixFailuresWith(s"$pov ")
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              (GameRepo save progress) >>-
+              (GameRepo save progress).mon(_.round.move.save) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(

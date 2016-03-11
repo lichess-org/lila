@@ -9,8 +9,8 @@ private final class MoveMonitor(
     channel: ActorRef) {
 
   def record(nanos: Option[Long]) = {
-    nanos foreach lila.mon.round.move.time
-    lila.mon.round.move.count()
+    nanos foreach lila.mon.round.move.full.time
+    lila.mon.round.move.full.count()
   }
 
   Kamon.metrics.subscribe("histogram", "round.move", system.actorOf(Props(new Actor {

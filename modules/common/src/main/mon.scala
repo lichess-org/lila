@@ -62,8 +62,12 @@ object mon {
       val create = inc("round.forecast.create")
     }
     object move {
-      val time = rec("round.move")
-      val count = inc("round.move")
+      object full {
+        val time = rec("round.move.full")
+        val count = inc("round.move.full")
+      }
+      val fetch = rec("round.move.fetch")
+      val save = rec("round.move.save")
     }
     val crazyGlicko = inc("round.crazy_glicko")
   }
