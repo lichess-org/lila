@@ -1,7 +1,6 @@
 package lila.tournament
 package arena
 
-import lila.common.Chronometer
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 import lila.user.UserRepo
 

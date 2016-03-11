@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import chess.format.Uci
 import lila.analyse.Info
-import lila.common.Chronometer
 import lila.game.{ Game, GameRepo }
 import play.api.libs.ws.{ WS, WSRequest }
 import play.api.Play.current
