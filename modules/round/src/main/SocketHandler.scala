@@ -33,14 +33,14 @@ private[round] final class SocketHandler(
     ref: PovRef,
     member: Member): Handler.Controller = {
 
-    def round(msg: Any) { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
-      case ("outoftime", _) => round(Outoftime)
+      case ("outoftime", _) => send(Outoftime)
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -51,7 +51,7 @@ private[round] final class SocketHandler(
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid)
             }
-            round(HumanPlay(
+            send(HumanPlay(
               playerId, move, blur, lag.millis, promise.some
             ))
         }
@@ -62,23 +62,23 @@ private[round] final class SocketHandler(
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid)
             }
-            round(HumanPlay(
+            send(HumanPlay(
               playerId, drop, blur, lag.millis, promise.some
             ))
         }
-        case ("rematch-yes", _)  => round(RematchYes(playerId))
-        case ("rematch-no", _)   => round(RematchNo(playerId))
-        case ("takeback-yes", _) => round(TakebackYes(playerId))
-        case ("takeback-no", _)  => round(TakebackNo(playerId))
-        case ("draw-yes", _)     => round(DrawYes(playerId))
-        case ("draw-no", _)      => round(DrawNo(playerId))
-        case ("draw-claim", _)   => round(DrawClaim(playerId))
-        case ("resign", _)       => round(Resign(playerId))
-        case ("resign-force", _) => round(ResignForce(playerId))
-        case ("draw-force", _)   => round(DrawForce(playerId))
-        case ("abort", _)        => round(Abort(playerId))
-        case ("moretime", _)  => round(Moretime(playerId))
-        case ("outoftime", _) => round(Outoftime)
+        case ("rematch-yes", _)  => send(RematchYes(playerId))
+        case ("rematch-no", _)   => send(RematchNo(playerId))
+        case ("takeback-yes", _) => send(TakebackYes(playerId))
+        case ("takeback-no", _)  => send(TakebackNo(playerId))
+        case ("draw-yes", _)     => send(DrawYes(playerId))
+        case ("draw-no", _)      => send(DrawNo(playerId))
+        case ("draw-claim", _)   => send(DrawClaim(playerId))
+        case ("resign", _)       => send(Resign(playerId))
+        case ("resign-force", _) => send(ResignForce(playerId))
+        case ("draw-force", _)   => send(DrawForce(playerId))
+        case ("abort", _)        => send(Abort(playerId))
+        case ("moretime", _)  => send(Moretime(playerId))
+        case ("outoftime", _) => send(Outoftime)
         case ("bye", _)       => socket ! Bye(ref.color)
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)
@@ -87,7 +87,7 @@ private[round] final class SocketHandler(
           d ← o obj "d"
           mean ← d int "mean"
           sd ← d int "sd"
-        } round(HoldAlert(playerId, mean, sd, member.ip))
+        } send(HoldAlert(playerId, mean, sd, member.ip))
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentOrganizer ! Berserk(gameId, userId)
         }
