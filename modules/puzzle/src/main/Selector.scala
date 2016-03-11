@@ -46,7 +46,7 @@ private[puzzle] final class Selector(
           tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
         }
     }
-  }.chronometer.mon(_.puzzle.selector.time).result
+  }.mon(_.puzzle.selector.time)
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {

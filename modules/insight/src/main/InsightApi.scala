@@ -34,7 +34,7 @@ final class InsightApi(
       GameRepo.userPovsByGameIds(gameIds, user) map { povs =>
         Answer(question, clusters, povs)
       }
-    }.chronometer.mon(_.insight.request).result
+    }.mon(_.insight.request)
 
   def userStatus(user: User): Fu[UserStatus] =
     GameRepo lastFinishedRatedNotFromPosition user flatMap {

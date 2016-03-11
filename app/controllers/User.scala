@@ -36,7 +36,7 @@ object User extends LilaController {
   }
 
   def show(username: String) = OpenBody { implicit ctx =>
-    filter(username, none, 1).chronometer.mon(_.http.response.player.mobile).result
+    filter(username, none, 1).mon(_.http.response.player.mobile)
   }
 
   def showMini(username: String) = Open { implicit ctx =>
@@ -82,11 +82,10 @@ object User extends LilaController {
             else userGames(u, filterOption, page) map {
               case (filterName, pag) => html.user.games(u, pag, filterName)
             }
-          }.map { status(_) }
-            .chronometer.mon(_.http.response.user.show.website).result,
+          }.map { status(_) }.mon(_.http.response.user.show.website),
           api = _ => userGames(u, filterOption, page).map {
             case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
-          }.chronometer.mon(_.http.response.user.show.mobile).result)
+          }.mon(_.http.response.user.show.mobile))
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),
           api = _ => fuccess(NotFound(jsonError("No such user, or account closed"))))

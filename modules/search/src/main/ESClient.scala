@@ -55,8 +55,7 @@ final class ESClientHttp(
     }
   private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
-  private def monitor[A](op: String)(f: Fu[A]) =
-    f.chronometer.mon(_.search.client(op)).result
+  private def monitor[A](op: String)(f: Fu[A]) = f.mon(_.search.client(op))
 }
 
 final class ESClientStub extends ESClient {

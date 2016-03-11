@@ -32,7 +32,7 @@ object Lobby extends LilaController {
       tours = Env.tournament.cached promotable true,
       simuls = Env.simul allCreatedFeaturable true
     ) map (html.lobby.home.apply _).tupled map { status(_) } map ensureSessionId(ctx.req)
-  }.chronometer.mon(_.http.response.home).result
+  }.mon(_.http.response.home)
 
   def seeks = Open { implicit ctx =>
     negotiate(

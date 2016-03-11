@@ -28,7 +28,7 @@ private[opening] final class Selector(
     } recoverWith {
       case e: Exception => apply(none)
     }
-  }).chronometer.mon(_.opening.selector.time).result >>- lila.mon.opening.selector.count()
+  }).mon(_.opening.selector.time) >>- lila.mon.opening.selector.count()
 
   private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
     openingColl.find(BSONDocument(
