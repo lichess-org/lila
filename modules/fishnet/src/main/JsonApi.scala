@@ -1,7 +1,10 @@
 package lila.fishnet
 
-import play.api.libs.json._
 import org.joda.time.DateTime
+import play.api.libs.json._
+
+import chess.format.{ Uci, Forsyth }
+import chess.variant.Variant
 
 object JsonApi {
 
@@ -24,13 +27,21 @@ object JsonApi {
   case class Move(
     game_id: String,
     position: String,
-    variant: String,
-    moves: List[String]) extends Work
+    variant: Variant,
+    moves: List[Uci]) extends Work
+
+  def apply(m: lila.fishnet.Work.Move) = Move(
+    game_id = m.gameId,
+    position = m.position | Forsyth.initial,
+    variant = m.variant,
+    moves = m.moves)
 
   implicit val EngineReads = Json.reads[Client.Engine]
   implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
   implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
   implicit val AcquireReads = Json.reads[Acquire]
 
+  implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
+  implicit val UciWrites = Writes[Uci] { uci => JsString(uci.uci) }
   implicit val MoveWrites = Json.writes[Move]
 }

@@ -22,7 +22,18 @@ final class FishnetApi(
     }
   }
 
-  def acquire(client: Client): Fu[Option[JsonApi.Work]] = ???
+  def nextMove: Fu[Option[Work.Move]] = moveColl.find(BSONDocument(
+    "acquired" -> BSONDocument("$exists" -> false)
+  )).sort(BSONDocument("createdAt" -> -1)).one[Work.Move]
+
+  def acquire(client: Client, move: Work.Move): Funit =
+    moveColl.update(selectId(move.id), move.acquire(client)).void
+
+  def acquire(client: Client): Fu[Option[JsonApi.Work]] = nextMove.flatMap {
+    _ ?? { move =>
+      acquire(client, move) inject JsonApi(move).some
+    }
+  }
 
   def createClient(key: String, userId: String, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>

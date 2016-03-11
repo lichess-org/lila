@@ -14,7 +14,7 @@ object Fishnet extends LilaController {
 
   def acquire = Action.async(BodyParsers.parse.json) { req =>
     req.body.validate[lila.fishnet.JsonApi.Acquire].fold(
-      err => BadRequest(Json.obj("error" -> JsError.toFlatJson(err))).fuccess,
+      err => BadRequest(Json.obj("error" -> JsError.toJson(err))).fuccess,
       acquire => api.authenticateClient(acquire) flatMap {
         case None => Unauthorized.fuccess
         case Some(client) => api acquire client map {
