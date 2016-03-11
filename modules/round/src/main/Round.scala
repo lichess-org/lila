@@ -59,6 +59,7 @@ private[round] final class Round(
         if (pov.game outoftime lags.get) outOfTime(pov.game)
         else {
           lags.set(pov.color, p.lag.toMillis.toInt)
+          reportNetworkLag(pov)
           player.human(p, self)(pov)
         }
       } >>- monitorMove((nowNanos - p.atNanos).some)
@@ -196,6 +197,11 @@ private[round] final class Round(
       game.playable ?? finisher.other(game, _.Aborted)
     }
   }
+
+  private def reportNetworkLag(pov: Pov) =
+    if (pov.game.turns == 20) List(lags.white, lags.black).foreach { lag =>
+      if (lag > 0) lila.mon.round.move.networkLag(lag)
+    }
 
   private def outOfTime(game: Game) =
     finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>

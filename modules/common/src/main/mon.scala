@@ -68,6 +68,7 @@ object mon {
       }
       val fetch = rec("round.move.fetch")
       val save = rec("round.move.save")
+      val networkLag = rec("round.move.network_lag")
     }
     val crazyGlicko = inc("round.crazy_glicko")
   }
