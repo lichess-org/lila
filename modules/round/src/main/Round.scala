@@ -55,6 +55,7 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
+      lila.mon.since(_.round.move.segment.queue)(p.atNanos)
       handle(p.playerId) { pov =>
         if (pov.game outoftime lags.get) outOfTime(pov.game)
         else {

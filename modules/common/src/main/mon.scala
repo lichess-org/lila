@@ -67,6 +67,7 @@ object mon {
         val count = inc("round.move.full")
       }
       object segment {
+        val queue = rec("round.move.segment.queue")
         val fetch = rec("round.move.segment.fetch")
         val logic = rec("round.move.segment.logic")
         val save = rec("round.move.segment.save")
@@ -233,6 +234,8 @@ object mon {
     path(this)(System.nanoTime() - start)
     res
   }
+
+  def since[A](path: RecPath)(start: Long) = path(this)(System.nanoTime() - start)
 
   type Rec = Long => Unit
   type Inc = () => Unit
