@@ -76,7 +76,7 @@ private final class Streaming(
           StreamsOnAir {
             ss.foldLeft(List.empty[StreamOnAir]) {
               case (acc, s) if acc.exists(_.id == s.id) => acc
-              case (acc, s) => acc :+ s
+              case (acc, s)                             => acc :+ s
             }
           }
         } pipeTo self
@@ -89,7 +89,13 @@ private final class Streaming(
           case html: play.twirl.api.Html =>
             context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
         }
-        lila.mon.tv.streamer(streams.size)
+        streamerList.get foreach { all =>
+          all foreach { streamer =>
+            lila.mon.tv.stream.name(streamer.id) {
+              if (streams.exists(_ is streamer)) 1 else 0
+            }
+          }
+        }
     }
   }))
 
