@@ -65,7 +65,7 @@ final class Analyser(
     }
   }
 
-  def complete(id: String, data: String, fromIp: String) = {
+  def complete(id: String, data: String, source: String) = {
     limiter release id
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) if game.analysable =>
@@ -78,15 +78,15 @@ final class Analyser(
                 errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
                 if (analysis.valid) {
                   if (analysis.emptyRatio >= 1d / 10)
-                    fufail(s"Analysis $id from $fromIp has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+                    fufail(s"Analysis $id from $source has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   indexer ! InsertGame(game)
-                  AnalysisRepo.done(id, analysis, fromIp) >>- {
+                  AnalysisRepo.done(id, analysis, source) >>- {
                     bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
                   } >>- {
                     GameRepo.setAnalysed(game.id)
                     val time = (nowMillis - a1.date.getMillis).toInt
-                    lila.mon.analysis.success(fromIp)()
-                    lila.mon.analysis.time(fromIp)(time)
+                    lila.mon.ai.analysis.success(source)()
+                    lila.mon.ai.analysis.time(source)(time)
                   } inject analysis
                 }
                 else fufail(s"[analysis] invalid analysis ${analysis}\nwith errors $errors")
@@ -99,10 +99,10 @@ final class Analyser(
     }
   }
 
-  def completeErr(id: String, err: String, fromIp: String) =
+  def completeErr(id: String, err: String, source: String) =
     $find.byId[Game](id) zip getNotDone(id) flatMap {
       case (Some(game), Some(a1)) if game.analysable =>
-        lila.mon.analysis.fail(fromIp)()
+        lila.mon.ai.analysis.fail(source)()
         AnalysisRepo remove id
       case _ => fufail(s"[analysis] invalid analysis $id")
     }

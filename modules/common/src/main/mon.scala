@@ -68,6 +68,8 @@ object mon {
       }
       val fetch = rec("round.move.fetch")
       val save = rec("round.move.save")
+      val chess = rec("round.move.chess")
+      val game = rec("round.move.game")
       val networkLag = rec("round.move.network_lag")
     }
     val crazyGlicko = inc("round.crazy_glicko")
@@ -182,11 +184,6 @@ object mon {
     }
     val crazyGlicko = inc("opening.crazy_glicko")
   }
-  object analysis {
-    def success(ip: String) = inc(s"analysis.$ip.success")
-    def fail(ip: String) = inc(s"analysis.$ip.fail")
-    def time(ip: String) = rec(s"analysis.$ip")
-  }
   object game {
     def finish(status: String) = inc(s"game.finish.$status")
     object create {
@@ -209,9 +206,23 @@ object mon {
     }
   }
   object ai {
-    object client {
-      val play = rec("ai.client.play")
+    object play {
+      def success(source: String) = inc(s"ai.play.$source.success")
+      def fail(source: String) = inc(s"ai.play.$source.fail")
+      def time(source: String) = rec(s"ai.play.$source")
     }
+    object analysis {
+      def success(source: String) = inc(s"ai.analysis.$source.success")
+      def fail(source: String) = inc(s"ai.analysis.$source.fail")
+      def time(source: String) = rec(s"ai.analysis.$source")
+    }
+  }
+
+  def measure[A](path: RecPath)(op: => A) = {
+    val start = System.currentTimeMillis()
+    val res = op
+    path(this)(System.currentTimeMillis() - start)
+    res
   }
 
   type Rec = Long => Unit
@@ -221,8 +232,8 @@ object mon {
   type RecPath = lila.mon.type => Rec
   type IncPath = lila.mon.type => Inc
 
-  def recPath(f: lila.mon.type => Rec): Rec = f(lila.mon)
-  def incPath(f: lila.mon.type => Inc): Inc = f(lila.mon)
+  def recPath(f: lila.mon.type => Rec): Rec = f(this)
+  def incPath(f: lila.mon.type => Inc): Inc = f(this)
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)

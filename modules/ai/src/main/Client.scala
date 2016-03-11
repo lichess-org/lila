@@ -26,10 +26,12 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = doPlay(game, level, 1)
 
   private def doPlay(game: Game, level: Int, tries: Int = 1): Fu[PlayResult] =
-    getMoveResult(game, level).chronometer.mon(_.ai.client.play).lap flatMap {
-      case Chronometer.Lap(moveResult, millis) =>
+    getMoveResult(game, level).chronometer.lap flatMap {
+      case lap =>
+        val moveResult = lap.result
+        val source = moveResult.upstreamIp | "unknown"
         val aiLagSeconds = game.clock.??(_.isRunning) ?? {
-          (millis - config.moveTime(level)) / 1000f
+          (lap.millis - config.moveTime(level)) / 1000f
         }
         (for {
           uciMove ← (Uci.Move(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
@@ -40,9 +42,14 @@ final class Client(
             progress1.flatMap(_ withClock clock.giveTime(move.color, aiLagSeconds))
           }
           _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
-        } yield PlayResult(progress, move, moveResult.upstreamIp)) recoverWith {
+        } yield {
+          lila.mon.ai.play.time(source)(lap.nanos)
+          lila.mon.ai.play.success(source)()
+          PlayResult(progress, move, moveResult.upstreamIp)
+        }) recoverWith {
           case e if tries < 4 =>
             logwarn(s"[ai play] ${~moveResult.upstream} http://lichess.org/${game.id}#${game.turns} try $tries/3 ${e.getMessage}")
+            lila.mon.ai.play.fail(source)()
             doPlay(game, level, tries + 1)
         }
     }
@@ -61,7 +68,7 @@ final class Client(
       } yield moveResult
     }
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int, variant: Variant): Fu[MoveResult] = {
+  private def move(uciMoves: List[String], initialFen: Option[String], level: Int, variant: Variant): Fu[MoveResult] = {
     sendRequest(true) {
       WS.url(s"$endpoint/move").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),

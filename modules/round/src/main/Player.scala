@@ -20,7 +20,7 @@ private[round] final class Player(
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
-      case Pov(game, color) if game playableBy color => {
+      case Pov(game, color) if game playableBy color => lila.mon.measure(_.round.move.chess) {
         (uci match {
           case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
             case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
@@ -29,8 +29,9 @@ private[round] final class Player(
             case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
           }
         }).map {
-          case (newChessGame, moveOrDrop) =>
+          case (newChessGame, moveOrDrop) => lila.mon.measure(_.round.move.game) {
             game.update(newChessGame, moveOrDrop, blur, lag.some) -> moveOrDrop
+          }
         }.prefixFailuresWith(s"$pov ")
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, moveOrDrop) =>
