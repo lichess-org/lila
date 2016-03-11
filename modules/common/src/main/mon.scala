@@ -207,14 +207,14 @@ object mon {
   }
   object ai {
     object play {
-      def success(source: String) = inc(s"ai.play.$source.success")
-      def fail(source: String) = inc(s"ai.play.$source.fail")
-      def time(source: String) = rec(s"ai.play.$source")
+      def success(source: String) = inc(s"ai.play.${ip(source)}.success")
+      def fail(source: String) = inc(s"ai.play.${ip(source)}.fail")
+      def time(source: String) = rec(s"ai.play.${ip(source)}")
     }
     object analysis {
-      def success(source: String) = inc(s"ai.analysis.$source.success")
-      def fail(source: String) = inc(s"ai.analysis.$source.fail")
-      def time(source: String) = rec(s"ai.analysis.$source")
+      def success(source: String) = inc(s"ai.analysis.${ip(source)}.success")
+      def fail(source: String) = inc(s"ai.analysis.${ip(source)}.fail")
+      def time(source: String) = rec(s"ai.analysis.${ip(source)}")
     }
   }
 
@@ -238,4 +238,6 @@ object mon {
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
   private def rec(name: String): Rec = metrics.histogram(name).record(_)
+
+  private def ip(ip: String) = ip.replace(".", "_")
 }
