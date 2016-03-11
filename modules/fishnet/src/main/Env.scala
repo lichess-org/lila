@@ -18,6 +18,13 @@ final class Env(
     analysisColl = db(CollectionAnalysis),
     clientColl = db(CollectionClient),
     instanceColl = db(CollectionInstance))
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "fishnet" :: "add" :: "client" :: key :: userId :: skill :: Nil =>
+        api.createClient(key, userId, skill) inject "done!"
+    }
+  }
 }
 
 object Env {

@@ -6,6 +6,10 @@ case class Stats(
 
 object Stats {
 
+  def emptyResult = Result(0, 0, 0)
+
+  def empty = Stats(emptyResult, emptyResult)
+
   case class Result(
     acquire: Int,
     success: Int,
