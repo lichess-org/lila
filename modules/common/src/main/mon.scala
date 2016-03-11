@@ -99,8 +99,8 @@ object mon {
   }
   object jvm {
     val thread = rec("jvm.thread")
-    val daemon = rec("jvm.thread")
-    val uptime = rec("jvm.thread")
+    val daemon = rec("jvm.daemon")
+    val uptime = rec("jvm.uptime")
   }
   object user {
     val online = rec("user.online")
