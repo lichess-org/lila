@@ -210,6 +210,8 @@ trait WithPlay { self: PackageObject =>
     }
 
     def chronometer = lila.common.Chronometer(fua)
+
+    def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
