@@ -225,9 +225,9 @@ object mon {
   }
 
   def measure[A](path: RecPath)(op: => A) = {
-    val start = System.currentTimeMillis()
+    val start = System.nanoTime()
     val res = op
-    path(this)(System.currentTimeMillis() - start)
+    path(this)(System.nanoTime() - start)
     res
   }
 
