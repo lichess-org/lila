@@ -20,7 +20,7 @@ private[round] final class Player(
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
-      case Pov(game, color) if game playableBy color => lila.mon.measure(_.round.move.chess) {
+      case Pov(game, color) if game playableBy color => lila.mon.measure(_.round.move.segment.logic) {
         (uci match {
           case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
             case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
@@ -29,32 +29,30 @@ private[round] final class Player(
             case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
           }
         }).map {
-          case (newChessGame, moveOrDrop) => lila.mon.measure(_.round.move.game) {
-            game.update(newChessGame, moveOrDrop, blur, lag.some) -> moveOrDrop
-          }
-        }.prefixFailuresWith(s"$pov ")
-          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
-            case (progress, moveOrDrop) =>
-              (GameRepo save progress).mon(_.round.move.save) >>-
-                (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
-                notifyMove(moveOrDrop, progress.game) >>
-                progress.game.finished.fold(
-                  moveFinish(progress.game, color) map { progress.events ::: _ }, {
-                    cheatDetector(progress.game) addEffect {
-                      case Some(color) => round ! Cheat(color)
-                      case None =>
-                        if (progress.game.playableByAi) round ! AiPlay
-                        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-                        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                        moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
-                          round ! ForecastPlay(move)
-                        }
-                    } inject progress.events
-                  }) >>- promiseOption.foreach(_.success(()))
-          }
-      } addFailureEffect { e =>
-        promiseOption.foreach(_ failure e)
-      }
+          case (newChessGame, moveOrDrop) => game.update(newChessGame, moveOrDrop, blur, lag.some) -> moveOrDrop
+        }
+      }.prefixFailuresWith(s"$pov ")
+        .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
+          case (progress, moveOrDrop) =>
+            (GameRepo save progress).mon(_.round.move.segment.save) >>-
+              (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
+              notifyMove(moveOrDrop, progress.game) >>
+              progress.game.finished.fold(
+                moveFinish(progress.game, color) map { progress.events ::: _ }, {
+                  cheatDetector(progress.game) addEffect {
+                    case Some(color) => round ! Cheat(color)
+                    case None =>
+                      if (progress.game.playableByAi) round ! AiPlay
+                      if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+                      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+                      moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
+                        round ! ForecastPlay(move)
+                      }
+                  } inject progress.events
+                }) >>- promiseOption.foreach(_.success(()))
+        } addFailureEffect { e =>
+          promiseOption.foreach(_ failure e)
+        }
       case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")
       case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
       case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")

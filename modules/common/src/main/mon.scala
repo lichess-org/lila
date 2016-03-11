@@ -66,10 +66,11 @@ object mon {
         val time = rec("round.move.full")
         val count = inc("round.move.full")
       }
-      val fetch = rec("round.move.fetch")
-      val save = rec("round.move.save")
-      val chess = rec("round.move.chess")
-      val game = rec("round.move.game")
+      object segment {
+        val fetch = rec("round.move.segment.fetch")
+        val logic = rec("round.move.segment.logic")
+        val save = rec("round.move.segment.save")
+      }
       val networkLag = rec("round.move.network_lag")
     }
     val crazyGlicko = inc("round.crazy_glicko")
