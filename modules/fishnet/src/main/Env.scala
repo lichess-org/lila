@@ -11,13 +11,11 @@ final class Env(
   private val CollectionMove = config getString "collection.move"
   private val CollectionAnalysis = config getString "collection.analysis"
   private val CollectionClient = config getString "collection.client"
-  private val CollectionInstance = config getString "collection.instance"
 
   lazy val api = new FishnetApi(
     moveColl = db(CollectionMove),
     analysisColl = db(CollectionAnalysis),
-    clientColl = db(CollectionClient),
-    instanceColl = db(CollectionInstance))
+    clientColl = db(CollectionClient))
 
   def cli = new lila.common.Cli {
     def process = {

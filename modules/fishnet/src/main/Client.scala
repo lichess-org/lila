@@ -4,11 +4,13 @@ import org.joda.time.DateTime
 
 case class Client(
     _id: Client.Key, // API key used to authenticate and assign move or analysis
-    userId: String, // lichess user ID
-    skill: Client.Skill,
+    version: Client.Version, // 0.0.1
+    userId: Client.UserId, // lichess user ID
+    skill: Client.Skill, // what can this client do
     enabled: Boolean,
     stats: Stats,
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    lastSeenAt: Option[DateTime]) {
 
   def key = _id
 }
@@ -16,6 +18,8 @@ case class Client(
 object Client {
 
   case class Key(value: String) extends AnyVal
+  case class Version(value: String) extends AnyVal
+  case class UserId(value: String) extends AnyVal
 
   sealed trait Skill {
     def key = toString.toLowerCase

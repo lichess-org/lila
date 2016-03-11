@@ -6,8 +6,20 @@ import reactivemongo.bson._
 
 private object BSONHandlers {
 
+  implicit val ClientKeyBSONHandler = new BSONHandler[BSONString, Client.Key] {
+    def read(x: BSONString) = Client.Key(x.value)
+    def write(x: Client.Key) = BSONString(x.value)
+  }
+  implicit val ClientVersionBSONHandler = new BSONHandler[BSONString, Client.Version] {
+    def read(x: BSONString) = Client.Version(x.value)
+    def write(x: Client.Version) = BSONString(x.value)
+  }
+  implicit val ClientUserIdBSONHandler = new BSONHandler[BSONString, Client.UserId] {
+    def read(x: BSONString) = Client.UserId(x.value)
+    def write(x: Client.UserId) = BSONString(x.value)
+  }
   implicit val ClientSkillBSONHandler = new BSONHandler[BSONString, Client.Skill] {
-    def read(bsonStr: BSONString): Client.Skill = Client.Skill byKey bsonStr.value err s"Invalid client skill ${bsonStr.value}"
+    def read(x: BSONString) = Client.Skill byKey x.value err s"Invalid client skill ${x.value}"
     def write(x: Client.Skill) = BSONString(x.key)
   }
 
@@ -16,6 +28,4 @@ private object BSONHandlers {
   implicit val StatsBSONHandler = Macros.handler[Stats]
 
   implicit val ClientBSONHandler = Macros.handler[Client]
-
-  implicit val InstanceBSONHandler = Macros.handler[Instance]
 }
