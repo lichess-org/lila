@@ -8,8 +8,8 @@ private final class MoveMonitor(
     system: ActorSystem,
     channel: ActorRef) {
 
-  def record(ms: Option[Int]) = {
-    ms foreach lila.mon.round.move.time
+  def record(nanos: Option[Long]) = {
+    nanos foreach lila.mon.round.move.time
     lila.mon.round.move.count()
   }
 
@@ -19,7 +19,7 @@ private final class MoveMonitor(
         case (entity, snapshot) if entity.category == "histogram" => snapshot
       } flatMap (_ histogram "histogram") foreach { h =>
         if (!h.isEmpty) channel ! lila.socket.Channel.Publish(
-          lila.socket.Socket.makeMessage("mlat", (h.sum / h.numberOfMeasurements).toInt)
+          lila.socket.Socket.makeMessage("mlat", (h.sum / h.numberOfMeasurements / 1000000).toInt)
         )
       }
     }

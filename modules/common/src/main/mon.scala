@@ -202,7 +202,7 @@ object mon {
     }
   }
 
-  type Rec = Int => Unit
+  type Rec = Long => Unit
   type Inc = () => Unit
   type IncX = Int => Unit
 

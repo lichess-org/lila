@@ -32,7 +32,9 @@ private[report] final class ReportApi {
     } >>- monitorUnprocessed
   }
 
-  private def monitorUnprocessed = nbUnprocessed foreach lila.mon.mod.report.unprocessed
+  private def monitorUnprocessed = nbUnprocessed foreach { nb =>
+    lila.mon.mod.report.unprocessed(nb)
+  }
 
   private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||

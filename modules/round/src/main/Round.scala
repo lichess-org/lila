@@ -24,7 +24,7 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Option[Int] => Unit,
+    monitorMove: Option[Long] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -61,7 +61,7 @@ private[round] final class Round(
           lags.set(pov.color, p.lag.toMillis.toInt)
           player.human(p, self)(pov)
         }
-      } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
+      } >>- monitorMove((nowNanos - p.atNanos).some)
 
     case AiPlay => handle { game =>
       game.playableByAi ?? {

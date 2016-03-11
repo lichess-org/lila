@@ -98,7 +98,7 @@ case class HumanPlay(
     lag: FiniteDuration,
     promise: Option[Promise[Unit]] = None) {
 
-  val atMillis = nowMillis
+  val atNanos = nowNanos
 }
 
 case object AiPlay
