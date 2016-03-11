@@ -29,7 +29,7 @@ private final class KamonPusher(
       lila.mon.socket.member(nb)
 
     case NbRounds(nb) =>
-      lila.mon.round.actor.member(nb)
+      lila.mon.round.actor.count(nb)
 
     case Tick =>
       lila.mon.jvm.thread(threadStats.getThreadCount)

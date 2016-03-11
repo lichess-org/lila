@@ -56,7 +56,7 @@ object mon {
       val watcher = rec("round.api.watcher")
     }
     object actor {
-      val member = rec("round.actor.online")
+      val count = rec("round.actor.count")
     }
     object forecast {
       val create = inc("round.forecast.create")
