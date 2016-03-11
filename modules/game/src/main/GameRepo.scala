@@ -247,10 +247,10 @@ object GameRepo {
     )
     $insert bson bson
   } >>- {
-    lila.mon.game.create.variant(g.variant.key)
-    lila.mon.game.create.source(g.source.fold("unknown")(_.name))
-    lila.mon.game.create.speed(g.speed.name)
-    lila.mon.game.create.mode(g.mode.name)
+    lila.mon.game.create.variant(g.variant.key)()
+    lila.mon.game.create.source(g.source.fold("unknown")(_.name))()
+    lila.mon.game.create.speed(g.speed.name)()
+    lila.mon.game.create.mode(g.mode.name)()
   }
 
   def removeRecentChallengesOf(userId: String) =
