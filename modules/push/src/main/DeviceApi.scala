@@ -23,7 +23,7 @@ private final class DeviceApi(coll: Coll) {
       .one[Device]
 
   def register(user: User, platform: String, deviceId: String) = {
-    lila.mon.push.register(platform)()
+    lila.mon.push.register.in(platform)()
     coll.update(BSONDocument("_id" -> deviceId), Device(
       _id = deviceId,
       platform = platform,
@@ -32,6 +32,8 @@ private final class DeviceApi(coll: Coll) {
     ), upsert = true).void
   }
 
-  def unregister(user: User) =
+  def unregister(user: User) = {
+    lila.mon.push.register.out(platform)()
     coll.remove(BSONDocument("userId" -> user.id)).void
+  }
 }

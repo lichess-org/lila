@@ -198,12 +198,17 @@ object mon {
     val message = inc("chat.message")
   }
   object push {
-    def register(platform: String) = inc(s"push.register.$platform")
-    val move = inc("push.move")
-    val finish = inc("push.finish")
-    object challenge {
-      val create = inc("push.challenge.create")
-      val accept = inc("push.challenge.accept")
+    object register {
+      def in(platform: String) = inc(s"push.register.in.$platform")
+      def out(platform: String) = inc(s"push.register.out.$platform")
+    }
+    object send {
+      val move = inc("push.send.move")
+      val finish = inc("push.send.finish")
+      object challenge {
+        val create = inc("push.send.challenge.create")
+        val accept = inc("push.send.challenge.accept")
+      }
     }
   }
   object ai {
