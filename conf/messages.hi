@@ -491,6 +491,7 @@ keyEnterOrExitVariation=अंदर बाहर करे
 keyYouCanDrawArrowsCirclesAndScrollToMove=बाण  व गोल आकर मंडल पर बनाने के लिए shift+click या right-click का इस्तेमाल करें . आप स्क्रोल करके खेल के अलग अलग बारी भी देख सकते हैं
 newTournament=नया टूर्नमेंट बनायें
 tournamentHomeTitle=शतरंज का टूर्नमेंट, अलग अलग खेल समय और प्रकार के साथ
+tournamentHomeDescription=तेज़ रफ़्तार वाले शतरंज टूर्नमेंट खेलिए! आधिकारिक अन्यूसशीट टूर्नमेंट मे भाग लें, या खुद का टूर्नमेंट बनायें! Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck और अधिक प्रकार के मज़ेदार शतरंज के किस्म खेलिए!
 tournamentNotFound=टूर्नामेंट नहीं मिला
 tournamentDoesNotExist=यह टूर्नामेंट मौजूद नहीं है।
 tournamentMayHaveBeenCanceled=टूर्नमेंट रद्द् हो गया होगा, अगर सभी खिलाड़ी टूर्नमेंट शुरू होने से पहले चले तौंरमेंट छोड़ चुके है
