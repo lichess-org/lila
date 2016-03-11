@@ -46,7 +46,6 @@ private[round] final class SocketHandler(
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
-            member push ackEvent
             val promise = Promise[Unit]
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid)
@@ -54,6 +53,7 @@ private[round] final class SocketHandler(
             send(HumanPlay(
               playerId, move, blur, lag.millis, promise.some
             ))
+            member push ackEvent
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag) =>
