@@ -210,6 +210,9 @@ GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: Str
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
 
+# Fishnet
+POST  /fishnet/acquire                        controllers.Fishnet.acquire
+
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)

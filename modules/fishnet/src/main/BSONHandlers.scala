@@ -23,6 +23,12 @@ private object BSONHandlers {
     def write(x: Client.Skill) = BSONString(x.key)
   }
 
+  import Client.Engine
+  implicit val EngineBSONHandler = Macros.handler[Engine]
+
+  import Client.Instance
+  implicit val InstanceBSONHandler = Macros.handler[Instance]
+
   import Stats.Result
   implicit val StatsResultBSONHandler = Macros.handler[Result]
   implicit val StatsBSONHandler = Macros.handler[Stats]
