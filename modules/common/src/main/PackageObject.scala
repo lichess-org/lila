@@ -10,7 +10,8 @@ trait PackageObject extends Steroids with WithFuture {
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
-  def nowMillis: Long = System.currentTimeMillis
+  def nowNanos: Long = System.nanoTime()
+  def nowMillis: Long = System.currentTimeMillis()
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
