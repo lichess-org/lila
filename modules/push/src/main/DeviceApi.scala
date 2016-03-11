@@ -33,7 +33,7 @@ private final class DeviceApi(coll: Coll) {
   }
 
   def unregister(user: User) = {
-    lila.mon.push.register.out(platform)()
+    lila.mon.push.register.out()
     coll.remove(BSONDocument("userId" -> user.id)).void
   }
 }

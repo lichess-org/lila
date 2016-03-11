@@ -200,7 +200,7 @@ object mon {
   object push {
     object register {
       def in(platform: String) = inc(s"push.register.in.$platform")
-      def out(platform: String) = inc(s"push.register.out.$platform")
+      def out = inc(s"push.register.out")
     }
     object send {
       val move = inc("push.send.move")
