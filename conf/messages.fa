@@ -21,6 +21,7 @@ whiteIsVictorious=بازیکن سفید برنده است
 blackIsVictorious=بازیکن سیاه برنده است
 kingInTheCenter=شاه در وسط
 threeChecks=سه کیش
+raceFinished=مسابقه تمام شد
 variantEnding=تمام شدن مسابقه
 newOpponent=حریف جدید
 yourOpponentWantsToPlayANewGameWithYou=حریف شما می خواهد که دوباره با شما بازی کند
@@ -155,6 +156,7 @@ premoveEnabledClickAnywhereToCancel=حرکت زودتر از موعد فعال �
 thisPlayerUsesChessComputerAssistance=این بازیکن از رایانه کمک می گیرد
 thisPlayerArtificiallyIncreasesTheirRating=این بازیکن رتبه‌اش را به شکل مجازی بالا و پایین می‌کند
 opening=گشایش
+openingExplorer=باز کردن جستجوگر
 takeback=پس گرفتن حرکت
 proposeATakeback=پیشنهاد پس گرفتن حرکت
 takebackPropositionSent=پیشنهاد پس گرفتن حرکت فرستاده شد
