@@ -30,7 +30,7 @@ final class Player(
             id = game.id,
             initialFen = initialFen map FEN.apply,
             variant = game.variant,
-            moves = moves),
+            moves = moves mkString " "),
           currentFen = FEN(Forsyth >> game.toChess),
           level = level,
           tries = 0,

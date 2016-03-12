@@ -29,7 +29,7 @@ object Work {
     id: String,
     initialFen: Option[FEN],
     variant: Variant,
-    moves: Seq[String])
+    moves: String)
 
   case class Move(
       _id: Work.Id, // random

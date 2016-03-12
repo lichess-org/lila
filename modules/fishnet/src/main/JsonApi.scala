@@ -51,7 +51,7 @@ object JsonApi {
     game_id: String,
     position: FEN,
     variant: Variant,
-    moves: Seq[String])
+    moves: String)
 
   def fromGame(g: W.Game) = Game(
     game_id = g.id,
