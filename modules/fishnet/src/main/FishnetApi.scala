@@ -11,7 +11,7 @@ final class FishnetApi(
     moveColl: Coll,
     analysisColl: Coll,
     clientColl: Coll,
-    sequencer: lila.hub.FutureSequencer,
+    sequencer: Sequencer,
     saveAnalysis: lila.analyse.Analysis => Funit) {
 
   import BSONHandlers._
@@ -27,7 +27,7 @@ final class FishnetApi(
     case Client.Skill.Analysis => acquireAnalysis(client)
   }
 
-  private def acquireMove(client: Client) = sequencer {
+  private def acquireMove(client: Client) = sequencer.move {
     moveColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
@@ -37,7 +37,7 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
-  private def acquireAnalysis(client: Client) = sequencer {
+  private def acquireAnalysis(client: Client) = sequencer.analysis {
     analysisColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument(
@@ -50,7 +50,7 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
-  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = sequencer {
+  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = sequencer.move {
     repo.getMove(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       case None =>
         log.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
@@ -66,21 +66,21 @@ final class FishnetApi(
     }
   }
 
-  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit =
-    sequencer {
-      repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
-        case None =>
-          log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
-          fuccess(none)
-        case Some(work) => ToAnalysis(client, work, data) match {
-          case Some(analysis) => repo.deleteAnalysis(work) inject analysis.some
-          case _ =>
-            log.warn(s"Received invalid analysis $workId by ${client.fullId}")
-            repo.updateOrGiveUpAnalysis(work.invalid) >>
-              repo.updateClient(client invalid work) inject none
-        }
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer.analysis {
+    repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
+      case None =>
+        log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
+        fuccess(none)
+      case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
+        repo.deleteAnalysis(work) inject analysis.some
+      } recoverWith {
+        case e: Exception =>
+          log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
+          repo.updateOrGiveUpAnalysis(work.invalid) >>
+            repo.updateClient(client invalid work) inject none
       }
-    } flatMap { _ ?? saveAnalysis }
+    }
+  } flatMap { _ ?? saveAnalysis }
 
   private[fishnet] def createClient(key: String, userId: String, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>

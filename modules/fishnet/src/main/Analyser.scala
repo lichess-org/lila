@@ -9,14 +9,14 @@ import lila.game.{ Game, GameRepo, UciMemo }
 final class Analyser(
     api: FishnetApi,
     uciMemo: UciMemo,
-    sequencer: lila.hub.FutureSequencer,
+    sequencer: Sequencer,
     limiter: Limiter) {
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     limiter(sender) flatMap { accepted =>
       accepted ?? {
         makeWork(game, sender) flatMap { work =>
-          sequencer {
+          sequencer.analysis {
             api.repo getSimilarAnalysis work flatMap {
               // already in progress, do nothing
               case Some(similar) if similar.isAcquired => funit

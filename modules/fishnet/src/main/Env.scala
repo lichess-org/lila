@@ -21,10 +21,15 @@ final class Env(
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
-  private val sequencer = new lila.hub.FutureSequencer(
-    system = system,
-    receiveTimeout = None,
-    executionTimeout = Some(300 millis))
+  private val sequencer = new Sequencer(
+    move = new lila.hub.FutureSequencer(
+      system = system,
+      receiveTimeout = None,
+      executionTimeout = Some(200 millis)),
+    analysis = new lila.hub.FutureSequencer(
+      system = system,
+      receiveTimeout = None,
+      executionTimeout = Some(500 millis)))
 
   val api = new FishnetApi(
     hub = hub,

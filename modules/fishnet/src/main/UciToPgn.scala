@@ -1,15 +1,16 @@
-package lila.analyse
+package lila.fishnet
 
 import chess.format.pgn.Dumper
 import chess.format.Uci
 import chess.{ Replay, Move, Situation }
 import scalaz.Validation.FlatMap._
 
+import lila.analyse.{ Analysis, Info, PgnMove }
 import lila.common.LilaException
 
 // convert variations from UCI to PGN.
 // also drops extra variations
-private[analyse] object UciToPgn {
+private object UciToPgn {
 
   type WithErrors[A] = (A, List[Exception])
 
