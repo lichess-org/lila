@@ -47,8 +47,10 @@ private object BSONHandlers {
     def write(x: Uci) = BSONString(x.uci)
   }
 
-  import Work.Move
   import Work.Acquired
   implicit val MoveAcquiredHandler = Macros.handler[Acquired]
+  import Work.Move
   implicit val MoveHandler = Macros.handler[Move]
+  import Work.Analysis
+  implicit val AnalysisHandler = Macros.handler[Analysis]
 }

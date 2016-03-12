@@ -14,6 +14,12 @@ case class Client(
   def key = _id
 
   def setInstance(i: Client.Instance) = copy(instance = i.some)
+
+  def acquire(work: Work) = add(work, _.addAcquire)
+  def success(work: Work) = add(work, _.addSuccess)
+  def failure(work: Work) = add(work, _.addFailure)
+
+  private def add(work: Work, update: Stats.ResultUpdate) = copy(stats = stats.add(work, update))
 }
 
 object Client {
