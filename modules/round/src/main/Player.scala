@@ -13,6 +13,7 @@ import lila.hub.actorApi.round.MoveEvent
 
 private[round] final class Player(
     engine: lila.ai.Client,
+    fishnetPlayer: lila.fishnet.Player,
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
@@ -42,7 +43,7 @@ private[round] final class Player(
                   cheatDetector(progress.game) addEffect {
                     case Some(color) => round ! Cheat(color)
                     case None =>
-                      if (progress.game.playableByAi) round ! AiPlay
+                      if (progress.game.playableByAi) requestFishnet(progress.game)
                       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                       if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                       moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
@@ -59,6 +60,20 @@ private[round] final class Player(
       case _                                       => ClientErrorException.future(s"$pov move refused for some reason")
     }
   }
+
+  def requestFishnet(game: Game) = game.aiLevel ifTrue game.playableByAi foreach { level =>
+    fishnetPlayer(game, level)
+  }
+
+  // def fishnet(game: Game, uci: Uci): Fu[Progress] =
+  //   (game.playable && game.player.isAi).fold(
+  //     engine.play(game, game.aiLevel | 1) flatMap {
+  //       case lila.ai.actorApi.PlayResult(progress, move, _) =>
+  //         notifyMove(Left(move), progress.game)
+  //         moveFinish(progress.game, game.turnColor) map { progress.++ }
+  //     },
+  //     fufail(s"Not AI turn")
+  //   ) prefixFailure s"[ai play] game ${game.id} turn ${game.turns}"
 
   def ai(game: Game): Fu[Progress] =
     (game.playable && game.player.isAi).fold(

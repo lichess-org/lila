@@ -19,7 +19,7 @@ object Fishnet extends LilaController {
         case None => Unauthorized.fuccess
         case Some(client) => api acquire client map {
           case None       => NotFound
-          case Some(work) => ??? // Ok(Json toJson work)
+          case Some(work) => Ok(Json toJson work)
         }
       })
   }

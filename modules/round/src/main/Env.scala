@@ -148,6 +148,7 @@ final class Env(
 
   private lazy val player: Player = new Player(
     engine = ai,
+    fishnetPlayer = fishnetPlayer,
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,

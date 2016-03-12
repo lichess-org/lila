@@ -65,6 +65,10 @@ private[round] final class Round(
         }
       } >>- monitorMove((nowNanos - p.atNanos).some)
 
+    // case FishnetPlay(uci) => handle { game =>
+    //   player.fishnet(game, uci) map (_.events)
+    // } >>- monitorMove(none)
+
     case AiPlay => handle { game =>
       game.playableByAi ?? {
         player ai game map (_.events)

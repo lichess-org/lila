@@ -101,6 +101,8 @@ case class HumanPlay(
   val atNanos = nowNanos
 }
 
+case class FishnetPlay(uci: Uci)
+
 case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

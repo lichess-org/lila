@@ -12,11 +12,11 @@ final class FutureSequencer(
   import FutureSequencer._
 
   private val sequencer =
-    system.actorOf(Props(classOf[lila.hub.Sequencer], receiveTimeout, executionTimeout))
+    system.actorOf(Props(classOf[FSequencer], receiveTimeout, executionTimeout))
 
   def apply[A: Manifest](op: => Fu[A]): Fu[A] = {
     val promise = Promise[A]()
-    sequencer ! Sequencer.work(op, promise)
+    sequencer ! FSequencer.work(op, promise)
     promise.future
   }
 }
@@ -25,7 +25,7 @@ object FutureSequencer {
 
   import scala.util.Try
 
-  private final class Sequencer(
+  private final class FSequencer(
       receiveTimeout: Option[FiniteDuration],
       executionTimeout: Option[FiniteDuration] = None) extends Actor {
 
@@ -58,21 +58,21 @@ object FutureSequencer {
     private def processThenDone(work: Any) {
       work match {
         case ReceiveTimeout => self ! PoisonPill
-        case Sequencer.Work(run, promise, timeoutOption) =>
+        case FSequencer.Work(run, promise, timeoutOption) =>
           promise completeWith timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
             run().withTimeout(
               duration = timeout,
-              error = lila.common.LilaException(s"Sequencer timed out after $timeout")
+              error = lila.common.LilaException(s"FSequencer timed out after $timeout")
             )(context.system)
           }.andThenAnyway {
             self ! Done
           }
-        case x => logwarn(s"[Sequencer] Unsupported message $x")
+        case x => logwarn(s"[FSequencer] Unsupported message $x")
       }
     }
   }
 
-  private object Sequencer {
+  private object FSequencer {
 
     case class Work[A](
       run: () => Fu[A],
