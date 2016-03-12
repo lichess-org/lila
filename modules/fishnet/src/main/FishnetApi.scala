@@ -22,12 +22,27 @@ final class FishnetApi(
     }
   }
 
-  def acquire(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
+  def acquire(client: Client): Fu[Option[JsonApi.Work]] = client.skill match {
+    case Client.Skill.Move     => acquireMove(client)
+    case Client.Skill.Analysis => acquireAnalysis(client)
+  }
+
+  private def acquireMove(client: Client) = sequencer {
     moveColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
-      _ ?? { move =>
-        repo.updateMove(move assignTo client) zip repo.updateClient(client acquire move) inject move.some
+      _ ?? { work =>
+        repo.updateMove(work assignTo client) zip repo.updateClient(client acquire work) inject work.some
+      }
+    }
+  } map { _ map JsonApi.fromWork }
+
+  private def acquireAnalysis(client: Client) = sequencer {
+    analysisColl.find(BSONDocument(
+      "acquired" -> BSONDocument("$exists" -> false)
+    )).sort(BSONDocument("createdAt" -> 1)).one[Work.Analysis].flatMap {
+      _ ?? { work =>
+        repo.updateAnalysis(work assignTo client) zip repo.updateClient(client acquire work) inject work.some
       }
     }
   } map { _ map JsonApi.fromWork }
