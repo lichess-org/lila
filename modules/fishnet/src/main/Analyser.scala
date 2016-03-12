@@ -12,6 +12,8 @@ final class Analyser(
     sequencer: Sequencer,
     limiter: Limiter) {
 
+  val maxPlies = 200
+
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     limiter(sender) flatMap { accepted =>
       accepted ?? {
@@ -42,7 +44,7 @@ final class Analyser(
           id = game.id,
           initialFen = initialFen map FEN.apply,
           variant = game.variant,
-          moves = moves mkString " "),
+          moves = moves.take(maxPlies) mkString " "),
         startPly = game.startedAtTurn,
         nbPly = game.turns,
         tries = 0,

@@ -11,6 +11,8 @@ final class Player(
     uciMemo: UciMemo,
     sequencer: Sequencer) {
 
+  val maxPlies = 300
+
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeWork(game, level) flatMap { move =>
       sequencer.move {
@@ -23,7 +25,7 @@ final class Player(
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.toChess.situation playable true)
-      GameRepo.initialFen(game) zip uciMemo.get(game) map {
+      if (game.turns <= maxPlies) GameRepo.initialFen(game) zip uciMemo.get(game) map {
         case (initialFen, moves) => Work.Move(
           _id = Work.makeId,
           game = Work.Game(
@@ -37,5 +39,6 @@ final class Player(
           acquired = None,
           createdAt = DateTime.now)
       }
+      else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
     else fufail("[fishnet] invalid position")
 }
