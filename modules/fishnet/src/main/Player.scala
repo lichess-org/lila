@@ -8,30 +8,34 @@ import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Player(
     api: FishnetApi,
-    uciMemo: UciMemo) {
+    uciMemo: UciMemo,
+    sequencer: lila.hub.FutureSequencer) {
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
-    makeWork(game, level) flatMap api.addMove
-  }
-
-  private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
-    if (game.toChess.situation playable true) op
-    else fufail("[fishnet] invalid position")
-
-  private def makeWork(game: Game, level: Int): Fu[Work.Move] = withValidSituation(game) {
-    GameRepo.initialFen(game) zip uciMemo.get(game) map {
-      case (fen, moves) => Work.Move(
-        _id = Work.makeId,
-        game = Work.Game(
-          id = game.id,
-          position = fen map FEN.apply,
-          variant = game.variant,
-          moves = moves),
-        currentFen = FEN(Forsyth >> game.toChess),
-        level = level,
-        tries = 0,
-        acquired = None,
-        createdAt = DateTime.now)
+    makeMove(game, level) flatMap { move =>
+      sequencer {
+        api similarMoveExists move flatMap {
+          _.fold(funit, api addMove move)
+        }
+      }
     }
   }
+
+  private def makeMove(game: Game, level: Int): Fu[Work.Move] =
+    if (game.toChess.situation playable true)
+      GameRepo.initialFen(game) zip uciMemo.get(game) map {
+        case (fen, moves) => Work.Move(
+          _id = Work.makeId,
+          game = Work.Game(
+            id = game.id,
+            position = fen map FEN.apply,
+            variant = game.variant,
+            moves = moves),
+          currentFen = FEN(Forsyth >> game.toChess),
+          level = level,
+          tries = 0,
+          acquired = None,
+          createdAt = DateTime.now)
+      }
+    else fufail("[fishnet] invalid position")
 }

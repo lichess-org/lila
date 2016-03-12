@@ -58,6 +58,11 @@ final class FishnetApi(
   private[fishnet] def updateMove(move: Work.Move) = moveColl.update(selectWork(move.id), move).void
   private[fishnet] def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
 
+  private[fishnet] def similarMoveExists(move: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
+    "game.id" -> move.game.id,
+    "currentFen" -> move.currentFen
+  ).some) map (0 !=)
+
   private def nextMove: Fu[Option[Work.Move]] = moveColl.find(BSONDocument(
     "acquired" -> BSONDocument("$exists" -> false)
   )).sort(BSONDocument("createdAt" -> -1)).one[Work.Move]

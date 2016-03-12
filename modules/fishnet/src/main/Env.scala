@@ -18,19 +18,22 @@ final class Env(
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
+  private val sequencer = new lila.hub.FutureSequencer(
+    system = system,
+    receiveTimeout = None,
+    executionTimeout = Some(300 millis))
+
   val api = new FishnetApi(
     hub = hub,
     moveColl = moveColl,
     analysisColl = analysisColl,
     clientColl = clientColl,
-    sequencer = new lila.hub.FutureSequencer(
-      system = system,
-      receiveTimeout = None,
-      executionTimeout = Some(500 millis)))
+    sequencer = sequencer)
 
   val player = new Player(
     api = api,
-    uciMemo = uciMemo)
+    uciMemo = uciMemo,
+    sequencer = sequencer)
 
   private val cleaner = new Cleaner(
     api = api,
