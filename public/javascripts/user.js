@@ -62,8 +62,7 @@ $(function() {
           $.ajax({
             url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
             success: function(res) {
-              var p = Math.round(parseFloat(res) * 100);
-              $li.append($('<span class="intel">' + p + '% proxy</span>'));
+              $li.append($('<span class="intel">' + res + '% proxy</span>'));
             }
           });
         });
