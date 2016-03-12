@@ -30,7 +30,7 @@ object Fishnet extends LilaController {
   }
 
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
-    Action.async(BodyParsers.parse.json) { req =>
+    Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(
         err => BadRequest(jsonError(JsError toJson err)).fuccess,
         data => api.authenticateClient(data) flatMap {
