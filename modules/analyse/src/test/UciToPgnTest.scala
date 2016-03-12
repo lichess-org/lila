@@ -43,7 +43,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
         Info(26, Some(Score(-2165)), None, List()),
         Info(27, Some(Score(-2731)), None, List("g1g3", "h4h2", "d1f3", "e4g3", "c2c3", "h2g1", "e1d2", "g3e4", "d2c2", "e6g4", "f3g4", "g1g4", "b1d2", "g4e2", "a2a4", "a8e8", "a1a3", "e4d2", "c1d2", "e8e3")),
         Info(28, None, Some(2), List("h4f2", "e2d3", "c6b4")),
-        Info(29, None, Some(-2), List())), 0, true, now, None)
+        Info(29, None, Some(-2), List())), 0, None, None, now)
 
       val pgn = "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
       val rep = Replay(pgn.split(' ').toList, None, chess.variant.Standard).toOption.get
@@ -54,7 +54,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
     "even in KotH" in {
       val pgn = List("e4", "e5", "d4", "Nc6", "Ke2", "Nxd4+", "Ke3", "Ne6", "f4", "Bc5+", "Kf3", "Nf6", "fxe5", "Qe7", "Be3", "d6", "Bxc5", "Nxc5", "exf6", "Qxf6+", "Ke3", "Qe5", "Qd4", "Qg5+", "Kf3", "f5", "exf5", "O-O", "Qxc5", "Bxf5", "Qc4+", "Kh8", "Qf4", "Qg6", "g4", "Be4+", "Ke3", "c5", "Bd3", "Bxd3", "Qg3", "Bxc2", "Nf3", "Rae8+", "Kf2", "Qd3", "Kg2", "Re2+", "Kh3", "Rxf3", "Kh4", "Rxg3", "hxg3", "h6", "g5", "Qf5", "g4", "Re4", "Kg3", "Qf4+", "Kh3", "Re3+", "Kh4", "Qxg5#")
       val rep = Replay(pgn, None, chess.variant.KingOfTheHill).toOption.get
-      val uciAnalysis = Analysis("g5hX8efz", Nil, 0, true, now, None)
+      val uciAnalysis = Analysis("g5hX8efz", Nil, 0, None, None, now)
       UciToPgn(rep, uciAnalysis) match {
         case (a, errs) => errs must beEmpty
       }
