@@ -162,13 +162,7 @@ package forum {
 case class MakeTeam(id: String, name: String)
 }
 
-package ai {
-case class Analyse(
-  gameId: String,
-  uciMoves: List[String],
-  initialFen: Option[String],
-  requestedByHuman: Boolean,
-  variant: chess.variant.Variant)
+package fishnet {
 case class AutoAnalyse(gameId: String)
 }
 
@@ -191,6 +185,7 @@ object SocketEvent {
   case class Stop(gameId: String) extends SocketEvent
 }
 case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
+case object AnalysisAvailable
 }
 
 package evaluation {

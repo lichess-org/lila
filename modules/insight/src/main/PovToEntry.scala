@@ -41,7 +41,7 @@ object PovToEntry {
     if (removeWrongAnalysis(game)) fuccess(none)
     else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
-        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
+        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.byId(game.id)) map {
           case (fen, an) => for {
             boards <- chess.Replay.boards(
               moveStrs = game.pgnMoves,

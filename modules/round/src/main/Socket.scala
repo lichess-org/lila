@@ -14,7 +14,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.IsOnGame
+import lila.hub.actorApi.round.{ IsOnGame, AnalysisAvailable }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
@@ -40,7 +40,7 @@ private[round] final class Socket(
   private final class Player(color: Color) {
 
     // when the player has been seen online for the last time
-    private var time: Double = nowMillis
+    private var time: Long = nowMillis
     // wether the player closed the window intentionally
     private var bye: Int = 0
 
@@ -159,7 +159,7 @@ private[round] final class Socket(
       case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
     }))
 
-    case AnalysisAvailable                           => notifyAll("analysisAvailable")
+    case AnalysisAvailable => notifyAll("analysisAvailable")
 
     case Quit(uid) =>
       members get uid foreach { member =>

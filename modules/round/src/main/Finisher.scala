@@ -16,7 +16,6 @@ private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
-    aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
     timeline: akka.actor.ActorSelection,

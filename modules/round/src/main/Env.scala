@@ -16,9 +16,8 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    ai: lila.ai.Client,
     fishnetPlayer: lila.fishnet.Player,
-    aiPerfApi: lila.ai.AiPerfApi,
+    aiPerfApi: lila.fishnet.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     lightUser: String => Option[lila.common.LightUser],
@@ -133,7 +132,6 @@ final class Env(
   private lazy val finisher = new Finisher(
     messenger = messenger,
     perfsUpdater = perfsUpdater,
-    aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
     playban = playban,
     bus = system.lilaBus,
@@ -147,7 +145,6 @@ final class Env(
     isRematchCache = isRematchCache)
 
   private lazy val player: Player = new Player(
-    engine = ai,
     fishnetPlayer = fishnetPlayer,
     bus = system.lilaBus,
     finisher = finisher,
@@ -218,9 +215,8 @@ object Env {
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    ai = lila.ai.Env.current.client,
     fishnetPlayer = lila.fishnet.Env.current.player,
-    aiPerfApi = lila.ai.Env.current.aiPerfApi,
+    aiPerfApi = lila.fishnet.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
     playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,

@@ -14,7 +14,7 @@ final class Env(config: Config, system: ActorSystem) {
     val teamSearch = select("actor.team.search")
     val messenger = select("actor.messenger")
     val router = select("actor.router")
-    val ai = select("actor.ai")
+    val fishnet = select("actor.fishnet")
     val tournamentOrganizer = select("actor.tournament.organizer")
     val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")

@@ -55,7 +55,7 @@ object ApplicationBuild extends Build {
     chess, common, db, rating, user, security, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
-    ai, analyse, mod, site, round, lobby, setup,
+    analyse, mod, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
@@ -188,7 +188,7 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user,
-    i18n, ai, fishnet, pref, chat, history, playban)).settings(
+    i18n, fishnet, pref, chat, history, playban)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, hasher, kamon.core)
   )
 
@@ -219,10 +219,6 @@ object ApplicationBuild extends Build {
 
   lazy val simul = project("simul", Seq(
     common, hub, socket, chess, game, round, chat, memo, quote)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
-  )
-
-  lazy val ai = project("ai", Seq(common, hub, chess, game, analyse, rating)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

@@ -96,7 +96,7 @@ private[api] final class GameApi(
     withFens: Boolean,
     withMoveTimes: Boolean,
     token: Option[String])(games: Seq[Game]): Fu[Seq[JsObject]] =
-    AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
+    AnalysisRepo byIds games.map(_.id) flatMap { analysisOptions =>
       (games map GameRepo.initialFen).sequenceFu map { initialFens =>
         val validToken = check(token)
         games zip analysisOptions zip initialFens map {

@@ -11,7 +11,8 @@ final class FishnetApi(
     moveColl: Coll,
     analysisColl: Coll,
     clientColl: Coll,
-    sequencer: lila.hub.FutureSequencer) {
+    sequencer: lila.hub.FutureSequencer,
+    saveAnalysis: lila.analyse.Analysis => Funit) {
 
   import BSONHandlers._
 
@@ -31,21 +32,37 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
-  def postMove(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Fu[Option[JsonApi.Work]] = sequencer {
-    repo.getMove(moveId).map(_.filter(_ isAcquiredBy client)) flatMap {
+  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = sequencer {
+    repo.getMove(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       case None =>
-        log.warn(s"Received unknown or unacquired move $moveId by ${client.fullId}")
+        log.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
         funit
-      case Some(move) => data.move.uci match {
+      case Some(work) => data.move.uci match {
         case Some(uci) =>
-          hub.actor.roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
-          repo.deleteMove(move)
+          hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
+          repo.deleteMove(work)
         case _ =>
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
-          repo.updateOrGiveUpMove(move.invalid) >> repo.updateClient(client invalid move)
+          repo.updateOrGiveUpMove(work.invalid) zip repo.updateClient(client invalid work) void
       }
     }
-  } >> acquire(client)
+  }
+
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit =
+    sequencer {
+      repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
+        case None =>
+          log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
+          fuccess(none)
+        case Some(work) => ToAnalysis(data) match {
+          case Some(analysis) => repo.deleteAnalysis(work) inject analysis.some
+          case _ =>
+            log.warn(s"Received invalid analysis $workId by ${client.fullId}")
+            repo.updateOrGiveUpAnalysis(work.invalid) >>
+              repo.updateClient(client invalid work) inject none
+        }
+      }
+    } flatMap { _ ?? saveAnalysis }
 
   private[fishnet] def createClient(key: String, userId: String, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
@@ -61,8 +78,6 @@ final class FishnetApi(
 
   private[fishnet] object repo {
 
-    def addMove(move: Work.Move) = moveColl.insert(move).void
-
     def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
     def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
     def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client).void
@@ -70,16 +85,28 @@ final class FishnetApi(
       client.updateInstance(instance).fold(fuccess(client)) { updated =>
         updateClient(updated) inject updated
       }
+
+    def addMove(move: Work.Move) = moveColl.insert(move).void
     def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]
     def updateMove(move: Work.Move) = moveColl.update(selectWork(move.id), move).void
     def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
     def giveUpMove(move: Work.Move) = deleteMove(move) >>- log.warn(s"Give up on move $move")
     def updateOrGiveUpMove(move: Work.Move) = if (move.isOutOfTries) giveUpMove(move) else updateMove(move)
 
-    def similarMoveExists(move: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
-      "game.id" -> move.game.id,
-      "currentFen" -> move.currentFen
+    def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
+    def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
+    def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
+    def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
+    def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- log.warn(s"Give up on analysis $ana")
+    def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
+
+    def similarMoveExists(work: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
+      "game.id" -> work.game.id,
+      "currentFen" -> work.currentFen
     ).some) map (0 !=)
+
+    def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
+      analysisColl.find(BSONDocument("game.id" -> work.game.id)).one[Work.Analysis]
 
     def selectWork(id: Work.Id) = BSONDocument("_id" -> id.value)
     def selectClient(key: Client.Key) = BSONDocument("_id" -> key.value)

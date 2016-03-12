@@ -53,49 +53,45 @@ final class Env(
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (!Env.ai.ServerOnly) {
-    play.api.Logger("boot").info("Preloading modules")
-    List(Env.socket,
-      Env.site,
-      Env.tournament,
-      Env.lobby,
-      Env.game,
-      Env.setup,
-      Env.round,
-      Env.team,
-      Env.message,
-      Env.timeline,
-      Env.gameSearch,
-      Env.teamSearch,
-      Env.forumSearch,
-      Env.relation,
-      Env.report,
-      Env.notification,
-      Env.bookmark,
-      Env.pref,
-      Env.chat,
-      Env.puzzle,
-      Env.tv,
-      Env.blog,
-      Env.video,
-      Env.shutup, // required to load the actor
-      Env.insight, // required to load the actor
-      Env.worldMap, // required to load the actor
-      Env.push, // required to load the actor
-      Env.perfStat, // required to load the actor
-      Env.slack, // required to load the actor
-      Env.challenge, // required to load the actor
-      Env.explorer, // required to load the actor
-      Env.fishnet // required to schedule the cleaner
-    )
-    play.api.Logger("boot").info("Preloading complete")
+  play.api.Logger("boot").info("Preloading modules")
+  List(Env.socket,
+    Env.site,
+    Env.tournament,
+    Env.lobby,
+    Env.game,
+    Env.setup,
+    Env.round,
+    Env.team,
+    Env.message,
+    Env.timeline,
+    Env.gameSearch,
+    Env.teamSearch,
+    Env.forumSearch,
+    Env.relation,
+    Env.report,
+    Env.notification,
+    Env.bookmark,
+    Env.pref,
+    Env.chat,
+    Env.puzzle,
+    Env.tv,
+    Env.blog,
+    Env.video,
+    Env.shutup, // required to load the actor
+    Env.insight, // required to load the actor
+    Env.worldMap, // required to load the actor
+    Env.push, // required to load the actor
+    Env.perfStat, // required to load the actor
+    Env.slack, // required to load the actor
+    Env.challenge, // required to load the actor
+    Env.explorer, // required to load the actor
+    Env.fishnet // required to schedule the cleaner
+  )
+  play.api.Logger("boot").info("Preloading complete")
 
-    scheduler.once(5 seconds) {
-      Env.slack.api.publishInfo("Lichess has restarted!")
-    }
+  scheduler.once(5 seconds) {
+    Env.slack.api.publishInfo("Lichess has restarted!")
   }
-
-  if (Env.ai.ServerOnly) println("Running as AI server")
 }
 
 object Env {
@@ -125,7 +121,6 @@ object Env {
   def forumSearch = lila.forumSearch.Env.current
   def team = lila.team.Env.current
   def teamSearch = lila.teamSearch.Env.current
-  def ai = lila.ai.Env.current
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
   def site = lila.site.Env.current

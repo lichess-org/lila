@@ -58,7 +58,7 @@ chessground = false,
 atom = atom.some) {
 <div class="analyse cg-512">@miniBoardContent</div>
 <div class="advice_summary" style="display:none">
-  @analysis.filter(_.done).map { a =>
+  @analysis.map { a =>
   <table>
     @for((color, pairs) <- a.summary) {
     <thead>

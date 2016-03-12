@@ -26,7 +26,7 @@ object Setup extends LilaController with TheftPrevention {
       env.forms aiFilled get("fen") map { form =>
         html.setup.ai(
           form,
-          Env.ai.aiPerfApi.intRatings,
+          Env.fishnet.aiPerfApi.intRatings,
           form("fen").value flatMap ValidFen(getBool("strict")))
       }
     }

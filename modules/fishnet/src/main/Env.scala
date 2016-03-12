@@ -12,7 +12,10 @@ final class Env(
     hub: lila.hub.Env,
     db: lila.db.Env,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler,
+    saveAnalysis: lila.analyse.Analysis => Funit) {
+
+  private val ActorName = config getString "actor.name"
 
   private val moveColl = db(config getString "collection.move")
   private val analysisColl = db(config getString "collection.analysis")
@@ -28,18 +31,35 @@ final class Env(
     moveColl = moveColl,
     analysisColl = analysisColl,
     clientColl = clientColl,
-    sequencer = sequencer)
+    sequencer = sequencer,
+    saveAnalysis = saveAnalysis)
 
   val player = new Player(
     api = api,
     uciMemo = uciMemo,
     sequencer = sequencer)
 
+  val analyser = new Analyser(
+    api = api,
+    uciMemo = uciMemo,
+    sequencer = sequencer,
+    limiter = new Limiter(analysisColl))
+
+  val aiPerfApi = new AiPerfApi
+
   private val cleaner = new Cleaner(
     api = api,
     moveColl = moveColl,
     analysisColl = analysisColl,
     scheduler = scheduler)
+
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
+      // analyser.getOrGenerate(gameId, userId = "lichess", userIp = none, concurrent = true, auto = true)
+    }
+  }), name = ActorName)
 
   def cli = new lila.common.Cli {
     def process = {
@@ -57,5 +77,6 @@ object Env {
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler,
+    saveAnalysis = lila.analyse.Env.current.analyser.save _)
 }

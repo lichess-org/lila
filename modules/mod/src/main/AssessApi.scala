@@ -21,7 +21,7 @@ final class AssessApi(
     logApi: ModlogApi,
     modApi: ModApi,
     reporter: ActorSelection,
-    analyser: ActorSelection,
+    fishnet: ActorSelection,
     userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
@@ -80,7 +80,7 @@ final class AssessApi(
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
-        AnalysisRepo.doneById(g.id) flatMap {
+        AnalysisRepo.byId(g.id) flatMap {
           case Some(a) => onAnalysisReady(g, a, false)
           case _       => funit
         }
@@ -182,7 +182,7 @@ final class AssessApi(
 
     shouldAnalyse foreach { reason =>
       play.api.Logger("autoanalyse").debug(s"http://lichess.org/${game.id} $reason")
-      analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
     }
 
     funit

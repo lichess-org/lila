@@ -11,61 +11,29 @@ import tube.analysisTube
 
 object AnalysisRepo {
 
+  import Analysis.analysisBSONHandler
+
   type ID = String
 
-  def done(id: ID, a: Analysis, serverIp: String) = $update(
-    $select(id),
-    $set(Json.obj(
-      "done" -> true,
-      "data" -> Info.encodeList(a.infos),
-      "ip" -> serverIp
-    ))
-  )
-
-  def progress(id: ID, userId: ID, startPly: Int) = $update(
-    $select(id),
-    $set(
-      Json.obj(
-        "uid" -> userId,
-        "done" -> false,
-        "date" -> $date(DateTime.now)
-      ) ++ (startPly == 0).fold(Json.obj(), Json.obj("ply" -> startPly))
-    ) ++ $unset("old", "data"),
-    upsert = true)
+  def save(analysis: Analysis) = analysisTube.coll insert analysis void
 
   def byId(id: ID): Fu[Option[Analysis]] = $find byId id
 
-  def doneById(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> true))
-
-  def notDoneById(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> false))
-
-  def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
-    $find optionsByOrderedIds ids map2 { (a: Option[Analysis]) =>
-      a.filter(_.done)
-    }
+  def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
+    $find optionsByOrderedIds ids
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
-    doneByIds(games.map(_.id)) map { as =>
+    byIds(games.map(_.id)) map { as =>
       games zip as collect {
         case (game, Some(analysis)) => game -> analysis
       }
     }
 
-  def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> true, "old" -> $exists(false)))
+  // def recent(nb: Int): Fu[List[Analysis]] =
+  //   $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
 
-  def isDone(id: ID): Fu[Boolean] =
-    $count.exists($select(id) ++ Json.obj("done" -> true))
-
-  def recent(nb: Int): Fu[List[Analysis]] =
-    $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
-
-  def skipping(skip: Int, nb: Int): Fu[List[Analysis]] =
-    $find($query(Json.obj("done" -> true)) skip skip, nb)
-
-  def count = $count($select.all)
+  // def skipping(skip: Int, nb: Int): Fu[List[Analysis]] =
+  //   $find($query(Json.obj("done" -> true)) skip skip, nb)
 
   def remove(id: String) = $remove byId id
 }

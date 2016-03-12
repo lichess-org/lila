@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app._
+import lila.common.HTTPRequest
 import play.api.libs.json.Json
 import views._
 
@@ -20,21 +21,18 @@ object Importer extends LilaController {
       failure => fuccess {
         Ok(html.game.importGame(failure))
       },
-      data => env.importer(data, ctx.userId) map { game =>
-        if (data.analyse.isDefined && game.analysable) Analyse.addCallbacks(game.id) {
-          Env.analyse.analyser.getOrGenerate(
-            game.id,
-            ctx.userId | "lichess",
-            userIp = ctx.req.remoteAddress.some,
-            concurrent = false,
-            auto = false)
-        }
-        Redirect(routes.Round.watcher(game.id, "white"))
+      data => env.importer(data, ctx.userId) flatMap { game =>
+        (data.analyse.isDefined && game.analysable) ?? {
+          Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+            userId = ctx.userId,
+            ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+            mod = isGranted(_.Hunter),
+            system = false))
+        } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
-        case e => {
+        case e =>
           logwarn(e.getMessage)
           Redirect(routes.Importer.importGame)
-        }
       }
     )
   }

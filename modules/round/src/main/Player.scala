@@ -13,7 +13,6 @@ import lila.hub.actorApi.round.MoveEvent
 import scala.concurrent.duration._
 
 private[round] final class Player(
-    engine: lila.ai.Client,
     fishnetPlayer: lila.fishnet.Player,
     bus: lila.common.Bus,
     finisher: Finisher,

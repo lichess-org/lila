@@ -63,7 +63,7 @@ chessground = true) {
   </div>
 </div>
 <div class="advice_summary" style="display:none">
-  @analysis.filter(_.done).map { a =>
+  @analysis.map { a =>
   <table>
     @for((color, pairs) <- a.summary) {
     <thead>

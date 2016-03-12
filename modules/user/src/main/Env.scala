@@ -50,8 +50,6 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.userTube
     def process = {
-      case "user" :: "typecheck" :: Nil =>
-        lila.db.Typecheck.apply[User]
       case "user" :: "email" :: userId :: email :: Nil =>
         UserRepo.email(User normalize userId, email) inject "done"
     }

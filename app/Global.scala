@@ -16,19 +16,13 @@ object Global extends GlobalSettings {
     kamon.Kamon.shutdown()
   }
 
-  override def onRouteRequest(req: RequestHeader): Option[Handler] =
-    if (req.path startsWith "/ai/") super.onRouteRequest(req)
-    else if (Env.ai.ServerOnly) {
-      Action(NotFound("I am an AI server")).some
-    }
-    else {
-      lila.mon.http.request.all()
-      Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
-    }
+  override def onRouteRequest(req: RequestHeader): Option[Handler] = {
+    lila.mon.http.request.all()
+    Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
+  }
 
   private def niceError(req: RequestHeader): Boolean =
     req.method == "GET" &&
-      !Env.ai.ServerOnly &&
       HTTPRequest.isSynchronousHttp(req) &&
       !HTTPRequest.hasFileExtension(req)
 

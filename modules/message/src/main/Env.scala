@@ -45,13 +45,6 @@ final class Env(
       case thread: LichessThread => api.lichessThread(thread)
     }
   }), name = ActorName)
-
-  def cli = new lila.common.Cli {
-    import tube.threadTube
-    def process = {
-      case "message" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Thread]
-    }
-  }
 }
 
 object Env {

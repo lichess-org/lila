@@ -14,7 +14,6 @@ import lila.common.HTTPRequest
 import lila.evaluation.PlayerAssessments
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.AnalysisAvailable
 import views._
 
 import chess.Color
@@ -27,38 +26,16 @@ object Analyse extends LilaController {
 
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
-      makeAnalysis(id, me) injectAnyway
-        Ok(html.analyse.computing(id))
-  }
-
-  private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
-    addCallbacks(id) {
-      env.analyser.getOrGenerate(id,
-        userId = me.id,
-        userIp = ctx.req.remoteAddress.some,
-        concurrent = isGranted(_.MarkEngine),
-        auto = false)
-    }
-
-  private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
-    analysis andThen {
-      case Failure(e: lila.analyse.ConcurrentAnalysisException) => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-      case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
-      case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-    }
-
-  def postAnalysis(id: String) = Action.async(parse.text) { req =>
-    env.analyser.complete(id, req.body, req.remoteAddress) recover {
-      case e: lila.common.LilaException => logwarn(s"AI ${req.remoteAddress} ${e.message}")
-    } andThenAnyway {
-      Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-    } inject Ok
-  }
-
-  def postAnalysisErr(id: String) = Action(parse.text) { req =>
-    env.analyser.completeErr(id, req.body, req.remoteAddress)
-    logwarn(s"AI failure ${req.remoteAddress} ${req.body}")
-    Ok
+      OptionFuResult(GameRepo game id) { game =>
+        Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+          userId = me.id.some,
+          ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+          mod = isGranted(_.Hunter),
+          system = false)) map {
+          case true  => Ok(html.analyse.computing(id))
+          case false => Unauthorized
+        }
+      }
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
@@ -82,7 +59,7 @@ object Analyse extends LilaController {
                     initialFen,
                     Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
                     analysis,
-                    analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves, pov.game.startedAtTurn) },
+                    analysis map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves, pov.game.startedAtTurn) },
                     simul,
                     new TimeChart(pov.game, pov.game.pgnMoves),
                     crosstable,

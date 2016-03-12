@@ -76,7 +76,6 @@ case class Join(
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
-case object AnalysisAvailable
 case object GetSocketStatus
 case class SocketStatus(
     version: Int,

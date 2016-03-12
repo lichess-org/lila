@@ -1,4 +1,4 @@
-package lila.ai
+package lila.fishnet
 
 final class AiPerfApi {
 
