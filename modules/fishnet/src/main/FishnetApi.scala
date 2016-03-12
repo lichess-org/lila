@@ -36,7 +36,7 @@ final class FishnetApi(
         funit
       case Some(move) => data.move.uci match {
         case Some(uci) =>
-          hub.actor.roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci))
+          hub.actor.roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
           deleteMove(move)
         case _ =>
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")

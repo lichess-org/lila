@@ -66,8 +66,8 @@ private[round] final class Round(
         }
       } >>- monitorMove((nowNanos - p.atNanos).some)
 
-    case FishnetPlay(uci) => handle { game =>
-      player.fishnet(game, uci)
+    case FishnetPlay(uci, currentFen) => handle { game =>
+      player.fishnet(game, uci, currentFen)
     } >>- monitorMove(none)
 
     case Abort(playerId) => handle(playerId) { pov =>

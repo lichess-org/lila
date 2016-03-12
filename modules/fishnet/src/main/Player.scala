@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.FEN
+import chess.format.{ FEN, Forsyth }
 
 import lila.game.{ Game, GameRepo, UciMemo }
 
@@ -27,6 +27,7 @@ final class Player(
           position = fen map FEN.apply,
           variant = game.variant,
           moves = moves),
+        currentFen = FEN(Forsyth >> game.toChess),
         level = level,
         tries = 0,
         acquired = None,

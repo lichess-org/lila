@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.{ Forsyth, Uci }
+import chess.format.{ Forsyth, FEN, Uci }
 import chess.Pos.posAt
 import chess.{ Status, Role, Color, MoveOrDrop }
 import scalaz.Validation.FlatMap._
@@ -54,18 +54,22 @@ private[round] final class Player(
 
   def requestFishnet(game: Game) = game.playableByAi ?? fishnetPlayer(game)
 
-  def fishnet(game: Game, uci: Uci): Fu[Events] =
-    if (game.playable && game.player.isAi) applyUci(game, uci, blur = false, lag = 0.millis)
-      .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
-        case (progress, moveOrDrop) =>
-          (GameRepo save progress) >>-
-            uciMemo.add(progress.game, moveOrDrop) >>-
-            notifyMove(moveOrDrop, progress.game) >>
-            progress.game.finished.fold(
-              moveFinish(progress.game, game.turnColor) map { progress.events ::: _ },
-              fuccess(progress.events)
-            )
-      }
+  def fishnet(game: Game, fen: FEN, uci: Uci): Fu[Events] =
+    if (game.playable && game.player.isAi) {
+      if (fen == FEN(Forsyth >> game.toChess))
+        applyUci(game, uci, blur = false, lag = 0.millis)
+          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
+            case (progress, moveOrDrop) =>
+              (GameRepo save progress) >>-
+                uciMemo.add(progress.game, moveOrDrop) >>-
+                notifyMove(moveOrDrop, progress.game) >>
+                progress.game.finished.fold(
+                  moveFinish(progress.game, game.turnColor) map { progress.events ::: _ },
+                  fuccess(progress.events)
+                )
+          }
+      else requestFishnet(game)
+    }
     else fufail(s"Not AI turn")
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {

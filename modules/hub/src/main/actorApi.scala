@@ -190,7 +190,7 @@ object SocketEvent {
   case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
   case class Stop(gameId: String) extends SocketEvent
 }
-case class FishnetPlay(uci: chess.format.Uci)
+case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
 }
 
 package evaluation {

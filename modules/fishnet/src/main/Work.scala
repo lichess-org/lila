@@ -34,6 +34,7 @@ object Work {
   case class Move(
       _id: Work.Id, // random
       game: Game,
+      currentFen: FEN,
       level: Int,
       tries: Int,
       acquired: Option[Acquired],
