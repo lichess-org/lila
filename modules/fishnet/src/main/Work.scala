@@ -49,6 +49,10 @@ object Work {
     def timeout = copy(acquired = none)
 
     def invalid = copy(acquired = none)
+
+    def isOutOfTries = tries >= 3
+
+    override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen"
   }
 
   case class Analysis(

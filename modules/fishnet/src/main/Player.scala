@@ -14,8 +14,8 @@ final class Player(
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeMove(game, level) flatMap { move =>
       sequencer {
-        api similarMoveExists move flatMap {
-          _.fold(funit, api addMove move)
+        api.repo similarMoveExists move flatMap {
+          _.fold(funit, api.repo addMove move)
         }
       }
     }

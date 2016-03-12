@@ -15,57 +15,37 @@ final class FishnetApi(
 
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request) = getEnabledClient(req.fishnet.apikey) flatMap {
+  def authenticateClient(req: JsonApi.Request) = repo.getEnabledClient(req.fishnet.apikey) flatMap {
     _ ?? { client =>
-      updateClientInstance(client, req.instance) map some
+      repo.updateClientInstance(client, req.instance) map some
     }
   }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
-    nextMove.flatMap {
+    moveColl.find(BSONDocument(
+      "acquired" -> BSONDocument("$exists" -> false)
+    )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
       _ ?? { move =>
-        updateMove(move assignTo client) zip updateClient(client acquire move) inject move.some
+        repo.updateMove(move assignTo client) zip repo.updateClient(client acquire move) inject move.some
       }
     }
   } map { _ map JsonApi.fromWork }
 
   def postMove(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Fu[Option[JsonApi.Work]] = sequencer {
-    getMove(moveId).map(_.filter(_ isAcquiredBy client)) flatMap {
+    repo.getMove(moveId).map(_.filter(_ isAcquiredBy client)) flatMap {
       case None =>
         log.warn(s"Received unknown or unacquired move $moveId by ${client.fullId}")
         funit
       case Some(move) => data.move.uci match {
         case Some(uci) =>
           hub.actor.roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
-          deleteMove(move)
+          repo.deleteMove(move)
         case _ =>
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
-          updateMove(move.invalid) >> updateClient(client invalid move)
+          repo.updateOrGiveUpMove(move.invalid) >> repo.updateClient(client invalid move)
       }
     }
   } >> acquire(client)
-
-  private[fishnet] def addMove(move: Work.Move) = moveColl.insert(move).void
-
-  private[fishnet] def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
-  private[fishnet] def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-  private[fishnet] def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client).void
-  private[fishnet] def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
-    client.updateInstance(instance).fold(fuccess(client)) { updated =>
-      updateClient(updated) inject updated
-    }
-  private[fishnet] def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]
-  private[fishnet] def updateMove(move: Work.Move) = moveColl.update(selectWork(move.id), move).void
-  private[fishnet] def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
-
-  private[fishnet] def similarMoveExists(move: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
-    "game.id" -> move.game.id,
-    "currentFen" -> move.currentFen
-  ).some) map (0 !=)
-
-  private def nextMove: Fu[Option[Work.Move]] = moveColl.find(BSONDocument(
-    "acquired" -> BSONDocument("$exists" -> false)
-  )).sort(BSONDocument("createdAt" -> -1)).one[Work.Move]
 
   private[fishnet] def createClient(key: String, userId: String, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
@@ -79,6 +59,29 @@ final class FishnetApi(
         createdAt = DateTime.now)).void
     }
 
-  private def selectWork(id: Work.Id) = BSONDocument("_id" -> id.value)
-  private def selectClient(key: Client.Key) = BSONDocument("_id" -> key.value)
+  private[fishnet] object repo {
+
+    def addMove(move: Work.Move) = moveColl.insert(move).void
+
+    def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
+    def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
+    def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client).void
+    def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
+      client.updateInstance(instance).fold(fuccess(client)) { updated =>
+        updateClient(updated) inject updated
+      }
+    def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]
+    def updateMove(move: Work.Move) = moveColl.update(selectWork(move.id), move).void
+    def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
+    def giveUpMove(move: Work.Move) = deleteMove(move) >>- log.warn(s"Give up on move $move")
+    def updateOrGiveUpMove(move: Work.Move) = if (move.isOutOfTries) giveUpMove(move) else updateMove(move)
+
+    def similarMoveExists(move: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
+      "game.id" -> move.game.id,
+      "currentFen" -> move.currentFen
+    ).some) map (0 !=)
+
+    def selectWork(id: Work.Id) = BSONDocument("_id" -> id.value)
+    def selectClient(key: Client.Key) = BSONDocument("_id" -> key.value)
+  }
 }

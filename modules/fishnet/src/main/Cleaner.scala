@@ -16,16 +16,16 @@ private final class Cleaner(
   import BSONHandlers._
 
   private val moveTimeout = 2 seconds
-  private val moveMaxTries = 3
 
   private def cleanMoves: Funit = moveColl.find(BSONDocument(
     "acquired.date" -> BSONDocument("$lt" -> DateTime.now.minusSeconds(moveTimeout.toSeconds.toInt))
   )).cursor[Work.Move]().collect[List](100).flatMap {
     _.map { move =>
-      move.acquiredByKey ?? api.getClient flatMap {
+      move.acquiredByKey ?? api.repo.getClient flatMap {
         _ ?? { client =>
-          log.warn(s"Timeout move ${move.game.id} by ${client.userId}")
-          api.updateMove(move.timeout) zip api.updateClient(client timeout move) void
+          api.repo.updateOrGiveUpMove(move) zip
+            api.repo.updateClient(client timeout move) >>-
+            log.warn(s"Timeout move ${move.game.id} by ${client.userId}")
         }
       }
     }.sequenceFu.void
