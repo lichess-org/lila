@@ -6,7 +6,7 @@ case class Client(
     _id: Client.Key, // API key used to authenticate and assign move or analysis
     userId: Client.UserId, // lichess user ID
     skill: Client.Skill, // what can this client do
-    instance: Option[Client.Instance],
+    instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     stats: Stats,
     createdAt: DateTime) {
@@ -31,13 +31,11 @@ case class Client(
 object Client {
 
   case class Key(value: String) extends AnyVal
-  case class UUID(value: String) extends AnyVal
   case class Version(value: String) extends AnyVal
   case class UserId(value: String) extends AnyVal
   case class Engine(name: String)
 
   case class Instance(
-    uuid: UUID,
     version: Version,
     engine: Engine,
     seenAt: DateTime)

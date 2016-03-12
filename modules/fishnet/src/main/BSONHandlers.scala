@@ -12,7 +12,6 @@ private object BSONHandlers {
   implicit val ClientKeyBSONHandler = stringAnyValHandler[Client.Key](_.value, Client.Key.apply)
   implicit val ClientVersionBSONHandler = stringAnyValHandler[Client.Version](_.value, Client.Version.apply)
   implicit val ClientUserIdBSONHandler = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
-  implicit val ClientUUIDBSONHandler = stringAnyValHandler[Client.UUID](_.value, Client.UUID.apply)
 
   implicit val ClientSkillBSONHandler = new BSONHandler[BSONString, Client.Skill] {
     def read(x: BSONString) = Client.Skill byKey x.value err s"Invalid client skill ${x.value}"

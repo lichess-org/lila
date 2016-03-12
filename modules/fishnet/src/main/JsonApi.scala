@@ -15,7 +15,6 @@ object JsonApi {
     val engine: Client.Engine
 
     def instance = Client.Instance(
-      fishnet.uuid,
       fishnet.version,
       engine,
       DateTime.now)
@@ -25,8 +24,7 @@ object JsonApi {
 
     case class Fishnet(
       version: Client.Version,
-      apikey: Client.Key,
-      uuid: Client.UUID)
+      apikey: Client.Key)
 
     case class Acquire(
       fishnet: Fishnet,
@@ -81,7 +79,6 @@ object JsonApi {
     implicit val EngineReads = Json.reads[Client.Engine]
     implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
     implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
-    implicit val ClientUUIDReads = Reads.of[String].map(new Client.UUID(_))
     implicit val FishnetReads = Json.reads[Request.Fishnet]
     implicit val AcquireReads = Json.reads[Request.Acquire]
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
