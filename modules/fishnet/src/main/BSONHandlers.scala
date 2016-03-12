@@ -4,7 +4,7 @@ import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
 import reactivemongo.bson._
 
-import chess.format.Uci
+import chess.format.{ Uci, FEN }
 import chess.variant.Variant
 
 private object BSONHandlers {
@@ -42,9 +42,9 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  implicit val UciBSONHandler = new BSONHandler[BSONString, Uci] {
-    def read(b: BSONString) = Uci(b.value) err s"Invalid UCI: ${b.value}"
-    def write(x: Uci) = BSONString(x.uci)
+  implicit val FENBSONHandler = new BSONHandler[BSONString, FEN] {
+    def read(b: BSONString) = FEN(b.value)
+    def write(x: FEN) = BSONString(x.value)
   }
 
   import Work.Acquired

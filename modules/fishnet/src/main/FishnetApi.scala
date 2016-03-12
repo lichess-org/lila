@@ -28,6 +28,9 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
+
+  private[fishnet] def addMove(move: Work.Move) = moveColl.insert(move).void
+
   private def getClient(key: Client.Key) = clientColl.find(selectKey(key)).one[Client]
   private def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
   private def updateClient(client: Client) = clientColl.update(selectKey(client.key), client)

@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.Uci
+import chess.format.FEN
 import chess.variant.Variant
 
 sealed trait Work {
@@ -17,9 +17,9 @@ object Work {
 
   case class Game(
     id: String,
-    position: Option[String],
+    position: Option[FEN],
     variant: Variant,
-    moves: List[Uci])
+    moves: Seq[String])
 
   case class Move(
       _id: String, // random
@@ -49,4 +49,6 @@ object Work {
       acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
       tries = tries + 1)
   }
+
+  def makeId = scala.util.Random.alphanumeric take 8 mkString
 }

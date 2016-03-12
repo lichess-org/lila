@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    uciMemo: lila.game.UciMemo,
     db: lila.db.Env,
     system: ActorSystem) {
 
@@ -38,6 +39,7 @@ object Env {
 
   lazy val current: Env = "fishnet" boot new Env(
     system = lila.common.PlayApp.system,
+    uciMemo = lila.game.Env.current.uciMemo,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet")
 }
