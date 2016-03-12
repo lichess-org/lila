@@ -21,10 +21,10 @@ object Stats {
   case class Result(
       acquire: Int,
       success: Int,
-      failure: Int) {
+      timeout: Int) {
 
     def addAcquire = copy(acquire = acquire + 1)
     def addSuccess = copy(success = success + 1)
-    def addFailure = copy(failure = failure + 1)
+    def addTimeout = copy(timeout = timeout + 1)
   }
 }

@@ -40,6 +40,7 @@ private object BSONHandlers {
     def write(x: FEN) = BSONString(x.value)
   }
 
+  implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)
   import Work.Acquired
   implicit val MoveAcquiredHandler = Macros.handler[Acquired]
   import Work.Game

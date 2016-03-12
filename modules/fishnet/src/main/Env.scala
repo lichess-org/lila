@@ -10,26 +10,31 @@ final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
     db: lila.db.Env,
-    system: ActorSystem) {
+    system: ActorSystem,
+    scheduler: lila.common.Scheduler) {
 
-  private val CollectionMove = config getString "collection.move"
-  private val CollectionAnalysis = config getString "collection.analysis"
-  private val CollectionClient = config getString "collection.client"
+  private val moveColl = db(config getString "collection.move")
+  private val analysisColl = db(config getString "collection.analysis")
+  private val clientColl = db(config getString "collection.client")
 
-  lazy val api = new FishnetApi(
-    moveColl = db(CollectionMove),
-    analysisColl = db(CollectionAnalysis),
-    clientColl = db(CollectionClient),
-    sequencer = sequencer)
+  val api = new FishnetApi(
+    moveColl = moveColl,
+    analysisColl = analysisColl,
+    clientColl = clientColl,
+    sequencer = new lila.hub.FutureSequencer(
+      system = system,
+      receiveTimeout = None,
+      executionTimeout = Some(500 millis)))
 
-  lazy val player = new Player(
+  val player = new Player(
     api = api,
     uciMemo = uciMemo)
 
-  private lazy val sequencer = new lila.hub.FutureSequencer(
-    system = system,
-    receiveTimeout = None,
-    executionTimeout = Some(1 second))
+  private val cleaner = new Cleaner(
+    api = api,
+    moveColl = moveColl,
+    analysisColl = analysisColl,
+    scheduler = scheduler)
 
   def cli = new lila.common.Cli {
     def process = {
@@ -45,5 +50,6 @@ object Env {
     system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
     db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "fishnet")
+    config = lila.common.PlayApp loadConfig "fishnet",
+    scheduler = lila.common.PlayApp.scheduler)
 }

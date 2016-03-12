@@ -11,7 +11,7 @@ import lila.fishnet.{ Work => W }
 object JsonApi {
 
   sealed trait Request {
-    val fishnet: Fishnet
+    val fishnet: Request.Fishnet
     val engine: Client.Engine
 
     def instance = Client.Instance(
@@ -21,14 +21,28 @@ object JsonApi {
       DateTime.now)
   }
 
-  case class Fishnet(
-    version: Client.Version,
-    apikey: Client.Key,
-    uuid: Client.UUID)
+  object Request {
 
-  case class Acquire(
+    case class Fishnet(
+      version: Client.Version,
+      apikey: Client.Key,
+      uuid: Client.UUID)
+
+    case class Acquire(
       fishnet: Fishnet,
-      engine: Client.Engine) extends Request {
+      engine: Client.Engine) extends Request
+
+    case class PostMove(
+      fishnet: Fishnet,
+      engine: Client.Engine,
+      move: MoveResult) extends Request
+
+    case class MoveResult(bestmove: String, depth: Int)
+
+    case class PostAnalysis(
+      fishnet: Fishnet,
+      engine: Client.Engine,
+      analysis: JsObject) extends Request
   }
 
   case class Game(
@@ -52,23 +66,30 @@ object JsonApi {
     case a: W.Analysis => Analysis(fromGame(a.game))
   }
 
-  implicit val EngineReads = Json.reads[Client.Engine]
-  implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
-  implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
-  implicit val ClientUUIDReads = Reads.of[String].map(new Client.UUID(_))
-  implicit val FishnetReads = Json.reads[Fishnet]
-  implicit val AcquireReads = Json.reads[Acquire]
+  object readers {
+    implicit val EngineReads = Json.reads[Client.Engine]
+    implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
+    implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
+    implicit val ClientUUIDReads = Reads.of[String].map(new Client.UUID(_))
+    implicit val FishnetReads = Json.reads[Request.Fishnet]
+    implicit val AcquireReads = Json.reads[Request.Acquire]
+    implicit val MoveResultReads = Json.reads[Request.MoveResult]
+    implicit val PostMoveReads = Json.reads[Request.PostMove]
+    implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
+  }
 
-  implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
-  implicit val FENWrites = Writes[FEN] { fen => JsString(fen.value) }
-  implicit val GameWrites = Json.writes[Game]
-
-  implicit val WorkWrites = OWrites[Work] { work =>
-    Json.obj(
-      "work" -> (work match {
-        case a: Analysis => Json.obj("type" -> "analysis")
-        case m: Move     => Json.obj("type" -> "move", "level" -> m.level)
-      })
-    ) ++ Json.toJson(work.game).as[JsObject]
+  object writers {
+    implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
+    implicit val FENWrites = Writes[FEN] { fen => JsString(fen.value) }
+    implicit val GameWrites = Json.writes[Game]
+    implicit val WorkIdWrites = Writes[Work.Id] { id => JsString(id.value) }
+    implicit val WorkWrites = OWrites[Work] { work =>
+      Json.obj(
+        "work" -> (work match {
+          case a: Analysis => Json.obj("type" -> "analysis")
+          case m: Move     => Json.obj("type" -> "move", "level" -> m.level)
+        })
+      ) ++ Json.toJson(work.game).as[JsObject]
+    }
   }
 }

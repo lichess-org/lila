@@ -85,7 +85,8 @@ final class Env(
       Env.perfStat, // required to load the actor
       Env.slack, // required to load the actor
       Env.challenge, // required to load the actor
-      Env.explorer // required to load the actor
+      Env.explorer, // required to load the actor
+      Env.fishnet // required to schedule the cleaner
     )
     play.api.Logger("boot").info("Preloading complete")
 

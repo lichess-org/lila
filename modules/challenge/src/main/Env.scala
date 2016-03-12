@@ -61,12 +61,8 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.future(3 seconds, "sweep challenges") {
-      api.sweep
-    }
+  scheduler.future(3 seconds, "sweep challenges") {
+    api.sweep
   }
 }
 
