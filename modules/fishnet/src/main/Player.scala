@@ -10,7 +10,9 @@ final class Player(
     api: FishnetApi,
     uciMemo: UciMemo) {
 
-  def apply(game: Game, level: Int): Funit = makeWork(game, level) flatMap api.addMove
+  def apply(game: Game): Funit = game.aiLevel ?? { level =>
+    makeWork(game, level) flatMap api.addMove
+  }
 
   private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
     if (game.toChess.situation playable true) op

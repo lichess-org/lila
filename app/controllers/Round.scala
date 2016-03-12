@@ -50,37 +50,31 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    negotiate(
-      html = {
-        if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-        pov.game.started.fold(
-          PreventTheft(pov) {
-            myTour(pov.game.tournamentId, true) zip
-              (pov.game.simulId ?? Env.simul.repo.find) zip
-              Env.game.crosstableApi(pov.game) zip
-              (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
-                case (((tour, simul), crosstable), playing) =>
-                  simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                  Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                    Ok(html.round.player(pov, data,
-                      tour = tour,
-                      simul = simul,
-                      cross = crosstable,
-                      playing = playing,
-                      prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
-                  }
-              }
-          }.mon(_.http.response.player.website),
-          notFound
-        )
-      },
+    (pov.game.playableByAi ?? Env.fishnet.player(pov.game)) >> negotiate(
+      html = pov.game.started.fold(
+        PreventTheft(pov) {
+          myTour(pov.game.tournamentId, true) zip
+            (pov.game.simulId ?? Env.simul.repo.find) zip
+            Env.game.crosstableApi(pov.game) zip
+            (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
+              case (((tour, simul), crosstable), playing) =>
+                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
+                  Ok(html.round.player(pov, data,
+                    tour = tour,
+                    simul = simul,
+                    cross = crosstable,
+                    playing = playing,
+                    prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
+                }
+            }
+        }.mon(_.http.response.player.website),
+        notFound
+      ),
       api = apiVersion => {
         if (isTheft(pov)) fuccess(theftResponse)
-        else {
-          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-          Env.api.roundApi.player(pov, apiVersion).map { Ok(_) }
-            .mon(_.http.response.player.mobile)
-        }
+        else Env.api.roundApi.player(pov, apiVersion).map { Ok(_) }
+          .mon(_.http.response.player.mobile)
       }
     ) map NoCache
 

@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
+    hub: lila.hub.Env,
     db: lila.db.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
@@ -18,6 +19,7 @@ final class Env(
   private val clientColl = db(config getString "collection.client")
 
   val api = new FishnetApi(
+    hub = hub,
     moveColl = moveColl,
     analysisColl = analysisColl,
     clientColl = clientColl,
@@ -49,6 +51,7 @@ object Env {
   lazy val current: Env = "fishnet" boot new Env(
     system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
+    hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler)

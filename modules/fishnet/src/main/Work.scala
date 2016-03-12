@@ -46,6 +46,8 @@ object Work {
       tries = tries + 1)
 
     def timeout = copy(acquired = none)
+
+    def invalid = copy(acquired = none)
   }
 
   case class Analysis(

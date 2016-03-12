@@ -103,8 +103,6 @@ case class HumanPlay(
 
 case class FishnetPlay(uci: Uci)
 
-case object AiPlay
-
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
 case class Abort(playerId: String)

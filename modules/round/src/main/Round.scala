@@ -10,6 +10,7 @@ import chess.Color
 import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
+import lila.hub.actorApi.round.FishnetPlay
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import makeTimeout.large
@@ -65,14 +66,8 @@ private[round] final class Round(
         }
       } >>- monitorMove((nowNanos - p.atNanos).some)
 
-    // case FishnetPlay(uci) => handle { game =>
-    //   player.fishnet(game, uci) map (_.events)
-    // } >>- monitorMove(none)
-
-    case AiPlay => handle { game =>
-      game.playableByAi ?? {
-        player ai game map (_.events)
-      }
+    case FishnetPlay(uci) => handle { game =>
+      player.fishnet(game, uci)
     } >>- monitorMove(none)
 
     case Abort(playerId) => handle(playerId) { pov =>

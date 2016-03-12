@@ -17,8 +17,8 @@ import tube.{ userConfigTube, anonConfigTube }
 private[setup] final class Processor(
     lobby: ActorSelection,
     router: ActorSelection,
-    onStart: String => Unit,
-    aiPlay: Game => Fu[Progress]) {
+    fishnetPlayer: lila.fishnet.Player,
+    onStart: String => Unit) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
     saveConfig(_ withFilter config)
@@ -27,11 +27,9 @@ private[setup] final class Processor(
     val pov = blamePov(config.pov, ctx.me)
     saveConfig(_ withAi config) >>
       (GameRepo insertDenormalized pov.game) >>-
-      onStart(pov.game.id) >>
-      pov.game.player.isHuman.fold(
-        fuccess(pov),
-        aiPlay(pov.game) map { progress => pov withGame progress.game }
-      )
+      onStart(pov.game.id) >> {
+        pov.game.player.isAi ?? fishnetPlayer(pov.game)
+      } inject pov
   }
 
   private def blamePov(pov: Pov, user: Option[User]): Pov = pov withGame {

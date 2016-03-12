@@ -11,8 +11,8 @@ final class Env(
     config: AppConfig,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    fishnetPlayer: lila.fishnet.Player,
     onStart: String => Unit,
-    aiPlay: Game => Fu[Progress],
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     system: ActorSystem) {
@@ -30,9 +30,9 @@ final class Env(
 
   lazy val processor = new Processor(
     lobby = hub.actor.lobby,
+    fishnetPlayer = fishnetPlayer,
     router = hub.actor.router,
-    onStart = onStart,
-    aiPlay = aiPlay)
+    onStart = onStart)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)
@@ -44,8 +44,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "setup",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    fishnetPlayer = lila.fishnet.Env.current.player,
     onStart = lila.game.Env.current.onStart,
-    aiPlay = lila.round.Env.current.aiPlay,
     prefApi = lila.pref.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     system = lila.common.PlayApp.system)

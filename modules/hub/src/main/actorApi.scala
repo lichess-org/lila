@@ -80,7 +80,7 @@ case class PlayerMove(gameId: String)
 }
 
 package slack {
-  case class Error(msg: String)
+case class Error(msg: String)
 }
 
 package timeline {
@@ -190,6 +190,7 @@ object SocketEvent {
   case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
   case class Stop(gameId: String) extends SocketEvent
 }
+case class FishnetPlay(uci: chess.format.Uci)
 }
 
 package evaluation {

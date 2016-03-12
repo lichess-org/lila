@@ -14,17 +14,19 @@ object Stats {
 
   type ResultUpdate = Stats.Result => Stats.Result
 
-  def emptyResult = Result(0, 0, 0)
+  def emptyResult = Result(0, 0, 0, 0)
 
   def empty = Stats(emptyResult, emptyResult)
 
   case class Result(
       acquire: Int,
       success: Int,
-      timeout: Int) {
+      timeout: Int,
+      invalid: Int) {
 
     def addAcquire = copy(acquire = acquire + 1)
     def addSuccess = copy(success = success + 1)
     def addTimeout = copy(timeout = timeout + 1)
+    def addInvalid = copy(invalid = invalid + 1)
   }
 }

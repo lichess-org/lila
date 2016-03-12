@@ -37,7 +37,9 @@ object JsonApi {
       engine: Client.Engine,
       move: MoveResult) extends Request
 
-    case class MoveResult(bestmove: String, depth: Int)
+    case class MoveResult(bestmove: String, depth: Int) {
+      def uci: Option[Uci] = Uci(bestmove)
+    }
 
     case class PostAnalysis(
       fishnet: Fishnet,

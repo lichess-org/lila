@@ -154,9 +154,6 @@ final class Env(
     cheatDetector = cheatDetector,
     uciMemo = uciMemo)
 
-  // public access to AI play, for setup.Processor usage
-  val aiPlay = player ai _
-
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
     messenger = messenger,

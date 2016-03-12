@@ -16,11 +16,7 @@ object Fishnet extends LilaController {
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
-      api acquire client map {
-        _ map { work =>
-          Ok(Json toJson work)
-        }
-      }
+      api acquire client
   }
 
   def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data =>
@@ -32,13 +28,16 @@ object Fishnet extends LilaController {
     client => ???
   }
 
-  private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[Result]])(implicit reads: Reads[A]) =
+  private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
     Action.async(BodyParsers.parse.json) { req =>
       req.body.validate[A].fold(
         err => BadRequest(jsonError(JsError toJson err)).fuccess,
         data => api.authenticateClient(data) flatMap {
-          case None         => Unauthorized(jsonError("Invalid or revoked API key")).fuccess
-          case Some(client) => f(data)(client).map(_ | NotFound(jsonError("That's all we got!")))
+          case None => Unauthorized(jsonError("Invalid or revoked API key")).fuccess
+          case Some(client) => f(data)(client).map {
+            case Some(work) => Ok(Json toJson work)
+            case _          => NotFound(jsonError("That's all we got!"))
+          }
         })
     }
 }
