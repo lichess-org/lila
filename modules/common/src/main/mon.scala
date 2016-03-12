@@ -98,6 +98,8 @@ object mon {
   }
   object search {
     def client(op: String) = rec(s"search.client.$op")
+    def success(op: String) = inc(s"search.client.$op.success")
+    def failure(op: String) = inc(s"search.client.$op.failure")
   }
   object jvm {
     val thread = rec("jvm.thread")
