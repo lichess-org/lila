@@ -23,6 +23,8 @@ case class Client(
   def timeout(work: Work) = add(work, _.addTimeout)
   def invalid(work: Work) = add(work, _.addInvalid)
 
+  def lichess = userId.value == "lichess"
+
   private def add(work: Work, update: Stats.ResultUpdate) = copy(stats = stats.add(work, update))
 }
 

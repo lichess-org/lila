@@ -12,6 +12,7 @@ sealed trait Work {
   def acquired: Option[Work.Acquired]
   def createdAt: DateTime
 
+  def acquiredAt = acquired.map(_.date)
   def acquiredByKey = acquired.map(_.clientKey)
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
   def isAcquired = acquired.isDefined
@@ -69,6 +70,8 @@ object Work {
       _id: Work.Id, // random
       sender: Sender,
       game: Game,
+      startPly: Int,
+      nbPly: Int,
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {

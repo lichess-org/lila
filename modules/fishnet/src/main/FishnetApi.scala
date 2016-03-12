@@ -54,7 +54,7 @@ final class FishnetApi(
         case None =>
           log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
           fuccess(none)
-        case Some(work) => ToAnalysis(data) match {
+        case Some(work) => ToAnalysis(client, work, data) match {
           case Some(analysis) => repo.deleteAnalysis(work) inject analysis.some
           case _ =>
             log.warn(s"Received invalid analysis $workId by ${client.fullId}")

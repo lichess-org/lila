@@ -1,6 +1,6 @@
 package lila.analyse
 
-case class Score(centipawns: Int) {
+case class Score(centipawns: Int) extends AnyVal {
   def pawns: Float = centipawns / 100f
   def showPawns: String = "%.2f" format pawns
 
@@ -18,4 +18,3 @@ object Score {
 
   def apply(str: String): Option[Score] = parseIntOption(str) map Score.apply
 }
-

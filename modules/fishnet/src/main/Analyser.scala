@@ -43,6 +43,8 @@ final class Analyser(
           initialFen = initialFen map FEN.apply,
           variant = game.variant,
           moves = moves mkString " "),
+        startPly = game.startedAtTurn,
+        nbPly = game.turns,
         tries = 0,
         acquired = None,
         createdAt = DateTime.now)

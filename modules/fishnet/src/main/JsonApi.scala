@@ -44,10 +44,11 @@ object JsonApi {
     case class PostAnalysis(
       fishnet: Fishnet,
       engine: Client.Engine,
-      analysis: List[Ply]) extends Request
+      analysis: List[AnalysisPly]) extends Request
 
-    case class Ply(
-      pv: List[String],
+    case class AnalysisPly(
+      bestmove: Option[String],
+      pv: Option[String],
       score: Score)
 
     case class Score(
@@ -86,7 +87,7 @@ object JsonApi {
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Score]
-    implicit val PlyReads = Json.reads[Request.Ply]
+    implicit val AnalysisPlyReads = Json.reads[Request.AnalysisPly]
     implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
   }
 
