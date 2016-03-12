@@ -49,6 +49,8 @@ private object BSONHandlers {
 
   import Work.Acquired
   implicit val MoveAcquiredHandler = Macros.handler[Acquired]
+  import Work.Game
+  implicit val GameHandler = Macros.handler[Game]
   import Work.Move
   implicit val MoveHandler = Macros.handler[Move]
   import Work.Analysis

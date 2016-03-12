@@ -5,7 +5,9 @@ import org.joda.time.DateTime
 import chess.format.Uci
 import chess.variant.Variant
 
-sealed trait Work
+sealed trait Work {
+  val game: Work.Game
+}
 
 object Work {
 
@@ -13,35 +15,38 @@ object Work {
     clientKey: Client.Key,
     date: DateTime)
 
+  case class Game(
+    id: String,
+    position: Option[String],
+    variant: Variant,
+    moves: List[Uci])
+
   case class Move(
       _id: String, // random
-      gameId: String,
-      position: Option[String],
-      variant: Variant,
-      moves: List[Uci],
+      game: Game,
+      level: Int,
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
 
     def id = _id
 
-    def assignTo(client: Client) =
-      copy(acquired = Acquired(clientKey = client.key, date = DateTime.now).some)
+    def assignTo(client: Client) = copy(
+      acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
+      tries = tries + 1)
   }
 
   case class Analysis(
       _id: String, // random
-      gameId: String,
-      position: Option[String],
-      variant: Variant,
-      moves: List[Uci],
+      game: Game,
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
 
     def id = _id
 
-    def acquire(client: Client) =
-      copy(acquired = Acquired(clientKey = client.key, date = DateTime.now).some)
+    def assignTo(client: Client) = copy(
+      acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
+      tries = tries + 1)
   }
 }

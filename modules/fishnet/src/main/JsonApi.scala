@@ -6,6 +6,8 @@ import play.api.libs.json._
 import chess.format.{ Uci, Forsyth }
 import chess.variant.Variant
 
+import lila.fishnet.{ Work => W }
+
 object JsonApi {
 
   sealed trait Request {
@@ -22,31 +24,25 @@ object JsonApi {
       engine: Client.Engine) extends Request {
   }
 
-  sealed trait Work
-
-  case class Move(
+  case class Game(
     game_id: String,
     position: String,
     variant: Variant,
-    moves: List[Uci]) extends Work
+    moves: List[Uci])
 
-  case class Analysis(
-    game_id: String,
-    position: String,
-    variant: Variant,
-    moves: List[Uci]) extends Work
+  def fromGame(g: W.Game) = Game(
+    game_id = g.id,
+    position = g.position | Forsyth.initial,
+    variant = g.variant,
+    moves = g.moves)
 
-  def fromWork(w: lila.fishnet.Work) = w match {
-    case m: lila.fishnet.Work.Move => Move(
-      game_id = m.gameId,
-      position = m.position | Forsyth.initial,
-      variant = m.variant,
-      moves = m.moves)
-    case a: lila.fishnet.Work.Analysis => Analysis(
-      game_id = a.gameId,
-      position = a.position | Forsyth.initial,
-      variant = a.variant,
-      moves = a.moves)
+  sealed trait Work { val game: Game }
+  case class Move(level: Int, game: Game) extends Work
+  case class Analysis(game: Game) extends Work
+
+  def fromWork(w: W): Work = w match {
+    case m: W.Move     => Move(m.level, fromGame(m.game))
+    case a: W.Analysis => Analysis(fromGame(a.game))
   }
 
   implicit val EngineReads = Json.reads[Client.Engine]
@@ -56,6 +52,14 @@ object JsonApi {
 
   implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
   implicit val UciWrites = Writes[Uci] { uci => JsString(uci.uci) }
-  implicit val MoveWrites = Json.writes[Move]
-  implicit val AnalysisWrites = Json.writes[Analysis]
+  implicit val GameWrites = Json.writes[Game]
+
+  implicit val WorkWrites = OWrites[Work] { work =>
+    Json.obj(
+      "work" -> (work match {
+        case a: Analysis => Json.obj("type" -> "analysis")
+        case m: Move     => Json.obj("type" -> "move", "level" -> m.level)
+      })
+    ) ++ Json.toJson(work.game).as[JsObject]
+  }
 }
