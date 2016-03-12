@@ -40,7 +40,10 @@ final class FishnetApi(
   private def acquireAnalysis(client: Client) = sequencer {
     analysisColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
-    )).sort(BSONDocument("createdAt" -> 1)).one[Work.Analysis].flatMap {
+    )).sort(BSONDocument(
+      "sender.system" -> 1, // user requests first, then lichess auto analysis
+      "createdAt" -> 1 // oldest requests first
+    )).one[Work.Analysis].flatMap {
       _ ?? { work =>
         repo.updateAnalysis(work assignTo client) zip repo.updateClient(client acquire work) inject work.some
       }
