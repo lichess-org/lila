@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
+import Client.Skill
 import lila.db.Implicits._
 import lila.hub.{ actorApi => hubApi }
 
@@ -12,22 +13,26 @@ final class FishnetApi(
     analysisColl: Coll,
     clientColl: Coll,
     sequencer: Sequencer,
-    saveAnalysis: lila.analyse.Analysis => Funit) {
+    saveAnalysis: lila.analyse.Analysis => Funit,
+    offlineMode: Boolean) {
 
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request) = repo.getEnabledClient(req.fishnet.apikey) flatMap {
-    _ ?? { client =>
-      repo.updateClientInstance(client, req.instance) map some
+  def authenticateClient(req: JsonApi.Request) =
+    if (offlineMode) fuccess(Client.offline.some)
+    else repo.getEnabledClient(req.fishnet.apikey) flatMap {
+      _ ?? { client =>
+        repo.updateClientInstance(client, req.instance) map some
+      }
     }
-  }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = client.skill match {
-    case Client.Skill.Move     => acquireMove(client)
-    case Client.Skill.Analysis => acquireAnalysis(client)
+    case Skill.Move     => acquireMove(client)
+    case Skill.Analysis => acquireAnalysis(client)
+    case Skill.All      => acquireMove(client) orElse acquireAnalysis(client)
   }
 
-  private def acquireMove(client: Client) = sequencer.move {
+  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = sequencer.move {
     moveColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
@@ -37,7 +42,7 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
-  private def acquireAnalysis(client: Client) = sequencer.analysis {
+  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer.analysis {
     analysisColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument(

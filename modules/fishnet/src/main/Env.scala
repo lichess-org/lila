@@ -16,6 +16,7 @@ final class Env(
     saveAnalysis: lila.analyse.Analysis => Funit) {
 
   private val ActorName = config getString "actor.name"
+  private val OfflineMode = config getBoolean "offline_mode"
 
   private val moveColl = db(config getString "collection.move")
   private val analysisColl = db(config getString "collection.analysis")
@@ -37,7 +38,8 @@ final class Env(
     analysisColl = analysisColl,
     clientColl = clientColl,
     sequencer = sequencer,
-    saveAnalysis = saveAnalysis)
+    saveAnalysis = saveAnalysis,
+    offlineMode = OfflineMode)
 
   val player = new Player(
     api = api,

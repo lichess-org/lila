@@ -30,6 +30,15 @@ case class Client(
 
 object Client {
 
+  val offline = Client(
+    _id = Key("offline"),
+    userId = UserId("offline"),
+    skill = Skill.All,
+    instance = None,
+    enabled = true,
+    stats = Stats.empty,
+    createdAt = DateTime.now)
+
   case class Key(value: String) extends AnyVal
   case class Version(value: String) extends AnyVal
   case class UserId(value: String) extends AnyVal
@@ -46,7 +55,8 @@ object Client {
   object Skill {
     case object Move extends Skill
     case object Analysis extends Skill
-    val all = List(Move, Analysis)
+    case object All extends Skill
+    val all = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
   }
 }
