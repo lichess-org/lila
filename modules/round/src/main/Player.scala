@@ -54,9 +54,9 @@ private[round] final class Player(
 
   def requestFishnet(game: Game) = game.playableByAi ?? fishnetPlayer(game)
 
-  def fishnet(game: Game, fen: FEN, uci: Uci): Fu[Events] =
+  def fishnet(game: Game, uci: Uci, currentFen: FEN): Fu[Events] =
     if (game.playable && game.player.isAi) {
-      if (fen == FEN(Forsyth >> game.toChess))
+      if (currentFen == FEN(Forsyth >> game.toChess))
         applyUci(game, uci, blur = false, lag = 0.millis)
           .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, moveOrDrop) =>
@@ -68,9 +68,9 @@ private[round] final class Player(
                   fuccess(progress.events)
                 )
           }
-      else requestFishnet(game)
+      else requestFishnet(game) >> fufail("Invalid AI move current FEN")
     }
-    else fufail(s"Not AI turn")
+    else fufail("Not AI turn")
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
