@@ -140,6 +140,14 @@ object mon {
       val block = inc("security.firewall.block")
       val ip = rec("security.firewall.ip")
     }
+    object proxy {
+      object request {
+        val success = inc("security.proxy.success")
+        val failure = inc("security.proxy.failure")
+        val time = rec("security.proxy.request")
+      }
+      val percent = rec("security.proxy.percent")
+    }
   }
   object tv {
     object stream {
