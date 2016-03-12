@@ -24,11 +24,11 @@ final class Player(
   private def makeMove(game: Game, level: Int): Fu[Work.Move] =
     if (game.toChess.situation playable true)
       GameRepo.initialFen(game) zip uciMemo.get(game) map {
-        case (fen, moves) => Work.Move(
+        case (initialFen, moves) => Work.Move(
           _id = Work.makeId,
           game = Work.Game(
             id = game.id,
-            position = fen map FEN.apply,
+            initialFen = initialFen map FEN.apply,
             variant = game.variant,
             moves = moves),
           currentFen = FEN(Forsyth >> game.toChess),

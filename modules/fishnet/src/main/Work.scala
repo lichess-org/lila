@@ -27,7 +27,7 @@ object Work {
 
   case class Game(
     id: String,
-    position: Option[FEN],
+    initialFen: Option[FEN],
     variant: Variant,
     moves: Seq[String])
 
