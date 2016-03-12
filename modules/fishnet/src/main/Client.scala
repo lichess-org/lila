@@ -25,11 +25,13 @@ case class Client(
 object Client {
 
   case class Key(value: String) extends AnyVal
+  case class UUID(value: String) extends AnyVal
   case class Version(value: String) extends AnyVal
   case class UserId(value: String) extends AnyVal
   case class Engine(name: String)
 
   case class Instance(
+    uuid: UUID,
     version: Version,
     engine: Engine,
     seenAt: DateTime)

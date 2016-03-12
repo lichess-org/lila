@@ -14,7 +14,7 @@ final class FishnetApi(
 
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request) = getEnabledClient(req.key) flatMap {
+  def authenticateClient(req: JsonApi.Request) = getEnabledClient(req.fishnet.apikey) flatMap {
     _.map(_ setInstance req.instance) ?? { client =>
       updateClient(client) inject client.some
     }

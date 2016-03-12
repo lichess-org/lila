@@ -26,6 +26,11 @@ object BSON {
     def write(x: DateTime) = BSONDateTime(x.getMillis)
   }
 
+  def stringAnyValHandler[A](from: A => String, to: String => A) = new BSONHandler[BSONString, A] {
+    def read(x: BSONString) = to(x.value)
+    def write(x: A) = BSONString(from(x))
+  }
+
   object MapDocument {
 
     implicit def MapReader[V](implicit vr: BSONDocumentReader[V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {

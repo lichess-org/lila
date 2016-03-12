@@ -22,6 +22,10 @@ final class Env(
     clientColl = db(CollectionClient),
     sequencer = sequencer)
 
+  lazy val player = new Player(
+    api = api,
+    uciMemo = uciMemo)
+
   private lazy val sequencer = new lila.hub.FutureSequencer(
     system = system,
     receiveTimeout = None,

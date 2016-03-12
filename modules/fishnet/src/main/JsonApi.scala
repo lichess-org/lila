@@ -11,16 +11,23 @@ import lila.fishnet.{ Work => W }
 object JsonApi {
 
   sealed trait Request {
-    val key: Client.Key
-    val version: Client.Version
+    val fishnet: Fishnet
     val engine: Client.Engine
 
-    def instance = Client.Instance(version, engine, DateTime.now)
+    def instance = Client.Instance(
+      fishnet.uuid,
+      fishnet.version,
+      engine,
+      DateTime.now)
   }
 
+  case class Fishnet(
+    version: Client.Version,
+    apikey: Client.Key,
+    uuid: Client.UUID)
+
   case class Acquire(
-      key: Client.Key,
-      version: Client.Version,
+      fishnet: Fishnet,
       engine: Client.Engine) extends Request {
   }
 
@@ -48,6 +55,8 @@ object JsonApi {
   implicit val EngineReads = Json.reads[Client.Engine]
   implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
   implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
+  implicit val ClientUUIDReads = Reads.of[String].map(new Client.UUID(_))
+  implicit val FishnetReads = Json.reads[Fishnet]
   implicit val AcquireReads = Json.reads[Acquire]
 
   implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }

@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import lila.db.BSON
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON.{BSONJodaDateTimeHandler, stringAnyValHandler}
 import reactivemongo.bson._
 
 import chess.format.{ Uci, FEN }
@@ -9,18 +9,11 @@ import chess.variant.Variant
 
 private object BSONHandlers {
 
-  implicit val ClientKeyBSONHandler = new BSONHandler[BSONString, Client.Key] {
-    def read(x: BSONString) = Client.Key(x.value)
-    def write(x: Client.Key) = BSONString(x.value)
-  }
-  implicit val ClientVersionBSONHandler = new BSONHandler[BSONString, Client.Version] {
-    def read(x: BSONString) = Client.Version(x.value)
-    def write(x: Client.Version) = BSONString(x.value)
-  }
-  implicit val ClientUserIdBSONHandler = new BSONHandler[BSONString, Client.UserId] {
-    def read(x: BSONString) = Client.UserId(x.value)
-    def write(x: Client.UserId) = BSONString(x.value)
-  }
+  implicit val ClientKeyBSONHandler = stringAnyValHandler[Client.Key](_.value, Client.Key.apply)
+  implicit val ClientVersionBSONHandler = stringAnyValHandler[Client.Version](_.value, Client.Version.apply)
+  implicit val ClientUserIdBSONHandler = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
+  implicit val ClientUUIDBSONHandler = stringAnyValHandler[Client.UUID](_.value, Client.UUID.apply)
+
   implicit val ClientSkillBSONHandler = new BSONHandler[BSONString, Client.Skill] {
     def read(x: BSONString) = Client.Skill byKey x.value err s"Invalid client skill ${x.value}"
     def write(x: Client.Skill) = BSONString(x.key)

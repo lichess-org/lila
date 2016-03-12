@@ -188,7 +188,7 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user,
-    i18n, ai, pref, chat, history, playban)).settings(
+    i18n, ai, fishnet, pref, chat, history, playban)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, hasher, kamon.core)
   )
 
