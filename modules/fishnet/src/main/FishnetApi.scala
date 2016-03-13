@@ -107,7 +107,7 @@ final class FishnetApi(
 
     def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
     def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-    def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client).void
+    def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client, upsert = true).void
     def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
       client.updateInstance(instance).fold(fuccess(client)) { updated =>
         updateClient(updated) inject updated
