@@ -97,5 +97,5 @@ object Work {
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
-  def makeId = Id(scala.util.Random.alphanumeric take 10 mkString)
+  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }

@@ -93,15 +93,16 @@ final class FishnetApi(
     }
   } flatMap { _ ?? saveAnalysis }
 
-  private[fishnet] def createClient(key: Client.Key, userId: Client.UserId, skill: String) =
-    Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      clientColl.insert(Client(
-        _id = key,
+  private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
+    Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
+      val client = Client(
+        _id = Client.makeKey,
         userId = userId,
         skill = sk,
         instance = None,
         enabled = true,
-        createdAt = DateTime.now)).void
+        createdAt = DateTime.now)
+      clientColl.insert(client) inject client
     }
 
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =

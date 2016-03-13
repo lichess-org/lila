@@ -12,7 +12,7 @@ case class Client(
 
   def key = _id
 
-  def fullId = s"$key:$userId"
+  def fullId = s"$userId:$key"
 
   def updateInstance(i: Client.Instance): Option[Client] =
     instance.fold(i.some)(_ update i) map { newInstance =>
@@ -61,4 +61,6 @@ object Client {
     val all = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
   }
+
+  def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)
 }

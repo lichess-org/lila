@@ -210,8 +210,8 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
-POST  /fishnet/move/$workId<\w{10}>           controllers.Fishnet.move(workId: String)
-POST  /fishnet/analysis/$workId<\w{10}>       controllers.Fishnet.analysis(workId: String)
+POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
+POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)

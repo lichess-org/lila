@@ -80,8 +80,8 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "fishnet" :: "client" :: "create" :: key :: userId :: skill :: Nil =>
-        api.createClient(Client.Key(key), Client.UserId(userId), skill) inject "done!"
+      case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
+        api.createClient(Client.UserId(userId), skill) map (_.key.value)
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
         repo.deleteClient(Client.Key(key)) inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
