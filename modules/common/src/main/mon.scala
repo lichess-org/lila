@@ -233,7 +233,7 @@ object mon {
         def failure = inc(s"fishnet.client.$client.$skill.failure")
         def timeout = inc(s"fishnet.client.$client.$skill.timeout")
       }
-      def time(client: String, skill: String) = rec(s"fishnet.client.$client.$skill")
+      def time(client: String, skill: String) = rec(s"fishnet.client.time.$client.$skill")
 
       object status {
         val enabled = rec("fishnet.client.status.enabled")
@@ -246,6 +246,9 @@ object mon {
       }
       def version(v: String) = rec(s"fishnet.client.version.$v")
       def engine(v: String) = rec(s"fishnet.client.engine.$v")
+    }
+    object queue {
+      def time(skill: String) = rec(s"fishnet.queue.time.$skill")
     }
   }
 

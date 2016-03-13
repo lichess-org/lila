@@ -37,6 +37,8 @@ final class Env(
       receiveTimeout = None,
       executionTimeout = Some(500 millis)))
 
+  private val monitor = new Monitor(repo, scheduler) // start monitoring
+
   val api = new FishnetApi(
     hub = hub,
     repo = repo,
@@ -44,6 +46,7 @@ final class Env(
     analysisColl = analysisColl,
     clientColl = clientColl,
     sequencer = sequencer,
+    monitor = monitor,
     saveAnalysis = saveAnalysis,
     offlineMode = OfflineMode)
 
@@ -64,9 +67,8 @@ final class Env(
     repo = repo,
     moveColl = moveColl,
     analysisColl = analysisColl,
+    monitor = monitor,
     scheduler = scheduler)
-
-  new Monitor(repo, scheduler) // start monitoring
 
   // api actor
   system.actorOf(Props(new Actor {

@@ -14,6 +14,7 @@ final class FishnetApi(
     analysisColl: Coll,
     clientColl: Coll,
     sequencer: Sequencer,
+    monitor: Monitor,
     saveAnalysis: lila.analyse.Analysis => Funit,
     offlineMode: Boolean) {
 
@@ -64,11 +65,11 @@ final class FishnetApi(
         funit
       case Some(work) => data.move.uci match {
         case Some(uci) =>
-          lila.mon.fishnet.client.count(client.fullId, work.skill.key).success()
+          monitor.success(client, work)
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
           repo.deleteMove(work)
         case _ =>
-          lila.mon.fishnet.client.count(client.fullId, work.skill.key).failure()
+          monitor.failure(client, work)
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
           repo.updateOrGiveUpMove(work.invalid)
       }
@@ -81,11 +82,11 @@ final class FishnetApi(
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        lila.mon.fishnet.client.count(client.fullId, work.skill.key).success()
+        monitor.success(client, work)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: Exception =>
-          lila.mon.fishnet.client.count(client.fullId, work.skill.key).failure()
+          monitor.failure(client, work)
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }

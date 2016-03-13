@@ -11,6 +11,7 @@ private final class Cleaner(
     repo: FishnetRepo,
     moveColl: Coll,
     analysisColl: Coll,
+    monitor: Monitor,
     scheduler: lila.common.Scheduler) {
 
   import BSONHandlers._
@@ -47,7 +48,7 @@ private final class Cleaner(
 
   private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
     _ foreach { client =>
-      lila.mon.fishnet.client.count(client.fullId, work.skill.key).timeout()
+      monitor.timeout(client, work)
       log.warn(s"Timeout client ${client.fullId}")
     }
   }
