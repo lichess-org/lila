@@ -44,7 +44,7 @@ object AnalysisBuilder {
         ply = ply,
         score = move.score.cp map lila.analyse.Score.apply,
         mate = move.score.mate,
-        variation = move.pv ?? (_.split(' ').toList),
+        variation = move.pv ?? (_.split(' ').take(Info.LineMaxPlies).toList),
         best = move.bestmove flatMap Uci.Move.apply)
   }
 }
