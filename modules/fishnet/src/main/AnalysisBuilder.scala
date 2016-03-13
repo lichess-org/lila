@@ -22,7 +22,7 @@ object AnalysisBuilder {
     GameRepo.game(uciAnalysis.id) flatten s"Analysis ${uciAnalysis.id} game is gone?!" flatMap { game =>
       GameRepo.initialFen(game) flatMap { initialFen =>
         lazy val debug = s"Analysis ${game.id} from ${client.fullId}"
-        chess.Replay(game.pgnMoves.pp, initialFen, game.variant).pp.fold(
+        chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
           fufail(_),
           replay => UciToPgn(replay, uciAnalysis) match {
             case (analysis, errors) =>

@@ -79,7 +79,7 @@ final class FishnetApi(
       case None =>
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
-      case Some(work) => AnalysisBuilder(client, work, data.pp).thenPp flatMap { analysis =>
+      case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
         repo.deleteAnalysis(work) >>
           repo.updateClient(client success work) inject analysis.some
       } recoverWith {
