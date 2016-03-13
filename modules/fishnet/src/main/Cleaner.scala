@@ -25,14 +25,10 @@ private final class Cleaner(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(moveTimeout))
   )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Move]().collect[List](100).flatMap {
     _.map { move =>
-      repo.updateOrGiveUpMove(move.timeout) zip {
-        move.acquiredByKey ?? repo.getClient flatMap {
-          _ ?? { client =>
-            repo.updateOrGiveUpMove(move.timeout) >>-
-              log.warn(s"Timeout client ${client.fullId}")
-          }
-        }
-      } >>- log.warn(s"Timeout move ${move.game.id}")
+      repo.updateOrGiveUpMove(move.timeout) >>- {
+        clientTimeout(move)
+        log.warn(s"Timeout move ${move.game.id}")
+      }
     }.sequenceFu.void
   } andThenAnyway scheduleMoves
 
@@ -43,14 +39,18 @@ private final class Cleaner(
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>
       repo.updateOrGiveUpAnalysis(ana.timeout) >>- {
-        ana.acquiredByKey ?? repo.getClient foreach {
-          _ foreach { client =>
-            log.warn(s"Timeout client ${client.fullId}")
-          }
-        }
-      } >>- log.warn(s"Timeout analysis ${ana.game.id}")
+        clientTimeout(ana)
+        log.warn(s"Timeout analysis ${ana.game.id}")
+      }
     }.sequenceFu.void
   } andThenAnyway scheduleAnalysis
+
+  private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
+    _ foreach { client =>
+      lila.mon.fishnet.client.count(client.fullId, work.skill.key).timeout()
+      log.warn(s"Timeout client ${client.fullId}")
+    }
+  }
 
   private def scheduleMoves = scheduler.once(1 second)(cleanMoves)
   private def scheduleAnalysis = scheduler.once(5 second)(cleanAnalysis)

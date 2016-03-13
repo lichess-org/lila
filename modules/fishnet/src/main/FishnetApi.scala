@@ -64,9 +64,11 @@ final class FishnetApi(
         funit
       case Some(work) => data.move.uci match {
         case Some(uci) =>
+          lila.mon.fishnet.client.count(client.fullId, work.skill.key).success()
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
           repo.deleteMove(work)
         case _ =>
+          lila.mon.fishnet.client.count(client.fullId, work.skill.key).failure()
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
           repo.updateOrGiveUpMove(work.invalid)
       }
@@ -79,9 +81,11 @@ final class FishnetApi(
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
+        lila.mon.fishnet.client.count(client.fullId, work.skill.key).success()
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: Exception =>
+          lila.mon.fishnet.client.count(client.fullId, work.skill.key).failure()
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
@@ -97,22 +101,10 @@ final class FishnetApi(
         instance = None,
         enabled = true,
         createdAt = DateTime.now)).void
-    } >>- monitorClients
+    }
 
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
       clientColl.update(repo.selectClient(key), BSONDocument("$set" -> BSONDocument("skill" -> sk.key))).void
     }
-
-  private def monitorClients = {
-    import lila.mon.fishnet.client._
-    import Client.Skill._
-    clientColl.find(BSONDocument()).cursor[Client]().collect[List]() foreach { clients =>
-      status enabled clients.count(_.enabled)
-      status disabled clients.count(_.disabled)
-      skill move clients.count(_.skill == Move)
-      skill analysis clients.count(_.skill == Analysis)
-      skill all clients.count(_.skill == All)
-    }
-  }
 }

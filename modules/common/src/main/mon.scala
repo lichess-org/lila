@@ -227,21 +227,25 @@ object mon {
   }
   object fishnet {
     object client {
-      def event(id: String) = {
-        def acquire = inc(s"fishnet.client.event.${id}.acquire")
-        def success = inc(s"fishnet.client.event.${id}.success")
-        def failure = inc(s"fishnet.client.event.${id}.failure")
-        def timeout = inc(s"fishnet.client.event.${id}.timeout")
+
+      def count(client: String, skill: String) = new {
+        def success = inc(s"fishnet.client.$client.$skill.success")
+        def failure = inc(s"fishnet.client.$client.$skill.failure")
+        def timeout = inc(s"fishnet.client.$client.$skill.timeout")
       }
+      def time(client: String, skill: String) = rec(s"fishnet.client.$client.$skill")
+
       object status {
-        val enabled = rec("fishnet.client.enabled.enabled")
-        val disabled = rec("fishnet.client.disabled.disabled")
+        val enabled = rec("fishnet.client.status.enabled")
+        val disabled = rec("fishnet.client.status.disabled")
       }
       object skill {
         val move = rec("fishnet.client.skill.move")
         val analysis = rec("fishnet.client.skill.analysis")
         val all = rec("fishnet.client.skill.all")
       }
+      def version(v: String) = rec(s"fishnet.client.version.$v")
+      def engine(v: String) = rec(s"fishnet.client.engine.$v")
     }
   }
 

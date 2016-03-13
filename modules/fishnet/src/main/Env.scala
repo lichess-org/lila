@@ -66,6 +66,8 @@ final class Env(
     analysisColl = analysisColl,
     scheduler = scheduler)
 
+  new Monitor(repo, scheduler) // start monitoring
+
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {

@@ -12,6 +12,8 @@ sealed trait Work {
   def acquired: Option[Work.Acquired]
   def createdAt: DateTime
 
+  def skill: Client.Skill
+
   def id = _id
 
   def acquiredAt = acquired.map(_.date)
@@ -39,6 +41,15 @@ object Work {
     def moveList = moves.split(' ').toList
   }
 
+  case class Sender(
+      userId: Option[String],
+      ip: Option[String],
+      mod: Boolean,
+      system: Boolean) {
+
+    override def toString = if (system) "lichess" else userId orElse ip getOrElse "unknown"
+  }
+
   case class Move(
       _id: Work.Id, // random
       game: Game,
@@ -47,6 +58,8 @@ object Work {
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
+
+    def skill = Client.Skill.Move
 
     def assignTo(client: Client) = copy(
       acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
@@ -60,17 +73,6 @@ object Work {
     override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen acquired:$acquired"
   }
 
-  case class Sender(
-      userId: Option[String],
-      ip: Option[String],
-      mod: Boolean,
-      system: Boolean) {
-
-    override def toString =
-      if (system) "lichess"
-      else userId orElse ip getOrElse "unknown"
-  }
-
   case class Analysis(
       _id: Work.Id, // random
       sender: Sender,
@@ -80,6 +82,8 @@ object Work {
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
+
+    def skill = Client.Skill.Analysis
 
     def assignTo(client: Client) = copy(
       acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
