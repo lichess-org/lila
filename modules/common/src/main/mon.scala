@@ -225,16 +225,23 @@ object mon {
       }
     }
   }
-  object ai {
-    object play {
-      def success(source: String) = inc(s"ai.play.${ip(source)}.success")
-      def fail(source: String) = inc(s"ai.play.${ip(source)}.fail")
-      def time(source: String) = rec(s"ai.play.${ip(source)}")
-    }
-    object analysis {
-      def success(source: String) = inc(s"ai.analysis.${ip(source)}.success")
-      def fail(source: String) = inc(s"ai.analysis.${ip(source)}.fail")
-      def time(source: String) = rec(s"ai.analysis.${ip(source)}")
+  object fishnet {
+    object client {
+      def event(id: String) = {
+        def acquire = inc(s"fishnet.client.event.${id}.acquire")
+        def success = inc(s"fishnet.client.event.${id}.success")
+        def failure = inc(s"fishnet.client.event.${id}.failure")
+        def timeout = inc(s"fishnet.client.event.${id}.timeout")
+      }
+      object status {
+        val enabled = rec("fishnet.client.enabled.enabled")
+        val disabled = rec("fishnet.client.disabled.disabled")
+      }
+      object skill {
+        val move = rec("fishnet.client.skill.move")
+        val analysis = rec("fishnet.client.skill.analysis")
+        val all = rec("fishnet.client.skill.all")
+      }
     }
   }
 

@@ -97,9 +97,22 @@ final class FishnetApi(
         instance = None,
         enabled = true,
         createdAt = DateTime.now)).void
-    }
+    } >>- monitorClients
+
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
       clientColl.update(repo.selectClient(key), BSONDocument("$set" -> BSONDocument("skill" -> sk.key))).void
     }
+
+  private def monitorClients = {
+    import lila.mon.fishnet.client._
+    import Client.Skill._
+    clientColl.find(BSONDocument()).cursor[Client]().collect[List]() foreach { clients =>
+      status enabled clients.count(_.enabled)
+      status disabled clients.count(_.disabled)
+      skill move clients.count(_.skill == Move)
+      skill analysis clients.count(_.skill == Analysis)
+      skill all clients.count(_.skill == All)
+    }
+  }
 }

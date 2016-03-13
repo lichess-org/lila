@@ -20,6 +20,8 @@ case class Client(
     }
 
   def lichess = userId.value == "lichess"
+
+  def disabled = !enabled
 }
 
 object Client {
