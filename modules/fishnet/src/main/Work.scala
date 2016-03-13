@@ -23,8 +23,10 @@ object Work {
   case class Id(value: String) extends AnyVal
 
   case class Acquired(
-    clientKey: Client.Key,
-    date: DateTime)
+      clientKey: Client.Key,
+      date: DateTime) {
+    override def toString = s"by $clientKey at $date"
+  }
 
   case class Game(
     id: String,
@@ -52,7 +54,7 @@ object Work {
 
     def isOutOfTries = tries >= 3
 
-    override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen"
+    override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen acquired:$acquired"
   }
 
   case class Sender(
@@ -87,7 +89,7 @@ object Work {
 
     def isOutOfTries = tries >= 2
 
-    override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender"
+    override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
   def makeId = Id(scala.util.Random.alphanumeric take 10 mkString)

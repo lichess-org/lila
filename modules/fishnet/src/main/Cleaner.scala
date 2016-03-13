@@ -25,13 +25,15 @@ private final class Cleaner(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(moveTimeout))
   )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Move]().collect[List](100).flatMap {
     _.map { move =>
-      move.acquiredByKey ?? api.repo.getClient flatMap {
-        _ ?? { client =>
-          api.repo.updateOrGiveUpMove(move) zip
-            api.repo.updateClient(client timeout move) >>-
-            log.warn(s"Timeout move ${move.game.id} by ${client.fullId}")
+      api.repo.updateOrGiveUpMove(move) zip {
+        move.acquiredByKey ?? api.repo.getClient flatMap {
+          _ ?? { client =>
+            api.repo.updateOrGiveUpMove(move) zip
+              api.repo.updateClient(client timeout move) >>-
+              log.warn(s"Timeout client ${client.fullId}")
+          }
         }
-      }
+      } >>- log.warn(s"Timeout move ${move.game.id}")
     }.sequenceFu.void
   } andThenAnyway scheduleMoves
 
@@ -41,13 +43,14 @@ private final class Cleaner(
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>
-      ana.acquiredByKey ?? api.repo.getClient flatMap {
-        _ ?? { client =>
-          api.repo.updateOrGiveUpAnalysis(ana) zip
+      api.repo.updateOrGiveUpAnalysis(ana) zip {
+        ana.acquiredByKey ?? api.repo.getClient flatMap {
+          _ ?? { client =>
             api.repo.updateClient(client timeout ana) >>-
-            log.warn(s"Timeout analysis ${ana.game.id} by ${client.fullId}")
+              log.warn(s"Timeout client ${client.fullId}")
+          }
         }
-      }
+      } >>- log.warn(s"Timeout analysis ${ana.game.id}")
     }.sequenceFu.void
   } andThenAnyway scheduleAnalysis
 
