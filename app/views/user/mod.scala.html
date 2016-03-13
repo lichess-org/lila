@@ -31,8 +31,8 @@
   </form>
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all IPs under this account from accessing this site." class="hint--bottom-left">
-    <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban" />
+  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all @spy.ips.size IPs under this account from accessing this site." class="hint--bottom-left">
+    <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban $spy.ips.size" />
   </form>
   }
   @if(!u.disabled) {
