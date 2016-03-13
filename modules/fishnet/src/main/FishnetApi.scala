@@ -39,7 +39,7 @@ final class FishnetApi(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
       _ ?? { work =>
-        repo.updateMove(work assignTo client) zip repo.updateClient(client acquire work) inject work.some
+        repo.updateMove(work assignTo client) inject work.some
       }
     }
   } map { _ map JsonApi.fromWork }
@@ -52,7 +52,7 @@ final class FishnetApi(
       "createdAt" -> 1 // oldest requests first
     )).one[Work.Analysis].flatMap {
       _ ?? { work =>
-        repo.updateAnalysis(work assignTo client) zip repo.updateClient(client acquire work) inject work.some
+        repo.updateAnalysis(work assignTo client) inject work.some
       }
     }
   } map { _ map JsonApi.fromWork }
@@ -65,11 +65,10 @@ final class FishnetApi(
       case Some(work) => data.move.uci match {
         case Some(uci) =>
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
-          repo.deleteMove(work) zip
-            repo.updateClient(client success work) void
+          repo.deleteMove(work)
         case _ =>
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
-          repo.updateOrGiveUpMove(work.invalid) zip repo.updateClient(client invalid work) void
+          repo.updateOrGiveUpMove(work.invalid)
       }
     }
   }
@@ -80,13 +79,11 @@ final class FishnetApi(
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        repo.deleteAnalysis(work) >>
-          repo.updateClient(client success work) inject analysis.some
+        repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: Exception =>
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
-          repo.updateOrGiveUpAnalysis(work.invalid) zip
-            repo.updateClient(client invalid work) inject none
+          repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
   } flatMap { _ ?? saveAnalysis }
@@ -99,7 +96,6 @@ final class FishnetApi(
         skill = sk,
         instance = None,
         enabled = true,
-        stats = Stats.empty,
         createdAt = DateTime.now)).void
     }
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =

@@ -28,8 +28,7 @@ private final class Cleaner(
       repo.updateOrGiveUpMove(move.timeout) zip {
         move.acquiredByKey ?? repo.getClient flatMap {
           _ ?? { client =>
-            repo.updateOrGiveUpMove(move.timeout) zip
-              repo.updateClient(client timeout move) >>-
+            repo.updateOrGiveUpMove(move.timeout) >>-
               log.warn(s"Timeout client ${client.fullId}")
           }
         }
@@ -43,11 +42,10 @@ private final class Cleaner(
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>
-      repo.updateOrGiveUpAnalysis(ana.timeout) zip {
-        ana.acquiredByKey ?? repo.getClient flatMap {
-          _ ?? { client =>
-            repo.updateClient(client timeout ana) >>-
-              log.warn(s"Timeout client ${client.fullId}")
+      repo.updateOrGiveUpAnalysis(ana.timeout) >>- {
+        ana.acquiredByKey ?? repo.getClient foreach {
+          _ foreach { client =>
+            log.warn(s"Timeout client ${client.fullId}")
           }
         }
       } >>- log.warn(s"Timeout analysis ${ana.game.id}")

@@ -8,7 +8,6 @@ case class Client(
     skill: Client.Skill, // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
-    stats: Stats,
     createdAt: DateTime) {
 
   def key = _id
@@ -20,14 +19,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def acquire(work: Work) = add(work, _.addAcquire)
-  def success(work: Work) = add(work, _.addSuccess)
-  def timeout(work: Work) = add(work, _.addTimeout)
-  def invalid(work: Work) = add(work, _.addInvalid)
-
   def lichess = userId.value == "lichess"
-
-  private def add(work: Work, update: Stats.ResultUpdate) = copy(stats = stats.add(work, update))
 }
 
 object Client {
@@ -38,7 +30,6 @@ object Client {
     skill = Skill.All,
     instance = None,
     enabled = true,
-    stats = Stats.empty,
     createdAt = DateTime.now)
 
   case class Key(value: String) extends AnyVal

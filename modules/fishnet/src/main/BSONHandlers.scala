@@ -24,10 +24,6 @@ private object BSONHandlers {
   import Client.Instance
   implicit val InstanceBSONHandler = Macros.handler[Instance]
 
-  import Stats.Result
-  implicit val StatsResultBSONHandler = Macros.handler[Result]
-  implicit val StatsBSONHandler = Macros.handler[Stats]
-
   implicit val ClientBSONHandler = Macros.handler[Client]
 
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
