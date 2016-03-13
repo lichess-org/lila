@@ -18,13 +18,14 @@ final class FishnetApi(
 
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request) =
-    if (offlineMode) fuccess(Client.offline.some)
-    else repo.getEnabledClient(req.fishnet.apikey) flatMap {
-      _ ?? { client =>
-        repo.updateClientInstance(client, req.instance) map some
-      }
+  def authenticateClient(req: JsonApi.Request) = {
+    if (offlineMode) repo.getOfflineClient
+    else repo.getEnabledClient(req.fishnet.apikey)
+  } flatMap {
+    _ ?? { client =>
+      repo.updateClientInstance(client, req.instance) map some
     }
+  }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = client.skill match {
     case Skill.Move     => acquireMove(client)
@@ -109,6 +110,7 @@ final class FishnetApi(
 
     def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
     def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
+    def getOfflineClient = getEnabledClient(Client.offline.key) orElse fuccess(Client.offline.some)
     def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client, upsert = true).void
     def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
       client.updateInstance(instance).fold(fuccess(client)) { updated =>
