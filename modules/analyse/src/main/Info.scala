@@ -50,7 +50,7 @@ object Info {
   private val separator = ","
   private val listSeparator = ";"
 
-  def start(ply: Int) = Info(ply, Evaluation.start.score, none, Nil)
+  def start(ply: Int) = Info(ply, Score.initial.some, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array()               => Info(ply).some

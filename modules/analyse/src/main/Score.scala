@@ -16,5 +16,7 @@ object Score {
 
   def CEILING = 1000
 
+  val initial = Score(15)
+
   def apply(str: String): Option[Score] = parseIntOption(str) map Score.apply
 }

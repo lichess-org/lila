@@ -45,12 +45,10 @@ object JsonApi {
       analysis: List[Evaluation]) extends Request
 
     case class Evaluation(
-        // bestmove: Option[String],
         pv: Option[String],
         score: Score) {
 
       // use first pv move as bestmove
-      // def bestmove = pv.map(_ takeWhile (' '!=)).filter(_.nonEmpty)
       def pvList = pv.??(_.split(' ').toList)
       def checkMate = score.mate contains 0
     }
