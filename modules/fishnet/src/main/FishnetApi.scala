@@ -87,16 +87,20 @@ final class FishnetApi(
     }
   } flatMap { _ ?? saveAnalysis }
 
-  private[fishnet] def createClient(key: String, userId: String, skill: String) =
+  private[fishnet] def createClient(key: Client.Key, userId: Client.UserId, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
       clientColl.insert(Client(
-        _id = Client.Key(key),
-        userId = Client.UserId(userId),
+        _id = key,
+        userId = userId,
         skill = sk,
         instance = None,
         enabled = true,
         stats = Stats.empty,
         createdAt = DateTime.now)).void
+    }
+  private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
+    Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
+      clientColl.update(repo.selectClient(key), BSONDocument("$set" -> BSONDocument("skill" -> sk.key))).void
     }
 
   private[fishnet] object repo {
@@ -108,6 +112,9 @@ final class FishnetApi(
       client.updateInstance(instance).fold(fuccess(client)) { updated =>
         updateClient(updated) inject updated
       }
+    def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key))
+    def enableClient(key: Client.Key, v: Boolean): Funit =
+      clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void
 
     def addMove(move: Work.Move) = moveColl.insert(move).void
     def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]

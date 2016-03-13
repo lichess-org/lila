@@ -70,8 +70,16 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "fishnet" :: "add" :: "client" :: key :: userId :: skill :: Nil =>
-        api.createClient(key, userId, skill) inject "done!"
+      case "fishnet" :: "client" :: "create" :: key :: userId :: skill :: Nil =>
+        api.createClient(Client.Key(key), Client.UserId(userId), skill) inject "done!"
+      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+        api.repo.deleteClient(Client.Key(key)) inject "done!"
+      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+        api.repo.enableClient(Client.Key(key), true) inject "done!"
+      case "fishnet" :: "client" :: "disable" :: key :: Nil =>
+        api.repo.enableClient(Client.Key(key), false) inject "done!"
+      case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
+        api.setClientSkill(Client.Key(key), skill) inject "done!"
     }
   }
 }
