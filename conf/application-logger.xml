@@ -19,6 +19,7 @@
 
   <root level="INFO">
     <appender-ref ref="ASYNCALLFILE" />
+    <appender-ref ref="STDOUT" />
   </root>
 
   <logger name="play" level="INFO">

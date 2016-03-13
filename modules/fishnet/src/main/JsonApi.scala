@@ -66,13 +66,16 @@ object JsonApi {
     variant = g.variant,
     moves = g.moves)
 
-  sealed trait Work { val game: Game }
-  case class Move(level: Int, game: Game) extends Work
-  case class Analysis(game: Game) extends Work
+  sealed trait Work {
+    val id: String
+    val game: Game
+  }
+  case class Move(id: String, level: Int, game: Game) extends Work
+  case class Analysis(id: String, game: Game) extends Work
 
   def fromWork(w: W): Work = w match {
-    case m: W.Move     => Move(m.level, fromGame(m.game))
-    case a: W.Analysis => Analysis(fromGame(a.game))
+    case m: W.Move     => Move(w.id.value, m.level, fromGame(m.game))
+    case a: W.Analysis => Analysis(w.id.value, fromGame(a.game))
   }
 
   object readers {
@@ -96,8 +99,8 @@ object JsonApi {
     implicit val WorkWrites = OWrites[Work] { work =>
       Json.obj(
         "work" -> (work match {
-          case a: Analysis => Json.obj("type" -> "analysis")
-          case m: Move     => Json.obj("type" -> "move", "level" -> m.level)
+          case a: Analysis => Json.obj("type" -> "analysis", "id" -> work.id)
+          case m: Move     => Json.obj("type" -> "move", "id" -> work.id, "level" -> m.level)
         })
       ) ++ Json.toJson(work.game).as[JsObject]
     }

@@ -63,7 +63,8 @@ final class FishnetApi(
       case Some(work) => data.move.uci match {
         case Some(uci) =>
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
-          repo.deleteMove(work)
+          repo.deleteMove(work) zip
+            repo.updateClient(client success work) void
         case _ =>
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
           repo.updateOrGiveUpMove(work.invalid) zip repo.updateClient(client invalid work) void
@@ -76,12 +77,13 @@ final class FishnetApi(
       case None =>
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
-      case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        repo.deleteAnalysis(work) inject analysis.some
+      case Some(work) => AnalysisBuilder(client, work, data.pp).thenPp flatMap { analysis =>
+        repo.deleteAnalysis(work) >>
+          repo.updateClient(client success work) inject analysis.some
       } recoverWith {
         case e: Exception =>
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
-          repo.updateOrGiveUpAnalysis(work.invalid) >>
+          repo.updateOrGiveUpAnalysis(work.invalid) zip
             repo.updateClient(client invalid work) inject none
       }
     }

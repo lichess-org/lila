@@ -21,11 +21,11 @@ object AnalysisBuilder {
     GameRepo.game(uciAnalysis.id) flatten s"Analysis ${uciAnalysis.id} game is gone?!" flatMap { game =>
       GameRepo.initialFen(game) flatMap { initialFen =>
         lazy val debug = s"Analysis ${game.id} from ${client.fullId}"
-        chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
+        chess.Replay(game.pgnMoves.pp, initialFen, game.variant).pp.fold(
           fufail(_),
           replay => UciToPgn(replay, uciAnalysis) match {
             case (analysis, errors) =>
-              errors foreach { e => log.warn(s"[analysis UciToPgn] $debug $e") }
+              errors foreach { e => log.warn(s"[UciToPgn] $debug $e") }
               if (analysis.valid) {
                 if (analysis.emptyRatio >= 1d / 10)
                   fufail(s"Analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")

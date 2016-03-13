@@ -12,6 +12,8 @@ sealed trait Work {
   def acquired: Option[Work.Acquired]
   def createdAt: DateTime
 
+  def id = _id
+
   def acquiredAt = acquired.map(_.date)
   def acquiredByKey = acquired.map(_.clientKey)
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
@@ -42,8 +44,6 @@ object Work {
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
-
-    def id = _id
 
     def assignTo(client: Client) = copy(
       acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
@@ -77,8 +77,6 @@ object Work {
       tries: Int,
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
-
-    def id = _id
 
     def assignTo(client: Client) = copy(
       acquired = Acquired(clientKey = client.key, date = DateTime.now).some,

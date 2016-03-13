@@ -16,7 +16,7 @@ private final class Cleaner(
   import BSONHandlers._
 
   private val moveTimeout = 2.seconds
-  private def analysisTimeout(plies: Int) = plies * 6.seconds + 10.seconds
+  private def analysisTimeout(plies: Int) = plies * 6.seconds + 3.seconds
   private def analysisTimeoutBase = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
@@ -25,10 +25,10 @@ private final class Cleaner(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(moveTimeout))
   )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Move]().collect[List](100).flatMap {
     _.map { move =>
-      api.repo.updateOrGiveUpMove(move) zip {
+      api.repo.updateOrGiveUpMove(move.timeout) zip {
         move.acquiredByKey ?? api.repo.getClient flatMap {
           _ ?? { client =>
-            api.repo.updateOrGiveUpMove(move) zip
+            api.repo.updateOrGiveUpMove(move.timeout) zip
               api.repo.updateClient(client timeout move) >>-
               log.warn(s"Timeout client ${client.fullId}")
           }
@@ -43,7 +43,7 @@ private final class Cleaner(
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>
-      api.repo.updateOrGiveUpAnalysis(ana) zip {
+      api.repo.updateOrGiveUpAnalysis(ana.timeout) zip {
         ana.acquiredByKey ?? api.repo.getClient flatMap {
           _ ?? { client =>
             api.repo.updateClient(client timeout ana) >>-
