@@ -35,6 +35,13 @@ final class Analyser(
       } inject accepted
     }
 
+  def apply(gameId: String, sender: Work.Sender): Fu[Boolean] =
+    GameRepo game gameId flatMap {
+      _ ?? { game =>
+        apply(game, sender)
+      }
+    }
+
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
     GameRepo.initialFen(game) zip uciMemo.get(game) map {
       case (initialFen, moves) => Work.Analysis(

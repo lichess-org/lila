@@ -70,7 +70,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-        analyser(Work.Sender(userId = none, ip = none, mod = false, system = false))
+        analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
     }
   }), name = ActorName)
 
