@@ -3,16 +3,17 @@ package lila.fishnet
 import org.joda.time.DateTime
 
 import chess.format.Uci
-import JsonApi.Request.{ PostAnalysis, AnalysisPly }
+import JsonApi.Request.{ PostAnalysis, Evaluation }
 import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
 
 object AnalysisBuilder {
 
   def apply(client: Client, work: Work.Analysis, data: PostAnalysis) = {
+
     val uciAnalysis = Analysis(
       id = work.game.id,
-      infos = makeInfos(data.analysis, work.startPly),
+      infos = makeInfos(data.analysis, work.game.moveList, work.startPly),
       startPly = work.startPly,
       uid = work.sender.userId,
       by = !client.lichess option client.userId.value,
@@ -37,14 +38,21 @@ object AnalysisBuilder {
     }
   }
 
-  private def makeInfos(moves: List[AnalysisPly], startPly: Int) = moves.zipWithIndex map {
-    case (move, index) =>
-      val ply = startPly + index
-      Info(
-        ply = ply,
-        score = move.score.cp map lila.analyse.Score.apply,
-        mate = move.score.mate,
-        variation = move.pv ?? (_.split(' ').take(Info.LineMaxPlies).toList),
-        best = move.bestmove flatMap Uci.Move.apply)
-  }
+  private def makeInfos(evals: List[Evaluation], moves: List[String], startedAtPly: Int): List[Info] =
+    (evals filterNot (_.checkMate) sliding 2).toList.zip(moves).zipWithIndex map {
+      case ((List(before, after), move), index) => {
+        val variation = before.pvList match {
+          case first :: rest if first != move => first :: rest
+          case _                              => Nil
+        }
+        val best = variation.headOption flatMap Uci.Move.apply
+        val info = Info(
+          ply = index + 1 + startedAtPly,
+          score = after.score.cp map lila.analyse.Score.apply,
+          mate = after.score.mate,
+          variation = variation,
+          best = best)
+        if (info.ply % 2 == 1) info.invert else info
+      }
+    }
 }

@@ -31,10 +31,13 @@ object Work {
   }
 
   case class Game(
-    id: String,
-    initialFen: Option[FEN],
-    variant: Variant,
-    moves: String)
+      id: String,
+      initialFen: Option[FEN],
+      variant: Variant,
+      moves: String) {
+
+    def moveList = moves.split(' ').toList
+  }
 
   case class Move(
       _id: Work.Id, // random

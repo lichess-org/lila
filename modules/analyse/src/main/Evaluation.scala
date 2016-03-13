@@ -33,7 +33,7 @@ object Evaluation {
           mate = after.mate,
           variation = variation,
           best = best) |> { info =>
-            if (info.ply % 2 == 1) info.reverse else info
+            if (info.ply % 2 == 1) info.invert else info
           }
       }
     }

@@ -42,16 +42,22 @@ object JsonApi {
     case class PostAnalysis(
       fishnet: Fishnet,
       engine: Client.Engine,
-      analysis: List[AnalysisPly]) extends Request
+      analysis: List[Evaluation]) extends Request
 
-    case class AnalysisPly(
-      bestmove: Option[String],
-      pv: Option[String],
-      score: Score)
+    case class Evaluation(
+        // bestmove: Option[String],
+        pv: Option[String],
+        score: Score) {
 
-    case class Score(
-      cp: Option[Int],
-      mate: Option[Int])
+      // use first pv move as bestmove
+      // def bestmove = pv.map(_ takeWhile (' '!=)).filter(_.nonEmpty)
+      def pvList = pv.??(_.split(' ').toList)
+      def checkMate = score.mate contains 0
+    }
+
+    case class Score(cp: Option[Int], mate: Option[Int]) {
+      // def invalid = cp.isEmpty && mate.isEmpty
+    }
   }
 
   case class Game(
@@ -87,7 +93,7 @@ object JsonApi {
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Score]
-    implicit val AnalysisPlyReads = Json.reads[Request.AnalysisPly]
+    implicit val EvaluationReads = Json.reads[Request.Evaluation]
     implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
   }
 

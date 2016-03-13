@@ -75,7 +75,7 @@ object PovToEntry {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
       Accuracy.prevColorInfos(from.pov, an) |> { is =>
-        from.pov.color.fold(is, is.map(_.reverse))
+        from.pov.color.fold(is, is.map(_.invert))
       }
     }
     val movetimes = from.movetimes.list

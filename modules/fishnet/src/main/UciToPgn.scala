@@ -16,12 +16,13 @@ private object UciToPgn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val plySet = (analysis.advices collect {
+    val pliesWithAdviceAndVariation = (analysis.pp.advices.pp collect {
       case a if a.info.hasVariation => a.ply
     }).toSet
 
     val onlyMeaningfulVariations: List[Info] = analysis.infos map { info =>
-      plySet(info.ply).fold(info, info.dropVariation)
+      if (pliesWithAdviceAndVariation(info.ply)) info
+      else info.dropVariation
     }
 
     def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] = for {

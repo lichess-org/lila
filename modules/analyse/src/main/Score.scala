@@ -9,7 +9,7 @@ case class Score(centipawns: Int) extends AnyVal {
     else if (centipawns < -Score.CEILING) copy(-Score.CEILING)
     else this
 
-  def unary_- = copy(centipawns = -centipawns)
+  def invert = copy(centipawns = -centipawns)
 }
 
 object Score {
