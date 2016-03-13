@@ -66,6 +66,9 @@ final class Env(
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
+    override def preStart {
+      context.system.lilaBus.subscribe(self, 'finishGame, 'analysisReady)
+    }
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
@@ -77,7 +80,6 @@ final class Env(
         }
     }
   }), name = ActorName)
-  system.lilaBus.subscribe(actorApi, 'finishGame, 'analysisReady)
 }
 
 object Env {

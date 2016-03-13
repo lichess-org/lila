@@ -9,7 +9,7 @@ import lila.hub.actorApi.round.AnalysisAvailable
 
 final class Analyser(
     indexer: ActorSelection,
-    roundMap: ActorSelection,
+    roundSocket: ActorSelection,
     bus: lila.common.Bus) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id
@@ -19,7 +19,7 @@ final class Analyser(
       GameRepo.setAnalysed(game.id)
       AnalysisRepo.save(analysis) >>- {
         bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-        roundMap ! Tell(game.id, AnalysisAvailable)
+        roundSocket ! Tell(game.id, AnalysisAvailable)
         indexer ! InsertGame(game)
       }
     }
