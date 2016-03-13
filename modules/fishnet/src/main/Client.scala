@@ -16,7 +16,9 @@ case class Client(
   def fullId = s"$key:$userId"
 
   def updateInstance(i: Client.Instance): Option[Client] =
-    (instance != i) option copy(instance = i.some)
+    instance.fold(i.some)(_ update i) map { newInstance =>
+      copy(instance = newInstance.some)
+    }
 
   def acquire(work: Work) = add(work, _.addAcquire)
   def success(work: Work) = add(work, _.addSuccess)
@@ -45,9 +47,16 @@ object Client {
   case class Engine(name: String)
 
   case class Instance(
-    version: Version,
-    engine: Engine,
-    seenAt: DateTime)
+      version: Version,
+      engine: Engine,
+      seenAt: DateTime) {
+
+    def update(i: Instance): Option[Instance] =
+      if (i.version != version) i.some
+      else if (i.engine != engine) i.some
+      else if (i.seenAt isAfter seenAt.plusMinutes(10)) i.some
+      else none
+  }
 
   sealed trait Skill {
     def key = toString.toLowerCase
