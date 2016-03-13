@@ -7,7 +7,7 @@ import chess.format.{ FEN, Forsyth }
 import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Player(
-    api: FishnetApi,
+    repo: FishnetRepo,
     uciMemo: UciMemo,
     sequencer: Sequencer) {
 
@@ -16,8 +16,8 @@ final class Player(
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeWork(game, level) flatMap { move =>
       sequencer.move {
-        api.repo similarMoveExists move flatMap {
-          _.fold(funit, api.repo addMove move)
+        repo similarMoveExists move flatMap {
+          _.fold(funit, repo addMove move)
         }
       }
     }

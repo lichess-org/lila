@@ -7,7 +7,7 @@ import chess.format.{ FEN, Forsyth }
 import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Analyser(
-    api: FishnetApi,
+    repo: FishnetRepo,
     uciMemo: UciMemo,
     sequencer: Sequencer,
     limiter: Limiter) {
@@ -19,16 +19,16 @@ final class Analyser(
       accepted ?? {
         makeWork(game, sender) flatMap { work =>
           sequencer.analysis {
-            api.repo getSimilarAnalysis work flatMap {
+            repo getSimilarAnalysis work flatMap {
               // already in progress, do nothing
               case Some(similar) if similar.isAcquired => funit
               // queued by system, reschedule for the human sender
               case Some(similar) if similar.sender.system && !sender.system =>
-                api.repo.updateAnalysis(similar.copy(sender = sender))
+                repo.updateAnalysis(similar.copy(sender = sender))
               // queued for someone else, do nothing
               case Some(similar) => funit
               // first request, store
-              case _             => api.repo addAnalysis work
+              case _             => repo addAnalysis work
             }
           }
         }

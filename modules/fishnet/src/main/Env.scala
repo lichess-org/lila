@@ -22,6 +22,11 @@ final class Env(
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
+  private val repo = new FishnetRepo(
+    moveColl = moveColl,
+    analysisColl = analysisColl,
+    clientColl = clientColl)
+
   private val sequencer = new Sequencer(
     move = new lila.hub.FutureSequencer(
       system = system,
@@ -34,6 +39,7 @@ final class Env(
 
   val api = new FishnetApi(
     hub = hub,
+    repo = repo,
     moveColl = moveColl,
     analysisColl = analysisColl,
     clientColl = clientColl,
@@ -42,12 +48,12 @@ final class Env(
     offlineMode = OfflineMode)
 
   val player = new Player(
-    api = api,
+    repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer)
 
   val analyser = new Analyser(
-    api = api,
+    repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
     limiter = new Limiter(analysisColl))
@@ -55,7 +61,7 @@ final class Env(
   val aiPerfApi = new AiPerfApi
 
   private val cleaner = new Cleaner(
-    api = api,
+    repo = repo,
     moveColl = moveColl,
     analysisColl = analysisColl,
     scheduler = scheduler)
@@ -73,11 +79,11 @@ final class Env(
       case "fishnet" :: "client" :: "create" :: key :: userId :: skill :: Nil =>
         api.createClient(Client.Key(key), Client.UserId(userId), skill) inject "done!"
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        api.repo.deleteClient(Client.Key(key)) inject "done!"
+        repo.deleteClient(Client.Key(key)) inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        api.repo.enableClient(Client.Key(key), true) inject "done!"
+        repo.enableClient(Client.Key(key), true) inject "done!"
       case "fishnet" :: "client" :: "disable" :: key :: Nil =>
-        api.repo.enableClient(Client.Key(key), false) inject "done!"
+        repo.enableClient(Client.Key(key), false) inject "done!"
       case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
         api.setClientSkill(Client.Key(key), skill) inject "done!"
     }
