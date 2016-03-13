@@ -227,8 +227,7 @@ object mon {
   }
   object fishnet {
     object client {
-
-      def count(client: String, skill: String) = new {
+      def result(client: String, skill: String) = new {
         def success = inc(s"fishnet.client.$client.$skill.success")
         def failure = inc(s"fishnet.client.$client.$skill.failure")
         def timeout = inc(s"fishnet.client.$client.$skill.timeout")

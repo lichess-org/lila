@@ -12,7 +12,7 @@ private final class Monitor(
 
   private[fishnet] def success(client: Client, work: Work) = {
 
-    lila.mon.fishnet.client.count(client.fullId, work.skill.key).success()
+    lila.mon.fishnet.client.result(client.fullId, work.skill.key).success()
 
     work.acquiredAt foreach { acquiredAt =>
 
@@ -31,10 +31,10 @@ private final class Monitor(
   }
 
   private[fishnet] def failure(client: Client, work: Work) =
-    lila.mon.fishnet.client.count(client.fullId, work.skill.key).failure()
+    lila.mon.fishnet.client.result(client.fullId, work.skill.key).failure()
 
   private[fishnet] def timeout(client: Client, work: Work) =
-    lila.mon.fishnet.client.count(client.fullId, work.skill.key).timeout()
+    lila.mon.fishnet.client.result(client.fullId, work.skill.key).timeout()
 
   private def monitorClients: Unit = repo.allClients map { clients =>
 
