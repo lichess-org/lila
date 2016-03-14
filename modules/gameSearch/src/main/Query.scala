@@ -78,7 +78,7 @@ object Query {
   ) ::: options(List(60 * 1, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30, 60 * 60, 60 * 90, 60 * 120, 60 * 150, 60 * 180), _ / 60, "%d minute{s}").toList
 
   val clockIncs =
-    options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 60, 90, 120, 150, 180), "%d seconds{s}").toList
+    options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 60, 90, 120, 150, 180), "%d second{s}").toList
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
