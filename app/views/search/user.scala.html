@@ -45,6 +45,24 @@
     </tr>
     <tr>
       <th>
+        <label>Clock initial time</label>
+      </th>
+      <td>
+        <div class="half">From @base.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
+        <div class="half">To @base.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <label>Clock increment</label>
+      </th>
+      <td>
+        <div class="half">From @base.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
+        <div class="half">To @base.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
+      </td>
+    </tr>
+    <tr>
+      <th>
         <label for="@form("source").id">Source</label>
       </th>
       <td class="single">
@@ -65,14 +83,6 @@
       </th>
       <td class="single">
         @base.select(form("mode"), Query.modes, "".some)
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <label for="@form("opening").id">@trans.opening()</label>
-      </th>
-      <td class="single">
-        @base.select(form("opening"), Query.openings, "".some)
       </td>
     </tr>
   </table>

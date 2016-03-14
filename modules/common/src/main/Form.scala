@@ -10,6 +10,10 @@ object Form {
     d -> (pluralize(pattern, d) format d)
   }
 
+  def options(it: Iterable[Int], transformer: Int => Int, pattern: String) = it map { d =>
+    d -> (pluralize(pattern, transformer(d)) format transformer(d))
+  }
+
   def options(it: Iterable[Int], code: String, pattern: String) = it map { d =>
     (d + code) -> (pluralize(pattern, d) format d)
   }
