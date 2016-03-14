@@ -100,11 +100,10 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     import lila.game.BSONHandlers._
     import lila.db.BSON.BSONJodaDateTimeHandler
     import reactivemongo.bson._
-    var nb = 0
     var nbSkipped = 0
     val batchSize = 1000
-    // val maxGames = Int.MaxValue
-    val maxGames = 10 * 1000 * 1000
+    val maxGames = Int.MaxValue
+    // val maxGames = 10 * 1000 * 1000
 
     lila.game.tube.gameTube.coll.find(BSONDocument(
       "ca" -> BSONDocument("$gt" -> since)
@@ -122,7 +121,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
           }) inject {
             val date = games.headOption.map(_.createdAt) ?? dateTimeFormatter.print
             val gameMs = (nowMillis - millis) / batchSize.toDouble
-            logger.info(s"$date $nb ${(1000 / gameMs).toInt} games/s")
+            logger.info(s"$date ${(1000 / gameMs).toInt} games/s")
             nowMillis
           }
       } void
