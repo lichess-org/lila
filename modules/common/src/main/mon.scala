@@ -217,11 +217,11 @@ object mon {
       def out = inc(s"push.register.out")
     }
     object send {
-      val move = inc("push.send.move")
-      val finish = inc("push.send.finish")
+      def move(platform: String) = inc(s"push.send.$platform.move")()
+      def finish(platform: String) = inc(s"push.send.$platform.finish")()
       object challenge {
-        val create = inc("push.send.challenge.create")
-        val accept = inc("push.send.challenge.accept")
+        def create(platform: String) = inc(s"push.send.$platform.challenge_create")()
+        def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
       }
     }
   }

@@ -35,6 +35,7 @@ object Dependencies {
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.9"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
+  val pushy = "com.relayrides" % "pushy" % "0.5.2"
 
   object play {
     val version = "2.4.6"

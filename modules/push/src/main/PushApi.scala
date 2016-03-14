@@ -14,6 +14,7 @@ import play.api.libs.json._
 
 private final class PushApi(
     googlePush: GooglePush,
+    applePush: ApplePush,
     implicit val lightUser: String => Option[LightUser],
     isOnline: User.ID => Boolean,
     roundSocketHub: ActorSelection) {
@@ -23,27 +24,23 @@ private final class PushApi(
     else game.userIds.map { userId =>
       Pov.ofUserId(game, userId) ?? { pov =>
         IfAway(pov) {
-          googlePush(userId) {
-            lila.mon.push.send.finish()
-            GooglePush.Data(
-              title = pov.win match {
-                case Some(true)  => "You won!"
-                case Some(false) => "You lost."
-                case _           => "It's a draw."
-              },
-              body = s"Your game with ${opponentName(pov)} is over.",
-              payload = Json.obj(
-                "userId" -> userId,
-                "userData" -> Json.obj(
-                  "type" -> "gameFinish",
-                  "gameId" -> game.id,
-                  "fullId" -> pov.fullId,
-                  "color" -> pov.color.name,
-                  "fen" -> Forsyth.exportBoard(game.toChess.board),
-                  "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                  "win" -> pov.win)
-              ))
-          }
+          pushToAll(userId, _.finish, PushApi.Data(
+            title = pov.win match {
+              case Some(true)  => "You won!"
+              case Some(false) => "You lost."
+              case _           => "It's a draw."
+            },
+            body = s"Your game with ${opponentName(pov)} is over.",
+            payload = Json.obj(
+              "userId" -> userId,
+              "userData" -> Json.obj(
+                "type" -> "gameFinish",
+                "gameId" -> game.id,
+                "fullId" -> pov.fullId,
+                "color" -> pov.color.name,
+                "fen" -> Forsyth.exportBoard(game.toChess.board),
+                "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                "win" -> pov.win))))
         }
       }
     }.sequenceFu.void
@@ -55,23 +52,19 @@ private final class PushApi(
         game.player(!move.color).userId ?? { userId =>
           game.pgnMoves.lastOption ?? { sanMove =>
             IfAway(pov) {
-              googlePush(userId) {
-                lila.mon.push.send.move()
-                GooglePush.Data(
-                  title = "It's your turn!",
-                  body = s"${opponentName(pov)} played $sanMove",
-                  payload = Json.obj(
-                    "userId" -> userId,
-                    "userData" -> Json.obj(
-                      "type" -> "gameMove",
-                      "gameId" -> game.id,
-                      "fullId" -> pov.fullId,
-                      "color" -> pov.color.name,
-                      "fen" -> Forsyth.exportBoard(game.toChess.board),
-                      "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                      "secondsLeft" -> pov.remainingSeconds)
-                  ))
-              }
+              pushToAll(userId, _.move, PushApi.Data(
+                title = "It's your turn!",
+                body = s"${opponentName(pov)} played $sanMove",
+                payload = Json.obj(
+                  "userId" -> userId,
+                  "userData" -> Json.obj(
+                    "type" -> "gameMove",
+                    "gameId" -> game.id,
+                    "fullId" -> pov.fullId,
+                    "color" -> pov.color.name,
+                    "fen" -> Forsyth.exportBoard(game.toChess.board),
+                    "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                    "secondsLeft" -> pov.remainingSeconds))))
             }
           }
         }
@@ -82,18 +75,14 @@ private final class PushApi(
   def challengeCreate(c: Challenge): Funit = c.destUser.filterNot(u => isOnline(u.id)) ?? { dest =>
     c.challengerUser ?? { challenger =>
       lightUser(challenger.id) ?? { lightChallenger =>
-        googlePush(dest.id) {
-          lila.mon.push.send.challenge.create()
-          GooglePush.Data(
-            title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
-            body = describeChallenge(c),
-            payload = Json.obj(
-              "userId" -> dest.id,
-              "userData" -> Json.obj(
-                "type" -> "challengeCreate",
-                "challengeId" -> c.id))
-          )
-        }
+        pushToAll(dest.id, _.challenge.create, PushApi.Data(
+          title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
+          body = describeChallenge(c),
+          payload = Json.obj(
+            "userId" -> dest.id,
+            "userData" -> Json.obj(
+              "type" -> "challengeCreate",
+              "challengeId" -> c.id))))
       }
     }
   }
@@ -101,19 +90,28 @@ private final class PushApi(
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white).filterNot(u => isOnline(u.id)) ?? { challenger =>
       val lightJoiner = joinerId flatMap lightUser
-      googlePush(challenger.id) {
-        lila.mon.push.send.challenge.accept()
-        GooglePush.Data(
+      pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
           title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
           body = describeChallenge(c),
           payload = Json.obj(
             "userId" -> challenger.id,
             "userData" -> Json.obj(
               "type" -> "challengeAccept",
-              "challengeId" -> c.id))
-        )
+              "challengeId" -> c.id))))
       }
+
+  private type MonitorType = lila.mon.push.send.type => (String => Unit)
+
+  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data) = {
+    googlePush(userId) {
+      monitor(lila.mon.push.send)("android")
+      data
     }
+    applePush(userId) {
+      monitor(lila.mon.push.send)("ios")
+      data
+    }
+  }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
@@ -137,4 +135,12 @@ private final class PushApi(
   }
 
   private def opponentName(pov: Pov) = Namer playerString pov.opponent
+}
+
+private object PushApi {
+
+  case class Data(
+    title: String,
+    body: String,
+    payload: JsObject)
 }
