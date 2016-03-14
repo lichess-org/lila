@@ -108,7 +108,7 @@ private[report] final class ReportApi {
         ) ++ unprocessedSelect,
         $set("processedBy" -> by.id),
         multi = true)
-    } >>- monitorUnprocessed
+    } >>- monitorUnprocessed >>- lila.mon.mod.report.close()
   }
 
   def processEngine(userId: String, byModId: String): Funit = $update(
