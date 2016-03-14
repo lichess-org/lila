@@ -51,4 +51,7 @@ object $find {
 
   def apply[A: TubeInColl](b: QueryBuilder, nb: Int): Fu[List[A]] =
     b.toList[Option[A]](nb.some) map (_.flatten)
+
+  def apply[A: TubeInColl](b: QueryBuilder, nb: Int, readPreference: ReadPreference): Fu[List[A]] =
+    b.toList[Option[A]](nb.some, readPreference) map (_.flatten)
 }
