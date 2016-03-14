@@ -49,9 +49,9 @@ trait Implicits extends Types {
 
     def batch(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
 
-    def toList[A: BSONDocumentReader](limit: Option[Int]): Fu[List[A]] =
-      limit.fold(b.cursor[A]().collect[List]()) { l =>
-        batch(l).cursor[A]().collect[List](l)
+    def toList[A: BSONDocumentReader](limit: Option[Int], readPreference: ReadPreference = ReadPreference.primary): Fu[List[A]] =
+      limit.fold(b.cursor[A](readPreference = readPreference).collect[List]()) { l =>
+        batch(l).cursor[A](readPreference = readPreference).collect[List](l)
       }
 
     def toListFlatten[A: Tube](limit: Option[Int]): Fu[List[A]] =

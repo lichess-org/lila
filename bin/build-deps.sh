@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+mkdir -p local
+cd local
+rm -rf maven
+git clone https://github.com/ornicar/maven
+cd ..
+
 dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
