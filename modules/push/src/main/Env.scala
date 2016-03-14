@@ -2,7 +2,7 @@ package lila.push
 
 import akka.actor._
 import com.typesafe.config.Config
-import java.io.File
+import java.io.InputStream
 
 import lila.common.PimpedConfig._
 
@@ -12,7 +12,7 @@ final class Env(
     getLightUser: String => Option[lila.common.LightUser],
     isOnline: lila.user.User.ID => Boolean,
     roundSocketHub: ActorSelection,
-    appleCertificate: File,
+    appleCertificate: InputStream,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
@@ -65,8 +65,8 @@ object Env {
     getLightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     roundSocketHub = lila.hub.Env.current.socket.round,
-    appleCertificate = lila.common.PlayApp.withApp { app =>
-      new File(app.classloader.getResource("zpns.p12").toURI)
+    appleCertificate = lila.common.PlayApp.withApp {
+      _.classloader.getResourceAsStream("zpns.p12")
     },
     config = lila.common.PlayApp loadConfig "push")
 }

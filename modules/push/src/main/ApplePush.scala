@@ -1,15 +1,17 @@
 package lila.push
 
 import akka.actor._
-import java.io.File
+import java.io.InputStream
+import scala.util.Failure
 
-import com.relayrides.pushy.apns
+import com.vngrs.scala.pushy._
+import com.vngrs.scala.pushy.Implicits._
 import play.api.libs.json._
 
 private final class ApplePush(
     getDevice: String => Fu[Option[Device]],
     system: ActorSystem,
-    certificate: File,
+    certificate: InputStream,
     password: String) {
 
   private val actor = system.actorOf(Props(classOf[ApnsActor], certificate, password))
@@ -17,41 +19,34 @@ private final class ApplePush(
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
-        val token = apns.util.TokenUtil.sanitizeTokenString(device.id)
-        val topic = "org.lichess.mobileapp"
-        val payload = Json stringify Json.obj(
+        val token = device.id
+        val payload = Payload(Json stringify Json.obj(
           "alert" -> Json.obj(
             "title" -> data.title,
             "body" -> data.body
           ),
-          "data" -> data.payload)
-        actor ! new apns.util.SimpleApnsPushNotification(token, topic, payload)
+          "data" -> data.payload))
+        actor ! PushNotification(token, payload)
       }
     }
 }
 
 // the damn API is blocking, so at least use only one thread at a time
-private final class ApnsActor(certificate: File, password: String) extends Actor {
+private final class ApnsActor(certificate: InputStream, password: String) extends Actor {
 
   val logger = play.api.Logger("push")
 
-  val client = new apns.ApnsClient[apns.util.SimpleApnsPushNotification](certificate, password)
+  var manager: PushManager = _
 
   override def preStart {
-    // blocking
-    client.connect(apns.ApnsClient.DEVELOPMENT_APNS_HOST).await()
+    manager = PushManager.sandbox("Example", SSLContext(certificate, password).get)
   }
 
   def receive = {
-    case notification: apns.util.SimpleApnsPushNotification =>
-      // blocking
-      val res = client.sendNotification(notification).get()
-      if (res.isAccepted())
-        logger.info("Push notitification accepted by APNs gateway.")
-      else {
-        logger.warn("Notification rejected by the APNs gateway: " + res.getRejectionReason())
-        if (res.getTokenInvalidationTimestamp() != null)
-          logger.warn("\t…and the token is invalid as of " + res.getTokenInvalidationTimestamp())
+    case notification: PushNotification =>
+      manager send notification match {
+        case Failure(ex) => logger.warn(s"iOS notification failed because ${ex.getMessage}!")
+        case _           => logger.info("iOS notification sent!")
       }
   }
 }

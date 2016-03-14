@@ -35,12 +35,7 @@ object Dependencies {
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.9"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
-
-  // for apple push notifications
-  object ios {
-    val pushy = "com.relayrides" % "pushy" % "0.5.2"
-    val alpn = "org.mortbay.jetty.alpn" % "alpn-boot" % "8.0.0"
-  }
+  val pushyScala = "default" %% "pushy-scala" % "0.1-SNAPSHOT"
 
   object play {
     val version = "2.4.6"

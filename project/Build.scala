@@ -35,7 +35,7 @@ object ApplicationBuild extends Build {
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
-        kamon.core, kamon.statsd, ios.pushy, ios.alpn),
+        kamon.core, kamon.statsd, pushyScala),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -242,7 +242,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val push = project("push", Seq(common, db, user, game, challenge)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM, ios.pushy)
+    libraryDependencies ++= provided(play.api, RM, PRM, pushyScala)
   )
 
   lazy val slack = project("slack", Seq(common, hub, user)).settings(
