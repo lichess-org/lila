@@ -8,6 +8,12 @@ import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Steroids with WithFuture {
 
+  // case object Key(value: String) extends AnyVal with StringValue
+  trait StringValue extends Any {
+    def value: String
+    override def toString = value
+  }
+
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
   def nowNanos: Long = System.nanoTime()

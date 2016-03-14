@@ -35,7 +35,7 @@ object JsonApi {
       engine: Client.Engine,
       move: MoveResult) extends Request
 
-    case class MoveResult(bestmove: String, depth: Int) {
+    case class MoveResult(bestmove: String) {
       def uci: Option[Uci] = Uci(bestmove)
     }
 
@@ -74,8 +74,14 @@ object JsonApi {
     val id: String
     val game: Game
   }
-  case class Move(id: String, level: Int, game: Game) extends Work
-  case class Analysis(id: String, game: Game) extends Work
+  case class Move(
+    id: String,
+    level: Int,
+    game: Game) extends Work
+
+  case class Analysis(
+    id: String,
+    game: Game) extends Work
 
   def fromWork(w: W): Work = w match {
     case m: W.Move     => Move(w.id.value, m.level, fromGame(m.game))

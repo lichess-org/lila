@@ -24,7 +24,7 @@ sealed trait Work {
 
 object Work {
 
-  case class Id(value: String) extends AnyVal
+  case class Id(value: String) extends AnyVal with StringValue
 
   case class Acquired(
       clientKey: Client.Key,

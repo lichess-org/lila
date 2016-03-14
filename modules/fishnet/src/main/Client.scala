@@ -34,9 +34,9 @@ object Client {
     enabled = true,
     createdAt = DateTime.now)
 
-  case class Key(value: String) extends AnyVal
-  case class Version(value: String) extends AnyVal
-  case class UserId(value: String) extends AnyVal
+  case class Key(value: String) extends AnyVal with StringValue
+  case class Version(value: String) extends AnyVal with StringValue
+  case class UserId(value: String) extends AnyVal with StringValue
   case class Engine(name: String)
 
   case class Instance(
