@@ -4,6 +4,9 @@ import sbt._, Keys._
 object Dependencies {
 
   object Resolvers {
+
+    private val workingDir = java.nio.file.Paths.get("").toAbsolutePath().toString
+
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -13,10 +16,12 @@ object Dependencies {
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
     val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
+    val local = "Local Maven Repository" at s"file:///$workingDir/local/maven/oss.sonatype.org/content/repositories/snapshots"
 
     val commons = Seq(
       // sonatypeS,
-      ornicarMaven,
+      // ornicarMaven,
+      local,
       sonatype,
       awesomepom,
       typesafe,
