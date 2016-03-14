@@ -33,10 +33,10 @@ private[gameSearch] final class DataForm {
     "durationMin" -> optional(numberIn(Query.durations)),
     "durationMax" -> optional(numberIn(Query.durations)),
     "clock" -> mapping(
-      "clockInitMin" -> optional(numberIn(Query.clockInits)),
-      "clockInitMax" -> optional(numberIn(Query.clockInits)),
-      "clockIncMin" -> optional(numberIn(Query.clockIncs)),
-      "clockIncMax" -> optional(numberIn(Query.clockIncs))
+      "initMin" -> optional(numberIn(Query.clockInits)),
+      "initMax" -> optional(numberIn(Query.clockInits)),
+      "incMin" -> optional(numberIn(Query.clockIncs)),
+      "incMax" -> optional(numberIn(Query.clockIncs))
     )(SearchClock.apply)(SearchClock.unapply),
     "dateMin" -> DataForm.dateField,
     "dateMax" -> DataForm.dateField,
