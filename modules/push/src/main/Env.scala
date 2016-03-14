@@ -2,6 +2,7 @@ package lila.push
 
 import akka.actor._
 import com.typesafe.config.Config
+import java.io.InputStream
 
 import lila.common.PimpedConfig._
 
@@ -11,11 +12,13 @@ final class Env(
     getLightUser: String => Option[lila.common.LightUser],
     isOnline: lila.user.User.ID => Boolean,
     roundSocketHub: ActorSelection,
+    appleCertificate: InputStream,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
+  private val ApplePushPassword = config getString "apple.password"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
@@ -27,8 +30,15 @@ final class Env(
     url = GooglePushUrl,
     key = GooglePushKey)
 
+  private lazy val applePush = new ApplePush(
+    deviceApi.findLastByUserId _,
+    system = system,
+    certificate = appleCertificate,
+    password = ApplePushPassword)
+
   private lazy val pushApi = new PushApi(
     googlePush,
+    applePush,
     getLightUser,
     isOnline,
     roundSocketHub)
@@ -55,5 +65,8 @@ object Env {
     getLightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     roundSocketHub = lila.hub.Env.current.socket.round,
+    appleCertificate = lila.common.PlayApp.withApp {
+      _.classloader.getResourceAsStream("zpns.p12")
+    },
     config = lila.common.PlayApp loadConfig "push")
 }

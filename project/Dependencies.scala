@@ -4,6 +4,9 @@ import sbt._, Keys._
 object Dependencies {
 
   object Resolvers {
+
+    private val workingDir = java.nio.file.Paths.get("").toAbsolutePath().toString
+
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -12,9 +15,13 @@ object Dependencies {
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
+    val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
+    val local = "Local Maven Repository" at s"file:///$workingDir/local/maven/oss.sonatype.org/content/repositories/snapshots"
 
     val commons = Seq(
       // sonatypeS,
+      // ornicarMaven,
+      local,
       sonatype,
       awesomepom,
       typesafe,
@@ -31,10 +38,11 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.1"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.9"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.9"
+  val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9-SNAPSHOT"
+  val PRM = "org.reactivemongo" % "play2-reactivemongo_2.11" % "0.11.9-SNAPSHOT"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
+  val pushyScala = "default" %% "pushy-scala" % "0.1-SNAPSHOT"
 
   object play {
     val version = "2.4.6"

@@ -63,7 +63,7 @@ object UserRepo {
   def byIdsSortRating(ids: Iterable[ID], nb: Int) =
     coll.find(BSONDocument("_id" -> BSONDocument("$in" -> ids)) ++ goodLadSelectBson)
       .sort(BSONDocument(s"perfs.standard.gl.r" -> -1))
-      .cursor[User]()
+      .cursor[User](ReadPreference.secondaryPreferred)
       .collect[List](nb)
 
   // expensive, send to secondary
@@ -72,7 +72,7 @@ object UserRepo {
       BSONDocument("_id" -> BSONDocument("$in" -> ids)) ++ goodLadSelectBson,
       BSONDocument("_id" -> true))
       .sort(BSONDocument(s"perfs.standard.gl.r" -> -1))
-      .cursor[BSONDocument]()
+      .cursor[BSONDocument](ReadPreference.secondaryPreferred)
       .collect[List](nb).map {
         _.flatMap { _.getAs[String]("_id") }
       }
