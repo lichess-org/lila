@@ -12,9 +12,11 @@ object Dependencies {
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
+    val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
 
     val commons = Seq(
-      sonatypeS,
+      // sonatypeS,
+      ornicarMaven,
       sonatype,
       awesomepom,
       typesafe,
@@ -31,8 +33,8 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.1"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.9-SNAPSHOT"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.9-SNAPSHOT"
+  val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9-SNAPSHOT"
+  val PRM = "org.reactivemongo" % "play2-reactivemongo_2.11" % "0.11.9-SNAPSHOT"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
 
