@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 
 private final class FishnetRepo(
@@ -23,7 +24,9 @@ private final class FishnetRepo(
   def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key))
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void
-  def allClients = clientColl.find(BSONDocument()).cursor[Client]().collect[List]()
+  def allRecentClients = clientColl.find(BSONDocument(
+    "instance.seenAt" -> BSONDocument("$gt" -> DateTime.now.minusMinutes(15))
+  )).cursor[Client]().collect[List]()
 
   def addMove(move: Work.Move) = moveColl.insert(move).void
   def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]
