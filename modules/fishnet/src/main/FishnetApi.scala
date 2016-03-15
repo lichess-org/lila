@@ -65,11 +65,11 @@ final class FishnetApi(
         funit
       case Some(work) => data.move.uci match {
         case Some(uci) =>
-          monitor.move(client, work)
+          monitor.move(work, client)
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
           repo.deleteMove(work)
         case _ =>
-          monitor.failure(client, work)
+          monitor.failure(work, client)
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
           repo.updateOrGiveUpMove(work.invalid)
       }
@@ -82,16 +82,25 @@ final class FishnetApi(
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        monitor.analysis(client, work, data)
+        monitor.analysis(work, client, data)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: Exception =>
-          monitor.failure(client, work)
+          monitor.failure(work, client)
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
   } flatMap { _ ?? saveAnalysis }
+
+  def abort(workId: Work.Id, client: Client): Funit = sequencer.analysis {
+    repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
+      _ ?? { work =>
+        monitor.abort(work, client)
+        repo.updateAnalysis(work.abort)
+      }
+    }
+  }
 
   private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
     Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>

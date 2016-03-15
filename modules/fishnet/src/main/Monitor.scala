@@ -10,8 +10,8 @@ private final class Monitor(
     repo: FishnetRepo,
     scheduler: lila.common.Scheduler) {
 
-  private[fishnet] def analysis(client: Client, work: Work, result: JsonApi.Request.PostAnalysis) = {
-    success(client, work)
+  private[fishnet] def analysis(work: Work, client: Client, result: JsonApi.Request.PostAnalysis) = {
+    success(work, client)
     val monitor = lila.mon.fishnet.analysis by client.userId.value
     monitor move result.analysis.size
     sample(result.analysis.filterNot(_.checkmate), 20).foreach { move =>
@@ -23,11 +23,11 @@ private final class Monitor(
     }
   }
 
-  private[fishnet] def move(client: Client, work: Work) = success(client, work)
+  private[fishnet] def move(work: Work, client: Client) = success(work, client)
 
   private def sample[A](elems: List[A], n: Int) = scala.util.Random shuffle elems take n
 
-  private def success(client: Client, work: Work) = {
+  private def success(work: Work, client: Client) = {
 
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).success()
 
@@ -47,11 +47,14 @@ private final class Monitor(
     }
   }
 
-  private[fishnet] def failure(client: Client, work: Work) =
+  private[fishnet] def failure(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
 
-  private[fishnet] def timeout(client: Client, work: Work) =
+  private[fishnet] def timeout(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).timeout()
+
+  private[fishnet] def abort(work: Work, client: Client) =
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).abort()
 
   private def monitorClients: Unit = repo.allClients map { clients =>
 

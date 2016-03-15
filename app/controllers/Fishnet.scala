@@ -29,6 +29,11 @@ object Fishnet extends LilaController {
       api.postAnalysis(Work.Id(workId), client, data) >> api.acquire(client)
   }
 
+  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req =>
+    client =>
+      api.abort(Work.Id(workId), client) inject none
+  }
+
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
     Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(

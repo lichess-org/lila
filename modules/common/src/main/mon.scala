@@ -229,9 +229,11 @@ object mon {
   object fishnet {
     object client {
       def result(client: String, skill: String) = new {
-        def success = inc(s"fishnet.client.result.$skill.$client.success")
-        def failure = inc(s"fishnet.client.result.$skill.$client.failure")
-        def timeout = inc(s"fishnet.client.result.$skill.$client.timeout")
+        def success = apply("success")
+        def failure = apply("failure")
+        def timeout = apply("timeout")
+        def abort = apply("abort")
+        private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
       }
       def time(client: String, skill: String) = rec(s"fishnet.client.time.$skill.$client")
 
