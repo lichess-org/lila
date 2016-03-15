@@ -75,7 +75,21 @@ private final class Monitor(
     }
   } andThenAnyway scheduleClients
 
+  private def monitorWork: Unit = {
+
+    import lila.mon.fishnet.work._
+    import Client.Skill._
+
+    repo.countMove(acquired = false).map { queued(Move.key)(_) } >>
+      repo.countMove(acquired = true).map { acquired(Move.key)(_) } >>
+      repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
+      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
+
+  } andThenAnyway scheduleWork
+
   private def scheduleClients = scheduler.once(1 minute)(monitorClients)
+  private def scheduleWork = scheduler.once(10 seconds)(monitorWork)
 
   scheduleClients
+  scheduleWork
 }

@@ -248,6 +248,10 @@ object mon {
     object queue {
       def time(skill: String) = rec(s"fishnet.queue.time.$skill")
     }
+    object work {
+      def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
+      def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
+    }
     object analysis {
       def by(client: String) = new {
         def move = incX(s"fishnet.analysis.move.$client")
