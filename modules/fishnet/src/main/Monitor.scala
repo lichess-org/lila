@@ -17,7 +17,8 @@ private final class Monitor(
     monitor move result.analysis.size
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
-    sample(result.analysis.filterNot(_.checkmate), 10).foreach { move =>
+    val nbSamples = (result.analysis.size / 8) min 10
+    sample(result.analysis.filterNot(_.checkmate), nbSamples).foreach { move =>
       move.time foreach { monitor.movetime(_) }
       move.nodes foreach { monitor.node(_) }
       move.nps foreach { monitor.nps(_) }
@@ -26,7 +27,12 @@ private final class Monitor(
     }
   }
 
-  private[fishnet] def move(work: Work, client: Client) = success(work, client)
+  private[fishnet] def move(work: Work, client: Client) = {
+    success(work, client)
+    work.acquiredAt foreach { acquiredAt =>
+      lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
+    }
+  }
 
   private def sample[A](elems: List[A], n: Int) = scala.util.Random shuffle elems take n
 
@@ -35,15 +41,6 @@ private final class Monitor(
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).success()
 
     work.acquiredAt foreach { acquiredAt =>
-
-      lila.mon.fishnet.client.time(client.userId.value, work.skill.key) {
-        val totalTime = nowMillis - acquiredAt.getMillis
-        work match {
-          case a: Work.Analysis => totalTime / a.nbPly
-          case m: Work.Move     => totalTime
-        }
-      }
-
       lila.mon.fishnet.queue.db(work.skill.key) {
         acquiredAt.getMillis - work.createdAt.getMillis
       }
