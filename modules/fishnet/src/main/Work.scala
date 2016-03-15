@@ -94,6 +94,8 @@ object Work {
 
     def isOutOfTries = tries >= 2
 
+    def abort = copy(acquired = none)
+
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
