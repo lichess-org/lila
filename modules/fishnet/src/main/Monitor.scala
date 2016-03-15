@@ -15,10 +15,10 @@ private final class Monitor(
     val monitor = lila.mon.fishnet.analysis by client.userId.value
     monitor move result.analysis.size
     sample(result.analysis.filterNot(_.checkmate), 20).foreach { move =>
-      monitor movetime move.time
-      monitor node move.nodes
-      monitor nps move.nps
-      monitor depth move.depth
+      move.time foreach { monitor.movetime(_) }
+      move.nodes foreach { monitor.node(_) }
+      move.nps foreach { monitor.nps(_) }
+      move.depth foreach { monitor.depth(_) }
       monitor pvSize move.pvList.size
     }
   }
