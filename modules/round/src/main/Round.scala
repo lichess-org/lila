@@ -9,8 +9,8 @@ import actorApi._, round._
 import chess.Color
 import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.actorApi.round.FishnetPlay
+import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import makeTimeout.large
@@ -221,10 +221,18 @@ private[round] final class Round(
     pov flatten "pov not found" flatMap { p =>
       if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
+  } recover {
+    case e: Exception =>
+      logwarn(s"round actor handlePov: ${e.getMessage}")
+      Nil
   }
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op
+  } recover {
+    case e: Exception =>
+      logwarn(s"round actor handleGame: ${e.getMessage}")
+      Nil
   }
 
   private def publish[A](op: Fu[Events]) = op addEffect { events =>
@@ -235,8 +243,6 @@ private[round] final class Round(
     }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e =>
-      println(e)
-      e.printStackTrace
+    case e => logwarn(s"round actor publish: ${e.getMessage}")
   } void
 }
