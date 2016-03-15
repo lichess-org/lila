@@ -51,10 +51,10 @@ object JsonApi {
     case class Evaluation(
         pv: Option[String],
         score: Score,
-        time: Int,
-        nodes: Int,
-        nps: Int,
-        depth: Int) {
+        time: Option[Int],
+        nodes: Option[Int],
+        nps: Option[Int],
+        depth: Option[Int]) {
       // use first pv move as bestmove
       val pvList = pv.??(_.split(' ').toList)
       val checkmate = score.mate contains 0
