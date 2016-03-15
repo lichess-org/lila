@@ -19,7 +19,7 @@ private final class ApplePush(
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
-        val token = device.id
+        val token = device.deviceId
         val payload = Payload(Json stringify Json.obj(
           "alert" -> Json.obj(
             "title" -> data.title,

@@ -24,17 +24,12 @@ private final class DeviceApi(coll: Coll) {
 
   def register(user: User, platform: String, deviceId: String) = {
     lila.mon.push.register.in(platform)()
-    coll.update(BSONDocument("_id" -> transformId(deviceId, platform)), Device(
+    coll.update(BSONDocument("_id" -> deviceId), Device(
       _id = deviceId,
       platform = platform,
       userId = user.id,
       seenAt = DateTime.now
     ), upsert = true).void
-  }
-
-  private def transformId(id: String, platform: String) = platform match {
-    case "ios" => id.grouped(8).mkString("<", " ", ">")
-    case _     => id
   }
 
   def unregister(user: User) = {
