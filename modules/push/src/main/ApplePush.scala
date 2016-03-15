@@ -38,8 +38,12 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
 
   var manager: PushManager = _
 
-  override def preStart {
+  override def preStart() {
     manager = PushManager.sandbox("Example", SSLContext(certificate, password).get)
+  }
+
+  override def postStop() {
+    Option(manager).foreach(_.shutdown())
   }
 
   def receive = {
