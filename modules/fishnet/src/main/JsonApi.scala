@@ -22,6 +22,8 @@ object JsonApi {
 
   object Request {
 
+    sealed trait Result
+
     case class Fishnet(
       version: Client.Version,
       apikey: Client.Key)
@@ -33,24 +35,29 @@ object JsonApi {
     case class PostMove(
       fishnet: Fishnet,
       engine: Client.Engine,
-      move: MoveResult) extends Request
+      move: MoveResult) extends Request with Result
 
     case class MoveResult(bestmove: String) {
       def uci: Option[Uci] = Uci(bestmove)
     }
 
     case class PostAnalysis(
-      fishnet: Fishnet,
-      engine: Client.Engine,
-      analysis: List[Evaluation]) extends Request
+        fishnet: Fishnet,
+        engine: Client.Engine,
+        analysis: List[Evaluation]) extends Request with Result {
+
+    }
 
     case class Evaluation(
         pv: Option[String],
-        score: Score) {
-
+        score: Score,
+        time: Int,
+        nodes: Int,
+        nps: Int,
+        depth: Int) {
       // use first pv move as bestmove
-      def pvList = pv.??(_.split(' ').toList)
-      def checkMate = score.mate contains 0
+      val pvList = pv.??(_.split(' ').toList)
+      val checkmate = score.mate contains 0
     }
 
     case class Score(cp: Option[Int], mate: Option[Int]) {

@@ -229,26 +229,32 @@ object mon {
   object fishnet {
     object client {
       def result(client: String, skill: String) = new {
-        def success = inc(s"fishnet.client.$client.$skill.success")
-        def failure = inc(s"fishnet.client.$client.$skill.failure")
-        def timeout = inc(s"fishnet.client.$client.$skill.timeout")
+        def success = inc(s"fishnet.client.result.$skill.$client.success")
+        def failure = inc(s"fishnet.client.result.$skill.$client.failure")
+        def timeout = inc(s"fishnet.client.result.$skill.$client.timeout")
       }
-      def time(client: String, skill: String) = rec(s"fishnet.client.time.$client.$skill")
+      def time(client: String, skill: String) = rec(s"fishnet.client.time.$skill.$client")
 
       object status {
         val enabled = rec("fishnet.client.status.enabled")
         val disabled = rec("fishnet.client.status.disabled")
       }
-      object skill {
-        val move = rec("fishnet.client.skill.move")
-        val analysis = rec("fishnet.client.skill.analysis")
-        val all = rec("fishnet.client.skill.all")
-      }
+      def skill(v: String) = rec(s"fishnet.client.skill.$v")
       def version(v: String) = rec(s"fishnet.client.version.$v")
       def engine(v: String) = rec(s"fishnet.client.engine.$v")
     }
     object queue {
       def time(skill: String) = rec(s"fishnet.queue.time.$skill")
+    }
+    object analysis {
+      def by(client: String) = new {
+        def move = incX(s"fishnet.analysis.move.$client")
+        def movetime = rec(s"fishnet.analysis.movetime.$client")
+        def node = rec(s"fishnet.analysis.node.$client")
+        def nps = rec(s"fishnet.analysis.nps.$client")
+        def depth = rec(s"fishnet.analysis.depth.$client")
+        def pvSize = rec(s"fishnet.analysis.pv_size.$client")
+      }
     }
   }
 
