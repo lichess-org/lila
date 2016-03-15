@@ -56,7 +56,7 @@ private final class Monitor(
   private[fishnet] def abort(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).abort()
 
-  private def monitorClients: Unit = repo.allClients map { clients =>
+  private def monitorClients: Unit = repo.allRecentClients map { clients =>
 
     import lila.mon.fishnet.client._
 
