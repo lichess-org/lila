@@ -37,7 +37,7 @@ final class Env(
       receiveTimeout = None,
       executionTimeout = Some(500 millis)))
 
-  private val monitor = new Monitor(repo, scheduler) // start monitoring
+  private val monitor = new Monitor(repo, sequencer, scheduler)
 
   val api = new FishnetApi(
     hub = hub,

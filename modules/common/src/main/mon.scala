@@ -242,11 +242,12 @@ object mon {
         val disabled = rec("fishnet.client.status.disabled")
       }
       def skill(v: String) = rec(s"fishnet.client.skill.$v")
-      def version(v: String) = rec(s"fishnet.client.version.$v")
-      def engine(v: String) = rec(s"fishnet.client.engine.$v")
+      def version(v: String) = rec(s"fishnet.client.version.${nodots(v)}")
+      def engine(v: String) = rec(s"fishnet.client.engine.${nodots(v)}")
     }
     object queue {
-      def time(skill: String) = rec(s"fishnet.queue.time.$skill")
+      def db(skill: String) = rec(s"fishnet.queue.db.$skill")
+      def sequencer(skill: String) = rec(s"fishnet.queue.sequencer.$skill")
     }
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
@@ -286,6 +287,10 @@ object mon {
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
   private def rec(name: String): Rec = metrics.histogram(name).record(_)
+  // private def rec(name: String): Rec = v => {
+  //   if (name contains "fishnet") println(s"$name $v")
+  //   metrics.histogram(name).record(v)
+  // }
 
-  private def ip(ip: String) = ip.replace(".", "_")
+  private def nodots(s: String) = s.replace(".", "_")
 }

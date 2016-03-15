@@ -8,6 +8,7 @@ import lila.db.Implicits._
 
 private final class Monitor(
     repo: FishnetRepo,
+    sequencer: Sequencer,
     scheduler: lila.common.Scheduler) {
 
   private[fishnet] def analysis(work: Work, client: Client, result: JsonApi.Request.PostAnalysis) = {
@@ -41,7 +42,7 @@ private final class Monitor(
         }
       }
 
-      lila.mon.fishnet.queue.time(work.skill.key) {
+      lila.mon.fishnet.queue.db(work.skill.key) {
         acquiredAt.getMillis - work.createdAt.getMillis
       }
     }
@@ -79,6 +80,9 @@ private final class Monitor(
 
     import lila.mon.fishnet.work._
     import Client.Skill._
+
+    sequencer.move.withQueueSize(lila.mon.fishnet.queue.sequencer(Move.key)(_))
+    sequencer.analysis.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
 
     repo.countMove(acquired = false).map { queued(Move.key)(_) } >>
       repo.countMove(acquired = true).map { acquired(Move.key)(_) } >>
