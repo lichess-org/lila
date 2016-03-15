@@ -235,7 +235,6 @@ object mon {
         def abort = apply("abort")
         private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
       }
-      def time(client: String, skill: String) = rec(s"fishnet.client.time.$skill.$client")
 
       object status {
         val enabled = rec("fishnet.client.status.enabled")
@@ -253,16 +252,19 @@ object mon {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
     }
+    object move {
+      def time(client: String) = rec(s"fishnet.move.time.$client")
+    }
     object analysis {
       def by(client: String) = new {
         def move = incX(s"fishnet.analysis.move.$client")
+        def hash = rec(s"fishnet.analysis.hash.$client")
+        def threads = rec(s"fishnet.analysis.threads.$client")
         def movetime = rec(s"fishnet.analysis.movetime.$client")
         def node = rec(s"fishnet.analysis.node.$client")
         def nps = rec(s"fishnet.analysis.nps.$client")
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
-        def hash = rec(s"fishnet.analysis.hash.$client")
-        def threads = rec(s"fishnet.analysis.threads.$client")
       }
     }
   }
