@@ -11,7 +11,7 @@ private final class Monitor(
     sequencer: Sequencer,
     scheduler: lila.common.Scheduler) {
 
-  private[fishnet] def analysis(work: Work, client: Client, result: JsonApi.Request.PostAnalysis) = {
+  private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
     success(work, client)
     val monitor = lila.mon.fishnet.analysis by client.userId.value
     monitor move result.analysis.size
@@ -27,7 +27,7 @@ private final class Monitor(
     }
   }
 
-  private[fishnet] def move(work: Work, client: Client) = {
+  private[fishnet] def move(work: Work.Move, client: Client) = {
     success(work, client)
     if (work.level == 8) work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
