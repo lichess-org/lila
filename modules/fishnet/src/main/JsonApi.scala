@@ -28,9 +28,15 @@ object JsonApi {
       version: Client.Version,
       apikey: Client.Key)
 
-    case class Engine(
+    sealed trait Engine {
+      def name: String
+    }
+
+    case class BaseEngine(name: String) extends Engine
+
+    case class FullEngine(
       name: String,
-      options: EngineOptions)
+      options: EngineOptions) extends Engine
 
     case class EngineOptions(
         threads: Option[String],
@@ -41,11 +47,11 @@ object JsonApi {
 
     case class Acquire(
       fishnet: Fishnet,
-      engine: Engine) extends Request
+      engine: BaseEngine) extends Request
 
     case class PostMove(
       fishnet: Fishnet,
-      engine: Engine,
+      engine: BaseEngine,
       move: MoveResult) extends Request with Result
 
     case class MoveResult(bestmove: String) {
@@ -53,11 +59,9 @@ object JsonApi {
     }
 
     case class PostAnalysis(
-        fishnet: Fishnet,
-        engine: Engine,
-        analysis: List[Evaluation]) extends Request with Result {
-
-    }
+      fishnet: Fishnet,
+      engine: FullEngine,
+      analysis: List[Evaluation]) extends Request with Result
 
     case class Evaluation(
         pv: Option[String],
@@ -110,7 +114,8 @@ object JsonApi {
     implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
     implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
     implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
-    implicit val EngineReads = Json.reads[Request.Engine]
+    implicit val BaseEngineReads = Json.reads[Request.BaseEngine]
+    implicit val FullEngineReads = Json.reads[Request.FullEngine]
     implicit val FishnetReads = Json.reads[Request.Fishnet]
     implicit val AcquireReads = Json.reads[Request.Acquire]
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
