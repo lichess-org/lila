@@ -69,8 +69,12 @@ object FutureSequencer {
           }.andThenAnyway {
             self ! Done
           }
-        case FSequencer.WithQueueSize(f) => f(queue.size)
-        case x => logwarn(s"[FSequencer] Unsupported message $x")
+        case FSequencer.WithQueueSize(f) =>
+          f(queue.size)
+          self ! Done
+        case x =>
+          logwarn(s"[FSequencer] Unsupported message $x")
+          self ! Done
       }
     }
   }
