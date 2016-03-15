@@ -10,13 +10,30 @@ private final class Monitor(
     repo: FishnetRepo,
     scheduler: lila.common.Scheduler) {
 
-  private[fishnet] def success(client: Client, work: Work) = {
+  private[fishnet] def analysis(client: Client, work: Work, result: JsonApi.Request.PostAnalysis) = {
+    success(client, work)
+    val monitor = lila.mon.fishnet.analysis by client.userId.value
+    monitor move result.analysis.size
+    sample(result.analysis.filterNot(_.checkmate), 20).foreach { move =>
+      monitor movetime move.time
+      monitor node move.nodes
+      monitor nps move.nps
+      monitor depth move.depth
+      monitor pvSize move.pvList.size
+    }
+  }
 
-    lila.mon.fishnet.client.result(client.fullId, work.skill.key).success()
+  private[fishnet] def move(client: Client, work: Work) = success(client, work)
+
+  private def sample[A](elems: List[A], n: Int) = scala.util.Random shuffle elems take n
+
+  private def success(client: Client, work: Work) = {
+
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).success()
 
     work.acquiredAt foreach { acquiredAt =>
 
-      lila.mon.fishnet.client.time(client.fullId, work.skill.key) {
+      lila.mon.fishnet.client.time(client.userId.value, work.skill.key) {
         val totalTime = nowMillis - acquiredAt.getMillis
         work match {
           case a: Work.Analysis => totalTime / a.nbPly
@@ -31,22 +48,21 @@ private final class Monitor(
   }
 
   private[fishnet] def failure(client: Client, work: Work) =
-    lila.mon.fishnet.client.result(client.fullId, work.skill.key).failure()
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
 
   private[fishnet] def timeout(client: Client, work: Work) =
-    lila.mon.fishnet.client.result(client.fullId, work.skill.key).timeout()
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).timeout()
 
   private def monitorClients: Unit = repo.allClients map { clients =>
 
     import lila.mon.fishnet.client._
-    import Client.Skill._
 
     status enabled clients.count(_.enabled)
     status disabled clients.count(_.disabled)
 
-    skill move clients.count(_.skill == Move)
-    skill analysis clients.count(_.skill == Analysis)
-    skill all clients.count(_.skill == All)
+    Client.Skill.all foreach { s =>
+      skill(s.key)(clients.count(_.skill == s))
+    }
 
     clients.flatMap(_.instance).map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
       case (v, nb) => version(v)(nb)

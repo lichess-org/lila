@@ -65,7 +65,7 @@ final class FishnetApi(
         funit
       case Some(work) => data.move.uci match {
         case Some(uci) =>
-          monitor.success(client, work)
+          monitor.move(client, work)
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
           repo.deleteMove(work)
         case _ =>
@@ -82,7 +82,7 @@ final class FishnetApi(
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        monitor.success(client, work)
+        monitor.analysis(client, work, data)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: Exception =>
