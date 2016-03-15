@@ -29,7 +29,7 @@ private final class Monitor(
 
   private[fishnet] def move(work: Work, client: Client) = {
     success(work, client)
-    work.acquiredAt foreach { acquiredAt =>
+    if (work.level == 8) work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
     }
   }
