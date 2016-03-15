@@ -102,6 +102,10 @@ final class FishnetApi(
     }
   }
 
+  def analysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
+    "game.id" -> gameId
+  ).some).map(0!=)
+
   private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
     Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
       val client = Client(
