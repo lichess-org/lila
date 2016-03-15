@@ -48,7 +48,7 @@ private final class Cleaner(
 
   private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
     _ foreach { client =>
-      monitor.timeout(client, work)
+      monitor.timeout(work, client)
       log.warn(s"Timeout client ${client.fullId}")
     }
   }
