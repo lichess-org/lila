@@ -19,6 +19,8 @@ final class FutureSequencer(
     sequencer ! FSequencer.work(op, promise)
     promise.future
   }
+
+  def withQueueSize(f: Int => Unit) = sequencer ! FSequencer.WithQueueSize(f)
 }
 
 object FutureSequencer {
@@ -67,6 +69,7 @@ object FutureSequencer {
           }.andThenAnyway {
             self ! Done
           }
+        case FSequencer.WithQueueSize(f) => f(queue.size)
         case x => logwarn(s"[FSequencer] Unsupported message $x")
       }
     }
@@ -83,5 +86,7 @@ object FutureSequencer {
       run: => Fu[A],
       promise: Promise[A],
       timeout: Option[FiniteDuration] = None): Work[A] = Work(() => run, promise, timeout)
+
+    case class WithQueueSize(f: Int => Unit)
   }
 }

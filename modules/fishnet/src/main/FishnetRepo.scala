@@ -31,6 +31,9 @@ private final class FishnetRepo(
   def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
   def giveUpMove(move: Work.Move) = deleteMove(move) >>- log.warn(s"Give up on move $move")
   def updateOrGiveUpMove(move: Work.Move) = if (move.isOutOfTries) giveUpMove(move) else updateMove(move)
+  def countMove(acquired: Boolean) = moveColl.count(BSONDocument(
+    "acquired" -> BSONDocument("$exists" -> acquired)
+  ).some)
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
   def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
@@ -38,6 +41,9 @@ private final class FishnetRepo(
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- log.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
+  def countAnalysis(acquired: Boolean) = analysisColl.count(BSONDocument(
+    "acquired" -> BSONDocument("$exists" -> acquired)
+  ).some)
 
   def similarMoveExists(work: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
     "game.id" -> work.game.id,
