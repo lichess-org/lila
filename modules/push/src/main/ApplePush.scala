@@ -39,7 +39,9 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
   var manager: PushManager = _
 
   override def preStart() {
-    manager = PushManager.sandbox("Example", SSLContext(certificate, password).get)
+    loginfo("Start apple push manager")
+    manager = PushManager.production("lila push manager", SSLContext(certificate, password).get)
+    loginfo("Started apple push manager")
   }
 
   override def postStop() {
