@@ -261,6 +261,8 @@ object mon {
         def nps = rec(s"fishnet.analysis.nps.$client")
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
+        def hash = rec(s"fishnet.analysis.hash.$client")
+        def threads = rec(s"fishnet.analysis.threads.$client")
       }
     }
   }
