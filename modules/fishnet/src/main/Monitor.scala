@@ -14,20 +14,25 @@ private final class Monitor(
   private[fishnet] def acquire(client: Client) =
     lila.mon.fishnet.acquire.count(client.userId.value)()
 
+  private case class AnalysisMeta(time: Int, nodes: Int, nps: Int, depth: Int, pvSize: Int)
+
   private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
     success(work, client)
     val monitor = lila.mon.fishnet.analysis by client.userId.value
     monitor move result.analysis.size
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
-    val nbSamples = (result.analysis.size / 8) min 10
-    sample(result.analysis.filterNot(_.checkmate), nbSamples).foreach { move =>
-      move.time foreach { monitor.movetime(_) }
-      move.nodes foreach { monitor.node(_) }
-      move.nps foreach { monitor.nps(_) }
-      move.depth foreach { monitor.depth(_) }
-      monitor pvSize move.pvList.size
+
+    val metaMoves = result.analysis.drop(6).filterNot(_.checkmate).take(100)
+    def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
+      val points = metaMoves flatMap { f(_) }
+      points.nonEmpty option (points.sum / points.size)
     }
+    avgOf(_.time) foreach { monitor.movetime(_) }
+    avgOf(_.nodes) foreach { monitor.node(_) }
+    avgOf(_.nps) foreach { monitor.nps(_) }
+    avgOf(_.depth) foreach { monitor.depth(_) }
+    avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
   }
 
   private[fishnet] def move(work: Work.Move, client: Client) = {
