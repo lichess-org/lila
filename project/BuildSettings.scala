@@ -5,7 +5,7 @@ object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.11.7"
+  val globalScalaVersion = "2.11.8"
 
   def buildSettings = Defaults.defaultSettings ++ Seq(
     organization := "org.lichess",
