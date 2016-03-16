@@ -89,6 +89,6 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
         TokenUtil.tokenStringToByteArray(token),
         payloadBuilder.buildWithDefaultMaximumLength())
 
-      manager.getQueue().put(notif).pp
+      manager.getQueue().put(notif)
   }
 }
