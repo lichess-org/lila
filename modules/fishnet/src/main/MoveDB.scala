@@ -1,28 +1,38 @@
 package lila.fishnet
 
+import scala.concurrent.stm._
+
 private final class MoveDB {
 
   import Work.Move
 
   private val maxSize = 1000
 
-  private val coll = scala.collection.mutable.Map[Work.Id, Move]()
+  private val coll = TMap.empty[Work.Id, Move]
 
-  def add(move: Move) = if (coll.size < maxSize) coll += (move.id -> move)
+  def get = coll.single.get _
 
-  def get = coll.get _
+  def add(move: Move): Unit = atomic { implicit txn =>
+    if (coll.size < maxSize) coll.put(move.id, move)
+  }
 
-  def contains = coll.contains _
+  def update(move: Move): Unit = atomic { implicit txn =>
+    if (coll.contains(move.id)) coll.put(move.id, move)
+  }
 
-  def exists = coll.values.exists _
+  def delete(move: Move): Unit = atomic { implicit txn =>
+    coll.remove(move.id)
+  }
 
-  def find = coll.values.filter _
+  def contains = coll.single.contains _
 
-  def update(move: Move) = if (contains(move.id)) coll += (move.id -> move)
+  def exists = coll.single.values.exists _
 
-  def delete(move: Move) = coll -= move.id
+  def find = coll.single.values.filter _
 
-  def count = coll.values.count _
+  def count = coll.single.values.count _
+
+  def size = coll.single.size
 
   def giveUp(move: Move) = {
     log.warn(s"Give up on move $move")
