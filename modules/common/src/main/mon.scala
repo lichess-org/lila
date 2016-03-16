@@ -295,7 +295,6 @@ object mon {
   // private def rec(name: String): Rec = metrics.histogram(name).record(_)
   private def rec(name: String): Rec = v => {
     if (name contains "fishnet") {
-      println(s"$name $v")
       metrics.histogram(name).record(v)
     }
   }
