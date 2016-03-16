@@ -30,17 +30,22 @@ var runCommand = function(cmd) {
 };
 // runCommand('jinfo `cat /home/lichess/RUNNING_PID`');
 
+var lastRestarted = 0;
+
 var doRestartLichess = function() {
+  lastRestarted = new Date().getTime();
+  logger('error', 'Restart lichess now');
   runCommand('/home/lichess/bin/prod/restart-now');
 }
 
 var restartLichess = function(msg) {
   logger('error', msg);
-  logger('error', 'Restart lichess now');
-  doRestartLichess();
+  logger('error', "Asking to restart");
+  if (new Date().getTime() < lastRestarted + 5 * 60 * 1000) logger('error', "Too early!");
+  else doRestartLichess();
   // runCommand('jstack -F `cat /home/lichess/RUNNING_PID` > /root/lichess-auto-jstack');
   // setTimeout(function() {
-    // doRestartLichess();
+  // doRestartLichess();
   // }, 3000);
 };
 
@@ -74,8 +79,8 @@ var sendSms = function(msg) {
 var addFail = function(v) {
   fail += v;
   if (fail >= failAlert) {
-    restartLichess('fail = ' + fail);
     fail = 0;
+    restartLichess('fail = ' + fail);
   }
 };
 
@@ -131,8 +136,8 @@ connect();
 setInterval(function() {
   if (averageLag !== null)
     process.stdout.write(Math.round(averageLag) + ' ');
-//  if (fail > 0)
-//    process.stdout.write('{' + fail + '} ');
+  //  if (fail > 0)
+  //    process.stdout.write('{' + fail + '} ');
 }, 10000);
 
 // HTTP
@@ -147,26 +152,26 @@ setInterval(function() {
   console.log(errorThreshold, 'errorThreshold');
 
   function onError(err) {
+    logger('error', 'httpFailed: ' + err);
     errorCount += errorInc;
     logger('error', 'HTTP error count: ' + errorCount + '/' + errorThreshold);
     if (errorCount < errorThreshold) {
       setTimeout(httpCheck, testDelay);
       return;
     }
-    logger('error', 'httpFailed: ' + err);
-    logger('error', 'will retry in ' + (errorRetryDelay / 1000 / 60) + ' minutes');
     restartLichess('HTTP(' + errorCount + ') = ' + err);
+    errorCount = 0;
+    logger('error', 'will retry in ' + (errorRetryDelay / 1000 / 60) + ' minutes');
     setTimeout(httpCheck, errorRetryDelay);
     errorRetryDelay = errorRetryDelay * 2;
   }
 
   function httpCheck() {
-    HttpClient.get('http://en.' + domain).on('response', function(res) {
+    HttpClient.get('http://en.' + domain, {
+      timeout: 1000
+    }).on('response', function(res) {
       if (res.statusCode != 200) return onError(res.statusCode);
-      if (errorCount > 0) {
-        errorCount--;
-        logger('info', 'HTTP('+errorCount+')');
-      }
+      if (errorCount > 0) errorCount--;
       errorRetryDelay = initialErrorRetryDelay;
       setTimeout(httpCheck, testDelay);
     }).on('error', onError);
