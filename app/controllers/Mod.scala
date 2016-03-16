@@ -123,7 +123,7 @@ object Mod extends LilaController {
       }.addEffects(
         fail = _ => lila.mon.security.proxy.request.failure(),
         succ = percent => {
-          lila.mon.security.proxy.percent(percent)
+          lila.mon.security.proxy.percent(percent max 0)
           lila.mon.security.proxy.request.success()
         })
     }, maxCapacity = 1024)
