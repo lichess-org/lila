@@ -40,7 +40,7 @@ object Round extends LilaController with TheftPrevention {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else get("sri") match {
-          case Some(uid) => env.socketHandler.player(
+          case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
             pov, uid, ~get("ran"), ctx.me, ctx.ip
           ) map Right.apply
           case None => fuccess(Left(NotFound))
@@ -49,8 +49,10 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
+  private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
+
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    (pov.game.playableByAi ?? Env.fishnet.player(pov.game)) >> negotiate(
+    negotiate(
       html = pov.game.started.fold(
         PreventTheft(pov) {
           myTour(pov.game.tournamentId, true) zip
