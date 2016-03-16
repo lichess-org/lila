@@ -223,7 +223,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val fishnet = project("fishnet", Seq(common, chess, game, analyse, db)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM, stm)
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(

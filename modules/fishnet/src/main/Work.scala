@@ -20,6 +20,9 @@ sealed trait Work {
   def acquiredByKey = acquired.map(_.clientKey)
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
   def isAcquired = acquired.isDefined
+  def nonAcquired = !isAcquired
+
+  def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
 }
 
 object Work {
@@ -69,6 +72,8 @@ object Work {
     def invalid = copy(acquired = none)
 
     def isOutOfTries = tries >= 3
+
+    def similar(to: Move) = game.id == to.game.id && currentFen == to.currentFen
 
     override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen acquired:$acquired"
   }

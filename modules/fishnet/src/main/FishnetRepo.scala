@@ -7,7 +7,6 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
 
 private final class FishnetRepo(
-    moveColl: Coll,
     analysisColl: Coll,
     clientColl: Coll) {
 
@@ -28,16 +27,6 @@ private final class FishnetRepo(
     "instance.seenAt" -> BSONDocument("$gt" -> DateTime.now.minusMinutes(15))
   )).cursor[Client]().collect[List]()
 
-  def addMove(move: Work.Move) = moveColl.insert(move).void
-  def getMove(id: Work.Id) = moveColl.find(selectWork(id)).one[Work.Move]
-  def updateMove(move: Work.Move) = moveColl.update(selectWork(move.id), move).void
-  def deleteMove(move: Work.Move) = moveColl.remove(selectWork(move.id)).void
-  def giveUpMove(move: Work.Move) = deleteMove(move) >>- log.warn(s"Give up on move $move")
-  def updateOrGiveUpMove(move: Work.Move) = if (move.isOutOfTries) giveUpMove(move) else updateMove(move)
-  def countMove(acquired: Boolean) = moveColl.count(BSONDocument(
-    "acquired" -> BSONDocument("$exists" -> acquired)
-  ).some)
-
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
   def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
@@ -47,11 +36,6 @@ private final class FishnetRepo(
   def countAnalysis(acquired: Boolean) = analysisColl.count(BSONDocument(
     "acquired" -> BSONDocument("$exists" -> acquired)
   ).some)
-
-  def similarMoveExists(work: Work.Move): Fu[Boolean] = moveColl.count(BSONDocument(
-    "game.id" -> work.game.id,
-    "currentFen" -> work.currentFen
-  ).some) map (0 !=)
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.find(BSONDocument("game.id" -> work.game.id)).one[Work.Analysis]

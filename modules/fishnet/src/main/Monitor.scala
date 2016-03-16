@@ -7,8 +7,9 @@ import scala.concurrent.duration._
 import lila.db.Implicits._
 
 private final class Monitor(
+    moveDb: MoveDB,
     repo: FishnetRepo,
-    sequencer: Sequencer,
+    sequencer: lila.hub.FutureSequencer,
     scheduler: lila.common.Scheduler) {
 
   private[fishnet] def acquire(client: Client) =
@@ -88,12 +89,12 @@ private final class Monitor(
     import lila.mon.fishnet.work._
     import Client.Skill._
 
-    sequencer.move.withQueueSize(lila.mon.fishnet.queue.sequencer(Move.key)(_))
-    sequencer.analysis.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
+    sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
 
-    repo.countMove(acquired = false).map { queued(Move.key)(_) } >>
-      repo.countMove(acquired = true).map { acquired(Move.key)(_) } >>
-      repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
+    queued(Move.key)(moveDb.count(_.nonAcquired))
+    acquired(Move.key)(moveDb.count(_.isAcquired))
+
+    repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
       repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
 
   } andThenAnyway scheduleWork

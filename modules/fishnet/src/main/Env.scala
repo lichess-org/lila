@@ -18,31 +18,26 @@ final class Env(
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
 
-  private val moveColl = db(config getString "collection.move")
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
   private val repo = new FishnetRepo(
-    moveColl = moveColl,
     analysisColl = analysisColl,
     clientColl = clientColl)
 
-  private val sequencer = new Sequencer(
-    move = new lila.hub.FutureSequencer(
-      system = system,
-      receiveTimeout = None,
-      executionTimeout = Some(200 millis)),
-    analysis = new lila.hub.FutureSequencer(
-      system = system,
-      receiveTimeout = None,
-      executionTimeout = Some(500 millis)))
+  private val moveDb = new MoveDB
 
-  private val monitor = new Monitor(repo, sequencer, scheduler)
+  private val sequencer = new lila.hub.FutureSequencer(
+    system = system,
+    receiveTimeout = None,
+    executionTimeout = Some(500 millis))
+
+  private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
   val api = new FishnetApi(
     hub = hub,
     repo = repo,
-    moveColl = moveColl,
+    moveDb = moveDb,
     analysisColl = analysisColl,
     clientColl = clientColl,
     sequencer = sequencer,
@@ -51,9 +46,8 @@ final class Env(
     offlineMode = OfflineMode)
 
   val player = new Player(
-    repo = repo,
-    uciMemo = uciMemo,
-    sequencer = sequencer)
+    moveDb = moveDb,
+    uciMemo = uciMemo)
 
   val analyser = new Analyser(
     repo = repo,
@@ -65,7 +59,7 @@ final class Env(
 
   private val cleaner = new Cleaner(
     repo = repo,
-    moveColl = moveColl,
+    moveDb = moveDb,
     analysisColl = analysisColl,
     monitor = monitor,
     scheduler = scheduler)
