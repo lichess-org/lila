@@ -29,11 +29,11 @@ final class FishnetApi(
     }
   }
 
-  def acquire(client: Client): Fu[Option[JsonApi.Work]] = client.skill match {
+  def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
     case Skill.Move     => acquireMove(client)
     case Skill.Analysis => acquireAnalysis(client)
     case Skill.All      => acquireMove(client) orElse acquireAnalysis(client)
-  }
+  }) >>- monitor.acquire(client)
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = sequencer.move {
     moveColl.find(BSONDocument(

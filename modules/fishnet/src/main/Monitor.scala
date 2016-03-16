@@ -11,6 +11,9 @@ private final class Monitor(
     sequencer: Sequencer,
     scheduler: lila.common.Scheduler) {
 
+  private[fishnet] def acquire(client: Client) =
+    lila.mon.fishnet.acquire.count(client.userId.value)()
+
   private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
     success(work, client)
     val monitor = lila.mon.fishnet.analysis by client.userId.value
