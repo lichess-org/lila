@@ -4,8 +4,6 @@ import akka.actor._
 import java.io.InputStream
 import scala.util.Failure
 
-import com.vngrs.scala.pushy._
-import com.vngrs.scala.pushy.Implicits._
 import play.api.libs.json._
 
 private final class ApplePush(
@@ -19,40 +17,78 @@ private final class ApplePush(
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
-        val token = device.deviceId
-        val payload = Payload(Json stringify Json.obj(
+        actor ! ApplePush.Notification(device.deviceId, Json.obj(
           "alert" -> Json.obj(
             "title" -> data.title,
-            "body" -> data.body
-          ),
+            "body" -> data.body),
           "data" -> data.payload))
-        actor ! PushNotification(token, payload)
       }
     }
+}
+
+object ApplePush {
+
+  case class Notification(token: String, payload: JsObject)
 }
 
 // the damn API is blocking, so at least use only one thread at a time
 private final class ApnsActor(certificate: InputStream, password: String) extends Actor {
 
+  import com.relayrides.pushy.apns._, util._
+
   val logger = play.api.Logger("push")
 
-  var manager: PushManager = _
+  val manager = new PushManager[SimpleApnsPushNotification](
+    ApnsEnvironment.getProductionEnvironment(),
+    SSLContextUtil.createDefaultSSLContext(certificate, password),
+    null, // Optional: custom event loop group
+    null, // Optional: custom ExecutorService for calling listeners
+    null, // Optional: custom BlockingQueue implementation
+    new PushManagerConfiguration(),
+    "ApplePushManager")
+
+  manager.registerRejectedNotificationListener(new RejectedNotificationListener[SimpleApnsPushNotification] {
+    override def handleRejectedNotification(
+      m: PushManager[_ <: SimpleApnsPushNotification],
+      notification: SimpleApnsPushNotification,
+      reason: RejectedNotificationReason) {
+      logger.error(s"$notification was rejected with rejection reason $reason")
+    }
+  })
+  manager.registerFailedConnectionListener(new FailedConnectionListener[SimpleApnsPushNotification] {
+    override def handleFailedConnection(
+      m: PushManager[_ <: SimpleApnsPushNotification],
+      cause: Throwable) {
+      logger.error(s"Can't connect because $cause")
+      cause match {
+        case ssl: javax.net.ssl.SSLHandshakeException =>
+          logger.error(s"This is probably a permanent failure, and we should shut down the manager")
+        case _ =>
+      }
+    }
+  })
 
   override def preStart() {
-    loginfo("Start apple push manager")
-    manager = PushManager.production("lila push manager", SSLContext(certificate, password).get)
-    loginfo("Started apple push manager")
+    logger.info("Starting apple push manager")
+    manager.start()
+    logger.info("Started apple push manager")
   }
 
   override def postStop() {
-    Option(manager).foreach(_.shutdown())
+    manager.shutdown()
   }
 
   def receive = {
-    case notification: PushNotification =>
-      manager send notification match {
-        case Failure(ex) => logger.warn(s"iOS notification failed because ${ex.getMessage}!")
-        case _           => logger.info("iOS notification sent!")
-      }
+    case ApplePush.Notification(token, payload) =>
+
+      val payloadBuilder = new ApnsPayloadBuilder()
+
+      payloadBuilder.setAlertBody(Json stringify payload)
+
+      val notif = new SimpleApnsPushNotification(
+        TokenUtil.tokenStringToByteArray(token),
+        payloadBuilder.buildWithDefaultMaximumLength())
+
+      manager.getQueue().put(notif).pp
   }
 }
