@@ -24,7 +24,7 @@ private final class Cleaner(
 
   private def cleanMoves: Unit = {
     val since = durationAgo(moveTimeout)
-    moveDb.find(_ acquiredBefore since).map { move =>
+    moveDb.find(_ acquiredBefore since).map(_.timeout).map { move =>
       moveDb updateOrGiveUp move
       clientTimeout(move)
       log.warn(s"Timeout move ${move.game.id}")
