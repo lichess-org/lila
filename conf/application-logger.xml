@@ -22,18 +22,6 @@
     <appender-ref ref="STDOUT" />
   </root>
 
-  <logger name="play" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="reactivemongo" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="application" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="lila" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
   <logger name="boot" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/boot.log</file>
