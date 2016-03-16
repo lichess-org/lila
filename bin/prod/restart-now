@@ -2,8 +2,8 @@
 
 DIR="/home/lichess"
 
-echo "Notify users of post deploy"
-bin/cli-prod deploy post
+echo "Notify lichess of post deploy"
+$DIR/bin/cli-prod deploy post
 
 sleep 1
 
