@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], analysisInProgress: Boolean, simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -100,19 +100,16 @@ atom = atom.some) {
         data-division-end="@division.end.getOrElse("null")"
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
-      }.getOrElse {
-      @analyse.computing(pov.gameId)
       }
       }.getOrElse {
+      @if(analysisInProgress) {
+      @analyse.computing(pov.gameId)
+      } else {
       <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
       }
-      <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3 text" data-icon="&#xe004;">@trans.viewTheComputerAnalysis()</span>
-        </a>
-      </div>
+      }
     </div>
     }
     <div class="panel quote">
