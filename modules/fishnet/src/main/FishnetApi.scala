@@ -10,10 +10,10 @@ import lila.hub.{ actorApi => hubApi }
 final class FishnetApi(
     hub: lila.hub.Env,
     repo: FishnetRepo,
-    moveColl: Coll,
+    moveDb: MoveDB,
     analysisColl: Coll,
     clientColl: Coll,
-    sequencer: Sequencer,
+    sequencer: lila.hub.FutureSequencer,
     monitor: Monitor,
     saveAnalysis: lila.analyse.Analysis => Funit,
     offlineMode: Boolean) {
@@ -35,17 +35,15 @@ final class FishnetApi(
     case Skill.All      => acquireMove(client) orElse acquireAnalysis(client)
   }) >>- monitor.acquire(client)
 
-  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = sequencer.move {
-    moveColl.find(BSONDocument(
-      "acquired" -> BSONDocument("$exists" -> false)
-    )).sort(BSONDocument("createdAt" -> 1)).one[Work.Move].flatMap {
-      _ ?? { work =>
-        repo.updateMove(work assignTo client) inject work.some
+  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = fuccess {
+    moveDb.find(_.nonAcquired).toList.sortBy(_.createdAt).headOption
+      .map(_ assignTo client) ?? { work =>
+        moveDb.update(work)
+        JsonApi.fromWork(work).some
       }
-    }
-  } map { _ map JsonApi.fromWork }
+  }
 
-  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer.analysis {
+  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false)
     )).sort(BSONDocument(
@@ -58,25 +56,24 @@ final class FishnetApi(
     }
   } map { _ map JsonApi.fromWork }
 
-  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = sequencer.move {
-    repo.getMove(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
+  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
+    moveDb.get(workId).filter(_ isAcquiredBy client) match {
       case None =>
         log.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
-        funit
       case Some(work) => data.move.uci match {
         case Some(uci) =>
           monitor.move(work, client)
           hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
-          repo.deleteMove(work)
+          moveDb.delete(work)
         case _ =>
           monitor.failure(work, client)
           log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
-          repo.updateOrGiveUpMove(work.invalid)
+          moveDb.updateOrGiveUp(work.invalid)
       }
     }
   }
 
-  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer.analysis {
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       case None =>
         log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
@@ -93,7 +90,7 @@ final class FishnetApi(
     }
   } flatMap { _ ?? saveAnalysis }
 
-  def abort(workId: Work.Id, client: Client): Funit = sequencer.analysis {
+  def abort(workId: Work.Id, client: Client): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       _ ?? { work =>
         monitor.abort(work, client)

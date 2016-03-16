@@ -7,19 +7,14 @@ import chess.format.{ FEN, Forsyth }
 import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Player(
-    repo: FishnetRepo,
-    uciMemo: UciMemo,
-    sequencer: Sequencer) {
+    moveDb: MoveDB,
+    uciMemo: UciMemo) {
 
   val maxPlies = 300
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
-    makeWork(game, level) flatMap { move =>
-      sequencer.move {
-        repo similarMoveExists move flatMap {
-          _.fold(funit, repo addMove move)
-        }
-      }
+    makeWork(game, level) map { move =>
+      if (!moveDb.exists(_ similar move)) moveDb add move
     }
   }
 

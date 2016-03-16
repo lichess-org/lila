@@ -9,7 +9,7 @@ import lila.db.Implicits._
 
 private final class Cleaner(
     repo: FishnetRepo,
-    moveColl: Coll,
+    moveDb: MoveDB,
     analysisColl: Coll,
     monitor: Monitor,
     scheduler: lila.common.Scheduler) {
@@ -22,16 +22,15 @@ private final class Cleaner(
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
-  private def cleanMoves: Funit = moveColl.find(BSONDocument(
-    "acquired.date" -> BSONDocument("$lt" -> durationAgo(moveTimeout))
-  )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Move]().collect[List](100).flatMap {
-    _.map { move =>
-      repo.updateOrGiveUpMove(move.timeout) >>- {
-        clientTimeout(move)
-        log.warn(s"Timeout move ${move.game.id}")
-      }
-    }.sequenceFu.void
-  } andThenAnyway scheduleMoves
+  private def cleanMoves: Unit = {
+    val since = durationAgo(moveTimeout)
+    moveDb.find(_ acquiredBefore since).map { move =>
+      moveDb updateOrGiveUp move
+      clientTimeout(move)
+      log.warn(s"Timeout move ${move.game.id}")
+    }
+    scheduleMoves
+  }
 
   private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))

@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo, UciMemo }
 final class Analyser(
     repo: FishnetRepo,
     uciMemo: UciMemo,
-    sequencer: Sequencer,
+    sequencer: lila.hub.FutureSequencer,
     limiter: Limiter) {
 
   val maxPlies = 200
@@ -18,7 +18,7 @@ final class Analyser(
     limiter(sender) flatMap { accepted =>
       accepted ?? {
         makeWork(game, sender) flatMap { work =>
-          sequencer.analysis {
+          sequencer {
             repo getSimilarAnalysis work flatMap {
               // already in progress, do nothing
               case Some(similar) if similar.isAcquired => funit
