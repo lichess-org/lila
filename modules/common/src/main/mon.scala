@@ -235,7 +235,6 @@ object mon {
         def abort = apply("abort")
         private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
       }
-
       object status {
         val enabled = rec("fishnet.client.status.enabled")
         val disabled = rec("fishnet.client.status.disabled")
@@ -247,6 +246,9 @@ object mon {
     object queue {
       def db(skill: String) = rec(s"fishnet.queue.db.$skill")
       def sequencer(skill: String) = rec(s"fishnet.queue.sequencer.$skill")
+    }
+    object acquire {
+      def count(client: String) = inc(s"fishnet.acquire.$client")
     }
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
