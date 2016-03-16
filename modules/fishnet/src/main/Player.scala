@@ -14,7 +14,9 @@ final class Player(
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeWork(game, level) map { move =>
-      if (!moveDb.exists(_ similar move)) moveDb add move
+      moveDb.transaction { implicit txn =>
+        if (!moveDb.exists(_ similar move)) moveDb.add(move)
+      }
     }
   }
 

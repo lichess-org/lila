@@ -8,20 +8,23 @@ private final class MoveDB {
 
   private val maxSize = 1000
 
-  private val coll = TMap.empty[Work.Id, Move]
+  type CollType = TMap[Work.Id, Move]
+
+  private val coll: CollType = TMap.empty
 
   def get = coll.single.get _
 
-  def add(move: Move): Unit = atomic { implicit txn =>
+  def add(move: Move)(implicit txn: InTxn): Unit =
     if (coll.size < maxSize) coll.put(move.id, move)
-  }
 
-  def update(move: Move): Unit = atomic { implicit txn =>
+  def update(move: Move)(implicit tnx: InTxn): Unit =
     if (coll.contains(move.id)) coll.put(move.id, move)
-  }
 
-  def delete(move: Move): Unit = atomic { implicit txn =>
+  def delete(move: Move)(implicit tnx: InTxn): Unit =
     coll.remove(move.id)
+
+  def transaction[A](f: InTxn => A): A = atomic { txn =>
+    f(txn)
   }
 
   def contains = coll.single.contains _
@@ -34,11 +37,11 @@ private final class MoveDB {
 
   def size = coll.single.size
 
-  def giveUp(move: Move) = {
-    log.warn(s"Give up on move $move")
-    delete(move)
+  def updateOrGiveUp(move: Move) = transaction { implicit txn =>
+    if (move.isOutOfTries) {
+      log.warn(s"Give up on move $move")
+      delete(move)
+    }
+    else update(move)
   }
-
-  def updateOrGiveUp(move: Move) =
-    if (move.isOutOfTries) giveUp(move) else update(move)
 }
