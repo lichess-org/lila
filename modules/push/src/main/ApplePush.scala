@@ -21,7 +21,6 @@ private final class ApplePush(
           "alert" -> Json.obj(
             "title" -> data.title,
             "body" -> data.body),
-          "badge" -> 1,
           "data" -> data.payload))
       }
     }
@@ -86,6 +85,7 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
       val payloadBuilder = new ApnsPayloadBuilder()
 
       payloadBuilder.setAlertBody(Json stringify payload)
+      payloadBuilder.setBadgeNumber(1)
 
       val notif = new SimpleApnsPushNotification(
         TokenUtil.tokenStringToByteArray(token),
