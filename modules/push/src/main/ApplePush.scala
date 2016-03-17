@@ -43,7 +43,7 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
 
   def getManager = Option(manager) getOrElse {
     val m = new PushManager[SimpleApnsPushNotification](
-      ApnsEnvironment.getProductionEnvironment(),
+      ApnsEnvironment.getSandboxEnvironment(),
       SSLContextUtil.createDefaultSSLContext(certificate, password),
       null, // Optional: custom event loop group
       null, // Optional: custom ExecutorService for calling listeners
