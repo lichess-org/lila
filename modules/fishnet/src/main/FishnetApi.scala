@@ -105,8 +105,9 @@ final class FishnetApi(
     }
   }.chronometer.logIfSlow(100, "fishnet")(_ => "abort").result
 
-  def analysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
-    "game.id" -> gameId
+  def prioritaryAnalysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
+    "game.id" -> gameId,
+    "sender.system" -> false
   ).some).map(0!=)
 
   private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
