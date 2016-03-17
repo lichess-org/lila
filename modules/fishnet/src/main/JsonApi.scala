@@ -70,9 +70,12 @@ object JsonApi {
         nodes: Option[Int],
         nps: Option[Int],
         depth: Option[Int]) {
+
       // use first pv move as bestmove
       val pvList = pv.??(_.split(' ').toList)
-      val checkmate = score.mate contains 0
+
+      def isCheckmate = score.mate contains 0
+      def mateFound = score.mate.isDefined
     }
 
     case class Score(cp: Option[Int], mate: Option[Int]) {
