@@ -299,9 +299,12 @@ object mon {
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
-  private def rec(name: String): Rec = value => {
-    if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
-    else metrics.histogram(name).record(value)
+  private def rec(name: String): Rec = {
+    val hist = metrics.histogram(name)
+    value => {
+      if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
+      else hist.record(value)
+    }
   }
 
   private def nodots(s: String) = s.replace(".", "_")
