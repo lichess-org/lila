@@ -24,10 +24,14 @@ private final class Monitor(
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
 
-    val metaMoves = result.analysis.drop(6).filterNot(_.checkmate).take(100)
+    val metaMoves = result.analysis.drop(6).filterNot(_.mateFound).take(100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
-      val points = metaMoves flatMap { f(_) }
-      points.nonEmpty option (points.sum / points.size)
+      val (sum, nb) = metaMoves.foldLeft(0 -> 0) {
+        case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
+          (sum + v, nb + 1)
+        }
+      }
+      (nb > 0) option (sum / nb)
     }
     avgOf(_.time) foreach { monitor.movetime(_) }
     avgOf(_.nodes) foreach { monitor.node(_) }
