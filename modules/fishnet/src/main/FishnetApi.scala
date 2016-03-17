@@ -76,7 +76,7 @@ final class FishnetApi(
         }
       }
     }
-  }
+  }.chronometer.logIfSlow(100, "fishnet")(_ => "post move").result
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
