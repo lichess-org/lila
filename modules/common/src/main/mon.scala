@@ -292,12 +292,7 @@ object mon {
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
-  // private def rec(name: String): Rec = metrics.histogram(name).record(_)
-  private def rec(name: String): Rec = v => {
-    if (name contains "fishnet") {
-      metrics.histogram(name).record(v)
-    }
-  }
+  private def rec(name: String): Rec = metrics.histogram(name).record(_)
 
   private def nodots(s: String) = s.replace(".", "_")
 }
