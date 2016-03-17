@@ -76,7 +76,8 @@ final class FishnetApi(
         }
       }
     }
-  }.chronometer.logIfSlow(100, "fishnet")(_ => "post move").result
+  }.chronometer.mon(_.fishnet.move.post)
+    .logIfSlow(100, "fishnet")(_ => "post move").result
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
@@ -93,7 +94,8 @@ final class FishnetApi(
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
-  }.chronometer.logIfSlow(100, "fishnet")(_ => "post analysis").result
+  }.chronometer.mon(_.fishnet.move.post)
+    .logIfSlow(100, "fishnet")(_ => "post analysis").result
     .flatMap { _ ?? saveAnalysis }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
