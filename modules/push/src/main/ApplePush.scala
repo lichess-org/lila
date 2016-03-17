@@ -17,18 +17,19 @@ private final class ApplePush(
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
-        actor ! ApplePush.Notification(device.deviceId, Json.obj(
-          "alert" -> Json.obj(
+        actor ! ApplePush.Notification(
+          token = device.deviceId,
+          alert = Json.obj(
             "title" -> data.title,
             "body" -> data.body),
-          "data" -> data.payload))
+          payload = data.payload)
       }
     }
 }
 
 object ApplePush {
 
-  case class Notification(token: String, payload: JsObject)
+  case class Notification(token: String, alert: JsObject, payload: JsObject)
 }
 
 // the damn API is blocking, so at least use only one thread at a time
@@ -80,16 +81,19 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
   }
 
   def receive = {
-    case ApplePush.Notification(token, payload) =>
+    case ApplePush.Notification(token, alert, payload) =>
 
       val payloadBuilder = new ApnsPayloadBuilder()
 
-      payloadBuilder.setAlertBody(Json stringify payload)
+      payloadBuilder.setAlertBody(Json stringify alert)
       payloadBuilder.setBadgeNumber(1)
+      payloadBuilder.addCustomProperty("data", Json stringify payload)
 
       val notif = new SimpleApnsPushNotification(
         TokenUtil.tokenStringToByteArray(token),
         payloadBuilder.buildWithDefaultMaximumLength())
+
+      logger.info(s"Sending alert=$alert, payload=$payload to $token")
 
       getManager.getQueue().put(notif)
   }
