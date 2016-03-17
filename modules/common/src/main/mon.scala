@@ -256,6 +256,7 @@ object mon {
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
+      def post = rec(s"fishnet.move.post")
     }
     object analysis {
       def by(client: String) = new {
@@ -268,6 +269,7 @@ object mon {
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
       }
+      def post = rec(s"fishnet.analysis.post")
     }
   }
 
