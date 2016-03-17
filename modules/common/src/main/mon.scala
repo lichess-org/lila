@@ -268,6 +268,11 @@ object mon {
         def nps = rec(s"fishnet.analysis.nps.$client")
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
+        object total {
+          def meganode = rec(s"fishnet.analysis.total.meganode.$client")
+          def second = rec(s"fishnet.analysis.total.second.$client")
+          def position = rec(s"fishnet.analysis.total.position.$client")
+        }
       }
       def post = rec(s"fishnet.analysis.post")
     }

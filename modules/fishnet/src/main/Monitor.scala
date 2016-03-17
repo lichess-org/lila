@@ -17,16 +17,29 @@ private final class Monitor(
 
   private case class AnalysisMeta(time: Int, nodes: Int, nps: Int, depth: Int, pvSize: Int)
 
+  private def sumOf[A](ints: List[A])(f: A => Option[Int]) = ints.foldLeft(0) {
+    case (acc, a) => acc + f(a).getOrElse(0)
+  }
+
   private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
     success(work, client)
+
     val monitor = lila.mon.fishnet.analysis by client.userId.value
+
     monitor move result.analysis.size
+
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
 
-    val metaMoves = result.analysis.drop(6).filterNot(_.mateFound).take(100)
+    monitor.total.second(sumOf(result.analysis)(_.time) / 1000)
+    monitor.total.meganode(sumOf(result.analysis) { eval =>
+      eval.nodes ifFalse eval.mateFound
+    } / 1000000)
+    monitor.total.position(result.analysis.size)
+
+    val metaMovesSample = result.analysis.drop(6).filterNot(_.mateFound).take(100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
-      val (sum, nb) = metaMoves.foldLeft(0 -> 0) {
+      val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
         case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
           (sum + v, nb + 1)
         }
