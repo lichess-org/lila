@@ -3,7 +3,7 @@
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
-Lila is a free online chess game server focused on [realtime](http://lichess.org/games) and ease of use.
+Lila is a free online chess game server focused on [realtime](http://lichess.org/games) gameplay and ease of use.
 
 It features a [search engine](http://lichess.org/games/search),
 [computer analysis](http://lichess.org/ief49lif),
