@@ -21,6 +21,7 @@ private final class ApplePush(
           "alert" -> Json.obj(
             "title" -> data.title,
             "body" -> data.body),
+          "badge" -> 1,
           "data" -> data.payload))
       }
     }
