@@ -292,7 +292,12 @@ object mon {
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = metrics.counter(name).increment(_)
-  private def rec(name: String): Rec = metrics.histogram(name).record(_)
+  private def rec(name: String): Rec = value => {
+    if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
+    else metrics.histogram(name).record(value)
+  }
 
   private def nodots(s: String) = s.replace(".", "_")
+
+  private val logger = play.api.Logger("monitor")
 }

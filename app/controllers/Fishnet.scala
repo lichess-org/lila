@@ -13,6 +13,7 @@ object Fishnet extends LilaController {
 
   private def env = Env.fishnet
   private def api = env.api
+  private val logger = play.api.Logger("fishnet")
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
@@ -37,7 +38,10 @@ object Fishnet extends LilaController {
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
     Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(
-        err => BadRequest(jsonError(JsError toJson err)).fuccess,
+        err => {
+          logger.warn(s"Malformed request: $err\n${req.body}")
+          BadRequest(jsonError(JsError toJson err)).fuccess
+        },
         data => api.authenticateClient(data) flatMap {
           case None => Unauthorized(jsonError("Invalid or revoked API key")).fuccess
           case Some(client) => f(data)(client).map {

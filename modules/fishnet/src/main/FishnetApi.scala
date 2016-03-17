@@ -56,7 +56,8 @@ final class FishnetApi(
         repo.updateAnalysis(work assignTo client) inject work.some
       }
     }
-  } map { _ map JsonApi.fromWork }
+  }.map { _ map JsonApi.fromWork }
+    .chronometer.logIfSlow(100, "fishnet")(_ => "acquire analysis").result
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
     moveDb.transaction { implicit txn =>
@@ -92,7 +93,8 @@ final class FishnetApi(
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
-  } flatMap { _ ?? saveAnalysis }
+  }.chronometer.logIfSlow(100, "fishnet")(_ => "post analysis").result
+    .flatMap { _ ?? saveAnalysis }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
@@ -101,7 +103,7 @@ final class FishnetApi(
         repo.updateAnalysis(work.abort)
       }
     }
-  }
+  }.chronometer.logIfSlow(100, "fishnet")(_ => "abort").result
 
   def analysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
     "game.id" -> gameId
