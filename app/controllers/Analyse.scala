@@ -43,7 +43,7 @@ object Analyse extends LilaController {
     else GameRepo initialFen pov.game.id flatMap { initialFen =>
       RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game.id) zip
-          Env.fishnet.api.analysisExists(pov.game.id) zip
+          Env.fishnet.api.prioritaryAnalysisExists(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Env.game.crosstableApi(pov.game) flatMap {
             case (((analysis, analysisInProgress), simul), crosstable) =>
