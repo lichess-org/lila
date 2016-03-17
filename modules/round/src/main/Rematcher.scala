@@ -25,7 +25,7 @@ private[round] final class Rematcher(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)
       )
-    case _ => ClientErrorException.future("[rematcher] invalid yes " + pov)
+    case _ => fuccess(Nil)
   }
 
   def no(pov: Pov): Fu[Events] = pov match {
@@ -37,7 +37,7 @@ private[round] final class Rematcher(
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
     } inject List(Event.ReloadOwner)
-    case _ => ClientErrorException.future("[rematcher] invalid no " + pov)
+    case _ => fuccess(Nil)
   }
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
