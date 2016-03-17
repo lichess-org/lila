@@ -298,7 +298,13 @@ object mon {
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
-  private def incX(name: String): IncX = metrics.counter(name).increment(_)
+  private def incX(name: String): IncX = {
+    val count = metrics.counter(name)
+    value => {
+      if (value < 0) logger.warn(s"Negative increment value: $name=$value")
+      else count.increment(value)
+    }
+  }
   private def rec(name: String): Rec = {
     val hist = metrics.histogram(name)
     value => {
