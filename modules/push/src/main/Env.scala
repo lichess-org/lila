@@ -12,12 +12,13 @@ final class Env(
     getLightUser: String => Option[lila.common.LightUser],
     isOnline: lila.user.User.ID => Boolean,
     roundSocketHub: ActorSelection,
-    appleCertificate: InputStream,
+    appleCertificate: String => InputStream,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
+  private val ApplePushCertPath = config getString "apple.cert"
   private val ApplePushPassword = config getString "apple.password"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
@@ -33,7 +34,7 @@ final class Env(
   private lazy val applePush = new ApplePush(
     deviceApi.findLastByUserId _,
     system = system,
-    certificate = appleCertificate,
+    certificate = appleCertificate(ApplePushCertPath),
     password = ApplePushPassword)
 
   private lazy val pushApi = new PushApi(
@@ -65,8 +66,8 @@ object Env {
     getLightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     roundSocketHub = lila.hub.Env.current.socket.round,
-    appleCertificate = lila.common.PlayApp.withApp {
-      _.classloader.getResourceAsStream("zpns.p12")
+    appleCertificate = path => lila.common.PlayApp.withApp {
+      _.classloader.getResourceAsStream(path)
     },
     config = lila.common.PlayApp loadConfig "push")
 }
