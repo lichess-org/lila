@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import chess.format.{ FEN, Forsyth }
 
 import lila.game.{ Game, GameRepo, UciMemo }
+import lila.analyse.AnalysisRepo
 
 final class Analyser(
     repo: FishnetRepo,
@@ -15,24 +16,28 @@ final class Analyser(
   val maxPlies = 200
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
-    limiter(sender) flatMap { accepted =>
-      accepted ?? {
-        makeWork(game, sender) flatMap { work =>
-          sequencer {
-            repo getSimilarAnalysis work flatMap {
-              // already in progress, do nothing
-              case Some(similar) if similar.isAcquired => funit
-              // queued by system, reschedule for the human sender
-              case Some(similar) if similar.sender.system && !sender.system =>
-                repo.updateAnalysis(similar.copy(sender = sender))
-              // queued for someone else, do nothing
-              case Some(similar) => funit
-              // first request, store
-              case _             => repo addAnalysis work
+    AnalysisRepo exists game.id flatMap {
+      case true => fuccess(false)
+      case false =>
+        limiter(sender) flatMap { accepted =>
+          accepted ?? {
+            makeWork(game, sender) flatMap { work =>
+              sequencer {
+                repo getSimilarAnalysis work flatMap {
+                  // already in progress, do nothing
+                  case Some(similar) if similar.isAcquired => funit
+                  // queued by system, reschedule for the human sender
+                  case Some(similar) if similar.sender.system && !sender.system =>
+                    repo.updateAnalysis(similar.copy(sender = sender))
+                  // queued for someone else, do nothing
+                  case Some(similar) => funit
+                  // first request, store
+                  case _             => repo addAnalysis work
+                }
+              }
             }
-          }
+          } inject accepted
         }
-      } inject accepted
     }
 
   def apply(gameId: String, sender: Work.Sender): Fu[Boolean] =
