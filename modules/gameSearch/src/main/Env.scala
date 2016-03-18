@@ -41,8 +41,8 @@ final class Env(
     import akka.pattern.ask
     private implicit def timeout = makeTimeout minutes 60
     def process = {
-      case "game" :: "search" :: "reset" :: Nil       => api.reset(none) inject "done"
-      case "game" :: "search" :: "reset" :: nb :: Nil => api.reset(parseIntOption(nb)) inject "done"
+      case "game" :: "search" :: "index" :: "all" :: Nil => api.indexAll inject "done"
+      case "game" :: "search" :: "index" :: since :: Nil => api.indexSince(since) inject "done"
     }
   }
 }
