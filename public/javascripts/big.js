@@ -2446,6 +2446,9 @@ lichess.numberFormat = (function() {
         url: $(this).attr('action'),
         success: function(html) {
           $panels.filter('.panel.computer_analysis').html(html);
+        },
+        error: function() {
+          location.reload();
         }
       });
       return false;
