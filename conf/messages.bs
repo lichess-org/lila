@@ -374,6 +374,7 @@ gameBehavior=Ponašanje igre
 premovesPlayingDuringOpponentTurn=Pred-potezi (igranje prilikom protivnikovog poteza)
 takebacksWithOpponentApproval=Povrat poteza (uz odobrenje protivnika)
 promoteToQueenAutomatically=Automatska zamjena za kraljicu
+claimDrawOnThreefoldRepetitionAutomatically=Prihvati remi  %strostruko ponavljanje%s automatski
 privacy=Privatnost
 letOtherPlayersFollowYou=Dopustite da vas drugi igrači prate
 letOtherPlayersChallengeYou=Dopustite da vas drugi igrači izazovu
