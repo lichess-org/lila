@@ -16,7 +16,7 @@ private final class Cleaner(
 
   import BSONHandlers._
 
-  private val moveTimeout = 2.seconds
+  private val moveTimeout = 3.seconds
   private def analysisTimeout(plies: Int) = plies * 6.seconds + 3.seconds
   private def analysisTimeoutBase = analysisTimeout(20)
 

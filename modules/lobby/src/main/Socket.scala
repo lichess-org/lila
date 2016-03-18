@@ -80,7 +80,6 @@ private[lobby] final class Socket(
     case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
-      notifyMobileUsers(makeMessage("nbr", nb)) // BC, remove me
 
     case ChangeFeatured(_, msg) => notifyAllAsync(msg)
   }
@@ -101,11 +100,5 @@ private[lobby] final class Socket(
 
   private def notifySeeks() {
     notifyAll(makeMessage("reload_seeks"))
-  }
-
-  def notifyMobileUsers(msg: JsObject) = Future {
-    members.values.foreach { m =>
-      if (m.mobile) m push msg
-    }
   }
 }
