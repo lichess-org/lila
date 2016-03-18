@@ -20,6 +20,7 @@ final class Env(
   private val GooglePushKey = config getString "google.key"
   private val ApplePushCertPath = config getString "apple.cert"
   private val ApplePushPassword = config getString "apple.password"
+  private val ApplePushEnabled = config getBoolean "apple.enabled"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
@@ -35,7 +36,8 @@ final class Env(
     deviceApi.findLastByUserId _,
     system = system,
     certificate = appleCertificate(ApplePushCertPath),
-    password = ApplePushPassword)
+    password = ApplePushPassword,
+    enabled = ApplePushEnabled)
 
   private lazy val pushApi = new PushApi(
     googlePush,

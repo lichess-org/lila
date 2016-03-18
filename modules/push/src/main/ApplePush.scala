@@ -10,19 +10,23 @@ private final class ApplePush(
     getDevice: String => Fu[Option[Device]],
     system: ActorSystem,
     certificate: InputStream,
-    password: String) {
+    password: String,
+    enabled: Boolean) {
 
   private val actor = system.actorOf(Props(classOf[ApnsActor], certificate, password))
+
+  private val logger = play.api.Logger("push")
 
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
-        actor ! ApplePush.Notification(
+        if (enabled) actor ! ApplePush.Notification(
           token = device.deviceId,
           alert = Json.obj(
             "title" -> data.title,
             "body" -> data.body),
           payload = data.payload)
+        else logger.warn(s"Sorry $userId, apple push is disabled by config!")
       }
     }
 }
