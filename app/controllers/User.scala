@@ -36,7 +36,7 @@ object User extends LilaController {
   }
 
   def show(username: String) = OpenBody { implicit ctx =>
-    filter(username, none, 1).mon(_.http.response.player.mobile)
+    filter(username, none, 1)
   }
 
   def showMini(username: String) = Open { implicit ctx =>
