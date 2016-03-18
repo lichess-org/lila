@@ -49,6 +49,8 @@ private[round] final class Round(
     }
   }
 
+  val logger = play.api.Logger("round")
+
   def process = {
 
     case ReceiveTimeout => fuccess {
@@ -223,7 +225,7 @@ private[round] final class Round(
     }
   } recover {
     case e: Exception =>
-      logwarn(s"round actor handlePov: ${e.getMessage}")
+      logger.info(s"handlePov: ${e.getMessage}")
       Nil
   }
 
@@ -231,7 +233,7 @@ private[round] final class Round(
     game flatten "game not found" flatMap op
   } recover {
     case e: Exception =>
-      logwarn(s"round actor handleGame: ${e.getMessage}")
+      logger.info(s"handleGame: ${e.getMessage}")
       Nil
   }
 
@@ -243,6 +245,6 @@ private[round] final class Round(
     }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e => logwarn(s"round actor publish: ${e.getMessage}")
+    case e => logger.info(s"publish: ${e.getMessage}")
   } void
 }
