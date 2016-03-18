@@ -135,7 +135,10 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen = initialFen.ifTrue(variant == FromPosition),
+      initialFen = (variant == FromPosition).fold(
+        initialFen,
+        Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
+      ),
       timeControl = timeControl,
       mode = mode,
       colorChoice = colorChoice,
