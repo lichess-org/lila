@@ -3,9 +3,9 @@
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
-It's a free online chess game focused on [realtime](http://lichess.org/games) and ease of use
+Lila is a free online chess game server focused on [realtime](http://lichess.org/games) gameplay and ease of use.
 
-It has a [search engine](http://lichess.org/games/search),
+It features a [search engine](http://lichess.org/games/search),
 [computer analysis](http://lichess.org/ief49lif),
 [tournaments](http://lichess.org/tournament),
 [simuls](http://lichess.org/simul),
@@ -15,7 +15,7 @@ It has a [search engine](http://lichess.org/games/search),
 [opening trainer](http://lichess.org/training/opening),
 a [mobile app](http://lichess.org/mobile),
 and a [network world map](http://lichess.org/network).
-The UI is available in [80 languages](http://lichess.org/translation/contribute) thanks to the community.
+The UI is available in more than [80 languages](http://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
 and relies on [Play 2.3](http://www.playframework.com/) for the routing, templating, and JSON.
@@ -33,9 +33,9 @@ Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
-> If you want to add a live chess section to your website, you are welcome to [embed lichess](http://lichess.org/developers). It's very easy.
+> If you want to add a live chess section to your website, you are welcome to [embed lichess](http://lichess.org/developers) into your website. It's very easy to do.
 
-> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, just [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers).
+> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers) into your website.
 
 > Also note that if I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
@@ -44,7 +44,7 @@ Installation
 Feel free to use lichess API in your applications and websites.
 
 If the resource you need is not available yet,
-drop me an email at thibault.duplessis@gmail.com, and we'll discuss it.
+drop me an email at thibault.duplessis@gmail.com and we'll discuss it.
 
 ### `GET /api/user/<username>` fetch one user
 
@@ -386,4 +386,9 @@ We also do our best to support:
 - Opera 34 and newer
 - Safari 9 and newer
 
-Others and older browsers are guaranteed not to work with lichess, and we don't care.
+Others and older browsers are guaranteed not to work with lichess and we don't care.
+
+Licence
+-------
+
+Lila is realeased under the MIT license.
