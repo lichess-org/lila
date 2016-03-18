@@ -43,7 +43,10 @@ object Fishnet extends LilaController {
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
         data => api.authenticateClient(data) flatMap {
-          case None => Unauthorized(jsonError("Invalid or revoked API key")).fuccess
+          case None => {
+            logger.warn(s"Unauthorized: ${data.fishnet.apikey}")
+            Unauthorized(jsonError("Invalid or revoked API key")).fuccess
+          }
           case Some(client) => f(data)(client).map {
             case Some(work) => Accepted(Json toJson work)
             case _          => NoContent
