@@ -101,7 +101,7 @@ if [ $mode == "main" ]; then
 fi
 if [ $mode == "stage" ]; then
   lilalog "Restart lichess-stage"
-  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
+  ssh $REMOTE "chown -R lichess-stage:lichess-stage $REMOTE_DIR && service lichess-stage restart"
 fi
 
 lilalog "Deploy complete"
