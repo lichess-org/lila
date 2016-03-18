@@ -88,6 +88,10 @@ final class FishnetApi(
         monitor.analysis(work, client, data)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
+        case e: AnalysisBuilder.GameIsGone =>
+          log.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+          monitor.analysis(work, client, data)
+          repo.deleteAnalysis(work) inject none
         case e: Exception =>
           monitor.failure(work, client)
           log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
