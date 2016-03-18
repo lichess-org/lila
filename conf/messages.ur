@@ -97,10 +97,11 @@ haveAnAccount=اکاؤنٹ موجود ہے؟
 changePassword=خفیہ کلمہ تبدیل کریں
 changeEmail=ای میل تبدیل کریں
 email=ای میل
+emailIsOptional=ای میل غیرضروری ہے، مگر خفیہ کلمہ بھولنے کی صورت میں ای میل کے ذریعے نیا کلمہ اختیار کیا جا سکتا ہے۔
 passwordReset=خفیہ کلمہ پھر سے داخل کریں
 forgotPassword=خفیہ کلمہ یاد نہیں؟
 rank=درجہ
-gamesPlayed=مقابلوں میں شریک
+gamesPlayed=مقابلوں میں شرکت
 nbGamesWithYou=آپکے ساتھ %s مقابلے
 declineInvitation=مسترد کریں
 cancel=مسترد
@@ -135,8 +136,8 @@ cancelRematchOffer=دوبارہ کھیلنے کی  پیشکش منسوخ کری�
 viewRematch=اگلا مقابلہ ملاحظہ کریں
 play=کھیلیں
 inbox=ڈاک خانہ
-chatRoom=گپ شپ کے لیے کمرہ
-spectatorRoom=کمرہ برائے ناظرین
+chatRoom=گپ شپ کے لیے خانہ
+spectatorRoom=خانہ برائے ناظرین
 composeMessage=پیغام تحریر کریں
 noNewMessages=کوئي نیا پیغام نہیں
 subject=عنوان
@@ -154,7 +155,7 @@ giveNbSeconds=%s سیکنڈ دیں
 premoveEnabledClickAnywhereToCancel=خودکار چال داخل کر دی کئی ہے - واپس کرنے کے لیے کہیں بھی کلک کریں
 thisPlayerUsesChessComputerAssistance=کھلاڑی کمپیوٹر کی مدد سے کھیلتا ہے
 thisPlayerArtificiallyIncreasesTheirRating=یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے
-opening=ابتدا
+opening=ابتدائیہ
 openingExplorer=ابتدائیوں کی کلید
 takeback=چال واپس لیں
 proposeATakeback=چال واپس لینے کی درخواست کریں
@@ -172,6 +173,7 @@ tournamentPoints=مسابقاتی اعشاریے
 viewTournament=مسابقہ ملاحظہ فرمائیں
 backToTournament=واپس مسابقے کی جانب
 backToGame=واپس کھیل کی جانب
+freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=اب صاف ستھرے ماحول میں اور مفت شطرنج کھیلیں۔ نہ اشتہار نہ لازمی داخلہ نہ کوئی پلگ ان۔ کمپیوٹر، دوستوں، یا بلاتفریق کسی کے ساتھ شطرنج کھیلیں۔
 teams=ٹیمیں
 nbMembers=%s اراکین
 allTeams=تمام ٹیمیں
@@ -199,6 +201,8 @@ pasteTheFenStringHere=FEN یہاں داخل کریں
 pasteThePgnStringHere=PGN یہاں داخل کریں
 fromPosition=خاص پوزیشن سے
 continueFromHere=یہاں سے کھیل شروع کریں
+importGame=کھیلنامہ (PGN) درآمد کریں
+nbImportedGames=%s درآمدشدہ کھیل
 thisIsAChessCaptcha=یہ پہیلی انسانوں اور سافٹ وئیر میں تمیز کے لیے ہے
 clickOnTheBoardToMakeYourMove=ساتھ دی گئی بساط پر پہیلی حل کرکے ثابت کریں کہ آپ انسان ہیں (روبوٹ نہیں(
 notACheckmate=غلط!
@@ -248,8 +252,8 @@ membersOnly=صرف اراکین کے لیے
 boardEditor=بساط بنائیں
 startPosition=ابتدائی بساط
 clearBoard=خالی بساط
-savePosition=بساط محفوظ کریں
-loadPosition=بساط اختیار کریں
+savePosition=موجودہ بساط محفوظ کریں
+loadPosition=محفوظ شدہ بساط لوٹائیں
 isPrivate=برائے خواص
 reportXToModerators=منتظمین  کو %s کے بارے میں شکایت کریں
 profile=اکاؤنٹ
@@ -270,20 +274,21 @@ yourPuzzleRatingX=آپکا پہیلی حل کرنےکامیعار: %s
 findTheBestMoveForWhite=سفید کے لیے بہترین چال کریں
 findTheBestMoveForBlack=سیاہ کے لیے بہترین چال کریں
 toTrackYourProgress=اپنی ترقی کا حساب رکھنے کے لیے
-recentlyPlayedPuzzles=حالیہ پہیلیاں
-puzzleId=پہیلی نمبر %s
-puzzleOfTheDay=آج کی پہیلی
+trainingSignupExplanation=لیچیس بہتر تربیت کے لیے آپکی قابلیت کے مطابق معمے پیش کرے گا۔
+recentlyPlayedPuzzles=حالیہ معمہ جات
+puzzleId=معمہ نمبر %s
+puzzleOfTheDay=آج کا معمہ
 clickToSolve=حل کرنے کے لیے کلک کریں
 goodMove=اچھی چال ہے
 butYouCanDoBetter=مگر اس سے بہتر چال ممکن ہے
 bestMove=بہترین چال!
 keepGoing=سوچ بچار جاری رکھیں ۔ ۔ ۔
-puzzleFailed=پہیلی حل کرنے میں ناکام!
+puzzleFailed=معمہ حل کرنے میں ناکام!
 butYouCanKeepTrying=کوشش جاری رکھیں
 victory=شاباش!
 giveUp=دستبردار ہوں
-puzzleSolvedInXSeconds=پہیلی حل کرنے میں %s سیکنڈ لگے
-wasThisPuzzleAnyGood=آپ کو یہ پہیلی کیسی لگی؟
+puzzleSolvedInXSeconds=معمہ حل کرنے میں %s سیکنڈ لگے
+wasThisPuzzleAnyGood=آپ کو یہ معمہ کیسا لگا؟
 pleaseVotePuzzle=بہتری کے لیے  رائے دہی کا استمعال کیجئے، سِرے کو اوپر یا نیچے کیجئے
 thankYou=آپ کا شکریہ!
 ratingX=میعار: %s
@@ -292,8 +297,8 @@ fromGameLink=مقابلہ %s
 startTraining=تربیت شروع کریں
 continueTraining=تربیت جاری رکھیں
 retryThisPuzzle=دوبارہ کوشش کریں
-thisPuzzleIsCorrect=یہ پہیلی زبردست ہے
-thisPuzzleIsWrong=یہ پہیلی غلط یا بیکار ہے
+thisPuzzleIsCorrect=یہ معمہ صحیح اور دلچسپ ہے
+thisPuzzleIsWrong=یہ معمہ غلط یا بیکار ہے
 youHaveNbSecondsToMakeYourFirstMove=آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں
 nbGamesInPlay=%s جاری مقابلے
 automaticallyProceedToNextGameAfterMoving=چال چلتے ہی خودبخود اگلے مقابلے پر جائیں
@@ -304,7 +309,9 @@ findNbStrongMoves=%s مضبوط چالیں تلاش کریں
 thisMoveGivesYourOpponentTheAdvantage=اس چال میں حریف کا فائدہ ہے
 openingFailed=ابتدائیہ حل کرنے میں ناکام
 openingSolved=ابتدائیہ حل کرنے میں کامیاب
-puzzles=پہیلیاں
+recentlyPlayedOpenings=حالیہ کھیلے گئے ابتدائیے
+puzzles=معمہ جات
+coordinates=خانہ جات
 openings=ابتدائیے
 latestUpdates=تازہ ترین
 tournamentWinners=مسابقوں کے فاتحین
@@ -346,23 +353,33 @@ materialDifference=مہروں کا فرق
 closeAccount=اکاؤنٹ بند کریں
 closeYourAccount=اپنا اکاؤنٹ بند کریں
 changedMindDoNotCloseAccount=میرا ارادہ بدل گیا ہے، ‎اکاؤنٹ بند نہ کریں
+closeAccountExplanation=کیا آپ واقعی اکاؤنٹ بند کرنا چاہتے ہیں؟ اکاؤنٹ ہمیشہ کیلیے بند کیے جاتے ہیں، آپ دوبارہ استعمال نہیں کر سکیں گے  اور آپکی معلومات بھی ضایع کر دی جائیں گی۔
 thisAccountIsClosed=اکاؤنٹ بند کردیا گیا ہے
 invalidUsernameOrPassword=نام یا خفیہ کلمہ غلط ہے
+emailMeALink=مجھے دابطہ ای میل کریں
 currentPassword=موجودہ خفیہ کلمہ
 newPassword=نیا خفیہ کلمہ
 newPasswordAgain=نیا خفیہ کلمہ - دوبارہ
 boardHighlights=آخری چال اور شہ بساط پر نمایاں کریں
+pieceDestinations=مہروں کے ممکنہ گھر (صحیح اور خودکار چالوں کے لیے)۔
+boardCoordinates=خانہ جات  (A-H, 1-8)
 moveListWhilePlaying=دوران کھیل چالوں کی فہرست
 chessClock=گھڑی سے متعلق
+tenthsOfSeconds=سیکنڈ کا دسواں حصہ
 never=کبھی نہیں
 whenTimeRemainingLessThanTenSeconds=جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو
+horizontalGreenProgressBars=افقی سبز پیشرفت نما
+soundWhenTimeGetsCritical=قلت وقت پر آواز کا بجنا
 gameBehavior=کھیل سے متعلقہ
 premovesPlayingDuringOpponentTurn=خودکار چالیں - باری سے پہلے چلی گئی چالیں
+takebacksWithOpponentApproval=چالوں کی واپسی )حریف کی مرضی پر منحصر)
 promoteToQueenAutomatically=پیادہ خودبخود وزیر بن جائے
+claimDrawOnThreefoldRepetitionAutomatically=چالوں کی %sسہ بار تکرار%s پر خودبخود کھیل برابری پر ختم کریں
 privacy=آپ سے متعلقہ
 letOtherPlayersFollowYou=کوئی بھی میری پیروی کر سکتا ہے
 letOtherPlayersChallengeYou=کوئی بھی مجھ سے مقابلہ کر سکتا ہے
 sound=صوتی اختیارات
+soundControlInTheTopBarOfEveryPage=تغیر آواز کا اختیار ہر صفحہ کی اوپری دائیں جانب میسر ہے۔
 yourPreferencesHaveBeenSaved=آپ کے اندراج محفوظ کر دیے گئے ہیں
 none=کوئی نہیں
 fast=تیز
@@ -379,6 +396,7 @@ difficultyEasy=آسان
 difficultyNormal=عام
 difficultyHard=مشکل
 xLeftANoteOnY=%s نے %s کے لیے نوٹ چھوڑا
+xCompetesInY=%s مسابقہ %s میں شامل ہے
 xAskedY=%s کا سوال %s
 xAnsweredY=%s کا جواب %s
 xCommentedY=%s کا تبصرہ %s
@@ -415,7 +433,13 @@ playOffline=بغیر انٹرنیٹ کے کھیلیں
 allowAnalytics=استعمال کی معلومات فراہی کریں
 shareGameURL=مقابلے کا رابطہ اوروں کو دیں
 error.required=اس خانے کو پر کرنا لازمی ہے
+error.email=ای میل کا پتہ درست نہیں
+error.email_acceptable=ای میل کا پتہ قابل قبول نہیں
+error.email_unique=ای میل پہلے سے کسی کے استعمال میں ہے
+blindfoldChess=نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔
+moveConfirmation=چال تصدیق پر چلی جائے گی
 inCorrespondenceGames=قلمی کھیل
+ifRatingIsPlusMinusX=اگر حریف کا میعار ± %s ہو
 onlyFriends=صرف دوست
 menu=فہرست
 castling=قلعہ بندی
@@ -423,8 +447,19 @@ whiteCastlingKingside=سفید O-O
 whiteCastlingQueenside=سفید O-O-O
 blackCastlingKingside=سیاه O-O
 blackCastlingQueenside=سیاه O-O-O
+nbForumPosts=فورم میں شمولیت کا شمار %s
+tpTimeSpentPlaying=کھیل میں صرف وقت: %s
 watchGames=کھیل ملاحظہ کریں
+tpTimeSpentOnTV=ٹی وی پر صرف وقت: %s
 watch=ملاحظہ
+internationalEvents=عالمی منظرنامہ
+videoLibrary=ویڈیو گھر
+mobileApp=موبائیل ایپ
+webmasters=مدیران کے لیے
+contribute=حصہ ڈالیں
+contact=رابطہ
+termsOfService=شرائط و ضوابط
+sourceCode=سورس کوڈ
 simultaneousExhibitions=نمائشی مقابلے
 host=میزبان
 createdSimuls=نئے نمائشی مقابلے
@@ -435,10 +470,12 @@ returnToSimulHomepage=نمائشی مقابلوں کے صفحہ اول کی جا
 aboutSimul=نمائشی مقابلے میں میزبان ایک ساتھ کئی حریفوں کے ساتھ کھیلتا ہے۔
 aboutSimulImage=50 حریفوں کے ساتھ فشر 47 سے جیتا 1 سے ہارا اور 2 سے برابر رہا
 aboutSimulRealLife=ابایہ خیال حقیقی نمائشی مقابلوں سے لیا گیا ہے جس میں میزبان ایک بساط پر ایک چال چل کر اگلی بساط پر چلا ج
+aboutSimulRules=نمائشی مقابلہ شروع ہونے پر ہر کھلاڑی میزبان سے کھیلے گا۔ تمام مقابلے ختم ہونے پر نمائیش ختم ہو جائے گی۔
 aboutSimulSettings=نمائشی مقابلے ہمیشہ غیررسمی ہوتے ہیں- آپ چال واپس، مزید وقت اور مقابلے کا اعادہ نہیں کر سکتے۔
 create=شروع کریں
 whenCreateSimul=نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔
 simulVariantsHint=متعدد انواع کی صورت میں ہر کھلاڑی اپنی پسند کی نوع اختیار کر سکے گا۔
+simulClockHint=فشر کا نظام وقت۔ جتنے زیادہ حریف منتخب کریں گے اتنا زیادہ وقت درکار ہو گا۔
 simulAddExtraTime=اپنے لیے اضافی وقت منتخب کر سکتے ہیں-
 simulHostExtraTime=میزبان کیلیے اضافی دورانیہ
 lichessTournaments=مسابقہ جات
@@ -446,16 +483,21 @@ tournamentFAQ=مسابقے سے متعلق عمومی سوال و جواب
 tournamentOfficial=رسمی
 timeBeforeTournamentStarts=مسابقہ شروع ہونے میں باقی وقت
 averageCentipawnLoss=اوسط خسارہ
+keyboardShortcuts=کی بورڈ کے اختصارات
 keyMoveBackwardOrForward=چال اگلی\پچھلی
 keyGoToStartOrEnd=چال پہلی\آخری
 keyShowOrHideComments=تبصرے دکھائیں\چھپائیں
 keyEnterOrExitVariation=متبادل چالیں داخل\خارج
+keyYouCanDrawArrowsCirclesAndScrollToMove=شفٹ+کلک (دایاں یا بایاں) دبا کر بساط پر دائرے یا تیر آویزاں کر سکتے ہیں۔ سکرول کرکے بھی چالوں کو دہرا سکتے ہیں۔
 newTournament=نیا مسابقہ
 tournamentHomeTitle=مختلف انواع اور دورانیوں پر مشتمل مسابقہ
+tournamentHomeDescription=تیز رفتار مسابقوں میں حصہ لیں! مقررہ رسمی مسابقوں میں شامل ہوں، یا خود آپ مسابقہ شروع کریں۔ بلٹ، بلٹز، کلاسیکی،۹۶۰ شطرنج، میدان کا بادشاہ، تین شہ، اور دیگر نوع کی شطرنج کی لامتناہی تفریح کا موقعہ۔
 tournamentNotFound=مسابقہ موجود نہیں
 tournamentDoesNotExist=یہ مسابقہ موجود نہیں
 tournamentMayHaveBeenCanceled=مسابقہ شروع ہونے سے پہلے اگر تمام کھلاڑی خارج ہو جائیں تو مسابقہ باقی نہیں رہتا۔
 returnToTournamentsHomepage=مسابقہ جات کے صفحہ اول کی جانپ
+weeklyPerfTypeRatingDistribution=%s کی ہفتہ وار تقسیم میعار
+nbPerfTypePlayersThisWeek=رواں ہفتہ کھلاڑی %s %s
 yourPerfTypeRatingisRating=آبکا نوع %s کا میعار %s ہے
 youAreBetterThanPercentOfPerfTypePlayers=آپ %s فیصد کھلاڑیوں سے %s میں بہتر  ہیں
 youDoNotHaveAnEstablishedPerfTypeRating=آپکا %s کا میعار فی الحال عارضی ہے
