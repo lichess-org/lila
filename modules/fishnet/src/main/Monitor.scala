@@ -46,7 +46,7 @@ private final class Monitor(
     }
     avgOf(_.time) foreach { monitor.movetime(_) }
     avgOf(_.nodes) foreach { monitor.node(_) }
-    avgOf(_.nps) foreach { monitor.nps(_) }
+    avgOf(_.cappedNps) foreach { monitor.nps(_) }
     avgOf(_.depth) foreach { monitor.depth(_) }
     avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
   }

@@ -74,13 +74,15 @@ object JsonApi {
       // use first pv move as bestmove
       val pvList = pv.??(_.split(' ').toList)
 
+      val cappedNps = nps.map(_ min npsCeil)
+
       def isCheckmate = score.mate contains 0
       def mateFound = score.mate.isDefined
     }
 
-    case class Score(cp: Option[Int], mate: Option[Int]) {
-      // def invalid = cp.isEmpty && mate.isEmpty
-    }
+    case class Score(cp: Option[Int], mate: Option[Int])
+
+    val npsCeil = 10 * 1000 * 1000
   }
 
   case class Game(
