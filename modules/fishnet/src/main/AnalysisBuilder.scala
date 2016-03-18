@@ -43,7 +43,7 @@ private object AnalysisBuilder {
   private def makeInfos(evals: List[Evaluation], moves: List[String], startedAtPly: Int): List[Info] =
     (evals filterNot (_.isCheckmate) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(before, after), move), index) => {
-        val variation = before.pvList match {
+        val variation = before.cappedPvList match {
           case first :: rest if first != move => first :: rest
           case _                              => Nil
         }

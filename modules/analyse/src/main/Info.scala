@@ -45,7 +45,7 @@ case class Info(
 
 object Info {
 
-  val LineMaxPlies = 16
+  val LineMaxPlies = 14
 
   private val separator = ","
   private val listSeparator = ";"
