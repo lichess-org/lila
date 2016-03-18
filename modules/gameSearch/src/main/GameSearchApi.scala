@@ -99,6 +99,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
   private def doIndex(client: ESClientHttp, since: DateTime): Funit = {
     import lila.game.BSONHandlers._
     import lila.db.BSON.BSONJodaDateTimeHandler
+    import reactivemongo.api._
     import reactivemongo.bson._
     var nbSkipped = 0
     val batchSize = 1000
@@ -108,7 +109,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     lila.game.tube.gameTube.coll.find(BSONDocument(
       "ca" -> BSONDocument("$gt" -> since)
     )).sort(BSONDocument("ca" -> 1))
-      .cursor[Game]()
+      .cursor[Game](ReadPreference.secondaryPreferred)
       .enumerate(maxGames, stopOnError = true) &>
       Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
       Enumeratee.mapM[Seq[Game]].apply[(Seq[Game], Set[String])] { games =>
