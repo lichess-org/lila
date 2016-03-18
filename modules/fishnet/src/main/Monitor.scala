@@ -35,7 +35,7 @@ private final class Monitor(
     } / 1000000)
     monitor.totalPosition(result.analysis.size)
 
-    val metaMovesSample = result.analysis.drop(6).filterNot(_.mateFound).take(100)
+    val metaMovesSample = sample(result.analysis.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
       val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
         case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
@@ -58,7 +58,8 @@ private final class Monitor(
     }
   }
 
-  private def sample[A](elems: List[A], n: Int) = scala.util.Random shuffle elems take n
+  private def sample[A](elems: List[A], n: Int) =
+    if (elems.size <= n) elems else scala.util.Random shuffle elems take n
 
   private def success(work: Work, client: Client) = {
 
