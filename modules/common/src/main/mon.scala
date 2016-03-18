@@ -260,7 +260,6 @@ object mon {
     }
     object analysis {
       def by(client: String) = new {
-        def move = incX(s"fishnet.analysis.move.$client")
         def hash = rec(s"fishnet.analysis.hash.$client")
         def threads = rec(s"fishnet.analysis.threads.$client")
         def movetime = rec(s"fishnet.analysis.movetime.$client")
