@@ -81,6 +81,7 @@ case class PlayerMove(gameId: String)
 
 package slack {
 case class Error(msg: String)
+case class Victory(msg: String)
 }
 
 package timeline {

@@ -13,6 +13,7 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
+    bus: lila.common.Bus,
     saveAnalysis: lila.analyse.Analysis => Funit) {
 
   private val ActorName = config getString "actor.name"
@@ -57,11 +58,16 @@ final class Env(
 
   val aiPerfApi = new AiPerfApi
 
-  private val cleaner = new Cleaner(
+  new Cleaner(
     repo = repo,
     moveDb = moveDb,
     analysisColl = analysisColl,
     monitor = monitor,
+    scheduler = scheduler)
+
+  new MainWatcher(
+    repo = repo,
+    bus = bus,
     scheduler = scheduler)
 
   // api actor
@@ -97,5 +103,6 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
+    bus = lila.common.PlayApp.system.lilaBus,
     saveAnalysis = lila.analyse.Env.current.analyser.save _)
 }

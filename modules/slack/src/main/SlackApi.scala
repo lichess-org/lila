@@ -31,6 +31,12 @@ final class SlackApi(
     text = msg,
     channel = "general"))
 
+  def publishVictory(msg: String): Funit = client(SlackMessage(
+    username = "lichess victory",
+    icon = "thumbsup",
+    text = msg,
+    channel = "general"))
+
   def publishInfo(msg: String): Funit = client(SlackMessage(
     username = "lichess info",
     icon = "monkey",

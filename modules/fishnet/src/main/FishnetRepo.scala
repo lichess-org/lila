@@ -24,7 +24,11 @@ private final class FishnetRepo(
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void
   def allRecentClients = clientColl.find(BSONDocument(
-    "instance.seenAt" -> BSONDocument("$gt" -> DateTime.now.minusMinutes(15))
+    "instance.seenAt" -> BSONDocument("$gt" -> Client.Instance.recentSince)
+  )).cursor[Client]().collect[List]()
+  def lichessClients = clientColl.find(BSONDocument(
+    "enabled" -> true,
+    "userId" -> BSONDocument("$regex" -> "^lichess-")
   )).cursor[Client]().collect[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void

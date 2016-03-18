@@ -49,6 +49,13 @@ object Client {
       else if (i.engine != engine) i.some
       else if (i.seenAt isAfter seenAt.plusMinutes(10)) i.some
       else none
+
+    def seenRecently = seenAt isAfter Instance.recentSince
+  }
+
+  object Instance {
+
+    def recentSince = DateTime.now.minusMinutes(15)
   }
 
   sealed trait Skill {
