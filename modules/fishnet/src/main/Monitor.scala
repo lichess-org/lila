@@ -31,11 +31,11 @@ private final class Monitor(
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
 
-    // monitor.total.second(sumOf(result.analysis)(_.time) / 1000)
-    // monitor.total.meganode(sumOf(result.analysis) { eval =>
-    //   eval.nodes ifFalse eval.mateFound
-    // } / 1000000)
-    // monitor.total.position(result.analysis.size)
+    monitor.totalSecond(sumOf(result.analysis)(_.time) / 1000)
+    monitor.totalMeganode(sumOf(result.analysis) { eval =>
+      eval.nodes ifFalse eval.mateFound
+    } / 1000000)
+    monitor.totalPosition(result.analysis.size)
 
     val metaMovesSample = result.analysis.drop(6).filterNot(_.mateFound).take(100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {

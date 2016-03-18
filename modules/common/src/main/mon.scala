@@ -268,12 +268,9 @@ object mon {
         def nps = rec(s"fishnet.analysis.nps.$client")
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
-
-        // object total {
-        //   def meganode = incX(s"fishnet.analysis.total.meganode.$client")
-        //   def second = incX(s"fishnet.analysis.total.second.$client")
-        //   def position = incX(s"fishnet.analysis.total.position.$client")
-        // }
+        def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
+        def totalSecond = incX(s"fishnet.analysis.total.second.$client")
+        def totalPosition = incX(s"fishnet.analysis.total.position.$client")
       }
       def post = rec(s"fishnet.analysis.post")
     }
@@ -297,7 +294,6 @@ object mon {
 
   def recPath(f: lila.mon.type => Rec): Rec = f(this)
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
-
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = {
