@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import Client.Skill
 import lila.db.Implicits._
@@ -50,7 +51,7 @@ final class FishnetApi(
         none
     } >>- monitor.acquire(client)
 
-  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = fuccess {
+  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = Future {
     moveDb.transaction { implicit tnx =>
       moveDb.find(_.nonAcquired).toList.sortBy(_.createdAt).headOption
         .map(_ assignTo client) ?? { work =>
