@@ -2,9 +2,11 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Implicits._
+import lila.memo.AsyncCache
 
 private final class FishnetRepo(
     analysisColl: Coll,
@@ -12,17 +14,21 @@ private final class FishnetRepo(
 
   import BSONHandlers._
 
-  def getClient(key: Client.Key) = clientColl.find(selectClient(key)).one[Client]
-  def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
+  private val clientCache = AsyncCache[Client.Key, Option[Client]](
+    f = key => clientColl.find(selectClient(key)).one[Client],
+    timeToLive = 10 seconds)
+
+  def getEnabledClient(key: Client.Key) = clientCache(key).map { _.filter(_.enabled) }
   def getOfflineClient = getEnabledClient(Client.offline.key) orElse fuccess(Client.offline.some)
-  def updateClient(client: Client): Funit = clientColl.update(selectClient(client.key), client, upsert = true).void
+  def updateClient(client: Client): Funit =
+    clientColl.update(selectClient(client.key), client, upsert = true).void >> clientCache.remove(client.key)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
     }
-  def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key))
+  def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >> clientCache.remove(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void
+    clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void >> clientCache.remove(key)
   def allRecentClients = clientColl.find(BSONDocument(
     "instance.seenAt" -> BSONDocument("$gt" -> Client.Instance.recentSince)
   )).cursor[Client]().collect[List]()
