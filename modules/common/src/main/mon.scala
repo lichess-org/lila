@@ -249,6 +249,7 @@ object mon {
     }
     object acquire {
       def count(client: String) = inc(s"fishnet.acquire.$client")
+      def time(skill: String) = rec(s"fishnet.acquire.skill.$skill")
     }
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")

@@ -44,7 +44,7 @@ final class Env(
     sequencer = sequencer,
     monitor = monitor,
     saveAnalysis = saveAnalysis,
-    offlineMode = OfflineMode)
+    offlineMode = OfflineMode)(system)
 
   val player = new Player(
     moveDb = moveDb,

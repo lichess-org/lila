@@ -2,6 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import Client.Skill
 import lila.db.Implicits._
@@ -16,8 +17,9 @@ final class FishnetApi(
     sequencer: lila.hub.FutureSequencer,
     monitor: Monitor,
     saveAnalysis: lila.analyse.Analysis => Funit,
-    offlineMode: Boolean) {
+    offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
 
+  import FishnetApi._
   import BSONHandlers._
 
   def authenticateClient(req: JsonApi.Request) = {
@@ -33,7 +35,16 @@ final class FishnetApi(
     case Skill.Move     => acquireMove(client)
     case Skill.Analysis => acquireAnalysis(client)
     case Skill.All      => acquireMove(client) orElse acquireAnalysis(client)
-  }) >>- monitor.acquire(client)
+  }).chronometer
+    .mon(_.fishnet.acquire time client.skill.key)
+    .logIfSlow(100, "fishnet")(_ => s"acquire ${client.skill}")
+    .result
+    .withTimeout(1 second, AcquireTimeout)
+    .recover {
+      case AcquireTimeout =>
+        log.warn(s"Fishnet.acquire timed out, skill: ${client.skill}")
+        none
+    } >>- monitor.acquire(client)
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = fuccess {
     moveDb.transaction { implicit tnx =>
@@ -57,7 +68,6 @@ final class FishnetApi(
       }
     }
   }.map { _ map JsonApi.fromWork }
-    .chronometer.logIfSlow(100, "fishnet")(_ => "acquire analysis").result
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
     moveDb.transaction { implicit txn =>
@@ -98,7 +108,7 @@ final class FishnetApi(
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
-  }.chronometer.mon(_.fishnet.move.post)
+  }.chronometer.mon(_.fishnet.analysis.post)
     .logIfSlow(100, "fishnet")(_ => "post analysis").result
     .flatMap { _ ?? saveAnalysis }
 
@@ -109,7 +119,7 @@ final class FishnetApi(
         repo.updateAnalysis(work.abort)
       }
     }
-  }.chronometer.logIfSlow(100, "fishnet")(_ => "abort").result
+  }
 
   def prioritaryAnalysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
     "game.id" -> gameId,
@@ -132,4 +142,11 @@ final class FishnetApi(
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
       clientColl.update(repo.selectClient(key), BSONDocument("$set" -> BSONDocument("skill" -> sk.key))).void
     }
+}
+
+object FishnetApi {
+
+  case object AcquireTimeout extends lila.common.LilaException {
+    val message = "FishnetApi.acquire timed out"
+  }
 }
