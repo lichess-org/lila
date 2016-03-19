@@ -87,7 +87,7 @@ private final class PushApi(
   }
 
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white) ?? { challenger =>
+    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
       val lightJoiner = joinerId flatMap lightUser
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
         title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
