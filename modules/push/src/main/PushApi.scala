@@ -90,14 +90,15 @@ private final class PushApi(
     c.challengerUser.ifTrue(c.finalColor.white) ?? { challenger =>
       val lightJoiner = joinerId flatMap lightUser
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
-          title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
-          body = describeChallenge(c),
-          payload = Json.obj(
-            "userId" -> challenger.id,
-            "userData" -> Json.obj(
-              "type" -> "challengeAccept",
-              "challengeId" -> c.id))))
-      }
+        title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
+        body = describeChallenge(c),
+        payload = Json.obj(
+          "userId" -> challenger.id,
+          "userData" -> Json.obj(
+            "type" -> "challengeAccept",
+            "challengeId" -> c.id,
+            "joiner" -> lightJoiner))))
+    }
 
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
@@ -134,6 +135,13 @@ private final class PushApi(
   }
 
   private def opponentName(pov: Pov) = Namer playerString pov.opponent
+
+  private implicit val lightUserWriter: OWrites[LightUser] = OWrites { u =>
+    Json.obj(
+      "id" -> u.id,
+      "name" -> u.name,
+      "title" -> u.title)
+  }
 }
 
 private object PushApi {
