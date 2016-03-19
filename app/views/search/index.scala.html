@@ -170,7 +170,7 @@ description = "Search the entire lichess database using multiple criterions").so
         </th>
         <td>
           <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
-          <div class="half">Order @base.select(form("sort")("order"), Sorting.orders)</div>
+          <div class="half">@base.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
       <tr>
