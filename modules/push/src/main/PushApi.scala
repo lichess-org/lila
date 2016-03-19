@@ -72,7 +72,7 @@ private final class PushApi(
   }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
-    c.challengerUser ?? { challenger =>
+    c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
       lightUser(challenger.id) ?? { lightChallenger =>
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
           title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
