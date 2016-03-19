@@ -60,6 +60,9 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
+lilalog "Backup production lichess dir"
+ssh $REMOTE "cp -r $REMOTE_DIR /home/backup/lichess-$(date +%Y-%m-%d)"
+
 RSYNC_OPTIONS=" \
   --archive \
   --no-o --no-g \
