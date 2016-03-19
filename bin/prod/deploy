@@ -11,33 +11,9 @@ elif [ $mode = "main" ]; then
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
-elif [ $mode = "salim2" ]; then
-  REMOTE="salim2"
-  REMOTE_DIR="/home/lila"
-elif [ $mode = "hexal" ]; then
-  REMOTE="hexal"
-  REMOTE_DIR="/home/lila"
-elif [ $mode = "matthews" ]; then
-  REMOTE="matthews"
-  REMOTE_DIR="/home/thibault/lila"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
-elif [ $mode = "cammy" ]; then
-  REMOTE="cammy"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "adele" ]; then
-  REMOTE="adele"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "timshell" ]; then
-  REMOTE="timshell"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "sarah" ]; then
-  REMOTE="sarah"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "flynn" ]; then
-  REMOTE="flynn"
-  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1
