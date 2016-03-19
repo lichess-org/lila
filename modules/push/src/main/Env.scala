@@ -10,7 +10,6 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
-    isOnline: lila.user.User.ID => Boolean,
     roundSocketHub: ActorSelection,
     appleCertificate: String => InputStream,
     system: ActorSystem) {
@@ -43,7 +42,6 @@ final class Env(
     googlePush,
     applePush,
     getLightUser,
-    isOnline,
     roundSocketHub)
 
   system.actorOf(Props(new Actor {
@@ -66,7 +64,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
-    isOnline = lila.user.Env.current.isOnline,
     roundSocketHub = lila.hub.Env.current.socket.round,
     appleCertificate = path => lila.common.PlayApp.withApp {
       _.classloader.getResourceAsStream(path)

@@ -16,7 +16,6 @@ private final class PushApi(
     googlePush: GooglePush,
     applePush: ApplePush,
     implicit val lightUser: String => Option[LightUser],
-    isOnline: User.ID => Boolean,
     roundSocketHub: ActorSelection) {
 
   def finish(game: Game): Funit =
@@ -72,7 +71,7 @@ private final class PushApi(
     }
   }
 
-  def challengeCreate(c: Challenge): Funit = c.destUser.filterNot(u => isOnline(u.id)) ?? { dest =>
+  def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser ?? { challenger =>
       lightUser(challenger.id) ?? { lightChallenger =>
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
@@ -88,7 +87,7 @@ private final class PushApi(
   }
 
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white).filterNot(u => isOnline(u.id)) ?? { challenger =>
+    c.challengerUser.ifTrue(c.finalColor.white) ?? { challenger =>
       val lightJoiner = joinerId flatMap lightUser
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
           title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
