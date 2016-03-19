@@ -2,7 +2,7 @@ package lila.fishnet
 
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.slack.{ Victory, Error }
+import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
 
 private final class MainWatcher(
@@ -16,7 +16,7 @@ private final class MainWatcher(
 
   private def alert(client: Client) = if (!isAlerted(client)) {
     alerted put client.key.value
-    bus.publish(Error(s"Fishnet server ${client.userId} might be down!"), 'slack)
+    bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), 'slack)
   }
 
   private def unalert(client: Client) = if (isAlerted(client)) {
