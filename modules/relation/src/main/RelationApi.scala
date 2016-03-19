@@ -1,12 +1,14 @@
 package lila.relation
 
 import akka.actor.ActorSelection
+import scala.concurrent.duration._
 import scala.util.Success
 
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
+import lila.memo.AsyncCache
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
 import tube.relationTube
@@ -63,11 +65,17 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID) =
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
-  def countFollowing(userId: ID) =
-    coll.count(BSONDocument("u1" -> userId, "r" -> Follow).some)
+  private val countFollowingCache = AsyncCache[ID, Int](
+    f = userId => coll.count(BSONDocument("u1" -> userId, "r" -> Follow).some),
+    timeToLive = 10 minutes)
 
-  def countFollowers(userId: ID) =
-    coll.count(BSONDocument("u2" -> userId, "r" -> Follow).some)
+  def countFollowing(userId: ID) = countFollowingCache(userId)
+
+  private val countFollowersCache = AsyncCache[ID, Int](
+    f = userId => coll.count(BSONDocument("u2" -> userId, "r" -> Follow).some),
+    timeToLive = 10 minutes)
+
+  def countFollowers(userId: ID) = countFollowersCache(userId)
 
   def countBlocking(userId: ID) =
     coll.count(BSONDocument("u1" -> userId, "r" -> Block).some)
@@ -101,6 +109,8 @@ final class RelationApi(
         case (Some(Follow), _) => funit
         case (_, Some(Block))  => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
+          countFollowersCache remove u2
+          countFollowingCache remove u1
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
           lila.mon.relation.follow()
@@ -131,6 +141,8 @@ final class RelationApi(
     if (u1 == u2) funit
     else fetchFollows(u1, u2) flatMap {
       case true => RelationRepo.unfollow(u1, u2) >>- {
+        countFollowersCache remove u2
+        countFollowingCache remove u1
         reloadOnlineFriends(u1, u2)
         lila.mon.relation.unfollow()
       }
