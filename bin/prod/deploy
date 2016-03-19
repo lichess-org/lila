@@ -37,7 +37,8 @@ if [ $? != 0 ]; then
 fi
 
 lilalog "Backup production lichess dir"
-ssh $REMOTE "cp -r $REMOTE_DIR /home/backup/lichess-$(date +%Y-%m-%d)"
+BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
+ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
 
 RSYNC_OPTIONS=" \
   --archive \
