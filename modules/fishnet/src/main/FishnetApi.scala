@@ -7,15 +7,14 @@ import scala.concurrent.Future
 
 import Client.Skill
 import lila.db.Implicits._
-import lila.hub.{ actorApi => hubApi }
 import lila.hub.FutureSequencer
+import lila.hub.{ actorApi => hubApi }
 
 final class FishnetApi(
     hub: lila.hub.Env,
     repo: FishnetRepo,
     moveDb: MoveDB,
     analysisColl: Coll,
-    clientColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
     saveAnalysis: lila.analyse.Analysis => Funit,
@@ -140,12 +139,14 @@ final class FishnetApi(
         instance = None,
         enabled = true,
         createdAt = DateTime.now)
-      clientColl.insert(client) inject client
+      repo addClient client inject client
     }
 
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      clientColl.update(repo.selectClient(key), BSONDocument("$set" -> BSONDocument("skill" -> sk.key))).void
+      repo getClient key flatten s"No client with key $key" flatMap { client =>
+        repo updateClient client.copy(skill = sk)
+      }
     }
 }
 

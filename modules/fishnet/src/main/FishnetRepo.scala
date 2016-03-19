@@ -18,7 +18,8 @@ private final class FishnetRepo(
     f = key => clientColl.find(selectClient(key)).one[Client],
     timeToLive = 10 seconds)
 
-  def getEnabledClient(key: Client.Key) = clientCache(key).map { _.filter(_.enabled) }
+  def getClient(key: Client.Key) = clientCache(key)
+  def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
   def getOfflineClient = getEnabledClient(Client.offline.key) orElse fuccess(Client.offline.some)
   def updateClient(client: Client): Funit =
     clientColl.update(selectClient(client.key), client, upsert = true).void >> clientCache.remove(client.key)
@@ -26,6 +27,7 @@ private final class FishnetRepo(
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
     }
+  def addClient(client: Client) = clientColl.insert(client)
   def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >> clientCache.remove(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void >> clientCache.remove(key)

@@ -40,7 +40,6 @@ final class Env(
     repo = repo,
     moveDb = moveDb,
     analysisColl = analysisColl,
-    clientColl = clientColl,
     sequencer = sequencer,
     monitor = monitor,
     saveAnalysis = saveAnalysis,
