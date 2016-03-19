@@ -19,6 +19,7 @@ object LilaSocket {
   def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       val ip = HTTPRequest lastRemoteAddress req
+      def mobile = lila.api.Mobile.Api.requestVersion(req)
       f(req).map { resultOrSocket =>
         resultOrSocket.right.map {
           case (readIn, writeOut) => (e, i) => {
@@ -27,7 +28,7 @@ object LilaSocket {
               consumer(ip).map { credit =>
                 if (credit >= 0) in
                 else {
-                  logger.info(s"socket:$name socket close $ip $in")
+                  logger.info(s"socket:$name socket close $ip mobile:$mobile $in")
                   Input.EOF
                 }
               }
