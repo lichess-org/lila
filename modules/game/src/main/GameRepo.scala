@@ -307,7 +307,8 @@ object GameRepo {
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
-  // #TODO expensive stuff, run on DB slave
+  // #TODO expensive stuff, run on DB replica
+  // Can't be done on reactivemongo 0.11.9 :(
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     gameTube.coll.aggregate(Match(BSONDocument(F.playerUids -> userId)), List(
