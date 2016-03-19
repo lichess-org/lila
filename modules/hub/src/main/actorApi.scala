@@ -80,8 +80,11 @@ case class PlayerMove(gameId: String)
 }
 
 package slack {
-case class Error(msg: String)
-case class Victory(msg: String)
+sealed trait Event
+case class Error(msg: String) extends Event
+case class Warning(msg: String) extends Event
+case class Info(msg: String) extends Event
+case class Victory(msg: String) extends Event
 }
 
 package timeline {
