@@ -45,7 +45,7 @@ object Fishnet extends LilaController {
         data => api.authenticateClient(data) flatMap {
           case None => {
             val ip = lila.common.HTTPRequest.lastRemoteAddress(req)
-            logger.warn(s"Unauthorized key:${data.fishnet.apikey} ip:$ip")
+            logger.warn(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip")
             Unauthorized(jsonError("Invalid or revoked API key")).fuccess
           }
           case Some(client) => f(data)(client).map {
