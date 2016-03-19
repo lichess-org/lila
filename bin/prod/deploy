@@ -22,7 +22,7 @@ fi
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ "$2" == "asset" ]; then
-   bin/prod/compile-client
+  bin/prod/compile-client
 fi
 
 if [ $mode == "main" ]; then
@@ -36,9 +36,11 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-lilalog "Backup production lichess dir"
-BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
-ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
+if [ $mode == "main" ]; then
+  lilalog "Backup production lichess dir"
+  BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
+  ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
+fi
 
 RSYNC_OPTIONS=" \
   --archive \
@@ -57,7 +59,7 @@ RSYNC_OPTIONS=" \
 
 if [ $mode != "main" ] && [ $mode != "stage" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
-  --exclude public";
+    --exclude public";
 fi
 
 lilalog "Rsync scripts, binaries and assets"
@@ -81,7 +83,7 @@ if [ $mode == "main" ]; then
 fi
 if [ $mode == "stage" ]; then
   lilalog "Restart lichess-stage"
-  ssh $REMOTE "chown -R lichess-stage:lichess-stage $REMOTE_DIR && service lichess-stage restart"
+  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
 fi
 
 lilalog "Deploy complete"
