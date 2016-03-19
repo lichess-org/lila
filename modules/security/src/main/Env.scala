@@ -45,6 +45,7 @@ final class Env(
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
+    val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
   }
   import settings._
 
@@ -57,9 +58,11 @@ final class Env(
 
   lazy val flood = new Flood(FloodDuration)
 
-  lazy val recaptcha = new Recaptcha(
-    privateKey = RecaptchaPrivateKey,
-    endpoint = RecaptchaEndpoint)
+  lazy val recaptcha: Recaptcha =
+    if (RecaptchaEnabled) new RecaptchaGoogle(
+      privateKey = RecaptchaPrivateKey,
+      endpoint = RecaptchaEndpoint)
+    else RecaptchaSkip
 
   lazy val forms = new DataForm(
     captcher = captcher,
