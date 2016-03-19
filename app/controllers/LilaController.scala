@@ -51,6 +51,11 @@ private[controllers] trait LilaController
   protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f }
 
+  protected def SocketEitherLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
+    LilaSocket.rateLimited[A](consumer, name) { req =>
+      reqToCtx(req) flatMap f
+    }
+
   protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req =>
       reqToCtx(req) flatMap f map {

@@ -23,31 +23,40 @@ object Round extends LilaController with TheftPrevention {
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { uid =>
-      env.socketHandler.watcher(
-        gameId = gameId,
-        colorName = color,
-        uid = uid,
-        user = ctx.me,
-        ip = ctx.ip,
-        userTv = get("userTv"))
-    }
-  }
+  private val socketConsumer = lila.api.TokenBucket.create(
+    system = lila.common.PlayApp.system,
+    size = 10,
+    rate = 6)
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    GameRepo pov fullId flatMap {
-      case Some(pov) =>
-        if (isTheft(pov)) fuccess(Left(theftResponse))
-        else get("sri") match {
-          case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
-            pov, uid, ~get("ran"), ctx.me, ctx.ip
-          ) map Right.apply
-          case None => fuccess(Left(NotFound))
-        }
-      case None => fuccess(Left(NotFound))
+  def websocketWatcher(gameId: String, color: String) = SocketOptionLimited[JsValue](
+    consumer = socketConsumer,
+    name = "watcher") { implicit ctx =>
+      get("sri") ?? { uid =>
+        env.socketHandler.watcher(
+          gameId = gameId,
+          colorName = color,
+          uid = uid,
+          user = ctx.me,
+          ip = ctx.ip,
+          userTv = get("userTv"))
+      }
     }
-  }
+
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEitherLimited[JsValue](
+    consumer = socketConsumer,
+    name = "player") { implicit ctx =>
+      GameRepo pov fullId flatMap {
+        case Some(pov) =>
+          if (isTheft(pov)) fuccess(Left(theftResponse))
+          else get("sri") match {
+            case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
+              pov, uid, ~get("ran"), ctx.me, ctx.ip
+            ) map Right.apply
+            case None => fuccess(Left(NotFound))
+          }
+        case None => fuccess(Left(NotFound))
+      }
+    }
 
   private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
 
