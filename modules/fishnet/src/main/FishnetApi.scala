@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import Client.Skill
 import lila.db.Implicits._
 import lila.hub.{ actorApi => hubApi }
+import lila.hub.FutureSequencer
 
 final class FishnetApi(
     hub: lila.hub.Env,
@@ -14,7 +15,7 @@ final class FishnetApi(
     moveDb: MoveDB,
     analysisColl: Coll,
     clientColl: Coll,
-    sequencer: lila.hub.FutureSequencer,
+    sequencer: FutureSequencer,
     monitor: Monitor,
     saveAnalysis: lila.analyse.Analysis => Funit,
     offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
@@ -41,8 +42,11 @@ final class FishnetApi(
     .result
     .withTimeout(1 second, AcquireTimeout)
     .recover {
+      case e: FutureSequencer.Timeout =>
+        log.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
+        none
       case AcquireTimeout =>
-        log.warn(s"Fishnet.acquire timed out, skill: ${client.skill}")
+        log.warn(s"[${client.skill}] Fishnet.acquire timed out")
         none
     } >>- monitor.acquire(client)
 

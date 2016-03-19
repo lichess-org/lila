@@ -27,6 +27,10 @@ object FutureSequencer {
 
   import scala.util.Try
 
+  case class Timeout(duration: FiniteDuration) extends lila.common.LilaException {
+    val message = s"FutureSequencer timed out after $duration"
+  }
+
   private final class FSequencer(
       receiveTimeout: Option[FiniteDuration],
       executionTimeout: Option[FiniteDuration] = None) extends Actor {
@@ -64,7 +68,7 @@ object FutureSequencer {
           promise completeWith timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
             run().withTimeout(
               duration = timeout,
-              error = lila.common.LilaException(s"FSequencer timed out after $timeout")
+              error = Timeout(timeout)
             )(context.system)
           }.andThenAnyway {
             self ! Done
