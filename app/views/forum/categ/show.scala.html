@@ -6,8 +6,13 @@
 }
 }
 
+@modMenu = {
+  @mod.menu("forum")
+}
+
 @forum.layout(
 title = categ.name,
+menu = modMenu.some.ifTrue(categ.isStaff),
 openGraph = lila.app.ui.OpenGraph(
 title = s"Forum: ${categ.name}",
 url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
@@ -26,11 +31,7 @@ description = categ.desc).some) {
   </ol>
   }
 
-  <p class="description">@categ.desc
-    @if(categ.isStaff) {
-    - <a href="@routes.Mod.log">View Mod Logs</a>
-    }
-  </p>
+  <p class="description">@categ.desc</p>
   <div class="bar top clearfix">
     @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     @newTopicButton
