@@ -10,6 +10,4 @@ case class Progress(
   def percent = (current * 100) / goal
 
   def complete = goal >= current
-
-  def month = from.monthOfYear.getAsText(new java.util.Locale("en"))
 }

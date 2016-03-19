@@ -8,7 +8,7 @@ import reactivemongo.bson._
 
 final class DonationApi(
     coll: Coll,
-    monthlyGoal: Int,
+    weeklyGoal: Int,
     serverDonors: Set[String],
     bus: lila.common.Bus) {
 
@@ -61,8 +61,8 @@ final class DonationApi(
   }
 
   def progress: Fu[Progress] = {
-    val from = DateTime.now withDayOfMonth 1 withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
-    val to = from plusMonths 1
+    val from = DateTime.now withDayOfWeek 1 withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
+    val to = from plusWeeks 1
     coll.find(
       BSONDocument("date" -> BSONDocument(
         "$gte" -> from,
@@ -72,7 +72,7 @@ final class DonationApi(
     ).cursor[BSONDocument]().collect[List]() map2 { (obj: BSONDocument) =>
         ~obj.getAs[Int]("net")
       } map (_.sum) map { amount =>
-        Progress(from, monthlyGoal, amount)
+        Progress(from, weeklyGoal, amount)
       } addEffect { prog =>
         lila.mon.donation.goal(prog.goal)
         lila.mon.donation.current(prog.current)

@@ -10,14 +10,14 @@ final class Env(
     bus: lila.common.Bus) {
 
   private val CollectionDonation = config getString "collection.donation"
-  private val MonthlyGoal = config getInt "monthly_goal"
+  private val WeeklyGoal = config getInt "weekly_goal"
   private val ServerDonors = (config getStringList "server_donors").toSet
 
   def forms = DataForm
 
   lazy val api = new DonationApi(
     db(CollectionDonation),
-    MonthlyGoal,
+    WeeklyGoal,
     serverDonors = ServerDonors,
     bus = bus)
 
