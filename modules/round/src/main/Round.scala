@@ -223,28 +223,23 @@ private[round] final class Round(
     pov flatten "pov not found" flatMap { p =>
       if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
-  } recover {
-    case e: Exception =>
-      logger.info(s"handlePov: ${e.getMessage}")
-      Nil
-  }
+  } recover errorHandler("handlePov")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op
-  } recover {
-    case e: Exception =>
-      logger.info(s"handleGame: ${e.getMessage}")
-      Nil
-  }
+  } recover errorHandler("handleGame")
 
-  private def publish[A](op: Fu[Events]) = op addEffect { events =>
+  private def publish[A](op: Fu[Events]): Funit = op.addEffect { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
     if (events exists {
       case e: Event.Move => e.threefold
       case _             => false
     }) self ! Threefold
-  } addFailureEffect {
-    case e: ClientErrorException =>
-    case e => logger.info(s"publish: ${e.getMessage}")
-  } void
+  }.void recover errorHandler("publish")
+
+  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+    case e: ClientError  => lila.mon.round.error.client()
+    case e: FishnetError => lila.mon.round.error.fishnet()
+    case e: Exception    => logger.warn(s"$name: ${e.getMessage}")
+  }
 }

@@ -128,7 +128,7 @@ final class PerfsUpdater(
     val isStd = game.ratingVariant.standard
     val date = game.updatedAt | game.createdAt
     def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
-      if (cond) perf.addOrReset(_.round.crazyGlicko, s"game ${game.id}")(rating, date)
+      if (cond) perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, date)
       else perf
     val perfs1 = perfs.copy(
       chess960 = addRatingIf(game.ratingVariant.chess960, perfs.chess960, ratings.chess960),

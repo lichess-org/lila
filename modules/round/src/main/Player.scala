@@ -23,7 +23,7 @@ private[round] final class Player(
     case HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
         lila.mon.measure(_.round.move.segment.logic)(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
-          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
+          .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               (GameRepo save progress).mon(_.round.move.segment.save) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
@@ -44,10 +44,10 @@ private[round] final class Player(
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
-      case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")
-      case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
-      case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")
-      case _                                       => ClientErrorException.future(s"$pov move refused for some reason")
+      case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
+      case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+      case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
+      case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
     }
   }
 
@@ -57,7 +57,7 @@ private[round] final class Player(
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
         applyUci(game, uci, blur = false, lag = 0.millis)
-          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
+          .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               (GameRepo save progress) >>-
                 uciMemo.add(progress.game, moveOrDrop) >>-
@@ -67,9 +67,9 @@ private[round] final class Player(
                   fuccess(progress.events)
                 )
           }
-      else requestFishnet(game) >> fufail("Invalid AI move current FEN")
+      else requestFishnet(game) >> fufail(FishnetError("Invalid AI move current FEN"))
     }
-    else fufail("Not AI turn")
+    else fufail(FishnetError("Not AI turn"))
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {

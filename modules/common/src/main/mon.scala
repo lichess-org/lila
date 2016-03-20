@@ -74,7 +74,11 @@ object mon {
       }
       val networkLag = rec("round.move.network_lag")
     }
-    val crazyGlicko = inc("round.crazy_glicko")
+    object error {
+      val client = inc("round.error.client")
+      val fishnet = inc("round.error.fishnet")
+      val glicko = inc("round.error.glicko")
+    }
   }
   object explorer {
     object index {

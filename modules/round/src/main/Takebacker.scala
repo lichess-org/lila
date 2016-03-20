@@ -20,7 +20,7 @@ private[round] final class Takebacker(
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
         GameRepo save progress inject List(Event.TakebackOffers(color.white, color.black))
-      case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
+      case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
   }
 
@@ -34,7 +34,7 @@ private[round] final class Takebacker(
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
       } inject List(Event.TakebackOffers(false, false))
-      case _ => ClientErrorException.future("[takebacker] invalid no " + pov)
+      case _ => fufail(ClientError("[takebacker] invalid no " + pov))
     }
   }
 
@@ -49,9 +49,9 @@ private[round] final class Takebacker(
     }
 
   private def IfAllowed(game: Game)(f: => Fu[Events]): Fu[Events] =
-    if (!game.playable) ClientErrorException.future("[takebacker] game is over " + game.id)
+    if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
     else isAllowedByPrefs(game) flatMap {
-      _.fold(f, ClientErrorException.future("[takebacker] disallowed by preferences " + game.id))
+      _.fold(f, fufail(ClientError("[takebacker] disallowed by preferences " + game.id)))
     }
 
   private def single(game: Game): Fu[Events] = for {
