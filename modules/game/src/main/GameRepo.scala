@@ -123,7 +123,7 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
 
   def urgentGames(user: User): Fu[List[Pov]] =
-    $find(Query nowPlaying user.id, 300) map { games =>
+    $find(Query nowPlaying user.id, 100) map { games =>
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority
