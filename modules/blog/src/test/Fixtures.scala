@@ -19,7 +19,7 @@ object Fixtures {
 
 <p>In turn Black can block the check by <strong>dropping a knight on e5!</strong></p>
 
-<p><a href="http://lichess.org/crazyhouse"><strong>Read more about crazyhouse rules and strategies here</strong></a></p>
+<p><a href="http://lichess.org/variant/crazyhouse"><strong>Read more about crazyhouse rules and strategies here</strong></a></p>
 
 <h2>Have great games!</h2>
 
