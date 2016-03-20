@@ -30,6 +30,7 @@ private[api] final class RoundApiBalancer(
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
+        val logger = lila.log("round").branch("balancer")
         val futureTimeout = 20.seconds
         def process = {
           case Player(pov, apiVersion, ctx) => {

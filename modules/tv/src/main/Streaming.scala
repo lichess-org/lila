@@ -46,7 +46,7 @@ private final class Streaming(
             res.json.validate[Twitch.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logwarn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
@@ -54,7 +54,7 @@ private final class Streaming(
           res.json.validate[Hitbox.Result] match {
             case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
             case JsError(err) =>
-              logwarn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
+              logger.warn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
               Nil
           }
         }
@@ -68,7 +68,7 @@ private final class Streaming(
             res.json.validate[Youtube.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logwarn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }

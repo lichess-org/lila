@@ -27,7 +27,7 @@ final class TeamSearchApi(
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      loginfo(s"Index to ${c.index.name}")
+      lila.log("teamSearch").info(s"Index to ${c.index.name}")
       import lila.db.api._
       import lila.team.tube.teamTube
       $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 300) { teamOptions =>

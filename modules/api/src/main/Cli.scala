@@ -9,9 +9,11 @@ import makeTimeout.short
 
 private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
 
+  private val logger = lila.log("cli")
+
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
     _ logFailure ("[cli] " + args.mkString(" ")) foreach { output =>
-      loginfo("[cli] %s\n%s".format(args mkString " ", output))
+      logger.info("%s\n%s".format(args mkString " ", output))
     }
   }
 

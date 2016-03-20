@@ -17,21 +17,20 @@ private[game] final class Cli(
         (days.headOption flatMap parseIntOption) | 30
       } map (_ mkString " ")
 
-    case "game" :: "typecheck" :: Nil => {
-      loginfo("Counting games...")
+    case "game" :: "typecheck" :: Nil =>
+      logger.info("Counting games...")
       val size = $count($select.all).await
       var nb = 0
       val bulkSize = 1000
       ($enumerate.bulk[Option[Game]]($query.all, bulkSize) { gameOptions =>
         val nbGames = gameOptions.flatten.size
         if (nbGames != bulkSize)
-          logwarn("Built %d of %d games".format(nbGames, bulkSize))
+          logger.warn("Built %d of %d games".format(nbGames, bulkSize))
         nb = nb + nbGames
-        loginfo("Typechecked %d of %d games".format(nb, size))
+        logger.info("Typechecked %d of %d games".format(nb, size))
         funit
       }).await(2.hours)
       fuccess("Done")
-    }
   }
 
 }

@@ -24,6 +24,8 @@ private[controllers] trait LilaController
 
   import Results._
 
+  protected val logger = lila.log("controller")
+
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
   protected implicit val LilaHtmlMonoid = lila.app.templating.Environment.LilaHtmlMonoid

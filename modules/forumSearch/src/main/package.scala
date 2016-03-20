@@ -1,3 +1,3 @@
 package lila
 
-package object forumSearch extends PackageObject with WithPlay 
+package object forumSearch extends PackageObject with WithPlay

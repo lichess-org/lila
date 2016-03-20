@@ -11,4 +11,5 @@ package object team extends PackageObject with WithPlay {
     private[team] implicit lazy val memberTube = Member.tube inColl Env.current.memberColl
   }
 
+  private[team] def logger = lila.log("team")
 }

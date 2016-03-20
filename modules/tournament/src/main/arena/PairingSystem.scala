@@ -148,7 +148,7 @@ object PairingSystem extends AbstractPairingSystem {
           case (rp0, rp1) => rp0.player -> rp1.player
         }
         case _ =>
-          logwarn("Could not make smart pairings for arena tournament")
+          logger.warn("Could not make smart pairings for arena tournament")
           players map (_.player) grouped 2 collect {
             case List(p1, p2) => (p1, p2)
           } toList

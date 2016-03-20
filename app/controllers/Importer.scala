@@ -31,7 +31,7 @@ object Importer extends LilaController {
         } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
-          logwarn(e.getMessage)
+          logger.branch("importer").warn("sendGame", e)
           Redirect(routes.Importer.importGame)
       }
     )

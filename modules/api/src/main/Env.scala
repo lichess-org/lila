@@ -56,7 +56,8 @@ final class Env(
           .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
       timeToLive = 30.seconds,
-      default = Net.AssetVersion)
+      default = Net.AssetVersion,
+      logger = lila.log("assetVersion"))
     def get = cache get true
   }
 

@@ -37,7 +37,7 @@ final class DisposableEmailDomain(
   private var failed = false
 
   private def onError(e: Exception) {
-    logerr(s"Can't update disposable emails: $e")
+    logger.error("Can't update disposable emails", e)
     if (!failed) {
       failed = true
       busOption.foreach { bus =>

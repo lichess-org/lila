@@ -11,4 +11,6 @@ package object simul extends PackageObject with WithPlay with WithSocket {
 
     def apply(): String = names(scala.util.Random nextInt size)
   }
+
+  private[simul] def logger = lila.log("simul")
 }

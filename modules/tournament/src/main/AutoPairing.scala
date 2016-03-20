@@ -11,11 +11,11 @@ import lila.round.actorApi.round.NoStartColor
 import lila.user.{ User, UserRepo }
 
 object SecondsToDoFirstMove {
-    def secondsToMoveFor(tour: Tournament) = tour.speed match {
-        case chess.Speed.Bullet => 20
-        case chess.Speed.Blitz  => 25
-        case _                  => 30
-    }
+  def secondsToMoveFor(tour: Tournament) = tour.speed match {
+    case chess.Speed.Bullet => 20
+    case chess.Speed.Blitz  => 25
+    case _                  => 30
+  }
 }
 
 final class AutoPairing(

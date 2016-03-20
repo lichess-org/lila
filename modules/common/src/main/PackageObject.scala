@@ -21,15 +21,6 @@ trait PackageObject extends Steroids with WithFuture {
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  lazy val logger = play.api.Logger("lila")
-  def logdebug(s: String) { logger debug s }
-  def loginfo(s: String) { logger info s }
-  def logwarn(s: String) { logger warn s }
-  def logerr(s: String) { logger error s }
-  def fuloginfo(s: String) = fuccess { loginfo(s) }
-  def fulogwarn(s: String) = fuccess { logwarn(s) }
-  def fulogerr(s: String) = fuccess { logerr(s) }
-
   implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
 
   // from scalaz. We don't want to import all OptionTFunctions, because of the clash with `some`
@@ -223,16 +214,9 @@ trait WithPlay { self: PackageObject =>
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
-    def nevermind(msg: String): Fu[A] = fua recover {
-      case e: lila.common.LilaException             => recoverException(e, msg.some)
-      case e: java.util.concurrent.TimeoutException => recoverException(e, msg.some)
-    }
-
-    def nevermind: Fu[A] = nevermind("")
-
-    private def recoverException(e: Exception, msg: Option[String]) = {
-      logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
-      zero[A]
+    def nevermind: Fu[A] = fua recover {
+      case e: lila.common.LilaException             => zero[A]
+      case e: java.util.concurrent.TimeoutException => zero[A]
     }
   }
 

@@ -50,7 +50,7 @@ final class Firewall(
     $remove($select.byIds(ips filter validIp)) >>- refresh
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
-    log("Infect cookie " + formatReq(req))
+    logger.info("Infect cookie " + formatReq(req))
     val cookie = LilaCookie.cookie(name, Random nextStringUppercase 32)
     Redirect("/") withCookies cookie
   }
@@ -59,10 +59,6 @@ final class Firewall(
 
   private def refresh {
     ips.clear
-  }
-
-  private def log(msg: Any) {
-    loginfo("[%s] %s".format("firewall", msg.toString))
   }
 
   private def formatReq(req: RequestHeader) =

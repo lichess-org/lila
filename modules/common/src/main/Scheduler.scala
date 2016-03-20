@@ -38,14 +38,14 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     enabled ! {
       val f = randomize(freq)
       val doDebug = debug && freq > 5.seconds
-      info("schedule %s every %s".format(name, freq))
+      logger.info("schedule %s every %s".format(name, freq))
       scheduler.schedule(f, f) {
         val tagged = "(%s) %s".format(nextString(3), name)
-        doDebug ! info(tagged)
+        doDebug ! logger.info(tagged)
         val start = nowMillis
         op effectFold (
-          e => err("(%s) %s".format(tagged, e.getMessage)),
-          _ => doDebug ! info(tagged + " - %d ms".format(nowMillis - start))
+          e => logger.error("(%s) %s".format(tagged, e.getMessage), e),
+          _ => doDebug ! logger.info(tagged + " - %d ms".format(nowMillis - start))
         )
       }
     }
@@ -58,13 +58,7 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
   def after[A](delay: FiniteDuration)(op: => A) =
     akka.pattern.after(delay, scheduler)(fuccess(op))
 
-  private def info(msg: String) {
-    loginfo("[cron] " + msg)
-  }
-
-  private def err(msg: String) {
-    logerr("[cron] " + msg)
-  }
+  private def logger = lila.log("scheduler")
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.05f): FiniteDuration =
     approximatly(ratio)(d.toMillis) millis

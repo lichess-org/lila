@@ -14,7 +14,8 @@ final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
     },
     timeToLive = ttl,
     default = Nil,
-    awaitTime = 1.millisecond)
+    awaitTime = 1.millisecond,
+    logger = logger)
 
   def apply = cache get true
 

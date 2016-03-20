@@ -33,7 +33,7 @@ private[video] final class Youtube(
           scala.util.Try { new DateTime(at) }.toOption
         })
       ).recover {
-        case e: Exception => logerr(s"[video youtube] ${e.getMessage}")
+        case e: Exception => logger.warn("update all youtube", e)
       }
     }.sequenceFu.void
   }

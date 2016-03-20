@@ -103,5 +103,5 @@ object StepBuilder {
   }
 
   private val logChessError = (id: String) => (err: String) =>
-    logwarn(s"Round API http://lichess.org/$id ${err.lines.toList.headOption}")
+    logger.warn(s"Round API http://lichess.org/$id ${err.lines.toList.headOption}")
 }

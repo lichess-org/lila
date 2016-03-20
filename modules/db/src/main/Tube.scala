@@ -19,7 +19,7 @@ case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc
   def read(bson: BSONDocument): Option[Doc] = handler readTry bson match {
     case Success(doc) => Some(doc)
     case Failure(err) =>
-      logerr(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n${err.printStackTrace}")
+      logger.error(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n", err)
       None
   }
 
@@ -47,7 +47,7 @@ case class JsTube[Doc](
     fromMongo(js) match {
       case JsSuccess(v, _) => Some(v)
       case e =>
-        logerr("[tube] Cannot read %s\n%s".format(js, e))
+        logger.error("[tube] Cannot read %s\n%s".format(js, e))
         None
     }
   }
@@ -57,7 +57,7 @@ case class JsTube[Doc](
   def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
     case obj: JsObject => JsSuccess(obj)
     case something =>
-      logerr(s"[tube] Cannot write $doc\ngot $something")
+      logger.error(s"[tube] Cannot write $doc\ngot $something")
       JsError()
   }
 

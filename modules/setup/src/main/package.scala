@@ -12,4 +12,6 @@ package object setup extends PackageObject with WithPlay with WithSocket {
     private[setup] implicit lazy val anonConfigTube =
       UserConfig.tube inColl Env.current.anonConfigColl
   }
+
+  private[setup] def logger = lila.log("setup")
 }

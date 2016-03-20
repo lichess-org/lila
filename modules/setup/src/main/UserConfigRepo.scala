@@ -23,7 +23,7 @@ private[setup] object UserConfigRepo {
   def config(user: User): Fu[UserConfig] =
     $find byId user.id recover {
       case e: LilaException => {
-        logwarn("Can't load config: " + e.getMessage)
+        logger.warn("Can't load config", e)
         none[UserConfig]
       }
     } map (_ | UserConfig.default(user.id))

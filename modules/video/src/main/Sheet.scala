@@ -33,7 +33,7 @@ private[video] final class Sheet(
             ads = entry.ads,
             startTime = entry.startTime)
           (video != updated) ?? {
-            loginfo(s"[video sheet] update $updated")
+            logger.info(s"sheet update $updated")
             api.video.save(updated)
           }
         case None =>
@@ -48,11 +48,11 @@ private[video] final class Sheet(
             startTime = entry.startTime,
             metadata = Youtube.empty,
             createdAt = DateTime.now)
-          loginfo(s"[video sheet] insert $video")
+          logger.info(s"sheet insert $video")
           api.video.save(video)
         case _ => funit
       }.recover {
-        case e: Exception => logerr(s"[video sheet] ${e.getMessage}")
+        case e: Exception => logger.warn("sheet update", e)
       }
     }.sequenceFu.void >>
       api.video.removeNotIn(entries.map(_.youtubeId)) >>

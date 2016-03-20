@@ -123,7 +123,7 @@ object PovToEntry {
         !board.hasPiece(chess.Piece(color, chess.Queen))
       }
       case _ =>
-        logwarn(s"[insight] http://l.org/${from.pov.game.id} missing endgame board")
+        logger.warn(s"http://l.org/${from.pov.game.id} missing endgame board")
         false
     }
   }

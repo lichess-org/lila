@@ -11,4 +11,6 @@ package object security extends PackageObject with WithPlay {
     private[security] implicit lazy val firewallTube =
       JsTube.json inColl Env.current.firewallColl
   }
+
+  private[security] def logger = lila.log("security")
 }

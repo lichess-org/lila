@@ -24,20 +24,21 @@ private[i18n] final class GitWrite(
 
   private val git = new Git(repo, debug = true)
 
-  def apply(translations: List[Translation]): Funit =
-    fuloginfo("Working on " + repoPath) >>
-      git.currentBranch flatMap { currentBranch =>
-        loginfo("Current branch is " + currentBranch)
-        (translations map gitActor.?).sequenceFu >>
-          (gitActor ? currentBranch mapTo manifest[Unit])
-      }
+  def apply(translations: List[Translation]): Funit = {
+    logger.info("Working on " + repoPath)
+    git.currentBranch flatMap { currentBranch =>
+      logger.info("Current branch is " + currentBranch)
+      (translations map gitActor.?).sequenceFu >>
+        (gitActor ? currentBranch mapTo manifest[Unit])
+    }
+  }
 
   private lazy val gitActor = system.actorOf(Props(new Actor {
 
     def receive = {
 
       case branch: String => {
-        loginfo("Checkout " + branch)
+        logger.info("Checkout " + branch)
         git checkout branch
         sender ! (())
       }
@@ -49,12 +50,12 @@ private[i18n] final class GitWrite(
         val commitMsg = commitMessage(translation, name)
         sender ! (git branchExists branch flatMap {
           _.fold(
-            fulogwarn("! Branch already exists: " + branch),
+            fuccess(logger.warn("! Branch already exists: " + branch)),
             git.checkout(branch, true) >>
-              writeMessages(translation) >>
-              fuloginfo("Add " + relFileOf(translation)) >>
-              (git add relFileOf(translation)) >>
-              fuloginfo("- " + commitMsg) >>
+              writeMessages(translation) >>-
+              logger.info("Add " + relFileOf(translation)) >>
+              (git add relFileOf(translation)) >>-
+              logger.info("- " + commitMsg) >>
               (git commit commitMsg).void
           )
         }).await
@@ -63,11 +64,12 @@ private[i18n] final class GitWrite(
     }
   }))
 
-  private def writeMessages(translation: Translation) =
-    fuloginfo("Write messages to " + absFileOf(translation)) >>
-      printToFile(absFileOf(translation)) { writer =>
-        translation.lines foreach writer.println
-      }
+  private def writeMessages(translation: Translation) = {
+    logger.info("Write messages to " + absFileOf(translation))
+    printToFile(absFileOf(translation)) { writer =>
+      translation.lines foreach writer.println
+    }
+  }
 
   private def relFileOf(translation: Translation) =
     "%s/messages.%s".format(transRelPath, translation.code)
@@ -114,8 +116,5 @@ private[i18n] final class GitWrite(
 
     private def cleanupBranch(branch: String) =
       branch.replace("refs/heads/", "")
-
-    private def log(msg: => Any) = debug.fold(fuloginfo(msg.toString), funit)
   }
-
 }

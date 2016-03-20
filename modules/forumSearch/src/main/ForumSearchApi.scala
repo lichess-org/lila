@@ -35,7 +35,7 @@ final class ForumSearchApi(
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      loginfo(s"Index to ${c.index.name}")
+      lila.log("forumSearch").info(s"Index to ${c.index.name}")
       import lila.db.api._
       import lila.forum.tube.postTube
       $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 500) { postOptions =>

@@ -11,7 +11,8 @@ private[tournament] final class Cached(
   private val nameCache = MixedCache[String, Option[String]](
     ((id: String) => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName }),
     timeToLive = 6 hours,
-    default = _ => none)
+    default = _ => none,
+    logger = logger)
 
   def name(id: String): Option[String] = nameCache get id
 

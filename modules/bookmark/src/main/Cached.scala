@@ -1,14 +1,15 @@
 package lila.bookmark
 
-import scala.concurrent.duration._
 import lila.memo.MixedCache
+import scala.concurrent.duration._
 
 private[bookmark] final class Cached {
 
   private[bookmark] val gameIdsCache = MixedCache[String, Set[String]](
     BookmarkRepo.gameIdsByUserId,
     timeToLive = 1 day,
-    default = _ => Set.empty)
+    default = _ => Set.empty,
+    logger = lila.log("bookmark"))
 
   def gameIds(userId: String) = gameIdsCache get userId
 

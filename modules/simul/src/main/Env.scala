@@ -107,7 +107,7 @@ final class Env(
   private[simul] val simulColl = db(CollectionSimul)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some)
+    new Sequencer(SequencerTimeout.some, logger = logger)
   }))
 
   private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)

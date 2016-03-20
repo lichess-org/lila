@@ -65,7 +65,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Thread sleep 3000
     client match {
       case c: ESClientHttp =>
-        loginfo(s"Drop ${c.index.name}")
+        logger.info(s"Drop ${c.index.name}")
         writeable = false
         Thread sleep 3000
         c.putMapping >> indexSince("2011-01-01")
@@ -77,11 +77,11 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       client match {
         case c: ESClientHttp =>
-          loginfo(s"Index to ${c.index.name} since $since")
+          logger.info(s"Index to ${c.index.name} since $since")
           writeable = false
           Thread sleep 3000
           doIndex(c, since) >>- {
-            loginfo("[game search] Completed indexation.")
+            logger.info("[game search] Completed indexation.")
             Thread sleep 3000
             writeable = true
           }

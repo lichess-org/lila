@@ -110,7 +110,8 @@ final class Env(
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some)
+      executionTimeout = 5.seconds.some,
+      logger = logger)
   }))
 
   system.actorOf(Props(new Organizer(

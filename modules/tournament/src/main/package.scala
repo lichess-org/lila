@@ -13,4 +13,6 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
   private[tournament]type Ranking = Map[String, Int]
 
   private[tournament]type Waiting = Map[String, Int]
+
+  private[tournament] def logger = lila.log("tournament")
 }

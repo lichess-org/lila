@@ -16,7 +16,7 @@ private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
 
     case "team" :: "disable" :: team :: Nil => perform(team)(api.disable)
 
-    case "team" :: "recompute" :: "nbMembers" :: Nil  =>
+    case "team" :: "recompute" :: "nbMembers" :: Nil =>
       api.recomputeNbMembers inject "done"
   }
 
@@ -29,7 +29,10 @@ private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
     $find byId teamId flatMap {
       _.fold(fufail[String]("Team not found")) { team =>
         UserRepo nameds userIds flatMap { users =>
-          users.map(user => fuloginfo(user.username) >> op(team, user.id)).sequenceFu
+          users.map(user => {
+            logger.info(user.username)
+            op(team, user.id)
+          }).sequenceFu
         } inject "Success"
       }
     }

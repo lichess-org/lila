@@ -100,11 +100,11 @@ final class Env(
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id take 8, msg)
           case _: lila.hub.actorApi.Deploy =>
-            logwarn("Enable history persistence")
+            logger.warn("Enable history persistence")
             historyPersistenceEnabled = true
             // if the deploy didn't go through, cancel persistence
             system.scheduler.scheduleOnce(10.minutes) {
-              logwarn("Disabling round history persistence!")
+              logger.warn("Disabling round history persistence!")
               historyPersistenceEnabled = false
             }
           case msg: lila.game.actorApi.StartGame =>
