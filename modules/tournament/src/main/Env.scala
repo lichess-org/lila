@@ -113,7 +113,7 @@ final class Env(
       executionTimeout = 5.seconds.some)
   }))
 
-  private val organizer = system.actorOf(Props(new Organizer(
+  system.actorOf(Props(new Organizer(
     api = api,
     reminder = system.actorOf(Props(new Reminder(
       renderer = hub.actor.renderer
