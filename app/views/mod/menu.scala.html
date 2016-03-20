@@ -1,0 +1,20 @@
+@(active: String)(implicit ctx: Context)
+
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("report")" href="@routes.Report.list">Reports</a>
+}
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("gamify")" href="@routes.Mod.gamify">Hall of fame</a>
+}
+@if(isGranted(_.UserSearch)) {
+<a class="@active.active("search")" href="@routes.Mod.search">Search users</a>
+}
+@if(isGranted(_.StreamConfig)) {
+<a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
+}
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>
+}
+@if(isGranted(_.StaffForum)) {
+<a class="@active.active("forum")" href="@routes.ForumCateg.show("staff")">Staff Forum</a>
+}
