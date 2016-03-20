@@ -16,10 +16,10 @@ final class MixedCache[K, V] private (
   }
   catch {
     case e: java.util.concurrent.ExecutionException =>
-      logger.warn(e.getMessage, e)
+      logger.info(e.getMessage)
       default(k)
     case e: com.google.common.util.concurrent.UncheckedExecutionException =>
-      logger.error(e.getMessage, e)
+      logger.error(e.getMessage)
       default(k)
   }
 }

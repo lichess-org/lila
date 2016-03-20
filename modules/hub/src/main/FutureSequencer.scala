@@ -7,12 +7,13 @@ import scala.concurrent.Promise
 final class FutureSequencer(
     system: ActorSystem,
     receiveTimeout: Option[FiniteDuration],
-    executionTimeout: Option[FiniteDuration] = None) {
+    executionTimeout: Option[FiniteDuration] = None,
+    logger: lila.log.Logger) {
 
   import FutureSequencer._
 
   private val sequencer =
-    system.actorOf(Props(classOf[FSequencer], receiveTimeout, executionTimeout))
+    system.actorOf(Props(classOf[FSequencer], receiveTimeout, executionTimeout, logger))
 
   def apply[A: Manifest](op: => Fu[A]): Fu[A] = {
     val promise = Promise[A]()
@@ -32,9 +33,9 @@ object FutureSequencer {
   }
 
   private final class FSequencer(
-      logger: lila.log.Logger,
       receiveTimeout: Option[FiniteDuration],
-      executionTimeout: Option[FiniteDuration] = None) extends Actor {
+      executionTimeout: Option[FiniteDuration] = None,
+      logger: lila.log.Logger) extends Actor {
 
     receiveTimeout.foreach(context.setReceiveTimeout)
 
