@@ -11,6 +11,8 @@ import play.api.libs.json._
 
 object StepBuilder {
 
+  private val logger = lila.round.logger.branch("StepBuilder")
+
   def apply(
     id: String,
     pgnMoves: List[String],
@@ -102,6 +104,8 @@ object StepBuilder {
     }
   }
 
-  private val logChessError = (id: String) => (err: String) =>
-    logger.warn(s"Round API http://lichess.org/$id ${err.lines.toList.headOption}")
+  private val logChessError = (id: String) => (err: String) => {
+    val path = if (id == "synthetic") "analysis" else id
+    logger.info(s"http://lichess.org/$path ${err.lines.toList.headOption | "?"}")
+  }
 }

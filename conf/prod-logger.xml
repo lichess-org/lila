@@ -3,6 +3,7 @@
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
 
   <!-- STDOUT that accepts WARN and ERROR -->
+  <!-- Exceptions yes, stacktraces no -->
   <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
     <encoder><pattern>%coloredLevel %logger{25} - %message%n</pattern></encoder>
