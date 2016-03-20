@@ -31,7 +31,7 @@ final class Env(
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
     receiveTimeout = None,
-    executionTimeout = Some(500 millis))
+    executionTimeout = Some(1 second))
 
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
