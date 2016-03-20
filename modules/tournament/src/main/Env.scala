@@ -139,20 +139,8 @@ final class Env(
     system = system,
     onStart = onStart)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.once(5 seconds) {
-      organizer ! actorApi.StartedTournaments
-    }
-
-    scheduler.message(2 seconds) {
-      organizer -> actorApi.AllCreatedTournaments
-    }
-
-    scheduler.message(5 minutes) {
-      tournamentScheduler -> actorApi.ScheduleNow
-    }
+  scheduler.message(5 minutes) {
+    tournamentScheduler -> actorApi.ScheduleNow
   }
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)

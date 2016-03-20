@@ -18,9 +18,14 @@ private[tournament] final class Organizer(
 
   context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'adjustBooster)
 
+  override def preStart {
+    context.system.scheduler.scheduleOnce(5 seconds, self, AllCreatedTournaments)
+    context.system.scheduler.scheduleOnce(6 seconds, self, StartedTournaments)
+  }
+
   def receive = {
 
-    case AllCreatedTournaments => TournamentRepo allCreated 30 foreach { tours =>
+    case AllCreatedTournaments => TournamentRepo allCreated 30 map { tours =>
       tours foreach { tour =>
         tour.schedule match {
           case None => PlayerRepo count tour.id foreach {
@@ -35,6 +40,8 @@ private[tournament] final class Organizer(
         }
       }
       lila.mon.tournament.created(tours.size)
+    } andThenAnyway {
+      context.system.scheduler.scheduleOnce(2 seconds, self, AllCreatedTournaments)
     }
 
     case StartedTournaments =>
