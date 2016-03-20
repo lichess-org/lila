@@ -2,47 +2,49 @@
 
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%level %logger{15} - %message%n</pattern>
-    </encoder>
+  <!-- STDOUT that accepts WARN and ERROR -->
+  <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
+    <encoder><pattern>%coloredLevel %logger{25} - %message%n</pattern></encoder>
   </appender>
 
+  <!-- STDOUT that accepts INFO and above -->
+  <appender name="STDOUT_INFO" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
+    <encoder><pattern>%coloredLevel %logger{25} - %message%n</pattern></encoder>
+  </appender>
+
+  <!-- File where every INFO and above is written -->
   <appender name="ALL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
     <file>/var/log/lichess/all.log</file>
-    <encoder><pattern>%date [%level] %logger{15} %message%n%xException</pattern></encoder>
+    <encoder><pattern>%date [%level] %logger{35} %message%n%xException{30}</pattern></encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>/var/log/lichess/all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
       <maxHistory>14</maxHistory>
     </rollingPolicy>
   </appender>
 
+  <!-- Asynchronously write to the above file -->
   <appender name="ASYNC_ALL_FILE" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="ALL_FILE" />
   </appender>
 
+  <!-- By default, write WARNs in STDOUT, and INFOs in the ALL file -->
   <root level="INFO">
     <appender-ref ref="ASYNC_ALL_FILE" />
-  </root>
-  <root level="WARN">
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="STDOUT_WARN" />
   </root>
 
-  <logger name="cheat.jslog" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
+  <!-- But allow some interesting INFOs in STDOUT -->
+  <logger name="cheat.jslog" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="play" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="akka" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="reactivemongo" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
 
-  <logger name="play" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="akka" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="reactivemongo" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
+  <!-- Distinct files for relevant loggers -->
   <logger name="boot" level="INFO">
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="STDOUT_INFO" />
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/boot.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
@@ -117,9 +119,9 @@
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
-  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
-  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" />
-  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" />
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+  <!-- <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" /> -->
+  <!-- <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" /> -->
 
 </configuration>
