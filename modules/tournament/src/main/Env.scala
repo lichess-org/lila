@@ -142,12 +142,12 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(2 seconds) {
-      organizer -> actorApi.AllCreatedTournaments
+    scheduler.once(5 seconds) {
+      organizer ! actorApi.StartedTournaments
     }
 
-    scheduler.message(3 seconds) {
-      organizer -> actorApi.StartedTournaments
+    scheduler.message(2 seconds) {
+      organizer -> actorApi.AllCreatedTournaments
     }
 
     scheduler.message(5 minutes) {
