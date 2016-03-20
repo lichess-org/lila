@@ -122,7 +122,7 @@ final class Env(
     socketHub = socketHub
   )), name = OrganizerName)
 
-  private val tournamentScheduler = system.actorOf(Props(new Scheduler(api)))
+  system.actorOf(Props(new Scheduler(api)))
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
@@ -138,10 +138,6 @@ final class Env(
     roundMap = roundMap,
     system = system,
     onStart = onStart)
-
-  scheduler.message(5 minutes) {
-    tournamentScheduler -> actorApi.ScheduleNow
-  }
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)

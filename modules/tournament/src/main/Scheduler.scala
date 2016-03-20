@@ -32,6 +32,10 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
     Winter -> day(2016, 12, 28)
   )
 
+  override def preStart {
+    context.system.scheduler.schedule(5 minutes, 5 minutes, self, ScheduleNow)
+  }
+
   def receive = {
 
     case ScheduleNow =>
