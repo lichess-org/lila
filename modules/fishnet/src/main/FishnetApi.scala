@@ -113,7 +113,9 @@ final class FishnetApi(
       }
     }
   }.chronometer.mon(_.fishnet.analysis.post)
-    .logIfSlow(100, "fishnet")(_ => "post analysis").result
+    .logIfSlow(100, "fishnet") { res => 
+      s"post analysis for ${res.??(_.id)}"
+    }.result
     .flatMap { _ ?? saveAnalysis }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
