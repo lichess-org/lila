@@ -4,7 +4,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%level %logger{15} - %message%n%xException{0}</pattern>
+      <pattern>%level %logger{15} - %message%n</pattern>
     </encoder>
   </appender>
 
@@ -16,6 +16,7 @@
       <maxHistory>14</maxHistory>
     </rollingPolicy>
   </appender>
+
   <appender name="ASYNC_ALL_FILE" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="ALL_FILE" />
   </appender>
@@ -23,6 +24,13 @@
   <root level="INFO">
     <appender-ref ref="ASYNC_ALL_FILE" />
   </root>
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <logger name="cheat.jslog" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
 
   <logger name="play" level="INFO">
     <appender-ref ref="STDOUT" />
@@ -31,12 +39,6 @@
     <appender-ref ref="STDOUT" />
   </logger>
   <logger name="reactivemongo" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="application" level="INFO">
-    <appender-ref ref="STDOUT" />
-  </logger>
-  <logger name="lila" level="INFO">
     <appender-ref ref="STDOUT" />
   </logger>
   <logger name="boot" level="INFO">
