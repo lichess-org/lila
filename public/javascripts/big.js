@@ -541,13 +541,16 @@ lichess.numberFormat = (function() {
         displayed = val;
       }
     };
+    var timeouts = [];
     return function(nb) {
       if (!el || !nb) return;
+      timeouts.forEach(clearTimeout);
+      timeouts = [];
       var prev = previous || nb;
       previous = nb;
       var interv = getDuration() / nbSteps;
       for (var i = 0; i < nbSteps; i++) {
-        setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv));
+        timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
       }
     };
   };
@@ -1835,13 +1838,13 @@ lichess.numberFormat = (function() {
     var lobby;
     var nbRoundSpread = $.spreadNumber(
       document.querySelector('#nb_games_in_play span'),
-      4,
+      8,
       function() {
         return lichess.socket.pingInterval();
       });
     var nbUserSpread = $.spreadNumber(
       document.querySelector('#nb_connected_players > strong'),
-      5,
+      10,
       function() {
         return lichess.socket.pingInterval();
       });
