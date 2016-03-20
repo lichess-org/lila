@@ -60,8 +60,8 @@ private[tournament] final class Organizer(
             } inject nb
           }
         }.addEffect { playerCounts =>
-          lila.mon.tournament.player(playerCounts.sum.pp("player count"))
-          lila.mon.tournament.started(started.size.pp("started count"))
+          lila.mon.tournament.player(playerCounts.sum)
+          lila.mon.tournament.started(started.size)
         }
       } andThenAnyway {
         context.system.scheduler.scheduleOnce(3 seconds, self, StartedTournaments)
