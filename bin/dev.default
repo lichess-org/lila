@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Starts a dev console to compile and run lichess.
+# To edit this file, copy it to bin/dev: it's not indexed by Git.
+# cp bin/dev.default bin/dev
+# chmod +x bin/dev
+
+export JAVA_OPTS="-Xms1536M -Xmx1536M -Dkamon.auto-start=true"
+
+# Hide pesky reboot exceptions
+sbt -Dhttp.port=9663 "$@" 2> /dev/null
