@@ -27,14 +27,14 @@ final class BlogApi(prismicUrl: String, collection: String) {
     }
 
   private val cache = BuiltInCache(200)
-  private val logger = (level: Symbol, message: String) => level match {
-    case 'DEBUG => play.api.Logger("prismic") debug message
-    case 'ERROR => play.api.Logger("prismic") error message
-    case _      => play.api.Logger("prismic") info message
+  private val prismicLogger = (level: Symbol, message: String) => level match {
+    case 'DEBUG => logger debug message
+    case 'ERROR => logger error message
+    case _      => logger info message
   }
 
   private val fetchPrismicApi = AsyncCache.single[Api](
-    f = Api.get(prismicUrl, cache = cache, logger = logger),
+    f = Api.get(prismicUrl, cache = cache, logger = prismicLogger),
     timeToLive = 10 seconds)
 
   def prismicApi = fetchPrismicApi(true)

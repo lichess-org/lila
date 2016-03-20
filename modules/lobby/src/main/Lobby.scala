@@ -105,10 +105,10 @@ private[lobby] final class Lobby(
     case Broom =>
       HookRepo.truncateIfNeeded
       (socket ? GetUids mapTo manifest[SocketUids]).chronometer
-        .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
+        .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
-        .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
+        .logFailure(logger, err => s"broom cannot get uids from socket: $err")
         .addFailureEffect { _ =>
           scheduleBroom
         } pipeTo self
@@ -120,10 +120,10 @@ private[lobby] final class Lobby(
           _.createdAt isBefore createdBefore
         } ++ HookRepo.cleanupOld
       }.toSet
-      // play.api.Logger("lobby").debug(
+      // logger.debug(
       //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
       if (hooks.nonEmpty) {
-        // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+        // logger.debug(s"remove ${hooks.size} hooks")
         self ! RemoveHooks(hooks)
       }
       scheduleBroom

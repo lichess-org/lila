@@ -50,7 +50,7 @@ final class Sequencer(
           self ! Done
         }
         promiseOption foreach (_ completeWith future)
-      case x => logger.warn(s"[Sequencer] Unsupported message $x")
+      case x => logger.branch("Sequencer").warn(s"Unsupported message $x")
     }
   }
 }

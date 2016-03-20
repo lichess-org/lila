@@ -53,7 +53,7 @@ final class Env(
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  play.api.Logger("boot").info("Preloading modules")
+  lila.log.boot.info("Preloading modules")
   List(Env.socket,
     Env.site,
     Env.tournament,

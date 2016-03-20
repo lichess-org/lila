@@ -103,7 +103,7 @@ final class ModlogApi {
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create()
-    play.api.Logger("ModApi").info(m.toString)
+    lila.log("mod").info(m.toString)
     $insert(m)
   }
 }

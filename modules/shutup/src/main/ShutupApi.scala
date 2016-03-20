@@ -65,7 +65,7 @@ final class ShutupApi(
             upsert = true).map(_.value) map2 UserRecordBSONHandler.read flatMap {
             case None             => fufail(s"can't find user record for $userId")
             case Some(userRecord) => legiferate(userRecord)
-          } logFailure "ShutupApi"
+          } logFailure lila.log("shutup")
       }
     }
 

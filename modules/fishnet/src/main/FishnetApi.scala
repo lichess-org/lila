@@ -38,15 +38,15 @@ final class FishnetApi(
     case Skill.All      => acquireMove(client) orElse acquireAnalysis(client)
   }).chronometer
     .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, "fishnet")(_ => s"acquire ${client.skill}")
+    .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
     .withTimeout(1 second, AcquireTimeout)
     .recover {
       case e: FutureSequencer.Timeout =>
-        log.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
+        logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
       case AcquireTimeout =>
-        log.warn(s"[${client.skill}] Fishnet.acquire timed out")
+        logger.warn(s"[${client.skill}] Fishnet.acquire timed out")
         none
     } >>- monitor.acquire(client)
 
@@ -77,7 +77,7 @@ final class FishnetApi(
     moveDb.transaction { implicit txn =>
       moveDb.get(workId).filter(_ isAcquiredBy client) match {
         case None =>
-          log.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
+          logger.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
         case Some(work) => data.move.uci match {
           case Some(uci) =>
             monitor.move(work, client)
@@ -85,35 +85,35 @@ final class FishnetApi(
             moveDb.delete(work)
           case _ =>
             monitor.failure(work, client)
-            log.warn(s"Received invalid move ${data.move} by ${client.fullId}")
+            logger.warn(s"Received invalid move ${data.move} by ${client.fullId}")
             moveDb.updateOrGiveUp(work.invalid)
         }
       }
     }
   }.chronometer.mon(_.fishnet.move.post)
-    .logIfSlow(100, "fishnet")(_ => "post move").result
+    .logIfSlow(100, logger)(_ => "post move").result
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       case None =>
-        log.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
+        logger.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
         fuccess(none)
       case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
         monitor.analysis(work, client, data)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
         case e: AnalysisBuilder.GameIsGone =>
-          log.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+          logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
           monitor.analysis(work, client, data)
           repo.deleteAnalysis(work) inject none
         case e: Exception =>
           monitor.failure(work, client)
-          log.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
+          logger.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
     }
   }.chronometer.mon(_.fishnet.analysis.post)
-    .logIfSlow(200, "fishnet") { res =>
+    .logIfSlow(200, logger) { res =>
       s"post analysis for ${res.??(_.id)}"
     }.result
     .flatMap { _ ?? saveAnalysis }

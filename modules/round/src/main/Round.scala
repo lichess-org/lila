@@ -49,8 +49,6 @@ private[round] final class Round(
     }
   }
 
-  val logger = play.api.Logger("round")
-
   def process = {
 
     case ReceiveTimeout => fuccess {

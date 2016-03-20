@@ -27,7 +27,7 @@ private final class Cleaner(
     moveDb.find(_ acquiredBefore since).map { move =>
       moveDb updateOrGiveUp move.timeout
       clientTimeout(move)
-      log.warn(s"Timeout move ${move.game.id}")
+      logger.warn(s"Timeout move ${move.game.id}")
     }
     scheduleMoves
   }
@@ -40,7 +40,7 @@ private final class Cleaner(
     }.map { ana =>
       repo.updateOrGiveUpAnalysis(ana.timeout) >>- {
         clientTimeout(ana)
-        log.warn(s"Timeout analysis ${ana.game.id}")
+        logger.warn(s"Timeout analysis ${ana.game.id}")
       }
     }.sequenceFu.void
   } andThenAnyway scheduleAnalysis
@@ -48,7 +48,7 @@ private final class Cleaner(
   private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
     _ foreach { client =>
       monitor.timeout(work, client)
-      log.warn(s"Timeout client ${client.fullId}")
+      logger.warn(s"Timeout client ${client.fullId}")
     }
   }
 

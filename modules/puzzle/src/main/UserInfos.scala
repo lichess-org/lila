@@ -27,7 +27,7 @@ object UserInfos {
       new UserInfos(user, makeHistory(attempts), makeChart(attempts))
     } recover {
       case e: Exception =>
-        play.api.Logger("Puzzle UserInfos").error(e.getMessage)
+        logger.error("user infos", e)
         new UserInfos(user, Nil, JsArray())
     }
 

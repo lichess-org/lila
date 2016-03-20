@@ -68,7 +68,7 @@ private[puzzle] final class Finisher(
       system.updateRatings(results)
     }
     catch {
-      case e: Exception => play.api.Logger("Puzzle finisher").error(e.getMessage)
+      case e: Exception => logger.error("finisher", e)
     }
   }
 }

@@ -26,7 +26,7 @@ private final class LeaderboardIndexer(
       Iteratee.foldM[Seq[Entry], Int](0) {
         case (number, entries) =>
           if (number % 10000 == 0)
-            play.api.Logger("tournament").info(s"Generating leaderboards... $number")
+            logger.info(s"Generating leaderboards... $number")
           saveEntries(entries) inject (number + entries.size)
       }
   }.void

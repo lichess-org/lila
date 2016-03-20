@@ -23,7 +23,7 @@ object UserInfos {
       new UserInfos(user, makeHistory(attempts), makeChart(attempts))
     } recover {
       case e: Exception =>
-        play.api.Logger("Opening UserInfos").error(e.getMessage)
+        lila.log("opening").error("user infos", e)
         new UserInfos(user, Nil, JsArray())
     }
 

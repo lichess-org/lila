@@ -34,9 +34,7 @@ object RatingFest {
     def unrate(game: Game) =
       (game.whitePlayer.ratingDiff.isDefined || game.blackPlayer.ratingDiff.isDefined) ?? GameRepo.unrate(game.id).void
 
-    def log(x: Any) {
-      play.api.Logger.info(x.toString)
-    }
+    def log(x: Any) = lila.log("ratingFest") info x.toString
 
     var nb = 0
     for {

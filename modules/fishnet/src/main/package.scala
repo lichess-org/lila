@@ -2,5 +2,5 @@ package lila
 
 package object fishnet extends PackageObject with WithPlay {
 
-  val log = play.api.Logger("fishnet")
+  private[fishnet] def logger = lila.log("fishnet")
 }

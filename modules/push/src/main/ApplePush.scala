@@ -15,8 +15,6 @@ private final class ApplePush(
 
   private val actor = system.actorOf(Props(classOf[ApnsActor], certificate, password))
 
-  private val logger = play.api.Logger("push")
-
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) map {
       _ foreach { device =>
@@ -40,8 +38,6 @@ object ApplePush {
 private final class ApnsActor(certificate: InputStream, password: String) extends Actor {
 
   import com.relayrides.pushy.apns._, util._
-
-  val logger = play.api.Logger("push")
 
   var manager: PushManager[SimpleApnsPushNotification] = _
 

@@ -28,5 +28,5 @@ final class LightUserApi(coll: Coll) {
     ).one[LightUser],
     timeToLive = 20 minutes,
     default = id => LightUser(id, id, None).some,
-    logger = logger prefix "LightUserApi")
+    logger = logger branch "LightUserApi")
 }

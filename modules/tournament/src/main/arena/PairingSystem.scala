@@ -36,7 +36,7 @@ object PairingSystem extends AbstractPairingSystem {
         UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
       }.sequenceFu
     } yield pairings
-  }.chronometer.logIfSlow(500, "tourpairing") { pairings =>
+  }.chronometer.logIfSlow(500, pairingLogger) { pairings =>
     s"createPairings ${url(tour.id)} ${pairings.size} pairings"
   }.result
 
@@ -60,7 +60,7 @@ object PairingSystem extends AbstractPairingSystem {
         case Nil              => Nil
       }
     }
-  }.chronometer.logIfSlow(200, "tourpairing") { preps =>
+  }.chronometer.logIfSlow(200, pairingLogger) { preps =>
     s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
   }.result
 
@@ -148,7 +148,7 @@ object PairingSystem extends AbstractPairingSystem {
           case (rp0, rp1) => rp0.player -> rp1.player
         }
         case _ =>
-          logger.warn("Could not make smart pairings for arena tournament")
+          pairingLogger.warn("Could not make smart pairings for arena tournament")
           players map (_.player) grouped 2 collect {
             case List(p1, p2) => (p1, p2)
           } toList
@@ -156,7 +156,7 @@ object PairingSystem extends AbstractPairingSystem {
     }) map {
       Pairing.prep(tour, _)
     }
-    if (!continue) play.api.Logger("tourpairing").info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
+    if (!continue) pairingLogger.info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
     preps
   }
 

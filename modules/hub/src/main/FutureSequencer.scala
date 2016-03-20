@@ -32,7 +32,7 @@ object FutureSequencer {
   }
 
   private final class FSequencer(
-    logger: lila.log.Logger,
+      logger: lila.log.Logger,
       receiveTimeout: Option[FiniteDuration],
       executionTimeout: Option[FiniteDuration] = None) extends Actor {
 
@@ -78,7 +78,7 @@ object FutureSequencer {
           f(queue.size)
           self ! Done
         case x =>
-          logger.warn(s"[FSequencer] Unsupported message $x")
+          logger.branch("FutureSequencer").warn(s"Unsupported message $x")
           self ! Done
       }
     }

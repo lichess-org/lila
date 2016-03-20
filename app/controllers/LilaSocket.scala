@@ -14,7 +14,7 @@ object LilaSocket extends RequestGetter {
 
   private type AcceptType[A] = RequestHeader => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]
 
-  private val logger = play.api.Logger("ratelimit")
+  private val logger = lila.log("ratelimit")
 
   def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>

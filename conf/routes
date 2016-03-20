@@ -369,7 +369,6 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-POST  /api/opening                     controllers.Opening.importOne
 GET   /api/status                      controllers.Api.status
 
 # Misc

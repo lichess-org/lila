@@ -14,5 +14,7 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 
   private[tournament]type Waiting = Map[String, Int]
 
-  private[tournament] def logger = lila.log("tournament")
+  private[tournament] val logger = lila.log("tournament")
+
+  private[tournament] val pairingLogger = logger branch "pairing"
 }

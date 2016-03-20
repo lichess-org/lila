@@ -22,7 +22,7 @@ private[puzzle] final class Daily(
 
   private def find: Fu[Option[DailyPuzzle]] = (findCurrent orElse findNew) recover {
     case e: Exception =>
-      play.api.Logger("daily puzzle").error(e.toString)
+      logger.error("find daily", e)
       none
   } flatMap {
     case Some(puzzle) => makeDaily(puzzle)
@@ -40,7 +40,7 @@ private[puzzle] final class Daily(
     }
   } recover {
     case e: Exception =>
-      play.api.Logger("daily puzzle").warn(e.getMessage)
+      logger.warn("make daily", e)
       none
   }
 

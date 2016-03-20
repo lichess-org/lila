@@ -3,7 +3,6 @@ package lila.round
 import chess.{ Speed }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov, PerfPicker }
 import lila.history.HistoryApi
@@ -119,7 +118,7 @@ final class PerfsUpdater(
       system.updateRatings(results)
     }
     catch {
-      case e: Exception => logger.error(e.getMessage)
+      case e: Exception => logger.error("update ratings", e)
     }
   }
 
@@ -159,6 +158,4 @@ final class PerfsUpdater(
       correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence))
     if (isStd) perfs2.updateStandard else perfs2
   }
-
-  private def logger = play.api.Logger("PerfsUpdater")
 }

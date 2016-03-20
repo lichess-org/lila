@@ -43,7 +43,7 @@ private final class FishnetRepo(
   def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
-  def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- log.warn(s"Give up on analysis $ana")
+  def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
   def countAnalysis(acquired: Boolean) = analysisColl.count(BSONDocument(
     "acquired" -> BSONDocument("$exists" -> acquired)

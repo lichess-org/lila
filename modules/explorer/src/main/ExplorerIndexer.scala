@@ -170,5 +170,5 @@ private final class ExplorerIndexer(
     }
   })
 
-  private val logger = play.api.Logger("explorer")
+  private val logger = lila.log("explorer")
 }

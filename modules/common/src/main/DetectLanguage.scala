@@ -25,7 +25,7 @@ final class DetectLanguage(url: String, key: String) {
     )) map { response =>
       (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
         case None =>
-          play.api.Logger("DetectLanguage").warn("Invalide service response")
+          lila.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
           None
         case Some(res) => res.filter(_.isReliable)
           .sortBy(-_.confidence)
@@ -33,7 +33,7 @@ final class DetectLanguage(url: String, key: String) {
       }
     } recover {
       case e: Exception =>
-        play.api.Logger("detect language").warn(e.getMessage)
+        lila.log("DetectLanguage").warn(e.getMessage, e)
         Lang("en").some
     }
 }

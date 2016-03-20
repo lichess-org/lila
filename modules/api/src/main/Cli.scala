@@ -12,7 +12,7 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
   private val logger = lila.log("cli")
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
-    _ logFailure ("[cli] " + args.mkString(" ")) foreach { output =>
+    _.logFailure(logger, _ => args mkString " ") foreach { output =>
       logger.info("%s\n%s".format(args mkString " ", output))
     }
   }

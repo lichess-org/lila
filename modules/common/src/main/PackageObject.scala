@@ -30,7 +30,7 @@ trait PackageObject extends Steroids with WithFuture {
 
   implicit final class LilaPimpedString(s: String) {
 
-    def boot[A](v: => A): A = { play.api.Logger("boot").info(s); v }
+    def boot[A](v: => A): A = { lila.log.boot.info(s); v }
   }
 
   implicit final class LilaPimpedValid[A](v: Valid[A]) {
@@ -157,10 +157,9 @@ trait WithPlay { self: PackageObject =>
     def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-    def logFailure(logger: => String, msg: Exception => String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception => play.api.Logger(logger).warn(msg(e))
-    })
-    def logFailure(logger: => String): Fu[A] = logFailure(logger, _.toString)
+    def logFailure(logger: => lila.log.Logger, msg: Exception => String): Fu[A] =
+      addFailureEffect { e => logger.warn(msg(e), e) }
+    def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
     def addEffect(effect: A => Unit) = fua ~ (_ foreach effect)
 

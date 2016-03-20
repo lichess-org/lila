@@ -320,5 +320,5 @@ object mon {
 
   private def nodots(s: String) = s.replace(".", "_")
 
-  private val logger = play.api.Logger("monitor")
+  private val logger = lila.log("monitor")
 }

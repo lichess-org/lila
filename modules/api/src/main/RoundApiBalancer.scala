@@ -15,6 +15,8 @@ private[api] final class RoundApiBalancer(
     api: RoundApi,
     nbActors: Int) {
 
+  private val logger = lila.log("round").branch("balancer")
+
   private object implementation {
 
     implicit val timeout = makeTimeout seconds 20
@@ -30,14 +32,14 @@ private[api] final class RoundApiBalancer(
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
-        val logger = lila.log("round").branch("balancer")
         val futureTimeout = 20.seconds
+        val logger = RoundApiBalancer.this.logger
         def process = {
           case Player(pov, apiVersion, ctx) => {
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
-              play.api.Logger("RoundApiBalancer").error(s"$pov $e")
+              logger.error(pov.toString, e)
             }
-          }.chronometer.logIfSlow(500, "RoundApiBalancer") { _ => s"inner player $pov" }.result
+          }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
@@ -50,11 +52,11 @@ private[api] final class RoundApiBalancer(
 
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] = {
     router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
-      play.api.Logger("RoundApiBalancer").error(s"$pov $e")
+      logger.error(pov.toString, e)
     }
   }.chronometer
     .mon(_.round.api.player)
-    .logIfSlow(500, "RoundApiBalancer") { _ => s"outer player $pov" }
+    .logIfSlow(500, logger) { _ => s"outer player $pov" }
     .result
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],

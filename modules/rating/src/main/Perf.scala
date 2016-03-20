@@ -33,7 +33,7 @@ case class Perf(
   }
 
   def addOrReset(monitor: lila.mon.IncPath, msg: => String)(r: Rating, date: DateTime): Perf = add(r, date) | {
-    play.api.Logger.error(s"Crazy Glicko2 $msg")
+    lila.log("rating").error(s"Crazy Glicko2 $msg")
     lila.mon.incPath(monitor)()
     add(Glicko.default, date)
   }

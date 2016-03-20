@@ -9,14 +9,16 @@ import lila.memo.AsyncCache
 
 object Prismic {
 
-  private val logger = (level: Symbol, message: String) => level match {
-    case 'DEBUG => play.api.Logger("prismic") debug message
-    case 'ERROR => play.api.Logger("prismic") error message
-    case _      => play.api.Logger("prismic") info message
+  private val logger = lila.log("prismic")
+
+  val prismicLogger = (level: Symbol, message: String) => level match {
+    case 'DEBUG => logger debug message
+    case 'ERROR => logger error message
+    case _      => logger info message
   }
 
   private val fetchPrismicApi = AsyncCache.single[PrismicApi](
-    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = logger),
+    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
     timeToLive = 1 minute)
 
   def prismicApi = fetchPrismicApi(true)
@@ -42,7 +44,7 @@ object Prismic {
     }
   } recover {
     case e: Exception =>
-      play.api.Logger("prismic").error(s"bookmark:$name $e")
+      logger.error(s"bookmark:$name $e")
       none
   }
 

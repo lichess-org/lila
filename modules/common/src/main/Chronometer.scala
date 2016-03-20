@@ -6,15 +6,15 @@ object Chronometer {
 
     def millis = (nanos / 1000000).toInt
 
-    def logIfSlow(threshold: Int, logger: String)(msg: A => String) = {
-      if (millis >= threshold) play.api.Logger(logger).debug(s"<${millis}ms> ${msg(result)}")
+    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
+      if (millis >= threshold) logger.debug(s"<${millis}ms> ${msg(result)}")
       this
     }
   }
 
   case class FuLap[A](lap: Fu[Lap[A]]) {
 
-    def logIfSlow(threshold: Int, logger: String)(msg: A => String) = {
+    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
       lap.foreach(_.logIfSlow(threshold, logger)(msg))
       this
     }

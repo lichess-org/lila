@@ -39,7 +39,7 @@ private final class MoveDB {
 
   def updateOrGiveUp(move: Move) = transaction { implicit txn =>
     if (move.isOutOfTries) {
-      log.warn(s"Give up on move $move")
+      logger.warn(s"Give up on move $move")
       delete(move)
     }
     else update(move)

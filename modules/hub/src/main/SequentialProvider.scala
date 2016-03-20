@@ -54,7 +54,7 @@ trait SequentialProvider extends Actor {
   private def debugQueue {
     if (debug) queue.size match {
       case size if (size == 50 || (size >= 100 && size % 100 == 0)) =>
-        logger.warn(s"Seq[$name] queue = $size, mps = ${windowCount.get}")
+        logger.branch("SequentialProvider").warn(s"Seq[$name] queue = $size, mps = ${windowCount.get}")
       case _ =>
     }
   }
@@ -74,7 +74,7 @@ trait SequentialProvider extends Actor {
         (process orElse fallback)(msg)
           .withTimeout(futureTimeout, LilaException(s"Sequential provider timeout: $futureTimeout"))(context.system)
           .pipeTo(replyTo) andThenAnyway { self ! Done }
-      case x => logger.warn(s"SequentialProvider should never have received $x")
+      case x => logger.branch("SequentialProvider").warn(s"should never have received $x")
     }
   }
 }

@@ -134,7 +134,7 @@ object PlayerRepo {
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
     )).cursor[Player]().collect[List]()
-      .chronometer.logIfSlow(200, "tourpairing") { players =>
+      .chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
       }.result
 
@@ -156,7 +156,7 @@ object PlayerRepo {
   def rankedByTourAndUserIds(tourId: String, userIds: Iterable[String], ranking: Ranking): Fu[RankedPlayers] =
     byTourAndUserIds(tourId, userIds).map { rankPlayers(_, ranking) }
       .chronometer
-      .logIfSlow(200, "tourpairing") { players =>
+      .logIfSlow(200, logger) { players =>
         s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
       }.result
 }

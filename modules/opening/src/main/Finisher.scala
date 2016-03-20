@@ -65,7 +65,7 @@ private[opening] final class Finisher(
       system.updateRatings(results)
     }
     catch {
-      case e: Exception => play.api.Logger("Opening trainer").error(e.getMessage)
+      case e: Exception => lila.log("opening").error("update ratings", e)
     }
   }
 }
