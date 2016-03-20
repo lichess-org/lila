@@ -126,6 +126,8 @@ final class AssessApi(
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
 
+    import AutoAnalysis.Reason._
+
     def manyBlurs(player: Player) =
       (player.blurs.toDouble / game.playerMoves(player.color)) >= 0.7
 
@@ -151,7 +153,7 @@ final class AssessApi(
     val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
-    val shouldAnalyse: Option[String] =
+    val shouldAnalyse: Option[AutoAnalysis.Reason] =
       if (!game.analysable) none
       else if (!game.source.exists(assessableSources.contains)) none
       // give up on correspondence games
@@ -163,25 +165,25 @@ final class AssessApi(
       // stop here for casual games
       else if (!game.mode.rated) none
       // someone is using a bot
-      else if (game.players.exists(_.hasSuspiciousHoldAlert)) "Hold alert".some
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) HoldAlert.some
       // white has consistent move times
-      else if (whiteSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(x => s"White Move times ~ $x")
+      else if (whiteSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
       // black has consistent move times
-      else if (blackSuspCoefVariation.isDefined) blackSuspCoefVariation.map(x => s"Black Move times ~ $x")
+      else if (blackSuspCoefVariation.isDefined) blackSuspCoefVariation.map(_ => BlackMoveTime)
       // don't analyse other bullet games
       else if (game.speed == chess.Speed.Bullet) none
       // someone blurs a lot
-      else if (game.players exists manyBlurs) "Blurs".some
+      else if (game.players exists manyBlurs) Blurs.some
       // the winner shows a great rating progress
-      else if (game.players exists winnerGreatProgress) "Winner progress".some
+      else if (game.players exists winnerGreatProgress) WinnerRatingProgress.some
       // analyse some tourney games
       // else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) "New winner".some
+      else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) NewPlayerWin.some
       else none
 
     shouldAnalyse foreach { reason =>
-      play.api.Logger("autoanalyse").debug(s"http://lichess.org/${game.id} $reason")
+      lila.mon.cheat.autoAnalysis.reason(reason.toString)()
       fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
     }
 

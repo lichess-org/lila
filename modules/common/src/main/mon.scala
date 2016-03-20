@@ -133,6 +133,9 @@ object mon {
   }
   object cheat {
     val cssBot = inc("cheat.css_bot")
+    object autoAnalysis {
+      def reason(r: String) = inc(s"cheat.auto_analysis.reason.$r")
+    }
   }
   object email {
     val resetPassword = inc("email.reset_password")
