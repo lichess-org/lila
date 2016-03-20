@@ -23,12 +23,12 @@ final class FishnetApi(
   import FishnetApi._
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request) = {
+  def authenticateClient(req: JsonApi.Request, ip: Client.IpAddress) = {
     if (offlineMode) repo.getOfflineClient
     else repo.getEnabledClient(req.fishnet.apikey)
   } flatMap {
     _ ?? { client =>
-      repo.updateClientInstance(client, req.instance) map some
+      repo.updateClientInstance(client, req instance ip) map some
     }
   }
 

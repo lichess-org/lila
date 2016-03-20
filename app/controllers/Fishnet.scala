@@ -5,6 +5,7 @@ import play.api.libs.json._
 import play.api.mvc._
 
 import lila.app._
+import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers._
 import lila.fishnet.JsonApi.writers._
 import lila.fishnet.{ JsonApi, Work }
@@ -14,6 +15,10 @@ object Fishnet extends LilaController {
   private def env = Env.fishnet
   private def api = env.api
   override val logger = lila.log("fishnet")
+
+  def clientIp(req: RequestHeader) = lila.fishnet.Client.IpAddress {
+    HTTPRequest lastRemoteAddress req
+  }
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
@@ -42,7 +47,7 @@ object Fishnet extends LilaController {
           logger.warn(s"Malformed request: $err\n${req.body}")
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
-        data => api.authenticateClient(data) flatMap {
+        data => api.authenticateClient(data, clientIp(req)) flatMap {
           case None => {
             val ip = lila.common.HTTPRequest.lastRemoteAddress(req)
             logger.warn(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip")

@@ -14,9 +14,10 @@ object JsonApi {
     val fishnet: Request.Fishnet
     val engine: Request.Engine
 
-    def instance = Client.Instance(
+    def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
       Client.Engine(engine.name),
+      ip,
       DateTime.now)
   }
 
