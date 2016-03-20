@@ -113,7 +113,7 @@ final class FishnetApi(
       }
     }
   }.chronometer.mon(_.fishnet.analysis.post)
-    .logIfSlow(100, "fishnet") { res => 
+    .logIfSlow(200, "fishnet") { res =>
       s"post analysis for ${res.??(_.id)}"
     }.result
     .flatMap { _ ?? saveAnalysis }
