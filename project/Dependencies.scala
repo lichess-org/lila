@@ -33,7 +33,7 @@ object Dependencies {
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.9.1"
+  val jodaTime = "joda-time" % "joda-time" % "2.9.2"
   val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9-SNAPSHOT"
   val PRM = "org.reactivemongo" % "play2-reactivemongo_2.11" % "0.11.9-SNAPSHOT"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
@@ -52,7 +52,7 @@ object Dependencies {
     val util = "io.spray" %% "spray-util" % version
   }
   object akka {
-    val version = "2.4.1"
+    val version = "2.4.2"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
