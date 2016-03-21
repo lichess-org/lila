@@ -44,7 +44,7 @@ private[tournament] final class CreatedOrganizer(
           }
         }
         val nbTours = tours.size
-        pairingLogger.debug(s"AllCreatedTournaments - tours: $nbTours")
+        pairingLogger.debug(s"Created - tours: $nbTours")
         lila.mon.tournament.created(nbTours)
       } andThenAnyway scheduleNext
   }

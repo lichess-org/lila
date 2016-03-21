@@ -50,7 +50,7 @@ private[tournament] final class StartedOrganizer(
           }
         }.addEffect { playerCounts =>
           val nbPlayers = playerCounts.sum
-          pairingLogger.debug(s"AllStartedTournaments - players: $nbPlayers")
+          pairingLogger.debug(s"Started - players: $nbPlayers")
           lila.mon.tournament.player(nbPlayers)
           lila.mon.tournament.started(started.size)
         }
