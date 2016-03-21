@@ -19,10 +19,23 @@
     <appender-ref ref="ALL_FILE" />
   </root>
 
-  <logger name="timer" level="DEBUG">
+  <!-- <logger name="timer" level="DEBUG"> -->
+  <!--   <appender name="FILE" class="ch.qos.logback.core.FileAppender"> -->
+  <!--     <file>${application.home}/logs/timer.log</file> -->
+  <!--     <encoder><pattern>%date [%level] %message%n</pattern></encoder> -->
+  <!--   </appender> -->
+  <!-- </logger> -->
+
+  <logger name="lobby" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>${application.home}/logs/timer.log</file>
-      <encoder><pattern>%date [%level] %message%n</pattern></encoder>
+      <file>${application.home}/logs/lobby.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+  <logger name="tournament" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/tournament.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
 
