@@ -1,47 +1,43 @@
 package lila.fishnet
 
-import scala.concurrent.stm._
-
 private final class MoveDB {
 
   import Work.Move
 
-  private val maxSize = 1000
+  private val maxSize = 300
 
-  type CollType = TMap[Work.Id, Move]
+  private val coll = scala.collection.mutable.Map.empty[Work.Id, Move]
 
-  private val coll: CollType = TMap.empty
+  def get = coll.get _
 
-  def get = coll.single.get _
+  def add(move: Move): Unit = if (coll.size < maxSize) coll += (move.id -> move)
 
-  def add(move: Move)(implicit txn: InTxn): Unit =
-    if (coll.size < maxSize) coll.put(move.id, move)
+  def update(move: Move): Unit = if (coll contains move.id) coll += (move.id -> move)
 
-  def update(move: Move)(implicit tnx: InTxn): Unit =
-    if (coll.contains(move.id)) coll.put(move.id, move)
+  def delete(move: Move): Unit = coll -= move.id
 
-  def delete(move: Move)(implicit tnx: InTxn): Unit =
-    coll.remove(move.id)
+  def contains = coll.contains _
 
-  def transaction[A](f: InTxn => A): A = atomic { txn =>
-    f(txn)
+  def exists = coll.values.exists _
+
+  def find = coll.values.filter _
+
+  def count = coll.values.count _
+
+  def size = coll.size
+
+  def oldestNonAcquired = coll.foldLeft(none[Move]) {
+    case (acc, (_, m)) if m.nonAcquired => Some {
+      acc.fold(m) { a =>
+        if (m.createdAt isBefore a.createdAt) m else a
+      }
+    }
   }
 
-  def contains = coll.single.contains _
-
-  def exists = coll.single.values.exists _
-
-  def find = coll.single.values.filter _
-
-  def count = coll.single.values.count _
-
-  def size = coll.single.size
-
-  def updateOrGiveUp(move: Move) = transaction { implicit txn =>
+  def updateOrGiveUp(move: Move) =
     if (move.isOutOfTries) {
       logger.warn(s"Give up on move $move")
       delete(move)
     }
     else update(move)
-  }
 }

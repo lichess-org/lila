@@ -50,14 +50,11 @@ final class FishnetApi(
         none
     } >>- monitor.acquire(client)
 
-  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = Future {
-    moveDb.transaction { implicit tnx =>
-      moveDb.find(_.nonAcquired).toList.sortBy(_.createdAt).headOption
-        .map(_ assignTo client) ?? { work =>
-          moveDb.update(work)
-          work.some
-        }
-    } map JsonApi.fromWork
+  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] = fuccess {
+    moveDb.oldestNonAcquired.map(_ assignTo client) map { found =>
+      moveDb update found
+      JsonApi fromWork found
+    }
   }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
@@ -74,20 +71,18 @@ final class FishnetApi(
   }.map { _ map JsonApi.fromWork }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
-    moveDb.transaction { implicit txn =>
-      moveDb.get(workId).filter(_ isAcquiredBy client) match {
-        case None =>
-          logger.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
-        case Some(work) => data.move.uci match {
-          case Some(uci) =>
-            monitor.move(work, client)
-            hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
-            moveDb.delete(work)
-          case _ =>
-            monitor.failure(work, client)
-            logger.warn(s"Received invalid move ${data.move} by ${client.fullId}")
-            moveDb.updateOrGiveUp(work.invalid)
-        }
+    moveDb.get(workId).filter(_ isAcquiredBy client) match {
+      case None =>
+        logger.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
+      case Some(work) => data.move.uci match {
+        case Some(uci) =>
+          moveDb delete work
+          monitor.move(work, client)
+          hub.actor.roundMap ! hubApi.map.Tell(work.game.id, hubApi.round.FishnetPlay(uci, work.currentFen))
+        case _ =>
+          moveDb updateOrGiveUp work.invalid
+          monitor.failure(work, client)
+          logger.warn(s"Received invalid move ${data.move} by ${client.fullId}")
       }
     }
   }.chronometer.mon(_.fishnet.move.post)
