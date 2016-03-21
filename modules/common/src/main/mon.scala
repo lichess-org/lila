@@ -134,8 +134,15 @@ object mon {
   }
   object cheat {
     val cssBot = inc("cheat.css_bot")
+    val holdAlert = inc("cheat.hold_alert")
     object autoAnalysis {
       def reason(r: String) = inc(s"cheat.auto_analysis.reason.$r")
+    }
+    object autoMark {
+      val count = inc("cheat.auto_mark.count")
+    }
+    object autoReport {
+      val count = inc("cheat.auto_report.count")
     }
   }
   object email {

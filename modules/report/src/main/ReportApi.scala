@@ -55,6 +55,7 @@ private[report] final class ReportApi {
   }
 
   def autoCheatReport(userId: String, text: String): Funit = {
+    lila.mon.cheat.autoReport.count()
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
