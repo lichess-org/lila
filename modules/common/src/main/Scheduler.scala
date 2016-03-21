@@ -3,7 +3,6 @@ package lila.common
 import scala.concurrent.duration._
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
 import ornicar.scalalib.Random.{ approximatly, nextString }
 
 final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: Boolean) {

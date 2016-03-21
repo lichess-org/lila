@@ -2,7 +2,6 @@ package lila.puzzle
 
 import play.api.libs.json._
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 
 import lila.db.Types.Coll
 import lila.rating.Glicko

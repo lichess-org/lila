@@ -1,7 +1,6 @@
 package lila.worldMap
 
 import akka.actor._
-import com.google.common.cache.LoadingCache
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import java.security.MessageDigest
 import lila.hub.actorApi.round.SocketEvent

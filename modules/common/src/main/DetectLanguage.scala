@@ -1,6 +1,5 @@
 package lila.common
 
-import lila.common.PimpedJson._
 import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws.WS
