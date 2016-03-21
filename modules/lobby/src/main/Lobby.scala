@@ -10,7 +10,6 @@ import lila.db.api._
 import lila.game.GameRepo
 import lila.hub.actorApi.{ GetUids, SocketUids }
 import lila.socket.actorApi.Broom
-import makeTimeout.short
 import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
