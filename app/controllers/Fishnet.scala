@@ -3,6 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
+import scala.util.{ Try, Success, Failure }
 
 import lila.app._
 import lila.common.HTTPRequest
@@ -48,12 +49,12 @@ object Fishnet extends LilaController {
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
         data => api.authenticateClient(data, clientIp(req)) flatMap {
-          case None => {
+          case Failure(msg) => {
             val ip = lila.common.HTTPRequest.lastRemoteAddress(req)
-            logger.warn(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip")
-            Unauthorized(jsonError("Invalid or revoked API key")).fuccess
+            logger.warn(s"${msg.getMessage} | key: ${data.fishnet.apikey} ip: $ip")
+            Unauthorized(jsonError(msg.getMessage)).fuccess
           }
-          case Some(client) => f(data)(client).map {
+          case Success(client) => f(data)(client).map {
             case Some(work) => Accepted(Json toJson work)
             case _          => NoContent
           }

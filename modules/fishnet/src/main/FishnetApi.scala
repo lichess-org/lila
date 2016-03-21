@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent.duration._
 import scala.concurrent.Future
+import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
 import lila.db.Implicits._
@@ -23,13 +24,15 @@ final class FishnetApi(
   import FishnetApi._
   import BSONHandlers._
 
-  def authenticateClient(req: JsonApi.Request, ip: Client.IpAddress) = {
-    if (offlineMode) repo.getOfflineClient
+  def authenticateClient(req: JsonApi.Request, ip: Client.IpAddress): Fu[Try[Client]] = {
+    if (offlineMode) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
+  } map {
+    case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
+    case Some(client) => ClientVersion accept req.fishnet.version map (_ => client)
   } flatMap {
-    _ ?? { client =>
-      repo.updateClientInstance(client, req instance ip) map some
-    }
+    case Success(client) => repo.updateClientInstance(client, req instance ip) map Success.apply
+    case failure         => fuccess(failure)
   }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
