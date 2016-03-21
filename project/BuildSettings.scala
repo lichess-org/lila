@@ -26,9 +26,6 @@ object BuildSettings {
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
-  def test(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "test")
-  def runtime(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "runtime")
-  def container(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "container")
 
   def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
@@ -43,7 +40,6 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Ywarn-unused-import",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
 
   val srcMain = Seq(
