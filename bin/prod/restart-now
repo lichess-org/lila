@@ -5,7 +5,7 @@ DIR="/home/lichess"
 echo "Notify lichess of post deploy"
 $DIR/bin/cli-prod deploy post
 
-sleep 1
+sleep 3
 
 echo "Restart lichess"
 service lichess restart
