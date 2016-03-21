@@ -25,7 +25,7 @@ trait LilaSocket { self: LilaController =>
           val username = ctx.usernameOrAnon
           s"user:$username sri:$sri"
         }
-        logger.info(s"socket:$name socket connect $ip $userInfo")
+        // logger.debug(s"socket:$name socket connect $ip $userInfo")
         f(ctx).map { resultOrSocket =>
           resultOrSocket.right.map {
             case (readIn, writeOut) => (e, i) => {
