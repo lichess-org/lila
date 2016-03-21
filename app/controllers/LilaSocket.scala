@@ -20,12 +20,12 @@ trait LilaSocket { self: LilaController =>
     WebSocket[A, A] { req =>
       reqToCtx(req) flatMap { ctx =>
         val ip = HTTPRequest lastRemoteAddress req
-        def mobileInfo = lila.api.Mobile.Api.requestVersion(req).fold("nope") { v =>
+        def userInfo = {
           val sri = get("sri", req) | "none"
           val username = ctx.usernameOrAnon
-          s"$v user:$username sri:$sri"
+          s"user:$username sri:$sri"
         }
-        // logger.info(s"socket:$name socket connect $ip mobile:$mobileInfo")
+        logger.info(s"socket:$name socket connect $ip $userInfo")
         f(ctx).map { resultOrSocket =>
           resultOrSocket.right.map {
             case (readIn, writeOut) => (e, i) => {
@@ -34,7 +34,7 @@ trait LilaSocket { self: LilaController =>
                 consumer(ip).map { credit =>
                   if (credit >= 0) in
                   else {
-                    logger.info(s"socket:$name socket close $ip mobile:$mobileInfo $in")
+                    logger.info(s"socket:$name socket close $ip $userInfo $in")
                     Input.EOF
                   }
                 }
