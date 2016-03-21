@@ -39,8 +39,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
-    val OrganizerName = config getString "organizer.name"
-    val ReminderName = config getString "reminder.name"
+    val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
   }
@@ -114,14 +113,23 @@ final class Env(
       logger = logger)
   }))
 
-  system.actorOf(Props(new Organizer(
+  system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName)
+
+  system.actorOf(Props(new CreatedOrganizer(
     api = api,
-    reminder = system.actorOf(Props(new Reminder(
-      renderer = hub.actor.renderer
-    )), name = ReminderName),
+    isOnline = isOnline
+  )))
+
+  private val reminder = system.actorOf(Props(new Reminder(
+    renderer = hub.actor.renderer
+  )))
+
+  system.actorOf(Props(new StartedOrganizer(
+    api = api,
+    reminder = reminder,
     isOnline = isOnline,
     socketHub = socketHub
-  )), name = OrganizerName)
+  )))
 
   system.actorOf(Props(new Scheduler(api)))
 

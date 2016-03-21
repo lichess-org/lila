@@ -27,9 +27,6 @@ private[tournament] case object Reload
 private[tournament] case class StartGame(game: Game)
 private[tournament] case class Connected(enumerator: JsEnumerator, member: Member)
 
-// organizer
-private[tournament] case object AllCreatedTournaments
-private[tournament] case object StartedTournaments
 case class RemindTournament(tour: Tournament, activeUserIds: List[String])
 case class TournamentTable(tours: List[Tournament])
 

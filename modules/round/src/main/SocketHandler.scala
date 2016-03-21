@@ -89,7 +89,7 @@ private[round] final class SocketHandler(
           sd ← d int "sd"
         } send(HoldAlert(playerId, mean, sd, member.ip))
         case ("berserk", _) => member.userId foreach { userId =>
-          hub.actor.tournamentOrganizer ! Berserk(gameId, userId)
+          hub.actor.tournamentApi ! Berserk(gameId, userId)
         }
       }
     }
