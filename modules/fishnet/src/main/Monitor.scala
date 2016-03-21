@@ -89,7 +89,7 @@ private final class Monitor(
   }
 
   private[fishnet] def notAcquired(work: Work, client: Client) = {
-    logger.warn(s"Received unacquired ${work.skill} by ${client.fullId}")
+    logger.warn(s"Received unacquired ${work.skill} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).notAcquired()
   }
 

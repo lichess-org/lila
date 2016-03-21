@@ -32,6 +32,9 @@ object Work {
   case class Acquired(
       clientKey: Client.Key,
       date: DateTime) {
+
+    def ageInMillis = nowMillis - date.getMillis
+
     override def toString = s"by $clientKey at $date"
   }
 
