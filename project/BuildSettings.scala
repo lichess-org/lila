@@ -43,6 +43,7 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
+    "-Ywarn-unused-import",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
 
   val srcMain = Seq(
