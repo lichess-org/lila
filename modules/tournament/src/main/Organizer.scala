@@ -1,10 +1,11 @@
 package lila.tournament
 
-import akka.actor._
+import akka.actor.{ Scheduler => ActorScheduler, _ }
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 
 import actorApi._
+import lila.common.LilaException
 import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.WithUserIds
@@ -16,55 +17,62 @@ private[tournament] final class Organizer(
     isOnline: String => Boolean,
     socketHub: ActorRef) extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'adjustBooster)
-
   override def preStart {
+    context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'adjustBooster)
     context.system.scheduler.scheduleOnce(5 seconds, self, AllCreatedTournaments)
     context.system.scheduler.scheduleOnce(6 seconds, self, StartedTournaments)
   }
 
   def receive = {
 
-    case AllCreatedTournaments => TournamentRepo allCreated 30 map { tours =>
-      tours foreach { tour =>
-        tour.schedule match {
-          case None => PlayerRepo count tour.id foreach {
-            case 0 => api wipe tour
-            case nb if tour.hasWaitedEnough =>
-              if (nb >= Tournament.minPlayers) api start tour
-              else api wipe tour
-            case _ =>
+    case AllCreatedTournaments => TimeoutReschedule(
+      name = "AllCreatedTournaments",
+      timeout = 10 seconds,
+      reschedule = _.scheduleOnce(2 seconds, self, AllCreatedTournaments)) {
+        TournamentRepo.allCreated(30).map { tours =>
+          tours foreach { tour =>
+            tour.schedule match {
+              case None => PlayerRepo count tour.id foreach {
+                case 0 => api wipe tour
+                case nb if tour.hasWaitedEnough =>
+                  if (nb >= Tournament.minPlayers) api start tour
+                  else api wipe tour
+                case _ =>
+              }
+              case Some(schedule) if tour.hasWaitedEnough => api start tour
+              case _                                      => ejectLeavers(tour)
+            }
           }
-          case Some(schedule) if tour.hasWaitedEnough => api start tour
-          case _                                      => ejectLeavers(tour)
+          lila.mon.tournament.created(tours.size)
         }
       }
-      lila.mon.tournament.created(tours.size)
-    } andThenAnyway {
-      context.system.scheduler.scheduleOnce(2 seconds, self, AllCreatedTournaments)
-    }
 
-    case StartedTournaments =>
-      val startAt = nowMillis
-      TournamentRepo.started.flatMap { started =>
-        lila.common.Future.traverseSequentially(started) { tour =>
-          PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
-            val nb = activeUserIds.size
-            val result: Funit =
-              if (tour.secondsToFinish == 0) fuccess(api finish tour)
-              else if (!tour.scheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
-              else funit
-            result >>- {
-              reminder ! RemindTournament(tour, activeUserIds)
-            } inject nb
+    case StartedTournaments => TimeoutReschedule(
+      name = "StartedTournaments",
+      timeout = 15 seconds,
+      reschedule = _.scheduleOnce(3 seconds, self, StartedTournaments)) {
+        val startAt = nowMillis
+        TournamentRepo.started.flatMap { started =>
+          lila.common.Future.traverseSequentially(started) { tour =>
+            PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
+              val nb = activeUserIds.size
+              val result: Funit =
+                if (tour.secondsToFinish == 0) fuccess(api finish tour)
+                else if (!tour.scheduled && nb < 2) fuccess(api finish tour)
+                else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
+                else funit
+              result >>- {
+                reminder ! RemindTournament(tour, activeUserIds)
+              } inject nb
+            }
+          }.addEffect { playerCounts =>
+            val nbPlayers = playerCounts.sum
+            pairingLogger.debug(s"paired - players: $nbPlayers")
+            lila.mon.tournament.player(nbPlayers)
+            lila.mon.tournament.started(started.size)
+            if (nbPlayers > 1) Thread sleep 20000
           }
-        }.addEffect { playerCounts =>
-          lila.mon.tournament.player(playerCounts.sum)
-          lila.mon.tournament.started(started.size)
         }
-      } andThenAnyway {
-        context.system.scheduler.scheduleOnce(3 seconds, self, StartedTournaments)
       }
 
     case FinishGame(game, _, _)                          => api finishGame game
@@ -75,6 +83,14 @@ private[tournament] final class Organizer(
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
   }
+
+  private def TimeoutReschedule[A](
+    name: String,
+    timeout: FiniteDuration,
+    reschedule: ActorScheduler => Unit)(f: Fu[A]) = f
+    .withTimeout(timeout, LilaException(s"Organizer.$name timed out after $timeout"))(context.system)
+    .addFailureEffect { e => pairingLogger.error(e.getMessage, e) }
+    .andThenAnyway(reschedule(context.system.scheduler))
 
   private def ejectLeavers(tour: Tournament) =
     PlayerRepo userIds tour.id foreach {
