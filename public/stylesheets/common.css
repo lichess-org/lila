@@ -97,6 +97,7 @@ time {
 }
 [data-icon].is-green::before {
   color: #759900;
+  margin-right: 5px;
 }
 [data-icon].is-red::before {
   color: #dc322f;
