@@ -247,6 +247,8 @@ object mon {
         def success = apply("success")
         def failure = apply("failure")
         def timeout = apply("timeout")
+        def notFound = apply("not_found")
+        def notAcquired = apply("not_acquired")
         def abort = apply("abort")
         private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
       }

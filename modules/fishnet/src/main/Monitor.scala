@@ -72,14 +72,26 @@ private final class Monitor(
     }
   }
 
-  private[fishnet] def failure(work: Work, client: Client) =
+  private[fishnet] def failure(work: Work, client: Client) = {
+    logger.warn(s"Received invalid ${work.skill} by ${client.fullId}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
+  }
 
   private[fishnet] def timeout(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).timeout()
 
   private[fishnet] def abort(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).abort()
+
+  private[fishnet] def notFound(skill: Client.Skill, client: Client) = {
+    logger.warn(s"Received unknown $skill by ${client.fullId}")
+    lila.mon.fishnet.client.result(client.userId.value, client.skill.key).notFound()
+  }
+
+  private[fishnet] def notAcquired(work: Work, client: Client) = {
+    logger.warn(s"Received unacquired ${work.skill} by ${client.fullId}")
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).notAcquired()
+  }
 
   private def monitorClients: Unit = repo.allRecentClients map { clients =>
 

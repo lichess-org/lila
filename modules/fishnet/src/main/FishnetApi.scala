@@ -75,9 +75,8 @@ final class FishnetApi(
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
     moveDb.get(workId).filter(_ isAcquiredBy client) match {
-      case None =>
-        logger.warn(s"Received unknown or unacquired move $workId by ${client.fullId}")
-      case Some(work) => data.move.uci match {
+      case None => monitor.notFound(Client.Skill.Move, client)
+      case Some(work) if work isAcquiredBy client => data.move.uci match {
         case Some(uci) =>
           moveDb delete work
           monitor.move(work, client)
@@ -85,18 +84,18 @@ final class FishnetApi(
         case _ =>
           moveDb updateOrGiveUp work.invalid
           monitor.failure(work, client)
-          logger.warn(s"Received invalid move ${data.move} by ${client.fullId}")
       }
+      case Some(work) => monitor.notAcquired(work, client)
     }
   }.chronometer.mon(_.fishnet.move.post)
     .logIfSlow(100, logger)(_ => "post move").result
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
-    repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
+    repo.getAnalysis(workId) flatMap {
       case None =>
-        logger.warn(s"Received unknown or unacquired analysis $workId by ${client.fullId}")
+        monitor.notFound(Client.Skill.Analysis, client)
         fuccess(none)
-      case Some(work) => AnalysisBuilder(client, work, data) flatMap { analysis =>
+      case Some(work) if work isAcquiredBy client => AnalysisBuilder(client, work, data) flatMap { analysis =>
         monitor.analysis(work, client, data)
         repo.deleteAnalysis(work) inject analysis.some
       } recoverWith {
@@ -106,9 +105,11 @@ final class FishnetApi(
           repo.deleteAnalysis(work) inject none
         case e: Exception =>
           monitor.failure(work, client)
-          logger.warn(s"Received invalid analysis $workId by ${client.fullId}: ${e.getMessage}")
           repo.updateOrGiveUpAnalysis(work.invalid) inject none
       }
+      case Some(work) =>
+        monitor.notAcquired(work, client)
+        fuccess(none)
     }
   }.chronometer.mon(_.fishnet.analysis.post)
     .logIfSlow(200, logger) { res =>
