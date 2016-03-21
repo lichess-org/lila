@@ -30,7 +30,7 @@ if [ $mode == "main" ]; then
   bin/cli-prod deploy pre
 fi
 
-sbt ";stage;exit"
+bin/dev ";stage;exit"
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
