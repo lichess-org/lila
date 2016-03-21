@@ -126,6 +126,7 @@ object mon {
     object report {
       val unprocessed = rec("mod.report.unprocessed")
       val close = inc("mod.report.close")
+      def create(reason: String) = inc(s"mod.report.create.$reason")
     }
     object log {
       val create = inc("mod.log.create")
