@@ -20,7 +20,8 @@ private[controllers] trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
-    with ResponseWriter {
+    with ResponseWriter
+    with LilaSocket {
 
   import Results._
 
@@ -62,8 +63,8 @@ private[controllers] trait LilaController
     }
 
   protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    LilaSocket.rateLimited[A](consumer, name) { req =>
-      reqToCtx(req) flatMap f map {
+    rateLimitedSocket[A](consumer, name) { ctx =>
+      f(ctx) map {
         case None       => Left(NotFound(jsonError("socket resource not found")))
         case Some(pair) => Right(pair)
       }

@@ -6,36 +6,40 @@ import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 
-import lila.api.TokenBucket
+import lila.api.{ Context, TokenBucket }
 import lila.app._
 import lila.common.HTTPRequest
 
-object LilaSocket extends RequestGetter {
+trait LilaSocket { self: LilaController =>
 
-  private type AcceptType[A] = RequestHeader => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]
+  private type AcceptType[A] = Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]
 
   private val logger = lila.log("ratelimit")
 
-  def rateLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
+  def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
-      val ip = HTTPRequest lastRemoteAddress req
-      def mobileInfo = lila.api.Mobile.Api.requestVersion(req).fold("nope") { v =>
-        val sri = get("sri", req) | "none"
-        s"$v sri:$sri"
-      }
-      f(req).map { resultOrSocket =>
-        resultOrSocket.right.map {
-          case (readIn, writeOut) => (e, i) => {
-            writeOut |>> i
-            e &> Enumeratee.mapInputM { in =>
-              consumer(ip).map { credit =>
-                if (credit >= 0) in
-                else {
-                  logger.info(s"socket:$name socket close $ip mobile:$mobileInfo $in")
-                  Input.EOF
+      reqToCtx(req) flatMap { ctx =>
+        val ip = HTTPRequest lastRemoteAddress req
+        def mobileInfo = lila.api.Mobile.Api.requestVersion(req).fold("nope") { v =>
+          val sri = get("sri", req) | "none"
+          val username = ctx.usernameOrAnon
+          s"$v user:$username sri:$sri"
+        }
+        // logger.info(s"socket:$name socket connect $ip mobile:$mobileInfo")
+        f(ctx).map { resultOrSocket =>
+          resultOrSocket.right.map {
+            case (readIn, writeOut) => (e, i) => {
+              writeOut |>> i
+              e &> Enumeratee.mapInputM { in =>
+                consumer(ip).map { credit =>
+                  if (credit >= 0) in
+                  else {
+                    logger.info(s"socket:$name socket close $ip mobile:$mobileInfo $in")
+                    Input.EOF
+                  }
                 }
-              }
-            } |>> readIn
+              } |>> readIn
+            }
           }
         }
       }

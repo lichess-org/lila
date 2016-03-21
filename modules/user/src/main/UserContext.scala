@@ -14,9 +14,11 @@ sealed trait UserContext {
 
   def is(user: User): Boolean = me ?? (user ==)
 
-  def userId = me map (_.id)
+  def userId = me.map(_.id)
 
-  def username = me map (_.username)
+  def username = me.map(_.username)
+
+  def usernameOrAnon = username | "Anonymous"
 
   def troll = me.??(_.troll)
 
