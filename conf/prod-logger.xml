@@ -109,10 +109,7 @@
   <!-- Set a specific actor to DEBUG -->
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
 
-  <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
-  <!-- <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" /> -->
-  <!-- <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" /> -->
-  <!-- <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" /> -->
-  <!-- <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" /> -->
+  <!-- Avoid "HTTP header is larger than 4096 bytes." messages -->
+  <logger name="play.core.server.netty.PlayDefaultUpstreamHandler" level="ERROR" />
 
 </configuration>
