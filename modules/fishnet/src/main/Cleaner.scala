@@ -16,20 +16,16 @@ private final class Cleaner(
 
   import BSONHandlers._
 
-  private val moveTimeout = 3.seconds
   private def analysisTimeout(plies: Int) = plies * 6.seconds + 3.seconds
   private def analysisTimeoutBase = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
-  private def cleanMoves: Unit = {
-    val since = durationAgo(moveTimeout)
-    moveDb.find(_ acquiredBefore since).map { move =>
-      moveDb updateOrGiveUp move.timeout
+  private def cleanMoves: Unit = moveDb.clean map { moves =>
+    moves foreach { move =>
       clientTimeout(move)
-      logger.warn(s"Timeout move ${move.game.id}")
+      logger.warn(s"Timeout move $move")
     }
-    scheduleMoves
   }
 
   private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
@@ -40,14 +36,14 @@ private final class Cleaner(
     }.map { ana =>
       repo.updateOrGiveUpAnalysis(ana.timeout) >>- {
         clientTimeout(ana)
-        logger.warn(s"Timeout analysis ${ana.game.id}")
+        logger.warn(s"Timeout analysis $ana")
       }
     }.sequenceFu.void
-  } andThenAnyway scheduleAnalysis
+  }
 
   private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
     _ foreach { client =>
-      monitor.timeout(work, client)
+      Monitor.timeout(work, client)
       logger.warn(s"Timeout client ${client.fullId}")
     }
   }
@@ -55,6 +51,6 @@ private final class Cleaner(
   private def scheduleMoves = scheduler.once(1 second)(cleanMoves)
   private def scheduleAnalysis = scheduler.once(5 second)(cleanAnalysis)
 
-  scheduler.once(3 seconds)(cleanMoves)
-  scheduler.once(10 seconds)(cleanAnalysis)
+  scheduler.effect(3 seconds, "fishnet clean moves")(cleanMoves)
+  scheduler.effect(10 seconds, "fishnet clean analysis")(cleanAnalysis)
 }

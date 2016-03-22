@@ -22,7 +22,7 @@ private final class Monitor(
   }
 
   private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
-    success(work, client)
+    Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
 
@@ -51,15 +51,57 @@ private final class Monitor(
     avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
   }
 
+  private def sample[A](elems: List[A], n: Int) =
+    if (elems.size <= n) elems else scala.util.Random shuffle elems take n
+
+  private def monitorClients: Unit = repo.allRecentClients map { clients =>
+
+    import lila.mon.fishnet.client._
+
+    status enabled clients.count(_.enabled)
+    status disabled clients.count(_.disabled)
+
+    Client.Skill.all foreach { s =>
+      skill(s.key)(clients.count(_.skill == s))
+    }
+
+    clients.flatMap(_.instance).map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
+      case (v, nb) => version(v)(nb)
+    }
+    clients.flatMap(_.instance).map(_.engine.name).groupBy(identity).mapValues(_.size) foreach {
+      case (s, nb) => engine(s)(nb)
+    }
+  } andThenAnyway scheduleClients
+
+  private def monitorWork: Unit = {
+
+    import lila.mon.fishnet.work._
+    import Client.Skill._
+
+    moveDb.monitor
+
+    sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
+
+    repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
+      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
+
+  } andThenAnyway scheduleWork
+
+  private def scheduleClients = scheduler.once(1 minute)(monitorClients)
+  private def scheduleWork = scheduler.once(10 seconds)(monitorWork)
+
+  scheduleClients
+  scheduleWork
+}
+
+object Monitor {
+
   private[fishnet] def move(work: Work.Move, client: Client) = {
     success(work, client)
     if (work.level == 8) work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
     }
   }
-
-  private def sample[A](elems: List[A], n: Int) =
-    if (elems.size <= n) elems else scala.util.Random shuffle elems take n
 
   private def success(work: Work, client: Client) = {
 
@@ -92,46 +134,4 @@ private final class Monitor(
     logger.info(s"Received unacquired ${work.skill} ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).notAcquired()
   }
-
-  private def monitorClients: Unit = repo.allRecentClients map { clients =>
-
-    import lila.mon.fishnet.client._
-
-    status enabled clients.count(_.enabled)
-    status disabled clients.count(_.disabled)
-
-    Client.Skill.all foreach { s =>
-      skill(s.key)(clients.count(_.skill == s))
-    }
-
-    clients.flatMap(_.instance).map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
-      case (v, nb) => version(v)(nb)
-    }
-    clients.flatMap(_.instance).map(_.engine.name).groupBy(identity).mapValues(_.size) foreach {
-      case (s, nb) => engine(s)(nb)
-    }
-  } andThenAnyway scheduleClients
-
-  private def monitorWork: Unit = {
-
-    import lila.mon.fishnet.work._
-    import Client.Skill._
-
-    sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
-
-    moveDbSize(moveDb.size)
-
-    queued(Move.key)(moveDb.count(_.nonAcquired))
-    acquired(Move.key)(moveDb.count(_.isAcquired))
-
-    repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
-      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
-
-  } andThenAnyway scheduleWork
-
-  private def scheduleClients = scheduler.once(1 minute)(monitorClients)
-  private def scheduleWork = scheduler.once(10 seconds)(monitorWork)
-
-  scheduleClients
-  scheduleWork
 }

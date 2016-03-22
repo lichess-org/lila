@@ -275,7 +275,6 @@ object mon {
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
-      def post = rec(s"fishnet.move.post")
     }
     object analysis {
       def by(client: String) = new {

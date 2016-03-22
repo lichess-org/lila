@@ -1,55 +1,111 @@
 package lila.fishnet
 
-private final class MoveDB {
+import akka.actor._
+import akka.pattern.ask
+import org.joda.time.DateTime
+
+import lila.hub.{ actorApi => hubApi }
+import makeTimeout.short
+
+private final class MoveDB(
+    roundMap: ActorSelection,
+    system: ActorSystem) {
 
   import Work.Move
 
-  private val maxSize = 300
+  def add(move: Move) = actor ! Add(move)
 
-  private val coll = scala.collection.mutable.Map.empty[Work.Id, Move]
+  def acquire(client: Client): Fu[Option[Move]] =
+    actor ? Acquire(client) mapTo manifest[Option[Move]]
 
-  def get = coll.get _
+  def postResult(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove) =
+    actor ! PostResult(moveId, client, data)
 
-  def add(move: Move): Unit = {
-    clearIfFull
-    coll += (move.id -> move)
-  }
+  def monitor = actor ! Mon
 
-  def update(move: Move): Unit = if (coll contains move.id) coll += (move.id -> move)
+  def clean = actor ? Clean mapTo manifest[Iterable[Move]]
 
-  def delete(move: Move): Unit = coll -= move.id
+  private object GetSize
+  private object Mon
+  private object Clean
+  private case class Add(move: Move)
+  private case class UpdateOrGiveUp(move: Move)
+  private case class Acquire(client: Client)
+  private case class PostResult(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove)
 
-  def contains = coll.contains _
+  private val actor = system.actorOf(Props(new Actor {
 
-  def exists = coll.values.exists _
+    val coll = scala.collection.mutable.Map.empty[Work.Id, Move]
 
-  def find = coll.values.filter _
+    val maxSize = 300
 
-  def count = coll.values.count _
+    def receive = {
 
-  def size = coll.size
+      case Add(move) if !coll.exists(_._2 similar move) => coll += (move.id -> move)
 
-  def oldestNonAcquired = coll.foldLeft(none[Move]) {
-    case (acc, (_, m)) =>
-      if (m.nonAcquired) Some {
-        acc.fold(m) { a =>
-          if (m.createdAt isBefore a.createdAt) m else a
+      case Mon =>
+        import Client.Skill.Move.key
+        lila.mon.fishnet.work.moveDbSize(coll.size)
+        lila.mon.fishnet.work.queued(key)(coll.count(_._2.nonAcquired))
+        lila.mon.fishnet.work.acquired(key)(coll.count(_._2.isAcquired))
+
+      case Clean =>
+        val since = DateTime.now minusSeconds 3
+        val timedOut = coll collect {
+          case (_, move) if move acquiredBefore since => move
         }
+        timedOut.foreach { move =>
+          updateOrGiveUp(move.timeout)
+        }
+        logger.debug(s"Moves DB size: ${coll.size}")
+        sender ! timedOut
+
+      case Add(move) =>
+        clearIfFull
+        coll += (move.id -> move)
+
+      case Acquire(client) => sender ! coll.foldLeft(none[Move]) {
+        case (found, (_, m)) => if (m.nonAcquired) Some {
+          found.fold(m) { a =>
+            if (m.createdAt isBefore a.createdAt) m else a
+          }
+        }
+        else found
+      }.map { m =>
+        val move = m assignTo client
+        coll += (move.id -> move)
+        move
       }
-      else acc
-  }
 
-  def updateOrGiveUp(move: Move) =
-    if (move.isOutOfTries) {
-      logger.warn(s"Give up on move $move")
-      delete(move)
-    }
-    else update(move)
+      case PostResult(moveId, client, data) => coll get moveId match {
+        case None => Monitor.notFound(moveId, client)
+        case Some(move) if move isAcquiredBy client => data.move.uci match {
+          case Some(uci) =>
+            coll -= move.id
+            Monitor.move(move, client)
+            roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
+          case _ =>
+            updateOrGiveUp(move.invalid)
+            Monitor.failure(move, client)
+        }
+        case Some(move) => Monitor.notAcquired(move, client)
+      }
 
-  private def clearIfFull =
-    if (coll.size > maxSize) {
-      logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
-      logger.warn(coll.toString)
-      coll.clear()
+      case UpdateOrGiveUp(move) => updateOrGiveUp(move)
     }
+
+    def updateOrGiveUp(move: Move) =
+      if (move.isOutOfTries) {
+        logger.warn(s"Give up on move $move")
+        coll -= move.id
+      }
+      else coll += (move.id -> move)
+
+    def clearIfFull =
+      if (coll.size > maxSize) {
+        logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
+        logger.warn(coll.toString)
+        coll.clear()
+      }
+  }))
 }

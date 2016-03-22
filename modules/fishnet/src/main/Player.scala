@@ -13,9 +13,7 @@ final class Player(
   val maxPlies = 300
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
-    makeWork(game, level) map { move =>
-      if (!moveDb.exists(_ similar move)) moveDb add move
-    }
+    makeWork(game, level) addEffect moveDb.add void
   }
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =

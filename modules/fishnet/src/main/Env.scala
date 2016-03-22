@@ -26,7 +26,9 @@ final class Env(
     analysisColl = analysisColl,
     clientColl = clientColl)
 
-  private val moveDb = new MoveDB
+  private val moveDb = new MoveDB(
+    roundMap = hub.actor.roundMap,
+    system = system)
 
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
@@ -37,7 +39,6 @@ final class Env(
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
   val api = new FishnetApi(
-    hub = hub,
     repo = repo,
     moveDb = moveDb,
     analysisColl = analysisColl,
