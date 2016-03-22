@@ -37,7 +37,10 @@ private[lobby] final class Socket(
     case PingVersion(uid, v) => Future {
       ping(uid)
       withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+        history.since(v).fold {
+          lila.mon.lobby.socket.resync()
+          resync(m)
+        }(_ foreach sendMessage(m))
       }
     }
 

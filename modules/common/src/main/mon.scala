@@ -52,6 +52,7 @@ object mon {
     object socket {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
+      val resync = inc("lobby.socket.resync")
     }
   }
   object round {
