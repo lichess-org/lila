@@ -3,7 +3,7 @@ package lila
 import scala.concurrent.Future
 
 import kamon.Kamon.{ metrics, tracer }
-import kamon.trace.TraceContext
+import kamon.trace.{ TraceContext, Segment }
 import kamon.util.RelativeNanoTimestamp
 
 object mon {
@@ -331,6 +331,8 @@ object mon {
 
   trait Trace {
 
+    def finishFirstSegment(): Unit
+
     def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
 
     def segmentSync[A](name: String, categ: String)(f: => A): A
@@ -338,7 +340,11 @@ object mon {
     def finish(): Unit
   }
 
-  private final class KamonTrace(context: TraceContext) extends Trace {
+  private final class KamonTrace(
+      context: TraceContext,
+      firstSegment: Segment) extends Trace {
+
+    def finishFirstSegment() = firstSegment.finish()
 
     def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
       context.withNewAsyncSegment(name, categ, "mon")(code)
@@ -349,12 +355,16 @@ object mon {
     def finish() = context.finish()
   }
 
-  private def makeTrace(name: String): Trace = new KamonTrace(tracer.newContext(
-    name = name,
-    token = None,
-    timestamp = RelativeNanoTimestamp.now,
-    isOpen = true,
-    isLocal = false))
+  private def makeTrace(name: String): Trace = {
+    val context = tracer.newContext(
+      name = name,
+      token = None,
+      timestamp = RelativeNanoTimestamp.now,
+      isOpen = true,
+      isLocal = false)
+    val firstSegment = context.startSegment("first", "logic", "mon")
+    new KamonTrace(context, firstSegment)
+  }
 
   private def nodots(s: String) = s.replace(".", "_")
 

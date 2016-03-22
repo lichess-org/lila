@@ -57,6 +57,7 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
+      p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
         if (pov.game outoftime lags.get) outOfTime(pov.game)
         else {
