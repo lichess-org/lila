@@ -55,8 +55,6 @@ final class Env(
 
   private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
 
-  private val moveMonitor = new MoveMonitor(system, moveTimeChannel)
-
   lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
@@ -70,7 +68,6 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      monitorMove = moveMonitor.record,
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
@@ -181,6 +178,8 @@ final class Env(
     moretimeSeconds = Moretime.toSeconds.toInt)
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
+
+  new MoveMonitor(system, moveTimeChannel)
 
   scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 

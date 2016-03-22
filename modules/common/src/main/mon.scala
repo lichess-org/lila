@@ -1,6 +1,10 @@
 package lila
 
-import kamon.Kamon.metrics
+import scala.concurrent.Future
+
+import kamon.Kamon.{ metrics, tracer }
+import kamon.trace.TraceContext
+import kamon.util.RelativeNanoTimestamp
 
 object mon {
 
@@ -63,14 +67,10 @@ object mon {
     }
     object move {
       object full {
-        val time = rec("round.move.full")
         val count = inc("round.move.full")
       }
-      object segment {
-        val queue = rec("round.move.segment.queue")
-        val fetch = rec("round.move.segment.fetch")
-        val logic = rec("round.move.segment.logic")
-        val save = rec("round.move.segment.save")
+      object trace {
+        def create = makeTrace("round.move.trace")
       }
       val networkLag = rec("round.move.network_lag")
     }
@@ -328,6 +328,40 @@ object mon {
       else hist.record(value)
     }
   }
+
+  trait Trace {
+
+    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
+
+    def segmentSync[A](name: String, categ: String)(f: => A): A
+
+    def finish(): Unit
+  }
+
+  private final class KamonTrace(context: TraceContext) extends Trace {
+
+    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A] = {
+      val seg = context.startSegment(name, categ, "mon")
+      f.onComplete(_ => seg.finish())(common.SameThread)
+      f
+    }
+
+    def segmentSync[A](name: String, categ: String)(f: => A): A = {
+      val seg = context.startSegment(name, categ, "mon")
+      val res = f
+      seg.finish()
+      res
+    }
+
+    def finish() = context.finish()
+  }
+
+  private def makeTrace(name: String): Trace = new KamonTrace(tracer.newContext(
+    name = name,
+    token = None,
+    timestamp = RelativeNanoTimestamp.now,
+    isOpen = true,
+    isLocal = false))
 
   private def nodots(s: String) = s.replace(".", "_")
 

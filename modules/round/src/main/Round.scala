@@ -25,7 +25,6 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Option[Long] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -56,19 +55,21 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
-      lila.mon.since(_.round.move.segment.queue)(p.atNanos)
-      handleHumanPlay(p.playerId) { pov =>
+      handleHumanPlay(p) { pov =>
         if (pov.game outoftime lags.get) outOfTime(pov.game)
         else {
           lags.set(pov.color, p.lag.toMillis.toInt)
           reportNetworkLag(pov)
           player.human(p, self)(pov)
         }
-      } >>- monitorMove((nowNanos - p.atNanos).some)
+      } >>- {
+        p.trace.finish()
+        lila.mon.round.move.full.count()
+      }
 
     case FishnetPlay(uci, currentFen) => handle { game =>
       player.fishnet(game, uci, currentFen)
-    } >>- monitorMove(none)
+    } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -215,8 +216,12 @@ private[round] final class Round(
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov((GameRepo pov PlayerRef(gameId, playerId)))(op)
 
-  protected def handleHumanPlay(playerId: String)(op: Pov => Fu[Events]): Funit =
-    handlePov((GameRepo pov PlayerRef(gameId, playerId)).mon(_.round.move.segment.fetch))(op)
+  protected def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+    handlePov {
+      p.trace.segment("fetch", "db") {
+        GameRepo pov PlayerRef(gameId, p.playerId)
+      }
+    }(op)
 
   protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(GameRepo pov PovRef(gameId, color))(op)

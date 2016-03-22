@@ -97,7 +97,7 @@ case class HumanPlay(
     lag: FiniteDuration,
     promise: Option[Promise[Unit]] = None) {
 
-  val atNanos = nowNanos
+  val trace = lila.mon.round.move.trace.create
 }
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])

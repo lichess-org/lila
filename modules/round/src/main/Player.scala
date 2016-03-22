@@ -20,12 +20,12 @@ private[round] final class Player(
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
-    case HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
+    case p@HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
-        lila.mon.measure(_.round.move.segment.logic)(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
+        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              (GameRepo save progress).mon(_.round.move.segment.save) >>-
+              p.trace.segment("save", "db")(GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
