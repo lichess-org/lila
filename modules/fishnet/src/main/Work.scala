@@ -78,7 +78,7 @@ object Work {
 
     def similar(to: Move) = game.id == to.game.id && currentFen == to.currentFen
 
-    override def toString = s"id:$id game:${game.id} level:$level tries:$tries currentFen:$currentFen acquired:$acquired"
+    override def toString = s"id:$id game:${game.id} level:$level tries:$tries created:$createdAt acquired:$acquired"
   }
 
   case class Analysis(

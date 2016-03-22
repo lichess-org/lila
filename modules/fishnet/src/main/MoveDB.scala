@@ -49,6 +49,7 @@ private final class MoveDB {
   private def clearIfFull =
     if (coll.size > maxSize) {
       logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
+      println(coll)
       coll.clear()
     }
 }
