@@ -57,7 +57,7 @@ private[round] final class Round(
 
     case p: HumanPlay =>
       lila.mon.since(_.round.move.segment.queue)(p.atNanos)
-      handle(p.playerId) { pov =>
+      handleHumanPlay(p.playerId) { pov =>
         if (pov.game outoftime lags.get) outOfTime(pov.game)
         else {
           lags.set(pov.color, p.lag.toMillis.toInt)
@@ -213,6 +213,9 @@ private[round] final class Round(
     handleGame(GameRepo game gameId)(op)
 
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
+    handlePov((GameRepo pov PlayerRef(gameId, playerId)))(op)
+
+  protected def handleHumanPlay(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov((GameRepo pov PlayerRef(gameId, playerId)).mon(_.round.move.segment.fetch))(op)
 
   protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
