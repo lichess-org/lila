@@ -100,7 +100,7 @@ object Trophy {
       key = "streamer",
       name = "Lichess streamer",
       icon = "&#xe003;".some,
-      url = "http://lichess.org/how-to-stream-on-lichess".some,
+      url = "http://lichess.org/help/stream-on-lichess".some,
       "icon3d".some)
 
     val all = List(
