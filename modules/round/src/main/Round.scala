@@ -7,7 +7,7 @@ import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
 import chess.Color
-import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.game.{ Game, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.FishnetPlay
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
@@ -38,8 +38,7 @@ private[round] final class Round(
     context.system.lilaBus unsubscribe self
   }
 
-  val proxy = new GameProxy(gameId)
-  implicit val saveGame = proxy.save _
+  implicit val proxy = new GameProxy(gameId)
 
   object lags { // player lag in millis
     var white = 0
@@ -87,7 +86,7 @@ private[round] final class Round(
         messenger.system(pov.game, (_.untranslated(
           s"${pov.color.name.capitalize} is going berserk!"
         )))
-        proxy.save(progress) >> proxy.update(_ goBerserk pov) inject progress.events
+        proxy.save(progress) >> proxy.invalidating(_ goBerserk pov) inject progress.events
       }
     }
 

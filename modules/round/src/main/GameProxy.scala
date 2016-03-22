@@ -7,9 +7,26 @@ import ornicar.scalalib.Zero
 
 private final class GameProxy(id: String) {
 
-  private var cache: Fu[Option[Game]] = fetch
-
   def game: Fu[Option[Game]] = cache
+
+  def save(progress: Progress): Funit = {
+    set(progress.game)
+    GameRepo save progress
+  }
+
+  def invalidating(f: GameRepo.type => Funit): Funit = f(GameRepo) >>- invalidate
+
+  def bypass(f: GameRepo.type => Funit): Funit = f(GameRepo)
+
+  def set(game: Game): Unit = {
+    cache = fuccess(game.some)
+  }
+
+  def invalidate: Unit = {
+    cache = fetch
+  }
+
+  // convenience helpers
 
   def pov(color: Color) = game.map {
     _ map { Pov(_, color) }
@@ -21,22 +38,9 @@ private final class GameProxy(id: String) {
 
   def withGame[A: Zero](f: Game => Fu[A]): Fu[A] = game.flatMap(_ ?? f)
 
-  def save(progress: Progress): Funit = {
-    set(progress.game)
-    GameRepo save progress
-  }
+  // internals
 
-  def update(f: GameRepo.type => Funit) = f(GameRepo) >>- clear
-
-  def bypass(f: GameRepo.type => Funit) = f(GameRepo)
-
-  private def set(game: Game): Unit = {
-    cache = fuccess(game.some)
-  }
-
-  private def clear = {
-    cache = fetch
-  }
+  private var cache: Fu[Option[Game]] = fetch
 
   private def fetch = GameRepo game id
 }

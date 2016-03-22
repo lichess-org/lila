@@ -21,26 +21,26 @@ private[round] final class Finisher(
     timeline: akka.actor.ActorSelection,
     casualOnly: Boolean) {
 
-  def abort(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = apply(pov.game, _.Aborted) >>- {
+  def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted) >>- {
     playban.abort(pov)
     bus.publish(AbortedBy(pov), 'abortGame)
   }
 
-  def rageQuit(game: Game, winner: Option[Color])(implicit save: GameProxy.Save): Fu[Events] =
+  def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>- winner.?? { color => playban.rageQuit(game, !color) }
 
   def other(
     game: Game,
     status: Status.type => Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None)(implicit save: GameProxy.Save): Fu[Events] =
+    message: Option[SelectI18nKey] = None)(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.goodFinish(game)
 
   private def apply(
     game: Game,
     makeStatus: Status.type => Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None)(implicit save: GameProxy.Save): Fu[Events] = {
+    message: Option[SelectI18nKey] = None)(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog = game.finish(status, winner)
     if (game.nonAi && game.isCorrespondence)
@@ -50,7 +50,7 @@ private[round] final class Finisher(
       GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
       fuccess(prog.game)
     ) flatMap { g =>
-        save(prog) >>
+        proxy.save(prog) >>
           GameRepo.finish(
             id = g.id,
             winnerColor = winner,
@@ -71,7 +71,7 @@ private[round] final class Finisher(
                 }
               }
       }
-  }
+    } >>- proxy.invalidate
 
   private def notifyTimeline(game: Game)(color: Color) = {
     import lila.hub.actorApi.timeline.{ Propagate, GameEnd }

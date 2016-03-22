@@ -19,7 +19,7 @@ private[round] final class Rematcher(
     rematch960Cache: ExpireSetMemo,
     isRematchCache: ExpireSetMemo) {
 
-  def yes(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = pov match {
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) =>
       (game.opponent(color).isOfferingRematch || game.opponent(color).isAi).fold(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
@@ -28,12 +28,12 @@ private[round] final class Rematcher(
     case _ => fuccess(Nil)
   }
 
-  def no(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = pov match {
-    case Pov(game, color) if pov.player.isOfferingRematch => save {
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
+    case Pov(game, color) if pov.player.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeRematchOffer) }
     } inject List(Event.ReloadOwner)
-    case Pov(game, color) if pov.opponent.isOfferingRematch => save {
+    case Pov(game, color) if pov.opponent.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
     } inject List(Event.ReloadOwner)
@@ -59,7 +59,7 @@ private[round] final class Rematcher(
     redirectEvents(nextGame)
   }
 
-  private def rematchCreate(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = save {
+  private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = proxy.save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
   } inject List(Event.ReloadOwner)

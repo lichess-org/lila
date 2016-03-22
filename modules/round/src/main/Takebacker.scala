@@ -8,7 +8,7 @@ private[round] final class Takebacker(
     uciMemo: UciMemo,
     prefApi: PrefApi) {
 
-  def yes(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = IfAllowed(pov.game) {
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, _) if pov.opponent.isProposingTakeback =>
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
@@ -19,18 +19,18 @@ private[round] final class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
-        save(progress) inject List(Event.TakebackOffers(color.white, color.black))
+        proxy.save(progress) inject List(Event.TakebackOffers(color.white, color.black))
       case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
   }
 
-  def no(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = IfAllowed(pov.game) {
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = IfAllowed(pov.game) {
     pov match {
-      case Pov(game, color) if pov.player.isProposingTakeback => save {
+      case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
         messenger.system(game, _.takebackPropositionCanceled)
         Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
       } inject List(Event.TakebackOffers(false, false))
-      case Pov(game, color) if pov.opponent.isProposingTakeback => save {
+      case Pov(game, color) if pov.opponent.isProposingTakeback => proxy.save {
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
       } inject List(Event.TakebackOffers(false, false))
@@ -54,14 +54,14 @@ private[round] final class Takebacker(
       _.fold(f, fufail(ClientError("[takebacker] disallowed by preferences " + game.id)))
     }
 
-  private def single(game: Game)(implicit save: GameProxy.Save): Fu[Events] = for {
+  private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
     fen ← GameRepo initialFen game
     progress ← Rewind(game, fen).future
     _ ← fuccess { uciMemo.drop(game, 1) }
     events ← saveAndNotify(progress)
   } yield events
 
-  private def double(game: Game)(implicit save: GameProxy.Save): Fu[Events] = for {
+  private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
     fen ← GameRepo initialFen game
     prog1 ← Rewind(game, fen).future
     prog2 ← Rewind(prog1.game, fen).future map { progress =>
@@ -71,9 +71,9 @@ private[round] final class Takebacker(
     events ← saveAndNotify(prog2)
   } yield events
 
-  private def saveAndNotify(p1: Progress)(implicit save: GameProxy.Save): Fu[Events] = {
+  private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {
     val p2 = p1 + Event.Reload
     messenger.system(p2.game, _.takebackPropositionAccepted)
-    save(p2) inject p2.events
+    proxy.save(p2) inject p2.events
   }
 }

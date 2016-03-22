@@ -19,17 +19,17 @@ private[round] final class Player(
     cheatDetector: CheatDetector,
     uciMemo: UciMemo) {
 
-  def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = play match {
+  def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p@HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(save(progress)) >>-
+              p.trace.segment("save", "db")(proxy save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, color)(save) map { progress.events ::: _ }, {
+                  moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
@@ -53,17 +53,17 @@ private[round] final class Player(
 
   def requestFishnet(game: Game) = game.playableByAi ?? fishnetPlayer(game)
 
-  def fishnet(game: Game, uci: Uci, currentFen: FEN)(implicit save: GameProxy.Save): Fu[Events] =
+  def fishnet(game: Game, uci: Uci, currentFen: FEN)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
         applyUci(game, uci, blur = false, lag = 0.millis)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              save(progress) >>-
+              proxy.save(progress) >>-
                 uciMemo.add(progress.game, moveOrDrop) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, game.turnColor)(save) map { progress.events ::: _ },
+                  moveFinish(progress.game, game.turnColor) map { progress.events ::: _ },
                   fuccess(progress.events)
                 )
           }
@@ -96,12 +96,12 @@ private[round] final class Player(
     ), 'moveEvent)
   }
 
-  private def moveFinish(game: Game, color: Color)(save: GameProxy.Save): Fu[Events] = {
+  private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = {
     lazy val winner = game.toChess.situation.winner
     game.status match {
-      case Status.Mate                             => finisher.other(game, _.Mate, winner)(save)
-      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)(save)
-      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)(save)
+      case Status.Mate                             => finisher.other(game, _.Mate, winner)
+      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)
+      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
       case _                                       => fuccess(Nil)
     }
   }
