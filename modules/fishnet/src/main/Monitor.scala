@@ -119,6 +119,8 @@ private final class Monitor(
 
     sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
 
+    moveDbSize(moveDb.size)
+
     queued(Move.key)(moveDb.count(_.nonAcquired))
     acquired(Move.key)(moveDb.count(_.isAcquired))
 

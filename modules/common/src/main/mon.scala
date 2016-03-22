@@ -271,6 +271,7 @@ object mon {
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
+      def moveDbSize = rec(s"fishnet.work.move.db_size")
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
