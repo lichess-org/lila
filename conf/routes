@@ -213,6 +213,7 @@ POST  /fishnet/acquire                        controllers.Fishnet.acquire
 POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
+GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)

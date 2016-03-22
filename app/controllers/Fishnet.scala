@@ -17,10 +17,6 @@ object Fishnet extends LilaController {
   private def api = env.api
   override val logger = lila.log("fishnet")
 
-  def clientIp(req: RequestHeader) = lila.fishnet.Client.IpAddress {
-    HTTPRequest lastRemoteAddress req
-  }
-
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
       api acquire client
@@ -39,6 +35,13 @@ object Fishnet extends LilaController {
   def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
       api.abort(Work.Id(workId), client) inject none
+  }
+
+  def keyExists(key: String) = Action.async { req =>
+    api keyExists lila.fishnet.Client.Key(key) map {
+      case true  => Ok
+      case false => NotFound
+    }
   }
 
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
@@ -60,4 +63,8 @@ object Fishnet extends LilaController {
           }
         })
     }
+
+  private def clientIp(req: RequestHeader) = lila.fishnet.Client.IpAddress {
+    HTTPRequest lastRemoteAddress req
+  }
 }

@@ -24,6 +24,8 @@ final class FishnetApi(
   import FishnetApi._
   import BSONHandlers._
 
+  def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
+
   def authenticateClient(req: JsonApi.Request, ip: Client.IpAddress): Fu[Try[Client]] = {
     if (offlineMode) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
