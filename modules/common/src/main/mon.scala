@@ -340,18 +340,11 @@ object mon {
 
   private final class KamonTrace(context: TraceContext) extends Trace {
 
-    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A] = {
-      val seg = context.startSegment(name, categ, "mon")
-      f.onComplete(_ => seg.finish())(common.SameThread)
-      f
-    }
+    def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
+      context.withNewAsyncSegment(name, categ, "mon")(code)
 
-    def segmentSync[A](name: String, categ: String)(f: => A): A = {
-      val seg = context.startSegment(name, categ, "mon")
-      val res = f
-      seg.finish()
-      res
-    }
+    def segmentSync[A](name: String, categ: String)(code: => A): A =
+      context.withNewSegment(name, categ, "mon")(code)
 
     def finish() = context.finish()
   }
