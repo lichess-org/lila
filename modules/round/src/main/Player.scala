@@ -7,7 +7,7 @@ import scalaz.Validation.FlatMap._
 
 import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
 import akka.actor.ActorRef
-import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
+import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import scala.concurrent.duration._
@@ -19,17 +19,17 @@ private[round] final class Player(
     cheatDetector: CheatDetector,
     uciMemo: UciMemo) {
 
-  def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
+  def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit save: GameProxy.Save): Fu[Events] = play match {
     case p@HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(GameRepo save progress) >>-
+              p.trace.segment("save", "db")(save(progress)) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, color) map { progress.events ::: _ }, {
+                  moveFinish(progress.game, color)(save) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
@@ -53,17 +53,17 @@ private[round] final class Player(
 
   def requestFishnet(game: Game) = game.playableByAi ?? fishnetPlayer(game)
 
-  def fishnet(game: Game, uci: Uci, currentFen: FEN): Fu[Events] =
+  def fishnet(game: Game, uci: Uci, currentFen: FEN)(implicit save: GameProxy.Save): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
         applyUci(game, uci, blur = false, lag = 0.millis)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              (GameRepo save progress) >>-
+              save(progress) >>-
                 uciMemo.add(progress.game, moveOrDrop) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, game.turnColor) map { progress.events ::: _ },
+                  moveFinish(progress.game, game.turnColor)(save) map { progress.events ::: _ },
                   fuccess(progress.events)
                 )
           }
@@ -96,12 +96,12 @@ private[round] final class Player(
     ), 'moveEvent)
   }
 
-  private def moveFinish(game: Game, color: Color): Fu[Events] = {
+  private def moveFinish(game: Game, color: Color)(save: GameProxy.Save): Fu[Events] = {
     lazy val winner = game.toChess.situation.winner
     game.status match {
-      case Status.Mate                             => finisher.other(game, _.Mate, winner)
-      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)
-      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
+      case Status.Mate                             => finisher.other(game, _.Mate, winner)(save)
+      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)(save)
+      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)(save)
       case _                                       => fuccess(Nil)
     }
   }

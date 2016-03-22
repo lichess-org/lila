@@ -38,6 +38,9 @@ private[round] final class Round(
     context.system.lilaBus unsubscribe self
   }
 
+  val proxy = new GameProxy(gameId)
+  implicit val saveGame = proxy.save _
+
   object lags { // player lag in millis
     var white = 0
     var black = 0
@@ -84,7 +87,7 @@ private[round] final class Round(
         messenger.system(pov.game, (_.untranslated(
           s"${pov.color.name.capitalize} is going berserk!"
         )))
-        GameRepo.save(progress) >> GameRepo.goBerserk(pov) inject progress.events
+        proxy.save(progress) >> proxy.update(_ goBerserk pov) inject progress.events
       }
     }
 
@@ -118,11 +121,11 @@ private[round] final class Round(
     // if the game is abandoned, then nobody is around to see it
     // we can also terminate this actor
     case Abandon => fuccess {
-      GameRepo game gameId foreach { gameOption =>
-        gameOption filter (_.abandoned) foreach { game =>
+      proxy withGame { game =>
+        game.abandoned ?? {
+          self ! PoisonPill
           if (game.abortable) finisher.other(game, _.Aborted)
           else finisher.other(game, _.Resign, Some(!game.player.color))
-          self ! PoisonPill
         }
       }
     }
@@ -137,8 +140,8 @@ private[round] final class Round(
       }
     }
 
-    case Threefold => GameRepo game gameId flatMap {
-      _ ?? drawer.autoThreefold map {
+    case Threefold => proxy withGame { game =>
+      drawer autoThreefold game map {
         _ foreach { pov =>
           self ! DrawClaim(pov.player.id)
         }
@@ -149,7 +152,7 @@ private[round] final class Round(
       !pov.player.hasHoldAlert ?? {
         lila.log("cheat").info(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         lila.mon.cheat.holdAlert()
-        GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
+        proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
       }
     }
 
@@ -166,7 +169,7 @@ private[round] final class Round(
         messenger.system(pov.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
-        GameRepo save progress inject progress.events
+        proxy save progress inject progress.events
       }
     }
 
@@ -189,7 +192,7 @@ private[round] final class Round(
         Color.all.foreach { c =>
           messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
         }
-        GameRepo save progress inject progress.events
+        proxy save progress inject progress.events
       }
     }
 
@@ -211,20 +214,20 @@ private[round] final class Round(
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
-    handleGame(GameRepo game gameId)(op)
+    handleGame(proxy.game)(op)
 
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
-    handlePov((GameRepo pov PlayerRef(gameId, playerId)))(op)
+    handlePov((proxy playerPov playerId))(op)
 
   protected def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
-        GameRepo pov PlayerRef(gameId, p.playerId)
+        proxy playerPov p.playerId
       }
     }(op)
 
   protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
-    handlePov(GameRepo pov PovRef(gameId, color))(op)
+    handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
