@@ -10,7 +10,10 @@ private final class MoveDB {
 
   def get = coll.get _
 
-  def add(move: Move): Unit = if (coll.size < maxSize) coll += (move.id -> move)
+  def add(move: Move): Unit = {
+    clearIfFull
+    coll += (move.id -> move)
+  }
 
   def update(move: Move): Unit = if (coll contains move.id) coll += (move.id -> move)
 
@@ -42,4 +45,10 @@ private final class MoveDB {
       delete(move)
     }
     else update(move)
+
+  private def clearIfFull =
+    if (coll.size > maxSize) {
+      logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
+      coll.clear()
+    }
 }
