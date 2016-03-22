@@ -74,8 +74,8 @@ final class FishnetApi(
   }.map { _ map JsonApi.fromWork }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
-    moveDb.get(workId).filter(_ isAcquiredBy client) match {
-      case None => monitor.notFound(Client.Skill.Move, client)
+    moveDb.get(workId) match {
+      case None => monitor.notFound(workId, client)
       case Some(work) if work isAcquiredBy client => data.move.uci match {
         case Some(uci) =>
           moveDb delete work
@@ -93,7 +93,7 @@ final class FishnetApi(
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
     repo.getAnalysis(workId) flatMap {
       case None =>
-        monitor.notFound(Client.Skill.Analysis, client)
+        monitor.notFound(workId, client)
         fuccess(none)
       case Some(work) if work isAcquiredBy client => AnalysisBuilder(client, work, data) flatMap { analysis =>
         monitor.analysis(work, client, data)

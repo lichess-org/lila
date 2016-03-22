@@ -73,7 +73,7 @@ private final class Monitor(
   }
 
   private[fishnet] def failure(work: Work, client: Client) = {
-    logger.warn(s"Received invalid ${work.skill} by ${client.fullId}")
+    logger.warn(s"Received invalid ${work.skill} ${work.id} for ${work.game.id} by ${client.fullId}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
   }
 
@@ -83,13 +83,13 @@ private final class Monitor(
   private[fishnet] def abort(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).abort()
 
-  private[fishnet] def notFound(skill: Client.Skill, client: Client) = {
-    logger.info(s"Received unknown $skill by ${client.fullId}")
+  private[fishnet] def notFound(id: Work.Id, client: Client) = {
+    logger.info(s"Received unknown ${client.skill} $id by ${client.fullId}")
     lila.mon.fishnet.client.result(client.userId.value, client.skill.key).notFound()
   }
 
   private[fishnet] def notAcquired(work: Work, client: Client) = {
-    logger.info(s"Received unacquired ${work.skill} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}")
+    logger.info(s"Received unacquired ${work.skill} ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).notAcquired()
   }
 
