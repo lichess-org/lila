@@ -355,14 +355,14 @@ object mon {
     def finish() = context.finish()
   }
 
-  private def makeTrace(name: String): Trace = {
+  private def makeTrace(name: String, firstName: String = "first"): Trace = {
     val context = tracer.newContext(
       name = name,
       token = None,
       timestamp = RelativeNanoTimestamp.now,
       isOpen = true,
       isLocal = false)
-    val firstSegment = context.startSegment("first", "logic", "mon")
+    val firstSegment = context.startSegment(firstName, "logic", "mon")
     new KamonTrace(context, firstSegment)
   }
 
