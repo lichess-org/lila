@@ -24,20 +24,16 @@ final class Env(
 
   lazy val lastPostCache = new LastPostCache(api, LastPostCacheTtl, PrismicCollection)
 
-  private implicit lazy val notifier = new Notifier(
+  private lazy val notifier = new Notifier(
     blogApi = api,
     messageApi = messageApi,
     lastPostCache = lastPostCache,
     lichessUserId = NotifySender)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.effect(NotifyDelay, "blog: notify check") {
-      notifier.apply
-    }
-    scheduler.once(1 minute) {
-      notifier.apply
+  def cli = new lila.common.Cli {
+    def process = {
+      case "blog" :: "message" :: prismicId :: Nil =>
+        notifier.sendMessages(prismicId) inject "done!"
     }
   }
 }
