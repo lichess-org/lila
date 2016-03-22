@@ -1501,7 +1501,8 @@ lichess.numberFormat = (function() {
       if (self.number.length) self.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
-        if (data.anons) tags.push('Anonymous(' + data.anons + ')');
+        if (data.anons === 1) tags.push('Anonymous');
+        else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
         self.list.html(tags.join(', '));
       } else if (!self.number.length) self.list.html(data.nb + ' players in the chat');
 
