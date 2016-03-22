@@ -6,13 +6,13 @@
   <!-- Exceptions yes, stacktraces no -->
   <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
-    <encoder><pattern>%coloredLevel %logger{25} - %message%n</pattern></encoder>
+    <encoder><pattern>%[level] %logger{25} - %message%n</pattern></encoder>
   </appender>
 
   <!-- STDOUT that accepts INFO and above -->
   <appender name="STDOUT_INFO" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
-    <encoder><pattern>%coloredLevel %logger{25} - %message%n</pattern></encoder>
+    <encoder><pattern>%[level] %logger{25} - %message%n</pattern></encoder>
   </appender>
 
   <!-- File where every INFO and above is written -->
@@ -85,26 +85,36 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <!-- <logger name="ratelimit" level="DEBUG"> -->
-  <!--   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
-  <!--     <file>/var/log/lichess/ratelimit.log</file> -->
-  <!--     <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder> -->
-  <!--     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-  <!--       <fileNamePattern>/var/log/lichess/ratelimit-log-%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-  <!--       <maxHistory>7</maxHistory> -->
-  <!--     </rollingPolicy> -->
-  <!--   </appender> -->
-  <!-- </logger> -->
-  <!-- <logger name="fishnet" level="DEBUG"> -->
-  <!--   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
-  <!--     <file>/var/log/lichess/fishnet.log</file> -->
-  <!--     <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder> -->
-  <!--     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-  <!--       <fileNamePattern>/var/log/lichess/fishnet-log-%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-  <!--       <maxHistory>7</maxHistory> -->
-  <!--     </rollingPolicy> -->
-  <!--   </appender> -->
-  <!-- </logger> -->
+  <logger name="ratelimit" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/ratelimit.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/ratelimit-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="cheat" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/cheat.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/cheat-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="fishnet" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/fishnet.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/fishnet-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
 
   <!-- Set a specific actor to DEBUG -->
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
