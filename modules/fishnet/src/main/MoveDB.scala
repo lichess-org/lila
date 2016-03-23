@@ -18,8 +18,12 @@ private final class MoveDB(
   def acquire(client: Client): Fu[Option[Move]] =
     actor ? Acquire(client) mapTo manifest[Option[Move]]
 
-  def postResult(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove) =
-    actor ! PostResult(moveId, client, data)
+  def postResult(
+    moveId: Work.Id,
+    client: Client,
+    data: JsonApi.Request.PostMove,
+    measurement: lila.mon.Measurement) =
+    actor ! PostResult(moveId, client, data, measurement)
 
   def monitor = actor ! Mon
 
@@ -31,7 +35,11 @@ private final class MoveDB(
   private case class Add(move: Move)
   private case class UpdateOrGiveUp(move: Move)
   private case class Acquire(client: Client)
-  private case class PostResult(moveId: Work.Id, client: Client, data: JsonApi.Request.PostMove)
+  private case class PostResult(
+    moveId: Work.Id,
+    client: Client,
+    data: JsonApi.Request.PostMove,
+    measurement: lila.mon.Measurement)
 
   private val actor = system.actorOf(Props(new Actor {
 
@@ -77,19 +85,21 @@ private final class MoveDB(
         move
       }
 
-      case PostResult(moveId, client, data) => coll get moveId match {
-        case None => Monitor.notFound(moveId, client)
-        case Some(move) if move isAcquiredBy client => data.move.uci match {
-          case Some(uci) =>
-            coll -= move.id
-            Monitor.move(move, client)
-            roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
-          case _ =>
-            updateOrGiveUp(move.invalid)
-            Monitor.failure(move, client)
+      case PostResult(moveId, client, data, measurement) =>
+        coll get moveId match {
+          case None => Monitor.notFound(moveId, client)
+          case Some(move) if move isAcquiredBy client => data.move.uci match {
+            case Some(uci) =>
+              coll -= move.id
+              Monitor.move(move, client)
+              roundMap ! hubApi.map.Tell(move.game.id, hubApi.round.FishnetPlay(uci, move.currentFen))
+            case _ =>
+              updateOrGiveUp(move.invalid)
+              Monitor.failure(move, client)
+          }
+          case Some(move) => Monitor.notAcquired(move, client)
         }
-        case Some(move) => Monitor.notAcquired(move, client)
-      }
+        measurement.finish()
 
       case UpdateOrGiveUp(move) => updateOrGiveUp(move)
     }

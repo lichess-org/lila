@@ -280,6 +280,7 @@ object mon {
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
+      def post = rec(s"fishnet.move.post")
     }
     object analysis {
       def by(client: String) = new {
@@ -332,6 +333,12 @@ object mon {
       else hist.record(value)
     }
   }
+
+  final class Measurement(since: Long, path: RecPath) {
+    def finish() = path(lila.mon)(System.nanoTime() - since)
+  }
+
+  def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
 
   trait Trace {
 

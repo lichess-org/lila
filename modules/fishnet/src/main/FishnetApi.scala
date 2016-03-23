@@ -70,7 +70,8 @@ final class FishnetApi(
   }.map { _ map JsonApi.fromWork }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
-    moveDb.postResult(workId, client, data)
+    val measurement = lila.mon.startMeasurement(_.fishnet.move.post)
+    moveDb.postResult(workId, client, data, measurement)
   }
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
