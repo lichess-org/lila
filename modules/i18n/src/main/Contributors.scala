@@ -50,7 +50,7 @@ private[i18n] object Contributors {
     "fa" -> List("saeid monajiane"),
     "he" -> List("Tangelo777", " Tornado"),
     "mr" -> List("Rahul"),
-    "mn" -> List("Tsbarsaa"),
+    "mn" -> List("Tsbarsaa", "mungunbayar"),
     "cy" -> List("cavejohnson"),
     "gd" -> List("GunChleoc"),
     "ga" -> List("Anonymous"),
