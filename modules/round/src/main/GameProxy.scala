@@ -7,7 +7,9 @@ import ornicar.scalalib.Zero
 
 private final class GameProxy(id: String) {
 
-  def game: Fu[Option[Game]] = cache
+  val enabled = false
+
+  def game: Fu[Option[Game]] = if (enabled) cache else fetch
 
   def save(progress: Progress): Funit = {
     set(progress.game)
@@ -19,11 +21,11 @@ private final class GameProxy(id: String) {
   def bypass(f: GameRepo.type => Funit): Funit = f(GameRepo)
 
   def set(game: Game): Unit = {
-    cache = fuccess(game.some)
+    if (enabled) cache = fuccess(game.some)
   }
 
   def invalidate: Unit = {
-    cache = fetch
+    if (enabled) cache = fetch
   }
 
   // convenience helpers
