@@ -25,11 +25,12 @@ private final class Monitor(
     Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
+    val threads = result.engine.options.threadsInt 
 
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
 
-    monitor.totalSecond(sumOf(result.analysis)(_.time) / 1000)
+    monitor.totalSecond(sumOf(result.analysis)(_.time) * threads.|(1) / 1000)
     monitor.totalMeganode(sumOf(result.analysis) { eval =>
       eval.nodes ifFalse eval.mateFound
     } / 1000000)
