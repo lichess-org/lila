@@ -16,9 +16,9 @@ ol.scheduled_tournaments a {
   display: block;
   width: 60px;
   height: 60px;
-}
-#tournament .header .img {
   margin: 0 15px;
+  box-sizing: border-box;
+  padding: 6px;
 }
 #tournament .header i::before {
   font-size: 30px;
