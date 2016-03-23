@@ -80,6 +80,10 @@ object mon {
       val fishnet = inc("round.error.fishnet")
       val glicko = inc("round.error.glicko")
     }
+    object titivate {
+      val game = rec("round.titivate.game")
+      val time = rec("round.titivate.time")
+    }
   }
   object explorer {
     object index {
