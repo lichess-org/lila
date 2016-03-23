@@ -6,13 +6,13 @@
   <!-- Exceptions yes, stacktraces no -->
   <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
-    <encoder><pattern>[%level] %logger{25} - %message%n</pattern></encoder>
+    <encoder><pattern>[%level] %logger{25} - %message%n%xException{1}</pattern></encoder>
   </appender>
 
   <!-- STDOUT that accepts INFO and above -->
   <appender name="STDOUT_INFO" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
-    <encoder><pattern>[%level] %logger{25} - %message%n</pattern></encoder>
+    <encoder><pattern>[%level] %logger{25} - %message%n%xException{1}</pattern></encoder>
   </appender>
 
   <!-- File where every INFO and above is written -->
