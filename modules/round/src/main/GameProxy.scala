@@ -7,7 +7,7 @@ import ornicar.scalalib.Zero
 
 private final class GameProxy(id: String) {
 
-  val enabled = false
+  val enabled = true
 
   def game: Fu[Option[Game]] = if (enabled) cache else fetch
 
