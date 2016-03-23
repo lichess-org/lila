@@ -11,6 +11,7 @@ private object BSONHandlers {
 
   implicit val ClientKeyBSONHandler = stringAnyValHandler[Client.Key](_.value, Client.Key.apply)
   implicit val ClientVersionBSONHandler = stringAnyValHandler[Client.Version](_.value, Client.Version.apply)
+  implicit val ClientPythonBSONHandler = stringAnyValHandler[Client.Python](_.value, Client.Python.apply)
   implicit val ClientUserIdBSONHandler = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
   implicit val ClientIpAddressBSONHandler = stringAnyValHandler[Client.IpAddress](_.value, Client.IpAddress.apply)
 

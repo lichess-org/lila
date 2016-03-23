@@ -65,11 +65,16 @@ private final class Monitor(
       skill(s.key)(clients.count(_.skill == s))
     }
 
-    clients.flatMap(_.instance).map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
+    val instances = clients.flatMap(_.instance)
+
+    instances.map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
       case (v, nb) => version(v)(nb)
     }
-    clients.flatMap(_.instance).map(_.engine.name).groupBy(identity).mapValues(_.size) foreach {
+    instances.map(_.engine.name).groupBy(identity).mapValues(_.size) foreach {
       case (s, nb) => engine(s)(nb)
+    }
+    instances.map(_.python.value).groupBy(identity).mapValues(_.size) foreach {
+      case (s, nb) => python(s)(nb)
     }
   } andThenAnyway scheduleClients
 

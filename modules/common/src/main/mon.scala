@@ -264,6 +264,7 @@ object mon {
       def skill(v: String) = rec(s"fishnet.client.skill.$v")
       def version(v: String) = rec(s"fishnet.client.version.${nodots(v)}")
       def engine(v: String) = rec(s"fishnet.client.engine.${nodots(v)}")
+      def python(v: String) = rec(s"fishnet.client.python.${nodots(v)}")
     }
     object queue {
       def db(skill: String) = rec(s"fishnet.queue.db.$skill")

@@ -36,18 +36,21 @@ object Client {
 
   case class Key(value: String) extends AnyVal with StringValue
   case class Version(value: String) extends AnyVal with StringValue
+  case class Python(value: String) extends AnyVal with StringValue
   case class UserId(value: String) extends AnyVal with StringValue
   case class IpAddress(value: String) extends AnyVal with StringValue
   case class Engine(name: String)
 
   case class Instance(
       version: Version,
+      python: Python,
       engine: Engine,
       ip: IpAddress,
       seenAt: DateTime) {
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
+      else if (i.python != python) i.some
       else if (i.engine != engine) i.some
       else if (i.ip != ip) i.some
       else if (i.seenAt isAfter seenAt.plusMinutes(5)) i.some

@@ -16,6 +16,7 @@ object JsonApi {
 
     def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
+      fishnet.python,
       Client.Engine(engine.name),
       ip,
       DateTime.now)
@@ -27,6 +28,7 @@ object JsonApi {
 
     case class Fishnet(
       version: Client.Version,
+      python: Client.Python,
       apikey: Client.Key)
 
     sealed trait Engine {
@@ -120,6 +122,7 @@ object JsonApi {
 
   object readers {
     implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
+    implicit val ClientPythonReads = Reads.of[String].map(new Client.Python(_))
     implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
     implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
     implicit val BaseEngineReads = Json.reads[Request.BaseEngine]
