@@ -73,13 +73,13 @@ echo "rsync complete"
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
+  lilalog "Deploy logger configuration"
+  rsync -av conf/prod-logger.xml $REMOTE:/etc/lichess.logger.xml
   lilalog "Notify users of post deploy"
   bin/cli-prod deploy post
 fi
 
 if [ $mode == "main" ]; then
-  lilalog "Deploy logger configuration"
-  rsync -av conf/prod-logger.xml $REMOTE:/etc/lichess.logger.xml
   lilalog "Restart lichess"
   ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
 fi
