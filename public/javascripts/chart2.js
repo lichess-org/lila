@@ -307,7 +307,7 @@ $(function() {
         });
         divisionLines.push({
           label: {
-            text: 'Mid-Game',
+            text: 'Middlegame',
             verticalAlign: 'top',
             align: 'left',
             y: 0,
