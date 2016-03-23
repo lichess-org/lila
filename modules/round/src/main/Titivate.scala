@@ -18,20 +18,25 @@ private[round] final class Titivate(
   object Schedule
   object Run
 
-  def scheduler = context.system.scheduler
-
   override def preStart() {
-    self ! Schedule
+    scheduleNext
+    context setReceiveTimeout 30.seconds
   }
+
+  def scheduler = context.system.scheduler
 
   val delayDuration = 200 millis
   def delayF(f: => Funit): Funit = akka.pattern.after(delayDuration, scheduler)(f)
   def delay(f: => Unit): Funit = akka.pattern.after(delayDuration, scheduler)(Future(f))
 
+  def scheduleNext = scheduler.scheduleOnce(10 seconds, self, Run)
+
   def receive = {
 
-    case Schedule =>
-      scheduler.scheduleOnce(30 seconds, self, Run)
+    case ReceiveTimeout =>
+      val msg = "Titivate timed out!"
+      logger.error(msg)
+      throw new RuntimeException(msg)
 
     case Run =>
       $enumerate.over[Game]($query(Query.checkable), 5000) { game =>
@@ -62,8 +67,6 @@ private[round] final class Titivate(
             GameRepo.setCheckAt(game, DateTime.now plusDays days)
           }
         }
-      }.void andThenAnyway {
-        self ! Schedule
-      }
+      } andThenAnyway scheduleNext
   }
 }
