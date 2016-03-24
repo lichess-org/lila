@@ -25,7 +25,7 @@ private final class Monitor(
     Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
-    val threads = result.engine.options.threadsInt 
+    val threads = result.engine.options.threadsInt
 
     result.engine.options.hashInt foreach { monitor.hash(_) }
     result.engine.options.threadsInt foreach { monitor.threads(_) }
