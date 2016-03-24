@@ -43,9 +43,7 @@ private[tournament] final class CreatedOrganizer(
             case _                                      => ejectLeavers(tour)
           }
         }
-        val nbTours = tours.size
-        pairingLogger.debug(s"Created - tours: $nbTours")
-        lila.mon.tournament.created(nbTours)
+        lila.mon.tournament.created(tours.size)
       } andThenAnyway scheduleNext
   }
 
