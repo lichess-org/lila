@@ -693,6 +693,12 @@ div.game_config .color_submits button.random i {
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
+.tour_spotlight i.img {
+  margin: 0 5px 0 0;
+}
+.tour_spotlight i.img::before {
+  font-size: 50px;
+}
 .tour_spotlight .content {
   display: block;
 }
