@@ -14,6 +14,8 @@ final class Player(
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeWork(game, level) addEffect moveDb.add void
+  } recover {
+    case e: Exception => logger.info(e.getMessage)
   }
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
@@ -33,5 +35,5 @@ final class Player(
           createdAt = DateTime.now)
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
-    else fufail("[fishnet] invalid position")
+    else fufail(s"[fishnet] invalid position on ${game.id}")
 }
