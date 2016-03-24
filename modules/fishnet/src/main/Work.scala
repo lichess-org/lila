@@ -31,11 +31,12 @@ object Work {
 
   case class Acquired(
       clientKey: Client.Key,
+      userId: Client.UserId,
       date: DateTime) {
 
     def ageInMillis = nowMillis - date.getMillis
 
-    override def toString = s"by $clientKey at $date"
+    override def toString = s"by $userId at $date"
   }
 
   case class Game(
@@ -68,7 +69,10 @@ object Work {
     def skill = Client.Skill.Move
 
     def assignTo(client: Client) = copy(
-      acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
+      acquired = Acquired(
+        clientKey = client.key,
+        userId = client.userId,
+        date = DateTime.now).some,
       tries = tries + 1)
 
     def timeout = copy(acquired = none)
@@ -94,7 +98,10 @@ object Work {
     def skill = Client.Skill.Analysis
 
     def assignTo(client: Client) = copy(
-      acquired = Acquired(clientKey = client.key, date = DateTime.now).some,
+      acquired = Acquired(
+        clientKey = client.key,
+        userId = client.userId,
+        date = DateTime.now).some,
       tries = tries + 1)
 
     def timeout = copy(acquired = none)
