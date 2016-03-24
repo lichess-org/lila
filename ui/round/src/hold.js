@@ -47,9 +47,7 @@ function find(el, d) {
 
 module.exports = {
   applies: function(data) {
-    return data.game.variant.key === 'standard' && !(
-      data.player.user && data.player.user.title
-    );
+    return data.game.variant.key === 'standard';
   },
   register: register,
   find: find
