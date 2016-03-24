@@ -513,4 +513,3 @@ itIsAGreatIdeaAndWeWillMakeSureYouStayAnonymous=Это здорово. Мы об
 asAnAnonymousUserYouCanPlayTrainAndUseAllLichessFeatures=Как Анонимный пользователь, Вы можете играть, тренироваться и пользоваться всеми возможностями сайта. Наслаждайтесь!
 networkLagBetweenYouAndLichess=Задержка сети между Вами и Lichess
 timeToProcessAMoveOnLichessServer=Время обработки хода на сервере
-or=или
