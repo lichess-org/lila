@@ -27,7 +27,6 @@ final class Env(
   private lazy val notifier = new Notifier(
     blogApi = api,
     messageApi = messageApi,
-    lastPostCache = lastPostCache,
     lichessUserId = NotifySender)
 
   def cli = new lila.common.Cli {

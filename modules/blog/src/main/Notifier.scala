@@ -1,14 +1,17 @@
 package lila.blog
 
 import io.prismic.Document
+import org.joda.time.DateTime
+import play.api.libs.iteratee._
+import reactivemongo.api._
+import reactivemongo.bson._
+
 import lila.message.{ ThreadRepo, Api => MessageApi }
 import lila.user.UserRepo
-import org.joda.time.DateTime
 
 private[blog] final class Notifier(
     blogApi: BlogApi,
     messageApi: MessageApi,
-    lastPostCache: LastPostCache,
     lichessUserId: String) {
 
   def sendMessages(prismicId: String): Funit =
@@ -23,14 +26,19 @@ private[blog] final class Notifier(
     }
 
   private def doSend(post: Document): Funit =
-    UserRepo recentlySeenNotKidIds DateTime.now.minusWeeks(1) flatMap { userIds =>
-      (ThreadRepo reallyDeleteByCreatorId lichessUserId) >> {
-        val thread = makeThread(post)
-        val futures = userIds.toStream map { userId =>
-          messageApi.lichessThread(thread.copy(to = userId))
-        }
-        lila.common.Future.lazyFold(futures)(())((_, _) => ()) >>- lastPostCache.clear
-      }
+    ThreadRepo.reallyDeleteByCreatorId(lichessUserId) >> {
+      val thread = makeThread(post)
+      UserRepo.recentlySeenNotKidIdsCursor(DateTime.now minusWeeks 1)
+        .enumerate(500 * 1000, stopOnError = true) &>
+        Enumeratee.map {
+          _.getAs[String]("_id") err "User without an id"
+        } |>>>
+        Iteratee.foldM[String, Int](0) {
+          case (count, userId) =>
+            messageApi.lichessThread(thread.copy(to = userId)) inject (count + 1)
+        } addEffect { count =>
+          logger.info(s"Sent $count messages")
+        } void
     }
 
   private def makeThread(doc: Document) =

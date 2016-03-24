@@ -307,13 +307,13 @@ object UserRepo {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }
 
-  def recentlySeenNotKidIds(since: DateTime) =
-    coll.distinct("_id", BSONDocument(
+  def recentlySeenNotKidIdsCursor(since: DateTime) =
+    coll.find(BSONDocument(
       F.enabled -> true,
       "seenAt" -> BSONDocument("$gt" -> since),
       "count.game" -> BSONDocument("$gt" -> 9),
       "kid" -> BSONDocument("$ne" -> true)
-    ).some) map lila.db.BSON.asStrings
+    ), BSONDocument("_id" -> true)).cursor[BSONDocument]()
 
   def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
