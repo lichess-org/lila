@@ -40,11 +40,11 @@ final class Env(
 
   if (!isDev) {
     scheduler.effect(SheetDelay, "video update from sheet") {
-      sheet.fetchAll logFailure logger
+      sheet.fetchAll logFailure logger nevermind
     }
 
     scheduler.effect(YoutubeDelay, "video update from youtube") {
-      youtube.updateAll logFailure logger
+      youtube.updateAll logFailure logger nevermind
     }
   }
 
