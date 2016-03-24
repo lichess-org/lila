@@ -67,7 +67,7 @@ object Setup extends LilaController with TheftPrevention {
           ), {
             case config => userId ?? UserRepo.byId flatMap { destUser =>
               destUser ?? Challenge.restriction flatMap {
-                case Some(_) => 
+                case Some(_) =>
                   Redirect(routes.Lobby.home + s"?user=${~userId}#friend").fuccess
                 case None =>
                   import lila.challenge.Challenge._

@@ -31,7 +31,8 @@ object Importer extends LilaController {
         } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
-          logger.branch("importer").warn("sendGame", e)
+          logger.branch("importer").warn(
+            s"Imported game validates but can't be replayed:\n${data.pgn}", e)
           Redirect(routes.Importer.importGame)
       }
     )
