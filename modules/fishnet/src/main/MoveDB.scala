@@ -65,7 +65,6 @@ private final class MoveDB(
         timedOut.foreach { move =>
           updateOrGiveUp(move.timeout)
         }
-        logger.debug(s"Moves DB size: ${coll.size}")
         sender ! timedOut
 
       case Add(move) =>
