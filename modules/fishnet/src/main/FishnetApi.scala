@@ -113,10 +113,8 @@ final class FishnetApi(
     }
   }
 
-  def prioritaryAnalysisExists(gameId: String): Fu[Boolean] = analysisColl.count(BSONDocument(
-    "game.id" -> gameId,
-    "sender.system" -> false
-  ).some).map(0!=)
+  def prioritaryAnalysisInProgress(gameId: String): Fu[Option[Work.InProgress]] =
+    repo.getAnalysisByGameId(gameId) map { _.flatMap(_.inProgress) }
 
   private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
     Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>

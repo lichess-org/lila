@@ -48,6 +48,9 @@ private final class FishnetRepo(
   def countAnalysis(acquired: Boolean) = analysisColl.count(BSONDocument(
     "acquired" -> BSONDocument("$exists" -> acquired)
   ).some)
+  def getAnalysisByGameId(gameId: String) = analysisColl.find(BSONDocument(
+    "game.id" -> gameId
+  )).one[Work.Analysis]
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.find(BSONDocument("game.id" -> work.game.id)).one[Work.Analysis]

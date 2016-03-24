@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], analysisInProgress: Boolean, simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -102,10 +102,10 @@ atom = atom.some) {
         data-rows="@chart"></div>
       }
       }.getOrElse {
-      @if(analysisInProgress) {
-      @analyse.computing(pov.gameId)
-      } else {
-      <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
+      @analysisInProgress.map { prog =>
+      @analyse.computing(pov.gameId, prog.some)
+      }.getOrElse {
+      <form class="future_game_analysis@if(ctx.isAnon){must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
       }
