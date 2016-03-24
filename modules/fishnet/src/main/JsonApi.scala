@@ -16,7 +16,7 @@ object JsonApi {
 
     def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
-      fishnet.python,
+      fishnet.python | Client.Python(""),
       Client.Engine(engine.name),
       ip,
       DateTime.now)
@@ -28,7 +28,7 @@ object JsonApi {
 
     case class Fishnet(
       version: Client.Version,
-      python: Client.Python,
+      python: Option[Client.Python],
       apikey: Client.Key)
 
     sealed trait Engine {
