@@ -52,6 +52,9 @@ ol.scheduled_tournaments a {
 #tournament .finished .header h1 {
   text-align: center;
 }
+#tournament.marathon .finished .header h1 {
+  padding-left: 0;
+}
 #tournament .header .time {
   font-family: monospace;
   font-weight: bold;
@@ -63,13 +66,12 @@ ol.scheduled_tournaments a {
   text-transform: uppercase;
   opacity: 0.6;
 }
-#tournament .marathon_title {
-  position: relative;
-  padding-left: 90px;
+#tournament.marathon h1 {
   color: #4166a0!important;
+  padding-left: 90px;
   letter-spacing: 2px;
 }
-#tournament .marathon_title .fire_trophy {
+#tournament.marathon .fire_trophy {
   position: absolute;
   top: 0;
   left: 0;
@@ -78,10 +80,10 @@ ol.scheduled_tournaments a {
   opacity: 0.7;
   transition: 1s;
 }
-#tournament .marathon_title .fire_trophy:hover {
+#tournament.marathon .fire_trophy:hover {
   opacity: 1;
 }
-#tournament .marathon_title .fire_trophy span {
+#tournament.marathon .fire_trophy span {
   margin-top: -78px;
   margin-right: 32px;
 }
