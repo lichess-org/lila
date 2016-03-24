@@ -505,11 +505,7 @@ weHaveSentYouAnEmailClickTheLink=Мы отправили Вам письмо. Н
 ifYouDoNotSeeTheEmailCheckOtherPlaces=Если письмо не приходит, проверьте папку для спама и другие места, куда оно могло попасть.
 areYouSureYouEvenRegisteredYourEmailOnLichess=Вы уверены, что указывали свой Email на Lichess?
 itWasNotRequiredForYourRegistration=Он не был обязателен при регистрации.
-weHaveSentYouAnEmailTo=We've sent an email to=Мы отправили письмо по адресу
+weHaveSentYouAnEmailTo=Мы отправили письмо по адресу %s
 clickTheLinkInTheEmailToResetYourPassword=Нажмите на ссылку в нём для сброса пароля.
-cannotLogInFromYourIP=Не удаётся войти с Вашего IP
-weHaveDetectedThatYouAreUsingTOR=Мы заметили, что Вы используете TOR для анонимности в интернете.
-itIsAGreatIdeaAndWeWillMakeSureYouStayAnonymous=Это здорово. Мы обеспечим Вашу безопасность и на нашем сайте.
-asAnAnonymousUserYouCanPlayTrainAndUseAllLichessFeatures=Как Анонимный пользователь, Вы можете играть, тренироваться и пользоваться всеми возможностями сайта. Наслаждайтесь!
 networkLagBetweenYouAndLichess=Задержка сети между Вами и Lichess
 timeToProcessAMoveOnLichessServer=Время обработки хода на сервере
