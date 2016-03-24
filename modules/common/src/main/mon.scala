@@ -262,9 +262,9 @@ object mon {
         val disabled = rec("fishnet.client.status.disabled")
       }
       def skill(v: String) = rec(s"fishnet.client.skill.$v")
-      def version(v: String) = rec(s"fishnet.client.version.${nodots(v)}")
-      def engine(v: String) = rec(s"fishnet.client.engine.${nodots(v)}")
-      def python(v: String) = rec(s"fishnet.client.python.${nodots(v)}")
+      def version(v: String) = rec(s"fishnet.client.version.${makeVersion(v)}")
+      def engine(v: String) = rec(s"fishnet.client.engine.${makeVersion(v)}")
+      def python(v: String) = rec(s"fishnet.client.python.${makeVersion(v)}")
     }
     object queue {
       def db(skill: String) = rec(s"fishnet.queue.db.$skill")
@@ -379,7 +379,10 @@ object mon {
     new KamonTrace(context, firstSegment)
   }
 
+  private val stripVersionRegex = """[^\w\.\-]""".r
+  private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")
   private def nodots(s: String) = s.replace(".", "_")
+  private val makeVersion = nodots _ compose stripVersion _
 
   private val logger = lila.log("monitor")
 }
