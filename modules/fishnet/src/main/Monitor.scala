@@ -12,9 +12,6 @@ private final class Monitor(
     sequencer: lila.hub.FutureSequencer,
     scheduler: lila.common.Scheduler) {
 
-  private[fishnet] def acquire(client: Client) =
-    lila.mon.fishnet.acquire.count(client.userId.value)()
-
   private case class AnalysisMeta(time: Int, nodes: Int, nps: Int, depth: Int, pvSize: Int)
 
   private def sumOf[A](ints: List[A])(f: A => Option[Int]) = ints.foldLeft(0) {

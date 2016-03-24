@@ -54,7 +54,7 @@ final class FishnetApi(
       case AcquireTimeout =>
         logger.warn(s"[${client.skill}] Fishnet.acquire timed out")
         none
-    } >>- monitor.acquire(client)
+    }
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
     moveDb.acquire(client) map { _ map JsonApi.fromWork }

@@ -271,7 +271,6 @@ object mon {
       def sequencer(skill: String) = rec(s"fishnet.queue.sequencer.$skill")
     }
     object acquire {
-      def count(client: String) = inc(s"fishnet.acquire.$client")
       def time(skill: String) = rec(s"fishnet.acquire.skill.$skill")
       def timeout(skill: String) = inc(s"fishnet.acquire.timeout.skill.$skill")
     }
