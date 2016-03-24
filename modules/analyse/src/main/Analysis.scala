@@ -17,6 +17,8 @@ case class Analysis(
 
   def providedBy = by | "lichess"
 
+  def providedByLichess = by exists (_ startsWith "lichess-")
+
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect {
       case List(prev, info) => info -> {

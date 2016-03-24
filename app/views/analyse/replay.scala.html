@@ -150,7 +150,8 @@ atom = atom.some) {
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {
-    <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
+    <a data-panel="computer_analysis" class="computer_analysis"
+      @analysis.map { a => title="Provided by @usernameOrId(a.providedBy)" }>@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
     @if(timeChart.series.isDefined) {
