@@ -8,22 +8,28 @@ import scala.concurrent.duration._
 final class BlogApi(prismicUrl: String, collection: String) {
 
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
-    api.forms(collection).ref(ref | api.master.ref)
+    api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(nb).page(1).submit().fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(ref | api.master.ref).submit() map (_.results.headOption)
+      .ref(resolveRef(api)(ref) | api.master.ref).submit() map (_.results.headOption)
 
   // -- Build a Prismic context
-  def context(ref: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
+  def context(refName: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
     prismicApi map { api =>
-      BlogApi.Context(
-        api,
-        ref.map(_.trim).filterNot(_.isEmpty).getOrElse(api.master.ref),
-        linkResolver(api, ref))
+      val ref = resolveRef(api)(refName)
+      BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
+    }
+
+  private def resolveRef(api: Api)(ref: Option[String]) =
+    ref.map(_.trim).filterNot(_.isEmpty).flatMap { reqRef =>
+      api.refs.values.collectFirst {
+        case r if r.label == reqRef => r.ref
+        case r if r.ref == reqRef   => r.ref
+      }
     }
 
   private val cache = BuiltInCache(200)
