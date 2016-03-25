@@ -251,6 +251,7 @@ object mon {
       def result(client: String, skill: String) = new {
         def success = apply("success")
         def failure = apply("failure")
+        def weak = apply("weak")
         def timeout = apply("timeout")
         def notFound = apply("not_found")
         def notAcquired = apply("not_acquired")

@@ -62,13 +62,19 @@ object JsonApi {
     }
 
     case class PostAnalysis(
-      fishnet: Fishnet,
-      engine: FullEngine,
-      analysis: List[Evaluation]) extends Request with Result
+        fishnet: Fishnet,
+        engine: FullEngine,
+        analysis: List[Evaluation]) extends Request with Result {
+
+      def medianNodes = analysis.flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
+
+      def strong = medianNodes.exists(_ > Evaluation.acceptableNodes)
+      def weak = !strong
+    }
 
     case class Evaluation(
         pv: Option[String],
-        score: Score,
+        score: Evaluation.Score,
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
@@ -77,7 +83,7 @@ object JsonApi {
       // use first pv move as bestmove
       val pvList = pv.??(_.split(' ').toList)
 
-      val cappedNps = nps.map(_ min npsCeil)
+      val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
       val cappedPvList = pvList take lila.analyse.Info.LineMaxPlies
 
@@ -85,9 +91,15 @@ object JsonApi {
       def mateFound = score.mate.isDefined
     }
 
-    case class Score(cp: Option[Int], mate: Option[Int])
+    object Evaluation {
 
-    val npsCeil = 10 * 1000 * 1000
+      case class Score(cp: Option[Int], mate: Option[Int])
+
+      val npsCeil = 10 * 1000 * 1000
+
+      val desiredNodes = 3 * 1000 * 1000
+      val acceptableNodes = desiredNodes * 0.9
+    }
   }
 
   case class Game(
@@ -131,7 +143,7 @@ object JsonApi {
     implicit val AcquireReads = Json.reads[Request.Acquire]
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
     implicit val PostMoveReads = Json.reads[Request.PostMove]
-    implicit val ScoreReads = Json.reads[Request.Score]
+    implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
     implicit val EvaluationReads = Json.reads[Request.Evaluation]
     implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
   }

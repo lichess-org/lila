@@ -122,6 +122,11 @@ object Monitor {
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
   }
 
+  private[fishnet] def weak(work: Work, client: Client, data: JsonApi.Request.PostAnalysis) = {
+    logger.warn(s"Received weak ${work.skill} ${work.id} (nodes: ${data.medianNodes})for ${work.game.id} by ${client.fullId}")
+    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).weak()
+  }
+
   private[fishnet] def timeout(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).timeout()
 

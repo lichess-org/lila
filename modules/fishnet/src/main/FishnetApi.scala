@@ -82,6 +82,10 @@ final class FishnetApi(
       case None =>
         Monitor.notFound(workId, client)
         fuccess(none)
+      case Some(work) if data.weak =>
+        repo.updateOrGiveUpAnalysis(work.weak) inject none
+        Monitor.weak(work, client, data)
+        fuccess(none)
       case Some(work) if work isAcquiredBy client => AnalysisBuilder(client, work, data) flatMap { analysis =>
         monitor.analysis(work, client, data)
         repo.deleteAnalysis(work) inject analysis.some
