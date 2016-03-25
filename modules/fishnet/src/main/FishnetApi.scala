@@ -62,7 +62,7 @@ final class FishnetApi(
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(BSONDocument(
       "acquired" -> BSONDocument("$exists" -> false),
-      "lastTryByKey" -> BSONDocument("$ne" -> client.key)
+      "lastTryByKey" -> BSONDocument("$ne" -> client.key) // client alternation
     )).sort(BSONDocument(
       "sender.system" -> 1, // user requests first, then lichess auto analysis
       "createdAt" -> 1 // oldest requests first
@@ -83,7 +83,7 @@ final class FishnetApi(
       case None =>
         Monitor.notFound(workId, client)
         fufail(WorkNotFound)
-      case Some(work) if data.weak =>
+      case Some(work) if data.weak && work.game.variant.standard =>
         Monitor.weak(work, client, data)
         repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
       case Some(work) if work isAcquiredBy client =>
