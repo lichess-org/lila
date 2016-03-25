@@ -37,6 +37,7 @@ module.exports = function(env) {
 
   this.update = function(data) {
     this.data = data;
+    if (data.i18n) this.trans = lichess.trans(data.i18n);
     this.vm.initiating = false;
     this.vm.reloading = false;
     env.setCount(this.countActiveIn());
@@ -77,5 +78,7 @@ module.exports = function(env) {
   if (env.data) this.update(env.data)
   else xhr.load().then(this.update);
 
-  this.trans = lichess.trans(env.i18n);
+  this.trans = function(key) {
+    return key;
+  };
 };
