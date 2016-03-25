@@ -43,16 +43,13 @@ final class FishnetApi(
     .mon(_.fishnet.acquire time client.skill.key)
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
-    .withTimeout(1 second, AcquireTimeout)
-    .addFailureEffect {
-      _ => lila.mon.fishnet.acquire.timeout(client.skill.key)()
-    }
     .recover {
       case e: FutureSequencer.Timeout =>
+        lila.mon.fishnet.acquire.timeout(client.skill.key)()
         logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
-      case AcquireTimeout =>
-        logger.warn(s"[${client.skill}] Fishnet.acquire timed out")
+      case e: Exception =>
+        logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
     }
 
@@ -144,10 +141,6 @@ final class FishnetApi(
 object FishnetApi {
 
   import lila.common.LilaException
-
-  case object AcquireTimeout extends LilaException {
-    val message = "FishnetApi.acquire timed out"
-  }
 
   case object WeakAnalysis extends LilaException {
     val message = "Analysis nodes per move is too low"
