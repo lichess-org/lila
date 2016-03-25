@@ -60,7 +60,8 @@ final class Analyser(
         startPly = game.startedAtTurn,
         nbPly = game.turns,
         tries = 0,
-        acquired = None,
+        lastTryByKey = none,
+        acquired = none,
         createdAt = DateTime.now)
     }
 }

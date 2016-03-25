@@ -9,6 +9,7 @@ sealed trait Work {
   def _id: Work.Id
   def game: Work.Game
   def tries: Int
+  def lastTryByKey: Option[Client.Key]
   def acquired: Option[Work.Acquired]
   def createdAt: DateTime
 
@@ -21,6 +22,7 @@ sealed trait Work {
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
   def isAcquired = acquired.isDefined
   def nonAcquired = !isAcquired
+  def canAcquire(client: Client) = lastTryByKey.fold(true)(client.key !=)
 
   def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
 }
@@ -63,6 +65,7 @@ object Work {
       currentFen: FEN,
       level: Int,
       tries: Int,
+      lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
 
@@ -73,6 +76,7 @@ object Work {
         clientKey = client.key,
         userId = client.userId,
         date = DateTime.now).some,
+      lastTryByKey = client.key.some,
       tries = tries + 1)
 
     def timeout = copy(acquired = none)
@@ -92,6 +96,7 @@ object Work {
       startPly: Int,
       nbPly: Int,
       tries: Int,
+      lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       createdAt: DateTime) extends Work {
 
@@ -102,6 +107,7 @@ object Work {
         clientKey = client.key,
         userId = client.userId,
         date = DateTime.now).some,
+      lastTryByKey = client.key.some,
       tries = tries + 1)
 
     def timeout = copy(acquired = none)

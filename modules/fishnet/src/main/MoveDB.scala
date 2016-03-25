@@ -74,7 +74,7 @@ private final class MoveDB(
       case Acquire(client) => sender ! coll.foldLeft(none[Move]) {
         case (found, (_, m)) => if (m.nonAcquired) Some {
           found.fold(m) { a =>
-            if (m.createdAt isBefore a.createdAt) m else a
+            if (m.canAcquire(client) && m.createdAt.isBefore(a.createdAt)) m else a
           }
         }
         else found

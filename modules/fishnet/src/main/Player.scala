@@ -31,7 +31,8 @@ final class Player(
           currentFen = FEN(Forsyth >> game.toChess),
           level = level,
           tries = 0,
-          acquired = None,
+          lastTryByKey = none,
+          acquired = none,
           createdAt = DateTime.now)
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
