@@ -38,13 +38,6 @@ trait I18nHelper {
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 
-  def langFallbackLinks(implicit ctx: UserContext) = Html {
-    pool.preferredNames(ctx.req, 3).map {
-      case (code, name) => """<a class="lang_fallback" lang="%s" href="%s">%s</a>""".format(
-        code, langUrl(Lang(code))(I18nDomain(ctx.req.domain)), name)
-    }.mkString("").replace(uriPlaceholder, ctx.req.uri)
-  }
-
   private lazy val langAnnotationsBase: String =
     pool.names.keySet diff Set("fp", "kb", "le", "tp", "pi", "io") map { code =>
       s"""<link rel="alternate" hreflang="$code" href="http://$code.lichess.org%"/>"""
