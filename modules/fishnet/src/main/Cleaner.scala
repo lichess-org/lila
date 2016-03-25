@@ -23,7 +23,6 @@ private final class Cleaner(
 
   private def cleanMoves: Unit = moveDb.clean map { moves =>
     moves foreach { move =>
-      clientTimeout(move)
       logger.info(s"Timeout move $move")
     }
   }
@@ -34,18 +33,8 @@ private final class Cleaner(
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>
-      repo.updateOrGiveUpAnalysis(ana.timeout) >>- {
-        clientTimeout(ana)
-        logger.info(s"Timeout analysis $ana")
-      }
+      repo.updateOrGiveUpAnalysis(ana.timeout) >>- logger.info(s"Timeout analysis $ana")
     }.sequenceFu.void
-  }
-
-  private def clientTimeout(work: Work) = work.acquiredByKey ?? repo.getClient foreach {
-    _ foreach { client =>
-      Monitor.timeout(work, client)
-      logger.info(s"Timeout client ${client.fullId}")
-    }
   }
 
   private def scheduleMoves = scheduler.once(1 second)(cleanMoves)
