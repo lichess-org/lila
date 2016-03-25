@@ -21,16 +21,16 @@ orientation: "@pov.color.name"
 @underchat = {
 @views.html.game.watchers()
 <div class="shortcuts">
-  <p class="title text" data-icon="u">Keyboard Shortcuts</p>
+  <p class="title text" data-icon="u">@trans.keyboardShortcuts()</p>
   <div class="inner">
     <ul>
-      <li><strong>h</strong>/<strong>l</strong> or <strong>←</strong>/<strong>→</strong> move backward/forward</li>
-      <li><strong>j</strong>/<strong>k</strong> or <strong>↑</strong>/<strong>↓</strong> go to start/end</li>
-      <li><strong>c</strong> show/hide comments</li>
-      <li><strong>shift</strong> + <strong>h</strong>/<strong>l</strong> or <strong>←</strong>/<strong>→</strong> enter/exit variation</li>
+      <li><strong>h</strong>/<strong>l</strong>, <strong>←</strong>/<strong>→</strong> @trans.keyMoveBackwardOrForward()</li>
+      <li><strong>j</strong>/<strong>k</strong>, <strong>↑</strong>/<strong>↓</strong> @trans.keyGoToStartOrEnd()</li>
+      <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
+      <li><strong>shift</strong> + <strong>h</strong>/<strong>l</strong>, <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
     </ul>
-    Press shift+click or right-click to draw circles and arrows on the board!<br />
-    You can also scroll over the board to move in the game.
+    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
+    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
   </div>
 </div>
 }
@@ -83,7 +83,7 @@ chessground = true) {
       }
       <tr>
         <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
-        <th>Average centipawn loss</th>
+        <th>@trans.averageCentipawnLoss()</th>
       </tr>
       <tr><td class="spacerlol" colspan=2></td></tr>
     </tbody>
@@ -96,17 +96,17 @@ chessground = true) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> Download annotated</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> Download raw</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
         }
         /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> Print-friendly PDF</a>
+        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
       </p>
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
@@ -118,7 +118,7 @@ chessground = true) {
   </div>
   <div class="analysis_menu">
     @if(cross.isDefined) {
-    <a data-panel="crosstable" class="crosstable">Crosstable</a>
+    <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>

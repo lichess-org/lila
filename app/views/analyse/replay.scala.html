@@ -41,7 +41,8 @@ endpoint: "@explorerEndpoint"
       <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
       <li><strong>shift</strong> + <strong>k</strong>/<strong>j</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
     </ul>
-    @trans.keyYouCanDrawArrowsCirclesAndScrollToMove()
+    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
+    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
   </div>
 </div>
 }
@@ -118,17 +119,17 @@ atom = atom.some) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> Download annotated</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> Download raw</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
         }
         /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> Print-friendly PDF</a>
+        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
       </p>
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
@@ -158,7 +159,7 @@ atom = atom.some) {
     <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     }
     @if(cross.isDefined) {
-    <a data-panel="crosstable" class="crosstable">Crosstable</a>
+    <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
     }
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
