@@ -33,7 +33,6 @@ private final class MoveDB(
   private object Mon
   private object Clean
   private case class Add(move: Move)
-  private case class UpdateOrGiveUp(move: Move)
   private case class Acquire(client: Client)
   private case class PostResult(
     moveId: Work.Id,
@@ -59,25 +58,21 @@ private final class MoveDB(
 
       case Clean =>
         val since = DateTime.now minusSeconds 3
-        val timedOut = coll collect {
-          case (_, move) if move acquiredBefore since => move
-        }
-        timedOut.foreach { move =>
-          updateOrGiveUp(move.timeout)
-        }
+        val timedOut = coll.values.filter(_ acquiredBefore since)
+        timedOut.foreach { m => updateOrGiveUp(m.timeout) }
         sender ! timedOut
 
       case Add(move) =>
         clearIfFull
         coll += (move.id -> move)
 
-      case Acquire(client) => sender ! coll.foldLeft(none[Move]) {
-        case (found, (_, m)) => if (m.nonAcquired) Some {
+      case Acquire(client) => sender ! coll.values.foldLeft(none[Move]) {
+        case (found, m) if m.nonAcquired => Some {
           found.fold(m) { a =>
             if (m.canAcquire(client) && m.createdAt.isBefore(a.createdAt)) m else a
           }
         }
-        else found
+        case (found, _) => found
       }.map { m =>
         val move = m assignTo client
         coll += (move.id -> move)
@@ -99,8 +94,6 @@ private final class MoveDB(
           case Some(move) => Monitor.notAcquired(move, client)
         }
         measurement.finish()
-
-      case UpdateOrGiveUp(move) => updateOrGiveUp(move)
     }
 
     def updateOrGiveUp(move: Move) =
