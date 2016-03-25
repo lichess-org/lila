@@ -25,21 +25,11 @@ private[i18n] final class JsDump(
   } void
 
   private val jsMessages = List(
-    keys.standard,
-    keys.rated,
-    keys.casual,
-    keys.thisGameIsRated,
-    keys.gameOver,
-    keys.yourTurn,
-    keys.accept,
-    keys.decline,
-    keys.challengeToPlay,
-    keys.youNeedAnAccountToDoThat,
-    keys.createANewTournament,
     keys.withdraw,
     keys.join,
-    keys.joinTheGame,
-    keys.tournamentIsStarting)
+    keys.createANewTournament,
+    keys.rated,
+    keys.youNeedAnAccountToDoThat)
 
   private val pathFile = new File(path)
 
