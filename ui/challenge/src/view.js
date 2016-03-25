@@ -53,10 +53,10 @@ function inButtons(ctrl, c) {
 function outButtons(ctrl, c) {
   return [
     m('div.owner', [
-      m('span.waiting', 'Pending...'),
-      m('a.view', {
+      m('span.waiting', $.trans('Waiting')),
+      m('a.view[data-icon=v]', {
         href: '/' + c.id
-      }, 'View challenge')
+      })
     ]),
     m('button', {
       class: 'button decline',
