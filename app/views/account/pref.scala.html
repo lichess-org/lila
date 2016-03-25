@@ -81,7 +81,7 @@
           @base.radios(form("submitMove"), submitMoveChoices)
         </li>
         <li>
-          <h2>Confirm resignation</h2>
+          <h2>@trans.confirmResignation()</h2>
           @base.radios(form("confirmResign"), confirmResignChoices)
         </li>
       </ul>
@@ -97,11 +97,11 @@
           @base.radios(form("challenge"), translatedChallengeChoices)
         </li>
         <li>
-          <h2>Let other players message you</h2>
+          <h2>@trans.letOtherPlayersMessageYou()</h2>
           @base.radios(form("message"), translatedMessageChoices)
         </li>
         <li>
-          <h2>Share your insights data</h2>
+            <h2>@trans.shareYourInsightsData()</h2>
           @base.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
         </li>
       </ul>
