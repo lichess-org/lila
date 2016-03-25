@@ -19,22 +19,32 @@ object Fishnet extends LilaController {
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
-      api acquire client
+      api acquire client map Right.apply
   }
 
   def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data =>
     client =>
-      api.postMove(Work.Id(workId), client, data) >> api.acquire(client)
+      api.postMove(Work.Id(workId), client, data) >>
+        api.acquire(client).map(Right.apply)
   }
 
   def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data =>
     client =>
-      api.postAnalysis(Work.Id(workId), client, data) >> api.acquire(client)
+      import lila.fishnet.FishnetApi._
+      def acquireNext = api acquire client map Right.apply
+      api.postAnalysis(Work.Id(workId), client, data).flatFold({
+        case WorkNotFound => acquireNext
+        case GameNotFound => acquireNext
+        case NotAcquired  => acquireNext
+        case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
+        case e            => fuccess(Left(InternalServerError(e.getMessage)))
+      },
+        _ => acquireNext)
   }
 
   def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>
-      api.abort(Work.Id(workId), client) inject none
+      api.abort(Work.Id(workId), client) inject Right(none)
   }
 
   def keyExists(key: String) = Action.async { req =>
@@ -47,7 +57,7 @@ object Fishnet extends LilaController {
     }
   }
 
-  private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Option[JsonApi.Work]])(implicit reads: Reads[A]) =
+  private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]])(implicit reads: Reads[A]) =
     Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(
         err => {
@@ -61,8 +71,9 @@ object Fishnet extends LilaController {
             Unauthorized(jsonError(msg.getMessage)).fuccess
           }
           case Success(client) => f(data)(client).map {
-            case Some(work) => Accepted(Json toJson work)
-            case _          => NoContent
+            case Right(Some(work)) => Accepted(Json toJson work)
+            case Right(None)       => NoContent
+            case Left(result)      => result
           }
         })
     }

@@ -81,32 +81,32 @@ final class FishnetApi(
     repo.getAnalysis(workId) flatMap {
       case None =>
         Monitor.notFound(workId, client)
-        fuccess(none)
+        fufail(WorkNotFound)
       case Some(work) if data.weak =>
-        repo.updateOrGiveUpAnalysis(work.weak) inject none
         Monitor.weak(work, client, data)
-        fuccess(none)
-      case Some(work) if work isAcquiredBy client => AnalysisBuilder(client, work, data) flatMap { analysis =>
-        monitor.analysis(work, client, data)
-        repo.deleteAnalysis(work) inject analysis.some
-      } recoverWith {
-        case e: AnalysisBuilder.GameIsGone =>
-          logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+        repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
+      case Some(work) if work isAcquiredBy client =>
+        AnalysisBuilder(client, work, data) flatMap { analysis =>
           monitor.analysis(work, client, data)
-          repo.deleteAnalysis(work) inject none
-        case e: Exception =>
-          Monitor.failure(work, client)
-          repo.updateOrGiveUpAnalysis(work.invalid) inject none
-      }
+          repo.deleteAnalysis(work) inject analysis
+        } recoverWith {
+          case e: AnalysisBuilder.GameIsGone =>
+            logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+            monitor.analysis(work, client, data)
+            repo.deleteAnalysis(work) >> fufail(GameNotFound)
+          case e: Exception =>
+            Monitor.failure(work, client)
+            repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+        }
       case Some(work) =>
         Monitor.notAcquired(work, client)
-        fuccess(none)
+        fufail(NotAcquired)
     }
   }.chronometer.mon(_.fishnet.analysis.post)
     .logIfSlow(200, logger) { res =>
-      s"post analysis for ${res.??(_.id)}"
+      s"post analysis for ${res.id}"
     }.result
-    .flatMap { _ ?? saveAnalysis }
+    .flatMap(saveAnalysis)
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
@@ -142,7 +142,25 @@ final class FishnetApi(
 
 object FishnetApi {
 
-  case object AcquireTimeout extends lila.common.LilaException {
+  import lila.common.LilaException
+
+  case object AcquireTimeout extends LilaException {
     val message = "FishnetApi.acquire timed out"
+  }
+
+  case object WeakAnalysis extends LilaException {
+    val message = "Analysis nodes per move is too low"
+  }
+
+  case object WorkNotFound extends LilaException {
+    val message = "The work has disappeared"
+  }
+
+  case object GameNotFound extends LilaException {
+    val message = "The game has disappeared"
+  }
+
+  case object NotAcquired extends LilaException {
+    val message = "The work was distributed to someone else"
   }
 }
