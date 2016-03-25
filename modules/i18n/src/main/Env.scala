@@ -28,6 +28,8 @@ final class Env(
 
   // public settings
   val RequestHandlerProtocol = config getString "request_handler.protocol"
+  def hideCallsCookieName = HideCallsCookieName
+  def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
   private[i18n] lazy val translationColl = db(CollectionTranslation)
 
@@ -81,9 +83,6 @@ final class Env(
     transInfos = transInfos)
 
   val call = callApi.apply _
-
-  def hideCallsCookieName = HideCallsCookieName
-  def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
   def jsonFromVersion(v: Int): Fu[JsValue] = {
     import tube.translationTube
