@@ -67,7 +67,7 @@ module.exports = function(cfg, saveUrl) {
     loading(true);
     m.redraw();
     if (window.history.replaceState) window.history.replaceState(null, null, '#last');
-    location.reload();
+    lichess.reload();
   };
 
   var isCandidate = function(fc) {

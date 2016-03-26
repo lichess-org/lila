@@ -11,7 +11,7 @@ module.exports = function(send, ctrl) {
       m.redraw();
     },
     aborted: function() {
-      location.reload();
+      lichess.reload();
     },
     hostGame: function(gameId) {
       ctrl.data.host.gameId = gameId;

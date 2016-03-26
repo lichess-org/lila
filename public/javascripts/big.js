@@ -644,7 +644,8 @@ lichess.numberFormat = (function() {
   lichess.reload = function() {
     if ($.redirect.inProgress) return;
     lichess.hasToReload = true;
-    location.reload();
+    if (window.location.hash) location.reload();
+    else location.href = location.href;
   };
 
   lichess.readServerFen = function(t) {
@@ -984,7 +985,7 @@ lichess.numberFormat = (function() {
               $.post($(this).parent().data('href'), {
                 bg: background
               }, function() {
-                if (window.Highcharts) location.reload();
+                if (window.Highcharts) lichess.reload();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
@@ -2223,7 +2224,7 @@ lichess.numberFormat = (function() {
           $('body').trigger('lichess.content_loaded');
         },
         error: function() {
-          location.reload();
+          lichess.reload();
         }
       });
       return false;
@@ -2352,7 +2353,7 @@ lichess.numberFormat = (function() {
         events: {
           analysisAvailable: function() {
             $.sound.genericNotify();
-            location.reload();
+            lichess.reload();
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
@@ -2452,7 +2453,7 @@ lichess.numberFormat = (function() {
           $panels.filter('.panel.computer_analysis').html(html);
         },
         error: function() {
-          location.reload();
+          lichess.reload();
         }
       });
       return false;

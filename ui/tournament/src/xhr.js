@@ -13,7 +13,7 @@ function uncache(url) {
 
 // when the tournament no longer exists
 function reloadPage() {
-  location.reload();
+  lichess.reload();
 }
 
 function tourAction(action, ctrl) {
