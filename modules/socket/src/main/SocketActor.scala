@@ -35,6 +35,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   override def postStop() {
+    super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
     members.keys foreach eject
   }

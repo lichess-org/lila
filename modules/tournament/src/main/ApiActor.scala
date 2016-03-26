@@ -8,7 +8,6 @@ import lila.game.actorApi.FinishGame
 private[tournament] final class ApiActor(api: TournamentApi) extends Actor {
 
   override def preStart {
-    context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'adjustBooster)
   }
 
   def receive = {

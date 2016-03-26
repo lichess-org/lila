@@ -74,10 +74,7 @@ final class Env(
     flood = flood,
     exists = repo.exists)
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'moveEvent)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
@@ -91,7 +88,7 @@ final class Env(
           }
         }
     }
-  }), name = ActorName)
+  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEvent)
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 

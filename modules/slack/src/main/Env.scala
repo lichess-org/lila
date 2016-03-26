@@ -21,17 +21,14 @@ final class Env(
     url = IncomingUrl,
     defaultChannel = IncomingDefaultChannel)
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'donation, 'deploy, 'slack)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case d: DonationEvent            => api donation d
       case Deploy(RemindDeployPre, _)  => api.deployPre
       case Deploy(RemindDeployPost, _) => api.deployPost
       case e: Event                    => api publishEvent e
     }
-  }))
+  })), 'donation, 'deploy, 'slack)
 }
 
 object Env {

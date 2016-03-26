@@ -113,7 +113,9 @@ final class Env(
       logger = logger)
   }))
 
-  system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName)
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName),
+    'finishGame, 'adjustCheater, 'adjustBooster)
 
   system.actorOf(Props(new CreatedOrganizer(
     api = api,

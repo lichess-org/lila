@@ -10,7 +10,14 @@ import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
 
 private final class UserRegister extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'users, 'socketDoor)
+  override def preStart() {
+    context.system.lilaBus.subscribe(self, 'users, 'socketDoor)
+  }
+
+  override def postStop() {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
 
   type UID = String
   type UserId = String

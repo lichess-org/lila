@@ -9,9 +9,12 @@ private[socket] final class Population extends Actor {
   var nb = 0
   val bus = context.system.lilaBus
 
-  bus.subscribe(self, 'socketDoor)
+  override def preStart() {
+    bus.subscribe(self, 'socketDoor)
+  }
 
   override def postStop() {
+    super.postStop()
     bus.unsubscribe(self)
   }
 

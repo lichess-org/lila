@@ -196,5 +196,4 @@ private object TournamentScheduler {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))
     system.scheduler.schedule(5 seconds, 5 seconds, ref, ScheduleNow)
   }
-
 }

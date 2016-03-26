@@ -17,16 +17,7 @@ private[lobby] final class Lobby(
     seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
-    onStart: String => Unit,
-    broomPeriod: FiniteDuration,
-    resyncIdsPeriod: FiniteDuration) extends Actor {
-
-  val scheduler = context.system.scheduler
-
-  override def preStart {
-    scheduler.schedule(5 seconds, broomPeriod, self, lila.socket.actorApi.Broom)
-    scheduler.schedule(10 seconds, resyncIdsPeriod, self, actorApi.Resync)
-  }
+    onStart: String => Unit) extends Actor {
 
   def receive = {
 
@@ -166,5 +157,20 @@ private[lobby] final class Lobby(
   private def remove(hook: Hook) = {
     HookRepo remove hook
     socket ! RemoveHook(hook.id)
+  }
+}
+
+private object Lobby {
+
+  def start(
+    system: ActorSystem,
+    name: String,
+    broomPeriod: FiniteDuration,
+    resyncIdsPeriod: FiniteDuration)(instance: => Actor) = {
+
+    val ref = system.actorOf(Props(instance), name = name)
+    system.scheduler.schedule(5 seconds, broomPeriod, ref, lila.socket.actorApi.Broom)
+    system.scheduler.schedule(10 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    ref
   }
 }

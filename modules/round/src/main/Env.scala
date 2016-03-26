@@ -179,7 +179,7 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
-  new MoveMonitor(system, moveTimeChannel)
+  MoveMonitor.start(system, moveTimeChannel)
 
   scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
@@ -192,7 +192,8 @@ final class Env(
     uciMemo = uciMemo,
     prefApi = prefApi)
 
-  lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+  val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+  system.lilaBus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
   def checkOutoftime(game: lila.game.Game) {
     if (game.playable && game.started && !game.isUnlimited)

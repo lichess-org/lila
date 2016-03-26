@@ -27,10 +27,18 @@ private[lobby] final class Socket(
 
   override val startsOnApplicationBoot = true
 
-  override def preStart {
-    super.preStart
+  override def preStart() {
+    super.preStart()
     context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
   }
+
+  override def postStop() {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
+
+  // override postRestart so we don't call preStart and schedule a new message
+  override def postRestart(reason: Throwable) = {}
 
   def receiveSpecific = {
 

@@ -35,7 +35,8 @@ private[round] final class Round(
   }
 
   override def postStop() {
-    context.system.lilaBus unsubscribe self
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
   }
 
   implicit val proxy = new GameProxy(gameId)

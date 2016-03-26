@@ -55,10 +55,7 @@ final class Env(
     }
   }
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'adjustCheater, 'adjustBooster, 'userActive)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => rankingApi remove userId
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
@@ -66,7 +63,7 @@ final class Env(
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
     }
-  }))
+  })), 'adjustCheater, 'adjustBooster, 'userActive)
 
   {
     import scala.concurrent.duration._

@@ -13,7 +13,6 @@ private final class KamonPusher(
   import KamonPusher._
 
   override def preStart() {
-    context.system.lilaBus.subscribe(self, 'nbMembers, 'nbRounds)
     scheduleTick
   }
 
@@ -43,6 +42,9 @@ private final class KamonPusher(
 object KamonPusher {
 
   private case object Tick
+
+  def start(system: ActorSystem)(instance: => Actor) =
+    system.lilaBus.subscribe(system.actorOf(Props(instance)), 'nbMembers, 'nbRounds)
 }
 
 import com.typesafe.config.Config

@@ -44,10 +44,7 @@ final class Env(
     getLightUser,
     roundSocketHub)
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'finishGame, 'moveEvent, 'challenge)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
@@ -55,7 +52,7 @@ final class Env(
       case lila.challenge.Event.Create(c)            => pushApi challengeCreate c
       case lila.challenge.Event.Accept(c, joinerId)  => pushApi.challengeAccept(c, joinerId)
     }
-  }))
+  })), 'finishGame, 'moveEvent, 'challenge)
 }
 
 object Env {

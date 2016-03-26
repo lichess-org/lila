@@ -77,6 +77,7 @@ private final class ApnsActor(certificate: InputStream, password: String) extend
   }
 
   override def postStop() {
+    super.postStop()
     Option(manager).foreach(_.shutdown())
   }
 

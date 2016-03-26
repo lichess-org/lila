@@ -16,10 +16,6 @@ private final class Stream(
 
   import Stream.game2json
 
-  override def preStart() {
-    context.system.lilaBus.subscribe(self, 'roundDoor)
-  }
-
   val games = scala.collection.mutable.Map.empty[String, Stream.Game]
 
   private def makeMd5 = MessageDigest getInstance "MD5"

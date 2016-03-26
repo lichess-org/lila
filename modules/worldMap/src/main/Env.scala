@@ -17,6 +17,7 @@ final class Env(
     Props(new Stream(
       geoIp = MaxMindIpGeo(GeoIPFile, 0),
       geoIpCacheTtl = GeoIPCacheTtl)))
+  system.lilaBus.subscribe(stream, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
 
   def getStream = {
     import play.api.libs.iteratee._
