@@ -90,6 +90,8 @@ case class Tournament(
       startsAt.minusHours(hours) isBefore DateTime.now
     }
   } map { this -> _ }
+
+  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])

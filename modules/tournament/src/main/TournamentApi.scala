@@ -51,12 +51,14 @@ private[tournament] final class TournamentApi(
       system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
+    logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me) inject tour
   }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
       val created = Tournament.schedule(schedule, minutes)
+      logger.info(s"Create $created")
       TournamentRepo.insert(created).void >>- publish()
     }
 
