@@ -232,14 +232,16 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def insertDenormalized(g: Game, ratedCheck: Boolean = true): Funit = {
+  def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
     val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
-    val fen = (!g2.variant.standardInitialPosition)
-      .option(Forsyth >> g2.toChess)
-      .filter(Forsyth.initial !=)
+    val fen = initialFen.map(_.value) orElse {
+      (!g2.variant.standardInitialPosition)
+        .option(Forsyth >> g2.toChess)
+        .filter(Forsyth.initial !=)
+    }
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
       F.checkAt -> (!g2.isPgnImport).option(DateTime.now plusHours g2.hasClock.fold(1, 10 * 24)),

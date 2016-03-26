@@ -28,7 +28,7 @@ final class AutoPairing(
     user2 ← getUser(pairing.user2)
     game1 = Game.make(
       game = chess.Game(
-        variant = tour.variant.some,
+        variantOption = tour.variant.some,
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
           val turns = g.player.fold(0, 1)
