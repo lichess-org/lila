@@ -9,17 +9,17 @@ moreCss = cssTag("mobile.css")) {
     <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/dynamic-qrcode.png")" alt="Download QR code" />
   </div>
   <div class="left-side">
-    <h1>Play chess everywhere</h1>
+    <h1>@trans.playChessEverywhere()</h1>
     @googlePlayButton()
     @appleStoreButton()
     <div class="apk" style="margin-top: 20px">
       @Html(~apkDoc.getHtml("doc.content", resolver))
     </div>
-    <h2>As free as lichess</h2>
+    <h2>@trans.asFreeAsLichess()</h2>
     <ul class="block">
-      <li>Built for the love of chess, not money</li>
-      <li>Everybody gets <strong>all features for free</strong></li>
-      <li>Zero advertisement</li>
+      <li>@trans.builtForTheLoveOfChessNotMoney()</li>
+      <li>@trans.everybodyGetsAllFeaturesForFree()</li>
+      <li>@trans.zeroAdvertisement()</li>
       <li>Entirely <a href="https://github.com/veloce/lichobile">Open Source</a> as usual</li>
     </ul>
     <h2>Full featured</h2>
