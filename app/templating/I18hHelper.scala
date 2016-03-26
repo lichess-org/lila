@@ -3,6 +3,7 @@ package templating
 
 import controllers._
 import play.api.i18n.{ Lang, Messages }
+import play.api.libs.json.JsObject
 import play.api.mvc.{ RequestHeader, Call }
 import play.twirl.api.Html
 
@@ -24,7 +25,10 @@ trait I18nHelper {
   def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): String =
     i18nEnv.translator.transTo(key, args)(lang)
 
-  def i18nJsObject(keys: I18nKey*)(implicit lang: Lang) =
+  def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
+    i18nEnv.jsDump.keysToMessageObject(keys, lang)
+
+  def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToObject(keys, lang)
 
   def langName(lang: Lang): Option[String] = langName(lang.language)

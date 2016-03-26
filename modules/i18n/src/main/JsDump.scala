@@ -17,6 +17,12 @@ private[i18n] final class JsDump(
     }
   }
 
+  def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
+    keys.map { k =>
+      k.en() -> JsString(k.to(lang)())
+    }
+  }
+
   def apply: Funit = Future {
     pathFile.mkdir
     pool.langs foreach write(jsMessages)

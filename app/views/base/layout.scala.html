@@ -196,8 +196,10 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @momentjsTag
     @jsTagCompiled("big.js")
     @moreJs
-    @jsAt(s"trans/${lang.language}.js")
     @if(lang.language != "en") {
+    @embedJs {
+    lichess_translations = @jsI18n();
+    }
     @momentLangTag
     }
     @base.ga()

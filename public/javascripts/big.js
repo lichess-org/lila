@@ -2441,9 +2441,7 @@ lichess.numberFormat = (function() {
 
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that'))) {
-          location.href = '/signup';
-        }
+        if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
         return false;
       }
       $.ajax({
