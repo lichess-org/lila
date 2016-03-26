@@ -15,7 +15,7 @@
 }
 .mobile h1 {
   font-size: 4em;
-  display: block;
+  display: block!important;
   margin-bottom: 0.5em;
 }
 .mobile .store {
