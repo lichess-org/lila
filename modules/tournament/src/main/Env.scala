@@ -131,7 +131,7 @@ final class Env(
     socketHub = socketHub
   )))
 
-  system.actorOf(Props(new Scheduler(api)))
+  TournamentScheduler.start(system, api)
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
