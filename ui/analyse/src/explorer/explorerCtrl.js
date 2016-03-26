@@ -26,7 +26,8 @@ module.exports = function(root, opts) {
 
   var fetch = throttle(500, false, function() {
     var fen = root.vm.step.fen;
-    xhr(opts.endpoint, root.data.game.variant.key, fen, config.data, withGames).then(function(res) {
+    var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
+    xhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
       cache[fen] = res;
       loading(false);
       failing(false);
