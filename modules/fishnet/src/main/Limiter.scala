@@ -2,7 +2,7 @@ package lila.fishnet
 
 import reactivemongo.bson._
 
-import lila.db.Implicits._
+import lila.db.Implicits.Coll
 
 private final class Limiter(analysisColl: Coll) {
 

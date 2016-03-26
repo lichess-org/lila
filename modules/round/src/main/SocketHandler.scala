@@ -35,15 +35,18 @@ private[round] final class SocketHandler(
 
     def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
+    def ping(o: JsObject) =
+      o int "v" foreach { v => socket ! PingVersion(uid, v) }
+
     member.playerIdOption.fold[Handler.Controller]({
-      case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+      case ("p", o) => ping(o)
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
       case ("outoftime", _) => send(Outoftime)
     }) { playerId =>
       {
-        case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+        case ("p", o) => ping(o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
             val promise = Promise[Unit]
@@ -55,12 +58,12 @@ private[round] final class SocketHandler(
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag) =>
-            member push ackEvent
             val promise = Promise[Unit]
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, drop, blur, lag.millis, promise.some))
+            member push ackEvent
         }
         case ("rematch-yes", _)  => send(RematchYes(playerId))
         case ("rematch-no", _)   => send(RematchNo(playerId))
@@ -73,9 +76,9 @@ private[round] final class SocketHandler(
         case ("resign-force", _) => send(ResignForce(playerId))
         case ("draw-force", _)   => send(DrawForce(playerId))
         case ("abort", _)        => send(Abort(playerId))
-        case ("moretime", _)  => send(Moretime(playerId))
-        case ("outoftime", _) => send(Outoftime)
-        case ("bye", _)       => socket ! Bye(ref.color)
+        case ("moretime", _)     => send(Moretime(playerId))
+        case ("outoftime", _)    => send(Outoftime)
+        case ("bye", _)          => socket ! Bye(ref.color)
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)
         }

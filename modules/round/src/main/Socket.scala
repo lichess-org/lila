@@ -172,7 +172,7 @@ private[round] final class Socket(
 
     case TvSelect(msg)          => watchers.foreach(_ push msg)
 
-    case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
+    case UserStartGame(userId, _) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")
     }
 

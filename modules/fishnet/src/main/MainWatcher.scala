@@ -31,9 +31,7 @@ private final class MainWatcher(
         else unalert(client)
       }
     }
-  } andThenAnyway scheduleWatch
+  }
 
-  private def scheduleWatch = scheduler.once(1 minute)(watch)
-
-  scheduleWatch
+  scheduler.future(1 minute, "fishnet main watcher")(watch)
 }
