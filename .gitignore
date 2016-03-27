@@ -19,5 +19,6 @@ dist/
 node_modules/
 local/
 .vagrant
+hs_*.log
 
 RUNNING_PID
