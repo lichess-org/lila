@@ -134,7 +134,7 @@ function renderButtons(ctrl) {
   return m('div.buttons', {
     onmousedown: function(e) {
       var ply = parseInt(e.target.getAttribute('data-ply'));
-      if (!isNaN(ply)) ctrl.jump(ply);
+      if (!isNaN(ply)) ctrl.userJump(ply);
       else {
         var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
         if (action === 'flip') {

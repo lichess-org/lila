@@ -102,6 +102,7 @@ module.exports = function(opts) {
   };
 
   this.userJump = function(ply) {
+    this.cancelMove();
     this.chessground.selectSquare(null);
     this.jump(ply);
   }.bind(this);
@@ -436,9 +437,13 @@ module.exports = function(opts) {
         });
       $.sound.confirmation();
     } else this.jump(this.vm.ply);
+    this.cancelMove();
+    this.setLoading(true);
+  }.bind(this);
+
+  this.cancelMove = function(v) {
     this.vm.moveToSubmit = null;
     this.vm.dropToSubmit = null;
-    this.setLoading(true);
   }.bind(this);
 
   var forecastable = function(d) {
