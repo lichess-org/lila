@@ -84,6 +84,7 @@ nbDays=%s dní
 nbHours=%s hodín
 time=Čas
 rating=Hodnotenie
+username=Užívatelské méno
 usernameOrEmail=Meno používateľa
 password=Heslo
 haveAnAccount=Máte účet?
