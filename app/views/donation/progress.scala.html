@@ -1,0 +1,27 @@
+@(prog: lila.donation.Progress)(implicit ctx: Context)
+
+<div class="donation undertable">
+  <div class="undertable_inner">
+    <div class="links">
+      <a href="@routes.Donation.index">
+        <i data-icon=""></i>
+        <strong>Donate</strong>
+        <span>Directly support lichess</span>
+      </a>
+      <a href="@routes.Page.swag">
+        <i data-icon=""></i>
+        <strong>Swag Store</strong>
+        <span>Play chess in style</span>
+      </a>
+    </div>
+    <div class="progress">
+      <div class="progressbar green flashy">
+        <span class="goal">$@(prog.goal / 100)</span>
+        <div class="current" style="width: @prog.percent%"><span>$@(prog.current / 100)</span></div>
+      </div>
+    </div>
+    <div class="legend">
+      <strong>Weekly progress</strong>
+      @pluralize("day", prog.remainingDays) left
+  </div>
+</div>

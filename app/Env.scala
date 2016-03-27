@@ -26,6 +26,7 @@ final class Env(
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
     countRounds = Env.round.count,
+    donationProgress = () => Env.donation.api.progress,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUser = Env.user.lightUser)

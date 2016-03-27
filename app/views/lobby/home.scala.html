@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int, progress: lila.donation.Progress)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -202,4 +202,5 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
   </div>
 </div>
 }
+@donation.progress(progress)
 }
