@@ -1,11 +1,13 @@
 package lila.donation
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
+import scala.concurrent.duration._
 import scala.util.Try
+
+import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.Types.Coll
 
 final class DonationApi(
     coll: Coll,
@@ -52,16 +54,24 @@ final class DonationApi(
   def create(donation: Donation) = {
     coll insert donation recover
       lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
-  } >> donation.userId.??(donorCache.remove) >>- progress.foreach { prog =>
-    bus.publish(lila.hub.actorApi.DonationEvent(
-      userId = donation.userId,
-      gross = donation.gross,
-      net = donation.net,
-      message = donation.message.trim.some.filter(_.nonEmpty),
-      progress = prog.percent), 'donation)
-  }
+  } >> progressCache.clear >>
+    donation.userId.??(donorCache.remove) >>-
+    progress.foreach { prog =>
+      bus.publish(lila.hub.actorApi.DonationEvent(
+        userId = donation.userId,
+        gross = donation.gross,
+        net = donation.net,
+        message = donation.message.trim.some.filter(_.nonEmpty),
+        progress = prog.percent), 'donation)
+    }
 
-  def progress: Fu[Progress] = {
+  private val progressCache = lila.memo.AsyncCache.single[Progress](
+    computeProgress,
+    timeToLive = 10 seconds)
+
+  def progress: Fu[Progress] = progressCache(true)
+
+  private def computeProgress: Fu[Progress] = {
     val from = Try {
       DateTime.now withDayOfWeek 1 withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
     }.toOption.getOrElse(DateTime.now withDayOfWeek 1)
