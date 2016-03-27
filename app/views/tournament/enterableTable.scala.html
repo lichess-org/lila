@@ -1,17 +1,5 @@
 @(tours: List[Tournament], scheduled: Boolean)
 
-@if(!scheduled && tours.isEmpty) {
-<tr class="create">
-  <td>
-    <br />
-    <a href="@routes.Tournament.form()" data-icon="g" class="action button text">
-      <span class="trans_me">@trans.createANewTournament.en()</span>
-    </a>
-    <br />
-    <br />
-  </td>
-</tr>
-} else {
 @tours.filter(_.scheduled == scheduled).map { tour =>
 <tr @if(scheduled) { class="scheduled" }>
   <td class="name">
@@ -39,5 +27,4 @@
     </form>
   </td>
 </tr>
-}
 }
