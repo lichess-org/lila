@@ -197,6 +197,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(isProd) {
     @jsTagCompiled("lichess.js")
     } else {
+    @jsTag("util.js")
     @jsTag("socket.js")
     @jsTag("main.js")
     }

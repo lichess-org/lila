@@ -159,7 +159,7 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
-    if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
+    if (this.clock) move.lag = Math.round(lichess.socket.averageLag());
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
@@ -174,7 +174,7 @@ module.exports = function(opts) {
       role: role,
       pos: key
     };
-    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
+    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag());
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;

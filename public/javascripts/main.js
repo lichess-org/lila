@@ -2,107 +2,6 @@
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // ==/ClosureCompiler==
 
-var lichess = window.lichess = window.lichess || {};
-
-lichess.getParameterByName = function(name) {
-  var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-};
-
-// declare now, populate later in a distinct script.
-var lichess_translations = lichess_translations || [];
-
-function withStorage(f) {
-  // can throw an exception when storage is full
-  try {
-    return !!window.localStorage ? f(window.localStorage) : null;
-  } catch (e) {}
-}
-lichess.storage = {
-  get: function(k) {
-    return withStorage(function(s) {
-      return s.getItem(k);
-    });
-  },
-  remove: function(k) {
-    withStorage(function(s) {
-      s.removeItem(k);
-    });
-  },
-  set: function(k, v) {
-    // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
-    withStorage(function(s) {
-      s.removeItem(k);
-      s.setItem(k, v);
-    });
-  }
-};
-lichess.once = function(key, mod) {
-  if (mod === 'always') return true;
-  if (!lichess.storage.get(key)) {
-    lichess.storage.set(key, 1);
-    return true;
-  }
-  return false;
-};
-lichess.trans = function(i18n) {
-  return function(key) {
-    var str = i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
-};
-lichess.widget = function(name, prototype) {
-  var constructor = $[name] = function(options, element) {
-    var self = this;
-    self.element = $(element);
-    $.data(element, name, self);
-    self.options = options;
-    self._create();
-  };
-  constructor.prototype = prototype;
-  $.fn[name] = function(method) {
-    var returnValue = this;
-    var args = Array.prototype.slice.call(arguments, 1);
-    if (typeof method === 'string') this.each(function() {
-      var instance = $.data(this, name);
-      if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
-        return $.error("no such method '" + method + "' for " + name + " widget instance");
-      returnValue = instance[method].apply(instance, args);
-    });
-    else this.each(function() {
-      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
-      $.data(this, name, new constructor(method, this));
-    });
-    return returnValue;
-  };
-};
-lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
-lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
-lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
-lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = function(url, noVersion) {
-  return $('body').data('asset-url') + url + (noVersion ? '' : '?v=' + $('body').data('asset-version'));
-};
-lichess.loadCss = function(url) {
-  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
-}
-lichess.loadScript = function(url, noVersion) {
-  return $.ajax({
-    dataType: "script",
-    cache: true,
-    url: lichess.assetUrl(url, noVersion)
-  });
-};
-lichess.hopscotch = function(f) {
-  lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
-  lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
-}
-lichess.slider = function() {
-  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
-};
 lichess.challengeApp = (function() {
   var instance;
   var $toggle = $('#challenge_notifications_tag');
@@ -133,55 +32,6 @@ lichess.challengeApp = (function() {
     open: function() {
       $toggle.click();
     }
-  };
-})();
-
-lichess.isPageVisible = document.visibilityState !== 'hidden';
-lichess.notifications = [];
-// using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-window.addEventListener('focus', function() {
-  lichess.isPageVisible = true;
-  lichess.notifications.forEach(function(n) {
-    n.close();
-  });
-  lichess.notifications = [];
-});
-window.addEventListener('blur', function() {
-  lichess.isPageVisible = false;
-});
-lichess.desktopNotification = function(msg) {
-  var title = 'lichess.org';
-  var icon = 'http://lichess1.org/assets/images/logo.256.png';
-  var notify = function() {
-    var notification = new Notification(title, {
-      icon: icon,
-      body: msg
-    });
-    notification.onclick = function() {
-      window.focus();
-    }
-    lichess.notifications.push(notification);
-  };
-  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
-  if (Notification.permission === 'granted') notify();
-  else Notification.requestPermission(function(p) {
-    if (p === 'granted') notify();
-  });
-};
-lichess.unique = function(xs) {
-  return xs.filter(function(x, i) {
-    return xs.indexOf(x) === i;
-  });
-};
-lichess.numberFormat = (function() {
-  if (window.Intl && Intl.NumberFormat) {
-    var formatter = new Intl.NumberFormat();
-    return function(n) {
-      return formatter.format(n);
-    }
-  }
-  return function(n) {
-    return n;
   };
 })();
 
@@ -600,9 +450,9 @@ lichess.numberFormat = (function() {
 
       setTimeout(function() {
         if (lichess.socket === null) {
-          lichess.socket = new lichess.StrongSocket("/socket", 0);
+          lichess.socket = lichess.StrongSocket("/socket", 0);
         }
-        $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
+        $.idleTimer(lichess.idleTime, lichess.socket.destroy, lichess.socket.connect);
       }, 200);
 
       // themepicker
@@ -1114,7 +964,7 @@ lichess.numberFormat = (function() {
     if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-    lichess.socket = new lichess.StrongSocket(
+    lichess.socket = lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
         options: {
@@ -1168,7 +1018,7 @@ lichess.numberFormat = (function() {
       });
     var $chat;
     cfg.element = element.querySelector('.round');
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     cfg.onChange = data.player.spectator ? $.noop : function(data) {
       var presets = [];
       if (data.steps.length < 4) presets = [
@@ -1581,7 +1431,7 @@ lichess.numberFormat = (function() {
       if (e.length) e.height(561 - e.offset().top);
     };
     resizeTimeline();
-    lichess.socket = new lichess.StrongSocket(
+    lichess.socket = lichess.StrongSocket(
       '/lobby/socket/v1',
       cfg.data.version, {
         receive: function(t, d) {
@@ -1646,7 +1496,7 @@ lichess.numberFormat = (function() {
         }
       });
 
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     lobby = LichessLobby(element, cfg);
 
     var $startButtons = $('#start_buttons');
@@ -1978,7 +1828,7 @@ lichess.numberFormat = (function() {
       messages: lichess_chat
     });
     var tournament;
-    lichess.socket = new lichess.StrongSocket(
+    lichess.socket = lichess.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
         receive: function(t, d) {
           tournament.socketReceive(t, d)
@@ -1992,7 +1842,7 @@ lichess.numberFormat = (function() {
           name: "tournament"
         }
       });
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     tournament = LichessTournament(element, cfg);
   };
 
@@ -2025,7 +1875,7 @@ lichess.numberFormat = (function() {
       messages: lichess_chat
     });
     var simul;
-    lichess.socket = new lichess.StrongSocket(
+    lichess.socket = lichess.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d)
@@ -2039,7 +1889,7 @@ lichess.numberFormat = (function() {
           name: "simul"
         }
       });
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     simul = LichessSimul(element, cfg);
   };
 
@@ -2056,7 +1906,7 @@ lichess.numberFormat = (function() {
     });
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
-    lichess.socket = new lichess.StrongSocket(
+    lichess.socket = lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
         options: {
@@ -2123,7 +1973,7 @@ lichess.numberFormat = (function() {
     };
     cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
     cfg.jumpToIndex = analyse.jumpToIndex;
 
@@ -2200,7 +2050,7 @@ lichess.numberFormat = (function() {
     var analyse;
     cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
-    lichess.socket = new lichess.StrongSocket('/socket', 0, {
+    lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {
         name: "analyse"
       },
@@ -2211,7 +2061,7 @@ lichess.numberFormat = (function() {
         analyse.socketReceive(t, d);
       }
     });
-    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
     topMenuIntent();
   }
