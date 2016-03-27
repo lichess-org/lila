@@ -507,3 +507,6 @@ byRegisteringYouAgreeToBeBoundByOur=En vous inscrivant, vous acceptez d'être li
 networkLagBetweenYouAndLichess=Latence réseau entre vous et lichess
 timeToProcessAMoveOnLichessServer=Temps nécessaire au traitement d'un coup sur un serveur lichess
 downloadAnnotated=Téléchargement annoté
+confirmResignation=Confirmer l'abandon
+letOtherPlayersMessageYou=Possibilité de recevoir des messages
+shareYourInsightsData=Partagez vos connaissances heuristiques.
