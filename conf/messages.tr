@@ -497,3 +497,6 @@ nbPerfTypePlayersThisWeek=Bu ay %s %s oyuncusu var.
 yourPerfTypeRatingisRating=%s puanınız %s.
 youAreBetterThanPercentOfPerfTypePlayers=%s %s oyuncularından daha iyisiniz.
 youDoNotHaveAnEstablishedPerfTypeRating=Sabit bir %s puanınız yok.
+checkYourEmail=E-postanızı kontrol edin.
+weHaveSentYouAnEmailClickTheLink=Size bir e-posta gönderdik.Hesabınızı etkinleştirmek için e-postanızda bulunan linki tıklayın.
+youHaveAlreadyRegisteredTheEmail=Bu e-postayla zaten kaydoldunuz:%s
