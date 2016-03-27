@@ -513,3 +513,6 @@ printFriendlyPDF=Drukuj-przyjacielski PDF
 crosstable=Tablica wyników
 youCanAlsoScrollOverTheBoardToMoveInTheGame=Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.
 pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard=Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.
+confirmResignation=Potwierdź rezygnację
+letOtherPlayersMessageYou=Pozwól innym graczom pisać do ciebie
+kidMode=Tryb dzieciaka
