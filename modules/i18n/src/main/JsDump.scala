@@ -25,27 +25,11 @@ private[i18n] final class JsDump(
 
   def apply: Funit = Future {
     pathFile.mkdir
-    pool.langs foreach write(jsMessages)
     writeRefs
     writeFullJson
   } void
 
-  private val jsMessages = List(
-    keys.withdraw,
-    keys.join,
-    keys.createANewTournament,
-    keys.rated,
-    keys.youNeedAnAccountToDoThat)
-
   private val pathFile = new File(path)
-
-  private def write(messages: List[I18nKey])(lang: Lang) {
-    val code = s"""lichess_translations = ${dumpFromDefault(messages, lang)};"""
-    val file = new File("%s/%s.js".format(pathFile.getCanonicalPath, lang.language))
-    val out = new PrintWriter(file)
-    try { out.print(code) }
-    finally { out.close }
-  }
 
   private def dumpFromDefault(messages: List[I18nKey], lang: Lang): String =
     messages.map { key =>
