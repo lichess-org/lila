@@ -66,9 +66,10 @@ object JsonApi {
         engine: FullEngine,
         analysis: List[Evaluation]) extends Request with Result {
 
-      def medianNodes = analysis.flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
+      def medianNodes =
+        analysis.filterNot(_.mateFound).flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
 
-      def strong = medianNodes.exists(_ > Evaluation.acceptableNodes)
+      def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
     }
 
@@ -98,7 +99,7 @@ object JsonApi {
       val npsCeil = 10 * 1000 * 1000
 
       val desiredNodes = 3 * 1000 * 1000
-      val acceptableNodes = desiredNodes * 0.8
+      val acceptableNodes = desiredNodes * 0.9
     }
   }
 
