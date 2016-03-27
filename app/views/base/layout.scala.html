@@ -194,7 +194,12 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsTag("deps.min.js")
     @momentjsTag
-    @jsTagCompiled("big.js")
+    @if(isProd) {
+    @jsTagCompiled("lichess.js")
+    } else {
+    @jsTag("socket.js")
+    @jsTag("main.js")
+    }
     @moreJs
     @if(lang.language != "en") {
     @embedJs {

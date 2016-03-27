@@ -3,13 +3,21 @@
 
 ./ui/build prod
 
+SRC=public/javascripts
+TARGET=public/compiled
+
 mkdir -p public/compiled
 
-for file in tv.js puzzle.js big.js chart2.js user.js coordinate.js; do
-  orig=public/javascripts/$file
-  comp=public/compiled/$file
+for file in tv.js puzzle.js chart2.js user.js coordinate.js; do
+  orig=$SRC/$file
+  comp=$TARGET/$file
   if [[ ! -f $comp || $orig -nt $comp ]]; then
-    lilalog "Compiling lila javascript - $file"
+    lilalog "Compiling javascript - $file"
     closure --js $orig --js_output_file $comp
   fi
 done
+
+orig="$SRC/socket.js $SRC/main.js"
+comp=$TARGET/lichess.js
+lilalog "Compiling lichess.js"
+closure --js $orig --js_output_file $comp
