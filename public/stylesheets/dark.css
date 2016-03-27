@@ -38,6 +38,7 @@ body.dark #video .tag_list a {
   background: #363636;
   color: #aaa;
 }
+body.dark .donation .progress,
 body.dark #video .tag_list a:hover {
   background: #3a3a3a;
   color: #a0a0a0;
@@ -161,6 +162,7 @@ body.dark div.side_box .game_infos,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
+body.dark .donation .links a,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }

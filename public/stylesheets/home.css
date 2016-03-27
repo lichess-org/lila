@@ -842,16 +842,16 @@ div.game_config .color_submits button.random i {
 }
 .donation .progress {
   margin: 15px 15px 6px 15px;
+  color: #fff;
 }
 .donation .progress .progressbar {
   position: relative;
   height: 30px;
   font-size: 1.2em;
   font-weight: bold;
-  color: #fff;
   text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
   text-align: right;
-  line-height: 30px;
+  line-height: 32px;
 }
 .donation .progress .current {
   position:absolute;
@@ -860,6 +860,7 @@ div.game_config .color_submits button.random i {
   z-index: 2;
   height: 30px;
   max-width: 100%;
+  font-size: 15px;
 }
 .donation .progress .current span {
   margin: 0 10px;
