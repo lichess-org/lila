@@ -146,19 +146,14 @@ body.dark .material.form .form-group select option {
   top: -1rem;
   left: 0;
 }
-.material.form .form-group select:focus,
-.material.form .form-group input:focus,
-.material.form .form-group textarea:focus {
+.material.form .form-group *:focus {
   outline: none;
 }
-.material.form .form-group select:focus ~ .control-label,
-.material.form .form-group input:focus ~ .control-label,
-.material.form .form-group textarea:focus ~ .control-label {
+.material.form .form-group *:focus ~ .control-label,
+.material.form .form-group *:focus ~ .control-label strong {
   color: #337ab7;
 }
-.material.form .form-group select:focus ~ .bar::before,
-.material.form .form-group input:focus ~ .bar::before,
-.material.form .form-group textarea:focus ~ .bar::before {
+.material.form .form-group *:focus ~ .bar::before {
   width: 100%;
   left: 0;
 }
