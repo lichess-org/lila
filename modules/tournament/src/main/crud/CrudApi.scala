@@ -1,33 +1,42 @@
 package lila.tournament
 package crud
 
+import org.joda.time.{ DateTime, DateTimeZone }
+
+import lila.user.User
+
 final class CrudApi {
 
   def list = TournamentRepo uniques 30
 
   def one(id: String) = TournamentRepo uniqueById id
 
-  def editForm(tour: Tournament) = CrudForm.apply fill CrudForm.Data(
-    name = tour.name,
-    homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
-    clockTime = tour.clock.limitInMinutes,
-    clockIncrement = tour.clock.increment,
-    minutes = tour.minutes,
-    variant = tour.variant.id,
-    date = CrudForm.dateFormatter.print(tour.startsAt),
-    dateHour = tour.startsAt.getHourOfDay,
-    dateMinute = tour.startsAt.getMinuteOfHour,
-    image = ~tour.spotlight.flatMap(_.iconImg),
-    headline = tour.spotlight.??(_.headline),
-    description = tour.spotlight.??(_.description))
+  def editForm(tour: Tournament) = CrudForm.apply fill {
+    val startsUtc = tour.startsAt.toDateTime(DateTimeZone.UTC)
+    CrudForm.Data(
+      name = tour.name,
+      homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
+      clockTime = tour.clock.limitInMinutes,
+      clockIncrement = tour.clock.increment,
+      minutes = tour.minutes,
+      variant = tour.variant.id,
+      date = CrudForm.dateFormatter.print(tour.startsAt),
+      dateHour = startsUtc.getHourOfDay,
+      dateMinute = startsUtc.getMinuteOfHour,
+      image = ~tour.spotlight.flatMap(_.iconImg),
+      headline = tour.spotlight.??(_.headline),
+      description = tour.spotlight.??(_.description))
+  }
 
   def update(old: Tournament, data: CrudForm.Data) =
     TournamentRepo update updateTour(old, data) void
 
   def createForm = CrudForm.apply
 
-  def create(data: CrudForm.Data) =
-    TournamentRepo insert updateTour(empty, data) void
+  def create(data: CrudForm.Data, owner: User): Fu[Tournament] = {
+    val tour = updateTour(empty, data).copy(createdBy = owner.id)
+    TournamentRepo insert tour inject tour
+  }
 
   private val empty = Tournament.make(
     createdByUserId = "lichess",

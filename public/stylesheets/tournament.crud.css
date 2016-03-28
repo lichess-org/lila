@@ -23,6 +23,11 @@ table.slist {
 table.slist td {
   padding: 20px 10px;
 }
+table.slist time {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
 .material.form {
   margin: 30px 20px 20px 20px;
 }

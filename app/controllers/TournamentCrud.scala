@@ -37,7 +37,7 @@ object TournamentCrud extends LilaController {
         implicit val req = ctx.body
         crud.editForm(tour).bindFromRequest.fold(
           err => BadRequest(html.tournament.crud.edit(tour, err)).fuccess,
-          data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.index)
+          data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id))
         )
       }
   }
@@ -52,7 +52,9 @@ object TournamentCrud extends LilaController {
       implicit val req = ctx.body
       crud.createForm.bindFromRequest.fold(
         err => BadRequest(html.tournament.crud.create(err)).fuccess,
-        data => crud.create(data) inject Redirect(routes.TournamentCrud.index)
+        data => crud.create(data, me) map { tour =>
+          Redirect(routes.TournamentCrud.edit(tour.id))
+        }
       )
   }
 }

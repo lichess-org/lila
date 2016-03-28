@@ -23,7 +23,10 @@
         <td>@tour.variant.name</td>
         <td>@tour.clock</td>
         <td>@{tour.minutes}m</td>
-        <td>@showDateTimeUTC(tour.startsAt)</td>
+        <td>
+          @showDateTimeUTC(tour.startsAt)
+          @momentFromNow(tour.startsAt)
+        </td>
         <td><a href="@routes.Tournament.show(tour.id)" data-icon="v" title="View on site"></a></td>
       </tr>
       }

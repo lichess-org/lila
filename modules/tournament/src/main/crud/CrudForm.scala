@@ -37,7 +37,7 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
-    date = dateFormatter.print(DateTime.now),
+    date = dateFormatter.print(DateTime.now plusDays 7),
     dateHour = 0,
     dateMinute = 0,
     image = "",
