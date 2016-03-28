@@ -9,10 +9,7 @@ case class Progress(
 
   val to = from plusWeeks 1
 
-  val remainingDays = Days.daysBetween(
-    from.toLocalDate,
-    to.toLocalDate
-  ).getDays()
+  val remainingDays = Days.daysBetween(DateTime.now.toLocalDate, to.toLocalDate).getDays()
 
   val percent = (current * 100) / goal
 

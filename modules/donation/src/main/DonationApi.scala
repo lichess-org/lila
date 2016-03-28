@@ -1,6 +1,6 @@
 package lila.donation
 
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, DateTimeConstants }
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 import scala.concurrent.duration._
@@ -73,7 +73,9 @@ final class DonationApi(
 
   private def computeProgress: Fu[Progress] = {
     val from = Try {
-      DateTime.now withDayOfWeek 1 withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
+      val now = DateTime.now
+      val a = now withDayOfWeek DateTimeConstants.SUNDAY withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
+      if (a isBefore now) a else a minusWeeks 1
     }.toOption.getOrElse(DateTime.now withDayOfWeek 1)
     val to = from plusWeeks 1
     coll.find(
