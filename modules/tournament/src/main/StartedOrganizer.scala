@@ -20,10 +20,10 @@ private[tournament] final class StartedOrganizer(
     scheduleNext
   }
 
-  case object AllStartedTournaments
+  case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(3 seconds, self, AllStartedTournaments)
+    context.system.scheduler.scheduleOnce(3 seconds, self, Tick)
 
   def receive = {
 
@@ -32,7 +32,7 @@ private[tournament] final class StartedOrganizer(
       pairingLogger.error(msg)
       throw new RuntimeException(msg)
 
-    case AllStartedTournaments =>
+    case Tick =>
       val myself = self
       val startAt = nowMillis
       TournamentRepo.started.flatMap { started =>
