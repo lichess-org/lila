@@ -126,6 +126,12 @@
 .material.form .form-group * {
   color: #333;
 }
+body.dark .material.form .form-group * {
+  color: #bbb;
+}
+body.dark .material.form .form-group select option {
+  color: #333;
+}
 .material.form .form-group select ~ .control-label,
 .material.form .form-group input:focus ~ .control-label,
 .material.form .form-group input:valid ~ .control-label,

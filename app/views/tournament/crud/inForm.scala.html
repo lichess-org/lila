@@ -57,9 +57,6 @@
   @base.select(form("clockIncrement"), clockIncrementChoices)
   }
 </div>
-@group(form("mode"), Html("Mode")) {
-@base.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
-}
 
 <div class="button-container">
   <button type="submit" class="submit button text" data-icon="E">Apply now</button>

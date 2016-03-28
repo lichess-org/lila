@@ -8,8 +8,6 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import scala.util.Try
 
-import chess.Mode
-import chess.StartingPosition
 import lila.common.Form._
 
 object CrudForm {
@@ -23,7 +21,6 @@ object CrudForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "variant" -> number.verifying(validVariantIds contains _),
-    "mode" -> number.verifying(Mode.all map (_.id) contains _),
     "date" -> nonEmptyText.verifying(s => parseDateUTC(s).isDefined),
     "dateHour" -> number(min = 0, max = 23),
     "dateMinute" -> number(min = 0, max = 59),
@@ -40,7 +37,6 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
-    mode = Mode.Rated.id,
     date = dateFormatter.print(DateTime.now),
     dateHour = 0,
     dateMinute = 0,
@@ -55,7 +51,6 @@ object CrudForm {
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
-      mode: Int,
       date: String,
       dateHour: Int,
       dateMinute: Int,

@@ -14,7 +14,6 @@ final class CrudApi {
     clockIncrement = tour.clock.increment,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    mode = tour.mode.id,
     date = CrudForm.dateFormatter.print(tour.startsAt),
     dateHour = tour.startsAt.getHourOfDay,
     dateMinute = tour.startsAt.getMinuteOfHour,
@@ -50,7 +49,6 @@ final class CrudApi {
       clock = clock,
       minutes = minutes,
       variant = v,
-      mode = chess.Mode.orDefault(mode),
       startsAt = actualDate,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,
