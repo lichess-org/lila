@@ -31,8 +31,8 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import lila.game.actorApi.{ InsertGame, FinishGame }
     def receive = {
-      case FinishGame(game, _, _) => self ! InsertGame(game)
-      case InsertGame(game)       => api store game
+      case FinishGame(game, _, _) if !game.aborted => self ! InsertGame(game)
+      case InsertGame(game)                        => api store game
     }
   }), name = ActorName), 'finishGame)
 

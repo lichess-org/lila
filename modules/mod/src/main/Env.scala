@@ -70,7 +70,7 @@ final class Env(
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
-      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
+      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         (whiteUserOption |@| blackUserOption) apply {
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)

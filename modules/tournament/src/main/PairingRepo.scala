@@ -107,12 +107,14 @@ object PairingRepo {
     pairingHandler.write(pairing) ++ BSONDocument("d" -> DateTime.now)
   }.void
 
-  def finish(g: lila.game.Game) = coll.update(
-    selectId(g.id),
-    BSONDocument("$set" -> BSONDocument(
-      "s" -> g.status.id,
-      "w" -> g.winnerColor.map(_.white),
-      "t" -> g.turns))).void
+  def finish(g: lila.game.Game) =
+    if (g.aborted) coll.remove(selectId(g.id))
+    else coll.update(
+      selectId(g.id),
+      BSONDocument("$set" -> BSONDocument(
+        "s" -> g.status.id,
+        "w" -> g.winnerColor.map(_.white),
+        "t" -> g.turns))).void
 
   def setBerserk(pairing: Pairing, userId: String, value: Int) = (userId match {
     case uid if pairing.user1 == uid => "b1".some

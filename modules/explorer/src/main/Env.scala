@@ -32,7 +32,7 @@ final class Env(
 
   if (IndexFlow) system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => indexer(game)
+      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => indexer(game)
     }
   })), 'finishGame)
 }

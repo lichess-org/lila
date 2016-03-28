@@ -115,7 +115,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? outOfTime(game)
+      game.outoftime(lags.get) ?? outOfTime(game).thenPp
     }
 
     // exceptionally we don't block nor publish events
@@ -209,10 +209,7 @@ private[round] final class Round(
       if (lag > 0) lila.mon.round.move.networkLag(lag)
     }
 
-  private def outOfTime(game: Game) =
-    finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>
-      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
-    })
+  private def outOfTime(game: Game) = finisher.outOfTime(game)
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)

@@ -29,6 +29,20 @@ private[round] final class Finisher(
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>- winner.?? { color => playban.rageQuit(game, !color) }
 
+  def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
+    import lila.common.PlayApp
+    if (!PlayApp.startedSinceSeconds(120) && game.updatedAt.exists(_ isBefore PlayApp.startedAt)) {
+      logger.info(s"Aborting game last played before JVM boot: ${game.id}")
+      other(game, _.Aborted, none)
+    }
+    else {
+      val winner = Some(!game.player.color) filterNot { color =>
+        game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
+      }
+      other(game, _.Outoftime, winner)
+    }
+  }
+
   def other(
     game: Game,
     status: Status.type => Status,
@@ -71,7 +85,7 @@ private[round] final class Finisher(
                 }
               }
       }
-    } >>- proxy.invalidate
+  } >>- proxy.invalidate
 
   private def notifyTimeline(game: Game)(color: Color) = {
     import lila.hub.actorApi.timeline.{ Propagate, GameEnd }
