@@ -23,7 +23,7 @@ private object AnalysisBuilder {
       case None => fufail(AnalysisBuilder.GameIsGone(uciAnalysis.id))
       case Some(game) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
-          def debug = s"Analysis ${game.id} from ${client.fullId}"
+          def debug = s"Analysis for ${game.id} by ${client.fullId}"
           chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
             fufail(_),
             replay => UciToPgn(replay, uciAnalysis) match {

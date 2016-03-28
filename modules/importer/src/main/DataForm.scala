@@ -52,7 +52,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case v => v
         }
         val initialFen = tag(_.FEN) flatMap {
-          Forsyth.<<@(variant, _)
+          Forsyth.<<<@(variant, _)
         } map Forsyth.>> map FEN.apply
 
         val result = tag(_.Result) ifFalse game.situation.end collect {
