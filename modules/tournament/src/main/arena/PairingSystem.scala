@@ -69,7 +69,7 @@ object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private val smartPairingsMaxMillis = 400
+  private val smartPairingsMaxMillis = 500
 
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
