@@ -13,6 +13,7 @@
         <th>Clock</th>
         <th>Duration</th>
         <th>UTC Date</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
         <td>@tour.clock</td>
         <td>@{tour.minutes}m</td>
         <td>@showDateTimeUTC(tour.startsAt)</td>
+        <td><a href="@routes.Tournament.show(tour.id)" data-icon="v" title="View on site"></a></td>
       </tr>
       }
     </tbody>

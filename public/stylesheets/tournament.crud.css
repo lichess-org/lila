@@ -1,5 +1,6 @@
 h1.lichess_title {
   text-align: center;
+  margin-bottom: 0!important;
 }
 table.slist {
   font-size: 1.2em;
@@ -13,6 +14,9 @@ table.slist td {
   font-weight: normal;
   padding: 10px 20px;
   margin-bottom: 20px;
+}
+.material.form {
+  margin-top: 10px;
 }
 .material.form textarea {
   height: 10em;
