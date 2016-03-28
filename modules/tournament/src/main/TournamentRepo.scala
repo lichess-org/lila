@@ -30,12 +30,16 @@ object TournamentRepo {
     if (variant.standard) BSONDocument("variant" -> BSONDocument("$exists" -> false))
     else BSONDocument("variant" -> variant.id)
   private val nonEmptySelect = BSONDocument("nbPlayers" -> BSONDocument("$ne" -> 0))
+  private val selectUnique = BSONDocument("schedule.freq" -> "unique")
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
   def byIds(ids: Iterable[String]): Fu[List[Tournament]] =
     coll.find(BSONDocument("_id" -> BSONDocument("$in" -> ids)))
       .cursor[Tournament]().collect[List]()
+
+  def uniqueById(id: String): Fu[Option[Tournament]] =
+    coll.find(selectId(id) ++ selectUnique).one[Tournament]
 
   def recentAndNext: Fu[List[Tournament]] =
     coll.find(sinceSelect(DateTime.now minusDays 1))
@@ -169,6 +173,12 @@ object TournamentRepo {
         case (acc, tour)                                 => tour :: acc
       }.reverse
     }
+
+  def uniques(max: Int): Fu[List[Tournament]] =
+    coll.find(selectUnique)
+      .sort(BSONDocument("startsAt" -> -1))
+      .hint(BSONDocument("startsAt" -> -1))
+      .cursor[Tournament]().collect[List]()
 
   def scheduledUnfinished: Fu[List[Tournament]] =
     coll.find(scheduledSelect ++ unfinishedSelect)

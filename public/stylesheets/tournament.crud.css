@@ -1,0 +1,22 @@
+h1.lichess_title {
+  text-align: center;
+}
+table.slist {
+  font-size: 1.2em;
+  width: 100%;
+}
+table.slist td {
+  padding: 20px 10px;
+}
+.material.form button {
+  font-size: 1.7em;
+  font-weight: normal;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.material.form textarea {
+  height: 10em;
+}
+.tour_crud a {
+  color: #3893E8!important;
+}

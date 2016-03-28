@@ -1,6 +1,7 @@
 @(form: Form[_], config: lila.tournament.DataForm)(implicit ctx: Context)
 
 @import config._
+@import lila.tournament.DataForm._
 
 @moreJs = {
 @jsTag("tournamentForm.js")
@@ -64,7 +65,7 @@ moreJs = moreJs) {
         </tr>
         <tr>
           <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
-          <td>@base.select(form("waitMinutes"), config.waitMinuteChoices)</td>
+          <td>@base.select(form("waitMinutes"), waitMinuteChoices)</td>
         </tr>
         <tr>
           <th></th>
@@ -79,20 +80,20 @@ moreJs = moreJs) {
       </table>
     </form>
     <div class="none private_time">
-      @base.select(form("clockTime"), config.clockTimePrivateChoices)
+      @base.select(form("clockTime"), clockTimePrivateChoices)
       +
-      @base.select(form("clockIncrement"), config.clockIncrementPrivateChoices)
+      @base.select(form("clockIncrement"), clockIncrementPrivateChoices)
     </div>
     <div class="none public_time">
-      @base.select(form("clockTime"), config.clockTimeChoices)
+      @base.select(form("clockTime"), clockTimeChoices)
       +
-      @base.select(form("clockIncrement"), config.clockIncrementChoices)
+      @base.select(form("clockIncrement"), clockIncrementChoices)
     </div>
     <div class="none private_minutes">
-      @base.select(form("minutes"), config.minutePrivateChoices)
+      @base.select(form("minutes"), minutePrivateChoices)
     </div>
     <div class="none public_minutes">
-      @base.select(form("minutes"), config.minuteChoices)
+      @base.select(form("minutes"), minuteChoices)
     </div>
   </div>
   <div class="content_box small_box faq_box tournament_box">

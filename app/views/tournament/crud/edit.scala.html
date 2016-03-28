@@ -1,0 +1,10 @@
+@(tour: lila.tournament.Tournament, form: Form[_])(implicit ctx: Context)
+
+@layout(title = tour.fullName) {
+<div class="tour_crud content_box small_box no_padding">
+  <h1 class="lichess_title">@tour.fullName</h1>
+  <form class="content_box_content material form" action="@routes.TournamentCrud.update(tour.id)" method="POST">
+    @inForm(form)
+  </form>
+</div>
+}

@@ -29,7 +29,7 @@ object Form {
     of[Double].verifying(hasKey(choices, _))
 
   def stringIn(choices: Iterable[(String, String)]) =
-    nonEmptyText.verifying(hasKey(choices, _))
+    text.verifying(hasKey(choices, _))
 
   def hasKey[A](choices: Iterable[(A, _)], key: A) =
     choices.map(_._1).toList contains key

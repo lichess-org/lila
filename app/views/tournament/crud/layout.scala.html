@@ -1,0 +1,20 @@
+@(title: String, active: String = "")(body: Html)(implicit ctx: Context)
+
+@menu = {
+<a class="@active.active("index")" href="@routes.TournamentCrud.index">Recent tournaments</a>
+<a class="@active.active("form")" href="@routes.TournamentCrud.form">Create a tournament</a>
+}
+
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("tournament.crud.css")
+}
+@moreJs = {
+@jsTag("tournament.crud.js")
+}
+
+@base.layout(
+title = title,
+menu = menu.some,
+moreCss = moreCss,
+moreJs = moreJs)(body)

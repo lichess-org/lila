@@ -69,6 +69,8 @@ final class Env(
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
 
+  lazy val crudApi = new crud.CrudApi
+
   val tourAndRanks = api tourAndRanks _
 
   private lazy val performance = new Performance

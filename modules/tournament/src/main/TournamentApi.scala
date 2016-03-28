@@ -42,7 +42,7 @@ private[tournament] final class TournamentApi(
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     var variant = chess.variant.Variant orDefault setup.variant
     val tour = Tournament.make(
-      createdBy = me,
+      createdByUserId = me.id,
       clock = TournamentClock((setup.clockTime * 60).toInt, setup.clockIncrement),
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,

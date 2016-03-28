@@ -1,0 +1,66 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@import lila.tournament.DataForm._
+@import lila.tournament.crud.CrudForm._
+
+@group(field: play.api.data.Field, name: Html, half: Boolean = false)(html: Html) = {
+<div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}">
+  @html
+  <label for="@field.id" class="control-label">@name</label>
+  <i class="bar"></i>
+</div>
+}
+
+<div>
+  @group(form("date"), Html("Date <strong>yyyy-mm-dd</strong>"), half = true) {
+  @base.input(form("date"))
+  }
+  <div class="form-group half">
+    @group(form("dateHour"), Html("Hour <strong>UTC</strong>"), half = true) {
+    @base.input(form("dateHour"))
+    }
+    @group(form("dateMinute"), Html("Minute <strong>UTC</strong>"), half = true) {
+    @base.input(form("dateMinute"))
+    }
+  </div>
+</div>
+@group(form("name"), Html("Name")) {
+@base.input(form("name"))
+}
+<div>
+  @group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
+  @base.input(form("homepageHours"))
+  }
+  @group(form("image"), Html("Custom icon"), half = true) {
+  @base.select(form("image"), imageChoices)
+  }
+  @group(form("headline"), Html("Homepage headline")) {
+  @base.input(form("headline"))
+  }
+</div>
+@group(form("description"), Html("Full description")) {
+<textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
+}
+<div>
+  @group(form("variant"), Html("Variant"), half = true) {
+  @base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+  }
+  @group(form("minutes"), Html("Duration in minutes"), half = true) {
+  @base.input(form("minutes"))
+  }
+</div>
+<div>
+  @group(form("clockTime"), Html("Clock time"), half = true) {
+  @base.select(form("clockTime"), clockTimeChoices)
+  }
+  @group(form("clockIncrement"), Html("Clock increment"), half = true) {
+  @base.select(form("clockIncrement"), clockIncrementChoices)
+  }
+</div>
+@group(form("mode"), Html("Mode")) {
+@base.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
+}
+
+<div class="button-container">
+  <button type="submit" class="submit button text" data-icon="E">Apply now</button>
+</div>

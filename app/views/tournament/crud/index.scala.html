@@ -1,0 +1,31 @@
+@(tours: List[lila.tournament.Tournament])(implicit ctx: Context)
+
+@title = {Tournament manager}
+
+@layout(title = title.body, active = "index") {
+<div class="tour_crud content_box no_padding">
+  <h1 class="lichess_title">@title</h1>
+  <table class="slist">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Variant</th>
+        <th>Clock</th>
+        <th>Duration</th>
+        <th>UTC Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @tours.map { tour =>
+      <tr>
+        <td><a href="@routes.TournamentCrud.edit(tour.id)">@tour.fullName</a></td>
+        <td>@tour.variant.name</td>
+        <td>@tour.clock</td>
+        <td>@{tour.minutes}m</td>
+        <td>@showDateTimeUTC(tour.startsAt)</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
