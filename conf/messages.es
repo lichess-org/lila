@@ -518,3 +518,6 @@ letOtherPlayersMessageYou=Deja que otras personas te dejen un mensaje
 shareYourInsightsData=Comparte tus datos estadísticos
 youHaveAlreadyRegisteredTheEmail=Tu ya has registrado el correo electrónico: %s
 kidMode=Modo Infantil
+playChessEverywhere=Juega al ajedrez en cualquier lugar
+builtForTheLoveOfChessNotMoney=Creado por el amor al ajedrez, no al dinero
+zeroAdvertisement=Cero publicidad
