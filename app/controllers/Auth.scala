@@ -94,13 +94,6 @@ object Auth extends LilaController {
     }
   }
 
-  private def doSignup(username: String, password: String, rawEmail: Option[String])(implicit ctx: Context): Fu[(UserModel, Option[String])] = {
-    val email = rawEmail.map(e => env.emailAddress.validate(e) err s"Invalid email $e")
-    UserRepo.create(username, password, email, ctx.blindMode, ctx.mobileApiVersion)
-      .flatten(s"No user could be created for ${username}")
-      .map(_ -> email)
-  }
-
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     Firewall {
