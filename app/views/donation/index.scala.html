@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation], top: List[User.ID], progress: lila.donation.Progress)(implicit ctx: Context)
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation], top: List[User.ID], prog: lila.donation.Progress)(implicit ctx: Context)
 
 @payPalVars = {
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -8,14 +8,8 @@
 @side = {
 <h2>Progress this week</h2>
 <div class="progress">
-  <div class="progressbar green flashy">
-    <div style="width: @progress.percent%"></div>
-  </div>
-  <div class="text">
-    <span class="current">$@(progress.current / 100)</span>
-    @progress.percent%
-    <span class="goal">$@(progress.goal / 100)</span>
-  </div>
+  @progressbar(prog)
+  <p>@pluralize("day", prog.remainingDays) left</p>
 </div>
 <h2>Top Donors</h2>
 <div class="donors">

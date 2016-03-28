@@ -22,20 +22,32 @@
   width: 100%;
   height: auto;
 }
-#site_header .progress div.progressbar {
-  overflow: hidden;
-}
-#site_header .progress div.progressbar div {
+#site_header .progress .progressbar {
+  position: relative;
   height: 30px;
-}
-#site_header .progress .text {
-  text-align: center;
   font-size: 1.2em;
   font-weight: bold;
+  text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
+  text-align: right;
+  line-height: 32px;
 }
 #site_header .progress .current {
-  float: left;
+  position:absolute;
+  top: 1px;
+  left: 1px;
+  z-index: 2;
+  height: 30px;
+  max-width: 100%;
+  font-size: 15px;
+}
+#site_header .progress .current span {
+  margin: 0 10px;
 }
 #site_header .progress .goal {
-  float: right;
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+}
+#site_header .progress p {
+  text-align: center;
 }

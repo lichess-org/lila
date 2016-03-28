@@ -15,13 +15,11 @@
       </a>
     </div>
     <div class="progress">
-      <div class="progressbar green flashy">
-        <span class="goal">$@(prog.goal / 100)</span>
-        <div class="current" style="width: @prog.percent%"><span>$@(prog.current / 100)</span></div>
-      </div>
+      @progressbar(prog)
     </div>
     <div class="legend">
       <strong>Weekly progress</strong>
       @pluralize("day", prog.remainingDays) left
+    </div>
   </div>
 </div>
