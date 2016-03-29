@@ -7,7 +7,7 @@ private object MessageDb {
 
   def apply(app: Application): Messages =
     lila.common.Chronometer.syncEffect(
-      lila.i18n.db.Registry.load //.+("default.play" -> loadMessages(app)("messages.default"))
+      lila.i18n.db.Registry.load.+("default.play" -> loadMessages(app)("messages.default"))
     ) { lap =>
         logger.info(s"${lap.millis}ms MessageDb")
       }

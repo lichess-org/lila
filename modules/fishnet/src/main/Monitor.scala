@@ -127,8 +127,8 @@ object Monitor {
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).weak()
   }
 
-  private[fishnet] def timeout(work: Work, client: Client) =
-    lila.mon.fishnet.client.result(client.userId.value, work.skill.key).timeout()
+  private[fishnet] def timeout(work: Work, userId: Client.UserId) =
+    lila.mon.fishnet.client.result(userId.value, work.skill.key).timeout()
 
   private[fishnet] def abort(work: Work, client: Client) =
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).abort()
