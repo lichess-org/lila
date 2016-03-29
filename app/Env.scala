@@ -55,7 +55,7 @@ final class Env(
   )), name = RouterName)
 
   lila.log.boot.info("Preloading modules")
-  List(Env.socket,
+  lila.common.Chronometer.syncEffect(List(Env.socket,
     Env.site,
     Env.tournament,
     Env.lobby,
@@ -87,8 +87,9 @@ final class Env(
     Env.challenge, // required to load the actor
     Env.explorer, // required to load the actor
     Env.fishnet // required to schedule the cleaner
-  )
-  play.api.Logger("boot").info("Preloading complete")
+  )) { lap =>
+    lila.log("boot").info(s"${lap.millis}ms Preloading complete")
+  }
 
   scheduler.once(5 seconds) {
     Env.slack.api.publishInfo("Lichess has restarted!")

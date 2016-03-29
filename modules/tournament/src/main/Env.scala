@@ -27,6 +27,8 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
+  private val startsAtMillis = nowMillis
+
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
     val CollectionPlayer = config getString "collection.player"
@@ -156,6 +158,8 @@ final class Env(
   private[tournament] lazy val pairingColl = db(CollectionPairing)
   private[tournament] lazy val playerColl = db(CollectionPlayer)
   private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
+
+  lila.log("boot").info(s"${nowMillis - startsAtMillis}ms Tournament constructor")
 }
 
 object Env {
