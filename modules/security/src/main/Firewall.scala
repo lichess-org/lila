@@ -21,8 +21,8 @@ final class Firewall(
     enabled: Boolean,
     cachedIpsTtl: Duration) {
 
-  private def ipOf(req: requestHandler) =
-    lila.common.HTTPRequest lastRemoteAddress req.remoteAddress
+  private def ipOf(req: RequestHeader) =
+    lila.common.HTTPRequest lastRemoteAddress req
 
   def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
     cookieName.fold(blocksIp(ipOf(req))) { cn =>
