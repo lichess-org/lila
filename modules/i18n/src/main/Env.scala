@@ -82,7 +82,7 @@ final class Env(
     minGames = CallThreshold,
     transInfos = transInfos)
 
-  val call = callApi.apply _
+  def call = callApi.apply _
 
   def jsonFromVersion(v: Int): Fu[JsValue] = {
     import tube.translationTube

@@ -37,16 +37,22 @@ object PlayApp {
     app.classloader.getResources(file).asScala.toList
       .filterNot(url => Resources.isDirectory(app.classloader, url)).reverse
       .map { messageFile =>
-        Messages.parse(Messages.UrlMessageSource(messageFile), messageFile.toString).fold(e => throw e, identity)
+        Messages.parse(
+          Messages.UrlMessageSource(messageFile),
+          messageFile.toString
+        ).fold(e => throw e, identity)
       }.foldLeft(Map.empty[String, String]) { _ ++ _ }
   }
 
-  lazy val messages: Map[String, Map[String, String]] =
+  lazy val messages: Map[String, Map[String, String]] = lila.common.Chronometer.syncEffect(
     langs.map(_.code).map { lang =>
       (lang, loadMessages("messages." + lang))
     }.toMap
       .+("default" -> loadMessages("messages"))
       .+("default.play" -> loadMessages("messages.default"))
+  ) { lap =>
+      lila.log.boot.info(s"${lap.millis}ms PlayApp.messages")
+    }
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 

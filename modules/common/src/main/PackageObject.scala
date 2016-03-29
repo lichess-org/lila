@@ -30,10 +30,8 @@ trait PackageObject extends Steroids with WithFuture {
 
   implicit final class LilaPimpedString(s: String) {
 
-    def boot[A](v: => A): A = {
-      val lap = lila.common.Chronometer.sync(v)
+    def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
       lila.log.boot.info(s"${lap.millis}ms $s")
-      lap.result
     }
   }
 

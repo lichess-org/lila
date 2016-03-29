@@ -39,4 +39,10 @@ object Chronometer {
     val res = f
     Lap(res, nowNanos - start)
   }
+
+  def syncEffect[A](f: => A)(effect: Lap[A] => Unit): A = {
+    val lap = sync(f)
+    effect(lap)
+    lap.result
+  }
 }
