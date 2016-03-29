@@ -515,6 +515,7 @@ youCanAlsoScrollOverTheBoardToMoveInTheGame=يمكنك استخدام الزر �
 pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard=أضغط shift+click او right click لرسم دوائر و اسهم على الرقعة
 confirmResignation=تاكيد الأنسحاب
 letOtherPlayersMessageYou=السماح للاعبين بارسال رسائل اليك
+shareYourInsightsData=مشاركة بيانات عن طريقة لعبك
 youHaveAlreadyRegisteredTheEmail=لقد قمت بالفعل بتسجيل هذا البريد الألكترونى: %s
 kidMode=نظام الأطفال
 playChessEverywhere=العب الشطرنج فى اى مكان
@@ -524,4 +525,6 @@ everybodyGetsAllFeaturesForFree=الكل يحصل على جميع  المميز�
 zeroAdvertisement=لا أعلانات
 fullFeatured=كل المميزات
 phoneAndTablet=محمول و اجهزة لوحية
+bulletBlitzClassical=سريع جداً, سريع, تقليدى
+correspondenceChess=شطرنج المراسلة
 onlineAndOfflinePlay=متصل بالانترنت او لا تستطيع اللعب
