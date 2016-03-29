@@ -524,5 +524,7 @@ builtForTheLoveOfChessNotMoney=Construit pour l'amour du jeu d'échecs, pas pour
 everybodyGetsAllFeaturesForFree=Toutes les fonctionnalités sont gratuites
 zeroAdvertisement=Aucune publicité
 fullFeatured=Contenu additionnel
+phoneAndTablet=Smartphones et tablettes
 bulletBlitzClassical=Partie éclair, Rapid, Semi-Rapide
 correspondenceChess=Échecs par correspondance
+onlineAndOfflinePlay=Jouer en ligne ou hors-ligne
