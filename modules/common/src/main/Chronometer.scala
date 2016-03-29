@@ -33,4 +33,10 @@ object Chronometer {
     val start = nowNanos
     FuLap(f map { Lap(_, nowNanos - start) })
   }
+
+  def sync[A](f: => A): Lap[A] = {
+    val start = nowNanos
+    val res = f
+    Lap(res, nowNanos - start)
+  }
 }
