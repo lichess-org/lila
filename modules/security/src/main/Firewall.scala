@@ -21,19 +21,12 @@ final class Firewall(
     enabled: Boolean,
     cachedIpsTtl: Duration) {
 
-  // def requestHandler(req: RequestHeader): Fu[Option[Handler]] =
-  //   cookieName.filter(_ => enabled) ?? { cn =>
-  //     blocksIp(req.remoteAddress) map { bIp =>
-  //       val bCs = blocksCookies(req.cookies, cn)
-  //       if (bIp && !bCs) infectCookie(cn)(req).some
-  //       else if (bCs && !bIp) { blockIp(req.remoteAddress); None }
-  //       else None
-  //     }
-  //   }
+  private def ipOf(req: requestHandler) =
+    lila.common.HTTPRequest lastRemoteAddress req.remoteAddress
 
   def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(req.remoteAddress)) { cn =>
-      blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
+    cookieName.fold(blocksIp(ipOf(req))) { cn =>
+      blocksIp(ipOf(req)) map (_ || blocksCookies(req.cookies, cn))
     } addEffect { v =>
       if (v) lila.mon.security.firewall.block()
     }
@@ -62,7 +55,7 @@ final class Firewall(
   }
 
   private def formatReq(req: RequestHeader) =
-    "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
+    "%s %s %s".format(ipOf(req), req.uri, req.headers.get("User-Agent") | "?")
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
