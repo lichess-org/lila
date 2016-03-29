@@ -115,7 +115,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? outOfTime(game).thenPp
+      game.outoftime(lags.get) ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
