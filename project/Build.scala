@@ -31,12 +31,6 @@ object ApplicationBuild extends Build {
       // shorter prod classpath
       scriptClasspath := Seq("*"),
       // offline := true,
-      sourceGenerators in Compile += Def.task {
-        MessageCompiler(
-          (baseDirectory in Compile).value / "conf/i18n",
-          (sourceManaged in Compile).value / "i18n"
-        )
-      }.taskValue,
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
@@ -290,6 +284,12 @@ object ApplicationBuild extends Build {
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
+    sourceGenerators in Compile += Def.task {
+      MessageCompiler(
+        (baseDirectory in Compile).value / "messages",
+        (sourceManaged in Compile).value / "messages"
+      )
+    }.taskValue,
     libraryDependencies ++= provided(play.api, RM, PRM, jgit)
   )
 

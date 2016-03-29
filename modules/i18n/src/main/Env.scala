@@ -109,7 +109,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
     system = PlayApp.system,
-    messages = PlayApp.messages,
+    messages = PlayApp.withApp(MessageDb.apply),
     captcher = lila.hub.Env.current.actor.captcher,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
