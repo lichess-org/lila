@@ -508,6 +508,7 @@ networkLagBetweenYouAndLichess=Mrežni Lag između Vas i LiChess-a.
 timeToProcessAMoveOnLichessServer=Vreme koje potrebno za obradu poteza na LiChess serveru.
 downloadAnnotated=Preuzimanje beleški.
 downloadRaw=Preuzimanje igre PGN bez LiChess napomena
+downloadImported=Uvezeno preuzimanje
 printFriendlyPDF=PDF spreman za štampu
 crosstable=Uporedni pregled
 youCanAlsoScrollOverTheBoardToMoveInTheGame=Možete skrolovati preko table radi povčačenja poteza u partiji.
