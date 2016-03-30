@@ -1,7 +1,8 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
 import com.typesafe.sbt.web.SbtWeb.autoImport._
-import play.Play.autoImport._
+import play.sbt.Play.autoImport._
 import play.sbt.PlayImport._
+import play.sbt.routes.RoutesKeys._
 import play.twirl.sbt.Import._
 import PlayKeys._
 import sbt._, Keys._
@@ -21,6 +22,7 @@ object ApplicationBuild extends Build {
       scalacOptions := compilerOptions,
       incOptions := incOptions.value.withNameHashing(true),
       updateOptions := updateOptions.value.withCachedResolution(true),
+      routesGenerator := StaticRoutesGenerator,
       sources in doc in Compile := List(),
       // disable publishing the main API jar
       publishArtifact in (Compile, packageDoc) := false,

@@ -1,4 +1,4 @@
-import play.Play.autoImport._
+import play.sbt.Play.autoImport._
 import sbt._, Keys._
 
 object BuildSettings {
