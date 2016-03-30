@@ -530,6 +530,6 @@ correspondenceChess=Игра по переписке
 onlineAndOfflinePlay=Онлайн и оффлайн
 gameAnalysis=Анализ игры
 followAndChallengeFriends=Подписывайтесь и играйте с друзьями
-availableInEightyLanguages=Доступно на %s языках!
+availableInNbLanguages=Доступно на %s языках!
 lichessMobile=Приложение lichess
 lichessIsBuiltUpon=%s создан с помощью:
