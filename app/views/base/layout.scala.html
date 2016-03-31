@@ -204,7 +204,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @moreJs
     @if(lang.language != "en") {
     @embedJs {
-    lichess_translations = @jsI18n();
+    lichess_translations = @jsI18n()
     }
     @momentLangTag
     }
