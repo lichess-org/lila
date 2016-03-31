@@ -6,7 +6,7 @@
 Lila is a free online chess game server focused on [realtime](http://lichess.org/games) gameplay and ease of use.
 
 It features a [search engine](http://lichess.org/games/search),
-[computer analysis](http://lichess.org/ief49lif),
+[computer analysis](http://lichess.org/ief49lif) distributed with [fishnet](https://github.com/niklasf/fishnet),
 [tournaments](http://lichess.org/tournament),
 [simuls](http://lichess.org/simul),
 [forums](http://lichess.org/forum),

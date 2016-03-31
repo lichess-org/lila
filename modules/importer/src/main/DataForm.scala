@@ -64,7 +64,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         val date = tag(_.Date)
 
         def name(whichName: TagPicker, whichRating: TagPicker): String = tag(whichName).fold("?") { n =>
-          n + ~tag(whichRating).map(e => " (%s)" format e)
+          n + ~tag(whichRating).map(e => s" (%${e take 8})")
         }
 
         val dbGame = Game.make(
