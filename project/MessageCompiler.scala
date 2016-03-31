@@ -19,9 +19,11 @@ object MessageCompiler {
       val (lang, file) = entry
       val srcFile = src / file
       val dstFile = dst / s"$lang.scala"
-      val pairs = readLines(srcFile) map makePair
-      printToFile(dstFile) {
-        render(lang, pairs)
+      if (srcFile.lastModified > dstFile.lastModified) {
+        val pairs = readLines(srcFile) map makePair
+        printToFile(dstFile) {
+          render(lang, pairs)
+        }
       }
       dstFile
     }
