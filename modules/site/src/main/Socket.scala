@@ -25,7 +25,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
 
     case SendToFlag(flag, message) =>
       members.values filter (_ hasFlag flag) foreach {
-        _.channel push message
+        _ push message
       }
   }
 }
