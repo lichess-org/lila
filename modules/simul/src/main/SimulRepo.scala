@@ -7,7 +7,7 @@ import reactivemongo.core.commands._
 import chess.Status
 import chess.variant.Variant
 import lila.db.BSON
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 

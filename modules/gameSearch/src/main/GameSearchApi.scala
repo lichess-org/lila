@@ -17,7 +17,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      import lila.db.api.$find
+      import lila.db.dsl.$find
       import lila.game.tube.gameTube
       $find.byOrderedIds[lila.game.Game](res.ids)
     }

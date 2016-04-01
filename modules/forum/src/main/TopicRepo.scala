@@ -1,11 +1,6 @@
 package lila.forum
 
-import play.api.libs.json.Json
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-
-import lila.db.api._
-import lila.db.Implicits._
-import tube.topicTube
+import lila.db.dsl._
 
 object TopicRepo extends TopicRepo(false) {
 
@@ -15,6 +10,8 @@ object TopicRepo extends TopicRepo(false) {
 object TopicRepoTroll extends TopicRepo(true)
 
 sealed abstract class TopicRepo(troll: Boolean) {
+
+  import BSONHandlers.TopicBSONHandler
 
   private lazy val trollFilter = troll.fold(
     Json.obj(),

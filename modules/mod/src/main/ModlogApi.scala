@@ -1,11 +1,11 @@
 package lila.mod
 
-import lila.db.api._
-import lila.db.Implicits._
-import tube.modlogTube
-import play.api.libs.json.Json
+import lila.db.dsl._
 
-final class ModlogApi {
+final class ModlogApi(coll: Coll) {
+
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  private implicit val ModlogBSONHandler = reactivemongo.bson.Macros.handler[Modlog]
 
   def streamConfig(mod: String) = add {
     Modlog(mod, none, Modlog.streamConfig)
@@ -86,24 +86,24 @@ final class ModlogApi {
     Modlog(mod, none, Modlog.terminateTournament, details = name.some)
   }
 
-  def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
+  def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().collect[List](100)
 
-  def wasUnengined(userId: String) = $count.exists(Json.obj(
+  def wasUnengined(userId: String) = coll.exists($doc(
     "user" -> userId,
     "action" -> Modlog.unengine
   ))
 
-  def wasUnbooster(userId: String) = $count.exists(Json.obj(
+  def wasUnbooster(userId: String) = coll.exists($doc(
     "user" -> userId,
     "action" -> Modlog.unbooster
   ))
 
   def userHistory(userId: String): Fu[List[Modlog]] =
-    $find($query(Json.obj("user" -> userId)) sort $sort.desc("date"), 100)
+    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().collect[List](100)
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create()
     lila.log("mod").info(m.toString)
-    $insert(m)
+    coll.insert(m).void
   }
 }

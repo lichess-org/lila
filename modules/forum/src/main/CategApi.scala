@@ -1,13 +1,13 @@
 package lila.forum
 
 import lila.common.paginator._
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.db.paginator._
 import lila.user.{ User, UserContext }
-import tube._
 
 private[forum] final class CategApi(env: Env) {
+
+  import BSONHandlers._
 
   def list(teams: Set[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
@@ -27,7 +27,7 @@ private[forum] final class CategApi(env: Env) {
   def makeTeam(slug: String, name: String): Funit =
     CategRepo.nextPosition flatMap { position =>
       val categ = Categ(
-        id = teamSlug(slug),
+        _id = teamSlug(slug),
         name = name,
         desc = "Forum of the team " + name,
         pos = position,
@@ -55,10 +55,10 @@ private[forum] final class CategApi(env: Env) {
         hidden = topic.hidden,
         lang = "en".some,
         categId = categ.id)
-      $insert(categ) >>
-        $insert(post) >>
-        $insert(topic withPost post) >>
-        $update(categ withTopic post)
+      env.categColl.insert(categ).void >>
+        env.postColl.insert(post).void >>
+        env.topicColl.insert(topic withPost post).void >>
+        env.categColl.update($id(categ.id), categ withTopic post).void
     }
 
   def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
@@ -75,17 +75,17 @@ private[forum] final class CategApi(env: Env) {
     topicIdsTroll = topicsTroll map (_.id)
     nbPostsTroll ← PostRepoTroll countByTopics topicIdsTroll
     lastPostTroll ← PostRepoTroll lastByTopics topicIdsTroll
-    _ ← $update(categ.copy(
+    _ ← env.categColl.update($id(categ.id), categ.copy(
       nbTopics = topics.size,
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),
       nbTopicsTroll = topicsTroll.size,
       nbPostsTroll = nbPostsTroll,
       lastPostIdTroll = lastPostTroll ?? (_.id)
-    ))
+    )).void
   } yield ()
 
-  def denormalize: Funit = $find.all[Categ] flatMap { categs =>
+  def denormalize: Funit = env.categColl.list[Categ]($empty) flatMap { categs =>
     categs.map(denormalize).sequenceFu
   } void
 }

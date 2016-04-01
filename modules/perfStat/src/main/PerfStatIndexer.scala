@@ -3,7 +3,7 @@ package lila.perfStat
 import akka.actor.ActorRef
 import play.api.libs.iteratee._
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import lila.game.{ Game, Pov, Query }
 import lila.hub.Sequencer

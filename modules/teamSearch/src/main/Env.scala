@@ -3,7 +3,7 @@ package lila.teamSearch
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.api.{ $find, $cursor }
+import lila.db.dsl.{ $find, $cursor }
 import lila.search._
 import lila.team.tube.teamTube
 

@@ -4,13 +4,11 @@ import actorApi._
 import akka.actor.ActorSelection
 
 import lila.common.paginator._
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
-import tube._
 
 private[forum] final class TopicApi(
     env: Env,
@@ -20,6 +18,8 @@ private[forum] final class TopicApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage) {
+
+  import BSONHandlers._
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {

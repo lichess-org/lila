@@ -3,7 +3,7 @@ package mashup
 
 import scala.concurrent.duration._
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.forum.MiniForumPost
 import lila.game.{ GameRepo, Game }
 import lila.team.tube._

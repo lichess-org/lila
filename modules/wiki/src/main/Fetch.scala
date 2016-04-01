@@ -9,7 +9,7 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 import Page.DefaultLang
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Types.Coll
 import tube._
 

@@ -1,6 +1,6 @@
 package lila.coordinate
 
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import reactivemongo.bson._
 
 final class CoordinateApi(scoreColl: Coll) {

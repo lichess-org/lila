@@ -6,7 +6,7 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
 import reactivemongo.bson._
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.user.User
 import tube.teamTube
 

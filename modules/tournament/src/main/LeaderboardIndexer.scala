@@ -6,7 +6,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.BSON._
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 
 private final class LeaderboardIndexer(
     tournamentColl: Coll,

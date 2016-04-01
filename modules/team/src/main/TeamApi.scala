@@ -2,7 +2,7 @@ package lila.team
 
 import actorApi._
 import akka.actor.ActorSelection
-import lila.db.api._
+import lila.db.dsl._
 import lila.hub.actorApi.forum.MakeTeam
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.user.tube.userTube

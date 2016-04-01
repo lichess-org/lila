@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.db.api.$find
+import lila.db.dsl.$find
 import lila.user.{ User, UserRepo }
 import tube.teamTube
 

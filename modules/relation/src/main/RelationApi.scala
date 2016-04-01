@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 import scala.concurrent.duration._
 import scala.util.Success
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }

@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }

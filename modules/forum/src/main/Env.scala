@@ -55,7 +55,6 @@ final class Env(
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, PublicCategIds)
 
   def cli = new lila.common.Cli {
-    import tube._
     def process = {
       case "forum" :: "denormalize" :: Nil =>
         topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"

@@ -33,7 +33,7 @@ final class Env(
   }
   import settings._
 
-  private[game] lazy val gameColl = db(CollectionGame)
+  lazy val gameColl = db(CollectionGame)
 
   lazy val pdfExport = PdfExport(PdfExecPath) _
 

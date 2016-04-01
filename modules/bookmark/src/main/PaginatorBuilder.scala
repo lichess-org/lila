@@ -5,7 +5,7 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import lila.common.paginator._
 import lila.common.PimpedJson._
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.game.{ Game, GameRepo }

@@ -7,7 +7,7 @@ import chess.format.pgn.Pgn
 import lila.analyse.{ AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import lila.db.paginator.{ BSONAdapter, CachedAdapter }
 import lila.game.BSONHandlers._

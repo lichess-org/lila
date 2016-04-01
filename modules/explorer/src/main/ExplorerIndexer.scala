@@ -10,14 +10,13 @@ import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 import lila.user.UserRepo
 
 private final class ExplorerIndexer(
+    gameColl: Coll,
     endpoint: String,
     massImportEndpoint: String) {
 
@@ -40,16 +39,15 @@ private final class ExplorerIndexer(
   def apply(sinceStr: String): Funit =
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       logger.info(s"Start indexing since $since")
-      val query = $query(
+      val query =
         Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
-      )
       import reactivemongo.api._
-      pimpQB(query)
+      gameColl.find($empty)
         .sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondaryPreferred)
         .enumerate(maxGames, stopOnError = true) &>

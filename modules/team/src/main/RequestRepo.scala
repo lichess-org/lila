@@ -3,7 +3,7 @@ package lila.team
 import play.api.libs.json.Json
 import reactivemongo.api._
 
-import lila.db.api._
+import lila.db.dsl._
 import tube.requestTube
 
 object RequestRepo {

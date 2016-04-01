@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 case class Topic(
-    id: String,
+    _id: String,
     categId: String,
     slug: String,
     name: String,
@@ -19,6 +19,8 @@ case class Topic(
     troll: Boolean,
     closed: Boolean,
     hidden: Boolean) {
+
+  def id = _id
 
   def updatedAt(troll: Boolean): DateTime = troll.fold(updatedAtTroll, updatedAt)
   def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
@@ -69,26 +71,4 @@ object Topic {
     troll = troll,
     closed = false,
     hidden = !featured)
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private implicit def postTube = Post.tube
-
-  private def defaults = Json.obj("closed" -> false)
-
-  private[forum] lazy val tube = JsTube(
-    (__.json update (
-      merge(defaults) andThen
-      readDate('createdAt) andThen
-      readDate('updatedAt) andThen
-      readDate('updatedAtTroll)
-    )) andThen Json.reads[Topic],
-    Json.writes[Topic] andThen (__.json update (
-      writeDate('createdAt) andThen
-      writeDate('updatedAt) andThen
-      writeDate('updatedAtTroll)
-    ))
-  )
 }

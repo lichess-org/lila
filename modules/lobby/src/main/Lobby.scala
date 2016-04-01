@@ -6,7 +6,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.GameRepo
 import lila.hub.actorApi.{ GetUids, SocketUids }
 import lila.socket.actorApi.Broom

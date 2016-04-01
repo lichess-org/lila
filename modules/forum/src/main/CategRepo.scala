@@ -1,27 +1,25 @@
 package lila.forum
 
-import play.api.libs.json.Json
-
-import lila.db.api._
-import lila.db.Implicits._
-import tube.categTube
+import lila.db.dsl._
 
 object CategRepo {
 
-  def bySlug(slug: String) = $find byId slug
+  import BSONHandlers.CategBSONHandler
+
+  // dirty
+  private val coll = Env.current.categColl
+
+  def bySlug(slug: String) = coll.byId[Categ](slug)
 
   def withTeams(teams: Set[String]): Fu[List[Categ]] =
-    $find($query($or(Seq(
-      Json.obj("team" -> $exists(false)),
-      Json.obj("team" -> $in(teams))
-    ))) sort $sort.asc("pos"))
+    coll.find($or(
+      "team" $exists false,
+      "team" $in teams
+    )).sort($sort asc "pos").cursor[Categ].collect[List]()
 
-  def nextPosition: Fu[Int] = $primitive.one(
-    $select.all,
-    "pos",
-    _ sort $sort.desc("pos")
-  )(_.asOpt[Int]) map (~_ + 1)
+  def nextPosition: Fu[Int] =
+    coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") map (~_ + 1)
 
   def nbPosts(id: String): Fu[Int] =
-    $primitive.one($select(id), "nbPosts")(_.asOpt[Int]) map (~_)
+    coll.primitiveOne[Int]($id(id), "nbPosts") map (~_)
 }

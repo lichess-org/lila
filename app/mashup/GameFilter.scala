@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import lila.common.paginator.Paginator
-import lila.db.api.SortOrder
+import lila.db.dsl.SortOrder
 import lila.game.{ Game, Query, GameRepo }
 import lila.user.User
 

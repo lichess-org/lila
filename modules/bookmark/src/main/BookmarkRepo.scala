@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.bson._
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import tube.bookmarkTube
 

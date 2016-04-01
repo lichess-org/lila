@@ -6,7 +6,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json.Json
 import reactivemongo.bson._
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.BSON._
 import lila.db.Implicits._
 import lila.game.BSONHandlers.gameBSONHandler

@@ -2,7 +2,7 @@ package lila.mod
 
 import chess.Color
 import chess.variant
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.game.Game
 import lila.user.User
 

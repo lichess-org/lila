@@ -1,6 +1,6 @@
 package lila.bookmark
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import lila.user.User

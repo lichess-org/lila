@@ -5,7 +5,7 @@ import play.api.mvc._, Results._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.db.api.$find
+import lila.db.dsl.$find
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }

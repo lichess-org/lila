@@ -4,7 +4,7 @@ import Page.DefaultLang
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import tube.pageTube
 

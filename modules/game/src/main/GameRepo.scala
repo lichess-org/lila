@@ -6,6 +6,7 @@ import chess.format.Forsyth
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.bson.BSONBinary
+import reactivemongo.api.ReadPreference
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
@@ -80,7 +81,8 @@ object GameRepo {
     .cursor[Game]()
     .collect[List](nb)
 
-  def cursor(selector: Bdoc) = coll.find(selector).cursor[Game]()
+  def cursor(selector: Bdoc, readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    coll.find(selector).cursor[Game](readPreference)
 
   def unrate(gameId: String) =
     coll.update($id(gameId), $doc("$unset" -> $doc(

@@ -5,7 +5,7 @@ import scala.concurrent.Future
 import play.api.libs.json.Json
 
 import lila.common.PimpedJson._
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import tube.threadTube
 

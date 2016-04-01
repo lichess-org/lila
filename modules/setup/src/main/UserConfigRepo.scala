@@ -4,7 +4,7 @@ import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.common.LilaException
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.Implicits._
 import lila.game.Game
 import lila.user.User

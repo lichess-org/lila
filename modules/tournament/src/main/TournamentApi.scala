@@ -10,7 +10,7 @@ import scalaz.NonEmptyList
 
 import actorApi._
 import lila.common.Debouncer
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
