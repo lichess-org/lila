@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.user.{ User, UserRepo }
 
 final class Env(
@@ -52,6 +52,7 @@ final class Env(
   val RecaptchaPublicKey = config getString "recaptcha.public_key"
 
   lazy val firewall = new Firewall(
+    coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
     cachedIpsTtl = FirewallCachedIpsTtl)
@@ -72,7 +73,7 @@ final class Env(
     file = GeoIPFile,
     cacheTtl = GeoIPCacheTtl)
 
-  lazy val userSpy = UserSpy(firewall, geoIP) _
+  lazy val userSpy = UserSpy(firewall, geoIP)(storeColl) _
 
   def store = Store
 
@@ -107,7 +108,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(firewall, tor, geoIP, emailAddress)
+  lazy val api = new Api(storeColl, firewall, tor, geoIP, emailAddress)
 
   def cli = new Cli
 
