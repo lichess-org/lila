@@ -45,6 +45,7 @@ final class Env(
     defaultTtl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
+    coll = gameColl,
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 

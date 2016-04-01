@@ -3,18 +3,20 @@ package lila.db
 import dsl._
 
 import reactivemongo.api._
-import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 
 trait CollExt {
 
-  final implicit class Ext(val coll: Coll) {
+  final implicit class ExtendColl(coll: Coll) {
 
     def one[D: BSONDocumentReader](selector: BSONDocument): Fu[Option[D]] =
       coll.find(selector).one[D]
 
     def list[D: BSONDocumentReader](selector: BSONDocument): Fu[List[D]] =
       coll.find(selector).cursor[D]().collect[List]()
+
+    def list[D: BSONDocumentReader](selector: BSONDocument, max: Int): Fu[List[D]] =
+      coll.find(selector).cursor[D]().collect[List](max)
 
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
       one[D]($id(id))

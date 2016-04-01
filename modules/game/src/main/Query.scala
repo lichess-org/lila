@@ -4,6 +4,7 @@ import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
@@ -11,96 +12,97 @@ object Query {
 
   import Game.{ BSONFields => F }
 
-  val rated: BSONDocument = $doc(F.rated -> true)
+  val rated: Bdoc = F.rated $eq true
 
-  def rated(u: String): BSONDocument = user(u) ++ rated
+  def rated(u: String): Bdoc = user(u) ++ rated
 
-  def status(s: Status) = $doc(F.status -> s.id)
+  def status(s: Status) = F.status $eq s.id
 
-  val created = $doc(F.status -> Status.Created.id)
+  val created: Bdoc = F.status $eq Status.Created.id
 
-  val started: BSONDocument = $doc(F.status -> $gte(Status.Started.id))
+  val started: Bdoc = F.status $gte Status.Started.id
 
-  def started(u: String): BSONDocument = user(u) ++ started
+  def started(u: String): Bdoc = user(u) ++ started
 
-  val playable = $doc(F.status -> $lt(Status.Aborted.id))
+  val playable: Bdoc = F.status $lt Status.Aborted.id
 
-  val mate = status(Status.Mate)
+  val mate: Bdoc = status(Status.Mate)
 
-  val draw: BSONDocument = $doc(F.status -> $in(Seq(Status.Draw.id, Status.Stalemate.id)))
+  val draw: Bdoc = F.status $in Seq(Status.Draw.id, Status.Stalemate.id)
 
-  def draw(u: String): BSONDocument = user(u) ++ draw
+  def draw(u: String): Bdoc = user(u) ++ draw
 
-  val finished = $doc(F.status -> $gte(Status.Mate.id))
+  val finished: Bdoc = F.status $gte Status.Mate.id
 
-  val notFinished = $doc(F.status -> $lte(Status.Started.id))
+  val notFinished: Bdoc = F.status $lte Status.Started.id
 
-  def analysed(an: Boolean) = $doc(F.analysed -> an)
+  def analysed(an: Boolean): Bdoc = F.analysed $eq an
 
-  def turnsMoreThan(length: Int) = $doc(F.turns -> $gte(length))
+  def turnsMoreThan(length: Int): Bdoc = F.turns $eq $gte(length)
 
-  val frozen = $doc(F.status -> $gte(Status.Mate.id))
+  val frozen: Bdoc = F.status $gte Status.Mate.id
 
-  def imported(u: String) = $doc(s"${F.pgnImport}.user" -> u)
+  def imported(u: String): Bdoc = s"${F.pgnImport}.user" $eq u
 
-  val friend = $doc(s"${F.source}" -> Source.Friend.id)
+  val friend: Bdoc = s"${F.source}" $eq Source.Friend.id
 
-  def clock(c: Boolean): BSONDocument = F.clock $exists c
+  def clock(c: Boolean): Bdoc = F.clock $exists c
 
-  def user(u: String): BSONDocument = $doc(F.playerUids -> u)
-  def user(u: User): BSONDocument = $doc(F.playerUids -> u.id)
-  def users(u: Seq[String]) = $doc(F.playerUids -> $in(u))
+  def user(u: String): Bdoc = F.playerUids $eq u
+  def user(u: User): Bdoc = F.playerUids $eq u.id
+  def users(u: Seq[String]) = F.playerUids $eq $in(u)
 
-  val noAi = $doc(
-    "p0.ai" -> $exists(false),
-    "p1.ai" -> $exists(false))
+  val noAi: Bdoc = $doc(
+    "p0.ai" $exists false,
+    "p1.ai" $exists false)
 
   def nowPlaying(u: String) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: String) =
-    nowPlaying(u) ++ $doc(
-      F.updatedAt -> $gt($date(DateTime.now minusMinutes 5))
-    )
+    nowPlaying(u) ++ $doc(F.updatedAt $gt DateTime.now.minusMinutes(5))
 
   // use the us index
   def win(u: String) = user(u) ++ $doc(F.winnerId -> u)
 
-  def loss(u: String) = user(u) ++
-    $doc(F.status -> $in(Status.finishedWithWinner map (_.id))) ++
-    $doc(F.winnerId -> ($ne(u) ++ $exists(true)))
+  def loss(u: String) = user(u) ++ $doc(
+    F.status $in Status.finishedWithWinner.map(_.id),
+    F.winnerId -> $exists(true).++($ne(u))
+  )
 
   def opponents(u1: User, u2: User) =
-    $doc(F.playerUids -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
+    $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
 
-  val noProvisional = $doc("p0.p" -> $exists(false), "p1.p" -> $exists(false))
+  val noProvisional: Bdoc = $doc(
+    "p0.p" $exists false,
+    "p1.p" $exists false)
 
-  def bothRatingsGreaterThan(v: Int) = $doc("p0.e" -> $gt(v), "p1.e" -> $gt(v))
+  def bothRatingsGreaterThan(v: Int) = $doc("p0.e" $gt v, "p1.e" $gt v)
 
-  def turnsGt(nb: Int) = $doc(F.turns -> $gt(nb))
+  def turnsGt(nb: Int) = F.turns $gt nb
 
-  def checkable = $doc(F.checkAt -> $lt($date(DateTime.now)))
+  def checkable = F.checkAt $lt DateTime.now
 
   def variant(v: chess.variant.Variant) =
-    $doc(F.variant -> v.standard.fold($exists(false), v.id))
+    $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
 
-  lazy val notHordeOrSincePawnsAreWhite = $or(Seq(
-    $doc(F.variant -> $ne(chess.variant.Horde.id)),
+  lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
+    F.variant $ne chess.variant.Horde.id,
     sinceHordePawnsAreWhite
-  ))
+  )
 
-  lazy val sinceHordePawnsAreWhite =
-    $doc(F.createdAt -> $gt($date(hordeWhitePawnsSince)))
+  lazy val sinceHordePawnsAreWhite: Bdoc =
+    F.createdAt $gt hordeWhitePawnsSince
 
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
-  def notFromPosition =
-    $doc(F.variant -> $ne(chess.variant.FromPosition.id))
+  val notFromPosition: Bdoc =
+    F.variant $ne chess.variant.FromPosition.id
 
-  def createdSince(d: DateTime) =
-    $doc(F.createdAt -> $gt($date(d)))
+  def createdSince(d: DateTime): Bdoc =
+    F.createdAt $gt d
 
-  val sortCreated = $sort desc F.createdAt
-  val sortChronological = $sort asc F.createdAt
-  val sortAntiChronological = $sort desc F.createdAt
-  val sortUpdatedNoIndex = $sort desc F.updatedAt
+  val sortCreated: Bdoc = $sort desc F.createdAt
+  val sortChronological: Bdoc = $sort asc F.createdAt
+  val sortAntiChronological: Bdoc = $sort desc F.createdAt
+  val sortUpdatedNoIndex: Bdoc = $sort desc F.updatedAt
 }

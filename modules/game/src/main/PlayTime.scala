@@ -1,15 +1,14 @@
 package lila.game
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.db.ByteArray
 import lila.user.{ User, UserRepo }
 import org.joda.time.Period
-import tube.gameTube
 
 import play.api.libs.iteratee.Iteratee
 import reactivemongo.bson._
 
-object PlayTime {
+private final class PlayTime(gameColl: Coll) {
 
   private val moveTimeField = Game.BSONFields.moveTimes
   private val tvField = Game.BSONFields.tvAt
@@ -17,16 +16,16 @@ object PlayTime {
   def apply(user: User): Fu[User.PlayTime] = user.playTime match {
     case Some(pt) => fuccess(pt)
     case None => {
-      gameTube.coll
-        .find(BSONDocument(
+      gameColl
+        .find($doc(
           Game.BSONFields.playerUids -> user.id,
-          Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id)
+          Game.BSONFields.status -> $doc("$gte" -> chess.Status.Mate.id)
         ))
-        .projection(BSONDocument(
+        .projection($doc(
           moveTimeField -> true,
           tvField -> true
         ))
-        .cursor[BSONDocument]()
+        .cursor[Bdoc]()
         .enumerate() |>>> (Iteratee.fold(User.PlayTime(0, 0)) {
           case (pt, doc) =>
             val t = doc.getAs[ByteArray](moveTimeField) ?? { times =>

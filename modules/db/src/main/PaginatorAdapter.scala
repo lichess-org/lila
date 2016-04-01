@@ -16,7 +16,7 @@ final class CachedAdapter[A](
     adapter.slice(offset, length)
 }
 
-final class BSONAdapter[A: BSONDocumentReader](
+final class Adapter[A: BSONDocumentReader](
     collection: BSONCollection,
     selector: BSONDocument,
     projection: BSONDocument,
@@ -28,7 +28,7 @@ final class BSONAdapter[A: BSONDocumentReader](
   def slice(offset: Int, length: Int): Fu[Seq[A]] =
     collection.find(selector, projection)
       .sort(sort)
-      .copy(options = QueryOpts(skipN = offset))
+      .skip(offset)
       .cursor[A](readPreference = readPreference)
       .collect[List](length)
 }

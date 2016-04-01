@@ -146,9 +146,9 @@ object UserRepo {
     coll.update($id(u.id), $set(F.playTime -> User.playTimeHandler.write(playTime))).void
 
   val enabledSelect = $doc(F.enabled -> true)
-  def engineSelect(v: Boolean) = $doc(F.engine -> v.fold($boolean(true), $ne(true)))
-  def trollSelect(v: Boolean) = $doc(F.troll -> v.fold($boolean(true), $ne(true)))
-  def boosterSelect(v: Boolean) = $doc(F.booster -> v.fold($boolean(true), $ne(true)))
+  def engineSelect(v: Boolean) = $doc(F.engine -> v.fold[BSONValue]($boolean(true), $ne(true)))
+  def trollSelect(v: Boolean) = $doc(F.troll -> v.fold[BSONValue]($boolean(true), $ne(true)))
+  def boosterSelect(v: Boolean) = $doc(F.booster -> v.fold[BSONValue]($boolean(true), $ne(true)))
   def stablePerfSelect(perf: String) = $doc(
     s"perfs.$perf.nb" -> $gte(30),
     s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
