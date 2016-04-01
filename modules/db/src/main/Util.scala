@@ -2,7 +2,7 @@ package lila.db
 
 import reactivemongo.bson._
 
-import Types.Coll
+import dsl.Coll
 
 object Util {
 

@@ -1,27 +1,12 @@
 package lila.db
 package paginator
 
-import api._
-import Implicits._
-import play.api.libs.json._
+import dsl._
 import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.common.paginator.AdapterLike
-
-final class Adapter[A: TubeInColl](
-    selector: JsObject,
-    sort: Sort,
-    readPreference: ReadPreference = ReadPreference.primary) extends AdapterLike[A] {
-
-  def nbResults: Fu[Int] = $count(selector)
-
-  def slice(offset: Int, length: Int): Fu[Seq[A]] = $find(
-    pimpQB($query(selector)).sort(sort: _*) skip offset,
-    length,
-    readPreference = readPreference)
-}
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
