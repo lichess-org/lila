@@ -35,7 +35,8 @@ object ApplicationBuild extends Build {
       // offline := true,
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
-        jgit, findbugs, RM, PRM, akka.actor, akka.slf4j,
+        jgit, findbugs, RM, PRM,
+        akka.actor, akka.slf4j, akka.stream,
         spray.caching, maxmind, prismic,
         kamon.core, kamon.statsd, pushy, java8compat, semver),
       TwirlKeys.templateImports ++= Seq(
@@ -323,7 +324,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val socket = project("socket", Seq(common, hub, memo)).settings(
-    libraryDependencies ++= provided(play.api)
+    libraryDependencies ++= provided(play.api, akka.stream)
   )
 
   lazy val hub = project("hub", Seq(common, chess)).settings(

@@ -60,7 +60,7 @@ private[round] final class Round(
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
-        if (pov.game outoftime lags.get) outOfTime(pov.game)
+        if (pov.game outoftime lags.get) finisher.outOfTime(pov.game)
         else {
           lags.set(pov.color, p.lag.toMillis.toInt)
           reportNetworkLag(pov)
@@ -115,7 +115,7 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? outOfTime(game)
+      game.outoftime(lags.get) ?? finisher.outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -208,8 +208,6 @@ private[round] final class Round(
     if (pov.game.turns == 20 || pov.game.turns == 21) List(lags.white, lags.black).foreach { lag =>
       if (lag > 0) lila.mon.round.move.networkLag(lag)
     }
-
-  private def outOfTime(game: Game) = finisher.outOfTime(game)
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)

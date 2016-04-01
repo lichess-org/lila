@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.socket.SocketMember
 
 case class Member(
-  channel: JsChannel,
+  actor: akka.actor.ActorRef,
   userId: Option[String],
   flag: Option[String]) extends SocketMember {
 

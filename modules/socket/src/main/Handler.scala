@@ -1,7 +1,10 @@
 package lila.socket
 
 import akka.actor.ActorRef
+import akka.NotUsed
 import akka.pattern.{ ask, pipe }
+import akka.stream._
+import akka.stream.scaladsl._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -26,7 +29,7 @@ object Handler {
     socket: ActorRef,
     uid: String,
     join: Any,
-    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
+    userId: Option[String])(connecter: Connecter): Fu[JsFlow] = {
 
     def baseController(member: SocketMember): Controller = {
       case ("p", _) => socket ! Ping(uid)
@@ -90,6 +93,17 @@ object Handler {
           }
         }
       ).map(_ => socket ! Quit(uid))
+    }
+
+    def sink(controller: Controller, member: SocketMember) = {
+      val control = controller orElse baseController(member)
+      Sink.foreach[JsValue] { jsv =>
+        jsv.asOpt[JsObject] foreach { obj =>
+          obj str "t" foreach { t =>
+            control.lift(t -> obj)
+          }
+        }
+      }
     }
 
     socket ? join map connecter map {
