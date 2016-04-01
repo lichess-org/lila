@@ -80,6 +80,8 @@ object GameRepo {
     .cursor[Game]()
     .collect[List](nb)
 
+  def cursor(selector: Bdoc) = coll.find(selector).cursor[Game]()
+
   def unrate(gameId: String) =
     coll.update($id(gameId), $doc("$unset" -> $doc(
       F.rated -> true,

@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import chess.Color
 import lila.db.BSON._
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.game.{ Pov, Game, Player, Source }
 
 final class PlaybanApi(

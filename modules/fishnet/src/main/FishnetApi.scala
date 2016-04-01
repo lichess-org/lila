@@ -7,7 +7,7 @@ import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.hub.FutureSequencer
 
 final class FishnetApi(

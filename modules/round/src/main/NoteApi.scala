@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 
 import reactivemongo.bson._
 

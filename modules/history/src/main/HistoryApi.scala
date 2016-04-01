@@ -4,8 +4,7 @@ import org.joda.time.{ DateTime, Days }
 import reactivemongo.bson._
 
 import chess.Speed
-import lila.db.api._
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.game.Game
 import lila.user.{ User, Perfs }
 

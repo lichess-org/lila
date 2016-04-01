@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.game.Event
 import lila.socket.actorApi.GetVersion
 

@@ -6,8 +6,7 @@ import play.api.libs.iteratee._
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.db.api._
-import lila.game.tube.gameTube
+import lila.db.dsl._
 import lila.game.{ Query, Game, GameRepo }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.hub.actorApi.map.Tell
@@ -37,8 +36,7 @@ private[round] final class Titivate(
       throw new RuntimeException(msg)
 
     case Run =>
-      $query(Query.checkable)
-        .cursor[Game]()
+      GameRepo.cursor(Query.checkable)
         .enumerate(5000, stopOnError = true)
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {

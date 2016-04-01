@@ -74,6 +74,4 @@ object Analysis {
       "by" -> o.by,
       "date" -> w.date(o.date))
   }
-
-  private[analyse] lazy val tube = lila.db.BsTube(analysisBSONHandler)
 }
