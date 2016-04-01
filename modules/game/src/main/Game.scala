@@ -542,8 +542,6 @@ object Game {
       analysed = false),
     createdAt = DateTime.now)
 
-  private[game] lazy val tube = lila.db.BsTube(BSONHandlers.gameBSONHandler)
-
   object BSONFields {
 
     val id = "_id"

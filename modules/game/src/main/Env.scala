@@ -40,6 +40,7 @@ final class Env(
   lazy val pngExport = PngExport(PngExecPath) _
 
   lazy val cached = new Cached(
+    coll = gameColl,
     mongoCache = mongoCache,
     defaultTtl = CachedNbTtl)
 
@@ -57,7 +58,9 @@ final class Env(
     netBaseUrl = netBaseUrl,
     getLightUser = getLightUser)
 
-  lazy val crosstableApi = new CrosstableApi(db(CollectionCrosstable))
+  lazy val crosstableApi = new CrosstableApi(
+    coll = db(CollectionCrosstable),
+    gameColl = gameColl)
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
@@ -66,7 +69,7 @@ final class Env(
     captcher -> actorApi.NewCaptcha
   }
 
-  def cli = new Cli(db, system = system)
+  def cli = new Cli(gameColl)
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>

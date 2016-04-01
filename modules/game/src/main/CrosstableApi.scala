@@ -5,10 +5,12 @@ import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands._
 
 import lila.common.PimpedJson._
-import lila.db.Types._
+import lila.db.dsl._
 import lila.user.UserRepo
 
-final class CrosstableApi(coll: Coll) {
+final class CrosstableApi(
+    coll: Coll,
+    gameColl: Coll) {
 
   import Crosstable.Result
 
@@ -64,7 +66,6 @@ final class CrosstableApi(coll: Coll) {
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-        val gameColl = tube.gameTube.coll
 
         val selector = BSONDocument(
           Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),

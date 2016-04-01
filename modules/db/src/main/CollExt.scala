@@ -40,11 +40,11 @@ trait CollExt {
     // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
     //   byOrderedIds[String, A](ids)
 
-    // def optionsByOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Iterable[ID]): Fu[List[Option[A]]] =
-    //   byIds(ids) map { docs =>
-    //     val docsMap = docs.map(u => u.id -> u).toMap
-    //     ids.map(docsMap.get).toList
-    //   }
+    def optionsByOrderedIds[D: BSONDocumentReader](ids: Iterable[String])(docId: D => String): Fu[List[Option[D]]] =
+      byIds[D](ids) map { docs =>
+        val docsMap = docs.map(u => docId(u) -> u).toMap
+        ids.map(docsMap.get).toList
+      }
 
     def primitive[V: BSONValueReader](selector: BSONDocument, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))

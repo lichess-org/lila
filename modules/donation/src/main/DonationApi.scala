@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 
 final class DonationApi(
     coll: Coll,

@@ -3,7 +3,7 @@ package lila.chat
 import chess.Color
 import reactivemongo.bson.BSONDocument
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
