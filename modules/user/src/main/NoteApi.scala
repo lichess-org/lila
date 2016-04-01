@@ -1,5 +1,6 @@
 package lila.user
 
+import lila.db.dsl._
 import org.joda.time.DateTime
 
 case class Note(
@@ -11,7 +12,7 @@ case class Note(
   date: DateTime)
 
 final class NoteApi(
-    coll: lila.db.Types.Coll,
+    coll: Coll,
     timeline: akka.actor.ActorSelection) {
 
   import reactivemongo.bson._

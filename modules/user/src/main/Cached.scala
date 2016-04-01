@@ -7,15 +7,14 @@ import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.common.LightUser
-import lila.db.api.{ $count, $primitive, $gt }
 import lila.db.BSON._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.memo.{ ExpireSetMemo, MongoCache }
 import lila.rating.{ Perf, PerfType }
-import tube.userTube
 import User.{ LightPerf, LightCount }
 
 final class Cached(
+  userColl: Coll,
     nbTtl: FiniteDuration,
     onlineUserIdMemo: ExpireSetMemo,
     mongoCache: MongoCache.Builder,
@@ -26,7 +25,7 @@ final class Cached(
 
   private val countCache = mongoCache.single[Int](
     prefix = "user:nb",
-    f = $count(UserRepo.enabledSelect),
+    f = userColl.count(UserRepo.enabledSelect.some),
     timeToLive = nbTtl)
 
   def countEnabled: Fu[Int] = countCache(true)

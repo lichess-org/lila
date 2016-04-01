@@ -1,7 +1,7 @@
 package lila.memo
 
 import com.typesafe.config.Config
-import lila.db.Types._
+import lila.db.dsl._
 
 final class Env(config: Config, db: lila.db.Env) {
 

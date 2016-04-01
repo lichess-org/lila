@@ -2,7 +2,7 @@ package lila.user
 
 import lila.common.LightUser
 
-import lila.db.Types._
+import lila.db.dsl._
 import reactivemongo.bson._
 import scala.concurrent.duration._
 import User.{ BSONFields => F }

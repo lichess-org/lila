@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import spray.caching.{ LruCache, Cache }
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types._
+import lila.db.dsl._
 
 final class MongoCache[K, V: MongoCache.Handler] private (
     prefix: String,

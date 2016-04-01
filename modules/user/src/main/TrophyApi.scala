@@ -2,10 +2,11 @@ package lila.user
 
 import org.joda.time.DateTime
 
+import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import reactivemongo.bson._
 
-final class TrophyApi(coll: lila.db.Types.Coll) {
+final class TrophyApi(coll: Coll) {
 
   private implicit val trophyKindBSONHandler = new BSONHandler[BSONString, Trophy.Kind] {
     def read(bsonString: BSONString): Trophy.Kind =
