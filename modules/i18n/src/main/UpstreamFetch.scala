@@ -5,11 +5,12 @@ import play.api.libs.json._
 import lila.common.PimpedJson._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import tube.translationTube
 
 private[i18n] final class UpstreamFetch(upstreamUrl: Int => String) {
 
   private type Fetched = Fu[List[Translation]]
+
+  import Translation.translationI18nFormat
 
   def apply(from: Int): Fetched =
     fetch(upstreamUrl(from)) map parse flatMap {

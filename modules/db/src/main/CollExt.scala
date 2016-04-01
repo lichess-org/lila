@@ -60,6 +60,14 @@ trait CollExt {
           _ flatMap { _.getAs[V](field) }
         }
 
+    def primitiveOne[V: BSONValueReader](selector: BSONDocument, sort: BSONDocument, field: String): Fu[Option[V]] =
+      coll.find(selector, $doc(field -> true))
+        .sort(sort)
+        .one[BSONDocument]
+        .map {
+          _ flatMap { _.getAs[V](field) }
+        }
+
     def updateField[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
       coll.update(selector, $doc(field -> value))
 
