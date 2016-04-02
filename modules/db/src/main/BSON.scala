@@ -15,7 +15,15 @@ abstract class BSON[T]
   def reads(reader: Reader): T
   def writes(writer: Writer, obj: T): BSONDocument
 
-  def read(doc: BSONDocument): T = reads(new Reader(doc))
+  def read(doc: BSONDocument): T = try {
+    reads(new Reader(doc))
+  }
+  catch {
+    case e: Exception =>
+      logger.error(s"Can't read malformed doc ${debug(doc)}", e)
+      throw e
+  }
+
   def write(obj: T): BSONDocument = writes(writer, obj)
 }
 
