@@ -1,16 +1,13 @@
 package lila.relation
 
-import play.api.libs.json._
 import reactivemongo.bson._
 
-import lila.common.PimpedJson._
 import lila.db.dsl._
-import lila.db.Implicits._
-import tube.relationTube
 
 private[relation] object RelationRepo {
 
-  val coll = relationTube.coll
+  // dirty
+  private val coll = Env.current.coll
 
   def followers(userId: ID) = relaters(userId, Follow)
   def following(userId: ID) = relating(userId, Follow)
@@ -35,24 +32,26 @@ private[relation] object RelationRepo {
   def block(u1: ID, u2: ID): Funit = save(u1, u2, Block)
   def unblock(u1: ID, u2: ID): Funit = remove(u1, u2)
 
-  def unfollowAll(u1: ID): Funit = $remove(Json.obj("u1" -> u1))
+  def unfollowAll(u1: ID): Funit = coll.remove($doc("u1" -> u1)).void
 
-  private def save(u1: ID, u2: ID, relation: Relation): Funit = $save(
-    makeId(u1, u2),
-    Json.obj("u1" -> u1, "u2" -> u2, "r" -> relation)
-  )
+  private def save(u1: ID, u2: ID, relation: Relation): Funit = coll.update(
+    $id(makeId(u1, u2)),
+    $doc("u1" -> u1, "u2" -> u2, "r" -> relation),
+    upsert = true).void
 
-  def remove(u1: ID, u2: ID): Funit = $remove byId makeId(u1, u2)
+  def remove(u1: ID, u2: ID): Funit = coll.remove($id(makeId(u1, u2))).void
 
   def drop(userId: ID, relation: Relation, nb: Int) =
-    $primitive(
-      Json.obj("u1" -> userId, "r" -> relation),
-      "_id",
-      _ sort $sort.naturalAsc,
-      max = nb.some,
-      hint = reactivemongo.bson.BSONDocument("u1" -> 1)
-    )(_.asOpt[String]) flatMap { ids =>
-        $remove(Json.obj("_id" -> $in(ids)))
+    coll.find(
+      $doc("u1" -> userId, "r" -> relation),
+      $doc("_id" -> true)
+    ).sort($sort.naturalAsc)
+      .hint($doc("u1" -> 1))
+      .cursor[Bdoc]()
+      .collect[List](nb).map {
+        _.flatMap { _.getAs[String]("_id") }
+      } flatMap { ids =>
+        coll.remove($inIds(ids)).void
       }
 
   def makeId(u1: String, u2: String) = s"$u1/$u2"

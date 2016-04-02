@@ -5,13 +5,10 @@ import scala.concurrent.duration._
 import scala.util.Success
 
 import lila.db.dsl._
-import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.memo.AsyncCache
-import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
-import tube.relationTube
 
 import BSONHandlers._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
@@ -30,8 +27,8 @@ final class RelationApi(
   import RelationRepo.makeId
 
   def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] = coll.find(
-    BSONDocument("u1" -> u1, "u2" -> u2),
-    BSONDocument("r" -> true, "_id" -> false)
+    $doc("u1" -> u1, "u2" -> u2),
+    $doc("r" -> true, "_id" -> false)
   ).one[BSONDocument].map {
       _.flatMap(_.getAs[Boolean]("r"))
     }
@@ -42,64 +39,64 @@ final class RelationApi(
 
   def fetchBlocking = RelationRepo blocking _
 
-  def fetchFriends(userId: ID) = coll.aggregate(Match(BSONDocument(
-    "$or" -> BSONArray(BSONDocument("u1" -> userId), BSONDocument("u2" -> userId)),
+  def fetchFriends(userId: ID) = coll.aggregate(Match($doc(
+    "$or" -> BSONArray($doc("u1" -> userId), $doc("u2" -> userId)),
     "r" -> Follow
   )), List(
     Group(BSONNull)(
       "u1" -> AddToSet("u1"),
       "u2" -> AddToSet("u2")),
-    Project(BSONDocument(
-      "_id" -> BSONDocument("$setIntersection" -> BSONArray("$u1", "$u2"))
+    Project($doc(
+      "_id" -> $doc("$setIntersection" -> BSONArray("$u1", "$u2"))
     ))
   )).map {
     ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
   def fetchFollows(u1: ID, u2: ID) =
-    coll.count(BSONDocument("_id" -> makeId(u1, u2), "r" -> Follow).some).map(0!=)
+    coll.count($doc("_id" -> makeId(u1, u2), "r" -> Follow).some).map(0!=)
 
   def fetchBlocks(u1: ID, u2: ID) =
-    coll.count(BSONDocument("_id" -> makeId(u1, u2), "r" -> Block).some).map(0!=)
+    coll.count($doc("_id" -> makeId(u1, u2), "r" -> Block).some).map(0!=)
 
   def fetchAreFriends(u1: ID, u2: ID) =
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
   private val countFollowingCache = AsyncCache[ID, Int](
-    f = userId => coll.count(BSONDocument("u1" -> userId, "r" -> Follow).some),
+    f = userId => coll.count($doc("u1" -> userId, "r" -> Follow).some),
     timeToLive = 10 minutes)
 
   def countFollowing(userId: ID) = countFollowingCache(userId)
 
   private val countFollowersCache = AsyncCache[ID, Int](
-    f = userId => coll.count(BSONDocument("u2" -> userId, "r" -> Follow).some),
+    f = userId => coll.count($doc("u2" -> userId, "r" -> Follow).some),
     timeToLive = 10 minutes)
 
   def countFollowers(userId: ID) = countFollowersCache(userId)
 
   def countBlocking(userId: ID) =
-    coll.count(BSONDocument("u1" -> userId, "r" -> Block).some)
+    coll.count($doc("u1" -> userId, "r" -> Block).some)
 
   def countBlockers(userId: ID) =
-    coll.count(BSONDocument("u2" -> userId, "r" -> Block).some)
+    coll.count($doc("u2" -> userId, "r" -> Block).some)
 
-  def followingPaginatorAdapter(userId: ID) = new BSONAdapter[Followed](
+  def followingPaginatorAdapter(userId: ID) = new Adapter[Followed](
     collection = coll,
-    selector = BSONDocument("u1" -> userId, "r" -> Follow),
-    projection = BSONDocument("u2" -> true, "_id" -> false),
-    sort = BSONDocument()).map(_.userId)
+    selector = $doc("u1" -> userId, "r" -> Follow),
+    projection = $doc("u2" -> true, "_id" -> false),
+    sort = $empty).map(_.userId)
 
-  def followersPaginatorAdapter(userId: ID) = new BSONAdapter[Follower](
+  def followersPaginatorAdapter(userId: ID) = new Adapter[Follower](
     collection = coll,
-    selector = BSONDocument("u2" -> userId, "r" -> Follow),
-    projection = BSONDocument("u1" -> true, "_id" -> false),
-    sort = BSONDocument()).map(_.userId)
+    selector = $doc("u2" -> userId, "r" -> Follow),
+    projection = $doc("u1" -> true, "_id" -> false),
+    sort = $empty).map(_.userId)
 
-  def blockingPaginatorAdapter(userId: ID) = new BSONAdapter[Blocked](
+  def blockingPaginatorAdapter(userId: ID) = new Adapter[Blocked](
     collection = coll,
-    selector = BSONDocument("u1" -> userId, "r" -> Block),
-    projection = BSONDocument("u2" -> true, "_id" -> false),
-    sort = BSONDocument()).map(_.userId)
+    selector = $doc("u1" -> userId, "r" -> Block),
+    projection = $doc("u2" -> true, "_id" -> false),
+    sort = $empty).map(_.userId)
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
