@@ -7,6 +7,7 @@ import play.api.libs.json._
 import scala.util.{ Try, Success, Failure }
 
 import lila.common.PimpedJson._
+import lila.db.dsl._
 import lila.game.actorApi._
 import lila.game.{ Game, GameRepo }
 import lila.search._
@@ -17,9 +18,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      import lila.db.dsl.$find
-      import lila.game.tube.gameTube
-      $find.byOrderedIds[lila.game.Game](res.ids)
+      GameRepo games res.ids
     }
 
   def count(query: Query) =
@@ -106,10 +105,10 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     val maxGames = Int.MaxValue
     // val maxGames = 10 * 1000 * 1000
 
-    lila.game.tube.gameTube.coll.find(BSONDocument(
-      "ca" -> BSONDocument("$gt" -> since)
-    )).sort(BSONDocument("ca" -> 1))
-      .cursor[Game](ReadPreference.secondaryPreferred)
+    GameRepo.sortedCursor(
+      selector = $doc("ca" $gt since),
+      sort = $doc("ca" -> 1),
+      readPreference = ReadPreference.secondaryPreferred)
       .enumerate(maxGames, stopOnError = true) &>
       Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
       Enumeratee.mapM[Seq[Game]].apply[(Seq[Game], Set[String])] { games =>

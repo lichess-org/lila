@@ -1,34 +1,37 @@
 package lila.team
 
-import play.api.libs.json.Json
 import reactivemongo.api._
 
 import lila.db.dsl._
-import tube.requestTube
 
 object RequestRepo {
 
+  // dirty
+  private val coll = Env.current.colls.request
+
+  import BSONHandlers._
+
   type ID = String
 
-  def exists(teamId: ID, userId: ID): Fu[Boolean] = 
-    $count.exists(selectId(teamId, userId))
+  def exists(teamId: ID, userId: ID): Fu[Boolean] =
+    coll.exists(selectId(teamId, userId))
 
-  def find(teamId: ID, userId: ID): Fu[Option[Request]] = 
-    $find.one(selectId(teamId, userId))
+  def find(teamId: ID, userId: ID): Fu[Option[Request]] =
+    coll.one[Request](selectId(teamId, userId))
 
-  def countByTeam(teamId: ID): Fu[Int] = 
-    $count(teamQuery(teamId))
+  def countByTeam(teamId: ID): Fu[Int] =
+    coll.countSel(teamQuery(teamId))
 
-  def countByTeams(teamIds: List[ID]): Fu[Int] = 
-    $count(teamsQuery(teamIds))
+  def countByTeams(teamIds: List[ID]): Fu[Int] =
+    coll.countSel(teamsQuery(teamIds))
 
-  def findByTeam(teamId: ID): Fu[List[Request]] = 
-    $find(teamQuery(teamId))
+  def findByTeam(teamId: ID): Fu[List[Request]] =
+    coll.list[Request](teamQuery(teamId))
 
-  def findByTeams(teamIds: List[ID]): Fu[List[Request]] = 
-    $find(teamsQuery(teamIds))
+  def findByTeams(teamIds: List[ID]): Fu[List[Request]] =
+    coll.list[Request](teamsQuery(teamIds))
 
-  def selectId(teamId: ID, userId: ID) = $select(Request.makeId(teamId, userId))
-  def teamQuery(teamId: ID) = Json.obj("team" -> teamId)
-  def teamsQuery(teamIds: List[ID]) = Json.obj("team" -> $in(teamIds))
+  def selectId(teamId: ID, userId: ID) = $id(Request.makeId(teamId, userId))
+  def teamQuery(teamId: ID) = $doc("team" -> teamId)
+  def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 }

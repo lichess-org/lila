@@ -1,50 +1,56 @@
 package lila.team
 
 import org.joda.time.{ DateTime, Period }
-import play.api.libs.json.Json
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.user.User
-import tube.teamTube
+import lila.user.{ User, UserRepo }
 
 object TeamRepo {
 
+  // dirty
+  private val coll = Env.current.colls.team
+
+  import BSONHandlers._
+
   type ID = String
 
+  def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Team](ids)(_.id)
+
+  def cursor(selector: Bdoc) = coll.find(selector).cursor[Team]()
+
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
-    $find.one($select(id) ++ Json.obj("createdBy" -> createdBy))
+    coll.one[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: String): Fu[List[String]] =
-    teamTube.coll.distinct("_id", BSONDocument("createdBy" -> userId).some) map lila.db.BSON.asStrings
+    coll.distinct("_id", BSONDocument("createdBy" -> userId).some) map lila.db.BSON.asStrings
 
   def name(id: String): Fu[Option[String]] =
-    $primitive.one($select(id), "name")(_.asOpt[String])
+    coll.primitiveOne[String]($id(id), "name")
 
   def userHasCreatedSince(userId: String, duration: Period): Fu[Boolean] =
-    $count.exists(Json.obj(
-      "createdAt" -> $gt($date(DateTime.now minus duration)),
+    coll.exists($doc(
+      "createdAt" $gt DateTime.now.minus(duration),
       "createdBy" -> userId
     ))
 
   def ownerOf(teamId: String): Fu[Option[String]] =
-    $primitive.one($select(teamId), "createdBy")(_.asOpt[String])
+    coll.primitiveOne[String]($id(teamId), "createdBy")
 
   def incMembers(teamId: String, by: Int): Funit =
-    $update($select(teamId), $inc("nbMembers" -> by))
+    coll.update($id(teamId), $inc("nbMembers" -> by)).void
 
-  def enable(team: Team) = $update.field(team.id, "enabled", true)
+  def enable(team: Team) = coll.updateField($id(team.id), "enabled", true)
 
-  def disable(team: Team) = $update.field(team.id, "enabled", false)
+  def disable(team: Team) = coll.updateField($id(team.id), "enabled", false)
 
   def addRequest(teamId: String, request: Request): Funit =
-    $update(
-      $select(teamId) ++ Json.obj("requests.user" -> $ne(request.user)),
-      $push("requests", request.user))
+    coll.update(
+      $id(teamId) ++ $doc("requests.user" $ne request.user),
+      $push("requests", request.user)).void
 
-  val enabledQuery = Json.obj("enabled" -> true)
+  val enabledQuery = $doc("enabled" -> true)
 
   val sortPopular = $sort desc "nbMembers"
 }

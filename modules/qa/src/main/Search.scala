@@ -3,8 +3,7 @@ package lila.qa
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 
 final class Search(collection: Coll) {
 

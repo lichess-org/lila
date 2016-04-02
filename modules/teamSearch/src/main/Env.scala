@@ -3,9 +3,8 @@ package lila.teamSearch
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.dsl.{ $find, $cursor }
+import lila.db.dsl._
 import lila.search._
-import lila.team.tube.teamTube
 
 final class Env(
     config: Config,
@@ -18,7 +17,7 @@ final class Env(
 
   private val client = makeClient(Index(IndexName))
 
-  val api = new TeamSearchApi(client, $find.byOrderedIds[lila.team.Team] _)
+  val api = new TeamSearchApi(client)
 
   def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 

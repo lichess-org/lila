@@ -1,10 +1,11 @@
 package lila.team
 
-import lila.db.dsl.$find
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
-import tube.teamTube
 
-private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
+private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli {
+
+  import BSONHandlers._
 
   def process = {
 
@@ -21,12 +22,12 @@ private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
   }
 
   private def perform(teamId: String)(op: Team => Funit): Fu[String] =
-    $find byId teamId flatMap {
+    coll.team.byId[Team](teamId) flatMap {
       _.fold(fufail[String]("Team not found")) { u => op(u) inject "Success" }
     }
 
   private def perform(teamId: String, userIds: List[String])(op: (Team, String) => Funit): Fu[String] =
-    $find byId teamId flatMap {
+    coll.team.byId[Team](teamId) flatMap {
       _.fold(fufail[String]("Team not found")) { team =>
         UserRepo nameds userIds flatMap { users =>
           users.map(user => {

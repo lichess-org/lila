@@ -5,8 +5,8 @@ import scala.util.Random
 import chess.format.Forsyth
 import chess.{ Color, Status }
 import org.joda.time.DateTime
-import reactivemongo.bson.BSONBinary
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson.BSONBinary
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
@@ -81,8 +81,16 @@ object GameRepo {
     .cursor[Game]()
     .collect[List](nb)
 
-  def cursor(selector: Bdoc, readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+  def cursor(
+    selector: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
     coll.find(selector).cursor[Game](readPreference)
+
+  def sortedCursor(
+    selector: Bdoc,
+    sort: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    coll.find(selector).sort(sort).cursor[Game](readPreference)
 
   def unrate(gameId: String) =
     coll.update($id(gameId), $doc("$unset" -> $doc(

@@ -2,17 +2,16 @@ package lila.teamSearch
 
 import lila.search._
 import lila.team.actorApi._
-import lila.team.Team
+import lila.team.{ Team, TeamRepo }
 
 import play.api.libs.json._
+import play.api.libs.iteratee._
 
-final class TeamSearchApi(
-    client: ESClient,
-    fetcher: Seq[String] => Fu[List[Team]]) extends SearchReadApi[Team, Query] {
+final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      fetcher(res.ids)
+      TeamRepo byOrderedIds res.ids
     }
 
   def count(query: Query) = client.count(query) map (_.count)
@@ -29,10 +28,12 @@ final class TeamSearchApi(
     case c: ESClientHttp => c.putMapping >> {
       lila.log("teamSearch").info(s"Index to ${c.index.name}")
       import lila.db.dsl._
-      import lila.team.tube.teamTube
-      $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 300) { teamOptions =>
-        c.storeBulk(teamOptions.flatten map (t => Id(t.id) -> toDoc(t)))
-      }
+      TeamRepo.cursor($doc("enabled" -> true))
+        .enumerateBulks(Int.MaxValue) |>>>
+        Iteratee.foldM[Iterator[Team], Unit](()) {
+          case (_, teams) =>
+            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t)))
+        }
     }
     case _ => funit
   }

@@ -8,9 +8,8 @@ import org.joda.time.DateTime
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.paginator._
-import lila.db.BSON._
 import lila.db.paginator._
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class QaApi(
@@ -75,7 +74,7 @@ final class QaApi(
 
     private def paginator(selector: BSONDocument, sort: BSONDocument, page: Int, perPage: Int): Fu[Paginator[Question]] =
       Paginator(
-        adapter = new BSONAdapter[Question](
+        adapter = new Adapter[Question](
           collection = questionColl,
           selector = selector,
           projection = BSONDocument(),
