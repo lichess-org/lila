@@ -34,10 +34,10 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       .cursor[Challenge]().gather[List]()
 
   def removeByUserId(userId: String): Funit =
-    coll.remove($doc("$or" -> $arr(
+    coll.remove($or(
       $doc("challenger.id" -> userId),
       $doc("destUser.id" -> userId)
-    ))).void
+    )).void
 
   def like(c: Challenge) = ~(for {
     challengerId <- c.challengerUserId

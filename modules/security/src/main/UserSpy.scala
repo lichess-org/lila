@@ -1,7 +1,5 @@
 package lila.security
 
-import scala.concurrent.Future
-
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
@@ -66,18 +64,18 @@ object UserSpy {
 
   private def nextValues(field: String)(user: User)(implicit coll: Coll): Fu[Set[Value]] =
     coll.find(
-      BSONDocument("user" -> user.id),
-      BSONDocument(field -> true)
-    ).cursor[BSONDocument]().gather[List]() map {
+      $doc("user" -> user.id),
+      $doc(field -> true)
+    ).cursor[Bdoc]().gather[List]() map {
         _.flatMap(_.getAs[Value](field)).toSet
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =
     values.nonEmpty ?? {
       coll.distinct("user",
-        BSONDocument(
-          field -> BSONDocument("$in" -> values),
-          "user" -> BSONDocument("$ne" -> user.id)
+        $doc(
+          field -> $doc("$in" -> values),
+          "user" -> $doc("$ne" -> user.id)
         ).some
       ) map lila.db.BSON.asStrings flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)

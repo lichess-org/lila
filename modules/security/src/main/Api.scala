@@ -82,14 +82,14 @@ final class Api(
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
     coll.distinct(
       field,
-      BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)).some
+      $doc("user" -> userId, field -> $doc("$exists" -> true)).some
     ).flatMap {
         case Nil => fuccess(Nil)
         case values => coll.distinct(
           "user",
-          BSONDocument(
-            field -> BSONDocument("$in" -> values),
-            "user" -> BSONDocument("$ne" -> userId)
+          $doc(
+            field -> $doc("$in" -> values),
+            "user" -> $doc("$ne" -> userId)
           ).some
         ) map lila.db.BSON.asStrings
       }
@@ -101,9 +101,9 @@ final class Api(
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
     coll.distinct(
       "user",
-      BSONDocument(
+      $doc(
         field -> value,
-        "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
+        "date" -> $doc("$gt" -> DateTime.now.minusYears(1))
       ).some
     ) map lila.db.BSON.asStrings
 }

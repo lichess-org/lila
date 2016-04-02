@@ -165,5 +165,6 @@ object BSONHandlers {
   }
 
   import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
+  implicit val leaderboardAggregationResultBSONHandler =
+    BSON.LoggingHandler(logger)(Macros.handler[AggregationResult])
 }
