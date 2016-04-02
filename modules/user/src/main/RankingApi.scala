@@ -7,7 +7,6 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.BSON._
 import lila.db.BSON.MapValue.MapHandler
 import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }

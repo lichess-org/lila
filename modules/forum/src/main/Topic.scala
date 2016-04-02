@@ -56,7 +56,7 @@ object Topic {
     name: String,
     troll: Boolean,
     featured: Boolean): Topic = Topic(
-    id = Random nextString idSize,
+    _id = Random nextString idSize,
     categId = categId,
     slug = slug,
     name = name,

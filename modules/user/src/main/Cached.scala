@@ -7,7 +7,7 @@ import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.common.LightUser
-import lila.db.BSON._
+import lila.db.BSON
 import lila.db.dsl._
 import lila.memo.{ ExpireSetMemo, MongoCache }
 import lila.rating.{ Perf, PerfType }

@@ -15,7 +15,7 @@ object CategRepo {
     coll.find($or(
       "team" $exists false,
       "team" $in teams
-    )).sort($sort asc "pos").cursor[Categ].collect[List]()
+    )).sort($sort asc "pos").cursor[Categ]().collect[List]()
 
   def nextPosition: Fu[Int] =
     coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") map (~_ + 1)

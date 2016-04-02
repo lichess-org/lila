@@ -375,4 +375,4 @@ trait dsl {
 
 }
 
-object dsl extends dsl with CollExt with QueryBuilderExt
+object dsl extends dsl with CollExt with QueryBuilderExt with Handlers

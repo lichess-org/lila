@@ -84,8 +84,4 @@ private[forum] final class CategApi(env: Env) {
       lastPostIdTroll = lastPostTroll ?? (_.id)
     )).void
   } yield ()
-
-  def denormalize: Funit = env.categColl.list[Categ]($empty) flatMap { categs =>
-    categs.map(denormalize).sequenceFu
-  } void
 }

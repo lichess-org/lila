@@ -60,7 +60,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     else $doc("lang" $in langs)
 
   def findDuplicate(post: Post): Fu[Option[Post]] = coll.one($doc(
-    "createdAt" -> $gt(DateTime.now.minusHours(1)),
+    "createdAt" $gt DateTime.now.minusHours(1),
     "userId" -> ~post.userId,
     "text" -> post.text
   ))
