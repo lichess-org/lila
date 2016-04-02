@@ -5,10 +5,12 @@ import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands._
 
 import lila.common.PimpedJson._
-import lila.db.Types._
+import lila.db.dsl._
 import lila.user.UserRepo
 
-final class CrosstableApi(coll: Coll) {
+final class CrosstableApi(
+    coll: Coll,
+    gameColl: Coll) {
 
   import Crosstable.Result
 
@@ -20,14 +22,14 @@ final class CrosstableApi(coll: Coll) {
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recoverWith
-      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).one[Crosstable])
+    coll.find(select(u1, u2)).uno[Crosstable] orElse create(u1, u2) recoverWith
+      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).uno[Crosstable])
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
       select(u1, u2),
       BSONDocument("n" -> true)
-    ).one[BSONDocument] map {
+    ).uno[BSONDocument] map {
         ~_.flatMap(_.getAs[Int]("n"))
       }
 
@@ -64,7 +66,6 @@ final class CrosstableApi(coll: Coll) {
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-        val gameColl = tube.gameTube.coll
 
         val selector = BSONDocument(
           Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
@@ -78,7 +79,7 @@ final class CrosstableApi(coll: Coll) {
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
             .cursor[BSONDocument](readPreference = ReadPreference.secondaryPreferred)
-            .collect[List](maxGames).map {
+            .gather[List](maxGames).map {
               _.flatMap { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))

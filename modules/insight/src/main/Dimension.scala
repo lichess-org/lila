@@ -4,7 +4,7 @@ import play.twirl.api.Html
 import reactivemongo.bson._
 
 import chess.{ Color, Role }
-import lila.db.Types._
+import lila.db.dsl._
 import lila.rating.PerfType
 
 sealed abstract class Dimension[A: BSONValueHandler](

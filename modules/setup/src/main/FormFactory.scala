@@ -1,12 +1,11 @@
 package lila.setup
 
 import lila.rating.RatingRange
-import lila.db.api._
+import lila.db.dsl._
 import lila.lobby.Color
 import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
-import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class FormFactory(casualOnly: Boolean) {
 

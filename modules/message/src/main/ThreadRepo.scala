@@ -1,81 +1,75 @@
 package lila.message
 
-import scala.concurrent.Future
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import reactivemongo.bson._
 
-import play.api.libs.json.Json
-
-import lila.common.PimpedJson._
-import lila.db.api._
-import lila.db.Implicits._
-import tube.threadTube
+import lila.db.dsl._
 
 object ThreadRepo {
-  import play.modules.reactivemongo.json._
+
+  // dirty
+  private val coll = Env.current.threadColl
 
   type ID = String
 
   def byUser(user: ID): Fu[List[Thread]] =
-    $find($query(userQuery(user)) sort recentSort)
+    coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
   def visibleByUser(user: ID): Fu[List[Thread]] =
-    $find($query(visibleByUserQuery(user)) sort recentSort)
+    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
-    $find($query(visibleByUserQuery(user)) sort recentSort, nb)
+    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List](nb)
 
-  def userUnreadIds(userId: String): Fu[List[String]] = {
-    import reactivemongo.bson._
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    threadTube.coll.aggregate(
-      Match(BSONDocument(
-        "visibleByUserIds" -> userId,
+  def userUnreadIds(userId: String): Fu[List[String]] = coll.aggregate(
+    Match($doc(
+      "visibleByUserIds" -> userId,
+      "posts.isRead" -> false
+    )),
+    List(
+      Project($doc(
+        "m" -> $doc("$eq" -> BSONArray("$creatorId", userId)),
+        "posts.isByCreator" -> true,
+        "posts.isRead" -> true
+      )),
+      Unwind("posts"),
+      Match($doc(
         "posts.isRead" -> false
       )),
-      List(
-        Project(BSONDocument(
-          "m" -> BSONDocument("$eq" -> BSONArray("$creatorId", userId)),
-          "posts.isByCreator" -> true,
-          "posts.isRead" -> true
-        )),
-        Unwind("posts"),
-        Match(BSONDocument(
-          "posts.isRead" -> false
-        )),
-        Project(BSONDocument(
-          "u" -> BSONDocument("$ne" -> BSONArray("$posts.isByCreator", "$m"))
-        )),
-        Match(BSONDocument(
-          "u" -> true
-        )),
-        Group(BSONBoolean(true))("ids" -> AddToSet("_id"))
-      ),
-      allowDiskUse = false
-    ).map {
-        _.documents.headOption ?? { ~_.getAs[List[String]]("ids") }
-      }
-  }
+      Project($doc(
+        "u" -> $doc("$ne" -> BSONArray("$posts.isByCreator", "$m"))
+      )),
+      Match($doc(
+        "u" -> true
+      )),
+      Group(BSONBoolean(true))("ids" -> AddToSet("_id"))
+    ),
+    allowDiskUse = false
+  ).map {
+      _.documents.headOption ?? { ~_.getAs[List[String]]("ids") }
+    }
 
   def setRead(thread: Thread): Funit = {
     List.fill(thread.nbUnread) {
-      $update(
-        $select(thread.id) ++ Json.obj("posts.isRead" -> false),
+      coll.update(
+        $id(thread.id) ++ $doc("posts.isRead" -> false),
         $set("posts.$.isRead" -> true)
-      )
+      ).void
     }
   }.sequenceFu.void
 
   def deleteFor(user: ID)(thread: ID) =
-    $update($select(thread), $pull("visibleByUserIds", user))
+    coll.update($id(thread), $pull("visibleByUserIds", user)).void
 
-  def reallyDeleteByCreatorId(user: ID) = $remove(Json.obj("creatorId" -> user))
+  def reallyDeleteByCreatorId(user: ID) = coll.remove($doc("creatorId" -> user))
 
   def visibleByUserContainingExists(user: ID, containing: String): Fu[Boolean] =
-    $count.exists(visibleByUserQuery(user) ++ Json.obj(
-      "posts.0.text" -> $regex(containing)))
+    coll.exists(visibleByUserQuery(user) ++ $doc(
+      "posts.0.text".$regex(containing, "")))
 
-  def userQuery(user: String) = Json.obj("userIds" -> user)
+  def userQuery(user: String) = $doc("userIds" -> user)
 
-  def visibleByUserQuery(user: String) = Json.obj("visibleByUserIds" -> user)
+  def visibleByUserQuery(user: String) = $doc("visibleByUserIds" -> user)
 
   val recentSort = $sort desc "updatedAt"
 }

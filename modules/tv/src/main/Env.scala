@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.db.dsl._
 
 import scala.collection.JavaConversions._
 import scala.concurrent.duration._
@@ -39,11 +40,9 @@ final class Env(
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._
     private val coll = db("flag")
-    def get = coll.find(BSONDocument("_id" -> "streamer")).one[BSONDocument].map {
-      ~_.flatMap(_.getAs[String]("text"))
-    }
+    def get = coll.primitiveOne[String]($id("streamer"), "text") map (~_)
     def set(text: String) =
-      coll.update(BSONDocument("_id" -> "streamer"), BSONDocument("text" -> text), upsert = true).void
+      coll.update($id("streamer"), $doc("text" -> text), upsert = true).void
   })
 
   object isStreamer {

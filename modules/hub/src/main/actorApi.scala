@@ -104,21 +104,6 @@ case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boole
 case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom(s"simulCreate", true)
 case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom(s"simulJoin", true)
 
-object atomFormat {
-  implicit val followFormat = Json.format[Follow]
-  implicit val teamJoinFormat = Json.format[TeamJoin]
-  implicit val teamCreateFormat = Json.format[TeamCreate]
-  implicit val forumPostFormat = Json.format[ForumPost]
-  implicit val noteCreateFormat = Json.format[NoteCreate]
-  implicit val tourJoinFormat = Json.format[TourJoin]
-  implicit val qaQuestionFormat = Json.format[QaQuestion]
-  implicit val qaAnswerFormat = Json.format[QaAnswer]
-  implicit val qaCommentFormat = Json.format[QaComment]
-  implicit val gameEndFormat = Json.format[GameEnd]
-  implicit val simulCreateFormat = Json.format[SimulCreate]
-  implicit val simulJoinFormat = Json.format[SimulJoin]
-}
-
 object propagation {
   sealed trait Propagation
   case class Users(users: List[String]) extends Propagation

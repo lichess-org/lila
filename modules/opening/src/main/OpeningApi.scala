@@ -3,11 +3,10 @@ package lila.opening
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
-import play.api.libs.json.JsValue
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
+import reactivemongo.bson.BSONArray
 import reactivemongo.core.commands._
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 private[opening] final class OpeningApi(
@@ -21,39 +20,20 @@ private[opening] final class OpeningApi(
   object opening {
 
     def find(id: Opening.ID): Fu[Option[Opening]] =
-      openingColl.find(BSONDocument("_id" -> id)).one[Opening]
-
-    def importOne(json: JsValue, token: String): Fu[Opening.ID] =
-      if (token != apiToken) fufail("Invalid API token")
-      else {
-        import Generated.generatedJSONRead
-        Try(json.as[Generated]) match {
-          case Failure(err)       => fufail(err.getMessage)
-          case Success(generated) => generated.toOpening.future flatMap insertOpening
-        }
-      }
-
-    def insertOpening(opening: Opening.ID => Opening): Fu[Opening.ID] =
-      lila.db.Util findNextId openingColl flatMap { id =>
-        val o = opening(id)
-        openingColl.count(BSONDocument("fen" -> o.fen).some) flatMap {
-          case 0 => openingColl insert o inject o.id
-          case _ => fufail("Duplicate opening")
-        }
-      }
+      openingColl.byId[Opening](id)
   }
 
   object attempt {
 
     def find(openingId: Opening.ID, userId: String): Fu[Option[Attempt]] =
-      attemptColl.find(BSONDocument(
+      attemptColl.find($doc(
         Attempt.BSONFields.id -> Attempt.makeId(openingId, userId)
-      )).one[Attempt]
+      )).uno[Attempt]
 
     def add(a: Attempt) = attemptColl insert a void
 
     def hasPlayed(user: User, opening: Opening): Fu[Boolean] =
-      attemptColl.count(BSONDocument(
+      attemptColl.count($doc(
         Attempt.BSONFields.id -> Attempt.makeId(opening.id, user.id)
       ).some) map (0!=)
 
@@ -62,9 +42,9 @@ private[opening] final class OpeningApi(
       import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Group, Limit, Match, Push }
 
       val playedIdsGroup =
-        Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
+        Group($boolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
 
-      col.aggregate(Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
+      col.aggregate(Match($doc(Attempt.BSONFields.userId -> user.id)),
         List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
           _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
     }
@@ -72,9 +52,9 @@ private[opening] final class OpeningApi(
 
   object identify {
     def apply(fen: String, max: Int): Fu[List[String]] = nameColl.find(
-      BSONDocument("_id" -> fen),
-      BSONDocument("_id" -> false)
-    ).one[BSONDocument] map { obj =>
+      $doc("_id" -> fen),
+      $doc("_id" -> false)
+    ).uno[Bdoc] map { obj =>
         ~obj.??(_.getAs[List[String]]("names"))
       }
   }

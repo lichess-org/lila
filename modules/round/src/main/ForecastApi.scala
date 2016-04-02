@@ -3,7 +3,7 @@ package lila.round
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Implicits._
+import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
@@ -59,7 +59,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).one[Forecast] flatMap {
+    pov.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).uno[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
@@ -67,7 +67,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).one[Forecast] flatMap {
+    pov.game.forecastable ?? coll.find(BSONDocument("_id" -> pov.fullId)).uno[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none

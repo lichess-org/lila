@@ -29,7 +29,8 @@ private[setup] object UserConfig {
     hook = HookConfig.default,
     filter = FilterConfig.default)
 
-  import lila.db.{ BsTube, BSON }
+  import lila.db.BSON
+  import lila.db.dsl._
   import reactivemongo.bson._
   import AiConfig.aiConfigBSONHandler
   import FriendConfig.friendConfigBSONHandler
@@ -52,6 +53,4 @@ private[setup] object UserConfig {
       "hook" -> o.hook,
       "filter" -> o.filter)
   }
-
-  private[setup] val tube = BsTube(userConfigBSONHandler)
 }

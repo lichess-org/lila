@@ -25,8 +25,10 @@ final class Env(
   }
   import settings._
 
+  private[relation] val coll = db(CollectionRelation)
+
   lazy val api = new RelationApi(
-    coll = relationColl,
+    coll = coll,
     actor = hub.actor.relation,
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
@@ -50,8 +52,6 @@ final class Env(
       }
     }
   }
-
-  private[relation] lazy val relationColl = db(CollectionRelation)
 }
 
 object Env {

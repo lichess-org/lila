@@ -4,12 +4,11 @@ import chess.Color._
 import chess.Status._
 import chess.{ Status, Color, Speed }
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.{ PlaybanApi, Outcome }
-import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, Perfs }
 
 private[round] final class Finisher(
@@ -118,6 +117,6 @@ private[round] final class Finisher(
       else if (game.loserUserId exists (user.id==)) -1
       else 0,
       totalTime = totalTime,
-      tvTime = tvTime)
+      tvTime = tvTime).void
   }
 }

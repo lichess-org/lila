@@ -5,7 +5,7 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.Future
 import scala.util.{ Success, Failure }
-import Types._
+import dsl._
 
 final class Env(
     config: Config,

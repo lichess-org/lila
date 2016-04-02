@@ -5,14 +5,13 @@ import akka.pattern.ask
 import chess.{ Game => ChessGame, Board, Color => ChessColor }
 import play.api.libs.json.{ Json, JsObject }
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
 import lila.i18n.I18nDomain
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
 import makeTimeout.short
-import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
     lobby: ActorSelection,

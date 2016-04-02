@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.game.Event
 import lila.socket.actorApi.GetVersion
 
@@ -79,19 +79,19 @@ private[round] object History {
   private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
 
   private def load(coll: Coll, gameId: String, withPersistence: Boolean): Fu[VersionedEvents] =
-    coll.find(BSONDocument("_id" -> gameId)).one[BSONDocument].map {
+    coll.byId[Bdoc](gameId).map {
       _.flatMap(_.getAs[VersionedEvents]("e")) ?? (_.reverse)
     } addEffect {
-      case events if events.nonEmpty && !withPersistence => coll.remove(BSONDocument("_id" -> gameId)).void
+      case events if events.nonEmpty && !withPersistence => coll.remove($doc("_id" -> gameId)).void
       case _ =>
     }
 
   private def persist(coll: Coll, gameId: String)(vevs: List[VersionedEvent]) {
     if (vevs.nonEmpty) coll.uncheckedUpdate(
-      BSONDocument("_id" -> gameId),
-      BSONDocument(
-        "$set" -> BSONDocument("e" -> vevs.reverse),
-        "$setOnInsert" -> BSONDocument("d" -> DateTime.now)),
+      $doc("_id" -> gameId),
+      $doc(
+        "$set" -> $doc("e" -> vevs.reverse),
+        "$setOnInsert" -> $doc("d" -> DateTime.now)),
       upsert = true)
   }
 }

@@ -9,11 +9,14 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 import Page.DefaultLang
 
-import lila.db.api._
-import lila.db.Types.Coll
-import tube._
+import lila.db.dsl._
 
-private[wiki] final class Fetch(gitUrl: String, markdownPath: String)(implicit coll: Coll) {
+private[wiki] final class Fetch(
+    coll: Coll,
+    gitUrl: String,
+    markdownPath: String) {
+
+  import Page.PageBSONHandler
 
   def apply: Funit = getFiles flatMap { files =>
     val (defaultPages, langPages) = files.map(filePage).flatten partition (_.isDefaultLang)
@@ -22,7 +25,9 @@ private[wiki] final class Fetch(gitUrl: String, markdownPath: String)(implicit c
         page.copy(slug = default.slug)
       }
     }).flatten
-    $remove($select.all) >> (newLangPages ::: defaultPages).map($insert(_)).sequenceFu.void
+    coll.remove($empty) >> (newLangPages ::: defaultPages).map { page =>
+      coll.insert[Page](page)
+    }.sequenceFu.void
   }
 
   private def filePage(file: File): Option[Page] = {

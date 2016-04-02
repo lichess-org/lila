@@ -6,13 +6,13 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON._
+import lila.db.dsl._
 import lila.db.BSON.MapValue.MapHandler
 import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }
 
 final class RankingApi(
-    coll: lila.db.Types.Coll,
+    coll: Coll,
     mongoCache: MongoCache.Builder,
     lightUser: String => Option[lila.common.LightUser]) {
 
@@ -52,7 +52,7 @@ final class RankingApi(
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find(BSONDocument("perf" -> perfId, "stable" -> true))
         .sort(BSONDocument("rating" -> -1))
-        .cursor[Ranking]().collect[List](nb) map {
+        .cursor[Ranking]().gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(

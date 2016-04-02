@@ -1,9 +1,8 @@
 package lila.mod
 
 import chess.Color
-import lila.db.api._
+import lila.db.dsl._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
-import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
@@ -58,7 +57,7 @@ final class ModApi(
     val changed = value != u.troll
     val user = u.copy(troll = value)
     changed ?? {
-      UserRepo.updateTroll(user) >>-
+      UserRepo.updateTroll(user).void >>-
         logApi.troll(mod, user.id, user.troll)
     } >>-
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll

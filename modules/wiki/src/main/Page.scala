@@ -34,11 +34,6 @@ object Page {
     case _ => none
   }
 
-  import lila.db.JsTube
-  import play.api.libs.json._
-
-  private[wiki] lazy val tube = JsTube(Json.reads[Page], Json.writes[Page]) 
-
   // does not lowercase
   private def slugify(input: String) = {
     val nowhitespace = input.replace(" ", "_")
@@ -48,5 +43,7 @@ object Page {
 
   private def dropNumber(input: String) =
     """^\d+_(.+)$""".r.replaceAllIn(input, m => quoteReplacement(m group 1))
-}
 
+  import lila.db.dsl.BSONJodaDateTimeHandler
+  implicit val PageBSONHandler = reactivemongo.bson.Macros.handler[Page]
+}

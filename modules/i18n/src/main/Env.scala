@@ -31,7 +31,7 @@ final class Env(
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
-  private[i18n] lazy val translationColl = db(CollectionTranslation)
+  private val translationColl = db(CollectionTranslation)
 
   lazy val pool = new I18nPool(
     langs = Lang.availables(play.api.Play.current).toSet,
@@ -63,7 +63,10 @@ final class Env(
     messages = messages,
     keys = keys)
 
+  lazy val repo = new TranslationRepo(translationColl)
+
   lazy val forms = new DataForm(
+    repo = repo,
     keys = keys,
     captcher = captcher,
     callApi = callApi)
@@ -85,8 +88,7 @@ final class Env(
   def call = callApi.apply _
 
   def jsonFromVersion(v: Int): Fu[JsValue] = {
-    import tube.translationTube
-    TranslationRepo findFrom v map { ts => Json toJson ts }
+    repo findFrom v map { ts => Json toJson ts }
   }
 
   def cli = new lila.common.Cli {

@@ -5,7 +5,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Implicits._
+import lila.db.dsl._
 
 private final class Cleaner(
     repo: FishnetRepo,
@@ -32,7 +32,7 @@ private final class Cleaner(
 
   private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))
-  )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Analysis]().collect[List](100).flatMap {
+  )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Analysis]().gather[List](100).flatMap {
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
     }.map { ana =>

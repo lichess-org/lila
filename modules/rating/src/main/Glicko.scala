@@ -67,6 +67,4 @@ case object Glicko {
     case object Loss extends Result(0) { def negate = Win }
     case object Draw extends Result(0.5) { def negate = Draw }
   }
-
-  lazy val tube = lila.db.BsTube(glickoBSONHandler)
 }

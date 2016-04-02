@@ -3,7 +3,7 @@ package lila.round
 import akka.pattern.ask
 import chess.{ Game => ChessGame, Board, Clock }
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ Game, Event, Progress, Pov, PlayerRef, Namer, Source }
 import lila.pref.{ Pref, PrefApi }
 import makeTimeout.short

@@ -4,8 +4,7 @@ import org.joda.time.{ DateTime, Days }
 import reactivemongo.bson._
 
 import chess.Speed
-import lila.db.api._
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.game.Game
 import lila.user.{ User, Perfs }
 
@@ -46,5 +45,5 @@ final class HistoryApi(coll: Coll) {
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
   def get(userId: String): Fu[Option[History]] =
-    coll.find(BSONDocument("_id" -> userId)).one[History]
+    coll.find(BSONDocument("_id" -> userId)).uno[History]
 }

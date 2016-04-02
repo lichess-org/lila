@@ -1,21 +1,19 @@
 package lila.round
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 
 import reactivemongo.bson._
 
 final class NoteApi(coll: Coll) {
 
   def get(gameId: String, userId: String): Fu[String] =
-    coll.find(BSONDocument("_id" -> makeId(gameId, userId))).one[BSONDocument] map {
-      _ flatMap (_.getAs[String]("t")) getOrElse ""
-    }
+    coll.primitiveOne[String]($id(makeId(gameId, userId)), "t") map (~_)
 
   def set(gameId: String, userId: String, text: String) = {
     if (text.isEmpty) coll.remove(BSONDocument("_id" -> makeId(gameId, userId)))
     else coll.update(
-      BSONDocument("_id" -> makeId(gameId, userId)),
-      BSONDocument("$set" -> BSONDocument("t" -> text)),
+      $id(makeId(gameId, userId)),
+      $set("t" -> text),
       upsert = true)
   }.void
 

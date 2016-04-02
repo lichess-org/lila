@@ -6,7 +6,7 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.memo.AsyncCache
 
 final class Gamify(
@@ -19,10 +19,10 @@ final class Gamify(
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
-    historyColl.find(BSONDocument()).sort(BSONDocument(
+    historyColl.find($empty).sort($doc(
       "year" -> -1,
       "month" -> -1
-    )).cursor[HistoryMonth]().collect[List]().flatMap { months =>
+    )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId || !orCompute => fuccess(months)
         case Some(m)                                  => buildHistoryAfter(m.year, m.month, until) >> history(false)
@@ -49,7 +49,7 @@ final class Gamify(
         }.toList
     }.toList.sequenceFu.map(_.flatten).flatMap {
       _.map { month =>
-        historyColl.update(BSONDocument("_id" -> month._id), month, upsert = true)
+        historyColl.update($doc("_id" -> month._id), month, upsert = true).void
       }.sequenceFu
     }.void
 
@@ -73,12 +73,12 @@ final class Gamify(
     }
 
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
-    BSONDocument("$gte" -> from) ++ toOption.?? { to => BSONDocument("$lt" -> to) }
+    $doc("$gte" -> from) ++ toOption.?? { to => $doc("$lt" -> to) }
 
-  private val notLichess = BSONDocument("$ne" -> "lichess")
+  private val notLichess = $doc("$ne" -> "lichess")
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    logColl.aggregate(Match(BSONDocument(
+    logColl.aggregate(Match($doc(
       "date" -> dateRange(after, before),
       "mod" -> notLichess
     )), List(
@@ -91,7 +91,7 @@ final class Gamify(
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     reportColl.aggregate(
-      Match(BSONDocument(
+      Match($doc(
         "createdAt" -> dateRange(after, before),
         "processedBy" -> notLichess
       )), List(

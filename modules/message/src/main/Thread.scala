@@ -79,18 +79,7 @@ object Thread {
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId))
 
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private[message] lazy val tube = Post.tube |> { implicit pt =>
-    JsTube(
-      (__.json update (
-        readDate('createdAt) andThen readDate('updatedAt)
-      )) andThen Json.reads[Thread],
-      Json.writes[Thread] andThen (__.json update (
-        writeDate('createdAt) andThen writeDate('updatedAt)
-      ))
-    )
-  }
+  import lila.db.dsl.BSONJodaDateTimeHandler
+  import Post.PostBSONHandler
+  private[message] implicit val ThreadBSONHandler = reactivemongo.bson.Macros.handler[Thread]
 }

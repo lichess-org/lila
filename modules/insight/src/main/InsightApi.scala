@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
@@ -39,7 +39,7 @@ final class InsightApi(
   def userStatus(user: User): Fu[UserStatus] =
     GameRepo lastFinishedRatedNotFromPosition user flatMap {
       case None => fuccess(UserStatus.NoGame)
-      case Some(game) => storage fetchLast user map {
+      case Some(game) => storage fetchLast user.id map {
         case None => UserStatus.Empty
         case Some(entry) if entry.date isBefore game.createdAt => UserStatus.Stale
         case _ => UserStatus.Fresh
