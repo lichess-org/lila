@@ -29,6 +29,7 @@ final class Env(
   lazy val forms = new DataForm(security = security)
 
   lazy val api = new Api(
+    coll = threadColl,
     unreadCache = unreadCache,
     shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
