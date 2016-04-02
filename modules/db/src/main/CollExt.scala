@@ -1,11 +1,9 @@
 package lila.db
 
-import dsl._
-
 import reactivemongo.api._
 import reactivemongo.bson._
 
-trait CollExt {
+trait CollExt { self: dsl =>
 
   final implicit class ExtendColl(coll: Coll) {
 
@@ -72,10 +70,10 @@ trait CollExt {
         }
 
     def updateField[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
-      coll.update(selector, $doc(field -> value))
+      coll.update(selector, $set(field -> value))
 
     def updateFieldUnchecked[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
-      coll.uncheckedUpdate(selector, $doc(field -> value))
+      coll.uncheckedUpdate(selector, $set(field -> value))
 
     def fetchUpdate[D: BSONDocumentHandler](selector: BSONDocument)(update: D => BSONDocument): Funit =
       one[D](selector) flatMap {
@@ -85,5 +83,3 @@ trait CollExt {
       }
   }
 }
-
-object CollExt extends CollExt

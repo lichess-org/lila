@@ -1,7 +1,5 @@
 package lila.db
 
-import dsl._
-
 import org.joda.time.DateTime
 import reactivemongo.bson._
 

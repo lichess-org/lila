@@ -46,7 +46,7 @@ trait dsl {
   // Helpers
   def $empty: BSONDocument = BSONDocument.empty
 
-  def $doc(elements: Producer[BSONElement]*): BSONDocument = $doc(elements: _*)
+  def $doc(elements: Producer[BSONElement]*): BSONDocument = BSONDocument(elements: _*)
 
   def $doc(elements: Traversable[BSONElement]): BSONDocument = BSONDocument(elements)
 

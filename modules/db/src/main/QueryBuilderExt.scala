@@ -1,12 +1,10 @@
 package lila.db
 
-import dsl._
-
 import reactivemongo.api._
 import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 
-trait QueryBuilderExt {
+trait QueryBuilderExt { self: dsl =>
 
   final implicit class ExtendQueryBuilder[A](val b: dsl.QueryBuilder) {
 
