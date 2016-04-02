@@ -8,7 +8,7 @@ import org.joda.time.Period
 import play.api.libs.iteratee.Iteratee
 import reactivemongo.bson._
 
-private final class PlayTime(gameColl: Coll) {
+final class PlayTime(gameColl: Coll) {
 
   private val moveTimeField = Game.BSONFields.moveTimes
   private val tvField = Game.BSONFields.tvAt

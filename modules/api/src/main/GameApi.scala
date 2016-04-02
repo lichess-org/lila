@@ -8,11 +8,9 @@ import lila.analyse.{ AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
 import lila.db.dsl._
-import lila.db.Implicits._
-import lila.db.paginator.{ BSONAdapter, CachedAdapter }
+import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.{ router => R }
 import lila.user.User
@@ -38,16 +36,16 @@ private[api] final class GameApi(
     nb: Option[Int],
     page: Option[Int]): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
-      adapter = new BSONAdapter[Game](
-        collection = gameTube.coll,
-        selector = BSONDocument(
+      adapter = new Adapter[Game](
+        collection = GameRepo.coll,
+        selector = $doc(
           G.playerUids -> user.id,
-          G.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), BSONDocument("$exists" -> false))),
-          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), BSONDocument("$exists" -> false)))
+          G.status -> $doc("$gte" -> chess.Status.Mate.id),
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
+          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
         ),
-        projection = BSONDocument(),
-        sort = BSONDocument(G.createdAt -> -1)
+        projection = $empty,
+        sort = $doc(G.createdAt -> -1)
       ),
       nbResults = fuccess {
         rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
@@ -74,7 +72,7 @@ private[api] final class GameApi(
     withFens: Boolean,
     withMoveTimes: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
-    $find byId id flatMap {
+    GameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(
           withAnalysis = withAnalysis,

@@ -1,17 +1,18 @@
 package lila.bookmark
 
 import lila.db.dsl._
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import lila.user.User
-import tube.bookmarkTube
 
 final class BookmarkApi(
+    coll: Coll,
     cached: Cached,
     paginator: PaginatorBuilder) {
 
+  import lila.game.BSONHandlers.gameBSONHandler
+
   def toggle(gameId: String, userId: String): Funit =
-    $find.byId[Game](gameId) flatMap {
+    coll.byId[Game](gameId) flatMap {
       _ ?? { game =>
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked =>
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>-

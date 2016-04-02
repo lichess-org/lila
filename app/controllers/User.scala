@@ -7,12 +7,10 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
-import lila.db.dsl.$find
 import lila.evaluation.{ PlayerAggregateAssessment }
 import lila.game.{ GameRepo, Pov }
 import lila.rating.PerfType
 import lila.security.Permission
-import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 

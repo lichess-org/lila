@@ -20,11 +20,6 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
   def process = {
     case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.RemindDeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.RemindDeployPost)
-    case "rating" :: "fest" :: Nil => RatingFest(
-      lila.db.Env.current,
-      lila.round.Env.current.perfsUpdater,
-      lila.game.Env.current,
-      lila.user.Env.current) inject "done"
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
@@ -48,7 +43,6 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
       lila.game.Env.current.cli.process orElse
       lila.gameSearch.Env.current.cli.process orElse
       lila.teamSearch.Env.current.cli.process orElse
-      lila.forum.Env.current.cli.process orElse
       lila.forumSearch.Env.current.cli.process orElse
       lila.team.Env.current.cli.process orElse
       lila.puzzle.Env.current.cli.process orElse

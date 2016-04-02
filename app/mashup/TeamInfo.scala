@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.forum.MiniForumPost
 import lila.game.{ GameRepo, Game }
-import lila.team.tube._
 import lila.team.{ Team, Request, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
 import lila.user.{ User, UserRepo }
 

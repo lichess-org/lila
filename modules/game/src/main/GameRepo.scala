@@ -195,7 +195,7 @@ object GameRepo {
   def exists(id: String) = coll.exists($doc("_id" -> id))
 
   def incBookmarks(id: ID, value: Int) =
-    coll.update($id(id), $inc(F.bookmarks -> value))
+    coll.update($id(id), $inc(F.bookmarks -> value)).void
 
   def setHoldAlert(pov: Pov, mean: Int, sd: Int, ply: Option[Int] = None) = {
     import Player.holdAlertBSONHandler
@@ -281,7 +281,7 @@ object GameRepo {
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
-    coll.update($id(g.id), $set("pgni.ca" -> g.createdAt))
+    coll.update($id(g.id), $set("pgni.ca" -> g.createdAt)).void
 
   def saveNext(game: Game, nextId: ID): Funit = coll.update(
     $id(game.id),

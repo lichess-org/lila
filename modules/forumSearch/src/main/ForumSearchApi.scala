@@ -1,7 +1,7 @@
 package lila.forumSearch
 
 import lila.forum.actorApi._
-import lila.forum.{ Post, PostView, PostLiteView, PostApi }
+import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
 
 import play.api.libs.json._
@@ -37,12 +37,13 @@ final class ForumSearchApi(
     case c: ESClientHttp => c.putMapping >> {
       lila.log("forumSearch").info(s"Index to ${c.index.name}")
       import lila.db.dsl._
-      import lila.forum.tube.postTube
-      $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 500) { postOptions =>
-        (postApi liteViews postOptions.flatten) flatMap { views =>
-          c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+      import play.api.libs.iteratee._
+      PostRepo.cursor($empty).enumerateBulks(Int.MaxValue) |>>>
+        Iteratee.foldM[Iterator[Post], Unit](()) {
+          case (_, posts) => (postApi liteViews posts.toList) flatMap { views =>
+            c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+          }
         }
-      }
     }
     case _ => funit
   }

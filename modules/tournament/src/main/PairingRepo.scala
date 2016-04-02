@@ -6,23 +6,22 @@ import reactivemongo.bson._
 import reactivemongo.core.commands._
 
 import BSONHandlers._
-import lila.db.BSON._
 import lila.db.dsl._
 
 object PairingRepo {
 
   private lazy val coll = Env.current.pairingColl
 
-  private def selectId(id: String) = BSONDocument("_id" -> id)
-  def selectTour(tourId: String) = BSONDocument("tid" -> tourId)
-  def selectUser(userId: String) = BSONDocument("u" -> userId)
-  private def selectTourUser(tourId: String, userId: String) = BSONDocument(
+  private def selectId(id: String) = $doc("_id" -> id)
+  def selectTour(tourId: String) = $doc("tid" -> tourId)
+  def selectUser(userId: String) = $doc("u" -> userId)
+  private def selectTourUser(tourId: String, userId: String) = $doc(
     "tid" -> tourId,
     "u" -> userId)
-  private val selectPlaying = BSONDocument("s" -> BSONDocument("$lt" -> chess.Status.Mate.id))
-  private val selectFinished = BSONDocument("s" -> BSONDocument("$gte" -> chess.Status.Mate.id))
-  private val recentSort = BSONDocument("d" -> -1)
-  private val chronoSort = BSONDocument("d" -> 1)
+  private val selectPlaying = $doc("s" -> $doc("$lt" -> chess.Status.Mate.id))
+  private val selectFinished = $doc("s" -> $doc("$gte" -> chess.Status.Mate.id))
+  private val recentSort = $doc("d" -> -1)
+  private val chronoSort = $doc("d" -> 1)
 
   def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).one[Pairing]
 
@@ -31,9 +30,9 @@ object PairingRepo {
 
   def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
     coll.find(
-      selectTour(tourId) ++ BSONDocument("u" -> BSONDocument("$in" -> userIds)),
-      BSONDocument("_id" -> false, "u" -> true)
-    ).sort(recentSort).cursor[BSONDocument]().enumerate(nb) |>>>
+      selectTour(tourId) ++ $doc("u" -> $doc("$in" -> userIds)),
+      $doc("_id" -> false, "u" -> true)
+    ).sort(recentSort).cursor[Bdoc]().enumerate(nb) |>>>
       Iteratee.fold(scala.collection.immutable.Map.empty[String, String]) { (acc, doc) =>
         ~doc.getAs[List[String]]("u") match {
           case List(u1, u2) =>
@@ -45,8 +44,8 @@ object PairingRepo {
   def opponentsOf(tourId: String, userId: String): Fu[Set[String]] =
     coll.find(
       selectTourUser(tourId, userId),
-      BSONDocument("_id" -> false, "u" -> true)
-    ).cursor[BSONDocument]().collect[List]().map {
+      $doc("_id" -> false, "u" -> true)
+    ).cursor[Bdoc]().collect[List]().map {
         _.flatMap { doc =>
           ~doc.getAs[List[String]]("u").filter(userId!=)
         }.toSet
@@ -55,8 +54,8 @@ object PairingRepo {
   def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
     coll.find(
       selectTourUser(tourId, userId),
-      BSONDocument("_id" -> true)
-    ).sort(recentSort).cursor[BSONDocument]().collect[List](nb).map {
+      $doc("_id" -> true)
+    ).sort(recentSort).cursor[Bdoc]().collect[List](nb).map {
         _.flatMap(_.getAs[String]("_id"))
       }
 
@@ -78,7 +77,7 @@ object PairingRepo {
     coll.aggregate(
       Match(selectTour(tourId)),
       List(
-        Project(BSONDocument("u" -> true, "_id" -> false)),
+        Project($doc("u" -> true, "_id" -> false)),
         Unwind("u"),
         GroupField("u")("nb" -> SumValue(1))
       )).map {
@@ -104,14 +103,14 @@ object PairingRepo {
     ).sort(chronoSort).cursor[Pairing]().collect[List]()
 
   def insert(pairing: Pairing) = coll.insert {
-    pairingHandler.write(pairing) ++ BSONDocument("d" -> DateTime.now)
+    pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
   }.void
 
   def finish(g: lila.game.Game) =
     if (g.aborted) coll.remove(selectId(g.id))
     else coll.update(
       selectId(g.id),
-      BSONDocument("$set" -> BSONDocument(
+      $doc("$set" -> $doc(
         "s" -> g.status.id,
         "w" -> g.winnerColor.map(_.white),
         "t" -> g.turns))).void
@@ -123,14 +122,14 @@ object PairingRepo {
   }) ?? { field =>
     coll.update(
       selectId(pairing.id),
-      BSONDocument("$set" -> BSONDocument(field -> value))).void
+      $doc("$set" -> $doc(field -> value))).void
   }
 
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
-      Project(BSONDocument(
+      Project($doc(
         "u" -> BSONBoolean(true), "_id" -> BSONBoolean(false))),
       Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
       _.documents.headOption.flatMap(_.getAs[Set[String]]("ids")).

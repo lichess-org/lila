@@ -2,11 +2,10 @@ package lila.app
 package mashup
 
 import lila.common.paginator.Paginator
-import lila.db.dsl.SortOrder
+import lila.db.dsl._
 import lila.game.{ Game, Query, GameRepo }
 import lila.user.User
 
-import play.api.libs.json._
 import play.api.mvc.Request
 import scalaz.NonEmptyList
 
@@ -35,7 +34,6 @@ case class GameFilterMenu(
 object GameFilterMenu {
 
   import GameFilter._
-  import lila.db.Implicits.docId
 
   val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
 
@@ -96,22 +94,22 @@ object GameFilterMenu {
     me: Option[User],
     page: Int)(implicit req: Request[_]): Fu[Paginator[Game]] = {
     val nb = cachedNbOf(user, info, filter)
-    def std(query: JsObject) = pag.recentlyCreated(query, nb)(page)
+    def std(query: Bdoc) = pag.recentlyCreated(query, nb)(page)
     filter match {
       case Bookmark => Env.bookmark.api.gamePaginatorByUser(user, page)
       case Imported => pag.apply(
         selector = Query imported user.id,
-        sort = Seq("pgni.ca" -> SortOrder.Descending),
+        sort = $sort desc "pgni.ca",
         nb = nb)(page)
-      case All   => std(Query started user)
+      case All   => std(Query started user.id)
       case Me    => std(Query.opponents(user, me | user))
-      case Rated => std(Query rated user)
-      case Win   => std(Query win user)
-      case Loss  => std(Query loss user)
-      case Draw  => std(Query draw user)
+      case Rated => std(Query rated user.id)
+      case Win   => std(Query win user.id)
+      case Loss  => std(Query loss user.id)
+      case Draw  => std(Query draw user.id)
       case Playing => pag(
         selector = Query nowPlaying user.id,
-        sort = Seq(),
+        sort = $empty,
         nb = nb)(page) addEffect { p =>
           p.currentPageResults.filter(_.finishedOrAborted) foreach GameRepo.unsetPlayingUids
         }

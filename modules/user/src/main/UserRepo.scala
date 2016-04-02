@@ -307,7 +307,7 @@ object UserRepo {
       "kid" -> $doc("$ne" -> true)
     ), $doc("_id" -> true)).cursor[BSONDocument]()
 
-  def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang)
+  def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregate(Match($doc("_id" -> $doc("$in" -> ids))),

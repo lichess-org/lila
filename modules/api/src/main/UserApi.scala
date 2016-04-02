@@ -4,11 +4,9 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.db.dsl._
-import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.{ router => R }
 import lila.rating.Perf
-import lila.user.tube.userTube
 import lila.user.{ UserRepo, User, Perfs, Profile }
 import makeTimeout.short
 
