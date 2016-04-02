@@ -3,7 +3,7 @@ package lila.puzzle
 import play.api.libs.json._
 import reactivemongo.bson._
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.Glicko
 import lila.user.User
 

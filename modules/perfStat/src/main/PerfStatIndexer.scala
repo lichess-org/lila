@@ -4,8 +4,7 @@ import akka.actor.ActorRef
 import play.api.libs.iteratee._
 
 import lila.db.dsl._
-import lila.db.Implicits._
-import lila.game.{ Game, Pov, Query }
+import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.hub.Sequencer
 import lila.rating.PerfType
 import lila.user.User
@@ -21,16 +20,12 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
   }
 
   private def compute(user: User, perfType: PerfType): Funit = {
-    import lila.game.tube.gameTube
-    import lila.game.BSONHandlers.gameBSONHandler
-    pimpQB($query {
+    GameRepo.sortedCursor(
       Query.user(user.id) ++
         Query.finished ++
         Query.turnsMoreThan(2) ++
-        Query.variant(PerfType variantOf perfType)
-
-    }).sort(Query.sortChronological)
-      .cursor[Game]()
+        Query.variant(PerfType variantOf perfType),
+      Query.sortChronological)
       .enumerate(Int.MaxValue, stopOnError = true) |>>>
       Iteratee.fold[Game, PerfStat](PerfStat.init(user.id, perfType)) {
         case (perfStat, game) if game.perfType.contains(perfType) =>

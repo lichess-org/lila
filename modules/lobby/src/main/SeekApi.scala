@@ -1,13 +1,11 @@
 package lila.lobby
 
 import org.joda.time.DateTime
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import actorApi.LobbyUser
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
@@ -23,8 +21,8 @@ final class SeekApi(
   private object ForUser extends CacheKey
 
   private def allCursor =
-    coll.find(BSONDocument())
-      .sort(BSONDocument("createdAt" -> -1))
+    coll.find($empty)
+      .sort($doc("createdAt" -> -1))
       .cursor[Seek]()
 
   private val cache = AsyncCache[CacheKey, List[Seek]](
@@ -58,7 +56,7 @@ final class SeekApi(
     }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.find(BSONDocument("_id" -> id)).one[Seek]
+    coll.find($doc("_id" -> id)).one[Seek]
 
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if seeks.size <= maxPerUser => funit
@@ -67,27 +65,27 @@ final class SeekApi(
   } >> cache.clear
 
   def findByUser(userId: String): Fu[List[Seek]] =
-    coll.find(BSONDocument("user.id" -> userId))
-      .sort(BSONDocument("createdAt" -> -1))
+    coll.find($doc("user.id" -> userId))
+      .sort($doc("createdAt" -> -1))
       .cursor[Seek]().collect[List]()
 
   def remove(seek: Seek) =
-    coll.remove(BSONDocument("_id" -> seek.id)).void >> cache.clear
+    coll.remove($doc("_id" -> seek.id)).void >> cache.clear
 
   def archive(seek: Seek, gameId: String) = {
-    val archiveDoc = Seek.seekBSONHandler.write(seek) ++ BSONDocument(
+    val archiveDoc = Seek.seekBSONHandler.write(seek) ++ $doc(
       "gameId" -> gameId,
       "archivedAt" -> DateTime.now)
-    coll.remove(BSONDocument("_id" -> seek.id)).void >>
+    coll.remove($doc("_id" -> seek.id)).void >>
       cache.clear >>
       archiveColl.insert(archiveDoc)
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.find(BSONDocument("gameId" -> gameId)).one[Seek]
+    archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =
-    coll.remove(BSONDocument(
+    coll.remove($doc(
       "_id" -> seekId,
       "user.id" -> userId
     )).void >> cache.clear

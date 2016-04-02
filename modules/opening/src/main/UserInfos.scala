@@ -2,9 +2,8 @@ package lila.opening
 
 import play.api.libs.json._
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.Glicko
 import lila.user.User
 

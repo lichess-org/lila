@@ -6,7 +6,6 @@ import lila.lobby.Color
 import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
-import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class FormFactory(casualOnly: Boolean) {
 

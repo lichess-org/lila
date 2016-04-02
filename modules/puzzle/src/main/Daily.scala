@@ -5,10 +5,8 @@ import scala.concurrent.duration._
 import akka.actor.{ ActorSelection, Scheduler }
 import akka.pattern.ask
 import org.joda.time.DateTime
-import reactivemongo.bson.BSONDocument
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 
 private[puzzle] final class Daily(
     coll: Coll,
@@ -45,15 +43,15 @@ private[puzzle] final class Daily(
   }
 
   private def findCurrent = coll.find(
-    BSONDocument("day" -> BSONDocument("$gt" -> DateTime.now.minusMinutes(24 * 60 - 15)))
+    $doc("day" -> $doc("$gt" -> DateTime.now.minusMinutes(24 * 60 - 15)))
   ).one[Puzzle]
 
   private def findNew = coll.find(
-    BSONDocument("day" -> BSONDocument("$exists" -> false))
-  ).sort(BSONDocument("vote.sum" -> -1)).one[Puzzle] flatMap {
+    $doc("day" -> $doc("$exists" -> false))
+  ).sort($doc("vote.sum" -> -1)).one[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
-        BSONDocument("_id" -> puzzle.id),
-        BSONDocument("$set" -> BSONDocument("day" -> DateTime.now))
+        $doc("_id" -> puzzle.id),
+        $doc("$set" -> $doc("day" -> DateTime.now))
       ) inject puzzle.some
       case None => fuccess(none)
     }

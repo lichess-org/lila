@@ -21,8 +21,9 @@ trait CollExt {
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
       one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] =
-      one[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
+
+    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = one[D]($id(id))
 
     def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I]): Fu[List[D]] =
       list[D]($inIds(ids))

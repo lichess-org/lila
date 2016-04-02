@@ -12,7 +12,6 @@ import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
 import makeTimeout.short
-import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
     lobby: ActorSelection,

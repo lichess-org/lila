@@ -7,8 +7,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 import scalaz.NonEmptyList
 
-import lila.db.BSON._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.user.UserRepo
 import lila.rating.PerfType
 

@@ -16,7 +16,7 @@ import lila.user.{ User, UidNb }
 object GameRepo {
 
   // dirty
-  private val coll = Env.current.gameColl
+  val coll = Env.current.gameColl
 
   type ID = String
 

@@ -74,6 +74,4 @@ object FilterConfig {
       "s" -> o.speed.map(_.id),
       "e" -> o.ratingRange.toString)
   }
-
-  private[setup] val tube = lila.db.BsTube(filterConfigBSONHandler)
 }

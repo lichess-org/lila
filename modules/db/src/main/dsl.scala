@@ -25,6 +25,7 @@ trait dsl {
 
   type Coll = reactivemongo.api.collections.bson.BSONCollection
   type Bdoc = BSONDocument
+  type Barr = BSONArray
 
   type QueryBuilder = GenericQueryBuilder[BSONSerializationPack.type]
 
