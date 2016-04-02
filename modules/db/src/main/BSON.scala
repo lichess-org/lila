@@ -21,6 +21,19 @@ abstract class BSON[T]
 
 object BSON extends Handlers {
 
+  def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[BSONDocument, T]) =
+    new BSONHandler[BSONDocument, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
+      def read(doc: BSONDocument): T = try {
+        handler read doc
+      }
+      catch {
+        case e: Exception =>
+          logger.error(s"Can't read malformed doc ${debug(doc)}", e)
+          throw e
+      }
+      def write(obj: T): BSONDocument = handler write obj
+    }
+
   object MapDocument {
 
     implicit def MapReader[V](implicit vr: BSONDocumentReader[V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {

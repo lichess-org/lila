@@ -81,5 +81,8 @@ object Thread {
 
   import lila.db.dsl.BSONJodaDateTimeHandler
   import Post.PostBSONHandler
-  private[message] implicit val ThreadBSONHandler = reactivemongo.bson.Macros.handler[Thread]
+  private[message] implicit val ThreadBSONHandler =
+    lila.db.BSON.LoggingHandler(lila.log("message")) {
+      reactivemongo.bson.Macros.handler[Thread]
+    }
 }
