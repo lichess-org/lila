@@ -225,9 +225,9 @@ object TournamentRepo {
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
     coll.find(enterableSelect ++ $doc(
       "_id" -> $doc("$ne" -> tourId),
-      "schedule.freq" -> $doc("$nin" -> List(
+      "schedule.freq" $nin (
         Schedule.Freq.Marathon.name,
         Schedule.Freq.Unique.name
-      ))
+      )
     ) ++ nonEmptySelect).cursor[Tournament]().gather[List]()
 }

@@ -30,7 +30,7 @@ private[opening] final class Selector(
 
   private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
     openingColl.uno[Opening]($doc(
-      Opening.BSONFields.id $nin ids,
+      Opening.BSONFields.id -> $doc("$nin" -> ids),
       Opening.BSONFields.rating $gt
         (user.perfs.opening.intRating - tolerance) $lt
         (user.perfs.opening.intRating + tolerance)
