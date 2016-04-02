@@ -115,7 +115,7 @@ private[report] final class ReportApi(coll: Coll) {
   def processEngine(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" -> $in(List(Reason.Cheat.name, Reason.CheatPrint.name))
+      "reason" -> $in(Reason.Cheat.name, Reason.CheatPrint.name)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true).void >>- monitorUnprocessed
@@ -123,7 +123,7 @@ private[report] final class ReportApi(coll: Coll) {
   def processTroll(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" -> $in(List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name))
+      "reason" -> $in(Reason.Insult.name, Reason.Troll.name, Reason.Other.name)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true).void >>- monitorUnprocessed

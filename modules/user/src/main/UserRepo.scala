@@ -57,15 +57,15 @@ object UserRepo {
 
   // expensive, send to secondary
   def byIdsSortRating(ids: Iterable[ID], nb: Int) =
-    coll.find($doc("_id" -> $doc("$in" -> ids)) ++ goodLadSelectBson)
-      .sort($doc(s"perfs.standard.gl.r" -> -1))
+    coll.find($inIds(ids) ++ goodLadSelectBson)
+      .sort($sort desc "perfs.standard.gl.r")
       .cursor[User](ReadPreference.secondaryPreferred)
       .gather[List](nb)
 
   // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
-      $doc("_id" -> $doc("$in" -> ids)) ++ goodLadSelectBson,
+      $inIds(ids) ++ goodLadSelectBson,
       $doc("_id" -> true))
       .sort($doc(s"perfs.standard.gl.r" -> -1))
       .cursor[BSONDocument](ReadPreference.secondaryPreferred)
@@ -84,7 +84,7 @@ object UserRepo {
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
-      $doc("_id" -> $doc("$in" -> BSONArray(u1, u2))),
+      $doc("_id".$in(u1, u2)),
       $doc(s"${F.count}.game" -> true)
     ).cursor[BSONDocument]().gather[List]() map { docs =>
         docs.sortBy {
@@ -99,7 +99,7 @@ object UserRepo {
   def firstGetsWhite(u1O: Option[String], u2O: Option[String]): Fu[Boolean] =
     (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean)) {
       case (u1, u2) => coll.find(
-        $doc("_id" -> $doc("$in" -> BSONArray(u1, u2))),
+        $doc("_id".$in(u1, u2)),
         $doc("_id" -> true)
       ).sort($doc(F.colorIt -> 1)).uno[BSONDocument].map {
           _.fold(scala.util.Random.nextBoolean) { doc =>
@@ -162,7 +162,7 @@ object UserRepo {
   val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {
-    val incs = List(
+    val incs: List[(String, BSONInteger)] = List(
       "count.game".some,
       rated option "count.rated",
       ai option "count.ai",
@@ -310,7 +310,7 @@ object UserRepo {
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregate(Match($doc("_id" -> $doc("$in" -> ids))),
+    ids.nonEmpty ?? coll.aggregate(Match($inIds(ids)),
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
         _.documents.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)

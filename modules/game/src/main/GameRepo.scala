@@ -379,7 +379,7 @@ object GameRepo {
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.uno[Game]($doc(
-      F.playerUids $all List(u1, u2),
+      F.playerUids.$all(u1, u2),
       F.createdAt $gt since
     ))
 

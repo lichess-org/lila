@@ -95,7 +95,7 @@ private[video] final class VideoApi(
       else Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $doc("tags" $all tags),
+          selector = $doc("tags".$all(tags: _*)),
           projection = $empty,
           sort = $doc("metadata.likes" -> -1)
         ) mapFutureList videoViews(user),
@@ -115,7 +115,7 @@ private[video] final class VideoApi(
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl.find($doc(
-        "tags" $in video.tags,
+        "tags" $in (video.tags: _*),
         "_id" $ne video.id
       )).sort($doc("metadata.likes" -> -1))
         .cursor[Video]()
@@ -176,7 +176,7 @@ private[video] final class VideoApi(
             tags.filterNot(_.isNumeric)
           }
           else videoColl.aggregate(
-            Match($doc("tags" $all filterTags)),
+            Match($doc("tags".$all(filterTags: _*))),
             List(Project($doc("tags" -> true)),
               Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
               _.documents.flatMap(_.asOpt[TagNb]))

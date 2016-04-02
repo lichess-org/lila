@@ -12,7 +12,7 @@ private[wiki] final class Api(coll: Coll) {
     page ← coll.uno[Page]($doc("slug" -> slug, "lang" -> lang)) orElse
       coll.uno[Page]($doc("slug" -> slug, "lang" -> DefaultLang))
     pages ← coll.find($doc(
-      "lang" $in Seq(lang, DefaultLang)
+      "lang" $in (lang, DefaultLang)
     )).sort($sort asc "number").cursor[Page]().gather[List]()
   } yield page map { _ -> makeMenu(pages) }
 

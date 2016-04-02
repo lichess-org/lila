@@ -57,7 +57,7 @@ trait dsl {
   def $id[T](id: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): BSONDocument = $doc("_id" -> id)
 
   def $inIds[T](ids: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): BSONDocument =
-    $doc("_id" -> $in(ids))
+    $id($doc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)
   def $string(s: String) = BSONString(s)

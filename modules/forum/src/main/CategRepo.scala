@@ -14,7 +14,7 @@ object CategRepo {
   def withTeams(teams: Set[String]): Fu[List[Categ]] =
     coll.find($or(
       "team" $exists false,
-      "team" $in teams
+      $doc("team" -> $doc("$in" -> teams))
     )).sort($sort asc "pos").cursor[Categ]().gather[List]()
 
   def nextPosition: Fu[Int] =

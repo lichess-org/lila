@@ -22,7 +22,7 @@ private[timeline] final class UnsubApi(coll: Coll) {
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     coll.distinct("_id", $doc(
-      "_id" $in userIds.map { makeId(channel, _) }
+      "_id" $in (userIds.map { makeId(channel, _) }: _*)
     ).some) map lila.db.BSON.asStrings map { unsubs =>
       userIds diff unsubs.map(_ takeWhile ('@' !=))
     }

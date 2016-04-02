@@ -16,7 +16,7 @@ object TournamentRepo {
   private def $id(id: String) = $doc("_id" -> id)
 
   private val enterableSelect = $doc(
-    "status" -> $doc("$in" -> List(Status.Created.id, Status.Started.id)))
+    "status" $in (Status.Created.id, Status.Started.id))
 
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
@@ -34,7 +34,7 @@ object TournamentRepo {
   def byId(id: String): Fu[Option[Tournament]] = coll.find($id(id)).uno[Tournament]
 
   def byIds(ids: Iterable[String]): Fu[List[Tournament]] =
-    coll.find($doc("_id" -> $doc("$in" -> ids)))
+    coll.find($inIds(ids))
       .cursor[Tournament]().gather[List]()
 
   def uniqueById(id: String): Fu[Option[Tournament]] =
@@ -201,7 +201,7 @@ object TournamentRepo {
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] = coll.find(
     finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
       "schedule.freq" -> freq.name,
-      "schedule.speed" -> $doc("$in" -> Schedule.Speed.mostPopular.map(_.name))
+      "schedule.speed".$in(Schedule.Speed.mostPopular.map(_.name): _*)
     )
   ).sort($doc("startsAt" -> -1))
     .list[Tournament](Schedule.Speed.mostPopular.size.some)

@@ -4,7 +4,6 @@ import scala.concurrent.Future
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.bson.BSONDocument
 import reactivemongo.bson.Macros
 
 import lila.db.dsl._
@@ -22,7 +21,7 @@ object Store {
     userId: String,
     req: RequestHeader,
     apiVersion: Option[Int]): Funit =
-    coll.insert(BSONDocument(
+    coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> HTTPRequest.lastRemoteAddress(req),
@@ -34,47 +33,47 @@ object Store {
 
   def userId(sessionId: String): Fu[Option[String]] =
     coll.find(
-      BSONDocument("_id" -> sessionId, "up" -> true),
-      BSONDocument("user" -> true, "_id" -> false)
-    ).uno[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
+      $doc("_id" -> sessionId, "up" -> true),
+      $doc("user" -> true, "_id" -> false)
+    ).uno[Bdoc] map { _ flatMap (_.getAs[String]("user")) }
 
   case class UserIdAndFingerprint(user: String, fp: Option[String])
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
 
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     coll.find(
-      BSONDocument("_id" -> sessionId, "up" -> true),
-      BSONDocument("user" -> true, "fp" -> true, "_id" -> false)
+      $doc("_id" -> sessionId, "up" -> true),
+      $doc("user" -> true, "fp" -> true, "_id" -> false)
     ).uno[UserIdAndFingerprint]
 
   def delete(sessionId: String): Funit =
     coll.update(
-      BSONDocument("_id" -> sessionId),
-      BSONDocument("$set" -> BSONDocument("up" -> false))).void
+      $doc("_id" -> sessionId),
+      $doc("$set" -> $doc("up" -> false))).void
 
   def closeUserAndSessionId(userId: String, sessionId: String): Funit =
     coll.update(
-      BSONDocument("user" -> userId, "_id" -> sessionId, "up" -> true),
-      BSONDocument("$set" -> BSONDocument("up" -> false))).void
+      $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
+      $doc("$set" -> $doc("up" -> false))).void
 
   def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
     coll.update(
-      BSONDocument("user" -> userId, "_id" -> BSONDocument("$ne" -> sessionId), "up" -> true),
-      BSONDocument("$set" -> BSONDocument("up" -> false)),
+      $doc("user" -> userId, "_id" -> $doc("$ne" -> sessionId), "up" -> true),
+      $doc("$set" -> $doc("up" -> false)),
       multi = true).void
 
   // useful when closing an account,
   // we want to logout too
   def disconnect(userId: String): Funit = coll.update(
-    BSONDocument("user" -> userId),
-    BSONDocument("$set" -> BSONDocument("up" -> false)),
+    $doc("user" -> userId),
+    $doc("$set" -> $doc("up" -> false)),
     multi = true).void
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: String, nb: Int): Fu[List[UserSession]] =
     coll.find(
-      BSONDocument("user" -> userId, "up" -> true)
-    ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().gather[List](nb)
+      $doc("user" -> userId, "up" -> true)
+    ).sort($doc("date" -> -1)).cursor[UserSession]().gather[List](nb)
 
   def setFingerprint(id: String, fingerprint: String): Fu[String] = {
     import java.util.Base64
@@ -85,8 +84,8 @@ object Store {
       } take 8
     } flatMap { hash =>
       coll.update(
-        BSONDocument("_id" -> id),
-        BSONDocument("$set" -> BSONDocument("fp" -> hash))
+        $doc("_id" -> id),
+        $doc("$set" -> $doc("fp" -> hash))
       ) inject hash
     }
   }
@@ -98,8 +97,8 @@ object Store {
 
   def findInfoByUser(userId: String): Fu[List[Info]] =
     coll.find(
-      BSONDocument("user" -> userId),
-      BSONDocument("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
+      $doc("user" -> userId),
+      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
     ).cursor[Info]().gather[List]()
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
@@ -108,15 +107,13 @@ object Store {
   private implicit val DedupInfoBSONHandler = Macros.handler[DedupInfo]
 
   def dedup(userId: String, keepSessionId: String): Funit =
-    coll.find(BSONDocument(
+    coll.find($doc(
       "user" -> userId,
       "up" -> true
-    )).sort(BSONDocument("date" -> -1))
+    )).sort($doc("date" -> -1))
       .cursor[DedupInfo]().gather[List]() flatMap { sessions =>
         val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
           .filter(_._id != keepSessionId)
-        coll.remove(
-          BSONDocument("_id" -> BSONDocument("$in" -> olds.map(_._id)))
-        ).void
+        coll.remove($inIds(olds.map(_._id))).void
       }
 }
