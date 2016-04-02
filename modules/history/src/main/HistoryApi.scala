@@ -45,5 +45,5 @@ final class HistoryApi(coll: Coll) {
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
   def get(userId: String): Fu[Option[History]] =
-    coll.find(BSONDocument("_id" -> userId)).one[History]
+    coll.find(BSONDocument("_id" -> userId)).uno[History]
 }

@@ -37,7 +37,7 @@ final class DonationApi(
   def list(nb: Int) = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
     .cursor[Donation]()
-    .collect[List](nb)
+    .gather[List](nb)
 
   def top(nb: Int): Fu[List[lila.user.User.ID]] = coll.aggregate(
     Match(BSONDocument("userId" -> BSONDocument("$exists" -> true))), List(
@@ -84,7 +84,7 @@ final class DonationApi(
         "$lt" -> to
       )),
       BSONDocument("net" -> true, "_id" -> false)
-    ).cursor[BSONDocument]().collect[List]() map2 { (obj: BSONDocument) =>
+    ).cursor[BSONDocument]().gather[List]() map2 { (obj: BSONDocument) =>
         ~obj.getAs[Int]("net")
       } map (_.sum) map { amount =>
         Progress(from, weeklyGoal, amount)

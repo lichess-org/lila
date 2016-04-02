@@ -36,7 +36,7 @@ object Store {
     coll.find(
       BSONDocument("_id" -> sessionId, "up" -> true),
       BSONDocument("user" -> true, "_id" -> false)
-    ).one[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
+    ).uno[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
 
   case class UserIdAndFingerprint(user: String, fp: Option[String])
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
@@ -45,7 +45,7 @@ object Store {
     coll.find(
       BSONDocument("_id" -> sessionId, "up" -> true),
       BSONDocument("user" -> true, "fp" -> true, "_id" -> false)
-    ).one[UserIdAndFingerprint]
+    ).uno[UserIdAndFingerprint]
 
   def delete(sessionId: String): Funit =
     coll.update(
@@ -74,7 +74,7 @@ object Store {
   def openSessions(userId: String, nb: Int): Fu[List[UserSession]] =
     coll.find(
       BSONDocument("user" -> userId, "up" -> true)
-    ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().collect[List](nb)
+    ).sort(BSONDocument("date" -> -1)).cursor[UserSession]().gather[List](nb)
 
   def setFingerprint(id: String, fingerprint: String): Fu[String] = {
     import java.util.Base64
@@ -100,7 +100,7 @@ object Store {
     coll.find(
       BSONDocument("user" -> userId),
       BSONDocument("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
-    ).cursor[Info]().collect[List]()
+    ).cursor[Info]().gather[List]()
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
@@ -112,7 +112,7 @@ object Store {
       "user" -> userId,
       "up" -> true
     )).sort(BSONDocument("date" -> -1))
-      .cursor[DedupInfo]().collect[List]() flatMap { sessions =>
+      .cursor[DedupInfo]().gather[List]() flatMap { sessions =>
         val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
           .filter(_._id != keepSessionId)
         coll.remove(

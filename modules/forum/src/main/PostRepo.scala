@@ -20,7 +20,7 @@ sealed abstract class PostRepo(troll: Boolean) {
   private val trollFilter = troll.fold($empty, $doc("troll" -> false))
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
-    coll.one(selectCateg(categSlug) ++ $id(id))
+    coll.uno[Post](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -32,19 +32,19 @@ sealed abstract class PostRepo(troll: Boolean) {
     coll.countSel(selectTopics(topics))
 
   def lastByTopics(topics: List[String]): Fu[Option[Post]] =
-    coll.find(selectTopics(topics)).sort($sort.createdDesc).one[Post]
+    coll.find(selectTopics(topics)).sort($sort.createdDesc).uno[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-    ).sort($sort.createdDesc).cursor[Post]().collect[List](nb)
+    ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
 
   def removeByTopic(topicId: String): Funit =
     coll.remove(selectTopic(topicId)).void
 
   def hideByTopic(topicId: String, value: Boolean): Funit = coll.update(
     selectTopic(topicId),
-    $doc("$set" -> $doc("hidden" -> value)),
+    $set("hidden" -> value),
     multi = true).void
 
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
@@ -59,7 +59,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     if (langs.isEmpty) $empty
     else $doc("lang" $in langs)
 
-  def findDuplicate(post: Post): Fu[Option[Post]] = coll.one($doc(
+  def findDuplicate(post: Post): Fu[Option[Post]] = coll.uno[Post]($doc(
     "createdAt" $gt DateTime.now.minusHours(1),
     "userId" -> ~post.userId,
     "text" -> post.text

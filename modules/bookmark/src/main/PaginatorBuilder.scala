@@ -29,7 +29,7 @@ private[bookmark] final class PaginatorBuilder(
         .sort(sorting)
         .skip(offset)
         .cursor[Bdoc]()
-        .collect[List](length) map { _ flatMap { _.getAs[String]("g") } }
+        .gather[List](length) map { _ flatMap { _.getAs[String]("g") } }
       games ← GameRepo games gameIds
     } yield games map { g => Bookmark(g, user) }
 

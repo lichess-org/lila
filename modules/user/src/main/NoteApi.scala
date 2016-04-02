@@ -25,7 +25,7 @@ final class NoteApi(
         "to" -> user.id,
         "from" -> BSONDocument("$in" -> (myFriendIds + me.id))
       ) ++ me.troll.fold(BSONDocument(), BSONDocument("troll" -> false))
-    ).sort(BSONDocument("date" -> -1)).cursor[Note]().collect[List](100)
+    ).sort(BSONDocument("date" -> -1)).cursor[Note]().gather[List](100)
 
   def write(to: User, text: String, from: User) = {
 

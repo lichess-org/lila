@@ -49,11 +49,11 @@ final class Env(
 
   object assetVersion {
     import reactivemongo.bson._
+    import lila.db.dsl._
     private val coll = db("flag")
     private val cache = lila.memo.MixedCache.single[Int](
-      f = coll.find(BSONDocument("_id" -> "asset")).one[BSONDocument].map {
-        _.flatMap(_.getAs[BSONNumberLike]("version"))
-          .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
+      f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
+        _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
       timeToLive = 30.seconds,
       default = Net.AssetVersion,

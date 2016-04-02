@@ -25,7 +25,7 @@ final class LightUserApi(coll: Coll) {
     id => coll.find(
       BSONDocument(F.id -> id),
       BSONDocument(F.username -> true, F.title -> true)
-    ).one[LightUser],
+    ).uno[LightUser],
     timeToLive = 20 minutes,
     default = id => LightUser(id, id, None).some,
     logger = logger branch "LightUserApi")

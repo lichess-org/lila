@@ -22,7 +22,7 @@ final class Gamify(
     historyColl.find($empty).sort($doc(
       "year" -> -1,
       "month" -> -1
-    )).cursor[HistoryMonth]().collect[List]().flatMap { months =>
+    )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId || !orCompute => fuccess(months)
         case Some(m)                                  => buildHistoryAfter(m.year, m.month, until) >> history(false)

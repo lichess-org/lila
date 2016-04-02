@@ -3,25 +3,25 @@ package lila.db
 import reactivemongo.api._
 import reactivemongo.bson._
 
-trait CollExt { self: dsl =>
+trait CollExt { self: dsl with QueryBuilderExt =>
 
   final implicit class ExtendColl(coll: Coll) {
 
-    def one[D: BSONDocumentReader](selector: BSONDocument): Fu[Option[D]] =
-      coll.find(selector).one[D]
+    def uno[D: BSONDocumentReader](selector: BSONDocument): Fu[Option[D]] =
+      coll.find(selector).uno[D]
 
     def list[D: BSONDocumentReader](selector: BSONDocument): Fu[List[D]] =
-      coll.find(selector).cursor[D]().collect[List]()
+      coll.find(selector).list[D]()
 
     def list[D: BSONDocumentReader](selector: BSONDocument, max: Int): Fu[List[D]] =
-      coll.find(selector).cursor[D]().collect[List](max)
+      coll.find(selector).list[D](max)
 
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
-      one[D]($id(id))
+      uno[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = uno[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = one[D]($id(id))
+    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
 
     def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I]): Fu[List[D]] =
       list[D]($inIds(ids))
@@ -49,14 +49,14 @@ trait CollExt { self: dsl =>
 
     def primitive[V: BSONValueReader](selector: BSONDocument, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))
-        .cursor[BSONDocument]().collect[List]()
+        .list[BSONDocument]()
         .map {
           _ flatMap { _.getAs[V](field) }
         }
 
     def primitiveOne[V: BSONValueReader](selector: BSONDocument, field: String): Fu[Option[V]] =
       coll.find(selector, $doc(field -> true))
-        .one[BSONDocument]
+        .uno[BSONDocument]
         .map {
           _ flatMap { _.getAs[V](field) }
         }
@@ -64,7 +64,7 @@ trait CollExt { self: dsl =>
     def primitiveOne[V: BSONValueReader](selector: BSONDocument, sort: BSONDocument, field: String): Fu[Option[V]] =
       coll.find(selector, $doc(field -> true))
         .sort(sort)
-        .one[BSONDocument]
+        .uno[BSONDocument]
         .map {
           _ flatMap { _.getAs[V](field) }
         }
@@ -76,7 +76,7 @@ trait CollExt { self: dsl =>
       coll.uncheckedUpdate(selector, $set(field -> value))
 
     def fetchUpdate[D: BSONDocumentHandler](selector: BSONDocument)(update: D => BSONDocument): Funit =
-      one[D](selector) flatMap {
+      uno[D](selector) flatMap {
         _ ?? { doc =>
           coll.update(selector, update(doc)).void
         }

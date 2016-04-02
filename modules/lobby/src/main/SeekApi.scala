@@ -27,8 +27,8 @@ final class SeekApi(
 
   private val cache = AsyncCache[CacheKey, List[Seek]](
     f = {
-      case ForAnon => allCursor.collect[List](maxPerPage)
-      case ForUser => allCursor.collect[List]()
+      case ForAnon => allCursor.gather[List](maxPerPage)
+      case ForUser => allCursor.gather[List]()
     },
     timeToLive = 3.seconds)
 
@@ -56,7 +56,7 @@ final class SeekApi(
     }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.find($doc("_id" -> id)).one[Seek]
+    coll.find($doc("_id" -> id)).uno[Seek]
 
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if seeks.size <= maxPerUser => funit
@@ -67,7 +67,7 @@ final class SeekApi(
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.find($doc("user.id" -> userId))
       .sort($doc("createdAt" -> -1))
-      .cursor[Seek]().collect[List]()
+      .cursor[Seek]().gather[List]()
 
   def remove(seek: Seek) =
     coll.remove($doc("_id" -> seek.id)).void >> cache.clear
@@ -82,7 +82,7 @@ final class SeekApi(
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.find($doc("gameId" -> gameId)).one[Seek]
+    archiveColl.find($doc("gameId" -> gameId)).uno[Seek]
 
   def removeBy(seekId: String, userId: String) =
     coll.remove($doc(

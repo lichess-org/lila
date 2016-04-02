@@ -11,7 +11,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   import BSONHandlers._
   import Challenge._
 
-  def byId(id: Challenge.ID) = coll.find($id(id)).one[Challenge]
+  def byId(id: Challenge.ID) = coll.find($id(id)).uno[Challenge]
 
   def exists(id: Challenge.ID) = coll.count($id(id).some).map(0<)
 
@@ -26,12 +26,12 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   def createdByChallengerId(userId: String): Fu[List[Challenge]] =
     coll.find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]().collect[List]()
+      .cursor[Challenge]().gather[List]()
 
   def createdByDestId(userId: String): Fu[List[Challenge]] =
     coll.find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]().collect[List]()
+      .cursor[Challenge]().gather[List]()
 
   def removeByUserId(userId: String): Funit =
     coll.remove($doc("$or" -> $arr(
@@ -45,7 +45,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     if c.active
   } yield coll.find(selectCreated ++ $doc(
     "challenger.id" -> challengerId,
-    "destUser.id" -> destUserId)).one[Challenge])
+    "destUser.id" -> destUserId)).uno[Challenge])
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ $doc("destUser.id" -> userId)))
@@ -53,7 +53,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selectClock ++ $doc(
       "seenAt" -> $doc("$lt" -> date)
-    )).cursor[Challenge]().collect[List](max)
+    )).cursor[Challenge]().gather[List](max)
 
   private[challenge] def expiredIds(max: Int): Fu[List[Challenge.ID]] =
     coll.distinct(
@@ -83,7 +83,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   def statusById(id: Challenge.ID) = coll.find(
     $id(id),
     $doc("status" -> true, "_id" -> false)
-  ).one[Bdoc].map { _.flatMap(_.getAs[Status]("status")) }
+  ).uno[Bdoc].map { _.flatMap(_.getAs[Status]("status")) }
 
   private def setStatus(
     challenge: Challenge,

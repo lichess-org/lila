@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import chess.Color
 import lila.db.BSON._
-import lila.db.dsl.Coll
+import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 
 final class PlaybanApi(
@@ -48,23 +48,23 @@ final class PlaybanApi(
   }
 
   def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
-    BSONDocument("_id" -> userId, "b.0" -> BSONDocument("$exists" -> true)),
-    BSONDocument("_id" -> false, "b" -> BSONDocument("$slice" -> -1))
-  ).one[BSONDocument].map {
+    $doc("_id" -> userId, "b.0" -> $doc("$exists" -> true)),
+    $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
+  ).uno[Bdoc].map {
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
   def bans(userId: String): Fu[List[TempBan]] = coll.find(
-    BSONDocument("_id" -> userId, "b.0" -> BSONDocument("$exists" -> true)),
-    BSONDocument("_id" -> false, "b" -> true)
-  ).one[BSONDocument].map {
+    $doc("_id" -> userId, "b.0" -> $doc("$exists" -> true)),
+    $doc("_id" -> false, "b" -> true)
+  ).uno[Bdoc].map {
       ~_.flatMap(_.getAs[List[TempBan]]("b"))
     }
 
   def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
-    BSONDocument("_id" -> BSONDocument("$in" -> userIds)),
-    BSONDocument("b" -> true)
-  ).cursor[BSONDocument]().collect[List]().map {
+    $inIds(userIds),
+    $doc("b" -> true)
+  ).cursor[Bdoc]().gather[List]().map {
       _.flatMap { obj =>
         obj.getAs[String]("_id") flatMap { id =>
           obj.getAs[BSONArray]("b") map { id -> _.stream.size }
@@ -74,9 +74,9 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome): String => Funit = userId => {
     coll.findAndUpdate(
-      selector = BSONDocument("_id" -> userId),
-      update = BSONDocument("$push" -> BSONDocument(
-        "o" -> BSONDocument(
+      selector = $doc("_id" -> userId),
+      update = $doc("$push" -> $doc(
+        "o" -> $doc(
           "$each" -> List(outcome),
           "$slice" -> -20)
       )),
@@ -89,11 +89,11 @@ final class PlaybanApi(
 
   private def legiferate(record: UserRecord): Funit = record.newBan ?? { ban =>
     coll.update(
-      BSONDocument("_id" -> record.userId),
-      BSONDocument(
-        "$unset" -> BSONDocument("o" -> true),
-        "$push" -> BSONDocument(
-          "b" -> BSONDocument(
+      $doc("_id" -> record.userId),
+      $doc(
+        "$unset" -> $doc("o" -> true),
+        "$push" -> $doc(
+          "b" -> $doc(
             "$each" -> List(ban),
             "$slice" -> -30)
         )

@@ -28,7 +28,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.list[Topic](byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
-    coll.one[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+    coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)

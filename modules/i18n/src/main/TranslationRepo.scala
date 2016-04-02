@@ -15,7 +15,7 @@ private[i18n] final class TranslationRepo(coll: Coll) {
     "_id") map (opt => ~opt + 1)
 
   def findFrom(id: Int): Fu[List[Translation]] =
-    coll.find($doc("_id" $gte id)).sort($sort asc "_id").cursor[Translation]().collect[List]()
+    coll.find($doc("_id" $gte id)).sort($sort asc "_id").cursor[Translation]().gather[List]()
 
   def insert(t: Translation) = coll insert t
 }

@@ -20,13 +20,13 @@ private[puzzle] final class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl.find($doc("_id" -> id)).one[Puzzle]
+      puzzleColl.find($doc("_id" -> id)).uno[Puzzle]
 
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find($empty)
         .sort($doc("date" -> -1))
         .cursor[Puzzle]()
-        .collect[List](nb)
+        .gather[List](nb)
 
     def importBatch(json: JsValue, token: String): Fu[List[Try[PuzzleId]]] =
       if (token != apiToken) fufail("Invalid API token")
@@ -57,7 +57,7 @@ private[puzzle] final class PuzzleApi(
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc("mate" -> mate))
         .sort($doc(Puzzle.BSONFields.voteSum -> -1))
-        .cursor[Puzzle]().collect[List](nb / 2)
+        .cursor[Puzzle]().gather[List](nb / 2)
     }.sequenceFu.map(_.flatten)
 
     def disable(id: PuzzleId): Funit =
@@ -72,7 +72,7 @@ private[puzzle] final class PuzzleApi(
     def find(puzzleId: PuzzleId, userId: String): Fu[Option[Attempt]] =
       attemptColl.find($doc(
         Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
-      )).one[Attempt]
+      )).uno[Attempt]
 
     def vote(a1: Attempt, v: Boolean): Fu[(Puzzle, Attempt)] = puzzle find a1.puzzleId flatMap {
       case None => fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
@@ -111,7 +111,7 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> false
       )).sort($doc(Attempt.BSONFields.date -> -1))
       .cursor[Bdoc]()
-      .collect[List](5) map {
+      .gather[List](5) map {
         case attempts if attempts.size < 5 => true
         case attempts => attempts.foldLeft(false) {
           case (true, _)    => true

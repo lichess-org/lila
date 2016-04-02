@@ -48,7 +48,7 @@ private[relation] object RelationRepo {
     ).sort($sort.naturalAsc)
       .hint($doc("u1" -> 1))
       .cursor[Bdoc]()
-      .collect[List](nb).map {
+      .gather[List](nb).map {
         _.flatMap { _.getAs[String]("_id") }
       } flatMap { ids =>
         coll.remove($inIds(ids)).void

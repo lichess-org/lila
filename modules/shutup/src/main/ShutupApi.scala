@@ -19,7 +19,7 @@ final class ShutupApi(
 
   def getPublicLines(userId: String): Fu[List[String]] =
     coll.find($doc("_id" -> userId), $doc("pub" -> 1))
-      .one[Bdoc].map {
+      .uno[Bdoc].map {
         ~_.flatMap(_.getAs[List[String]]("pub"))
       }
 

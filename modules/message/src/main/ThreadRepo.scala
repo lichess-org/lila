@@ -13,13 +13,13 @@ object ThreadRepo {
   type ID = String
 
   def byUser(user: ID): Fu[List[Thread]] =
-    coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().collect[List]()
+    coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
   def visibleByUser(user: ID): Fu[List[Thread]] =
-    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().collect[List]()
+    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
-    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().collect[List](nb)
+    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List](nb)
 
   def userUnreadIds(userId: String): Fu[List[String]] = coll.aggregate(
     Match($doc(

@@ -15,7 +15,7 @@ final class PrefApi(
     cacheTtl: Duration,
     bus: lila.common.Bus) {
 
-  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find(BSONDocument("_id" -> id)).one[Pref]
+  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find(BSONDocument("_id" -> id)).uno[Pref]
   private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
 
   private implicit val prefBSONHandler = new BSON[Pref] {
@@ -110,7 +110,7 @@ final class PrefApi(
   def getPref[A](userId: String, pref: Pref => A): Fu[A] = getPref(userId) map pref
 
   def followable(userId: String): Fu[Boolean] =
-    coll.find(BSONDocument("_id" -> userId), BSONDocument("follow" -> true)).one[BSONDocument] map {
+    coll.find(BSONDocument("_id" -> userId), BSONDocument("follow" -> true)).uno[BSONDocument] map {
       _ flatMap (_.getAs[Boolean]("follow")) getOrElse Pref.default.follow
     }
 

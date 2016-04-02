@@ -15,7 +15,7 @@ private final class FishnetRepo(
   import BSONHandlers._
 
   private val clientCache = AsyncCache[Client.Key, Option[Client]](
-    f = key => clientColl.find(selectClient(key)).one[Client],
+    f = key => clientColl.find(selectClient(key)).uno[Client],
     timeToLive = 10 seconds)
 
   def getClient(key: Client.Key) = clientCache(key)
@@ -33,14 +33,14 @@ private final class FishnetRepo(
     clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void >> clientCache.remove(key)
   def allRecentClients = clientColl.find(BSONDocument(
     "instance.seenAt" -> BSONDocument("$gt" -> Client.Instance.recentSince)
-  )).cursor[Client]().collect[List]()
+  )).cursor[Client]().gather[List]()
   def lichessClients = clientColl.find(BSONDocument(
     "enabled" -> true,
     "userId" -> BSONDocument("$regex" -> "^lichess-")
-  )).cursor[Client]().collect[List]()
+  )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
-  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
+  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).uno[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
@@ -50,10 +50,10 @@ private final class FishnetRepo(
   ).some)
   def getAnalysisByGameId(gameId: String) = analysisColl.find(BSONDocument(
     "game.id" -> gameId
-  )).one[Work.Analysis]
+  )).uno[Work.Analysis]
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.find(BSONDocument("game.id" -> work.game.id)).one[Work.Analysis]
+    analysisColl.find(BSONDocument("game.id" -> work.game.id)).uno[Work.Analysis]
 
   def selectWork(id: Work.Id) = BSONDocument("_id" -> id.value)
   def selectClient(key: Client.Key) = BSONDocument("_id" -> key.value)

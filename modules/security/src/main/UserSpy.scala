@@ -68,7 +68,7 @@ object UserSpy {
     coll.find(
       BSONDocument("user" -> user.id),
       BSONDocument(field -> true)
-    ).cursor[BSONDocument]().collect[List]() map {
+    ).cursor[BSONDocument]().gather[List]() map {
         _.flatMap(_.getAs[Value](field)).toSet
       }
 

@@ -31,7 +31,7 @@ object GameRepo {
     coll.optionsByOrderedIds[Game](gameIds)(_.id)
 
   def finished(gameId: ID): Fu[Option[Game]] =
-    coll.one[Game]($id(gameId) ++ Query.finished)
+    coll.uno[Game]($id(gameId) ++ Query.finished)
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     game(gameId) map2 { (game: Game) => game player color }
@@ -67,7 +67,7 @@ object GameRepo {
     coll.byOrderedIds[Game](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] =
-    coll.find(Query user user).sort(Query.sortCreated).cursor[Game]().collect[List](nb)
+    coll.find(Query user user).sort(Query.sortCreated).cursor[Game]().gather[List](nb)
       .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = coll.find(
@@ -79,7 +79,7 @@ object GameRepo {
       ++ Query.clock(true))
     .sort($sort asc F.createdAt)
     .cursor[Game]()
-    .collect[List](nb)
+    .gather[List](nb)
 
   def cursor(
     selector: Bdoc,
@@ -148,14 +148,14 @@ object GameRepo {
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
     coll.find(Query recentlyPlaying user.id)
       .sort(Query.sortUpdatedNoIndex)
-      .one[Game]
+      .uno[Game]
       .map { _ flatMap { Pov(_, user) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.find(Query user user.id)
       .sort($sort desc F.createdAt)
       .cursor[Game]()
-      .collect[List](20).map {
+      .gather[List](20).map {
         _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
       }
 
@@ -165,7 +165,7 @@ object GameRepo {
       Query.finished ++
       Query.turnsMoreThan(2) ++
       Query.notFromPosition
-  ).sort(Query.sortAntiChronological).one[Game]
+  ).sort(Query.sortAntiChronological).uno[Game]
 
   def setTv(id: ID) {
     coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
@@ -174,7 +174,7 @@ object GameRepo {
   def onTv(nb: Int): Fu[List[Game]] = coll.find($doc(F.tvAt $exists true))
     .sort($sort desc F.tvAt)
     .cursor[Game]()
-    .collect[List](nb)
+    .gather[List](nb)
 
   def setAnalysed(id: ID) {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
@@ -241,7 +241,7 @@ object GameRepo {
     Query.mate ++ $doc("v" $exists false)
   ).sort(Query.sortCreated)
     .skip(Random nextInt distribution)
-    .one[Game]
+    .uno[Game]
 
   def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
     val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
@@ -345,9 +345,9 @@ object GameRepo {
   def random: Fu[Option[Game]] = coll.find($empty)
     .sort(Query.sortCreated)
     .skip(Random nextInt 1000)
-    .one[Game]
+    .uno[Game]
 
-  def findMirror(game: Game): Fu[Option[Game]] = coll.one[Game]($doc(
+  def findMirror(game: Game): Fu[Option[Game]] = coll.uno[Game]($doc(
     F.id -> $doc("$ne" -> game.id),
     F.playerUids -> $doc("$in" -> game.userIds),
     F.status -> Status.Started.id,
@@ -360,7 +360,7 @@ object GameRepo {
     F.binaryPieces -> game.binaryPieces
   ))
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.one[Game](
+  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.uno[Game](
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
   )
 
@@ -375,10 +375,10 @@ object GameRepo {
         F.id -> false,
         F.binaryPgn -> true
       )
-    ).one[Bdoc] map { _ flatMap extractPgnMoves }
+    ).uno[Bdoc] map { _ flatMap extractPgnMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
-    coll.one[Game]($doc(
+    coll.uno[Game]($doc(
       F.playerUids $all List(u1, u2),
       F.createdAt $gt since
     ))
@@ -389,7 +389,7 @@ object GameRepo {
         F.id -> false,
         F.playerUids -> true
       )
-    ).one[Bdoc] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
+    ).uno[Bdoc] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
 
   // #TODO this breaks it all since reactivemongo > 0.11.9
   def activePlayersSinceNOPENOPENOPE(since: DateTime, max: Int): Fu[List[UidNb]] = {

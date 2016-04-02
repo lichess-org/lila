@@ -28,7 +28,7 @@ private[opening] final class OpeningApi(
     def find(openingId: Opening.ID, userId: String): Fu[Option[Attempt]] =
       attemptColl.find($doc(
         Attempt.BSONFields.id -> Attempt.makeId(openingId, userId)
-      )).one[Attempt]
+      )).uno[Attempt]
 
     def add(a: Attempt) = attemptColl insert a void
 
@@ -54,7 +54,7 @@ private[opening] final class OpeningApi(
     def apply(fen: String, max: Int): Fu[List[String]] = nameColl.find(
       $doc("_id" -> fen),
       $doc("_id" -> false)
-    ).one[Bdoc] map { obj =>
+    ).uno[Bdoc] map { obj =>
         ~obj.??(_.getAs[List[String]]("names"))
       }
   }

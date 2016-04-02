@@ -18,14 +18,14 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
     coll.find($doc("users" -> userId))
       .sort($doc("date" -> -1))
       .cursor[Entry]()
-      .collect[List](max)
+      .gather[List](max)
 
   def findRecent(typ: String, since: DateTime) =
     coll.find($doc(
       "typ" -> typ,
       "date" -> $doc("$gt" -> since)
     )).cursor[Entry]()
-      .collect[List]()
+      .gather[List]()
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
     coll.count($doc(

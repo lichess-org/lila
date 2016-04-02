@@ -41,7 +41,7 @@ private[video] final class VideoApi(
     private val maxPerPage = 18
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.find($doc("_id" -> id)).one[Video]
+      videoColl.find($doc("_id" -> id)).uno[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word => s""""$word"""" } mkString " "
@@ -119,7 +119,7 @@ private[video] final class VideoApi(
         "_id" $ne video.id
       )).sort($doc("metadata.likes" -> -1))
         .cursor[Video]()
-        .collect[List]().map { videos =>
+        .gather[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
 
@@ -140,7 +140,7 @@ private[video] final class VideoApi(
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
       viewColl.find($doc(
         View.BSONFields.id -> View.makeId(videoId, userId)
-      )).one[View]
+      )).uno[View]
 
     def add(a: View) = (viewColl insert a).void recover
       lila.db.recoverDuplicateKey(_ => ())

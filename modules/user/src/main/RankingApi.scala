@@ -52,7 +52,7 @@ final class RankingApi(
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find(BSONDocument("perf" -> perfId, "stable" -> true))
         .sort(BSONDocument("rating" -> -1))
-        .cursor[Ranking]().collect[List](nb) map {
+        .cursor[Ranking]().gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(

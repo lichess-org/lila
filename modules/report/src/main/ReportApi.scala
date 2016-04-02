@@ -151,7 +151,7 @@ private[report] final class ReportApi(coll: Coll) {
   def nbUnprocessed = coll.countSel(unprocessedSelect)
 
   def recent(nb: Int) =
-    coll.find($empty).sort($sort.createdDesc).cursor[Report]().collect[List](nb)
+    coll.find($empty).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
 
   def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUser]] =
     recentUnprocessed(nb) |+| recentProcessed(nb) flatMap { all =>
@@ -164,16 +164,16 @@ private[report] final class ReportApi(coll: Coll) {
     }
 
   def recentUnprocessed(nb: Int) =
-    coll.find(unprocessedSelect).sort($sort.createdDesc).cursor[Report]().collect[List](nb)
+    coll.find(unprocessedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
 
   def recentProcessed(nb: Int) =
-    coll.find(processedSelect).sort($sort.createdDesc).cursor[Report]().collect[List](nb)
+    coll.find(processedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
 
   private def selectRecent(user: User, reason: Reason) = $doc(
-    "createdAt" -> $gt(DateTime.now minusDays 7),
+    "createdAt" $gt DateTime.now.minusDays(7),
     "user" -> user.id,
     "reason" -> reason.name)
 
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
-    coll.one(selectRecent(user, reason))
+    coll.uno[Report](selectRecent(user, reason))
 }

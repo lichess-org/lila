@@ -23,13 +23,13 @@ object UserRepo {
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().collect[List](nb)
+    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().gather[List](nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
-  def byEmail(email: String): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
+  def byEmail(email: String): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
 
   def idByEmail(email: String): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
@@ -49,7 +49,7 @@ object UserRepo {
     coll.list[User](enabledSelect ++ $inIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
-    coll.one[User](enabledSelect ++ $id(id))
+    coll.uno[User](enabledSelect ++ $id(id))
 
   def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
 
@@ -60,7 +60,7 @@ object UserRepo {
     coll.find($doc("_id" -> $doc("$in" -> ids)) ++ goodLadSelectBson)
       .sort($doc(s"perfs.standard.gl.r" -> -1))
       .cursor[User](ReadPreference.secondaryPreferred)
-      .collect[List](nb)
+      .gather[List](nb)
 
   // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
@@ -69,12 +69,12 @@ object UserRepo {
       $doc("_id" -> true))
       .sort($doc(s"perfs.standard.gl.r" -> -1))
       .cursor[BSONDocument](ReadPreference.secondaryPreferred)
-      .collect[List](nb).map {
+      .gather[List](nb).map {
         _.flatMap { _.getAs[String]("_id") }
       }
 
   def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).cursor[User]().collect[List](nb)
+    coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[String]($id(id), F.username)
@@ -86,7 +86,7 @@ object UserRepo {
     coll.find(
       $doc("_id" -> $doc("$in" -> BSONArray(u1, u2))),
       $doc(s"${F.count}.game" -> true)
-    ).cursor[BSONDocument]().collect[List]() map { docs =>
+    ).cursor[BSONDocument]().gather[List]() map { docs =>
         docs.sortBy {
           _.getAs[BSONDocument](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[String]("_id")).flatten match {
@@ -101,7 +101,7 @@ object UserRepo {
       case (u1, u2) => coll.find(
         $doc("_id" -> $doc("$in" -> BSONArray(u1, u2))),
         $doc("_id" -> true)
-      ).sort($doc(F.colorIt -> 1)).one[BSONDocument].map {
+      ).sort($doc(F.colorIt -> 1)).uno[BSONDocument].map {
           _.fold(scala.util.Random.nextBoolean) { doc =>
             doc.getAs[String]("_id") contains u1
           }
@@ -208,7 +208,7 @@ object UserRepo {
     checkPassword($doc(F.email -> email), password)
 
   private def checkPassword(select: BSONDocument, password: String): Fu[Boolean] =
-    coll.one[AuthData](select) map {
+    coll.uno[AuthData](select) map {
       _ ?? (data => data.enabled && data.compare(password))
     }
 
@@ -235,7 +235,7 @@ object UserRepo {
     val regex = "^" + escaped + ".*$"
     coll.find($doc("_id" -> BSONRegex(regex, "")), $doc(F.username -> true))
       .sort($sort desc "_id")
-      .cursor[BSONDocument]().collect[List](max)
+      .cursor[BSONDocument]().gather[List](max)
       .map {
         _ flatMap { _.getAs[String](F.username) }
       }
@@ -291,7 +291,7 @@ object UserRepo {
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $doc("_id" -> id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
-  ).one[BSONDocument].map {
+  ).uno[BSONDocument].map {
       _.flatMap(_.getAs[BSONDocument](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
     }
 

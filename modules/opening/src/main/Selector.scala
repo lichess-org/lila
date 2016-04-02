@@ -20,7 +20,7 @@ private[opening] final class Selector(
     case None =>
       openingColl.find($empty)
         .skip(Random nextInt anonSkipMax)
-        .one[Opening] flatten "Can't find a opening for anon player!"
+        .uno[Opening] flatten "Can't find a opening for anon player!"
     case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
       tryRange(user, toleranceStep, ids)
     } recoverWith {
@@ -29,7 +29,7 @@ private[opening] final class Selector(
   }).mon(_.opening.selector.time) >>- lila.mon.opening.selector.count()
 
   private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
-    openingColl.one[Opening]($doc(
+    openingColl.uno[Opening]($doc(
       Opening.BSONFields.id $nin ids,
       Opening.BSONFields.rating $gt
         (user.perfs.opening.intRating - tolerance) $lt

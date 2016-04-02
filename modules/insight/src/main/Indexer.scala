@@ -56,11 +56,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
-        .one[Game]
+        .uno[Game]
     } orElse GameRepo.coll
       .find(gameQuery(user))
       .sort(Query.sortCreated)
-      .one[Game]
+      .uno[Game]
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     storage nbByPerf user.id flatMap { nbs =>

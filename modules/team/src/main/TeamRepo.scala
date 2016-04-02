@@ -21,7 +21,7 @@ object TeamRepo {
   def cursor(selector: Bdoc) = coll.find(selector).cursor[Team]()
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
-    coll.one[Team]($id(id) ++ $doc("createdBy" -> createdBy))
+    coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: String): Fu[List[String]] =
     coll.distinct("_id", BSONDocument("createdBy" -> userId).some) map lila.db.BSON.asStrings

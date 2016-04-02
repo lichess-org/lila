@@ -22,14 +22,14 @@ final class CrosstableApi(
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recoverWith
-      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).one[Crosstable])
+    coll.find(select(u1, u2)).uno[Crosstable] orElse create(u1, u2) recoverWith
+      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).uno[Crosstable])
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
       select(u1, u2),
       BSONDocument("n" -> true)
-    ).one[BSONDocument] map {
+    ).uno[BSONDocument] map {
         ~_.flatMap(_.getAs[Int]("n"))
       }
 
@@ -79,7 +79,7 @@ final class CrosstableApi(
             BSONDocument(Game.BSONFields.winnerId -> true)
           ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
             .cursor[BSONDocument](readPreference = ReadPreference.secondaryPreferred)
-            .collect[List](maxGames).map {
+            .gather[List](maxGames).map {
               _.flatMap { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))

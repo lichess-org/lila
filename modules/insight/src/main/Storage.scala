@@ -21,10 +21,10 @@ private final class Storage(coll: Coll) {
     coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortChronological).one[Entry]
+    coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry]
+    coll.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
 
   def count(userId: String): Fu[Int] =
     coll.count(selectUserId(userId).some)
@@ -41,7 +41,7 @@ private final class Storage(coll: Coll) {
 
   def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
 
-  def find(id: String) = coll.find(selectId(id)).one[Entry]
+  def find(id: String) = coll.find(selectId(id)).uno[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
     coll.distinct(F.eco, selectUserId(userId).some) map lila.db.BSON.asStringSet

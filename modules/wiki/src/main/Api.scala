@@ -9,11 +9,11 @@ private[wiki] final class Api(coll: Coll) {
   import Page.PageBSONHandler
 
   def show(slug: String, lang: String): Fu[Option[(Page, List[Page])]] = for {
-    page ← coll.one[Page]($doc("slug" -> slug, "lang" -> lang)) orElse
-      coll.one[Page]($doc("slug" -> slug, "lang" -> DefaultLang))
+    page ← coll.uno[Page]($doc("slug" -> slug, "lang" -> lang)) orElse
+      coll.uno[Page]($doc("slug" -> slug, "lang" -> DefaultLang))
     pages ← coll.find($doc(
       "lang" $in Seq(lang, DefaultLang)
-    )).sort($sort asc "number").cursor[Page]().collect[List]()
+    )).sort($sort asc "number").cursor[Page]().gather[List]()
   } yield page map { _ -> makeMenu(pages) }
 
   private def makeMenu(pages: List[Page]): List[Page] = {

@@ -30,5 +30,5 @@ final class Adapter[A: BSONDocumentReader](
       .sort(sort)
       .skip(offset)
       .cursor[A](readPreference = readPreference)
-      .collect[List](length)
+      .gather[List](length)
 }

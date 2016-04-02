@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl.Coll
+import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }
@@ -29,17 +29,16 @@ final class AssessApi(
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
-    collAssessments.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true).void
+    collAssessments.update($id(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: String) =
-    collAssessments.find(BSONDocument("_id" -> id))
-      .one[PlayerAssessment]
+    collAssessments.byId[PlayerAssessment](id)
 
   def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
-    collAssessments.find(BSONDocument("userId" -> userId))
-      .sort(BSONDocument("date" -> -1))
+    collAssessments.find($doc("userId" -> userId))
+      .sort($doc("date" -> -1))
       .cursor[PlayerAssessment]()
-      .collect[List](nb)
+      .gather[List](nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
     getPlayerAssessmentById(gameId + "/" + color.name)

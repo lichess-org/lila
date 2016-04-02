@@ -24,10 +24,10 @@ object PlayerRepo {
   private val selectWithdraw = BSONDocument("w" -> true)
   private val bestSort = BSONDocument("m" -> -1)
 
-  def byId(id: String): Fu[Option[Player]] = coll.find(selectId(id)).one[Player]
+  def byId(id: String): Fu[Option[Player]] = coll.uno[Player](selectId(id))
 
   def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().collect[List](nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().gather[List](nb)
 
   def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
@@ -63,7 +63,7 @@ object PlayerRepo {
     multi = true).void
 
   def find(tourId: String, userId: String): Fu[Option[Player]] =
-    coll.find(selectTourUser(tourId, userId)).one[Player]
+    coll.find(selectTourUser(tourId, userId)).uno[Player]
 
   def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
     find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
@@ -94,7 +94,7 @@ object PlayerRepo {
   def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
       selectTour(tourId) ++ BSONDocument("m" -> BSONDocument("$gt" -> 0))
-    ).cursor[Player]().collect[List]()
+    ).cursor[Player]().gather[List]()
 
   private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
@@ -108,7 +108,7 @@ object PlayerRepo {
     coll.distinct("uid", (selectTour(tourId) ++ selectActive).some) map lila.db.BSON.asStrings
 
   def winner(tourId: String): Fu[Option[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
+    coll.find(selectTour(tourId)).sort(bestSort).uno[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
@@ -133,7 +133,7 @@ object PlayerRepo {
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
     coll.find(selectTour(tourId) ++ BSONDocument(
       "uid" -> BSONDocument("$in" -> userIds)
-    )).cursor[Player]().collect[List]()
+    )).cursor[Player]().gather[List]()
       .chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
       }.result

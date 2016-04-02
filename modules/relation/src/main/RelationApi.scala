@@ -29,7 +29,7 @@ final class RelationApi(
   def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] = coll.find(
     $doc("u1" -> u1, "u2" -> u2),
     $doc("r" -> true, "_id" -> false)
-  ).one[BSONDocument].map {
+  ).uno[BSONDocument].map {
       _.flatMap(_.getAs[Boolean]("r"))
     }
 

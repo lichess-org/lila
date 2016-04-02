@@ -23,10 +23,10 @@ object PairingRepo {
   private val recentSort = $doc("d" -> -1)
   private val chronoSort = $doc("d" -> 1)
 
-  def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).one[Pairing]
+  def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).uno[Pairing]
 
   def recentByTour(tourId: String, nb: Int): Fu[Pairings] =
-    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().collect[List](nb)
+    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().gather[List](nb)
 
   def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
     coll.find(
@@ -45,7 +45,7 @@ object PairingRepo {
     coll.find(
       selectTourUser(tourId, userId),
       $doc("_id" -> false, "u" -> true)
-    ).cursor[Bdoc]().collect[List]().map {
+    ).cursor[Bdoc]().gather[List]().map {
         _.flatMap { doc =>
           ~doc.getAs[List[String]]("u").filter(userId!=)
         }.toSet
@@ -55,14 +55,14 @@ object PairingRepo {
     coll.find(
       selectTourUser(tourId, userId),
       $doc("_id" -> true)
-    ).sort(recentSort).cursor[Bdoc]().collect[List](nb).map {
+    ).sort(recentSort).cursor[Bdoc]().gather[List](nb).map {
         _.flatMap(_.getAs[String]("_id"))
       }
 
   def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
     (nb > 0) ?? coll.find(
       selectTourUser(tourId, userId)
-    ).sort(chronoSort).skip(nb - 1).one[Pairing]
+    ).sort(chronoSort).skip(nb - 1).uno[Pairing]
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
@@ -92,15 +92,15 @@ object PairingRepo {
   def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: String): Fu[Pairings] =
-    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().collect[List]()
+    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().gather[List]()
 
   def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
-    coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
+    coll.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]
 
   def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
     coll.find(
       selectTourUser(tourId, userId) ++ selectFinished
-    ).sort(chronoSort).cursor[Pairing]().collect[List]()
+    ).sort(chronoSort).cursor[Pairing]().gather[List]()
 
   def insert(pairing: Pairing) = coll.insert {
     pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)

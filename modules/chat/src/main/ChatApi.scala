@@ -18,7 +18,7 @@ final class ChatApi(
   object userChat {
 
     def findOption(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[UserChat]
+      coll.find(BSONDocument("_id" -> chatId)).uno[UserChat]
 
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
@@ -52,7 +52,7 @@ final class ChatApi(
   object playerChat {
 
     def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat]
+      coll.find(BSONDocument("_id" -> chatId)).uno[MixedChat]
 
     def find(chatId: ChatId): Fu[MixedChat] =
       findOption(chatId) map (_ | Chat.makeMixed(chatId))

@@ -39,7 +39,7 @@ object UserInfos {
       )).sort(BSONDocument(
         Attempt.BSONFields.date -> -1
       )).cursor[Attempt]()
-        .collect[List](math.max(historySize, chartSize))
+        .gather[List](math.max(historySize, chartSize))
   }
 
   private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)
