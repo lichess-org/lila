@@ -465,6 +465,8 @@ body.fpmenu > div.content {
   margin: 0 auto;
   padding-top: 5px;
   box-sizing: border-box;
+}
+body.fpmenu #top {
   z-index: 5001;
 }
 #site_description {
