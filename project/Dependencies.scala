@@ -41,6 +41,7 @@ object Dependencies {
   val pushy = "com.relayrides" % "pushy" % "0.4.3"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.2-9-g11173e1"
+  val jzlib = "com.jcraft" % "jzlib" % "1.1.3"
 
   object play {
     val version = "2.5.1"
@@ -56,6 +57,7 @@ object Dependencies {
     val version = "2.4.2"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+    val stream = "com.typesafe.akka" %% "akka-stream" % version
   }
   object kamon {
     val version = "0.5.2"
