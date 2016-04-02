@@ -6,7 +6,7 @@ import ornicar.scalalib.Random
 import lila.user.User
 
 case class Thread(
-    id: String,
+    _id: String,
     name: String,
     createdAt: DateTime,
     updatedAt: DateTime,
@@ -18,6 +18,8 @@ case class Thread(
   def +(post: Post) = copy(
     posts = posts :+ post,
     updatedAt = post.createdAt)
+
+  def id = _id
 
   def isCreator(user: User) = creatorId == user.id
 
@@ -67,7 +69,7 @@ object Thread {
     text: String,
     creatorId: String,
     invitedId: String): Thread = Thread(
-    id = Random nextStringUppercase idSize,
+    _id = Random nextStringUppercase idSize,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
