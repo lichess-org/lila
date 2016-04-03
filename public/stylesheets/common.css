@@ -466,6 +466,7 @@ body.fpmenu > div.content {
   padding-top: 5px;
   box-sizing: border-box;
 }
+#top:hover,
 body.fpmenu #top {
   z-index: 5001;
 }
