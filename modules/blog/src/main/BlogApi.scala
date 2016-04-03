@@ -2,7 +2,6 @@ package lila.blog
 
 import io.prismic._
 import lila.memo.AsyncCache
-import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 final class BlogApi(prismicUrl: String, collection: String) {
