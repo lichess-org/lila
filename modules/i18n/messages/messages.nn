@@ -513,6 +513,7 @@ printFriendlyPDF=Utskriftsvennlig PDF
 crosstable=Tabell
 youCanAlsoScrollOverTheBoardToMoveInTheGame=Du kan også scrolle over brettet for å flytte.
 pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard=Trykk shift-klikk eller høyreklikk for å tegne sirkler og piler på brettet.
+confirmResignation=Stadfest at du har gitt opp
 letOtherPlayersMessageYou=Tillat andre spelarar å sende melding til deg
 shareYourInsightsData=Del dine data
 youHaveAlreadyRegisteredTheEmail=Du har allereie registrert epostadressa: %s
