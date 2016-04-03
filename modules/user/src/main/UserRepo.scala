@@ -68,7 +68,7 @@ object UserRepo {
       $inIds(ids) ++ goodLadSelectBson,
       $doc("_id" -> true))
       .sort($doc(s"perfs.standard.gl.r" -> -1))
-      .cursor[BSONDocument](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .gather[List](nb).map {
         _.flatMap { _.getAs[String]("_id") }
       }
@@ -86,9 +86,9 @@ object UserRepo {
     coll.find(
       $doc("_id".$in(u1, u2)),
       $doc(s"${F.count}.game" -> true)
-    ).cursor[BSONDocument]().gather[List]() map { docs =>
+    ).cursor[Bdoc]().gather[List]() map { docs =>
         docs.sortBy {
-          _.getAs[BSONDocument](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
+          _.getAs[Bdoc](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[String]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
@@ -101,7 +101,7 @@ object UserRepo {
       case (u1, u2) => coll.find(
         $doc("_id".$in(u1, u2)),
         $doc("_id" -> true)
-      ).sort($doc(F.colorIt -> 1)).uno[BSONDocument].map {
+      ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
           _.fold(scala.util.Random.nextBoolean) { doc =>
             doc.getAs[String]("_id") contains u1
           }
@@ -207,7 +207,7 @@ object UserRepo {
   def checkPasswordByEmail(email: String, password: String): Fu[Boolean] =
     checkPassword($doc(F.email -> email), password)
 
-  private def checkPassword(select: BSONDocument, password: String): Fu[Boolean] =
+  private def checkPassword(select: Bdoc, password: String): Fu[Boolean] =
     coll.uno[AuthData](select) map {
       _ ?? (data => data.enabled && data.compare(password))
     }
@@ -233,9 +233,9 @@ object UserRepo {
     import java.util.regex.Matcher.quoteReplacement
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
-    coll.find($doc("_id" -> BSONRegex(regex, "")), $doc(F.username -> true))
+    coll.find($id($regex(regex, "")), $doc(F.username -> true))
       .sort($sort desc "_id")
-      .cursor[BSONDocument]().gather[List](max)
+      .cursor[Bdoc]().gather[List](max)
       .map {
         _ flatMap { _.getAs[String](F.username) }
       }
@@ -243,7 +243,7 @@ object UserRepo {
 
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
-      $set("engine" -> BSONBoolean(!u.engine))
+      $set("engine" -> !u.engine)
     }
 
   def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
@@ -291,8 +291,8 @@ object UserRepo {
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $doc("_id" -> id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
-  ).uno[BSONDocument].map {
-      _.flatMap(_.getAs[BSONDocument](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
+  ).uno[Bdoc].map {
+      _.flatMap(_.getAs[Bdoc](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
     }
 
   def setSeenAt(id: ID) {
@@ -305,7 +305,7 @@ object UserRepo {
       "seenAt" -> $doc("$gt" -> since),
       "count.game" -> $doc("$gt" -> 9),
       "kid" -> $doc("$ne" -> true)
-    ), $doc("_id" -> true)).cursor[BSONDocument]()
+    ), $doc("_id" -> true)).cursor[Bdoc]()
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
