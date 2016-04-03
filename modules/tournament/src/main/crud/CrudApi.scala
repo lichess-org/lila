@@ -70,6 +70,6 @@ final class CrudApi {
         description = description,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconFont = none,
-        iconImg = image.some).some)
+        iconImg = image.some.filter(_.nonEmpty)).some)
   }
 }
