@@ -7,15 +7,19 @@ import scala.concurrent.duration._
 
 final class BlogApi(prismicUrl: String, collection: String) {
 
+  import play.api.libs.ws._
+  import play.api.Play.current
+  private val httpClient: WSClient = WS.client
+
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(nb).page(1).submit().fold(_ => none, some _)
+      .pageSize(nb).page(1).submit(httpClient).fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(resolveRef(api)(ref) | api.master.ref).submit() map (_.results.headOption)
+      .ref(resolveRef(api)(ref) | api.master.ref).submit(httpClient) map (_.results.headOption)
 
   // -- Build a Prismic context
   def context(refName: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
@@ -40,7 +44,7 @@ final class BlogApi(prismicUrl: String, collection: String) {
   }
 
   private val fetchPrismicApi = AsyncCache.single[Api](
-    f = Api.get(prismicUrl, cache = cache, logger = prismicLogger),
+    f = Api.get(httpClient)(prismicUrl, cache = cache, logger = prismicLogger),
     timeToLive = 10 seconds)
 
   def prismicApi = fetchPrismicApi(true)
