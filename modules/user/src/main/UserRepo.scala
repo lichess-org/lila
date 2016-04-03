@@ -195,8 +195,8 @@ object UserRepo {
   def authenticateByEmail(email: String, password: String): Fu[Option[User]] =
     checkPasswordByEmail(email, password) flatMap { _ ?? byEmail(email) }
 
-  private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Boolean) {
-    def compare(p: String) = password == sha512.fold(hash512(p, salt), hash(p, salt))
+  private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Option[Boolean]) {
+    def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
   }
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
