@@ -22,6 +22,7 @@ cd ..
 
 git clone https://github.com/ornicar/scala-kit --branch lichess-fork
 cd scala-kit
+git checkout b019b3a2522d3f1697c39ec0c79e88c18ea49a91
 sbt -Dversion=1.2.11-THIB publish-local
 cd ..
 
