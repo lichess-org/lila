@@ -1,23 +1,19 @@
 package lila.wiki
 
 import Page.DefaultLang
-import play.api.libs.json._
 
-import lila.common.PimpedJson._
-import lila.db.api._
-import lila.db.Implicits._
-import tube.pageTube
+import lila.db.dsl._
 
-private[wiki] final class Api {
+private[wiki] final class Api(coll: Coll) {
+
+  import Page.PageBSONHandler
 
   def show(slug: String, lang: String): Fu[Option[(Page, List[Page])]] = for {
-    page ← $find.one(Json.obj("slug" -> slug, "lang" -> lang)) zip
-      $find.one(Json.obj("slug" -> slug, "lang" -> DefaultLang)) map {
-        case (a, b) => a orElse b
-      }
-    pages ← $find($query(Json.obj(
-      "lang" -> $in(Seq(lang, DefaultLang))
-    )).sort($sort asc "number"))
+    page ← coll.uno[Page]($doc("slug" -> slug, "lang" -> lang)) orElse
+      coll.uno[Page]($doc("slug" -> slug, "lang" -> DefaultLang))
+    pages ← coll.find($doc(
+      "lang" $in (lang, DefaultLang)
+    )).sort($sort asc "number").cursor[Page]().gather[List]()
   } yield page map { _ -> makeMenu(pages) }
 
   private def makeMenu(pages: List[Page]): List[Page] = {

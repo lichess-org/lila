@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.security.{ Firewall, UserSpy }
 
 final class Env(
@@ -31,7 +31,7 @@ final class Env(
 
   private[mod] lazy val logColl = db(CollectionModlog)
 
-  lazy val logApi = new ModlogApi
+  lazy val logApi = new ModlogApi(logColl)
 
   lazy val api = new ModApi(
     logApi = logApi,

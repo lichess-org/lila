@@ -44,7 +44,8 @@ final class Env(
     isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
-    insightShare = Env.insight.share) _
+    insightShare = Env.insight.share,
+    getPlayTime = Env.game.playTime.apply) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 

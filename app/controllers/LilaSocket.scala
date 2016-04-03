@@ -16,8 +16,8 @@ trait LilaSocket { self: LilaController =>
 
   private val logger = lila.log("ratelimit")
 
-  def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
-    WebSocket[A, A] { req =>
+  def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket =
+    WebSocket.tryAccept[A] { req =>
       reqToCtx(req) flatMap { ctx =>
         val ip = HTTPRequest lastRemoteAddress req
         def userInfo = {
@@ -28,9 +28,8 @@ trait LilaSocket { self: LilaController =>
         // logger.debug(s"socket:$name socket connect $ip $userInfo")
         f(ctx).map { resultOrSocket =>
           resultOrSocket.right.map {
-            case (readIn, writeOut) => (e, i) => {
-              writeOut |>> i
-              e &> Enumeratee.mapInputM { in =>
+            case (readIn, writeOut) => {
+              val limitedIn = Enumeratee.mapInputM[A] { in =>
                 consumer(ip).map { credit =>
                   if (credit >= 0) in
                   else {
@@ -38,7 +37,8 @@ trait LilaSocket { self: LilaController =>
                     Input.EOF
                   }
                 }
-              } |>> readIn
+              } &> readIn
+              (limitedIn, writeOut)
             }
           }
         }

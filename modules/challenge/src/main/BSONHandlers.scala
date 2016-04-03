@@ -5,9 +5,8 @@ import reactivemongo.bson._
 import chess.Mode
 import chess.variant.Variant
 import lila.db.BSON
-import lila.db.BSON._
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Implicits._
+import lila.db.BSON.{ Reader, Writer }
+import lila.db.dsl._
 import lila.rating.PerfType
 
 private object BSONHandlers {
@@ -37,9 +36,9 @@ private object BSONHandlers {
       r intO "d" map TimeControl.Correspondence.apply
     } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) = t match {
-      case TimeControl.Clock(l, i)       => BSONDocument("l" -> l, "i" -> i)
-      case TimeControl.Correspondence(d) => BSONDocument("d" -> d)
-      case TimeControl.Unlimited         => BSONDocument()
+      case TimeControl.Clock(l, i)       => $doc("l" -> l, "i" -> i)
+      case TimeControl.Correspondence(d) => $doc("d" -> d)
+      case TimeControl.Unlimited         => $empty
     }
   }
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
@@ -56,19 +55,19 @@ private object BSONHandlers {
   }
   implicit val RatingBSONHandler = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
-    def writes(w: Writer, r: Rating) = BSONDocument(
+    def writes(w: Writer, r: Rating) = $doc(
       "i" -> r.int,
       "p" -> w.boolO(r.provisional))
   }
   implicit val RegisteredBSONHandler = new BSON[Registered] {
     def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
-    def writes(w: Writer, r: Registered) = BSONDocument(
+    def writes(w: Writer, r: Registered) = $doc(
       "id" -> r.id,
       "r" -> r.rating)
   }
   implicit val AnonymousBSONHandler = new BSON[Anonymous] {
     def reads(r: Reader) = Anonymous(r.str("s"))
-    def writes(w: Writer, a: Anonymous) = BSONDocument(
+    def writes(w: Writer, a: Anonymous) = $doc(
       "s" -> a.secret)
   }
   implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {

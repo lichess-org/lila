@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.Implicits._
+import lila.db.dsl._
 
 private final class Monitor(
     moveDb: MoveDB,

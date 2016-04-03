@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    gameColl: lila.db.dsl.Coll,
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
@@ -12,6 +13,7 @@ final class Env(
   private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(
+    gameColl = gameColl,
     endpoint = Endpoint,
     massImportEndpoint = MassImportEndpoint)
 
@@ -41,5 +43,6 @@ object Env {
 
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
+    gameColl = lila.game.Env.current.gameColl,
     system = lila.common.PlayApp.system)
 }

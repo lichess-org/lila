@@ -6,13 +6,13 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON._
+import lila.db.dsl._
 import lila.db.BSON.MapValue.MapHandler
 import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }
 
 final class RankingApi(
-    coll: lila.db.Types.Coll,
+    coll: Coll,
     mongoCache: MongoCache.Builder,
     lightUser: String => Option[lila.common.LightUser]) {
 
@@ -25,9 +25,9 @@ final class RankingApi(
     }
 
   def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
-    (perf.nb >= 2) ?? coll.update(BSONDocument(
+    (perf.nb >= 2) ?? coll.update($doc(
       "_id" -> s"$userId:${perfType.id}"
-    ), BSONDocument(
+    ), $doc(
       "user" -> userId,
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
@@ -38,8 +38,8 @@ final class RankingApi(
 
   def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
     _ ?? { user =>
-      coll.remove(BSONDocument(
-        "_id" -> BSONDocument("$in" -> PerfType.leaderboardable.filter { pt =>
+      coll.remove($doc(
+        "_id" -> $doc("$in" -> PerfType.leaderboardable.filter { pt =>
           user.perfs(pt).nonEmpty
         }.map { pt =>
           s"${user.id}:${pt.id}"
@@ -50,9 +50,9 @@ final class RankingApi(
 
   def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
-      coll.find(BSONDocument("perf" -> perfId, "stable" -> true))
-        .sort(BSONDocument("rating" -> -1))
-        .cursor[Ranking]().collect[List](nb) map {
+      coll.find($doc("perf" -> perfId, "stable" -> true))
+        .sort($doc("rating" -> -1))
+        .cursor[Ranking]().gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(
@@ -80,9 +80,9 @@ final class RankingApi(
 
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] = {
       val enumerator = coll.find(
-        BSONDocument("perf" -> perfId, "stable" -> true),
-        BSONDocument("user" -> true, "_id" -> false)
-      ).sort(BSONDocument("rating" -> -1)).cursor[BSONDocument]().enumerate()
+        $doc("perf" -> perfId, "stable" -> true),
+        $doc("user" -> true, "_id" -> false)
+      ).sort($doc("rating" -> -1)).cursor[BSONDocument]().enumerate()
       var rank = 1
       val b = Map.newBuilder[User.ID, Rank]
       val mapBuilder: Iteratee[BSONDocument, Unit] = Iteratee.foreach { doc =>
@@ -110,13 +110,13 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregate(
-          Match(BSONDocument("perf" -> perfId)),
-          List(Project(BSONDocument(
+          Match($doc("perf" -> perfId)),
+          List(Project($doc(
             "_id" -> false,
-            "r" -> BSONDocument(
+            "r" -> $doc(
               "$subtract" -> BSONArray(
                 "$rating",
-                BSONDocument("$mod" -> BSONArray("$rating", Stat.group))
+                $doc("$mod" -> BSONArray("$rating", Stat.group))
               )
             )
           )),

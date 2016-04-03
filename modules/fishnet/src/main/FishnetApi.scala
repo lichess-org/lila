@@ -7,7 +7,7 @@ import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.hub.FutureSequencer
 
 final class FishnetApi(
@@ -63,7 +63,7 @@ final class FishnetApi(
     )).sort(BSONDocument(
       "sender.system" -> 1, // user requests first, then lichess auto analysis
       "createdAt" -> 1 // oldest requests first
-    )).one[Work.Analysis].flatMap {
+    )).uno[Work.Analysis].flatMap {
       _ ?? { work =>
         repo.updateAnalysis(work assignTo client) inject work.some
       }

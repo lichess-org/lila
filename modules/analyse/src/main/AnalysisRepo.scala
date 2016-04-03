@@ -2,25 +2,25 @@ package lila.analyse
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.Game
-import tube.analysisTube
 
 object AnalysisRepo {
 
   import Analysis.analysisBSONHandler
 
+  // dirty
+  private val coll = Env.current.analysisColl
+
   type ID = String
 
-  def save(analysis: Analysis) = analysisTube.coll insert analysis void
+  def save(analysis: Analysis) = coll insert analysis void
 
-  def byId(id: ID): Fu[Option[Analysis]] = $find byId id
+  def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
-    $find optionsByOrderedIds ids
+    coll.optionsByOrderedIds[Analysis](ids)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(_.id)) map { as =>
@@ -29,7 +29,7 @@ object AnalysisRepo {
       }
     }
 
-  def remove(id: String) = $remove byId id
+  def remove(id: String) = coll remove $id(id)
 
-  def exists(id: String) = $count exists id
+  def exists(id: String) = coll exists $id(id)
 }

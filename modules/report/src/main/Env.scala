@@ -16,7 +16,7 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
-  lazy val api = new ReportApi
+  lazy val api = new ReportApi(reportColl)
 
   // api actor
   system.actorOf(Props(new Actor {

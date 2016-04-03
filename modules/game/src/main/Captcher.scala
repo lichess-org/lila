@@ -10,9 +10,7 @@ import chess.{ Game => ChessGame, Color }
 import scalaz.{ NonEmptyList, OptionT }
 
 import lila.common.Captcha, Captcha._
-import lila.db.api.$find
 import lila.hub.actorApi.captcha._
-import tube.gameTube
 
 // only works with standard chess (not chess960)
 private final class Captcher extends Actor {
@@ -65,7 +63,7 @@ private final class Captcher extends Actor {
       GameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
-      optionT($find byId id) flatMap fromGame
+      optionT(GameRepo game id) flatMap fromGame
 
     private def fromGame(game: Game): OptionT[Fu, Captcha] =
       optionT(GameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }

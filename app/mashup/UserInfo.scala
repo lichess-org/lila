@@ -67,7 +67,8 @@ object UserInfo {
     isDonor: String => Fu[Boolean],
     isHostingSimul: String => Fu[Boolean],
     isStreamer: String => Boolean,
-    insightShare: lila.insight.Share)(user: User, ctx: Context): Fu[UserInfo] =
+    insightShare: lila.insight.Share,
+    getPlayTime: User => Fu[User.PlayTime])(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -81,7 +82,7 @@ object UserInfo {
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      PlayTime(user) flatMap {
+      getPlayTime(user) flatMap {
         case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(

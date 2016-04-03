@@ -1,6 +1,6 @@
 package lila.coordinate
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import reactivemongo.bson._
 
 final class CoordinateApi(scoreColl: Coll) {
@@ -8,7 +8,7 @@ final class CoordinateApi(scoreColl: Coll) {
   private implicit val scoreBSONHandler = Macros.handler[Score]
 
   def getScore(userId: String): Fu[Score] =
-    scoreColl.find(BSONDocument("_id" -> userId)).one[Score] map (_ | Score(userId))
+    scoreColl.byId[Score](userId) map (_ | Score(userId))
 
   def addScore(userId: String, white: Boolean, hits: Int): Funit =
     scoreColl.update(

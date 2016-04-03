@@ -1,28 +1,32 @@
 package lila.round
 
 import akka.actor._
+import akka.stream._
+import akka.stream.scaladsl._
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.MoveEvent
 import lila.socket.Socket.makeMessage
-import play.api.libs.iteratee._
 import play.api.libs.json._
 
 private final class TvBroadcast extends Actor {
 
-  private val (enumerator, channel) = Concurrent.broadcast[JsValue]
+  implicit val mat = materializer(context.system)
+
+  val (actorRef, publisher) = Source.actorRef(20, OverflowStrategy.dropHead)
+    .toMat(Sink asPublisher false)(Keep.both).run()
 
   private var featuredId = none[String]
 
   def receive = {
 
-    case TvBroadcast.GetEnumerator => sender ! enumerator
+    case TvBroadcast.GetPublisher  => sender ! publisher
 
     case ChangeFeatured(id, msg) =>
       featuredId = id.some
-      channel push msg
+      actorRef ! msg
 
     case move: MoveEvent if Some(move.gameId) == featuredId =>
-      channel push makeMessage("fen", Json.obj(
+      actorRef ! makeMessage("fen", Json.obj(
         "fen" -> move.fen,
         "lm" -> move.move
       ))
@@ -31,7 +35,7 @@ private final class TvBroadcast extends Actor {
 
 object TvBroadcast {
 
-  type EnumeratorType = Enumerator[JsValue]
-
-  case object GetEnumerator
+  import org.reactivestreams.Publisher
+  type PublisherType = Publisher[JsValue]
+  case object GetPublisher
 }

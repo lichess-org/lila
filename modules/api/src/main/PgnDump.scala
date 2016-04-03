@@ -1,8 +1,7 @@
 package lila.api
 
 import chess.format.pgn.{ Pgn, Parser }
-import lila.db.api.$query
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.Game
 import lila.game.{ GameRepo, Query }
 import play.api.libs.iteratee._
@@ -22,15 +21,11 @@ final class PgnDump(
   def filename(game: Game) = dumper filename game
 
   def exportUserGames(userId: String): Enumerator[String] = PgnStream {
-    import lila.game.tube.gameTube
-    import lila.game.BSONHandlers.gameBSONHandler
-    pimpQB($query(Query user userId)).sort(Query.sortCreated).cursor[Game]()
+    GameRepo.sortedCursor(Query user userId, Query.sortCreated)
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] = PgnStream {
-    import lila.game.tube.gameTube
-    import lila.game.BSONHandlers.gameBSONHandler
-    pimpQB($query byIds ids).sort(Query.sortCreated).cursor[Game]()
+    GameRepo.sortedCursor($inIds(ids), Query.sortCreated)
   }
 
   private def PgnStream(cursor: reactivemongo.api.Cursor[Game]): Enumerator[String] = {

@@ -33,17 +33,21 @@ final class Env(
   }
   import settings._
 
-  private[game] lazy val gameColl = db(CollectionGame)
+  lazy val gameColl = db(CollectionGame)
+
+  lazy val playTime = new PlayTime(gameColl)
 
   lazy val pdfExport = PdfExport(PdfExecPath) _
 
   lazy val pngExport = PngExport(PngExecPath) _
 
   lazy val cached = new Cached(
+    coll = gameColl,
     mongoCache = mongoCache,
     defaultTtl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
+    coll = gameColl,
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 
@@ -57,7 +61,9 @@ final class Env(
     netBaseUrl = netBaseUrl,
     getLightUser = getLightUser)
 
-  lazy val crosstableApi = new CrosstableApi(db(CollectionCrosstable))
+  lazy val crosstableApi = new CrosstableApi(
+    coll = db(CollectionCrosstable),
+    gameColl = gameColl)
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
@@ -66,7 +72,7 @@ final class Env(
     captcher -> actorApi.NewCaptcha
   }
 
-  def cli = new Cli(db, system = system)
+  def cli = new Cli(gameColl)
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>

@@ -5,9 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
 import lila.common.LameName
-import lila.db.api.$count
-import lila.user.tube.userTube
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
@@ -42,7 +40,7 @@ final class DataForm(
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
         error = "The username must not start with a number")
-    ).verifying("This user already exists", u => !$count.exists(u.toLowerCase) awaitSeconds 2)
+    ).verifying("This user already exists", u => !UserRepo.nameExists(u).awaitSeconds(2))
       .verifying("This username is not acceptable", u => !LameName(u))
 
     val website = Form(mapping(

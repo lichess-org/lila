@@ -38,7 +38,7 @@ final class CrudApi {
     TournamentRepo insert tour inject tour
   }
 
-  private val empty = Tournament.make(
+  private def empty = Tournament.make(
     createdByUserId = "lichess",
     clock = TournamentClock(0, 0),
     minutes = 0,
@@ -70,6 +70,6 @@ final class CrudApi {
         description = description,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconFont = none,
-        iconImg = image.some).some)
+        iconImg = image.some.filter(_.nonEmpty)).some)
   }
 }

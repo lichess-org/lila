@@ -35,12 +35,12 @@ object Dependencies {
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.2"
   val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9.1-LILA"
-  val PRM = "org.reactivemongo" % "play2-reactivemongo_2.11" % "0.11.9"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
+  val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB2"
   val pushy = "com.relayrides" % "pushy" % "0.4.3"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.2-9-g11173e1"
+  val jzlib = "com.jcraft" % "jzlib" % "1.1.3"
 
   object play {
     val version = "2.5.1"

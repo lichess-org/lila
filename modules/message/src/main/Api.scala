@@ -3,37 +3,39 @@ package lila.message
 import akka.pattern.pipe
 
 import lila.common.paginator._
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.message._
 import lila.hub.actorApi.SendTo
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
-import tube.threadTube
 
 final class Api(
+    coll: Coll,
     unreadCache: UnreadCache,
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
     bus: lila.common.Bus) {
 
+  import Thread.ThreadBSONHandler
+
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
+      collection = coll,
       selector = ThreadRepo visibleByUserQuery me.id,
-      sort = Seq(ThreadRepo.recentSort)
-    ),
+      projection = $empty,
+      sort = ThreadRepo.recentSort),
     currentPage = page,
     maxPerPage = maxPerPage
   )
 
   def preview(userId: String): Fu[List[Thread]] = unreadCache(userId) flatMap { ids =>
-    $find byOrderedIds ids
+    coll.byOrderedIds[Thread](ids)(_.id)
   }
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
+    threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).??(thread =>
       (ThreadRepo setRead thread) >>- updateUser(me)
     )
@@ -70,9 +72,9 @@ final class Api(
     invitedId = lt.to), fromMod = false) >> unreadCache.clear(lt.to)
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Funit =
-    if (fromMod) $insert(thread)
+    if (fromMod) coll.insert(thread).void
     else blocks(thread.invitedId, thread.creatorId) flatMap {
-      !_ ?? $insert(thread)
+      !_ ?? coll.insert(thread).void
     }
 
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
@@ -84,7 +86,7 @@ final class Api(
       case true => fuccess(thread)
       case false =>
         val newThread = thread + post
-        $update[ThreadRepo.ID, Thread](newThread) >>- {
+        coll.update($id(newThread.id), newThread) >>- {
           UserRepo.named(thread receiverOf post) foreach {
             _ foreach updateUser
           }
@@ -104,7 +106,7 @@ final class Api(
   val unreadIds = unreadCache apply _
 
   def updateUser(user: lila.user.User) {
-    if (!user.kid) (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids =>
+    if (!user.kid) (unreadCache refresh user.id) mapTo manifest[List[String]] foreach { ids =>
       bus.publish(SendTo(user.id, "nbm", ids.size), 'users)
     }
   }

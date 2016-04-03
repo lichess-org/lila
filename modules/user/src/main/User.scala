@@ -192,6 +192,4 @@ object User {
       lang -> o.lang,
       title -> o.title)
   }
-
-  private[user] lazy val tube = lila.db.BsTube(userBSONHandler)
 }

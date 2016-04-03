@@ -8,7 +8,7 @@ import akka.pattern.{ ask, after }
 import chess.{ Color, MoveOrDrop, Status, Situation }
 import makeTimeout.large
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._

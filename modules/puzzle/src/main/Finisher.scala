@@ -2,9 +2,8 @@ package lila.puzzle
 
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import reactivemongo.bson.{ BSONDocument, BSONInteger }
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ User, UserRepo }
 
@@ -38,13 +37,13 @@ private[puzzle] final class Finisher(
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
         ((api.attempt add a) >> {
           puzzleColl.update(
-            BSONDocument("_id" -> puzzle.id),
-            BSONDocument("$inc" -> BSONDocument(
-              Puzzle.BSONFields.attempts -> BSONInteger(1),
-              Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
-            )) ++ BSONDocument("$set" -> BSONDocument(
+            $id(puzzle.id),
+            $inc(
+              Puzzle.BSONFields.attempts -> $int(1),
+              Puzzle.BSONFields.wins -> $int(data.isWin ? 1 | 0)
+            ) ++ $set(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
-            ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
+            )) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
 
