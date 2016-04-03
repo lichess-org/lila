@@ -11,6 +11,7 @@ import views._
 object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
+    sys error "oooooooopsies"
     negotiate(
       html = renderHome(Results.Ok).map(NoCache),
       api = _ => fuccess {

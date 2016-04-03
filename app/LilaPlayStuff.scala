@@ -13,18 +13,6 @@ import play.api.mvc.Results._
 import play.api.routing.Router
 import scala.concurrent._
 
-@Singleton
-final class LilaGlobal @Inject() (lifecycle: ApplicationLifecycle) {
-
-  play.api.Logger("boot").info("========================= Lifecycle bindings")
-
-  lifecycle.addStopHook { () =>
-    fuccess {
-      kamon.Kamon.shutdown()
-    }
-  }
-}
-
 class LilaHttpRequestHandler @Inject() (errorHandler: HttpErrorHandler,
     configuration: HttpConfiguration, filters: HttpFilters,
     router: Router) extends DefaultHttpRequestHandler(router, errorHandler, configuration, filters) {
@@ -35,7 +23,7 @@ class LilaHttpRequestHandler @Inject() (errorHandler: HttpErrorHandler,
   }
 }
 
-class ErrorHandler @Inject() (
+class LilaHttpErrorHandler @Inject() (
     env: Environment,
     config: Configuration,
     sourceMapper: OptionalSourceMapper,
@@ -65,12 +53,24 @@ class ErrorHandler @Inject() (
   }
 }
 
+@Singleton
+final class LilaLifecycle @Inject() (lifecycle: ApplicationLifecycle) {
+
+  play.api.Logger("boot").info("Lifecycle bindings")
+
+  lifecycle.addStopHook { () =>
+    play.api.Logger("play").info("LilaLifecycle shutdown")
+    kamon.Kamon.shutdown()
+    funit
+  }
+}
+
 final class LilaModule extends AbstractModule {
 
+  play.api.Logger("boot").info("Kamon start")
   kamon.Kamon.start()
 
   def configure() = {
-    bind(classOf[LilaGlobal]).asEagerSingleton
-    // bind[LilaGlobal] toSelf eagerly()
+    bind(classOf[LilaLifecycle]).asEagerSingleton
   }
 }

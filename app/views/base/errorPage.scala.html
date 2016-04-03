@@ -1,16 +1,27 @@
 @(ex: Throwable)(implicit ctx: Context)
 
 @site.layout(
-title = "Internal server error") {
+title = "Internal server error",
+moreCss = cssTag("notFound.css")) {
 
 <div class="content_box small_box">
-  <h1>Something went wrong on this page.</h1>
-  <br />
-  <br />
-  <p>If the problem persists, please report it in the <a href="@routes.ForumCateg.show("lichess-feedback", 1)">forum</a>.</p>
-  <p>Or send me an email at lichess.contact&#64;gmail.com</p>
-  <br />
-  <br />
-  <code>@ex.getMessage</code>
+  <header>
+    <h1>500</h1>
+    <strong>Server error</strong>
+    <p>Sorry! We're working on it! Maybe try this mini-game?</p>
+  </header>
+  <div class="game">
+    <iframe
+      src="@staticUrl(s"vendor/ChessPursuit/bin-release/index.html")"
+      frameBorder='0'
+      width="400"
+      height="500">
+    </iframe>
+    <p class="credits">
+      <a class="underline" href="https://github.com/Saturnyn/ChessPursuit">ChessPursuit</a>
+      courtesy of
+      <a class="underline" href="https://github.com/Saturnyn">Saturnyn</a>
+    </p>
+  </div>
 </div>
 }
