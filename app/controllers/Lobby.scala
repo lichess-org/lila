@@ -48,12 +48,22 @@ object Lobby extends LilaController {
     size = 10,
     rate = 6)
 
-  def socket(apiVersion: Int) = SocketOptionLimited(socketConsumer, "lobby") { implicit ctx =>
+  import akka.stream.scaladsl.Flow
+  import scala.concurrent.duration._
+  private val wsThrottler = Flow[JsObject].throttle(
+    elements = 10,
+    per = 5.second,
+    maximumBurst = 0,
+    mode = akka.stream.ThrottleMode.Enforcing)
+
+  def socket(apiVersion: Int) = SocketOption { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(
         uid = uid,
         user = ctx.me,
-        mobile = getBool("mobile")) map some
+        mobile = getBool("mobile")) map { flow =>
+          wsThrottler.via(flow).some
+        }
     }
   }
 

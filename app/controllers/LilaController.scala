@@ -6,7 +6,6 @@ import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
 import play.api.mvc._, Results._
-import play.api.mvc.WebSocket.MessageFlowTransformer
 import play.twirl.api.Html
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
@@ -47,30 +46,6 @@ private[controllers] trait LilaController
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
   )
 
-  private implicit val jsonMessageFlowTransformer: MessageFlowTransformer[JsObject, JsObject] = {
-    import scala.util.control.NonFatal
-    import play.api.libs.streams.AkkaStreams
-    import websocket._
-    def closeOnException[T](block: => Option[T]) = try {
-      Left(block getOrElse {
-        sys error "Not a JsObject"
-      })
-    }
-    catch {
-      case NonFatal(e) => Right(CloseMessage(Some(CloseCodes.Unacceptable),
-        "Unable to parse json message"))
-    }
-
-    new MessageFlowTransformer[JsObject, JsObject] {
-      def transform(flow: Flow[JsObject, JsObject, _]) = {
-        AkkaStreams.bypassWith[Message, JsObject, Message](Flow[Message].collect {
-          case BinaryMessage(data) => closeOnException(Json.parse(data.iterator.asInputStream).asOpt[JsObject])
-          case TextMessage(text)   => closeOnException(Json.parse(text).asOpt[JsObject])
-        })(flow map { json => TextMessage(Json.stringify(json)) })
-      }
-    }
-  }
-
   protected def Socket(f: Context => Fu[JsFlow]) =
     WebSocket.acceptOrResult[JsObject, JsObject] { req =>
       reqToCtx(req) flatMap f map Right.apply
@@ -79,14 +54,6 @@ private[controllers] trait LilaController
   protected def SocketEither(f: Context => Fu[Either[Result, JsFlow]]) =
     WebSocket.acceptOrResult[JsObject, JsObject] { req =>
       reqToCtx(req) flatMap f
-    }
-
-  protected def SocketOptionLimited(consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[JsFlow]]) =
-    rateLimitedSocket[A](consumer, name) { ctx =>
-      f(ctx) map {
-        case None       => Left(NotFound(jsonError("socket resource not found")))
-        case Some(flow) => Right(flow)
-      }
     }
 
   protected def SocketOption(f: Context => Fu[Option[JsFlow]]): WebSocket =

@@ -1,10 +1,11 @@
 package controllers
 
+import akka.stream.scaladsl._
 import play.api.http._
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._, Results._
-import play.api.mvc.WebSocket.FrameFormatter
+import play.api.mvc.WebSocket.MessageFlowTransformer
+import scala.concurrent.duration._
 
 import lila.api.{ Context, TokenBucket }
 import lila.app._
@@ -12,36 +13,27 @@ import lila.common.HTTPRequest
 
 trait LilaSocket { self: LilaController =>
 
-  private type AcceptType[A] = Context => Fu[Either[Result, JsFlow]]
+  protected implicit val jsonMessageFlowTransformer: MessageFlowTransformer[JsObject, JsObject] = {
+    import scala.util.control.NonFatal
+    import play.api.libs.streams.AkkaStreams
+    import websocket._
+    def closeOnException[T](block: => Option[T]) = try {
+      Left(block getOrElse {
+        sys error "Not a JsObject"
+      })
+    }
+    catch {
+      case NonFatal(e) => Right(CloseMessage(Some(CloseCodes.Unacceptable),
+        "Unable to parse json message"))
+    }
 
-  private val logger = lila.log("ratelimit")
-
-  def rateLimitedSocket(consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket =
-    WebSocket.acceptOrResult[A, A] { req =>
-      reqToCtx(req) flatMap { ctx =>
-        val ip = HTTPRequest lastRemoteAddress req
-        def userInfo = {
-          val sri = get("sri", req) | "none"
-          val username = ctx.usernameOrAnon
-          s"user:$username sri:$sri"
-        }
-        // logger.debug(s"socket:$name socket connect $ip $userInfo")
-        f(ctx).map { resultOrSocket =>
-          resultOrSocket.right.map {
-            case (readIn, writeOut) => {
-              val limitedIn = Enumeratee.mapInputM[A] { in =>
-                consumer(ip).map { credit =>
-                  if (credit >= 0) in
-                  else {
-                    logger.info(s"socket:$name socket close $ip $userInfo $in")
-                    Input.EOF
-                  }
-                }
-              } &> readIn
-              (limitedIn, writeOut)
-            }
-          }
-        }
+    new MessageFlowTransformer[JsObject, JsObject] {
+      def transform(flow: Flow[JsObject, JsObject, _]) = {
+        AkkaStreams.bypassWith[Message, JsObject, Message](Flow[Message].collect {
+          case BinaryMessage(data) => closeOnException(Json.parse(data.iterator.asInputStream).asOpt[JsObject])
+          case TextMessage(text)   => closeOnException(Json.parse(text).asOpt[JsObject])
+        })(flow map { json => TextMessage(Json.stringify(json)) })
       }
     }
+  }
 }
