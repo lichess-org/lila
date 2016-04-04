@@ -1,12 +1,11 @@
 package lila.challenge
 
 import akka.actor._
-import play.api.libs.iteratee.Concurrent
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
 
 import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi._
 import lila.socket.{ SocketActor, History, Historical }
 
 private final class Socket(
@@ -40,15 +39,11 @@ private final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case GetVersion                    => sender ! history.version
 
-    case Socket.Join(uid, userId, owner) =>
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, owner)
-      addMember(uid, member)
-      sender ! Socket.Connected(enumerator, member)
+    case Socket.AddMember(uid, member) => addMember(uid, member)
 
-    case Quit(uid) => quit(uid)
+    case Quit(uid)                     => quit(uid)
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Socket.Member) = false
@@ -57,14 +52,13 @@ private final class Socket(
 private object Socket {
 
   case class Member(
-      channel: JsChannel,
+      out: ActorRef,
       userId: Option[String],
       owner: Boolean) extends lila.socket.SocketMember {
     val troll = false
   }
 
-  case class Join(uid: String, userId: Option[String], owner: Boolean)
-  case class Connected(enumerator: JsEnumerator, member: Member)
+  case class AddMember(uid: String, member: Member)
 
   case object Reload
 }

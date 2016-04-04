@@ -45,7 +45,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
-    pingChallenge = api.ping)
+    pingChallenge = api.ping)(system)
 
   lazy val api = new ChallengeApi(
     repo = repo,

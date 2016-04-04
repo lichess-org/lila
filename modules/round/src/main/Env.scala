@@ -118,7 +118,7 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
-    bus = system.lilaBus)
+    bus = system.lilaBus)(system)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
 

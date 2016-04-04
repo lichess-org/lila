@@ -59,7 +59,7 @@ final class Env(
     hub = hub,
     lobby = lobby,
     socket = socket,
-    blocking = blocking)
+    blocking = blocking)(system)
 
   lazy val history = new History[actorApi.Messadata](ttl = MessageTtl)
 

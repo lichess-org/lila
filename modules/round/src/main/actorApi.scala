@@ -3,6 +3,7 @@ package actorApi
 
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
+import akka.actor.ActorRef
 
 import chess.Color
 import chess.format.Uci
@@ -29,7 +30,7 @@ sealed trait Member extends SocketMember {
 
 object Member {
   def apply(
-    channel: JsChannel,
+    out: ActorRef,
     user: Option[User],
     color: Color,
     playerIdOption: Option[String],
@@ -37,14 +38,14 @@ object Member {
     userTv: Option[String]): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv)) { playerId =>
-      Owner(channel, userId, playerId, color, troll, ip)
+    playerIdOption.fold[Member](Watcher(out, userId, color, troll, ip, userTv)) { playerId =>
+      Owner(out, userId, playerId, color, troll, ip)
     }
   }
 }
 
 case class Owner(
-    channel: JsChannel,
+    out: ActorRef,
     userId: Option[String],
     playerId: String,
     color: Color,
@@ -56,7 +57,7 @@ case class Owner(
 }
 
 case class Watcher(
-    channel: JsChannel,
+    out: ActorRef,
     userId: Option[String],
     color: Color,
     troll: Boolean,
@@ -66,14 +67,8 @@ case class Watcher(
   val playerIdOption = none
 }
 
-case class Join(
-  uid: String,
-  user: Option[User],
-  color: Color,
-  playerId: Option[String],
-  ip: String,
-  userTv: Option[String])
-case class Connected(enumerator: JsEnumerator, member: Member)
+case class AddMember(uid: String, member: Member)
+
 case class Bye(color: Color)
 case class IsGone(color: Color)
 case object GetSocketStatus

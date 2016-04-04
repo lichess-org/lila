@@ -14,7 +14,7 @@ import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi._
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
@@ -24,7 +24,7 @@ private[round] final class SocketHandler(
     socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus)(implicit val system: ActorSystem) {
 
   private def controller(
     gameId: String,
@@ -100,7 +100,7 @@ private[round] final class SocketHandler(
     uid: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[Option[JsSocketHandler]] =
+    userTv: Option[String]): Fu[Option[JsFlow]] =
     GameRepo.pov(gameId, colorName) flatMap {
       _ ?? { join(_, none, uid, "", user, ip, userTv = userTv) map some }
     }
@@ -110,7 +110,7 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     user: Option[User],
-    ip: String): Fu[JsSocketHandler] =
+    ip: String): Fu[JsFlow] =
     join(pov, Some(pov.playerId), uid, token, user, ip, userTv = none)
 
   private def join(
@@ -120,21 +120,16 @@ private[round] final class SocketHandler(
     token: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[JsSocketHandler] = {
-    val join = Join(
-      uid = uid,
-      user = user,
-      color = pov.color,
-      playerId = playerId,
-      ip = ip,
-      userTv = userTv)
-    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
-      Handler(hub, socket, uid, join, user map (_.id)) {
-        case Connected(enum, member) =>
-          (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
+    userTv: Option[String]): Fu[JsFlow] =
+    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] map { socket =>
+      Handler.actorRef { out =>
+        val member = Member(out, user, pov.color, playerId, ip, userTv = userTv)
+        socket ! AddMember(uid, member)
+        Handler.props(out)(hub, socket, member, uid, user.map(_.id)) {
+          controller(pov.gameId, socket, uid, pov.ref, member)
+        }
       }
     }
-  }
 
   private def parseMove(o: JsObject) = for {
     d ← o obj "d"
@@ -142,7 +137,7 @@ private[round] final class SocketHandler(
     dest ← d str "to"
     prom = d str "promotion"
     move <- Uci.Move.fromStrings(orig, dest, prom)
-    blur = (d int "b") == Some(1)
+    blur = d int "b" contains 1
     lag = d int "lag"
   } yield (move, blur, ~lag)
 
@@ -151,7 +146,7 @@ private[round] final class SocketHandler(
     role ← d str "role"
     pos ← d str "pos"
     drop <- Uci.Drop.fromStrings(role, pos)
-    blur = (d int "b") == Some(1)
+    blur = d int "b" contains 1
     lag = d int "lag"
   } yield (drop, blur, ~lag)
 

@@ -5,7 +5,6 @@ import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.ask
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.twirl.api.Html
 
@@ -16,7 +15,7 @@ import lila.game.AnonCookie
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi._
 import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
 
@@ -52,11 +51,7 @@ private[lobby] final class Socket(
       }
     }
 
-    case Join(uid, user, blocks, mobile) =>
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, mobile)
-      addMember(uid, member)
-      sender ! Connected(enumerator, member)
+    case AddMember(uid, member)  => addMember(uid, member)
 
     case ReloadTournaments(html) => notifyAllAsync(makeMessage("tournaments", html))
 

@@ -1,11 +1,11 @@
 package lila.socket
 
 import akka.actor.{ ActorRef, PoisonPill }
-import play.api.libs.json.JsValue
+import play.api.libs.json.JsObject
 
 trait SocketMember extends Ordered[SocketMember] {
 
-  protected val actor: ActorRef
+  protected val out: ActorRef
   val userId: Option[String]
   val troll: Boolean
 
@@ -13,17 +13,17 @@ trait SocketMember extends Ordered[SocketMember] {
 
   def compare(other: SocketMember) = ~userId compare ~other.userId
 
-  def push(msg: JsValue) = actor ! msg
+  def push(msg: JsObject) = out ! msg
 
-  def end = actor ! PoisonPill
+  def end = out ! PoisonPill
 }
 
 object SocketMember {
 
-  def apply(a: ActorRef): SocketMember = apply(a, none, false)
+  def apply(o: ActorRef): SocketMember = apply(o, none, false)
 
-  def apply(a: ActorRef, uid: Option[String], tr: Boolean): SocketMember = new SocketMember {
-    val actor = a
+  def apply(o: ActorRef, uid: Option[String], tr: Boolean): SocketMember = new SocketMember {
+    val out = o
     val userId = uid
     val troll = tr
   }

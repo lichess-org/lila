@@ -1,12 +1,11 @@
 package lila.socket
 
-import akka.actor.ActorRef
-import akka.NotUsed
+import akka.actor.{ ActorRef, Props, ActorSystem }
 import akka.pattern.{ ask, pipe }
 import akka.stream._
 import akka.stream.scaladsl._
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
 import scala.concurrent.duration._
 
 import actorApi._
@@ -14,30 +13,30 @@ import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.socket.Socket.makeMessage
 import makeTimeout.large
-import Step.openingWriter
 
 object Handler {
 
   type Controller = PartialFunction[(String, JsObject), Unit]
-  type Connecter = PartialFunction[Any, (Controller, JsEnumerator, SocketMember)]
 
   val emptyController: Controller = PartialFunction.empty
 
   lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds, "socket analysis move")
 
-  def completeController(
+  def actorRef(withOut: ActorRef => Props)(implicit system: ActorSystem): JsFlow =
+    ActorFlow.actorRef[JsObject, JsObject](withOut)
+
+  def props(out: ActorRef)(
     hub: lila.hub.Env,
     socket: ActorRef,
     member: SocketMember,
     uid: String,
-    userId: Option[String])(controller: Controller): JsValue => Unit = {
+    userId: Option[String])(controller: Controller): Props = {
     val control = controller orElse baseController(hub, socket, member, uid, userId)
-    in =>
-      in.asOpt[JsObject] foreach { obj =>
-        obj str "t" foreach { t =>
-          control.lift(t -> obj)
-        }
+    lila.socket.SocketMemberActor.props(out, in =>
+      in str "t" foreach { t =>
+        control.lift(t -> in)
       }
+    )
   }
 
   def baseController(
@@ -83,6 +82,7 @@ object Handler {
       }
     }
     case ("anaDests", o) => AnaRateLimit(uid) {
+      import Step.openingWriter
       AnaDests parse o match {
         case Some(req) =>
           member push makeMessage("dests", Json.obj(
@@ -96,28 +96,5 @@ object Handler {
       }
     }
     case _ => // logwarn("Unhandled msg: " + msg)
-  }
-
-  def apply(
-    hub: lila.hub.Env,
-    socket: ActorRef,
-    uid: String,
-    join: Any,
-    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
-
-    def iteratee(controller: Controller, member: SocketMember): JsIteratee = {
-      val control = controller orElse baseController(hub, socket, member, uid, userId)
-      Iteratee.foreach[JsValue](jsv =>
-        jsv.asOpt[JsObject] foreach { obj =>
-          obj str "t" foreach { t =>
-            control.lift(t -> obj)
-          }
-        }
-      ).map(_ => socket ! Quit(uid))
-    }
-
-    socket ? join map connecter map {
-      case (controller, enum, member) => iteratee(controller, member) -> enum
-    }
   }
 }

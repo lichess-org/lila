@@ -1,7 +1,6 @@
 package lila.simul
 
 import akka.actor._
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -9,7 +8,7 @@ import actorApi._
 import lila.common.LightUser
 import lila.hub.actorApi.round.MoveEvent
 import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi._
 import lila.socket.{ SocketActor, History, Historical }
 
 private[simul] final class Socket(
@@ -78,12 +77,9 @@ private[simul] final class Socket(
 
     case Socket.GetUserIds  => sender ! userIds
 
-    case Join(uid, user) =>
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user)
+    case AddMember(uid, member) =>
       addMember(uid, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
 
     case Quit(uid) =>
       quit(uid)

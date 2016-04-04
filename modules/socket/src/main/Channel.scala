@@ -2,7 +2,7 @@ package lila.socket
 
 import actorApi.SocketLeave
 import akka.actor._
-import play.api.libs.json.JsValue
+import play.api.libs.json.JsObject
 
 final class Channel extends Actor {
 
@@ -36,5 +36,5 @@ object Channel {
   case class Sub(member: SocketMember)
   case class UnSub(member: SocketMember)
 
-  case class Publish(msg: JsValue)
+  case class Publish(msg: JsObject)
 }

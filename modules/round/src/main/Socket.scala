@@ -18,7 +18,7 @@ import lila.hub.actorApi.round.{ IsOnGame, AnalysisAvailable }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi._
 import makeTimeout.short
 
 private[round] final class Socket(
@@ -139,16 +139,13 @@ private[round] final class Socket(
           blackIsGone = blackIsGone)
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, userTv) =>
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, userTv = userTv)
+    case AddMember(uid, member) =>
       addMember(uid, member)
       notifyCrowd
-      playerDo(color, _.ping)
-      sender ! Connected(enumerator, member)
+      playerDo(member.color, _.ping)
       if (member.userTv.isDefined) refreshSubscriptions
       if (member.owner) lilaBus.publish(
-        lila.hub.actorApi.round.SocketEvent.OwnerJoin(gameId, color, ip),
+        lila.hub.actorApi.round.SocketEvent.OwnerJoin(gameId, member.color, member.ip),
         'roundDoor)
 
     case Nil                  =>

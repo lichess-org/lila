@@ -2,11 +2,7 @@ package lila.socket
 package actorApi
 
 import play.api.libs.json.JsObject
-import akka.actor.ActorRef
 
-case class Connected[M <: SocketMember](
-  enumerator: JsEnumerator,
-  member: M)
 case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String)
 case class PingVersion(uid: String, version: Int)

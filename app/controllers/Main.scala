@@ -37,16 +37,7 @@ object Main extends LilaController {
 
   def websocket = SocketOption { implicit ctx =>
     get("sri") ?? { uid =>
-      Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
-    }
-  }
-
-  def newWebsocket = NewSocketOption { implicit ctx =>
-    get("sri") ?? { uid =>
-      // Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
-      ActorFlow.actorRef { out =>
-        lila.socket.SocketMemberActor.props(out)
-      )
+      fuccess(Env.site.socketHandler(uid, ctx.userId, get("flag")))
     }
   }
 

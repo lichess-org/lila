@@ -1,6 +1,8 @@
 package lila.lobby
 package actorApi
 
+import akka.actor.ActorRef
+
 import lila.game.Game
 import lila.socket.SocketMember
 import lila.user.User
@@ -29,7 +31,7 @@ private[lobby] object LobbyUser {
 }
 
 private[lobby] case class Member(
-    channel: JsChannel,
+    out: ActorRef,
     user: Option[LobbyUser],
     uid: String,
     mobile: Boolean) extends SocketMember {
@@ -40,8 +42,8 @@ private[lobby] case class Member(
 
 private[lobby] object Member {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: String, mobile: Boolean): Member = Member(
-    channel = channel,
+  def apply(out: ActorRef, user: Option[User], blocking: Set[String], uid: String, mobile: Boolean): Member = Member(
+    out = out,
     user = user map { LobbyUser.make(_, blocking) },
     uid = uid,
     mobile = mobile)
@@ -51,7 +53,6 @@ private[lobby] case class HookMeta(hookId: Option[String] = None)
 
 private[lobby] case class Messadata(hook: Option[Hook] = None)
 
-private[lobby] case class Connected(enumerator: JsEnumerator, member: Member)
 private[lobby] case class WithHooks(op: Iterable[String] => Unit)
 private[lobby] case class SaveHook(msg: AddHook)
 private[lobby] case class SaveSeek(msg: AddSeek)
@@ -64,7 +65,7 @@ private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[Lob
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String], mobile: Boolean)
+private[lobby] case class AddMember(uid: String, member: Member)
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 

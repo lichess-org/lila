@@ -17,7 +17,6 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
-    flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
     roundSocketHub: ActorSelection,
@@ -80,8 +79,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
-    chat = hub.actor.chat,
-    flood = flood)
+    chat = hub.actor.chat)(system)
 
   lazy val winners = new Winners(
     mongoCache = mongoCache,
@@ -171,7 +169,6 @@ object Env {
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
-    flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
     roundSocketHub = lila.hub.Env.current.socket.round,
