@@ -53,7 +53,7 @@ object Lobby extends LilaController {
   private val wsThrottler = Flow[JsObject].throttle(
     elements = 10,
     per = 5.second,
-    maximumBurst = 0,
+    maximumBurst = 10,
     mode = akka.stream.ThrottleMode.Enforcing)
 
   def socket(apiVersion: Int) = SocketOption { implicit ctx =>
