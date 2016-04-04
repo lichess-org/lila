@@ -44,7 +44,7 @@ private[lobby] final class SocketHandler(
       Handler.actorRef { out =>
         val member = Member(out, user, blockedUserIds, uid, mobile)
         socket ! AddMember(uid, member)
-        Handler.props(out)(hub, socket, member, uid, user.map(_.id)) {
+        Handler.props(hub, socket, member, uid, user.map(_.id)) {
           controller(socket, uid, member)
         }
       }

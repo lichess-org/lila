@@ -125,7 +125,7 @@ private[round] final class SocketHandler(
       Handler.actorRef { out =>
         val member = Member(out, user, pov.color, playerId, ip, userTv = userTv)
         socket ! AddMember(uid, member)
-        Handler.props(out)(hub, socket, member, uid, user.map(_.id)) {
+        Handler.props(hub, socket, member, uid, user.map(_.id)) {
           controller(pov.gameId, socket, uid, pov.ref, member)
         }
       }

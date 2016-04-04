@@ -25,14 +25,14 @@ object Handler {
   def actorRef(withOut: ActorRef => Props)(implicit system: ActorSystem): JsFlow =
     ActorFlow.actorRef[JsObject, JsObject](withOut)
 
-  def props(out: ActorRef)(
+  def props(
     hub: lila.hub.Env,
     socket: ActorRef,
     member: SocketMember,
     uid: String,
     userId: Option[String])(controller: Controller): Props = {
     val control = controller orElse baseController(hub, socket, member, uid, userId)
-    lila.socket.SocketMemberActor.props(out, in =>
+    lila.socket.SocketMemberActor.props(in =>
       in str "t" foreach { t =>
         control.lift(t -> in)
       }

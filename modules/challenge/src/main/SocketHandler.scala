@@ -24,7 +24,7 @@ private[challenge] final class SocketHandler(
       Handler.actorRef { out =>
         val member = Socket.Member(out, userId, owner)
         socket ! Socket.AddMember(uid, member)
-        Handler.props(out)(hub, socket, member, uid, userId) {
+        Handler.props(hub, socket, member, uid, userId) {
           case ("p", o) => o int "v" foreach { v =>
             socket ! PingVersion(uid, v)
           }

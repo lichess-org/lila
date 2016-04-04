@@ -14,6 +14,6 @@ private[site] final class SocketHandler(
     Handler.actorRef { out =>
       val member = Member(out, userId, flag)
       socket ! AddMember(uid, member)
-      Handler.props(out)(hub, socket, member, uid, userId)(Handler.emptyController)
+      Handler.props(hub, socket, member, uid, userId)(Handler.emptyController)
     }
 }

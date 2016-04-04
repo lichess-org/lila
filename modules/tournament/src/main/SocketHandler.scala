@@ -23,7 +23,7 @@ private[tournament] final class SocketHandler(
           Handler.actorRef { out =>
             val member = Member(out, user)
             socket ! AddMember(uid, member)
-            Handler.props(out)(hub, socket, member, uid, user.map(_.id)) {
+            Handler.props(hub, socket, member, uid, user.map(_.id)) {
               case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
               case ("talk", o) => o str "d" foreach { text =>
                 member.userId foreach { userId =>
