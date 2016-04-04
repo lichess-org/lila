@@ -16,4 +16,5 @@ case class Member(
 }
 
 case class Join(uid: String, userId: Option[String], flag: Option[String])
+case class AddMember(uid: String, member: Member)
 private[site] case class Connected(enumerator: JsEnumerator, member: Member)

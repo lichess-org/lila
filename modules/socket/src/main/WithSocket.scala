@@ -15,7 +15,7 @@ trait WithSocket {
   type JsIteratee = Iteratee[JsValue, _]
   type JsSocketHandler = (JsIteratee, JsEnumerator)
 
-  type JsFlow = Flow[JsValue, JsValue, NotUsed]
+  type JsFlow = Flow[JsValue, JsValue, _]
   // type JsSource = Source[JsValue, NotUsed]
   // type JsSink = Sink[JsValue, NotUsed]
 }

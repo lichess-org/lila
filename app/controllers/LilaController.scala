@@ -70,6 +70,14 @@ private[controllers] trait LilaController
       }
     }
 
+  protected def NewSocketOption[In, Out](f: Context => Fu[Option[Flow[In, Out, _]]])(implicit transformer: MessageFlowTransformer[In, Out]): WebSocket = {
+    WebSocket.acceptOrResult[In, Out] { req =>
+      reqToCtx(req) flatMap f map {
+        case None       => Left(NotFound(jsonError("socket resource not found")))
+        case Some(pair) => Right(pair)
+      }
+    }
+
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(BodyParsers.parse.empty)(f)
 

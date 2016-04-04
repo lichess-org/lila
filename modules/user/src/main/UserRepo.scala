@@ -233,7 +233,7 @@ object UserRepo {
     import java.util.regex.Matcher.quoteReplacement
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
-    coll.find($id($regex(regex, "")), $doc(F.username -> true))
+    coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
       .sort($sort desc "_id")
       .cursor[Bdoc]().gather[List](max)
       .map {

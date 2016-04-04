@@ -41,6 +41,15 @@ object Main extends LilaController {
     }
   }
 
+  def newWebsocket = NewSocketOption { implicit ctx =>
+    get("sri") ?? { uid =>
+      // Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
+      ActorFlow.actorRef { out =>
+        lila.socket.SocketMemberActor.props(out)
+      )
+    }
+  }
+
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(valid fold (1, 0))
