@@ -97,7 +97,8 @@ trait WithPlay { self: PackageObject =>
 
   implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
-  implicit def materializer(implicit system: akka.actor.ActorSystem) = akka.stream.ActorMaterializer()
+  implicit def materializer(implicit system: akka.actor.ActorSystem): akka.stream.Materializer =
+    akka.stream.ActorMaterializer()
 
   implicit val LilaFutureMonad = new Monad[Fu] {
     override def map[A, B](fa: Fu[A])(f: A => B) = fa map f

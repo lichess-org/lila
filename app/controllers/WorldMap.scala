@@ -14,10 +14,13 @@ object WorldMap extends LilaController {
   }
 
   def stream = Action.async {
-    Env.worldMap.getStream map { stream =>
-      Ok.chunked(
-        stream &> EventSource()
-      ) as "text/event-stream"
+    import akka.pattern.ask
+    import makeTimeout.short
+    import lila.worldMap.Stream
+    import akka.stream.scaladsl.Source
+    Env.worldMap.stream ? Stream.GetPublisher mapTo manifest[Stream.PublisherType] map { publisher =>
+      val source = Source fromPublisher publisher
+      Ok.chunked(source via EventSource.flow).as("text/event-stream")
     }
   }
 }

@@ -10,23 +10,21 @@ import play.api.libs.json._
 
 private final class TvBroadcast extends Actor {
 
-  implicit val mat = materializer(context.system)
-
-  val (actorRef, publisher) = Source.actorRef(20, OverflowStrategy.dropHead)
-    .toMat(Sink asPublisher false)(Keep.both).run()
+  val (out, publisher) =
+    lila.common.AkkaStream.actorPublisher(20, OverflowStrategy.dropHead)(materializer(context.system))
 
   private var featuredId = none[String]
 
   def receive = {
 
-    case TvBroadcast.GetPublisher  => sender ! publisher
+    case TvBroadcast.GetPublisher => sender ! publisher
 
     case ChangeFeatured(id, msg) =>
       featuredId = id.some
-      actorRef ! msg
+      out ! msg
 
     case move: MoveEvent if Some(move.gameId) == featuredId =>
-      actorRef ! makeMessage("fen", Json.obj(
+      out ! makeMessage("fen", Json.obj(
         "fen" -> move.fen,
         "lm" -> move.move
       ))
@@ -35,7 +33,7 @@ private final class TvBroadcast extends Actor {
 
 object TvBroadcast {
 
-  import org.reactivestreams.Publisher
-  type PublisherType = Publisher[JsValue]
+  type PublisherType = org.reactivestreams.Publisher[JsValue]
+
   case object GetPublisher
 }

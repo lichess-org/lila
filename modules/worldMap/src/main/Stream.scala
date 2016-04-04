@@ -1,10 +1,11 @@
 package lila.worldMap
 
 import akka.actor._
+import akka.stream._
+import akka.stream.scaladsl._
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import java.security.MessageDigest
 import lila.hub.actorApi.round.SocketEvent
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -18,11 +19,25 @@ private final class Stream(
 
   val games = scala.collection.mutable.Map.empty[String, Stream.Game]
 
-  private def makeMd5 = MessageDigest getInstance "MD5"
+  val (out, realtime) =
+    lila.common.AkkaStream.actorSource(20, OverflowStrategy.dropHead)(materializer(context.system))
 
-  private val loadCompleteJson = Json.obj("loadComplete" -> true)
+  def preload = Source[JsValue](games.values.map(game2json(makeMd5)).toList)
+  val preloadComplete = Source[JsValue](List(Json.obj("loadComplete" -> true): JsValue))
+
+  val transformer = Flow.fromFunction[Stream.Event, JsValue] {
+    case Stream.Event.Add(game)  => game2json(makeMd5)(game)
+    case Stream.Event.Remove(id) => Json.obj("id" -> id)
+  }
+
+  def makeSource =
+    Source.combine(preload, preloadComplete, realtime via transformer)(_ => Concat())
+
+  def makePublisher =
+    makeSource.toMat(Sink asPublisher false)(Keep.both).run()
 
   def receive = {
+
     case SocketEvent.OwnerJoin(id, color, ip) =>
       ipCache get ip foreach { point =>
         val game = games get id match {
@@ -30,25 +45,19 @@ private final class Stream(
           case None       => Stream.Game(id, List(point))
         }
         games += (id -> game)
-        channel push Stream.Event.Add(game)
+        out ! Stream.Event.Add(game)
       }
+
     case SocketEvent.Stop(id) =>
       games -= id
-      channel push Stream.Event.Remove(id)
-    case Stream.Get => sender ! {
-      Enumerator.enumerate(games.values.map(game2json(makeMd5))) andThen
-        Enumerator.enumerate(List(loadCompleteJson)) andThen
-        producer
-    }
+      out ! Stream.Event.Remove(id)
+
+    case Stream.GetPublisher => sender ! makePublisher
   }
 
-  val (enumerator, channel) = Concurrent.broadcast[Stream.Event]
+  implicit val mat = materializer(context.system)
 
-  val producer = enumerator &> Enumeratee.map[Stream.Event].apply[JsValue] {
-    case Stream.Event.Add(game)  => game2json(makeMd5)(game)
-    case Stream.Event.Remove(id) => Json.obj("id" -> id)
-  }
-
+  def makeMd5 = MessageDigest getInstance "MD5"
   val ipCache = lila.memo.Builder.cache(geoIpCacheTtl, ipToPoint)
   def ipToPoint(ip: String): Option[Stream.Point] =
     geoIp getLocation ip flatMap Stream.toPoint
@@ -56,7 +65,10 @@ private final class Stream(
 
 object Stream {
 
-  case object Get
+  case object GetPublisher
+
+  import org.reactivestreams.Publisher
+  type PublisherType = Publisher[JsValue]
 
   case class Game(id: String, points: List[Point]) {
 
