@@ -81,8 +81,10 @@ object mon {
       val glicko = inc("round.error.glicko")
     }
     object titivate {
-      val game = rec("round.titivate.game")
       val time = rec("round.titivate.time")
+      val game = rec("round.titivate.game") // how many games were processed
+      val total = rec("round.titivate.total") // how many games should have been processed
+      val old = rec("round.titivate.old") // how many old games remain
     }
   }
   object explorer {
