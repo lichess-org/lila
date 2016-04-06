@@ -6,8 +6,8 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.db.BSON.MapValue.MapHandler
+import lila.db.dsl._
 import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }
 
@@ -104,7 +104,8 @@ final class RankingApi(
     private val cache = mongoCache[Perf.ID, List[NbUsers]](
       prefix = "user:rating:distribution",
       f = compute,
-      timeToLive = 3 hour)
+      timeToLive = 3 hour,
+      keyToString = _.toString)
 
     // from 800 to 2500 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =

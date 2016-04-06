@@ -1,6 +1,6 @@
 $(function() {
 
-  $('input.user-autocomplete-jump').one('focus', function() {
+  var setupAutocomplete = function() {
     var go = function(name) {
       location.href = '/@/' + name;
     }
@@ -37,7 +37,9 @@ $(function() {
         if (e.which == 10 || e.which == 13) go($(this).val());
       }).focus();
     });
-  });
+  };
+
+  $('input.user-autocomplete-jump').each(setupAutocomplete);
 
   $("div.user_show .mod_zone_toggle").each(function() {
     $(this).click(function() {

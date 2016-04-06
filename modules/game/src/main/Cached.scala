@@ -41,7 +41,8 @@ final class Cached(
   private val count = mongoCache(
     prefix = "game:count",
     f = (o: BSONDocument) => coll countSel o,
-    timeToLive = defaultTtl)
+    timeToLive = defaultTtl,
+    keyToString = lila.db.BSON.hashDoc)
 
   object Divider {
 

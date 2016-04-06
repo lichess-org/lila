@@ -14,7 +14,7 @@ import lila.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }
 
 final class Cached(
-  userColl: Coll,
+    userColl: Coll,
     nbTtl: FiniteDuration,
     onlineUserIdMemo: ExpireSetMemo,
     mongoCache: MongoCache.Builder,
@@ -62,12 +62,14 @@ final class Cached(
   val top10Perf = mongoCache[Perf.ID, List[LightPerf]](
     prefix = "user:top10:perf",
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 10),
-    timeToLive = 10 seconds)
+    timeToLive = 10 seconds,
+    keyToString = _.toString)
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
     prefix = "user:top200:perf",
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
-    timeToLive = 10 minutes)
+    timeToLive = 10 minutes,
+    keyToString = _.toString)
 
   private val topWeekCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:week",
@@ -81,7 +83,8 @@ final class Cached(
   val topNbGame = mongoCache[Int, List[User.LightCount]](
     prefix = "user:top:nbGame",
     f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
-    timeToLive = 34 minutes)
+    timeToLive = 34 minutes,
+    keyToString = _.toString)
 
   val top50Online = lila.memo.AsyncCache.single[List[User]](
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),

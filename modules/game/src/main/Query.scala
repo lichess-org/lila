@@ -82,6 +82,8 @@ object Query {
 
   def checkable = F.checkAt $lt DateTime.now
 
+  def checkableOld = F.checkAt $lt DateTime.now.minusHours(1)
+
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
 

@@ -7,8 +7,8 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.game.{ Query, Game, GameRepo }
 import lila.game.BSONHandlers.gameBSONHandler
+import lila.game.{ Query, Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.{ Outoftime, Abandon }
 
@@ -35,9 +35,9 @@ private[round] final class Titivate(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Run =>
+    case Run => GameRepo.count(_.checkable).flatMap { total =>
       GameRepo.cursor(Query.checkable)
-        .enumerate(5000, stopOnError = true)
+        .enumerate(5000, stopOnError = false)
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
@@ -74,7 +74,13 @@ private[round] final class Titivate(
           } inject (count + 1)
         })
         .chronometer.mon(_.round.titivate.time).result
-        .addEffect { lila.mon.round.titivate.game(_) }
+        .addEffect { count =>
+          lila.mon.round.titivate.game(count)
+          lila.mon.round.titivate.total(total)
+        }.>> {
+          GameRepo.count(_.checkableOld).map(lila.mon.round.titivate.old(_))
+        }
         .andThenAnyway(scheduleNext)
+    }
   }
 }
