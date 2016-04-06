@@ -37,7 +37,7 @@ private[round] final class Titivate(
 
     case Run =>
       GameRepo.cursor(Query.checkable)
-        .enumerate(5000, stopOnError = true)
+        .enumerate(5000, stopOnError = false)
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
