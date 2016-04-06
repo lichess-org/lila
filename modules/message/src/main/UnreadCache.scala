@@ -13,7 +13,8 @@ private[message] final class UnreadCache(
     prefix = "message:unread",
     f = ThreadRepo.userUnreadIds,
     maxCapacity = 4096,
-    timeToLive = 7.days)
+    timeToLive = 7.days,
+    keyToString = identity)
 
   def apply(userId: String): Fu[List[String]] = cache(userId)
 

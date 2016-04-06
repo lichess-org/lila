@@ -16,7 +16,8 @@ final class Winners(
   private val scheduledCache = mongoCache[Int, List[Winner]](
     prefix = "tournament:winner",
     f = fetchScheduled,
-    timeToLive = ttl)
+    timeToLive = ttl,
+    keyToString = _.toString)
 
   import Schedule.Freq
   private def fetchScheduled(nb: Int): Fu[List[Winner]] = {

@@ -8,8 +8,8 @@ import org.joda.time.DateTime
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.paginator._
-import lila.db.paginator._
 import lila.db.dsl._
+import lila.db.paginator._
 import lila.user.{ User, UserRepo }
 
 final class QaApi(
@@ -83,12 +83,13 @@ final class QaApi(
         currentPage = page,
         maxPerPage = perPage)
 
-    private def popularCache = mongoCache(
+    private def popularCache = mongoCache[Int, List[Question]](
       prefix = "qa:popular",
-      f = (nb: Int) => questionColl.find($empty)
+      f = nb => questionColl.find($empty)
         .sort($doc("vote.score" -> -1))
         .cursor[Question]().gather[List](nb),
-      timeToLive = 3 hour)
+      timeToLive = 3 hour,
+      keyToString = _.toString)
 
     def popular(max: Int): Fu[List[Question]] = popularCache(max)
 

@@ -57,7 +57,7 @@ object MongoCache {
       initialCapacity: Int = 64,
       timeToLive: FiniteDuration,
       timeToLiveMongo: Option[FiniteDuration] = None,
-      keyToString: K => String = (k: K) => k.toString): MongoCache[K, V] = new MongoCache[K, V](
+      keyToString: K => String): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
       expiresAt = expiresAt(timeToLiveMongo | timeToLive),
       cache = LruCache(maxCapacity, initialCapacity, timeToLive),
