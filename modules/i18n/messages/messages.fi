@@ -21,6 +21,7 @@ whiteIsVictorious=Valkoinen voittaa
 blackIsVictorious=Musta voittaa
 kingInTheCenter=Kuningas keskustassa
 threeChecks=Kolme shakkia
+raceFinished=Kilpa loppunut
 variantEnding=Lopetus varianttisääntöjen mukaan
 newOpponent=Uusi vastustaja
 yourOpponentWantsToPlayANewGameWithYou=Vastustajasi haluaa pelata uudelleen
