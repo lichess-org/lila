@@ -3,8 +3,10 @@ package lila.worldMap
 import com.typesafe.config.Config
 
 import akka.actor._
+import akka.pattern.ask
 import com.sanoma.cda.geoip.MaxMindIpGeo
 import lila.common.PimpedConfig._
+import makeTimeout.short
 
 final class Env(
     system: akka.actor.ActorSystem,
@@ -22,10 +24,9 @@ final class Env(
   import akka.stream.scaladsl.Source
   import scala.concurrent.duration._
   import play.api.libs.json.JsValue
-  implicit val timeout = akka.util.Timeout(5 seconds)
   def getSource: Fu[Stream.SourceType] =
     stream ? Stream.GetSource mapTo manifest[Stream.SourceType]
-n
+}
 
 object Env {
 
