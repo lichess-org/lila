@@ -174,6 +174,8 @@ trait WithPlay { self: PackageObject =>
   implicit final class LilaPimpedActorSystem(self: akka.actor.ActorSystem) {
 
     def lilaBus = lila.common.Bus(self)
+
+    def lilaMat = materializer(self)
   }
 
   object makeTimeout {

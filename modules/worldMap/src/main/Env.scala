@@ -17,7 +17,16 @@ final class Env(
     Props(new Stream(
       geoIp = MaxMindIpGeo(GeoIPFile, 0),
       geoIpCacheTtl = GeoIPCacheTtl)))
-  system.lilaBus.subscribe(stream, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
+
+  system.lilaBus.subscribe(stream, 'roundDoor)
+
+  import akka.pattern.ask
+  import akka.stream.scaladsl.Source
+  import scala.concurrent.duration._
+  import play.api.libs.json.JsValue
+  implicit val timeout = akka.util.Timeout(5 seconds)
+  def getSource: Fu[Stream.SourceType] =
+    stream ? Stream.GetSource mapTo manifest[Stream.SourceType]
 }
 
 object Env {
