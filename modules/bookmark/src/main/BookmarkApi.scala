@@ -12,7 +12,7 @@ final class BookmarkApi(
   import lila.game.BSONHandlers.gameBSONHandler
 
   def toggle(gameId: String, userId: String): Funit =
-    coll.byId[Game](gameId) flatMap {
+    GameRepo game gameId flatMap {
       _ ?? { game =>
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked =>
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>-
