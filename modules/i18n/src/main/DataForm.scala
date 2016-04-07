@@ -31,7 +31,7 @@ final class DataForm(
         messages find (_._1 == key.key)
       }).flatten
       val translation = Translation(
-        id = id,
+        _id = id,
         code = code,
         text = sorted map {
           case (key, trans) => key + "=" + trans
