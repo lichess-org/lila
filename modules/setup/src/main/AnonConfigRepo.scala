@@ -18,7 +18,7 @@ private[setup] object AnonConfigRepo {
     configOption(req) flatMap {
       _ ?? { config =>
         coll.update(
-          $doc("_id" -> config.id),
+          $id(config.id),
           f(config),
           upsert = true).void
       }
