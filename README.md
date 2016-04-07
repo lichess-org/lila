@@ -46,6 +46,10 @@ Feel free to use lichess API in your applications and websites.
 If the resource you need is not available yet,
 drop me an email at thibault.duplessis@gmail.com and we'll discuss it.
 
+## API Limits
+
+To respect the API servers and avoid an IP ban, please wait 2 seconds between requests. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.
+
 ### `GET /api/user/<username>` fetch one user
 
 ```
