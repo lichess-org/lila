@@ -66,7 +66,7 @@ object UserRepo {
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
       $inIds(ids) ++ goodLadSelectBson,
-      $doc("_id" -> true))
+      $id(true))
       .sort($doc(s"perfs.standard.gl.r" -> -1))
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .gather[List](nb).map {
@@ -100,7 +100,7 @@ object UserRepo {
     (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean)) {
       case (u1, u2) => coll.find(
         $doc("_id".$in(u1, u2)),
-        $doc("_id" -> true)
+        $id(true)
       ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
           _.fold(scala.util.Random.nextBoolean) { doc =>
             doc.getAs[String]("_id") contains u1
@@ -289,7 +289,7 @@ object UserRepo {
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
-    $doc("_id" -> id),
+    $id(id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
   ).uno[Bdoc].map {
       _.flatMap(_.getAs[Bdoc](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
@@ -305,7 +305,7 @@ object UserRepo {
       "seenAt" -> $doc("$gt" -> since),
       "count.game" -> $doc("$gt" -> 9),
       "kid" -> $doc("$ne" -> true)
-    ), $doc("_id" -> true)).cursor[Bdoc]()
+    ), $id(true)).cursor[Bdoc]()
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
