@@ -18,7 +18,7 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
       .split('@') match {
 
         // gmail addresses
-        case Array(name, domain) if isGmail(domain) => name
+        case Array(name, domain) if gmailDomains(domain) => name
         .replace(".", "") // remove all dots
         .takeWhile('+'!=) // skip everything after the first +
         .some.filter(_.nonEmpty) // make sure something remains
@@ -56,5 +56,5 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
     }
   }
 
-  private def isGmail(domain: String) = domain == "gmail.com"
+  private val gmailDomains = Set("gmail.com", "googlemail.com")
 }
