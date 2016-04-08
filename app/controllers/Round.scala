@@ -1,7 +1,6 @@
 package controllers
 
 import akka.pattern.ask
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
 import play.twirl.api.Html
@@ -10,11 +9,8 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round._
 import lila.tournament.{ TournamentRepo, Tournament => Tourney, MiniStanding }
 import lila.user.{ User => UserModel, UserRepo }
-import makeTimeout.large
 import views._
 
 object Round extends LilaController with TheftPrevention {

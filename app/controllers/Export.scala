@@ -6,7 +6,7 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.iteratee.Enumerator
 import play.api.mvc.Result
 import views._
 
