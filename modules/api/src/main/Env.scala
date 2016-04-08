@@ -119,6 +119,8 @@ final class Env(
 
   lazy val cli = new Cli(system.lilaBus, renderer)
 
+  // DeadLetters.start(system)
+
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
   }
