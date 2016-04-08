@@ -2,11 +2,11 @@ package controllers
 
 import play.api.mvc.Action
 
+import akka.stream.scaladsl._
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
-import play.api.libs.iteratee.Enumerator
 import play.api.mvc.Result
 import views._
 
@@ -36,7 +36,10 @@ object Export extends LilaController {
   def pdf(id: String) = Open { implicit ctx =>
     OnlyHumans {
       OptionResult(GameRepo game id) { game =>
-        Ok.chunked(Enumerator.outputStream(env.pdfExport(game.id))).withHeaders(
+        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
+          env.pdfExport(game.id)(outputStream)
+        }
+        Ok.chunked(source).withHeaders(
           CONTENT_TYPE -> "application/pdf",
           CACHE_CONTROL -> "max-age=7200")
       }
@@ -46,7 +49,10 @@ object Export extends LilaController {
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
       OptionResult(GameRepo game id) { game =>
-        Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
+        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
+          env.pngExport(game)(outputStream)
+        }
+        Ok.chunked(source).withHeaders(
           CONTENT_TYPE -> "image/png",
           CACHE_CONTROL -> "max-age=7200")
       }
@@ -56,7 +62,10 @@ object Export extends LilaController {
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
       OptionResult(Env.puzzle.api.puzzle find id) { puzzle =>
-        Ok.chunked(Enumerator.outputStream(Env.puzzle.pngExport(puzzle))).withHeaders(
+        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
+          Env.puzzle.pngExport(puzzle)(outputStream)
+        }
+        Ok.chunked(source).withHeaders(
           CONTENT_TYPE -> "image/png",
           CACHE_CONTROL -> "max-age=7200")
       }
