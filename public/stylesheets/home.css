@@ -370,22 +370,29 @@ div.blog.undertable div.undertable_inner:hover {
 div.blog.undertable div.post {
   overflow: hidden;
 }
+div.blog.undertable div.post .text {
+  margin-top: 5px;
+}
 div.blog.undertable div.post a.image {
   display: block;
   float: left;
   margin-right: 10px;
 }
 div.blog.undertable div.post a.image img {
-  height: 60px;
+  height: 48px;
+  width: 48px;
+  margin: 3px;
 }
 div.blog.undertable div.post .title {
   font-weight: bold;
   line-height: 2;
 }
 div.blog.undertable div.post time {
+  margin-top: 10px;
   float: right;
   font-weight: 100;
   line-height: 2;
+  opacity: 0.6;
 }
 #lichess .enterable_list {
   height: auto;
