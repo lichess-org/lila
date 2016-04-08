@@ -5,7 +5,10 @@ import play.api.libs.json.JsObject
 
 // implements ActorFlow.actorRef out actor
 final class SocketMemberActor(
-    handler: JsObject => Unit) extends Actor {
+    handler: JsObject => Unit,
+    onClose: () => Unit) extends Actor {
+
+  override def postStop() = onClose()
 
   def receive = {
 
@@ -17,6 +20,6 @@ final class SocketMemberActor(
 
 object SocketMemberActor {
 
-  def props(handler: JsObject => Unit) =
-    Props(new SocketMemberActor(handler))
+  def props(handler: JsObject => Unit, onClose: () => Unit) =
+    Props(new SocketMemberActor(handler, onClose))
 }

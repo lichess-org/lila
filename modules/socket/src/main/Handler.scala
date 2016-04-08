@@ -32,10 +32,11 @@ object Handler {
     uid: String,
     userId: Option[String])(controller: Controller): Props = {
     val control = controller orElse baseController(hub, socket, member, uid, userId)
-    lila.socket.SocketMemberActor.props(in =>
-      in str "t" foreach { t =>
+    lila.socket.SocketMemberActor.props(
+      handler = in => in str "t" foreach { t =>
         control.lift(t -> in)
-      }
+      },
+      onClose = () => socket ! Quit(uid)
     )
   }
 
