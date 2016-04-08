@@ -20,40 +20,43 @@ private final class Stream(
 
   val games = scala.collection.mutable.Map.empty[String, Game]
 
-  val (out, publisher) = lila.common.AkkaStream.actorPublisher[Event](100)
+  val clients = scala.collection.mutable.Set.empty[ActorRef]
 
-  def preload = Source[JsValue](games.values.pp.map(game2json(makeMd5)).toList.pp)
-  val preloadComplete = Source[JsValue](List(Json.obj("loadComplete" -> true)))
+  def preload = Source.combine(
+    Source[JsValue](games.values.map(game2json(makeMd5)).toList),
+    Source[JsValue](List(Json.obj("loadComplete" -> true)))
+  )(_ => Concat())
 
-  val transformer = Flow.fromFunction[Event, JsValue] {
-    case Event.Add(game)  => game2json(makeMd5)(game)
-    case Event.Remove(id) => Json.obj("id" -> id)
-  }
-
-  def realtime = Source.fromPublisher[Event](publisher)
-
-  def makeSource =
-    Source.combine(preload, preloadComplete, realtime via transformer)(_ => Concat())
+  def sendToClients(json: => JsValue) =
+    if (clients.nonEmpty) {
+      clients.foreach { _ ! json }
+    }
 
   def receive = {
 
     case SocketEvent.OwnerJoin(id, color, ip) =>
-      (ipCache get "58.8.28.97").pp foreach { point =>
+      ipCache get ip foreach { point =>
         val game = games get id match {
           case Some(game) => game withPoint point
           case None       => Game(id, List(point))
         }
         games += (id -> game)
-        out ! Event.Add(game).pp
+        sendToClients(game2json(makeMd5)(game))
       }
 
     case SocketEvent.Stop(id) =>
       games -= id
-      out ! Event.Remove(id)
+      sendToClients(Json.obj("id" -> id))
 
     case GetSource =>
-      println(games)
-      sender ! makeSource
+      val (client, source) = lila.common.AkkaStream.actorSource[JsValue](100)
+      context.watch(client)
+      clients += client
+      sender ! Source.combine(preload, source)(_ => Concat())
+
+    case Terminated(client) =>
+      context.unwatch(client)
+      clients -= client
   }
 
   def makeMd5 = MessageDigest getInstance "MD5"
@@ -90,11 +93,5 @@ object Stream {
   case class Point(lat: Double, lon: Double)
   def toPoint(ipLoc: IpLocation): Option[Point] = ipLoc.geoPoint map { p =>
     Point(p.latitude, p.longitude)
-  }
-
-  sealed trait Event
-  object Event {
-    case class Add(game: Game) extends Event
-    case class Remove(id: String) extends Event
   }
 }

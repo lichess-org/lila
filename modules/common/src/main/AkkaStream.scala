@@ -10,13 +10,13 @@ object AkkaStream {
   def actorPublisher[T](
     bufferSize: Int,
     overflowStrategy: OverflowStrategy = OverflowStrategy.dropHead)(implicit materializer: Materializer): (ActorRef, Publisher[T]) = {
-    Source.actorRef[T](20, OverflowStrategy.dropHead)
+    Source.actorRef[T](bufferSize, OverflowStrategy.dropHead)
       .toMat(Sink asPublisher false)(Keep.both).run()
   }
 
   def actorSource[T](
     bufferSize: Int,
-    overflowStrategy: OverflowStrategy)(implicit materializer: Materializer): (ActorRef, Source[T, _]) = {
+    overflowStrategy: OverflowStrategy = OverflowStrategy.dropHead)(implicit materializer: Materializer): (ActorRef, Source[T, _]) = {
     val (out, publisher) = actorPublisher(bufferSize, overflowStrategy)
     (out, Source fromPublisher publisher)
   }
