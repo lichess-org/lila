@@ -45,22 +45,24 @@ module.exports = {
   },
   view: function(ctrl) {
     var flipAttrs = {};
-    if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
-    else flipAttrs.href = router.game(ctrl.data, ctrl.data.opponent.color) + '#' + ctrl.vm.step.ply;
+    var d = ctrl.data;
+    if (d.userAnalysis) flipAttrs.onclick = ctrl.flip;
+    else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.step.ply;
+    var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
       m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
       ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
+        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.step.fen,
         rel: 'nofollow'
       }, ctrl.trans('boardEditor')),
-      ctrl.ongoing ? null : m('a.button.text[data-icon=U]', {
+      canContinue ? m('a.button.text[data-icon=U]', {
         onclick: function() {
-          $.modal($('.continue_with.' + ctrl.data.game.id));
+          $.modal($('.continue_with.' + d.game.id));
         }
-      }, ctrl.trans('continueFromHere')),
+      }, ctrl.trans('continueFromHere')) : null,
       ctrl.analyse.tree.length > 4 ?
-      speedsOf(ctrl.data).map(function(speed) {
+      speedsOf(d).map(function(speed) {
         return m('a.button[data-icon=G]', {
           class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
           onclick: partial(ctrl.togglePlay, speed.delay)
@@ -108,15 +110,15 @@ module.exports = {
           ]);
         })('analyse-toggle-gauge')
       ],
-      deleteButton(ctrl.data, ctrl.userId),
-      ctrl.ongoing ? null : m('div.continue_with.' + ctrl.data.game.id, [
+      deleteButton(d, ctrl.userId),
+      ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
         m('a.button', {
-          href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(ctrl.data, 'ai') + '?fen=' + ctrl.vm.step.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithTheMachine')),
         m('br'),
         m('a.button', {
-          href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(ctrl.data, 'friend') + '?fen=' + ctrl.vm.step.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
       ])
