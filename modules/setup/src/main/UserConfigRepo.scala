@@ -16,7 +16,7 @@ private[setup] object UserConfigRepo {
   def update(user: User)(f: UserConfig => UserConfig): Funit =
     config(user) flatMap { config =>
       coll.update(
-        $doc("_id" -> config.id),
+        $id(config.id),
         f(config),
         upsert = true).void
     }
