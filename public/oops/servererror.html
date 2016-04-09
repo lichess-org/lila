@@ -19,16 +19,43 @@
       }
       h1 {
         font-size: 30px;
+        opacity: 0.5;
+        margin: 30px 0 10px 0;
+      }
+      p {
+        font-size: 1.2em;
+        opacity: 0.6;
+        margin: 0 0 20px 0;
+      }
+      #robot {
+        opacity: 0;
       }
     </style>
     <meta content="noindex, nofollow" name="robots">
   </head>
   <body>
     <h1>lichess.org is down</h1>
-    We expect to be back very soon. Thanks for your patience.
-    <br />
-    <br />
-    <img src="http://lichess1.org/assets/images/maintenance.jpg" alt="Lichess maintenance" />
-    <script>setTimeout(function() { location.reload(); }, 15000);</script>
+    <p>We expect to be back very soon. Thanks for your patience.</p>
+    <img id="robot"
+      src="http://lichess1.org/assets/images/maintenance.jpg"
+      alt="Lichess maintenance"
+      width="1000px"
+      height="958px" />
+    <script>
+      setTimeout(function() { location.reload(); }, 20000);
+
+      var el = document.getElementById("div1");
+
+      function fadeIn(el) {
+        el.style.opacity = 0;
+        var tick = function() {
+          el.style.opacity = +el.style.opacity + 0.001;
+          if (+el.style.opacity < 1) requestAnimationFrame(tick);
+        };
+        tick();
+      }
+
+      fadeIn(document.getElementById('robot'));
+    </script>
   </body>
 </html>
