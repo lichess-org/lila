@@ -2,13 +2,12 @@ package controllers
 
 import play.api.mvc.Action
 
-import akka.stream.scaladsl._
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
-import play.api.mvc._, Results._
-import play.api.http._
+import play.api.libs.iteratee.Enumerator
+import play.api.mvc.Result
 import views._
 
 object Export extends LilaController {
@@ -36,10 +35,7 @@ object Export extends LilaController {
   def pdf(id: String) = Open { implicit ctx =>
     OnlyHumans {
       OptionResult(GameRepo game id) { game =>
-        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
-          env.pdfExport(game.id)(outputStream)
-        }
-        Ok.chunked(source).as("application/pdf").withHeaders(
+        Ok.chunked(Enumerator.outputStream(env.pdfExport(game.id))).as("application/pdf").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
@@ -48,10 +44,7 @@ object Export extends LilaController {
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
       OptionResult(GameRepo game id) { game =>
-        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
-          env.pngExport(game)(outputStream)
-        }
-        Ok.chunked(source).as("image/png").withHeaders(
+        Ok.chunked(Enumerator.outputStream(env.pngExport(game))).as("image/png").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
@@ -60,10 +53,7 @@ object Export extends LilaController {
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
       OptionResult(Env.puzzle.api.puzzle find id) { puzzle =>
-        val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
-          Env.puzzle.pngExport(puzzle)(outputStream)
-        }
-        Ok.chunked(source).as("image/png").withHeaders(
+        Ok.chunked(Enumerator.outputStream(Env.puzzle.pngExport(puzzle))).as("image/png").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
