@@ -123,8 +123,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
-        val content = escape {
-          player.aiLevel.fold(player.name | User.anonymous) { aiName(_, withRating) }
+        val content = (player.aiLevel, player.name) match {
+          case (Some(level), _) => aiNameHtml(level, withRating).body
+          case (_, Some(name))  => escape(name)
+          case _                => User.anonymous
         }
         s"""<span class="user_link$klass">$content$statusIcon</span>"""
       case Some(user) =>
