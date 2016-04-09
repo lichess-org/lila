@@ -23,7 +23,7 @@ abstract class BSON[T]
   }
   catch {
     case e: Exception =>
-      logger.error(s"Can't read malformed doc ${debug(doc)}", e)
+      BSON.cantRead(doc, e)
       throw e
   }
   else reads(new Reader(doc))
@@ -33,6 +33,9 @@ abstract class BSON[T]
 
 object BSON extends Handlers {
 
+  def cantRead(doc: Bdoc, e: Exception) =
+    logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
+
   def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[Bdoc, T]) =
     new BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
       def read(doc: Bdoc): T = try {
@@ -40,7 +43,7 @@ object BSON extends Handlers {
       }
       catch {
         case e: Exception =>
-          logger.error(s"Can't read malformed doc ${debug(doc)}", e)
+          cantRead(doc, e)
           throw e
       }
       def write(obj: T): Bdoc = handler write obj
@@ -182,13 +185,13 @@ object BSON extends Handlers {
   val writer = new Writer
 
   def debug(v: BSONValue): String = v match {
-    case d: Bdoc => debugDoc(d)
-    case d: Barr    => debugArr(d)
-    case BSONString(x)   => x
-    case BSONInteger(x)  => x.toString
-    case BSONDouble(x)   => x.toString
-    case BSONBoolean(x)  => x.toString
-    case v               => v.toString
+    case d: Bdoc        => debugDoc(d)
+    case d: Barr        => debugArr(d)
+    case BSONString(x)  => x
+    case BSONInteger(x) => x.toString
+    case BSONDouble(x)  => x.toString
+    case BSONBoolean(x) => x.toString
+    case v              => v.toString
   }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String = (doc.elements.toList map {
