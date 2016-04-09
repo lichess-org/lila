@@ -49,7 +49,7 @@ title = title,
 side = side.some,
 moreCss = moreCss) {
 <div class="tv_stream">
-  <h2 class="stream_title">@s.name</h2>
+  <h2 class="stream_title"><a href="@s.url">@s.name</a></h2>
   @s.streamer.service match {
   case lila.tv.StreamerList.Twitch => {
   <iframe
@@ -69,7 +69,7 @@ moreCss = moreCss) {
   <iframe
     width="694"
     height="391"
-    src="https://www.youtube.com/embed/@s.url?autoplay=1"
+    src="https://www.youtube.com/embed/@s.streamId?autoplay=1"
     frameborder="0" allowfullscreen></iframe>
   }
   }

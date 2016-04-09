@@ -50,7 +50,7 @@ private final class Streaming(
                 Nil
             }
           }
-        val hitbox = WS.url("http://api.hitbox.tv/media/live/" + streamers.filter(_.twitch).map(_.streamerName).mkString(",")).get() map { res =>
+        val hitbox = WS.url("http://api.hitbox.tv/media/live/" + streamers.filter(_.hitbox).map(_.streamerName).mkString(",")).get() map { res =>
           res.json.validate[Hitbox.Result] match {
             case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
             case JsError(err) =>
