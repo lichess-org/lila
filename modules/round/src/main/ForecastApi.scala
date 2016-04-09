@@ -46,7 +46,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     pov: Pov,
     uciMove: String,
     steps: Forecast.Steps): Funit =
-    if (!pov.isMyTurn) fufail(s"not my turn on $pov")
+    if (!pov.isMyTurn) funit
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
       roundMap ! Tell(pov.game.id, actorApi.round.HumanPlay(
