@@ -1,6 +1,6 @@
 package lila.i18n
 
-import play.api.mvc.Results._
+import play.api.mvc.Results.Redirect
 import play.api.mvc.{ Action, RequestHeader, Handler, Result }
 
 import lila.common.HTTPRequest
@@ -11,12 +11,9 @@ final class I18nRequestHandler(
     cdnDomain: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
-    if (HTTPRequest.isRedirectable(req) && req.host != cdnDomain)
-      pool domainOf req match {
-        case domain if !domain.valid   => Some(Action(Redirect(redirectUrl(req))))
-        case domain if !domain.hasLang => Some(Action(Redirect(redirectUrl(req))))
-        case _                         => None
-      }
+    if (HTTPRequest.isRedirectable(req) &&
+      req.host != cdnDomain &&
+      pool.domainLang(req).isEmpty) Some(Action(Redirect(redirectUrl(req))))
     else None
 
   def forUser(req: RequestHeader, userOption: Option[lila.user.User]): Option[Result] = for {

@@ -14,11 +14,11 @@ case class I18nDomain(domain: String) {
       Try(Lang(c, "")).toOption
     }
 
-  val valid: Boolean = code ?? { c => Try(Lang(c, "")).isSuccess }
+  lazy val valid: Boolean = code ?? { c => Try(Lang(c, "")).isSuccess }
 
   def hasLang = lang.isDefined
 
-  val commonDomain = hasLang.fold(parts drop 1 mkString ".", domain)
+  val commonDomain = (hasLang || !valid).fold(parts drop 1 mkString ".", domain)
 
   def withLang(lang: Lang): I18nDomain = withLang(lang.language)
 

@@ -5,6 +5,8 @@ import play.api.mvc.{ Action, RequestHeader, Handler }
 
 private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
+  private val cache = scala.collection.mutable.Map[String, Option[Lang]]()
+
   def nonDefaultLangs = langs - default
 
   val names: Map[String, String] = (langs map langNames).toMap
@@ -22,13 +24,8 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
   def preferredNames(req: RequestHeader, nb: Int): Seq[(String, String)] =
     req.acceptLanguages filter langs.contains take nb map langNames
 
-  private val domainLangCache = scala.collection.mutable.Map[String, Option[Lang]]()
   def domainLang(req: RequestHeader): Option[Lang] =
-    domainLangCache.getOrElseUpdate(req.domain, {
-      domainOf(req).lang filter langs.contains
+    cache.getOrElseUpdate(req.domain, {
+      I18nDomain(req.domain).lang filter langs.contains
     })
-
-  private val domainCache = scala.collection.mutable.Map[String, I18nDomain]()
-  def domainOf(req: RequestHeader): I18nDomain =
-    domainCache.getOrElseUpdate(req.domain, { I18nDomain(req.domain) })
 }
