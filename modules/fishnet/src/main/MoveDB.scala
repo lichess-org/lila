@@ -59,6 +59,7 @@ private final class MoveDB(
       case Clean =>
         val since = DateTime.now minusSeconds 3
         val timedOut = coll.values.filter(_ acquiredBefore since)
+        logger.debug(s"cleaning ${timedOut.size} of ${coll.size} moves")
         timedOut.foreach { m => updateOrGiveUp(m.timeout) }
         sender ! timedOut
 
