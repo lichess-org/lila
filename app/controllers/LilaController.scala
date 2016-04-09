@@ -8,7 +8,7 @@ import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
 import play.api.mvc._, Results._
 import play.twirl.api.Html
 
-import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
+import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter, FingerprintedUser }

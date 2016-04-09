@@ -43,17 +43,12 @@ object Lobby extends LilaController {
     )
   }
 
-  private val socketConsumer = lila.api.TokenBucket.create(
-    system = lila.common.PlayApp.system,
-    size = 10,
-    rate = 6)
-
   import akka.stream.scaladsl.Flow
   import scala.concurrent.duration._
   private val wsThrottler = Flow[JsObject].throttle(
-    elements = 10,
+    elements = 12,
     per = 5.second,
-    maximumBurst = 10,
+    maximumBurst = 12,
     mode = akka.stream.ThrottleMode.Enforcing)
 
   def socket(apiVersion: Int) = SocketOption { implicit ctx =>

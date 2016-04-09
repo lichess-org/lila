@@ -3,13 +3,9 @@ package controllers
 import akka.stream.scaladsl._
 import play.api.http._
 import play.api.libs.json._
-import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.MessageFlowTransformer
-import scala.concurrent.duration._
 
-import lila.api.{ Context, TokenBucket }
 import lila.app._
-import lila.common.HTTPRequest
 
 trait LilaSocket { self: LilaController =>
 
