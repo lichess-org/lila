@@ -4,7 +4,7 @@ import akka.actor._
 import play.api.libs.json.JsObject
 
 // implements ActorFlow.actorRef out actor
-final class SocketMemberActor(
+final class SocketMemberActor private(
     handler: JsObject => Unit,
     onClose: () => Unit) extends Actor {
 
