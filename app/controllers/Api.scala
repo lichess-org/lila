@@ -12,7 +12,6 @@ object Api extends LilaController {
 
   def status = Action { req =>
     val api = lila.api.Mobile.Api
-    val app = lila.api.Mobile.App
     Ok(Json.obj(
       "api" -> Json.obj(
         "current" -> api.currentVersion,
@@ -21,10 +20,7 @@ object Api extends LilaController {
             "version" -> old.version,
             "deprecatedAt" -> old.deprecatedAt,
             "unsupportedAt" -> old.unsupportedAt)
-        }),
-      "app" -> Json.obj(
-        "current" -> app.currentVersion
-      )
+        })
     )) as JSON
   }
 
