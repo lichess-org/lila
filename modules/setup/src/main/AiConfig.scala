@@ -63,10 +63,12 @@ object AiConfig extends BaseConfig {
 
   val levelChoices = levels map { l => (l.toString, l.toString, none) }
 
-  import reactivemongo.bson._
   import lila.db.BSON
+  import lila.db.dsl._
 
   private[setup] implicit val aiConfigBSONHandler = new BSON[AiConfig] {
+
+    override val logMalformed = false
 
     def reads(r: BSON.Reader): AiConfig = AiConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
@@ -78,7 +80,7 @@ object AiConfig extends BaseConfig {
       color = Color.White,
       fen = r strO "f" filter (_.nonEmpty))
 
-    def writes(w: BSON.Writer, o: AiConfig) = BSONDocument(
+    def writes(w: BSON.Writer, o: AiConfig) = $doc(
       "v" -> o.variant.id,
       "tm" -> o.timeMode.id,
       "t" -> o.time,
