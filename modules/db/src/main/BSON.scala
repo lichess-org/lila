@@ -11,12 +11,14 @@ abstract class BSON[T]
     with BSONDocumentReader[T]
     with BSONDocumentWriter[T] {
 
+  val logMalformed = true
+
   import BSON._
 
   def reads(reader: Reader): T
   def writes(writer: Writer, obj: T): Bdoc
 
-  def read(doc: Bdoc): T = try {
+  def read(doc: Bdoc): T = if (logMalformed) try {
     reads(new Reader(doc))
   }
   catch {
@@ -24,6 +26,7 @@ abstract class BSON[T]
       logger.error(s"Can't read malformed doc ${debug(doc)}", e)
       throw e
   }
+  else reads(new Reader(doc))
 
   def write(obj: T): Bdoc = writes(writer, obj)
 }

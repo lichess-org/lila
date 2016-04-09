@@ -99,10 +99,12 @@ object HookConfig extends BaseHumanConfig {
     ratingRange = RatingRange.default,
     color = Color.default)
 
-  import reactivemongo.bson._
   import lila.db.BSON
+  import lila.db.dsl._
 
   private[setup] implicit val hookConfigBSONHandler = new BSON[HookConfig] {
+
+    override val logMalformed = false
 
     def reads(r: BSON.Reader): HookConfig = HookConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
@@ -115,7 +117,7 @@ object HookConfig extends BaseHumanConfig {
       color = Color.Random,
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
-    def writes(w: BSON.Writer, o: HookConfig) = BSONDocument(
+    def writes(w: BSON.Writer, o: HookConfig) = $doc(
       "v" -> o.variant.id,
       "tm" -> o.timeMode.id,
       "t" -> o.time,

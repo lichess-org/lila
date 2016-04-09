@@ -31,7 +31,6 @@ private[setup] object UserConfig {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import reactivemongo.bson._
   import AiConfig.aiConfigBSONHandler
   import FriendConfig.friendConfigBSONHandler
   import HookConfig.hookConfigBSONHandler
@@ -46,7 +45,7 @@ private[setup] object UserConfig {
       hook = r.getO[HookConfig]("hook") | HookConfig.default,
       filter = r.getO[FilterConfig]("filter") | FilterConfig.default)
 
-    def writes(w: BSON.Writer, o: UserConfig) = BSONDocument(
+    def writes(w: BSON.Writer, o: UserConfig) = $doc(
       "_id" -> o.id,
       "ai" -> o.ai,
       "friend" -> o.friend,
