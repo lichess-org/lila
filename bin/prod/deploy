@@ -8,6 +8,9 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="anand"
   REMOTE_DIR="/home/lichess"
+elif [ $mode = "main-test" ]; then
+  REMOTE="anand"
+  REMOTE_DIR="/home/lichess-test"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"

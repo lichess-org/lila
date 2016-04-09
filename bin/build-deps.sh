@@ -10,7 +10,7 @@ cd gfc-semver
 sbt publish-local
 cd ..
 
-git clone https://github.com/ornicar/ReactiveMongo --branch lichess-shaded
+git clone https://github.com/ornicar/ReactiveMongo --branch lichess
 cd ReactiveMongo
 sbt compile
 sbt publish-local
