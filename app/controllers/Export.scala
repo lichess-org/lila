@@ -7,7 +7,8 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
-import play.api.mvc.Result
+import play.api.mvc._, Results._
+import play.api.http._
 import views._
 
 object Export extends LilaController {
@@ -25,8 +26,7 @@ object Export extends LilaController {
             analysis ← !get("as").contains("raw") ?? (Env.analyse.analyser get game.id)
           } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
         }) map { content =>
-          Ok(content).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
+          Ok(content).as(TEXT).withHeaders(
             CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
         }
       }
@@ -39,8 +39,7 @@ object Export extends LilaController {
         val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
           env.pdfExport(game.id)(outputStream)
         }
-        Ok.chunked(source).withHeaders(
-          CONTENT_TYPE -> "application/pdf",
+        Ok.chunked(source).as("application/pdf").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
@@ -52,8 +51,7 @@ object Export extends LilaController {
         val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
           env.pngExport(game)(outputStream)
         }
-        Ok.chunked(source).withHeaders(
-          CONTENT_TYPE -> "image/png",
+        Ok.chunked(source).as("image/png").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
@@ -65,8 +63,7 @@ object Export extends LilaController {
         val source = StreamConverters.asOutputStream().mapMaterializedValue { outputStream =>
           Env.puzzle.pngExport(puzzle)(outputStream)
         }
-        Ok.chunked(source).withHeaders(
-          CONTENT_TYPE -> "image/png",
+        Ok.chunked(source).as("image/png").withHeaders(
           CACHE_CONTROL -> "max-age=7200")
       }
     }
