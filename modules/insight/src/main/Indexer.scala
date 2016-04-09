@@ -59,7 +59,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         .uno[Game]
     } orElse GameRepo.coll
       .find(gameQuery(user))
-      .sort(Query.sortCreated)
+      .sort(Query.sortChronological)
       .uno[Game]
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
