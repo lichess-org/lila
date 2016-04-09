@@ -1,7 +1,6 @@
 package lila.worldMap
 
 import akka.actor._
-import akka.stream._
 import akka.stream.scaladsl._
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import java.security.MessageDigest

@@ -28,7 +28,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
       context.parent ! TvActor.Selected(channel, game, oneId)
       oneId = game.id.some
 
-    case Select(candidates) => if (candidates.nonEmpty) {
+    case Select(candidates) if candidates.nonEmpty =>
       oneId ?? GameRepo.game foreach {
         case Some(game) if channel.filter(game) =>
           wayBetter(game, candidates) orElse rematch(game) foreach elect
@@ -38,7 +38,6 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
       manyIds = candidates.sortBy { g =>
         -(~g.averageUsersRating)
       }.map(_.id)
-    }
   }
 
   def elect(gameOption: Option[Game]) {

@@ -79,11 +79,10 @@ object Tv extends LilaController {
     import akka.pattern.ask
     import lila.round.TvBroadcast
     import play.api.libs.EventSource
-    import akka.stream.scaladsl.Source
-    Env.round.tvBroadcast ? TvBroadcast.GetPublisher mapTo
-      manifest[TvBroadcast.PublisherType] map { publisher =>
-        val source = Source fromPublisher publisher
-        Ok.chunked(source via EventSource.flow).as("text/event-stream")
+    import play.api.libs.json.JsValue
+    Env.round.tvBroadcast ? TvBroadcast.GetSource mapTo
+      manifest[TvBroadcast.SourceType] map { source =>
+        Ok.chunked(source via EventSource.flow[JsValue]).as("text/event-stream")
       }
   }
 
