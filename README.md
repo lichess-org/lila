@@ -390,9 +390,9 @@ We also do our best to support:
 - Opera 34 and newer
 - Safari 9 and newer
 
-Others and older browsers are guaranteed not to work with lichess and we don't care.
+Others and older browsers are not guaranteed to work with lichess and we don't care.
 
 Licence
 -------
 
-Lila is realeased under the MIT license.
+Lila is released under the MIT license.
