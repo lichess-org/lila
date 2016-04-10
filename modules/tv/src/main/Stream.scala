@@ -77,8 +77,8 @@ object Youtube {
       } yield StreamOnAir(
         streamer = streamer,
         name = item.snippet.title,
-        url = item.id.videoId,
-        streamId = item.snippet.channelId)
+        url = s"https://www.youtube.com/channel/${item.snippet.channelId}/live",
+        streamId = item.id.videoId)
     }
   }
   object Reads {
