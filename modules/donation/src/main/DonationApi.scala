@@ -13,7 +13,10 @@ final class DonationApi(
     coll: Coll,
     weeklyGoal: Int,
     serverDonors: Set[String],
+    otherDonors: Set[String],
     bus: lila.common.Bus) {
+
+  private val allOtherDonors = serverDonors ++ otherDonors
 
   private implicit val donationBSONHandler = Macros.handler[Donation]
 
@@ -48,7 +51,7 @@ final class DonationApi(
     }
 
   def isDonor(userId: String) =
-    if (serverDonors contains userId) fuccess(true)
+    if (allOtherDonors contains userId) fuccess(true)
     else donorCache(userId)
 
   def create(donation: Donation) = {

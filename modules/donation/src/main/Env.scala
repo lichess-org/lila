@@ -12,6 +12,7 @@ final class Env(
   private val CollectionDonation = config getString "collection.donation"
   private val WeeklyGoal = config getInt "weekly_goal"
   private val ServerDonors = (config getStringList "server_donors").toSet
+  private val OtherDonors = (config getStringList "other_donors").toSet
 
   def forms = DataForm
 
@@ -19,6 +20,7 @@ final class Env(
     db(CollectionDonation),
     WeeklyGoal,
     serverDonors = ServerDonors,
+    otherDonors = OtherDonors,
     bus = bus)
 
   val isDonor = api isDonor _
