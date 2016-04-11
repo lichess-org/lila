@@ -115,7 +115,7 @@ final class AssessApi(
           reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
           funit
         case AccountAction.Nothing =>
-          reporter ! lila.hub.actorApi.report.Clean(userId)
+          // reporter ! lila.hub.actorApi.report.Clean(userId)
           funit
       }
       case none => funit
