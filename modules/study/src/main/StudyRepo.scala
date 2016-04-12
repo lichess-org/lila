@@ -4,25 +4,22 @@ import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
 import scala.concurrent.duration._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.user.User
 
 private final class StudyRepo(coll: Coll) {
 
   import BSONHandlers._
 
-  def byId(id: Study.ID) = coll.find(selectId(id)).one[Study]
+  def byId(id: Study.ID) = coll.byId[Study](id)
 
-  def exists(id: Study.ID) = coll.count(selectId(id).some).map(0<)
+  def exists(id: Study.ID) = coll.exists($id(id))
 
   def insert(s: Study): Funit = coll.insert(s).void
 
   def setOwnerPath(ref: Location.Ref, path: Path): Funit =
     coll.update(
-      selectId(ref.studyId),
-      BSONDocument("$set" -> BSONDocument(s"chapters.${ref.chapterId}.path" -> path))
+      $id(ref.studyId),
+      $set(s"chapters.${ref.chapterId}.path" -> path)
     ).void
-
-  private def selectId(id: Study.ID) = BSONDocument("_id" -> id)
 }

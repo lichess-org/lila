@@ -70,7 +70,7 @@ object TreeBuilder {
             eval = infos lift index map makeEval,
             nag = advice.map(_.nag.symbol),
             comments = advice.map(_.makeComment(false, true)).toList)
-          // variations = advice.map { ad => makeVariation(id, 
+          // variations = advice.map { ad => makeVariation(id,
         }
         games.zipWithIndex.reverse match {
           case Nil => root
@@ -103,5 +103,5 @@ object TreeBuilder {
   //   }
 
   private val logChessError = (id: String) => (err: String) =>
-    logwarn(s"Round API http://lichess.org/$id ${err.lines.toList.headOption}")
+    logger.warn(s"round.TreeBuilder http://lichess.org/$id ${err.lines.toList.headOption}")
 }

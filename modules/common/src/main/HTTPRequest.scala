@@ -53,4 +53,9 @@ object HTTPRequest {
   def isHuman(req: RequestHeader) = !isBot(req)
 
   def isFacebookBot(req: RequestHeader) = userAgent(req) ?? (_ contains "facebookexternalhit")
+
+  private val fileExtensionPattern = """.+\.[a-z0-9]{2,4}$""".r.pattern
+
+  def hasFileExtension(req: RequestHeader) =
+    fileExtensionPattern.matcher(req.path).matches
 }

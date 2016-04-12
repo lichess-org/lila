@@ -239,7 +239,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val study = project("study", Seq(common, db, hub, socket, game)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val playban = project("playban", Seq(common, db, game)).settings(

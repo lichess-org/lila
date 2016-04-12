@@ -55,7 +55,8 @@ final class Env(
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some)
+      executionTimeout = 5.seconds.some,
+      logger = logger)
   }))
 
   private lazy val repo = new StudyRepo(coll = db(CollectionStudy))
