@@ -146,7 +146,8 @@ function renderTimeline() {
   time.setMinutes(Math.floor(time.getMinutes() / minutesBetween) * minutesBetween);
 
   var timeHeaders = [];
-  while (time.getTime() < (stopTime - minutesBetween * 60 * 1000)) {
+  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000) ;
+  for (var i = 0; i < count; i++) {
     var str = timeString(time);
     timeHeaders.push(m('div', {
       key: str,
@@ -155,7 +156,7 @@ function renderTimeline() {
         left: leftPos(time.getTime()) + 'px'
       }
     }, str));
-    time.setMinutes(time.getMinutes() + minutesBetween);
+    time.setUTCMinutes(time.getUTCMinutes() + minutesBetween);
   }
 
   return m('div.timeline',

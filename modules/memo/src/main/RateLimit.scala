@@ -15,7 +15,7 @@ final class RateLimit(nb: Int, duration: Duration, name: String) {
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = play.api.Logger("ratelimit")
+  private val logger = lila.log("ratelimit")
 
   logger.info(s"[start] $name ($nb/$duration)")
 

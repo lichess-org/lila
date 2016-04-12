@@ -26,7 +26,7 @@ case class Info(
   def hasVariation = variation.nonEmpty
   def dropVariation = copy(variation = Nil, best = None)
 
-  def reverse = copy(score = score map (-_), mate = mate map (-_))
+  def invert = copy(score = score.map(_.invert), mate = mate.map(-_))
 
   def scoreComment: Option[String] = score map (_.showPawns)
   def mateComment: Option[String] = mate map { m => s"Mate in ${math.abs(m)}" }
@@ -45,12 +45,12 @@ case class Info(
 
 object Info {
 
-  val LineMaxPlies = 16
+  val LineMaxPlies = 14
 
   private val separator = ","
   private val listSeparator = ";"
 
-  def start(ply: Int) = Info(ply, Evaluation.start.score, none, Nil)
+  def start(ply: Int) = Info(ply, Score.initial.some, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array()               => Info(ply).some

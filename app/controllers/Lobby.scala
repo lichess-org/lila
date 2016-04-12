@@ -22,15 +22,17 @@ object Lobby extends LilaController {
     )
   }
 
-  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
+  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] = {
     reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
+  }
 
-  def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] =
+  def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] = {
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament.cached promotable true,
       simuls = Env.simul allCreatedFeaturable true
     ) map (html.lobby.home.apply _).tupled map { status(_) } map ensureSessionId(ctx.req)
+  }.mon(_.http.response.home)
 
   def seeks = Open { implicit ctx =>
     negotiate(
@@ -41,11 +43,15 @@ object Lobby extends LilaController {
     )
   }
 
-  def socket(apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  private val socketConsumer = lila.api.TokenBucket.create(
+    system = lila.common.PlayApp.system,
+    size = 10,
+    rate = 6)
+
+  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](socketConsumer, "lobby") { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(
         uid = uid,
-        ip = ctx.req.remoteAddress,
         user = ctx.me,
         mobile = getBool("mobile")) map some
     }

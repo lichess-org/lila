@@ -1,7 +1,13 @@
 @(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean])(implicit ctx: Context)
 
+
+@modMenu = {
+  @mod.menu("forum")
+}
+
 @forum.layout(
 title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
+menu = modMenu.some.ifTrue(categ.isStaff),
 openGraph = lila.app.ui.OpenGraph(
 title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
 url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",

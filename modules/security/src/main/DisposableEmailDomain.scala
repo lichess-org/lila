@@ -15,6 +15,7 @@ final class DisposableEmailDomain(
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
       setDomains(res.json)
+      lila.mon.email.disposableDomain(matchers.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
       case e: Exception                 => onError(e)
@@ -23,8 +24,6 @@ final class DisposableEmailDomain(
 
   private[security] def setDomains(json: JsValue): Unit = try {
     val ds = json.as[List[String]]
-    if (ds.size != matchers.size)
-      loginfo(s"[disposable email] registered ${matchers.size} -> ${ds.size} domains")
     matchers = ds.map { d =>
       val regex = s"""(.+\\.|)${d.replace(".", "\\.")}"""
       makeMatcher(regex)
@@ -38,7 +37,7 @@ final class DisposableEmailDomain(
   private var failed = false
 
   private def onError(e: Exception) {
-    logerr(s"Can't update disposable emails: $e")
+    logger.error("Can't update disposable emails", e)
     if (!failed) {
       failed = true
       busOption.foreach { bus =>

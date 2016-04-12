@@ -26,7 +26,7 @@ object Setup extends LilaController with TheftPrevention {
       env.forms aiFilled get("fen") map { form =>
         html.setup.ai(
           form,
-          Env.ai.aiPerfApi.intRatings,
+          Env.fishnet.aiPerfApi.intRatings,
           form("fen").value flatMap ValidFen(getBool("strict")))
       }
     }
@@ -41,7 +41,7 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) {
+    if (HTTPRequest isXhr ctx.req)
       env.forms friendFilled get("fen") flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
@@ -51,7 +51,6 @@ object Setup extends LilaController with TheftPrevention {
           }
         }
       }
-    }
     else fuccess {
       Redirect(routes.Lobby.home + "#friend")
     }
@@ -67,28 +66,33 @@ object Setup extends LilaController with TheftPrevention {
             api = _ => fuccess(BadRequest(errorsAsJson(f)))
           ), {
             case config => userId ?? UserRepo.byId flatMap { destUser =>
-              import lila.challenge.Challenge._
-              val challenge = lila.challenge.Challenge.make(
-                variant = config.variant,
-                initialFen = config.fen,
-                timeControl = config.makeClock map { c =>
-                  TimeControl.Clock(c.limit, c.increment)
-                } orElse config.makeDaysPerTurn.map {
-                  TimeControl.Correspondence.apply
-                } getOrElse TimeControl.Unlimited,
-                mode = config.mode,
-                color = config.color.name,
-                challenger = (ctx.me, HTTPRequest sid req) match {
-                  case (Some(user), _) => Right(user)
-                  case (_, Some(sid))  => Left(sid)
-                  case _               => Left("no_sid")
-                },
-                destUser = destUser,
-                rematchOf = none)
-              env.processor.saveFriendConfig(config) >>
-                (Env.challenge.api create challenge) >> negotiate(
-                  html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                  api = _ => Challenge showChallenge challenge)
+              destUser ?? Challenge.restriction flatMap {
+                case Some(_) =>
+                  Redirect(routes.Lobby.home + s"?user=${~userId}#friend").fuccess
+                case None =>
+                  import lila.challenge.Challenge._
+                  val challenge = lila.challenge.Challenge.make(
+                    variant = config.variant,
+                    initialFen = config.fen,
+                    timeControl = config.makeClock map { c =>
+                      TimeControl.Clock(c.limit, c.increment)
+                    } orElse config.makeDaysPerTurn.map {
+                      TimeControl.Correspondence.apply
+                    } getOrElse TimeControl.Unlimited,
+                    mode = config.mode,
+                    color = config.color.name,
+                    challenger = (ctx.me, HTTPRequest sid req) match {
+                      case (Some(user), _) => Right(user)
+                      case (_, Some(sid))  => Left(sid)
+                      case _               => Left("no_sid")
+                    },
+                    destUser = destUser,
+                    rematchOf = none)
+                  env.processor.saveFriendConfig(config) >>
+                    (Env.challenge.api create challenge) >> negotiate(
+                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                      api = _ => Challenge showChallenge challenge)
+              }
             }
           }
         )
@@ -155,7 +159,10 @@ object Setup extends LilaController with TheftPrevention {
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     env.forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
-      f => fulogwarn(f.errors.toString) inject BadRequest(()),
+      f => {
+        logger.branch("setup").warn(f.errors.toString)
+        BadRequest(()).fuccess
+      },
       config => JsonOk(env.processor filter config inject config.render)
     )
   }

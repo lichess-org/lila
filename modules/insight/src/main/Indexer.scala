@@ -3,15 +3,12 @@ package lila.insight
 import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import play.api.libs.json.Json
 import reactivemongo.bson._
 
-import lila.db.api._
-import lila.db.BSON._
-import lila.db.Implicits._
+import lila.db.dsl._
+import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.tube.gameTube
-import lila.game.{ Game, Query }
+import lila.game.{ Game, GameRepo, Query }
 import lila.hub.Sequencer
 import lila.rating.PerfType
 import lila.user.User
@@ -55,10 +52,15 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
     else {
-      (user.count.rated >= maxGames) ??
-        pimpQB($query(gameQuery(user))).sort(Query.sortCreated).skip(maxGames - 1).one[Game]
-    } orElse
-      pimpQB($query(gameQuery(user))).sort(Query.sortChronological).one[Game]
+      (user.count.rated >= maxGames) ?? GameRepo.coll
+        .find(gameQuery(user))
+        .sort(Query.sortCreated)
+        .skip(maxGames - 1)
+        .uno[Game]
+    } orElse GameRepo.coll
+      .find(gameQuery(user))
+      .sort(Query.sortChronological)
+      .uno[Game]
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     storage nbByPerf user.id flatMap { nbs =>
@@ -71,10 +73,8 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
           e.printStackTrace
         } map (_.toOption)
       }
-      val query = $query(gameQuery(user) ++ Json.obj(Game.BSONFields.createdAt -> $gte($date(from))))
-      pimpQB(query)
-        .sort(Query.sortChronological)
-        .cursor[Game]()
+      val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+      GameRepo.sortedCursor(query, Query.sortChronological)
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.grouped(Iteratee takeUpTo 4) &>
         Enumeratee.mapM[Seq[Game]].apply[Seq[Entry]] { games =>

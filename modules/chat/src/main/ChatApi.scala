@@ -3,7 +3,7 @@ package lila.chat
 import chess.Color
 import reactivemongo.bson.BSONDocument
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
@@ -18,7 +18,7 @@ final class ChatApi(
   object userChat {
 
     def findOption(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[UserChat]
+      coll.find(BSONDocument("_id" -> chatId)).uno[UserChat]
 
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
@@ -52,7 +52,7 @@ final class ChatApi(
   object playerChat {
 
     def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat]
+      coll.find(BSONDocument("_id" -> chatId)).uno[MixedChat]
 
     def find(chatId: ChatId): Fu[MixedChat] =
       findOption(chatId) map (_ | Chat.makeMixed(chatId))
@@ -79,7 +79,7 @@ final class ChatApi(
         "$each" -> List(line),
         "$slice" -> -maxLinesPerChat)
     )),
-    upsert = true)
+    upsert = true) >>- lila.mon.chat.message()
 
   private object Writer {
 

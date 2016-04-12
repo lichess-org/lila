@@ -1,7 +1,6 @@
 package lila.timeline
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -16,23 +15,23 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
     userEntries(userId, nb)
 
   private def userEntries(userId: String, max: Int): Fu[List[Entry]] =
-    coll.find(BSONDocument("users" -> userId))
-      .sort(BSONDocument("date" -> -1))
+    coll.find($doc("users" -> userId))
+      .sort($doc("date" -> -1))
       .cursor[Entry]()
-      .collect[List](max)
+      .gather[List](max)
 
   def findRecent(typ: String, since: DateTime) =
-    coll.find(BSONDocument(
+    coll.find($doc(
       "typ" -> typ,
-      "date" -> BSONDocument("$gt" -> since)
+      "date" -> $doc("$gt" -> since)
     )).cursor[Entry]()
-      .collect[List]()
+      .gather[List]()
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
-    coll.count(BSONDocument(
+    coll.count($doc(
       "users" -> userId,
       "chan" -> channel,
-      "date" -> BSONDocument("$gt" -> DateTime.now.minusDays(7))
+      "date" $gt DateTime.now.minusDays(7)
     ).some) map (0 !=)
 
   def insert(entry: Entry) = coll insert entry void

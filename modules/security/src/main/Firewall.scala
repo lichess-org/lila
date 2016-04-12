@@ -8,32 +8,27 @@ import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.LilaCookie
 import lila.common.PimpedJson._
-import lila.db.api._
-import tube.firewallTube
+import lila.db.dsl._
+import lila.db.BSON.BSONJodaDateTimeHandler
 
 final class Firewall(
+    coll: Coll,
     cookieName: Option[String],
     enabled: Boolean,
     cachedIpsTtl: Duration) {
 
-  // def requestHandler(req: RequestHeader): Fu[Option[Handler]] =
-  //   cookieName.filter(_ => enabled) ?? { cn =>
-  //     blocksIp(req.remoteAddress) map { bIp =>
-  //       val bCs = blocksCookies(req.cookies, cn)
-  //       if (bIp && !bCs) infectCookie(cn)(req).some
-  //       else if (bCs && !bIp) { blockIp(req.remoteAddress); None }
-  //       else None
-  //     }
-  //   }
+  private def ipOf(req: RequestHeader) =
+    lila.common.HTTPRequest lastRemoteAddress req
 
   def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(req.remoteAddress)) { cn =>
-      blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
+    cookieName.fold(blocksIp(ipOf(req))) { cn =>
+      blocksIp(ipOf(req)) map (_ || blocksCookies(req.cookies, cn))
+    } addEffect { v =>
+      if (v) lila.mon.security.firewall.block()
     }
   }
   else fuccess(false)
@@ -41,14 +36,14 @@ final class Firewall(
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
   def blockIp(ip: String): Funit = validIp(ip) ?? {
-    $update(Json.obj("_id" -> ip), Json.obj("_id" -> ip, "date" -> $date(DateTime.now)), upsert = true) >>- refresh
+    coll.update($id(ip), $doc("_id" -> ip, "date" -> DateTime.now), upsert = true).void >>- refresh
   }
 
   def unblockIps(ips: Iterable[String]): Funit =
-    $remove($select.byIds(ips filter validIp)) >>- refresh
+    coll.remove($inIds(ips filter validIp)).void >>- refresh
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
-    log("Infect cookie " + formatReq(req))
+    logger.info("Infect cookie " + formatReq(req))
     val cookie = LilaCookie.cookie(name, Random nextStringUppercase 32)
     Redirect("/") withCookies cookie
   }
@@ -59,12 +54,8 @@ final class Firewall(
     ips.clear
   }
 
-  private def log(msg: Any) {
-    loginfo("[%s] %s".format("firewall", msg.toString))
-  }
-
   private def formatReq(req: RequestHeader) =
-    "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
+    "%s %s %s".format(ipOf(req), req.uri, req.headers.get("User-Agent") | "?")
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -84,8 +75,10 @@ final class Firewall(
     def clear { cache.clear }
     def contains(ip: String) = apply map (_ contains strToIp(ip))
     def fetch: Fu[Set[IP]] =
-      firewallTube.coll.distinct("_id") map { res =>
+      coll.distinct("_id") map { res =>
         lila.db.BSON.asStringSet(res) map strToIp
+      } addEffect { ips =>
+        lila.mon.security.firewall.ip(ips.size)
       }
   }
 }

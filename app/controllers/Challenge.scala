@@ -21,13 +21,21 @@ object Challenge extends LilaController {
   def all = Auth { implicit ctx =>
     me =>
       env.api allFor me.id map { all =>
-        Ok(env.jsonView(all)) as JSON
+        Ok {
+          env.jsonView(all) + (
+            "i18n" -> translations
+          )
+        } as JSON
       }
   }
 
   def show(id: String) = Open { implicit ctx =>
     showId(id)
   }
+
+  private def translations(implicit ctx: Context) = Env.i18n.jsDump.keysToObject(List(
+    Env.i18n.keys.waiting
+  ), Env.i18n.pool lang ctx.req)
 
   protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.api byId id)(showChallenge)

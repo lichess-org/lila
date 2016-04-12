@@ -10,7 +10,7 @@ import play.api.mvc.WebSocket.FrameFormatter
 import play.twirl.api.Html
 import scalaz.Monoid
 
-import lila.api.{ PageData, Context, HeaderContext, BodyContext }
+import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter, FingerprintedUser }
@@ -20,9 +20,12 @@ private[controllers] trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
-    with ResponseWriter {
+    with ResponseWriter
+    with LilaSocket {
 
   import Results._
+
+  protected val logger = lila.log("controller")
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -54,6 +57,14 @@ private[controllers] trait LilaController
   protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req =>
       reqToCtx(req) flatMap f map {
+        case None       => Left(NotFound(jsonError("socket resource not found")))
+        case Some(pair) => Right(pair)
+      }
+    }
+
+  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    rateLimitedSocket[A](consumer, name) { ctx =>
+      f(ctx) map {
         case None       => Left(NotFound(jsonError("socket resource not found")))
         case Some(pair) => Right(pair)
       }

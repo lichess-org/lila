@@ -22,7 +22,6 @@ case object GetVersion
 
 case class SendToFlag(flag: String, message: JsObject)
 
-case object PopulationGet
 case object PopulationTell
 case class NbMembers(nb: Int)
 

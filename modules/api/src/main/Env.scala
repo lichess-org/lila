@@ -11,8 +11,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     renderer: ActorSelection,
-    router: ActorSelection,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
@@ -49,14 +49,15 @@ final class Env(
 
   object assetVersion {
     import reactivemongo.bson._
+    import lila.db.dsl._
     private val coll = db("flag")
     private val cache = lila.memo.MixedCache.single[Int](
-      f = coll.find(BSONDocument("_id" -> "asset")).one[BSONDocument].map {
-        _.flatMap(_.getAs[BSONNumberLike]("version"))
-          .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
+      f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
+        _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
       timeToLive = 30.seconds,
-      default = Net.AssetVersion)
+      default = Net.AssetVersion,
+      logger = lila.log("assetVersion"))
     def get = cache get true
   }
 
@@ -105,7 +106,7 @@ final class Env(
       getSimul = getSimul,
       lightUser = userEnv.lightUser),
     system = system,
-    nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
+    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
   val lobbyApi = new LobbyApi(
     lobby = lobbyEnv.lobby,
@@ -117,6 +118,10 @@ final class Env(
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus, renderer)
+
+  KamonPusher.start(system) {
+    new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
+  }
 }
 
 object Env {
@@ -125,7 +130,6 @@ object Env {
     config = lila.common.PlayApp.loadConfig,
     db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,
-    router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
     lobbyEnv = lila.lobby.Env.current,
@@ -143,5 +147,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)
 }

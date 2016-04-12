@@ -1,5 +1,6 @@
 package lila.user
 
+import lila.db.dsl._
 import org.joda.time.DateTime
 
 case class Note(
@@ -11,7 +12,7 @@ case class Note(
   date: DateTime)
 
 final class NoteApi(
-    coll: lila.db.Types.Coll,
+    coll: Coll,
     timeline: akka.actor.ActorSelection) {
 
   import reactivemongo.bson._
@@ -20,11 +21,11 @@ final class NoteApi(
 
   def get(user: User, me: User, myFriendIds: Set[String]): Fu[List[Note]] =
     coll.find(
-      BSONDocument(
+      $doc(
         "to" -> user.id,
-        "from" -> BSONDocument("$in" -> (myFriendIds + me.id))
-      ) ++ me.troll.fold(BSONDocument(), BSONDocument("troll" -> false))
-    ).sort(BSONDocument("date" -> -1)).cursor[Note]().collect[List](100)
+        "from" -> $doc("$in" -> (myFriendIds + me.id))
+      ) ++ me.troll.fold($doc(), $doc("troll" -> false))
+    ).sort($doc("date" -> -1)).cursor[Note]().gather[List](100)
 
   def write(to: User, text: String, from: User) = {
 

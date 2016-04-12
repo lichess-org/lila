@@ -560,6 +560,8 @@ object Quote {
     , new Quote("Watch out for the tricky knights.", "ChessNetwork")
     , new Quote("I think crazyhouse improves your standard chess.", "ChessNetwork")
     , new Quote("The biggest tool for chess improvement would be playing against stronger opposition" , "Peter Svidler")
+    , new Quote("Chess is a battle between your aversion to thinking and your aversion to losing.", "Someone")
+    , new Quote("It was once said that Tal sacrificed 9 pawns for an attack", "Mato")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>

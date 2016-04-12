@@ -8,20 +8,18 @@ import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Steroids with WithFuture {
 
+  // case object Key(value: String) extends AnyVal with StringValue
+  trait StringValue extends Any {
+    def value: String
+    override def toString = value
+  }
+
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
-  def nowMillis: Long = System.currentTimeMillis
+  def nowNanos: Long = System.nanoTime()
+  def nowMillis: Long = System.currentTimeMillis()
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
-
-  lazy val logger = play.api.Logger("lila")
-  def logdebug(s: String) { logger debug s }
-  def loginfo(s: String) { logger info s }
-  def logwarn(s: String) { logger warn s }
-  def logerr(s: String) { logger error s }
-  def fuloginfo(s: String) = fuccess { loginfo(s) }
-  def fulogwarn(s: String) = fuccess { logwarn(s) }
-  def fulogerr(s: String) = fuccess { logerr(s) }
 
   implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
 
@@ -32,7 +30,9 @@ trait PackageObject extends Steroids with WithFuture {
 
   implicit final class LilaPimpedString(s: String) {
 
-    def boot[A](v: => A): A = { play.api.Logger("boot").info(s); v }
+    def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
+      lila.log.boot.info(s"${lap.millis}ms $s")
+    }
   }
 
   implicit final class LilaPimpedValid[A](v: Valid[A]) {
@@ -123,110 +123,14 @@ trait WithPlay { self: PackageObject =>
       Future sequence t
   }
 
-  implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
-
-    def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
-      case _ => sideEffect
-    }
-
-    def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap (_ => fub)
-
-    def void: Funit = fua map (_ => Unit)
-
-    def inject[B](b: => B): Fu[B] = fua map (_ => b)
-
-    def injectAnyway[B](b: => B): Fu[B] = fua.fold(_ => b, _ => b)
-
-    def effectFold(fail: Exception => Unit, succ: A => Unit) {
-      fua onComplete {
-        case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
-      }
-    }
-
-    def andThenAnyway(sideEffect: => Unit): Fu[A] = {
-      fua onComplete {
-        case scala.util.Failure(_) => sideEffect
-        case scala.util.Success(_) => sideEffect
-      }
-      fua
-    }
-
-    def fold[B](fail: Exception => B, succ: A => B): Fu[B] =
-      fua map succ recover { case e: Exception => fail(e) }
-
-    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
-      fua flatMap succ recoverWith { case e: Exception => fail(e) }
-
-    def logFailure(logger: => String, msg: Exception => String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception => play.api.Logger(logger).warn(msg(e))
-    })
-    def logFailure(logger: => String): Fu[A] = logFailure(logger, _.toString)
-
-    def addEffect(effect: A => Unit) = fua ~ (_ foreach effect)
-
-    def addFailureEffect(effect: Exception => Unit) = fua ~ (_ onFailure {
-      case e: Exception => effect(e)
-    })
-
-    def addEffects(fail: Exception => Unit, succ: A => Unit): Fu[A] =
-      fua andThen {
-        case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
-      }
-
-    def mapFailure(f: Exception => Exception) = fua recover {
-      case cause: Exception => throw f(cause)
-    }
-
-    def prefixFailure(p: => String) = fua mapFailure { e =>
-      common.LilaException(s"$p ${e.getMessage}")
-    }
-
-    def thenPp: Fu[A] = fua ~ {
-      _.effectFold(
-        e => println("[failure] " + e),
-        a => println("[success] " + a)
-      )
-    }
-
-    def thenPp(msg: String): Fu[A] = fua ~ {
-      _.effectFold(
-        e => println(s"[$msg] [failure] $e"),
-        a => println(s"[$msg] [success] $a")
-      )
-    }
-
-    def awaitSeconds(seconds: Int): A = {
-      import scala.concurrent.duration._
-      scala.concurrent.Await.result(fua, seconds.seconds)
-    }
-
-    def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
-      Future firstCompletedOf Seq(fua,
-        akka.pattern.after(duration, system.scheduler)(fufail(error)))
-    }
-
-    def logIfSlow(millis: Int, logger: String)(msg: A => String) =
-      lila.common.Chronometer.result(fua).map {
-        _.resultAndLogIfSlow(millis, logger)(msg)
-      }
-  }
+  implicit def LilaPimpedFuture[A](fua: Fu[A]): PimpedFuture.LilaPimpedFuture[A] =
+    new PimpedFuture.LilaPimpedFuture(fua)
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
-    def nevermind(msg: String): Fu[A] = fua recover {
-      case e: lila.common.LilaException             => recoverException(e, msg.some)
-      case e: java.util.concurrent.TimeoutException => recoverException(e, msg.some)
-    }
-
-    def nevermind: Fu[A] = nevermind("")
-
-    private def recoverException(e: Exception, msg: Option[String]) = {
-      logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
-      zero[A]
+    def nevermind: Fu[A] = fua recover {
+      case e: lila.common.LilaException             => zero[A]
+      case e: java.util.concurrent.TimeoutException => zero[A]
     }
   }
 

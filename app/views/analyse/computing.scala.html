@@ -1,8 +1,19 @@
-@(id: String)(implicit ctx: Context)
+@(id: String, progress: Option[lila.fishnet.Work.InProgress])(implicit ctx: Context)
 
 <div class="future_game_analysis progress">
   @base.spinner("monochrome".some)
   <div class="quote">
     @base.quote(lila.quote.Quote.one(id))
   </div>
+  @*
+  @progress.map { prog =>
+  <div class="analyzer">
+    @if(prog.byLichess) {
+    @prog.by
+    } else {
+    @userIdLink(prog.by.value.some)
+    } is analysing this game.
+  </div>
+  }
+  *@
 </div>

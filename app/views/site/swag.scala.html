@@ -9,10 +9,19 @@
 @site.layout(
 moreCss = cssTag("swag.css"),
 side = side.some,
-title = "Lichess Swag") {
+title = "Lichess Swag",
+openGraph = lila.app.ui.OpenGraph(
+title = "Lichess merch store",
+description = "Great chess deserves great T-shirts! Get yourself some swag and help pay for the servers.",
+url = s"$netBaseUrl${routes.Page.swag}").some) {
 
 <div class="content_box swag no_padding">
-  <div id="myShop">@base.spinner()</div>
+  <div id="myShop">
+    @base.spinner()
+    <p class="loading">
+      Not loading? <a target="_blank" href="https://shop.spreadshirt.com/lichess-org/">Open the shop in a new tab</a>.
+    </p>
+  </div>
 
   <script>
     var spread_shop_config = {

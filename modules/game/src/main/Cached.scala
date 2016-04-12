@@ -2,18 +2,18 @@ package lila.game
 
 import scala.concurrent.duration._
 
-import org.joda.time.DateTime
-import play.api.libs.json.JsObject
 import chess.variant.Variant
+import org.joda.time.DateTime
+import reactivemongo.bson.BSONDocument
 
-import lila.db.api.$count
 import lila.db.BSON._
+import lila.db.dsl._
 import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
 import lila.user.{ User, UidNb }
-import tube.gameTube
 import UidNb.UidNbBSONHandler
 
 final class Cached(
+    coll: Coll,
     mongoCache: MongoCache.Builder,
     defaultTtl: FiniteDuration) {
 
@@ -29,19 +29,20 @@ final class Cached(
   val isRematch = new ExpireSetMemo(3.hours)
 
   // very expensive
-  val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
-    prefix = "player:active:day",
-    (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
-    timeToLive = 1 hour)
+  // val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
+  //   prefix = "player:active:day",
+  //   (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
+  //   timeToLive = 1 hour)
 
-  private val countShortTtl = AsyncCache[JsObject, Int](
-    f = (o: JsObject) => $count(o),
+  private val countShortTtl = AsyncCache[BSONDocument, Int](
+    f = (o: BSONDocument) => coll countSel o,
     timeToLive = 5.seconds)
 
   private val count = mongoCache(
     prefix = "game:count",
-    f = (o: JsObject) => $count(o),
-    timeToLive = defaultTtl)
+    f = (o: BSONDocument) => coll countSel o,
+    timeToLive = defaultTtl,
+    keyToString = lila.db.BSON.hashDoc)
 
   object Divider {
 

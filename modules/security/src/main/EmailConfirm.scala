@@ -34,6 +34,7 @@ final class EmailConfirmMailGun(
   def effective = true
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
+    lila.mon.email.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(sender),

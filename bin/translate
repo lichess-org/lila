@@ -35,6 +35,10 @@ elif [ "$1" = "a" ]; then
     next
     show
   fi
+elif [ "$1" = "p" ]; then
+  printf "Picking translation %s\n" $version
+  git cherry-pick -n t/$(echo $version)
+  tig status
 elif [ "$1" = "n" ]; then
   next
   show

@@ -2,7 +2,7 @@ package lila.mod
 
 import chess.Color
 import chess.variant
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
 
@@ -25,11 +25,10 @@ final class BoostingApi(
     variant.ThreeCheck)
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =
-    collBoosting.find(BSONDocument("_id" -> id))
-      .one[BoostingRecord]
+    collBoosting.byId[BoostingRecord](id)
 
   def createBoostRecord(record: BoostingRecord) =
-    collBoosting.update(BSONDocument("_id" -> record.id), record, upsert = true).void
+    collBoosting.update($id(record.id), record, upsert = true).void
 
   def determineBoosting(record: BoostingRecord, winner: User, loser: User): Funit =
     (record.games >= nbGamesToMark) ?? {

@@ -7,8 +7,9 @@ import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
 import chess.Color
-import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.game.{ Game, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
+import lila.hub.actorApi.round.FishnetPlay
 import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
@@ -24,7 +25,6 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    monitorMove: Option[Int] => Unit,
     moretimeDuration: Duration,
     activeTtl: Duration) extends SequentialActor {
 
@@ -35,8 +35,11 @@ private[round] final class Round(
   }
 
   override def postStop() {
-    context.system.lilaBus unsubscribe self
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
   }
+
+  implicit val proxy = new GameProxy(gameId)
 
   object lags { // player lag in millis
     var white = 0
@@ -55,19 +58,22 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
-      handle(p.playerId) { pov =>
-        if (pov.game outoftime lags.get) outOfTime(pov.game)
+      p.trace.finishFirstSegment()
+      handleHumanPlay(p) { pov =>
+        if (pov.game outoftime lags.get) finisher.outOfTime(pov.game)
         else {
           lags.set(pov.color, p.lag.toMillis.toInt)
+          reportNetworkLag(pov)
           player.human(p, self)(pov)
         }
-      } >>- monitorMove((nowMillis - p.atMillis).toInt.some)
-
-    case AiPlay => handle { game =>
-      game.playableByAi ?? {
-        player ai game map (_.events)
+      } >>- {
+        p.trace.finish()
+        lila.mon.round.move.full.count()
       }
-    } >>- monitorMove(none)
+
+    case FishnetPlay(uci, currentFen) => handle { game =>
+      player.fishnet(game, uci, currentFen)
+    } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -82,7 +88,7 @@ private[round] final class Round(
         messenger.system(pov.game, (_.untranslated(
           s"${pov.color.name.capitalize} is going berserk!"
         )))
-        GameRepo.save(progress) >> GameRepo.goBerserk(pov) inject progress.events
+        proxy.save(progress) >> proxy.invalidating(_ goBerserk pov) inject progress.events
       }
     }
 
@@ -109,18 +115,18 @@ private[round] final class Round(
     }
 
     case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? outOfTime(game)
+      game.outoftime(lags.get) ?? finisher.outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
     // if the game is abandoned, then nobody is around to see it
     // we can also terminate this actor
     case Abandon => fuccess {
-      GameRepo game gameId foreach { gameOption =>
-        gameOption filter (_.abandoned) foreach { game =>
+      proxy withGame { game =>
+        game.abandoned ?? {
+          self ! PoisonPill
           if (game.abortable) finisher.other(game, _.Aborted)
           else finisher.other(game, _.Resign, Some(!game.player.color))
-          self ! PoisonPill
         }
       }
     }
@@ -135,8 +141,8 @@ private[round] final class Round(
       }
     }
 
-    case Threefold => GameRepo game gameId flatMap {
-      _ ?? drawer.autoThreefold map {
+    case Threefold => proxy withGame { game =>
+      drawer autoThreefold game map {
         _ foreach { pov =>
           self ! DrawClaim(pov.player.id)
         }
@@ -145,8 +151,9 @@ private[round] final class Round(
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        loginfo(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-        GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
+        lila.log("cheat").info(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        lila.mon.cheat.holdAlert()
+        proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
       }
     }
 
@@ -163,7 +170,7 @@ private[round] final class Round(
         messenger.system(pov.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
-        GameRepo save progress inject progress.events
+        proxy save progress inject progress.events
       }
     }
 
@@ -186,7 +193,7 @@ private[round] final class Round(
         Color.all.foreach { c =>
           messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
         }
-        GameRepo save progress inject progress.events
+        proxy save progress inject progress.events
       }
     }
 
@@ -197,40 +204,48 @@ private[round] final class Round(
     }
   }
 
-  private def outOfTime(game: Game) =
-    finisher.other(game, _.Outoftime, Some(!game.player.color) filterNot { color =>
-      game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
-    })
+  private def reportNetworkLag(pov: Pov) =
+    if (pov.game.turns == 20 || pov.game.turns == 21) List(lags.white, lags.black).foreach { lag =>
+      if (lag > 0) lila.mon.round.move.networkLag(lag)
+    }
 
   protected def handle[A](op: Game => Fu[Events]): Funit =
-    handleGame(GameRepo game gameId)(op)
+    handleGame(proxy.game)(op)
 
   protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
-    handlePov(GameRepo pov PlayerRef(gameId, playerId))(op)
+    handlePov((proxy playerPov playerId))(op)
+
+  protected def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+    handlePov {
+      p.trace.segment("fetch", "db") {
+        proxy playerPov p.playerId
+      }
+    }(op)
 
   protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
-    handlePov(GameRepo pov PovRef(gameId, color))(op)
+    handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
       if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
-  }
+  } recover errorHandler("handlePov")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op
-  }
+  } recover errorHandler("handleGame")
 
-  private def publish[A](op: Fu[Events]) = op addEffect { events =>
+  private def publish[A](op: Fu[Events]): Funit = op.addEffect { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
     if (events exists {
       case e: Event.Move => e.threefold
       case _             => false
     }) self ! Threefold
-  } addFailureEffect {
-    case e: ClientErrorException =>
-    case e =>
-      println(e)
-      e.printStackTrace
-  } void
+  }.void recover errorHandler("publish")
+
+  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+    case e: ClientError  => lila.mon.round.error.client()
+    case e: FishnetError => lila.mon.round.error.fishnet()
+    case e: Exception    => logger.warn(s"$name: ${e.getMessage}")
+  }
 }

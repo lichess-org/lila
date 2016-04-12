@@ -1,8 +1,9 @@
-@(title: String, searchText: String = "", side: Option[Html] = None, moreJs: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, searchText: String = "", side: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
 side = side,
+menu = menu,
 moreCss = cssTag("forum.css"),
 moreJs = moreJs,
 openGraph = openGraph) {

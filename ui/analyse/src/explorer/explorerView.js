@@ -140,13 +140,17 @@ function show(ctrl) {
 }
 
 function showTitle(ctrl) {
-  return ctrl.data.game.variant.name + ' opening explorer';
+  if (ctrl.data.game.variant.key === 'standard' || ctrl.data.game.variant.key === 'fromPosition') {
+    return 'Opening explorer';
+  } else {
+    return ctrl.data.game.variant.name + ' opening explorer';
+  }
 }
 
 function showConfig(ctrl) {
   return m('div.config', [
     m('div.title', showTitle(ctrl)),
-    renderConfig(ctrl.explorer.config, ctrl.data.game.variant)
+    renderConfig(ctrl.explorer.config)
   ]);
 }
 

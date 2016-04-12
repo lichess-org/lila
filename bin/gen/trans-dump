@@ -4,7 +4,7 @@ require 'fileutils'
 include FileUtils
 
 lila_dir = pwd()
-lila_trans_dir = lila_dir + '/conf'
+lila_trans_dir = lila_dir + '/modules/i18n/messages'
 lila_keys_file = lila_dir + '/modules/i18n/src/main/I18nKeys.scala'
 
 code = """// Generated with bin/trans-dump at #{Time.new.utc}

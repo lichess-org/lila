@@ -1,7 +1,7 @@
 package lila.forum
 
 case class Categ(
-    id: String, // slug
+    _id: String, // slug
     name: String,
     desc: String,
     pos: Int,
@@ -12,6 +12,8 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String) {
+
+  def id = _id
 
   def nbTopics(troll: Boolean): Int = troll.fold(nbTopicsTroll, nbTopics)
   def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
@@ -30,20 +32,4 @@ case class Categ(
     lastPostIdTroll = post.id)
 
   def slug = id
-}
-
-object Categ {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private implicit def topicTube = Topic.tube
-
-  private def defaults = Json.obj("team" -> none[String])
-
-  private[forum] lazy val tube = JsTube(
-    reader = (__.json update merge(defaults)) andThen Json.reads[Categ],
-    writer = Json.writes[Categ]
-  )
 }

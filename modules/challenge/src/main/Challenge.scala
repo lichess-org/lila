@@ -44,6 +44,8 @@ case class Challenge(
     case _                    => none
   }
 
+  def hasClock = clock.isDefined
+
   def openDest = destUser.isEmpty
   def active = status == Status.Created || status == Status.Offline
   def declined = status == Status.Declined
@@ -135,7 +137,10 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen = initialFen.ifTrue(variant == FromPosition),
+      initialFen = (variant == FromPosition).fold(
+        initialFen,
+        Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
+      ),
       timeControl = timeControl,
       mode = mode,
       colorChoice = colorChoice,

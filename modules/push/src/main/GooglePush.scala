@@ -9,7 +9,7 @@ private final class GooglePush(
     url: String,
     key: String) {
 
-  def apply(userId: String)(data: => GooglePush.Data): Funit =
+  def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) flatMap {
       _ ?? { device =>
         WS.url(url)
@@ -18,7 +18,7 @@ private final class GooglePush(
             "Accept" -> "application/json",
             "Content-type" -> "application/json")
           .post(Json.obj(
-            "to" -> device.id,
+            "to" -> device.deviceId,
             "priority" -> "normal",
             "notification" -> Json.obj(
               "title" -> data.title,
@@ -27,16 +27,8 @@ private final class GooglePush(
             "data" -> data.payload
           )).flatMap {
             case res if res.status == 200 => funit
-            case res                      => fufail(s"[push] ${device.id} $data ${res.status} ${res.body}")
+            case res                      => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
           }
       }
     }
-}
-
-private object GooglePush {
-
-  case class Data(
-    title: String,
-    body: String,
-    payload: JsObject)
 }

@@ -140,5 +140,5 @@ module.exports = function(env) {
 
   this.trans = lichess.trans(env.i18n);
 
-  if (this.playban) setTimeout(location.reload, this.playban.remainingSeconds * 1000);
+  if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
 };

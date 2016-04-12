@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import spray.caching.{ LruCache, Cache }
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types._
+import lila.db.dsl._
 
 final class MongoCache[K, V: MongoCache.Handler] private (
     prefix: String,
@@ -18,7 +18,7 @@ final class MongoCache[K, V: MongoCache.Handler] private (
     keyToString: K => String) {
 
   def apply(k: K): Fu[V] = cache(k) {
-    coll.find(select(k)).one[Entry] flatMap {
+    coll.find(select(k)).uno[Entry] flatMap {
       case None => f(k) flatMap { v =>
         coll.insert(makeEntry(k, v)) recover
           lila.db.recoverDuplicateKey(_ => ()) inject v
@@ -57,7 +57,7 @@ object MongoCache {
       initialCapacity: Int = 64,
       timeToLive: FiniteDuration,
       timeToLiveMongo: Option[FiniteDuration] = None,
-      keyToString: K => String = (k: K) => k.toString): MongoCache[K, V] = new MongoCache[K, V](
+      keyToString: K => String): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
       expiresAt = expiresAt(timeToLiveMongo | timeToLive),
       cache = LruCache(maxCapacity, initialCapacity, timeToLive),

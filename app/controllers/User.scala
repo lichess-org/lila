@@ -7,12 +7,10 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
-import lila.db.api.$find
 import lila.evaluation.{ PlayerAggregateAssessment }
 import lila.game.{ GameRepo, Pov }
 import lila.rating.PerfType
 import lila.security.Permission
-import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -82,10 +80,10 @@ object User extends LilaController {
             else userGames(u, filterOption, page) map {
               case (filterName, pag) => html.user.games(u, pag, filterName)
             }
-          } map { status(_) },
-          api = _ => userGames(u, filterOption, page) map {
+          }.map { status(_) }.mon(_.http.response.user.show.website),
+          api = _ => userGames(u, filterOption, page).map {
             case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
-          })
+          }.mon(_.http.response.user.show.mobile))
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),
           api = _ => fuccess(NotFound(jsonError("No such user, or account closed"))))
@@ -132,11 +130,12 @@ object User extends LilaController {
     for {
       leaderboards <- env.cached.leaderboards
       nbAllTime ← env.cached topNbGame nb
-      nbDay ← Env.game.cached activePlayerUidsDay nb map {
-        _ flatMap { pair =>
-          env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
-        }
-      }
+      nbDay ← fuccess(Nil)
+      // Env.game.cached activePlayerUidsDay nb map {
+      //   _ flatMap { pair =>
+      //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
+      //   }
+      // }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached top50Online true
       res <- negotiate(

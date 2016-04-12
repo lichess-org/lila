@@ -6,11 +6,10 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.GameRepo
 import lila.hub.actorApi.{ GetUids, SocketUids }
 import lila.socket.actorApi.Broom
-import makeTimeout.short
 import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
@@ -18,16 +17,7 @@ private[lobby] final class Lobby(
     seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
-    onStart: String => Unit,
-    broomPeriod: FiniteDuration,
-    resyncIdsPeriod: FiniteDuration) extends Actor {
-
-  override def preStart {
-    context.system.scheduler.scheduleOnce(10 seconds) {
-      scheduleBroom
-      scheduleResync
-    }
-  }
+    onStart: String => Unit) extends Actor {
 
   def receive = {
 
@@ -35,12 +25,13 @@ private[lobby] final class Lobby(
       val replyTo = sender
       (userOption.map(_.id) ?? blocking) foreach { blocks =>
         val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.list.filter { hook =>
+        replyTo ! HookRepo.vector.filter { hook =>
           ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
         }
       }
 
     case msg@AddHook(hook) => {
+      lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       findCompatible(hook) foreach {
@@ -50,6 +41,7 @@ private[lobby] final class Lobby(
     }
 
     case msg@AddSeek(seek) =>
+      lila.mon.lobby.seek.create()
       findCompatible(seek) foreach {
         case Some(s) => self ! BiteSeek(s.id, seek.user)
         case None    => self ! SaveSeek(msg)
@@ -72,6 +64,7 @@ private[lobby] final class Lobby(
     }
 
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
+      lila.mon.lobby.hook.join()
       HookRepo byId hookId foreach { hook =>
         HookRepo byUid uid foreach remove
         Biter(hook, uid, user) pipeTo self
@@ -79,6 +72,7 @@ private[lobby] final class Lobby(
     }
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
+      lila.mon.lobby.seek.join()
       seekApi find seekId foreach {
         _ foreach { seek =>
           Biter(seek, user) pipeTo self
@@ -99,42 +93,35 @@ private[lobby] final class Lobby(
       }
 
     case Broom =>
-      (socket ? GetUids mapTo manifest[SocketUids])
-        .logIfSlow(100, "lobby") { r => s"GetUids size=${r.uids.size}" }
-        .logFailure("lobby", err => s"broom cannot get uids from socket: $err")
-        .addFailureEffect { err =>
-          HookRepo.truncateIfNeeded
-          scheduleBroom
-        } pipeTo self
+      HookRepo.truncateIfNeeded
+      implicit val timeout = makeTimeout seconds 1
+      (socket ? GetUids mapTo manifest[SocketUids]).chronometer
+        .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
+        .mon(_.lobby.socket.getUids)
+        .result
+        .logFailure(logger, err => s"broom cannot get uids from socket: $err")
+        .pipeTo(self)
 
     case SocketUids(uids) =>
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
         (HookRepo notInUids uids).filter {
           _.createdAt isBefore createdBefore
-        } ::: HookRepo.cleanupOld
+        } ++ HookRepo.cleanupOld
       }.toSet
-      // play.api.Logger("lobby").debug(
+      // logger.debug(
       //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
       if (hooks.nonEmpty) {
-        // play.api.Logger("lobby").debug(s"remove ${hooks.size} hooks")
+        // logger.debug(s"remove ${hooks.size} hooks")
         self ! RemoveHooks(hooks)
       }
-      scheduleBroom
+      lila.mon.lobby.socket.member(uids.size)
+      lila.mon.lobby.hook.size(HookRepo.size)
 
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync =>
-      socket ! HookIds(HookRepo.list.map(_.id))
-      scheduleResync
-  }
-
-  def scheduleBroom = context.system.scheduler.scheduleOnce(broomPeriod) {
-    self ! lila.socket.actorApi.Broom
-  }
-
-  def scheduleResync = context.system.scheduler.scheduleOnce(resyncIdsPeriod) {
-    self ! actorApi.Resync
+      socket ! HookIds(HookRepo.vector.map(_.id))
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
@@ -147,9 +134,9 @@ private[lobby] final class Lobby(
   private def findCompatible(hook: Hook): Fu[Option[Hook]] =
     findCompatibleIn(hook, HookRepo findCompatible hook)
 
-  private def findCompatibleIn(hook: Hook, in: List[Hook]): Fu[Option[Hook]] = in match {
-    case Nil => fuccess(none)
-    case h :: rest => Biter.canJoin(h, hook.user) ?? !{
+  private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Fu[Option[Hook]] = in match {
+    case Vector() => fuccess(none)
+    case h +: rest => Biter.canJoin(h, hook.user) ?? !{
       (h.user |@| hook.user).tupled ?? {
         case (u1, u2) =>
           GameRepo.lastGameBetween(u1.id, u2.id, DateTime.now minusHours 1) map {
@@ -170,5 +157,20 @@ private[lobby] final class Lobby(
   private def remove(hook: Hook) = {
     HookRepo remove hook
     socket ! RemoveHook(hook.id)
+  }
+}
+
+private object Lobby {
+
+  def start(
+    system: ActorSystem,
+    name: String,
+    broomPeriod: FiniteDuration,
+    resyncIdsPeriod: FiniteDuration)(instance: => Actor) = {
+
+    val ref = system.actorOf(Props(instance), name = name)
+    system.scheduler.schedule(5 seconds, broomPeriod, ref, lila.socket.actorApi.Broom)
+    system.scheduler.schedule(10 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    ref
   }
 }

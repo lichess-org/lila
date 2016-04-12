@@ -41,7 +41,7 @@ final class StreamerList(
     }.foldLeft(List.empty[Streamer] -> List.empty[Exception]) {
       case ((res, err), Success(r)) => (r :: res, err)
       case ((res, err), Failure(e: Exception)) =>
-        play.api.Logger("streamer").warn(e.getMessage)
+        lila.log("tv").warn("streamer", e)
         (res, e :: err)
       case (_, Failure(e)) => throw e
     }

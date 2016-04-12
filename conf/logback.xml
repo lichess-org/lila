@@ -1,0 +1,57 @@
+<configuration>
+
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <encoder><pattern>%coloredLevel %logger{25} - %message%n%xException{10}</pattern></encoder>
+  </appender>
+
+  <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${application.home}/logs/all.log</file>
+    <encoder><pattern>%date %-5level %logger{30} %message%n%xException{30}</pattern></encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="ALL_FILE" />
+  </root>
+
+  <!-- <logger name="timer" level="DEBUG"> -->
+  <!--   <appender name="FILE" class="ch.qos.logback.core.FileAppender"> -->
+  <!--     <file>${application.home}/logs/timer.log</file> -->
+  <!--     <encoder><pattern>%date [%level] %message%n</pattern></encoder> -->
+  <!--   </appender> -->
+  <!-- </logger> -->
+
+  <logger name="lobby" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/lobby.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+  <logger name="tournament" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/tournament.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+  <logger name="fishnet" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/fishnet.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+
+  <!-- <logger name="java.io.IOException" level="OFF" /> -->
+  <!-- <logger name="java.nio.channels.ClosedChannelException" level="OFF" /> -->
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
+  <!-- <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" /> -->
+  <!-- <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" /> -->
+
+</configuration>

@@ -5,10 +5,8 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc.Request
 
-import lila.db.api.$insert
-import tube.translationTube
-
 final class DataForm(
+    repo: TranslationRepo,
     keys: I18nKeys,
     val captcher: akka.actor.ActorSelection,
     callApi: CallApi) extends lila.hub.CaptchedForm {
@@ -28,12 +26,12 @@ final class DataForm(
     }).toList collect {
       case (key, Some(value)) => key -> value
     }
-    messages.nonEmpty ?? TranslationRepo.nextId flatMap { id =>
+    messages.nonEmpty ?? repo.nextId flatMap { id =>
       val sorted = (keys.keys map { key =>
         messages find (_._1 == key.key)
       }).flatten
       val translation = Translation(
-        id = id,
+        _id = id,
         code = code,
         text = sorted map {
           case (key, trans) => key + "=" + trans
@@ -41,7 +39,7 @@ final class DataForm(
         comment = metadata.comment,
         author = user.some,
         createdAt = DateTime.now)
-      $insert(translation) >>- callApi.submit(code)
+      repo.insert(translation).void >>- callApi.submit(code)
     }
   }
 
@@ -51,7 +49,7 @@ final class DataForm(
         case (key, msgs) if key startsWith "key_" => msgs.headOption map { key.drop(4) -> _ }
       }).flatten.toMap
     case body => {
-      logwarn("Can't parse translation request body: " + body)
+      logger.warn("Can't parse translation request body: " + body)
       Map.empty
     }
   }

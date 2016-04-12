@@ -94,13 +94,6 @@ object Auth extends LilaController {
     }
   }
 
-  private def doSignup(username: String, password: String, rawEmail: Option[String])(implicit ctx: Context): Fu[(UserModel, Option[String])] = {
-    val email = rawEmail.map(e => env.emailAddress.validate(e) err s"Invalid email $e")
-    UserRepo.create(username, password, email, ctx.blindMode, ctx.mobileApiVersion)
-      .flatten(s"No user could be created for ${username}")
-      .map(_ -> email)
-  }
-
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     Firewall {
@@ -114,6 +107,7 @@ object Auth extends LilaController {
               case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
             }
             case true =>
+              lila.mon.user.register.website()
               val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
               UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
                 .flatten(s"No user could be created for ${data.username}")
@@ -127,6 +121,7 @@ object Auth extends LilaController {
         api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
           err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
           data => {
+            lila.mon.user.register.mobile()
             val email = data.email flatMap env.emailAddress.validate
             UserRepo.create(data.username, data.password, email, false, apiVersion.some)
               .flatten(s"No user could be created for ${data.username}") flatMap mobileUserOk
@@ -157,7 +152,7 @@ object Auth extends LilaController {
 
   private def noTorResponse(implicit ctx: Context) = negotiate(
     html = Unauthorized(html.auth.tor()).fuccess,
-    api = _ => Unauthorized(jsonError("Can't login from TOR, sorry!")).fuccess)
+    api = _ => Unauthorized(jsonError("Can't login from Tor, sorry!")).fuccess)
 
   def setFingerprint(fp: String, ms: Int) = Auth { ctx =>
     me =>

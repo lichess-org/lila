@@ -12,7 +12,7 @@ trait AiHelper { self: I18nHelper =>
   def aiName(level: Int, withRating: Boolean = true)(implicit ctx: UserContext): String = {
     val name = trans.aiNameLevelAiLevel.str(aiName, level)
     val rating = withRating ?? {
-      aiRating(level) ?? { r => s"&nbsp;($r)" }
+      aiRating(level) ?? { r => s" ($r)" }
     }
     s"$name$rating"
   }
@@ -20,5 +20,5 @@ trait AiHelper { self: I18nHelper =>
   def aiNameHtml(level: Int, withRating: Boolean = true)(implicit ctx: UserContext) =
     Html(aiName(level, withRating).replace(" ", "&nbsp;"))
 
-  def aiRating(level: Int): Option[Int] = Env.ai ratingOf level
+  def aiRating(level: Int): Option[Int] = Env.fishnet.aiPerfApi.intRatings get level
 }

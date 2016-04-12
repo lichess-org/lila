@@ -6,7 +6,7 @@ import ornicar.scalalib.Random
 import lila.user.User
 
 case class Post(
-    id: String,
+    _id: String,
     topicId: String,
     categId: String,
     author: Option[String],
@@ -18,6 +18,8 @@ case class Post(
     hidden: Boolean,
     lang: Option[String],
     createdAt: DateTime) {
+
+  def id = _id
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
@@ -43,7 +45,7 @@ object Post {
     lang: Option[String],
     troll: Boolean,
     hidden: Boolean): Post = Post(
-    id = Random nextStringUppercase idSize,
+    _id = Random nextStringUppercase idSize,
     topicId = topicId,
     author = author,
     userId = userId,
@@ -55,13 +57,4 @@ object Post {
     hidden = hidden,
     createdAt = DateTime.now,
     categId = categId)
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private[forum] lazy val tube = JsTube(
-    (__.json update readDate('createdAt)) andThen Json.reads[Post],
-    Json.writes[Post] andThen (__.json update writeDate('createdAt))
-  )
 }

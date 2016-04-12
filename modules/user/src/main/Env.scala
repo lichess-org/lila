@@ -48,19 +48,13 @@ final class Env(
   def countEnabled = cached.countEnabled
 
   def cli = new lila.common.Cli {
-    import tube.userTube
     def process = {
-      case "user" :: "typecheck" :: Nil =>
-        lila.db.Typecheck.apply[User]
       case "user" :: "email" :: userId :: email :: Nil =>
         UserRepo.email(User normalize userId, email) inject "done"
     }
   }
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'adjustCheater, 'adjustBooster, 'userActive)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => rankingApi remove userId
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
@@ -68,7 +62,7 @@ final class Env(
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
     }
-  }))
+  })), 'adjustCheater, 'adjustBooster, 'userActive)
 
   {
     import scala.concurrent.duration._
@@ -80,6 +74,7 @@ final class Env(
   }
 
   lazy val cached = new Cached(
+    userColl = userColl,
     nbTtl = CachedNbTtl,
     onlineUserIdMemo = onlineUserIdMemo,
     mongoCache = mongoCache,

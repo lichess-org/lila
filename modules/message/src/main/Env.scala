@@ -29,6 +29,7 @@ final class Env(
   lazy val forms = new DataForm(security = security)
 
   lazy val api = new Api(
+    coll = threadColl,
     unreadCache = unreadCache,
     shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
@@ -45,13 +46,6 @@ final class Env(
       case thread: LichessThread => api.lichessThread(thread)
     }
   }), name = ActorName)
-
-  def cli = new lila.common.Cli {
-    import tube.threadTube
-    def process = {
-      case "message" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Thread]
-    }
-  }
 }
 
 object Env {

@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -41,7 +41,8 @@ endpoint: "@explorerEndpoint"
       <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
       <li><strong>shift</strong> + <strong>k</strong>/<strong>j</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
     </ul>
-    @trans.keyYouCanDrawArrowsCirclesAndScrollToMove()
+    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
+    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
   </div>
 </div>
 }
@@ -58,7 +59,7 @@ chessground = false,
 atom = atom.some) {
 <div class="analyse cg-512">@miniBoardContent</div>
 <div class="advice_summary" style="display:none">
-  @analysis.filter(_.done).map { a =>
+  @analysis.map { a =>
   <table>
     @for((color, pairs) <- a.summary) {
     <thead>
@@ -100,19 +101,16 @@ atom = atom.some) {
         data-division-end="@division.end.getOrElse("null")"
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
-      }.getOrElse {
-      @analyse.computing(pov.gameId)
       }
       }.getOrElse {
-      <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
+      @analysisInProgress.map { prog =>
+      @analyse.computing(pov.gameId, prog.some)
+      }.getOrElse {
+      <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
       }
-      <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3 text" data-icon="&#xe004;">@trans.viewTheComputerAnalysis()</span>
-        </a>
-      </div>
+      }
     </div>
     }
     <div class="panel quote">
@@ -121,17 +119,17 @@ atom = atom.some) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> Download annotated</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> Download raw</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
         }
         /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> Print-friendly PDF</a>
+        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
       </p>
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
@@ -153,14 +151,15 @@ atom = atom.some) {
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {
-    <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
+    <a data-panel="computer_analysis" class="computer_analysis"
+      @analysis.map { a => title="Provided by @usernameOrId(a.providedBy)" }>@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
     @if(timeChart.series.isDefined) {
     <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     }
     @if(cross.isDefined) {
-    <a data-panel="crosstable" class="crosstable">Crosstable</a>
+    <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
     }
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>

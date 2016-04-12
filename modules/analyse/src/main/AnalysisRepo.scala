@@ -2,70 +2,34 @@ package lila.analyse
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.Game
-import tube.analysisTube
 
 object AnalysisRepo {
 
+  import Analysis.analysisBSONHandler
+
+  // dirty
+  private val coll = Env.current.analysisColl
+
   type ID = String
 
-  def done(id: ID, a: Analysis, serverIp: String) = $update(
-    $select(id),
-    $set(Json.obj(
-      "done" -> true,
-      "data" -> Info.encodeList(a.infos),
-      "ip" -> serverIp
-    ))
-  )
+  def save(analysis: Analysis) = coll insert analysis void
 
-  def progress(id: ID, userId: ID, startPly: Int) = $update(
-    $select(id),
-    $set(
-      Json.obj(
-        "uid" -> userId,
-        "done" -> false,
-        "date" -> $date(DateTime.now)
-      ) ++ (startPly == 0).fold(Json.obj(), Json.obj("ply" -> startPly))
-    ) ++ $unset("old", "data"),
-    upsert = true)
+  def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
-  def byId(id: ID): Fu[Option[Analysis]] = $find byId id
-
-  def doneById(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> true))
-
-  def notDoneById(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> false))
-
-  def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
-    $find optionsByOrderedIds ids map2 { (a: Option[Analysis]) =>
-      a.filter(_.done)
-    }
+  def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
+    coll.optionsByOrderedIds[Analysis](ids)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
-    doneByIds(games.map(_.id)) map { as =>
+    byIds(games.map(_.id)) map { as =>
       games zip as collect {
         case (game, Some(analysis)) => game -> analysis
       }
     }
 
-  def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ Json.obj("done" -> true, "old" -> $exists(false)))
+  def remove(id: String) = coll remove $id(id)
 
-  def isDone(id: ID): Fu[Boolean] =
-    $count.exists($select(id) ++ Json.obj("done" -> true))
-
-  def recent(nb: Int): Fu[List[Analysis]] =
-    $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
-
-  def skipping(skip: Int, nb: Int): Fu[List[Analysis]] =
-    $find($query(Json.obj("done" -> true)) skip skip, nb)
-
-  def count = $count($select.all)
-
-  def remove(id: String) = $remove byId id
+  def exists(id: String) = coll exists $id(id)
 }

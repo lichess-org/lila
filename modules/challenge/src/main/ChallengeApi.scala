@@ -82,6 +82,8 @@ final class ChallengeApi(
       } yield success
     }
 
+  def removeByUserId = repo removeByUserId  _
+
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
       lila.common.Future.applySequentially(cs)(offline).void

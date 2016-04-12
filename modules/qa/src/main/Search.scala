@@ -3,8 +3,7 @@ package lila.qa
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Types.Coll
+import lila.db.dsl._
 
 final class Search(collection: Coll) {
 
@@ -38,6 +37,6 @@ final class Search(collection: Coll) {
   def apply(q: String): Fu[List[Question]] =
     collection.find(BSONDocument(
       "$text" -> BSONDocument("$search" -> q)
-    )).cursor[Question]().collect[List]()
+    )).cursor[Question]().gather[List]()
 }
 

@@ -7,10 +7,12 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
+import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
 
 final class Api(
+    coll: Coll,
     firewall: Firewall,
     tor: Tor,
     geoIP: GeoIP,
@@ -78,16 +80,16 @@ final class Api(
   def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    tube.storeColl.distinct(
+    coll.distinct(
       field,
-      BSONDocument("user" -> userId, field -> BSONDocument("$exists" -> true)).some
+      $doc("user" -> userId, field -> $doc("$exists" -> true)).some
     ).flatMap {
         case Nil => fuccess(Nil)
-        case values => tube.storeColl.distinct(
+        case values => coll.distinct(
           "user",
-          BSONDocument(
-            field -> BSONDocument("$in" -> values),
-            "user" -> BSONDocument("$ne" -> userId)
+          $doc(
+            field -> $doc("$in" -> values),
+            "user" -> $doc("$ne" -> userId)
           ).some
         ) map lila.db.BSON.asStrings
       }
@@ -97,11 +99,11 @@ final class Api(
   def recentUserIdsByIp = recentUserIdsByField("ip") _
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
-    tube.storeColl.distinct(
+    coll.distinct(
       "user",
-      BSONDocument(
+      $doc(
         field -> value,
-        "date" -> BSONDocument("$gt" -> DateTime.now.minusYears(1))
+        "date" -> $doc("$gt" -> DateTime.now.minusYears(1))
       ).some
     ) map lila.db.BSON.asStrings
 }

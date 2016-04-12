@@ -1,0 +1,373 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "lichess";
+  src:url("fonts/lichess.eot");
+  src:url("fonts/lichess.eot?#iefix") format("embedded-opentype"),
+    url("fonts/lichess.woff") format("woff"),
+    url("fonts/lichess.ttf") format("truetype"),
+    url("fonts/lichess.svg#lichess") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "lichess" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "lichess" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fontawesome-webfont-1:before {
+  content: "\61";
+}
+.icon-fontawesome-webfont-2:before {
+  content: "\62";
+}
+.icon-fontawesome-webfont-3:before {
+  content: "\63";
+}
+.icon-fontawesome-webfont-4:before {
+  content: "\64";
+}
+.icon-fontawesome-webfont-5:before {
+  content: "\65";
+}
+.icon-fontawesome-webfont-6:before {
+  content: "\66";
+}
+.icon-fontawesome-webfont-7:before {
+  content: "\67";
+}
+.icon-fontawesome-webfont-8:before {
+  content: "\68";
+}
+.icon-fontawesome-webfont-9:before {
+  content: "\6a";
+}
+.icon-fontawesome-webfont-10:before {
+  content: "\6b";
+}
+.icon-fontawesome-webfont-11:before {
+  content: "\6c";
+}
+.icon-fontawesome-webfont-12:before {
+  content: "\6d";
+}
+.icon-fontawesome-webfont-15:before {
+  content: "\70";
+}
+.icon-fontawesome-webfont-17:before {
+  content: "\72";
+}
+.icon-fontawesome-webfont-18:before {
+  content: "\73";
+}
+.icon-fontawesome-webfont-19:before {
+  content: "\74";
+}
+.icon-fontawesome-webfont-20:before {
+  content: "\75";
+}
+.icon-eye-view-1:before {
+  content: "\76";
+}
+.icon-fontawesome-webfont-21:before {
+  content: "\77";
+}
+.icon-fontawesome-webfont-22:before {
+  content: "\78";
+}
+.icon-fontawesome-webfont-23:before {
+  content: "\7a";
+}
+.icon-microscope:before {
+  content: "\41";
+}
+.icon-crown-king-1:before {
+  content: "\43";
+}
+.icon-fontawesome-webfont-24:before {
+  content: "\44";
+}
+.icon-fontawesome-webfont-25:before {
+  content: "\45";
+}
+.icon-fontawesome-webfont-26:before {
+  content: "\46";
+}
+.icon-fontawesome-webfont-27:before {
+  content: "\47";
+}
+.icon-fontawesome-webfont-28:before {
+  content: "\48";
+}
+.icon-fontawesome-webfont-29:before {
+  content: "\49";
+}
+.icon-fontawesome-webfont-30:before {
+  content: "\4a";
+}
+.icon-fontawesome-webfont-31:before {
+  content: "\4b";
+}
+.icon-loop-alt2:before {
+  content: "\42";
+}
+.icon-arrow-full-lowerright:before {
+  content: "\4d";
+}
+.icon-arrow-full-upperright:before {
+  content: "\4e";
+}
+.icon-fontawesome-webfont-32:before {
+  content: "\4c";
+}
+.icon-plus-squared:before {
+  content: "\4f";
+}
+.icon-plus-circled:before {
+  content: "\4f";
+}
+.icon-fontawesome-webfont-33:before {
+  content: "\4f";
+}
+.icon-fontawesome-webfont-34:before {
+  content: "\51";
+}
+.icon-fire-station-24:before {
+  content: "\51";
+}
+.icon-burning-fire:before {
+  content: "\51";
+}
+.icon-arrow-sans-down:before {
+  content: "\52";
+}
+.icon-arrow-sans-up:before {
+  content: "\53";
+}
+.icon-fontawesome-webfont-34:before {
+  content: "\54";
+}
+.icon-crossed-swords-small:before {
+  content: "\55";
+}
+.icon-fontawesome-webfont-35:before {
+  content: "\56";
+}
+.icon-fontawesome-webfont-36:before {
+  content: "\57";
+}
+.icon-fontawesome-webfont-37:before {
+  content: "\58";
+}
+.icon-fontawesome-webfont-38:before {
+  content: "\59";
+}
+.icon-fontawesome-webfont-39:before {
+  content: "\5a";
+}
+.icon-fontawesome-webfont-40:before {
+  content: "\21";
+}
+.icon-fontawesome-webfont-41:before {
+  content: "\50";
+}
+.icon-fontawesome-webfont:before {
+  content: "\69";
+}
+.icon-hand-stop:before {
+  content: "\32";
+}
+.icon-ionicons:before {
+  content: "\33";
+}
+.icon-fontawesome-webfont-42:before {
+  content: "\30";
+}
+.icon-television-tv:before {
+  content: "\31";
+}
+.icon-moon:before {
+  content: "\34";
+}
+.icon-sun:before {
+  content: "\35";
+}
+.icon-ink-pen:before {
+  content: "\36";
+}
+.icon-chart-line:before {
+  content: "\39";
+}
+.icon-link:before {
+  content: "\22";
+}
+.icon-ionicons-1:before {
+  content: "\37";
+}
+.icon-unmute:before {
+  content: "\23";
+}
+.icon-mute:before {
+  content: "\24";
+}
+.icon-gear:before {
+  content: "\25";
+}
+.icon-repo:before {
+  content: "\26";
+}
+.icon-tag:before {
+  content: "\6f";
+}
+.icon-trash-bin:before {
+  content: "\71";
+}
+.icon-search-find:before {
+  content: "\79";
+}
+.icon-crown:before {
+  content: "\38";
+}
+.icon-die-six:before {
+  content: "\27";
+}
+.icon-flag:before {
+  content: "\28";
+}
+.icon-flame:before {
+  content: "\29";
+}
+.icon-hourglass:before {
+  content: "\2b";
+}
+.icon-arrow-streamline-target:before {
+  content: "\2d";
+}
+.icon-buffer:before {
+  content: "\2e";
+}
+.icon-upload-cloud:before {
+  content: "\2f";
+}
+.icon-feather:before {
+  content: "\2a";
+}
+.icon-gears-setting:before {
+  content: "\3a";
+}
+.icon-email-plane:before {
+  content: "\3b";
+}
+.icon-zoom-in:before {
+  content: "\3c";
+}
+.icon-screen-full:before {
+  content: "\3d";
+}
+.icon-list:before {
+  content: "\3f";
+}
+.icon-atom:before {
+  content: "\3e";
+}
+.icon-book:before {
+  content: "\5d";
+}
+.icon-body-cut:before {
+  content: "\60";
+}
+.icon-antichess:before {
+  content: "\40";
+}
+.icon-reorder:before {
+  content: "\5b";
+}
+.icon-keypad:before {
+  content: "\5f";
+}
+.icon-youtube-play:before {
+  content: "\7b";
+}
+.icon-arrows-in:before {
+  content: "\7c";
+}
+.icon-color-palette:before {
+  content: "\7d";
+}
+.icon-earth-globe-streamline:before {
+  content: "\5c";
+}
+.icon-nuclear:before {
+  content: "\2c";
+}
+.icon-hookah:before {
+  content: "\7e";
+}
+.icon-tools:before {
+  content: "\e000";
+}
+.icon-medal-outline-star:before {
+  content: "\e001";
+}
+.icon-agent:before {
+  content: "\e002";
+}
+.icon-mic:before {
+  content: "\e003";
+}
+.icon-bar-chart:before {
+  content: "\e004";
+}
+.icon-world:before {
+  content: "\6e";
+}
+.icon-graph:before {
+  content: "\5e";
+}
+.icon-info-circled:before {
+  content: "\e005";
+}
+.icon-screen-desktop:before {
+  content: "\e006";
+}
+.icon-phone-mobile:before {
+  content: "\e007";
+}
+.icon-ellipsis:before {
+  content: "\e008";
+}
+.icon-delicious:before {
+  content: "\e009";
+}
+.icon-flag-checkered:before {
+  content: "\e00a";
+}
+.icon-h-square:before {
+  content: "\e00b";
+}
+.icon-t-shirt:before {
+  content: "\e00c";
+}

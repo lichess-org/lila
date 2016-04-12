@@ -7,7 +7,7 @@ import chess.variant._
 import chess.{ Game => ChessGame, Board, Clock, Color => ChessColor, Castles }
 import ChessColor.{ White, Black }
 
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
@@ -19,25 +19,25 @@ private[round] final class Rematcher(
     rematch960Cache: ExpireSetMemo,
     isRematchCache: ExpireSetMemo) {
 
-  def yes(pov: Pov): Fu[Events] = pov match {
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) =>
       (game.opponent(color).isOfferingRematch || game.opponent(color).isAi).fold(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)
       )
-    case _ => ClientErrorException.future("[rematcher] invalid yes " + pov)
+    case _ => fuccess(Nil)
   }
 
-  def no(pov: Pov): Fu[Events] = pov match {
-    case Pov(game, color) if pov.player.isOfferingRematch => GameRepo save {
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
+    case Pov(game, color) if pov.player.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeRematchOffer) }
     } inject List(Event.ReloadOwner)
-    case Pov(game, color) if pov.opponent.isOfferingRematch => GameRepo save {
+    case Pov(game, color) if pov.opponent.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
     } inject List(Event.ReloadOwner)
-    case _ => ClientErrorException.future("[rematcher] invalid no " + pov)
+    case _ => fuccess(Nil)
   }
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
@@ -59,7 +59,7 @@ private[round] final class Rematcher(
     redirectEvents(nextGame)
   }
 
-  private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
+  private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = proxy.save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
   } inject List(Event.ReloadOwner)

@@ -27,6 +27,8 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
+  private val startsAtMillis = nowMillis
+
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
     val CollectionPlayer = config getString "collection.player"
@@ -39,8 +41,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
-    val OrganizerName = config getString "organizer.name"
-    val ReminderName = config getString "reminder.name"
+    val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
   }
@@ -69,6 +70,8 @@ final class Env(
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
+
+  lazy val crudApi = new crud.CrudApi
 
   val tourAndRanks = api tourAndRanks _
 
@@ -110,19 +113,31 @@ final class Env(
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some)
+      executionTimeout = 5.seconds.some,
+      logger = logger)
   }))
 
-  private val organizer = system.actorOf(Props(new Organizer(
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName),
+    'finishGame, 'adjustCheater, 'adjustBooster)
+
+  system.actorOf(Props(new CreatedOrganizer(
     api = api,
-    reminder = system.actorOf(Props(new Reminder(
-      renderer = hub.actor.renderer
-    )), name = ReminderName),
+    isOnline = isOnline
+  )))
+
+  private val reminder = system.actorOf(Props(new Reminder(
+    renderer = hub.actor.renderer
+  )))
+
+  system.actorOf(Props(new StartedOrganizer(
+    api = api,
+    reminder = reminder,
     isOnline = isOnline,
     socketHub = socketHub
-  )), name = OrganizerName)
+  )))
 
-  private val tournamentScheduler = system.actorOf(Props(new Scheduler(api)))
+  TournamentScheduler.start(system, api)
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
@@ -139,26 +154,12 @@ final class Env(
     system = system,
     onStart = onStart)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(2 seconds) {
-      organizer -> actorApi.AllCreatedTournaments
-    }
-
-    scheduler.message(3 seconds) {
-      organizer -> actorApi.StartedTournaments
-    }
-
-    scheduler.message(5 minutes) {
-      tournamentScheduler -> actorApi.ScheduleNow
-    }
-  }
-
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)
   private[tournament] lazy val playerColl = db(CollectionPlayer)
   private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
+
+  lila.log("boot").info(s"${nowMillis - startsAtMillis}ms Tournament constructor")
 }
 
 object Env {

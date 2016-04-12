@@ -89,7 +89,8 @@ object Main extends LilaController {
 
   def jslog(id: String) = Open { ctx =>
     val referer = HTTPRequest.referer(ctx.req)
-    loginfo(s"[jslog] ${ctx.req.remoteAddress} ${ctx.userId} $referer")
+    lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer")
+    lila.mon.cheat.cssBot()
     ctx.userId.?? {
       Env.report.api.autoBotReport(_, referer)
     }
@@ -98,25 +99,9 @@ object Main extends LilaController {
     } inject Ok
   }
 
-  def explorerGameInfo(id: String) = Action.async { req =>
-    lila.game.GameRepo game id map {
-      _.fold(NotFound(s"Not game $id!")) { game =>
-        def name(p: lila.game.Player) = p.userId.flatMap(Env.user.lightUserApi.get).map(_.name)
-        val res = for {
-          wName <- name(game.whitePlayer)
-          bName <- name(game.blackPlayer)
-          wRating <- game.whitePlayer.rating
-          bRating <- game.blackPlayer.rating
-        } yield Ok {
-          List(wName, wRating, bName, bRating, game.createdAt.getYear) mkString "|"
-        }
-        res getOrElse NotFound(s"Not enough data for $id!")
-      }
-    }
-  }
-
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
+      lila.mon.http.response.code404()
       NotFound(html.base.notFound())
     }
 }

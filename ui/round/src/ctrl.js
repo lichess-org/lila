@@ -55,7 +55,7 @@ module.exports = function(opts) {
 
   var onUserMove = function(orig, dest, meta) {
     if (hold.applies(this.data)) {
-      hold.register(this.socket, meta.holdTime);
+      hold.register(this.socket, meta.holdTime, this.vm.ply);
       if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
     }
     if (!promotion.start(this, orig, dest, meta.premove))
@@ -102,6 +102,7 @@ module.exports = function(opts) {
   };
 
   this.userJump = function(ply) {
+    this.cancelMove();
     this.chessground.selectSquare(null);
     this.jump(ply);
   }.bind(this);
@@ -158,7 +159,7 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
-    if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
+    if (this.clock) move.lag = Math.round(lichess.socket.averageLag());
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
@@ -173,7 +174,7 @@ module.exports = function(opts) {
       role: role,
       pos: key
     };
-    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag);
+    if (this.clock) drop.lag = Math.round(lichess.socket.averageLag());
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
@@ -436,9 +437,13 @@ module.exports = function(opts) {
         });
       $.sound.confirmation();
     } else this.jump(this.vm.ply);
+    this.cancelMove();
+    this.setLoading(true);
+  }.bind(this);
+
+  this.cancelMove = function(v) {
     this.vm.moveToSubmit = null;
     this.vm.dropToSubmit = null;
-    this.setLoading(true);
   }.bind(this);
 
   var forecastable = function(d) {

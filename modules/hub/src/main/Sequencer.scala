@@ -8,7 +8,8 @@ import akka.actor._
 
 final class Sequencer(
     receiveTimeout: Option[FiniteDuration],
-    executionTimeout: Option[FiniteDuration] = None) extends Actor {
+    executionTimeout: Option[FiniteDuration] = None,
+    logger: lila.log.Logger) extends Actor {
 
   receiveTimeout.foreach(context.setReceiveTimeout)
 
@@ -49,7 +50,7 @@ final class Sequencer(
           self ! Done
         }
         promiseOption foreach (_ completeWith future)
-      case x => logwarn(s"[Sequencer] Unsupported message $x")
+      case x => logger.branch("Sequencer").warn(s"Unsupported message $x")
     }
   }
 }

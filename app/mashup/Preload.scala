@@ -22,11 +22,12 @@ final class Preload(
     streamsOnAir: () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
+    donationProgress: () => Fu[lila.donation.Progress],
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
     lightUser: String => Option[LightUser]) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int, lila.donation.Progress)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -43,9 +44,11 @@ final class Preload(
       dailyPuzzle() zip
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) zip
-      (ctx.me ?? Preload.currentGame(lightUser)) map {
-        case (((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), currentGame) =>
-          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
+      (ctx.me ?? Preload.currentGame(lightUser)) zip
+      donationProgress() map {
+        case ((((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), currentGame),
+          progress) =>
+          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), progress)
       }
 }
 

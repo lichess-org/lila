@@ -98,18 +98,4 @@ object Opening extends LilaController {
       )
     }
   }
-
-  def importOne = Action.async(parse.json) { implicit req =>
-    env.api.opening.importOne(req.body, ~get("token", req)) map { id =>
-      Ok("kthxbye " + {
-        val url = s"http://lichess.org/training/opening/$id"
-        play.api.Logger("opening import").info(s"${req.remoteAddress} $url")
-        url
-      })
-    } recover {
-      case e =>
-        play.api.Logger("opening import").warn(e.getMessage)
-        BadRequest(e.getMessage)
-    }
-  }
 }

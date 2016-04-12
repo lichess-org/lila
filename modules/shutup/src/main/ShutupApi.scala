@@ -2,12 +2,10 @@ package lila.shutup
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
-import lila.db.BSON._
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.game.GameRepo
 import lila.user.UserRepo
 
@@ -20,8 +18,8 @@ final class ShutupApi(
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
 
   def getPublicLines(userId: String): Fu[List[String]] =
-    coll.find(BSONDocument("_id" -> userId), BSONDocument("pub" -> 1))
-      .one[BSONDocument].map {
+    coll.find($doc("_id" -> userId), $doc("pub" -> 1))
+      .uno[Bdoc].map {
         ~_.flatMap(_.getAs[List[String]]("pub"))
       }
 
@@ -47,25 +45,25 @@ final class ShutupApi(
         case false =>
           val analysed = Analyser(text)
           val pushPublicLine =
-            if (textType == TextType.PublicChat && analysed.nbBadWords > 0) BSONDocument(
-              "pub" -> BSONDocument(
+            if (textType == TextType.PublicChat && analysed.nbBadWords > 0) $doc(
+              "pub" -> $doc(
                 "$each" -> List(text),
                 "$slice" -> -20)
             )
-            else BSONDocument()
-          val push = BSONDocument(
-            textType.key -> BSONDocument(
+            else $empty
+          val push = $doc(
+            textType.key -> $doc(
               "$each" -> List(BSONDouble(analysed.ratio)),
               "$slice" -> -textType.rotation)
           ) ++ pushPublicLine
           coll.findAndUpdate(
-            selector = BSONDocument("_id" -> userId),
-            update = BSONDocument("$push" -> push),
+            selector = $doc("_id" -> userId),
+            update = $doc("$push" -> push),
             fetchNewObject = true,
             upsert = true).map(_.value) map2 UserRecordBSONHandler.read flatMap {
-            case None             => fufail(s"can't find user record for $userId")
-            case Some(userRecord) => legiferate(userRecord)
-          } logFailure "ShutupApi"
+              case None             => fufail(s"can't find user record for $userId")
+              case Some(userRecord) => legiferate(userRecord)
+            } logFailure lila.log("shutup")
       }
     }
 
@@ -73,8 +71,8 @@ final class ShutupApi(
     userRecord.reports.exists(_.unacceptable) ?? {
       reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
       coll.update(
-        BSONDocument("_id" -> userRecord.userId),
-        BSONDocument("$unset" -> BSONDocument(
+        $doc("_id" -> userRecord.userId),
+        $doc("$unset" -> $doc(
           TextType.PublicForumMessage.key -> true,
           TextType.TeamForumMessage.key -> true,
           TextType.PrivateMessage.key -> true,

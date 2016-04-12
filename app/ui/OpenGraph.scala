@@ -1,8 +1,8 @@
 package lila.app
 package ui
 
-import play.twirl.api.Html
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+import play.twirl.api.Html
 
 case class OpenGraph(
     title: String,
@@ -13,20 +13,40 @@ case class OpenGraph(
     siteName: String = "lichess.org",
     more: List[(String, String)] = Nil) {
 
-  def html = Html(toString)
+  def html = Html(og.str + twitter.str)
 
-  private def tag(name: String, value: String) =
-    s"""<meta property="og:$name" content="${escapeHtml4(value)}" />"""
+  object og {
 
-  private val tupledTag = (tag _).tupled
+    private def tag(name: String, value: String) =
+      s"""<meta property="og:$name" content="${escapeHtml4(value)}"/>"""
 
-  override def toString = List(
-    "title" -> title,
-    "description" -> description,
-    "url" -> url,
-    "type" -> `type`,
-    "site_name" -> siteName
-  ).map(tupledTag).mkString +
-    image.?? { tag("image", _) } +
-    more.map(tupledTag).mkString
+    private val tupledTag = (tag _).tupled
+
+    def str = List(
+      "title" -> title,
+      "description" -> description,
+      "url" -> url,
+      "type" -> `type`,
+      "site_name" -> siteName
+    ).map(tupledTag).mkString +
+      image.?? { tag("image", _) } +
+      more.map(tupledTag).mkString
+  }
+
+  object twitter {
+
+    private def tag(name: String, value: String) =
+      s"""<meta name="twitter:$name" content="${escapeHtml4(value)}"/>"""
+
+    private val tupledTag = (tag _).tupled
+
+    def str = List(
+      "card" -> "summary",
+      "title" -> title,
+      "description" -> description,
+      "site" -> "@lichessorg"
+    ).map(tupledTag).mkString +
+      image.?? { tag("image", _) } +
+      more.map(tupledTag).mkString
+  }
 }

@@ -74,10 +74,7 @@ final class Env(
     flood = flood,
     exists = repo.exists)
 
-  system.actorOf(Props(new Actor {
-    override def preStart() {
-      system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'moveEvent)
-    }
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
@@ -91,7 +88,7 @@ final class Env(
           }
         }
     }
-  }), name = ActorName)
+  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEvent)
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
@@ -107,7 +104,7 @@ final class Env(
   private[simul] val simulColl = db(CollectionSimul)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some)
+    new Sequencer(SequencerTimeout.some, logger = logger)
   }))
 
   private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)

@@ -76,7 +76,6 @@ case class Join(
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
-case object AnalysisAvailable
 case object GetSocketStatus
 case class SocketStatus(
     version: Int,
@@ -98,10 +97,8 @@ case class HumanPlay(
     lag: FiniteDuration,
     promise: Option[Promise[Unit]] = None) {
 
-  val atMillis = nowMillis
+  val trace = lila.mon.round.move.trace.create
 }
-
-case object AiPlay
 
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 

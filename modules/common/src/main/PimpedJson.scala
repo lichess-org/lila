@@ -2,11 +2,9 @@ package lila.common
 
 import play.api.libs.json._
 
-object PimpedJson extends PimpedJson
+object PimpedJson {
 
-trait PimpedJson {
-
-  implicit final class LilaPimpedJsObject(js: JsObject) {
+  implicit final class LilaPimpedJsObject(val js: JsObject) extends AnyVal {
 
     def str(key: String): Option[String] =
       (js \ key).asOpt[String]
@@ -41,7 +39,7 @@ trait PimpedJson {
     }
   }
 
-  implicit final class LilaPimpedJsValue(js: JsValue) {
+  implicit final class LilaPimpedJsValue(val js: JsValue) extends AnyVal {
 
     def str(key: String): Option[String] =
       js.asOpt[JsObject] flatMap { obj =>

@@ -11,7 +11,7 @@ function sort(ctrl, hooks) {
 }
 
 function init(hook) {
-  hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
+  hook.action = hook.uid === lichess.StrongSocket.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
 }
 

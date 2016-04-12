@@ -16,8 +16,8 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    ai: lila.ai.Client,
-    aiPerfApi: lila.ai.AiPerfApi,
+    fishnetPlayer: lila.fishnet.Player,
+    aiPerfApi: lila.fishnet.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     lightUser: String => Option[lila.common.LightUser],
@@ -49,8 +49,11 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
     val CollectionForecast = config getString "collection.forecast"
+    val ChannelMoveTime = config getString "channel.move_time.name "
   }
   import settings._
+
+  private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
@@ -65,13 +68,12 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      monitorMove = (ms: Option[Int]) => hub.actor.monitor ! lila.hub.actorApi.monitor.Move(ms),
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
-        hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
+        system.lilaBus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
@@ -95,8 +97,13 @@ final class Env(
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id take 8, msg)
           case _: lila.hub.actorApi.Deploy =>
-            logwarn("Enable history persistence")
+            logger.warn("Enable history persistence")
             historyPersistenceEnabled = true
+            // if the deploy didn't go through, cancel persistence
+            system.scheduler.scheduleOnce(10.minutes) {
+              logger.warn("Disabling round history persistence!")
+              historyPersistenceEnabled = false
+            }
           case msg: lila.game.actorApi.StartGame =>
             self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
@@ -122,7 +129,6 @@ final class Env(
   private lazy val finisher = new Finisher(
     messenger = messenger,
     perfsUpdater = perfsUpdater,
-    aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
     playban = playban,
     bus = system.lilaBus,
@@ -136,14 +142,11 @@ final class Env(
     isRematchCache = isRematchCache)
 
   private lazy val player: Player = new Player(
-    engine = ai,
+    fishnetPlayer = fishnetPlayer,
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
     uciMemo = uciMemo)
-
-  // public access to AI play, for setup.Processor usage
-  val aiPlay = player ai _
 
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
@@ -151,8 +154,6 @@ final class Env(
     finisher = finisher)
 
   private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
-
-  lazy val cli = new Cli(db, roundMap = roundMap, system = system)
 
   lazy val messenger = new Messenger(
     socketHub = socketHub,
@@ -176,6 +177,8 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
+  MoveMonitor.start(system, moveTimeChannel)
+
   scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
@@ -187,7 +190,8 @@ final class Env(
     uciMemo = uciMemo,
     prefApi = prefApi)
 
-  lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+  val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+  system.lilaBus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
   def checkOutoftime(game: lila.game.Game) {
     if (game.playable && game.started && !game.isUnlimited)
@@ -209,8 +213,8 @@ object Env {
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    ai = lila.ai.Env.current.client,
-    aiPerfApi = lila.ai.Env.current.aiPerfApi,
+    fishnetPlayer = lila.fishnet.Env.current.player,
+    aiPerfApi = lila.fishnet.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
     playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,

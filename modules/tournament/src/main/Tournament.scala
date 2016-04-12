@@ -90,6 +90,8 @@ case class Tournament(
       startsAt.minusHours(hours) isBefore DateTime.now
     }
   } map { this -> _ }
+
+  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
@@ -99,7 +101,7 @@ object Tournament {
   val minPlayers = 2
 
   def make(
-    createdBy: User,
+    createdByUserId: String,
     clock: TournamentClock,
     minutes: Int,
     system: System,
@@ -114,7 +116,7 @@ object Tournament {
     system = system,
     clock = clock,
     minutes = minutes,
-    createdBy = createdBy.id,
+    createdBy = createdByUserId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = variant,

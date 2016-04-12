@@ -2,8 +2,8 @@ var holds = [];
 var nb = 8;
 var was = false;
 
-function register(socket, hold) {
-  if (!hold) return;
+function register(socket, hold, ply) {
+  if (!hold || ply > 40) return;
   holds.push(hold);
   var set = false;
   if (holds.length > nb) {
@@ -47,9 +47,7 @@ function find(el, d) {
 
 module.exports = {
   applies: function(data) {
-    return data.game.variant.key === 'standard' && !(
-      data.player.user && data.player.user.title
-    );
+    return data.game.variant.key === 'standard';
   },
   register: register,
   find: find

@@ -5,8 +5,7 @@ import reactivemongo.bson.Macros
 
 import chess.{ Role, Color }
 import lila.db.BSON
-import lila.db.BSON._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.BSONHandlers.StatusBSONHandler
 import lila.rating.PerfType
 
@@ -61,7 +60,7 @@ private object BSONHandlers {
     def write(e: MaterialRange) = BSONInteger(e.id)
   }
   implicit def MoveBSONHandler = new BSON[Move] {
-    def reads(r: Reader) = Move(
+    def reads(r: BSON.Reader) = Move(
       phase = r.get[Phase]("p"),
       tenths = r.get[Int]("t"),
       role = r.get[Role]("r"),
@@ -71,7 +70,7 @@ private object BSONHandlers {
       material = r.int("i"),
       opportunism = r.boolO("o"),
       luck = r.boolO("l"))
-    def writes(w: Writer, b: Move) = BSONDocument(
+    def writes(w: BSON.Writer, b: Move) = BSONDocument(
       "p" -> b.phase,
       "t" -> b.tenths,
       "r" -> b.role,
@@ -85,7 +84,7 @@ private object BSONHandlers {
 
   implicit def EntryBSONHandler = new BSON[Entry] {
     import Entry.BSONFields._
-    def reads(r: Reader) = Entry(
+    def reads(r: BSON.Reader) = Entry(
       id = r.str(id),
       number = r.int(number),
       userId = r.str(userId),
@@ -104,7 +103,7 @@ private object BSONHandlers {
       analysed = r.boolD(analysed),
       provisional = r.boolD(provisional),
       date = r.date(date))
-    def writes(w: Writer, e: Entry) = BSONDocument(
+    def writes(w: BSON.Writer, e: Entry) = BSONDocument(
       id -> e.id,
       number -> e.number,
       userId -> e.userId,

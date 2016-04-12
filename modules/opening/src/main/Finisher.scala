@@ -2,9 +2,8 @@ package lila.opening
 
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONDouble }
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ User, UserRepo }
 
@@ -20,8 +19,8 @@ private[opening] final class Finisher(
         val openingRating = opening.perf.toRating
         updateRatings(userRating, openingRating, win.fold(Glicko.Result.Win, Glicko.Result.Loss))
         val date = DateTime.now
-        val userPerf = user.perfs.opening.add(userRating, date)
-        val openingPerf = opening.perf.add(openingRating, date)
+        val userPerf = user.perfs.opening.addOrReset(_.opening.crazyGlicko, s"opening ${opening.id} user")(userRating, date)
+        val openingPerf = opening.perf.addOrReset(_.opening.crazyGlicko, s"opening ${opening.id}")(openingRating, date)
         val a = new Attempt(
           id = Attempt.makeId(opening.id, user.id),
           openingId = opening.id,
@@ -34,13 +33,13 @@ private[opening] final class Finisher(
           userRatingDiff = userPerf.intRating - user.perfs.opening.intRating)
         ((api.attempt add a) >> {
           openingColl.update(
-            BSONDocument("_id" -> opening.id),
-            BSONDocument("$inc" -> BSONDocument(
-              Opening.BSONFields.attempts -> BSONInteger(1),
-              Opening.BSONFields.wins -> BSONInteger(win ? 1 | 0)
-            )) ++ BSONDocument("$set" -> BSONDocument(
-              Opening.BSONFields.perf -> Perf.perfBSONHandler.write(openingPerf)
-            ))) zip UserRepo.setPerf(user.id, "opening", userPerf)
+            $id(opening.id),
+            $inc(
+              Opening.BSONFields.attempts -> $int(1),
+              Opening.BSONFields.wins -> $int(win ? 1 | 0)
+            ) ++ $set(
+                Opening.BSONFields.perf -> Perf.perfBSONHandler.write(openingPerf)
+              )) zip UserRepo.setPerf(user.id, "opening", userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
   }
@@ -65,7 +64,7 @@ private[opening] final class Finisher(
       system.updateRatings(results)
     }
     catch {
-      case e: Exception => play.api.Logger("Opening trainer").error(e.getMessage)
+      case e: Exception => lila.log("opening").error("update ratings", e)
     }
   }
 }

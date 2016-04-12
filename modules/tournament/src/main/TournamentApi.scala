@@ -10,7 +10,7 @@ import scalaz.NonEmptyList
 
 import actorApi._
 import lila.common.Debouncer
-import lila.db.api._
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
@@ -42,7 +42,7 @@ private[tournament] final class TournamentApi(
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     var variant = chess.variant.Variant orDefault setup.variant
     val tour = Tournament.make(
-      createdBy = me,
+      createdByUserId = me.id,
       clock = TournamentClock((setup.clockTime * 60).toInt, setup.clockIncrement),
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
@@ -51,22 +51,24 @@ private[tournament] final class TournamentApi(
       system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
+    logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me) inject tour
   }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
       val created = Tournament.schedule(schedule, minutes)
+      logger.info(s"Create $created")
       TournamentRepo.insert(created).void >>- publish()
     }
 
   def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       cached ranking tour flatMap { ranking =>
-        tour.system.pairingSystem.createPairings(tour, users, ranking) flatMap {
+        tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1000 =>
-            play.api.Logger("tourpairing").warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+            pairingLogger.warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             funit
           case pairings => pairings.map { pairing =>
             PairingRepo.insert(pairing) >>
@@ -74,10 +76,13 @@ private[tournament] final class TournamentApi(
                 sendTo(tour.id, StartGame(game))
               }
           }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
-            val time = nowMillis - startAt
-            if (time > 100)
-              play.api.Logger("tourpairing").debug(s"Done making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${time}ms")
+            lila.mon.tournament.pairing.create(pairings.size)
           }
+        } >>- {
+          val time = nowMillis - startAt
+          lila.mon.tournament.pairing.createTime(time.toInt)
+          if (time > 100)
+            pairingLogger.debug(s"Done making http://lichess.org/tournament/${tour.id} in ${time}ms")
         }
       }
     }

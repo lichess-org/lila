@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.user.{ User, UserRepo }
 
 final class Env(
@@ -45,21 +45,25 @@ final class Env(
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
+    val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
   }
   import settings._
 
   val RecaptchaPublicKey = config getString "recaptcha.public_key"
 
   lazy val firewall = new Firewall(
+    coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
     cachedIpsTtl = FirewallCachedIpsTtl)
 
   lazy val flood = new Flood(FloodDuration)
 
-  lazy val recaptcha = new Recaptcha(
-    privateKey = RecaptchaPrivateKey,
-    endpoint = RecaptchaEndpoint)
+  lazy val recaptcha: Recaptcha =
+    if (RecaptchaEnabled) new RecaptchaGoogle(
+      privateKey = RecaptchaPrivateKey,
+      endpoint = RecaptchaEndpoint)
+    else RecaptchaSkip
 
   lazy val forms = new DataForm(
     captcher = captcher,
@@ -69,7 +73,7 @@ final class Env(
     file = GeoIPFile,
     cacheTtl = GeoIPCacheTtl)
 
-  lazy val userSpy = UserSpy(firewall, geoIP) _
+  lazy val userSpy = UserSpy(firewall, geoIP)(storeColl) _
 
   def store = Store
 
@@ -102,9 +106,9 @@ final class Env(
 
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
-  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh(firewall.unblockIps))
+  scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(firewall, tor, geoIP, emailAddress)
+  lazy val api = new Api(storeColl, firewall, tor, geoIP, emailAddress)
 
   def cli = new Cli
 

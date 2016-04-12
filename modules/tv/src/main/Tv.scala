@@ -18,7 +18,7 @@ final class Tv(actor: ActorRef) {
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
     (actor ? TvActor.GetGameId(channel) mapTo manifest[Option[String]]) recover {
       case e: Exception =>
-        logwarn("[TV]" + e.getMessage)
+        logger.warn("[TV]" + e.getMessage)
         none
     } flatMap { _ ?? GameRepo.game }
 

@@ -4,10 +4,11 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-import lila.db.api.{ $count, $select }
-import tube.teamTube
+import lila.db.dsl._
 
-private[team] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
+private[team] final class DataForm(
+  teamColl: Coll,
+  val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import lila.common.Form._
 
@@ -61,7 +62,7 @@ private[team] final class DataForm(val captcher: akka.actor.ActorSelection) exte
   def createWithCaptcha = withCaptcha(create)
 
   private def teamExists(setup: TeamSetup) =
-    $count.exists[Team]($select(Team nameToId setup.trim.name))
+    teamColl.exists($id(Team nameToId setup.trim.name))
 }
 
 private[team] case class TeamSetup(

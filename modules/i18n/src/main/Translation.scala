@@ -3,12 +3,14 @@ package lila.i18n
 import org.joda.time.DateTime
 
 private[i18n] case class Translation(
-    id: Int,
+    _id: Int,
     code: String, // 2-chars code
     text: String,
     author: Option[String] = None,
     comment: Option[String] = None,
     createdAt: DateTime) {
+
+  def id = _id
 
   def lines = text.split("\n").toList
 
@@ -17,18 +19,7 @@ private[i18n] case class Translation(
 
 private[i18n] object Translation {
 
-  import lila.db.JsTube
-  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private def defaults = Json.obj(
-    "author" -> none[String],
-    "comment" -> none[String])
-
-  private[i18n] val tube = JsTube(
-    (__.json update (
-      merge(defaults) andThen readDate('createdAt)
-    )) andThen Json.reads[Translation],
-    Json.writes[Translation] andThen (__.json update writeDate('createdAt))
-  )
+  private[i18n] implicit val translationI18nFormat = Json.format[Translation]
 }

@@ -15,9 +15,12 @@
 }
 .mobile h1 {
   font-size: 4em;
+  display: block!important;
+  margin-bottom: 0.5em;
 }
 .mobile .store {
   display: inline-block;
+  margin-top: 1em;
 }
 .mobile .left-side h2 {
   margin-top: 30px;

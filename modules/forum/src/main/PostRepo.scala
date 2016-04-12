@@ -1,12 +1,7 @@
 package lila.forum
 
-import play.api.libs.json.Json
-
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import org.joda.time.DateTime
-import reactivemongo.bson.BSONDocument
-import tube.postTube
 
 object PostRepo extends PostRepo(false) {
 
@@ -17,57 +12,55 @@ object PostRepoTroll extends PostRepo(true)
 
 sealed abstract class PostRepo(troll: Boolean) {
 
-  private lazy val trollFilter = troll.fold(
-    Json.obj(),
-    Json.obj("troll" -> false)
-  )
+  import BSONHandlers.PostBSONHandler
+
+  // dirty
+  private val coll = Env.current.postColl
+
+  private val trollFilter = troll.fold($empty, $doc("troll" -> false))
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
-    $find.one(selectCateg(categSlug) ++ $select(id))
+    coll.uno[Post](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
-    $count(selectTopic(topicId) ++ Json.obj("number" -> $lt(number)))
+    coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
-    $primitive.one(
-      selectTopic(topicId),
-      "_id",
-      _ sort $sort.createdAsc
-    )(_.asOpt[String]) map { _.??(postId ==) }
+    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") map { _ contains postId }
 
   def countByTopics(topics: List[String]): Fu[Int] =
-    $count(selectTopics(topics))
+    coll.countSel(selectTopics(topics))
 
   def lastByTopics(topics: List[String]): Fu[Option[Post]] =
-    $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
+    coll.find(selectTopics(topics)).sort($sort.createdDesc).uno[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    $find($query(
+    coll.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-    ) sort $sort.createdDesc, nb)
+    ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
 
-  def removeByTopic(topicId: String): Fu[Unit] =
-    $remove(selectTopic(topicId))
+  def removeByTopic(topicId: String): Funit =
+    coll.remove(selectTopic(topicId)).void
 
-  def hideByTopic(topicId: String, value: Boolean): Fu[Unit] = $update(
+  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update(
     selectTopic(topicId),
-    BSONDocument("$set" -> BSONDocument("hidden" -> value)),
-    multi = true)
+    $set("hidden" -> value),
+    multi = true).void
 
-  def selectTopic(topicId: String) = Json.obj("topicId" -> topicId) ++ trollFilter
-  def selectTopics(topicIds: List[String]) = Json.obj("topicId" -> $in(topicIds)) ++ trollFilter
+  def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
+  def selectTopics(topicIds: List[String]) = $doc("topicId" $in (topicIds: _*)) ++ trollFilter
 
-  def selectCateg(categId: String) = Json.obj("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
+  def selectCateg(categId: String) = $doc("categId" -> categId) ++ trollFilter
+  def selectCategs(categIds: List[String]) = $doc("categId" $in (categIds: _*)) ++ trollFilter
 
-  val selectNotHidden = Json.obj("hidden" -> false)
+  val selectNotHidden = $doc("hidden" -> false)
 
   def selectLangs(langs: List[String]) =
-    if (langs.isEmpty) Json.obj()
-    else Json.obj("lang" -> $in(langs))
+    if (langs.isEmpty) $empty
+    else $doc("lang" $in (langs: _*))
 
-  def findDuplicate(post: Post): Fu[Option[Post]] = $find.one(Json.obj(
-    "createdAt" -> $gt($date(DateTime.now.minusHours(1))),
+  def findDuplicate(post: Post): Fu[Option[Post]] = coll.uno[Post]($doc(
+    "createdAt" $gt DateTime.now.minusHours(1),
     "userId" -> ~post.userId,
     "text" -> post.text
   ))
@@ -75,8 +68,14 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    postTube.coll.distinct("userId", BSONDocument("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    coll.distinct("userId", $doc("topicId" -> topicId).some) map lila.db.BSON.asStrings
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    postTube.coll.distinct("_id", BSONDocument("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    coll.distinct("_id", $doc("topicId" -> topicId).some) map lila.db.BSON.asStrings
+
+  import reactivemongo.api.ReadPreference
+  def cursor(
+    selector: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    coll.find(selector).cursor[Post](readPreference)
 }

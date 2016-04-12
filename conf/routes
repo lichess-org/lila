@@ -169,6 +169,13 @@ GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: 
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
+# Tournament CRUD
+GET   /tournament/manager                     controllers.TournamentCrud.index
+GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
+POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
+GET   /tournament/manager/new                 controllers.TournamentCrud.form
+POST  /tournament/manager                     controllers.TournamentCrud.create
+
 # Simul
 GET   /simul                                  controllers.Simul.home
 GET   /simul/new                              controllers.Simul.form
@@ -206,12 +213,17 @@ POST  /team/:id/close                         controllers.Team.close(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
-POST  /$gameId<\w{8}>/post-analysis           controllers.Analyse.postAnalysis(gameId: String)
-POST  /$gameId<\w{8}>/post-analysis/err       controllers.Analyse.postAnalysisErr(gameId: String)
 
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
+
+# Fishnet
+POST  /fishnet/acquire                        controllers.Fishnet.acquire
+POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
+POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
+POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
+GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
@@ -293,10 +305,6 @@ GET   /mod/search                      controllers.Mod.search
 GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
-# AI
-GET   /ai/move                         controllers.Ai.move
-POST  /ai/analyse                      controllers.Ai.analyse
-
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
@@ -336,12 +344,6 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: Strin
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
 
-# Monitor
-GET   /monitor                         controllers.Monitor.index
-GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/status/:key             controllers.Monitor.status(key: String)
-GET   /monitor/status                  controllers.Monitor.statusParam
-
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
@@ -378,7 +380,6 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-POST  /api/opening                     controllers.Opening.importOne
 GET   /api/status                      controllers.Api.status
 
 # Misc
@@ -419,9 +420,6 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.contribute
 GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
-
-# Explorer game info DB patcher
-GET   /explorer/game-info/$id<\w{8}>   controllers.Main.explorerGameInfo(id)
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

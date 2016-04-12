@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.security.{ Firewall, UserSpy }
 
 final class Env(
@@ -31,7 +31,7 @@ final class Env(
 
   private[mod] lazy val logColl = db(CollectionModlog)
 
-  lazy val logApi = new ModlogApi
+  lazy val logApi = new ModlogApi(logColl)
 
   lazy val api = new ModApi(
     logApi = logApi,
@@ -52,7 +52,7 @@ final class Env(
     logApi = logApi,
     modApi = api,
     reporter = hub.actor.report,
-    analyser = hub.actor.analyser,
+    fishnet = hub.actor.fishnet,
     userIdsSharingIp = securityApi.userIdsSharingIp)
 
   lazy val gamify = new Gamify(
@@ -65,19 +65,18 @@ final class Env(
     emailAddress = emailAddress)
 
   // api actor
-  private val actorApi = system.actorOf(Props(new Actor {
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
-      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
+      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         (whiteUserOption |@| blackUserOption) apply {
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
     }
-  }), name = ActorName)
-  system.lilaBus.subscribe(actorApi, 'finishGame, 'analysisReady)
+  }), name = ActorName), 'finishGame, 'analysisReady)
 }
 
 object Env {

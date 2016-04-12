@@ -53,21 +53,22 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id) zip chatOf(tour) flatMap {
+          env.version(tour.id).zip(chatOf(tour)).flatMap {
             case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
               html.tournament.show(tour, _, chat)
             }
-          }
+          }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {
         case None => NotFound(jsonError("No such tournament")).fuccess
-        case Some(tour) =>
+        case Some(tour) => {
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 env.jsonView(tour, page, ctx.userId, playerInfoExt, socketVersion)
             } map { Ok(_) }
+        }.mon(_.http.response.tournament.show.mobile)
       } map (_ as JSON)
     ) map NoCache
   }

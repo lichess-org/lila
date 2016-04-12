@@ -38,7 +38,6 @@ case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
 case class SocketUids(uids: Set[String])
-case object GetUserIds
 
 package report {
 case class Cheater(userId: String, text: String)
@@ -81,7 +80,11 @@ case class PlayerMove(gameId: String)
 }
 
 package slack {
-  case class Error(msg: String)
+sealed trait Event
+case class Error(msg: String) extends Event
+case class Warning(msg: String) extends Event
+case class Info(msg: String) extends Event
+case class Victory(msg: String) extends Event
 }
 
 package timeline {
@@ -100,21 +103,6 @@ case class QaComment(userId: String, id: Int, title: String, commentId: String) 
 case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd", true)
 case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom(s"simulCreate", true)
 case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom(s"simulJoin", true)
-
-object atomFormat {
-  implicit val followFormat = Json.format[Follow]
-  implicit val teamJoinFormat = Json.format[TeamJoin]
-  implicit val teamCreateFormat = Json.format[TeamCreate]
-  implicit val forumPostFormat = Json.format[ForumPost]
-  implicit val noteCreateFormat = Json.format[NoteCreate]
-  implicit val tourJoinFormat = Json.format[TourJoin]
-  implicit val qaQuestionFormat = Json.format[QaQuestion]
-  implicit val qaAnswerFormat = Json.format[QaAnswer]
-  implicit val qaCommentFormat = Json.format[QaComment]
-  implicit val gameEndFormat = Json.format[GameEnd]
-  implicit val simulCreateFormat = Json.format[SimulCreate]
-  implicit val simulJoinFormat = Json.format[SimulJoin]
-}
 
 object propagation {
   sealed trait Propagation
@@ -163,20 +151,8 @@ package forum {
 case class MakeTeam(id: String, name: String)
 }
 
-package ai {
-case class Analyse(
-  gameId: String,
-  uciMoves: List[String],
-  initialFen: Option[String],
-  requestedByHuman: Boolean,
-  variant: chess.variant.Variant)
+package fishnet {
 case class AutoAnalyse(gameId: String)
-}
-
-package monitor {
-case object AddRequest
-case object Update
-case class Move(millis: Option[Int])
 }
 
 package round {
@@ -197,6 +173,8 @@ object SocketEvent {
   case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
   case class Stop(gameId: String) extends SocketEvent
 }
+case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
+case object AnalysisAvailable
 }
 
 package evaluation {

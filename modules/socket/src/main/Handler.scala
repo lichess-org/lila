@@ -37,7 +37,7 @@ object Handler {
       case ("startWatching", o) => o str "d" foreach { ids =>
         hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
-      case ("moveLat", o) => hub.channel.moveLat ! (~(o boolean "d")).fold(
+      case ("moveLat", o) => hub.channel.roundMoveTime ! (~(o boolean "d")).fold(
         Channel.Sub(member),
         Channel.UnSub(member))
       case ("anaMove", o) => AnaRateLimit(uid) {

@@ -33,7 +33,10 @@ final class Env(
 
   private lazy val indexer = new Indexer(
     storage = storage,
-    sequencer = system.actorOf(Props(classOf[lila.hub.Sequencer], None, None)))
+    sequencer = system.actorOf(Props(
+      classOf[lila.hub.Sequencer],
+      None, None, logger
+    )))
 
   private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
 
@@ -43,12 +46,11 @@ final class Env(
     pipeline = aggregationPipeline,
     indexer = indexer)
 
-  system.actorOf(Props(new Actor {
-    system.lilaBus.subscribe(self, 'analysisReady)
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
     }
-  }))
+  })), 'analysisReady)
 }
 
 object Env {

@@ -14,6 +14,7 @@ final class PasswordReset(
     secret: String) {
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
+    lila.mon.email.resetPassword()
     val url = s"$baseUrl/password/reset/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(sender),

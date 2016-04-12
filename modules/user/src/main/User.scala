@@ -61,7 +61,7 @@ case class User(
 
   def hasTitle = title.isDefined
 
-  def seenRecently: Boolean = timeNoSee < 10.minutes
+  def seenRecently: Boolean = timeNoSee < 2.minutes
 
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
@@ -192,6 +192,4 @@ object User {
       lang -> o.lang,
       title -> o.title)
   }
-
-  private[user] lazy val tube = lila.db.BsTube(userBSONHandler)
 }

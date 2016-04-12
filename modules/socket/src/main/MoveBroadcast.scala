@@ -8,7 +8,14 @@ import lila.hub.actorApi.round.MoveEvent
 
 private final class MoveBroadcast extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'moveEvent, 'socketDoor)
+  override def preStart() {
+    context.system.lilaBus.subscribe(self, 'moveEvent, 'socketDoor)
+  }
+
+  override def postStop() {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
 
   type UID = String
   type GameId = String

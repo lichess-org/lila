@@ -10,6 +10,10 @@ function startClock(time) {
 
 var oneDayInSeconds = 60 * 60 * 24;
 
+function isMarathon(d) {
+  return d.schedule && d.schedule.freq === 'marathon';
+}
+
 function clock(d) {
   if (d.isFinished) return;
   if (d.secondsToStart) {
@@ -33,6 +37,7 @@ function clock(d) {
 
 function image(d) {
   if (d.isFinished) return;
+  if (isMarathon(d)) return;
   var s = d.spotlight;
   if (s && s.iconImg) return m('img.img', {
     src: lichess.assetUrl('/assets/images/' + s.iconImg)
@@ -44,11 +49,10 @@ function image(d) {
 
 function title(ctrl) {
   var d = ctrl.data;
-  if (d.schedule && d.schedule.freq.indexOf('marathon') !== -1)
-    return m('h1.marathon_title', [
-      m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
-      d.fullName
-    ]);
+  if (isMarathon(d)) return m('h1', [
+    m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
+    d.fullName
+  ]);
   return m('h1', [
     d.greatPlayer ? [
       m('a', {

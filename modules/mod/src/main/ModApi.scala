@@ -1,9 +1,8 @@
 package lila.mod
 
 import chess.Color
-import lila.db.api._
+import lila.db.dsl._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
-import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
@@ -29,8 +28,10 @@ final class ModApi(
   }
 
   def autoAdjust(username: String): Funit = logApi.wasUnengined(User.normalize(username)) flatMap {
-    case true  => funit
-    case false => setEngine("lichess", username, true)
+    case true => funit
+    case false =>
+      lila.mon.cheat.autoMark.count()
+      setEngine("lichess", username, true)
   }
 
   def toggleBooster(mod: String, username: String): Funit = withUser(username) { user =>
@@ -56,7 +57,7 @@ final class ModApi(
     val changed = value != u.troll
     val user = u.copy(troll = value)
     changed ?? {
-      UserRepo.updateTroll(user) >>-
+      UserRepo.updateTroll(user).void >>-
         logApi.troll(mod, user.id, user.troll)
     } >>-
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll

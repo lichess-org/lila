@@ -7,7 +7,7 @@ function provisional() {
 }
 
 function percentile(d) {
-  return d.stat.perfType.id == 4 ? '' : [
+  return d.percentile === 0 ? '' : [
     ' Better than ',
     m('a', {
       href: '/stat/rating/distribution/' + d.stat.perfType.key

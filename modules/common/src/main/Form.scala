@@ -10,6 +10,10 @@ object Form {
     d -> (pluralize(pattern, d) format d)
   }
 
+  def options(it: Iterable[Int], transformer: Int => Int, pattern: String) = it map { d =>
+    d -> (pluralize(pattern, transformer(d)) format transformer(d))
+  }
+
   def options(it: Iterable[Int], code: String, pattern: String) = it map { d =>
     (d + code) -> (pluralize(pattern, d) format d)
   }
@@ -25,7 +29,7 @@ object Form {
     of[Double].verifying(hasKey(choices, _))
 
   def stringIn(choices: Iterable[(String, String)]) =
-    nonEmptyText.verifying(hasKey(choices, _))
+    text.verifying(hasKey(choices, _))
 
   def hasKey[A](choices: Iterable[(A, _)], key: A) =
     choices.map(_._1).toList contains key

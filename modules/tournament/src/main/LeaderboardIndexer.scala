@@ -6,7 +6,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.BSON._
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 
 private final class LeaderboardIndexer(
     tournamentColl: Coll,
@@ -26,7 +26,7 @@ private final class LeaderboardIndexer(
       Iteratee.foldM[Seq[Entry], Int](0) {
         case (number, entries) =>
           if (number % 10000 == 0)
-            play.api.Logger("tournament").info(s"Generating leaderboards... $number")
+            logger.info(s"Generating leaderboards... $number")
           saveEntries(entries) inject (number + entries.size)
       }
   }.void

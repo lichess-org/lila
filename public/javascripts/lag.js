@@ -229,7 +229,7 @@ $(function() {
         values.server = v;
         updateAnswer();
       } else if (t === 'n') setTimeout(function() {
-        var v = Math.round(lichess.socket.averageLag);
+        var v = Math.round(lichess.socket.averageLag());
         charts.network.series[0].points[0].update(v);
         values.network = v;
         updateAnswer();

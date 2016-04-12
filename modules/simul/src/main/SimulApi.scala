@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.Status
 import chess.variant.Variant
 import lila.common.Debouncer
-import lila.db.Types.Coll
+import lila.db.dsl.Coll
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell

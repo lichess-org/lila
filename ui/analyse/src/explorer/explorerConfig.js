@@ -5,12 +5,17 @@ var storedJsonProp = require('../util').storedJsonProp;
 
 module.exports = {
   controller: function(variant, onClose) {
+    var available = ['lichess'];
+    if (variant.key === 'standard' || variant.key === 'fromPosition') {
+      available.push('masters');
+    }
+
     var data = {
       open: m.prop(false),
       db: {
-        available: ['lichess', 'masters'], //, 'me'],
-        selected: variant.key === 'standard' ? storedProp('explorer.db', 'lichess') : function() {
-          return 'lichess';
+        available: available,
+        selected: available.length > 1 ? storedProp('explorer.db', available[0]) : function() {
+          return available[0];
         }
       },
       rating: {
@@ -49,12 +54,12 @@ module.exports = {
       }
     };
   },
-  view: function(ctrl, variant) {
+  view: function(ctrl) {
     var d = ctrl.data;
     return [
       m('section.db', [
         m('label', 'Database'),
-        m('div.choices', (variant.key === 'standard' ? d.db.available : ['lichess']).map(function(s) {
+        m('div.choices', d.db.available.map(function(s) {
           return m('span', {
             class: d.db.selected() === s ? 'selected' : '',
             onclick: partial(ctrl.toggleDb, s)

@@ -1,14 +1,13 @@
 package lila.game
 
-import play.api.libs.json.JsObject
-import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands._
 
-import lila.common.PimpedJson._
-import lila.db.Types._
+import lila.db.dsl._
 import lila.user.UserRepo
 
-final class CrosstableApi(coll: Coll) {
+final class CrosstableApi(
+    coll: Coll,
+    gameColl: Coll) {
 
   import Crosstable.Result
 
@@ -20,14 +19,14 @@ final class CrosstableApi(coll: Coll) {
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recoverWith
-      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).one[Crosstable])
+    coll.find(select(u1, u2)).uno[Crosstable] orElse create(u1, u2) recoverWith
+      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).uno[Crosstable])
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
       select(u1, u2),
-      BSONDocument("n" -> true)
-    ).one[BSONDocument] map {
+      $doc("n" -> true)
+    ).uno[Bdoc] map {
         ~_.flatMap(_.getAs[Int]("n"))
       }
 
@@ -35,22 +34,22 @@ final class CrosstableApi(coll: Coll) {
     case List(u1, u2) =>
       val result = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
-      val bson = BSONDocument(
-        "$inc" -> BSONDocument(
-          Crosstable.BSONFields.nbGames -> BSONInteger(1),
-          "s1" -> BSONInteger(game.winnerUserId match {
+      val bson = $doc(
+        "$inc" -> $doc(
+          Crosstable.BSONFields.nbGames -> $int(1),
+          "s1" -> $int(game.winnerUserId match {
             case Some(u) if u == u1 => 10
             case None               => 5
             case _                  => 0
           }),
-          "s2" -> BSONInteger(game.winnerUserId match {
+          "s2" -> $int(game.winnerUserId match {
             case Some(u) if u == u2 => 10
             case None               => 5
             case _                  => 0
           })
         )
-      ) ++ BSONDocument("$push" -> BSONDocument(
-          Crosstable.BSONFields.results -> BSONDocument(
+      ) ++ $doc("$push" -> $doc(
+          Crosstable.BSONFields.results -> $doc(
             "$each" -> List(bsonResult),
             "$slice" -> -maxGames
           )))
@@ -64,19 +63,20 @@ final class CrosstableApi(coll: Coll) {
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-        val gameColl = tube.gameTube.coll
 
-        val selector = BSONDocument(
-          Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
-          Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id))
+        val selector = $doc(
+          Game.BSONFields.playerUids -> $doc("$all" -> List(u1, u2)),
+          Game.BSONFields.status -> $doc("$gte" -> chess.Status.Mate.id))
 
         import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
+        import reactivemongo.api.ReadPreference
 
         for {
           localResults <- gameColl.find(selector,
-            BSONDocument(Game.BSONFields.winnerId -> true)
-          ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-            .cursor[BSONDocument]().collect[List](maxGames).map {
+            $doc(Game.BSONFields.winnerId -> true)
+          ).sort($doc(Game.BSONFields.createdAt -> -1))
+            .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+            .gather[List](maxGames).map {
               _.flatMap { doc =>
                 doc.getAs[String](Game.BSONFields.id).map { id =>
                   Result(id, doc.getAs[String](Game.BSONFields.winnerId))
@@ -102,5 +102,5 @@ final class CrosstableApi(coll: Coll) {
     }
 
   private def select(u1: String, u2: String) =
-    BSONDocument("_id" -> Crosstable.makeKey(u1, u2))
+    $doc("_id" -> Crosstable.makeKey(u1, u2))
 }

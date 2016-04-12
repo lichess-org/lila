@@ -1,7 +1,6 @@
 package lila.worldMap
 
 import akka.actor._
-import com.google.common.cache.LoadingCache
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import java.security.MessageDigest
 import lila.hub.actorApi.round.SocketEvent
@@ -16,10 +15,6 @@ private final class Stream(
     geoIpCacheTtl: Duration) extends Actor {
 
   import Stream.game2json
-
-  override def preStart() {
-    context.system.lilaBus.subscribe(self, 'roundDoor)
-  }
 
   val games = scala.collection.mutable.Map.empty[String, Stream.Game]
 

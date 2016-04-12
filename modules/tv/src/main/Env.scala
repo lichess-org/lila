@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.db.dsl._
 
 import scala.collection.JavaConversions._
 import scala.concurrent.duration._
@@ -39,22 +40,21 @@ final class Env(
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._
     private val coll = db("flag")
-    def get = coll.find(BSONDocument("_id" -> "streamer")).one[BSONDocument].map {
-      ~_.flatMap(_.getAs[String]("text"))
-    }
+    def get = coll.primitiveOne[String]($id("streamer"), "text") map (~_)
     def set(text: String) =
-      coll.update(BSONDocument("_id" -> "streamer"), BSONDocument("text" -> text), upsert = true).void
+      coll.update($id("streamer"), $doc("text" -> text), upsert = true).void
   })
 
   object isStreamer {
     private val cache = lila.memo.MixedCache.single[Set[String]](
       f = streamerList.lichessIds,
       timeToLive = 10 seconds,
-      default = Set.empty)
+      default = Set.empty,
+      logger = logger)
     def apply(id: String) = cache get true contains id
   }
 
-  object streamsOnAir  {
+  object streamsOnAir {
     private val cache = lila.memo.AsyncCache.single[List[StreamOnAir]](
       f = streaming.onAir,
       timeToLive = 2 seconds)

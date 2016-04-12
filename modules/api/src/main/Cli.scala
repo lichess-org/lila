@@ -9,20 +9,17 @@ import makeTimeout.short
 
 private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
 
+  private val logger = lila.log("cli")
+
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
-    _ logFailure ("[cli] " + args.mkString(" ")) foreach { output =>
-      loginfo("[cli] %s\n%s".format(args mkString " ", output))
+    _.logFailure(logger, _ => args mkString " ") foreach { output =>
+      logger.info("%s\n%s".format(args mkString " ", output))
     }
   }
 
   def process = {
     case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.RemindDeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.RemindDeployPost)
-    case "rating" :: "fest" :: Nil => RatingFest(
-      lila.db.Env.current,
-      lila.round.Env.current.perfsUpdater,
-      lila.game.Env.current,
-      lila.user.Env.current) inject "done"
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
@@ -46,14 +43,12 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
       lila.game.Env.current.cli.process orElse
       lila.gameSearch.Env.current.cli.process orElse
       lila.teamSearch.Env.current.cli.process orElse
-      lila.forum.Env.current.cli.process orElse
       lila.forumSearch.Env.current.cli.process orElse
-      lila.message.Env.current.cli.process orElse
-      lila.analyse.Env.current.cli.process orElse
       lila.team.Env.current.cli.process orElse
-      lila.round.Env.current.cli.process orElse
       lila.puzzle.Env.current.cli.process orElse
       lila.tournament.Env.current.cli.process orElse
       lila.explorer.Env.current.cli.process orElse
+      lila.fishnet.Env.current.cli.process orElse
+      lila.blog.Env.current.cli.process orElse
       process
 }

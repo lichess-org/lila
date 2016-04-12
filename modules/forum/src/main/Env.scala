@@ -54,18 +54,6 @@ final class Env(
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, PublicCategIds)
 
-  def cli = new lila.common.Cli {
-    import tube._
-    def process = {
-      case "forum" :: "denormalize" :: Nil =>
-        topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"
-      case "forum" :: "typecheck" :: Nil =>
-        lila.db.Typecheck.apply[Categ] >>
-          lila.db.Typecheck.apply[Topic] >>
-          lila.db.Typecheck.apply[Post]
-    }
-  }
-
   system.actorOf(Props(new Actor {
     def receive = {
       case MakeTeam(id, name) => categApi.makeTeam(id, name)

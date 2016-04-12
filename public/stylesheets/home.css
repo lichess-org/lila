@@ -370,22 +370,29 @@ div.blog.undertable div.undertable_inner:hover {
 div.blog.undertable div.post {
   overflow: hidden;
 }
+div.blog.undertable div.post .text {
+  margin-top: 5px;
+}
 div.blog.undertable div.post a.image {
   display: block;
   float: left;
   margin-right: 10px;
 }
 div.blog.undertable div.post a.image img {
-  height: 60px;
+  height: 48px;
+  width: 48px;
+  margin: 3px;
 }
 div.blog.undertable div.post .title {
   font-weight: bold;
   line-height: 2;
 }
 div.blog.undertable div.post time {
+  margin-top: 10px;
   float: right;
   font-weight: 100;
   line-height: 2;
+  opacity: 0.6;
 }
 #lichess .enterable_list {
   height: auto;
@@ -518,7 +525,7 @@ div.game_config .ratings {
   border-top: solid 1px #e4e4e4;
 }
 div.game_config.error .ratings {
-border-top: 0;
+  border-top: 0;
 }
 
 div.game_config .label_select {
@@ -693,6 +700,12 @@ div.game_config .color_submits button.random i {
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
+.tour_spotlight i.img {
+  margin: 0 5px 0 0;
+}
+.tour_spotlight i.img::before {
+  font-size: 50px;
+}
 .tour_spotlight .content {
   display: block;
 }
@@ -730,13 +743,13 @@ div.game_config .color_submits button.random i {
   overflow-y: auto;
 }
 @media (max-width: 1070px) {
-#timeline {
-  margin-left: 0;
-  width: 200px;
-}
-#featured_game {
-  display: none;
-}
+  #timeline {
+    margin-left: 0;
+    width: 200px;
+  }
+  #featured_game {
+    display: none;
+  }
 }
 #timeline .entry {
   padding-bottom: 8px;
@@ -763,6 +776,115 @@ div.game_config .color_submits button.random i {
 }
 #timeline a.more {
   margin-top: 5px;
+  font-weight: normal;
+  display: block;
+}
+.donation .undertable_inner {
+  height: auto;
+}
+.donation .links {
+  display: flex;
+  font-size: 1.3em;
+  line-height: 1.2em;
+}
+.donation .links a {
+  flex: 0 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  width: 50%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  height: 60px;
+}
+.donation .links a strong {
+  color: #3893E8;
+  font-weight: normal;
+  display: block;
+  margin: 11px 0 1px 0;
+}
+.donation .links span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  opacity: 0.8;
+  font-size: 0.85em;
+}
+.donation .links i {
+  position: absolute;
+  top: 0;
+}
+.donation .links a:first-child i {
+  right: 15px;
+}
+.donation .links a:last-child i {
+  left: 15px;
+}
+.donation .links i::before {
+  color: #3893E8;
+  font-size: 40px;
+  line-height: 60px;
+  opacity: 0.8;
+}
+.donation .links a:first-child {
+  border-right: 1px solid #ccc;
+  text-align: right;
+  padding-right: 67px;
+}
+.donation .links a:last-child {
+  text-align: left;
+  padding-left: 67px;
+}
+.donation .links a:hover {
+  background: #3893E8;
+}
+.donation .links a:hover,
+.donation .links a:hover *,
+.donation .links a:hover i::before {
+  transition: 0.13s;
+  color: #fff;
+}
+.donation .links a:hover i::before {
+  opacity: 1;
+}
+.donation .progress {
+  margin: 15px 15px 6px 15px;
+  color: #fff;
+}
+.donation .progress .progressbar {
+  position: relative;
+  height: 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
+  text-align: right;
+  line-height: 32px;
+}
+.donation .progress .current {
+  position:absolute;
+  top: 1px;
+  left: 1px;
+  z-index: 2;
+  height: 30px;
+  max-width: 100%;
+  font-size: 15px;
+}
+.donation .progress .current span {
+  margin: 0 10px;
+}
+.donation .progress .goal {
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+}
+.donation .legend {
+  opacity: 0.8;
+  text-align: center;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+.donation .legend strong {
+  font-size: 1.4em;
   font-weight: normal;
   display: block;
 }

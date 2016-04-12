@@ -26,6 +26,7 @@ final class Env(
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
     countRounds = Env.round.count,
+    donationProgress = () => Env.donation.api.progress,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUser = Env.user.lightUser)
@@ -43,7 +44,8 @@ final class Env(
     isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
-    insightShare = Env.insight.share) _
+    insightShare = Env.insight.share,
+    getPlayTime = Env.game.playTime.apply) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -53,48 +55,46 @@ final class Env(
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (!Env.ai.ServerOnly) {
-    play.api.Logger("boot").info("Preloading modules")
-    List(Env.socket,
-      Env.site,
-      Env.tournament,
-      Env.lobby,
-      Env.game,
-      Env.setup,
-      Env.round,
-      Env.team,
-      Env.message,
-      Env.timeline,
-      Env.gameSearch,
-      Env.teamSearch,
-      Env.forumSearch,
-      Env.relation,
-      Env.report,
-      Env.notification,
-      Env.bookmark,
-      Env.pref,
-      Env.chat,
-      Env.puzzle,
-      Env.tv,
-      Env.blog,
-      Env.video,
-      Env.shutup, // required to load the actor
-      Env.insight, // required to load the actor
-      Env.worldMap, // required to load the actor
-      Env.push, // required to load the actor
-      Env.perfStat, // required to load the actor
-      Env.slack, // required to load the actor
-      Env.challenge, // required to load the actor
-      Env.explorer // required to load the actor
-    )
-    play.api.Logger("boot").info("Preloading complete")
-
-    scheduler.once(5 seconds) {
-      Env.slack.api.publishInfo("Lichess has restarted!")
-    }
+  lila.log.boot.info("Preloading modules")
+  lila.common.Chronometer.syncEffect(List(Env.socket,
+    Env.site,
+    Env.tournament,
+    Env.lobby,
+    Env.game,
+    Env.setup,
+    Env.round,
+    Env.team,
+    Env.message,
+    Env.timeline,
+    Env.gameSearch,
+    Env.teamSearch,
+    Env.forumSearch,
+    Env.relation,
+    Env.report,
+    Env.notification,
+    Env.bookmark,
+    Env.pref,
+    Env.chat,
+    Env.puzzle,
+    Env.tv,
+    Env.blog,
+    Env.video,
+    Env.shutup, // required to load the actor
+    Env.insight, // required to load the actor
+    Env.worldMap, // required to load the actor
+    Env.push, // required to load the actor
+    Env.perfStat, // required to load the actor
+    Env.slack, // required to load the actor
+    Env.challenge, // required to load the actor
+    Env.explorer, // required to load the actor
+    Env.fishnet // required to schedule the cleaner
+  )) { lap =>
+    lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }
 
-  if (Env.ai.ServerOnly) println("Running as AI server")
+  scheduler.once(5 seconds) {
+    Env.slack.api.publishInfo("Lichess has restarted!")
+  }
 }
 
 object Env {
@@ -124,10 +124,8 @@ object Env {
   def forumSearch = lila.forumSearch.Env.current
   def team = lila.team.Env.current
   def teamSearch = lila.teamSearch.Env.current
-  def ai = lila.ai.Env.current
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
-  def monitor = lila.monitor.Env.current
   def site = lila.site.Env.current
   def round = lila.round.Env.current
   def lobby = lila.lobby.Env.current
@@ -157,5 +155,6 @@ object Env {
   def slack = lila.slack.Env.current
   def challenge = lila.challenge.Env.current
   def explorer = lila.explorer.Env.current
+  def fishnet = lila.fishnet.Env.current
   def study = lila.study.Env.current
 }

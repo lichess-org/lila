@@ -10,7 +10,7 @@ import play.twirl.api.Html
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.{ Deploy, GetUids, SocketUids, GetUserIds }
+import lila.hub.actorApi.{ Deploy, GetUids, SocketUids }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -35,6 +35,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   override def postStop() {
+    super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
     members.keys foreach eject
   }
@@ -53,8 +54,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     case Quit(uid)   => quit(uid)
 
     case GetUids     => sender ! SocketUids(members.keySet.toSet)
-
-    case GetUserIds  => sender ! userIds
 
     case Resync(uid) => resync(uid)
 

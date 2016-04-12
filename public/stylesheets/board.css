@@ -420,7 +420,7 @@ div.dont_touch {
   position: absolute;
   top: 0;
   left: 0;
-  width: 512px;
+  width: 100%;
   text-align: center;
   padding: 5px 0;
   font-weight: bold;

@@ -2,9 +2,8 @@ package lila.puzzle
 
 import play.api.libs.json._
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.Glicko
 import lila.user.User
 
@@ -27,7 +26,7 @@ object UserInfos {
       new UserInfos(user, makeHistory(attempts), makeChart(attempts))
     } recover {
       case e: Exception =>
-        play.api.Logger("Puzzle UserInfos").error(e.getMessage)
+        logger.error("user infos", e)
         new UserInfos(user, Nil, JsArray())
     }
 
@@ -40,7 +39,7 @@ object UserInfos {
       )).sort(BSONDocument(
         Attempt.BSONFields.date -> -1
       )).cursor[Attempt]()
-        .collect[List](math.max(historySize, chartSize))
+        .gather[List](math.max(historySize, chartSize))
   }
 
   private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)

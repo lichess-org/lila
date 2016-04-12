@@ -9,41 +9,34 @@ moreCss = cssTag("mobile.css")) {
     <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/dynamic-qrcode.png")" alt="Download QR code" />
   </div>
   <div class="left-side">
-    <h1>Play chess everywhere</h1>
+    <h1>@trans.playChessEverywhere()</h1>
     @googlePlayButton()
     @appleStoreButton()
     <div class="apk" style="margin-top: 20px">
       @Html(~apkDoc.getHtml("doc.content", resolver))
     </div>
-    <h2>lichess on the go</h2>
+    <h2>@trans.asFreeAsLichess()</h2>
     <ul class="block">
-      <li>Challenge online players</li>
-      <li>Play Stockfish level 1 to 8</li>
-      <li>Login or play as Anonymous</li>
-      <li>Available in 80 languages!</li>
-    </ul>
-    <h2>As free as lichess</h2>
-    <ul class="block">
-      <li>Built for the love of chess, not money</li>
-      <li>Everybody gets <strong>all features for free</strong></li>
-      <li>Zero advertisement</li>
+      <li>@trans.builtForTheLoveOfChessNotMoney()</li>
+      <li>@trans.everybodyGetsAllFeaturesForFree()</li>
+      <li>@trans.zeroAdvertisement()</li>
       <li>Entirely <a href="https://github.com/veloce/lichobile">Open Source</a> as usual</li>
     </ul>
-    <h2>Full featured</h2>
+    <h2>@trans.fullFeatured()</h2>
     <ul class="block">
-      <li>Real time with increment</li>
-      <li>Correspondence games</li>
-      <li>Over The Board, offline</li>
-      <li>VS computer, offline</li>
-      <li>Watch Lichess TV</li>
+      <li>@trans.phoneAndTablet()</li>
+      <li>@trans.bulletBlitzClassical()</li>
+      <li>@trans.correspondenceChess()</li>
+      <li>@trans.onlineAndOfflinePlay()</li>
+      <li>Puzzles</li>
+      <li>Game analysis</li>
+      <li>Board editor</li>
+      <li>Lichess TV</li>
+      <li>Follow and challenge friends</li>
+      <li>Available in 80+ languages!</li>
     </ul>
-    <p class="block">
-      More of the features you love from the website will be added in the near future.<br />
-      Look out for updates regularly!
-    </p>
     <div class="block">
-      <a href="https://github.com/veloce/lichobile">Lichess mobile is open source, </a>
-      and uses:
+      <a href="https://github.com/veloce/lichobile">Lichess mobile</a> is built upon:
       <ul style="text-align:left">
         <li><a href="http://cordova.apache.org/">Cordova platform</a></li>
         <li><a href="http://tarifa.tools">Tarifa toolchain</a></li>

@@ -5,9 +5,7 @@ import play.api.mvc._, Results._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.db.api.$find
 import lila.security.Permission
-import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -37,18 +35,23 @@ object Account extends LilaController {
       html = notFound,
       api = _ => ctx.me match {
         case None => fuccess(unauthorizedApiResult)
-        case Some(me) => Env.pref.api getPref me flatMap { prefs =>
-          lila.game.GameRepo urgentGames me map { povs =>
-            Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
-            Ok {
-              import play.api.libs.json._
-              import lila.pref.JsonView._
-              Env.user.jsonView(me) ++ Json.obj(
-                "prefs" -> prefs,
-                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+        case Some(me) =>
+          relationEnv.api.countFollowers(me.id) zip
+            relationEnv.api.countFollowing(me.id) zip
+            Env.pref.api.getPref(me) zip
+            lila.game.GameRepo.urgentGames(me) map {
+              case (((nbFollowers, nbFollowing), prefs), povs) =>
+                Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+                Ok {
+                  import play.api.libs.json._
+                  import lila.pref.JsonView._
+                  Env.user.jsonView(me) ++ Json.obj(
+                    "prefs" -> prefs,
+                    "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                    "nbFollowing" -> nbFollowing,
+                    "nbFollowers" -> nbFollowers)
+                }
             }
-          }
-        }
       }
     ) map ensureSessionId(ctx.req)
   }
@@ -133,6 +136,7 @@ object Account extends LilaController {
       env.onlineUserIdMemo.remove(user.id) >>
       relationEnv.api.unfollowAll(user.id) >>
       Env.team.api.quitAll(user.id) >>-
+      Env.challenge.api.removeByUserId(user.id) >>-
       Env.tournament.api.withdrawAll(user) >>
       (Env.security disconnect user.id)
 

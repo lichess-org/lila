@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 final class Env(config: Config, system: ActorSystem) {
 
   object actor {
-    val game = select("actor.game.actor")
     val gameSearch = select("actor.game.search")
     val renderer = select("actor.renderer")
     val captcher = select("actor.captcher")
@@ -15,9 +14,8 @@ final class Env(config: Config, system: ActorSystem) {
     val teamSearch = select("actor.team.search")
     val messenger = select("actor.messenger")
     val router = select("actor.router")
-    val ai = select("actor.ai")
-    val monitor = select("actor.monitor")
-    val tournamentOrganizer = select("actor.tournament.organizer")
+    val fishnet = select("actor.fishnet")
+    val tournamentApi = select("actor.tournament.api")
     val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
@@ -34,7 +32,7 @@ final class Env(config: Config, system: ActorSystem) {
   }
 
   object channel {
-    val moveLat = select("channel.move_lat")
+    val roundMoveTime = select("channel.round.move_time")
   }
 
   object socket {
@@ -43,7 +41,6 @@ final class Env(config: Config, system: ActorSystem) {
     val tournament = select("socket.tournament")
     val simul = select("socket.simul")
     val site = select("socket.site")
-    val monitor = select("socket.monitor")
     val hub = select("socket.hub")
   }
 

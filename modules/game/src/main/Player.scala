@@ -146,7 +146,7 @@ object Player {
   private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
     if (range contains v) Some(v)
     else {
-      logwarn(s"game.Player: $userId $name=$v (range: ${range.min}-${range.max})")
+      logger.warn(s"Player $userId $name=$v (range: ${range.min}-${range.max})")
       None
     }
 

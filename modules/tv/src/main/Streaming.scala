@@ -46,15 +46,15 @@ private final class Streaming(
             res.json.validate[Twitch.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logwarn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
-        val hitbox = WS.url("http://api.hitbox.tv/media/live/" + streamers.filter(_.twitch).map(_.streamerName).mkString(",")).get() map { res =>
+        val hitbox = WS.url("http://api.hitbox.tv/media/live/" + streamers.filter(_.hitbox).map(_.streamerName).mkString(",")).get() map { res =>
           res.json.validate[Hitbox.Result] match {
             case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
             case JsError(err) =>
-              logwarn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
+              logger.warn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
               Nil
           }
         }
@@ -68,7 +68,7 @@ private final class Streaming(
             res.json.validate[Youtube.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logwarn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
@@ -76,18 +76,27 @@ private final class Streaming(
           StreamsOnAir {
             ss.foldLeft(List.empty[StreamOnAir]) {
               case (acc, s) if acc.exists(_.id == s.id) => acc
-              case (acc, s) => acc :+ s
+              case (acc, s)                             => acc :+ s
             }
           }
         } pipeTo self
       }
 
-      case event@StreamsOnAir(streams) if onAir != streams =>
-        onAir = streams
-        import makeTimeout.short
-        renderer ? event foreach {
-          case html: play.twirl.api.Html =>
-            context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+      case event@StreamsOnAir(streams) =>
+        if (onAir != streams) {
+          onAir = streams
+          import makeTimeout.short
+          renderer ? event foreach {
+            case html: play.twirl.api.Html =>
+              context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+          }
+        }
+        streamerList.get foreach { all =>
+          all foreach { streamer =>
+            lila.mon.tv.stream.name(streamer.id) {
+              if (streams.exists(_ is streamer)) 1 else 0
+            }
+          }
         }
     }
   }))

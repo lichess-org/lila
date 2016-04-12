@@ -53,10 +53,10 @@ function inButtons(ctrl, c) {
 function outButtons(ctrl, c) {
   return [
     m('div.owner', [
-      m('span.waiting', 'Pending...'),
-      m('a.view', {
+      m('span.waiting', ctrl.trans('waiting')),
+      m('a.view[data-icon=v]', {
         href: '/' + c.id
-      }, 'View challenge')
+      })
     ]),
     m('button', {
       class: 'button decline',
@@ -92,6 +92,7 @@ function challenge(ctrl, dir) {
 
 function allChallenges(ctrl, d, nb) {
   return m('div', {
+    key: 'all',
     class: 'challenges' +
       (ctrl.vm.reloading ? ' reloading' : '') +
       (nb > 3 ? ' many' : ''),
@@ -109,7 +110,11 @@ function allChallenges(ctrl, d, nb) {
 }
 
 function empty() {
-  return m('div.empty.text[data-icon=]', 'No challenges.');
+  return m('div', {
+    key: 'empty',
+    class: 'empty text',
+    'data-icon': '',
+  }, 'No challenges.');
 }
 
 function spinner() {

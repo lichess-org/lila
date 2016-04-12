@@ -4,7 +4,7 @@ private[i18n] object Contributors {
 
   val all = Map(
     "fr" -> List("Thibault Duplessis", "Calinou"),
-    "ru" -> List("Nikita Milovanov"),
+    "ru" -> List("Nikita Milovanov", "Alex Bagirov"),
     "de" -> List("Patrick Gawliczek", "Kurt Keller (DE)"),
     "tr" -> List("Yakup Ipek", "Usolando"),
     "sr" -> List("Nenad Nikolić"),
@@ -50,7 +50,7 @@ private[i18n] object Contributors {
     "fa" -> List("saeid monajiane"),
     "he" -> List("Tangelo777", " Tornado"),
     "mr" -> List("Rahul"),
-    "mn" -> List("Tsbarsaa"),
+    "mn" -> List("Tsbarsaa", "mungunbayar"),
     "cy" -> List("cavejohnson"),
     "gd" -> List("GunChleoc"),
     "ga" -> List("Anonymous"),

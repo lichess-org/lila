@@ -2,9 +2,8 @@ package lila.puzzle
 
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import reactivemongo.bson.{ BSONDocument, BSONInteger }
 
-import lila.db.Types.Coll
+import lila.db.dsl._
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ User, UserRepo }
 
@@ -22,8 +21,8 @@ private[puzzle] final class Finisher(
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
         val date = DateTime.now
-        val userPerf = user.perfs.puzzle.add(userRating, date)
-        val puzzlePerf = puzzle.perf.add(puzzleRating, date)
+        val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
+        val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
         val a = new Attempt(
           id = Attempt.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,
@@ -38,13 +37,13 @@ private[puzzle] final class Finisher(
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
         ((api.attempt add a) >> {
           puzzleColl.update(
-            BSONDocument("_id" -> puzzle.id),
-            BSONDocument("$inc" -> BSONDocument(
-              Puzzle.BSONFields.attempts -> BSONInteger(1),
-              Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
-            )) ++ BSONDocument("$set" -> BSONDocument(
+            $id(puzzle.id),
+            $inc(
+              Puzzle.BSONFields.attempts -> $int(1),
+              Puzzle.BSONFields.wins -> $int(data.isWin ? 1 | 0)
+            ) ++ $set(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
-            ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
+            )) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
 
@@ -68,7 +67,7 @@ private[puzzle] final class Finisher(
       system.updateRatings(results)
     }
     catch {
-      case e: Exception => play.api.Logger("Puzzle finisher").error(e.getMessage)
+      case e: Exception => logger.error("finisher", e)
     }
   }
 }

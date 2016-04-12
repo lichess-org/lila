@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font49/fonts/lichess.eot");
-  src: url("../font49/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font49/fonts/lichess.woff") format("woff"), url("../font49/fonts/lichess.ttf") format("truetype"), url("../font49/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font50/fonts/lichess.eot");
+  src: url("../font50/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font50/fonts/lichess.woff") format("woff"), url("../font50/fonts/lichess.ttf") format("truetype"), url("../font50/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -465,6 +465,9 @@ body.fpmenu > div.content {
   margin: 0 auto;
   padding-top: 5px;
   box-sizing: border-box;
+}
+#top:hover,
+body.fpmenu #top {
   z-index: 5001;
 }
 #site_description {
@@ -2369,15 +2372,13 @@ textarea.copyable {
 #modal-wrap .close:hover {
   background: #f0f0f0;
 }
-#konami {
-  display: none;
-  background: url(../images/easter.png);
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 300px;
-  height: 295px;
-  z-index: 9999;
+@keyframes fire {
+  0% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  }
+  100% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+  }
 }
 .fire_trophy span {
   transform: scale(0.35);
@@ -2396,14 +2397,6 @@ textarea.copyable {
 }
 .fire_trophy span:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
-}
-@keyframes fire {
-  0% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
-  }
-  100% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
-  }
 }
 /* switch toggle button */
 .cmn-toggle {

@@ -166,7 +166,7 @@ description = describeUser(u)).some) {
         }
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
-        <p class="thin">@trans.lastLogin() @momentFormat(seen)</p>
+        <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         <br />

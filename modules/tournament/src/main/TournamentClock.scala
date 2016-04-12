@@ -10,4 +10,6 @@ case class TournamentClock(limit: Int, increment: Int) {
   lazy val chessClock = chess.Clock(limit, increment)
 
   def hasIncrement = increment > 0
+
+  override def toString = show
 }

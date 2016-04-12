@@ -17,7 +17,7 @@
       }
     </h1>
     @form("email").value.filter(_.nonEmpty).map { email =>
-    <p>You have already registered the email: @email</p>
+    <p>@trans.youHaveAlreadyRegisteredTheEmail(email)</p>
     }.getOrElse {
     <p>@trans.emailIsOptional()</p>
     <form action="@routes.Account.emailApply" method="POST">

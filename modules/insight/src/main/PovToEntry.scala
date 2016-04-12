@@ -41,7 +41,7 @@ object PovToEntry {
     if (removeWrongAnalysis(game)) fuccess(none)
     else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
       lila.game.GameRepo.initialFen(game) zip
-        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.doneById(game.id)) map {
+        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.byId(game.id)) map {
           case (fen, an) => for {
             boards <- chess.Replay.boards(
               moveStrs = game.pgnMoves,
@@ -75,7 +75,7 @@ object PovToEntry {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
       Accuracy.prevColorInfos(from.pov, an) |> { is =>
-        from.pov.color.fold(is, is.map(_.reverse))
+        from.pov.color.fold(is, is.map(_.invert))
       }
     }
     val movetimes = from.movetimes.list
@@ -123,7 +123,7 @@ object PovToEntry {
         !board.hasPiece(chess.Piece(color, chess.Queen))
       }
       case _ =>
-        logwarn(s"[insight] http://l.org/${from.pov.game.id} missing endgame board")
+        logger.warn(s"http://l.org/${from.pov.game.id} missing endgame board")
         false
     }
   }

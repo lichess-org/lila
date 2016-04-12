@@ -1,6 +1,6 @@
 $(function() {
 
-  $('input.user-autocomplete-jump').one('focus', function() {
+  var setupAutocomplete = function() {
     var go = function(name) {
       location.href = '/@/' + name;
     }
@@ -37,7 +37,9 @@ $(function() {
         if (e.which == 10 || e.which == 13) go($(this).val());
       }).focus();
     });
-  });
+  };
+
+  $('input.user-autocomplete-jump').each(setupAutocomplete);
 
   $("div.user_show .mod_zone_toggle").each(function() {
     $(this).click(function() {
@@ -62,8 +64,7 @@ $(function() {
           $.ajax({
             url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
             success: function(res) {
-              var p = Math.round(parseFloat(res) * 100);
-              $li.append($('<span class="intel">' + p + '% proxy</span>'));
+              $li.append($('<span class="intel">' + res + '% proxy</span>'));
             }
           });
         });

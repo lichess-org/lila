@@ -39,9 +39,4 @@ object Mobile {
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
   }
-
-  object App {
-
-    val currentVersion = lila.common.PlayApp.loadConfig getString "mobile.app.version"
-  }
 }

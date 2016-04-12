@@ -8,7 +8,7 @@ private[round] final class Takebacker(
     uciMemo: UciMemo,
     prefApi: PrefApi) {
 
-  def yes(pov: Pov): Fu[Events] = IfAllowed(pov.game) {
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, _) if pov.opponent.isProposingTakeback =>
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
@@ -19,22 +19,22 @@ private[round] final class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
-        GameRepo save progress inject List(Event.TakebackOffers(color.white, color.black))
-      case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
+        proxy.save(progress) inject List(Event.TakebackOffers(color.white, color.black))
+      case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
   }
 
-  def no(pov: Pov): Fu[Events] = IfAllowed(pov.game) {
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = IfAllowed(pov.game) {
     pov match {
-      case Pov(game, color) if pov.player.isProposingTakeback => GameRepo save {
+      case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
         messenger.system(game, _.takebackPropositionCanceled)
         Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
       } inject List(Event.TakebackOffers(false, false))
-      case Pov(game, color) if pov.opponent.isProposingTakeback => GameRepo save {
+      case Pov(game, color) if pov.opponent.isProposingTakeback => proxy.save {
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
       } inject List(Event.TakebackOffers(false, false))
-      case _ => ClientErrorException.future("[takebacker] invalid no " + pov)
+      case _ => fufail(ClientError("[takebacker] invalid no " + pov))
     }
   }
 
@@ -49,31 +49,31 @@ private[round] final class Takebacker(
     }
 
   private def IfAllowed(game: Game)(f: => Fu[Events]): Fu[Events] =
-    if (!game.playable) ClientErrorException.future("[takebacker] game is over " + game.id)
+    if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
     else isAllowedByPrefs(game) flatMap {
-      _.fold(f, ClientErrorException.future("[takebacker] disallowed by preferences " + game.id))
+      _.fold(f, fufail(ClientError("[takebacker] disallowed by preferences " + game.id)))
     }
 
-  private def single(game: Game): Fu[Events] = for {
+  private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
     fen ← GameRepo initialFen game
     progress ← Rewind(game, fen).future
     _ ← fuccess { uciMemo.drop(game, 1) }
-    events ← save(progress)
+    events ← saveAndNotify(progress)
   } yield events
 
-  private def double(game: Game): Fu[Events] = for {
+  private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
     fen ← GameRepo initialFen game
     prog1 ← Rewind(game, fen).future
     prog2 ← Rewind(prog1.game, fen).future map { progress =>
       prog1 withGame progress.game
     }
     _ ← fuccess { uciMemo.drop(game, 2) }
-    events ← save(prog2)
+    events ← saveAndNotify(prog2)
   } yield events
 
-  private def save(p1: Progress): Fu[Events] = {
+  private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {
     val p2 = p1 + Event.Reload
     messenger.system(p2.game, _.takebackPropositionAccepted)
-    (GameRepo save p2) inject p2.events
+    proxy.save(p2) inject p2.events
   }
 }

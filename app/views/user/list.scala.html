@@ -39,7 +39,7 @@
 @side = {
 <div class="side">
   <form class="search public">
-    <input placeholder="@trans.search()" class="search_user user-autocomplete-jump" />
+    <input placeholder="@trans.search()" class="search_user user-autocomplete-jump" autofocus />
   </form>
   @if(isGranted(_.UserSearch)) {
   <form class="search" action="@routes.Mod.search" method="GET">
@@ -91,19 +91,18 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
     <div class="group">
       @userTopPerf(leaderboards.blitz, PerfType.Blitz)
       @userTopPerf(leaderboards.chess960, PerfType.Chess960)
-      @userTopActive(nbDay, trans.activeToday(), icon = 'U'.some)
+      @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
     </div>
 
     <div class="group">
       @userTopPerf(leaderboards.classical, PerfType.Classical)
       @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
-      @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
+      @userTopPerf(leaderboards.antichess, PerfType.Antichess)
     </div>
 
     <div class="group">
       @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
       @userTopPerf(leaderboards.horde, PerfType.Horde)
-      @userTopPerf(leaderboards.antichess, PerfType.Antichess)
     </div>
 
     <div class="group">

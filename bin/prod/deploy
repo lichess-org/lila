@@ -7,40 +7,13 @@ if [ -z $mode ]; then
   exit 1
 elif [ $mode = "main" ]; then
   REMOTE="anand"
-  REMOTE_DIR="/home/lichess"
+  REMOTE_DIR="/home/lichess-deploy"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
-elif [ $mode = "salim2" ]; then
-  REMOTE="salim2"
-  REMOTE_DIR="/home/lila"
-elif [ $mode = "hexal" ]; then
-  REMOTE="hexal"
-  REMOTE_DIR="/home/lila"
-elif [ $mode = "matthews" ]; then
-  REMOTE="matthews"
-  REMOTE_DIR="/home/thibault/lila"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
-elif [ $mode = "cammy" ]; then
-  REMOTE="cammy"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "adele" ]; then
-  REMOTE="adele"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "timshell" ]; then
-  REMOTE="timshell"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "sarah" ]; then
-  REMOTE="sarah"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "khiaw" ]; then
-  REMOTE="khiaw"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "flynn" ]; then
-  REMOTE="flynn"
-  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1
@@ -48,7 +21,7 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
-if [ $mode == "main" ] || [ $mode == "stage" ]; then
+if [ "$2" == "asset" ]; then
   bin/prod/compile-client
 fi
 
@@ -57,10 +30,16 @@ if [ $mode == "main" ]; then
   bin/cli-prod deploy pre
 fi
 
-sbt ";stage;exit"
+bin/dev ";stage;exit"
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
+fi
+
+if [ $mode == "main" ]; then
+  lilalog "Backup production lichess dir"
+  BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
+  ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
 fi
 
 RSYNC_OPTIONS=" \
@@ -80,7 +59,7 @@ RSYNC_OPTIONS=" \
 
 if [ $mode != "main" ] && [ $mode != "stage" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
-  --exclude public";
+    --exclude public";
 fi
 
 lilalog "Rsync scripts, binaries and assets"
@@ -91,16 +70,26 @@ echo "$rsync_command"
 $rsync_command
 echo "rsync complete"
 
-read -n 1 -p "Press [Enter] to continue."
+if [ $mode == "main" ]; then
+  lilalog "Deploy logger configuration"
+  rsync -av conf/prod-logger.xml $REMOTE:/etc/lichess.logger.xml
+fi
+
+read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
   lilalog "Notify users of post deploy"
   bin/cli-prod deploy post
 fi
 
-if [ $mode == "main" ] || [ $mode == "stage" ]; then
+if [ $mode == "main" ]; then
   lilalog "Restart lichess"
-  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
+  RUN_DIR="/home/lichess"
+  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && service lichess restart"
+fi
+if [ $mode == "stage" ]; then
+  lilalog "Restart lichess-stage"
+  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
 fi
 
 lilalog "Deploy complete"

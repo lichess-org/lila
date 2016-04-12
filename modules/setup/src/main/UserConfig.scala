@@ -29,8 +29,8 @@ private[setup] object UserConfig {
     hook = HookConfig.default,
     filter = FilterConfig.default)
 
-  import lila.db.{ BsTube, BSON }
-  import reactivemongo.bson._
+  import lila.db.BSON
+  import lila.db.dsl._
   import AiConfig.aiConfigBSONHandler
   import FriendConfig.friendConfigBSONHandler
   import HookConfig.hookConfigBSONHandler
@@ -45,13 +45,11 @@ private[setup] object UserConfig {
       hook = r.getO[HookConfig]("hook") | HookConfig.default,
       filter = r.getO[FilterConfig]("filter") | FilterConfig.default)
 
-    def writes(w: BSON.Writer, o: UserConfig) = BSONDocument(
+    def writes(w: BSON.Writer, o: UserConfig) = $doc(
       "_id" -> o.id,
       "ai" -> o.ai,
       "friend" -> o.friend,
       "hook" -> o.hook,
       "filter" -> o.filter)
   }
-
-  private[setup] val tube = BsTube(userConfigBSONHandler)
 }

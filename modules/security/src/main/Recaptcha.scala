@@ -6,9 +6,19 @@ import play.api.Play.current
 
 import lila.common.PimpedJson._
 
-final class Recaptcha(
+trait Recaptcha {
+
+  def verify(response: String, req: RequestHeader): Fu[Boolean]
+}
+
+object RecaptchaSkip extends Recaptcha {
+
+  def verify(response: String, req: RequestHeader) = fuccess(true)
+}
+
+final class RecaptchaGoogle(
     endpoint: String,
-    privateKey: String) {
+    privateKey: String) extends Recaptcha {
 
   def verify(response: String, req: RequestHeader) = {
     WS.url(endpoint).post(Map(

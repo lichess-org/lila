@@ -27,22 +27,34 @@ private[lobby] final class Socket(
 
   override val startsOnApplicationBoot = true
 
-  override def preStart {
-    super.preStart
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers)
+  override def preStart() {
+    super.preStart()
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
   }
+
+  override def postStop() {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
+
+  // override postRestart so we don't call preStart and schedule a new message
+  override def postRestart(reason: Throwable) = {}
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) =>
+    case PingVersion(uid, v) => Future {
       ping(uid)
       withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+        history.since(v).fold {
+          lila.mon.lobby.socket.resync()
+          resync(m)
+        }(_ foreach sendMessage(m))
       }
+    }
 
-    case Join(uid, ip, user, blocks, mobile) =>
+    case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, ip, mobile)
+      val member = Member(channel, user, blocks, uid, mobile)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
@@ -79,7 +91,6 @@ private[lobby] final class Socket(
     case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
-      notifyMobileUsers(makeMessage("nbr", nb)) // BC, remove me
 
     case ChangeFeatured(_, msg) => notifyAllAsync(msg)
   }
@@ -100,11 +111,5 @@ private[lobby] final class Socket(
 
   private def notifySeeks() {
     notifyAll(makeMessage("reload_seeks"))
-  }
-
-  def notifyMobileUsers(msg: JsObject) = Future {
-    members.values.foreach { m =>
-      if (m.mobile) m push msg
-    }
   }
 }

@@ -2,8 +2,7 @@ package lila.wiki
 
 import com.typesafe.config.Config
 
-import lila.db.api.$find
-import tube.pageTube
+import lila.db.dsl._
 
 final class Env(config: Config, db: lila.db.Env) {
 
@@ -11,11 +10,14 @@ final class Env(config: Config, db: lila.db.Env) {
   private val GitUrl = config getString "git.url"
   private val MarkdownPath = config getString "markdown_path"
 
-  lazy val api = new Api
+  private lazy val pageColl = db(CollectionPage)
 
-  private lazy val fetcher = new Fetch(gitUrl = GitUrl, markdownPath = MarkdownPath)(pageColl)
+  lazy val api = new Api(pageColl)
 
-  private[wiki] lazy val pageColl = db(CollectionPage)
+  private lazy val fetcher = new Fetch(
+    coll = pageColl,
+    gitUrl = GitUrl,
+    markdownPath = MarkdownPath)
 
   def cli = new lila.common.Cli {
     def process = {

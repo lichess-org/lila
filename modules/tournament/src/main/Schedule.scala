@@ -72,6 +72,13 @@ object Schedule {
       case (Bullet, HyperBullet) => true
       case _                     => false
     }
+    def fromClock(clock: TournamentClock) = {
+      val time = clock.chessClock.estimateTotalTime
+      if (time < 60) HyperBullet
+      else if (time < 180) Bullet
+      else if (time < 480) Blitz
+      else Classical
+    }
   }
 
   sealed trait Season

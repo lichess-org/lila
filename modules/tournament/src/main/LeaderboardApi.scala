@@ -8,8 +8,8 @@ import scala.concurrent.duration._
 import lila.common.Maths
 import lila.common.paginator.Paginator
 import lila.db.BSON._
-import lila.db.paginator.BSONAdapter
-import lila.db.Types.Coll
+import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,15 +20,15 @@ final class LeaderboardApi(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def recentByUser(user: User, page: Int) = paginator(user, page, BSONDocument("d" -> -1))
+  def recentByUser(user: User, page: Int) = paginator(user, page, $doc("d" -> -1))
 
-  def bestByUser(user: User, page: Int) = paginator(user, page, BSONDocument("w" -> 1))
+  def bestByUser(user: User, page: Int) = paginator(user, page, $doc("w" -> 1))
 
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
-      Match(BSONDocument("u" -> user.id)),
+      Match($doc("u" -> user.id)),
       List(GroupField("v")("nb" -> SumValue(1), "points" -> Push("s"), "ratios" -> Push("w")))
     ).map {
         _.documents map leaderboardAggregationResultBSONHandler.read
@@ -46,11 +46,11 @@ final class LeaderboardApi(
       }
   }
 
-  private def paginator(user: User, page: Int, sort: BSONDocument): Fu[Paginator[TourEntry]] = Paginator(
-    adapter = new BSONAdapter[Entry](
+  private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
+    adapter = new Adapter[Entry](
       collection = coll,
-      selector = BSONDocument("u" -> user.id),
-      projection = BSONDocument(),
+      selector = $doc("u" -> user.id),
+      projection = $empty,
       sort = sort
     ) mapFutureList withTournaments,
     currentPage = page,

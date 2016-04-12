@@ -44,15 +44,16 @@ final class Env(
     maxPerPage = SeekMaxPerPage,
     maxPerUser = SeekMaxPerUser)
 
-  val lobby = system.actorOf(Props(new Lobby(
-    socket = socket,
-    seekApi = seekApi,
-    blocking = blocking,
-    playban = playban,
-    onStart = onStart,
+  val lobby = Lobby.start(system, ActorName,
     broomPeriod = BroomPeriod,
-    resyncIdsPeriod = ResyncIdsPeriod
-  )), name = ActorName)
+    resyncIdsPeriod = ResyncIdsPeriod) {
+      new Lobby(
+        socket = socket,
+        seekApi = seekApi,
+        blocking = blocking,
+        playban = playban,
+        onStart = onStart)
+    }
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -64,13 +65,12 @@ final class Env(
 
   private val abortListener = new AbortListener(seekApi = seekApi)
 
-  system.actorOf(Props(new Actor {
-    system.lilaBus.subscribe(self, 'abortGame)
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.game.actorApi.AbortedBy(pov) if pov.game.isCorrespondence =>
         abortListener recreateSeek pov
     }
-  }))
+  })), 'abortGame)
 }
 
 object Env {

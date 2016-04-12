@@ -20,9 +20,11 @@ final class Env(
   private lazy val cached = new Cached
 
   lazy val paginator = new PaginatorBuilder(
+    coll = bookmarkColl,
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val api = new BookmarkApi(
+    coll = bookmarkColl,
     cached = cached,
     paginator = paginator)
 

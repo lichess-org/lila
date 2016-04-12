@@ -13,7 +13,7 @@ function simulAction(action, ctrl) {
     config: xhrConfig
   }).then(null, function() {
     // when the simul no longer exists
-    location.reload();
+    lichess.reload();
   });
 }
 

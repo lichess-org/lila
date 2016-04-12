@@ -1,0 +1,309 @@
+.material.form * {
+  box-sizing: border-box;
+}
+.material.form *::after,
+.material.form *::before {
+  box-sizing: border-box;
+}
+
+.material.form .button-container {
+  text-align: center;
+}
+
+.material.form fieldset {
+  margin: 0 0 3rem;
+  padding: 0;
+  border: none;
+}
+
+.material.form .form-radio,
+.material.form .form-group {
+  position: relative;
+  margin-bottom: 3.25rem;
+}
+
+.material.form .form-group.half {
+  display: inline-block;
+  width: 47%;
+}
+.material.form .form-group.half .form-group.half {
+  width: 46.5%;
+  margin-bottom: 0;
+}
+.material.form .form-group.half:nth-child(odd) {
+  margin-right: 5%;
+}
+.material.form .form-inline > .form-group,
+.material.form .form-inline > .btn {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.material.form .form-help {
+  margin-top: 0.125rem;
+  margin-left: 0.125rem;
+  opacity: 0.6;
+  font-size: 0.8rem;
+}
+.material.form .checkbox .form-help, .form-radio .form-help, .form-group .form-help {
+  position: absolute;
+  width: 100%;
+}
+.material.form .checkbox .form-help {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.material.form .form-radio .form-help {
+  padding-top: 0.25rem;
+  margin-top: -1rem;
+}
+
+.material.form .form-group input {
+  height: 1.9rem;
+}
+.material.form .form-group textarea {
+  resize: none;
+}
+.material.form .form-group select {
+  width: 100%;
+  font-size: 1rem;
+  height: 1.6rem;
+  padding: 0.125rem 0.125rem 0.0625rem;
+  background: none;
+  border: none;
+  line-height: 1.6;
+  box-shadow: none;
+}
+.material.form .form-group .control-label {
+  position: absolute;
+  top: 0.25rem;
+  pointer-events: none;
+  padding-left: 0.125rem;
+  z-index: 1;
+  opacity: 0.6;
+  font-size: 1rem;
+  font-weight: normal;
+  -webkit-transition: all 0.28s ease;
+  transition: all 0.28s ease;
+}
+.material.form .form-group .bar {
+  position: relative;
+  border-bottom: 0.0625rem solid #999;
+  display: block;
+}
+.material.form .form-group .bar::before {
+  content: '';
+  height: 0.125rem;
+  width: 0;
+  left: 50%;
+  bottom: -0.0625rem;
+  position: absolute;
+  background: #337ab7;
+  -webkit-transition: left 0.28s ease, width 0.28s ease;
+  transition: left 0.28s ease, width 0.28s ease;
+  z-index: 2;
+}
+.material.form .form-group input,
+.material.form .form-group textarea {
+  display: block;
+  background: none;
+  padding: 0.125rem 0.125rem 0.0625rem;
+  font-size: 1rem;
+  border-width: 0;
+  border-color: transparent;
+  line-height: 1.9;
+  width: 100%;
+  -webkit-transition: all 0.28s ease;
+  transition: all 0.28s ease;
+  box-shadow: none;
+}
+.material.form .form-group input[type="file"] {
+  line-height: 1;
+}
+.material.form .form-group input[type="file"] ~ .bar {
+  display: none;
+}
+.material.form .form-group * {
+  color: #333;
+}
+body.dark .material.form .form-group * {
+  color: #bbb;
+}
+body.dark .material.form .form-group select option {
+  color: #333;
+}
+.material.form .form-group select ~ .control-label,
+.material.form .form-group input:focus ~ .control-label,
+.material.form .form-group input:valid ~ .control-label,
+.material.form .form-group input.form-file ~ .control-label,
+.material.form .form-group input.has-value ~ .control-label,
+.material.form .form-group textarea:focus ~ .control-label,
+.material.form .form-group textarea:valid ~ .control-label,
+.material.form .form-group textarea.form-file ~ .control-label,
+.material.form .form-group textarea.has-value ~ .control-label {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  top: -1rem;
+  left: 0;
+}
+.material.form .form-group *:focus {
+  outline: none;
+}
+.material.form .form-group *:focus ~ .control-label,
+.material.form .form-group *:focus ~ .control-label strong {
+  color: #337ab7;
+}
+.material.form .form-group *:focus ~ .bar::before {
+  width: 100%;
+  left: 0;
+}
+
+.material.form .checkbox label,
+.material.form .form-radio label {
+  position: relative;
+  cursor: pointer;
+  padding-left: 2rem;
+  text-align: left;
+  display: block;
+}
+.material.form .checkbox input,
+.material.form .form-radio input {
+  width: auto;
+  opacity: 0.00000001;
+  position: absolute;
+  left: 0;
+}
+
+.material.form .radio {
+  margin-bottom: 1rem;
+}
+.material.form .radio .helper {
+  position: absolute;
+  top: -0.25rem;
+  left: -0.25rem;
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0.6;
+}
+.material.form .radio .helper::before, .radio .helper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  -webkit-transition: -webkit-transform 0.28s ease;
+  transition: -webkit-transform 0.28s ease;
+  transition: transform 0.28s ease;
+  transition: transform 0.28s ease, -webkit-transform 0.28s ease;
+  border-radius: 50%;
+  border: 0.125rem solid currentColor;
+}
+.material.form .radio .helper::after {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.material.form .radio label:hover .helper {
+  color: #337ab7;
+}
+.material.form .radio input:checked ~ .helper::after {
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+}
+.material.form .radio input:checked ~ .helper::before {
+  color: #337ab7;
+}
+
+.material.form .checkbox {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.material.form .checkbox .helper {
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1rem;
+  height: 1rem;
+  z-index: 0;
+  border: 0.125rem solid currentColor;
+  border-radius: 0.0625rem;
+  -webkit-transition: border-color 0.28s ease;
+  transition: border-color 0.28s ease;
+}
+.material.form .checkbox .helper::before, .checkbox .helper::after {
+  position: absolute;
+  height: 0;
+  width: 0.2rem;
+  background-color: #337ab7;
+  display: block;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  border-radius: 0.25rem;
+  content: '';
+  -webkit-transition: opacity 0.28s ease, height 0s linear 0.28s;
+  transition: opacity 0.28s ease, height 0s linear 0.28s;
+  opacity: 0;
+}
+.material.form .checkbox .helper::before {
+  top: 0.65rem;
+  left: 0.38rem;
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  box-shadow: 0 0 0 0.0625rem #fff;
+}
+.material.form .checkbox .helper::after {
+  top: 0.3rem;
+  left: 0;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.material.form .checkbox label:hover .helper {
+  color: #337ab7;
+}
+.material.form .checkbox input:checked ~ .helper {
+  color: #337ab7;
+}
+.material.form .checkbox input:checked ~ .helper::after, .checkbox input:checked ~ .helper::before {
+  opacity: 1;
+  -webkit-transition: height 0.28s ease;
+  transition: height 0.28s ease;
+}
+.material.form .checkbox input:checked ~ .helper::after {
+  height: 0.5rem;
+}
+.material.form .checkbox input:checked ~ .helper::before {
+  height: 1.2rem;
+  -webkit-transition-delay: 0.28s;
+  transition-delay: 0.28s;
+}
+
+.material.form .radio + .radio,
+.material.form .checkbox + .checkbox {
+  margin-top: 1rem;
+}
+
+.material.form .has-error .legend.legend, .has-error.form-group .control-label.control-label {
+  color: #d9534f;
+}
+.material.form .has-error.form-group .form-help,
+.material.form .has-error.form-group label strong,
+.material.form .has-error.form-group .helper, .has-error.checkbox .form-help,
+.material.form .has-error.checkbox .helper, .has-error.radio .form-help,
+.material.form .has-error.radio .helper, .has-error.form-radio .form-help,
+.material.form .has-error.form-radio .helper {
+  color: #d9534f;
+}
+.material.form .has-error .bar::before {
+  background: #d9534f;
+  left: 0;
+  width: 100%;
+}

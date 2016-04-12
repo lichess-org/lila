@@ -11,7 +11,7 @@ final class Tor(providerUrl: String) {
     WS.url(providerUrl).get() map { res =>
       ips = res.body.lines.filterNot(_ startsWith "#").toSet
       withIps(ips)
-      loginfo(s"[tor] registered ${ips.size} exit nodes")
+      lila.mon.security.tor.node(ips.size)
     }
   }
 

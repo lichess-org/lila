@@ -10,14 +10,13 @@ import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import lila.db.api._
-import lila.db.Implicits._
+import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 import lila.user.UserRepo
 
 private final class ExplorerIndexer(
+    gameColl: Coll,
     endpoint: String,
     massImportEndpoint: String) {
 
@@ -40,16 +39,15 @@ private final class ExplorerIndexer(
   def apply(sinceStr: String): Funit =
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       logger.info(s"Start indexing since $since")
-      val query = $query(
+      val query =
         Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
           Query.turnsMoreThan(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
-      )
       import reactivemongo.api._
-      pimpQB(query)
+      gameColl.find($empty)
         .sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondaryPreferred)
         .enumerate(maxGames, stopOnError = true) &>
@@ -94,10 +92,14 @@ private final class ExplorerIndexer(
       if (buf.size >= max) {
         WS.url(endPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
-            val gameMs = (nowMillis - startAt) / max
-            logger.info(s"indexed $max games at ${gameMs.toInt} ms/game")
-          case Success(res) => logger.warn(s"[${res.status}]")
-          case Failure(err) => logger.warn(s"$err")
+            lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
+            lila.mon.explorer.index.success(max)
+          case Success(res) =>
+            logger.warn(s"[${res.status}]")
+            lila.mon.explorer.index.failure(max)
+          case Failure(err) =>
+            logger.warn(s"$err")
+            lila.mon.explorer.index.failure(max)
         }
         buf.clear
       }
@@ -120,7 +122,7 @@ private final class ExplorerIndexer(
       case Correspondence              => 1
       case Classical if rating >= 2000 => 1
       case Classical if rating >= 1800 => 2 / 5f
-      case Classical                   => 1 / 12f
+      case Classical                   => 1 / 8f
       case Blitz if rating >= 2000     => 1
       case Blitz if rating >= 1800     => 1 / 4f
       case Blitz                       => 1 / 8f
@@ -166,5 +168,5 @@ private final class ExplorerIndexer(
     }
   })
 
-  private val logger = play.api.Logger("explorer")
+  private val logger = lila.log("explorer")
 }

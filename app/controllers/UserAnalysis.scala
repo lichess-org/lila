@@ -3,8 +3,7 @@ package controllers
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.Situation
-import chess.variant.Standard
-import chess.variant.Variant
+import chess.variant.{ Variant, Standard, FromPosition }
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -23,8 +22,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
   def parse(arg: String) = arg.split("/", 2) match {
     case Array(key) => load("", Variant orDefault key)
     case Array(key, fen) => Variant.byKey get key match {
-      case Some(variant) => load(fen, variant)
-      case _             => load(arg, Standard)
+      case Some(variant)                   => load(fen, variant)
+      case _ if fen == Standard.initialFen => load(arg, Standard)
+      case _                               => load(arg, FromPosition)
     }
     case _ => load("", Standard)
   }

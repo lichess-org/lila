@@ -28,21 +28,20 @@ final class Env(
     forms = forms,
     paginator = paginator)
 
-  system.actorOf(Props(new Actor {
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import lila.game.actorApi.{ InsertGame, FinishGame }
-    context.system.lilaBus.subscribe(self, 'finishGame)
     def receive = {
-      case FinishGame(game, _, _) => self ! InsertGame(game)
-      case InsertGame(game)       => api store game
+      case FinishGame(game, _, _) if !game.aborted => self ! InsertGame(game)
+      case InsertGame(game)                        => api store game
     }
-  }), name = ActorName)
+  }), name = ActorName), 'finishGame)
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
     private implicit def timeout = makeTimeout minutes 60
     def process = {
-      case "game" :: "search" :: "reset" :: Nil       => api.reset(none) inject "done"
-      case "game" :: "search" :: "reset" :: nb :: Nil => api.reset(parseIntOption(nb)) inject "done"
+      case "game" :: "search" :: "index" :: "all" :: Nil => api.indexAll inject "done"
+      case "game" :: "search" :: "index" :: since :: Nil => api.indexSince(since) inject "done"
     }
   }
 }

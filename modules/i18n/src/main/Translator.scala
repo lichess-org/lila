@@ -35,10 +35,8 @@ private[i18n] final class Translator(messages: Messages, pool: I18nPool) {
     Some(if (args.isEmpty) pattern else pattern.format(args: _*))
   }
   catch {
-    case e: Exception => {
-      logwarn("Failed to translate %s -> %s (%s) - %s".format(
-        key, pattern, args, e.getMessage))
+    case e: Exception =>
+      logger.warn(s"Failed to translate $key -> $pattern ($args)", e)
       None
-    }
   }
 }

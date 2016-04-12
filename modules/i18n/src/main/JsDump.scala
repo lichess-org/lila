@@ -17,56 +17,19 @@ private[i18n] final class JsDump(
     }
   }
 
+  def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
+    keys.map { k =>
+      k.en() -> JsString(k.to(lang)())
+    }
+  }
+
   def apply: Funit = Future {
     pathFile.mkdir
-    pool.langs foreach write(jsMessages)
     writeRefs
     writeFullJson
   } void
 
-  private val jsMessages = List(
-    keys.standard,
-    keys.rated,
-    keys.casual,
-    keys.thisGameIsRated,
-    keys.whiteCreatesTheGame,
-    keys.blackCreatesTheGame,
-    keys.whiteJoinsTheGame,
-    keys.blackJoinsTheGame,
-    keys.drawOfferSent,
-    keys.drawOfferDeclined,
-    keys.drawOfferAccepted,
-    keys.drawOfferCanceled,
-    keys.rematchOfferSent,
-    keys.rematchOfferAccepted,
-    keys.rematchOfferCanceled,
-    keys.rematchOfferDeclined,
-    keys.takebackPropositionSent,
-    keys.takebackPropositionDeclined,
-    keys.takebackPropositionAccepted,
-    keys.takebackPropositionCanceled,
-    keys.gameOver,
-    keys.yourTurn,
-    keys.waitingForOpponent,
-    keys.accept,
-    keys.decline,
-    keys.challengeToPlay,
-    keys.youNeedAnAccountToDoThat,
-    keys.createANewTournament,
-    keys.withdraw,
-    keys.join,
-    keys.joinTheGame,
-    keys.tournamentIsStarting)
-
   private val pathFile = new File(path)
-
-  private def write(messages: List[I18nKey])(lang: Lang) {
-    val code = s"""lichess_translations = ${dumpFromDefault(messages, lang)};"""
-    val file = new File("%s/%s.js".format(pathFile.getCanonicalPath, lang.language))
-    val out = new PrintWriter(file)
-    try { out.print(code) }
-    finally { out.close }
-  }
 
   private def dumpFromDefault(messages: List[I18nKey], lang: Lang): String =
     messages.map { key =>

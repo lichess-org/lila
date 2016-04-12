@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 import scala.math
 
 import play.api.libs.json._
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
@@ -154,7 +155,7 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, game.perfType) },
-              "name" -> player.name,
+              "name" -> player.name.map(escapeHtml4),
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "provisional" -> player.provisional.option(true),
@@ -168,7 +169,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, game.perfType) },
-              "name" -> opponent.name,
+              "name" -> opponent.name.map(escapeHtml4),
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "provisional" -> opponent.provisional.option(true),

@@ -1,7 +1,7 @@
 package lila.importer
 
-import chess.format.Forsyth
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
+import chess.format.{ FEN, Forsyth }
 import chess.{ Game => ChessGame, Board, Replay, Color, Mode, MoveOrDrop, Status }
 import play.api.data._
 import play.api.data.Forms._
@@ -21,7 +21,11 @@ private[importer] final class DataForm {
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
-private[importer] case class Preprocessed(game: Game, replay: Replay, result: Option[Result])
+private[importer] case class Preprocessed(
+  game: Game,
+  replay: Replay,
+  result: Option[Result],
+  initialFen: Option[FEN])
 
 case class ImportData(pgn: String, analyse: Option[String]) {
 
@@ -40,12 +44,16 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         val fromPosition = initBoard.nonEmpty && tag(_.FEN) != Forsyth.initial.some
         val variant = {
           tag(_.Variant).map(Chess960.fixVariantName).flatMap(chess.variant.Variant.byName) | {
-            fromPosition.fold(chess.variant.FromPosition, chess.variant.Standard)
+            if (fromPosition) chess.variant.FromPosition
+            else chess.variant.Standard
           }
         } match {
           case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
           case v => v
         }
+        val initialFen = tag(_.FEN) flatMap {
+          Forsyth.<<<@(variant, _)
+        } map Forsyth.>> map FEN.apply
 
         val result = tag(_.Result) ifFalse game.situation.end collect {
           case "1-0"     => Result(Status.UnknownFinish, Color.White.some)
@@ -56,7 +64,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         val date = tag(_.Date)
 
         def name(whichName: TagPicker, whichRating: TagPicker): String = tag(whichName).fold("?") { n =>
-          n + ~tag(whichRating).map(e => " (%s)" format e)
+          n + ~tag(whichRating).map(e => s" (${e take 8})")
         }
 
         val dbGame = Game.make(
@@ -71,7 +79,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
           ).start
 
-        Preprocessed(dbGame, replay, result)
+        Preprocessed(dbGame, replay, result, initialFen)
     }
   }
 }

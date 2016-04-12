@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
+    gameColl: lila.db.dsl.Coll,
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
@@ -12,6 +13,7 @@ final class Env(
   private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(
+    gameColl = gameColl,
     endpoint = Endpoint,
     massImportEndpoint = MassImportEndpoint)
 
@@ -30,17 +32,17 @@ final class Env(
     }
   }
 
-  if (IndexFlow) system.actorOf(Props(new Actor {
-    context.system.lilaBus.subscribe(self, 'finishGame)
+  if (IndexFlow) system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => indexer(game)
+      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => indexer(game)
     }
-  }))
+  })), 'finishGame)
 }
 
 object Env {
 
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
+    gameColl = lila.game.Env.current.gameColl,
     system = lila.common.PlayApp.system)
 }

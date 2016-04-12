@@ -85,7 +85,7 @@ function renderTablePlay(ctrl) {
       )) : null
   ]);
   return [
-    renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit || ctrl.forceResignable()) ? null : (
+    renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
       isSpinning(ctrl) ? null : m('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),

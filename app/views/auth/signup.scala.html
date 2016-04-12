@@ -4,6 +4,10 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
 }
 
+@tosLink = {
+  <a href="@routes.Page.tos">@trans.termsOfService()</a>
+}
+
 @auth.layout(
 title = trans.signUp.str(),
 moreJs = moreJs,
@@ -25,8 +29,7 @@ zen = true) {
         <li data-icon="">&nbsp;
           @trans.computersAreNotAllowedToPlay()<br />
           <small>
-            By registering, you agree to be bound by our
-            <a target="_blank" href="@routes.Page.tos">Terms of Service</a>.
+            @trans.byRegisteringYouAgreeToBeBoundByOur(tosLink)
           </small>
         </li>
         <li>

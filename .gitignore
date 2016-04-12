@@ -1,4 +1,5 @@
 conf/application.conf
+bin/dev
 logs
 project/project
 project/target
@@ -18,5 +19,6 @@ dist/
 node_modules/
 local/
 .vagrant
+hs_*.log
 
 RUNNING_PID

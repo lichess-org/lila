@@ -1,19 +1,19 @@
 package lila.bookmark
 
 import org.joda.time.DateTime
-import play.api.libs.json._
 import reactivemongo.bson._
 
-import lila.db.api._
-import lila.db.Implicits._
-import tube.bookmarkTube
+import lila.db.dsl._
 
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
 private[bookmark] object BookmarkRepo {
 
+  // dirty
+  private val coll = Env.current.bookmarkColl
+
   def toggle(gameId: String, userId: String): Fu[Boolean] =
-    $count exists selectId(gameId, userId) flatMap { e =>
+    coll exists selectId(gameId, userId) flatMap { e =>
       e.fold(
         remove(gameId, userId),
         add(gameId, userId, DateTime.now)
@@ -21,25 +21,25 @@ private[bookmark] object BookmarkRepo {
     }
 
   def gameIdsByUserId(userId: String): Fu[Set[String]] =
-    bookmarkTube.coll.distinct("g", BSONDocument("u" -> userId).some) map lila.db.BSON.asStringSet
+    coll.distinct("g", $doc("u" -> userId).some) map lila.db.BSON.asStringSet
 
   def removeByGameId(gameId: String): Funit =
-    $remove(Json.obj("g" -> gameId))
+    coll.remove($doc("g" -> gameId)).void
 
   def removeByGameIds(gameIds: List[String]): Funit =
-    $remove(Json.obj("g" -> $in(gameIds)))
+    coll.remove($doc("g" -> $in(gameIds: _*))).void
 
   private def add(gameId: String, userId: String, date: DateTime): Funit =
-    $insert(Json.obj(
+    coll.insert($doc(
       "_id" -> makeId(gameId, userId),
       "g" -> gameId,
       "u" -> userId,
-      "d" -> $date(date)))
+      "d" -> date)).void
 
-  def userIdQuery(userId: String) = Json.obj("u" -> userId)
-  def makeId(gameId: String, userId: String) = gameId + userId
-  def selectId(gameId: String, userId: String) = $select(makeId(gameId, userId))
+  def userIdQuery(userId: String) = $doc("u" -> userId)
+  def makeId(gameId: String, userId: String) = s"$gameId$userId"
+  def selectId(gameId: String, userId: String) = $id(makeId(gameId, userId))
 
-  def remove(gameId: String, userId: String): Funit = $remove(selectId(gameId, userId))
-  def remove(selector: JsObject): Funit = $remove(selector)
+  def remove(gameId: String, userId: String): Funit = coll.remove(selectId(gameId, userId)).void
+  def remove(selector: Bdoc): Funit = coll.remove(selector).void
 }
