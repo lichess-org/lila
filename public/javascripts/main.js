@@ -791,20 +791,10 @@ lichess.challengeApp = (function() {
       Mousetrap.bind('g h', function() {
         location.href = '/';
       });
-      // konami code!
-      Mousetrap.bind('# up up down down left right left right b a', function() {
-        if (!document.getElementById('konami')) {
-          $('body').prepend($('<div id="konami"></div>'));
-        }
-        $('#konami').show(800);
-        setTimeout(function() {
-          $('#konami').hide(800);
-        }, 3000);
-      });
-      Mousetrap.bind('# k a p p a', function() {
+      Mousetrap.bind(': k a p p a', function() {
         $('body').toggleClass('kappa');
       });
-      Mousetrap.bind('# d o g g y', function() {
+      Mousetrap.bind(': d o g g y', function() {
         $('body').toggleClass('doggy');
       });
 
