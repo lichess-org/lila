@@ -46,7 +46,6 @@ private[api] final class RoundApi(
     }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
-    analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
@@ -67,7 +66,7 @@ private[api] final class RoundApi(
         }
     }
 
-  def analysis(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+  def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,

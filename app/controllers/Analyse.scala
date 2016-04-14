@@ -48,7 +48,7 @@ object Analyse extends LilaController {
           Env.game.crosstableApi(pov.game) flatMap {
             case (((analysis, analysisInProgress), simul), crosstable) =>
               val pgn = Env.api.pgnDump(pov.game, initialFen)
-              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,
+              Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
                 analysis.map(pgn -> _),
                 initialFenO = initialFen.some,

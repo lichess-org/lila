@@ -47,4 +47,3 @@ object StepBuilder {
     logger.info(s"http://lichess.org/$path ${err.lines.toList.headOption | "?"}")
   }
 }
-

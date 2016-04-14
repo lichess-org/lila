@@ -23,6 +23,9 @@ private[api] final class RoundApiBalancer(
 
     case class Player(pov: Pov, apiVersion: Int, ctx: Context)
     case class Watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+      initialFenO: Option[Option[String]] = None,
+      ctx: Context)
+    case class Review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
       analysis: Option[(Pgn, Analysis)] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
@@ -40,8 +43,10 @@ private[api] final class RoundApiBalancer(
               logger.error(pov.toString, e)
             }
           }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
-          case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
-            api.watcher(pov, apiVersion, tv, analysis, initialFenO)(ctx)
+          case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>
+            api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
+          case Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
+            api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
         }
@@ -60,11 +65,16 @@ private[api] final class RoundApiBalancer(
     .result
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+    initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] = {
+    router ? Watcher(pov, apiVersion, tv, initialFenO, ctx) mapTo manifest[JsObject]
+  }.mon(_.round.api.watcher)
+
+  def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
     withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) mapTo manifest[JsObject]
+    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
