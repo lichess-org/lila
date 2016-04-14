@@ -14,9 +14,9 @@ module.exports = function(send, ctrl) {
   }, 1000);
 
   var handlers = {
-    step: function(data) {
-      ctrl.addStep(data.step, data.path);
+    node: function(data) {
       clearTimeout(anaMoveTimeout);
+      ctrl.addNode(data.node, data.path);
     },
     stepFailure: function(data) {
       clearTimeout(anaMoveTimeout);

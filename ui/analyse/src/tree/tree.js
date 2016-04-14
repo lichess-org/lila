@@ -105,6 +105,16 @@ module.exports = function(root) {
     }
   }
 
+  // returns new path
+  function addNode(node, path) {
+    var newPath = path + node.id;
+    if (!nodeAtPathOrNull(newPath))
+      updateAtPath(path, function(parent) {
+        parent.children.push(node);
+      });
+    return newPath;
+  }
+
   return {
     root: root,
     ops: ops,
@@ -113,6 +123,7 @@ module.exports = function(root) {
     // nodeAtPath: nodeAtPath,
     getNodeList: getNodeList,
     getOpening: getOpening,
+    addNode: addNode,
     addDests: function(dests, path, opening) {
       return updateAtPath(path, function(node) {
         node.dests = dests;
