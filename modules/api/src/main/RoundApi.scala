@@ -27,8 +27,8 @@ private[api] final class RoundApi(
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
-        initialFen = initialFen,
-        withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
+        withBlurs = ctx.me ?? Granter(_.ViewBlurs),
+        initialFen = initialFen) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
@@ -37,7 +37,7 @@ private[api] final class RoundApi(
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withSteps(pov, none, initialFen, withOpening = false)_ compose
+            withSteps(pov, initialFen)_ compose
             withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withForecastCount(forecast.map(_.steps.size))_
@@ -46,6 +46,28 @@ private[api] final class RoundApi(
     }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+    analysis: Option[(Pgn, Analysis)] = None,
+    initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
+    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
+      jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
+        withBlurs = ctx.me ?? Granter(_.ViewBlurs),
+        initialFen = initialFen,
+        withMoveTimes = false) zip
+        getTourAndRanks(pov.game) zip
+        (pov.game.simulId ?? getSimul) zip
+        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
+          case (((json, tourOption), simulOption), note) => (
+            blindMode _ compose
+            withTournament(pov, tourOption)_ compose
+            withSimul(pov, simulOption)_ compose
+            withNote(note)_ compose
+            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
+            withSteps(pov, initialFen)_
+          )(json)
+        }
+    }
+
+  def analysis(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
@@ -64,7 +86,7 @@ private[api] final class RoundApi(
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
-            withSteps(pov, analysis, initialFen, withOpening = withOpening)_ compose
+            withTree(pov, analysis, initialFen, withOpening = withOpening)_ compose
             withAnalysis(analysis)_
           )(json)
         }
@@ -73,12 +95,12 @@ private[api] final class RoundApi(
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
-        withSteps(pov, none, initialFen, withOpening = true)_ map
+        withSteps(pov, initialFen)_ map
         withForecast(pov, owner, fco)_
     }
 
   import lila.socket.tree.Node.nodeJsonWriter
-  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
+  private def withTree(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("tree" -> nodeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
@@ -86,6 +108,13 @@ private[api] final class RoundApi(
       a = a,
       initialFen = initialFen | pov.game.variant.initialFen,
       withOpening = withOpening)))
+
+  private def withSteps(pov: Pov, initialFen: Option[String])(obj: JsObject) =
+    obj + ("steps" -> lila.round.StepBuilder(
+      id = pov.game.id,
+      pgnMoves = pov.game.pgnMoves,
+      variant = pov.game.variant,
+      initialFen = initialFen | pov.game.variant.initialFen))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))

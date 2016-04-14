@@ -183,7 +183,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToNag = function(color, nag) {
-    var ply = this.analyse.plyOfNextNag(color, nag, this.vm.step.ply);
+    var ply = this.analyse.plyOfNextNag(color, nag, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
   }.bind(this);
@@ -234,14 +234,14 @@ module.exports = function(opts) {
   };
 
   var userNewPiece = function(piece, pos) {
-    if (crazyValid.drop(this.chessground, this.vm.step.drops, piece, pos)) {
+    if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
       sound.move();
       var drop = {
         role: piece.role,
         pos: pos,
         variant: this.data.game.variant.key,
-        fen: this.vm.step.fen,
+        fen: this.vm.node.fen,
         path: this.vm.path
       };
       this.socket.sendAnaDrop(drop);
@@ -260,7 +260,7 @@ module.exports = function(opts) {
       orig: orig,
       dest: dest,
       variant: this.data.game.variant.key,
-      fen: this.vm.step.fen,
+      fen: this.vm.node.fen,
       path: this.vm.path
     };
     if (prom) move.promotion = prom;
@@ -277,8 +277,8 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.addStep = function(step, path) {
-    var newPath = this.analyse.addStep(step, treePath.read(path));
+  this.addNode = function(node, path) {
+    var newPath = this.analyse.addNode(node, treePath.read(path));
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
@@ -324,16 +324,16 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.encodeStepFen = function() {
-    return this.vm.step.fen.replace(/\s/g, '_');
+  this.encodeNodeFen = function() {
+    return this.vm.node.fen.replace(/\s/g, '_');
   }.bind(this);
 
   this.currentEvals = function() {
-    var step = this.vm.step;
-    return step && (step.eval || step.ceval) ? {
-      server: step.eval,
-      client: step.ceval,
-      fav: step.eval || step.ceval
+    var node = this.vm.node;
+    return node && (node.eval || node.ceval) ? {
+      server: node.eval,
+      client: node.ceval,
+      fav: node.eval || node.ceval
     } : null;
   }.bind(this);
 
@@ -352,9 +352,9 @@ module.exports = function(opts) {
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
   this.ceval = cevalCtrl(allowCeval, this.data.game.variant, function(res) {
-    this.analyse.updateAtPath(res.work.path, function(step) {
-      if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-      step.ceval = res.eval;
+    this.analyse.updateAtPath(res.work.path, function(node) {
+      if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+      node.ceval = res.eval;
       if (treePath.write(res.work.path) === this.vm.path) {
         this.setAutoShapes();
         m.redraw();
@@ -363,12 +363,12 @@ module.exports = function(opts) {
   }.bind(this));
 
   var canUseCeval = function() {
-    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.nextStepBest());
+    return this.vm.node.dests !== '' && (!this.vm.node.eval || !this.nextNodeBest());
   }.bind(this);
 
   var startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
+      this.ceval.start(this.vm.path, this.analyse.getNodes(this.vm.path));
   }.bind(this));
 
   this.toggleCeval = function() {

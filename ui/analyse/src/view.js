@@ -334,7 +334,7 @@ function inputs(ctrl) {
   return m('div.copyables', [
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
-      value: ctrl.vm.step.fen,
+      value: ctrl.vm.node.fen,
       onchange: function(e) {
         if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
       }

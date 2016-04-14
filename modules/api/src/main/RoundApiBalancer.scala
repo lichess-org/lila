@@ -41,7 +41,7 @@ private[api] final class RoundApiBalancer(
             }
           }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
-            api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
+            api.watcher(pov, apiVersion, tv, analysis, initialFenO)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
         }
