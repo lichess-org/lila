@@ -47,13 +47,13 @@ module.exports = {
     var flipAttrs = {};
     var d = ctrl.data;
     if (d.userAnalysis) flipAttrs.onclick = ctrl.flip;
-    else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.step.ply;
+    else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
       m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
       ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.step.fen,
+        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
         rel: 'nofollow'
       }, ctrl.trans('boardEditor')),
       canContinue ? m('a.button.text[data-icon=U]', {
@@ -61,7 +61,7 @@ module.exports = {
           $.modal($('.continue_with.' + d.game.id));
         }
       }, ctrl.trans('continueFromHere')) : null,
-      ctrl.analyse.tree.length > 4 ?
+      ctrl.vm.mainline.length > 4 ?
       speedsOf(d).map(function(speed) {
         return m('a.button[data-icon=G]', {
           class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
@@ -113,12 +113,12 @@ module.exports = {
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
         m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.step.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithTheMachine')),
         m('br'),
         m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeStepFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.step.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
       ])

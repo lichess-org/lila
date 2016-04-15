@@ -14,9 +14,9 @@ function withMainlineChild(node, f) {
   if (next) return f(next);
 }
 
-function findMainline(node, predicate) {
+function findInMainline(node, predicate) {
   if (predicate(node)) return node;
-  return withMainlineChild(node, findMainline);
+  return withMainlineChild(node, findInMainline);
 }
 
 // op: acc => node => acc
@@ -74,7 +74,7 @@ function takePathWhile(nodeList, predicate) {
 
 module.exports = {
   mutateAll: mutateAll,
-  findMainline: findMainline,
+  findInMainline: findInMainline,
   withMainlineChild: withMainlineChild,
   foldRightMainline: foldRightMainline,
   foldLeftMainline: foldLeftMainline,

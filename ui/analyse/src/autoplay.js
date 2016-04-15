@@ -11,9 +11,7 @@ module.exports = function(ctrl) {
 
   var move = function() {
     if (control.canGoForward(ctrl)) {
-      var p = ctrl.vm.path;
-      p[p.length - 1].ply++;
-      ctrl.jump(p);
+      control.next(ctrl);
       m.redraw();
       return true;
     }
@@ -25,8 +23,8 @@ module.exports = function(ctrl) {
   var nextDelay = function() {
     if (this.delay === true) {
       // in a variation
-      if (ctrl.vm.path.length > 1) return 2000;
-      return (ctrl.data.game.moveTimes[ctrl.vm.path[0].ply] * 100) || 2000;
+      if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 2000;
+      return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
     }
     return this.delay;
   }.bind(this);

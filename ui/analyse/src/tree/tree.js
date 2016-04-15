@@ -13,7 +13,7 @@ module.exports = function(root) {
   };
 
   function lastNode() {
-    return ops.findMainline(root, function(node) {
+    return ops.findInMainline(root, function(node) {
       return !node.children.length;
     });
   };
@@ -54,18 +54,6 @@ module.exports = function(root) {
   //   return mainlineNodeAtPathOrNullFrom(child, treePath.tail(path));
   // }
 
-  // function pathIsMainline(path) {
-  //   return pathIsMainlineFrom(root, path);
-  // }
-
-  // function pathIsMainlineFrom(node, path) {
-  //   if (path === '') return true;
-  //   var child = ops.child(node);
-  //   if (!child) return true;
-  //   if (child.id !== treePath.head(path)) return false;
-  //   return pathIsMainline(child, treePath.tail(path));
-  // }
-
   // this.nextNodeEvalBest = function(path) {
   //   if (!treePath.isRoot(path)) return;
   //   var nextPly = path[0].ply + 1;
@@ -79,6 +67,18 @@ module.exports = function(root) {
   //   var nextStep = this.tree[nextPly - this.firstPly()];
   //   return (nextStep && nextStep.eval) ? nextStep.eval.best : null;
   // }.bind(this);
+
+  function pathIsMainline(path) {
+    return pathIsMainlineFrom(root, path);
+  }
+
+  function pathIsMainlineFrom(node, path) {
+    if (path === '') return true;
+    var pathId = treePath.head(path);
+    var child = node.children[0];
+    if (!child || child.id !== pathId) return false;
+    return pathIsMainlineFrom(child, treePath.tail(path));
+  }
 
   function getNodeList(path) {
     return ops.collect(root, function(node) {
@@ -129,7 +129,8 @@ module.exports = function(root) {
         node.dests = dests;
         if (opening) node.opening = opening;
       });
-    }
+    },
+    pathIsMainline: pathIsMainline
   };
 
   //   this.getStep = function(path) {

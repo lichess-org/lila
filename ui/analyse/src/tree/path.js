@@ -13,6 +13,10 @@ module.exports = {
 
   root: '',
 
+  size: function(path) {
+    return path.length / 2;
+  },
+
   head: function(path) {
     return path.slice(0, 2);
   },
