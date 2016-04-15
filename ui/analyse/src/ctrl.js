@@ -297,8 +297,7 @@ module.exports = function(opts) {
   this.toggleVariationMenu = function(path) {
     if (!path) this.vm.variationMenu = null;
     else {
-      var key = treePath.write(path.slice(0, 1));
-      this.vm.variationMenu = this.vm.variationMenu === key ? null : key;
+      this.vm.variationMenu = this.vm.variationMenu === path ? null : path;
     }
   }.bind(this);
 

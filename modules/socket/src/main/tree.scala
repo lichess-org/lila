@@ -22,6 +22,7 @@ sealed trait Node {
   def children: List[Branch]
   def opening: Option[FullOpening]
   def crazyData: Option[Crazyhouse.Data]
+  def addChild(branch: Branch): Node
 
   // implementation dependant
   def idOption: Option[UciCharPair]
@@ -50,6 +51,7 @@ case class Root(
   def nag = None
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
+  def prependChild(branch: Branch) = copy(children = branch :: children)
 }
 
 case class Branch(
@@ -72,6 +74,7 @@ case class Branch(
   def moveOption = Some(move)
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
+  def prependChild(branch: Branch) = copy(children = branch :: children)
 }
 
 object Node {

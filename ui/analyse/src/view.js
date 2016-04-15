@@ -9,6 +9,7 @@ var game = require('game').game;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
+var tree = require('./tree/tree');
 var treePath = require('./tree/path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
@@ -91,7 +92,7 @@ function renderVariation(ctrl, node, parent, klass, depth) {
         }, 'Promote to main line') : null
       ];
     })() :
-    renderVariationContent(ctrl, variation, path, visiting)
+    renderVariationContent(ctrl, node, path, visiting)
   ]);
 }
 
@@ -103,21 +104,22 @@ function renderVariationNested(ctrl, variation, path) {
   ]);
 }
 
-function renderVariationContent(ctrl, variation, path, full) {
+function renderVariationContent(ctrl, node, path, full) {
   var turns = [];
-  if (variation[0].ply % 2 === 0) {
-    variation = variation.slice(0);
-    var move = variation.shift();
+  var line = tree.ops.mainlineNodeList(node);
+  if (node.ply % 2 === 0) {
+    line = line.slice(0);
+    var first = line.shift();
     turns.push({
-      turn: plyToTurn(move.ply),
-      black: move
+      turn: plyToTurn(first.ply),
+      black: first
     });
   }
-  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), variation.length);
+  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: plyToTurn(variation[i].ply),
-    white: variation[i],
-    black: variation[i + 1]
+    turn: plyToTurn(line[i].ply),
+    white: line[i],
+    black: line[i + 1]
   });
   return turns.map(function(turn) {
     return renderVariationTurn(ctrl, turn, path);

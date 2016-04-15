@@ -12,6 +12,7 @@ import play.api.libs.json._
 object TreeBuilder {
 
   private type Ply = Int
+  private type OpeningOf = String => Option[FullOpening]
 
   private def makeEval(info: Info) = Node.Eval(
     cp = info.score.map(_.ceiled.centipawns),
@@ -28,7 +29,7 @@ object TreeBuilder {
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
-        val openingOf: String => Option[FullOpening] =
+        val openingOf: OpeningOf =
           if (withOpening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
         val fen = Forsyth >> init
@@ -59,7 +60,7 @@ object TreeBuilder {
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           val advice = advices get g.turns
-          Branch(
+          val branch = Branch(
             id = UciCharPair(m.uci),
             ply = g.turns,
             move = m,
@@ -70,8 +71,41 @@ object TreeBuilder {
             eval = infos lift index map makeEval,
             nag = advice.map(_.nag.symbol),
             comments = advice.map(_.makeComment(false, true)).toList)
-          // variations = advice.map { ad => makeVariation(id,
+          advice.flatMap { adv =>
+            games.lift(index - 2).map {
+              case (fromGame, _) =>
+                val fromFen = Forsyth >> fromGame
+                withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
+            }
+          } getOrElse branch
         }
+        games.zipWithIndex.reverse match {
+          case Nil => root
+          case ((g, m), i) :: rest => root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
+            case (node, ((g, m), i)) => makeBranch(i + 1, g, m) prependChild node
+          }
+        }
+    }
+  }
+
+  private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: String, openingOf: OpeningOf)(info: Info): Branch = {
+    def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+      val fen = Forsyth >> g
+      Branch(
+        id = UciCharPair(m.uci),
+        ply = g.turns,
+        move = m,
+        fen = fen,
+        check = g.situation.check,
+        opening = openingOf(fen),
+        crazyData = g.situation.board.crazyData,
+        eval = none,
+        nag = none,
+        comments = Nil)
+    }
+    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
+      case (init, games, error) =>
+        error foreach logChessError(id)
         games.zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest => root addChild rest.foldLeft(makeBranch(i + 1, g, m)) {
