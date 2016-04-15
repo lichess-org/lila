@@ -21,7 +21,7 @@ i18n: @jsI18n()
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, userTv = userTv),
-chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
+chat = ctx.isAuth.option(base.chatDom(trans.spectatorRoom.str(), ctx.isAuth)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,

@@ -14,7 +14,6 @@ lichess.startChallenge = function(element, opts) {
       },
       events: {
         reload: function() {
-          console.log('reload');
           $.ajax({
             url: opts.xhrUrl,
             success(html) {
