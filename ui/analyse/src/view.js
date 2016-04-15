@@ -9,7 +9,7 @@ var game = require('game').game;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
-var tree = require('./tree/tree');
+var treeOps = require('./tree/ops');
 var treePath = require('./tree/path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
@@ -68,7 +68,7 @@ function plyToTurn(ply) {
 function renderVariation(ctrl, node, parent, klass, depth) {
   var path = parent.path + node.id;
   var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === path;
-  var visiting = treePath.contains(path, ctrl.vm.path);
+  var visiting = treePath.contains(ctrl.vm.path, path);
   return m('div', {
     class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
   }, [
@@ -92,7 +92,7 @@ function renderVariation(ctrl, node, parent, klass, depth) {
         }, 'Promote to main line') : null
       ];
     })() :
-    renderVariationContent(ctrl, node, path, visiting)
+    renderVariationContent(ctrl, node, parent.path, visiting)
   ]);
 }
 
@@ -106,7 +106,7 @@ function renderVariationNested(ctrl, variation, path) {
 
 function renderVariationContent(ctrl, node, path, full) {
   var turns = [];
-  var line = tree.ops.mainlineNodeList(node);
+  var line = treeOps.mainlineNodeList(node);
   if (node.ply % 2 === 0) {
     line = line.slice(0);
     var first = line.shift();
@@ -115,14 +115,17 @@ function renderVariationContent(ctrl, node, path, full) {
       black: first
     });
   }
-  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), line.length);
+  var maxPlies = Math.min(full ? 999 : 4, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(line[i].ply),
     white: line[i],
     black: line[i + 1]
   });
+  var dom;
   return turns.map(function(turn) {
-    return renderVariationTurn(ctrl, turn, path);
+    dom = renderVariationTurn(ctrl, turn, path);
+    path += (turn.white && turn.white.id || '') + (turn.black && turn.black.id || '');
+    return dom;
   });
 }
 
@@ -134,10 +137,10 @@ function renderVariationMeta(ctrl, move, path) {
 }
 
 function renderVariationTurn(ctrl, turn, path) {
-  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
+  var wPath = turn.white ? path + turn.white.id : null;
   var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
   var wMeta = renderVariationMeta(ctrl, turn.white, wPath);
-  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
+  var bPath = turn.black ? (wPath || path) + turn.black.id : null;
   var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
   var bMeta = renderVariationMeta(ctrl, turn.black, bPath);
   if (wMove) {
