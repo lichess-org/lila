@@ -96,10 +96,10 @@ function renderVariation(ctrl, node, parent, klass, depth) {
   ]);
 }
 
-function renderVariationNested(ctrl, variation, path) {
+function renderVariationNested(ctrl, node, path) {
   return m('span.variation', [
     '(',
-    renderVariationContent(ctrl, variation, path, treePath.contains(path, ctrl.vm.path)),
+    renderVariationContent(ctrl, node, path, treePath.contains(ctrl.vm.path, path)),
     ')'
   ]);
 }
@@ -129,10 +129,10 @@ function renderVariationContent(ctrl, node, path, full) {
   });
 }
 
-function renderVariationMeta(ctrl, move, path) {
-  if (!move || empty(move.variations)) return;
-  return move.variations.map(function(variation, i) {
-    return renderVariationNested(ctrl, variation, treePath.withVariation(path, i + 1));
+function renderVariationMeta(ctrl, node, path) {
+  if (!node || empty(node.children[1])) return;
+  return node.children.slice(1).map(function(child, i) {
+    return renderVariationNested(ctrl, child, path);
   });
 }
 
