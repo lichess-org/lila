@@ -14,9 +14,12 @@ function withMainlineChild(node, f) {
   if (next) return f(next);
 }
 
-function findInMainline(node, predicate) {
-  if (predicate(node)) return node;
-  return withMainlineChild(node, findInMainline);
+function findInMainline(fromNode, predicate) {
+  var findFrom = function(node) {
+    if (predicate(node)) return node;
+    return withMainlineChild(node, findFrom);
+  };
+  return findFrom(fromNode);
 }
 
 // op: acc => node => acc

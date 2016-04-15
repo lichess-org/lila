@@ -172,10 +172,14 @@ module.exports = function(opts) {
     this.jump(path);
   }.bind(this);
 
-  this.jumpToMain = function(ply) {
-    this.userJump(treeOps.takePathWhile(this.vm.mainline, function(n) {
+  var mainlinePathToPly = function(ply) {
+    return treeOps.takePathWhile(this.vm.mainline, function(n) {
       return n.ply <= ply;
-    }));
+    });
+  }.bind(this);
+
+  this.jumpToMain = function(ply) {
+    this.userJump(mainlinePathToPly(ply));
   }.bind(this);
 
   this.jumpToIndex = function(index) {
@@ -199,7 +203,8 @@ module.exports = function(opts) {
       success: function(data) {
         initialize(data);
         this.vm.redirecting = false;
-        this.jumpToMain(this.analyse.lastPly());
+        this.userJump(treePath.root);
+        this.userJump(mainlinePathToPly(this.tree.lastPly()));
       }.bind(this),
       error: function(error) {
         console.log(error);
