@@ -13,6 +13,7 @@ final class JsonView(isOnline: String => Boolean) {
     Json.obj(
       "games" -> o.nb,
       "rating" -> o.glicko.rating.toInt,
+      "provisional" -> o.glicko.provisional,
       "rd" -> o.glicko.deviation.toInt,
       "prog" -> o.progress)
   }
