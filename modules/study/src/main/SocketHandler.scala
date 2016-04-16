@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
 
-import akka.actor.ActorSelection
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }

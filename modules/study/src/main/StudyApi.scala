@@ -1,11 +1,11 @@
 package lila.study
 
 import akka.actor.ActorRef
-import org.joda.time.DateTime
 
+import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.SendTo
 import lila.hub.Sequencer
+import lila.user.User
 
 final class StudyApi(
     repo: StudyRepo,
@@ -14,6 +14,17 @@ final class StudyApi(
     socketHub: akka.actor.ActorRef) {
 
   def byId = repo byId _
+
+  def create(user: User): Fu[Study] = {
+    val study = Study.make(
+      owner = user.id,
+      setup = Chapter.Setup(
+        gameId = none,
+        variant = chess.variant.Standard,
+        initialFen = FEN(Forsyth.initial),
+        orientation = chess.White))
+    repo insert study inject study
+  }
 
   def locationByRef(ref: Location.Ref): Fu[Option[Location]] =
     byId(ref.studyId) map (_ flatMap (_ location ref.chapterId))

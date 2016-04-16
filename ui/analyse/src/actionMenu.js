@@ -108,7 +108,14 @@ module.exports = {
               'for': id
             }, 'Computer gauge')
           ]);
-        })('analyse-toggle-gauge')
+        })('analyse-toggle-gauge'),
+        ctrl.ongoing ? null : m('form', {
+          method: 'post',
+          action: '/study',
+        }, m('button.button.text', {
+          'data-icon': 'a',
+          type: 'submit'
+        }, 'Host a study [beta]'))
       ],
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [

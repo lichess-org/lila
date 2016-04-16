@@ -14,6 +14,7 @@ import makeTimeout.short
 final class Env(
     config: Config,
     system: ActorSystem,
+    lightUser: String => Option[lila.common.LightUser],
     hub: lila.hub.Env,
     db: lila.db.Env) {
 
@@ -44,7 +45,7 @@ final class Env(
     hub = hub,
     socketHub = socketHub)
 
-  lazy val jsonView = new JsonView
+  lazy val jsonView = new JsonView(lightUser)
 
   lazy val api = new StudyApi(
     repo = repo,
@@ -67,6 +68,7 @@ object Env {
   lazy val current: Env = "study" boot new Env(
     config = lila.common.PlayApp loadConfig "study",
     system = lila.common.PlayApp.system,
+    lightUser = lila.user.Env.current.lightUser,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)
 }

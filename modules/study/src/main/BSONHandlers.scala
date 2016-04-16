@@ -1,7 +1,8 @@
 package lila.study
 
-import chess.format.{ Uci, UciCharPair }
-import chess.{ Pos, Role, PromotableRole }
+import chess.format.{ Uci, UciCharPair, FEN }
+import chess.{ Pos, Color, Role, PromotableRole }
+import chess.variant.Variant
 import reactivemongo.bson._
 
 import lila.db.BSON
@@ -15,6 +16,10 @@ private object BSONHandlers {
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
     def write(x: Pos) = BSONString(x.key)
+  }
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
+    def read(b: BSONBoolean) = chess.Color(b.value)
+    def write(c: chess.Color) = BSONBoolean(c.white)
   }
 
   implicit val ShapeBSONHandler = new BSON[Shape] {
@@ -93,10 +98,14 @@ private object BSONHandlers {
       "n" -> s.children)
   }
 
-  private implicit val CrumbBSONHandler = Macros.handler[Crumb]
+  implicit val PathBSONHandler = stringAnyValHandler[Path](_.value, Path.apply)
+  implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
+  implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
+    def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
+    def write(x: Variant) = BSONInteger(x.id)
+  }
 
-  implicit val PathBSONHandler = Macros.handler[Path]
-
+  private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   private implicit val ChapterBSONHandler = Macros.handler[Chapter]
 
   private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]

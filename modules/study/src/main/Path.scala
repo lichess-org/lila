@@ -1,17 +1,8 @@
 package lila.study
 
-import scalaz.NonEmptyList
-
-case class Path(crumbs: NonEmptyList[Crumb])
-
-case class Crumb(ply: Int, variation: Option[Int])
-
-object Crumb {
-
-  val init = Crumb(0, None)
-}
+case class Path(value: String) extends AnyVal
 
 object Path {
 
-  val init = Path(NonEmptyList(Crumb.init))
+  val root = Path("")
 }

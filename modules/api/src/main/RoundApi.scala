@@ -98,6 +98,10 @@ private[api] final class RoundApi(
         withForecast(pov, owner, fco)_
     }
 
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
+    jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
+      withTree(pov, a = none, initialFen, withOpening = true)_
+
   import lila.socket.tree.Node.nodeJsonWriter
   private def withTree(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("tree" -> nodeJsonWriter.writes(lila.round.TreeBuilder(

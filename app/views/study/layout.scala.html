@@ -1,0 +1,16 @@
+@(title: String, side: Option[Html] = None, moreJs: Html)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("study.css")
+}
+
+@base.layout(
+title = title,
+side = side,
+moreCss = moreCss,
+moreJs = moreJs,
+openGraph = openGraph,
+chessground = chessground,
+robots = false,
+withLangAnnotations = false,
+atom = atom)(body)
