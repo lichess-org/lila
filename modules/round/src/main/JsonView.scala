@@ -54,7 +54,7 @@ final class JsonView(
               "color" -> player.color.name,
               "version" -> socket.version,
               "spectator" -> false,
-              "user" -> playerUser.map { userJsonView(_, game.perfType) },
+              "user" -> playerUser.map(userJsonView(_)),
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "provisional" -> player.provisional.option(true),
@@ -69,7 +69,7 @@ final class JsonView(
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
-              "user" -> opponentUser.map { userJsonView(_, game.perfType) },
+              "user" -> opponentUser.map(userJsonView(_)),
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "provisional" -> opponent.provisional.option(true),
