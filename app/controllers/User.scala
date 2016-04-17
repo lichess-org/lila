@@ -44,10 +44,20 @@ object User extends LilaController {
         (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
-        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) map {
+        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) flatMap {
           case (((((pov, donor), blocked), crosstable), followable), relation) =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
-              .withHeaders(CACHE_CONTROL -> "max-age=5")
+            negotiate(
+              html = fuccess {
+                Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable, donor))
+                  .withHeaders(CACHE_CONTROL -> "max-age=5")
+              },
+              api = _ => {
+                import lila.game.JsonView.crosstableWrites
+                fuccess(Ok(Json.obj(
+                  "crosstable" -> crosstable,
+                  "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
+                )))
+              })
         }
     }
   }

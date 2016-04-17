@@ -37,13 +37,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.RacingKings,
     PerfType.Crazyhouse)
 
-  private def best4Of(u: User, perfTypes: List[PerfType]) =
-    perfTypes.sortBy { pt => -u.perfs(pt).nb } take 4
-
-  def miniViewSortedPerfTypes(u: User): List[PerfType] =
-    best4Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
-      best4Of(u, List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
-
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
     val title = s"$name rating over ${nb.localize} games"
     val attr = if (klass == "title") "title" else "data-hint"

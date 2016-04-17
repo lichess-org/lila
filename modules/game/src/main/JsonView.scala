@@ -6,6 +6,17 @@ import chess.variant.Crazyhouse
 
 object JsonView {
 
+  implicit val crosstableResultWrites = Json.writes[Crosstable.Result]
+
+  implicit val crosstableWrites = OWrites[Crosstable] { c =>
+    Json.obj(
+      "users" -> JsObject(c.users.map { u =>
+        u.id -> JsNumber(u.score / 10d)
+      }),
+      "results" -> c.results,
+      "nbGames" -> c.nbGames)
+  }
+
   implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>

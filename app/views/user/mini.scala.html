@@ -19,7 +19,7 @@
   <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div>
   } else {
   <div class="ratings">
-    @miniViewSortedPerfTypes(u).map { pt =>
+    @u.best8Perfs.map { pt =>
     @showPerfRating(u, pt)
     }
   </div>
