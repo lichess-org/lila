@@ -8,14 +8,6 @@ import User.{ PlayTime, LightPerf }
 final class JsonView(isOnline: String => Boolean) {
 
   import JsonView._
-
-  private implicit val perfWrites: OWrites[Perf] = OWrites { o =>
-    Json.obj(
-      "games" -> o.nb,
-      "rating" -> o.glicko.rating.toInt,
-      "rd" -> o.glicko.deviation.toInt,
-      "prog" -> o.progress)
-  }
   private implicit val profileWrites = Json.writes[Profile]
   private implicit val playTimeWrites = Json.writes[PlayTime]
 
@@ -33,11 +25,6 @@ final class JsonView(isOnline: String => Boolean) {
     "seenAt" -> u.seenAt,
     "playTime" -> u.playTime
   ).noNull
-
-  def perfs(u: User, onlyPerf: Option[PerfType] = None) =
-    JsObject(u.perfs.perfsMap collect {
-      case (key, perf) if onlyPerf.fold(true)(_.key == key) => key -> perfWrites.writes(perf)
-    })
 
   def lightPerfIsOnline(lp: LightPerf) = {
     val json = lightPerfWrites.writes(lp)
@@ -61,4 +48,22 @@ object JsonView {
         l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress))
     ).noNull
   }
+
+  implicit val perfWrites: OWrites[Perf] = OWrites { o =>
+    Json.obj(
+      "games" -> o.nb,
+      "rating" -> o.glicko.rating.toInt,
+      "rd" -> o.glicko.deviation.toInt,
+      "prog" -> o.progress)
+  }
+
+  def perfs(u: User, onlyPerf: Option[PerfType] = None) =
+    JsObject(u.perfs.perfsMap collect {
+      case (key, perf) if onlyPerf.fold(true)(_.key == key) => key -> perfWrites.writes(perf)
+    })
+
+  def perfs(u: User, onlyPerfs: List[PerfType]) =
+    JsObject(onlyPerfs.map { perfType =>
+      perfType.key -> perfWrites.writes(u.perfs(perfType))
+    })
 }

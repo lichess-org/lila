@@ -88,7 +88,7 @@ object Relation extends LilaController {
       relatedWrites.writes(r) ++ Json.obj(
         "online" -> Env.user.isOnline(r.user.id).option(true),
         "perfs" -> r.user.perfs.bestPerfType.map { best =>
-          Env.user.jsonView.perfs(r.user, best.some)
+          lila.user.JsonView.perfs(r.user, best.some)
         }).noNull
     }))
   }
