@@ -31,18 +31,21 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
     val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
-    val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
-    val situation = decodedFen.flatMap {
-      Forsyth.<<<@(variant, _)
-    } | SituationPlus(Situation(variant), 1)
-    val pov = makePov(situation)
+    val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }
+    val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false) map { data =>
       Ok(html.board.userAnalysis(data, pov))
     }
   }
 
-  private def makePov(from: SituationPlus) = lila.game.Pov(
+  private[controllers] def makePov(fen: Option[String], variant: Variant): Pov = makePov {
+    fen.filter(_.nonEmpty).flatMap {
+      Forsyth.<<<@(variant, _)
+    } | SituationPlus(Situation(variant), 1)
+  }
+
+  private[controllers] def makePov(from: SituationPlus): Pov = Pov(
     lila.game.Game.make(
       game = chess.Game(
         board = from.situation.board,

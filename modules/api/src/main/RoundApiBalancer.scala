@@ -32,6 +32,7 @@ private[api] final class RoundApiBalancer(
       withOpening: Boolean = false,
       ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean)
+    case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color)
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
@@ -49,6 +50,8 @@ private[api] final class RoundApiBalancer(
             api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
+          case FreeStudy(pov, pref, initialFen, orientation) =>
+            api.freeStudyJson(pov, pref, initialFen, orientation)
         }
       })), "api.round.router")
   }
@@ -79,4 +82,7 @@ private[api] final class RoundApiBalancer(
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
     router ? UserAnalysis(pov, pref, initialFen, orientation, owner) mapTo manifest[JsObject]
+
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color): Fu[JsObject] =
+    router ? FreeStudy(pov, pref, initialFen, orientation) mapTo manifest[JsObject]
 }

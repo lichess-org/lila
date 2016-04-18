@@ -17,8 +17,15 @@ case class Study(
 
   def id = _id
 
+  def orderedChapters: List[(Chapter.ID, Chapter)] =
+    chapters.toList.sortBy(_._2.order)
+
+  def firstChapter = orderedChapters.headOption.map(_._2)
+
   def location(chapterId: Chapter.ID): Option[Location] =
     chapters get chapterId map { Location(this, chapterId, _) }
+
+  def nextChapterOrder: Int = orderedChapters.lastOption.fold(0)(_._2.order) + 1
 }
 
 object Study {
@@ -32,6 +39,6 @@ object Study {
     setup: Chapter.Setup) = Study(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     owner = owner,
-    chapters = Map(Chapter.makeId -> Chapter.make(setup, Node.Root.default)),
+    chapters = Map(Chapter.makeId -> Chapter.make(setup, Node.Root.default, 1)),
     createdAt = DateTime.now)
 }

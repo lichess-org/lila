@@ -12,32 +12,7 @@
 lichess = lichess || {};
 lichess.user_analysis = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
-i18n: @Html(J.stringify(i18nJsObject(
-trans.flipBoard,
-trans.backToGame,
-trans.gameAborted,
-trans.checkmate,
-trans.whiteResigned,
-trans.blackResigned,
-trans.stalemate,
-trans.whiteLeftTheGame,
-trans.blackLeftTheGame,
-trans.draw,
-trans.timeOut,
-trans.playingRightNow,
-trans.whiteIsVictorious,
-trans.blackIsVictorious,
-trans.kingInTheCenter,
-trans.threeChecks,
-trans.variantEnding,
-trans.whitePlays,
-trans.blackPlays,
-trans.gameOver,
-trans.boardEditor,
-trans.continueFromHere,
-trans.playWithTheMachine,
-trans.playWithAFriend
-))),
+i18n: @userAnalysisI18n(),
 explorer: {
 endpoint: "@explorerEndpoint"
 }

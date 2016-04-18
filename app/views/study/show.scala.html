@@ -1,18 +1,15 @@
-@(study: lila.study.Study, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.BiData)(implicit ctx: Context)
 
-@title = @{ s"${usernameOrAnon(study.owner)} Study" }
-
-@moreCss = {
-@cssTag("study.css")
-}
+@title = @{ s"${usernameOrAnon(s.owner.some)} Study" }
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
 lichess.study = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
-i18n: @round.jsI18n(),
+study: @Html(play.api.libs.json.Json.stringify(data.study)),
+analysis: @Html(play.api.libs.json.Json.stringify(data.analysis)),
+i18n: @board.userAnalysisI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
 endpoint: "@explorerEndpoint"
@@ -21,146 +18,15 @@ endpoint: "@explorerEndpoint"
 }
 }
 
-@atom = {
-<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
-}
-
 @underchat = {
 @views.html.game.watchers()
-@round.blurs(game)
-@round.holdAlerts(game)
-<div class="shortcuts">
-  <p class="title text" data-icon="u">@trans.keyboardShortcuts()</p>
-  <div class="inner">
-    <ul>
-      <li><strong>j</strong>/<strong>k</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyMoveBackwardOrForward()</li>
-      <li><strong>h</strong>/<strong>l</strong> or <strong>0</strong>/<strong>$</strong> or <strong>↑</strong>/<strong>↓</strong> @trans.keyGoToStartOrEnd()</li>
-      <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
-      <li><strong>shift</strong> + <strong>k</strong>/<strong>j</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
-    </ul>
-    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
-    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
-  </div>
-</div>
 }
 
-@analyse.layout(
+@study.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv).some,
-chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
-underchat = underchat.some,
-moreCss = moreCss,
-moreJs = moreJs,
-openGraph = povOpenGraph(pov).some,
-chessground = false,
-atom = atom.some) {
+side = Html(""),
+chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth),
+underchat = underchat,
+moreJs = moreJs) {
 <div class="analyse cg-512">@miniBoardContent</div>
-<div class="advice_summary" style="display:none">
-  @analysis.map { a =>
-  <table>
-    @for((color, pairs) <- a.summary) {
-    <thead>
-      <tr>
-        <td>
-          <span class="is color-icon @color.name"></span>
-        </td>
-        <th>
-          @playerLink(pov.game.player(color), withOnline = false)
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      @for((nag, nb) <- pairs) {
-      <tr @if(nb > 0) {class="nag" data-color="@color.name" data-nag="@nag.symbol"}>
-        <td><strong>@nb</strong></td>
-        <th>@nagName(nag)</th>
-      </tr>
-      }
-      <tr>
-        <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
-        <th>@trans.averageCentipawnLoss()</th>
-      </tr>
-      <tr><td class="spacerlol" colspan=2></td></tr>
-    </tbody>
-    }
-  </table>
-  }
-</div>
-<div class="underboard_content" style="display:none">
-  <div class="analysis_panels">
-    @if(game.analysable) {
-    <div class="panel computer_analysis">
-      @analysis.map { a =>
-      @advantageChart.map { chart =>
-      <div
-        id="adv_chart"
-        data-division-mid="@division.middle.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-max="@lila.analyse.AdvantageChart.max"
-        data-rows="@chart"></div>
-      }
-      }.getOrElse {
-      @analysisInProgress.map { prog =>
-      @analyse.computing(pov.gameId, prog.some)
-      }.getOrElse {
-      <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
-      </form>
-      }
-      }
-    </div>
-    }
-    <div class="panel quote">
-      @base.quote(lila.quote.Quote.one(pov.gameId))
-    </div>
-    <div class="panel fen_pgn">
-      <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
-      <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
-        @if(analysis.isDefined) {
-        /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
-        }
-        @if(game.isPgnImport) {
-        /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
-        }
-        /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
-      </p>
-      <div class="pgn">@Html(nl2br(escape(pgn)))</div>
-    </div>
-    <div class="panel move_times">
-      @timeChart.series.map { series =>
-      <div
-        id="movetimes_chart"
-        data-division-mid="@division.middle.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-series="@series"
-        data-max="@timeChart.maxTime"></div>
-      }
-    </div>
-    @cross.map { c =>
-    <div class="panel crosstable">
-      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-    </div>
-    }
-  </div>
-  <div class="analysis_menu">
-    @if(game.analysable) {
-    <a data-panel="computer_analysis" class="computer_analysis"
-      @analysis.map { a => title="Provided by @usernameOrId(a.providedBy)" }>@trans.computerAnalysis()</a>
-    }
-    @if(!game.isPgnImport) {
-    @if(timeChart.series.isDefined) {
-    <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
-    }
-    @if(cross.isDefined) {
-    <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
-    }
-    }
-    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
-    <a data-panel="quote" class="quote" data-icon="c" title="Irrelevant chess quote"></a>
-  </div>
-</div>
 }

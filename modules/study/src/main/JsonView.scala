@@ -50,8 +50,8 @@ final class JsonView(
     JsString(f.value)
   }
 
-  private implicit val VariantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
-  private implicit val ChapterSetupWrites = Json.writes[Chapter.Setup]
+  private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
+  private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private implicit val chapterWrites = Json.writes[Chapter]
 
   private implicit val studyWrites = OWrites[Study] { s =>
@@ -61,4 +61,9 @@ final class JsonView(
       "chapters" -> s.chapters,
       "createdAt" -> s.createdAt)
   }
+}
+
+object JsonView {
+
+  case class BiData(study: JsObject, analysis: JsObject)
 }

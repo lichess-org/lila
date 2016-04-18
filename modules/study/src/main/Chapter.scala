@@ -1,8 +1,8 @@
 package lila.study
 
 import chess.format.FEN
-import chess.{Pos,Color}
 import chess.variant.Variant
+import chess.{ Pos, Color }
 import org.joda.time.DateTime
 
 case class Chapter(
@@ -10,6 +10,7 @@ case class Chapter(
     root: Node.Root,
     shapes: List[Chapter.Shape],
     ownerPath: Path,
+    order: Int,
     createdAt: DateTime) {
 }
 
@@ -34,10 +35,11 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(setup: Setup, root: Node.Root) = Chapter(
+  def make(setup: Setup, root: Node.Root, order: Int) = Chapter(
     setup = setup,
     root = root,
     shapes = Nil,
     ownerPath = Path.root,
+    order = order,
     createdAt = DateTime.now)
 }
