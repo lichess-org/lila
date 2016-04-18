@@ -65,23 +65,25 @@ private object BSONHandlers {
     def write(x: UciCharPair) = BSONString(x.toString)
   }
 
-  import Node.Move
-  private implicit val MoveBSONHandler = Macros.handler[Move]
+  import Uci.WithSan
+  private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
       ply = r int "p",
-      move = r.get[Move]("m"),
+      move = r.get[WithSan]("m"),
       fen = r str "f",
       check = r boolD "c",
-      children = r.getsD[Node]("n"))
+      by = r str "u",
+      children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
       "i" -> s.id,
       "p" -> s.ply,
       "m" -> s.move,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
+      "u" -> s.by,
       "n" -> s.children)
   }
   import Node.Root
@@ -90,15 +92,23 @@ private object BSONHandlers {
       ply = r int "p",
       fen = r str "f",
       check = r boolD "c",
-      children = r.getsD[Node]("n"))
+      children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
       "p" -> s.ply,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
       "n" -> s.children)
   }
+  implicit val ChildrenBSONHandler = new BSONHandler[BSONArray, Node.Children] {
+    private val nodesHandler = bsonArrayToVectorHandler[Node]
+    def read(b: BSONArray) = Node.Children(nodesHandler read b)
+    def write(x: Node.Children) = nodesHandler write x.nodes
+  }
 
-  implicit val PathBSONHandler = stringAnyValHandler[Path](_.value, Path.apply)
+  implicit val PathBSONHandler = new BSONHandler[BSONString, Path] {
+    def read(b: BSONString): Path = Path(b.value)
+    def write(x: Path) = BSONString(x.toString)
+  }
   implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
@@ -106,7 +116,7 @@ private object BSONHandlers {
   }
 
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
-  private implicit val ChapterBSONHandler = Macros.handler[Chapter]
+  implicit val ChapterBSONHandler = Macros.handler[Chapter]
 
   private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
 

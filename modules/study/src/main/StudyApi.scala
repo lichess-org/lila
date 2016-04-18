@@ -36,14 +36,26 @@ final class StudyApi(
     repo.setOwnerPath(_, path)
   }
 
-  def addNode(refId: Location.Ref.ID, node: Node) = sequenceRef(refId) {
-    ???
+  def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
+    val newChapter = location.chapter.updateRoot { root =>
+      root.withChildren(_.addNodeAt(node, path))
+    }
+    repo.setChapter(location withChapter newChapter)
   }
 
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =
     Location.Ref.parseId(refId) ?? { ref =>
       sequence(ref.studyId) {
         f(ref)
+      }
+    }
+
+  private def sequenceLocation(ref: Location.Ref)(f: Location => Funit): Funit =
+    locationByRef(ref) flatMap {
+      _ ?? { location =>
+        sequence(ref.studyId) {
+          f(location)
+        }
       }
     }
 

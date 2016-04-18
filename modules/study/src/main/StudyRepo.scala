@@ -17,6 +17,11 @@ private final class StudyRepo(coll: Coll) {
 
   def insert(s: Study): Funit = coll.insert(s).void
 
+  def setChapter(loc: Location) = coll.update(
+    $id(loc.study.id),
+    $set(s"chapters.${loc.chapterId}" -> loc.chapter.pp)
+  ).void
+
   def setOwnerPath(ref: Location.Ref, path: Path): Funit =
     coll.update(
       $id(ref.studyId),

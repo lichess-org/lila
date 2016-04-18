@@ -11,6 +11,7 @@ case class Study(
     _id: Study.ID,
     owner: User.ID,
     chapters: Map[Chapter.ID, Chapter],
+    ownerChapterId: Chapter.ID,
     createdAt: DateTime) {
 
   import Study._
@@ -36,9 +37,14 @@ object Study {
 
   def make(
     owner: User.ID,
-    setup: Chapter.Setup) = Study(
-    _id = scala.util.Random.alphanumeric take idSize mkString,
-    owner = owner,
-    chapters = Map(Chapter.makeId -> Chapter.make(setup, Node.Root.default, 1)),
-    createdAt = DateTime.now)
+    setup: Chapter.Setup) = {
+    val chapterId = Chapter.makeId
+    val chapter = Chapter.make(setup, Node.Root.default, 1)
+    Study(
+      _id = scala.util.Random.alphanumeric take idSize mkString,
+      owner = owner,
+      chapters = Map(chapterId -> chapter),
+      ownerChapterId = chapterId,
+      createdAt = DateTime.now)
+  }
 }

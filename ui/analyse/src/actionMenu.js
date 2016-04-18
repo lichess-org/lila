@@ -109,7 +109,7 @@ module.exports = {
             }, 'Computer gauge')
           ]);
         })('analyse-toggle-gauge'),
-        ctrl.ongoing ? null : m('form', {
+        (ctrl.study || ctrl.ongoing) ? null : m('form', {
           method: 'post',
           action: '/study',
         }, m('button.button.text', {

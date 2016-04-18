@@ -1,6 +1,9 @@
 package lila.study
 
-case class Location(study: Study, chapterId: Chapter.ID, chapter: Chapter)
+case class Location(study: Study, chapterId: Chapter.ID, chapter: Chapter) {
+
+  def withChapter(c: Chapter) = copy(chapter = c)
+}
 
 case object Location {
 

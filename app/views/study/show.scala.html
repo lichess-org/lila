@@ -1,4 +1,4 @@
-@(s: lila.study.Study, data: lila.study.JsonView.BiData)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.BiData, socketVersion: Int)(implicit ctx: Context)
 
 @title = @{ s"${usernameOrAnon(s.owner.some)} Study" }
 
@@ -8,12 +8,14 @@
 lichess = lichess || {};
 lichess.study = {
 study: @Html(play.api.libs.json.Json.stringify(data.study)),
-analysis: @Html(play.api.libs.json.Json.stringify(data.analysis)),
+data: @Html(play.api.libs.json.Json.stringify(data.analysis)),
 i18n: @board.userAnalysisI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
 endpoint: "@explorerEndpoint"
-}
+},
+socketUrl: "@routes.Study.websocket(s.id, apiVersion)",
+socketVersion: @socketVersion
 };
 }
 }

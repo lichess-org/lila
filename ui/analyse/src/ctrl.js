@@ -19,6 +19,7 @@ var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
 var tour = require('./tour');
+var studyCtrl = require('./study');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -445,6 +446,7 @@ module.exports = function(opts) {
     this.socket.receive(type, data);
   }.bind(this);
 
+  this.study = opts.study ? studyCtrl.init(opts.study) : null;
   this.trans = lichess.trans(opts.i18n);
 
   showGround();

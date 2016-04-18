@@ -9,9 +9,7 @@ import lila.common.PimpedJson._
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
-  def study(s: Study) = Json.obj(
-    "study" -> s,
-    "analysis" -> Json.obj())
+  def study(s: Study) = studyWrites writes s
 
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj(
@@ -30,14 +28,31 @@ final class JsonView(
     JsString(p.key)
   }
   private implicit val pathWrites = Writes[Path] { p =>
-    JsString(p.value)
+    JsString(p.toString)
   }
   private implicit val colorWriter = Writes[chess.Color] { c =>
     JsString(c.name)
   }
-  private implicit val moveWrites = Json.writes[Node.Move]
-  private implicit val nodeWrites = Json.writes[Node]
-  private implicit val rootWrites = Json.writes[Node.Root]
+  private implicit val moveWrites = Json.writes[Uci.WithSan]
+
+  implicit lazy val nodeWrites: Writes[Node] = Writes[Node] { n =>
+    Json.obj(
+      "id" -> n.id,
+      "ply" -> n.ply,
+      "move" -> n.move,
+      "fen" -> n.fen,
+      "check" -> n.check,
+      "by" -> n.by,
+      "children" -> n.children.nodes)
+  }
+
+  private implicit val rootWrites = Writes[Node.Root] { n =>
+    Json.obj(
+      "ply" -> n.ply,
+      "fen" -> n.fen,
+      "check" -> n.check,
+      "children" -> n.children.nodes)
+  }
 
   import Chapter.Shape
   private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
@@ -59,6 +74,7 @@ final class JsonView(
       "id" -> s.id,
       "owner" -> getLightUser(s.owner),
       "chapters" -> s.chapters,
+      "ownerChapterId" -> s.ownerChapterId,
       "createdAt" -> s.createdAt)
   }
 }

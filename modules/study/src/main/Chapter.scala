@@ -12,6 +12,8 @@ case class Chapter(
     ownerPath: Path,
     order: Int,
     createdAt: DateTime) {
+
+  def updateRoot(f: Node.Root => Node.Root) = copy(root = f(root))
 }
 
 object Chapter {

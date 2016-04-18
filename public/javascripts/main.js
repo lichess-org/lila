@@ -282,6 +282,7 @@ lichess.challengeApp = (function() {
 
     if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+    else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
@@ -2043,6 +2044,30 @@ lichess.challengeApp = (function() {
     lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {
         name: "analyse"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    analyse = LichessAnalyse(cfg);
+    topMenuIntent();
+  }
+
+  ////////////////
+  // study.js //
+  ////////////////
+
+  function startStudy(element, cfg) {
+    var analyse;
+    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.element = element.querySelector('.analyse');
+    lichess.socket = lichess.StrongSocket(cfg.socketUrl, 0, {
+      options: {
+        name: "study"
       },
       params: {
         ran: "--ranph--"
