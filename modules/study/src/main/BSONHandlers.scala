@@ -45,16 +45,9 @@ private object BSONHandlers {
     def write(x: Role) = BSONString(x.forsyth.toString)
   }
 
-  implicit val UciBSONHandler = new BSON[Uci] {
-    def reads(r: Reader) = {
-      r.getO[Pos]("o") map { orig =>
-        Uci.Move(orig, r.get[Pos]("d"), r.getO[PromotableRole]("p"))
-      } getOrElse Uci.Drop(r.get[Role]("r"), r.get[Pos]("p"))
-    }
-    def writes(w: Writer, u: Uci) = u match {
-      case Uci.Move(orig, dest, prom) => BSONDocument("o" -> orig, "d" -> dest, "p" -> prom)
-      case Uci.Drop(role, pos)        => BSONDocument("r" -> role, "p" -> pos)
-    }
+  implicit val UciHandler = new BSONHandler[BSONString, Uci] {
+    def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
+    def write(x: Uci) = BSONString(x.uci)
   }
 
   implicit val UciCharPairHandler = new BSONHandler[BSONString, UciCharPair] {
@@ -72,18 +65,19 @@ private object BSONHandlers {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
       ply = r int "p",
-      move = r.get[WithSan]("m"),
+      move = WithSan(r.get[Uci]("u"), r.str("s")),
       fen = r str "f",
       check = r boolD "c",
-      by = r str "u",
+      by = r str "b",
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
       "i" -> s.id,
       "p" -> s.ply,
-      "m" -> s.move,
+      "u" -> s.move.uci,
+      "s" -> s.move.san,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "u" -> s.by,
+      "b" -> s.by,
       "n" -> s.children)
   }
   import Node.Root
