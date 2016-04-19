@@ -83,7 +83,7 @@ function renderVariation(ctrl, node, parent, klass, depth) {
         m('a', {
           class: 'delete text',
           'data-icon': 'q',
-          onclick: partial(ctrl.deleteVariation, path)
+          onclick: partial(ctrl.deleteNode, path)
         }, 'Delete variation'),
         promotable ? m('a', {
           class: 'promote text',

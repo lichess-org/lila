@@ -307,18 +307,18 @@ module.exports = function(opts) {
     }
   }.bind(this);
 
-  this.deleteVariation = function(path) {
-    var ply = path[0].ply;
-    var id = path[0].variation;
-    this.analyse.deleteVariation(ply, id);
-    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
+  this.deleteNode = function(path) {
+    var node = this.tree.nodeAtPath(path);
+    if (!node) return;
+    this.tree.deleteNodeAt(path);
+    if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
     this.toggleVariationMenu(null);
   }.bind(this);
 
   this.promoteVariation = function(path) {
     var ply = path[0].ply;
     var id = path[0].variation;
-    this.analyse.promoteVariation(ply, id);
+    this.tree.promoteVariation(ply, id);
     if (treePath.contains(path, this.vm.path))
       this.jump(this.vm.path.splice(1));
     this.toggleVariationMenu(null);

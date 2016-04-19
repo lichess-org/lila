@@ -28,7 +28,7 @@ module.exports = function(root) {
 
   function nodeAtPathFrom(node, path) {
     if (path === '') return node;
-    var child = opts.childById(node, treePath.head(path));
+    var child = ops.childById(node, treePath.head(path));
     return child ? nodeAtPathFrom(child, treePath.tail(path)) : node;
   }
 
@@ -115,12 +115,20 @@ module.exports = function(root) {
     return newPath;
   }
 
+  function deleteNodeAt(path) {
+    var parent = nodeAtPath(treePath.init(path));
+    var id = treePath.last(path);
+    parent.children = parent.children.filter(function(n) {
+      return n.id !== id;
+    });
+  };
+
   return {
     root: root,
     ops: ops,
     firstPly: firstPly,
     lastPly: lastPly,
-    // nodeAtPath: nodeAtPath,
+    nodeAtPath: nodeAtPath,
     getNodeList: getNodeList,
     getOpening: getOpening,
     addNode: addNode,
@@ -130,7 +138,8 @@ module.exports = function(root) {
         if (opening) node.opening = opening;
       });
     },
-    pathIsMainline: pathIsMainline
+    pathIsMainline: pathIsMainline,
+    deleteNodeAt: deleteNodeAt
   };
 
   //   this.getStep = function(path) {
@@ -195,13 +204,6 @@ module.exports = function(root) {
   //     if (!step) return path;
   //     var newPath = this.addStep(step, path);
   //     return this.addSteps(steps.slice(1), newPath);
-  //   }.bind(this);
-
-  //   this.deleteVariation = function(ply, id) {
-  //     this.updateAtPath(treePath.default(ply), function(node) {
-  //       node.variations.splice(id - 1, 1);
-  //       if (!node.variations.length) delete node.variations;
-  //     });
   //   }.bind(this);
 
   //   this.promoteVariation = function(ply, id) {

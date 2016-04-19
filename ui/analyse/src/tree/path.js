@@ -29,6 +29,10 @@ module.exports = {
     return path.slice(0, -2);
   },
 
+  last: function(path) {
+    return path.slice(-2);
+  },
+
   take: function(path, plies) {
     return path.slice(0, 2 * plies);
   },
