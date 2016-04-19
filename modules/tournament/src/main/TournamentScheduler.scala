@@ -86,8 +86,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           at(today, 20) map { date => Schedule(Daily, Blitz, Crazyhouse, std, date |> orTomorrow) },
           at(today, 21) map { date => Schedule(Daily, Blitz, Chess960, std, date |> orTomorrow) },
           at(today, 22) map { date => Schedule(Daily, Blitz, KingOfTheHill, std, date |> orTomorrow) },
-          at(today, 23) map { date => Schedule(Daily, Blitz, ThreeCheck, std, date) },
-          at(today, 0) map { date => Schedule(Daily, Blitz, Antichess, std, date) },
+          at(today, 23) map { date => Schedule(Daily, Blitz, ThreeCheck, std, date |> orTomorrow) },
+          at(today, 0) map { date => Schedule(Daily, Blitz, Antichess, std, date |> orTomorrow) },
           at(tomorrow, 1) map { date => Schedule(Daily, Blitz, Atomic, std, date) },
           at(tomorrow, 2) map { date => Schedule(Daily, Blitz, Horde, std, date) },
           at(tomorrow, 3) map { date => Schedule(Daily, SuperBlitz, RacingKings, std, date) }
