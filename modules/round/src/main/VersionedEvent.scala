@@ -69,6 +69,6 @@ private[round] object VersionedEvent {
       "o" -> o.only.map(_.white),
       "ow" -> w.boolO(o.owner),
       "w" -> w.boolO(o.watcher),
-      "t" -> w.boolO(o.troll))
+      "r" -> w.boolO(o.troll))
   }
 }
