@@ -4,14 +4,15 @@ import chess.format.{ Uci, FEN }
 import chess.Pos
 import chess.variant.Variant
 import org.joda.time.DateTime
+import scalaz.NonEmptyList
 
 import lila.user.User
 
 case class Study(
     _id: Study.ID,
-    owner: User.ID,
     chapters: Map[Chapter.ID, Chapter],
-    ownerChapterId: Chapter.ID,
+    members: Map[User.ID, StudyMember],
+    ownerId: User.ID,
     createdAt: DateTime) {
 
   import Study._
@@ -27,6 +28,11 @@ case class Study(
     chapters get chapterId map { Location(this, chapterId, _) }
 
   def nextChapterOrder: Int = orderedChapters.lastOption.fold(0)(_._2.order) + 1
+
+  def addMember(id: User.ID, member: StudyMember) =
+    copy(members = members + (id -> member))
+
+  def owner = members get ownerId
 }
 
 object Study {
@@ -36,15 +42,15 @@ object Study {
   val idSize = 8
 
   def make(
-    owner: User.ID,
+    ownerId: User.ID,
     setup: Chapter.Setup) = {
     val chapterId = Chapter.makeId
     val chapter = Chapter.make(setup, Node.Root.default, 1)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
-      owner = owner,
       chapters = Map(chapterId -> chapter),
-      ownerChapterId = chapterId,
+      members = Map(ownerId -> StudyMember(true, chapterId, Path.root)),
+      ownerId = ownerId,
       createdAt = DateTime.now)
   }
 }

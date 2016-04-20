@@ -71,8 +71,15 @@ private[study] final class SocketHandler(
         }
       }
     }
+    case ("setPath", o) => AnaRateLimit(uid) {
+      reading[AtPath](o) { d =>
+        member.userId foreach { userId =>
+          api.setMemberPath(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+        }
+      }
+    }
     case ("deleteVariation", o) => AnaRateLimit(uid) {
-      reading[AtPath](o.pp) { d =>
+      reading[AtPath](o) { d =>
         api.deleteNodeAt(Location.Ref(studyId, d.chapterId), Path(d.path))
       }
     }

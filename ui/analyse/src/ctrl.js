@@ -140,7 +140,7 @@ module.exports = function(opts) {
     opts.onChange(this.vm.node.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = window.history.replaceState ? throttle(750, false, function() {
+  var updateHref = (!opts.data.study && window.history.replaceState) ? throttle(750, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false) : $.noop;
 
@@ -149,7 +149,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
-    this.setPath(path || this.vm.path);
+    this.setPath(path);
     this.toggleVariationMenu(null);
     showGround();
     if (!this.vm.node.uci) sound.move(); // initial position
@@ -165,6 +165,7 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
+    this.study && this.study.setPath(this.vm.path);
   }.bind(this);
 
   this.userJump = function(path) {
@@ -312,13 +313,13 @@ module.exports = function(opts) {
     if (!node) return;
     this.tree.deleteNodeAt(path);
     if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
-    else this.jump();
+    else this.jump(this.vm.path);
     this.study && this.study.deleteVariation(path);
   }.bind(this);
 
   this.promoteVariation = function(path) {
     this.tree.promoteVariation(path);
-    this.jump();
+    this.jump(this.vm.path);
     this.study && this.study.promoteVariation(path);
   }.bind(this);
 
@@ -444,7 +445,7 @@ module.exports = function(opts) {
     this.socket.receive(type, data);
   }.bind(this);
 
-  this.study = opts.study ? studyCtrl.init(opts.study, this.socket.send) : null;
+  this.study = opts.study ? studyCtrl.init(opts.study, this.socket.send, this.userId) : null;
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
@@ -452,4 +453,5 @@ module.exports = function(opts) {
   startCeval();
   this.explorer.setNode();
   tour.init(this.explorer);
+  this.study && this.userJump(this.study.path());
 };

@@ -42,7 +42,7 @@ object Study extends LilaController {
             studyId = id,
             uid = uid,
             userId = ctx.userId,
-            owner = ctx.userId.contains(study.owner))
+            owner = ctx.userId.contains(study.ownerId))
         }
       }
     }

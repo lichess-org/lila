@@ -17,7 +17,7 @@ final class StudyApi(
 
   def create(user: User): Fu[Study] = {
     val study = Study.make(
-      owner = user.id,
+      ownerId = user.id,
       setup = Chapter.Setup(
         gameId = none,
         variant = chess.variant.Standard,
@@ -31,15 +31,15 @@ final class StudyApi(
   def locationById(id: Location.Ref.ID): Fu[Option[Location]] =
     (Location.Ref parseId id) ?? locationByRef
 
-  def setOwnerPath(refId: Location.Ref.ID, path: Path) = sequenceRef(refId) {
-    repo.setOwnerPath(_, path)
-  }
+  def setMemberPath(userId: User.ID, ref: Location.Ref, path: Path) =
+    repo.setMemberPath(userId, ref, path)
 
   def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
     val newChapter = location.chapter.updateRoot { root =>
       root.withChildren(_.addNodeAt(node, path))
     }
-    repo.setChapter(location withChapter newChapter)
+    repo.setChapter(location withChapter newChapter) >>
+      repo.setMemberPath(node.by, ref, path + node)
   }
 
   def deleteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>

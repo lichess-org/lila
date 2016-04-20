@@ -115,5 +115,8 @@ private object BSONHandlers {
 
   private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
 
+  private implicit val MemberBSONHandler = Macros.handler[StudyMember]
+  private implicit val MembersBSONHandler = MapDocument.MapHandler[StudyMember]
+
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

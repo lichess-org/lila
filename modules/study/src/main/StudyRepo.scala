@@ -22,9 +22,11 @@ private final class StudyRepo(coll: Coll) {
     $set(s"chapters.${loc.chapterId}" -> loc.chapter)
   ).void
 
-  def setOwnerPath(ref: Location.Ref, path: Path): Funit =
+  def setMemberPath(id: User.ID, ref: Location.Ref, path: Path): Funit =
     coll.update(
       $id(ref.studyId),
-      $set(s"chapters.${ref.chapterId}.path" -> path)
+      $set(
+        s"members.$id.chapterId" -> ref.chapterId,
+        s"members.$id.path" -> path)
     ).void
 }

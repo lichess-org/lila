@@ -1,6 +1,6 @@
 @(s: lila.study.Study, data: lila.study.JsonView.BiData, socketVersion: Int)(implicit ctx: Context)
 
-@title = @{ s"${usernameOrAnon(s.owner.some)} Study" }
+@title = @{ s"${usernameOrAnon(s.ownerId.some)} Study" }
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")

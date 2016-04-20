@@ -2063,7 +2063,6 @@ lichess.challengeApp = (function() {
 
   function startStudy(element, cfg) {
     var analyse;
-    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, 0, {
       options: {

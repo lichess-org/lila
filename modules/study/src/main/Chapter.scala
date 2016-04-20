@@ -9,7 +9,6 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Node.Root,
     shapes: List[Chapter.Shape],
-    ownerPath: Path,
     order: Int,
     createdAt: DateTime) {
 
@@ -40,7 +39,6 @@ object Chapter {
     setup = setup,
     root = root,
     shapes = Nil,
-    ownerPath = Path.root,
     order = order,
     createdAt = DateTime.now)
 }

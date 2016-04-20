@@ -12,6 +12,8 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
 
   def isEmpty = ids.isEmpty
 
+  def +(node: Node) = Path(ids :+ node.id)
+
   override def toString = ids.mkString
 }
 

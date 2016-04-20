@@ -48,7 +48,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    if (ctrl.study) req.chapterId = ctrl.study.currentChapterId();
+    if (ctrl.study) req.chapterId = ctrl.study.chapterId();
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
