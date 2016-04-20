@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.actor._
-import play.api.libs.iteratee.Concurrent
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
 
@@ -38,6 +37,9 @@ private final class Socket(
       "delNode",
       Json.obj("p" -> pos))
 
+    case ReloadMembers(members) => notifyAll(
+      "reloadMembers", members)
+
     case Reload =>
       getStudy(studyId) foreach {
         _ foreach { study =>
@@ -61,6 +63,7 @@ private final class Socket(
     case GetVersion => sender ! history.version
 
     case Socket.Join(uid, userId, owner) =>
+      import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, owner)
       addMember(uid, member)
@@ -89,4 +92,5 @@ private object Socket {
   case class MemberPosition(userId: User.ID, position: Position.Ref)
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
+  case class ReloadMembers(members: MemberMap)
 }

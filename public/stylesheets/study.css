@@ -1,11 +1,16 @@
 .members > div {
   display: flex;
   justify-content: space-between;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 .members > div > * {
   padding: 10px;
 }
 .members .follow {
+  display: block;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   opacity: 0.3;
   transition: opacity 0.13s;
@@ -20,4 +25,7 @@
   background: #3893E8;
   color: #fff;
   opacity: 1;
+}
+.members.ownage .role {
+  cursor: pointer;
 }

@@ -35,7 +35,9 @@ private[study] final class SocketHandler(
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
   private case class AtPath(path: String, chapterId: String)
-  private implicit val atPathVarReader = Json.reads[AtPath]
+  private implicit val atPathReader = Json.reads[AtPath]
+  private case class SetRole(userId: String, role: String)
+  private implicit val SetRoleReader = Json.reads[SetRole]
 
   import Handler.AnaRateLimit
 
@@ -86,6 +88,13 @@ private[study] final class SocketHandler(
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
           api.promoteNodeAt(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+        }
+      }
+    }
+    case ("setRole", o) => AnaRateLimit(uid) {
+      reading[SetRole](o) { d =>
+        member.userId foreach { userId =>
+          api.setRole(studyId, userId, d.userId, d.role)
         }
       }
     }

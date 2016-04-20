@@ -10,8 +10,8 @@ import lila.user.User
 
 case class Study(
     _id: Study.ID,
-    chapters: Map[Chapter.ID, Chapter],
-    members: Map[User.ID, StudyMember],
+    chapters: ChapterMap,
+    members: MemberMap,
     ownerId: User.ID,
     createdAt: DateTime) {
 

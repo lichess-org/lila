@@ -5,6 +5,7 @@ module.exports = {
 
     var send = ctrl.socket.send;
     var userId = ctrl.userId;
+    var ownage = userId === data.ownerId;
 
     function myMember() {
       return userId ? data.members[userId] : null;
@@ -40,10 +41,16 @@ module.exports = {
       data.members[id] && f(data.members[id]);
     }
 
+    function checkFollow() {
+      if (vm.follow && (!data.members[vm.follow] || data.members[vm.follow].role !== 'w'))
+        follow(null);
+    }
+
     function follow(id) {
       if (id === vm.follow || id === ctrl.userId) vm.follow = null;
       else vm.follow = id;
       if (vm.follow) ctrl.userJump(data.members[vm.follow].position.path);
+      checkFollow();
     }
     follow(data.ownerId);
 
@@ -74,6 +81,15 @@ module.exports = {
         return [owner()].concat(joiners());
       },
       follow: follow,
+      toggleRole: function(userId) {
+        if (!ownage) return;
+        var next = data.members[userId].role === 'w' ? 'r' : 'w'
+        data.members[userId].role = next;
+        send("setRole", {
+          userId: userId,
+          role: next
+        });
+      },
       socketHandlers: {
         mpos: function(d) {
           updateMember(d.u, function(m) {
@@ -91,6 +107,11 @@ module.exports = {
           if (d.p.chapterId !== vm.position.chapterId) return;
           ctrl.tree.deleteNodeAt(d.p.path);
           ctrl.jump(ctrl.vm.path);
+          m.redraw();
+        },
+        reloadMembers: function(d) {
+          data.members = d;
+          checkFollow();
           m.redraw();
         }
       }

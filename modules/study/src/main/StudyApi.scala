@@ -31,10 +31,9 @@ final class StudyApi(
   def locationById(id: Location.Ref.ID): Fu[Option[Location]] =
     (Location.Ref parseId id) ?? locationByRef
 
-  def setMemberPosition(userId: User.ID, ref: Location.Ref, path: Path) = {
+  def setMemberPosition(userId: User.ID, ref: Location.Ref, path: Path) =
     repo.setMemberPosition(userId, ref, path) >>-
       sendTo(ref.studyId, Socket.MemberPosition(userId, Position.Ref(ref.chapterId, path)))
-  }
 
   def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
     (location.study canWrite node.by) ?? {
@@ -66,6 +65,18 @@ final class StudyApi(
     }
   }
 
+  def setRole(studyId: Study.ID, byUserId: User.ID, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
+    (study isOwner byUserId) ?? {
+      val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+      repo.setRole(study, userId, role) >>-
+        repo.membersById(study.id).foreach {
+          _ foreach { members =>
+            sendTo(study.id, Socket.ReloadMembers(members))
+          }
+        }
+    }
+  }
+
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =
     Location.Ref.parseId(refId) ?? { ref =>
       sequence(ref.studyId) {
@@ -79,6 +90,13 @@ final class StudyApi(
         sequence(ref.studyId) {
           f(location)
         }
+      }
+    }
+
+  private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =
+    byId(studyId) flatMap {
+      _ ?? { study =>
+        sequence(studyId)(f(study))
       }
     }
 

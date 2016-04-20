@@ -126,7 +126,7 @@ private object BSONHandlers {
   }
   private implicit val LightUserBSONHandler = Macros.handler[LightUser]
   private implicit val MemberBSONHandler = Macros.handler[StudyMember]
-  private implicit val MembersBSONHandler = MapDocument.MapHandler[StudyMember]
+  private[study] implicit val MemberMapBSONHandler = MapDocument.MapHandler[StudyMember]
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

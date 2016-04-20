@@ -13,13 +13,6 @@ final class JsonView(
 
   def study(s: Study) = studyWrites writes s
 
-  private implicit val lightUserWrites = OWrites[LightUser] { u =>
-    Json.obj(
-      "id" -> u.id,
-      "name" -> u.name,
-      "title" -> u.title)
-  }
-
   private implicit val rootWrites = Writes[Node.Root] { n =>
     Json.obj(
       "ply" -> n.ply,
@@ -42,11 +35,6 @@ final class JsonView(
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private implicit val chapterWrites = Json.writes[Chapter]
-
-  private implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
-    JsString(r.id)
-  }
-  private implicit val memberWrites = Json.writes[StudyMember]
 
   private implicit val studyWrites = OWrites[Study] { s =>
     Json.obj(
@@ -93,6 +81,18 @@ object JsonView {
       "by" -> n.by,
       "children" -> n.children.nodes)
   }
+
+  private implicit val lightUserWrites = OWrites[LightUser] { u =>
+    Json.obj(
+      "id" -> u.id,
+      "name" -> u.name,
+      "title" -> u.title)
+  }
+
+  private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
+    JsString(r.id)
+  }
+  private[study] implicit val memberWrites: Writes[StudyMember] = Json.writes[StudyMember]
 
   case class BiData(study: JsObject, analysis: JsObject)
 }
