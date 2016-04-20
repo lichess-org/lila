@@ -17,7 +17,7 @@ final class StudyApi(
 
   def create(user: User): Fu[Study] = {
     val study = Study.make(
-      ownerId = user.id,
+      user = user.light,
       setup = Chapter.Setup(
         gameId = none,
         variant = chess.variant.Standard,

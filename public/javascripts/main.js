@@ -2064,6 +2064,7 @@ lichess.challengeApp = (function() {
   function startStudy(element, cfg) {
     var analyse;
     cfg.element = element.querySelector('.analyse');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, 0, {
       options: {
         name: "study"

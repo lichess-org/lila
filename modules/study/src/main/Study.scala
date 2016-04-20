@@ -38,7 +38,7 @@ case class Study(
 
   def isOwner(id: User.ID) = ownerId == id
 
-  def canWrite(id: User.ID) = isOwner(id)
+  def canWrite(id: User.ID) = isOwner(id) || members.get(id).exists(_.canWrite)
 }
 
 object Study {
@@ -48,16 +48,16 @@ object Study {
   val idSize = 8
 
   def make(
-    ownerId: User.ID,
+    user: lila.common.LightUser,
     setup: Chapter.Setup) = {
     val chapterId = Chapter.makeId
     val chapter = Chapter.make(setup, Node.Root.default, 1)
-    val owner = StudyMember(Position.Ref(chapterId, Path.root))
+    val owner = StudyMember(user, Position.Ref(chapterId, Path.root), StudyMember.Role.Write)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
       chapters = Map(chapterId -> chapter),
-      members = Map(ownerId -> owner),
-      ownerId = ownerId,
+      members = Map(user.id -> owner),
+      ownerId = user.id,
       createdAt = DateTime.now)
   }
 }

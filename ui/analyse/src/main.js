@@ -1,5 +1,6 @@
 var ctrl = require('./ctrl');
 var view = require('./view');
+var studyView = require('./study/studyView');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -9,6 +10,11 @@ module.exports = function(opts) {
   m.module(opts.element, {
     controller: function () { return controller; },
     view: view
+  });
+
+  if (controller.study) m.module(opts.sideElement, {
+    controller: function () { return controller.study; },
+    view: studyView
   });
 
   return {

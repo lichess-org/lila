@@ -43,6 +43,9 @@ final class JsonView(
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private implicit val chapterWrites = Json.writes[Chapter]
 
+  private implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
+    JsString(r.id)
+  }
   private implicit val memberWrites = Json.writes[StudyMember]
 
   private implicit val studyWrites = OWrites[Study] { s =>

@@ -8,6 +8,7 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.common.LightUser
 
 private object BSONHandlers {
 
@@ -119,6 +120,11 @@ private object BSONHandlers {
     def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"
     def write(x: Position.Ref) = BSONString(x.encode)
   }
+  implicit val StudyMemberRoleBSONHandler = new BSONHandler[BSONString, StudyMember.Role] {
+    def read(b: BSONString) = StudyMember.Role.byId get b.value err s"Invalid role ${b.value}"
+    def write(x: StudyMember.Role) = BSONString(x.id)
+  }
+  private implicit val LightUserBSONHandler = Macros.handler[LightUser]
   private implicit val MemberBSONHandler = Macros.handler[StudyMember]
   private implicit val MembersBSONHandler = MapDocument.MapHandler[StudyMember]
 

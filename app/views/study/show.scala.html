@@ -20,13 +20,19 @@ socketVersion: @socketVersion
 }
 }
 
+@side = {
+<div class="side_box padded">
+  side box!
+</div>
+}
+
 @underchat = {
 @views.html.game.watchers()
 }
 
 @study.layout(
 title = title,
-side = Html(""),
+side = side,
 chat = base.chatDom(trans.spectatorRoom.str(), withNotes = false),
 underchat = underchat,
 moreJs = moreJs) {

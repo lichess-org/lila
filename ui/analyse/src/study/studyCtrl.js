@@ -14,6 +14,14 @@ module.exports = {
       return data.members[data.ownerId];
     }
 
+    function joiners() {
+      return Object.keys(data.members).filter(function(id) {
+        return id !== data.ownerId;
+      }).map(function(id) {
+        return data.members[id];
+      });
+    }
+
     function meOrOwner() {
       return myMember() || owner();
     }
@@ -32,6 +40,7 @@ module.exports = {
     }
 
     return {
+      data: data,
       position: function() {
         return vm.position;
       },
@@ -49,6 +58,9 @@ module.exports = {
         send("promoteVariation", addChapterId({
           path: path
         }));
+      },
+      orderedMembers: function() {
+        return [owner()].concat(joiners());
       },
       socketHandlers: {
         mpos: function(d) {
