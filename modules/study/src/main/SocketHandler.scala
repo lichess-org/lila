@@ -31,6 +31,15 @@ private[study] final class SocketHandler(
     }
   } yield handler.some
 
+  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
+    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+
+  private object datatypes {
+    case class AtPath(path: String, chapterId: String)
+    implicit val atPathVarReader = Json.reads[AtPath]
+  }
+  import datatypes._
+
   import Handler.AnaRateLimit
 
   private def controller(
@@ -52,7 +61,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               d ← o obj "d"
-              chapterId <- d str "studyChapterId"
+              chapterId <- d str "chapterId"
             } api.addNode(
               Location.Ref(studyId, chapterId),
               Path(anaMove.path),
@@ -60,6 +69,16 @@ private[study] final class SocketHandler(
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }
+      }
+    }
+    case ("deleteVariation", o) => AnaRateLimit(uid) {
+      reading[AtPath](o.pp) { d =>
+        api.deleteNodeAt(Location.Ref(studyId, d.chapterId), Path(d.path))
+      }
+    }
+    case ("promoteVariation", o) => AnaRateLimit(uid) {
+      reading[AtPath](o) { d =>
+        api.promoteNodeAt(Location.Ref(studyId, d.chapterId), Path(d.path))
       }
     }
   }

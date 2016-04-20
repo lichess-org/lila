@@ -25,7 +25,21 @@ object Node {
     def addNodeAt(node: Node, path: Path): Children = path.split match {
       case None if has(node.id) => this
       case None                 => copy(nodes = nodes :+ node)
-      case Some((head, tail))   => updateWith(head, _.withChildren(_.addNodeAt(node, tail)))
+      case Some((head, tail))   => updateChildren(head, _.addNodeAt(node, tail))
+    }
+
+    def deleteNodeAt(path: Path): Children = path.split match {
+      case None                    => this
+      case Some((head, Path(Nil))) => copy(nodes = nodes.filterNot(_.id == head))
+      case Some((head, tail))      => updateChildren(head, _.deleteNodeAt(tail))
+    }
+
+    def promoteNodeAt(path: Path): Children = path.split match {
+      case None => this
+      case Some((head, Path(Nil))) => get(head).fold(this) { node =>
+        copy(nodes = node +: nodes.filterNot(node ==))
+      }
+      case Some((head, tail)) => updateChildren(head, _.promoteNodeAt(tail))
     }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
@@ -36,6 +50,9 @@ object Node {
       case None        => this
       case Some(child) => update(op(child))
     }
+
+    def updateChildren(id: UciCharPair, f: Children => Children): Children =
+      updateWith(id, _ withChildren f)
 
     def update(child: Node) = copy(
       nodes = nodes.map {

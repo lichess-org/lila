@@ -42,6 +42,20 @@ final class StudyApi(
     repo.setChapter(location withChapter newChapter)
   }
 
+  def deleteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
+    val newChapter = location.chapter.updateRoot { root =>
+      root.withChildren(_.deleteNodeAt(path))
+    }
+    repo.setChapter(location withChapter newChapter.pp)
+  }
+
+  def promoteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
+    val newChapter = location.chapter.updateRoot { root =>
+      root.withChildren(_.promoteNodeAt(path))
+    }
+    repo.setChapter(location withChapter newChapter)
+  }
+
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =
     Location.Ref.parseId(refId) ?? { ref =>
       sequence(ref.studyId) {

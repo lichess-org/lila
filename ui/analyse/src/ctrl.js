@@ -313,11 +313,13 @@ module.exports = function(opts) {
     this.tree.deleteNodeAt(path);
     if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
     else this.jump();
+    this.study && this.study.deleteVariation(path);
   }.bind(this);
 
   this.promoteVariation = function(path) {
     this.tree.promoteVariation(path);
     this.jump();
+    this.study && this.study.promoteVariation(path);
   }.bind(this);
 
   this.reset = function() {
@@ -442,7 +444,7 @@ module.exports = function(opts) {
     this.socket.receive(type, data);
   }.bind(this);
 
-  this.study = opts.study ? studyCtrl.init(opts.study) : null;
+  this.study = opts.study ? studyCtrl.init(opts.study, this.socket.send) : null;
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
