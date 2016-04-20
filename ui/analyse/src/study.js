@@ -62,6 +62,12 @@ module.exports = {
           ctrl.tree.addNode(d.n, d.p.path);
           ctrl.jump(ctrl.vm.path);
           m.redraw();
+        },
+        delNode: function(d) {
+          if (d.p.chapterId !== vm.position.chapterId) return;
+          ctrl.tree.deleteNodeAt(d.p.path);
+          ctrl.jump(ctrl.vm.path);
+          m.redraw();
         }
       }
     };

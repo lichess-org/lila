@@ -34,6 +34,10 @@ private final class Socket(
       "addNode",
       Json.obj("n" -> node, "p" -> pos))
 
+    case DelNode(pos) => notifyAll(
+      "delNode",
+      Json.obj("p" -> pos))
+
     case Reload =>
       getStudy(studyId) foreach {
         _ foreach { study =>
@@ -84,4 +88,5 @@ private object Socket {
 
   case class MemberPosition(userId: User.ID, position: Position.Ref)
   case class AddNode(position: Position.Ref, node: Node)
+  case class DelNode(position: Position.Ref)
 }

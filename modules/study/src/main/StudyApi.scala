@@ -49,7 +49,8 @@ final class StudyApi(
     val newChapter = location.chapter.updateRoot { root =>
       root.withChildren(_.deleteNodeAt(path))
     }
-    repo.setChapter(location withChapter newChapter.pp)
+    repo.setChapter(location withChapter newChapter) >>-
+      sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path)))
   }
 
   def promoteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
