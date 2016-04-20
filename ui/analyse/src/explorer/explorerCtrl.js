@@ -24,7 +24,7 @@ module.exports = function(root, opts) {
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
-  var fetch = throttle(500, false, function() {
+  var fetch = throttle(2000, false, function() {
     var fen = root.vm.step.fen;
     var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
     xhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
