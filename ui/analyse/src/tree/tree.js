@@ -118,10 +118,16 @@ module.exports = function(root) {
   function deleteNodeAt(path) {
     var parent = nodeAtPath(treePath.init(path));
     var id = treePath.last(path);
-    parent.children = parent.children.filter(function(n) {
-      return n.id !== id;
-    });
-  };
+    ops.removeChild(parent, id);
+  }
+
+  function promoteVariation(path) {
+    var parent = nodeAtPath(treePath.init(path));
+    var id = treePath.last(path);
+    var child = ops.childById(parent, id);
+    ops.removeChild(parent, id);
+    parent.children.unshift(child);
+  }
 
   return {
     root: root,
@@ -139,7 +145,8 @@ module.exports = function(root) {
       });
     },
     pathIsMainline: pathIsMainline,
-    deleteNodeAt: deleteNodeAt
+    deleteNodeAt: deleteNodeAt,
+    promoteVariation: promoteVariation
   };
 
   //   this.getStep = function(path) {
@@ -204,17 +211,6 @@ module.exports = function(root) {
   //     if (!step) return path;
   //     var newPath = this.addStep(step, path);
   //     return this.addSteps(steps.slice(1), newPath);
-  //   }.bind(this);
-
-  //   this.promoteVariation = function(ply, id) {
-  //     var stepId = ply - this.firstPly();
-  //     var variation = this.getStepAtPly(ply).variations[id - 1];
-  //     this.deleteVariation(ply, id);
-  //     var demoted = this.tree.splice(stepId);
-  //     this.tree = this.tree.concat(variation);
-  //     var lastMainPly = this.tree[stepId];
-  //     lastMainPly.variations = lastMainPly.variations || [];
-  //     lastMainPly.variations.push(demoted);
   //   }.bind(this);
 
   //   this.plyOfNextNag = function(color, nag, fromPly) {

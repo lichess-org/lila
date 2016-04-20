@@ -75,6 +75,12 @@ function takePathWhile(nodeList, predicate) {
   return path;
 }
 
+function removeChild(parent, id) {
+  parent.children = parent.children.filter(function(n) {
+    return n.id !== id;
+  });
+}
+
 module.exports = {
   mutateAll: mutateAll,
   findInMainline: findInMainline,
@@ -88,5 +94,6 @@ module.exports = {
   childById: childById,
   last: last,
   nodeAtPly: nodeAtPly,
-  takePathWhile: takePathWhile
+  takePathWhile: takePathWhile,
+  removeChild: removeChild
 }

@@ -149,7 +149,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
-    this.setPath(path);
+    this.setPath(path || this.vm.path);
     this.toggleVariationMenu(null);
     showGround();
     if (!this.vm.node.uci) sound.move(); // initial position
@@ -312,16 +312,12 @@ module.exports = function(opts) {
     if (!node) return;
     this.tree.deleteNodeAt(path);
     if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
-    this.toggleVariationMenu(null);
+    else this.jump();
   }.bind(this);
 
   this.promoteVariation = function(path) {
-    var ply = path[0].ply;
-    var id = path[0].variation;
-    this.tree.promoteVariation(ply, id);
-    if (treePath.contains(path, this.vm.path))
-      this.jump(this.vm.path.splice(1));
-    this.toggleVariationMenu(null);
+    this.tree.promoteVariation(path);
+    this.jump();
   }.bind(this);
 
   this.reset = function() {
