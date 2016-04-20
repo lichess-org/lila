@@ -14,21 +14,22 @@ module.exports = {
       return data.members[data.ownerId];
     }
 
-    function joiners() {
-      return Object.keys(data.members).filter(function(id) {
-        return id !== data.ownerId;
-      }).map(function(id) {
-        return data.members[id];
-      });
-    }
-
     function meOrOwner() {
       return myMember() || owner();
     }
 
     var vm = {
-      position: meOrOwner().position
+      position: meOrOwner().position,
+      follow: null
     };
+
+    function joiners() {
+      var members = [];
+      for (var id in data.members)
+        if (id !== data.ownerId)
+          members.push(data.members[id]);
+      return members;
+    }
 
     function addChapterId(data) {
       data.chapterId = vm.position.chapterId;
@@ -39,12 +40,22 @@ module.exports = {
       data.members[id] && f(data.members[id]);
     }
 
+    function follow(id) {
+      if (id === vm.follow || id === ctrl.userId) vm.follow = null;
+      else vm.follow = id;
+      if (vm.follow) ctrl.userJump(data.members[vm.follow].position.path);
+    }
+    follow(data.ownerId);
+
     return {
       data: data,
+      vm: vm,
+      userId: userId,
       position: function() {
         return vm.position;
       },
       setPath: function(path) {
+        if (vm.follow && data.members[vm.follow].position.path !== path) follow(null);
         userId && send("setPos", addChapterId({
           path: path
         }));
@@ -62,11 +73,12 @@ module.exports = {
       orderedMembers: function() {
         return [owner()].concat(joiners());
       },
+      follow: follow,
       socketHandlers: {
         mpos: function(d) {
           updateMember(d.u, function(m) {
             m.position = d.p;
-            ctrl.userJump(m.position.path);
+            if (vm.follow === d.u) ctrl.userJump(m.position.path);
           });
         },
         addNode: function(d) {

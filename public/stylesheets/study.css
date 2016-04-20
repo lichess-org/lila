@@ -1,0 +1,23 @@
+.members > div {
+  display: flex;
+  justify-content: space-between;
+}
+.members > div > * {
+  padding: 10px;
+}
+.members .follow {
+  cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.13s;
+}
+.members .follow i::before {
+  font-size: 1.5em;
+}
+.members > div:hover .follow {
+  opacity: 1;
+}
+.members .following .follow {
+  background: #3893E8;
+  color: #fff;
+  opacity: 1;
+}

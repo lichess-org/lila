@@ -445,7 +445,6 @@ module.exports = function(opts) {
     this.socket.receive(type, data);
   }.bind(this);
 
-  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
@@ -453,5 +452,5 @@ module.exports = function(opts) {
   startCeval();
   this.explorer.setNode();
   tour.init(this.explorer);
-  this.study && this.userJump(this.study.position().path);
+  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 };
