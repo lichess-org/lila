@@ -37,6 +37,8 @@ case class Study(
   def owner = members get ownerId
 
   def isOwner(id: User.ID) = ownerId == id
+
+  def canWrite(id: User.ID) = isOwner(id)
 }
 
 object Study {

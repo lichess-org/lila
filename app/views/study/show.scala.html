@@ -27,7 +27,7 @@ socketVersion: @socketVersion
 @study.layout(
 title = title,
 side = Html(""),
-chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth),
+chat = base.chatDom(trans.spectatorRoom.str(), withNotes = false),
 underchat = underchat,
 moreJs = moreJs) {
 <div class="analyse cg-512">@miniBoardContent</div>

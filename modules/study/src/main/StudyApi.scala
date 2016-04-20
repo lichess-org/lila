@@ -37,27 +37,33 @@ final class StudyApi(
   }
 
   def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
-    val newChapter = location.chapter.updateRoot { root =>
-      root.withChildren(_.addNodeAt(node, path))
+    (location.study canWrite node.by) ?? {
+      val newChapter = location.chapter.updateRoot { root =>
+        root.withChildren(_.addNodeAt(node, path))
+      }
+      repo.setChapter(location withChapter newChapter) >>
+        repo.setMemberPosition(node.by, ref, path + node) >>-
+        sendTo(ref.studyId, Socket.AddNode(Position.Ref(ref.chapterId, path), node))
     }
-    repo.setChapter(location withChapter newChapter) >>
-      repo.setMemberPosition(node.by, ref, path + node) >>-
-      sendTo(ref.studyId, Socket.AddNode(Position.Ref(ref.chapterId, path), node))
   }
 
-  def deleteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
-    val newChapter = location.chapter.updateRoot { root =>
-      root.withChildren(_.deleteNodeAt(path))
+  def deleteNodeAt(userId: User.ID, ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
+    (location.study canWrite userId) ?? {
+      val newChapter = location.chapter.updateRoot { root =>
+        root.withChildren(_.deleteNodeAt(path))
+      }
+      repo.setChapter(location withChapter newChapter) >>-
+        sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path)))
     }
-    repo.setChapter(location withChapter newChapter) >>-
-      sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path)))
   }
 
-  def promoteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
-    val newChapter = location.chapter.updateRoot { root =>
-      root.withChildren(_.promoteNodeAt(path))
+  def promoteNodeAt(userId: User.ID, ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
+    (location.study canWrite userId) ?? {
+      val newChapter = location.chapter.updateRoot { root =>
+        root.withChildren(_.promoteNodeAt(path))
+      }
+      repo.setChapter(location withChapter newChapter)
     }
-    repo.setChapter(location withChapter newChapter)
   }
 
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =

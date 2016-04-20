@@ -77,12 +77,16 @@ private[study] final class SocketHandler(
     }
     case ("deleteVariation", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
-        api.deleteNodeAt(Location.Ref(studyId, d.chapterId), Path(d.path))
+        member.userId foreach { userId =>
+          api.deleteNodeAt(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+        }
       }
     }
     case ("promoteVariation", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
-        api.promoteNodeAt(Location.Ref(studyId, d.chapterId), Path(d.path))
+        member.userId foreach { userId =>
+          api.promoteNodeAt(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+        }
       }
     }
   }
