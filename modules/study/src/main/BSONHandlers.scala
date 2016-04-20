@@ -61,12 +61,14 @@ private object BSONHandlers {
   import Uci.WithSan
   private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
 
+  private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
+
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
       ply = r int "p",
       move = WithSan(r.get[Uci]("u"), r.str("s")),
-      fen = r str "f",
+      fen = r.get[FEN]("f"),
       check = r boolD "c",
       by = r str "b",
       children = r.get[Node.Children]("n"))
@@ -84,7 +86,7 @@ private object BSONHandlers {
   private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
     def reads(r: Reader) = Root(
       ply = r int "p",
-      fen = r str "f",
+      fen = r.get[FEN]("f"),
       check = r boolD "c",
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
@@ -103,7 +105,6 @@ private object BSONHandlers {
     def read(b: BSONString): Path = Path(b.value)
     def write(x: Path) = BSONString(x.toString)
   }
-  implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)

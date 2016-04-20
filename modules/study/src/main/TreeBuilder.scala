@@ -13,7 +13,7 @@ object TreeBuilder {
 
   def apply(root: Node.Root) = tree.Root(
     ply = root.ply,
-    fen = root.fen,
+    fen = root.fen.value,
     check = root.check,
     children = toBranches(root.children),
     crazyData = none)
@@ -22,7 +22,7 @@ object TreeBuilder {
     id = node.id,
     ply = node.ply,
     move = node.move,
-    fen = node.fen,
+    fen = node.fen.value,
     check = node.check,
     children = toBranches(node.children),
     crazyData = none)

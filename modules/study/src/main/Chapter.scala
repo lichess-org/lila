@@ -21,8 +21,7 @@ object Chapter {
   case class Setup(
     gameId: Option[String],
     variant: Variant,
-    orientation: Color,
-    initialFen: FEN)
+    orientation: Color)
 
   type ID = String
   type Brush = String

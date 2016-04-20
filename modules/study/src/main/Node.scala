@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.{ Uci, UciCharPair, Forsyth }
+import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 
 import lila.user.User
 
@@ -8,7 +8,7 @@ case class Node(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: String,
+    fen: FEN,
     check: Boolean,
     by: User.ID,
     children: Node.Children) {
@@ -47,7 +47,7 @@ object Node {
 
   case class Root(
       ply: Int,
-      fen: String,
+      fen: FEN,
       check: Boolean,
       children: Children) {
 
@@ -58,7 +58,7 @@ object Node {
 
     val default = Root(
       ply = 0,
-      fen = Forsyth.initial,
+      fen = FEN(Forsyth.initial),
       check = false,
       children = emptyChildren)
   }
@@ -67,7 +67,7 @@ object Node {
     id = b.id,
     ply = b.ply,
     move = b.move,
-    fen = b.fen,
+    fen = FEN(b.fen),
     check = b.check,
     by = userId,
     children = Children(b.children.toVector.map(fromBranchBy(userId))))

@@ -17,7 +17,7 @@ object Study extends LilaController {
     OptionFuResult(env.api byId id) { study =>
       study.firstChapter ?? { chapter =>
         val setup = chapter.setup
-        val initialFen = setup.initialFen
+        val initialFen = chapter.root.fen
         val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
         Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
           env.version(id) map {

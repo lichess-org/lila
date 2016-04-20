@@ -21,7 +21,6 @@ final class StudyApi(
       setup = Chapter.Setup(
         gameId = none,
         variant = chess.variant.Standard,
-        initialFen = FEN(Forsyth.initial),
         orientation = chess.White))
     repo insert study inject study
   }

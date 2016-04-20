@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.{ Uci, UciCharPair, Forsyth }
+import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import play.api.libs.json._
 
 import lila.common.LightUser
@@ -33,6 +33,9 @@ final class JsonView(
   private implicit val colorWriter = Writes[chess.Color] { c =>
     JsString(c.name)
   }
+  private implicit val fenWriter = Writes[FEN] { f =>
+    JsString(f.value)
+  }
   private implicit val moveWrites = Json.writes[Uci.WithSan]
 
   implicit lazy val nodeWrites: Writes[Node] = Writes[Node] { n =>
@@ -40,7 +43,7 @@ final class JsonView(
       "id" -> n.id,
       "ply" -> n.ply,
       "move" -> n.move,
-      "fen" -> n.fen,
+      "fen" -> fenWriter.writes(n.fen),
       "check" -> n.check,
       "by" -> n.by,
       "children" -> n.children.nodes)
