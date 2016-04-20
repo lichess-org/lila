@@ -32,7 +32,11 @@ case class Study(
   def addMember(id: User.ID, member: StudyMember) =
     copy(members = members + (id -> member))
 
+  def hasMember(id: User.ID) = members contains id
+
   def owner = members get ownerId
+
+  def isOwner(id: User.ID) = ownerId == id
 }
 
 object Study {
@@ -46,10 +50,11 @@ object Study {
     setup: Chapter.Setup) = {
     val chapterId = Chapter.makeId
     val chapter = Chapter.make(setup, Node.Root.default, 1)
+    val owner = StudyMember(Position.Ref(chapterId, Path.root))
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
       chapters = Map(chapterId -> chapter),
-      members = Map(ownerId -> StudyMember(true, chapterId, Path.root)),
+      members = Map(ownerId -> owner),
       ownerId = ownerId,
       createdAt = DateTime.now)
   }

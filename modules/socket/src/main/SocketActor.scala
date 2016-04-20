@@ -74,6 +74,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     members.values.foreach(_ push msg)
   }
 
+  def notifyIf[A: Writes](pred: SocketMember => Boolean, t: String, data: A) {
+    val msg = makeMessage(t, data)
+    members.values.filter(pred).foreach(_ push msg)
+  }
+
   def notifyAllAsync[A: Writes](t: String, data: A) = Future {
     notifyAll(t, data)
   }

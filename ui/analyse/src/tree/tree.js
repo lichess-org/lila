@@ -97,7 +97,7 @@ module.exports = function(root) {
     return opening;
   }
 
-  function updateAtPath(path, update) {
+  function updateAt(path, update) {
     var node = nodeAtPathOrNull(path);
     if (node) {
       update(node);
@@ -109,7 +109,7 @@ module.exports = function(root) {
   function addNode(node, path) {
     var newPath = path + node.id;
     if (!nodeAtPathOrNull(newPath))
-      updateAtPath(path, function(parent) {
+      updateAt(path, function(parent) {
         parent.children.push(node);
       });
     return newPath;
@@ -137,9 +137,10 @@ module.exports = function(root) {
     nodeAtPath: nodeAtPath,
     getNodeList: getNodeList,
     getOpening: getOpening,
+    updateAt: updateAt,
     addNode: addNode,
     addDests: function(dests, path, opening) {
-      return updateAtPath(path, function(node) {
+      return updateAt(path, function(node) {
         node.dests = dests;
         if (opening) node.opening = opening;
       });

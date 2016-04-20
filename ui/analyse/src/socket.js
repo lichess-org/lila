@@ -41,6 +41,9 @@ module.exports = function(send, ctrl) {
     if (handlers[type]) {
       handlers[type](data);
       return true;
+    } else if (ctrl.study && ctrl.study.socketHandlers[type]) {
+      ctrl.study.socketHandlers[type](data);
+      return true;
     }
     return false;
   }.bind(this);
@@ -48,7 +51,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    if (ctrl.study) req.chapterId = ctrl.study.chapterId();
+    if (ctrl.study) req.chapterId = ctrl.study.position().chapterId;
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);

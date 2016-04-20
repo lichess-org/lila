@@ -22,7 +22,7 @@ module.exports = {
   },
 
   last: function(ctrl) {
-    ctrl.userJump(ctrl.tree.nodeListToPath(ctrl.vm.mainline));
+    ctrl.userJump(treePath.fromNodeList(ctrl.vm.mainline));
   },
 
   first: function(ctrl) {

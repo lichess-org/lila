@@ -8,6 +8,7 @@ import scala.concurrent.duration.Duration
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.user.User
 
 private final class Socket(
     studyId: String,
@@ -16,11 +17,24 @@ private final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
 
+  import Socket._
+  import JsonView._
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   def receiveSpecific = {
 
-    case Socket.Reload =>
+    case MemberPosition(userId, pos) => notifyIf(
+      m => !m.userId.contains(userId),
+      "mpos",
+      Json.obj("u" -> userId, "p" -> pos))
+
+    case AddNode(pos, node) => notifyIf(
+      m => !m.userId.contains(node.by),
+      "addNode",
+      Json.obj("n" -> node, "p" -> pos))
+
+    case Reload =>
       getStudy(studyId) foreach {
         _ foreach { study =>
           notifyVersion("reload", JsNull, ())
@@ -67,4 +81,7 @@ private object Socket {
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload
+
+  case class MemberPosition(userId: User.ID, position: Position.Ref)
+  case class AddNode(position: Position.Ref, node: Node)
 }

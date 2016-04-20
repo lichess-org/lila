@@ -1,39 +1,68 @@
+var m = require('mithril');
+
 module.exports = {
-  init: function(data, send, userId) {
+  init: function(data, ctrl) {
+
+    var send = ctrl.socket.send;
+    var userId = ctrl.userId;
 
     function myMember() {
       return userId ? data.members[userId] : null;
     }
+
     function owner() {
-      return data.members.find(function(m) {
-        return m.owner;
-      });
+      return data.members[data.ownerId];
+    }
+
+    function meOrOwner() {
+      return myMember() || owner();
     }
 
     var vm = {
-      chapterId: myMember() ? myMember().chapterId : owner().chapterId
+      position: meOrOwner().position
     };
 
     function addChapterId(data) {
-      data.chapterId = vm.chapterId;
+      data.chapterId = vm.position.chapterId;
       return data;
     }
 
+    function updateMember(id, f) {
+      data.members[id] && f(data.members[id]);
+    }
+
     return {
-      chapterId: function() {
-        return vm.chapterId;
-      },
-      path: function() {
-        return myMember() ? myMember().path : owner().path;
+      position: function() {
+        return vm.position;
       },
       setPath: function(path) {
-        userId && send("setPath", addChapterId({path: path}));
+        userId && send("setPos", addChapterId({
+          path: path
+        }));
       },
       deleteVariation: function(path) {
-        send("deleteVariation", addChapterId({path: path}));
+        send("deleteVariation", addChapterId({
+          path: path
+        }));
       },
       promoteVariation: function(path) {
-        send("promoteVariation", addChapterId({path: path}));
+        send("promoteVariation", addChapterId({
+          path: path
+        }));
+      },
+      socketHandlers: {
+        mpos: function(d) {
+          updateMember(d.u, function(m) {
+            m.position = d.p;
+            ctrl.userJump(m.position.path);
+          });
+        },
+        addNode: function(d) {
+          if (d.p.chapterId !== vm.position.chapterId) return;
+          ctrl.tree.addNode(d.n, d.p.path);
+          ctrl.jump(ctrl.vm.path);
+          m.redraw();
+        }
       }
     };
   }

@@ -115,6 +115,10 @@ private object BSONHandlers {
 
   private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
 
+  implicit val PositionRefBSONHandler = new BSONHandler[BSONString, Position.Ref] {
+    def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"
+    def write(x: Position.Ref) = BSONString(x.encode)
+  }
   private implicit val MemberBSONHandler = Macros.handler[StudyMember]
   private implicit val MembersBSONHandler = MapDocument.MapHandler[StudyMember]
 

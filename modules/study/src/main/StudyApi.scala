@@ -31,15 +31,18 @@ final class StudyApi(
   def locationById(id: Location.Ref.ID): Fu[Option[Location]] =
     (Location.Ref parseId id) ?? locationByRef
 
-  def setMemberPath(userId: User.ID, ref: Location.Ref, path: Path) =
-    repo.setMemberPath(userId, ref, path)
+  def setMemberPosition(userId: User.ID, ref: Location.Ref, path: Path) = {
+    repo.setMemberPosition(userId, ref, path) >>-
+      sendTo(ref.studyId, Socket.MemberPosition(userId, Position.Ref(ref.chapterId, path)))
+  }
 
   def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
     val newChapter = location.chapter.updateRoot { root =>
       root.withChildren(_.addNodeAt(node, path))
     }
     repo.setChapter(location withChapter newChapter) >>
-      repo.setMemberPath(node.by, ref, path + node)
+      repo.setMemberPosition(node.by, ref, path + node) >>-
+      sendTo(ref.studyId, Socket.AddNode(Position.Ref(ref.chapterId, path), node))
   }
 
   def deleteNodeAt(ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
@@ -77,5 +80,9 @@ final class StudyApi(
     val work = Sequencer.work(f, promise.some)
     sequencers ! Tell(studyId, work)
     promise.future
+  }
+
+  private def sendTo(studyId: String, msg: Any) {
+    socketHub ! Tell(studyId, msg)
   }
 }

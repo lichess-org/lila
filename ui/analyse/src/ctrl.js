@@ -140,7 +140,7 @@ module.exports = function(opts) {
     opts.onChange(this.vm.node.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = (!opts.data.study && window.history.replaceState) ? throttle(750, false, function() {
+  var updateHref = (!opts.study && window.history.replaceState) ? throttle(750, false, function() {
     window.history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false) : $.noop;
 
@@ -149,6 +149,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
+    if (this.study && path !== this.vm.path) this.study.setPath(path);
     this.setPath(path);
     this.toggleVariationMenu(null);
     showGround();
@@ -165,7 +166,6 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
-    this.study && this.study.setPath(this.vm.path);
   }.bind(this);
 
   this.userJump = function(path) {
@@ -356,10 +356,10 @@ module.exports = function(opts) {
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
   this.ceval = cevalCtrl(allowCeval, this.data.game.variant, function(res) {
-    this.analyse.updateAtPath(res.work.path, function(node) {
+    this.tree.updateAt(res.work.path, function(node) {
       if (node.ceval && node.ceval.depth >= res.eval.depth) return;
       node.ceval = res.eval;
-      if (treePath.write(res.work.path) === this.vm.path) {
+      if (res.work.path === this.vm.path) {
         this.setAutoShapes();
         m.redraw();
       }
@@ -372,7 +372,7 @@ module.exports = function(opts) {
 
   var startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.analyse.getNodes(this.vm.path));
+      this.ceval.start(this.vm.path, this.vm.nodeList);
   }.bind(this));
 
   this.toggleCeval = function() {
@@ -445,7 +445,7 @@ module.exports = function(opts) {
     this.socket.receive(type, data);
   }.bind(this);
 
-  this.study = opts.study ? studyCtrl.init(opts.study, this.socket.send, this.userId) : null;
+  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
@@ -453,5 +453,5 @@ module.exports = function(opts) {
   startCeval();
   this.explorer.setNode();
   tour.init(this.explorer);
-  this.study && this.userJump(this.study.path());
+  this.study && this.userJump(this.study.position().path);
 };

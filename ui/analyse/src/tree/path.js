@@ -45,6 +45,12 @@ module.exports = {
     return p1.indexOf(p2) === 0;
   },
 
+  fromNodeList: function(nodes) {
+    return nodes.map(function(n) {
+      return n.id;
+    }).join('');
+  },
+
   // currentPly: function(path) {
   //   return path[path.length - 1].ply;
   // },

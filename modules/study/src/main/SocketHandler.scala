@@ -34,11 +34,8 @@ private[study] final class SocketHandler(
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
-  private object datatypes {
-    case class AtPath(path: String, chapterId: String)
-    implicit val atPathVarReader = Json.reads[AtPath]
-  }
-  import datatypes._
+  private case class AtPath(path: String, chapterId: String)
+  private implicit val atPathVarReader = Json.reads[AtPath]
 
   import Handler.AnaRateLimit
 
@@ -71,10 +68,10 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("setPath", o) => AnaRateLimit(uid) {
+    case ("setPos", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.setMemberPath(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+          api.setMemberPosition(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
         }
       }
     }
