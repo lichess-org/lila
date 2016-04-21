@@ -10,6 +10,12 @@
 .members .member > * {
   padding: 10px;
 }
+.member .user_link {
+  font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 16px;
+}
 .members .action {
   display: block;
   width: 16px;
@@ -47,4 +53,24 @@ body.dark .members .action.empty {
   border-top: 1px solid #ccc;
   background: white;
   padding: 3px 5px;
+}
+.members .confing,
+.members .config {
+  background: #fff;
+}
+.members .config {
+  padding: 5px 10px 15px 10px;
+}
+.members .config .role {
+  line-height: 22px;
+}
+.members .config .role label {
+  cursor: pointer;
+}
+.members .config .switch {
+  float: left;
+  margin-right: 10px;
+}
+.members .config .kick {
+  margin-top: 15px;
 }

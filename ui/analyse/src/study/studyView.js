@@ -54,8 +54,28 @@ module.exports = function(ctrl) {
 
   var memberConfig = function(member) {
     return m('div.config', [
-      m('div', 'Contributor'),
-      m('div', m('a.button[data-icon=L]', {
+      (function(id) {
+        return m('div.role', [
+          m('div.switch', [
+            m('input', {
+              id: id,
+              class: 'cmn-toggle cmn-toggle-round',
+              type: 'checkbox',
+              checked: member.role === 'w',
+              onchange: function(e) {
+                ctrl.setRole(member.user.id, e.target.checked ? 'w' : 'r');
+              }
+            }),
+            m('label', {
+              'for': id
+            })
+          ]),
+          m('label', {
+            'for': id
+          }, 'Contributor')
+        ]);
+      })('member-role'),
+      m('div.kick', m('a.button.text[data-icon=L]', {
         onclick: function() {
           ctrl.kick(member.user.id);
         }
@@ -75,7 +95,7 @@ module.exports = function(ctrl) {
           confing: confing
         })
       };
-      if (ownage) attrs.onclick = function() {
+      if (ownage && ctrl.userId !== member.user.id) attrs.onclick = function() {
         ctrl.vm.memberConfig = confing ? null : member.user.id;
       }
       return [

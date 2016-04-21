@@ -84,14 +84,15 @@ module.exports = {
       },
       orderedMembers: orderedMembers,
       follow: follow,
-      toggleRole: function(userId) {
-        if (!ownage) return;
-        var next = data.members[userId].role === 'w' ? 'r' : 'w'
-        data.members[userId].role = next;
+      setRole: function(userId, role) {
         send("setRole", {
           userId: userId,
-          role: next
+          role: role
         });
+        setTimeout(function() {
+          vm.memberConfig = null;
+          m.redraw();
+        }, 500);
       },
       invite: function(username) {
         send("invite", username);
