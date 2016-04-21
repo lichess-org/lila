@@ -94,5 +94,9 @@ object JsonView {
   }
   private[study] implicit val memberWrites: Writes[StudyMember] = Json.writes[StudyMember]
 
+  private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
+    Json toJson m.members
+  }
+
   case class BiData(study: JsObject, analysis: JsObject)
 }

@@ -125,8 +125,12 @@ private object BSONHandlers {
     def write(x: StudyMember.Role) = BSONString(x.id)
   }
   private implicit val LightUserBSONHandler = Macros.handler[LightUser]
-  private implicit val MemberBSONHandler = Macros.handler[StudyMember]
+  private[study] implicit val MemberBSONHandler = Macros.handler[StudyMember]
   private[study] implicit val MemberMapBSONHandler = MapDocument.MapHandler[StudyMember]
+  private[study] implicit val MembersBSONHandler = new BSONHandler[BSONDocument, StudyMembers] {
+    def read(b: BSONDocument) = StudyMembers(MemberMapBSONHandler read b)
+    def write(x: StudyMembers) = MemberMapBSONHandler write x.members
+  }
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

@@ -27,7 +27,7 @@ private[study] final class SocketHandler(
     join = Socket.Join(uid = uid, userId = userId, owner = owner)
     handler ← Handler(hub, socket, uid, join, userId) {
       case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member), enum, member)
+        (controller(socket, studyId, uid, member, owner = owner), enum, member)
     }
   } yield handler.some
 
@@ -45,7 +45,8 @@ private[study] final class SocketHandler(
     socket: ActorRef,
     studyId: Study.ID,
     uid: String,
-    member: Socket.Member): Handler.Controller = {
+    member: Socket.Member,
+    owner: Boolean): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid, v)
     }
@@ -91,12 +92,21 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("setRole", o) => AnaRateLimit(uid) {
+    case ("setRole", o) if owner => AnaRateLimit(uid) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(studyId, userId, d.userId, d.role)
         }
       }
     }
+    case ("invite", o) if owner => for {
+      byUserId <- member.userId
+      username <- o str "d"
+    } api.invite(studyId, byUserId, username)
+
+    case ("kick", o) if owner => for {
+      byUserId <- member.userId
+      userId <- o str "d"
+    } api.kick(studyId, byUserId, userId)
   }
 }

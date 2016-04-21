@@ -11,7 +11,7 @@ import lila.user.User
 case class Study(
     _id: Study.ID,
     chapters: ChapterMap,
-    members: MemberMap,
+    members: StudyMembers,
     ownerId: User.ID,
     createdAt: DateTime) {
 
@@ -22,17 +22,13 @@ case class Study(
   def orderedChapters: List[(Chapter.ID, Chapter)] =
     chapters.toList.sortBy(_._2.order)
 
-  def firstChapter = orderedChapters.headOption.map(_._2)
+  def firstChapterId = orderedChapters.headOption.map(_._1)
+  def firstChapter = firstChapterId flatMap chapters.get
 
   def location(chapterId: Chapter.ID): Option[Location] =
     chapters get chapterId map { Location(this, chapterId, _) }
 
   def nextChapterOrder: Int = orderedChapters.lastOption.fold(0)(_._2.order) + 1
-
-  def addMember(id: User.ID, member: StudyMember) =
-    copy(members = members + (id -> member))
-
-  def hasMember(id: User.ID) = members contains id
 
   def owner = members get ownerId
 
@@ -52,11 +48,15 @@ object Study {
     setup: Chapter.Setup) = {
     val chapterId = Chapter.makeId
     val chapter = Chapter.make(setup, Node.Root.default, 1)
-    val owner = StudyMember(user, Position.Ref(chapterId, Path.root), StudyMember.Role.Write)
+    val owner = StudyMember(
+      user,
+      Position.Ref(chapterId, Path.root),
+      StudyMember.Role.Write,
+      DateTime.now)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
       chapters = Map(chapterId -> chapter),
-      members = Map(user.id -> owner),
+      members = StudyMembers(Map(user.id -> owner)),
       ownerId = user.id,
       createdAt = DateTime.now)
   }

@@ -21,15 +21,16 @@ module.exports = {
 
     var vm = {
       position: meOrOwner().position,
-      follow: null
+      follow: null, // which user is being followed by us
+      memberConfig: null // which user is being configured by us
     };
 
-    function joiners() {
-      var members = [];
-      for (var id in data.members)
-        if (id !== data.ownerId)
-          members.push(data.members[id]);
-      return members;
+    function orderedMembers() {
+      return Object.keys(data.members).map(function(id) {
+        return data.members[id];
+      }).sort(function(a, b) {
+        return a.addedAt > b.addedAt;
+      });
     }
 
     function addChapterId(data) {
@@ -54,6 +55,10 @@ module.exports = {
     }
     follow(data.ownerId);
 
+    function invite(username) {
+      if (ownage) send("invite", username);
+    }
+
     return {
       data: data,
       vm: vm,
@@ -77,9 +82,7 @@ module.exports = {
           path: path
         }));
       },
-      orderedMembers: function() {
-        return [owner()].concat(joiners());
-      },
+      orderedMembers: orderedMembers,
       follow: follow,
       toggleRole: function(userId) {
         if (!ownage) return;
@@ -89,6 +92,12 @@ module.exports = {
           userId: userId,
           role: next
         });
+      },
+      invite: function(username) {
+        send("invite", username);
+      },
+      kick: function(userId) {
+        send("kick", userId);
       },
       socketHandlers: {
         mpos: function(d) {

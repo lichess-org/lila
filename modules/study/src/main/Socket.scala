@@ -92,5 +92,5 @@ private object Socket {
   case class MemberPosition(userId: User.ID, position: Position.Ref)
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
-  case class ReloadMembers(members: MemberMap)
+  case class ReloadMembers(members: StudyMembers)
 }

@@ -1,31 +1,50 @@
-.members > div {
+.members .member {
   display: flex;
   justify-content: space-between;
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.members > div > * {
+.members.ownage .member {
+  cursor: pointer;
+}
+.members .member > * {
   padding: 10px;
 }
-.members .follow {
+.members .action {
   display: block;
   width: 16px;
   height: 16px;
   cursor: pointer;
-  opacity: 0.3;
+  opacity: 0.4;
   transition: opacity 0.13s;
+  background: #fff;
 }
-.members .follow i::before {
+.members .action.empty {
+  background: #ddd;
+  opacity: 1;
+  cursor: default;
+}
+body.dark .members .action.empty {
+  background: #333;
+}
+.members .action i::before {
   font-size: 1.5em;
 }
-.members > div:hover .follow {
+.members > div:hover .action {
   opacity: 1;
 }
-.members .following .follow {
+.members .following .action {
   background: #3893E8;
   color: #fff;
   opacity: 1;
 }
 .members.ownage .role {
   cursor: pointer;
+}
+.members .invite input {
+  width: 213px;
+  border: none;
+  border-top: 1px solid #ccc;
+  background: white;
+  padding: 3px 5px;
 }

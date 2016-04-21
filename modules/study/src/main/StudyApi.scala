@@ -5,7 +5,7 @@ import akka.actor.ActorRef
 import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class StudyApi(
     repo: StudyRepo,
@@ -31,9 +31,12 @@ final class StudyApi(
   def locationById(id: Location.Ref.ID): Fu[Option[Location]] =
     (Location.Ref parseId id) ?? locationByRef
 
-  def setMemberPosition(userId: User.ID, ref: Location.Ref, path: Path) =
-    repo.setMemberPosition(userId, ref, path) >>-
-      sendTo(ref.studyId, Socket.MemberPosition(userId, Position.Ref(ref.chapterId, path)))
+  def setMemberPosition(userId: User.ID, ref: Location.Ref, path: Path) = sequenceLocation(ref) { location =>
+    (location.study canWrite userId) ?? {
+      repo.setMemberPosition(userId, ref, path) >>-
+        sendTo(ref.studyId, Socket.MemberPosition(userId, Position.Ref(ref.chapterId, path)))
+    }
+  }
 
   def addNode(ref: Location.Ref, path: Path, node: Node) = sequenceLocation(ref) { location =>
     (location.study canWrite node.by) ?? {
@@ -66,16 +69,30 @@ final class StudyApi(
   }
 
   def setRole(studyId: Study.ID, byUserId: User.ID, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
-    (study isOwner byUserId) ?? {
-      val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-      repo.setRole(study, userId, role) >>-
-        repo.membersById(study.id).foreach {
-          _ foreach { members =>
-            sendTo(study.id, Socket.ReloadMembers(members))
-          }
-        }
-    }
+    val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+    repo.setRole(study, userId, role) >>- reloadMembers(study)
   }
+
+  def invite(studyId: Study.ID, byUserId: User.ID, username: String) = sequenceStudy(studyId) { study =>
+    UserRepo.named(username).flatMap {
+      _.filterNot(study.members.contains) ?? { user =>
+        repo.addMember(study, StudyMember.make(study, user))
+      }
+    } >>- reloadMembers(study)
+  }
+
+  def kick(studyId: Study.ID, byUserId: User.ID, userId: User.ID) = sequenceStudy(studyId) { study =>
+    study.members.contains(userId) ?? {
+      repo.removeMember(study, userId)
+    } >>- reloadMembers(study)
+  }
+
+  private def reloadMembers(study: Study) =
+    repo.membersById(study.id).foreach {
+      _ foreach { members =>
+        sendTo(study.id, Socket.ReloadMembers(members))
+      }
+    }
 
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =
     Location.Ref.parseId(refId) ?? { ref =>

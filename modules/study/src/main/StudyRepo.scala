@@ -17,8 +17,8 @@ private final class StudyRepo(coll: Coll) {
 
   def insert(s: Study): Funit = coll.insert(s).void
 
-  def membersById(id: Study.ID): Fu[Option[MemberMap]] =
-    coll.primitiveOne[MemberMap]($id(id), "members")
+  def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
+    coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def setChapter(loc: Location) = coll.update(
     $id(loc.study.id),
@@ -29,6 +29,18 @@ private final class StudyRepo(coll: Coll) {
     coll.update(
       $id(ref.studyId),
       $set(s"members.$id.position" -> Position.Ref(ref.chapterId, path))
+    ).void
+
+  def addMember(study: Study, member: StudyMember): Funit =
+    coll.update(
+      $id(study.id),
+      $set(s"members.${member.user.id}" -> member)
+    ).void
+
+  def removeMember(study: Study, userId: User.ID): Funit =
+    coll.update(
+      $id(study.id),
+      $unset(s"members.$userId")
     ).void
 
   def setRole(study: Study, id: User.ID, role: StudyMember.Role): Funit =
