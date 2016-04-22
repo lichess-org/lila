@@ -9,7 +9,6 @@ import lila.user.{ User, UserRepo }
 
 final class StudyApi(
     repo: StudyRepo,
-    jsonView: JsonView,
     sequencers: ActorRef,
     socketHub: akka.actor.ActorRef) {
 
@@ -84,6 +83,12 @@ final class StudyApi(
   def kick(studyId: Study.ID, byUserId: User.ID, userId: User.ID) = sequenceStudy(studyId) { study =>
     study.members.contains(userId) ?? {
       repo.removeMember(study, userId)
+    } >>- reloadMembers(study)
+  }
+
+  def setShapes(studyId: Study.ID, userId: User.ID, shapes: List[Shape]) = sequenceStudy(studyId) { study =>
+    (study canWrite userId) ?? {
+      repo.setShapes(study, userId, shapes)
     } >>- reloadMembers(study)
   }
 

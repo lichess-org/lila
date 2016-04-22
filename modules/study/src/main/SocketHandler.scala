@@ -32,7 +32,7 @@ private[study] final class SocketHandler(
   } yield handler.some
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+    o obj "d" flatMap { d => reader.reads(d).pp.asOpt } foreach f
 
   private case class AtPath(path: String, chapterId: String)
   private implicit val atPathReader = Json.reads[AtPath]
@@ -40,6 +40,7 @@ private[study] final class SocketHandler(
   private implicit val SetRoleReader = Json.reads[SetRole]
 
   import Handler.AnaRateLimit
+  import JsonView.shapeReader
 
   private def controller(
     socket: ActorRef,
@@ -108,5 +109,13 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       userId <- o str "d"
     } api.kick(studyId, byUserId, userId)
+
+    case ("shapes", o) =>
+      reading[List[Shape]](o.pp) { shapes =>
+        println(shapes)
+        member.userId foreach { userId =>
+          api.setShapes(studyId, userId, shapes)
+        }
+      }
   }
 }

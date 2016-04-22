@@ -53,11 +53,21 @@ module.exports = {
       if (vm.follow) ctrl.userJump(data.members[vm.follow].position.path);
       checkFollow();
     }
-    follow(data.ownerId);
+    if (ownage) ctrl.userJump(owner().position.path);
+    else follow(data.ownerId);
 
     function invite(username) {
       if (ownage) send("invite", username);
     }
+
+    ctrl.chessground.set({
+      drawable: {
+        onChange: function(shapes) {
+          console.log(shapes);
+          send("shapes", shapes);
+        }
+      }
+    });
 
     return {
       data: data,
@@ -104,7 +114,10 @@ module.exports = {
         mpos: function(d) {
           updateMember(d.u, function(m) {
             m.position = d.p;
-            if (vm.follow === d.u) ctrl.userJump(m.position.path);
+            if (vm.follow === d.u) {
+              ctrl.userJump(m.position.path);
+              m.redraw();
+            }
           });
         },
         addNode: function(d) {

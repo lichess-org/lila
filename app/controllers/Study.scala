@@ -26,7 +26,7 @@ object Study extends LilaController {
               val analysis = baseData ++ Json.obj(
                 "tree" -> lila.study.TreeBuilder(chapter.root))
               val data = lila.study.JsonView.BiData(
-                study = env.jsonView.study(study),
+                study = lila.study.JsonView.study(study),
                 analysis = analysis)
               Ok(html.study.show(study, data, sVersion))
           }

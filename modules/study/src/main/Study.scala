@@ -1,10 +1,6 @@
 package lila.study
 
-import chess.format.{ Uci, FEN }
-import chess.Pos
-import chess.variant.Variant
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
 
 import lila.user.User
 
@@ -49,10 +45,11 @@ object Study {
     val chapterId = Chapter.makeId
     val chapter = Chapter.make(setup, Node.Root.default, 1)
     val owner = StudyMember(
-      user,
-      Position.Ref(chapterId, Path.root),
-      StudyMember.Role.Write,
-      DateTime.now)
+      user = user,
+      position = Position.Ref(chapterId, Path.root),
+      shapes = Nil,
+      role = StudyMember.Role.Write,
+      addedAt = DateTime.now)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
       chapters = Map(chapterId -> chapter),

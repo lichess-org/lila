@@ -43,9 +43,15 @@ private final class StudyRepo(coll: Coll) {
       $unset(s"members.$userId")
     ).void
 
-  def setRole(study: Study, id: User.ID, role: StudyMember.Role): Funit =
+  def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
     coll.update(
       $id(study.id),
-      $set(s"members.$id.role" -> role)
+      $set(s"members.$userId.role" -> role)
+    ).void
+
+  def setShapes(study: Study, userId: User.ID, shapes: List[Shape]): Funit =
+    coll.update(
+      $id(study.id),
+      $set(s"members.$userId.shapes" -> shapes)
     ).void
 }

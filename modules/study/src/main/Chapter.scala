@@ -1,14 +1,12 @@
 package lila.study
 
-import chess.format.FEN
 import chess.variant.Variant
-import chess.{ Pos, Color }
+import chess.Color
 import org.joda.time.DateTime
 
 case class Chapter(
     setup: Chapter.Setup,
     root: Node.Root,
-    shapes: List[Chapter.Shape],
     order: Int,
     createdAt: DateTime) {
 
@@ -17,19 +15,12 @@ case class Chapter(
 
 object Chapter {
 
+  type ID = String
+
   case class Setup(
     gameId: Option[String],
     variant: Variant,
     orientation: Color)
-
-  type ID = String
-  type Brush = String
-
-  sealed trait Shape
-  object Shape {
-    case class Circle(brush: Brush, pos: Pos) extends Shape
-    case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
-  }
 
   val idSize = 4
 
@@ -38,7 +29,6 @@ object Chapter {
   def make(setup: Setup, root: Node.Root, order: Int) = Chapter(
     setup = setup,
     root = root,
-    shapes = Nil,
     order = order,
     createdAt = DateTime.now)
 }

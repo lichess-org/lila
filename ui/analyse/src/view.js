@@ -115,7 +115,7 @@ function renderVariationContent(ctrl, node, path, full) {
       black: first
     });
   }
-  var maxPlies = Math.min(full ? 999 : 4, line.length);
+  var maxPlies = Math.min(full ? 999 : 6, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
     turn: plyToTurn(line[i].ply),
     white: line[i],

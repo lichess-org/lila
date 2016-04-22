@@ -1,17 +1,37 @@
 package lila.study
 
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
+import chess.Pos
 import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
 
-final class JsonView(
-    getLightUser: String => Option[LightUser]) {
-
-  import JsonView._
+object JsonView {
 
   def study(s: Study) = studyWrites writes s
+
+  private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
+    JsString(u.uci)
+  }
+  private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
+    JsString(u.toString)
+  }
+  private implicit val posWrites: Writes[Pos] = Writes[Pos] { p =>
+    JsString(p.key)
+  }
+  private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
+    (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+  }
+  private implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
+    JsString(p.toString)
+  }
+  private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
+    JsString(c.name)
+  }
+  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+    JsString(f.value)
+  }
 
   private implicit val rootWrites = Writes[Node.Root] { n =>
     Json.obj(
@@ -21,13 +41,26 @@ final class JsonView(
       "children" -> n.children.nodes)
   }
 
-  import Chapter.Shape
   private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
   private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
-  private implicit val shapeWrites = Writes[Shape] {
-    case s: Shape.Circle => Json toJson s
-    case s: Shape.Arrow  => Json toJson s
+  private implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
+    case s: Shape.Circle => shapeCircleWrites writes s
+    case s: Shape.Arrow  => shapeArrowWrites writes s
   }
+  private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
+    {
+      js.pp.asOpt[JsObject].pp flatMap { o =>
+        for {
+          brush <- o str "brush"
+          orig <- o.get[Pos]("orig")
+        } yield o.get[Pos]("dest") match {
+          case Some(dest) => Shape.Arrow(brush, orig, dest)
+          case _          => Shape.Circle(brush, orig)
+        }
+      }
+    }.pp("prefold").fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
+  }
+
   private implicit val fenWrites = Writes[chess.format.FEN] { f =>
     JsString(f.value)
   }
@@ -43,28 +76,6 @@ final class JsonView(
       "members" -> s.members,
       "ownerId" -> s.ownerId,
       "createdAt" -> s.createdAt)
-  }
-}
-
-object JsonView {
-
-  private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
-    JsString(u.uci)
-  }
-  private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
-    JsString(u.toString)
-  }
-  private implicit val posWrites: Writes[chess.Pos] = Writes[chess.Pos] { p =>
-    JsString(p.key)
-  }
-  private implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
-    JsString(p.toString)
-  }
-  private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
-    JsString(c.name)
-  }
-  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
-    JsString(f.value)
   }
   private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
 
