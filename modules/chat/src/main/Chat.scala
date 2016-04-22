@@ -7,8 +7,6 @@ sealed trait AnyChat {
   def lines: List[Line]
 
   def forUser(u: Option[User]): AnyChat
-
-  def toJsonString = Line toJsonString lines
 }
 
 sealed trait Chat[L <: Line] extends AnyChat {

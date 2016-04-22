@@ -2072,6 +2072,10 @@ lichess.challengeApp = (function() {
   ////////////////
 
   function startStudy(element, cfg) {
+    if (cfg.chat) $('#chat').chat({
+      messages: cfg.chat,
+      gameId: cfg.study.id
+    });
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');

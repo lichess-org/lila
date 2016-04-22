@@ -107,5 +107,8 @@ object JsonView {
     Json toJson m.members
   }
 
-  case class BiData(study: JsObject, analysis: JsObject)
+  case class JsData(
+    study: JsObject,
+    analysis: JsObject,
+    chat: JsValue)
 }

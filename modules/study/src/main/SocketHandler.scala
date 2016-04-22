@@ -16,6 +16,7 @@ import makeTimeout.short
 private[study] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
+    chat: ActorSelection,
     api: StudyApi) {
 
   def join(
@@ -50,6 +51,11 @@ private[study] final class SocketHandler(
     owner: Boolean): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid, v)
+    }
+    case ("talk", o) => o str "d" foreach { text =>
+      member.userId foreach { userId =>
+        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
+      }
     }
     case ("anaMove", o) => AnaRateLimit(uid) {
       AnaMove parse o foreach { anaMove =>

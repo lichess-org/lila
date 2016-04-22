@@ -47,9 +47,6 @@ body.dark .members .action.empty {
   color: #fff;
   opacity: 1;
 }
-.members.ownage .role {
-  cursor: pointer;
-}
 .members .invite input {
   width: 214px;
   border: none;

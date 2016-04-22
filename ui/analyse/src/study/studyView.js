@@ -42,7 +42,7 @@ module.exports = function(ctrl) {
 
   var configButton = function(member, confing) {
     if (!ownage || member.user.id === ctrl.userId) return null;
-    return m('span.action.config', {
+    return m('span.action.config.available', {
       onclick: function(e) {
         ctrl.vm.memberConfig = confing ? null : member.user.id;
       }

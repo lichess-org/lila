@@ -11,10 +11,10 @@ import lila.user.User
 
 private final class Socket(
     studyId: String,
-    val history: History[Unit],
+    val history: History[Socket.Messadata],
     getStudy: Study.ID => Fu[Option[Study]],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
+    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
   import Socket._
   import JsonView._
@@ -44,10 +44,16 @@ private final class Socket(
       "reloadMemberShapes",
       Json.obj("u" -> userId, "shapes" -> shapes))
 
+    case lila.chat.actorApi.ChatLine(_, line) => line match {
+      case line: lila.chat.UserLine =>
+        notifyVersion("message", lila.chat.JsonView(line), Messadata(line.troll))
+      case _ =>
+    }
+
     case Reload =>
       getStudy(studyId) foreach {
         _ foreach { study =>
-          notifyVersion("reload", JsNull, ())
+          notifyVersion("reload", JsNull, Messadata())
         }
       }
 
@@ -98,4 +104,6 @@ private object Socket {
   case class DelNode(position: Position.Ref)
   case class ReloadMembers(members: StudyMembers)
   case class ReloadMemberShapes(userId: User.ID, shapes: List[Shape])
+
+  case class Messadata(trollish: Boolean = false)
 }

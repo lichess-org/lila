@@ -1,4 +1,4 @@
-@(s: lila.study.Study, data: lila.study.JsonView.BiData, socketVersion: Int)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
 
 @title = @{ s"${usernameOrAnon(s.ownerId.some)} Study" }
 
@@ -7,8 +7,9 @@
 @embedJs {
 lichess = lichess || {};
 lichess.study = {
-study: @Html(play.api.libs.json.Json.stringify(data.study)),
-data: @Html(play.api.libs.json.Json.stringify(data.analysis)),
+study: @Html(J.stringify(data.study)),
+data: @Html(J.stringify(data.analysis)),
+chat: @Html(J.stringify(data.chat)),
 i18n: @board.userAnalysisI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {

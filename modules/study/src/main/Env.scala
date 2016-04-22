@@ -43,6 +43,7 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
+    chat = hub.actor.chat,
     api = api)
 
   lazy val api = new StudyApi(

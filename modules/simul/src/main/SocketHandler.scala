@@ -8,7 +8,6 @@ import akka.pattern.ask
 import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
-import lila.security.Flood
 import akka.actor.ActorSelection
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
@@ -19,7 +18,6 @@ private[simul] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
-    flood: Flood,
     exists: Simul.ID => Fu[Boolean]) {
 
   def join(
