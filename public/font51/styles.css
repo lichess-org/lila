@@ -359,9 +359,6 @@
 .icon-ellipsis:before {
   content: "\e008";
 }
-.icon-delicious:before {
-  content: "\e009";
-}
 .icon-flag-checkered:before {
   content: "\e00a";
 }
@@ -370,4 +367,7 @@
 }
 .icon-t-shirt:before {
   content: "\e00c";
+}
+.icon-radio-tower:before {
+  content: "\e00e";
 }
