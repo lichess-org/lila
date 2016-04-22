@@ -21,17 +21,33 @@ module.exports = function(ctrl) {
     }, member.role.toUpperCase());
   };
 
-  var rightButton = function(member) {
-    if (member.user.id === ctrl.userId) return m('span.action.empty');
+  var followButton = function(member) {
+    if (member.user.id === ctrl.userId) {
+      if (member.role === 'w') return m('span.action.follow', m('i', {
+        'data-icon': ''
+      }));
+      return m('span.action.empty');
+    }
     if (member.role !== 'w') return m('span.action.empty');
-    return m('span.action.follow.hint--top', {
+    return m('span.action.follow.available.hint--top', {
       'data-hint': 'Follow/Unfollow',
       onclick: function(e) {
         e.stopPropagation();
         ctrl.follow(member.user.id);
       }
     }, m('i', {
-      'data-icon': 'v'
+      'data-icon': ''
+    }));
+  };
+
+  var configButton = function(member, confing) {
+    if (!ownage || member.user.id === ctrl.userId) return null;
+    return m('span.action.config', {
+      onclick: function(e) {
+        ctrl.vm.memberConfig = confing ? null : member.user.id;
+      }
+    }, m('i', {
+      'data-icon': '%'
     }));
   };
 
@@ -77,7 +93,8 @@ module.exports = function(ctrl) {
       })('member-role'),
       m('div.kick', m('a.button.text[data-icon=L]', {
         onclick: function() {
-          ctrl.kick(member.user.id);
+          if (confirm('Kick ' + member.user.name + ' out of the study?'))
+            ctrl.kick(member.user.id);
         }
       }, 'Kick from this study'))
     ]);
@@ -95,13 +112,13 @@ module.exports = function(ctrl) {
           confing: confing
         })
       };
-      if (ownage && ctrl.userId !== member.user.id) attrs.onclick = function() {
-        ctrl.vm.memberConfig = confing ? null : member.user.id;
-      }
       return [
         m('div', attrs, [
           username(member),
-          rightButton(member),
+          m('div.actions', [
+            configButton(member, confing),
+            followButton(member)
+          ])
         ]),
         confing ? memberConfig(member) : null
       ];

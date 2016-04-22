@@ -25,6 +25,7 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.userId = opts.userId;
+  this.canStudy = opts.canStudy;
 
   var initialize = function(data) {
     this.data = data;
@@ -119,6 +120,7 @@ module.exports = function(opts) {
     onChange();
     if (!dests) getDests();
     this.setAutoShapes();
+    if (this.study) this.study.onShowGround();
   }.bind(this);
 
   var getDests = throttle(800, false, function() {

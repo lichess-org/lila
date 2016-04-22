@@ -21,7 +21,14 @@ private final class StudyRepo(coll: Coll) {
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def memberShapes(studyId: Study.ID, userId: User.ID): Fu[List[Shape]] =
-    coll.primitiveOne[List[Shape]]($id(studyId), s"members.$userId.shapes") map (~_)
+    coll.find($id(studyId), $doc(s"members.$userId.shapes" -> true)).uno[BSONDocument].map { docO =>
+      for {
+        doc <- docO
+        members <- doc.getAs[BSONDocument]("members")
+        member <- members.getAs[BSONDocument](userId)
+        shapes <- member.getAs[List[Shape]]("shapes")
+      } yield shapes
+    } map (~_)
 
   def setChapter(loc: Location) = coll.update(
     $id(loc.study.id),
@@ -31,7 +38,10 @@ private final class StudyRepo(coll: Coll) {
   def setMemberPosition(id: User.ID, ref: Location.Ref, path: Path): Funit =
     coll.update(
       $id(ref.studyId),
-      $set(s"members.$id.position" -> Position.Ref(ref.chapterId, path))
+      $set(
+        s"members.$id.position" -> Position.Ref(ref.chapterId, path),
+        s"members.$id.shapes" -> List.empty[Shape] // also reset shapes
+      )
     ).void
 
   def addMember(study: Study, member: StudyMember): Funit =

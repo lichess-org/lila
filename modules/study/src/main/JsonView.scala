@@ -48,17 +48,15 @@ object JsonView {
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
-    {
-      js.pp.asOpt[JsObject].pp flatMap { o =>
-        for {
-          brush <- o str "brush"
-          orig <- o.get[Pos]("orig")
-        } yield o.get[Pos]("dest") match {
-          case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _          => Shape.Circle(brush, orig)
-        }
+    js.asOpt[JsObject].flatMap { o =>
+      for {
+        brush <- o str "brush"
+        orig <- o.get[Pos]("orig")
+      } yield o.get[Pos]("dest") match {
+        case Some(dest) => Shape.Arrow(brush, orig, dest)
+        case _          => Shape.Circle(brush, orig)
       }
-    }.pp("prefold").fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
+    }.fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
 
   private implicit val fenWrites = Writes[chess.format.FEN] { f =>

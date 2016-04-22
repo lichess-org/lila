@@ -4,25 +4,28 @@
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.members.ownage .member {
-  cursor: pointer;
-}
-.members .member > * {
-  padding: 10px;
-}
 .member .user_link {
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 16px;
+  padding: 10px;
+}
+.members .actions {
+  display: flex;
 }
 .members .action {
   display: block;
   width: 16px;
   height: 16px;
-  cursor: pointer;
+  padding: 10px;
   opacity: 0.4;
   transition: opacity 0.13s;
+}
+.members .action.available {
+  cursor: pointer;
+}
+.members .action.follow {
   background: #fff;
 }
 .members .action.empty {
@@ -33,13 +36,13 @@
 body.dark .members .action.empty {
   background: #333;
 }
-.members .action i::before {
+.members .action.follow i::before {
   font-size: 1.5em;
 }
-.members > div:hover .action {
+.members > div:hover .action.available {
   opacity: 1;
 }
-.members .following .action {
+.members .following .action.follow {
   background: #3893E8;
   color: #fff;
   opacity: 1;
@@ -48,29 +51,29 @@ body.dark .members .action.empty {
   cursor: pointer;
 }
 .members .invite input {
-  width: 213px;
+  width: 214px;
   border: none;
   border-top: 1px solid #ccc;
   background: white;
   padding: 3px 5px;
 }
-.members .confing,
-.members .config {
+.members div.confing,
+.members div.config {
   background: #fff;
 }
-.members .config {
+.members div.config {
   padding: 5px 10px 15px 10px;
 }
-.members .config .role {
+.members div.config .role {
   line-height: 22px;
 }
-.members .config .role label {
+.members div.config .role label {
   cursor: pointer;
 }
-.members .config .switch {
+.members div.config .switch {
   float: left;
   margin-right: 10px;
 }
-.members .config .kick {
+.members div.config .kick {
   margin-top: 15px;
 }

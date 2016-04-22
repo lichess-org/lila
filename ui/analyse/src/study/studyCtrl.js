@@ -1,4 +1,5 @@
 var m = require('mithril');
+var partial = require('chessground').util.partial;
 
 module.exports = {
   init: function(data, ctrl) {
@@ -47,11 +48,19 @@ module.exports = {
         follow(null);
     }
 
+    function updateAutoShapes() {
+      if (!vm.follow) ctrl.chessground.setAutoShapes([]);
+      else if (samePosition(vm.position, data.members[vm.follow].position)) {
+        ctrl.chessground.setAutoShapes(data.members[vm.follow].shapes);
+      }
+    }
+
     function follow(id) {
       if (id === vm.follow || id === ctrl.userId) vm.follow = null;
       else vm.follow = id;
       if (vm.follow) ctrl.userJump(data.members[vm.follow].position.path);
       checkFollow();
+      updateAutoShapes();
     }
     if (ownage) ctrl.userJump(owner().position.path);
     else follow(data.ownerId);
@@ -60,12 +69,13 @@ module.exports = {
       if (ownage) send("invite", username);
     }
 
+    function samePosition(p1, p2) {
+      return p1.chapterId === p2.chapterId && p1.path === p2.path;
+    }
+
     ctrl.chessground.set({
       drawable: {
-        onChange: function(shapes) {
-          console.log(shapes);
-          send("shapes", shapes);
-        }
+        onChange: partial(send, "shapes")
       }
     });
 
@@ -102,20 +112,24 @@ module.exports = {
         setTimeout(function() {
           vm.memberConfig = null;
           m.redraw();
-        }, 500);
+        }, 400);
       },
       invite: function(username) {
         send("invite", username);
       },
       kick: function(userId) {
         send("kick", userId);
+        vm.memberConfig = null;
+      },
+      onShowGround: function() {
+        updateAutoShapes();
       },
       socketHandlers: {
         mpos: function(d) {
-          updateMember(d.u, function(m) {
-            m.position = d.p;
+          updateMember(d.u, function(member) {
+            member.position = d.p;
             if (vm.follow === d.u) {
-              ctrl.userJump(m.position.path);
+              ctrl.userJump(member.position.path);
               m.redraw();
             }
           });
@@ -135,6 +149,12 @@ module.exports = {
         reloadMembers: function(d) {
           data.members = d;
           checkFollow();
+          updateAutoShapes();
+          m.redraw();
+        },
+        reloadMemberShapes: function(d) {
+          data.members[d.u].shapes = d.shapes;
+          updateAutoShapes();
           m.redraw();
         }
       }

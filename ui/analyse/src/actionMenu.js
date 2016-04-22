@@ -109,11 +109,11 @@ module.exports = {
             }, 'Computer gauge')
           ]);
         })('analyse-toggle-gauge'),
-        (ctrl.study || ctrl.ongoing) ? null : m('form', {
+        (ctrl.study || ctrl.ongoing || !ctrl.canStudy) ? null : m('form', {
           method: 'post',
           action: '/study',
         }, m('button.button.text', {
-          'data-icon': 'a',
+          'data-icon': '',
           type: 'submit'
         }, 'Host a study [beta]'))
       ],
