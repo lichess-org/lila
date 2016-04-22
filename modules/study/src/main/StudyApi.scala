@@ -89,7 +89,7 @@ final class StudyApi(
   def setShapes(studyId: Study.ID, userId: User.ID, shapes: List[Shape]) = sequenceStudy(studyId) { study =>
     (study canWrite userId) ?? {
       repo.setShapes(study, userId, shapes)
-    } >>- reloadMembers(study)
+    } >>- reloadMemberShapes(study, userId)
   }
 
   private def reloadMembers(study: Study) =
@@ -97,6 +97,11 @@ final class StudyApi(
       _ foreach { members =>
         sendTo(study.id, Socket.ReloadMembers(members))
       }
+    }
+
+  private def reloadMemberShapes(study: Study, userId: User.ID) =
+    repo.memberShapes(study.id, userId).foreach { shapes =>
+      sendTo(study.id, Socket.ReloadMemberShapes(userId, shapes))
     }
 
   private def sequenceRef(refId: Location.Ref.ID)(f: Location.Ref => Funit): Funit =

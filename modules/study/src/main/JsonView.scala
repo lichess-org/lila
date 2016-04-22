@@ -43,7 +43,7 @@ object JsonView {
 
   private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
   private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
-  private implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
+  private[study] implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }

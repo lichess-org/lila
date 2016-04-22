@@ -20,6 +20,9 @@ private final class StudyRepo(coll: Coll) {
   def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
+  def memberShapes(studyId: Study.ID, userId: User.ID): Fu[List[Shape]] =
+    coll.primitiveOne[List[Shape]]($id(studyId), s"members.$userId.shapes") map (~_)
+
   def setChapter(loc: Location) = coll.update(
     $id(loc.study.id),
     $set(s"chapters.${loc.chapterId}" -> loc.chapter)

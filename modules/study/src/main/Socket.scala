@@ -40,6 +40,10 @@ private final class Socket(
     case ReloadMembers(members) => notifyAll(
       "reloadMembers", members)
 
+    case ReloadMemberShapes(userId, shapes) => notifyAll(
+      "reloadMemberShapes",
+      Json.obj("u" -> userId, "shapes" -> shapes))
+
     case Reload =>
       getStudy(studyId) foreach {
         _ foreach { study =>
@@ -93,4 +97,5 @@ private object Socket {
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
   case class ReloadMembers(members: StudyMembers)
+  case class ReloadMemberShapes(userId: User.ID, shapes: List[Shape])
 }
