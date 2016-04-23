@@ -7,9 +7,10 @@ module.exports = function(ctrl) {
   var ownage = ctrl.userId === ctrl.data.ownerId;
 
   var username = function(member) {
+    var u = member.user;
     return m('span.user_link.ulpt', {
-      'data-href': '/@/' + member.user.name
-    }, member.user.name);
+      'data-href': '/@/' + u.name
+    }, (u.title ? u.title + ' ' : '') + u.name);
   };
 
   var roleToggle = function(member) {
