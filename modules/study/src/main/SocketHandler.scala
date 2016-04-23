@@ -78,10 +78,10 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("setPos", o) => AnaRateLimit(uid) {
+    case ("setPath", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.setPosition(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
+          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
         }
       }
     }

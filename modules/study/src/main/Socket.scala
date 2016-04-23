@@ -22,10 +22,10 @@ private final class Socket(
 
   def receiveSpecific = {
 
-    case SetPosition(userId, position) => notifyIf(
+    case SetPath(userId, path) => notifyIf(
       m => !m.userId.contains(userId),
-      "cpos",
-      position)
+      "path",
+      path)
 
     case AddNode(pos, node) => notifyIf(
       m => !m.userId.contains(node.by),
@@ -46,10 +46,8 @@ private final class Socket(
       case _ =>
     }
 
-    case ReloadUserChapter(userId, chapter) =>
-      notifyIf(
-        m => m.userId contains userId,
-        "chapter", chapter)
+    case ReloadUser(userId) =>
+      notifyIf(m => m.userId contains userId, "reload", JsNull)
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -91,11 +89,11 @@ private object Socket {
   case class Join(uid: String, userId: Option[User.ID], owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
-  case class ReloadUserChapter(userId: User.ID, chapter: Chapter)
+  case class ReloadUser(userId: User.ID)
 
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
-  case class SetPosition(userId: User.ID, position: Position.Ref)
+  case class SetPath(userId: User.ID, path: Path)
   case class ReloadMembers(members: StudyMembers)
   case class ReloadShapes(shapes: List[Shape])
 

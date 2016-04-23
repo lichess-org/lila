@@ -39,10 +39,18 @@ final class StudyApi(
       Study.WithChapter(study, chapter)
   }
 
-  def setPosition(userId: User.ID, studyId: Study.ID, position: Position.Ref) = sequenceStudy(studyId) { study =>
+  def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
-      studyRepo.setPosition(study.id, position) >>-
-        sendTo(study.id, Socket.SetPosition(userId, position))
+      if (study.position.chapterId == position.chapterId) {
+        (study.position.path != position.path) ?? {
+          studyRepo.setPosition(study.id, position) >>-
+            sendTo(study.id, Socket.SetPath(userId, position.path))
+        }
+      }
+      else {
+        sendTo(study.id, Socket.ReloadUser(userId))
+        funit
+      }
     }
   }
 
@@ -50,7 +58,7 @@ final class StudyApi(
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(position.path, node) match {
         case None =>
-          sendTo(study.id, Socket.ReloadUserChapter(node.by, chapter))
+          sendTo(study.id, Socket.ReloadUser(node.by))
           funit
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>

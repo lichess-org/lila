@@ -23,7 +23,7 @@ object JsonView {
   private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
-  private implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
+  private[study] implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
   }
   private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
@@ -71,6 +71,8 @@ object JsonView {
     Json.obj(
       "id" -> s.id,
       "members" -> s.members,
+      "position" -> s.position,
+      "shapes" -> s.shapes,
       "ownerId" -> s.ownerId,
       "createdAt" -> s.createdAt)
   }

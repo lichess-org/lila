@@ -20,9 +20,11 @@ module.exports = {
       return myMember() || owner();
     }
 
+    function canContribute() {
+      return myMember() && myMember().role === 'w';
+    }
+
     var vm = {
-      position: meOrOwner().position,
-      follow: null, // which user is being followed by us
       memberConfig: null // which user is being configured by us
     };
 
@@ -34,40 +36,15 @@ module.exports = {
       });
     }
 
-    function addChapterId(data) {
-      data.chapterId = vm.position.chapterId;
-      return data;
-    }
-
-    function updateMember(id, f) {
-      data.members[id] && f(data.members[id]);
-    }
-
-    function checkFollow() {
-      if (vm.follow && (!data.members[vm.follow] || data.members[vm.follow].role !== 'w'))
-        follow(null);
+    function addChapterId(req) {
+      req.chapterId = data.position.chapterId;
+      return req;
     }
 
     function updateAutoShapes() {
-      if (!vm.follow) ctrl.chessground.setAutoShapes([]);
-      else if (samePosition(vm.position, data.members[vm.follow].position)) {
-        ctrl.chessground.setAutoShapes(data.members[vm.follow].shapes);
-      }
+      ctrl.chessground.setAutoShapes(data.shapes);
     }
-
-    function follow(id) {
-      if (id === vm.follow || id === ctrl.userId) vm.follow = null;
-      else vm.follow = id;
-      if (vm.follow) ctrl.userJump(data.members[vm.follow].position.path);
-      checkFollow();
-      updateAutoShapes();
-    }
-    if (ownage) ctrl.userJump(owner().position.path);
-    else follow(data.ownerId);
-
-    function invite(username) {
-      if (ownage) send("invite", username);
-    }
+    ctrl.userJump(data.position.path);
 
     function samePosition(p1, p2) {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
@@ -75,7 +52,9 @@ module.exports = {
 
     ctrl.chessground.set({
       drawable: {
-        onChange: partial(send, "shapes")
+        onChange: function(shapes) {
+          if (canContribute()) send("shapes", shapes)
+        }
       }
     });
 
@@ -84,11 +63,10 @@ module.exports = {
       vm: vm,
       userId: userId,
       position: function() {
-        return vm.position;
+        return data.position;
       },
       setPath: function(path) {
-        if (vm.follow && data.members[vm.follow].position.path !== path) follow(null);
-        userId && send("setPos", addChapterId({
+        if (canContribute() && path !== data.position.path) send("setPath", addChapterId({
           path: path
         }));
       },
@@ -103,7 +81,6 @@ module.exports = {
         }));
       },
       orderedMembers: orderedMembers,
-      follow: follow,
       setRole: function(userId, role) {
         send("setRole", {
           userId: userId,
@@ -125,23 +102,20 @@ module.exports = {
         updateAutoShapes();
       },
       socketHandlers: {
-        mpos: function(d) {
-          updateMember(d.u, function(member) {
-            member.position = d.p;
-            if (vm.follow === d.u) {
-              ctrl.userJump(member.position.path);
-              m.redraw();
-            }
-          });
+        path: function(p) {
+          data.position.path = p;
+          ctrl.userJump(p);
+          m.redraw();
         },
         addNode: function(d) {
-          if (d.p.chapterId !== vm.position.chapterId) return;
+          if (d.p.chapterId !== data.position.chapterId) return;
           ctrl.tree.addNode(d.n, d.p.path);
-          ctrl.jump(ctrl.vm.path);
+          data.position.path = d.p.path + d.n.id;
+          ctrl.jump(data.position.path);
           m.redraw();
         },
         delNode: function(d) {
-          if (d.p.chapterId !== vm.position.chapterId) return;
+          if (d.p.chapterId !== data.position.chapterId) return;
           ctrl.tree.deleteNodeAt(d.p.path);
           ctrl.jump(ctrl.vm.path);
           m.redraw();
@@ -153,7 +127,6 @@ module.exports = {
         },
         members: function(d) {
           data.members = d;
-          checkFollow();
           updateAutoShapes();
           m.redraw();
         },
