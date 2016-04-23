@@ -9,6 +9,7 @@ import play.api.libs.json._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.Uid
 import lila.socket.{ Handler, AnaMove }
 import lila.user.User
 import makeTimeout.short
@@ -21,14 +22,14 @@ private[study] final class SocketHandler(
 
   def join(
     studyId: Study.ID,
-    uid: String,
-    userId: Option[User.ID],
+    uid: Uid,
+    user: Option[User],
     owner: Boolean): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(studyId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid = uid, userId = userId, owner = owner)
-    handler ← Handler(hub, socket, uid, join, userId) {
+    join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
+    handler ← Handler(hub, socket, uid.value, join, user.map(_.id)) {
       case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member, owner = owner), enum, member)
+        (controller(socket, studyId, member, owner = owner), enum, member)
     }
   } yield handler.some
 
@@ -46,18 +47,17 @@ private[study] final class SocketHandler(
   private def controller(
     socket: ActorRef,
     studyId: Study.ID,
-    uid: String,
     member: Socket.Member,
     owner: Boolean): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
-      socket ! PingVersion(uid, v)
+      socket ! PingVersion(member.uid.value, v)
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
         chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
       }
     }
-    case ("anaMove", o) => AnaRateLimit(uid) {
+    case ("anaMove", o) => AnaRateLimit(member.uid.value) {
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) =>
@@ -72,34 +72,35 @@ private[study] final class SocketHandler(
             } api.addNode(
               studyId,
               Position.Ref(chapterId, Path(anaMove.path)),
-              Node.fromBranchBy(userId)(branch))
+              Node.fromBranchBy(userId)(branch),
+              member.uid)
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }
       }
     }
-    case ("setPath", o) => AnaRateLimit(uid) {
+    case ("setPath", o) => AnaRateLimit(member.uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
+          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
         }
       }
     }
-    case ("deleteVariation", o) => AnaRateLimit(uid) {
+    case ("deleteVariation", o) => AnaRateLimit(member.uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
+          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
         }
       }
     }
-    case ("promoteVariation", o) => AnaRateLimit(uid) {
+    case ("promoteVariation", o) => AnaRateLimit(member.uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
+          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
         }
       }
     }
-    case ("setRole", o) if owner => AnaRateLimit(uid) {
+    case ("setRole", o) if owner => AnaRateLimit(member.uid.value) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(userId, studyId, d.userId, d.role)
@@ -119,7 +120,7 @@ private[study] final class SocketHandler(
     case ("shapes", o) =>
       (o \ "d").asOpt[List[Shape]] foreach { shapes =>
         member.userId foreach { userId =>
-          api.setShapes(userId, studyId, shapes)
+          api.setShapes(userId, studyId, shapes, member.uid)
         }
       }
   }

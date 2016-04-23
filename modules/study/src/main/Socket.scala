@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.Uid
 import lila.socket.{ SocketActor, History, Historical }
 import lila.user.User
 
@@ -25,19 +26,19 @@ private final class Socket(
 
   def receiveSpecific = {
 
-    case SetPath(path)          => notifyVersion("path", path, Messadata())
+    case SetPath(path, uid)        => notifyVersion("path", path, Messadata(exceptUid = uid.some))
 
-    case AddNode(pos, node)     => notifyVersion("addNode", Json.obj("n" -> node, "p" -> pos), Messadata())
+    case AddNode(pos, node, uid)   => notifyVersion("addNode", Json.obj("n" -> node, "p" -> pos), Messadata(exceptUid = uid.some))
 
-    case DelNode(pos)           => notifyVersion("delNode", Json.obj("p" -> pos), Messadata())
+    case DelNode(pos, uid)         => notifyVersion("delNode", Json.obj("p" -> pos), Messadata(exceptUid = uid.some))
 
-    case ReloadMembers(members) => notifyAll("members", members)
+    case ReloadMembers(members)    => notifyAll("members", members)
 
-    case ReloadShapes(shapes)   => notifyVersion("shapes", shapes, Messadata())
+    case ReloadShapes(shapes, uid) => notifyVersion("shapes", shapes, Messadata(exceptUid = uid.some))
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
-        notifyVersion("message", lila.chat.JsonView(line), Messadata(line.troll))
+        notifyVersion("message", lila.chat.JsonView(line), Messadata(trollish = line.troll))
       case _ =>
     }
 
@@ -59,11 +60,11 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, owner) =>
+    case Socket.Join(uid, userId, troll, owner) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, owner)
-      addMember(uid, member)
+      val member = Socket.Member(channel, uid, userId, troll = troll, owner = owner)
+      addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
 
@@ -81,29 +82,33 @@ private final class Socket(
     }
   }
 
-  protected def shouldSkipMessageFor(message: Message, member: Socket.Member) = false
+  protected def shouldSkipMessageFor(message: Message, member: Member) =
+    (message.metadata.trollish && !member.troll) ||
+      message.metadata.exceptUid.contains(member.uid)
 }
 
 private object Socket {
 
   case class Member(
-      channel: JsChannel,
-      userId: Option[String],
-      owner: Boolean) extends lila.socket.SocketMember {
-    val troll = false
-  }
+    channel: JsChannel,
+    uid: Uid,
+    userId: Option[String],
+    troll: Boolean,
+    owner: Boolean) extends lila.socket.SocketMember
 
-  case class Join(uid: String, userId: Option[User.ID], owner: Boolean)
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUser(userId: User.ID)
 
-  case class AddNode(position: Position.Ref, node: Node)
-  case class DelNode(position: Position.Ref)
-  case class SetPath(path: Path)
+  case class AddNode(position: Position.Ref, node: Node, uid: Uid)
+  case class DelNode(position: Position.Ref, uid: Uid)
+  case class SetPath(path: Path, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
-  case class ReloadShapes(shapes: List[Shape])
+  case class ReloadShapes(shapes: List[Shape], uid: Uid)
 
-  case class Messadata(trollish: Boolean = false)
+  case class Messadata(
+    exceptUid: Option[Uid] = None,
+    trollish: Boolean = false)
   case object NotifyCrowd
 }

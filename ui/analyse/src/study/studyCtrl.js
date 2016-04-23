@@ -7,7 +7,10 @@ module.exports = {
 
     var send = ctrl.socket.send;
     var userId = ctrl.userId;
-    var ownage = userId === data.ownerId;
+
+    var vm = {
+      memberConfig: null // which user is being configured by us
+    };
 
     function myMember() {
       return userId ? data.members[userId] : null;
@@ -24,10 +27,6 @@ module.exports = {
     function canContribute() {
       return myMember() && myMember().role === 'w';
     }
-
-    var vm = {
-      memberConfig: null // which user is being configured by us
-    };
 
     function orderedMembers() {
       return Object.keys(data.members).map(function(id) {
@@ -68,7 +67,6 @@ module.exports = {
       position: function() {
         return data.position;
       },
-
       setPath: throttle(300, false, function(path) {
         if (canContribute() && path !== data.position.path) {
           data.shapes = [];

@@ -5,6 +5,7 @@ import akka.actor.ActorRef
 import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
+import lila.socket.Socket.Uid
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -39,12 +40,12 @@ final class StudyApi(
       Study.WithChapter(study, chapter)
   }
 
-  def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref) = sequenceStudy(studyId) { study =>
+  def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
       if (study.position.chapterId == position.chapterId) {
         (study.position.path != position.path) ?? {
           studyRepo.setPosition(study.id, position) >>-
-            sendTo(study.id, Socket.SetPath(position.path))
+            sendTo(study.id, Socket.SetPath(position.path, uid))
         }
       }
       else {
@@ -54,7 +55,7 @@ final class StudyApi(
     }
   }
 
-  def addNode(studyId: Study.ID, position: Position.Ref, node: Node) = sequenceStudyWithChapter(studyId) {
+  def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(position.path, node) match {
         case None =>
@@ -63,23 +64,23 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
-            sendTo(study.id, Socket.AddNode(position, node))
+            sendTo(study.id, Socket.AddNode(position, node, uid))
       }
     }
   }
 
-  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref) = ???
+  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
   // sequenceLocation(ref) { location =>
   // (location.study canWrite userId) ?? {
   //   val newChapter = location.chapter.updateRoot { root =>
   //     root.withChildren(_.deleteNodeAt(path))
   //   }
   //   studyRepo.setChapter(location withChapter newChapter) >>-
-  //     sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path)))
+  //     sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path), uid))
   // }
   // }
 
-  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref) = ???
+  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
   // sequenceLocation(ref) { location =>
   //   (location.study canWrite userId) ?? {
   //     val newChapter = location.chapter.updateRoot { root =>
@@ -112,10 +113,10 @@ final class StudyApi(
     } >>- reloadMembers(study)
   }
 
-  def setShapes(userId: User.ID, studyId: Study.ID, shapes: List[Shape]) = sequenceStudy(studyId) { study =>
+  def setShapes(userId: User.ID, studyId: Study.ID, shapes: List[Shape], uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
       studyRepo.setShapes(study, shapes)
-    } >>- reloadShapes(study)
+    } >>- reloadShapes(study, uid)
   }
 
   private def reloadMembers(study: Study) =
@@ -125,9 +126,9 @@ final class StudyApi(
       }
     }
 
-  private def reloadShapes(study: Study) =
+  private def reloadShapes(study: Study, uid: Uid) =
     studyRepo.getShapes(study.id).foreach { shapes =>
-      sendTo(study.id, Socket.ReloadShapes(shapes))
+      sendTo(study.id, Socket.ReloadShapes(shapes, uid))
     }
 
   private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =
