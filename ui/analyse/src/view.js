@@ -339,6 +339,7 @@ function inputs(ctrl) {
   return m('div.copyables', [
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
+      disabled: !!ctrl.study,
       value: ctrl.vm.node.fen,
       onchange: function(e) {
         if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
@@ -347,9 +348,10 @@ function inputs(ctrl) {
     m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable.autoselect[spellCheck=false]', {
+        disabled: !!ctrl.study,
         value: pgnText
       }),
-      m('div.action', [
+      ctrl.study ? null : m('div.action', [
         m('button', {
           class: 'button text',
           'data-icon': 'G',
