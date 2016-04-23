@@ -14,8 +14,8 @@ object Study extends LilaController {
   private def env = Env.study
 
   def show(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { study =>
-      study.firstChapter ?? { chapter =>
+    OptionFuResult(env.api byIdWithChapter id) {
+      case lila.study.Study.WithChapter(study, chapter) =>
         val setup = chapter.setup
         val initialFen = chapter.root.fen
         val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
@@ -32,7 +32,6 @@ object Study extends LilaController {
                 chat = lila.chat.JsonView(chat))
               Ok(html.study.show(study, data, sVersion))
           }
-      }
     } map NoCache
   }
 
@@ -52,8 +51,8 @@ object Study extends LilaController {
 
   def create = AuthBody { implicit ctx =>
     me =>
-      env.api.create(me) map { study =>
-        Redirect(routes.Study.show(study.id))
+      env.api.create(me) map { sc =>
+        Redirect(routes.Study.show(sc.study.id))
       }
   }
 }

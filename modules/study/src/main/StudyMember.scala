@@ -7,12 +7,10 @@ import lila.user.User
 
 case class StudyMember(
     user: LightUser,
-    position: Position.Ref,
-    shapes: List[Shape],
     role: StudyMember.Role,
     addedAt: DateTime) {
 
-  def canWrite = role == StudyMember.Role.Write
+  def canContribute = role == StudyMember.Role.Write
 }
 
 object StudyMember {
@@ -21,8 +19,6 @@ object StudyMember {
 
   def make(study: Study, user: User) = StudyMember(
     user = user.light,
-    position = study.owner.fold(Position.Ref(~study.firstChapterId, Path.root))(_.position),
-    shapes = Nil,
     role = Role.Read,
     addedAt = DateTime.now)
 

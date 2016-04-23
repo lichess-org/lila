@@ -70,8 +70,8 @@ private[study] final class SocketHandler(
               d ← o obj "d"
               chapterId <- d str "chapterId"
             } api.addNode(
-              Location.Ref(studyId, chapterId),
-              Path(anaMove.path),
+              studyId,
+              Position.Ref(chapterId, Path(anaMove.path)),
               Node.fromBranchBy(userId)(branch))
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
@@ -81,45 +81,45 @@ private[study] final class SocketHandler(
     case ("setPos", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.setMemberPosition(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+          api.setPosition(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
         }
       }
     }
     case ("deleteVariation", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.deleteNodeAt(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
         }
       }
     }
     case ("promoteVariation", o) => AnaRateLimit(uid) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.promoteNodeAt(userId, Location.Ref(studyId, d.chapterId), Path(d.path))
+          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)))
         }
       }
     }
     case ("setRole", o) if owner => AnaRateLimit(uid) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
-          api.setRole(studyId, userId, d.userId, d.role)
+          api.setRole(userId, studyId, d.userId, d.role)
         }
       }
     }
     case ("invite", o) if owner => for {
       byUserId <- member.userId
       username <- o str "d"
-    } api.invite(studyId, byUserId, username)
+    } api.invite(byUserId, studyId, username)
 
     case ("kick", o) if owner => for {
       byUserId <- member.userId
       userId <- o str "d"
-    } api.kick(studyId, byUserId, userId)
+    } api.kick(byUserId, studyId, userId)
 
     case ("shapes", o) =>
       (o \ "d").asOpt[List[Shape]] foreach { shapes =>
         member.userId foreach { userId =>
-          api.setShapes(studyId, userId, shapes)
+          api.setShapes(userId, studyId, shapes)
         }
       }
   }

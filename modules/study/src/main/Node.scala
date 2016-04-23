@@ -15,28 +15,32 @@ case class Node(
 
   import Node.Children
 
-  def withChildren(f: Children => Children) = copy(children = f(children))
+  def withChildren(f: Children => Option[Children]) =
+    f(children) map { newChildren =>
+      copy(children = newChildren)
+    }
 }
 
 object Node {
 
   case class Children(nodes: Vector[Node]) {
 
-    def addNodeAt(node: Node, path: Path): Children = path.split match {
-      case None if has(node.id) => this
-      case None                 => copy(nodes = nodes :+ node)
+    def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
+      case None if has(node.id) => this.some
+      case None                 => copy(nodes = nodes :+ node).some
       case Some((head, tail))   => updateChildren(head, _.addNodeAt(node, tail))
     }
 
-    def deleteNodeAt(path: Path): Children = path.split match {
-      case None                    => this
-      case Some((head, Path(Nil))) => copy(nodes = nodes.filterNot(_.id == head))
-      case Some((head, tail))      => updateChildren(head, _.deleteNodeAt(tail))
+    def deleteNodeAt(path: Path): Option[Children] = path.split match {
+      case None                                 => none
+      case Some((head, Path(Nil))) if has(head) => copy(nodes = nodes.filterNot(_.id == head)).some
+      case Some((_, Path(Nil)))                 => none
+      case Some((head, tail))                   => updateChildren(head, _.deleteNodeAt(tail))
     }
 
-    def promoteNodeAt(path: Path): Children = path.split match {
-      case None => this
-      case Some((head, Path(Nil))) => get(head).fold(this) { node =>
+    def promoteNodeAt(path: Path): Option[Children] = path.split match {
+      case None => none
+      case Some((head, Path(Nil))) => get(head).map { node =>
         copy(nodes = node +: nodes.filterNot(node ==))
       }
       case Some((head, tail)) => updateChildren(head, _.promoteNodeAt(tail))
@@ -46,15 +50,13 @@ object Node {
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
-    def updateWith(id: UciCharPair, op: Node => Node): Children = get(id) match {
-      case None        => this
-      case Some(child) => update(op(child))
-    }
+    def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
+      get(id) flatMap op map update
 
-    def updateChildren(id: UciCharPair, f: Children => Children): Children =
+    def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
       updateWith(id, _ withChildren f)
 
-    def update(child: Node) = copy(
+    def update(child: Node): Children = copy(
       nodes = nodes.map {
         case n if child.id == n.id => child
         case n                     => n
@@ -68,7 +70,10 @@ object Node {
       check: Boolean,
       children: Children) {
 
-    def withChildren(f: Children => Children) = copy(children = f(children))
+    def withChildren(f: Children => Option[Children]) =
+      f(children) map { newChildren =>
+        copy(children = newChildren)
+      }
   }
 
   object Root {

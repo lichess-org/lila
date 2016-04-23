@@ -65,12 +65,11 @@ object JsonView {
 
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
-  private implicit val chapterWrites = Json.writes[Chapter]
+  private[study] implicit val chapterWrites = Json.writes[Chapter]
 
   private implicit val studyWrites = OWrites[Study] { s =>
     Json.obj(
       "id" -> s.id,
-      "chapters" -> s.chapters,
       "members" -> s.members,
       "ownerId" -> s.ownerId,
       "createdAt" -> s.createdAt)

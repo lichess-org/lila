@@ -12,7 +12,6 @@ import lila.user.User
 private final class Socket(
     studyId: String,
     val history: History[Socket.Messadata],
-    getStudy: Study.ID => Fu[Option[Study]],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
@@ -23,10 +22,10 @@ private final class Socket(
 
   def receiveSpecific = {
 
-    case MemberPosition(userId, pos) => notifyIf(
+    case SetPosition(userId, position) => notifyIf(
       m => !m.userId.contains(userId),
-      "mpos",
-      Json.obj("u" -> userId, "p" -> pos))
+      "cpos",
+      position)
 
     case AddNode(pos, node) => notifyIf(
       m => !m.userId.contains(node.by),
@@ -37,12 +36,9 @@ private final class Socket(
       "delNode",
       Json.obj("p" -> pos))
 
-    case ReloadMembers(members) => notifyAll(
-      "reloadMembers", members)
+    case ReloadMembers(members) => notifyAll("members", members)
 
-    case ReloadMemberShapes(userId, shapes) => notifyAll(
-      "reloadMemberShapes",
-      Json.obj("u" -> userId, "shapes" -> shapes))
+    case ReloadShapes(shapes)   => notifyAll("shapes", shapes)
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
@@ -50,12 +46,10 @@ private final class Socket(
       case _ =>
     }
 
-    case Reload =>
-      getStudy(studyId) foreach {
-        _ foreach { study =>
-          notifyVersion("reload", JsNull, Messadata())
-        }
-      }
+    case ReloadUserChapter(userId, chapter) =>
+      notifyIf(
+        m => m.userId contains userId,
+        "chapter", chapter)
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -94,16 +88,16 @@ private object Socket {
     val troll = false
   }
 
-  case class Join(uid: String, userId: Option[String], owner: Boolean)
+  case class Join(uid: String, userId: Option[User.ID], owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
-  case object Reload
+  case class ReloadUserChapter(userId: User.ID, chapter: Chapter)
 
-  case class MemberPosition(userId: User.ID, position: Position.Ref)
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
+  case class SetPosition(userId: User.ID, position: Position.Ref)
   case class ReloadMembers(members: StudyMembers)
-  case class ReloadMemberShapes(userId: User.ID, shapes: List[Shape])
+  case class ReloadShapes(shapes: List[Shape])
 
   case class Messadata(trollish: Boolean = false)
 }

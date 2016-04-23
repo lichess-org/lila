@@ -20,28 +20,22 @@ private final class StudyRepo(coll: Coll) {
   def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
-  def memberShapes(studyId: Study.ID, userId: User.ID): Fu[List[Shape]] =
-    coll.find($id(studyId), $doc(s"members.$userId.shapes" -> true)).uno[BSONDocument].map { docO =>
-      for {
-        doc <- docO
-        members <- doc.getAs[BSONDocument]("members")
-        member <- members.getAs[BSONDocument](userId)
-        shapes <- member.getAs[List[Shape]]("shapes")
-      } yield shapes
-    } map (~_)
-
-  def setChapter(loc: Location) = coll.update(
-    $id(loc.study.id),
-    $set(s"chapters.${loc.chapterId}" -> loc.chapter)
-  ).void
-
-  def setMemberPosition(id: User.ID, ref: Location.Ref, path: Path): Funit =
+  def setPosition(studyId: Study.ID, position: Position.Ref): Funit =
     coll.update(
-      $id(ref.studyId),
+      $id(studyId),
       $set(
-        s"members.$id.position" -> Position.Ref(ref.chapterId, path),
-        s"members.$id.shapes" -> List.empty[Shape] // also reset shapes
+        "position" -> position,
+        "shapes" -> List.empty[Shape] // also reset shapes
       )
+    ).void
+
+  def getShapes(studyId: Study.ID): Fu[List[Shape]] =
+    coll.primitiveOne[List[Shape]]($id(studyId), "shapes") map (~_)
+
+  def setShapes(study: Study, shapes: List[Shape]): Funit =
+    coll.update(
+      $id(study.id),
+      $set("shapes" -> shapes)
     ).void
 
   def addMember(study: Study, member: StudyMember): Funit =
@@ -60,11 +54,5 @@ private final class StudyRepo(coll: Coll) {
     coll.update(
       $id(study.id),
       $set(s"members.$userId.role" -> role)
-    ).void
-
-  def setShapes(study: Study, userId: User.ID, shapes: List[Shape]): Funit =
-    coll.update(
-      $id(study.id),
-      $set(s"members.$userId.shapes" -> shapes)
     ).void
 }

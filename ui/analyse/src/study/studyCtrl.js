@@ -146,13 +146,18 @@ module.exports = {
           ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
-        reloadMembers: function(d) {
+        chapter: function(d) {
+          data.chapters[d.chapterId] = d.chapter;
+          updateAutoShapes();
+          m.redraw();
+        },
+        members: function(d) {
           data.members = d;
           checkFollow();
           updateAutoShapes();
           m.redraw();
         },
-        reloadMemberShapes: function(d) {
+        shapes: function(d) {
           data.members[d.u].shapes = d.shapes;
           updateAutoShapes();
           m.redraw();

@@ -19,6 +19,7 @@ final class Env(
 
   private val settings = new {
     val CollectionStudy = config getString "collection.study"
+    val CollectionChapter = config getString "collection.chapter"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
@@ -32,7 +33,6 @@ final class Env(
       def mkActor(studyId: String) = new Socket(
         studyId = studyId,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
-        getStudy = repo.byId,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout)
     }), name = SocketName)
@@ -47,7 +47,8 @@ final class Env(
     api = api)
 
   lazy val api = new StudyApi(
-    repo = repo,
+    studyRepo = studyRepo,
+    chapterRepo = chapterRepo,
     sequencers = sequencerMap,
     socketHub = socketHub)
 
@@ -58,7 +59,8 @@ final class Env(
       logger = logger)
   }))
 
-  private lazy val repo = new StudyRepo(coll = db(CollectionStudy))
+  private lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
+  private lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 }
 
 object Env {

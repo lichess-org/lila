@@ -7,6 +7,8 @@ case object Position {
   case class Ref(chapterId: Chapter.ID, path: Path) {
 
     def encode = s"$chapterId $path"
+
+    def +(node: Node) = copy(path = path + node)
   }
 
   object Ref {
