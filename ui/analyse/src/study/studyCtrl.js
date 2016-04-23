@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var throttle = require('../util').throttle;
 
 module.exports = {
   init: function(data, ctrl) {
@@ -41,12 +42,12 @@ module.exports = {
       return req;
     }
 
-    function updateAutoShapes() {
+    function updateShapes() {
       var shapes = ctrl.vm.path === data.position.path ? data.shapes : [];
-      ctrl.chessground.setAutoShapes(shapes);
+      ctrl.chessground.setShapes(shapes);
     }
     ctrl.userJump(data.position.path);
-    updateAutoShapes();
+    updateShapes();
 
     function samePosition(p1, p2) {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
@@ -55,7 +56,7 @@ module.exports = {
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
-          if (canContribute()) send("shapes", shapes)
+          if (canContribute()) send("shapes", shapes);
         }
       }
     });
@@ -67,14 +68,15 @@ module.exports = {
       position: function() {
         return data.position;
       },
-      setPath: function(path) {
+
+      setPath: throttle(300, false, function(path) {
         if (canContribute() && path !== data.position.path) {
           data.shapes = [];
           send("setPath", addChapterId({
             path: path
           }));
         }
-      },
+      }),
       deleteVariation: function(path) {
         send("deleteVariation", addChapterId({
           path: path
@@ -104,7 +106,7 @@ module.exports = {
         vm.memberConfig = null;
       },
       onShowGround: function() {
-        updateAutoShapes();
+        updateShapes();
       },
       socketHandlers: {
         path: function(p) {
@@ -131,12 +133,12 @@ module.exports = {
         },
         members: function(d) {
           data.members = d;
-          updateAutoShapes();
+          updateShapes();
           m.redraw();
         },
         shapes: function(d) {
           data.shapes = d;
-          updateAutoShapes();
+          updateShapes();
           m.redraw();
         }
       }

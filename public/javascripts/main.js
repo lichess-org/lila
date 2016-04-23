@@ -2072,14 +2072,15 @@ lichess.challengeApp = (function() {
   ////////////////
 
   function startStudy(element, cfg) {
-    if (cfg.chat) $('#chat').chat({
+    $('#chat').chat({
       messages: cfg.chat,
       gameId: cfg.study.id
     });
+    var $watchers = $("div.watchers").watchers();
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, 0, {
+    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "study"
       },
@@ -2088,6 +2089,11 @@ lichess.challengeApp = (function() {
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
+      },
+      events: {
+        crowd: function(e) {
+          $watchers.watchers("set", e);
+        }
       }
     });
     cfg.socketSend = lichess.socket.send;

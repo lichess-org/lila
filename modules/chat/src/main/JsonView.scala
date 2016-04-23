@@ -25,10 +25,8 @@ object JsonView {
   }
 
   private implicit val userLineWriter = Writes[UserLine] { l =>
-    Json.obj(
-      "u" -> l.username,
-      "t" -> l.text,
-      "r" -> l.troll)
+    val o = Json.obj("u" -> l.username, "t" -> l.text)
+    if (l.troll) o + ("r" -> JsBoolean(true)) else o
   }
 
   private implicit val playerLineWriter = Writes[PlayerLine] { l =>

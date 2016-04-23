@@ -2,7 +2,7 @@ package lila.study
 
 import akka.actor._
 import play.api.libs.json._
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -11,6 +11,7 @@ import lila.user.User
 
 private final class Socket(
     studyId: String,
+    lightUser: String => Option[lila.common.LightUser],
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
@@ -20,25 +21,19 @@ private final class Socket(
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
+  private var delayedCrowdNotification = false
+
   def receiveSpecific = {
 
-    case SetPath(userId, path) => notifyIf(
-      m => !m.userId.contains(userId),
-      "path",
-      path)
+    case SetPath(path)          => notifyVersion("path", path, Messadata())
 
-    case AddNode(pos, node) => notifyIf(
-      m => !m.userId.contains(node.by),
-      "addNode",
-      Json.obj("n" -> node, "p" -> pos))
+    case AddNode(pos, node)     => notifyVersion("addNode", Json.obj("n" -> node, "p" -> pos), Messadata())
 
-    case DelNode(pos) => notifyAll(
-      "delNode",
-      Json.obj("p" -> pos))
+    case DelNode(pos)           => notifyVersion("delNode", Json.obj("p" -> pos), Messadata())
 
     case ReloadMembers(members) => notifyAll("members", members)
 
-    case ReloadShapes(shapes)   => notifyAll("shapes", shapes)
+    case ReloadShapes(shapes)   => notifyVersion("shapes", shapes, Messadata())
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
@@ -69,9 +64,21 @@ private final class Socket(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, owner)
       addMember(uid, member)
+      notifyCrowd
       sender ! Socket.Connected(enumerator, member)
 
     case Quit(uid) => quit(uid)
+
+    case NotifyCrowd =>
+      delayedCrowdNotification = false
+      notifyAll("crowd", showSpectators(lightUser)(members.values))
+  }
+
+  def notifyCrowd {
+    if (!delayedCrowdNotification) {
+      delayedCrowdNotification = true
+      context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
+    }
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Socket.Member) = false
@@ -93,9 +100,10 @@ private object Socket {
 
   case class AddNode(position: Position.Ref, node: Node)
   case class DelNode(position: Position.Ref)
-  case class SetPath(userId: User.ID, path: Path)
+  case class SetPath(path: Path)
   case class ReloadMembers(members: StudyMembers)
   case class ReloadShapes(shapes: List[Shape])
 
   case class Messadata(trollish: Boolean = false)
+  case object NotifyCrowd
 }

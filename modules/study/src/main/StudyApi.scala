@@ -44,7 +44,7 @@ final class StudyApi(
       if (study.position.chapterId == position.chapterId) {
         (study.position.path != position.path) ?? {
           studyRepo.setPosition(study.id, position) >>-
-            sendTo(study.id, Socket.SetPath(userId, position.path))
+            sendTo(study.id, Socket.SetPath(position.path))
         }
       }
       else {

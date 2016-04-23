@@ -13,6 +13,7 @@ import makeTimeout.short
 
 final class Env(
     config: Config,
+    lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env) {
@@ -32,6 +33,7 @@ final class Env(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(studyId: String) = new Socket(
         studyId = studyId,
+        lightUser = lightUser,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout)
@@ -67,6 +69,7 @@ object Env {
 
   lazy val current: Env = "study" boot new Env(
     config = lila.common.PlayApp loadConfig "study",
+    lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)
