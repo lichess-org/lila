@@ -267,9 +267,10 @@ function renderMainline(ctrl, mainline) {
     });
   }
 
-  // TODO ain't that a map?
   var tags = [],
-    path = '';
+    path = treePath.root;
+
+  tags.push(renderMeta(ctrl, mainline[0], path));
   for (var i = 0, len = turns.length; i < len; i++) {
     res = renderMainlineTurn(ctrl, turns[i], path);
     path = res.path;
