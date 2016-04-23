@@ -42,9 +42,11 @@ module.exports = {
     }
 
     function updateAutoShapes() {
-      ctrl.chessground.setAutoShapes(data.shapes);
+      var shapes = ctrl.vm.path === data.position.path ? data.shapes : [];
+      ctrl.chessground.setAutoShapes(shapes);
     }
     ctrl.userJump(data.position.path);
+    updateAutoShapes();
 
     function samePosition(p1, p2) {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
@@ -66,9 +68,12 @@ module.exports = {
         return data.position;
       },
       setPath: function(path) {
-        if (canContribute() && path !== data.position.path) send("setPath", addChapterId({
-          path: path
-        }));
+        if (canContribute() && path !== data.position.path) {
+          data.shapes = [];
+          send("setPath", addChapterId({
+            path: path
+          }));
+        }
       },
       deleteVariation: function(path) {
         send("deleteVariation", addChapterId({
@@ -104,6 +109,7 @@ module.exports = {
       socketHandlers: {
         path: function(p) {
           data.position.path = p;
+          data.shapes = [];
           ctrl.userJump(p);
           m.redraw();
         },
@@ -120,10 +126,8 @@ module.exports = {
           ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
-        chapter: function(d) {
-          data.chapters[d.chapterId] = d.chapter;
-          updateAutoShapes();
-          m.redraw();
+        reload: function() {
+          lichess.reload();
         },
         members: function(d) {
           data.members = d;
@@ -131,7 +135,7 @@ module.exports = {
           m.redraw();
         },
         shapes: function(d) {
-          data.members[d.u].shapes = d.shapes;
+          data.shapes = d;
           updateAutoShapes();
           m.redraw();
         }

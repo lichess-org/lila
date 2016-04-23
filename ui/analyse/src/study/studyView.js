@@ -117,7 +117,7 @@ module.exports = function(ctrl) {
           username(member),
           m('div.actions', [
             configButton(member, confing),
-            followButton(member)
+            // followButton(member)
           ])
         ]),
         confing ? memberConfig(member) : null
