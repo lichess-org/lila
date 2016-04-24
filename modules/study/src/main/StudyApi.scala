@@ -3,11 +3,11 @@ package lila.study
 import akka.actor.{ ActorRef, ActorSelection }
 
 import chess.format.{ Forsyth, FEN }
+import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.user.{ User, UserRepo }
-import lila.chat.actorApi.SystemTalk
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -144,7 +144,9 @@ final class StudyApi(
           studyRepo.update(study withChapter chapter) >>- {
             reloadAll(study)
             study.members.get(byUserId).foreach { member =>
-              chat ! SystemTalk(study.id, s"${member.user.name} switched to ${chapter.name}", socket)
+              import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+              val message = s"${member.user.name} switched to ${escapeHtml4(chapter.name)}"
+              chat ! SystemTalk(study.id, message, socket)
             }
           }
         }
