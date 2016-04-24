@@ -23,7 +23,7 @@ case class Study(
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
   def withChapter(c: Chapter.Like) = copy(
-    position = position.copy(chapterId = c.id)
+    position = Position.Ref(chapterId = c.id, path = Path.root)
   )
 }
 

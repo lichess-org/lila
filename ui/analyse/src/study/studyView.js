@@ -6,22 +6,26 @@ var chapterView = require('./studyChapters').view;
 
 module.exports = function(ctrl) {
 
+  var activeTab = ctrl.vm.tab();
+
   var makeTab = function(key, name) {
     return m('a', {
-      class: ctrl.vm.tab() === key ? 'active' : '',
+      class: activeTab === key ? 'active' : '',
       onclick: partial(ctrl.vm.tab, key),
     }, name);
   };
 
-  var tabs = m('div.tabs', [
-      makeTab('members', 'Members'),
-      makeTab('chapters', 'Chapters'),
-      makeTab('settings', 'Settings')
+  var tabs = m('div.tabs', {
+    key: activeTab
+  }, [
+    makeTab('members', 'Members'),
+    makeTab('chapters', 'Chapters'),
+    makeTab('settings', 'Settings')
   ]);
 
   var panel;
-  if (ctrl.vm.tab() === 'members') panel = memberView(ctrl);
-  else if (ctrl.vm.tab() === 'chapters') panel = chapterView(ctrl);
+  if (activeTab === 'members') panel = memberView(ctrl);
+  else if (activeTab === 'chapters') panel = chapterView(ctrl);
 
   return [
     tabs,
