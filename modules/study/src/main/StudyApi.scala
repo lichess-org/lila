@@ -40,17 +40,21 @@ final class StudyApi(
       Study.WithChapter(study, chapter)
   }
 
+  private def pathExists(position: Position.Ref): Fu[Boolean] =
+    chapterRepo.byId(position.chapterId) map {
+      _ ?? { _.root pathExists position.path }
+    }
+
   def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
-      if (study.position.chapterId == position.chapterId) {
-        (study.position.path != position.path) ?? {
-          studyRepo.setPosition(study.id, position) >>-
-            sendTo(study.id, Socket.SetPath(position, uid))
+      pathExists(position) flatMap { exists =>
+        if (exists && study.position.chapterId == position.chapterId) {
+          (study.position.path != position.path) ?? {
+            studyRepo.setPosition(study.id, position) >>-
+              sendTo(study.id, Socket.SetPath(position, uid))
+          }
         }
-      }
-      else {
-        sendTo(study.id, Socket.ReloadUser(userId))
-        funit
+        else funit >>- reloadUid(study, uid)
       }
     }
   }
@@ -58,9 +62,7 @@ final class StudyApi(
   def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(position.path, node) match {
-        case None =>
-          sendTo(study.id, Socket.ReloadUser(node.by))
-          funit
+        case None => funit >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
@@ -118,6 +120,9 @@ final class StudyApi(
       studyRepo.setShapes(study, shapes)
     } >>- reloadShapes(study, uid)
   }
+
+  private def reloadUid(study: Study, uid: Uid) =
+    sendTo(study.id, Socket.ReloadUid(uid))
 
   private def reloadMembers(study: Study) =
     studyRepo.membersById(study.id).foreach {

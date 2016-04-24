@@ -25,6 +25,12 @@ object Node {
 
   case class Children(nodes: Vector[Node]) {
 
+    def nodeAt(path: Path): Option[Node] = path.split match {
+      case None                               => none
+      case Some((head, tail)) if tail.isEmpty => get(head)
+      case Some((head, tail))                 => get(head) flatMap (_.children nodeAt tail)
+    }
+
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
       case None if has(node.id) => this.some
       case None                 => copy(nodes = nodes :+ node).some
@@ -74,6 +80,10 @@ object Node {
       f(children) map { newChildren =>
         copy(children = newChildren)
       }
+
+    def nodeAt(path: Path): Option[Node] = children nodeAt path
+
+    def pathExists(path: Path): Boolean = nodeAt(path).isDefined
   }
 
   object Root {

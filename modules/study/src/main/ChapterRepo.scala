@@ -10,7 +10,7 @@ private final class ChapterRepo(coll: Coll) {
 
   import BSONHandlers._
 
-  def byId(id: Chapter.ID) = coll.byId[Chapter](id)
+  def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
 
   def exists(id: Chapter.ID) = coll.exists($id(id))
 

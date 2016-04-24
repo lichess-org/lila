@@ -52,8 +52,7 @@ private final class Socket(
       case _ =>
     }
 
-    case ReloadUser(userId) =>
-      notifyIf(m => m.userId contains userId, "reload", JsNull)
+    case ReloadUid(uid) => notifyUid("reload", JsNull)(uid)
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -113,7 +112,7 @@ private object Socket {
   case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
-  case class ReloadUser(userId: User.ID)
+  case class ReloadUid(uid: Uid)
 
   case class AddNode(position: Position.Ref, node: Node, uid: Uid)
   case class DelNode(position: Position.Ref, uid: Uid)

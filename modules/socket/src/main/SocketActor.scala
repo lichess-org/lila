@@ -95,6 +95,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     member push makeMessage(t, data)
   }
 
+  def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid) {
+    withMember(uid.value)(_ push makeMessage(t, data))
+  }
+
   def ping(uid: String) {
     setAlive(uid)
     withMember(uid)(_ push pong)
