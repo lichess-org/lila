@@ -26,8 +26,8 @@ private final class Socket(
 
   def receiveSpecific = {
 
-    case SetPath(path, uid) => notifyVersion("path", Json.obj(
-      "p" -> path,
+    case SetPath(pos, uid) => notifyVersion("path", Json.obj(
+      "p" -> pos,
       "w" -> who(uid).map(whoWriter.writes)
     ), Messadata())
 
@@ -117,7 +117,7 @@ private object Socket {
 
   case class AddNode(position: Position.Ref, node: Node, uid: Uid)
   case class DelNode(position: Position.Ref, uid: Uid)
-  case class SetPath(path: Path, uid: Uid)
+  case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class ReloadShapes(shapes: List[Shape], uid: Uid)
 

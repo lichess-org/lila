@@ -72,6 +72,10 @@ module.exports = function(root) {
     return pathIsMainlineFrom(root, path);
   }
 
+  function pathExists(path) {
+    return !!nodeAtPath(path);
+  }
+
   function pathIsMainlineFrom(node, path) {
     if (path === '') return true;
     var pathId = treePath.head(path);
@@ -146,6 +150,7 @@ module.exports = function(root) {
       });
     },
     pathIsMainline: pathIsMainline,
+    pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
     promoteVariation: promoteVariation
   };
