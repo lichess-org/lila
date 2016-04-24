@@ -73,39 +73,41 @@ module.exports = {
       ]);
     };
 
-    return m('div', {
-      class: 'list chapters' + (ownage ? ' ownage' : '')
-    }, [
-      ctrl.chapters.list().map(function(chapter) {
-        var confing = ctrl.chapters.vm.confing === chapter.id;
-        var active = ctrl.position().chapterId === chapter.id;
-        var attrs = {
-          class: classSet({
-            elem: true,
-            chapter: true,
-            active: active,
-            confing: confing
-          }),
-          onclick: function() {
-            ctrl.setChapter(chapter.id);
-          }
-        };
-        return [
-          m('div', attrs, [
-            m('div.left', [
-              m('span.status', m('i', {
-                'data-icon': active ? 'J' : 'K'
-              })),
-              chapter.name
+    return [
+      m('div', {
+        class: 'list chapters' + (ownage ? ' ownage' : '')
+      }, [
+        ctrl.chapters.list().map(function(chapter) {
+          var confing = ctrl.chapters.vm.confing === chapter.id;
+          var active = ctrl.position().chapterId === chapter.id;
+          var attrs = {
+            class: classSet({
+              elem: true,
+              chapter: true,
+              active: active,
+              confing: confing
+            }),
+            onclick: function() {
+              ctrl.setChapter(chapter.id);
+            }
+          };
+          return [
+            m('div', attrs, [
+              m('div.left', [
+                m('span.status', m('i', {
+                  'data-icon': active ? 'J' : 'K'
+                })),
+                chapter.name
+              ]),
+              m('div.right', [
+                configButton(chapter, confing)
+              ])
             ]),
-            m('div.right', [
-              configButton(chapter, confing)
-            ])
-          ]),
-          confing ? chapterConfig(chapter) : null
-        ];
-      }),
+            confing ? chapterConfig(chapter) : null
+          ];
+        })
+      ]),
       ownage ? create() : null
-    ]);
+    ];
   }
 };

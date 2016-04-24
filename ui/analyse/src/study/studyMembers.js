@@ -168,35 +168,37 @@ module.exports = {
       ]);
     };
 
-    return m('div', {
-      class: 'list members' + (ownage ? ' ownage' : ''),
-      config: function() {
-        $('body').trigger('lichess.content_loaded');
-      }
-    }, [
-      ctrl.members.ordered().map(function(member) {
-        var confing = ctrl.members.vm.confing === member.user.id;
-        var attrs = {
-          class: classSet({
-            elem: true,
-            member: true,
-            confing: confing
-          })
-        };
-        return [
-          m('div', attrs, [
-            m('div.left', [
-              statusIcon(member),
-              username(member)
+    return [
+      m('div', {
+        class: 'list members' + (ownage ? ' ownage' : ''),
+        config: function() {
+          $('body').trigger('lichess.content_loaded');
+        }
+      }, [
+        ctrl.members.ordered().map(function(member) {
+          var confing = ctrl.members.vm.confing === member.user.id;
+          var attrs = {
+            class: classSet({
+              elem: true,
+              member: true,
+              confing: confing
+            })
+          };
+          return [
+            m('div', attrs, [
+              m('div.left', [
+                statusIcon(member),
+                username(member)
+              ]),
+              m('div.right', [
+                configButton(member, confing)
+              ])
             ]),
-            m('div.right', [
-              configButton(member, confing)
-            ])
-          ]),
-          confing ? memberConfig(member) : null
-        ];
-      }),
+            confing ? memberConfig(member) : null
+          ];
+        })
+      ]),
       ownage ? invite() : null
-    ]);
-  }
+    ];
+}
 };
