@@ -25,8 +25,6 @@ final class ChapterRepo(coll: Coll) {
       "order"
     ) map { order => ~order + 1 }
 
-  def exists(id: Chapter.ID) = coll.exists($id(id))
-
   def insert(s: Chapter): Funit = coll.insert(s).void
 
   def update(c: Chapter): Funit = coll.update($id(c.id), c).void

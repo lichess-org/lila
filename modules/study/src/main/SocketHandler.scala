@@ -127,6 +127,11 @@ private[study] final class SocketHandler(
       name <- d str "name"
     } api.addChapter(byUserId, studyId, name)
 
+    case ("setChapter", o) => for {
+      byUserId <- member.userId
+      chapterId <- o str "d"
+    } api.setChapter(byUserId, studyId, chapterId)
+
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

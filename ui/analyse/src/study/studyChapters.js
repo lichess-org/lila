@@ -70,7 +70,10 @@ module.exports = {
             chapter: true,
             active: active,
             confing: confing
-          })
+          }),
+          onclick: function() {
+            ctrl.setChapter(chapter.id);
+          }
         };
         return [
           m('div', attrs, [

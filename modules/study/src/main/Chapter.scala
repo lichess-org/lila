@@ -11,9 +11,7 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Node.Root,
     order: Int,
-    createdAt: DateTime) {
-
-  def id = _id
+    createdAt: DateTime) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
@@ -30,6 +28,13 @@ object Chapter {
 
   type ID = String
 
+  sealed trait Like {
+    val _id: Chapter.ID
+    val name: String
+    val setup: Chapter.Setup
+    def id = _id
+  }
+
   case class Setup(
     gameId: Option[String],
     variant: Variant,
@@ -38,7 +43,7 @@ object Chapter {
   case class Metadata(
     _id: Chapter.ID,
     name: String,
-    setup: Chapter.Setup)
+    setup: Chapter.Setup) extends Like
 
   val idSize = 8
 

@@ -71,6 +71,9 @@ module.exports = {
           path: path
         }));
       },
+      setChapter: function(id) {
+        send("setChapter", id);
+      },
       onShowGround: function() {
         updateShapes();
       },

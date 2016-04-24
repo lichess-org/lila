@@ -135,6 +135,16 @@ final class StudyApi(
     }
   }
 
+  def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID) = sequenceStudy(studyId) { study =>
+    (study.position.chapterId != chapterId) ?? {
+      chapterRepo.byId(chapterId) flatMap {
+        _.filter(_.studyId == study.id) ?? { chapter =>
+          studyRepo.update(study withChapter chapter) >>- reloadAll(study)
+        }
+      }
+    }
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study.id, Socket.ReloadUid(uid))
 
@@ -148,6 +158,11 @@ final class StudyApi(
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id, Socket.ReloadChapters(chapters))
+    }
+
+  private def reloadAll(study: Study) =
+    chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
+      sendTo(study.id, Socket.ReloadAll(study, chapters))
     }
 
   private def reloadShapes(study: Study, uid: Uid) =

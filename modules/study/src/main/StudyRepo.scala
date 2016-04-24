@@ -17,6 +17,8 @@ private final class StudyRepo(coll: Coll) {
 
   def insert(s: Study): Funit = coll.insert(s).void
 
+  def update(s: Study): Funit = coll.update($id(s.id), s).void
+
   def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 

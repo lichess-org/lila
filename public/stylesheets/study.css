@@ -113,6 +113,9 @@
 .study_box .list div.config .kick {
   margin-top: 15px;
 }
+.study_box .chapters .chapter {
+  cursor: pointer;
+}
 .study_box .chapters .status i {
   color: #3893E8;
   opacity: 1;
