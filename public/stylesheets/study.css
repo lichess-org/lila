@@ -7,6 +7,8 @@
   -webkit-user-select: none;
 }
 .study_box .tabs a {
+  font-family: 'Roboto';
+  font-weight: 300;
   text-transform: uppercase;
   display: block;
   width: 100%;
@@ -28,7 +30,7 @@
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 16px;
+  line-height: 32px;
   margin-left: 5px;
 }
 .study_box .list .left,
@@ -39,9 +41,9 @@
 .study_box .list .status,
 .study_box .list .action {
   display: block;
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   padding: 0 2px;
 }
