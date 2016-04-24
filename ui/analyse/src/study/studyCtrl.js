@@ -44,6 +44,7 @@ module.exports = {
       },
       setPath: throttle(300, false, function(path) {
         if (members.canContribute() && path !== data.position.path) {
+          data.position.path = path;
           data.shapes = [];
           send("setPath", addChapterId({
             path: path
