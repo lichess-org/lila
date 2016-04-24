@@ -196,6 +196,13 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.reloadData = function(data) {
+    initialize(data);
+    this.vm.redirecting = false;
+    this.userJump(treePath.root);
+    this.userJump(mainlinePathToPly(this.tree.lastPly()));
+  }.bind(this);
+
   this.changePgn = function(pgn) {
     this.vm.redirecting = true;
     $.ajax({
@@ -204,12 +211,7 @@ module.exports = function(opts) {
       data: {
         pgn: pgn
       },
-      success: function(data) {
-        initialize(data);
-        this.vm.redirecting = false;
-        this.userJump(treePath.root);
-        this.userJump(mainlinePathToPly(this.tree.lastPly()));
-      }.bind(this),
+      success: this.reloadData,
       error: function(error) {
         console.log(error);
         this.vm.redirecting = false;

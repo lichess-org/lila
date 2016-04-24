@@ -21,20 +21,40 @@ module.exports = {
       tab: storedProp('study.tab', 'members')
     };
 
-    function addChapterId(req) {
+    var addChapterId = function(req) {
       req.chapterId = data.position.chapterId;
       return req;
     }
 
-    function updateShapes() {
+    var updateShapes = function() {
       var shapes = ctrl.vm.path === data.position.path ? data.shapes : [];
       ctrl.chessground.setShapes(shapes);
     }
     ctrl.userJump(data.position.path);
     updateShapes();
 
-    function samePosition(p1, p2) {
+    var samePosition = function(p1, p2) {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
+    }
+
+    var xhrReload = function() {
+      ctrl.vm.redirecting = true;
+      m.request({
+        method: 'GET',
+        url: '/study/' + data.id + '?_=' + new Date().getTime(),
+        config: function(xhr) {
+          xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+        }
+      }).then(function(d) {
+        var s = d.study;
+        data.position = s.position;
+        data.shapes = s.shapes;
+        members.set(s.members);
+        chapters.set(s.chapters);
+        ctrl.reloadData(d.analysis);
+      }, function(err) {
+        lichess.reload();
+      });
     }
 
     ctrl.chessground.set({
@@ -86,7 +106,7 @@ module.exports = {
           var position = d.p,
             who = d.w;
           if (position.chapterId !== data.position.chapterId) return;
-          if (!ctrl.tree.pathExists(position.path)) lichess.reload();
+          if (!ctrl.tree.pathExists(position.path)) xhrReload();
           data.position.path = position.path;
           members.setActive(who.u);
           if (who.s === sri) return;
@@ -107,7 +127,7 @@ module.exports = {
           }
           var newPath = ctrl.tree.addNode(node, position.path);
           ctrl.tree.addDests(d.d, newPath, d.o);
-          if (!newPath) lichess.reload();
+          if (!newPath) xhrReload();
           data.position.path = newPath;
           ctrl.jump(data.position.path);
           m.redraw();
@@ -119,14 +139,12 @@ module.exports = {
           members.setActive(who.u);
           if (who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
-          if (!ctrl.tree.pathExists(d.p.path)) lichess.reload();
+          if (!ctrl.tree.pathExists(d.p.path)) xhrReload();
           ctrl.tree.deleteNodeAt(position.path);
           ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
-        reload: function() {
-          lichess.reload();
-        },
+        reload: xhrReload,
         members: function(d) {
           members.set(d);
           m.redraw();

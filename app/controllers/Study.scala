@@ -22,7 +22,7 @@ object Study extends LilaController {
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
             Env.chat.api.userChat.find(study.id) zip
-            env.version(id) map {
+            env.version(id) flatMap {
               case ((baseData, chat), sVersion) =>
                 import lila.socket.tree.Node.nodeJsonWriter
                 val analysis = baseData ++ Json.obj(
@@ -31,7 +31,12 @@ object Study extends LilaController {
                   study = lila.study.JsonView(study, chapters),
                   analysis = analysis,
                   chat = lila.chat.JsonView(chat))
-                Ok(html.study.show(study, data, sVersion))
+                negotiate(
+                  html = Ok(html.study.show(study, data, sVersion)).fuccess,
+                  api = _ => Ok(Json.obj(
+                    "study" -> data.study,
+                    "analysis" -> data.analysis)).fuccess
+                )
             }
         }
     } map NoCache

@@ -21,7 +21,7 @@
 }
 
 .study_box .list {
-  max-height: 200px;
+  max-height: 160px;
   overflow: hidden;
   overflow-y: auto;
 }
