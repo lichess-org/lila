@@ -42,9 +42,12 @@ private final class Socket(
       "w" -> who(uid)
     ), Messadata())
 
-    case ReloadMembers(members)    => notifyVersion("members", members, Messadata())
+    case ReloadMembers(members) => notifyVersion("members", members, Messadata())
 
-    case ReloadShapes(shapes, uid) => notifyVersion("shapes", shapes, Messadata())
+    case ReloadShapes(shapes, uid) => notifyVersion("shapes", Json.obj(
+      "s" -> shapes,
+      "w" -> who(uid)
+    ), Messadata())
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>

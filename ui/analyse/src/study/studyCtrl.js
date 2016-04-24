@@ -128,7 +128,8 @@ module.exports = {
           m.redraw();
         },
         shapes: function(d) {
-          data.shapes = d;
+          members.setActive(d.w.u);
+          data.shapes = d.s;
           updateShapes();
           m.redraw();
         }
