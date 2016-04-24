@@ -4,6 +4,13 @@ import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 
 import lila.user.User
 
+sealed trait RootOrNode {
+  val ply: Int
+  val fen: FEN
+  val check: Boolean
+  val children: Node.Children
+}
+
 case class Node(
     id: UciCharPair,
     ply: Int,
@@ -11,7 +18,7 @@ case class Node(
     fen: FEN,
     check: Boolean,
     by: User.ID,
-    children: Node.Children) {
+    children: Node.Children) extends RootOrNode {
 
   import Node.Children
 
@@ -74,14 +81,15 @@ object Node {
       ply: Int,
       fen: FEN,
       check: Boolean,
-      children: Children) {
+      children: Children) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
       f(children) map { newChildren =>
         copy(children = newChildren)
       }
 
-    def nodeAt(path: Path): Option[Node] = children nodeAt path
+    def nodeAt(path: Path): Option[RootOrNode] =
+      if (path.isEmpty) this.some else children nodeAt path
 
     def pathExists(path: Path): Boolean = nodeAt(path).isDefined
   }
