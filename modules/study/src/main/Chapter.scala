@@ -45,6 +45,8 @@ object Chapter {
     name: String,
     setup: Chapter.Setup) extends Like
 
+  def toName(str: String) = str.trim take 80
+
   val idSize = 8
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString

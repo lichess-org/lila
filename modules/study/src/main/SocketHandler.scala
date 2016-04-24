@@ -125,7 +125,7 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       d <- o obj "d"
       name <- d str "name"
-    } api.addChapter(byUserId, studyId, name)
+    } api.addChapter(byUserId, studyId, Chapter toName name)
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
@@ -137,7 +137,7 @@ private[study] final class SocketHandler(
       d <- o obj "d"
       id <- d str "id"
       name <- d str "name"
-    } api.renameChapter(byUserId, studyId, id, name)
+    } api.renameChapter(byUserId, studyId, id, Chapter toName name)
 
   }
 
