@@ -137,10 +137,18 @@ final class StudyApi(
 
   def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID) = sequenceStudy(studyId) { study =>
     (study.position.chapterId != chapterId) ?? {
-      chapterRepo.byId(chapterId) flatMap {
-        _.filter(_.studyId == study.id) ?? { chapter =>
+      chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
+        _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- reloadAll(study)
         }
+      }
+    }
+  }
+
+  def renameChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, name: String) = sequenceStudy(studyId) { study =>
+    chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
+      _ ?? { chapter =>
+        chapterRepo.update(chapter.copy(name = name)) >>- reloadChapters(study)
       }
     }
   }

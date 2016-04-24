@@ -128,3 +128,6 @@
   color: #3893E8;
   opacity: 1;
 }
+.study_box .chapters input {
+  width: 100%;
+}

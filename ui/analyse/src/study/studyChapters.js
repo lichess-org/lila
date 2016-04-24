@@ -1,5 +1,14 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
+var partial = require('chessground').util.partial;
+
+function onEnter(action) {
+  return function(el, isUpdate) {
+    if (!isUpdate) $(el).keypress(function(e) {
+      if (e.which == 10 || e.which == 13) action($(this).val());
+    })
+  };
+}
 
 module.exports = {
   ctrl: function(chapters, send) {
@@ -20,6 +29,13 @@ module.exports = {
         send("addChapter", {
           name: name
         });
+      },
+      rename: function(id, name) {
+        send("renameChapter", {
+          id: id,
+          name: name
+        });
+        vm.confing = null;
       }
     };
   },
@@ -31,6 +47,7 @@ module.exports = {
       if (ownage) return m('span.action.config', {
         onclick: function(e) {
           ctrl.chapters.vm.confing = confing ? null : chapter.id;
+          e.stopPropagation();
         }
       }, m('i', {
         'data-icon': '%'
@@ -39,7 +56,10 @@ module.exports = {
 
     var chapterConfig = function(chapter) {
       return m('div.config', [
-        "config"
+        m('input', {
+          value: chapter.name,
+          config: onEnter(partial(ctrl.chapters.rename, chapter.id))
+        })
       ]);
     };
 
@@ -47,12 +67,7 @@ module.exports = {
       return m('div.create', [
         m('input', {
           class: 'list_input',
-          config: function(el, isUpdate) {
-            if (isUpdate) return;
-            $(el).keypress(function(e) {
-              if (e.which == 10 || e.which == 13) ctrl.chapters.add($(this).val());
-            })
-          },
+          config: onEnter(ctrl.chapters.add),
           placeholder: 'Add a new chapter'
         })
       ]);

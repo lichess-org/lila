@@ -12,6 +12,9 @@ final class ChapterRepo(coll: Coll) {
 
   def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
 
+  def byIdAndStudy(id: Chapter.ID, studyId: Study.ID): Fu[Option[Chapter]] =
+    coll.byId[Chapter](id).map { _.filter(_.studyId == studyId) }
+
   def orderedMetadataByStudy(studyId: Study.ID): Fu[List[Chapter.Metadata]] =
     coll.find(
       $doc("studyId" -> studyId),
