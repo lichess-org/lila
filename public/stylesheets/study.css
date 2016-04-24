@@ -20,6 +20,11 @@
   border-bottom: 3px solid #3893E8;
 }
 
+.study_box .list {
+  max-height: 200px;
+  overflow: hidden;
+  overflow-y: auto;
+}
 .study_box .list .elem {
   display: flex;
   justify-content: space-between;
@@ -27,11 +32,12 @@
   -webkit-user-select: none;
 }
 .study_box .elem .user_link {
-  font-size: 1.2em;
+  font-size: 1.15em;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 32px;
   margin-left: 5px;
+  max-width: 130px;
 }
 .study_box .list .left,
 .study_box .list .right {
