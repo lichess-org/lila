@@ -29,7 +29,7 @@ private[study] final class SocketHandler(
     join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
     handler ← Handler(hub, socket, uid.value, join, user.map(_.id)) {
       case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, member, owner = owner), enum, member)
+        (controller(socket, studyId, uid, member, owner = owner), enum, member)
     }
   } yield handler.some
 
@@ -47,17 +47,18 @@ private[study] final class SocketHandler(
   private def controller(
     socket: ActorRef,
     studyId: Study.ID,
+    uid: Uid,
     member: Socket.Member,
     owner: Boolean): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
-      socket ! PingVersion(member.uid.value, v)
+      socket ! PingVersion(uid.value, v)
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
         chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
       }
     }
-    case ("anaMove", o) => AnaRateLimit(member.uid.value) {
+    case ("anaMove", o) => AnaRateLimit(uid.value) {
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) =>
@@ -73,34 +74,34 @@ private[study] final class SocketHandler(
               studyId,
               Position.Ref(chapterId, Path(anaMove.path)),
               Node.fromBranchBy(userId)(branch),
-              member.uid)
+              uid)
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }
       }
     }
-    case ("setPath", o) => AnaRateLimit(member.uid.value) {
+    case ("setPath", o) => AnaRateLimit(uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
+          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
         }
       }
     }
-    case ("deleteVariation", o) => AnaRateLimit(member.uid.value) {
+    case ("deleteVariation", o) => AnaRateLimit(uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
+          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
         }
       }
     }
-    case ("promoteVariation", o) => AnaRateLimit(member.uid.value) {
+    case ("promoteVariation", o) => AnaRateLimit(uid.value) {
       reading[AtPath](o) { d =>
         member.userId foreach { userId =>
-          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), member.uid)
+          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
         }
       }
     }
-    case ("setRole", o) if owner => AnaRateLimit(member.uid.value) {
+    case ("setRole", o) if owner => AnaRateLimit(uid.value) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(userId, studyId, d.userId, d.role)
@@ -120,7 +121,7 @@ private[study] final class SocketHandler(
     case ("shapes", o) =>
       (o \ "d").asOpt[List[Shape]] foreach { shapes =>
         member.userId foreach { userId =>
-          api.setShapes(userId, studyId, shapes, member.uid)
+          api.setShapes(userId, studyId, shapes, uid)
         }
       }
   }

@@ -1,40 +1,16 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
+var memberCtrl = require('./studyMembers').ctrl;
 
 module.exports = {
   init: function(data, ctrl) {
 
     var send = ctrl.socket.send;
-    var userId = ctrl.userId;
 
-    var vm = {
-      memberConfig: null // which user is being configured by us
-    };
+    var members = memberCtrl(data.members, ctrl.userId, data.ownerId);
 
-    function myMember() {
-      return userId ? data.members[userId] : null;
-    }
-
-    function owner() {
-      return data.members[data.ownerId];
-    }
-
-    function meOrOwner() {
-      return myMember() || owner();
-    }
-
-    function canContribute() {
-      return myMember() && myMember().role === 'w';
-    }
-
-    function orderedMembers() {
-      return Object.keys(data.members).map(function(id) {
-        return data.members[id];
-      }).sort(function(a, b) {
-        return a.addedAt > b.addedAt;
-      });
-    }
+    var sri = lichess.StrongSocket.sri;
 
     function addChapterId(req) {
       req.chapterId = data.position.chapterId;
@@ -55,20 +31,19 @@ module.exports = {
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
-          if (canContribute()) send("shapes", shapes);
+          if (members.canContribute()) send("shapes", shapes);
         }
       }
     });
 
     return {
       data: data,
-      vm: vm,
-      userId: userId,
+      members: members,
       position: function() {
         return data.position;
       },
       setPath: throttle(300, false, function(path) {
-        if (canContribute() && path !== data.position.path) {
+        if (members.canContribute() && path !== data.position.path) {
           data.shapes = [];
           send("setPath", addChapterId({
             path: path
@@ -85,44 +60,56 @@ module.exports = {
           path: path
         }));
       },
-      orderedMembers: orderedMembers,
-      setRole: function(userId, role) {
+      setRole: function(id, role) {
         send("setRole", {
-          userId: userId,
+          userId: id,
           role: role
         });
         setTimeout(function() {
-          vm.memberConfig = null;
+          members.vm.confing = null;
           m.redraw();
         }, 400);
       },
       invite: function(username) {
         send("invite", username);
       },
-      kick: function(userId) {
-        send("kick", userId);
+      kick: function(id) {
+        send("kick", id);
         vm.memberConfig = null;
       },
       onShowGround: function() {
         updateShapes();
       },
       socketHandlers: {
-        path: function(p) {
-          data.position.path = p;
+        path: function(d) {
+          var who = d.w;
+          members.setActive(who.u);
+          if (who.s === sri) return;
+          data.position.path = d.p;
           data.shapes = [];
-          ctrl.userJump(p);
+          ctrl.userJump(d.p);
           m.redraw();
         },
         addNode: function(d) {
-          if (d.p.chapterId !== data.position.chapterId) return;
-          ctrl.tree.addNode(d.n, d.p.path);
-          data.position.path = d.p.path + d.n.id;
+          var position = d.p,
+            node = d.n,
+            who = d.w;
+          members.setActive(who.u);
+          if (who.s === sri) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.addNode(node, position.path);
+          data.position.path = position.path + node.id;
           ctrl.jump(data.position.path);
           m.redraw();
         },
         delNode: function(d) {
-          if (d.p.chapterId !== data.position.chapterId) return;
-          ctrl.tree.deleteNodeAt(d.p.path);
+          var position = d.p,
+            byId = d.u,
+            who = d.w;
+          members.setActive(who.u);
+          if (who.s === sri) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.deleteNodeAt(position.path);
           ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
@@ -130,8 +117,7 @@ module.exports = {
           lichess.reload();
         },
         members: function(d) {
-          data.members = d;
-          updateShapes();
+          members.set(d);
           m.redraw();
         },
         shapes: function(d) {

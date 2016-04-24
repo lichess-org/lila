@@ -9,43 +9,65 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 16px;
-  padding: 10px;
+  margin-left: 5px;
 }
-.members .actions {
+.members .left,
+.members .right {
   display: flex;
+  align-items: center;
 }
+.members .status,
 .members .action {
   display: block;
-  width: 16px;
-  height: 16px;
-  padding: 10px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  padding: 0 2px;
+}
+.members .status i,
+.members .action i {
+  font-size: 14px;
   opacity: 0.4;
   transition: opacity 0.13s;
 }
-.members .action.available {
+.members .action {
   cursor: pointer;
-}
-.members .action.follow {
-  background: #fff;
-}
-.members .action.empty {
-  background: #ddd;
-  opacity: 1;
-  cursor: default;
-}
-body.dark .members .action.empty {
-  background: #333;
 }
 .members .action.follow i::before {
   font-size: 1.5em;
 }
-.members > div:hover .action.available {
+.members > div:hover .action i {
   opacity: 1;
 }
-.members .following .action.follow {
-  background: #3893E8;
-  color: #fff;
+.members .status.contrib i {
+  opacity: 0.7;
+}
+.members .status {
+  transition: 3s;
+}
+.members .status i {
+  transition: 3s;
+}
+.members .status.active {
+  transition: none;
+}
+.members .member:nth-child(4n-3) .status.active {
+  background: #42a5f5;
+}
+.members .member:nth-child(4n-2) .status.active {
+  background: #f44336;
+}
+.members .member:nth-child(4n-1) .status.active {
+  background: #fdd835;
+}
+.members .member:nth-child(4n-0) .status.active {
+  background: #4caf50;
+}
+.members .status.active i {
+  transition: none;
   opacity: 1;
+  color: #fff;
 }
 .members .invite input {
   width: 214px;

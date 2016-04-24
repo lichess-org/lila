@@ -260,7 +260,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lichess.StrongSocket.sri = Math.random().toString(36).substring(2);
+lichess.StrongSocket.sri = Math.random().toString(36).substring(2).slice(0, 10);
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
 lichess.StrongSocket.defaults = {
   events: {

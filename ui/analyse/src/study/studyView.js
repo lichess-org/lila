@@ -4,7 +4,7 @@ var classSet = require('chessground').util.classSet;
 
 module.exports = function(ctrl) {
 
-  var ownage = ctrl.userId === ctrl.data.ownerId;
+  var ownage = ctrl.members.isOwner();
 
   var username = function(member) {
     var u = member.user;
@@ -22,30 +22,26 @@ module.exports = function(ctrl) {
     }, member.role.toUpperCase());
   };
 
-  var followButton = function(member) {
-    if (member.user.id === ctrl.userId) {
-      if (member.role === 'w') return m('span.action.follow', m('i', {
-        'data-icon': ''
-      }));
-      return m('span.action.empty');
-    }
-    if (member.role !== 'w') return m('span.action.empty');
-    return m('span.action.follow.available.hint--top', {
-      'data-hint': 'Follow/Unfollow',
-      onclick: function(e) {
-        e.stopPropagation();
-        ctrl.follow(member.user.id);
-      }
+  var statusIcon = function(member) {
+    var contrib = member.role === 'w';
+    return m('span', {
+      class: classSet({
+        contrib: contrib,
+        active: ctrl.members.isActive(member.user.id),
+        status: true,
+        'hint--top': true
+      }),
+      'data-hint': contrib ? 'Contributor' : 'Viewer',
     }, m('i', {
-      'data-icon': ''
+      'data-icon': contrib ? '' : 'v'
     }));
   };
 
   var configButton = function(member, confing) {
-    if (!ownage || member.user.id === ctrl.userId) return null;
-    return m('span.action.config.available', {
+    if (!ownage || member.user.id === ctrl.members.myId) return null;
+    return m('span.action.config', {
       onclick: function(e) {
-        ctrl.vm.memberConfig = confing ? null : member.user.id;
+        ctrl.members.vm.confing = confing ? null : member.user.id;
       }
     }, m('i', {
       'data-icon': '%'
@@ -104,21 +100,22 @@ module.exports = function(ctrl) {
   return m('div', {
       class: 'members' + (ownage ? ' ownage' : '')
     },
-    ctrl.orderedMembers().map(function(member) {
-      var confing = ctrl.vm.memberConfig === member.user.id;
+    ctrl.members.ordered().map(function(member) {
+      var confing = ctrl.members.vm.confing === member.user.id;
       var attrs = {
         class: classSet({
           member: true,
-          following: ctrl.vm.follow === member.user.id,
           confing: confing
         })
       };
       return [
         m('div', attrs, [
-          username(member),
-          m('div.actions', [
-            configButton(member, confing),
-            // followButton(member)
+          m('div.left', [
+            statusIcon(member),
+            username(member)
+          ]),
+          m('div.right', [
+            configButton(member, confing)
           ])
         ]),
         confing ? memberConfig(member) : null

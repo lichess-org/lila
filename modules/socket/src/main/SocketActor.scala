@@ -154,6 +154,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     case (_, member) if member.userId.contains(userId) => member
   }
 
+  def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
+
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
   val maxSpectatorUsers = 10

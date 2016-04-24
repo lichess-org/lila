@@ -26,15 +26,25 @@ private final class Socket(
 
   def receiveSpecific = {
 
-    case SetPath(path, uid)        => notifyVersion("path", path, Messadata(exceptUid = uid.some))
+    case SetPath(path, uid) => notifyVersion("path", Json.obj(
+      "p" -> path,
+      "w" -> who(uid).map(whoWriter.writes)
+    ), Messadata())
 
-    case AddNode(pos, node, uid)   => notifyVersion("addNode", Json.obj("n" -> node, "p" -> pos), Messadata(exceptUid = uid.some))
+    case AddNode(pos, node, uid) => notifyVersion("addNode", Json.obj(
+      "n" -> node,
+      "p" -> pos,
+      "w" -> who(uid)
+    ), Messadata())
 
-    case DelNode(pos, uid)         => notifyVersion("delNode", Json.obj("p" -> pos), Messadata(exceptUid = uid.some))
+    case DelNode(pos, uid) => notifyVersion("delNode", Json.obj(
+      "p" -> pos,
+      "w" -> who(uid)
+    ), Messadata())
 
-    case ReloadMembers(members)    => notifyAll("members", members)
+    case ReloadMembers(members)    => notifyVersion("members", members, Messadata())
 
-    case ReloadShapes(shapes, uid) => notifyVersion("shapes", shapes, Messadata(exceptUid = uid.some))
+    case ReloadShapes(shapes, uid) => notifyVersion("shapes", shapes, Messadata())
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
@@ -63,7 +73,7 @@ private final class Socket(
     case Socket.Join(uid, userId, troll, owner) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, uid, userId, troll = troll, owner = owner)
+      val member = Socket.Member(channel, userId, troll = troll, owner = owner)
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
@@ -83,18 +93,22 @@ private final class Socket(
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
-    (message.metadata.trollish && !member.troll) ||
-      message.metadata.exceptUid.contains(member.uid)
+    (message.metadata.trollish && !member.troll)
+
+  private def who(uid: Uid) = uidToUserId(uid) map { Who(_, uid) }
 }
 
 private object Socket {
 
   case class Member(
     channel: JsChannel,
-    uid: Uid,
     userId: Option[String],
     troll: Boolean,
     owner: Boolean) extends lila.socket.SocketMember
+
+  case class Who(u: String, s: Uid)
+  import JsonView.uidWriter
+  implicit private val whoWriter = Json.writes[Who]
 
   case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
@@ -107,8 +121,6 @@ private object Socket {
   case class ReloadMembers(members: StudyMembers)
   case class ReloadShapes(shapes: List[Shape], uid: Uid)
 
-  case class Messadata(
-    exceptUid: Option[Uid] = None,
-    trollish: Boolean = false)
+  case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd
 }

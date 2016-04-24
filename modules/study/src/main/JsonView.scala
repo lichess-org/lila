@@ -6,6 +6,7 @@ import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
+import lila.socket.Socket.Uid
 
 object JsonView {
 
@@ -31,6 +32,9 @@ object JsonView {
   }
   private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
+  }
+  private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
+    JsString(uid.value)
   }
 
   private implicit val rootWrites = Writes[Node.Root] { n =>
