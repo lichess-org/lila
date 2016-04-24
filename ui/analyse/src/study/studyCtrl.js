@@ -84,12 +84,13 @@ module.exports = {
       },
       socketHandlers: {
         path: function(d) {
-          var position = d.p, who = d.w;
+          var position = d.p,
+            who = d.w;
           if (position.chapterId !== data.position.chapterId) return;
+          if (!ctrl.tree.pathExists(position.path)) lichess.reload();
           data.position.path = position.path;
           members.setActive(who.u);
           if (who.s === sri) return;
-          if (!ctrl.tree.pathExists(position.path)) lichess.reload();
           data.position.path = position.path;
           data.shapes = [];
           ctrl.userJump(position.path);
@@ -99,12 +100,15 @@ module.exports = {
           var position = d.p,
             node = d.n,
             who = d.w;
-          members.setActive(who.u);
-          if (who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
-          if (!ctrl.tree.pathExists(d.p.path)) lichess.reload();
-          ctrl.tree.addNode(node, position.path);
-          data.position.path = position.path + node.id;
+          members.setActive(who.u);
+          if (who.s === sri) {
+            data.position.path = position.path + node.id;
+            return;
+          }
+          var newPath = ctrl.tree.addNode(node, position.path);
+          if (!newPath) lichess.reload();
+          data.position.path = newPath;
           ctrl.jump(data.position.path);
           m.redraw();
         },
