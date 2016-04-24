@@ -22,9 +22,12 @@ case class Study(
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
-  def withChapter(c: Chapter.Like) = copy(
-    position = Position.Ref(chapterId = c.id, path = Path.root)
-  )
+  def withChapter(c: Chapter.Like) =
+    if (c.id == position.chapterId) this
+    else copy(
+      position = Position.Ref(chapterId = c.id, path = Path.root),
+      shapes = Nil
+    )
 }
 
 object Study {
