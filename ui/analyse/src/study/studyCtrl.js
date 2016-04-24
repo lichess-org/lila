@@ -4,6 +4,8 @@ var throttle = require('../util').throttle;
 var memberCtrl = require('./studyMembers').ctrl;
 
 module.exports = {
+  // data.position.path represents the server state
+  // ctrl.vm.path is the client state
   init: function(data, ctrl) {
 
     var send = ctrl.socket.send;
@@ -44,7 +46,6 @@ module.exports = {
       },
       setPath: throttle(300, false, function(path) {
         if (members.canContribute() && path !== data.position.path) {
-          data.position.path = path;
           data.shapes = [];
           send("setPath", addChapterId({
             path: path
@@ -84,9 +85,10 @@ module.exports = {
       socketHandlers: {
         path: function(d) {
           var position = d.p, who = d.w;
+          if (position.chapterId !== data.position.chapterId) return;
+          data.position.path = position.path;
           members.setActive(who.u);
           if (who.s === sri) return;
-          if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(position.path)) lichess.reload();
           data.position.path = position.path;
           data.shapes = [];
