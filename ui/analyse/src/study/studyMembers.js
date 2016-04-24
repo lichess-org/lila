@@ -128,6 +128,8 @@ module.exports = {
             lichess.userAutocomplete($(el), {
               onSelect: function(v) {
                 ctrl.members.invite(v);
+                m.redraw.strategy('all'); // to recreate the autocomplete
+                m.redraw();
               }
             });
           },
