@@ -1,17 +1,19 @@
 package lila.study
 
-import akka.actor.ActorRef
+import akka.actor.{ ActorRef, ActorSelection }
 
 import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.user.{ User, UserRepo }
+import lila.chat.actorApi.SystemTalk
 
 final class StudyApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     sequencers: ActorRef,
+    chat: ActorSelection,
     socketHub: akka.actor.ActorRef) {
 
   def byId = studyRepo byId _
@@ -135,11 +137,16 @@ final class StudyApi(
     }
   }
 
-  def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID) = sequenceStudy(studyId) { study =>
-    (study.position.chapterId != chapterId) ?? {
+  def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, socket: ActorRef) = sequenceStudy(studyId) { study =>
+    (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
         _ ?? { chapter =>
-          studyRepo.update(study withChapter chapter) >>- reloadAll(study)
+          studyRepo.update(study withChapter chapter) >>- {
+            reloadAll(study)
+            study.members.get(byUserId).foreach { member =>
+              chat ! SystemTalk(study.id, s"${member.user.name} switched to ${chapter.name}", socket)
+            }
+          }
         }
       }
     }

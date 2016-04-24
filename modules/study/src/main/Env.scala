@@ -54,6 +54,7 @@ final class Env(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
+    chat = hub.actor.chat,
     socketHub = socketHub)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>

@@ -130,7 +130,7 @@ private[study] final class SocketHandler(
     case ("setChapter", o) => for {
       byUserId <- member.userId
       chapterId <- o str "d"
-    } api.setChapter(byUserId, studyId, chapterId)
+    } api.setChapter(byUserId, studyId, chapterId, socket)
 
     case ("renameChapter", o) if owner => for {
       byUserId <- member.userId

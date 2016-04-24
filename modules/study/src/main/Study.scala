@@ -28,6 +28,8 @@ case class Study(
       position = Position.Ref(chapterId = c.id, path = Path.root),
       shapes = Nil
     )
+
+  def member = members.get _
 }
 
 object Study {
