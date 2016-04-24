@@ -11,10 +11,26 @@
   font-weight: 300;
   text-transform: uppercase;
   display: block;
+  position: relative;
   width: 100%;
   text-align: center;
   padding: 5px 0;
   background: #fff;
+}
+.study_box .tabs a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: #fff;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  transition: width 0s ease,background .3s ease;
+}
+.study_box .tabs a:not(.active):hover:before {
+  width: 100%;
+  background: #3893E8;
+  transition: width .25s ease;
 }
 .study_box .tabs a.active {
   border-bottom: 3px solid #3893E8;
