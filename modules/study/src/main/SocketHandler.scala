@@ -120,6 +120,13 @@ private[study] final class SocketHandler(
           api.setShapes(userId, studyId, shapes, uid)
         }
       }
+
+    case ("addChapter", o) if owner => for {
+      byUserId <- member.userId
+      d <- o obj "d"
+      name <- d str "name"
+    } api.addChapter(byUserId, studyId, name)
+
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

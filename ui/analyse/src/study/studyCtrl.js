@@ -1,7 +1,9 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
+var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
+var chapterCtrl = require('./studyChapters').ctrl;
 
 module.exports = {
   // data.position.path represents the server state
@@ -10,9 +12,14 @@ module.exports = {
 
     var send = ctrl.socket.send;
 
-    var members = memberCtrl(data.members, ctrl.userId, data.ownerId);
+    var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send);
+    var chapters = chapterCtrl(data.chapters, send);
 
     var sri = lichess.StrongSocket.sri;
+
+    var vm = {
+      tab: storedProp('study.tab', 'members')
+    };
 
     function addChapterId(req) {
       req.chapterId = data.position.chapterId;
@@ -41,6 +48,8 @@ module.exports = {
     return {
       data: data,
       members: members,
+      chapters: chapters,
+      vm: vm,
       position: function() {
         return data.position;
       },
@@ -61,23 +70,6 @@ module.exports = {
         send("promoteVariation", addChapterId({
           path: path
         }));
-      },
-      setRole: function(id, role) {
-        send("setRole", {
-          userId: id,
-          role: role
-        });
-        setTimeout(function() {
-          members.vm.confing = null;
-          m.redraw();
-        }, 400);
-      },
-      invite: function(username) {
-        send("invite", username);
-      },
-      kick: function(id) {
-        send("kick", id);
-        vm.memberConfig = null;
       },
       onShowGround: function() {
         updateShapes();
@@ -130,6 +122,10 @@ module.exports = {
         },
         members: function(d) {
           members.set(d);
+          m.redraw();
+        },
+        chapters: function(d) {
+          chapters.set(d);
           m.redraw();
         },
         shapes: function(d) {

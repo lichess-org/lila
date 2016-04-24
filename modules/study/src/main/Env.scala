@@ -69,7 +69,7 @@ final class Env(
   }
 
   private lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
-  private lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
+  lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 }
 
 object Env {

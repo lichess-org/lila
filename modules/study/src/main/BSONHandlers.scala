@@ -113,6 +113,7 @@ private object BSONHandlers {
 
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
+  implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
   private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
 

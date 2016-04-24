@@ -1,23 +1,43 @@
-.members .member {
+.study_box .spinner {
+  margin: 20px auto;
+}
+.study_box .tabs {
+  display: flex;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.study_box .tabs a {
+  text-transform: uppercase;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 5px 0;
+  background: #fff;
+}
+.study_box .tabs a.active {
+  border-bottom: 3px solid #3893E8;
+}
+
+.study_box .list .elem {
   display: flex;
   justify-content: space-between;
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.member .user_link {
+.study_box .elem .user_link {
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 16px;
   margin-left: 5px;
 }
-.members .left,
-.members .right {
+.study_box .list .left,
+.study_box .list .right {
   display: flex;
   align-items: center;
 }
-.members .status,
-.members .action {
+.study_box .list .status,
+.study_box .list .action {
   display: block;
   width: 36px;
   height: 36px;
@@ -25,74 +45,75 @@
   text-align: center;
   padding: 0 2px;
 }
-.members .status i,
-.members .action i {
+.study_box .list .status i,
+.study_box .list .action i {
   font-size: 14px;
   opacity: 0.4;
   transition: opacity 0.13s;
 }
-.members .action {
+.study_box .list .action {
   cursor: pointer;
 }
-.members .action.follow i::before {
-  font-size: 1.5em;
-}
-.members > div:hover .action i {
+.study_box .list > div:hover .action i {
   opacity: 1;
 }
-.members .status.contrib i {
+.study_box .members .status.contrib i {
   opacity: 0.7;
 }
-.members .status {
+.study_box .members .status {
   transition: 3s;
 }
-.members .status i {
+.study_box .members .status i {
   transition: 3s;
 }
-.members .status.active {
+.study_box .members .status.active {
   transition: none;
 }
-.members .member:nth-child(4n-3) .status.active {
+.study_box .members .member:nth-child(4n-3) .status.active {
   background: #42a5f5;
 }
-.members .member:nth-child(4n-2) .status.active {
+.study_box .members .member:nth-child(4n-2) .status.active {
   background: #f44336;
 }
-.members .member:nth-child(4n-1) .status.active {
+.study_box .members .member:nth-child(4n-1) .status.active {
   background: #fdd835;
 }
-.members .member:nth-child(4n-0) .status.active {
+.study_box .members .member:nth-child(4n-0) .status.active {
   background: #4caf50;
 }
-.members .status.active i {
+.study_box .members .status.active i {
   transition: none;
   opacity: 1;
   color: #fff;
 }
-.members .invite input {
+.study_box .list_input {
   width: 214px;
   border: none;
   border-top: 1px solid #ccc;
   background: white;
   padding: 3px 5px;
 }
-.members div.confing,
-.members div.config {
+.study_box .list div.confing,
+.study_box .list div.config {
   background: #fff;
 }
-.members div.config {
+.study_box .list div.config {
   padding: 5px 10px 15px 10px;
 }
-.members div.config .role {
+.study_box .list div.config .role {
   line-height: 22px;
 }
-.members div.config .role label {
+.study_box .list div.config .role label {
   cursor: pointer;
 }
-.members div.config .switch {
+.study_box .list div.config .switch {
   float: left;
   margin-right: 10px;
 }
-.members div.config .kick {
+.study_box .list div.config .kick {
   margin-top: 15px;
+}
+.study_box .chapters .status i {
+  color: #3893E8;
+  opacity: 1;
 }

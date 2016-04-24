@@ -35,6 +35,11 @@ object Chapter {
     variant: Variant,
     orientation: Color)
 
+  case class Metadata(
+    _id: Chapter.ID,
+    name: String,
+    setup: Chapter.Setup)
+
   val idSize = 8
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString

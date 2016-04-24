@@ -62,7 +62,7 @@ final class StudyApi(
   def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(position.path, node) match {
-        case None => funit >>- reloadUid(study, uid)
+        case None => fufail(s"Invalid addNode $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
@@ -121,6 +121,20 @@ final class StudyApi(
     } >>- reloadShapes(study, uid)
   }
 
+  def addChapter(byUserId: User.ID, studyId: Study.ID, name: String) = sequenceStudy(studyId) { study =>
+    (study isOwner byUserId) ?? {
+      chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+        val chapter = Chapter.make(
+          studyId = study.id,
+          name = name,
+          setup = Chapter.Setup(none, chess.variant.Standard, chess.White),
+          root = Node.Root.default,
+          order = order)
+        chapterRepo.insert(chapter) >>- reloadChapters(study)
+      }
+    }
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study.id, Socket.ReloadUid(uid))
 
@@ -129,6 +143,11 @@ final class StudyApi(
       _ foreach { members =>
         sendTo(study.id, Socket.ReloadMembers(members))
       }
+    }
+
+  private def reloadChapters(study: Study) =
+    chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
+      sendTo(study.id, Socket.ReloadChapters(chapters))
     }
 
   private def reloadShapes(study: Study, uid: Uid) =

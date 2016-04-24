@@ -10,7 +10,8 @@ import lila.socket.Socket.Uid
 
 object JsonView {
 
-  def study(s: Study) = studyWrites writes s
+  def apply(study: Study, chapters: List[Chapter.Metadata]) =
+    studyWrites.writes(study) ++ Json.obj("chapters" -> chapters)
 
   private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
@@ -70,6 +71,12 @@ object JsonView {
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterWrites = Json.writes[Chapter]
+  private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
+    Json.obj(
+      "id" -> c._id,
+      "name" -> c.name,
+      "setup" -> c.setup)
+  }
 
   private implicit val studyWrites = OWrites[Study] { s =>
     Json.obj(

@@ -51,6 +51,8 @@ private final class Socket(
 
     case ReloadMembers(members) => notifyVersion("members", members, Messadata())
 
+    case ReloadChapters(chapters) => notifyVersion("chapters", chapters, Messadata())
+
     case ReloadShapes(shapes, uid) => notifyVersion("shapes", Json.obj(
       "s" -> shapes,
       "w" -> who(uid)
@@ -64,18 +66,16 @@ private final class Socket(
 
     case ReloadUid(uid) => notifyUid("reload", JsNull)(uid)
 
-    case PingVersion(uid, v) => {
+    case PingVersion(uid, v) =>
       ping(uid)
       timeBomb.delay
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
-    }
 
-    case Broom => {
+    case Broom =>
       broom
       if (timeBomb.boom) self ! PoisonPill
-    }
 
     case GetVersion => sender ! history.version
 
@@ -129,6 +129,7 @@ private object Socket {
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class ReloadShapes(shapes: List[Shape], uid: Uid)
+  case class ReloadChapters(chapters: List[Chapter.Metadata])
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd
