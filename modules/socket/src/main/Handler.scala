@@ -67,7 +67,7 @@ object Handler {
         }
       }
       case ("anaDests", o) => AnaRateLimit(uid) {
-        AnaDests parse o match {
+        AnaDests parse o map (_.compute) match {
           case Some(req) =>
             member push lila.socket.Socket.makeMessage("dests", Json.obj(
               "dests" -> req.dests,

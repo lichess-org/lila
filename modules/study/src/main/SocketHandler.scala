@@ -4,13 +4,15 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
+import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.{ Handler, AnaMove }
+import lila.socket.{ Handler, AnaMove, AnaDests }
 import lila.user.User
 import makeTimeout.short
 
@@ -18,31 +20,12 @@ private[study] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
+    destCache: LoadingCache[AnaDests.Ref, AnaDests],
     api: StudyApi) {
-
-  def join(
-    studyId: Study.ID,
-    uid: Uid,
-    user: Option[User],
-    owner: Boolean): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(studyId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
-    handler ← Handler(hub, socket, uid.value, join, user.map(_.id)) {
-      case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member, owner = owner), enum, member)
-    }
-  } yield handler.some
-
-  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
-
-  private case class AtPath(path: String, chapterId: String)
-  private implicit val atPathReader = Json.reads[AtPath]
-  private case class SetRole(userId: String, role: String)
-  private implicit val SetRoleReader = Json.reads[SetRole]
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
+  import lila.socket.tree.Node.openingWriter
 
   private def controller(
     socket: ActorRef,
@@ -62,7 +45,7 @@ private[study] final class SocketHandler(
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) =>
-            member push lila.socket.Socket.makeMessage("node", Json.obj(
+            member push makeMessage("node", Json.obj(
               "node" -> branch,
               "path" -> anaMove.path
             ))
@@ -76,7 +59,20 @@ private[study] final class SocketHandler(
               Node.fromBranchBy(userId)(branch),
               uid)
           case scalaz.Failure(err) =>
-            member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
+            member push makeMessage("stepFailure", err.toString)
+        }
+      }
+    }
+    case ("anaDests", o) => AnaRateLimit(uid.value) {
+      member push {
+        AnaDests.parse(o).map(destCache.get).fold(makeMessage("destsFailure", "Bad dests request")) { res =>
+          makeMessage("dests", Json.obj(
+            "dests" -> res.dests,
+            "path" -> res.path
+          ) ++ res.opening.?? { o =>
+              Json.obj("opening" -> o)
+            }
+          )
         }
       }
     }
@@ -125,4 +121,25 @@ private[study] final class SocketHandler(
         }
       }
   }
+
+  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
+    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+
+  private case class AtPath(path: String, chapterId: String)
+  private implicit val atPathReader = Json.reads[AtPath]
+  private case class SetRole(userId: String, role: String)
+  private implicit val SetRoleReader = Json.reads[SetRole]
+
+  def join(
+    studyId: Study.ID,
+    uid: Uid,
+    user: Option[User],
+    owner: Boolean): Fu[Option[JsSocketHandler]] = for {
+    socket ← socketHub ? Get(studyId) mapTo manifest[ActorRef]
+    join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
+    handler ← Handler(hub, socket, uid.value, join, user.map(_.id)) {
+      case Socket.Connected(enum, member) =>
+        (controller(socket, studyId, uid, member, owner = owner), enum, member)
+    }
+  } yield handler.some
 }

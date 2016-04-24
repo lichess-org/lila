@@ -35,6 +35,7 @@ final class Env(
         studyId = studyId,
         lightUser = lightUser,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
+        destCache = destCache,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout)
     }), name = SocketName)
@@ -46,6 +47,7 @@ final class Env(
     hub = hub,
     socketHub = socketHub,
     chat = hub.actor.chat,
+    destCache = destCache,
     api = api)
 
   lazy val api = new StudyApi(
@@ -60,6 +62,11 @@ final class Env(
       executionTimeout = 5.seconds.some,
       logger = logger)
   }))
+
+  private lazy val destCache = {
+    import lila.socket.AnaDests
+    lila.memo.Builder.cache[AnaDests.Ref, AnaDests](1 minute, _.compute)
+  }
 
   private lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   private lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))

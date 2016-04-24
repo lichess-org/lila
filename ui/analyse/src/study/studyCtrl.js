@@ -107,6 +107,7 @@ module.exports = {
             return;
           }
           var newPath = ctrl.tree.addNode(node, position.path);
+          ctrl.tree.addDests(d.d, newPath, d.o);
           if (!newPath) lichess.reload();
           data.position.path = newPath;
           ctrl.jump(data.position.path);

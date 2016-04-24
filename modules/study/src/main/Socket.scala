@@ -1,24 +1,27 @@
 package lila.study
 
 import akka.actor._
+import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 
 private final class Socket(
     studyId: String,
     lightUser: String => Option[lila.common.LightUser],
     val history: History[Socket.Messadata],
+    destCache: LoadingCache[AnaDests.Ref, AnaDests],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
   import Socket._
   import JsonView._
+  import lila.socket.tree.Node.openingWriter
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -31,11 +34,15 @@ private final class Socket(
       "w" -> who(uid).map(whoWriter.writes)
     ), Messadata())
 
-    case AddNode(pos, node, uid) => notifyVersion("addNode", Json.obj(
-      "n" -> node,
-      "p" -> pos,
-      "w" -> who(uid)
-    ), Messadata())
+    case AddNode(pos, node, uid) =>
+      val dests = destCache.get(AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString))
+      notifyVersion("addNode", Json.obj(
+        "n" -> node,
+        "p" -> pos,
+        "w" -> who(uid),
+        "d" -> dests.dests,
+        "o" -> dests.opening
+      ), Messadata())
 
     case DelNode(pos, uid) => notifyVersion("delNode", Json.obj(
       "p" -> pos,
