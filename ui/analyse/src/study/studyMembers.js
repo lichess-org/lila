@@ -169,7 +169,10 @@ module.exports = {
     };
 
     return m('div', {
-      class: 'list members' + (ownage ? ' ownage' : '')
+      class: 'list members' + (ownage ? ' ownage' : ''),
+      config: function() {
+        $('body').trigger('lichess.content_loaded');
+      }
     }, [
       ctrl.members.ordered().map(function(member) {
         var confing = ctrl.members.vm.confing === member.user.id;
