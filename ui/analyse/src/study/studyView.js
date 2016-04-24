@@ -11,13 +11,11 @@ module.exports = function(ctrl) {
   var makeTab = function(key, name) {
     return m('a', {
       class: activeTab === key ? 'active' : '',
-      onclick: partial(ctrl.vm.tab, key),
+      onclick: partial(ctrl.setTab, key),
     }, name);
   };
 
-  var tabs = m('div.tabs', {
-    key: activeTab
-  }, [
+  var tabs = m('div.tabs', [
     makeTab('members', 'Members'),
     makeTab('chapters', 'Chapters'),
     makeTab('settings', 'Settings')

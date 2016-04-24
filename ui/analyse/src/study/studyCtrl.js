@@ -74,6 +74,10 @@ module.exports = {
       setChapter: function(id) {
         send("setChapter", id);
       },
+      setTab: function(tab) {
+        vm.tab(tab);
+        m.redraw.strategy("all");
+      },
       onShowGround: function() {
         updateShapes();
       },
