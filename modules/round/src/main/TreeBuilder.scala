@@ -20,6 +20,18 @@ object TreeBuilder {
     best = info.best)
 
   def apply(
+    game: lila.game.Game,
+    a: Option[(Pgn, Analysis)],
+    initialFen: String,
+    withOpening: Boolean): Root = apply(
+    id = game.id,
+    pgnMoves = game.pgnMoves,
+    variant = game.variant,
+    a = a,
+    initialFen = initialFen,
+    withOpening = withOpening)
+
+  def apply(
     id: String,
     pgnMoves: List[String],
     variant: Variant,

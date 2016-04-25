@@ -26,6 +26,7 @@ final class Env(
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
     val SequencerTimeout = config duration "sequencer.timeout"
+    val NetDomain = config getString "net.domain"
   }
   import settings._
 
@@ -54,6 +55,8 @@ final class Env(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
+    chapterMaker = new ChapterMaker(
+      domain = NetDomain),
     chat = hub.actor.chat,
     socketHub = socketHub)
 

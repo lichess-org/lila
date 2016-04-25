@@ -13,6 +13,7 @@ final class StudyApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     sequencers: ActorRef,
+    chapterMaker: ChapterMaker,
     chat: ActorSelection,
     socketHub: akka.actor.ActorRef) {
 
@@ -123,23 +124,26 @@ final class StudyApi(
     } >>- reloadShapes(study, uid)
   }
 
-  def addChapter(byUserId: User.ID, studyId: Study.ID, name: String) = sequenceStudy(studyId) { study =>
+  def addChapter(byUserId: User.ID, studyId: Study.ID, data: Chapter.FormData, socket: ActorRef) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-        val chapter = Chapter.make(
-          studyId = study.id,
-          name = name,
-          setup = Chapter.Setup(none, chess.variant.Standard, chess.White),
-          root = Node.Root.default,
-          order = order)
-        chapterRepo.insert(chapter) >>- reloadChapters(study)
+        chapterMaker(study, data, order) flatMap {
+          _ ?? { chapter =>
+            chapterRepo.insert(chapter) >>
+              doSetChapter(byUserId, study, chapter.id, socket)
+          }
+        }
       }
     }
   }
 
   def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, socket: ActorRef) = sequenceStudy(studyId) { study =>
+    doSetChapter(byUserId, study, chapterId, socket)
+  }
+
+  private def doSetChapter(byUserId: User.ID, study: Study, chapterId: Chapter.ID, socket: ActorRef) =
     (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
-      chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
+      chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- {
             reloadAll(study)
@@ -152,7 +156,6 @@ final class StudyApi(
         }
       }
     }
-  }
 
   def renameChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, name: String) = sequenceStudy(studyId) { study =>
     chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
@@ -162,12 +165,16 @@ final class StudyApi(
     }
   }
 
-  def deleteChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID) = sequenceStudy(studyId) { study =>
+  def deleteChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, socket: ActorRef) = sequenceStudy(studyId) { study =>
     chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
       _ ?? { chapter =>
-        chapterRepo.countByStudyId(studyId).flatMap {
-          case count if count > 1 => chapterRepo.delete(chapter.id)
-          case _                  => funit
+        chapterRepo.orderedMetadataByStudy(studyId).flatMap {
+          case chaps if chaps.size > 1 => (study.position.chapterId == chapterId).?? {
+            chaps.find(_.id != chapterId) ?? { newChap =>
+              doSetChapter(byUserId, study, newChap.id, socket)
+            }
+          } >> chapterRepo.delete(chapter.id)
+          case _ => funit
         } >>- reloadChapters(study)
       }
     }

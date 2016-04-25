@@ -4,29 +4,39 @@ var classSet = require('chessground').util.classSet;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 
-module.exports = function(ctrl) {
+module.exports = {
 
-  var activeTab = ctrl.vm.tab();
+  main: function(ctrl) {
 
-  var makeTab = function(key, name) {
-    return m('a', {
-      class: activeTab === key ? 'active' : '',
-      onclick: partial(ctrl.setTab, key),
-    }, name);
-  };
+    if (ctrl.vm.loading) return m.trust(lichess.spinnerHtml);
 
-  var tabs = m('div.tabs', [
-    makeTab('members', 'Members'),
-    makeTab('chapters', 'Chapters'),
-    makeTab('settings', 'Settings')
-  ]);
+    var activeTab = ctrl.vm.tab();
 
-  var panel;
-  if (activeTab === 'members') panel = memberView(ctrl);
-  else if (activeTab === 'chapters') panel = chapterView(ctrl);
+    var makeTab = function(key, name) {
+      return m('a', {
+        class: activeTab === key ? 'active' : '',
+        onclick: partial(ctrl.setTab, key),
+      }, name);
+    };
 
-  return [
-    tabs,
-    panel
-  ];
+    var tabs = m('div.tabs', [
+      makeTab('members', 'Members'),
+      makeTab('chapters', 'Chapters'),
+      makeTab('settings', 'Settings')
+    ]);
+
+    var panel;
+    if (activeTab === 'members') panel = memberView(ctrl);
+    else if (activeTab === 'chapters') panel = chapterView.main(ctrl);
+
+    return [
+      tabs,
+      panel
+    ];
+  },
+
+  overboard: function(ctrl) {
+    if (ctrl.chapters.vm.creating)
+      return chapterView.form(ctrl.chapters, ctrl.chapters.vm.creating);
+  }
 };

@@ -2357,7 +2357,8 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
-#modal-wrap .close {
+#modal-wrap .close,
+div.lichess_overboard .close {
   position:absolute;
   top: -13px;
   right: -13px;
@@ -2369,7 +2370,8 @@ textarea.copyable {
   background: #fff;
   border-radius: 50%;
 }
-#modal-wrap .close:hover {
+#modal-wrap .close:hover,
+div.lichess_overboard .close:hover {
   background: #f0f0f0;
 }
 @keyframes fire {

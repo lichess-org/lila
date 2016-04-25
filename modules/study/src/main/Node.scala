@@ -101,6 +101,12 @@ object Node {
       fen = FEN(Forsyth.initial),
       check = false,
       children = emptyChildren)
+
+    def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
+      ply = b.ply,
+      fen = FEN(b.fen),
+      check = b.check,
+      children = Children(b.children.toVector.map(fromBranchBy(userId))))
   }
 
   def fromBranchBy(userId: User.ID)(b: lila.socket.tree.Branch): Node = Node(

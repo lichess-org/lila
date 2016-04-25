@@ -18,6 +18,7 @@ module.exports = {
     var sri = lichess.StrongSocket.sri;
 
     var vm = {
+      loading: false,
       tab: storedProp('study.tab', 'members')
     };
 
@@ -38,7 +39,7 @@ module.exports = {
     }
 
     var xhrReload = function() {
-      ctrl.vm.redirecting = true;
+      ctrl.vm.loading = true;
       m.request({
         method: 'GET',
         url: '/study/' + data.id + '?_=' + new Date().getTime(),
@@ -52,6 +53,7 @@ module.exports = {
         members.set(s.members);
         chapters.set(s.chapters);
         ctrl.reloadData(d.analysis);
+        ctrl.vm.loading = true;
       }, function(err) {
         lichess.reload();
       });

@@ -19,6 +19,7 @@ var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
+var studyView = require('./study/studyView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -376,7 +377,8 @@ function visualBoard(ctrl) {
         }
       },
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl)),
+      renderPromotion(ctrl),
+      ctrl.study ? studyView.overboard(ctrl.study) : null),
     cevalView.renderGauge(ctrl)
   ]);
 }

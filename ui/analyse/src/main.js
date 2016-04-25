@@ -14,7 +14,7 @@ module.exports = function(opts) {
 
   if (controller.study) m.module(opts.sideElement, {
     controller: function () { return controller.study; },
-    view: studyView
+    view: studyView.main
   });
 
   return {

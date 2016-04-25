@@ -121,11 +121,12 @@ private[study] final class SocketHandler(
         }
       }
 
-    case ("addChapter", o) if owner => for {
-      byUserId <- member.userId
-      d <- o obj "d"
-      name <- d str "name"
-    } api.addChapter(byUserId, studyId, Chapter toName name)
+    case ("addChapter", o) if owner =>
+      reading[Chapter.FormData](o) { data =>
+        member.userId foreach { byUserId =>
+          api.addChapter(byUserId, studyId, data, socket)
+        }
+      }
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
@@ -142,7 +143,7 @@ private[study] final class SocketHandler(
     case ("deleteChapter", o) if owner => for {
       byUserId <- member.userId
       id <- o str "d"
-    } api.deleteChapter(byUserId, studyId, id)
+    } api.deleteChapter(byUserId, studyId, id, socket)
 
   }
 
@@ -153,6 +154,7 @@ private[study] final class SocketHandler(
   private implicit val atPathReader = Json.reads[AtPath]
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
+  private implicit val ChapterDataReader = Json.reads[Chapter.FormData]
 
   def join(
     studyId: Study.ID,
