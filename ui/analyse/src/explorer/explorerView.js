@@ -24,6 +24,31 @@ function $trUci($tr) {
   return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
 }
 
+function moveTableAttributes(ctrl, fen) {
+  return {
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate) {
+        el.addEventListener('mouseover', function(e) {
+          ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
+        });
+        el.addEventListener('mouseout', function(e) {
+          ctrl.explorer.setHoveringUci(null);
+        });
+        return;
+      }
+      if (ctx.lastFen === fen) return;
+      ctx.lastFen = fen;
+      setTimeout(function() {
+        ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+      }, 100);
+    },
+    onclick: function(e) {
+      var $tr = $(e.target).parents('tr');
+      if ($tr.length) ctrl.explorerMove($trUci($tr));
+    }
+  };
+}
+
 function showMoveTable(ctrl, moves, fen) {
   if (!moves.length) return null;
   return m('table.moves', [
@@ -34,28 +59,7 @@ function showMoveTable(ctrl, moves, fen) {
         m('th', 'White / Draw / Black')
       ])
     ]),
-    m('tbody', {
-      config: function(el, isUpdate, ctx) {
-        if (!isUpdate) {
-          el.addEventListener('mouseover', function(e) {
-            ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
-          });
-          el.addEventListener('mouseout', function(e) {
-            ctrl.explorer.setHoveringUci(null);
-          });
-          return;
-        }
-        if (ctx.lastFen === fen) return;
-        ctx.lastFen = fen;
-        setTimeout(function() {
-          ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
-        }, 100);
-      },
-      onclick: function(e) {
-        var $tr = $(e.target).parents('tr');
-        if ($tr.length) ctrl.explorerMove($trUci($tr));
-      },
-    }, moves.map(function(move) {
+    m('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
       return m('tr', {
         key: move.uci,
         'data-uci': move.uci,
@@ -112,29 +116,102 @@ function showGameTable(ctrl, type, games) {
   ]);
 }
 
+function showTablebase(ctrl, title, moves, fen) {
+  var stm = fen.split(/\s/)[1];
+  if (!moves.length) return null;
+  return [
+    m('div.title', title),
+    m('table.tablebase', [
+      m('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
+        return m('tr', {
+          key: move.uci,
+          'data-uci': move.uci
+        }, [
+          m('td', move.san),
+          m('td', [showDtz(stm, move), showDtm(stm, move)])
+        ]);
+      }))
+    ])
+  ];
+}
+
+function winner(stm, move) {
+  if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
+    return 'white';
+  else if ((stm[0] == 'b' && move.wdl < 0) || (stm[0] == 'w' && move.wdl > 0))
+    return 'black';
+}
+
+function showDtm(stm, move) {
+  if (move.dtm) return m('result.' + winner(stm, move), {
+    title: 'Depth to mate: ' + Math.abs(move.dtm) + ' half moves'
+  }, 'DTM ' + Math.abs(move.dtm));
+}
+
+function showDtz(stm, move) {
+  if (move.checkmate) return m('result.' + winner(stm, move), 'Checkmate');
+  if (move.stalemate) return m('result.draws', 'Stalemate');
+  if (move.insufficient_material) return m('result.draws', 'Insufficient material');
+  if (move.dtz === null) return null;
+  if (move.dtz === 0) return m('result.draws', 'Draw');
+  if (move.zeroing) return m('result.' + winner(stm, move), 'Zeroing');
+  return m('result.' + winner(stm, move), {
+    title: 'Distance to Zeroing (capture / pawn move): ' + Math.abs(move.dtz)
+  }, 'DTZ ' + Math.abs(move.dtz));
+}
+
+function showEmpty(ctrl) {
+  return m('div.data.empty', [
+    m('div.title', showTitle(ctrl)),
+    m('div.message', [
+      m('i[data-icon=]'),
+      m('h3', "No game found"),
+      m('p',
+        ctrl.explorer.config.fullHouse() ?
+        "Already searching through all available games." :
+        "Maybe include more games from the preferences menu?"),
+      m('br'),
+      m('button.button.text[data-icon=L]', {
+        onclick: ctrl.explorer.toggle
+      }, 'Close')
+    ])
+  ]);
+}
+
+function showGameEnd(ctrl, title) {
+  return m('div.data.empty', [
+    m('div.title', "Game over"),
+    m('div.message', [
+      m('i[data-icon=]'),
+      m('h3', title),
+      m('button.button.text[data-icon=L]', {
+        onclick: ctrl.explorer.toggle
+      }, 'Close')
+    ])
+  ]);
+}
+
 function show(ctrl) {
   var data = ctrl.explorer.current();
-  if (data) {
+  if (data && data.opening) {
     var db = ctrl.explorer.config.data.db.selected();
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, topTable, recentTable]);
-    else lastShow = m('div.data.empty', [
-      m('div.title', showTitle(ctrl)),
-      m('div.message', [
-        m('i[data-icon=]'),
-        m('h3', "No game found"),
-        m('p',
-          ctrl.explorer.config.fullHouse() ?
-          "Already searching through all available games." :
-          "Maybe include more games from the preferences menu?"),
-        m('br'),
-        m('button.button.text[data-icon=L]', {
-          onclick: ctrl.explorer.toggle
-        }, 'Close')
-      ])
-    ]);
+    else lastShow = showEmpty(ctrl);
+  } else if (data && data.tablebase) {
+    var moves = data.moves;
+    if (moves.length) lastShow = m('div.data', [
+      showTablebase(ctrl, 'Winning', moves.filter(function(move) { return move.real_wdl === -2; }), data.fen),
+      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) { return move.real_wdl === -1; }), data.fen),
+      showTablebase(ctrl, 'Drawn', moves.filter(function(move) { return move.real_wdl === 0; }), data.fen),
+      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) { return move.real_wdl === 1; }), data.fen),
+      showTablebase(ctrl, 'Losing', moves.filter(function(move) { return move.real_wdl === 2; }), data.fen)
+    ])
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
+    else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
+    else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }

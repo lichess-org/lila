@@ -11,7 +11,8 @@ chat: @Html(J.stringify(data.chat)),
 i18n: @board.userAnalysisI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
-endpoint: "@explorerEndpoint"
+endpoint: "@explorerEndpoint",
+tablebaseEndpoint: "@tablebaseEndpoint"
 },
 socketUrl: "@routes.Study.websocket(s.id, apiVersion)",
 socketVersion: @socketVersion

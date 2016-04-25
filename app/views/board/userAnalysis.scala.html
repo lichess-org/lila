@@ -14,7 +14,8 @@ lichess.user_analysis = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 i18n: @userAnalysisI18n(),
 explorer: {
-endpoint: "@explorerEndpoint"
+endpoint: "@explorerEndpoint",
+tablebaseEndpoint: "@tablebaseEndpoint"
 },
 canStudy: @isGranted(_.Beta)
 };

@@ -54,6 +54,8 @@ object Environment
 
   def explorerEndpoint = apiEnv.ExplorerEndpoint
 
+  def tablebaseEndpoint = apiEnv.TablebaseEndpoint
+
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
   }
