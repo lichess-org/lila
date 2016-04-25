@@ -152,7 +152,7 @@ module.exports = {
             ctrl.vm.creating = null;
           }
         }),
-        m('h2', name),
+        m('h2', 'New chapter'),
         m('form.material.form', {
           onsubmit: function(e) {
             ctrl.create({
@@ -166,6 +166,13 @@ module.exports = {
             return false;
           }
         }, [
+          m('div.game.form-group', [
+            m('input#chapter-name', {
+              value: name
+            }),
+            m('label.control-label[for=chapter-name]', 'Name'),
+            m('i.bar')
+          ]),
           m('div.game.form-group', [
             m('input#chapter-game', {
               placeholder: 'Game ID or URL'
