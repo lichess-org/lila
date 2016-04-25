@@ -1,25 +1,42 @@
 package lila.study
 
+import chess.format.{ Forsyth, FEN }
 import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
 
 private final class ChapterMaker(domain: String) {
 
-  def apply(study: Study, data: Chapter.FormData, order: Int): Fu[Option[Chapter]] = {
+  def apply(study: Study, data: ChapterMaker.Data, order: Int): Fu[Option[Chapter]] = {
+    val orientation = chess.Color(data.orientation) | chess.White
     parsePov(data.game) flatMap {
       case None => fuccess {
+        val variant = chess.variant.Variant orDefault data.variant
+        val root = data.fen.trim.some.filter(_.nonEmpty).flatMap { fenStr =>
+          Forsyth.<<<@(variant, fenStr)
+        } match {
+          case Some(sit) => Node.Root(
+            ply = sit.turns,
+            fen = FEN(Forsyth.>>(sit)),
+            check = sit.situation.check,
+            children = Node.emptyChildren)
+          case None => Node.Root(
+            ply = 0,
+            fen = FEN(variant.initialFen),
+            check = false,
+            children = Node.emptyChildren)
+        }
         Chapter.make(
           studyId = study.id,
           name = data.name,
-          setup = Chapter.Setup(none, chess.variant.Standard, chess.White),
-          root = Node.Root.default,
+          setup = Chapter.Setup(none, variant, orientation),
+          root = root,
           order = order).some
       }
       case Some(pov) => game2root(pov.game, study.ownerId) map { root =>
         Chapter.make(
           studyId = study.id,
           name = data.name,
-          setup = Chapter.Setup(pov.game.id.some, pov.game.variant, pov.color),
+          setup = Chapter.Setup(pov.game.id.some, pov.game.variant, orientation),
           root = root,
           order = order).some
       }
@@ -48,4 +65,14 @@ private final class ChapterMaker(domain: String) {
     case UrlRegex(id)                   => parsePov(id)
     case _                              => fuccess(none)
   }
+}
+
+private[study] object ChapterMaker {
+
+  case class Data(
+    name: String,
+    game: String,
+    variant: String,
+    fen: String,
+    orientation: String)
 }

@@ -124,7 +124,7 @@ final class StudyApi(
     } >>- reloadShapes(study, uid)
   }
 
-  def addChapter(byUserId: User.ID, studyId: Study.ID, data: Chapter.FormData, socket: ActorRef) = sequenceStudy(studyId) { study =>
+  def addChapter(byUserId: User.ID, studyId: Study.ID, data: ChapterMaker.Data, socket: ActorRef) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
         chapterMaker(study, data, order) flatMap {

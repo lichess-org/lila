@@ -122,7 +122,7 @@ private[study] final class SocketHandler(
       }
 
     case ("addChapter", o) if owner =>
-      reading[Chapter.FormData](o) { data =>
+      reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
           api.addChapter(byUserId, studyId, data, socket)
         }
@@ -154,7 +154,7 @@ private[study] final class SocketHandler(
   private implicit val atPathReader = Json.reads[AtPath]
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
-  private implicit val ChapterDataReader = Json.reads[Chapter.FormData]
+  private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
 
   def join(
     studyId: Study.ID,

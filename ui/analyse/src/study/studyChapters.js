@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var partial = require('chessground').util.partial;
+var xhr = require('./studyXhr');
 
 function onEnter(action) {
   return function(el, isUpdate) {
@@ -15,7 +16,8 @@ module.exports = {
 
     var vm = {
       confing: null, // which chapter is being configured by us
-      creating: null // name of the chapter we're creating
+      creating: null, // name of the chapter we're creating
+      variants: []
     };
 
     return {
@@ -40,6 +42,12 @@ module.exports = {
       delete: function(id) {
         send("deleteChapter", id);
         vm.confing = null;
+      },
+      loadVariants: function() {
+        if (!vm.variants.length) xhr.variants().then(function(vs) {
+          vm.variants = vs;
+          m.redraw();
+        });
       }
     };
   },
@@ -82,6 +90,7 @@ module.exports = {
             class: 'list_input',
             config: onEnter(function(name, el) {
               ctrl.chapters.vm.creating = name;
+              ctrl.chapters.loadVariants();
               el.value = '';
               m.redraw();
             }),
@@ -148,7 +157,10 @@ module.exports = {
           onsubmit: function(e) {
             ctrl.create({
               name: name,
-              game: e.target.querySelector('#chapter-game').value
+              game: e.target.querySelector('#chapter-game').value,
+              variant: e.target.querySelector('#chapter-variant').value,
+              fen: e.target.querySelector('#chapter-fen').value,
+              orientation: e.target.querySelector('#chapter-orientation').value
             });
             e.stopPropagation();
             return false;
@@ -159,6 +171,31 @@ module.exports = {
               placeholder: 'Game ID or URL'
             }),
             m('label.control-label[for=chapter-game]', 'Load existing game?'),
+            m('i.bar')
+          ]),
+          m('div.game.form-group', [
+            m('select#chapter-variant', ctrl.vm.variants.map(function(v) {
+              return m('option', {
+                value: v.key
+              }, v.name)
+            })),
+            m('label.control-label[for=chapter-variant]', 'Variant'),
+            m('i.bar')
+          ]),
+          m('div.game.form-group', [
+            m('input#chapter-fen', {
+              placeholder: 'Initial position'
+            }),
+            m('label.control-label[for=chapter-fen]', 'From FEN position'),
+            m('i.bar')
+          ]),
+          m('div.game.form-group', [
+            m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
+              return m('option', {
+                value: color.toLowerCase()
+              }, color)
+            })),
+            m('label.control-label[for=chapter-orientation]', 'Orientation'),
             m('i.bar')
           ]),
           m('div.button-container',

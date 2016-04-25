@@ -4,6 +4,32 @@ var throttle = require('../util').throttle;
 var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
+var xhr = require('./studyXhr');
+
+$.fn.scrollTo = function(target, options, callback) {
+  if (typeof options == 'function' && arguments.length == 2) {
+    callback = options;
+    options = target;
+  }
+  var settings = $.extend({
+    scrollTarget: target,
+    offsetTop: 50,
+    duration: 500,
+    easing: 'swing'
+  }, options);
+  return this.each(function() {
+    var scrollPane = $(this);
+    var scrollTarget = (typeof settings.scrollTarget == "number") ? settings.scrollTarget : $(settings.scrollTarget);
+    var scrollY = (typeof scrollTarget == "number") ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt(settings.offsetTop);
+    scrollPane.animate({
+      scrollTop: scrollY
+    }, parseInt(settings.duration), settings.easing, function() {
+      if (typeof callback == 'function') {
+        callback.call(this);
+      }
+    });
+  });
+};
 
 module.exports = {
   // data.position.path represents the server state
@@ -38,27 +64,21 @@ module.exports = {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
     }
 
+    var onReload = function(d) {
+      var s = d.study;
+      data.position = s.position;
+      data.shapes = s.shapes;
+      members.set(s.members);
+      chapters.set(s.chapters);
+      ctrl.reloadData(d.analysis);
+      ctrl.chessground.set({orientation: d.analysis.orientation});
+      vm.loading = false;
+    };
+
     var xhrReload = function() {
-      ctrl.vm.loading = true;
-      m.request({
-        method: 'GET',
-        url: '/study/' + data.id + '?_=' + new Date().getTime(),
-        config: function(xhr) {
-          xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
-        }
-      }).then(function(d) {
-        var s = d.study;
-        data.position = s.position;
-        data.shapes = s.shapes;
-        members.set(s.members);
-        chapters.set(s.chapters);
-        ctrl.reloadData(d.analysis);
-        ctrl.vm.loading = true;
-        m.redraw.strategy("all");
-      }, function(err) {
-        lichess.reload();
-      });
-    }
+      vm.loading = true;
+      xhr.reload(data.id).then(onReload);
+    };
 
     ctrl.chessground.set({
       drawable: {

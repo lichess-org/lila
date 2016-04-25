@@ -45,10 +45,6 @@ object Chapter {
     name: String,
     setup: Chapter.Setup) extends Like
 
-  case class FormData(
-    name: String,
-    game: String)
-
   def toName(str: String) = str.trim take 80
 
   val idSize = 8
