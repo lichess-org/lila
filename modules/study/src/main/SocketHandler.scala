@@ -139,6 +139,11 @@ private[study] final class SocketHandler(
       name <- d str "name"
     } api.renameChapter(byUserId, studyId, id, Chapter toName name)
 
+    case ("deleteChapter", o) if owner => for {
+      byUserId <- member.userId
+      id <- o str "d"
+    } api.deleteChapter(byUserId, studyId, id)
+
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

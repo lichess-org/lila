@@ -17,18 +17,25 @@ final class ChapterRepo(coll: Coll) {
 
   def orderedMetadataByStudy(studyId: Study.ID): Fu[List[Chapter.Metadata]] =
     coll.find(
-      $doc("studyId" -> studyId),
+      $studyId(studyId),
       $doc("root" -> false)
     ).sort($sort asc "order").list[Chapter.Metadata](64)
 
   def nextOrderByStudy(studyId: Study.ID): Fu[Int] =
     coll.primitiveOne[Int](
-      $doc("studyId" -> studyId),
+      $studyId(studyId),
       $sort desc "order",
       "order"
     ) map { order => ~order + 1 }
 
+  def countByStudyId(studyId: Study.ID): Fu[Int] =
+    coll.countSel($studyId(studyId))
+
   def insert(s: Chapter): Funit = coll.insert(s).void
 
   def update(c: Chapter): Funit = coll.update($id(c.id), c).void
+
+  def delete(id: Chapter.ID): Funit = coll.remove($id(id)).void
+
+  private def $studyId(id: Study.ID) = $doc("studyId" -> studyId)
 }

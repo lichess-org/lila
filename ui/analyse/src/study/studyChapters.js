@@ -36,6 +36,10 @@ module.exports = {
           name: name
         });
         vm.confing = null;
+      },
+      delete: function(id) {
+        send("deleteChapter", id);
+        vm.confing = null;
       }
     };
   },
@@ -59,7 +63,15 @@ module.exports = {
         m('input', {
           value: chapter.name,
           config: onEnter(partial(ctrl.chapters.rename, chapter.id))
-        })
+        }),
+        m('div.delete', m('a.button.text[data-icon=q]', {
+          onclick: function() {
+            if (ctrl.chapters.list().length < 2)
+              alert('There cannot be less than one chapter.');
+            else if (confirm('Delete  ' + chapter.name + '?'))
+              ctrl.chapters.delete(chapter.id);
+          }
+        }, 'Delete this chapter'))
       ]);
     };
 

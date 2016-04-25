@@ -162,6 +162,17 @@ final class StudyApi(
     }
   }
 
+  def deleteChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID) = sequenceStudy(studyId) { study =>
+    chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
+      _ ?? { chapter =>
+        chapterRepo.countByStudyId(studyId).flatMap {
+          case count if count > 1 => chapterRepo.delete(chapter.id)
+          case _                  => funit
+        } >>- reloadChapters(study)
+      }
+    }
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study.id, Socket.ReloadUid(uid))
 

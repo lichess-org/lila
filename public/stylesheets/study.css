@@ -118,7 +118,8 @@
   float: left;
   margin-right: 10px;
 }
-.study_box .list div.config .kick {
+.study_box .list div.config .kick,
+.study_box .list div.config .delete {
   margin-top: 15px;
 }
 .study_box .chapters .chapter {
