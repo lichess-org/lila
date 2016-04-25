@@ -397,6 +397,25 @@ body.dark .explorer_box .black {
   font-family: monospace;
   font-size: 0.9em;
 }
+.explorer_box .tablebase {
+  width: 100%;
+}
+.explorer_box .tablebase td:first-child {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 14px;
+  line-height: 30px;
+  padding-left: 7px;
+}
+.explorer_box .tablebase td:last-child {
+  padding-right: 7px;
+  text-align: right;
+}
+.explorer_box .tablebase result {
+  padding: 3px 5px;
+  margin-left: 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
 .explorer_box .toconf {
   position: absolute;
   top: 0;
