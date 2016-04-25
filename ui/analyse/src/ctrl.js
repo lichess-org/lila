@@ -410,7 +410,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var decomposeUci = function(uci) {
-    return [uci.slice(0, 2), uci.slice(2, 4)];
+    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
   };
 
   var makeAutoShapeFromUci = function(uci, brush) {
@@ -432,7 +432,8 @@ module.exports = function(opts) {
         role: sanToRole[uci[0]]
       },
       move[1])
-    else this.chessground.apiMove(move[0], move[1]);
+    else if (!move[2]) this.chessground.apiMove(move[0], move[1])
+    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
     this.explorer.loading(true);
   }.bind(this);
 
