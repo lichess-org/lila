@@ -1,10 +1,10 @@
 var m = require('mithril');
 
-module.exports = function(fen) {
+module.exports = function(endpoint, fen) {
   return m.request({
     background: true,
     method: 'GET',
-    url: 'https://syzygy-tables.info/api/v2',
+    url: endpoint,
     data: {
       fen: fen
     }
