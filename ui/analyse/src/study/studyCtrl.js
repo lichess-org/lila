@@ -54,6 +54,7 @@ module.exports = {
         chapters.set(s.chapters);
         ctrl.reloadData(d.analysis);
         ctrl.vm.loading = true;
+        m.redraw.strategy("all");
       }, function(err) {
         lichess.reload();
       });

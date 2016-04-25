@@ -77,6 +77,8 @@ module.exports = {
         return Object.keys(members).map(function(id) {
           return members[id];
         }).sort(function(a, b) {
+          if (a.role === 'r' && b.role === 'w') return true;
+          if (a.role === 'w' && b.role === 'r') return false;
           return a.addedAt > b.addedAt;
         });
       },
@@ -202,5 +204,5 @@ module.exports = {
       ]),
       ownage ? invite() : null
     ];
-}
+  }
 };

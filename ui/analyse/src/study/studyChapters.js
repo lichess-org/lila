@@ -92,7 +92,12 @@ module.exports = {
 
       return [
         m('div', {
-          class: 'list chapters' + (ownage ? ' ownage' : '')
+          class: 'list chapters' + (ownage ? ' ownage' : ''),
+          config: function(el, isUpdate) {
+            if (!isUpdate) $(el).scrollTo($(el).find('.active'), {
+              offsetTop: 200
+            });
+          }
         }, [
           ctrl.chapters.list().map(function(chapter) {
             var confing = ctrl.chapters.vm.confing === chapter.id;
