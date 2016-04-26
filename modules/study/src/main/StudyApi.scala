@@ -127,7 +127,7 @@ final class StudyApi(
           chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
               chapterRepo.update(newChapter) >>-
-                sendTo(study.id, Socket.SetShapes(position, shapes, uid).pp)
+                sendTo(study.id, Socket.SetShapes(position, shapes, uid))
             case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
           }
         }
