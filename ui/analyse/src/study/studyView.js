@@ -4,6 +4,10 @@ var classSet = require('chessground').util.classSet;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 
+var moreIcon = m('i', {
+  'data-icon': '['
+});
+
 module.exports = {
 
   main: function(ctrl) {
@@ -12,15 +16,15 @@ module.exports = {
 
     var makeTab = function(key, name) {
       return m('a', {
-        class: activeTab === key ? 'active' : '',
-        onclick: partial(ctrl.setTab, key),
+        class: key + (activeTab === key ? ' active' : ''),
+        onclick: partial(ctrl.vm.tab, key),
       }, name);
     };
 
     var tabs = m('div.tabs', [
       makeTab('members', 'Members'),
       makeTab('chapters', 'Chapters'),
-      makeTab('settings', 'Settings')
+      makeTab('more', moreIcon)
     ]);
 
     var panel;
@@ -38,14 +42,18 @@ module.exports = {
       return chapterView.form(ctrl.chapters, ctrl.chapters.vm.creating);
   },
 
-  pgn: function(ctrl) {
-    return m('div.study_export', [
-      m('a.button.text[data-icon=x]', {
-        href: '/study/' + ctrl.study.data.id + '.pgn'
-      }, 'PGN of entire study'),
-      m('a.button.text[data-icon=x]', {
-        href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.data.position.chapterId + '.pgn'
-      }, 'PGN of current chapter')
+  underboard: function(ctrl) {
+    return m('div.study_buttons', [
+      m('a.button.hint--top', {
+        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves',
+        onclick: ctrl.toggleSync
+      }, m('i', {
+        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
+      })),
+      m('a.button.hint--top', {
+        'data-hint': 'Download as PGN',
+        href: '/study/' + ctrl.data.id + '.pgn'
+      }, m('i[data-icon=x]'))
     ]);
   }
 };

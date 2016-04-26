@@ -13,10 +13,21 @@
   display: block;
   width: 100%;
   text-align: center;
-  padding: 5px 0;
+  padding: 6px 0 4px 0;
   background: #fff;
+  border-bottom: 3px solid transparent;
+}
+.study_box .tabs a.more {
+  flex: 0 0 32px;
+}
+.study_box .tabs a.more i {
+  opacity: 0.6;
+}
+.study_box .tabs a:hover {
+  color: #3893E8!important;
 }
 .study_box .tabs a.active {
+  color: #3893E8!important;
   border-bottom: 3px solid #3893E8;
 }
 
@@ -148,12 +159,12 @@
 .study_overboard .form {
   padding: 20px;
 }
-.study_export {
+.study_buttons {
   display: flex;
+  justify-content: flex-start;
 }
-.study_export .button {
-  display: block;
-  flex: 1 1 100%;
+.study_buttons .button {
+  display: inline-block;
   margin-right: 10px;
 }
 .study_export .button:last-child {

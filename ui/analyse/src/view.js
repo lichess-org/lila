@@ -341,16 +341,14 @@ function inputs(ctrl) {
   return m('div.copyables', [
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
-      disabled: !!ctrl.study,
       value: ctrl.vm.node.fen,
       onchange: function(e) {
         if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
       }
     }),
-    m('div.pgn', ctrl.study ? studyView.pgn(ctrl) : [
+    m('div.pgn', [
       m('label.name', 'PGN'),
       m('textarea.copyable.autoselect[spellCheck=false]', {
-        disabled: !!ctrl.study,
         value: pgnText
       }),
       m('div.action', [
@@ -493,7 +491,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', inputs(ctrl)),
+      m('div.center', ctrl.study ? studyView.underboard(ctrl.study) : inputs(ctrl)),
       m('div.right')
     ]),
     util.synthetic(ctrl.data) ? null : m('div.analeft', [
