@@ -125,7 +125,10 @@ module.exports = {
             vm.behind = false;
             m.redraw();
           });
-        } else vm.behind = 0;
+        } else {
+          vm.behind = 0;
+          vm.chapterId = currentChapterId();
+        }
       },
       anaMoveConfig: function(req) {
         if (contributing()) addChapterId(req);
@@ -175,6 +178,9 @@ module.exports = {
           m.redraw();
         },
         reload: xhrReload,
+        changeChapter: function() {
+          if (vm.behind === false) xhrReload();
+        },
         members: function(d) {
           members.set(d);
           m.redraw();

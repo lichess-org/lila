@@ -165,7 +165,7 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- {
-            reloadAll(study)
+            sendTo(study.id, Socket.ChangeChapter)
             study.members.get(byUserId).foreach { member =>
               chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
             }
@@ -210,11 +210,6 @@ final class StudyApi(
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id, Socket.ReloadChapters(chapters))
-    }
-
-  private def reloadAll(study: Study) =
-    chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
-      sendTo(study.id, Socket.ReloadAll(study, chapters))
     }
 
   private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =

@@ -50,11 +50,12 @@ private final class Socket(
       "w" -> who(uid)
     ), Messadata())
 
-    case ReloadMembers(members)     => notifyVersion("members", members, Messadata())
+    case ReloadMembers(members)   => notifyVersion("members", members, Messadata())
 
-    case ReloadChapters(chapters)   => notifyVersion("chapters", chapters, Messadata())
+    case ReloadChapters(chapters) => notifyVersion("chapters", chapters, Messadata())
 
-    case ReloadAll(study, chapters) => notifyVersion("reload", JsNull, Messadata())
+    case ReloadAll                => notifyVersion("reload", JsNull, Messadata())
+    case ChangeChapter            => notifyVersion("changeChapter", JsNull, Messadata())
 
     case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
@@ -134,7 +135,8 @@ private object Socket {
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
-  case class ReloadAll(study: Study, chapters: List[Chapter.Metadata])
+  case object ReloadAll
+  case object ChangeChapter
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd
