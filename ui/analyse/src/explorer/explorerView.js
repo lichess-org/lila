@@ -24,6 +24,31 @@ function $trUci($tr) {
   return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
 }
 
+function moveTableAttributes(ctrl, fen) {
+  return {
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate) {
+        el.addEventListener('mouseover', function(e) {
+          ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
+        });
+        el.addEventListener('mouseout', function(e) {
+          ctrl.explorer.setHoveringUci(null);
+        });
+        return;
+      }
+      if (ctx.lastFen === fen) return;
+      ctx.lastFen = fen;
+      setTimeout(function() {
+        ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+      }, 100);
+    },
+    onclick: function(e) {
+      var $tr = $(e.target).parents('tr');
+      if ($tr.length) ctrl.explorerMove($trUci($tr));
+    }
+  };
+}
+
 function showMoveTable(ctrl, moves, fen) {
   if (!moves.length) return null;
   return m('table.moves', [
@@ -34,28 +59,7 @@ function showMoveTable(ctrl, moves, fen) {
         m('th', 'White / Draw / Black')
       ])
     ]),
-    m('tbody', {
-      config: function(el, isUpdate, ctx) {
-        if (!isUpdate) {
-          el.addEventListener('mouseover', function(e) {
-            ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
-          });
-          el.addEventListener('mouseout', function(e) {
-            ctrl.explorer.setHoveringUci(null);
-          });
-          return;
-        }
-        if (ctx.lastFen === fen) return;
-        ctx.lastFen = fen;
-        setTimeout(function() {
-          ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
-        }, 100);
-      },
-      onclick: function(e) {
-        var $tr = $(e.target).parents('tr');
-        if ($tr.length) ctrl.explorerMove($trUci($tr));
-      },
-    }, moves.map(function(move) {
+    m('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
       return m('tr', {
         key: move.uci,
         'data-uci': move.uci,
@@ -112,29 +116,80 @@ function showGameTable(ctrl, type, games) {
   ]);
 }
 
+function showTablebase(ctrl, title, moves, fen) {
+  if (!moves.length) return null;
+  return [
+    m('div.title', title),
+    m('table.tablebase', [
+      m('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
+        return m('tr', {
+          key: move.uci,
+          'data-uci': move.uci
+        }, [
+          m('td', move.san),
+          m('td', [showDtm(move), showDtz(move)])
+        ]);
+      }))
+    ])
+  ];
+}
+
+function showDtm(move) {
+  var dtm = move.dtm;
+  if (!dtm) return null;
+  var text = 'DTM ' + Math.abs(dtm);
+  var title = 'Depth to mate: ' + Math.abs(dtm) + ' half moves';
+  if (move.winner == 'white') return m('result.white', {title: title}, text);
+  if (move.winner == 'black') return m('result.black', {title: title}, text);
+}
+
+function showDtz(move) {
+  var dtz = move.dtz;
+  if (dtz === null) return null;
+  var text = 'DTZ ' + Math.abs(dtz);
+  var title = 'Distance to Zeroing (capture / pawn move): ' + Math.abs(dtz);
+  if (move.winner == 'white') return m('result.white', {title: title}, text);
+  if (move.winner == 'black') return m('result.black', {title: title}, text);
+  return m('result.draws', '½-½');
+}
+
+function showEmpty(ctrl) {
+  return m('div.data.empty', [
+    m('div.title', showTitle(ctrl)),
+    m('div.message', [
+      m('i[data-icon=]'),
+      m('h3', "No game found"),
+      m('p',
+        ctrl.explorer.config.fullHouse() ?
+        "Already searching through all available games." :
+        "Maybe include more games from the preferences menu?"),
+      m('br'),
+      m('button.button.text[data-icon=L]', {
+        onclick: ctrl.explorer.toggle
+      }, 'Close')
+    ])
+  ]);
+}
+
 function show(ctrl) {
   var data = ctrl.explorer.current();
-  if (data) {
+  if (data && data.opening) {
     var db = ctrl.explorer.config.data.db.selected();
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = m('div.data', [moveTable, topTable, recentTable]);
-    else lastShow = m('div.data.empty', [
-      m('div.title', showTitle(ctrl)),
-      m('div.message', [
-        m('i[data-icon=]'),
-        m('h3', "No game found"),
-        m('p',
-          ctrl.explorer.config.fullHouse() ?
-          "Already searching through all available games." :
-          "Maybe include more games from the preferences menu?"),
-        m('br'),
-        m('button.button.text[data-icon=L]', {
-          onclick: ctrl.explorer.toggle
-        }, 'Close')
-      ])
-    ]);
+    else lastShow = showEmpty(ctrl);
+  } else if (data && data.tablebase) {
+    var moves = data.moves;
+    if (moves.length) lastShow = m('div.data', [
+      showTablebase(ctrl, 'Winning', moves.filter(function(move) { return move.realWdl === -2; }), data.fen),
+      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) { return move.realWdl === -1; }), data.fen),
+      showTablebase(ctrl, 'Drawn', moves.filter(function(move) { return move.realWdl === 0; }), data.fen),
+      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) { return move.realWdl === 1; }), data.fen),
+      showTablebase(ctrl, 'Losing', moves.filter(function(move) { return move.realWdl === 2; }), data.fen)
+    ])
+    else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }
