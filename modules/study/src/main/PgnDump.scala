@@ -15,14 +15,15 @@ final class PgnDump(
 
   def apply(study: Study): Fu[List[Pgn]] =
     chapterRepo.orderedByStudy(study.id) flatMap { chapters =>
-      chapters.map { chapter =>
-        (chapter.setup.gameId ?? GameRepo.gameWithInitialFen) map {
-          case Some((game, initialFen)) => gamePgnDump(game, initialFen.map(_.value))
-          case None => Pgn(
-            tags(study, chapter),
-            toTurns(chapter.root, chapter.root.mainLine))
-        }
-      }.sequenceFu
+      chapters.map { apply(study, _) }.sequenceFu
+    }
+
+  def apply(study: Study, chapter: Chapter): Fu[Pgn] =
+    (chapter.setup.gameId ?? GameRepo.gameWithInitialFen) map {
+      case Some((game, initialFen)) => gamePgnDump(game, initialFen.map(_.value))
+      case None => Pgn(
+        tags(study, chapter),
+        toTurns(chapter.root, chapter.root.mainLine))
     }
 
   private val fileR = """[\s,]""".r
@@ -32,6 +33,14 @@ final class PgnDump(
     val owner = study.owner.??(_.user.name)
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
+  }
+
+  def filename(study: Study, chapter: Chapter): String = {
+    val name = lila.common.String slugify study.name
+    val chapterName = lila.common.String slugify chapter.name
+    val owner = study.owner.??(_.user.name)
+    val date = dateFormat.print(study.createdAt)
+    fileR.replaceAllIn(s"lichess_study_${name}-${chapterName}_by_${owner}_${date}.pgn", "")
   }
 
   private def studyUrl(id: String) = s"$netBaseUrl/study/$id"

@@ -29,6 +29,14 @@ final class StudyApi(
     }
   }
 
+  def byIdWithChapter(id: Study.ID, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
+    _ ?? { study =>
+      chapterRepo.byId(chapterId) map {
+        _ map { Study.WithChapter(study, _) }
+      }
+    }
+  }
+
   def create(user: User): Fu[Study.WithChapter] = {
     val preStudy = Study.make(user = user.light)
     val chapter: Chapter = Chapter.make(

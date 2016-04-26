@@ -72,4 +72,14 @@ object Study extends LilaController {
       }
     }
   }
+
+  def chapterPgn(studyId: String, chapterId: String) = Open { implicit ctx =>
+    OptionFuResult(env.api.byIdWithChapter(studyId, chapterId)) { s =>
+        env.pgnDump(s.study, s.chapter) map { pgn =>
+          Ok(pgn.toString).withHeaders(
+            CONTENT_TYPE -> ContentTypes.TEXT,
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(s.study, s.chapter))))
+        }
+    }
+  }
 }

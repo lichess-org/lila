@@ -98,6 +98,9 @@ module.exports = {
       position: function() {
         return data.position;
       },
+      currentChapter: function() {
+        return chapters.get(data.position.chapterId);
+      },
       setPath: throttle(300, false, function(path) {
         if (members.canContribute() && path !== data.position.path) {
           data.shapes = [];

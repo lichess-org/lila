@@ -353,7 +353,15 @@ function inputs(ctrl) {
         disabled: !!ctrl.study,
         value: pgnText
       }),
-      ctrl.study ? null : m('div.action', [
+      ctrl.study ? m('div.study_export', [
+        m('a.text[data-icon=x]', {
+          href: '/study/' + ctrl.study.data.id + '.pgn'
+        }, 'PGN of entire study'),
+        m('br'),
+        m('a.text[data-icon=x]', {
+          href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.data.position.chapterId + '.pgn'
+        }, 'PGN of ' + ctrl.study.currentChapter().name)
+      ]) : m('div.action', [
         m('button', {
           class: 'button text',
           'data-icon': 'G',

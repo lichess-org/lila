@@ -28,6 +28,11 @@ module.exports = {
       set: function(cs) {
         chapters = cs;
       },
+      get: function(id) {
+        return chapters.find(function(c) {
+          return c.id === id;
+        });
+      },
       create: function(data) {
         send("addChapter", data);
         vm.creating = null;
