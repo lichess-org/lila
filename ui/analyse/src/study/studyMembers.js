@@ -125,7 +125,6 @@ module.exports = {
       return m('div.invite', m('div', m('input', {
         class: 'list_input',
         config: function(el, isUpdate) {
-          console.log(isUpdate);
           if (isUpdate) return;
           lichess.userAutocomplete($(el), {
             onSelect: function(v) {

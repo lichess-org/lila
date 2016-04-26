@@ -57,7 +57,7 @@ module.exports = {
 
     var xhrReload = function() {
       vm.loading = true;
-      xhr.reload(data.id).then(onReload);
+      return xhr.reload(data.id).then(onReload);
     };
 
     var activity = function(userId) {
@@ -112,8 +112,9 @@ module.exports = {
       },
       toggleSync: function() {
         if (vm.behind !== false) {
-          vm.behind = false;
-          xhrReload();
+          xhrReload().then(function() {
+            vm.behind = false;
+          });
         } else vm.behind = 0;
       },
       anaMoveConfig: function(req) {
