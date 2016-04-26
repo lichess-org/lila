@@ -106,7 +106,11 @@ object JsonView {
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
   }
-  private[study] implicit val memberWrites: Writes[StudyMember] = Json.writes[StudyMember]
+  private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
+    Json.obj(
+      "user" -> m.user,
+      "role" -> m.role)
+  }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
     Json toJson m.members

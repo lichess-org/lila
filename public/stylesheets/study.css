@@ -167,6 +167,6 @@
   display: inline-block;
   margin-right: 10px;
 }
-.study_export .button:last-child {
-  margin-right: 0;
+.study_buttons .sync .data-count {
+  right: 8px;
 }

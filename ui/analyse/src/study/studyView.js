@@ -44,12 +44,20 @@ module.exports = {
 
   underboard: function(ctrl) {
     return m('div.study_buttons', [
-      m('a.button.hint--top', {
-        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves',
-        onclick: ctrl.toggleSync
-      }, m('i', {
+      m('span.sync.hint--top', {
+        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
+      }, m('a.button', (function() {
+        var attrs = {
+          onclick: ctrl.toggleSync
+        };
+        if (ctrl.vm.behind > 0) {
+          attrs['data-count'] = ctrl.vm.behind;
+          attrs.class = 'data-count';
+        }
+        return attrs;
+      })(), m('i', {
         'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
-      })),
+      }))),
       m('a.button.hint--top', {
         'data-hint': 'Download as PGN',
         href: '/study/' + ctrl.data.id + '.pgn'

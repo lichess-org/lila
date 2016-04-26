@@ -21,15 +21,24 @@ module.exports = {
     var vm = {
       loading: false,
       tab: storedProp('study.tab', 'members'),
-      behind: false // false if syncing, else incremental number of missed event
+      behind: false, // false if syncing, else incremental number of missed event
+      chapterId: null // only useful when not synchronized
     };
+
+    var currentChapterId = function() {
+      return vm.chapterId || data.position.chapterId;
+    }
 
     var contributing = function() {
       return members.canContribute() && vm.behind === false;
     };
 
     var contribute = function(t, d) {
-      if (contributing()) send(t, d);
+      if (contributing()) {
+        send(t, d);
+        return true;
+      }
+      else if (!members.canContribute()) vm.behind = 0;
     };
 
     var addChapterId = function(req) {
@@ -37,10 +46,6 @@ module.exports = {
       return req;
     }
     ctrl.userJump(data.position.path);
-
-    var samePosition = function(p1, p2) {
-      return p1.chapterId === p2.chapterId && p1.path === p2.path;
-    }
 
     var onReload = function(d) {
       var s = d.study;
@@ -57,7 +62,7 @@ module.exports = {
 
     var xhrReload = function() {
       vm.loading = true;
-      return xhr.reload(data.id).then(onReload);
+      return xhr.reload(data.id, vm.chapterId).then(onReload);
     };
 
     var activity = function(userId) {
@@ -88,7 +93,7 @@ module.exports = {
         return data.position;
       },
       currentChapter: function() {
-        return chapters.get(data.position.chapterId);
+        return chapters.get(currentChapterId());
       },
       setPath: throttle(300, false, function(path) {
         contribute("setPath", addChapterId({
@@ -106,28 +111,34 @@ module.exports = {
         }));
       },
       setChapter: function(id) {
-        if (id === data.position.chapterId) return;
-        contribute("setChapter", id);
+        if (id === currentChapterId()) return;
+        if (!contribute("setChapter", id)) {
+          vm.chapterId = id;
+          xhrReload();
+        }
         vm.loading = true;
       },
       toggleSync: function() {
         if (vm.behind !== false) {
+          vm.chapterId = null;
           xhrReload().then(function() {
             vm.behind = false;
+            m.redraw();
           });
         } else vm.behind = 0;
       },
       anaMoveConfig: function(req) {
-        if (contributing()) req.chapterId = data.position.chapterId;
+        if (contributing()) addChapterId(req);
       },
       socketHandlers: {
         path: function(d) {
           var position = d.p,
             who = d.w;
+          activity(who.u);
+          if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(position.path)) xhrReload();
           data.position.path = position.path;
-          activity(who.u);
           if (who.s === sri) return;
           data.position.path = position.path;
           ctrl.userJump(position.path);
@@ -137,7 +148,7 @@ module.exports = {
           var position = d.p,
             node = d.n,
             who = d.w;
-          if (position.chapterId !== data.position.chapterId) return;
+          if (position.chapterId !== currentChapterId()) return;
           activity(who.u);
           if (who.s === sri) {
             data.position.path = position.path + node.id;
@@ -147,7 +158,7 @@ module.exports = {
           ctrl.tree.addDests(d.d, newPath, d.o);
           if (!newPath) xhrReload();
           data.position.path = newPath;
-          ctrl.jump(data.position.path);
+          if (vm.behind === false) ctrl.jump(data.position.path);
           m.redraw();
         },
         delNode: function(d) {
@@ -155,6 +166,7 @@ module.exports = {
             byId = d.u,
             who = d.w;
           activity(who.u);
+          if (vm.behind !== false) return;
           if (who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(d.p.path)) xhrReload();
@@ -175,6 +187,7 @@ module.exports = {
           var position = d.p,
             who = d.w;
           activity(who.u);
+          if (vm.behind !== false) return;
           if (who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.chessground.setShapes(d.s);

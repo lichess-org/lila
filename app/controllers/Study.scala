@@ -14,7 +14,10 @@ object Study extends LilaController {
   private def env = Env.study
 
   def show(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byIdWithChapter id) {
+    val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
+      env.api.byIdWithChapter(id, chapterId)
+    }
+    OptionFuResult(query) {
       case lila.study.Study.WithChapter(study, chapter) =>
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           val setup = chapter.setup
