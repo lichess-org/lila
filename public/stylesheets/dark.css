@@ -11,6 +11,9 @@ body.dark .button {
   color: #8a8a8a;
 }
 body.dark #video .content_box_top form input,
+body.dark .study_box input,
+body.dark .study_box .list div.confing,
+body.dark .study_box .list div.config,
 body.dark input,
 body.dark textarea,
 body.dark div.analysis_menu > a.active,
@@ -31,6 +34,7 @@ body.dark #video_side .tag_list a.full:hover {
   background: #222;
   border-color: #444;
 }
+body.dark .study_box .tabs a,
 body.dark .lichess_ground .suggestion,
 body.dark .lichess_ground .pending,
 body.dark .lichess_ground .negotiation,
@@ -56,6 +60,7 @@ body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
 body.dark #chat form input,
+body.dark .study_box .list_input,
 body.dark #translation_call,
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
