@@ -20,9 +20,7 @@ final class PgnDump(
           case Some((game, initialFen)) => gamePgnDump(game, initialFen.map(_.value))
           case None => Pgn(
             tags(study, chapter),
-            turns(
-              chapter.root.mainLine.map(_.move.san),
-              1 + chapter.root.ply / 2))
+            toTurns(chapter.root, chapter.root.mainLine))
         }
       }.sequenceFu
     }
@@ -57,11 +55,35 @@ final class PgnDump(
       ))
   }
 
-  private def turns(moves: List[String], from: Int): List[chessPgn.Turn] =
-    (moves grouped 2).zipWithIndex.toList map {
-      case (moves, index) => chessPgn.Turn(
-        number = index + from,
-        white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
-        black = moves lift 1 map { chessPgn.Move(_) })
-    } filterNot (_.isEmpty)
+  private def node2move(parent: RootOrNode, node: Node) = chessPgn.Move(
+    san = node.move.san,
+    nag = none,
+    comment = none,
+    opening = none,
+    result = none,
+    variations = parent.children.variations.toList.map { child =>
+      toTurns(node, child.mainLine)
+    })
+
+  private def toTurn(parent: RootOrNode, first: Node, second: Option[Node]) = chessPgn.Turn(
+    number = first.fullMoveNumber,
+    white = node2move(parent, first).some,
+    black = second map { node2move(first, _) })
+
+  private def toTurns(parent: RootOrNode, line: List[Node]): List[chessPgn.Turn] = (line match {
+    case Nil => Nil
+    case first :: rest if first.ply % 2 == 0 => chessPgn.Turn(
+      number = 1 + (first.ply - 1) / 2,
+      white = none,
+      black = node2move(parent, first).some
+    ) :: toTurnsFromWhite(first, rest)
+    case l => toTurnsFromWhite(parent, l)
+  }) filterNot (_.isEmpty)
+
+  private def toTurnsFromWhite(parent: RootOrNode, line: List[Node]): List[chessPgn.Turn] =
+    (line grouped 2).toList.foldLeft(parent -> List.empty[chessPgn.Turn]) {
+      case ((parent, turns), pair) => pair.headOption.fold(parent -> turns) { first =>
+        pair.lift(1).getOrElse(first) -> (toTurn(parent, first, pair lift 1) :: turns)
+      }
+    }._2.reverse
 }

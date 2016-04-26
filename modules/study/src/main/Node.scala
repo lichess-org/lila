@@ -12,6 +12,7 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: List[Shape]
   val children: Node.Children
+  def fullMoveNumber = 1 + ply / 2
 }
 
 case class Node(
@@ -39,6 +40,7 @@ object Node {
   case class Children(nodes: Vector[Node]) {
 
     def first = nodes.headOption
+    def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] = path.split match {
       case None                               => none
