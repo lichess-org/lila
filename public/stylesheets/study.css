@@ -38,12 +38,16 @@
   text-overflow: ellipsis;
   line-height: 32px;
   margin-left: 5px;
-  max-width: 130px;
 }
 .study_box .list .left,
 .study_box .list .right {
   display: flex;
   align-items: center;
+  max-width: 200px;
+}
+.study_box .list .left {
+  flex: 0 1 auto;
+  overflow:hidden;
 }
 .study_box .list .status,
 .study_box .list .action {
@@ -54,6 +58,7 @@
   text-align: center;
   margin: 0;
   padding: 0 2px;
+  flex-shrink: 0;
 }
 .study_box .list .status i,
 .study_box .list .action i {
