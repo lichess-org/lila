@@ -44,7 +44,7 @@ module.exports = {
     var sri = lichess.StrongSocket.sri;
 
     var vm = {
-      loading: false,
+      loading: true,
       tab: storedProp('study.tab', 'members')
     };
 

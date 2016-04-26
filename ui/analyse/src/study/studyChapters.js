@@ -113,7 +113,6 @@ module.exports = {
             });
           }
         }, [
-          ctrl.vm.loading ? m('div.loading', m.trust(lichess.spinnerHtml)) : null,
           ctrl.chapters.list().map(function(chapter) {
             var confing = ctrl.chapters.vm.confing === chapter.id;
             var active = ctrl.position().chapterId === chapter.id;
@@ -131,9 +130,10 @@ module.exports = {
             return [
               m('div', attrs, [
                 m('div.left', [
-                  m('span.status', m('i', {
-                    'data-icon': active ? 'J' : 'K'
-                  })),
+                  m('div.status',
+                    (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
+                      'data-icon': active ? 'J' : 'K'
+                    })),
                   chapter.name
                 ]),
                 m('div.right', [

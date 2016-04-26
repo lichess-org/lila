@@ -26,17 +26,6 @@
   overflow-y: auto;
   position: relative;
 }
-.study_box .list .loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 .study_box .list .elem {
   display: flex;
   justify-content: space-between;
@@ -63,6 +52,7 @@
   height: 32px;
   line-height: 32px;
   text-align: center;
+  margin: 0;
   padding: 0 2px;
 }
 .study_box .list .status i,
@@ -140,6 +130,12 @@
 .study_box .chapters .status i {
   color: #3893E8;
   opacity: 1;
+}
+.study_box .chapters .status .spinner {
+  width: 18px;
+  height: 18px;
+  margin: 6px 0 0 0;
+  display: inline-block;
 }
 .study_box .chapters input {
   width: 100%;
