@@ -8,7 +8,6 @@ case class Study(
     _id: Study.ID,
     members: StudyMembers,
     position: Position.Ref,
-    shapes: List[Shape],
     ownerId: User.ID,
     createdAt: DateTime) {
 
@@ -24,10 +23,7 @@ case class Study(
 
   def withChapter(c: Chapter.Like) =
     if (c.id == position.chapterId) this
-    else copy(
-      position = Position.Ref(chapterId = c.id, path = Path.root),
-      shapes = Nil
-    )
+    else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 }
 
 object Study {
@@ -47,7 +43,6 @@ object Study {
       _id = scala.util.Random.alphanumeric take idSize mkString,
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
-      shapes = Nil,
       ownerId = user.id,
       createdAt = DateTime.now)
   }

@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
+import lila.socket.tree.Node.Shape
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 
@@ -55,7 +56,8 @@ private final class Socket(
 
     case ReloadAll(study, chapters) => notifyVersion("reload", JsNull, Messadata())
 
-    case ReloadShapes(shapes, uid) => notifyVersion("shapes", Json.obj(
+    case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
+      "p" -> pos,
       "s" -> shapes,
       "w" -> who(uid)
     ), Messadata())
@@ -130,7 +132,7 @@ private object Socket {
   case class DelNode(position: Position.Ref, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
-  case class ReloadShapes(shapes: List[Shape], uid: Uid)
+  case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case class ReloadAll(study: Study, chapters: List[Chapter.Metadata])
 

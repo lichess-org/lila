@@ -108,6 +108,7 @@ module.exports = {
             });
           }
         }, [
+          ctrl.vm.loading ? m('div.loading', m.trust(lichess.spinnerHtml)) : null,
           ctrl.chapters.list().map(function(chapter) {
             var confing = ctrl.chapters.vm.confing === chapter.id;
             var active = ctrl.position().chapterId === chapter.id;

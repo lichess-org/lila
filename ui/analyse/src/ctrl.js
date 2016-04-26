@@ -120,7 +120,7 @@ module.exports = function(opts) {
     onChange();
     if (!dests) getDests();
     this.setAutoShapes();
-    if (this.study) this.study.onShowGround();
+    if (node.shapes) this.chessground.setShapes(node.shapes);
   }.bind(this);
 
   var getDests = throttle(800, false, function() {

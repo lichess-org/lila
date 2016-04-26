@@ -8,8 +8,6 @@ module.exports = {
 
   main: function(ctrl) {
 
-    if (ctrl.vm.loading) return m.trust(lichess.spinnerHtml);
-
     var activeTab = ctrl.vm.tab();
 
     var makeTab = function(key, name) {

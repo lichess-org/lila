@@ -19,6 +19,7 @@ sealed trait Node {
   def drops: Option[List[Pos]]
   def eval: Option[Node.Eval]
   def comments: List[String]
+  def shapes: List[Node.Shape]
   def children: List[Branch]
   def opening: Option[FullOpening]
   def crazyData: Option[Crazyhouse.Data]
@@ -42,6 +43,7 @@ case class Root(
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
     comments: List[String] = Nil,
+    shapes: List[Node.Shape] = Nil,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -66,6 +68,7 @@ case class Branch(
     eval: Option[Node.Eval] = None,
     nag: Option[String] = None,
     comments: List[String] = Nil,
+    shapes: List[Node.Shape] = Nil,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -78,6 +81,14 @@ case class Branch(
 }
 
 object Node {
+
+  sealed trait Shape
+  object Shape {
+    type ID = String
+    type Brush = String
+    case class Circle(brush: Brush, orig: Pos) extends Shape
+    case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
+  }
 
   case class Eval(
     cp: Option[Int] = None,
@@ -109,6 +120,16 @@ object Node {
       "name" -> o.name)
   }
 
+  private implicit val posWrites: Writes[Pos] = Writes[Pos] { p =>
+    JsString(p.key)
+  }
+  private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
+  private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
+  implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
+    case s: Shape.Circle => shapeCircleWrites writes s
+    case s: Shape.Arrow  => shapeArrowWrites writes s
+  }
+
   implicit val nodeJsonWriter: Writes[Node] = Writes { node =>
     import node._
     (
@@ -119,6 +140,7 @@ object Node {
       add("eval", eval) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
+      add("shapes", shapes, shapes.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {
         _.map {

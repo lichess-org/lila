@@ -52,13 +52,7 @@ module.exports = {
       req.chapterId = data.position.chapterId;
       return req;
     }
-
-    var updateShapes = function() {
-      var shapes = ctrl.vm.path === data.position.path ? data.shapes : [];
-      ctrl.chessground.setShapes(shapes);
-    }
     ctrl.userJump(data.position.path);
-    updateShapes();
 
     var samePosition = function(p1, p2) {
       return p1.chapterId === p2.chapterId && p1.path === p2.path;
@@ -71,7 +65,9 @@ module.exports = {
       members.set(s.members);
       chapters.set(s.chapters);
       ctrl.reloadData(d.analysis);
-      ctrl.chessground.set({orientation: d.analysis.orientation});
+      ctrl.chessground.set({
+        orientation: d.analysis.orientation
+      });
       vm.loading = false;
     };
 
@@ -83,7 +79,13 @@ module.exports = {
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
-          if (members.canContribute()) send("shapes", shapes);
+          if (members.canContribute()) {
+            ctrl.tree.setShapes(shapes, ctrl.vm.path);
+            send("shapes", addChapterId({
+              path: ctrl.vm.path,
+              shapes: shapes
+            }));
+          }
         }
       }
     });
@@ -116,13 +118,11 @@ module.exports = {
       },
       setChapter: function(id) {
         send("setChapter", id);
+        vm.loading = true;
       },
       setTab: function(tab) {
         vm.tab(tab);
         m.redraw.strategy("all");
-      },
-      onShowGround: function() {
-        updateShapes();
       },
       socketHandlers: {
         path: function(d) {
@@ -177,9 +177,11 @@ module.exports = {
           m.redraw();
         },
         shapes: function(d) {
-          members.setActive(d.w.u);
-          data.shapes = d.s;
-          updateShapes();
+          var position = d.p,
+            who = d.w;
+          members.setActive(who.u);
+          if (who.s === sri) return;
+          if (position.chapterId !== data.position.chapterId) return;
           m.redraw();
         }
       }

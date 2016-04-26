@@ -18,11 +18,13 @@ private final class ChapterMaker(domain: String) {
             ply = sit.turns,
             fen = FEN(Forsyth.>>(sit)),
             check = sit.situation.check,
+            shapes = Nil,
             children = Node.emptyChildren)
           case None => Node.Root(
             ply = 0,
             fen = FEN(variant.initialFen),
             check = false,
+            shapes = Nil,
             children = Node.emptyChildren)
         }
         Chapter.make(

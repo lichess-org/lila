@@ -148,6 +148,11 @@ module.exports = function(root) {
         if (opening) node.opening = opening;
       });
     },
+    setShapes: function(shapes, path) {
+      return updateAt(path, function(node) {
+        node.shapes = shapes;
+      });
+    },
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,

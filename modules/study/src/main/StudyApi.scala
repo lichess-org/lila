@@ -1,12 +1,14 @@
 package lila.study
 
 import akka.actor.{ ActorRef, ActorSelection }
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 import chess.format.{ Forsyth, FEN }
 import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
+import lila.socket.tree.Node.Shape
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -118,10 +120,19 @@ final class StudyApi(
     } >>- reloadMembers(study)
   }
 
-  def setShapes(userId: User.ID, studyId: Study.ID, shapes: List[Shape], uid: Uid) = sequenceStudy(studyId) { study =>
+  def setShapes(userId: User.ID, studyId: Study.ID, position: Position.Ref, shapes: List[Shape], uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
-      studyRepo.setShapes(study, shapes)
-    } >>- reloadShapes(study, uid)
+      chapterRepo.byIdAndStudy(position.chapterId, study.id) flatMap {
+        _ ?? { chapter =>
+          chapter.setShapes(position.path, shapes) match {
+            case Some(newChapter) =>
+              chapterRepo.update(newChapter) >>-
+                sendTo(study.id, Socket.SetShapes(position, shapes, uid).pp)
+            case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
+          }
+        }
+      }
+    }
   }
 
   def addChapter(byUserId: User.ID, studyId: Study.ID, data: ChapterMaker.Data, socket: ActorRef) = sequenceStudy(studyId) { study =>
@@ -148,9 +159,7 @@ final class StudyApi(
           studyRepo.update(study withChapter chapter) >>- {
             reloadAll(study)
             study.members.get(byUserId).foreach { member =>
-              import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
-              val message = s"${member.user.name} switched to ${escapeHtml4(chapter.name)}"
-              chat ! SystemTalk(study.id, message, socket)
+              chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
             }
           }
         }
@@ -198,11 +207,6 @@ final class StudyApi(
   private def reloadAll(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id, Socket.ReloadAll(study, chapters))
-    }
-
-  private def reloadShapes(study: Study, uid: Uid) =
-    studyRepo.getShapes(study.id).foreach { shapes =>
-      sendTo(study.id, Socket.ReloadShapes(shapes, uid))
     }
 
   private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =

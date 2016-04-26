@@ -165,19 +165,19 @@ object BSON extends Handlers {
     def byteArrayO(b: ByteArray): Option[BSONBinary] =
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
     def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
-    def listO(list: List[String]): Option[List[String]] = list match {
+    def strListO(list: List[String]): Option[List[String]] = list match {
       case Nil          => None
       case List("")     => None
       case List("", "") => None
       case List(a, "")  => Some(List(a))
       case full         => Some(full)
     }
+    def listO[A](list: List[A])(implicit writer: BSONWriter[A, _ <: BSONValue]): Option[Barr] =
+      if (list.isEmpty) None
+      else Some(BSONArray(list map writer.write))
     def docO(o: Bdoc): Option[Bdoc] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
     def doubleO(i: Double): Option[BSONDouble] = if (i != 0) Some(BSONDouble(i)) else None
-    def intsO(l: List[Int]): Option[Barr] =
-      if (l.isEmpty) None
-      else Some(BSONArray(l map BSONInteger.apply))
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =

@@ -12,6 +12,7 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
+import lila.socket.tree.Node.Shape
 import lila.socket.{ Handler, AnaMove, AnaDests }
 import lila.user.User
 import makeTimeout.short
@@ -77,23 +78,23 @@ private[study] final class SocketHandler(
       }
     }
     case ("setPath", o) => AnaRateLimit(uid.value) {
-      reading[AtPath](o) { d =>
+      reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
-          api.setPath(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
+          api.setPath(userId, studyId, position.ref, uid)
         }
       }
     }
     case ("deleteVariation", o) => AnaRateLimit(uid.value) {
-      reading[AtPath](o) { d =>
+      reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
-          api.deleteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
+          api.deleteNodeAt(userId, studyId, position.ref, uid)
         }
       }
     }
     case ("promoteVariation", o) => AnaRateLimit(uid.value) {
-      reading[AtPath](o) { d =>
+      reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
-          api.promoteNodeAt(userId, studyId, Position.Ref(d.chapterId, Path(d.path)), uid)
+          api.promoteNodeAt(userId, studyId, position.ref, uid)
         }
       }
     }
@@ -115,9 +116,11 @@ private[study] final class SocketHandler(
     } api.kick(byUserId, studyId, userId)
 
     case ("shapes", o) =>
-      (o \ "d").asOpt[List[Shape]] foreach { shapes =>
-        member.userId foreach { userId =>
-          api.setShapes(userId, studyId, shapes, uid)
+      reading[AtPosition](o) { position =>
+        (o \ "d" \ "shapes").asOpt[List[Shape]] foreach { shapes =>
+          member.userId foreach { userId =>
+            api.setShapes(userId, studyId, position.ref, shapes take 16, uid)
+          }
         }
       }
 
@@ -150,8 +153,10 @@ private[study] final class SocketHandler(
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
-  private case class AtPath(path: String, chapterId: String)
-  private implicit val atPathReader = Json.reads[AtPath]
+  private case class AtPosition(path: String, chapterId: String) {
+    def ref = Position.Ref(chapterId, Path(path))
+  }
+  private implicit val atPositionReader = Json.reads[AtPosition]
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]

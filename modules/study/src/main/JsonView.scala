@@ -7,6 +7,7 @@ import play.api.libs.json._
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.socket.Socket.Uid
+import lila.socket.tree.Node.Shape
 
 object JsonView {
 
@@ -18,9 +19,6 @@ object JsonView {
   }
   private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
     JsString(u.toString)
-  }
-  private implicit val posWrites: Writes[Pos] = Writes[Pos] { p =>
-    JsString(p.key)
   }
   private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
@@ -43,15 +41,10 @@ object JsonView {
       "ply" -> n.ply,
       "fen" -> n.fen,
       "check" -> n.check,
+      "shapes" -> n.shapes,
       "children" -> n.children.nodes)
   }
 
-  private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
-  private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
-  private[study] implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
-    case s: Shape.Circle => shapeCircleWrites writes s
-    case s: Shape.Arrow  => shapeArrowWrites writes s
-  }
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject].flatMap { o =>
       for {
@@ -83,7 +76,6 @@ object JsonView {
       "id" -> s.id,
       "members" -> s.members,
       "position" -> s.position,
-      "shapes" -> s.shapes,
       "ownerId" -> s.ownerId,
       "createdAt" -> s.createdAt)
   }
@@ -99,6 +91,7 @@ object JsonView {
       "san" -> n.move.san,
       "fen" -> fenWriter.writes(n.fen),
       "check" -> n.check,
+      "shapes" -> n.shapes,
       "by" -> n.by,
       "children" -> n.children.nodes)
   }

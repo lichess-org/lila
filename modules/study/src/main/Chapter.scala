@@ -4,6 +4,8 @@ import chess.Color
 import chess.variant.Variant
 import org.joda.time.DateTime
 
+import lila.socket.tree.Node.Shape
+
 case class Chapter(
     _id: Chapter.ID,
     studyId: Study.ID,
@@ -21,6 +23,11 @@ case class Chapter(
   def addNode(path: Path, node: Node): Option[Chapter] =
     updateRoot { root =>
       root.withChildren(_.addNodeAt(node, path))
+    }
+
+  def setShapes(path: Path, shapes: List[Shape]): Option[Chapter] =
+    updateRoot { root =>
+      root.withChildren(_.setShapesAt(shapes, path))
     }
 }
 

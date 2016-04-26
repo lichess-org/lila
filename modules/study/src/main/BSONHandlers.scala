@@ -9,6 +9,7 @@ import lila.db.BSON
 import lila.db.BSON._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.common.LightUser
+import lila.socket.tree.Node.Shape
 
 private object BSONHandlers {
 
@@ -71,6 +72,7 @@ private object BSONHandlers {
       move = WithSan(r.get[Uci]("u"), r.str("s")),
       fen = r.get[FEN]("f"),
       check = r boolD "c",
+      shapes = r.getsD[Shape]("h"),
       by = r str "b",
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
@@ -80,6 +82,7 @@ private object BSONHandlers {
       "s" -> s.move.san,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
+      "h" -> w.listO(s.shapes),
       "b" -> s.by,
       "n" -> s.children)
   }
@@ -89,11 +92,13 @@ private object BSONHandlers {
       ply = r int "p",
       fen = r.get[FEN]("f"),
       check = r boolD "c",
+      shapes = r.getsD[Shape]("h"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
       "p" -> s.ply,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
+      "h" -> w.listO(s.shapes),
       "n" -> s.children)
   }
   implicit val ChildrenBSONHandler = new BSONHandler[BSONArray, Node.Children] {

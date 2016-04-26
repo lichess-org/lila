@@ -5,6 +5,7 @@ import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSO
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.socket.tree.Node.Shape
 import lila.user.User
 
 private final class StudyRepo(coll: Coll) {
@@ -29,15 +30,6 @@ private final class StudyRepo(coll: Coll) {
         "position" -> position,
         "shapes" -> List.empty[Shape] // also reset shapes
       )
-    ).void
-
-  def getShapes(studyId: Study.ID): Fu[List[Shape]] =
-    coll.primitiveOne[List[Shape]]($id(studyId), "shapes") map (~_)
-
-  def setShapes(study: Study, shapes: List[Shape]): Funit =
-    coll.update(
-      $id(study.id),
-      $set("shapes" -> shapes)
     ).void
 
   def addMember(study: Study, member: StudyMember): Funit =

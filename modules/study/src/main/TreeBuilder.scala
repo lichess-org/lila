@@ -15,6 +15,7 @@ object TreeBuilder {
     ply = root.ply,
     fen = root.fen.value,
     check = root.check,
+    shapes = root.shapes,
     children = toBranches(root.children),
     crazyData = none)
 
@@ -24,6 +25,7 @@ object TreeBuilder {
     move = node.move,
     fen = node.fen.value,
     check = node.check,
+    shapes = node.shapes,
     children = toBranches(node.children),
     crazyData = none)
 

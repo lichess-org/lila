@@ -3,11 +3,13 @@ package lila.study
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 
 import lila.user.User
+import lila.socket.tree.Node.Shape
 
 sealed trait RootOrNode {
   val ply: Int
   val fen: FEN
   val check: Boolean
+  val shapes: List[Shape]
   val children: Node.Children
 }
 
@@ -17,6 +19,7 @@ case class Node(
     move: Uci.WithSan,
     fen: FEN,
     check: Boolean,
+    shapes: List[Shape],
     by: User.ID,
     children: Node.Children) extends RootOrNode {
 
@@ -59,6 +62,12 @@ object Node {
       case Some((head, tail)) => updateChildren(head, _.promoteNodeAt(tail))
     }
 
+    def setShapesAt(shapes: List[Shape], path: Path): Option[Children] = path.split match {
+      case None                    => none
+      case Some((head, Path(Nil))) => updateWith(head, _.copy(shapes = shapes).some)
+      case Some((head, tail))      => updateChildren(head, _.setShapesAt(shapes, tail))
+    }
+
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
@@ -81,6 +90,7 @@ object Node {
       ply: Int,
       fen: FEN,
       check: Boolean,
+      shapes: List[Shape],
       children: Children) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
@@ -100,12 +110,14 @@ object Node {
       ply = 0,
       fen = FEN(Forsyth.initial),
       check = false,
+      shapes = Nil,
       children = emptyChildren)
 
     def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
+      shapes = Nil,
       children = Children(b.children.toVector.map(fromBranchBy(userId))))
   }
 
@@ -115,6 +127,7 @@ object Node {
     move = b.move,
     fen = FEN(b.fen),
     check = b.check,
+    shapes = Nil,
     by = userId,
     children = Children(b.children.toVector.map(fromBranchBy(userId))))
 }
