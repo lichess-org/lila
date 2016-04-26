@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
+import chess.opening.FullOpening
 
 import lila.socket.tree.Node.Shape
 import lila.user.User
@@ -29,11 +30,15 @@ case class Node(
     f(children) map { newChildren =>
       copy(children = newChildren)
     }
+
+  def mainLine: List[Node] = this :: children.first.??(_.mainLine)
 }
 
 object Node {
 
   case class Children(nodes: Vector[Node]) {
+
+    def first = nodes.headOption
 
     def nodeAt(path: Path): Option[Node] = path.split match {
       case None                               => none
@@ -106,6 +111,8 @@ object Node {
     def setShapesAt(shapes: List[Shape], path: Path): Option[Root] =
       if (path.isEmpty) copy(shapes = shapes).some
       else withChildren(_.setShapesAt(shapes, path))
+
+    def mainLine: List[Node] = children.first.??(_.mainLine)
   }
 
   object Root {

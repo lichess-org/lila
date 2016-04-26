@@ -5,6 +5,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import lila.socket.tree.Node.Shape
+import chess.opening.{ FullOpening, FullOpeningDB }
 
 case class Chapter(
     _id: Chapter.ID,
@@ -28,6 +29,9 @@ case class Chapter(
   def setShapes(shapes: List[Shape], path: Path): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 
+    def opening: Option[FullOpening] =
+      if (!Variant.openingSensibleVariants(setup.variant)) none
+      else FullOpeningDB searchInFens root.mainLine.map(_.fen)
 }
 
 object Chapter {

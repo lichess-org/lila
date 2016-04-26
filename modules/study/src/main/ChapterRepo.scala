@@ -10,6 +10,8 @@ final class ChapterRepo(coll: Coll) {
 
   import BSONHandlers._
 
+  val maxChapters = 64
+
   def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
 
   def byIdAndStudy(id: Chapter.ID, studyId: Study.ID): Fu[Option[Chapter]] =
@@ -19,7 +21,10 @@ final class ChapterRepo(coll: Coll) {
     coll.find(
       $studyId(studyId),
       $doc("root" -> false)
-    ).sort($sort asc "order").list[Chapter.Metadata](64)
+    ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
+
+  def orderedByStudy(studyId: Study.ID): Fu[List[Chapter]] =
+    coll.find($studyId(studyId)).sort($sort asc "order").list[Chapter](maxChapters)
 
   def nextOrderByStudy(studyId: Study.ID): Fu[Int] =
     coll.primitiveOne[Int](

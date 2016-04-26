@@ -1,6 +1,6 @@
 package controllers
 
-import chess.variant.Variant
+import play.api.http.ContentTypes
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
@@ -61,5 +61,15 @@ object Study extends LilaController {
       env.api.create(me) map { sc =>
         Redirect(routes.Study.show(sc.study.id))
       }
+  }
+
+  def pgn(id: String) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { study =>
+      env.pgnDump(study) map { pgns =>
+        Ok(pgns.mkString("\n\n\n")).withHeaders(
+          CONTENT_TYPE -> ContentTypes.TEXT,
+          CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+      }
+    }
   }
 }

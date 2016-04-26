@@ -15,6 +15,8 @@ case class Study(
 
   def id = _id
 
+  def name = "Unnamed study"
+
   def owner = members get ownerId
 
   def isOwner(id: User.ID) = ownerId == id

@@ -13,7 +13,8 @@ import makeTimeout.short
 
 final class Env(
     config: Config,
-    lightUser: String => Option[lila.common.LightUser],
+    getLightUser: String => Option[lila.common.LightUser],
+    gamePgnDump: lila.game.PgnDump,
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env) {
@@ -27,6 +28,7 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
+    val NetBaseUrl = config getString "net.base_url"
   }
   import settings._
 
@@ -34,7 +36,7 @@ final class Env(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(studyId: String) = new Socket(
         studyId = studyId,
-        lightUser = lightUser,
+        lightUser = getLightUser,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         destCache = destCache,
         uidTimeout = UidTimeout,
@@ -60,6 +62,11 @@ final class Env(
     chat = hub.actor.chat,
     socketHub = socketHub)
 
+  lazy val pgnDump = new PgnDump(
+    chapterRepo = chapterRepo,
+    gamePgnDump = gamePgnDump,
+    netBaseUrl = NetBaseUrl)
+
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
@@ -80,7 +87,8 @@ object Env {
 
   lazy val current: Env = "study" boot new Env(
     config = lila.common.PlayApp loadConfig "study",
-    lightUser = lila.user.Env.current.lightUser,
+    getLightUser = lila.user.Env.current.lightUser,
+    gamePgnDump = lila.game.Env.current.pgnDump,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)

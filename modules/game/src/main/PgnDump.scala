@@ -1,11 +1,8 @@
 package lila.game
 
-import akka.actor._
-import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
-import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
