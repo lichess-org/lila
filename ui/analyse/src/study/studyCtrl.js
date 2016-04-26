@@ -182,6 +182,7 @@ module.exports = {
           members.setActive(who.u);
           if (who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
+          ctrl.chessground.setShapes(d.s);
           m.redraw();
         }
       }

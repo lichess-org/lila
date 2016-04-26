@@ -20,15 +20,14 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(path: Path, node: Node): Option[Chapter] =
+  def addNode(node: Node, path: Path): Option[Chapter] =
     updateRoot { root =>
       root.withChildren(_.addNodeAt(node, path))
     }
 
-  def setShapes(path: Path, shapes: List[Shape]): Option[Chapter] =
-    updateRoot { root =>
-      root.withChildren(_.setShapesAt(shapes, path))
-    }
+  def setShapes(shapes: List[Shape], path: Path): Option[Chapter] =
+    updateRoot(_.setShapesAt(shapes, path))
+
 }
 
 object Chapter {

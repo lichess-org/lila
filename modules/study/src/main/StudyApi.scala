@@ -66,7 +66,7 @@ final class StudyApi(
 
   def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
-      chapter.addNode(position.path, node) match {
+      chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
@@ -124,7 +124,7 @@ final class StudyApi(
     Contribute(userId, study) {
       chapterRepo.byIdAndStudy(position.chapterId, study.id) flatMap {
         _ ?? { chapter =>
-          chapter.setShapes(position.path, shapes) match {
+          chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
               chapterRepo.update(newChapter) >>-
                 sendTo(study.id, Socket.SetShapes(position, shapes, uid).pp)

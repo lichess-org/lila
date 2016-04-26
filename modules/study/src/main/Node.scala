@@ -2,8 +2,8 @@ package lila.study
 
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 
-import lila.user.User
 import lila.socket.tree.Node.Shape
+import lila.user.User
 
 sealed trait RootOrNode {
   val ply: Int
@@ -102,6 +102,10 @@ object Node {
       if (path.isEmpty) this.some else children nodeAt path
 
     def pathExists(path: Path): Boolean = nodeAt(path).isDefined
+
+    def setShapesAt(shapes: List[Shape], path: Path): Option[Root] =
+      if (path.isEmpty) copy(shapes = shapes).some
+      else withChildren(_.setShapesAt(shapes, path))
   }
 
   object Root {
