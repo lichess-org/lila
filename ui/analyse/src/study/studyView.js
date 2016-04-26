@@ -45,7 +45,7 @@ module.exports = {
       }, 'PGN of entire study'),
       m('a.button.text[data-icon=x]', {
         href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.data.position.chapterId + '.pgn'
-      }, 'PGN of current chapter: ' + ctrl.study.currentChapter().name)
+      }, 'PGN of current chapter')
     ]);
   }
 };

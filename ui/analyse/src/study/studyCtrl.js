@@ -44,7 +44,7 @@ module.exports = {
     var sri = lichess.StrongSocket.sri;
 
     var vm = {
-      loading: true,
+      loading: false,
       tab: storedProp('study.tab', 'members')
     };
 
@@ -69,6 +69,7 @@ module.exports = {
         orientation: d.analysis.orientation
       });
       vm.loading = false;
+      m.redraw();
     };
 
     var xhrReload = function() {
@@ -120,12 +121,12 @@ module.exports = {
         }));
       },
       setChapter: function(id) {
+        if (id === data.position.chapterId) return;
         send("setChapter", id);
         vm.loading = true;
       },
       setTab: function(tab) {
         vm.tab(tab);
-        m.redraw.strategy("all");
       },
       socketHandlers: {
         path: function(d) {

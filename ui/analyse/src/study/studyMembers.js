@@ -122,22 +122,22 @@ module.exports = {
     };
 
     var invite = function() {
-      return m('div.invite', [
-        m('input', {
-          class: 'list_input',
-          config: function(el, isUpdate) {
-            if (isUpdate) return;
-            lichess.userAutocomplete($(el), {
-              onSelect: function(v) {
-                ctrl.members.invite(v);
-                m.redraw.strategy('all'); // to recreate the autocomplete
-                m.redraw();
-              }
-            });
-          },
-          placeholder: 'Invite someone'
-        })
-      ]);
+      return m('div.invite', m('div', m('input', {
+        class: 'list_input',
+        config: function(el, isUpdate) {
+          console.log(isUpdate);
+          if (isUpdate) return;
+          lichess.userAutocomplete($(el), {
+            onSelect: function(v) {
+              ctrl.members.invite(v);
+              $(el).typeahead('close');
+              el.value = '';
+              m.redraw();
+            }
+          });
+        },
+        placeholder: 'Invite someone'
+      })));
     };
 
     var memberConfig = function(member) {
