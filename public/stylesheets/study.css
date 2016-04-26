@@ -148,5 +148,13 @@
   padding: 20px;
 }
 .study_export {
-  text-align: left;
+  display: flex;
+}
+.study_export .button {
+  display: block;
+  flex: 1 1 100%;
+  margin-right: 10px;
+}
+.study_export .button:last-child {
+  margin-right: 0;
 }

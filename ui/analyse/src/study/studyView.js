@@ -36,5 +36,16 @@ module.exports = {
   overboard: function(ctrl) {
     if (ctrl.chapters.vm.creating)
       return chapterView.form(ctrl.chapters, ctrl.chapters.vm.creating);
+  },
+
+  pgn: function(ctrl) {
+    return m('div.study_export', [
+      m('a.button.text[data-icon=x]', {
+        href: '/study/' + ctrl.study.data.id + '.pgn'
+      }, 'PGN of entire study'),
+      m('a.button.text[data-icon=x]', {
+        href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.data.position.chapterId + '.pgn'
+      }, 'PGN of current chapter: ' + ctrl.study.currentChapter().name)
+    ]);
   }
 };

@@ -347,21 +347,13 @@ function inputs(ctrl) {
         if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
       }
     }),
-    m('div.pgn', [
+    m('div.pgn', ctrl.study ? studyView.pgn(ctrl) : [
       m('label.name', 'PGN'),
       m('textarea.copyable.autoselect[spellCheck=false]', {
         disabled: !!ctrl.study,
         value: pgnText
       }),
-      ctrl.study ? m('div.study_export', [
-        m('a.text[data-icon=x]', {
-          href: '/study/' + ctrl.study.data.id + '.pgn'
-        }, 'PGN of entire study'),
-        m('br'),
-        m('a.text[data-icon=x]', {
-          href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.data.position.chapterId + '.pgn'
-        }, 'PGN of ' + ctrl.study.currentChapter().name)
-      ]) : m('div.action', [
+      m('div.action', [
         m('button', {
           class: 'button text',
           'data-icon': 'G',
