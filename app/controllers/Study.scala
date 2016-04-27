@@ -14,8 +14,11 @@ object Study extends LilaController {
   private def env = Env.study
 
   def show(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byIdWithChapter id) {
-      case lila.study.Study.WithChapter(study, chapter) =>
+    val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
+      env.api.byIdWithChapter(id, chapterId)
+    }
+    OptionFuResult(query) {
+      case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           val setup = chapter.setup
           val initialFen = chapter.root.fen
@@ -39,13 +42,14 @@ object Study extends LilaController {
                 )
             }
         }
+      }
     } map NoCache
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       env.api byId id flatMap {
-        _ ?? { study =>
+        _.filter(canView) ?? { study =>
           env.socketHandler.join(
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
@@ -65,21 +69,21 @@ object Study extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { study =>
-      env.pgnDump(study) map { pgns =>
-        Ok(pgns.mkString("\n\n\n")).withHeaders(
-          CONTENT_TYPE -> ContentTypes.TEXT,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+      CanViewResult(study) {
+        env.pgnDump(study) map { pgns =>
+          Ok(pgns.mkString("\n\n\n")).withHeaders(
+            CONTENT_TYPE -> ContentTypes.TEXT,
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+        }
       }
     }
   }
 
-  def chapterPgn(studyId: String, chapterId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.byIdWithChapter(studyId, chapterId)) { s =>
-        env.pgnDump(s.study, s.chapter) map { pgn =>
-          Ok(pgn.toString).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(s.study, s.chapter))))
-        }
-    }
-  }
+  private def CanViewResult(study: lila.study.Study)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+    if (canView(study)) f
+    else fuccess(Unauthorized(html.study.restricted(study)))
+
+  private def canView(study: lila.study.Study)(implicit ctx: lila.api.Context) =
+    study.visibility == lila.study.Study.Visibility.Public ||
+      ctx.userId.exists(study.members.contains)
 }

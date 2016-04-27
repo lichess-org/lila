@@ -8,8 +8,8 @@ module.exports = function(cfg, saveUrl) {
   var loading = m.prop(false);
 
   var keyOf = function(fc) {
-    return fc.map(function(step) {
-      return step.ply + ':' + step.uci;
+    return fc.map(function(node) {
+      return node.ply + ':' + node.uci;
     }).join(',');
   };
 
@@ -17,9 +17,9 @@ module.exports = function(cfg, saveUrl) {
     return fc1.length >= fc2.length && keyOf(fc1).indexOf(keyOf(fc2)) === 0;
   };
 
-  var findStartingWithStep = function(step) {
+  var findStartingWithNode = function(node) {
     return forecasts.filter(function(fc) {
-      return contains(fc, [step]);
+      return contains(fc, [node]);
     });
   };
 
@@ -97,14 +97,14 @@ module.exports = function(cfg, saveUrl) {
     });
   };
 
-  var playAndSave = function(step) {
+  var playAndSave = function(node) {
     if (!cfg.onMyTurn) return;
     loading(true);
     m.redraw();
     m.request({
       method: 'POST',
-      url: saveUrl + '/' + step.uci,
-      data: findStartingWithStep(step).filter(function(fc) {
+      url: saveUrl + '/' + node.uci,
+      data: findStartingWithNode(node).filter(function(fc) {
         return fc.length > 1;
       }).map(function(fc) {
         return fc.slice(1);
@@ -119,11 +119,11 @@ module.exports = function(cfg, saveUrl) {
   };
 
   return {
-    addSteps: function(fc) {
+    addNodes: function(fc) {
       fc = truncate(fc);
       if (!isCandidate(fc)) return;
-      fc.forEach(function(step) {
-        delete step.variations;
+      fc.forEach(function(node) {
+        delete node.variations;
       });
       forecasts.push(fc);
       fixAll();
@@ -142,7 +142,7 @@ module.exports = function(cfg, saveUrl) {
     truncate: truncate,
     loading: loading,
     onMyTurn: cfg.onMyTurn,
-    findStartingWithStep: findStartingWithStep,
+    findStartingWithNode: findStartingWithNode,
     playAndSave: playAndSave,
     reloadToLastPly: reloadToLastPly
   };

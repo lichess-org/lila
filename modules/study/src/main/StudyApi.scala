@@ -75,7 +75,7 @@ final class StudyApi(
   def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(node, position.path) match {
-        case None => fufail(s"Invalid addNode $position $node") >>- reloadUid(study, uid)
+        case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
@@ -84,16 +84,18 @@ final class StudyApi(
     }
   }
 
-  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
-  // sequenceLocation(ref) { location =>
-  // (location.study canWrite userId) ?? {
-  //   val newChapter = location.chapter.updateRoot { root =>
-  //     root.withChildren(_.deleteNodeAt(path))
-  //   }
-  //   studyRepo.setChapter(location withChapter newChapter) >>-
-  //     sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path), uid))
-  // }
-  // }
+  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      chapter.updateRoot { root =>
+        root.withChildren(_.deleteNodeAt(position.path))
+      } match {
+        case Some(newChapter) =>
+          chapterRepo.update(newChapter) >>-
+            sendTo(study.id, Socket.DelNode(position, uid))
+        case None => fufail(s"Invalid delNode $studyId $position") >>- reloadUid(study, uid)
+      }
+    }
+  }
 
   def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
   // sequenceLocation(ref) { location =>
@@ -165,7 +167,7 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- {
-            reloadAll(study)
+            sendTo(study.id, Socket.ChangeChapter)
             study.members.get(byUserId).foreach { member =>
               chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
             }
@@ -197,6 +199,15 @@ final class StudyApi(
     }
   }
 
+  def editStudy(byUserId: User.ID, studyId: Study.ID, data: Study.Data) = sequenceStudy(studyId) { study =>
+    data.realVisibility ?? { visibility =>
+      val newStudy = study.copy(name = data.name, visibility = visibility)
+      (newStudy != study) ?? {
+        studyRepo.update(newStudy) >>- sendTo(study.id, Socket.ReloadAll)
+      }
+    }
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study.id, Socket.ReloadUid(uid))
 
@@ -210,11 +221,6 @@ final class StudyApi(
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id, Socket.ReloadChapters(chapters))
-    }
-
-  private def reloadAll(study: Study) =
-    chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
-      sendTo(study.id, Socket.ReloadAll(study, chapters))
     }
 
   private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =

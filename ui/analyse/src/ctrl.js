@@ -43,7 +43,7 @@ module.exports = function(opts) {
   var initialPath = treePath.root;
   if (opts.path) {
     var mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (opts.path === 'last') initialPath = treeOps.nodeListToPath(mainline);
+    if (opts.path === 'last') initialPath = treePath.fromNodeList(mainline);
     else {
       var ply = parseInt(opts.path);
       if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
@@ -191,7 +191,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToNag = function(color, nag) {
-    var ply = this.analyse.plyOfNextNag(color, nag, this.vm.node.ply);
+    var ply = this.tree.plyOfNextNag(color, nag, this.vm.mainline, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
   }.bind(this);
@@ -199,7 +199,7 @@ module.exports = function(opts) {
   this.reloadData = function(data) {
     initialize(data);
     this.vm.redirecting = false;
-    this.userJump(treePath.root);
+    this.setPath(treePath.root);
     this.userJump(mainlinePathToPly(this.tree.lastPly()));
   }.bind(this);
 
@@ -316,7 +316,7 @@ module.exports = function(opts) {
     var node = this.tree.nodeAtPath(path);
     if (!node) return;
     this.tree.deleteNodeAt(path);
-    if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
+    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.vm.path);
     this.study && this.study.deleteVariation(path);
   }.bind(this);

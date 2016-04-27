@@ -35,14 +35,6 @@ final class PgnDump(
     fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
   }
 
-  def filename(study: Study, chapter: Chapter): String = {
-    val name = lila.common.String slugify study.name
-    val chapterName = lila.common.String slugify chapter.name
-    val owner = study.owner.??(_.user.name)
-    val date = dateFormat.print(study.createdAt)
-    fileR.replaceAllIn(s"lichess_study_${name}-${chapterName}_by_${owner}_${date}.pgn", "")
-  }
-
   private def studyUrl(id: String) = s"$netBaseUrl/study/$id"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";

@@ -8,6 +8,10 @@
 
 .material.form .button-container {
   text-align: center;
+  margin: -20px 0 -20px 0;
+}
+.material.form .button-container .button {
+  padding: 20px 30px;
 }
 
 .material.form fieldset {
@@ -98,7 +102,7 @@
   left: 50%;
   bottom: -0.0625rem;
   position: absolute;
-  background: #337ab7;
+  background: #3893E8;
   -webkit-transition: left 0.28s ease, width 0.28s ease;
   transition: left 0.28s ease, width 0.28s ease;
   z-index: 2;
@@ -151,7 +155,7 @@ body.dark .material.form .form-group select option {
 }
 .material.form .form-group *:focus ~ .control-label,
 .material.form .form-group *:focus ~ .control-label strong {
-  color: #337ab7;
+  color: #3893E8;
 }
 .material.form .form-group *:focus ~ .bar::before {
   width: 100%;
@@ -208,18 +212,18 @@ body.dark .material.form .form-group select option {
 .material.form .radio .helper::after {
   -webkit-transform: scale(0);
   transform: scale(0);
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #3893E8;
+  border-color: #3893E8;
 }
 .material.form .radio label:hover .helper {
-  color: #337ab7;
+  color: #3893E8;
 }
 .material.form .radio input:checked ~ .helper::after {
   -webkit-transform: scale(0.5);
   transform: scale(0.5);
 }
 .material.form .radio input:checked ~ .helper::before {
-  color: #337ab7;
+  color: #3893E8;
 }
 
 .material.form .checkbox {
@@ -243,7 +247,7 @@ body.dark .material.form .form-group select option {
   position: absolute;
   height: 0;
   width: 0.2rem;
-  background-color: #337ab7;
+  background-color: #3893E8;
   display: block;
   -webkit-transform-origin: left top;
   transform-origin: left top;
@@ -267,10 +271,10 @@ body.dark .material.form .form-group select option {
   transform: rotate(-45deg);
 }
 .material.form .checkbox label:hover .helper {
-  color: #337ab7;
+  color: #3893E8;
 }
 .material.form .checkbox input:checked ~ .helper {
-  color: #337ab7;
+  color: #3893E8;
 }
 .material.form .checkbox input:checked ~ .helper::after, .checkbox input:checked ~ .helper::before {
   opacity: 1;

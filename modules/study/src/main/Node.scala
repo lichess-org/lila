@@ -115,6 +115,8 @@ object Node {
       else withChildren(_.setShapesAt(shapes, path))
 
     def mainLine: List[Node] = children.first.??(_.mainLine)
+
+    def mainLineLastNodePath = Path(mainLine.map(_.id))
   }
 
   object Root {

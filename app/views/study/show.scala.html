@@ -1,7 +1,5 @@
 @(s: lila.study.Study, data: lila.study.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
 
-@title = @{ s"${usernameOrAnon(s.ownerId.some)} Study" }
-
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
 @embedJs {
@@ -32,7 +30,7 @@ socketVersion: @socketVersion
 }
 
 @study.layout(
-title = title,
+title = s.name,
 side = side,
 chat = base.chatDom(trans.spectatorRoom.str(), withNotes = false),
 underchat = underchat,

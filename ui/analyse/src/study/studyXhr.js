@@ -11,10 +11,13 @@ function uncache(url) {
 
 module.exports = {
 
-  reload: function(id) {
+  reload: function(id, chapterId) {
     return m.request({
       method: 'GET',
       url: uncache('/study/' + id),
+      data: {
+        chapterId: chapterId
+      },
       config: xhrConfig,
       background: true
     });

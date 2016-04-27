@@ -35,6 +35,9 @@ object JsonView {
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
     JsString(uid.value)
   }
+  private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
+    JsString(v.key)
+  }
 
   private implicit val rootWrites = Writes[Node.Root] { n =>
     Json.obj(
@@ -74,9 +77,11 @@ object JsonView {
   private implicit val studyWrites = OWrites[Study] { s =>
     Json.obj(
       "id" -> s.id,
+      "name" -> s.name,
       "members" -> s.members,
       "position" -> s.position,
       "ownerId" -> s.ownerId,
+      "visibility" -> s.visibility,
       "createdAt" -> s.createdAt)
   }
   private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
@@ -106,7 +111,11 @@ object JsonView {
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
   }
-  private[study] implicit val memberWrites: Writes[StudyMember] = Json.writes[StudyMember]
+  private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
+    Json.obj(
+      "user" -> m.user,
+      "role" -> m.role)
+  }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
     Json toJson m.members

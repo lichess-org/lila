@@ -50,6 +50,7 @@ module.exports = {
         return !!active[id];
       },
       owner: owner,
+      myMember: myMember,
       isOwner: function() {
         return myId === ownerId;
       },
@@ -77,8 +78,8 @@ module.exports = {
         return Object.keys(members).map(function(id) {
           return members[id];
         }).sort(function(a, b) {
-          if (a.role === 'r' && b.role === 'w') return true;
-          if (a.role === 'w' && b.role === 'r') return false;
+          if (a.role === 'r' && b.role === 'w') return 1;
+          if (a.role === 'w' && b.role === 'r') return -1;
           return a.addedAt > b.addedAt;
         });
       },
@@ -125,7 +126,6 @@ module.exports = {
       return m('div.invite', m('div', m('input', {
         class: 'list_input',
         config: function(el, isUpdate) {
-          console.log(isUpdate);
           if (isUpdate) return;
           lichess.userAutocomplete($(el), {
             onSelect: function(v) {

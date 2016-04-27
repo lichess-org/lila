@@ -49,42 +49,5 @@ module.exports = {
     return nodes.map(function(n) {
       return n.id;
     }).join('');
-  },
-
-  // currentPly: function(path) {
-  //   return path[path.length - 1].ply;
-  // },
-
-  // withPly: function(path, ply) {
-  //   var p2 = path.slice(0);
-  //   var last = p2.length - 1;
-  //   p2[last] = copy(p2[last], {
-  //     ply: ply
-  //   });
-  //   return p2;
-  // },
-
-  // withVariation: function(path, index) {
-  //   var p2 = path.slice(0);
-  //   var last = p2.length - 1;
-  //   var ply = p2[last].ply;
-  //   p2[last] = copy(p2[last], {
-  //     ply: ply,
-  //     variation: index
-  //   });
-  //   p2.push({
-  //     ply: ply,
-  //     variation: null
-  //   });
-  //   return p2;
-  // },
-
-  // withoutVariation: function(path) {
-  //   var p2 = path.slice(0, path.length - 1);
-  //   var last = p2.length - 1;
-  //   p2[last] = copy(p2[last], {
-  //     variation: null
-  //   });
-  //   return p2;
-  // }
+  }
 };

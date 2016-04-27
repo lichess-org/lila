@@ -6,31 +6,6 @@ var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var xhr = require('./studyXhr');
 
-$.fn.scrollTo = function(target, options, callback) {
-  if (typeof options == 'function' && arguments.length == 2) {
-    callback = options;
-    options = target;
-  }
-  var settings = $.extend({
-    scrollTarget: target,
-    offsetTop: 50,
-    duration: 500,
-    easing: 'swing'
-  }, options);
-  return this.each(function() {
-    var scrollPane = $(this);
-    var scrollTarget = (typeof settings.scrollTarget == "number") ? settings.scrollTarget : $(settings.scrollTarget);
-    var scrollY = (typeof scrollTarget == "number") ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt(settings.offsetTop);
-    scrollPane.animate({
-      scrollTop: scrollY
-    }, parseInt(settings.duration), settings.easing, function() {
-      if (typeof callback == 'function') {
-        callback.call(this);
-      }
-    });
-  });
-};
-
 module.exports = {
   // data.position.path represents the server state
   // ctrl.vm.path is the client state
@@ -45,7 +20,26 @@ module.exports = {
 
     var vm = {
       loading: false,
-      tab: storedProp('study.tab', 'members')
+      tab: storedProp('study.tab', 'members'),
+      behind: false, // false if syncing, else incremental number of missed event
+      chapterId: null, // only useful when not synchronized
+      editing: false
+    };
+
+    var currentChapterId = function() {
+      return vm.chapterId || data.position.chapterId;
+    }
+
+    var contributing = function() {
+      return members.canContribute() && vm.behind === false;
+    };
+
+    var contribute = function(t, d) {
+      if (contributing()) {
+        send(t, d);
+        return true;
+      }
+      else if (!members.canContribute()) vm.behind = 0;
     };
 
     var addChapterId = function(req) {
@@ -54,14 +48,13 @@ module.exports = {
     }
     ctrl.userJump(data.position.path);
 
-    var samePosition = function(p1, p2) {
-      return p1.chapterId === p2.chapterId && p1.path === p2.path;
-    }
-
     var onReload = function(d) {
       var s = d.study;
+      if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
+        return lichess.reload();
       data.position = s.position;
-      data.shapes = s.shapes;
+      data.name = s.name;
+      data.visibility = s.visibility;
       members.set(s.members);
       chapters.set(s.chapters);
       ctrl.reloadData(d.analysis);
@@ -74,7 +67,12 @@ module.exports = {
 
     var xhrReload = function() {
       vm.loading = true;
-      xhr.reload(data.id).then(onReload);
+      return xhr.reload(data.id, vm.chapterId).then(onReload);
+    };
+
+    var activity = function(userId) {
+      members.setActive(userId);
+      vm.behind !== false && vm.behind < 99 && vm.behind++;
     };
 
     ctrl.chessground.set({
@@ -82,7 +80,7 @@ module.exports = {
         onChange: function(shapes) {
           if (members.canContribute()) {
             ctrl.tree.setShapes(shapes, ctrl.vm.path);
-            send("shapes", addChapterId({
+            contribute("shapes", addChapterId({
               path: ctrl.vm.path,
               shapes: shapes
             }));
@@ -100,45 +98,62 @@ module.exports = {
         return data.position;
       },
       currentChapter: function() {
-        return chapters.get(data.position.chapterId);
+        return chapters.get(currentChapterId());
       },
       setPath: throttle(300, false, function(path) {
-        if (members.canContribute() && path !== data.position.path) {
-          data.shapes = [];
-          send("setPath", addChapterId({
-            path: path
-          }));
-        }
+        if (path != data.position.path) contribute("setPath", addChapterId({
+          path: path
+        }));
       }),
       deleteVariation: function(path) {
-        send("deleteVariation", addChapterId({
-          path: path
+        contribute("deleteVariation", addChapterId({
+          path: path,
+          jumpTo: ctrl.vm.path
         }));
       },
       promoteVariation: function(path) {
-        send("promoteVariation", addChapterId({
+        contribute("promoteVariation", addChapterId({
           path: path
         }));
       },
       setChapter: function(id) {
-        if (id === data.position.chapterId) return;
-        send("setChapter", id);
+        if (id === currentChapterId()) return;
+        if (!contribute("setChapter", id)) {
+          vm.chapterId = id;
+          xhrReload();
+        }
         vm.loading = true;
       },
-      setTab: function(tab) {
-        vm.tab(tab);
+      toggleSync: function() {
+        if (vm.behind !== false) {
+          vm.chapterId = null;
+          xhrReload().then(function() {
+            vm.behind = false;
+            m.redraw();
+          });
+        } else {
+          vm.behind = 0;
+          vm.chapterId = currentChapterId();
+        }
+      },
+      update: function(data) {
+        send("editStudy", data);
+        vm.editing = null;
+      },
+      anaMoveConfig: function(req) {
+        if (contributing()) addChapterId(req);
       },
       socketHandlers: {
         path: function(d) {
           var position = d.p,
             who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(position.path)) xhrReload();
           data.position.path = position.path;
-          members.setActive(who.u);
-          if (who.s === sri) return;
+          if (who && who.s === sri) return;
           data.position.path = position.path;
-          data.shapes = [];
           ctrl.userJump(position.path);
           m.redraw();
         },
@@ -146,9 +161,9 @@ module.exports = {
           var position = d.p,
             node = d.n,
             who = d.w;
-          if (position.chapterId !== data.position.chapterId) return;
-          members.setActive(who.u);
-          if (who.s === sri) {
+          if (position.chapterId !== currentChapterId()) return;
+          who && activity(who.u);
+          if (who && who.s === sri) {
             data.position.path = position.path + node.id;
             return;
           }
@@ -156,22 +171,24 @@ module.exports = {
           ctrl.tree.addDests(d.d, newPath, d.o);
           if (!newPath) xhrReload();
           data.position.path = newPath;
-          ctrl.jump(data.position.path);
+          if (vm.behind === false) ctrl.jump(data.position.path);
           m.redraw();
         },
         delNode: function(d) {
           var position = d.p,
-            byId = d.u,
             who = d.w;
-          members.setActive(who.u);
-          if (who.s === sri) return;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
-          if (!ctrl.tree.pathExists(d.p.path)) xhrReload();
+          if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
           ctrl.tree.deleteNodeAt(position.path);
-          ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
         reload: xhrReload,
+        changeChapter: function() {
+          if (vm.behind === false) xhrReload();
+        },
         members: function(d) {
           members.set(d);
           m.redraw();
@@ -183,8 +200,9 @@ module.exports = {
         shapes: function(d) {
           var position = d.p,
             who = d.w;
-          members.setActive(who.u);
-          if (who.s === sri) return;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.chessground.setShapes(d.s);
           m.redraw();

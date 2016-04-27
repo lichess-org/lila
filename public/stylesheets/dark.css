@@ -11,6 +11,9 @@ body.dark .button {
   color: #8a8a8a;
 }
 body.dark #video .content_box_top form input,
+body.dark .study_box input,
+body.dark .study_box .list div.confing,
+body.dark .study_box .list div.config,
 body.dark input,
 body.dark textarea,
 body.dark div.analysis_menu > a.active,
@@ -31,6 +34,7 @@ body.dark #video_side .tag_list a.full:hover {
   background: #222;
   border-color: #444;
 }
+body.dark .study_tabs a,
 body.dark .lichess_ground .suggestion,
 body.dark .lichess_ground .pending,
 body.dark .lichess_ground .negotiation,
@@ -56,6 +60,7 @@ body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
 body.dark #chat form input,
+body.dark .study_box .list_input,
 body.dark #translation_call,
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
@@ -171,6 +176,7 @@ body.dark .crosstable td:nth-last-child(3) {
 }
 body.dark .explorer_box .config .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
+body.dark div.lichess_overboard .close,
 body.dark #modal-wrap,
 body.dark #modal-wrap .close {
   background-color: #303030;
@@ -181,6 +187,7 @@ body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover,
+body.dark div.lichess_overboard .close:hover,
 body.dark #modal-wrap .close:hover {
   background-color: #505050;
 }

@@ -1,23 +1,48 @@
 .study_box .spinner {
   margin: 20px auto;
 }
-.study_box .tabs {
+.study_tabs {
   display: flex;
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.study_box .tabs a {
-  font-family: 'Roboto';
-  font-weight: 300;
+.study_tabs a {
   text-transform: uppercase;
   display: block;
   width: 100%;
   text-align: center;
-  padding: 5px 0;
+  padding: 6px 0 4px 0;
   background: #fff;
+  border-bottom: 3px solid transparent;
 }
-.study_box .tabs a.active {
+.study_box .study_tabs a {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+.study_tabs a.more {
+  flex: 0 0 32px;
+}
+.study_tabs a.more i {
+  opacity: 0.6;
+}
+.study_tabs a:hover {
+  color: #3893E8!important;
+}
+.study_tabs a.active {
+  color: #3893E8!important;
   border-bottom: 3px solid #3893E8;
+}
+.material.form .study_tabs {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+body:not(.dark) .material.form .study_tabs a {
+  background: #f0f0f0;
+}
+.material.form textarea {
+  height: 120px;
+  line-height: 1.4em!important;
+  font-size: 0.8em;
 }
 
 .study_box .list {
@@ -38,12 +63,16 @@
   text-overflow: ellipsis;
   line-height: 32px;
   margin-left: 5px;
-  max-width: 130px;
 }
 .study_box .list .left,
 .study_box .list .right {
   display: flex;
   align-items: center;
+  max-width: 200px;
+}
+.study_box .list .left {
+  flex: 0 1 auto;
+  overflow:hidden;
 }
 .study_box .list .status,
 .study_box .list .action {
@@ -54,6 +83,7 @@
   text-align: center;
   margin: 0;
   padding: 0 2px;
+  flex-shrink: 0;
 }
 .study_box .list .status i,
 .study_box .list .action i {
@@ -100,7 +130,7 @@
   width: 214px;
   border: none;
   border-top: 1px solid #ccc;
-  background: white;
+  background: #fff;
   padding: 3px 5px;
 }
 .study_box .list div.confing,
@@ -143,14 +173,14 @@
 .study_overboard .form {
   padding: 20px;
 }
-.study_export {
+.study_buttons {
   display: flex;
+  justify-content: flex-start;
 }
-.study_export .button {
-  display: block;
-  flex: 1 1 100%;
+.study_buttons .button {
+  display: inline-block;
   margin-right: 10px;
 }
-.study_export .button:last-child {
-  margin-right: 0;
+.study_buttons .sync .data-count {
+  right: 8px;
 }
