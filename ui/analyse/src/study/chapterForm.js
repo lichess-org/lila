@@ -102,15 +102,6 @@ module.exports = {
           m('label.control-label[for=chapter-game]', 'Load played or imported game'),
           m('i.bar')
         ]) : null,
-        activeTab !== 'game' ? m('div.game.form-group', [
-          m('select#chapter-variant', ctrl.vm.variants.map(function(v) {
-            return m('option', {
-              value: v.key
-            }, v.name)
-          })),
-          m('label.control-label[for=chapter-variant]', 'Variant'),
-          m('i.bar')
-        ]) : null,
         activeTab === 'fen' ? m('div.game.form-group', [
           m('input#chapter-fen', {
             placeholder: 'Initial position',
@@ -119,17 +110,41 @@ module.exports = {
           m('label.control-label[for=chapter-fen]', 'From FEN position'),
           m('i.bar')
         ]) : null,
-        m('div.game.form-group', [
-          m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
-            return m('option', {
-              value: color.toLowerCase()
-            }, color)
-          })),
-          m('label.control-label[for=chapter-orientation]', 'Orientation'),
+        activeTab === 'pgn' ? m('div.game.form-group', [
+          m('textarea#chapter-pgn', {
+            placeholder: 'PGN tags and moves',
+            config: autofocus
+          }),
+          m('label.control-label[for=chapter-pgn]', 'From PGN game'),
           m('i.bar')
+        ]) : null,
+        m('div', [
+          m('div.game.form-group.half', [
+            m('select#chapter-variant', {
+              disabled: activeTab === 'game'
+            }, activeTab === 'game' ? [
+              m('option', 'Game variant')
+              ] :
+              ctrl.vm.variants.map(function(v) {
+                return m('option', {
+                  value: v.key
+                }, v.name)
+              })),
+            m('label.control-label[for=chapter-variant]', 'Variant'),
+            m('i.bar')
+          ]),
+          m('div.game.form-group.half', [
+            m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
+              return m('option', {
+                value: color.toLowerCase()
+              }, color)
+            })),
+            m('label.control-label[for=chapter-orientation]', 'Orientation'),
+            m('i.bar')
+          ])
         ]),
         m('div.button-container',
-          m('button.submit.button.text[type=submit][data-icon=E]', 'Create chapter')
+          m('button.submit.button[type=submit]', 'Create chapter')
         )
       ])
     ]);
