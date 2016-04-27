@@ -12,7 +12,7 @@ function form(ctrl) {
   }, [
     m('a.close.icon[data-icon=L]', {
       onclick: function() {
-        ctrl.vm.creating = null;
+        ctrl.vm.editing = null;
       }
     }),
     m('h2', 'Edit study'),

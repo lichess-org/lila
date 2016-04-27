@@ -223,7 +223,6 @@ function renderMainlineTurn(ctrl, turn, path) {
     bMove = renderMove(ctrl, turn.black.node, bPath, 1);
     bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath);
   }
-  console.log(turn);
   if (wMove) {
     if (wMeta) dom = [
       renderMainlineTurnEl([index, wMove, emptyMove]),

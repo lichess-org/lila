@@ -49,19 +49,6 @@ object TreeBuilder {
         val advices: Map[Ply, Advice] = a.??(_._2.advices.map { a =>
           a.ply -> a
         }.toMap)
-        // analysis.advices.foldLeft(steps) {
-        //   case (steps, ad) =>
-        //     val index = ad.ply - analysis.startPly
-        //     (for {
-        //       before <- steps lift (index - 1)
-        //       after <- steps lift index
-        //     } yield steps.updated(index, after.copy(
-        //       nag = ad.nag.symbol.some,
-        //       comments = ad.makeComment(false, true) :: after.comments,
-        //       variations = if (ad.info.variation.isEmpty) after.variations
-        //       else makeVariation(gameId, before, ad.info, variant).toList :: after.variations))
-        //     ) | steps
-        // }
         val root = Root(
           ply = init.turns,
           fen = fen,
@@ -127,27 +114,6 @@ object TreeBuilder {
         }
     }
   }
-
-  //   private def makeVariation(gameId: String, fromStep: Step, info: Info, variant: Variant): List[Step] = {
-  //     chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen, variant) match {
-  //       case (games, error) =>
-  //         error foreach logChessError(gameId)
-  //         games.drop(1).map { g =>
-  //           Step(
-  //             id = g.board.history.lastMove.map(UciCharPair.apply),
-  //             ply = g.turns,
-  //             move = for {
-  //               uci <- g.board.history.lastMove
-  //               san <- g.pgnMoves.lastOption
-  //             } yield Step.Move(uci, san),
-  //             fen = Forsyth >> g,
-  //             check = g.situation.check,
-  //             dests = None,
-  //             drops = None,
-  //             crazyData = g.situation.board.crazyData)
-  //         }
-  //     }
-  //   }
 
   private val logChessError = (id: String) => (err: String) =>
     logger.warn(s"round.TreeBuilder http://lichess.org/$id ${err.lines.toList.headOption}")

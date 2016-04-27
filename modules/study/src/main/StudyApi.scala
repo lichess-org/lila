@@ -75,7 +75,7 @@ final class StudyApi(
   def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
       chapter.addNode(node, position.path) match {
-        case None => fufail(s"Invalid addNode $position $node") >>- reloadUid(study, uid)
+        case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
@@ -84,16 +84,18 @@ final class StudyApi(
     }
   }
 
-  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
-  // sequenceLocation(ref) { location =>
-  // (location.study canWrite userId) ?? {
-  //   val newChapter = location.chapter.updateRoot { root =>
-  //     root.withChildren(_.deleteNodeAt(path))
-  //   }
-  //   studyRepo.setChapter(location withChapter newChapter) >>-
-  //     sendTo(ref.studyId, Socket.DelNode(Position.Ref(ref.chapterId, path), uid))
-  // }
-  // }
+  def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      chapter.updateRoot { root =>
+        root.withChildren(_.deleteNodeAt(position.path))
+      } match {
+        case Some(newChapter) =>
+          chapterRepo.update(newChapter) >>-
+            sendTo(study.id, Socket.DelNode(position, uid))
+        case None => fufail(s"Invalid delNode $studyId $position") >>- reloadUid(study, uid)
+      }
+    }
+  }
 
   def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
   // sequenceLocation(ref) { location =>

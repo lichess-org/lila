@@ -72,7 +72,7 @@ module.exports = {
 
     var activity = function(userId) {
       members.setActive(userId);
-      vm.behind !== false && vm.behind++;
+      vm.behind !== false && vm.behind < 99 && vm.behind++;
     };
 
     ctrl.chessground.set({
@@ -101,13 +101,14 @@ module.exports = {
         return chapters.get(currentChapterId());
       },
       setPath: throttle(300, false, function(path) {
-        contribute("setPath", addChapterId({
+        if (path != data.position.path) contribute("setPath", addChapterId({
           path: path
         }));
       }),
       deleteVariation: function(path) {
         contribute("deleteVariation", addChapterId({
-          path: path
+          path: path,
+          jumpTo: ctrl.vm.path
         }));
       },
       promoteVariation: function(path) {
@@ -146,12 +147,12 @@ module.exports = {
         path: function(d) {
           var position = d.p,
             who = d.w;
-          activity(who.u);
+          who && activity(who.u);
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(position.path)) xhrReload();
           data.position.path = position.path;
-          if (who.s === sri) return;
+          if (who && who.s === sri) return;
           data.position.path = position.path;
           ctrl.userJump(position.path);
           m.redraw();
@@ -161,8 +162,8 @@ module.exports = {
             node = d.n,
             who = d.w;
           if (position.chapterId !== currentChapterId()) return;
-          activity(who.u);
-          if (who.s === sri) {
+          who && activity(who.u);
+          if (who && who.s === sri) {
             data.position.path = position.path + node.id;
             return;
           }
@@ -175,15 +176,13 @@ module.exports = {
         },
         delNode: function(d) {
           var position = d.p,
-            byId = d.u,
             who = d.w;
-          activity(who.u);
+          who && activity(who.u);
           if (vm.behind !== false) return;
-          if (who.s === sri) return;
+          if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
-          if (!ctrl.tree.pathExists(d.p.path)) xhrReload();
+          if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
           ctrl.tree.deleteNodeAt(position.path);
-          ctrl.jump(ctrl.vm.path);
           m.redraw();
         },
         reload: xhrReload,
@@ -201,9 +200,9 @@ module.exports = {
         shapes: function(d) {
           var position = d.p,
             who = d.w;
-          activity(who.u);
+          who && activity(who.u);
           if (vm.behind !== false) return;
-          if (who.s === sri) return;
+          if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.chessground.setShapes(d.s);
           m.redraw();
