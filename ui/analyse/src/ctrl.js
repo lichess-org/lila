@@ -199,7 +199,7 @@ module.exports = function(opts) {
   this.reloadData = function(data) {
     initialize(data);
     this.vm.redirecting = false;
-    this.userJump(treePath.root);
+    this.setPath(treePath.root);
     this.userJump(mainlinePathToPly(this.tree.lastPly()));
   }.bind(this);
 

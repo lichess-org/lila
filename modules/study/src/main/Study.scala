@@ -23,9 +23,9 @@ case class Study(
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
-  def withChapter(c: Chapter.Like) =
+  def withChapter(c: Chapter) =
     if (c.id == position.chapterId) this
-    else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
+    else copy(position = Position.Ref(chapterId = c.id, path = c.root.mainLineLastNodePath))
 }
 
 object Study {
