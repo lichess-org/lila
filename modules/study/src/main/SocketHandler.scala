@@ -148,6 +148,12 @@ private[study] final class SocketHandler(
       id <- o str "d"
     } api.deleteChapter(byUserId, studyId, id, socket)
 
+    case ("editStudy", o) if owner =>
+      reading[Study.Data](o) { data =>
+        member.userId foreach { byUserId =>
+          api.editStudy(byUserId, studyId, data)
+        }
+      }
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
@@ -160,6 +166,7 @@ private[study] final class SocketHandler(
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
+  private implicit val StudyDataReader = Json.reads[Study.Data]
 
   def join(
     studyId: Study.ID,

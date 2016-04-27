@@ -137,6 +137,11 @@ private object BSONHandlers {
     def read(b: BSONDocument) = StudyMembers(MemberMapBSONHandler read b)
     def write(x: StudyMembers) = MemberMapBSONHandler write x.members
   }
+  import Study.Visibility
+  implicit val visibilityHandler = new BSONHandler[BSONString, Visibility] {
+    def read(bs: BSONString) = Visibility.byKey get bs.value err s"Invalid visibility ${bs.value}"
+    def write(x: Visibility) = BSONString(x.key)
+  }
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

@@ -6,16 +6,16 @@ import lila.user.User
 
 case class Study(
     _id: Study.ID,
+    name: String,
     members: StudyMembers,
     position: Position.Ref,
     ownerId: User.ID,
+    visibility: Study.Visibility,
     createdAt: DateTime) {
 
   import Study._
 
   def id = _id
-
-  def name = "Unnamed study"
 
   def owner = members get ownerId
 
@@ -30,6 +30,19 @@ case class Study(
 
 object Study {
 
+  sealed trait Visibility {
+    lazy val key = toString.toLowerCase
+  }
+  object Visibility {
+    case object Private extends Visibility
+    case object Public extends Visibility
+    val byKey = List(Private, Public).map { v => v.key -> v }.toMap
+  }
+
+  case class Data(name: String, visibility: String) {
+    def realVisibility = Visibility.byKey get visibility
+  }
+
   case class WithChapter(study: Study, chapter: Chapter)
 
   type ID = String
@@ -43,9 +56,11 @@ object Study {
       addedAt = DateTime.now)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
+      name = "New study",
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
       ownerId = user.id,
+      visibility = Visibility.Public,
       createdAt = DateTime.now)
   }
 }

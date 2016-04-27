@@ -50,6 +50,7 @@ module.exports = {
         return !!active[id];
       },
       owner: owner,
+      myMember: myMember,
       isOwner: function() {
         return myId === ownerId;
       },

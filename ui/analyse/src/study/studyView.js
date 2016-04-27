@@ -4,9 +4,51 @@ var classSet = require('chessground').util.classSet;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 
-var moreIcon = m('i', {
-  'data-icon': '['
-});
+function form(ctrl) {
+  return m('div.lichess_overboard.study_overboard', {
+    config: function(el, isUpdate) {
+      if (!isUpdate) lichess.loadCss('/assets/stylesheets/material.form.css');
+    }
+  }, [
+    m('a.close.icon[data-icon=L]', {
+      onclick: function() {
+        ctrl.vm.creating = null;
+      }
+    }),
+    m('h2', 'Edit study'),
+    m('form.material.form', {
+      onsubmit: function(e) {
+        ctrl.update({
+          name: e.target.querySelector('#study-name').value,
+          visibility: e.target.querySelector('#study-visibility').value
+        });
+        e.stopPropagation();
+        return false;
+      }
+    }, [
+      m('div.game.form-group', [
+        m('input#study-name', {
+          value: ctrl.data.name
+        }),
+        m('label.control-label[for=study-name]', 'Name'),
+        m('i.bar')
+      ]),
+      m('div.game.form-group', [
+        m('select#study-visibility', ['Public', 'Private'].map(function(name) {
+          return m('option', {
+            value: name.toLowerCase(),
+            selected: ctrl.data.visibility === name.toLowerCase()
+          }, name);
+        })),
+        m('label.control-label[for=study-visibility]', 'Visibility'),
+        m('i.bar')
+      ]),
+      m('div.button-container',
+        m('button.submit.button.text[type=submit][data-icon=E]', 'Update study')
+      )
+    ])
+  ]);
+}
 
 module.exports = {
 
@@ -24,7 +66,13 @@ module.exports = {
     var tabs = m('div.tabs', [
       makeTab('members', 'Members'),
       makeTab('chapters', 'Chapters'),
-      makeTab('more', moreIcon)
+      ctrl.members.isOwner() ? m('a.more', {
+        onclick: function() {
+          ctrl.vm.editing = !ctrl.vm.editing;
+        }
+      }, m('i', {
+        'data-icon': '['
+      })) : null
     ]);
 
     var panel;
@@ -40,6 +88,8 @@ module.exports = {
   overboard: function(ctrl) {
     if (ctrl.chapters.vm.creating)
       return chapterView.form(ctrl.chapters, ctrl.chapters.vm.creating);
+    if (ctrl.vm.editing)
+      return form(ctrl);
   },
 
   underboard: function(ctrl) {

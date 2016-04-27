@@ -197,6 +197,15 @@ final class StudyApi(
     }
   }
 
+  def editStudy(byUserId: User.ID, studyId: Study.ID, data: Study.Data) = sequenceStudy(studyId) { study =>
+    data.realVisibility ?? { visibility =>
+      val newStudy = study.copy(name = data.name, visibility = visibility)
+      (newStudy != study) ?? {
+        studyRepo.update(newStudy) >>- sendTo(study.id, Socket.ReloadAll)
+      }
+    }
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study.id, Socket.ReloadUid(uid))
 

@@ -22,7 +22,8 @@ module.exports = {
       loading: false,
       tab: storedProp('study.tab', 'members'),
       behind: false, // false if syncing, else incremental number of missed event
-      chapterId: null // only useful when not synchronized
+      chapterId: null, // only useful when not synchronized
+      editing: false
     };
 
     var currentChapterId = function() {
@@ -49,7 +50,11 @@ module.exports = {
 
     var onReload = function(d) {
       var s = d.study;
+      if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
+        return lichess.reload();
       data.position = s.position;
+      data.name = s.name;
+      data.visibility = s.visibility;
       members.set(s.members);
       chapters.set(s.chapters);
       ctrl.reloadData(d.analysis);
@@ -129,6 +134,10 @@ module.exports = {
           vm.behind = 0;
           vm.chapterId = currentChapterId();
         }
+      },
+      update: function(data) {
+        send("editStudy", data);
+        vm.editing = null;
       },
       anaMoveConfig: function(req) {
         if (contributing()) addChapterId(req);
