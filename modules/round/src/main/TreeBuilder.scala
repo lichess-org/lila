@@ -71,6 +71,7 @@ object TreeBuilder {
           eval = infos lift 0 map makeEval)
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
           val fen = Forsyth >> g
+          val info = infos lift (index - 1)
           val advice = advices get g.turns
           val branch = Branch(
             id = UciCharPair(m.uci),
@@ -80,11 +81,11 @@ object TreeBuilder {
             check = g.situation.check,
             opening = openingOf(fen),
             crazyData = g.situation.board.crazyData,
-            eval = infos lift index map makeEval,
+            eval = info map makeEval,
             nag = advice.map(_.nag.symbol),
             comments = advice.map(_.makeComment(false, true)).toList)
-          advice.flatMap { adv =>
-            games.lift(index - 2).map {
+          advices.get(g.turns + 1).flatMap { adv =>
+            games.lift(index - 1).map {
               case (fromGame, _) =>
                 val fromFen = Forsyth >> fromGame
                 withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)

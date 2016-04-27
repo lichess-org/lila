@@ -163,10 +163,10 @@ function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
-function renderMeta(ctrl, node, path) {
+function renderMeta(ctrl, node, prev, path) {
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
-  if (!node || (!opening && empty(node.comments) && !node.children[1])) return;
+  if (!node || (!opening && empty(node.comments) && !prev.children[1])) return;
   var dom = [];
   if (opening) dom.push(opening);
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
@@ -179,13 +179,13 @@ function renderMeta(ctrl, node, path) {
       class: 'comment ' + colorClass + commentClass
     }, comment));
   });
-  if (node.children[1]) node.children.slice(1).forEach(function(child, i) {
+  if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;
     dom.push(renderVariation(
       ctrl,
       child, {
-        node: node,
-        path: path
+        node: prev,
+        path: treePath.init(path)
       },
       i === 0 ? colorClass + commentClass : null,
       1
@@ -214,15 +214,16 @@ function renderMainlineTurn(ctrl, turn, path) {
   var index = renderIndex(turn.turn);
   var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
   if (turn.white) {
-    wPath = path = path + turn.white.id;
-    wMove = renderMove(ctrl, turn.white, wPath, 1);
-    wMeta = renderMeta(ctrl, turn.white, wPath);
+    wPath = path = path + turn.white.node.id;
+    wMove = renderMove(ctrl, turn.white.node, wPath, 1);
+    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath);
   }
   if (turn.black) {
-    bPath = path = path + turn.black.id;
-    bMove = renderMove(ctrl, turn.black, bPath, 1);
-    bMeta = renderMeta(ctrl, turn.black, bPath);
+    bPath = path = path + turn.black.node.id;
+    bMove = renderMove(ctrl, turn.black.node, bPath, 1);
+    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath);
   }
+  console.log(turn);
   if (wMove) {
     if (wMeta) dom = [
       renderMainlineTurnEl([index, wMove, emptyMove]),
@@ -246,32 +247,38 @@ function renderMainlineTurn(ctrl, turn, path) {
   };
 }
 
+
 function renderMainline(ctrl, mainline) {
   var turns = [];
   var initPly = mainline[0].ply;
+  var makeTurnColor = function(i) {
+    if (mainline[i]) return {
+      node: mainline[i],
+      prev: mainline[i - 1]
+    };
+  }
   if (initPly % 2 === 0)
     for (var i = 1, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: mainline[i],
-      black: mainline[i + 1]
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
     });
   else {
     turns.push({
       turn: Math.floor(initPly / 2) + 1,
       white: null,
-      black: mainline[1]
+      black: makeTurnColor(1)
     });
     for (var i = 2, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: mainline[i],
-      black: mainline[i + 1]
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
     });
   }
 
   var tags = [],
     path = treePath.root;
 
-  tags.push(renderMeta(ctrl, mainline[0], path));
   for (var i = 0, len = turns.length; i < len; i++) {
     res = renderMainlineTurn(ctrl, turns[i], path);
     path = res.path;
