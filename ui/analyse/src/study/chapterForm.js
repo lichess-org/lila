@@ -8,9 +8,9 @@ module.exports = {
 
     var vm = {
       variants: [],
-      open: true, //false,
-      name: 'Test chapter', //null,
-      tab: storedProp('study.form.tab', 'initial'),
+      open: false,
+      name: null,
+      tab: storedProp('study.form.tab', 'blank'),
     };
 
     var loadVariants = function() {
