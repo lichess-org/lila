@@ -42,32 +42,6 @@ module.exports = function(root) {
     if (child) return nodeAtPathOrNullFrom(child, treePath.tail(path));
   }
 
-  // function mainlineNodeAtPathOrNull(path) {
-  //   return mainlineNodeAtPathFrom(root, path);
-  // }
-
-  // function mainlineNodeAtPathOrNullFrom(node, path) {
-  //   if (path === '') return node;
-  //   var child = ops.mainlineChild(node);
-  //   if (!child) return null;
-  //   if (child.id !== treePath.head(path)) return null;
-  //   return mainlineNodeAtPathOrNullFrom(child, treePath.tail(path));
-  // }
-
-  // this.nextNodeEvalBest = function(path) {
-  //   if (!treePath.isRoot(path)) return;
-  //   var nextPly = path[0].ply + 1;
-  //   var nextStep = this.tree[nextPly - this.firstPly()];
-  //   return (nextStep && nextStep.eval) ? nextStep.eval.best : null;
-  // }.bind(this);
-
-  // this.nextNodeEvalBest = function(path) {
-  //   var node = mainlineNodeAtPathOrNullFrom(path)
-  //   var nextPly = path[0].ply + 1;
-  //   var nextStep = this.tree[nextPly - this.firstPly()];
-  //   return (nextStep && nextStep.eval) ? nextStep.eval.best : null;
-  // }.bind(this);
-  //
   var getCurrentNodesAfterPly = function(nodeList, mainline, ply) {
     var node, nodes = [];
     for (var i in nodeList) {
