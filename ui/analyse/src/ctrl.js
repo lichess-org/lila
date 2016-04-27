@@ -316,7 +316,7 @@ module.exports = function(opts) {
     var node = this.tree.nodeAtPath(path);
     if (!node) return;
     this.tree.deleteNodeAt(path);
-    if (treePath.contains(path, this.vm.path)) this.jumpToMain(node.ply - 1);
+    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.vm.path);
     this.study && this.study.deleteVariation(path);
   }.bind(this);
