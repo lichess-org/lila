@@ -43,7 +43,7 @@ module.exports = function(opts) {
   var initialPath = treePath.root;
   if (opts.path) {
     var mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (opts.path === 'last') initialPath = treeOps.nodeListToPath(mainline);
+    if (opts.path === 'last') initialPath = treePath.fromNodeList(mainline);
     else {
       var ply = parseInt(opts.path);
       if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {

@@ -67,6 +67,16 @@ module.exports = function(root) {
   //   var nextStep = this.tree[nextPly - this.firstPly()];
   //   return (nextStep && nextStep.eval) ? nextStep.eval.best : null;
   // }.bind(this);
+  //
+  var getCurrentNodesAfterPly = function(nodeList, mainline, ply) {
+    var node, nodes = [];
+    for (var i in nodeList) {
+      node = nodeList[i];
+      if (node.ply <= ply && mainline[i].id !== node.id) break;
+      if (node.ply > ply) nodes.push(node);
+    }
+    return nodes;
+  };
 
   function pathIsMainline(path) {
     return pathIsMainlineFrom(root, path);
@@ -163,6 +173,7 @@ module.exports = function(root) {
         var ply = (fromPly + i) % len;
         if (mainline[ply].nag === nag && (ply % 2 === (color === 'white' ? 1 : 0))) return ply;
       }
-    }
+    },
+    getCurrentNodesAfterPly: getCurrentNodesAfterPly
   };
 }
