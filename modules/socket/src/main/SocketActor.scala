@@ -74,6 +74,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     members.values.foreach(_ push msg)
   }
 
+  def notifyIf[A: Writes](pred: SocketMember => Boolean, t: String, data: A) {
+    val msg = makeMessage(t, data)
+    members.values.filter(pred).foreach(_ push msg)
+  }
+
   def notifyAllAsync[A: Writes](t: String, data: A) = Future {
     notifyAll(t, data)
   }
@@ -88,6 +93,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def notifyMember[A: Writes](t: String, data: A)(member: M) {
     member push makeMessage(t, data)
+  }
+
+  def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid) {
+    withMember(uid.value)(_ push makeMessage(t, data))
   }
 
   def ping(uid: String) {
@@ -148,6 +157,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
   }
+
+  def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 

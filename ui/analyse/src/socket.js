@@ -14,9 +14,9 @@ module.exports = function(send, ctrl) {
   }, 1000);
 
   var handlers = {
-    step: function(data) {
-      ctrl.addStep(data.step, data.path);
+    node: function(data) {
       clearTimeout(anaMoveTimeout);
+      ctrl.addNode(data.node, data.path);
     },
     stepFailure: function(data) {
       clearTimeout(anaMoveTimeout);
@@ -41,6 +41,9 @@ module.exports = function(send, ctrl) {
     if (handlers[type]) {
       handlers[type](data);
       return true;
+    } else if (ctrl.study && ctrl.study.socketHandlers[type]) {
+      ctrl.study.socketHandlers[type](data);
+      return true;
     }
     return false;
   }.bind(this);
@@ -48,6 +51,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
+    if (ctrl.study) ctrl.study.anaMoveConfig(req);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);

@@ -1,0 +1,186 @@
+.study_box .spinner {
+  margin: 20px auto;
+}
+.study_tabs {
+  display: flex;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.study_tabs a {
+  text-transform: uppercase;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 6px 0 4px 0;
+  background: #fff;
+  border-bottom: 3px solid transparent;
+}
+.study_box .study_tabs a {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+.study_tabs a.more {
+  flex: 0 0 32px;
+}
+.study_tabs a.more i {
+  opacity: 0.6;
+}
+.study_tabs a:hover {
+  color: #3893E8!important;
+}
+.study_tabs a.active {
+  color: #3893E8!important;
+  border-bottom: 3px solid #3893E8;
+}
+.material.form .study_tabs {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+body:not(.dark) .material.form .study_tabs a {
+  background: #f0f0f0;
+}
+.material.form textarea {
+  height: 120px;
+  line-height: 1.4em!important;
+  font-size: 0.8em;
+}
+
+.study_box .list {
+  max-height: 160px;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+.study_box .list .elem {
+  display: flex;
+  justify-content: space-between;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.study_box .elem .user_link {
+  font-size: 1.15em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 32px;
+  margin-left: 5px;
+}
+.study_box .list .left,
+.study_box .list .right {
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+.study_box .list .left {
+  flex: 0 1 auto;
+  overflow:hidden;
+}
+.study_box .list .status,
+.study_box .list .action {
+  display: block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  margin: 0;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+.study_box .list .status i,
+.study_box .list .action i {
+  font-size: 14px;
+  opacity: 0.4;
+  transition: opacity 0.13s;
+}
+.study_box .list .action {
+  cursor: pointer;
+}
+.study_box .list > div:hover .action i {
+  opacity: 1;
+}
+.study_box .members .status.contrib i {
+  opacity: 0.7;
+}
+.study_box .members .status {
+  transition: 3s;
+}
+.study_box .members .status i {
+  transition: 3s;
+}
+.study_box .members .status.active {
+  transition: none;
+}
+.study_box .members .member:nth-child(4n-3) .status.active {
+  background: #42a5f5;
+}
+.study_box .members .member:nth-child(4n-2) .status.active {
+  background: #f44336;
+}
+.study_box .members .member:nth-child(4n-1) .status.active {
+  background: #fdd835;
+}
+.study_box .members .member:nth-child(4n-0) .status.active {
+  background: #4caf50;
+}
+.study_box .members .status.active i {
+  transition: none;
+  opacity: 1;
+  color: #fff;
+}
+.study_box .list_input {
+  width: 214px;
+  border: none;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  padding: 3px 5px;
+}
+.study_box .list div.confing,
+.study_box .list div.config {
+  background: #fff;
+}
+.study_box .list div.config {
+  padding: 5px 10px 15px 10px;
+}
+.study_box .list div.config .role {
+  line-height: 22px;
+}
+.study_box .list div.config .role label {
+  cursor: pointer;
+}
+.study_box .list div.config .switch {
+  float: left;
+  margin-right: 10px;
+}
+.study_box .list div.config .kick,
+.study_box .list div.config .delete {
+  margin-top: 15px;
+}
+.study_box .chapters .chapter {
+  cursor: pointer;
+}
+.study_box .chapters .status i {
+  color: #3893E8;
+  opacity: 1;
+}
+.study_box .chapters .status .spinner {
+  width: 18px;
+  height: 18px;
+  margin: 6px 0 0 0;
+  display: inline-block;
+}
+.study_box .chapters input {
+  width: 100%;
+}
+.study_overboard .form {
+  padding: 20px;
+}
+.study_buttons {
+  display: flex;
+  justify-content: flex-start;
+}
+.study_buttons .button {
+  display: inline-block;
+  margin-right: 10px;
+}
+.study_buttons .sync .data-count {
+  right: 8px;
+}

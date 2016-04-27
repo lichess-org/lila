@@ -32,10 +32,7 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  implicit val FENBSONHandler = new BSONHandler[BSONString, FEN] {
-    def read(b: BSONString) = FEN(b.value)
-    def write(x: FEN) = BSONString(x.value)
-  }
+  private implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)
   import Work.Acquired

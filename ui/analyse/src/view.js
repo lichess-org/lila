@@ -9,7 +9,8 @@ var game = require('game').game;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var router = require('game').router;
-var treePath = require('./path');
+var treeOps = require('./tree/ops');
+var treePath = require('./tree/path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
@@ -18,6 +19,7 @@ var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
+var studyView = require('./study/studyView');
 var raf = require('chessground').util.requestAnimationFrame;
 
 function renderEvalTag(e) {
@@ -39,15 +41,14 @@ function autoScroll(el) {
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
 
-function renderMove(ctrl, move, path) {
-  if (!move) return emptyMove;
-  var pathStr = treePath.write(path);
-  var eval = path[1] ? {} : (move.eval || move.ceval || {});
-  var attrs = path[1] ? {
-    'data-path': pathStr
-  } : {};
-  var classes = pathStr === ctrl.vm.pathStr ? ['active'] : [];
-  if (pathStr === ctrl.vm.initialPathStr) classes.push('current');
+function renderMove(ctrl, node, path, isMainline) {
+  if (!node) return emptyMove;
+  var eval = isMainline ? (node.eval || node.ceval || {}) : {};
+  var attrs = isMainline ? {} : {
+    'data-path': path
+  };
+  var classes = path === ctrl.vm.path ? ['active'] : [];
+  if (path === ctrl.vm.initialPath) classes.push('current');
   if (classes.length) attrs.class = classes.join(' ');
   return {
     tag: 'move',
@@ -56,7 +57,7 @@ function renderMove(ctrl, move, path) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      move.san[0] === 'P' ? move.san.slice(1) : move.san
+      node.san[0] === 'P' ? node.san.slice(1) : node.san
     ]
   };
 }
@@ -65,9 +66,10 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-function renderVariation(ctrl, variation, path, klass) {
-  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === treePath.write(path.slice(0, 1));
-  var visiting = treePath.contains(path, ctrl.vm.path);
+function renderVariation(ctrl, node, parent, klass, depth) {
+  var path = parent.path + node.id;
+  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === path;
+  var visiting = treePath.contains(ctrl.vm.path, path);
   return m('div', {
     class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
   }, [
@@ -77,13 +79,12 @@ function renderVariation(ctrl, variation, path, klass) {
       onclick: partial(ctrl.toggleVariationMenu, path)
     }),
     showMenu ? (function() {
-      var promotable = util.synthetic(ctrl.data) ||
-        !ctrl.analyse.getStepAtPly(path[0].ply).fixed;
+      var promotable = util.synthetic(ctrl.data) || !parent.node.fixed;
       return [
         m('a', {
           class: 'delete text',
           'data-icon': 'q',
-          onclick: partial(ctrl.deleteVariation, path)
+          onclick: partial(ctrl.deleteNode, path)
         }, 'Delete variation'),
         promotable ? m('a', {
           class: 'promote text',
@@ -92,51 +93,55 @@ function renderVariation(ctrl, variation, path, klass) {
         }, 'Promote to main line') : null
       ];
     })() :
-    renderVariationContent(ctrl, variation, path, visiting)
+    renderVariationContent(ctrl, node, parent.path, visiting)
   ]);
 }
 
-function renderVariationNested(ctrl, variation, path) {
+function renderVariationNested(ctrl, node, path) {
   return m('span.variation', [
     '(',
-    renderVariationContent(ctrl, variation, path, treePath.contains(path, ctrl.vm.path)),
+    renderVariationContent(ctrl, node, path, treePath.contains(ctrl.vm.path, path)),
     ')'
   ]);
 }
 
-function renderVariationContent(ctrl, variation, path, full) {
+function renderVariationContent(ctrl, node, path, full) {
   var turns = [];
-  if (variation[0].ply % 2 === 0) {
-    variation = variation.slice(0);
-    var move = variation.shift();
+  var line = treeOps.mainlineNodeList(node);
+  if (node.ply % 2 === 0) {
+    line = line.slice(0);
+    var first = line.shift();
     turns.push({
-      turn: plyToTurn(move.ply),
-      black: move
+      turn: plyToTurn(first.ply),
+      black: first
     });
   }
-  var maxPlies = Math.min(full ? 999 : (path[2] ? 2 : 4), variation.length);
+  var maxPlies = Math.min(full ? 999 : 6, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: plyToTurn(variation[i].ply),
-    white: variation[i],
-    black: variation[i + 1]
+    turn: plyToTurn(line[i].ply),
+    white: line[i],
+    black: line[i + 1]
   });
+  var dom;
   return turns.map(function(turn) {
-    return renderVariationTurn(ctrl, turn, path);
+    dom = renderVariationTurn(ctrl, turn, path);
+    path += (turn.white && turn.white.id || '') + (turn.black && turn.black.id || '');
+    return dom;
   });
 }
 
-function renderVariationMeta(ctrl, move, path) {
-  if (!move || empty(move.variations)) return;
-  return move.variations.map(function(variation, i) {
-    return renderVariationNested(ctrl, variation, treePath.withVariation(path, i + 1));
+function renderVariationMeta(ctrl, node, path) {
+  if (!node || empty(node.children[1])) return;
+  return node.children.slice(1).map(function(child, i) {
+    return renderVariationNested(ctrl, child, path);
   });
 }
 
 function renderVariationTurn(ctrl, turn, path) {
-  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
+  var wPath = turn.white ? path + turn.white.id : null;
   var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
   var wMeta = renderVariationMeta(ctrl, turn.white, wPath);
-  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
+  var bPath = turn.black ? (wPath || path) + turn.black.id : null;
   var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
   var bMeta = renderVariationMeta(ctrl, turn.black, bPath);
   if (wMove) {
@@ -158,35 +163,37 @@ function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
-function renderMeta(ctrl, move, path) {
+function renderMeta(ctrl, node, prev, path) {
   var opening = ctrl.data.game.opening;
-  opening = (move && opening && opening.ply === move.ply) ? renderCommentOpening(ctrl, opening) : null;
-  if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
-  var children = [];
-  if (opening) children.push(opening);
-  var colorClass = move.ply % 2 === 0 ? 'black ' : 'white ';
+  opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
+  if (!node || (!opening && empty(node.comments) && !prev.children[1])) return;
+  var dom = [];
+  if (opening) dom.push(opening);
+  var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (ctrl.vm.comments && !empty(move.comments)) move.comments.forEach(function(comment) {
+  if (ctrl.vm.comments && !empty(node.comments)) node.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
-    children.push(m('div', {
+    dom.push(m('div', {
       class: 'comment ' + colorClass + commentClass
     }, comment));
   });
-  if (!empty(move.variations)) move.variations.forEach(function(variation, i) {
-    if (empty(variation)) return;
-    if (i === 0 && !empty(move.comments) && !ctrl.vm.comments) return;
-    children.push(renderVariation(
+  if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
+    if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;
+    dom.push(renderVariation(
       ctrl,
-      variation,
-      treePath.withVariation(path, i + 1),
-      i === 0 ? colorClass + commentClass : null
+      child, {
+        node: prev,
+        path: treePath.init(path)
+      },
+      i === 0 ? colorClass + commentClass : null,
+      1
     ));
   });
-  if (children.length) return m('div', {
+  if (dom.length) return m('div', {
     class: 'meta'
-  }, children);
+  }, dom);
 }
 
 function renderIndex(txt) {
@@ -196,67 +203,86 @@ function renderIndex(txt) {
   };
 }
 
-function renderTurnEl(children) {
+function renderMainlineTurnEl(children) {
   return {
     tag: 'turn',
     children: children
   };
 }
 
-function renderTurn(ctrl, turn, path) {
+function renderMainlineTurn(ctrl, turn, path) {
   var index = renderIndex(turn.turn);
-  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
-  var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
-  var wMeta = renderMeta(ctrl, turn.white, wPath);
-  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : nullMove;
-  var bMeta = renderMeta(ctrl, turn.black, bPath);
+  var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
+  if (turn.white) {
+    wPath = path = path + turn.white.node.id;
+    wMove = renderMove(ctrl, turn.white.node, wPath, 1);
+    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath);
+  }
+  if (turn.black) {
+    bPath = path = path + turn.black.node.id;
+    bMove = renderMove(ctrl, turn.black.node, bPath, 1);
+    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath);
+  }
   if (wMove) {
-    if (wMeta) return [
-      renderTurnEl([index, wMove, emptyMove]),
+    if (wMeta) dom = [
+      renderMainlineTurnEl([index, wMove, emptyMove]),
       wMeta,
       bMove ? [
-        renderTurnEl([index, emptyMove, bMove]),
+        renderMainlineTurnEl([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
-    return [
-      renderTurnEl([index, wMove, bMove]),
+    else dom = [
+      renderMainlineTurnEl([index, wMove, bMove]),
       bMeta
     ];
-  }
-  return [
-    renderTurnEl([index, emptyMove, bMove]),
+  } else dom = [
+    renderMainlineTurnEl([index, emptyMove, bMove]),
     bMeta
   ];
+  return {
+    dom: dom,
+    path: path
+  };
 }
 
-function renderTree(ctrl, tree) {
+
+function renderMainline(ctrl, mainline) {
   var turns = [];
-  var initPly = ctrl.analyse.firstPly();
+  var initPly = mainline[0].ply;
+  var makeTurnColor = function(i) {
+    if (mainline[i]) return {
+      node: mainline[i],
+      prev: mainline[i - 1]
+    };
+  }
   if (initPly % 2 === 0)
-    for (var i = 1, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 1, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: tree[i],
-      black: tree[i + 1]
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
     });
   else {
     turns.push({
       turn: Math.floor(initPly / 2) + 1,
       white: null,
-      black: tree[1]
+      black: makeTurnColor(1)
     });
-    for (var i = 2, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 2, nb = mainline.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
-      white: tree[i],
-      black: tree[i + 1]
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
     });
   }
 
-  var path = treePath.default();
-  var tags = [];
-  for (var i = 0, len = turns.length; i < len; i++)
-    tags.push(renderTurn(ctrl, turns[i], path));
+  var tags = [],
+    path = treePath.root;
+
+  for (var i = 0, len = turns.length; i < len; i++) {
+    res = renderMainlineTurn(ctrl, turns[i], path);
+    path = res.path;
+    tags.push(res.dom);
+  }
 
   return tags;
 }
@@ -273,11 +299,11 @@ function renderAnalyse(ctrl) {
     default:
       result = '½-½';
   }
-  var tree = renderTree(ctrl, ctrl.analyse.tree);
+  var tags = renderMainline(ctrl, ctrl.vm.mainline);
   if (result) {
-    tree.push(m('div.result', result));
+    tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    tree.push(m('div.status', [
+    tags.push(m('div.status', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
@@ -286,9 +312,12 @@ function renderAnalyse(ctrl) {
       onmousedown: function(e) {
         var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
         if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
-        var path = el.getAttribute('data-path') ||
-          '' + (2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index());
-        if (path) ctrl.userJump(treePath.read(path));
+        var path = el.getAttribute('data-path');
+        if (path) ctrl.userJump(path);
+        else {
+          var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
+          ctrl.jumpToMain(ply);
+        }
       },
       onclick: function(e) {
         return false;
@@ -300,7 +329,7 @@ function renderAnalyse(ctrl) {
         }
       }
     },
-    tree);
+    tags);
 }
 
 function wheel(ctrl, e) {
@@ -318,7 +347,7 @@ function inputs(ctrl) {
   return m('div.copyables', [
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
-      value: ctrl.vm.step.fen,
+      value: ctrl.vm.node.fen,
       onchange: function(e) {
         if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
       }
@@ -352,7 +381,8 @@ function visualBoard(ctrl) {
         }
       },
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl)),
+      renderPromotion(ctrl),
+      ctrl.study ? studyView.overboard(ctrl.study) : null),
     cevalView.renderGauge(ctrl)
   ]);
 }
@@ -416,7 +446,7 @@ function buttons(ctrl) {
       m('div', [
         ctrl.actionMenu.open ? null : m('button', {
           id: 'open_explorer',
-          'data-hint': 'Opening explorer',
+          'data-hint': 'Opening explorer & tablebase',
           'data-act': 'explorer',
           class: 'button hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
         }, icon(']')),
@@ -431,7 +461,7 @@ function buttons(ctrl) {
 }
 
 function renderOpeningBox(ctrl) {
-  var opening = ctrl.analyse.getOpening(ctrl.vm.path);
+  var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
   if (opening) return m('div', {
     class: 'opening_box',
     title: opening.eco + ' ' + opening.name
@@ -467,7 +497,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', inputs(ctrl)),
+      m('div.center', ctrl.study ? studyView.underboard(ctrl.study) : inputs(ctrl)),
       m('div.right')
     ]),
     util.synthetic(ctrl.data) ? null : m('div.analeft', [

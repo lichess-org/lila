@@ -6,25 +6,25 @@
   <a data-panel="notes">@trans.notes()</a>
 </div>
 <div id="chat" class="side_box">
-} else {
-<div id="chat" class="side_box">
-  <div class="top">
-    <span>@title</span>
-    <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
-  </div>
-}
-  <div class="chat_panels">
-    <div class="messages_container active">
-      <ol class="messages content scroll-shadow-soft"></ol>
-      <form action="#">
-        <input class="lichess_say" value="" placeholder="@trans.talkInChat()" autocomplete="off" maxlength="140" />
-        <a class="send" data-icon="z"></a>
-      </form>
-    </div>
-    @if(withNotes) {
-    <div class="notes">
-      <textarea placeholder="@trans.typePrivateNotesHere()"></textarea>
+  } else {
+  <div id="chat" class="side_box">
+    <div class="top">
+      <span>@title</span>
+      <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
     </div>
     }
+    <div class="chat_panels">
+      <div class="messages_container active">
+        <ol class="messages content scroll-shadow-soft"></ol>
+        <form action="#">
+          <input class="lichess_say" value="" placeholder="@trans.talkInChat()" autocomplete="off" maxlength="140" />
+          <a class="send" data-icon="z"></a>
+        </form>
+      </div>
+      @if(withNotes) {
+      <div class="notes">
+        <textarea placeholder="@trans.typePrivateNotesHere()"></textarea>
+      </div>
+      }
+    </div>
   </div>
-</div>

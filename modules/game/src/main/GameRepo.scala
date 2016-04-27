@@ -2,7 +2,7 @@ package lila.game
 
 import scala.util.Random
 
-import chess.format.Forsyth
+import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
@@ -300,6 +300,14 @@ object GameRepo {
       case fen => fen
     }
     else fuccess(none)
+
+  def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] = game(gameId) flatMap {
+    _ ?? { game =>
+      initialFen(game) map { fen =>
+        (game -> fen.map(FEN.apply)).some
+      }
+    }
+  }
 
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](
     Query.playable ++ Query.clock(true) ++ $doc(

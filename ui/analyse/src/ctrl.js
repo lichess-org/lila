@@ -1,7 +1,8 @@
 var chessground = require('chessground');
 var opposite = chessground.util.opposite;
-var analyse = require('./analyse');
-var treePath = require('./path');
+var tree = require('./tree/tree');
+var treePath = require('./tree/path');
+var treeOps = require('./tree/ops');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var actionMenu = require('./actionMenu').controller;
@@ -18,17 +19,19 @@ var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
 var tour = require('./tour');
+var studyCtrl = require('./study/studyCtrl');
 var m = require('mithril');
 
 module.exports = function(opts) {
 
   this.userId = opts.userId;
+  this.canStudy = opts.canStudy;
 
   var initialize = function(data) {
     this.data = data;
     if (!data.game.moveTimes) this.data.game.moveTimes = [];
     this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
-    this.analyse = new analyse(this.data.steps);
+    this.tree = tree(this.data.tree);
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
@@ -37,15 +40,20 @@ module.exports = function(opts) {
 
   initialize(opts.data);
 
-  var initialPath = opts.path ? (opts.path === 'last' ? treePath.default(this.analyse.lastPly()) : treePath.read(opts.path)) : treePath.default(this.analyse.firstPly());
-  if (initialPath[0].ply >= this.data.steps.length)
-    initialPath = treePath.default(this.data.steps.length - 1);
+  var initialPath = treePath.root;
+  if (opts.path) {
+    var mainline = treeOps.mainlineNodeList(this.tree.root);
+    if (opts.path === 'last') initialPath = treePath.fromNodeList(mainline);
+    else {
+      var ply = parseInt(opts.path);
+      if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
+        return n.ply <= ply;
+      });
+    }
+  }
 
   this.vm = {
-    path: initialPath,
-    pathStr: treePath.write(initialPath),
-    initialPathStr: '' + opts.data.path,
-    step: null,
+    initialPath: initialPath,
     cgConfig: null,
     comments: true,
     flip: false,
@@ -56,6 +64,15 @@ module.exports = function(opts) {
     element: opts.element,
     redirecting: false
   };
+
+  this.setPath = function(path) {
+    this.vm.path = path;
+    this.vm.nodeList = this.tree.getNodeList(path);
+    this.vm.node = treeOps.last(this.vm.nodeList);
+    this.vm.mainline = treeOps.mainlineNodeList(this.tree.root);
+  }.bind(this);
+
+  this.setPath(initialPath);
 
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
@@ -75,41 +92,27 @@ module.exports = function(opts) {
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
-  var tryToGetStep = function() {
-    try {
-      return this.analyse.getStep(this.vm.path);
-    } catch (e) {
-      console.log(e);
-    }
-  }.bind(this);
-
   var showGround = function() {
-    var s = tryToGetStep();
-    if (!s) {
-      this.vm.path = treePath.default(this.analyse.firstPly());
-      this.vm.pathStr = treePath.write(this.vm.path);
-      s = this.analyse.getStep(this.vm.path);
-    }
-    var color = s.ply % 2 === 0 ? 'white' : 'black';
-    var dests = util.readDests(s.dests);
-    var drops = util.readDrops(s.drops);
+    var node = this.vm.node;
+    var color = node.ply % 2 === 0 ? 'white' : 'black';
+    var dests = util.readDests(node.dests);
+    var drops = util.readDrops(node.drops);
     var config = {
-      fen: s.fen,
+      fen: node.fen,
       turnColor: color,
       movable: {
         color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
-      check: s.check,
-      lastMove: uciToLastMove(s.uci)
+      check: node.check,
+      lastMove: uciToLastMove(node.uci)
     };
-    if (!dests && !s.check) {
+    if (!dests && !node.check) {
       // premove while dests are loading from server
       // can't use when in check because it highlights the wrong king
       config.turnColor = opposite(color);
       config.movable.color = color;
     }
-    this.vm.step = s;
     this.vm.cgConfig = config;
     if (!this.chessground)
       this.chessground = ground.make(this.data, config, userMove, userNewPiece);
@@ -117,14 +120,15 @@ module.exports = function(opts) {
     onChange();
     if (!dests) getDests();
     this.setAutoShapes();
+    if (node.shapes) this.chessground.setShapes(node.shapes);
   }.bind(this);
 
   var getDests = throttle(800, false, function() {
-    if (this.vm.step.dests) return;
+    if (this.vm.node.dests) return;
     this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
-      fen: this.vm.step.fen,
-      path: this.vm.pathStr
+      fen: this.vm.node.fen,
+      path: this.vm.path
     });
   }.bind(this));
 
@@ -135,11 +139,11 @@ module.exports = function(opts) {
   };
 
   var onChange = opts.onChange ? throttle(500, false, function() {
-    opts.onChange(this.vm.step.fen, this.vm.path);
+    opts.onChange(this.vm.node.fen, this.vm.path);
   }.bind(this)) : $.noop;
 
-  var updateHref = window.history.replaceState ? throttle(750, false, function() {
-    window.history.replaceState(null, null, '#' + this.vm.path[0].ply);
+  var updateHref = (!opts.study && window.history.replaceState) ? throttle(750, false, function() {
+    window.history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false) : $.noop;
 
   this.autoScroll = function() {
@@ -147,20 +151,20 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
-    this.vm.path = path;
-    this.vm.pathStr = treePath.write(path);
+    if (this.study && path !== this.vm.path) this.study.setPath(path);
+    this.setPath(path);
     this.toggleVariationMenu(null);
     showGround();
-    if (!this.vm.step.uci) sound.move(); // initial position
-    else if (this.vm.justPlayed !== this.vm.step.uci) {
-      if (this.vm.step.san.indexOf('x') !== -1) sound.capture();
+    if (!this.vm.node.uci) sound.move(); // initial position
+    else if (this.vm.justPlayed !== this.vm.node.uci) {
+      if (this.vm.node.san.indexOf('x') !== -1) sound.capture();
       else sound.move();
       this.vm.justPlayed = null;
     }
-    if (/\+|\#/.test(this.vm.step.san)) sound.check();
+    if (/\+|\#/.test(this.vm.node.san)) sound.check();
     this.ceval.stop();
     startCeval();
-    this.explorer.setStep();
+    this.explorer.setNode();
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
@@ -172,11 +176,14 @@ module.exports = function(opts) {
     this.jump(path);
   }.bind(this);
 
+  var mainlinePathToPly = function(ply) {
+    return treeOps.takePathWhile(this.vm.mainline, function(n) {
+      return n.ply <= ply;
+    });
+  }.bind(this);
+
   this.jumpToMain = function(ply) {
-    this.userJump([{
-      ply: ply,
-      variation: null
-    }]);
+    this.userJump(mainlinePathToPly(ply));
   }.bind(this);
 
   this.jumpToIndex = function(index) {
@@ -184,9 +191,16 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToNag = function(color, nag) {
-    var ply = this.analyse.plyOfNextNag(color, nag, this.vm.step.ply);
+    var ply = this.tree.plyOfNextNag(color, nag, this.vm.mainline, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
+  }.bind(this);
+
+  this.reloadData = function(data) {
+    initialize(data);
+    this.vm.redirecting = false;
+    this.setPath(treePath.root);
+    this.userJump(mainlinePathToPly(this.tree.lastPly()));
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -197,11 +211,7 @@ module.exports = function(opts) {
       data: {
         pgn: pgn
       },
-      success: function(data) {
-        initialize(data);
-        this.vm.redirecting = false;
-        this.jumpToMain(this.analyse.lastPly());
-      }.bind(this),
+      success: this.reloadData,
       error: function(error) {
         console.log(error);
         this.vm.redirecting = false;
@@ -235,15 +245,15 @@ module.exports = function(opts) {
   };
 
   var userNewPiece = function(piece, pos) {
-    if (crazyValid.drop(this.chessground, this.vm.step.drops, piece, pos)) {
+    if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
       sound.move();
       var drop = {
         role: piece.role,
         pos: pos,
         variant: this.data.game.variant.key,
-        fen: this.vm.step.fen,
-        path: this.vm.pathStr
+        fen: this.vm.node.fen,
+        path: this.vm.path
       };
       this.socket.sendAnaDrop(drop);
       preparePremoving();
@@ -261,8 +271,8 @@ module.exports = function(opts) {
       orig: orig,
       dest: dest,
       variant: this.data.game.variant.key,
-      fen: this.vm.step.fen,
-      path: this.vm.pathStr
+      fen: this.vm.node.fen,
+      path: this.vm.path
     };
     if (prom) move.promotion = prom;
     this.socket.sendAnaMove(move);
@@ -278,16 +288,16 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.addStep = function(step, path) {
-    var newPath = this.analyse.addStep(step, treePath.read(path));
+  this.addNode = function(node, path) {
+    var newPath = this.tree.addNode(node, path);
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
   }.bind(this);
 
   this.addDests = function(dests, path, opening) {
-    this.analyse.addDests(dests, treePath.read(path), opening);
-    if (path === this.vm.pathStr) {
+    this.tree.addDests(dests, path, opening);
+    if (path === this.vm.path) {
       showGround();
       m.redraw();
       if (dests === '') this.ceval.stop();
@@ -298,26 +308,23 @@ module.exports = function(opts) {
   this.toggleVariationMenu = function(path) {
     if (!path) this.vm.variationMenu = null;
     else {
-      var key = treePath.write(path.slice(0, 1));
-      this.vm.variationMenu = this.vm.variationMenu === key ? null : key;
+      this.vm.variationMenu = this.vm.variationMenu === path ? null : path;
     }
   }.bind(this);
 
-  this.deleteVariation = function(path) {
-    var ply = path[0].ply;
-    var id = path[0].variation;
-    this.analyse.deleteVariation(ply, id);
-    if (treePath.contains(path, this.vm.path)) this.jumpToMain(ply - 1);
-    this.toggleVariationMenu(null);
+  this.deleteNode = function(path) {
+    var node = this.tree.nodeAtPath(path);
+    if (!node) return;
+    this.tree.deleteNodeAt(path);
+    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
+    else this.jump(this.vm.path);
+    this.study && this.study.deleteVariation(path);
   }.bind(this);
 
   this.promoteVariation = function(path) {
-    var ply = path[0].ply;
-    var id = path[0].variation;
-    this.analyse.promoteVariation(ply, id);
-    if (treePath.contains(path, this.vm.path))
-      this.jump(this.vm.path.splice(1));
-    this.toggleVariationMenu(null);
+    this.tree.promoteVariation(path);
+    this.jump(this.vm.path);
+    this.study && this.study.promoteVariation(path);
   }.bind(this);
 
   this.reset = function() {
@@ -325,16 +332,16 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.encodeStepFen = function() {
-    return this.vm.step.fen.replace(/\s/g, '_');
+  this.encodeNodeFen = function() {
+    return this.vm.node.fen.replace(/\s/g, '_');
   }.bind(this);
 
   this.currentEvals = function() {
-    var step = this.vm.step;
-    return step && (step.eval || step.ceval) ? {
-      server: step.eval,
-      client: step.ceval,
-      fav: step.eval || step.ceval
+    var node = this.vm.node;
+    return node && (node.eval || node.ceval) ? {
+      server: node.eval,
+      client: node.ceval,
+      fav: node.eval || node.ceval
     } : null;
   }.bind(this);
 
@@ -342,8 +349,10 @@ module.exports = function(opts) {
     opts.data.forecast,
     router.forecasts(this.data)) : null;
 
-  this.nextStepBest = function() {
-    return this.analyse.nextStepEvalBest(this.vm.path);
+  this.nextNodeBest = function() {
+    return this.tree.ops.withMainlineChild(this.vm.node, function(n) {
+      return n.eval ? n.eval.best : null;
+    });
   }.bind(this);
 
   var allowCeval = (
@@ -351,10 +360,10 @@ module.exports = function(opts) {
   ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
 
   this.ceval = cevalCtrl(allowCeval, this.data.game.variant, function(res) {
-    this.analyse.updateAtPath(res.work.path, function(step) {
-      if (step.ceval && step.ceval.depth >= res.eval.depth) return;
-      step.ceval = res.eval;
-      if (treePath.write(res.work.path) === this.vm.pathStr) {
+    this.tree.updateAt(res.work.path, function(node) {
+      if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+      node.ceval = res.eval;
+      if (res.work.path === this.vm.path) {
         this.setAutoShapes();
         m.redraw();
       }
@@ -362,12 +371,12 @@ module.exports = function(opts) {
   }.bind(this));
 
   var canUseCeval = function() {
-    return this.vm.step.dests !== '' && (!this.vm.step.eval || !this.nextStepBest());
+    return this.vm.node.dests !== '' && (!this.vm.node.eval || !this.nextNodeBest());
   }.bind(this);
 
   var startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.analyse.getSteps(this.vm.path));
+      this.ceval.start(this.vm.path, this.vm.nodeList);
   }.bind(this));
 
   this.toggleCeval = function() {
@@ -377,7 +386,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.step.dests !== '';
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.node.dests !== '';
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
@@ -394,16 +403,16 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.setAutoShapes = function() {
-    var s = this.vm.step,
+    var n = this.vm.node,
       shapes = [],
       explorerUci = this.explorer.hoveringUci();
     if (explorerUci) shapes.push(makeAutoShapeFromUci(explorerUci, 'paleBlue'));
     if (this.vm.showAutoShapes()) {
-      if (s.eval && s.eval.best) shapes.push(makeAutoShapeFromUci(s.eval.best, 'paleGreen'));
+      if (n.eval && n.eval.best) shapes.push(makeAutoShapeFromUci(n.eval.best, 'paleGreen'));
       if (!explorerUci) {
-        var nextStepBest = this.nextStepBest();
-        if (nextStepBest) shapes.push(makeAutoShapeFromUci(nextStepBest, 'paleBlue'));
-        else if (this.ceval.enabled() && s.ceval && s.ceval.best) shapes.push(makeAutoShapeFromUci(s.ceval.best, 'paleBlue'));
+        var nextNodeBest = this.nextNodeBest();
+        if (nextNodeBest) shapes.push(makeAutoShapeFromUci(nextNodeBest, 'paleBlue'));
+        else if (this.ceval.enabled() && n.ceval && n.ceval.best) shapes.push(makeAutoShapeFromUci(n.ceval.best, 'paleBlue'));
       }
     }
     this.chessground.setAutoShapes(shapes);
@@ -446,6 +455,7 @@ module.exports = function(opts) {
   showGround();
   keyboard(this);
   startCeval();
-  this.explorer.setStep();
+  this.explorer.setNode();
   tour.init(this.explorer);
+  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 };

@@ -75,7 +75,7 @@ case object Perf {
     def writes(w: BSON.Writer, o: Perf) = BSONDocument(
       "gl" -> o.glicko,
       "nb" -> w.int(o.nb),
-      "re" -> w.intsO(o.recent),
+      "re" -> w.listO(o.recent),
       "la" -> o.latest.map(w.date))
   }
 }

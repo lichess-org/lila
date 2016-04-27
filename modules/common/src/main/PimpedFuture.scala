@@ -49,7 +49,7 @@ object PimpedFuture {
       addFailureEffect { e => logger.warn(msg(e), e) }
     def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
-    def addEffect(effect: A => Unit) = {
+    def addEffect(effect: A => Unit): Fu[A] = {
       fua foreach effect
       fua
     }

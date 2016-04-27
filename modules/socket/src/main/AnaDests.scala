@@ -11,28 +11,33 @@ case class AnaDests(
     path: String) {
 
   def isInitial =
-    variant.standard && fen == chess.format.Forsyth.initial && path == "0"
+    variant.standard && fen == chess.format.Forsyth.initial && path == ""
 
-  def dests: String =
+  val dests: String =
     if (isInitial) "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
     else chess.Game(variant.some, fen.some).situation.destinations map {
       case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
     } mkString " "
 
-  def opening = Variant.openingSensibleVariants(variant) ?? {
+  lazy val opening = Variant.openingSensibleVariants(variant) ?? {
     FullOpeningDB findByFen fen
   }
 }
 
 object AnaDests {
 
+  case class Ref(
+      variant: Variant,
+      fen: String,
+      path: String) {
+
+    def compute = AnaDests(variant, fen, path)
+  }
+
   def parse(o: JsObject) = for {
     d ← o obj "d"
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-  } yield AnaDests(
-    variant = variant,
-    fen = fen,
-    path = path)
+  } yield AnaDests.Ref(variant = variant, fen = fen, path = path)
 }

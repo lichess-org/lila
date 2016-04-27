@@ -1,7 +1,6 @@
 package lila.socket
 
 import chess.format.Uci
-import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
 
@@ -17,11 +16,6 @@ case class Step(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],
-    eval: Option[Step.Eval] = None,
-    nag: Option[String] = None,
-    comments: List[String] = Nil,
-    variations: List[List[Step]] = Nil,
-    opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) {
 
   // who's color plays next
@@ -36,15 +30,9 @@ object Step {
     def uciString = uci.uci
   }
 
-  case class Eval(
-    cp: Option[Int] = None,
-    mate: Option[Int] = None,
-    best: Option[Uci.Move])
-
   private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
     JsString(uci.uci)
   }
-  private implicit val evalJsonWriter = Json.writes[Eval]
 
   // TODO copied from lila.game
   // put all that shit somewhere else
@@ -60,21 +48,10 @@ object Step {
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
-  private[socket] implicit val openingWriter: OWrites[chess.opening.FullOpening] = OWrites { o =>
-    Json.obj(
-      "eco" -> o.eco,
-      "name" -> o.name)
-  }
-
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
     import step._
     (
       add("check", true, check) _ compose
-      add("eval", eval) _ compose
-      add("nag", nag) _ compose
-      add("comments", comments, comments.nonEmpty) _ compose
-      add("variations", variations, variations.nonEmpty) _ compose
-      add("opening", opening) _ compose
       add("dests", dests.map {
         _.map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
@@ -97,3 +74,4 @@ object Step {
   private def add[A: Writes](k: String, v: Option[A]): JsObject => JsObject =
     v.fold(identity[JsObject] _) { add(k, _, true) _ }
 }
+

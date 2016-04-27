@@ -2,7 +2,10 @@ package lila.socket
 
 import play.api.libs.json._
 
-object Socket extends Socket
+object Socket extends Socket {
+
+  case class Uid(value: String) extends AnyVal
+}
 
 private[socket] trait Socket {
 

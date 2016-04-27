@@ -10,7 +10,8 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import makeTimeout.large
-import Step.openingWriter
+import tree.Node.nodeJsonWriter
+import tree.Node.openingWriter
 
 object Handler {
 
@@ -19,7 +20,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  lazy val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds, "socket analysis move")
+  val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds, "socket analysis move")
 
   def apply(
     hub: lila.hub.Env,
@@ -41,10 +42,10 @@ object Handler {
         Channel.UnSub(member))
       case ("anaMove", o) => AnaRateLimit(uid) {
         AnaMove parse o foreach { anaMove =>
-          anaMove.step match {
-            case scalaz.Success(step) =>
-              member push lila.socket.Socket.makeMessage("step", Json.obj(
-                "step" -> step.toJson,
+          anaMove.branch match {
+            case scalaz.Success(branch) =>
+              member push lila.socket.Socket.makeMessage("node", Json.obj(
+                "node" -> branch,
                 "path" -> anaMove.path
               ))
             case scalaz.Failure(err) =>
@@ -54,10 +55,10 @@ object Handler {
       }
       case ("anaDrop", o) => AnaRateLimit(uid) {
         AnaDrop parse o foreach { anaDrop =>
-          anaDrop.step match {
-            case scalaz.Success(step) =>
-              member push lila.socket.Socket.makeMessage("step", Json.obj(
-                "step" -> step.toJson,
+          anaDrop.branch match {
+            case scalaz.Success(branch) =>
+              member push lila.socket.Socket.makeMessage("branch", Json.obj(
+                "branch" -> branch,
                 "path" -> anaDrop.path
               ))
             case scalaz.Failure(err) =>
@@ -66,7 +67,7 @@ object Handler {
         }
       }
       case ("anaDests", o) => AnaRateLimit(uid) {
-        AnaDests parse o match {
+        AnaDests parse o map (_.compute) match {
           case Some(req) =>
             member push lila.socket.Socket.makeMessage("dests", Json.obj(
               "dests" -> req.dests,

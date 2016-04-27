@@ -238,6 +238,44 @@ lichess.challengeApp = (function() {
     return open(confirm('Open in lichess mobile app?') ? 10 : -10);
   };
 
+  lichess.userAutocomplete = function($input, opts) {
+    opts = opts || {};
+    lichess.loadCss('/assets/stylesheets/autocomplete.css');
+    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+      $input.typeahead(null, {
+        minLength: 2,
+        hint: true,
+        highlight: false,
+        source: function(query, sync, async) {
+          $.ajax({
+            url: '/player/autocomplete?term=' + query,
+            success: function(res) {
+              // hack to fix typeahead limit bug
+              if (res.length === 10) res.push(null);
+              async(res);
+            }
+          });
+        },
+        limit: 10,
+        templates: {
+          empty: '<div class="empty">No player found</div>',
+          pending: lichess.spinnerHtml,
+          suggestion: function(a) {
+            return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
+          }
+        }
+      }).bind('typeahead:render', function() {
+        $('body').trigger('lichess.content_loaded');
+      });
+      if (opts.focus) $input.focus();
+      if (opts.onSelect) $input.bind('typeahead:select', function(ev, sel) {
+        opts.onSelect(sel);
+      }).keypress(function(e) {
+        if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
+      });
+    });
+  };
+
   lichess.parseFen = function($elem) {
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
@@ -282,6 +320,7 @@ lichess.challengeApp = (function() {
 
     if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
+    else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
@@ -664,42 +703,14 @@ lichess.challengeApp = (function() {
       translateTexts();
       $('body').on('lichess.content_loaded', translateTexts);
 
-
-      var userAutocomplete = function($input) {
-        lichess.loadCss('/assets/stylesheets/autocomplete.css');
-        lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
-          $input.typeahead(null, {
-            minLength: 2,
-            hint: true,
-            highlight: false,
-            source: function(query, sync, async) {
-              $.ajax({
-                url: '/player/autocomplete?term=' + query,
-                success: function(res) {
-                  // hack to fix typeahead limit bug
-                  if (res.length === 10) res.push(null);
-                  async(res);
-                }
-              });
-            },
-            limit: 10,
-            templates: {
-              empty: '<div class="empty">No player found</div>',
-              pending: lichess.spinnerHtml,
-              suggestion: function(a) {
-                return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
-              }
-            }
-          }).bind('typeahead:render', function() {
-            $('body').trigger('lichess.content_loaded');
-          }).focus();
-        });
-      };
-
       $('input.user-autocomplete').each(function() {
-        if ($(this).attr('autofocus')) userAutocomplete($(this));
+        if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), {
+          focus: 1
+        });
         else $(this).one('focus', function() {
-          userAutocomplete($(this));
+          lichess.userAutocomplete($(this), {
+            focus: 1
+          });
         });
       });
 
@@ -2049,6 +2060,40 @@ lichess.challengeApp = (function() {
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    analyse = LichessAnalyse(cfg);
+    topMenuIntent();
+  }
+
+  ////////////////
+  // study.js //
+  ////////////////
+
+  function startStudy(element, cfg) {
+    $('#chat').chat({
+      messages: cfg.chat,
+      gameId: cfg.study.id
+    });
+    var $watchers = $("div.watchers").watchers();
+    var analyse;
+    cfg.element = element.querySelector('.analyse');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
+    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+      options: {
+        name: "study"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      },
+      events: {
+        crowd: function(e) {
+          $watchers.watchers("set", e);
+        }
       }
     });
     cfg.socketSend = lichess.socket.send;

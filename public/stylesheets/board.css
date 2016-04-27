@@ -395,17 +395,6 @@ div.lichess_overboard {
 div.lichess_overboard.padded {
   padding: 15px;
 }
-div.lichess_overboard a.close {
-  float: right;
-  display: block;
-  cursor: pointer;
-  margin-top: -12px;
-  margin-right: 6px;
-  opacity: 0.4;
-}
-div.lichess_overboard a.close:hover {
-  opacity: 1;
-}
 #challenge_await .spinner {
   width: 90px;
   height: 90px;

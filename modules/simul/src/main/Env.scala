@@ -18,7 +18,6 @@ final class Env(
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
-    flood: lila.security.Flood,
     hub: lila.hub.Env,
     lightUser: String => Option[lila.common.LightUser],
     onGameStart: String => Unit,
@@ -71,7 +70,6 @@ final class Env(
     hub = hub,
     socketHub = socketHub,
     chat = hub.actor.chat,
-    flood = flood,
     exists = repo.exists)
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -122,7 +120,6 @@ object Env {
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
-    flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,

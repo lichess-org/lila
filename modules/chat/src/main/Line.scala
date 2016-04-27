@@ -51,15 +51,4 @@ object Line {
     case u: UserLine   => userLineToStr(u)
     case p: PlayerLine => s"${p.color.letter} ${p.text}"
   }
-
-  import play.api.libs.json._
-
-  def toJson(line: Line) = line match {
-    case UserLine(username, text, troll) => Json.obj("u" -> username, "t" -> text, "r" -> troll)
-    case PlayerLine(color, text)         => Json.obj("c" -> color.name, "t" -> text)
-  }
-
-  def toJsonString(lines: List[Line]) = Json stringify {
-    JsArray(lines map toJson)
-  }
 }

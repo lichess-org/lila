@@ -42,8 +42,7 @@ object Forecast {
       uci: String,
       san: String,
       fen: String,
-      check: Option[Boolean],
-      dests: String) {
+      check: Option[Boolean]) {
 
     def is(move: Move) = move.toUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci

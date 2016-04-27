@@ -46,6 +46,7 @@ final class Env(
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
   val ExplorerEndpoint = config getString "explorer.endpoint"
+  val TablebaseEndpoint = config getString "explorer.tablebase.endpoint"
 
   object assetVersion {
     import reactivemongo.bson._
@@ -55,7 +56,7 @@ final class Env(
       f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
         _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
-      timeToLive = 30.seconds,
+      timeToLive = 5.seconds,
       default = Net.AssetVersion,
       logger = lila.log("assetVersion"))
     def get = cache get true

@@ -3,10 +3,9 @@ package lila.round
 import scala.concurrent.duration._
 import scala.math
 
-import play.api.libs.json._
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+import play.api.libs.json._
 
-import lila.common.Maths.truncateAt
 import lila.common.PimpedJson._
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
@@ -343,6 +342,7 @@ object JsonView {
   }
 
   implicit val clockWriter: OWrites[Clock] = OWrites { c =>
+    import lila.common.Maths.truncateAt
     Json.obj(
       "running" -> c.isRunning,
       "initial" -> c.limit,

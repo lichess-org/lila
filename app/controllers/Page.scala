@@ -34,9 +34,18 @@ object Page extends LilaController {
   }
 
   def variantHome = Open { implicit ctx =>
-    OptionOk(Prismic getBookmark "variant") {
-      case (doc, resolver) => views.html.site.variantHome(doc, resolver)
-    }
+    import play.api.libs.json._
+    negotiate(
+      html = OptionOk(Prismic getBookmark "variant") {
+        case (doc, resolver) => views.html.site.variantHome(doc, resolver)
+      },
+      api = _ => Ok(JsArray(chess.variant.Variant.all.map { v =>
+        Json.obj(
+          "id" -> v.id,
+          "key" -> v.key,
+          "name" -> v.name
+        )
+      })).fuccess)
   }
 
   def variant(key: String) = Open { implicit ctx =>

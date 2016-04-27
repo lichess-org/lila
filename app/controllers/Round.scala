@@ -154,7 +154,7 @@ object Round extends LilaController with TheftPrevention {
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               Env.game.crosstableApi(pov.game) zip
-              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none, withOpening = false) map {
+              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
                 case (((tour, simul), crosstable), data) =>
                   Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
               }
@@ -166,7 +166,7 @@ object Round extends LilaController with TheftPrevention {
                   Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
               }
         }.mon(_.http.response.watcher.website),
-        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none, withOpening = false) map { Ok(_) }
+        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
       ) map NoCache
     }
 

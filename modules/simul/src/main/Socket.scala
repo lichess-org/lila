@@ -70,7 +70,7 @@ private[simul] final class Socket(
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
-        notifyVersion("message", lila.chat.Line toJson line, Messadata(line.troll))
+        notifyVersion("message", lila.chat.JsonView(line), Messadata(line.troll))
       case _ =>
     }
 

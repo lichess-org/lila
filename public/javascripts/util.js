@@ -152,3 +152,10 @@ lichess.numberFormat = (function() {
     return n;
   };
 })();
+$.fn.scrollTo = function(target, offsetTop) {
+  return this.each(function() {
+    var t = (typeof target === "number") ? target : $(target);
+    var v = (typeof t === "number") ? t : t.offset().top + this.scrollTop - (offsetTop || 0);
+    this.scrollTop = v;
+  });
+};

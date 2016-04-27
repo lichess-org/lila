@@ -22,6 +22,7 @@ final class Env(
   private val StreamingSearch = config duration "streaming.search"
   private val GoogleApiKey = config getString "streaming.google.api_key"
   private val Keyword = config getString "streaming.keyword"
+  private val HitboxUrl = config getString "streaming.hitbox.url"
 
   lazy val tv = new Tv(tvActor)
 
@@ -35,7 +36,8 @@ final class Env(
     renderer = hub.actor.renderer,
     streamerList = streamerList,
     keyword = Keyword,
-    googleApiKey = GoogleApiKey)
+    googleApiKey = GoogleApiKey,
+    hitboxUrl = HitboxUrl)
 
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._

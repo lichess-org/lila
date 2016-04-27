@@ -1,10 +1,13 @@
 package lila.socket
 
-import chess.format.Uci
+import chess.format.{ Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
-import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
+import scalaz.Validation.FlatMap._
+
+import lila.common.PimpedJson._
+import tree.Branch
 
 case class AnaDrop(
     role: chess.Role,
@@ -13,16 +16,16 @@ case class AnaDrop(
     fen: String,
     path: String) {
 
-  def step: Valid[Step] =
-    chess.Game(variant.some, fen.some).drop(role, pos) map {
-      case (game, drop) =>
+  def branch: Valid[Branch] =
+    chess.Game(variant.some, fen.some).drop(role, pos) flatMap {
+      case (game, drop) => game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
+        val uci = Uci(drop)
         val movable = !game.situation.end
         val fen = chess.format.Forsyth >> game
-        Step(
+        Branch(
+          id = UciCharPair(uci),
           ply = game.turns,
-          move = game.pgnMoves.lastOption.map { san =>
-            Step.Move(Uci(drop), san)
-          },
+          move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
@@ -31,6 +34,7 @@ case class AnaDrop(
           },
           drops = movable.fold(game.situation.drops, Some(Nil)),
           crazyData = game.situation.board.crazyData)
+      }
     }
 }
 
