@@ -3,6 +3,7 @@ var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
+var chapterFormView = require('./chapterForm').view;
 
 function form(ctrl) {
   return m('div.lichess_overboard.study_overboard', {
@@ -63,7 +64,7 @@ module.exports = {
       }, name);
     };
 
-    var tabs = m('div.tabs', [
+    var tabs = m('div.study_tabs', [
       makeTab('members', 'Members'),
       makeTab('chapters', 'Chapters'),
       ctrl.members.isOwner() ? m('a.more', {
@@ -86,8 +87,8 @@ module.exports = {
   },
 
   overboard: function(ctrl) {
-    if (ctrl.chapters.vm.creating)
-      return chapterView.form(ctrl.chapters, ctrl.chapters.vm.creating);
+    if (ctrl.chapters.form.vm.open)
+      return chapterFormView(ctrl.chapters.form);
     if (ctrl.vm.editing)
       return form(ctrl);
   },

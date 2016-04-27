@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.{ Forsyth, FEN }
+import chess.variant.Variant
 import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
 
@@ -8,10 +9,10 @@ private final class ChapterMaker(domain: String) {
 
   def apply(study: Study, data: ChapterMaker.Data, order: Int): Fu[Option[Chapter]] = {
     val orientation = chess.Color(data.orientation) | chess.White
-    parsePov(data.game) flatMap {
+    data.game.??(parsePov) flatMap {
       case None => fuccess {
-        val variant = chess.variant.Variant orDefault data.variant
-        val root = data.fen.trim.some.filter(_.nonEmpty).flatMap { fenStr =>
+        val variant = data.variant.flatMap(Variant.apply) | Variant.default
+        val root = data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
           Forsyth.<<<@(variant, fenStr)
         } match {
           case Some(sit) => Node.Root(
@@ -73,8 +74,8 @@ private[study] object ChapterMaker {
 
   case class Data(
     name: String,
-    game: String,
-    variant: String,
-    fen: String,
+    game: Option[String],
+    variant: Option[String],
+    fen: Option[String],
     orientation: String)
 }

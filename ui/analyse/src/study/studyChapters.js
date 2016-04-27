@@ -1,7 +1,7 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var partial = require('chessground').util.partial;
-var xhr = require('./studyXhr');
+var chapterForm = require('./chapterForm');
 
 function onEnter(action) {
   return function(el, isUpdate) {
@@ -15,13 +15,16 @@ module.exports = {
   ctrl: function(chapters, send) {
 
     var vm = {
-      confing: null, // which chapter is being configured by us
-      creating: null, // name of the chapter we're creating
-      variants: []
+      confing: null // which chapter is being configured by us
     };
+
+    var form = chapterForm.ctrl(send, function() {
+      return chapters;
+    });
 
     return {
       vm: vm,
+      form: form,
       list: function() {
         return chapters;
       },
@@ -33,10 +36,6 @@ module.exports = {
           return c.id === id;
         });
       },
-      create: function(data) {
-        send("addChapter", data);
-        vm.creating = null;
-      },
       rename: function(id, name) {
         send("renameChapter", {
           id: id,
@@ -47,12 +46,6 @@ module.exports = {
       delete: function(id) {
         send("deleteChapter", id);
         vm.confing = null;
-      },
-      loadVariants: function() {
-        if (!vm.variants.length) xhr.variants().then(function(vs) {
-          vm.variants = vs;
-          m.redraw();
-        });
       }
     };
   },
@@ -94,8 +87,7 @@ module.exports = {
           m('input', {
             class: 'list_input',
             config: onEnter(function(name, el) {
-              ctrl.chapters.vm.creating = name;
-              ctrl.chapters.loadVariants();
+              ctrl.chapters.form.open(name);
               el.value = '';
               m.redraw();
             }),
@@ -107,8 +99,10 @@ module.exports = {
       return [
         m('div', {
           class: 'list chapters' + (ownage ? ' ownage' : ''),
-          config: function(el, isUpdate) {
-            if (!isUpdate) $(el).scrollTo($(el).find('.active'), 200);
+          config: function(el, isUpdate, ctx) {
+            if (!isUpdate || !ctx.count || ctx.count !== ctrl.chapters.list().length)
+              $(el).scrollTo($(el).find('.active'), 200);
+            ctx.count = ctrl.chapters.list().length;
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
@@ -128,10 +122,9 @@ module.exports = {
             return [
               m('div', attrs, [
                 m('div.left', [
-                  m('div.status',
-                    (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
-                      'data-icon': active ? 'J' : 'K'
-                    })),
+                  m('div.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
+                    'data-icon': active ? 'J' : 'K'
+                  })),
                   chapter.name
                 ]),
                 m('div.right', [
@@ -144,76 +137,6 @@ module.exports = {
         ]),
         ownage ? create() : null
       ];
-    },
-    form: function(ctrl, name) {
-      return m('div.lichess_overboard.study_overboard', {
-        config: function(el, isUpdate) {
-          if (!isUpdate) lichess.loadCss('/assets/stylesheets/material.form.css');
-        }
-      }, [
-        m('a.close.icon[data-icon=L]', {
-          onclick: function() {
-            ctrl.vm.creating = null;
-          }
-        }),
-        m('h2', 'New chapter'),
-        m('form.material.form', {
-          onsubmit: function(e) {
-            ctrl.create({
-              name: name,
-              game: e.target.querySelector('#chapter-game').value,
-              variant: e.target.querySelector('#chapter-variant').value,
-              fen: e.target.querySelector('#chapter-fen').value,
-              orientation: e.target.querySelector('#chapter-orientation').value
-            });
-            e.stopPropagation();
-            return false;
-          }
-        }, [
-          m('div.game.form-group', [
-            m('input#chapter-name', {
-              value: name
-            }),
-            m('label.control-label[for=chapter-name]', 'Name'),
-            m('i.bar')
-          ]),
-          m('div.game.form-group', [
-            m('input#chapter-game', {
-              placeholder: 'Game ID or URL'
-            }),
-            m('label.control-label[for=chapter-game]', 'Load existing game?'),
-            m('i.bar')
-          ]),
-          m('div.game.form-group', [
-            m('select#chapter-variant', ctrl.vm.variants.map(function(v) {
-              return m('option', {
-                value: v.key
-              }, v.name)
-            })),
-            m('label.control-label[for=chapter-variant]', 'Variant'),
-            m('i.bar')
-          ]),
-          m('div.game.form-group', [
-            m('input#chapter-fen', {
-              placeholder: 'Initial position'
-            }),
-            m('label.control-label[for=chapter-fen]', 'From FEN position'),
-            m('i.bar')
-          ]),
-          m('div.game.form-group', [
-            m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
-              return m('option', {
-                value: color.toLowerCase()
-              }, color)
-            })),
-            m('label.control-label[for=chapter-orientation]', 'Orientation'),
-            m('i.bar')
-          ]),
-          m('div.button-container',
-            m('button.submit.button.text[type=submit][data-icon=E]', 'Create chapter')
-          )
-        ])
-      ]);
     }
   }
 };

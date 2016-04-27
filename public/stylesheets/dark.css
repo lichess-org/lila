@@ -34,7 +34,7 @@ body.dark #video_side .tag_list a.full:hover {
   background: #222;
   border-color: #444;
 }
-body.dark .study_box .tabs a,
+body.dark .study_tabs a,
 body.dark .lichess_ground .suggestion,
 body.dark .lichess_ground .pending,
 body.dark .lichess_ground .negotiation,

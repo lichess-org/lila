@@ -17,6 +17,7 @@ object TreeBuilder {
     check = root.check,
     shapes = root.shapes,
     children = toBranches(root.children),
+    opening = FullOpeningDB findByFen root.fen.value,
     crazyData = none)
 
   private def toBranch(node: Node): tree.Branch = tree.Branch(
@@ -27,6 +28,7 @@ object TreeBuilder {
     check = node.check,
     shapes = node.shapes,
     children = toBranches(node.children),
+    opening = FullOpeningDB findByFen node.fen.value,
     crazyData = none)
 
   private def toBranches(children: Node.Children) =
