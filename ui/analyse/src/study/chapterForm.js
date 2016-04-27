@@ -71,10 +71,10 @@ module.exports = {
         onsubmit: function(e) {
           ctrl.submit({
             name: fieldValue(e, 'name'),
-            from: ctrl.vm.tab(),
             game: fieldValue(e, 'game'),
             variant: fieldValue(e, 'variant'),
             fen: fieldValue(e, 'fen'),
+            pgn: fieldValue(e, 'pgn'),
             orientation: fieldValue(e, 'orientation')
           });
           e.stopPropagation();
@@ -99,7 +99,7 @@ module.exports = {
             placeholder: 'Game ID or URL',
             config: autofocus
           }),
-          m('label.control-label[for=chapter-game]', 'Load played or imported game'),
+          m('label.control-label[for=chapter-game]', 'From played or imported game'),
           m('i.bar')
         ]) : null,
         activeTab === 'fen' ? m('div.game.form-group', [

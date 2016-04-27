@@ -39,6 +39,11 @@
 body:not(.dark) .material.form .study_tabs a {
   background: #f0f0f0;
 }
+.material.form textarea {
+  height: 120px;
+  line-height: 1.4em!important;
+  font-size: 0.8em;
+}
 
 .study_box .list {
   max-height: 160px;

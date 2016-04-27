@@ -15,6 +15,7 @@ final class Env(
     config: Config,
     getLightUser: String => Option[lila.common.LightUser],
     gamePgnDump: lila.game.PgnDump,
+    importer: lila.importer.Importer,
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env) {
@@ -58,6 +59,7 @@ final class Env(
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
     chapterMaker = new ChapterMaker(
+      importer = importer,
       domain = NetDomain),
     chat = hub.actor.chat,
     socketHub = socketHub)
@@ -89,6 +91,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "study",
     getLightUser = lila.user.Env.current.lightUser,
     gamePgnDump = lila.game.Env.current.pgnDump,
+    importer = lila.importer.Env.current.importer,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)
