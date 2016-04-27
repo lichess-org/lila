@@ -56,7 +56,7 @@ object Study {
       addedAt = DateTime.now)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
-      name = "New study",
+      name = s"${user.name}'s Study",
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
       ownerId = user.id,
