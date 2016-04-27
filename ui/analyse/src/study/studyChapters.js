@@ -108,9 +108,7 @@ module.exports = {
         m('div', {
           class: 'list chapters' + (ownage ? ' ownage' : ''),
           config: function(el, isUpdate) {
-            if (!isUpdate) $(el).scrollTo($(el).find('.active'), {
-              offsetTop: 200
-            });
+            if (!isUpdate) $(el).scrollTo($(el).find('.active'), 200);
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {

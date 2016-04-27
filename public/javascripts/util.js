@@ -155,6 +155,7 @@ lichess.numberFormat = (function() {
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {
     var t = (typeof target === "number") ? target : $(target);
-    this.scrollTop = (typeof t === "number") ? t : t.offset().top + $(this).scrollTop() - (offsetTop || 0);
+    var v = (typeof t === "number") ? t : t.offset().top + this.scrollTop - (offsetTop || 0);
+    this.scrollTop = v;
   });
 };
