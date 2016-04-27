@@ -156,78 +156,13 @@ module.exports = function(root) {
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
-    promoteVariation: promoteVariation
+    promoteVariation: promoteVariation,
+    plyOfNextNag: function(color, nag, mainline, fromPly) {
+      var len = mainline.length;
+      for (var i = 1; i < len; i++) {
+        var ply = (fromPly + i) % len;
+        if (mainline[ply].nag === nag && (ply % 2 === (color === 'white' ? 1 : 0))) return ply;
+      }
+    }
   };
-
-  //   this.getStep = function(path) {
-  //     var tree = this.tree;
-  //     for (var j in path) {
-  //       var p = path[j];
-  //       for (var i = 0, nb = tree.length; i < nb; i++) {
-  //         if (p.ply === tree[i].ply) {
-  //           if (p.variation) {
-  //             tree = tree[i].variations[p.variation - 1];
-  //             break;
-  //           }
-  //           return tree[i];
-  //         }
-  //       }
-  //     }
-  //   };
-  //   this.getStepAtPly = function(ply) {
-  //     return this.getStep(treePath.default(ply));
-  //   }.bind(this);
-
-
-  //   this.getStepsAfterPly = function(path, ply) {
-  //     if (path[0].ply <= ply) return [];
-  //     return this.getSteps(path).filter(function(step) {
-  //       return step.ply > ply;
-  //     });
-  //   }.bind(this);
-
-
-  //   this.addStep = function(step, path) {
-  //     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
-  //     var tree = this.tree;
-  //     var curStep = null;
-  //     nextPath.forEach(function(p) {
-  //       for (i = 0, nb = tree.length; i < nb; i++) {
-  //         var step = tree[i];
-  //         if (p.ply === step.ply) {
-  //           if (p.variation) {
-  //             tree = step.variations[p.variation - 1];
-  //             break;
-  //           } else curStep = step;
-  //         } else if (p.ply < step.ply) break;
-  //       }
-  //     });
-  //     if (curStep) {
-  //       curStep.variations = curStep.variations || [];
-  //       if (curStep.san === step.san) return nextPath;
-  //       for (var i = 0; i < curStep.variations.length; i++) {
-  //         if (curStep.variations[i][0].san === step.san)
-  //           return treePath.withVariation(nextPath, i + 1);
-  //       }
-  //       curStep.variations.push([step]);
-  //       return treePath.withVariation(nextPath, curStep.variations.length);
-  //     }
-  //     tree.push(step);
-  //     return nextPath;
-  //   }.bind(this);
-
-  //   this.addSteps = function(steps, path) {
-  //     var step = steps[0];
-  //     if (!step) return path;
-  //     var newPath = this.addStep(step, path);
-  //     return this.addSteps(steps.slice(1), newPath);
-  //   }.bind(this);
-
-  //   this.plyOfNextNag = function(color, nag, fromPly) {
-  //     var len = this.tree.length;
-  //     for (var i = 1; i < len; i++) {
-  //       var ply = (fromPly + i) % len;
-  //       if(this.tree[ply].nag === nag && (ply % 2 === (color === 'white' ? 1 : 0))) return ply;
-  //     }
-  //   }.bind(this);
 }

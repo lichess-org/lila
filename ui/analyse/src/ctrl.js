@@ -191,7 +191,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToNag = function(color, nag) {
-    var ply = this.analyse.plyOfNextNag(color, nag, this.vm.node.ply);
+    var ply = this.tree.plyOfNextNag(color, nag, this.vm.mainline, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
   }.bind(this);
