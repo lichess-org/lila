@@ -35,11 +35,11 @@ function form(ctrl) {
         m('i.bar')
       ]),
       m('div.game.form-group', [
-        m('select#study-visibility', ['Public', 'Private'].map(function(name) {
+        m('select#study-visibility', [['public', 'Public'], ['private', 'Invite only']].map(function(o) {
           return m('option', {
-            value: name.toLowerCase(),
-            selected: ctrl.data.visibility === name.toLowerCase()
-          }, name);
+            value: o[0],
+            selected: ctrl.data.visibility === o[0]
+          }, o[1]);
         })),
         m('label.control-label[for=study-visibility]', 'Visibility'),
         m('i.bar')
