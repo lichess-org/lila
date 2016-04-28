@@ -105,14 +105,14 @@ module.exports = {
           path: path
         }));
       }),
-      deleteVariation: function(path) {
-        contribute("deleteVariation", addChapterId({
+      deleteNode: function(path) {
+        contribute("deleteNode", addChapterId({
           path: path,
           jumpTo: ctrl.vm.path
         }));
       },
-      promoteVariation: function(path) {
-        contribute("promoteVariation", addChapterId({
+      promoteNode: function(path) {
+        contribute("promoteNode", addChapterId({
           path: path
         }));
       },

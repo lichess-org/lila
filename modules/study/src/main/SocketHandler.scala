@@ -84,7 +84,7 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("deleteVariation", o) => AnaRateLimit(uid.value) {
+    case ("deleteNode", o) => AnaRateLimit(uid.value) {
       reading[AtPosition](o) { position =>
         for {
           jumpTo <- (o \ "d" \ "jumpTo").asOpt[String] map Path.apply
@@ -93,7 +93,7 @@ private[study] final class SocketHandler(
           api.deleteNodeAt(userId, studyId, position.ref, uid)
       }
     }
-    case ("promoteVariation", o) => AnaRateLimit(uid.value) {
+    case ("promoteNode", o) => AnaRateLimit(uid.value) {
       reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
           api.promoteNodeAt(userId, studyId, position.ref, uid)

@@ -71,7 +71,7 @@ function view(ctrl) {
       ctrl.node.ply % 2 === 1 ? '. ' : '... ',
       ctrl.node.san
     ]),
-    ctrl.isMainline ? null : action('E', 'Promote to main line', partial(ctrl.root.promoteVariation, ctrl.path)),
+    ctrl.isMainline ? null : action('E', 'Promote to main line', partial(ctrl.root.promoteNode, ctrl.path)),
     action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path))
   ]);
 }

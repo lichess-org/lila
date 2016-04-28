@@ -309,13 +309,13 @@ module.exports = function(opts) {
     this.tree.deleteNodeAt(path);
     if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.vm.path);
-    this.study && this.study.deleteVariation(path);
+    this.study && this.study.deleteNode(path);
   }.bind(this);
 
-  this.promoteVariation = function(path) {
-    this.tree.promoteVariation(path);
+  this.promoteNode = function(path) {
+    this.tree.promoteNodeAt(path);
     this.jump(this.vm.path);
-    this.study && this.study.promoteVariation(path);
+    this.study && this.study.promoteNode(path);
   }.bind(this);
 
   this.reset = function() {
