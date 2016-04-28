@@ -1,7 +1,7 @@
 var m = require('mithril');
-var plyToTurn = require('./tree/ops').plyToTurn;
 var partial = require('chessground').util.partial;
 var studyView = require('./study/studyView');
+var nodeFullName = require('./util').nodeFullName;
 
 var elementId = 'analyse-cm';
 
@@ -68,11 +68,7 @@ function view(ctrl) {
       if (isUpdate) return;
     }
   }, [
-    m('p.title', [
-      plyToTurn(ctrl.node.ply),
-      ctrl.node.ply % 2 === 1 ? '. ' : '... ',
-      ctrl.node.san
-    ]),
+    m('p.title', nodeFullName(ctrl.node)),
     ctrl.isMainline ? null : action('E', 'Promote to main line', partial(ctrl.root.promoteNode, ctrl.path)),
     action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path)),
     ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : null

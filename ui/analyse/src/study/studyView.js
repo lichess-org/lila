@@ -106,32 +106,33 @@ module.exports = {
   },
 
   overboard: function(ctrl) {
-    console.log(commentFormView(ctrl.commentForm));
-    if (ctrl.commentForm.current()) return commentFormView(ctrl.commentForm);
     if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
     if (ctrl.vm.editing) return form(ctrl);
   },
 
   underboard: function(ctrl) {
-    return m('div.study_buttons', [
-      m('span.sync.hint--top', {
-        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-      }, m('a.button', (function() {
-        var attrs = {
-          onclick: ctrl.toggleSync
-        };
-        if (ctrl.vm.behind > 0) {
-          attrs['data-count'] = ctrl.vm.behind;
-          attrs.class = 'data-count';
-        }
-        return attrs;
-      })(), m('i', {
-        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
-      }))),
-      m('a.button.hint--top', {
-        'data-hint': 'Download as PGN',
-        href: '/study/' + ctrl.data.id + '.pgn'
-      }, m('i[data-icon=x]'))
-    ]);
+    return [
+      commentFormView(ctrl.commentForm),
+      m('div.study_buttons', [
+        m('span.sync.hint--top', {
+          'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
+        }, m('a.button', (function() {
+          var attrs = {
+            onclick: ctrl.toggleSync
+          };
+          if (ctrl.vm.behind > 0) {
+            attrs['data-count'] = ctrl.vm.behind;
+            attrs.class = 'data-count';
+          }
+          return attrs;
+        })(), m('i', {
+          'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
+        }))),
+        m('a.button.hint--top', {
+          'data-hint': 'Download as PGN',
+          href: '/study/' + ctrl.data.id + '.pgn'
+        }, m('i[data-icon=x]'))
+      ])
+    ];
   }
 };

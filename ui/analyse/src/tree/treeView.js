@@ -62,13 +62,13 @@ function renderVariationContent(ctrl, node, path, full) {
     line = line.slice(0);
     var first = line.shift();
     turns.push({
-      turn: treeOps.plyToTurn(first.ply),
+      turn: util.plyToTurn(first.ply),
       black: first
     });
   }
   var maxPlies = Math.min(full ? 999 : 6, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: treeOps.plyToTurn(line[i].ply),
+    turn: util.plyToTurn(line[i].ply),
     white: line[i],
     black: line[i + 1]
   });

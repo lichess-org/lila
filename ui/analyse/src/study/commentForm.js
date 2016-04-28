@@ -1,10 +1,21 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var nodeFullName = require('../util').nodeFullName;
 
 module.exports = {
   ctrl: function(contribute, myUserId) {
 
     var current = null; // {chapterId, path, node}
+
+    var submit = function(text) {
+      if (!current) return;
+      contribute('setComment', {
+        chapterId: current.chapterId,
+        path: current.path,
+        text: text
+      });
+      current = null;
+    }
 
     return {
       myUserId: myUserId,
@@ -21,13 +32,9 @@ module.exports = {
       close: function() {
         current = null;
       },
-      submit: function(text) {
-        contribute('setComment', {
-          chapterId: chapterId,
-          path: path,
-          text: text
-        });
-        current = null;
+      submit: submit,
+      clear: function() {
+        submit('');
       }
     }
   },
@@ -40,15 +47,11 @@ module.exports = {
       return c.by === ctrl.myUserId;
     });
 
-    return m('div.lichess_overboard.study_overboard', {
+    return m('div.study_comment_form', {
       config: function(el, isUpdate) {
         if (!isUpdate) lichess.loadCss('/assets/stylesheets/material.form.css');
       }
     }, [
-      m('a.close.icon[data-icon=L]', {
-        onclick: ctrl.close
-      }),
-      m('h2', 'Comment position after ' + current.node.san),
       m('form.material.form', {
         onsubmit: function(e) {
           ctrl.submit(e.target.querySelector('#comment-text').value);
@@ -58,7 +61,7 @@ module.exports = {
       }, [
         m('div.game.form-group', [
           m('textarea#comment-text', {
-            placeholder: 'What do you think of this move/position?',
+            placeholder: 'Comment position after ' + nodeFullName(current.node),
             value: mine ? mine.text : '',
             config: function(el, isUpdate) {
               if (!isUpdate) el.focus();
@@ -66,9 +69,18 @@ module.exports = {
           }),
           m('i.bar')
         ]),
-        m('div.button-container',
-          m('button.submit.button[type=submit]', 'Done')
-        )
+        m('div.button-container', [
+          m('button.submit.button', {
+            type: 'submit',
+            'data-icon': 'E',
+            title: 'Save'
+          }),
+          m('button.button', {
+            'data-icon': 'L',
+            title: 'Clear',
+            onclick: ctrl.clear
+          })
+        ])
       ])
     ]);
   }
