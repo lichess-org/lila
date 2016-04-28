@@ -168,9 +168,7 @@ final class StudyApi(
         _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- {
             sendTo(study.id, Socket.ChangeChapter)
-            study.members.get(byUserId).foreach { member =>
-              chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
-            }
+            chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
           }
         }
       }
