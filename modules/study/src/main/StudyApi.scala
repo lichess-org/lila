@@ -91,21 +91,24 @@ final class StudyApi(
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study.id, Socket.DelNode(position, uid))
+            sendTo(study.id, Socket.DeleteNode(position, uid))
         case None => fufail(s"Invalid delNode $studyId $position") >>- reloadUid(study, uid)
       }
     }
   }
 
-  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = ???
-  // sequenceLocation(ref) { location =>
-  //   (location.study canWrite userId) ?? {
-  //     val newChapter = location.chapter.updateRoot { root =>
-  //       root.withChildren(_.promoteNodeAt(path))
-  //     }
-  //     studyRepo.setChapter(location withChapter newChapter)
-  //   }
-  // }
+  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      chapter.updateRoot { root =>
+        root.withChildren(_.promoteNodeAt(position.path))
+      } match {
+        case Some(newChapter) =>
+          chapterRepo.update(newChapter) >>-
+            sendTo(study.id, Socket.PromoteNode(position, uid))
+        case None => fufail(s"Invalid promoteNode $studyId $position") >>- reloadUid(study, uid)
+      }
+    }
+  }
 
   def setRole(byUserId: User.ID, studyId: Study.ID, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {

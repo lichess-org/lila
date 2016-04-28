@@ -45,7 +45,12 @@ private final class Socket(
         "o" -> dests.opening
       ), Messadata())
 
-    case DelNode(pos, uid) => notifyVersion("delNode", Json.obj(
+    case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
+      "p" -> pos,
+      "w" -> who(uid)
+    ), Messadata())
+
+    case PromoteNode(pos, uid) => notifyVersion("promoteNode", Json.obj(
       "p" -> pos,
       "w" -> who(uid)
     ), Messadata())
@@ -130,7 +135,8 @@ private object Socket {
   case class ReloadUid(uid: Uid)
 
   case class AddNode(position: Position.Ref, node: Node, uid: Uid)
-  case class DelNode(position: Position.Ref, uid: Uid)
+  case class DeleteNode(position: Position.Ref, uid: Uid)
+  case class PromoteNode(position: Position.Ref, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)

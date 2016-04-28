@@ -175,7 +175,7 @@ module.exports = {
           if (vm.behind === false) ctrl.jump(data.position.path);
           m.redraw();
         },
-        delNode: function(d) {
+        deleteNode: function(d) {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
@@ -184,7 +184,18 @@ module.exports = {
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
           ctrl.tree.deleteNodeAt(position.path);
-          m.redraw();
+          ctrl.jump(ctrl.vm.path);
+        },
+        promoteNode: function(d) {
+          var position = d.p,
+            who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (who && who.s === sri) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
+          ctrl.tree.promoteNodeAt(position.path);
+          ctrl.jump(ctrl.vm.path);
         },
         reload: xhrReload,
         changeChapter: function() {
