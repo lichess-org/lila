@@ -38,6 +38,13 @@ object JsonView {
   private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
     JsString(v.key)
   }
+  private[study] implicit val symbolWriter: Writes[Node.Symbol] = Writes[Node.Symbol] { s =>
+    JsString(s.value)
+  }
+  private[study] implicit val commentWriter = Json.writes[Node.Comment]
+  private[study] implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
+    JsArray(s.list.map(commentWriter.writes))
+  }
 
   private implicit val rootWrites = Writes[Node.Root] { n =>
     Json.obj(
@@ -45,6 +52,8 @@ object JsonView {
       "fen" -> n.fen,
       "check" -> n.check,
       "shapes" -> n.shapes,
+      "comments" -> n.comments,
+      "symbols" -> n.symbols,
       "children" -> n.children.nodes)
   }
 
@@ -97,6 +106,8 @@ object JsonView {
       "fen" -> fenWriter.writes(n.fen),
       "check" -> n.check,
       "shapes" -> n.shapes,
+      "comments" -> n.comments,
+      "symbols" -> n.symbols,
       "by" -> n.by,
       "children" -> n.children.nodes)
   }

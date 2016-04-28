@@ -29,6 +29,9 @@ case class Chapter(
   def setShapes(shapes: List[Shape], path: Path): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 
+  def setComment(comment: Node.Comment, path: Path): Option[Chapter] =
+    updateRoot(_.setCommentAt(comment, path))
+
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
     else FullOpeningDB searchInFens root.mainLine.map(_.fen)

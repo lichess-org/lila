@@ -12,6 +12,8 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: List[Shape]
   val children: Node.Children
+  val comments: Node.Comments
+  val symbols: List[Node.Symbol]
   def fullMoveNumber = 1 + ply / 2
 }
 
@@ -21,7 +23,9 @@ case class Node(
     move: Uci.WithSan,
     fen: FEN,
     check: Boolean,
-    shapes: List[Shape],
+    shapes: List[Shape] = Nil,
+    comments: Node.Comments = Node.Comments(Nil),
+    symbols: List[Node.Symbol] = Nil,
     by: User.ID,
     children: Node.Children) extends RootOrNode {
 
@@ -32,10 +36,26 @@ case class Node(
       copy(children = newChildren)
     }
 
+  def setComment(comment: Node.Comment) = copy(comments = comments set comment)
+
   def mainLine: List[Node] = this :: children.first.??(_.mainLine)
 }
 
 object Node {
+
+  case class Comment(text: String, by: User.ID)
+  case class Comments(value: List[Comment]) extends AnyVal {
+    def list = value
+    def by(userId: User.ID) = list.find(_.by == userId)
+    def set(comment: Comment) = Comments {
+      if (by(comment.by).isDefined) list.map {
+        case c if c.by == comment.by => comment
+        case c                       => c
+      }
+      else list :+ comment
+    }
+  }
+  case class Symbol(value: String) extends AnyVal
 
   case class Children(nodes: Vector[Node]) {
 
@@ -77,6 +97,12 @@ object Node {
       case Some((head, tail))      => updateChildren(head, _.setShapesAt(shapes, tail))
     }
 
+    def setCommentAt(comment: Comment, path: Path): Option[Children] = path.split match {
+      case None                    => none
+      case Some((head, Path(Nil))) => updateWith(head, _.setComment(comment).some)
+      case Some((head, tail))      => updateChildren(head, _.setCommentAt(comment, tail))
+    }
+
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
@@ -99,7 +125,9 @@ object Node {
       ply: Int,
       fen: FEN,
       check: Boolean,
-      shapes: List[Shape],
+      shapes: List[Shape] = Nil,
+      comments: Comments = Comments(Nil),
+      symbols: List[Symbol] = Nil,
       children: Children) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
@@ -116,6 +144,10 @@ object Node {
       if (path.isEmpty) copy(shapes = shapes).some
       else withChildren(_.setShapesAt(shapes, path))
 
+    def setCommentAt(comment: Comment, path: Path): Option[Root] =
+      if (path.isEmpty) copy(comments = comments set comment).some
+      else withChildren(_.setCommentAt(comment, path))
+
     def mainLine: List[Node] = children.first.??(_.mainLine)
 
     def mainLineLastNodePath = Path(mainLine.map(_.id))
@@ -127,14 +159,12 @@ object Node {
       ply = 0,
       fen = FEN(Forsyth.initial),
       check = false,
-      shapes = Nil,
       children = emptyChildren)
 
     def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
-      shapes = Nil,
       children = Children(b.children.toVector.map(fromBranchBy(userId))))
   }
 
@@ -144,7 +174,6 @@ object Node {
     move = b.move,
     fen = FEN(b.fen),
     check = b.check,
-    shapes = Nil,
     by = userId,
     children = Children(b.children.toVector.map(fromBranchBy(userId))))
 }
