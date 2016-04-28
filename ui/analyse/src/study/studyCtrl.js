@@ -62,6 +62,7 @@ module.exports = {
         orientation: d.analysis.orientation
       });
       vm.loading = false;
+      ctrl.userJump(data.position.path);
       m.redraw();
     };
 
