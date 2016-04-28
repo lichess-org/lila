@@ -25,6 +25,7 @@ function renderMove(ctrl, node, path, isMainline) {
     'data-path': path
   };
   var classes = path === ctrl.vm.path ? ['active'] : [];
+  if (path === ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctrl.vm.initialPath) classes.push('current');
   if (classes.length) attrs.class = classes.join(' ');
   return {
@@ -122,12 +123,12 @@ function renderMeta(ctrl, node, prev, path) {
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
   if (ctrl.vm.comments && !empty(node.comments)) node.comments.forEach(function(comment) {
-    if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
-    else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
-    else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
+    if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
+    else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
+    else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
     dom.push(m('div', {
       class: 'comment ' + colorClass + commentClass
-    }, comment));
+    }, comment.text));
   });
   if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;

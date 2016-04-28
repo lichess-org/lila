@@ -122,6 +122,20 @@ module.exports = function(root) {
     }
   }
 
+  function setCommentAt(comment, path) {
+    updateAt(path, function(node) {
+      node.comments = node.comments || [];
+      var existing = node.comments.find(function(c) {
+        return c.by === comment.by;
+      });
+      if (existing) existing.text = comment.text;
+      else node.comments.push(comment);
+      node.comments = node.comments.filter(function(c) {
+        return c.text !== '';
+      });
+    });
+  }
+
   return {
     root: root,
     ops: ops,
@@ -143,6 +157,7 @@ module.exports = function(root) {
         node.shapes = shapes;
       });
     },
+    setCommentAt: setCommentAt,
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,

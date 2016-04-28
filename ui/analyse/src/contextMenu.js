@@ -29,17 +29,16 @@ function positionMenu(menu, coords) {
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
 
-  if ((windowWidth - coords.x) < menuWidth) {
+  if ((windowWidth - coords.x) < menuWidth)
     menu.style.left = windowWidth - menuWidth + "px";
-  } else {
+  else
     menu.style.left = coords.x + "px";
-  }
 
-  if ((windowHeight - coords.y) < menuHeight) {
+  if ((windowHeight - coords.y) < menuHeight)
     menu.style.top = windowHeight - menuHeight + "px";
-  } else {
+  else
     menu.style.top = coords.y + "px";
-  }
+
 }
 
 function ctrl(opts) {
@@ -79,14 +78,17 @@ module.exports = {
   open: function(e, opts) {
     var el = document.getElementById(elementId) ||
       $('<div id="' + elementId + '">').appendTo($('body'))[0];
+    opts.root.vm.contextMenuPath = opts.path;
     opts.close = function() {
+      opts.root.vm.contextMenuPath = null;
       document.removeEventListener("click", opts.close, false);
       el.classList.remove('visible');
       m.render(el, null);
+      m.redraw();
     };
     document.addEventListener("click", opts.close, false);
-    m.render(el, view(ctrl(opts)));
     positionMenu(el, getPosition(e));
+    m.render(el, view(ctrl(opts)));
     el.classList.add('visible');
   }
 };

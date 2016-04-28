@@ -44,25 +44,19 @@ body:not(.dark) .material.form .study_tabs a {
   line-height: 1.4em!important;
   font-size: 0.8em;
 }
+.study_comment_form .title {
+  background: #e0e0e0;
+}
+.study_comment_form .close {
+  float: right;
+}
 .study_comment_form form {
   display: flex;
   align-items: center;
 }
 .study_comment_form form .form-group {
-  flex: 1 1 100%;
+  width: 100%;
   margin-bottom: 15px!important;
-}
-.study_comment_form form .button-container {
-  flex: 0 1 0%;
-  display: flex;
-  flex-flow: row wrap;
-}
-.study_comment_form form .button-container .button {
-  padding: 10px 10px!important;
-  font-size: 18px;
-}
-.study_comment_form form .button-container .button:first-child {
-  margin-bottom: 10px;
 }
 
 .study_box .list {

@@ -68,9 +68,10 @@ private final class Socket(
       "w" -> who(uid)
     ), Messadata())
 
-    case SetComment(pos, comment) => notifyVersion("comment", Json.obj(
+    case SetComment(pos, comment, uid) => notifyVersion("comment", Json.obj(
       "p" -> pos,
-      "c" -> comment
+      "c" -> comment,
+      "w" -> who(uid)
     ), Messadata())
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
@@ -145,7 +146,7 @@ private object Socket {
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
-  case class SetComment(position: Position.Ref, comment: Comment)
+  case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case object ChangeChapter

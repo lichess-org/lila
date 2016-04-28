@@ -1668,6 +1668,10 @@ a.button,
 .ui-widget-content {
   border-radius: 2px;
 }
+.button.frameless {
+  border: 0;
+  background: transparent;
+}
 .button:hover,
 a.button:hover,
 .ui-slider-handle:hover,

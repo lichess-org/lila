@@ -43,7 +43,7 @@ module.exports = {
       else if (!members.canContribute()) vm.behind = 0;
     };
 
-    var commentForm = commentFormCtrl(contribute, ctrl.userId);
+    var commentForm = commentFormCtrl(ctrl);
 
     var addChapterId = function(req) {
       req.chapterId = data.position.chapterId;
@@ -55,6 +55,7 @@ module.exports = {
       var s = d.study;
       if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
         return lichess.reload();
+      if (s.position !== data.position) commentForm.close();
       data.position = s.position;
       data.name = s.name;
       data.visibility = s.visibility;
@@ -148,6 +149,7 @@ module.exports = {
       anaMoveConfig: function(req) {
         if (contributing()) addChapterId(req);
       },
+      contribute: contribute,
       socketHandlers: {
         path: function(d) {
           var position = d.p,
@@ -221,6 +223,16 @@ module.exports = {
           if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.chessground.setShapes(d.s);
+          m.redraw();
+        },
+        comment: function(d) {
+          var position = d.p,
+            who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.setCommentAt(d.c, position.path);
+          console.log(ctrl.tree.root);
           m.redraw();
         }
       }
