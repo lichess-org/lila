@@ -15,6 +15,7 @@ var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
+var contextMenu = require('./contextMenu');
 
 function autoScroll(el) {
   return util.throttle(300, false, function() {
@@ -48,14 +49,20 @@ function renderAnalyse(ctrl) {
   }
   return m('div.replay', {
       onmousedown: function(e) {
-        var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
-        if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
-        var path = el.getAttribute('data-path');
+        if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+        var path = treeView.eventPath(e, ctrl);
         if (path) ctrl.userJump(path);
-        else {
-          var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
-          ctrl.jumpToMain(ply);
-        }
+      },
+      oncontextmenu: function(e) {
+        var path = treeView.eventPath(e, ctrl);
+        contextMenu(e, {
+          submit: function(d) {
+            console.log(d);
+          },
+          path: path,
+          root: ctrl
+        });
+        return false;
       },
       onclick: function(e) {
         return false;

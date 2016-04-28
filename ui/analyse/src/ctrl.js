@@ -60,7 +60,6 @@ module.exports = function(opts) {
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
     autoScroll: null,
-    variationMenu: null,
     element: opts.element,
     redirecting: false
   };
@@ -153,7 +152,6 @@ module.exports = function(opts) {
   this.jump = function(path) {
     if (this.study && path !== this.vm.path) this.study.setPath(path);
     this.setPath(path);
-    this.toggleVariationMenu(null);
     showGround();
     if (!this.vm.node.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.node.uci) {
@@ -176,14 +174,14 @@ module.exports = function(opts) {
     this.jump(path);
   }.bind(this);
 
-  var mainlinePathToPly = function(ply) {
+  this.mainlinePathToPly = function(ply) {
     return treeOps.takePathWhile(this.vm.mainline, function(n) {
       return n.ply <= ply;
     });
   }.bind(this);
 
   this.jumpToMain = function(ply) {
-    this.userJump(mainlinePathToPly(ply));
+    this.userJump(this.mainlinePathToPly(ply));
   }.bind(this);
 
   this.jumpToIndex = function(index) {
@@ -200,7 +198,7 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
-    this.userJump(mainlinePathToPly(this.tree.lastPly()));
+    this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -303,13 +301,6 @@ module.exports = function(opts) {
       if (dests === '') this.ceval.stop();
     }
     this.chessground.playPremove();
-  }.bind(this);
-
-  this.toggleVariationMenu = function(path) {
-    if (!path) this.vm.variationMenu = null;
-    else {
-      this.vm.variationMenu = this.vm.variationMenu === path ? null : path;
-    }
   }.bind(this);
 
   this.deleteNode = function(path) {

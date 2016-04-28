@@ -1,7 +1,5 @@
 var m = require('mithril');
-
 var chessground = require('chessground');
-var raf = chessground.util.requestAnimationFrame;
 var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
 var util = require('../util');
@@ -41,39 +39,12 @@ function renderMove(ctrl, node, path, isMainline) {
   };
 }
 
-function plyToTurn(ply) {
-  return Math.floor((ply - 1) / 2) + 1;
-}
-
 function renderVariation(ctrl, node, parent, klass, depth) {
   var path = parent.path + node.id;
-  var showMenu = ctrl.vm.variationMenu && ctrl.vm.variationMenu === path;
   var visiting = treePath.contains(ctrl.vm.path, path);
   return m('div', {
-    class: klass + ' variation ' + (showMenu ? ' menu' : '') + (visiting ? ' visiting' : '')
-  }, [
-    m('span', {
-      class: 'menu',
-      'data-icon': showMenu ? 'L' : '',
-      onclick: partial(ctrl.toggleVariationMenu, path)
-    }),
-    showMenu ? (function() {
-      var promotable = util.synthetic(ctrl.data) || !parent.node.fixed;
-      return [
-        m('a', {
-          class: 'delete text',
-          'data-icon': 'q',
-          onclick: partial(ctrl.deleteNode, path)
-        }, 'Delete variation'),
-        promotable ? m('a', {
-          class: 'promote text',
-          'data-icon': 'E',
-          onclick: partial(ctrl.promoteVariation, path)
-        }, 'Promote to main line') : null
-      ];
-    })() :
-    renderVariationContent(ctrl, node, parent.path, visiting)
-  ]);
+    class: klass + ' variation ' + (visiting ? ' visiting' : '')
+  }, renderVariationContent(ctrl, node, parent.path, visiting));
 }
 
 function renderVariationNested(ctrl, node, path) {
@@ -91,13 +62,13 @@ function renderVariationContent(ctrl, node, path, full) {
     line = line.slice(0);
     var first = line.shift();
     turns.push({
-      turn: plyToTurn(first.ply),
+      turn: treeOps.plyToTurn(first.ply),
       black: first
     });
   }
   var maxPlies = Math.min(full ? 999 : 6, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: plyToTurn(line[i].ply),
+    turn: treeOps.plyToTurn(line[i].ply),
     white: line[i],
     black: line[i + 1]
   });
@@ -264,5 +235,13 @@ module.exports = {
     }
 
     return tags;
+  },
+  eventPath: function(e, ctrl) {
+    var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+    if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
+    var path = el.getAttribute('data-path');
+    if (path) return path;
+    var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
+    if (ply) return ctrl.mainlinePathToPly(ply);
   }
 };

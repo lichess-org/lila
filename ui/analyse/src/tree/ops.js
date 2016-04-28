@@ -95,5 +95,8 @@ module.exports = {
   last: last,
   nodeAtPly: nodeAtPly,
   takePathWhile: takePathWhile,
-  removeChild: removeChild
+  removeChild: removeChild,
+  plyToTurn: function(ply) {
+    return Math.floor((ply - 1) / 2) + 1;
+  }
 }
