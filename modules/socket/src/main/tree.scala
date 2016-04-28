@@ -18,8 +18,8 @@ sealed trait Node {
   def dests: Option[Map[Pos, List[Pos]]]
   def drops: Option[List[Pos]]
   def eval: Option[Node.Eval]
-  def comments: List[String]
   def shapes: List[Node.Shape]
+  def comments: Node.Comments
   def children: List[Branch]
   def opening: Option[FullOpening]
   def crazyData: Option[Crazyhouse.Data]
@@ -42,8 +42,8 @@ case class Root(
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
-    comments: List[String] = Nil,
     shapes: List[Node.Shape] = Nil,
+    comments: Node.Comments = Node.Comments(Nil),
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -67,8 +67,8 @@ case class Branch(
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
     nag: Option[String] = None,
-    comments: List[String] = Nil,
     shapes: List[Node.Shape] = Nil,
+    comments: Node.Comments = Node.Comments(Nil),
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -89,6 +89,23 @@ object Node {
     case class Circle(brush: Brush, orig: Pos) extends Shape
     case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
   }
+
+  case class Comment(text: String, by: String)
+  object Comment {
+    def byLichess(text: String) = Comment(text, "lichess")
+  }
+  case class Comments(value: List[Comment]) extends AnyVal {
+    def list = value
+    def by(userId: String) = list.find(_.by == userId)
+    def set(comment: Comment) = Comments {
+      if (by(comment.by).isDefined) list.map {
+        case c if c.by == comment.by => comment
+        case c                       => c
+      }
+      else list :+ comment
+    }
+  }
+  case class Symbol(value: String) extends AnyVal
 
   case class Eval(
     cp: Option[Int] = None,
@@ -129,6 +146,13 @@ object Node {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
+  private implicit val symbolWriter: Writes[Node.Symbol] = Writes[Node.Symbol] { s =>
+    JsString(s.value)
+  }
+  implicit val commentWriter = Json.writes[Node.Comment]
+  private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
+    JsArray(s.list.map(commentWriter.writes))
+  }
 
   implicit val nodeJsonWriter: Writes[Node] = Writes { node =>
     import node._
@@ -139,7 +163,7 @@ object Node {
       add("check", true, check) _ compose
       add("eval", eval) _ compose
       add("nag", nag) _ compose
-      add("comments", comments, comments.nonEmpty) _ compose
+      add("comments", comments.list, comments.list.nonEmpty) _ compose
       add("shapes", shapes, shapes.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {

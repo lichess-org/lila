@@ -8,7 +8,7 @@ import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -150,7 +150,7 @@ final class StudyApi(
 
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, text: String) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      val comment = Node.Comment(text = escapeHtml4(text.take(2000)), by = userId)
+      val comment = Comment(text = escapeHtml4(text.take(2000)), by = userId)
       chapter.setComment(comment, position.path) match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-

@@ -4,6 +4,7 @@ var classSet = require('chessground').util.classSet;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
+var commentFormView = require('./commentForm').view;
 
 function form(ctrl) {
   return m('div.lichess_overboard.study_overboard', {
@@ -35,7 +36,10 @@ function form(ctrl) {
         m('i.bar')
       ]),
       m('div.game.form-group', [
-        m('select#study-visibility', [['public', 'Public'], ['private', 'Invite only']].map(function(o) {
+        m('select#study-visibility', [
+          ['public', 'Public'],
+          ['private', 'Invite only']
+        ].map(function(o) {
           return m('option', {
             value: o[0],
             selected: ctrl.data.visibility === o[0]
@@ -49,6 +53,13 @@ function form(ctrl) {
       )
     ])
   ]);
+}
+
+function contextAction(icon, text, handler) {
+  return m('a.action', {
+    'data-icon': icon,
+    onclick: handler
+  }, text);
 }
 
 module.exports = {
@@ -86,11 +97,19 @@ module.exports = {
     ];
   },
 
+  contextMenu: function(ctrl, path, node) {
+    return [
+      contextAction('c', 'Comment this move', function() {
+        ctrl.commentForm.open(ctrl.data.position.chapterId, path, node);
+      })
+    ];
+  },
+
   overboard: function(ctrl) {
-    if (ctrl.chapters.form.vm.open)
-      return chapterFormView(ctrl.chapters.form);
-    if (ctrl.vm.editing)
-      return form(ctrl);
+    console.log(commentFormView(ctrl.commentForm));
+    if (ctrl.commentForm.current()) return commentFormView(ctrl.commentForm);
+    if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
+    if (ctrl.vm.editing) return form(ctrl);
   },
 
   underboard: function(ctrl) {

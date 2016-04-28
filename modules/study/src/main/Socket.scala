@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 
@@ -22,7 +22,7 @@ private final class Socket(
 
   import Socket._
   import JsonView._
-  import lila.socket.tree.Node.openingWriter
+  import lila.socket.tree.Node.{ openingWriter, commentWriter }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -38,7 +38,7 @@ private final class Socket(
     case AddNode(pos, node, uid) =>
       val dests = destCache.get(AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString))
       notifyVersion("addNode", Json.obj(
-        "n" -> node,
+        "n" -> TreeBuilder.toBranch(node),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
@@ -145,7 +145,7 @@ private object Socket {
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
-  case class SetComment(position: Position.Ref, comment: Node.Comment)
+  case class SetComment(position: Position.Ref, comment: Comment)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case object ChangeChapter

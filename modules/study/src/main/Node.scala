@@ -3,7 +3,7 @@ package lila.study
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
 
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 import lila.user.User
 
 sealed trait RootOrNode {
@@ -12,8 +12,8 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: List[Shape]
   val children: Node.Children
-  val comments: Node.Comments
-  val symbols: List[Node.Symbol]
+  val comments: Comments
+  val symbols: List[Symbol]
   def fullMoveNumber = 1 + ply / 2
 }
 
@@ -24,8 +24,8 @@ case class Node(
     fen: FEN,
     check: Boolean,
     shapes: List[Shape] = Nil,
-    comments: Node.Comments = Node.Comments(Nil),
-    symbols: List[Node.Symbol] = Nil,
+    comments: Comments = Comments(Nil),
+    symbols: List[Symbol] = Nil,
     by: User.ID,
     children: Node.Children) extends RootOrNode {
 
@@ -36,26 +36,12 @@ case class Node(
       copy(children = newChildren)
     }
 
-  def setComment(comment: Node.Comment) = copy(comments = comments set comment)
+  def setComment(comment: Comment) = copy(comments = comments set comment)
 
   def mainLine: List[Node] = this :: children.first.??(_.mainLine)
 }
 
 object Node {
-
-  case class Comment(text: String, by: User.ID)
-  case class Comments(value: List[Comment]) extends AnyVal {
-    def list = value
-    def by(userId: User.ID) = list.find(_.by == userId)
-    def set(comment: Comment) = Comments {
-      if (by(comment.by).isDefined) list.map {
-        case c if c.by == comment.by => comment
-        case c                       => c
-      }
-      else list :+ comment
-    }
-  }
-  case class Symbol(value: String) extends AnyVal
 
   case class Children(nodes: Vector[Node]) {
 

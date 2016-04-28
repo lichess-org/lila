@@ -1,6 +1,7 @@
 var m = require('mithril');
 var plyToTurn = require('./tree/ops').plyToTurn;
 var partial = require('chessground').util.partial;
+var studyView = require('./study/studyView');
 
 var elementId = 'analyse-cm';
 
@@ -54,13 +55,14 @@ function ctrl(opts) {
   };
 }
 
+function action(icon, text, handler) {
+  return m('a.action', {
+    'data-icon': icon,
+    onclick: handler
+  }, text);
+}
+
 function view(ctrl) {
-  var action = function(icon, text, handler) {
-    return m('a.action', {
-      'data-icon': icon,
-      onclick: handler
-    }, text);
-  }
   return m('div', {
     config: function(el, isUpdate, ctx) {
       if (isUpdate) return;
@@ -72,20 +74,23 @@ function view(ctrl) {
       ctrl.node.san
     ]),
     ctrl.isMainline ? null : action('E', 'Promote to main line', partial(ctrl.root.promoteNode, ctrl.path)),
-    action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path))
+    action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path)),
+    ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : null
   ]);
 }
 
-module.exports = function(e, opts) {
-  var el = document.getElementById(elementId) ||
-    $('<div id="' + elementId + '">').appendTo($('body'))[0];
-  opts.close = function() {
-    document.removeEventListener("click", opts.close, false);
-    el.classList.remove('visible');
-    m.render(el, null);
-  };
-  document.addEventListener("click", opts.close, false);
-  m.render(el, view(ctrl(opts)));
-  positionMenu(el, getPosition(e));
-  el.classList.add('visible');
+module.exports = {
+  open: function(e, opts) {
+    var el = document.getElementById(elementId) ||
+      $('<div id="' + elementId + '">').appendTo($('body'))[0];
+    opts.close = function() {
+      document.removeEventListener("click", opts.close, false);
+      el.classList.remove('visible');
+      m.render(el, null);
+    };
+    document.addEventListener("click", opts.close, false);
+    m.render(el, view(ctrl(opts)));
+    positionMenu(el, getPosition(e));
+    el.classList.add('visible');
+  }
 };

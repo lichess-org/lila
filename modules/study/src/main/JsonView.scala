@@ -38,24 +38,17 @@ object JsonView {
   private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
     JsString(v.key)
   }
-  private[study] implicit val symbolWriter: Writes[Node.Symbol] = Writes[Node.Symbol] { s =>
-    JsString(s.value)
-  }
-  private[study] implicit val commentWriter = Json.writes[Node.Comment]
-  private[study] implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
-    JsArray(s.list.map(commentWriter.writes))
-  }
 
-  private implicit val rootWrites = Writes[Node.Root] { n =>
-    Json.obj(
-      "ply" -> n.ply,
-      "fen" -> n.fen,
-      "check" -> n.check,
-      "shapes" -> n.shapes,
-      "comments" -> n.comments,
-      "symbols" -> n.symbols,
-      "children" -> n.children.nodes)
-  }
+  // private implicit val rootWrites = Writes[Node.Root] { n =>
+  //   Json.obj(
+  //     "ply" -> n.ply,
+  //     "fen" -> n.fen,
+  //     "check" -> n.check,
+  //     "shapes" -> n.shapes,
+  //     "comments" -> n.comments,
+  //     "symbols" -> n.symbols,
+  //     "children" -> n.children.nodes)
+  // }
 
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject].flatMap { o =>
@@ -75,7 +68,6 @@ object JsonView {
 
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
-  private[study] implicit val chapterWrites = Json.writes[Chapter]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj(
       "id" -> c._id,
@@ -97,20 +89,20 @@ object JsonView {
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
 
-  private[study] implicit lazy val nodeWrites: Writes[Node] = Writes[Node] { n =>
-    Json.obj(
-      "id" -> n.id,
-      "ply" -> n.ply,
-      "uci" -> n.move.uci,
-      "san" -> n.move.san,
-      "fen" -> fenWriter.writes(n.fen),
-      "check" -> n.check,
-      "shapes" -> n.shapes,
-      "comments" -> n.comments,
-      "symbols" -> n.symbols,
-      "by" -> n.by,
-      "children" -> n.children.nodes)
-  }
+  // private[study] implicit lazy val nodeWrites: Writes[Node] = Writes[Node] { n =>
+  //   Json.obj(
+  //     "id" -> n.id,
+  //     "ply" -> n.ply,
+  //     "uci" -> n.move.uci,
+  //     "san" -> n.move.san,
+  //     "fen" -> fenWriter.writes(n.fen),
+  //     "check" -> n.check,
+  //     "shapes" -> n.shapes,
+  //     "comments" -> n.comments,
+  //     "symbols" -> n.symbols,
+  //     "by" -> n.by,
+  //     "children" -> n.children.nodes)
+  // }
 
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj(

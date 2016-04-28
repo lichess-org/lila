@@ -5,7 +5,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 
 case class Chapter(
     _id: Chapter.ID,
@@ -29,7 +29,7 @@ case class Chapter(
   def setShapes(shapes: List[Shape], path: Path): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 
-  def setComment(comment: Node.Comment, path: Path): Option[Chapter] =
+  def setComment(comment: Comment, path: Path): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
 
   def opening: Option[FullOpening] =

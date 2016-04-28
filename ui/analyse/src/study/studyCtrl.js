@@ -4,6 +4,7 @@ var throttle = require('../util').throttle;
 var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
+var commentFormCtrl = require('./commentForm').ctrl;
 var xhr = require('./studyXhr');
 
 module.exports = {
@@ -41,6 +42,8 @@ module.exports = {
       }
       else if (!members.canContribute()) vm.behind = 0;
     };
+
+    var commentForm = commentFormCtrl(contribute, ctrl.userId);
 
     var addChapterId = function(req) {
       req.chapterId = data.position.chapterId;
@@ -94,6 +97,7 @@ module.exports = {
       data: data,
       members: members,
       chapters: chapters,
+      commentForm: commentForm,
       vm: vm,
       position: function() {
         return data.position;

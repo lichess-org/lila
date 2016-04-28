@@ -1,14 +1,14 @@
 package lila.study
 
 import chess.format.{ Uci, UciCharPair, FEN }
-import chess.{ Pos, Color, Role, PromotableRole }
 import chess.variant.Variant
+import chess.{ Pos, Color, Role, PromotableRole }
 import reactivemongo.bson._
 
+import lila.common.LightUser
 import lila.db.BSON
 import lila.db.BSON._
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.common.LightUser
 import lila.socket.tree.Node.Shape
 
 private object BSONHandlers {
@@ -65,9 +65,12 @@ private object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
-  import Node.Comment
+  import lila.socket.tree.Node.{Comment,Comments,Symbol}
   private implicit val CommentBSONHandler = Macros.handler[Comment]
-  private implicit val SymbolBSONHandler = stringAnyValHandler[Node.Symbol](_.value, Node.Symbol.apply)
+  private implicit val SymbolBSONHandler = stringAnyValHandler[Symbol](_.value, Symbol.apply)
+
+  private def readComments(r: Reader) =
+    Comments(r.getsD[Comment]("co").filter(_.text.nonEmpty))
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
@@ -77,8 +80,8 @@ private object BSONHandlers {
       fen = r.get[FEN]("f"),
       check = r boolD "c",
       shapes = r.getsD[Shape]("h"),
-      comments = Node.Comments(r.getsD[Node.Comment]("co")),
-      symbols = r.getsD[Node.Symbol]("sy"),
+      comments = readComments(r),
+      symbols = r.getsD[Symbol]("sy"),
       by = r str "b",
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
@@ -101,8 +104,8 @@ private object BSONHandlers {
       fen = r.get[FEN]("f"),
       check = r boolD "c",
       shapes = r.getsD[Shape]("h"),
-      comments = Node.Comments(r.getsD[Node.Comment]("co")),
-      symbols = r.getsD[Node.Symbol]("sy"),
+      comments = readComments(r),
+      symbols = r.getsD[Symbol]("sy"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
       "p" -> s.ply,
