@@ -62,6 +62,7 @@ module.exports = {
         orientation: d.analysis.orientation
       });
       vm.loading = false;
+      ctrl.userJump(data.position.path);
       m.redraw();
     };
 
@@ -105,14 +106,14 @@ module.exports = {
           path: path
         }));
       }),
-      deleteVariation: function(path) {
-        contribute("deleteVariation", addChapterId({
+      deleteNode: function(path) {
+        contribute("deleteNode", addChapterId({
           path: path,
           jumpTo: ctrl.vm.path
         }));
       },
-      promoteVariation: function(path) {
-        contribute("promoteVariation", addChapterId({
+      promoteNode: function(path) {
+        contribute("promoteNode", addChapterId({
           path: path
         }));
       },
@@ -174,7 +175,7 @@ module.exports = {
           if (vm.behind === false) ctrl.jump(data.position.path);
           m.redraw();
         },
-        delNode: function(d) {
+        deleteNode: function(d) {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
@@ -183,7 +184,18 @@ module.exports = {
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
           ctrl.tree.deleteNodeAt(position.path);
-          m.redraw();
+          ctrl.jump(ctrl.vm.path);
+        },
+        promoteNode: function(d) {
+          var position = d.p,
+            who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (who && who.s === sri) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
+          ctrl.tree.promoteNodeAt(position.path);
+          ctrl.jump(ctrl.vm.path);
         },
         reload: xhrReload,
         changeChapter: function() {

@@ -108,12 +108,18 @@ module.exports = function(root) {
     ops.removeChild(parent, id);
   }
 
-  function promoteVariation(path) {
-    var parent = nodeAtPath(treePath.init(path));
-    var id = treePath.last(path);
-    var child = ops.childById(parent, id);
-    ops.removeChild(parent, id);
-    parent.children.unshift(child);
+  function promoteNodeAt(path) {
+    var nodes = getNodeList(path);
+    for (var i = nodes.length - 2; i >= 0; i--) {
+      var node = nodes[i + 1];
+      var parent = nodes[i];
+      if (parent.children[0].id !== node.id) {
+        parent.children = parent.children.filter(function(c) {
+          return c.id !== node.id;
+        });
+        parent.children.unshift(node);
+      }
+    }
   }
 
   return {
@@ -140,7 +146,7 @@ module.exports = function(root) {
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
-    promoteVariation: promoteVariation,
+    promoteNodeAt: promoteNodeAt,
     plyOfNextNag: function(color, nag, mainline, fromPly) {
       var len = mainline.length;
       for (var i = 1; i < len; i++) {

@@ -62,11 +62,13 @@ object Node {
     }
 
     def promoteNodeAt(path: Path): Option[Children] = path.split match {
-      case None => none
-      case Some((head, Path(Nil))) => get(head).map { node =>
-        copy(nodes = node +: nodes.filterNot(node ==))
-      }
-      case Some((head, tail)) => updateChildren(head, _.promoteNodeAt(tail))
+      case None => this.some
+      case Some((head, tail)) =>
+        get(head).flatMap { node =>
+          node.withChildren(_.promoteNodeAt(tail)).map { promoted =>
+            copy(nodes = promoted +: nodes.filterNot(node ==))
+          }
+        }
     }
 
     def setShapesAt(shapes: List[Shape], path: Path): Option[Children] = path.split match {

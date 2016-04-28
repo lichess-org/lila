@@ -979,6 +979,36 @@ table.modAssessment td.noMatch {
   color: #fff;
 }
 
+#analyse-cm {
+  position: absolute;
+  display: none;
+  z-index: 900000;
+  cursor: default;
+  background: #f0f0f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+#analyse-cm.visible {
+  display: block;
+}
+#analyse-cm .title {
+  padding: 5px;
+  background: #777;
+  color: #fff;
+  text-align: center;
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 14px;
+}
+#analyse-cm .action {
+  display: block;
+  padding: 10px;
+}
+#analyse-cm .action::before {
+  margin-right: 10px;
+}
+#analyse-cm .action:hover {
+  background: #fff;
+}
+
 body.coords_2 .gauge_displayed square[data-coord-y]::before {
   color: #fff;
   text-shadow: 0 1px 2px #000;
