@@ -152,7 +152,7 @@ module.exports = {
       currentComments(ctrl, !commentForm),
       commentForm,
       m('div.study_buttons', [
-        m('span.sync.hint--top', {
+        m('span#study-sync.hint--top', {
           'data-hint': ctrl.study.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
         }, m('a.button', (function() {
           var attrs = {
@@ -160,7 +160,7 @@ module.exports = {
           };
           if (ctrl.study.vm.behind > 0) {
             attrs['data-count'] = ctrl.study.vm.behind;
-            attrs.class = 'data-count';
+            attrs.class = 'data-count glowed';
           }
           return attrs;
         })(), m('i', {

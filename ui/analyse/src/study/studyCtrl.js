@@ -5,6 +5,7 @@ var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
+var tour = require('./studyTour');
 var xhr = require('./studyXhr');
 
 module.exports = {
@@ -77,7 +78,10 @@ module.exports = {
 
     var activity = function(userId) {
       members.setActive(userId);
-      vm.behind !== false && vm.behind < 99 && vm.behind++;
+      if (vm.behind !== false && vm.behind < 99) {
+        vm.behind++;
+        if (vm.behind === 1) tour.offline();
+      }
     };
 
     ctrl.chessground.set({
