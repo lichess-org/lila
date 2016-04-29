@@ -67,6 +67,9 @@ module.exports = {
       return (ret !== null) ? ret : defaultValue;
     };
   },
+  plural: function(noun, nb) {
+    return nb + ' ' + (nb === 1 ? noun : noun + 's');
+  },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js
    *

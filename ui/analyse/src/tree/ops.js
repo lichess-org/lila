@@ -81,6 +81,16 @@ function removeChild(parent, id) {
   });
 }
 
+function countChildrenAndComments(node) {
+  var count = {nodes: 1, comments: (node.comments || []).length};
+  node.children.forEach(function(child) {
+    var c = countChildrenAndComments(child);
+    count.nodes += c.nodes;
+    count.comments += c.comments;
+  });
+  return count;
+}
+
 module.exports = {
   mutateAll: mutateAll,
   findInMainline: findInMainline,
@@ -95,5 +105,6 @@ module.exports = {
   last: last,
   nodeAtPly: nodeAtPly,
   takePathWhile: takePathWhile,
-  removeChild: removeChild
+  removeChild: removeChild,
+  countChildrenAndComments: countChildrenAndComments
 }

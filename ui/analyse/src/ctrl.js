@@ -307,6 +307,10 @@ module.exports = function(opts) {
   this.deleteNode = function(path) {
     var node = this.tree.nodeAtPath(path);
     if (!node) return;
+    var count = treeOps.countChildrenAndComments(node);
+    if ((count.nodes >= 10 || count.comments > 0) && !confirm(
+      'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
+    )) return;
     this.tree.deleteNodeAt(path);
     if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.vm.path);
