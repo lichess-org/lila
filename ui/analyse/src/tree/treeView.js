@@ -119,6 +119,12 @@ function truncateComment(text) {
   return text.slice(0, 125) + ' [...]';
 }
 
+function renderComment(comment, colorClass, commentClass) {
+  return m('div', {
+    class: 'comment ' + colorClass + commentClass
+  }, truncateComment(comment.text))
+}
+
 function renderMeta(ctrl, node, prev, path) {
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
@@ -127,14 +133,13 @@ function renderMeta(ctrl, node, prev, path) {
   if (opening) dom.push(opening);
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (ctrl.vm.comments && !empty(node.comments)) node.comments.forEach(function(comment) {
-    if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
-    dom.push(m('div', {
-      class: 'comment ' + colorClass + commentClass
-    }, truncateComment(comment.text)));
-  });
+  if (ctrl.vm.comments && !empty(node.comments))
+    node.comments.forEach(function(comment) {
+      if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
+      else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
+      else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
+      dom.push(renderComment(comment, colorClass, commentClass));
+    });
   if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;
     dom.push(renderVariation(
@@ -233,6 +238,12 @@ module.exports = {
 
     var tags = [],
       path = treePath.root;
+
+    var initialComments = mainline[0].comments || [];
+    if (initialComments.length) tags.push(m('div.meta',
+      initialComments.map(function(comment) {
+        return renderComment(comment, '', 'undefined');
+      })));
 
     for (var i = 0, len = turns.length; i < len; i++) {
       res = renderMainlineTurn(ctrl, turns[i], path);

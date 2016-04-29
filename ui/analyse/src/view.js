@@ -56,9 +56,6 @@ function renderAnalyse(ctrl) {
       oncontextmenu: function(e) {
         var path = treeView.eventPath(e, ctrl);
         contextMenu.open(e, {
-          submit: function(d) {
-            console.log(d);
-          },
           path: path,
           root: ctrl
         });

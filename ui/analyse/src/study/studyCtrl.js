@@ -233,7 +233,6 @@ module.exports = {
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setCommentAt(d.c, position.path);
-          console.log(ctrl.tree.root);
           m.redraw();
         }
       }

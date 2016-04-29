@@ -11,7 +11,6 @@ var replayable = require('game').game.replayable;
 function tablebaseRelevant(fen) {
   var parts = fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  console.log(pieceCount);
   return pieceCount <= 7;
 }
 

@@ -42,7 +42,7 @@ body:not(.dark) .material.form .study_tabs a {
 .material.form textarea {
   height: 120px;
   line-height: 1.4em!important;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .study_comment_form .title {
   background: #e0e0e0;
@@ -77,6 +77,10 @@ body:not(.dark) .material.form .study_tabs a {
   background: #e0e0e0;
   padding: 5px 10px;
   margin-bottom: 10px;
+}
+.study_comments .text {
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .study_comments .edit {
   float: right;

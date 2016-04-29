@@ -46,11 +46,7 @@ function ctrl(opts) {
     path: opts.path,
     node: opts.root.tree.nodeAtPath(opts.path),
     isMainline: opts.root.tree.pathIsMainline(opts.path),
-    root: opts.root,
-    submit: function(d) {
-      opts.close();
-      opts.submit(d);
-    }
+    root: opts.root
   };
 }
 

@@ -91,7 +91,7 @@ function currentComments(ctrl, includingMine) {
       ' about ',
       m('span.node', nodeFullName(node)),
       ': ',
-      comment.text
+      m('span.text', comment.text.replace(/\r\n/g, '<br>'))
     ]);
   }));
 }

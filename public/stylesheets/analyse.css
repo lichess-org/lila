@@ -564,6 +564,7 @@ body.dark .explorer_box .black {
 }
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
+  word-wrap: break-word;
 }
 .lichess_ground .replay .white {
   border-left: 3px solid;

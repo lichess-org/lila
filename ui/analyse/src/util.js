@@ -39,9 +39,10 @@ module.exports = {
   },
   plyToTurn: plyToTurn,
   nodeFullName: function(node) {
-    return plyToTurn(node.ply) + (
+    if (node.san) return plyToTurn(node.ply) + (
       node.ply % 2 === 1 ? '.' : '...'
     ) + ' ' + node.san;
+    return 'Initial position';
   },
   storedProp: function(k, defaultValue) {
     var sk = 'analyse.' + k;
