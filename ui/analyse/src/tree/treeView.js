@@ -114,6 +114,11 @@ function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
+function truncateComment(text) {
+  if (text.length <= 140) return text;
+  return text.slice(0, 125) + ' [...]';
+}
+
 function renderMeta(ctrl, node, prev, path) {
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
@@ -128,7 +133,7 @@ function renderMeta(ctrl, node, prev, path) {
     else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
     dom.push(m('div', {
       class: 'comment ' + colorClass + commentClass
-    }, comment.text));
+    }, truncateComment(comment.text)));
   });
   if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;

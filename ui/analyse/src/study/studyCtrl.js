@@ -229,6 +229,7 @@ module.exports = {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
+          if (who && who.s === sri) commentForm.dirty(false);
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setCommentAt(d.c, position.path);

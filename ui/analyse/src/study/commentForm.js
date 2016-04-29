@@ -7,9 +7,18 @@ module.exports = {
   ctrl: function(root) {
 
     var current = null; // {chapterId, path, node}
+    var dirty = m.prop(true);
 
-    var submit = throttle(500, false, function(text) {
+    var submit = function(text) {
       if (!current) return;
+      if (!dirty()) {
+        dirty(true);
+        m.redraw();
+      }
+      doSubmit(text);
+    };
+
+    var doSubmit = throttle(500, false, function(text) {
       root.study.contribute('setComment', {
         chapterId: current.chapterId,
         path: current.path,
@@ -22,7 +31,9 @@ module.exports = {
       current: function() {
         return current;
       },
+      dirty: dirty,
       open: function(chapterId, path, node) {
+        dirty(true);
         current = {
           chapterId: chapterId,
           path: path,
@@ -56,7 +67,15 @@ module.exports = {
         m('button.button', {
           class: ctrl.root.vm.path === current.path ? '' : 'active',
           onclick: partial(ctrl.root.userJump, current.path)
-        }, nodeFullName(current.node))
+        }, nodeFullName(current.node)),
+        m('span.saved', {
+          config: function(el, isUpdate, ctx) {
+            if (ctrl.dirty())
+              el.classList.remove('visible');
+            else
+              el.classList.add('visible');
+          }
+        }, 'Saved.')
       ]),
       m('form.material.form', [
         m('div.game.form-group', [

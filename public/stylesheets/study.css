@@ -47,6 +47,15 @@ body:not(.dark) .material.form .study_tabs a {
 .study_comment_form .title {
   background: #e0e0e0;
 }
+.study_comment_form .saved {
+  color: #759900;
+  margin-left: 10px;
+  opacity: 0;
+}
+.study_comment_form .saved.visible {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 .study_comment_form .close {
   float: right;
 }
@@ -57,6 +66,21 @@ body:not(.dark) .material.form .study_tabs a {
 .study_comment_form form .form-group {
   width: 100%;
   margin-bottom: 15px!important;
+}
+.study_comment_form form textarea {
+  font-size: 1.2em!important;
+}
+.study_comments {
+  text-align: left;
+}
+.study_comments .comment {
+  background: #e0e0e0;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.study_comments .user_link,
+.study_comments .node {
+  font-weight: bold;
 }
 
 .study_box .list {

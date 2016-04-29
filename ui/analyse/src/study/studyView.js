@@ -1,6 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var nodeFullName = require('../util').nodeFullName;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
@@ -62,6 +63,22 @@ function contextAction(icon, text, handler) {
   }, text);
 }
 
+function currentComments(node) {
+  var comments = node.comments || [];
+  if (!comments.length) return;
+  return m('div.study_comments', comments.map(function(comment) {
+    return m('div.comment', [
+      m('span.user_link.ulpt', {
+        'data-href': '/@/' + comment.by
+      }, comment.by),
+      ' about ',
+      m('span.node', nodeFullName(node)),
+      ': ',
+      comment.text
+    ]);
+  }));
+}
+
 module.exports = {
 
   main: function(ctrl) {
@@ -110,9 +127,9 @@ module.exports = {
     if (ctrl.vm.editing) return form(ctrl);
   },
 
-  underboard: function(ctrl) {
+  underboard: function(ctrl, node) {
     return [
-      commentFormView(ctrl.commentForm),
+      commentFormView(ctrl.commentForm) || currentComments(node),
       m('div.study_buttons', [
         m('span.sync.hint--top', {
           'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
