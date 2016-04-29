@@ -151,7 +151,7 @@ final class StudyApi(
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, c: Comment, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       (study.members get c.by) ?? { byMember =>
-        val comment = Comment(text = escapeHtml4(Comment sanitize c.text), by = byMember.user.name)
+        val comment = Comment(text = Comment sanitize c.text, by = byMember.user.name)
         chapter.setComment(comment, position.path) match {
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-

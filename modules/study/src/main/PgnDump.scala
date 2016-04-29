@@ -45,8 +45,8 @@ final class PgnDump(
       Tag(_.Event, s"${study.name} | ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
-      Tag(_.White, "?"),
-      Tag(_.Black, "?"),
+      // Tag(_.White, "?"),
+      // Tag(_.Black, "?"),
       Tag(_.Variant, chapter.setup.variant.name.capitalize),
       Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name))
