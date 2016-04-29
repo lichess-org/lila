@@ -1,9 +1,11 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var nodeFullName = require('../util').nodeFullName;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
+var commentFormView = require('./commentForm').view;
 
 function form(ctrl) {
   return m('div.lichess_overboard.study_overboard', {
@@ -35,7 +37,10 @@ function form(ctrl) {
         m('i.bar')
       ]),
       m('div.game.form-group', [
-        m('select#study-visibility', [['public', 'Public'], ['private', 'Invite only']].map(function(o) {
+        m('select#study-visibility', [
+          ['public', 'Public'],
+          ['private', 'Invite only']
+        ].map(function(o) {
           return m('option', {
             value: o[0],
             selected: ctrl.data.visibility === o[0]
@@ -49,6 +54,29 @@ function form(ctrl) {
       )
     ])
   ]);
+}
+
+function contextAction(icon, text, handler) {
+  return m('a.action', {
+    'data-icon': icon,
+    onclick: handler
+  }, text);
+}
+
+function currentComments(node) {
+  var comments = node.comments || [];
+  if (!comments.length) return;
+  return m('div.study_comments', comments.map(function(comment) {
+    return m('div.comment', [
+      m('span.user_link.ulpt', {
+        'data-href': '/@/' + comment.by
+      }, comment.by),
+      ' about ',
+      m('span.node', nodeFullName(node)),
+      ': ',
+      comment.text
+    ]);
+  }));
 }
 
 module.exports = {
@@ -86,33 +114,42 @@ module.exports = {
     ];
   },
 
-  overboard: function(ctrl) {
-    if (ctrl.chapters.form.vm.open)
-      return chapterFormView(ctrl.chapters.form);
-    if (ctrl.vm.editing)
-      return form(ctrl);
+  contextMenu: function(ctrl, path, node) {
+    return [
+      contextAction('c', 'Comment this move', function() {
+        ctrl.commentForm.open(ctrl.data.position.chapterId, path, node);
+      })
+    ];
   },
 
-  underboard: function(ctrl) {
-    return m('div.study_buttons', [
-      m('span.sync.hint--top', {
-        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-      }, m('a.button', (function() {
-        var attrs = {
-          onclick: ctrl.toggleSync
-        };
-        if (ctrl.vm.behind > 0) {
-          attrs['data-count'] = ctrl.vm.behind;
-          attrs.class = 'data-count';
-        }
-        return attrs;
-      })(), m('i', {
-        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
-      }))),
-      m('a.button.hint--top', {
-        'data-hint': 'Download as PGN',
-        href: '/study/' + ctrl.data.id + '.pgn'
-      }, m('i[data-icon=x]'))
-    ]);
+  overboard: function(ctrl) {
+    if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
+    if (ctrl.vm.editing) return form(ctrl);
+  },
+
+  underboard: function(ctrl, node) {
+    return [
+      commentFormView(ctrl.commentForm) || currentComments(node),
+      m('div.study_buttons', [
+        m('span.sync.hint--top', {
+          'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
+        }, m('a.button', (function() {
+          var attrs = {
+            onclick: ctrl.toggleSync
+          };
+          if (ctrl.vm.behind > 0) {
+            attrs['data-count'] = ctrl.vm.behind;
+            attrs.class = 'data-count';
+          }
+          return attrs;
+        })(), m('i', {
+          'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
+        }))),
+        m('a.button.hint--top', {
+          'data-hint': 'Download as PGN',
+          href: '/study/' + ctrl.data.id + '.pgn'
+        }, m('i[data-icon=x]'))
+      ])
+    ];
   }
 };

@@ -61,7 +61,8 @@ module.exports = function(opts) {
     showGauge: util.storedProp('show-gauge', true),
     autoScroll: null,
     element: opts.element,
-    redirecting: false
+    redirecting: false,
+    contextMenuPath: null
   };
 
   this.setPath = function(path) {

@@ -3,7 +3,7 @@ package lila.study
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
 
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 import lila.user.User
 
 sealed trait RootOrNode {
@@ -12,6 +12,8 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: List[Shape]
   val children: Node.Children
+  val comments: Comments
+  val symbols: List[Symbol]
   def fullMoveNumber = 1 + ply / 2
 }
 
@@ -21,7 +23,9 @@ case class Node(
     move: Uci.WithSan,
     fen: FEN,
     check: Boolean,
-    shapes: List[Shape],
+    shapes: List[Shape] = Nil,
+    comments: Comments = Comments(Nil),
+    symbols: List[Symbol] = Nil,
     by: User.ID,
     children: Node.Children) extends RootOrNode {
 
@@ -31,6 +35,8 @@ case class Node(
     f(children) map { newChildren =>
       copy(children = newChildren)
     }
+
+  def setComment(comment: Comment) = copy(comments = comments set comment)
 
   def mainLine: List[Node] = this :: children.first.??(_.mainLine)
 }
@@ -77,6 +83,12 @@ object Node {
       case Some((head, tail))      => updateChildren(head, _.setShapesAt(shapes, tail))
     }
 
+    def setCommentAt(comment: Comment, path: Path): Option[Children] = path.split match {
+      case None                    => none
+      case Some((head, Path(Nil))) => updateWith(head, _.setComment(comment).some)
+      case Some((head, tail))      => updateChildren(head, _.setCommentAt(comment, tail))
+    }
+
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
@@ -99,7 +111,9 @@ object Node {
       ply: Int,
       fen: FEN,
       check: Boolean,
-      shapes: List[Shape],
+      shapes: List[Shape] = Nil,
+      comments: Comments = Comments(Nil),
+      symbols: List[Symbol] = Nil,
       children: Children) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
@@ -116,6 +130,10 @@ object Node {
       if (path.isEmpty) copy(shapes = shapes).some
       else withChildren(_.setShapesAt(shapes, path))
 
+    def setCommentAt(comment: Comment, path: Path): Option[Root] =
+      if (path.isEmpty) copy(comments = comments set comment).some
+      else withChildren(_.setCommentAt(comment, path))
+
     def mainLine: List[Node] = children.first.??(_.mainLine)
 
     def mainLineLastNodePath = Path(mainLine.map(_.id))
@@ -127,14 +145,12 @@ object Node {
       ply = 0,
       fen = FEN(Forsyth.initial),
       check = false,
-      shapes = Nil,
       children = emptyChildren)
 
     def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
-      shapes = Nil,
       children = Children(b.children.toVector.map(fromBranchBy(userId))))
   }
 
@@ -144,7 +160,6 @@ object Node {
     move = b.move,
     fen = FEN(b.fen),
     check = b.check,
-    shapes = Nil,
     by = userId,
     children = Children(b.children.toVector.map(fromBranchBy(userId))))
 }

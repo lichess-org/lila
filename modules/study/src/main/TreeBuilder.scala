@@ -16,17 +16,19 @@ object TreeBuilder {
     fen = root.fen.value,
     check = root.check,
     shapes = root.shapes,
+    comments = root.comments,
     children = toBranches(root.children),
     opening = FullOpeningDB findByFen root.fen.value,
     crazyData = none)
 
-  private def toBranch(node: Node): tree.Branch = tree.Branch(
+  def toBranch(node: Node): tree.Branch = tree.Branch(
     id = node.id,
     ply = node.ply,
     move = node.move,
     fen = node.fen.value,
     check = node.check,
     shapes = node.shapes,
+    comments = node.comments,
     children = toBranches(node.children),
     opening = FullOpeningDB findByFen node.fen.value,
     crazyData = none)

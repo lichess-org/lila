@@ -55,7 +55,7 @@ function renderAnalyse(ctrl) {
       },
       oncontextmenu: function(e) {
         var path = treeView.eventPath(e, ctrl);
-        contextMenu(e, {
+        contextMenu.open(e, {
           submit: function(d) {
             console.log(d);
           },
@@ -242,7 +242,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', ctrl.study ? studyView.underboard(ctrl.study) : inputs(ctrl)),
+      m('div.center', ctrl.study ? studyView.underboard(ctrl.study, ctrl.vm.node) : inputs(ctrl)),
       m('div.right')
     ]),
     util.synthetic(ctrl.data) ? null : m('div.analeft', [

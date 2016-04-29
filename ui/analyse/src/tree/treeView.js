@@ -25,6 +25,7 @@ function renderMove(ctrl, node, path, isMainline) {
     'data-path': path
   };
   var classes = path === ctrl.vm.path ? ['active'] : [];
+  if (path === ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctrl.vm.initialPath) classes.push('current');
   if (classes.length) attrs.class = classes.join(' ');
   return {
@@ -62,13 +63,13 @@ function renderVariationContent(ctrl, node, path, full) {
     line = line.slice(0);
     var first = line.shift();
     turns.push({
-      turn: treeOps.plyToTurn(first.ply),
+      turn: util.plyToTurn(first.ply),
       black: first
     });
   }
   var maxPlies = Math.min(full ? 999 : 6, line.length);
   for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: treeOps.plyToTurn(line[i].ply),
+    turn: util.plyToTurn(line[i].ply),
     white: line[i],
     black: line[i + 1]
   });
@@ -113,6 +114,11 @@ function renderCommentOpening(ctrl, opening) {
   return m('div.comment.opening', opening.eco + ' ' + opening.name);
 }
 
+function truncateComment(text) {
+  if (text.length <= 140) return text;
+  return text.slice(0, 125) + ' [...]';
+}
+
 function renderMeta(ctrl, node, prev, path) {
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
@@ -122,12 +128,12 @@ function renderMeta(ctrl, node, prev, path) {
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
   if (ctrl.vm.comments && !empty(node.comments)) node.comments.forEach(function(comment) {
-    if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
-    else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
-    else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
+    if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
+    else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
+    else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
     dom.push(m('div', {
       class: 'comment ' + colorClass + commentClass
-    }, comment));
+    }, truncateComment(comment.text)));
   });
   if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;

@@ -16,13 +16,9 @@ body.dark .study_box .list div.confing,
 body.dark .study_box .list div.config,
 body.dark input,
 body.dark textarea,
-body.dark div.analysis_menu > a.active,
 body.dark div.chat_menu > a {
   background: #1a1a1a;
   color: #8a8a8a;
-}
-body.dark div.analysis_menu > a.active {
-  border-top-color: #1a1a1a;
 }
 body.dark div.chat_menu > a.active {
   border-bottom-color: #262626;
@@ -144,8 +140,6 @@ body.dark div.user_show .mod_zone .listings,
 body.dark div.user_show .mod_zone .slist,
 body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
-body.dark div.analysis_menu,
-body.dark div.analysis_menu > a,
 body.dark .lichess_ground .replay,
 body.dark .explorer_box,
 body.dark .explorer_box .config .choices span,
@@ -291,7 +285,6 @@ body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #challenge_app div.challenge,
 body.dark #challenge_app div.empty,
 body.dark #challenge_app div.initiating,
-body.dark div.analysis_menu > a,
 body.dark div.lichess_overboard,
 body.dark div.content_box,
 body.dark .content_box .pull-quote p:after,

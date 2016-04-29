@@ -156,6 +156,15 @@ private[study] final class SocketHandler(
           api.editStudy(byUserId, studyId, data)
         }
       }
+
+    case ("setComment", o) =>
+      reading[AtPosition](o) { position =>
+        (o \ "d" \ "text").asOpt[String] foreach { text =>
+          member.userId foreach { userId =>
+            api.setComment(userId, studyId, position.ref, text, uid)
+          }
+        }
+      }
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

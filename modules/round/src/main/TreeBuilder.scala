@@ -70,7 +70,9 @@ object TreeBuilder {
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
             nag = advice.map(_.nag.symbol),
-            comments = advice.map(_.makeComment(false, true)).toList)
+            comments = Node.Comments {
+              advice.map(_.makeComment(false, true)).toList.map(Node.Comment.byLichess)
+            })
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map {
               case (fromGame, _) =>
@@ -100,8 +102,7 @@ object TreeBuilder {
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
         eval = none,
-        nag = none,
-        comments = Nil)
+        nag = none)
     }
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
       case (init, games, error) =>

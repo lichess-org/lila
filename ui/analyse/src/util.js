@@ -6,6 +6,10 @@ var defined = function(v) {
   return typeof v !== UNDEF;
 };
 
+var plyToTurn = function(ply) {
+  return Math.floor((ply - 1) / 2) + 1;
+}
+
 module.exports = {
   initialFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   readDests: function(lines) {
@@ -32,6 +36,12 @@ module.exports = {
   },
   synthetic: function(data) {
     return data.game.id === 'synthetic';
+  },
+  plyToTurn: plyToTurn,
+  nodeFullName: function(node) {
+    return plyToTurn(node.ply) + (
+      node.ply % 2 === 1 ? '.' : '...'
+    ) + ' ' + node.san;
   },
   storedProp: function(k, defaultValue) {
     var sk = 'analyse.' + k;
