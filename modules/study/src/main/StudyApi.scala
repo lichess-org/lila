@@ -150,12 +150,14 @@ final class StudyApi(
 
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, c: Comment, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      val comment = Comment(text = escapeHtml4(c.text.take(2000)), by = c.by)
-      chapter.setComment(comment, position.path) match {
-        case Some(newChapter) =>
-          chapterRepo.update(newChapter) >>-
-            sendTo(study.id, Socket.SetComment(position, comment, uid))
-        case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+      (study.members get c.by) ?? { byMember =>
+        val comment = Comment(text = escapeHtml4(Comment sanitize c.text), by = byMember.user.name)
+        chapter.setComment(comment, position.path) match {
+          case Some(newChapter) =>
+            chapterRepo.update(newChapter) >>-
+              sendTo(study.id, Socket.SetComment(position, comment, uid))
+          case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+        }
       }
     }
   }

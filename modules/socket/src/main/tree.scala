@@ -93,6 +93,10 @@ object Node {
   case class Comment(text: String, by: String)
   object Comment {
     def byLichess(text: String) = Comment(text, "lichess")
+    def sanitize(text: String) = text.trim().take(2000)
+      .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+      .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+      .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
   }
   case class Comments(value: List[Comment]) extends AnyVal {
     def list = value

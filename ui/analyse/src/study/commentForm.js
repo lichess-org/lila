@@ -3,6 +3,10 @@ var partial = require('chessground').util.partial;
 var nodeFullName = require('../util').nodeFullName;
 var throttle = require('../util').throttle;
 
+function unescapeHtml(safe) {
+  return $('<div />').html(safe).text();
+}
+
 module.exports = {
   ctrl: function(root) {
 
@@ -100,9 +104,9 @@ module.exports = {
               if (isUpdate && ctx.path === current.path) return;
               ctx.path = current.path;
               var mine = (current.node.comments || []).find(function(c) {
-                return c.by === ctrl.root.userId;
+                return c.by.toLowerCase() === ctrl.root.userId;
               });
-              el.value = mine ? mine.text : '';
+              el.value = mine ? unescapeHtml(mine.text) : '';
               el.focus();
             },
             onkeyup: function(e) {

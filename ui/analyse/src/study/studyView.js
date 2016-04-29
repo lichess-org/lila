@@ -70,7 +70,7 @@ function currentComments(ctrl, includingMine) {
   var comments = node.comments || [];
   if (!comments.length) return;
   return m('div.study_comments', comments.map(function(comment) {
-    var isMine = ctrl.userId === comment.by;
+    var isMine = ctrl.userId === comment.by.toLowerCase();
     if (!includingMine && isMine) return;
     var canDelete = isMine || ctrl.study.members.isOwner();
     return m('div.comment', [
@@ -170,8 +170,9 @@ module.exports = {
           'data-hint': 'Download as PGN',
           href: '/study/' + ctrl.study.data.id + '.pgn'
         }, m('i[data-icon=x]')),
-        m('a.button.hint--top', {
+        m('button.button.hint--top', {
           'data-hint': 'Comment this position',
+          disabled: ctrl.study.vm.behind !== false,
           onclick: function() {
             ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
           }

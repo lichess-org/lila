@@ -54,7 +54,7 @@ private[analyse] final class Annotator(netDomain: String) {
         turn.update(advice.color, move =>
           move.copy(
             nag = advice.nag.code.some,
-            comment = advice.makeComment(true, true).some,
+            comments = List(advice.makeComment(true, true)),
             variations = makeVariation(turn, advice) :: Nil
           )
         )

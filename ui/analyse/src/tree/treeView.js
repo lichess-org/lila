@@ -122,7 +122,7 @@ function truncateComment(text) {
 function renderComment(comment, colorClass, commentClass) {
   return m('div', {
     class: 'comment ' + colorClass + commentClass
-  }, truncateComment(comment.text))
+  }, m.trust(truncateComment(comment.text)))
 }
 
 function renderMeta(ctrl, node, prev, path) {
