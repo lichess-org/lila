@@ -96,6 +96,54 @@ function currentComments(ctrl, includingMine) {
   }));
 }
 
+function buttons(ctrl) {
+  var path = ctrl.vm.path;
+  var node = ctrl.vm.node;
+  return m('div.study_buttons', [
+    m('div.member_buttons', [
+      m('span#study-sync.hint--top', {
+        'data-hint': ctrl.study.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
+      }, m('a.button', (function() {
+        var attrs = {
+          onclick: ctrl.study.toggleSync
+        };
+        if (ctrl.study.vm.behind > 0) {
+          attrs['data-count'] = ctrl.study.vm.behind;
+          attrs.class = 'data-count glowed';
+        }
+        return attrs;
+      })(), m('i', {
+        'data-icon': ctrl.study.vm.behind !== false ? 'G' : 'Z'
+      }))),
+      m('a.button.hint--top', {
+        'data-hint': 'Download as PGN',
+        href: '/study/' + ctrl.study.data.id + '.pgn'
+      }, m('i[data-icon=x]')),
+      m('button.button.hint--top', {
+        'data-hint': 'Comment this position',
+        disabled: ctrl.study.vm.behind !== false,
+        onclick: function() {
+          ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
+        }
+      }, m('i[data-icon=c]'))
+    ]),
+    ctrl.study.members.isOwner() ? m('div.owner_buttons', [
+      m('button.button.hint--top', {
+        'data-hint': 'Invite someone',
+        onclick: function() {
+
+        }
+      }, m('i[data-icon=r]')),
+      m('button.button.hint--top', {
+        'data-hint': 'Add a chapter',
+        onclick: function() {
+
+        }
+      }, m('i[data-icon=O]'))
+    ]) : null
+  ]);
+}
+
 module.exports = {
 
   main: function(ctrl) {
@@ -145,39 +193,11 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
-    var path = ctrl.vm.path;
-    var node = ctrl.vm.node;
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [
       currentComments(ctrl, !commentForm),
       commentForm,
-      m('div.study_buttons', [
-        m('span#study-sync.hint--top', {
-          'data-hint': ctrl.study.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-        }, m('a.button', (function() {
-          var attrs = {
-            onclick: ctrl.study.toggleSync
-          };
-          if (ctrl.study.vm.behind > 0) {
-            attrs['data-count'] = ctrl.study.vm.behind;
-            attrs.class = 'data-count glowed';
-          }
-          return attrs;
-        })(), m('i', {
-          'data-icon': ctrl.study.vm.behind !== false ? 'G' : 'Z'
-        }))),
-        m('a.button.hint--top', {
-          'data-hint': 'Download as PGN',
-          href: '/study/' + ctrl.study.data.id + '.pgn'
-        }, m('i[data-icon=x]')),
-        m('button.button.hint--top', {
-          'data-hint': 'Comment this position',
-          disabled: ctrl.study.vm.behind !== false,
-          onclick: function() {
-            ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
-          }
-        }, m('i[data-icon=c]'))
-      ])
+      buttons(ctrl)
     ];
   }
 };

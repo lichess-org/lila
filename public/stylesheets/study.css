@@ -229,12 +229,18 @@ body:not(.dark) .material.form .study_tabs a {
 }
 .study_buttons {
   display: flex;
+  justify-content: space-between;
+}
+.study_buttons > div {
   justify-content: flex-start;
 }
 .study_buttons .button {
   display: inline-block;
   margin-right: 10px;
 }
-.study_buttons .sync .data-count {
+.study_buttons .button:hover {
+  color: #3893E8;
+}
+.study_buttons #study-sync .data-count {
   right: 8px;
 }
