@@ -26,25 +26,41 @@ module.exports = {
       });
     });
 
+    var open = function(chapterId, path, node) {
+      dirty(true);
+      current = {
+        chapterId: chapterId,
+        path: path,
+        node: node
+      };
+      root.userJump(path);
+    };
+
+    var close = function() {
+      current = null;
+    };
+
     return {
       root: root,
       current: function() {
         return current;
       },
       dirty: dirty,
-      open: function(chapterId, path, node) {
-        dirty(true);
-        current = {
+      open: open,
+      close: close,
+      toggle: function(chapterId, path, node) {
+        if (current) close();
+        else open(chapterId, path, node);
+      },
+      submit: submit,
+      delete: function(chapterId, path, userId) {
+        root.study.contribute('setComment', {
           chapterId: chapterId,
           path: path,
-          node: node
-        };
-        root.userJump(path);
-      },
-      close: function() {
-        current = null;
-      },
-      submit: submit
+          text: '',
+          by: userId
+        });
+      }
     }
   },
   view: function(ctrl) {

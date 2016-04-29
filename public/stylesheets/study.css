@@ -78,6 +78,18 @@ body:not(.dark) .material.form .study_tabs a {
   padding: 5px 10px;
   margin-bottom: 10px;
 }
+.study_comments .edit {
+  float: right;
+  margin-left: 8px;
+  opacity: 0;
+  transition: 0.13s;
+}
+.study_comments .comment:hover .edit {
+  opacity: 0.7;
+}
+.study_comments .comment .edit:hover {
+  opacity: 1;
+}
 .study_comments .user_link,
 .study_comments .node {
   font-weight: bold;

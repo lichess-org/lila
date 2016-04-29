@@ -242,7 +242,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', ctrl.study ? studyView.underboard(ctrl.study, ctrl.vm.node) : inputs(ctrl)),
+      m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right')
     ]),
     util.synthetic(ctrl.data) ? null : m('div.analeft', [

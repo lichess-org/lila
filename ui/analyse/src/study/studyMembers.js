@@ -102,10 +102,9 @@ module.exports = {
         class: classSet({
           contrib: contrib,
           active: ctrl.members.isActive(member.user.id),
-          status: true,
-          'hint--top': true
+          status: true
         }),
-        'data-hint': contrib ? 'Contributor' : 'Viewer',
+        title: contrib ? 'Contributor' : 'Viewer',
       }, m('i', {
         'data-icon': contrib ? '' : 'v'
       }));

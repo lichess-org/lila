@@ -12,7 +12,7 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Comment }
 import lila.socket.{ Handler, AnaMove, AnaDests }
 import lila.user.User
 import makeTimeout.short
@@ -159,11 +159,12 @@ private[study] final class SocketHandler(
 
     case ("setComment", o) =>
       reading[AtPosition](o) { position =>
-        (o \ "d" \ "text").asOpt[String] foreach { text =>
-          member.userId foreach { userId =>
-            api.setComment(userId, studyId, position.ref, text, uid)
-          }
-        }
+        for {
+          userId <- member.userId
+          text <- (o \ "d" \ "text").asOpt[String]
+          by = (o \ "d" \ "by").asOpt[String] ifTrue owner
+          comment = Comment(text = text, by = by | userId)
+        } api.setComment(userId, studyId, position.ref, comment, uid)
       }
   }
 
