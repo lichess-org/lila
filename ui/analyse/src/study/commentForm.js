@@ -98,7 +98,7 @@ module.exports = {
         }, 'Saved.')
       ]),
       m('form.material.form', [
-        m('div.game.form-group', [
+        m('div.form-group', [
           m('textarea#comment-text', {
             config: function(el, isUpdate, ctx) {
               if (isUpdate && ctx.path === current.path) return;
@@ -108,6 +108,14 @@ module.exports = {
               });
               el.value = mine ? unescapeHtml(mine.text) : '';
               el.focus();
+              if (!ctx.trap) {
+                ctx.trap = Mousetrap(el);
+                ctx.trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
+                ctx.trap.stopCallback = function() {
+                  return false;
+                };
+                ctx.onunload = ctx.trap.reset;
+              }
             },
             onkeyup: function(e) {
               ctrl.submit(e.target.value);
