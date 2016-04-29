@@ -102,7 +102,7 @@ object Auth extends LilaController {
           err => forms.anyCaptcha map { captcha =>
             BadRequest(html.auth.signup(err, captcha, env.RecaptchaPublicKey))
           },
-          data => env.recaptcha.verify(data.recaptchaResponse, req).flatMap {
+          data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
             case false => forms.signup.websiteWithCaptcha map {
               case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
             }

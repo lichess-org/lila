@@ -47,7 +47,7 @@ final class DataForm(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> acceptableUniqueEmail(none),
-      "g-recaptcha-response" -> nonEmptyText,
+      "g-recaptcha-response" -> optional(nonEmptyText),
       "gameId" -> nonEmptyText,
       "move" -> nonEmptyText
     )(SignupData.apply)(_ => None)
@@ -104,7 +104,7 @@ object DataForm {
       username: String,
       password: String,
       email: String,
-      `g-recaptcha-response`: String,
+      `g-recaptcha-response`: Option[String],
       gameId: String,
       move: String) {
     def recaptchaResponse = `g-recaptcha-response`
