@@ -1,5 +1,6 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
+var inviteFormCtrl = require('./inviteForm').ctrl;
 
 function memberActivity(onIdle) {
   var timeout;
@@ -32,9 +33,12 @@ module.exports = {
       return myId ? members[myId] : null;
     };
 
+    var inviteForm = inviteFormCtrl(send);
+
     return {
       vm: vm,
       myId: myId,
+      inviteForm: inviteForm,
       set: function(ms) {
         members = ms;
       },
@@ -66,9 +70,6 @@ module.exports = {
           vm.confing = null;
           m.redraw();
         }, 400);
-      },
-      invite: function(username) {
-        send("invite", username);
       },
       kick: function(id) {
         send("kick", id);
@@ -121,24 +122,6 @@ module.exports = {
       }));
     };
 
-    var invite = function() {
-      return m('div.invite', m('div', m('input', {
-        class: 'list_input',
-        config: function(el, isUpdate) {
-          if (isUpdate) return;
-          lichess.userAutocomplete($(el), {
-            onSelect: function(v) {
-              ctrl.members.invite(v);
-              $(el).typeahead('close');
-              el.value = '';
-              m.redraw();
-            }
-          });
-        },
-        placeholder: 'Invite someone'
-      })));
-    };
-
     var memberConfig = function(member) {
       return m('div.config', [
         (function(id) {
@@ -171,37 +154,34 @@ module.exports = {
       ]);
     };
 
-    return [
-      m('div', {
-        class: 'list members' + (ownage ? ' ownage' : ''),
-        config: function() {
-          $('body').trigger('lichess.content_loaded');
-        }
-      }, [
-        ctrl.members.ordered().map(function(member) {
-          var confing = ctrl.members.vm.confing === member.user.id;
-          var attrs = {
-            class: classSet({
-              elem: true,
-              member: true,
-              confing: confing
-            })
-          };
-          return [
-            m('div', attrs, [
-              m('div.left', [
-                statusIcon(member),
-                username(member)
-              ]),
-              m('div.right', [
-                configButton(member, confing)
-              ])
+    return m('div', {
+      class: 'list members' + (ownage ? ' ownage' : ''),
+      config: function() {
+        $('body').trigger('lichess.content_loaded');
+      }
+    }, [
+      ctrl.members.ordered().map(function(member) {
+        var confing = ctrl.members.vm.confing === member.user.id;
+        var attrs = {
+          class: classSet({
+            elem: true,
+            member: true,
+            confing: confing
+          })
+        };
+        return [
+          m('div', attrs, [
+            m('div.left', [
+              statusIcon(member),
+              username(member)
             ]),
-            confing ? memberConfig(member) : null
-          ];
-        })
-      ]),
-      ownage ? invite() : null
-    ];
+            m('div.right', [
+              configButton(member, confing)
+            ])
+          ]),
+          confing ? memberConfig(member) : null
+        ];
+      })
+    ]);
   }
 };

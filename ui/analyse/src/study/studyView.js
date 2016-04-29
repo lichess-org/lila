@@ -6,6 +6,7 @@ var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
+var inviteFormView = require('./inviteForm').view;
 
 function form(ctrl) {
   return m('div.lichess_overboard.study_overboard', {
@@ -130,9 +131,7 @@ function buttons(ctrl) {
     ctrl.study.members.isOwner() ? m('div.owner_buttons', [
       m('button.button.hint--top', {
         'data-hint': 'Invite someone',
-        onclick: function() {
-
-        }
+        onclick: partial(ctrl.study.members.inviteForm.open, true)
       }, m('i[data-icon=r]')),
       m('button.button.hint--top', {
         'data-hint': 'Add a chapter',
@@ -189,6 +188,7 @@ module.exports = {
 
   overboard: function(ctrl) {
     if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
+    if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
     if (ctrl.vm.editing) return form(ctrl);
   },
 
