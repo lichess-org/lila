@@ -54,6 +54,7 @@ object JsonView {
       "games" -> o.nb,
       "rating" -> o.glicko.rating.toInt,
       "rd" -> o.glicko.deviation.toInt,
+      "prov" -> o.glicko.provisional,
       "prog" -> o.progress)
   }
 
