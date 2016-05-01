@@ -180,12 +180,15 @@ body:not(.dark) .material.form .study_tabs a {
   opacity: 1;
   color: #fff;
 }
-.study_box .list_input {
+.study_invite input {
   width: 214px;
   border: none;
-  border-top: 1px solid #ccc;
+  border: 1px solid #ccc;
   background: #fff;
   padding: 3px 5px;
+}
+.study_invite .tt-menu {
+  text-align: left;
 }
 .study_box .list div.confing,
 .study_box .list div.config {
@@ -241,6 +244,6 @@ body:not(.dark) .material.form .study_tabs a {
 .study_buttons .button:hover {
   color: #3893E8;
 }
-.study_buttons #study-sync .data-count {
+.study_buttons #study-sync .data-count::after {
   right: 8px;
 }

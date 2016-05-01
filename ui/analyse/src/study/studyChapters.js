@@ -12,7 +12,7 @@ function onEnter(action) {
 }
 
 module.exports = {
-  ctrl: function(chapters, send) {
+  ctrl: function(chapters, send, setTab) {
 
     var vm = {
       confing: null // which chapter is being configured by us
@@ -20,7 +20,7 @@ module.exports = {
 
     var form = chapterForm.ctrl(send, function() {
       return chapters;
-    });
+    }, setTab);
 
     return {
       vm: vm,
@@ -82,20 +82,6 @@ module.exports = {
         ]);
       };
 
-      var create = function() {
-        return m('div.create', [
-          m('input', {
-            class: 'list_input',
-            config: onEnter(function(name, el) {
-              ctrl.chapters.form.open(name);
-              el.value = '';
-              m.redraw();
-            }),
-            placeholder: 'Add a new chapter'
-          })
-        ]);
-      };
-
       return [
         m('div', {
           class: 'list chapters' + (ownage ? ' ownage' : ''),
@@ -134,8 +120,7 @@ module.exports = {
               confing ? chapterConfig(chapter) : null
             ];
           })
-        ]),
-        ownage ? create() : null
+        ])
       ];
     }
   }

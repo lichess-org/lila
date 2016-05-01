@@ -18,30 +18,27 @@ function memberActivity(onIdle) {
 };
 
 module.exports = {
-  ctrl: function(members, myId, ownerId, send) {
+  ctrl: function(initMap, myId, ownerId, send, setTab) {
 
-    var vm = {
-      confing: null // which user is being configured by us
-    };
+    var map = m.prop(initMap);
+    var confing = m.prop(); // which user is being configured by us
     var active = {}; // recently active contributors
 
     var owner = function() {
-      return members[ownerId];
+      return map()[ownerId];
     };
 
     var myMember = function() {
-      return myId ? members[myId] : null;
+      return myId ? map()[myId] : null;
     };
 
-    var inviteForm = inviteFormCtrl(send);
+    var inviteForm = inviteFormCtrl(send, map, setTab);
 
     return {
-      vm: vm,
+      map: map,
+      confing: confing,
       myId: myId,
       inviteForm: inviteForm,
-      set: function(ms) {
-        members = ms;
-      },
       setActive: function(id) {
         if (active[id]) active[id].renew();
         else active[id] = memberActivity(function() {
@@ -67,17 +64,17 @@ module.exports = {
           role: role
         });
         setTimeout(function() {
-          vm.confing = null;
+          confing(null);
           m.redraw();
         }, 400);
       },
       kick: function(id) {
         send("kick", id);
-        vm.confing = null;
+        confing(null);
       },
       ordered: function() {
-        return Object.keys(members).map(function(id) {
-          return members[id];
+        return Object.keys(map()).map(function(id) {
+          return map()[id];
         }).sort(function(a, b) {
           if (a.role === 'r' && b.role === 'w') return 1;
           if (a.role === 'w' && b.role === 'r') return -1;
@@ -114,8 +111,8 @@ module.exports = {
     var configButton = function(member, confing) {
       if (!ownage || member.user.id === ctrl.members.myId) return null;
       return m('span.action.config', {
-        onclick: function(e) {
-          ctrl.members.vm.confing = confing ? null : member.user.id;
+        onclick: function() {
+          ctrl.members.confing(confing ? null : member.user.id);
         }
       }, m('i', {
         'data-icon': '%'
@@ -161,7 +158,7 @@ module.exports = {
       }
     }, [
       ctrl.members.ordered().map(function(member) {
-        var confing = ctrl.members.vm.confing === member.user.id;
+        var confing = ctrl.members.confing() === member.user.id;
         var attrs = {
           class: classSet({
             elem: true,

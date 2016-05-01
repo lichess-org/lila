@@ -104,14 +104,17 @@ function buttons(ctrl) {
     m('div.member_buttons', [
       m('span#study-sync.hint--top', {
         'data-hint': ctrl.study.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-      }, m('a.button', (function() {
+      }, m('a', (function() {
         var attrs = {
           onclick: ctrl.study.toggleSync
         };
+        var classes = ['button'];
         if (ctrl.study.vm.behind > 0) {
           attrs['data-count'] = ctrl.study.vm.behind;
-          attrs.class = 'data-count glowed';
+          classes.push('data-count');
         }
+        if (ctrl.study.vm.behind !== false) classes.push('glowed');
+        attrs.class = classes.join(' ');
         return attrs;
       })(), m('i', {
         'data-icon': ctrl.study.vm.behind !== false ? 'G' : 'Z'
@@ -121,6 +124,7 @@ function buttons(ctrl) {
         href: '/study/' + ctrl.study.data.id + '.pgn'
       }, m('i[data-icon=x]')),
       m('button.button.hint--top', {
+        class: ctrl.study.commentForm.current() ? 'active' : '',
         'data-hint': 'Comment this position',
         disabled: ctrl.study.vm.behind !== false,
         onclick: function() {
@@ -130,14 +134,14 @@ function buttons(ctrl) {
     ]),
     ctrl.study.members.isOwner() ? m('div.owner_buttons', [
       m('button.button.hint--top', {
+        class: ctrl.study.members.inviteForm.open() ? 'active' : '',
         'data-hint': 'Invite someone',
-        onclick: partial(ctrl.study.members.inviteForm.open, true)
+        onclick: ctrl.study.members.inviteForm.toggle
       }, m('i[data-icon=r]')),
       m('button.button.hint--top', {
+        class: ctrl.study.chapters.form.vm.open ? 'active' : '',
         'data-hint': 'Add a chapter',
-        onclick: function() {
-
-        }
+        onclick: ctrl.study.chapters.form.toggle
       }, m('i[data-icon=O]'))
     ]) : null
   ]);

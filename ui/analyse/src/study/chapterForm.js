@@ -4,12 +4,11 @@ var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 
 module.exports = {
-  ctrl: function(send, getChapters) {
+  ctrl: function(send, getChapters, setTab) {
 
     var vm = {
       variants: [],
       open: false,
-      name: null,
       tab: storedProp('study.form.tab', 'blank'),
     };
 
@@ -19,24 +18,27 @@ module.exports = {
         m.redraw();
       });
     };
-    loadVariants();
 
+    var open = function() {
+      vm.open = true;
+      loadVariants();
+    };
     var close = function() {
       vm.open = false;
-      vm.name = null;
     };
 
     return {
       vm: vm,
-      open: function(name) {
-        vm.open = true;
-        vm.name = name;
-        loadVariants();
-      },
+      open: open,
       close: close,
+      toggle: function() {
+        if (vm.open) close();
+        else open();
+      },
       submit: function(data) {
         send("addChapter", data)
         close();
+        setTab();
       },
       getChapters: getChapters
     }
@@ -49,9 +51,6 @@ module.exports = {
         class: key + (activeTab === key ? ' active' : ''),
         onclick: partial(ctrl.vm.tab, key),
       }, name);
-    };
-    var autofocus = function(el, isUpdate) {
-      if (!isUpdate) el.focus();
     };
     var fieldValue = function(e, id) {
       var el = e.target.querySelector('#chapter-' + id);
@@ -83,7 +82,10 @@ module.exports = {
       }, [
         m('div.game.form-group', [
           m('input#chapter-name', {
-            value: ctrl.vm.name || 'Chapter ' + ctrl.getChapters().length
+            value: 'Chapter ' + (ctrl.getChapters().length + 1),
+            config: function(el, isUpdate) {
+              if (!isUpdate) el.focus();
+            }
           }),
           m('label.control-label[for=chapter-name]', 'Name'),
           m('i.bar')
@@ -96,24 +98,21 @@ module.exports = {
         ]),
         activeTab === 'game' ? m('div.game.form-group', [
           m('input#chapter-game', {
-            placeholder: 'Game ID or URL',
-            config: autofocus
+            placeholder: 'Game ID or URL'
           }),
           m('label.control-label[for=chapter-game]', 'From played or imported game'),
           m('i.bar')
         ]) : null,
         activeTab === 'fen' ? m('div.game.form-group', [
           m('input#chapter-fen', {
-            placeholder: 'Initial position',
-            config: autofocus
+            placeholder: 'Initial position'
           }),
           m('label.control-label[for=chapter-fen]', 'From FEN position'),
           m('i.bar')
         ]) : null,
         activeTab === 'pgn' ? m('div.game.form-group', [
           m('textarea#chapter-pgn', {
-            placeholder: 'PGN tags and moves',
-            config: autofocus
+            placeholder: 'PGN tags and moves'
           }),
           m('label.control-label[for=chapter-pgn]', 'From PGN game'),
           m('i.bar')
@@ -121,9 +120,9 @@ module.exports = {
         m('div', [
           m('div.game.form-group.half', [
             m('select#chapter-variant', {
-              disabled: activeTab === 'game'
-            }, activeTab === 'game' ? [
-              m('option', 'Game variant')
+                disabled: activeTab === 'game'
+              }, activeTab === 'game' ? [
+                m('option', 'Game variant')
               ] :
               ctrl.vm.variants.map(function(v) {
                 return m('option', {

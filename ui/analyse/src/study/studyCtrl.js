@@ -15,9 +15,6 @@ module.exports = {
 
     var send = ctrl.socket.send;
 
-    var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send);
-    var chapters = chapterCtrl(data.chapters, send);
-
     var sri = lichess.StrongSocket.sri;
 
     var vm = {
@@ -27,6 +24,9 @@ module.exports = {
       chapterId: null, // only useful when not synchronized
       editing: false
     };
+
+    var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
+    var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'));
 
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;
@@ -40,8 +40,7 @@ module.exports = {
       if (contributing()) {
         send(t, d);
         return true;
-      }
-      else if (!members.canContribute()) vm.behind = 0;
+      } else if (!members.canContribute()) vm.behind = 0;
     };
 
     var commentForm = commentFormCtrl(ctrl);
@@ -238,7 +237,10 @@ module.exports = {
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setCommentAt(d.c, position.path);
           m.redraw();
-        }
+        },
+        following_onlines: members.inviteForm.setCandidates,
+        following_leaves: members.inviteForm.delCandidate,
+        following_enters: members.inviteForm.addCandidate
       }
     };
   }
