@@ -19,6 +19,7 @@ randomColor=tesadüfü secilmis reng
 createAGame=Oyun yarat
 whiteIsVictorious=Ağlar qalib gəlir
 blackIsVictorious=Qaralar qalib gəlir
+raceFinished=Yarış bitdi
 newOpponent=Yeni(digər) rəqib
 yourOpponentWantsToPlayANewGameWithYou=Rəqibiniz sizinlə yenidən oynamaq istəyir
 joinTheGame=Oyuna başla
