@@ -58,7 +58,7 @@ final class JsonView(
     "schedule" -> tour.schedule.map(scheduleJson),
     "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
     "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
-    "startsAt" -> tour.isCreated.option(ISODateTimeFormat.dateTime.print(tour.startsAt)),
+    "startsAt" -> ISODateTimeFormat.dateTime.print(tour.startsAt),
     "pairings" -> data.pairings,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
