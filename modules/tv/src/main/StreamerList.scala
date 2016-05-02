@@ -48,7 +48,7 @@ final class StreamerList(
   } match {
     case Failure(e: Exception) => (Nil, List(e))
     case Failure(e)            => throw e
-    case Success(v)            => v
+    case Success((x, y))       => (x.reverse, y.reverse)
   }
 
   def form = {
