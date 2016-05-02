@@ -14,16 +14,14 @@ function onEnter(action) {
 module.exports = {
   ctrl: function(chapters, send, setTab) {
 
-    var vm = {
-      confing: null // which chapter is being configured by us
-    };
+    var confing = m.prop(null); // which chapter is being configured by us
 
     var form = chapterForm.ctrl(send, function() {
       return chapters;
     }, setTab);
 
     return {
-      vm: vm,
+      confing: confing,
       form: form,
       list: function() {
         return chapters;
@@ -41,11 +39,11 @@ module.exports = {
           id: id,
           name: name
         });
-        vm.confing = null;
+        confing(null);
       },
       delete: function(id) {
         send("deleteChapter", id);
-        vm.confing = null;
+        confing(null);
       }
     };
   },
@@ -57,7 +55,7 @@ module.exports = {
       var configButton = function(chapter, confing) {
         if (ownage) return m('span.action.config', {
           onclick: function(e) {
-            ctrl.chapters.vm.confing = confing ? null : chapter.id;
+            ctrl.chapters.confing(confing ? null : chapter.id);
             e.stopPropagation();
           }
         }, m('i', {
@@ -86,13 +84,14 @@ module.exports = {
         m('div', {
           class: 'list chapters' + (ownage ? ' ownage' : ''),
           config: function(el, isUpdate, ctx) {
-            if (!isUpdate || !ctx.count || ctx.count !== ctrl.chapters.list().length)
+            var newCount = ctrl.chapters.list().length;
+            if (!isUpdate || !ctx.count || ctx.count !== newCount)
               $(el).scrollTo($(el).find('.active'), 200);
-            ctx.count = ctrl.chapters.list().length;
+            ctx.count = newCount;
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
-            var confing = ctrl.chapters.vm.confing === chapter.id;
+            var confing = ctrl.chapters.confing() === chapter.id;
             var active = ctrl.currentChapter().id === chapter.id;
             var attrs = {
               class: classSet({

@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var inviteFormCtrl = require('./inviteForm').ctrl;
+var partial = require('chessground').util.partial;
 
 function memberActivity(onIdle) {
   var timeout;
@@ -9,38 +10,33 @@ function memberActivity(onIdle) {
     timeout = setTimeout(onIdle, 100);
   };
   schedule();
-
-  return {
-    renew: function() {
-      schedule();
-    }
-  };
+  return schedule;
 };
 
 module.exports = {
-  ctrl: function(initMap, myId, ownerId, send, setTab) {
+  ctrl: function(initDict, myId, ownerId, send, setTab) {
 
-    var map = m.prop(initMap);
-    var confing = m.prop(); // which user is being configured by us
+    var dict = m.prop(initDict);
+    var confing = m.prop(null); // which user is being configured by us
     var active = {}; // recently active contributors
 
     var owner = function() {
-      return map()[ownerId];
+      return dict()[ownerId];
     };
 
     var myMember = function() {
-      return myId ? map()[myId] : null;
+      return myId ? dict()[myId] : null;
     };
 
-    var inviteForm = inviteFormCtrl(send, map, setTab);
+    var inviteForm = inviteFormCtrl(send, dict, setTab);
 
     return {
-      map: map,
+      dict: dict,
       confing: confing,
       myId: myId,
       inviteForm: inviteForm,
       setActive: function(id) {
-        if (active[id]) active[id].renew();
+        if (active[id]) active[id]();
         else active[id] = memberActivity(function() {
           delete(active[id]);
           m.redraw();
@@ -73,8 +69,8 @@ module.exports = {
         confing(null);
       },
       ordered: function() {
-        return Object.keys(map()).map(function(id) {
-          return map()[id];
+        return Object.keys(dict()).map(function(id) {
+          return dict()[id];
         }).sort(function(a, b) {
           if (a.role === 'r' && b.role === 'w') return 1;
           if (a.role === 'w' && b.role === 'r') return -1;
@@ -120,7 +116,11 @@ module.exports = {
     };
 
     var memberConfig = function(member) {
-      return m('div.config', [
+      return m('div.config', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) $(el).parent('.members').scrollTo(el, 200);
+        }
+      }, [
         (function(id) {
           return m('div.role', [
             m('div.switch', [
@@ -143,10 +143,7 @@ module.exports = {
           ]);
         })('member-role'),
         m('div.kick', m('a.button.text[data-icon=L]', {
-          onclick: function() {
-            if (confirm('Kick ' + member.user.name + ' out of the study?'))
-              ctrl.members.kick(member.user.id);
-          }
+          onclick: partial(ctrl.members.kick, member.user.id)
         }, 'Kick from this study'))
       ]);
     };
@@ -172,9 +169,7 @@ module.exports = {
               statusIcon(member),
               username(member)
             ]),
-            m('div.right', [
-              configButton(member, confing)
-            ])
+            m('div.right', configButton(member, confing))
           ]),
           confing ? memberConfig(member) : null
         ];

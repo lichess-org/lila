@@ -39,17 +39,6 @@ object JsonView {
     JsString(v.key)
   }
 
-  // private implicit val rootWrites = Writes[Node.Root] { n =>
-  //   Json.obj(
-  //     "ply" -> n.ply,
-  //     "fen" -> n.fen,
-  //     "check" -> n.check,
-  //     "shapes" -> n.shapes,
-  //     "comments" -> n.comments,
-  //     "symbols" -> n.symbols,
-  //     "children" -> n.children.nodes)
-  // }
-
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject].flatMap { o =>
       for {
@@ -89,21 +78,6 @@ object JsonView {
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
 
-  // private[study] implicit lazy val nodeWrites: Writes[Node] = Writes[Node] { n =>
-  //   Json.obj(
-  //     "id" -> n.id,
-  //     "ply" -> n.ply,
-  //     "uci" -> n.move.uci,
-  //     "san" -> n.move.san,
-  //     "fen" -> fenWriter.writes(n.fen),
-  //     "check" -> n.check,
-  //     "shapes" -> n.shapes,
-  //     "comments" -> n.comments,
-  //     "symbols" -> n.symbols,
-  //     "by" -> n.by,
-  //     "children" -> n.children.nodes)
-  // }
-
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj(
       "id" -> u.id,
@@ -117,7 +91,8 @@ object JsonView {
   private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
     Json.obj(
       "user" -> m.user,
-      "role" -> m.role)
+      "role" -> m.role,
+      "addedAt" -> m.addedAt)
   }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>

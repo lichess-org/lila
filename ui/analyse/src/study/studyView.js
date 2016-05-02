@@ -51,7 +51,7 @@ function form(ctrl) {
         m('i.bar')
       ]),
       m('div.button-container',
-        m('button.submit.button.text[type=submit][data-icon=E]', 'Update study')
+        m('button.submit.button.text[type=submit][data-icon=E]', 'Save')
       )
     ])
   ]);

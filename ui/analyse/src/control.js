@@ -1,5 +1,4 @@
 var treePath = require('./tree/path');
-var empty = require('./util').empty;
 
 function canEnterVariation(ctrl) {
   return ctrl.vm.node.children.length > 1;

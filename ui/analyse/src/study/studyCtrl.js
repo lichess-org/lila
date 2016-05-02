@@ -211,7 +211,7 @@ module.exports = {
           if (vm.behind === false) xhrReload();
         },
         members: function(d) {
-          members.set(d);
+          members.dict(d);
           m.redraw();
         },
         chapters: function(d) {

@@ -180,6 +180,25 @@ body:not(.dark) .material.form .study_tabs a {
   opacity: 1;
   color: #fff;
 }
+.study_invite .users {
+  max-height: 200px;
+  overflow-y: auto;
+  border: solid #ccc;
+  border-width: 1px 0;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.study_invite .users .button {
+  flex: 0 0 48%;
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
 .study_invite input {
   width: 214px;
   border: none;

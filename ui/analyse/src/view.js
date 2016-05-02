@@ -75,6 +75,7 @@ function renderAnalyse(ctrl) {
 }
 
 function wheel(ctrl, e) {
+  if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE') return;
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
