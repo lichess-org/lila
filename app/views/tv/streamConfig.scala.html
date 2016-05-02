@@ -1,24 +1,36 @@
-@(form: Form[_])(implicit ctx: Context)
+@(streamers: List[lila.tv.StreamerList.Streamer], form: Form[_])(implicit ctx: Context)
 
 @mod.layout(
 title = "Stream config",
-active = "stream") {
-<div class="content_box">
+active = "stream",
+moreCss = cssTag("mod-streamers.css")) {
+<div class="content_box stream_config">
   <h1 data-icon="&#xe003;" class="text lichess_title">Stream config</h1>
-  <style type="text/css">
-    textarea.stream_text {
-      width: 100%;
-      height: 500px;
-      font-family: monospace;
-      margin-bottom: 2em;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-  </style>
-  <form action="@routes.Tv.streamConfigSave" method="POST">
-    <textarea class="stream_text" name="text">@form("text").value</textarea>
-    @errMsg(form("text"))
-    <button type="submit" class="button text" data-icon="E">Save</button>
-  </form>
+  <div class="both">
+    <form action="@routes.Tv.streamConfigSave" method="POST">
+      <textarea class="stream_text" name="text">@form("text").value</textarea>
+      @errMsg(form("text"))
+      <button type="submit" class="button text" data-icon="E">Save</button>
+    </form>
+    <div class="list">
+      <table class="slist">
+        <tbody>
+          @streamers.map { s =>
+          <tr>
+            <td>@userIdLink(s.lichessName.some, withOnline = false)</td>
+            <td>@s.showStreamerName<br />@s.service</td>
+            <td>
+              @if(s.featured) {
+              <i data-icon="E" class="is-green"></i>
+              } else {
+              <i data-icon="L" class="is-red"></i>
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 }
