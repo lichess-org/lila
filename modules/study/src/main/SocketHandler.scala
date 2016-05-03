@@ -110,7 +110,7 @@ private[study] final class SocketHandler(
     case ("invite", o) if owner => for {
       byUserId <- member.userId
       username <- o str "d"
-    } api.invite(byUserId, studyId, username)
+    } api.invite(byUserId, studyId, username, socket)
 
     case ("kick", o) if owner => for {
       byUserId <- member.userId

@@ -16,6 +16,7 @@ final class StudyApi(
     chapterRepo: ChapterRepo,
     sequencers: ActorRef,
     chapterMaker: ChapterMaker,
+    notifier: StudyNotifier,
     chat: ActorSelection,
     socketHub: akka.actor.ActorRef) {
 
@@ -117,11 +118,12 @@ final class StudyApi(
     }
   }
 
-  def invite(byUserId: User.ID, studyId: Study.ID, username: String) = sequenceStudy(studyId) { study =>
+  def invite(byUserId: User.ID, studyId: Study.ID, username: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
-          studyRepo.addMember(study, StudyMember.make(study, user))
+          studyRepo.addMember(study, StudyMember.make(study, user)) >>-
+            notifier(study, user, socket)
         }
       } >>- reloadMembers(study)
     }

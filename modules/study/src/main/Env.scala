@@ -61,6 +61,9 @@ final class Env(
     chapterMaker = new ChapterMaker(
       importer = importer,
       domain = NetDomain),
+    notifier = new StudyNotifier(
+      messageActor = hub.actor.messenger,
+      netBaseUrl = NetBaseUrl),
     chat = hub.actor.chat,
     socketHub = socketHub)
 

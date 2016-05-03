@@ -69,7 +69,10 @@ final class Api(
     name = lt.subject,
     text = lt.message,
     creatorId = lt.from,
-    invitedId = lt.to), fromMod = false) >> unreadCache.clear(lt.to)
+    invitedId = lt.to), fromMod = false) >> {
+      if (lt.notification) updateUser(lt.to)
+      else unreadCache.clear(lt.to)
+  }
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Funit =
     if (fromMod) coll.insert(thread).void
@@ -105,7 +108,7 @@ final class Api(
 
   val unreadIds = unreadCache apply _
 
-  def updateUser(user: lila.user.User) {
+  def updateUser(user: User) {
     if (!user.kid) (unreadCache refresh user.id) mapTo manifest[List[String]] foreach { ids =>
       bus.publish(SendTo(user.id, "nbm", ids.size), 'users)
     }

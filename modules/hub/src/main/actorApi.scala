@@ -38,6 +38,7 @@ case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
 case class SocketUids(uids: Set[String])
+case class HasUserId(userId: String)
 
 package report {
 case class Cheater(userId: String, text: String)
@@ -136,7 +137,12 @@ case class Select(msg: JsObject)
 }
 
 package message {
-case class LichessThread(from: String, to: String, subject: String, message: String)
+case class LichessThread(
+  from: String,
+  to: String,
+  subject: String,
+  message: String,
+  notification: Boolean = false)
 }
 
 package router {

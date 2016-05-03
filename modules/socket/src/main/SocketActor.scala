@@ -10,7 +10,7 @@ import play.twirl.api.Html
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.{ Deploy, GetUids, SocketUids }
+import lila.hub.actorApi.{ Deploy, GetUids, SocketUids, HasUserId }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -46,18 +46,20 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)   => ping(uid)
+    case Ping(uid)         => ping(uid)
 
-    case Broom       => broom
+    case Broom             => broom
 
     // when a member quits
-    case Quit(uid)   => quit(uid)
+    case Quit(uid)         => quit(uid)
 
-    case GetUids     => sender ! SocketUids(members.keySet.toSet)
+    case GetUids           => sender ! SocketUids(members.keySet.toSet)
 
-    case Resync(uid) => resync(uid)
+    case HasUserId(userId) => sender ! members.values.exists(_.userId.contains(userId))
 
-    case d: Deploy   => onDeploy(d)
+    case Resync(uid)       => resync(uid)
+
+    case d: Deploy         => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
