@@ -4,7 +4,7 @@ var objectValues = require('../util').objectValues;
 
 module.exports = {
   ctrl: function(send, members, setTab) {
-    var open = m.prop(true);
+    var open = m.prop(false);
     var candidates = m.prop([]);
     var invite = function(username) {
       send("invite", username);
@@ -20,7 +20,6 @@ module.exports = {
       members: members,
       setCandidates: function(usernames) {
         updateCandidates(function(prevs) {
-          return ['veloce', 'lukhas', 'Kingscrusher-Youtube', 'GnarlyGoat', 'Toadofsky', 'Clarkey', 'Unihedron', 'erikelrojo', 'bosspotato'];
           return usernames;
         });
       },
@@ -43,20 +42,20 @@ module.exports = {
     };
   },
   view: function(ctrl) {
-    var memberIds = Object.keys(ctrl.members());
+    var candidates = ctrl.candidates().filter(function(u) {
+      return !ctrl.members().hasOwnProperty(u.toLowerCase());
+    });
     return m('div.lichess_overboard.study_overboard.study_invite', [
       m('a.close.icon[data-icon=L]', {
         onclick: partial(ctrl.open, false)
       }),
       m('h2', 'Invite to the study'),
-      m('div.users', ctrl.candidates().filter(function(u) {
-        return memberIds.indexOf(u.toLowerCase()) === -1;
-      }).map(function(username) {
+      candidates.length ? m('div.users', candidates.map(function(username) {
         return m('span.user_link.button', {
           'data-href': '/@/' + username,
           onclick: partial(ctrl.invite, username)
         }, username);
-      })),
+      })) : null,
       m('input', {
         config: function(el, isUpdate) {
           if (isUpdate) return;

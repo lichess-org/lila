@@ -4,7 +4,7 @@ var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 
 module.exports = {
-  ctrl: function(send, getChapters, setTab) {
+  ctrl: function(send, chapters, setTab) {
 
     var vm = {
       variants: [],
@@ -40,7 +40,7 @@ module.exports = {
         close();
         setTab();
       },
-      getChapters: getChapters
+      chapters: chapters
     }
   },
   view: function(ctrl) {
@@ -82,7 +82,7 @@ module.exports = {
       }, [
         m('div.game.form-group', [
           m('input#chapter-name', {
-            value: 'Chapter ' + (ctrl.getChapters().length + 1),
+            value: 'Chapter ' + (ctrl.chapters().length + 1),
             config: function(el, isUpdate) {
               if (!isUpdate) el.focus();
             }

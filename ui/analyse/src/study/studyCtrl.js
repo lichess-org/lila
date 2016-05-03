@@ -59,8 +59,8 @@ module.exports = {
       data.position = s.position;
       data.name = s.name;
       data.visibility = s.visibility;
-      members.set(s.members);
-      chapters.set(s.chapters);
+      members.dict(s.members);
+      chapters.list(s.chapters);
       ctrl.reloadData(d.analysis);
       ctrl.chessground.set({
         orientation: d.analysis.orientation
@@ -211,11 +211,11 @@ module.exports = {
           if (vm.behind === false) xhrReload();
         },
         members: function(d) {
-          members.dict(d);
+          members.update(d);
           m.redraw();
         },
         chapters: function(d) {
-          chapters.set(d);
+          chapters.list(d);
           m.redraw();
         },
         shapes: function(d) {

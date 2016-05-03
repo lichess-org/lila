@@ -100,6 +100,7 @@ function currentComments(ctrl, includingMine) {
 function buttons(ctrl) {
   var path = ctrl.vm.path;
   var node = ctrl.vm.node;
+  var canContribute = ctrl.study.members.canContribute();
   return m('div.study_buttons', [
     m('div.member_buttons', [
       m('span#study-sync.hint--top', {
@@ -123,14 +124,14 @@ function buttons(ctrl) {
         'data-hint': 'Download as PGN',
         href: '/study/' + ctrl.study.data.id + '.pgn'
       }, m('i[data-icon=x]')),
-      m('button.button.hint--top', {
+      canContribute ? m('button.button.hint--top', {
         class: ctrl.study.commentForm.current() ? 'active' : '',
         'data-hint': 'Comment this position',
         disabled: ctrl.study.vm.behind !== false,
         onclick: function() {
           ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
         }
-      }, m('i[data-icon=c]'))
+      }, m('i[data-icon=c]')) : null
     ]),
     ctrl.study.members.isOwner() ? m('div.owner_buttons', [
       m('button.button.hint--top', {

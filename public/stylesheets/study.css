@@ -185,7 +185,7 @@ body:not(.dark) .material.form .study_tabs a {
   overflow-y: auto;
   border: solid #ccc;
   border-width: 1px 0;
-  padding: 12px 20px;
+  padding: 12px 20px 2px 20px;
   margin-bottom: 20px;
   display: flex;
   flex-flow: row wrap;

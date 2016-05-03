@@ -12,25 +12,19 @@ function onEnter(action) {
 }
 
 module.exports = {
-  ctrl: function(chapters, send, setTab) {
+  ctrl: function(initChapters, send, setTab) {
 
     var confing = m.prop(null); // which chapter is being configured by us
+    var list = m.prop(initChapters);
 
-    var form = chapterForm.ctrl(send, function() {
-      return chapters;
-    }, setTab);
+    var form = chapterForm.ctrl(send, list, setTab);
 
     return {
       confing: confing,
       form: form,
-      list: function() {
-        return chapters;
-      },
-      set: function(cs) {
-        chapters = cs;
-      },
+      list: list,
       get: function(id) {
-        return chapters.find(function(c) {
+        return list().find(function(c) {
           return c.id === id;
         });
       },

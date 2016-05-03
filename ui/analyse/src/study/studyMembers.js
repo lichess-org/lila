@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var inviteFormCtrl = require('./inviteForm').ctrl;
+var tours = require('./studyTour');
 var partial = require('chessground').util.partial;
 
 function memberActivity(onIdle) {
@@ -28,6 +29,10 @@ module.exports = {
       return myId ? dict()[myId] : null;
     };
 
+    var canContribute = function() {
+      return myMember() && myMember().role === 'w';
+    };
+
     var inviteForm = inviteFormCtrl(send, dict, setTab);
 
     return {
@@ -35,6 +40,13 @@ module.exports = {
       confing: confing,
       myId: myId,
       inviteForm: inviteForm,
+      update: function(members) {
+        var wasViewer = myMember() && !canContribute();
+        var wasContrib = myMember() && canContribute();
+        dict(members);
+        if (wasViewer && canContribute()) tours.becomeContributor();
+        else if (wasContrib && !canContribute()) tours.becomeViewer();
+      },
       setActive: function(id) {
         if (active[id]) active[id]();
         else active[id] = memberActivity(function() {
@@ -51,18 +63,13 @@ module.exports = {
       isOwner: function() {
         return myId === ownerId;
       },
-      canContribute: function() {
-        return myMember() && myMember().role === 'w';
-      },
+      canContribute: canContribute,
       setRole: function(id, role) {
         send("setRole", {
           userId: id,
           role: role
         });
-        setTimeout(function() {
-          confing(null);
-          m.redraw();
-        }, 400);
+        confing(null);
       },
       kick: function(id) {
         send("kick", id);
