@@ -13,7 +13,6 @@ function form(ctrl) {
     onClose: function() {
       ctrl.vm.editing = null;
     },
-    button: ctrl.data.isNew ? 'Start' : 'Save',
     content: [
       m('h2', 'Edit study'),
       m('form.material.form', {
@@ -45,7 +44,8 @@ function form(ctrl) {
           })),
           m('label.control-label[for=study-visibility]', 'Visibility'),
           m('i.bar')
-        ])
+        ]),
+        dialog.button(ctrl.data.isNew ? 'Start' : 'Save')
       ])
     ]
   });

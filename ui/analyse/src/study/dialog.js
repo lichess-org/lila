@@ -11,10 +11,12 @@ module.exports = {
       m('a.close.icon[data-icon=L]', {
         onclick: cfg.onClose
       }),
-      cfg.content,
-      cfg.button ? m('div.button-container',
-        m('button.submit.button[type=submit]', cfg.button)
-      ) : null
+      cfg.content
     ]);
+  },
+  button: function(name) {
+    return m('div.button-container',
+      m('button.submit.button[type=submit]', name)
+    );
   }
 };

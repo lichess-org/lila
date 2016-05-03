@@ -17,12 +17,14 @@ module.exports = {
 
     var sri = lichess.StrongSocket.sri;
 
+    console.log(data, data.isNew);
+
     var vm = {
       loading: false,
       tab: storedProp('study.tab', 'members'),
       behind: false, // false if syncing, else incremental number of missed event
       chapterId: null, // only useful when not synchronized
-      editing: false
+      editing: data.isNew
     };
 
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));

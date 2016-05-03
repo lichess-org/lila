@@ -60,7 +60,6 @@ module.exports = {
 
     return dialog.form({
       onClose: ctrl.close,
-      button: 'Create chapter',
       content: [
         m('h2', 'New chapter'),
         m('form.material.form', {
@@ -138,7 +137,8 @@ module.exports = {
               m('label.control-label[for=chapter-orientation]', 'Orientation'),
               m('i.bar')
             ])
-          ])
+          ]),
+          dialog.button('Create chapter')
         ])
       ]
     });

@@ -3,6 +3,7 @@ package lila.study
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.Pos
 import play.api.libs.json._
+import org.joda.time.DateTime
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
@@ -72,7 +73,9 @@ object JsonView {
       "position" -> s.position,
       "ownerId" -> s.ownerId,
       "visibility" -> s.visibility,
-      "createdAt" -> s.createdAt)
+      "createdAt" -> s.createdAt,
+      "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
+    ).noNull
   }
   private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
 
