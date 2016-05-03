@@ -1,60 +1,54 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var classSet = require('chessground').util.classSet;
 var nodeFullName = require('../util').nodeFullName;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
 var inviteFormView = require('./inviteForm').view;
+var dialog = require('./dialog');
 
 function form(ctrl) {
-  return m('div.lichess_overboard.study_overboard', {
-    config: function(el, isUpdate) {
-      if (!isUpdate) lichess.loadCss('/assets/stylesheets/material.form.css');
-    }
-  }, [
-    m('a.close.icon[data-icon=L]', {
-      onclick: function() {
-        ctrl.vm.editing = null;
-      }
-    }),
-    m('h2', 'Edit study'),
-    m('form.material.form', {
-      onsubmit: function(e) {
-        ctrl.update({
-          name: e.target.querySelector('#study-name').value,
-          visibility: e.target.querySelector('#study-visibility').value
-        });
-        e.stopPropagation();
-        return false;
-      }
-    }, [
-      m('div.game.form-group', [
-        m('input#study-name', {
-          value: ctrl.data.name
-        }),
-        m('label.control-label[for=study-name]', 'Name'),
-        m('i.bar')
-      ]),
-      m('div.game.form-group', [
-        m('select#study-visibility', [
-          ['public', 'Public'],
-          ['private', 'Invite only']
-        ].map(function(o) {
-          return m('option', {
-            value: o[0],
-            selected: ctrl.data.visibility === o[0]
-          }, o[1]);
-        })),
-        m('label.control-label[for=study-visibility]', 'Visibility'),
-        m('i.bar')
-      ]),
-      m('div.button-container',
-        m('button.submit.button.text[type=submit][data-icon=E]', 'Save')
-      )
-    ])
-  ]);
+  return dialog.form({
+    onClose: function() {
+      ctrl.vm.editing = null;
+    },
+    button: ctrl.data.isNew ? 'Start' : 'Save',
+    content: [
+      m('h2', 'Edit study'),
+      m('form.material.form', {
+        onsubmit: function(e) {
+          ctrl.update({
+            name: e.target.querySelector('#study-name').value,
+            visibility: e.target.querySelector('#study-visibility').value
+          });
+          e.stopPropagation();
+          return false;
+        }
+      }, [
+        m('div.game.form-group', [
+          m('input#study-name', {
+            value: ctrl.data.name
+          }),
+          m('label.control-label[for=study-name]', 'Name'),
+          m('i.bar')
+        ]),
+        m('div.game.form-group', [
+          m('select#study-visibility', [
+            ['public', 'Public'],
+            ['private', 'Invite only']
+          ].map(function(o) {
+            return m('option', {
+              value: o[0],
+              selected: ctrl.data.visibility === o[0]
+            }, o[1]);
+          })),
+          m('label.control-label[for=study-visibility]', 'Visibility'),
+          m('i.bar')
+        ])
+      ])
+    ]
+  });
 }
 
 function contextAction(icon, text, handler) {

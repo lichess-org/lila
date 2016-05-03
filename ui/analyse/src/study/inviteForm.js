@@ -1,6 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var objectValues = require('../util').objectValues;
+var dialog = require('./dialog');
 
 module.exports = {
   ctrl: function(send, members, setTab) {
@@ -45,31 +46,32 @@ module.exports = {
     var candidates = ctrl.candidates().filter(function(u) {
       return !ctrl.members().hasOwnProperty(u.toLowerCase());
     });
-    return m('div.lichess_overboard.study_overboard.study_invite', [
-      m('a.close.icon[data-icon=L]', {
-        onclick: partial(ctrl.open, false)
-      }),
-      m('h2', 'Invite to the study'),
-      candidates.length ? m('div.users', candidates.map(function(username) {
-        return m('span.user_link.button', {
-          'data-href': '/@/' + username,
-          onclick: partial(ctrl.invite, username)
-        }, username);
-      })) : null,
-      m('input', {
-        config: function(el, isUpdate) {
-          if (isUpdate) return;
-          lichess.userAutocomplete($(el), {
-            onSelect: function(v) {
-              ctrl.invite(v);
-              $(el).typeahead('close');
-              el.value = '';
-              m.redraw();
-            }
-          });
-        },
-        placeholder: 'Search by username'
-      })
-    ]);
+    return dialog.form({
+      class: 'study_invite',
+      onClose: partial(ctrl.open, false),
+      content: [
+        m('h2', 'Invite to the study'),
+        candidates.length ? m('div.users', candidates.map(function(username) {
+          return m('span.user_link.button', {
+            'data-href': '/@/' + username,
+            onclick: partial(ctrl.invite, username)
+          }, username);
+        })) : null,
+        m('input', {
+          config: function(el, isUpdate) {
+            if (isUpdate) return;
+            lichess.userAutocomplete($(el), {
+              onSelect: function(v) {
+                ctrl.invite(v);
+                $(el).typeahead('close');
+                el.value = '';
+                m.redraw();
+              }
+            });
+          },
+          placeholder: 'Search by username'
+        })
+      ]
+    });
   }
 };
