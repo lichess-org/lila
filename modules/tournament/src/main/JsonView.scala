@@ -46,6 +46,11 @@ final class JsonView(
     "greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
       Json.obj("name" -> tour.name, "url" -> url)
     },
+    "perf" -> tour.perfType.map { pt =>
+      Json.obj(
+        "icon" -> pt.iconChar.toString,
+        "name" -> pt.name)
+    },
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
     "clock" -> clockJson(tour.clock),
