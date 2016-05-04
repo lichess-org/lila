@@ -49,7 +49,7 @@ function playerTr(ctrl, player) {
       m('td', {
         class: 'sheet'
       }, player.sheet.scores.map(scoreTag)),
-      ctrl.data.startsAt ? null : m('td.total', m('strong',
+      m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
           'data-icon': 'Q'
