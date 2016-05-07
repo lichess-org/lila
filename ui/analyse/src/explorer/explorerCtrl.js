@@ -11,46 +11,12 @@ var replayable = require('game').game.replayable;
 function tablebaseRelevant(fen) {
   var parts = fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  return pieceCount <= 7;
-}
-
-function tablebasePrepare(moves, fen) {
-  var fenParts = fen.split(/\s/);
-  var stm = fenParts[1];
-  var halfMoves = parseInt(fenParts[4], 10);
-
-  var result = [];
-
-  for (uci in moves) {
-    if (moves.hasOwnProperty(uci)) {
-      var move = moves[uci];
-      if (move.dtz === null) continue;
-
-      move.uci = uci;
-
-      if ((move.dtz < 0 && stm === 'w') || (move.dtz > 0 && stm === 'b')) {
-        move.winner = 'white';
-      } else if ((move.dtz < 0 && stm === 'b') || (move.dtz > 0 && stm === 'w')) {
-        move.winner = 'black';
-      }
-
-      if (move.wdl == -2 && move.dtz - halfMoves <= -100) move.realWdl = -1
-      else if (move.wdl == 2 && move.dtz + halfMoves >= 100) move.realWdl = 1
-      else move.realWdl = move.wdl;
-
-      result.push(move);
-    }
-  }
-
-  result.sort(function (a, b) {
-    if (a.dtm !== null && b.dtm !== null && a.dtm !== b.dtm) return b.dtm - a.dtm;
-    return b.dtz - a.dtz;
-  });
-
-  return result;
+  var castling = parts[2];
+  return pieceCount <= 6 && castling === '-';
 }
 
 module.exports = function(root, opts) {
+
   var enabled = storedProp('explorer.enabled', false);
   var loading = m.prop(true);
   var failing = m.prop(false);
@@ -63,43 +29,46 @@ module.exports = function(root, opts) {
     setNode();
   }
   var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
+  var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
-  var fetch = throttle(500, false, function() {
-    var fen = root.vm.node.fen;
-    var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
-    if (effectiveVariant === 'standard' && tablebaseRelevant(fen)) {
-      tablebaseXhr(fen).then(function(res) {
-        cache[fen] = {
-          tablebase: true,
-          fen: fen,
-          moves: tablebasePrepare(res.moves, fen)
-        };
-        loading(false);
-        failing(false);
-        m.redraw();
-      }, function (err) {
-        loading(false);
-        failing(true);
-        m.redraw();
-      });
-    } else {
-      openingXhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
-        res.opening = true;
-        cache[fen] = res;
-        loading(false);
-        failing(false);
-        m.redraw();
-      }, function(err) {
-        loading(false);
-        failing(true);
-        m.redraw();
-      });
-    }
+  var handleFetchError = function(err) {
+    loading(false);
+    failing(true);
+    m.redraw();
+  };
+
+  var fetchOpening = throttle(2000, false, function(fen) {
+    openingXhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
+      res.opening = true;
+      res.fen = fen;
+      cache[fen] = res;
+      loading(false);
+      failing(false);
+      m.redraw();
+    }, handleFetchError);
   });
 
+  var fetchTablebase = throttle(500, false, function(fen) {
+    tablebaseXhr(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
+      res.tablebase = true;
+      res.fen = fen;
+      cache[fen] = res;
+      loading(false);
+      failing(false);
+      m.redraw();
+    }, handleFetchError);
+  });
+
+  var fetch = function(fen) {
+    var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960';
+    if (hasTablebase && withGames && tablebaseRelevant(fen)) fetchTablebase(fen);
+    else fetchOpening(fen);
+  };
+
   var empty = {
+    opening: true,
     moves: {}
   };
 
@@ -110,7 +79,10 @@ module.exports = function(root, opts) {
     if (!cache[node.fen]) {
       loading(true);
       fetch(node.fen);
-    } else loading(false);
+    } else {
+      loading(false);
+      failing(false);
+    }
   }
 
   return {

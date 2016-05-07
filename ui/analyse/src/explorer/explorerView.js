@@ -117,6 +117,7 @@ function showGameTable(ctrl, type, games) {
 }
 
 function showTablebase(ctrl, title, moves, fen) {
+  var stm = fen.split(/\s/)[1];
   if (!moves.length) return null;
   return [
     m('div.title', title),
@@ -127,30 +128,36 @@ function showTablebase(ctrl, title, moves, fen) {
           'data-uci': move.uci
         }, [
           m('td', move.san),
-          m('td', [showDtm(move), showDtz(move)])
+          m('td', [showDtz(stm, move), showDtm(stm, move)])
         ]);
       }))
     ])
   ];
 }
 
-function showDtm(move) {
-  var dtm = move.dtm;
-  if (!dtm) return null;
-  var text = 'DTM ' + Math.abs(dtm);
-  var title = 'Depth to mate: ' + Math.abs(dtm) + ' half moves';
-  if (move.winner == 'white') return m('result.white', {title: title}, text);
-  if (move.winner == 'black') return m('result.black', {title: title}, text);
+function winner(stm, move) {
+  if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
+    return 'white';
+  else if ((stm[0] == 'b' && move.wdl < 0) || (stm[0] == 'w' && move.wdl > 0))
+    return 'black';
 }
 
-function showDtz(move) {
-  var dtz = move.dtz;
-  if (dtz === null) return null;
-  var text = 'DTZ ' + Math.abs(dtz);
-  var title = 'Distance to Zeroing (capture / pawn move): ' + Math.abs(dtz);
-  if (move.winner == 'white') return m('result.white', {title: title}, text);
-  if (move.winner == 'black') return m('result.black', {title: title}, text);
-  return m('result.draws', '½-½');
+function showDtm(stm, move) {
+  if (move.dtm) return m('result.' + winner(stm, move), {
+    title: 'Depth to mate: ' + Math.abs(move.dtm) + ' half moves'
+  }, 'DTM ' + Math.abs(move.dtm));
+}
+
+function showDtz(stm, move) {
+  if (move.checkmate) return m('result.' + winner(stm, move), 'Checkmate');
+  if (move.stalemate) return m('result.draws', 'Stalemate');
+  if (move.insufficient_material) return m('result.draws', 'Insufficient material');
+  if (move.dtz === null) return null;
+  if (move.dtz === 0) return m('result.draws', 'Draw');
+  if (move.zeroing) return m('result.' + winner(stm, move), 'Zeroing');
+  return m('result.' + winner(stm, move), {
+    title: 'Distance to Zeroing (capture / pawn move): ' + Math.abs(move.dtz)
+  }, 'DTZ ' + Math.abs(move.dtz));
 }
 
 function showEmpty(ctrl) {
@@ -171,6 +178,19 @@ function showEmpty(ctrl) {
   ]);
 }
 
+function showGameEnd(ctrl, title) {
+  return m('div.data.empty', [
+    m('div.title', "Game over"),
+    m('div.message', [
+      m('i[data-icon=]'),
+      m('h3', title),
+      m('button.button.text[data-icon=L]', {
+        onclick: ctrl.explorer.toggle
+      }, 'Close')
+    ])
+  ]);
+}
+
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data && data.opening) {
@@ -183,12 +203,14 @@ function show(ctrl) {
   } else if (data && data.tablebase) {
     var moves = data.moves;
     if (moves.length) lastShow = m('div.data', [
-      showTablebase(ctrl, 'Winning', moves.filter(function(move) { return move.realWdl === -2; }), data.fen),
-      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) { return move.realWdl === -1; }), data.fen),
-      showTablebase(ctrl, 'Drawn', moves.filter(function(move) { return move.realWdl === 0; }), data.fen),
-      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) { return move.realWdl === 1; }), data.fen),
-      showTablebase(ctrl, 'Losing', moves.filter(function(move) { return move.realWdl === 2; }), data.fen)
+      showTablebase(ctrl, 'Winning', moves.filter(function(move) { return move.real_wdl === -2; }), data.fen),
+      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) { return move.real_wdl === -1; }), data.fen),
+      showTablebase(ctrl, 'Drawn', moves.filter(function(move) { return move.real_wdl === 0; }), data.fen),
+      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) { return move.real_wdl === 1; }), data.fen),
+      showTablebase(ctrl, 'Losing', moves.filter(function(move) { return move.real_wdl === 2; }), data.fen)
     ])
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
+    else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
     else lastShow = showEmpty(ctrl);
   }
   return lastShow;
