@@ -9,11 +9,10 @@ module.exports = {
     var step = ctrl.vm.step;
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var oKeys = Object.keys(pocket)
-    var crowded = oKeys.length > 4;
+    var oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen']
     var usable = color === ctrl.chessground.data.movable.color;
     return m('div', {
-        class: 'pocket is2d ' + position + (usable ? ' usable' : '') + (crowded ? ' crowded' : ''),
+        class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl, color);
@@ -31,7 +30,7 @@ module.exports = {
         return m('piece', {
           'data-role': role,
           'data-color': color,
-          'data-nb': pocket[role],
+          'data-nb': (pocket[role] !== undefined) ? pocket[role] : 0,
           class: role + ' ' + color
         });
       })

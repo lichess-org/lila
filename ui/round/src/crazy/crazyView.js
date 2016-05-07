@@ -11,12 +11,11 @@ module.exports = {
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var oKeys = Object.keys(pocket);
-    var crowded = oKeys.length > 4;
+    var oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen']
     var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');
     var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
     return m('div', {
-        class: 'pocket is2d ' + position + (usable ? ' usable' : '') + (crowded ? ' crowded' : ''),
+        class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
           if (ctx.flip === ctrl.vm.flip || !usablePos) return;
           ctx.flip = ctrl.vm.flip;
@@ -35,7 +34,7 @@ module.exports = {
         return m('piece', {
           'data-role': role,
           'data-color': color,
-          'data-nb': pocket[role],
+          'data-nb': (pocket[role] !== undefined) ? pocket[role] : 0,
           class: role + ' ' + color
         });
       })
