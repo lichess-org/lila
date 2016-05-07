@@ -612,7 +612,7 @@ div.table {
 }
 .pocket piece[data-nb='0'] {
   cursor: auto;
-  opacity: 0.3;
+  opacity: 0.15;
 }
 .pocket piece::after {
   content: attr(data-nb);
