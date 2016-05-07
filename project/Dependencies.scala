@@ -51,7 +51,7 @@ object Dependencies {
     val util = "io.spray" %% "spray-util" % version
   }
   object akka {
-    val version = "2.4.2"
+    val version = "2.4.4"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
