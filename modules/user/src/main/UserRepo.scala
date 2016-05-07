@@ -106,10 +106,13 @@ object UserRepo {
             doc.getAs[String]("_id") contains u1
           }
         }.addEffect { v =>
-          coll.uncheckedUpdate($id(u1), $inc(F.colorIt -> v.fold(1, -1)))
-          coll.uncheckedUpdate($id(u2), $inc(F.colorIt -> v.fold(-1, 1)))
+          incColor(u1, v.fold(1, -1))
+          incColor(u2, v.fold(-1, 1))
         }
     }
+
+  def incColor(userId: User.ID, value: Int): Unit =
+    coll.uncheckedUpdate($id(userId), $inc(F.colorIt -> value))
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)

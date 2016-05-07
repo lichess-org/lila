@@ -67,8 +67,7 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.AbortedBy(pov) if pov.game.isCorrespondence =>
-        abortListener recreateSeek pov
+      case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
     }
   })), 'abortGame)
 }
