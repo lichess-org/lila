@@ -171,10 +171,11 @@ module.exports = function(cfg, router, i18n) {
 
   this.jump = function(to) {
     var prevStep = this.data.replay.step;
+    var state = this.data.replay.history[to];
+    if (!state) return;
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
     if (prevStep + 1 === to) {
       // step forward, call moveSound
-      var state = this.data.replay.history[to];
       moveSound(state.move[0], state.move[1], state.capture);
     } else if (prevStep - 1 === to) {
       // step backward, just play move sound

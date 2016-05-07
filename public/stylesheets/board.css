@@ -594,17 +594,14 @@ div.table {
   margin-top: 10px;
 }
 .pocket piece {
-  display:inline-block;
-  width: 56px!important;
+  display: inline-block;
+  width: 48.5px!important;
   height: 56px!important;
+  background-position: center;
   position: relative;
 }
 .pocket piece:first-child {
   border-radius: 3px 0 0 3px;
-}
-.pocket.crowded piece {
-  width: 48.5px!important;
-  background-position: center;
 }
 .pocket.usable piece {
   cursor: pointer;
@@ -612,6 +609,10 @@ div.table {
 }
 .pocket.usable piece:hover {
   background-color: #999;
+}
+.pocket piece[data-nb='0'] {
+  cursor: auto;
+  opacity: 0.3;
 }
 .pocket piece::after {
   content: attr(data-nb);
@@ -623,6 +624,9 @@ div.table {
   font-weight: bold;
   border-radius: 2px;
   font-size: 18px;
+}
+.pocket piece[data-nb='0']::after {
+  content: none;
 }
 div.table.spectator {
   top: 160px;

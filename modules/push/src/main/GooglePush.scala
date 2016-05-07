@@ -24,7 +24,13 @@ private final class GooglePush(
               "title" -> data.title,
               "body" -> data.body
             ),
-            "data" -> data.payload
+            "data" -> data.payload.++(Json.obj(
+              // https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md#sound
+              "soundname" -> "default",
+              // https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md#led-in-notifications
+              "ledColor" -> List(0, 56, 147, 232), // startup blue
+              "vibrationPattern" -> List(1000, 1000) // wait 1s, vibrate 1s only once
+              ))
           )).flatMap {
             case res if res.status == 200 => funit
             case res                      => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")

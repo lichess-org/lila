@@ -6,8 +6,8 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="anand"
-  REMOTE_DIR="/home/lichess"
+  REMOTE="benko"
+  REMOTE_DIR="/home/lichess-deploy"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"

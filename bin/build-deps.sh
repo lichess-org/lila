@@ -12,6 +12,7 @@ cd ..
 
 git clone https://github.com/ornicar/ReactiveMongo --branch lichess
 cd ReactiveMongo
+git checkout b3e895f1c723d7cb518763f31fba62dc74311eab
 sbt publish-local
 cd ..
 

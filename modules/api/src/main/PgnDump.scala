@@ -20,20 +20,19 @@ final class PgnDump(
 
   def filename(game: Game) = dumper filename game
 
-  def exportUserGames(userId: String): Enumerator[String] = PgnStream {
-    GameRepo.sortedCursor(Query user userId, Query.sortCreated)
-  }
-
-  def exportGamesFromIds(ids: List[String]): Enumerator[String] = PgnStream {
-    GameRepo.sortedCursor($inIds(ids), Query.sortCreated)
-  }
-
-  private def PgnStream(cursor: reactivemongo.api.Cursor[Game]): Enumerator[String] = {
-    val toPgn = Enumeratee.mapM[Game].apply[String] { game =>
+  private val toPgn =
+    Enumeratee.mapM[Game].apply[String] { game =>
       GameRepo initialFen game map { initialFen =>
         apply(game, initialFen).toString + "\n\n\n"
       }
     }
-    cursor.enumerate() &> toPgn
-  }
+
+  def exportUserGames(userId: String): Enumerator[String] =
+    GameRepo.sortedCursor(Query user userId, Query.sortCreated).enumerate() &> toPgn
+
+  def exportGamesFromIds(ids: List[String]): Enumerator[String] =
+    Enumerator.enumerate(ids grouped 50) &>
+      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.games) &>
+      Enumeratee.mapConcat(identity) &>
+      toPgn
 }

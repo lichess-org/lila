@@ -6,8 +6,9 @@ module.exports = function(ctrl, color, e) {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.chessground.data.movable.color !== color) return;
   var role = e.target.getAttribute('data-role'),
-    color = e.target.getAttribute('data-color');
-  if (!role || !color) return;
+    color = e.target.getAttribute('data-color'),
+    number = e.target.getAttribute('data-nb');
+  if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
   var key;
