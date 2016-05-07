@@ -57,8 +57,8 @@ object Handler {
         AnaDrop parse o foreach { anaDrop =>
           anaDrop.branch match {
             case scalaz.Success(branch) =>
-              member push lila.socket.Socket.makeMessage("branch", Json.obj(
-                "branch" -> branch,
+              member push lila.socket.Socket.makeMessage("node", Json.obj(
+                "node" -> branch,
                 "path" -> anaDrop.path
               ))
             case scalaz.Failure(err) =>
