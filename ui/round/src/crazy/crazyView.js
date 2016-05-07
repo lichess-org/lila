@@ -5,13 +5,13 @@ var game = require('game').game;
 var m = require('mithril');
 
 var eventNames = ['mousedown', 'touchstart'];
+var pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 module.exports = {
   pocket: function(ctrl, color, position) {
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
     if (!step.crazy) return;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen']
     var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');
     var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
     return m('div', {
@@ -30,11 +30,11 @@ module.exports = {
           }
         }
       },
-      oKeys.map(function(role) {
+      pieceRoles.map(function(role) {
         return m('piece', {
           'data-role': role,
           'data-color': color,
-          'data-nb': (pocket[role] !== undefined) ? pocket[role] : 0,
+          'data-nb': pocket[role] || 0,
           class: role + ' ' + color
         });
       })
