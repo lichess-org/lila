@@ -70,8 +70,8 @@ final class Api(
     text = lt.message,
     creatorId = lt.from,
     invitedId = lt.to), fromMod = false) >> {
-      if (lt.notification) updateUser(lt.to)
-      else unreadCache.clear(lt.to)
+    if (lt.notification) updateUser(lt.to)
+    else unreadCache.clear(lt.to)
   }
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Funit =
@@ -90,10 +90,7 @@ final class Api(
       case false =>
         val newThread = thread + post
         coll.update($id(newThread.id), newThread) >>- {
-          UserRepo.named(thread receiverOf post) foreach {
-            _ foreach updateUser
-          }
-        } >>- {
+          updateUser(thread receiverOf post)
           val toUserId = newThread otherUserId me
           shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
         } inject newThread
@@ -108,9 +105,12 @@ final class Api(
 
   val unreadIds = unreadCache apply _
 
-  def updateUser(user: User) {
-    if (!user.kid) (unreadCache refresh user.id) mapTo manifest[List[String]] foreach { ids =>
+  def updateUser(user: User): Funit = (!user.kid) ?? {
+    unreadCache refresh user.id mapTo manifest[List[String]] map { ids =>
       bus.publish(SendTo(user.id, "nbm", ids.size), 'users)
     }
   }
+
+  def updateUser(name: String): Funit =
+    UserRepo.named(name) flatMap { _ ?? updateUser }
 }
