@@ -21,6 +21,7 @@ final class Env(
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
+  private val evalCacheColl = db(config getString "collection.eval_cache")
 
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
@@ -38,12 +39,16 @@ final class Env(
 
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
+  private val evalCache = new EvalCache(evalCacheColl)
+
   val api = new FishnetApi(
     repo = repo,
     moveDb = moveDb,
     analysisColl = analysisColl,
     sequencer = sequencer,
     monitor = monitor,
+    evalCache = evalCache,
+    analysisBuilder = new AnalysisBuilder(evalCache),
     saveAnalysis = saveAnalysis,
     offlineMode = OfflineMode)(system)
 
@@ -54,6 +59,7 @@ final class Env(
   val analyser = new Analyser(
     repo = repo,
     uciMemo = uciMemo,
+    evalCache = evalCache,
     sequencer = sequencer,
     limiter = new Limiter(analysisColl))
 

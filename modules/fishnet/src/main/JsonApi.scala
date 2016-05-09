@@ -90,6 +90,8 @@ object JsonApi {
 
       def isCheckmate = score.mate contains 0
       def mateFound = score.mate.isDefined
+
+      def isRoughlyEqual = !mateFound && score.cp.??(_.abs < 100)
     }
 
     object Evaluation {
@@ -111,7 +113,7 @@ object JsonApi {
 
   def fromGame(g: W.Game) = Game(
     game_id = g.id,
-    position = g.initialFen | FEN(Forsyth.initial),
+    position = g.initialFen,
     variant = g.variant,
     moves = g.moves)
 

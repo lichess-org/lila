@@ -43,11 +43,13 @@ object Work {
 
   case class Game(
       id: String,
-      initialFen: Option[FEN],
+      initialFen: FEN,
       variant: Variant,
       moves: String) {
 
     def moveList = moves.split(' ').toList
+
+    def dropFirstMove = copy(moves = moves.dropWhile(' '!=).drop(1))
   }
 
   case class Sender(

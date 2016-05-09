@@ -16,6 +16,8 @@ final class FishnetApi(
     analysisColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
+    evalCache: EvalCache,
+    analysisBuilder: AnalysisBuilder,
     saveAnalysis: lila.analyse.Analysis => Funit,
     offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
 
@@ -84,12 +86,16 @@ final class FishnetApi(
         Monitor.weak(work, client, data)
         repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
       case Some(work) if work isAcquiredBy client =>
-        AnalysisBuilder(client, work, data) flatMap { analysis =>
-          monitor.analysis(work, client, data)
-          repo.deleteAnalysis(work) inject analysis
+        lila.game.GameRepo.game(work.game.id) flatMap {
+          case None => fufail(GameIsGone(work.game.id))
+          case Some(game) => analysisBuilder(client, work, data, game) flatMap { analysis =>
+            monitor.analysis(work, client, data)
+            (data.strong ?? evalCache.save(work, data.analysis, game)) >>
+              repo.deleteAnalysis(work) inject analysis
+          }
         } recoverWith {
-          case e: AnalysisBuilder.GameIsGone =>
-            logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+          case GameIsGone(id) =>
+            logger.warn(s"Game ${id} was deleted by ${work.sender} before analysis completes")
             monitor.analysis(work, client, data)
             repo.deleteAnalysis(work) >> fufail(GameNotFound)
           case e: Exception =>
@@ -141,6 +147,10 @@ final class FishnetApi(
 object FishnetApi {
 
   import lila.common.LilaException
+
+  case class GameIsGone(id: String) extends LilaException {
+    val message = s"Analysis $id game is gone?!"
+  }
 
   case object WeakAnalysis extends LilaException {
     val message = "Analysis nodes per move is too low"

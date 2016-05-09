@@ -4,12 +4,13 @@ import org.joda.time.DateTime
 
 import chess.format.{ FEN, Forsyth }
 
-import lila.game.{ Game, GameRepo, UciMemo }
 import lila.analyse.AnalysisRepo
+import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Analyser(
     repo: FishnetRepo,
     uciMemo: UciMemo,
+    evalCache: EvalCache,
     sequencer: lila.hub.FutureSequencer,
     limiter: Limiter) {
 
@@ -21,7 +22,8 @@ final class Analyser(
       case false =>
         limiter(sender) flatMap { accepted =>
           accepted ?? {
-            makeWork(game, sender) flatMap { work =>
+            makeWork(game, sender).thenPp flatMap evalCache.reduce(game) flatMap { work =>
+              println(work, "reduced")
               sequencer {
                 repo getSimilarAnalysis work flatMap {
                   // already in progress, do nothing
@@ -49,12 +51,12 @@ final class Analyser(
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
     GameRepo.initialFen(game) zip uciMemo.get(game) map {
-      case (initialFen, moves) => Work.Analysis(
+      case (initialFenOption, moves) => Work.Analysis(
         _id = Work.makeId,
         sender = sender,
         game = Work.Game(
           id = game.id,
-          initialFen = initialFen map FEN.apply,
+          initialFen = FEN(initialFenOption | game.variant.initialFen),
           variant = game.variant,
           moves = moves.take(maxPlies) mkString " "),
         startPly = game.startedAtTurn,
