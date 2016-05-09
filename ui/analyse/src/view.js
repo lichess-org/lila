@@ -189,7 +189,7 @@ function buttons(ctrl) {
       m('div', [
         ctrl.actionMenu.open ? null : m('button', {
           id: 'open_explorer',
-          'data-hint': 'Opening explorer & tablebase',
+          'data-hint': ctrl.trans('openingExplorer'),
           'data-act': 'explorer',
           class: 'button hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
         }, icon(']')),
