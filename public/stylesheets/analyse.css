@@ -11,6 +11,28 @@ p.rematch_wrap {
   margin-top: 31px;
   text-align: center;
 }
+div.analysis_menu {
+  text-align: center;
+  border-top: 1px solid #c0c0c0;
+  height: 21px;
+}
+div.analysis_menu > a {
+  background: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  padding: 2px 8px;
+  height: 16px;
+  line-height: 16px;
+  margin: -1px 0 0 -5px;
+  display: inline-block;
+  cursor: pointer;
+}
+div.analysis_menu > a.active {
+  background-color: #eee;
+  border-top: 1px solid #eee;
+}
+body.base div.analysis_menu > a.active {
+  border-bottom: 2px solid #d85000;
+}
 div.analysis_panels {
   margin-top: -10px;
 }
