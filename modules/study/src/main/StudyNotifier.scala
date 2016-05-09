@@ -13,7 +13,7 @@ private final class StudyNotifier(
 
   def apply(study: Study, invited: lila.user.User, socket: ActorRef) =
     socket ? HasUserId(invited.id) mapTo manifest[Boolean] map { isPresent =>
-      study.owner.ifFalse(isPresent.pp) foreach { owner =>
+      study.owner.ifFalse(isPresent) foreach { owner =>
         if (!isPresent) messageActor ! LichessThread(
           from = owner.user.id,
           to = invited.id,
