@@ -143,7 +143,7 @@ private[study] final class SocketHandler(
       d <- o obj "d"
       id <- d str "id"
       name <- d str "name"
-    } api.renameChapter(byUserId, studyId, id, Chapter toName name)
+    } api.renameChapter(byUserId, studyId, id, Chapter toName name, socket)
 
     case ("deleteChapter", o) if owner => for {
       byUserId <- member.userId

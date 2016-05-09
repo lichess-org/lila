@@ -193,10 +193,13 @@ final class StudyApi(
       }
     }
 
-  def renameChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, name: String) = sequenceStudy(studyId) { study =>
+  def renameChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, name: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
     chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
       _ ?? { chapter =>
-        chapterRepo.update(chapter.copy(name = name)) >>- reloadChapters(study)
+        chapterRepo.update(chapter.copy(name = name)) >>- {
+          reloadChapters(study)
+          chat ! SystemTalk(study.id, escapeHtml4(name), socket)
+        }
       }
     }
   }
