@@ -199,7 +199,6 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
-    this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -210,7 +209,10 @@ module.exports = function(opts) {
       data: {
         pgn: pgn
       },
-      success: this.reloadData,
+      success: function(data) {
+        this.reloadData(data);
+        this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+      }.bind(this),
       error: function(error) {
         console.log(error);
         this.vm.redirecting = false;
