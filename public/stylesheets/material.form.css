@@ -78,6 +78,9 @@
   line-height: 1.6;
   box-shadow: none;
 }
+.material.form .form-group *:disabled {
+  opacity: 0.6;
+}
 .material.form .form-group .control-label {
   position: absolute;
   top: 0.25rem;

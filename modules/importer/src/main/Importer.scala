@@ -6,6 +6,7 @@ import scala.concurrent.Future
 import akka.actor.ActorRef
 import akka.pattern.{ ask, after }
 import chess.{ Color, MoveOrDrop, Status, Situation }
+import chess.format.FEN
 import makeTimeout.large
 
 import lila.db.dsl._
@@ -53,7 +54,7 @@ final class Importer(
     }
   }
 
-  def inMemory(data: ImportData): Valid[Game] = data.preprocess(user = none).map {
-    case Preprocessed(game, replay, _, _) => game withId "synthetic"
+  def inMemory(data: ImportData): Valid[(Game, Option[FEN])] = data.preprocess(user = none).map {
+    case Preprocessed(game, replay, _, fen) => (game withId "synthetic", fen)
   }
 }

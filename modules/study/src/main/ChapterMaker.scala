@@ -23,10 +23,9 @@ private final class ChapterMaker(domain: String, importer: Importer) {
   }
 
   private def fromPgn(study: Study, pgn: String, data: Data, orientation: Color, order: Int): Fu[Option[Chapter]] =
-    importer.inMemory(ImportData(pgn, analyse = none)).fold(
-      err => fufail(err.shows),
-      game => fromPov(study, Pov(game, orientation), data, order)
-    )
+    importer.inMemory(ImportData(pgn, analyse = none)).fold(err => fufail(err.shows), {
+      case (game, fen) => fromPov(study, Pov(game, orientation), data, order, fen)
+    })
 
   private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int): Option[Chapter] = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
@@ -52,8 +51,8 @@ private final class ChapterMaker(domain: String, importer: Importer) {
       order = order).some
   }
 
-  private def fromPov(study: Study, pov: Pov, data: Data, order: Int): Fu[Option[Chapter]] =
-    game2root(pov.game, study.ownerId) map { root =>
+  private def fromPov(study: Study, pov: Pov, data: Data, order: Int, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =
+    game2root(pov.game, study.ownerId, initialFen) map { root =>
       Chapter.make(
         studyId = study.id,
         name = data.name,
@@ -62,8 +61,10 @@ private final class ChapterMaker(domain: String, importer: Importer) {
         order = order).some
     }
 
-  private def game2root(game: Game, userId: User.ID): Fu[Node.Root] =
-    GameRepo.initialFen(game) map { initialFen =>
+  private def game2root(game: Game, userId: User.ID, initialFen: Option[FEN] = None): Fu[Node.Root] =
+    initialFen.fold(GameRepo.initialFen(game)) { fen =>
+      fuccess(fen.value.some)
+    } map { initialFen =>
       Node.Root.fromRootBy(userId) {
         lila.round.TreeBuilder(
           game = game,

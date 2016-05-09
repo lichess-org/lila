@@ -4,6 +4,10 @@ var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 var dialog = require('./dialog');
 
+function implicitVariant(tab) {
+  return tab === 'game' || tab === 'pgn';
+}
+
 module.exports = {
   ctrl: function(send, chapters, setTab) {
 
@@ -116,9 +120,9 @@ module.exports = {
           m('div', [
             m('div.game.form-group.half', [
               m('select#chapter-variant', {
-                  disabled: activeTab === 'game'
-                }, activeTab === 'game' ? [
-                  m('option', 'Game variant')
+                  disabled: implicitVariant(activeTab)
+                }, implicitVariant(activeTab) ? [
+                  m('option', 'Automatic')
                 ] :
                 ctrl.vm.variants.map(function(v) {
                   return m('option', {
