@@ -60,7 +60,9 @@ private final class Socket(
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, Messadata())
 
     case ReloadAll                => notifyVersion("reload", JsNull, Messadata())
-    case ChangeChapter            => notifyVersion("changeChapter", JsNull, Messadata())
+    case ChangeChapter(uid) => notifyVersion("changeChapter", Json.obj(
+      "w" -> who(uid)
+    ), Messadata())
 
     case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
@@ -149,7 +151,7 @@ private object Socket {
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
-  case object ChangeChapter
+  case class ChangeChapter(uid: Uid)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

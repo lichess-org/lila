@@ -12,7 +12,7 @@ private final class ChapterMaker(domain: String, importer: Importer) {
   import ChapterMaker._
 
   def apply(study: Study, data: Data, order: Int): Fu[Option[Chapter]] = {
-    val orientation = chess.Color(data.orientation) | chess.White
+    val orientation = Color(data.orientation) | chess.White
     data.game.??(parsePov) flatMap {
       case None => data.pgn match {
         case Some(pgn) => fromPgn(study, pgn, data, orientation, order)

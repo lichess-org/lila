@@ -129,26 +129,26 @@ private[study] final class SocketHandler(
     case ("addChapter", o) if owner =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
-          api.addChapter(byUserId, studyId, data, socket)
+          api.addChapter(byUserId, studyId, data, socket, uid)
         }
       }
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
       chapterId <- o str "d"
-    } api.setChapter(byUserId, studyId, chapterId, socket)
+    } api.setChapter(byUserId, studyId, chapterId, socket, uid)
 
     case ("renameChapter", o) if owner => for {
       byUserId <- member.userId
       d <- o obj "d"
       id <- d str "id"
       name <- d str "name"
-    } api.renameChapter(byUserId, studyId, id, Chapter toName name, socket)
+    } api.renameChapter(byUserId, studyId, id, Chapter toName name, socket, uid)
 
     case ("deleteChapter", o) if owner => for {
       byUserId <- member.userId
       id <- o str "d"
-    } api.deleteChapter(byUserId, studyId, id, socket)
+    } api.deleteChapter(byUserId, studyId, id, socket, uid)
 
     case ("editStudy", o) if owner =>
       reading[Study.Data](o) { data =>

@@ -207,7 +207,8 @@ module.exports = {
           ctrl.jump(ctrl.vm.path);
         },
         reload: xhrReload,
-        changeChapter: function() {
+        changeChapter: function(d) {
+          d.w && activity(d.w.u);
           if (vm.behind === false) xhrReload();
         },
         members: function(d) {
