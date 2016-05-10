@@ -70,44 +70,63 @@ function renderVariationNested(ctrl, node, path) {
 }
 
 function renderVariationContent(ctrl, node, path, full) {
+
   var turns = [];
-  var line = treeOps.mainlineNodeList(node);
-  if (node.ply % 2 === 0) {
-    line = line.slice(0);
-    var first = line.shift();
+  var mainline = treeOps.mainlineNodeList(node);
+  var initPly = node.ply;
+  var makeTurnColor = function(i) {
+    if (mainline[i]) return {
+      node: mainline[i],
+      prev: mainline[i - 1]
+    };
+  }
+  var maxPlies = Math.min(full ? 999 : 6, mainline.length);
+  if (initPly % 2 === 0)
+    for (var i = 0; i < maxPlies; i += 2) turns.push({
+      turn: Math.floor((initPly + i) / 2) + 1,
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
+    });
+  else {
     turns.push({
-      turn: util.plyToTurn(first.ply),
-      black: first
+      turn: Math.floor(initPly / 2) + 1,
+      white: null,
+      black: makeTurnColor(0)
+    });
+    for (var i = 1; i < maxPlies; i += 2) turns.push({
+      turn: Math.floor((initPly + i) / 2) + 1,
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
     });
   }
-  var maxPlies = Math.min(full ? 999 : 6, line.length);
-  for (i = 0; i < maxPlies; i += 2) turns.push({
-    turn: util.plyToTurn(line[i].ply),
-    white: line[i],
-    black: line[i + 1]
-  });
   var dom;
   return turns.map(function(turn) {
     dom = renderVariationTurn(ctrl, turn, path);
-    path += (turn.white && turn.white.id || '') + (turn.black && turn.black.id || '');
+    path += (turn.white && turn.white.node.id || '') + (turn.black && turn.black.node.id || '');
     return dom;
   });
 }
 
-function renderVariationMeta(ctrl, node, path) {
-  if (!node || empty(node.children[1])) return;
-  return node.children.slice(1).map(function(child, i) {
-    return renderVariationNested(ctrl, child, path);
+function renderVariationMeta(ctrl, node, prev, path) {
+  if (!prev || empty(prev.children[1])) return;
+  return prev.children.slice(1).map(function(child, i) {
+    return renderVariationNested(ctrl, child, treePath.init(path));
   });
 }
 
 function renderVariationTurn(ctrl, turn, path) {
-  var wPath = turn.white ? path + turn.white.id : null;
-  var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
-  var wMeta = renderVariationMeta(ctrl, turn.white, wPath);
-  var bPath = turn.black ? (wPath || path) + turn.black.id : null;
-  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
-  var bMeta = renderVariationMeta(ctrl, turn.black, bPath);
+  var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
+  if (turn.white) {
+    wPath = path = path + turn.white.node.id;
+    wMove = renderMove(ctrl, turn.white.node, wPath);
+    wMeta = renderVariationMeta(ctrl, turn.white.node, turn.white.prev, wPath);
+  }
+  if (turn.black) {
+    bPath = path = path + turn.black.node.id;
+    bMove = renderMove(ctrl, turn.black.node, bPath);
+    bMeta = renderVariationMeta(ctrl, turn.black.node, turn.black.prev, bPath);
+  }
+
   if (wMove) {
     if (wMeta) return [
       renderIndex(turn.turn + '.'),
@@ -189,12 +208,12 @@ function renderMainlineTurn(ctrl, turn, path) {
   var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
   if (turn.white) {
     wPath = path = path + turn.white.node.id;
-    wMove = renderMove(ctrl, turn.white.node, wPath, 1);
+    wMove = renderMove(ctrl, turn.white.node, wPath, true);
     wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath);
   }
   if (turn.black) {
     bPath = path = path + turn.black.node.id;
-    bMove = renderMove(ctrl, turn.black.node, bPath, 1);
+    bMove = renderMove(ctrl, turn.black.node, bPath, true);
     bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath);
   }
   if (wMove) {
