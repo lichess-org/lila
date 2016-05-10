@@ -553,8 +553,11 @@ body.dark .explorer_box .black {
   text-align: center;
 }
 .lichess_ground .replay move {
+  min-width: 40%;
   display: inline-block;
   font-family: 'ChessSansPiratf', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .lichess_ground .replay turn move {
   position: relative;

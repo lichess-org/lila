@@ -246,6 +246,7 @@ module.exports = {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
+          if (who && who.s === sri) glyphForm.dirty(false);
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setGlyphsAt(d.g, position.path);
