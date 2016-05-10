@@ -152,9 +152,10 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
-    if (this.study && path !== this.vm.path) this.study.setPath(path);
+    var tellStudy = this.study && path !== this.vm.path;
     this.setPath(path);
     showGround();
+    if (tellStudy) this.study.setPath(path, this.vm.node);
     if (!this.vm.node.uci) sound.move(); // initial position
     else if (this.vm.justPlayed !== this.vm.node.uci) {
       if (this.vm.node.san.indexOf('x') !== -1) sound.capture();
@@ -182,7 +183,7 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.jumpToMain = function(ply) {
+  var jumpToMain = function(ply) {
     this.userJump(this.mainlinePathToPly(ply));
   }.bind(this);
 
@@ -192,7 +193,7 @@ module.exports = function(opts) {
 
   this.jumpToGlyphSymbol = function(color, symbol) {
     var ply = this.tree.plyOfNextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
-    if (ply) this.jumpToMain(ply);
+    if (ply) jumpToMain(ply);
     m.redraw();
   }.bind(this);
 

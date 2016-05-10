@@ -8,6 +8,7 @@ module.exports = {
 
     var current = m.prop(null); // {chapterId, path, node}
     var dirty = m.prop(true);
+    var focus = m.prop(false);
 
     var submit = function(text) {
       if (!current()) return;
@@ -40,10 +41,22 @@ module.exports = {
       current(null);
     };
 
+    var onSetPath = function(path, node) {
+      var cur = current();
+      if (cur && cur.path !== path && !focus()) {
+        cur.path = path;
+        cur.node = node;
+        current(cur);
+        dirty(true);
+      }
+      m.redraw();
+    };
+
     return {
       root: root,
       current: current,
       dirty: dirty,
+      focus: focus,
       open: open,
       close: close,
       toggle: function(chapterId, path, node) {
@@ -58,7 +71,8 @@ module.exports = {
           text: '',
           by: userId
         });
-      }
+      },
+      onSetPath: onSetPath
     };
   },
   view: function(ctrl) {
@@ -101,7 +115,7 @@ module.exports = {
                 return c.by.toLowerCase() === ctrl.root.userId;
               });
               el.value = mine ? mine.text : '';
-              el.focus();
+              ctrl.focus() && el.focus();
               if (!ctx.trap) {
                 ctx.trap = Mousetrap(el);
                 ctx.trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
@@ -113,7 +127,9 @@ module.exports = {
             },
             onkeyup: function(e) {
               ctrl.submit(e.target.value);
-            }
+            },
+            onfocus: partial(ctrl.focus, true),
+            onblur: partial(ctrl.focus, false)
           }),
           m('i.bar')
         ])

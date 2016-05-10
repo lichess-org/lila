@@ -85,6 +85,12 @@ module.exports = {
       }
     };
 
+    var onSetPath = throttle(300, false, function(path) {
+      if (path !== data.position.path) contribute("setPath", addChapterId({
+        path: path
+      }));
+    });
+
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
@@ -117,11 +123,10 @@ module.exports = {
         obj.path = ctrl.vm.path;
         return obj;
       },
-      setPath: throttle(300, false, function(path) {
-        if (path != data.position.path) contribute("setPath", addChapterId({
-          path: path
-        }));
-      }),
+      setPath: function(path, node) {
+        onSetPath(path);
+        setTimeout(partial(commentForm.onSetPath, path, node), 100);
+      },
       deleteNode: function(path) {
         contribute("deleteNode", addChapterId({
           path: path,
