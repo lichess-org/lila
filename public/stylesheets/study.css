@@ -294,6 +294,7 @@ body:not(.dark) .material.form .study_tabs a {
 .glyph_form a {
   display: block!important;
   cursor: pointer;
+  transition: 0.13s;
 }
 .glyph_form i::before {
   content: attr(data-symbol);
@@ -308,6 +309,7 @@ body:not(.dark) .material.form .study_tabs a {
   padding: 6px 10px;
   margin-right: 6px;
   font-weight: bold;
+  transition: 0.13s;
 }
 .glyph_form a:hover {
   background: #fff;
