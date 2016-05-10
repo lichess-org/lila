@@ -86,7 +86,8 @@ module.exports = {
         }, [
           ctrl.chapters.list().map(function(chapter) {
             var confing = ctrl.chapters.confing() === chapter.id;
-            var active = ctrl.currentChapter().id === chapter.id;
+            var current = ctrl.currentChapter();
+            var active = current && current.id === chapter.id;
             var attrs = {
               class: classSet({
                 elem: true,
