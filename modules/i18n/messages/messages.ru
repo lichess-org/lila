@@ -528,3 +528,4 @@ phoneAndTablet=На телефоне и планшете
 bulletBlitzClassical=Игра в реальном времени
 correspondenceChess=Игра по переписке
 onlineAndOfflinePlay=Онлайн и оффлайн
+correspondenceAndUnlimited=По переписке и без ограничения времени
