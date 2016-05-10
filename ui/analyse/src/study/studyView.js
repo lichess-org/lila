@@ -28,7 +28,12 @@ function form(ctrl) {
       }, [
         m('div.game.form-group', [
           m('input#study-name', {
-            value: ctrl.data.name
+            config: function(el, isUpdate) {
+              if (!isUpdate && !el.value) {
+                el.value = ctrl.data.name;
+                el.focus();
+              }
+            }
           }),
           m('label.control-label[for=study-name]', 'Name'),
           m('i.bar')

@@ -3,14 +3,6 @@ var classSet = require('chessground').util.classSet;
 var partial = require('chessground').util.partial;
 var chapterForm = require('./chapterForm');
 
-function onEnter(action) {
-  return function(el, isUpdate) {
-    if (!isUpdate) $(el).keypress(function(e) {
-      if (e.which == 10 || e.which == 13) action($(this).val(), this);
-    })
-  };
-}
-
 module.exports = {
   ctrl: function(initChapters, send, setTab) {
 
@@ -60,8 +52,18 @@ module.exports = {
       var chapterConfig = function(chapter) {
         return m('div.config', [
           m('input', {
-            value: chapter.name,
-            config: onEnter(partial(ctrl.chapters.rename, chapter.id))
+            config: function(el, isUpdate) {
+              if (!isUpdate) {
+                if (!el.value) {
+                  el.value = chapter.name;
+                  el.focus();
+                }
+                $(el).keypress(function(e) {
+                  if (e.which == 10 || e.which == 13)
+                    ctrl.chapters.rename(chapter.id, $(this).val());
+                });
+              }
+            }
           }),
           m('div.delete', m('a.button.text[data-icon=q]', {
             onclick: function() {
