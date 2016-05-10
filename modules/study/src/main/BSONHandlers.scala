@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.{ Uci, UciCharPair, FEN }
-import chess.variant.Variant
+import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Pos, Color, Role, PromotableRole }
 import reactivemongo.bson._
 
@@ -65,12 +65,26 @@ private object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
-  import lila.socket.tree.Node.{Comment,Comments,Symbol}
+  import lila.socket.tree.Node.{ Comment, Comments, Symbol }
   private implicit val CommentBSONHandler = Macros.handler[Comment]
   private implicit val SymbolBSONHandler = stringAnyValHandler[Symbol](_.value, Symbol.apply)
 
   private def readComments(r: Reader) =
     Comments(r.getsD[Comment]("co").filter(_.text.nonEmpty))
+
+  private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
+    private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
+    private def readPocket(p: String) = Crazyhouse.Pocket(p.toList.flatMap(chess.Role.forsyth))
+    def reads(r: Reader) = Crazyhouse.Data(
+      promoted = r.getsD[Pos]("o").toSet,
+      pockets = Crazyhouse.Pockets(
+        white = readPocket(r.strD("w")),
+        black = readPocket(r.strD("b"))))
+    def writes(w: Writer, s: Crazyhouse.Data) = BSONDocument(
+      "o" -> w.listO(s.promoted.toList),
+      "w" -> w.strO(writePocket(s.pockets.white)),
+      "b" -> w.strO(writePocket(s.pockets.black)))
+  }
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
@@ -83,6 +97,7 @@ private object BSONHandlers {
       comments = readComments(r),
       symbols = r.getsD[Symbol]("sy"),
       by = r str "b",
+      crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
       "i" -> s.id,
@@ -95,6 +110,7 @@ private object BSONHandlers {
       "co" -> w.listO(s.comments.list),
       "sy" -> w.listO(s.symbols),
       "b" -> s.by,
+      "z" -> s.crazyData,
       "n" -> s.children)
   }
   import Node.Root
@@ -106,6 +122,7 @@ private object BSONHandlers {
       shapes = r.getsD[Shape]("h"),
       comments = readComments(r),
       symbols = r.getsD[Symbol]("sy"),
+      crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
       "p" -> s.ply,
@@ -114,6 +131,7 @@ private object BSONHandlers {
       "h" -> w.listO(s.shapes),
       "co" -> w.listO(s.comments.list),
       "sy" -> w.listO(s.symbols),
+      "z" -> s.crazyData,
       "n" -> s.children)
   }
   implicit val ChildrenBSONHandler = new BSONHandler[BSONArray, Node.Children] {

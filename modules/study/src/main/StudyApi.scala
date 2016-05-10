@@ -47,7 +47,7 @@ final class StudyApi(
         gameId = none,
         variant = chess.variant.Standard,
         orientation = chess.White),
-      root = Node.Root.default,
+      root = Node.Root.default(chess.variant.Standard),
       order = 1)
     val study = preStudy withChapter chapter
     studyRepo.insert(study) zip chapterRepo.insert(chapter) inject

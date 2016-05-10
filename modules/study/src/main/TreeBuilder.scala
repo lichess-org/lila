@@ -17,9 +17,9 @@ object TreeBuilder {
     check = root.check,
     shapes = root.shapes,
     comments = root.comments,
+    crazyData = root.crazyData,
     children = toBranches(root.children),
-    opening = FullOpeningDB findByFen root.fen.value,
-    crazyData = none)
+    opening = FullOpeningDB findByFen root.fen.value)
 
   def toBranch(node: Node): tree.Branch = tree.Branch(
     id = node.id,
@@ -29,9 +29,9 @@ object TreeBuilder {
     check = node.check,
     shapes = node.shapes,
     comments = node.comments,
+    crazyData = node.crazyData,
     children = toBranches(node.children),
-    opening = FullOpeningDB findByFen node.fen.value,
-    crazyData = none)
+    opening = FullOpeningDB findByFen node.fen.value)
 
   private def toBranches(children: Node.Children) =
     children.nodes.toList.map(toBranch)

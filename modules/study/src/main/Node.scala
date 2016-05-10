@@ -2,6 +2,7 @@ package lila.study
 
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
+import chess.variant.Crazyhouse
 
 import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
 import lila.user.User
@@ -11,6 +12,7 @@ sealed trait RootOrNode {
   val fen: FEN
   val check: Boolean
   val shapes: List[Shape]
+  val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
   val symbols: List[Symbol]
@@ -27,6 +29,7 @@ case class Node(
     comments: Comments = Comments(Nil),
     symbols: List[Symbol] = Nil,
     by: User.ID,
+    crazyData: Option[Crazyhouse.Data],
     children: Node.Children) extends RootOrNode {
 
   import Node.Children
@@ -114,6 +117,7 @@ object Node {
       shapes: List[Shape] = Nil,
       comments: Comments = Comments(Nil),
       symbols: List[Symbol] = Nil,
+      crazyData: Option[Crazyhouse.Data],
       children: Children) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
@@ -141,16 +145,18 @@ object Node {
 
   object Root {
 
-    val default = Root(
+    def default(variant: chess.variant.Variant) = Root(
       ply = 0,
-      fen = FEN(Forsyth.initial),
+      fen = FEN(variant.initialFen),
       check = false,
+      crazyData = variant.crazyhouse option Crazyhouse.Data.init,
       children = emptyChildren)
 
     def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
+      crazyData = b.crazyData,
       children = Children(b.children.toVector.map(fromBranchBy(userId))))
   }
 
@@ -161,5 +167,6 @@ object Node {
     fen = FEN(b.fen),
     check = b.check,
     by = userId,
+    crazyData = b.crazyData,
     children = Children(b.children.toVector.map(fromBranchBy(userId))))
 }

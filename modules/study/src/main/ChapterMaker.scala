@@ -2,7 +2,7 @@ package lila.study
 
 import chess.Color
 import chess.format.{ Forsyth, FEN }
-import chess.variant.Variant
+import chess.variant.{ Variant, Crazyhouse }
 import lila.game.{ Game, Pov, GameRepo }
 import lila.importer.{ Importer, ImportData }
 import lila.user.User
@@ -36,11 +36,13 @@ private final class ChapterMaker(domain: String, importer: Importer) {
         ply = sit.turns,
         fen = FEN(Forsyth.>>(sit)),
         check = sit.situation.check,
+        crazyData = sit.situation.board.crazyData,
         children = Node.emptyChildren)
       case None => Node.Root(
         ply = 0,
         fen = FEN(variant.initialFen),
         check = false,
+        crazyData = variant.crazyhouse option Crazyhouse.Data.init,
         children = Node.emptyChildren)
     }
     Chapter.make(
