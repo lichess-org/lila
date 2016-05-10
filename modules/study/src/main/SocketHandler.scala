@@ -55,9 +55,10 @@ private[study] final class SocketHandler(
               d ← o obj "d"
               chapterId <- d str "chapterId"
             } api.addNode(
+              userId,
               studyId,
               Position.Ref(chapterId, Path(anaMove.path)),
-              Node.fromBranchBy(userId)(branch),
+              Node.fromBranch(branch),
               uid)
           case scalaz.Failure(err) =>
             member push makeMessage("stepFailure", err.toString)
@@ -77,9 +78,10 @@ private[study] final class SocketHandler(
               d ← o obj "d"
               chapterId <- d str "chapterId"
             } api.addNode(
+              userId,
               studyId,
               Position.Ref(chapterId, Path(anaDrop.path)),
-              Node.fromBranchBy(userId)(branch),
+              Node.fromBranch(branch),
               uid)
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)

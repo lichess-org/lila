@@ -96,7 +96,6 @@ private object BSONHandlers {
       shapes = r.getsD[Shape]("h"),
       comments = readComments(r),
       symbols = r.getsD[Symbol]("sy"),
-      by = r str "b",
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
@@ -109,7 +108,6 @@ private object BSONHandlers {
       "h" -> w.listO(s.shapes),
       "co" -> w.listO(s.comments.list),
       "sy" -> w.listO(s.symbols),
-      "b" -> s.by,
       "z" -> s.crazyData,
       "n" -> s.children)
   }

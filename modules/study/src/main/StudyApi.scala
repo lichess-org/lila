@@ -73,8 +73,8 @@ final class StudyApi(
     }
   }
 
-  def addNode(studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
-    case Study.WithChapter(study, chapter) => Contribute(node.by, study) {
+  def addNode(userId: User.ID, studyId: Study.ID, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>

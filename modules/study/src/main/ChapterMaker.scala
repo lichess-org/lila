@@ -67,7 +67,7 @@ private final class ChapterMaker(domain: String, importer: Importer) {
     initialFen.fold(GameRepo.initialFen(game)) { fen =>
       fuccess(fen.value.some)
     } map { initialFen =>
-      Node.Root.fromRootBy(userId) {
+      Node.Root.fromRoot {
         lila.round.TreeBuilder(
           game = game,
           a = none,

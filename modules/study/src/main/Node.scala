@@ -28,7 +28,6 @@ case class Node(
     shapes: List[Shape] = Nil,
     comments: Comments = Comments(Nil),
     symbols: List[Symbol] = Nil,
-    by: User.ID,
     crazyData: Option[Crazyhouse.Data],
     children: Node.Children) extends RootOrNode {
 
@@ -152,21 +151,20 @@ object Node {
       crazyData = variant.crazyhouse option Crazyhouse.Data.init,
       children = emptyChildren)
 
-    def fromRootBy(userId: User.ID)(b: lila.socket.tree.Root): Root = Root(
+    def fromRoot(b: lila.socket.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
       crazyData = b.crazyData,
-      children = Children(b.children.toVector.map(fromBranchBy(userId))))
+      children = Children(b.children.toVector map fromBranch))
   }
 
-  def fromBranchBy(userId: User.ID)(b: lila.socket.tree.Branch): Node = Node(
+  def fromBranch(b: lila.socket.tree.Branch): Node = Node(
     id = b.id,
     ply = b.ply,
     move = b.move,
     fen = FEN(b.fen),
     check = b.check,
-    by = userId,
     crazyData = b.crazyData,
-    children = Children(b.children.toVector.map(fromBranchBy(userId))))
+    children = Children(b.children.toVector map fromBranch))
 }
