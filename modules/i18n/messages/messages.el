@@ -528,3 +528,4 @@ phoneAndTablet=Τηλέφωνο και τάμπλετ
 bulletBlitzClassical=Υπερταχέα, ταχέα, κλασσικά
 correspondenceChess=Σκάκι με αλληλογραφία
 onlineAndOfflinePlay=Παιχνίδια σε ζωντανή σύνδεση και εκτός σύνδεσης
+correspondenceAndUnlimited=Παιχνίδι αλληλογραφίας απεριόριστου χρόνου
