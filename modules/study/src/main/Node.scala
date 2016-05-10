@@ -41,6 +41,8 @@ case class Node(
 
   def setComment(comment: Comment) = copy(comments = comments set comment)
 
+  def setGlyphs(glyphs: Glyphs) = copy(glyphs = glyphs)
+
   def mainLine: List[Node] = this :: children.first.??(_.mainLine)
 }
 
@@ -92,6 +94,12 @@ object Node {
       case Some((head, tail))      => updateChildren(head, _.setCommentAt(comment, tail))
     }
 
+    def setGlyphsAt(glyphs: Glyphs, path: Path): Option[Children] = path.split match {
+      case None                    => none
+      case Some((head, Path(Nil))) => updateWith(head, _.setGlyphs(glyphs).some)
+      case Some((head, tail))      => updateChildren(head, _.setGlyphsAt(glyphs, tail))
+    }
+
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
@@ -137,6 +145,10 @@ object Node {
     def setCommentAt(comment: Comment, path: Path): Option[Root] =
       if (path.isEmpty) copy(comments = comments set comment).some
       else withChildren(_.setCommentAt(comment, path))
+
+    def setGlyphsAt(glyphs: Glyphs, path: Path): Option[Root] =
+      if (path.isEmpty) copy(glyphs = glyphs).some
+      else withChildren(_.setGlyphsAt(glyphs, path))
 
     def mainLine: List[Node] = children.first.??(_.mainLine)
 

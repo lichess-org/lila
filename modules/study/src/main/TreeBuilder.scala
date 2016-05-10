@@ -17,6 +17,7 @@ object TreeBuilder {
     check = root.check,
     shapes = root.shapes,
     comments = root.comments,
+    glyphs = root.glyphs,
     crazyData = root.crazyData,
     children = toBranches(root.children),
     opening = FullOpeningDB findByFen root.fen.value)
@@ -29,6 +30,7 @@ object TreeBuilder {
     check = node.check,
     shapes = node.shapes,
     comments = node.comments,
+    glyphs = node.glyphs,
     crazyData = node.crazyData,
     children = toBranches(node.children),
     opening = FullOpeningDB findByFen node.fen.value)

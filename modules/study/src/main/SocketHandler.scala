@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
+import chess.format.pgn.{ Glyph, Glyphs }
 import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 
@@ -25,7 +26,7 @@ private[study] final class SocketHandler(
     api: StudyApi) {
 
   import Handler.AnaRateLimit
-  import JsonView.shapeReader
+  import JsonView.{ shapeReader, glyphsReader }
   import lila.socket.tree.Node.openingWriter
 
   private def controller(
@@ -189,6 +190,16 @@ private[study] final class SocketHandler(
           by = (o \ "d" \ "by").asOpt[String] ifTrue owner
           comment = Comment(text = text, by = by | userId)
         } api.setComment(userId, studyId, position.ref, comment, uid)
+      }
+
+    case ("setGlyphs", o) =>
+      reading[AtPosition](o) { position =>
+        for {
+          userId <- member.userId
+          text <- (o \ "d" \ "text").asOpt[String]
+          by = (o \ "d" \ "by").asOpt[String] ifTrue owner
+          glyphs <- (o \ "d" \ "glyphs").asOpt[Glyphs]
+        } api.setGlyphs(userId, studyId, position.ref, glyphs, uid)
       }
   }
 

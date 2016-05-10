@@ -21,6 +21,7 @@ sealed trait Node {
   def eval: Option[Node.Eval]
   def shapes: List[Node.Shape]
   def comments: Node.Comments
+  def glyphs: Glyphs
   def children: List[Branch]
   def opening: Option[FullOpening]
   def crazyData: Option[Crazyhouse.Data]
@@ -45,6 +46,7 @@ case class Root(
     eval: Option[Node.Eval] = None,
     shapes: List[Node.Shape] = Nil,
     comments: Node.Comments = Node.Comments(Nil),
+    glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -70,6 +72,7 @@ case class Branch(
     nag: Option[String] = None,
     shapes: List[Node.Shape] = Nil,
     comments: Node.Comments = Node.Comments(Nil),
+    glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     crazyData: Option[Crazyhouse.Data]) extends Node {
@@ -152,7 +155,7 @@ object Node {
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
   private implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
-  private implicit val glyphsWriter: Writes[Glyphs] = Json.writes[Glyphs]
+  implicit val glyphsWriter: Writes[Glyphs] = Json.writes[Glyphs]
 
   implicit val commentWriter = Json.writes[Node.Comment]
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
@@ -169,6 +172,7 @@ object Node {
       add("eval", eval) _ compose
       add("nag", nag) _ compose
       add("comments", comments.list, comments.list.nonEmpty) _ compose
+      add("glyphs", glyphs.nonEmpty) _ compose
       add("shapes", shapes, shapes.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {

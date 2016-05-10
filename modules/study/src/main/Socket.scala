@@ -1,6 +1,7 @@
 package lila.study
 
 import akka.actor._
+import chess.format.pgn.Glyphs
 import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -22,7 +23,7 @@ private final class Socket(
 
   import Socket._
   import JsonView._
-  import lila.socket.tree.Node.{ openingWriter, commentWriter }
+  import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -73,6 +74,12 @@ private final class Socket(
     case SetComment(pos, comment, uid) => notifyVersion("comment", Json.obj(
       "p" -> pos,
       "c" -> comment,
+      "w" -> who(uid)
+    ), Messadata())
+
+    case SetGlyphs(pos, glyphs, uid) => notifyVersion("glyphs", Json.obj(
+      "p" -> pos,
+      "g" -> glyphs,
       "w" -> who(uid)
     ), Messadata())
 
@@ -149,6 +156,7 @@ private object Socket {
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
+  case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid)

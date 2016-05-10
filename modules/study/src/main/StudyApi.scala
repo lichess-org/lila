@@ -3,6 +3,7 @@ package lila.study
 import akka.actor.{ ActorRef, ActorSelection }
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
+import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, FEN }
 import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
@@ -152,13 +153,26 @@ final class StudyApi(
 
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, c: Comment, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      (study.members get c.by) ?? { byMember =>
+      (study.members get userId) ?? { byMember =>
         val comment = Comment(text = Comment sanitize c.text, by = byMember.user.name)
         chapter.setComment(comment, position.path) match {
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id, Socket.SetComment(position, comment, uid))
           case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+        }
+      }
+    }
+  }
+
+  def setGlyphs(userId: User.ID, studyId: Study.ID, position: Position.Ref, glyphs: Glyphs, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      (study.members get userId) ?? { byMember =>
+        chapter.setGlyphs(glyphs, position.path) match {
+          case Some(newChapter) =>
+            chapterRepo.update(newChapter) >>-
+              sendTo(study.id, Socket.SetGlyphs(position, glyphs, uid))
+          case None => fufail(s"Invalid setGlyphs $studyId $position $glyphs") >>- reloadUid(study, uid)
         }
       }
     }
