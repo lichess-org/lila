@@ -169,11 +169,15 @@ module.exports = function(root) {
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
     promoteNodeAt: promoteNodeAt,
-    plyOfNextNag: function(color, nag, mainline, fromPly) {
+    plyOfNextGlyphSymbol: function(color, symbol, mainline, fromPly) {
       var len = mainline.length;
       for (var i = 1; i < len; i++) {
         var ply = (fromPly + i) % len;
-        if (mainline[ply].nag === nag && (ply % 2 === (color === 'white' ? 1 : 0))) return ply;
+        var glyphs = mainline[ply].glyphs;
+        var found = (ply % 2 === (color === 'white' ? 1 : 0)) && glyphs && glyphs.filter(function(g) {
+          return g.symbol === symbol;
+        })[0];
+        if (found) return ply;
       }
     },
     getCurrentNodesAfterPly: getCurrentNodesAfterPly

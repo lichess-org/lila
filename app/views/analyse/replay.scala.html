@@ -75,7 +75,7 @@ atom = atom.some) {
     </thead>
     <tbody>
       @for((judgment, nb) <- pairs) {
-      <tr @if(nb > 0) {class="nag" data-color="@color.name" data-nag="@judgment.glyph.symbol"}>
+      <tr @if(nb > 0) {class="symbol" data-color="@color.name" data-symbol="@judgment.glyph.symbol"}>
         <td><strong>@nb</strong></td>
         <th>@judgmentName(judgment)</th>
       </tr>

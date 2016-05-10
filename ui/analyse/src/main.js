@@ -29,7 +29,7 @@ module.exports = function(opts) {
     pathStr: function() {
       return controller.vm.pathStr;
     },
-    jumpToNag: controller.jumpToNag
+    jumpToGlyphSymbol: controller.jumpToGlyphSymbol
   };
 };
 

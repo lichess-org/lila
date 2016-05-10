@@ -1981,8 +1981,8 @@ lichess.challengeApp = (function() {
     $('.advice_summary', element)
       .appendTo($('.underboard .right', element))
       .show()
-      .on('click', 'tr.nag', function() {
-        analyse.jumpToNag($(this).data('color'), $(this).data('nag'));
+      .on('click', 'tr.symbol', function() {
+        analyse.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
       });
 
     $panels = $('div.analysis_panels > div');

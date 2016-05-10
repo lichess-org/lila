@@ -190,8 +190,8 @@ module.exports = function(opts) {
     this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
   }.bind(this);
 
-  this.jumpToNag = function(color, nag) {
-    var ply = this.tree.plyOfNextNag(color, nag, this.vm.mainline, this.vm.node.ply);
+  this.jumpToGlyphSymbol = function(color, symbol) {
+    var ply = this.tree.plyOfNextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
   }.bind(this);

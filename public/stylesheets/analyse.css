@@ -733,10 +733,10 @@ div.advice_summary td {
   padding: 2px 8px;
   text-align: center;
 }
-div.advice_summary tr.nag {
+div.advice_summary tr.symbol {
   cursor: pointer;
 }
-div.advice_summary tr.nag:hover {
+div.advice_summary tr.symbol:hover {
   text-decoration: underline;
 }
 div.advice_summary .spacerlol {
