@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REMOTE="anand"
+REMOTE="benko"
 REMOTE_DIR="/home/lichess"
 
 echo "Notify users of pre deploy"
@@ -12,9 +12,6 @@ echo "Notify users of post deploy"
 bin/cli-prod deploy post
 
 echo "Restart lichess"
-ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess restart"
+ssh $REMOTE "systemctl restart lichess"
 
 echo "Deploy complete"
-
-sleep 2
-curl_prod
