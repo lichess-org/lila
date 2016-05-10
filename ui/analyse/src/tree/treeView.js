@@ -81,7 +81,7 @@ function renderVariationContent(ctrl, node, path, full) {
     };
   }
   var maxPlies = Math.min(full ? 999 : 6, mainline.length);
-  if (initPly % 2 === 0)
+  if (initPly % 2 === 1)
     for (var i = 0; i < maxPlies; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
       white: makeTurnColor(i),
