@@ -82,9 +82,11 @@ module.exports = {
         }, [
           m('div.game.form-group', [
             m('input#chapter-name', {
-              value: 'Chapter ' + (ctrl.chapters().length + 1),
               config: function(el, isUpdate) {
-                if (!isUpdate) el.focus();
+                if (!isUpdate && !el.value) {
+                  el.value = 'Chapter ' + (ctrl.chapters().length + 1);
+                  el.focus();
+                }
               }
             }),
             m('label.control-label[for=chapter-name]', 'Name'),
