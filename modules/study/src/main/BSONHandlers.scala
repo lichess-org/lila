@@ -1,5 +1,6 @@
 package lila.study
 
+import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Pos, Color, Role, PromotableRole }
@@ -65,9 +66,8 @@ private object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
-  import lila.socket.tree.Node.{ Comment, Comments, Symbol }
+  import lila.socket.tree.Node.{ Comment, Comments }
   private implicit val CommentBSONHandler = Macros.handler[Comment]
-  private implicit val SymbolBSONHandler = stringAnyValHandler[Symbol](_.value, Symbol.apply)
 
   private def readComments(r: Reader) =
     Comments(r.getsD[Comment]("co").filter(_.text.nonEmpty))
@@ -86,6 +86,17 @@ private object BSONHandlers {
       "b" -> w.strO(writePocket(s.pockets.black)))
   }
 
+  private implicit def GlyphsBSONHandler: BSON[Glyphs] = new BSON[Glyphs] {
+    def reads(r: Reader) = Glyphs(
+      move = r.intO("m") flatMap Glyph.MoveAssessment.byId.get,
+      position = r.intO("p") flatMap Glyph.PositionAssessment.byId.get,
+      observations = r.intsD("o") flatMap Glyph.Observation.byId.get)
+    def writes(w: Writer, g: Glyphs) = BSONDocument(
+      "m" -> g.move.map(_.id),
+      "p" -> g.position.map(_.id),
+      "o" -> g.observations.map(_.id))
+  }
+
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
@@ -95,7 +106,7 @@ private object BSONHandlers {
       check = r boolD "c",
       shapes = r.getsD[Shape]("h"),
       comments = readComments(r),
-      symbols = r.getsD[Symbol]("sy"),
+      glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Node) = BSONDocument(
@@ -107,7 +118,7 @@ private object BSONHandlers {
       "c" -> w.boolO(s.check),
       "h" -> w.listO(s.shapes),
       "co" -> w.listO(s.comments.list),
-      "sy" -> w.listO(s.symbols),
+      "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
       "n" -> s.children)
   }
@@ -119,7 +130,7 @@ private object BSONHandlers {
       check = r boolD "c",
       shapes = r.getsD[Shape]("h"),
       comments = readComments(r),
-      symbols = r.getsD[Symbol]("sy"),
+      glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
     def writes(w: Writer, s: Root) = BSONDocument(
@@ -128,7 +139,7 @@ private object BSONHandlers {
       "c" -> w.boolO(s.check),
       "h" -> w.listO(s.shapes),
       "co" -> w.listO(s.comments.list),
-      "sy" -> w.listO(s.symbols),
+      "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
       "n" -> s.children)
   }

@@ -1,10 +1,11 @@
 package lila.study
 
+import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
 import chess.variant.Crazyhouse
 
-import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
+import lila.socket.tree.Node.{ Shape, Comment, Comments }
 import lila.user.User
 
 sealed trait RootOrNode {
@@ -15,7 +16,7 @@ sealed trait RootOrNode {
   val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
-  val symbols: List[Symbol]
+  val glyphs: Glyphs
   def fullMoveNumber = 1 + ply / 2
 }
 
@@ -27,7 +28,7 @@ case class Node(
     check: Boolean,
     shapes: List[Shape] = Nil,
     comments: Comments = Comments(Nil),
-    symbols: List[Symbol] = Nil,
+    glyphs: Glyphs = Glyphs.empty,
     crazyData: Option[Crazyhouse.Data],
     children: Node.Children) extends RootOrNode {
 
@@ -115,7 +116,7 @@ object Node {
       check: Boolean,
       shapes: List[Shape] = Nil,
       comments: Comments = Comments(Nil),
-      symbols: List[Symbol] = Nil,
+      glyphs: Glyphs = Glyphs.empty,
       crazyData: Option[Crazyhouse.Data],
       children: Children) extends RootOrNode {
 

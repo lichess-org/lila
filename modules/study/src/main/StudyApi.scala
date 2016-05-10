@@ -8,7 +8,7 @@ import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
+import lila.socket.tree.Node.{ Shape, Comment }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(

@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
+import lila.socket.tree.Node.{ Shape, Comment }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 

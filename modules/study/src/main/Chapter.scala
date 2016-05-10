@@ -5,7 +5,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.socket.tree.Node.{ Shape, Comment, Comments, Symbol }
+import lila.socket.tree.Node.{ Shape, Comment }
 
 case class Chapter(
     _id: Chapter.ID,

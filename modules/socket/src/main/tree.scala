@@ -2,6 +2,7 @@ package lila.socket
 package tree
 
 import chess.format.{ Uci, UciCharPair }
+import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
@@ -110,7 +111,6 @@ object Node {
       else list :+ comment
     }
   }
-  case class Symbol(value: String) extends AnyVal
 
   case class Eval(
     cp: Option[Int] = None,
@@ -151,9 +151,9 @@ object Node {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
-  private implicit val symbolWriter: Writes[Node.Symbol] = Writes[Node.Symbol] { s =>
-    JsString(s.value)
-  }
+  private implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
+  private implicit val glyphsWriter: Writes[Glyphs] = Json.writes[Glyphs]
+
   implicit val commentWriter = Json.writes[Node.Comment]
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
     JsArray(s.list.map(commentWriter.writes))
