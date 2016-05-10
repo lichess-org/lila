@@ -44,19 +44,19 @@ body:not(.dark) .material.form .study_tabs a {
   line-height: 1.4em!important;
   font-size: 0.7em;
 }
-.study_comment_form .title {
+.underboard_form .title {
   background: #e0e0e0;
 }
-.study_comment_form .saved {
+.underboard_form .saved {
   color: #759900;
   margin-left: 10px;
   opacity: 0;
 }
-.study_comment_form .saved.visible {
+.underboard_form .saved.visible {
   opacity: 1;
   transition: opacity 0.5s;
 }
-.study_comment_form .close {
+.underboard_form .close {
   float: right;
 }
 .study_comment_form form {
@@ -78,7 +78,7 @@ body:not(.dark) .material.form .study_tabs a {
   padding: 5px 10px;
   margin-bottom: 10px;
 }
-body.dark .study_comment_form .title,
+body.dark .underboard_form .title,
 body.dark .study_comments .comment {
   background: #262626;
 }
@@ -264,9 +264,56 @@ body.dark .study_comments .comment {
   display: inline-block;
   margin-right: 10px;
 }
+.study_buttons .button i {
+  height: 16px;
+  display: inline-block;
+}
 .study_buttons .button:hover {
   color: #3893E8;
 }
 .study_buttons #study-sync .data-count::after {
   right: 8px;
+}
+.glyph-icon::before {
+  content: '⁉';
+  font-size: 1.3em;
+  vertical-align: middle;
+  width: 14px;
+  display: inline-block;
+  font-style: normal;
+}
+.glyph_form {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  margin-bottom: 15px;
+}
+.glyph_form > * {
+  flex: 1 0 30%;
+}
+.glyph_form a {
+  display: block!important;
+  cursor: pointer;
+}
+.glyph_form i:before {
+  content: attr(data-symbol);
+  font-size: 1.3em;
+  vertical-align: middle;
+  width: 14px;
+  display: inline-block;
+  font-style: normal;
+  width: 20px;
+  text-align: center;
+  background: #ddd;
+  padding: 6px 10px;
+  margin-right: 6px;
+  font-weight: bold;
+}
+.glyph_form a:hover {
+  background: #fff;
+  color: #3893E8;
+}
+.glyph_form a:hover i:before {
+  background: #eee;
 }

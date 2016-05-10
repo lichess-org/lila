@@ -136,6 +136,12 @@ module.exports = function(root) {
     });
   }
 
+  function setGlyphsAt(glyphs, path) {
+    updateAt(path, function(node) {
+      node.glyphs = glyphs;
+    });
+  }
+
   return {
     root: root,
     ops: ops,
@@ -158,6 +164,7 @@ module.exports = function(root) {
       });
     },
     setCommentAt: setCommentAt,
+    setGlyphsAt: setGlyphsAt,
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,

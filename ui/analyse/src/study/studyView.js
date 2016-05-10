@@ -5,6 +5,7 @@ var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
+var glyphFormView = require('./studyGlyph').form.view;
 var inviteFormView = require('./inviteForm').view;
 var dialog = require('./dialog');
 
@@ -118,14 +119,30 @@ function buttons(ctrl) {
         'data-hint': 'Download as PGN',
         href: '/study/' + ctrl.study.data.id + '.pgn'
       }, m('i[data-icon=x]')),
-      canContribute ? m('button.button.hint--top', {
-        class: ctrl.study.commentForm.current() ? 'active' : '',
-        'data-hint': 'Comment this position',
-        disabled: ctrl.study.vm.behind !== false,
-        onclick: function() {
-          ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
-        }
-      }, m('i[data-icon=c]')) : null
+      canContribute ? [
+        m('a.button.hint--top', {
+          class: ctrl.study.commentForm.current() ? 'active' : '',
+          'data-hint': 'Comment this position',
+          disabled: ctrl.study.vm.behind !== false,
+          onclick: function() {
+            ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
+          }
+        }, m('i[data-icon=c]')),
+        m('a.button.hint--top', {
+          config: function(el, isUpdate) {
+            if (!isUpdate)
+              setTimeout(function() {
+                if (!ctrl.study.glyphForm.current()) el.click();
+              }, 10);
+          },
+          class: ctrl.study.glyphForm.current() ? 'active' : '',
+          'data-hint': 'Annotate with symbols',
+          disabled: ctrl.study.vm.behind !== false,
+          onclick: function() {
+            ctrl.study.glyphForm.toggle(ctrl.study.currentChapter().id, path, node)
+          }
+        }, m('i.glyph-icon'))
+      ] : null
     ]),
     ctrl.study.members.isOwner() ? m('div.owner_buttons', [
       m('button.button.hint--top', {
@@ -179,9 +196,17 @@ module.exports = {
 
   contextMenu: function(ctrl, path, node) {
     return [
-      contextAction('c', 'Comment this move', function() {
-        ctrl.commentForm.open(ctrl.currentChapter().id, path, node);
-      })
+      m('a.action', {
+        'data-icon': 'c',
+        onclick: function() {
+          ctrl.commentForm.open(ctrl.currentChapter().id, path, node);
+        }
+      }, 'Comment this move'),
+      m('a.action.glyph-icon', {
+        onclick: function() {
+          ctrl.glyphForm.open(ctrl.currentChapter().id, path, node);
+        }
+      }, 'Annotate with symbols')
     ];
   },
 
@@ -192,8 +217,10 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
+    var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [
+      glyphForm,
       currentComments(ctrl, !commentForm),
       commentForm,
       buttons(ctrl)

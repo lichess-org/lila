@@ -5,6 +5,7 @@ var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
+var glyphFormCtrl = require('./studyGlyph').form.ctrl;
 var tour = require('./studyTour');
 var xhr = require('./studyXhr');
 
@@ -44,6 +45,7 @@ module.exports = {
     };
 
     var commentForm = commentFormCtrl(ctrl);
+    var glyphForm = glyphFormCtrl(ctrl);
 
     var addChapterId = function(req) {
       req.chapterId = data.position.chapterId;
@@ -102,6 +104,7 @@ module.exports = {
       members: members,
       chapters: chapters,
       commentForm: commentForm,
+      glyphForm: glyphForm,
       vm: vm,
       position: function() {
         return data.position;
@@ -237,6 +240,15 @@ module.exports = {
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setCommentAt(d.c, position.path);
+          m.redraw();
+        },
+        glyphs: function(d) {
+          var position = d.p,
+            who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.setGlyphsAt(d.c, position.path);
           m.redraw();
         },
         following_onlines: members.inviteForm.setCandidates,

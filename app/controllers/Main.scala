@@ -99,6 +99,16 @@ object Main extends LilaController {
     } inject Ok
   }
 
+  def glyphs = Action { req =>
+    import chess.format.pgn.Glyph
+    import lila.socket.tree.Node.glyphWriter
+    Ok(Json.obj(
+      "move" -> Glyph.MoveAssessment.all,
+      "position" -> Glyph.PositionAssessment.all,
+      "observation" -> Glyph.Observation.all
+    )) as JSON
+  }
+
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
       lila.mon.http.response.code404()

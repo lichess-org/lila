@@ -30,5 +30,14 @@ module.exports = {
       config: xhrConfig,
       background: true
     });
+  },
+
+  glyphs: function() {
+    return m.request({
+      method: 'GET',
+      url: '/glyphs',
+      config: xhrConfig,
+      background: true
+    });
   }
 };

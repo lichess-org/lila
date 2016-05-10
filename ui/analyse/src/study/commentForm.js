@@ -6,11 +6,11 @@ var throttle = require('../util').throttle;
 module.exports = {
   ctrl: function(root) {
 
-    var current = null; // {chapterId, path, node}
+    var current = m.prop(null); // {chapterId, path, node}
     var dirty = m.prop(true);
 
     var submit = function(text) {
-      if (!current) return;
+      if (!current()) return;
       if (!dirty()) {
         dirty(true);
         m.redraw();
@@ -20,36 +20,34 @@ module.exports = {
 
     var doSubmit = throttle(500, false, function(text) {
       root.study.contribute('setComment', {
-        chapterId: current.chapterId,
-        path: current.path,
+        chapterId: current().chapterId,
+        path: current().path,
         text: text
       });
     });
 
     var open = function(chapterId, path, node) {
       dirty(true);
-      current = {
+      current({
         chapterId: chapterId,
         path: path,
         node: node
-      };
+      });
       root.userJump(path);
     };
 
     var close = function() {
-      current = null;
+      current(null);
     };
 
     return {
       root: root,
-      current: function() {
-        return current;
-      },
+      current: current,
       dirty: dirty,
       open: open,
       close: close,
       toggle: function(chapterId, path, node) {
-        if (current) close();
+        if (current()) close();
         else open(chapterId, path, node);
       },
       submit: submit,
@@ -61,14 +59,14 @@ module.exports = {
           by: userId
         });
       }
-    }
+    };
   },
   view: function(ctrl) {
 
     var current = ctrl.current();
     if (!current) return;
 
-    return m('div.study_comment_form', {
+    return m('div.study_comment_form.underboard_form', {
       config: function(el, isUpdate) {
         if (!isUpdate) lichess.loadCss('/assets/stylesheets/material.form.css');
       }

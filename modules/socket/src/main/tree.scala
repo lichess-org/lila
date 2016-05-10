@@ -154,7 +154,7 @@ object Node {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
-  private implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
+  implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
   implicit val glyphsWriter: Writes[Glyphs] = Json.writes[Glyphs]
 
   implicit val commentWriter = Json.writes[Node.Comment]
