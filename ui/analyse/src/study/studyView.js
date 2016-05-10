@@ -129,12 +129,6 @@ function buttons(ctrl) {
           }
         }, m('i[data-icon=c]')),
         m('a.button.hint--top', {
-          config: function(el, isUpdate) {
-            if (!isUpdate)
-              setTimeout(function() {
-                if (!ctrl.study.glyphForm.current()) el.click();
-              }, 10);
-          },
           class: ctrl.study.glyphForm.current() ? 'active' : '',
           'data-hint': 'Annotate with symbols',
           disabled: ctrl.study.vm.behind !== false,

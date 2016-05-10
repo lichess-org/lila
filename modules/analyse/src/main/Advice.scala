@@ -36,7 +36,7 @@ object Advice {
     def isBlunder = this == Judgment.Blunder
   }
   object Judgment {
-    object Inaccuracy extends Judgment(Glyph.MoveAssessment.questionable, "Inaccuracy")
+    object Inaccuracy extends Judgment(Glyph.MoveAssessment.dubious, "Inaccuracy")
     object Mistake extends Judgment(Glyph.MoveAssessment.mistake, "Mistake")
     object Blunder extends Judgment(Glyph.MoveAssessment.blunder, "Blunder")
     val all = List(Inaccuracy, Mistake, Blunder)
