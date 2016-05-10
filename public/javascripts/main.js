@@ -1939,19 +1939,18 @@ lichess.challengeApp = (function() {
         point.select(false);
       });
     };
-    var lastFen, lastPath;
-    cfg.onChange = function(fen, path) {
+    var lastFen;
+    cfg.onChange = function(fen, path, mainlinePly) {
       if (fen === lastFen) return;
       lastFen = fen = fen || lastFen;
-      lastPath = path = path || lastPath;
       var chart, point;
       $inputFen.val(fen);
       if ($advChart.length) try {
         chart = $advChart.highcharts();
         if (chart) {
-          if (path.length > 1) unselect(chart);
+          if (mainlinePly === false) unselect(chart);
           else {
-            point = chart.series[0].data[path[0].ply - 1 - cfg.data.game.startedAtTurn];
+            point = chart.series[0].data[mainlinePly - 1 - cfg.data.game.startedAtTurn];
             if (typeof point != "undefined") point.select();
             else unselect(chart);
           }
@@ -1960,11 +1959,11 @@ lichess.challengeApp = (function() {
       if ($timeChart.length) try {
         chart = $timeChart.highcharts();
         if (chart) {
-          if (path.length > 1) unselect(chart);
+          if (mainlinePly === false) unselect(chart);
           else {
-            var white = path[0].ply % 2 !== 0;
+            var white = mainlinePly % 2 !== 0;
             var serie = white ? 0 : 1;
-            var turn = Math.floor((path[0].ply - 1 - cfg.data.game.startedAtTurn) / 2);
+            var turn = Math.floor((mainlinePly - 1 - cfg.data.game.startedAtTurn) / 2);
             point = chart.series[serie].data[turn];
             if (typeof point != "undefined") point.select();
             else unselect(chart);

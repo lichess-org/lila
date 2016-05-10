@@ -138,8 +138,9 @@ module.exports = function(opts) {
     check: throttle(50, false, $.sound.check)
   };
 
-  var onChange = opts.onChange ? throttle(500, false, function() {
-    opts.onChange(this.vm.node.fen, this.vm.path);
+  var onChange = opts.onChange ? throttle(300, false, function() {
+    var mainlinePly = this.tree.pathIsMainline(this.vm.path) ? this.vm.node.ply : false;
+    opts.onChange(this.vm.node.fen, this.vm.path, mainlinePly);
   }.bind(this)) : $.noop;
 
   var updateHref = (!opts.study && window.history.replaceState) ? throttle(750, false, function() {
