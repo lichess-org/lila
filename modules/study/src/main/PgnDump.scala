@@ -58,7 +58,7 @@ final class PgnDump(
 
   private def node2move(parent: RootOrNode, node: Node) = chessPgn.Move(
     san = node.move.san,
-    nag = none,
+    glyphs = node.glyphs,
     comments = node.comments.list.map(_.text),
     opening = none,
     result = none,

@@ -1,7 +1,6 @@
 package lila.analyse
 
 import chess.Color
-import chess.format.Nag
 
 import org.joda.time.DateTime
 
@@ -34,10 +33,10 @@ case class Analysis(
     i.best map { b => i.ply -> b.keys }
   }.toMap
 
-  def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color =>
-    color -> (Nag.badOnes map { nag =>
-      nag -> (advices count { adv =>
-        adv.color == color && adv.nag == nag
+  def summary: List[(Color, List[(Advice.Judgment, Int)])] = Color.all map { color =>
+    color -> (Advice.Judgment.all map { judgment =>
+      judgment -> (advices count { adv =>
+        adv.color == color && adv.judgment == judgment
       })
     })
   }

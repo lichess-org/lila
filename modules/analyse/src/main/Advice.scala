@@ -1,9 +1,9 @@
 package lila.analyse
 
-import chess.format.Nag
+import chess.format.pgn.Glyph
 
 sealed trait Advice {
-  def nag: Nag
+  def judgment: Advice.Judgment
   def info: Info
   def prev: Info
 
@@ -17,7 +17,7 @@ sealed trait Advice {
     withEval.??(evalComment ?? { c => s"($c) " }) +
       (this match {
         case MateAdvice(seq, _, _, _) => seq.desc
-        case CpAdvice(nag, _, _)      => nag.toString
+        case CpAdvice(judgment, _, _) => judgment.toString
       }) + "." + {
         withBestMove ?? {
           info.variation.headOption ?? { move => s" Best move was $move." }
@@ -29,47 +29,40 @@ sealed trait Advice {
   }.some filter (_.nonEmpty)
 }
 
-private[analyse] object Advice {
+object Advice {
+
+  sealed abstract class Judgment(val glyph: Glyph, val name: String) {
+    override def toString = name
+    def isBlunder = this == Judgment.Blunder
+  }
+  object Judgment {
+    object Inaccuracy extends Judgment(Glyph.MoveAssessment.questionable, "Inaccuracy")
+    object Mistake extends Judgment(Glyph.MoveAssessment.mistake, "Mistake")
+    object Blunder extends Judgment(Glyph.MoveAssessment.blunder, "Blunder")
+    val all = List(Inaccuracy, Mistake, Blunder)
+  }
 
   def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
 }
 
 private[analyse] case class CpAdvice(
-  nag: Nag,
+  judgment: Advice.Judgment,
   info: Info,
   prev: Info) extends Advice
 
 private[analyse] object CpAdvice {
 
-  // private val cpNags = List(
-  //   0.20 -> Nag.Blunder,
-  //   0.10 -> Nag.Mistake,
-  //   0.05 -> Nag.Inaccuracy)
-
-  // def apply(prev: Info, info: Info): Option[CpAdvice] = for {
-  //   cp ← prev.score map (_.ceiled.centipawns)
-  //   infoCp ← info.score map (_.ceiled.centipawns)
-  //   a = -0.002409
-  //   b = 1.001726
-  //   c = 0.006963
-  //   d = 2.386803
-  //   before = a + (b-a)/(1 + math.exp(-c * (cp - d)));
-  //   after  = a + (b-a)/(1 + math.exp(-c * (infoCp - d)));
-  //   delta = (after - before) |> { d => info.color.fold(-d, d) }
-  //   nag ← cpNags find { case (d, n) => d <= delta } map (_._2)
-  // } yield CpAdvice(nag, info, prev)
-
-  private val cpNags = List(
-    300 -> Nag.Blunder,
-    100 -> Nag.Mistake,
-    50 -> Nag.Inaccuracy)
+  private val cpJudgments = List(
+    300 -> Advice.Judgment.Blunder,
+    100 -> Advice.Judgment.Mistake,
+    50 -> Advice.Judgment.Inaccuracy)
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
     cp ← prev.score map (_.ceiled.centipawns)
     infoCp ← info.score map (_.ceiled.centipawns)
     delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
-    nag ← cpNags find { case (d, n) => d <= delta } map (_._2)
-  } yield CpAdvice(nag, info, prev)
+    judgment ← cpJudgments find { case (d, n) => d <= delta } map (_._2)
+  } yield CpAdvice(judgment, info, prev)
 }
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
@@ -91,7 +84,7 @@ private[analyse] object MateSequence {
 }
 private[analyse] case class MateAdvice(
   sequence: MateSequence,
-  nag: Nag,
+  judgment: Advice.Judgment,
   info: Info,
   prev: Info) extends Advice
 private[analyse] object MateAdvice {
@@ -101,16 +94,17 @@ private[analyse] object MateAdvice {
     def prevScore = reverse(prev.score ?? (_.centipawns))
     def nextScore = reverse(info.score ?? (_.centipawns))
     MateSequence(prev.mate map reverse, info.mate map reverse) map { sequence =>
-      val nag = sequence match {
-        case MateCreated if prevScore < -999 => Nag.Inaccuracy
-        case MateCreated if prevScore < -700 => Nag.Mistake
-        case MateCreated                     => Nag.Blunder
-        case MateLost if nextScore > 999     => Nag.Inaccuracy
-        case MateLost if nextScore > 700     => Nag.Mistake
-        case MateLost                        => Nag.Blunder
-        case MateDelayed                     => Nag.Inaccuracy
+      import Advice.Judgment._
+      val judgment = sequence match {
+        case MateCreated if prevScore < -999 => Inaccuracy
+        case MateCreated if prevScore < -700 => Mistake
+        case MateCreated                     => Blunder
+        case MateLost if nextScore > 999     => Inaccuracy
+        case MateLost if nextScore > 700     => Mistake
+        case MateLost                        => Blunder
+        case MateDelayed                     => Inaccuracy
       }
-      MateAdvice(sequence, nag, info, prev)
+      MateAdvice(sequence, judgment, info, prev)
     }
   }
 }

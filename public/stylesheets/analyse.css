@@ -553,8 +553,6 @@ body.dark .explorer_box .black {
   text-align: center;
 }
 .lichess_ground .replay move {
-  min-width: 40%;
-  display: inline-block;
   font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
@@ -562,6 +560,9 @@ body.dark .explorer_box .black {
 .lichess_ground .replay turn move {
   position: relative;
   padding: 2px 7px;
+}
+.lichess_ground .replay turn > move {
+  min-width: 40%;
 }
 .lichess_ground .replay move.current {
   background: rgba(191, 231, 255, 0.7);
@@ -585,6 +586,7 @@ body.dark .explorer_box .black {
 .lichess_ground .replay glyph {
   font-family: 'Noto Sans';
   color: #444;
+  margin-left: 3px;
 }
 .lichess_ground .replay .meta {
   background-color: #e0e0e0;

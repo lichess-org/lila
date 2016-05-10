@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.pgn.Pgn
+import chess.format.pgn.{ Pgn, Glyphs }
 import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
@@ -69,7 +69,7 @@ object TreeBuilder {
             opening = openingOf(fen),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
-            nag = advice.map(_.nag.symbol),
+            glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
               advice.map(_.makeComment(false, true)).toList.map(Node.Comment.byLichess)
             })

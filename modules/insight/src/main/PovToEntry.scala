@@ -1,6 +1,5 @@
 package lila.insight
 
-import chess.format.Nag
 import chess.{ Role, Board }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov, GameRepo }
@@ -91,16 +90,16 @@ object PovToEntry {
         val ply = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
-          case o if o.nag == Nag.Blunder => from.advices get ply match {
-            case Some(p) if p.nag == Nag.Blunder => false.some
-            case _                               => true.some
+          case o if o.judgment.isBlunder => from.advices get ply match {
+            case Some(p) if p.judgment.isBlunder => false.some
+            case _ => true.some
           }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
-          case o if o.nag == Nag.Blunder => from.advices.get(ply + 1) match {
-            case Some(p) if p.nag == Nag.Blunder => true.some
-            case _                               => false.some
+          case o if o.judgment.isBlunder => from.advices.get(ply + 1) match {
+            case Some(p) if p.judgment.isBlunder => true.some
+            case _ => false.some
           }
           case _ => none
         }

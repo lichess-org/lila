@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.{ Pgn, Tag, Turn, Move }
+import chess.format.pgn.{ Pgn, Tag, Turn, Move, Glyphs }
 import chess.opening._
 import chess.{ Status, Color, Clock }
 
@@ -53,7 +53,7 @@ private[analyse] final class Annotator(netDomain: String) {
       case (pgn, advice) => pgn.updateTurn(advice.turn, turn =>
         turn.update(advice.color, move =>
           move.copy(
-            nag = advice.nag.code.some,
+            glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
             comments = List(advice.makeComment(true, true)),
             variations = makeVariation(turn, advice) :: Nil
           )

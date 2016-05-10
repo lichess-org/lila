@@ -36,7 +36,7 @@ function renderMove(ctrl, node, path, isMainline) {
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
       node.san[0] === 'P' ? node.san.slice(1) : node.san,
-      node.glyphs ? [' ', renderGlyphs(node.glyphs)] : null
+      node.glyphs ? renderGlyphs(node.glyphs) : null
     ]
   };
 }
