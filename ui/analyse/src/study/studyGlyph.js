@@ -24,98 +24,80 @@ function renderGlyph(ctrl, node) {
 }
 
 module.exports = {
-  form: {
-    ctrl: function(root) {
-      var current = m.prop(null); // {chapterId, path, node}
-      var dirty = m.prop(true);
-      var all = m.prop(null);
+  ctrl: function(root) {
+    var isOpen = m.prop(false);
+    var dirty = m.prop(true);
+    var all = m.prop(null);
 
-      var loadGlyphs = function() {
-        if (!all()) xhr.glyphs().then(function(gs) {
-          all(gs);
-          m.redraw();
-        });
-      };
-
-      var toggleGlyph = function(id) {
-        if (!current()) return;
-        if (!dirty()) {
-          dirty(true);
-          m.redraw();
-        }
-        doToggleGlyph(id);
-      };
-
-      var doToggleGlyph = throttle(500, false, function(id) {
-        root.study.contribute('toggleGlyph', {
-          chapterId: current().chapterId,
-          path: current().path,
-          id: id
-        });
+    var loadGlyphs = function() {
+      if (!all()) xhr.glyphs().then(function(gs) {
+        all(gs);
+        m.redraw();
       });
+    };
 
-      var open = function(chapterId, path, node) {
-        loadGlyphs();
+    var toggleGlyph = function(id) {
+      if (!dirty()) {
         dirty(true);
-        current({
-          chapterId: chapterId,
-          path: path,
-          node: node
-        });
-        root.userJump(path);
-      };
+        m.redraw();
+      }
+      doToggleGlyph(id);
+    };
 
-      var close = function() {
-        current(null);
-      };
+    var doToggleGlyph = throttle(500, false, function(id) {
+      root.study.contribute('toggleGlyph', root.study.withPosition({
+        id: id
+      }));
+    });
 
-      return {
-        root: root,
-        all: all,
-        current: current,
-        dirty: dirty,
-        open: open,
-        close: close,
-        toggle: function(chapterId, path, node) {
-          if (current()) close();
-          else open(chapterId, path, node);
-        },
-        toggleGlyph: toggleGlyph
-      };
-    },
-    view: function(ctrl) {
+    var open = function() {
+      loadGlyphs();
+      dirty(true);
+      isOpen(true);
+    };
 
-      var current = ctrl.current();
-      if (!current) return;
-      var all = ctrl.all();
+    return {
+      root: root,
+      all: all,
+      open: open,
+      isOpen: isOpen,
+      dirty: dirty,
+      toggle: function(chapterId, path, node) {
+        if (isOpen()) isOpen(false);
+        else open();
+      },
+      toggleGlyph: toggleGlyph
+    };
+  },
+  view: function(ctrl) {
 
-      return m('div.study_glyph_form.underboard_form', [
-        m('p.title', [
-          m('button.button.frameless.close', {
-            'data-icon': 'L',
-            title: 'Close',
-            onclick: ctrl.close
-          }),
-          'Annotating position after ',
-          m('button.button', {
-            class: ctrl.root.vm.path === current.path ? '' : 'active',
-            onclick: partial(ctrl.root.userJump, current.path)
-          }, nodeFullName(current.node)),
-          m('span.saved', {
-            config: function(el, isUpdate, ctx) {
-              if (ctrl.dirty())
-                el.classList.remove('visible');
-              else
-                el.classList.add('visible');
-            }
-          }, 'Saved.')
-        ]),
-        all ? m('div.glyph_form', [
-          m('div.move', all.move.map(renderGlyph(ctrl, current.node))),
-          m('div.position', all.position.map(renderGlyph(ctrl, current.node))),
-          m('div.observation', all.observation.map(renderGlyph(ctrl, current.node)))
-        ]) : m.trust(lichess.spinnerHtml)
-      ]);
-    }
+    if (!ctrl.isOpen()) return;
+    var all = ctrl.all();
+    var node = ctrl.root.vm.node;
+
+    return m('div.study_glyph_form.underboard_form', [
+      m('p.title', [
+        m('button.button.frameless.close', {
+          'data-icon': 'L',
+          title: 'Close',
+          onclick: partial(ctrl.isOpen, false)
+        }),
+        'Annotating position after ',
+        m('strong', nodeFullName(node)),
+        m('span.saved', {
+          config: function(el, isUpdate, ctx) {
+            if (ctrl.dirty())
+              el.classList.remove('visible');
+            else
+              el.classList.add('visible');
+          }
+        }, 'Saved.')
+      ]),
+      all ? m('div.glyph_form', [
+        m('div.move', all.move.map(renderGlyph(ctrl, node))),
+        m('div.position', all.position.map(renderGlyph(ctrl, node))),
+        m('div.observation', all.observation.map(renderGlyph(ctrl, node)))
+      ]) : m.trust(lichess.spinnerHtml)
+    ]);
   }
 };

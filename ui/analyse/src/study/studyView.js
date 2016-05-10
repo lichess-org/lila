@@ -5,7 +5,7 @@ var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
-var glyphFormView = require('./studyGlyph').form.view;
+var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
 var dialog = require('./dialog');
 
@@ -82,9 +82,7 @@ function currentComments(ctrl, includingMine) {
         }
       }) : null,
       isMine ? m('a.edit[data-icon=m][title=Edit]', {
-        onclick: function() {
-          ctrl.study.commentForm.open(chapter.id, path, node);
-        }
+        onclick: ctrl.study.commentForm.open
       }) : null,
       m('span.user_link.ulpt', {
         'data-href': '/@/' + comment.by
@@ -134,12 +132,10 @@ function buttons(ctrl) {
           }
         }, m('i[data-icon=c]')),
         m('a.button.hint--top', {
-          class: ctrl.study.glyphForm.current() ? 'active' : '',
+          class: ctrl.study.glyphForm.isOpen() ? 'active' : '',
           'data-hint': 'Annotate with symbols',
           disabled: ctrl.study.vm.behind !== false,
-          onclick: function() {
-            ctrl.study.glyphForm.toggle(ctrl.study.currentChapter().id, path, node)
-          }
+          onclick: ctrl.study.glyphForm.toggle
         }, m('i.glyph-icon'))
       ] : null
     ]),
@@ -203,7 +199,8 @@ module.exports = {
       }, 'Comment this move'),
       m('a.action.glyph-icon', {
         onclick: function() {
-          ctrl.glyphForm.open(ctrl.currentChapter().id, path, node);
+          ctrl.glyphForm.open();
+          ctrl.userJump(path);
         }
       }, 'Annotate with symbols')
     ];

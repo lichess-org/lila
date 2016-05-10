@@ -46,6 +46,7 @@ body:not(.dark) .material.form .study_tabs a {
 }
 .underboard_form .title {
   background: #e0e0e0;
+  line-height: 30px;
 }
 .underboard_form .saved {
   color: #759900;

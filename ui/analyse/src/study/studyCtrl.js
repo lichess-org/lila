@@ -5,7 +5,7 @@ var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
-var glyphFormCtrl = require('./studyGlyph').form.ctrl;
+var glyphFormCtrl = require('./studyGlyph').ctrl;
 var tour = require('./studyTour');
 var xhr = require('./studyXhr');
 
@@ -112,6 +112,11 @@ module.exports = {
       currentChapter: function() {
         return chapters.get(currentChapterId());
       },
+      withPosition: function(obj) {
+        obj.chapterId = currentChapterId();
+        obj.path = ctrl.vm.path;
+        return obj;
+      },
       setPath: throttle(300, false, function(path) {
         if (path != data.position.path) contribute("setPath", addChapterId({
           path: path
@@ -156,6 +161,7 @@ module.exports = {
         if (contributing()) addChapterId(req);
       },
       contribute: contribute,
+      userJump: ctrl.userJump,
       socketHandlers: {
         path: function(d) {
           var position = d.p,
