@@ -78,10 +78,6 @@ body:not(.dark) .material.form .study_tabs a {
   padding: 5px 10px;
   margin-bottom: 10px;
 }
-body.dark .underboard_form .title,
-body.dark .study_comments .comment {
-  background: #262626;
-}
 .study_comments .text {
   overflow: hidden;
   word-wrap: break-word;
@@ -288,6 +284,8 @@ body.dark .study_comments .comment {
   display: flex;
   white-space: nowrap;
   margin-bottom: 15px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 .glyph_form > * {
   flex: 1 0 30%;
@@ -318,6 +316,17 @@ body.dark .study_comments .comment {
   background: #eee;
 }
 .glyph_form a.active i::before {
-  background: #3893E8;
-  color: #fff;
+  background: #3893E8!important;
+  color: #fff!important;
+}
+body.dark .underboard_form .title,
+body.dark .study_comments .comment,
+body.dark .glyph_form i::before {
+  background: #262626;
+}
+body.dark .glyph_form a:hover {
+  background: #383838;
+}
+body.dark .glyph_form a:hover i::before {
+  background: #303030;
 }

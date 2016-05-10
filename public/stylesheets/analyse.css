@@ -580,8 +580,7 @@ body.dark .explorer_box .black {
   opacity: 1;
 }
 .lichess_ground .replay glyph {
-  font-family: 'Roboto';
-  font-weight: 300;
+  font-family: 'Noto Sans';
   color: #444;
 }
 .lichess_ground .replay .meta {

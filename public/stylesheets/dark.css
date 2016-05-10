@@ -7,7 +7,8 @@ body.dark a,
 body.dark a:visited,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
-body.dark .button {
+body.dark .button,
+body.dark .lichess_ground .replay glyph {
   color: #8a8a8a;
 }
 body.dark #video .content_box_top form input,
