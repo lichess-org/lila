@@ -528,3 +528,4 @@ phoneAndTablet=Telefon in tablica
 bulletBlitzClassical=Hitropotezno, pospešeno, klasično
 correspondenceChess=Korespondenčni šah
 onlineAndOfflinePlay=Igranje s povezavo ali brez povezave
+correspondenceAndUnlimited=korespondenčno in neomejeno
