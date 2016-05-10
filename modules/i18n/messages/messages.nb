@@ -528,3 +528,4 @@ phoneAndTablet=Mobil og nettbrett
 bulletBlitzClassical=Lyn, hurtig og klassisk
 correspondenceChess=Fjernsjakk
 onlineAndOfflinePlay=Online og offline spill
+correspondenceAndUnlimited=Korrespondanse og  ubegrenset
