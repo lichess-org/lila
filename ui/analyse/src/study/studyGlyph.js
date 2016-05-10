@@ -4,13 +4,16 @@ var throttle = require('../util').throttle;
 var nodeFullName = require('../util').nodeFullName;
 var partial = require('chessground').util.partial;
 
-function renderGlyph(ctrl) {
+function renderGlyph(ctrl, node) {
   return function(glyph) {
     return m('a', {
       onclick: function() {
-        ctrl.toggle(glyph.id);
+        ctrl.toggleGlyph(glyph.id);
         return false;
-      }
+      },
+      class: (node.glyphs && node.glyphs.filter(function(g) {
+        return g.id === glyph.id;
+      })[0]) ? 'active' : ''
     }, [
       m('i', {
         'data-symbol': glyph.symbol,
@@ -34,20 +37,20 @@ module.exports = {
         });
       };
 
-      var submit = function(text) {
+      var toggleGlyph = function(id) {
         if (!current()) return;
         if (!dirty()) {
           dirty(true);
           m.redraw();
         }
-        doSubmit(text);
+        doToggleGlyph(id);
       };
 
-      var doSubmit = throttle(500, false, function(glyphs) {
-        root.study.contribute('setGlyphs', {
+      var doToggleGlyph = throttle(500, false, function(id) {
+        root.study.contribute('toggleGlyph', {
           chapterId: current().chapterId,
           path: current().path,
-          glyphs: glyphs
+          id: id
         });
       });
 
@@ -77,7 +80,7 @@ module.exports = {
           if (current()) close();
           else open(chapterId, path, node);
         },
-        submit: submit
+        toggleGlyph: toggleGlyph
       };
     },
     view: function(ctrl) {
@@ -108,9 +111,9 @@ module.exports = {
           }, 'Saved.')
         ]),
         all ? m('div.glyph_form', [
-          m('div.move', all.move.map(renderGlyph(ctrl))),
-          m('div.position', all.position.map(renderGlyph(ctrl))),
-          m('div.observation', all.observation.map(renderGlyph(ctrl)))
+          m('div.move', all.move.map(renderGlyph(ctrl, current.node))),
+          m('div.position', all.position.map(renderGlyph(ctrl, current.node))),
+          m('div.observation', all.observation.map(renderGlyph(ctrl, current.node)))
         ]) : m.trust(lichess.spinnerHtml)
       ]);
     }

@@ -86,15 +86,10 @@ private object BSONHandlers {
       "b" -> w.strO(writePocket(s.pockets.black)))
   }
 
-  private implicit def GlyphsBSONHandler: BSON[Glyphs] = new BSON[Glyphs] {
-    def reads(r: Reader) = Glyphs(
-      move = r.intO("m") flatMap Glyph.MoveAssessment.byId.get,
-      position = r.intO("p") flatMap Glyph.PositionAssessment.byId.get,
-      observations = r.intsD("o") flatMap Glyph.Observation.byId.get)
-    def writes(w: Writer, g: Glyphs) = BSONDocument(
-      "m" -> g.move.map(_.id),
-      "p" -> g.position.map(_.id),
-      "o" -> g.observations.map(_.id))
+  private implicit val GlyphsBSONHandler = new BSONHandler[BSONArray, Glyphs] {
+    private val idsHandler = bsonArrayToListHandler[Int]
+    def read(b: BSONArray) = Glyphs.fromList(idsHandler read b flatMap Glyph.find)
+    def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {

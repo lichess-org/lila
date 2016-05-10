@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.Color
-import chess.format.pgn.Glyphs
+import chess.format.pgn.Glyph
 import chess.variant.Variant
 import org.joda.time.DateTime
 
@@ -33,8 +33,8 @@ case class Chapter(
   def setComment(comment: Comment, path: Path): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
 
-  def setGlyphs(glyphs: Glyphs, path: Path): Option[Chapter] =
-    updateRoot(_.setGlyphsAt(glyphs, path))
+  def toggleGlyph(glyph: Glyph, path: Path): Option[Chapter] =
+    updateRoot(_.toggleGlyphAt(glyph, path))
 
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none

@@ -579,6 +579,11 @@ body.dark .explorer_box .black {
 .lichess_ground .replay move:hover eval {
   opacity: 1;
 }
+.lichess_ground .replay glyph {
+  font-family: 'Roboto';
+  font-weight: 300;
+  color: #444;
+}
 .lichess_ground .replay .meta {
   background-color: #e0e0e0;
   border: 1px solid #ccc;

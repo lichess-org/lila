@@ -53,15 +53,6 @@ object JsonView {
     }.fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
 
-  private[study] implicit val glyphsReader: Reads[Glyphs] = Reads[Glyphs] { js =>
-    js.asOpt[JsObject].map { o =>
-      Glyphs(
-        move = o int "move" flatMap Glyph.MoveAssessment.byId.get,
-        position = o int "position" flatMap Glyph.PositionAssessment.byId.get,
-        observations = ~(o ints "observations") flatMap Glyph.Observation.byId.get)
-    }.fold[JsResult[Glyphs]](JsError(Nil))(JsSuccess(_))
-  }
-
   private implicit val fenWrites = Writes[chess.format.FEN] { f =>
     JsString(f.value)
   }

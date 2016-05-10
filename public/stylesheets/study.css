@@ -296,7 +296,7 @@ body.dark .study_comments .comment {
   display: block!important;
   cursor: pointer;
 }
-.glyph_form i:before {
+.glyph_form i::before {
   content: attr(data-symbol);
   font-size: 1.3em;
   vertical-align: middle;
@@ -314,6 +314,10 @@ body.dark .study_comments .comment {
   background: #fff;
   color: #3893E8;
 }
-.glyph_form a:hover i:before {
+.glyph_form a:hover i::before {
   background: #eee;
+}
+.glyph_form a.active i::before {
+  background: #3893E8;
+  color: #fff;
 }

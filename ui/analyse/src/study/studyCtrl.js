@@ -248,7 +248,7 @@ module.exports = {
           who && activity(who.u);
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
-          ctrl.tree.setGlyphsAt(d.c, position.path);
+          ctrl.tree.setGlyphsAt(d.g, position.path);
           m.redraw();
         },
         following_onlines: members.inviteForm.setCandidates,

@@ -3,7 +3,7 @@ package lila.study
 import akka.actor.{ ActorRef, ActorSelection }
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
-import chess.format.pgn.Glyphs
+import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
 import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
@@ -165,14 +165,16 @@ final class StudyApi(
     }
   }
 
-  def setGlyphs(userId: User.ID, studyId: Study.ID, position: Position.Ref, glyphs: Glyphs, uid: Uid) = sequenceStudyWithChapter(studyId) {
+  def toggleGlyph(userId: User.ID, studyId: Study.ID, position: Position.Ref, glyph: Glyph, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       (study.members get userId) ?? { byMember =>
-        chapter.setGlyphs(glyphs, position.path) match {
+        chapter.toggleGlyph(glyph, position.path) match {
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-
-              sendTo(study.id, Socket.SetGlyphs(position, glyphs, uid))
-          case None => fufail(s"Invalid setGlyphs $studyId $position $glyphs") >>- reloadUid(study, uid)
+              newChapter.root.nodeAt(position.path).foreach { node =>
+                sendTo(study.id, Socket.SetGlyphs(position, node.glyphs, uid))
+              }
+          case None => fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>- reloadUid(study, uid)
         }
       }
     }

@@ -35,9 +35,22 @@ function renderMove(ctrl, node, path, isMainline) {
       defined(eval.cp) ? renderEvalTag(util.renderEval(eval.cp)) : (
         defined(eval.mate) ? renderEvalTag('#' + eval.mate) : null
       ),
-      node.san[0] === 'P' ? node.san.slice(1) : node.san
+      node.san[0] === 'P' ? node.san.slice(1) : node.san,
+      node.glyphs ? [' ', renderGlyphs(node.glyphs)] : null
     ]
   };
+}
+
+function renderGlyphs(glyphs) {
+  return glyphs.map(function(glyph) {
+    return {
+      tag: 'glyph',
+      attrs: {
+        title: glyph.name
+      },
+      children: [glyph.symbol]
+    };
+  });
 }
 
 function renderVariation(ctrl, node, parent, klass, depth) {

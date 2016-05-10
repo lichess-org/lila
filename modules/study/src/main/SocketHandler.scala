@@ -26,7 +26,7 @@ private[study] final class SocketHandler(
     api: StudyApi) {
 
   import Handler.AnaRateLimit
-  import JsonView.{ shapeReader, glyphsReader }
+  import JsonView.shapeReader
   import lila.socket.tree.Node.openingWriter
 
   private def controller(
@@ -192,14 +192,13 @@ private[study] final class SocketHandler(
         } api.setComment(userId, studyId, position.ref, comment, uid)
       }
 
-    case ("setGlyphs", o) =>
+    case ("toggleGlyph", o) =>
       reading[AtPosition](o) { position =>
         for {
           userId <- member.userId
-          text <- (o \ "d" \ "text").asOpt[String]
           by = (o \ "d" \ "by").asOpt[String] ifTrue owner
-          glyphs <- (o \ "d" \ "glyphs").asOpt[Glyphs]
-        } api.setGlyphs(userId, studyId, position.ref, glyphs, uid)
+          glyph <- (o \ "d" \ "id").asOpt[Int] flatMap Glyph.find
+        } api.toggleGlyph(userId, studyId, position.ref, glyph, uid)
       }
   }
 
