@@ -13,7 +13,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.{ Shape, Comment }
-import lila.socket.{ Handler, AnaMove, AnaDests }
+import lila.socket.{ Handler, AnaMove, AnaDests, AnaDrop }
 import lila.user.User
 import makeTimeout.short
 
@@ -61,6 +61,28 @@ private[study] final class SocketHandler(
               uid)
           case scalaz.Failure(err) =>
             member push makeMessage("stepFailure", err.toString)
+        }
+      }
+    }
+    case ("anaDrop", o) => AnaRateLimit(uid.value) {
+      AnaDrop parse o foreach { anaDrop =>
+        anaDrop.branch match {
+          case scalaz.Success(branch) =>
+            member push makeMessage("node", Json.obj(
+              "node" -> branch,
+              "path" -> anaDrop.path
+            ))
+            for {
+              userId <- member.userId
+              d ← o obj "d"
+              chapterId <- d str "chapterId"
+            } api.addNode(
+              studyId,
+              Position.Ref(chapterId, Path(anaDrop.path)),
+              Node.fromBranchBy(userId)(branch),
+              uid)
+          case scalaz.Failure(err) =>
+            member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }
       }
     }
