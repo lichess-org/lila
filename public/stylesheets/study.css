@@ -78,6 +78,10 @@ body:not(.dark) .material.form .study_tabs a {
   padding: 5px 10px;
   margin-bottom: 10px;
 }
+body.dark .study_comment_form .title,
+body.dark .study_comments .comment {
+  background: #262626;
+}
 .study_comments .text {
   overflow: hidden;
   word-wrap: break-word;
