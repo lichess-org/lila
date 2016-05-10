@@ -528,3 +528,4 @@ phoneAndTablet=Telefoon en tablet
 bulletBlitzClassical=Bullet, blitz, klassiek
 correspondenceChess=Correspondentieschaak
 onlineAndOfflinePlay=Online en offline spelen
+correspondenceAndUnlimited=Correspondentieschaak en zonder klok
