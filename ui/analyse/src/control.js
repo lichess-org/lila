@@ -21,7 +21,7 @@ module.exports = {
   },
 
   last: function(ctrl) {
-    ctrl.userJump(treePath.fromNodeList(ctrl.vm.mainline));
+    ctrl.jumpToLast();
   },
 
   first: function(ctrl) {

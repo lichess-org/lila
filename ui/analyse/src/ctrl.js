@@ -197,6 +197,10 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.jumpToLast = function() {
+    this.userJump(treePath.fromNodeList(this.vm.mainline));
+  }.bind(this);
+
   this.reloadData = function(data) {
     initialize(data);
     this.vm.redirecting = false;

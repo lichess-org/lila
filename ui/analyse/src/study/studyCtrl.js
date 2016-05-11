@@ -22,6 +22,7 @@ module.exports = {
       loading: false,
       tab: storedProp('study.tab', 'members'),
       behind: false, // false if syncing, else incremental number of missed event
+      catchingUp: false, // was behind, is syncing back
       chapterId: null, // only useful when not synchronized
       editing: data.isNew
     };
@@ -73,7 +74,9 @@ module.exports = {
         orientation: d.analysis.orientation
       });
       vm.loading = false;
-      ctrl.userJump(data.position.path);
+      if (vm.behind === false || vm.catchingUp) ctrl.userJump(data.position.path);
+      else ctrl.jumpToLast();
+      vm.catchingUp = false;
       m.redraw();
       configureChat();
     };
@@ -155,6 +158,7 @@ module.exports = {
       toggleSync: function() {
         if (vm.behind !== false) {
           vm.chapterId = null;
+          vm.catchingUp = true;
           xhrReload().then(function() {
             vm.behind = false;
             m.redraw();
