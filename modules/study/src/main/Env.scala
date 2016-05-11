@@ -13,7 +13,7 @@ import makeTimeout.short
 
 final class Env(
     config: Config,
-    getLightUser: String => Option[lila.common.LightUser],
+    getLightUser: lila.common.LightUser.Getter,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
     system: ActorSystem,
@@ -37,6 +37,7 @@ final class Env(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(studyId: String) = new Socket(
         studyId = studyId,
+        jsonView = jsonView,
         lightUser = getLightUser,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         destCache = destCache,
@@ -54,6 +55,11 @@ final class Env(
     destCache = destCache,
     api = api)
 
+  lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
+  lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
+
+  lazy val jsonView = new JsonView(getLightUser)
+
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
@@ -64,12 +70,14 @@ final class Env(
     notifier = new StudyNotifier(
       messageActor = hub.actor.messenger,
       netBaseUrl = NetBaseUrl),
+    lightUser = getLightUser,
     chat = hub.actor.chat,
     socketHub = socketHub)
 
   lazy val pgnDump = new PgnDump(
     chapterRepo = chapterRepo,
     gamePgnDump = gamePgnDump,
+    lightUser = getLightUser,
     netBaseUrl = NetBaseUrl)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
@@ -83,9 +91,6 @@ final class Env(
     import lila.socket.AnaDests
     lila.memo.Builder.cache[AnaDests.Ref, AnaDests](1 minute, _.compute)
   }
-
-  private lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
-  lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 }
 
 object Env {

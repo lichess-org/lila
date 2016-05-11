@@ -15,7 +15,8 @@ import lila.user.User
 
 private final class Socket(
     studyId: String,
-    lightUser: String => Option[lila.common.LightUser],
+    jsonView: JsonView,
+    lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     destCache: LoadingCache[AnaDests.Ref, AnaDests],
     uidTimeout: Duration,
@@ -23,6 +24,7 @@ private final class Socket(
 
   import Socket._
   import JsonView._
+  import jsonView.membersWrites
   import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter }
 
   private val timeBomb = new TimeBomb(socketTimeout)

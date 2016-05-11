@@ -18,6 +18,7 @@ final class StudyApi(
     sequencers: ActorRef,
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
+    lightUser: lila.common.LightUser.Getter,
     chat: ActorSelection,
     socketHub: akka.actor.ActorRef) {
 
@@ -40,7 +41,7 @@ final class StudyApi(
   }
 
   def create(user: User): Fu[Study.WithChapter] = {
-    val preStudy = Study.make(user = user.light)
+    val preStudy = Study.make(user)
     val chapter: Chapter = Chapter.make(
       studyId = preStudy.id,
       name = "Chapter 1",
@@ -131,7 +132,7 @@ final class StudyApi(
     (study isOwner byUserId) ?? {
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
-          studyRepo.addMember(study, StudyMember.make(study, user)) >>-
+          studyRepo.addMember(study, StudyMember make user) >>-
             notifier(study, user, socket)
         }
       } >>- reloadMembers(study)
@@ -162,12 +163,14 @@ final class StudyApi(
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, c: Comment, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       (study.members get userId) ?? { byMember =>
-        val comment = Comment(text = Comment sanitize c.text, by = byMember.user.name)
-        chapter.setComment(comment, position.path) match {
-          case Some(newChapter) =>
-            chapterRepo.update(newChapter) >>-
-              sendTo(study, Socket.SetComment(position, comment, uid))
-          case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+        lightUser(byMember.id) ?? { user =>
+          val comment = Comment(text = Comment sanitize c.text, by = user.titleName)
+          chapter.setComment(comment, position.path) match {
+            case Some(newChapter) =>
+              chapterRepo.update(newChapter) >>-
+                sendTo(study, Socket.SetComment(position, comment, uid))
+            case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+          }
         }
       }
     }

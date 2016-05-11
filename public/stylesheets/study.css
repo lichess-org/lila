@@ -19,6 +19,12 @@
   font-family: 'Roboto';
   font-weight: 300;
 }
+.study_tabs a.more {
+  flex: 0 0 32px;
+}
+.study_tabs a.more i {
+  opacity: 0.6;
+}
 .study_tabs a:hover {
   color: #3893E8!important;
 }

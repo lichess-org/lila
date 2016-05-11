@@ -11,6 +11,7 @@ import lila.game.{ Game, GameRepo }
 final class PgnDump(
     chapterRepo: ChapterRepo,
     gamePgnDump: lila.game.PgnDump,
+    lightUser: LightUser.Getter,
     netBaseUrl: String) {
 
   def apply(study: Study): Fu[List[Pgn]] =
@@ -30,7 +31,7 @@ final class PgnDump(
 
   def filename(study: Study): String = {
     val name = lila.common.String slugify study.name
-    val owner = study.owner.??(_.user.name)
+    val owner = lightUser(study.ownerId).map(_.name)
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
   }

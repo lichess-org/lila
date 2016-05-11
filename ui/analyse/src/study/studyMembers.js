@@ -132,6 +132,7 @@ module.exports = {
 
     var memberConfig = function(member) {
       return m('div.config', {
+        key: member.user.id + '-config',
         config: function(el, isUpdate) {
           if (!isUpdate) $(el).parent('.members').scrollTo(el, 200);
         }

@@ -15,7 +15,7 @@ private final class StudyNotifier(
     socket ? HasUserId(invited.id) mapTo manifest[Boolean] map { isPresent =>
       study.owner.ifFalse(isPresent) foreach { owner =>
         if (!isPresent) messageActor ! LichessThread(
-          from = owner.user.id,
+          from = owner.id,
           to = invited.id,
           subject = s"Would you like to join my study?",
           message = s"I invited you to this study: ${studyUrl(study)}",

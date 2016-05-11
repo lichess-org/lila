@@ -11,10 +11,51 @@ import lila.common.PimpedJson._
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.Shape
 
-object JsonView {
+final class JsonView(lightUser: LightUser.Getter) {
+
+  import JsonView._
 
   def apply(study: Study, chapters: List[Chapter.Metadata]) =
-    studyWrites.writes(study) ++ Json.obj("chapters" -> chapters)
+    studyWrites.writes(study) ++ Json.obj("chapters" -> chapters.map(chapterMetadataWrites.writes))
+
+  private implicit val lightUserWrites = OWrites[LightUser] { u =>
+    Json.obj(
+      "id" -> u.id,
+      "name" -> u.name,
+      "title" -> u.title)
+  }
+
+  private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
+    JsString(r.id)
+  }
+  private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
+    Json.obj(
+      "user" -> lightUser(m.id),
+      "role" -> m.role,
+      "addedAt" -> m.addedAt)
+  }
+
+  private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
+    Json toJson m.members
+  }
+
+  private implicit val studyWrites = OWrites[Study] { s =>
+    Json.obj(
+      "id" -> s.id,
+      "name" -> s.name,
+      "members" -> s.members,
+      "position" -> s.position,
+      "ownerId" -> s.ownerId,
+      "visibility" -> visibilityWriter.writes(s.visibility),
+      "createdAt" -> s.createdAt,
+      "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
+    ).noNull
+  }
+}
+
+object JsonView {
+
+  case class JsData(study: JsObject, analysis: JsObject, chat: JsValue)
 
   private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
@@ -65,46 +106,7 @@ object JsonView {
       "name" -> c.name,
       "setup" -> c.setup)
   }
-
-  private implicit val studyWrites = OWrites[Study] { s =>
-    Json.obj(
-      "id" -> s.id,
-      "name" -> s.name,
-      "members" -> s.members,
-      "position" -> s.position,
-      "ownerId" -> s.ownerId,
-      "visibility" -> s.visibility,
-      "createdAt" -> s.createdAt,
-      "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
-    ).noNull
-  }
-  private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
+  // private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
-
-  private implicit val lightUserWrites = OWrites[LightUser] { u =>
-    Json.obj(
-      "id" -> u.id,
-      "name" -> u.name,
-      "title" -> u.title)
-  }
-
-  private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
-    JsString(r.id)
-  }
-  private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
-    Json.obj(
-      "user" -> m.user,
-      "role" -> m.role,
-      "addedAt" -> m.addedAt)
-  }
-
-  private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
-    Json toJson m.members
-  }
-
-  case class JsData(
-    study: JsObject,
-    analysis: JsObject,
-    chat: JsValue)
 }

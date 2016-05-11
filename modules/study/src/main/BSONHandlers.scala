@@ -4,12 +4,13 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Pos, Color, Role, PromotableRole }
+import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.common.LightUser
 import lila.db.BSON
-import lila.db.BSON._
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON.{ Reader, Writer }
+import lila.db.dsl._
 import lila.socket.tree.Node.Shape
 
 private object BSONHandlers {
@@ -33,8 +34,8 @@ private object BSONHandlers {
       } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
     }
     def writes(w: Writer, t: Shape) = t match {
-      case Shape.Circle(brush, pos)       => BSONDocument("b" -> brush, "p" -> pos.key)
-      case Shape.Arrow(brush, orig, dest) => BSONDocument("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+      case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
+      case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
     }
   }
 
@@ -80,7 +81,7 @@ private object BSONHandlers {
       pockets = Crazyhouse.Pockets(
         white = readPocket(r.strD("w")),
         black = readPocket(r.strD("b"))))
-    def writes(w: Writer, s: Crazyhouse.Data) = BSONDocument(
+    def writes(w: Writer, s: Crazyhouse.Data) = $doc(
       "o" -> w.listO(s.promoted.toList),
       "w" -> w.strO(writePocket(s.pockets.white)),
       "b" -> w.strO(writePocket(s.pockets.black)))
@@ -104,7 +105,7 @@ private object BSONHandlers {
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
-    def writes(w: Writer, s: Node) = BSONDocument(
+    def writes(w: Writer, s: Node) = $doc(
       "i" -> s.id,
       "p" -> s.ply,
       "u" -> s.move.uci,
@@ -128,7 +129,7 @@ private object BSONHandlers {
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n"))
-    def writes(w: Writer, s: Root) = BSONDocument(
+    def writes(w: Writer, s: Root) = $doc(
       "p" -> s.ply,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
@@ -157,7 +158,7 @@ private object BSONHandlers {
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
-  private implicit val ChaptersMap = MapDocument.MapHandler[Chapter]
+  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter]
 
   implicit val PositionRefBSONHandler = new BSONHandler[BSONString, Position.Ref] {
     def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"
@@ -167,12 +168,17 @@ private object BSONHandlers {
     def read(b: BSONString) = StudyMember.Role.byId get b.value err s"Invalid role ${b.value}"
     def write(x: StudyMember.Role) = BSONString(x.id)
   }
-  private implicit val LightUserBSONHandler = Macros.handler[LightUser]
-  private[study] implicit val MemberBSONHandler = Macros.handler[StudyMember]
-  private[study] implicit val MemberMapBSONHandler = MapDocument.MapHandler[StudyMember]
-  private[study] implicit val MembersBSONHandler = new BSONHandler[BSONDocument, StudyMembers] {
-    def read(b: BSONDocument) = StudyMembers(MemberMapBSONHandler read b)
-    def write(x: StudyMembers) = MemberMapBSONHandler write x.members
+  private case class DbMember(role: StudyMember.Role, addedAt: DateTime)
+  private implicit val DbMemberBSONHandler = Macros.handler[DbMember]
+  private[study] implicit val StudyMemberBSONWriter = new BSONWriter[StudyMember, Bdoc] {
+    def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role, x.addedAt)
+  }
+  private[study] implicit val MembersBSONHandler = new BSONHandler[Bdoc, StudyMembers] {
+    private val mapHandler = BSON.MapDocument.MapHandler[DbMember]
+    def read(b: Bdoc) = StudyMembers(mapHandler read b map {
+      case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
+    })
+    def write(x: StudyMembers) = $doc(x.members.mapValues(StudyMemberBSONWriter.write))
   }
   import Study.Visibility
   implicit val visibilityHandler = new BSONHandler[BSONString, Visibility] {

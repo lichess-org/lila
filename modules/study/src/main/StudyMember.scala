@@ -6,23 +6,18 @@ import lila.common.LightUser
 import lila.user.User
 
 case class StudyMember(
-    user: LightUser,
+    id: User.ID,
     role: StudyMember.Role,
     addedAt: DateTime) {
 
   def canContribute = role == StudyMember.Role.Write
-
-  def id = user.id
 }
 
 object StudyMember {
 
   type MemberMap = Map[User.ID, StudyMember]
 
-  def make(study: Study, user: User) = StudyMember(
-    user = user.light,
-    role = Role.Read,
-    addedAt = DateTime.now)
+  def make(user: User) = StudyMember(id = user.id, role = Role.Read, addedAt = DateTime.now)
 
   sealed abstract class Role(val id: String)
   object Role {
@@ -34,7 +29,7 @@ object StudyMember {
 
 case class StudyMembers(members: StudyMember.MemberMap) {
 
-  def +(member: StudyMember) = copy(members = members + (member.user.id -> member))
+  def +(member: StudyMember) = copy(members = members + (member.id -> member))
 
   def contains(userId: User.ID): Boolean = members contains userId
   def contains(user: User): Boolean = contains(user.id)

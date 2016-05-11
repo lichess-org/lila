@@ -51,14 +51,14 @@ object Study {
 
   val idSize = 8
 
-  def make(user: lila.common.LightUser) = {
+  def make(user: User) = {
     val owner = StudyMember(
-      user = user,
+      id = user.id,
       role = StudyMember.Role.Write,
       addedAt = DateTime.now)
     Study(
       _id = scala.util.Random.alphanumeric take idSize mkString,
-      name = s"${user.name}'s Study",
+      name = s"${user.username}'s Study",
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
       ownerId = user.id,

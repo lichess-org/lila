@@ -43,4 +43,4 @@ final class ChapterRepo(coll: Coll) {
   def delete(id: Chapter.ID): Funit = coll.remove($id(id)).void
 
   private def $studyId(id: Study.ID) = $doc("studyId" -> id)
-}
+ }
