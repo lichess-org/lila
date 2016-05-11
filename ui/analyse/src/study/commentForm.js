@@ -9,6 +9,7 @@ module.exports = {
     var current = m.prop(null); // {chapterId, path, node}
     var dirty = m.prop(true);
     var focus = m.prop(false);
+    var opening = m.prop(false);
 
     var submit = function(text) {
       if (!current()) return;
@@ -29,6 +30,7 @@ module.exports = {
 
     var open = function(chapterId, path, node) {
       dirty(true);
+      opening(true);
       current({
         chapterId: chapterId,
         path: path,
@@ -57,6 +59,7 @@ module.exports = {
       current: current,
       dirty: dirty,
       focus: focus,
+      opening: opening,
       open: open,
       close: close,
       toggle: function(chapterId, path, node) {
@@ -115,7 +118,8 @@ module.exports = {
                 return c.by.toLowerCase() === ctrl.root.userId;
               });
               el.value = mine ? mine.text : '';
-              ctrl.focus() && el.focus();
+              if (ctrl.opening() || ctrl.focus()) el.focus();
+              ctrl.opening(false);
               if (!ctx.trap) {
                 ctx.trap = Mousetrap(el);
                 ctx.trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
