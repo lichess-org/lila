@@ -21,6 +21,22 @@ object Study extends LilaController {
     }
   }
 
+  def byOwnerPublic(username: String, page: Int) = Open { implicit ctx =>
+    OptionFuOk(lila.user.UserRepo named username) { owner =>
+      env.pager.byOwnerPublicForUser(owner.id, ctx.me, page) map { pag =>
+        html.study.byOwnerPublic(pag, owner)
+      }
+    }
+  }
+
+  def byOwnerPrivate(username: String, page: Int) = Open { implicit ctx =>
+    OptionFuOk(lila.user.UserRepo named username) { owner =>
+      env.pager.byOwnerPrivateForUser(owner.id, ctx.me, page) map { pag =>
+        html.study.byOwnerPrivate(pag, owner)
+      }
+    }
+  }
+
   def byMember(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { member =>
       env.pager.byMemberForUser(member.id, ctx.me, page) map { pag =>

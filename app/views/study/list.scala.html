@@ -1,4 +1,15 @@
 @(pager: Paginator[lila.study.Study.WithChapters], url: Call)(implicit ctx: Context)
+@if(pager.currentPageResults.isEmpty) {
+<div class="nostudies">
+  <i data-icon=""></i>
+  <p>None yet.</p>
+  @if(ctx.isAuth) {
+  <form action="@routes.Study.create" method="post">
+    <button class="button">Create a study</button>
+  </form>
+  }
+</div>
+} else {
 <div class="studies infinitescroll">
   @pager.currentPageResults.map { s =>
   <div class="study paginated_element">
@@ -31,3 +42,4 @@
   </div>
   }
 </div>
+}

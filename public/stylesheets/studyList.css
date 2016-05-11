@@ -2,6 +2,22 @@
   display: flex;
   flex-flow: row wrap;
 }
+.nostudies {
+  text-align: center;
+  margin: 40px 0 80px;
+  font-size: 2em;
+}
+.nostudies p {
+  opacity: 0.6;
+}
+.nostudies i {
+  display: block;
+  font-size: 180px;
+  opacity: 0.4;
+}
+.nostudies form {
+  margin-top: 20px;
+}
 .studies .study {
   flex: 0 0 50%;
   max-width: 50%;

@@ -10,7 +10,9 @@
 
 @menu = {
 <a class="@active.active("owner")" href="@routes.Study.byOwner(user.username)">Own studies</a>
-<a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Contributed studies</a>
+<a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Studies contributed to</a>
+<a class="@active.active("public")" href="@routes.Study.byOwnerPublic(user.username)">Public studies</a>
+<a class="@active.active("private")" href="@routes.Study.byOwnerPrivate(user.username)">Private studies</a>
 }
 
 @base.layout(

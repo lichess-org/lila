@@ -10,14 +10,16 @@ final class StudyPager(
     chapterRepo: ChapterRepo) {
 
   import BSONHandlers._
-  import studyRepo.{ selectPublic, selectMemberId, selectOwnerId }
-
-  def whereUidsContain(userId: User.ID, page: Int) = paginator($doc("uids" -> userId), page)
-
-  def byOwner(ownerId: User.ID, page: Int) = paginator($doc("ownerId" -> ownerId), page)
+  import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId }
 
   def byOwnerForUser(ownerId: User.ID, user: Option[User], page: Int) = paginator(
     selectOwnerId(ownerId) ++ accessSelect(user), page)
+
+  def byOwnerPublicForUser(ownerId: User.ID, user: Option[User], page: Int) = paginator(
+    selectOwnerId(ownerId) ++ selectPublic, page)
+
+  def byOwnerPrivateForUser(ownerId: User.ID, user: Option[User], page: Int) = paginator(
+    selectOwnerId(ownerId) ++ selectPrivate ++ accessSelect(user), page)
 
   def byMemberForUser(memberId: User.ID, user: Option[User], page: Int) = paginator(
     selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(user), page)
