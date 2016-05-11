@@ -192,7 +192,7 @@ final class StudyApi(
   }
 
   def addChapter(byUserId: User.ID, studyId: Study.ID, data: ChapterMaker.Data, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
-    (study isOwner byUserId) ?? {
+    Contribute(byUserId, study) {
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
         chapterMaker(study, data, order) flatMap {
           _ ?? { chapter =>

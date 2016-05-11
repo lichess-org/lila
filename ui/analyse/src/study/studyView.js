@@ -139,18 +139,19 @@ function buttons(ctrl) {
         }, m('i.glyph-icon'))
       ] : null
     ]),
-    ctrl.study.members.isOwner() ? m('div.owner_buttons', [
+    m('div', [
+      ctrl.study.members.isOwner() ?
       m('button.button.hint--top', {
         class: ctrl.study.members.inviteForm.open() ? 'active' : '',
         'data-hint': 'Invite someone',
         onclick: ctrl.study.members.inviteForm.toggle
-      }, m('i[data-icon=r]')),
-      m('button.button.hint--top', {
+      }, m('i[data-icon=r]')) : null,
+      ctrl.study.members.canContribute() ? m('button.button.hint--top', {
         class: ctrl.study.chapters.form.vm.open ? 'active' : '',
         'data-hint': 'Add a chapter',
         onclick: ctrl.study.chapters.form.toggle
-      }, m('i[data-icon=O]'))
-    ]) : null
+      }, m('i[data-icon=O]')) : null
+    ])
   ]);
 }
 

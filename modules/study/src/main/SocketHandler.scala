@@ -151,7 +151,7 @@ private[study] final class SocketHandler(
         }
       }
 
-    case ("addChapter", o) if owner =>
+    case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
           api.addChapter(byUserId, studyId, data, socket, uid)
