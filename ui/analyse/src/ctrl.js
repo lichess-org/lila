@@ -183,7 +183,7 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var jumpToMain = function(ply) {
+  this.jumpToMain = function(ply) {
     this.userJump(this.mainlinePathToPly(ply));
   }.bind(this);
 
@@ -193,7 +193,7 @@ module.exports = function(opts) {
 
   this.jumpToGlyphSymbol = function(color, symbol) {
     var ply = this.tree.plyOfNextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
-    if (ply) jumpToMain(ply);
+    if (ply) this.jumpToMain(ply);
     m.redraw();
   }.bind(this);
 
