@@ -35,7 +35,7 @@ final class StudyPager(
       sort = $sort desc "createdAt"
     ) mapFutureList withChapters,
     currentPage = page,
-    maxPerPage = 10)
+    maxPerPage = 14)
 
   private def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
     chapterRepo namesByStudyIds studies.map(_.id) map { chapters =>

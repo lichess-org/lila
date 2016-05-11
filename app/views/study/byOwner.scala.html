@@ -6,6 +6,6 @@ active = "owner",
 user = owner) {
 <div class="content_box no_padding">
   <h1>Studies created by @userLink(owner)</h1>
-  @list(pag)
+  @list(pag, routes.Study.byOwner(owner.username))
 </div>
 }

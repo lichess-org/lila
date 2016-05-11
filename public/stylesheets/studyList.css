@@ -10,7 +10,7 @@
   padding: 10px 10px 20px 10px;
   position: relative;
 }
-.studies .study:nth-child(odd) {
+.studies .study {
   border-right: 1px solid #ccc;
 }
 .studies .study:hover {
@@ -26,6 +26,7 @@
 }
 .studies .body {
   display: flex;
+  padding-left: 10px;
 }
 .studies .study ol {
   flex: 0 0 50%;

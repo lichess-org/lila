@@ -4,6 +4,10 @@
 @cssTag("studyList.css")
 }
 
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
+
 @menu = {
 <a class="@active.active("owner")" href="@routes.Study.byOwner(user.username)">Own studies</a>
 <a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Contributed studies</a>
@@ -13,4 +17,5 @@
 title = title,
 menu = menu.some,
 moreCss = moreCss,
+moreJs = moreJs,
 withLangAnnotations = false)(body)

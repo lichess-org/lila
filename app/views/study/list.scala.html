@@ -1,7 +1,7 @@
-@(pag: Paginator[lila.study.Study.WithChapters])(implicit ctx: Context)
-<div class="studies">
-  @pag.currentPageResults.map { s =>
-  <div class="study">
+@(pager: Paginator[lila.study.Study.WithChapters], url: Call)(implicit ctx: Context)
+<div class="studies infinitescroll">
+  @pager.currentPageResults.map { s =>
+  <div class="study paginated_element">
     <a class="overlay" href="@routes.Study.show(s.study.id)"></a>
     <h2>
       <i data-icon=""></i>
@@ -23,6 +23,11 @@
         }
       </ol>
     </div>
+  </div>
+  }
+  @pager.nextPage.map { np =>
+  <div class="pager none">
+    <a href="@url?page=@np">Next</a>
   </div>
   }
 </div>
