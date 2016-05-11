@@ -457,5 +457,5 @@ module.exports = function(opts) {
   startCeval();
   this.explorer.setNode();
   tour.init(this.explorer);
-  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
+  this.study = opts.study ? studyCtrl.init(opts.study, opts.chat, this) : null;
 };

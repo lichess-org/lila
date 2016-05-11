@@ -12,7 +12,7 @@ var xhr = require('./studyXhr');
 module.exports = {
   // data.position.path represents the server state
   // ctrl.vm.path is the client state
-  init: function(data, ctrl) {
+  init: function(data, chat, ctrl) {
 
     var send = ctrl.socket.send;
 
@@ -53,6 +53,11 @@ module.exports = {
     }
     ctrl.userJump(data.position.path);
 
+    var configureChat = function() {
+      chat.writeable(!!members.myMember());
+    };
+    configureChat();
+
     var onReload = function(d) {
       var s = d.study;
       if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
@@ -70,6 +75,7 @@ module.exports = {
       vm.loading = false;
       ctrl.userJump(data.position.path);
       m.redraw();
+      configureChat();
     };
 
     var xhrReload = function() {
@@ -227,6 +233,7 @@ module.exports = {
         },
         members: function(d) {
           members.update(d);
+          configureChat();
           m.redraw();
         },
         chapters: function(d) {

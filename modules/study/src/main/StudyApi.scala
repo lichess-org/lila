@@ -60,6 +60,14 @@ final class StudyApi(
       _ ?? { _.root pathExists position.path }
     }
 
+  def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
+    _ foreach { study =>
+      (study.members contains userId) ?? {
+        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
+      }
+    }
+  }
+
   def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
       pathExists(position) flatMap { exists =>

@@ -1128,6 +1128,7 @@ lichess.challengeApp = (function() {
     _create: function() {
       this.options = $.extend({
         messages: [],
+        writeable: true,
         initialNote: '',
         gameId: null,
         presets: [],
@@ -1143,6 +1144,7 @@ lichess.challengeApp = (function() {
         });
         var $form = self.element.find('form');
         var $input = self.element.find('input.lichess_say')
+          .prop('disabled', !self.options.writeable)
           .focus(function() {
             document.body.classList.add('typing');
             warning();
@@ -1239,6 +1241,10 @@ lichess.challengeApp = (function() {
         }, 1000));
         $notes.val(self.options.initialNote || '');
       }
+    },
+    writeable: function(v) {
+      this.options.writeable = v;
+      this.element.find('input.lichess_say').prop('disabled', !v);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -2071,10 +2077,15 @@ lichess.challengeApp = (function() {
   ////////////////
 
   function startStudy(element, cfg) {
-    $('#chat').chat({
+    var $chat = $('#chat').chat({
       messages: cfg.chat,
       gameId: cfg.study.id
     });
+    cfg.chat = {
+      writeable: function(v) {
+        $chat.chat('writeable', v);
+      }
+    };
     var $watchers = $("div.watchers").watchers();
     var analyse;
     cfg.element = element.querySelector('.analyse');

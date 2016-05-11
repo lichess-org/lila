@@ -40,7 +40,7 @@ private[study] final class SocketHandler(
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
-        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
+        api.talk(userId, studyId, text, socket)
       }
     }
     case ("anaMove", o) => AnaRateLimit(uid.value) {
