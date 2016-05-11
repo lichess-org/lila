@@ -528,3 +528,4 @@ phoneAndTablet=Smartphones et tablettes
 bulletBlitzClassical=Partie éclair, Rapid, Semi-Rapide
 correspondenceChess=Échecs par correspondance
 onlineAndOfflinePlay=Jouer en ligne ou hors-ligne
+correspondenceAndUnlimited=Correspondance et illimité
