@@ -528,3 +528,4 @@ phoneAndTablet=Telefon i tablet
 bulletBlitzClassical=Bullet, blitz, classical
 correspondenceChess=Szachy korespondencyjne
 onlineAndOfflinePlay=Graj offline i w sieci
+correspondenceAndUnlimited=Partia korespondencyjna i bez limitu czasowego
