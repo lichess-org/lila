@@ -18,7 +18,7 @@
       <i data-icon=""></i>
       <strong>@s.study.name</strong>
       <span>
-        @if(s.study.isPublic){Public}else{Private},
+        @usernameOrId(s.study.ownerId) •
         @momentFromNow(s.study.createdAt)
       </span>
     </h2>

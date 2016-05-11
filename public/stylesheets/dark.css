@@ -168,6 +168,7 @@ body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
 body.dark .donation .links a,
+body.dark .studies .study,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
@@ -475,7 +476,8 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 body.dark div.side_box div.game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1), rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
-body.dark div.game_row:hover {
+body.dark div.game_row:hover,
+body.dark .studies .study:hover {
   background: rgba(27, 51, 68, 0.5)!important;
 }
 body.dark .is.color-icon.white::before {

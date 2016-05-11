@@ -26,6 +26,9 @@
   padding: 10px 10px 20px 10px;
   position: relative;
 }
+body.dark .studies .study {
+  border-color: #3d3d3d;
+}
 .studies .study {
   border-right: 1px solid #ccc;
 }
