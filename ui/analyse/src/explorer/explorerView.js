@@ -144,19 +144,23 @@ function winner(stm, move) {
 
 function showDtm(stm, move) {
   if (move.dtm) return m('result.' + winner(stm, move), {
-    title: 'Depth to mate: ' + Math.abs(move.dtm) + ' half moves'
+    title: 'Mate in ' + Math.abs(move.dtm) + ' half-moves (Depth To Mate)'
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
 function showDtz(stm, move) {
   if (move.checkmate) return m('result.' + winner(stm, move), 'Checkmate');
-  if (move.stalemate) return m('result.draws', 'Stalemate');
-  if (move.insufficient_material) return m('result.draws', 'Insufficient material');
-  if (move.dtz === null) return null;
-  if (move.dtz === 0) return m('result.draws', 'Draw');
-  if (move.zeroing) return m('result.' + winner(stm, move), 'Zeroing');
-  return m('result.' + winner(stm, move), {
-    title: 'Distance to Zeroing (capture / pawn move): ' + Math.abs(move.dtz)
+  else if (move.stalemate) return m('result.draws', 'Stalemate');
+  else if (move.insufficient_material) return m('result.draws', 'Insufficient material');
+  else if (move.dtz === null) return null;
+  else if (move.dtz === 0) return m('result.draws', 'Draw');
+  else if (move.zeroing) {
+    var capture = move.san.indexOf('x') !== -1;
+    if (capture) return m('result.' + winner(stm, move), 'Capture');
+    else return m('result.' + winner(stm, move), 'Pawn move');
+  }
+  else return m('result.' + winner(stm, move), {
+    title: 'Next capture or pawn move in ' + Math.abs(move.dtz) + ' half-moves (Distance To Zeroing of the 50 move counter)'
   }, 'DTZ ' + Math.abs(move.dtz));
 }
 
