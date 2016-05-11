@@ -39,6 +39,7 @@ final class Env(
     gameCached = Env.game.cached,
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
+    studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
     isDonor = Env.donation.isDonor,

@@ -33,6 +33,24 @@ final class ChapterRepo(coll: Coll) {
       "order"
     ) map { order => ~order + 1 }
 
+  def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
+    coll.find(
+      $doc("studyId" -> $doc("$in" -> studyIds)),
+      $doc("studyId" -> true, "name" -> true)
+    ).sort($sort asc "order").list[Bdoc]().map { docs =>
+        docs.foldLeft(Map.empty[Study.ID, Vector[String]]) {
+          case (hash, doc) => {
+            for {
+              studyId <- doc.getAs[String]("studyId")
+              name <- doc.getAs[String]("name")
+            } yield hash + (studyId -> (hash.get(studyId) match {
+              case None        => Vector(name)
+              case Some(names) => names :+ name
+            }))
+          } | hash
+        }
+      }
+
   def countByStudyId(studyId: Study.ID): Fu[Int] =
     coll.countSel($studyId(studyId))
 
@@ -43,4 +61,4 @@ final class ChapterRepo(coll: Coll) {
   def delete(id: Chapter.ID): Funit = coll.remove($id(id)).void
 
   private def $studyId(id: Study.ID) = $doc("studyId" -> id)
- }
+}

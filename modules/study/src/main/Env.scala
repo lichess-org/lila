@@ -74,6 +74,10 @@ final class Env(
     chat = hub.actor.chat,
     socketHub = socketHub)
 
+  lazy val pager = new StudyPager(
+    studyRepo = studyRepo,
+    chapterRepo = chapterRepo)
+
   lazy val pgnDump = new PgnDump(
     chapterRepo = chapterRepo,
     gamePgnDump = gamePgnDump,

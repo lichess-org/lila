@@ -1,0 +1,74 @@
+.studies {
+  display: flex;
+  flex-flow: row wrap;
+}
+.studies .study {
+  flex: 0 0 50%;
+  max-width: 50%;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 10px 10px 20px 10px;
+  position: relative;
+}
+.studies .study:nth-child(odd) {
+  border-right: 1px solid #ccc;
+}
+.studies .study:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+.studies .study a.overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.studies .body {
+  display: flex;
+}
+.studies .study ol {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.studies .study ol li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.studies .study ol li::before {
+  opacity: 0.5;
+}
+.study h2 {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  height: 60px;
+  padding-left: 64px
+}
+.study h2 strong {
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #3893E8;
+  display: block;
+  margin: 11px 0 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.study h2 span {
+  font-size: 1em;
+  display: block;
+  opacity: 0.8;
+}
+.studies h2 i {
+  position: absolute;
+  top: 0;
+  left: 15px;
+}
+.studies h2 i::before {
+  color: #3893E8;
+  font-size: 34px;
+  line-height: 43px;
+  opacity: 0.8;
+}

@@ -47,6 +47,8 @@ object Study {
 
   case class WithChapter(study: Study, chapter: Chapter)
 
+  case class WithChapters(study: Study, chapters: Seq[String])
+
   type ID = String
 
   val idSize = 8

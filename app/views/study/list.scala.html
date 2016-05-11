@@ -1,0 +1,28 @@
+@(pag: Paginator[lila.study.Study.WithChapters])(implicit ctx: Context)
+<div class="studies">
+  @pag.currentPageResults.map { s =>
+  <div class="study">
+    <a class="overlay" href="@routes.Study.show(s.study.id)"></a>
+    <h2>
+      <i data-icon=""></i>
+      <strong>@s.study.name</strong>
+      <span>
+        @if(s.study.isPublic){Public}else{Private},
+        @momentFromNow(s.study.createdAt)
+      </span>
+    </h2>
+    <div class="body">
+      <ol class="chapters">
+        @s.chapters.take(4).map { name =>
+        <li class="text" data-icon="K">@name</li>
+        }
+      </ol>
+      <ol class="members">
+        @s.study.members.members.values.take(4).map { m =>
+        <li class="text" data-icon="@if(m.canContribute){}else{v}">@usernameOrId(m.id)</li>
+        }
+      </ol>
+    </div>
+  </div>
+  }
+</div>

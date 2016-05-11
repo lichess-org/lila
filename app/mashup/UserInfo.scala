@@ -25,6 +25,7 @@ case class UserInfo(
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
+    nbStudies: Int,
     playTime: User.PlayTime,
     donor: Boolean,
     trophies: Trophies,
@@ -61,6 +62,7 @@ object UserInfo {
     gameCached: lila.game.Cached,
     crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
+    studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
     isDonor: String => Fu[Boolean],
@@ -77,11 +79,12 @@ object UserInfo {
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
+      studyRepo.countByOwner(user.id) zip
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) flatMap {
-        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
+        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -96,6 +99,7 @@ object UserInfo {
               nbFollowers = nbFollowers,
               nbBlockers = nbBlockers,
               nbPosts = nbPosts,
+              nbStudies = nbStudies,
               playTime = playTime,
               donor = isDonor,
               trophies = trophies,

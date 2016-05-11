@@ -47,8 +47,10 @@ GET   /insights/:username              controllers.Insight.index(username: Strin
 GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
 GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
 
-# UserTournament
+# User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
+GET   /@/:username/study               controllers.Study.byOwner(username: String, page: Int ?= 1)
+GET   /@/:username/study/member        controllers.Study.byMember(username: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
@@ -118,6 +120,7 @@ GET   /analysis/*something             controllers.UserAnalysis.parse(something:
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
+# Study
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)

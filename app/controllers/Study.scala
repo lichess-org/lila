@@ -13,6 +13,22 @@ object Study extends LilaController {
 
   private def env = Env.study
 
+  def byOwner(username: String, page: Int) = Open { implicit ctx =>
+    OptionFuOk(lila.user.UserRepo named username) { owner =>
+      env.pager.byOwnerForUser(owner.id, ctx.me, page) map { pag =>
+        html.study.byOwner(pag, owner)
+      }
+    }
+  }
+
+  def byMember(username: String, page: Int) = Open { implicit ctx =>
+    OptionFuOk(lila.user.UserRepo named username) { member =>
+      env.pager.byMemberForUser(member.id, ctx.me, page) map { pag =>
+        html.study.byMember(pag, member)
+      }
+    }
+  }
+
   def show(id: String) = Open { implicit ctx =>
     val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
       env.api.byIdWithChapter(id, chapterId)

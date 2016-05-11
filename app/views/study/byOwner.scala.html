@@ -1,0 +1,11 @@
+@(pag: Paginator[lila.study.Study.WithChapters], owner: User)(implicit ctx: Context)
+
+@listLayout(
+title = s"Studies created by ${owner.titleName}",
+active = "owner",
+user = owner) {
+<div class="content_box no_padding">
+  <h1>Studies created by @userLink(owner)</h1>
+  @list(pag)
+</div>
+}

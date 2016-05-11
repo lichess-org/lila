@@ -181,7 +181,7 @@ private object BSONHandlers {
     def write(x: StudyMembers) = $doc(x.members.mapValues(StudyMemberBSONWriter.write))
   }
   import Study.Visibility
-  implicit val visibilityHandler = new BSONHandler[BSONString, Visibility] {
+  private[study] implicit val VisibilityHandler: BSONHandler[BSONString, Visibility] = new BSONHandler[BSONString, Visibility] {
     def read(bs: BSONString) = Visibility.byKey get bs.value err s"Invalid visibility ${bs.value}"
     def write(x: Visibility) = BSONString(x.key)
   }

@@ -3,12 +3,10 @@ package lila.study
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.Adapter
 import lila.user.User
 
-final class StudyRepo(coll: Coll) {
+final class StudyRepo(private[study] val coll: Coll) {
 
   import BSONHandlers._
 
@@ -16,25 +14,11 @@ final class StudyRepo(coll: Coll) {
 
   def exists(id: Study.ID) = coll.exists($id(id))
 
-  private val sortRecent = $sort desc "createdAt"
+  private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
+  private[study] def selectMemberId(memberId: User.ID) = $doc("uids" -> memberId)
+  private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
 
-  def whereUidsContain(userId: User.ID, page: Int): Fu[Paginator[Study]] = Paginator(
-    adapter = new Adapter[Study](
-      collection = coll,
-      selector = $doc("uids" -> userId),
-      projection = $empty,
-      sort = sortRecent),
-    currentPage = page,
-    maxPerPage = 10)
-
-  def byOwner(userId: User.ID, page: Int): Fu[Paginator[Study]] = Paginator(
-    adapter = new Adapter[Study](
-      collection = coll,
-      selector = $doc("ownerId" -> userId),
-      projection = $empty,
-      sort = sortRecent),
-    currentPage = page,
-    maxPerPage = 10)
+  def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 
   def insert(s: Study): Funit = coll.insert {
     StudyBSONHandler.write(s) ++ $doc("uids" -> s.members.ids)

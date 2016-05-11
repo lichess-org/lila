@@ -1,0 +1,16 @@
+@(title: String, active: String, user: lila.user.User)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("studyList.css")
+}
+
+@menu = {
+<a class="@active.active("owner")" href="@routes.Study.byOwner(user.username)">Own studies</a>
+<a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Contributed studies</a>
+}
+
+@base.layout(
+title = title,
+menu = menu.some,
+moreCss = moreCss,
+withLangAnnotations = false)(body)

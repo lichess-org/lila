@@ -38,6 +38,8 @@ case class User(
 
   def light = LightUser(id = id, name = username, title = title)
 
+  def titleName = title.fold(username)(_ + " " + username)
+
   def langs = ("en" :: lang.toList).distinct.sorted
 
   def compare(other: User) = id compare other.id
