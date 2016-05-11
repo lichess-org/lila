@@ -30,7 +30,6 @@ sealed trait Node {
   // implementation dependant
   def idOption: Option[UciCharPair]
   def moveOption: Option[Uci.WithSan]
-  def nag: Option[String]
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
@@ -53,7 +52,6 @@ case class Root(
 
   def idOption = None
   def moveOption = None
-  def nag = None
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
@@ -69,7 +67,6 @@ case class Branch(
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
-    nag: Option[String] = None,
     shapes: List[Node.Shape] = Nil,
     comments: Node.Comments = Node.Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
@@ -172,7 +169,6 @@ object Node {
       add("san", moveOption.map(_.san)) _ compose
       add("check", true, check) _ compose
       add("eval", eval) _ compose
-      add("nag", nag) _ compose
       add("comments", comments.list, comments.list.nonEmpty) _ compose
       add("glyphs", glyphs.nonEmpty) _ compose
       add("shapes", shapes, shapes.nonEmpty) _ compose

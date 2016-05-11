@@ -101,8 +101,7 @@ object TreeBuilder {
         check = g.situation.check,
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
-        eval = none,
-        nag = none)
+        eval = none)
     }
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
       case (init, games, error) =>

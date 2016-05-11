@@ -14,7 +14,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.analyse = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @Html(J.stringify(data)),
 i18n: @round.jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 explorer: {
