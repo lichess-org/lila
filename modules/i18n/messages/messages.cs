@@ -528,3 +528,4 @@ phoneAndTablet=Mobil a tablet
 bulletBlitzClassical=ultrarychlá hra, blesková hra, klasická hra
 correspondenceChess=Korespondenční šachy
 onlineAndOfflinePlay=Hra online i offline
+correspondenceAndUnlimited=Korespondeční a bez limitu
