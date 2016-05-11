@@ -154,10 +154,9 @@ module.exports = function(opts) {
 
   this.sendMove = function(orig, dest, prom, isPremove) {
     var move = {
-      from: orig,
-      to: dest
+      u: orig + dest
     };
-    if (prom) move.promotion = prom;
+    if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
     if (blur.get()) move.b = 1;
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {

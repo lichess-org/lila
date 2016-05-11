@@ -80,7 +80,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var send = function(t, d, o, again) {
     var data = d || {},
       options = o || {};
-    if (options.withLag) d.lag = Math.round(averageLag);
+    if (options.withLag) d.l = Math.round(averageLag);
     if (options.ackable) ackableMessages.push({
       t: t,
       d: d
