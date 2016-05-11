@@ -22,7 +22,6 @@ case class UserInfo(
     nbBookmark: Int,
     nbImported: Int,
     ratingChart: Option[String],
-    nbFollowing: Int,
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
@@ -75,7 +74,6 @@ object UserInfo {
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip
-      relationApi.countFollowing(user.id) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
@@ -83,7 +81,7 @@ object UserInfo {
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) flatMap {
-        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
+        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -95,7 +93,6 @@ object UserInfo {
               nbBookmark = bookmarkApi countByUser user,
               nbImported = nbImported,
               ratingChart = ratingChart,
-              nbFollowing = nbFollowing,
               nbFollowers = nbFollowers,
               nbBlockers = nbBlockers,
               nbPosts = nbPosts,

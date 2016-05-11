@@ -51,7 +51,6 @@ description = describeUser(u)).some) {
     }
   </div>
   <div class="social content_box_inter">
-    <a class="intertab" href="@routes.Relation.following(u.username)">@splitNumber(trans.nbFollowing(info.nbFollowing))</a>
     <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
