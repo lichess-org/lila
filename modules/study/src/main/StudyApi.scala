@@ -74,7 +74,7 @@ final class StudyApi(
         if (exists && study.position.chapterId == position.chapterId) {
           (study.position.path != position.path) ?? {
             studyRepo.setPosition(study.id, position) >>-
-              sendTo(study.id, Socket.SetPath(position, uid))
+              sendTo(study, Socket.SetPath(position, uid))
           }
         }
         else funit >>- reloadUid(study, uid)
@@ -89,7 +89,7 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>-
-            sendTo(study.id, Socket.AddNode(position, node, uid))
+            sendTo(study, Socket.AddNode(position, node, uid))
       }
     }
   }
@@ -101,7 +101,7 @@ final class StudyApi(
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study.id, Socket.DeleteNode(position, uid))
+            sendTo(study, Socket.DeleteNode(position, uid))
         case None => fufail(s"Invalid delNode $studyId $position") >>- reloadUid(study, uid)
       }
     }
@@ -114,7 +114,7 @@ final class StudyApi(
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study.id, Socket.PromoteNode(position, uid))
+            sendTo(study, Socket.PromoteNode(position, uid))
         case None => fufail(s"Invalid promoteNode $studyId $position") >>- reloadUid(study, uid)
       }
     }
@@ -151,7 +151,7 @@ final class StudyApi(
           chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
               chapterRepo.update(newChapter) >>-
-                sendTo(study.id, Socket.SetShapes(position, shapes, uid))
+                sendTo(study, Socket.SetShapes(position, shapes, uid))
             case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
           }
         }
@@ -166,7 +166,7 @@ final class StudyApi(
         chapter.setComment(comment, position.path) match {
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-
-              sendTo(study.id, Socket.SetComment(position, comment, uid))
+              sendTo(study, Socket.SetComment(position, comment, uid))
           case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
         }
       }
@@ -180,7 +180,7 @@ final class StudyApi(
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-
               newChapter.root.nodeAt(position.path).foreach { node =>
-                sendTo(study.id, Socket.SetGlyphs(position, node.glyphs, uid))
+                sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
               }
           case None => fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>- reloadUid(study, uid)
         }
@@ -210,7 +210,7 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
           studyRepo.update(study withChapter chapter) >>- {
-            sendTo(study.id, Socket.ChangeChapter(uid))
+            sendTo(study, Socket.ChangeChapter(uid))
             chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
           }
         }
@@ -247,24 +247,24 @@ final class StudyApi(
     data.realVisibility ?? { visibility =>
       val newStudy = study.copy(name = data.name, visibility = visibility)
       (newStudy != study) ?? {
-        studyRepo.update(newStudy) >>- sendTo(study.id, Socket.ReloadAll)
+        studyRepo.update(newStudy) >>- sendTo(study, Socket.ReloadAll)
       }
     }
   }
 
   private def reloadUid(study: Study, uid: Uid) =
-    sendTo(study.id, Socket.ReloadUid(uid))
+    sendTo(study, Socket.ReloadUid(uid))
 
   private def reloadMembers(study: Study) =
     studyRepo.membersById(study.id).foreach {
       _ foreach { members =>
-        sendTo(study.id, Socket.ReloadMembers(members))
+        sendTo(study, Socket.ReloadMembers(members))
       }
     }
 
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
-      sendTo(study.id, Socket.ReloadChapters(chapters))
+      sendTo(study, Socket.ReloadChapters(chapters))
     }
 
   private def sequenceStudy(studyId: String)(f: Study => Funit): Funit =
@@ -294,7 +294,7 @@ final class StudyApi(
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
-  private def sendTo(studyId: String, msg: Any) {
-    socketHub ! Tell(studyId, msg)
+  private def sendTo(study: Study, msg: Any) {
+    socketHub ! Tell(study.id, msg)
   }
 }

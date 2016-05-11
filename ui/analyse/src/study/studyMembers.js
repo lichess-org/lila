@@ -25,6 +25,10 @@ module.exports = {
       return dict()[ownerId];
     };
 
+    var isOwner = function() {
+      return myId === ownerId;
+    };
+
     var myMember = function() {
       return myId ? dict()[myId] : null;
     };
@@ -35,36 +39,40 @@ module.exports = {
 
     var inviteForm = inviteFormCtrl(send, dict, setTab);
 
+    var setActive = function(id) {
+      if (active[id]) active[id]();
+      else active[id] = memberActivity(function() {
+        delete(active[id]);
+        m.redraw();
+      });
+      m.redraw();
+    };
+
     return {
       dict: dict,
       confing: confing,
       myId: myId,
       inviteForm: inviteForm,
       update: function(members) {
+        if (isOwner) confing(Object.keys(members).filter(function(uid) {
+          return !dict()[uid];
+        })[0]);
         var wasViewer = myMember() && !canContribute();
         var wasContrib = myMember() && canContribute();
         dict(members);
         if (wasViewer && canContribute()) tours.becomeContributor();
         else if (wasContrib && !canContribute()) tours.becomeViewer();
       },
-      setActive: function(id) {
-        if (active[id]) active[id]();
-        else active[id] = memberActivity(function() {
-          delete(active[id]);
-          m.redraw();
-        });
-        m.redraw();
-      },
+      setActive: setActive,
       isActive: function(id) {
         return !!active[id];
       },
       owner: owner,
       myMember: myMember,
-      isOwner: function() {
-        return myId === ownerId;
-      },
+      isOwner: isOwner,
       canContribute: canContribute,
       setRole: function(id, role) {
+        setActive(id);
         send("setRole", {
           userId: id,
           role: role
@@ -164,6 +172,7 @@ module.exports = {
       ctrl.members.ordered().map(function(member) {
         var confing = ctrl.members.confing() === member.user.id;
         var attrs = {
+          key: member.user.id,
           class: classSet({
             elem: true,
             member: true,

@@ -26,6 +26,8 @@ case class Study(
   def withChapter(c: Chapter) =
     if (c.id == position.chapterId) this
     else copy(position = Position.Ref(chapterId = c.id, path = c.root.mainLineLastNodePath))
+
+  def isPublic = visibility == Study.Visibility.Public
 }
 
 object Study {

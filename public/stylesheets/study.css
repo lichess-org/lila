@@ -19,12 +19,6 @@
   font-family: 'Roboto';
   font-weight: 300;
 }
-.study_tabs a.more {
-  flex: 0 0 32px;
-}
-.study_tabs a.more i {
-  opacity: 0.6;
-}
 .study_tabs a:hover {
   color: #3893E8!important;
 }
@@ -113,10 +107,9 @@ body:not(.dark) .material.form .study_tabs a {
   -webkit-user-select: none;
 }
 .study_box .elem .user_link {
-  font-size: 1.15em;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 32px;
+  line-height: 26px;
   margin-left: 5px;
 }
 .study_box .list .left,
@@ -132,9 +125,9 @@ body:not(.dark) .material.form .study_tabs a {
 .study_box .list .status,
 .study_box .list .action {
   display: block;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
   text-align: center;
   margin: 0;
   padding: 0 2px;

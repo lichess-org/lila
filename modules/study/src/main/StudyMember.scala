@@ -11,6 +11,8 @@ case class StudyMember(
     addedAt: DateTime) {
 
   def canContribute = role == StudyMember.Role.Write
+
+  def id = user.id
 }
 
 object StudyMember {
@@ -38,4 +40,6 @@ case class StudyMembers(members: StudyMember.MemberMap) {
   def contains(user: User): Boolean = contains(user.id)
 
   def get = members.get _
+
+  def ids = members.keys
 }

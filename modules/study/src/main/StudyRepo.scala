@@ -16,7 +16,9 @@ private final class StudyRepo(coll: Coll) {
 
   def exists(id: Study.ID) = coll.exists($id(id))
 
-  def insert(s: Study): Funit = coll.insert(s).void
+  def insert(s: Study): Funit = coll.insert {
+    StudyBSONHandler.write(s) ++ $doc("uids" -> s.members.ids)
+  }.void
 
   def update(s: Study): Funit = coll.update($id(s.id), s).void
 
@@ -24,24 +26,18 @@ private final class StudyRepo(coll: Coll) {
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def setPosition(studyId: Study.ID, position: Position.Ref): Funit =
-    coll.update(
-      $id(studyId),
-      $set(
-        "position" -> position,
-        "shapes" -> List.empty[Shape] // also reset shapes
-      )
-    ).void
+    coll.update($id(studyId), $set("position" -> position)).void
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll.update(
       $id(study.id),
-      $set(s"members.${member.user.id}" -> member)
+      $set(s"members.${member.user.id}" -> member) ++ $addToSet("uids" -> member.id)
     ).void
 
   def removeMember(study: Study, userId: User.ID): Funit =
     coll.update(
       $id(study.id),
-      $unset(s"members.$userId")
+      $unset(s"members.$userId") ++ $pull("uids" -> userId)
     ).void
 
   def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
