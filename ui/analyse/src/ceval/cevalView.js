@@ -5,9 +5,9 @@ var classSet = require('chessground').util.classSet;
 
 var gaugeLast = 0;
 var gaugeTicks = [];
-for (var i = 1; i < 10; i++) gaugeTicks.push(m(i === 5 ? 'tick.zero' : 'tick', {
+for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
   style: {
-    height: (i * 10) + '%'
+    height: (i * 12.5) + '%'
   }
 }));
 
@@ -17,12 +17,12 @@ module.exports = {
     var eval, evs = ctrl.currentEvals();
     if (evs) {
       if (defined(evs.fav.cp))
-        eval = Math.min(Math.max(evs.fav.cp / 100, -5), 5);
+        eval = 2 / (1 + Math.exp(-0.005 * evs.fav.cp)) - 1;
       else
-        eval = evs.fav.mate > 0 ? 5 : -5;
+        eval = evs.fav.mate > 0 ? 1 : -1;
       gaugeLast = eval;
     } else eval = gaugeLast;
-    var height = 100 - (eval + 5) * 10;
+    var height = 100 - (eval + 1) * 50;
     return m('div', {
       class: classSet({
         eval_gauge: true,

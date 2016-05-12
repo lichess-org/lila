@@ -561,9 +561,6 @@ body.dark .explorer_box .black {
   position: relative;
   padding: 2px 7px;
 }
-.lichess_ground .replay turn > move {
-  min-width: 40%;
-}
 .lichess_ground .replay move.current {
   background: rgba(191, 231, 255, 0.7);
 }

@@ -93,6 +93,9 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script src="${static.fold(staticUrl(path), path)}?v=$assetVersion"></script>"""
   }
 
-  def embedJs(js: String): Html = Html(s"""<script>/* <![CDATA[ */ $js /* ]]> */</script>""")
+  def embedJs(js: String): Html = Html {
+    val escaped = js.replace("</script", "<|script")
+    s"""<script>$escaped</script>"""
+  }
   def embedJs(js: Html): Html = embedJs(js.body)
 }
