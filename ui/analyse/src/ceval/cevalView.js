@@ -5,7 +5,7 @@ var classSet = require('chessground').util.classSet;
 
 var gaugeLast = 0;
 var gaugeTicks = [];
-for (var i = 1; i < 7; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
+for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
   style: {
     height: (i * 12.5) + '%'
   }
