@@ -255,6 +255,10 @@ final class StudyApi(
     }
   }
 
+  def delete(study: Study) = sequenceStudy(study.id) { study =>
+    studyRepo.delete(study) >> chapterRepo.deleteByStudy(study)
+  }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))
 

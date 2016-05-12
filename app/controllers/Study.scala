@@ -99,6 +99,13 @@ object Study extends LilaController {
       }
   }
 
+  def delete(id: String) = Auth { implicit ctx =>
+    me =>
+      env.api.byId(id) flatMap { study =>
+        study.filter(_ isOwner me.id) ?? env.api.delete
+      } inject Redirect(routes.Study.byOwner(me.username))
+  }
+
   def pgn(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { study =>
       CanViewResult(study) {

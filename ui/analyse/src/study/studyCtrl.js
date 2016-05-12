@@ -6,6 +6,7 @@ var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
+var studyFormCtrl = require('./studyForm').ctrl;
 var tour = require('./studyTour');
 var xhr = require('./studyXhr');
 
@@ -23,10 +24,10 @@ module.exports = {
       tab: storedProp('study.tab', 'members'),
       behind: false, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
-      chapterId: null, // only useful when not synchronized
-      editing: data.isNew
+      chapterId: null // only useful when not synchronized
     };
 
+    var form = studyFormCtrl(send, function() { return data; });
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
     var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'));
 
@@ -116,6 +117,7 @@ module.exports = {
 
     return {
       data: data,
+      form: form,
       members: members,
       chapters: chapters,
       commentForm: commentForm,
@@ -167,10 +169,6 @@ module.exports = {
           vm.behind = 0;
           vm.chapterId = currentChapterId();
         }
-      },
-      update: function(data) {
-        send("editStudy", data);
-        vm.editing = null;
       },
       anaMoveConfig: function(req) {
         if (contributing()) addChapterId(req);

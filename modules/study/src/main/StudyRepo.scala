@@ -27,6 +27,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def update(s: Study): Funit = coll.update($id(s.id), s).void
 
+  def delete(s: Study): Funit = coll.remove($id(s.id)).void
+
   def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 

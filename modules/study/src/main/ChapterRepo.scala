@@ -14,6 +14,8 @@ final class ChapterRepo(coll: Coll) {
 
   def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
 
+  def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
+
   def byIdAndStudy(id: Chapter.ID, studyId: Study.ID): Fu[Option[Chapter]] =
     coll.byId[Chapter](id).map { _.filter(_.studyId == studyId) }
 

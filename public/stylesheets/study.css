@@ -332,3 +332,13 @@ body.dark .glyph_form a:hover {
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
+form.delete_study {
+  margin-top: 20px;
+}
+form.delete_study button {
+  color: red;
+  opacity: 0.5;
+}
+form.delete_study button:hover {
+  opacity: 1;
+}

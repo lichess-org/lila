@@ -1,3 +1,7 @@
+.new_study {
+  float: right;
+  margin: 20px;
+}
 .studies {
   display: flex;
   flex-flow: row wrap;

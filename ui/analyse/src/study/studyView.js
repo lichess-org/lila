@@ -7,55 +7,7 @@ var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
 var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
-var dialog = require('./dialog');
-
-function form(ctrl) {
-  return dialog.form({
-    onClose: function() {
-      ctrl.vm.editing = null;
-    },
-    content: [
-      m('h2', 'Edit study'),
-      m('form.material.form', {
-        onsubmit: function(e) {
-          ctrl.update({
-            name: e.target.querySelector('#study-name').value,
-            visibility: e.target.querySelector('#study-visibility').value
-          });
-          e.stopPropagation();
-          return false;
-        }
-      }, [
-        m('div.game.form-group', [
-          m('input#study-name', {
-            config: function(el, isUpdate) {
-              if (!isUpdate && !el.value) {
-                el.value = ctrl.data.name;
-                el.focus();
-              }
-            }
-          }),
-          m('label.control-label[for=study-name]', 'Name'),
-          m('i.bar')
-        ]),
-        m('div.game.form-group', [
-          m('select#study-visibility', [
-            ['public', 'Public'],
-            ['private', 'Invite only']
-          ].map(function(o) {
-            return m('option', {
-              value: o[0],
-              selected: ctrl.data.visibility === o[0]
-            }, o[1]);
-          })),
-          m('label.control-label[for=study-visibility]', 'Visibility'),
-          m('i.bar')
-        ]),
-        dialog.button(ctrl.data.isNew ? 'Start' : 'Save')
-      ])
-    ]
-  });
-}
+var studyFormView = require('./studyForm').view;
 
 function contextAction(icon, text, handler) {
   return m('a.action', {
@@ -95,61 +47,60 @@ function currentComments(ctrl, includingMine) {
   }));
 }
 
-function buttons(ctrl) {
-  var path = ctrl.vm.path;
-  var node = ctrl.vm.node;
-  var canContribute = ctrl.study.members.canContribute();
+function buttons(root) {
+  var ctrl = root.study;
+  var canContribute = ctrl.members.canContribute();
   return m('div.study_buttons', [
     m('div.member_buttons', [
       m('span#study-sync.hint--top', {
-        'data-hint': ctrl.study.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
+        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
       }, m('a', (function() {
         var attrs = {
-          onclick: ctrl.study.toggleSync
+          onclick: ctrl.toggleSync
         };
         var classes = ['button'];
-        if (ctrl.study.vm.behind > 0) {
-          attrs['data-count'] = ctrl.study.vm.behind;
+        if (ctrl.vm.behind > 0) {
+          attrs['data-count'] = ctrl.vm.behind;
           classes.push('data-count');
         }
-        if (ctrl.study.vm.behind !== false) classes.push('glowed');
+        if (ctrl.vm.behind !== false) classes.push('glowed');
         attrs.class = classes.join(' ');
         return attrs;
       })(), m('i', {
-        'data-icon': ctrl.study.vm.behind !== false ? 'G' : 'Z'
+        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
       }))),
       m('a.button.hint--top', {
         'data-hint': 'Download as PGN',
-        href: '/study/' + ctrl.study.data.id + '.pgn'
+        href: '/study/' + ctrl.data.id + '.pgn'
       }, m('i[data-icon=x]')),
       canContribute ? [
         m('a.button.hint--top', {
-          class: ctrl.study.commentForm.current() ? 'active' : '',
+          class: ctrl.commentForm.current() ? 'active' : '',
           'data-hint': 'Comment this position',
-          disabled: ctrl.study.vm.behind !== false,
+          disabled: ctrl.vm.behind !== false,
           onclick: function() {
-            ctrl.study.commentForm.toggle(ctrl.study.currentChapter().id, path, node)
+            ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node)
           }
         }, m('i[data-icon=c]')),
         m('a.button.hint--top', {
-          class: ctrl.study.glyphForm.isOpen() ? 'active' : '',
+          class: ctrl.glyphForm.isOpen() ? 'active' : '',
           'data-hint': 'Annotate with symbols',
-          disabled: ctrl.study.vm.behind !== false,
-          onclick: ctrl.study.glyphForm.toggle
+          disabled: ctrl.vm.behind !== false,
+          onclick: ctrl.glyphForm.toggle
         }, m('i.glyph-icon'))
       ] : null
     ]),
     m('div', [
-      ctrl.study.members.isOwner() ?
+      ctrl.members.isOwner() ?
       m('button.button.hint--top', {
-        class: ctrl.study.members.inviteForm.open() ? 'active' : '',
+        class: ctrl.members.inviteForm.open() ? 'active' : '',
         'data-hint': 'Invite someone',
-        onclick: ctrl.study.members.inviteForm.toggle
+        onclick: ctrl.members.inviteForm.toggle
       }, m('i[data-icon=r]')) : null,
-      ctrl.study.members.canContribute() ? m('button.button.hint--top', {
-        class: ctrl.study.chapters.form.vm.open ? 'active' : '',
+      ctrl.members.canContribute() ? m('button.button.hint--top', {
+        class: ctrl.chapters.form.vm.open ? 'active' : '',
         'data-hint': 'Add a chapter',
-        onclick: ctrl.study.chapters.form.toggle
+        onclick: ctrl.chapters.form.toggle
       }, m('i[data-icon=O]')) : null
     ])
   ]);
@@ -173,7 +124,7 @@ module.exports = {
       makeTab('chapters', 'Chapters'),
       ctrl.members.isOwner() ? m('a.more', {
         onclick: function() {
-          ctrl.vm.editing = !ctrl.vm.editing;
+          ctrl.form.open(!ctrl.form.open());
         }
       }, m('i', {
         'data-icon': '['
@@ -210,7 +161,7 @@ module.exports = {
   overboard: function(ctrl) {
     if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
     if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
-    if (ctrl.vm.editing) return form(ctrl);
+    if (ctrl.form.open()) return studyFormView(ctrl.form);
   },
 
   underboard: function(ctrl) {

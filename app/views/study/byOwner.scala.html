@@ -5,6 +5,11 @@ title = s"Studies created by ${owner.titleName}",
 active = "owner",
 user = owner) {
 <div class="content_box no_padding">
+  @if(ctx.is(owner)) {
+  <form class="new_study" action="@routes.Study.create" method="post">
+    <button type="submit" class="button">New study</button>
+  </form>
+  }
   <h1>Studies created by @userLink(owner)</h1>
   @list(pag, routes.Study.byOwner(owner.username))
 </div>
