@@ -3,11 +3,6 @@ var ops = require('./ops');
 
 module.exports = function(root) {
 
-  root.id = '';
-  ops.mutateAll(root, function(node) {
-    node.fixed = true;
-  });
-
   function firstPly() {
     return root.ply;
   };

@@ -59,9 +59,9 @@ object Study extends LilaController {
             Env.chat.api.userChat.find(study.id) zip
             env.version(id) flatMap {
               case ((baseData, chat), sVersion) =>
-                import lila.socket.tree.Node.nodeJsonWriter
+                import lila.socket.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(
-                  "tree" -> lila.study.TreeBuilder(chapter.root))
+                  "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
                   study = env.jsonView(study, chapters),
                   analysis = analysis,

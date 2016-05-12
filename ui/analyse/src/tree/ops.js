@@ -1,10 +1,3 @@
-function mutateAll(node, mutation) {
-  mutation(node);
-  node.children.forEach(function(n) {
-    mutateAll(n, mutation);
-  });
-}
-
 function mainlineChild(node) {
   if (node.children.length) return node.children[0];
 }
@@ -82,7 +75,10 @@ function removeChild(parent, id) {
 }
 
 function countChildrenAndComments(node) {
-  var count = {nodes: 1, comments: (node.comments || []).length};
+  var count = {
+    nodes: 1,
+    comments: (node.comments || []).length
+  };
   node.children.forEach(function(child) {
     var c = countChildrenAndComments(child);
     count.nodes += c.nodes;
@@ -91,8 +87,23 @@ function countChildrenAndComments(node) {
   return count;
 }
 
+function reconstruct(parts) {
+  var root = parts[0],
+    node = root;
+  root.id = '';
+  root.fixed = true;
+  for (var i = 1, nb = parts.length; i < nb; i++) {
+    var n = parts[i];
+    if (node.children) node.children.unshift(n);
+    else node.children = [n];
+    node = n;
+  }
+  node.children = node.children || [];
+  node.fixed = true;
+  return root;
+}
+
 module.exports = {
-  mutateAll: mutateAll,
   findInMainline: findInMainline,
   withMainlineChild: withMainlineChild,
   foldRightMainline: foldRightMainline,
@@ -106,5 +117,6 @@ module.exports = {
   nodeAtPly: nodeAtPly,
   takePathWhile: takePathWhile,
   removeChild: removeChild,
-  countChildrenAndComments: countChildrenAndComments
+  countChildrenAndComments: countChildrenAndComments,
+  reconstruct: reconstruct
 }

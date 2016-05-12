@@ -167,7 +167,7 @@ object Node {
     JsArray(s.list.map(commentWriter.writes))
   }
 
-  implicit val nodeJsonWriter: Writes[Node] = Writes { node =>
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
     (
       add("id", idOption.map(_.toString)) _ compose
@@ -188,18 +188,21 @@ object Node {
         JsString(drops.map(_.key).mkString)
       }) _ compose
       add("crazy", crazyData) _ compose
-      add("children", children, children.nonEmpty)
+      add("children", children, alwaysChildren || children.nonEmpty)
     )(Json.obj(
         "ply" -> ply,
         "fen" -> fen))
   }
 
+  implicit val defaultNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = true)
+
+  val minimalNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = false)
+
   val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
     JsArray {
-      val objs = JsArray {
-        node.mainlineNodeList.take(10).map(nodeJsonWriter.writes)
-      }
-      List.fill(1)(objs)
+      node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
     }
   }
 

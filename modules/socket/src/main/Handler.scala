@@ -10,7 +10,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import makeTimeout.large
-import tree.Node.nodeJsonWriter
+import tree.Node.defaultNodeJsonWriter
 import tree.Node.openingWriter
 
 object Handler {
