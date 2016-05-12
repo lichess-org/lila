@@ -2,7 +2,7 @@ var m = require('mithril');
 var dialog = require('./dialog');
 
 module.exports = {
-  ctrl: function(send, getData) {
+  ctrl: function(save, getData) {
 
     var initAt = new Date();
 
@@ -14,8 +14,8 @@ module.exports = {
 
     return {
       open: open,
-      save: function(data) {
-        send("editStudy", data);
+      save: function(data, isNew) {
+        save(data, isNew);
         open(false);
       },
       getData: getData,
@@ -36,7 +36,7 @@ module.exports = {
             ctrl.save({
               name: e.target.querySelector('#study-name').value,
               visibility: e.target.querySelector('#study-visibility').value
-            });
+            }, isNew);
             e.stopPropagation();
             return false;
           }

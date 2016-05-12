@@ -14,6 +14,7 @@ module.exports = {
     var vm = {
       variants: [],
       open: false,
+      initial: m.prop(false),
       tab: storedProp('study.form.tab', 'blank'),
     };
 
@@ -27,6 +28,7 @@ module.exports = {
     var open = function() {
       vm.open = true;
       loadVariants();
+      vm.initial(false);
     };
     var close = function() {
       vm.open = false;
@@ -35,12 +37,18 @@ module.exports = {
     return {
       vm: vm,
       open: open,
+      openInitial: function() {
+        open();
+        vm.initial(true);
+      },
       close: close,
       toggle: function() {
         if (vm.open) close();
         else open();
       },
+      initial: vm.initial,
       submit: function(data) {
+        data.initial = vm.initial();
         send("addChapter", data)
         close();
         setTab();
@@ -84,7 +92,7 @@ module.exports = {
             m('input#chapter-name', {
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
-                  el.value = 'Chapter ' + (ctrl.chapters().length + 1);
+                  el.value = 'Chapter ' + (ctrl.initial() ? 1 : (ctrl.chapters().length + 1));
                   el.focus();
                 }
               }

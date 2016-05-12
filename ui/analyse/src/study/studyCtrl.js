@@ -27,7 +27,12 @@ module.exports = {
       chapterId: null // only useful when not synchronized
     };
 
-    var form = studyFormCtrl(send, function() { return data; });
+    var form = studyFormCtrl(function(data, isNew) {
+      send("editStudy", data);
+      if (isNew) chapters.form.openInitial();
+    }, function() {
+      return data;
+    });
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
     var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'));
 
@@ -66,7 +71,7 @@ module.exports = {
         return lichess.reload();
       if (s.position !== data.position) commentForm.close();
       data.position = s.position;
-      data.name = s.name;
+      data.name = document.title = s.name;
       data.visibility = s.visibility;
       members.dict(s.members);
       chapters.list(s.chapters);

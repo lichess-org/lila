@@ -19,6 +19,9 @@ final class ChapterRepo(coll: Coll) {
   def byIdAndStudy(id: Chapter.ID, studyId: Study.ID): Fu[Option[Chapter]] =
     coll.byId[Chapter](id).map { _.filter(_.studyId == studyId) }
 
+  def firstByStudy(studyId: Study.ID): Fu[Option[Chapter]] =
+    coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
+
   def orderedMetadataByStudy(studyId: Study.ID): Fu[List[Chapter.Metadata]] =
     coll.find(
       $studyId(studyId),
@@ -61,6 +64,7 @@ final class ChapterRepo(coll: Coll) {
   def update(c: Chapter): Funit = coll.update($id(c.id), c).void
 
   def delete(id: Chapter.ID): Funit = coll.remove($id(id)).void
+  def delete(c: Chapter): Funit = delete(c.id)
 
   private def $studyId(id: Study.ID) = $doc("studyId" -> id)
 }

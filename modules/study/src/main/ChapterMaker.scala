@@ -97,5 +97,6 @@ private[study] object ChapterMaker {
     variant: Option[String],
     fen: Option[String],
     pgn: Option[String],
-    orientation: String)
+    orientation: String,
+    initial: Boolean)
 }

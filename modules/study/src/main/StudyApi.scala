@@ -196,7 +196,11 @@ final class StudyApi(
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
         chapterMaker(study, data, order) flatMap {
           _ ?? { chapter =>
-            chapterRepo.insert(chapter) >>
+            data.initial ?? {
+              chapterRepo.firstByStudy(study.id) flatMap {
+                _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+              }
+            } >> chapterRepo.insert(chapter) >>
               doSetChapter(byUserId, study, chapter.id, socket, uid)
           }
         }
