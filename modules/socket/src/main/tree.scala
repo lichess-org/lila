@@ -1,8 +1,8 @@
 package lila.socket
 package tree
 
-import chess.format.{ Uci, UciCharPair }
 import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.{ Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
@@ -26,6 +26,7 @@ sealed trait Node {
   def opening: Option[FullOpening]
   def crazyData: Option[Crazyhouse.Data]
   def addChild(branch: Branch): Node
+  def dropFirstChild: Node
 
   // implementation dependant
   def idOption: Option[UciCharPair]
@@ -33,6 +34,9 @@ sealed trait Node {
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
+
+  def mainlineNodeList: List[Node] =
+    dropFirstChild :: children.headOption.??(_.mainlineNodeList)
 }
 
 case class Root(
@@ -55,6 +59,7 @@ case class Root(
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
+  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
 }
 
 case class Branch(
@@ -79,6 +84,7 @@ case class Branch(
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
+  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
 }
 
 object Node {
@@ -181,11 +187,20 @@ object Node {
       add("drops", drops.map { drops =>
         JsString(drops.map(_.key).mkString)
       }) _ compose
-      add("crazy", crazyData)
+      add("crazy", crazyData) _ compose
+      add("children", children, children.nonEmpty)
     )(Json.obj(
         "ply" -> ply,
-        "fen" -> fen,
-        "children" -> children))
+        "fen" -> fen))
+  }
+
+  val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
+    JsArray {
+      val objs = JsArray {
+        node.mainlineNodeList.take(10).map(nodeJsonWriter.writes)
+      }
+      List.fill(1)(objs)
+    }
   }
 
   private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =
