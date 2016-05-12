@@ -19,10 +19,7 @@ final class JsonView(lightUser: LightUser.Getter) {
     studyWrites.writes(study) ++ Json.obj("chapters" -> chapters.map(chapterMetadataWrites.writes))
 
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
-    Json.obj(
-      "id" -> u.id,
-      "name" -> u.name,
-      "title" -> u.title)
+    Json.obj("id" -> u.id, "name" -> u.name, "title" -> u.title).noNull
   }
 
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
