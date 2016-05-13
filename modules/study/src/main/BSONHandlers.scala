@@ -141,8 +141,22 @@ private object BSONHandlers {
   }
   implicit val ChildrenBSONHandler = new BSONHandler[BSONArray, Node.Children] {
     private val nodesHandler = bsonArrayToVectorHandler[Node]
-    def read(b: BSONArray) = Node.Children(nodesHandler read b)
-    def write(x: Node.Children) = nodesHandler write x.nodes
+    def read(b: BSONArray) = try {
+      Node.Children(nodesHandler read b)
+    }
+    catch {
+      case e: StackOverflowError =>
+        logger.error(e.toString, e)
+        Node.emptyChildren
+    }
+    def write(x: Node.Children) = try {
+      nodesHandler write x.nodes
+    }
+    catch {
+      case e: StackOverflowError =>
+        logger.error(e.toString, e)
+        $arr()
+    }
   }
 
   implicit val PathBSONHandler = new BSONHandler[BSONString, Path] {
