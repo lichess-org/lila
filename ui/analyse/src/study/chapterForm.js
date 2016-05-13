@@ -114,9 +114,9 @@ module.exports = {
             makeTab('fen', 'FEN', 'Load a FEN position'),
             makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
-          activeTab === 'edit' ? m('div', {
+          activeTab === 'edit' ? m('div.editor_wrap', {
             config: function(el, isUpdate, ctx) {
-              if (ctx.editor) return;
+              if (isUpdate) return;
               $.when(
                 lichess.loadScript('/assets/compiled/lichess.editor.js'),
                 $.get('/editor.json', {
@@ -132,8 +132,8 @@ module.exports = {
                     m.redraw();
                   }
                 };
-                ctx.editor = LichessEditor(el, data);
-                ctrl.vm.editorFen(ctx.editor.getFen());
+                var editor = LichessEditor(el, data);
+                ctrl.vm.editorFen(editor.getFen());
               });
             }
           }, m.trust(lichess.spinnerHtml)) : null,

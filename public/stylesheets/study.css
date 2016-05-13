@@ -368,6 +368,12 @@ form.delete_study button:hover {
   opacity: 1;
 }
 
+form .editor_wrap {
+  min-height: 280px;
+}
+form .editor_wrap .spinner {
+  padding-top: 90px;
+}
 form .editor {
   position: relative;
 }
@@ -388,6 +394,9 @@ form .editor .spare piece {
 form .editor .cg-board-wrap {
   width: 224px;
   height: 224px;
+}
+form .editor square.last-move {
+  background-color: transparent!important;
 }
 form .editor .editor-side {
   position: absolute;

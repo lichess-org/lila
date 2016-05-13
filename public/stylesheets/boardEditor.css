@@ -6,9 +6,6 @@
 #board_editor square.last-move {
   background-color: transparent;
 }
-#board_editor square.selected {
-  background-color: rgba(20, 85, 30, 0.5);
-}
 #board_editor .spare {
   height: 64px;
   padding-left: 64px;
