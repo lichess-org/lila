@@ -48,6 +48,8 @@ case class Node(
 
 object Node {
 
+  val MAX_PLIES = 400
+
   case class Children(nodes: Vector[Node]) {
 
     def first = nodes.headOption

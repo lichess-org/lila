@@ -58,7 +58,10 @@ private final class ChapterMaker(domain: String, importer: Importer) {
       Chapter.make(
         studyId = study.id,
         name = data.name,
-        setup = Chapter.Setup(pov.game.id.some, pov.game.variant, pov.color),
+        setup = Chapter.Setup(
+          !pov.game.synthetic option pov.game.id,
+          pov.game.variant,
+          pov.color),
         root = root,
         order = order).some
     }

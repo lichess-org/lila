@@ -46,7 +46,7 @@ private[study] final class SocketHandler(
     case ("anaMove", o) => AnaRateLimit(uid.value) {
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
-          case scalaz.Success(branch) =>
+          case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
             member push makeMessage("node", Json.obj(
               "node" -> branch,
               "path" -> anaMove.path
@@ -61,6 +61,8 @@ private[study] final class SocketHandler(
               Position.Ref(chapterId, Path(anaMove.path)),
               Node.fromBranch(branch),
               uid)
+          case scalaz.Success(branch) =>
+            member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
           case scalaz.Failure(err) =>
             member push makeMessage("stepFailure", err.toString)
         }
@@ -69,7 +71,7 @@ private[study] final class SocketHandler(
     case ("anaDrop", o) => AnaRateLimit(uid.value) {
       AnaDrop parse o foreach { anaDrop =>
         anaDrop.branch match {
-          case scalaz.Success(branch) =>
+          case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
             member push makeMessage("node", Json.obj(
               "node" -> branch,
               "path" -> anaDrop.path
@@ -84,6 +86,8 @@ private[study] final class SocketHandler(
               Position.Ref(chapterId, Path(anaDrop.path)),
               Node.fromBranch(branch),
               uid)
+          case scalaz.Success(branch) =>
+            member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }

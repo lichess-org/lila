@@ -116,7 +116,7 @@ private object BSONHandlers {
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
-      "n" -> s.children)
+      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren))
   }
   import Node.Root
   private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
@@ -146,7 +146,7 @@ private object BSONHandlers {
     }
     catch {
       case e: StackOverflowError =>
-        logger.error(e.toString, e)
+        println(s"study handler ${e.toString}")
         Node.emptyChildren
     }
     def write(x: Node.Children) = try {
@@ -154,7 +154,7 @@ private object BSONHandlers {
     }
     catch {
       case e: StackOverflowError =>
-        logger.error(e.toString, e)
+        println(s"study handler ${e.toString}")
         $arr()
     }
   }

@@ -469,12 +469,14 @@ case class Game(
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
     else FullOpeningDB search pgnMoves
 
-  def synthetic = id == "synthetic"
+  def synthetic = id == Game.syntheticId
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 }
 
 object Game {
+
+  val syntheticId = "synthetic"
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
