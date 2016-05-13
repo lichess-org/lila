@@ -59,9 +59,10 @@ module.exports = {
   view: function(ctrl) {
 
     var activeTab = ctrl.vm.tab();
-    var makeTab = function(key, name) {
-      return m('a', {
+    var makeTab = function(key, name, title) {
+      return m('a.hint--top', {
         class: key + (activeTab === key ? ' active' : ''),
+        'data-hint': title,
         onclick: partial(ctrl.vm.tab, key),
       }, name);
     };
@@ -102,10 +103,10 @@ module.exports = {
             m('i.bar')
           ]),
           m('div.study_tabs', [
-            makeTab('blank', 'Blank'),
-            makeTab('game', 'game'),
-            makeTab('fen', 'FEN'),
-            makeTab('pgn', 'PGN')
+            makeTab('blank', 'Blank', 'Start from initial position'),
+            makeTab('game', 'game', 'Load a lichess game'),
+            makeTab('fen', 'FEN', 'Load a FEN position'),
+            makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
           activeTab === 'game' ? m('div.game.form-group', [
             m('input#chapter-game', {

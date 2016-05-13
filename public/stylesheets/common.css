@@ -2238,6 +2238,7 @@ textarea.copyable {
   font-weight: normal;
   font-style: inherit;
   font-family: 'Noto Sans';
+  text-transform: none!important;
 }
 .hint--bottom:before,
 .hint--bottom-left:before {
