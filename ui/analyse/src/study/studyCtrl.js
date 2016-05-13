@@ -246,7 +246,7 @@ module.exports = {
         },
         members: function(d) {
           members.update(d);
-          configureChat();
+          configureAnalysis();
           m.redraw();
         },
         chapters: function(d) {
