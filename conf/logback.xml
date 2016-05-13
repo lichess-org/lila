@@ -11,7 +11,7 @@
 
   <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
     <file>${application.home}/logs/all.log</file>
-    <encoder><pattern>%date %-5level %logger{30} %message%n%xException{30}</pattern></encoder>
+    <encoder><pattern>%date %-5level %logger{30} %message%n%xException{60}</pattern></encoder>
   </appender>
 
   <root level="INFO">
