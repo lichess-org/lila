@@ -46,6 +46,7 @@ module.exports = {
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
                   el.value = data.name;
+                  el.select();
                   el.focus();
                 }
               }

@@ -93,6 +93,7 @@ module.exports = {
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
                   el.value = 'Chapter ' + (ctrl.initial() ? 1 : (ctrl.chapters().length + 1));
+                  el.select();
                   el.focus();
                 }
               }
