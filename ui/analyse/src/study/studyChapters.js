@@ -4,12 +4,12 @@ var partial = require('chessground').util.partial;
 var chapterForm = require('./chapterForm');
 
 module.exports = {
-  ctrl: function(initChapters, send, setTab) {
+  ctrl: function(initChapters, send, setTab, root) {
 
     var confing = m.prop(null); // which chapter is being configured by us
     var list = m.prop(initChapters);
 
-    var form = chapterForm.ctrl(send, list, setTab);
+    var form = chapterForm.ctrl(send, list, setTab, root);
 
     return {
       confing: confing,

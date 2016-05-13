@@ -34,7 +34,7 @@ module.exports = {
       return data;
     });
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
-    var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'));
+    var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), ctrl);
 
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;

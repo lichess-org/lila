@@ -7,6 +7,8 @@ var keyboard = require('./keyboard');
 module.exports = function(cfg) {
 
   this.data = editor.init(cfg);
+  this.options = cfg.options;
+  this.embed = cfg.embed;
 
   this.trans = partial(editor.trans, this.data.i18n);
 
@@ -26,13 +28,14 @@ module.exports = function(cfg) {
   }];
 
   this.positionIndex = {};
-  cfg.positions.forEach(function(p, i) {
+  cfg.positions && cfg.positions.forEach(function(p, i) {
     this.positionIndex[p.fen.split(' ')[0]] = i;
   }.bind(this));
 
   this.chessground = new chessground.controller({
     fen: cfg.fen,
-    orientation: 'white',
+    orientation: cfg.options.orientation || 'white',
+    coordinates: !this.embed,
     movable: {
       free: true,
       color: 'both',
@@ -56,12 +59,29 @@ module.exports = function(cfg) {
       enabled: false
     },
     events: {
-      change: m.redraw
+      change: function() {
+        onChange();
+        m.redraw();
+      }.bind(this)
     },
     disableContextMenu: true
   });
 
+  var onChange = function() {
+    this.options.onChange && this.options.onChange(this.computeFen());
+  }.bind(this);
+
   this.computeFen = partial(editor.computeFen, this.data, this.chessground.getFen);
+
+  this.setColor = function(letter) {
+    this.data.color(letter);
+    onChange();
+  }.bind(this);
+
+  this.setCastle = function(id, value) {
+    this.data.castles[id](value);
+    onChange();
+  }.bind(this);
 
   this.startPosition = function() {
     this.chessground.set({
@@ -69,6 +89,7 @@ module.exports = function(cfg) {
     });
     this.data.castles = editor.castlesAt(true);
     this.data.color('w');
+    onChange();
   }.bind(this);
 
   this.clearBoard = function() {
@@ -76,6 +97,7 @@ module.exports = function(cfg) {
       fen: '8/8/8/8/8/8/8/8'
     });
     this.data.castles = editor.castlesAt(false);
+    onChange();
   }.bind(this);
 
   this.loadNewFen = function(fen) {

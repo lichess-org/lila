@@ -267,6 +267,12 @@ body:not(.dark) .material.form .study_tabs a {
 .study_overboard .form {
   padding: 20px;
 }
+.study_overboard .form .editor {
+  margin: -30px 0 30px 0;
+}
+.study_overboard .form .editor .spinner {
+  padding-top: 80px;
+}
 .study_buttons {
   display: flex;
   justify-content: space-between;
@@ -360,4 +366,55 @@ form.delete_study button {
 }
 form.delete_study button:hover {
   opacity: 1;
+}
+
+form .editor {
+  position: relative;
+}
+form .editor .spare {
+  height: 26px;
+  width: 224px;
+  margin: 3px 0;
+}
+form .editor .spare .no-square {
+  position: relative;
+  display:inline-block;
+  width: 26px;
+  height: 26px;
+}
+form .editor .spare piece {
+  cursor: pointer;
+}
+form .editor .cg-board-wrap {
+  width: 224px;
+  height: 224px;
+}
+form .editor .editor-side {
+  position: absolute;
+  left: 233px;
+  top: 50px;
+  text-align: left;
+}
+form .editor .editor-side .content_box {
+  background: none;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+form .editor .castling {
+  margin-top: 10px;
+}
+form .editor .castling strong {
+  display: none;
+}
+form .editor .castling label {
+  display: block;
+  cursor: pointer;
+}
+form .editor .castling input {
+  cursor: pointer;
+  margin-right: 5px;
+}
+form .editor a.button {
+  display: block;
 }

@@ -7,8 +7,8 @@ var m = require('mithril');
 function castleCheckBox(ctrl, id, label, reversed) {
   var input = m('input[type=checkbox]', {
     checked: ctrl.data.castles[id](),
-    onchange: function() {
-      ctrl.data.castles[id](this.checked);
+    onchange: function(e) {
+      ctrl.setCastle(id, e.target.checked);
     }
   });
   return m('label', reversed ? [input, label] : [label, input]);
@@ -22,7 +22,7 @@ function optgroup(name, opts) {
 
 function controls(ctrl, fen) {
   var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
-  var currentPosition = positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
+  var currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
   var encodedFen = fen.replace(/\s/g, '_');
   var position2option = function(pos) {
     return {
@@ -34,9 +34,9 @@ function controls(ctrl, fen) {
       children: [pos.name]
     };
   }
-  return m('div#editor-side', [
-    m('div', [
-      m('select.positions', {
+  return m('div.editor-side', [
+    ctrl.embed ? null : m('div', [
+      ctrl.data.positions ? m('select.positions', {
         onchange: function(e) {
           ctrl.loadNewFen(e.target.value);
         }
@@ -51,31 +51,39 @@ function controls(ctrl, fen) {
         optgroup('Popular openings',
           ctrl.data.positions.map(position2option)
         )
-      ])
+      ]) : null
     ]),
     m('div.metadata.content_box', [
-      m('div.color', [
+      m('div.color',
         m('select', {
-          value: ctrl.data.color(),
-          onchange: m.withAttr('value', ctrl.data.color)
-        }, [
-          m('option[value=w]', ctrl.trans('whitePlays')),
-          m('option[value=b]', ctrl.trans('blackPlays'))
-        ])
-      ]),
+          onchange: m.withAttr('value', ctrl.setColor)
+        }, ['whitePlays', 'blackPlays'].map(function(key) {
+          return m('option', {
+            value: key[0],
+            selected: ctrl.data.color() === key[0]
+          }, ctrl.trans(key));
+        }))
+      ),
       m('div.castling', [
         m('strong', ctrl.trans('castling')),
         m('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans('whiteCastlingKingside'), false),
+          castleCheckBox(ctrl, 'K', ctrl.trans('whiteCastlingKingside'), ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'Q', ctrl.trans('whiteCastlingQueenside'), true)
         ]),
         m('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans('blackCastlingKingside'), false),
+          castleCheckBox(ctrl, 'k', ctrl.trans('blackCastlingKingside'), ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', ctrl.trans('blackCastlingQueenside'), true)
         ])
       ])
     ]),
-    m('div', [
+    ctrl.embed ? m('div', [
+      m('a.button.frameless', {
+        onclick: ctrl.startPosition
+      }, 'Initial position'),
+      m('a.button.frameless', {
+        onclick: ctrl.clearBoard
+      }, 'Empty board')
+    ]) : m('div', [
       m('a.button.text[data-icon=B]', {
         onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
@@ -92,7 +100,7 @@ function controls(ctrl, fen) {
         },
         m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
     ]),
-    m('div.continue_with', [
+    ctrl.embed ? null : m('div.continue_with', [
       m('a.button', {
         href: '/?fen=' + encodedFen + '#ai',
         rel: 'nofollow'
@@ -107,6 +115,7 @@ function controls(ctrl, fen) {
 }
 
 function inputs(ctrl, fen) {
+  if (ctrl.embed) return;
   if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
   return m('div.copyables', [
     m('p', [

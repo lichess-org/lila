@@ -71,10 +71,13 @@ module.exports = {
         }, [
           m('div.game.form-group', [
             m('input#study-name', {
+              required: true,
+              minlength: 3,
+              maxlength: 100,
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
                   el.value = data.name;
-                  el.select();
+                  if (isNew) el.select();
                   el.focus();
                 }
               }

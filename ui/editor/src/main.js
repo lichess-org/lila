@@ -8,4 +8,8 @@ module.exports = function(element, config) {
     controller: function () { return controller; },
     view: view
   });
+
+  return {
+    getFen: controller.computeFen
+  };
 };

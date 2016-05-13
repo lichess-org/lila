@@ -349,6 +349,7 @@ POST  /import                          controllers.Importer.sendGame
 GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: String, color: String)
 
 # Edit
+GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
 GET   /editor                          controllers.Editor.index
 

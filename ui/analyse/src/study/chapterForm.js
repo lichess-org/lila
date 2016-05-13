@@ -9,13 +9,14 @@ function implicitVariant(tab) {
 }
 
 module.exports = {
-  ctrl: function(send, chapters, setTab) {
+  ctrl: function(send, chapters, setTab, root) {
 
     var vm = {
       variants: [],
       open: false,
       initial: m.prop(false),
-      tab: storedProp('study.form.tab', 'blank'),
+      tab: storedProp('study.form.tab', 'init'),
+      editorFen: m.prop(null)
     };
 
     var loadVariants = function() {
@@ -37,6 +38,7 @@ module.exports = {
     return {
       vm: vm,
       open: open,
+      root: root,
       openInitial: function() {
         open();
         vm.initial(true);
@@ -74,14 +76,14 @@ module.exports = {
     return dialog.form({
       onClose: ctrl.close,
       content: [
-        m('h2', 'New chapter'),
+        activeTab === 'edit' ? null : m('h2', 'New chapter'),
         m('form.material.form', {
           onsubmit: function(e) {
             ctrl.submit({
               name: fieldValue(e, 'name'),
               game: fieldValue(e, 'game'),
               variant: fieldValue(e, 'variant'),
-              fen: fieldValue(e, 'fen'),
+              fen: fieldValue(e, 'fen') || (activeTab === 'edit' ? ctrl.vm.editorFen() : null),
               pgn: fieldValue(e, 'pgn'),
               orientation: fieldValue(e, 'orientation')
             });
@@ -89,8 +91,11 @@ module.exports = {
             return false;
           }
         }, [
-          m('div.game.form-group', [
+          m('div.form-group', [
             m('input#chapter-name', {
+              required: true,
+              minlength: 2,
+              maxlength: 80,
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
                   el.value = 'Chapter ' + (ctrl.initial() ? 1 : (ctrl.chapters().length + 1));
@@ -103,26 +108,50 @@ module.exports = {
             m('i.bar')
           ]),
           m('div.study_tabs', [
-            makeTab('blank', 'Blank', 'Start from initial position'),
+            makeTab('init', 'Init', 'Start from initial position'),
+            makeTab('edit', 'Edit', 'Start from custom position'),
             makeTab('game', 'game', 'Load a lichess game'),
             makeTab('fen', 'FEN', 'Load a FEN position'),
             makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
-          activeTab === 'game' ? m('div.game.form-group', [
+          activeTab === 'edit' ? m('div', {
+            config: function(el, isUpdate, ctx) {
+              if (ctx.editor) return;
+              $.when(
+                lichess.loadScript('/assets/compiled/lichess.editor.js'),
+                $.get('/editor.json', {
+                  fen: ctrl.root.vm.node.fen
+                })
+              ).then(function(a, b) {
+                var data = b[0];
+                data.embed = true;
+                data.options = {
+                  inlineCastling: true,
+                  onChange: function(fen) {
+                    ctrl.vm.editorFen(fen);
+                    m.redraw();
+                  }
+                };
+                ctx.editor = LichessEditor(el, data);
+                ctrl.vm.editorFen(ctx.editor.getFen());
+              });
+            }
+          }, m.trust(lichess.spinnerHtml)) : null,
+          activeTab === 'game' ? m('div.form-group', [
             m('input#chapter-game', {
               placeholder: 'Game ID or URL'
             }),
             m('label.control-label[for=chapter-game]', 'From played or imported game'),
             m('i.bar')
           ]) : null,
-          activeTab === 'fen' ? m('div.game.form-group', [
+          activeTab === 'fen' ? m('div.form-group', [
             m('input#chapter-fen', {
               placeholder: 'Initial position'
             }),
             m('label.control-label[for=chapter-fen]', 'From FEN position'),
             m('i.bar')
           ]) : null,
-          activeTab === 'pgn' ? m('div.game.form-group', [
+          activeTab === 'pgn' ? m('div.form-group', [
             m('textarea#chapter-pgn', {
               placeholder: 'PGN tags and moves'
             }),
@@ -130,7 +159,7 @@ module.exports = {
             m('i.bar')
           ]) : null,
           m('div', [
-            m('div.game.form-group.half', [
+            m('div.form-group.half', [
               m('select#chapter-variant', {
                   disabled: implicitVariant(activeTab)
                 }, implicitVariant(activeTab) ? [
@@ -144,7 +173,7 @@ module.exports = {
               m('label.control-label[for=chapter-variant]', 'Variant'),
               m('i.bar')
             ]),
-            m('div.game.form-group.half', [
+            m('div.form-group.half', [
               m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
                 return m('option', {
                   value: color.toLowerCase()

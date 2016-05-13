@@ -1,46 +1,14 @@
 @(sit: chess.Situation, fen: String, positionsJson: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
-@import chess.Color.{ White, Black }
-@import chess.{ KingSide, QueenSide }
-
 @moreCss = {
 @cssTag("boardEditor.css")
 }
 @moreJs = {
 @jsAt(s"compiled/lichess.editor${isProd??(".min")}.js")
 @embedJs {
-LichessEditor(document.getElementById('board_editor'), {
-  fen: "@fen.split(" ").headOption",
-  baseUrl: "@netBaseUrl@routes.Editor.load("")",
-  color: "@sit.color.letter",
-  castles: {
-    K: @sit.canCastle(White).on(KingSide),
-    Q: @sit.canCastle(White).on(QueenSide),
-    k: @sit.canCastle(Black).on(KingSide),
-    q: @sit.canCastle(Black).on(QueenSide)
-  },
-  animation: {
-    duration: @{ctx.pref.animationFactor * animationDuration.toMillis}
-  },
-  positions: @Html(positionsJson),
-  i18n: @Html(J.stringify(i18nJsObject(
-    trans.startPosition,
-    trans.clearBoard,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.whiteCastlingQueenside,
-    trans.blackCastlingKingside,
-    trans.blackCastlingQueenside,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis
-  )))
-});
+var data = @J.stringify(JsData(sit, fen, animationDuration));
+data.positions = @positionsJson;
+LichessEditor(document.getElementById('board_editor'), data);
 }
 }
 
@@ -53,5 +21,5 @@ openGraph = lila.app.ui.OpenGraph(
 title = "Chess board editor",
 url = s"$netBaseUrl${routes.Editor.index.url}",
 description = "Load opening positions or create your own chess position on a chess board editor").some) {
-<div id="board_editor" class="cg-512"></div>
+<div id="board_editor" class="board_editor cg-512"></div>
 }

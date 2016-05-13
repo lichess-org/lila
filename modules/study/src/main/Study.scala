@@ -32,6 +32,8 @@ case class Study(
 
 object Study {
 
+  def toName(str: String) = str.trim take 100
+
   case class Data(
       name: String,
       visibility: String,

@@ -54,13 +54,13 @@ body.dark #board_editor .spare.white {
   left: 0;
   top: -36%;
 }
-#editor-side {
+#board_editor .editor-side {
   position: absolute;
   left: 552px;
   top: 150px;
   width: 228px;
 }
-#editor-side > div {
+#board_editor .editor-side > div {
   margin-bottom: 3em;
   text-align: center;
 }
@@ -72,10 +72,10 @@ body.dark #board_editor .spare.white {
 #board_editor .button.disabled {
   opacity: 0.5;
 }
-#editor-side select.positions {
+#board_editor .editor-side select.positions {
   width: 100%;
 }
-#editor-side select.positions option:checked {
+#board_editor .editor-side select.positions option:checked {
   font-style: italic;
 }
 #board_editor table td, #board_editor table th {
@@ -97,14 +97,14 @@ body.dark #board_editor .spare.white {
 #board_editor .copyable {
   width: 462px;
 }
-#editor-side > div.metadata {
+#board_editor .editor-side > div.metadata {
   white-space: nowrap;
 }
-#editor-side > div.metadata div.color {
+#board_editor .editor-side > div.metadata div.color {
   margin-bottom: 1em;
 }
-#editor-side .castling label,
-#editor-side .castling input {
+#board_editor .editor-side .castling label,
+#board_editor .editor-side .castling input {
   display:inline-block;
   margin: 3px;
   vertical-align: middle;

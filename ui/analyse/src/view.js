@@ -92,7 +92,7 @@ function inputs(ctrl) {
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.node.fen,
       onchange: function(e) {
-        if (e.target.value !== ctrl.vm.step.fen) ctrl.changeFen(e.target.value);
+        if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
       }
     }),
     m('div.pgn', [
