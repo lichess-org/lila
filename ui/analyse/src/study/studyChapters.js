@@ -109,9 +109,7 @@ module.exports = {
                   })),
                   chapter.name
                 ]),
-                m('div.right', [
-                  configButton(chapter, confing)
-                ])
+                configButton(chapter, confing)
               ]),
               confing ? chapterConfig(chapter) : null
             ];

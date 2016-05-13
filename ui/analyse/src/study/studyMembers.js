@@ -186,7 +186,7 @@ module.exports = {
               statusIcon(member),
               username(member)
             ]),
-            m('div.right', configButton(member, confing))
+            configButton(member, confing)
           ]),
           confing ? memberConfig(member) : null
         ];
