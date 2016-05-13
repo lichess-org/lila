@@ -164,13 +164,13 @@ module.exports = {
       ]);
     };
 
-    return m('div', {
-      class: 'list members' + (ownage ? ' ownage' : ''),
-      config: function() {
-        $('body').trigger('lichess.content_loaded');
-      }
-    }, [
-      ctrl.members.ordered().map(function(member) {
+    return [
+      m('div', {
+        class: 'list members' + (ownage ? ' ownage' : ''),
+        config: function() {
+          $('body').trigger('lichess.content_loaded');
+        }
+      }, ctrl.members.ordered().map(function(member) {
         var confing = ctrl.members.confing() === member.user.id;
         var attrs = {
           key: member.user.id,
@@ -190,7 +190,12 @@ module.exports = {
           ]),
           confing ? memberConfig(member) : null
         ];
-      })
-    ]);
+      })),
+      ctrl.members.isOwner() ? m('i.add[data-icon=0]', {
+        title: 'Invite someone',
+        'data-icon': 'O',
+        onclick: ctrl.members.inviteForm.toggle
+      }) : null
+    ];
   }
 };

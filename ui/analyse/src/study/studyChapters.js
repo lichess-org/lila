@@ -114,7 +114,12 @@ module.exports = {
               confing ? chapterConfig(chapter) : null
             ];
           })
-        ])
+        ]),
+        ctrl.members.canContribute() ? m('i.add[data-icon=0]', {
+          title: 'New chapter',
+          'data-icon': 'O',
+          onclick: ctrl.chapters.form.toggle
+        }) : null
       ];
     }
   }

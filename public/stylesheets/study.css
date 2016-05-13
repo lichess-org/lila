@@ -39,6 +39,24 @@
 body:not(.dark) .material.form .study_tabs a {
   background: #f0f0f0;
 }
+.study_box {
+  position: relative;
+}
+.study_box .add {
+  position: absolute;
+  bottom: -11px;
+  left: 102px;
+  font-size: 17px;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.study_box:hover .add {
+  color: #759900;
+  opacity: 0.8;
+}
+.study_box .add:hover {
+  opacity: 1;
+}
 .material.form textarea {
   height: 120px;
   line-height: 1.4em!important;

@@ -89,19 +89,6 @@ function buttons(root) {
           onclick: ctrl.glyphForm.toggle
         }, m('i.glyph-icon'))
       ] : null
-    ]),
-    m('div', [
-      ctrl.members.isOwner() ?
-      m('button.button.hint--top', {
-        class: ctrl.members.inviteForm.open() ? 'active' : '',
-        'data-hint': 'Invite someone',
-        onclick: ctrl.members.inviteForm.toggle
-      }, m('i[data-icon=r]')) : null,
-      ctrl.members.canContribute() ? m('button.button.hint--top', {
-        class: ctrl.chapters.form.vm.open ? 'active' : '',
-        'data-hint': 'Add a chapter',
-        onclick: ctrl.chapters.form.toggle
-      }, m('i[data-icon=O]')) : null
     ])
   ]);
 }
