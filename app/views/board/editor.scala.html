@@ -1,4 +1,4 @@
-@(sit: chess.Situation, fen: String, positionsJson: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(sit: chess.Situation, fen: String, positionsJson: Html, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("boardEditor.css")
@@ -6,7 +6,7 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.editor${isProd??(".min")}.js")
 @embedJs {
-var data = @J.stringify(JsData(sit, fen, animationDuration));
+var data = @Html(J.stringify(JsData(sit, fen, animationDuration)));
 data.positions = @positionsJson;
 LichessEditor(document.getElementById('board_editor'), data);
 }

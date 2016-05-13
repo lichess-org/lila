@@ -3,6 +3,7 @@ package controllers
 import chess.format.Forsyth
 import chess.Situation
 import play.api.libs.json._
+import play.twirl.api.Html
 
 import lila.app._
 import lila.game.GameRepo
@@ -10,13 +11,15 @@ import views._
 
 object Editor extends LilaController {
 
-  private lazy val positionsJson: String = Json stringify {
-    JsArray(chess.StartingPosition.all map { p =>
-      Json.obj(
-        "eco" -> p.eco,
-        "name" -> p.name,
-        "fen" -> p.fen)
-    })
+  private lazy val positionsJson = Html {
+    Json stringify {
+      JsArray(chess.StartingPosition.all map { p =>
+        Json.obj(
+          "eco" -> p.eco,
+          "name" -> p.name,
+          "fen" -> p.fen)
+      })
+    }
   }
 
   def index = load("")

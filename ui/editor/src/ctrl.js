@@ -7,7 +7,7 @@ var keyboard = require('./keyboard');
 module.exports = function(cfg) {
 
   this.data = editor.init(cfg);
-  this.options = cfg.options;
+  this.options = cfg.options || {};
   this.embed = cfg.embed;
 
   this.trans = partial(editor.trans, this.data.i18n);
@@ -34,7 +34,7 @@ module.exports = function(cfg) {
 
   this.chessground = new chessground.controller({
     fen: cfg.fen,
-    orientation: cfg.options.orientation || 'white',
+    orientation: this.options.orientation || 'white',
     coordinates: !this.embed,
     movable: {
       free: true,
