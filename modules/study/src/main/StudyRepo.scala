@@ -16,8 +16,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc("uids" -> memberId)
-  private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
-  private[study] val selectPrivate = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Private))
+  private[study] val selectPublic = $doc("settings.visibility" -> VisibilityHandler.write(StudySettings.Visibility.Public))
+  private[study] val selectPrivate = $doc("settings.visibility" -> VisibilityHandler.write(StudySettings.Visibility.Private))
 
   def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 

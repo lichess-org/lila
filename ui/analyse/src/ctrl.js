@@ -35,7 +35,7 @@ module.exports = function(opts) {
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
-    this.explorer = explorerCtrl(this, opts.explorer);
+    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : true);
   }.bind(this);
 
   initialize(opts.data);

@@ -63,7 +63,7 @@ object Study extends LilaController {
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
-                  study = env.jsonView(study, chapters),
+                  study = env.jsonView(study, chapters, ctx.me),
                   analysis = analysis,
                   chat = lila.chat.JsonView(chat))
                 negotiate(
@@ -123,6 +123,5 @@ object Study extends LilaController {
     else fuccess(Unauthorized(html.study.restricted(study)))
 
   private def canView(study: lila.study.Study)(implicit ctx: lila.api.Context) =
-    study.visibility == lila.study.Study.Visibility.Public ||
-      ctx.userId.exists(study.members.contains)
+    study.isPublic || ctx.userId.exists(study.members.contains)
 }

@@ -15,8 +15,9 @@ function tablebaseRelevant(fen) {
   return pieceCount <= 6 && castling === '-';
 }
 
-module.exports = function(root, opts) {
+module.exports = function(root, opts, allow) {
 
+  var allowed = m.prop(allow);
   var enabled = storedProp('explorer.enabled', false);
   var loading = m.prop(true);
   var failing = m.prop(false);
@@ -86,6 +87,7 @@ module.exports = function(root, opts) {
   }
 
   return {
+    allowed: allowed,
     enabled: enabled,
     setNode: setNode,
     loading: loading,
@@ -100,6 +102,12 @@ module.exports = function(root, opts) {
       enabled(!enabled());
       setNode();
       root.autoScroll();
+    },
+    disable: function() {
+      if (enabled()) {
+        enabled(false);
+        root.autoScroll();
+      }
     },
     setHoveringUci: function(uci) {
       hoveringUci(uci);

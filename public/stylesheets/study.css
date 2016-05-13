@@ -356,6 +356,7 @@ form.delete_study {
 form.delete_study button {
   color: #dc322f!important;
   opacity: 0.5;
+  font-weight: normal;
 }
 form.delete_study button:hover {
   opacity: 1;

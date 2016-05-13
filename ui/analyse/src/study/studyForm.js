@@ -1,6 +1,32 @@
 var m = require('mithril');
 var dialog = require('./dialog');
 
+var visibilityChoices = [
+  ['public', 'Public'],
+  ['private', 'Invite only']
+];
+var userSelectionChoices = [
+  ['everyone', 'Everyone'],
+  ['nobody', 'Nobody'],
+  ['owner', 'Only me'],
+  ['contributor', 'Contributors']
+];
+
+var select = function(s) {
+  return [
+    m('select#study-' + s.key, s.choices.map(function(o) {
+      return m('option', {
+        value: o[0],
+        selected: s.selected === o[0]
+      }, o[1]);
+    })),
+    m('label.control-label', {
+      for: 'study-' + s.key
+    }, s.name),
+    m('i.bar')
+  ];
+};
+
 module.exports = {
   ctrl: function(save, getData) {
 
@@ -35,7 +61,9 @@ module.exports = {
           onsubmit: function(e) {
             ctrl.save({
               name: e.target.querySelector('#study-name').value,
-              visibility: e.target.querySelector('#study-visibility').value
+              visibility: e.target.querySelector('#study-visibility').value,
+              computer: e.target.querySelector('#study-computer').value,
+              explorer: e.target.querySelector('#study-explorer').value
             }, isNew);
             e.stopPropagation();
             return false;
@@ -54,18 +82,25 @@ module.exports = {
             m('label.control-label[for=study-name]', 'Name'),
             m('i.bar')
           ]),
-          m('div.game.form-group', [
-            m('select#study-visibility', [
-              ['public', 'Public'],
-              ['private', 'Invite only']
-            ].map(function(o) {
-              return m('option', {
-                value: o[0],
-                selected: data.visibility === o[0]
-              }, o[1]);
+          m('div.game.form-group', select({
+            key: 'visibility',
+            name: 'Visibility',
+            choices: visibilityChoices,
+            selected: data.settings.visibility
+          })),
+          m('div', [
+            m('div.game.form-group.half', select({
+              key: 'computer',
+              name: 'Computer analysis',
+              choices: userSelectionChoices,
+              selected: data.settings.computer
             })),
-            m('label.control-label[for=study-visibility]', 'Visibility'),
-            m('i.bar')
+            m('div.game.form-group.half', select({
+              key: 'explorer',
+              name: 'Opening explorer',
+              choices: userSelectionChoices,
+              selected: data.settings.explorer
+            }))
           ]),
           dialog.button(isNew ? 'Start' : 'Save')
         ]),

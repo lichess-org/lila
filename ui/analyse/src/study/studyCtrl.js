@@ -60,10 +60,14 @@ module.exports = {
     }
     ctrl.userJump(data.position.path);
 
-    var configureChat = function() {
+    var configureAnalysis = function() {
       chat.writeable(!!members.myMember());
+      if (!data.features.computer) ctrl.ceval.enabled(false);
+      ctrl.ceval.allowed(data.features.computer);
+      if (!data.features.explorer) ctrl.explorer.disable();
+      ctrl.explorer.allowed(data.features.explorer);
     };
-    configureChat();
+    configureAnalysis();
 
     var onReload = function(d) {
       var s = d.study;
@@ -73,8 +77,11 @@ module.exports = {
       data.position = s.position;
       data.name = document.title = s.name;
       data.visibility = s.visibility;
+      data.settings = s.settings;
+      data.features = s.features;
       members.dict(s.members);
       chapters.list(s.chapters);
+      configureAnalysis();
       ctrl.reloadData(d.analysis);
       ctrl.chessground.set({
         orientation: d.analysis.orientation
@@ -84,7 +91,6 @@ module.exports = {
       else ctrl.jumpToLast();
       vm.catchingUp = false;
       m.redraw();
-      configureChat();
     };
 
     var xhrReload = function() {

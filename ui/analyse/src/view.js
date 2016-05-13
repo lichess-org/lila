@@ -187,7 +187,7 @@ function buttons(ctrl) {
     }, [
       cachedButtons,
       m('div', [
-        ctrl.actionMenu.open ? null : m('button', {
+        (ctrl.actionMenu.open || !ctrl.explorer.allowed()) ? null : m('button', {
           id: 'open_explorer',
           'data-hint': ctrl.trans('openingExplorer'),
           'data-act': 'explorer',

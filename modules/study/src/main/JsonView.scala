@@ -10,13 +10,20 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.Shape
+import lila.user.User
 
 final class JsonView(lightUser: LightUser.Getter) {
 
   import JsonView._
 
-  def apply(study: Study, chapters: List[Chapter.Metadata]) =
-    studyWrites.writes(study) ++ Json.obj("chapters" -> chapters.map(chapterMetadataWrites.writes))
+  def apply(study: Study, chapters: List[Chapter.Metadata], me: Option[User]) =
+    studyWrites.writes(study) ++ Json.obj(
+      "chapters" -> chapters.map(chapterMetadataWrites.writes),
+      "features" -> Json.obj(
+        "computer" -> StudySettings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
+        "explorer" -> StudySettings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+      )
+    )
 
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj("id" -> u.id, "name" -> u.name, "title" -> u.title).noNull
@@ -43,7 +50,7 @@ final class JsonView(lightUser: LightUser.Getter) {
       "members" -> s.members,
       "position" -> s.position,
       "ownerId" -> s.ownerId,
-      "visibility" -> visibilityWriter.writes(s.visibility),
+      "settings" -> s.settings,
       "createdAt" -> s.createdAt,
       "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
     ).noNull
@@ -75,9 +82,13 @@ object JsonView {
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
     JsString(uid.value)
   }
-  private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
+  private[study] implicit val visibilityWriter = Writes[StudySettings.Visibility] { v =>
     JsString(v.key)
   }
+  private[study] implicit val userSelectionWriter = Writes[StudySettings.UserSelection] { v =>
+    JsString(v.key)
+  }
+  private[study] implicit val settingsWriter: Writes[StudySettings] = Json.writes[StudySettings]
 
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject].flatMap { o =>
