@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
-var treePath = require('../path');
+var treePath = require('../tree/path');
 
 var onMyTurn = function(ctrl, fctrl, cNodes) {
   var firstNode = cNodes[0];
@@ -37,7 +37,14 @@ module.exports = function(ctrl) {
           'data-icon': 'G',
           class: 'text',
           onclick: function() {
-            ctrl.userJump(ctrl.analyse.addNodes(nodes, treePath.default(ctrl.data.game.turns)));
+            // #TODO #FIXME
+            // needs the node ID to insert in the tree
+            // but it's not stored by forecast
+            return;
+            var gamePath = treePath.fromNodeList(ctrl.vm.nodeList.slice(0, ctrl.data.game.turns + 1));
+            ctrl.userJump(ctrl.tree.addNodes(
+              nodes,
+              gamePath));
           }
         }, [
           m('a', {

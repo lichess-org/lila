@@ -97,6 +97,13 @@ module.exports = function(root) {
     })) return newPath;
   }
 
+  function addNodes(nodes, path) {
+    var node = nodes[0];
+    if (!node) return path;
+    var newPath = addNode(node, path);
+    return addNodes(nodes.slice(1), newPath);
+  }
+
   function deleteNodeAt(path) {
     var parent = nodeAtPath(treePath.init(path));
     var id = treePath.last(path);
@@ -147,6 +154,7 @@ module.exports = function(root) {
     getOpening: getOpening,
     updateAt: updateAt,
     addNode: addNode,
+    addNodes: addNodes,
     addDests: function(dests, path, opening) {
       return updateAt(path, function(node) {
         node.dests = dests;
