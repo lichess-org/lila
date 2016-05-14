@@ -359,11 +359,13 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var allowCeval = (
-    util.synthetic(this.data) || !game.playable(this.data)
-  ) && ['standard', 'fromPosition', 'chess960'].indexOf(this.data.game.variant.key) !== -1;
+  var cevalVariants = ['standard', 'fromPosition', 'chess960'];
+  var cevalPossible = function() {
+    return (util.synthetic(this.data) || !game.playable(this.data)) &&
+      cevalVariants.indexOf(this.data.game.variant.key) !== -1;
+  }.bind(this);
 
-  this.ceval = cevalCtrl(allowCeval, this.data.game.variant, function(res) {
+  this.ceval = cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
     this.tree.updateAt(res.work.path, function(node) {
       if (node.ceval && node.ceval.depth >= res.eval.depth) return;
       node.ceval = res.eval;

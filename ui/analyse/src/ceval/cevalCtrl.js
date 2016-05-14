@@ -2,15 +2,15 @@ var m = require('mithril');
 var makePool = require('./cevalPool');
 var initialFen = require('../util').initialFen;
 
-module.exports = function(allow, variant, emit) {
+module.exports = function(possible, variant, emit) {
 
   var nbWorkers = 3;
   var minDepth = 8;
   var maxDepth = 18;
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
-  var allowed = m.prop(allow);
-  var enabled = m.prop(allow && lichess.storage.get(storageKey) === '1');
+  var allowed = m.prop(true);
+  var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
   var pool = makePool({
     path: '/assets/vendor/stockfish6.js', // Can't CDN because same-origin policy
@@ -80,9 +80,10 @@ module.exports = function(allow, variant, emit) {
     start: start,
     stop: stop,
     allowed: allowed,
+    possible: possible,
     enabled: enabled,
     toggle: function() {
-      if (!allowed()) return;
+      if (!possible() || !allowed()) return;
       stop();
       enabled(!enabled());
       lichess.storage.set(storageKey, enabled() ? '1' : '0');

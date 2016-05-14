@@ -40,7 +40,7 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed()) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible()) return;
     var enabled = ctrl.ceval.enabled();
     var evs = ctrl.currentEvals() || {};
     var pearl, percent;
