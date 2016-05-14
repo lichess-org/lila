@@ -221,8 +221,9 @@ object UserRepo {
   def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        coll.insert(newUser(username, password, email, blind, mobileApiVersion)) >>
-          named(normalize(username))
+        val doc = newUser(username, password, email, blind, mobileApiVersion) ++
+          ("len" -> BSONInteger(username.size))
+        coll.insert(doc) >> named(normalize(username))
       }
     }
 
@@ -237,7 +238,7 @@ object UserRepo {
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
-      .sort($sort desc "_id")
+      .sort($doc("enabled" -> -1, "len" -> 1))
       .cursor[Bdoc]().gather[List](max)
       .map {
         _ flatMap { _.getAs[String](F.username) }
