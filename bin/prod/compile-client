@@ -17,7 +17,7 @@ for file in tv.js puzzle.js chart2.js user.js coordinate.js; do
   fi
 done
 
-orig="$SRC/util.js $SRC/socket.js $SRC/main.js"
+orig="$SRC/deps.min.js $SRC/util.js $SRC/socket.js $SRC/main.js"
 comp=$TARGET/lichess.js
 lilalog "Compiling lichess.js"
 closure --js $orig --js_output_file $comp

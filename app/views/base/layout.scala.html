@@ -192,11 +192,11 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @jQueryTag
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @jsTag("deps.min.js")
     @momentjsTag
     @if(isProd) {
     @jsTagCompiled("lichess.js")
     } else {
+    @jsTag("deps.min.js")
     @jsTag("util.js")
     @jsTag("socket.js")
     @jsTag("main.js")
