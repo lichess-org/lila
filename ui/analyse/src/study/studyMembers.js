@@ -164,6 +164,7 @@ module.exports = {
 
     return [
       m('div', {
+        key: 'members',
         class: 'list members',
         config: function() {
           $('body').trigger('lichess.content_loaded');

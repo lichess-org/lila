@@ -79,20 +79,27 @@ module.exports = {
 
       return [
         m('div', {
+          key: 'chapters',
           class: 'list chapters',
           config: function(el, isUpdate, ctx) {
             var newCount = ctrl.chapters.list().length;
             if (!isUpdate || !ctx.count || ctx.count !== newCount)
               $(el).scrollTo($(el).find('.active'), 200);
             ctx.count = newCount;
-            if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable)
-              lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(function() {
+            if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
+              var makeSortable = function() {
                 ctx.sortable = Sortable.create(el, {
                   onSort: function() {
                     ctrl.chapters.sort(ctx.sortable.toArray());
                   }
                 });
-              });
+                ctx.onunload = function() {
+                  ctx.sortable.destroy();
+                };
+              };
+              if (window.Sortable) makeSortable();
+              else lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(makeSortable);
+            }
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
