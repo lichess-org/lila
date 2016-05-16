@@ -30,16 +30,17 @@ module.exports = {
       delete: function(id) {
         send("deleteChapter", id);
         confing(null);
+      },
+      sort: function(ids) {
+        send("sortChapters", ids);
       }
     };
   },
   view: {
     main: function(ctrl) {
 
-      var ownage = ctrl.members.isOwner();
-
       var configButton = function(chapter, confing) {
-        if (ownage) return m('span.action.config', {
+        if (ctrl.members.canContribute()) return m('span.action.config', {
           onclick: function(e) {
             ctrl.chapters.confing(confing ? null : chapter.id);
             e.stopPropagation();
@@ -78,12 +79,20 @@ module.exports = {
 
       return [
         m('div', {
-          class: 'list chapters' + (ownage ? ' ownage' : ''),
+          class: 'list chapters',
           config: function(el, isUpdate, ctx) {
             var newCount = ctrl.chapters.list().length;
             if (!isUpdate || !ctx.count || ctx.count !== newCount)
               $(el).scrollTo($(el).find('.active'), 200);
             ctx.count = newCount;
+            if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable)
+              lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(function() {
+                ctx.sortable = Sortable.create(el, {
+                  onSort: function() {
+                    ctrl.chapters.sort(ctx.sortable.toArray());
+                  }
+                });
+              });
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
@@ -91,6 +100,8 @@ module.exports = {
             var current = ctrl.currentChapter();
             var active = current && current.id === chapter.id;
             var attrs = {
+              key: chapter.id,
+              'data-id': chapter.id,
               class: classSet({
                 elem: true,
                 chapter: true,

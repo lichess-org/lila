@@ -29,6 +29,8 @@ object PimpedJson {
 
     def ints(key: String): Option[List[Int]] = arrAs(key)(_.asOpt[Int])
 
+    def strs(key: String): Option[List[String]] = arrAs(key)(_.asOpt[String])
+
     def get[A: Reads](key: String): Option[A] =
       (js \ key).asOpt[A]
 

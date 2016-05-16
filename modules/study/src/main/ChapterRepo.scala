@@ -31,6 +31,11 @@ final class ChapterRepo(coll: Coll) {
   def orderedByStudy(studyId: Study.ID): Fu[List[Chapter]] =
     coll.find($studyId(studyId)).sort($sort asc "order").list[Chapter](maxChapters)
 
+  def sort(study: Study, ids: List[Chapter.ID]): Funit = ids.zipWithIndex.map {
+    case (id, index) =>
+      coll.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
+  }.sequenceFu.void
+
   def nextOrderByStudy(studyId: Study.ID): Fu[Int] =
     coll.primitiveOne[Int](
       $studyId(studyId),

@@ -34,7 +34,7 @@ module.exports = {
     };
 
     var canContribute = function() {
-      return myMember() && myMember().role === 'w';
+      return (myMember() || {}).role === 'w';
     };
 
     var inviteForm = inviteFormCtrl(send, dict, setTab);
@@ -96,8 +96,6 @@ module.exports = {
   },
   view: function(ctrl) {
 
-    var ownage = ctrl.members.isOwner();
-
     var username = function(member) {
       var u = member.user;
       return m('span.user_link.ulpt', {
@@ -120,7 +118,7 @@ module.exports = {
     };
 
     var configButton = function(member, confing) {
-      if (!ownage || member.user.id === ctrl.members.myId) return null;
+      if (!ctrl.members.isOwner() || member.user.id === ctrl.members.myId) return null;
       return m('span.action.config', {
         onclick: function() {
           ctrl.members.confing(confing ? null : member.user.id);
@@ -166,7 +164,7 @@ module.exports = {
 
     return [
       m('div', {
-        class: 'list members' + (ownage ? ' ownage' : ''),
+        class: 'list members',
         config: function() {
           $('body').trigger('lichess.content_loaded');
         }

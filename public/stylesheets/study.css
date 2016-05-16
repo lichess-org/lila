@@ -136,6 +136,14 @@ body:not(.dark) .material.form .study_tabs a {
   line-height: 26px;
   margin-left: 5px;
 }
+.study_box .list .sortable-ghost {
+  background: #3893E8;
+  color: #fff;
+  opacity: 0.5;
+}
+.study_box .list .sortable-ghost i::before {
+  color: #fff;
+}
 .study_box .list .left,
 .study_box .list .right {
   display: flex;
