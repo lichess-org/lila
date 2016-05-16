@@ -100,6 +100,10 @@ module.exports = {
               if (window.Sortable) makeSortable();
               else lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(makeSortable);
             }
+          },
+          onclick: function(e) {
+            var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
+            id && ctrl.setChapter(id);
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
@@ -114,10 +118,7 @@ module.exports = {
                 chapter: true,
                 active: active,
                 confing: confing
-              }),
-              onclick: function() {
-                ctrl.setChapter(chapter.id);
-              }
+              })
             };
             return [
               m('div', attrs, [

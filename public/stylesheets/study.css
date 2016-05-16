@@ -168,7 +168,7 @@ body:not(.dark) .material.form .study_tabs a {
 .study_box .list .status i,
 .study_box .list .action i {
   font-size: 14px;
-  opacity: 0.4;
+  opacity: 0.2;
   transition: opacity 0.13s;
 }
 .study_box .list .action {
