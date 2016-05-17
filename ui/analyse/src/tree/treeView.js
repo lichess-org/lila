@@ -89,7 +89,7 @@ function renderVariationContent(ctrl, node, path, full) {
     });
   else {
     turns.push({
-      turn: Math.floor(initPly / 2) + 1,
+      turn: Math.floor(initPly / 2),
       white: null,
       black: makeTurnColor(0)
     });
