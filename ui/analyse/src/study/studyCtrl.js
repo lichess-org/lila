@@ -79,6 +79,7 @@ module.exports = {
       data.visibility = s.visibility;
       data.settings = s.settings;
       data.features = s.features;
+      data.setup = s.setup;
       members.dict(s.members);
       chapters.list(s.chapters);
       configureAnalysis();

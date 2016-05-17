@@ -435,3 +435,12 @@ form .editor .castling input {
 form .editor a.button {
   display: block;
 }
+.metadata {
+  text-align: left;
+}
+.metadata h2 {
+  font-size: 1.3em;
+  margin: 15px;
+}
+.metadata th {
+}

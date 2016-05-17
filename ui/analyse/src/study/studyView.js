@@ -63,6 +63,28 @@ function buttons(root) {
   ]);
 }
 
+function tags(tags) {
+  return m('table.tags.slist', m('tbody', tags.map(function(tag) {
+    return m('tr', [
+      m('th', tag.name),
+      m('td', tag.value)
+    ]);
+  })));
+}
+
+function metadata(ctrl) {
+  var chapter = ctrl.currentChapter();
+  var fromPgn = ctrl.data.setup.fromPgn;
+  return m('div.metadata', [
+    m('h2', [
+      ctrl.data.name,
+      ': ' +
+      chapter.name
+    ]),
+    fromPgn ? tags(fromPgn.tags) : null
+  ]);
+}
+
 module.exports = {
 
   main: function(ctrl) {
@@ -128,7 +150,8 @@ module.exports = {
       glyphForm,
       currentCommentsView(ctrl, !commentForm),
       commentForm,
-      buttons(ctrl)
+      buttons(ctrl),
+      metadata(ctrl.study)
     ];
   }
 };

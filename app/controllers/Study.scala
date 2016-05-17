@@ -63,7 +63,7 @@ object Study extends LilaController {
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
-                  study = env.jsonView(study, chapters, ctx.me),
+                  study = env.jsonView(study, chapters, chapter, ctx.me),
                   analysis = analysis,
                   chat = lila.chat.JsonView(chat))
                 negotiate(

@@ -16,9 +16,10 @@ final class JsonView(lightUser: LightUser.Getter) {
 
   import JsonView._
 
-  def apply(study: Study, chapters: List[Chapter.Metadata], me: Option[User]) =
+  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
     studyWrites.writes(study) ++ Json.obj(
       "chapters" -> chapters.map(chapterMetadataWrites.writes),
+      "setup" -> currentChapter.setup,
       "features" -> Json.obj(
         "computer" -> StudySettings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
         "explorer" -> StudySettings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
@@ -113,10 +114,7 @@ object JsonView {
   private implicit val chapterFromPgnWrites = Json.writes[Chapter.FromPgn]
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
-    Json.obj(
-      "id" -> c._id,
-      "name" -> c.name,
-      "setup" -> c.setup)
+    Json.obj("id" -> c._id, "name" -> c.name)
   }
   // private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
 
