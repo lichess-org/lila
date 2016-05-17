@@ -190,7 +190,7 @@ private object BSONHandlers {
   }
 
   private implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
-    def read(b: BSONString): Tag = b.value.split(':') match {
+    def read(b: BSONString): Tag = b.value.split(":", 2) match {
       case Array(name, value) => Tag(name, value)
       case _                  => sys error s"Invalid pgn tag ${b.value}"
     }
