@@ -11,7 +11,8 @@ private object PgnImport {
 
   case class Result(
     root: Node.Root,
-    variant: chess.variant.Variant)
+    variant: chess.variant.Variant,
+    tags: List[Tag])
 
   def apply(pgn: String): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
@@ -35,7 +36,8 @@ private object PgnImport {
               },
               node => Node.Children(node.toVector)
             )),
-        variant = game.variant)
+        variant = game.variant,
+        tags = parsedPgn.tags)
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Valid[Option[Node]] =

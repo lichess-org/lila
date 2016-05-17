@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.{ Glyph, Glyphs, Tag }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Pos, Color, Role, PromotableRole }
@@ -189,6 +189,14 @@ private object BSONHandlers {
     def write(x: Variant) = BSONInteger(x.id)
   }
 
+  private implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
+    def read(b: BSONString): Tag = b.value.split(':') match {
+      case Array(name, value) => Tag(name, value)
+      case _                  => sys error s"Invalid pgn tag ${b.value}"
+    }
+    def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
+  }
+  private implicit val ChapterFromPgnBSONHandler = Macros.handler[Chapter.FromPgn]
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
