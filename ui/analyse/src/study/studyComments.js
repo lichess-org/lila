@@ -42,7 +42,7 @@ module.exports = {
         ' about ',
         m('span.node', nodeFullName(node)),
         ': ',
-        m('span.text', comment.text.replace(/\n/g, '<br>'))
+        m('span.text', m.trust(comment.text.replace(/\n/g, '<br>')))
       ]);
     }));
   }
