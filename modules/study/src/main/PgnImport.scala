@@ -9,8 +9,6 @@ import lila.socket.tree.Node.{ Comment, Comments }
 
 private object PgnImport {
 
-  private type TagPicker = Tag.type => TagType
-
   case class Result(
     root: Node.Root,
     variant: chess.variant.Variant)
