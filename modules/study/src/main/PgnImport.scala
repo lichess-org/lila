@@ -64,7 +64,7 @@ private object PgnImport {
             check = game.situation.check,
             shapes = Nil,
             comments = Comments(san.metas.comments map { text =>
-              Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+              Comment(Comment.Id.make, Comment.Text(text), annotator | Comment.Author.Lichess)
             }),
             glyphs = san.metas.glyphs,
             crazyData = game.situation.board.crazyData,

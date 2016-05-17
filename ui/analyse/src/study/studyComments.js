@@ -3,7 +3,7 @@ var nodeFullName = require('../util').nodeFullName;
 
 function authorDom(author) {
   if (!author) return 'Unknown';
-  if (author.name) return author.name;
+  if (!author.name) return author;
   return m('span.user_link.ulpt', {
     'data-href': '/@/' + author.id
   }, author.name);
@@ -11,8 +11,8 @@ function authorDom(author) {
 
 function authorText(author) {
   if (!author) return 'Unknown';
-  if (author.name) return author.name;
-  return author;
+  if (!author.name) return author;
+  return author.name;
 }
 
 module.exports = {
