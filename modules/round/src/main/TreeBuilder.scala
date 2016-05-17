@@ -71,7 +71,12 @@ object TreeBuilder {
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
-              advice.map(_.makeComment(false, true)).toList.map(Node.Comment.byLichess)
+              advice.map(_.makeComment(false, true)).toList.map { text =>
+                Node.Comment(
+                  Node.Comment.Id.make,
+                  Node.Comment.Text(text),
+                  Node.Comment.Author.Lichess)
+              }
             })
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map {

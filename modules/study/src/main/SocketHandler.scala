@@ -194,9 +194,15 @@ private[study] final class SocketHandler(
         for {
           userId <- member.userId
           text <- (o \ "d" \ "text").asOpt[String]
-          by = (o \ "d" \ "by").asOpt[String] ifTrue owner
-          comment = Comment(text = text, by = by | userId)
-        } api.setComment(userId, studyId, position.ref, comment, uid)
+        } api.setComment(userId, studyId, position.ref, Comment sanitize text, uid)
+      }
+
+    case ("deleteComment", o) =>
+      reading[AtPosition](o) { position =>
+        for {
+          userId <- member.userId
+          id <- (o \ "d" \ "id").asOpt[String]
+        } api.deleteComment(userId, studyId, position.ref, Comment.Id(id), uid)
       }
 
     case ("toggleGlyph", o) =>

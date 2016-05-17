@@ -263,7 +263,7 @@ module.exports = {
           ctrl.chessground.setShapes(d.s);
           m.redraw();
         },
-        comment: function(d) {
+        setComment: function(d) {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
@@ -271,6 +271,15 @@ module.exports = {
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setCommentAt(d.c, position.path);
+          m.redraw();
+        },
+        deleteComment: function(d) {
+          var position = d.p,
+            who = d.w;
+          who && activity(who.u);
+          if (vm.behind !== false) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.deleteCommentAt(d.id, position.path);
           m.redraw();
         },
         glyphs: function(d) {

@@ -97,25 +97,40 @@ object Node {
     case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
   }
 
-  case class Comment(text: String, by: String)
+  case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author)
   object Comment {
-    def byLichess(text: String) = Comment(text, "lichess")
-    def byUnknown(text: String) = Comment(text, "")
-    def sanitize(text: String) = text.trim().take(2000)
-      .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-      .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-      .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-      .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
+    case class Id(value: String) extends AnyVal
+    object Id {
+      def make = Id(scala.util.Random.alphanumeric take 6 mkString)
+    }
+    case class Text(value: String) extends AnyVal
+    sealed trait Author
+    object Author {
+      case class User(id: String, titleName: String) extends Author
+      case class External(name: String) extends Author
+      case object Lichess extends Author
+      case object Unknown extends Author
+    }
+    def sanitize(text: String) = Text {
+      text.trim.take(2000)
+        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
+        .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
+    }
   }
   case class Comments(value: List[Comment]) extends AnyVal {
     def list = value
-    def by(userId: String) = list.find(_.by == userId)
+    def findBy(author: Comment.Author) = list.find(_.by == author)
     def set(comment: Comment) = Comments {
-      if (by(comment.by).isDefined) list.map {
-        case c if c.by == comment.by => comment
+      if (list.exists(_.by == comment.by)) list.map {
+        case c if c.by == comment.by => c.copy(text = comment.text)
         case c                       => c
       }
       else list :+ comment
+    }
+    def delete(commentId: Comment.Id) = Comments {
+      value.filterNot(_.id == commentId)
     }
   }
 
@@ -163,6 +178,18 @@ object Node {
     Json.toJson(gs.toList)
   }
 
+  implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
+    JsString(id.value)
+  }
+  implicit val commentTextWrites: Writes[Comment.Text] = Writes { text =>
+    JsString(text.value)
+  }
+  implicit val commentAuthorWrites: Writes[Comment.Author] = Writes[Comment.Author] {
+    case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
+    case Comment.Author.External(name) => JsString(s"${name.trim}")
+    case Comment.Author.Lichess        => JsString("lichess")
+    case Comment.Author.Unknown        => JsNull
+  }
   implicit val commentWriter = Json.writes[Node.Comment]
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
     JsArray(s.list.map(commentWriter.writes))

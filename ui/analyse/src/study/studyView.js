@@ -5,6 +5,7 @@ var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterFormView = require('./chapterForm').view;
 var commentFormView = require('./commentForm').view;
+var currentCommentsView = require('./studyComments').currentComments;
 var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
@@ -14,39 +15,6 @@ function contextAction(icon, text, handler) {
     'data-icon': icon,
     onclick: handler
   }, text);
-}
-
-function currentComments(ctrl, includingMine) {
-  var path = ctrl.vm.path;
-  var node = ctrl.vm.node;
-  var chapter = ctrl.study.currentChapter();
-  var comments = node.comments || [];
-  if (!comments.length) return;
-  return m('div.study_comments', comments.map(function(comment) {
-    var isMine = ctrl.userId === comment.by.toLowerCase();
-    if (!includingMine && isMine) return;
-    var canDelete = isMine || ctrl.study.members.isOwner();
-    return m('div.comment', [
-      canDelete ? m('a.edit[data-icon=q][title=Delete]', {
-        onclick: function() {
-          if (confirm('Delete ' + comment.by + '\'s comment?'))
-            ctrl.study.commentForm.delete(chapter.id, path, comment.by);
-        }
-      }) : null,
-      isMine ? m('a.edit[data-icon=m][title=Edit]', {
-        onclick: function() {
-          ctrl.study.commentForm.open(chapter.id, path, node);
-        }
-      }) : null,
-      m('span.user_link.ulpt', {
-        'data-href': '/@/' + comment.by
-      }, comment.by),
-      ' about ',
-      m('span.node', nodeFullName(node)),
-      ': ',
-      m('span.text', comment.text.replace(/\n/g, '<br>'))
-    ]);
-  }));
 }
 
 function buttons(root) {
@@ -158,7 +126,7 @@ module.exports = {
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [
       glyphForm,
-      currentComments(ctrl, !commentForm),
+      currentCommentsView(ctrl, !commentForm),
       commentForm,
       buttons(ctrl)
     ];

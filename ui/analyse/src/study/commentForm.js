@@ -67,12 +67,11 @@ module.exports = {
         else open(chapterId, path, node);
       },
       submit: submit,
-      delete: function(chapterId, path, userId) {
-        root.study.contribute('setComment', {
+      delete: function(chapterId, path, id) {
+        root.study.contribute('deleteComment', {
           chapterId: chapterId,
           path: path,
-          text: '',
-          by: userId
+          id: id
         });
       },
       onSetPath: onSetPath
@@ -115,7 +114,7 @@ module.exports = {
               if (isUpdate && ctx.path === current.path) return;
               ctx.path = current.path;
               var mine = (current.node.comments || []).find(function(c) {
-                return c.by.toLowerCase() === ctrl.root.userId;
+                return c.by && c.by.id && c.by.id === ctrl.root.userId;
               });
               el.value = mine ? mine.text : '';
               if (ctrl.opening() || ctrl.focus()) el.focus();

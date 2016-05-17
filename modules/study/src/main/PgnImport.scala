@@ -17,7 +17,7 @@ private object PgnImport {
 
   def apply(pgn: String): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, result, initialFen, ParsedPgn(tags, sans)) => Result(
+      case Preprocessed(game, replay, result, initialFen, parsedPgn) => Result(
         root = Node.Root(
           ply = replay.setup.turns,
           fen = initialFen | FEN(game.variant.initialFen),
@@ -26,27 +26,31 @@ private object PgnImport {
           comments = Comments(Nil),
           glyphs = Glyphs.empty,
           crazyData = replay.setup.situation.board.crazyData,
-          children = makeNode(replay.setup, sans).fold(
-            err => {
-              logger.warn(s"PgnImport $err")
-              Node.emptyChildren
-            },
-            node => Node.Children(node.toVector)
-          )),
+          children = makeNode(
+            prev = replay.setup,
+            sans = parsedPgn.sans,
+            annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
+          ).fold(
+              err => {
+                logger.warn(s"PgnImport $err")
+                Node.emptyChildren
+              },
+              node => Node.Children(node.toVector)
+            )),
         variant = game.variant)
     }
 
-  private def makeNode(prev: chess.Game, sans: List[San]): Valid[Option[Node]] =
+  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Valid[Option[Node]] =
     sans match {
       case Nil => success(none)
       case san :: rest => san(prev.situation) flatMap { moveOrDrop =>
         val game = moveOrDrop.fold(prev.apply, prev.applyDrop)
         val uci = moveOrDrop.fold(_.toUci, _.toUci)
         val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-        makeNode(game, rest) map { mainline =>
+        makeNode(game, rest, annotator) map { mainline =>
           val variations = rest.headOption.?? {
             _.metas.variations.flatMap { variation =>
-              makeNode(game, variation).fold({ err =>
+              makeNode(game, variation, annotator).fold({ err =>
                 logger.warn(s"$variation $err")
                 none
               }, identity)
@@ -59,7 +63,9 @@ private object PgnImport {
             fen = FEN(Forsyth >> game),
             check = game.situation.check,
             shapes = Nil,
-            comments = Comments(san.metas.comments map Comment.byUnknown),
+            comments = Comments(san.metas.comments map { text =>
+              Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+            }),
             glyphs = san.metas.glyphs,
             crazyData = game.situation.board.crazyData,
             children = Node.Children {

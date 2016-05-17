@@ -127,13 +127,18 @@ module.exports = function(root) {
   function setCommentAt(comment, path) {
     updateAt(path, function(node) {
       node.comments = node.comments || [];
-      var existing = node.comments.find(function(c) {
-        return c.by === comment.by;
-      });
+      var existing = node.comments.filter(function(c) {
+        return c.id === comment.id;
+      })[0];
       if (existing) existing.text = comment.text;
       else node.comments.push(comment);
-      node.comments = node.comments.filter(function(c) {
-        return c.text !== '';
+    });
+  }
+
+  function deleteCommentAt(id, path) {
+    updateAt(path, function(node) {
+      node.comments = (node.comments || []).filter(function(c) {
+        return c.id !== id
       });
     });
   }
@@ -167,6 +172,7 @@ module.exports = function(root) {
       });
     },
     setCommentAt: setCommentAt,
+    deleteCommentAt: deleteCommentAt,
     setGlyphsAt: setGlyphsAt,
     pathIsMainline: pathIsMainline,
     pathExists: pathExists,

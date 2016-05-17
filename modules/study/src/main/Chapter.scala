@@ -33,6 +33,9 @@ case class Chapter(
   def setComment(comment: Comment, path: Path): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
 
+  def deleteComment(commentId: Comment.Id, path: Path): Option[Chapter] =
+    updateRoot(_.deleteCommentAt(commentId, path))
+
   def toggleGlyph(glyph: Glyph, path: Path): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
 

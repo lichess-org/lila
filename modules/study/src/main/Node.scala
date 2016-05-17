@@ -40,6 +40,7 @@ case class Node(
     }
 
   def setComment(comment: Comment) = copy(comments = comments set comment)
+  def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
 
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
@@ -95,6 +96,11 @@ object Node {
       case Some((head, Path(Nil))) => updateWith(head, _.setComment(comment).some)
       case Some((head, tail))      => updateChildren(head, _.setCommentAt(comment, tail))
     }
+    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Children] = path.split match {
+      case None                    => none
+      case Some((head, Path(Nil))) => updateWith(head, _.deleteComment(commentId).some)
+      case Some((head, tail))      => updateChildren(head, _.deleteCommentAt(commentId, tail))
+    }
 
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Children] = path.split match {
       case None                    => none
@@ -147,6 +153,9 @@ object Node {
     def setCommentAt(comment: Comment, path: Path): Option[Root] =
       if (path.isEmpty) copy(comments = comments set comment).some
       else withChildren(_.setCommentAt(comment, path))
+    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Root] =
+      if (path.isEmpty) copy(comments = comments delete commentId).some
+      else withChildren(_.deleteCommentAt(commentId, path))
 
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some

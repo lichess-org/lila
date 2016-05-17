@@ -31,7 +31,7 @@ final class PgnDump(
 
   def filename(study: Study): String = {
     val name = lila.common.String slugify study.name
-    val owner = lightUser(study.ownerId).map(_.name)
+    val owner = lightUser(study.ownerId).fold(study.ownerId)(_.name)
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
   }
@@ -60,7 +60,7 @@ final class PgnDump(
   private def node2move(parent: RootOrNode, node: Node) = chessPgn.Move(
     san = node.move.san,
     glyphs = node.glyphs,
-    comments = node.comments.list.map(_.text),
+    comments = node.comments.list.map(_.text.value),
     opening = none,
     result = none,
     variations = parent.children.variations.toList.map { child =>

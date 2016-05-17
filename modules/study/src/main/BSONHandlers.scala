@@ -68,10 +68,31 @@ private object BSONHandlers {
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   import lila.socket.tree.Node.{ Comment, Comments }
+  private implicit val CommentIdBSONHandler = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
+  private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
+  implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
+    def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
+      case BSONString("lichess") => Comment.Author.Lichess
+      case BSONString(name)      => Comment.Author.External(name)
+      case doc: Bdoc => {
+        for {
+          id <- doc.getAs[String]("id")
+          name <- doc.getAs[String]("name")
+        } yield Comment.Author.User(id, name)
+      } err s"Invalid comment author $doc"
+      case _ => Comment.Author.Unknown
+    }
+    def write(x: Comment.Author): BSONValue = x match {
+      case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
+      case Comment.Author.External(name) => BSONString(s"${name.trim}")
+      case Comment.Author.Lichess        => BSONString("l")
+      case Comment.Author.Unknown        => BSONString("")
+    }
+  }
   private implicit val CommentBSONHandler = Macros.handler[Comment]
 
   private def readComments(r: Reader) =
-    Comments(r.getsD[Comment]("co").filter(_.text.nonEmpty))
+    Comments(r.getsD[Comment]("co").filter(_.text.value.nonEmpty))
 
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString

@@ -73,9 +73,15 @@ private final class Socket(
       "w" -> who(uid)
     ), Messadata())
 
-    case SetComment(pos, comment, uid) => notifyVersion("comment", Json.obj(
+    case SetComment(pos, comment, uid) => notifyVersion("setComment", Json.obj(
       "p" -> pos,
       "c" -> comment,
+      "w" -> who(uid)
+    ), Messadata())
+
+    case DeleteComment(pos, commentId, uid) => notifyVersion("deleteComment", Json.obj(
+      "p" -> pos,
+      "id" -> commentId,
       "w" -> who(uid)
     ), Messadata())
 
@@ -158,6 +164,7 @@ private object Socket {
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
+  case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll

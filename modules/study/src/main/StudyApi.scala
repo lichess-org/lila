@@ -160,17 +160,35 @@ final class StudyApi(
     }
   }
 
-  def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, c: Comment, uid: Uid) = sequenceStudyWithChapter(studyId) {
+  def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, text: Comment.Text, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       (study.members get userId) ?? { byMember =>
-        lightUser(byMember.id) ?? { user =>
-          val comment = Comment(text = Comment sanitize c.text, by = user.titleName)
+        lightUser(userId) ?? { author =>
+          val comment = Comment(
+            id = Comment.Id.make,
+            text = text,
+            by = Comment.Author.User(author.id, author.titleName))
           chapter.setComment(comment, position.path) match {
             case Some(newChapter) =>
-              chapterRepo.update(newChapter) >>-
-                sendTo(study, Socket.SetComment(position, comment, uid))
+              newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
+                chapterRepo.update(newChapter) >>-
+                  sendTo(study, Socket.SetComment(position, c, uid))
+              }
             case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
           }
+        }
+      }
+    }
+  }
+
+  def deleteComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, id: Comment.Id, uid: Uid) = sequenceStudyWithChapter(studyId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      (study.members get userId) ?? { byMember =>
+        chapter.deleteComment(id, position.path) match {
+          case Some(newChapter) =>
+            chapterRepo.update(newChapter) >>-
+              sendTo(study, Socket.DeleteComment(position, id, uid))
+          case None => fufail(s"Invalid deleteComment $studyId $position $id") >>- reloadUid(study, uid)
         }
       }
     }
