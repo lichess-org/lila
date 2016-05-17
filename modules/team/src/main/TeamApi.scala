@@ -56,8 +56,7 @@ final class TeamApi(
 
   def hasTeams(me: User): Boolean = cached.teamIds(me.id).nonEmpty
 
-  def hasCreatedRecently(me: User): Fu[Boolean] =
-    TeamRepo.userHasCreatedSince(me.id, creationPeriod)
+  def hasCreatedRecently(me: User): Fu[Boolean] = fuccess(false)
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] = for {
     requests ← RequestRepo findByTeam team.id

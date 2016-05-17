@@ -17,7 +17,8 @@ private[forum] final class TopicApi(
     modLog: lila.mod.ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
-    detectLanguage: lila.common.DetectLanguage) {
+    detectLanguage: lila.common.DetectLanguage,
+    mentionNotifier: MentionNotifier) {
 
   import BSONHandlers._
 
@@ -74,7 +75,7 @@ private[forum] final class TopicApi(
               )
             }
             lila.mon.forum.post.create()
-          } inject topic
+          } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(

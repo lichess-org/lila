@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 import lila.hub.actorApi.forum._
 import lila.mod.ModlogApi
 
+
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -15,6 +16,7 @@ final class Env(
     shutup: ActorSelection,
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
+    messageApi : lila.message.Api,
     system: ActorSystem) {
 
   private val settings = new {
@@ -33,6 +35,8 @@ final class Env(
 
   lazy val categApi = new CategApi(env = this)
 
+  lazy val mentionNotifier = new MentionNotifier(messageApi)
+
   lazy val topicApi = new TopicApi(
     env = this,
     indexer = hub.actor.forumSearch,
@@ -40,7 +44,8 @@ final class Env(
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,
-    detectLanguage = detectLanguage)
+    detectLanguage = detectLanguage,
+    mentionNotifier = mentionNotifier)
 
   lazy val postApi = new PostApi(
     env = this,
@@ -49,7 +54,8 @@ final class Env(
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,
-    detectLanguage = detectLanguage)
+    detectLanguage = detectLanguage,
+    mentionNotifier = mentionNotifier)
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, PublicCategIds)
@@ -76,5 +82,6 @@ object Env {
     shutup = lila.hub.Env.current.actor.shutup,
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
+    messageApi = lila.message.Env.current.api,
     system = lila.common.PlayApp.system)
 }
