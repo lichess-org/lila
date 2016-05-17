@@ -100,6 +100,7 @@ object Node {
   case class Comment(text: String, by: String)
   object Comment {
     def byLichess(text: String) = Comment(text, "lichess")
+    def byUnknown(text: String) = Comment(text, "")
     def sanitize(text: String) = text.trim().take(2000)
       .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
       .replaceAll("""(?m)(^ *| +(?= |$))""", "")

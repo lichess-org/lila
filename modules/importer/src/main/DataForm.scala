@@ -21,11 +21,12 @@ private[importer] final class DataForm {
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
-private[importer] case class Preprocessed(
+case class Preprocessed(
   game: Game,
   replay: Replay,
   result: Option[Result],
-  initialFen: Option[FEN])
+  initialFen: Option[FEN],
+  parsed: ParsedPgn)
 
 case class ImportData(pgn: String, analyse: Option[String]) {
 
@@ -35,7 +36,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
     case ParsedPgn(_, sans) if sans.size > maxPlies => !!("Replay is too long")
-    case ParsedPgn(tags, sans) => Reader.full(pgn) map {
+    case parsed@ParsedPgn(tags, sans) => Reader.full(pgn) map {
       case replay@Replay(setup, _, game) =>
         def tag(which: Tag.type => TagType): Option[String] =
           tags find (_.name == which(Tag)) map (_.value)
@@ -79,7 +80,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
           ).start
 
-        Preprocessed(dbGame, replay, result, initialFen)
+        Preprocessed(dbGame, replay, result, initialFen, parsed)
     }
   }
 }

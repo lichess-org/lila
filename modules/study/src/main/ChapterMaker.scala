@@ -23,9 +23,17 @@ private final class ChapterMaker(domain: String, importer: Importer) {
   }
 
   private def fromPgn(study: Study, pgn: String, data: Data, orientation: Color, order: Int): Fu[Option[Chapter]] =
-    importer.inMemory(ImportData(pgn, analyse = none)).fold(err => fufail(err.shows), {
-      case (game, fen) => fromPov(study, Pov(game, orientation), data, order, fen)
-    })
+    PgnImport(pgn).future map { res =>
+      Chapter.make(
+        studyId = study.id,
+        name = data.name,
+        setup = Chapter.Setup(
+          none,
+          res.variant,
+          orientation),
+        root = res.root,
+        order = order).some
+    }
 
   private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int): Option[Chapter] = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
