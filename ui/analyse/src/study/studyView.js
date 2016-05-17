@@ -34,7 +34,9 @@ function currentComments(ctrl, includingMine) {
         }
       }) : null,
       isMine ? m('a.edit[data-icon=m][title=Edit]', {
-        onclick: ctrl.study.commentForm.open
+        onclick: function() {
+          ctrl.study.commentForm.open(chapter.id, path, node);
+        }
       }) : null,
       m('span.user_link.ulpt', {
         'data-href': '/@/' + comment.by
