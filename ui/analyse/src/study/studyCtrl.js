@@ -89,7 +89,7 @@ module.exports = {
       });
       vm.loading = false;
       if (vm.behind === false || vm.catchingUp) ctrl.userJump(data.position.path);
-      else ctrl.jumpToLast();
+      else ctrl.userJump('');
       vm.catchingUp = false;
       m.redraw.strategy("all");
       m.redraw();
