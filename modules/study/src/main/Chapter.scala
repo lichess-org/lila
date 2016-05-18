@@ -16,8 +16,9 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Node.Root,
     order: Int,
-    createdAt: DateTime,
-    createdBy: User.ID) extends Chapter.Like {
+    ownerId: User.ID,
+    conceal: Option[Chapter.Ply] = None,
+    createdAt: DateTime) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
@@ -43,7 +44,7 @@ case class Chapter(
 
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
-    else FullOpeningDB searchInFens root.mainLine.map(_.fen)
+    else FullOpeningDB searchInFens root.mainline.map(_.fen)
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 }
@@ -72,19 +73,22 @@ object Chapter {
     name: String,
     setup: Chapter.Setup) extends Like
 
+  case class Ply(value: Int) extends AnyVal
+
   def toName(str: String) = str.trim take 80
 
   val idSize = 8
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, createdBy: User.ID) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID) = Chapter(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     studyId = studyId,
     name = name,
     setup = setup,
     root = root,
     order = order,
-    createdAt = DateTime.now,
-    createdBy = createdBy)
+    ownerId = ownerId,
+    conceal = Some(Ply(10)),
+    createdAt = DateTime.now)
 }

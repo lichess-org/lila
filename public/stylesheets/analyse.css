@@ -567,6 +567,12 @@ body.dark .explorer_box .black {
 .lichess_ground .replay turn move.empty {
   opacity: 0.5;
 }
+.lichess_ground .replay .conceal {
+  opacity: 0.5;
+}
+.lichess_ground .replay .hide {
+  visibility: hidden;
+}
 .lichess_ground .replay eval {
   position: absolute;
   top: 2px;

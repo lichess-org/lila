@@ -43,6 +43,9 @@ final class ChapterRepo(coll: Coll) {
       "order"
     ) map { order => ~order + 1 }
 
+  def setConceal(chapterId: Chapter.ID, conceal: Chapter.Ply) =
+    coll.updateField($id(chapterId), "conceal", conceal.value).void
+
   def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
     coll.find(
       $doc("studyId" -> $doc("$in" -> studyIds)),

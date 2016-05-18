@@ -2,28 +2,17 @@ package lila.study
 
 import lila.user.User
 
-case class StudySettings(
-    visibility: StudySettings.Visibility,
-    computer: StudySettings.UserSelection,
-    explorer: StudySettings.UserSelection) {
+case class Settings(
+    computer: Settings.UserSelection,
+    explorer: Settings.UserSelection) {
 
 }
 
-object StudySettings {
+object Settings {
 
-  val init = StudySettings(
-    visibility = Visibility.Public,
+  val init = Settings(
     computer = UserSelection.Everyone,
     explorer = UserSelection.Everyone)
-
-  sealed trait Visibility {
-    lazy val key = toString.toLowerCase
-  }
-  object Visibility {
-    case object Private extends Visibility
-    case object Public extends Visibility
-    val byKey = List(Private, Public).map { v => v.key -> v }.toMap
-  }
 
   sealed trait UserSelection {
     lazy val key = toString.toLowerCase

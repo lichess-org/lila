@@ -91,6 +91,11 @@ private final class Socket(
       "w" -> who(uid)
     ), Messadata())
 
+    case SetConceal(pos, ply) => notifyVersion("conceal", Json.obj(
+      "p" -> pos,
+      "ply" -> ply
+    ), Messadata())
+
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
         notifyVersion("message", lila.chat.JsonView(line), Messadata(trollish = line.troll))
@@ -169,6 +174,7 @@ private object Socket {
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid)
+  case class SetConceal(position: Position.Ref, ply: Int)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

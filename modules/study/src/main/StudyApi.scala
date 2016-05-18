@@ -51,16 +51,11 @@ final class StudyApi(
         orientation = chess.White),
       root = Node.Root.default(chess.variant.Standard),
       order = 1,
-      createdBy = user.id)
+      ownerId = user.id)
     val study = preStudy withChapter chapter
     studyRepo.insert(study) zip chapterRepo.insert(chapter) inject
       Study.WithChapter(study, chapter)
   }
-
-  private def pathExists(position: Position.Ref): Fu[Boolean] =
-    chapterRepo.byId(position.chapterId) map {
-      _ ?? { _.root pathExists position.path }
-    }
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
@@ -72,14 +67,22 @@ final class StudyApi(
 
   def setPath(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
-      pathExists(position) flatMap { exists =>
-        if (exists && study.position.chapterId == position.chapterId) {
-          (study.position.path != position.path) ?? {
-            studyRepo.setPosition(study.id, position) >>-
-              sendTo(study, Socket.SetPath(position, uid))
-          }
+      chapterRepo.byId(position.chapterId).map {
+        _ filter { c =>
+          c.root.pathExists(position.path) && study.position.chapterId == c.id
         }
-        else funit >>- reloadUid(study, uid)
+      } flatMap {
+        case None => funit >>- reloadUid(study, uid)
+        case Some(chapter) if study.position.path != position.path =>
+          studyRepo.setPosition(study.id, position) >> {
+            chapter.conceal.ifTrue(userId == chapter.ownerId) ?? { conceal =>
+              chapter.root.lastMainlinePlyOf(position.path).filter(_.value > conceal.value) ?? { newConceal =>
+                chapterRepo.setConceal(chapter.id, newConceal) >>-
+                sendTo(study, Socket.SetConceal(position, newConceal.value))
+              }
+            }
+          } >>- sendTo(study, Socket.SetPath(position, uid))
+        case _ => funit
       }
     }
   }

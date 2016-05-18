@@ -15,6 +15,10 @@ trait Handlers {
     def read(x: BSONString) = to(x.value)
     def write(x: A) = BSONString(from(x))
   }
+  def intAnyValHandler[A](from: A => Int, to: Int => A) = new BSONHandler[BSONInteger, A] {
+    def read(x: BSONInteger) = to(x.value)
+    def write(x: A) = BSONInteger(from(x))
+  }
 
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList

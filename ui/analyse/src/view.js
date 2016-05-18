@@ -38,7 +38,12 @@ function renderAnalyse(ctrl) {
     default:
       result = '½-½';
   }
-  var tags = treeView.renderMainline(ctrl, ctrl.vm.mainline);
+  var conceal;
+  if (ctrl.study && ctrl.study.data.chapter.conceal) conceal = {
+    owner: ctrl.study.isChapterOwner(),
+    ply: ctrl.study.data.chapter.conceal
+  };
+  var tags = treeView.renderMainline(ctrl, ctrl.vm.mainline, conceal);
   if (result) {
     tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);

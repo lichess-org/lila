@@ -39,6 +39,9 @@ module.exports = {
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;
     }
+    var currentChapter = function() {
+      return chapters.get(currentChapterId());
+    };
 
     var contributing = function() {
       return members.canContribute() && vm.behind === false;
@@ -62,10 +65,10 @@ module.exports = {
 
     var configureAnalysis = function() {
       chat.writeable(!!members.myMember());
-      if (!data.features.computer) ctrl.ceval.enabled(false);
-      ctrl.ceval.allowed(data.features.computer);
-      if (!data.features.explorer) ctrl.explorer.disable();
-      ctrl.explorer.allowed(data.features.explorer);
+      if (!data.chapter.features.computer) ctrl.ceval.enabled(false);
+      ctrl.ceval.allowed(data.chapter.features.computer);
+      if (!data.chapter.features.explorer) ctrl.explorer.disable();
+      ctrl.explorer.allowed(data.chapter.features.explorer);
     };
     configureAnalysis();
 
@@ -78,8 +81,7 @@ module.exports = {
       data.name = document.title = s.name;
       data.visibility = s.visibility;
       data.settings = s.settings;
-      data.features = s.features;
-      data.setup = s.setup;
+      data.chapter = data.chapter;
       members.dict(s.members);
       chapters.list(s.chapters);
       configureAnalysis();
@@ -139,8 +141,9 @@ module.exports = {
       position: function() {
         return data.position;
       },
-      currentChapter: function() {
-        return chapters.get(currentChapterId());
+      currentChapter: currentChapter,
+      isChapterOwner: function() {
+        return ctrl.userId === data.chapter.ownerId;
       },
       withPosition: function(obj) {
         obj.chapterId = currentChapterId();
@@ -292,6 +295,13 @@ module.exports = {
           if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           ctrl.tree.setGlyphsAt(d.g, position.path);
+          m.redraw();
+        },
+        conceal: function(d) {
+          var position = d.p;
+          if (vm.behind !== false) return;
+          if (position.chapterId !== data.position.chapterId) return;
+          data.chapter.conceal = d.ply;
           m.redraw();
         },
         following_onlines: members.inviteForm.setCandidates,

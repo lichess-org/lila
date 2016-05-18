@@ -198,6 +198,8 @@ private object BSONHandlers {
   }
   private implicit val ChapterFromPgnBSONHandler = Macros.handler[Chapter.FromPgn]
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
+  import Chapter.Ply
+  private implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
@@ -223,16 +225,17 @@ private object BSONHandlers {
     })
     def write(x: StudyMembers) = $doc(x.members.mapValues(StudyMemberBSONWriter.write))
   }
-  import StudySettings.{ Visibility, UserSelection }
+  import Study.Visibility
   private[study] implicit val VisibilityHandler: BSONHandler[BSONString, Visibility] = new BSONHandler[BSONString, Visibility] {
     def read(bs: BSONString) = Visibility.byKey get bs.value err s"Invalid visibility ${bs.value}"
     def write(x: Visibility) = BSONString(x.key)
   }
+  import Settings.UserSelection
   private[study] implicit val UserSelectionHandler: BSONHandler[BSONString, UserSelection] = new BSONHandler[BSONString, UserSelection] {
     def read(bs: BSONString) = UserSelection.byKey get bs.value err s"Invalid user selection ${bs.value}"
     def write(x: UserSelection) = BSONString(x.key)
   }
-  implicit val StudySettingsBSONHandler = Macros.handler[StudySettings]
+  implicit val SettingsBSONHandler = Macros.handler[Settings]
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

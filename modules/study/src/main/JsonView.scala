@@ -19,10 +19,14 @@ final class JsonView(lightUser: LightUser.Getter) {
   def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
     studyWrites.writes(study) ++ Json.obj(
       "chapters" -> chapters.map(chapterMetadataWrites.writes),
-      "setup" -> currentChapter.setup,
-      "features" -> Json.obj(
-        "computer" -> StudySettings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
-        "explorer" -> StudySettings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+      "chapter" -> Json.obj(
+        "ownerId" -> currentChapter.ownerId,
+        "setup" -> currentChapter.setup,
+        "conceal" -> currentChapter.conceal,
+        "features" -> Json.obj(
+          "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
+          "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+        )
       )
     )
 
@@ -83,13 +87,13 @@ object JsonView {
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
     JsString(uid.value)
   }
-  private[study] implicit val visibilityWriter = Writes[StudySettings.Visibility] { v =>
+  private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
     JsString(v.key)
   }
-  private[study] implicit val userSelectionWriter = Writes[StudySettings.UserSelection] { v =>
+  private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
   }
-  private[study] implicit val settingsWriter: Writes[StudySettings] = Json.writes[StudySettings]
+  private[study] implicit val settingsWriter: Writes[Settings] = Json.writes[Settings]
 
   private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
     js.asOpt[JsObject].flatMap { o =>
@@ -105,6 +109,9 @@ object JsonView {
 
   private implicit val fenWrites = Writes[chess.format.FEN] { f =>
     JsString(f.value)
+  }
+  private implicit val plyWrites = Writes[Chapter.Ply] { p =>
+    JsNumber(p.value)
   }
 
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }

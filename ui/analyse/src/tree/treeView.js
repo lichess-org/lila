@@ -18,7 +18,7 @@ function renderEvalTag(e) {
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
 
-function renderMove(ctrl, node, path, isMainline) {
+function renderMove(ctrl, node, path, isMainline, conceal) {
   if (!node) return emptyMove;
   var eval = isMainline ? (node.eval || node.ceval || {}) : {};
   var attrs = isMainline ? {} : {
@@ -27,6 +27,7 @@ function renderMove(ctrl, node, path, isMainline) {
   var classes = path === ctrl.vm.path ? ['active'] : [];
   if (path === ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctrl.vm.initialPath) classes.push('current');
+  if (conceal) classes.push(conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return {
     tag: 'move',
@@ -157,7 +158,8 @@ function renderComment(comment, colorClass, commentClass) {
   }, truncateComment(comment.text));
 }
 
-function renderMeta(ctrl, node, prev, path) {
+function renderMeta(ctrl, node, prev, path, conceal) {
+  if (conceal === 'hide') return;
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
   if (!node || (!opening && empty(node.comments) && !prev.children[1])) return;
@@ -185,7 +187,7 @@ function renderMeta(ctrl, node, prev, path) {
     ));
   });
   if (dom.length) return m('div', {
-    class: 'meta'
+    class: 'meta' + (conceal ? ' ' + conceal : '')
   }, dom);
 }
 
@@ -203,18 +205,28 @@ function renderMainlineTurnEl(children) {
   };
 }
 
-function renderMainlineTurn(ctrl, turn, path) {
+function concealAction(conceal, node) {
+  return (conceal && conceal.ply < node.ply) ? (conceal.owner ? 'conceal' : 'hide') : null;
+}
+
+function renderMainlineTurn(ctrl, turn, path, conceal) {
   var index = renderIndex(turn.turn);
   var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
   if (turn.white) {
+    var con = concealAction(conceal, turn.white.node);
+    if (con === 'hide') return {
+      dom: null,
+      path: path
+    };
     wPath = path = path + turn.white.node.id;
-    wMove = renderMove(ctrl, turn.white.node, wPath, true);
-    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath);
+    wMove = renderMove(ctrl, turn.white.node, wPath, true, con);
+    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath, con);
   }
   if (turn.black) {
+    var con = concealAction(conceal, turn.black.node);
     bPath = path = path + turn.black.node.id;
-    bMove = renderMove(ctrl, turn.black.node, bPath, true);
-    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath);
+    bMove = renderMove(ctrl, turn.black.node, bPath, true, con);
+    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath, con);
   }
   if (wMove) {
     if (wMeta) dom = [
@@ -240,7 +252,7 @@ function renderMainlineTurn(ctrl, turn, path) {
 }
 
 module.exports = {
-  renderMainline: function(ctrl, mainline) {
+  renderMainline: function(ctrl, mainline, conceal) {
     var turns = [];
     var initPly = mainline[0].ply;
     var makeTurnColor = function(i) {
@@ -278,7 +290,7 @@ module.exports = {
       })));
 
     for (var i = 0, len = turns.length; i < len; i++) {
-      res = renderMainlineTurn(ctrl, turns[i], path);
+      res = renderMainlineTurn(ctrl, turns[i], path, conceal);
       path = res.path;
       tags.push(res.dom);
     }

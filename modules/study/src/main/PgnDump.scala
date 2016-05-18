@@ -24,7 +24,7 @@ final class PgnDump(
       case Some((game, initialFen)) => gamePgnDump(game, initialFen.map(_.value))
       case None => Pgn(
         tags(study, chapter),
-        toTurns(chapter.root, chapter.root.mainLine))
+        toTurns(chapter.root, chapter.root.mainline))
     }
 
   private val fileR = """[\s,]""".r
@@ -64,7 +64,7 @@ final class PgnDump(
     opening = none,
     result = none,
     variations = parent.children.variations.toList.map { child =>
-      toTurns(node, child.mainLine)
+      toTurns(node, child.mainline)
     })
 
   private def toTurn(parent: RootOrNode, first: Node, second: Option[Node]) = chessPgn.Turn(

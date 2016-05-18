@@ -10,7 +10,8 @@ case class Study(
     members: StudyMembers,
     position: Position.Ref,
     ownerId: User.ID,
-    settings: StudySettings,
+    visibility: Study.Visibility,
+    settings: Settings,
     createdAt: DateTime) {
 
   import Study._
@@ -27,24 +28,33 @@ case class Study(
     if (c.id == position.chapterId) this
     else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
-  def isPublic = settings.visibility == StudySettings.Visibility.Public
+  def isPublic = visibility == Study.Visibility.Public
 }
 
 object Study {
 
   def toName(str: String) = str.trim take 100
 
+  sealed trait Visibility {
+    lazy val key = toString.toLowerCase
+  }
+  object Visibility {
+    case object Private extends Visibility
+    case object Public extends Visibility
+    val byKey = List(Private, Public).map { v => v.key -> v }.toMap
+  }
+
   case class Data(
       name: String,
       visibility: String,
       computer: String,
       explorer: String) {
-    import StudySettings._
+    import Settings._
+    def vis = Visibility.byKey get visibility
     def settings = for {
-      vis <- Visibility.byKey get visibility
       comp <- UserSelection.byKey get computer
       expl <- UserSelection.byKey get explorer
-    } yield StudySettings(vis, comp, expl)
+    } yield Settings(comp, expl)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)
@@ -66,7 +76,8 @@ object Study {
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
       ownerId = user.id,
-      settings = StudySettings.init,
+      visibility = Visibility.Private,
+      settings = Settings.init,
       createdAt = DateTime.now)
   }
 }

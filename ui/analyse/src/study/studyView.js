@@ -80,7 +80,7 @@ function metadata(ctrl) {
     subtree: 'retain'
   };
   lastChapterId = chapter.id;
-  var fromPgn = ctrl.data.setup.fromPgn;
+  var fromPgn = ctrl.data.chapter.setup.fromPgn;
   return m('div.metadata', [
     m('h2', [
       ctrl.data.name,

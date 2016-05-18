@@ -44,7 +44,7 @@ case class Node(
 
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
-  def mainLine: List[Node] = this :: children.first.??(_.mainLine)
+  def mainline: List[Node] = this :: children.first.??(_.mainline)
 }
 
 object Node {
@@ -161,9 +161,14 @@ object Node {
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
       else withChildren(_.toggleGlyphAt(glyph, path))
 
-    def mainLine: List[Node] = children.first.??(_.mainLine)
+    def mainline: List[Node] = children.first.??(_.mainline)
 
-    def mainLineLastNodePath = Path(mainLine.map(_.id))
+    def lastMainlinePlyOf(path: Path): Option[Chapter.Ply] =
+      mainline.zip(path.ids).takeWhile {
+        case (node, id) => node.id == id
+      }.lastOption.map {
+        case (node, _) => Chapter.Ply(node.ply)
+      }
   }
 
   object Root {
