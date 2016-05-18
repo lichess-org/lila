@@ -72,8 +72,14 @@ function tags(tags) {
   })));
 }
 
+var lastChapterId;
+
 function metadata(ctrl) {
   var chapter = ctrl.currentChapter();
+  if (chapter.id === lastChapterId && m.redraw.strategy() === 'diff') return {
+    subtree: 'retain'
+  };
+  lastChapterId = chapter.id;
   var fromPgn = ctrl.data.setup.fromPgn;
   return m('div.metadata', [
     m('h2', [
