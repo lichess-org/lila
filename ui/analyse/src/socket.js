@@ -7,7 +7,12 @@ module.exports = function(send, ctrl) {
   var anaMoveTimeout;
   var anaDestsTimeout;
 
-  var anaDestsCache = {};
+  var anaDestsCache = ctrl.data.game.variant.key === 'standard' ? {
+    '': {
+      path: '',
+      dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
+    }
+  } : {};
 
   if (!util.synthetic(ctrl.data)) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
