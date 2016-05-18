@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
 import lila.socket.tree.Node.{ Shape, Comment }
+import lila.user.User
 
 case class Chapter(
     _id: Chapter.ID,
@@ -15,7 +16,8 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Node.Root,
     order: Int,
-    createdAt: DateTime) extends Chapter.Like {
+    createdAt: DateTime,
+    createdBy: User.ID) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
@@ -76,12 +78,13 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, createdBy: User.ID) = Chapter(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     studyId = studyId,
     name = name,
     setup = setup,
     root = root,
     order = order,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now,
+    createdBy = createdBy)
 }

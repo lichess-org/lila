@@ -11,18 +11,18 @@ private final class ChapterMaker(domain: String, importer: Importer) {
 
   import ChapterMaker._
 
-  def apply(study: Study, data: Data, order: Int): Fu[Option[Chapter]] = {
+  def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
     val orientation = Color(data.orientation) | chess.White
     data.game.??(parsePov) flatMap {
       case None => data.pgn match {
-        case Some(pgn) => fromPgn(study, pgn, data, orientation, order)
-        case None      => fuccess(fromFenOrBlank(study, data, orientation, order))
+        case Some(pgn) => fromPgn(study, pgn, data, orientation, order, userId)
+        case None      => fuccess(fromFenOrBlank(study, data, orientation, order, userId))
       }
-      case Some(pov) => fromPov(study, pov, data, order)
+      case Some(pov) => fromPov(study, pov, data, order, userId)
     }
   }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, orientation: Color, order: Int): Fu[Option[Chapter]] =
+  private def fromPgn(study: Study, pgn: String, data: Data, orientation: Color, order: Int, userId: User.ID): Fu[Option[Chapter]] =
     PgnImport(pgn).future map { res =>
       Chapter.make(
         studyId = study.id,
@@ -34,10 +34,11 @@ private final class ChapterMaker(domain: String, importer: Importer) {
           fromPgn = Chapter.FromPgn(
             tags = res.tags).some),
         root = res.root,
-        order = order).some
+        order = order,
+        createdBy = userId).some
     }
 
-  private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int): Option[Chapter] = {
+  private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int, userId: User.ID): Option[Chapter] = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
     val root = data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
@@ -60,11 +61,12 @@ private final class ChapterMaker(domain: String, importer: Importer) {
       name = data.name,
       setup = Chapter.Setup(none, variant, orientation),
       root = root,
-      order = order).some
+      order = order,
+      createdBy = userId).some
   }
 
-  private def fromPov(study: Study, pov: Pov, data: Data, order: Int, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =
-    game2root(pov.game, study.ownerId, initialFen) map { root =>
+  private def fromPov(study: Study, pov: Pov, data: Data, order: Int, userId: User.ID, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =
+    game2root(pov.game, initialFen) map { root =>
       Chapter.make(
         studyId = study.id,
         name = data.name,
@@ -73,10 +75,11 @@ private final class ChapterMaker(domain: String, importer: Importer) {
           pov.game.variant,
           pov.color),
         root = root,
-        order = order).some
+        order = order,
+        createdBy = userId).some
     }
 
-  private def game2root(game: Game, userId: User.ID, initialFen: Option[FEN] = None): Fu[Node.Root] =
+  private def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
     initialFen.fold(GameRepo.initialFen(game)) { fen =>
       fuccess(fen.value.some)
     } map { initialFen =>

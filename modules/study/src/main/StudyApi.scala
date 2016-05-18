@@ -50,7 +50,8 @@ final class StudyApi(
         variant = chess.variant.Standard,
         orientation = chess.White),
       root = Node.Root.default(chess.variant.Standard),
-      order = 1)
+      order = 1,
+      createdBy = user.id)
     val study = preStudy withChapter chapter
     studyRepo.insert(study) zip chapterRepo.insert(chapter) inject
       Study.WithChapter(study, chapter)
@@ -212,7 +213,7 @@ final class StudyApi(
   def addChapter(byUserId: User.ID, studyId: Study.ID, data: ChapterMaker.Data, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-        chapterMaker(study, data, order) flatMap {
+        chapterMaker(study, data, order, byUserId) flatMap {
           _ ?? { chapter =>
             data.initial ?? {
               chapterRepo.firstByStudy(study.id) flatMap {

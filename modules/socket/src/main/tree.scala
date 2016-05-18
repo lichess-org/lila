@@ -101,7 +101,7 @@ object Node {
   object Comment {
     case class Id(value: String) extends AnyVal
     object Id {
-      def make = Id(scala.util.Random.alphanumeric take 6 mkString)
+      def make = Id(scala.util.Random.alphanumeric take 4 mkString)
     }
     case class Text(value: String) extends AnyVal
     sealed trait Author
