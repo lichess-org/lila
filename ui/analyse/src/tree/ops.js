@@ -15,20 +15,6 @@ function findInMainline(fromNode, predicate) {
   return findFrom(fromNode);
 }
 
-// op: acc => node => acc
-function foldRightMainline(acc, node, op) {
-  var next = mainlineChild(node);
-  if (!next) return op(acc, node);
-  return op(acc, foldMainline(acc, next, op));
-}
-
-// op: acc => node => acc
-function foldLeftMainline(acc, node, op) {
-  var next = mainlineChild(node);
-  if (!next) return op(acc, node);
-  return foldLeftMainline(op(acc, node), next, op);
-}
-
 // returns a list of nodes collected from the original one
 function collect(from, pickChild) {
   var nodes = [];
@@ -106,8 +92,6 @@ function reconstruct(parts) {
 module.exports = {
   findInMainline: findInMainline,
   withMainlineChild: withMainlineChild,
-  foldRightMainline: foldRightMainline,
-  foldLeftMainline: foldLeftMainline,
   collect: collect,
   mainlineNodeList: function(from) {
     return collect(from, pickFirstChild);
