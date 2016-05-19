@@ -42,6 +42,9 @@ module.exports = {
     var currentChapter = function() {
       return chapters.get(currentChapterId());
     };
+    var isChapterOwner = function() {
+      return ctrl.userId === data.chapter.ownerId;
+    };
 
     var contributing = function() {
       return members.canContribute() && vm.behind === false;
@@ -81,7 +84,7 @@ module.exports = {
       data.name = document.title = s.name;
       data.visibility = s.visibility;
       data.settings = s.settings;
-      data.chapter = data.chapter;
+      data.chapter = s.chapter;
       members.dict(s.members);
       chapters.list(s.chapters);
       configureAnalysis();
@@ -142,8 +145,11 @@ module.exports = {
         return data.position;
       },
       currentChapter: currentChapter,
-      isChapterOwner: function() {
-        return ctrl.userId === data.chapter.ownerId;
+      isChapterOwner: isChapterOwner,
+      canJumpTo: function(path) {
+        return data.chapter.conceal === null || isChapterOwner() || (
+          ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal
+        );
       },
       withPosition: function(obj) {
         obj.chapterId = currentChapterId();
@@ -299,7 +305,6 @@ module.exports = {
         },
         conceal: function(d) {
           var position = d.p;
-          if (vm.behind !== false) return;
           if (position.chapterId !== data.position.chapterId) return;
           data.chapter.conceal = d.ply;
           m.redraw();

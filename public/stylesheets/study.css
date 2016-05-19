@@ -60,7 +60,7 @@ body:not(.dark) .material.form .study_tabs a {
 .material.form textarea {
   height: 120px;
   line-height: 1.4em!important;
-  font-size: 0.7em;
+  font-size: 0.9em!important;
 }
 .underboard_form .title {
   background: #e0e0e0;
@@ -409,7 +409,7 @@ form .editor square.last-move {
 form .editor .editor-side {
   position: absolute;
   left: 233px;
-  top: 50px;
+  top: 35px;
   text-align: left;
 }
 form .editor .editor-side .content_box {
@@ -417,6 +417,7 @@ form .editor .editor-side .content_box {
   border: 0;
   padding: 0;
   box-shadow: none;
+  margin-bottom: 10px;
 }
 form .editor .castling {
   margin-top: 10px;
@@ -435,12 +436,12 @@ form .editor .castling input {
 form .editor a.button {
   display: block;
 }
-.metadata {
+.study_metadata {
   text-align: left;
 }
-.metadata h2 {
+.study_metadata h2 {
   font-size: 1.3em;
   margin: 15px 0;
 }
-.metadata th {
+.study_metadata th {
 }

@@ -35,7 +35,8 @@ private final class ChapterMaker(domain: String, importer: Importer) {
             tags = res.tags).some),
         root = res.root,
         order = order,
-        ownerId = userId).some
+        ownerId = userId,
+        conceal = data.conceal option Chapter.Ply(res.root.ply)).some
     }
 
   private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int, userId: User.ID): Option[Chapter] = {
@@ -62,7 +63,8 @@ private final class ChapterMaker(domain: String, importer: Importer) {
       setup = Chapter.Setup(none, variant, orientation),
       root = root,
       order = order,
-      ownerId = userId).some
+      ownerId = userId,
+      conceal = None).some
   }
 
   private def fromPov(study: Study, pov: Pov, data: Data, order: Int, userId: User.ID, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =
@@ -76,7 +78,8 @@ private final class ChapterMaker(domain: String, importer: Importer) {
           pov.color),
         root = root,
         order = order,
-        ownerId = userId).some
+        ownerId = userId,
+        conceal = data.conceal option Chapter.Ply(root.ply)).some
     }
 
   private def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
@@ -114,5 +117,6 @@ private[study] object ChapterMaker {
     fen: Option[String],
     pgn: Option[String],
     orientation: String,
+    conceal: Boolean,
     initial: Boolean)
 }

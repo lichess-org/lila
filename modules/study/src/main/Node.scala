@@ -161,14 +161,17 @@ object Node {
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
       else withChildren(_.toggleGlyphAt(glyph, path))
 
-    def mainline: List[Node] = children.first.??(_.mainline)
+    lazy val mainline: List[Node] = children.first.??(_.mainline)
 
-    def lastMainlinePlyOf(path: Path): Option[Chapter.Ply] =
+    def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
+
+    def lastMainlinePlyOf(path: Path) = Chapter.Ply {
       mainline.zip(path.ids).takeWhile {
         case (node, id) => node.id == id
-      }.lastOption.map {
-        case (node, _) => Chapter.Ply(node.ply)
+      }.lastOption.?? {
+        case (node, _) => node.ply
       }
+    }
   }
 
   object Root {

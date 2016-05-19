@@ -171,6 +171,10 @@ module.exports = function(opts) {
     promotion.cancel(this);
   }.bind(this);
 
+  this.canJumpTo = function(path) {
+    return this.study ? this.study.canJumpTo(path) : true;
+  }.bind(this);
+
   this.userJump = function(path) {
     this.autoplay.stop();
     this.chessground.selectSquare(null);
@@ -195,10 +199,6 @@ module.exports = function(opts) {
     var ply = this.tree.plyOfNextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
     if (ply) this.jumpToMain(ply);
     m.redraw();
-  }.bind(this);
-
-  this.jumpToLast = function() {
-    this.userJump(treePath.fromNodeList(this.vm.mainline));
   }.bind(this);
 
   this.reloadData = function(data) {

@@ -54,23 +54,23 @@ function renderGlyphs(glyphs) {
   });
 }
 
-function renderVariation(ctrl, node, parent, klass, depth) {
+function renderVariation(ctrl, node, parent, klass, depth, concealOf) {
   var path = parent.path + node.id;
   var visiting = treePath.contains(ctrl.vm.path, path);
   return m('div', {
     class: klass + ' variation ' + (visiting ? ' visiting' : '')
-  }, renderVariationContent(ctrl, node, parent.path, visiting));
+  }, renderVariationContent(ctrl, node, parent.path, visiting, concealOf));
 }
 
-function renderVariationNested(ctrl, node, path) {
+function renderVariationNested(ctrl, node, path, concealOf) {
   return m('span.variation', [
     '(',
-    renderVariationContent(ctrl, node, path, treePath.contains(ctrl.vm.path, path)),
+    renderVariationContent(ctrl, node, path, treePath.contains(ctrl.vm.path, path, false), concealOf),
     ')'
   ]);
 }
 
-function renderVariationContent(ctrl, node, path, full) {
+function renderVariationContent(ctrl, node, path, full, concealOf) {
 
   var turns = [];
   var mainline = treeOps.mainlineNodeList(node);
@@ -102,30 +102,30 @@ function renderVariationContent(ctrl, node, path, full) {
   }
   var dom;
   return turns.map(function(turn) {
-    dom = renderVariationTurn(ctrl, turn, path);
+    dom = renderVariationTurn(ctrl, turn, path, concealOf);
     path += (turn.white && turn.white.node.id || '') + (turn.black && turn.black.node.id || '');
     return dom;
   });
 }
 
-function renderVariationMeta(ctrl, node, prev, path) {
+function renderVariationMeta(ctrl, node, prev, path, concealOf) {
   if (!prev || empty(prev.children[1])) return;
   return prev.children.slice(1).map(function(child, i) {
-    return renderVariationNested(ctrl, child, treePath.init(path));
+    return renderVariationNested(ctrl, child, treePath.init(path), concealOf);
   });
 }
 
-function renderVariationTurn(ctrl, turn, path) {
+function renderVariationTurn(ctrl, turn, path, concealOf) {
   var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
   if (turn.white) {
     wPath = path = path + turn.white.node.id;
-    wMove = renderMove(ctrl, turn.white.node, wPath);
-    wMeta = renderVariationMeta(ctrl, turn.white.node, turn.white.prev, wPath);
+    wMove = renderMove(ctrl, turn.white.node, wPath, false, concealOf(wPath, turn.white.node));
+    wMeta = renderVariationMeta(ctrl, turn.white.node, turn.white.prev, wPath, concealOf);
   }
   if (turn.black) {
     bPath = path = path + turn.black.node.id;
-    bMove = renderMove(ctrl, turn.black.node, bPath);
-    bMeta = renderVariationMeta(ctrl, turn.black.node, turn.black.prev, bPath);
+    bMove = renderMove(ctrl, turn.black.node, bPath, false, concealOf(bPath, turn.black.node));
+    bMeta = renderVariationMeta(ctrl, turn.black.node, turn.black.prev, bPath, concealOf);
   }
 
   if (wMove) {
@@ -158,8 +158,11 @@ function renderComment(comment, colorClass, commentClass) {
   }, truncateComment(comment.text));
 }
 
-function renderMeta(ctrl, node, prev, path, conceal) {
-  if (conceal === 'hide') return;
+function returnNull() {
+  return null;
+}
+
+function renderMeta(ctrl, node, prev, path, concealOf) {
   var opening = ctrl.data.game.opening;
   opening = (node && opening && opening.ply === node.ply) ? renderCommentOpening(ctrl, opening) : null;
   if (!node || (!opening && empty(node.comments) && !prev.children[1])) return;
@@ -167,27 +170,33 @@ function renderMeta(ctrl, node, prev, path, conceal) {
   if (opening) dom.push(opening);
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (ctrl.vm.comments && !empty(node.comments))
+  var commentConceal = concealOf(path, node);
+  if (ctrl.vm.comments && !empty(node.comments) && commentConceal !== 'hide')
     node.comments.forEach(function(comment) {
       if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
       else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
       else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
+      if (commentConceal) commentClass += ' ' + commentConceal;
       dom.push(renderComment(comment, colorClass, commentClass));
     });
   if (prev.children[1]) prev.children.slice(1).forEach(function(child, i) {
+    // hide computer line as a comment
     if (i === 0 && !empty(node.comments) && !ctrl.vm.comments) return;
-    dom.push(renderVariation(
-      ctrl,
-      child, {
-        node: prev,
-        path: treePath.init(path)
-      },
-      i === 0 ? colorClass + commentClass : null,
-      1
-    ));
+    var basePath = treePath.init(path);
+    if (commentConceal !== 'hide' || treePath.contains(ctrl.vm.path, basePath + child.id))
+      dom.push(renderVariation(
+        ctrl,
+        child, {
+          node: prev,
+          path: basePath
+        },
+        i === 0 ? colorClass + commentClass : null,
+        1,
+        commentConceal === null ? returnNull : concealOf
+      ));
   });
   if (dom.length) return m('div', {
-    class: 'meta' + (conceal ? ' ' + conceal : '')
+    class: 'meta'
   }, dom);
 }
 
@@ -205,28 +214,31 @@ function renderMainlineTurnEl(children) {
   };
 }
 
-function concealAction(conceal, node) {
-  return (conceal && conceal.ply < node.ply) ? (conceal.owner ? 'conceal' : 'hide') : null;
+function concealAction(ctrl, conceal) {
+  return function(isMainline) {
+    return function(path, node) {
+      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+      if (treePath.contains(ctrl.vm.path, path)) return null;
+      return conceal.owner ? 'conceal' : 'hide'
+    };
+  };
 }
 
 function renderMainlineTurn(ctrl, turn, path, conceal) {
   var index = renderIndex(turn.turn);
-  var wPath, wMove, wMeta, bPath, bMove, bMeta, dom;
+  var wPath, wMove, wMeta, bPath, bMove, bMeta, con, dom;
+  var concealOf = concealAction(ctrl, conceal);
   if (turn.white) {
-    var con = concealAction(conceal, turn.white.node);
-    if (con === 'hide') return {
-      dom: null,
-      path: path
-    };
     wPath = path = path + turn.white.node.id;
+    con = concealOf(true)(wPath, turn.white.node);
     wMove = renderMove(ctrl, turn.white.node, wPath, true, con);
-    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath, con);
+    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath, concealOf(false));
   }
   if (turn.black) {
-    var con = concealAction(conceal, turn.black.node);
     bPath = path = path + turn.black.node.id;
+    con = concealOf(true)(bPath, turn.black.node);
     bMove = renderMove(ctrl, turn.black.node, bPath, true, con);
-    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath, con);
+    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath, concealOf(false));
   }
   if (wMove) {
     if (wMeta) dom = [

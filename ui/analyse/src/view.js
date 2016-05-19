@@ -39,7 +39,7 @@ function renderAnalyse(ctrl) {
       result = '½-½';
   }
   var conceal;
-  if (ctrl.study && ctrl.study.data.chapter.conceal) conceal = {
+  if (ctrl.study && ctrl.study.data.chapter.conceal !== null) conceal = {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   };

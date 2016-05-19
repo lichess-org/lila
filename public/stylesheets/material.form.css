@@ -93,6 +93,9 @@
   -webkit-transition: all 0.28s ease;
   transition: all 0.28s ease;
 }
+.material.form .form-group.no-label {
+  margin-top: -1.5em;
+}
 .material.form .form-group .bar {
   position: relative;
   border-bottom: 0.0625rem solid #999;

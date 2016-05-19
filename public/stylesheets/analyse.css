@@ -571,7 +571,7 @@ body.dark .explorer_box .black {
   opacity: 0.5;
 }
 .lichess_ground .replay .hide {
-  visibility: hidden;
+  display: none;
 }
 .lichess_ground .replay eval {
   position: absolute;

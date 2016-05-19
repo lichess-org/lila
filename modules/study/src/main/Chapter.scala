@@ -73,7 +73,9 @@ object Chapter {
     name: String,
     setup: Chapter.Setup) extends Like
 
-  case class Ply(value: Int) extends AnyVal
+  case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
+    def compare(that: Ply) = value - that.value
+  }
 
   def toName(str: String) = str.trim take 80
 
@@ -81,7 +83,7 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     studyId = studyId,
     name = name,
@@ -89,6 +91,6 @@ object Chapter {
     root = root,
     order = order,
     ownerId = ownerId,
-    conceal = Some(Ply(10)),
+    conceal = conceal,
     createdAt = DateTime.now)
 }

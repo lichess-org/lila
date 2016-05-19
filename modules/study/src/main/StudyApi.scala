@@ -51,7 +51,8 @@ final class StudyApi(
         orientation = chess.White),
       root = Node.Root.default(chess.variant.Standard),
       order = 1,
-      ownerId = user.id)
+      ownerId = user.id,
+      conceal = None)
     val study = preStudy withChapter chapter
     studyRepo.insert(study) zip chapterRepo.insert(chapter) inject
       Study.WithChapter(study, chapter)
@@ -76,9 +77,13 @@ final class StudyApi(
         case Some(chapter) if study.position.path != position.path =>
           studyRepo.setPosition(study.id, position) >> {
             chapter.conceal.ifTrue(userId == chapter.ownerId) ?? { conceal =>
-              chapter.root.lastMainlinePlyOf(position.path).filter(_.value > conceal.value) ?? { newConceal =>
-                chapterRepo.setConceal(chapter.id, newConceal) >>-
-                sendTo(study, Socket.SetConceal(position, newConceal.value))
+              chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) ?? { newConceal =>
+                if (newConceal.pp("new") >= chapter.root.lastMainlinePly.pp("last"))
+                  chapterRepo.removeConceal(chapter.id) >>-
+                    sendTo(study, Socket.SetConceal(position, none))
+                else
+                  chapterRepo.setConceal(chapter.id, newConceal) >>-
+                    sendTo(study, Socket.SetConceal(position, newConceal.some))
               }
             }
           } >>- sendTo(study, Socket.SetPath(position, uid))

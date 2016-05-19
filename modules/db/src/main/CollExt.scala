@@ -75,6 +75,9 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def updateFieldUnchecked[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
       coll.uncheckedUpdate(selector, $set(field -> value))
 
+    def unsetField(selector: BSONDocument, field: String) =
+      coll.update(selector, $unset(field))
+
     def fetchUpdate[D: BSONDocumentHandler](selector: BSONDocument)(update: D => BSONDocument): Funit =
       uno[D](selector) flatMap {
         _ ?? { doc =>

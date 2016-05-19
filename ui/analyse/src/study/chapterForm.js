@@ -4,9 +4,10 @@ var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 var dialog = require('./dialog');
 
-function implicitVariant(tab) {
-  return tab === 'game' || tab === 'pgn';
-}
+var concealChoices = [
+  ['', "Reveal all moves at once"],
+  ['1', "Conceal next moves (puzzle mode)"]
+];
 
 module.exports = {
   ctrl: function(send, chapters, setTab, root) {
@@ -72,6 +73,7 @@ module.exports = {
       var el = e.target.querySelector('#chapter-' + id);
       return el ? el.value : null;
     };
+    var gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
 
     return dialog.form({
       onClose: ctrl.close,
@@ -85,7 +87,8 @@ module.exports = {
               variant: fieldValue(e, 'variant'),
               fen: fieldValue(e, 'fen') || (activeTab === 'edit' ? ctrl.vm.editorFen() : null),
               pgn: fieldValue(e, 'pgn'),
-              orientation: fieldValue(e, 'orientation')
+              orientation: fieldValue(e, 'orientation'),
+              conceal: !!fieldValue(e, 'conceal')
             });
             e.stopPropagation();
             return false;
@@ -144,25 +147,23 @@ module.exports = {
             m('label.control-label[for=chapter-game]', 'From played or imported game'),
             m('i.bar')
           ]) : null,
-          activeTab === 'fen' ? m('div.form-group', [
+          activeTab === 'fen' ? m('div.form-group.no-label', [
             m('input#chapter-fen', {
-              placeholder: 'Initial position'
+              placeholder: 'Initial FEN position'
             }),
-            m('label.control-label[for=chapter-fen]', 'From FEN position'),
             m('i.bar')
           ]) : null,
-          activeTab === 'pgn' ? m('div.form-group', [
+          activeTab === 'pgn' ? m('div.form-group.no-label', [
             m('textarea#chapter-pgn', {
-              placeholder: 'PGN tags and moves'
+              placeholder: 'Paste your PGN here, one game only'
             }),
-            m('label.control-label[for=chapter-pgn]', 'From PGN game'),
             m('i.bar')
           ]) : null,
           m('div', [
             m('div.form-group.half', [
               m('select#chapter-variant', {
-                  disabled: implicitVariant(activeTab)
-                }, implicitVariant(activeTab) ? [
+                  disabled: gameOrPgn
+                }, gameOrPgn ? [
                   m('option', 'Automatic')
                 ] :
                 ctrl.vm.variants.map(function(v) {
@@ -183,6 +184,15 @@ module.exports = {
               m('i.bar')
             ])
           ]),
+          gameOrPgn ? m('div.form-group', [
+            m('select#chapter-conceal', concealChoices.map(function(c) {
+              return m('option', {
+                value: c[0]
+              }, c[1])
+            })),
+            m('label.control-label[for=chapter-conceal]', 'Progressive move display'),
+            m('i.bar')
+          ]) : null,
           dialog.button('Create chapter')
         ])
       ]

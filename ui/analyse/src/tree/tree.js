@@ -63,6 +63,17 @@ module.exports = function(root) {
     return pathIsMainlineFrom(child, treePath.tail(path));
   }
 
+  function lastMainlineNode(path) {
+    return lastMainlineNodeFrom(root, path);
+  }
+  function lastMainlineNodeFrom(node, path) {
+    if (path === '') return node;
+    var pathId = treePath.head(path);
+    var child = node.children[0];
+    if (!child || child.id !== pathId) return node;
+    return lastMainlineNodeFrom(child, treePath.tail(path));
+  }
+
   function getNodeList(path) {
     return ops.collect(root, function(node) {
       var id = treePath.head(path);
@@ -175,6 +186,7 @@ module.exports = function(root) {
     deleteCommentAt: deleteCommentAt,
     setGlyphsAt: setGlyphsAt,
     pathIsMainline: pathIsMainline,
+    lastMainlineNode: lastMainlineNode,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
     promoteNodeAt: promoteNodeAt,

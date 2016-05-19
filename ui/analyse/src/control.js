@@ -3,6 +3,9 @@ var treePath = require('./tree/path');
 function canEnterVariation(ctrl) {
   return ctrl.vm.node.children.length > 1;
 }
+function jumpToPath(ctrl, path) {
+  if (ctrl.canJumpTo(path)) ctrl.userJump(path);
+}
 
 module.exports = {
 
@@ -13,15 +16,16 @@ module.exports = {
   next: function(ctrl) {
     var child = ctrl.vm.node.children[0];
     if (!child) return;
-    ctrl.userJump(ctrl.vm.path + child.id);
+    jumpToPath(ctrl, ctrl.vm.path + child.id);
   },
 
   prev: function(ctrl) {
-    ctrl.userJump(treePath.init(ctrl.vm.path));
+    jumpToPath(ctrl, treePath.init(ctrl.vm.path));
   },
 
   last: function(ctrl) {
     ctrl.jumpToLast();
+    jumpToPath(ctrl, treePath.fromNodeList(cctrl.vm.mainline));
   },
 
   first: function(ctrl) {

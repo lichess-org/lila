@@ -81,7 +81,7 @@ function metadata(ctrl) {
   };
   lastChapterId = chapter.id;
   var fromPgn = ctrl.data.chapter.setup.fromPgn;
-  return m('div.metadata', [
+  return m('div.study_metadata', [
     m('h2', [
       ctrl.data.name,
       ': ' +
