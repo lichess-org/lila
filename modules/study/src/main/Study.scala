@@ -50,7 +50,7 @@ object Study {
       computer: String,
       explorer: String) {
     import Settings._
-    def vis = Visibility.byKey get visibility
+    def vis = Visibility.byKey get visibility getOrElse Visibility.Public
     def settings = for {
       comp <- UserSelection.byKey get computer
       expl <- UserSelection.byKey get explorer

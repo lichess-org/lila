@@ -89,7 +89,7 @@ module.exports = {
             key: 'visibility',
             name: 'Visibility',
             choices: visibilityChoices,
-            selected: data.settings.visibility
+            selected: data.visibility
           })),
           m('div', [
             m('div.game.form-group.half', select({

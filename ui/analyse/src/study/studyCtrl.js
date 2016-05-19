@@ -84,6 +84,7 @@ module.exports = {
       data.name = document.title = s.name;
       data.visibility = s.visibility;
       data.settings = s.settings;
+      data.visibility = s.visibility;
       data.chapter = s.chapter;
       members.dict(s.members);
       chapters.list(s.chapters);

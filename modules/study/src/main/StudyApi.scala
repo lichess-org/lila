@@ -312,7 +312,10 @@ final class StudyApi(
 
   def editStudy(studyId: Study.ID, data: Study.Data) = sequenceStudy(studyId) { study =>
     data.settings ?? { settings =>
-      val newStudy = study.copy(name = Study toName data.name, settings = settings)
+      val newStudy = study.copy(
+        name = Study toName data.name,
+        settings = settings,
+        visibility = data.vis)
       (newStudy != study) ?? {
         studyRepo.update(newStudy) >>- sendTo(study, Socket.ReloadAll)
       }
