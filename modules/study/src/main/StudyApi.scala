@@ -247,7 +247,7 @@ final class StudyApi(
     (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
-          studyRepo.update(study withChapter chapter) >>- {
+          studyRepo.updateSomeFields(study withChapter chapter) >>- {
             sendTo(study, Socket.ChangeChapter(uid))
             chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
           }
@@ -317,7 +317,7 @@ final class StudyApi(
         settings = settings,
         visibility = data.vis)
       (newStudy != study) ?? {
-        studyRepo.update(newStudy) >>- sendTo(study, Socket.ReloadAll)
+        studyRepo.updateSomeFields(newStudy) >>- sendTo(study, Socket.ReloadAll)
       }
     }
   }

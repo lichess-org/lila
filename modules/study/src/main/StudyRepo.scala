@@ -25,7 +25,12 @@ final class StudyRepo(private[study] val coll: Coll) {
     StudyBSONHandler.write(s) ++ $doc("uids" -> s.members.ids)
   }.void
 
-  def update(s: Study): Funit = coll.update($id(s.id), s).void
+  def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
+    "position" -> s.position,
+    "name" -> s.name,
+    "settings" -> s.settings,
+    "visibility" -> s.visibility
+  )).void
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
 
