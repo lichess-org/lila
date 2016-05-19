@@ -117,20 +117,8 @@ function empty() {
   }, 'No challenges.');
 }
 
-function spinner() {
-  return m('div.spinner',
-    m('svg', {
-      viewBox: '0 0 40 40'
-    }, m('circle', {
-      cx: 20,
-      cy: 20,
-      r: 18,
-      fill: 'none'
-    })));
-}
-
 module.exports = function(ctrl) {
-  if (ctrl.vm.initiating) return m('div.initiating', spinner());
+  if (ctrl.vm.initiating) return m('div.initiating', m.trust(lichess.spinnerHtml));
   var d = ctrl.data;
   var nb = d.in.length + d.out.length;
   return nb ? allChallenges(ctrl, d, nb) : empty();
