@@ -119,4 +119,9 @@ private[study] object ChapterMaker {
     orientation: String,
     conceal: Boolean,
     initial: Boolean)
+
+  case class EditData(
+    id: String,
+    name: String,
+    conceal: Boolean)
 }

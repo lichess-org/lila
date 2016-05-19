@@ -255,13 +255,32 @@ final class StudyApi(
       }
     }
 
-  def renameChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, name: String, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def editChapter(byUserId: User.ID, studyId: Study.ID, data: ChapterMaker.EditData, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
-      chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
+      chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
         _ ?? { chapter =>
-          chapterRepo.update(chapter.copy(name = name)) >>- {
-            reloadChapters(study)
-            chat ! SystemTalk(study.id, escapeHtml4(name), socket)
+          val name = Chapter toName data.name
+          val newChapter = chapter.copy(
+            name = name,
+            conceal = (chapter.conceal, data.conceal) match {
+              case (None, true)     => Chapter.Ply(0).some
+              case (Some(_), false) => None
+              case _                => chapter.conceal
+            })
+          if (chapter == newChapter) funit
+          else chapterRepo.update(newChapter) >> {
+            if (chapter.conceal != newChapter.conceal) {
+              (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
+                val newPosition = study.position.withPath(Path.root)
+                studyRepo.setPosition(study.id, newPosition)
+              } >>-
+                sendTo(study, Socket.ReloadAll)
+            }
+            else fuccess {
+              reloadChapters(study)
+              if (chapter.name != newChapter.name)
+                chat ! SystemTalk(study.id, escapeHtml4(name), socket)
+            }
           }
         }
       }

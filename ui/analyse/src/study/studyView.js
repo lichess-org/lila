@@ -3,7 +3,8 @@ var partial = require('chessground').util.partial;
 var nodeFullName = require('../util').nodeFullName;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
-var chapterFormView = require('./chapterForm').view;
+var chapterNewFormView = require('./chapterNewForm').view;
+var chapterEditFormView = require('./chapterEditForm').view;
 var commentFormView = require('./commentForm').view;
 var currentCommentsView = require('./studyComments').currentComments;
 var glyphFormView = require('./studyGlyph').view;
@@ -144,7 +145,8 @@ module.exports = {
   },
 
   overboard: function(ctrl) {
-    if (ctrl.chapters.form.vm.open) return chapterFormView(ctrl.chapters.form);
+    if (ctrl.chapters.newForm.vm.open) return chapterNewFormView(ctrl.chapters.newForm);
+    if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
     if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
     if (ctrl.form.open()) return studyFormView(ctrl.form);
   },

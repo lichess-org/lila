@@ -167,12 +167,12 @@ private[study] final class SocketHandler(
       chapterId <- o str "d"
     } api.setChapter(byUserId, studyId, chapterId, socket, uid)
 
-    case ("renameChapter", o) => for {
-      byUserId <- member.userId
-      d <- o obj "d"
-      id <- d str "id"
-      name <- d str "name"
-    } api.renameChapter(byUserId, studyId, id, Chapter toName name, socket, uid)
+    case ("editChapter", o) =>
+      reading[ChapterMaker.EditData](o) { data =>
+        member.userId foreach { byUserId =>
+          api.editChapter(byUserId, studyId, data, socket, uid)
+        }
+      }
 
     case ("deleteChapter", o) => for {
       byUserId <- member.userId
@@ -225,6 +225,7 @@ private[study] final class SocketHandler(
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
+  private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
 
   def join(

@@ -71,7 +71,8 @@ object Chapter {
   case class Metadata(
     _id: Chapter.ID,
     name: String,
-    setup: Chapter.Setup) extends Like
+    setup: Chapter.Setup,
+    conceal: Option[Ply]) extends Like
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
     def compare(that: Ply) = value - that.value
@@ -86,7 +87,7 @@ object Chapter {
   def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
     _id = scala.util.Random.alphanumeric take idSize mkString,
     studyId = studyId,
-    name = name,
+    name = toName(name),
     setup = setup,
     root = root,
     order = order,

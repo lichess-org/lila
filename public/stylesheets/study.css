@@ -62,6 +62,9 @@ body:not(.dark) .material.form .study_tabs a {
   line-height: 1.4em!important;
   font-size: 0.9em!important;
 }
+div.underboard {
+  margin-top: 20px;
+}
 .underboard_form .title {
   background: #e0e0e0;
   line-height: 30px;
@@ -235,7 +238,7 @@ body:not(.dark) .material.form .study_tabs a {
 .study_invite .tt-menu {
   text-align: left;
 }
-.study_box .list div.confing,
+.study_box .list div.editing,
 .study_box .list div.config {
   background: #fff;
 }
@@ -364,15 +367,15 @@ body.dark .glyph_form a:hover {
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
-form.delete_study {
+.delete_button {
   margin-top: 20px;
 }
-form.delete_study button {
+.delete_button button {
   color: #dc322f!important;
   opacity: 0.5;
   font-weight: normal;
 }
-form.delete_study button:hover {
+.delete_button button:hover {
   opacity: 1;
 }
 

@@ -107,7 +107,7 @@ module.exports = {
           ]),
           dialog.button(isNew ? 'Start' : 'Save')
         ]),
-        m('form.delete_study', {
+        m('form.delete_button', {
           action: '/study/' + data.id + '/delete',
           method: 'post',
           onsubmit: function() {
