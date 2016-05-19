@@ -19,10 +19,6 @@ module.exports = function(ctrl) {
     control.prev(ctrl);
     m.redraw();
   }));
-  k.bind(['shift+left', 'shift+k'], preventing(function() {
-    control.exitVariation(ctrl);
-    m.redraw();
-  }));
   k.bind(['right', 'j'], preventing(function() {
     control.next(ctrl);
     m.redraw();

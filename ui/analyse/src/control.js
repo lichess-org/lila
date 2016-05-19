@@ -33,17 +33,10 @@ module.exports = {
   },
 
   enterVariation: function(ctrl) {
-    var child = ctrl.vm.node.children[1];
+    var parentPath = treePath.init(ctrl.vm.path);
+    var parent = ctrl.tree.nodeAtPath(parentPath);
+    var child = parent.children[1];
     if (!child) return;
-    ctrl.userJump(ctrl.vm.path + child.id);
-  },
-
-  exitVariation: function(ctrl) {
-    var cur = ctrl.vm.node;
-    var nl = ctrl.vm.nodeList;
-    for (var i = nl - 2; i >= 0; i--) {
-      if (nl[i].children[0].id !== cur.id)
-        ctrl.userJump(ctrl.tree.nodeListToPath(nl.slice(0, i)));
-    }
+    ctrl.userJump(parentPath + child.id);
   }
 };
