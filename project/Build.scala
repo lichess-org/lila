@@ -267,7 +267,7 @@ object ApplicationBuild extends Build {
       play.api, RM, spray.caching)
   )
 
-  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod)).settings(
+  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod, message)).settings(
     libraryDependencies ++= provided(
       play.api, RM, spray.caching)
   )

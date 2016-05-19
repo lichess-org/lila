@@ -19,7 +19,8 @@ final class PostApi(
     modLog: ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
-    detectLanguage: lila.common.DetectLanguage) {
+    detectLanguage: lila.common.DetectLanguage,
+    mentionNotifier: MentionNotifier) {
 
   import BSONHandlers._
 
@@ -64,7 +65,7 @@ final class PostApi(
                   )
                 }
                 lila.mon.forum.post.create()
-              } inject post
+              } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject post
         }
     }
 
