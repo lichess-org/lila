@@ -3,36 +3,53 @@ var partial = require('chessground').util.partial;
 var objectValues = require('../util').objectValues;
 var dialog = require('./dialog');
 
+function titleNameToId(titleName) {
+  var split = titleName.split(' ');
+  var name = split.length == 1 ? split[0] : split[1];
+  return name.toLowerCase();
+}
+
 module.exports = {
   ctrl: function(send, members, setTab) {
     var open = m.prop(false);
-    var candidates = m.prop([]);
-    var invite = function(username) {
-      send("invite", username);
+    var followings = [];
+    var spectators = [];
+    var invite = function(titleName) {
+      send("invite", titleNameToId(titleName));
       setTab();
     };
-    var updateCandidates = function(f) {
-      candidates(f(candidates()).sort());
+    var updateFollowings = function(f) {
+      followings = f(followings);
       if (open()) m.redraw();
     };
     return {
       open: open,
-      candidates: candidates,
+      candidates: function() {
+        var existing = members();
+        return followings.concat(spectators).filter(function(elem, idx, arr) {
+          return arr.indexOf(elem) >= idx && // remove duplicates
+            !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
+        }).sort();
+      },
       members: members,
-      setCandidates: function(usernames) {
-        updateCandidates(function(prevs) {
+      setSpectators: function(usernames) {
+        spectators = usernames;
+        if (open()) m.redraw();
+      },
+      setFollowings: function(usernames) {
+        updateFollowings(function(prevs) {
           return usernames;
         });
       },
-      delCandidate: function(username) {
-        updateCandidates(function(prevs) {
+      delFollowing: function(username) {
+        updateFollowings(function(prevs) {
           return prevs.filter(function(u) {
             return username !== u;
           });
         });
       },
-      addCandidate: function(username) {
-        updateCandidates(function(prevs) {
+      addFollowing: function(username) {
+        updateFollowings(function(prevs) {
           return prevs.concat([username]);
         });
       },
@@ -43,9 +60,7 @@ module.exports = {
     };
   },
   view: function(ctrl) {
-    var candidates = ctrl.candidates().filter(function(u) {
-      return !ctrl.members().hasOwnProperty(u.toLowerCase());
-    });
+    var candidates = ctrl.candidates();
     return dialog.form({
       class: 'study_invite',
       onClose: partial(ctrl.open, false),

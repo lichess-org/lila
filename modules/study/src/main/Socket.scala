@@ -125,7 +125,11 @@ private final class Socket(
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
 
-    case Quit(uid) => quit(uid)
+    case Quit(uid) =>
+      members get uid foreach { member =>
+        quit(uid)
+        notifyCrowd
+      }
 
     case NotifyCrowd =>
       delayedCrowdNotification = false

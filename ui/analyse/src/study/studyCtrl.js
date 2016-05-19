@@ -309,9 +309,12 @@ module.exports = {
           data.chapter.conceal = d.ply;
           m.redraw();
         },
-        following_onlines: members.inviteForm.setCandidates,
-        following_leaves: members.inviteForm.delCandidate,
-        following_enters: members.inviteForm.addCandidate
+        following_onlines: members.inviteForm.setFollowings,
+        following_leaves: members.inviteForm.delFollowing,
+        following_enters: members.inviteForm.addFollowing,
+        crowd: function(d) {
+          members.inviteForm.setSpectators(d.users);
+        }
       }
     };
   }
