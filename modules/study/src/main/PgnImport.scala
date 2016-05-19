@@ -37,19 +37,8 @@ private object PgnImport {
               node => Node.Children(node.toVector)
             )),
         variant = game.variant,
-        tags = parsedPgn.tags filter isRelevant)
+        tags = PgnTags(parsedPgn.tags))
     }
-
-  private def isRelevant(tag: Tag) = relevantTags(tag.name) && !unknownValues(tag.value)
-
-  private val unknownValues = Set("", "?", "unknown")
-
-  private val relevantTags: Set[chess.format.pgn.TagType] = {
-    import Tag._
-    Set(Event, Site, Date, Round, White, Black, TimeControl,
-      WhiteElo, BlackElo, WhiteTitle, BlackTitle,
-      Tag.Result, Tag.FEN, Variant, Termination, Annotator)
-  }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Valid[Option[Node]] =
     sans match {

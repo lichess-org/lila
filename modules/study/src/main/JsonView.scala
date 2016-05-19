@@ -8,27 +8,53 @@ import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
+import lila.game.{ Game, GameRepo }
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.Shape
 import lila.user.User
 
-final class JsonView(lightUser: LightUser.Getter) {
+final class JsonView(
+    lightUser: LightUser.Getter,
+    gamePgnDump: lila.game.PgnDump) {
 
   import JsonView._
 
-  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
-    studyWrites.writes(study) ++ Json.obj(
-      "chapters" -> chapters.map(chapterMetadataWrites.writes),
-      "chapter" -> Json.obj(
-        "ownerId" -> currentChapter.ownerId,
-        "setup" -> currentChapter.setup,
-        "conceal" -> currentChapter.conceal,
-        "features" -> Json.obj(
-          "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
-          "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+  def apply(
+    study: Study,
+    chapters: List[Chapter.Metadata],
+    currentChapter: Chapter,
+    me: Option[User]) =
+    currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen).map { gameOption =>
+      studyWrites.writes(study) ++ Json.obj(
+        "chapters" -> chapters.map(chapterMetadataWrites.writes),
+        "chapter" -> Json.obj(
+          "ownerId" -> currentChapter.ownerId,
+          "setup" -> {
+            val setup = Json toJson currentChapter.setup
+            gameOption.fold(setup) { game =>
+              setup.as[JsObject] ++ Json.obj("game" -> game)
+            }
+          },
+          "game" -> gameOption,
+          "conceal" -> currentChapter.conceal,
+          "features" -> Json.obj(
+            "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
+            "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+          )
         )
       )
+    }.chronometer
+    // .mon(_.fishnet.acquire time client.skill.key)
+    .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
+    .result
+
+
+  private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
+    case (g, fen) => Json.obj(
+      "id" -> g.id,
+      "tags" -> PgnTags(gamePgnDump.tags(g, fen.map(_.value), none))
     )
+  }
 
   private implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj("id" -> u.id, "name" -> u.name, "title" -> u.title).noNull
@@ -56,6 +82,7 @@ final class JsonView(lightUser: LightUser.Getter) {
       "position" -> s.position,
       "ownerId" -> s.ownerId,
       "settings" -> s.settings,
+      "visibility" -> s.visibility,
       "createdAt" -> s.createdAt,
       "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
     ).noNull
@@ -87,7 +114,7 @@ object JsonView {
   private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
     JsString(uid.value)
   }
-  private[study] implicit val visibilityWriter = Writes[Study.Visibility] { v =>
+  private[study] implicit val visibilityWriter: Writes[Study.Visibility] = Writes[Study.Visibility] { v =>
     JsString(v.key)
   }
   private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
@@ -115,8 +142,11 @@ object JsonView {
   }
 
   private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
-  private implicit val pgnTagWrites = Writes[chess.format.pgn.Tag] { t =>
-    Json.obj("name" -> t.name.toString, "value" -> t.value)
+  private implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+    import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+    Json.obj(
+      "name" -> t.name.toString,
+      "value" -> escapeHtml4(t.value))
   }
   private implicit val chapterFromPgnWrites = Json.writes[Chapter.FromPgn]
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]

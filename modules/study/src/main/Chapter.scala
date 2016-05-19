@@ -66,19 +66,7 @@ object Chapter {
     orientation: Color,
     fromPgn: Option[FromPgn] = None)
 
-  case class FromPgn(tags: List[Tag]) {
-
-    def sortTags = copy(
-      tags = tags.sortBy {
-        case Tag(Tag.White, _) => 1
-        case Tag(Tag.Black, _) => 2
-        case Tag(Tag.Variant, _) => 3
-        case Tag(Tag.Date, _) => 4
-        case Tag(Tag.Termination, _) => 5
-        case Tag(Tag.Site | Tag.Event | Tag.Round | Tag.Annotator, _) => 10
-        case _ => 9
-      })
-  }
+  case class FromPgn(tags: List[Tag])
 
   case class Metadata(
     _id: Chapter.ID,

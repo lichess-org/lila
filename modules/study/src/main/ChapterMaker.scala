@@ -31,9 +31,7 @@ private final class ChapterMaker(domain: String, importer: Importer) {
           none,
           res.variant,
           orientation,
-          fromPgn = Chapter.FromPgn(
-            tags = res.tags
-          ).sortTags.some),
+          fromPgn = Chapter.FromPgn(tags = res.tags).some),
         root = res.root,
         order = order,
         ownerId = userId,

@@ -57,13 +57,14 @@ object Study extends LilaController {
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
             Env.chat.api.userChat.find(study.id) zip
+            env.jsonView(study, chapters, chapter, ctx.me) zip
             env.version(id) flatMap {
-              case ((baseData, chat), sVersion) =>
+              case (((baseData, chat), studyJson), sVersion) =>
                 import lila.socket.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
-                  study = env.jsonView(study, chapters, chapter, ctx.me),
+                  study = studyJson,
                   analysis = analysis,
                   chat = lila.chat.JsonView(chat))
                 negotiate(

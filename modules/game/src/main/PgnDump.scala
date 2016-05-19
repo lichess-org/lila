@@ -50,7 +50,7 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def tags(
+  def tags(
     game: Game,
     initialFen: Option[String],
     imported: Option[ParsedPgn]): List[Tag] = gameLightUsers(game) match {

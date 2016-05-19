@@ -64,15 +64,14 @@ function buttons(root) {
   ]);
 }
 
-function renderPgn(ctrl) {
-  var chapter = ctrl.currentChapter();
-  var fromPgn = ctrl.data.chapter.setup.fromPgn;
-  return fromPgn ? m('table.tags.slist', m('tbody', fromPgn.tags.map(function(tag) {
+function renderPgn(setup) {
+  var obj = setup.fromPgn || setup.game;
+  if (obj) return m('table.tags.slist', m('tbody', obj.tags.map(function(tag) {
     return m('tr', [
       m('th', tag.name),
-      m('td', tag.value)
+      m('td', m.trust($.urlToLink(tag.value)))
     ]);
-  }))) : null;
+  })));
 }
 
 var lastMetaKey;
@@ -93,9 +92,9 @@ function metadata(ctrl) {
       ': ' +
       chapter.name
     ]),
-    m('div.undertable_inner', [
-      renderPgn(ctrl)
-    ])
+    m('div.undertable_inner',
+      renderPgn(ctrl.data.chapter.setup)
+    )
   ]);
 }
 

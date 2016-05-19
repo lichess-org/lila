@@ -58,7 +58,7 @@ final class Env(
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
-  lazy val jsonView = new JsonView(getLightUser)
+  lazy val jsonView = new JsonView(getLightUser, gamePgnDump)
 
   lazy val api = new StudyApi(
     studyRepo = studyRepo,

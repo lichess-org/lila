@@ -937,7 +937,7 @@ lichess.challengeApp = (function() {
     return str;
   };
 
-  function urlToLink(text) {
+  $.urlToLink = function(text) {
     var exp = /\bhttp:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return text.replace(exp, "<a href='http://$1'>$1</a>");
   }
@@ -1284,7 +1284,7 @@ lichess.challengeApp = (function() {
       } else {
         user = '<span class="user">' + $.userLinkLimit(msg.u, 14) + '</span>';
       }
-      return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + urlToLink(msg.t) + '</li>';
+      return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + $.urlToLink(msg.t) + '</li>';
     },
     _appendHtml: function(html) {
       if (!html) return;
