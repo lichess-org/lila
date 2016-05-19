@@ -243,7 +243,7 @@ lichess.challengeApp = (function() {
     lichess.loadCss('/assets/stylesheets/autocomplete.css');
     lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
       $input.typeahead(null, {
-        minLength: 2,
+        minLength: 3,
         hint: true,
         highlight: false,
         source: function(query, sync, async) {
