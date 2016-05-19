@@ -12,7 +12,7 @@ body.dark .lichess_ground .replay glyph {
   color: #8a8a8a;
 }
 body.dark #video .content_box_top form input,
-body.dark .study_box .list div.confing,
+body.dark .study_box .list div.editing,
 body.dark .study_box .list div.config,
 body.dark input,
 body.dark textarea,
@@ -56,9 +56,9 @@ body.dark #site_title {
 body.dark .mini_board,
 body.dark #chat div.top,
 body.dark #chat .messages,
-body.dark div.undertable_top,
-body.dark div.undertable_inner,
-body.dark div.undertable td,
+body.dark .undertable_top,
+body.dark .undertable_inner,
+body.dark .undertable td,
 body.dark #chat form input,
 body.dark .study_invite input,
 body.dark #translation_call,
@@ -219,11 +219,11 @@ body.dark div.user_show .trophy.icon3d,
 body.dark #timeline a,
 body.dark #chat span,
 body.dark #chat a.user_link,
-body.dark div.undertable a.user_link,
+body.dark .undertable a.user_link,
 body.dark #team .forum a.user_link,
 body.dark div.user_show div.content_box_top > span,
 body.dark span.progress > .zero,
-body.dark div.undertable_top span.title {
+body.dark .undertable_top span.title {
   color: #777;
 }
 body.dark .lichess_ground .replay .meta > .menu,
@@ -240,7 +240,7 @@ body.dark div.box,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
-body.dark div.undertable_inner,
+body.dark .undertable_inner,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
@@ -377,7 +377,7 @@ body.dark #chat div.top,
 body.dark div.side_box .top,
 body.dark div.box .top,
 body.dark #friend_box .title,
-body.dark div.undertable_top,
+body.dark .undertable_top,
 body.dark .button,
 body.dark .button:visited,
 body.dark group.radio label,

@@ -272,9 +272,6 @@ div.underboard {
   margin: 6px 0 0 0;
   display: inline-block;
 }
-.study_box .chapters input {
-  width: 100%;
-}
 .study_overboard .form {
   padding: 20px;
 }
@@ -444,7 +441,19 @@ form .editor a.button {
 }
 .study_metadata h2 {
   font-size: 1.3em;
-  margin: 15px 0;
+  padding: 7px 0 7px 12px;
+  font-weight: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.study_metadata h2::before {
+  font-size: 1.3em;
+  margin-right: 8px;
+  opacity: 0.7;
 }
 .study_metadata th {
+  text-transform: uppercase;
+  font-size: 1.1em;
+  opacity: 0.7;
 }

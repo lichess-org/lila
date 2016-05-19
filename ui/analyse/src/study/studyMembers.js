@@ -176,7 +176,7 @@ module.exports = {
           class: classSet({
             elem: true,
             member: true,
-            confing: confing
+            editing: confing
           })
         };
         return [

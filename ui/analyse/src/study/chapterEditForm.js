@@ -40,11 +40,9 @@ module.exports = {
   view: function(ctrl) {
 
     var data = ctrl.current();
-    console.log(data);
     if (!data) return;
 
     var isConcealing = !isNaN(data.conceal);
-    console.log(data.conceal, isConcealing);
 
     return dialog.form({
       onClose: partial(ctrl.current, null),

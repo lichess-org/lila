@@ -64,31 +64,38 @@ function buttons(root) {
   ]);
 }
 
-function tags(tags) {
-  return m('table.tags.slist', m('tbody', tags.map(function(tag) {
+function renderPgn(ctrl) {
+  var chapter = ctrl.currentChapter();
+  var fromPgn = ctrl.data.chapter.setup.fromPgn;
+  return fromPgn ? m('table.tags.slist', m('tbody', fromPgn.tags.map(function(tag) {
     return m('tr', [
       m('th', tag.name),
       m('td', tag.value)
     ]);
-  })));
+  }))) : null;
 }
 
-var lastChapterId;
+var lastMetaKey;
 
 function metadata(ctrl) {
   var chapter = ctrl.currentChapter();
-  if (chapter.id === lastChapterId && m.redraw.strategy() === 'diff') return {
+  if (!chapter) return;
+  var cacheKey = [chapter.id, ctrl.data.name, chapter.name].join('|');
+  if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') return {
     subtree: 'retain'
   };
-  lastChapterId = chapter.id;
-  var fromPgn = ctrl.data.chapter.setup.fromPgn;
-  return m('div.study_metadata', [
-    m('h2', [
+  lastMetaKey = cacheKey;
+  return m('div.study_metadata.undertable', [
+    m('h2.undertable_top', {
+      'data-icon': ''
+    }, [
       ctrl.data.name,
       ': ' +
       chapter.name
     ]),
-    fromPgn ? tags(fromPgn.tags) : null
+    m('div.undertable_inner', [
+      renderPgn(ctrl)
+    ])
   ]);
 }
 

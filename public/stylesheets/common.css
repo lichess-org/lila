@@ -1614,7 +1614,7 @@ div.join_warning {
 #friend_box .title,
 div.side_box div.top,
 div.box div.top,
-div.undertable_top,
+.undertable_top,
 .button,
 a.button,
 .button:visited,
@@ -1632,7 +1632,7 @@ table.slist thead {
   color: #848484;
 }
 #chat div.top,
-div.undertable_top,
+.undertable_top,
 .button,
 a.button,
 .button:visited,
@@ -1986,27 +1986,27 @@ div.auth input.password {
 div.auth input.login {
   padding: 0 3px;
 }
-div.undertable {
+.undertable {
   font-size: 11.5px;
   margin-top: 15px;
 }
-div.undertable.nomargin {
+.undertable.nomargin {
   margin-top: 0;
 }
-div.undertable_top {
+.undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
-div.undertable_top a.more {
+.undertable_top a.more {
   float: right;
   padding-right: 2px;
   font-weight: normal;
 }
-div.undertable_top span.title {
+.undertable_top span.title {
   font-weight: bold;
   color: #999;
 }
-div.undertable_inner {
+.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
   height: 202px;
@@ -2014,36 +2014,36 @@ div.undertable_inner {
   overflow: hidden;
   background-color: #fff;
 }
-div.undertable_inner:hover {
+.undertable_inner:hover {
   overflow-y: auto;
 }
-div.undertable a.user_link {
+.undertable a.user_link {
   font-weight: bold;
   color: #a0a0a0;
 }
-div.undertable table {
+.undertable table {
   width: 100%;
   height: 100%;
 }
-div.undertable td {
+.undertable td {
   padding: 6px 5px 6px 5px;
   border-top: 1px solid #eaeaea;
 }
-div.undertable tr:first-child td {
+.undertable tr:first-child td {
   border-top: none;
 }
-div.undertable.half {
+.undertable.half {
   width: 250px;
   float: left;
 }
-div.undertable.half:first-child {
+.undertable.half:first-child {
   margin-right: 14px;
 }
-div.undertable.leaderboard td:first-child {
+.undertable.leaderboard td:first-child {
   max-width: 135px;
   overflow: hidden;
 }
-div.undertable.leaderboard {
+.undertable.leaderboard {
   white-space: nowrap;
 }
 div.lichess_overboard.joining .submit {
