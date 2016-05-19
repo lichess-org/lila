@@ -76,9 +76,9 @@ final class StudyApi(
         case None => funit >>- reloadUid(study, uid)
         case Some(chapter) if study.position.path != position.path =>
           studyRepo.setPosition(study.id, position) >> {
-            chapter.conceal.ifTrue(userId == chapter.ownerId) ?? { conceal =>
+            chapter.conceal ?? { conceal =>
               chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) ?? { newConceal =>
-                if (newConceal.pp("new") >= chapter.root.lastMainlinePly.pp("last"))
+                if (newConceal >= chapter.root.lastMainlinePly)
                   chapterRepo.removeConceal(chapter.id) >>-
                     sendTo(study, Socket.SetConceal(position, none))
                 else

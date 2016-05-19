@@ -170,7 +170,7 @@ function renderMeta(ctrl, node, prev, path, concealOf) {
   if (opening) dom.push(opening);
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  var commentConceal = concealOf(path, node);
+  var commentConceal = concealOf(true)(path, node);
   if (ctrl.vm.comments && !empty(node.comments) && commentConceal !== 'hide')
     node.comments.forEach(function(comment) {
       if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
@@ -192,7 +192,7 @@ function renderMeta(ctrl, node, prev, path, concealOf) {
         },
         i === 0 ? colorClass + commentClass : null,
         1,
-        commentConceal === null ? returnNull : concealOf
+        commentConceal === null ? returnNull : concealOf(false)
       ));
   });
   if (dom.length) return m('div', {
@@ -224,21 +224,24 @@ function concealAction(ctrl, conceal) {
   };
 }
 
-function renderMainlineTurn(ctrl, turn, path, conceal) {
+function renderMainlineTurn(ctrl, turn, path, concealOf) {
   var index = renderIndex(turn.turn);
-  var wPath, wMove, wMeta, bPath, bMove, bMeta, con, dom;
-  var concealOf = concealAction(ctrl, conceal);
+  var wPath, wMove, wMeta, bPath, bMove, bMeta, wCon, bCon, dom;
   if (turn.white) {
     wPath = path = path + turn.white.node.id;
-    con = concealOf(true)(wPath, turn.white.node);
-    wMove = renderMove(ctrl, turn.white.node, wPath, true, con);
-    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath, concealOf(false));
+    wCon = concealOf(true)(wPath, turn.white.node);
+    wMove = renderMove(ctrl, turn.white.node, wPath, true, wCon);
+    wMeta = renderMeta(ctrl, turn.white.node, turn.white.prev, wPath, concealOf);
+    if (wCon === 'hide' && !wMeta) return {
+      dom: null,
+      path: path
+    };
   }
   if (turn.black) {
     bPath = path = path + turn.black.node.id;
-    con = concealOf(true)(bPath, turn.black.node);
-    bMove = renderMove(ctrl, turn.black.node, bPath, true, con);
-    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath, concealOf(false));
+    bCon = concealOf(true)(bPath, turn.black.node);
+    bMove = renderMove(ctrl, turn.black.node, bPath, true, bCon);
+    bMeta = renderMeta(ctrl, turn.black.node, turn.black.prev, bPath, concealOf);
   }
   if (wMove) {
     if (wMeta) dom = [
@@ -301,8 +304,9 @@ module.exports = {
         return renderComment(comment, '', 'undefined');
       })));
 
+    var concealOf = concealAction(ctrl, conceal);
     for (var i = 0, len = turns.length; i < len; i++) {
-      res = renderMainlineTurn(ctrl, turns[i], path, conceal);
+      res = renderMainlineTurn(ctrl, turns[i], path, concealOf);
       path = res.path;
       tags.push(res.dom);
     }
