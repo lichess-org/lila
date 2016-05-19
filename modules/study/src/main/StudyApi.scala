@@ -75,18 +75,9 @@ final class StudyApi(
       } flatMap {
         case None => funit >>- reloadUid(study, uid)
         case Some(chapter) if study.position.path != position.path =>
-          studyRepo.setPosition(study.id, position) >> {
-            chapter.conceal ?? { conceal =>
-              chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) ?? { newConceal =>
-                if (newConceal >= chapter.root.lastMainlinePly)
-                  chapterRepo.removeConceal(chapter.id) >>-
-                    sendTo(study, Socket.SetConceal(position, none))
-                else
-                  chapterRepo.setConceal(chapter.id, newConceal) >>-
-                    sendTo(study, Socket.SetConceal(position, newConceal.some))
-              }
-            }
-          } >>- sendTo(study, Socket.SetPath(position, uid))
+          studyRepo.setPosition(study.id, position) >>
+            updateConceal(study, chapter, position) >>-
+            sendTo(study, Socket.SetPath(position, uid))
         case _ => funit
       }
     }
@@ -98,11 +89,24 @@ final class StudyApi(
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>
-            studyRepo.setPosition(study.id, position + node) >>-
+            studyRepo.setPosition(study.id, position + node) >>
+            updateConceal(study, newChapter, position + node) >>-
             sendTo(study, Socket.AddNode(position, node, uid))
       }
     }
   }
+
+  private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
+    chapter.conceal ?? { conceal =>
+      chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) ?? { newConceal =>
+        if (newConceal >= chapter.root.lastMainlinePly)
+          chapterRepo.removeConceal(chapter.id) >>-
+            sendTo(study, Socket.SetConceal(position, none))
+        else
+          chapterRepo.setConceal(chapter.id, newConceal) >>-
+            sendTo(study, Socket.SetConceal(position, newConceal.some))
+      }
+    }
 
   def deleteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
