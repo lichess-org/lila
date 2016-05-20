@@ -79,7 +79,7 @@ object Study {
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),
       ownerId = user.id,
-      visibility = Visibility.Private,
+      visibility = Visibility.Public,
       settings = Settings.init,
       views = Views(1),
       createdAt = DateTime.now)
