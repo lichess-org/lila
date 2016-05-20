@@ -1977,7 +1977,7 @@ lichess.challengeApp = (function() {
         }
       } catch (e) {}
     };
-    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.initialPly = location.hash ? location.hash.replace(/#/, '') : null;
     cfg.element = element.querySelector('.analyse');
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);

@@ -41,11 +41,11 @@ module.exports = function(opts) {
   initialize(opts.data);
 
   var initialPath = treePath.root;
-  if (opts.path) {
+  if (opts.initialPly) {
     var mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (opts.path === 'last') initialPath = treePath.fromNodeList(mainline);
+    if (opts.initialPly === 'last') initialPath = treePath.fromNodeList(mainline);
     else {
-      var ply = parseInt(opts.path);
+      var ply = parseInt(opts.initialPly);
       if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
         return n.ply <= ply;
       });
@@ -438,7 +438,7 @@ module.exports = function(opts) {
       dest: move[1],
       brush: brush
     };
-  }
+  };
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);
