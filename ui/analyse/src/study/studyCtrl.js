@@ -133,7 +133,7 @@ module.exports = {
     };
 
     if (members.canContribute()) {
-      if (lichess.once('insight-tour', 'always')) startTour();
+      if (lichess.once('insight-tour')) startTour();
       else form.openIfNew();
     }
 
