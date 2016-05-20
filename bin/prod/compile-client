@@ -17,7 +17,8 @@ for file in tv.js puzzle.js chart2.js user.js coordinate.js; do
   fi
 done
 
-orig="$SRC/deps.min.js $SRC/util.js $SRC/socket.js $SRC/main.js"
+orig="$SRC/util.js $SRC/socket.js $SRC/main.js"
 comp=$TARGET/lichess.js
-lilalog "Compiling lichess.js"
+lilalog "Compiling $comp"
 closure --js $orig --js_output_file $comp
+cat $SRC/deps.min.js $comp | sed '/^\/\*.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
