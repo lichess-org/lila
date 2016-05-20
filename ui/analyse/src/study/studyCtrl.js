@@ -120,6 +120,23 @@ module.exports = {
       }));
     });
 
+    var startTour = function() {
+      lichess.loadScript('/assets/javascripts/study-tour.js').then(function() {
+        lichess.studyTour({
+          userId: ctrl.userId,
+          setTab: function(tab) {
+            vm.tab(tab);
+            m.redraw();
+          }
+        });
+      });
+    };
+
+    if (members.canContribute()) {
+      if (lichess.once('insight-tour', 'always')) startTour();
+      else form.openIfNew();
+    }
+
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
@@ -197,6 +214,7 @@ module.exports = {
         if (contributing()) addChapterId(req);
       },
       contribute: contribute,
+      startTour: startTour,
       userJump: ctrl.userJump,
       socketHandlers: {
         path: function(d) {

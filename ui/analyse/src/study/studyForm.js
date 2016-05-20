@@ -36,10 +36,13 @@ module.exports = {
       return getData().isNew && new Date() - initAt < 5000;
     }
 
-    var open = m.prop(isNew());
+    var open = m.prop(false);
 
     return {
       open: open,
+      openIfNew: function() {
+        if (isNew()) open(true);
+      },
       save: function(data, isNew) {
         save(data, isNew);
         open(false);

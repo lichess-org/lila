@@ -288,7 +288,7 @@ div.underboard {
 .study_buttons > div {
   justify-content: flex-start;
 }
-.study_buttons .button {
+.study_buttons .member_buttons .button {
   display: inline-block;
   margin-right: 10px;
 }

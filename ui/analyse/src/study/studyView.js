@@ -47,7 +47,7 @@ function buttons(root) {
       }, m('i[data-icon=x]')),
       canContribute ? [
         (function(enabled) {
-          return m('a.button.hint--top', {
+          return m('a.button.comment.hint--top', {
             class: classSet({
               active: ctrl.commentForm.current(),
               disabled: !enabled
@@ -58,7 +58,7 @@ function buttons(root) {
             } : null
           }, m('i[data-icon=c]'));
         })(ctrl.vm.behind === false), (function(enabled) {
-          return m('a.button.hint--top', {
+          return m('a.button.glyph.hint--top', {
             class: classSet({
               active: ctrl.glyphForm.isOpen(),
               disabled: !enabled
@@ -68,7 +68,11 @@ function buttons(root) {
           }, m('i.glyph-icon'));
         })(root.vm.path && ctrl.vm.behind === false)
       ] : null
-    ])
+    ]),
+    m('span.button.help.hint--top', {
+      'data-hint': 'Need help? Get the tour!',
+      onclick: ctrl.startTour
+    }, 'help')
   ]);
 }
 
