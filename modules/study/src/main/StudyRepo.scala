@@ -40,6 +40,9 @@ final class StudyRepo(private[study] val coll: Coll) {
   def setPosition(studyId: Study.ID, position: Position.Ref): Funit =
     coll.update($id(studyId), $set("position" -> position)).void
 
+  def incViews(study: Study) =
+    coll.incFieldUnchecked($id(study.id), "views")
+
   def addMember(study: Study, member: StudyMember): Funit =
     coll.update(
       $id(study.id),

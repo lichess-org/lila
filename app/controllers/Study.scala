@@ -52,6 +52,7 @@ object Study extends LilaController {
     OptionFuResult(query) {
       case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
+          env.studyRepo.incViews(study)
           val setup = chapter.setup
           val initialFen = chapter.root.fen
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)

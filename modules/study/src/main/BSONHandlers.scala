@@ -188,6 +188,7 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
+  private implicit val StudyViewsBSONHandler = intAnyValHandler[Study.Views](_.value, Study.Views.apply)
 
   private implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
     def read(b: BSONString): Tag = b.value.split(":", 2) match {
