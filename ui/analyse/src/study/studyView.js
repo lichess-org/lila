@@ -92,18 +92,17 @@ var lastMetaKey;
 function metadata(ctrl) {
   var chapter = ctrl.currentChapter();
   if (!chapter) return;
-  var cacheKey = [chapter.id, ctrl.data.name, chapter.name].join('|');
+  var cacheKey = [chapter.id, ctrl.data.name, chapter.name, ctrl.data.views].join('|');
   if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') return {
     subtree: 'retain'
   };
   lastMetaKey = cacheKey;
   return m('div.study_metadata.undertable', [
-    m('h2.undertable_top', {
-      'data-icon': ''
-    }, [
-      ctrl.data.name,
-      ': ' +
-      chapter.name
+    m('h2.undertable_top', [
+      m('span.name', {
+        'data-icon': ''
+      }, ctrl.data.name, ': ' + chapter.name),
+      m('span.views', ctrl.data.views + ' views')
     ]),
     m('div.undertable_inner',
       renderPgn(ctrl.data.chapter.setup)

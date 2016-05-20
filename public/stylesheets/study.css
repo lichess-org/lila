@@ -462,16 +462,25 @@ form .editor a.button {
 }
 .study_metadata h2 {
   font-size: 1.3em;
-  padding: 7px 0 7px 12px;
+  padding: 7px 12px 7px 12px;
   font-weight: normal;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-between;
 }
-.study_metadata h2::before {
+.study_metadata .name::before {
   font-size: 1.3em;
   margin-right: 8px;
   opacity: 0.7;
+}
+.study_metadata h2 .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.study_metadata h2 .views {
+  padding-left: 12px;
+  margin-left: 12px;
+  border-left: 1px solid #ccc;
 }
 .study_metadata table {
   border: none;

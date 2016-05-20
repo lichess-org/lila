@@ -169,6 +169,7 @@ body.dark #video .content_box_top,
 body.dark #simul .half,
 body.dark .donation .links a,
 body.dark .studies .study,
+body.dark .study_metadata h2 .views,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
