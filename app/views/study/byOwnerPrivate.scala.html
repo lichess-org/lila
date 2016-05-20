@@ -5,6 +5,7 @@ title = s"Private studies created by ${owner.titleName}",
 active = "private",
 user = owner) {
 <div class="content_box no_padding">
+  @newForm()
   <h1>Private studies created by @userLink(owner)</h1>
   @list(pag, routes.Study.byOwner(owner.username))
 </div>
