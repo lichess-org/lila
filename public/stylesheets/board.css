@@ -532,8 +532,9 @@ div.table {
 .lichess_ground .replay move:not(.empty):hover {
   background: #e0e0e0;
 }
-.lichess_ground .replay move.active {
-  color: #d85000;
+.lichess_ground .replay move.active,
+.lichess_ground .replay move.active::after {
+  color: #d85000!important;
   font-weight: bold;
 }
 .lichess_ground .replay move.context_menu {

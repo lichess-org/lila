@@ -564,6 +564,14 @@ body.dark .explorer_box .black {
 .lichess_ground .replay move.current {
   background: rgba(191, 231, 255, 0.7);
 }
+.lichess_ground .replay move.annotated::after {
+  font-family: "lichess" !important;
+  color: #42a5f5;
+  content: "";
+  vertical-align: -1px;
+  margin-left: 3px;
+  opacity: 0.8;
+}
 .lichess_ground .replay turn move.empty {
   opacity: 0.5;
 }
