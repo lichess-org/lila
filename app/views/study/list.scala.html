@@ -19,7 +19,8 @@
       <strong>@s.study.name</strong>
       <span>
         @usernameOrId(s.study.ownerId) •
-        @momentFromNow(s.study.createdAt)
+        @momentFromNow(s.study.createdAt) •
+        @s.study.views.value views
       </span>
     </h2>
     <div class="body">
