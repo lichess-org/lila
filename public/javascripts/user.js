@@ -104,34 +104,16 @@ $(function() {
     });
   });
 
-  if ($('div.user_show.myself').length &&
-    $('div.sub_ratings .relevant').length &&
-    lichess.once('user-perf-stats-tour')) lichess.hopscotch(function() {
-    hopscotch.configure({
-      i18n: {
-        doneBtn: 'OK, got it'
-      }
-    }).startTour({
-      id: 'perf-stats',
-      showPrevButton: true,
-      steps: [{
-        title: "New: performance stats",
-        content: "You can now click your ratings to display stats about your play!",
-        target: $('div.sub_ratings .relevant')[0],
-        placement: "right",
-        xOffset: -40
-      }]
-    });
-  });
-  else if ($('#perfStat.correspondence .view_games').length &&
+  if ($('#perfStat.correspondence .view_games').length &&
     lichess.once('user-correspondence-view-games')) lichess.hopscotch(function() {
     hopscotch.configure({
       i18n: {
-        doneBtn: 'OK, got it'
+        nextBtn: 'OK, got it'
       }
     }).startTour({
       id: 'correspondence-games',
       showPrevButton: true,
+      isTourBubble: false,
       steps: [{
         title: "Recently finished games",
         content: "Would you like to display the list of your correspondence games, sorted by completion date?",
