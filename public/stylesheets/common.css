@@ -2006,7 +2006,7 @@ div.auth input.login {
   font-weight: bold;
   color: #999;
 }
-.undertable_inner {
+div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
   height: 202px;

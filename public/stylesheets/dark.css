@@ -57,7 +57,7 @@ body.dark .mini_board,
 body.dark #chat div.top,
 body.dark #chat .messages,
 body.dark .undertable_top,
-body.dark .undertable_inner,
+body.dark div.undertable_inner,
 body.dark .undertable td,
 body.dark #chat form input,
 body.dark .study_invite input,
@@ -240,7 +240,7 @@ body.dark div.box,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
-body.dark .undertable_inner,
+body.dark div.undertable_inner,
 body.dark div.chat_menu > a.active {
   background: #262626;
 }
