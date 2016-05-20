@@ -1977,7 +1977,7 @@ lichess.challengeApp = (function() {
         }
       } catch (e) {}
     };
-    cfg.initialPly = location.hash ? location.hash.replace(/#/, '') : null;
+    cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
@@ -2054,7 +2054,7 @@ lichess.challengeApp = (function() {
 
   function startUserAnalysis(element, cfg) {
     var analyse;
-    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {

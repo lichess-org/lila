@@ -41,10 +41,11 @@ module.exports = function(opts) {
 
   var initialPath = treePath.root;
   if (opts.initialPly) {
+    var plyStr = opts.initialPly === 'url' ? (location.hash ? location.hash.replace(/#/, '') : treePath.root) : opts.initialPly;
     var mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (opts.initialPly === 'last') initialPath = treePath.fromNodeList(mainline);
+    if (plyStr === 'last') initialPath = treePath.fromNodeList(mainline);
     else {
-      var ply = parseInt(opts.initialPly);
+      var ply = parseInt(plyStr);
       if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
         return n.ply <= ply;
       });
