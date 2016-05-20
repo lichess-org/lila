@@ -29,7 +29,7 @@ module.exports = {
 
     var form = studyFormCtrl(function(data, isNew) {
       send("editStudy", data);
-      if (isNew) chapters.form.openInitial();
+      if (isNew) chapters.newForm.openInitial();
     }, function() {
       return data;
     });
