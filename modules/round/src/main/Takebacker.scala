@@ -24,18 +24,16 @@ private[round] final class Takebacker(
     }
   }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = IfAllowed(pov.game) {
-    pov match {
-      case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
-        messenger.system(game, _.takebackPropositionCanceled)
-        Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
-      } inject List(Event.TakebackOffers(false, false))
-      case Pov(game, color) if pov.opponent.isProposingTakeback => proxy.save {
-        messenger.system(game, _.takebackPropositionDeclined)
-        Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
-      } inject List(Event.TakebackOffers(false, false))
-      case _ => fufail(ClientError("[takebacker] invalid no " + pov))
-    }
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
+    case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
+      messenger.system(game, _.takebackPropositionCanceled)
+      Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
+    } inject List(Event.TakebackOffers(false, false))
+    case Pov(game, color) if pov.opponent.isProposingTakeback => proxy.save {
+      messenger.system(game, _.takebackPropositionDeclined)
+      Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
+    } inject List(Event.TakebackOffers(false, false))
+    case _ => fufail(ClientError("[takebacker] invalid no " + pov))
   }
 
   def isAllowedByPrefs(game: Game): Fu[Boolean] =
