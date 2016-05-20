@@ -32,7 +32,6 @@ module.exports = {
   },
 
   last: function(ctrl) {
-    ctrl.jumpToLast();
     jumpToPath(ctrl, treePath.fromNodeList(ctrl.vm.mainline));
   },
 
