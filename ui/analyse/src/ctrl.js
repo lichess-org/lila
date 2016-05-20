@@ -18,7 +18,6 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
-var tour = require('./tour');
 var studyCtrl = require('./study/studyCtrl');
 var m = require('mithril');
 
@@ -462,6 +461,5 @@ module.exports = function(opts) {
   keyboard(this);
   startCeval();
   this.explorer.setNode();
-  tour.init(this.explorer);
   this.study = opts.study ? studyCtrl.init(opts.study, opts.chat, this) : null;
 };
