@@ -11,6 +11,7 @@ var currentCommentsView = require('./studyComments').currentComments;
 var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
+var notifView = require('./notif').view;
 
 function contextAction(icon, text, handler) {
   return m('a.action', {
@@ -177,7 +178,8 @@ module.exports = {
       currentCommentsView(ctrl, !commentForm),
       commentForm,
       buttons(ctrl),
-      metadata(ctrl.study)
+      metadata(ctrl.study),
+      notifView(ctrl.study.notif)
     ];
   }
 };

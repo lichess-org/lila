@@ -7,8 +7,10 @@ var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
+var notifCtrl = require('./notif').ctrl;
 var tour = require('./studyTour');
 var xhr = require('./studyXhr');
+var concealFeedback = require('./concealFeedback');
 
 module.exports = {
   // data.position.path represents the server state
@@ -35,6 +37,7 @@ module.exports = {
     });
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
     var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), ctrl);
+    var notif = notifCtrl();
 
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;
@@ -156,6 +159,7 @@ module.exports = {
       form: form,
       members: members,
       chapters: chapters,
+      notif: notif,
       commentForm: commentForm,
       glyphForm: glyphForm,
       vm: vm,
@@ -238,6 +242,7 @@ module.exports = {
           who && activity(who.u);
           if (who && who.s === sri) {
             data.position.path = position.path + node.id;
+            concealFeedback(ctrl, position.path, node);
             return;
           }
           var newPath = ctrl.tree.addNode(node, position.path);
