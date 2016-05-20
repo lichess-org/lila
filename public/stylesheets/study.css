@@ -113,6 +113,7 @@ div.underboard .notif.error {
   text-align: left;
 }
 .study_comments .comment {
+  font-size: 1.2em;
   background: #e0e0e0;
   padding: 5px 10px;
   margin-bottom: 10px;
