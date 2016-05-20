@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var classSet = require('chessground').util.classSet;
 var nodeFullName = require('../util').nodeFullName;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
@@ -45,20 +46,27 @@ function buttons(root) {
         href: '/study/' + ctrl.data.id + '.pgn'
       }, m('i[data-icon=x]')),
       canContribute ? [
-        m('a.button.hint--top', {
-          class: ctrl.commentForm.current() ? 'active' : '',
-          'data-hint': 'Comment this position',
-          disabled: ctrl.vm.behind !== false,
-          onclick: function() {
-            ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node)
-          }
-        }, m('i[data-icon=c]')),
-        m('a.button.hint--top', {
-          class: ctrl.glyphForm.isOpen() ? 'active' : '',
-          'data-hint': 'Annotate with symbols',
-          disabled: ctrl.vm.behind !== false,
-          onclick: ctrl.glyphForm.toggle
-        }, m('i.glyph-icon'))
+        (function(enabled) {
+          return m('a.button.hint--top', {
+            class: classSet({
+              active: ctrl.commentForm.current(),
+              disabled: !enabled
+            }),
+            'data-hint': 'Comment this position',
+            onclick: enabled ? function() {
+              ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node)
+            } : null
+          }, m('i[data-icon=c]'));
+        })(ctrl.vm.behind === false), (function(enabled) {
+          return m('a.button.hint--top', {
+            class: classSet({
+              active: ctrl.glyphForm.isOpen(),
+              disabled: !enabled
+            }),
+            'data-hint': 'Annotate with symbols',
+            onclick: enabled ? ctrl.glyphForm.toggle : null
+          }, m('i.glyph-icon'));
+        })(root.vm.path && ctrl.vm.behind === false)
       ] : null
     ])
   ]);

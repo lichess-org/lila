@@ -296,6 +296,10 @@ div.underboard {
   height: 16px;
   display: inline-block;
 }
+.study_buttons .button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .study_buttons .button:hover {
   color: #3893E8;
 }
