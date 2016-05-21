@@ -3,6 +3,7 @@ lichess.studyTour = function(study) {
     var tour = {
       id: "study",
       showPrevButton: true,
+      scrollDuration: 500,
       steps: [{
         title: "Welcome to lichess study!",
         content: "This is a shared analysis board.<br><br>" +

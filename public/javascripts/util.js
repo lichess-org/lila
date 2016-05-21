@@ -103,6 +103,15 @@ lichess.hopscotch = function(f) {
 lichess.slider = function() {
   return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
 };
+lichess.shepherd = function(f) {
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+  lichess.loadCss('/assets/vendor/shepherd/dist/css/' + theme + '.css');
+  lichess.loadScript("/assets/vendor/shepherd/dist/js/tether.js").done(function() {
+    lichess.loadScript("/assets/vendor/shepherd/dist/js/shepherd.min.js").done(function() {
+      f(theme);
+    });
+  });
+}
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];

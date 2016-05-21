@@ -125,7 +125,7 @@ module.exports = {
     });
 
     var startTour = function() {
-      lichess.loadScript('/assets/javascripts/study-tour.js').then(function() {
+      lichess.loadScript('/assets/javascripts/study/tour.js').then(function() {
         lichess.studyTour({
           userId: ctrl.userId,
           setTab: function(tab) {

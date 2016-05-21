@@ -73,7 +73,9 @@ function buttons(root) {
     m('span.button.help.hint--top', {
       'data-hint': 'Need help? Get the tour!',
       onclick: ctrl.startTour
-    }, 'help')
+    }, m('i.text', {
+      'data-icon': ''
+    }, 'help'))
   ]);
 }
 

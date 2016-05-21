@@ -25,3 +25,6 @@
 [submodule "public/vendor/hopscotch"]
 	path = public/vendor/hopscotch
 	url = https://github.com/linkedin/hopscotch
+[submodule "public/vendor/shepherd"]
+	path = public/vendor/shepherd
+	url = https://github.com/HubSpot/shepherd

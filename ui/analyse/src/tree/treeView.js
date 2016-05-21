@@ -28,7 +28,7 @@ function renderMove(ctrl, node, path, isMainline, conceal) {
   if (path === ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctrl.vm.initialPath) classes.push('current');
   if (conceal) classes.push(conceal);
-  if (!isMainline && node.comments) classes.push('annotated');
+  if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
   return {
     tag: 'move',

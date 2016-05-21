@@ -37,9 +37,21 @@ module.exports = {
       vm.open = true;
       loadVariants();
       vm.initial(false);
+      if (lichess.once('insight-tour-chapter')) startTour();
     };
     var close = function() {
       vm.open = false;
+    };
+
+    var startTour = function() {
+      lichess.loadScript('/assets/javascripts/study/tour-chapter.js').then(function() {
+        lichess.studyTourChapter({
+          setTab: function(tab) {
+            vm.tab(tab);
+            m.redraw();
+          }
+        });
+      });
     };
 
     return {
@@ -62,7 +74,8 @@ module.exports = {
         close();
         setTab();
       },
-      chapters: chapters
+      chapters: chapters,
+      startTour: startTour
     }
   },
   view: function(ctrl) {
@@ -80,7 +93,13 @@ module.exports = {
     return dialog.form({
       onClose: ctrl.close,
       content: [
-        activeTab === 'edit' ? null : m('h2', 'New chapter'),
+        activeTab === 'edit' ? null : m('h2', [
+          'New chapter',
+          m('i.help', {
+            'data-icon': '',
+            onclick: ctrl.startTour
+          })
+        ]),
         m('form.material.form', {
           onsubmit: function(e) {
             ctrl.submit({
