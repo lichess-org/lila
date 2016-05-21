@@ -3,6 +3,7 @@ var storedProp = require('../util').storedProp;
 var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 var dialog = require('./dialog');
+var tours = require('./studyTour');
 
 var concealChoices = [
   ['', "Reveal all moves at once"],
@@ -37,21 +38,10 @@ module.exports = {
       vm.open = true;
       loadVariants();
       vm.initial(false);
-      if (lichess.once('insight-tour-chapter')) startTour();
+      if (lichess.once('insight-tour-chapter')) tours.chapter(vm.tab);
     };
     var close = function() {
       vm.open = false;
-    };
-
-    var startTour = function() {
-      lichess.loadScript('/assets/javascripts/study/tour-chapter.js').then(function() {
-        lichess.studyTourChapter({
-          setTab: function(tab) {
-            vm.tab(tab);
-            m.redraw();
-          }
-        });
-      });
     };
 
     return {
@@ -75,7 +65,7 @@ module.exports = {
         setTab();
       },
       chapters: chapters,
-      startTour: startTour
+      startTour: partial(tours.chapter, vm.tab)
     }
   },
   view: function(ctrl) {

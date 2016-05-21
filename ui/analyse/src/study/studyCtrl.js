@@ -8,7 +8,7 @@ var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
 var notifCtrl = require('./notif').ctrl;
-var tour = require('./studyTour');
+var tours = require('./studyTour');
 var xhr = require('./studyXhr');
 var concealFeedback = require('./concealFeedback');
 
@@ -29,15 +29,18 @@ module.exports = {
       chapterId: null // only useful when not synchronized
     };
 
+    var notif = notifCtrl();
     var form = studyFormCtrl(function(data, isNew) {
       send("editStudy", data);
       if (isNew) chapters.newForm.openInitial();
     }, function() {
       return data;
     });
-    var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'));
+    var startTour = function() {
+      tours.study(ctrl.userId, vm.tab)
+    };
+    var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'), startTour, notif);
     var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), ctrl);
-    var notif = notifCtrl();
 
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;
@@ -114,7 +117,7 @@ module.exports = {
       members.setActive(userId);
       if (vm.behind !== false && vm.behind < 99) {
         vm.behind++;
-        if (vm.behind === 1) tour.offline();
+        if (vm.behind === 1 && lichess.once('study-offline')) tours.offline();
       }
     };
 
@@ -124,20 +127,8 @@ module.exports = {
       }));
     });
 
-    var startTour = function() {
-      lichess.loadScript('/assets/javascripts/study/tour.js').then(function() {
-        lichess.studyTour({
-          userId: ctrl.userId,
-          setTab: function(tab) {
-            vm.tab(tab);
-            m.redraw();
-          }
-        });
-      });
-    };
-
     if (members.canContribute()) {
-      if (lichess.once('insight-tour')) startTour();
+      if (lichess.once('study-tour')) startTour();
       else form.openIfNew();
     }
 

@@ -1,7 +1,6 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var inviteFormCtrl = require('./inviteForm').ctrl;
-var tours = require('./studyTour');
 var partial = require('chessground').util.partial;
 
 function memberActivity(onIdle) {
@@ -15,7 +14,7 @@ function memberActivity(onIdle) {
 };
 
 module.exports = {
-  ctrl: function(initDict, myId, ownerId, send, setTab) {
+  ctrl: function(initDict, myId, ownerId, send, setTab, startTour, notif) {
 
     var dict = m.prop(initDict);
     var confing = m.prop(null); // which user is being configured by us
@@ -60,8 +59,16 @@ module.exports = {
         var wasViewer = myMember() && !canContribute();
         var wasContrib = myMember() && canContribute();
         dict(members);
-        if (wasViewer && canContribute()) tours.becomeContributor();
-        else if (wasContrib && !canContribute()) tours.becomeViewer();
+        if (wasViewer && canContribute()) {
+          if (lichess.once('study-tour')) startTour();
+          notif.set({
+            text: 'You are now a contributor',
+            duration: 3000
+          });
+        } else if (wasContrib && !canContribute()) notif.set({
+          text: 'You are now a spectator',
+          duration: 3000
+        });
       },
       setActive: setActive,
       isActive: function(id) {

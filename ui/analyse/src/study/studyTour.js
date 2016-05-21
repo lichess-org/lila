@@ -1,32 +1,45 @@
-function standardTour(id, title, content) {
-  lichess.hopscotch(function() {
-    hopscotch.configure({
-      i18n: {
-        doneBtn: 'OK, got it'
-      }
-    }).startTour({
-      id: 'study-' + id,
-      showPrevButton: true,
-      steps: [{
-        title: title,
-        content: content,
-        target: "study-sync",
-        placement: "top",
-        yOffset: -10
-      }]
-    });
-  });
-}
+var m = require('mithril');
 
 module.exports = {
-  offline: function(ctrl) {
-    if (lichess.once('study-offline'))
-      standardTour('offline', "Offline mode", 'Your board is now longer shared!<br>Click this button to reconnect.');
+  study: function(userId, setTab) {
+    lichess.loadScript('/assets/javascripts/study/tour.js').then(function() {
+      lichess.studyTour({
+        userId: userId,
+        setTab: function(tab) {
+          setTab(tab);
+          m.redraw();
+        }
+      });
+    });
   },
-  becomeContributor: function(ctrl) {
-    standardTour('contributor', "You are now a contributor", 'The changes you make are now visible by other members of this study.');
+  chapter: function(setTab) {
+    lichess.loadScript('/assets/javascripts/study/tour-chapter.js').then(function() {
+      lichess.studyTourChapter({
+        setTab: function(tab) {
+          setTab(tab);
+          m.redraw();
+        }
+      });
+    });
   },
-  becomeViewer: function(ctrl) {
-    standardTour('viewer', "You are now a viewer", 'The changes you make are no longer visible by other members of this study.');
+  offline: function() {
+    lichess.shepherd(function(theme) {
+      var tour = new Shepherd.Tour({
+        defaults: {
+          classes: theme,
+          scrollTo: true
+        }
+      });
+      tour.addStep('off', {
+        title: 'Offline mode',
+        text: 'Your board is now longer shared!<br>Click this button to reconnect.',
+        attachTo: '#study-sync top',
+        buttons: [{
+          text: 'OK',
+          action: tour.next
+        }],
+      });
+      tour.start();
+    });
   }
 };

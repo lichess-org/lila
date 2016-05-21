@@ -29,7 +29,7 @@ lichess.studyTour = function(study) {
       attachTo: "#lichess .analyse .replay left"
     }, {
       title: "Study members",
-      text: "<i data-icon='v'></i> Viewers can spectate the study and talk in the chat.<br>" +
+      text: "<i data-icon='v'></i> Spectators can view the study and talk in the chat.<br>" +
         "<br><i data-icon=''></i> Contributors can make moves and update the study.",
       attachTo: "#site_header .study_box right",
       when: onTab('members')
@@ -69,6 +69,10 @@ lichess.studyTour = function(study) {
       title: "Thanks for your time",
       text: "You can find your <a href='/@/" + study.userId + "/study'>previous studies</a> from your profile page.<br>" +
         "Have fun!",
+      buttons: [{
+        text: 'Done',
+        action: tour.next
+      }],
       attachTo: "#lichess .analyse .help top"
     }].forEach(function(s) {
       tour.addStep(s.title, s);
