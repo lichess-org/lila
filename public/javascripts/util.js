@@ -106,6 +106,7 @@ lichess.slider = function() {
 lichess.shepherd = function(f) {
   var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
   lichess.loadCss('/assets/vendor/shepherd/dist/css/' + theme + '.css');
+  lichess.loadCss('/assets/stylesheets/shepherd.css');
   lichess.loadScript("/assets/vendor/shepherd/dist/js/tether.js").done(function() {
     lichess.loadScript("/assets/vendor/shepherd/dist/js/shepherd.min.js").done(function() {
       f(theme);

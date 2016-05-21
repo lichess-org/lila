@@ -2499,9 +2499,6 @@ input.cmn-toggle-round:checked + label:after {
 .hopscotch-content a {
   text-decoration: underline;
 }
-.shepherd-step {
-  z-index: 5011;
-}
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   background: #eee;
