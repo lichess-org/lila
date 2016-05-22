@@ -91,7 +91,7 @@ module.exports = {
             onclick: ctrl.startTour
           })
         ]),
-        m('form.material.form', {
+        m('form.chapter_form.material.form', {
           onsubmit: function(e) {
             ctrl.submit({
               name: fieldValue(e, 'name'),

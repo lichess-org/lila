@@ -61,10 +61,10 @@ body:not(.dark) .material.form .study_tabs a {
   bottom: -15px;
   left: 99px;
 }
-.material.form textarea {
-  height: 80px;
-  line-height: 1.2em!important;
-  font-size: 0.8em!important;
+form.chapter_form.material.form .form-group textarea {
+  height: 100px;
+  line-height: 1.2em;
+  font-size: 0.9em;
 }
 div.underboard {
   margin-top: 20px;
@@ -110,8 +110,10 @@ div.underboard .notif.error {
   width: 100%;
   margin-bottom: 15px!important;
 }
-.study_comment_form form textarea {
-  font-size: 1.2em!important;
+.study_comment_form form.material.form textarea {
+  height: 80px;
+  font-size: 1.2em;
+  line-height: 1.3em;
 }
 .study_comments {
   text-align: left;
