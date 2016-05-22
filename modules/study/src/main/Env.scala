@@ -38,6 +38,7 @@ final class Env(
       def mkActor(studyId: String) = new Socket(
         studyId = studyId,
         jsonView = jsonView,
+        studyRepo = studyRepo,
         lightUser = getLightUser,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         destCache = destCache,

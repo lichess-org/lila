@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
+import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
@@ -16,6 +17,7 @@ import lila.user.User
 private final class Socket(
     studyId: String,
     jsonView: JsonView,
+    studyRepo: StudyRepo,
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     destCache: LoadingCache[AnaDests.Ref, AnaDests],
@@ -133,13 +135,46 @@ private final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      notifyAll("crowd", showSpectators(lightUser)(members.values))
+      val json =
+        if (members.size <= maxSpectatorUsers) fuccess(showSpectators(lightUser)(members.values))
+        else studyRepo.uids(studyId) map { memberIds =>
+          showSpectatorsAndMembers(lightUser)(memberIds, members.values)
+        }
+      json foreach { notifyAll("crowd", _) }
   }
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
+    }
+  }
+
+  override val maxSpectatorUsers = 15
+
+  // always show study members
+  // since that's how the client knows if they're online
+  def showSpectatorsAndMembers(lightUser: String => Option[LightUser])(memberIds: Set[User.ID], watchers: Iterable[Member]): JsValue = {
+
+    val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
+      case ((total, anons, userIds), member) => member.userId match {
+        case Some(userId) if !userIds(userId) && (memberIds(userId) || userIds.size < maxSpectatorUsers) => (total + 1, anons, userIds + userId)
+        case Some(_) => (total + 1, anons, userIds)
+        case _ => (total + 1, anons + 1, userIds)
+      }
+    }
+
+    if (total == 0) JsNull
+    else {
+      val selectedUids =
+        if (userIds.size >= maxSpectatorUsers) userIds.partition(memberIds.contains) match {
+          case (members, others) => members ++ others.take(maxSpectatorUsers - members.size)
+        }
+        else userIds
+      Json.obj(
+        "nb" -> total,
+        "users" -> selectedUids.flatMap { lightUser(_) }.map(_.titleName),
+        "anons" -> anons)
     }
   }
 

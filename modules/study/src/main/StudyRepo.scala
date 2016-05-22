@@ -60,4 +60,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       $id(study.id),
       $set(s"members.$userId.role" -> role)
     ).void
+
+  def uids(studyId: Study.ID): Fu[Set[User.ID]] =
+    coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
 }

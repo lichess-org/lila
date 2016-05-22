@@ -70,6 +70,11 @@ module.exports = {
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');
   },
+  titleNameToId: function(titleName) {
+    var split = titleName.split(' ');
+    var name = split.length == 1 ? split[0] : split[1];
+    return name.toLowerCase();
+  },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js
    *

@@ -329,7 +329,7 @@ module.exports = {
         following_leaves: members.inviteForm.delFollowing,
         following_enters: members.inviteForm.addFollowing,
         crowd: function(d) {
-          members.inviteForm.setSpectators(d.users);
+          members.setSpectators(d.users);
         }
       }
     };

@@ -1,5 +1,6 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
+var titleNameToId = require('../util').titleNameToId;
 var inviteFormCtrl = require('./inviteForm').ctrl;
 var partial = require('chessground').util.partial;
 
@@ -19,6 +20,7 @@ module.exports = {
     var dict = m.prop(initDict);
     var confing = m.prop(null); // which user is being configured by us
     var active = {}; // recently active contributors
+    var online = {}; // userId -> bool
 
     var owner = function() {
       return dict()[ownerId];
@@ -99,6 +101,19 @@ module.exports = {
           return a.addedAt > b.addedAt;
         });
       },
+      setSpectators: function(usernames) {
+        this.inviteForm.setSpectators(usernames);
+        online = {};
+        var members = dict();
+        usernames.map(titleNameToId).forEach(function(id) {
+          if (members[id]) online[id] = true;
+        });
+        m.redraw();
+      },
+      isOnline: function(userId) {
+        return online[userId];
+      },
+      titleNameToId: titleNameToId
     };
   },
   view: function(ctrl) {
@@ -116,6 +131,7 @@ module.exports = {
         class: classSet({
           contrib: contrib,
           active: ctrl.members.isActive(member.user.id),
+          online: ctrl.members.isOnline(member.user.id),
           status: true
         }),
         title: contrib ? 'Contributor' : 'Viewer',

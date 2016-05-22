@@ -198,14 +198,22 @@ div.underboard .notif.error {
 .study_box .list > div:hover .action i {
   opacity: 1;
 }
-.study_box .members .status.contrib i {
+.study_box .members .status i {
+  opacity: 0.5;
+  transition: 2.5s;
+}
+.study_box .members .contrib i {
   opacity: 0.7;
 }
 .study_box .members .status {
-  transition: 3s;
+  transition: 2.5s;
 }
-.study_box .members .status i {
-  transition: 3s;
+.study_box .members .online i {
+  opacity: 0.8;
+  color: #759900;
+}
+.study_box .members .online.contrib i {
+  opacity: 1;
 }
 .study_box .members .status.active {
   transition: none;

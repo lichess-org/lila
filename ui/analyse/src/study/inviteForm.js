@@ -1,13 +1,8 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var objectValues = require('../util').objectValues;
+var titleNameToId = require('../util').titleNameToId;
 var dialog = require('./dialog');
-
-function titleNameToId(titleName) {
-  var split = titleName.split(' ');
-  var name = split.length == 1 ? split[0] : split[1];
-  return name.toLowerCase();
-}
 
 module.exports = {
   ctrl: function(send, members, setTab) {
@@ -34,7 +29,6 @@ module.exports = {
       members: members,
       setSpectators: function(usernames) {
         spectators = usernames;
-        if (open()) m.redraw();
       },
       setFollowings: function(usernames) {
         updateFollowings(function(prevs) {
