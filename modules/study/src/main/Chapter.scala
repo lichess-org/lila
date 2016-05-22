@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.Color
+import chess.format.FEN
 import chess.format.pgn.{ Glyph, Tag }
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -64,7 +65,8 @@ object Chapter {
     gameId: Option[String],
     variant: Variant,
     orientation: Color,
-    fromPgn: Option[FromPgn] = None)
+    fromPgn: Option[FromPgn] = None,
+    fromFen: Option[FEN] = None)
 
   case class FromPgn(tags: List[Tag])
 

@@ -40,30 +40,37 @@ private final class ChapterMaker(domain: String, importer: Importer) {
 
   private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int, userId: User.ID): Option[Chapter] = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
-    val root = data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
+    (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
     } match {
-      case Some(sit) => Node.Root(
-        ply = sit.turns,
-        fen = FEN(Forsyth.>>(sit)),
-        check = sit.situation.check,
-        crazyData = sit.situation.board.crazyData,
-        children = Node.emptyChildren)
+      case Some(sit) =>
+        val fen = FEN(Forsyth.>>(sit))
+        Node.Root(
+          ply = sit.turns,
+          fen = fen,
+          check = sit.situation.check,
+          crazyData = sit.situation.board.crazyData,
+          children = Node.emptyChildren) -> fen.some
       case None => Node.Root(
         ply = 0,
         fen = FEN(variant.initialFen),
         check = false,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-        children = Node.emptyChildren)
+        children = Node.emptyChildren) -> none
+    }) match {
+      case (root, fenOption) => Chapter.make(
+        studyId = study.id,
+        name = data.name,
+        setup = Chapter.Setup(
+          none,
+          variant,
+          orientation,
+          fromFen = fenOption),
+        root = root,
+        order = order,
+        ownerId = userId,
+        conceal = None).some
     }
-    Chapter.make(
-      studyId = study.id,
-      name = data.name,
-      setup = Chapter.Setup(none, variant, orientation),
-      root = root,
-      order = order,
-      ownerId = userId,
-      conceal = None).some
   }
 
   private def fromPov(study: Study, pov: Pov, data: Data, order: Int, userId: User.ID, initialFen: Option[FEN] = None): Fu[Option[Chapter]] =

@@ -134,10 +134,6 @@ object JsonView {
       }
     }.fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
-
-  private implicit val fenWrites = Writes[chess.format.FEN] { f =>
-    JsString(f.value)
-  }
   private implicit val plyWrites = Writes[Chapter.Ply] { p =>
     JsNumber(p.value)
   }
