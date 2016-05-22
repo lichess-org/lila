@@ -24,6 +24,6 @@ hs_*.log
 RUNNING_PID
 
 # Eclipse auto-generated files
-modules/*/.classpath
-modules/*/.project
-modules/*/.settings/
+/modules/*/.classpath
+/modules/*/.project
+/modules/*/.settings/
