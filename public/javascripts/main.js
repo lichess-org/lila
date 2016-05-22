@@ -1144,13 +1144,14 @@ lichess.challengeApp = (function() {
         });
         var $form = self.element.find('form');
         var $input = self.element.find('input.lichess_say')
-          .prop('disabled', !self.options.writeable)
           .focus(function() {
             document.body.classList.add('typing');
             warning();
           }).blur(function() {
             document.body.classList.remove('typing');
           });
+        self.options.placeholder = $input.attr('placeholder');
+        self.writeable(self.options.writeable);
 
         var warning = function() {
           if (lichess.once('chat-nice-notice')) $input.powerTip({
@@ -1244,7 +1245,9 @@ lichess.challengeApp = (function() {
     },
     writeable: function(v) {
       this.options.writeable = v;
-      this.element.find('input.lichess_say').prop('disabled', !v);
+      this.element.find('input.lichess_say')
+        .prop('disabled', !v)
+        .prop('placeholder', v ? this.options.placeholder : 'Invited members only');
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));

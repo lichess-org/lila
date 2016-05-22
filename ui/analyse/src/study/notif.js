@@ -6,7 +6,6 @@ module.exports = {
     var timeout = null;
 
     var set = function(opts) {
-      console.log(opts, 'set notif');
       clearTimeout(timeout);
       current = opts;
       timeout = setTimeout(function() {
