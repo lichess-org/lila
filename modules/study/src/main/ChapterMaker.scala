@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.Color
+import chess.format.pgn.Tag
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.game.{ Game, Pov, GameRepo, Namer }
@@ -29,7 +30,11 @@ private final class ChapterMaker(
     PgnImport(pgn).future map { res =>
       Chapter.make(
         studyId = study.id,
-        name = data.name,
+        name = (for {
+          white <- Tag.find(res.tags, "White")
+          black <- Tag.find(res.tags, "Black")
+          if Chapter isDefaultName data.name
+        } yield s"$white vs $black") | data.name,
         setup = Chapter.Setup(
           none,
           res.variant,
