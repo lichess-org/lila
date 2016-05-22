@@ -16,15 +16,15 @@ final class PgnDump(
 
   def apply(study: Study): Fu[List[Pgn]] =
     chapterRepo.orderedByStudy(study.id) flatMap { chapters =>
-      chapters.map { apply(study, _) }.sequenceFu
+      chapters.map { ofChapter(study, _) }.sequenceFu
     }
 
-  def apply(study: Study, chapter: Chapter): Fu[Pgn] =
-    (chapter.setup.gameId ?? GameRepo.gameWithInitialFen) map {
-      case Some((game, initialFen)) => gamePgnDump(game, initialFen.map(_.value))
-      case None => Pgn(
-        tags(study, chapter),
-        toTurns(chapter.root, chapter.root.mainline))
+  def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
+    (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
+      case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
+      case None                     => tags(study, chapter)
+    }.map { tags =>
+      Pgn(tags, toTurns(chapter.root, chapter.root.mainline))
     }
 
   private val fileR = """[\s,]""".r
@@ -43,7 +43,7 @@ final class PgnDump(
   private def tags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
     List(
-      Tag(_.Event, s"${study.name} | ${chapter.name}"),
+      Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
       // Tag(_.White, "?"),
