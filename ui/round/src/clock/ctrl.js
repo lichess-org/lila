@@ -7,7 +7,7 @@ module.exports = function(data, onFlag, soundColor) {
   var emergSound = {
     play: $.sound.lowtime,
     last: null,
-    delay: 5000,
+    delay: 20000,
     playable: {
       white: true,
       black: true
