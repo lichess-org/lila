@@ -15,6 +15,9 @@
       <a href="@routes.Puzzle.home">@trans.training()</a>
       <a href="@routes.Opening.home">@trans.openings()</a>
       <a href="@routes.Coordinate.home">@trans.coordinates()</a>
+      @ctx.me.ifTrue(isGranted(_.Beta)).map { me =>
+      <a href="@routes.Study.byOwner(me.username)">Study [beta]</a>
+      }
     </div>
   </section>
   <section>
