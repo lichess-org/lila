@@ -49,6 +49,7 @@ body:not(.dark) .material.form .study_tabs a {
   font-size: 17px;
   cursor: pointer;
   opacity: 0.4;
+  transition: 0.13s;
 }
 .study_box:hover .add {
   color: #759900;
@@ -56,6 +57,9 @@ body:not(.dark) .material.form .study_tabs a {
 }
 .study_box .add:hover {
   opacity: 1;
+  font-size: 23px;
+  bottom: -15px;
+  left: 99px;
 }
 .material.form textarea {
   height: 80px;
