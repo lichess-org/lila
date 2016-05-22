@@ -6,6 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
+import lila.common.HTTPRequest
 import lila.app._
 import views._
 
@@ -52,7 +53,7 @@ object Study extends LilaController {
     OptionFuResult(query) {
       case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
-          env.studyRepo.incViews(study)
+          if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
           val setup = chapter.setup
           val initialFen = chapter.root.fen
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
