@@ -13,6 +13,7 @@ case class Study(
     visibility: Study.Visibility,
     settings: Settings,
     views: Study.Views,
+    from: Study.From,
     createdAt: DateTime) {
 
   import Study._
@@ -47,6 +48,12 @@ object Study {
     val byKey = List(Private, Public).map { v => v.key -> v }.toMap
   }
 
+  sealed trait From
+  object From {
+    case object Scratch extends From
+    case class Game(id: String) extends From
+  }
+
   case class Data(
       name: String,
       visibility: String,
@@ -68,7 +75,7 @@ object Study {
 
   val idSize = 8
 
-  def make(user: User) = {
+  def make(user: User, from: From) = {
     val owner = StudyMember(
       id = user.id,
       role = StudyMember.Role.Write,
@@ -82,6 +89,7 @@ object Study {
       visibility = Visibility.Public,
       settings = Settings.init,
       views = Views(1),
+      from = from,
       createdAt = DateTime.now)
   }
 }

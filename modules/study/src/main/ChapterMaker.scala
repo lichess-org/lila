@@ -97,7 +97,7 @@ private final class ChapterMaker(
         conceal = data.conceal option Chapter.Ply(root.ply)).some
     }
 
-  private def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
+  def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
     initialFen.fold(GameRepo.initialFen(game)) { fen =>
       fuccess(fen.value.some)
     } map { initialFen =>

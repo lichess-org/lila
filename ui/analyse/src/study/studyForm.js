@@ -33,7 +33,8 @@ module.exports = {
     var initAt = new Date();
 
     function isNew() {
-      return getData().isNew && new Date() - initAt < 5000;
+      var d = getData();
+      return d.from === 'scratch' && d.isNew && new Date() - initAt < 5000;
     }
 
     var open = m.prop(false);

@@ -6,8 +6,8 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.common.HTTPRequest
 import lila.app._
+import lila.common.HTTPRequest
 import views._
 
 object Study extends LilaController {
@@ -97,9 +97,12 @@ object Study extends LilaController {
 
   def create = AuthBody { implicit ctx =>
     me =>
-      env.api.create(me) map { sc =>
-        Redirect(routes.Study.show(sc.study.id))
-      }
+      implicit val req = ctx.body
+      lila.study.DataForm.form.bindFromRequest.fold(
+        err => Redirect(routes.Study.byOwner(me.username)).fuccess,
+        data => env.api.create(data, me) map { sc =>
+          Redirect(routes.Study.show(sc.study.id))
+        })
   }
 
   def delete(id: String) = Auth { implicit ctx =>

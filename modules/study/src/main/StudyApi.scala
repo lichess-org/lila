@@ -16,6 +16,7 @@ final class StudyApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     sequencers: ActorRef,
+    studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
     lightUser: lila.common.LightUser.Getter,
@@ -40,23 +41,10 @@ final class StudyApi(
     }
   }
 
-  def create(user: User): Fu[Study.WithChapter] = {
-    val preStudy = Study.make(user)
-    val chapter: Chapter = Chapter.make(
-      studyId = preStudy.id,
-      name = "Chapter 1",
-      setup = Chapter.Setup(
-        gameId = none,
-        variant = chess.variant.Standard,
-        orientation = chess.White),
-      root = Node.Root.default(chess.variant.Standard),
-      order = 1,
-      ownerId = user.id,
-      conceal = None)
-    val study = preStudy withChapter chapter
-    studyRepo.insert(study) zip chapterRepo.insert(chapter) inject
-      Study.WithChapter(study, chapter)
-  }
+  def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
+    studyMaker(data, user) flatMap { res =>
+      studyRepo.insert(res.study) zip chapterRepo.insert(res.chapter) inject res
+    }
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>

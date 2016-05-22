@@ -66,11 +66,16 @@ final class Env(
     lightUser = getLightUser,
     domain = NetDomain)
 
+  private lazy val studyMaker = new StudyMaker(
+    lightUser = getLightUser,
+    chapterMaker = chapterMaker)
+
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
     chapterMaker = chapterMaker,
+    studyMaker = studyMaker,
     notifier = new StudyNotifier(
       messageActor = hub.actor.messenger,
       netBaseUrl = NetBaseUrl),

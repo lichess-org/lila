@@ -231,6 +231,18 @@ private object BSONHandlers {
     def read(bs: BSONString) = Visibility.byKey get bs.value err s"Invalid visibility ${bs.value}"
     def write(x: Visibility) = BSONString(x.key)
   }
+  import Study.From
+  private[study] implicit val FromHandler: BSONHandler[BSONString, From] = new BSONHandler[BSONString, From] {
+    def read(bs: BSONString) = bs.value.split(' ') match {
+      case Array("scratch")  => From.Scratch
+      case Array("game", id) => From.Game(id)
+      case _                 => sys error s"Invalid from ${bs.value}"
+    }
+    def write(x: From) = BSONString(x match {
+      case From.Scratch  => "scratch"
+      case From.Game(id) => s"game $id"
+    })
+  }
   import Settings.UserSelection
   private[study] implicit val UserSelectionHandler: BSONHandler[BSONString, UserSelection] = new BSONHandler[BSONString, UserSelection] {
     def read(bs: BSONString) = UserSelection.byKey get bs.value err s"Invalid user selection ${bs.value}"
