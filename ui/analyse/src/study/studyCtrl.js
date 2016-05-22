@@ -37,7 +37,7 @@ module.exports = {
       return data;
     });
     var startTour = function() {
-      tours.study(ctrl.userId, vm.tab)
+      tours.study(ctrl);
     };
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'), startTour, notif);
     var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), ctrl);

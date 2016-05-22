@@ -1,12 +1,13 @@
 var m = require('mithril');
 
 module.exports = {
-  study: function(userId, setTab) {
+  study: function(ctrl) {
     lichess.loadScript('/assets/javascripts/study/tour.js').then(function() {
       lichess.studyTour({
-        userId: userId,
+        userId: ctrl.userId,
+        isContrib: ctrl.study.members.canContribute(),
         setTab: function(tab) {
-          setTab(tab);
+          ctrl.study.vm.tab(tab);
           m.redraw();
         }
       });
