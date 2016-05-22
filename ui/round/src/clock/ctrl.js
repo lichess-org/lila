@@ -44,7 +44,7 @@ module.exports = function(data, onFlag, soundColor) {
         emergSound.last = new Date();
         emergSound.playable[soundColor] = false;
       }
-    } else if (soundColor == color && this.data[soundColor] > 2 * this.data.emerg && !emergSound.playable[soundColor]) {
+    } else if (soundColor == color && this.data[soundColor] > 1.5 * this.data.emerg && !emergSound.playable[soundColor]) {
       emergSound.playable[soundColor] = true;
     }
   }.bind(this);
