@@ -3,11 +3,14 @@ package lila.study
 import chess.Color
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, Pov, GameRepo, Namer }
 import lila.importer.{ Importer, ImportData }
 import lila.user.User
 
-private final class ChapterMaker(domain: String, importer: Importer) {
+private final class ChapterMaker(
+    domain: String,
+    lightUser: lila.common.LightUser.Getter,
+    importer: Importer) {
 
   import ChapterMaker._
 
@@ -75,7 +78,10 @@ private final class ChapterMaker(domain: String, importer: Importer) {
     game2root(pov.game, initialFen) map { root =>
       Chapter.make(
         studyId = study.id,
-        name = data.name,
+        name =
+          if (Chapter isDefaultName data.name)
+            Namer.gameVsText(pov.game, withRatings = false)(lightUser)
+          else data.name,
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,
           pov.game.variant,

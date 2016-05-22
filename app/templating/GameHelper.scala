@@ -95,11 +95,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     Namer.player(player, withRating, withTitle)(lightUser)
 
   def playerText(player: Player, withRating: Boolean = false) =
-    player.aiLevel.fold(
-      player.userId.flatMap(lightUser).fold(player.name | "Anon.") { u =>
-        player.rating.ifTrue(withRating).fold(u.titleName) { r => s"${u.titleName} ($r)" }
-      }
-    ) { level => s"A.I. level $level" }
+    Namer.playerText(player, withRating)(lightUser)
+
+  def gameVsText(game: Game, withRatings: Boolean = false): String =
+    Namer.gameVsText(game, withRatings)(lightUser)
 
   val berserkIconSpan = """<span data-icon="`"></span>"""
   val berserkIconSpanHtml = Html(berserkIconSpan)

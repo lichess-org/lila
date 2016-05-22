@@ -61,13 +61,16 @@ final class Env(
 
   lazy val jsonView = new JsonView(getLightUser, gamePgnDump)
 
+  private lazy val chapterMaker = new ChapterMaker(
+    importer = importer,
+    lightUser = getLightUser,
+    domain = NetDomain)
+
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
-    chapterMaker = new ChapterMaker(
-      importer = importer,
-      domain = NetDomain),
+    chapterMaker = chapterMaker,
     notifier = new StudyNotifier(
       messageActor = hub.actor.messenger,
       netBaseUrl = NetBaseUrl),

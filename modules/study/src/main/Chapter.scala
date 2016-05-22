@@ -82,6 +82,9 @@ object Chapter {
     def compare(that: Ply) = value - that.value
   }
 
+  private val defaultNamePattern = """^Chapter \d+$""".r.pattern
+  def isDefaultName(str: String) = defaultNamePattern.matcher(str).matches
+
   def toName(str: String) = str.trim take 80
 
   val idSize = 8
