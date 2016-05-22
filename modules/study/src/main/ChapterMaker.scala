@@ -43,29 +43,27 @@ private final class ChapterMaker(domain: String, importer: Importer) {
     (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
     } match {
-      case Some(sit) =>
-        val fen = FEN(Forsyth.>>(sit))
-        Node.Root(
-          ply = sit.turns,
-          fen = fen,
-          check = sit.situation.check,
-          crazyData = sit.situation.board.crazyData,
-          children = Node.emptyChildren) -> fen.some
+      case Some(sit) => Node.Root(
+        ply = sit.turns,
+        fen = FEN(Forsyth.>>(sit)),
+        check = sit.situation.check,
+        crazyData = sit.situation.board.crazyData,
+        children = Node.emptyChildren) -> true
       case None => Node.Root(
         ply = 0,
         fen = FEN(variant.initialFen),
         check = false,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-        children = Node.emptyChildren) -> none
+        children = Node.emptyChildren) -> false
     }) match {
-      case (root, fenOption) => Chapter.make(
+      case (root, isFromFen) => Chapter.make(
         studyId = study.id,
         name = data.name,
         setup = Chapter.Setup(
           none,
           variant,
           orientation,
-          fromFen = fenOption),
+          fromFen = isFromFen option true),
         root = root,
         order = order,
         ownerId = userId,

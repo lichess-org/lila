@@ -62,11 +62,13 @@ object Chapter {
   }
 
   case class Setup(
-    gameId: Option[String],
-    variant: Variant,
-    orientation: Color,
-    fromPgn: Option[FromPgn] = None,
-    fromFen: Option[FEN] = None)
+      gameId: Option[String],
+      variant: Variant,
+      orientation: Color,
+      fromPgn: Option[FromPgn] = None,
+      fromFen: Option[Boolean] = None) {
+    def isFromFen = ~fromFen
+  }
 
   case class FromPgn(tags: List[Tag])
 
