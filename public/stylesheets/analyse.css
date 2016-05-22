@@ -527,6 +527,15 @@ body.dark .explorer_box .black {
 .lichess_ground .action_menu .button::before {
   font-size: 2em;
 }
+.lichess_ground .action_menu .autoplay {
+  margin-top: -15px;
+  display: flex;
+}
+.lichess_ground .action_menu .autoplay .button {
+  flex: 1 1 auto;
+  text-align: center;
+  line-height: 24px;
+}
 .lichess_ground .action_menu form.delete {
   margin-top: 2em;
   text-align: right;

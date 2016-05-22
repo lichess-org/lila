@@ -15,10 +15,6 @@ var allSpeeds = baseSpeeds.concat({
   delay: true
 });
 
-function speedsOf(data) {
-  return data.game.moveTimes.length ? allSpeeds : baseSpeeds;
-}
-
 function deleteButton(data, userId) {
   if (data.game.source === 'import' &&
     data.game.importedBy && data.game.importedBy === userId)
@@ -32,6 +28,19 @@ function deleteButton(data, userId) {
       type: 'submit',
       'data-icon': 'q',
     }, 'Delete'));
+}
+
+function autoplayButtons(ctrl) {
+  var d = ctrl.data;
+  var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
+  return m('div.autoplay', speeds.map(function(speed, i) {
+    var attrs = {
+      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+      onclick: partial(ctrl.togglePlay, speed.delay)
+    };
+    if (i === 0) attrs['data-icon'] = 'G';
+    return m('a', attrs, speed.name);
+  }));
 }
 
 module.exports = {
@@ -61,13 +70,7 @@ module.exports = {
           $.modal($('.continue_with.' + d.game.id));
         }
       }, ctrl.trans('continueFromHere')) : null,
-      ctrl.vm.mainline.length > 4 ?
-      speedsOf(d).map(function(speed) {
-        return m('a.button[data-icon=G]', {
-          class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-          onclick: partial(ctrl.togglePlay, speed.delay)
-        }, 'Auto play ' + speed.name);
-      }) : null, [
+      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null, [
         (function(id) {
           return m('div.setting', [
             m('div.switch', [
@@ -108,8 +111,7 @@ module.exports = {
               'for': id
             }, 'Computer gauge')
           ]);
-        })('analyse-toggle-gauge'),
-        (ctrl.study || ctrl.ongoing || !ctrl.canStudy) ? null : m('form', {
+        })('analyse-toggle-gauge'), (ctrl.study || ctrl.ongoing || !ctrl.canStudy) ? null : m('form', {
           method: 'post',
           action: '/study',
         }, m('button.button.text', {
