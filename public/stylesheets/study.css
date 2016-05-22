@@ -58,9 +58,9 @@ body:not(.dark) .material.form .study_tabs a {
   opacity: 1;
 }
 .material.form textarea {
-  height: 120px;
+  height: 80px;
   line-height: 1.4em!important;
-  font-size: 0.9em!important;
+  font-size: 1em!important;
 }
 div.underboard {
   margin-top: 20px;
@@ -376,7 +376,7 @@ div.underboard .notif.error {
   width: 20px;
   text-align: center;
   background: #ddd;
-  padding: 6px 10px;
+  padding: 3px 10px;
   margin-right: 6px;
   font-weight: bold;
   transition: 0.13s;
