@@ -508,3 +508,10 @@ form .editor a.button {
   font-size: 1.1em;
   opacity: 0.7;
 }
+.study_metadata .fen {
+  font-size: 0.8em;
+}
+div.undertable_inner {
+  height: auto;
+  max-height: 200px;
+}

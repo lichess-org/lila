@@ -79,19 +79,37 @@ function buttons(root) {
   ]);
 }
 
-function renderPgn(setup) {
-  var obj = setup.fromPgn || setup.game;
-  if (obj) return m('table.tags.slist', m('tbody', obj.tags.map(function(tag) {
+function renderTable(rows) {
+  return m('table.tags.slist', m('tbody', rows.map(function(r) {
     return m('tr', [
-      m('th', tag.name),
-      m('td', m.trust($.urlToLink(tag.value)))
+      m('th', r[0]),
+      m('td', r[1])
     ]);
   })));
 }
 
+function renderPgn(setup) {
+  var obj = setup.fromPgn || setup.game;
+  if (obj) return renderTable(obj.tags.map(function(tag) {
+    return [
+      tag.name,
+      tag.name.toLowerCase() === 'fen' ?
+      m('pre.fen', tag.value) :
+      m.trust($.urlToLink(tag.value))
+    ];
+  }));
+}
+
+function renderFen(setup, root) {
+  return renderTable([
+    ['Variant', setup.variant.name],
+    ['Fen', setup.fromFen ? m('pre.fen', root.fen) : 'start']
+  ]);
+}
+
 var lastMetaKey;
 
-function metadata(ctrl) {
+function metadata(ctrl, treeRoot) {
   var chapter = ctrl.currentChapter();
   if (!chapter) return;
   var cacheKey = [chapter.id, ctrl.data.name, chapter.name, ctrl.data.views].join('|');
@@ -99,6 +117,7 @@ function metadata(ctrl) {
     subtree: 'retain'
   };
   lastMetaKey = cacheKey;
+  var setup = ctrl.data.chapter.setup;
   return m('div.study_metadata.undertable', [
     m('h2.undertable_top', [
       m('span.name', {
@@ -107,7 +126,7 @@ function metadata(ctrl) {
       m('span.views', ctrl.data.views + ' views')
     ]),
     m('div.undertable_inner',
-      renderPgn(ctrl.data.chapter.setup)
+      renderPgn(setup) || renderFen(setup, treeRoot)
     )
   ]);
 }
@@ -179,7 +198,7 @@ module.exports = {
       currentCommentsView(ctrl, !commentForm),
       commentForm,
       buttons(ctrl),
-      metadata(ctrl.study),
+      metadata(ctrl.study, ctrl.tree.root),
       notifView(ctrl.study.notif)
     ];
   }

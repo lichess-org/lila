@@ -44,10 +44,9 @@ final class JsonView(
         )
       )
     }.chronometer
-    // .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
-    .result
-
+      // .mon(_.fishnet.acquire time client.skill.key)
+      .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
+      .result
 
   private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
     case (g, fen) => Json.obj(
@@ -138,7 +137,9 @@ object JsonView {
     JsNumber(p.value)
   }
 
-  private implicit val variantWrites = Writes[chess.variant.Variant] { v => JsString(v.key) }
+  private implicit val variantWrites = OWrites[chess.variant.Variant] { v =>
+    Json.obj("key" -> v.key, "name" -> v.name)
+  }
   private implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
     import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
     Json.obj(
