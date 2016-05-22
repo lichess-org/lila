@@ -154,7 +154,6 @@ object JsonView {
       o + ("conceal" -> JsNumber(conceal.value))
     }
   }
-  // private implicit val moveWrites: Writes[Uci.WithSan] = Json.writes[Uci.WithSan]
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
 }
