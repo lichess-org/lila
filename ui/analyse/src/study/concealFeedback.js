@@ -19,6 +19,7 @@ function nope(ctrl) {
 module.exports = function(ctrl, parentPath, node) {
   var conceal = ctrl.study.data.chapter.conceal;
   if (!conceal || node.ply < conceal) return;
+  if (ctrl.study.isChapterOwner()) return;
   if (!ctrl.tree.pathIsMainline(parentPath)) return;
   if (ctrl.tree.pathIsMainline(parentPath + node.id)) yep(ctrl);
   else nope(ctrl);
