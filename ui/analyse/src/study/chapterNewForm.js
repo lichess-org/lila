@@ -38,7 +38,8 @@ module.exports = {
       vm.open = true;
       loadVariants();
       vm.initial(false);
-      if (lichess.once('insight-tour-chapter')) tours.chapter(vm.tab);
+      if (lichess.once('insight-tour-chapter'))
+        setTimeout(partial(tours.chapter, vm.tab), 1000);
     };
     var close = function() {
       vm.open = false;
