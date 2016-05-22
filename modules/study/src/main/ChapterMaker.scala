@@ -18,7 +18,7 @@ private final class ChapterMaker(
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
     val orientation = Color(data.orientation) | chess.White
     data.game.??(parsePov) flatMap {
-      case None => data.pgn match {
+      case None => data.pgn.filter(_.trim.nonEmpty) match {
         case Some(pgn) => fromPgn(study, pgn, data, orientation, order, userId)
         case None      => fuccess(fromFenOrBlank(study, data, orientation, order, userId))
       }
