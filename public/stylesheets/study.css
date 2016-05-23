@@ -68,6 +68,7 @@ form.chapter_form.material.form .form-group textarea {
 }
 div.underboard {
   margin-top: 20px;
+  min-height: 370px;
 }
 .underboard_form .title {
   background: #e0e0e0;
