@@ -154,6 +154,7 @@ private[api] final class RoundApi(
         "id" -> data.tour.id,
         "name" -> data.tour.name,
         "running" -> data.tour.isStarted,
+        "secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish),
         "berserkable" -> data.tour.isStarted.option(data.tour.berserkable),
         "nbSecondsForFirstMove" -> data.tour.isStarted.option {
           SecondsToDoFirstMove.secondsToMoveFor(data.tour)
