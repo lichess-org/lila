@@ -9,7 +9,7 @@ import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Comment }
+import lila.socket.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -146,7 +146,7 @@ final class StudyApi(
     } >>- reloadMembers(study)
   }
 
-  def setShapes(userId: User.ID, studyId: Study.ID, position: Position.Ref, shapes: List[Shape], uid: Uid) = sequenceStudy(studyId) { study =>
+  def setShapes(userId: User.ID, studyId: Study.ID, position: Position.Ref, shapes: Shapes, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
       chapterRepo.byIdAndStudy(position.chapterId, study.id) flatMap {
         _ ?? { chapter =>

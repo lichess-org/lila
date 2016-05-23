@@ -5,14 +5,14 @@ import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
 import chess.variant.Crazyhouse
 
-import lila.socket.tree.Node.{ Shape, Comment, Comments }
+import lila.socket.tree.Node.{ Shape, Shapes, Comment, Comments }
 import lila.user.User
 
 sealed trait RootOrNode {
   val ply: Int
   val fen: FEN
   val check: Boolean
-  val shapes: List[Shape]
+  val shapes: Shapes
   val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
@@ -26,7 +26,7 @@ case class Node(
     move: Uci.WithSan,
     fen: FEN,
     check: Boolean,
-    shapes: List[Shape] = Nil,
+    shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
     crazyData: Option[Crazyhouse.Data],
@@ -85,7 +85,7 @@ object Node {
         }
     }
 
-    def setShapesAt(shapes: List[Shape], path: Path): Option[Children] = path.split match {
+    def setShapesAt(shapes: Shapes, path: Path): Option[Children] = path.split match {
       case None                    => none
       case Some((head, Path(Nil))) => updateWith(head, _.copy(shapes = shapes).some)
       case Some((head, tail))      => updateChildren(head, _.setShapesAt(shapes, tail))
@@ -130,7 +130,7 @@ object Node {
       ply: Int,
       fen: FEN,
       check: Boolean,
-      shapes: List[Shape] = Nil,
+      shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       glyphs: Glyphs = Glyphs.empty,
       crazyData: Option[Crazyhouse.Data],
@@ -146,7 +146,7 @@ object Node {
 
     def pathExists(path: Path): Boolean = nodeAt(path).isDefined
 
-    def setShapesAt(shapes: List[Shape], path: Path): Option[Root] =
+    def setShapesAt(shapes: Shapes, path: Path): Option[Root] =
       if (path.isEmpty) copy(shapes = shapes).some
       else withChildren(_.setShapesAt(shapes, path))
 

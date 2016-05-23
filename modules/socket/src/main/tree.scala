@@ -19,7 +19,7 @@ sealed trait Node {
   def dests: Option[Map[Pos, List[Pos]]]
   def drops: Option[List[Pos]]
   def eval: Option[Node.Eval]
-  def shapes: List[Node.Shape]
+  def shapes: Node.Shapes
   def comments: Node.Comments
   def glyphs: Glyphs
   def children: List[Branch]
@@ -47,7 +47,7 @@ case class Root(
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
-    shapes: List[Node.Shape] = Nil,
+    shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
@@ -72,7 +72,7 @@ case class Branch(
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
     eval: Option[Node.Eval] = None,
-    shapes: List[Node.Shape] = Nil,
+    shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
@@ -95,6 +95,10 @@ object Node {
     type Brush = String
     case class Circle(brush: Brush, orig: Pos) extends Shape
     case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
+  }
+  case class Shapes(value: List[Shape]) extends AnyVal {
+    def list = value
+    def ++(shapes: Shapes) = Shapes(value ::: shapes.value)
   }
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author)
@@ -132,6 +136,7 @@ object Node {
     def delete(commentId: Comment.Id) = Comments {
       value.filterNot(_.id == commentId)
     }
+    def +(comment: Comment) = Comments(comment :: value)
   }
 
   case class Eval(
@@ -173,6 +178,9 @@ object Node {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
   }
+  implicit val shapesWrites: Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
+    JsArray(s.list.map(shapeWrites.writes))
+  }
   implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
   implicit val glyphsWriter: Writes[Glyphs] = Writes[Glyphs] { gs =>
     Json.toJson(gs.toList)
@@ -205,7 +213,7 @@ object Node {
       add("eval", eval) _ compose
       add("comments", comments.list, comments.list.nonEmpty) _ compose
       add("glyphs", glyphs.nonEmpty) _ compose
-      add("shapes", shapes, shapes.nonEmpty) _ compose
+      add("shapes", shapes.list, shapes.list.nonEmpty) _ compose
       add("opening", opening) _ compose
       add("dests", dests.map {
         _.map {

@@ -11,7 +11,7 @@ import lila.common.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.socket.tree.Node.Shape
+import lila.socket.tree.Node.{ Shape, Shapes }
 
 private object BSONHandlers {
 
@@ -94,6 +94,9 @@ private object BSONHandlers {
   private def readComments(r: Reader) =
     Comments(r.getsD[Comment]("co").filter(_.text.value.nonEmpty))
 
+  private def readShapes(r: Reader) =
+    Shapes(r.getsD[Shape]("h"))
+
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.toList.flatMap(chess.Role.forsyth))
@@ -121,7 +124,7 @@ private object BSONHandlers {
       move = WithSan(r.get[Uci]("u"), r.str("s")),
       fen = r.get[FEN]("f"),
       check = r boolD "c",
-      shapes = r.getsD[Shape]("h"),
+      shapes = readShapes(r),
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
@@ -133,7 +136,7 @@ private object BSONHandlers {
       "s" -> s.move.san,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "h" -> w.listO(s.shapes),
+      "h" -> w.listO(s.shapes.list.distinct),
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
@@ -145,7 +148,7 @@ private object BSONHandlers {
       ply = r int "p",
       fen = r.get[FEN]("f"),
       check = r boolD "c",
-      shapes = r.getsD[Shape]("h"),
+      shapes = readShapes(r),
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
@@ -154,7 +157,7 @@ private object BSONHandlers {
       "p" -> s.ply,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "h" -> w.listO(s.shapes),
+      "h" -> w.listO(s.shapes.list.distinct),
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,

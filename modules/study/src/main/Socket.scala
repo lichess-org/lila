@@ -10,7 +10,7 @@ import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Comment }
+import lila.socket.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 
@@ -27,7 +27,7 @@ private final class Socket(
   import Socket._
   import JsonView._
   import jsonView.membersWrites
-  import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter }
+  import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -206,7 +206,7 @@ private object Socket {
   case class PromoteNode(position: Position.Ref, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
-  case class SetShapes(position: Position.Ref, shapes: List[Shape], uid: Uid)
+  case class SetShapes(position: Position.Ref, shapes: Shapes, uid: Uid)
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
