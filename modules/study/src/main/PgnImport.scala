@@ -16,29 +16,37 @@ private object PgnImport {
 
   def apply(pgn: String): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, result, initialFen, parsedPgn) => Result(
-        root = Node.Root(
-          ply = replay.setup.turns,
-          fen = initialFen | FEN(game.variant.initialFen),
-          check = replay.setup.situation.check,
-          shapes = Nil,
-          comments = Comments(Nil),
-          glyphs = Glyphs.empty,
-          crazyData = replay.setup.situation.board.crazyData,
-          children = makeNode(
-            prev = replay.setup,
-            sans = parsedPgn.sans,
-            annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
-          ).fold(
-              err => {
-                logger.warn(s"PgnImport $err")
-                Node.emptyChildren
-              },
-              node => Node.Children(node.toVector)
-            )),
-        variant = game.variant,
-        tags = PgnTags(parsedPgn.tags))
+      case Preprocessed(game, replay, result, initialFen, parsedPgn) =>
+        val annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
+        Result(
+          root = Node.Root(
+            ply = replay.setup.turns,
+            fen = initialFen | FEN(game.variant.initialFen),
+            check = replay.setup.situation.check,
+            shapes = Nil,
+            comments = makeComments(parsedPgn.initialPosition.comments, annotator),
+            glyphs = Glyphs.empty,
+            crazyData = replay.setup.situation.board.crazyData,
+            children = makeNode(
+              prev = replay.setup,
+              sans = parsedPgn.sans,
+              annotator = annotator
+            ).fold(
+                err => {
+                  logger.warn(s"PgnImport $err")
+                  Node.emptyChildren
+                },
+                node => Node.Children(node.toVector)
+              )),
+          variant = game.variant,
+          tags = PgnTags(parsedPgn.tags))
     }
+
+  private def makeComments(comments: List[String], annotator: Option[Comment.Author]) = Comments {
+    comments map { text =>
+      Comment(Comment.Id.make, Comment.Text(text), annotator | Comment.Author.Lichess)
+    }
+  }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Valid[Option[Node]] =
     sans match {
@@ -63,9 +71,7 @@ private object PgnImport {
             fen = FEN(Forsyth >> game),
             check = game.situation.check,
             shapes = Nil,
-            comments = Comments(san.metas.comments map { text =>
-              Comment(Comment.Id.make, Comment.Text(text), annotator | Comment.Author.Lichess)
-            }),
+            comments = makeComments(san.metas.comments, annotator),
             glyphs = san.metas.glyphs,
             crazyData = game.situation.board.crazyData,
             children = Node.Children {

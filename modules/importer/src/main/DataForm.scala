@@ -35,8 +35,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
   private val maxPlies = 600
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
-    case ParsedPgn(_, sans) if sans.size > maxPlies => !!("Replay is too long")
-    case parsed@ParsedPgn(tags, sans) => Reader.full(pgn) map {
+    case ParsedPgn(_, _, sans) if sans.size > maxPlies => !!("Replay is too long")
+    case parsed@ParsedPgn(_, tags, sans) => Reader.full(pgn) map {
       case replay@Replay(setup, _, game) =>
         def tag(which: Tag.type => TagType): Option[String] =
           tags find (_.name == which(Tag)) map (_.value)
