@@ -1914,6 +1914,25 @@ lichess.challengeApp = (function() {
       initialNote: data.note,
       gameId: data.game.id
     });
+    var analysisProgress = function($feedback, ratio) {
+      if (!$feedback.length) return;
+      var $bar = $feedback.find('.bar');
+      if ($bar.length) {
+        $bar.data('bar').animate(ratio);
+      } else {
+        $bar = $feedback.find('.spinner').html('').toggleClass('spinner bar');
+        lichess.loadScript('/assets/javascripts/vendor/progressbar.min.js').then(function() {
+          var bar = new ProgressBar.Circle($bar[0], {
+            color: '#759900',
+            trailColor: 'rgba(150, 150, 150, 0.2)',
+            strokeWidth: 11,
+            duration: 5000
+          });
+          bar.animate(ratio);
+          $bar.data('bar', bar);
+        });
+      }
+    };
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
     lichess.socket = lichess.StrongSocket(
@@ -1937,22 +1956,15 @@ lichess.challengeApp = (function() {
           analysisProgress: function(d) {
             var ratio = Math.min(1, d.ratio + 0.02);
             var $feedback = $('.future_game_analysis .feedback');
-            var $bar = $feedback.find('.bar');
-            if ($bar.length) {
-              $bar.data('bar').animate(ratio);
-            } else {
-              $bar = $feedback.find('.spinner').html('').toggleClass('spinner bar');
-              lichess.loadScript('/assets/javascripts/vendor/progressbar.min.js').then(function() {
-                var bar = new ProgressBar.Circle($bar[0], {
-                  color: '#759900',
-                  trailColor: 'rgba(150, 150, 150, 0.2)',
-                  strokeWidth: 11,
-                  duration: 5000
-                });
-                bar.animate(ratio);
-                $bar.data('bar', bar);
-              });
-            }
+            if ($feedback.length) analysisProgress($feedback, ratio);
+            else $.get({
+              url: '/' + data.game.id + '/computing',
+              success: function(html) {
+                $('.future_game_analysis').replaceWith(html);
+                $('.analysis_menu .computer_analysis').click();
+                analysisProgress($('.future_game_analysis .feedback'), ratio);
+              }
+            });
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);

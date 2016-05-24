@@ -106,7 +106,7 @@ atom = atom.some) {
       }
       }.getOrElse {
       @analysisInProgress.map { prog =>
-      @analyse.computing(pov.gameId, prog.some)
+      @analyse.computing(pov.gameId)
       }.getOrElse {
       <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
