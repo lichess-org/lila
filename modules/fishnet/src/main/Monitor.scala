@@ -18,7 +18,7 @@ private final class Monitor(
     case (acc, a) => acc + f(a).getOrElse(0)
   }
 
-  private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.PostAnalysis) = {
+  private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.CompleteAnalysis) = {
     Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
@@ -122,7 +122,7 @@ object Monitor {
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).failure()
   }
 
-  private[fishnet] def weak(work: Work, client: Client, data: JsonApi.Request.PostAnalysis) = {
+  private[fishnet] def weak(work: Work, client: Client, data: JsonApi.Request.CompleteAnalysis) = {
     logger.warn(s"Received weak ${work.skill} ${work.id} (nodes: ${~data.medianNodes}) for ${work.game.id} by ${client.fullId}")
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).weak()
   }

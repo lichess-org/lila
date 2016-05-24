@@ -3,13 +3,13 @@ package lila.fishnet
 import org.joda.time.DateTime
 
 import chess.format.Uci
-import JsonApi.Request.{ PostAnalysis, Evaluation }
+import JsonApi.Request.{ CompleteAnalysis, Evaluation }
 import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
 
 private object AnalysisBuilder {
 
-  def apply(client: Client, work: Work.Analysis, data: PostAnalysis) = {
+  def apply(client: Client, work: Work.Analysis, data: CompleteAnalysis): Fu[Analysis] = {
 
     val uciAnalysis = Analysis(
       id = work.game.id,

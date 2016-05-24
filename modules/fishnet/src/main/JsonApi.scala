@@ -64,13 +64,34 @@ object JsonApi {
     case class PostAnalysis(
         fishnet: Fishnet,
         engine: FullEngine,
-        analysis: List[Evaluation]) extends Request with Result {
+        analysis: List[Option[Evaluation]]) extends Request with Result {
+
+      def completeOrPartial =
+        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, engine, analysis.flatten)
+        else PartialAnalysis(fishnet, engine, analysis)
+    }
+
+    case class CompleteAnalysis(
+        fishnet: Fishnet,
+        engine: FullEngine,
+        analysis: List[Evaluation]) {
 
       def medianNodes =
         analysis.filterNot(_.mateFound).flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
+    }
+
+    case class PartialAnalysis(
+        fishnet: Fishnet,
+        engine: FullEngine,
+        analysis: List[Option[Evaluation]]) {
+
+      def nbEmpty = analysis.takeWhile(_.isEmpty).size
+      def nbDone = analysis.size - nbEmpty
+
+      def progress: Float = nbDone.toFloat / analysis.size
     }
 
     case class Evaluation(
@@ -146,6 +167,10 @@ object JsonApi {
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
     implicit val EvaluationReads = Json.reads[Request.Evaluation]
+    implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation]] {
+      case JsNull => JsSuccess(None)
+      case obj    => EvaluationReads reads obj map some
+    }
     implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
   }
 

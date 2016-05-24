@@ -20,6 +20,7 @@ final class FishnetApi(
     offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
 
   import FishnetApi._
+  import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }
   import BSONHandlers._
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
@@ -75,36 +76,50 @@ final class FishnetApi(
     moveDb.postResult(workId, client, data, measurement)
   }
 
-  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Funit = sequencer {
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] = sequencer {
     repo.getAnalysis(workId) flatMap {
       case None =>
         Monitor.notFound(workId, client)
         fufail(WorkNotFound)
-      case Some(work) if data.weak && work.game.variant.standard =>
-        Monitor.weak(work, client, data)
-        repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
       case Some(work) if work isAcquiredBy client =>
-        AnalysisBuilder(client, work, data) flatMap { analysis =>
-          monitor.analysis(work, client, data)
-          repo.deleteAnalysis(work) inject analysis
-        } recoverWith {
-          case e: AnalysisBuilder.GameIsGone =>
-            logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
-            monitor.analysis(work, client, data)
-            repo.deleteAnalysis(work) >> fufail(GameNotFound)
-          case e: Exception =>
-            Monitor.failure(work, client)
-            repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+        data.completeOrPartial match {
+          case complete: CompleteAnalysis => {
+            if (complete.weak && work.game.variant.standard) {
+              Monitor.weak(work, client, complete)
+              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
+            }
+            else {
+              AnalysisBuilder(client, work, complete) flatMap { analysis =>
+                monitor.analysis(work, client, complete)
+                repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
+              }
+            }
+          } recoverWith {
+            case e: AnalysisBuilder.GameIsGone =>
+              logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
+              monitor.analysis(work, client, complete)
+              repo.deleteAnalysis(work) >> fufail(GameNotFound)
+            case e: Exception =>
+              Monitor.failure(work, client)
+              repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+          }
+          case partial: PartialAnalysis =>
+            println(s"Partial ${partial.progress}")
+            fuccess(PostAnalysisResult.Partial)
         }
       case Some(work) =>
         Monitor.notAcquired(work, client)
         fufail(NotAcquired)
     }
   }.chronometer.mon(_.fishnet.analysis.post)
-    .logIfSlow(200, logger) { res =>
-      s"post analysis for ${res.id}"
+    .logIfSlow(200, logger) {
+      case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
+      case PostAnalysisResult.Partial       => s"partial analysis"
     }.result
-    .flatMap(saveAnalysis)
+    .flatMap {
+      case r@PostAnalysisResult.Complete(res) => saveAnalysis(res) inject r
+      case r@PostAnalysisResult.Partial       => fuccess(r)
+    }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
@@ -156,5 +171,11 @@ object FishnetApi {
 
   case object NotAcquired extends LilaException {
     val message = "The work was distributed to someone else"
+  }
+
+  sealed trait PostAnalysisResult
+  object PostAnalysisResult {
+    case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case object Partial extends PostAnalysisResult
   }
 }

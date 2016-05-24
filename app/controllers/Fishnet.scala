@@ -39,8 +39,10 @@ object Fishnet extends LilaController {
         case WeakAnalysis => acquireNext
         // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
         case e            => fuccess(Left(InternalServerError(e.getMessage)))
-      },
-        _ => acquireNext)
+      }, {
+        case PostAnalysisResult.Complete(_) => acquireNext
+        case PostAnalysisResult.Partial     => fuccess(Left(NoContent))
+      })
   }
 
   def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req =>
