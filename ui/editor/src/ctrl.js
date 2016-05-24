@@ -125,5 +125,10 @@ module.exports = function(cfg) {
     return kings.white === 1 && kings.black === 1;
   }.bind(this);
 
+  this.setOrientation = function(o) {
+    if (this.chessground.getOrientation() !== o)
+      this.chessground.toggleOrientation();
+  }.bind(this);
+
   keyboard(this);
 };

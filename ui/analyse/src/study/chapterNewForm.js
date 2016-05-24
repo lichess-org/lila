@@ -24,6 +24,7 @@ module.exports = {
       open: false,
       initial: m.prop(false),
       tab: storedProp('study.form.tab', 'init'),
+      editor: null,
       editorFen: m.prop(null)
     };
 
@@ -147,9 +148,12 @@ module.exports = {
                     m.redraw();
                   }
                 };
-                var editor = LichessEditor(el, data);
-                ctrl.vm.editorFen(editor.getFen());
+                ctrl.vm.editor = LichessEditor(el, data);
+                ctrl.vm.editorFen(ctrl.vm.editor.getFen());
               });
+              ctx.onunload = function() {
+                ctrl.vm.editor = null;
+              }
             }
           }, m.trust(lichess.spinnerHtml)) : null,
           activeTab === 'game' ? m('div.form-group', [
@@ -187,7 +191,11 @@ module.exports = {
               m('i.bar')
             ]),
             m('div.form-group.half', [
-              m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
+              m('select#chapter-orientation', {
+                onchange: function(e) {
+                  ctrl.vm.editor && ctrl.vm.editor.setOrientation(e.target.value);
+                }
+              }, ['White', 'Black'].map(function(color) {
                 return m('option', {
                   value: color.toLowerCase()
                 }, color)

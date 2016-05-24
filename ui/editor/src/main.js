@@ -10,6 +10,7 @@ module.exports = function(element, config) {
   });
 
   return {
-    getFen: controller.computeFen
+    getFen: controller.computeFen,
+    setOrientation: controller.setOrientation
   };
 };
