@@ -126,8 +126,10 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.setOrientation = function(o) {
+    this.options.orientation = o;
     if (this.chessground.getOrientation() !== o)
       this.chessground.toggleOrientation();
+    m.redraw();
   }.bind(this);
 
   keyboard(this);
