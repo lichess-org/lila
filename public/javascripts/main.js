@@ -1945,7 +1945,7 @@ lichess.challengeApp = (function() {
               lichess.loadScript('/assets/javascripts/vendor/progressbar.min.js').then(function() {
                 var bar = new ProgressBar.Circle($bar[0], {
                   color: '#759900',
-                  trailColor: '#ddd',
+                  trailColor: 'rgba(150, 150, 150, 0.2)',
                   strokeWidth: 11,
                   duration: 5000
                 });
