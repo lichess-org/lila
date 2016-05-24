@@ -14,7 +14,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.{ IsOnGame, AnalysisAvailable }
+import lila.hub.actorApi.round.{ IsOnGame, AnalysisAvailable, AnalysisProgress }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
@@ -160,6 +160,10 @@ private[round] final class Socket(
     }))
 
     case AnalysisAvailable => notifyAll("analysisAvailable")
+
+    case AnalysisProgress(ratio) => notifyAll("analysisProgress", Json.obj(
+      "ratio" -> ratio
+    ))
 
     case Quit(uid) =>
       members get uid foreach { member =>

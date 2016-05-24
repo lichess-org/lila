@@ -1934,6 +1934,26 @@ lichess.challengeApp = (function() {
             $.sound.genericNotify();
             lichess.reload();
           },
+          analysisProgress: function(d) {
+            var ratio = Math.min(1, d.ratio + 0.02);
+            var $feedback = $('.future_game_analysis .feedback');
+            var $bar = $feedback.find('.bar');
+            if ($bar.length) {
+              $bar.data('bar').animate(ratio);
+            } else {
+              $bar = $feedback.find('.spinner').html('').toggleClass('spinner bar');
+              lichess.loadScript('/assets/javascripts/vendor/progressbar.min.js').then(function() {
+                var bar = new ProgressBar.Circle($bar[0], {
+                  color: '#759900',
+                  trailColor: '#ddd',
+                  strokeWidth: 11,
+                  duration: 5000
+                });
+                bar.animate(ratio);
+                $bar.data('bar', bar);
+              });
+            }
+          },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
           }
@@ -2028,9 +2048,7 @@ lichess.challengeApp = (function() {
         success: function(html) {
           $panels.filter('.panel.computer_analysis').html(html);
         },
-        error: function() {
-          lichess.reload();
-        }
+        error: lichess.reload
       });
       return false;
     });

@@ -14,7 +14,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     bus: lila.common.Bus,
-    saveAnalysis: lila.analyse.Analysis => Funit) {
+    sink: lila.analyse.Analyser) {
 
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
@@ -44,7 +44,7 @@ final class Env(
     analysisColl = analysisColl,
     sequencer = sequencer,
     monitor = monitor,
-    saveAnalysis = saveAnalysis,
+    sink = sink,
     offlineMode = OfflineMode)(system)
 
   val player = new Player(
@@ -105,5 +105,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
     bus = lila.common.PlayApp.system.lilaBus,
-    saveAnalysis = lila.analyse.Env.current.analyser.save _)
+    sink = lila.analyse.Env.current.analyser)
 }

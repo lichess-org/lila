@@ -73,11 +73,15 @@ form.better_analysis {
   align-items: center;
   overflow: hidden;
 }
-.future_game_analysis .spinner {
+.future_game_analysis .feedback {
   flex: 0 0 150px;
   width: 150px;
   height: 150px;
   margin: 0 20px;
+}
+.future_game_analysis .spinner {
+  width: 150px;
+  height: 150px;
 }
 .underboard_content .quote.panel.active {
   display: flex;

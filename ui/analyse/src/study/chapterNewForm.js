@@ -134,7 +134,7 @@ module.exports = {
             config: function(el, isUpdate, ctx) {
               if (isUpdate) return;
               $.when(
-                lichess.loadScript('/assets/compiled/lichess.editor.js'),
+                lichess.loadScript('/assets/compiled/lichess.editor.min.js'),
                 $.get('/editor.json', {
                   fen: ctrl.root.vm.node.fen
                 })

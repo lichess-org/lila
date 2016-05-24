@@ -16,7 +16,7 @@ final class FishnetApi(
     analysisColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
-    saveAnalysis: lila.analyse.Analysis => Funit,
+    sink: lila.analyse.Analyser,
     offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
 
   import FishnetApi._
@@ -88,11 +88,9 @@ final class FishnetApi(
               Monitor.weak(work, client, complete)
               repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
             }
-            else {
-              AnalysisBuilder(client, work, complete) flatMap { analysis =>
-                monitor.analysis(work, client, complete)
-                repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
-              }
+            else AnalysisBuilder(client, work, complete) flatMap { analysis =>
+              monitor.analysis(work, client, complete)
+              repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
           } recoverWith {
             case e: AnalysisBuilder.GameIsGone =>
@@ -104,7 +102,7 @@ final class FishnetApi(
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
           case partial: PartialAnalysis =>
-            println(s"Partial ${partial.progress}")
+            sink.progress(work.game.id, lila.hub.actorApi.round.AnalysisProgress(partial.progress))
             fuccess(PostAnalysisResult.Partial)
         }
       case Some(work) =>
@@ -117,7 +115,7 @@ final class FishnetApi(
       case PostAnalysisResult.Partial       => s"partial analysis"
     }.result
     .flatMap {
-      case r@PostAnalysisResult.Complete(res) => saveAnalysis(res) inject r
+      case r@PostAnalysisResult.Complete(res) => sink save res inject r
       case r@PostAnalysisResult.Partial       => fuccess(r)
     }
 
