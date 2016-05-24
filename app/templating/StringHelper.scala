@@ -52,7 +52,7 @@ trait StringHelper { self: NumberHelper =>
   // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
   // Example: everyone says @ornicar is a pretty cool guy
   // False example: Write to lichess.contact@gmail.com, @1
-  private val atUsernameRegex = """\B@(?>[a-zA-Z_-][\w-]{1,19})(?![\w-])""".r
+  private val atUsernameRegex = """\B@(?>[a-zA-Z_-][\w-]{1,19})(?U)(?![\w-])""".r
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
 
