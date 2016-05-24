@@ -47,9 +47,12 @@ trait StringHelper { self: NumberHelper =>
     }
   }
 
-  // Matches a lichess username with a '@' prefix (I hope), in the middle of word boundaries
+  // Matches a lichess username with a '@' prefix only if it doesn't follow another '@',
+  // if it isn't after a word character (that'd be an email) and fits constains in
+  // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
   // Example: everyone says @ornicar is a pretty cool guy
-  private val atUsernameRegex = """\B(@([\w-]+))""".r
+  // False example: Write to lichess.contact@gmail.com, @1
+  private val atUsernameRegex = """\B@(?>\D[\w-]{1,19})(?![\w-])""".r
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
 
