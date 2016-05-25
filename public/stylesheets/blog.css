@@ -22,7 +22,8 @@
 #lichess_blog .illustration img {
   max-height: 300px;
 }
-#Vs0xMTAAAD4We4Ey [data-oembed] iframe {
+#Vs0xMTAAAD4We4Ey [data-oembed] iframe,
+#V0KrLSkAAMo3hsi4 [data-oembed] iframe {
   width: 744px;
   height: 417px;
 }
