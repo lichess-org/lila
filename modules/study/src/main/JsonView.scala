@@ -84,6 +84,7 @@ final class JsonView(
       "visibility" -> s.visibility,
       "views" -> s.views.value,
       "createdAt" -> s.createdAt,
+      "from" -> s.from,
       "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
     ).noNull
   }
