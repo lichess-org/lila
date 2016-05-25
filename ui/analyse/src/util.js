@@ -10,6 +10,10 @@ var plyToTurn = function(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
+var fixCrazySan = function(san) {
+  return san[0] === 'P' ? san.slice(1) : san;
+}
+
 module.exports = {
   initialFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   readDests: function(lines) {
@@ -41,9 +45,10 @@ module.exports = {
   nodeFullName: function(node) {
     if (node.san) return plyToTurn(node.ply) + (
       node.ply % 2 === 1 ? '.' : '...'
-    ) + ' ' + node.san;
+    ) + ' ' + fixCrazySan(node.san);
     return 'Initial position';
   },
+  fixCrazySan: fixCrazySan,
   storedProp: function(k, defaultValue) {
     var sk = 'analyse.' + k;
     var value;
