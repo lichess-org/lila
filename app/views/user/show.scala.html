@@ -56,9 +56,7 @@ description = describeUser(u)).some) {
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
     <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
-    @if(isGranted(_.Beta)) {
     <a href="@routes.Study.byOwner(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
-    }
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
