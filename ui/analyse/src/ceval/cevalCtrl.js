@@ -25,7 +25,7 @@ module.exports = function(possible, variant, emit) {
   }
 
   var start = function(path, steps) {
-    if (!enabled()) return;
+    if (!enabled() || !possible()) return;
     var step = steps[steps.length - 1];
     if (step.ceval && step.ceval.depth >= maxDepth) return;
 
