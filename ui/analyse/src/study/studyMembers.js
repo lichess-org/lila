@@ -21,6 +21,7 @@ module.exports = {
     var confing = m.prop(null); // which user is being configured by us
     var active = {}; // recently active contributors
     var online = {}; // userId -> bool
+    var spectatorIds = [];
 
     var owner = function() {
       return dict()[ownerId];
@@ -49,6 +50,15 @@ module.exports = {
       m.redraw();
     };
 
+    var updateOnline = function() {
+      online = {};
+      var members = dict();
+      spectatorIds.forEach(function(id) {
+        if (members[id]) online[id] = true;
+      });
+      m.redraw();
+    }
+
     return {
       dict: dict,
       confing: confing,
@@ -71,6 +81,7 @@ module.exports = {
           text: 'You are now a spectator',
           duration: 3000
         });
+        updateOnline();
       },
       setActive: setActive,
       isActive: function(id) {
@@ -103,12 +114,8 @@ module.exports = {
       },
       setSpectators: function(usernames) {
         this.inviteForm.setSpectators(usernames);
-        online = {};
-        var members = dict();
-        usernames.map(titleNameToId).forEach(function(id) {
-          if (members[id]) online[id] = true;
-        });
-        m.redraw();
+        spectatorIds = usernames.map(titleNameToId);
+        updateOnline();
       },
       isOnline: function(userId) {
         return online[userId];
