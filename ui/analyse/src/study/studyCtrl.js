@@ -287,6 +287,7 @@ module.exports = {
           if (vm.behind !== false) return;
           if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
+          ctrl.tree.setShapes(d.s, ctrl.vm.path);
           ctrl.chessground.setShapes(d.s);
           m.redraw();
         },
