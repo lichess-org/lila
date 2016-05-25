@@ -162,7 +162,7 @@ private[round] final class Socket(
     case AnalysisAvailable => notifyAll("analysisAvailable")
 
     case AnalysisProgress(ratio) => notifyAll("analysisProgress", Json.obj(
-      "ratio" -> ratio
+      "ratio" -> lila.common.Maths.truncateAt(ratio, 2)
     ))
 
     case Quit(uid) =>

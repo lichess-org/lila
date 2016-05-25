@@ -1960,7 +1960,7 @@ lichess.challengeApp = (function() {
             lichess.reload();
           },
           analysisProgress: function(d) {
-            var ratio = Math.min(1, d.ratio * 1.07);
+            var ratio = Math.min(1, d.ratio * 1.1);
             var $feedback = $('.future_game_analysis .feedback');
             if ($feedback.length) analysisProgress($feedback, ratio);
             else $.get({
