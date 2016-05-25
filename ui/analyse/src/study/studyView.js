@@ -167,7 +167,7 @@ module.exports = {
   },
 
   contextMenu: function(ctrl, path, node) {
-    return [
+    if (ctrl.members.canContribute()) return [
       m('a.action', {
         'data-icon': 'c',
         onclick: function() {
