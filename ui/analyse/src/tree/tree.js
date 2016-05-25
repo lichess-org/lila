@@ -66,6 +66,7 @@ module.exports = function(root) {
   function lastMainlineNode(path) {
     return lastMainlineNodeFrom(root, path);
   }
+
   function lastMainlineNodeFrom(node, path) {
     if (path === '') return node;
     var pathId = treePath.head(path);
@@ -136,7 +137,8 @@ module.exports = function(root) {
   }
 
   function setCommentAt(comment, path) {
-    updateAt(path, function(node) {
+    if (!comment.text) deleteCommentAt(comment.id, path);
+    else updateAt(path, function(node) {
       node.comments = node.comments || [];
       var existing = node.comments.filter(function(c) {
         return c.id === comment.id;

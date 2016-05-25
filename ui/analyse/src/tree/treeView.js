@@ -154,7 +154,7 @@ function truncateComment(text) {
 }
 
 function renderComment(comment, colorClass, commentClass) {
-  return m('div', {
+  return comment && m('div', {
     class: 'comment ' + colorClass + commentClass
   }, truncateComment(comment.text));
 }
