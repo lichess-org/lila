@@ -1925,10 +1925,16 @@ lichess.challengeApp = (function() {
           var bar = new ProgressBar.Circle($bar[0], {
             color: '#759900',
             trailColor: 'rgba(150, 150, 150, 0.2)',
-            strokeWidth: 11,
-            duration: 5000
+            trailWidth: 2 + Math.round(Math.random() * 17),
+            strokeWidth: 2 + Math.round(Math.random() * 13),
+            duration: 5200,
+            text: {
+              value: 'Server<br>analysis'
+            }
           });
-          bar.animate(ratio);
+          bar.animate(ratio, {
+            duration: 500
+          });
           $bar.data('bar', bar);
         });
       }
@@ -1954,7 +1960,7 @@ lichess.challengeApp = (function() {
             lichess.reload();
           },
           analysisProgress: function(d) {
-            var ratio = Math.min(1, d.ratio + 0.02);
+            var ratio = Math.min(1, d.ratio * 1.07);
             var $feedback = $('.future_game_analysis .feedback');
             if ($feedback.length) analysisProgress($feedback, ratio);
             else $.get({

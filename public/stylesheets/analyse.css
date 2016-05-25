@@ -83,6 +83,13 @@ form.better_analysis {
   width: 150px;
   height: 150px;
 }
+@keyframes rotating {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.future_game_analysis .bar svg {
+  animation: rotating 15s linear infinite;
+}
 .underboard_content .quote.panel.active {
   display: flex;
   align-items: center;
