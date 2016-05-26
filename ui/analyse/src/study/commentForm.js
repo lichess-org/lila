@@ -130,6 +130,7 @@ module.exports = {
             },
             onkeyup: function(e) {
               ctrl.submit(e.target.value);
+              m.redraw.strategy("none");
             },
             onfocus: partial(ctrl.focus, true),
             onblur: partial(ctrl.focus, false)
