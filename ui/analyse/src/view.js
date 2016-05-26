@@ -17,14 +17,12 @@ var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
 var contextMenu = require('./contextMenu');
 
-function autoScroll(el) {
-  return util.throttle(300, false, function() {
-    raf(function() {
-      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
-      if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-    });
+var autoScroll = util.throttle(300, false, function(el) {
+  raf(function() {
+    var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+    if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
   });
-}
+});
 
 function renderAnalyse(ctrl) {
   var result;
@@ -70,9 +68,9 @@ function renderAnalyse(ctrl) {
         return false;
       },
       config: function(el, isUpdate) {
-        if (!isUpdate) {
-          ctrl.vm.autoScroll = autoScroll(el);
-          ctrl.vm.autoScroll();
+        if (ctrl.vm.autoScrollRequested || !isUpdate) {
+          autoScroll(el);
+          ctrl.vm.autoScrollRequested = false;
         }
       }
     },
