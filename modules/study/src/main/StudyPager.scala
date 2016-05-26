@@ -10,7 +10,7 @@ final class StudyPager(
     chapterRepo: ChapterRepo) {
 
   import BSONHandlers._
-  import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId }
+  import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
 
   def byOwnerForUser(ownerId: User.ID, user: Option[User], page: Int) = paginator(
     selectOwnerId(ownerId) ++ accessSelect(user), page)
@@ -23,6 +23,11 @@ final class StudyPager(
 
   def byMemberForUser(memberId: User.ID, user: Option[User], page: Int) = paginator(
     selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(user), page)
+
+  def byLikesForUser(userId: User.ID, user: Option[User], page: Int) = paginator(
+    selectLiker(userId) ++ accessSelect(user) ++ user.?? { u =>
+      $doc("uids" $ne u.id)
+    }, page)
 
   def accessSelect(user: Option[User]) =
     user.fold(selectPublic) { u =>

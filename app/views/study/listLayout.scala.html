@@ -13,6 +13,7 @@
 <a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Studies contributed to</a>
 <a class="@active.active("public")" href="@routes.Study.byOwnerPublic(user.username)">Public studies</a>
 <a class="@active.active("private")" href="@routes.Study.byOwnerPrivate(user.username)">Private studies</a>
+<a class="@active.active("likes")" href="@routes.Study.byLikes(user.username)">Liked studies</a>
 }
 
 @base.layout(

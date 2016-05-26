@@ -46,6 +46,14 @@ object Study extends LilaController {
     }
   }
 
+  def byLikes(username: String, page: Int) = Open { implicit ctx =>
+    OptionFuOk(lila.user.UserRepo named username) { user =>
+      env.pager.byLikesForUser(user.id, ctx.me, page) map { pag =>
+        html.study.byLikes(pag, user)
+      }
+    }
+  }
+
   def show(id: String) = Open { implicit ctx =>
     val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
       env.api.byIdWithChapter(id, chapterId)

@@ -53,6 +53,7 @@ GET   /@/:username/study               controllers.Study.byOwner(username: Strin
 GET   /@/:username/study/member        controllers.Study.byMember(username: String, page: Int ?= 1)
 GET   /@/:username/study/public        controllers.Study.byOwnerPublic(username: String, page: Int ?= 1)
 GET   /@/:username/study/private       controllers.Study.byOwnerPrivate(username: String, page: Int ?= 1)
+GET   /@/:username/study/likes         controllers.Study.byLikes(username: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)

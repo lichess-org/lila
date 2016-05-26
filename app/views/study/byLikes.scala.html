@@ -1,0 +1,12 @@
+@(pag: Paginator[lila.study.Study.WithChapters], member: User)(implicit ctx: Context)
+
+@listLayout(
+title = s"Studies ${member.titleName} likes",
+active = "likes",
+user = member) {
+<div class="content_box no_padding">
+  @newForm()
+  <h1>Studies @userLink(member) likes</h1>
+  @list(pag, routes.Study.byLikes(member.username))
+</div>
+}
