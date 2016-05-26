@@ -23,7 +23,6 @@ module.exports = {
     var comments = node.comments || [];
     if (!comments.length) return;
     return m('div.study_comments', comments.map(function(comment) {
-      if (!comment.text) return;
       var isMine = comment.by && comment.by.id && ctrl.userId === comment.by.id;
       if (!includingMine && isMine) return;
       var canDelete = isMine || ctrl.study.members.isOwner();

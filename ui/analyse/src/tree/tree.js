@@ -150,9 +150,10 @@ module.exports = function(root) {
 
   function deleteCommentAt(id, path) {
     updateAt(path, function(node) {
-      node.comments = (node.comments || []).filter(function(c) {
+      var comments = (node.comments || []).filter(function(c) {
         return c.id !== id
       });
+      node.comments = comments.length ? comments : null;
     });
   }
 
