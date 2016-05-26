@@ -689,7 +689,7 @@ lichess.challengeApp = (function() {
 
       var manuallySetZoom = $.fp.debounce(setZoom, 10);
       if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
-      $('body').on('lichess.coordinate_trainer_loaded', function() {
+      $('body').on('lichess.reset_zoom', function() {
         setZoom(getZoom());
       });
 

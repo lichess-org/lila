@@ -217,9 +217,15 @@ function renderOpeningBox(ctrl) {
   ]);
 }
 
+var firstRender = true;
+
 module.exports = function(ctrl) {
   return [
     m('div', {
+      config: function(el, isUpdate) {
+        if (firstRender) firstRender = false;
+        else if (!isUpdate) $('body').trigger('lichess.reset_zoom');
+      },
       class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {

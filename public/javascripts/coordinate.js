@@ -183,5 +183,5 @@ $(function() {
       }, 1000);
     });
   });
-  $('body').trigger('lichess.coordinate_trainer_loaded');
+  $('body').trigger('lichess.reset_zoom');
 });
