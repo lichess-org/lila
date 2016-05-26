@@ -158,7 +158,9 @@ module.exports = {
       glyphForm: glyphForm,
       vm: vm,
       toggleLike: function(v) {
-        send("like", {liked: !data.liked});
+        send("like", {
+          liked: !data.liked
+        });
       },
       position: function() {
         return data.position;
