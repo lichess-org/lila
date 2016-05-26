@@ -33,7 +33,7 @@ final class StudyPager(
     adapter = new Adapter[Study](
       collection = studyRepo.coll,
       selector = selector,
-      projection = $empty,
+      projection = studyRepo.projection,
       sort = $sort desc "createdAt"
     ) mapFutureList withChapters,
     currentPage = page,

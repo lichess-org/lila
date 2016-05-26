@@ -14,6 +14,7 @@ import lila.socket.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
+    studyRepo: StudyRepo,
     lightUser: LightUser.Getter,
     gamePgnDump: lila.game.PgnDump) {
 
@@ -23,30 +24,34 @@ final class JsonView(
     study: Study,
     chapters: List[Chapter.Metadata],
     currentChapter: Chapter,
-    me: Option[User]) =
-    currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen).map { gameOption =>
-      studyWrites.writes(study) ++ Json.obj(
-        "chapters" -> chapters.map(chapterMetadataWrites.writes),
-        "chapter" -> Json.obj(
-          "ownerId" -> currentChapter.ownerId,
-          "setup" -> {
-            val setup = Json toJson currentChapter.setup
-            gameOption.fold(setup) { game =>
-              setup.as[JsObject] ++ Json.obj("game" -> game)
-            }
-          },
-          "game" -> gameOption,
-          "conceal" -> currentChapter.conceal,
-          "features" -> Json.obj(
-            "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
-            "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+    me: Option[User]) = {
+    currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen) zip
+      me.?? { studyRepo.liked(study, _) } map {
+        case (gameOption, liked) =>
+          studyWrites.writes(study) ++ Json.obj(
+            "liked" -> liked,
+            "chapters" -> chapters.map(chapterMetadataWrites.writes),
+            "chapter" -> Json.obj(
+              "ownerId" -> currentChapter.ownerId,
+              "setup" -> {
+                val setup = Json toJson currentChapter.setup
+                gameOption.fold(setup) { game =>
+                  setup.as[JsObject] ++ Json.obj("game" -> game)
+                }
+              },
+              "game" -> gameOption,
+              "conceal" -> currentChapter.conceal,
+              "features" -> Json.obj(
+                "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
+                "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+              )
+            )
           )
-        )
-      )
-    }.chronometer
-      // .mon(_.fishnet.acquire time client.skill.key)
-      .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
-      .result
+      }
+  }.chronometer
+    // .mon(_.fishnet.acquire time client.skill.key)
+    .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
+    .result
 
   private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
     case (g, fen) => Json.obj(
@@ -82,9 +87,9 @@ final class JsonView(
       "ownerId" -> s.ownerId,
       "settings" -> s.settings,
       "visibility" -> s.visibility,
-      "views" -> s.views.value,
       "createdAt" -> s.createdAt,
       "from" -> s.from,
+      "likes" -> s.likes,
       "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
     ).noNull
   }
@@ -161,4 +166,8 @@ object JsonView {
   }
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
+  private implicit val likesWrites: Writes[Study.Likes] = Writes[Study.Likes] { p =>
+    JsNumber(p.value)
+  }
+  private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
 }

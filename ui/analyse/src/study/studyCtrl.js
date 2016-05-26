@@ -93,6 +93,8 @@ module.exports = {
       data.visibility = s.visibility;
       data.views = s.views;
       data.chapter = s.chapter;
+      data.likes = s.likes;
+      data.liked = s.liked;
       members.dict(s.members);
       chapters.list(s.chapters);
       configureAnalysis();
@@ -155,6 +157,9 @@ module.exports = {
       commentForm: commentForm,
       glyphForm: glyphForm,
       vm: vm,
+      toggleLike: function(v) {
+        send("like", {liked: !data.liked});
+      },
       position: function() {
         return data.position;
       },
@@ -324,6 +329,11 @@ module.exports = {
           var position = d.p;
           if (position.chapterId !== data.position.chapterId) return;
           data.chapter.conceal = d.ply;
+          m.redraw();
+        },
+        liking: function(d) {
+          data.likes = d.l.likes;
+          if (d.w && d.w.s === sri) data.liked = d.l.me;
           m.redraw();
         },
         following_onlines: members.inviteForm.setFollowings,

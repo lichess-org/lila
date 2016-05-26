@@ -502,10 +502,18 @@ form .editor a.button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.study_metadata h2 .views {
+.study_metadata h2 .liking {
   padding-left: 12px;
   margin-left: 12px;
   border-left: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.study_metadata h2 .liking:hover {
+  opacity: 1;
+  color: #dc322f!important;
 }
 .study_metadata table {
   border: none;

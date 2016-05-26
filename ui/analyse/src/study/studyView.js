@@ -112,18 +112,25 @@ var lastMetaKey;
 function metadata(ctrl, treeRoot) {
   var chapter = ctrl.currentChapter();
   if (!chapter) return;
-  var cacheKey = [chapter.id, ctrl.data.name, chapter.name, ctrl.data.views].join('|');
+  var d = ctrl.data;
+  var cacheKey = [chapter.id, d.name, chapter.name, d.likes].join('|');
   if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') return {
     subtree: 'retain'
   };
   lastMetaKey = cacheKey;
-  var setup = ctrl.data.chapter.setup;
+  var setup = d.chapter.setup;
   return m('div.study_metadata.undertable', [
     m('h2.undertable_top', [
       m('span.name', {
         'data-icon': ''
-      }, ctrl.data.name, ': ' + chapter.name),
-      m('span.views', ctrl.data.views + ' views')
+      }, d.name, ': ' + chapter.name),
+      m('span', {
+        class: 'liking text' + (d.liked ? ' liked' : ''),
+        'data-icon': d.liked ? '' : '',
+        title: 'Like',
+        onclick: ctrl.toggleLike
+      }, d.likes)
+      // m('span.views', d.views + ' views')
     ]),
     m('div.undertable_inner',
       renderPgn(setup) || renderFen(setup, treeRoot)

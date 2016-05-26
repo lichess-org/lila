@@ -38,7 +38,7 @@ private final class Socket(
     case SetPath(pos, uid) => notifyVersion("path", Json.obj(
       "p" -> pos,
       "w" -> who(uid).map(whoWriter.writes)
-    ), Messadata())
+    ), noMessadata)
 
     case AddNode(pos, node, uid) =>
       val dests = destCache.get(AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString))
@@ -48,55 +48,60 @@ private final class Socket(
         "w" -> who(uid),
         "d" -> dests.dests,
         "o" -> dests.opening
-      ), Messadata())
+      ), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case PromoteNode(pos, uid) => notifyVersion("promoteNode", Json.obj(
       "p" -> pos,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
-    case ReloadMembers(members)   => notifyVersion("members", members, Messadata())
+    case ReloadMembers(members)   => notifyVersion("members", members, noMessadata)
 
-    case ReloadChapters(chapters) => notifyVersion("chapters", chapters, Messadata())
+    case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
-    case ReloadAll                => notifyVersion("reload", JsNull, Messadata())
+    case ReloadAll                => notifyVersion("reload", JsNull, noMessadata)
     case ChangeChapter(uid) => notifyVersion("changeChapter", Json.obj(
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
       "s" -> shapes,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case SetComment(pos, comment, uid) => notifyVersion("setComment", Json.obj(
       "p" -> pos,
       "c" -> comment,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case DeleteComment(pos, commentId, uid) => notifyVersion("deleteComment", Json.obj(
       "p" -> pos,
       "id" -> commentId,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case SetGlyphs(pos, glyphs, uid) => notifyVersion("glyphs", Json.obj(
       "p" -> pos,
       "g" -> glyphs,
       "w" -> who(uid)
-    ), Messadata())
+    ), noMessadata)
 
     case SetConceal(pos, ply) => notifyVersion("conceal", Json.obj(
       "p" -> pos,
       "ply" -> ply.map(_.value)
-    ), Messadata())
+    ), noMessadata)
+
+    case SetLiking(liking, uid) => notifyVersion("liking", Json.obj(
+      "l" -> liking,
+      "w" -> who(uid)
+    ), noMessadata)
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
@@ -182,6 +187,8 @@ private final class Socket(
     (message.metadata.trollish && !member.troll)
 
   private def who(uid: Uid) = uidToUserId(uid) map { Who(_, uid) }
+
+  private val noMessadata = Messadata()
 }
 
 private object Socket {
@@ -214,6 +221,7 @@ private object Socket {
   case object ReloadAll
   case class ChangeChapter(uid: Uid)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
+  case class SetLiking(liking: Study.Liking, uid: Uid)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

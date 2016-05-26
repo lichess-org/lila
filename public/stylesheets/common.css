@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font51/fonts/lichess.eot");
-  src: url("../font51/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font51/fonts/lichess.woff") format("woff"), url("../font51/fonts/lichess.ttf") format("truetype"), url("../font51/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font52/fonts/lichess.eot");
+  src: url("../font52/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font52/fonts/lichess.woff") format("woff"), url("../font52/fonts/lichess.ttf") format("truetype"), url("../font52/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }

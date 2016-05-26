@@ -12,8 +12,8 @@ case class Study(
     ownerId: User.ID,
     visibility: Study.Visibility,
     settings: Settings,
-    views: Study.Views,
     from: Study.From,
+    likes: Study.Likes,
     createdAt: DateTime) {
 
   import Study._
@@ -47,6 +47,9 @@ object Study {
     case object Public extends Visibility
     val byKey = List(Private, Public).map { v => v.key -> v }.toMap
   }
+
+  case class Likes(value: Int) extends AnyVal
+  case class Liking(likes: Likes, me: Boolean)
 
   sealed trait From
   object From {
@@ -88,8 +91,8 @@ object Study {
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = Settings.init,
-      views = Views(1),
       from = from,
+      likes = Likes(0),
       createdAt = DateTime.now)
   }
 }

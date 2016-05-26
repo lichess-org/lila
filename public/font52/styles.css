@@ -371,3 +371,9 @@
 .icon-radio-tower:before {
   content: "\e00e";
 }
+.icon-heart-o:before {
+  content: "\e009";
+}
+.icon-heart:before {
+  content: "\e00d";
+}

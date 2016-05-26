@@ -21,7 +21,7 @@ final class StudyApi(
     notifier: StudyNotifier,
     lightUser: lila.common.LightUser.Getter,
     chat: ActorSelection,
-    socketHub: akka.actor.ActorRef) {
+    socketHub: ActorRef) {
 
   def byId = studyRepo byId _
 
@@ -43,7 +43,8 @@ final class StudyApi(
 
   def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
     studyMaker(data, user) flatMap { res =>
-      studyRepo.insert(res.study) zip chapterRepo.insert(res.chapter) inject res
+      studyRepo.insert(res.study) >>
+        chapterRepo.insert(res.chapter) inject res
     }
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
@@ -314,6 +315,11 @@ final class StudyApi(
     studyRepo.delete(study) >> chapterRepo.deleteByStudy(study)
   }
 
+  def like(studyId: Study.ID, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
+    studyRepo.like(studyId, userId, v) map { likes =>
+      sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
+    }
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))
 
@@ -356,7 +362,8 @@ final class StudyApi(
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =
     if (study canContribute userId) f else default.zero
 
-  private def sendTo(study: Study, msg: Any) {
-    socketHub ! Tell(study.id, msg)
-  }
+  private def sendTo(study: Study, msg: Any): Unit = sendTo(study.id, msg)
+
+  private def sendTo(studyId: Study.ID, msg: Any): Unit =
+    socketHub ! Tell(studyId, msg)
 }

@@ -213,6 +213,11 @@ private[study] final class SocketHandler(
           glyph <- (o \ "d" \ "id").asOpt[Int] flatMap Glyph.find
         } api.toggleGlyph(userId, studyId, position.ref, glyph, uid)
       }
+
+    case ("like", o) => for {
+      byUserId <- member.userId
+      v <- (o \ "d" \ "liked").asOpt[Boolean]
+    } api.like(studyId, byUserId, v, socket, uid)
   }
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
