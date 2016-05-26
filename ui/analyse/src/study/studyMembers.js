@@ -65,7 +65,7 @@ module.exports = {
       myId: myId,
       inviteForm: inviteForm,
       update: function(members) {
-        if (isOwner) confing(Object.keys(members).filter(function(uid) {
+        if (isOwner()) confing(Object.keys(members).filter(function(uid) {
           return !dict()[uid];
         })[0]);
         var wasViewer = myMember() && !canContribute();
