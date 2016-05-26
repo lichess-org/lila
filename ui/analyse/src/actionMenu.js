@@ -45,7 +45,7 @@ function autoplayButtons(ctrl) {
 }
 
 function studyButton(ctrl) {
-  if (ctrl.study || ctrl.ongoing || !ctrl.canStudy) return;
+  if (ctrl.study || ctrl.ongoing) return;
   return m('form', {
     method: 'post',
     action: '/study'

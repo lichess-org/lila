@@ -24,7 +24,6 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.userId = opts.userId;
-  this.canStudy = opts.canStudy;
 
   var initialize = function(data) {
     this.data = data;
