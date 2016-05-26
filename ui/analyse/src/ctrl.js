@@ -449,7 +449,7 @@ module.exports = function(opts) {
         role: sanToRole[uci[0]]
       },
       move[1])
-    else if (!move[2]) this.chessground.apiMove(move[0], move[1])
+    else if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
     this.explorer.loading(true);
   }.bind(this);
