@@ -59,7 +59,7 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
-    autoScroll: null,
+    autoScrollRequested: false,
     element: opts.element,
     redirecting: false,
     contextMenuPath: null
@@ -148,7 +148,7 @@ module.exports = function(opts) {
   }.bind(this), false) : $.noop;
 
   this.autoScroll = function() {
-    this.vm.autoScroll && this.vm.autoScroll();
+    this.vm.autoScrollRequested = true;
   }.bind(this);
 
   this.jump = function(path) {
