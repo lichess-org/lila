@@ -152,19 +152,21 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jump = function(path) {
-    var tellStudy = this.study && path !== this.vm.path;
+    var pathChanged = path !== this.vm.path;
     this.setPath(path);
     showGround();
-    if (tellStudy) this.study.setPath(path, this.vm.node);
-    if (!this.vm.node.uci) sound.move(); // initial position
-    else if (this.vm.justPlayed !== this.vm.node.uci) {
-      if (this.vm.node.san.indexOf('x') !== -1) sound.capture();
-      else sound.move();
-      this.vm.justPlayed = null;
+    if (pathChanged) {
+      if (this.study) this.study.setPath(path, this.vm.node);
+      if (!this.vm.node.uci) sound.move(); // initial position
+      else if (this.vm.node.uci.indexOf(this.vm.justPlayed) !== 0) {
+        if (this.vm.node.san.indexOf('x') !== -1) sound.capture();
+        else sound.move();
+      }
+      if (/\+|\#/.test(this.vm.node.san)) sound.check();
+      this.ceval.stop();
+      startCeval();
     }
-    if (/\+|\#/.test(this.vm.node.san)) sound.check();
-    this.ceval.stop();
-    startCeval();
+    this.vm.justPlayed = null;
     this.explorer.setNode();
     updateHref();
     this.autoScroll();
@@ -268,7 +270,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var userMove = function(orig, dest, capture) {
-    this.vm.justPlayed = orig + dest;
+    this.vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
   }.bind(this);
