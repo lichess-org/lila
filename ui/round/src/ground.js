@@ -18,6 +18,7 @@ function boardOrientation(data, flip) {
 
 function makeConfig(data, ply, flip) {
   var step = round.plyStep(data, ply);
+  var playing = game.isPlayerPlaying(data);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, flip),
@@ -33,8 +34,8 @@ function makeConfig(data, ply, flip) {
     },
     movable: {
       free: false,
-      color: game.isPlayerPlaying(data) ? data.player.color : null,
-      dests: game.isPlayerPlaying(data) ? util.parsePossibleMoves(data.possibleMoves) : {},
+      color: playing ? data.player.color : null,
+      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: data.pref.destination
     },
     animation: {
