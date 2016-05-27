@@ -48,6 +48,8 @@ function lichessOrchestra() {
     }
   };
 
+  play('swells', 0);
+
   return {
     play: play
   };
