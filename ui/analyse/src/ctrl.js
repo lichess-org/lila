@@ -170,7 +170,7 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
-    if (this.music) this.music.jump(path, this.vm.node);
+    if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
   this.canJumpTo = function(path) {
@@ -471,7 +471,6 @@ module.exports = function(opts) {
       this.music = lichessReplayMusic();
     }.bind(this));
   }.bind(this);
-
   Mousetrap.bind(': m u s i c', startMusic);
   if (location.hash === '#music') startMusic();
 };

@@ -1,4 +1,4 @@
-function lichessReplayMusic() {
+function lichessPlayMusic() {
 
   var orchestra;
 
@@ -35,10 +35,8 @@ function lichessReplayMusic() {
     return fileToInt(key[0]) * 8 + parseInt(key[1]) - 1;
   };
 
-  // var uciBase = 4096;
   var uciBase = 64;
   var uciToInt = function(uci) {
-    // return keyToInt(uci.slice(0, 2)) * 64 + keyToInt(uci.slice(2));
     return keyToInt(uci.slice(2));
   };
 
