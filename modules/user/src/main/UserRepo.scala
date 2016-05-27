@@ -241,7 +241,7 @@ object UserRepo {
       val regex = "^" + escaped + ".*$"
       coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
         .sort($doc("enabled" -> -1, "len" -> 1))
-        .cursor[Bdoc]().gather[List](max)
+        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
         .map {
           _ flatMap { _.getAs[String](F.username) }
         }
