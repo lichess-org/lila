@@ -65,9 +65,14 @@ body.dark .studies .study {
   display: flex;
   padding-left: 10px;
 }
-.studies .study ol {
-  flex: 0 0 50%;
-  max-width: 50%;
+.studies .study ol.chapters {
+  flex: 0 0 58%;
+  max-width: 58%;
+}
+.studies .study ol.members {
+  flex: 0 0 40%;
+  max-width: 40%;
+  margin-left: 2%;
 }
 .studies .study ol li {
   white-space: nowrap;
