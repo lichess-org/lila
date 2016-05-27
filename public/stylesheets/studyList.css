@@ -17,6 +17,7 @@
 .studies .list {
   display: flex;
   flex-flow: row wrap;
+  border-top: 1px solid #ccc;
 }
 .studies .nostudies {
   text-align: center;
@@ -37,11 +38,12 @@
 .studies .study {
   flex: 0 0 50%;
   max-width: 50%;
-  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   box-sizing: border-box;
   padding: 10px 10px 20px 10px;
   position: relative;
 }
+body.dark .studies .list,
 body.dark .studies .study {
   border-color: #3d3d3d;
 }
