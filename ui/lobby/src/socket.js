@@ -37,6 +37,7 @@ module.exports = function(send, ctrl) {
   var startMusic = function() {
     if (!this.music) lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
       this.music = lichessLobbyMusic();
+      ctrl.setMode('chart');
     }.bind(this));
   }.bind(this);
 

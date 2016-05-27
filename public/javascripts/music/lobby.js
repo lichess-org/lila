@@ -34,7 +34,7 @@ function lichessLobbyMusic() {
     var tour = new Shepherd.Tour({
       defaults: {
         classes: theme,
-        scrollTo: true
+        scrollTo: false
       }
     });
     tour.addStep('music', {
@@ -43,7 +43,7 @@ function lichessLobbyMusic() {
         "Classical and bullet play celesta.<br>" +
         "Variants play the swells.<br>" +
         "Rating determines the pitch.",
-      attachTo: '#hooks_wrap',
+      attachTo: '#hooks_wrap left',
       buttons: [{
         text: 'OK',
         action: tour.next
@@ -55,7 +55,7 @@ function lichessLobbyMusic() {
   return {
     receive: function(type, data) {
       if (!orchestra) return;
-      if (type === 'had' && data.rating && data.rating !== 1500) newHook(data);
+      if (type === 'had' && data.rating) newHook(data);
     }
   };
 };

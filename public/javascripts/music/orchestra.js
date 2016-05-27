@@ -7,33 +7,30 @@ function lichessOrchestra() {
       clav: [],
       swells: []
     },
-    noteOverlap = 20,
+    noteOverlap = 15,
     noteTimeout = 300,
     currentNotes = 0,
     maxPitch = 23;
 
   // load celesta and clav sounds
   for (var i = 1; i <= 24; i++) {
-    if (i > 9) {
-      fn = 'c0' + i;
-    } else {
-      fn = 'c00' + i;
-    }
+    if (i > 9) fn = 'c0' + i;
+    else fn = 'c00' + i;
     instruments.celesta.push(new Howl({
       src: [soundDir + 'celesta/' + fn + '.ogg', soundDir + 'celesta/' + fn + '.mp3'],
       volume: 0.3
-    }))
+    }));
     instruments.clav.push(new Howl({
       src: [soundDir + 'clav/' + fn + '.ogg', soundDir + 'clav/' + fn + '.mp3'],
       volume: 0.2
-    }))
+    }));
   }
   // load swell sounds
   for (var i = 1; i <= 3; i++) {
     instruments.swells.push(new Howl({
       src: [soundDir + 'swells/swell' + i + '.ogg', soundDir + 'swells/swell' + i + '.mp3'],
       volume: 0.8
-    }))
+    }));
   }
 
   var play = function(instrument, pitch) {
