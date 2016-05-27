@@ -49,11 +49,12 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
-GET   /@/:username/study               controllers.Study.byOwner(username: String, page: Int ?= 1)
-GET   /@/:username/study/member        controllers.Study.byMember(username: String, page: Int ?= 1)
-GET   /@/:username/study/public        controllers.Study.byOwnerPublic(username: String, page: Int ?= 1)
-GET   /@/:username/study/private       controllers.Study.byOwnerPrivate(username: String, page: Int ?= 1)
-GET   /@/:username/study/likes         controllers.Study.byLikes(username: String, page: Int ?= 1)
+GET   /@/:username/study               controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
+GET   /@/:username/study/:order        controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
+GET   /@/:username/study/member/:order controllers.Study.byMember(username: String, order: String, page: Int ?= 1)
+GET   /@/:username/study/public/:order controllers.Study.byOwnerPublic(username: String, order: String, page: Int ?= 1)
+GET   /@/:username/study/private/:order controllers.Study.byOwnerPrivate(username: String, order: String, page: Int ?= 1)
+GET   /@/:username/study/likes/:order  controllers.Study.byLikes(username: String, order: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)

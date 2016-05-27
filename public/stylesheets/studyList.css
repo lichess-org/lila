@@ -1,25 +1,37 @@
-.new_study {
-  float: right;
-  margin: 20px;
+.studies .top {
+  display: flex;
+  align-items: center;
 }
-.studies {
+.studies .top h1 {
+  flex: 1 1 100%;
+}
+.studies .top .new_study,
+.studies .top .orders {
+  white-space: nowrap;
+  margin-right: 20px;
+}
+.studies .top .new_study .button i::before {
+  color: #759900;
+  font-size: 27px;
+}
+.studies .list {
   display: flex;
   flex-flow: row wrap;
 }
-.nostudies {
+.studies .nostudies {
   text-align: center;
   margin: 40px 0 80px;
   font-size: 2em;
 }
-.nostudies p {
+.studies .nostudies p {
   opacity: 0.6;
 }
-.nostudies i {
+.studies .nostudies i {
   display: block;
   font-size: 180px;
   opacity: 0.4;
 }
-.nostudies form {
+.studies .nostudies form {
   margin-top: 20px;
 }
 .studies .study {
@@ -63,14 +75,14 @@ body.dark .studies .study {
 .studies .study ol li::before {
   opacity: 0.5;
 }
-.study h2 {
+.studies .study h2 {
   display: block;
   position: relative;
   box-sizing: border-box;
   height: 60px;
   padding-left: 64px
 }
-.study h2 strong {
+.studies .study h2 strong {
   font-size: 1.5em;
   font-weight: normal;
   color: #3893E8;
@@ -80,7 +92,7 @@ body.dark .studies .study {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.study h2 span {
+.studies .study h2 span {
   font-size: 1em;
   display: block;
   opacity: 0.8;
@@ -95,4 +107,51 @@ body.dark .studies .study {
   font-size: 34px;
   line-height: 43px;
   opacity: 0.8;
+}
+.mselect {
+  display:inline-block;
+  position: relative;
+  padding:0;
+  border:0;
+}
+.mselect .button {
+  padding-right: 22px;
+  position: relative;
+  display: inline-block;
+}
+.mselect .button i {
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+}
+.mselect .list {
+  margin:0;
+  padding:0;
+  position:absolute;
+  z-index: 3;
+  top:0;
+  text-align: left;
+  list-style-type:none;
+  font-weight: normal;
+  background: #fff;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+  display: none;
+}
+.mselect.shown .list {
+  display: block;
+}
+.mselect .list a {
+  display: block;
+  padding: 10px;
+  background:#fff;
+  transition: 0.13s;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mselect .list a:hover{
+  background: #3893E8;
+  color: #fff;
 }

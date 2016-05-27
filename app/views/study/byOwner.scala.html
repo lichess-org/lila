@@ -1,12 +1,11 @@
-@(pag: Paginator[lila.study.Study.WithChapters], owner: User)(implicit ctx: Context)
+@(pag: Paginator[lila.study.Study.WithChapters], order: lila.study.Order, owner: User)(implicit ctx: Context)
 
 @listLayout(
 title = s"Studies created by ${owner.titleName}",
 active = "owner",
-user = owner) {
-<div class="content_box no_padding">
-  @newForm()
-  <h1>Studies created by @userLink(owner)</h1>
-  @list(pag, routes.Study.byOwner(owner.username))
-</div>
+user = owner,
+order = order,
+pag = pag,
+url = (u, o) => routes.Study.byOwner(u, o)) {
+Studies created by @userLink(owner)
 }

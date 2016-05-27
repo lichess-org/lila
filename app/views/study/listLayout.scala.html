@@ -1,4 +1,4 @@
-@(title: String, active: String, user: lila.user.User)(body: Html)(implicit ctx: Context)
+@(title: String, active: String, user: lila.user.User, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChapters], url: controllers.Study.ListUrl)(titleHtml: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("studyList.css")
@@ -9,11 +9,11 @@
 }
 
 @menu = {
-<a class="@active.active("owner")" href="@routes.Study.byOwner(user.username)">Own studies</a>
-<a class="@active.active("member")" href="@routes.Study.byMember(user.username)">Studies contributed to</a>
-<a class="@active.active("public")" href="@routes.Study.byOwnerPublic(user.username)">Public studies</a>
-<a class="@active.active("private")" href="@routes.Study.byOwnerPrivate(user.username)">Private studies</a>
-<a class="@active.active("likes")" href="@routes.Study.byLikes(user.username)">Liked studies</a>
+<a class="@active.active("owner")" href="@routes.Study.byOwner(user.username, order.key)">Own studies</a>
+<a class="@active.active("member")" href="@routes.Study.byMember(user.username, order.key)">Studies contributed to</a>
+<a class="@active.active("public")" href="@routes.Study.byOwnerPublic(user.username, order.key)">Public studies</a>
+<a class="@active.active("private")" href="@routes.Study.byOwnerPrivate(user.username, order.key)">Private studies</a>
+<a class="@active.active("likes")" href="@routes.Study.byLikes(user.username, order.key)">Liked studies</a>
 }
 
 @base.layout(
@@ -21,4 +21,13 @@ title = title,
 menu = menu.some,
 moreCss = moreCss,
 moreJs = moreJs,
-withLangAnnotations = false)(body)
+withLangAnnotations = false) {
+<div class="content_box no_padding studies">
+  <div class="top">
+    <h1>@titleHtml</h1>
+    @orderChoice(o => url(user.username, o.key), order)
+    @newForm()
+  </div>
+  @list(pag, url(user.username, order.key))
+</div>
+}

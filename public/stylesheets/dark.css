@@ -396,6 +396,9 @@ body.dark table.slist thead {
   background: linear-gradient(to bottom, rgba(40, 40, 40, 1), rgba(34, 34, 34, 1) 100%);
   text-shadow: 0 1px 0 #000;
 }
+body.dark .button.frameless {
+  background: none;
+}
 body.dark .button,
 body.dark a.button,
 body.dark #challenge_app .owner,

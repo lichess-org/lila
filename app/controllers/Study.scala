@@ -8,48 +8,53 @@ import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.HTTPRequest
+import lila.study.Order
 import views._
 
 object Study extends LilaController {
 
+  type ListUrl = (lila.user.User.ID, String) => Call
+
   private def env = Env.study
 
-  def byOwner(username: String, page: Int) = Open { implicit ctx =>
+  def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
+
+  def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerForUser(owner.id, ctx.me, page) map { pag =>
-        html.study.byOwner(pag, owner)
+      env.pager.byOwnerForUser(owner.id, ctx.me, Order(order), page) map { pag =>
+        html.study.byOwner(pag, Order(order), owner)
       }
     }
   }
 
-  def byOwnerPublic(username: String, page: Int) = Open { implicit ctx =>
+  def byOwnerPublic(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPublicForUser(owner.id, ctx.me, page) map { pag =>
-        html.study.byOwnerPublic(pag, owner)
+      env.pager.byOwnerPublicForUser(owner.id, ctx.me, Order(order), page) map { pag =>
+        html.study.byOwnerPublic(pag, Order(order), owner)
       }
     }
   }
 
-  def byOwnerPrivate(username: String, page: Int) = Open { implicit ctx =>
+  def byOwnerPrivate(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPrivateForUser(owner.id, ctx.me, page) map { pag =>
-        html.study.byOwnerPrivate(pag, owner)
+      env.pager.byOwnerPrivateForUser(owner.id, ctx.me, Order(order), page) map { pag =>
+        html.study.byOwnerPrivate(pag, Order(order), owner)
       }
     }
   }
 
-  def byMember(username: String, page: Int) = Open { implicit ctx =>
+  def byMember(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { member =>
-      env.pager.byMemberForUser(member.id, ctx.me, page) map { pag =>
-        html.study.byMember(pag, member)
+      env.pager.byMemberForUser(member.id, ctx.me, Order(order), page) map { pag =>
+        html.study.byMember(pag, Order(order), member)
       }
     }
   }
 
-  def byLikes(username: String, page: Int) = Open { implicit ctx =>
+  def byLikes(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { user =>
-      env.pager.byLikesForUser(user.id, ctx.me, page) map { pag =>
-        html.study.byLikes(pag, user)
+      env.pager.byLikesForUser(user.id, ctx.me, Order(order), page) map { pag =>
+        html.study.byLikes(pag, Order(order), user)
       }
     }
   }
@@ -107,7 +112,7 @@ object Study extends LilaController {
     me =>
       implicit val req = ctx.body
       lila.study.DataForm.form.bindFromRequest.fold(
-        err => Redirect(routes.Study.byOwner(me.username)).fuccess,
+        err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
         data => env.api.create(data, me) map { sc =>
           Redirect(routes.Study.show(sc.study.id))
         })
@@ -117,7 +122,7 @@ object Study extends LilaController {
     me =>
       env.api.byId(id) flatMap { study =>
         study.filter(_ isOwner me.id) ?? env.api.delete
-      } inject Redirect(routes.Study.byOwner(me.username))
+      } inject Redirect(routes.Study.byOwnerDefault(me.username))
   }
 
   def pgn(id: String) = Open { implicit ctx =>

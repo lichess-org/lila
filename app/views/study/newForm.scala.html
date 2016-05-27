@@ -1,4 +1,6 @@
 @()(implicit ctx: Context)
 <form class="new_study" action="@routes.Study.create" method="post">
-  <button type="submit" class="button">New study</button>
+  <button type="submit" class="button frameless hint--top" data-hint="New study">
+    <i data-icon="O"></i>
+  </button>
 </form>

@@ -1,0 +1,13 @@
+@(url: lila.study.Order => Call, order: lila.study.Order)(implicit ctx: Context)
+@import lila.study.Order._
+<div class="orders mselect">
+  <div class="button">
+    @order.name
+    <i data-icon="u"></i>
+  </div>
+  <div class="list">
+    @lila.study.Order.all.map { o =>
+    <a href="@url(o)">@o.name</a>
+    }
+  </div>
+</div>

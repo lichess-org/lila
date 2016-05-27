@@ -1,12 +1,11 @@
-@(pag: Paginator[lila.study.Study.WithChapters], member: User)(implicit ctx: Context)
+@(pag: Paginator[lila.study.Study.WithChapters], order: lila.study.Order, member: User)(implicit ctx: Context)
 
 @listLayout(
 title = s"Studies ${member.titleName} contributes to",
 active = "member",
-user = member) {
-<div class="content_box no_padding">
-  @newForm()
-  <h1>Studies @userLink(member) contributes to</h1>
-  @list(pag, routes.Study.byMember(member.username))
-</div>
+user = member,
+order = order,
+pag = pag,
+url = (u, o) => routes.Study.byMember(u, o)) {
+Studies @userLink(member) contributes to
 }
