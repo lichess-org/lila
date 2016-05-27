@@ -25,9 +25,7 @@ final class StudyPager(
     selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(user), page)
 
   def byLikesForUser(userId: User.ID, user: Option[User], page: Int) = paginator(
-    selectLiker(userId) ++ accessSelect(user) ++ user.?? { u =>
-      $doc("uids" $ne u.id)
-    }, page)
+    selectLiker(userId) ++ accessSelect(user) ++ $doc("ownerId" $ne userId), page)
 
   def accessSelect(user: Option[User]) =
     user.fold(selectPublic) { u =>
