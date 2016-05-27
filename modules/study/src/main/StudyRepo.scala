@@ -40,7 +40,8 @@ final class StudyRepo(private[study] val coll: Coll) {
     "position" -> s.position,
     "name" -> s.name,
     "settings" -> s.settings,
-    "visibility" -> s.visibility
+    "visibility" -> s.visibility,
+    "updatedAt" -> DateTime.now
   )).void
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
@@ -49,10 +50,17 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def setPosition(studyId: Study.ID, position: Position.Ref): Funit =
-    coll.update($id(studyId), $set("position" -> position)).void
+    coll.update(
+      $id(studyId),
+      $set(
+        "position" -> position,
+        "updatedAt" -> DateTime.now)
+    ).void
 
-  def incViews(study: Study) =
-    coll.incFieldUnchecked($id(study.id), "views")
+  def incViews(study: Study) = coll.incFieldUnchecked($id(study.id), "views")
+
+  def updateNow(s: Study) =
+    coll.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now)
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll.update(

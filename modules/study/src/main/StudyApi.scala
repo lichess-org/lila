@@ -153,6 +153,7 @@ final class StudyApi(
         _ ?? { chapter =>
           chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
+              studyRepo.updateNow(study)
               chapterRepo.update(newChapter) >>-
                 sendTo(study, Socket.SetShapes(position, shapes, uid))
             case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
@@ -172,6 +173,7 @@ final class StudyApi(
             by = Comment.Author.User(author.id, author.titleName))
           chapter.setComment(comment, position.path) match {
             case Some(newChapter) =>
+              studyRepo.updateNow(study)
               newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
                 chapterRepo.update(newChapter) >>-
                   sendTo(study, Socket.SetComment(position, c, uid))
@@ -201,6 +203,7 @@ final class StudyApi(
       (study.members get userId) ?? { byMember =>
         chapter.toggleGlyph(glyph, position.path) match {
           case Some(newChapter) =>
+            studyRepo.updateNow(study)
             chapterRepo.update(newChapter) >>-
               newChapter.root.nodeAt(position.path).foreach { node =>
                 sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
@@ -221,7 +224,8 @@ final class StudyApi(
                 _.filter(_.isEmptyInitial) ?? chapterRepo.delete
               }
             } >> chapterRepo.insert(chapter) >>
-              doSetChapter(byUserId, study, chapter.id, socket, uid)
+              doSetChapter(byUserId, study, chapter.id, socket, uid) >>-
+              studyRepo.updateNow(study)
           }
         }
       }
