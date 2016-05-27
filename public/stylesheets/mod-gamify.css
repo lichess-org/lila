@@ -12,6 +12,9 @@
   float: left;
   width: 33.33%;
 }
+#mod-gamify .champs {
+  width: 100%;
+}
 #mod-gamify .champ {
   text-align: center;
 }
