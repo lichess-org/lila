@@ -12,27 +12,27 @@ final class StudyPager(
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
 
-  def byOwnerForUser(ownerId: User.ID, user: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ accessSelect(user), order, page)
+  def byOwnerForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
+    selectOwnerId(ownerId) ++ accessSelect(me), me, order, page)
 
-  def byOwnerPublicForUser(ownerId: User.ID, user: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ selectPublic, order, page)
+  def byOwnerPublicForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
+    selectOwnerId(ownerId) ++ selectPublic, me, order, page)
 
-  def byOwnerPrivateForUser(ownerId: User.ID, user: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ selectPrivate ++ accessSelect(user), order, page)
+  def byOwnerPrivateForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
+    selectOwnerId(ownerId) ++ selectPrivate ++ accessSelect(me), me, order, page)
 
-  def byMemberForUser(memberId: User.ID, user: Option[User], order: Order, page: Int) = paginator(
-    selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(user), order, page)
+  def byMemberForUser(memberId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
+    selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(me), me, order, page)
 
-  def byLikesForUser(userId: User.ID, user: Option[User], order: Order, page: Int) = paginator(
-    selectLiker(userId) ++ accessSelect(user) ++ $doc("ownerId" $ne userId), order, page)
+  def byLikesForUser(userId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
+    selectLiker(userId) ++ accessSelect(me) ++ $doc("ownerId" $ne userId), me, order, page)
 
-  def accessSelect(user: Option[User]) =
-    user.fold(selectPublic) { u =>
+  def accessSelect(me: Option[User]) =
+    me.fold(selectPublic) { u =>
       $or(selectPublic, selectMemberId(u.id))
     }
 
-  private def paginator(selector: Bdoc, order: Order, page: Int): Fu[Paginator[Study.WithChapters]] = Paginator(
+  private def paginator(selector: Bdoc, me: Option[User], order: Order, page: Int): Fu[Paginator[Study.WithChaptersAndLiked]] = Paginator(
     adapter = new Adapter[Study](
       collection = studyRepo.coll,
       selector = selector,
@@ -42,7 +42,7 @@ final class StudyPager(
         case Order.Oldest  => $sort asc "createdAt"
         case Order.Popular => $sort desc "likes"
       }
-    ) mapFutureList withChapters,
+    ) mapFutureList withChapters mapFutureList withLiking(me),
     currentPage = page,
     maxPerPage = 14)
 
@@ -50,6 +50,14 @@ final class StudyPager(
     chapterRepo namesByStudyIds studies.map(_.id) map { chapters =>
       studies.map { study =>
         Study.WithChapters(study, ~(chapters get study.id))
+      }
+    }
+
+  private def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    me.?? { u => studyRepo.filterLiked(u, studies.map(_.study.id)) } map { liked =>
+      studies.map {
+        case Study.WithChapters(study, chapters) =>
+          Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
 }

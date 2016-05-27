@@ -1,4 +1,4 @@
-@(title: String, active: String, user: lila.user.User, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChapters], url: controllers.Study.ListUrl)(titleHtml: Html)(implicit ctx: Context)
+@(title: String, active: String, user: lila.user.User, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChaptersAndLiked], url: controllers.Study.ListUrl)(titleHtml: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("studyList.css")

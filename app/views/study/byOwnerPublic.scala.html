@@ -1,4 +1,4 @@
-@(pag: Paginator[lila.study.Study.WithChapters], order: lila.study.Order, owner: User)(implicit ctx: Context)
+@(pag: Paginator[lila.study.Study.WithChaptersAndLiked], order: lila.study.Order, owner: User)(implicit ctx: Context)
 
 @listLayout(
 title = s"Public studies created by ${owner.titleName}",

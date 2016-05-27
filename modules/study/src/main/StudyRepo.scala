@@ -91,6 +91,9 @@ final class StudyRepo(private[study] val coll: Coll) {
   def liked(study: Study, user: User): Fu[Boolean] =
     coll.exists($id(study.id) ++ selectLiker(user.id))
 
+  def filterLiked(user: User, studyIds: Seq[Study.ID]): Fu[Set[Study.ID]] =
+    coll.primitive[Study.ID]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
+
   private def doLike(studyId: Study.ID, userId: User.ID, v: Boolean): Funit =
     coll.update(
       $id(studyId),

@@ -50,6 +50,7 @@ object Study {
 
   case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
+  val emptyLiking = Liking(Likes(0), false)
 
   sealed trait From
   object From {
@@ -73,6 +74,8 @@ object Study {
   case class WithChapter(study: Study, chapter: Chapter)
 
   case class WithChapters(study: Study, chapters: Seq[String])
+
+  case class WithChaptersAndLiked(study: Study, chapters: Seq[String], liked: Boolean)
 
   type ID = String
 

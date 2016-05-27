@@ -99,12 +99,15 @@ body.dark .studies .study {
   display: block;
   opacity: 0.8;
 }
-.studies h2 i {
+.studies .study h2 span i {
+  opacity: 0.5;
+}
+.studies h2 .icon {
   position: absolute;
   top: 0;
   left: 15px;
 }
-.studies h2 i::before {
+.studies h2 .icon::before {
   color: #3893E8;
   font-size: 34px;
   line-height: 43px;
