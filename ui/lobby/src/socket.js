@@ -34,12 +34,12 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  var music = function() {
+  var startMusic = function() {
     if (!this.music) lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
       this.music = lichessLobbyMusic();
     }.bind(this));
   }.bind(this);
 
-  Mousetrap.bind(': m u s i c', music);
-  if (location.hash === '#music') music();
+  Mousetrap.bind(': m u s i c', startMusic);
+  if (location.hash === '#music') startMusic();
 };

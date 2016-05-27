@@ -21,7 +21,7 @@ function lichessOrchestra() {
     }
     instruments.celesta.push(new Howl({
       src: [soundDir + 'celesta/' + fn + '.ogg', soundDir + 'celesta/' + fn + '.mp3'],
-      volume: 0.2
+      volume: 0.3
     }))
     instruments.clav.push(new Howl({
       src: [soundDir + 'clav/' + fn + '.ogg', soundDir + 'clav/' + fn + '.mp3'],
@@ -32,12 +32,12 @@ function lichessOrchestra() {
   for (var i = 1; i <= 3; i++) {
     instruments.swells.push(new Howl({
       src: [soundDir + 'swells/swell' + i + '.ogg', soundDir + 'swells/swell' + i + '.mp3'],
-      volume: 1
+      volume: 0.8
     }))
   }
 
   var play = function(instrument, pitch) {
-    pitch = Math.max(0, Math.min(maxPitch, pitch));
+    pitch = Math.round(Math.max(0, Math.min(maxPitch, pitch)));
     if (instrument === 'swells') pitch = Math.floor(pitch / 8);
     if (currentNotes < noteOverlap) {
       currentNotes++;

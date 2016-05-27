@@ -170,6 +170,7 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
+    if (this.music) this.music.jump(path, this.vm.node);
   }.bind(this);
 
   this.canJumpTo = function(path) {
@@ -464,4 +465,13 @@ module.exports = function(opts) {
   startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, opts.chat, this) : null;
+
+  var startMusic = function() {
+    if (!this.music) lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
+      this.music = lichessReplayMusic();
+    }.bind(this));
+  }.bind(this);
+
+  Mousetrap.bind(': m u s i c', startMusic);
+  if (location.hash === '#music') startMusic();
 };

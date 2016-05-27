@@ -884,7 +884,11 @@ lichess.challengeApp = (function() {
         if (enabled()) collection(s).play();
       };
     }
-    var play = {};
+    var play = {
+      disable: function() {
+        soundSet = 'silent';
+      }
+    };
     Object.keys(names).forEach(function(name) {
       play[name] = function() {
         if (enabled()) collection(name).play();
