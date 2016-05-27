@@ -26,10 +26,20 @@ module.exports = function(send, ctrl) {
   };
 
   this.receive = function(type, data) {
+    if (this.music) this.music.receive(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;
     }
     return false;
   }.bind(this);
+
+  var music = function() {
+    if (!this.music) lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
+      this.music = lichessLobbyMusic();
+    }.bind(this));
+  }.bind(this);
+
+  Mousetrap.bind(': m u s i c', music);
+  if (location.hash === '#music') music();
 };
