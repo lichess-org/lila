@@ -5,10 +5,10 @@ import lila.socket.tree.Node.{ Shape, Shapes }
 
 private object ShapeParser {
 
-  private val circlesRegex = """.*\[\%csl ((?:\w{3},?)+)\].*""".r
-  private val circlesRemoveRegex = """\[\%csl ((?:\w{3},?)+)\]""".r
-  private val arrowsRegex = """.*\[\%cal ((?:\w{5},?)+)\].*""".r
-  private val arrowsRemoveRegex = """\[\%cal ((?:\w{5},?)+)\]""".r
+  private val circlesRegex = """.*\[\%csl ((?:\w{3}[,\s]*)+)\].*""".r
+  private val circlesRemoveRegex = """\[\%csl ((?:\w{3}[,\s]*)+)\]""".r
+  private val arrowsRegex = """.*\[\%cal ((?:\w{5}[,\s]*)+)\].*""".r
+  private val arrowsRemoveRegex = """\[\%cal ((?:\w{5}[,\s]*)+)\]""".r
 
   private type ShapesAndComment = (Shapes, String)
 
@@ -21,7 +21,7 @@ private object ShapeParser {
 
   private def parseCircles(comment: String): ShapesAndComment = comment match {
     case circlesRegex(str) =>
-      val circles = str.split(',').toList.flatMap { c =>
+      val circles = str.split(',').toList.map(_.trim).flatMap { c =>
         for {
           color <- c.headOption
           pos <- Pos posAt c.drop(1)
