@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
-import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
