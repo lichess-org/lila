@@ -8,7 +8,10 @@ function lichessPlayMusic() {
   });
 
   var isPawn = function(san) {
-    return san[0] !== san[0].toLowerCase();
+    return san[0] === san[0].toLowerCase();
+  };
+  var isKing = function(san) {
+    return san[0] === 'K';
   };
 
   var hasCastle = function(san) {
@@ -36,21 +39,23 @@ function lichessPlayMusic() {
   };
 
   var uciBase = 64;
-  var uciToInt = function(uci) {
-    return keyToInt(uci.slice(2));
-  };
 
-  var uciToPitch = function(uci) {
-    return uciToInt(uci) / (uciBase / 23)
+  var keyToPitch = function(key) {
+    return keyToInt(key) / (uciBase / 23)
   };
 
   var jump = function(node) {
     if (node.san) {
-      var pitch = uciToPitch(node.uci);
-      orchestra.play(isPawn(node.san) ? 'clav' : 'celesta', pitch);
+      var pitch = keyToPitch(node.uci.slice(2));
+      var instrument = (isPawn(node.san) || isKing(node.san)) ? 'clav' : 'celesta';
+      orchestra.play(instrument, pitch);
       if (hasCastle(node.san)) orchestra.play('swells', pitch);
       else if (hasCheck(node.san)) orchestra.play('swells', pitch);
-      else if (hasCapture(node.san)) orchestra.play('swells', pitch);
+      else if (hasCapture(node.san)) {
+        orchestra.play('swells', pitch);
+        var capturePitch = keyToPitch(node.uci.slice(0, 2));
+        orchestra.play(instrument, capturePitch);
+      }
       else if (hasMate(node.san)) orchestra.play('swells', pitch);
     } else {
       orchestra.play('swells', 0);
