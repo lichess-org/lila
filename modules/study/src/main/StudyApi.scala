@@ -240,10 +240,8 @@ final class StudyApi(
     (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
-          studyRepo.updateSomeFields(study withChapter chapter) >>- {
+          studyRepo.updateSomeFields(study withChapter chapter) >>-
             sendTo(study, Socket.ChangeChapter(uid))
-            chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
-          }
         }
       }
     }
@@ -271,8 +269,6 @@ final class StudyApi(
             }
             else fuccess {
               reloadChapters(study)
-              if (chapter.name != newChapter.name)
-                chat ! SystemTalk(study.id, escapeHtml4(name), socket)
             }
           }
         }
