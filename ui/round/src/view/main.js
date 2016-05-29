@@ -21,6 +21,8 @@ function materialTag(role) {
 
 function renderMaterial(ctrl, material, checks, score) {
   var children = [];
+  if (score || score === 0)
+    children.push(m('score', score > 0 ? '+' + score : score));
   for (var role in material) {
     var piece = materialTag(role);
     var count = material[role];
@@ -35,9 +37,6 @@ function renderMaterial(ctrl, material, checks, score) {
   for (var i = 0; i < checks; i++) {
     children.push(m('tomb', m('mono-piece.king[title=Check]')));
   }
-  if (score || score === 0)
-    children.push(m('score', score > 0 ? '+' + score : score));
-
   return m('div.cemetery', children);
 }
 
