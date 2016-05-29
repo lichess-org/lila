@@ -14,7 +14,7 @@ case class StreamOnAir(
 
   def is(s: Streamer) = id == s.id
 
-  def highlight = streamer.streamerName != "ornicar2"
+  def highlight = !Set("ornicar", "ornicar2")(streamer.streamerName)
 }
 
 case class StreamsOnAir(streams: List[StreamOnAir])

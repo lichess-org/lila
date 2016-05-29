@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
-import lila.chat.actorApi.SystemTalk
 import lila.hub.actorApi.map.Tell
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
@@ -240,10 +239,8 @@ final class StudyApi(
     (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
-          studyRepo.updateSomeFields(study withChapter chapter) >>- {
+          studyRepo.updateSomeFields(study withChapter chapter) >>-
             sendTo(study, Socket.ChangeChapter(uid))
-            chat ! SystemTalk(study.id, escapeHtml4(chapter.name), socket)
-          }
         }
       }
     }
@@ -271,8 +268,6 @@ final class StudyApi(
             }
             else fuccess {
               reloadChapters(study)
-              if (chapter.name != newChapter.name)
-                chat ! SystemTalk(study.id, escapeHtml4(name), socket)
             }
           }
         }

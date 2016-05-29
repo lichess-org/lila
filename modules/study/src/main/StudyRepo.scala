@@ -31,7 +31,6 @@ final class StudyRepo(private[study] val coll: Coll) {
   def insert(s: Study): Funit = coll.insert {
     StudyBSONHandler.write(s) ++ $doc(
       "uids" -> s.members.ids,
-      "likes" -> 1,
       "likers" -> List(s.ownerId)
     )
   }.void

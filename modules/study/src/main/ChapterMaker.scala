@@ -104,7 +104,7 @@ private final class ChapterMaker(
       Node.Root.fromRoot {
         lila.round.TreeBuilder(
           game = game,
-          a = none,
+          analysis = none,
           initialFen = initialFen | game.variant.initialFen,
           withOpening = false)
       }

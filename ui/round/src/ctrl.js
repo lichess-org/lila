@@ -276,6 +276,7 @@ module.exports = function(opts) {
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+    if (this.music) this.music.jump(o);
   }.bind(this);
 
   var playPredrop = function() {
@@ -469,4 +470,12 @@ module.exports = function(opts) {
   init.yolo(this);
 
   onChange();
+
+  var startMusic = function() {
+    if (!this.music) lichess.loadScript('/assets/javascripts/music/play.js').then(function() {
+      this.music = lichessPlayMusic();
+    }.bind(this));
+  }.bind(this);
+  Mousetrap.bind(': m u s i c', startMusic);
+  if (location.hash === '#music') startMusic();
 };

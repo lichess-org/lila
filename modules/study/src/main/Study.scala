@@ -95,7 +95,7 @@ object Study {
       visibility = Visibility.Public,
       settings = Settings.init,
       from = from,
-      likes = Likes(0),
+      likes = Likes(1),
       createdAt = DateTime.now)
   }
 }

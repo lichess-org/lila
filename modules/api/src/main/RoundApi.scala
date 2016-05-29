@@ -2,7 +2,6 @@ package lila.api
 
 import play.api.libs.json._
 
-import chess.format.pgn.Pgn
 import lila.analyse.{ Analysis, Info }
 import lila.common.LightUser
 import lila.common.PimpedJson._
@@ -67,7 +66,7 @@ private[api] final class RoundApi(
     }
 
   def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
-    analysis: Option[(Pgn, Analysis)] = None,
+    analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
     withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
@@ -94,21 +93,21 @@ private[api] final class RoundApi(
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
       jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
-        withTree(pov, a = none, initialFen, withOpening = true)_ map
+        withTree(pov, analysis = none, initialFen, withOpening = true)_ map
         withForecast(pov, owner, fco)_
     }
 
   def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
     jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
-      withTree(pov, a = none, initialFen, withOpening = true)_
+      withTree(pov, analysis = none, initialFen, withOpening = true)_
 
   import lila.socket.tree.Node.partitionTreeJsonWriter
-  private def withTree(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
+  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
-      a = a,
+      analysis = analysis,
       initialFen = initialFen | pov.game.variant.initialFen,
       withOpening = withOpening)))
 
@@ -141,10 +140,10 @@ private[api] final class RoundApi(
       })
     else json
 
-  private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
-    case (pgn, analysis) => json + ("analysis" -> Json.obj(
-      "white" -> analysisApi.player(chess.Color.White)(analysis),
-      "black" -> analysisApi.player(chess.Color.Black)(analysis)
+  private def withAnalysis(o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
+    json + ("analysis" -> Json.obj(
+      "white" -> analysisApi.player(chess.Color.White)(a),
+      "black" -> analysisApi.player(chess.Color.Black)(a)
     ))
   }
 

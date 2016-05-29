@@ -54,7 +54,7 @@ object Analyse extends LilaController {
               val pgn = Env.api.pgnDump(pov.game, initialFen)
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
-                analysis.map(pgn -> _),
+                analysis,
                 initialFenO = initialFen.some,
                 withMoveTimes = true,
                 withOpening = true) map { data =>
