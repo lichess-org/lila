@@ -103,15 +103,17 @@ final class JsonView(
         "nb" -> sheetNbs(user.id, sheet, pairings),
         "performance" -> tpr
       ).noNull,
-      "pairings" -> povs.map { pov =>
-        Json.obj(
-          "id" -> pov.gameId,
-          "color" -> pov.color.name,
-          "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
-          "win" -> pov.win,
-          "status" -> pov.game.status.id,
-          "berserk" -> pov.player.berserk.option(true)
-        ).noNull
+      "pairings" -> povs.zip(sheet.scores).map {
+        case (pov, score) =>
+          Json.obj(
+            "id" -> pov.gameId,
+            "color" -> pov.color.name,
+            "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+            "win" -> pov.win,
+            "status" -> pov.game.status.id,
+            "berserk" -> pov.player.berserk.option(true),
+            "score" -> sheetScoreJson(score)
+          ).noNull
       }
     )
   }
@@ -175,7 +177,7 @@ final class JsonView(
 
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
-    def playerJson(rp: RankedPlayer, p: lila.game.Player) = {
+    def ofPlayer(rp: RankedPlayer, p: lila.game.Player) = {
       val light = getLightUser(rp.player.userId)
       Json.obj(
         "rank" -> rp.rank,
@@ -194,8 +196,8 @@ final class JsonView(
         case _                         => game.firstColor
       }).name,
       "lastMove" -> ~game.castleLastMoveTime.lastMoveString,
-      "white" -> playerJson(featured.white, game player chess.White),
-      "black" -> playerJson(featured.black, game player chess.Black))
+      "white" -> ofPlayer(featured.white, game player chess.White),
+      "black" -> ofPlayer(featured.black, game player chess.Black))
   }
 
   private def myInfoJson(i: PlayerInfo) = Json.obj(
@@ -217,12 +219,18 @@ final class JsonView(
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet =>
       val o = Json.obj(
-        "scores" -> s.scores.reverse.map { score =>
-          if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
-          else Json.arr(score.value, score.flag.id)
-        },
+        "scores" -> s.scores.reverse.map(arenaSheetScoreJson),
         "total" -> s.total)
       s.onFire.fold(o + ("fire" -> JsBoolean(true)), o)
+  }
+
+  private def arenaSheetScoreJson(score: arena.ScoringSystem.Score) =
+    if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
+    else Json.arr(score.value, score.flag.id)
+
+  private def sheetScoreJson(score: Score) = score match {
+    case s: arena.ScoringSystem.Score => arenaSheetScoreJson(s)
+    case s                            => JsNumber(score.value)
   }
 
   private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer): JsObject =
