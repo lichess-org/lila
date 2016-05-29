@@ -180,7 +180,6 @@ object SocketEvent {
   case class Stop(gameId: String) extends SocketEvent
 }
 case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
-case class AnalysisProgress(ratio: Float)
 case object AnalysisAvailable
 }
 

@@ -88,7 +88,7 @@ final class FishnetApi(
               Monitor.weak(work, client, complete)
               repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
             }
-            else AnalysisBuilder(client, work, complete) flatMap { analysis =>
+            else AnalysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
@@ -102,8 +102,9 @@ final class FishnetApi(
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
           case partial: PartialAnalysis =>
-            sink.progress(work.game.id, lila.hub.actorApi.round.AnalysisProgress(partial.progress))
-            fuccess(PostAnalysisResult.Partial)
+            AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
+              PostAnalysisResult.Partial(partial.progress, analysis)
+            }
         }
       case Some(work) =>
         Monitor.notAcquired(work, client)
@@ -111,12 +112,12 @@ final class FishnetApi(
     }
   }.chronometer.mon(_.fishnet.analysis.post)
     .logIfSlow(200, logger) {
-      case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
-      case PostAnalysisResult.Partial       => s"partial analysis"
+      case PostAnalysisResult.Complete(res)   => s"post analysis for ${res.id}"
+      case PostAnalysisResult.Partial(_, res) => s"partial analysis for ${res.id}"
     }.result
     .flatMap {
-      case r@PostAnalysisResult.Complete(res) => sink save res inject r
-      case r@PostAnalysisResult.Partial       => fuccess(r)
+      case r@PostAnalysisResult.Complete(res)       => sink save res inject r
+      case r@PostAnalysisResult.Partial(ratio, res) => sink.progress(ratio, res) inject r
     }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
@@ -174,6 +175,6 @@ object FishnetApi {
   sealed trait PostAnalysisResult
   object PostAnalysisResult {
     case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case object Partial extends PostAnalysisResult
+    case class Partial(ratio: Float, analysis: lila.analyse.Analysis) extends PostAnalysisResult
   }
 }

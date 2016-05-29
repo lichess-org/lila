@@ -5,7 +5,6 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.pgn.Pgn
 import lila.analyse.Analysis
 import lila.game.Pov
 import lila.pref.Pref
@@ -26,7 +25,7 @@ private[api] final class RoundApiBalancer(
       initialFenO: Option[Option[String]] = None,
       ctx: Context)
     case class Review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
-      analysis: Option[(Pgn, Analysis)] = None,
+      analysis: Option[Analysis] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
       withOpening: Boolean = false,
@@ -73,7 +72,7 @@ private[api] final class RoundApiBalancer(
   }.mon(_.round.api.watcher)
 
   def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
-    analysis: Option[(Pgn, Analysis)] = None,
+    analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
     withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] = {

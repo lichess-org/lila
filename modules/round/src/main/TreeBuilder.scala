@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.format.pgn.{ Pgn, Glyphs }
+import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
@@ -21,13 +21,13 @@ object TreeBuilder {
 
   def apply(
     game: lila.game.Game,
-    a: Option[(Pgn, Analysis)],
+    analysis: Option[Analysis],
     initialFen: String,
     withOpening: Boolean): Root = apply(
     id = game.id,
     pgnMoves = game.pgnMoves,
     variant = game.variant,
-    a = a,
+    analysis = analysis,
     initialFen = initialFen,
     withOpening = withOpening)
 
@@ -35,7 +35,7 @@ object TreeBuilder {
     id: String,
     pgnMoves: List[String],
     variant: Variant,
-    a: Option[(Pgn, Analysis)],
+    analysis: Option[Analysis],
     initialFen: String,
     withOpening: Boolean): Root = {
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
@@ -45,8 +45,8 @@ object TreeBuilder {
           if (withOpening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
         val fen = Forsyth >> init
-        val infos: Vector[Info] = a.??(_._2.infos.toVector)
-        val advices: Map[Ply, Advice] = a.??(_._2.advices.map { a =>
+        val infos: Vector[Info] = analysis.??(_.infos.toVector)
+        val advices: Map[Ply, Advice] = analysis.??(_.advices.map { a =>
           a.ply -> a
         }.toMap)
         val root = Root(

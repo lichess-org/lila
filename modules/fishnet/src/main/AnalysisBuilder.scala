@@ -3,17 +3,24 @@ package lila.fishnet
 import org.joda.time.DateTime
 
 import chess.format.Uci
-import JsonApi.Request.{ CompleteAnalysis, Evaluation }
+import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis, Evaluation }
 import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
 
 private object AnalysisBuilder {
 
-  def apply(client: Client, work: Work.Analysis, data: CompleteAnalysis): Fu[Analysis] = {
+  def apply(client: Client, work: Work.Analysis, evals: List[Evaluation]): Fu[Analysis] =
+    partial(client, work, evals map some, isPartial = false)
+
+  def partial(
+    client: Client,
+    work: Work.Analysis,
+    evals: List[Option[Evaluation]],
+    isPartial: Boolean = true): Fu[Analysis] = {
 
     val uciAnalysis = Analysis(
       id = work.game.id,
-      infos = makeInfos(data.analysis, work.game.moveList, work.startPly),
+      infos = makeInfos(evals, work.game.moveList, work.startPly),
       startPly = work.startPly,
       uid = work.sender.userId,
       by = !client.lichess option client.userId.value,
@@ -30,7 +37,7 @@ private object AnalysisBuilder {
               case (analysis, errors) =>
                 errors foreach { e => logger.warn(s"[UciToPgn] $debug $e") }
                 if (analysis.valid) {
-                  if (analysis.emptyRatio >= 1d / 10)
+                  if (!isPartial && analysis.emptyRatio >= 1d / 10)
                     fufail(s"Analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   else fuccess(analysis)
                 }
@@ -40,9 +47,9 @@ private object AnalysisBuilder {
     }
   }
 
-  private def makeInfos(evals: List[Evaluation], moves: List[String], startedAtPly: Int): List[Info] =
-    (evals filterNot (_.isCheckmate) sliding 2).toList.zip(moves).zipWithIndex map {
-      case ((List(before, after), move), index) => {
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[String], startedAtPly: Int): List[Info] =
+    (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
+      case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {
           case first :: rest if first != move => first :: rest
           case _                              => Nil
@@ -56,6 +63,7 @@ private object AnalysisBuilder {
           best = best)
         if (info.ply % 2 == 1) info.invert else info
       }
+      case ((_, _), index) => Info(index + 1 + startedAtPly)
     }
 
   case class GameIsGone(id: String) extends lila.common.LilaException {
