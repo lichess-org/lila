@@ -40,8 +40,8 @@ object Fishnet extends LilaController {
         // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
         case e            => fuccess(Left(InternalServerError(e.getMessage)))
       }, {
-        case PostAnalysisResult.Complete(_) => acquireNext
-        case PostAnalysisResult.Partial     => fuccess(Left(NoContent))
+        case _: PostAnalysisResult.Complete => acquireNext
+        case _: PostAnalysisResult.Partial  => fuccess(Left(NoContent))
       })
   }
 

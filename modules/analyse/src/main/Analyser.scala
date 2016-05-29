@@ -5,7 +5,7 @@ import akka.actor.ActorSelection
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ AnalysisAvailable, AnalysisProgress }
+import lila.hub.actorApi.round.AnalysisAvailable
 
 final class Analyser(
     indexer: ActorSelection,
@@ -25,6 +25,7 @@ final class Analyser(
     }
   }
 
-  def progress(gameId: String, data: AnalysisProgress) =
-    roundSocket ! Tell(gameId, data)
+  def progress(ratio: Float, analysis: Analysis): Funit = fuccess {
+    roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(ratio, analysis))
+  }
 }

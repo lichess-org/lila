@@ -43,6 +43,9 @@ module.exports = function(send, ctrl) {
     fen: function(e) {
       if (ctrl.forecast && e.id === ctrl.data.game.id)
         ctrl.forecast.reloadToLastPly();
+    },
+    partialAnalysis: function(data) {
+      console.log(data, 'partialAnalysis');
     }
   };
 
