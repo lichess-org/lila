@@ -1,4 +1,5 @@
 var xhr = require('./xhr');
+var m = require('mithril');
 
 module.exports = function(env) {
 
