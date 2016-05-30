@@ -5,7 +5,7 @@ var initialFen = require('../util').initialFen;
 module.exports = function(possible, variant, emit) {
 
   var nbWorkers = 3;
-  var minDepth = 8;
+  var minDepth = 7;
   var maxDepth = 18;
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
