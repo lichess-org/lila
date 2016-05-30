@@ -13,7 +13,7 @@
       case (r, index) => {
       <td @if(currentId.??(r.gameId==)){class="current"}>
         <a
-          href="@routes.Round.watcher(r.gameId, "white")"
+          href="@routes.Round.watcher(r.gameId, "white")?pov=@crosstable.user1.id"
           class="glpt @r.winnerId match {
           case Some(w) if w == u.id => { win }
           case None => {}

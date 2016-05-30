@@ -137,8 +137,17 @@ object Round extends LilaController with TheftPrevention {
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) =>
-        env.checkOutoftime(pov.game)
-        watch(pov)
+        get("pov") match {
+          case Some(povUsername) => (pov.player.userId, pov.opponent.userId) match {
+            case (Some(x),Some(y)) if y == povUsername => Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+            case (Some(x),Some(y)) if x == povUsername => Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+            case _ => notFound
+          }
+          case None => {
+            env.checkOutoftime(pov.game)
+            watch(pov)
+          }
+        }
       case None => Challenge showId gameId
     }
   }
