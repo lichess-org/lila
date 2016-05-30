@@ -1,20 +1,41 @@
 .site_notifications_box {
-    width: 300px;
+  width: 300px;
 }
 
 .site_notification {
-  padding-bottom: 8px;
-  border-bottom: 1px solid #e4e4e4;
-  margin-bottom: 8px;
+  display: flex;
+  padding: 8px 12px;
+  height: 36px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+.site_notification:hover {
+  background: rgba(191, 231, 255, 0.2);
+}
+.site_notification i {
+  font-size: 22px;
+  opacity: 0.5;
+  margin-right: 12px;
+}
+.site_notification .content {
+  flex: 0 1 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.site_notification .content span {
+  display: flex;
+  justify-content: space-between;
+}
+.site_notification .content time {
+  font-size: 0.9em;
   font-family: 'Roboto';
   font-weight: 300;
-  margin-left: 20px;
-  margin-right: 20px;
 }
-
-.site_notification a {
-  font-family: 'Noto Sans';
-  font-weight: bold;
-  color: #a0a0a0;
-  text-decoration: none;
+.site_notifications_box a.more {
+  display: block;
+  padding: 5px;
+  color: #3893E8;
+  text-align: center;
 }

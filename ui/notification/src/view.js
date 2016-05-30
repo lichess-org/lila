@@ -1,75 +1,63 @@
 var m = require('mithril');
 
-var drawMentionedNotification = function(notification) {
-
-  var content = notification.content;
-  var category = content.category;
-  var topic = content.topic;
-  var mentionedBy = content.mentionedBy.name;
-  var postId = content.postId;
-
-  var mentionedByProfile = "/@/" + mentionedBy;
-  var postUrl = "/forum/redirect/post/" + postId;
-
-  return m('div', [
-    m('a', {
-      href: mentionedByProfile
-    }, mentionedBy),
-    m('span', ' mentioned you in the '),
-    m('a', {
-      href: postUrl,
-      class: "forum_post_link"
-    }, topic),
-    m('span', ' forum thread')
-  ]);
-};
-
-var drawStudyInviteNotification = function(notification) {
-  var content = notification.content;
-  var invitedBy = content.invitedBy.name;
-  var studyName = content.studyName;
-  var studyId = content.studyId;
-
-  var invitedByProfile = "/@/" + invitedBy;
-  var studyUrl = "/study/" + studyId;
-
-  return m('div', [
-    m('a', {
-      href: invitedByProfile
-    }, invitedBy),
-    m('span', " invited you to their "),
-    m('a', {
-      href: studyUrl
-    }, studyName),
-    m('span', " study")
+function genericNotification(notification, url, icon, content) {
+  return m('a.site_notification', {
+    class: notification.type,
+    href: url
+  }, [
+    m('i', {
+      'data-icon': icon
+    }),
+    m('span.content', content)
   ]);
 }
 
-var drawNotification = function(notification) {
-  var content = null;
-  switch (notification.type) {
-    case "mentioned":
-      content = drawMentionedNotification(notification);
-      break;
-    case "invitedStudy":
-      content = drawStudyInviteNotification(notification);
-      break;
-    default:
-      console.dir(notification);
-      console.error("unhandled notification");
-      break;
-  }
+function drawTime(notification) {
+  return m('time', {
+    class: "moment-from-now",
+    datetime: new Date(notification.date).toISOString()
+  });
+};
 
-  var date = new Date(notification.date);
-  return m('div', {
-    class: 'site_notification'
-  }, [
-    content,
-    m('time', {
-      class: "moment-from-now",
-      datetime: date.toISOString()
-    })
+function drawMentionedNotification(notification) {
+  var content = notification.content;
+  var url = "/forum/redirect/post/" + content.postId
+
+  return genericNotification(notification, url, 'd', [
+    m('span', [
+      m('strong', content.mentionedBy.name),
+      drawTime(notification)
+    ]),
+    m('span', ' mentioned you in « ' + content.topic + ' ».')
   ]);
+};
+
+function drawStudyInviteNotification(notification) {
+  var content = notification.content;
+  var url = "/study/" + content.studyId;
+
+  return genericNotification(notification, url, '', [
+    m('span', [
+      m('strong', content.invitedBy.name),
+      drawTime(notification)
+    ]),
+    m('span', " invited you to « " + content.studyName + ' ».')
+  ]);
+};
+
+function drawUnhandled(notification) {
+  console.dir(notification);
+  console.error(notification, "unhandled notification");
+};
+
+var drawHandlers = {
+  mentioned: drawMentionedNotification,
+  invitedStudy: drawStudyInviteNotification
+};
+
+function drawNotification(notification) {
+  var handler = drawHandlers[notification.type] || drawUnhandled;
+  return handler(notification);
 }
 
 function recentNotifications(ctrl) {
@@ -84,7 +72,7 @@ module.exports = function(ctrl) {
     class: "site_notifications_box"
   }, [
     recentNotifications(ctrl),
-    m('a', {
+    m('a.more', {
       href: "/notifications"
     }, "See more")
   ]);
