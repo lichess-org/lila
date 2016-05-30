@@ -164,7 +164,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         @ctx.me.map { me =>
-        <div id="notifications">@notifications(me)</div>
+        <div id="notifications">@renderNotifications(me)</div>
         }.getOrElse {
         <div id="notifications"></div>
         }

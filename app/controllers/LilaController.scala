@@ -1,6 +1,5 @@
 package controllers
 
-import lila.notify.Notification.Notifies
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
@@ -10,13 +9,13 @@ import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.twirl.api.Html
 import scalaz.Monoid
-import lila.notify.{Notification}
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
+import lila.notify.Notification.Notifies
 
 private[controllers] trait LilaController
     extends Controller
