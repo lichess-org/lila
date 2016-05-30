@@ -49,6 +49,9 @@ case GameEnd(playerId, opponent, win, perfKey) => {
 in @perf.name
 }
 }
+case StudyCreate(userId, studyId, studyName) => {
+@userIdLink(userId.some, withOnline = false) hosts <a href="@routes.Study.show(studyId)">a new study</a>
+}
 }
 @momentFromNow(e.date)
 }

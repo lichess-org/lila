@@ -104,6 +104,7 @@ case class QaComment(userId: String, id: Int, title: String, commentId: String) 
 case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd", true)
 case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom(s"simulCreate", true)
 case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom(s"simulJoin", true)
+case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom(s"studyCreate", true)
 
 object propagation {
   sealed trait Propagation

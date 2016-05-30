@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.timeline.{ Propagate, StudyCreate }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.{ Shape, Shapes, Comment }
@@ -20,6 +21,7 @@ final class StudyApi(
     notifier: StudyNotifier,
     lightUser: lila.common.LightUser.Getter,
     chat: ActorSelection,
+    timeline: ActorSelection,
     socketHub: ActorRef) {
 
   def byId = studyRepo byId _
@@ -43,7 +45,9 @@ final class StudyApi(
   def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
     studyMaker(data, user) flatMap { res =>
       studyRepo.insert(res.study) >>
-        chapterRepo.insert(res.chapter) inject res
+        chapterRepo.insert(res.chapter) >>- {
+          if (res.study.isPublic) timeline ! (Propagate(StudyCreate(user.id, res.study.id, res.study.name)) toFollowersOf user.id)
+        } inject res
     }
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {

@@ -81,6 +81,7 @@ final class Env(
       netBaseUrl = NetBaseUrl),
     lightUser = getLightUser,
     chat = hub.actor.chat,
+    timeline = hub.actor.timeline,
     socketHub = socketHub)
 
   lazy val pager = new StudyPager(
