@@ -77,7 +77,8 @@ final class Env(
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
     notifier = new StudyNotifier(
-      notifyApi = lila.notify.Env.current.notifyApi
+      notifyApi = lila.notify.Env.current.notifyApi,
+      relationApi = lila.relation.Env.current.api
     ),
     lightUser = getLightUser,
     chat = hub.actor.chat,

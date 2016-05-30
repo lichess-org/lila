@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 import lila.hub.actorApi.forum._
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
+import lila.relation.RelationApi
 
 
 final class Env(
@@ -18,6 +19,7 @@ final class Env(
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
     notifyApi : NotifyApi,
+    relationApi: RelationApi,
     system: ActorSystem) {
 
   private val settings = new {
@@ -36,7 +38,7 @@ final class Env(
 
   lazy val categApi = new CategApi(env = this)
 
-  lazy val mentionNotifier = new MentionNotifier(notifyApi = notifyApi)
+  lazy val mentionNotifier = new MentionNotifier(notifyApi = notifyApi, relationApi = relationApi)
 
   lazy val topicApi = new TopicApi(
     env = this,
@@ -84,5 +86,6 @@ object Env {
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     notifyApi = lila.notify.Env.current.notifyApi,
+    relationApi = lila.relation.Env.current.api,
     system = lila.common.PlayApp.system)
 }
