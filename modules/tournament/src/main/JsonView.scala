@@ -88,34 +88,39 @@ final class JsonView(
     sheet = info.tour.system.scoringSystem.sheet(info.tour, info.user.id, pairings)
     tpr <- performance(info.tour, info.player, pairings)
   } yield info match {
-    case PlayerInfoExt(tour, user, player, povs) => Json.obj(
-      "player" -> Json.obj(
-        "id" -> user.id,
-        "name" -> user.username,
-        "title" -> user.title,
-        "rank" -> ranking.get(user.id).map(1+),
-        "rating" -> player.rating,
-        "provisional" -> player.provisional.option(true),
-        "withdraw" -> player.withdraw.option(true),
-        "score" -> player.score,
-        "ratingDiff" -> player.ratingDiff,
-        "fire" -> player.fire,
-        "nb" -> sheetNbs(user.id, sheet, pairings),
-        "performance" -> tpr
-      ).noNull,
-      "pairings" -> povs.zip(sheet.scores).map {
-        case (pov, score) =>
-          Json.obj(
-            "id" -> pov.gameId,
-            "color" -> pov.color.name,
-            "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
-            "win" -> pov.win,
-            "status" -> pov.game.status.id,
-            "berserk" -> pov.player.berserk.option(true),
-            "score" -> sheetScoreJson(score)
-          ).noNull
+    case PlayerInfoExt(tour, user, player, povs) =>
+      val isPlaying = povs.headOption.??(_.game.playable)
+      val povScores: List[(Pov, Option[Score])] = povs zip {
+        (isPlaying ?? List(none[Score])) ::: sheet.scores.map(some)
       }
-    )
+      Json.obj(
+        "player" -> Json.obj(
+          "id" -> user.id,
+          "name" -> user.username,
+          "title" -> user.title,
+          "rank" -> ranking.get(user.id).map(1+),
+          "rating" -> player.rating,
+          "provisional" -> player.provisional.option(true),
+          "withdraw" -> player.withdraw.option(true),
+          "score" -> player.score,
+          "ratingDiff" -> player.ratingDiff,
+          "fire" -> player.fire,
+          "nb" -> sheetNbs(user.id, sheet, pairings),
+          "performance" -> tpr
+        ).noNull,
+        "pairings" -> povScores.map {
+          case (pov, score) =>
+            Json.obj(
+              "id" -> pov.gameId,
+              "color" -> pov.color.name,
+              "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+              "win" -> pov.win,
+              "status" -> pov.game.status.id,
+              "berserk" -> pov.player.berserk.option(true),
+              "score" -> score.map(sheetScoreJson)
+            ).noNull
+        }
+      )
   }
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
