@@ -10,20 +10,20 @@ function uncache(url) {
 }
 
 module.exports = {
-    load: function() {
-        return m.request({
-            method: 'GET',
-            url: uncache('/notif'),
-            config: xhrConfig
+  load: function() {
+    return m.request({
+      method: 'GET',
+      url: uncache('/notif'),
+      config: xhrConfig
 
-        });
-    },
-    markAllRead: function() {
-        return m.request({
-            method: 'POST',
-            url: '/notif',
-            config: xhrConfig
+    });
+  },
+  markAllRead: function() {
+    return m.request({
+      method: 'POST',
+      url: '/notif',
+      config: xhrConfig
 
-        });
-    }
+    });
+  }
 };
