@@ -67,10 +67,10 @@ var drawNotification = function(notification) {
     content,
     m('time', {
       class: "moment-from-now",
-      datetime: date
+      datetime: date.toISOString()
     })
   ]);
-};
+}
 
 function recentNotifications(ctrl) {
   return ctrl.data.map(drawNotification);
