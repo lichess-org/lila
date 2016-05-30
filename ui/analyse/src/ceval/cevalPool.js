@@ -7,12 +7,16 @@ module.exports = function(opts, nb) {
   var token = -1;
 
   var getWorker = function() {
-    if (!workers.length)
-      for (var i = 1; i <= nb; i++)
-        workers.push(makeWorker(opts, 'W' + i));
+    initWorkers();
     token = (token + 1) % workers.length;
     return workers[token];
   };
+
+  var initWorkers = function() {
+    if (!workers.length)
+      for (var i = 1; i <= nb; i++)
+        workers.push(makeWorker(opts, 'W' + i));
+  }
 
   var stopAll = function() {
     workers.forEach(function(i) {
@@ -25,6 +29,7 @@ module.exports = function(opts, nb) {
       stopAll();
       getWorker().start(work);
     },
-    stop: stopAll
+    stop: stopAll,
+    warmup: initWorkers
   };
 };
