@@ -15,7 +15,6 @@ module.exports = {
       method: 'GET',
       url: uncache('/notif'),
       config: xhrConfig
-
     });
   },
   markAllRead: function() {
@@ -23,7 +22,6 @@ module.exports = {
       method: 'POST',
       url: '/notif',
       config: xhrConfig
-
     });
   }
 };

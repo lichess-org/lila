@@ -57,16 +57,10 @@ lichess.siteNotifications = (function() {
                 load();
 
                 $toggle.on('click', function() {
-                    if (parseInt($toggle.attr('data-count'))) {
-                        instance.markAllReadServer();
+                        instance.updateNotifications().then(instance.markAllReadServer);
                         $toggle.attr('data-count', 0);
-                    }
                 });
             }
-        },
-        addNewNotification: function(notification) {
-            if (instance)
-                instance.addNewNotification(notification);
         }
     }
 })();
@@ -190,7 +184,6 @@ lichess.siteNotifications = (function() {
       },
       new_notification: function(e) {
           var notification = e.notification;
-          lichess.siteNotifications.addNewNotification(notification);
 
           $('#site_notifications_tag').attr('data-count', e.unread || 0);
           $.sound.newPM();

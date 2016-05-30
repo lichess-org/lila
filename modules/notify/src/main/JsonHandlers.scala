@@ -29,7 +29,10 @@ object JSONHandlers {
           case InvitedToStudy(_,_,_) => "invitedStudy"
         }
 
-        Json.obj("content" -> writeBody(body), "type" -> notificationType, "date" -> notification.createdAt)
+        Json.obj("content" -> writeBody(body),
+          "type" -> notificationType,
+          "read" -> notification.read.value,
+          "date" -> notification.createdAt)
     }
   }
 
