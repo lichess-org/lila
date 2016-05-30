@@ -1,5 +1,16 @@
 var m = require('mithril');
 
+var variantMap = {
+  fromPosition: 'Chess960',
+  chess960: 'Chess960',
+  atomic: 'Atomic',
+  horde: 'Horde',
+  crazyhouse: 'House',
+  kingOfTheHill: 'KingOfTheHill',
+  racingKings: 'Race',
+  threeCheck: '3Check'
+};
+
 module.exports = function(opts, name) {
 
   var busy = false;
@@ -46,22 +57,9 @@ module.exports = function(opts, name) {
     }
     if (!instance) {
       instance = new Worker(opts.path);
-      if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
-        send('setoption name UCI_Chess960 value true');
-      else if (opts.variant.key === 'atomic')
-        send('setoption name UCI_Atomic value true');
-      else if (opts.variant.key === 'horde')
-        send('setoption name UCI_Horde value true');
-      else if (opts.variant.key === 'crazyhouse')
-        send('setoption name UCI_House value true');
-      else if (opts.variant.key === 'kingOfTheHill')
-        send('setoption name UCI_KingOfTheHill value true');
-      else if (opts.variant.key === 'racingKings')
-        send('setoption name UCI_Race value true');
-      else if (opts.variant.key === 'threeCheck')
-        send('setoption name UCI_3Check value true');
-      else
-        send('uci'); // send something to warm up
+      var uciVariant = variantMap[opts.variant.key];
+      if (uciVariant) send('setoption name UCI_' + uciVariant + ' value true');
+      else send('uci'); // send something to warm up
     }
     busy = false;
   };
