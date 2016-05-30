@@ -1,8 +1,8 @@
-.site_notifications_box {
+#notifications_app .site_notifications_box {
   width: 300px;
 }
 
-.site_notification {
+#notifications_app .site_notification {
   display: flex;
   padding: 8px 12px;
   height: 36px;
@@ -10,10 +10,10 @@
   border-bottom: 1px solid #eee;
   position: relative;
 }
-.site_notification:hover {
+#notifications_app .site_notification:hover {
   background: rgba(191, 231, 255, 0.2);
 }
-.site_notification i {
+#notifications_app .site_notification i {
   font-size: 22px;
   opacity: 0.5;
   margin-right: 12px;
@@ -36,6 +36,6 @@
 .site_notifications_box a.more {
   display: block;
   padding: 5px;
-  color: #3893E8;
+  color: #3893E8!important;
   text-align: center;
 }
