@@ -10,7 +10,6 @@ import lila.hub.actorApi.timeline._
 
 case class Entry(
     _id: BSONObjectID,
-    users: List[String],
     typ: String,
     chan: Option[String],
     data: Bdoc,
@@ -48,10 +47,12 @@ case class Entry(
 
 object Entry {
 
+  case class ForUsers(entry: Entry, userIds: List[String])
+
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer write data
   private def fromBson[A](bson: Bdoc)(implicit reader: BSONDocumentReader[A]) = reader read bson
 
-  private[timeline] def make(users: List[String], data: Atom): Entry = {
+  private[timeline] def make(data: Atom): Entry = {
     import atomBsonHandlers._
     data match {
       case d: Follow      => "follow" -> toBson(d)
@@ -70,7 +71,7 @@ object Entry {
     }
   } match {
     case (typ, bson) =>
-      new Entry(BSONObjectID.generate, users, typ, data.channel.some, bson, DateTime.now)
+      new Entry(BSONObjectID.generate, typ, data.channel.some, bson, DateTime.now)
   }
 
   object atomBsonHandlers {

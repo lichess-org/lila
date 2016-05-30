@@ -8,6 +8,8 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
 
   import Entry._
 
+  private val projection = $doc("users" -> false)
+
   def userEntries(userId: String): Fu[List[Entry]] =
     userEntries(userId, userMax)
 
@@ -15,7 +17,7 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
     userEntries(userId, nb)
 
   private def userEntries(userId: String, max: Int): Fu[List[Entry]] =
-    coll.find($doc("users" -> userId))
+    coll.find($doc("users" -> userId), projection)
       .sort($doc("date" -> -1))
       .cursor[Entry]()
       .gather[List](max)
@@ -23,8 +25,9 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
   def findRecent(typ: String, since: DateTime) =
     coll.find($doc(
       "typ" -> typ,
-      "date" -> $doc("$gt" -> since)
-    )).cursor[Entry]()
+      "date" -> $doc("$gt" -> since)),
+      projection
+    ).cursor[Entry]()
       .gather[List]()
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
@@ -34,5 +37,6 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
       "date" $gt DateTime.now.minusDays(7)
     ).some) map (0 !=)
 
-  def insert(entry: Entry) = coll insert entry void
+  def insert(e: Entry.ForUsers) =
+    coll.insert(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
 }
