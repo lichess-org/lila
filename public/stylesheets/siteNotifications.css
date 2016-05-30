@@ -18,6 +18,10 @@
   opacity: 0.5;
   margin-right: 12px;
 }
+#notifications_app .site_notification:hover i {
+  color: #3893E8!important;
+  opacity: 0.6;
+}
 .site_notification .content {
   flex: 0 1 100%;
   white-space: nowrap;
