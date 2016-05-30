@@ -49,7 +49,7 @@ var m = require('mithril');
         var date = new Date(notification.date);
         return m('div', {class: 'site_notification'}, [
             content,
-            m('time', {class:"moment-from-now", datetime: date})
+            m('time', {class:"moment-from-now", datetime: date.toISOString()})
         ]);
     };
 
