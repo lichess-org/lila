@@ -1,5 +1,6 @@
 var treePath = require('./path');
 var ops = require('./ops');
+var defined = require('../util').defined;
 
 module.exports = function(root) {
 
@@ -163,6 +164,23 @@ module.exports = function(root) {
     });
   }
 
+  function partialAnalysis(objs) {
+    var obj = objs[0];
+    if (!obj) return;
+    var node = ops.findInMainline(root, function(node) {
+      return node.ply == obj.ply;
+    });
+    if (!node) return;
+    for (var i in objs) {
+      if (node.eval) break;
+      obj = objs[i];
+      node.eval = {};
+      if (defined(obj.cp)) node.eval.cp = obj.cp;
+      if (defined(obj.mate)) node.eval.mate = obj.mate;
+      node = node.children[0];
+    }
+  }
+
   return {
     root: root,
     ops: ops,
@@ -204,6 +222,7 @@ module.exports = function(root) {
         if (found) return ply;
       }
     },
-    getCurrentNodesAfterPly: getCurrentNodesAfterPly
+    getCurrentNodesAfterPly: getCurrentNodesAfterPly,
+    partialAnalysis: partialAnalysis
   };
 }

@@ -1,3 +1,4 @@
+var m = require('mithril');
 var util = require('./util');
 var initialFen = require('chessground').fen.initial;
 
@@ -44,8 +45,9 @@ module.exports = function(send, ctrl) {
       if (ctrl.forecast && e.id === ctrl.data.game.id)
         ctrl.forecast.reloadToLastPly();
     },
-    partialAnalysis: function(data) {
-      console.log(data, 'partialAnalysis');
+    analysisProgress: function(data) {
+      ctrl.tree.partialAnalysis(data.analysis);
+      m.redraw();
     }
   };
 

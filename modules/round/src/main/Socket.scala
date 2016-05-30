@@ -10,6 +10,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
+import lila.common.PimpedJson._
 import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
@@ -167,8 +168,8 @@ private[round] final class Socket(
         "analysis" -> analysis.infos.filterNot(_.isEmpty).map { info =>
           Json.obj(
             "ply" -> info.ply,
-            "score" -> info.score.map(_.centipawns),
-            "mate" -> info.mate)
+            "cp" -> info.score.map(_.centipawns),
+            "mate" -> info.mate).noNull
         }
       ))
 
