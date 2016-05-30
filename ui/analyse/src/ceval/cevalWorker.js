@@ -21,7 +21,7 @@ module.exports = function(opts, name) {
   };
 
   var processOutput = function(text, work) {
-    if (/bestmove .*/.test(text)) {
+    if (text.indexOf('bestmove ') === 0) {
       busy = false;
       return;
     }
