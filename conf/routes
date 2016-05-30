@@ -264,6 +264,11 @@ POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 GET   /challenge/$id<\w{8}>/socket/v:apiVersion controllers.Challenge.websocket(id: String, apiVersion: Int)
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
 
+# Notification
+GET /notif                      controllers.Notif.recent
+POST /notif                     controllers.Notif.markAllAsRead
+GET /notifications              controllers.Notif.notificationsPage
+
 # Video
 GET   /video                           controllers.Video.index
 GET   /video/tags                      controllers.Video.tags

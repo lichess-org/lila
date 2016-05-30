@@ -1,5 +1,6 @@
 package controllers
 
+import lila.notify.Notification.Notifies
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
@@ -9,6 +10,7 @@ import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.twirl.api.Html
 import scalaz.Monoid
+import lila.notify.{Notification}
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
@@ -302,11 +304,12 @@ private[controllers] trait LilaController
           } recover { case _ => Nil }) zip
             Env.team.api.nbRequests(me.id) zip
             Env.message.api.unreadIds(me.id) zip
-            Env.challenge.api.countInFor(me.id)
+            Env.challenge.api.countInFor(me.id) zip
+            Env.notif.notifyApi.getUnseenNotificationCount(Notifies(me.id))
         }
       } map {
-        case (pref, (((friends, teamNbRequests), messageIds), nbChallenges)) =>
-          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, pref,
+        case (pref, ((((friends, teamNbRequests), messageIds), nbChallenges), nbNotifications)) =>
+          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }

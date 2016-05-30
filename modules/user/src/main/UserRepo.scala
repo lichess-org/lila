@@ -230,6 +230,15 @@ object UserRepo {
   def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
   def idExists(id: String): Fu[Boolean] = coll exists $id(id)
 
+  /**
+    * Filters out invalid usernames and returns the IDs for those usernames
+    *
+    * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
+    * @return A list of IDs for the usernames that were given that were valid
+    */
+  def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
+    coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
+
   def engineIds: Fu[Set[String]] =
     coll.distinct("_id", $doc("engine" -> true).some) map lila.db.BSON.asStringSet
 

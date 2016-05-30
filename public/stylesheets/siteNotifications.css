@@ -1,0 +1,20 @@
+.site_notifications_box {
+    width: 300px;
+}
+
+.site_notification {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 8px;
+  font-family: 'Roboto';
+  font-weight: 300;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.site_notification a {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  color: #a0a0a0;
+  text-decoration: none;
+}

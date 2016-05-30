@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.regex.Matcher.quoteReplacement
 
-import lila.user.UserContext
+import lila.user.{User, UserContext}
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.twirl.api.Html
 
@@ -47,13 +47,6 @@ trait StringHelper { self: NumberHelper =>
     }
   }
 
-  // Matches a lichess username with a '@' prefix only if the next char isn't a digit,
-  // if it isn't after a word character (that'd be an email) and fits constraints in
-  // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
-  // Example: everyone says @ornicar is a pretty cool guy
-  // False example: Write to lichess.contact@gmail.com, @1
-  private val atUsernameRegex = """\B@(?>([a-zA-Z_-][\w-]{1,19}))(?U)(?![\w-])""".r
-
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
 
   /**
@@ -61,7 +54,7 @@ trait StringHelper { self: NumberHelper =>
     * @param text The text to regex match
     * @return The text as a HTML hyperlink
     */
-  def addUserProfileLinks(text: String) = atUsernameRegex.replaceAllIn(text, m => {
+  def addUserProfileLinks(text: String) = User.atUsernameRegex.replaceAllIn(text, m => {
     var user = m group 1
     var url = s"$netDomain/@/$user"
 
