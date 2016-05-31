@@ -16,17 +16,16 @@ private final class ChapterMaker(
   import ChapterMaker._
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
-    val orientation = Color(data.orientation) | chess.White
     data.game.??(parsePov) flatMap {
       case None => data.pgn.filter(_.trim.nonEmpty) match {
-        case Some(pgn) => fromPgn(study, pgn, data, orientation, order, userId)
-        case None      => fuccess(fromFenOrBlank(study, data, orientation, order, userId))
+        case Some(pgn) => fromPgn(study, pgn, data, order, userId)
+        case None      => fuccess(fromFenOrBlank(study, data, order, userId))
       }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     }
   }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, orientation: Color, order: Int, userId: User.ID): Fu[Option[Chapter]] =
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
     PgnImport(pgn).future map { res =>
       Chapter.make(
         studyId = study.id,
@@ -38,7 +37,7 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           none,
           res.variant,
-          orientation,
+          data.realOrientation,
           fromPgn = Chapter.FromPgn(tags = res.tags).some),
         root = res.root,
         order = order,
@@ -46,7 +45,7 @@ private final class ChapterMaker(
         conceal = data.conceal option Chapter.Ply(res.root.ply)).some
     }
 
-  private def fromFenOrBlank(study: Study, data: Data, orientation: Color, order: Int, userId: User.ID): Option[Chapter] = {
+  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Option[Chapter] = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
     (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
@@ -70,7 +69,7 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           none,
           variant,
-          orientation,
+          data.realOrientation,
           fromFen = isFromFen option true),
         root = root,
         order = order,
@@ -90,7 +89,7 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,
           pov.game.variant,
-          pov.color),
+          data.realOrientation),
         root = root,
         order = order,
         ownerId = userId,
@@ -126,14 +125,17 @@ private final class ChapterMaker(
 private[study] object ChapterMaker {
 
   case class Data(
-    name: String,
-    game: Option[String],
-    variant: Option[String],
-    fen: Option[String],
-    pgn: Option[String],
-    orientation: String,
-    conceal: Boolean,
-    initial: Boolean)
+      name: String,
+      game: Option[String],
+      variant: Option[String],
+      fen: Option[String],
+      pgn: Option[String],
+      orientation: String,
+      conceal: Boolean,
+      initial: Boolean) {
+
+    def realOrientation = Color(orientation) | chess.White
+  }
 
   case class EditData(
     id: String,
