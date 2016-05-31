@@ -139,8 +139,10 @@ object Round extends LilaController with TheftPrevention {
       case Some(pov) =>
         get("pov") match {
           case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
-            case (Some(x),Some(y)) if y == requestedPov => Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-            case (Some(x),Some(y)) if x == requestedPov => Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+            case (Some(_),Some(opponent)) if opponent == requestedPov =>
+              Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+            case (Some(player),Some(_)) if player == requestedPov =>
+              Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
             case _ => notFound
           }
           case None => {
