@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import play.twirl.api.Html
 
-import lila.hub.actorApi.{ RemindDeploy, Deploy }
+import lila.hub.actorApi.Deploy
 import makeTimeout.short
 
 private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
@@ -18,14 +18,12 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
   }
 
   def process = {
-    case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.RemindDeployPre)
-    case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.RemindDeployPost)
+    case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.DeployPre)
+    case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
   }
 
-  private def remindDeploy(event: RemindDeploy): Fu[String] = {
-    renderer ? event foreach {
-      case html: Html => bus.publish(Deploy(event, html.body), 'deploy)
-    }
+  private def remindDeploy(event: Deploy): Fu[String] = {
+    bus.publish(event, 'deploy)
     fuccess("Deploy in progress")
   }
 

@@ -20,10 +20,9 @@ object SendTos {
     SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
 }
 
-sealed abstract class RemindDeploy(val key: String)
-case object RemindDeployPre extends RemindDeploy("deployPre")
-case object RemindDeployPost extends RemindDeploy("deployPost")
-case class Deploy(event: RemindDeploy, html: String)
+sealed abstract class Deploy(val key: String)
+case object DeployPre extends Deploy("deployPre")
+case object DeployPost extends Deploy("deployPost")
 case class StreamsOnAir(html: String)
 
 package map {

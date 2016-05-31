@@ -101,9 +101,7 @@ private[round] final class Socket(
     // in case one joined after the socket creation
     case StartGame(game) => self ! SetGame(game.some)
 
-    case d: Deploy =>
-      onDeploy(d) // default behaviour
-      history.enablePersistence
+    case d: Deploy       => history.enablePersistence
 
     case PingVersion(uid, v) =>
       timeBomb.delay

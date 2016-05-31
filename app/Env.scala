@@ -72,7 +72,6 @@ final class Env(
     Env.forumSearch,
     Env.relation,
     Env.report,
-    Env.notification,
     Env.bookmark,
     Env.pref,
     Env.chat,
@@ -114,7 +113,6 @@ object Env {
   def hub = lila.hub.Env.current
   def socket = lila.socket.Env.current
   def message = lila.message.Env.current
-  def notification = lila.notification.Env.current
   def i18n = lila.i18n.Env.current
   def game = lila.game.Env.current
   def bookmark = lila.bookmark.Env.current
@@ -127,7 +125,7 @@ object Env {
   def teamSearch = lila.teamSearch.Env.current
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
-  def notif = lila.notify.Env.current
+  def notifyModule = lila.notify.Env.current
   def site = lila.site.Env.current
   def round = lila.round.Env.current
   def lobby = lila.lobby.Env.current

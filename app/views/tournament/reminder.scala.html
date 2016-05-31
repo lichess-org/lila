@@ -1,9 +1,0 @@
-@(tour: Tournament)
-
-@notification.view("tournament_reminder", closable = false, glow = true) {
-<a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a> in progress!
-<div class="actions">
-  <a class="withdraw trans_me text" href="@routes.Tournament.withdraw(tour.id)" data-icon="b">@trans.withdraw.en()</a>
-  <a class="trans_me text" href="@routes.Tournament.show(tour.id)" data-icon="G">@trans.join.en()</a>
-</div>
-}

@@ -32,7 +32,6 @@ object Environment
     with ForumHelper
     with I18nHelper
     with BookmarkHelper
-    with NotificationHelper
     with SecurityHelper
     with TeamHelper
     with AnalysisHelper

@@ -8,9 +8,9 @@ import akka.pattern.{ ask, pipe }
 import actorApi._, round._
 import chess.Color
 import lila.game.{ Game, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.FishnetPlay
-import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import makeTimeout.large
@@ -183,7 +183,7 @@ private[round] final class Round(
       }
     }
 
-    case Deploy(RemindDeployPost, _) => handle { game =>
+    case DeployPost => handle { game =>
       game.clock.filter(_ => game.playable) ?? { clock =>
         val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
