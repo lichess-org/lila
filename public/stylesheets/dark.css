@@ -485,7 +485,6 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 body.dark div.side_box div.game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1), rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
-body.dark #notifications_app .site_notification:hover,
 body.dark div.game_row:hover,
 body.dark .studies .study:hover {
   background: rgba(27, 51, 68, 0.5)!important;

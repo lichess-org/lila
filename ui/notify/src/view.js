@@ -6,7 +6,7 @@ function userFullName(u) {
 
 function genericNotification(notification, url, icon, content) {
   return m('a.site_notification', {
-    class: notification.type + (notification.read ? '' : ' unread'),
+    class: notification.type + (notification.read ? '' : ' new'),
     href: url
   }, [
     m('i', {

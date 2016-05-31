@@ -5,19 +5,35 @@
 #notifications_app .site_notification {
   display: flex;
   padding: 8px 12px;
-  height: 36px;
+  height: 34px;
   background: #fff;
   border-bottom: 1px solid #eee;
   position: relative;
 }
+#notifications_app .site_notification.new {
+  background: rgba(191, 231, 255, 0.3);
+}
 #notifications_app .site_notification:hover {
-  background: rgba(191, 231, 255, 0.2);
+  background: #f8f8f8;
+}
+#notifications_app .site_notification.new:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+body.dark #notifications_app .site_notification:hover {
+  background: #303030;
+}
+body.dark #notifications_app .site_notification.new {
+  background: rgba(27, 51, 68, 0.4)!important;
+}
+body.dark #notifications_app .site_notification.new:hover {
+  background: rgba(27, 51, 68, 0.8)!important;
 }
 #notifications_app .site_notification i {
   font-size: 22px;
   opacity: 0.5;
   margin-right: 12px;
 }
+#notifications_app .site_notification.new i,
 #notifications_app .site_notification:hover i {
   color: #3893E8!important;
   opacity: 0.6;
@@ -40,6 +56,9 @@
 .site_notifications_box a.more {
   display: block;
   padding: 5px;
-  color: #3893E8!important;
   text-align: center;
+  opacity: 0.6;
+}
+.site_notifications_box a.more:hover {
+  color: #3893E8!important;
 }
