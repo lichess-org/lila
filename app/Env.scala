@@ -94,7 +94,7 @@ final class Env(
   }
 
   scheduler.once(5 seconds) {
-    Env.slack.api.publishInfo("Lichess has restarted!")
+    Env.slack.api.publishRestart
   }
 }
 

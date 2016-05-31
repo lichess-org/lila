@@ -8,12 +8,15 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="benko"
   REMOTE_DIR="/home/lichess-deploy"
+  CLI="bin/cli-prod"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
+  CLI="bin/cli-stage"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
+  CLI="bin/cli"
 else
   echo "Unknown deploy target $mode"
   exit 1
@@ -25,10 +28,8 @@ if [ "$2" == "asset" ]; then
   bin/prod/compile-client
 fi
 
-if [ $mode == "main" ]; then
-  lilalog "Notify users of pre deploy"
-  bin/cli-prod deploy pre
-fi
+lilalog "Notify users of pre deploy"
+$CLI deploy pre
 
 bin/dev ";stage;exit"
 if [ $? != 0 ]; then
@@ -77,10 +78,8 @@ fi
 
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
-if [ $mode == "main" ]; then
-  lilalog "Notify users of post deploy"
-  bin/cli-prod deploy post
-fi
+lilalog "Notify users of post deploy"
+$CLI deploy post
 
 if [ $mode == "main" ]; then
   lilalog "Restart lichess"

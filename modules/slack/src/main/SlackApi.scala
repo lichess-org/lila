@@ -6,7 +6,10 @@ import lila.user.User
 
 final class SlackApi(
     client: SlackClient,
+    isProd: Boolean,
     implicit val lightUser: String => Option[LightUser]) {
+
+      import SlackApi._
 
   def donation(event: lila.hub.actorApi.DonationEvent): Funit = {
     val user = event.userId flatMap lightUser
@@ -57,21 +60,49 @@ final class SlackApi(
     text = msg,
     channel = "general"))
 
+  def publishRestart =
+    if (isProd) publishInfo("Lichess has restarted!")
+    else client(SlackMessage(
+      username = stage.name,
+      icon = stage.icon,
+      text = "stage has restarted.",
+      channel = "general"))
+
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
     icon = "oncoming_police_car",
     text = s"Let's have a look at <http://lichess.org/@/${user.username}?mod>",
     channel = "tavern"))
 
-  def deployPre: Funit = client(SlackMessage(
-    username = "deployment",
-    icon = "rocket",
-    text = "Lichess will be updated in a few minutes! Fasten your seatbelts.",
-    channel = "general"))
+  def deployPre: Funit =
+    if (isProd) client(SlackMessage(
+      username = "deployment",
+      icon = "rocket",
+      text = "Lichess will be updated in a minute! Fasten your seatbelts.",
+      channel = "general"))
+    else client(SlackMessage(
+      username = stage.name,
+      icon = stage.icon,
+      text = "stage will be updated in a minute.",
+      channel = "general"))
 
-  def deployPost: Funit = client(SlackMessage(
-    username = "deployment",
-    icon = "rocket",
-    text = "Lichess is being updated! Brace for impact.",
-    channel = "general"))
+  def deployPost: Funit =
+    if (isProd) client(SlackMessage(
+      username = "deployment",
+      icon = "rocket",
+      text = "Lichess is being updated! Brace for impact.",
+      channel = "general"))
+    else client(SlackMessage(
+      username = "stage.lichess.org",
+      icon = "volcano",
+      text = "stage has been updated!",
+      channel = "general"))
+}
+
+private object SlackApi {
+
+  object stage {
+    val name = "stage.lichess.org"
+    val icon = "volcano"
+  }
 }
