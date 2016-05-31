@@ -20,7 +20,7 @@ case class Notification(
 object Notification {
 
   case class Notifies(value: String) extends AnyVal with StringValue
-  case class NotificationRead(value: Boolean)
+  case class NotificationRead(value: Boolean) extends AnyVal
 
   def apply(notifies: Notification.Notifies, content: NotificationContent, read: NotificationRead, createdAt: DateTime): Notification = {
     val idSize = 8

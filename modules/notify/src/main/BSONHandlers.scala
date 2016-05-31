@@ -1,12 +1,13 @@
 package lila.notify
 
-import lila.db.{dsl, BSON}
-import lila.db.BSON.{Reader, Writer}
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.notify.InvitedToStudy.{StudyName, InvitedBy, StudyId}
+import lila.db.{ dsl, BSON }
+import lila.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
 import lila.notify.MentionedInThread._
 import lila.notify.Notification._
-import reactivemongo.bson.{BSONString, BSONHandler, BSONDocument}
+import reactivemongo.bson.Macros
+import reactivemongo.bson.{ BSONString, BSONHandler, BSONDocument }
 
 private object BSONHandlers {
 
@@ -21,13 +22,15 @@ private object BSONHandlers {
   implicit val InvitedToStudyByHandler = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
   implicit val StudyNameHandler = stringAnyValHandler[StudyName](_.value, StudyName.apply)
   implicit val StudyIdHandler = stringAnyValHandler[StudyId](_.value, StudyId.apply)
+  import Notification.{ Notifies, NotificationRead }
+  implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
       notificationContent match {
-        case MentionedInThread(_, _, _, _, _) => "mention"
-        case InvitedToStudy(_,_,_) => "invitedStudy"
+        case _: MentionedInThread => "mention"
+        case _: InvitedToStudy    => "invitedStudy"
       }
     }
 
@@ -62,37 +65,19 @@ private object BSONHandlers {
       InvitedToStudy(invitedBy, studyName, studyId)
     }
 
-    override def reads(reader: Reader): NotificationContent = {
+    def reads(reader: Reader): NotificationContent = {
       val notificationType = reader.str("type")
 
       notificationType match {
-        case "mention" => readMentionedNotification(reader)
+        case "mention"      => readMentionedNotification(reader)
         case "invitedStudy" => readInvitedStudyNotification(reader)
       }
     }
 
-    override def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {
+    def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {
       writeNotificationContent(n)
     }
   }
 
-  implicit val NotificationBSONHandler = new BSON[Notification] {
-    override def reads(reader: Reader): Notification = {
-      val id = reader.str("_id")
-      val created = reader.date("created")
-      val hasRead = NotificationRead(reader.bool("read"))
-      val notifies = Notifies(reader.str("notifies"))
-      val content = reader.get[NotificationContent]("content")
-
-      Notification(id, notifies, content, hasRead, created)
-    }
-
-    override def writes(writer: Writer, n: Notification): dsl.Bdoc = $doc(
-      "_id" -> n.id,
-      "created" -> n.createdAt,
-      "read" -> n.read.value,
-      "notifies" -> n.notifies,
-      "content" -> n.content
-    )
-  }
+  implicit val NotificationBSONHandler = Macros.handler[Notification]
 }
