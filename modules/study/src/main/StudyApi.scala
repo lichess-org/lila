@@ -2,6 +2,7 @@ package lila.study
 
 import akka.actor.{ ActorRef, ActorSelection }
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+import scala.concurrent.duration._
 
 import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
@@ -20,6 +21,7 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
     lightUser: lila.common.LightUser.Getter,
+    scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef) {
@@ -45,10 +47,17 @@ final class StudyApi(
   def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
     studyMaker(data, user) flatMap { res =>
       studyRepo.insert(res.study) >>
-        chapterRepo.insert(res.chapter) >>- {
-          if (res.study.isPublic) timeline ! (Propagate(StudyCreate(user.id, res.study.id, res.study.name)) toFollowersOf user.id)
-        } inject res
+        chapterRepo.insert(res.chapter) >>-
+        scheduleTimeline(res.study.id) inject res
     }
+
+  private def scheduleTimeline(studyId: Study.ID) = scheduler.scheduleOnce(1 minute) {
+    byId(studyId) foreach {
+      _.filter(_.isPublic) foreach { study =>
+        timeline ! (Propagate(StudyCreate(study.ownerId, study.id, study.name)) toFollowersOf study.ownerId)
+      }
+    }
+  }
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>

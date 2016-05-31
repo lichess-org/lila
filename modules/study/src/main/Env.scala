@@ -81,6 +81,7 @@ final class Env(
       relationApi = lila.relation.Env.current.api
     ),
     lightUser = getLightUser,
+    scheduler = system.scheduler,
     chat = hub.actor.chat,
     timeline = hub.actor.timeline,
     socketHub = socketHub)
