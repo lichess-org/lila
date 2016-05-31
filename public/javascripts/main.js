@@ -54,9 +54,8 @@ lichess.notifyApp = (function() {
     preload: function() {
       if (!instance) {
         load();
-
         $toggle.on('click', function() {
-          instance.updateNotifications().then(instance.markAllReadServer);
+          instance.updateAndMarkAsRead();
           $toggle.attr('data-count', 0);
         });
       }

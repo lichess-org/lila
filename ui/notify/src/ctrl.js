@@ -23,8 +23,9 @@ module.exports = function(env) {
     return xhr.load().then(this.setNotifications);
   }.bind(this);
 
-  this.markAllReadServer = function() {
-    xhr.markAllRead();
+  this.updateAndMarkAsRead = function() {
+    this.vm.reloading = true;
+    return xhr.markAllRead().then(this.setNotifications);
   }.bind(this);
 
   this.updateNotifications();

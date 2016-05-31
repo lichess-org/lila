@@ -13,8 +13,6 @@ module.exports = function(element, opts) {
   });
 
   return {
-    setInitialNotifications: controller.setInitialNotifications,
-    updateNotifications: controller.updateNotifications,
-    markAllReadServer: controller.markAllReadServer
+    updateAndMarkAsRead: controller.updateAndMarkAsRead
   }
 }

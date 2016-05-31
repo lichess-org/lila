@@ -12,10 +12,12 @@ object Notify extends LilaController {
 
   val env = Env.notif
 
+  val appMaxNotifications = 10
+
   def recent = Auth { implicit ctx =>
     me =>
       val notifies = Notifies(me.id)
-      env.notifyApi.getNotifications(notifies, 1, 10) map {
+      env.notifyApi.getNotifications(notifies, 1, appMaxNotifications) map {
         notifications => Ok(Json.toJson(notifications.currentPageResults)) as JSON
       }
   }
@@ -24,7 +26,13 @@ object Notify extends LilaController {
     implicit ctx =>
       me =>
         val userId = Notifies(me.id)
-        env.notifyApi.markAllRead(userId)
+        env.notifyApi.getNotifications(userId, 1, appMaxNotifications) flatMap { notifications =>
+          notifications.currentPageResults.exists(_.unread).?? {
+            env.notifyApi.markAllRead(userId)
+          } inject {
+            Ok(Json.toJson(notifications.currentPageResults)) as JSON
+          }
+        }
   }
 
   def notificationsPage = Auth { implicit ctx =>
