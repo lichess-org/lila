@@ -10,10 +10,13 @@ function uncache(url) {
 }
 
 module.exports = {
-  load: function() {
+  load: function(page) {
     return m.request({
       method: 'GET',
       url: uncache('/notify'),
+      data: {
+        page: page || 1
+      },
       config: xhrConfig
     });
   },

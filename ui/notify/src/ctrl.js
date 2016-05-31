@@ -3,30 +3,42 @@ var m = require('mithril');
 
 module.exports = function(env) {
 
-  this.data = [];
+  this.pager;
 
   this.vm = {
     initiating: true,
     reloading: false
   };
 
-  this.setNotifications = function(data) {
+  this.setPager = function(p) {
     this.vm.initiating = false;
     this.vm.reloading = false;
-    this.data = data;
+    this.pager = p;
 
     m.redraw();
   }.bind(this);
 
-  this.updateNotifications = function() {
+  this.updatePager = function() {
     this.vm.reloading = true;
-    return xhr.load().then(this.setNotifications);
+    return xhr.load().then(this.setPager);
   }.bind(this);
 
   this.updateAndMarkAsRead = function() {
     this.vm.reloading = true;
-    return xhr.markAllRead().then(this.setNotifications);
+    return xhr.markAllRead().then(this.setPager);
   }.bind(this);
 
-  this.updateNotifications();
+  this.nextPage = function() {
+    if (!this.pager.nextPage) return;
+    this.vm.reloading = true;
+    xhr.load(this.pager.nextPage).then(this.setPager);
+  }.bind(this);
+
+  this.previousPage = function() {
+    if (!this.pager.previousPage) return;
+    this.vm.reloading = true;
+    xhr.load(this.pager.previousPage).then(this.setPager);
+  }.bind(this);
+
+  this.updatePager();
 };

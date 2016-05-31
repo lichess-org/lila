@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app._
+import lila.common.paginator.PaginatorJson
 import lila.notify.Notification.Notifies
 
 import play.api.libs.json._
@@ -14,11 +15,11 @@ object Notify extends LilaController {
 
   val appMaxNotifications = 10
 
-  def recent = Auth { implicit ctx =>
+  def recent(page: Int) = Auth { implicit ctx =>
     me =>
       val notifies = Notifies(me.id)
-      env.notifyApi.getNotifications(notifies, 1, appMaxNotifications) map {
-        notifications => Ok(Json.toJson(notifications.currentPageResults)) as JSON
+      env.notifyApi.getNotifications(notifies, page, appMaxNotifications) map {
+        notifications => Ok(PaginatorJson(notifications)) as JSON
       }
   }
 
@@ -28,17 +29,8 @@ object Notify extends LilaController {
         val userId = Notifies(me.id)
         env.notifyApi.getNotifications(userId, 1, appMaxNotifications) flatMap { notifications =>
           env.notifyApi.markAllRead(userId) inject {
-            Ok(Json.toJson(notifications.currentPageResults)) as JSON
+            Ok(PaginatorJson(notifications)) as JSON
           }
         }
   }
-
-  def notificationsPage = Auth { implicit ctx =>
-    me =>
-      val notifies = Notifies(me.id)
-      env.notifyApi.getNotifications(notifies, 1, perPage = 100) map {
-        notifications => Ok(html.notify.view(notifications.currentPageResults.toList))
-      }
-  }
-
 }

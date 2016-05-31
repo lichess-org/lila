@@ -54,14 +54,21 @@ body.dark #notify_app .site_notification.new:hover {
   font-family: 'Roboto';
   font-weight: 300;
 }
-.site_notifications_box a.more {
+#notify_app .pager {
+  cursor: pointer;
   display: block;
   padding: 5px;
   text-align: center;
-  opacity: 0.6;
-}
-.site_notifications_box a.more:hover {
+  opacity: 0.8;
   color: #3893E8!important;
+  transition: 0.13s;
+}
+#notify_app .pager.prev {
+  border-bottom: 1px solid #eee;
+}
+#notify_app .pager:hover {
+  opacity: 1;
+  background: rgba(191, 231, 255, 0.5);
 }
 #notify_app .empty {
   text-align: center;
