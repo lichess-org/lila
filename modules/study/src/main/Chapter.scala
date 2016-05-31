@@ -75,8 +75,7 @@ object Chapter {
   case class Metadata(
     _id: Chapter.ID,
     name: String,
-    setup: Chapter.Setup,
-    conceal: Option[Ply]) extends Like
+    setup: Chapter.Setup) extends Like
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
     def compare(that: Ply) = value - that.value

@@ -40,7 +40,7 @@ module.exports = {
       tours.study(ctrl);
     };
     var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'), startTour, notif);
-    var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), ctrl);
+    var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), partial(xhr.chapterConfig, data.id), ctrl);
 
     var currentChapterId = function() {
       return vm.chapterId || data.position.chapterId;

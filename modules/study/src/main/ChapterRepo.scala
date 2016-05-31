@@ -12,7 +12,12 @@ final class ChapterRepo(coll: Coll) {
 
   val maxChapters = 64
 
+  val noRootProjection = $doc("root" -> false)
+
   def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
+
+  // def metadataById(id: Chapter.ID): Fu[Option[Chapter.Metadata]] =
+    // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
 
   def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
 
@@ -25,7 +30,7 @@ final class ChapterRepo(coll: Coll) {
   def orderedMetadataByStudy(studyId: Study.ID): Fu[List[Chapter.Metadata]] =
     coll.find(
       $studyId(studyId),
-      $doc("root" -> false)
+      noRootProjection
     ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
 
   def orderedByStudy(studyId: Study.ID): Fu[List[Chapter]] =

@@ -4,13 +4,20 @@ var partial = require('chessground').util.partial;
 var chapterForm = require('./chapterNewForm');
 
 module.exports = {
-  ctrl: function(send) {
+  ctrl: function(send, chapterConfig) {
 
     var current = m.prop(null);
 
     var open = function(data) {
       if (current()) m.redraw.strategy('all');
-      current(data);
+      current({
+        id: data.id,
+        name: data.name
+      });
+      chapterConfig(data.id).then(function(d) {
+        current(d);
+        m.redraw();
+      });
     };
 
     var isEditing = function(id) {
@@ -42,7 +49,8 @@ module.exports = {
     var data = ctrl.current();
     if (!data) return;
 
-    var isConcealing = !isNaN(data.conceal);
+    var isLoaded = !!data.orientation;
+    var isConcealing = data.conceal !== null;
 
     return dialog.form({
       onClose: partial(ctrl.current, null),
@@ -52,7 +60,8 @@ module.exports = {
           onsubmit: function(e) {
             ctrl.submit({
               name: chapterForm.fieldValue(e, 'name'),
-              conceal: !!chapterForm.fieldValue(e, 'conceal')
+              conceal: !!chapterForm.fieldValue(e, 'conceal'),
+              orientation: chapterForm.fieldValue(e, 'orientation')
             });
             e.stopPropagation();
             return false;
@@ -74,17 +83,30 @@ module.exports = {
             m('label.control-label[for=chapter-name]', 'Name'),
             m('i.bar')
           ]),
-          m('div.form-group', [
-            m('select#chapter-conceal', chapterForm.concealChoices.map(function(c) {
-              return m('option', {
-                value: c[0],
-                selected: !!c[0] === isConcealing
-              }, c[1])
-            })),
-            m('label.control-label[for=chapter-conceal]', 'Progressive move display'),
-            m('i.bar')
-          ]),
-          dialog.button('Save chapter')
+          isLoaded ? [
+            m('div.form-group', [
+              m('select#chapter-orientation', ['White', 'Black'].map(function(color) {
+                var v = color.toLowerCase();
+                return m('option', {
+                  value: v,
+                  selected: v == data.orientation
+                }, color)
+              })),
+              m('label.control-label[for=chapter-orientation]', 'Orientation'),
+              m('i.bar')
+            ]),
+            m('div.form-group', [
+              m('select#chapter-conceal', chapterForm.concealChoices.map(function(c) {
+                return m('option', {
+                  value: c[0],
+                  selected: !!c[0] === isConcealing
+                }, c[1])
+              })),
+              m('label.control-label[for=chapter-conceal]', 'Progressive move display'),
+              m('i.bar')
+            ]),
+            dialog.button('Save chapter')
+          ] : m.trust(lichess.spinnerHtml)
         ]),
         m('div.delete_button',
           m('button.button.frameless', {

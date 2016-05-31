@@ -260,7 +260,8 @@ final class StudyApi(
               case (None, true)     => Chapter.Ply(0).some
               case (Some(_), false) => None
               case _                => chapter.conceal
-            })
+            },
+            setup = chapter.setup.copy(orientation = data.realOrientation))
           if (chapter == newChapter) funit
           else chapterRepo.update(newChapter) >> {
             if (chapter.conceal != newChapter.conceal) {
@@ -271,7 +272,11 @@ final class StudyApi(
                 sendTo(study, Socket.ReloadAll)
             }
             else fuccess {
-              reloadChapters(study)
+              val changedOrientation = newChapter.setup.orientation != chapter.setup.orientation
+              if (study.position.chapterId == chapter.id && changedOrientation)
+                sendTo(study, Socket.ChangeChapter(uid))
+              else
+                reloadChapters(study)
             }
           }
         }

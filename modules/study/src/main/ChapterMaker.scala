@@ -138,7 +138,11 @@ private[study] object ChapterMaker {
   }
 
   case class EditData(
-    id: String,
-    name: String,
-    conceal: Boolean)
+      id: String,
+      name: String,
+      orientation: String,
+      conceal: Boolean) {
+
+    def realOrientation = Color(orientation) | chess.White
+  }
 }

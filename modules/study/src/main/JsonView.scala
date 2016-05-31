@@ -53,6 +53,12 @@ final class JsonView(
     .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
     .result
 
+  def chapterConfig(c: Chapter) = Json.obj(
+    "id" -> c.id,
+    "name" -> c.name,
+    "conceal" -> c.conceal,
+    "orientation" -> c.setup.orientation)
+
   private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
     case (g, fen) => Json.obj(
       "id" -> g.id,
@@ -159,10 +165,7 @@ object JsonView {
   private implicit val chapterFromPgnWrites = Json.writes[Chapter.FromPgn]
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
-    val o = Json.obj("id" -> c._id, "name" -> c.name)
-    c.conceal.fold(o) { conceal =>
-      o + ("conceal" -> JsNumber(conceal.value))
-    }
+    Json.obj("id" -> c._id, "name" -> c.name)
   }
 
   private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]

@@ -39,5 +39,14 @@ module.exports = {
       config: xhrConfig,
       background: true
     });
+  },
+
+  chapterConfig: function(studyId, chapterId) {
+    return m.request({
+      method: 'GET',
+      url: uncache(['/study', studyId, chapterId].join('/')),
+      config: xhrConfig,
+      background: true
+    });
   }
 };

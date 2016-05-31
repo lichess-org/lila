@@ -9,12 +9,12 @@ var configIcon = m('i', {
 });
 
 module.exports = {
-  ctrl: function(initChapters, send, setTab, root) {
+  ctrl: function(initChapters, send, setTab, chapterConfig, root) {
 
     var list = m.prop(initChapters);
 
     var newForm = chapterNewForm.ctrl(send, list, setTab, root);
-    var editForm = chapterEditForm.ctrl(send);
+    var editForm = chapterEditForm.ctrl(send, chapterConfig);
 
     return {
       newForm: newForm,

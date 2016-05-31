@@ -94,6 +94,16 @@ object Study extends LilaController {
     } map NoCache
   }
 
+  def chapter(id: String, chapterId: String) = Open { implicit ctx =>
+    negotiate(
+      html = notFound,
+      api = _ => env.chapterRepo.byId(chapterId).map {
+        _.filter(_.studyId == id) ?? { chapter =>
+          Ok(env.jsonView.chapterConfig(chapter))
+        }
+      })
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       env.api byId id flatMap {
