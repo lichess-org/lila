@@ -30,9 +30,8 @@ final class NotifyApi(bus: lila.common.Bus, repo: NotificationRepo) {
 
     // Add to database and then notify any connected clients of the new notification
     insertOrDiscardNotification(notification) map {
-      _ match {
-        case None => funit
-        case Some(notif) =>
+      _ ?? {
+        notif =>
             getUnseenNotificationCount(notif.notifies).
               map(NewNotification(notif, _)).
               foreach(notifyConnectedClients)
