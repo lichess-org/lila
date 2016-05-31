@@ -27,9 +27,7 @@ object Notify extends LilaController {
       me =>
         val userId = Notifies(me.id)
         env.notifyApi.getNotifications(userId, 1, appMaxNotifications) flatMap { notifications =>
-          notifications.currentPageResults.exists(_.unread).?? {
-            env.notifyApi.markAllRead(userId)
-          } inject {
+          env.notifyApi.markAllRead(userId) inject {
             Ok(Json.toJson(notifications.currentPageResults)) as JSON
           }
         }
