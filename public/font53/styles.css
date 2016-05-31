@@ -377,3 +377,6 @@
 .icon-heart:before {
   content: "\e00d";
 }
+.icon-bell-o:before {
+  content: "\e00f";
+}
