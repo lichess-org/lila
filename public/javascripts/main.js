@@ -50,6 +50,9 @@ lichess.notifyApp = (function() {
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
       instance = LichessNotify(document.getElementById('notify_app'), {
+        setCount: function(nb) {
+          $toggle.attr('data-count', nb);
+        }
       });
       if (readPending) {
         instance.updateAndMarkAsRead();

@@ -25,7 +25,10 @@ module.exports = function(env) {
 
   this.updateAndMarkAsRead = function() {
     this.vm.reloading = true;
-    return xhr.markAllRead().then(this.setPager);
+    return xhr.markAllRead().then(function(p) {
+      this.setPager(p);
+      env.setCount(0);
+    });
   }.bind(this);
 
   this.nextPage = function() {
