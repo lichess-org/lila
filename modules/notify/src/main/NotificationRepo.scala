@@ -35,7 +35,7 @@ private final class NotificationRepo(val coll: Coll) {
       "content.studyId" -> studyId
     ) ++ recentSelector)
 
-  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] =
+  def hasRecentNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] =
     coll.exists($doc(
       "notifies" -> userId,
       "content.type" -> "mention",

@@ -50,6 +50,12 @@ final class NotifyApi(
     notifications.map(addNotification).sequenceFu.void
   }
 
+  private def shouldSkip(notification: Notification) =
+    notification.content match {
+      case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
+      case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
+    }
+
   /**
    * Inserts notification into the repository.
    *
@@ -57,21 +63,13 @@ final class NotifyApi(
    *
    * If the user does not already have an unread notification on the topic, returns it unmodified.
    */
-  private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] = {
-    notification.content match {
-      case MentionedInThread(_, _, topicId, _, _) => {
-        repo.hasRecentUnseenNotificationsInThread(notification.notifies, topicId).flatMap(alreadyNotified =>
-          if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some)
-        )
-      }
-      case InvitedToStudy(invitedBy, _, studyId) => {
-        repo.hasRecentUnseenStudyInvitation(notification.notifies, studyId).flatMap(alreadyNotified =>
-          if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some))
-      }
+  private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
+    shouldSkip(notification) flatMap {
+      case true => fuccess(none)
+      case false => repo.insert(notification) >>
+        unreadCountCache.remove(notification.notifies) inject
+        notification.some
     }
-  } flatMap { res =>
-    unreadCountCache.remove(notification.notifies) inject res
-  }
 
   private def notifyConnectedClients(newNotification: NewNotification): Unit = {
     val notificationsEventKey = "new_notification"
