@@ -4,7 +4,7 @@
   @side(pov, initialFen, tour, simul, userTv)
   @cross.map { c =>
   <div class="crosstable">
-    @crosstable(c, pov.gameId.some)
+    @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
   </div>
   }
 </div>
