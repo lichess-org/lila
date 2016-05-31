@@ -13,8 +13,9 @@ var variantMap = {
 
 module.exports = function(opts, name) {
 
-  var busy = false;
   var instance = null;
+  var busy = false;
+  var stopping = false;
 
   var send = function(text) {
     instance.postMessage(text);
@@ -23,8 +24,10 @@ module.exports = function(opts, name) {
   var processOutput = function(text, work) {
     if (text.indexOf('bestmove ') === 0) {
       busy = false;
+      stopping = false;
       return;
     }
+    if (stopping) return;
     if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
     var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
     if (!matches) return;
@@ -50,24 +53,21 @@ module.exports = function(opts, name) {
     });
   };
 
-  var stop = function() {
-    if (busy && instance) {
-      instance.terminate();
-      instance = null;
-    }
-    if (!instance) {
-      instance = new Worker(opts.path);
-      var uciVariant = variantMap[opts.variant.key];
-      if (uciVariant) send('setoption name UCI_' + uciVariant + ' value true');
-      else send('uci'); // send something to warm up
-    }
+  var reboot = function() {
+    if (instance) instance.terminate();
+    instance = new Worker(opts.path);
     busy = false;
+    stopping = false;
+    var uciVariant = variantMap[opts.variant.key];
+    if (uciVariant) send('setoption name UCI_' + uciVariant + ' value true');
+    else send('uci'); // send something to warm up
   };
 
-  stop();
+  reboot();
 
   return {
     start: function(work) {
+      if (busy) reboot();
       busy = true;
       send(['position', 'fen', work.position, 'moves'].concat(work.moves).join(' '));
       send('go depth ' + opts.maxDepth);
@@ -75,6 +75,10 @@ module.exports = function(opts, name) {
         processOutput(msg.data, work);
       };
     },
-    stop: stop
+    stop: function() {
+      if (!busy) return;
+      stopping = true;
+      send('stop');
+    }
   };
 };
