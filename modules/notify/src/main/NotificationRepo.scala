@@ -19,31 +19,30 @@ private final class NotificationRepo(val coll: Coll) {
     coll.count(unreadOnlyQuery(userId).some)
   }
 
-  def hasRecentUnseenStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] = {
-    val query = $doc(
+  private val recentSelector =
+    $doc("$or" -> List(
+      $doc( // old, unread
+        "read" -> false,
+        "createdAt" -> $doc("$gt" -> DateTime.now.minusDays(3))),
+      $doc( // recent, read
+        "createdAt" -> $doc("$gt" -> DateTime.now.minusMinutes(10))
+      )))
+
+  def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] =
+    coll.exists($doc(
       "notifies" -> userId,
-      "read" -> false,
       "content.type" -> "invitedStudy",
-      "content.studyId" -> studyId,
-      "created" -> $doc("$gt" -> DateTime.now.minusDays(3))
-    )
+      "content.studyId" -> studyId
+    ) ++ recentSelector)
 
-    coll.exists(query)
-  }
-
-  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] = {
-    val query = $doc(
+  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] =
+    coll.exists($doc(
       "notifies" -> userId,
-      "read" -> false,
       "content.type" -> "mention",
-      "content.topicId" -> topicId,
-      "created" -> $doc("$gt" -> DateTime.now.minusDays(3))
-    )
+      "content.topicId" -> topicId
+    ) ++ recentSelector)
 
-    coll.exists(query)
-  }
-
-  val recentSort = $sort desc "created"
+  val recentSort = $sort desc "createdAt"
 
   def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
 
