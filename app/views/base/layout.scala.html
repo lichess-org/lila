@@ -111,6 +111,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
+      @if(isGranted(_.Beta)) {
       <div class="site_notifications fright">
         <a id="site_notifications_tag" class="toggle link data-count" data-count="@ctx.nbNotifications">
           <span class="hint--bottom-left" data-hint="Notifications">
@@ -121,6 +122,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
+      }
       }.getOrElse {
       <a href="@routes.Auth.login" class="signin button fright text">@trans.signIn()</a>
       }
