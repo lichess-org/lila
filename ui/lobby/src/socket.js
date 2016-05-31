@@ -34,13 +34,13 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  var startMusic = function() {
-    if (!this.music) lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
-      this.music = lichessLobbyMusic();
-      ctrl.setMode('chart');
-    }.bind(this));
-  }.bind(this);
-
-  Mousetrap.bind(': m u s i c', startMusic);
-  if (location.hash === '#music') startMusic();
+  this.music = null;
+  $('body').on('lichess.sound_set', function(e, set) {
+    if (!this.music && set === 'music')
+      lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
+        this.music = lichessLobbyMusic();
+        ctrl.setMode('chart');
+      }.bind(this));
+    if (this.music && set !== 'music') this.music = null;
+  }.bind(this));
 };

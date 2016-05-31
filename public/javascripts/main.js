@@ -902,9 +902,16 @@ lichess.notifyApp = (function() {
       confirmation: 0.5
     };
     var collection = new $.lazy(function(k) {
+      var set = soundSet;
+      if (set === 'music') {
+        if (k === 'move' || k === 'capture' || k === 'check') return {
+          play: $.noop
+        };
+        set = 'standard';
+      }
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
-          return [baseUrl, soundSet, names[k] + '.' + ext + '?v=' + version].join('/');
+          return [baseUrl, set, names[k] + '.' + ext + '?v=' + version].join('/');
         }),
         volume: volumes[k] || 1
       });
@@ -915,16 +922,7 @@ lichess.notifyApp = (function() {
       return soundSet !== 'silent';
     };
     $toggle.toggleClass('sound_state_on', enabled());
-    var player = function(s) {
-      return function() {
-        if (enabled()) collection(s).play();
-      };
-    }
-    var play = {
-      disable: function() {
-        soundSet = 'silent';
-      }
-    };
+    var play = {};
     Object.keys(names).forEach(function(name) {
       play[name] = function() {
         if (enabled()) collection(name).play();
@@ -938,6 +936,10 @@ lichess.notifyApp = (function() {
       setVolume(v);
       play.move(true);
     }, 50);
+    var publish = function() {
+      $('body').trigger('lichess.sound_set', soundSet);
+    };
+    setTimeout(publish, 500);
     $toggle.one('mouseover', function() {
       lichess.slider().done(function() {
         $toggle.parent().find('.slider').slider({
@@ -961,9 +963,11 @@ lichess.notifyApp = (function() {
           set: soundSet
         });
         $toggle.toggleClass('sound_state_on', enabled());
+        publish();
         return false;
       });
     });
+
 
     return play;
   })();

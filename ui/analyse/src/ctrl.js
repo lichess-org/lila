@@ -466,11 +466,12 @@ module.exports = function(opts) {
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, opts.chat, this) : null;
 
-  var startMusic = function() {
-    if (!this.music) lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
-      this.music = lichessReplayMusic();
-    }.bind(this));
-  }.bind(this);
-  Mousetrap.bind(': m u s i c', startMusic);
-  if (location.hash === '#music') startMusic();
+  this.music = null;
+  $('body').on('lichess.sound_set', function(e, set) {
+    if (!this.music && set === 'music')
+      lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
+        this.music = lichessReplayMusic();
+      }.bind(this));
+    if (this.music && set !== 'music') this.music = null;
+  }.bind(this));
 };

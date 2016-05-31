@@ -4,7 +4,6 @@ function lichessPlayMusic() {
 
   lichess.loadScript('/assets/javascripts/music/orchestra.js').then(function() {
     orchestra = lichessOrchestra();
-    $.sound.disable();
   });
 
   var isPawn = function(san) {
