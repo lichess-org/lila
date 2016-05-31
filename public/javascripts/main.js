@@ -766,6 +766,10 @@ lichess.notifyApp = (function() {
       });
 
       $('#top').on('click', 'a.toggle', function() {
+        this.removeAttribute('data-hint');
+        $(this).find('span').each(function() {
+          this.removeAttribute('data-hint');
+        });
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
