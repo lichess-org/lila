@@ -51,27 +51,17 @@ final class NotifyApi(bus: lila.common.Bus, repo: NotificationRepo) {
     * If the user does not already have an unread notification on the topic, returns it unmodified.
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] = {
-    val recentNotifications = getNotifications(notification.notifies, 1, 15)
 
     notification.content match {
-      case MentionedInThread(by, category, topic, topicId, _) => {
-        for {
-          recents <- recentNotifications.map(_.currentPageResults)
-          isAlreadyUnread = recents.toList.any { notif =>
-            notif.content match {
-              case MentionedInThread(_, _, _, recentTopicId, _) => topicId == recentTopicId && !notif.read.value
-              case _ => false
-            }
-          }
-          result <- if (isAlreadyUnread) Future(None) else repo.insert(notification).inject(notification.some)
-        } yield result
+      case MentionedInThread(_, _, topicId, _, _) => {
+        repo.hasRecentUnseenNotifcationsInThread(notification.notifies, topicId).flatMap(alreadyNotified =>
+          if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some)
+        )
       }
-      case InvitedToStudy(invitedBy, _, studyId) =>
-        recentNotifications.flatMap { page =>
-          // If the user already has a study invite and hasn't read it, don't add a new invite
-          val isDuplicate = page.currentPageResults.exists(result => !result.read.value && result.content == notification.content)
-          if (isDuplicate) Future(None) else repo.insert(notification).inject(notification.some)
-        }
+      case InvitedToStudy(invitedBy, _, studyId) => {
+        repo.hasRecentUnseenStudyInvitation(notification.notifies, studyId).flatMap(alreadyNotified =>
+          if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some))
+      }
     }
   }
 

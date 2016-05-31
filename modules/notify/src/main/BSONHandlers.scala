@@ -10,6 +10,8 @@ import reactivemongo.bson.{BSONString, BSONHandler, BSONDocument}
 
 private object BSONHandlers {
 
+  implicit val NotifiesHandler = stringAnyValHandler[Notifies](_.value, Notifies.apply)
+
   implicit val MentionByHandler = stringAnyValHandler[MentionedBy](_.value, MentionedBy.apply)
   implicit val TopicHandler = stringAnyValHandler[Topic](_.value, Topic.apply)
   implicit val TopicIdHandler = stringAnyValHandler[TopicId](_.value, TopicId.apply)
@@ -89,7 +91,7 @@ private object BSONHandlers {
       "_id" -> n.id,
       "created" -> n.createdAt,
       "read" -> n.read.value,
-      "notifies" -> n.notifies.value,
+      "notifies" -> n.notifies,
       "content" -> n.content
     )
   }
