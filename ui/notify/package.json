@@ -1,5 +1,5 @@
 {
-  "name": "notification",
+  "name": "notify",
   "version": "1.0.0",
   "description": "lichess.org notifications",
   "main": "src/main.js",

@@ -43,9 +43,9 @@ lichess.siteNotifications = (function() {
         var isDev = $('body').data('dev');
 
         lichess.loadCss('/assets/stylesheets/siteNotifications.css');
-        lichess.loadScript("/assets/compiled/lichess.notification" + (isDev ? '' : '.min') + '.js').done(function() {
+        lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
           var element = document.getElementById('notifications_app');
-          instance = LichessNotification(element, {
+          instance = LichessNotify(element, {
             maxNotifications: 10
           });
         });
