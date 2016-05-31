@@ -59,7 +59,7 @@ function studyButton(ctrl) {
     m('button.button.text', {
       'data-icon': '',
       type: 'submit'
-    }, util.synthetic(ctrl.data) ? 'Host a study [beta]' : 'Study this game')
+    }, util.synthetic(ctrl.data) ? 'Host a study' : 'Study this game')
   ]);
 }
 
