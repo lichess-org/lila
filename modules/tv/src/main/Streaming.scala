@@ -61,20 +61,22 @@ private final class Streaming(
             }
           }
         }
-        val youtube = WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
-          "part" -> "snippet",
-          "type" -> "video",
-          "eventType" -> "live",
-          "q" -> keyword,
-          "key" -> googleApiKey
-        ).get() map { res =>
-            res.json.validate[Youtube.Result] match {
-              case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
-              case JsError(err) =>
-                logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
-                Nil
+        val youtube = googleApiKey.nonEmpty ?? {
+          WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
+            "part" -> "snippet",
+            "type" -> "video",
+            "eventType" -> "live",
+            "q" -> keyword,
+            "key" -> googleApiKey
+          ).get() map { res =>
+              res.json.validate[Youtube.Result] match {
+                case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
+                case JsError(err) =>
+                  logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
+                  Nil
+              }
             }
-          }
+        }
         (twitch |+| hitbox |+| youtube) map { ss =>
           StreamsOnAir {
             ss.foldLeft(List.empty[StreamOnAir]) {
