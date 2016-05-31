@@ -50,7 +50,6 @@ lichess.notifyApp = (function() {
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
       instance = LichessNotify(document.getElementById('notify_app'), {
-        maxNotifications: 10
       });
       if (readPending) {
         instance.updateAndMarkAsRead();
