@@ -5,12 +5,14 @@
 lichess.challengeApp = (function() {
   var instance;
   var $toggle = $('#challenge_notifications_tag');
+  $toggle.one('mouseover click', function() {
+    if (!instance) load();
+  });
   var load = function(data) {
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
     lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      var element = document.getElementById('challenge_app');
-      instance = LichessChallenge(element, {
+      instance = LichessChallenge(document.getElementById('challenge_app'), {
         data: data,
         show: function() {
           if (!$(element).is(':visible')) $toggle.click();
@@ -22,9 +24,6 @@ lichess.challengeApp = (function() {
     });
   };
   return {
-    preload: function() {
-      if (!instance) load();
-    },
     update: function(data) {
       if (!instance) load(data);
       else instance.update(data);
@@ -38,29 +37,29 @@ lichess.challengeApp = (function() {
 lichess.notifyApp = (function() {
   var instance;
   var $toggle = $('#site_notifications_tag');
+  var readPending = false;
+  $toggle.one('mouseover', function() {
+    if (!instance) load();
+  }).on('click', function() {
+    if (instance) instance.updateAndMarkAsRead();
+    else readPending = true;
+  });
 
   var load = function() {
     var isDev = $('body').data('dev');
-
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
       instance = LichessNotify(document.getElementById('notify_app'), {
         maxNotifications: 10
       });
+      if (readPending) {
+        instance.updateAndMarkAsRead();
+        readPending = false;
+      }
     });
   };
 
-  return {
-    preload: function() {
-      if (!instance) {
-        load();
-        $toggle.on('click', function() {
-          instance.updateAndMarkAsRead();
-          $toggle.attr('data-count', 0);
-        });
-      }
-    }
-  }
+  return {};
 })();
 
 (function() {
@@ -794,10 +793,6 @@ lichess.notifyApp = (function() {
           }
         });
       });
-      $('#challenge_notifications_tag').one('mouseover click', lichess.challengeApp.preload);
-      // $('#challenge_notifications_tag').trigger('click');
-
-      $('#site_notifications_tag').one('mouseover click', lichess.notifyApp.preload);
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));
