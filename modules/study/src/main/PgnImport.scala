@@ -37,11 +37,25 @@ private object PgnImport {
                     logger.warn(s"PgnImport $err")
                     Node.emptyChildren
                   },
-                  node => Node.Children(node.toVector)
-                )),
+                  node => {
+                    Node.Children {
+                      val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
+                      node.fold(variations)(_ :: variations).toVector
+                    }
+                  })),
             variant = game.variant,
             tags = PgnTags(parsedPgn.tags))
         }
+    }
+
+  private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
+    sans.headOption.?? {
+      _.metas.variations.flatMap { variation =>
+        makeNode(game, variation, annotator).fold({ err =>
+          logger.warn(s"$variation $err")
+          none
+        }, identity)
+      }
     }
 
   private def makeShapesAndComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Comments) =
@@ -62,14 +76,7 @@ private object PgnImport {
         val uci = moveOrDrop.fold(_.toUci, _.toUci)
         val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
         makeNode(game, rest, annotator) map { mainline =>
-          val variations = rest.headOption.?? {
-            _.metas.variations.flatMap { variation =>
-              makeNode(game, variation, annotator).fold({ err =>
-                logger.warn(s"$variation $err")
-                none
-              }, identity)
-            }
-          }
+          val variations = makeVariations(rest, game, annotator)
           makeShapesAndComments(san.metas.comments, annotator) match {
             case (shapes, comments) => Node(
               id = UciCharPair(uci),
