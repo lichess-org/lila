@@ -1,5 +1,6 @@
-#notify_app .site_notifications_box {
+#notify_app {
   width: 300px;
+  left: -132px;
 }
 
 #notify_app .site_notification {

@@ -65,7 +65,11 @@ function drawNotification(notification) {
 }
 
 function recentNotifications(ctrl) {
-  return ctrl.data.map(drawNotification);
+  return m('div.notifications', {
+    config: function() {
+      $('body').trigger('lichess.content_loaded');
+    }
+  }, ctrl.data.map(drawNotification));
 }
 
 function empty() {
@@ -81,15 +85,10 @@ module.exports = function(ctrl) {
 
   var nb = ctrl.data.length;
 
-  return m('div', {
-    config: function() {
-      $('body').trigger('lichess.content_loaded');
-    },
-    class: "site_notifications_box"
-  }, [
+  return [
     nb ? recentNotifications(ctrl) : empty(),
     nb === 10 ? m('a.more', {
       href: "/notifications"
     }, "See more") : null
-  ]);
+  ];
 };
