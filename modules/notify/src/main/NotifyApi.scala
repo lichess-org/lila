@@ -54,7 +54,7 @@ final class NotifyApi(bus: lila.common.Bus, repo: NotificationRepo) {
 
     notification.content match {
       case MentionedInThread(_, _, topicId, _, _) => {
-        repo.hasRecentUnseenNotifcationsInThread(notification.notifies, topicId).flatMap(alreadyNotified =>
+        repo.hasRecentUnseenNotificationsInThread(notification.notifies, topicId).flatMap(alreadyNotified =>
           if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some)
         )
       }

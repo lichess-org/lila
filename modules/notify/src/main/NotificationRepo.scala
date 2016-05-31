@@ -31,7 +31,7 @@ private final class NotificationRepo(val coll: Coll) {
     coll.exists(query)
   }
 
-  def hasRecentUnseenNotifcationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId) : Fu[Boolean] = {
+  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId) : Fu[Boolean] = {
     val query = $doc(
       "notifies" -> userId,
       "read" -> false,
