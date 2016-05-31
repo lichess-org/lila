@@ -12,6 +12,7 @@ private object BSONHandlers {
 
   implicit val MentionByHandler = stringAnyValHandler[MentionedBy](_.value, MentionedBy.apply)
   implicit val TopicHandler = stringAnyValHandler[Topic](_.value, Topic.apply)
+  implicit val TopicIdHandler = stringAnyValHandler[TopicId](_.value, TopicId.apply)
   implicit val CategoryHandler = stringAnyValHandler[Category](_.value, Category.apply)
   implicit val PostIdHandler = stringAnyValHandler[PostId](_.value, PostId.apply)
 
@@ -23,16 +24,16 @@ private object BSONHandlers {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
       notificationContent match {
-        case MentionedInThread(_, _, _, _) => "mention"
+        case MentionedInThread(_, _, _, _, _) => "mention"
         case InvitedToStudy(_,_,_) => "invitedStudy"
       }
     }
 
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match {
-        case MentionedInThread(mentionedBy, topic, category, postId) =>
+        case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
           $doc("type" -> writeNotificationType(notificationContent), "mentionedBy" -> mentionedBy,
-            "topic" -> topic, "category" -> category, "postId" -> postId)
+            "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
           $doc("type" -> writeNotificationType(notificationContent),
             "invitedBy" -> invitedBy,
@@ -44,10 +45,11 @@ private object BSONHandlers {
     private def readMentionedNotification(reader: Reader): MentionedInThread = {
       val mentionedBy = reader.get[MentionedBy]("mentionedBy")
       val topic = reader.get[Topic]("topic")
+      val topicId = reader.get[TopicId]("topicId")
       val category = reader.get[Category]("category")
       val postNumber = reader.get[PostId]("postId")
 
-      MentionedInThread(mentionedBy, topic, category, postNumber)
+      MentionedInThread(mentionedBy, topic, topicId, category, postNumber)
     }
 
     private def readInvitedStudyNotification(reader: Reader): NotificationContent = {

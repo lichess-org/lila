@@ -25,12 +25,14 @@ object Notification {
 sealed trait NotificationContent
 case class MentionedInThread(mentionedBy: MentionedInThread.MentionedBy,
                              topic: MentionedInThread.Topic,
+                             topidId: MentionedInThread.TopicId,
                              category: MentionedInThread.Category,
                              postId: PostId) extends NotificationContent
 
 object MentionedInThread {
   case class MentionedBy(value: String) extends AnyVal with StringValue
   case class Topic(value: String) extends  AnyVal with StringValue
+  case class TopicId(value: String) extends AnyVal with StringValue
   case class Category(value: String) extends AnyVal with StringValue
   case class PostId(value: String) extends AnyVal with StringValue
 }

@@ -10,7 +10,7 @@
     @notifs.map { notif =>
     <div class="site_notification">
         @notif.content match {
-            case lila.notify.MentionedInThread(mentionedBy, category, topic, postId) => {
+            case lila.notify.MentionedInThread(mentionedBy, category, topic, topicId, postId) => {
                 <span>
                     <a href="/@@/@mentionedBy"> @mentionedBy </a>
                     <span>mentioned you in the</span>

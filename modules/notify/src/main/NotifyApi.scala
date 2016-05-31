@@ -1,5 +1,6 @@
 package lila.notify
 
+import scala.concurrent.Future
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -28,14 +29,51 @@ final class NotifyApi(bus: lila.common.Bus, repo: NotificationRepo) {
   def addNotification(notification: Notification): Funit = {
 
     // Add to database and then notify any connected clients of the new notification
-    repo.insert(notification) >>-
-      getUnseenNotificationCount(notification.notifies).
-        map(NewNotification(notification, _)).
-        foreach(notifyConnectedClients)
+    insertOrDiscardNotification(notification) map {
+      _ match {
+        case None => funit
+        case Some(notif) =>
+            getUnseenNotificationCount(notif.notifies).
+              map(NewNotification(notif, _)).
+              foreach(notifyConnectedClients)
+      }
+    }
   }
 
   def addNotifications(notifications: List[Notification]) : Funit = {
     notifications.map(addNotification).sequenceFu.void
+  }
+
+  /**
+    * Inserts notification into the repository.
+    *
+    * If the user already has an unread notification on the topic, discard it.
+    *
+    * If the user does not already have an unread notification on the topic, returns it unmodified.
+    */
+  private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] = {
+    val recentNotifications = getNotifications(notification.notifies, 1, 15)
+
+    notification.content match {
+      case MentionedInThread(by, category, topic, topicId, _) => {
+        for {
+          recents <- recentNotifications.map(_.currentPageResults)
+          isAlreadyUnread = recents.toList.any { notif =>
+            notif.content match {
+              case MentionedInThread(_, _, _, recentTopicId, _) => topicId == recentTopicId && !notif.read.value
+              case _ => false
+            }
+          }
+          result <- if (isAlreadyUnread) Future(None) else repo.insert(notification).inject(notification.some)
+        } yield result
+      }
+      case InvitedToStudy(invitedBy, _, studyId) =>
+        recentNotifications.flatMap { page =>
+          // If the user already has a study invite and hasn't read it, don't add a new invite
+          val isDuplicate = page.currentPageResults.exists(result => !result.read.value && result.content == notification.content)
+          if (isDuplicate) Future(None) else repo.insert(notification).inject(notification.some)
+        }
+    }
   }
 
   private def notifyConnectedClients(newNotification: NewNotification) : Unit = {

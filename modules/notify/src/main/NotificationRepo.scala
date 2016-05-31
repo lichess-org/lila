@@ -6,7 +6,7 @@ private final class NotificationRepo(val coll: Coll) {
 
   import BSONHandlers._
 
-  def insert(notification: Notification) : Funit = {
+  def insert(notification: Notification) = {
     coll.insert(notification).void
   }
 
