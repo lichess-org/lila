@@ -1,8 +1,12 @@
 var m = require('mithril');
 
+function userFullName(u) {
+  return u.title ? u.title + ' ' + u.name : u.name;
+}
+
 function genericNotification(notification, url, icon, content) {
   return m('a.site_notification', {
-    class: notification.type,
+    class: notification.type + (notification.read ? '' : ' unread'),
     href: url
   }, [
     m('i', {
@@ -25,7 +29,7 @@ function drawMentionedNotification(notification) {
 
   return genericNotification(notification, url, 'd', [
     m('span', [
-      m('strong', content.mentionedBy.name),
+      m('strong', userFullName(content.mentionedBy)),
       drawTime(notification)
     ]),
     m('span', ' mentioned you in « ' + content.topic + ' ».')
@@ -38,7 +42,7 @@ function drawStudyInviteNotification(notification) {
 
   return genericNotification(notification, url, '', [
     m('span', [
-      m('strong', content.invitedBy.name),
+      m('strong', userFullName(content.invitedBy)),
       drawTime(notification)
     ]),
     m('span', " invited you to « " + content.studyName + ' ».')
@@ -69,6 +73,9 @@ module.exports = function(ctrl) {
   if (ctrl.vm.initiating) return m('div.initiating', m.trust(lichess.spinnerHtml));
 
   return m('div', {
+    config: function() {
+      $('body').trigger('lichess.content_loaded');
+    },
     class: "site_notifications_box"
   }, [
     recentNotifications(ctrl),

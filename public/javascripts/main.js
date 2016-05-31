@@ -35,34 +35,33 @@ lichess.challengeApp = (function() {
   };
 })();
 
-lichess.siteNotifications = (function() {
-    var instance;
-    var $toggle = $('#site_notifications_tag');
+lichess.notifyApp = (function() {
+  var instance;
+  var $toggle = $('#site_notifications_tag');
 
-    var load = function() {
-        var isDev = $('body').data('dev');
+  var load = function() {
+    var isDev = $('body').data('dev');
 
-        lichess.loadCss('/assets/stylesheets/siteNotifications.css');
-        lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-          var element = document.getElementById('notifications_app');
-          instance = LichessNotify(element, {
-            maxNotifications: 10
-          });
+    lichess.loadCss('/assets/stylesheets/notifyApp.css');
+    lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessNotify(document.getElementById('notifications_app'), {
+        maxNotifications: 10
+      });
+    });
+  };
+
+  return {
+    preload: function() {
+      if (!instance) {
+        load();
+
+        $toggle.on('click', function() {
+          instance.updateNotifications().then(instance.markAllReadServer);
+          $toggle.attr('data-count', 0);
         });
-    };
-
-    return {
-        preload: function() {
-            if (!instance) {
-                load();
-
-                $toggle.on('click', function() {
-                        instance.updateNotifications().then(instance.markAllReadServer);
-                        $toggle.attr('data-count', 0);
-                });
-            }
-        }
+      }
     }
+  }
 })();
 
 (function() {
@@ -183,10 +182,10 @@ lichess.siteNotifications = (function() {
         }
       },
       new_notification: function(e) {
-          var notification = e.notification;
+        var notification = e.notification;
 
-          $('#site_notifications_tag').attr('data-count', e.unread || 0);
-          $.sound.newPM();
+        $('#site_notifications_tag').attr('data-count', e.unread || 0);
+        $.sound.newPM();
       },
       mlat: function(e) {
         var $t = $('#top .server strong');
@@ -799,7 +798,7 @@ lichess.siteNotifications = (function() {
       $('#challenge_notifications_tag').one('mouseover click', lichess.challengeApp.preload);
       // $('#challenge_notifications_tag').trigger('click');
 
-      $('#site_notifications_tag').one('mouseover click', lichess.siteNotifications.preload);
+      $('#site_notifications_tag').one('mouseover click', lichess.notifyApp.preload);
 
       $('#translation_call .close').click(function() {
         $.post($(this).data("href"));
