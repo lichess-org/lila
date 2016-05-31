@@ -1260,6 +1260,11 @@ body.fpmenu #fpmenu {
   box-shadow: 0 0 3px 0 #d85000;
   transition: box-shadow 1.5s;
 }
+#notifications .actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
 #message_notifications .user_link,
 #message_notifications .block .title {
   font-weight: bold;

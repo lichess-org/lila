@@ -126,9 +126,7 @@ final class Env(
     isOnline = isOnline
   )))
 
-  private val reminder = system.actorOf(Props(new Reminder(
-    renderer = hub.actor.renderer
-  )))
+  private val reminder = system.actorOf(Props[Reminder])
 
   system.actorOf(Props(new StartedOrganizer(
     api = api,

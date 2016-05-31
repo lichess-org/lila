@@ -204,27 +204,23 @@ lichess.notifyApp = (function() {
         }, 300);
       },
       tournamentReminder: function(data) {
-        if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
-          $('#notifications').append(data.html).find("a.withdraw").click(function() {
-            $.post($(this).attr("href"));
-            $('#tournament_reminder').remove();
-            return false;
-          });
-          $('body').trigger('lichess.content_loaded');
-        }
-      },
-      deployPre: function(html) {
-        $('#notifications').append(html);
-        setTimeout(function() {
-          $('#deploy_pre').fadeOut(1000).remove();
-        }, 10000);
-      },
-      deployPost: function(html) {
-        $('#notifications').append(html);
-        setTimeout(function() {
-          $('#deploy_post').fadeOut(1000).remove();
-        }, 10000);
-        lichess.socket.disconnect();
+        if ($('#tournament_reminder').length || $('body').data("tournament-id") == data.id) return;
+        var url = '/tournament/' + data.id;
+        $('#notifications').append(
+          '<div id="tournament_reminder" class="notification glowed">' +
+          '<div class="inner">' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a> in progress!' +
+          '<div class="actions">' +
+          '<a class="withdraw text" href="' + url + '/withdraw" data-icon="b">Withdraw</a>' +
+          '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
+        ).find("a.withdraw").click(function() {
+          $.post($(this).attr("href"));
+          $('#tournament_reminder').remove();
+          return false;
+        });
       },
       simulEnd: function(simul) {
         $.modal($(
