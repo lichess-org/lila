@@ -1,0 +1,12 @@
+@(title: String, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+
+@evenMoreJs = {
+@moreJs
+}
+
+@base.layout(
+title = title,
+moreJs = evenMoreJs,
+moreCss = moreCss) {
+@body
+}

@@ -15,6 +15,7 @@ import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
+import lila.notify.Notification.Notifies
 
 private[controllers] trait LilaController
     extends Controller
@@ -302,11 +303,12 @@ private[controllers] trait LilaController
           } recover { case _ => Nil }) zip
             Env.team.api.nbRequests(me.id) zip
             Env.message.api.unreadIds(me.id) zip
-            Env.challenge.api.countInFor(me.id)
+            Env.challenge.api.countInFor(me.id) zip
+            Env.notif.notifyApi.getUnseenNotificationCount(Notifies(me.id))
         }
       } map {
-        case (pref, (((friends, teamNbRequests), messageIds), nbChallenges)) =>
-          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, pref,
+        case (pref, ((((friends, teamNbRequests), messageIds), nbChallenges), nbNotifications)) =>
+          PageData(friends, teamNbRequests, messageIds.size, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }

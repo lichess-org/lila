@@ -1,0 +1,31 @@
+@(notifs: List[lila.notify.Notification])(implicit ctx: Context)
+
+@title = @{"Notifications"}
+
+@moreCss = {
+@cssTag("siteNotifications.css")
+}
+
+@layout(title = title, moreCss = moreCss) {
+    @notifs.map { notif =>
+    <div class="site_notification">
+        @notif.content match {
+            case lila.notify.MentionedInThread(mentionedBy, category, topic, topicId, postId) => {
+                <span>
+                    <a href="/@@/@mentionedBy"> @mentionedBy </a>
+                    <span>mentioned you in the</span>
+                    <a href="/forum/redirect/post/@postId">@topic</a>
+                    <span>forum thread</span>
+                </span>
+            }
+            case lila.notify.InvitedToStudy(invitedBy, studyName, studyId) => {
+                <a href="/@@/@invitedBy">@invitedBy </a>
+                <span>invited you to their</span>
+                <a href="/study/@studyId"> @studyName </a>
+                <span>study</span>
+            }
+        }
+    <div>@momentFromNow(notif.createdAt)</div>
+    </div>
+    }
+}

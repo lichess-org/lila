@@ -53,7 +53,7 @@ object ApplicationBuild extends Build {
 
   lazy val modules = Seq(
     chess, common, db, rating, user, security, wiki, hub, socket,
-    message, notification, i18n, game, bookmark, search,
+    message, challengeNotifications, notifications, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     analyse, mod, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
@@ -238,7 +238,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
-  lazy val study = project("study", Seq(common, db, hub, socket, game, round, importer)).settings(
+  lazy val study = project("study", Seq(common, db, hub, socket, game, round, importer, notifications, relation)).settings(
     libraryDependencies ++= provided(play.api, RM)
   )
 
@@ -267,7 +267,7 @@ object ApplicationBuild extends Build {
       play.api, RM, spray.caching)
   )
 
-  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod)).settings(
+  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod, notifications)).settings(
     libraryDependencies ++= provided(
       play.api, RM, spray.caching)
   )
@@ -316,8 +316,12 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
-  lazy val notification = project("notification", Seq(common, user, hub)).settings(
+  lazy val challengeNotifications = project("notification", Seq(common, user, hub)).settings(
     libraryDependencies ++= provided(play.api)
+  )
+
+  lazy val notifications = project("notify", Seq(common, db, user, hub, relation)).settings(
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val site = project("site", Seq(common, socket)).settings(

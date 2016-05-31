@@ -66,10 +66,6 @@ final class JsonView(
     )
   }
 
-  private implicit val lightUserWrites = OWrites[LightUser] { u =>
-    Json.obj("id" -> u.id, "name" -> u.name, "title" -> u.title).noNull
-  }
-
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
   }

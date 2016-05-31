@@ -880,6 +880,11 @@ body.offline #reconnecting,
 #top .shown #challenge_notifications_tag.toggle {
   height: 29px;
 }
+
+#top .shown #site_notifications_tag.toggle {
+    height: 29px;
+}
+
 #ham-plate {
   cursor: pointer;
 }
@@ -1160,6 +1165,7 @@ body.fpmenu #fpmenu {
 }
 #top div.message_notifications.shown .links,
 #top div.challenge_notifications.shown .links,
+#top div.site_notifications.shown .links,
 #top div.auth.shown .links {
   display: block;
 }
@@ -1287,6 +1293,17 @@ body.fpmenu #fpmenu {
 #message_notifications .actions a:hover {
   color: #d85000;
 }
+
+#site_notifications_tag .content {
+  display: block;
+  overflow: hidden;
+}
+
+#site_notifications_tag span:before {
+  font-size: 1.45em;
+  padding-left: 3px;
+}
+
 form.wide input[type="text"],
 form.wide textarea {
   padding: 0.5em;

@@ -295,6 +295,7 @@ body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #challenge_app div.challenge,
 body.dark #challenge_app div.empty,
 body.dark #challenge_app div.initiating,
+body.dark #notifications_app .site_notification,
 body.dark div.lichess_overboard,
 body.dark div.analysis_menu > a,
 body.dark div.content_box,
@@ -340,6 +341,7 @@ body.dark #tournament_side .pairings tr:hover,
 body.dark #top .shown a.toggle,
 body.dark #top .dropdown,
 body.dark #challenge_app div.challenge,
+body.dark #notifications_app .site_notification,
 body.dark #friend_box,
 body.dark #powerTip,
 body.dark #miniGame {
@@ -410,6 +412,7 @@ body.dark .ui-widget-content,
 body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
+body.dark #notifications_app .site_notification,
 body.dark .lichess_ground .negotiation a,
 body.dark group.radio label:hover,
 body.dark .button:hover,
@@ -482,6 +485,7 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 body.dark div.side_box div.game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1), rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
 }
+body.dark #notifications_app .site_notification:hover,
 body.dark div.game_row:hover,
 body.dark .studies .study:hover {
   background: rgba(27, 51, 68, 0.5)!important;
