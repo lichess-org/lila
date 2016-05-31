@@ -15,8 +15,6 @@ module.exports = function(env) {
     this.vm.reloading = false;
     this.data = data;
 
-    console.dir(data);
-
     m.redraw();
   }.bind(this);
 
