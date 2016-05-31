@@ -6,7 +6,7 @@ import lila.notify.Notification.Notifies
 import play.api.libs.json._
 import views.html
 
-object Notif extends LilaController {
+object Notify extends LilaController {
 
   import lila.notify.JSONHandlers._
 
@@ -31,7 +31,7 @@ object Notif extends LilaController {
     me =>
       val notifies = Notifies(me.id)
       env.notifyApi.getNotifications(notifies, 1, perPage = 100) map {
-        notifications => Ok(html.notifications.view(notifications.currentPageResults.toList))
+        notifications => Ok(html.notify.view(notifications.currentPageResults.toList))
       }
   }
 

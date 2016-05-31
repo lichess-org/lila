@@ -13,14 +13,14 @@ module.exports = {
   load: function() {
     return m.request({
       method: 'GET',
-      url: uncache('/notif'),
+      url: uncache('/notify'),
       config: xhrConfig
     });
   },
   markAllRead: function() {
     return m.request({
       method: 'POST',
-      url: '/notif',
+      url: '/notify',
       config: xhrConfig
     });
   }
