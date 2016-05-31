@@ -68,9 +68,18 @@ function recentNotifications(ctrl) {
   return ctrl.data.map(drawNotification);
 }
 
+function empty() {
+  return m('div', {
+    class: 'empty text',
+    'data-icon': '',
+  }, 'No notifications.');
+}
+
 module.exports = function(ctrl) {
 
   if (ctrl.vm.initiating) return m('div.initiating', m.trust(lichess.spinnerHtml));
+
+  var nb = ctrl.data.length;
 
   return m('div', {
     config: function() {
@@ -78,9 +87,9 @@ module.exports = function(ctrl) {
     },
     class: "site_notifications_box"
   }, [
-    recentNotifications(ctrl),
-    m('a.more', {
+    nb ? recentNotifications(ctrl) : empty(),
+    nb === 10 ? m('a.more', {
       href: "/notifications"
-    }, "See more")
+    }, "See more") : null
   ]);
 };

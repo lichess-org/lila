@@ -1,8 +1,8 @@
-#notifications_app .site_notifications_box {
+#notify_app .site_notifications_box {
   width: 300px;
 }
 
-#notifications_app .site_notification {
+#notify_app .site_notification {
   display: flex;
   padding: 8px 12px;
   height: 34px;
@@ -10,31 +10,31 @@
   border-bottom: 1px solid #eee;
   position: relative;
 }
-#notifications_app .site_notification.new {
+#notify_app .site_notification.new {
   background: rgba(191, 231, 255, 0.3);
 }
-#notifications_app .site_notification:hover {
+#notify_app .site_notification:hover {
   background: #f8f8f8;
 }
-#notifications_app .site_notification.new:hover {
+#notify_app .site_notification.new:hover {
   background: rgba(191, 231, 255, 0.5);
 }
-body.dark #notifications_app .site_notification:hover {
+body.dark #notify_app .site_notification:hover {
   background: #303030;
 }
-body.dark #notifications_app .site_notification.new {
+body.dark #notify_app .site_notification.new {
   background: rgba(27, 51, 68, 0.4)!important;
 }
-body.dark #notifications_app .site_notification.new:hover {
+body.dark #notify_app .site_notification.new:hover {
   background: rgba(27, 51, 68, 0.8)!important;
 }
-#notifications_app .site_notification i {
+#notify_app .site_notification i {
   font-size: 22px;
   opacity: 0.5;
   margin-right: 12px;
 }
-#notifications_app .site_notification.new i,
-#notifications_app .site_notification:hover i {
+#notify_app .site_notification.new i,
+#notify_app .site_notification:hover i {
   color: #3893E8!important;
   opacity: 0.6;
 }
@@ -61,4 +61,10 @@ body.dark #notifications_app .site_notification.new:hover {
 }
 .site_notifications_box a.more:hover {
   color: #3893E8!important;
+}
+#notify_app .empty {
+  text-align: center;
+  padding: 20px 0;
+  background: #fff;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
 }
