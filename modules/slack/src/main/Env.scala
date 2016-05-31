@@ -14,6 +14,7 @@ final class Env(
 
   private val IncomingUrl = config getString "incoming.url"
   private val IncomingDefaultChannel = config getString "incoming.default_channel"
+  private val NetDomain = config getString "domain"
 
   private val isProd = NetDomain == "lichess.org"
 
