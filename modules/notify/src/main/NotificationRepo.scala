@@ -11,33 +11,33 @@ private final class NotificationRepo(val coll: Coll) {
     coll.insert(notification).void
   }
 
-  def markAllRead(notifies: Notification.Notifies) : Funit = {
-    coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi=true).void
+  def markAllRead(notifies: Notification.Notifies): Funit = {
+    coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
   }
 
-  def unreadNotificationsCount(userId: Notification.Notifies) : Fu[Int] = {
+  def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] = {
     coll.count(unreadOnlyQuery(userId).some)
   }
 
-  def hasRecentUnseenStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId) : Fu[Boolean] = {
+  def hasRecentUnseenStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] = {
     val query = $doc(
       "notifies" -> userId,
       "read" -> false,
       "content.type" -> "invitedStudy",
       "content.studyId" -> studyId,
-      "created" -> $doc("$gt" ->DateTime.now.minusDays(7))
+      "created" -> $doc("$gt" -> DateTime.now.minusDays(3))
     )
 
     coll.exists(query)
   }
 
-  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId) : Fu[Boolean] = {
+  def hasRecentUnseenNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] = {
     val query = $doc(
       "notifies" -> userId,
       "read" -> false,
       "content.type" -> "mention",
       "content.topicId" -> topicId,
-      "created" -> $doc("$gt" ->DateTime.now.minusDays(7))
+      "created" -> $doc("$gt" -> DateTime.now.minusDays(3))
     )
 
     coll.exists(query)
@@ -47,6 +47,6 @@ private final class NotificationRepo(val coll: Coll) {
 
   def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
 
-  private def unreadOnlyQuery(userId:Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
+  private def unreadOnlyQuery(userId: Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
 
 }

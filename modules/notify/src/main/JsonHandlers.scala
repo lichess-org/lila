@@ -1,13 +1,13 @@
 package lila.notify
 
-import play.api.libs.json.{JsValue, Json, Writes}
 import lila.common.LightUser
 import lila.user.User
+import play.api.libs.json.{ JsValue, Json, Writes }
 
+final class JSONHandlers(
+    getLightUser: LightUser.Getter) {
 
-object JSONHandlers {
-
-  implicit val notificationWrites : Writes[Notification] = new Writes[Notification] {
+  implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
     def writeBody(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, _, category, postId) =>
@@ -22,17 +22,17 @@ object JSONHandlers {
     }
 
     def writes(notification: Notification) = {
-        val body = notification.content
+      val body = notification.content
 
-        val notificationType = body match {
-          case MentionedInThread(_,_, _, _, _) => "mentioned"
-          case InvitedToStudy(_,_,_) => "invitedStudy"
-        }
+      val notificationType = body match {
+        case MentionedInThread(_, _, _, _, _) => "mentioned"
+        case InvitedToStudy(_, _, _)          => "invitedStudy"
+      }
 
-        Json.obj("content" -> writeBody(body),
-          "type" -> notificationType,
-          "read" -> notification.read.value,
-          "date" -> notification.createdAt)
+      Json.obj("content" -> writeBody(body),
+        "type" -> notificationType,
+        "read" -> notification.read.value,
+        "date" -> notification.createdAt)
     }
   }
 
@@ -43,5 +43,4 @@ object JSONHandlers {
     }
   }
 }
-
 

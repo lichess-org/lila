@@ -8,9 +8,9 @@ import views.html
 
 object Notify extends LilaController {
 
-  import lila.notify.JSONHandlers._
-
   val env = Env.notifyModule
+
+  import env.jsonHandlers._
 
   val appMaxNotifications = 10
 
