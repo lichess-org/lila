@@ -25,9 +25,13 @@ final class NotifyApi(
     maxPerPage = perPage
   )
 
-  def markAllRead(userId: Notification.Notifies) = repo.markAllRead(userId)
+  def markAllRead(userId: Notification.Notifies) =
+    repo.markAllRead(userId) >> unreadCountCache.remove(userId)
 
-  def getUnseenNotificationCount = AsyncCache(repo.unreadNotificationsCount, maxCapacity = 20000)
+  private val unreadCountCache =
+    AsyncCache(repo.unreadNotificationsCount, maxCapacity = 20000)
+
+  def countUnread(userId: Notification.Notifies) = unreadCountCache(userId)
 
   def addNotification(notification: Notification): Funit = {
 
@@ -35,7 +39,7 @@ final class NotifyApi(
     insertOrDiscardNotification(notification) map {
       _ ?? {
         notif =>
-          getUnseenNotificationCount(notif.notifies).
+          unreadCountCache(notif.notifies).
             map(NewNotification(notif, _)).
             foreach(notifyConnectedClients)
       }
@@ -54,7 +58,6 @@ final class NotifyApi(
    * If the user does not already have an unread notification on the topic, returns it unmodified.
    */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] = {
-
     notification.content match {
       case MentionedInThread(_, _, topicId, _, _) => {
         repo.hasRecentUnseenNotificationsInThread(notification.notifies, topicId).flatMap(alreadyNotified =>
@@ -66,6 +69,8 @@ final class NotifyApi(
           if (alreadyNotified) fuccess(None) else repo.insert(notification).inject(notification.some))
       }
     }
+  } flatMap { res =>
+    unreadCountCache.remove(notification.notifies) inject res
   }
 
   private def notifyConnectedClients(newNotification: NewNotification): Unit = {

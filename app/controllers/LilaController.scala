@@ -304,7 +304,7 @@ private[controllers] trait LilaController
             Env.team.api.nbRequests(me.id) zip
             Env.message.api.unreadIds(me.id) zip
             Env.challenge.api.countInFor(me.id) zip
-            Env.notifyModule.notifyApi.getUnseenNotificationCount(Notifies(me.id))
+            Env.notifyModule.notifyApi.countUnread(Notifies(me.id))
         }
       } map {
         case (pref, ((((friends, teamNbRequests), messageIds), nbChallenges), nbNotifications)) =>
