@@ -18,6 +18,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def byId(id: Study.ID) = coll.find($id(id), projection).uno[Study]
 
+  def nameById(id: Study.ID) = coll.primitiveOne[String]($id(id), "name")
+
   def exists(id: Study.ID) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)

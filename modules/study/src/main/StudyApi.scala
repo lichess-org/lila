@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import chess.format.pgn.{ Glyphs, Glyph }
 import chess.format.{ Forsyth, FEN }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, StudyCreate }
+import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.socket.tree.Node.{ Shape, Shapes, Comment }
@@ -335,6 +335,11 @@ final class StudyApi(
   def like(studyId: Study.ID, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
     studyRepo.like(studyId, userId, v) map { likes =>
       sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
+      if (v) studyRepo.nameById(studyId) foreach {
+        _ ?? { name =>
+          timeline ! (Propagate(StudyLike(userId, studyId, name)) toFollowersOf userId)
+        }
+      }
     }
 
   private def reloadUid(study: Study, uid: Uid) =
