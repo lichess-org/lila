@@ -4,6 +4,7 @@ import akka.actor._
 import akka.pattern.ask
 
 import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.message.LichessThread
 import lila.notify.InvitedToStudy.InvitedBy
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.relation.RelationApi
@@ -11,6 +12,8 @@ import makeTimeout.short
 import org.joda.time.DateTime
 
 private final class StudyNotifier(
+    messageActor: ActorSelection,
+    netBaseUrl: String,
     notifyApi: NotifyApi,
     relationApi: RelationApi) {
 
@@ -25,7 +28,15 @@ private final class StudyNotifier(
               val notification = Notification(Notification.Notifies(invited.id), notificationContent, Notification.NotificationRead(false), DateTime.now())
               notifyApi.addNotification(notification)
             }
+            if (!isPresent) messageActor ! LichessThread(
+              from = owner.id,
+              to = invited.id,
+              subject = s"Would you like to join my study?",
+              message = s"I invited you to this study: ${studyUrl(study)}",
+              notification = true)
           }
         }
     }
+
+  private def studyUrl(study: Study) = s"$netBaseUrl/study/${study.id}"
 }
