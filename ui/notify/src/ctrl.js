@@ -28,7 +28,7 @@ module.exports = function(env) {
     return xhr.markAllRead().then(function(p) {
       this.setPager(p);
       env.setCount(0);
-    });
+    }.bind(this));
   }.bind(this);
 
   this.nextPage = function() {
