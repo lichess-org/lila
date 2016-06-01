@@ -45,11 +45,13 @@ lichess.notifyApp = (function() {
     else readPending = true;
   });
 
+  var element = document.getElementById('notify_app');
+
   var load = function() {
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessNotify(document.getElementById('notify_app'), {
+      instance = LichessNotify(element, {
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
         }
@@ -61,7 +63,14 @@ lichess.notifyApp = (function() {
     });
   };
 
-  return {};
+  return {
+    updateAndMarkAsReadIfMenuOpen : function() {
+        var notificationMenuOpen = $(element).is(':visible');
+        if (instance && notificationMenuOpen) {
+            instance.updateAndMarkAsRead();
+        }
+    }
+  };
 })();
 
 (function() {
@@ -182,7 +191,7 @@ lichess.notifyApp = (function() {
         }
       },
       new_notification: function(e) {
-        var notification = e.notification;
+        lichess.notifyApp.updateAndMarkAsReadIfMenuOpen();
 
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
         $.sound.newPM();
