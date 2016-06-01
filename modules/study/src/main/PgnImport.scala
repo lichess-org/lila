@@ -59,8 +59,8 @@ private object PgnImport {
     }
 
   private def makeShapesAndComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Comments) =
-    comments.foldLeft(Shapes(Nil), Comments(Nil)) {
-      case ((shapes, comments), txt) => ShapeParser(txt) match {
+    comments.map(CommentParser.removeClk).foldLeft(Shapes(Nil), Comments(Nil)) {
+      case ((shapes, comments), txt) => CommentParser.extractShapes(txt) match {
         case (s, c) => (shapes ++ s) -> (c.trim match {
           case ""  => comments
           case com => comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)

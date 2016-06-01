@@ -3,16 +3,20 @@ package lila.study
 import chess.{ Pos, Color }
 import lila.socket.tree.Node.{ Shape, Shapes }
 
-private object ShapeParser {
+private object CommentParser {
 
   private val circlesRegex = """.*\[\%csl ((?:\w{3}[,\s]*)+)\].*""".r
   private val circlesRemoveRegex = """\[\%csl ((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex = """.*\[\%cal ((?:\w{5}[,\s]*)+)\].*""".r
   private val arrowsRemoveRegex = """\[\%cal ((?:\w{5}[,\s]*)+)\]""".r
 
+  private val clkRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
+
   private type ShapesAndComment = (Shapes, String)
 
-  def apply(comment: String): ShapesAndComment =
+  def removeClk(comment: String) = clkRemoveRegex.replaceAllIn(comment, "")
+
+  def extractShapes(comment: String): ShapesAndComment =
     parseCircles(comment) match {
       case (circles, c2) => parseArrows(c2) match {
         case (arrows, c3) => (circles ++ arrows) -> c3
