@@ -24,6 +24,8 @@ case class Study(
 
   def isOwner(id: User.ID) = ownerId == id
 
+  def isMember(id: User.ID) = members contains id
+
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
   def withChapter(c: Chapter) =

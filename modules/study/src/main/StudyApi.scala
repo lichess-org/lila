@@ -153,8 +153,8 @@ final class StudyApi(
     }
   }
 
-  def kick(byUserId: User.ID, studyId: Study.ID, userId: User.ID) = sequenceStudy(studyId) { study =>
-    study.members.contains(userId) ?? {
+  def kick(studyId: Study.ID, userId: User.ID) = sequenceStudy(studyId) { study =>
+    study.isMember(userId) ?? {
       studyRepo.removeMember(study, userId)
     } >>- reloadMembers(study)
   }

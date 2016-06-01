@@ -103,6 +103,9 @@ module.exports = {
         send("kick", id);
         confing(null);
       },
+      leave: function() {
+        send("leave");
+      },
       ordered: function() {
         return Object.keys(dict()).map(function(id) {
           return dict()[id];
@@ -148,14 +151,21 @@ module.exports = {
     };
 
     var configButton = function(member, confing) {
-      if (!ctrl.members.isOwner() || member.user.id === ctrl.members.myId) return null;
-      return m('span.action.config', {
-        onclick: function() {
-          ctrl.members.confing(confing ? null : member.user.id);
-        }
-      }, m('i', {
-        'data-icon': '%'
-      }));
+      if (ctrl.members.isOwner() && member.user.id !== ctrl.members.myId) 
+        return m('span.action.config', {
+          onclick: function() {
+            ctrl.members.confing(confing ? null : member.user.id);
+          }
+        }, m('i', {
+          'data-icon': '%'
+        }));
+      if (member.user.id === ctrl.members.myId) 
+        return m('span.action.leave', {
+          title: 'Leave the study',
+          onclick: ctrl.members.leave
+        }, m('i', {
+          'data-icon': 'F'
+        }));
     };
 
     var memberConfig = function(member) {

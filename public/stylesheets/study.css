@@ -202,6 +202,10 @@ div.underboard .notif.error {
 .study_box .list .action {
   cursor: pointer;
 }
+.study_box .list .action.leave i {
+  opacity: 0.6;
+  color: #dc322f;
+}
 .study_box .list > div:hover .action i {
   opacity: 1;
 }
