@@ -143,7 +143,7 @@ object Round extends LilaController with TheftPrevention {
               Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
             case (Some(player),Some(_)) if player == requestedPov =>
               Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-            case _ => notFound
+            case _ =>
               Redirect(routes.Round.watcher(gameId, "white")).fuccess
           }
           case None => {
