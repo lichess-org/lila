@@ -3,18 +3,14 @@ package lila.study
 import chess.{ Pos, Color }
 import lila.socket.tree.Node.{ Shape, Shapes }
 
-private object CommentParser {
+private[study] object CommentParser {
 
-  private val circlesRegex = """.*\[\%csl ((?:\w{3}[,\s]*)+)\].*""".r
-  private val circlesRemoveRegex = """\[\%csl ((?:\w{3}[,\s]*)+)\]""".r
-  private val arrowsRegex = """.*\[\%cal ((?:\w{5}[,\s]*)+)\].*""".r
-  private val arrowsRemoveRegex = """\[\%cal ((?:\w{5}[,\s]*)+)\]""".r
-
-  private val clkRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
+  private val circlesRegex = """(?s).*\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\].*""".r
+  private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
+  private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
+  private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
 
   private type ShapesAndComment = (Shapes, String)
-
-  def removeClk(comment: String) = clkRemoveRegex.replaceAllIn(comment, "")
 
   def extractShapes(comment: String): ShapesAndComment =
     parseCircles(comment) match {
@@ -22,6 +18,9 @@ private object CommentParser {
         case (arrows, c3) => (circles ++ arrows) -> c3
       }
     }
+
+  private val clkRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
+  def removeClk(comment: String) = clkRemoveRegex.replaceAllIn(comment, "").trim
 
   private def parseCircles(comment: String): ShapesAndComment = comment match {
     case circlesRegex(str) =>
@@ -31,7 +30,7 @@ private object CommentParser {
           pos <- Pos posAt c.drop(1)
         } yield Shape.Circle(toBrush(color), pos)
       }
-      Shapes(circles) -> circlesRemoveRegex.replaceAllIn(comment, "")
+      Shapes(circles) -> circlesRemoveRegex.replaceAllIn(comment, "").trim
     case _ => Shapes(Nil) -> comment
   }
 
@@ -44,7 +43,7 @@ private object CommentParser {
           dest <- Pos posAt c.drop(3).take(2)
         } yield Shape.Arrow(toBrush(color), orig, dest)
       }
-      Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "")
+      Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim
     case _ => Shapes(Nil) -> comment
   }
 
