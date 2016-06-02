@@ -6,9 +6,9 @@
 @jsTag("search.js")
 @jsTag("vendor/jquery.infinitescroll.min.js")
 }
-@jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
-@embedJs(s"var lichess_rating_series = $ratingChart;")
+@jsTag("chart/ratingHistory.js")
+@embedJs(s"lichess.ratingHistoryChart($ratingChart);")
 }
 }
 }

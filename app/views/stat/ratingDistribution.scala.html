@@ -1,12 +1,12 @@
 @(perfType: lila.rating.PerfType, data: List[Int])(implicit ctx: Context)
 
 @moreJs = {
-@jsTagCompiled("chart2.js")
+@jsTag("chart/ratingDistribution.js")
 @embedJs {
-var lichess_rating_distribution = {data:@data.mkString("[", ",", "]")};
-@ctx.me.map(_.perfs(perfType).intRating).map { rating =>
-lichess_rating_distribution.my_rating = @rating;
-}
+lichess.ratingDistributionChart({
+freq: @data.mkString("[", ",", "]"),
+myRating: @ctx.me.map(_.perfs(perfType).intRating)
+});
 }
 }
 

@@ -1,0 +1,2 @@
+lichess.advantageChart = function() {
+};

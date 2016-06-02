@@ -1966,6 +1966,7 @@ lichess.notifyApp = (function() {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
+    console.log(cfg);
     if (data.chat) $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,

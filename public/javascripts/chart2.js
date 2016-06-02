@@ -219,72 +219,17 @@ $(function() {
     var noAnimation = {
       animation: disabled
     };
-    var defaults = {
-      yAxis: {
-        title: noText
-      },
-      credits: disabled,
-      legend: disabled
-    };
 
     function mergeDefaults(config) {
-      return $.extend(true, {}, defaults, config);
+      return $.extend(true, {}, {
+        yAxis: {
+          title: noText
+        },
+        credits: disabled,
+        legend: disabled
+      }, config);
     }
 
-    $('div.rating_history').each(function() {
-      var dashStyles = [
-        // standard gametypes
-        'Solid',
-        'Solid',
-        'Solid',
-        'Solid',
-        // exotic
-        'ShortDash',
-        'ShortDash',
-        'ShortDash',
-        // extreme
-        'ShortDot',
-        'ShortDot',
-        'ShortDot',
-        // training
-        'Dash',
-        'Dash'
-      ];
-      $(this).highcharts('StockChart', mergeDefaults({
-        colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
-          "#CC79A7", "#DF5353", "#66558C", "#99E699", "#FFAEAA"
-        ],
-        rangeSelector: {
-          enabled: true,
-          selected: 1,
-          inputEnabled: false,
-          labelStyle: {
-            display: 'none'
-          }
-        },
-        xAxis: {
-          title: noText,
-          labels: disabled,
-          lineWidth: 0,
-          tickWidth: 0
-        },
-        scrollbar: disabled,
-        series: lichess_rating_series.map(function(serie, i) {
-          return {
-            name: serie.name,
-            type: 'line',
-            dashStyle: dashStyles[i % dashStyles.length],
-            marker: {
-              enabled: true,
-              radius: 2
-            },
-            data: serie.points.map(function(r) {
-              return [Date.UTC(r[0], r[1], r[2]), r[3]];
-            })
-          };
-        })
-      }));
-    });
 
     var divisionLines = function($this) {
       var mid = parseInt($this.data('division-mid'));
@@ -340,6 +285,7 @@ $(function() {
     $('#adv_chart').each(function() {
       var $this = $(this);
       var cpMax = parseInt($this.data('max'), 10) / 100;
+      console.log($this.data('rows'));
 
       $this.highcharts(mergeDefaults({
         series: [{
