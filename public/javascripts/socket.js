@@ -278,7 +278,7 @@ lichess.StrongSocket.defaults = {
       lichess.challengeApp.update(d);
     },
     notifications: function(d) {
-      lichess.notifyApp.update(d);
+      lichess.notifyApp.update(d, true);
     }
   },
   params: {

@@ -10,30 +10,31 @@ module.exports = function(env) {
     scrolling: false
   };
 
-  this.update = function(data) {
+  this.update = function(data, incoming) {
     this.data = data;
     if (this.data.pager.currentPage === 1 && this.data.unread && env.isVisible()) {
       env.setNotified();
       this.data.unread = 0;
-    } else this.notifyNew();
+    }
     if (data.i18n) this.trans = lichess.trans(data.i18n);
     this.vm.initiating = false;
     this.vm.scrolling = false;
     env.setCount(this.data.unread);
+    if (incoming) this.notifyNew();
     m.redraw();
   }.bind(this);
 
   this.notifyNew = function() {
-    // if (this.data.unread)
-    // this.data.pager.currentPageResults.forEach(function(n) {
-    //   if (n.unread) {
-    //     if (!lichess.quietMode) {
-    //       env.show();
-    //       $.sound.newPM();
-    //     }
-    //     lichess.desktopNotification("New notification! <more details here>");
-    //   }
-    // });
+    if (this.data.pager.currentPage !== 1) return;
+    var notif = this.data.pager.currentPageResults.filter(function(n) {
+      return !n.read;
+    })[0];
+    if (!notif) return;
+    if (!lichess.quietMode) {
+      env.show();
+      $.sound.newPM();
+    }
+    lichess.desktopNotification("New notification! <more details here>");
   }.bind(this);
 
   this.loadFirstPage = function() {
@@ -58,6 +59,6 @@ module.exports = function(env) {
     if (!this.data || this.data.pager.currentPage === 1) this.loadFirstPage();
   }.bind(this);
 
-  if (env.data) this.update(env.data)
+  if (env.data) this.update(env.data, env.incoming)
   else this.loadFirstPage();
 };
