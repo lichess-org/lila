@@ -33,7 +33,7 @@ module.exports = {
       });
       tour.addStep('off', {
         title: 'Offline mode',
-        text: 'Your board is now longer shared!<br>Click this button to reconnect.',
+        text: 'Your board is no longer shared!<br>Click this button to reconnect.',
         attachTo: '#study-sync top',
         buttons: [{
           text: 'OK',
