@@ -23,6 +23,13 @@ final class JSONHandlers(
           "sender" -> getLightUser(senderId.value),
           "thread" -> privateMessageThreadWrites.writes(thread),
           "text" -> text.value)
+        case QaAnswer(answeredBy, questionTitle, questionId, questionSlug, answerId) => Json.obj(
+          "answerer" -> getLightUser(answeredBy.value),
+          "title" -> questionTitle.value,
+          "questionId" -> questionId.value,
+          "questionSlug" -> questionSlug.value,
+          "answerId" -> answerId.value
+        )
       }
     }
 
@@ -33,6 +40,7 @@ final class JSONHandlers(
         case _: MentionedInThread => "mentioned"
         case _: InvitedToStudy    => "invitedStudy"
         case _: PrivateMessage    => "privateMessage"
+        case _: QaAnswer          => "qaAnswer"
       }
 
       Json.obj("content" -> writeBody(body),

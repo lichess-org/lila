@@ -31,6 +31,14 @@ private object BSONHandlers {
   implicit val PMTextHandler = stringAnyValHandler[Text](_.value, Text.apply)
   implicit val PrivateMessageHandler = Macros.handler[PrivateMessage]
 
+  import QaAnswer._
+  implicit val AnswererHandler = stringAnyValHandler[AnswererId](_.value, AnswererId.apply)
+  implicit val TitleHandler = stringAnyValHandler[Title](_.value, Title.apply)
+  implicit val QuestionIdHandler = intAnyValHandler[QuestionId](_.value, QuestionId.apply)
+  implicit val QuestionSlugHandler = stringAnyValHandler[QuestionSlug](_.value, QuestionSlug.apply)
+  implicit val AnswerIdHandler = intAnyValHandler[AnswerId](_.value, AnswerId.apply)
+  implicit val QaAnswerHandler = Macros.handler[QaAnswer]
+
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
@@ -38,6 +46,7 @@ private object BSONHandlers {
         case _: MentionedInThread => "mention"
         case _: InvitedToStudy    => "invitedStudy"
         case _: PrivateMessage    => "privateMessage"
+        case _: QaAnswer          => "qaAnswer"
       }
     }
 
@@ -52,6 +61,8 @@ private object BSONHandlers {
             "studyName" -> studyName,
             "studyId" -> studyId)
         case p: PrivateMessage => PrivateMessageHandler.write(p) ++
+          $doc("type" -> writeNotificationType(notificationContent))
+        case q: QaAnswer => QaAnswerHandler.write(q) ++
           $doc("type" -> writeNotificationType(notificationContent))
       }
     }
@@ -78,6 +89,7 @@ private object BSONHandlers {
       case "mention"        => readMentionedNotification(reader)
       case "invitedStudy"   => readInvitedStudyNotification(reader)
       case "privateMessage" => PrivateMessageHandler read reader.doc
+      case "qaAnswer"       => QaAnswerHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

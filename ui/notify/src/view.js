@@ -49,6 +49,20 @@ function drawStudyInviteNotification(notification) {
   ]);
 };
 
+function drawQaAnswerNotification(notification) {
+    var content = notification.content
+    var url = "/qa/" + content.questionId + "/" + content.questionSlug + "#" + "answer-" + content.answerId;
+
+    return genericNotification(notification, url, '&', [
+        m('span', [
+            m('strong', userFullName(content.answerer)),
+            drawTime(notification)
+        ]),
+        m('span', " answered your question « " + content.title + "  ».")
+
+    ]);
+}
+
 function drawPrivateMessageNotification(notification) {
   var content = notification.content;
   var url = "/inbox/" + content.thread.id + '#bottom';
@@ -70,7 +84,8 @@ function drawUnhandled(notification) {
 var drawHandlers = {
   mentioned: drawMentionedNotification,
   invitedStudy: drawStudyInviteNotification,
-  privateMessage: drawPrivateMessageNotification
+  privateMessage: drawPrivateMessageNotification,
+  qaAnswer : drawQaAnswerNotification
 };
 
 function drawNotification(notification) {
