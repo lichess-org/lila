@@ -85,7 +85,7 @@ private[api] final class RoundApi(
             withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withTree(pov, analysis, initialFen, withOpening = withOpening)_ compose
-            withAnalysis(analysis)_
+            withAnalysis(pov.game, analysis)_
           )(json)
         }
     }
@@ -140,10 +140,10 @@ private[api] final class RoundApi(
       })
     else json
 
-  private def withAnalysis(o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
+  private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
     json + ("analysis" -> Json.obj(
-      "white" -> analysisApi.player(chess.Color.White)(a),
-      "black" -> analysisApi.player(chess.Color.Black)(a)
+      "white" -> analysisApi.player(g.whitePov)(a),
+      "black" -> analysisApi.player(g.blackPov)(a)
     ))
   }
 

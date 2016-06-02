@@ -11,7 +11,7 @@ import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, Pov, GameRepo, PerfPicker }
 import lila.hub.actorApi.{ router => R }
 import lila.user.User
 import makeTimeout.short
@@ -162,7 +162,7 @@ private[api] final class GameApi(
             "sd" -> h.sd
           )
         },
-        "analysis" -> analysisOption.flatMap(analysisApi.player(p.color))
+        "analysis" -> analysisOption.flatMap(analysisApi.player(g pov p.color))
       ).noNull
     }),
     "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),

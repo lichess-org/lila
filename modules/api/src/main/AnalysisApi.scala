@@ -17,10 +17,12 @@ private[api] final class AnalysisApi {
     ).noNull
   })
 
-  def player(color: chess.Color)(analysis: Analysis) =
-    analysis.summary.find(_._1 == color).map(_._2).map(s =>
+  def player(pov: lila.game.Pov)(analysis: Analysis) =
+    analysis.summary.find(_._1 == pov.color).map(_._2).map(s =>
       JsObject(s map {
         case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
-      })
+      }) ++ lila.analyse.Accuracy.mean(pov, analysis).fold(Json.obj()) { acpl =>
+        Json.obj("acpl" -> acpl)
+      }
     )
 }
