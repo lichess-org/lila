@@ -128,6 +128,8 @@ module.exports = {
   },
   view: function(ctrl) {
 
+    var isOwner = ctrl.members.isOwner();
+
     var username = function(member) {
       var u = member.user;
       return m('span.user_link.ulpt', {
@@ -151,7 +153,7 @@ module.exports = {
     };
 
     var configButton = function(member, confing) {
-      if (ctrl.members.isOwner() && member.user.id !== ctrl.members.myId) 
+      if (isOwner && member.user.id !== ctrl.members.myId)
         return m('span.action.config', {
           onclick: function() {
             ctrl.members.confing(confing ? null : member.user.id);
@@ -159,7 +161,7 @@ module.exports = {
         }, m('i', {
           'data-icon': '%'
         }));
-      if (member.user.id === ctrl.members.myId) 
+      if (!isOwner && member.user.id === ctrl.members.myId)
         return m('span.action.leave', {
           title: 'Leave the study',
           onclick: ctrl.members.leave
@@ -230,7 +232,7 @@ module.exports = {
           confing ? memberConfig(member) : null
         ];
       })),
-      ctrl.members.isOwner() ? m('i.add[data-icon=0]', {
+      isOwner ? m('i.add[data-icon=0]', {
         title: 'Invite someone',
         'data-icon': 'O',
         onclick: ctrl.members.inviteForm.toggle

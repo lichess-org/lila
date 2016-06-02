@@ -141,9 +141,9 @@ private[study] final class SocketHandler(
       username <- o str "d"
     } api.invite(byUserId, studyId, username, socket)
 
-    case ("kick", o) if owner => o str "d" foreach { api.kick(studyId, _) }
+    case ("kick", o) if owner   => o str "d" foreach { api.kick(studyId, _) }
 
-    case ("leave", _)         => member.userId foreach { api.kick(studyId, _) }
+    case ("leave", _) if !owner => member.userId foreach { api.kick(studyId, _) }
 
     case ("shapes", o) =>
       reading[AtPosition](o) { position =>
