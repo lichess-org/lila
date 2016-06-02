@@ -97,15 +97,18 @@ module.exports = function(ctrl) {
 
   if (ctrl.vm.initiating) return m('div.initiating', m.trust(lichess.spinnerHtml));
 
-  var nb = ctrl.data.pager.currentPageResults.length;
+  var pager = ctrl.data.pager;
+  var nb = pager.currentPageResults.length;
 
   return [
-    ctrl.data.pager.previousPage ? m('div.pager.prev', {
+    pager.previousPage ? m('div.pager.prev', {
       'data-icon': 'S',
       onclick: ctrl.previousPage
-    }) : null,
+    }) : (pager.nextPage ? m('div.pager.prev.disabled', {
+      'data-icon': 'S',
+    }) : null),
     nb ? recentNotifications(ctrl) : empty(),
-    ctrl.data.pager.nextPage ? m('div.pager.next', {
+    pager.nextPage ? m('div.pager.next', {
       'data-icon': 'R',
       onclick: ctrl.nextPage
     }) : null

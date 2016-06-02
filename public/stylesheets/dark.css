@@ -171,6 +171,7 @@ body.dark .studies .study,
 body.dark .study_metadata h2 .views,
 body.dark .study_invite .users,
 body.dark .study_metadata h2 .liking,
+body.dark #notify_app .pager.prev,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
