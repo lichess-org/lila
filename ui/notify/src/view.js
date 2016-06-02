@@ -80,6 +80,7 @@ function drawNotification(notification) {
 
 function recentNotifications(ctrl) {
   return m('div.notifications', {
+    class: ctrl.vm.scrolling ? 'scrolling' : '',
     config: function() {
       $('body').trigger('lichess.content_loaded');
     }

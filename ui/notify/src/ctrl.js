@@ -6,7 +6,8 @@ module.exports = function(env) {
   this.data;
 
   this.vm = {
-    initiating: true
+    initiating: true,
+    scrolling: false
   };
 
   this.update = function(data) {
@@ -17,6 +18,7 @@ module.exports = function(env) {
     } else this.notifyNew();
     if (data.i18n) this.trans = lichess.trans(data.i18n);
     this.vm.initiating = false;
+    this.vm.scrolling = false;
     env.setCount(this.data.unread);
     m.redraw();
   }.bind(this);
@@ -40,12 +42,16 @@ module.exports = function(env) {
 
   this.nextPage = function() {
     if (!this.data.pager.nextPage) return;
+    this.vm.scrolling = true;
     xhr.load(this.data.pager.nextPage).then(this.update);
+    m.redraw();
   }.bind(this);
 
   this.previousPage = function() {
     if (!this.data.pager.previousPage) return;
+    this.vm.scrolling = true;
     xhr.load(this.data.pager.previousPage).then(this.update);
+    m.redraw();
   }.bind(this);
 
   this.setVisible = function() {
