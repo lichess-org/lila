@@ -1,5 +1,6 @@
 var xhr = require('./xhr');
 var m = require('mithril');
+var asText = require('./view').text;
 
 module.exports = function(env) {
 
@@ -34,7 +35,8 @@ module.exports = function(env) {
       env.show();
       $.sound.newPM();
     }
-    lichess.desktopNotification("New notification! <more details here>");
+    var text = asText(notif);
+    if (text) lichess.desktopNotification(text);
   }.bind(this);
 
   this.loadFirstPage = function() {
