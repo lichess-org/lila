@@ -3,8 +3,9 @@
 @import lila.challenge.Challenge.Status
 
 @round.layout(
-title = trans.playWithAFriend.str(),
+title = challengeTitle(c),
 side = Html(""),
+openGraph = challengeOpenGraph(c).some,
 moreJs = js(c, json, false)) {
 <div class="lichess_game" id="challenge">
   <div class="lichess_board_wrap cg-512">

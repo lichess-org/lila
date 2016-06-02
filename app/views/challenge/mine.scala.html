@@ -9,8 +9,9 @@
 }
 
 @round.layout(
-title = c.destUserId.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).str(),
+title = challengeTitle(c),
 side = Html(""),
+openGraph = challengeOpenGraph(c).some,
 moreJs = js(c, json, true)) {
 <div class="lichess_game" id="challenge">
   <div class="lichess_board_wrap cg-512">

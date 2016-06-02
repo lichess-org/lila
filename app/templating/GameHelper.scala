@@ -246,4 +246,25 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       ~pov.game.castleLastMoveTime.lastMoveString,
       blank ?? """ target="_blank"""")
   }
+
+  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
+    val speed = c.clock.map(_.chessClock).fold(trans.unlimited.str()) { clock =>
+      s"${chess.Speed(clock).name} (${clock.show})"
+    }
+    val variant = c.variant.exotic ?? s" ${c.variant.name}"
+    val challenger = c.challenger.fold(
+      _ => User.anonymous,
+      reg => s"${usernameOrId(reg.id)} (${reg.rating.show})"
+    )
+    val players = c.destUser.fold(s"Challenge from $challenger") { dest =>
+      s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
+    }
+    s"$speed$variant ${c.mode.name} Chess • $players"
+  }
+
+  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: UserContext) =
+    lila.app.ui.OpenGraph(
+      title = challengeTitle(c),
+      url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
+      description = "Join the challenge or watch the game here.")
 }
