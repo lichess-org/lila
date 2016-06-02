@@ -25,12 +25,19 @@ private object BSONHandlers {
   import Notification.{ Notifies, NotificationRead }
   implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
+  import PrivateMessage._
+  implicit val PMThreadHandler = Macros.handler[Thread]
+  implicit val PMSenderIdHandler = stringAnyValHandler[SenderId](_.value, SenderId.apply)
+  implicit val PMTextHandler = stringAnyValHandler[Text](_.value, Text.apply)
+  implicit val PrivateMessageHandler = Macros.handler[PrivateMessage]
+
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
       notificationContent match {
         case _: MentionedInThread => "mention"
         case _: InvitedToStudy    => "invitedStudy"
+        case _: PrivateMessage    => "privateMessage"
       }
     }
 
@@ -44,6 +51,8 @@ private object BSONHandlers {
             "invitedBy" -> invitedBy,
             "studyName" -> studyName,
             "studyId" -> studyId)
+        case p: PrivateMessage => PrivateMessageHandler.write(p) ++
+          $doc("type" -> writeNotificationType(notificationContent))
       }
     }
 
@@ -65,13 +74,10 @@ private object BSONHandlers {
       InvitedToStudy(invitedBy, studyName, studyId)
     }
 
-    def reads(reader: Reader): NotificationContent = {
-      val notificationType = reader.str("type")
-
-      notificationType match {
-        case "mention"      => readMentionedNotification(reader)
-        case "invitedStudy" => readInvitedStudyNotification(reader)
-      }
+    def reads(reader: Reader): NotificationContent = reader.str("type") match {
+      case "mention"        => readMentionedNotification(reader)
+      case "invitedStudy"   => readInvitedStudyNotification(reader)
+      case "privateMessage" => PrivateMessageHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

@@ -10,6 +10,7 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     shutup: ActorSelection,
+    notifyApi: lila.notify.NotifyApi,
     blocks: (String, String) => Fu[Boolean],
     follows: (String, String) => Fu[Boolean],
     getPref: String => Fu[lila.pref.Pref],
@@ -24,17 +25,14 @@ final class Env(
 
   private[message] lazy val threadColl = db(CollectionThread)
 
-  private lazy val unreadCache = new UnreadCache(mongoCache)
-
   lazy val forms = new DataForm(security = security)
 
   lazy val api = new Api(
     coll = threadColl,
-    unreadCache = unreadCache,
     shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
-    bus = system.lilaBus)
+    notifyApi = notifyApi)
 
   lazy val security = new MessageSecurity(
     follows = follows,
@@ -55,6 +53,7 @@ object Env {
     db = lila.db.Env.current,
     shutup = lila.hub.Env.current.actor.shutup,
     mongoCache = lila.memo.Env.current.mongoCache,
+    notifyApi = lila.notify.Env.current.api,
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,

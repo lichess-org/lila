@@ -49,6 +49,19 @@ function drawStudyInviteNotification(notification) {
   ]);
 };
 
+function drawPrivateMessageNotification(notification) {
+  var content = notification.content;
+  var url = "/inbox/" + content.thread.id + '#bottom';
+
+  return genericNotification(notification, url, 'c', [
+    m('span', [
+      m('strong', userFullName(content.sender)),
+      drawTime(notification)
+    ]),
+    m('span', content.text)
+  ]);
+};
+
 function drawUnhandled(notification) {
   console.dir(notification);
   console.error(notification, "unhandled notification");
@@ -56,7 +69,8 @@ function drawUnhandled(notification) {
 
 var drawHandlers = {
   mentioned: drawMentionedNotification,
-  invitedStudy: drawStudyInviteNotification
+  invitedStudy: drawStudyInviteNotification,
+  privateMessage: drawPrivateMessageNotification
 };
 
 function drawNotification(notification) {

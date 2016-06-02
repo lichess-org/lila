@@ -262,7 +262,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
-  lazy val message = project("message", Seq(common, db, user, hub, relation, security)).settings(
+  lazy val message = project("message", Seq(common, db, user, hub, relation, security, notifyModule)).settings(
     libraryDependencies ++= provided(
       play.api, RM, spray.caching)
   )

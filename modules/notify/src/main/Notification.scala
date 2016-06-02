@@ -25,10 +25,10 @@ object Notification {
   case class Notifies(value: String) extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 
-  def apply(notifies: Notification.Notifies, content: NotificationContent, read: NotificationRead, createdAt: DateTime): Notification = {
+  def apply(notifies: Notification.Notifies, content: NotificationContent): Notification = {
     val idSize = 8
     val id = Random nextStringUppercase idSize
-    new Notification(id, notifies, content, read, createdAt)
+    new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
   }
 }
 
@@ -55,4 +55,15 @@ object InvitedToStudy {
   case class InvitedBy(value: String) extends AnyVal with StringValue
   case class StudyName(value: String) extends AnyVal with StringValue
   case class StudyId(value: String) extends AnyVal with StringValue
+}
+
+case class PrivateMessage(
+  senderId: PrivateMessage.SenderId,
+  thread: PrivateMessage.Thread,
+  text: PrivateMessage.Text) extends NotificationContent
+
+object PrivateMessage {
+  case class SenderId(value: String) extends AnyVal with StringValue
+  case class Thread(id: String, name: String)
+  case class Text(value: String) extends AnyVal with StringValue
 }

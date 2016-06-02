@@ -269,6 +269,8 @@ object UserRepo {
 
   def toggleKid(user: User) = coll.updateField($id(user.id), "kid", !user.kid)
 
+  def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
+
   def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))

@@ -5,6 +5,7 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.SendTo
 import lila.memo.AsyncCache
+import lila.user.UserRepo
 import scala.concurrent.Future
 
 final class NotifyApi(
@@ -51,9 +52,13 @@ final class NotifyApi(
   }
 
   private def shouldSkip(notification: Notification) =
-    notification.content match {
-      case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
-      case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
+    UserRepo.isKid(notification.notifies.value) flatMap {
+      case true => fuccess(true)
+      case false => notification.content match {
+        case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
+        case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
+        case PrivateMessage(_, thread, _)           => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
+      }
     }
 
   /**

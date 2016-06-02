@@ -88,19 +88,6 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       <div class="auth fright">
         @auth.userDropdown(me, playing)
       </div>
-      @if(ctx.noKid) {
-      <div id="message_notifications_parent" class="message_notifications fright @if(ctx.nbMessages == 0) {none}">
-        <a id="message_notifications_tag" class="toggle link data-count" data-count="@ctx.nbMessages" data-href="@routes.Message.preview">
-          <span class="hint--bottom-left" data-hint="@trans.inbox()">
-            <span data-icon="e"></span>
-          </span>
-        </a>
-        <div id="message_notifications" class="links dropdown">
-          <div id="message_notifications_display" class="content"></div>
-          <div class="title"><a href="@routes.Message.inbox(page=1)">@trans.inbox() »</a></div>
-        </div>
-      </div>
-      }
       <div class="challenge_notifications fright">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">
           <span class="hint--bottom-left" data-hint="Challenges">

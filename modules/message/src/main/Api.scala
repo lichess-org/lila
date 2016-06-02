@@ -12,11 +12,10 @@ import lila.user.{ User, UserRepo }
 
 final class Api(
     coll: Coll,
-    unreadCache: UnreadCache,
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
-    bus: lila.common.Bus) {
+    notifyApi: lila.notify.NotifyApi) {
 
   import Thread.ThreadBSONHandler
 
@@ -30,15 +29,9 @@ final class Api(
     maxPerPage = maxPerPage
   )
 
-  def preview(userId: String): Fu[List[Thread]] = unreadCache(userId) flatMap { ids =>
-    coll.byOrderedIds[Thread](ids)(_.id)
-  }
-
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).??(thread =>
-      (ThreadRepo setRead thread) >>- updateUser(me)
-    )
+    _ ← threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setRead)
   } yield threadOption
 
   def markThreadAsRead(id: String, me: User): Funit = thread(id, me).void
@@ -55,29 +48,33 @@ final class Api(
             val thread = if (me.troll || lila.security.Spam.detect(data.subject, data.text))
               t deleteFor invited
             else t
-            sendUnlessBlocked(thread, fromMod) >>-
-              updateUser(invited) >>- {
+            sendUnlessBlocked(thread, fromMod) flatMap {
+              _ ?? {
                 val text = s"${data.subject} ${data.text}"
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
-              } inject thread
+                notify(thread)
+              }
+            } inject thread
           }
       }
     }
   }
 
-  def lichessThread(lt: LichessThread): Funit = sendUnlessBlocked(Thread.make(
-    name = lt.subject,
-    text = lt.message,
-    creatorId = lt.from,
-    invitedId = lt.to), fromMod = false) >> {
-    if (lt.notification) updateUser(lt.to)
-    else unreadCache.clear(lt.to)
+  def lichessThread(lt: LichessThread): Funit = {
+    val thread = Thread.make(
+      name = lt.subject,
+      text = lt.message,
+      creatorId = lt.from,
+      invitedId = lt.to)
+    sendUnlessBlocked(thread, fromMod = false) flatMap { sent =>
+      sent ?? notify(thread)
+    }
   }
 
-  private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Funit =
-    if (fromMod) coll.insert(thread).void
-    else blocks(thread.invitedId, thread.creatorId) flatMap {
-      !_ ?? coll.insert(thread).void
+  private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
+    if (fromMod) coll.insert(thread) inject true
+    else blocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
+      ((!blocks) ?? coll.insert(thread).void) inject !blocks
     }
 
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
@@ -89,28 +86,29 @@ final class Api(
       case true => fuccess(thread)
       case false =>
         val newThread = thread + post
-        coll.update($id(newThread.id), newThread) >>- {
-          updateUser(thread receiverOf post)
+        coll.update($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
           shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+          notify(thread, post)
         } inject newThread
     }
   }
 
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption =>
-      (threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)) >>-
-        updateUser(me)
+      threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)
     }
 
-  val unreadIds = unreadCache apply _
-
-  def updateUser(user: User): Funit = (!user.kid) ?? {
-    unreadCache refresh user.id mapTo manifest[List[String]] map { ids =>
-      bus.publish(SendTo(user.id, "nbm", ids.size), 'users)
-    }
+  def notify(thread: Thread): Funit = thread.posts.headOption ?? { post =>
+    notify(thread, post)
   }
-
-  def updateUser(name: String): Funit =
-    UserRepo.named(name) flatMap { _ ?? updateUser }
+  def notify(thread: Thread, post: Post): Funit = {
+    import lila.notify.{ Notification, PrivateMessage }
+    notifyApi addNotification Notification(
+      Notification.Notifies(thread receiverOf post),
+      PrivateMessage(
+        PrivateMessage.SenderId(thread senderOf post),
+        PrivateMessage.Thread(id = thread.id, name = thread.name),
+        PrivateMessage.Text(post.text take 100)))
+  }
 }

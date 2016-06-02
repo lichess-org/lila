@@ -341,7 +341,6 @@ GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
 POST  /inbox/new                       controllers.Message.create
-GET   /inbox/preview                   controllers.Message.preview
 GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)

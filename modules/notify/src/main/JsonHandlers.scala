@@ -6,17 +6,23 @@ import play.api.libs.json._
 final class JSONHandlers(
     getLightUser: LightUser.Getter) {
 
+  implicit val privateMessageThreadWrites = Json.writes[PrivateMessage.Thread]
+
   implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
     def writeBody(notificationContent: NotificationContent) = {
       notificationContent match {
-        case MentionedInThread(mentionedBy, topic, _, category, postId) =>
-          Json.obj("mentionedBy" -> getLightUser(mentionedBy.value),
-            "topic" -> topic.value, "category" -> category.value,
-            "postId" -> postId.value)
-        case InvitedToStudy(invitedBy, studyName, studyId) =>
-          Json.obj("invitedBy" -> getLightUser(invitedBy.value),
-            "studyName" -> studyName.value,
-            "studyId" -> studyId.value)
+        case MentionedInThread(mentionedBy, topic, _, category, postId) => Json.obj(
+          "mentionedBy" -> getLightUser(mentionedBy.value),
+          "topic" -> topic.value, "category" -> category.value,
+          "postId" -> postId.value)
+        case InvitedToStudy(invitedBy, studyName, studyId) => Json.obj(
+          "invitedBy" -> getLightUser(invitedBy.value),
+          "studyName" -> studyName.value,
+          "studyId" -> studyId.value)
+        case PrivateMessage(senderId, thread, text) => Json.obj(
+          "sender" -> getLightUser(senderId.value),
+          "thread" -> privateMessageThreadWrites.writes(thread),
+          "text" -> text.value)
       }
     }
 
@@ -24,8 +30,9 @@ final class JSONHandlers(
       val body = notification.content
 
       val notificationType = body match {
-        case MentionedInThread(_, _, _, _, _) => "mentioned"
-        case InvitedToStudy(_, _, _)          => "invitedStudy"
+        case _: MentionedInThread => "mentioned"
+        case _: InvitedToStudy    => "invitedStudy"
+        case _: PrivateMessage    => "privateMessage"
       }
 
       Json.obj("content" -> writeBody(body),

@@ -22,13 +22,8 @@ object Message extends LilaController {
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
       NotForKids {
-        api updateUser me
         api.inbox(me, page) map { html.message.inbox(me, _) }
       }
-  }
-
-  def preview = Auth { implicit ctx =>
-    me => api.preview(me.id) map { html.message.preview(me, _) }
   }
 
   def thread(id: String) = Auth { implicit ctx =>

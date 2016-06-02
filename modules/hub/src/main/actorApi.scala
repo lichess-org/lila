@@ -142,8 +142,7 @@ case class LichessThread(
   from: String,
   to: String,
   subject: String,
-  message: String,
-  notification: Boolean = false)
+  message: String)
 }
 
 package notify {
