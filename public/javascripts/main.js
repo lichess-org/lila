@@ -2078,6 +2078,7 @@ lichess.notifyApp = (function() {
     };
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
+    cfg.computerAnalysisElement = document.querySelector('.analysis_panels .computer_analysis');
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
     cfg.jumpToIndex = analyse.jumpToIndex;

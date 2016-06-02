@@ -1,6 +1,7 @@
 var ctrl = require('./ctrl');
 var view = require('./view');
 var studyView = require('./study/studyView');
+var computerAnalysisView = require('./computerAnalysisView');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -20,6 +21,14 @@ module.exports = function(opts) {
       return controller.study;
     },
     view: studyView.main
+  });
+
+  if (opts.computerAnalysisElement) m.module(opts.computerAnalysisElement, {
+    controller: function() {
+      m.redraw.strategy("diff");
+      return controller;
+    },
+    view: computerAnalysisView
   });
 
   return {
