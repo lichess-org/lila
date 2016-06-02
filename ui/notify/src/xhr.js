@@ -19,12 +19,5 @@ module.exports = {
       },
       config: xhrConfig
     });
-  },
-  markAllRead: function() {
-    return m.request({
-      method: 'POST',
-      url: '/notify',
-      config: xhrConfig
-    });
   }
 };

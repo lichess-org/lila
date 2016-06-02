@@ -15,15 +15,19 @@ final class NotifyApi(
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
 
-  def getNotifications(userId: Notification.Notifies, page: Int, perPage: Int): Fu[Paginator[Notification]] = Paginator(
+  val perPage = 7
+
+  def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
     adapter = new Adapter(
       collection = repo.coll,
       selector = repo.userNotificationsQuery(userId),
       projection = $empty,
       sort = repo.recentSort),
     currentPage = page,
-    maxPerPage = perPage
-  )
+    maxPerPage = perPage)
+
+  def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
+    getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
     repo.markAllRead(userId) >> unreadCountCache.remove(userId)
@@ -31,20 +35,16 @@ final class NotifyApi(
   private val unreadCountCache =
     AsyncCache(repo.unreadNotificationsCount, maxCapacity = 20000)
 
-  def countUnread(userId: Notification.Notifies) = unreadCountCache(userId)
+  def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
+    unreadCountCache(userId) map Notification.UnreadCount.apply
 
-  def addNotification(notification: Notification): Funit = {
-
+  def addNotification(notification: Notification): Funit =
     // Add to database and then notify any connected clients of the new notification
     insertOrDiscardNotification(notification) map {
-      _ ?? {
-        notif =>
-          unreadCountCache(notif.notifies).
-            map(NewNotification(notif, _)).
-            foreach(notifyConnectedClients)
+      _ foreach { notif =>
+        notifyUser(notif.notifies)
       }
     }
-  }
 
   def addNotifications(notifications: List[Notification]): Funit = {
     notifications.map(addNotification).sequenceFu.void
@@ -71,9 +71,9 @@ final class NotifyApi(
         notification.some
     }
 
-  private def notifyConnectedClients(newNotification: NewNotification): Unit = {
-    val notificationsEventKey = "new_notification"
-    val notificationEvent = SendTo(newNotification.notification.notifies.value, notificationsEventKey, newNotification)
-    bus.publish(notificationEvent, 'users)
-  }
+  private def notifyUser(notifies: Notification.Notifies): Funit =
+    getNotificationsAndCount(notifies, 1) map { msg =>
+      import play.api.libs.json.Json
+      bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'users)
+    }
 }

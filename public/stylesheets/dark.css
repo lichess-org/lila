@@ -164,7 +164,6 @@ body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
 body.dark div.side_box .game_infos,
-body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
 body.dark #simul .half,
 body.dark .donation .links a,
@@ -209,8 +208,7 @@ body.dark div.search_status,
 body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
-body.dark #top .language_links button:hover,
-body.dark #message_notifications div.notification:hover {
+body.dark #top .language_links button:hover {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }

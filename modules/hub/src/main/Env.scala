@@ -29,6 +29,7 @@ final class Env(config: Config, system: ActorSystem) {
     val analyser = select("actor.analyser")
     val moveBroadcast = select("actor.move_broadcast")
     val userRegister = select("actor.user_register")
+    val notification = select("actor.notify")
   }
 
   object channel {

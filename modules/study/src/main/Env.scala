@@ -79,7 +79,7 @@ final class Env(
     notifier = new StudyNotifier(
       messageActor = hub.actor.messenger,
       netBaseUrl = NetBaseUrl,
-      notifyApi = lila.notify.Env.current.notifyApi,
+      notifyApi = lila.notify.Env.current.api,
       relationApi = lila.relation.Env.current.api
     ),
     lightUser = getLightUser,

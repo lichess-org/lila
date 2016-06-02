@@ -1,5 +1,6 @@
 package lila.notify
 
+import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -19,6 +20,8 @@ case class Notification(
 
 object Notification {
 
+  case class UnreadCount(value: Int) extends AnyVal
+  case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
   case class Notifies(value: String) extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 

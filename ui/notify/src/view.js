@@ -69,7 +69,7 @@ function recentNotifications(ctrl) {
     config: function() {
       $('body').trigger('lichess.content_loaded');
     }
-  }, ctrl.pager.currentPageResults.map(drawNotification));
+  }, ctrl.data.pager.currentPageResults.map(drawNotification));
 }
 
 function empty() {
@@ -83,15 +83,15 @@ module.exports = function(ctrl) {
 
   if (ctrl.vm.initiating) return m('div.initiating', m.trust(lichess.spinnerHtml));
 
-  var nb = ctrl.pager.currentPageResults.length;
+  var nb = ctrl.data.pager.currentPageResults.length;
 
   return [
-    ctrl.pager.previousPage ? m('div.pager.prev', {
+    ctrl.data.pager.previousPage ? m('div.pager.prev', {
       'data-icon': 'S',
       onclick: ctrl.previousPage
     }) : null,
     nb ? recentNotifications(ctrl) : empty(),
-    ctrl.pager.nextPage ? m('div.pager.next', {
+    ctrl.data.pager.nextPage ? m('div.pager.next', {
       'data-icon': 'R',
       onclick: ctrl.nextPage
     }) : null

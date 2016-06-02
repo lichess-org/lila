@@ -877,12 +877,9 @@ body.offline #reconnecting,
 #top .shown a.toggle {
   background: #fff;
 }
-#top .shown #challenge_notifications_tag.toggle {
-  height: 29px;
-}
-
+#top .shown #challenge_notifications_tag.toggle,
 #top .shown #site_notifications_tag.toggle {
-    height: 29px;
+  height: 29px;
 }
 
 #ham-plate {
@@ -1156,14 +1153,12 @@ body.fpmenu #fpmenu {
 #user_tag {
   font-weight: bold;
 }
-#top div.message_notifications,
 #top div.challenge_notifications,
 #top div.auth,
 #top #themepicker,
 #top div.lichess_language {
   position: relative;
 }
-#top div.message_notifications.shown .links,
 #top div.challenge_notifications.shown .links,
 #top div.site_notifications.shown .links,
 #top div.auth.shown .links {
@@ -1220,27 +1215,9 @@ body.fpmenu #fpmenu {
 #challenge_notifications_tag.none {
   display: none!important;
 }
-#message_notifications_tag span:before,
 #challenge_notifications_tag span:before {
   font-size: 1.45em;
   padding-left: 3px;
-}
-#top div.message_notifications div.title {
-  padding: 5px 0;
-  text-align: center;
-}
-#message_notifications {
-  width: 250px;
-  z-index: 2;
-  left: -95px;
-}
-#message_notifications div.notification {
-  border-bottom: 1px solid #c0c0c0;
-  transition: background-color 0.13s;
-  position: relative;
-}
-#message_notifications div.notification:hover {
-  background-color: #f0f0f0;
 }
 #notifications {
   position: absolute;
@@ -1264,44 +1241,6 @@ body.fpmenu #fpmenu {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-}
-#message_notifications .user_link,
-#message_notifications .block .title {
-  font-weight: bold;
-}
-#message_notifications_display .content {
-  display: block;
-  overflow: hidden;
-}
-#message_notifications .actions {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.13s;
-  margin-top: 5px;
-  text-align: right;
-}
-#message_notifications a.block {
-  display: block;
-  padding: 6px 8px 7px 8px;
-}
-#message_notifications .actions a {
-  font-weight: bold;
-  margin-right: 5px;
-  margin-left: 10px;
-}
-#message_notifications .notification:hover .actions {
-  opacity: 0.7;
-}
-#message_notifications .actions a:hover {
-  color: #d85000;
-}
-
-#site_notifications_tag .content {
-  display: block;
-  overflow: hidden;
 }
 
 #site_notifications_tag span:before {

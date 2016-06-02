@@ -146,6 +146,10 @@ case class LichessThread(
   notification: Boolean = false)
 }
 
+package notify {
+  case class Notified(userId: String)
+}
+
 package router {
 case class Abs(route: Any)
 case class Nolang(route: Any)

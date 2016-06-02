@@ -79,6 +79,9 @@ object Handler {
             member push lila.socket.Socket.makeMessage("destsFailure", "Bad dests request")
         }
       }
+      case ("notified", _) => member.userId foreach { userId =>
+        hub.actor.notification ! lila.hub.actorApi.notify.Notified(userId)
+      }
       case _ => // logwarn("Unhandled msg: " + msg)
     }
 

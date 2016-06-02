@@ -13,4 +13,6 @@ object PaginatorJson {
     "previousPage" -> p.previousPage,
     "nextPage" -> p.nextPage,
     "nbPages" -> p.nbPages)
+
+  implicit def paginatorWrites[A: Writes]: Writes[Paginator[A]] = Writes[Paginator[A]](apply)
 }

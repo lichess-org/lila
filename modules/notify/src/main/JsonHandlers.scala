@@ -1,8 +1,7 @@
 package lila.notify
 
 import lila.common.LightUser
-import lila.user.User
-import play.api.libs.json.{ JsValue, Json, Writes }
+import play.api.libs.json._
 
 final class JSONHandlers(
     getLightUser: LightUser.Getter) {
@@ -11,11 +10,11 @@ final class JSONHandlers(
     def writeBody(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, _, category, postId) =>
-          Json.obj("mentionedBy" -> lila.user.Env.current.lightUser(mentionedBy.value),
+          Json.obj("mentionedBy" -> getLightUser(mentionedBy.value),
             "topic" -> topic.value, "category" -> category.value,
             "postId" -> postId.value)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
-          Json.obj("invitedBy" -> lila.user.Env.current.lightUser(invitedBy.value),
+          Json.obj("invitedBy" -> getLightUser(invitedBy.value),
             "studyName" -> studyName.value,
             "studyId" -> studyId.value)
       }
@@ -35,6 +34,10 @@ final class JSONHandlers(
         "date" -> notification.createdAt)
     }
   }
+
+  import lila.common.paginator.PaginatorJson._
+  implicit val unreadWrites = Writes[Notification.UnreadCount] { v => JsNumber(v.value) }
+  implicit val andUnreadWrites: Writes[Notification.AndUnread] = Json.writes[Notification.AndUnread]
 
   implicit val newNotificationWrites: Writes[NewNotification] = new Writes[NewNotification] {
 

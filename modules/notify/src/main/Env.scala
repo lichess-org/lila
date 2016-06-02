@@ -1,6 +1,6 @@
 package lila.notify
 
-import akka.actor.ActorSystem
+import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
@@ -9,21 +9,25 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     system: ActorSystem) {
 
-  val settings = new {
-    val collectionNotifications = config getString "collection.notify"
-
-  }
-
-  import settings._
+  private val CollectionNotifications = config getString "collection.notify"
+  private val ActorName = config getString "actor.name"
 
   val jsonHandlers = new JSONHandlers(getLightUser)
 
-  private lazy val repo = new NotificationRepo(coll = db(collectionNotifications))
+  private lazy val repo = new NotificationRepo(coll = db(CollectionNotifications))
 
-  lazy val notifyApi = new NotifyApi(
+  lazy val api = new NotifyApi(
     bus = system.lilaBus,
     jsonHandlers = jsonHandlers,
     repo = repo)
+
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.notify.Notified(userId) =>
+        api markAllRead Notification.Notifies(userId)
+    }
+  }), name = ActorName)
 }
 
 object Env {

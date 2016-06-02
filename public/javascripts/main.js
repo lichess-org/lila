@@ -36,32 +36,42 @@ lichess.challengeApp = (function() {
 
 lichess.notifyApp = (function() {
   var instance;
+  var $element = $('#notify_app');
   var $toggle = $('#site_notifications_tag');
-  var readPending = false;
-  $toggle.one('mouseover', function() {
+  var isVisible = function() {
+    return $element.is(':visible');
+  };
+  $toggle.one('mouseover click', function() {
     if (!instance) load();
-  }).on('click', function() {
-    if (instance) instance.updateAndMarkAsRead();
-    else readPending = true;
+  }).click(function() {
+    setTimeout(function() {
+      if (instance && isVisible()) instance.setVisible();
+    }, 200);
   });
 
-  var load = function() {
+  var load = function(data) {
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessNotify(document.getElementById('notify_app'), {
+      instance = LichessNotify($element[0], {
+        data: data,
+        isVisible: isVisible,
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
+        },
+        setNotified: function() {
+          lichess.socket.send('notified');
         }
       });
-      if (readPending) {
-        instance.updateAndMarkAsRead();
-        readPending = false;
-      }
     });
   };
 
-  return {};
+  return {
+    update: function(data) {
+      if (!instance) load(data);
+      else instance.update(data);
+    }
+  };
 })();
 
 (function() {
@@ -168,18 +178,6 @@ lichess.notifyApp = (function() {
       },
       message: function(msg) {
         $('#chat').chat("append", msg);
-      },
-      nbm: function(e) {
-        $('#message_notifications_tag').attr('data-count', e || 0).parent().toggle(e > 0);
-        if (e) {
-          $.sound.newPM();
-          var inboxDesktopNotification = lichess.storage.get("inboxDesktopNotification") || "0";
-          var s = e.toString();
-          if (inboxDesktopNotification !== s) {
-            lichess.desktopNotification("New inbox message!");
-            lichess.storage.set("inboxDesktopNotification", s);
-          }
-        }
       },
       new_notification: function(e) {
         var notification = e.notification;
@@ -483,27 +481,6 @@ lichess.notifyApp = (function() {
       }
       setTimeout(updatePowertips, 600);
       $('body').on('lichess.content_loaded', updatePowertips);
-
-      $('#message_notifications_tag').on('click', function() {
-        lichess.storage.remove("inboxDesktopNotification");
-        $.ajax({
-          url: $(this).data('href'),
-          success: function(html) {
-            $('#message_notifications_display').html(html)
-              .find('a.mark_as_read').click(function() {
-                $.ajax({
-                  url: $(this).attr('href'),
-                  method: 'post'
-                });
-                $(this).parents('.notification').remove();
-                if ($('#message_notifications_display').children().length === 0)
-                  $('#message_notifications_tag').click();
-                return false;
-              });
-            $('body').trigger('lichess.content_loaded');
-          }
-        });
-      });
 
       function setMoment() {
         $("time.moment").removeClass('moment').each(function() {

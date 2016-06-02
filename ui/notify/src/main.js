@@ -13,6 +13,7 @@ module.exports = function(element, opts) {
   });
 
   return {
-    updateAndMarkAsRead: controller.updateAndMarkAsRead
+    update: controller.update,
+    setVisible: controller.setVisible
   }
 }

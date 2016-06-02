@@ -267,7 +267,6 @@ POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: Strin
 
 # Notify
 GET /notify                            controllers.Notify.recent(page: Int ?= 1)
-POST /notify                           controllers.Notify.markAllAsRead
 
 # Video
 GET   /video                           controllers.Video.index

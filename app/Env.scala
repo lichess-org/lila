@@ -87,7 +87,8 @@ final class Env(
     Env.slack, // required to load the actor
     Env.challenge, // required to load the actor
     Env.explorer, // required to load the actor
-    Env.fishnet // required to schedule the cleaner
+    Env.fishnet, // required to schedule the cleaner
+    Env.notifyModule // required to load the actor
   )) { lap =>
     lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }

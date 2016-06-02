@@ -43,11 +43,15 @@ body.dark #notify_app .site_notification.new:hover {
   flex: 0 1 100%;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
-.site_notification .content span {
+.site_notification .content span:first-child {
   display: flex;
   justify-content: space-between;
+}
+.site_notification .content span:last-child {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .site_notification .content time {
   font-size: 0.9em;

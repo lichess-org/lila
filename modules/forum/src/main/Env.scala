@@ -85,7 +85,7 @@ object Env {
     shutup = lila.hub.Env.current.actor.shutup,
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
-    notifyApi = lila.notify.Env.current.notifyApi,
+    notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     system = lila.common.PlayApp.system)
 }
