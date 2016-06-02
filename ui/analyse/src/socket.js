@@ -46,7 +46,7 @@ module.exports = function(send, ctrl) {
         ctrl.forecast.reloadToLastPly();
     },
     analysisProgress: function(data) {
-      ctrl.tree.partialAnalysis(data.analysis);
+      ctrl.tree.merge(data.tree);
       m.redraw();
     }
   };

@@ -162,15 +162,16 @@ private[round] final class Socket(
 
     case AnalysisAvailable => notifyAll("analysisAvailable")
 
-    case lila.analyse.actorApi.AnalysisProgress(ratio, analysis) =>
+    case a: lila.analyse.actorApi.AnalysisProgress =>
       notifyAll("analysisProgress", Json.obj(
-        "ratio" -> lila.common.Maths.truncateAt(ratio, 2),
-        "analysis" -> analysis.infos.filterNot(_.isEmpty).map { info =>
-          Json.obj(
-            "ply" -> info.ply,
-            "cp" -> info.score.map(_.centipawns),
-            "mate" -> info.mate).noNull
-        }
+        "ratio" -> lila.common.Maths.truncateAt(a.ratio, 2),
+        "tree" -> TreeBuilder(
+          id = a.analysis.id,
+          pgnMoves = a.pgnMoves,
+          variant = a.variant,
+          analysis = a.analysis.some,
+          initialFen = a.initialFen.value,
+          withOpening = false)
       ))
 
     case Quit(uid) =>

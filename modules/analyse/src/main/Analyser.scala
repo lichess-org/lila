@@ -2,6 +2,7 @@ package lila.analyse
 
 import akka.actor.ActorSelection
 
+import chess.format.FEN
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
@@ -25,7 +26,16 @@ final class Analyser(
     }
   }
 
-  def progress(ratio: Float, analysis: Analysis): Funit = fuccess {
-    roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(ratio, analysis))
-  }
+  def progress(ratio: Float, analysis: Analysis): Funit =
+    GameRepo gameWithInitialFen analysis.id map {
+      _ ?? {
+        case (game, initialFen) =>
+          roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(
+            ratio = ratio,
+            analysis = analysis,
+            pgnMoves = game.pgnMoves,
+            variant = game.variant,
+            initialFen = initialFen | FEN(game.variant.initialFen)))
+      }
+    }
 }

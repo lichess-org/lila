@@ -132,7 +132,7 @@ object JsonApi {
 
   def fromGame(g: W.Game) = Game(
     game_id = g.id,
-    position = g.initialFen | FEN(Forsyth.initial),
+    position = g.initialFen | FEN(g.variant.initialFen),
     variant = g.variant,
     moves = g.moves)
 

@@ -89,6 +89,22 @@ function reconstruct(parts) {
   return root;
 }
 
+// adds n2 into n1
+function merge(n1, n2) {
+  n1.eval = n2.eval;
+  n2.comments && n2.comments.forEach(function(c) {
+    if (!n1.comments) n1.comments = [c];
+    else if (!n1.comments.filter(function(d) {
+      return d.text === c.text;
+    }).length) n1.comments.push(c);
+  });
+  n2.children.forEach(function(c) {
+    var existing = childById(n1, c.id);
+    if (existing) merge(existing, c);
+    else n1.children.push(c);
+  });
+}
+
 module.exports = {
   findInMainline: findInMainline,
   withMainlineChild: withMainlineChild,
@@ -102,5 +118,6 @@ module.exports = {
   takePathWhile: takePathWhile,
   removeChild: removeChild,
   countChildrenAndComments: countChildrenAndComments,
-  reconstruct: reconstruct
+  reconstruct: reconstruct,
+  merge: merge
 }
