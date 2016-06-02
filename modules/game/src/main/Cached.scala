@@ -43,21 +43,4 @@ final class Cached(
     f = (o: BSONDocument) => coll countSel o,
     timeToLive = defaultTtl,
     keyToString = lila.db.BSON.hashDoc)
-
-  object Divider {
-
-    private val cache = Builder.size[String, chess.Division](5000)
-
-    def apply(game: Game, initialFen: Option[String]): chess.Division =
-      if (!Variant.divisionSensibleVariants.contains(game.variant)) chess.Division.empty
-      else Option(cache getIfPresent game.id) | {
-        val div = chess.Replay.boards(
-          moveStrs = game.pgnMoves,
-          initialFen = initialFen,
-          variant = game.variant
-        ).toOption.fold(chess.Division.empty)(chess.Divider.apply)
-        cache.put(game.id, div)
-        div
-      }
-  }
 }

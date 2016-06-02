@@ -23,6 +23,7 @@ final class JsonView(
     userJsonView: lila.user.JsonView,
     getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
+    divider: lila.game.Divider,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
 
@@ -135,7 +136,8 @@ final class JsonView(
     tv: Option[OnTv],
     withBlurs: Boolean,
     initialFen: Option[String] = None,
-    withMoveTimes: Boolean) =
+    withMoveTimes: Boolean,
+    withDivision: Boolean) =
     getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
@@ -145,6 +147,7 @@ final class JsonView(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
+                "division" -> withDivision.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)).noNull
             },
@@ -369,5 +372,11 @@ object JsonView {
       "name" -> o.opening.name,
       "ply" -> o.ply
     )
+  }
+
+  implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
+    Json.obj(
+      "middle" -> o.middle,
+      "end" -> o.end)
   }
 }

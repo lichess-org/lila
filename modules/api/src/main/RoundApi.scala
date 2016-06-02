@@ -50,7 +50,8 @@ private[api] final class RoundApi(
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
         initialFen = initialFen,
-        withMoveTimes = false) zip
+        withMoveTimes = false,
+        withDivision = false) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
@@ -69,12 +70,14 @@ private[api] final class RoundApi(
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
+    withDivision: Boolean = false,
     withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
         initialFen = initialFen,
-        withMoveTimes = withMoveTimes) zip
+        withMoveTimes = withMoveTimes,
+        withDivision = withDivision) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {

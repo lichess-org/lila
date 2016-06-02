@@ -28,6 +28,7 @@ private[api] final class RoundApiBalancer(
       analysis: Option[Analysis] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
+      withDivision: Boolean = false,
       withOpening: Boolean = false,
       ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean)
@@ -45,8 +46,8 @@ private[api] final class RoundApiBalancer(
           }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>
             api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
-          case Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) =>
-            api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening)(ctx)
+          case Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) =>
+            api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
           case FreeStudy(pov, pref, initialFen, orientation) =>
@@ -75,8 +76,9 @@ private[api] final class RoundApiBalancer(
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,
+    withDivision: Boolean = false,
     withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withOpening, ctx) mapTo manifest[JsObject]
+    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =

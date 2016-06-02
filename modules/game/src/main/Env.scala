@@ -41,6 +41,8 @@ final class Env(
 
   lazy val pngExport = PngExport(PngExecPath) _
 
+  lazy val divider = new Divider
+
   lazy val cached = new Cached(
     coll = gameColl,
     mongoCache = mongoCache,

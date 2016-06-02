@@ -27,6 +27,7 @@ final class Env(
     rematch960Cache: lila.memo.ExpireSetMemo,
     isRematchCache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
+    divider: lila.game.Divider,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
     chatApi: lila.chat.ChatApi,
@@ -172,6 +173,7 @@ final class Env(
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
+    divider = divider,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)
 
@@ -224,6 +226,7 @@ object Env {
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     isRematchCache = lila.game.Env.current.cached.isRematch,
     onStart = lila.game.Env.current.onStart,
+    divider = lila.game.Env.current.divider,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
     chatApi = lila.chat.Env.current.api,

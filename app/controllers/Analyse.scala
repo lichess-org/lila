@@ -22,7 +22,7 @@ object Analyse extends LilaController {
 
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
-  private val divider = Env.game.cached.Divider
+  private val divider = Env.game.divider
 
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
@@ -57,6 +57,7 @@ object Analyse extends LilaController {
                 analysis,
                 initialFenO = initialFen.some,
                 withMoveTimes = true,
+                withDivision = true,
                 withOpening = true) map { data =>
                   Ok(html.analyse.replay(
                     pov,
