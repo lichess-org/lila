@@ -58,6 +58,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     case HasUserId(userId) => sender ! members.values.exists(_.userId.contains(userId))
 
     case Resync(uid)       => resync(uid)
+
+    case d: Deploy         => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -122,6 +124,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       members -= uid
       lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
     }
+  }
+
+  def onDeploy(d: Deploy) {
+    notifyAll(makeMessage(d.key))
   }
 
   private val resyncMessage = makeMessage("resync")

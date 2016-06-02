@@ -204,6 +204,22 @@ lichess.notifyApp = (function() {
           $.redirect(o);
         }, 300);
       },
+      deployPost: function(html) {
+        $('#notifications').append(
+          '<div id="deploy_post" class="notification">' +
+          '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
+          '</div>');
+        lichess.socket.disconnect(function() {
+          $('#deploy_post').remove();
+          $('#notifications').append(
+            '<div id="deploy_done" class="notification">' +
+            '<div class="inner"><p data-icon="E" class="is3 is-green text">Site update complete.</p></div>' +
+            '</div>');
+          setTimeout(function() {
+            $('#deploy_done').fadeOut(1000).remove();
+          }, 6000);
+        });
+      },
       tournamentReminder: function(data) {
         if ($('#tournament_reminder').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;

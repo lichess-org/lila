@@ -197,7 +197,7 @@ lichess.StrongSocket = function(url, version, settings) {
     ws = null;
   };
 
-  var disconnect = function() {
+  var disconnect = function(onNextConnect) {
     if (ws) {
       debug("Disconnect", true);
       autoReconnect = false;
@@ -207,6 +207,7 @@ lichess.StrongSocket = function(url, version, settings) {
       ws.onmessage = $.noop;
       ws.close();
     }
+    if (onNextConnect) options.onNextConnect = onNextConnect;
   };
 
   var onError = function(e) {
@@ -226,6 +227,10 @@ lichess.StrongSocket = function(url, version, settings) {
     $('#network_error').remove();
     nbConnects = (nbConnects || 0) + 1;
     if (nbConnects === 1) options.onFirstConnect();
+    if (options.onNextConnect) {
+      options.onNextConnect();
+      delete options.onNextConnect;
+    }
   };
 
   var baseUrl = function() {
