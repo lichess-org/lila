@@ -14,6 +14,8 @@ final class PgnDump(
     lightUser: LightUser.Getter,
     netBaseUrl: String) {
 
+  import PgnDump._
+
   def apply(study: Study): Fu[List[Pgn]] =
     chapterRepo.orderedByStudy(study.id) flatMap { chapters =>
       chapters.map { ofChapter(study, _) }.sequenceFu
@@ -24,7 +26,7 @@ final class PgnDump(
       case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
       case None                     => tags(study, chapter)
     }.map { tags =>
-      Pgn(tags, toTurns(chapter.root, chapter.root.mainline))
+      Pgn(tags, toTurns(chapter.root))
     }
 
   private val fileR = """[\s,]""".r
@@ -56,36 +58,44 @@ final class PgnDump(
         Tag("SetUp", "1")
       ))
   }
+}
 
-  private def node2move(parent: RootOrNode, node: Node) = chessPgn.Move(
+private[study] object PgnDump {
+
+  private type Variations = Vector[Node]
+  private val noVariations: Variations = Vector.empty
+
+  def node2move(node: Node, variations: Variations) = chessPgn.Move(
     san = node.move.san,
     glyphs = node.glyphs,
     comments = node.comments.list.map(_.text.value),
     opening = none,
     result = none,
-    variations = parent.children.variations.toList.map { child =>
-      toTurns(node, child.mainline)
+    variations = variations.toList.map { child =>
+      toTurns(child.mainline, noVariations)
     })
 
-  private def toTurn(parent: RootOrNode, first: Node, second: Option[Node]) = chessPgn.Turn(
+  def toTurn(first: Node, second: Option[Node], variations: Variations) = chessPgn.Turn(
     number = first.fullMoveNumber,
-    white = node2move(parent, first).some,
-    black = second map { node2move(first, _) })
+    white = node2move(first, variations).some,
+    black = second map { node2move(_, first.children.variations) })
 
-  private def toTurns(parent: RootOrNode, line: List[Node]): List[chessPgn.Turn] = (line match {
+  def toTurns(root: Node.Root): List[chessPgn.Turn] = toTurns(root.mainline, root.children.variations)
+
+  def toTurns(line: List[Node], variations: Variations): List[chessPgn.Turn] = (line match {
     case Nil => Nil
     case first :: rest if first.ply % 2 == 0 => chessPgn.Turn(
       number = 1 + (first.ply - 1) / 2,
       white = none,
-      black = node2move(parent, first).some
-    ) :: toTurnsFromWhite(first, rest)
-    case l => toTurnsFromWhite(parent, l)
+      black = node2move(first, variations).some
+    ) :: toTurnsFromWhite(rest, first.children.variations)
+    case l => toTurnsFromWhite(l, variations)
   }) filterNot (_.isEmpty)
 
-  private def toTurnsFromWhite(parent: RootOrNode, line: List[Node]): List[chessPgn.Turn] =
-    (line grouped 2).toList.foldLeft(parent -> List.empty[chessPgn.Turn]) {
-      case ((parent, turns), pair) => pair.headOption.fold(parent -> turns) { first =>
-        pair.lift(1).getOrElse(first) -> (toTurn(parent, first, pair lift 1) :: turns)
+  def toTurnsFromWhite(line: List[Node], variations: Variations): List[chessPgn.Turn] =
+    (line grouped 2).toList.foldLeft(variations -> List.empty[chessPgn.Turn]) {
+      case ((variations, turns), pair) => pair.headOption.fold(variations -> turns) { first =>
+        pair.lift(1).getOrElse(first).children.variations -> (toTurn(first, pair lift 1, variations) :: turns)
       }
     }._2.reverse
 }
