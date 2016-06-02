@@ -21,34 +21,6 @@ object ThreadRepo {
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
     coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List](nb)
 
-  def userUnreadIds(userId: String): Fu[List[String]] = coll.aggregate(
-    Match($doc(
-      "visibleByUserIds" -> userId,
-      "posts.isRead" -> false
-    )),
-    List(
-      Project($doc(
-        "m" -> $doc("$eq" -> BSONArray("$creatorId", userId)),
-        "posts.isByCreator" -> true,
-        "posts.isRead" -> true
-      )),
-      Unwind("posts"),
-      Match($doc(
-        "posts.isRead" -> false
-      )),
-      Project($doc(
-        "u" -> $doc("$ne" -> BSONArray("$posts.isByCreator", "$m"))
-      )),
-      Match($doc(
-        "u" -> true
-      )),
-      Group(BSONBoolean(true))("ids" -> AddToSet("_id"))
-    ),
-    allowDiskUse = false
-  ).map {
-      _.documents.headOption ?? { ~_.getAs[List[String]]("ids") }
-    }
-
   def setRead(thread: Thread): Funit = {
     List.fill(thread.nbUnread) {
       coll.update(
