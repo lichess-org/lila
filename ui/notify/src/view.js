@@ -80,44 +80,45 @@ var handlers = {
   qaAnswer: {
     html: function(notification) {
       var content = notification.content
-      var url = "/qa/" + content.questionId + "/" + content.questionSlug + "#" + "answer-" + content.answerId;
+      var q = content.question;
+      var url = "/qa/" + q.id + "/" + q.slug + "#" + "answer-" + content.answerId;
 
       return genericNotification(notification, url, '&', [
         m('span', [
           m('strong', userFullName(content.answerer)),
           drawTime(notification)
         ]),
-        m('span', " answered your question « " + content.title + "  ».")
+        m('span', " answered your question « " + q.title + "  ».")
       ]);
     },
     text: function(n) {
-      return userFullName(n.content.answerer) + " answered « " + n.content.title + "  »."
+      return userFullName(n.content.answerer) + " answered « " + n.content.question.title + "  »."
     }
   },
   teamJoined: {
     html: function(notification) {
       var content = notification.content
-      var url = "/team/" + content.teamId;
+      var url = "/team/" + content.id;
 
       return genericNotification(notification, url, 'f',
-        m('span', "You have joined « " + content.teamName + "  ».")
+        m('span', "You have joined « " + content.name + "  ».")
       );
     },
     text: function(n) {
-      return "You have joined  « " + n.content.teamName + "  »."
+      return "You have joined  « " + n.content.name + "  »."
     }
   },
   newBlogPost: {
     html: function(notification) {
       var content = notification.content
-      var url = "/blog/" + content.blogId + "/" + content.blogSlug;
+      var url = "/blog/" + content.id + "/" + content.slug;
 
       return genericNotification(notification, url, 'f',
-        m('span', "New blog post « " + content.blogTitle + "  ».")
+        m('span', "New blog post « " + content.title + "  ».")
       );
     },
     text: function(n) {
-      return "New blog post « " + content.blogTitle + "  »."
+      return "New blog post « " + content.title + "  »."
     }
   }
 };
