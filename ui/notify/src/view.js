@@ -79,45 +79,45 @@ var handlers = {
   },
   qaAnswer: {
     html: function(notification) {
-        var content = notification.content
-        var url = "/qa/" + content.questionId + "/" + content.questionSlug + "#" + "answer-" + content.answerId;
+      var content = notification.content
+      var url = "/qa/" + content.questionId + "/" + content.questionSlug + "#" + "answer-" + content.answerId;
 
-        return genericNotification(notification, url, '&', [
-             m('span', [
-                 m('strong', userFullName(content.answerer)),
-                 drawTime(notification)
-             ]),
-             m('span', " answered your question « " + content.title + "  ».")
-          ]);
-        },
+      return genericNotification(notification, url, '&', [
+        m('span', [
+          m('strong', userFullName(content.answerer)),
+          drawTime(notification)
+        ]),
+        m('span', " answered your question « " + content.title + "  ».")
+      ]);
+    },
     text: function(n) {
-        return userFullName(n.content.answerer) + " answered « " + n.content.title + "  »."
+      return userFullName(n.content.answerer) + " answered « " + n.content.title + "  »."
     }
   },
   teamJoined: {
     html: function(notification) {
-        var content = notification.content
-        var url = "/team/" + content.teamId;
+      var content = notification.content
+      var url = "/team/" + content.teamId;
 
-        return genericNotification(notification, url, 'f',
-             m('span', "You have joined « " + content.teamName + "  ».")
-          );
-        },
+      return genericNotification(notification, url, 'f',
+        m('span', "You have joined « " + content.teamName + "  ».")
+      );
+    },
     text: function(n) {
-        return "You have joined  « " + n.content.teamName + "  »."
+      return "You have joined  « " + n.content.teamName + "  »."
     }
   },
   newBlogPost: {
     html: function(notification) {
-        var content = notification.content
-        var url = "/blog/" + content.blogId + "/" + content.blogSlug;
+      var content = notification.content
+      var url = "/blog/" + content.blogId + "/" + content.blogSlug;
 
-        return genericNotification(notification, url, 'f',
-             m('span', "New blog post « " + content.blogTitle + "  ».")
-          );
-        },
+      return genericNotification(notification, url, 'f',
+        m('span', "New blog post « " + content.blogTitle + "  ».")
+      );
+    },
     text: function(n) {
-        return "New blog post « " + content.blogTitle + "  »."
+      return "New blog post « " + content.blogTitle + "  »."
     }
   }
 };
