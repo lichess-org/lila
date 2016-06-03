@@ -33,12 +33,6 @@ object ThreadRepo {
   def deleteFor(user: ID)(thread: ID) =
     coll.update($id(thread), $pull("visibleByUserIds", user)).void
 
-  def reallyDeleteByCreatorId(user: ID) = coll.remove($doc("creatorId" -> user))
-
-  def visibleByUserContainingExists(user: ID, containing: String): Fu[Boolean] =
-    coll.exists(visibleByUserQuery(user) ++ $doc(
-      "posts.0.text".$regex(containing, "")))
-
   def userQuery(user: String) = $doc("userIds" -> user)
 
   def visibleByUserQuery(user: String) = $doc("visibleByUserIds" -> user)

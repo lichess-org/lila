@@ -47,9 +47,11 @@ final class NotifyApi(
       }
     }
 
-  def addNotifications(notifications: List[Notification]): Funit = {
+  def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
+    repo.insert(notification) >> unreadCountCache.remove(notification.notifies)
+
+  def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
-  }
 
   private def shouldSkip(notification: Notification) =
     UserRepo.isKid(notification.notifies.value) flatMap {
@@ -58,7 +60,7 @@ final class NotifyApi(
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _)           => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
-        case QaAnswer(_, question, _)       => repo.hasRecentQaAnswer(notification.notifies, question)
+        case QaAnswer(_, question, _)               => repo.hasRecentQaAnswer(notification.notifies, question)
         case _: TeamJoined                          => fuccess(false)
         case _: NewBlogPost                         => fuccess(false)
       }
@@ -73,10 +75,8 @@ final class NotifyApi(
    */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
     shouldSkip(notification) flatMap {
-      case true => fuccess(none)
-      case false => repo.insert(notification) >>
-        unreadCountCache.remove(notification.notifies) inject
-        notification.some
+      case true  => fuccess(none)
+      case false => addNotificationWithoutSkipOrEvent(notification) inject notification.some
     }
 
   private def notifyUser(notifies: Notification.Notifies): Funit =

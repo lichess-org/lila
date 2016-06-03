@@ -8,12 +8,10 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
-    messageApi: lila.message.Api) {
+    notifyApi: lila.notify.NotifyApi) {
 
   private val PrismicApiUrl = config getString "prismic.api_url"
   private val PrismicCollection = config getString "prismic.collection"
-  private val NotifyDelay = config duration "notify.delay"
-  private val NotifySender = config getString "notify.sender"
   private val LastPostCacheTtl = config duration "last_post_cache.ttl"
 
   val RssEmail = config getString "rss.email"
@@ -26,13 +24,12 @@ final class Env(
 
   private lazy val notifier = new Notifier(
     blogApi = api,
-    messageApi = messageApi,
-    lichessUserId = NotifySender)
+    notifyApi = notifyApi)
 
   def cli = new lila.common.Cli {
     def process = {
       case "blog" :: "message" :: prismicId :: Nil =>
-        notifier.sendMessages(prismicId) inject "done!"
+        notifier(prismicId) inject "done!"
     }
   }
 }
@@ -42,5 +39,5 @@ object Env {
   lazy val current: Env = "blog" boot new Env(
     config = lila.common.PlayApp loadConfig "blog",
     scheduler = lila.common.PlayApp.scheduler,
-    messageApi = lila.message.Env.current.api)
+    notifyApi = lila.notify.Env.current.api)
 }

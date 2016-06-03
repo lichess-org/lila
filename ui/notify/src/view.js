@@ -117,12 +117,16 @@ var handlers = {
       var content = notification.content
       var url = "/blog/" + content.id + "/" + content.slug;
 
-      return genericNotification(notification, url, 'f',
-        m('span', "New blog post « " + content.title + "  ».")
-      );
+      return genericNotification(notification, url, '*', [
+        m('span', [
+          m('strong', 'New blog post'),
+          drawTime(notification)
+        ]),
+        m('span', content.title)
+      ]);
     },
     text: function(n) {
-      return "New blog post « " + content.title + "  »."
+      return n.content.title;
     }
   }
 };
