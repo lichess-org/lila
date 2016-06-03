@@ -1,4 +1,5 @@
 lichess.chartCommon = function(type) {
+  if (window.Highcharts) return $.when();
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
   return lichess.loadScript('/assets/vendor/highcharts4/' + file, true).done(function() {
     Highcharts.makeFont = function(size) {

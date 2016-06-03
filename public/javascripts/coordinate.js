@@ -42,7 +42,6 @@ $(function() {
       var $form = $(this);
       $form.find('input').on('change', function() {
         var selected = $form.find('input:checked').val();
-        console.log(selected);
         var c = {
           1: 'white',
           2: 'random',

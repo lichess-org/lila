@@ -1947,7 +1947,6 @@ lichess.notifyApp = (function() {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
-    console.log(cfg);
     if (data.chat) $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
@@ -2077,8 +2076,10 @@ lichess.notifyApp = (function() {
     var setPanel = function(panel) {
       $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
-      if (panel == 'move_times') try {
-        $.renderMoveTimesChart();
+      if (panel === 'move_times' && !lichess.movetimeChart) try {
+        lichess.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
+          lichess.movetimeChart();
+        });
       } catch (e) {}
     };
     $menu.on('click', 'a', function() {
