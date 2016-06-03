@@ -48,11 +48,11 @@ private final class NotificationRepo(val coll: Coll) {
       "content.thread.id" -> thread.id
     ) ++ hasOld)
 
-  def hasRecentQaAnswer(userId: Notification.Notifies, questionId: QaAnswer.QuestionId) : Fu[Boolean] = {
+  def hasRecentQaAnswer(userId: Notification.Notifies, question: QaAnswer.Question): Fu[Boolean] = {
     coll.exists($doc(
       "notifies" -> userId,
       "content.type" -> "qaAnswer",
-      "content.questionId" -> questionId
+      "content.questionId" -> question.id
     ) ++ hasOldOrUnread)
   }
 

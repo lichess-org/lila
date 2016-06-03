@@ -33,21 +33,17 @@ private object BSONHandlers {
 
   import QaAnswer._
   implicit val AnswererHandler = stringAnyValHandler[AnswererId](_.value, AnswererId.apply)
-  implicit val TitleHandler = stringAnyValHandler[Title](_.value, Title.apply)
-  implicit val QuestionIdHandler = intAnyValHandler[QuestionId](_.value, QuestionId.apply)
-  implicit val QuestionSlugHandler = stringAnyValHandler[QuestionSlug](_.value, QuestionSlug.apply)
+  implicit val QuestionHandler = Macros.handler[Question]
   implicit val AnswerIdHandler = intAnyValHandler[AnswerId](_.value, AnswerId.apply)
   implicit val QaAnswerHandler = Macros.handler[QaAnswer]
 
-  import TeamJoined._
-  implicit val TeamIdHandler = stringAnyValHandler[TeamId](_.value, TeamId.apply)
-  implicit val TeamNameHandler = stringAnyValHandler[TeamName](_.value, TeamName.apply)
+  implicit val TeamIdHandler = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
+  implicit val TeamNameHandler = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
 
-  import NewBlogPost._
-  implicit val BlogIdHandler = stringAnyValHandler[BlogId](_.value, BlogId.apply)
-  implicit val BlogSlugHandler = stringAnyValHandler[BlogSlug](_.value, BlogSlug.apply)
-  implicit val BlogTitleHandler = stringAnyValHandler[BlogTitle](_.value, BlogTitle.apply)
+  implicit val BlogIdHandler = stringAnyValHandler[NewBlogPost.Id](_.value, NewBlogPost.Id.apply)
+  implicit val BlogSlugHandler = stringAnyValHandler[NewBlogPost.Slug](_.value, NewBlogPost.Slug.apply)
+  implicit val BlogTitleHandler = stringAnyValHandler[NewBlogPost.Title](_.value, NewBlogPost.Title.apply)
   implicit val NewBlogPostHandler = Macros.handler[NewBlogPost]
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {

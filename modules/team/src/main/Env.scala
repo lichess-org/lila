@@ -13,7 +13,6 @@ final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lil
     val CollectionRequest = config getString "collection.request"
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val PaginatorMaxUserPerPage = config getInt "paginator.max_user_per_page"
-    val NotifierSender = config getString "notifier.sender"
   }
   import settings._
 
@@ -41,10 +40,7 @@ final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lil
 
   lazy val cached = new Cached
 
-  private lazy val notifier = new Notifier(
-    sender = NotifierSender,
-    notifyApi = notifyApi,
-    router = hub.actor.router)
+  private lazy val notifier = new Notifier(notifyApi = notifyApi)
 }
 
 object Env {
