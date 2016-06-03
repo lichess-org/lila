@@ -67,3 +67,35 @@ object PrivateMessage {
   case class Thread(id: String, name: String)
   case class Text(value: String) extends AnyVal with StringValue
 }
+
+case class QaAnswer(
+                     answeredBy: QaAnswer.AnswererId,
+                     questionTitle: QaAnswer.Title,
+                     questionId: QaAnswer.QuestionId,
+                     questionSlug: QaAnswer.QuestionSlug,
+                     answerId : QaAnswer.AnswerId) extends NotificationContent
+
+object QaAnswer {
+  case class AnswererId(value: String) extends AnyVal with StringValue
+  case class Title(value: String) extends AnyVal with StringValue
+  case class QuestionId(value: Int) extends AnyVal
+  case class QuestionSlug(value: String) extends AnyVal with StringValue
+  case class AnswerId(value: Int) extends AnyVal
+}
+
+case class TeamJoined(teamId: TeamJoined.TeamId, teamName: TeamJoined.TeamName) extends NotificationContent
+
+object TeamJoined {
+  case class TeamId(value: String) extends AnyVal with StringValue
+  case class TeamName(value: String) extends AnyVal with StringValue
+}
+
+case class NewBlogPost(blogId: NewBlogPost.BlogId,
+                       blogSlug: NewBlogPost.BlogSlug,
+                       blogTitle: NewBlogPost.BlogTitle) extends NotificationContent
+
+object NewBlogPost {
+  case class BlogId(value: String) extends AnyVal with StringValue
+  case class BlogSlug(value: String) extends AnyVal with StringValue
+  case class BlogTitle(value: String) extends AnyVal with StringValue
+}

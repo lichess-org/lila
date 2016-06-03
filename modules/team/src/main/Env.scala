@@ -3,8 +3,9 @@ package lila.team
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.notify.NotifyApi
 
-final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
+final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lila.db.Env) {
 
   private val settings = new {
     val CollectionTeam = config getString "collection.team"
@@ -42,7 +43,7 @@ final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
 
   private lazy val notifier = new Notifier(
     sender = NotifierSender,
-    messenger = hub.actor.messenger,
+    notifyApi = notifyApi,
     router = hub.actor.router)
 }
 
@@ -51,5 +52,6 @@ object Env {
   lazy val current = "team" boot new Env(
     config = lila.common.PlayApp loadConfig "team",
     hub = lila.hub.Env.current,
+    notifyApi = lila.notify.Env.current.api,
     db = lila.db.Env.current)
 }

@@ -76,6 +76,49 @@ var handlers = {
     text: function(n) {
       return userFullName(n.content.sender) + ': ' + n.content.text;
     }
+  },
+  qaAnswer: {
+    html: function(notification) {
+        var content = notification.content
+        var url = "/qa/" + content.questionId + "/" + content.questionSlug + "#" + "answer-" + content.answerId;
+
+        return genericNotification(notification, url, '&', [
+             m('span', [
+                 m('strong', userFullName(content.answerer)),
+                 drawTime(notification)
+             ]),
+             m('span', " answered your question « " + content.title + "  ».")
+          ]);
+        },
+    text: function(n) {
+        return userFullName(n.content.answerer) + " answered « " + n.content.title + "  »."
+    }
+  },
+  teamJoined: {
+    html: function(notification) {
+        var content = notification.content
+        var url = "/team/" + content.teamId;
+
+        return genericNotification(notification, url, 'f',
+             m('span', "You have joined « " + content.teamName + "  ».")
+          );
+        },
+    text: function(n) {
+        return "You have joined  « " + n.content.teamName + "  »."
+    }
+  },
+  newBlogPost: {
+    html: function(notification) {
+        var content = notification.content
+        var url = "/blog/" + content.blogId + "/" + content.blogSlug;
+
+        return genericNotification(notification, url, 'f',
+             m('span', "New blog post « " + content.blogTitle + "  ».")
+          );
+        },
+    text: function(n) {
+        return "New blog post « " + content.blogTitle + "  »."
+    }
   }
 };
 

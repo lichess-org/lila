@@ -1,16 +1,15 @@
 package lila.qa
 
-import lila.common.String._
-import lila.hub.actorApi.message.LichessThread
 import lila.hub.actorApi.timeline.{ Propagate, QaQuestion, QaAnswer, QaComment }
+import lila.notify.Notification.Notifies
+import lila.notify.{Notification, NotifyApi}
+import lila.notify.QaAnswer._
 import lila.user.User
 
 import akka.actor.ActorSelection
 
-private[qa] final class Notifier(
-    sender: String,
-    messenger: ActorSelection,
-    timeline: ActorSelection) {
+private[qa] final class Notifier( notifyApi: NotifyApi,
+                                  timeline: ActorSelection) {
 
   private[qa] def createQuestion(q: Question, u: User) {
     val msg = Propagate(QaQuestion(u.id, q.id, q.title))
@@ -20,13 +19,20 @@ private[qa] final class Notifier(
   private[qa] def createAnswer(q: Question, a: Answer, u: User) {
     val msg = Propagate(QaAnswer(u.id, q.id, q.title, a.id))
     timeline ! (msg toFollowersOf u.id toUser q.userId exceptUser u.id)
-    if (u.id != q.userId) messenger ! LichessThread(
-      from = sender,
-      to = q.userId,
-      subject = s"""${u.username} replied to your question""",
-      message = s"""Your question "${q.title}" got a new answer from ${u.username}!
+    if (u.id != q.userId) notifyAsker(q, a)
+  }
 
-Check it out on ${questionUrl(q)}#answer-${a.id}""")
+  private[qa] def notifyAsker(q: Question, a: Answer) = {
+      val answererId = AnswererId(a.userId)
+      val questionTitle = Title(q.title)
+      val questionId = QuestionId(q.id)
+      val questionSlug = QuestionSlug(q.slug)
+      val answerId = AnswerId(a.id)
+
+      val notificationContent = lila.notify.QaAnswer(answererId, questionTitle, questionId, questionSlug, answerId)
+      val notification = Notification(Notifies(q.userId), notificationContent)
+
+      notifyApi.addNotification(notification)
   }
 
   private[qa] def createQuestionComment(q: Question, c: Comment, u: User) {
