@@ -88,7 +88,7 @@ var handlers = {
           m('strong', userFullName(content.answerer)),
           drawTime(notification)
         ]),
-        m('span', " answered your question « " + q.title + "  ».")
+        m('span', " answered « " + q.title + "  ».")
       ]);
     },
     text: function(n) {
@@ -100,9 +100,13 @@ var handlers = {
       var content = notification.content
       var url = "/team/" + content.id;
 
-      return genericNotification(notification, url, 'f',
-        m('span', "You have joined « " + content.name + "  ».")
-      );
+      return genericNotification(notification, url, 'f', [
+        m('span', [
+          m('strong', content.name),
+          drawTime(notification)
+        ]),
+        m('span', "You are now part of the team.")
+      ]);
     },
     text: function(n) {
       return "You have joined  « " + n.content.name + "  »."
