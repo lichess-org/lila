@@ -5,7 +5,6 @@ lichess.advantageChart = function(data) {
         $('#adv_chart').each(function() {
           var $this = $(this);
           var max = 10;
-
           var initPly = data.treeParts[0].ply;
           var rows = data.treeParts.slice(1).map(function(node) {
             var y = null;

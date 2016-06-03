@@ -1,6 +1,6 @@
 lichess.divisionLines = function(div) {
   var divisionLines = [];
-  if (div.mid) {
+  if (div.middle) {
     divisionLines.push({
       label: {
         text: 'Opening',
@@ -26,8 +26,8 @@ lichess.divisionLines = function(div) {
         }
       },
       color: '#3093cc',
-      width: div.mid === null ? 0 : 1,
-      value: div.mid
+      width: div.middle === null ? 0 : 1,
+      value: div.middle
     });
   }
   if (div.end) divisionLines.push({
