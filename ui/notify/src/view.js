@@ -100,11 +100,24 @@ var handlers = {
         var url = "/team/" + content.teamId;
 
         return genericNotification(notification, url, 'f',
-             m('span', " You have joined « " + content.teamName + "  ».")
+             m('span', "You have joined « " + content.teamName + "  ».")
           );
         },
     text: function(n) {
-        return " You have joined  « " + n.content.teamName + "  »."
+        return "You have joined  « " + n.content.teamName + "  »."
+    }
+  },
+  newBlogPost: {
+    html: function(notification) {
+        var content = notification.content
+        var url = "/blog/" + content.blogId + "/" + content.blogSlug;
+
+        return genericNotification(notification, url, 'f',
+             m('span', "New blog post « " + content.blogTitle + "  ».")
+          );
+        },
+    text: function(n) {
+        return "New blog post « " + content.blogTitle + "  »."
     }
   }
 };

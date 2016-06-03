@@ -34,6 +34,11 @@ final class JSONHandlers(
           "teamId" -> teamId.value,
           "teamName" -> teamName.value
         )
+        case NewBlogPost(blogId, blogSlug, blogTitle) => Json.obj(
+          "blogId" -> blogId.value,
+          "blogSlug" -> blogSlug.value,
+          "blogTitle" -> blogTitle.value
+        )
       }
     }
 
@@ -46,6 +51,7 @@ final class JSONHandlers(
         case _: PrivateMessage    => "privateMessage"
         case _: QaAnswer          => "qaAnswer"
         case _: TeamJoined        => "teamJoined"
+        case _: NewBlogPost       => "newBlogPost"
       }
 
       Json.obj("content" -> writeBody(body),

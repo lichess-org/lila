@@ -88,5 +88,14 @@ case class TeamJoined(teamId: TeamJoined.TeamId, teamName: TeamJoined.TeamName) 
 object TeamJoined {
   case class TeamId(value: String) extends AnyVal with StringValue
   case class TeamName(value: String) extends AnyVal with StringValue
+}
 
+case class NewBlogPost(blogId: NewBlogPost.BlogId,
+                       blogSlug: NewBlogPost.BlogSlug,
+                       blogTitle: NewBlogPost.BlogTitle) extends NotificationContent
+
+object NewBlogPost {
+  case class BlogId(value: String) extends AnyVal with StringValue
+  case class BlogSlug(value: String) extends AnyVal with StringValue
+  case class BlogTitle(value: String) extends AnyVal with StringValue
 }
