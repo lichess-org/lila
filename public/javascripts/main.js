@@ -2081,6 +2081,11 @@ lichess.notifyApp = (function() {
           lichess.movetimeChart();
         });
       } catch (e) {}
+      if (panel === 'computer_analysis' && !lichess.advantageChart) try {
+        lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
+          lichess.advantageChart();
+        });
+      } catch (e) {}
     };
     $menu.on('click', 'a', function() {
       var panel = $(this).data('panel');

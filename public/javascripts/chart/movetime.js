@@ -17,9 +17,6 @@ lichess.movetimeChart = function(data) {
               animation: disabled
             };
             $this.highcharts({
-              yAxis: {
-                title: noText
-              },
               credits: disabled,
               legend: disabled,
               series: [{
@@ -87,6 +84,7 @@ lichess.movetimeChart = function(data) {
                   $this.data('division-end'))
               },
               yAxis: {
+                title: noText,
                 min: -timeMax,
                 max: timeMax,
                 labels: disabled,
