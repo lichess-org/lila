@@ -22,7 +22,7 @@ final class Analyser(
         sendAnalysisProgress(analysis) >>- {
           bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
           indexer ! InsertGame(game)
-        } >>- notifier.notifyAnalysisComplete(analysis, game)
+        } >>- notifier.notifyAnalysisComplete(analysis, game, roundSocket)
     }
   }
 
@@ -37,8 +37,6 @@ final class Analyser(
             pgnMoves = game.pgnMoves,
             variant = game.variant,
             initialFen = initialFen | FEN(game.variant.initialFen)))
-
-
       }
     }
 }
