@@ -63,6 +63,7 @@ final class NotifyApi(
         case QaAnswer(_, question, _)               => repo.hasRecentQaAnswer(notification.notifies, question)
         case _: TeamJoined                          => fuccess(false)
         case _: NewBlogPost                         => fuccess(false)
+        case _: AnalysisFinished                    => fuccess(false)
       }
     }
 

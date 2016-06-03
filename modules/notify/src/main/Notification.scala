@@ -1,5 +1,6 @@
 package lila.notify
 
+import chess.Color
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
@@ -95,4 +96,11 @@ object NewBlogPost {
   case class Id(value: String) extends AnyVal with StringValue
   case class Slug(value: String) extends AnyVal with StringValue
   case class Title(value: String) extends AnyVal with StringValue
+}
+
+case class AnalysisFinished(id: AnalysisFinished.Id, playedAs: Color, opponentName: AnalysisFinished.OpponentName) extends NotificationContent
+
+object AnalysisFinished {
+  case class Id(value: String) extends AnyVal with StringValue
+  case class OpponentName(value: String) extends AnyVal with StringValue
 }

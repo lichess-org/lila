@@ -128,6 +128,23 @@ var handlers = {
     text: function(n) {
       return n.content.title;
     }
+  },
+  analysisFinished: {
+    html: function(notification) {
+      var content = notification.content
+      var url = "/" + content.id + "/" + content.color
+
+      return genericNotification(notification, url, 'A', [
+        m('span', [
+          m('strong', 'Analysis complete'),
+          drawTime(notification)
+        ]),
+        m('span', 'Analysis of game against « ' + content.opponentName + ' » complete.')
+      ]);
+    },
+    text: function(n) {
+      return 'Analysis of game against « ' + n.content.opponentName + ' » complete.';
+    }
   }
 };
 

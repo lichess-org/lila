@@ -10,6 +10,7 @@ import lila.hub.actorApi.map.Tell
 final class Analyser(
     indexer: ActorSelection,
     roundSocket: ActorSelection,
+    notifier: Notifier,
     bus: lila.common.Bus) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id
@@ -21,7 +22,7 @@ final class Analyser(
         sendAnalysisProgress(analysis) >>- {
           bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
           indexer ! InsertGame(game)
-        }
+        } >>- notifier.notifyAnalysisComplete(analysis, game)
     }
   }
 
@@ -36,6 +37,8 @@ final class Analyser(
             pgnMoves = game.pgnMoves,
             variant = game.variant,
             initialFen = initialFen | FEN(game.variant.initialFen)))
+
+
       }
     }
 }
