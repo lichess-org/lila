@@ -9,7 +9,7 @@ module.exports = function(element, opts) {
     controller: function() {
       return controller;
     },
-    view: require('./view')
+    view: require('./view').html
   });
 
   return {

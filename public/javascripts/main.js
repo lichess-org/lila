@@ -49,15 +49,19 @@ lichess.notifyApp = (function() {
     }, 200);
   });
 
-  var load = function(data) {
+  var load = function(data, incoming) {
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
     lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
       instance = LichessNotify($element[0], {
         data: data,
+        incoming: incoming,
         isVisible: isVisible,
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
+        },
+        show: function() {
+          if (!isVisible()) $toggle.click();
         },
         setNotified: function() {
           lichess.socket.send('notified');
@@ -67,9 +71,9 @@ lichess.notifyApp = (function() {
   };
 
   return {
-    update: function(data) {
-      if (!instance) load(data);
-      else instance.update(data);
+    update: function(data, incoming) {
+      if (!instance) load(data, incoming);
+      else instance.update(data, incoming);
     }
   };
 })();

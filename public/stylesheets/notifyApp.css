@@ -3,6 +3,17 @@
   left: -132px;
 }
 
+#notify_app .spinner {
+  margin: 50px auto;
+}
+
+#notify_app .notifications {
+  transition: opacity 0.3s;
+}
+#notify_app .notifications.scrolling {
+  opacity: 0.5;
+}
+
 #notify_app .site_notification {
   display: flex;
   padding: 8px 12px;
