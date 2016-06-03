@@ -4,7 +4,24 @@ lichess.advantageChart = function(data) {
       lichess.chartCommon('highchart').done(function() {
         $('#adv_chart').each(function() {
           var $this = $(this);
-          var cpMax = parseInt($this.data('max'), 10) / 100;
+          var max = 10;
+
+          var initPly = data.treeParts[0].ply;
+          var rows = data.treeParts.slice(1).map(function(node) {
+            var y = null;
+            if (typeof node.eval.cp !== 'undefined') y = node.eval.cp;
+            else if (typeof node.eval.mate) {
+              y = max * 100 - Math.abs(node.eval.mate);
+              if (node.eval.mate < 0) y = -y;
+            }
+            var turn = Math.floor((initPly + node.ply) / 2) + 1;
+            var dots = node.ply % 2 === 1 ? '.' : '...';
+            var name = turn + dots + ' ' + node.san;
+            return {
+              name: name,
+              y: y
+            };
+          });
 
           var disabled = {
             enabled: false
@@ -20,7 +37,7 @@ lichess.advantageChart = function(data) {
             legend: disabled,
             series: [{
               name: 'Advantage',
-              data: $this.data('rows').map(function(row) {
+              data: rows.map(function(row) {
                 row.y = Math.max(-9.9, Math.min(row.y / 100, 9.9));
                 return row;
               })
@@ -70,14 +87,12 @@ lichess.advantageChart = function(data) {
               labels: disabled,
               lineWidth: 0,
               tickWidth: 0,
-              plotLines: lichess.divisionLines(
-                $this.data('division-mid'),
-                $this.data('division-end'))
+              plotLines: lichess.divisionLines(data.game.division)
             },
             yAxis: {
               title: noText,
-              min: -cpMax,
-              max: cpMax,
+              min: -max,
+              max: max,
               labels: disabled,
               lineWidth: 1,
               gridLineWidth: 0,

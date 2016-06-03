@@ -7,7 +7,7 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.twirl.api.Html
 
-import lila.analyse.{ Analysis, TimeChart, AdvantageChart, Accuracy }
+import lila.analyse.{ Analysis, TimeChart, Accuracy }
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -65,7 +65,6 @@ object Analyse extends LilaController {
                     initialFen,
                     Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
                     analysis,
-                    analysis map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves, pov.game.startedAtTurn) },
                     analysisInProgress,
                     simul,
                     new TimeChart(pov.game, pov.game.pgnMoves),

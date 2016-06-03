@@ -1,6 +1,6 @@
-lichess.divisionLines = function(mid, end) {
+lichess.divisionLines = function(div) {
   var divisionLines = [];
-  if (mid) {
+  if (div.mid) {
     divisionLines.push({
       label: {
         text: 'Opening',
@@ -26,11 +26,11 @@ lichess.divisionLines = function(mid, end) {
         }
       },
       color: '#3093cc',
-      width: mid === null ? 0 : 1,
-      value: mid
+      width: div.mid === null ? 0 : 1,
+      value: div.mid
     });
   }
-  if (end) divisionLines.push({
+  if (div.end) divisionLines.push({
     label: {
       text: 'End-Game',
       verticalAlign: 'top',
@@ -41,8 +41,8 @@ lichess.divisionLines = function(mid, end) {
       }
     },
     color: '#cc9730',
-    width: end === null ? 0 : 1,
-    value: end
+    width: div.end === null ? 0 : 1,
+    value: div.end
   });
   return divisionLines;
 };

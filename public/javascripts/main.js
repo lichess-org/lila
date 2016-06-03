@@ -2083,7 +2083,7 @@ lichess.notifyApp = (function() {
       } catch (e) {}
       if (panel === 'computer_analysis' && !lichess.advantageChart) try {
         lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
-          lichess.advantageChart();
+          lichess.advantageChart(data);
         });
       } catch (e) {}
     };

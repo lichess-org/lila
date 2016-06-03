@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -94,14 +94,7 @@ atom = atom.some) {
     @if(game.analysable) {
     <div class="panel computer_analysis">
       @analysis.map { a =>
-      @advantageChart.map { chart =>
-      <div
-        id="adv_chart"
-        data-division-mid="@division.middle.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-max="@lila.analyse.AdvantageChart.max"
-        data-rows="@chart"></div>
-      }
+      <div id="adv_chart"></div>
       }.getOrElse {
       @analysisInProgress.map { prog =>
       @analyse.computing(pov.gameId)

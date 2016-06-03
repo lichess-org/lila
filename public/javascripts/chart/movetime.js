@@ -79,9 +79,7 @@ lichess.movetimeChart = function(data) {
                 labels: disabled,
                 lineWidth: 0,
                 tickWidth: 0,
-                plotLines: lichess.divisionLines(
-                  $this.data('division-mid'),
-                  $this.data('division-end'))
+                plotLines: lichess.divisionLines(data.game.division)
               },
               yAxis: {
                 title: noText,
