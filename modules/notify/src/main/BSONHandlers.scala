@@ -39,6 +39,11 @@ private object BSONHandlers {
   implicit val AnswerIdHandler = intAnyValHandler[AnswerId](_.value, AnswerId.apply)
   implicit val QaAnswerHandler = Macros.handler[QaAnswer]
 
+  import TeamJoined._
+  implicit val TeamIdHandler = stringAnyValHandler[TeamId](_.value, TeamId.apply)
+  implicit val TeamNameHandler = stringAnyValHandler[TeamName](_.value, TeamName.apply)
+  implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
+
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
@@ -47,6 +52,7 @@ private object BSONHandlers {
         case _: InvitedToStudy    => "invitedStudy"
         case _: PrivateMessage    => "privateMessage"
         case _: QaAnswer          => "qaAnswer"
+        case _: TeamJoined          => "teamJoined"
       }
     }
 
@@ -64,6 +70,7 @@ private object BSONHandlers {
           $doc("type" -> writeNotificationType(notificationContent))
         case q: QaAnswer => QaAnswerHandler.write(q) ++
           $doc("type" -> writeNotificationType(notificationContent))
+        case t: TeamJoined => TeamJoinedHandler.write(t) ++ $doc("type" -> writeNotificationType(notificationContent))
       }
     }
 
@@ -90,6 +97,7 @@ private object BSONHandlers {
       case "invitedStudy"   => readInvitedStudyNotification(reader)
       case "privateMessage" => PrivateMessageHandler read reader.doc
       case "qaAnswer"       => QaAnswerHandler read reader.doc
+      case "teamJoined"     => TeamJoinedHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

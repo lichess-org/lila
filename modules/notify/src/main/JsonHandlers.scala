@@ -30,6 +30,10 @@ final class JSONHandlers(
           "questionSlug" -> questionSlug.value,
           "answerId" -> answerId.value
         )
+        case TeamJoined(teamId, teamName) => Json.obj(
+          "teamId" -> teamId.value,
+          "teamName" -> teamName.value
+        )
       }
     }
 
@@ -41,6 +45,7 @@ final class JSONHandlers(
         case _: InvitedToStudy    => "invitedStudy"
         case _: PrivateMessage    => "privateMessage"
         case _: QaAnswer          => "qaAnswer"
+        case _: TeamJoined        => "teamJoined"
       }
 
       Json.obj("content" -> writeBody(body),

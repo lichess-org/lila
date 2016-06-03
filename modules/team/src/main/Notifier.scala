@@ -1,31 +1,19 @@
 package lila.team
 
 import akka.actor.ActorSelection
-import akka.pattern.ask
-
-import lila.hub.actorApi.message.LichessThread
-import lila.hub.actorApi.router._
+import lila.notify.Notification.Notifies
+import lila.notify.TeamJoined.{TeamId, TeamName}
+import lila.notify.{Notification, TeamJoined, NotifyApi}
 
 private[team] final class Notifier(
     sender: String,
-    messenger: ActorSelection,
+    notifyApi: NotifyApi,
     router: ActorSelection) {
 
-  import makeTimeout.large
+  def acceptRequest(team: Team, request: Request) = {
+    val notificationContent = TeamJoined(TeamId(team.id), TeamName(team.name))
+    val notification = Notification(Notifies(request.user), notificationContent)
 
-  def acceptRequest(team: Team, request: Request) {
-    teamUrl(team.id) foreach { url =>
-      messenger ! LichessThread(
-        from = sender,
-        to = request.user,
-        subject = """You have joined the team %s""".format(team.name),
-        message = """Congratulation, your request to join the team was accepted!
-
-Here is the team page: %s""" format url
-      )
-    }
+    notifyApi.addNotification(notification)
   }
-
-  private def teamUrl(id: String) =
-    router ? Abs(TeamShow(id)) mapTo manifest[String]
 }

@@ -90,6 +90,16 @@ var handlers = {
              m('span', " answered your question « " + content.title + "  ».")
           ]);
         }
+  },
+  teamJoined: {
+    html: function(notification) {
+        var content = notification.content
+        var url = "/team/" + content.teamId;
+
+        return genericNotification(notification, url, '&',
+             m('span', " You have joined « " + content.teamName + "  ».")
+          );
+        }
   }
 };
 

@@ -59,6 +59,7 @@ final class NotifyApi(
         case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _)           => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
         case QaAnswer(_,_,questionId,_,_)           => repo.hasRecentQaAnswer(notification.notifies, questionId)
+        case _: TeamJoined                          => fuccess(false)
       }
     }
 

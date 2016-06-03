@@ -277,7 +277,7 @@ object ApplicationBuild extends Build {
       play.api, RM)
   )
 
-  lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub)).settings(
+  lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(
     libraryDependencies ++= provided(
       play.api, RM)
   )

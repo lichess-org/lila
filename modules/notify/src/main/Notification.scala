@@ -82,3 +82,11 @@ object QaAnswer {
   case class QuestionSlug(value: String) extends AnyVal with StringValue
   case class AnswerId(value: Int) extends AnyVal
 }
+
+case class TeamJoined(teamId: TeamJoined.TeamId, teamName: TeamJoined.TeamName) extends NotificationContent
+
+object TeamJoined {
+  case class TeamId(value: String) extends AnyVal with StringValue
+  case class TeamName(value: String) extends AnyVal with StringValue
+
+}
