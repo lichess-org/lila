@@ -5,7 +5,7 @@ import scala.util.{ Try, Success, Failure }
 
 object ClientVersion {
 
-  val minVersion = SemVer("1.0.8")
+  val minVersion = SemVer("1.5.2")
 
   def accept(v: Client.Version): Try[Unit] = Try(SemVer(v.value)) match {
     case Success(version) if version >= minVersion => Success(())
