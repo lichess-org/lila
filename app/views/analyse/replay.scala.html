@@ -93,16 +93,12 @@ atom = atom.some) {
   <div class="analysis_panels">
     @if(game.analysable) {
     <div class="panel computer_analysis">
-      @analysis.map { a =>
+      @if(analysis.isDefined || analysisInProgress.isDefined) {
       <div id="adv_chart"></div>
-      }.getOrElse {
-      @analysisInProgress.map { prog =>
-      @analyse.computing(pov.gameId)
-      }.getOrElse {
+      } else {
       <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
         <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
-      }
       }
     </div>
     }

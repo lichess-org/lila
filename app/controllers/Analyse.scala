@@ -31,14 +31,10 @@ object Analyse extends LilaController {
           ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
           mod = isGranted(_.Hunter),
           system = false)) map {
-          case true  => Ok(html.analyse.computing(id))
+          case true  => Ok
           case false => Unauthorized
         }
       }
-  }
-
-  def computing(id: String) = Open { implicit ctx =>
-    Ok(html.analyse.computing(id)).fuccess
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =

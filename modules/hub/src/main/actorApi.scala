@@ -184,7 +184,6 @@ object SocketEvent {
   case class Stop(gameId: String) extends SocketEvent
 }
 case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
-case object AnalysisAvailable
 }
 
 package evaluation {

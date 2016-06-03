@@ -1952,31 +1952,6 @@ lichess.notifyApp = (function() {
       initialNote: data.note,
       gameId: data.game.id
     });
-    var analysisProgress = function($feedback, ratio) {
-      if (!$feedback.length) return;
-      var $bar = $feedback.find('.bar');
-      if ($bar.length) {
-        $bar.data('bar').animate(ratio);
-      } else {
-        $bar = $feedback.find('.spinner').html('').toggleClass('spinner bar');
-        lichess.loadScript('/assets/javascripts/vendor/progressbar.min.js').then(function() {
-          var bar = new ProgressBar.Circle($bar[0], {
-            color: '#759900',
-            trailColor: 'rgba(150, 150, 150, 0.2)',
-            trailWidth: 2 + Math.round(Math.random() * 17),
-            strokeWidth: 2 + Math.round(Math.random() * 13),
-            duration: 5200,
-            text: {
-              value: 'Server<br>analysis'
-            }
-          });
-          bar.animate(ratio, {
-            duration: 500
-          });
-          $bar.data('bar', bar);
-        });
-      }
-    };
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
     lichess.socket = lichess.StrongSocket(
@@ -1993,22 +1968,9 @@ lichess.notifyApp = (function() {
           analyse.socketReceive(t, d);
         },
         events: {
-          analysisAvailable: function() {
-            $.sound.genericNotify();
-            lichess.reload();
-          },
           analysisProgress: function(d) {
-            var ratio = Math.min(1, d.ratio * 1.2);
-            var $feedback = $('.future_game_analysis .feedback');
-            if ($feedback.length) analysisProgress($feedback, ratio);
-            else $.get({
-              url: '/' + data.game.id + '/computing',
-              success: function(html) {
-                $('.future_game_analysis').replaceWith(html);
-                $('.analysis_menu .computer_analysis').click();
-                analysisProgress($('.future_game_analysis .feedback'), ratio);
-              }
-            });
+            if (!lichess.advantageChart) startAdvantageChart();
+            else lichess.advantageChart.update(data);
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
@@ -2016,7 +1978,6 @@ lichess.notifyApp = (function() {
         }
       });
 
-    var $advChart = $("#adv_chart");
     var $timeChart = $("#movetimes_chart");
     var $inputFen = $('input.fen', element);
     var unselect = function(chart) {
@@ -2028,10 +1989,10 @@ lichess.notifyApp = (function() {
     cfg.onChange = function(fen, path, mainlinePly) {
       if (fen === lastFen) return;
       lastFen = fen = fen || lastFen;
-      var chart, point;
+      var chart, point, $chart = $("#adv_chart");
       $inputFen.val(fen);
-      if ($advChart.length) try {
-        chart = $advChart.highcharts();
+      if ($chart.length) try {
+        chart = $chart.highcharts();
         if (chart) {
           if (mainlinePly === false) unselect(chart);
           else {
@@ -2069,6 +2030,14 @@ lichess.notifyApp = (function() {
       .on('click', 'tr.symbol', function() {
         analyse.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
       });
+    var startAdvantageChart = function() {
+      if (lichess.advantageChart) return;
+      if (!$("#adv_chart").length)
+        $panels.filter('.computer_analysis').html('<div id="adv_chart"></div>');
+      lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
+        lichess.advantageChart(data);
+      });
+    };
 
     $panels = $('div.analysis_panels > div');
     var $menu = $('div.analysis_menu');
@@ -2081,11 +2050,7 @@ lichess.notifyApp = (function() {
           lichess.movetimeChart(data);
         });
       } catch (e) {}
-      if (panel === 'computer_analysis' && !lichess.advantageChart) try {
-        lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
-          lichess.advantageChart(data);
-        });
-      } catch (e) {}
+      if (panel === 'computer_analysis' && $("#adv_chart").length) startAdvantageChart();
     };
     $menu.on('click', 'a', function() {
       var panel = $(this).data('panel');
@@ -2098,23 +2063,22 @@ lichess.notifyApp = (function() {
       if (stored && $menu.children('.' + stored).length) setPanel(stored);
       else if ($menu.children('.crosstable').length) $menu.children('.crosstable').click();
       else $menu.children(':first').click();
+
+      $panels.find('form.future_game_analysis').submit(function() {
+        if ($(this).hasClass('must_login')) {
+          if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
+          return false;
+        }
+        $.ajax({
+          method: 'post',
+          url: $(this).attr('action'),
+          success: startAdvantageChart,
+          error: lichess.reload
+        });
+        return false;
+      });
     }
 
-    $panels.find('form.future_game_analysis').submit(function() {
-      if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
-        return false;
-      }
-      $.ajax({
-        method: 'post',
-        url: $(this).attr('action'),
-        success: function(html) {
-          $panels.filter('.panel.computer_analysis').html(html);
-        },
-        error: lichess.reload
-      });
-      return false;
-    });
     $panels.find('div.pgn').click(function() {
       var range, selection;
       if (document.body.createTextRange) {

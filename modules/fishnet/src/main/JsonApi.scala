@@ -84,15 +84,9 @@ object JsonApi {
     }
 
     case class PartialAnalysis(
-        fishnet: Fishnet,
-        engine: FullEngine,
-        analysis: List[Option[Evaluation]]) {
-
-      def nbEmpty = analysis.takeWhile(_.isEmpty).size
-      def nbDone = analysis.size - nbEmpty
-
-      def progress: Float = nbDone.toFloat / analysis.size
-    }
+      fishnet: Fishnet,
+      engine: FullEngine,
+      analysis: List[Option[Evaluation]])
 
     case class Evaluation(
         pv: Option[String],

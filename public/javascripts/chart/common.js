@@ -1,7 +1,7 @@
 lichess.chartCommon = function(type) {
   if (window.Highcharts) return $.when();
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lichess.loadScript('/assets/vendor/highcharts4/' + file, true).done(function() {
+  return lichess.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
     Highcharts.makeFont = function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
     };

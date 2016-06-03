@@ -103,7 +103,7 @@ final class FishnetApi(
           }
           case partial: PartialAnalysis =>
             AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
-              PostAnalysisResult.Partial(partial.progress, analysis)
+              PostAnalysisResult.Partial(analysis)
             }
         }
       case Some(work) =>
@@ -112,12 +112,12 @@ final class FishnetApi(
     }
   }.chronometer.mon(_.fishnet.analysis.post)
     .logIfSlow(200, logger) {
-      case PostAnalysisResult.Complete(res)   => s"post analysis for ${res.id}"
-      case PostAnalysisResult.Partial(_, res) => s"partial analysis for ${res.id}"
+      case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
+      case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
     }.result
     .flatMap {
-      case r@PostAnalysisResult.Complete(res)       => sink save res inject r
-      case r@PostAnalysisResult.Partial(ratio, res) => sink.progress(ratio, res) inject r
+      case r@PostAnalysisResult.Complete(res) => sink save res inject r
+      case r@PostAnalysisResult.Partial(res)  => sink progress res inject r
     }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
@@ -175,6 +175,6 @@ object FishnetApi {
   sealed trait PostAnalysisResult
   object PostAnalysisResult {
     case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case class Partial(ratio: Float, analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case class Partial(analysis: lila.analyse.Analysis) extends PostAnalysisResult
   }
 }
