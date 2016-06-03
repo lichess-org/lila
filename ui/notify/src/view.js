@@ -89,17 +89,23 @@ var handlers = {
              ]),
              m('span', " answered your question « " + content.title + "  ».")
           ]);
-        }
+        },
+    text: function(n) {
+        return userFullName(n.content.answerer) + " answered « " + n.content.title + "  »."
+    }
   },
   teamJoined: {
     html: function(notification) {
         var content = notification.content
         var url = "/team/" + content.teamId;
 
-        return genericNotification(notification, url, '&',
+        return genericNotification(notification, url, 'f',
              m('span', " You have joined « " + content.teamName + "  ».")
           );
-        }
+        },
+    text: function(n) {
+        return " You have joined  « " + n.content.teamName + "  »."
+    }
   }
 };
 
