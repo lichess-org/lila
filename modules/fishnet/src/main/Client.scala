@@ -21,6 +21,8 @@ case class Client(
 
   def lichess = userId.value == "lichess"
 
+  def offline = key == Client.offline.key
+
   def disabled = !enabled
 }
 

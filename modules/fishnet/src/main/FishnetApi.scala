@@ -58,17 +58,17 @@ final class FishnetApi(
     moveDb.acquire(client) map { _ map JsonApi.fromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
-    analysisColl.find(BSONDocument(
-      "acquired" -> BSONDocument("$exists" -> false),
-      "lastTryByKey" -> BSONDocument("$ne" -> client.key) // client alternation
-    )).sort(BSONDocument(
-      "sender.system" -> 1, // user requests first, then lichess auto analysis
-      "createdAt" -> 1 // oldest requests first
-    )).uno[Work.Analysis].flatMap {
-      _ ?? { work =>
-        repo.updateAnalysis(work assignTo client) inject work.some
+    analysisColl.find(
+      $doc("acquired" $exists false) ++ {
+        !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
+      }).sort($doc(
+        "sender.system" -> 1, // user requests first, then lichess auto analysis
+        "createdAt" -> 1 // oldest requests first
+      )).uno[Work.Analysis].flatMap {
+        _ ?? { work =>
+          repo.updateAnalysis(work assignTo client) inject work.some
+        }
       }
-    }
   }.map { _ map JsonApi.fromWork }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
