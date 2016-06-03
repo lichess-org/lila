@@ -2078,7 +2078,7 @@ lichess.notifyApp = (function() {
       $panels.removeClass('active').filter('.' + panel).addClass('active');
       if (panel === 'move_times' && !lichess.movetimeChart) try {
         lichess.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
-          lichess.movetimeChart();
+          lichess.movetimeChart(data);
         });
       } catch (e) {}
       if (panel === 'computer_analysis' && !lichess.advantageChart) try {

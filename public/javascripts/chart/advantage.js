@@ -5,7 +5,6 @@ lichess.advantageChart = function(data) {
         $('#adv_chart').each(function() {
           var $this = $(this);
           var max = 10;
-          var initPly = data.treeParts[0].ply;
           var rows = data.treeParts.slice(1).map(function(node) {
             var y = null;
             if (typeof node.eval.cp !== 'undefined') y = node.eval.cp;
@@ -13,11 +12,10 @@ lichess.advantageChart = function(data) {
               y = max * 100 - Math.abs(node.eval.mate);
               if (node.eval.mate < 0) y = -y;
             }
-            var turn = Math.floor((initPly + node.ply) / 2) + 1;
+            var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = node.ply % 2 === 1 ? '.' : '...';
-            var name = turn + dots + ' ' + node.san;
             return {
-              name: name,
+              name: turn + dots + ' ' + node.san,
               y: y
             };
           });

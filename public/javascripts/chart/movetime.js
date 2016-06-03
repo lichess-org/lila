@@ -5,8 +5,27 @@ lichess.movetimeChart = function(data) {
         lichess.movetimeChart.render = function() {
           $('#movetimes_chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
-            var series = $this.data('series');
-            var timeMax = parseInt($this.data('max'), 10);
+
+            var series = {
+              white: [],
+              black: []
+            };
+            var initPly = data.treeParts[0].ply;
+            var max = 0;
+            data.game.moveTimes.forEach(function(t) {
+              if (t > max) max = t;
+            });
+            data.treeParts.slice(1).forEach(function(node, i) {
+              var turn = Math.floor((node.ply - 1) / 2) + 1;
+              var color = node.ply % 2 === 1;
+              var dots = color ? '.' : '...';
+              series[color ? 'white' : 'black'].push({
+                name: turn + dots + ' ' + node.san,
+                x: i,
+                y: data.game.moveTimes[i] / 10 * (color ? 1 : -1)
+              });
+            });
+
             var disabled = {
               enabled: false
             };
@@ -83,8 +102,8 @@ lichess.movetimeChart = function(data) {
               },
               yAxis: {
                 title: noText,
-                min: -timeMax,
-                max: timeMax,
+                min: -max / 10,
+                max: max / 10,
                 labels: disabled,
                 gridLineWidth: 0
               }

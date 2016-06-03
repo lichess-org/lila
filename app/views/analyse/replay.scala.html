@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -127,13 +127,8 @@ atom = atom.some) {
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
     <div class="panel move_times">
-      @timeChart.series.map { series =>
-      <div
-        id="movetimes_chart"
-        data-division-mid="@division.middle.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-series="@series"
-        data-max="@timeChart.maxTime"></div>
+      @if(game.turns > 3) {
+      <div id="movetimes_chart"></div>
       }
     </div>
     @cross.map { c =>
@@ -148,7 +143,7 @@ atom = atom.some) {
       @analysis.map { a => title="Provided by @usernameOrId(a.providedBy)" }>@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
-    @if(timeChart.series.isDefined) {
+    @if(game.turns > 3) {
     <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     }
     @if(cross.isDefined) {

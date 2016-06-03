@@ -7,7 +7,6 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.twirl.api.Html
 
-import lila.analyse.{ Analysis, TimeChart, Accuracy }
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -67,7 +66,6 @@ object Analyse extends LilaController {
                     analysis,
                     analysisInProgress,
                     simul,
-                    new TimeChart(pov.game, pov.game.pgnMoves),
                     crosstable,
                     userTv,
                     divider(pov.game, initialFen)))
