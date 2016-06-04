@@ -47,7 +47,7 @@ final class Notifier(notifyApi: NotifyApi) {
   implicit val lightUser : LightUser.Getter = lila.user.Env.current.lightUser
 
   private def opponentName(color: Color, game: Game) = {
-    val player = game.pov(color).player
+    val player = game opponent color
     Namer.playerText(player)
   }
 
