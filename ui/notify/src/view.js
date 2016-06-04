@@ -143,7 +143,7 @@ var handlers = {
       ]);
     },
     text: function(n) {
-      return 'Analysis of game against « ' + n.content.opponentName + ' » complete.';
+      return 'Game with ' + n.content.opponentName + '.';
     }
   }
 };
