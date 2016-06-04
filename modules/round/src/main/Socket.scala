@@ -161,10 +161,12 @@ private[round] final class Socket(
     }))
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
+      import lila.analyse.{ JsonView => analysisJson }
       notifyAll("analysisProgress", Json.obj(
+        "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
         "tree" -> TreeBuilder(
           id = a.analysis.id,
-          pgnMoves = a.pgnMoves,
+          pgnMoves = a.game.pgnMoves,
           variant = a.variant,
           analysis = a.analysis.some,
           initialFen = a.initialFen.value,

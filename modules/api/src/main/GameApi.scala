@@ -4,7 +4,7 @@ import play.api.libs.json._
 import reactivemongo.bson._
 
 import chess.format.pgn.Pgn
-import lila.analyse.{ AnalysisRepo, Analysis }
+import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
 import lila.db.dsl._
@@ -19,8 +19,7 @@ import makeTimeout.short
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump,
-    analysisApi: AnalysisApi) {
+    pgnDump: PgnDump) {
 
   import lila.round.JsonView.openingWriter
 
@@ -162,10 +161,10 @@ private[api] final class GameApi(
             "sd" -> h.sd
           )
         },
-        "analysis" -> analysisOption.flatMap(analysisApi.player(g pov p.color))
+        "analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),
+    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisJson.game),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> withFens ?? {

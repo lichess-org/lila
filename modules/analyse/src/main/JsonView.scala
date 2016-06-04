@@ -1,12 +1,12 @@
-package lila.api
+package lila.analyse
 
 import play.api.libs.json._
 
 import chess.format.pgn.Pgn
-import lila.analyse.Analysis
 import lila.common.PimpedJson._
+import lila.game.Game
 
-private[api] final class AnalysisApi {
+object JsonView {
 
   def game(analysis: Analysis, pgn: Pgn) = JsArray(analysis.infoAdvices zip pgn.moves map {
     case ((info, adviceOption), move) => Json.obj(
@@ -25,4 +25,8 @@ private[api] final class AnalysisApi {
         Json.obj("acpl" -> acpl)
       }
     )
+
+  def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
+    "white" -> player(game.whitePov)(analysis),
+    "black" -> player(game.blackPov)(analysis))
 }
