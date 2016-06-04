@@ -66,30 +66,6 @@ form.better_analysis {
   width: 512px;
   text-align: center;
 }
-.future_game_analysis.progress {
-  margin-top: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-.future_game_analysis .feedback {
-  flex: 0 0 150px;
-  width: 150px;
-  height: 150px;
-  margin: 0 20px;
-}
-.future_game_analysis .spinner {
-  width: 150px;
-  height: 150px;
-}
-@keyframes rotating {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.future_game_analysis .bar svg {
-  animation: rotating 15s linear infinite;
-}
 .underboard_content .quote.panel.active {
   display: flex;
   align-items: center;
