@@ -3,6 +3,7 @@ var getPlayer = require('game').game.getPlayer;
 
 function renderPlayer(data, color) {
   var p = getPlayer(data, color);
+  if (p.ai) return 'Stockfish level ' + p.ai;
   return m('a.user_link', {
     href: '/@/' + p.user.username
   }, p.user.username);
