@@ -17,6 +17,7 @@ final class FishnetApi(
     sequencer: FutureSequencer,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
+    socketExists: String => Fu[Boolean],
     offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
 
   import FishnetApi._
@@ -101,10 +102,13 @@ final class FishnetApi(
               Monitor.failure(work, client)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
-          case partial: PartialAnalysis =>
-            AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
-              PostAnalysisResult.Partial(analysis)
-            }
+          case partial: PartialAnalysis => socketExists(work.game.id) flatMap {
+            case true =>
+              AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
+                PostAnalysisResult.Partial(analysis)
+              }
+            case false => fuccess(PostAnalysisResult.UnusedPartial)
+          }
         }
       case Some(work) =>
         Monitor.notAcquired(work, client)
@@ -114,10 +118,12 @@ final class FishnetApi(
     .logIfSlow(200, logger) {
       case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
       case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
+      case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
     }.result
     .flatMap {
       case r@PostAnalysisResult.Complete(res) => sink save res inject r
       case r@PostAnalysisResult.Partial(res)  => sink progress res inject r
+      case r@PostAnalysisResult.UnusedPartial => fuccess(r)
     }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
@@ -176,5 +182,6 @@ object FishnetApi {
   object PostAnalysisResult {
     case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
     case class Partial(analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case object UnusedPartial extends PostAnalysisResult
   }
 }

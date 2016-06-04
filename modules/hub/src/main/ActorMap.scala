@@ -32,6 +32,8 @@ trait ActorMap extends Actor {
       actors foreach {
         case (id, a) => if (a == actor) actors -= id
       }
+
+    case Exists(id) => sender ! actors.contains(id)
   }
 
   protected def size = actors.size

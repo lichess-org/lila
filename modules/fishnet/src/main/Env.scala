@@ -45,6 +45,12 @@ final class Env(
     sequencer = sequencer,
     monitor = monitor,
     sink = sink,
+    socketExists = id => {
+      import lila.hub.actorApi.map.Exists
+      import akka.pattern.ask
+      import makeTimeout.short
+      hub.socket.round ? Exists(id) mapTo manifest[Boolean]
+    },
     offlineMode = OfflineMode)(system)
 
   val player = new Player(
