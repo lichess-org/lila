@@ -15,17 +15,21 @@ import makeTimeout.short
 final class Notifier(notifyApi: NotifyApi) {
 
   def notifyAnalysisComplete(analysis: Analysis, game: Game, roundSocket: ActorSelection) = {
-    // If the user is not on the analysis page, inform them that their game analysis is complete
-    isUserPresent(analysis.id, roundSocket, analysis.requestedBy) map { isPresent =>
-      if (!isPresent) {
-        val notifies = Notifies(analysis.requestedBy)
-        val color = requestByColor(analysis, game)
-        val opponent = AnalysisFinished.OpponentName(opponentName(color, game))
-        val notifyContent = AnalysisFinished(AnalysisFinished.Id(analysis.id), color, opponent)
-        val notification = Notification(notifies, notifyContent)
+    // Only notify for player requests - not internal server ones
+    analysis.uid.foreach {
+      requesterId =>
+        // If the user is not on the analysis page, inform them that their game analysis is complete
+        isUserPresent(analysis.id, roundSocket, analysis.requestedBy) map { isPresent =>
+          if (!isPresent) {
+            val notifies = Notifies(analysis.requestedBy)
+            val color = requestByColor(analysis, game)
+            val opponent = AnalysisFinished.OpponentName(opponentName(color, game))
+            val notifyContent = AnalysisFinished(AnalysisFinished.Id(analysis.id), color, opponent)
+            val notification = Notification(notifies, notifyContent)
 
-        notifyApi.addNotification(notification)
-      }
+            notifyApi.addNotification(notification)
+          }
+        }
     }
   }
 
