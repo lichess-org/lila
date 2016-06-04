@@ -7,8 +7,7 @@ import lila.db.{ dsl, BSON }
 import lila.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
 import lila.notify.MentionedInThread._
 import lila.notify.Notification._
-import reactivemongo.bson.Macros
-import reactivemongo.bson.{ BSONString, BSONHandler, BSONDocument }
+import reactivemongo.bson._
 
 private object BSONHandlers {
 
@@ -47,9 +46,9 @@ private object BSONHandlers {
   implicit val BlogTitleHandler = stringAnyValHandler[NewBlogPost.Title](_.value, NewBlogPost.Title.apply)
   implicit val NewBlogPostHandler = Macros.handler[NewBlogPost]
 
-  implicit val ColourHandler = new BSON[Color] {
-    override def reads(reader: Reader): Color = Color(reader.str("color")) | Color.White
-    override def writes(writer: Writer, color: Color): dsl.Bdoc = $doc("color" -> color.name)
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
+    def read(b: BSONBoolean) = chess.Color(b.value)
+    def write(c: chess.Color) = BSONBoolean(c.white)
   }
 
   implicit val AnalysisIdHandler = stringAnyValHandler[AnalysisFinished.Id](_.value, AnalysisFinished.Id.apply)
