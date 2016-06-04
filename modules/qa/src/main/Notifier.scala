@@ -23,8 +23,10 @@ private[qa] final class Notifier(notifyApi: NotifyApi,
 
   private[qa] def notifyAsker(q: Question, a: Answer) = {
     import lila.notify.QaAnswer
+    import lila.common.String.shorten
+
     val answererId = QaAnswer.AnswererId(a.userId)
-    val question = QaAnswer.Question(id = q.id, slug = q.slug, title = q.title)
+    val question = QaAnswer.Question(id = q.id, slug = q.slug, title = shorten(q.title, 80))
     val answerId = QaAnswer.AnswerId(a.id)
 
     val notificationContent = QaAnswer(answererId, question, answerId)
