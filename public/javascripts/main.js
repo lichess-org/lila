@@ -2024,12 +2024,7 @@ lichess.notifyApp = (function() {
     cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
-    $('.advice_summary', element)
-      .appendTo($('.underboard .right', element))
-      .show()
-      .on('click', 'tr.symbol', function() {
-        analyse.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-      });
+
     var startAdvantageChart = function() {
       if (lichess.advantageChart) return;
       if (!$("#adv_chart").length)

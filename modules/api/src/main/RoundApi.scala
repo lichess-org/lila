@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.libs.json._
 
-import lila.analyse.{ Analysis, Info }
+import lila.analyse.{ JsonView => analysisJson, Analysis, Info }
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
@@ -17,7 +17,6 @@ private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
-    analysisApi: AnalysisApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
     getSimul: Simul.ID => Fu[Option[Simul]],
@@ -144,10 +143,7 @@ private[api] final class RoundApi(
     else json
 
   private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
-    json + ("analysis" -> Json.obj(
-      "white" -> analysisApi.player(g.whitePov)(a),
-      "black" -> analysisApi.player(g.blackPov)(a)
-    ))
+    json + ("analysis" -> analysisJson.bothPlayers(g, a))
   }
 
   private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =

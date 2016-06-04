@@ -20,4 +20,10 @@ object String {
 
     def apply(url: String) = regex.replaceAllIn(url, netDomain)
   }
+
+  def shorten(text: String, length: Int, sep: String = "…") = {
+    val t = text.replace("\n", " ")
+    if (t.size > (length + sep.size)) (t take length) ++ sep
+    else t
+  }
 }

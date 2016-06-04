@@ -63,8 +63,7 @@ object Analyse extends LilaController {
                     analysisInProgress,
                     simul,
                     crosstable,
-                    userTv,
-                    divider(pov.game, initialFen)))
+                    userTv))
                 }
           }
       }

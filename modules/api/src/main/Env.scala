@@ -85,13 +85,10 @@ final class Env(
     crosstableApi = crosstableApi,
     prefApi = prefApi)
 
-  val analysisApi = new AnalysisApi
-
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
-    pgnDump = pgnDump,
-    analysisApi = analysisApi)
+    pgnDump = pgnDump)
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi)
@@ -101,7 +98,6 @@ final class Env(
       jsonView = roundJsonView,
       noteApi = noteApi,
       forecastApi = forecastApi,
-      analysisApi = analysisApi,
       bookmarkApi = bookmarkApi,
       getTourAndRanks = getTourAndRanks,
       getSimul = getSimul,

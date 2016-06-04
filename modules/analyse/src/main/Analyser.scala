@@ -34,7 +34,7 @@ final class Analyser(
         case (game, initialFen) =>
           roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(
             analysis = analysis,
-            pgnMoves = game.pgnMoves,
+            game = game,
             variant = game.variant,
             initialFen = initialFen | FEN(game.variant.initialFen)))
       }

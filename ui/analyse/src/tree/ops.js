@@ -92,6 +92,7 @@ function reconstruct(parts) {
 // adds n2 into n1
 function merge(n1, n2) {
   n1.eval = n2.eval;
+  if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments && n2.comments.forEach(function(c) {
     if (!n1.comments) n1.comments = [c];
     else if (!n1.comments.filter(function(d) {

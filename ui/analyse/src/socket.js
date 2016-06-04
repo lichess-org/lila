@@ -47,6 +47,7 @@ module.exports = function(send, ctrl) {
     },
     analysisProgress: function(data) {
       ctrl.tree.merge(data.tree);
+      ctrl.data.analysis = data.analysis;
       m.redraw();
     }
   };

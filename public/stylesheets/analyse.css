@@ -66,30 +66,6 @@ form.better_analysis {
   width: 512px;
   text-align: center;
 }
-.future_game_analysis.progress {
-  margin-top: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-.future_game_analysis .feedback {
-  flex: 0 0 150px;
-  width: 150px;
-  height: 150px;
-  margin: 0 20px;
-}
-.future_game_analysis .spinner {
-  width: 150px;
-  height: 150px;
-}
-@keyframes rotating {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.future_game_analysis .bar svg {
-  animation: rotating 15s linear infinite;
-}
 .underboard_content .quote.panel.active {
   display: flex;
   align-items: center;
@@ -758,11 +734,14 @@ div.copyables .pgn:hover .action {
   display: block;
 }
 div.advice_summary {
-  margin-top: -15px;
+  margin-top: -12px;
 }
 div.advice_summary td {
   padding: 2px 8px;
   text-align: center;
+}
+div.advice_summary tbody td {
+  font-weight: bold;
 }
 div.advice_summary tr.symbol {
   cursor: pointer;
@@ -770,8 +749,8 @@ div.advice_summary tr.symbol {
 div.advice_summary tr.symbol:hover {
   text-decoration: underline;
 }
-div.advice_summary .spacerlol {
-  padding: 5px;
+div.advice_summary table:first-child {
+  margin-bottom: 5px;
 }
 #adv_chart,
 #movetimes_chart {

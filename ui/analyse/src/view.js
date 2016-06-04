@@ -15,6 +15,7 @@ var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
+var acplView = require('./acpl');
 var contextMenu = require('./contextMenu');
 
 var autoScroll = util.throttle(300, false, function(el) {
@@ -250,7 +251,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
-      m('div.right')
+      m('div.right', acplView(ctrl))
     ]),
     util.synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
