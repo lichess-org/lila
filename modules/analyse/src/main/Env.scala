@@ -15,7 +15,8 @@ final class Env(
     system: ActorSystem,
     roundSocket: ActorSelection,
     indexer: ActorSelection,
-    notifyApi: NotifyApi) {
+    notifyApi: NotifyApi,
+    getLightUser : lila.common.LightUser.Getter) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -25,7 +26,7 @@ final class Env(
 
   private[analyse] lazy val analysisColl = db(CollectionAnalysis)
 
-  lazy val notifier = new Notifier(notifyApi)
+  lazy val notifier = new Notifier(notifyApi, getLightUser)
 
   lazy val analyser = new Analyser(
     indexer = indexer,
@@ -45,5 +46,6 @@ object Env {
     system = lila.common.PlayApp.system,
     roundSocket = lila.hub.Env.current.socket.round,
     indexer = lila.hub.Env.current.actor.gameSearch,
-    notifyApi = lila.notify.Env.current.api)
+    notifyApi = lila.notify.Env.current.api,
+    getLightUser = lila.user.Env.current.lightUser)
 }

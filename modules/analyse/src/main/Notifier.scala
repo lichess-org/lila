@@ -3,7 +3,6 @@ package lila.analyse
 import akka.actor.ActorSelection
 import chess.Color
 import akka.pattern.ask
-import lila.common.LightUser
 import lila.game.{Namer, Game}
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.Ask
@@ -12,7 +11,7 @@ import lila.notify.{Notification, AnalysisFinished, NotifyApi}
 
 import makeTimeout.short
 
-final class Notifier(notifyApi: NotifyApi) {
+final class Notifier(notifyApi: NotifyApi, lightUser: lila.common.LightUser.Getter) {
 
   def notifyAnalysisComplete(analysis: Analysis, game: Game, roundSocket: ActorSelection) = {
     // Only notify for player requests - not internal server ones
@@ -44,10 +43,10 @@ final class Notifier(notifyApi: NotifyApi) {
     else Color.white
   }
 
-  implicit val lightUser : LightUser.Getter = lila.user.Env.current.lightUser
-
   private def opponentName(color: Color, game: Game) = {
     val player = game opponent color
+
+    implicit val lightUserGetter = lightUser
     Namer.playerText(player)
   }
 
