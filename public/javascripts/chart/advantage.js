@@ -36,7 +36,7 @@ lichess.advantageChart = function(data) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var isEmpty = serieData[serieData.length - 1].y === null;
+        var isFull = serieData[0].y !== null;
         var chart = $elem.highcharts({
           credits: disabled,
           legend: disabled,
@@ -46,7 +46,7 @@ lichess.advantageChart = function(data) {
           }],
           chart: {
             type: 'area',
-            animation: !isEmpty,
+            animation: isFull,
             spacing: [2, 0, 2, 0]
           },
           plotOptions: {
