@@ -181,7 +181,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, hasher)
   )
 
-  lazy val analyse = project("analyse", Seq(common, hub, chess, game, user)).settings(
+  lazy val analyse = project("analyse", Seq(common, hub, chess, game, user, notifyModule)).settings(
     libraryDependencies ++= provided(
       play.api, RM, spray.caching)
   )
