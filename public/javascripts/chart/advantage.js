@@ -4,9 +4,6 @@ lichess.advantageChart = function(data) {
       lichess.chartCommon('highchart').done(function() {
 
         lichess.advantageChart.update = function(d) {
-          // $elem.highcharts().series[0].update({
-          //   animation: false
-          // });
           $elem.highcharts().series[0].setData(makeSerieData(d));
         };
 

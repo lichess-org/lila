@@ -1970,7 +1970,7 @@ lichess.notifyApp = (function() {
         events: {
           analysisProgress: function(d) {
             if (!lichess.advantageChart) startAdvantageChart();
-            else lichess.advantageChart.update(data);
+            else if (lichess.advantageChart.update) lichess.advantageChart.update(data);
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
