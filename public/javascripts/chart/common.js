@@ -1,5 +1,7 @@
+lichess.highchartsRequested = false;
 lichess.chartCommon = function(type) {
-  if (window.Highcharts) return $.when();
+  if (lichess.highchartsRequested) return $.when();
+  lichess.highchartsRequested = true;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
   return lichess.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
     Highcharts.makeFont = function(size) {
