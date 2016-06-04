@@ -58,37 +58,6 @@ openGraph = povOpenGraph(pov).some,
 chessground = false,
 atom = atom.some) {
 <div class="analyse cg-512">@miniBoardContent</div>
-<div class="advice_summary" style="display:none">
-  @analysis.map { a =>
-  <table>
-    @for((color, pairs) <- a.summary) {
-    <thead>
-      <tr>
-        <td>
-          <span class="is color-icon @color.name"></span>
-        </td>
-        <th>
-          @playerLink(pov.game.player(color), withOnline = false)
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      @for((judgment, nb) <- pairs) {
-      <tr @if(nb > 0) {class="symbol" data-color="@color.name" data-symbol="@judgment.glyph.symbol"}>
-        <td><strong>@nb</strong></td>
-        <th>@judgmentName(judgment)</th>
-      </tr>
-      }
-      <tr>
-        <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
-        <th>@trans.averageCentipawnLoss()</th>
-      </tr>
-      <tr><td class="spacerlol" colspan=2></td></tr>
-    </tbody>
-    }
-  </table>
-  }
-</div>
 <div class="underboard_content" style="display:none">
   <div class="analysis_panels">
     @if(game.analysable) {

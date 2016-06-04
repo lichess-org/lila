@@ -33,8 +33,7 @@ module.exports = function(opts) {
     },
     pathStr: function() {
       return controller.vm.pathStr;
-    },
-    jumpToGlyphSymbol: controller.jumpToGlyphSymbol
+    }
   };
 };
 
