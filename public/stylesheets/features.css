@@ -21,6 +21,10 @@ table th {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
+body.dark table td,
+body.dark table th {
+  border-color: #3a3a3a;
+}
 
 thead th {
   padding-top: 30px;
@@ -37,7 +41,7 @@ tbody td .is::before {
 }
 
 tbody th {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .price {
