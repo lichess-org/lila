@@ -1,0 +1,45 @@
+.check,
+.unlimited,
+.green {
+  color: #759900;
+}
+
+table {
+  font-size: 1.2em;
+}
+table h1::before {
+  margin-right: 10px;
+}
+
+table a,
+table a:visited {
+  border-bottom: 1px dashed #3893E8;
+}
+
+table td,
+table th {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  padding-top: 30px;
+  color: #d59120;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+thead:first-child th {
+  padding-top: 10px;
+}
+
+tbody td .is::before {
+  font-size: 1.4em;
+}
+
+tbody th {
+  opacity: 0.8;
+}
+
+.price {
+  font-size: 1.4em;
+}

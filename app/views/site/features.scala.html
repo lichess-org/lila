@@ -1,0 +1,156 @@
+@()(implicit ctx: Context)
+
+@thead(html: Html) = {
+<thead>
+  <tr>
+    <th>@html</th>
+    <th>Free account</th>
+    <th>Lichess Guardian</th>
+  </tr>
+</thead>
+}
+
+@unlimited = {
+<span data-icon="E" class="is is-green text unlimited">Unlimited</span>
+}
+@check = {
+<span data-icon="E" class="is is-green text check">Yes</span>
+}
+
+@all(html: Html) = {
+<td>@html</td>
+<td>@html</td>
+}
+
+@tr(value: Html)(text: Html) = {
+<tr>
+  <th>@text</th>
+  @all(value)
+</tr>
+}
+
+@site.layout(
+title = "Lichess features",
+moreCss = cssTag("features.css")) {
+
+<div class="content_box features">
+  <table>
+    @thead {
+    <h1 data-icon="">Website</h1>
+    }
+    <tbody>
+      @tr(unlimited) {
+      Play and create <a href="@routes.Tournament.home(1)">tournaments</a>
+      }
+      @tr(unlimited) {
+      Play and create <a href="@routes.Simul.home">simultaneous exhibitions</a>
+      }
+      @tr(unlimited) {
+      Correspondence chess with conditional premoves
+      }
+      @tr(check) {
+      <a href="@routes.Page.variantHome">9 Chess variants (Crazyhouse, Chess960, Horde, ...)</a>
+      }
+      @tr(unlimited) {
+      Deep Stockfish 7 server analysis
+      }
+      @tr(check) {
+      Instant local Stockfish 7 analysis
+      }
+      @tr(unlimited) {
+      <a href="http://en.lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">Studies (shared and persistent analysis)</a>
+      }
+      @tr(unlimited) {
+      <a href="http://en.lichess.org/blog/VmZbaigAABACtXQC/chess-insights">Chess insights (detailed analysis of your play)</a>
+      }
+      @tr(unlimited) {
+      <a href="@routes.Puzzle.home">Tactics puzzles from user games</a>
+      }
+      @tr(unlimited) {
+      <a href="@routes.Opening.home">Opening training</a>
+      &amp; <a href="@routes.Coordinate.home">coordinate training</a>
+      }
+      @tr(unlimited) {
+      Opening explorer (14 million games)
+      }
+      @tr(unlimited) {
+      6 men endgame tablebase
+      }
+      @tr(check) {
+      Download/Upload any game as PGN
+      }
+      @tr(unlimited) {
+      <a href="@routes.Search.index(1)">Advanced search</a> through lichess 200 million games
+      }
+      @tr(unlimited) {
+      <a href="@routes.Video.index">Chess video library</a>
+      }
+      @tr(check) {
+      Forum, teams, messaging, friends, challenges
+      }
+      @tr(check) {
+      Available in 80+ languages
+      }
+      @tr(check) {
+      Light/dark theme, custom boards, pieces and background
+      }
+      @tr(check) {
+      Zero ads
+      }
+      @tr(unlimited) {
+      <strong>All features to come, forever</strong>
+      }
+    </tbody>
+    @thead {
+    <h1 data-icon="">Mobile</h1>
+    }
+    <tbody>
+      @tr(unlimited) {
+      Online and offline games, with 8 variants
+      }
+      @tr(unlimited) {
+      Bullet, Blitz, Classical and Correspondence chess
+      }
+      @tr(unlimited) {
+      <a href="@routes.Tournament.home(1)">Arena tournaments</a>
+      }
+      @tr(check) {
+      Board editor and analysis board with Stockfish 7
+      }
+      @tr(unlimited) {
+      <a href="@routes.Puzzle.home">Tactics puzzles</a>
+      }
+      @tr(check) {
+      Available in 80+ languages
+      }
+      @tr(check) {
+      Light and dark theme, custom boards and pieces
+      }
+      @tr(check) {
+      iPhone &amp; Android phones and tablets, landscape support
+      }
+      @tr(check) {
+      Zero ads
+      }
+      @tr(unlimited) {
+      <strong>All features to come, forever</strong>
+      }
+    </tbody>
+    @thead {
+    <h1>Support lichess</h1>
+    }
+    <tbody class="support">
+      <tr>
+        <th>Contribute to lichess.org and<br />get a cool looking guardian icon</th>
+        <td></td>
+        <td>@check</td>
+      </tr>
+      <tr class="price">
+        <th></th>
+        <td class="green">$0</td>
+        <td><button href="#" class="green button">$5/month</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  }
