@@ -1,29 +1,30 @@
-conf/application.conf
-bin/dev
-logs
-project/project
-project/target
-public/trans
-public/compiled
-public/piece/cburnett
-public/piece/pirouetti
-public/piece/merida
-public/piece/spatial
-public/piece/alpha
-target
-bin/.translate_version
-bin/polyglot
-bin/stockfish
-data/
-dist/
-node_modules/
-local/
-.vagrant
-hs_*.log
+/.vagrant/
 
-RUNNING_PID
+/bin/.translate_version
+/bin/dev
+/bin/polyglot
+/bin/stockfish
 
-# Eclipse auto-generated files
+/conf/application.conf
+
+/data/
+/local/
+/logs/
+
+# `sbt eclipse` generated files 
 /modules/*/.classpath
 /modules/*/.project
 /modules/*/.settings/
+
+/public/compiled/
+/public/images/*.svg
+/public/piece/*/*.svg
+/public/trans
+
+# Wildcard matches
+dist/
+hs_*.log
+node_modules/
+target/
+RUNNING_PID
+
