@@ -5,7 +5,7 @@ function renderPlayer(data, color) {
   var p = getPlayer(data, color);
   if (p.name) return p.name;
   if (p.ai) return 'Stockfish level ' + p.ai;
-  if (p.user) return m('a.user_link', {
+  if (p.user) return m('a.user_link.ulpt', {
     href: '/@/' + p.user.username
   }, p.user.username);
   return 'Anonymous';
