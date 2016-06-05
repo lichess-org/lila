@@ -18,7 +18,6 @@
 
 /public/compiled/
 /public/images/*.svg
-!/public/images/*.src.svg
 /public/piece/*/*.svg
 /public/trans
 

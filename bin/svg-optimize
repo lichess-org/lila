@@ -22,6 +22,6 @@ done
 
 # LOGO
 
-for file (public/images/bN-bg.src.svg public/images/wN-bg.src.svg); do
-  svgo -i $file -o $(echo $file | sed 's#.src.svg#.svg#')
+for file (public/images-src/bN-bg.svg public/images-src/wN-bg.svg); do
+  svgo -i $file -o $(echo $file | sed 's#/images-src/#/images/#')
 done
