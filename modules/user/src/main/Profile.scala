@@ -1,7 +1,5 @@
 package lila.user
 
-import scala._
-
 case class Profile(
     country: Option[String] = None,
     location: Option[String] = None,

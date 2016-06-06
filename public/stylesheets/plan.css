@@ -1,0 +1,41 @@
+table.all {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+table.all td,
+table.all th {
+  border-top: 1px solid #ddd;
+}
+table.all td {
+  padding: 30px;
+}
+table.all th {
+  opacity: 0.8;
+  text-align: right;
+  white-space: nowrap;
+}
+table.all .switch.up {
+  color: #759900;
+}
+table.all .switch.down {
+  color: #ac524f;
+}
+table.all .id {
+  font-family: monospace;
+  font-size: 10px;
+}
+table.all form .button:first-child {
+  font-weight: normal;
+}
+
+table.payments {
+  font-size: 0.9em;
+}
+table.payments th {
+  text-align: left;
+  font-weight: bold;
+}
+table.payments th,
+table.payments td {
+  padding: 10px 5px;
+}

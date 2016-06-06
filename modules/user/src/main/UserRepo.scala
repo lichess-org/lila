@@ -231,11 +231,11 @@ object UserRepo {
   def idExists(id: String): Fu[Boolean] = coll exists $id(id)
 
   /**
-    * Filters out invalid usernames and returns the IDs for those usernames
-    *
-    * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
-    * @return A list of IDs for the usernames that were given that were valid
-    */
+   * Filters out invalid usernames and returns the IDs for those usernames
+   *
+   * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
+   * @return A list of IDs for the usernames that were given that were valid
+   */
   def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
 
@@ -304,6 +304,11 @@ object UserRepo {
   def email(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.email)
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
+
+  def setPlan(user: User, plan: Plan): Funit = {
+    implicit val pbw: BSONValueWriter[Plan] = Plan.planBSONHandler
+    coll.updateField($id(user.id), "plan", plan).void
+  }
 
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $id(id),

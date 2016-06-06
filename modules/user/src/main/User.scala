@@ -5,8 +5,8 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 
 import chess.Speed
-import org.joda.time.DateTime
 import lila.rating.PerfType
+import org.joda.time.DateTime
 
 case class User(
     id: String,
@@ -26,7 +26,8 @@ case class User(
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
-    lang: Option[String]) extends Ordered[User] {
+    lang: Option[String],
+    plan: Plan) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
     case u: User => id == u.id
@@ -36,7 +37,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title)
+  def light = LightUser(id = id, name = username, title = title, patron = planMonths)
 
   def titleName = title.fold(username)(_ + " " + username)
 
@@ -86,6 +87,10 @@ case class User(
   def best8Perfs: List[PerfType] =
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
+
+  def activePlan: Option[Plan] = if (plan.active) Some(plan) else None
+
+  def planMonths: Option[Int] = activePlan.map(_.months)
 }
 
 object User {
@@ -157,9 +162,11 @@ object User {
     val email = "email"
     val mustConfirmEmail = "mustConfirmEmail"
     val colorIt = "colorIt"
+    val plan = "plan"
   }
 
   import lila.db.BSON
+  import lila.db.dsl._
 
   implicit val userBSONHandler = new BSON[User] {
 
@@ -168,6 +175,7 @@ object User {
     private implicit def countHandler = Count.countBSONHandler
     private implicit def profileHandler = Profile.profileBSONHandler
     private implicit def perfsHandler = Perfs.perfsBSONHandler
+    private implicit def planHandler = Plan.planBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -187,7 +195,8 @@ object User {
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
-      title = r strO title)
+      title = r strO title,
+      plan = r.getO[Plan](plan) | Plan.empty)
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -207,6 +216,7 @@ object User {
       seenAt -> o.seenAt,
       kid -> w.boolO(o.kid),
       lang -> o.lang,
-      title -> o.title)
+      title -> o.title,
+      plan -> o.plan.nonEmpty)
   }
 }
