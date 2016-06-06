@@ -37,7 +37,7 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title)
+  def light = LightUser(id = id, name = username, title = title, patron = planMonths)
 
   def titleName = title.fold(username)(_ + " " + username)
 
@@ -88,7 +88,9 @@ case class User(
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
 
-  def activePlan = plan.active option plan
+  def activePlan: Option[Plan] = if (plan.active) Some(plan) else None
+
+  def planMonths: Option[Int] = activePlan.map(_.months)
 }
 
 object User {

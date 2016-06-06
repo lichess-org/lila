@@ -1,6 +1,6 @@
 @(me: User, stripePublicKey: String, myEmail: Option[String])(implicit ctx: Context)
 
-@title = @{"Become a lichess hero"}
+@title = @{"Become a lichess patron"}
 
 @moreJs = {
 <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -21,6 +21,7 @@ description = "All of lichess features are free for all and forever. We do it fo
 
 <div class="content_box plan">
   <h1>@title</h1>
+  <p>Explain why.</p>
   <form class="checkout_form none" action="@routes.Plan.charge" method="POST">
     <input type="hidden" class="token" name="token" />
     <input type="hidden" class="amount" name="amount" />
@@ -28,7 +29,7 @@ description = "All of lichess features are free for all and forever. We do it fo
   <div class="checkout_buttons">
     @lila.stripe.LichessPlan.all.map { p =>
     <button class="button checkout @p.id"
-      data-description="$@p.usd/month"
+      data-description="@p.usd/month"
       data-amount="@p.cents.value"
       data-panel-label="Subscribe {{amount}}"
       data-email="@myEmail"
