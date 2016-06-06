@@ -33,7 +33,8 @@ final class StripeApi(
       case Some(cus) if cus.canLevelUp =>
         UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
           customerColl.updateField($id(cus.id), "lastLevelUp", DateTime.now) >>
-            UserRepo.setPlan(user, user.plan.fold(lila.user.Plan.init)(_.incMonths))
+            UserRepo.setPlan(user, user.plan.fold(lila.user.Plan.init)(_.incMonths)) >>-
+            logger.info(s"Charged ${charge} ${cus}")
         }
       case Some(cus) => fufail(s"Too early to level up $charge $cus")
     }
@@ -43,9 +44,12 @@ final class StripeApi(
       case None => fufail(s"Deleted subscription of unknown customer $sub")
       case Some(cus) =>
         UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
-          UserRepo.setPlan(user, user.plan.|(lila.user.Plan.init).disable)
+          UserRepo.setPlan(user, user.plan.|(lila.user.Plan.init).disable) >>-
+            logger.info(s"Unsubed ${user.id} ${sub}")
         }
     }
+
+  def getEvent = client.getEvent _
 
   private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -61,7 +65,8 @@ final class StripeApi(
         _id = Customer.Id(customer.id),
         userId = Customer.UserId(user.id),
         lastLevelUp = DateTime.now)) >>
-        UserRepo.setPlan(user, lila.user.Plan.init) inject customer
+        UserRepo.setPlan(user, lila.user.Plan.init) >>-
+        logger.info(s"Subed ${user.id} ${plan}") inject customer
     }
 
   private def setCustomerPlan(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =

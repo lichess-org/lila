@@ -36,6 +36,9 @@ private final class StripeClient(config: StripeClient.Config) {
       'source -> source.map(_.value),
       'prorate -> false)
 
+  def getEvent(id: String): Fu[Option[JsObject]] =
+    getOne[JsObject](s"events/$id")
+
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {
       case _: NotFoundException => None
