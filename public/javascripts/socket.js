@@ -24,12 +24,12 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
-  if (options.prodPipe) options.baseUrls = ['socket.en.lichess.org:9021'];
+  if (options.prodPipe) options.baseUrls = ['socket.lichess.org:9021'];
 
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = "wss://" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = settings.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl, true);
     try {
       if (window.MozWebSocket) ws = new MozWebSocket(fullUrl);
@@ -291,11 +291,16 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
-    baseUrls: ['socket.' + document.domain].concat(
-      /lichess\.org/.test(document.domain) ? [9021, 9022, 9023, 9024].map(function(port) {
-        return 'socket.' + document.domain + ':' + port;
-      }) : []),
+    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    baseUrls: (function(domain) {
+      var base = domain.split('.').slice(1).join('.');
+      var main = 'socket.' + base;
+      var extra = /lichess\.org/.test(base) ? [9021, 9022, 9023, 9024].map(function(port) {
+        return 'socket.' + base + ':' + port;
+      }) : []
+      return [main].concat(extra);
+    })(document.domain),
     onFirstConnect: $.noop,
-    baseUrlKey: 'surl3'
+    baseUrlKey: 'surl4'
   }
 };
