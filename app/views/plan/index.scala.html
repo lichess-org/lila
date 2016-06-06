@@ -25,13 +25,13 @@ description = "All of lichess features are free for all and forever. We do it fo
   @ctx.me.map { me =>
   <form class="checkout_form none" action="@routes.Plan.charge" method="POST">
     <input type="hidden" class="token" name="token" />
-    <input type="hidden" class="cents" name="cents" />
+    <input type="hidden" class="amount" name="amount" />
   </form>
   <div class="checkout_buttons">
-    @lila.stripe.Plan.all.map { p =>
+    @lila.stripe.LichessPlan.all.map { p =>
     <button class="button checkout @p.id"
       data-description="$@p.usd/month"
-      data-cents="@p.cents"
+      data-amount="@p.cents.value"
       data-panel-label="Subscribe {{amount}}"
       data-email="@myEmail"
       >$@p.usd</button>

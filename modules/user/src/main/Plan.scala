@@ -2,17 +2,18 @@ package lila.user
 
 import org.joda.time.DateTime
 
-case class Plan(
-    months: Int,
-    activeUntil: Option[DateTime],
-    customerId: String) {
+case class Plan(months: Int, active: Boolean) {
 
-  def active = activeUntil ?? DateTime.now.isBefore
+  def incMonths = copy(
+    months = months + 1,
+    active = true)
 
-  def level = months + 1
+  def disable = copy(active = false)
 }
 
 object Plan {
+
+  val init = Plan(1, true)
 
   import lila.db.dsl._
   private[user] val planBSONHandler = reactivemongo.bson.Macros.handler[Plan]

@@ -25,10 +25,15 @@ object Plan extends LilaController {
   def charge = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
+      import lila.stripe.StripeClient._
       lila.stripe.Checkout.form.bindFromRequest.fold(
-        err => BadRequest(html.plan.badCheckout(err)).fuccess,
+        err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
         data => Env.stripe.api.checkout(me, data) map { res =>
           Ok(html.plan.thanks())
+        } recover {
+          case e: StripeException =>
+            lila.log("stripe").error("Plan.charge", e)
+            BadRequest(html.plan.badCheckout(e.toString))
         }
       )
   }
@@ -37,5 +42,9 @@ object Plan extends LilaController {
     fuccess {
       html.plan.thanks()
     }
+  }
+
+  def webhook = Action.async(parse.json) { req =>
+    Env.stripe.webhook(req.body) map { _ => Ok("kthxbye") }
   }
 }

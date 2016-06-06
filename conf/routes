@@ -135,6 +135,7 @@ GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: S
 GET   /plan                            controllers.Plan.index
 POST  /plan/charge                     controllers.Plan.charge
 GET   /plan/thanks                     controllers.Plan.thanks
+POST  /plan/webhook                    controllers.Plan.webhook
 GET   /features                        controllers.Plan.features
 
 # Round

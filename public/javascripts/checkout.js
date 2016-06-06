@@ -19,8 +19,8 @@ lichess.checkout = function(publicKey) {
   });
 
   $('button.checkout').on('click', function(e) {
-    var amount = parseInt($(this).data('cents'));
-    $form.find('.cents').val(amount);
+    var amount = parseInt($(this).data('amount'));
+    $form.find('.amount').val(amount);
     handler.open({
       description: $(this).data('description'),
       amount: amount,

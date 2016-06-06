@@ -162,6 +162,7 @@ object User {
   }
 
   import lila.db.BSON
+  import lila.db.dsl._
 
   implicit val userBSONHandler = new BSON[User] {
 
