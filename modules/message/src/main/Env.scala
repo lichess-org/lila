@@ -3,8 +3,6 @@ package lila.message
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.hub.actorApi.message.LichessThread
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -18,7 +16,6 @@ final class Env(
 
   private val CollectionThread = config getString "collection.thread"
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
-  private val ActorName = config getString "actor.name"
 
   import scala.collection.JavaConversions._
   val LichessSenders = (config getStringList "lichess_senders").toList
@@ -38,12 +35,6 @@ final class Env(
     follows = follows,
     blocks = blocks,
     getPref = getPref)
-
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case thread: LichessThread => api.lichessThread(thread)
-    }
-  }), name = ActorName)
 }
 
 object Env {

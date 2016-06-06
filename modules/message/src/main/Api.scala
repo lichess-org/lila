@@ -5,8 +5,6 @@ import akka.pattern.pipe
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.message._
-import lila.hub.actorApi.SendTo
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
@@ -57,17 +55,6 @@ final class Api(
             } inject thread
           }
       }
-    }
-  }
-
-  def lichessThread(lt: LichessThread): Funit = {
-    val thread = Thread.make(
-      name = lt.subject,
-      text = lt.message,
-      creatorId = lt.from,
-      invitedId = lt.to)
-    sendUnlessBlocked(thread, fromMod = false) flatMap { sent =>
-      sent ?? notify(thread)
     }
   }
 

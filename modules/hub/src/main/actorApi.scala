@@ -138,14 +138,6 @@ package tv {
 case class Select(msg: JsObject)
 }
 
-package message {
-case class LichessThread(
-  from: String,
-  to: String,
-  subject: String,
-  message: String)
-}
-
 package notify {
   case class Notified(userId: String)
 }
