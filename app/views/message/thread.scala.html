@@ -1,4 +1,4 @@
-@(thread: lila.message.Thread, form: Form[_], blocks: Boolean, answerable: Boolean)(implicit ctx: Context, me: User)
+@(thread: lila.message.Thread, form: Form[_], blocks: Boolean)(implicit ctx: Context, me: User)
 
 @message.layout(
 title = thread.name) {
@@ -21,7 +21,6 @@ title = thread.name) {
 </div>
 }
 
-@if(answerable) {
 <div class="answer" id="bottom">
   @if(blocks) {
   <p>This user blocks you. You cannot answer.</p>
@@ -38,5 +37,4 @@ title = thread.name) {
   </form>
   }
 </div>
-}
 }
