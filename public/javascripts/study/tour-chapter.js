@@ -35,7 +35,7 @@ lichess.studyTourChapter = function(study) {
     }, {
       title: "Load an existing lichess game",
       text: "Paste a lichess game URL<br>" +
-        "(like http://lichess.org/7fHIU0XI)<br>" +
+        "(like //lichess.org/7fHIU0XI)<br>" +
         "to load the game moves in the chapter.",
       attachTo: '.study_overboard .study_tabs .game top',
       when: onTab('game')

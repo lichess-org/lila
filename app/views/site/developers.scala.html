@@ -10,7 +10,7 @@
     Add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="http://en.@netDomain/embed?w=1016&amp;h=650"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="https://en.@netDomain/embed?w=1016&amp;h=650"&gt;&lt;/script&gt;</pre>
 
   <p>The <strong>w</strong> and <strong>h</strong> parameters control the width and height of the chess window.</p>
 </div>
@@ -22,14 +22,14 @@
   <h1 id="embed-tv" class="lichess_title">Embed the Chess TV in your site</h1>
 
   <div style="text-align: center;">
-    <script src="http://en.@netDomain/tv/embed?theme=wood&bg=light"></script>
+    <script src="//en.@netDomain/tv/embed?theme=wood&bg=light"></script>
   </div>
 
   <p>
     Just add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="http://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="https://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
 
   <p>
     Parameters:
@@ -47,14 +47,14 @@
   <h1 id="embed-puzzle" class="lichess_title">Embed the daily puzzle in your site</h1>
 
   <div style="text-align: center;">
-    <script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"></script>
+    <script src="//en.@netDomain/training/embed?theme=blue2&bg=light"></script>
   </div>
 
   <p>
     Just add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="https://en.@netDomain/training/embed?theme=blue2&bg=light"&gt;&lt;/script&gt;</pre>
 
   <p>
     Parameters:
@@ -89,16 +89,16 @@
   <h1 id="use-api" class="lichess_title">Lichess Widgets</h1>
   <p>Let your website/blog visitors know that you're playing on lichess!</p>
   <br />
-  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/lichess_widgets.css" />
+  <link rel="stylesheet" href="//rubenwardy.github.io/lichess_widgets/lichess_widgets.css" />
   @if(ctx.currentBg == "dark") {
-  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/dark.css" />
+  <link rel="stylesheet" href="//rubenwardy.github.io/lichess_widgets/dark.css" />
   } else {
-  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/light.css" />
+  <link rel="stylesheet" href="//rubenwardy.github.io/lichess_widgets/light.css" />
   }
-  <script src="http://rubenwardy.github.io/lichess_widgets/lichess_widgets.js"></script>
+  <script src="//rubenwardy.github.io/lichess_widgets/lichess_widgets.js"></script>
   @defining(ctx.me.fold("thibault")(_.id)) { userId =>
   <script>lichess_widgets.profile_scores("@ctx.currentBg", "@userId");</script>
   }
-  <p><a href="http://rubenwardy.github.io/lichess_widgets/">See more examples and installation instructions</a></p>
+  <p><a href="//rubenwardy.github.io/lichess_widgets/">See more examples and installation instructions</a></p>
 </div>
 }

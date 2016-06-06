@@ -23,9 +23,7 @@ object PovToEntry {
 
   def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
     enrich(game, userId, provisional) map
-      (_ flatMap convert toRight game) addFailureEffect { e =>
-        println(s"http://l.org/${game.id}")
-      }
+      (_ flatMap convert toRight game)
 
   private def removeWrongAnalysis(game: Game): Boolean = {
     if (game.metadata.analysed && !game.analysable) {
@@ -122,7 +120,7 @@ object PovToEntry {
         !board.hasPiece(chess.Piece(color, chess.Queen))
       }
       case _ =>
-        logger.warn(s"http://l.org/${from.pov.game.id} missing endgame board")
+        logger.warn(s"https://lichess.org/${from.pov.game.id} missing endgame board")
         false
     }
   }

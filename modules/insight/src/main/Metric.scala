@@ -30,7 +30,7 @@ object Metric {
   import Entry.{ BSONFields => F }
 
   case object MeanCpl extends Metric("acpl", "Average centipawn loss", F moves "c", Move, Move, Average,
-    Html("""Precision of your moves. Lower is better. <a href="http://lichess.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
+    Html("""Precision of your moves. Lower is better. <a href="//lichess.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
 
   case object Movetime extends Metric("movetime", "Move time", F moves "t", Move, Move, Seconds,
     Dimension.MovetimeRange.description)

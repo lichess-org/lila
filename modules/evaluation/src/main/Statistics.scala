@@ -30,7 +30,7 @@ object Statistics {
 
   // ups all values by 5 (0.5s)
   // as to avoid very high variation on bullet games
-  // where all move times are low (http://en.lichess.org/@/AlisaP?mod)
+  // where all move times are low (https://en.lichess.org/@/AlisaP?mod)
   def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Double] =

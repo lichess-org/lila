@@ -23,14 +23,14 @@ object Trophy {
       key = "zugMiracle",
       name = "Zug miracle",
       icon = none,
-      url = "http://lichess.org/qa/259/how-do-you-get-a-zug-miracle-trophy".some,
+      url = "//lichess.org/qa/259/how-do-you-get-a-zug-miracle-trophy".some,
       none)
 
     object WayOfBerserk extends Kind(
       key = "wayOfBerserk",
       name = "The way of Berserk",
       icon = "`".some,
-      url = "http://lichess.org/qa/340/way-of-berserk-trophy".some,
+      url = "//lichess.org/qa/340/way-of-berserk-trophy".some,
       "fire_trophy".some)
 
     object MarathonWinner extends Kind(
@@ -65,14 +65,14 @@ object Trophy {
       key = "marathonSurvivor",
       name = "Marathon #1 survivor",
       icon = ",".some,
-      url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      url = "//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
       "fire_trophy".some)
 
     object BongcloudWarrior extends Kind(
       key = "bongcloudWarrior",
       name = "Bongcloud Warrior",
       icon = "~".some,
-      url = "http://lichess.org/forum/lichess-feedback/bongcloud-trophy".some,
+      url = "//lichess.org/forum/lichess-feedback/bongcloud-trophy".some,
       "fire_trophy".some)
 
     object Developer extends Kind(
@@ -86,21 +86,21 @@ object Trophy {
       key = "moderator",
       name = "Lichess moderator",
       icon = "&#xe002;".some,
-      url = "http://lichess.org/report".some,
+      url = "//lichess.org/report".some,
       "icon3d".some)
 
     object Donor extends Kind(
       key = "donor",
       name = "Lichess donor",
       icon = "&#xe001;".some,
-      url = "http://lichess.org/donate".some,
+      url = "//lichess.org/donate".some,
       "icon3d".some)
 
     object Streamer extends Kind(
       key = "streamer",
       name = "Lichess streamer",
       icon = "&#xe003;".some,
-      url = "http://lichess.org/help/stream-on-lichess".some,
+      url = "//lichess.org/help/stream-on-lichess".some,
       "icon3d".some)
 
     val all = List(

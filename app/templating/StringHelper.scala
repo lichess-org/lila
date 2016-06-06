@@ -68,7 +68,7 @@ trait StringHelper { self: NumberHelper =>
   })
 
   private def prependHttp(url: String): String =
-    url startsWith "http" fold (url, "http://" + url)
+    if (url startsWith "//") url else "//" + url
 
   private val delocalize = new lila.common.String.Delocalizer(netDomain)
 

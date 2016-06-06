@@ -15,14 +15,14 @@
   <iframe
     frameborder="0"
     scrolling="no"
-    src="http://twitch.tv/@s.streamId/chat?popout="
+    src="//twitch.tv/@s.streamId/chat?popout="
     height="418"></iframe>
   }
   case lila.tv.StreamerList.Hitbox => {
   <iframe
     width="330"
     height="392"
-    src="http://www.hitbox.tv/embedchat/@s.streamId"
+    src="//www.hitbox.tv/embedchat/@s.streamId"
     frameborder="0"
     allowfullscreen></iframe>
   }
@@ -53,7 +53,7 @@ moreCss = moreCss) {
   @s.streamer.service match {
   case lila.tv.StreamerList.Twitch => {
   <iframe
-    src="http://player.twitch.tv/?channel=@s.streamId"
+    src="//player.twitch.tv/?channel=@s.streamId"
     width="694"
     height="418"
     allowfullscreen autoplay></iframe>
@@ -62,7 +62,7 @@ moreCss = moreCss) {
   <iframe
     width="694"
     height="391"
-    src="http://hitbox.tv/#!/embed/@s.streamId?autoplay=true"
+    src="//hitbox.tv/#!/embed/@s.streamId?autoplay=true"
     frameborder="0" allowfullscreen></iframe>
   }
   case lila.tv.StreamerList.Youtube => {
