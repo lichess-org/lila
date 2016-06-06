@@ -26,12 +26,12 @@ description = "All of lichess features are free for all and forever. We do it fo
         <th>Change plan</th>
         <td>
           <form action="@routes.Plan.switch" method="POST">
-            <button type="submit" class="button">$0 (Cancel)</button>
+            <button type="submit" class="button" name="cancel" value="1">$0 (Cancel)</button>
             @lila.stripe.LichessPlan.all.map { p =>
             @if(p == info.currentPlan) {
             <button class="button" disabled>@p.usd (Current)</button>
             } else {
-            <button type="submit" class="button">
+            <button type="submit" class="button" name="plan" value="@p.id">
               <span
                 data-icon="@if(p.usd > info.currentPlan.usd){N}else{M}"
                 class="switch text @if(p.usd > info.currentPlan.usd){up}else{down}">@p.usd</span>

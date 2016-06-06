@@ -44,7 +44,19 @@ object Plan extends LilaController {
 
   def switch = AuthBody { implicit ctx =>
     me =>
-      Redirect(routes.Plan.index()).fuccess
+      implicit val req = ctx.body
+      lila.stripe.Switch.form.bindFromRequest.fold(
+        err => Redirect(routes.Plan.index).fuccess,
+        data => (data.plan.flatMap(lila.stripe.LichessPlan.byId) match {
+          case Some(plan)                 => Env.stripe.api.switch(me, plan)
+          case _ if data.cancel.isDefined => Env.stripe.api.cancel(me)
+          case _                          => fufail("Invalid switch")
+        }) recover {
+          case e: Exception =>
+            lila.log("stripe").error("Plan.switch", e)
+            Redirect(routes.Plan.index)
+        } inject Redirect(routes.Plan.index())
+      )
   }
 
   def charge = AuthBody { implicit ctx =>
@@ -54,7 +66,7 @@ object Plan extends LilaController {
       lila.stripe.Checkout.form.bindFromRequest.fold(
         err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
         data => Env.stripe.api.checkout(me, data) map { res =>
-          Redirect(routes.Plan.thanks())
+          Redirect(routes.Plan.index() + "?thanks=1")
         } recover {
           case e: StripeException =>
             lila.log("stripe").error("Plan.charge", e)

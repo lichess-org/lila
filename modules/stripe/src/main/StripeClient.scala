@@ -36,6 +36,9 @@ private final class StripeClient(config: StripeClient.Config) {
       'source -> source.map(_.value),
       'prorate -> false)
 
+  def cancelSubscription(sub: StripeSubscription): Funit =
+    deleteOne(s"subscriptions/${sub.id}")
+
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
 

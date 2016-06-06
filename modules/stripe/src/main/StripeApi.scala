@@ -17,13 +17,24 @@ final class StripeApi(
       case Some(plan) => setUserPlan(user, plan.stripePlan, data.source)
     }
 
-  def upgrade(user: User, plan: LichessPlan): Fu[StripeSubscription] =
+  def switch(user: User, plan: LichessPlan): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
-      case None => fufail(s"Can't upgrade non-existent customer ${user.id}")
+      case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
-          case None      => fufail(s"Can't upgrade non-existent subscription of ${user.id}")
+          case None      => fufail(s"Can't switch non-existent subscription of ${user.id}")
           case Some(sub) => client.updateSubscription(sub, plan.stripePlan, none)
+        }
+    }
+
+  def cancel(user: User): Funit =
+    userCustomer(user) flatMap {
+      case None => fufail(s"Can't cancel non-existent customer ${user.id}")
+      case Some(customer) =>
+        customer.firstSubscription match {
+          case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
+          case Some(sub) => client.cancelSubscription(sub) >>
+            UserRepo.setPlan(user, user.plan.disable)
         }
     }
 

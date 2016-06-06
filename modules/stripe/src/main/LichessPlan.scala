@@ -18,4 +18,8 @@ object LichessPlan {
   def findUnder(cents: Cents): Option[LichessPlan] = all.reverse.find(_.cents <= cents)
 
   def byStripePlan(plan: StripePlan) = findUnder(plan.cents)
+
+  def byId(id: String) = all.find(_.id == id)
+
+  def exists(id: String) = all.exists(_.id == id)
 }

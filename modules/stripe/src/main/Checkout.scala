@@ -17,3 +17,13 @@ object Checkout {
     "amount" -> number(min = 500)
   )(Checkout.apply)(Checkout.unapply))
 }
+
+case class Switch(plan: Option[String], cancel: Option[Int])
+
+object Switch {
+
+  val form = Form(mapping(
+    "plan" -> optional(text.verifying("Invalid plan", LichessPlan.exists _)),
+    "cancel" -> optional(number)
+  )(Switch.apply)(Switch.unapply))
+}
