@@ -102,14 +102,15 @@ final class Api(
   def notify(thread: Thread): Funit = thread.posts.headOption ?? { post =>
     notify(thread, post)
   }
-  def notify(thread: Thread, post: Post): Funit = {
-    import lila.notify.{ Notification, PrivateMessage }
-    import lila.common.String.shorten
-    notifyApi addNotification Notification(
-      Notification.Notifies(thread receiverOf post),
-      PrivateMessage(
-        PrivateMessage.SenderId(thread senderOf post),
-        PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
-        PrivateMessage.Text(shorten(post.text, 80))))
-  }
+  def notify(thread: Thread, post: Post): Funit =
+    (thread isVisibleBy thread.receiverOf(post)) ?? {
+      import lila.notify.{ Notification, PrivateMessage }
+      import lila.common.String.shorten
+      notifyApi addNotification Notification(
+        Notification.Notifies(thread receiverOf post),
+        PrivateMessage(
+          PrivateMessage.SenderId(thread senderOf post),
+          PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
+          PrivateMessage.Text(shorten(post.text, 80))))
+    }
 }
