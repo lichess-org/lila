@@ -29,7 +29,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = settings.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl, true);
     try {
       if (window.MozWebSocket) ws = new MozWebSocket(fullUrl);
