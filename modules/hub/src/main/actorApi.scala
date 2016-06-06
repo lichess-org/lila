@@ -142,14 +142,6 @@ package notify {
   case class Notified(userId: String)
 }
 
-package router {
-case class Abs(route: Any)
-case class Nolang(route: Any)
-case class TeamShow(id: String)
-case class Pgn(gameId: String)
-case class Puzzle(id: Int)
-}
-
 package forum {
 case class MakeTeam(id: String, name: String)
 }

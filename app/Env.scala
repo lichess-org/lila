@@ -13,7 +13,6 @@ final class Env(
   val CliUsername = config getString "cli.username"
 
   private val RendererName = config getString "app.renderer.name"
-  private val RouterName = config getString "app.router.name"
   private val WebPath = config getString "app.web_path"
 
   lazy val bus = lila.common.Bus(system)
@@ -49,12 +48,6 @@ final class Env(
     getPlayTime = Env.game.playTime.apply) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
-
-  system.actorOf(Props(new actor.Router(
-    baseUrl = Env.api.Net.BaseUrl,
-    protocol = Env.api.Net.Protocol,
-    domain = Env.api.Net.Domain
-  )), name = RouterName)
 
   lila.log.boot.info("Preloading modules")
   lila.common.Chronometer.syncEffect(List(Env.socket,
