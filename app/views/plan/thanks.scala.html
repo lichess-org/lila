@@ -1,0 +1,13 @@
+@()(implicit ctx: Context)
+
+@title = @{"Thank you!"}
+
+@site.layout(
+title = title,
+moreCss = cssTag("plan.css")) {
+
+<div class="content_box plan">
+  <h1>@title</h1>
+  <p>Your plan: @ctx.me.flatMap(_.plan).getOrElse("none")</p>
+</div>
+}

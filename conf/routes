@@ -132,7 +132,10 @@ GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
 
-GET   /features                        controllers.Main.features
+GET   /plan                            controllers.Plan.index
+POST  /plan/charge                     controllers.Plan.charge
+GET   /plan/thanks                     controllers.Plan.thanks
+GET   /features                        controllers.Plan.features
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

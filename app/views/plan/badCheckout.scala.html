@@ -1,0 +1,6 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@site.message("Payment can not be processed.") {
+<p>The payment didn't go through. Your card was not charged.</p>
+<p>@errMsg(form)</p>
+}

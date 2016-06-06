@@ -71,12 +71,6 @@ object Main extends LilaController {
     }
   }
 
-  def features = Open { implicit ctx =>
-    fuccess {
-      html.site.features()
-    }
-  }
-
   def mobile = Open { implicit ctx =>
     OptionOk(Prismic getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)

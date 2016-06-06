@@ -5,8 +5,8 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 
 import chess.Speed
-import org.joda.time.DateTime
 import lila.rating.PerfType
+import org.joda.time.DateTime
 
 case class User(
     id: String,
@@ -26,7 +26,8 @@ case class User(
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
-    lang: Option[String]) extends Ordered[User] {
+    lang: Option[String],
+    plan: Option[Plan] = None) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
     case u: User => id == u.id
@@ -157,6 +158,7 @@ object User {
     val email = "email"
     val mustConfirmEmail = "mustConfirmEmail"
     val colorIt = "colorIt"
+    val plan = "plan"
   }
 
   import lila.db.BSON
@@ -168,6 +170,7 @@ object User {
     private implicit def countHandler = Count.countBSONHandler
     private implicit def profileHandler = Profile.profileBSONHandler
     private implicit def perfsHandler = Perfs.perfsBSONHandler
+    private implicit def planHandler = Plan.planBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -187,7 +190,8 @@ object User {
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
-      title = r strO title)
+      title = r strO title,
+      plan = r.getO[Plan](plan))
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -207,6 +211,7 @@ object User {
       seenAt -> o.seenAt,
       kid -> w.boolO(o.kid),
       lang -> o.lang,
-      title -> o.title)
+      title -> o.title,
+      plan -> o.plan)
   }
 }
