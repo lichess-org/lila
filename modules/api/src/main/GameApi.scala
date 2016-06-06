@@ -12,7 +12,6 @@ import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.{ Game, Pov, GameRepo, PerfPicker }
-import lila.hub.actorApi.{ router => R }
 import lila.user.User
 import makeTimeout.short
 
