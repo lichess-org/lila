@@ -39,6 +39,12 @@ private final class StripeClient(config: StripeClient.Config) {
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
 
+  def getNextInvoice(customerId: Customer.Id): Fu[Option[StripeInvoice]] =
+    getOne[StripeInvoice](s"invoices/upcoming", 'customer -> customerId.value)
+
+  def getPastInvoices(customerId: Customer.Id): Fu[List[StripeInvoice]] =
+    getList[StripeInvoice]("invoices", 'customer -> customerId.value)
+
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {
       case _: NotFoundException => None

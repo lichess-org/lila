@@ -1,0 +1,17 @@
+@()(implicit ctx: Context)
+
+@title = @{"Become a lichess hero"}
+
+@site.layout(
+title = title,
+moreCss = cssTag("plan.css"),
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+url = s"$netBaseUrl${routes.Plan.index.url}",
+description = "All of lichess features are free for all and forever. We do it for chess!").some) {
+
+<div class="content_box plan">
+  <h1>@title</h1>
+  You should login first.
+</div>
+}

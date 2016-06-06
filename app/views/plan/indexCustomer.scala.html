@@ -1,0 +1,74 @@
+@(me: User, info: lila.stripe.CustomerInfo)(implicit ctx: Context)
+
+@title = @{"Become a lichess hero"}
+
+@site.layout(
+title = title,
+moreCss = cssTag("plan.css"),
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+url = s"$netBaseUrl${routes.Plan.index.url}",
+description = "All of lichess features are free for all and forever. We do it for chess!").some) {
+
+<div class="content_box plan">
+  <h1>@userLink(me) • lichess patron level @me.plan.months</h1>
+  <table class="all">
+    <tbody>
+      <tr>
+        <th>Current status</th>
+        <td>You support lichess.org with <strong>@info.currentPlan.usd per month</strong>.</td>
+      </tr>
+      <tr>
+        <th>Next payment</th>
+        <td>You will be charged <strong>@info.nextInvoice.usd</strong> on @showDate(info.nextInvoice.dateTime).</td>
+      </th>
+      <tr>
+        <th>Change plan</th>
+        <td>
+          <form action="@routes.Plan.switch" method="POST">
+            <button type="submit" class="button">$0 (Cancel)</button>
+            @lila.stripe.LichessPlan.all.map { p =>
+            @if(p == info.currentPlan) {
+            <button class="button" disabled>@p.usd (Current)</button>
+            } else {
+            <button type="submit" class="button">
+              <span
+                data-icon="@if(p.usd > info.currentPlan.usd){N}else{M}"
+                class="switch text @if(p.usd > info.currentPlan.usd){up}else{down}">@p.usd</span>
+            </button>
+            }
+            }
+          </form>
+        </td>
+      </th>
+      <tr>
+        <th>Payment history</th>
+        <td>
+          <table class="slist payments">
+            <thead>
+              <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <!-- <th>Receipt</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              @info.pastInvoices.map { in =>
+              <tr>
+                <td>@if(in.paid){<span data-icon="E" class="is-green text">Paid</span>}</td>
+                <td class="id">@in.id</td>
+                <td>@showDate(in.dateTime)</td>
+                <td>@in.usd</td>
+                <!-- <td><a href="#">Receipt</a></td> -->
+              </tr>
+              }
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+}

@@ -9,4 +9,5 @@ object JsonHandlers {
   implicit val StripeSubscriptionsReads = Json.reads[StripeSubscriptions]
   implicit val StripeCustomerReads = Json.reads[StripeCustomer]
   implicit val StripeChargeReads = Json.reads[StripeCharge]
+  implicit val StripeInvoiceReads = Json.reads[StripeInvoice]
 }

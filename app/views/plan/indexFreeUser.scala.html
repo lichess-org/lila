@@ -1,4 +1,4 @@
-@(stripePublicKey: String, myEmail: Option[String])(implicit ctx: Context)
+@(me: User, stripePublicKey: String, myEmail: Option[String])(implicit ctx: Context)
 
 @title = @{"Become a lichess hero"}
 
@@ -21,8 +21,6 @@ description = "All of lichess features are free for all and forever. We do it fo
 
 <div class="content_box plan">
   <h1>@title</h1>
-  <p>Your plan: @ctx.me.flatMap(_.plan).getOrElse("none")</p>
-  @ctx.me.map { me =>
   <form class="checkout_form none" action="@routes.Plan.charge" method="POST">
     <input type="hidden" class="token" name="token" />
     <input type="hidden" class="amount" name="amount" />
@@ -34,9 +32,8 @@ description = "All of lichess features are free for all and forever. We do it fo
       data-amount="@p.cents.value"
       data-panel-label="Subscribe {{amount}}"
       data-email="@myEmail"
-      >$@p.usd</button>
+      >@p.usd</button>
     }
   </div>
-  }
 </div>
 }

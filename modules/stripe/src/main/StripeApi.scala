@@ -33,7 +33,7 @@ final class StripeApi(
       case Some(cus) if cus.canLevelUp =>
         UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
           customerColl.updateField($id(cus.id), "lastLevelUp", DateTime.now) >>
-            UserRepo.setPlan(user, user.plan.fold(lila.user.Plan.init)(_.incMonths)) >>-
+            UserRepo.setPlan(user, user.plan.incMonths) >>-
             logger.info(s"Charged ${charge} ${cus}")
         }
       case Some(cus) => fufail(s"Too early to level up $charge $cus")
@@ -44,12 +44,50 @@ final class StripeApi(
       case None => fufail(s"Deleted subscription of unknown customer $sub")
       case Some(cus) =>
         UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
-          UserRepo.setPlan(user, user.plan.|(lila.user.Plan.init).disable) >>-
+          UserRepo.setPlan(user, user.plan.disable) >>-
             logger.info(s"Unsubed ${user.id} ${sub}")
         }
     }
 
   def getEvent = client.getEvent _
+
+  def customerInfo(user: User): Fu[Option[CustomerInfo]] =
+    customerColl.uno[Customer]($doc("userId" -> user.id)) flatMap {
+      _ ?? { c =>
+        client.getCustomer(c.id) zip client.getNextInvoice(c.id) zip client.getPastInvoices(c.id) map {
+          case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
+            customer.plan flatMap LichessPlan.byStripePlan match {
+              case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
+              case None =>
+                logger.warn(s"Can't identify ${user.id} plan $customer")
+                none
+            }
+          case fail =>
+            logger.warn(s"Can't fetch ${user.id} customer info $fail")
+            none
+        }
+      }
+    }
+
+  def sync(user: User): Fu[Boolean] =
+    customerColl.uno[Customer]($doc("userId" -> user.id)) flatMap {
+      case None if !user.plan.isEmpty =>
+        logger.warn(s"sync: disable plan of non-customer")
+        UserRepo.setPlan(user, user.plan.disable) inject true
+      case Some(c) => client.getCustomer(c.id) flatMap {
+        case None =>
+          logger.warn(s"sync: remove DB customer that's not in stripe")
+          customerColl.remove($id(c.id)) >> UserRepo.setPlan(user, user.plan.disable) inject true
+        case Some(customer) if customer.firstSubscription.isEmpty && user.plan.active =>
+          logger.warn(s"sync: disable plan of customer without a subscription")
+          UserRepo.setPlan(user, user.plan.disable) inject true
+        case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
+          logger.warn(s"sync: enable plan of customer with a subscription")
+          UserRepo.setPlan(user, user.plan.enable) inject true
+        case _ => fuccess(false)
+      }
+      case _ => fuccess(false)
+    }
 
   private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -65,7 +103,7 @@ final class StripeApi(
         _id = Customer.Id(customer.id),
         userId = Customer.UserId(user.id),
         lastLevelUp = DateTime.now)) >>
-        UserRepo.setPlan(user, lila.user.Plan.init) >>-
+        UserRepo.setPlan(user, lila.user.Plan.start) >>-
         logger.info(s"Subed ${user.id} ${plan}") inject customer
     }
 

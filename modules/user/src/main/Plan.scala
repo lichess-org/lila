@@ -9,11 +9,17 @@ case class Plan(months: Int, active: Boolean) {
     active = true)
 
   def disable = copy(active = false)
+  def enable = copy(active = true)
+
+  def isEmpty = months == 0
+
+  def nonEmpty = !isEmpty option this
 }
 
 object Plan {
 
-  val init = Plan(1, true)
+  val empty = Plan(0, false)
+  val start = Plan(1, true)
 
   import lila.db.dsl._
   private[user] val planBSONHandler = reactivemongo.bson.Macros.handler[Plan]

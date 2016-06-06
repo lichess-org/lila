@@ -27,7 +27,7 @@ case class User(
     seenAt: Option[DateTime],
     kid: Boolean,
     lang: Option[String],
-    plan: Option[Plan] = None) extends Ordered[User] {
+    plan: Plan) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
     case u: User => id == u.id
@@ -87,6 +87,8 @@ case class User(
   def best8Perfs: List[PerfType] =
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
+
+  def activePlan = plan.active option plan
 }
 
 object User {
@@ -192,7 +194,7 @@ object User {
       kid = r boolD kid,
       lang = r strO lang,
       title = r strO title,
-      plan = r.getO[Plan](plan))
+      plan = r.getO[Plan](plan) | Plan.empty)
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -213,6 +215,6 @@ object User {
       kid -> w.boolO(o.kid),
       lang -> o.lang,
       title -> o.title,
-      plan -> o.plan)
+      plan -> o.plan.nonEmpty)
   }
 }

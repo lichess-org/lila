@@ -8,6 +8,6 @@ moreCss = cssTag("plan.css")) {
 
 <div class="content_box plan">
   <h1>@title</h1>
-  <p>Your plan: @ctx.me.flatMap(_.plan).getOrElse("none")</p>
+  <p>Your plan: @ctx.me.flatMap(_.activePlan).getOrElse("none")</p>
 </div>
 }
