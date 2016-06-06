@@ -15,7 +15,6 @@ import makeTimeout.short
 
 private[setup] final class Processor(
     lobby: ActorSelection,
-    router: ActorSelection,
     fishnetPlayer: lila.fishnet.Player,
     onStart: String => Unit) {
 

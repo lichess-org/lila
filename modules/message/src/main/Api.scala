@@ -5,8 +5,6 @@ import akka.pattern.pipe
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.message._
-import lila.hub.actorApi.SendTo
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
@@ -60,17 +58,6 @@ final class Api(
     }
   }
 
-  def lichessThread(lt: LichessThread): Funit = {
-    val thread = Thread.make(
-      name = lt.subject,
-      text = lt.message,
-      creatorId = lt.from,
-      invitedId = lt.to)
-    sendUnlessBlocked(thread, fromMod = false) flatMap { sent =>
-      sent ?? notify(thread)
-    }
-  }
-
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
     if (fromMod) coll.insert(thread) inject true
     else blocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
@@ -102,14 +89,15 @@ final class Api(
   def notify(thread: Thread): Funit = thread.posts.headOption ?? { post =>
     notify(thread, post)
   }
-  def notify(thread: Thread, post: Post): Funit = {
-    import lila.notify.{ Notification, PrivateMessage }
-    import lila.common.String.shorten
-    notifyApi addNotification Notification(
-      Notification.Notifies(thread receiverOf post),
-      PrivateMessage(
-        PrivateMessage.SenderId(thread senderOf post),
-        PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
-        PrivateMessage.Text(shorten(post.text, 80))))
-  }
+  def notify(thread: Thread, post: Post): Funit =
+    (thread isVisibleBy thread.receiverOf(post)) ?? {
+      import lila.notify.{ Notification, PrivateMessage }
+      import lila.common.String.shorten
+      notifyApi addNotification Notification(
+        Notification.Notifies(thread receiverOf post),
+        PrivateMessage(
+          PrivateMessage.SenderId(thread senderOf post),
+          PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
+          PrivateMessage.Text(shorten(post.text, 80))))
+    }
 }

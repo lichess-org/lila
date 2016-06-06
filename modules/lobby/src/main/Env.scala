@@ -34,7 +34,6 @@ final class Env(
 
   private val socket = system.actorOf(Props(new Socket(
     history = history,
-    router = hub.actor.router,
     uidTtl = SocketUidTtl)), name = SocketName)
 
   lazy val seekApi = new SeekApi(

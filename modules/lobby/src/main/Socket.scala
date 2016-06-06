@@ -22,7 +22,6 @@ import makeTimeout.short
 
 private[lobby] final class Socket(
     val history: History[Messadata],
-    router: akka.actor.ActorSelection,
     uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
 
   override val startsOnApplicationBoot = true

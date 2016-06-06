@@ -28,7 +28,6 @@ private[tournament] final class TournamentApi(
     sequencers: ActorRef,
     autoPairing: AutoPairing,
     clearJsonViewCache: String => Funit,
-    router: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef,

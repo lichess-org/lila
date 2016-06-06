@@ -31,7 +31,6 @@ final class Env(
   lazy val processor = new Processor(
     lobby = hub.actor.lobby,
     fishnetPlayer = fishnetPlayer,
-    router = hub.actor.router,
     onStart = onStart)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
