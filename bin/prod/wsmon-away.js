@@ -8,7 +8,7 @@ var geoLag = process.argv[2];
 var password = process.argv[3];
 if (!password) throw "missing SMS password";
 var domain = process.argv[4] || 'lichess.org';
-var url = 'ws://socket.en.' + domain + '/socket';
+var url = 'wss://socket.en.' + domain + '/socket';
 var averageLag;
 var lagAlert = 100; // in milliseconds
 var fail = 0;

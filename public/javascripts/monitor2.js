@@ -153,7 +153,7 @@ $(function() {
   var lastCall = getMillis();
 
   var sri = Math.random().toString(36).substring(5);
-  var wsUrl = "ws://socket." + document.domain + "/monitor/socket?sri=" + sri;
+  var wsUrl = "wss://socket." + document.domain + "/monitor/socket?sri=" + sri;
   var ws = window.MozWebSocket ? new MozWebSocket(wsUrl) : new WebSocket(wsUrl);
   ws.onmessage = function(e) {
     var m = JSON.parse(e.data);
