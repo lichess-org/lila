@@ -17,9 +17,6 @@ final class Env(
   private val CollectionThread = config getString "collection.thread"
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
 
-  import scala.collection.JavaConversions._
-  val LichessSenders = (config getStringList "lichess_senders").toList
-
   private[message] lazy val threadColl = db(CollectionThread)
 
   lazy val forms = new DataForm(security = security)

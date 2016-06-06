@@ -13,7 +13,6 @@ import lila.user.{ User, UserRepo }
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
-    messenger: akka.actor.ActorSelection,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
@@ -123,6 +122,5 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher,
-    messenger = lila.hub.Env.current.actor.messenger)
+    captcher = lila.hub.Env.current.actor.captcher)
 }
