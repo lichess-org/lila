@@ -40,6 +40,7 @@ final class StudyPager(
       sort = order match {
         case Order.Newest  => $sort desc "createdAt"
         case Order.Oldest  => $sort asc "createdAt"
+        case Order.Updated  => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
     ) mapFutureList withChapters mapFutureList withLiking(me),
@@ -67,9 +68,10 @@ sealed abstract class Order(val key: String, val name: String)
 object Order {
   case object Newest extends Order("newest", "Date added (newest)")
   case object Oldest extends Order("oldest", "Date added (oldest)")
+  case object Updated extends Order("updated", "Recently updated")
   case object Popular extends Order("popular", "Most popular")
 
   val default = Newest
-  val all = List(Newest, Oldest, Popular)
+  val all = List(Newest, Oldest, Updated, Popular)
   def apply(key: String): Order = all.find(_.key == key) | default
 }
