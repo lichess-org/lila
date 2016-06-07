@@ -14,6 +14,7 @@ lichess.movetimeChart = function(data) {
             var max = 0;
             data.game.moveTimes.forEach(function(t) {
               if (t > max) max = t;
+              else if (t < 0.5) t = 0;
             });
             data.treeParts.slice(1).forEach(function(node, i) {
               var turn = Math.floor((node.ply - 1) / 2) + 1;
