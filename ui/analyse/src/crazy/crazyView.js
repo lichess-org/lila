@@ -13,13 +13,13 @@ module.exports = {
     var usable = color === ctrl.chessground.data.movable.color;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
-        config: function(el, isUpdate, context) {
+        config: function(el, isUpdate, ctx) {
           if (isUpdate) return;
           var onstart = partial(crazyDrag, ctrl, color);
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
           });
-          context.onunload = function() {
+          ctx.onunload = function() {
             eventNames.forEach(function(name) {
               el.removeEventListener(name, onstart);
             });
