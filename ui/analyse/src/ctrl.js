@@ -76,8 +76,17 @@ module.exports = function(opts) {
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
     this.chessground.set({
-      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
+      orientation: this.bottomColor()
     });
+    m.redraw.strategy("all"); // helps crazy pockets
+    m.redraw();
+  }.bind(this);
+
+  this.topColor = function() {
+    return this.data[this.vm.flip ? 'player' : 'opponent'].color;
+  }.bind(this);
+  this.bottomColor = function() {
+    return opposite(this.topColor());
   }.bind(this);
 
   this.togglePlay = function(delay) {
