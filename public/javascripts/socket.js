@@ -24,7 +24,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
-  if (options.prodPipe) options.baseUrls = ['socket.lichess.org:9021'];
+  if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
 
   var connect = function() {
     destroy();
@@ -294,11 +294,13 @@ lichess.StrongSocket.defaults = {
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(domain) {
       var base = domain.split('.').slice(1).join('.');
-      var main = 'socket.' + base;
-      var extra = /lichess\.org/.test(base) ? [9021, 9022, 9023, 9024].map(function(port) {
-        return 'socket.' + base + ':' + port;
-      }) : []
-      return [main].concat(extra);
+      var urls = ['socket.' + base];
+      if (/lichess\.org/.test(base) && location.protocol === 'http') {
+        urls = urls.concat([9021, 9022, 9023, 9024].map(function(port) {
+          return 'socket.' + base + ':' + port;
+        }));
+      }
+      return urls;
     })(document.domain),
     onFirstConnect: $.noop,
     baseUrlKey: 'surl4'
