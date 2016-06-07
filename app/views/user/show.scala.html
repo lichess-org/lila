@@ -45,7 +45,9 @@ description = describeUser(u)).some) {
     </a>
     }
     @perfTrophies(u, info.ranks)
-    <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span> @u.titleUsername</h1>
+    <h1 class="lichess_title user_link @if(isOnline(u.id)){online}else{offline}">
+      @Html(lineIcon(u))@u.titleUsername
+    </h1>
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
     }

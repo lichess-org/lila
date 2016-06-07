@@ -13,7 +13,7 @@
     <span class="countrylang" data-icon="c">&nbsp;@name</span>
     }
     }
-    @userLink(u, withPowerTip = false, withDonor = isDonor)
+    @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {
   <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div>

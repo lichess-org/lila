@@ -380,3 +380,9 @@
 .icon-bell-o:before {
   content: "\e00f";
 }
+.icon-curly-wing:before {
+  content: "\e010";
+}
+.icon-diamond:before {
+  content: "\e011";
+}

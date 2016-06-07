@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font53/fonts/lichess.eot");
-  src: url("../font53/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font53/fonts/lichess.woff") format("woff"), url("../font53/fonts/lichess.ttf") format("truetype"), url("../font53/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font55/fonts/lichess.eot");
+  src: url("../font55/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font55/fonts/lichess.woff") format("woff"), url("../font55/fonts/lichess.ttf") format("truetype"), url("../font55/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -66,6 +66,7 @@ time {
 }
 .is::before,
 [data-icon]::before,
+.user_link .line,
 .is-after::after {
   font-size: 1.2em;
   vertical-align: middle;
@@ -95,6 +96,7 @@ time {
 .is4.text::before {
   margin-right: 10px;
 }
+.user_link.online .line,
 [data-icon].is-green::before {
   color: #759900;
 }
@@ -103,6 +105,30 @@ time {
 }
 [data-icon].is-gold::before {
   color: #d59120;
+}
+.user_link .line {
+  opacity: 0.4;
+  font-size: 0.85em;
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+}
+.user_link.online .line {
+  opacity: 0.7;
+}
+.user_link .line.patron {
+  opacity: 0.7;
+  font-size: 1.1em;
+}
+.user_link.online .line.patron {
+  opacity: 0.9;
+}
+h1.user_link .line {
+  width: 1.5em;
+}
+h1.user_link .line.patron {
+  font-size: 1.2em;
+  width: 1.5em;
 }
 body.blind_mode .is::before,
 body.blind_mode .is::after,
