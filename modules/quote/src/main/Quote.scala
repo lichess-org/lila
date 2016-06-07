@@ -563,6 +563,7 @@ object Quote {
     , new Quote("Chess is a battle between your aversion to thinking and your aversion to losing.", "Someone")
     , new Quote("It was once said that Tal sacrificed 9 pawns for an attack", "Mato")
     , new Quote("Be well enough prepared that preparation won't play a role.", "Magnus Carlsen")
+    , new Quote("I don't study; I create..", "Viktor Korchnoi")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
