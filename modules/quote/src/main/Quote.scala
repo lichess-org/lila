@@ -402,7 +402,7 @@ object Quote {
     , new Quote("Analysis, if it is really carried out with a complete concentration of his powers, forms and completes a chess player.", "Lev Polugaevsky")
     , new Quote("Anyone who wishes to learn how to play chess well must make himself or herself thoroughly conversant with the play in positions where the players have castled on opposite sides.", "Alexander Kotov")
     , new Quote("Apart from direct mistakes, there is nothing more ruinous than routine play, the aim of which is mechanical development.", "Alexei Suetin")
-    , new Quote("As Rousseau could not compose without his cat beside him, so I cannot play chess without my king's bishop. In its absense the game to me is lifeless and void. The vitalizing factor is missing, and I can devise no plan of attack.", "Siegbert Tarrasch")
+    , new Quote("As Rousseau could not compose without his cat beside him, so I cannot play chess without my king's bishop. In its absence the game to me is lifeless and void. The vitalizing factor is missing, and I can devise no plan of attack.", "Siegbert Tarrasch")
     , new Quote("As a chess player one has to be able to control one’s feelings, one has to be as cold as a machine.", "Levon Aronian")
     , new Quote("As a rule, pawn endings have a forced character, and they can be worked out conclusively.", "Mark Dvoretsky")
     , new Quote("As a rule, so-called \"positional\" sacrifices are considered more difficult, and therefore more praise-worthy, than those which are based exclusively on an exact calculation of tactical possibilities.", "Alexander Alekhine")
@@ -563,7 +563,7 @@ object Quote {
     , new Quote("Chess is a battle between your aversion to thinking and your aversion to losing.", "Someone")
     , new Quote("It was once said that Tal sacrificed 9 pawns for an attack", "Mato")
     , new Quote("Be well enough prepared that preparation won't play a role.", "Magnus Carlsen")
-    , new Quote("I don't study; I create..", "Viktor Korchnoi")
+    , new Quote("I don't study; I create.", "Viktor Korchnoi")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
