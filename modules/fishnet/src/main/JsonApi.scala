@@ -76,8 +76,10 @@ object JsonApi {
         engine: FullEngine,
         analysis: List[Evaluation]) {
 
-      def medianNodes =
-        analysis.filterNot(_.mateFound).flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
+      def medianNodes = analysis
+        .filterNot(_.mateFound)
+        .filterNot(_.deadDraw)
+        .flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
@@ -105,6 +107,7 @@ object JsonApi {
 
       def isCheckmate = score.mate contains 0
       def mateFound = score.mate.isDefined
+      def deadDraw = score.cp contains 0
     }
 
     object Evaluation {
