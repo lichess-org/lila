@@ -1,9 +1,0 @@
-@(pages: List[lila.wiki.Page])(implicit ctx: Context)
-
-<ul>
-  @pages.map { page =>
-  <li>
-    <a href="@routes.Wiki.show(page.slug)">@page.title</a>
-  </li>
-  }
-</ul>
