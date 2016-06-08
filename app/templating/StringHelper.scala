@@ -47,7 +47,7 @@ trait StringHelper { self: NumberHelper =>
     }
   }
 
-  private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’]))""".r
+  private val urlRegex = """(?i)\b((https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}/)((?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’])))""".r
 
   /**
     * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
@@ -55,20 +55,33 @@ trait StringHelper { self: NumberHelper =>
     * @return The text as a HTML hyperlink
     */
   def addUserProfileLinks(text: String) = User.atUsernameRegex.replaceAllIn(text, m => {
-    var user = m group 1
-    var url = s"$netDomain/@/$user"
+    val user = m group 1
+    val url = s"//$netDomain/@/$user"
 
-    s"""<a href="${prependHttp(url)}">@$user</a>"""
+    s"""<a href="$url">@$user</a>"""
   })
 
   def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
-    val url = delocalize(quoteReplacement(m group 1))
-    val target = if (url contains netDomain) "" else " target='blank'"
-    s"""<a$target rel="nofollow" href="${prependHttp(url)}">$url</a>"""
+    if (m.group(2) == "http://" || m.group(2) == "https://") {
+      if (s"${delocalize(m.group(3))}/" startsWith s"$netDomain/") {
+        // internal
+        val link = delocalize(m.group(3))
+        s"""<a rel="nofollow" href="//$link">$link</a>"""
+      } else {
+        // external
+        s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+      }
+    } else {
+      if (s"${delocalize(m.group(2))}/" startsWith s"$netDomain/") {
+        // internal
+        val link = delocalize(m.group(1))
+        s"""<a rel="nofollow" href="//$link">$link</a>"""
+      } else {
+        // external
+        s"""<a rel="nofollow" href="http://${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+      }
+    }
   })
-
-  private def prependHttp(url: String): String =
-    if (url startsWith "//") url else "//" + url
 
   private val delocalize = new lila.common.String.Delocalizer(netDomain)
 
