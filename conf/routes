@@ -422,6 +422,7 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 GET   /swag                            controllers.Page.swag
+GET   /about                           controllers.Page.about
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
