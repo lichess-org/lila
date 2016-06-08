@@ -777,6 +777,7 @@ div.side_box .game_infos {
 div.side_box .players .player {
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .notification .message_infos::before,
 .notification .game_infos::before,
