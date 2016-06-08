@@ -11,6 +11,9 @@ private final class NotificationRepo(val coll: Coll) {
     coll.insert(notification).void
   }
 
+  def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
+    coll.remove(userNotificationsQuery(notifies) ++ selector).void
+
   def markAllRead(notifies: Notification.Notifies): Funit = {
     coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
   }

@@ -53,6 +53,9 @@ final class NotifyApi(
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
 
+  def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
+    repo.remove(notifies, selector) >> unreadCountCache.remove(notifies)
+
   private def shouldSkip(notification: Notification) =
     UserRepo.isKid(notification.notifies.value) flatMap {
       case true => fuccess(true)
