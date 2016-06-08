@@ -322,10 +322,6 @@ GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
 GET   /mod/search                      controllers.Mod.search
 
-# Wiki
-GET   /wiki                            controllers.Wiki.home
-GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
-
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
@@ -429,6 +425,7 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 GET   /swag                            controllers.Page.swag
+GET   /about                           controllers.Page.about
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

@@ -27,6 +27,8 @@ object Page extends LilaController {
 
   def privacy = bookmark("privacy")
 
+  def about = bookmark("about")
+
   def swag = Open { implicit ctx =>
     OptionOk(Prismic getBookmark "swag") {
       case (doc, resolver) => views.html.site.swag(doc, resolver)

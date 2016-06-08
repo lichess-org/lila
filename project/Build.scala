@@ -52,7 +52,7 @@ object ApplicationBuild extends Build {
     ))
 
   lazy val modules = Seq(
-    chess, common, db, rating, user, security, wiki, hub, socket,
+    chess, common, db, rating, user, security, hub, socket,
     message, notifyModule, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     analyse, mod, site, round, lobby, setup,
@@ -304,11 +304,6 @@ object ApplicationBuild extends Build {
   lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(
     libraryDependencies ++= provided(
       play.api, play.test, RM)
-  )
-
-  lazy val wiki = project("wiki", Seq(common, db)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, jgit, guava)
   )
 
   lazy val report = project("report", Seq(common, db, user)).settings(
