@@ -69,7 +69,7 @@ trait StringHelper { self: NumberHelper =>
         s"""<a rel="nofollow" href="//$link">$link</a>"""
       } else {
         // external
-        s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}<a>"""
+        s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}</a>"""
       }
     } else {
       if (s"${delocalize(m.group(2))}/" startsWith s"$netDomain/") {
