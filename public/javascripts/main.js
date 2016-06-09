@@ -2033,7 +2033,7 @@ lichess.notifyApp = (function() {
     };
     var startAdvantageChart = function() {
       if (lichess.advantageChart) return;
-      var loading = !data.treeParts[0].eval;
+      var loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
       var $panel = $panels.filter('.computer_analysis');
       if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
       else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
