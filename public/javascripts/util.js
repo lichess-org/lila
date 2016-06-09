@@ -115,7 +115,7 @@ lichess.shepherd = function(f) {
 };
 lichess.makeChat = function(id, data) {
   lichess.loadScript('/assets/compiled/lichess.chat.js').then(function() {
-    return LichessChat(document.getElementById(id), data);
+    lichess.chat = LichessChat(document.getElementById(id), data);
   });
 };
 

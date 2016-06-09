@@ -18,6 +18,7 @@ userId: @jsUserId
 @chat.map { c =>
 lichess.makeChat('chat', {
 lines: @Html(J.stringify(lila.chat.JsonView(c))),
+i18n: @base.chatJsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 kobold: @ctx.troll,
 mod: @isGranted(_.MarkTroll)

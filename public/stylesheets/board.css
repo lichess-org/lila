@@ -1036,10 +1036,10 @@ body.no-select #chat li {
 #chat form {
   position: relative;
 }
-#chat form input.lichess_say {
+#chat input.lichess_say {
   border: 0;
   border-top: 1px solid #ccc;
-  padding: 2px 20px 2px 4px;
+  padding: 3px 20px 3px 4px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1060,7 +1060,7 @@ body.no-select #chat li {
 #chat .messages li {
   padding-left: 3px;
   line-height: 14px;
-  margin: 0.6em 0 0.6em 3px;
+  margin: 0.8em 0 0.8em 3px;
 }
 #chat .messages li.system {
   padding: 2px 0;
@@ -1075,12 +1075,14 @@ body.no-select #chat li {
 #chat li span {
   font-weight: bold;
   margin-right: 6px;
-  color: #aaa;
+  opacity: 0.7;
 }
 #chat a.user_link {
+  font-family: 'Roboto';
+  font-weight: 300;
   padding: 0;
-  color: #aaa;
-  font-weight: bold;
+  margin-right: 6px;
+  opacity: 0.8;
 }
 #chat .presets {
   margin-top: 3px;

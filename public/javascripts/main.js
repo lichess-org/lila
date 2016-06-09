@@ -181,7 +181,8 @@ lichess.notifyApp = (function() {
         $('#friend_box').friends('leaves', name);
       },
       message: function(msg) {
-        $('#chat').chat("append", msg);
+        if (lichess.chat) lichess.chat.newLine(msg);
+        else $('#chat').chat("append", msg);
       },
       new_notification: function(e) {
         var notification = e.notification;
@@ -1181,34 +1182,9 @@ lichess.notifyApp = (function() {
           $(this).attr('target', '_blank');
         });
         var $form = self.element.find('form');
-        var $input = self.element.find('input.lichess_say')
-          .focus(function() {
-            document.body.classList.add('typing');
-            warning();
-          }).blur(function() {
-            document.body.classList.remove('typing');
-          });
+        var $input = self.element.find('input.lichess_say');
         self.options.placeholder = $input.attr('placeholder');
         self.writeable(self.options.writeable);
-
-        var warning = function() {
-          if (lichess.once('chat-nice-notice')) $input.powerTip({
-            manual: true,
-            fadeInTime: 300,
-            fadeOutTime: 300,
-            placement: 'n'
-          }).data('powertipjq', $('<div class="info">').html([
-            $('<strong class="title text" data-icon="">').text('Public notice'),
-            $('<div class="content">').html([
-              'Failure to be nice towards other players can lead to losing chat privileges or account closure!',
-              $('<div class="confirm">').html(
-                $('<button class="button">').text('OK').click(function() {
-                  $input.focus();
-                })
-              )
-            ])
-          ])).powerTip('show');
-        };
 
         // send a message
         $form.submit(function() {
@@ -1323,7 +1299,7 @@ lichess.notifyApp = (function() {
         sys = true;
         user = '<span class="system"></span>';
       } else {
-        user = '<span class="user">' + $.userLinkLimit(msg.u, 14) + '</span>';
+        user = $.userLinkLimit(msg.u, 14);
       }
       return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + $.urlToLink(msg.t) + '</li>';
     },

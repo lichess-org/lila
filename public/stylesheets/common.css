@@ -733,6 +733,14 @@ div.chat_panels .preferences a.prefs {
   display: block;
   text-align: center;
 }
+div.mchat {
+  height: 350px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+div.mchat .lichess_say {
+  border-width: 1px 0 0 0;
+}
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
