@@ -28,7 +28,7 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "blog" :: "message" :: prismicId :: Nil =>
+      case "blog" :: "notify" :: prismicId :: Nil =>
         notifier(prismicId) inject "done!"
     }
   }

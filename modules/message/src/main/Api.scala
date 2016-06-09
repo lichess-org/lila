@@ -82,8 +82,13 @@ final class Api(
   }
 
   def deleteThread(id: String, me: User): Funit =
-    thread(id, me) flatMap { threadOption =>
-      threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)
+    thread(id, me) flatMap {
+      _ ?? { thread =>
+        ThreadRepo.deleteFor(me.id)(thread.id) zip
+          notifyApi.remove(
+            lila.notify.Notification.Notifies(me.id),
+            $doc("content.thread.id" -> thread.id)) void
+      }
     }
 
   def notify(thread: Thread): Funit = thread.posts.headOption ?? { post =>

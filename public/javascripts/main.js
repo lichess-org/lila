@@ -1971,6 +1971,7 @@ lichess.notifyApp = (function() {
           analysisProgress: function(d) {
             if (!lichess.advantageChart) startAdvantageChart();
             else if (lichess.advantageChart.update) lichess.advantageChart.update(data);
+            if (Object.keys(d.tree.eval).length) $("#adv_chart_loader").remove();
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
@@ -2025,10 +2026,17 @@ lichess.notifyApp = (function() {
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
 
+    var chartLoader = function() {
+      return '<div id="adv_chart_loader">' +
+        'Analysis<br>in progress' + lichess.spinnerHtml +
+        '</div>'
+    };
     var startAdvantageChart = function() {
       if (lichess.advantageChart) return;
-      if (!$("#adv_chart").length)
-        $panels.filter('.computer_analysis').html('<div id="adv_chart"></div>');
+      var loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
+      var $panel = $panels.filter('.computer_analysis');
+      if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
+      else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
       lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
         lichess.advantageChart(data);
       });
