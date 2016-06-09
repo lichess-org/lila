@@ -20,14 +20,17 @@ final class Env(
   }
   import settings._
 
-  lazy val api = new ChatApi(
+  val api = new ChatApi(
     coll = chatColl,
     flood = flood,
     shutup = shutup,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain)
 
-  system.actorOf(Props(new FrontActor(api)), name = ActorName)
+  private val tempBan = new TempBan(
+    coll = chatColl)
+
+  system.actorOf(Props(new FrontActor(api, tempBan)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
 }

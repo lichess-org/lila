@@ -35,11 +35,13 @@ module.exports = function(ctrl) {
       placeholder: ctrl.trans(ctrl.vm.placeholderKey),
       autocomplete: 'off',
       maxlength: 140,
-      onkeypress: function(e) {
-        if (e.which == 10 || e.which == 13) {
-          ctrl.post(e.target.value);
-          e.target.value = '';
-        }
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('keypress', function(e) {
+          if (e.which == 10 || e.which == 13) {
+            ctrl.post(e.target.value);
+            e.target.value = '';
+          }
+        });
       }
     })
   ]);

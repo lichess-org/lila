@@ -5,15 +5,23 @@ import chess.Color
 sealed trait Line {
   def text: String
   def author: String
+  def deleted: Boolean
   def isSystem = author == systemUserId
   def isHuman = !isSystem
   def humanAuthor = isHuman option author
 }
 
-case class UserLine(username: String, text: String, troll: Boolean) extends Line {
+case class UserLine(
+    username: String,
+    text: String,
+    troll: Boolean,
+    deleted: Boolean) extends Line {
   def author = username
 }
-case class PlayerLine(color: Color, text: String) extends Line {
+case class PlayerLine(
+    color: Color,
+    text: String) extends Line {
+  def deleted = false
   def author = color.name
 }
 
@@ -23,7 +31,7 @@ object Line {
   import reactivemongo.bson.{ BSONHandler, BSONString }
   import org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4
 
-  private val invalidLine = UserLine("", "[invalid character]", true)
+  private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
 
   def userLineBSONHandler(encoded: Boolean) = new BSONHandler[BSONString, UserLine] {
     def read(bsonStr: BSONString) = strToUserLine {
@@ -39,10 +47,12 @@ object Line {
     def write(x: Line) = BSONString(lineToStr(x))
   }
 
-  private val UserLineRegex = """^([\w-]{2,})(\s|\!)(.+)$""".r
+  private val UserLineRegex = """^([\w-]{2,})(.)(.+)$""".r
   def strToUserLine(str: String): Option[UserLine] = str match {
-    case UserLineRegex(username, " ", text) => UserLine(username, text, false).some
-    case UserLineRegex(username, "!", text) => UserLine(username, text, true).some
+    case UserLineRegex(username, " ", text) => UserLine(username, text, troll = false, deleted = false).some
+    case UserLineRegex(username, "!", text) => UserLine(username, text, troll = true, deleted = false).some
+    case UserLineRegex(username, "?", text) => UserLine(username, text, troll = false, deleted = true).some
+    case _                                  => none
   }
   def userLineToStr(x: UserLine) = s"${x.username}${if (x.troll) "!" else " "}${x.text}"
 

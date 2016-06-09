@@ -5,7 +5,9 @@ import chess.Color
 
 import actorApi._
 
-private[chat] final class FrontActor(api: ChatApi) extends Actor {
+private[chat] final class FrontActor(
+    api: ChatApi,
+    tempBan: TempBan) extends Actor {
 
   def receive = {
 
@@ -17,6 +19,8 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
     case SystemTalk(chatId, text, replyTo) =>
       api.userChat.system(chatId, text) foreach publish(chatId, replyTo)
+
+    case TempBan(chatId, modId, userId) => tempBan.add(chatId, modId, userId)
   }
 
   def publish(chatId: String, replyTo: ActorRef)(lineOption: Option[Line]) {

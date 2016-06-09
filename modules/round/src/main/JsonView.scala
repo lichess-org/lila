@@ -114,12 +114,9 @@ final class JsonView(
               "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true)),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {
-                case lila.chat.UserLine(username, text, _) => Json.obj(
-                  "u" -> username,
-                  "t" -> text)
-                case lila.chat.PlayerLine(color, text) => Json.obj(
-                  "c" -> color.name,
-                  "t" -> text)
+                case l: lila.chat.UserLine => userLineWrites writes l
+                case lila.chat.PlayerLine(color, text) =>
+                  Json.obj("c" -> color.name, "t" -> text)
               })
             },
             "possibleMoves" -> possibleMoves(pov),
@@ -200,15 +197,14 @@ final class JsonView(
             "tv" -> tv.map { onTv =>
               Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
             },
-            "chat" -> chat.map { c =>
-              JsArray(c.lines map {
-                case lila.chat.UserLine(username, text, _) => Json.obj(
-                  "u" -> username,
-                  "t" -> text)
-              })
-            }
+            "chat" -> chat.map(_.lines)
           ).noNull
       }
+
+  private implicit val userLineWrites = OWrites[lila.chat.UserLine] { l =>
+    val j = Json.obj("u" -> l.username, "t" -> l.text)
+    if (l.deleted) j + ("d" -> JsBoolean(true)) else j
+  }
 
   def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color, owner: Boolean) =
     (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>

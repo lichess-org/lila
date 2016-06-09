@@ -1,7 +1,6 @@
 package lila.chat
 
 import chess.Color
-import reactivemongo.bson.BSONDocument
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -18,7 +17,7 @@ final class ChatApi(
   object userChat {
 
     def findOption(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).uno[UserChat]
+      coll.byId[UserChat](chatId)
 
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
@@ -35,7 +34,7 @@ final class ChatApi(
       }
 
     def system(chatId: ChatId, text: String) = {
-      val line = UserLine(systemUserId, Writer delocalize text, false)
+      val line = UserLine(systemUserId, Writer delocalize text, troll = false, deleted = false)
       pushLine(chatId, line) inject line.some
     }
 
@@ -43,7 +42,7 @@ final class ChatApi(
       _ flatMap { user =>
         Writer cut t1 ifFalse user.disabled flatMap { t2 =>
           flood.allowMessage(user.id, t2) option
-            UserLine(user.username, Writer preprocessUserInput t2, user.troll)
+            UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
       }
     }
@@ -52,7 +51,7 @@ final class ChatApi(
   object playerChat {
 
     def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).uno[MixedChat]
+      coll.byId[MixedChat](chatId)
 
     def find(chatId: ChatId): Fu[MixedChat] =
       findOption(chatId) map (_ | Chat.makeMixed(chatId))
@@ -73,9 +72,9 @@ final class ChatApi(
   }
 
   private def pushLine(chatId: ChatId, line: Line) = coll.update(
-    BSONDocument("_id" -> chatId),
-    BSONDocument("$push" -> BSONDocument(
-      Chat.BSONFields.lines -> BSONDocument(
+    $id(chatId),
+    $doc("$push" -> $doc(
+      Chat.BSONFields.lines -> $doc(
         "$each" -> List(Line.lineBSONHandler(false).write(line)),
         "$slice" -> -maxLinesPerChat)
     )),

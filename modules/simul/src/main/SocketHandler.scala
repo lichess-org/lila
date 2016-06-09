@@ -48,5 +48,10 @@ private[simul] final class SocketHandler(
         chat ! lila.chat.actorApi.UserTalk(simId, userId, text, socket)
       }
     }
+    case ("temp-ban", o) => o str "d" foreach { userId =>
+      member.userId foreach { modId =>
+        chat ! lila.chat.actorApi.TempBan(simId, modId, userId)
+      }
+    }
   }
 }
