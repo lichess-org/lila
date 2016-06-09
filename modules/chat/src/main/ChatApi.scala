@@ -76,7 +76,7 @@ final class ChatApi(
     BSONDocument("_id" -> chatId),
     BSONDocument("$push" -> BSONDocument(
       Chat.BSONFields.lines -> BSONDocument(
-        "$each" -> List(line),
+        "$each" -> List(Line.lineBSONHandler(false).write(line)),
         "$slice" -> -maxLinesPerChat)
     )),
     upsert = true) >>- lila.mon.chat.message()
@@ -84,9 +84,8 @@ final class ChatApi(
   private object Writer {
 
     import java.util.regex.Matcher.quoteReplacement
-    import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
-    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(escapeHtml4(in)))
+    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(in))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     val delocalize = new lila.common.String.Delocalizer(netDomain)

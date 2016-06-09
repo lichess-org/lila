@@ -25,7 +25,7 @@ module.exports = function(ctrl) {
           el.scrollTop = 999999;
           if (autoScroll) setTimeout(function() {
             el.scrollTop = 999999;
-          }, 200);
+          }, 500);
         }
       },
       ctrl.lines.map(renderLine(ctrl))
