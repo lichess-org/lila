@@ -9,7 +9,7 @@ study: @Html(J.stringify(data.study)),
 data: @Html(J.stringify(data.analysis)),
 chat: @Html(J.stringify(data.chat)),
 i18n: @board.userAnalysisI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
+userId: @jsUserId,
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"

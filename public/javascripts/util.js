@@ -112,7 +112,12 @@ lichess.shepherd = function(f) {
       f(theme);
     });
   });
-}
+};
+lichess.makeChat = function(id, data) {
+  lichess.loadScript('/assets/compiled/lichess.chat.js').then(function() {
+    return LichessChat(document.getElementById(id), data);
+  });
+};
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];

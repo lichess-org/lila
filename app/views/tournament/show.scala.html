@@ -13,7 +13,7 @@ lichess = lichess || {};
 lichess.tournament = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 i18n: @jsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
+userId: @jsUserId
 };
 }
 }

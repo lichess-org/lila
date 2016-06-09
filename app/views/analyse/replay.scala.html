@@ -15,7 +15,7 @@ lichess = lichess || {};
 lichess.analyse = {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
+userId: @jsUserId,
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
