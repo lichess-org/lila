@@ -12,9 +12,9 @@ function renderPlayer(data, color) {
 }
 
 var advices = [
-  ['inaccuracy', 'Inaccuracies', '?!'],
-  ['mistake', 'Mistakes', '?'],
-  ['blunder', 'Blunders', '??']
+  ['inaccuracy', 'inaccuracies', '?!'],
+  ['mistake', 'mistakes', '?'],
+  ['blunder', 'blunders', '??']
 ];
 
 var cached = false;
@@ -54,7 +54,7 @@ module.exports = function(ctrl) {
           } : {};
           return m('tr', attrs, [
             m('td', nb),
-            m('th', a[1])
+            m('th', ctrl.trans(a[1]))
           ]);
         }),
         m('tr', [
