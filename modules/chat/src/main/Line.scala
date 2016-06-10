@@ -1,5 +1,7 @@
 package lila.chat
 
+import lila.user.User
+
 import chess.Color
 
 sealed trait Line {
@@ -16,7 +18,12 @@ case class UserLine(
     text: String,
     troll: Boolean,
     deleted: Boolean) extends Line {
+
   def author = username
+
+  def userId = User normalize username
+
+  def delete = copy(deleted = true)
 }
 case class PlayerLine(
     color: Color,
@@ -54,7 +61,12 @@ object Line {
     case UserLineRegex(username, "?", text) => UserLine(username, text, troll = false, deleted = true).some
     case _                                  => none
   }
-  def userLineToStr(x: UserLine) = s"${x.username}${if (x.troll) "!" else " "}${x.text}"
+  def userLineToStr(x: UserLine) = {
+    val sep = if (x.troll) "!"
+    else if (x.deleted) "?"
+    else " "
+    s"${x.username}$sep${x.text}"
+  }
 
   def strToLine(str: String): Option[Line] = strToUserLine(str) orElse {
     str.headOption flatMap Color.apply map { color =>

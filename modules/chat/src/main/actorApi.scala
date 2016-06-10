@@ -9,3 +9,5 @@ case class PlayerTalk(chatId: String, white: Boolean, text: String, replyTo: Act
 case class SystemTalk(chatId: String, text: String, replyTo: ActorRef)
 case class ChatLine(chatId: String, line: Line)
 case class Timeout(chatId: String, member: lila.socket.SocketMember, data: JsValue)
+
+case class MarkDeleted(username: String)

@@ -21,6 +21,15 @@ private[simul] final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
+  override def preStart() {
+    lilaBus.subscribe(self, Symbol(s"chat-$simulId"))
+  }
+
+  override def postStop() {
+    super.postStop()
+    lilaBus.unsubscribe(self)
+  }
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
@@ -74,9 +83,12 @@ private[simul] final class Socket(
       case _ =>
     }
 
-    case GetVersion => sender ! history.version
+    case lila.chat.actorApi.MarkDeleted(username) =>
+      notifyVersion("chat_mark_deleted", username, Messadata())
 
-    case Socket.GetUserIds  => sender ! userIds
+    case GetVersion        => sender ! history.version
+
+    case Socket.GetUserIds => sender ! userIds
 
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

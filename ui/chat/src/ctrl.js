@@ -11,10 +11,21 @@ module.exports = function(opts) {
     isMod: opts.mod,
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
-    loading: m.prop(false)
+    loading: m.prop(false),
+    timedOut: m.prop(false)
   };
 
-  var socket = makeSocket(lichess.socket.send);
+  var timeout = function(username) {
+    lines.forEach(function(l) {
+      if (l.u === username) l.d = true;
+    });
+    m.redraw();
+  };
+
+  var socket = makeSocket({
+    send: lichess.socket.send,
+    timeout: timeout
+  });
   var moderation = vm.isMod ? makeModeration({
     reasons: opts.timeoutReasons,
     send: socket.send

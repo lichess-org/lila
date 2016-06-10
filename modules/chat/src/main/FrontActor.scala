@@ -6,9 +6,7 @@ import chess.Color
 import actorApi._
 import lila.common.PimpedJson._
 
-private[chat] final class FrontActor(
-    api: ChatApi,
-    timeout: ChatTimeout) extends Actor {
+private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
   def receive = {
 
@@ -26,7 +24,7 @@ private[chat] final class FrontActor(
       modId <- member.userId
       username <- data.str("username")
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
-    } timeout.add(chatId, modId, username, reason)
+    } api.userChat.timeout(chatId, modId, username, reason)
   }
 
   def publish(chatId: String, replyTo: ActorRef)(lineOption: Option[Line]) {

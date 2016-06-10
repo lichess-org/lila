@@ -1,16 +1,32 @@
 var m = require('mithril');
 var moderationView = require('./moderation').view;
 
+var deletedDom = m('em.deleted', '<deleted>');
+
 function renderLine(ctrl) {
   return function(line) {
+    if (line.u === 'lichess') return m('li', m('em.system', line.t));
     return m('li', {
       'data-username': line.u
     }, [
       ctrl.vm.isMod ? moderationView.lineAction : null,
       m.trust($.userLinkLimit(line.u, 14)),
-      line.t
+      line.d ? deletedDom : line.t
     ]);
   };
+}
+
+function sameLines(l1, l2) {
+  return l1.d && l2.d && l1.u === l2.u;
+}
+
+function dedupLines(lines) {
+  var prev, ls = [];
+  lines.forEach(function(l) {
+    if (!prev || !sameLines(prev, l)) ls.push(l);
+    prev = l;
+  });
+  return ls;
 }
 
 function discussion(ctrl) {
@@ -35,7 +51,7 @@ function discussion(ctrl) {
           }, 500);
         }
       },
-      ctrl.lines.map(renderLine(ctrl))
+      dedupLines(ctrl.lines).map(renderLine(ctrl))
     ),
     m('input', {
       class: 'lichess_say',

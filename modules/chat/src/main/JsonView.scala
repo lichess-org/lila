@@ -1,5 +1,6 @@
 package lila.chat
 
+import lila.common.PimpedJson._
 import play.api.libs.json._
 
 object JsonView {
@@ -14,7 +15,7 @@ object JsonView {
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
   implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
-    Json.obj( "key" -> r.key, "name" -> r.name)
+    Json.obj("key" -> r.key, "name" -> r.name)
   }
 
   implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
@@ -31,8 +32,11 @@ object JsonView {
   }
 
   private implicit val userLineWriter = Writes[UserLine] { l =>
-    val o = Json.obj("u" -> l.username, "t" -> l.text)
-    if (l.troll) o + ("r" -> JsBoolean(true)) else o
+    Json.obj(
+      "u" -> l.username,
+      "t" -> l.text,
+      "r" -> l.troll.option(true),
+      "d" -> l.deleted.option(true)).noNull
   }
 
   private implicit val playerLineWriter = Writes[PlayerLine] { l =>

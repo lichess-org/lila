@@ -21,6 +21,13 @@ case class UserChat(
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(this,
     copy(lines = lines filterNot (_.troll)))
+
+  def markDeleted(u: User) = copy(
+    lines = lines.map { l =>
+      if (l.userId == u.id) l.delete else l
+    })
+
+  def add(line: UserLine) = copy(lines = lines :+ line)
 }
 
 case class MixedChat(

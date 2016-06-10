@@ -745,6 +745,16 @@ div.mchat .moderation {
 div.mchat .lichess_say {
   border-width: 1px 0 0 0;
 }
+div.mchat .deleted {
+  opacity: 0.5;
+}
+div.mchat .system {
+  display: block;
+  opacity: 0.8;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8em;
+}
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {

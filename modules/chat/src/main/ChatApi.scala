@@ -7,8 +7,10 @@ import lila.user.{ User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
+    chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
     shutup: akka.actor.ActorSelection,
+    lilaBus: lila.common.Bus,
     maxLinesPerChat: Int,
     netDomain: String) {
 
@@ -23,7 +25,7 @@ final class ChatApi(
       findOption(chatId) map (_ | Chat.makeUser(chatId))
 
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
-      makeLine(userId, text) flatMap {
+      makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
             shutup ! public.fold(
@@ -38,14 +40,36 @@ final class ChatApi(
       pushLine(chatId, line) inject line.some
     }
 
-    private[ChatApi] def makeLine(userId: String, t1: String): Fu[Option[UserLine]] = UserRepo byId userId map {
-      _ flatMap { user =>
-        Writer cut t1 ifFalse user.disabled flatMap { t2 =>
+    def timeout(chatId: ChatId, modId: String, username: String, reason: ChatTimeout.Reason): Funit =
+      coll.byId[UserChat](chatId) zip UserRepo.named(modId) zip UserRepo.named(username) flatMap {
+        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => doTimeout(chat, mod, user, reason)
+        case _ => fuccess(none)
+      }
+
+    private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
+      val line = UserLine(
+        username = systemUserId,
+        text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
+        troll = false, deleted = false)
+      val chat = c.markDeleted(user) add line
+      coll.update($id(chat.id), chat).void >>
+        chatTimeout.add(c, mod, user, reason) >>- {
+          val channel = Symbol(s"chat-${chat.id}")
+          lilaBus.publish(actorApi.MarkDeleted(user.username), channel)
+          lilaBus.publish(actorApi.ChatLine(chat.id, line), channel)
+        }
+    }
+
+    private def isMod(user: User) = lila.security.Granter(_.MarkTroll)(user)
+
+    private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
+      UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) map {
+        case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
           flood.allowMessage(user.id, t2) option
             UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
+        case _ => none
       }
-    }
   }
 
   object playerChat {
