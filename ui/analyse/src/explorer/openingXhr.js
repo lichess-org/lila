@@ -1,6 +1,7 @@
 var m = require('mithril');
 
 module.exports = function(endpoint, variant, fen, config, withGames) {
+  endpoint = '//expl.lichess.org'; // PROD FIX HACK, delete me
   var url;
   var params = {
     fen: fen,
