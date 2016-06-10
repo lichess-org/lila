@@ -26,7 +26,7 @@ module.exports = function(opts) {
         steps: [{
           title: "Racing Kings",
           content: "This is a game of racing kings. " +
-            'You might want to check out <a target="_blank" href="http://lichess.org/variant/racing-kings">the rules</a>.',
+            'You might want to check out <a target="_blank" href="https://lichess.org/variant/racing-kings">the rules</a>.',
           target: "div.game_infos .variant-link",
           placement: "bottom"
         }]
@@ -44,7 +44,7 @@ module.exports = function(opts) {
         steps: [{
           title: "Crazyhouse",
           content: "This is a game of crazyhouse. " +
-            'You might want to check out <a target="_blank" href="http://lichess.org/variant/crazyhouse">the rules</a>.',
+            'You might want to check out <a target="_blank" href="https://lichess.org/variant/crazyhouse">the rules</a>.',
           target: "div.game_infos .variant-link",
           placement: "bottom"
         }]

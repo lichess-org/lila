@@ -151,7 +151,7 @@ private[round] final class Round(
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        lila.log("cheat").info(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         lila.mon.cheat.holdAlert()
         proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
       }

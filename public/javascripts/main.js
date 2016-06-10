@@ -110,7 +110,7 @@ lichess.notifyApp = (function() {
         document.cookie = cookie;
       }
     }
-    var href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+    var href = '//' + location.hostname + '/' + url.replace(/^\//, '');
     $.redirect.inProgress = href;
     location.href = href;
   };
@@ -977,8 +977,8 @@ lichess.notifyApp = (function() {
   };
 
   $.urlToLink = function(text) {
-    var exp = /\bhttp:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(exp, "<a href='http://$1'>$1</a>");
+    var exp = /\bhttps?:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(exp, "<a href='//$1'>$1</a>");
   }
 
   function startTournamentClock() {

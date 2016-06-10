@@ -39,7 +39,7 @@ $(function() {
       point[1] + Math.random() - 0.5);
   };
 
-  var source = new EventSource("http://en.lichess.org/network/stream");
+  var source = new EventSource("//en.lichess.org/network/stream");
 
   var removeFunctions = {};
 

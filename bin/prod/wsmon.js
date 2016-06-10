@@ -3,7 +3,7 @@ var HttpClient = require('request');
 
 var lichessSri = Math.random().toString(36).substring(2);
 
-var url = 'ws://socket.en.lichess.org/socket';
+var url = 'wss://socket.lichess.org/socket';
 var client = new WebSocketClient();
 var geoLag = process.argv[2];
 var password = process.argv[3];

@@ -134,7 +134,7 @@ window.addEventListener('blur', function() {
 });
 lichess.desktopNotification = function(msg) {
   var title = 'lichess.org';
-  var icon = 'http://lichess1.org/assets/images/logo.256.png';
+  var icon = '//lichess1.org/assets/images/logo.256.png';
   var notify = function() {
     var notification = new Notification(title, {
       icon: icon,

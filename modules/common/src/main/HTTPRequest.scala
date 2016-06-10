@@ -17,8 +17,6 @@ object HTTPRequest {
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
-  def fullUrl(req: RequestHeader): String = "http://" + req.host + req.uri
-
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   val isAndroid = UaMatcher("""(?i).*android.+mobile.*""".r)

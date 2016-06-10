@@ -44,7 +44,4 @@ private[qa] final class Notifier(notifyApi: NotifyApi,
     val msg = Propagate(QaComment(u.id, q.id, q.title, c.id))
     timeline ! (msg toFollowersOf u.id toUser a.userId exceptUser u.id)
   }
-
-  private def questionUrl(q: Question) =
-    s"http://lichess.org/qa/${q.id}/${q.slug}"
 }

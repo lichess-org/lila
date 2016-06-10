@@ -1,17 +1,17 @@
 @(docs: Seq[io.prismic.Document])(implicit req: RequestHeader)
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
-  <id>@routes.Blog.index().absoluteURL()</id>
-  <link rel="alternate" type="text/html" href="@routes.Blog.index().absoluteURL()"/>
-  <link rel="self" type="application/atom+xml" href="@routes.Blog.atom().absoluteURL()"/>
+  <id>@routes.Blog.index().absoluteURL(true)</id>
+  <link rel="alternate" type="text/html" href="@routes.Blog.index().absoluteURL(true)"/>
+  <link rel="self" type="application/atom+xml" href="@routes.Blog.atom().absoluteURL(true)"/>
   <title>lichess.org blog</title>
   <updated>@docs.headOption.flatMap(atomDate("blog.date"))</updated>
   @docs.map { doc =>
   <entry>
-    <id>@routes.Blog.show(doc.id, doc.slug).absoluteURL()</id>
+    <id>@routes.Blog.show(doc.id, doc.slug).absoluteURL(true)</id>
     <published>@atomDate("blog.date")(doc)</published>
     <updated>@atomDate("blog.date")(doc)</updated>
-    <link rel="alternate" type="text/html" href="@routes.Blog.show(doc.id, doc.slug).absoluteURL()"/>
+    <link rel="alternate" type="text/html" href="@routes.Blog.show(doc.id, doc.slug).absoluteURL(true)"/>
     <title>@doc.getText("blog.title")</title>
     <category>
       <term>@doc.getText("blog.category")</term>
@@ -25,7 +25,7 @@
     &lt;img src="@img.url"/&gt;
     }
     &lt;br /&gt;
-    @(doc.getStructuredText("blog.body") ?? lila.blog.BlogApi.extract)
+    @lila.blog.ProtocolFix.add(doc.getStructuredText("blog.body") ?? lila.blog.BlogApi.extract)
     </content>
     <media:thumbnail url="@doc.getImage(s"blog.image", "main").map(_.url)" />
     <author>

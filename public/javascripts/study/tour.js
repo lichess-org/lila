@@ -70,7 +70,7 @@ lichess.studyTour = function(study) {
       } : null, {
         title: "Thanks for your time",
         text: "You can find your <a href='/@/" + study.userId + "/study'>previous studies</a> from your profile page.<br>" +
-          "There is also a <a href='http://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
+          "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
           "Have fun!",
         buttons: [{
           text: 'Done',

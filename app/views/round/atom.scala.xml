@@ -1,5 +1,5 @@
 @(pov: Pov, pgn: chess.format.pgn.Pgn)(implicit req: RequestHeader)
-@defining(routes.Round.watcher(pov.gameId, pov.color.name).absoluteURL) { url =>
+@defining(routes.Round.watcher(pov.gameId, pov.color.name).absoluteURL(true)) { url =>
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <id>@url</id>

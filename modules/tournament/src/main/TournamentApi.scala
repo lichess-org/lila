@@ -67,7 +67,7 @@ private[tournament] final class TournamentApi(
         tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1000 =>
-            pairingLogger.warn(s"Give up making http://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+            pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             funit
           case pairings => pairings.map { pairing =>
             PairingRepo.insert(pairing) >>
@@ -81,7 +81,7 @@ private[tournament] final class TournamentApi(
           val time = nowMillis - startAt
           lila.mon.tournament.pairing.createTime(time.toInt)
           if (time > 100)
-            pairingLogger.debug(s"Done making http://lichess.org/tournament/${tour.id} in ${time}ms")
+            pairingLogger.debug(s"Done making https://lichess.org/tournament/${tour.id} in ${time}ms")
         }
       }
     }
