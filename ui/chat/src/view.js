@@ -3,7 +3,9 @@ var moderationView = require('./moderation').view;
 
 function renderLine(ctrl) {
   return function(line) {
-    return m('li', [
+    return m('li', {
+      'data-username': line.u
+    }, [
       ctrl.vm.isMod ? moderationView.lineAction : null,
       m.trust($.userLinkLimit(line.u, 14)),
       line.t
@@ -24,7 +26,7 @@ function discussion(ctrl) {
     m('ol.messages.content.scroll-shadow-soft', {
         config: function(el, isUpdate, ctx) {
           if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
-            ctrl.moderation.open($(e.target).parent().find('.user_link').text());
+            ctrl.moderation.open($(e.target).parent().data('username'));
           });
           var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 150)));
           el.scrollTop = 999999;

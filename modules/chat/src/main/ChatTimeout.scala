@@ -16,12 +16,12 @@ final class ChatTimeout(
 
   def add(chatId: ChatId, modId: String, username: String, reason: Reason): Funit =
     chatColl.byId[UserChat](chatId) zip UserRepo.named(modId) zip UserRepo.named(username) flatMap {
-      case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => add(chat, mod, user, reason.pp)
+      case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => add(chat, mod, user, reason)
       case _ => fuccess(none)
     }
 
   private def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
-    isActive(chat, user).thenPp flatMap {
+    isActive(chat, user) flatMap {
       case true => funit
       case false => timeoutColl.insert($doc(
         "_id" -> makeId,
@@ -56,7 +56,7 @@ final class ChatTimeout(
 
   private def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  private def isMod(user: User) = lila.security.Granter(_.MarkTroll.pp)(user.pp).pp
+  private def isMod(user: User) = lila.security.Granter(_.MarkTroll)(user)
 }
 
 object ChatTimeout {

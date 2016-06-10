@@ -735,8 +735,12 @@ div.chat_panels .preferences a.prefs {
 }
 div.mchat {
   height: 350px;
+}
+div.mchat .discussion,
+div.mchat .moderation {
   display: flex;
   flex-flow: column nowrap;
+  height: 100%;
 }
 div.mchat .lichess_say {
   border-width: 1px 0 0 0;
