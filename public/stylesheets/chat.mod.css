@@ -4,14 +4,12 @@ div.mchat.mod li {
 div.mchat.mod i.mod {
   display: none;
   position: absolute;
-  top: 0;
+  top: 1px;
   right: 0;
   cursor: pointer;
   margin-right: 3px;
   padding: 4px 5px;
-  opacity: 0.4;
-  background: #fff;
-  color: #dc322f;
+  opacity: 0.5;
 }
 div.mchat.mod li:hover {
   background: rgba(255,255,255,0.6);
