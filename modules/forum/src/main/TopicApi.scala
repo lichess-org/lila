@@ -31,8 +31,8 @@ private[forum] final class TopicApi(
       res ← data ?? {
         case (categ, topic) =>
           lila.mon.forum.topic.view()
-          (TopicRepo incViews topic) >>
-            (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
+          TopicRepo incViews topic
+          env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some }
       }
     } yield res
 

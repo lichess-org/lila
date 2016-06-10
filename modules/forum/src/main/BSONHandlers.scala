@@ -1,9 +1,13 @@
 package lila.forum
 
+import lila.db.BSON.LoggingHandler
+import lila.db.dsl._
+import reactivemongo.bson._
+
 private object BSONHandlers {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit val CategBSONHandler = reactivemongo.bson.Macros.handler[Categ]
-  implicit val TopicBSONHandler = reactivemongo.bson.Macros.handler[Topic]
-  implicit val PostBSONHandler = reactivemongo.bson.Macros.handler[Post]
+  implicit val CategBSONHandler = Macros.handler[Categ]
+  implicit val PostBSONHandler = Macros.handler[Post]
+  private val topicHandler: BSONDocumentReader[Topic] with BSONDocumentWriter[Topic] with BSONHandler[Bdoc, Topic] = Macros.handler[Topic]
+  implicit val TopicBSONHandler: BSONDocumentReader[Topic] with BSONDocumentWriter[Topic] with BSONHandler[Bdoc, Topic] = LoggingHandler(logger)(topicHandler)
 }
