@@ -181,8 +181,7 @@ lichess.notifyApp = (function() {
         $('#friend_box').friends('leaves', name);
       },
       message: function(msg) {
-        if (lichess.chat) lichess.chat.newLine(msg);
-        else $('#chat').chat("append", msg);
+        $('#chat').chat("append", msg);
       },
       new_notification: function(e) {
         var notification = e.notification;

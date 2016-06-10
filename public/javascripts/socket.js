@@ -175,6 +175,7 @@ lichess.StrongSocket = function(url, version, settings) {
         ackableMessages = [];
         break;
       default:
+        lichess.pubsub.emit('socket.in.' + m.t, m.d);
         if (settings.receive) settings.receive(m.t, m.d);
         var h = settings.events[m.t];
         if (h) h(m.d || null, m);

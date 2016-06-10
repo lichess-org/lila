@@ -120,9 +120,9 @@ object Simul extends LilaController {
     }
   }
 
-  private def chatOf(sim: Sim)(implicit ctx: Context) =
-    ctx.isAuth ?? {
-      Env.chat.api.userChat find sim.id map (_.forUser(ctx.me).some)
+  private def chatOf(sim: Sim)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] =
+    ctx.me ?? { me =>
+      Env.chat.api.userChat.findMine(sim.id, me) map (_.some)
     }
 
   private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =

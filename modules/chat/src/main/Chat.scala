@@ -7,6 +7,8 @@ sealed trait AnyChat {
   def lines: List[Line]
 
   def forUser(u: Option[User]): AnyChat
+
+  def isEmpty = lines.isEmpty
 }
 
 sealed trait Chat[L <: Line] extends AnyChat {
@@ -28,6 +30,10 @@ case class UserChat(
     })
 
   def add(line: UserLine) = copy(lines = lines :+ line)
+}
+
+object UserChat {
+  case class Mine(chat: UserChat, timeout: Boolean)
 }
 
 case class MixedChat(

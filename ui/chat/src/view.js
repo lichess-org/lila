@@ -29,6 +29,25 @@ function dedupLines(lines) {
   return ls;
 }
 
+function input(ctrl) {
+  var placeholder = ctrl.vm.isTimeout() ? 'You have been timed out.' : ctrl.trans(ctrl.vm.placeholderKey);
+  return m('input', {
+    class: 'lichess_say',
+    placeholder: placeholder,
+    autocomplete: 'off',
+    maxlength: 140,
+    disabled: ctrl.vm.isTimeout(),
+    config: function(el, isUpdate) {
+      if (!isUpdate) el.addEventListener('keypress', function(e) {
+        if (e.which == 10 || e.which == 13) {
+          ctrl.post(e.target.value);
+          e.target.value = '';
+        }
+      });
+    }
+  })
+}
+
 function discussion(ctrl) {
   return m('div.discussion', [
     m('div.top', [
@@ -53,20 +72,7 @@ function discussion(ctrl) {
       },
       dedupLines(ctrl.lines).map(renderLine(ctrl))
     ),
-    m('input', {
-      class: 'lichess_say',
-      placeholder: ctrl.trans(ctrl.vm.placeholderKey),
-      autocomplete: 'off',
-      maxlength: 140,
-      config: function(el, isUpdate) {
-        if (!isUpdate) el.addEventListener('keypress', function(e) {
-          if (e.which == 10 || e.which == 13) {
-            ctrl.post(e.target.value);
-            e.target.value = '';
-          }
-        });
-      }
-    })
+    input(ctrl)
   ])
 }
 

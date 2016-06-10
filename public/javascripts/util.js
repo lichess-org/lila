@@ -68,6 +68,7 @@ lichess.widget = function(name, prototype) {
     var args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string') this.each(function() {
       var instance = $.data(this, name);
+      if (!instance) return;
       if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
         return $.error("no such method '" + method + "' for " + name + " widget instance");
       returnValue = instance[method].apply(instance, args);
@@ -116,7 +117,7 @@ lichess.shepherd = function(f) {
 lichess.makeChat = function(id, data) {
   if (data.mod) lichess.loadCss('/assets/stylesheets/chat.mod.css');
   lichess.loadScript('/assets/compiled/lichess.chat.js').then(function() {
-    lichess.chat = LichessChat(document.getElementById(id), data);
+    LichessChat(document.getElementById(id), data);
   });
 };
 
@@ -166,6 +167,31 @@ lichess.numberFormat = (function() {
   }
   return function(n) {
     return n;
+  };
+})();
+lichess.pubsub = (function() {
+  var subs = [];
+  return {
+    on: function(name, cb) {
+      subs[name] = subs[name] || [];
+      subs[name].push(cb);
+    },
+    off: function(name, cb) {
+      if (!subs[name]) return;
+      for (var i in subs[name]) {
+        if (subs[name][i] === cb) {
+          subs[name].splice(i);
+          break;
+        }
+      }
+    },
+    emit: function(name) {
+      if (!subs[name]) return;
+      var args = Array.prototype.slice.call(arguments, 1);
+      for (var i in subs[name]) {
+        subs[name][i].apply(null, args);
+      }
+    }
   };
 })();
 $.fn.scrollTo = function(target, offsetTop) {

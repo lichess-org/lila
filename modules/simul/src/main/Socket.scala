@@ -83,8 +83,10 @@ private[simul] final class Socket(
       case _ =>
     }
 
-    case lila.chat.actorApi.MarkDeleted(username) =>
-      notifyVersion("chat_mark_deleted", username, Messadata())
+    case lila.chat.actorApi.OnTimeout(username) =>
+      notifyVersion("chat_timeout", username, Messadata())
+    case lila.chat.actorApi.OnReinstate(userId) =>
+      notifyVersion("chat_reinstate", userId, Messadata())
 
     case GetVersion        => sender ! history.version
 

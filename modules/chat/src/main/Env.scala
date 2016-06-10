@@ -39,7 +39,7 @@ final class Env(
     netDomain = NetDomain)
 
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
-    chatTimeout.checkExpired
+    chatTimeout.checkExpired foreach api.userChat.reinstate
   }
 
   system.actorOf(Props(new FrontActor(api)), name = ActorName)

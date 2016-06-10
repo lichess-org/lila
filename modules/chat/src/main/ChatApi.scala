@@ -24,6 +24,12 @@ final class ChatApi(
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
 
+    def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
+      (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) map {
+        UserChat.Mine(chat forUser me.some, _)
+      }
+    }
+
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
@@ -55,9 +61,13 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           val channel = Symbol(s"chat-${chat.id}")
-          lilaBus.publish(actorApi.MarkDeleted(user.username), channel)
+          lilaBus.publish(actorApi.OnTimeout(user.username), channel)
           lilaBus.publish(actorApi.ChatLine(chat.id, line), channel)
         }
+    }
+
+    def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
+      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
     }
 
     private def isMod(user: User) = lila.security.Granter(_.MarkTroll)(user)

@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -17,11 +17,12 @@ userId: @jsUserId
 };
 @chat.map { c =>
 lichess.makeChat('chat', {
-lines: @Html(J.stringify(lila.chat.JsonView(c))),
+lines: @Html(J.stringify(lila.chat.JsonView(c.chat))),
 i18n: @base.chatJsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 kobold: @ctx.troll,
 mod: @isGranted(_.MarkTroll),
+timeout: @c.timeout,
 timeoutReasons: @Html(J.stringify(lila.chat.JsonView.timeoutReasons))
 });
 }

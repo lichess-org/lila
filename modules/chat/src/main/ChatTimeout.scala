@@ -39,11 +39,12 @@ final class ChatTimeout(
       "expiresAt" $exists true
     ), "user")
 
-  def checkExpired: Funit = timeoutColl.primitive[String]($doc(
+  def checkExpired: Fu[List[Reinstate]] = timeoutColl.list[Reinstate]($doc(
     "expiresAt" $lt DateTime.now
-  ), "_id") flatMap {
-    case Nil => funit
-    case ids => timeoutColl.unsetField($inIds(ids), "expiresAt", multi = true).void
+  )) flatMap {
+    case Nil => fuccess(Nil)
+    case objs =>
+      timeoutColl.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
   }
 
   private val idSize = 8
@@ -67,4 +68,7 @@ object ChatTimeout {
     def read(b: BSONString) = Reason(b.value) err s"Invalid reason ${b.value}"
     def write(x: Reason) = BSONString(x.key)
   }
+
+  case class Reinstate(_id: String, chat: String, user: String)
+  implicit val ReinstateBSONHandler: BSONDocumentHandler[Reinstate] = Macros.handler[Reinstate]
 }
