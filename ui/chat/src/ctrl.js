@@ -7,6 +7,7 @@ module.exports = function(opts) {
   var socketSend = lichess.socket.send;
 
   var vm = {
+    enabled: m.prop(!lichess.storage.get('nochat')),
     isTroll: opts.kobold,
     isMod: opts.mod,
     isTimeout: m.prop(opts.timeout),
@@ -60,5 +61,10 @@ module.exports = function(opts) {
     },
     moderation: moderation,
     trans: lichess.trans(opts.i18n),
+    setEnabled: function(v) {
+      vm.enabled(v);
+      if (!v) lichess.storage.set('nochat', 1);
+      else lichess.storage.remove('nochat');
+    }
   };
 };

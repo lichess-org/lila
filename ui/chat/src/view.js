@@ -55,24 +55,28 @@ function discussion(ctrl) {
       m('input', {
         type: 'checkbox',
         class: 'toggle_chat',
-        title: ctrl.trans('toggleTheChat')
+        title: ctrl.trans('toggleTheChat'),
+        onchange: m.withAttr('checked', ctrl.setEnabled),
+        checked: ctrl.vm.enabled()
       })
     ]),
-    m('ol.messages.content.scroll-shadow-soft', {
-        config: function(el, isUpdate, ctx) {
-          if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
-            ctrl.moderation.open($(e.target).parent().data('username'));
-          });
-          var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 150)));
-          el.scrollTop = 999999;
-          if (autoScroll) setTimeout(function() {
+    ctrl.vm.enabled() ? [
+      m('ol.messages.content.scroll-shadow-soft', {
+          config: function(el, isUpdate, ctx) {
+            if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
+              ctrl.moderation.open($(e.target).parent().data('username'));
+            });
+            var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 150)));
             el.scrollTop = 999999;
-          }, 500);
-        }
-      },
-      dedupLines(ctrl.lines).map(renderLine(ctrl))
-    ),
-    input(ctrl)
+            if (autoScroll) setTimeout(function() {
+              el.scrollTop = 999999;
+            }, 500);
+          }
+        },
+        dedupLines(ctrl.lines).map(renderLine(ctrl))
+      ),
+      input(ctrl)
+    ] : null
   ])
 }
 
