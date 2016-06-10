@@ -14,6 +14,7 @@ final class Env(
 
   private val settings = new {
     val CollectionChat = config getString "collection.chat"
+    val CollectionTimeout = config getString "collection.timeout"
     val MaxLinesPerChat = config getInt "max_lines"
     val NetDomain = config getString "net.domain"
     val ActorName = config getString "actor.name"
@@ -27,12 +28,14 @@ final class Env(
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain)
 
-  private val tempBan = new TempBan(
-    coll = chatColl)
+  private val timeout = new ChatTimeout(
+    chatColl = chatColl,
+    timeoutColl = timeoutColl)
 
-  system.actorOf(Props(new FrontActor(api, tempBan)), name = ActorName)
+  system.actorOf(Props(new FrontActor(api, timeout)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
+  private[chat] lazy val timeoutColl = db(CollectionTimeout)
 }
 
 object Env {

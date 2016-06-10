@@ -1016,7 +1016,7 @@ div.under_chat .watchers:hover {
 #chat div.top {
   position: relative;
 }
-#chat div.top input.toggle_chat {
+#chat div.top .toggle_chat {
   cursor: pointer;
   position: absolute;
   top: 4px;
@@ -1058,9 +1058,9 @@ body.no-select #chat li {
   opacity: 1;
 }
 #chat .messages li {
-  padding-left: 3px;
+  padding: 0.4em 0 0.4em 3px;
   line-height: 14px;
-  margin: 0.8em 0 0.8em 3px;
+  margin: 0;
 }
 #chat .messages li.system {
   padding: 2px 0;

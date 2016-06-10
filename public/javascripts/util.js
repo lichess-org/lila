@@ -114,6 +114,7 @@ lichess.shepherd = function(f) {
   });
 };
 lichess.makeChat = function(id, data) {
+  if (data.mod) lichess.loadCss('/assets/stylesheets/chat.mod.css');
   lichess.loadScript('/assets/compiled/lichess.chat.js').then(function() {
     lichess.chat = LichessChat(document.getElementById(id), data);
   });

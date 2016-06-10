@@ -1,5 +1,6 @@
 var m = require('mithril');
 var makeSocket = require('./socket');
+var makeModeration = require('./moderation').ctrl;
 
 module.exports = function(opts) {
 
@@ -8,10 +9,16 @@ module.exports = function(opts) {
   var vm = {
     isTroll: opts.kobold,
     isMod: opts.mod,
-    placeholderKey: 'talkInChat'
+    placeholderKey: 'talkInChat',
+    moderating: m.prop(null),
+    loading: m.prop(false)
   };
 
-  var socket = makeSocket(opts.socketSend);
+  var socket = makeSocket(lichess.socket.send);
+  var moderation = vm.isMod ? makeModeration({
+    reasons: opts.timeoutReasons,
+    send: socket.send
+  }) : null;
 
   return {
     lines: lines,
@@ -23,7 +30,7 @@ module.exports = function(opts) {
         alert('Max length: 140 chars. ' + text.length + ' chars used.');
         return false;
       }
-      lichess.socket.send('talk', text);
+      socket.send('talk', text);
       return false;
     },
     newLine: function(line) {
@@ -31,6 +38,7 @@ module.exports = function(opts) {
       lines.push(line);
       m.redraw();
     },
+    moderation: moderation,
     trans: lichess.trans(opts.i18n),
   };
 };

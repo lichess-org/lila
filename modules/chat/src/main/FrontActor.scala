@@ -4,10 +4,11 @@ import akka.actor._
 import chess.Color
 
 import actorApi._
+import lila.common.PimpedJson._
 
 private[chat] final class FrontActor(
     api: ChatApi,
-    tempBan: TempBan) extends Actor {
+    timeout: ChatTimeout) extends Actor {
 
   def receive = {
 
@@ -20,7 +21,12 @@ private[chat] final class FrontActor(
     case SystemTalk(chatId, text, replyTo) =>
       api.userChat.system(chatId, text) foreach publish(chatId, replyTo)
 
-    case TempBan(chatId, modId, userId) => tempBan.add(chatId, modId, userId)
+    case Timeout(chatId, member, o) => for {
+      data ← o obj "d"
+      modId <- member.userId
+      username <- data.str("username")
+      reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
+    } timeout.add(chatId, modId, username, reason)
   }
 
   def publish(chatId: String, replyTo: ActorRef)(lineOption: Option[Line]) {

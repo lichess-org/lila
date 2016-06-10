@@ -6,9 +6,9 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
+import akka.actor.ActorSelection
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
-import akka.actor.ActorSelection
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -48,10 +48,7 @@ private[simul] final class SocketHandler(
         chat ! lila.chat.actorApi.UserTalk(simId, userId, text, socket)
       }
     }
-    case ("temp-ban", o) => o str "d" foreach { userId =>
-      member.userId foreach { modId =>
-        chat ! lila.chat.actorApi.TempBan(simId, modId, userId)
-      }
-    }
+    case ("timeout", o) =>
+      chat ! lila.chat.actorApi.Timeout(simId, member, o)
   }
 }

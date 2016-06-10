@@ -11,6 +11,12 @@ object JsonView {
 
   def apply(line: Line): JsValue = lineWriter writes line
 
+  lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
+
+  implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
+    Json.obj( "key" -> r.key, "name" -> r.name)
+  }
+
   implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
     JsArray(c.lines map lineWriter.writes)
   }

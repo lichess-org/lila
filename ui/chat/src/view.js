@@ -1,16 +1,18 @@
 var m = require('mithril');
+var moderationView = require('./moderation').view;
 
 function renderLine(ctrl) {
   return function(line) {
     return m('li', [
+      ctrl.vm.isMod ? moderationView.lineAction : null,
       m.trust($.userLinkLimit(line.u, 14)),
       line.t
     ]);
   };
 }
 
-module.exports = function(ctrl) {
-  return m('div.mchat', [
+function discussion(ctrl) {
+  return m('div.discussion', [
     m('div.top', [
       m('span', ctrl.trans('chatRoom')),
       m('input', {
@@ -21,6 +23,9 @@ module.exports = function(ctrl) {
     ]),
     m('ol.messages.content.scroll-shadow-soft', {
         config: function(el, isUpdate, ctx) {
+          if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
+            ctrl.moderation.open($(e.target).parent().find('.user_link').text());
+          });
           var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 150)));
           el.scrollTop = 999999;
           if (autoScroll) setTimeout(function() {
@@ -44,5 +49,12 @@ module.exports = function(ctrl) {
         });
       }
     })
-  ]);
+  ])
+}
+
+module.exports = function(ctrl) {
+  return m('div', {
+      class: 'mchat' + (ctrl.vm.isMod ? ' mod' : '')
+    },
+    moderationView.ui(ctrl.moderation) || discussion(ctrl));
 };
