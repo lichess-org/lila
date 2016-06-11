@@ -11,6 +11,7 @@ final class Env(
     db: lila.db.Env,
     flood: lila.security.Flood,
     shutup: ActorSelection,
+    modLog: ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -33,6 +34,7 @@ final class Env(
     chatTimeout = timeout,
     flood = flood,
     shutup = shutup,
+    modLog = modLog,
     lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain)
@@ -54,5 +56,6 @@ object Env {
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
     shutup = lila.hub.Env.current.actor.shutup,
+    modLog = lila.hub.Env.current.actor.mod,
     system = lila.common.PlayApp.system)
 }

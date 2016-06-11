@@ -75,6 +75,7 @@ final class Env(
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
+      case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
     }
   }), name = ActorName), 'finishGame, 'analysisReady)
 }

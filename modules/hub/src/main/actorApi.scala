@@ -61,6 +61,7 @@ case class RecordPublicChat(chatId: String, userId: String, text: String)
 package mod {
 case class MarkCheater(userId: String)
 case class MarkBooster(userId: String)
+case class ChatTimeout(mod: String, user: String, reason: String)
 }
 
 package captcha {

@@ -10,6 +10,7 @@ final class ChatApi(
     chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
     shutup: akka.actor.ActorSelection,
+    modLog: akka.actor.ActorSelection,
     lilaBus: lila.common.Bus,
     maxLinesPerChat: Int,
     netDomain: String) {
@@ -70,6 +71,8 @@ final class ChatApi(
           val channel = Symbol(s"chat-${chat.id}")
           lilaBus.publish(actorApi.OnTimeout(user.username), channel)
           lilaBus.publish(actorApi.ChatLine(chat.id, line), channel)
+          modLog ! lila.hub.actorApi.mod.ChatTimeout(
+            mod = mod.id, user = user.id, reason = reason.key)
         }
     }
 
