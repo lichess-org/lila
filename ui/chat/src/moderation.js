@@ -56,8 +56,14 @@ module.exports = {
           }),
           m('span.text', {
             'data-icon': '',
-          }, data.username)
+          }, m.trust($.userLink(data.username)))
         ]),
+        m('div.infos.block', [
+          data.games + ' games',
+          data.troll ? 'TROLL' : null,
+          data.engine ? 'ENGINE' : null,
+          data.booster ? 'BOOSTER' : null
+        ].filter(function(x) { return x; }).join('•')),
         m('div.timeout.block', [
           m('h2', 'Timeout 10 minutes for'),
           ctrl.reasons.map(function(r) {

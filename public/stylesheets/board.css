@@ -1077,7 +1077,7 @@ body.no-select #chat li {
   margin-right: 6px;
   opacity: 0.7;
 }
-#chat a.user_link {
+#chat .messages a.user_link {
   font-family: 'Roboto';
   font-weight: 300;
   padding: 0;

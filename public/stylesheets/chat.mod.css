@@ -51,7 +51,7 @@ div.mchat.mod .history .mod,
 div.mchat.mod .history time {
   opacity: 0.8;
 }
-div.mchat.mod .timeout {
+div.mchat.mod .infos {
   padding-top: 10px;
 }
 div.mchat.mod .timeout a {
