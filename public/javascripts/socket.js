@@ -294,14 +294,16 @@ lichess.StrongSocket.defaults = {
     ignoreUnknownMessages: true,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(domain) {
-      var base = domain.split('.').slice(1).join('.');
-      var urls = ['socket.' + base];
-      if (/lichess\.org/.test(base) && location.protocol === 'http') {
-        urls = urls.concat([9021, 9022, 9023, 9024].map(function(port) {
-          return 'socket.' + base + ':' + port;
-        }));
+      var main = 'socket.' + domain.split('.').slice(1).join('.');
+      var isProduction = /lichess\.org/.test(main);
+      var extraPorts = [];
+      if (isProduction) {
+        if (location.protocol === 'https:') extraPorts = [9025, 9026, 9027, 9028, 9029];
+        else extraPorts = [9021, 9022, 9023, 9024];
       }
-      return urls;
+      return [main].concat(extraPorts.map(function(port) {
+        return main + ':' + port;
+      }));
     })(document.domain),
     onFirstConnect: $.noop,
     baseUrlKey: 'surl4'
