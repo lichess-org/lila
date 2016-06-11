@@ -1058,7 +1058,7 @@ body.no-select #chat li {
   opacity: 1;
 }
 #chat .messages li {
-  padding: 0.4em 0 0.4em 3px;
+  padding: 0.4em 0 0.4em 5px;
   line-height: 14px;
   margin: 0;
 }
