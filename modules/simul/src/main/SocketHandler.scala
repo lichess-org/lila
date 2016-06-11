@@ -41,14 +41,11 @@ private[simul] final class SocketHandler(
     socket: ActorRef,
     simId: String,
     uid: String,
-    member: Member): Handler.Controller = {
+    member: Member): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-    case ("talk", o) => o str "d" foreach { text =>
-      member.userId foreach { userId =>
-        chat ! lila.chat.actorApi.UserTalk(simId, userId, text, socket)
-      }
-    }
-    case ("timeout", o) =>
-      chat ! lila.chat.actorApi.Timeout(simId, member, o)
-  }
+  }: Handler.Controller) orElse lila.chat.SocketHandler(
+    chatId = simId,
+    member = member,
+    socket = socket,
+    chat = chat)
 }

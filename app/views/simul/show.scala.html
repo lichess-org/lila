@@ -16,15 +16,7 @@ socketVersion: @socketVersion,
 userId: @jsUserId
 };
 @chat.map { c =>
-lichess.makeChat('chat', {
-lines: @Html(J.stringify(lila.chat.JsonView(c.chat))),
-i18n: @base.chatJsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
-kobold: @ctx.troll,
-mod: @isGranted(_.MarkTroll),
-timeout: @c.timeout,
-timeoutReasons: @Html(J.stringify(lila.chat.JsonView.timeoutReasons))
-});
+@base.newChat(c)
 }
 }
 }
