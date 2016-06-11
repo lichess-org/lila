@@ -13,6 +13,7 @@ module.exports = {
     };
     var close = function() {
       vm.data(null);
+      vm.loading(false);
       m.redraw.strategy('all');
     };
     return {
@@ -80,7 +81,24 @@ module.exports = {
                 ctrl.timeout(r.key)
               }
             }, r.name);
-          })
+          }),
+          data.troll ? null : m('div.shadowban', [
+            'Or ',
+            m('form', {
+              action: '/mod/' + data.id + '/troll?set=1',
+              method: 'post',
+              config: function(el, isUpdate) {
+                if (!isUpdate) $(el).submit(function() {
+                  $.post($(this).attr('action'), function() {
+                    ctrl.open(data.username);
+                  });
+                  ctrl.vm.loading(true);
+                  m.redraw();
+                  return false;
+                });
+              }
+            }, m('button.button[type=submit]', 'Permanently shadowban'))
+          ])
         ]),
         m('div.history.block', [
           m('h2', 'Timeout history'),

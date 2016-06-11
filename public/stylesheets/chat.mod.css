@@ -82,3 +82,9 @@ div.mchat.mod .timeout a:hover::before {
   opacity: 1;
   margin-right: 2px;
 }
+div.mchat.mod .shadowban {
+  margin-top: 10px;
+}
+div.mchat.mod .shadowban form {
+  display: inline;
+}
