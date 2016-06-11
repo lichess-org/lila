@@ -9,7 +9,7 @@ function renderLine(ctrl) {
     return m('li', {
       'data-username': line.u
     }, [
-      ctrl.vm.isMod ? moderationView.lineAction : null,
+      ctrl.vm.isMod ? moderationView.lineAction() : null,
       m.trust($.userLinkLimit(line.u, 14)),
       line.d ? deletedDom : line.t
     ]);
@@ -66,7 +66,7 @@ function discussion(ctrl) {
             if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
               ctrl.moderation.open($(e.target).parent().data('username'));
             });
-            var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 150)));
+            var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
             el.scrollTop = 999999;
             if (autoScroll) setTimeout(function() {
               el.scrollTop = 999999;

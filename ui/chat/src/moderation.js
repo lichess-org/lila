@@ -14,7 +14,6 @@ module.exports = {
     var close = function() {
       vm.data(null);
       vm.loading(false);
-      m.redraw.strategy('all');
     };
     return {
       vm: vm,
@@ -39,11 +38,13 @@ module.exports = {
     }
   },
   view: {
-    lineAction: m('i', {
-      class: 'mod',
-      'data-icon': '',
-      title: 'Moderation'
-    }),
+    lineAction: function() {
+      return m('i', {
+        class: 'mod',
+        'data-icon': '',
+        title: 'Moderation'
+      });
+    },
     ui: function(ctrl) {
       if (!ctrl) return;
       if (ctrl.vm.loading()) return m.trust(lichess.spinnerHtml);
