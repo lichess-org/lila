@@ -20,10 +20,11 @@ function sameLines(l1, l2) {
   return l1.d && l2.d && l1.u === l2.u;
 }
 
-function dedupLines(lines) {
+function selectLines(lines) {
   var prev, ls = [];
   lines.forEach(function(l) {
-    if (!prev || !sameLines(prev, l)) ls.push(l);
+    if (!prev || !sameLines(prev, l))
+      if (!l.r || ctrl.vm.isTroll) ls.push(l);
     prev = l;
   });
   return ls;
@@ -73,7 +74,7 @@ function discussion(ctrl) {
             }, 500);
           }
         },
-        dedupLines(ctrl.lines).map(renderLine(ctrl))
+        selectLines(ctrl.lines).map(renderLine(ctrl))
       ),
       input(ctrl)
     ] : null

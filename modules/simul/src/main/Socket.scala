@@ -45,7 +45,7 @@ private[simul] final class Socket(
     }
   }
 
-  def receiveSpecific = {
+  def receiveSpecific = ({
 
     case StartGame(game, hostId)       => redirectPlayer(game, game.playerByUserId(hostId) map (!_.color))
 
@@ -77,17 +77,6 @@ private[simul] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case lila.chat.actorApi.ChatLine(_, line) => line match {
-      case line: lila.chat.UserLine =>
-        notifyVersion("message", lila.chat.JsonView(line), Messadata(line.troll))
-      case _ =>
-    }
-
-    case lila.chat.actorApi.OnTimeout(username) =>
-      notifyVersion("chat_timeout", username, Messadata())
-    case lila.chat.actorApi.OnReinstate(userId) =>
-      notifyVersion("chat_reinstate", userId, Messadata())
-
     case GetVersion        => sender ! history.version
 
     case Socket.GetUserIds => sender ! userIds
@@ -106,7 +95,9 @@ private[simul] final class Socket(
     case NotifyCrowd =>
       delayedCrowdNotification = false
       notifyAll("crowd", showSpectators(lightUser)(members.values))
-  }
+  }: Actor.Receive) orElse lila.chat.Socket.out(
+    send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
+  )
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {

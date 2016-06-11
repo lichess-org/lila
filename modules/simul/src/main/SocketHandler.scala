@@ -43,7 +43,7 @@ private[simul] final class SocketHandler(
     uid: String,
     member: Member): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-  }: Handler.Controller) orElse lila.chat.SocketHandler(
+  }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = simId,
     member = member,
     socket = socket,
