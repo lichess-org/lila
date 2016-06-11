@@ -52,7 +52,7 @@ function input(ctrl) {
 function discussion(ctrl) {
   return m('div.discussion', [
     m('div.top', [
-      m('span', ctrl.trans('chatRoom')),
+      m('span', ctrl.vm.chatName),
       m('input', {
         type: 'checkbox',
         class: 'toggle_chat',

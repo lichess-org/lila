@@ -136,9 +136,8 @@ final class JsonView(
     withMoveTimes: Boolean,
     withDivision: Boolean) =
     getSocketStatus(pov.game.id) zip
-      getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case ((socket, chat), (playerUser, opponentUser)) =>
+        case (socket, (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> {
@@ -196,8 +195,7 @@ final class JsonView(
             ),
             "tv" -> tv.map { onTv =>
               Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
-            },
-            "chat" -> chat.map(_.lines)
+            }
           ).noNull
       }
 
@@ -282,11 +280,6 @@ final class JsonView(
   private def getPlayerChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.MixedChat]] =
     game.hasChat optionFu {
       chatApi.playerChat find game.id map (_ forUser forUser)
-    }
-
-  private def getWatcherChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.UserChat]] =
-    forUser ?? { user =>
-      chatApi.userChat find s"${game.id}/w" map (_ forUser user.some) map (_.some)
     }
 
   private def getUsers(game: Game) = UserRepo.pair(

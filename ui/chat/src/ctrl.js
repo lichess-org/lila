@@ -7,6 +7,7 @@ module.exports = function(opts) {
   var socketSend = lichess.socket.send;
 
   var vm = {
+    chatName: opts.name,
     enabled: m.prop(!lichess.storage.get('nochat')),
     isTroll: opts.kobold,
     isMod: opts.mod,

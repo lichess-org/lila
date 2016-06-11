@@ -38,13 +38,18 @@ private[round] final class SocketHandler(
     def ping(o: JsObject) =
       o int "v" foreach { v => socket ! PingVersion(uid, v) }
 
-    member.playerIdOption.fold[Handler.Controller]({
+    member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => ping(o)
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
       case ("outoftime", _) => send(Outoftime)
-    }) { playerId =>
+    }: Handler.Controller) orElse lila.chat.Socket.in(
+      chatId = s"$gameId/w",
+      member = member,
+      socket = socket,
+      chat = messenger.chat
+    )) { playerId =>
       {
         case ("p", o) => ping(o)
         case ("move", o) => parseMove(o) foreach {

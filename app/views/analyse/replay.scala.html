@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User], myChat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @import pov._
 
@@ -21,6 +21,9 @@ endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
 }
 };
+}
+@myChat.map { c =>
+@chat.js(c, name = trans.spectatorRoom.str(), notes = true)
 }
 }
 
@@ -50,7 +53,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv).some,
-chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
+chat = chat.dom(myChat).some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,

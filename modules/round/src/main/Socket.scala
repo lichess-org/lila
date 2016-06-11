@@ -87,9 +87,10 @@ private[round] final class Socket(
     watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
+    lilaBus.subscribe(self, Symbol(s"chat-$gameId"), Symbol(s"chat-$gameId/w"))
   }
 
-  def receiveSpecific = {
+  def receiveSpecific = ({
 
     case SetGame(Some(game)) =>
       hasAi = game.hasAi
@@ -199,7 +200,9 @@ private[round] final class Socket(
         black = ownerOf(Black).isDefined,
         watchers = showSpectators(lightUser)(watchers))
       notifyAll(event.typ, event.data)
-  }
+  }: Actor.Receive) orElse lila.chat.Socket.out(
+    send = (t, d, _) => notifyAll(t, d)
+  )
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {

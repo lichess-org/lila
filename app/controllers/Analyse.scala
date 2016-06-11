@@ -44,8 +44,9 @@ object Analyse extends LilaController {
         (env.analyser get pov.game.id) zip
           Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
+          getWatcherChat(pov.game) zip
           Env.game.crosstableApi(pov.game) flatMap {
-            case (((analysis, analysisInProgress), simul), crosstable) =>
+            case ((((analysis, analysisInProgress), simul), chat), crosstable) =>
               val pgn = Env.api.pgnDump(pov.game, initialFen)
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
@@ -63,10 +64,16 @@ object Analyse extends LilaController {
                     analysisInProgress,
                     simul,
                     crosstable,
-                    userTv))
+                    userTv,
+                    chat))
                 }
           }
       }
+    }
+
+  private def getWatcherChat(game: GameModel)(implicit ctx: Context) =
+    ctx.me ?? { me =>
+      Env.chat.api.userChat.findMine(s"${game.id}/w", me) map (_.some)
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[String])(or: => Fu[Result])(implicit ctx: Context) =
