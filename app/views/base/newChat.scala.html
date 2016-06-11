@@ -13,6 +13,6 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
 kobold: @ctx.troll,
 mod: @isGranted(_.MarkTroll),
 timeout: @c.timeout,
-timeoutReasons: @if(isGranted(_.MarkTroll)) { Html(J.stringify(lila.chat.JsonView.timeoutReasons)) } else { null }
+timeoutReasons: @if(isGranted(_.MarkTroll)) { @Html(J.stringify(lila.chat.JsonView.timeoutReasons)) } else { null }
 });
 }
