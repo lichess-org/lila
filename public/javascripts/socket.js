@@ -306,6 +306,6 @@ lichess.StrongSocket.defaults = {
       }));
     })(document.domain),
     onFirstConnect: $.noop,
-    baseUrlKey: 'surl4'
+    baseUrlKey: 'surl5'
   }
 };
