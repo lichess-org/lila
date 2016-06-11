@@ -46,10 +46,17 @@ final class ChatApi(
       pushLine(chatId, line) inject line.some
     }
 
-    def timeout(chatId: ChatId, modId: String, username: String, reason: ChatTimeout.Reason): Funit =
-      coll.byId[UserChat](chatId) zip UserRepo.named(modId) zip UserRepo.named(username) flatMap {
+    def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason): Funit =
+      coll.byId[UserChat](chatId) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
         case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
+      }
+
+    def userModInfo(username: String): Fu[Option[UserModInfo]] =
+      UserRepo named username flatMap {
+        _ ?? { user =>
+          chatTimeout.history(user, 20) map { UserModInfo(user, _).some }
+        }
       }
 
     private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {

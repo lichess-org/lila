@@ -8,8 +8,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 final class ChatTimeout(
-    chatColl: Coll,
-    timeoutColl: Coll,
+    coll: Coll,
     duration: FiniteDuration) {
 
   import ChatTimeout._
@@ -17,7 +16,7 @@ final class ChatTimeout(
   def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
-      case false => timeoutColl.insert($doc(
+      case false => coll.insert($doc(
         "_id" -> makeId,
         "chat" -> chat.id,
         "mod" -> mod.id,
@@ -28,23 +27,26 @@ final class ChatTimeout(
     }
 
   def isActive(chatId: String, userId: User.ID): Fu[Boolean] =
-    timeoutColl.exists($doc(
+    coll.exists($doc(
       "chat" -> chatId,
       "user" -> userId,
       "expiresAt" $exists true))
 
   def activeUserIds(chat: UserChat): Fu[List[String]] =
-    timeoutColl.primitive[String]($doc(
+    coll.primitive[String]($doc(
       "chat" -> chat.id,
       "expiresAt" $exists true
     ), "user")
 
-  def checkExpired: Fu[List[Reinstate]] = timeoutColl.list[Reinstate]($doc(
+  def history(user: User, nb: Int): Fu[List[UserEntry]] =
+    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
+
+  def checkExpired: Fu[List[Reinstate]] = coll.list[Reinstate]($doc(
     "expiresAt" $lt DateTime.now
   )) flatMap {
     case Nil => fuccess(Nil)
     case objs =>
-      timeoutColl.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
+      coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
   }
 
   private val idSize = 8
@@ -70,5 +72,8 @@ object ChatTimeout {
   }
 
   case class Reinstate(_id: String, chat: String, user: String)
-  implicit val ReinstateBSONHandler: BSONDocumentHandler[Reinstate] = Macros.handler[Reinstate]
+  implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader[Reinstate]
+
+  case class UserEntry(mod: String, reason: Reason, createdAt: DateTime)
+  implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader[UserEntry]
 }

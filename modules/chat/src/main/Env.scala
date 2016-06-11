@@ -24,14 +24,13 @@ final class Env(
   }
   import settings._
 
-  private val chatTimeout = new ChatTimeout(
-    chatColl = chatColl,
-    timeoutColl = timeoutColl,
+  val timeout = new ChatTimeout(
+    coll = timeoutColl,
     duration = TimeoutDuration)
 
   val api = new ChatApi(
     coll = chatColl,
-    chatTimeout = chatTimeout,
+    chatTimeout = timeout,
     flood = flood,
     shutup = shutup,
     lilaBus = system.lilaBus,
@@ -39,7 +38,7 @@ final class Env(
     netDomain = NetDomain)
 
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
-    chatTimeout.checkExpired foreach api.userChat.reinstate
+    timeout.checkExpired foreach api.userChat.reinstate
   }
 
   system.actorOf(Props(new FrontActor(api)), name = ActorName)

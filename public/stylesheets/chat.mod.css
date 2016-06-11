@@ -1,3 +1,6 @@
+div.mchat.mod .spinner {
+  padding-top: 100px;
+}
 div.mchat.mod li {
   position: relative;
 }
@@ -24,13 +27,32 @@ div.mchat.mod i.mod:hover {
   opacity: 1;
 }
 
-div.mchat.mod .timeout {
-  padding: 10px;
+div.mchat.mod .moderation {
+  justify-content: space-between;
+  overflow: auto;
 }
-div.mchat.mod .timeout h2 {
+
+div.mchat.mod .block {
+  padding: 0 10px 10px 10px;
+}
+div.mchat.mod .moderation h2 {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 5px 0 10px 0;
+}
+div.mchat.mod .history table {
+  width: 100%;
+}
+div.mchat.mod .history .reason {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+div.mchat.mod .history .mod,
+div.mchat.mod .history time {
+  opacity: 0.8;
+}
+div.mchat.mod .timeout {
+  padding-top: 10px;
 }
 div.mchat.mod .timeout a {
   display: block;

@@ -162,4 +162,12 @@ object Mod extends LilaController {
         html.mod.search(query, users)
       }
   }
+
+  def chatUser(username: String) = Secure(_.MarkTroll) { implicit ctx =>
+    me =>
+      implicit val lightUser = Env.user.lightUser _
+      JsonOptionOk {
+        Env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+      }
+  }
 }

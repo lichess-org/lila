@@ -22,9 +22,9 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
     case Timeout(chatId, member, o) => for {
       data ← o obj "d"
       modId <- member.userId
-      username <- data.str("username")
+      userId <- data.str("userId")
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
-    } api.userChat.timeout(chatId, modId, username, reason)
+    } api.userChat.timeout(chatId, modId, userId, reason)
   }
 
   def publish(chatId: String, replyTo: ActorRef)(lineOption: Option[Line]) {
