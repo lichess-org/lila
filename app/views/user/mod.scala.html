@@ -27,7 +27,7 @@
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){Allows}else{Blocks} the user with communication features." class="hint--bottom">
-    <input class="button@when(u.troll, " active")" type="submit" value="Troll" />
+    <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
@@ -271,7 +271,7 @@
         <td>
           @if(o.engine){ENGINE}
           @if(o.booster){BOOSTER}
-          @if(o.troll){TROLL}
+          @if(o.troll){SHADOWBAN}
           @bans.get(o.id).map { nb =>
           <span class="hint--top-left" data-hint="Temporarily banned from playing for aborting or not playing games.">
             PLAYBAN(@nb)

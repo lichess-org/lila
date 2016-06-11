@@ -34,6 +34,8 @@ case class Modlog(
     case Modlog.deleteTeam          => "delete team"
     case Modlog.terminateTournament => "terminate tournament"
     case Modlog.chatTimeout         => "chat timeout"
+    case Modlog.troll               => "shadowban"
+    case Modlog.untroll             => "un-shadowban"
     case a                          => a
   }
 
