@@ -22,6 +22,7 @@ private[simul] final class Socket(
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   override def preStart() {
+    super.preStart()
     lilaBus.subscribe(self, Symbol(s"chat-$simulId"))
   }
 

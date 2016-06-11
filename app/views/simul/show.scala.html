@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
+@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, myChat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -16,14 +16,8 @@ socketVersion: @socketVersion,
 userId: @jsUserId
 };
 }
-@chat.map { c =>
-@base.newChat(c)
-}
-}
-
-@chatDom = {
-@if(chat.isDefined) {
-<div id="chat" class="side_box"></div>
+@myChat.map { c =>
+@chat.js(c)
 }
 }
 
@@ -31,7 +25,7 @@ userId: @jsUserId
 title = sim.fullName,
 side = simul.side(sim).some,
 underchat = underchat.some,
-chat = chatDom.some,
+chat = chat.dom(myChat).some,
 moreJs = moreJs,
 chessground = false) {
 <div id="simul"></div>

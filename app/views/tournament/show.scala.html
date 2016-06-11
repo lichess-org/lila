@@ -1,4 +1,4 @@
-@(tour: Tournament, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(tour: Tournament, data: play.api.libs.json.JsObject, myChat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -16,12 +16,15 @@ i18n: @jsI18n(),
 userId: @jsUserId
 };
 }
+@myChat.map { c =>
+@chat.js(c)
+}
 }
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
 side = tournament.side(tour).some,
-chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
+chat = chat.dom(myChat).some,
 underchat = underchat.some,
 moreJs = moreJs,
 chessground = false,
