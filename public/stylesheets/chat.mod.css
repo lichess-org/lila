@@ -14,17 +14,21 @@ div.mchat.mod i.mod {
   padding: 4px 5px;
   opacity: 0.5;
 }
-div.mchat.mod li:hover {
+div.mchat.mod li[data-username]:hover {
   background: rgba(255,255,255,0.6);
 }
-body.dark div.mchat.mod li:hover {
+body.dark div.mchat.mod li[data-username]:hover {
   background: rgba(255,255,255,0.05);
 }
 div.mchat.mod li:hover i.mod {
   display: block;
+  text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px #fff;
 }
 div.mchat.mod i.mod:hover {
   opacity: 1;
+}
+body.dark div.mchat.mod li i.mod {
+  text-shadow: 0 0 2px #000, 0 0 5px #000, 0 0 10px #000;
 }
 
 div.mchat.mod .moderation {
@@ -53,6 +57,9 @@ div.mchat.mod .history time {
 }
 div.mchat.mod .infos {
   padding-top: 10px;
+}
+div.mchat.mod .infos a {
+  color: #3893E8;
 }
 div.mchat.mod .timeout a {
   display: block;
