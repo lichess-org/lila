@@ -14,7 +14,6 @@ final class Env(
 
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
-    endpoint = Endpoint,
     internalEndpoint = InternalEndpoint)
 
   def cli = new lila.common.Cli {
