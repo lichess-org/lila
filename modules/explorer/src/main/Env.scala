@@ -9,13 +9,13 @@ final class Env(
     system: ActorSystem) {
 
   private val Endpoint = config getString "endpoint"
-  private val MassImportEndpoint = config getString "mass_import.endpoint"
+  private val InternalEndpoint = config getString "internal_endpoint"
   private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
     endpoint = Endpoint,
-    massImportEndpoint = MassImportEndpoint)
+    internalEndpoint = InternalEndpoint)
 
   def cli = new lila.common.Cli {
     def process = {
@@ -26,7 +26,7 @@ final class Env(
   def fetchPgn(id: String): Fu[Option[String]] = {
     import play.api.libs.ws.WS
     import play.api.Play.current
-    WS.url(s"$Endpoint/master/pgn/$id").get() map {
+    WS.url(s"$InternalEndpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _                        => None
     }

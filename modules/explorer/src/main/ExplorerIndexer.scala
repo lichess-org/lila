@@ -17,8 +17,7 @@ import lila.user.UserRepo
 
 private final class ExplorerIndexer(
     gameColl: Coll,
-    endpoint: String,
-    massImportEndpoint: String) {
+    internalEndpoint: String) {
 
   private val maxGames = Int.MaxValue
   private val batchSize = 50
@@ -28,8 +27,7 @@ private final class ExplorerIndexer(
   private val dateFormatter = DateTimeFormat forPattern datePattern
   private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
   private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
-  private val endPointUrl = s"$endpoint/import/lichess"
-  private val massImportEndPointUrl = s"$massImportEndpoint/import/lichess"
+  private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
@@ -60,7 +58,7 @@ private final class ExplorerIndexer(
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
           case (millis, pairs) =>
-            WS.url(massImportEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
+            WS.url(internalEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
               case res if res.status == 200 =>
                 val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
                 val nb = pairs.size
@@ -90,7 +88,7 @@ private final class ExplorerIndexer(
       buf += pgn
       val startAt = nowMillis
       if (buf.size >= max) {
-        WS.url(endPointUrl).put(buf mkString separator) andThen {
+        WS.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
             lila.mon.explorer.index.success(max)
