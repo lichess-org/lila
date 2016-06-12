@@ -139,9 +139,9 @@ object Round extends LilaController with TheftPrevention {
       case Some(pov) =>
         get("pov") match {
           case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
-            case (Some(_),Some(opponent)) if opponent == requestedPov =>
+            case (Some(_), Some(opponent)) if opponent == requestedPov =>
               Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-            case (Some(player),Some(_)) if player == requestedPov =>
+            case (Some(player), Some(_)) if player == requestedPov =>
               Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
             case _ =>
               Redirect(routes.Round.watcher(gameId, "white")).fuccess
@@ -165,10 +165,11 @@ object Round extends LilaController with TheftPrevention {
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
+              getWatcherChat(pov.game) zip
               Env.game.crosstableApi(pov.game) zip
               Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
-                case (((tour, simul), crosstable), data) =>
-                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
+                case ((((tour, simul), chat), crosstable), data) =>
+                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, myChat = chat))
               }
           else // web crawlers don't need the full thing
             GameRepo.initialFen(pov.game.id) zip
@@ -185,6 +186,11 @@ object Round extends LilaController with TheftPrevention {
   private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
     tourId ?? { tid =>
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
+    }
+
+  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) =
+    ctx.me ?? { me =>
+      Env.chat.api.userChat.findMine(s"${game.id}/w", me) map (_.some)
     }
 
   def playerText(fullId: String) = Open { implicit ctx =>

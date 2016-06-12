@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None, myChat: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
@@ -12,6 +12,9 @@ i18n: @jsI18n()
 });
 });
 }
+@myChat.map { c =>
+@chat.js(c, name = trans.spectatorRoom.str(), notes = true)
+}
 }
 
 @atom = {
@@ -21,7 +24,7 @@ i18n: @jsI18n()
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, userTv = userTv),
-chat = ctx.isAuth.option(base.chatDom(trans.spectatorRoom.str(), ctx.isAuth)),
+chat = chat.dom(myChat).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
