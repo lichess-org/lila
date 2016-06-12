@@ -129,10 +129,7 @@ module.exports = {
       }));
     });
 
-    if (members.canContribute()) {
-      if (lichess.once('study-tour')) startTour();
-      else form.openIfNew();
-    }
+    if (members.canContribute()) form.openIfNew();
 
     ctrl.chessground.set({
       drawable: {
