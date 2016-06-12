@@ -98,7 +98,7 @@ private final class ExplorerIndexer(
             logger.warn(s"[${res.status}]")
             lila.mon.explorer.index.failure(max)
           case Failure(err) =>
-            logger.warn(s"$err")
+            logger.warn(s"$err", err)
             lila.mon.explorer.index.failure(max)
         }
         buf.clear
