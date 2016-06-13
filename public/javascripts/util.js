@@ -186,10 +186,10 @@ lichess.pubsub = (function() {
       }
     },
     emit: function(name) {
-      if (!subs[name]) return;
-      var args = Array.prototype.slice.call(arguments, 1);
-      for (var i in subs[name]) {
-        subs[name][i].apply(null, args);
+      return function() {
+        if (!subs[name]) return;
+        var args = Array.prototype.slice.call(arguments, 0);
+        for (var i in subs[name]) subs[name][i].apply(null, args);
       }
     }
   };

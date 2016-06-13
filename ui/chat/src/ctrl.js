@@ -4,7 +4,6 @@ var makeModeration = require('./moderation').ctrl;
 module.exports = function(opts) {
 
   var lines = opts.lines;
-  var socketSend = lichess.socket.send;
 
   var vm = {
     chatName: opts.name,
@@ -40,7 +39,7 @@ module.exports = function(opts) {
 
   var moderation = vm.isMod ? makeModeration({
     reasons: opts.timeoutReasons,
-    send: socketSend
+    send: lichess.pubsub.emit('socket.send')
   }) : null;
 
   lichess.pubsub.on('socket.in.message', onMessage);
@@ -57,7 +56,7 @@ module.exports = function(opts) {
         alert('Max length: 140 chars. ' + text.length + ' chars used.');
         return false;
       }
-      socketSend('talk', text);
+      lichess.pubsub.emit('socket.send')('talk', text);
       return false;
     },
     moderation: moderation,
