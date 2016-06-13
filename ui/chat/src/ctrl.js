@@ -8,6 +8,7 @@ module.exports = function(opts) {
   var vm = {
     chatName: opts.name,
     enabled: m.prop(!lichess.storage.get('nochat')),
+    writeable: m.prop(opts.writeable),
     isTroll: opts.kobold,
     isMod: opts.mod,
     isTimeout: m.prop(opts.timeout),
@@ -42,9 +43,15 @@ module.exports = function(opts) {
     send: lichess.pubsub.emit('socket.send')
   }) : null;
 
+  var setWriteable = function(v) {
+    vm.writeable(v);
+    m.redraw();
+  };
+
   lichess.pubsub.on('socket.in.message', onMessage);
   lichess.pubsub.on('socket.in.chat_timeout', onTimeout);
   lichess.pubsub.on('socket.in.chat_reinstate', onReinstate);
+  lichess.pubsub.on('chat.writeable', setWriteable);
 
   return {
     lines: lines,

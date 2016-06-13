@@ -31,6 +31,11 @@ final class ChatApi(
       }
     }
 
+    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = me match {
+      case Some(user) => findMine(chatId, user)
+      case None       => find(chatId) map { UserChat.Mine(_, false) }
+    }
+
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>

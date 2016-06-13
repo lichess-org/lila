@@ -31,13 +31,16 @@ function selectLines(lines) {
 }
 
 function input(ctrl) {
-  var placeholder = ctrl.vm.isTimeout() ? 'You have been timed out.' : ctrl.trans(ctrl.vm.placeholderKey);
+  var placeholder;
+  if (ctrl.vm.isTimeout()) placeholder = 'You have been timed out.';
+  else if (!ctrl.vm.writeable()) placeholder = 'Invited members only.';
+  else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
   return m('input', {
     class: 'lichess_say',
     placeholder: placeholder,
     autocomplete: 'off',
     maxlength: 140,
-    disabled: ctrl.vm.isTimeout(),
+    disabled: ctrl.vm.isTimeout() || !ctrl.vm.writeable(),
     config: function(el, isUpdate) {
       if (!isUpdate) el.addEventListener('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {

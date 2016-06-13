@@ -34,7 +34,7 @@ private[study] final class SocketHandler(
     studyId: Study.ID,
     uid: Uid,
     member: Socket.Member,
-    owner: Boolean): Handler.Controller = {
+    owner: Boolean): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid.value, v)
     }
@@ -217,7 +217,11 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, socket, uid)
-  }
+  }: Handler.Controller) orElse lila.chat.Socket.in(
+    chatId = studyId,
+    member = member,
+    socket = socket,
+    chat = chat)
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f

@@ -71,7 +71,7 @@ object Study extends LilaController {
           val initialFen = chapter.root.fen
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-            Env.chat.api.userChat.find(study.id) zip
+            chatOf(study) zip
             env.jsonView(study, chapters, chapter, ctx.me) zip
             env.version(id) flatMap {
               case (((baseData, chat), studyJson), sVersion) =>
@@ -80,10 +80,9 @@ object Study extends LilaController {
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
-                  analysis = analysis,
-                  chat = lila.chat.JsonView(chat))
+                  analysis = analysis)
                 negotiate(
-                  html = Ok(html.study.show(study, data, sVersion)).fuccess,
+                  html = Ok(html.study.show(study, data, chat, sVersion)).fuccess,
                   api = _ => Ok(Json.obj(
                     "study" -> data.study,
                     "analysis" -> data.analysis)).fuccess
@@ -93,6 +92,9 @@ object Study extends LilaController {
       }
     } map NoCache
   }
+
+  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context): Fu[lila.chat.UserChat.Mine] =
+    Env.chat.api.userChat.findMine(study.id, ctx.me)
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
     negotiate(

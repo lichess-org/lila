@@ -33,7 +33,17 @@ private final class Socket(
 
   private var delayedCrowdNotification = false
 
-  def receiveSpecific = {
+  override def preStart() {
+    super.preStart()
+    lilaBus.subscribe(self, Symbol(s"chat-$studyId"))
+  }
+
+  override def postStop() {
+    super.postStop()
+    lilaBus.unsubscribe(self)
+  }
+
+  def receiveSpecific = ({
 
     case SetPath(pos, uid) => notifyVersion("path", Json.obj(
       "p" -> pos,
@@ -146,7 +156,9 @@ private final class Socket(
           showSpectatorsAndMembers(lightUser)(memberIds, members.values)
         }
       json foreach { notifyAll("crowd", _) }
-  }
+  }: Actor.Receive) orElse lila.chat.Socket.out(
+    send = (t, d, _) => notifyVersion(t, d, noMessadata)
+  )
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {

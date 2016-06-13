@@ -1847,9 +1847,6 @@ lichess.notifyApp = (function() {
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
-      messages: lichess_chat
-    });
     var tournament;
     lichess.socket = lichess.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
@@ -1894,9 +1891,6 @@ lichess.notifyApp = (function() {
   function startSimul(element, cfg) {
     $('body').data('simul-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
-      messages: lichess_chat
-    });
     var simul;
     lichess.socket = lichess.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
@@ -2103,14 +2097,8 @@ lichess.notifyApp = (function() {
   ////////////////
 
   function startStudy(element, cfg) {
-    var $chat = $('#chat').chat({
-      messages: cfg.chat,
-      gameId: cfg.study.id
-    });
     cfg.chat = {
-      writeable: function(v) {
-        $chat.chat('writeable', v);
-      }
+      writeable: lichess.pubsub.emit('chat.writeable')
     };
     var $watchers = $("div.watchers").watchers();
     var analyse;

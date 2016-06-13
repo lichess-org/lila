@@ -1,4 +1,4 @@
-@(s: lila.study.Study, data: lila.study.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.JsData, myChat: lila.chat.UserChat.Mine, socketVersion: Int)(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
@@ -7,7 +7,6 @@ lichess = lichess || {};
 lichess.study = {
 study: @Html(J.stringify(data.study)),
 data: @Html(J.stringify(data.analysis)),
-chat: @Html(J.stringify(data.chat)),
 i18n: @board.userAnalysisI18n(),
 userId: @jsUserId,
 explorer: {
@@ -18,6 +17,7 @@ socketUrl: "@routes.Study.websocket(s.id, apiVersion)",
 socketVersion: @socketVersion
 };
 }
+@chat.js(myChat, name = trans.chatRoom.str(), writeable = ctx.userId.??(s.canChat))
 }
 
 @side = {
@@ -33,7 +33,7 @@ socketVersion: @socketVersion
 @study.layout(
 title = s.name,
 side = side,
-chat = base.chatDom(trans.chatRoom.str(), withNotes = false),
+chat = chat.dom(myChat.some),
 underchat = underchat,
 moreJs = moreJs) {
 <div class="analyse cg-512">@miniBoardContent</div>

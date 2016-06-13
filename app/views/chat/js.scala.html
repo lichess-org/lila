@@ -1,4 +1,4 @@
-@(c: lila.chat.UserChat.Mine, name: String, notes: Boolean = false)(implicit ctx: Context)
+@(c: lila.chat.UserChat.Mine, name: String, notes: Boolean = false, writeable: Boolean = true)(implicit ctx: Context)
 @embedJs {
 lichess.makeChat('chat', {
 lines: @Html(J.stringify(lila.chat.JsonView(c.chat))),
@@ -8,6 +8,7 @@ trans.toggleTheChat
 ))),
 name: "@name",
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
+writeable: @writeable,
 kobold: @ctx.troll,
 mod: @isGranted(_.MarkTroll),
 timeout: @c.timeout,
