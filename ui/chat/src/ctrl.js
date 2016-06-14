@@ -1,12 +1,16 @@
 var m = require('mithril');
 var makeModeration = require('./moderation').ctrl;
+var makeNote = require('./note').ctrl;
 
 module.exports = function(opts) {
 
-  var lines = opts.lines;
+  var data = {
+    id: opts.id,
+    name: opts.name,
+    lines: opts.lines
+  };
 
   var vm = {
-    chatName: opts.name,
     enabled: m.prop(!lichess.storage.get('nochat')),
     writeable: m.prop(opts.writeable),
     isTroll: opts.kobold,
@@ -14,11 +18,14 @@ module.exports = function(opts) {
     isTimeout: m.prop(opts.timeout),
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
-    loading: m.prop(false),
+    tab: m.prop('discussion'),
+    loading: m.prop(false)
   };
 
+  var trans = lichess.trans(opts.i18n);
+
   var onTimeout = function(username) {
-    lines.forEach(function(l) {
+    data.lines.forEach(function(l) {
       if (l.u === username) l.d = true;
     });
     if (username.toLowerCase() === opts.userId) vm.isTimeout(true);
@@ -33,14 +40,19 @@ module.exports = function(opts) {
   };
 
   var onMessage = function(line) {
-    if (lines.length > 64) lines.shift();
-    lines.push(line);
+    if (data.lines.length > 64) data.lines.shift();
+    data.lines.push(line);
     m.redraw();
   };
 
   var moderation = vm.isMod ? makeModeration({
     reasons: opts.timeoutReasons,
     send: lichess.pubsub.emit('socket.send')
+  }) : null;
+
+  var note = opts.noteId ? makeNote({
+    id: opts.noteId,
+    trans: trans
   }) : null;
 
   var setWriteable = function(v) {
@@ -54,8 +66,10 @@ module.exports = function(opts) {
   lichess.pubsub.on('chat.writeable', setWriteable);
 
   return {
-    lines: lines,
+    data: data,
     vm: vm,
+    moderation: moderation,
+    note: note,
     post: function(text) {
       text = $.trim(text);
       if (!text) return false;
@@ -66,8 +80,7 @@ module.exports = function(opts) {
       lichess.pubsub.emit('socket.send')('talk', text);
       return false;
     },
-    moderation: moderation,
-    trans: lichess.trans(opts.i18n),
+    trans: trans,
     setEnabled: function(v) {
       vm.enabled(v);
       if (!v) lichess.storage.set('nochat', 1);

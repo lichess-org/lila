@@ -142,6 +142,7 @@ GET   /$gameId<\w{8}>/$color<white|black>/sides/watcher controllers.Round.sidesW
 GET   /$gameId<\w{8}>/$color<white|black>/sides/player controllers.Round.sidesPlayer(gameId: String, color: String)
 GET   /$gameId<\w{8}>/others                     controllers.Round.others(gameId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
+GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)

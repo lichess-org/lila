@@ -1,0 +1,7 @@
+@(withNote: Boolean = false)(implicit ctx: Context)
+@Html(J.stringify(i18nOptionJsObject(
+trans.talkInChat.some,
+trans.toggleTheChat.some,
+withNote option trans.notes,
+withNote option trans.typePrivateNotesHere
+)))

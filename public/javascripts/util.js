@@ -115,8 +115,10 @@ lichess.shepherd = function(f) {
   });
 };
 lichess.makeChat = function(id, data) {
+  var isDev = $('body').data('dev');
+  lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.mod) lichess.loadCss('/assets/stylesheets/chat.mod.css');
-  lichess.loadScript('/assets/compiled/lichess.chat.js').then(function() {
+  lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
     LichessChat(document.getElementById(id), data);
   });
 };

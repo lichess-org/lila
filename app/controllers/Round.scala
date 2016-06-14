@@ -225,6 +225,13 @@ object Round extends LilaController with TheftPrevention {
         text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
   }
 
+  def readNote(gameId: String) = Auth { implicit ctx =>
+    me =>
+      Env.round.noteApi.get(gameId, me.id) map { text =>
+        Ok(text)
+      }
+  }
+
   private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     myTour(pov.game.tournamentId, isPlayer) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip

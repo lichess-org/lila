@@ -18,6 +18,28 @@ function userModInfo(username) {
   });
 }
 
+function noteUrl(id) {
+  return uncache('/' + id + '/note');
+}
+
+function getNote(id) {
+  return $.get(noteUrl(id));
+}
+
+function setNote(id, text) {
+  return m.request({
+    background: true,
+    method: 'POST',
+    url: noteUrl(id),
+    data: {
+      text: text
+    },
+    config: xhrConfig
+  });
+}
+
 module.exports = {
-  userModInfo: userModInfo
+  userModInfo: userModInfo,
+  getNote: getNote,
+  setNote: setNote
 };

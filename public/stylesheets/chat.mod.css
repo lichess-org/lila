@@ -32,7 +32,6 @@ body.dark div.mchat.mod li i.mod {
 }
 
 div.mchat.mod .moderation {
-  justify-content: flex-start;
   overflow: auto;
 }
 

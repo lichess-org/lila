@@ -1,0 +1,71 @@
+div.mchat {
+  height: 350px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+div.mchat .chat_tabs {
+  display: flex;
+}
+div.mchat .chat_tabs .tab {
+  flex: 1 1 auto;
+  border: 1px solid #c0c0c0;
+  border-width: 0 1px 1px 0;
+  padding: 3px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+div.mchat .chat_tabs .tab:not(.active) {
+  background: #e0e0e0;
+  opacity: 0.7;
+  cursor: pointer;
+}
+div.mchat .chat_tabs .tab:not(.active):hover {
+  opacity: 1;
+}
+div.mchat .chat_tabs .tab input {
+  cursor: pointer;
+}
+div.mchat .chat_tabs .tab.discussion {
+  display: flex;
+  justify-content: space-between;
+}
+div.mchat .chat_tabs .tab span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.mchat .chat_tabs .tab:last-child {
+  border-right: none;
+}
+div.mchat .chat_tabs .tab.active {
+  border-bottom-color: transparent;
+}
+div.mchat .content {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+div.mchat .note textarea {
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  color: #707070;
+  line-height: 1.7em;
+  outline: none;
+}
+div.mchat .lichess_say {
+  border-width: 1px 0 0 0;
+}
+div.mchat .deleted {
+  opacity: 0.5;
+}
+div.mchat .system {
+  display: block;
+  opacity: 0.8;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8em;
+}

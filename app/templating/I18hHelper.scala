@@ -31,6 +31,9 @@ trait I18nHelper {
   def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToObject(keys, lang)
 
+  def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
+    i18nEnv.jsDump.keysToObject(keys.flatten, lang)
+
   def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName(lang: String): Option[String] = LangList name lang
 
