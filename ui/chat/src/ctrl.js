@@ -7,7 +7,9 @@ module.exports = function(opts) {
   var data = {
     id: opts.id,
     name: opts.name,
-    lines: opts.lines
+    lines: opts.lines,
+    userId: opts.userId,
+    loginRequired: opts.loginRequired
   };
 
   var vm = {
@@ -19,7 +21,8 @@ module.exports = function(opts) {
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
     tab: m.prop('discussion'),
-    loading: m.prop(false)
+    loading: m.prop(false),
+    presets: m.prop([])
   };
 
   var trans = lichess.trans(opts.i18n);
@@ -28,12 +31,12 @@ module.exports = function(opts) {
     data.lines.forEach(function(l) {
       if (l.u === username) l.d = true;
     });
-    if (username.toLowerCase() === opts.userId) vm.isTimeout(true);
+    if (username.toLowerCase() === data.userId) vm.isTimeout(true);
     m.redraw();
   };
 
   var onReinstate = function(userId) {
-    if (userId === opts.userId) {
+    if (userId === data.userId) {
       vm.isTimeout(false);
       m.redraw();
     }
@@ -50,7 +53,7 @@ module.exports = function(opts) {
     send: lichess.pubsub.emit('socket.send')
   }) : null;
 
-  var note = opts.noteId ? makeNote({
+  var note = data.userId && opts.noteId ? makeNote({
     id: opts.noteId,
     trans: trans
   }) : null;
@@ -60,10 +63,18 @@ module.exports = function(opts) {
     m.redraw();
   };
 
+  var setPresets = function(p) {
+    if (p.toString() !== vm.presets().toString()) {
+      vm.presets(p);
+      m.redraw();
+    }
+  };
+
   lichess.pubsub.on('socket.in.message', onMessage);
   lichess.pubsub.on('socket.in.chat_timeout', onTimeout);
   lichess.pubsub.on('socket.in.chat_reinstate', onReinstate);
   lichess.pubsub.on('chat.writeable', setWriteable);
+  lichess.pubsub.on('chat.presets', setPresets);
 
   return {
     data: data,

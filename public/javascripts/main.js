@@ -180,9 +180,6 @@ lichess.notifyApp = (function() {
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
       },
-      message: function(msg) {
-        $('#chat').chat("append", msg);
-      },
       new_notification: function(e) {
         var notification = e.notification;
 
@@ -1055,7 +1052,6 @@ lichess.notifyApp = (function() {
           }
         }
       });
-    var $chat;
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send;
     cfg.onChange = data.player.spectator ? $.noop : function(data) {
@@ -1066,15 +1062,10 @@ lichess.notifyApp = (function() {
       else if (data.game.status.id >= 30) presets = [
         'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
       ];
-      $chat.chat('setPresets', presets);
+      lichess.pubsub.emit('chat.presets', presets);
     };
     round = LichessRound(cfg);
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    $chat = $('#chat').chat({
-      messages: data.chat,
-      initialNote: data.note,
-      gameId: data.game.id
-    });
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
@@ -1159,157 +1150,6 @@ lichess.notifyApp = (function() {
     _renderUser: function(user) {
       var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
       return '<a class="ulpt" href="/@/' + id + '">' + user + '</a>';
-    }
-  });
-
-  lichess.widget("chat", {
-    _create: function() {
-      this.options = $.extend({
-        messages: [],
-        writeable: true,
-        initialNote: '',
-        gameId: null,
-        presets: [],
-        presetCount: 0
-      }, this.options);
-      var self = this;
-      var $parent = self.element.parent();
-      self.$msgs = self.element.find('.messages');
-      self.withMsgs = !!self.$msgs.length;
-      if (self.withMsgs) {
-        self.$msgs.on('click', 'a', function() {
-          $(this).attr('target', '_blank');
-        });
-        var $form = self.element.find('form');
-        var $input = self.element.find('input.lichess_say');
-        self.options.placeholder = $input.attr('placeholder');
-        self.writeable(self.options.writeable);
-
-        // send a message
-        $form.submit(function() {
-          var text = $.trim($input.val());
-          if (!text) return false;
-          if (text.length > 140) {
-            alert('Max length: 140 chars. ' + text.length + ' chars used.');
-            return false;
-          }
-          $input.val('');
-          lichess.socket.send('talk', text);
-          return false;
-        });
-
-        self.element.find('a.send').click(function() {
-          $input.trigger('click');
-          $form.submit();
-        });
-
-        // toggle the chat
-        var $toggle = $parent.find('input.toggle_chat');
-        $toggle.change(function() {
-          var enabled = $toggle.is(':checked');
-          self.element.toggleClass('hidden', !enabled);
-          if (!enabled) lichess.storage.set('nochat', 1);
-          else lichess.storage.remove('nochat');
-        });
-        $toggle[0].checked = lichess.storage.get('nochat') != 1;
-        if (!$toggle[0].checked) {
-          self.element.addClass('hidden');
-        }
-        if (self.options.messages.length > 0) self._appendMany(self.options.messages);
-        self.element.on('click', '.presets button', function() {
-          $input.val($(this).data('hint'));
-          $form.submit();
-          if (++self.options.presetCount >= 2) self.element.find('.presets').remove();
-          $input.focus();
-        });
-        self._renderPresets();
-      }
-
-      $panels = self.element.find('div.chat_panels > div');
-      $menu = $parent.find('.chat_menu');
-      $menu.on('click', 'a', function() {
-        var panel = $(this).data('panel');
-        $(this).siblings('.active').removeClass('active').end().addClass('active');
-        $panels.removeClass('active').filter('.' + panel).addClass('active');
-      }).find('a[data-panel=preferences]').one('click', function() {
-        self.element.find('.preferences form').each(function() {
-          var $form = $(this);
-          $form.find('group.radio').removeClass('radio');
-          $form.find('input').change(function() {
-            $.ajax({
-              url: $form.attr('action'),
-              method: $form.attr('method'),
-              data: $form.serialize()
-            });
-          });
-        });
-      });
-      $menu.find('a:first').click();
-
-      $notes = self.element.find('.notes textarea');
-      if (self.options.gameId && $notes.length) {
-        $notes.on('change keyup paste', $.fp.debounce(function() {
-          $.post('/' + self.options.gameId + '/note', {
-            text: $notes.val()
-          });
-        }, 1000));
-        $notes.val(self.options.initialNote || '');
-      }
-    },
-    writeable: function(v) {
-      this.options.writeable = v;
-      this.element.find('input.lichess_say')
-        .prop('disabled', !v)
-        .prop('placeholder', v ? this.options.placeholder : 'Invited members only');
-    },
-    append: function(msg) {
-      this._appendHtml(this._render(msg));
-    },
-    setPresets: function(presets) {
-      if (presets.join('|') === this.options.presets.join('|')) return;
-      this.options.presetCount = 0;
-      this.options.presets = presets;
-      this._renderPresets();
-    },
-    _renderPresets: function() {
-      var $e = this.element.find('.messages_container');
-      $e.find('.presets').remove();
-      if (!this.options.presets.length) return;
-      $e.append($('<div>').addClass('presets').html(
-        this.options.presets.map(function(p) {
-          var s = p.split('/');
-          return '<button class="button hint--top thin" data-hint="' + s[1] + '">' + s[0] + '</button>';
-        }).join('')
-      ));
-    },
-    _appendMany: function(objs) {
-      var self = this,
-        html = "";
-      $.each(objs, function() {
-        html += self._render(this);
-      });
-      self._appendHtml(html);
-    },
-    _render: function(msg) {
-      var user, sys = false;
-      if (msg.c) {
-        user = '<span class="color">[' + msg.c + ']</span>';
-      } else if (msg.u == 'lichess') {
-        sys = true;
-        user = '<span class="system"></span>';
-      } else {
-        user = $.userLinkLimit(msg.u, 14);
-      }
-      return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + $.urlToLink(msg.t) + '</li>';
-    },
-    _appendHtml: function(html) {
-      if (!html) return;
-      this.$msgs.each(function(i, el) {
-        var autoScroll = (el.scrollTop == 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 50)));
-        $(el).append(html);
-        if (autoScroll) el.scrollTop = 999999;
-      });
-      $('body').trigger('lichess.content_loaded');
     }
   });
 
@@ -1916,11 +1756,6 @@ lichess.notifyApp = (function() {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
-    if (data.chat) $('#chat').chat({
-      messages: data.chat,
-      initialNote: data.note,
-      gameId: data.game.id
-    });
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
     lichess.socket = lichess.StrongSocket(

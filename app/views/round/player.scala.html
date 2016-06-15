@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov], prefs: Option[Form[_]])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov], chatOption: Option[lila.chat.MixedChat])(implicit ctx: Context)
 
 @import pov._
 
@@ -15,6 +15,9 @@ userId: @jsUserId
 });
 });
 }
+@chatOption.map { c =>
+@chat.js(c, name = trans.chatRoom.str(), timeout = false, withNote = true)
+}
 }
 
 @atom = {
@@ -24,7 +27,7 @@ userId: @jsUserId
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul),
-chat = game.tournamentId.isEmpty.option(leftabs(pov, prefs)),
+chat = chatOption.isDefined.option(chat.dom()),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,

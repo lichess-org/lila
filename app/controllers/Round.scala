@@ -57,9 +57,10 @@ object Round extends LilaController with TheftPrevention {
         PreventTheft(pov) {
           myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
+            getPlayerChat(pov.game) zip
             Env.game.crosstableApi(pov.game) zip
             (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
-              case (((tour, simul), crosstable), playing) =>
+              case ((((tour, simul), chatOption), crosstable), playing) =>
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
                   Ok(html.round.player(pov, data,
@@ -67,7 +68,7 @@ object Round extends LilaController with TheftPrevention {
                     simul = simul,
                     cross = crosstable,
                     playing = playing,
-                    prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
+                    chatOption = chatOption))
                 }
             }
         }.mon(_.http.response.player.website),
@@ -189,8 +190,11 @@ object Round extends LilaController with TheftPrevention {
     }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) =
-    ctx.me ?? { me =>
-      Env.chat.api.userChat.findMine(s"${game.id}/w", me) map (_.some)
+    Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me)
+
+  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context) =
+    game.hasChat ?? {
+      Env.chat.api.playerChat.find(game.id) map (_.some)
     }
 
   def playerText(fullId: String) = Open { implicit ctx =>

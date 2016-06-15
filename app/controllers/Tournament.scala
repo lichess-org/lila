@@ -53,7 +53,9 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id).zip(chatOf(tour)).flatMap {
+          env.version(tour.id).zip {
+            Env.chat.api.userChat.findMine(tour.id, ctx.me)
+          }.flatMap {
             case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
               html.tournament.show(tour, _, chat)
             }
@@ -177,9 +179,4 @@ object Tournament extends LilaController {
       env.socketHandler.join(id, uid, ctx.me)
     }
   }
-
-  private def chatOf(tour: lila.tournament.Tournament)(implicit ctx: Context) =
-    ctx.me ?? { me =>
-      Env.chat.api.userChat.findMine(tour.id, me) map (_.some)
-    }
 }

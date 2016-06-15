@@ -3,6 +3,9 @@ div.mchat {
   display: flex;
   flex-flow: column nowrap;
 }
+body.kid div.mchat {
+  display: none;
+}
 div.mchat .chat_tabs {
   display: flex;
 }

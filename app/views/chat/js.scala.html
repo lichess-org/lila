@@ -1,16 +1,17 @@
-@(c: lila.chat.UserChat.Mine, name: String, withNote: Boolean = false, writeable: Boolean = true)(implicit ctx: Context)
+@(chat: lila.chat.AnyChat, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true)(implicit ctx: Context)
 @embedJs {
 lichess.makeChat('chat', {
-lines: @Html(J.stringify(lila.chat.JsonView(c.chat))),
+lines: @Html(J.stringify(lila.chat.JsonView(chat))),
 i18n: @jsI18n(withNote = withNote),
-id: "@c.chat.id",
+id: "@chat.id",
 name: "@name",
 userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
+loginRequired: @chat.loginRequired,
 writeable: @writeable,
-noteId: @if(withNote) {"@c.chat.id.take(8)"} else {null},
+noteId: @if(withNote) {"@chat.id.take(8)"} else {null},
 kobold: @ctx.troll,
 mod: @isGranted(_.MarkTroll),
-timeout: @c.timeout,
+timeout: @timeout,
 timeoutReasons: @if(isGranted(_.MarkTroll)) { @Html(J.stringify(lila.chat.JsonView.timeoutReasons)) } else { null }
 });
 }

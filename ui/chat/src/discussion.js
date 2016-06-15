@@ -29,6 +29,10 @@ function selectLines(lines) {
 }
 
 function input(ctrl) {
+  if (ctrl.data.loginRequired && !ctrl.data.userId) return m('input.lichess_say', {
+    placeholder: 'Login to chat',
+    disabled: true
+  });
   var placeholder;
   if (ctrl.vm.isTimeout()) placeholder = 'You have been timed out.';
   else if (!ctrl.vm.writeable()) placeholder = 'Invited members only.';
@@ -50,6 +54,20 @@ function input(ctrl) {
   })
 }
 
+function presets(ctrl) {
+  var ps = ctrl.vm.presets();
+  if (ps.length) return m('div.presets', {}, ps.map(function(p) {
+    var s = p.split('/');
+    return m('button', {
+      class: 'button hint--top thin',
+      'data-hint': s[1],
+      onclick: function() {
+        ctrl.post(s[1]);
+      }
+    }, s[0]);
+  }));
+}
+
 module.exports = {
   view: function(ctrl) {
     if (!ctrl.vm.enabled()) return null;
@@ -68,7 +86,8 @@ module.exports = {
         },
         selectLines(ctrl.data.lines).map(renderLine(ctrl))
       ),
-      input(ctrl)
+      input(ctrl),
+      presets(ctrl)
     ];
   }
 };

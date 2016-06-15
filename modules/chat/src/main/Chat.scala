@@ -6,6 +6,8 @@ sealed trait AnyChat {
   def id: ChatId
   def lines: List[Line]
 
+  val loginRequired: Boolean
+
   def forUser(u: Option[User]): AnyChat
 
   def isEmpty = lines.isEmpty
@@ -20,6 +22,8 @@ sealed trait Chat[L <: Line] extends AnyChat {
 case class UserChat(
     id: ChatId,
     lines: List[UserLine]) extends Chat[UserLine] {
+
+  val loginRequired = true
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(this,
     copy(lines = lines filterNot (_.troll)))
@@ -39,6 +43,8 @@ object UserChat {
 case class MixedChat(
     id: ChatId,
     lines: List[Line]) extends Chat[Line] {
+
+  val loginRequired = false
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(this,
     copy(lines = lines filter {

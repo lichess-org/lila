@@ -17,7 +17,7 @@ socketUrl: "@routes.Study.websocket(s.id, apiVersion)",
 socketVersion: @socketVersion
 };
 }
-@chat.js(myChat, name = trans.chatRoom.str(), writeable = ctx.userId.??(s.canChat))
+@chat.js(myChat.chat, name = trans.chatRoom.str(), timeout = myChat.timeout, writeable = ctx.userId.??(s.canChat))
 }
 
 @side = {
@@ -33,7 +33,6 @@ socketVersion: @socketVersion
 @study.layout(
 title = s.name,
 side = side,
-chat = chat.dom(myChat.some),
 underchat = underchat,
 moreJs = moreJs) {
 <div class="analyse cg-512">@miniBoardContent</div>
