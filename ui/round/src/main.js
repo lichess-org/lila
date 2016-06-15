@@ -13,45 +13,6 @@ module.exports = function(opts) {
     view: view
   });
 
-  setTimeout(function() {
-    if (opts.data.game.variant.key === 'racingKings' &&
-      lichess.once('round.racing-kings')) lichess.hopscotch(function() {
-      hopscotch.configure({
-        i18n: {
-          doneBtn: 'OK, got it'
-        }
-      }).startTour({
-        id: "round-racing-kings",
-        showPrevButton: true,
-        steps: [{
-          title: "Racing Kings",
-          content: "This is a game of racing kings. " +
-            'You might want to check out <a target="_blank" href="https://lichess.org/variant/racing-kings">the rules</a>.',
-          target: "div.game_infos .variant-link",
-          placement: "bottom"
-        }]
-      });
-    });
-    else if (opts.data.game.variant.key === 'crazyhouse' &&
-      lichess.once('round.crazyhouse')) lichess.hopscotch(function() {
-      hopscotch.configure({
-        i18n: {
-          doneBtn: 'OK, got it'
-        }
-      }).startTour({
-        id: "round-crazyhouse",
-        showPrevButton: true,
-        steps: [{
-          title: "Crazyhouse",
-          content: "This is a game of crazyhouse. " +
-            'You might want to check out <a target="_blank" href="https://lichess.org/variant/crazyhouse">the rules</a>.',
-          target: "div.game_infos .variant-link",
-          placement: "bottom"
-        }]
-      });
-    });
-  }, 2000);
-
   return {
     socketReceive: controller.socket.receive,
     moveOn: controller.moveOn
