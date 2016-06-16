@@ -1,5 +1,5 @@
 div.mchat {
-  height: 350px;
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
 }
@@ -13,10 +13,10 @@ div.mchat .chat_tabs .tab {
   flex: 1 1 auto;
   border: 1px solid #c0c0c0;
   border-width: 0 1px 1px 0;
-  padding: 3px 8px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
+  padding: 4px 8px 5px 8px;
 }
 div.mchat .chat_tabs .tab:not(.active) {
   background: #e0e0e0;
@@ -26,12 +26,16 @@ div.mchat .chat_tabs .tab:not(.active) {
 div.mchat .chat_tabs .tab:not(.active):hover {
   opacity: 1;
 }
+div.mchat .chat_tabs .tab.active {
+  font-weight: bold;
+}
 div.mchat .chat_tabs .tab input {
   cursor: pointer;
 }
 div.mchat .chat_tabs .tab.discussion {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 div.mchat .chat_tabs .tab span {
   white-space: nowrap;

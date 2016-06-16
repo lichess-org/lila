@@ -11,12 +11,12 @@ $(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
-userId: @jsUserId
-});
-});
+userId: @jsUserId,
+chat: @chatOption.fold(Html(""""null"""")) { c =>
+@Html(J.stringify(chat.ChatJsData.json(c, name = trans.chatRoom.str(), timeout = false, withNote = true)))
 }
-@chatOption.map { c =>
-@chat.js(c, name = trans.chatRoom.str(), timeout = false, withNote = true)
+});
+});
 }
 }
 

@@ -1,16 +1,11 @@
 var m = require('mithril');
 var makeModeration = require('./moderation').ctrl;
 var makeNote = require('./note').ctrl;
+var makePreset = require('./preset').ctrl;
 
 module.exports = function(opts) {
 
-  var data = {
-    id: opts.id,
-    name: opts.name,
-    lines: opts.lines,
-    userId: opts.userId,
-    loginRequired: opts.loginRequired
-  };
+  var data = opts.data;
 
   var vm = {
     enabled: m.prop(!lichess.storage.get('nochat')),
@@ -21,11 +16,19 @@ module.exports = function(opts) {
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
     tab: m.prop('discussion'),
-    loading: m.prop(false),
-    presets: m.prop([])
+    loading: m.prop(false)
   };
 
-  var trans = lichess.trans(opts.i18n);
+  var post = function(text) {
+    text = $.trim(text);
+    if (!text) return false;
+    if (text.length > 140) {
+      alert('Max length: 140 chars. ' + text.length + ' chars used.');
+      return false;
+    }
+    lichess.pubsub.emit('socket.send')('talk', text);
+    return false;
+  };
 
   var onTimeout = function(username) {
     data.lines.forEach(function(l) {
@@ -48,6 +51,8 @@ module.exports = function(opts) {
     m.redraw();
   };
 
+  var trans = lichess.trans(opts.i18n);
+
   var moderation = vm.isMod ? makeModeration({
     reasons: opts.timeoutReasons,
     send: lichess.pubsub.emit('socket.send')
@@ -58,39 +63,28 @@ module.exports = function(opts) {
     trans: trans
   }) : null;
 
+  var preset = makePreset({
+    initialGroup: opts.preset,
+    post: post
+  });
+
   var setWriteable = function(v) {
     vm.writeable(v);
     m.redraw();
-  };
-
-  var setPresets = function(p) {
-    if (p.toString() !== vm.presets().toString()) {
-      vm.presets(p);
-      m.redraw();
-    }
   };
 
   lichess.pubsub.on('socket.in.message', onMessage);
   lichess.pubsub.on('socket.in.chat_timeout', onTimeout);
   lichess.pubsub.on('socket.in.chat_reinstate', onReinstate);
   lichess.pubsub.on('chat.writeable', setWriteable);
-  lichess.pubsub.on('chat.presets', setPresets);
 
   return {
     data: data,
     vm: vm,
     moderation: moderation,
     note: note,
-    post: function(text) {
-      text = $.trim(text);
-      if (!text) return false;
-      if (text.length > 140) {
-        alert('Max length: 140 chars. ' + text.length + ' chars used.');
-        return false;
-      }
-      lichess.pubsub.emit('socket.send')('talk', text);
-      return false;
-    },
+    preset: preset,
+    post: post,
     trans: trans,
     setEnabled: function(v) {
       vm.enabled(v);

@@ -730,6 +730,9 @@ div.side_box div.user_tv h2 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+#chat.side_box {
+  height: 350px;
+}
 div.side div.confrontation {
   text-align: center;
   margin-bottom: 5px;
@@ -1080,13 +1083,6 @@ body.fpmenu #fpmenu {
   background: #f0f0f0;
   color: #444;
 }
-/* #topmenu div div { */
-
-/*   top: 0; */
-
-/*   left: 100%; */
-
-/* } */
 
 #user_tag {
   font-weight: bold;

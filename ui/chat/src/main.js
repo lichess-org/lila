@@ -12,7 +12,10 @@ module.exports = function(element, opts) {
     view: require('./view')
   });
 
+  lichess.pubsub.emit('chat.ready', controller);
+
   return {
-    newLine: controller.newLine
+    newLine: controller.newLine,
+    preset: controller.preset
   };
 };

@@ -998,7 +998,7 @@ lichess.notifyApp = (function() {
   lichess.startRound = function(element, cfg) {
     var data = cfg.data;
     if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
-    var round;
+    var round, chat;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = lichess.StrongSocket(
       data.url.socket,
@@ -1052,19 +1052,22 @@ lichess.notifyApp = (function() {
           }
         }
       });
+    var getPresetGroup = function(d) {
+      if (d.player.spectator) return null;
+      if (d.steps.length < 4) return 'start';
+      else if (d.game.status.id >= 30) return 'end';
+      return null;
+    };
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send;
-    cfg.onChange = data.player.spectator ? $.noop : function(data) {
-      var presets = [];
-      if (data.steps.length < 4) presets = [
-        'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
-      ];
-      else if (data.game.status.id >= 30) presets = [
-        'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
-      ];
-      lichess.pubsub.emit('chat.presets', presets);
+    cfg.onChange = function(d) {
+      if (chat) chat.preset.setGroup(getPresetGroup(d));
     };
     round = LichessRound(cfg);
+    cfg.chat.preset = getPresetGroup(cfg.data);
+    lichess.makeChat('chat', cfg.chat, function(c) {
+      chat = c;
+    });
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
