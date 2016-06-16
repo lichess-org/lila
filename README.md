@@ -1,31 +1,31 @@
-[lichess.org](http://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
+[lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
 ---------------------------------
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
-Lila is a free online chess game server focused on [realtime](http://lichess.org/games) gameplay and ease of use.
+Lila is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
 
-It features a [search engine](http://lichess.org/games/search),
-[computer analysis](http://lichess.org/ief49lif) distributed with [fishnet](https://github.com/niklasf/fishnet),
-[tournaments](http://lichess.org/tournament),
-[simuls](http://lichess.org/simul),
-[forums](http://lichess.org/forum),
-[teams](http://lichess.org/team),
-[tactic trainer](http://lichess.org/training),
-[opening trainer](http://lichess.org/training/opening),
-a [mobile app](http://lichess.org/mobile),
-and a [network world map](http://lichess.org/network).
-The UI is available in more than [80 languages](http://lichess.org/translation/contribute) thanks to the community.
+It features a [search engine](https://lichess.org/games/search),
+[computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/niklasf/fishnet),
+[tournaments](https://lichess.org/tournament),
+[simuls](https://lichess.org/simul),
+[forums](https://lichess.org/forum),
+[teams](https://lichess.org/team),
+[tactic trainer](https://lichess.org/training),
+[opening trainer](https://lichess.org/training/opening),
+a [mobile app](https://lichess.org/mobile),
+and a [network world map](https://lichess.org/network).
+The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
 
-Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
-and relies on [Play 2.3](http://www.playframework.com/) for the routing, templating, and JSON.
-Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
+Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
+and relies on [Play 2.3](https://www.playframework.com/) for the routing, templating, and JSON.
+Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an AI cluster of donated servers.
-It uses [MongoDB 2.6](http://mongodb.org) to store more than 68 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+It uses [MongoDB 2.6](https://mongodb.org) to store more than 68 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.6](http://nginx.org).
-Client-side is written in [mithril.js](http://lhorie.github.io/mithril/).
-The [blog](http://lichess.org/blog) uses a free open content plan from [prismic.io](http://prismic.io).
+Client-side is written in [mithril.js](http://mithril.js.org/).
+The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 
 Join us on #lichess IRC channel on freenode for more info.
 Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
@@ -33,9 +33,9 @@ Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
-> If you want to add a live chess section to your website, you are welcome to [embed lichess](http://lichess.org/developers) into your website. It's very easy to do.
+> If you want to add a live chess section to your website, you are welcome to [embed lichess](https://lichess.org/developers) into your website. It's very easy to do.
 
-> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers) into your website.
+> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](https://lichess.org/developers) into your website.
 
 > Also note that if I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
@@ -53,18 +53,18 @@ To respect the API servers and avoid an IP ban, please wait 2 seconds between re
 ### `GET /api/user/<username>` fetch one user
 
 ```
-> curl http://en.lichess.org/api/user/thibault
+> curl https://en.lichess.org/api/user/thibault
 ```
 
 ```javascript
 {
   "username": "thibault",
-  "title": null,                            // chess title like FM or LM (lichess master)
-  "url": "http://lichess.org/@/thibault",   // profile url
-  "online": true,                           // is the player currently using lichess?
-  "playing": "http://lichess.org/abcdefgh", // game being played, if any
-  "engine": false,                          // true if the user is known to use a chess engine
-  "language": "en",                         // prefered language
+  "title": null,                             // chess title like FM or LM (lichess master)
+  "url": "https://lichess.org/@/thibault",   // profile url
+  "online": true,                            // is the player currently using lichess?
+  "playing": "https://lichess.org/abcdefgh", // game being played, if any
+  "engine": false,                           // true if the user is known to use a chess engine
+  "language": "en",                          // prefered language
   "profile": {
     "bio": "Developer of lichess",
     "country": "FR",
@@ -72,12 +72,12 @@ To respect the API servers and avoid an IP ban, please wait 2 seconds between re
     "lastName": "Duplessis",
     "location": "Paris"
   },
-  "perfs": {                                // user performances in different games
+  "perfs": {                                 // user performances in different games
     "bullet": {
-      "games": 35,                          // number of rated games played
-      "rating": 1624,                       // Glicko2 rating
-      "rd": 80,                             // Glicko2 rating deviation
-      "prog": -13                           // progress over the last twelve games
+      "games": 35,                           // number of rated games played
+      "rating": 1624,                        // Glicko2 rating
+      "rd": 80,                              // Glicko2 rating deviation
+      "prog": -13                            // progress over the last twelve games
     },
     "chess960": {
       "games": 1,
@@ -116,7 +116,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.lichess.org/api/user/thibault',
+  url:'https://en.lichess.org/api/user/thibault',
   dataType:'jsonp',
   jsonp:'callback',
   success: function(data) {
@@ -129,7 +129,7 @@ $.ajax({
 ### `GET /api/user` fetch many users
 
 ```
-> curl http://en.lichess.org/api/user?team=coders&nb=100
+> curl https://en.lichess.org/api/user?team=coders&nb=100
 ```
 
 All parameters are optional.
@@ -154,7 +154,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.lichess.org/api/user',
+  url:'https://en.lichess.org/api/user',
   data: {
     team: 'coders',
     nb: 100
@@ -171,7 +171,7 @@ $.ajax({
 ### `GET /api/user/<username>/games` fetch user games
 
 ```
-> curl http://en.lichess.org/api/user/thibault/games?nb=50&page=2
+> curl https://en.lichess.org/api/user/thibault/games?nb=50&page=2
 ```
 
 Games are returned by descendant chronological order.
@@ -210,7 +210,7 @@ name | type | default | description
       },
       "timestamp": 1389100907239,
       "turns": 44,
-      "url": "http://lichess.org/x2kpaixn",
+      "url": "https://lichess.org/x2kpaixn",
       "winner": "black",
       "players": {
         "white": {
@@ -261,7 +261,7 @@ name | type | default | description
 ### `GET /api/game/{id}` fetch one game by ID
 
 ```
-> curl http://en.lichess.org/api/game/x2kpaixn
+> curl https://en.lichess.org/api/game/x2kpaixn
 ```
 
 A single game is returned.
@@ -291,7 +291,7 @@ name | type | default | description
   },
   "timestamp": 1389100907239,
   "turns": 44,
-  "url": "http://lichess.org/x2kpaixn",
+  "url": "https://lichess.org/x2kpaixn",
   "winner": "black",
   "players": {
     "white": {
@@ -345,13 +345,13 @@ name | type | default | description
 
 ### `GET /game/export/{id}.pgn` fetch one game PGN by ID
 
-http://en.lichess.org/game/export/Qa7FJNk2.pgn
+https://en.lichess.org/game/export/Qa7FJNk2.pgn
 
 This returns the raw PGN for a game.
 
 ```
 [Event "Rated game"]
-[Site "http://lichess.org/Qa7FJNk2"]
+[Site "https://lichess.org/Qa7FJNk2"]
 [Date "2014.06.12"]
 [White "onpurplesz"]
 [Black "LauraSchmidt"]
@@ -373,7 +373,7 @@ This returns the raw PGN for a game.
 Credits
 -------
 
-See the [lichess Thanks page](http://lichess.org/thanks)
+See the [lichess Thanks page](https://lichess.org/thanks)
 
 Supported browsers
 ------------------
