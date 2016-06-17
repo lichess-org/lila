@@ -64,15 +64,69 @@ div.mchat .note textarea {
   outline: none;
 }
 div.mchat .lichess_say {
-  border-width: 1px 0 0 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+  padding: 3px 20px 3px 4px;
+  width: 100%;
+  box-sizing: border-box;
 }
-div.mchat .deleted {
+div.mchat .messages {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+div.mchat .messages li {
+  padding: 0.4em 0 0.4em 5px;
+  line-height: 14px;
+  margin: 0;
+}
+body.no-select div.mchat .messages li {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
+div.mchat .messages .deleted {
   opacity: 0.5;
 }
-div.mchat .system {
+div.mchat .messages .system {
   display: block;
   opacity: 0.8;
   font-style: italic;
-  text-align: center;
   font-size: 0.8em;
+  margin-left: 0;
+  text-align: center;
+}
+div.mchat .messages span,
+div.mchat .messages .user_link {
+  font-family: 'Roboto';
+  font-weight: 300;
+  padding: 0;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+div.mchat .presets {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+div.mchat .presets span {
+  flex: 1 1 auto;
+  text-align: center;
+  display: block;
+  opacity: 0.7;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+div.mchat .presets span:not(.disabled) {
+  cursor: pointer;
+}
+div.mchat .presets span.disabled {
+  color: transparent;
+}
+div.mchat .presets span:not(.disabled):hover {
+  background: #3893E8;
+  color: #fff;
+  opacity: 1;
 }

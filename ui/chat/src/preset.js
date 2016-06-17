@@ -46,8 +46,8 @@ module.exports = {
     var said = ctrl.said();
     if (sets && said.length < 2) return m('div.presets', sets.map(function(p) {
       var disabled = said.indexOf(p[0]) !== -1;
-      return m('button', {
-        class: 'button hint--top thin',
+      return m('span', {
+        class: 'hint--top' + (disabled ? ' disabled' : ''),
         'data-hint': p[1],
         disabled: disabled,
         onclick: function() {

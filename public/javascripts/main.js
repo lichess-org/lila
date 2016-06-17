@@ -1831,6 +1831,8 @@ lichess.notifyApp = (function() {
     analyse = LichessAnalyse(cfg);
     cfg.jumpToIndex = analyse.jumpToIndex;
 
+    lichess.makeChat('chat', cfg.chat);
+
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
 
     var chartLoader = function() {

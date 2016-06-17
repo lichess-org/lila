@@ -1,3 +1,11 @@
+div.mchat.mod div.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.mchat.mod div.top .toggle_chat {
+  cursor: pointer;
+}
 div.mchat.mod .spinner {
   padding-top: 100px;
 }

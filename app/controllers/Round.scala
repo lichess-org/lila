@@ -170,7 +170,7 @@ object Round extends LilaController with TheftPrevention {
               Env.game.crosstableApi(pov.game) zip
               Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
                 case ((((tour, simul), chat), crosstable), data) =>
-                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, myChat = chat))
+                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat))
               }
           else // web crawlers don't need the full thing
             GameRepo.initialFen(pov.game.id) zip
@@ -189,11 +189,12 @@ object Round extends LilaController with TheftPrevention {
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
-  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) =
-    Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me)
+  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = !ctx.kid ?? {
+    Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me) map (_.some)
+  }
 
   private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context) =
-    game.hasChat ?? {
+    (game.hasChat && !ctx.kid) ?? {
       Env.chat.api.playerChat.find(game.id) map (_.some)
     }
 

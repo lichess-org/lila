@@ -119,7 +119,7 @@ lichess.makeChat = function(id, data, callback) {
   lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.mod) lichess.loadCss('/assets/stylesheets/chat.mod.css');
   lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
-    callback(LichessChat(document.getElementById(id), data));
+    (callback || $.noop)(LichessChat(document.getElementById(id), data));
   });
 };
 

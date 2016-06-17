@@ -52,13 +52,13 @@ module.exports = {
       if (!data) return;
       return [
         m('div.top', [
+          m('span.text', {
+            'data-icon': '',
+          }, m.trust($.userLink(data.username))),
           m('span.toggle_chat', {
             'data-icon': 'L',
             onclick: ctrl.close
-          }),
-          m('span.text', {
-            'data-icon': '',
-          }, m.trust($.userLink(data.username)))
+          })
         ]),
         m('div.content.moderation', [
           m('div.infos.block', [

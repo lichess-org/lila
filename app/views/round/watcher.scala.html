@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None, myChat: lila.chat.UserChat.Mine)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
@@ -8,11 +8,13 @@
 $(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
-i18n: @jsI18n()
+i18n: @jsI18n(),
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth)
+})
 });
 });
 }
-@chat.js(myChat.chat, name = trans.spectatorRoom.str(), timeout = myChat.timeout, withNote = true)
 }
 
 @atom = {

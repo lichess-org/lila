@@ -50,7 +50,7 @@ private[round] final class SocketHandler(
       socket = socket,
       chat = messenger.chat
     )) { playerId =>
-      {
+      ({
         case ("p", o) => ping(o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
@@ -95,7 +95,11 @@ private[round] final class SocketHandler(
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
         }
-      }
+      }: Handler.Controller) orElse lila.chat.Socket.in(
+        chatId = gameId,
+        member = member,
+        socket = socket,
+        chat = messenger.chat)
     }
   }
 

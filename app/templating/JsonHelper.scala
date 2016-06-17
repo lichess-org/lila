@@ -2,6 +2,9 @@ package lila.app
 package templating
 
 import play.api.libs.json._
+import play.twirl.api.Html
+
+import lila.api.Context
 
 trait JsonHelper {
 
@@ -16,4 +19,14 @@ trait JsonHelper {
   }
 
   def J = Json
+
+  def htmlOrNull[A, B](a: Option[A])(f: A => Html) = a.fold(Html("null"))(f)
+
+  def jsOrNull[A: Writes](a: Option[A]) = Html {
+    a.fold("null")(x => toJson(x))
+  }
+
+  def jsUserId(implicit ctx: Context) = Html {
+    ctx.userId.fold("null")(id => s""""$id"""")
+  }
 }

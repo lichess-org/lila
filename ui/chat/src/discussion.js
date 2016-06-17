@@ -4,7 +4,11 @@ var presetView = require('./preset').view;
 
 function renderLine(ctrl) {
   return function(line) {
-    if (line.u === 'lichess') return m('li', m('em.system', line.t));
+    if (line.u === 'lichess') return m('li.system', line.t);
+    if (line.c) return m('li', [
+      m('span', '[' + line.c + ']'),
+      line.t
+    ]);
     return m('li', {
       'data-username': line.u
     }, [
