@@ -101,35 +101,6 @@ private[pref] final class DataForm {
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
 
-  val miniPref = Form(mapping(
-    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-    "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
-    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
-    "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _)
-  )(MiniPrefData.apply)(MiniPrefData.unapply))
-
-  case class MiniPrefData(
-      autoQueen: Int,
-      blindfold: Int,
-      clockTenths: Int,
-      submitMove: Int) {
-    def apply(pref: Pref) = pref.copy(
-      autoQueen = autoQueen,
-      blindfold = blindfold,
-      clockTenths = clockTenths,
-      submitMove = submitMove)
-  }
-
-  object MiniPrefData {
-    def apply(pref: Pref): MiniPrefData = MiniPrefData(
-      autoQueen = pref.autoQueen,
-      blindfold = pref.blindfold,
-      clockTenths = pref.clockTenths,
-      submitMove = pref.submitMove)
-  }
-
-  def miniPrefOf(p: Pref): Form[MiniPrefData] = miniPref fill MiniPrefData(p)
-
   val theme = Form(single(
     "theme" -> nonEmptyText.verifying(Theme contains _)
   ))
