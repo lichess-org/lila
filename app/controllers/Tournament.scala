@@ -54,7 +54,7 @@ object Tournament extends LilaController {
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
           env.version(tour.id).zip {
-            Env.chat.api.userChat.findMine(tour.id, ctx.me)
+            ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
           }.flatMap {
             case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
               html.tournament.show(tour, _, chat)

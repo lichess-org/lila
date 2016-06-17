@@ -40,7 +40,7 @@ object Simul extends LilaController {
       _.fold(simulNotFound.fuccess) { sim =>
         env.version(sim.id) zip
           env.jsonView(sim) zip
-          Env.chat.api.userChat.findMine(sim.id, ctx.me) map {
+          (ctx.noKid ?? Env.chat.api.userChat.findMine(sim.id, ctx.me).map(some)) map {
             case ((version, data), chat) => html.simul.show(sim, version, data, chat)
           }
       }

@@ -1707,6 +1707,7 @@ lichess.notifyApp = (function() {
       });
     cfg.socketSend = lichess.socket.send;
     tournament = LichessTournament(element, cfg);
+    lichess.makeChat('chat', cfg.chat);
   };
 
   ///////////////////
@@ -1751,6 +1752,7 @@ lichess.notifyApp = (function() {
       });
     cfg.socketSend = lichess.socket.send;
     simul = LichessSimul(element, cfg);
+    lichess.makeChat('chat', cfg.chat);
   };
 
   ////////////////
@@ -1962,6 +1964,7 @@ lichess.notifyApp = (function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
+    lichess.makeChat('chat', cfg.chat);
     topMenuIntent();
   }
 

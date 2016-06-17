@@ -93,8 +93,8 @@ object Study extends LilaController {
     } map NoCache
   }
 
-  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context): Fu[lila.chat.UserChat.Mine] =
-    Env.chat.api.userChat.findMine(study.id, ctx.me)
+  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
+    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
     negotiate(

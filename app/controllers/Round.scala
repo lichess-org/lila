@@ -193,12 +193,12 @@ object Round extends LilaController with TheftPrevention {
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
-  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = !ctx.kid ?? {
+  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = ctx.noKid ?? {
     Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me) map (_.some)
   }
 
   private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context) =
-    (game.hasChat && !ctx.kid) ?? {
+    (game.hasChat && ctx.noKid) ?? {
       Env.chat.api.playerChat.find(game.id) map (_.some)
     }
 
