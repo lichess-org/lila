@@ -36,7 +36,7 @@ object TournamentCrud extends LilaController {
       OptionFuResult(crud one id) { tour =>
         implicit val req = ctx.body
         crud.editForm(tour).bindFromRequest.fold(
-          err => BadRequest(html.tournament.crud.edit(tour, err)).fuccess,
+          err => BadRequest(html.tournament.crud.edit(tour, err.pp)).fuccess,
           data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id))
         )
       }

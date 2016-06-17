@@ -44,13 +44,24 @@ object Condition {
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating]) {
 
-    def nonEmpty = nbRatedGame.isDefined || maxRating.isDefined
+    def list: List[Condition] = List(nbRatedGame, maxRating).flatten
 
-    def ifNonEmpty = nonEmpty option this
+    def ifNonEmpty = list.nonEmpty option this
   }
 
   object All {
     val empty = All(nbRatedGame = none, maxRating = none)
+  }
+
+  final class Verify(getStats: PerfStat.Getter) {
+    def apply(user: User, all: All): Fu[Verdict] = {
+      val stats: GetStats = perf => getStats(user, perf)
+      all.list.map { cond =>
+        cond(stats)(user)
+      }.sequenceFu map { verdicts =>
+        verdicts.find(_ != Accepted) | Accepted
+      }
+    }
   }
 
   object BSONHandlers {
@@ -64,17 +75,6 @@ object Condition {
     }
     private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
     private implicit val MaxRatingHandler = Macros.handler[MaxRating]
-    // private implicit val ConditionBSONHandler = new BSON[Condition] {
-    //   def reads(r: Reader) = r.str("key") match {
-    //     case "nb"     => NbRatedGameHandler read r.doc
-    //     case "rating" => MaxRatingHandler read r.doc
-    //     case x        => sys error s"Invalid condition key $x"
-    //   }
-    //   def writes(w: Writer, x: Condition) = x match {
-    //     case x: NbRatedGame => NbRatedGameHandler write x
-    //     case x: MaxRating   => MaxRatingHandler write x
-    //   }
-    // }
     implicit val AllBSONHandler = Macros.handler[All]
   }
 
@@ -82,32 +82,55 @@ object Condition {
     import play.api.data._
     import play.api.data.Forms._
     import lila.common.Form._
-    val nbRatedGames = Seq(5, 10, 20, 30, 40, 50, 75, 100, 150, 200)
-    val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}")
+    val perfChoices = PerfType.nonPuzzle.map { pt =>
+      pt.key -> pt.name
+    }
+    val nbRatedGames = Seq(0, 5, 10, 20, 30, 40, 50, 75, 100, 150, 200)
+    val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
+      case (0, name) => (0, "No restriction")
+      case x         => x
+    }
     val nbRatedGame = mapping(
-      "enforce" -> optional(number),
-      "perf" -> optional(text.verifying(PerfType.byKey.contains _)),
+      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
       "nb" -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
-    case class NbRatedGameSetup(enforce: Option[Int], perf: Option[String], nb: Int) {
-      def convert = enforce.isDefined option NbRatedGame(PerfType(~perf), nb)
+    case class NbRatedGameSetup(perf: Option[String], nb: Int) {
+      def isDefined = nb > 0
+      def convert = isDefined option NbRatedGame(PerfType(~perf), nb)
     }
-    val maxRatings = Seq(1000, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200)
-    val maxRatingChoices = options(maxRatings, "max rating of %d")
+    object NbRatedGameSetup {
+      val default = NbRatedGameSetup(PerfType.Blitz.key.some, 0)
+      def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
+    }
+    val maxRatings = List(9999, 2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1000)
+    val maxRatingChoices = options(maxRatings, "Max rating of %d") map {
+      case (9999, name) => (9999, "No restriction")
+      case x            => x
+    }
     val maxRating = mapping(
-      "enforce" -> optional(number),
-      "perf" -> text.verifying(PerfType.byKey.contains _),
+      "perf" -> text.verifying(perfChoices.toMap.contains _),
       "rating" -> numberIn(maxRatingChoices)
     )(MaxRatingSetup.apply)(MaxRatingSetup.unapply)
-    case class MaxRatingSetup(enforce: Option[Int], perf: String, rating: Int) {
-      def convert = enforce.isDefined option MaxRating(PerfType(perf) err perf, rating)
+    case class MaxRatingSetup(perf: String, rating: Int) {
+      def isDefined = rating < 9000
+      def convert = isDefined option MaxRating(PerfType(perf) err s"perf $perf", rating)
     }
-    val all = Form(mapping(
+    object MaxRatingSetup {
+      val default = MaxRatingSetup(PerfType.Blitz.key, 9999)
+      def apply(x: MaxRating): MaxRatingSetup = MaxRatingSetup(x.perf.key, x.rating)
+    }
+    val all = mapping(
       "nbRatedGame" -> nbRatedGame,
       "maxRating" -> maxRating
-    )(AllSetup.apply)(AllSetup.unapply))
+    )(AllSetup.apply)(AllSetup.unapply)
     case class AllSetup(nbRatedGame: NbRatedGameSetup, maxRating: MaxRatingSetup) {
       def convert = All(nbRatedGame.convert, maxRating.convert)
+    }
+    object AllSetup {
+      val default = AllSetup(nbRatedGame = NbRatedGameSetup.default, maxRating = MaxRatingSetup.default)
+      def apply(all: All): AllSetup = AllSetup(
+        nbRatedGame = all.nbRatedGame.fold(NbRatedGameSetup.default)(NbRatedGameSetup.apply),
+        maxRating = all.maxRating.fold(MaxRatingSetup.default)(MaxRatingSetup.apply))
     }
   }
 }

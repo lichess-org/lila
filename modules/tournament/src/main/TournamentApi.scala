@@ -35,6 +35,7 @@ private[tournament] final class TournamentApi(
     lobby: ActorSelection,
     roundMap: ActorRef,
     trophyApi: lila.user.TrophyApi,
+    verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     roundSocketHub: ActorSelection) {
 
@@ -167,11 +168,17 @@ private[tournament] final class TournamentApi(
 
   def join(tourId: String, me: User) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-        withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
-        socketReload(tour.id)
-        publish()
-        if (!tour.`private`) timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
+      verify(me, tour.conditions) flatMap { verdict =>
+        (verdict == Condition.Accepted) ?? {
+          PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+            withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
+            socketReload(tour.id)
+            publish()
+            if (!tour.`private`) timeline ! {
+              Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
+            }
+          }
+        }
       }
     }
   }

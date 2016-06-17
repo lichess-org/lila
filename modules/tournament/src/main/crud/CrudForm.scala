@@ -26,7 +26,8 @@ object CrudForm {
     "dateMinute" -> number(min = 0, max = 59),
     "image" -> stringIn(imageChoices),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
-    "description" -> nonEmptyText(minLength = 10, maxLength = 400)
+    "description" -> nonEmptyText(minLength = 10, maxLength = 400),
+    "conditions" -> Condition.DataForm.all
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -42,7 +43,8 @@ object CrudForm {
     dateMinute = 0,
     image = "",
     headline = "",
-    description = "")
+    description = "",
+    conditions = Condition.DataForm.AllSetup.default)
 
   case class Data(
       name: String,
@@ -56,7 +58,8 @@ object CrudForm {
       dateMinute: Int,
       image: String,
       headline: String,
-      description: String) {
+      description: String,
+      conditions: Condition.DataForm.AllSetup) {
 
     def actualDate = parseDateUTC(date).err(s"Invalid date $date")
       .withHourOfDay(dateHour)

@@ -35,6 +35,8 @@ case class PerfStat(
 
 object PerfStat {
 
+  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+
   def makeId(userId: String, perfType: PerfType) = s"$userId/${perfType.id}"
 
   def init(userId: String, perfType: PerfType) = PerfStat(

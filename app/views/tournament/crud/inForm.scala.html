@@ -2,6 +2,8 @@
 
 @import lila.tournament.DataForm._
 @import lila.tournament.crud.CrudForm._
+@import lila.tournament.Condition
+@import lila.rating.PerfType
 
 @group(field: play.api.data.Field, name: Html, half: Boolean = false)(html: Html) = {
 <div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}">
@@ -55,6 +57,23 @@
   }
   @group(form("clockIncrement"), Html("Clock increment"), half = true) {
   @base.select(form("clockIncrement"), clockIncrementChoices)
+  }
+</div>
+<h2>Conditions of entry</h2>
+<div>
+  @group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) {
+  @base.select(form("conditions.nbRatedGame.nb"), Condition.DataForm.nbRatedGameChoices)
+  }
+  @group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) {
+  @base.select(form("conditions.nbRatedGame.perf"), ("", "Any") :: Condition.DataForm.perfChoices)
+  }
+</div>
+<div>
+  @group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) {
+  @base.select(form("conditions.maxRating.rating"), Condition.DataForm.maxRatingChoices)
+  }
+  @group(form("conditions.maxRating.perf"), Html("In variant"), half = true) {
+  @base.select(form("conditions.maxRating.perf"), Condition.DataForm.perfChoices)
   }
 </div>
 

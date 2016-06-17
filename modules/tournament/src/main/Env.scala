@@ -24,6 +24,7 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     onStart: String => Unit,
+    getStats: lila.perfStat.PerfStat.Getter,
     trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
@@ -66,6 +67,7 @@ final class Env(
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
+    verify = new Condition.Verify(getStats),
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
@@ -175,6 +177,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
+    getStats = lila.perfStat.Env.current.get,
     trophyApi = lila.user.Env.current.trophyApi,
     scheduler = lila.common.PlayApp.scheduler)
 }
