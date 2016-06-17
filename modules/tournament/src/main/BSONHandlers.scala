@@ -28,6 +28,8 @@ object BSONHandlers {
     def write(x: LeaderboardApi.Ratio) = BSONInteger((x.value * 100000).toInt)
   }
 
+  import Condition.BSONHandlers.AllBSONHandler
+
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
@@ -44,6 +46,7 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         `private` = r boolD "private",
+        conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty,
         schedule = for {
           doc <- r.getO[BSONDocument]("schedule")
           freq <- doc.getAs[String]("freq") flatMap Schedule.Freq.apply
@@ -68,6 +71,7 @@ object BSONHandlers {
       "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
       "private" -> w.boolO(o.`private`),
+      "conditions" -> o.conditions.ifNonEmpty,
       "schedule" -> o.schedule.map { s =>
         BSONDocument(
           "freq" -> s.freq.name,

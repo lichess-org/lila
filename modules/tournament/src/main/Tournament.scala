@@ -18,6 +18,7 @@ case class Tournament(
     position: StartingPosition,
     mode: Mode,
     `private`: Boolean,
+    conditions: Condition.All,
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
@@ -123,6 +124,7 @@ object Tournament {
     position = position,
     mode = mode,
     `private` = `private`,
+    conditions = Condition.All.empty,
     schedule = None,
     startsAt = DateTime.now plusMinutes waitMinutes)
 
@@ -140,6 +142,7 @@ object Tournament {
     position = sched.position,
     mode = Mode.Rated,
     `private` = false,
+    conditions = Condition.All.empty,
     schedule = Some(sched),
     startsAt = sched.at)
 }

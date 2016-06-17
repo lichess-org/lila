@@ -30,7 +30,7 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  def get(user: lila.user.User, perfType: lila.rating.PerfType) =
+  def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
     storage.find(user.id, perfType) orElse {
       indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
     } map (_ | PerfStat.init(user.id, perfType))
