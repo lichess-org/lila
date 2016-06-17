@@ -18,7 +18,6 @@ import chess.{ Color, Clock }
 import actorApi.SocketStatus
 
 final class JsonView(
-    chatApi: lila.chat.ChatApi,
     noteApi: NoteApi,
     userJsonView: lila.user.JsonView,
     getSocketStatus: String => Fu[SocketStatus],
@@ -41,9 +40,8 @@ final class JsonView(
     withBlurs: Boolean): Fu[JsObject] =
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
-      canTakeback(pov.game) zip
-      getPlayerChat(pov.game, playerUser) map {
-        case (((socket, opponentUser), takebackable), chat) =>
+      canTakeback(pov.game) map {
+        case ((socket, opponentUser), takebackable) =>
           import pov._
           Json.obj(
             "game" -> gameJson(game, initialFen),
@@ -112,13 +110,6 @@ final class JsonView(
                 }
               },
               "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true)),
-            "chat" -> chat.map { c =>
-              JsArray(c.lines map {
-                case l: lila.chat.UserLine => userLineWrites writes l
-                case lila.chat.PlayerLine(color, text) =>
-                  Json.obj("c" -> color.name, "t" -> text)
-              })
-            },
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),
             "takebackable" -> takebackable,
@@ -276,11 +267,6 @@ final class JsonView(
       "mean" -> h.mean,
       "sd" -> h.sd)
   }
-
-  private def getPlayerChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.MixedChat]] =
-    game.hasChat optionFu {
-      chatApi.playerChat find game.id map (_ forUser forUser)
-    }
 
   private def getUsers(game: Game) = UserRepo.pair(
     game.whitePlayer.userId,

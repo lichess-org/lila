@@ -30,7 +30,6 @@ final class Env(
     divider: lila.game.Divider,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
-    chatApi: lila.chat.ChatApi,
     historyApi: lila.history.HistoryApi,
     scheduler: lila.common.Scheduler) {
 
@@ -168,7 +167,6 @@ final class Env(
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
 
   lazy val jsonView = new JsonView(
-    chatApi = chatApi,
     noteApi = noteApi,
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
@@ -229,7 +227,6 @@ object Env {
     divider = lila.game.Env.current.divider,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
-    chatApi = lila.chat.Env.current.api,
     historyApi = lila.history.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

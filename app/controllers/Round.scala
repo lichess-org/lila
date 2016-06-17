@@ -76,9 +76,13 @@ object Round extends LilaController with TheftPrevention {
       ),
       api = apiVersion => {
         if (isTheft(pov)) fuccess(theftResponse)
-        else Env.api.roundApi.player(pov, apiVersion).map { Ok(_) }
-          .mon(_.http.response.player.mobile)
-      }
+        else Env.api.roundApi.player(pov, apiVersion) zip
+          getPlayerChat(pov.game) map {
+            case (data, chat) => Ok(chat.fold(data) { c =>
+              data + ("chat" -> lila.chat.JsonView(c))
+            })
+          }
+      }.mon(_.http.response.player.mobile)
     ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
