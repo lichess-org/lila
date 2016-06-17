@@ -1067,10 +1067,12 @@ lichess.notifyApp = (function() {
       if (chat) chat.preset.setGroup(getPresetGroup(d));
     };
     round = LichessRound(cfg);
-    cfg.chat.preset = getPresetGroup(cfg.data);
-    lichess.makeChat('chat', cfg.chat, function(c) {
-      chat = c;
-    });
+    if (cfg.chat) {
+      cfg.chat.preset = getPresetGroup(cfg.data);
+      lichess.makeChat('chat', cfg.chat, function(c) {
+        chat = c;
+      });
+    }
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
@@ -1710,7 +1712,7 @@ lichess.notifyApp = (function() {
       });
     cfg.socketSend = lichess.socket.send;
     tournament = LichessTournament(element, cfg);
-    lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
   };
 
   ///////////////////
@@ -1755,7 +1757,7 @@ lichess.notifyApp = (function() {
       });
     cfg.socketSend = lichess.socket.send;
     simul = LichessSimul(element, cfg);
-    lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
   };
 
   ////////////////
@@ -1836,7 +1838,7 @@ lichess.notifyApp = (function() {
     analyse = LichessAnalyse(cfg);
     cfg.jumpToIndex = analyse.jumpToIndex;
 
-    lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
 
@@ -1967,7 +1969,7 @@ lichess.notifyApp = (function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse(cfg);
-    lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
     topMenuIntent();
   }
 
