@@ -709,6 +709,9 @@ lichess.notifyApp = (function() {
           $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
         }
 
+        // reflow charts
+        window.dispatchEvent(new Event('resize'));
+
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
