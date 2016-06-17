@@ -10,7 +10,6 @@ import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.I18nKeys
 
 final class Messenger(
-    socketHub: akka.actor.ActorRef,
     val chat: ActorSelection,
     i18nKeys: I18nKeys) {
 
@@ -25,12 +24,12 @@ final class Messenger(
     chat ! SystemTalk(gameId, translated)
   }
 
-  def watcher(gameId: String, member: Member, text: String, socket: ActorRef) =
+  def watcher(gameId: String, member: Member, text: String) =
     member.userId foreach { userId =>
       chat ! UserTalk(gameId + "/w", userId, text)
     }
 
-  def owner(gameId: String, member: Member, text: String, socket: ActorRef) =
+  def owner(gameId: String, member: Member, text: String) =
     chat ! (member.userId match {
       case Some(userId) => UserTalk(gameId, userId, text, public = false)
       case None         => PlayerTalk(gameId, member.color.white, text)

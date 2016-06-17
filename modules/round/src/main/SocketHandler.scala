@@ -39,10 +39,8 @@ private[round] final class SocketHandler(
       o int "v" foreach { v => socket ! PingVersion(uid, v) }
 
     member.playerIdOption.fold[Handler.Controller](({
-      case ("p", o) => ping(o)
-      case ("talk", o) => o str "d" foreach { text =>
-        messenger.watcher(gameId, member, text, socket)
-      }
+      case ("p", o)         => ping(o)
+      case ("talk", o)      => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(Outoftime)
     }: Handler.Controller) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
@@ -84,9 +82,7 @@ private[round] final class SocketHandler(
         case ("moretime", _)     => send(Moretime(playerId))
         case ("outoftime", _)    => send(Outoftime)
         case ("bye", _)          => socket ! Bye(ref.color)
-        case ("talk", o) => o str "d" foreach { text =>
-          messenger.owner(gameId, member, text, socket)
-        }
+        case ("talk", o)         => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
