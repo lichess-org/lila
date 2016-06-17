@@ -36,14 +36,17 @@ final class ChatApi(
       case None       => find(chatId) map { UserChat.Mine(_, false) }
     }
 
-    def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
+    def write(chatId: ChatId, userId: String, text: String, public: Boolean): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
-            shutup ! public.fold(
-              lila.hub.actorApi.shutup.RecordPublicChat(chatId, userId, text),
-              lila.hub.actorApi.shutup.RecordPrivateChat(chatId, userId, text))
-          } inject line.some
+            shutup ! {
+              import lila.hub.actorApi.shutup._
+              if (public) RecordPublicChat(chatId, userId, text)
+              else RecordPrivateChat(chatId, userId, text)
+            }
+            lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+          }
         }
       }
 
@@ -73,9 +76,8 @@ final class ChatApi(
       val chat = c.markDeleted(user) add line
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
-          val channel = Symbol(s"chat-${chat.id}")
-          lilaBus.publish(actorApi.OnTimeout(user.username), channel)
-          lilaBus.publish(actorApi.ChatLine(chat.id, line), channel)
+          lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+          lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
           modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key)
         }
@@ -108,9 +110,10 @@ final class ChatApi(
     def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
       findOption(chatId) map (_ filter (_.nonEmpty))
 
-    def write(chatId: ChatId, color: Color, text: String): Fu[Option[Line]] =
+    def write(chatId: ChatId, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        pushLine(chatId, line) inject line.some
+        pushLine(chatId, line) >>-
+          lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
       }
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
@@ -120,14 +123,17 @@ final class ChatApi(
       }
   }
 
-  private def pushLine(chatId: ChatId, line: Line) = coll.update(
+  private def pushLine(chatId: ChatId, line: Line): Funit = coll.update(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
         "$each" -> List(Line.lineBSONHandler(false).write(line)),
         "$slice" -> -maxLinesPerChat)
     )),
-    upsert = true) >>- lila.mon.chat.message()
+    upsert = true
+  ).void >>- lila.mon.chat.message()
+
+  private def channelOf(id: String) = Symbol(s"chat-$id")
 
   private object Writer {
 

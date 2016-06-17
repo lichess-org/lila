@@ -62,7 +62,7 @@ final class StudyApi(
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
+        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text)
       }
     }
   }

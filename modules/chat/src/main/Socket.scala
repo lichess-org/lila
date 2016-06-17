@@ -17,7 +17,7 @@ object Socket {
     case ("talk", o) => for {
       text <- o str "d"
       userId <- member.userId
-    } chat ! actorApi.UserTalk(chatId, userId, text, socket)
+    } chat ! actorApi.UserTalk(chatId, userId, text)
 
     case ("timeout", o) => for {
       data ← o obj "d"
