@@ -78,7 +78,6 @@ module.exports = function(opts) {
     this.chessground.set({
       orientation: this.bottomColor()
     });
-    m.redraw.strategy("all"); // helps crazy pockets
     m.redraw();
   }.bind(this);
 

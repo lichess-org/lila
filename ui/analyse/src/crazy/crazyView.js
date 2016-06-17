@@ -14,7 +14,9 @@ module.exports = {
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
-          if (isUpdate) return;
+          if (ctx.flip === ctrl.vm.flip) return;
+          if (ctx.onunload) ctx.onunload();
+          ctx.flip = ctrl.vm.flip;
           var onstart = partial(crazyDrag, ctrl, color);
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
