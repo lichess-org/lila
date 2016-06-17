@@ -687,14 +687,14 @@ lichess.notifyApp = (function() {
             height: px(479.08572 * zoom),
             paddingTop: px(50 * (zoom - 1))
           });
-          $('.chat_panels').css("height", px(290 + 529 * (zoom - 1)));
+          $('#chat').css("height", px(300 + 529 * (zoom - 1)));
         } else {
           $boardWrap.css("height", px(512 * zoom));
           $lichessGame.css({
             height: px(512 * zoom),
             paddingTop: px(0)
           });
-          $('.chat_panels').css("height", px(325 + 510 * (zoom - 1)));
+          $('#chat').css("height", px(335 + 510 * (zoom - 1)));
         }
 
         $('#trainer .overlay_container').css({
