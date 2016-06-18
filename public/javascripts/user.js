@@ -51,11 +51,22 @@ $(function() {
           $(this).parent('form').submit();
         });
         $('body').trigger('lichess.content_loaded');
-        var relatedUsers = +$('.reportCard thead th:last').text();
+        var relatedUsers = +$zone.find('.reportCard thead th:last').text();
         if (relatedUsers > 100) {
-          $zone.find('.others').css('display', 'none').before('<a class="others-show">Show ' + relatedUsers + ' related users</a>');
-          $zone.find('.others-show').click(function() {
-            $(this).next().css('display', '');
+          var others = $zone.find('.others').hide()
+            .before('<a id="others-show">Show ' + relatedUsers + ' related users... (very large!)</a>');
+          $zone.find('#others-show').click(function() {
+            others.show();
+            $(this).remove();
+          });
+        }
+        var $modLog = $zone.find('.mod_log ul').children();
+        if ($modLog.length > 20) {
+          var list = $modLog.slice(20);
+          list.first().before('<a id="modlog-show">Show all ' + $modLog.length + ' mod log entries...</a>');
+          list.wrap('<span class="modlog-hidden" style="display:none"></span>');
+          $zone.find('#modlog-show').click(function() {
+            $zone.find('.modlog-hidden').show();
             $(this).remove();
           });
         }
