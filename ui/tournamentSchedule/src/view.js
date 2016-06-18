@@ -27,12 +27,12 @@ function leftPos(time) {
 }
 
 function laneGrouper(t) {
-  if (t.variant.key !== 'standard') {
+  if (t.schedule && t.schedule.freq === 'unique') {
+    return -1;
+  } else if (t.variant.key !== 'standard') {
     return 99;
-  } else if (t.conditions) {
+  } else if (t.schedule && t.conditions) {
     return 50;
-  } else if (t.schedule && t.schedule.freq === 'unique') {
-    return t.perf.position - 0.7;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
@@ -137,6 +137,10 @@ function renderTournament(ctrl, tour) {
       left: left + 'px',
       paddingLeft: paddingLeft + 'px'
     },
+    // onclick: function() {
+    //   console.log(tour);
+    //   return false;
+    // },
     class: tournamentClass(tour)
   }, [
     m('span.icon', tour.perf ? {
