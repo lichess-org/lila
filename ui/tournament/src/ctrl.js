@@ -74,7 +74,7 @@ module.exports = function(env) {
   }.bind(this);
 
   this.join = function() {
-    if (!this.data.verdicts.accepted)
+    if (this.data.verdicts && !this.data.verdicts.accepted)
       return this.data.verdicts.list.forEach(function(v) {
         if (v.verdict !== 'ok') alert(v.verdict);
       });
