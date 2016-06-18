@@ -26,12 +26,12 @@
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){Allows}else{Blocks} the user with communication features." class="hint--bottom">
+  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom">
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all @spy.ips.size IPs under this account from accessing this site." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left">
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban @spy.ips.size" />
   </form>
   }
@@ -228,11 +228,11 @@
   }
   @if(isGranted(_.Admin) && u.roles.nonEmpty) {
   <div class="mod_roles">
-    Mod permissions: @u.roles.mkString(", ")
+    <strong data-icon=""> Mod permissions:</strong> @u.roles.mkString(", ")
   </div>
   }
   <div class="mod_log">
-    <strong>Moderation history@if(history.isEmpty){: nothing to show.}</strong>
+    <strong data-icon="!"> Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
     <ul>
       @history.map { e =>
@@ -242,8 +242,8 @@
     <br />
     }
   </div>
-  @if(spy.otherUsers.size < 1) {
-  <strong>No similar user found</strong>
+  @if(spy.otherUsers.size == 1) {
+  <strong data-icon="f"> No similar user found</strong>
   } else {
   <table class="others slist">
     <thead>
