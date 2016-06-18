@@ -147,7 +147,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           }
           val rating = hour % 2 match {
             case 0 => 1600
-            case 1 => 1800
+            case 1 => 2000
           }
           val perf = Schedule.Speed toPerfType speed
           val conditions = Condition.All(
