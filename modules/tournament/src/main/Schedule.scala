@@ -18,7 +18,7 @@ case class Schedule(
     case m@Schedule.Freq.ExperimentalMarathon => m.name
     case _ if variant.standard && position.initial =>
       conditions.maxRating.fold(s"${freq.toString} ${speed.toString}") {
-        case Condition.MaxRating(_, rating) => s"$rating ${speed.toString}"
+        case Condition.MaxRating(_, rating) => s"U$rating ${speed.toString}"
       }
     case _ if variant.standard => s"${position.shortName} ${speed.toString}"
     case _                     => s"${freq.toString} ${variant.name}"

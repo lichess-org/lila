@@ -194,7 +194,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
     case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
-    case s2 if s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
+    case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }
@@ -213,6 +213,6 @@ private object TournamentScheduler {
 
   def start(system: ActorSystem, api: TournamentApi) = {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))
-    system.scheduler.schedule(5 seconds, 5 minutes, ref, ScheduleNow)
+    system.scheduler.schedule(1 minute, 5 minutes, ref, ScheduleNow)
   }
 }

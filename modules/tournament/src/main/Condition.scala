@@ -73,9 +73,7 @@ object Condition {
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
-    def sameMaxRating(other: All) = maxRating ?? { mine =>
-      other.maxRating.exists(_.rating == mine)
-    }
+    def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
   }
 
   object All {
