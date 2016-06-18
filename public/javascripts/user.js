@@ -63,8 +63,8 @@ $(function() {
         var $modLog = $zone.find('.mod_log ul').children();
         if ($modLog.length > 20) {
           var list = $modLog.slice(20);
-          list.first().before('<a id="modlog-show">Show all ' + $modLog.length + ' mod log entries...</a>');
-          list.wrap('<span class="modlog-hidden" style="display:none"></span>');
+          list.addClass('modlog-hidden').hide()
+            .first().before('<a id="modlog-show">Show all ' + $modLog.length + ' mod log entries...</a>');
           $zone.find('#modlog-show').click(function() {
             $zone.find('.modlog-hidden').show();
             $(this).remove();
