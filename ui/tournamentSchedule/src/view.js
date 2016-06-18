@@ -105,6 +105,7 @@ function bubbleUp(lanes, tours) {
 
 function tournamentClass(tour) {
   var classes = [
+    'tournament',
     tour.rated ? 'rated' : 'casual',
     tour.status === 30 ? 'finished' : 'joinable',
     tour.createdBy === 'lichess' ? 'system' : 'user-created'
@@ -129,7 +130,7 @@ function renderTournament(ctrl, tour) {
 
   var hasMaxRating = tour.conditions && tour.conditions.maxRating;
 
-  return m('a.tournament', {
+  return m('a', {
     key: tour.id,
     href: '/tournament/' + tour.id,
     style: {
@@ -215,7 +216,9 @@ module.exports = function(ctrl) {
   stopTime = startTime + 10 * 60 * 60 * 1000;
 
   if (!ctrl.data.systemTours) {
-    var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created);
+    var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created).filter(function(t) {
+      return t.finishesAt > startTime;
+    });
     ctrl.data.systemTours = tours.filter(isSystemTournament);
     ctrl.data.userTours = tours.filter(not(isSystemTournament));
   }
