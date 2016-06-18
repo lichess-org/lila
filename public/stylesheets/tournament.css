@@ -680,7 +680,7 @@ ol.scheduled_tournaments li.marathon {
   box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
 }
 #tournament_schedule .tournament.user-created {
-  background-color: #9a8137;
+  background-color: #888;
   white-space: nowrap;
 }
 #tournament_schedule .tournament.hourly {
@@ -705,10 +705,24 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.max-rating {
   background-color: #8572ff;
 }
+#tournament_schedule .tournament {
+  display: flex;
+}
+#tournament_schedule .tournament.short.thematic {
+  letter-spacing: -1px;
+}
+#tournament_schedule .tournament span {
+  margin-right: 4px;
+}
 #tournament_schedule .icon {
-  float: left;
   font-size: 2.4em;
   margin: -6px 2px 0 2px;
+}
+#tournament_schedule .tournament .body {
+  flex: 1 0;
+  margin-right: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #tournament_schedule .name {
   color: white;
@@ -717,14 +731,16 @@ ol.scheduled_tournaments li.marathon {
   display: block;
   white-space: nowrap;
 }
-#tournament_schedule .tournament.short.thematic {
-  letter-spacing: -1px;
+#tournament_schedule .infos {
+  display: flex;
 }
-#tournament_schedule .tournament span {
-  margin-right: 4px;
+#tournament_schedule .infos .text {
+  flex: 1 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-#tournament_schedule .nb-players {
-  float: right;
+#tournament_schedule .infos .nb-players {
+  flex: 0 0 auto;
 }
 #tournament_list table.slist {
   line-height: 2.3em;

@@ -143,14 +143,20 @@ function renderTournament(ctrl, tour) {
       'data-icon': tour.perf.icon,
       title: tour.perf.name
     } : null),
-    m('span.name', tour.fullName),
-    m('span.clock', displayClock(tour.clock)),
-    tour.variant.key === 'standard' ? null : m('span.variant', tour.variant.name),
-    tour.position ? m('span', 'Thematic') : null,
-    m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
-    tour.nbPlayers ? m('span.nb-players.text', {
-      'data-icon': 'r'
-    }, tour.nbPlayers) : null,
+    m('span.body', [
+      m('span.name', tour.fullName),
+      m('span.infos', [
+        m('span.text', [
+          displayClock(tour.clock) + ' ',
+          tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
+          tour.position ? 'Thematic ' : null,
+          tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')
+        ]),
+        tour.nbPlayers ? m('span.nb-players', {
+          'data-icon': 'r'
+        }, tour.nbPlayers) : null
+      ])
+    ])
   ]);
 }
 
