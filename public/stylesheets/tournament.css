@@ -92,9 +92,6 @@ ol.scheduled_tournaments a {
 #tournament .description {
   padding: 20px;
 }
-#tournament .podium {
-  margin: 0 0 20px 0;
-}
 #tournament .podium > div {
   display: inline-block;
   text-align: center;
@@ -160,6 +157,20 @@ ol.scheduled_tournaments a {
 #tournament div.tournament_show {
   width: 525px;
   min-height: 480px;
+}
+#tournament div.big_top {
+  position: relative;
+  padding-bottom: 20px;
+}
+#tournament div.big_top #confetti {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 #tournament div.tournament_show div.game_list {
   margin: 0 0 0 15px;
