@@ -26,7 +26,7 @@ object Auth extends LilaController {
       }
     }
 
-  private def authenticateUser(u: UserModel)(implicit ctx: Context) = {
+  private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
       Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
@@ -124,7 +124,7 @@ object Auth extends LilaController {
             lila.mon.user.register.mobile()
             val email = data.email flatMap env.emailAddress.validate
             UserRepo.create(data.username, data.password, email, false, apiVersion.some)
-              .flatten(s"No user could be created for ${data.username}") flatMap mobileUserOk
+              .flatten(s"No user could be created for ${data.username}") flatMap authenticateUser
           }
         )
       )
