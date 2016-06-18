@@ -31,6 +31,8 @@ function laneGrouper(t) {
     return 99;
   } else if (t.conditions) {
     return 50;
+  } else if (t.schedule && t.schedule.freq === 'unique') {
+    return t.perf.position - 0.7;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
@@ -194,7 +196,7 @@ function not(f) {
 }
 
 function isSystemTournament(t) {
-  return t.createdBy === 'lichess';
+  return !!t.schedule;
 }
 
 module.exports = function(ctrl) {
