@@ -669,7 +669,7 @@ ol.scheduled_tournaments li.marathon {
   box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
 }
 #tournament_schedule .tournament.user-created {
-  background-color: #009E73;
+  background-color: #9a8137;
   white-space: nowrap;
 }
 #tournament_schedule .tournament.hourly {
