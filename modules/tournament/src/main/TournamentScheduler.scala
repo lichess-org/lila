@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import chess.StartingPosition
+import lila.rating.PerfType
 
 private final class TournamentScheduler private (api: TournamentApi) extends Actor {
 
@@ -135,6 +136,28 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           ).flatten
         },
 
+        // hourly limited tournaments!
+        (0 to 6).toList.flatMap { hourDelta =>
+          val date = rightNow plusHours hourDelta
+          val hour = date.getHourOfDay
+          val speed = hour % 3 match {
+            case 0 => SuperBlitz
+            case 1 => Blitz
+            case _ => Classical
+          }
+          val rating = hour % 2 match {
+            case 0 => 1600
+            case 1 => 1800
+          }
+          val perf = Schedule.Speed toPerfType speed
+          val conditions = Condition.All(
+            Condition.NbRatedGame(perf.some, 20).some,
+            Condition.MaxRating(perf, rating).some)
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, Standard, std, date, conditions)
+          }
+        },
+
         // hourly crazyhouse tournaments!
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
@@ -171,7 +194,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
     case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
-    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    case s2 if s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
+    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }
 
@@ -189,6 +213,6 @@ private object TournamentScheduler {
 
   def start(system: ActorSystem, api: TournamentApi) = {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))
-    system.scheduler.schedule(5 minutes, 5 minutes, ref, ScheduleNow)
+    system.scheduler.schedule(5 seconds, 5 minutes, ref, ScheduleNow)
   }
 }

@@ -29,6 +29,8 @@ function leftPos(time) {
 function laneGrouper(t) {
   if (t.variant.key !== 'standard') {
     return 99;
+  } else if (t.conditions) {
+    return 50;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
@@ -109,6 +111,18 @@ function renderTournament(ctrl, tour) {
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
+  var hasMaxRating = tour.conditions && tour.conditions.maxRating;
+
+  var classes = [
+    tour.rated ? 'rated' : 'casual',
+    tour.status === 30 ? 'finished' : 'joinable',
+    tour.createdBy === 'lichess' ? 'system' : 'user-created'
+  ];
+  if (tour.schedule) classes.push(tour.schedule.freq);
+  if (tour.position) classes.push('thematic');
+  if (tour.minutes <= 30) classes.push('short');
+  if (tour.conditions && tour.conditions.maxRating) classes.push('max-rating');
+
   return m('a.tournament', {
     key: tour.id,
     href: '/tournament/' + tour.id,
@@ -117,12 +131,7 @@ function renderTournament(ctrl, tour) {
       left: left + 'px',
       paddingLeft: paddingLeft + 'px'
     },
-    class: (tour.schedule ? tour.schedule.freq : '') +
-      (tour.createdBy === 'lichess' ? ' system' : ' user-created') +
-      (tour.rated ? ' rated' : ' casual') +
-      (tour.minutes <= 30 ? ' short' : '') +
-      (tour.position ? ' thematic' : '') +
-      (tour.status === 30 ? ' finished' : ' joinable')
+    class: classes.join(' ')
   }, [
     m('span.icon', tour.perf ? {
       'data-icon': tour.perf.icon,
@@ -146,7 +155,7 @@ function renderTimeline() {
   time.setMinutes(Math.floor(time.getMinutes() / minutesBetween) * minutesBetween);
 
   var timeHeaders = [];
-  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000) ;
+  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000);
   for (var i = 0; i < count; i++) {
     var str = timeString(time);
     timeHeaders.push(m('div', {

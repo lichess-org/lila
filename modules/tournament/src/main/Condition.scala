@@ -72,6 +72,10 @@ object Condition {
       }.sequenceFu map All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
+
+    def sameMaxRating(other: All) = maxRating ?? { mine =>
+      other.maxRating.exists(_.rating == mine)
+    }
   }
 
   object All {

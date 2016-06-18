@@ -142,7 +142,7 @@ object Tournament {
     position = sched.position,
     mode = Mode.Rated,
     `private` = false,
-    conditions = Condition.All.empty,
+    conditions = sched.conditions,
     schedule = Some(sched),
     startsAt = sched.at)
 }

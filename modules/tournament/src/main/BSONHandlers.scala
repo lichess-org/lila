@@ -35,6 +35,7 @@ object BSONHandlers {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
       val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
       val startsAt = r date "startsAt"
+      val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
         id = r str "_id",
         name = r str "name",
@@ -46,12 +47,12 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         `private` = r boolD "private",
-        conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty,
+        conditions = conditions,
         schedule = for {
           doc <- r.getO[BSONDocument]("schedule")
           freq <- doc.getAs[String]("freq") flatMap Schedule.Freq.apply
           speed <- doc.getAs[String]("speed") flatMap Schedule.Speed.apply
-        } yield Schedule(freq, speed, variant, position, startsAt),
+        } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
         createdBy = r str "createdBy",
