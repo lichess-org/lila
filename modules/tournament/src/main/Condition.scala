@@ -78,6 +78,20 @@ object Condition {
     implicit val AllBSONHandler = Macros.handler[All]
   }
 
+  object JSONHandlers {
+    import play.api.libs.json._
+    private implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
+      Json.obj("key" -> pt.key, "name" -> pt.name)
+    }
+    implicit val NbRatedGameJSONWriter = Json.writes[NbRatedGame]
+    implicit val MaxRatingJSONWriter = Json.writes[MaxRating]
+    private implicit val conditionWriter: OWrites[Condition] = OWrites {
+      case x: NbRatedGame => NbRatedGameJSONWriter writes x
+      case x: MaxRating   => MaxRatingJSONWriter writes x
+    }
+    implicit val AllJSONWriter = Json.writes[All]
+  }
+
   object DataForm {
     import play.api.data._
     import play.api.data.Forms._

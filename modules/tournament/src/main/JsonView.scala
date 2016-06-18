@@ -16,6 +16,7 @@ final class JsonView(
     performance: Performance) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   private case class CachableData(
     pairings: JsArray,
@@ -56,6 +57,7 @@ final class JsonView(
     "clock" -> clockJson(tour.clock),
     "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
     "private" -> tour.`private`.option(true),
+    "conditions" -> tour.conditions.ifNonEmpty,
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
