@@ -24,7 +24,7 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     onStart: String => Unit,
-    getStats: lila.perfStat.PerfStat.Getter,
+    historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
@@ -54,7 +54,7 @@ final class Env(
     createdTtl = CreatedCacheTtl,
     rankingTtl = RankingCacheTtl)
 
-  lazy val verify = new Condition.Verify(getStats)
+  lazy val verify = new Condition.Verify(historyApi)
 
   lazy val api = new TournamentApi(
     cached = cached,
@@ -179,7 +179,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
-    getStats = lila.perfStat.Env.current.get,
+    historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     scheduler = lila.common.PlayApp.scheduler)
 }

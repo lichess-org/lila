@@ -1,24 +1,23 @@
 package lila.tournament
 
-import lila.perfStat.PerfStat
 import lila.rating.PerfType
 import lila.user.User
 
 sealed trait Condition {
 
-  def apply(stats: Condition.GetStats)(user: User): Fu[Condition.Verdict]
+  def apply(getMaxRating: Condition.GetMaxRating)(user: User): Fu[Condition.Verdict]
 
   def name: String
 
-  def withVerdict(stats: Condition.GetStats)(user: User): Fu[Condition.WithVerdict] =
-    apply(stats)(user) map { Condition.WithVerdict(this, _) }
+  def withVerdict(getMaxRating: Condition.GetMaxRating)(user: User): Fu[Condition.WithVerdict] =
+    apply(getMaxRating)(user) map { Condition.WithVerdict(this, _) }
 
   override def toString = name
 }
 
 object Condition {
 
-  type GetStats = PerfType => Fu[PerfStat]
+  type GetMaxRating = PerfType => Fu[Int]
 
   sealed abstract class Verdict(val accepted: Boolean)
   case object Accepted extends Verdict(true)
@@ -28,7 +27,7 @@ object Condition {
 
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition {
 
-    def apply(stats: GetStats)(user: User) = fuccess {
+    def apply(getMaxRating: GetMaxRating)(user: User) = fuccess {
       perf match {
         case Some(p) if user.perfs(p).nb >= nb => Accepted
         case Some(p)                           => Refused(s"Only ${user.perfs(p).nb} of $nb rated ${p.name} games played")
@@ -45,13 +44,12 @@ object Condition {
 
   case class MaxRating(perf: PerfType, rating: Int) extends Condition {
 
-    def apply(stats: GetStats)(user: User) = stats(perf) map { s =>
-      s.highest match {
-        case None                       => Accepted
-        case Some(h) if h.int <= rating => Accepted
-        case Some(h)                    => Refused(s"Max ${perf.name} rating (${h.int}) is too high.")
+    def apply(getMaxRating: GetMaxRating)(user: User) =
+      if (user.perfs(perf).provisional) fuccess(Refused(s"Provisional ${perf.name} rating"))
+      else getMaxRating(perf) map {
+        case r if r <= rating => Accepted
+        case r                => Refused(s"Top monthly ${perf.name} rating ($r) is too high.")
       }
-    }
 
     def name = s"Rated ≤ $rating in ${perf.name}"
   }
@@ -66,9 +64,9 @@ object Condition {
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(stats: Condition.GetStats)(user: User): Fu[All.WithVerdicts] =
+    def withVerdicts(getMaxRating: GetMaxRating)(user: User): Fu[All.WithVerdicts] =
       list.map { cond =>
-        cond.withVerdict(stats)(user)
+        cond.withVerdict(getMaxRating)(user)
       }.sequenceFu map All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
@@ -85,10 +83,10 @@ object Condition {
     }
   }
 
-  final class Verify(getStats: PerfStat.Getter) {
+  final class Verify(historyApi: lila.history.HistoryApi) {
     def apply(all: All, user: User): Fu[All.WithVerdicts] = {
-      val stats: GetStats = perf => getStats(user, perf)
-      all.withVerdicts(stats)(user)
+      val getMaxRating: GetMaxRating = perf => historyApi.lastMonthTopRating(user, perf)
+      all.withVerdicts(getMaxRating)(user)
     }
   }
 

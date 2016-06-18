@@ -6,11 +6,12 @@ import reactivemongo.bson._
 import chess.Speed
 import lila.db.dsl._
 import lila.game.Game
+import lila.rating.PerfType
 import lila.user.{ User, Perfs }
 
 final class HistoryApi(coll: Coll) {
 
-  import History.BSONReader
+  import History._
 
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.ratingVariant.standard
@@ -33,9 +34,9 @@ final class HistoryApi(coll: Coll) {
       }
     val days = daysBetween(user.createdAt, game.updatedAt | game.createdAt)
     coll.update(
-      BSONDocument("_id" -> user.id),
-      BSONDocument("$set" -> BSONDocument(changes.map {
-        case (perf, rating) => s"$perf.$days" -> BSONInteger(rating)
+      $id(user.id),
+      $doc("$set" -> $doc(changes.map {
+        case (perf, rating) => s"$perf.$days" -> $int(rating)
       })),
       upsert = true
     ).void
@@ -44,6 +45,18 @@ final class HistoryApi(coll: Coll) {
   def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] =
-    coll.find(BSONDocument("_id" -> userId)).uno[History]
+  def get(userId: String): Fu[Option[History]] = coll.uno[History]($id(userId))
+
+  def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
+    coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
+
+  def lastMonthTopRating(user: User, perf: PerfType): Fu[Int] = {
+    val days = daysBetween(user.createdAt, DateTime.now minusMonths 1)
+    ratingsMap(user, perf) map { ratings =>
+      ratings.foldLeft(user.perfs(perf).intRating) {
+        case (rating, (d, r)) if d >= days && r > rating => r
+        case (rating, _)                                 => rating
+      }
+    }
+  }
 }
