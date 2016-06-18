@@ -101,6 +101,20 @@ function bubbleUp(lanes, tours) {
   return returnLanes;
 }
 
+function tournamentClass(tour) {
+  var classes = [
+    tour.rated ? 'rated' : 'casual',
+    tour.status === 30 ? 'finished' : 'joinable',
+    tour.createdBy === 'lichess' ? 'system' : 'user-created'
+  ];
+  if (tour.schedule) classes.push(tour.schedule.freq);
+  if (tour.position) classes.push('thematic');
+  if (tour.minutes <= 30) classes.push('short');
+  if (tour.conditions && tour.conditions.maxRating) classes.push('max-rating');
+
+  return classes.join(' ');
+}
+
 function renderTournament(ctrl, tour) {
   var width = tour.minutes * scale;
   var left = leftPos(tour.startsAt);
@@ -113,16 +127,6 @@ function renderTournament(ctrl, tour) {
 
   var hasMaxRating = tour.conditions && tour.conditions.maxRating;
 
-  var classes = [
-    tour.rated ? 'rated' : 'casual',
-    tour.status === 30 ? 'finished' : 'joinable',
-    tour.createdBy === 'lichess' ? 'system' : 'user-created'
-  ];
-  if (tour.schedule) classes.push(tour.schedule.freq);
-  if (tour.position) classes.push('thematic');
-  if (tour.minutes <= 30) classes.push('short');
-  if (tour.conditions && tour.conditions.maxRating) classes.push('max-rating');
-
   return m('a.tournament', {
     key: tour.id,
     href: '/tournament/' + tour.id,
@@ -131,7 +135,7 @@ function renderTournament(ctrl, tour) {
       left: left + 'px',
       paddingLeft: paddingLeft + 'px'
     },
-    class: classes.join(' ')
+    class: tournamentClass(tour)
   }, [
     m('span.icon', tour.perf ? {
       'data-icon': tour.perf.icon,
