@@ -393,11 +393,11 @@ var retina = window.devicePixelRatio,
   var confetti = new confetti.Context(id);
   confetti.start();
   setTimeout(function() {
-    $('#' + id).fadeOut(20000, function() {
+    $('#' + id).fadeOut(25000, function() {
       confetti.stop();
       $(this).remove();
     });
-  }, 7000);
+  }, 5000);
   window.addEventListener('resize', function(event) {
     confetti.resize();
   });

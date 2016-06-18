@@ -14,8 +14,6 @@ function confetti(data) {
   if (!lichess.once('tournament.end.canvas.' + data.id)) return;
   return m('canvas', {
     id: 'confetti',
-    height: 1,
-    widht: 1,
     config: function(el, isUpdate) {
       if (isUpdate) return;
       lichess.loadScript('/assets/javascripts/confetti.js');
