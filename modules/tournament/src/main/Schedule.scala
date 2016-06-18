@@ -112,11 +112,11 @@ object Schedule {
     import chess.variant._
     Some((s.freq, s.speed, s.variant) match {
 
-      case (Hourly, HyperBullet | Bullet, _)          => 26
-      case (Hourly, SuperBlitz, _)                    => 56
-      case (Hourly, Blitz, _)                         => 56
-      case (Hourly, Classical, _) if s.hasMaxRating   => 56
-      case (Hourly, Classical, _)                     => 116
+      case (Hourly, HyperBullet | Bullet, _)          => 27
+      case (Hourly, SuperBlitz, _)                    => 57
+      case (Hourly, Blitz, _)                         => 57
+      case (Hourly, Classical, _) if s.hasMaxRating   => 57
+      case (Hourly, Classical, _)                     => 117
 
       case (Daily | Eastern, HyperBullet | Bullet, _) => 60
       case (Daily | Eastern, SuperBlitz, _)           => 90
