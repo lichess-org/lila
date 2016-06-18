@@ -65,10 +65,7 @@ module.exports = {
   },
   cancelDrawOffer: function(ctrl) {
     if (ctrl.data.player.offeringDraw) return m('div.pending', [
-      m('p', ctrl.trans('drawOfferSent')),
-      m('a.button', {
-        onclick: partial(ctrl.socket.sendLoading, 'draw-no', null)
-      }, ctrl.trans('cancel'))
+      m('p', ctrl.trans('drawOfferSent'))
     ]);
   },
   answerOpponentDrawOffer: function(ctrl) {
