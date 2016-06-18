@@ -564,6 +564,10 @@ object Quote {
     , new Quote("It was once said that Tal sacrificed 9 pawns for an attack", "Mato")
     , new Quote("Be well enough prepared that preparation won't play a role.", "Magnus Carlsen")
     , new Quote("I don't study; I create.", "Viktor Korchnoi")
+    , new Quote("You'll be amazed at the people i've lost to while playing online.", "Magnus Carlsen")
+    , new Quote("[...], even extremely intoxicated my chess strength and knowledge is still in my bones.", "Magnus Carlsen")
+    , new Quote("I don't play unorthodox openings. I prefer to give mainstream openings my own spin.", "Magnus Carlsen")
+    , new Quote("Playing long games online just takes too much time. It's fun to play blitz once in a while, where you can rely more on your intuition, your instincts rather than pure calculation and analysis.", "Magnus Carlsen")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
