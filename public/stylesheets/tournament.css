@@ -376,6 +376,15 @@ div.side_box .game_infos.spotlight {
 div.side_box .game_infos.spotlight a {
   text-decoration: underline;
 }
+div.side_box .conditions::before {
+  opacity: 0.6;
+}
+div.side_box .accepted {
+  color: #759900;
+}
+div.side_box .refused {
+  color: #dc322f;
+}
 #tournament_side {
   position: relative;
   float: right;

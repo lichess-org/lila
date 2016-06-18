@@ -7,15 +7,24 @@ import lila.user.User
 sealed abstract class Condition(val key: String) {
 
   def apply(stats: Condition.GetStats)(user: User): Fu[Condition.Verdict]
+
+  def name: String
+
+  def withVerdict(stats: Condition.GetStats)(user: User): Fu[Condition.WithVerdict] =
+    apply(stats)(user) map { Condition.WithVerdict(this, _) }
+
+  override def toString = name
 }
 
 object Condition {
 
   type GetStats = PerfType => Fu[PerfStat]
 
-  sealed trait Verdict
-  case object Accepted extends Verdict
-  case class Refused(reason: String) extends Verdict
+  sealed abstract class Verdict(val accepted: Boolean)
+  case object Accepted extends Verdict(true)
+  case class Refused(reason: String) extends Verdict(false)
+
+  case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition("nb") {
 
@@ -26,6 +35,11 @@ object Condition {
         case None if user.count.rated >= nb    => Accepted
         case None                              => Refused(s"Only ${user.count.rated} of $nb rated games played")
       }
+    }
+
+    def name = perf match {
+      case None    => s"≥ $nb rated games"
+      case Some(p) => s"≥ $nb ${p.name} rated games"
     }
   }
 
@@ -38,29 +52,41 @@ object Condition {
         case Some(h)                    => Refused(s"Max ${perf.name} rating (${h.int}) is too high.")
       }
     }
+
+    def name = s"Rated ≤ $rating in ${perf.name}"
   }
 
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating]) {
 
+    def relevant = list.nonEmpty
+
     def list: List[Condition] = List(nbRatedGame, maxRating).flatten
 
     def ifNonEmpty = list.nonEmpty option this
+
+    def withVerdicts(stats: Condition.GetStats)(user: User): Fu[All.WithVerdicts] =
+      list.map { cond =>
+        cond.withVerdict(stats)(user)
+      }.sequenceFu map All.WithVerdicts.apply
+
+    def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
   }
 
   object All {
     val empty = All(nbRatedGame = none, maxRating = none)
+
+    case class WithVerdicts(list: List[WithVerdict]) {
+      def relevant = list.nonEmpty
+      def accepted = list.forall(_.verdict.accepted)
+    }
   }
 
   final class Verify(getStats: PerfStat.Getter) {
-    def apply(user: User, all: All): Fu[Verdict] = {
+    def apply(all: All, user: User): Fu[All.WithVerdicts] = {
       val stats: GetStats = perf => getStats(user, perf)
-      all.list.map { cond =>
-        cond(stats)(user)
-      }.sequenceFu map { verdicts =>
-        verdicts.find(_ != Accepted) | Accepted
-      }
+      all.withVerdicts(stats)(user)
     }
   }
 

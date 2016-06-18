@@ -1,4 +1,4 @@
-@(tour: Tournament)(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts)(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -21,6 +21,15 @@
   @tour.spotlight.map { s =>
   <div class="game_infos spotlight">
     @markdownLinks(s.description)
+  </div>
+  }
+  @if(verdicts.relevant) {
+  <div class="game_infos conditions @if(ctx.isAuth) {
+    @if(verdicts.accepted){accepted}else{refused}
+    }" data-icon="7">
+    @verdicts.list.map { v =>
+    <p class="condition text @if(v.verdict.accepted){accepted}else{refused}">@v.condition</p>
+    }
   </div>
   }
   @if(tour.createdBy == "lichess") {

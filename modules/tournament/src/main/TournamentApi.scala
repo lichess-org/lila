@@ -166,10 +166,15 @@ private[tournament] final class TournamentApi(
       }
     }
 
+  def verdicts(tour: Tournament, me: Option[User]): Fu[Condition.All.WithVerdicts] = me match {
+    case None       => fuccess(tour.conditions.accepted)
+    case Some(user) => verify(tour.conditions, user)
+  }
+
   def join(tourId: String, me: User) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      verify(me, tour.conditions) flatMap { verdict =>
-        (verdict == Condition.Accepted) ?? {
+      verdicts(tour, me.some) flatMap {
+        _.accepted ?? {
           PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
             withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
             socketReload(tour.id)

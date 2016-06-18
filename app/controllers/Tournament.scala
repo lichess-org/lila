@@ -53,13 +53,14 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id).zip {
-            ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
-          }.flatMap {
-            case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
-              html.tournament.show(tour, _, chat)
-            }
-          }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
+          (env.api.verdicts(tour, ctx.me) zip
+            env.version(tour.id) zip {
+              ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
+            }).flatMap {
+              case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
+                html.tournament.show(tour, verdicts, _, chat)
+              }
+            }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {

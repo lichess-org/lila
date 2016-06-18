@@ -1,4 +1,4 @@
-@(tour: Tournament, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -23,7 +23,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout)
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
-side = tournament.side(tour).some,
+side = tournament.side(tour, verdicts).some,
 chat = chat.dom().some,
 underchat = underchat.some,
 moreJs = moreJs,
