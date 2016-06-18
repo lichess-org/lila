@@ -6,7 +6,6 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
-import lila.quote.Quote.quoteWriter
 
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
