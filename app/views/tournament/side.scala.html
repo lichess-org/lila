@@ -27,6 +27,9 @@
   <div class="game_infos conditions @if(ctx.isAuth) {
     @if(verdicts.accepted){accepted}else{refused}
     }" data-icon="7">
+    @if(verdicts.list.size < 2) {
+    <p>Condition of entry:</p>
+    }
     @verdicts.list.map { v =>
     <p class="condition text @if(v.verdict.accepted){accepted}else{refused}">@v.condition</p>
     }

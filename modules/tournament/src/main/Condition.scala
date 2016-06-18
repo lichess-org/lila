@@ -4,7 +4,7 @@ import lila.perfStat.PerfStat
 import lila.rating.PerfType
 import lila.user.User
 
-sealed abstract class Condition(val key: String) {
+sealed trait Condition {
 
   def apply(stats: Condition.GetStats)(user: User): Fu[Condition.Verdict]
 
@@ -26,7 +26,7 @@ object Condition {
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
-  case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition("nb") {
+  case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition {
 
     def apply(stats: GetStats)(user: User) = fuccess {
       perf match {
@@ -43,7 +43,7 @@ object Condition {
     }
   }
 
-  case class MaxRating(perf: PerfType, rating: Int) extends Condition("rating") {
+  case class MaxRating(perf: PerfType, rating: Int) extends Condition {
 
     def apply(stats: GetStats)(user: User) = stats(perf) map { s =>
       s.highest match {
@@ -109,13 +109,18 @@ object Condition {
     private implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
       Json.obj("key" -> pt.key, "name" -> pt.name)
     }
-    implicit val NbRatedGameJSONWriter = Json.writes[NbRatedGame]
-    implicit val MaxRatingJSONWriter = Json.writes[MaxRating]
-    private implicit val conditionWriter: OWrites[Condition] = OWrites {
-      case x: NbRatedGame => NbRatedGameJSONWriter writes x
-      case x: MaxRating   => MaxRatingJSONWriter writes x
+    private implicit val ConditionWriter: Writes[Condition] = Writes { o =>
+      JsString(o.name)
+    }
+    private implicit val VerdictWriter: Writes[Verdict] = Writes {
+      case Refused(reason) => JsString(reason)
+      case Accepted        => JsString("ok")
     }
     implicit val AllJSONWriter = Json.writes[All]
+    implicit val WithVerdictJSONWriter = Json.writes[WithVerdict]
+    implicit val AllWithVerdictsJSONWriter = Writes[All.WithVerdicts] { o =>
+      Json.obj("list" -> o.list, "accepted" -> o.accepted)
+    }
   }
 
   object DataForm {

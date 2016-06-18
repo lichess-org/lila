@@ -54,6 +54,8 @@ final class Env(
     createdTtl = CreatedCacheTtl,
     rankingTtl = RankingCacheTtl)
 
+  lazy val verify = new Condition.Verify(getStats)
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,
@@ -67,7 +69,7 @@ final class Env(
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
-    verify = new Condition.Verify(getStats),
+    verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
@@ -88,7 +90,7 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val jsonView = new JsonView(lightUser, cached, performance)
+  lazy val jsonView = new JsonView(lightUser, cached, performance, verify)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 

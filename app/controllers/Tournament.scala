@@ -57,7 +57,7 @@ object Tournament extends LilaController {
             env.version(tour.id) zip {
               ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
             }).flatMap {
-              case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
+              case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.me, none, version.some) map {
                 html.tournament.show(tour, verdicts, _, chat)
               }
             }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
@@ -69,7 +69,7 @@ object Tournament extends LilaController {
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                env.jsonView(tour, page, ctx.userId, playerInfoExt, socketVersion)
+                env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
       } map (_ as JSON)

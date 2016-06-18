@@ -13,7 +13,8 @@ import lila.user.User
 final class JsonView(
     getLightUser: String => Option[LightUser],
     cached: Cached,
-    performance: Performance) {
+    performance: Performance,
+    verify: Condition.Verify) {
 
   import JsonView._
   import Condition.JSONHandlers._
@@ -26,11 +27,11 @@ final class JsonView(
   def apply(
     tour: Tournament,
     page: Option[Int],
-    me: Option[String],
+    me: Option[User],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[Int]): Fu[JsObject] = for {
     data <- cachableData(tour.id)
-    myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
+    myInfo <- me ?? { u => PlayerRepo.playerInfo(tour.id, u.id) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
       case (Some(i), _) => standing(tour, i.page)
@@ -38,6 +39,11 @@ final class JsonView(
     }
     playerInfoJson <- playerInfoExt ?? { pie =>
       playerInfo(pie).map(_.some)
+    }
+    verdicts <- me match {
+      case None                           => fuccess(tour.conditions.accepted)
+      case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted)
+      case Some(user)                     => verify(tour.conditions, user)
     }
   } yield Json.obj(
     "id" -> tour.id,
@@ -57,7 +63,7 @@ final class JsonView(
     "clock" -> clockJson(tour.clock),
     "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
     "private" -> tour.`private`.option(true),
-    "conditions" -> tour.conditions.ifNonEmpty,
+    "verdicts" -> verdicts,
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
