@@ -24,9 +24,9 @@ private final class NotificationRepo(val coll: Coll) {
 
   private val hasOld = $doc(
     "read" -> false,
-    "createdAt" -> $doc("$gt" -> DateTime.now.minusDays(3)))
+    "createdAt" $gt DateTime.now.minusDays(3))
   private val hasUnread = $doc( // recent, read
-    "createdAt" -> $doc("$gt" -> DateTime.now.minusMinutes(10)))
+    "createdAt" $gt DateTime.now.minusMinutes(10))
   private val hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 
@@ -58,6 +58,9 @@ private final class NotificationRepo(val coll: Coll) {
       "content.questionId" -> question.id
     ) ++ hasOldOrUnread)
   }
+
+  def exists(notifies: Notification.Notifies, selector: Bdoc): Fu[Boolean] =
+    coll.exists(userNotificationsQuery(notifies) ++ selector)
 
   val recentSort = $sort desc "createdAt"
 

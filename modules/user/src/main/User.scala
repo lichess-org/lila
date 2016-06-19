@@ -64,7 +64,7 @@ case class User(
 
   def hasTitle = title.isDefined
 
-  def seenRecently: Boolean = timeNoSee < 2.minutes
+  lazy val seenRecently: Boolean = timeNoSee < 2.minutes
 
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis

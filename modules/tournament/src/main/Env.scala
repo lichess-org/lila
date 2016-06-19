@@ -26,6 +26,7 @@ final class Env(
     onStart: String => Unit,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
+    notifyApi: lila.notify.NotifyApi,
     scheduler: lila.common.Scheduler) {
 
   private val startsAtMillis = nowMillis
@@ -140,6 +141,8 @@ final class Env(
 
   TournamentScheduler.start(system, api)
 
+  TournamentNotifier.start(system, api, notifyApi)
+
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
@@ -181,5 +184,6 @@ object Env {
     onStart = lila.game.Env.current.onStart,
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
+    notifyApi = lila.notify.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

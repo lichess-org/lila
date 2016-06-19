@@ -59,37 +59,31 @@ private object BSONHandlers {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
       notificationContent match {
-        case _: MentionedInThread => "mention"
-        case _: InvitedToStudy    => "invitedStudy"
-        case _: PrivateMessage    => "privateMessage"
-        case _: QaAnswer          => "qaAnswer"
-        case _: TeamJoined        => "teamJoined"
-        case _: NewBlogPost       => "newBlogPost"
-        case _: AnalysisFinished  => "analysisFinished"
+        case _: MentionedInThread        => "mention"
+        case _: InvitedToStudy           => "invitedStudy"
+        case _: PrivateMessage           => "privateMessage"
+        case _: QaAnswer                 => "qaAnswer"
+        case _: TeamJoined               => "teamJoined"
+        case _: NewBlogPost              => "newBlogPost"
+        case _: AnalysisFinished         => "analysisFinished"
+        case LimitedTournamentInvitation => "u"
       }
     }
 
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
-          $doc("type" -> writeNotificationType(notificationContent), "mentionedBy" -> mentionedBy,
-            "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
+          $doc("mentionedBy" -> mentionedBy, "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
-          $doc("type" -> writeNotificationType(notificationContent),
-            "invitedBy" -> invitedBy,
-            "studyName" -> studyName,
-            "studyId" -> studyId)
-        case p: PrivateMessage => PrivateMessageHandler.write(p) ++
-          $doc("type" -> writeNotificationType(notificationContent))
-        case q: QaAnswer => QaAnswerHandler.write(q) ++
-          $doc("type" -> writeNotificationType(notificationContent))
-        case t: TeamJoined => TeamJoinedHandler.write(t) ++ $doc("type" -> writeNotificationType(notificationContent))
-        case b: NewBlogPost =>
-          NewBlogPostHandler.write(b) ++ $doc("type" -> writeNotificationType(notificationContent))
-        case a: AnalysisFinished =>
-          AnalysisFinishedHandler.write(a) ++ $doc("type" -> writeNotificationType(notificationContent))
+          $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
+        case p: PrivateMessage           => PrivateMessageHandler.write(p)
+        case q: QaAnswer                 => QaAnswerHandler.write(q)
+        case t: TeamJoined               => TeamJoinedHandler.write(t)
+        case b: NewBlogPost              => NewBlogPostHandler.write(b)
+        case a: AnalysisFinished         => AnalysisFinishedHandler.write(a)
+        case LimitedTournamentInvitation => $empty
       }
-    }
+    } ++ $doc("type" -> writeNotificationType(notificationContent))
 
     private def readMentionedNotification(reader: Reader): MentionedInThread = {
       val mentionedBy = reader.get[MentionedBy]("mentionedBy")
@@ -117,6 +111,7 @@ private object BSONHandlers {
       case "teamJoined"       => TeamJoinedHandler read reader.doc
       case "newBlogPost"      => NewBlogPostHandler read reader.doc
       case "analysisFinished" => AnalysisFinishedHandler read reader.doc
+      case "u"                => LimitedTournamentInvitation
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

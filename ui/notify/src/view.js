@@ -129,17 +129,16 @@ var handlers = {
       return n.content.title;
     }
   },
-  analysisFinished: {
+  limitedTournamentInvitation: {
     html: function(notification) {
-      var content = notification.content
-      var url = "/" + content.id + "/" + content.color
+      var url = '/tournament/limited-invitation';
 
-      return genericNotification(notification, url, 'A', [
+      return genericNotification(notification, url, 'g', [
         m('span', [
-          m('strong', 'Analysis complete'),
+          m('strong', 'New rating limited tournaments!'),
           drawTime(notification)
         ]),
-        m('span', 'Analysis of game against « ' + content.opponentName + ' » complete.')
+        m('span', 'Experience lichess arena tournaments with players of your level')
       ]);
     },
     text: function(n) {

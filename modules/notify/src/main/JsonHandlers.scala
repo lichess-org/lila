@@ -39,6 +39,7 @@ final class JSONHandlers(
           "id" -> id.value,
           "color" -> color.name,
           "opponentName" -> against.value)
+        case LimitedTournamentInvitation => Json.obj()
       }
     }
 
@@ -46,13 +47,14 @@ final class JSONHandlers(
       val body = notification.content
 
       val notificationType = body match {
-        case _: MentionedInThread => "mentioned"
-        case _: InvitedToStudy    => "invitedStudy"
-        case _: PrivateMessage    => "privateMessage"
-        case _: QaAnswer          => "qaAnswer"
-        case _: TeamJoined        => "teamJoined"
-        case _: NewBlogPost       => "newBlogPost"
-        case _: AnalysisFinished  => "analysisFinished"
+        case _: MentionedInThread        => "mentioned"
+        case _: InvitedToStudy           => "invitedStudy"
+        case _: PrivateMessage           => "privateMessage"
+        case _: QaAnswer                 => "qaAnswer"
+        case _: TeamJoined               => "teamJoined"
+        case _: NewBlogPost              => "newBlogPost"
+        case _: AnalysisFinished         => "analysisFinished"
+        case LimitedTournamentInvitation => "limitedTournamentInvitation"
       }
 
       Json.obj("content" -> writeBody(body),

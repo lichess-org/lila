@@ -175,6 +175,11 @@ object Tournament extends LilaController {
       }
   }
 
+  def limitedInvitation = Auth { implicit ctx =>
+    me =>
+      ???
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)

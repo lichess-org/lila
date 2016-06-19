@@ -104,3 +104,5 @@ object AnalysisFinished {
   case class Id(value: String) extends AnyVal with StringValue
   case class OpponentName(value: String) extends AnyVal with StringValue
 }
+
+case object LimitedTournamentInvitation extends NotificationContent
