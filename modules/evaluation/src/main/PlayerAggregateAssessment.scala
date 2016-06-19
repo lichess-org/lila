@@ -32,20 +32,23 @@ case class PlayerAggregateAssessment(
   import GameAssessment.{ Cheating, LikelyCheating }
 
   def action = {
+
+    def percentCheatingGames(x: Double) =
+      cheatingSum.toDouble / assessmentsCount >= (x / 100) - relationModifier
+
+    def percentLikelyCheatingGames(x: Double) =
+      (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
+
     val markable: Boolean = !isGreatUser && isWorthLookingAt && (
-      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6)
-      // more than 10 percent of games are cheating
-      && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
-        // or more than 20 percent of games are likely cheating
-        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.20 - relationModifier)
+      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) && (
+        percentCheatingGames(10) || percentLikelyCheatingGames(20)
+      )
     )
 
     val reportable: Boolean = isWorthLookingAt && (
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4)))
-      // more than 5 percent of games are cheating
-      && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
-        // or more than 10 percent of games are likely cheating
-        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.10 - relationModifier)
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4))) && (
+        percentCheatingGames(5) || percentLikelyCheatingGames(10)
+      )
     )
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
