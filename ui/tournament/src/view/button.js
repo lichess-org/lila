@@ -17,8 +17,9 @@ function withdraw(ctrl) {
 
 function join(ctrl) {
   return orJoinSpinner(ctrl, function() {
-    return m('button.button.right.text', {
-      class: ctrl.data.verdicts.accepted ? 'glowed' : '',
+    var joinable = ctrl.data.verdicts.accepted;
+    return m('button.button.right.text' + (joinable ? '' : '[disabled]'), {
+      class: joinable ? 'glowed' : '',
       'data-icon': 'G',
       onclick: ctrl.join
     }, ctrl.trans('join'));
