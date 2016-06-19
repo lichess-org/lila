@@ -15,7 +15,7 @@ var concealFeedback = require('./concealFeedback');
 module.exports = {
   // data.position.path represents the server state
   // ctrl.vm.path is the client state
-  init: function(data, chat, ctrl) {
+  init: function(data, ctrl) {
 
     var send = ctrl.socket.send;
 
@@ -73,7 +73,7 @@ module.exports = {
     ctrl.userJump(data.position.path);
 
     var configureAnalysis = function() {
-      chat.writeable(!!members.myMember());
+      lichess.pubsub.emit('chat.writeable')(!!members.myMember());
       if (!data.chapter.features.computer) ctrl.ceval.enabled(false);
       ctrl.ceval.allowed(data.chapter.features.computer);
       if (!data.chapter.features.explorer) ctrl.explorer.disable();

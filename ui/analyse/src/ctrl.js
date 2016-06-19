@@ -472,7 +472,7 @@ module.exports = function(opts) {
   keyboard(this);
   startCeval();
   this.explorer.setNode();
-  this.study = opts.study ? studyCtrl.init(opts.study, opts.chat, this) : null;
+  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 
   this.music = null;
   $('body').on('lichess.sound_set', function(e, set) {

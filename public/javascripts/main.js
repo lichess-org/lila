@@ -1944,9 +1944,6 @@ lichess.notifyApp = (function() {
   ////////////////
 
   function startStudy(element, cfg) {
-    cfg.chat = {
-      writeable: lichess.pubsub.emit('chat.writeable')
-    };
     var $watchers = $("div.watchers").watchers();
     var analyse;
     cfg.element = element.querySelector('.analyse');
