@@ -46,7 +46,7 @@ div.mchat .chat_tabs .tab:last-child {
   border-right: none;
 }
 div.mchat .chat_tabs .tab.active {
-  border-bottom-color: transparent;
+  border-bottom-color: transparent!important;
 }
 div.mchat .content {
   display: flex;

@@ -17,15 +17,12 @@ body.dark .study_box .list div.config,
 body.dark input,
 body.dark textarea,
 body.dark div.analysis_menu > a.active,
-body.dark div.chat_menu > a {
+body.dark div.mchat .chat_tabs .tab {
   background: #1a1a1a;
   color: #8a8a8a;
 }
 body.dark div.analysis_menu > a.active {
   border-top-color: #1a1a1a;
-}
-body.dark div.chat_menu > a.active {
-  border-bottom-color: #262626;
 }
 body.dark .crosstable td {
   border-color: #1a1a1a;
@@ -55,12 +52,10 @@ body.dark #site_title {
   color: #acacac;
 }
 body.dark .mini_board,
-body.dark #chat div.top,
-body.dark #chat .messages,
+body.dark div.mchat div.top,
 body.dark .undertable_top,
 body.dark div.undertable_inner,
 body.dark .undertable td,
-body.dark #chat form input,
 body.dark .study_invite input,
 body.dark #translation_call,
 body.dark div.game_config .optional_config,
@@ -173,8 +168,9 @@ body.dark .study_metadata h2 .views,
 body.dark .study_invite .users,
 body.dark .study_metadata h2 .liking,
 body.dark #notify_app .pager.prev,
-body.dark #chat input.lichess_say,
-body.dark div.chat_menu > a {
+body.dark div.mchat .presets span,
+body.dark div.mchat input.lichess_say,
+body.dark div.mchat .chat_tabs .tab {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td:nth-last-child(3) {
@@ -237,14 +233,14 @@ body.dark #promotion_choice {
 body.dark .explorer_box .title,
 body.dark .explorer_box thead,
 body.dark .explorer_box tr:nth-child(even),
-body.dark #chat .messages,
+body.dark div.mchat .messages,
 body.dark div.side_box,
 body.dark div.box,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark div.undertable_inner,
-body.dark div.chat_menu > a.active {
+body.dark div.mchat .chat_tabs .tab.active {
   background: #262626;
 }
 body.dark div.sub_ratings > a.game:hover,
