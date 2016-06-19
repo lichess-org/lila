@@ -17,8 +17,10 @@ function withdraw(ctrl) {
 
 function join(ctrl) {
   return orJoinSpinner(ctrl, function() {
+    var joinable = ctrl.data.verdicts.accepted;
     return m('button.button.right.text', {
-      class: ctrl.data.verdicts.accepted ? 'glowed' : '',
+      class: joinable ? 'glowed' : '',
+      disabled: !joinable,
       'data-icon': 'G',
       onclick: ctrl.join
     }, ctrl.trans('join'));
