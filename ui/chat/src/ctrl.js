@@ -11,7 +11,7 @@ module.exports = function(opts) {
     enabled: m.prop(!lichess.storage.get('nochat')),
     writeable: m.prop(opts.writeable),
     isTroll: opts.kobold,
-    isMod: opts.mod,
+    isMod: opts.permissions.timeout,
     isTimeout: m.prop(opts.timeout),
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
@@ -55,6 +55,7 @@ module.exports = function(opts) {
 
   var moderation = vm.isMod ? makeModeration({
     reasons: opts.timeoutReasons,
+    permissions: opts.permissions,
     send: lichess.pubsub.emit('socket.send')
   }) : null;
 

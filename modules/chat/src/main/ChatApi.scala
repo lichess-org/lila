@@ -87,7 +87,7 @@ final class ChatApi(
       lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
     }
 
-    private def isMod(user: User) = lila.security.Granter(_.MarkTroll)(user)
+    private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) map {

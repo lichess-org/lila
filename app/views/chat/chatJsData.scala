@@ -2,6 +2,7 @@ package views.html.chat
 
 import play.api.libs.json.{ JsArray, Json }
 
+import lila.common.PimpedJson._
 import lila.api.Context
 import lila.app.templating.Environment._
 
@@ -19,9 +20,11 @@ object ChatJsData {
     "writeable" -> writeable,
     "noteId" -> withNote.option(chat.id take 8),
     "kobold" -> ctx.troll,
-    "mod" -> isGranted(_.MarkTroll),
+    "permissions" -> Json.obj(
+      "timeout" -> isGranted(_.ChatTimeout).option(true),
+      "shadowban" -> isGranted(_.MarkTroll).option(true)).noNull,
     "timeout" -> timeout,
-    "timeoutReasons" -> isGranted(_.MarkTroll).option(lila.chat.JsonView.timeoutReasons)
+    "timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons)
   )
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(

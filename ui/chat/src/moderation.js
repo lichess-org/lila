@@ -18,6 +18,7 @@ module.exports = {
     return {
       vm: vm,
       reasons: opts.reasons,
+      permissions: opts.permissions,
       open: function(username) {
         vm.loading(true);
         xhr.userModInfo(username).then(function(data) {
@@ -84,7 +85,7 @@ module.exports = {
                 }
               }, r.name);
             }),
-            data.troll ? null : m('div.shadowban', [
+            (data.troll || !ctrl.permissions.shadowban) ? null : m('div.shadowban', [
               'Or ',
               m('form', {
                 action: '/mod/' + data.id + '/troll?set=1',

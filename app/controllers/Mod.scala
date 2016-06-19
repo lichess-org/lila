@@ -163,7 +163,7 @@ object Mod extends LilaController {
       }
   }
 
-  def chatUser(username: String) = Secure(_.MarkTroll) { implicit ctx =>
+  def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx =>
     me =>
       implicit val lightUser = Env.user.lightUser _
       JsonOptionOk {
