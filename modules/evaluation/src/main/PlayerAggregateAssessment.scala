@@ -19,7 +19,8 @@ case class PlayerAssessment(
     mtSd: Int,
     blurs: Int,
     hold: Boolean) {
-  val color = Color.apply(white)
+
+  val color = Color(white)
 }
 
 case class PlayerAggregateAssessment(
@@ -31,7 +32,7 @@ case class PlayerAggregateAssessment(
   import AccountAction._
   import GameAssessment.{ Cheating, LikelyCheating }
 
-  def action = {
+  def action: AccountAction = {
 
     def percentCheatingGames(x: Double) =
       cheatingSum.toDouble / assessmentsCount >= (x / 100) - relationModifier
@@ -39,17 +40,16 @@ case class PlayerAggregateAssessment(
     def percentLikelyCheatingGames(x: Double) =
       (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
 
-    val markable: Boolean = !isGreatUser && isWorthLookingAt && (
-      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) && (
-        percentCheatingGames(10) || percentLikelyCheatingGames(20)
-      )
-    )
+    def hasConsistentMovetimes(nb: Int) =
+      playerAssessments.count(_.flags.consistentMoveTimes) > nb
 
-    val reportable: Boolean = isWorthLookingAt && (
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4))) && (
-        percentCheatingGames(5) || percentLikelyCheatingGames(10)
-      )
-    )
+    val markable: Boolean = !isGreatUser && isWorthLookingAt &&
+      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) &&
+      (percentCheatingGames(10) || percentLikelyCheatingGames(20))
+
+    val reportable: Boolean = isWorthLookingAt &&
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4))) &&
+      (percentCheatingGames(5) || percentLikelyCheatingGames(10))
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
@@ -66,20 +66,20 @@ case class PlayerAggregateAssessment(
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
     }
 
-    val exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists (~_)
+    def exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists (~_)
 
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable) Engine
-      else if (reportable
-        && exceptionalDif
-        && cheatingSum >= 1) Engine
-      else if (reportable) Report
+      else if (reportable && exceptionalDif && cheatingSum >= 1) Engine
+      else if (reportable) reportVariousReasons
+      else if (hasConsistentMovetimes(5)) reportConsistentMovetimes
       else Nothing
     }
     else {
-      if (markable) Report
-      else if (reportable) Report
+      if (markable) reportVariousReasons
+      else if (reportable) reportVariousReasons
+      else if (hasConsistentMovetimes(5)) reportConsistentMovetimes
       else Nothing
     }
   }
@@ -124,12 +124,12 @@ case class PlayerAggregateAssessment(
     user.perfs.bestRating > 1600 && user.count.rated >= 2
   } || user.perfs.bestProgress > 200
 
-  def reportText(maxGames: Int = 10): String = {
+  def reportText(reason: String, maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
       a.assessment.emoticon + " //lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
-    s"""[AUTOREPORT]
+    s"""[AUTOREPORT] $reason
     Cheating Games: $cheatingSum
     Likely Cheating Games: $likelyCheatingSum
     $gameLinks"""

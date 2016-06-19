@@ -111,8 +111,8 @@ final class AssessApi(
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           modApi.autoAdjust(userId)
-        case AccountAction.Report =>
-          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+        case AccountAction.Report(reason) =>
+          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
           funit
         case AccountAction.Nothing =>
           // reporter ! lila.hub.actorApi.report.Clean(userId)
