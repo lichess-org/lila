@@ -330,6 +330,9 @@ ol.scheduled_tournaments a {
   float: right;
   margin-left: 5px;
 }
+#tournament button.disabled {
+  opacity: 0.5;
+}
 #tournament span.joined {
   font-weight: bold;
   color: #759900;

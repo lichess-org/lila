@@ -19,8 +19,7 @@ function join(ctrl) {
   return orJoinSpinner(ctrl, function() {
     var joinable = ctrl.data.verdicts.accepted;
     return m('button.button.right.text', {
-      class: joinable ? 'glowed' : '',
-      disabled: !joinable,
+      class: joinable ? 'glowed' : 'disabled',
       'data-icon': 'G',
       onclick: ctrl.join
     }, ctrl.trans('join'));
