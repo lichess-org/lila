@@ -178,7 +178,7 @@ final class AssessApi(
       // analyse some tourney games
       // else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) NewPlayerWin.some
+      else if (winnerNbGames.??(30 >) && Random.nextInt(3) > 0) NewPlayerWin.some
       else none
 
     shouldAnalyse foreach { reason =>
