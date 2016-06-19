@@ -133,7 +133,7 @@ final class AssessApi(
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
     } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 140
+      player.color.fold(white, black).perfs(perfType).progress >= 100
     }
 
     def noFastCoefVariation(player: Player): Option[Double] =
