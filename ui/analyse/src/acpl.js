@@ -65,7 +65,7 @@ module.exports = function(ctrl) {
         }),
         m('tr', [
           m('td', d.analysis[color].acpl),
-          m('th', 'Average centipawn loss')
+          m('th', ctrl.trans('averageCentipawnLoss'))
         ])
       ])
     ]);
