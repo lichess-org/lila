@@ -117,7 +117,7 @@ object Mod extends LilaController {
       val email = "lichess.contact@gmail.com"
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
-        parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio $str")) { ratio =>
+        parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
           fuccess((ratio * 100).toInt)
         }
       }.addEffects(
