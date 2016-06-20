@@ -21,7 +21,7 @@ private final class TournamentInviter private (
     case User.Active(user) if qualifies(user) =>
       notifyApi.exists(Notification.Notifies(user.id), $doc("content.type" -> "u")) flatMap {
         case true => funit
-        case false => notifyApi addNotification Notification(
+        case false => notifyApi addNotificationWithoutSkipOrEvent Notification(
           Notification.Notifies(user.id),
           LimitedTournamentInvitation)
       }
@@ -33,9 +33,9 @@ private final class TournamentInviter private (
       user.count.rated > 50 &&
       user.toints < 10 &&
       bestRating(user).??(1700 >=) &&
-      !alreadyNotified(user)
+      firstTime(user)
 
-  def alreadyNotified(user: User) =
+  def firstTime(user: User) =
     if (notifiedCache get user.id) false
     else {
       notifiedCache put user.id
