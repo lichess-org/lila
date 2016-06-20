@@ -14,7 +14,6 @@ import lila.user.{ User, UserRepo }
 final class Api(
     coll: Coll,
     firewall: Firewall,
-    tor: Tor,
     geoIP: GeoIP,
     emailAddress: EmailAddress) {
 
@@ -48,8 +47,7 @@ final class Api(
     candidate ?? { _(password) }
 
   def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
-    if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
-    else UserRepo mustConfirmEmail userId flatMap {
+    UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>
         val sessionId = Random nextStringUppercase 12
@@ -123,6 +121,5 @@ final class Api(
 
 object Api {
 
-  case object AuthFromTorExitNode extends Exception
   case class MustConfirmEmail(userId: String) extends Exception
 }

@@ -140,6 +140,11 @@ private[controllers] trait LilaController
       })
     }
 
+  protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
+    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+      Unauthorized(views.html.auth.tor()).fuccess
+    else res
+
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
