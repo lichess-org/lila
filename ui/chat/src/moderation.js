@@ -73,8 +73,10 @@ module.exports = {
             }).join(' • '),
             ' • ',
             m('a[href=/@/' + data.username + '?mod]', 'profile'),
-            ' • ',
-            m('a[href=/mod/' + data.username + '/communication]', 'coms')
+            ctrl.permissions.shadowban ? [
+              ' • ',
+              m('a[href=/mod/' + data.username + '/communication]', 'coms')
+            ] : null
           ]),
           m('div.timeout.block', [
             m('h2', 'Timeout 10 minutes for'),
@@ -84,8 +86,7 @@ module.exports = {
                   ctrl.timeout(r.key)
                 }
               }, r.name);
-            }),
-            (data.troll || !ctrl.permissions.shadowban) ? null : m('div.shadowban', [
+            }), (data.troll || !ctrl.permissions.shadowban) ? null : m('div.shadowban', [
               'Or ',
               m('form', {
                 action: '/mod/' + data.id + '/troll?set=1',
