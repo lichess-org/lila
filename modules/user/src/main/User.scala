@@ -92,6 +92,11 @@ object User {
 
   type ID = String
 
+  type CredentialCheck = String => Boolean
+  case class LoginCandidate(user: User, check: CredentialCheck) {
+    def apply(password: String): Option[User] = check(password) option user
+  }
+
   val anonymous = "Anonymous"
 
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
@@ -113,6 +118,9 @@ object User {
   // Example: everyone says @ornicar is a pretty cool guy
   // False example: Write to lichess.contact@gmail.com, @1
   val atUsernameRegex = """\B@(?>([a-zA-Z_-][\w-]{1,19}))(?U)(?![\w-])""".r
+
+  val usernameRegex = """^[\w-]+$""".r
+  def couldBeUsername(str: String) = usernameRegex.pattern.matcher(str).matches
 
   def normalize(username: String) = username.toLowerCase
 

@@ -69,7 +69,7 @@ object Account extends LilaController {
         fuccess(html.account.passwd(me, err))
       } { data =>
         for {
-          ok ← UserRepo.checkPasswordById(me.id, data.oldPasswd)
+          ok ← UserRepo.authenticateById(me.id, data.oldPasswd).map(_.isDefined)
           _ ← ok ?? UserRepo.passwd(me.id, data.newPasswd1)
         } yield {
           val content = html.account.passwd(me, forms.passwd.fill(data), ok.some)
@@ -101,7 +101,7 @@ object Account extends LilaController {
           } { data =>
             val email = Env.security.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
             for {
-              ok ← UserRepo.checkPasswordById(me.id, data.passwd)
+              ok ← UserRepo.authenticateById(me.id, data.passwd).map(_.isDefined)
               _ ← ok ?? UserRepo.email(me.id, email)
               form <- emailForm(me)
             } yield {
@@ -123,7 +123,7 @@ object Account extends LilaController {
       FormFuResult(Env.security.forms.closeAccount) { err =>
         fuccess(html.account.close(me, err))
       } { password =>
-        UserRepo.checkPasswordById(me.id, password) flatMap {
+        UserRepo.authenticateById(me.id, password).map(_.isDefined) flatMap {
           case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
           case true => doClose(me) inject {
             Redirect(routes.User show me.username) withCookies LilaCookie.newSession

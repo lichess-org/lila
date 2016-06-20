@@ -193,26 +193,27 @@ object UserRepo {
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
   def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    checkPasswordById(id, password) flatMap { _ ?? coll.byId[User](id) }
+    checkPasswordById(id) map { _ flatMap { _(password) } }
 
   def authenticateByEmail(email: String, password: String): Fu[Option[User]] =
-    checkPasswordByEmail(email, password) flatMap { _ ?? byEmail(email) }
+    checkPasswordByEmail(email) map { _ flatMap { _(password) } }
 
-  private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Option[Boolean]) {
+  private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
     def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
   }
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 
-  def checkPasswordById(id: ID, password: String): Fu[Boolean] =
-    checkPassword($id(id), password)
+  def checkPasswordById(id: ID): Fu[Option[User.LoginCandidate]] =
+    checkPassword($id(id))
 
-  def checkPasswordByEmail(email: String, password: String): Fu[Boolean] =
-    checkPassword($doc(F.email -> email), password)
+  def checkPasswordByEmail(email: String): Fu[Option[User.LoginCandidate]] =
+    checkPassword($doc(F.email -> email))
 
-  private def checkPassword(select: Bdoc, password: String): Fu[Boolean] =
-    coll.uno[AuthData](select) map {
-      _ ?? (data => data.enabled && data.compare(password))
+  private def checkPassword(select: Bdoc): Fu[Option[User.LoginCandidate]] =
+    coll.uno[AuthData](select) zip coll.uno[User](select) map {
+      case (Some(login), Some(user)) if user.enabled => User.LoginCandidate(user, login.compare).some
+      case _                                         => none
     }
 
   def getPasswordHash(id: ID): Fu[Option[String]] =

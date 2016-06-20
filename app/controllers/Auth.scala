@@ -65,13 +65,22 @@ object Auth extends LilaController {
   def authenticate = OpenBody { implicit ctx =>
     Firewall {
       implicit val req = ctx.body
-      api.loginForm.bindFromRequest.fold(
+      val referrer = get("referrer")
+      api.usernameForm.bindFromRequest.fold(
         err => negotiate(
-          html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
+          html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
-        _.fold(InternalServerError("Authentication error").fuccess)(authenticateUser)
-      )
+        username => api.loadLoginForm(username) flatMap { loginForm =>
+          loginForm.bindFromRequest.fold(
+            err => negotiate(
+              html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+              api = _ => Unauthorized(errorsAsJson(err)).fuccess
+            ), {
+              case None    => InternalServerError("Authentication error").fuccess
+              case Some(u) => authenticateUser(u)
+            })
+        })
     }
   }
 

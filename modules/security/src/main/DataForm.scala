@@ -35,7 +35,7 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = """^[\w-]+$""".r,
+        regex = User.usernameRegex,
         error = "Invalid username. Please use only letters, numbers and dash"),
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
