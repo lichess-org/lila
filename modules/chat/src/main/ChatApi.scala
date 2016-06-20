@@ -52,7 +52,8 @@ final class ChatApi(
 
     def system(chatId: ChatId, text: String) = {
       val line = UserLine(systemUserId, Writer delocalize text, troll = false, deleted = false)
-      pushLine(chatId, line) inject line.some
+      pushLine(chatId, line) >>-
+        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
     }
 
     def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason): Funit =
