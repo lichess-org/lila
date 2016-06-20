@@ -40,9 +40,6 @@ case class PlayerAggregateAssessment(
     def percentLikelyCheatingGames(x: Double) =
       (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
 
-    def hasConsistentMovetimes(nb: Int) =
-      playerAssessments.count(_.flags.consistentMoveTimes) > nb
-
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
       (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) &&
       (percentCheatingGames(10) || percentLikelyCheatingGames(20))
@@ -73,13 +70,11 @@ case class PlayerAggregateAssessment(
       else if (markable) Engine
       else if (reportable && exceptionalDif && cheatingSum >= 1) Engine
       else if (reportable) reportVariousReasons
-      else if (hasConsistentMovetimes(5)) reportConsistentMovetimes
       else Nothing
     }
     else {
       if (markable) reportVariousReasons
       else if (reportable) reportVariousReasons
-      else if (hasConsistentMovetimes(5)) reportConsistentMovetimes
       else Nothing
     }
   }
