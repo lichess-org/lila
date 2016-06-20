@@ -14,12 +14,12 @@
         <span>Play chess in style</span>
       </a>
     </div>
-    <div class="progress">
+    <a href="@routes.Donation.index" class="progress">
       @progressbar(prog)
-    </div>
-    <div class="legend">
+    </a>
+    <a href="@routes.Donation.index" class="legend">
       <strong>Weekly progress</strong>
       @pluralize("day", prog.remainingDays) left
-    </div>
+    </a>
   </div>
 </div>

@@ -19,7 +19,7 @@ table.translations tbody tr:nth-child(odd) {
 table.translations td.progress {
   white-space: nowrap;
 }
-table.translations div.progressbar {
+table.translations .progressbar {
   width: 200px;
 }
 

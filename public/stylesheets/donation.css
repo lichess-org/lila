@@ -24,6 +24,10 @@
 }
 #site_header .progress {
   color: #fff;
+  display: block;
+}
+#site_header .progress p {
+  color: #888;
 }
 #site_header .progress .progressbar {
   position: relative;
@@ -33,6 +37,7 @@
   text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
   text-align: right;
   line-height: 32px;
+  display: block;
 }
 #site_header .progress .current {
   position:absolute;
