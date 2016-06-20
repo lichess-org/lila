@@ -34,6 +34,7 @@ object Permission {
   case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
   case object TerminateTournament extends Permission("ROLE_TERMINATE_TOURNAMENT")
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
+  case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -45,14 +46,16 @@ object Permission {
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament))
 
-  case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
+  case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin, ChangePermission))
 
-  private lazy val all: List[Permission] = List(
-    SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, ChatTimeout, MarkTroll, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
+  lazy val allButSuperAdmin: List[Permission] = List(
+    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
+    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament)
 
-  private lazy val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
+  lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
+
+  lazy private val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
 
   def apply(name: String): Option[Permission] = allByName get name
 

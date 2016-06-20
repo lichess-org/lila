@@ -64,6 +64,14 @@
 </div>
 
 <div class="user_spy">
+  @if(isGranted(ChangePermission) || (isGranted(_.Admin) && u.roles.nonEmpty)) {
+  <div class="mod_roles">
+    <@if(isGranted(_.ChangePermission)){a href="@routes.Mod.powaaa(u.username)"}else{span}>
+    <strong class="text" data-icon="">Mod permissions:</strong>
+    @if(u.roles.empty) { Add some } else { @u.roles.mkString(", ") }
+    </@if(isGranted(_.ChangePermission)){a}else{span}>
+  </div>
+  }
   @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
@@ -224,11 +232,6 @@
         }
       </tbody>
     </table>
-  </div>
-  }
-  @if(isGranted(_.Admin) && u.roles.nonEmpty) {
-  <div class="mod_roles">
-    <strong data-icon=""> Mod permissions:</strong> @u.roles.mkString(", ")
   </div>
   }
   <div class="mod_log">
