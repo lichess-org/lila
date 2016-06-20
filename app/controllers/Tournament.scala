@@ -177,7 +177,12 @@ object Tournament extends LilaController {
 
   def limitedInvitation = Auth { implicit ctx =>
     me =>
-      ???
+      env.api.fetchVisibleTournaments.flatMap { tours =>
+        lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
+      } map {
+        case None    => Redirect(routes.Tournament.home(1))
+        case Some(t) => Redirect(routes.Tournament.show(t.id))
+      }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>

@@ -88,6 +88,8 @@ object Condition {
       val getMaxRating: GetMaxRating = perf => historyApi.lastMonthTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user)
     }
+    def canEnter(user: User)(tour: Tournament): Fu[Boolean] =
+      apply(tour.conditions, user).map(_.accepted)
   }
 
   object BSONHandlers {

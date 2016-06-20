@@ -10,15 +10,11 @@ import lila.db.dsl._
 import lila.notify.{ Notification, NotifyApi, LimitedTournamentInvitation }
 import lila.rating.PerfType
 
-private final class TournamentNotifier private (
+private final class TournamentInviter private (
     api: TournamentApi,
     notifyApi: NotifyApi) extends Actor {
 
-  import TournamentNotifier._
-
-  val minGames = 20
-  val maxRating = 1700
-  val perfs = List(PerfType.Blitz, PerfType.Classical)
+  import TournamentInviter._
 
   def receive = {
 
@@ -31,18 +27,13 @@ private final class TournamentNotifier private (
       }
   }
 
-  def qualifies(user: User) = {
-    println(user.seenRecently, user.id)
-    println {
-      !user.seenRecently &&
-        !user.kid &&
-        user.count.rated > 50 &&
-        user.toints < 100 &&
-        user.perfs.bestRatingInWithMinGames(perfs, minGames).??(maxRating >=) &&
-        !alreadyNotified(user)
-    }
-    !user.seenRecently
-  }
+  def qualifies(user: User) =
+    !user.seenRecently &&
+      !user.kid &&
+      user.count.rated > 50 &&
+      user.toints < 10 &&
+      bestRating(user).??(1700 >=) &&
+      !alreadyNotified(user)
 
   def alreadyNotified(user: User) =
     if (notifiedCache get user.id) false
@@ -54,10 +45,26 @@ private final class TournamentNotifier private (
   val notifiedCache = new lila.memo.ExpireSetMemo(1 hour)
 }
 
-private object TournamentNotifier {
+object TournamentInviter {
+
+  val minGames = 20
+  val perfs = List(PerfType.Blitz, PerfType.Classical)
+
+  def bestRating(user: User) = user.perfs.bestRatingInWithMinGames(perfs, minGames)
+
+  def findNextFor(
+    user: User,
+    tours: VisibleTournaments,
+    canEnter: Tournament => Fu[Boolean]): Fu[Option[Tournament]] = bestRating(user) match {
+    case None                          => fuccess(none)
+    case Some(rating) if rating > 2000 => fuccess(none)
+    case Some(rating) => lila.common.Future.find(tours.unfinished.filter { t =>
+      t.conditions.maxRating.??(_.rating >= rating)
+    }.take(4))(canEnter)
+  }
 
   def start(system: ActorSystem, api: TournamentApi, notifyApi: NotifyApi) = {
-    val ref = system.actorOf(Props(new TournamentNotifier(api, notifyApi)))
+    val ref = system.actorOf(Props(new TournamentInviter(api, notifyApi)))
     system.lilaBus.subscribe(ref, 'userActive)
   }
 }

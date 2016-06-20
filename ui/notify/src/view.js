@@ -1,6 +1,7 @@
 var m = require('mithril');
 
 function userFullName(u) {
+  if (!u) return '?';
   return u.title ? u.title + ' ' + u.name : u.name;
 }
 
@@ -135,10 +136,10 @@ var handlers = {
 
       return genericNotification(notification, url, 'g', [
         m('span', [
-          m('strong', 'New rating limited tournaments!'),
+          m('strong', 'Low rated tournament'),
           drawTime(notification)
         ]),
-        m('span', 'Experience lichess arena tournaments with players of your level')
+        m('span', 'A tournament you can win!')
       ]);
     },
     text: function(n) {

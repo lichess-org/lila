@@ -141,7 +141,7 @@ final class Env(
 
   TournamentScheduler.start(system, api)
 
-  // TournamentNotifier.start(system, api, notifyApi)
+  TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
