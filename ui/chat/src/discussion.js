@@ -23,9 +23,9 @@ function sameLines(l1, l2) {
   return l1.d && l2.d && l1.u === l2.u;
 }
 
-function selectLines(lines) {
+function selectLines(ctrl) {
   var prev, ls = [];
-  lines.forEach(function(l) {
+  ctrl.data.lines.forEach(function(l) {
     if (!prev || !sameLines(prev, l))
       if (!l.r || ctrl.vm.isTroll) ls.push(l);
     prev = l;
@@ -75,7 +75,7 @@ module.exports = {
             }, 500);
           }
         },
-        selectLines(ctrl.data.lines).map(renderLine(ctrl))
+        selectLines(ctrl).map(renderLine(ctrl))
       ),
       input(ctrl),
       presetView(ctrl.preset)
