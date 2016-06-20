@@ -85,7 +85,7 @@ object Condition {
 
   final class Verify(historyApi: lila.history.HistoryApi) {
     def apply(all: All, user: User): Fu[All.WithVerdicts] = {
-      val getMaxRating: GetMaxRating = perf => historyApi.lastMonthTopRating(user, perf)
+      val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user)
     }
     def canEnter(user: User)(tour: Tournament): Fu[Boolean] =

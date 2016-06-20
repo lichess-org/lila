@@ -50,8 +50,8 @@ final class HistoryApi(coll: Coll) {
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
 
-  def lastMonthTopRating(user: User, perf: PerfType): Fu[Int] = {
-    val days = daysBetween(user.createdAt, DateTime.now minusMonths 1)
+  def lastWeekTopRating(user: User, perf: PerfType): Fu[Int] = {
+    val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
     ratingsMap(user, perf) map { ratings =>
       ratings.foldLeft(user.perfs(perf).intRating) {
         case (rating, (d, r)) if d >= days && r > rating => r
