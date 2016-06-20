@@ -57,20 +57,15 @@
   will be announced winner(s).
 
   <h2>How does the pairing work?</h2>
-  @system match {
-  case Some(System.Arena) => {
   At the beginning of the tournament, players are paired based on their rating.
   As soon as you finish a game, return to the tournament lobby:
   you will then be paired with a player close to your ranking. This ensures minimum wait time,
   however you may not face all other players in the tournament.
   Play fast and return to the lobby to play more games and win more points.
-  }
-  case _ => {
   The pairing mechanism depends on the system used for the tournament. In the
   Arena system, new pairings are generated as soon as enough players are
   available in the lobby, in with the Swiss system, pairings are generated on
   a round basis.
-  }
   }
 
   <h2>How does it end?</h2>
