@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <th>
-        <label>Number of turns</label>
+        <label>@trans.nbOfTurns()</label>
       </th>
       <td>
         <div class="half">From @base.select(form("turnsMin"), Query.turns, "".some)</div>
@@ -63,7 +63,7 @@
     </tr>
     <tr>
       <th>
-        <label for="@form("source").id">Source</label>
+        <label for="@form("source").id">@trans.source()</label>
       </th>
       <td class="single">
         @base.select(form("source"), Query.sources, "".some)
@@ -137,7 +137,7 @@
     }
     <tr>
       <th>
-        <label for="@form("status").id">Result</label>
+        <label for="@form("status").id">@trans.result()</label>
       </th>
       <td class="single">
         @base.select(form("status"), Query.statuses, "".some)
@@ -145,7 +145,7 @@
     </tr>
     <tr>
       <th>
-        <label for="@form("winnerColor").id">Winner color</label>
+        <label for="@form("winnerColor").id">@trans.winnerColor()</label>
       </th>
       <td class="single">
         @base.select(form("winnerColor"), Query.winnerColors, "".some)
@@ -153,7 +153,7 @@
     </tr>
     <tr>
       <th>
-        <label>Sort</label>
+        <label>@trans.sort()</label>
       </th>
       <td>
         <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
