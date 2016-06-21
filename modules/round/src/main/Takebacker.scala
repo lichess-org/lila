@@ -33,7 +33,7 @@ private[round] final class Takebacker(
       messenger.system(game, _.takebackPropositionCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
     } inject {
-      List(Event.TakebackOffers(false, false)) -> situation
+      List(Event.TakebackOffers(false, false)) -> situation.decline
     }
     case Pov(game, color) if pov.opponent.isProposingTakeback => proxy.save {
       messenger.system(game, _.takebackPropositionDeclined)
