@@ -1,0 +1,10 @@
+@(pag: Paginator[lila.study.Study.WithChaptersAndLiked], order: lila.study.Order, me: User)(implicit ctx: Context)
+
+@listLayout(
+title = "My private studies",
+active = "minePrivate",
+order = order,
+pag = pag,
+url = o => routes.Study.minePrivate(o)) {
+My private studies
+}

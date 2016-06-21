@@ -15,9 +15,7 @@
       <a href="@routes.Puzzle.home">@trans.training()</a>
       <a href="@routes.Opening.home">@trans.openings()</a>
       <a href="@routes.Coordinate.home">@trans.coordinates()</a>
-      @ctx.me.map { me =>
-      <a href="@routes.Study.byOwnerDefault(me.username)">Study</a>
-      }
+      <a href="@routes.Study.allDefault(1)">Study</a>
     </div>
   </section>
   <section>

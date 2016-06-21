@@ -108,6 +108,12 @@ final class Env(
     import lila.socket.AnaDests
     lila.memo.Builder.cache[AnaDests.Ref, AnaDests](1 minute, _.compute)
   }
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
+    }
+  }
 }
 
 object Env {

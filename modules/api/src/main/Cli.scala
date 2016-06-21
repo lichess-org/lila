@@ -47,5 +47,6 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
       lila.explorer.Env.current.cli.process orElse
       lila.fishnet.Env.current.cli.process orElse
       lila.blog.Env.current.cli.process orElse
+      lila.study.Env.current.cli.process orElse
       process
 }

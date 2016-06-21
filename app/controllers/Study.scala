@@ -13,50 +13,61 @@ import views._
 
 object Study extends LilaController {
 
-  type ListUrl = (lila.user.User.ID, String) => Call
+  type ListUrl = String => Call
 
   private def env = Env.study
+
+  def allDefault(page: Int) = all(Order.Hot.key, page)
+
+  def all(order: String, page: Int) = Open { implicit ctx =>
+    env.pager.all(ctx.me, Order(order), page) map { pag =>
+      Ok(html.study.all(pag, Order(order)))
+    }
+  }
 
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
 
   def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerForUser(owner.id, ctx.me, Order(order), page) map { pag =>
+      env.pager.byOwner(owner, ctx.me, Order(order), page) map { pag =>
         html.study.byOwner(pag, Order(order), owner)
       }
     }
   }
 
-  def byOwnerPublic(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPublicForUser(owner.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byOwnerPublic(pag, Order(order), owner)
+  def mine(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mine(me, Order(order), page) map { pag =>
+        Ok(html.study.mine(pag, Order(order), me))
       }
-    }
   }
 
-  def byOwnerPrivate(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPrivateForUser(owner.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byOwnerPrivate(pag, Order(order), owner)
+  def minePublic(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.minePublic(me, Order(order), page) map { pag =>
+        Ok(html.study.minePublic(pag, Order(order), me))
       }
-    }
   }
 
-  def byMember(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { member =>
-      env.pager.byMemberForUser(member.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byMember(pag, Order(order), member)
+  def minePrivate(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.minePrivate(me, Order(order), page) map { pag =>
+        Ok(html.study.minePrivate(pag, Order(order), me))
       }
-    }
   }
 
-  def byLikes(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { user =>
-      env.pager.byLikesForUser(user.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byLikes(pag, Order(order), user)
+  def mineMember(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mineMember(me, Order(order), page) map { pag =>
+        Ok(html.study.mineMember(pag, Order(order), me))
       }
-    }
+  }
+
+  def mineLikes(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mineLikes(me, Order(order), page) map { pag =>
+        Ok(html.study.mineLikes(pag, Order(order), me))
+      }
   }
 
   def show(id: String) = Open { implicit ctx =>

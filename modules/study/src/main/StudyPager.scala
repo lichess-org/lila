@@ -12,20 +12,26 @@ final class StudyPager(
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
 
-  def byOwnerForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ accessSelect(me), me, order, page)
+  def all(me: Option[User], order: Order, page: Int) = paginator(
+    accessSelect(me), me, order, page)
 
-  def byOwnerPublicForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ selectPublic, me, order, page)
+  def byOwner(owner: User, me: Option[User], order: Order, page: Int) = paginator(
+    selectOwnerId(owner.id) ++ accessSelect(me), me, order, page)
 
-  def byOwnerPrivateForUser(ownerId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(ownerId) ++ selectPrivate ++ accessSelect(me), me, order, page)
+  def mine(me: User, order: Order, page: Int) = paginator(
+    selectOwnerId(me.id), me.some, order, page)
 
-  def byMemberForUser(memberId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
-    selectMemberId(memberId) ++ $doc("ownerId" $ne memberId) ++ accessSelect(me), me, order, page)
+  def minePublic(me: User, order: Order, page: Int) = paginator(
+    selectOwnerId(me.id) ++ selectPublic, me.some, order, page)
 
-  def byLikesForUser(userId: User.ID, me: Option[User], order: Order, page: Int) = paginator(
-    selectLiker(userId) ++ accessSelect(me) ++ $doc("ownerId" $ne userId), me, order, page)
+  def minePrivate(me: User, order: Order, page: Int) = paginator(
+    selectOwnerId(me.id) ++ selectPrivate, me.some, order, page)
+
+  def mineMember(me: User, order: Order, page: Int) = paginator(
+    selectMemberId(me.id) ++ $doc("ownerId" $ne me.id), me.some, order, page)
+
+  def mineLikes(me: User, order: Order, page: Int) = paginator(
+    selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id), me.some, order, page)
 
   def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>
@@ -38,9 +44,10 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection,
       sort = order match {
+        case Order.Hot     => $sort desc "rank"
         case Order.Newest  => $sort desc "createdAt"
         case Order.Oldest  => $sort asc "createdAt"
-        case Order.Updated  => $sort desc "updatedAt"
+        case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
     ) mapFutureList withChapters mapFutureList withLiking(me),
@@ -66,12 +73,13 @@ final class StudyPager(
 sealed abstract class Order(val key: String, val name: String)
 
 object Order {
+  case object Hot extends Order("hot", "Hot")
   case object Newest extends Order("newest", "Date added (newest)")
   case object Oldest extends Order("oldest", "Date added (oldest)")
   case object Updated extends Order("updated", "Recently updated")
   case object Popular extends Order("popular", "Most popular")
 
-  val default = Newest
-  val all = List(Newest, Oldest, Updated, Popular)
+  val default = Hot
+  val all = List(Hot, Newest, Oldest, Updated, Popular)
   def apply(key: String): Order = all.find(_.key == key) | default
 }

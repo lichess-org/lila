@@ -56,6 +56,14 @@ object Study {
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), false)
 
+  case class Rank(value: DateTime) extends AnyVal
+  object Rank {
+    def compute(likes: Likes, createdAt: DateTime) = Rank {
+      createdAt plusHours likesToHours(likes)
+    }
+    private def likesToHours(likes: Likes) = likes.value * 24
+  }
+
   sealed trait From
   object From {
     case object Scratch extends From

@@ -3,9 +3,8 @@
 @listLayout(
 title = s"Studies created by ${owner.titleName}",
 active = "owner",
-user = owner,
 order = order,
 pag = pag,
-url = (u, o) => routes.Study.byOwner(u, o)) {
-Studies created by @userLink(owner)
+url = o => routes.Study.byOwner(owner.username, o)) {
+@userLink(owner) studies
 }

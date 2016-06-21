@@ -342,6 +342,8 @@ final class StudyApi(
       }
     }
 
+  def resetAllRanks = studyRepo.resetAllRanks
+
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))
 

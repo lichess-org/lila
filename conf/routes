@@ -49,12 +49,6 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
-GET   /@/:username/study               controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
-GET   /@/:username/study/:order        controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/member/:order controllers.Study.byMember(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/public/:order controllers.Study.byOwnerPublic(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/private/:order controllers.Study.byOwnerPrivate(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/likes/:order  controllers.Study.byLikes(username: String, order: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
@@ -125,6 +119,15 @@ GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
+GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
+GET   /study/all/:order                controllers.Study.all(order: String, page: Int ?= 1)
+GET   /study/mine/:order               controllers.Study.mine(order: String, page: Int ?= 1)
+GET   /study/member/:order             controllers.Study.mineMember(order: String, page: Int ?= 1)
+GET   /study/public/:order             controllers.Study.minePublic(order: String, page: Int ?= 1)
+GET   /study/private/:order            controllers.Study.minePrivate(order: String, page: Int ?= 1)
+GET   /study/likes/:order              controllers.Study.mineLikes(order: String, page: Int ?= 1)
+GET   /study/by/:username              controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
+GET   /study/by/:username/:order       controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
