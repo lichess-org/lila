@@ -32,7 +32,9 @@ function normalView(ctrl) {
   var tabs = ['discussion'];
   if (ctrl.note) tabs.push('note');
   return [
-    m('div.chat_tabs', tabs.map(function(t) {
+    m('div', {
+      class: 'chat_tabs nb_' + tabs.length
+    }, tabs.map(function(t) {
       return m('div', {
         onclick: function() {
           ctrl.vm.tab(t);
