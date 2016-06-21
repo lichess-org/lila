@@ -11,7 +11,7 @@ div.mchat .chat_tabs {
 }
 div.mchat .chat_tabs .tab {
   flex: 1 1 auto;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #ccc;
   border-width: 0 1px 1px 0;
   text-align: center;
   white-space: nowrap;
@@ -45,7 +45,7 @@ div.mchat .chat_tabs .tab span {
 div.mchat .chat_tabs .tab:last-child {
   border-right: none;
 }
-div.mchat .chat_tabs .tab.active {
+div.mchat .chat_tabs:not(.nb_1) .tab.active {
   border-bottom-color: transparent!important;
 }
 div.mchat .content {
