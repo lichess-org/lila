@@ -33,7 +33,7 @@ class DataFormTest extends Specification with ScalazValidationMatchers  {
 1. e4 e5 2. Nf3 Nc6 3. Bc4 d6 4. Nc3 Bg4 5. h3 Bh5 6. Nxe5 Bxd1 7. Bxf7+"""
 
       ImportData(pgn, None).preprocess(None) must beSuccess.like {
-        case Preprocessed(_, _, Some(r)) => r.status must_== Status.Resign
+        case Preprocessed(_, _, Some(r), _, _) => r.status must_== Status.Resign
       }
     }
   }
