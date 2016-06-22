@@ -10,7 +10,8 @@ final class JSONHandlers(
   implicit val qaQuestionWrites = Json.writes[QaAnswer.Question]
 
   implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
-    def writeBody(notificationContent: NotificationContent) = {
+
+    private def writeBody(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, _, category, postId) => Json.obj(
           "mentionedBy" -> getLightUser(mentionedBy.value),
@@ -39,24 +40,11 @@ final class JSONHandlers(
       }
     }
 
-    def writes(notification: Notification) = {
-      val body = notification.content
-
-      val notificationType = body match {
-        case _: MentionedInThread        => "mentioned"
-        case _: InvitedToStudy           => "invitedStudy"
-        case _: PrivateMessage           => "privateMessage"
-        case _: QaAnswer                 => "qaAnswer"
-        case _: TeamJoined               => "teamJoined"
-        case _: NewBlogPost              => "newBlogPost"
-        case LimitedTournamentInvitation => "limitedTournamentInvitation"
-      }
-
-      Json.obj("content" -> writeBody(body),
-        "type" -> notificationType,
-        "read" -> notification.read.value,
-        "date" -> notification.createdAt)
-    }
+    def writes(notification: Notification) = Json.obj(
+      "content" -> writeBody(notification.content),
+      "type" -> notification.content.key,
+      "read" -> notification.read.value,
+      "date" -> notification.createdAt)
   }
 
   import lila.common.paginator.PaginatorJson._

@@ -53,18 +53,6 @@ private object BSONHandlers {
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
-    private def writeNotificationType(notificationContent: NotificationContent) = {
-      notificationContent match {
-        case _: MentionedInThread        => "mention"
-        case _: InvitedToStudy           => "invitedStudy"
-        case _: PrivateMessage           => "privateMessage"
-        case _: QaAnswer                 => "qaAnswer"
-        case _: TeamJoined               => "teamJoined"
-        case _: NewBlogPost              => "newBlogPost"
-        case LimitedTournamentInvitation => "u"
-      }
-    }
-
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
@@ -77,7 +65,7 @@ private object BSONHandlers {
         case b: NewBlogPost              => NewBlogPostHandler.write(b)
         case LimitedTournamentInvitation => $empty
       }
-    } ++ $doc("type" -> writeNotificationType(notificationContent))
+    } ++ $doc("type" -> notificationContent.key)
 
     private def readMentionedNotification(reader: Reader): MentionedInThread = {
       val mentionedBy = reader.get[MentionedBy]("mentionedBy")
