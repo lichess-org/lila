@@ -51,10 +51,6 @@ private object BSONHandlers {
     def write(c: chess.Color) = BSONBoolean(c.white)
   }
 
-  implicit val AnalysisIdHandler = stringAnyValHandler[AnalysisFinished.Id](_.value, AnalysisFinished.Id.apply)
-  implicit val AnalysisAgainstHandler = stringAnyValHandler[AnalysisFinished.OpponentName](_.value, AnalysisFinished.OpponentName.apply)
-  implicit val AnalysisFinishedHandler = Macros.handler[AnalysisFinished]
-
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
     private def writeNotificationType(notificationContent: NotificationContent) = {
@@ -65,7 +61,6 @@ private object BSONHandlers {
         case _: QaAnswer                 => "qaAnswer"
         case _: TeamJoined               => "teamJoined"
         case _: NewBlogPost              => "newBlogPost"
-        case _: AnalysisFinished         => "analysisFinished"
         case LimitedTournamentInvitation => "u"
       }
     }
@@ -80,7 +75,6 @@ private object BSONHandlers {
         case q: QaAnswer                 => QaAnswerHandler.write(q)
         case t: TeamJoined               => TeamJoinedHandler.write(t)
         case b: NewBlogPost              => NewBlogPostHandler.write(b)
-        case a: AnalysisFinished         => AnalysisFinishedHandler.write(a)
         case LimitedTournamentInvitation => $empty
       }
     } ++ $doc("type" -> writeNotificationType(notificationContent))
@@ -110,7 +104,6 @@ private object BSONHandlers {
       case "qaAnswer"         => QaAnswerHandler read reader.doc
       case "teamJoined"       => TeamJoinedHandler read reader.doc
       case "newBlogPost"      => NewBlogPostHandler read reader.doc
-      case "analysisFinished" => AnalysisFinishedHandler read reader.doc
       case "u"                => LimitedTournamentInvitation
     }
 

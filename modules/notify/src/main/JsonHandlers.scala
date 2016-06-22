@@ -35,10 +35,6 @@ final class JSONHandlers(
           "id" -> id.value,
           "slug" -> slug.value,
           "title" -> title.value)
-        case AnalysisFinished(id, color, against) => Json.obj(
-          "id" -> id.value,
-          "color" -> color.name,
-          "opponentName" -> against.value)
         case LimitedTournamentInvitation => Json.obj()
       }
     }
@@ -53,7 +49,6 @@ final class JSONHandlers(
         case _: QaAnswer                 => "qaAnswer"
         case _: TeamJoined               => "teamJoined"
         case _: NewBlogPost              => "newBlogPost"
-        case _: AnalysisFinished         => "analysisFinished"
         case LimitedTournamentInvitation => "limitedTournamentInvitation"
       }
 
