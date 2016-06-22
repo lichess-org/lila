@@ -90,9 +90,7 @@ object Auth extends LilaController {
 
   def signup = Open { implicit ctx =>
     NoTor {
-      forms.signup.websiteWithCaptcha map {
-        case (form, captcha) => Ok(html.auth.signup(form, captcha, env.RecaptchaPublicKey))
-      }
+      Ok(html.auth.signup(forms.signup.website, env.RecaptchaPublicKey)).fuccess
     }
   }
 
@@ -102,13 +100,9 @@ object Auth extends LilaController {
       Firewall {
         negotiate(
           html = forms.signup.website.bindFromRequest.fold(
-            err => forms.anyCaptcha map { captcha =>
-              BadRequest(html.auth.signup(err, captcha, env.RecaptchaPublicKey))
-            },
+            err => BadRequest(html.auth.signup(err, env.RecaptchaPublicKey)).fuccess,
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-              case false => forms.signup.websiteWithCaptcha map {
-                case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
-              }
+              case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
                 lila.mon.user.register.website()
                 val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
