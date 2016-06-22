@@ -137,6 +137,7 @@ window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   var title = 'lichess.org';
   var icon = '//lichess1.org/assets/images/logo.256.png';
   var notify = function() {
@@ -149,7 +150,6 @@ lichess.desktopNotification = function(msg) {
     }
     lichess.notifications.push(notification);
   };
-  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   if (Notification.permission === 'granted') notify();
   else Notification.requestPermission(function(p) {
     if (p === 'granted') notify();
