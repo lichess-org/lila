@@ -149,7 +149,7 @@ object Study extends LilaController {
     me =>
       env.api.byId(id) flatMap { study =>
         study.filter(_ isOwner me.id) ?? env.api.delete
-      } inject Redirect(routes.Study.byOwnerDefault(me.username))
+      } inject Redirect(routes.Study.allDefault(1))
   }
 
   def pgn(id: String) = Open { implicit ctx =>
