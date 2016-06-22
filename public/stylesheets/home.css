@@ -474,6 +474,16 @@ div.new_posts li span.extract {
   background: #fff;
   margin-bottom: 0.4em;
 }
+/* DELETE ME */
+#translation_call .progressbar div {
+  color: #fff !important;
+  text-shadow: 0 1px 0 #000 !important;
+  background: #d85000 !important;
+  border-color: #b84400 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+  height: 12px;
+  border-radius: 4px;
+}
 #daily_puzzle {
   width: 224px;
   position: absolute;
