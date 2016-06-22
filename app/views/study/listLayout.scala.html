@@ -29,7 +29,7 @@ withLangAnnotations = false) {
 <div class="content_box no_padding studies">
   <div class="top">
     <h1>@titleHtml</h1>
-    @orderChoice(o => url(o.key), order)
+    @orderChoice(o => url(o.key), order, if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all)
     @newForm()
   </div>
   @list(pag, url(order.key))

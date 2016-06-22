@@ -19,9 +19,13 @@ object Study extends LilaController {
 
   def allDefault(page: Int) = all(Order.Hot.key, page)
 
-  def all(order: String, page: Int) = Open { implicit ctx =>
-    env.pager.all(ctx.me, Order(order), page) map { pag =>
-      Ok(html.study.all(pag, Order(order)))
+  def all(o: String, page: Int) = Open { implicit ctx =>
+    Order(o) match {
+      case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
+      case order =>
+        env.pager.all(ctx.me, order, page) map { pag =>
+          Ok(html.study.all(pag, order))
+        }
     }
   }
 
