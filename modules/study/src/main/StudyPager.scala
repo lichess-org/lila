@@ -2,7 +2,7 @@ package lila.study
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.Adapter
+import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.User
 
 final class StudyPager(
@@ -13,7 +13,7 @@ final class StudyPager(
   import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
 
   def all(me: Option[User], order: Order, page: Int) = paginator(
-    accessSelect(me), me, order, page)
+    accessSelect(me), me, order, page, fuccess(9999).some)
 
   def byOwner(owner: User, me: Option[User], order: Order, page: Int) = paginator(
     selectOwnerId(owner.id) ++ accessSelect(me), me, order, page)
@@ -38,8 +38,13 @@ final class StudyPager(
       $or(selectPublic, selectMemberId(u.id))
     }
 
-  private def paginator(selector: Bdoc, me: Option[User], order: Order, page: Int): Fu[Paginator[Study.WithChaptersAndLiked]] = Paginator(
-    adapter = new Adapter[Study](
+  private def paginator(
+    selector: Bdoc,
+    me: Option[User],
+    order: Order,
+    page: Int,
+    nbResults: Option[Fu[Int]] = none): Fu[Paginator[Study.WithChaptersAndLiked]] = {
+    val adapter = new Adapter[Study](
       collection = studyRepo.coll,
       selector = selector,
       projection = studyRepo.projection,
@@ -50,9 +55,14 @@ final class StudyPager(
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
-    ) mapFutureList withChapters mapFutureList withLiking(me),
-    currentPage = page,
-    maxPerPage = 14)
+    ) mapFutureList withChapters mapFutureList withLiking(me)
+    Paginator(
+      adapter = nbResults.fold(adapter) { nb =>
+        new CachedAdapter(adapter, nb)
+      },
+      currentPage = page,
+      maxPerPage = 14)
+  }
 
   private def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
     chapterRepo namesByStudyIds studies.map(_.id) map { chapters =>
