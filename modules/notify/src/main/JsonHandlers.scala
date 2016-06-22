@@ -37,6 +37,10 @@ final class JSONHandlers(
           "slug" -> slug.value,
           "title" -> title.value)
         case LimitedTournamentInvitation => Json.obj()
+        case GameEnd(gameId, opponentId, win) => Json.obj(
+          "id" -> gameId.value,
+          "opponent" -> opponentId.map(_.value).flatMap(getLightUser),
+          "win" -> win.map(_.value))
       }
     }
 

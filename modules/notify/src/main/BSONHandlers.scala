@@ -46,6 +46,11 @@ private object BSONHandlers {
   implicit val BlogTitleHandler = stringAnyValHandler[NewBlogPost.Title](_.value, NewBlogPost.Title.apply)
   implicit val NewBlogPostHandler = Macros.handler[NewBlogPost]
 
+  implicit val GameEndGameIdHandler = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
+  implicit val GameEndOpponentHandler = stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
+  implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
+  implicit val GameEndHandler = Macros.handler[GameEnd]
+
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
     def read(b: BSONBoolean) = chess.Color(b.value)
     def write(c: chess.Color) = BSONBoolean(c.white)
@@ -64,6 +69,7 @@ private object BSONHandlers {
         case t: TeamJoined               => TeamJoinedHandler.write(t)
         case b: NewBlogPost              => NewBlogPostHandler.write(b)
         case LimitedTournamentInvitation => $empty
+        case x: GameEnd                  => GameEndHandler.write(x)
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -86,13 +92,14 @@ private object BSONHandlers {
     }
 
     def reads(reader: Reader): NotificationContent = reader.str("type") match {
-      case "mention"          => readMentionedNotification(reader)
-      case "invitedStudy"     => readInvitedStudyNotification(reader)
-      case "privateMessage"   => PrivateMessageHandler read reader.doc
-      case "qaAnswer"         => QaAnswerHandler read reader.doc
-      case "teamJoined"       => TeamJoinedHandler read reader.doc
-      case "newBlogPost"      => NewBlogPostHandler read reader.doc
-      case "u"                => LimitedTournamentInvitation
+      case "mention"        => readMentionedNotification(reader)
+      case "invitedStudy"   => readInvitedStudyNotification(reader)
+      case "privateMessage" => PrivateMessageHandler read reader.doc
+      case "qaAnswer"       => QaAnswerHandler read reader.doc
+      case "teamJoined"     => TeamJoinedHandler read reader.doc
+      case "newBlogPost"    => NewBlogPostHandler read reader.doc
+      case "u"              => LimitedTournamentInvitation
+      case "gameEnd"        => GameEndHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

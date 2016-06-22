@@ -1,7 +1,7 @@
 var m = require('mithril');
 
 function userFullName(u) {
-  if (!u) return '?';
+  if (!u) return 'Anonymous';
   return u.title ? u.title + ' ' + u.name : u.name;
 }
 
@@ -144,6 +144,45 @@ var handlers = {
     },
     text: function(n) {
       return 'Game with ' + n.content.opponentName + '.';
+    }
+  },
+  gameEnd: {
+    html: function(notification) {
+      var content = notification.content
+      var url = "/" + content.id;
+      var result;
+      switch (content.win) {
+        case true:
+          result = 'Congratulations, you won!';
+          break;
+        case false:
+          result = 'You lost!';
+          break;
+        default:
+          result = "It's a draw.";
+      }
+
+      return genericNotification(notification, url, ';', [
+        m('span', [
+          m('strong', 'Game vs ' + userFullName(content.opponent)),
+          drawTime(notification)
+        ]),
+        m('span', result)
+      ]);
+    },
+    text: function(n) {
+      var result;
+      switch (n.content.win) {
+        case true:
+          result = 'Victory';
+          break;
+        case false:
+          result = 'Defeat';
+          break;
+        default:
+          result = 'Draw';
+      }
+      return result + ' vs ' + userFullName(n.content.opponent);
     }
   }
 };

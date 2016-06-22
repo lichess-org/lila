@@ -7,6 +7,8 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
+import lila.game.{ Game, Pov }
+import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.{ Ask, Tell }
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
@@ -23,6 +25,7 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     userJsonView: lila.user.JsonView,
     rankingApi: lila.user.RankingApi,
+    notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     isRematchCache: lila.memo.ExpireSetMemo,
@@ -41,7 +44,6 @@ final class Env(
     val Moretime = config duration "moretime"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
-    val FinisherLockTimeout = config duration "finisher.lock.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val CasualOnly = config getBoolean "casual_only"
@@ -126,13 +128,18 @@ final class Env(
     coll = db(CollectionForecast),
     roundMap = hub.actor.roundMap)
 
+  private lazy val notifier = new RoundNotifier(
+    timeline = hub.actor.timeline,
+    isUserPresent = isUserPresent,
+    notifyApi = notifyApi)
+
   private lazy val finisher = new Finisher(
     messenger = messenger,
     perfsUpdater = perfsUpdater,
     crosstableApi = crosstableApi,
+    notifier = notifier,
     playban = playban,
     bus = system.lilaBus,
-    timeline = hub.actor.timeline,
     casualOnly = CasualOnly)
 
   private lazy val rematcher = new Rematcher(
@@ -165,6 +172,9 @@ final class Env(
   private def getSocketStatus(gameId: String): Fu[SocketStatus] =
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
 
+  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+    socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
+
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
     userJsonView = userJsonView,
@@ -192,12 +202,12 @@ final class Env(
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
   system.lilaBus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
-  def checkOutoftime(game: lila.game.Game) {
+  def checkOutoftime(game: Game) {
     if (game.playable && game.started && !game.isUnlimited)
       roundMap ! Tell(game.id, actorApi.round.Outoftime)
   }
 
-  def resign(pov: lila.game.Pov) {
+  def resign(pov: Pov) {
     if (pov.game.abortable)
       roundMap ! Tell(pov.game.id, actorApi.round.Abort(pov.playerId))
     else if (pov.game.playable)
@@ -219,6 +229,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     userJsonView = lila.user.Env.current.jsonView,
     rankingApi = lila.user.Env.current.rankingApi,
+    notifyApi = lila.notify.Env.current.api,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     isRematchCache = lila.game.Env.current.cached.isRematch,
