@@ -60,7 +60,7 @@ object ApplicationBuild extends Build {
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
-    study, fishnet, explorer)
+    study, fishnet, explorer, learn)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -239,6 +239,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val study = project("study", Seq(common, db, hub, socket, game, round, importer, notifyModule, relation)).settings(
+    libraryDependencies ++= provided(play.api, RM)
+  )
+
+  lazy val learn = project("learn", Seq(common, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM)
   )
 
