@@ -5,6 +5,11 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env) {
+
+  private val CollectionProgress = config getString "collection.progress"
+
+  lazy val api = new LearnApi(
+    coll = db(CollectionProgress))
 }
 
 object Env {

@@ -95,7 +95,6 @@ object Condition {
   object BSONHandlers {
     import reactivemongo.bson._
     import lila.db.BSON
-    import lila.db.BSON.{ Reader, Writer }
     import lila.db.dsl._
     private implicit val PerfTypeBSONHandler = new BSONHandler[BSONString, PerfType] {
       def read(bs: BSONString): PerfType = PerfType(bs.value) err s"No such PerfType: ${bs.value}"
