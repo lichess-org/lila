@@ -50,7 +50,7 @@ module.exports = function(blueprint, opts) {
       if (item.type === 'apple') {
         addScore(50);
         items.remove(move.to);
-      } else if (item.type === 'flower' && !items.hasOfType('apple')) complete();
+      }
     });
     update();
     if (vm.completed) return;
@@ -72,8 +72,12 @@ module.exports = function(blueprint, opts) {
   });
 
   var update = function() {
-    vm.lastStep = !items.hasOfType('apple');
-    m.redraw();
+    var hasApples = items.hasOfType('apple');
+    if (!hasApples) {
+      vm.lastStep = true;
+      console.log(items.flowerKey());
+      if (chessground.data.pieces[items.flowerKey()]) complete();
+    }
   };
   update();
 

@@ -14,7 +14,7 @@ module.exports = function(opts) {
         m('h1', 'Learn map'),
         m('div.lessons', lessons.list.map(function(l) {
           return m('a', {
-            href: '/lesson/' + l.id,
+            href: '/' + l.id,
             config: m.route
           }, l.title);
         }))

@@ -39,6 +39,10 @@ module.exports = {
       },
       hasOfType: function(type) {
         return !!list().filter(hasType(type))[0];
+      },
+      flowerKey: function() {
+        for (var k in items)
+          if (items[k].type === 'flower') return k;
       }
     };
   },
