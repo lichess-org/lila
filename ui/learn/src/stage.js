@@ -25,15 +25,22 @@ module.exports = function(blueprint, opts) {
     opts.onScore(v);
   };
 
+  var getRank = function() {
+    if (!vm.completed) return;
+    var late = vm.nbMoves - blueprint.nbMoves;
+    if (late === 0) return 1;
+    else if (late === 1) return 2;
+    return 3;
+  };
+
   var complete = function() {
     vm.lastStep = false;
-    var late = vm.nbMoves - blueprint.nbMoves;
-    if (late === 0) bonus = 500;
-    else if (late === 1) bonus = 300;
-    else if (late === 2) bonus = 200;
-    else bonus = 100;
-    addScore(bonus);
     vm.completed = true;
+    var rank = getRank();
+    var bonus = 100;
+    if (rank === 1) bonus = 500;
+    else if (rank === 2) bonus = 300;
+    addScore(bonus);
     chessground.stop();
     m.redraw();
     setTimeout(opts.onComplete, 1500);
@@ -74,8 +81,8 @@ module.exports = function(blueprint, opts) {
   var update = function() {
     var hasApples = items.hasOfType('apple');
     if (!hasApples) {
-      vm.lastStep = true;
       if (chessground.data.pieces[items.flowerKey()]) complete();
+      else vm.lastStep = true;
     }
   };
   update();
@@ -84,6 +91,7 @@ module.exports = function(blueprint, opts) {
     blueprint: blueprint,
     chessground: chessground,
     items: items,
-    vm: vm
+    vm: vm,
+    getRank: getRank
   };
 };

@@ -3,6 +3,10 @@ var chessground = require('chessground');
 var classSet = chessground.util.classSet;
 var util = require('../util');
 
+function renderRank(rank) {
+  if (rank) return m('div.rank', rank);
+}
+
 module.exports = function(ctrl) {
   var lesson = ctrl.lesson();
   var stage = lesson.stage();
@@ -65,7 +69,8 @@ module.exports = function(ctrl) {
             ctx.prev = score;
           }
         })
-      ])
+      ]),
+      renderRank(stage.getRank())
     ])
   ]);
 };
