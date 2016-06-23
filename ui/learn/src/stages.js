@@ -1,5 +1,6 @@
 var all = [{
   id: 'pieces.rook',
+  num: 1,
   title: 'The mighty rook'
 }];
 

@@ -1,2 +1,44 @@
 #learn_app {
 }
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+#learn_app apple {
+  background: url(../images/learn/apple.png);
+  width: 70%;
+  height: 70%;
+  background-size: cover;
+  position: absolute;
+  bottom: 15%;
+  left: 15%;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  z-index: 2;
+  opacity: 0;
+  transform: rotate(0deg) translateY(30px) scale(0.1);
+  -webkit-filter: hue-rotate(360deg);
+  transition: all 1s;
+}
+#learn_app .board-init apple {
+  transform: rotate(360deg) translateY(0) scale(1);
+  -webkit-filter: hue-rotate(0deg);
+  opacity: 1;
+}
+#learn_app square.move-dest.drag-over apple,
+#learn_app apple:hover {
+  -webkit-filter: hue-rotate(360deg);
+}
+#learn_app .is2d apple {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+}
+#learn_app square.has-item.move-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+}
+#learn_app .cg-board square.move-dest.drag-over,
+#learn_app .cg-board square.move-dest:hover {
+  background: rgba(20, 85, 30, 0.3);
+}

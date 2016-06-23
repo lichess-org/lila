@@ -1,17 +1,12 @@
 var m = require('mithril');
-var stages = require('../stages');
+var stageCtrl = require('./stageCtrl');
+var stageView = require('./stageView');
 
 module.exports = function(opts) {
   return {
     controller: function() {
-      var stage = stages.byId(m.route.param("id"));
-      return {
-        stage: stage
-      };
+      return stageCtrl(opts);
     },
-    view: function(ctrl) {
-      var stage = ctrl.stage;
-      return m('div.learn.stage', 'Learn stage ', stage.title);
-    }
+    view: stageView
   };
-}
+};
