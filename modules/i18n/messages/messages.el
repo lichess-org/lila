@@ -529,3 +529,5 @@ bulletBlitzClassical=Υπερταχέα, ταχέα, κλασσικά
 correspondenceChess=Σκάκι με αλληλογραφία
 onlineAndOfflinePlay=Παιχνίδια σε ζωντανή σύνδεση και εκτός σύνδεσης
 correspondenceAndUnlimited=Δι' αλληλογραφίας και απεριόριστου χρόνου
+availableInNbLanguages=Διαθέσιμο σε %s γλώσσες!
+gameAnalysis=Η ανάλυση του παιχνιδιού
