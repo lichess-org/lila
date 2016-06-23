@@ -4,32 +4,45 @@
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
 }
-#learn_app apple {
-  background: url(../images/learn/apple.png);
+#learn_app item {
   width: 70%;
   height: 70%;
-  background-size: cover;
-  position: absolute;
   bottom: 15%;
   left: 15%;
+  background-size: cover;
+  position: absolute;
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  z-index: 2;
+  z-index: 1;
+  transition: all 1s;
+}
+#learn_app .apple {
+  background-image: url(../images/learn/star.png);
   opacity: 0;
   transform: rotate(0deg) translateY(30px) scale(0.1);
   -webkit-filter: hue-rotate(360deg);
-  transition: all 1s;
 }
-#learn_app .board-init apple {
+#learn_app .board-init .apple {
+  opacity: 1;
   transform: rotate(360deg) translateY(0) scale(1);
   -webkit-filter: hue-rotate(0deg);
+}
+#learn_app .flower {
+  background-image: url(../images/learn/castle.png);
+  width: 90%;
+  height: 90%;
+  bottom: 5%;
+  left: 5%;
+  opacity: 0;
+}
+#learn_app .board-init .flower {
   opacity: 1;
 }
-#learn_app square.move-dest.drag-over apple,
-#learn_app apple:hover {
+#learn_app .board-init square.move-dest.drag-over item,
+#learn_app .board-init item:hover {
   -webkit-filter: hue-rotate(360deg);
 }
-#learn_app .is2d apple {
+#learn_app .is2d item {
   width: 100%;
   height: 100%;
   left: 0;

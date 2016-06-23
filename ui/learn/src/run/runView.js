@@ -2,7 +2,8 @@ var m = require('mithril');
 var chessground = require('chessground');
 
 module.exports = function(ctrl) {
-  var s = ctrl.stage;
+  var lesson = ctrl.lesson;
+  var stage = lesson.stage;
 
   return m('div.lichess_game', [
     m('div.lichess_board_wrap', [
@@ -13,11 +14,11 @@ module.exports = function(ctrl) {
           }, 300);
         }
       },
-        chessground.view(ctrl.chessground))
+        chessground.view(stage.chessground))
     ]),
     m('div.lichess_ground', [
       m('h2', [
-        s.num + ' ' + s.title
+        stage.data.num + ' ' + stage.data.title
       ])
     ])
   ]);

@@ -1,5 +1,5 @@
 var m = require('mithril');
-var stages = require('../stages');
+var lessons = require('../lesson/list');
 
 module.exports = function(opts) {
   return {
@@ -12,11 +12,11 @@ module.exports = function(opts) {
     view: function(ctrl) {
       return m('div.learn.map', [
         m('h1', 'Learn map'),
-        m('div.stages', stages.all.map(function(s) {
+        m('div.lessons', lessons.list.map(function(l) {
           return m('a', {
-            href: '/' + s.id,
+            href: '/lesson/' + l.id,
             config: m.route
-          }, s.title);
+          }, l.title);
         }))
       ]);
     }

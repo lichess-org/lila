@@ -1,6 +1,7 @@
 var m = require('mithril');
 var map = require('./map/mapMain');
-var stage = require('./stage/stageMain');
+var run = require('./run/runMain');
+var makeLesson = require('./lesson');
 
 module.exports = function(element, opts) {
 
@@ -8,7 +9,7 @@ module.exports = function(element, opts) {
 
   m.route(element, '/', {
     '/': map(opts),
-    '/:id': stage(opts)
+    '/lesson/:id': run(opts)
   });
 
   return {};
