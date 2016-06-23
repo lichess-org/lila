@@ -11,7 +11,8 @@ module.exports = function(ctrl) {
     class: classSet({
       'lichess_game': true,
       'initialized': stage.vm.initialized,
-      'completed': stage.vm.completed
+      'completed': stage.vm.completed,
+      'last-step': stage.vm.lastStep
     })
   }, [
     m('div.lichess_board_wrap', [

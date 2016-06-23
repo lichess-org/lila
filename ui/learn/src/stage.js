@@ -10,6 +10,7 @@ module.exports = function(blueprint, opts) {
 
   var vm = {
     initialized: false,
+    lastStep: false,
     completed: false,
     score: 0,
     nbMoves: 0
@@ -25,6 +26,7 @@ module.exports = function(blueprint, opts) {
   };
 
   var complete = function() {
+    vm.lastStep = false;
     var late = vm.nbMoves - blueprint.nbMoves;
     if (late === 0) bonus = 500;
     else if (late === 1) bonus = 300;
@@ -50,6 +52,7 @@ module.exports = function(blueprint, opts) {
         items.remove(move.to);
       } else if (item.type === 'flower' && !items.hasOfType('apple')) complete();
     });
+    update();
     if (vm.completed) return;
     chess.color(blueprint.color);
     ground.color(chessground, blueprint.color, chess.dests());
@@ -66,6 +69,13 @@ module.exports = function(blueprint, opts) {
       }
     }
   });
+
+  var update = function() {
+    console.log(items.hasOfType('apple'));
+    vm.lastStep = !items.hasOfType('apple');
+    m.redraw();
+  };
+  update();
 
   return {
     blueprint: blueprint,
