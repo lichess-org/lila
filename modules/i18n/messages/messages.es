@@ -529,3 +529,7 @@ bulletBlitzClassical=Bala, relámpago y clásico
 correspondenceChess=Ajedrez por correspondencia
 onlineAndOfflinePlay=Jugar online o desconectado de internet
 correspondenceAndUnlimited=Correspondencia y sin límite de tiempo
+viewTheSolution=Ver la solución
+followAndChallengeFriends=Seguir y retar amigos
+availableInNbLanguages=Disponible en %s lenguajes!
+gameAnalysis=Análisis de juego
