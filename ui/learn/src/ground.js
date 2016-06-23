@@ -2,7 +2,7 @@ var chessground = require('chessground');
 
 module.exports = {
   make: function(opts) {
-    return new chessground.controller({
+    var cg = new chessground.controller({
       fen: opts.chess.fen(),
       orientation: opts.orientation,
       coordinates: true,
@@ -33,6 +33,8 @@ module.exports = {
       },
       disableContextMenu: true
     });
+    if (opts.shapes) cg.setShapes(opts.shapes);
+    return cg;
   },
   color: function(ground, color, dests) {
     ground.set({

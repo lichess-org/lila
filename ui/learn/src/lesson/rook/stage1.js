@@ -7,5 +7,10 @@ module.exports = {
   items: {
     e7: item.flower()
   },
-  nbMoves: 1
+  nbMoves: 1,
+  shapes: [{
+    brush: 'green',
+    orig: 'e2',
+    dest: 'e7'
+  }]
 };

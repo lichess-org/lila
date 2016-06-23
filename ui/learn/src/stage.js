@@ -67,11 +67,11 @@ module.exports = function(blueprint, opts) {
       render: function(pos, key) {
         return items.withItem(key, itemView);
       }
-    }
+    },
+    shapes: blueprint.shapes
   });
 
   var update = function() {
-    console.log(items.hasOfType('apple'));
     vm.lastStep = !items.hasOfType('apple');
     m.redraw();
   };

@@ -5,7 +5,7 @@ var makeLesson = require('../lesson');
 module.exports = function(lesson, opts) {
 
   var onStageComplete = function() {
-    if (lesson.next()) console.log('next stage');
+    if (lesson.next()) true;
     else alert('lesson complete');
     m.redraw.strategy('all');
     m.redraw();

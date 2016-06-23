@@ -57,7 +57,6 @@ module.exports = function(ctrl) {
           config: function(el, isUpdate, ctx) {
             var score = lesson.vm.score;
             if (!ctx.spread) {
-              console.log('recreate!');
               el.textContent = lichess.numberFormat(score);
               ctx.spread = $.spreadNumber(el, 50, function() {
                 return 1000;
