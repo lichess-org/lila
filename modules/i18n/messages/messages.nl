@@ -529,3 +529,7 @@ bulletBlitzClassical=Bullet, blitz, klassiek
 correspondenceChess=Correspondentieschaak
 onlineAndOfflinePlay=Online en offline spelen
 correspondenceAndUnlimited=Correspondentieschaak zonder klok
+viewTheSolution=Bekijk de oplossing
+followAndChallengeFriends=Volg en daag vrienden uit
+availableInNbLanguages=Beschikbaar in %s talen!
+gameAnalysis=Partij analyses
