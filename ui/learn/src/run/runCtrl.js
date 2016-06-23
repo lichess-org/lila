@@ -6,7 +6,7 @@ module.exports = function(lesson, opts) {
 
   var onStageComplete = function() {
     if (lesson.next()) console.log('next stage');
-    else console.log('lesson complete');
+    else alert('lesson complete');
     m.redraw.strategy('all');
     m.redraw();
   };

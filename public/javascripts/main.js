@@ -144,28 +144,6 @@ lichess.notifyApp = (function() {
       if (callNow) func.apply(context, args);
     };
   };
-  $.spreadNumber = function(el, nbSteps, getDuration) {
-    var previous, displayed;
-    var display = function(prev, cur, it) {
-      var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
-      if (val !== displayed) {
-        el.textContent = val;
-        displayed = val;
-      }
-    };
-    var timeouts = [];
-    return function(nb) {
-      if (!el || !nb) return;
-      timeouts.forEach(clearTimeout);
-      timeouts = [];
-      var prev = previous || nb;
-      previous = nb;
-      var interv = getDuration() / nbSteps;
-      for (var i = 0; i < nbSteps; i++) {
-        timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
-      }
-    };
-  };
 
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;

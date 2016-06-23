@@ -29,7 +29,7 @@ module.exports = {
       },
       animation: {
         enabled: true,
-        duration: 500
+        duration: 300
       },
       disableContextMenu: true
     });

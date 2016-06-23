@@ -1,8 +1,81 @@
 #learn_app {
 }
-@keyframes rotate {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
+#learn_app div.lichess_ground {
+  width: 267px;
+  justify-content: flex-start;
+}
+#learn_app .title {
+  display: flex;
+  background: #3893E8;
+  color: #fff;
+}
+#learn_app .title h2 {
+  font-size: 2.5em;
+  margin: 15px 0 5px 0;
+}
+#learn_app .title img {
+  width: 100px;
+  height: 100px;
+}
+#learn_app .goal {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  font-size: 1.3em;
+  padding: 15px;
+  text-align: center;
+}
+#learn_app .completed .goal {
+  font-size: 2em;
+}
+#learn_app .score {
+  background: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 3px;
+  margin: 40px auto;
+  position: relative;
+}
+#learn_app .score .plus {
+  position: absolute;
+  top: 0;
+  width: 60%;
+  left: 20%;
+  box-sizing: border-box;
+  font-size: 2em;
+  font-weight: bold;
+  background: #fdd835;
+  padding: 5px 0;
+  border-radius: 3px;
+  text-shadow: 0 1px 0 #000;
+  opacity: 0;
+}
+@keyframes score-show {
+  from {opacity: 1; transform: translateY(20px);}
+  to {opacity: 0; transform: translateY(-20px);}
+}
+#learn_app .score .plus.show {
+  animation: 1.5s score-show;
+}
+#learn_app .score .legend {
+  font-size: 1.3em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  letter-spacing: 5px;
+  display: block;
+  margin: 5px;
+}
+#learn_app .score .value {
+  font-size: 40px;
+  font-family: monospace;
+}
+@keyframes rotate-fade {
+  from {transform: rotate(0deg) scale(1) translateY(0px);}
+  to {transform: rotate(360deg) scale(0) translateY(30px);}
+}
+#learn_app .completed piece {
+  animation: 2s rotate-fade 250ms;
 }
 #learn_app item {
   width: 70%;
@@ -12,7 +85,6 @@
   background-size: cover;
   position: absolute;
   transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
   z-index: 1;
   transition: all 1s;
 }
@@ -22,7 +94,7 @@
   transform: rotate(0deg) translateY(30px) scale(0.1);
   -webkit-filter: hue-rotate(360deg);
 }
-#learn_app .board-init .apple {
+#learn_app .initialized .apple {
   opacity: 1;
   transform: rotate(360deg) translateY(0) scale(1);
   -webkit-filter: hue-rotate(0deg);
@@ -35,11 +107,11 @@
   left: 5%;
   opacity: 0;
 }
-#learn_app .board-init .flower {
+#learn_app .initialized .flower {
   opacity: 1;
 }
-#learn_app .board-init square.move-dest.drag-over item,
-#learn_app .board-init item:hover {
+#learn_app .initialized square.move-dest.drag-over item,
+#learn_app .initialized item:hover {
   -webkit-filter: hue-rotate(360deg);
 }
 #learn_app .is2d item {

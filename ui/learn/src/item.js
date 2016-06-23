@@ -38,7 +38,6 @@ module.exports = {
         delete items[key];
       },
       hasOfType: function(type) {
-        console.log(list(), type, list().filter(hasType(type)));
         return !!list().filter(hasType(type))[0];
       }
     };

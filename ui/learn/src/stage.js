@@ -1,3 +1,4 @@
+var m = require('mithril');
 var makeItems = require('./item').ctrl;
 var itemView = require('./item').view;
 var makeChess = require('./chess');
@@ -6,11 +7,38 @@ var ground = require('./ground');
 module.exports = function(blueprint, opts) {
 
   var items = makeItems(blueprint.items);
-  var points = 0;
-  var nbMoves = 0;
+
+  var vm = {
+    initialized: false,
+    completed: false,
+    score: 0,
+    nbMoves: 0
+  };
+  setTimeout(function() {
+    vm.initialized = true;
+    m.redraw();
+  }, 100);
+
+  var addScore = function(v) {
+    vm.score += v;
+    opts.onScore(v);
+  };
+
+  var complete = function() {
+    var late = vm.nbMoves - blueprint.nbMoves;
+    if (late === 0) bonus = 500;
+    else if (late === 1) bonus = 300;
+    else if (late === 2) bonus = 200;
+    else bonus = 100;
+    addScore(bonus);
+    vm.completed = true;
+    chessground.stop();
+    m.redraw();
+    setTimeout(opts.onComplete, 1500);
+  };
 
   var onMove = function(orig, dest) {
-    nbMoves++;
+    vm.nbMoves++;
     var move = chess.move({
       from: orig,
       to: dest
@@ -18,15 +46,11 @@ module.exports = function(blueprint, opts) {
     if (!move) throw 'Invalid move!';
     items.withItem(move.to, function(item) {
       if (item.type === 'apple') {
-        points += 100;
+        addScore(50);
         items.remove(move.to);
-      }
-      if (item.type === 'flower' && !items.hasOfType('apple')) {
-        points += 150;
-        items.remove(move.to);
-        opts.onComplete();
-      }
+      } else if (item.type === 'flower' && !items.hasOfType('apple')) complete();
     });
+    if (vm.completed) return;
     chess.color(blueprint.color);
     ground.color(chessground, blueprint.color, chess.dests());
   };
@@ -46,7 +70,7 @@ module.exports = function(blueprint, opts) {
   return {
     blueprint: blueprint,
     chessground: chessground,
-    points: 0,
-    items: items
+    items: items,
+    vm: vm
   };
 };
