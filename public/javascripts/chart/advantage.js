@@ -12,19 +12,21 @@ lichess.advantageChart = function(data) {
         var makeSerieData = function(d) {
           return d.treeParts.slice(1).map(function(node) {
             var white = null, black = null;
-            var y = null;
+            var y = null, eval = null;
             if (node.eval && typeof node.eval.cp !== 'undefined') {
-              y = max * (2 / (1 + Math.exp(-0.005 * node.eval.cp)) - 1);
+              y = max * (2 / (1 + Math.exp(-0.003 * node.eval.cp)) - 1);
+              eval = (node.eval.cp / 100.0).toFixed(1);
             }
             else if (node.eval && node.eval.mate) {
               y = (node.eval.mate < 0) ? -max : max;
+              eval = '#' + node.eval.mate;
             }
             var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = node.ply % 2 === 1 ? '.' : '...';
             return y === null ? {
               y: null
             } : {
-              name: turn + dots + ' ' + node.san,
+              name: turn + dots + ' ' + node.san + ' (' + eval + ')',
               y: Math.round(y),
               white: Math.round(max + y),
               black: Math.round(max - y)
