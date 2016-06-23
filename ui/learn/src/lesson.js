@@ -14,7 +14,7 @@ module.exports = function(blueprint, opts) {
     })
   }
 
-  var stage = makeStage(1);
+  var stage = makeStage(opts.stage || 1);
 
   var vm = {
     score: 0

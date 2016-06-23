@@ -13,6 +13,7 @@ module.exports = function(lesson, opts) {
 
   try {
     var lesson = makeLesson(lessons.get(m.route.param("id")), {
+      stage: m.route.param('stage') || 1,
       onStageComplete: onStageComplete
     });
   } catch (e) {

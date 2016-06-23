@@ -9,6 +9,7 @@ module.exports = function(element, opts) {
 
   m.route(element, '/', {
     '/': map(opts),
+    '/lesson/:id/:stage': run(opts),
     '/lesson/:id': run(opts)
   });
 
