@@ -9,5 +9,6 @@ module.exports = {
     a2: item.apple(),
     c5: item.apple(),
     g7: item.flower()
-  }
+  },
+  nbMoves: 6
 };

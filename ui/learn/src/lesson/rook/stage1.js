@@ -6,5 +6,6 @@ module.exports = {
   fen: '8/8/8/8/8/8/4R3/8 w - - 0 1',
   items: {
     g7: item.flower()
-  }
+  },
+  nbMoves: 2
 };
