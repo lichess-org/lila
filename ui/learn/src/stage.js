@@ -75,7 +75,6 @@ module.exports = function(blueprint, opts) {
     var hasApples = items.hasOfType('apple');
     if (!hasApples) {
       vm.lastStep = true;
-      console.log(items.flowerKey());
       if (chessground.data.pieces[items.flowerKey()]) complete();
     }
   };
