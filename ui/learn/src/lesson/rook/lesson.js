@@ -8,6 +8,8 @@ module.exports = {
   stages: [
     require('./stage1'),
     require('./stage2'),
-    require('./stage3')
+    require('./stage3'),
+    require('./stage4'),
+    require('./stage5')
   ].map(util.incrementalId)
 };
