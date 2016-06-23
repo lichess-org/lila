@@ -529,3 +529,6 @@ bulletBlitzClassical=Игра в реальном времени
 correspondenceChess=Игра по переписке
 onlineAndOfflinePlay=Онлайн и оффлайн
 correspondenceAndUnlimited=По переписке и без ограничения времени
+viewTheSolution=Посмотреть решение
+availableInNbLanguages=Доступно на %s языках!
+gameAnalysis=Анализ игры
