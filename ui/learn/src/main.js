@@ -1,15 +1,14 @@
 var m = require('mithril');
-var ctrl = require('./ctrl');
+var map = require('./map/mapMain');
+var stage = require('./stage/stageMain');
 
 module.exports = function(element, opts) {
 
-  var controller = ctrl(opts);
+  m.route.mode = "hash";
 
-  m.module(element, {
-    controller: function() {
-      return controller;
-    },
-    view: require('./view')
+  m.route(element, '/', {
+    '/': map(opts),
+    '/:id': stage(opts)
   });
 
   return {};

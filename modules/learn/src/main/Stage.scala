@@ -8,7 +8,17 @@ object Stage {
 
   case object Intro extends Stage(Id("intro"))
 
-  val all = List(Intro)
+  object pieces {
+    case object Rook extends Stage(Id("pieces.rook"))
+    case object Bishop extends Stage(Id("pieces.bishop"))
+  }
 
-  def byId(id: Id) = all.find(_.id == id)
+  val all = List(
+    Intro,
+    pieces.Rook, pieces.Bishop
+  )
+
+  val idMap: Map[Id, Stage] = all.map { s => s.id -> s }.toMap
+
+  def byId(id: Id): Option[Stage] = idMap get id
 }
