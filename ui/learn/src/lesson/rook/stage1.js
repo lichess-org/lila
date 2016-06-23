@@ -9,7 +9,7 @@ module.exports = {
   },
   nbMoves: 1,
   shapes: [{
-    brush: 'green',
+    brush: 'paleGreen',
     orig: 'e2',
     dest: 'e7'
   }]
