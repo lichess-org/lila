@@ -83,6 +83,7 @@ module.exports = function(blueprint, opts) {
     if (!hasApples) {
       if (chessground.data.pieces[items.flowerKey()]) complete();
       else vm.lastStep = true;
+      m.redraw();
     }
   };
   update();

@@ -1,7 +1,6 @@
 var util = require('../../util');
 
 module.exports = {
-  id: 'rook',
   title: 'The rook',
   subtitle: 'It moves in straight lines.',
   image: util.assetUrl + 'images/learn/pieces/R.svg',
@@ -11,5 +10,7 @@ module.exports = {
     require('./stage3'),
     require('./stage4'),
     require('./stage5')
-  ].map(util.incrementalId)
+  ].map(util.incrementalId),
+  complete: 'Congratulations! You have successfully mastered the rook.<br>' +
+    'Shall we proceed to the next level?'
 };

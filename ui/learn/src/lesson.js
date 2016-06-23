@@ -3,6 +3,15 @@ var stageBuilder = require('./stage');
 
 module.exports = function(blueprint, opts) {
 
+  var onStageComplete = function() {
+    var s = makeStage(stage.blueprint.id + 1);
+    if (s) {
+      stage = s;
+      m.redraw.strategy('all');
+    } else vm.completed = true;
+    m.redraw();
+  };
+
   var makeStage = function(id) {
     var stageBlueprint = blueprint.stages[id - 1];
     if (stageBlueprint) return stageBuilder(stageBlueprint, {
@@ -10,14 +19,15 @@ module.exports = function(blueprint, opts) {
         vm.score += score;
         m.redraw();
       },
-      onComplete: opts.onStageComplete
+      onComplete: onStageComplete
     })
   }
 
   var stage = makeStage(opts.stage || 1);
 
   var vm = {
-    score: 0
+    score: 0,
+    completed: false
   };
 
   return {
@@ -25,14 +35,6 @@ module.exports = function(blueprint, opts) {
     vm: vm,
     stage: function() {
       return stage;
-    },
-    next: function() {
-      var s = makeStage(stage.blueprint.id + 1);
-      if (s) {
-        stage = s;
-        return true;
-      }
-      return false;
     }
   }
 };

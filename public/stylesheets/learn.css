@@ -28,7 +28,7 @@
 #learn_app .completed .goal {
   font-size: 2em;
 }
-#learn_app .score {
+#learn_app .lichess_ground .score {
   background: #4caf50;
   color: #fff;
   padding: 10px 20px;
@@ -37,7 +37,7 @@
   margin: 40px auto;
   position: relative;
 }
-#learn_app .score .plus {
+#learn_app .lichess_ground .score .plus {
   position: absolute;
   top: 0;
   width: 60%;
@@ -55,10 +55,10 @@
   from {opacity: 1; transform: translateY(20px);}
   to {opacity: 0; transform: translateY(-20px);}
 }
-#learn_app .score .plus.show {
+#learn_app .lichess_ground .score .plus.show {
   animation: 1.5s score-show;
 }
-#learn_app .score .legend {
+#learn_app .lichess_ground .score .legend {
   font-size: 1.3em;
   font-family: 'Roboto';
   font-weight: 300;
@@ -66,7 +66,7 @@
   display: block;
   margin: 5px;
 }
-#learn_app .score .value {
+#learn_app .lichess_ground .score .value {
   font-size: 40px;
   font-family: monospace;
 }
@@ -149,4 +149,121 @@
 #learn_app .cg-board square.move-dest.drag-over,
 #learn_app .cg-board square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
+}
+
+#learn_app .screen-overlay {
+  position: fixed;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background: rgba(79, 195, 247, 0.9);
+  z-index: 33;
+  margin: 63px auto;
+}
+#learn_app .screen-overlay * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#learn_app .screen {
+  margin: 100px auto;
+  background-color: #fff;
+  width: 310px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+  padding-top: 36px;
+}
+#learn_app .screen :nth-child(1) {
+  animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
+}
+#learn_app .screen :nth-child(2) {
+  animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
+}
+#learn_app .screen :nth-child(3) {
+  animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
+}
+#learn_app .screen :nth-child(4) {
+  animation: slideIn 4s cubic-bezier(0.37, 0.82, 0.2, 1);
+}
+#learn_app .screen .trophy {
+  margin-bottom: 24px;
+}
+#learn_app .screen h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 24px;
+  margin-bottom: 22px;
+}
+#learn_app .screen .score {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #0288d1;
+  font-size: 12px;
+  display: block;
+  letter-spacing: 1px;
+  margin-bottom: 17px;
+}
+#learn_app .screen p {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #999999;
+  font-size: 15px;
+  padding: 0 15%;
+  line-height: 24px;
+  margin-bottom: 17px;
+}
+#learn_app .screen .buttons {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 23px;
+}
+#learn_app .screen .buttons a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 0 10%;
+  height: 48px;
+  line-height: 48px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+#learn_app .screen .buttons a {
+  background-color: #4fc3f7;
+  transition: all 0.3s;
+}
+#learn_app .screen .buttons a:hover {
+  background-color: #0288d1;
+}
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    -webkit-filter: blur(15px);
+    filter: blur(15px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+}
+@-webkit-keyframes slideIn {
+  0% {
+    opacity: 0;
+    -webkit-filter: blur(15px);
+    filter: blur(15px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
 }

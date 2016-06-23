@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 var classSet = chessground.util.classSet;
 var util = require('../util');
+var lessonComplete = require('./lessonComplete');
 
 function renderRank(rank) {
   if (rank) return m('div.rank', rank);
@@ -11,6 +12,7 @@ module.exports = function(ctrl) {
   var lesson = ctrl.lesson();
   var stage = lesson.stage();
 
+  console.log(lesson.vm.completed, lesson, ctrl.getNext());
   return m('div', {
     class: classSet({
       'lichess_game': true,
@@ -19,6 +21,7 @@ module.exports = function(ctrl) {
       'last-step': stage.vm.lastStep
     })
   }, [
+    lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(stage.chessground))
     ]),

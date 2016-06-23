@@ -4,26 +4,24 @@ var makeLesson = require('../lesson');
 
 module.exports = function(lesson, opts) {
 
-  var onStageComplete = function() {
-    if (lesson.next()) true;
-    else alert('lesson complete');
-    m.redraw.strategy('all');
-    m.redraw();
-  };
-
   try {
     var lesson = makeLesson(lessons.get(m.route.param("id")), {
-      stage: m.route.param('stage') || 1,
-      onStageComplete: onStageComplete
+      stage: m.route.param('stage') || 1
     });
+    m.redraw.strategy('all');
   } catch (e) {
     console.log('No such lesson!');
     return m.route('/');
   }
 
+  var getNext = function() {
+    return lessons.get(lesson.blueprint.id + 1);
+  };
+
   return {
     lesson: function() {
       return lesson;
-    }
+    },
+    getNext: getNext
   };
 };
