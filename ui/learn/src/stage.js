@@ -28,8 +28,8 @@ module.exports = function(blueprint, opts) {
   var getRank = function() {
     if (!vm.completed) return;
     var late = vm.nbMoves - blueprint.nbMoves;
-    if (late === 0) return 1;
-    else if (late === 1) return 2;
+    if (late <= 0) return 1;
+    else if (late <= blueprint.nbMoves / 8) return 2;
     return 3;
   };
 

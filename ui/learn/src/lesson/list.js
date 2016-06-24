@@ -3,7 +3,8 @@ var util = require('../util');
 var lessons = [
   require('./rook'),
   require('./bishop'),
-  require('./queen')
+  require('./queen'),
+  require('./knight')
 ].map(util.toLesson);
 
 module.exports = {
