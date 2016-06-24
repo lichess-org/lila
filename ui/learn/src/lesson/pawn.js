@@ -29,37 +29,55 @@ module.exports = {
       dest: 'f3'
     }]
   }, {
-    goal: 'The pawn can move 2 squares,<br>only on its first move!',
-    fen: '8/8/8/8/8/8/3P4/8 w - - 0 1',
+    goal: 'Most of the time, promoting to a queen is the best.<br><br>But sometimes a knight can come in handy!',
+    fen: '8/8/8/5P2/8/8/8/8 w - - 0 1',
     items: {
-      d6: 'flower'
+      b6: 'apple',
+      c4: 'apple',
+      d7: 'apple',
+      e5: 'apple',
+      a8: 'flower'
     },
-    nbMoves: 3,
+    nbMoves: 8
+  }, {
+    goal: 'A pawn on the second rank can move 2 squares at once!',
+    fen: '8/8/8/8/8/8/4P3/8 w - - 0 1',
+    items: {
+      e6: 'flower'
+    },
+    nbMoves: 10,
     shapes: [{
       brush: 'paleGreen',
-      orig: 'd2',
-      dest: 'd4'
+      orig: 'e2',
+      dest: 'e4'
     }, {
       brush: 'paleGreen',
-      orig: 'd4',
-      dest: 'd5'
+      orig: 'e4',
+      dest: 'e5'
     }, {
       brush: 'paleGreen',
-      orig: 'd5',
-      dest: 'd6'
+      orig: 'e5',
+      dest: 'e6'
     }]
   }, {
-    goal: 'Grab all these stars<br>as fast as possible!',
-    fen: '8/8/8/8/8/4PP2/PPP4P/8 w - - 0 1',
+    goal: 'Promote as fast as possible!',
+    fen: '8/8/8/8/8/8/6P1/8 w - - 0 1',
     items: {
-      a3: 'apple',
-      b4: 'apple',
-      c5: 'apple',
-      e4: 'apple',
-      f5: 'apple',
-      h6: 'flower'
+      a6: 'apple',
+      a7: 'apple',
+      b6: 'apple',
+      b7: 'apple',
+      b8: 'apple',
+      c7: 'apple',
+      c8: 'apple',
+      a8: 'flower'
     },
-    nbMoves: 10
+    nbMoves: 13,
+    shapes: [{
+      brush: 'paleGreen',
+      orig: 'g2',
+      dest: 'g4'
+    }]
   }].map(util.toStage),
   complete: 'Congratulations! Pawns have no secrets for you.'
 };
