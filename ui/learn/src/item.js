@@ -2,15 +2,11 @@ var m = require('mithril');
 
 module.exports = {
   builder: {
-    apple: function() {
-      return {
-        type: 'apple'
-      };
+    apple: {
+      type: 'apple'
     },
-    flower: function() {
-      return {
-        type: 'flower'
-      };
+    flower: {
+      type: 'flower'
     }
   },
   ctrl: function(items) {

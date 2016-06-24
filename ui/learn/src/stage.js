@@ -42,10 +42,10 @@ module.exports = function(blueprint, opts) {
       if (rank === 1) bonus = 500;
       else if (rank === 2) bonus = 300;
       addScore(bonus);
-      chessground.stop();
+      ground.stop();
       m.redraw();
       setTimeout(opts.onComplete, 1200);
-    }, chessground.data.stats.dragged ? 0 : 250);
+    }, ground.instance.data.stats.dragged ? 0 : 250);
   };
 
   var onMove = function(orig, dest) {
@@ -64,11 +64,11 @@ module.exports = function(blueprint, opts) {
     update();
     if (vm.completed) return;
     chess.color(blueprint.color);
-    ground.color(chessground, blueprint.color, chess.dests());
+    ground.color(blueprint.color, chess.dests());
   };
 
   var chess = makeChess(blueprint.fen);
-  var chessground = ground.make({
+  ground.set({
     chess: chess,
     orientation: blueprint.color,
     onMove: onMove,
@@ -83,7 +83,7 @@ module.exports = function(blueprint, opts) {
   var update = function() {
     var hasApples = items.hasOfType('apple');
     if (!hasApples) {
-      if (chessground.data.pieces[items.flowerKey()]) complete();
+      if (ground.instance.data.pieces[items.flowerKey()]) complete();
       else vm.lastStep = true;
       m.redraw();
     }
@@ -92,7 +92,6 @@ module.exports = function(blueprint, opts) {
 
   return {
     blueprint: blueprint,
-    chessground: chessground,
     items: items,
     vm: vm,
     getRank: getRank

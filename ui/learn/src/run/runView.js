@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var ground = require('../ground');
 var classSet = chessground.util.classSet;
 var congrats = require('../congrats');
 var lessonComplete = require('./lessonComplete');
@@ -22,7 +23,7 @@ module.exports = function(ctrl) {
   }, [
     lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
-      m('div.lichess_board', chessground.view(stage.chessground))
+      m('div.lichess_board', chessground.view(ground.instance))
     ]),
     m('div.lichess_ground', [
       m('div.title', [

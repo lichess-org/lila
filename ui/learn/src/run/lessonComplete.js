@@ -2,8 +2,8 @@ var m = require('mithril');
 
 module.exports = function(lesson, next) {
   return m('div.screen-overlay', {
-      onclick: function() {
-        m.route('/');
+      onclick: function(e) {
+        if (e.target.classList.contains('screen-overlay')) m.route('/');
       }
     },
     m('div.screen', [
