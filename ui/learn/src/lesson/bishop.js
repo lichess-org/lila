@@ -55,6 +55,16 @@ module.exports = {
       a1: 'flower'
     },
     nbMoves: 13
+  }, {
+    goal: 'The longest diagonals',
+    fen: '8/8/8/8/8/8/8/2B2B2 w - - 0 1',
+    items: {
+      a8: 'apple',
+      h1: 'apple',
+      h8: 'apple',
+      a1: 'flower'
+    },
+    nbMoves: 6
   }].map(util.toStage),
   complete: 'Congratulations! You can command a bishop.'
 };
